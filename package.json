@@ -1,0 +1,23 @@
+{
+  "name": "e-comm-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.5.4-canary.20",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "swr": "^0.3.3"
+  },
+  "resolutions": {
+    "webpack": "^5.0.0-beta.30"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.49",
+    "typescript": "^4.0.3"
+  }
+}
