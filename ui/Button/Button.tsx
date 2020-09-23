@@ -7,7 +7,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   variant?: "filled" | "outlined" | "flat" | "none";
   active?: boolean;
-  disabled?: boolean;
   type?: "submit" | "reset" | "button";
 }
 
@@ -24,7 +23,9 @@ export default class Button extends React.Component<Props> {
     } = this.props;
 
     let Component: React.ComponentType<
-      React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> &
+      React.AnchorHTMLAttributes<
+        HTMLAnchorElement | HTMLButtonElement | HTMLDivElement
+      > &
         React.ClassAttributes<HTMLButtonElement | HTMLAnchorElement>
     > = "a" as any;
 
@@ -41,7 +42,6 @@ export default class Button extends React.Component<Props> {
     return (
       <Component
         className={rootClassName}
-        disabled={disabled}
         href={href}
         aria-pressed={active}
         data-variant={variant}
