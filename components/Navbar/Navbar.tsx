@@ -2,6 +2,7 @@ import cn from "classnames";
 import React, { FunctionComponent } from "react";
 import s from "./Navbar.module.css";
 import { Logo, Container } from "ui";
+import { Avatar, Searchbar } from "components";
 interface Props {
   className?: string;
   children?: any;
@@ -13,9 +14,11 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
     <div className={rootClassName}>
       <Container className={s.container}>
         <Logo />
-        <div>SEARCH BAR</div>
-        <div>Menu list bar</div>
-        <div>Menu Icon bar</div>
+        <Searchbar />
+        <nav>All Clothes Accesories</nav>
+        <nav>
+          <Avatar />
+        </nav>
       </Container>
     </div>
   );
