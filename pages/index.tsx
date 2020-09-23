@@ -1,15 +1,17 @@
-import { Featurebar, Button } from "ui";
+import { Featurebar, Button, Container } from "ui";
+import { Navbar } from "components";
 
 export default function Home() {
   return (
-    <div>
-      <main>
-        <Featurebar
-          title="Free Standard Shipping on orders over $99.99"
-          description="Due to COVID-19, some orders may experience processing and delivery delays."
-        />
+    <>
+      <Navbar />
+      <Featurebar
+        title="Free Standard Shipping on orders over $99.99"
+        description="Due to COVID-19, some orders may experience processing and delivery delays."
+      />
+      <Container className="py-12 bg-black">
         <Button>Click Me!</Button>
-      </main>
-    </div>
+      </Container>
+    </>
   );
 }

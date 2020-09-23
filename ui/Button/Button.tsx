@@ -26,7 +26,9 @@ export default class Button extends React.Component<Props> {
     let Component: React.ComponentType<
       React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> &
         React.ClassAttributes<HTMLButtonElement | HTMLAnchorElement>
-    > = "button" as any;
+    > = "a" as any;
+
+    // Catch for buttons / span / stc.
 
     const rootClassName = cn(
       s.root,
