@@ -1,0 +1,15 @@
+.root {
+  @apply cursor-pointer font-bold inline-flex items-center px-8 py-2 rounded-sm border border-transparent text-base leading-6 font-medium text-white bg-black transition ease-in-out duration-150 shadow-sm;
+}
+
+.root:hover {
+  @apply bg-white text-black border-black;
+}
+
+.root:focus {
+  @apply border-gray-700 shadow-outline;
+}
+
+.root:active {
+  @apply bg-gray-700;
+}
