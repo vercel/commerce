@@ -1,0 +1,11 @@
+.root {
+  @apply py-4 bg-black text-white flex justify-center;
+}
+
+.title {
+  @apply text-indigo-500 font-medium;
+}
+
+.description {
+  @apply ml-2 text-white font-medium;
+}
