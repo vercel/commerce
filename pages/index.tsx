@@ -1,5 +1,5 @@
 import { Featurebar, Button, Container } from "ui";
-import { Navbar } from "components";
+import { Navbar, Footer } from "components";
 
 export default function Home() {
   return (
@@ -9,9 +9,10 @@ export default function Home() {
         description="Due to COVID-19, some orders may experience processing and delivery delays."
       />
       <Navbar />
-      <Container className="py-12">
+      <Container className="px-4 py-5 border-black border-l border-r h-screen">
         <Button>Click Me!</Button>
       </Container>
+      <Footer></Footer>
     </>
   );
 }
