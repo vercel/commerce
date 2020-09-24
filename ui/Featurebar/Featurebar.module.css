@@ -3,9 +3,13 @@
 }
 
 .title {
-  @apply text-indigo-500 font-medium;
+  @apply text-white font-medium;
+}
+
+.separator {
+  @apply mx-2 font-medium text-xs leading-6;
 }
 
 .description {
-  @apply ml-2 text-white font-medium;
+  @apply text-white font-medium;
 }
