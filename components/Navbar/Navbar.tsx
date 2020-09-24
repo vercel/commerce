@@ -19,7 +19,9 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
             All Clothes Accesories
           </nav>
         </div>
-        <Logo />
+        <span className={s.logoContainer}>
+          <Logo />
+        </span>
         <nav>
           <Avatar />
         </nav>

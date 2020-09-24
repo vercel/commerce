@@ -3,5 +3,10 @@
 }
 
 .container {
-  @apply flex justify-between items-center flex-row px-4 border-black border-l border-r h-20;
+  @apply flex justify-between items-center flex-row px-4 border-black border-l border-r h-20 relative;
+}
+
+.logoContainer {
+  @apply absolute transform -translate-x-1/2;
+  left: 50%;
 }
