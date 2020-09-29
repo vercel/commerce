@@ -16,7 +16,7 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
         <Logo />
         <div className="flex flex-row h-full content-center flex-1">
           <Searchbar />
-          <nav className="flex flex-row items-center px-3">
+          <nav className="hidden flex-row items-center px-3 lg:flex">
             <a className="pr-4">All</a>
             <a className="pr-4">Clothes</a>
             <a>Accesories</a>

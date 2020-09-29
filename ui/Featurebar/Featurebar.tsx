@@ -17,7 +17,7 @@ const Featurebar: FunctionComponent<Props> = ({
   return (
     <div className={rootClassName}>
       <span className={s.title}>{title}</span>
-      <span className={s.separator}>|</span>
+      <span className={s.separator} />
       <span className={s.description}>{description}</span>
     </div>
   );
