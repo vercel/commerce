@@ -1,7 +1,7 @@
 .root {
-  @apply border-black border-t;
+  @apply p-0;
 }
 
 .container {
-  @apply flex justify-between items-center flex-row px-4 py-5 border-black border-l border-r;
+  @apply flex justify-between items-center flex-row px-4 py-5;
 }
