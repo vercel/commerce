@@ -11,9 +11,9 @@ export default function Home() {
       <Navbar />
       <Container className="px-4 py-5 h-screen">
         <div className="grid grid-cols-1 h-full lg:grid-cols-3 lg:grid-rows-2">
-          <div className="lg:row-span-2 lg:col-span-2 bg-indigo-700 h-full"></div>
+          <div className="lg:row-span-2 lg:col-span-2 bg-violet h-full"></div>
           <div className="lg:row-span-1 lg:col-span-1 bg-black h-full"></div>
-          <div className="lg:row-span-1 lg:col-span-1 bg-red-500"></div>
+          <div className="lg:row-span-1 lg:col-span-1 bg-pink"></div>
         </div>
       </Container>
       <Footer></Footer>

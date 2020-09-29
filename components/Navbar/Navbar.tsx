@@ -11,22 +11,20 @@ interface Props {
 const Navbar: FunctionComponent<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className);
   return (
-    <div className={rootClassName}>
-      <Container className={s.container}>
-        <Logo />
-        <div className="flex flex-row h-full content-center flex-1">
-          <Searchbar />
-          <nav className="hidden flex-row items-center px-3 lg:flex">
-            <a className="pr-4">All</a>
-            <a className="pr-4">Clothes</a>
-            <a>Accesories</a>
-          </nav>
-        </div>
-        <nav>
-          <Avatar />
+    <Container className={rootClassName}>
+      <Logo />
+      <div className="flex flex-row h-full content-center flex-1">
+        <Searchbar />
+        <nav className="hidden flex-row items-center px-3 lg:flex">
+          <a className="pr-4">All</a>
+          <a className="pr-4">Clothes</a>
+          <a>Accesories</a>
         </nav>
-      </Container>
-    </div>
+      </div>
+      <nav>
+        <Avatar />
+      </nav>
+    </Container>
   );
 };
 
