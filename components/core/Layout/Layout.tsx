@@ -1,8 +1,8 @@
 import cn from "classnames";
 import React, { FunctionComponent } from "react";
 import s from "./Layout.module.css";
-import { Navbar, Featurebar } from "components";
-import { Container } from "ui";
+import { Navbar, Featurebar } from "@components/core";
+import { Container } from "@components/ui";
 
 interface Props {
   className?: string;

@@ -1,8 +1,8 @@
 import cn from "classnames";
 import React, { FunctionComponent } from "react";
 import s from "./Navbar.module.css";
-import { Logo, Container } from "ui";
-import { Avatar, Searchbar } from "components";
+import { Logo, Container } from "@components/ui";
+import { Avatar, Searchbar } from "@components/core";
 interface Props {
   className?: string;
   children?: any;

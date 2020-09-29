@@ -1,7 +1,7 @@
 import cn from "classnames";
 import React, { FunctionComponent } from "react";
 import s from "./Footer.module.css";
-import { Container } from "ui";
+import { Container } from "@components/ui";
 
 interface Props {
   className?: string;

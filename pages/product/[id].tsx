@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { ProductView, Layout } from "components";
-import ErrorPage from "next/error";
+import { Layout } from "@components/core";
+import { ProductView } from "@components/product";
 
 export async function getStaticProps() {
   const productData = {

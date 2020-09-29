@@ -1,7 +1,7 @@
 import cn from "classnames";
 import React, { FunctionComponent } from "react";
 import s from "./ProductView.module.css";
-import { Button } from "ui";
+import { Button } from "@components/ui";
 
 interface ProductData {
   description: string;
