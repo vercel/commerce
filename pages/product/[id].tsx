@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import { Featurebar, Button, Container } from "ui";
-import { Navbar, Footer, ProductView } from "components";
+import { ProductView, Layout } from "components";
 import ErrorPage from "next/error";
 
 export async function getStaticProps() {
@@ -18,33 +17,26 @@ export async function getStaticProps() {
     props: {
       productData,
     },
+    revalidate: 200,
   };
 }
 
 export async function getStaticPaths() {
   return {
     paths: [],
-    fallback: true,
+    fallback: "unstable_blocking",
   };
 }
 
 export default function Home({ productData }) {
   const router = useRouter();
   return (
-    <>
-      <Featurebar
-        title="Free Standard Shipping on orders over $99.99"
-        description="Due to COVID-19, some orders may experience processing and delivery delays."
-      />
-      <Navbar />
-      <Container className="h-screen">
-        {router.isFallback ? (
-          <h1>Loading...</h1>
-        ) : (
-          <ProductView productData={productData} />
-        )}
-      </Container>
-      <Footer></Footer>
-    </>
+    <Layout>
+      {router.isFallback ? (
+        <h1>Loading...</h1>
+      ) : (
+        <ProductView productData={productData} />
+      )}
+    </Layout>
   );
 }
