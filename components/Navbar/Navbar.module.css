@@ -1,12 +1,7 @@
 .root {
-  @apply border-black border-b;
+  @apply;
 }
 
 .container {
-  @apply flex justify-between items-center flex-row px-4 border-black border-l border-r h-20 relative;
-}
-
-.logoContainer {
-  @apply absolute transform -translate-x-1/2;
-  left: 50%;
+  @apply flex justify-between items-center flex-row px-6 h-20 relative border-gray-100 border-b;
 }

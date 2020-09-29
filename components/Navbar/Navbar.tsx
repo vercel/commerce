@@ -13,15 +13,15 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
   return (
     <div className={rootClassName}>
       <Container className={s.container}>
-        <div className="flex flex-row h-full content-center">
+        <Logo />
+        <div className="flex flex-row h-full content-center flex-1">
           <Searchbar />
           <nav className="flex flex-row items-center px-3">
-            All Clothes Accesories
+            <a className="pr-4">All</a>
+            <a className="pr-4">Clothes</a>
+            <a>Accesories</a>
           </nav>
         </div>
-        <span className={s.logoContainer}>
-          <Logo />
-        </span>
         <nav>
           <Avatar />
         </nav>

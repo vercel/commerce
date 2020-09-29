@@ -1,4 +1,5 @@
 .root {
-  @apply max-w-6xl mx-auto px-2;
+  @apply mx-auto px-2;
   display: inherit;
+  max-width: 1440px;
 }
