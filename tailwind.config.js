@@ -11,9 +11,16 @@ module.exports = {
     extend: {
       colors: {
         "accent-1": "#333",
+        "accent-4": "#888",
+        violet: "#7928CA",
+        pink: "#FF0080",
+        cyan: "#50E3C2",
       },
     },
   },
   variants: {},
   plugins: [require("@tailwindcss/ui")],
+  experimental: {
+    applyComplexClasses: true,
+  },
 };
