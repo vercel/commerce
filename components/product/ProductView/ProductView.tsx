@@ -40,19 +40,19 @@ const ProductView: FunctionComponent<Props> = ({ productData, className }) => {
         <section className="pb-4">
           <h2 className="uppercase font-medium">Size</h2>
           <div className="flex flex-row py-4">
-            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center">
+            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center cursor-pointer">
               S
             </span>
-            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center">
+            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center cursor-pointer">
               M
             </span>
-            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center">
+            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-900 flex items-center justify-center cursor-pointer">
               L
             </span>
-            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center">
+            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center cursor-pointer">
               XL
             </span>
-            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center">
+            <span className="h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 flex items-center justify-center cursor-pointer">
               XXL
             </span>
           </div>
