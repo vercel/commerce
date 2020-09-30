@@ -4,6 +4,7 @@ import s from "./Navbar.module.css";
 import { Logo, Container } from "@components/ui";
 import { Avatar, Searchbar } from "@components/core";
 import { Heart, Bag } from "@components/icon";
+import { useUI } from "@components/ui/context";
 interface Props {
   className?: string;
   children?: any;
@@ -11,6 +12,10 @@ interface Props {
 
 const Navbar: FunctionComponent<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className);
+  const { dispatch } = useUI();
+
+  const handleCartClick = () => dispatch("OPEN_SIDEBAR");
+
   return (
     <Container className={rootClassName}>
       <Logo />
@@ -23,7 +28,7 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
         </nav>
       </div>
       <nav className="flex flex-row items-center">
-        <Bag className="mr-6" />
+        <Bag className="mr-6" onClick={handleCartClick} />
         <Heart className="mr-6" />
         <Avatar />
       </nav>
