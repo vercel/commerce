@@ -17,8 +17,8 @@ export interface GetAllProductsResult<T> {
 }
 
 export default class BigcommerceAPI implements CommerceAPI {
-  protected commerceUrl: string;
-  protected apiToken: string;
+  commerceUrl: string;
+  apiToken: string;
 
   constructor({ commerceUrl, apiToken }: CommerceAPIOptions) {
     this.commerceUrl = commerceUrl;
@@ -52,24 +52,20 @@ export default class BigcommerceAPI implements CommerceAPI {
   async getAllProducts<T>(opts: {
     query: string;
   }): Promise<GetAllProductsResult<T>>;
-  async getAllProducts<T = GetAllProductsQuery>({
-    query,
-  }: { query?: string } = {}): Promise<
-    GetAllProductsResult<T | GetAllProductsQuery>
-    // T extends GetAllProductsQuery
-    //   ? GetAllProductsResult<T['site']['products']['edges']>
-    //   : Partial<GetAllProductsResult<any>>
-  > {
-    if (!query) {
-      const data = await this.fetch<GetAllProductsQuery>(getAllProductsQuery);
 
-      return {
-        products: data.site.products.edges,
-      };
-    }
+  async getAllProducts(opts?: {
+    query?: string;
+  }): Promise<GetAllProductsResult<GetAllProductsQuery>>;
+
+  async getAllProducts({
+    query = getAllProductsQuery,
+  }: { query?: string } = {}): Promise<
+    GetAllProductsResult<RecursivePartial<GetAllProductsQuery>>
+  > {
+    const data = await this.fetch<RecursivePartial<GetAllProductsQuery>>(query);
 
     return {
-      products: undefined,
+      products: data?.site?.products?.edges,
     };
   }
 }
