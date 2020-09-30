@@ -3,7 +3,7 @@ import { commerce } from 'lib/commerce-api';
 import { Layout } from '@components/core';
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const products = await commerce.getAllProducts();
+  const { products } = await commerce.getAllProducts();
 
   return {
     props: { products },

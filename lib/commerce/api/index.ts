@@ -3,8 +3,8 @@ export interface CommerceAPIOptions {
   apiToken: string;
 }
 
-export interface CommerceAPIFetchOptions {
-  variables?: object;
+export interface CommerceAPIFetchOptions<V> {
+  variables?: V;
   preview?: boolean;
 }
 
@@ -12,13 +12,10 @@ export interface CommerceAPI {
   commerceUrl: string;
   apiToken: string;
 
-  fetch<T>(query: string, queryData?: CommerceAPIFetchOptions): Promise<T>;
+  fetch<Q, V = any>(
+    query: string,
+    queryData?: CommerceAPIFetchOptions<V>
+  ): Promise<Q>;
 
   getAllProducts(options?: { query: string }): Promise<any>;
 }
-
-// export default class CommerceAPI {
-//   getAllProducts(query: string) {
-
-//   }
-// }

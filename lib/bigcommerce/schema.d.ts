@@ -1649,12 +1649,17 @@ export enum CurrencyCode {
 
 
 
-export type ResponsiveImageFragment = (
-  { __typename?: 'Image' }
-  & { url320wide: Image['url'], url640wide: Image['url'], url960wide: Image['url'], url1280wide: Image['url'] }
-);
-
-export type GetAllProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllProductsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>;
+  imgSmallWidth?: Maybe<Scalars['Int']>;
+  imgSmallHeight?: Maybe<Scalars['Int']>;
+  imgMediumWidth?: Maybe<Scalars['Int']>;
+  imgMediumHeight?: Maybe<Scalars['Int']>;
+  imgLargeWidth?: Maybe<Scalars['Int']>;
+  imgLargeHeight?: Maybe<Scalars['Int']>;
+  imgXLWidth?: Maybe<Scalars['Int']>;
+  imgXLHeight?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type GetAllProductsQuery = (
@@ -1690,7 +1695,7 @@ export type GetAllProductsQuery = (
               { __typename?: 'ImageEdge' }
               & { node: (
                 { __typename?: 'Image' }
-                & ResponsiveImageFragment
+                & { urlSmall: Image['url'], urlMedium: Image['url'], urlLarge: Image['url'], urlXL: Image['url'] }
               ) }
             )>>> }
           ), variants: (
@@ -1702,7 +1707,7 @@ export type GetAllProductsQuery = (
                 & Pick<Variant, 'entityId'>
                 & { defaultImage?: Maybe<(
                   { __typename?: 'Image' }
-                  & ResponsiveImageFragment
+                  & { urlSmall: Image['url'], urlMedium: Image['url'], urlLarge: Image['url'], urlXL: Image['url'] }
                 )> }
               ) }
             )>>> }

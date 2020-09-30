@@ -1,16 +1,17 @@
-export const responsiveImageFragment = /* GraphQL */ `
-  fragment responsiveImage on Image {
-    url320wide: url(width: 320)
-    url640wide: url(width: 640)
-    url960wide: url(width: 960)
-    url1280wide: url(width: 1280)
-  }
-`;
-
 export const getAllProductsQuery = /* GraphQL */ `
-  query getAllProducts {
+  query getAllProducts(
+    $first: Int = 10
+    $imgSmallWidth: Int = 320
+    $imgSmallHeight: Int
+    $imgMediumWidth: Int = 640
+    $imgMediumHeight: Int
+    $imgLargeWidth: Int = 960
+    $imgLargeHeight: Int
+    $imgXLWidth: Int = 1280
+    $imgXLHeight: Int
+  ) {
     site {
-      products(first: 4) {
+      products(first: $first) {
         pageInfo {
           startCursor
           endCursor
@@ -38,7 +39,13 @@ export const getAllProductsQuery = /* GraphQL */ `
             images {
               edges {
                 node {
-                  ...responsiveImage
+                  urlSmall: url(width: $imgSmallWidth, height: $imgSmallHeight)
+                  urlMedium: url(
+                    width: $imgMediumWidth
+                    height: $imgMediumHeight
+                  )
+                  urlLarge: url(width: $imgLargeWidth, height: $imgLargeHeight)
+                  urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
                 }
               }
             }
@@ -47,7 +54,19 @@ export const getAllProductsQuery = /* GraphQL */ `
                 node {
                   entityId
                   defaultImage {
-                    ...responsiveImage
+                    urlSmall: url(
+                      width: $imgSmallWidth
+                      height: $imgSmallHeight
+                    )
+                    urlMedium: url(
+                      width: $imgMediumWidth
+                      height: $imgMediumHeight
+                    )
+                    urlLarge: url(
+                      width: $imgLargeWidth
+                      height: $imgLargeHeight
+                    )
+                    urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
                   }
                 }
               }
@@ -74,6 +93,4 @@ export const getAllProductsQuery = /* GraphQL */ `
       }
     }
   }
-
-  ${responsiveImageFragment}
 `;
