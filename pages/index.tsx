@@ -1,6 +1,20 @@
-import { Layout } from "@components/core";
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { commerce } from 'lib/commerce-api';
+import { Layout } from '@components/core';
 
-export default function Home() {
+export async function getStaticProps({ preview }: GetStaticPropsContext) {
+  const products = await commerce.getAllProducts();
+
+  return {
+    props: { products },
+  };
+}
+
+export default function Home({
+  products,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log('PRODUCTS', products);
+
   return (
     <Layout>
       <div className="h-full grid grid-cols-1 h-full lg:grid-cols-3 lg:grid-rows-2">

@@ -14,7 +14,7 @@ export interface CommerceAPI {
 
   fetch<T>(query: string, queryData?: CommerceAPIFetchOptions): Promise<T>;
 
-  getAllProducts(options?: { query?: string }): Promise<any>;
+  getAllProducts(options?: { query: string }): Promise<any>;
 }
 
 // export default class CommerceAPI {
