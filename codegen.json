@@ -8,7 +8,7 @@
   },
   "documents": [
     {
-      "./lib/bigcommerce/api/queries/**/*.ts": {
+      "./lib/bigcommerce/api/operations/**/*.ts": {
         "noRequire": true
       }
     }
