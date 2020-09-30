@@ -11,6 +11,7 @@
     "@tailwindcss/ui": "^0.6.2",
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6",
+    "lodash": "^4.17.20",
     "next": "^9.5.4-canary.20",
     "postcss-nested": "^5.0.0",
     "react": "^16.13.1",

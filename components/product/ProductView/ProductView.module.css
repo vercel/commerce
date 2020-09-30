@@ -3,6 +3,5 @@
 }
 
 .button {
-  @apply py-5 uppercase text-center;
   min-width: 300px;
 }
