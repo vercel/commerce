@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.10",
+    "@graphql-codegen/schema-ast": "^1.17.8",
     "@graphql-codegen/typescript": "^1.17.10",
     "@graphql-codegen/typescript-operations": "^1.17.8",
     "@types/node": "^14.11.2",

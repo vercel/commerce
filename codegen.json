@@ -16,6 +16,9 @@
   "generates": {
     "./lib/bigcommerce/schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"]
+    },
+    "./lib/bigcommerce/schema.graphql": {
+      "plugins": ["schema-ast"]
     }
   }
 }
