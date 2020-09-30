@@ -1,15 +1,16 @@
 import React, { Context, FunctionComponent } from "react";
 
-export interface ContextType {
-  displaySidebar: boolean;
-}
-
 const initialState = {
   displaySidebar: false,
+  dispatch: null,
 };
+export interface UIState {
+  displaySidebar: boolean;
+  dispatch: (string) => void;
+}
 
 function uiReducer(state, action) {
-  switch (action.type) {
+  switch (action) {
     case "OPEN_SIDEBAR": {
       return {
         ...state,
@@ -19,13 +20,13 @@ function uiReducer(state, action) {
     case "CLOSE_SIDEBAR": {
       return {
         ...state,
-        displaySidebar: true,
+        displaySidebar: false,
       };
     }
   }
 }
 
-export const UIContext = React.createContext<ContextType>(initialState);
+export const UIContext = React.createContext<UIState>(initialState);
 UIContext.displayName = "UIContext";
 
 export const UIProvider: FunctionComponent = (props) => {

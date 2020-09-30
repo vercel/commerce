@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
 // import s from "./CartSidebarView.module.css";
 import { Button } from "@components/ui";
-import { Trash } from "@components/icon";
+import { Trash, Cross } from "@components/icon";
+import { useUI } from "@components/ui/context";
 
-interface Props {}
-
-const CartSidebarView: FunctionComponent<Props> = () => {
+const CartSidebarView: FunctionComponent = () => {
+  const { dispatch } = useUI();
   return (
     <>
       <header className="px-4 py-6 sm:px-6 border-b border-gray-200">
@@ -17,22 +17,11 @@ const CartSidebarView: FunctionComponent<Props> = () => {
           </div>
           <div className="h-7 flex items-center">
             <button
+              onClick={() => dispatch("CLOSE_SIDEBAR")}
               aria-label="Close panel"
               className="text-gray-400 hover:text-gray-500 transition ease-in-out duration-150"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <Cross className="h-6 w-6" />
             </button>
           </div>
         </div>
