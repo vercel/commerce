@@ -2,7 +2,7 @@ import {
   CommerceProvider as CoreCommerceProvider,
   Connector,
   useCommerce as useCoreCommerce,
-} from '../commerce';
+} from 'lib/commerce';
 
 async function getText(res: Response) {
   try {

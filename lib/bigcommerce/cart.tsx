@@ -1,7 +1,7 @@
 import {
   CartProvider as CommerceCartProvider,
   useCart as useCommerceCart,
-} from '../commerce/cart';
+} from 'lib/commerce/cart';
 
 export type Cart = any;
 
