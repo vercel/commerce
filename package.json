@@ -8,6 +8,10 @@
     "start": "next start",
     "generate": "graphql-codegen"
   },
+  "graphql": {
+    "schema": "lib/bigcommerce/schema.graphql",
+    "documents": "lib/bigcommerce/**/*.{graphql,js,ts,jsx,tsx}"
+  },
   "dependencies": {
     "@tailwindcss/ui": "^0.6.2",
     "@types/classnames": "^2.2.10",
