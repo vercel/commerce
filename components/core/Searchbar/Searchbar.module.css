@@ -1,0 +1,24 @@
+.root {
+  @apply px-4 flex items-center;
+}
+
+.container {
+  @apply relative rounded-lg flex flex-row text-sm items-center bg-accent-1;
+}
+
+.input {
+  @apply bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out rounded-lg text-accent-1 placeholder-accent-4;
+  min-width: 300px;
+}
+
+.input:focus {
+  @apply outline-none shadow-outline-gray;
+}
+
+.iconContainer {
+  @apply absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none;
+}
+
+.icon {
+  @apply h-5 w-5;
+}

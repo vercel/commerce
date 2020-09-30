@@ -1,0 +1,41 @@
+{
+  "name": "e-comm-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "generate": "graphql-codegen"
+  },
+  "graphql": {
+    "schema": "lib/bigcommerce/schema.graphql",
+    "documents": "lib/bigcommerce/**/*.{graphql,js,ts,jsx,tsx}"
+  },
+  "dependencies": {
+    "@tailwindcss/ui": "^0.6.2",
+    "@types/classnames": "^2.2.10",
+    "classnames": "^2.2.6",
+    "next": "^9.5.4-canary.20",
+    "postcss-nested": "^5.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "swr": "^0.3.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.17.10",
+    "@graphql-codegen/schema-ast": "^1.17.8",
+    "@graphql-codegen/typescript": "^1.17.10",
+    "@graphql-codegen/typescript-operations": "^1.17.8",
+    "@types/node": "^14.11.2",
+    "@types/react": "^16.9.49",
+    "graphql": "^15.3.0",
+    "postcss-flexbugs-fixes": "^4.2.1",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^1.8.10",
+    "typescript": "^4.0.3"
+  },
+  "resolutions": {
+    "webpack": "^5.0.0-beta.30"
+  }
+}

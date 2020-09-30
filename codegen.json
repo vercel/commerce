@@ -1,0 +1,24 @@
+{
+  "schema": {
+    "https://buybutton.store/graphql": {
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE3NjcxMzkyMDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHBzOi8vZGV2ZWxvcGVyLmJpZ2NvbW1lcmNlLmNvbSJdLCJjaWQiOjEsImlhdCI6MTU3NjI1MzgyNCwic3ViIjoiM3dtZThrcWtrNjQwNzZueWljMGkzamk0NG5wajQ2byIsInNpZCI6OTk5MzMxNzg0LCJpc3MiOiJCQyJ9.Rqt6hNI2W-XSOzHl4pqtfhAOygwka6atCIaIZ_WAa9v3dOctnBlZpBV5wzd3ICCy4sTCOZ9mJwcFH5_CHmJpNQ"
+      }
+    }
+  },
+  "documents": [
+    {
+      "./lib/bigcommerce/api/queries/**/*.ts": {
+        "noRequire": true
+      }
+    }
+  ],
+  "generates": {
+    "./lib/bigcommerce/schema.d.ts": {
+      "plugins": ["typescript", "typescript-operations"]
+    },
+    "./lib/bigcommerce/schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  }
+}
