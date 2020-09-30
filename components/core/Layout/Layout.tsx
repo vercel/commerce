@@ -19,9 +19,9 @@ const Layout: FunctionComponent<Props> = ({ className, children }) => {
       />
       <Navbar />
       <main className="h-screen">{children}</main>
-      <Sidebar>
+      {/* <Sidebar>
         <CartSidebarView />
-      </Sidebar>
+      </Sidebar> */}
     </Container>
   );
 };
