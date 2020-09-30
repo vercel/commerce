@@ -1,3 +1,8 @@
 .root {
   @apply flex flex-row h-screen py-12;
 }
+
+.button {
+  @apply py-5 uppercase text-center;
+  min-width: 300px;
+}
