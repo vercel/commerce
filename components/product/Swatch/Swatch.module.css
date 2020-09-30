@@ -1,0 +1,25 @@
+.root {
+  @apply h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 inline-flex items-center justify-center cursor-pointer transition duration-75 ease-in-out;
+}
+
+.active,
+.root:hover {
+  @apply border-gray-700;
+}
+
+.colorViolet {
+  @apply bg-violet;
+}
+
+.colorPink {
+  @apply bg-pink;
+}
+
+.colorBlack {
+  @apply bg-black;
+}
+
+.colorWhite,
+.size {
+  @apply bg-white;
+}

@@ -1,0 +1,19 @@
+.root {
+  @apply cursor-pointer inline-flex px-10 rounded-sm border border-transparent leading-6 text-white bg-black transition ease-in-out duration-150 shadow-sm font-semibold text-center justify-center uppercase py-4 uppercase text-center;
+}
+
+.root:hover {
+  @apply bg-white text-black border-black;
+}
+
+.root:focus {
+  @apply border-gray-700 shadow-outline;
+}
+
+.root:active {
+  @apply bg-gray-700;
+}
+
+s.filled {
+  @apply text-white bg-black;
+}

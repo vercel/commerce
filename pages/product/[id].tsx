@@ -4,6 +4,7 @@ import { ProductView } from "@components/product";
 
 export async function getStaticProps() {
   const productData = {
+    title: "T-Shirt",
     description: `
       Nothing undercover about this tee. Nope. This is the official Bad
       Boys tee. Printed in white or black ink on Black, Brown, or Oatmeal.
@@ -12,6 +13,9 @@ export async function getStaticProps() {
       run. Printing starts when the drop ends. Reminder: Bad Boys For
       Life. Shipping may take 10+ days due to COVID-19.
     `,
+    price: "$50",
+    colors: ["black", "white", "pink"],
+    sizes: ["s", "m", "l", "xl", "xxl"],
   };
   return {
     props: {
