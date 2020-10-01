@@ -1736,3 +1736,80 @@ export type GetAllProductsQuery = (
     ) }
   ) }
 );
+
+export type GetProductQueryVariables = Exact<{
+  slug: Scalars['String'];
+  imgSmallWidth?: Maybe<Scalars['Int']>;
+  imgSmallHeight?: Maybe<Scalars['Int']>;
+  imgMediumWidth?: Maybe<Scalars['Int']>;
+  imgMediumHeight?: Maybe<Scalars['Int']>;
+  imgLargeWidth?: Maybe<Scalars['Int']>;
+  imgLargeHeight?: Maybe<Scalars['Int']>;
+  imgXLWidth?: Maybe<Scalars['Int']>;
+  imgXLHeight?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type GetProductQuery = (
+  { __typename?: 'Query' }
+  & { site: (
+    { __typename?: 'Site' }
+    & { route: (
+      { __typename?: 'Route' }
+      & { node?: Maybe<{ __typename: 'Brand' } | { __typename: 'Category' } | (
+        { __typename: 'Product' }
+        & Pick<Product, 'entityId' | 'name' | 'path' | 'description'>
+        & { brand?: Maybe<(
+          { __typename?: 'Brand' }
+          & Pick<Brand, 'name'>
+        )>, prices?: Maybe<(
+          { __typename?: 'Prices' }
+          & { price: (
+            { __typename?: 'Money' }
+            & Pick<Money, 'currencyCode' | 'value'>
+          ), salePrice?: Maybe<(
+            { __typename?: 'Money' }
+            & Pick<Money, 'currencyCode' | 'value'>
+          )> }
+        )>, images: (
+          { __typename?: 'ImageConnection' }
+          & { edges?: Maybe<Array<Maybe<(
+            { __typename?: 'ImageEdge' }
+            & { node: (
+              { __typename?: 'Image' }
+              & { urlSmall: Image['url'], urlMedium: Image['url'], urlLarge: Image['url'], urlXL: Image['url'] }
+            ) }
+          )>>> }
+        ), variants: (
+          { __typename?: 'VariantConnection' }
+          & { edges?: Maybe<Array<Maybe<(
+            { __typename?: 'VariantEdge' }
+            & { node: (
+              { __typename?: 'Variant' }
+              & Pick<Variant, 'entityId'>
+            ) }
+          )>>> }
+        ), options: (
+          { __typename?: 'OptionConnection' }
+          & { edges?: Maybe<Array<Maybe<(
+            { __typename?: 'OptionEdge' }
+            & { node: (
+              { __typename?: 'ProductOption' }
+              & Pick<ProductOption, 'entityId' | 'displayName' | 'isRequired'>
+              & { values: (
+                { __typename?: 'OptionValueConnection' }
+                & { edges?: Maybe<Array<Maybe<(
+                  { __typename?: 'OptionValueEdge' }
+                  & { node: (
+                    { __typename?: 'ProductOptionValue' }
+                    & Pick<ProductOptionValue, 'entityId' | 'label'>
+                  ) }
+                )>>> }
+              ) }
+            ) }
+          )>>> }
+        ) }
+      ) | { __typename: 'Variant' }> }
+    ) }
+  ) }
+);

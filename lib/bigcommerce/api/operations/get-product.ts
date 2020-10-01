@@ -1,13 +1,13 @@
 import type {
-  GetAllProductsQuery,
-  GetAllProductsQueryVariables,
+  GetProductQuery,
+  GetProductQueryVariables,
 } from 'lib/bigcommerce/schema';
 import type { RecursivePartial, RecursiveRequired } from '../types';
 import { getConfig, Images, ProductImageVariables } from '..';
 
-export const getAllProductsQuery = /* GraphQL */ `
-  query getAllProducts(
-    $first: Int = 10
+export const getProductQuery = /* GraphQL */ `
+  query getProduct(
+    $slug: String!
     $imgSmallWidth: Int = 320
     $imgSmallHeight: Int
     $imgMediumWidth: Int = 640
@@ -18,14 +18,10 @@ export const getAllProductsQuery = /* GraphQL */ `
     $imgXLHeight: Int
   ) {
     site {
-      products(first: $first) {
-        pageInfo {
-          startCursor
-          endCursor
-        }
-        edges {
-          cursor
-          node {
+      route(path: $slug) {
+        node {
+          __typename
+          ... on Product {
             entityId
             name
             path
@@ -35,12 +31,12 @@ export const getAllProductsQuery = /* GraphQL */ `
             description
             prices {
               price {
-                value
                 currencyCode
+                value
               }
               salePrice {
-                value
                 currencyCode
+                value
               }
             }
             images {
@@ -60,21 +56,6 @@ export const getAllProductsQuery = /* GraphQL */ `
               edges {
                 node {
                   entityId
-                  defaultImage {
-                    urlSmall: url(
-                      width: $imgSmallWidth
-                      height: $imgSmallHeight
-                    )
-                    urlMedium: url(
-                      width: $imgMediumWidth
-                      height: $imgMediumHeight
-                    )
-                    urlLarge: url(
-                      width: $imgLargeWidth
-                      height: $imgLargeHeight
-                    )
-                    urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
-                  }
                 }
               }
             }
@@ -102,48 +83,49 @@ export const getAllProductsQuery = /* GraphQL */ `
   }
 `;
 
-export interface GetAllProductsResult<T> {
-  products: T extends GetAllProductsQuery
-    ? NonNullable<T['site']['products']['edges']>
+export interface GetProductResult<T> {
+  product?: T extends GetProductQuery
+    ? Extract<T['site']['route']['node'], { __typename: 'Product' }>
     : unknown;
 }
 
 export type ProductVariables = Images &
-  Omit<GetAllProductsQueryVariables, keyof ProductImageVariables>;
+  Omit<GetProductQueryVariables, keyof ProductImageVariables>;
 
-async function getAllProducts(opts?: {
+async function getProduct(opts: {
   query?: string;
-  variables?: ProductVariables;
-}): Promise<GetAllProductsResult<GetAllProductsQuery>>;
+  variables: ProductVariables;
+}): Promise<GetProductResult<GetProductQuery>>;
 
-async function getAllProducts<T, V = any>(opts: {
+async function getProduct<T, V = any>(opts: {
   query: string;
-  variables?: V;
-}): Promise<GetAllProductsResult<T>>;
+  variables: V;
+}): Promise<GetProductResult<T>>;
 
-async function getAllProducts({
-  query = getAllProductsQuery,
+async function getProduct({
+  query = getProductQuery,
   variables: vars,
 }: {
   query?: string;
-  variables?: ProductVariables;
-} = {}): Promise<GetAllProductsResult<GetAllProductsQuery>> {
+  variables: ProductVariables;
+}): Promise<GetProductResult<GetProductQuery>> {
   const config = getConfig();
-  const variables: GetAllProductsQueryVariables = {
+  const variables: GetProductQueryVariables = {
     ...config.imageVariables,
     ...vars,
   };
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `query`
-  const data = await config.fetch<RecursivePartial<GetAllProductsQuery>>(
-    query,
-    { variables }
-  );
-  const products = data.site?.products?.edges;
+  const data = await config.fetch<RecursivePartial<GetProductQuery>>(query, {
+    variables,
+  });
+  const product = data.site?.route?.node;
 
-  return {
-    products: (products as RecursiveRequired<typeof products>) ?? [],
-  };
+  if (product?.__typename === 'Product') {
+    return {
+      product: product as RecursiveRequired<typeof product>,
+    };
+  }
+
+  return {};
 }
 
-export default getAllProducts;
+export default getProduct;
