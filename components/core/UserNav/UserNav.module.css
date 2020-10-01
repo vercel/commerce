@@ -6,5 +6,5 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer;
+  @apply mr-6 cursor-pointer relative;
 }

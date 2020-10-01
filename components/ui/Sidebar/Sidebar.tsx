@@ -5,13 +5,21 @@ import s from "./Sidebar.module.css";
 interface Props {
   className?: string;
   children?: any;
+  closeSidebar: () => void;
 }
 
-const Sidebar: FunctionComponent<Props> = ({ className, children }) => {
+const Sidebar: FunctionComponent<Props> = ({
+  className,
+  children,
+  closeSidebar,
+}) => {
   const rootClassName = cn(s.root, className);
   return (
     <div className={rootClassName}>
-      <div className="fixed inset-0 overflow-hidden shadow-sm bg-black bg-opacity-25">
+      <div
+        className="fixed inset-0 overflow-hidden shadow-sm bg-black bg-opacity-25"
+        onClick={closeSidebar}
+      >
         <div className="absolute inset-0 overflow-hidden">
           <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16 ">
             <div className="w-screen max-w-2xl">
