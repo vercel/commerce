@@ -1,3 +1,10 @@
+import {
+  GetAllProductsQuery,
+  GetAllProductsQueryVariables,
+} from 'lib/bigcommerce/schema';
+import { getConfig, Images, ProductImageVariables } from '..';
+import { RecursivePartial } from '../types';
+
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $first: Int = 10
@@ -94,3 +101,46 @@ export const getAllProductsQuery = /* GraphQL */ `
     }
   }
 `;
+
+export interface GetAllProductsResult<T> {
+  products: T extends GetAllProductsQuery
+    ? T['site']['products']['edges']
+    : unknown;
+}
+
+export type ProductVariables = Images &
+  Omit<GetAllProductsQueryVariables, keyof ProductImageVariables>;
+
+async function getAllProducts<T, V = any>(opts: {
+  query: string;
+  variables?: V;
+}): Promise<GetAllProductsResult<T>>;
+
+async function getAllProducts(opts?: {
+  query?: string;
+  variables?: ProductVariables;
+}): Promise<GetAllProductsResult<GetAllProductsQuery>>;
+
+async function getAllProducts({
+  query = getAllProductsQuery,
+  variables: vars,
+}: {
+  query?: string;
+  variables?: ProductVariables;
+} = {}): Promise<GetAllProductsResult<RecursivePartial<GetAllProductsQuery>>> {
+  const config = getConfig();
+  const variables: GetAllProductsQueryVariables = {
+    ...config.imageVariables,
+    ...vars,
+  };
+  const data = await config.fetch<RecursivePartial<GetAllProductsQuery>>(
+    query,
+    { variables }
+  );
+
+  return {
+    products: data?.site?.products?.edges,
+  };
+}
+
+export default getAllProducts;

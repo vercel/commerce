@@ -1,6 +1,10 @@
-export interface CommerceAPIOptions {
+export interface CommerceAPIConfig {
   commerceUrl: string;
   apiToken: string;
+  fetch<Q, V = any>(
+    query: string,
+    queryData?: CommerceAPIFetchOptions<V>
+  ): Promise<Q>;
 }
 
 export interface CommerceAPIFetchOptions<V> {
@@ -8,14 +12,8 @@ export interface CommerceAPIFetchOptions<V> {
   preview?: boolean;
 }
 
-export interface CommerceAPI {
-  commerceUrl: string;
-  apiToken: string;
+// TODO: define interfaces for all the available operations
 
-  fetch<Q, V = any>(
-    query: string,
-    queryData?: CommerceAPIFetchOptions<V>
-  ): Promise<Q>;
-
-  getAllProducts(options?: { query: string }): Promise<any>;
-}
+// export interface CommerceAPI {
+//   getAllProducts(options?: { query: string }): Promise<any>;
+// }

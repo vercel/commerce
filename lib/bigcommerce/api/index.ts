@@ -1,20 +1,6 @@
-import {
-  CommerceAPI,
-  CommerceAPIOptions,
-  CommerceAPIFetchOptions,
-} from 'lib/commerce/api';
-import { GetAllProductsQuery, GetAllProductsQueryVariables } from '../schema';
-import { getAllProductsQuery } from './operations/get-all-products';
-
-type RecursivePartial<T> = {
-  [P in keyof T]?: RecursivePartial<T[P]>;
-};
-
-export interface GetAllProductsResult<T> {
-  products: T extends GetAllProductsQuery
-    ? T['site']['products']['edges']
-    : unknown;
-}
+import { CommerceAPIConfig } from 'lib/commerce/api';
+import { GetAllProductsQueryVariables } from '../schema';
+import fetchAPI from './utils/fetch-api';
 
 export interface Images {
   small?: ImageOptions;
@@ -26,10 +12,6 @@ export interface Images {
 export interface ImageOptions {
   width: number;
   height?: number;
-}
-
-export interface BigcommerceAPIOptions extends CommerceAPIOptions {
-  images?: Images;
 }
 
 export type ProductImageVariables = Pick<
@@ -44,83 +26,51 @@ export type ProductImageVariables = Pick<
   | 'imgXLHeight'
 >;
 
-export type ProductVariables = Images &
-  Omit<GetAllProductsQueryVariables, keyof ProductImageVariables>;
+export interface BigcommerceConfig extends CommerceAPIConfig {
+  images?: Images;
+  readonly imageVariables?: ProductImageVariables;
+}
 
-export default class BigcommerceAPI implements CommerceAPI {
-  commerceUrl: string;
-  apiToken: string;
-  imageVariables?: ProductImageVariables;
+const API_URL = process.env.BIGCOMMERCE_STOREFRONT_API_URL;
+const API_TOKEN = process.env.BIGCOMMERCE_STOREFRONT_API_TOKEN;
 
-  constructor({ commerceUrl, apiToken, images }: BigcommerceAPIOptions) {
-    this.commerceUrl = commerceUrl;
-    this.apiToken = apiToken;
-    this.imageVariables = {
-      imgSmallWidth: images?.small?.width,
-      imgSmallHeight: images?.small?.height,
-      imgMediumWidth: images?.medium?.height,
-      imgMediumHeight: images?.medium?.height,
-      imgLargeWidth: images?.large?.height,
-      imgLargeHeight: images?.large?.height,
-      imgXLWidth: images?.xl?.height,
-      imgXLHeight: images?.xl?.height,
-    };
-  }
+if (!API_URL) {
+  throw new Error(
+    `The environment variable BIGCOMMERCE_STOREFRONT_API_URL is missing and it's required to access your store`
+  );
+}
 
-  async fetch<Q, V = any>(
-    query: string,
-    { variables, preview }: CommerceAPIFetchOptions<V> = {}
-  ): Promise<Q> {
-    const res = await fetch(this.commerceUrl + (preview ? '/preview' : ''), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.apiToken}`,
-      },
-      body: JSON.stringify({
-        query,
-        variables,
-      }),
-    });
+if (!API_TOKEN) {
+  throw new Error(
+    `The environment variable BIGCOMMERCE_STOREFRONT_API_TOKEN is missing and it's required to access your store`
+  );
+}
 
-    const json = await res.json();
-    if (json.errors) {
-      console.error(json.errors);
-      throw new Error('Failed to fetch API');
-    }
-    return json.data;
-  }
+const config: BigcommerceConfig = {
+  commerceUrl: API_URL,
+  apiToken: API_TOKEN,
+  fetch: fetchAPI,
+  get imageVariables() {
+    const { images } = this;
+    return images
+      ? {
+          imgSmallWidth: images.small?.width,
+          imgSmallHeight: images.small?.height,
+          imgMediumWidth: images.medium?.height,
+          imgMediumHeight: images.medium?.height,
+          imgLargeWidth: images.large?.height,
+          imgLargeHeight: images.large?.height,
+          imgXLWidth: images.xl?.height,
+          imgXLHeight: images.xl?.height,
+        }
+      : undefined;
+  },
+};
 
-  async getAllProducts<T, V = any>(opts: {
-    query: string;
-    variables?: V;
-  }): Promise<GetAllProductsResult<T>>;
+export function getConfig() {
+  return config;
+}
 
-  async getAllProducts(opts?: {
-    query?: string;
-    variables?: ProductVariables;
-  }): Promise<GetAllProductsResult<GetAllProductsQuery>>;
-
-  async getAllProducts({
-    query = getAllProductsQuery,
-    variables: vars,
-  }: {
-    query?: string;
-    variables?: ProductVariables;
-  } = {}): Promise<
-    GetAllProductsResult<RecursivePartial<GetAllProductsQuery>>
-  > {
-    const variables: GetAllProductsQueryVariables = {
-      ...this.imageVariables,
-      ...vars,
-    };
-    const data = await this.fetch<RecursivePartial<GetAllProductsQuery>>(
-      query,
-      { variables }
-    );
-
-    return {
-      products: data?.site?.products?.edges,
-    };
-  }
+export function setConfig(newConfig: Partial<BigcommerceConfig>) {
+  Object.assign(config, newConfig);
 }

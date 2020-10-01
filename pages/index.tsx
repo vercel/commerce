@@ -1,9 +1,9 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { commerce } from 'lib/commerce-api';
+import getAllProducts from 'lib/bigcommerce/api/operations/get-all-products';
 import { Layout } from '@components/core';
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { products } = await commerce.getAllProducts();
+  const { products } = await getAllProducts();
 
   return {
     props: { products },
