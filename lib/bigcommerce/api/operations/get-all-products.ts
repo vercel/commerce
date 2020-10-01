@@ -1,9 +1,9 @@
-import {
+import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
 } from "lib/bigcommerce/schema";
+import type { RecursivePartial, RecursiveRequired } from "../types";
 import { getConfig, Images, ProductImageVariables } from "..";
-import { RecursivePartial } from "../types";
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -104,22 +104,22 @@ export const getAllProductsQuery = /* GraphQL */ `
 
 export interface GetAllProductsResult<T> {
   products: T extends GetAllProductsQuery
-    ? T["site"]["products"]["edges"]
+    ? NonNullable<T["site"]["products"]["edges"]>
     : unknown;
 }
 
 export type ProductVariables = Images &
   Omit<GetAllProductsQueryVariables, keyof ProductImageVariables>;
 
-async function getAllProducts<T, V = any>(opts: {
-  query: string;
-  variables?: V;
-}): Promise<GetAllProductsResult<T>>;
-
 async function getAllProducts(opts?: {
   query?: string;
   variables?: ProductVariables;
 }): Promise<GetAllProductsResult<GetAllProductsQuery>>;
+
+async function getAllProducts<T, V = any>(opts: {
+  query: string;
+  variables?: V;
+}): Promise<GetAllProductsResult<T>>;
 
 async function getAllProducts({
   query = getAllProductsQuery,
@@ -127,19 +127,22 @@ async function getAllProducts({
 }: {
   query?: string;
   variables?: ProductVariables;
-} = {}): Promise<GetAllProductsResult<RecursivePartial<GetAllProductsQuery>>> {
+} = {}): Promise<GetAllProductsResult<GetAllProductsQuery>> {
   const config = getConfig();
   const variables: GetAllProductsQueryVariables = {
     ...config.imageVariables,
     ...vars,
   };
+  // RecursivePartial forces the method to check for every prop in the data, which is
+  // required in case there's a custom `query`
   const data = await config.fetch<RecursivePartial<GetAllProductsQuery>>(
     query,
     { variables }
   );
+  const products = data.site?.products?.edges;
 
   return {
-    products: data?.site?.products?.edges,
+    products: (products as RecursiveRequired<typeof products>) ?? [],
   };
 }
 

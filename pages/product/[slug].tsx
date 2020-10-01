@@ -1,8 +1,16 @@
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
+import getProduct from "lib/bigcommerce/api/operations/get-product";
 import { Layout } from "@components/core";
 import { ProductView } from "@components/product";
 
-export async function getStaticProps() {
+export async function getStaticProps({
+  params,
+}: GetStaticPropsContext<{ slug: string }>) {
+  const { product } = await getProduct({ variables: { slug: params!.slug } });
+
+  console.log("PRODUCT", product);
+
   const productData = {
     title: "T-Shirt",
     description: `
@@ -32,7 +40,9 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Home({ productData }) {
+export default function Home({
+  productData,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
   return (
     <Layout>
