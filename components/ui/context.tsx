@@ -1,15 +1,18 @@
-import React, { Context, FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
+
+export interface UIState {
+  displaySidebar: boolean;
+  openSidebar: () => {};
+  closeSidebar: () => {};
+}
 
 const initialState = {
   displaySidebar: false,
-  dispatch: null,
+  openSidebar: null,
+  closeSidebar: null,
 };
-export interface UIState {
-  displaySidebar: boolean;
-  dispatch: (string) => void;
-}
 
-export const UIContext = React.createContext<UIState>(initialState);
+export const UIContext = React.createContext(initialState);
 UIContext.displayName = "UIContext";
 
 export const UIProvider: FunctionComponent = (props) => {

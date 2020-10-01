@@ -5,7 +5,7 @@ import { Trash, Cross } from "@components/icon";
 import { useUI } from "@components/ui/context";
 
 const CartSidebarView: FunctionComponent = () => {
-  const { dispatch } = useUI();
+  const { closeSidebar } = useUI();
   return (
     <>
       <header className="px-4 py-6 sm:px-6 border-b border-gray-200">
@@ -17,7 +17,7 @@ const CartSidebarView: FunctionComponent = () => {
           </div>
           <div className="h-7 flex items-center">
             <button
-              onClick={() => dispatch("CLOSE_SIDEBAR")}
+              onClick={closeSidebar}
               aria-label="Close panel"
               className="text-gray-400 hover:text-gray-500 transition ease-in-out duration-150"
             >

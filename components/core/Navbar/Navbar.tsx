@@ -12,9 +12,7 @@ interface Props {
 
 const Navbar: FunctionComponent<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className);
-  const { dispatch } = useUI();
-
-  const handleCartClick = () => dispatch("OPEN_SIDEBAR");
+  const { openSidebar } = useUI();
 
   return (
     <Container className={rootClassName}>
@@ -28,7 +26,7 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
         </nav>
       </div>
       <nav className="flex flex-row items-center">
-        <Bag className="mr-6" onClick={handleCartClick} />
+        <Bag className="mr-6" onClick={openSidebar} />
         <Heart className="mr-6" />
         <Avatar />
       </nav>
