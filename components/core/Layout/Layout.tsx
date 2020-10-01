@@ -13,7 +13,7 @@ interface Props {
 
 const Layout: FunctionComponent<Props> = ({ className, children }) => {
   const rootClassName = cn(s.root, className);
-  const { displaySidebar, closeSidebar } = useUI();
+  const { displaySidebar } = useUI();
   return (
     <div className={rootClassName}>
       <Featurebar
@@ -25,7 +25,7 @@ const Layout: FunctionComponent<Props> = ({ className, children }) => {
         <main className="h-screen">{children}</main>
       </Container>
       {displaySidebar && (
-        <Sidebar closeSidebar={closeSidebar}>
+        <Sidebar>
           <CartSidebarView />
         </Sidebar>
       )}

@@ -4,35 +4,48 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import { findDOMNode } from "react-dom";
+
+import { Component } from "react";
+import PropTypes from "prop-types";
 
 export interface ClickOutsideProps {
   onClickOutside: (e?: MouseEvent) => void;
   children: React.ReactNode | any;
+  render: () => void;
 }
 
-const ClickOutside: FunctionComponent<ClickOutsideProps> = ({
-  children,
-  onClickOutside,
-}) => {
-  let node = useRef(null);
+export default class ClickOutside extends Component<ClickOutsideProps> {
+  public domNode: Element | null = null;
 
-  const handleClick = (e: MouseEvent) => {
-    console.log("eeee");
-    if (!e || !node.current.contains(e.target as HTMLInputElement)) {
-      console.log("eeee");
-      // onClickOutside && onClickOutside(e);
+  handleRef = (element) => {
+    this.domNode = element;
+  };
+
+  public componentDidMount() {
+    document.addEventListener("click", this.handleClick, true);
+  }
+
+  public componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClick, true);
+    document.removeEventListener("touchstart", this.handleClick, true);
+  }
+
+  public handleClick = (event) => {
+    function hasParent(element, root) {
+      return root && root.contains(element);
+    }
+
+    if (!hasParent(event.target, this.domNode)) {
+      if (typeof this.props.onClickOutside === "function") {
+        this.props.onClickOutside(event);
+      }
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleClick, true);
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  });
-
-  return children;
-};
-
-export default ClickOutside;
+  render() {
+    return null;
+    // return this.props.render({
+    //   innerRef: this.handleRef,
+    // });
+  }
+}

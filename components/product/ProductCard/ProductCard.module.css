@@ -1,0 +1,3 @@
+.root {
+  @apply flex flex-row px-2;
+}

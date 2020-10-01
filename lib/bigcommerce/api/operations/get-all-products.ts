@@ -1,9 +1,9 @@
 import {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
-} from 'lib/bigcommerce/schema';
-import { getConfig, Images, ProductImageVariables } from '..';
-import { RecursivePartial } from '../types';
+} from "lib/bigcommerce/schema";
+import { getConfig, Images, ProductImageVariables } from "..";
+import { RecursivePartial } from "../types";
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -104,7 +104,7 @@ export const getAllProductsQuery = /* GraphQL */ `
 
 export interface GetAllProductsResult<T> {
   products: T extends GetAllProductsQuery
-    ? T['site']['products']['edges']
+    ? T["site"]["products"]["edges"]
     : unknown;
 }
 

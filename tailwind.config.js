@@ -15,6 +15,7 @@ module.exports = {
         violet: "#7928CA",
         pink: "#FF0080",
         cyan: "#50E3C2",
+        blue: "#0070F3",
       },
     },
   },

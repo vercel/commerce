@@ -3,14 +3,6 @@ import React, { FunctionComponent } from "react";
 import s from "./ProductView.module.css";
 import { Button } from "@components/ui";
 import { Swatch } from "@components/product";
-import { Colors } from "@components/types";
-interface ProductData {
-  title: string;
-  price: string;
-  description: string;
-  colors: [Colors];
-  sizes: [string];
-}
 
 interface Props {
   className?: string;

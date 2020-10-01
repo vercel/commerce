@@ -38,7 +38,7 @@ const CartSidebarView: FunctionComponent = () => {
                 <span>-</span>
                 <input
                   className="w-6 border-gray-300 border mx-3 rounded text-center text-sm"
-                  value="1"
+                  defaultValue="1"
                 />
                 <span>+</span>
               </div>
