@@ -2,18 +2,14 @@ import cn from "classnames";
 import React, { FunctionComponent } from "react";
 import s from "./Navbar.module.css";
 import { Logo, Container } from "@components/ui";
-import { Avatar, Searchbar } from "@components/core";
-import { Heart, Bag } from "@components/icon";
-import { useUI } from "@components/ui/context";
+import { Searchbar } from "@components/core";
+import { UserNav } from "@components/core";
 interface Props {
   className?: string;
-  children?: any;
 }
 
 const Navbar: FunctionComponent<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className);
-  const { openSidebar } = useUI();
-
   return (
     <Container className={rootClassName}>
       <Logo />
@@ -25,11 +21,7 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
           <a>Accesories</a>
         </nav>
       </div>
-      <nav className="flex flex-row items-center">
-        <Bag className="mr-6" onClick={openSidebar} />
-        <Heart className="mr-6" />
-        <Avatar />
-      </nav>
+      <UserNav />
     </Container>
   );
 };

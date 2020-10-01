@@ -1,0 +1,10 @@
+.root {
+}
+
+.list {
+  @apply flex flex-row items-center;
+}
+
+.item {
+  @apply mr-6 cursor-pointer;
+}

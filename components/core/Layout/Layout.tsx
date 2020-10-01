@@ -15,19 +15,21 @@ const Layout: FunctionComponent<Props> = ({ className, children }) => {
   const rootClassName = cn(s.root, className);
   const { displaySidebar } = useUI();
   return (
-    <Container className={rootClassName}>
+    <div className={rootClassName}>
       <Featurebar
         title="Free Standard Shipping on orders over $99.99"
         description="Due to COVID-19, some orders may experience processing and delivery delays."
       />
-      <Navbar />
-      <main className="h-screen">{children}</main>
+      <Container>
+        <Navbar />
+        <main className="h-screen">{children}</main>
+      </Container>
       {displaySidebar && (
         <Sidebar>
           <CartSidebarView />
         </Sidebar>
       )}
-    </Container>
+    </div>
   );
 };
 
