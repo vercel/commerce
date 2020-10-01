@@ -2,7 +2,8 @@ import type {
   GetProductQuery,
   GetProductQueryVariables,
 } from 'lib/bigcommerce/schema';
-import type { RecursivePartial, RecursiveRequired } from '../types';
+import type { RecursivePartial, RecursiveRequired } from '../utils/types';
+import { productInfoFragment } from '../fragments/product';
 import { getConfig, Images, ProductImageVariables } from '..';
 
 export const getProductQuery = /* GraphQL */ `
@@ -22,65 +23,14 @@ export const getProductQuery = /* GraphQL */ `
         node {
           __typename
           ... on Product {
-            entityId
-            name
-            path
-            brand {
-              name
-            }
-            description
-            prices {
-              price {
-                currencyCode
-                value
-              }
-              salePrice {
-                currencyCode
-                value
-              }
-            }
-            images {
-              edges {
-                node {
-                  urlSmall: url(width: $imgSmallWidth, height: $imgSmallHeight)
-                  urlMedium: url(
-                    width: $imgMediumWidth
-                    height: $imgMediumHeight
-                  )
-                  urlLarge: url(width: $imgLargeWidth, height: $imgLargeHeight)
-                  urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
-                }
-              }
-            }
-            variants {
-              edges {
-                node {
-                  entityId
-                }
-              }
-            }
-            options {
-              edges {
-                node {
-                  entityId
-                  displayName
-                  isRequired
-                  values {
-                    edges {
-                      node {
-                        entityId
-                        label
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            ...productInfo
           }
         }
       }
     }
   }
+
+  ${productInfoFragment}
 `;
 
 export interface GetProductResult<T> {

@@ -2,7 +2,8 @@ import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
 } from 'lib/bigcommerce/schema';
-import type { RecursivePartial, RecursiveRequired } from '../types';
+import type { RecursivePartial, RecursiveRequired } from '../utils/types';
+import { productInfoFragment } from '../fragments/product';
 import { getConfig, Images, ProductImageVariables } from '..';
 
 export const getAllProductsQuery = /* GraphQL */ `
@@ -26,80 +27,14 @@ export const getAllProductsQuery = /* GraphQL */ `
         edges {
           cursor
           node {
-            entityId
-            name
-            path
-            brand {
-              name
-            }
-            description
-            prices {
-              price {
-                value
-                currencyCode
-              }
-              salePrice {
-                value
-                currencyCode
-              }
-            }
-            images {
-              edges {
-                node {
-                  urlSmall: url(width: $imgSmallWidth, height: $imgSmallHeight)
-                  urlMedium: url(
-                    width: $imgMediumWidth
-                    height: $imgMediumHeight
-                  )
-                  urlLarge: url(width: $imgLargeWidth, height: $imgLargeHeight)
-                  urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
-                }
-              }
-            }
-            variants {
-              edges {
-                node {
-                  entityId
-                  defaultImage {
-                    urlSmall: url(
-                      width: $imgSmallWidth
-                      height: $imgSmallHeight
-                    )
-                    urlMedium: url(
-                      width: $imgMediumWidth
-                      height: $imgMediumHeight
-                    )
-                    urlLarge: url(
-                      width: $imgLargeWidth
-                      height: $imgLargeHeight
-                    )
-                    urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
-                  }
-                }
-              }
-            }
-            options {
-              edges {
-                node {
-                  entityId
-                  displayName
-                  isRequired
-                  values {
-                    edges {
-                      node {
-                        entityId
-                        label
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            ...productInfo
           }
         }
       }
     }
   }
+
+  ${productInfoFragment}
 `;
 
 export interface GetAllProductsResult<T> {
