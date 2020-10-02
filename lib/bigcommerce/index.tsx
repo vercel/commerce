@@ -3,6 +3,7 @@ import {
   Connector,
   useCommerce as useCoreCommerce,
 } from 'lib/commerce'
+import { ReactNode } from 'react'
 
 async function getText(res: Response) {
   try {
@@ -35,8 +36,12 @@ export const bigcommerce: Connector = {
   fetcher,
 }
 
+interface Props {
+  children?: ReactNode | any
+}
+
 // TODO: The connector should be extendable when a developer is using it
-export function CommerceProvider({ children }) {
+export function CommerceProvider({ children }: Props) {
   return (
     <CoreCommerceProvider connector={bigcommerce}>
       {children}

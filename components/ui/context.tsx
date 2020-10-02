@@ -1,25 +1,29 @@
 import React, { FC } from 'react'
 
-export interface UIState {
+export interface State {
   displaySidebar: boolean
-  openSidebar: () => {}
-  closeSidebar: () => {}
 }
 
 const initialState = {
   displaySidebar: false,
-  openSidebar: null,
-  closeSidebar: null,
 }
 
-export const UIContext = React.createContext(initialState)
+type Action =
+  | {
+      type: 'OPEN_SIDEBAR'
+    }
+  | {
+      type: 'CLOSE_SIDEBAR'
+    }
+
+export const UIContext = React.createContext<State | any>(initialState)
 UIContext.displayName = 'UIContext'
 
 export const UIProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState)
 
-  const openSidebar = () => dispatch('OPEN_SIDEBAR')
-  const closeSidebar = () => dispatch('CLOSE_SIDEBAR')
+  const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
+  const closeSidebar = () => dispatch({ type: 'CLOSE_SIDEBAR' })
 
   const value = {
     ...state,
@@ -38,8 +42,8 @@ export const useUI = () => {
   return context
 }
 
-function uiReducer(state, action) {
-  switch (action) {
+function uiReducer(state: State, action: Action) {
+  switch (action.type) {
     case 'OPEN_SIDEBAR': {
       return {
         ...state,

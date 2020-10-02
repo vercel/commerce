@@ -1,6 +1,9 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, FunctionComponent } from 'react'
 import useSWR, { responseInterface } from 'swr'
 import { useCommerce } from '.'
+interface Props {
+  children?: any
+}
 
 export type Cart = any
 
@@ -8,14 +11,14 @@ export type CartResponse<C extends Cart> = responseInterface<C, Error> & {
   isEmpty: boolean
 }
 
-const CartContext = createContext<CartResponse<Cart>>(null)
+const CartContext = createContext<CartResponse<Cart> | any>(null)
 
 function getCartCookie() {
   // TODO: Figure how the cart should be persisted
   return null
 }
 
-export function CartProvider({ children }) {
+const CartProvider: FunctionComponent<Props> = ({ children }) => {
   const { hooks, fetcher } = useCommerce<Cart>()
   const { useCart } = hooks
   const cartId = getCartCookie()
@@ -32,6 +35,8 @@ export function CartProvider({ children }) {
   )
 }
 
-export function useCart<C extends Cart>() {
+function useCart<C extends Cart>() {
   return useContext(CartContext) as CartResponse<C>
 }
+
+export { CartProvider, useCart }

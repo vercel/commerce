@@ -1,9 +1,9 @@
 import { createContext, ReactNode, useContext } from 'react'
 
-const Commerce = createContext<Connector>(null)
+const Commerce = createContext<Connector | any>(null)
 
 export type CommerceProps = {
-  children?: ReactNode
+  children?: ReactNode | any
   connector: Connector
 }
 

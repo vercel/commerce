@@ -6,14 +6,13 @@ import { ProductGrid } from '@components/product'
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { products } = await getAllProducts()
   return {
-    props: { products },
+    props: { products: products.slice(0, 6) },
   }
 }
 
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('PRODUCTS', products)
   return <ProductGrid products={products} />
 }
 

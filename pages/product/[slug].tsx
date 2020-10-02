@@ -10,7 +10,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ slug: string }>) {
   const { product } = await getProduct({ variables: { slug: params!.slug } })
   const productData = {
-    title: 'T-Shirt',
+    name: 'T-Shirt',
     description: `
       Nothing undercover about this tee. Nope. This is the official Bad
       Boys tee. Printed in white or black ink on Black, Brown, or Oatmeal.
@@ -19,7 +19,8 @@ export async function getStaticProps({
       run. Printing starts when the drop ends. Reminder: Bad Boys For
       Life. Shipping may take 10+ days due to COVID-19.
     `,
-    price: '$50',
+    images: null,
+    prices: '$50',
     colors: ['black', 'white', 'pink'],
     sizes: ['s', 'm', 'l', 'xl', 'xxl'],
   }
@@ -47,8 +48,6 @@ export default function Slug({
   product,
   productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('PRODUCT', product)
-
   const router = useRouter()
 
   return router.isFallback ? (

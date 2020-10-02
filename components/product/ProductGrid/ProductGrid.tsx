@@ -5,15 +5,15 @@ import ProductCard from '@components/product/ProductCard'
 interface Props {
   className?: string
   children?: any
-  products: [any]
+  products: [any] | any
 }
 
 const ProductView: FC<Props> = ({ products, className }) => {
   const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>
-      {products.slice(0, 6).map(({ node }) => (
-        <ProductCard productData={node} />
+      {products.map((data: any) => (
+        <ProductCard productData={data.node} />
       ))}
     </div>
   )
