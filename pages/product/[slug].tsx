@@ -1,18 +1,16 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { useRouter } from "next/router";
-import getProduct from "lib/bigcommerce/api/operations/get-product";
-import { Layout } from "@components/core";
-import { ProductView } from "@components/product";
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
+import getProduct from 'lib/bigcommerce/api/operations/get-product';
+import { Layout } from '@components/core';
+import { ProductView } from '@components/product';
+import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-paths';
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
   const { product } = await getProduct({ variables: { slug: params!.slug } });
-
-  console.log("PRODUCT", product);
-
   const productData = {
-    title: "T-Shirt",
+    title: 'T-Shirt',
     description: `
       Nothing undercover about this tee. Nope. This is the official Bad
       Boys tee. Printed in white or black ink on Black, Brown, or Oatmeal.
@@ -21,12 +19,13 @@ export async function getStaticProps({
       run. Printing starts when the drop ends. Reminder: Bad Boys For
       Life. Shipping may take 10+ days due to COVID-19.
     `,
-    price: "$50",
-    colors: ["black", "white", "pink"],
-    sizes: ["s", "m", "l", "xl", "xxl"],
+    price: '$50',
+    colors: ['black', 'white', 'pink'],
+    sizes: ['s', 'm', 'l', 'xl', 'xxl'],
   };
   return {
     props: {
+      product,
       productData,
     },
     revalidate: 200,
@@ -34,16 +33,24 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
+  const { products } = await getAllProductPaths();
+
   return {
-    paths: [],
-    fallback: "unstable_blocking",
+    paths: products.map((product) => ({
+      params: { slug: product!.node.path },
+    })),
+    fallback: 'unstable_blocking',
   };
 }
 
 export default function Home({
+  product,
   productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log('PRODUCT', product);
+
   const router = useRouter();
+
   return (
     <Layout>
       {router.isFallback ? (

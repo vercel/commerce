@@ -4,16 +4,11 @@ import type {
 } from 'lib/bigcommerce/schema';
 import type { RecursivePartial, RecursiveRequired } from '../utils/types';
 import { productInfoFragment } from '../fragments/product';
-import {
-  BigcommerceConfig,
-  getConfig,
-  Images,
-  ProductImageVariables,
-} from '..';
+import { BigcommerceConfig, getConfig, Images } from '..';
 
 export const getProductQuery = /* GraphQL */ `
   query getProduct(
-    $slug: String!
+    $path: String!
     $imgSmallWidth: Int = 320
     $imgSmallHeight: Int
     $imgMediumWidth: Int = 640
@@ -24,7 +19,7 @@ export const getProductQuery = /* GraphQL */ `
     $imgXLHeight: Int
   ) {
     site {
-      route(path: $slug) {
+      route(path: $path) {
         node {
           __typename
           ... on Product {
@@ -45,7 +40,7 @@ export interface GetProductResult<T> {
 }
 
 export type ProductVariables = Images &
-  Omit<GetProductQueryVariables, keyof ProductImageVariables>;
+  ({ path: string; slug?: never } | { path?: never; slug: string });
 
 async function getProduct(opts: {
   query?: string;
@@ -61,7 +56,7 @@ async function getProduct<T, V = any>(opts: {
 
 async function getProduct({
   query = getProductQuery,
-  variables: vars,
+  variables: { slug, ...vars },
   config = getConfig(),
 }: {
   query?: string;
@@ -71,6 +66,7 @@ async function getProduct({
   const variables: GetProductQueryVariables = {
     ...config.imageVariables,
     ...vars,
+    path: slug ? `/${slug}/` : vars.path!,
   };
   const data = await config.fetch<RecursivePartial<GetProductQuery>>(query, {
     variables,

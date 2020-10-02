@@ -1713,6 +1713,26 @@ export type ProductInfoFragment = (
   ) }
 );
 
+export type GetAllProductPathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllProductPathsQuery = (
+  { __typename?: 'Query' }
+  & { site: (
+    { __typename?: 'Site' }
+    & { products: (
+      { __typename?: 'ProductConnection' }
+      & { edges?: Maybe<Array<Maybe<(
+        { __typename?: 'ProductEdge' }
+        & { node: (
+          { __typename?: 'Product' }
+          & Pick<Product, 'path'>
+        ) }
+      )>>> }
+    ) }
+  ) }
+);
+
 export type GetAllProductsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>;
   imgSmallWidth?: Maybe<Scalars['Int']>;
@@ -1748,7 +1768,7 @@ export type GetAllProductsQuery = (
 );
 
 export type GetProductQueryVariables = Exact<{
-  slug: Scalars['String'];
+  path: Scalars['String'];
   imgSmallWidth?: Maybe<Scalars['Int']>;
   imgSmallHeight?: Maybe<Scalars['Int']>;
   imgMediumWidth?: Maybe<Scalars['Int']>;
