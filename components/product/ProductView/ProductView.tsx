@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import s from './ProductView.module.css'
 import { Button } from '@components/ui'
 import { Swatch } from '@components/product'

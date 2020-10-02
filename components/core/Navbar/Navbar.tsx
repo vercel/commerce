@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import s from './Navbar.module.css'
 import { Logo, Container } from '@components/ui'
 import { Searchbar } from '@components/core'

@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import s from './ProductGrid.module.css'
 import ProductCard from '@components/ProductCard'
 interface Props {

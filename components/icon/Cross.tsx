@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Cross = ({ ...props }) => {
   return (
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}>

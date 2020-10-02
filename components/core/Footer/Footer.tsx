@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import s from './Footer.module.css'
 import { Container } from '@components/ui'
 

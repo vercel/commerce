@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import s from './ProductCard.module.css'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Heart } from '@components/icon'
 interface Props {
   className?: string

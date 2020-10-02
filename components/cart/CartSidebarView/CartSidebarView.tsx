@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { UserNav } from '@components/core'
 import { Button } from '@components/ui'
 import { Trash, Cross } from '@components/icon'
