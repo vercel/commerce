@@ -1,0 +1,4 @@
+.root {
+  @apply grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-4 w-full h-96;
+  min-height: calc((100vh - 80px - 56px) * 2);
+}
