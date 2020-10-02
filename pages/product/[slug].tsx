@@ -37,9 +37,10 @@ export async function getStaticPaths() {
   const { products } = await getAllProductPaths()
 
   return {
-    paths: products.map((product) => ({
-      params: { slug: product!.node.path },
-    })),
+    // paths: products.map((product) => ({
+    //   params: { slug: product!.node.path.trim() },
+    // })),
+    paths: [],
     fallback: 'unstable_blocking',
   }
 }
