@@ -43,7 +43,7 @@ export async function getStaticPaths() {
   }
 }
 
-export default function Home({
+export default function Slug({
   product,
   productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -51,13 +51,11 @@ export default function Home({
 
   const router = useRouter()
 
-  return (
-    <Layout>
-      {router.isFallback ? (
-        <h1>Loading...</h1>
-      ) : (
-        <ProductView productData={productData} />
-      )}
-    </Layout>
+  return router.isFallback ? (
+    <h1>Loading...</h1>
+  ) : (
+    <ProductView productData={productData} />
   )
 }
+
+Slug.Layout = Layout

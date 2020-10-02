@@ -14,9 +14,7 @@ export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   console.log('PRODUCTS', products)
-  return (
-    <Layout>
-      <ProductGrid products={products} />
-    </Layout>
-  )
+  return <ProductGrid products={products} />
 }
+
+Home.Layout = Layout

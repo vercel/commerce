@@ -14,6 +14,7 @@ interface Props {
 const CoreLayout: FunctionComponent<Props> = ({ className, children }) => {
   const rootClassName = cn(s.root, className)
   const { displaySidebar } = useUI()
+
   return (
     <div className={rootClassName}>
       <Featurebar
