@@ -43,7 +43,6 @@ export type ProductVariables = Images &
   ({ path: string; slug?: never } | { path?: never; slug: string })
 
 async function getProduct(opts: {
-  query?: string
   variables: ProductVariables
   config?: BigcommerceConfig
 }): Promise<GetProductResult<GetProductQuery>>

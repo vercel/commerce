@@ -23,7 +23,6 @@ export interface GetAllProductPathsResult<T> {
 }
 
 async function getAllProductPaths(opts?: {
-  query?: string
   config?: BigcommerceConfig
 }): Promise<GetAllProductPathsResult<GetAllProductPathsQuery>>
 
