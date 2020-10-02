@@ -4,7 +4,12 @@ import type {
 } from 'lib/bigcommerce/schema';
 import type { RecursivePartial, RecursiveRequired } from '../utils/types';
 import { productInfoFragment } from '../fragments/product';
-import { getConfig, Images, ProductImageVariables } from '..';
+import {
+  BigcommerceConfig,
+  getConfig,
+  Images,
+  ProductImageVariables,
+} from '..';
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -49,21 +54,24 @@ export type ProductVariables = Images &
 async function getAllProducts(opts?: {
   query?: string;
   variables?: ProductVariables;
+  config?: BigcommerceConfig;
 }): Promise<GetAllProductsResult<GetAllProductsQuery>>;
 
 async function getAllProducts<T, V = any>(opts: {
   query: string;
   variables?: V;
+  config?: BigcommerceConfig;
 }): Promise<GetAllProductsResult<T>>;
 
 async function getAllProducts({
   query = getAllProductsQuery,
   variables: vars,
+  config = getConfig(),
 }: {
   query?: string;
   variables?: ProductVariables;
+  config?: BigcommerceConfig;
 } = {}): Promise<GetAllProductsResult<GetAllProductsQuery>> {
-  const config = getConfig();
   const variables: GetAllProductsQueryVariables = {
     ...config.imageVariables,
     ...vars,
