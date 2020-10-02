@@ -1,4 +1,8 @@
 .root {
   @apply grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-4 w-full h-96;
   min-height: calc((100vh - 80px - 56px) * 2);
+
+  & div:nth-child(1) {
+    @apply row-span-2 lg:col-span-2 bg-red-200 h-full;
+  }
 }
