@@ -11,6 +11,7 @@ interface Props {
 interface ProductData {
   name: string
   images: any
+  prices: any
 }
 
 const ProductCard: FC<Props> = ({ className, productData }) => {
@@ -28,7 +29,7 @@ const ProductCard: FC<Props> = ({ className, productData }) => {
           </div>
           <div>
             <div className="px-6 py-1 pb-3 bg-white text-black font-semibold inline-block text-sm leading-6">
-              $50
+              ${productData.prices.price.value}
             </div>
           </div>
         </div>
