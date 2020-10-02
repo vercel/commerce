@@ -1,13 +1,13 @@
 import cn from 'classnames'
 import s from './ProductCard.module.css'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import { Heart } from '@components/icon'
 interface Props {
   className?: string
   children?: any
 }
 
-const ProductCard: FunctionComponent<Props> = ({ className }) => {
+const ProductCard: FC<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>

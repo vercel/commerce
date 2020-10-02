@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  MutableRefObject,
-  useEffect,
-  useRef,
-} from 'react'
+import React, { FC, MutableRefObject, useEffect, useRef } from 'react'
 
 import { Component } from 'react'
 import PropTypes from 'prop-types'

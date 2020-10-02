@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { FunctionComponent } from 'react'
+import { FC } from 'react'
 import s from './Layout.module.css'
 import { Navbar, Featurebar } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
@@ -11,7 +11,7 @@ interface Props {
   children?: any
 }
 
-const CoreLayout: FunctionComponent<Props> = ({ className, children }) => {
+const CoreLayout: FC<Props> = ({ className, children }) => {
   const rootClassName = cn(s.root, className)
   const { displaySidebar } = useUI()
 
@@ -34,7 +34,7 @@ const CoreLayout: FunctionComponent<Props> = ({ className, children }) => {
   )
 }
 
-const Layout: FunctionComponent<Props> = (props) => (
+const Layout: FC<Props> = (props) => (
   <UIProvider>
     <CoreLayout {...props} />
   </UIProvider>

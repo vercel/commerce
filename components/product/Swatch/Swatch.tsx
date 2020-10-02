@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import s from './Swatch.module.css'
 import { Colors } from '@components/ui/types'
 
@@ -11,12 +11,7 @@ interface Props {
   size?: string
 }
 
-const Swatch: FunctionComponent<Props> = ({
-  className,
-  size,
-  color,
-  active,
-}) => {
+const Swatch: FC<Props> = ({ className, size, color, active }) => {
   const rootClassName = cn(
     s.root,
     {

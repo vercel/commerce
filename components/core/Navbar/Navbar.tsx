@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import s from './Navbar.module.css'
 import { Logo, Container } from '@components/ui'
 import { Searchbar } from '@components/core'
@@ -8,7 +8,7 @@ interface Props {
   className?: string
 }
 
-const Navbar: FunctionComponent<Props> = ({ className }) => {
+const Navbar: FC<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className)
   return (
     <Container className={rootClassName}>

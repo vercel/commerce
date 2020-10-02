@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import s from './UserNav.module.css'
 import { Avatar } from '@components/core'
 import { Heart, Bag } from '@components/icon'
@@ -9,7 +9,7 @@ interface Props {
   className?: string
 }
 
-const UserNav: FunctionComponent<Props> = ({ className }) => {
+const UserNav: FC<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className)
   const { openSidebar } = useUI()
 

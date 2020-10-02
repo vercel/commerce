@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import { UserNav } from '@components/core'
 import { Button } from '@components/ui'
 import { Trash, Cross } from '@components/icon'
 import { useUI } from '@components/ui/context'
 
-const CartSidebarView: FunctionComponent = () => {
+const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
   return (
     <>

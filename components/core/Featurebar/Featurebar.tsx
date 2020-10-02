@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { FunctionComponent } from 'react'
+import { FC } from 'react'
 import s from './Featurebar.module.css'
 
 interface Props {
@@ -8,11 +8,7 @@ interface Props {
   description: string
 }
 
-const Featurebar: FunctionComponent<Props> = ({
-  title,
-  description,
-  className,
-}) => {
+const Featurebar: FC<Props> = ({ title, description, className }) => {
   const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>

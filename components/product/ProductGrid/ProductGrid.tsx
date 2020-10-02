@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import s from './ProductGrid.module.css'
 import ProductCard from '@components/ProductCard'
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   products: [any]
 }
 
-const ProductView: FunctionComponent<Props> = ({ products, className }) => {
+const ProductView: FC<Props> = ({ products, className }) => {
   const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>

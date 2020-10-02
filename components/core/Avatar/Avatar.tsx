@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import s from './Avatar.module.css'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   children?: any
 }
 
-const Avatar: FunctionComponent<Props> = ({ className }) => {
+const Avatar: FC<Props> = ({ className }) => {
   const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>

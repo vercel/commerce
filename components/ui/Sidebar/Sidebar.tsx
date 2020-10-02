@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import s from './Sidebar.module.css'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   children?: any
 }
 
-const Sidebar: FunctionComponent<Props> = ({ className, children }) => {
+const Sidebar: FC<Props> = ({ className, children }) => {
   const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>

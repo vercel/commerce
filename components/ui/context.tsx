@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 
 export interface UIState {
   displaySidebar: boolean
@@ -15,7 +15,7 @@ const initialState = {
 export const UIContext = React.createContext(initialState)
 UIContext.displayName = 'UIContext'
 
-export const UIProvider: FunctionComponent = (props) => {
+export const UIProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState)
 
   const openSidebar = () => dispatch('OPEN_SIDEBAR')

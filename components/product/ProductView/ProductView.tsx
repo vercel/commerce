@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import s from './ProductView.module.css'
 import { Button } from '@components/ui'
 import { Swatch } from '@components/product'
@@ -10,7 +10,7 @@ interface Props {
   productData: ProductData
 }
 
-const ProductView: FunctionComponent<Props> = ({ productData, className }) => {
+const ProductView: FC<Props> = ({ productData, className }) => {
   const rootClassName = cn(s.root, className)
   console.log(productData)
   return (

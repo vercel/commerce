@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { FunctionComponent } from 'react'
+import { FC } from 'react'
 import s from './Container.module.css'
 
 interface Props {
@@ -8,11 +8,7 @@ interface Props {
   el?: HTMLElement
 }
 
-const Container: FunctionComponent<Props> = ({
-  children,
-  className,
-  el = 'div',
-}) => {
+const Container: FC<Props> = ({ children, className, el = 'div' }) => {
   const rootClassName = cn(s.root, className)
 
   let Component: React.ComponentType<React.HTMLAttributes<
