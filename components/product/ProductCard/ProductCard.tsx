@@ -1,14 +1,14 @@
-import cn from "classnames";
-import s from "./ProductCard.module.css";
-import React, { FunctionComponent } from "react";
-import { Heart } from "@components/icon";
+import cn from 'classnames'
+import s from './ProductCard.module.css'
+import React, { FunctionComponent } from 'react'
+import { Heart } from '@components/icon'
 interface Props {
-  className?: string;
-  children?: any;
+  className?: string
+  children?: any
 }
 
 const ProductCard: FunctionComponent<Props> = ({ className }) => {
-  const rootClassName = cn(s.root, className);
+  const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>
       <div className="absolute">
@@ -26,7 +26,7 @@ const ProductCard: FunctionComponent<Props> = ({ className }) => {
         <div className="bg-violet h-full"></div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductCard;
+export default ProductCard

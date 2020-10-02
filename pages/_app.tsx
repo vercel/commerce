@@ -1,6 +1,6 @@
-import "@assets/global.css";
-import React from "react";
-import { UIProvider } from "@components/ui/context";
+import '@assets/global.css'
+import React from 'react'
+import { UIProvider } from '@components/ui/context'
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -9,5 +9,5 @@ export default function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </UIProvider>
     </>
-  );
+  )
 }

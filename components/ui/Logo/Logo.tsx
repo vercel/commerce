@@ -35,6 +35,6 @@ const Logo = () => (
       strokeWidth="0.30634"
     />
   </svg>
-);
+)
 
-export default Logo;
+export default Logo

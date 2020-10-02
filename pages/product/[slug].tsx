@@ -1,14 +1,14 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
-import getProduct from 'lib/bigcommerce/api/operations/get-product';
-import { Layout } from '@components/core';
-import { ProductView } from '@components/product';
-import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-paths';
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
+import getProduct from 'lib/bigcommerce/api/operations/get-product'
+import { Layout } from '@components/core'
+import { ProductView } from '@components/product'
+import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-paths'
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
-  const { product } = await getProduct({ variables: { slug: params!.slug } });
+  const { product } = await getProduct({ variables: { slug: params!.slug } })
   const productData = {
     title: 'T-Shirt',
     description: `
@@ -22,34 +22,34 @@ export async function getStaticProps({
     price: '$50',
     colors: ['black', 'white', 'pink'],
     sizes: ['s', 'm', 'l', 'xl', 'xxl'],
-  };
+  }
   return {
     props: {
       product,
       productData,
     },
     revalidate: 200,
-  };
+  }
 }
 
 export async function getStaticPaths() {
-  const { products } = await getAllProductPaths();
+  const { products } = await getAllProductPaths()
 
   return {
     paths: products.map((product) => ({
       params: { slug: product!.node.path },
     })),
     fallback: 'unstable_blocking',
-  };
+  }
 }
 
 export default function Home({
   product,
   productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('PRODUCT', product);
+  console.log('PRODUCT', product)
 
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <Layout>
@@ -59,5 +59,5 @@ export default function Home({
         <ProductView productData={productData} />
       )}
     </Layout>
-  );
+  )
 }

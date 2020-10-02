@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Cross = ({ ...props }) => {
   return (
@@ -10,7 +10,7 @@ const Cross = ({ ...props }) => {
         d="M6 18L18 6M6 6l12 12"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default Cross;
+export default Cross

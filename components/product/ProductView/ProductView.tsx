@@ -1,18 +1,18 @@
-import cn from "classnames";
-import React, { FunctionComponent } from "react";
-import s from "./ProductView.module.css";
-import { Button } from "@components/ui";
-import { Swatch } from "@components/product";
+import cn from 'classnames'
+import React, { FunctionComponent } from 'react'
+import s from './ProductView.module.css'
+import { Button } from '@components/ui'
+import { Swatch } from '@components/product'
 
 interface Props {
-  className?: string;
-  children?: any;
-  productData: ProductData;
+  className?: string
+  children?: any
+  productData: ProductData
 }
 
 const ProductView: FunctionComponent<Props> = ({ productData, className }) => {
-  const rootClassName = cn(s.root, className);
-  console.log(productData);
+  const rootClassName = cn(s.root, className)
+  console.log(productData)
   return (
     <div className={rootClassName}>
       <div className="absolute">
@@ -53,7 +53,7 @@ const ProductView: FunctionComponent<Props> = ({ productData, className }) => {
         </section>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductView;
+export default ProductView

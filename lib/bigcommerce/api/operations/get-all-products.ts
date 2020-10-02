@@ -1,15 +1,10 @@
 import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
-} from 'lib/bigcommerce/schema';
-import type { RecursivePartial, RecursiveRequired } from '../utils/types';
-import { productInfoFragment } from '../fragments/product';
-import {
-  BigcommerceConfig,
-  getConfig,
-  Images,
-  ProductImageVariables,
-} from '..';
+} from 'lib/bigcommerce/schema'
+import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import { productInfoFragment } from '../fragments/product'
+import { BigcommerceConfig, getConfig, Images, ProductImageVariables } from '..'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -40,53 +35,53 @@ export const getAllProductsQuery = /* GraphQL */ `
   }
 
   ${productInfoFragment}
-`;
+`
 
 export interface GetAllProductsResult<T> {
   products: T extends GetAllProductsQuery
     ? NonNullable<T['site']['products']['edges']>
-    : unknown;
+    : unknown
 }
 
 export type ProductVariables = Images &
-  Omit<GetAllProductsQueryVariables, keyof ProductImageVariables>;
+  Omit<GetAllProductsQueryVariables, keyof ProductImageVariables>
 
 async function getAllProducts(opts?: {
-  query?: string;
-  variables?: ProductVariables;
-  config?: BigcommerceConfig;
-}): Promise<GetAllProductsResult<GetAllProductsQuery>>;
+  query?: string
+  variables?: ProductVariables
+  config?: BigcommerceConfig
+}): Promise<GetAllProductsResult<GetAllProductsQuery>>
 
 async function getAllProducts<T, V = any>(opts: {
-  query: string;
-  variables?: V;
-  config?: BigcommerceConfig;
-}): Promise<GetAllProductsResult<T>>;
+  query: string
+  variables?: V
+  config?: BigcommerceConfig
+}): Promise<GetAllProductsResult<T>>
 
 async function getAllProducts({
   query = getAllProductsQuery,
   variables: vars,
   config = getConfig(),
 }: {
-  query?: string;
-  variables?: ProductVariables;
-  config?: BigcommerceConfig;
+  query?: string
+  variables?: ProductVariables
+  config?: BigcommerceConfig
 } = {}): Promise<GetAllProductsResult<GetAllProductsQuery>> {
   const variables: GetAllProductsQueryVariables = {
     ...config.imageVariables,
     ...vars,
-  };
+  }
   // RecursivePartial forces the method to check for every prop in the data, which is
   // required in case there's a custom `query`
   const data = await config.fetch<RecursivePartial<GetAllProductsQuery>>(
     query,
     { variables }
-  );
-  const products = data.site?.products?.edges;
+  )
+  const products = data.site?.products?.edges
 
   return {
     products: (products as RecursiveRequired<typeof products>) ?? [],
-  };
+  }
 }
 
-export default getAllProducts;
+export default getAllProducts

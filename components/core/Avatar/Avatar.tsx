@@ -1,14 +1,14 @@
-import cn from "classnames";
-import React, { FunctionComponent } from "react";
-import s from "./Avatar.module.css";
+import cn from 'classnames'
+import React, { FunctionComponent } from 'react'
+import s from './Avatar.module.css'
 
 interface Props {
-  className?: string;
-  children?: any;
+  className?: string
+  children?: any
 }
 
 const Avatar: FunctionComponent<Props> = ({ className }) => {
-  const rootClassName = cn(s.root, className);
+  const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>
       <img
@@ -17,7 +17,7 @@ const Avatar: FunctionComponent<Props> = ({ className }) => {
         alt=""
       ></img>
     </div>
-  );
-};
+  )
+}
 
-export default Avatar;
+export default Avatar

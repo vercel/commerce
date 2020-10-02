@@ -1,15 +1,15 @@
-import cn from "classnames";
-import React, { FunctionComponent } from "react";
-import s from "./Navbar.module.css";
-import { Logo, Container } from "@components/ui";
-import { Searchbar } from "@components/core";
-import { UserNav } from "@components/core";
+import cn from 'classnames'
+import React, { FunctionComponent } from 'react'
+import s from './Navbar.module.css'
+import { Logo, Container } from '@components/ui'
+import { Searchbar } from '@components/core'
+import { UserNav } from '@components/core'
 interface Props {
-  className?: string;
+  className?: string
 }
 
 const Navbar: FunctionComponent<Props> = ({ className }) => {
-  const rootClassName = cn(s.root, className);
+  const rootClassName = cn(s.root, className)
   return (
     <Container className={rootClassName}>
       <Logo />
@@ -23,7 +23,7 @@ const Navbar: FunctionComponent<Props> = ({ className }) => {
       </div>
       <UserNav />
     </Container>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

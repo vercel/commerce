@@ -1,17 +1,17 @@
-import cn from "classnames";
-import React, { FunctionComponent } from "react";
-import s from "./UserNav.module.css";
-import { Avatar } from "@components/core";
-import { Heart, Bag } from "@components/icon";
-import { useUI } from "@components/ui/context";
+import cn from 'classnames'
+import React, { FunctionComponent } from 'react'
+import s from './UserNav.module.css'
+import { Avatar } from '@components/core'
+import { Heart, Bag } from '@components/icon'
+import { useUI } from '@components/ui/context'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
 const UserNav: FunctionComponent<Props> = ({ className }) => {
-  const rootClassName = cn(s.root, className);
-  const { openSidebar } = useUI();
+  const rootClassName = cn(s.root, className)
+  const { openSidebar } = useUI()
 
   return (
     <nav className={rootClassName}>
@@ -30,7 +30,7 @@ const UserNav: FunctionComponent<Props> = ({ className }) => {
         </li>
       </ul>
     </nav>
-  );
-};
+  )
+}
 
-export default UserNav;
+export default UserNav

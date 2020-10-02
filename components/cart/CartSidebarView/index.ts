@@ -1,1 +1,1 @@
-export { default } from "./CartSidebarView";
+export { default } from './CartSidebarView'

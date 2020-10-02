@@ -5,7 +5,7 @@ export const responsiveImageFragment = /* GraphQL */ `
     urlLarge: url(width: $imgLargeWidth, height: $imgLargeHeight)
     urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
   }
-`;
+`
 
 export const productInfoFragment = /* GraphQL */ `
   fragment productInfo on Product {
@@ -63,4 +63,4 @@ export const productInfoFragment = /* GraphQL */ `
   }
 
   ${responsiveImageFragment}
-`;
+`

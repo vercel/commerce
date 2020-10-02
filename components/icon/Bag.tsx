@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Bag = ({ ...props }) => {
   return (
@@ -32,7 +32,7 @@ const Bag = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default Bag;
+export default Bag

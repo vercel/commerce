@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Trash = ({ ...props }) => {
   return (
@@ -39,7 +39,7 @@ const Trash = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default Trash;
+export default Trash

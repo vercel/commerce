@@ -13,7 +13,7 @@
 }
 
 .separator:before {
-  content: "";
+  content: '';
 }
 
 .description {
