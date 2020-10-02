@@ -16,7 +16,7 @@ const UserNav: FC<Props> = ({ className }) => {
   return (
     <nav className={rootClassName}>
       <ul className={s.list}>
-        <li className={s.item} onClick={() => openSidebar}>
+        <li className={s.item} onClick={() => openSidebar()}>
           <Bag />
           <span className="bg-black h-4 w-4 absolute rounded-full inset-3 text-white flex items-center justify-center font-bold text-xs">
             1

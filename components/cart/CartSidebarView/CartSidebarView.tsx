@@ -12,7 +12,7 @@ const CartSidebarView: FC = () => {
         <div className="flex items-start justify-between space-x-3">
           <div className="h-7 flex items-center">
             <button
-              onClick={() => closeSidebar}
+              onClick={() => closeSidebar()}
               aria-label="Close panel"
               className="text-gray-400 hover:text-gray-500 transition ease-in-out duration-150"
             >
