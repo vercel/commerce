@@ -12,8 +12,8 @@ const ProductView: FC<Props> = ({ products, className }) => {
   const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>
-      {products.slice(0, 6).map((p) => (
-        <ProductCard {...p} />
+      {products.slice(0, 6).map(({ node }) => (
+        <ProductCard productData={node} />
       ))}
     </div>
   )

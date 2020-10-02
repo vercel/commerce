@@ -3,7 +3,7 @@
   min-height: calc((100vh - 80px - 56px) * 2);
 
   & > * {
-    @apply row-span-1 lg:col-span-1 h-full bg-black;
+    @apply row-span-1 lg:col-span-1 h-full bg-black box-border;
   }
 
   & > div:nth-child(1),
