@@ -1,5 +1,3 @@
-import React from "react";
-
 const Trash = ({ ...props }) => {
   return (
     <svg
@@ -39,7 +37,7 @@ const Trash = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default Trash;
+export default Trash

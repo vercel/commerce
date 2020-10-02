@@ -1,1 +1,1 @@
-export type Colors = "violet" | "black" | "pink" | "white";
+export type Colors = 'violet' | 'black' | 'pink' | 'white'

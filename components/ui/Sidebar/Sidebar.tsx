@@ -1,14 +1,14 @@
-import cn from "classnames";
-import React, { FunctionComponent } from "react";
-import s from "./Sidebar.module.css";
+import cn from 'classnames'
+import { FC } from 'react'
+import s from './Sidebar.module.css'
 
 interface Props {
-  className?: string;
-  children?: any;
+  className?: string
+  children?: any
 }
 
-const Sidebar: FunctionComponent<Props> = ({ className, children }) => {
-  const rootClassName = cn(s.root, className);
+const Sidebar: FC<Props> = ({ className, children }) => {
+  const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>
       <div className="fixed inset-0 overflow-hidden shadow-sm bg-black bg-opacity-25">
@@ -23,7 +23,7 @@ const Sidebar: FunctionComponent<Props> = ({ className, children }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

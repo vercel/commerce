@@ -1,5 +1,3 @@
-import React from "react";
-
 const Heart = ({ ...props }) => {
   return (
     <svg
@@ -18,7 +16,7 @@ const Heart = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default Heart;
+export default Heart

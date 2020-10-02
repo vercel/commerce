@@ -1,15 +1,15 @@
 export interface CommerceAPIConfig {
-  commerceUrl: string;
-  apiToken: string;
+  commerceUrl: string
+  apiToken: string
   fetch<Q, V = any>(
     query: string,
     queryData?: CommerceAPIFetchOptions<V>
-  ): Promise<Q>;
+  ): Promise<Q>
 }
 
 export interface CommerceAPIFetchOptions<V> {
-  variables?: V;
-  preview?: boolean;
+  variables?: V
+  preview?: boolean
 }
 
 // TODO: define interfaces for all the available operations

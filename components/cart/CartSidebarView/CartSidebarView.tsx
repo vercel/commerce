@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from "react";
-import { UserNav } from "@components/core";
-import { Button } from "@components/ui";
-import { Trash, Cross } from "@components/icon";
-import { useUI } from "@components/ui/context";
+import { FC } from 'react'
+import { UserNav } from '@components/core'
+import { Button } from '@components/ui'
+import { Trash, Cross } from '@components/icon'
+import { useUI } from '@components/ui/context'
 
-const CartSidebarView: FunctionComponent = () => {
-  const { closeSidebar } = useUI();
+const CartSidebarView: FC = () => {
+  const { closeSidebar } = useUI()
   return (
     <>
       <header className="px-4 py-6 sm:px-6 border-b border-gray-200">
@@ -57,7 +57,7 @@ const CartSidebarView: FunctionComponent = () => {
         <Button>Proceed to Checkout</Button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CartSidebarView;
+export default CartSidebarView

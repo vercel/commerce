@@ -1,14 +1,14 @@
-import cn from "classnames";
-import React, { FunctionComponent } from "react";
-import s from "./Searchbar.module.css";
+import cn from 'classnames'
+import { FC } from 'react'
+import s from './Searchbar.module.css'
 
 interface Props {
-  className?: string;
-  children?: any;
+  className?: string
+  children?: any
 }
 
-const Searchbar: FunctionComponent<Props> = ({ className }) => {
-  const rootClassName = cn(s.root, className);
+const Searchbar: FC<Props> = ({ className }) => {
+  const rootClassName = cn(s.root, className)
   return (
     <div className={rootClassName}>
       <div className="flex-1 flex justify-between px-2">
@@ -26,7 +26,7 @@ const Searchbar: FunctionComponent<Props> = ({ className }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Searchbar;
+export default Searchbar
