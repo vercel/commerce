@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import s from './Container.module.css'
 
 interface Props {
