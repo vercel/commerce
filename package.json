@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "pre-build": "yarn generate",
     "build": "next build",
     "start": "next start",
     "generate": "graphql-codegen"
