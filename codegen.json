@@ -20,5 +20,8 @@
     "./lib/bigcommerce/schema.graphql": {
       "plugins": ["schema-ast"]
     }
+  },
+  "hooks": {
+    "afterAllFileWrite": ["prettier --write"]
   }
 }
