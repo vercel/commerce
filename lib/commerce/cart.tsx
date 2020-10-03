@@ -1,31 +1,27 @@
-import { createContext, useContext, FunctionComponent } from 'react'
+import { createContext, useContext, FC } from 'react'
 import useSWR, { responseInterface } from 'swr'
 import { useCommerce } from '.'
-interface Props {
-  children?: any
-}
 
-export type Cart = any
-
-export type CartResponse<C extends Cart> = responseInterface<C, Error> & {
+export type CartResponse<C> = responseInterface<C, Error> & {
   isEmpty: boolean
 }
 
-const CartContext = createContext<CartResponse<Cart> | any>(null)
+export type CartProviderProps =
+  | { query: string; url?: string }
+  | { query?: string; url: string }
+
+const CartContext = createContext<CartResponse<any> | null>(null)
 
 function getCartCookie() {
   // TODO: Figure how the cart should be persisted
   return null
 }
 
-const CartProvider: FunctionComponent<Props> = ({ children }) => {
-  const { hooks, fetcher } = useCommerce<Cart>()
-  const { useCart } = hooks
+const CartProvider: FC<CartProviderProps> = ({ children, query, url }) => {
+  const { fetcher } = useCommerce()
   const cartId = getCartCookie()
-  const response = useSWR(
-    () => (cartId ? [useCart.url, useCart.query, useCart.resolver] : null),
-    fetcher
-  )
+  const response = useSWR(() => (cartId ? [url, query] : null), fetcher)
+  // TODO: Do something to make this prop work
   const isEmpty = true
 
   return (
@@ -35,7 +31,7 @@ const CartProvider: FunctionComponent<Props> = ({ children }) => {
   )
 }
 
-function useCart<C extends Cart>() {
+function useCart<C>() {
   return useContext(CartContext) as CartResponse<C>
 }
 
