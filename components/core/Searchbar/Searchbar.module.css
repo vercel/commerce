@@ -1,5 +1,5 @@
 .root {
-  @apply px-4 flex items-center;
+  @apply px-4 items-center hidden md:flex;
 }
 
 .container {

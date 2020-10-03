@@ -4,16 +4,24 @@
 
   & > * {
     @apply row-span-1 lg:col-span-1 h-full bg-black box-border;
+    height: 500px;
+
+    @screen lg {
+      height: auto;
+    }
   }
 
-  & > div:nth-child(6n + 1) {
+  & > div:nth-child(6n + 1),
+  & > div:nth-child(6n + 5) {
     @apply row-span-2 lg:col-span-2 bg-violet;
-    min-height: var(--row-height);
+
+    @screen lg {
+      min-height: var(--row-height);
+    }
   }
 
   & > div:nth-child(6n + 5) {
-    @apply row-span-2 lg:col-span-2 bg-blue;
-    min-height: var(--row-height);
+    @apply bg-blue;
   }
 
   & > div:nth-child(6n + 3) {

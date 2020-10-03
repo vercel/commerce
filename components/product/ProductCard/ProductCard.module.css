@@ -1,3 +1,20 @@
 .root {
   @apply relative w-full h-full p-6 box-border overflow-hidden;
 }
+
+.productTitle {
+  @apply p-3 h-14 bg-white text-black font-bold text-lg truncate leading-8 inline-flex;
+  max-width: calc(100% - 50px);
+
+  @screen lg {
+    @apply text-xl;
+  }
+}
+
+.productPrice {
+  @apply px-6 py-1 pb-3 bg-white text-black font-semibold inline-block text-sm leading-6;
+}
+
+.wishlistButton {
+  @apply w-14 h-14 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6;
+}
