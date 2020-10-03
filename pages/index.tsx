@@ -1,5 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
+import getAllProducts from '../lib/bigcommerce/api/operations/get-all-products'
 import { Layout } from '@components/core'
 import { ProductGrid } from '@components/product'
 
