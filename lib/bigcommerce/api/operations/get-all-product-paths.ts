@@ -1,5 +1,5 @@
-import type { GetAllProductPathsQuery } from 'lib/bigcommerce/schema'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import { GetAllProductPathsQuery } from 'lib/bigcommerce/schema'
+import { RecursivePartial, RecursiveRequired } from '../utils/types'
 import { BigcommerceConfig, getConfig } from '..'
 
 export const getAllProductPathsQuery = /* GraphQL */ `

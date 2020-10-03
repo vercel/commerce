@@ -1,8 +1,8 @@
-import type {
+import {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
 } from 'lib/bigcommerce/schema'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import { RecursivePartial, RecursiveRequired } from '../utils/types'
 import { productInfoFragment } from '../fragments/product'
 import { BigcommerceConfig, getConfig, Images, ProductImageVariables } from '..'
 
