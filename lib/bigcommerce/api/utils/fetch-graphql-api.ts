@@ -1,7 +1,7 @@
 import { CommerceAPIFetchOptions } from 'lib/commerce/api'
 import { getConfig } from '..'
 
-export default async function fetchAPI<Q, V = any>(
+export default async function fetchGraphqlApi<Q, V = any>(
   query: string,
   { variables, preview }: CommerceAPIFetchOptions<V> = {}
 ): Promise<Q> {

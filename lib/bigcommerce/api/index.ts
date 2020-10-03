@@ -1,6 +1,6 @@
 import { CommerceAPIConfig } from 'lib/commerce/api'
 import { GetAllProductsQueryVariables } from '../schema'
-import fetchAPI from './utils/fetch-api'
+import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
 
 export interface Images {
@@ -107,7 +107,7 @@ const config = new Config({
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
   cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
-  fetch: fetchAPI,
+  fetch: fetchGraphqlApi,
   // REST API only
   storeApiUrl: STORE_API_URL,
   storeApiToken: STORE_API_TOKEN,
