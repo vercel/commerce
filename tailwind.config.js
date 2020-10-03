@@ -16,6 +16,10 @@ module.exports = {
         pink: '#FF0080',
         cyan: '#50E3C2',
         blue: '#0070F3',
+        primary: '#000',
+        textColor: {
+          primary: '#FFF',
+        },
       },
     },
   },

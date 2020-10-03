@@ -13,13 +13,13 @@ const Navbar: FC<Props> = ({ className }) => {
   return (
     <Container className={rootClassName}>
       <Logo />
-      <div className="flex flex-row h-full content-center flex-1">
-        <Searchbar />
+      <div className="flex flex-row h-full content-center flex-1 ml-10">
         <nav className="hidden flex-row items-center px-3 lg:flex">
           <a className="pr-4">All</a>
           <a className="pr-4">Clothes</a>
           <a>Accesories</a>
         </nav>
+        <Searchbar />
       </div>
       <UserNav />
     </Container>
