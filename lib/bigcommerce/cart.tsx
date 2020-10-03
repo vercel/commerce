@@ -1,21 +1,15 @@
+import { FC } from 'react'
 import {
   CartProvider as CommerceCartProvider,
   useCart as useCommerceCart,
 } from 'lib/commerce/cart'
-import { FunctionComponent } from 'react'
 
 export type Cart = any
 
-interface Props {
-  children?: any
+export const CartProvider: FC = ({ children }) => {
+  return <CommerceCartProvider query="">{children}</CommerceCartProvider>
 }
 
-function useCart() {
+export function useCart() {
   return useCommerceCart<Cart>()
 }
-
-const CartProvider: FunctionComponent<Props> = ({ children }) => {
-  return <CommerceCartProvider>{children}</CommerceCartProvider>
-}
-
-export { CartProvider, useCart }

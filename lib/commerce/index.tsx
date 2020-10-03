@@ -1,29 +1,27 @@
 import { createContext, ReactNode, useContext } from 'react'
 
-const Commerce = createContext<Connector | any>(null)
+const Commerce = createContext<CommerceConfig | null>(null)
 
 export type CommerceProps = {
-  children?: ReactNode | any
-  connector: Connector
+  children?: ReactNode
+  config: CommerceConfig
 }
 
-export type Connector = {
+export type CommerceConfig = {
   fetcher: Fetcher<any>
   locale: string
 }
 
 export type Fetcher<T> = (...args: any) => T | Promise<T>
 
-export function CommerceProvider({ children, connector }: CommerceProps) {
-  if (!connector) {
-    throw new Error(
-      'CommerceProvider requires a valid headless commerce connector'
-    )
+export function CommerceProvider({ children, config }: CommerceProps) {
+  if (!config) {
+    throw new Error('CommerceProvider requires a valid config object')
   }
 
-  return <Commerce.Provider value={connector}>{children}</Commerce.Provider>
+  return <Commerce.Provider value={config}>{children}</Commerce.Provider>
 }
 
-export function useCommerce<T extends Connector>() {
+export function useCommerce<T extends CommerceConfig>() {
   return useContext(Commerce) as T
 }
