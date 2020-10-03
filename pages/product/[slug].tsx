@@ -1,9 +1,9 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import getProduct from '../../lib/bigcommerce/api/operations/get-product'
+import getProduct from '@lib/bigcommerce/api/operations/get-product'
 import { Layout } from '@components/core'
 import { ProductView } from '@components/product'
-import getAllProductPaths from '../../lib/bigcommerce/api/operations/get-all-product-paths'
+import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-paths'
 
 export async function getStaticProps({
   params,
