@@ -1,6 +1,7 @@
 import { CommerceAPIConfig } from 'lib/commerce/api'
 import { GetAllProductsQueryVariables } from '../schema'
 import fetchAPI from './utils/fetch-api'
+import fetchStoreApi from './utils/fetch-store-api'
 
 export interface Images {
   small?: ImageOptions
@@ -28,6 +29,10 @@ export type ProductImageVariables = Pick<
 
 export interface BigcommerceConfigOptions extends CommerceAPIConfig {
   images?: Images
+  storeApiUrl: string
+  storeApiToken: string
+  storeApiClientId: string
+  storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
 }
 
 export interface BigcommerceConfig extends BigcommerceConfigOptions {
@@ -36,6 +41,9 @@ export interface BigcommerceConfig extends BigcommerceConfigOptions {
 
 const API_URL = process.env.BIGCOMMERCE_STOREFRONT_API_URL
 const API_TOKEN = process.env.BIGCOMMERCE_STOREFRONT_API_TOKEN
+const STORE_API_URL = process.env.BIGCOMMERCE_STORE_API_URL
+const STORE_API_TOKEN = process.env.BIGCOMMERCE_STORE_API_TOKEN
+const STORE_API_CLIENT_ID = process.env.BIGCOMMERCE_STORE_API_CLIENT_ID
 
 if (!API_URL) {
   throw new Error(
@@ -49,32 +57,45 @@ if (!API_TOKEN) {
   )
 }
 
+if (!(STORE_API_URL && STORE_API_TOKEN && STORE_API_CLIENT_ID)) {
+  throw new Error(
+    `The environment variables BIGCOMMERCE_STORE_API_URL, BIGCOMMERCE_STORE_API_TOKEN, BIGCOMMERCE_STORE_API_CLIENT_ID have to be set in order to access the REST API of your store`
+  )
+}
+
 export class Config {
   private config: BigcommerceConfig
 
   constructor(config: BigcommerceConfigOptions) {
     this.config = {
       ...config,
-      get imageVariables() {
-        const { images } = this
-        return images
-          ? {
-              imgSmallWidth: images.small?.width,
-              imgSmallHeight: images.small?.height,
-              imgMediumWidth: images.medium?.height,
-              imgMediumHeight: images.medium?.height,
-              imgLargeWidth: images.large?.height,
-              imgLargeHeight: images.large?.height,
-              imgXLWidth: images.xl?.height,
-              imgXLHeight: images.xl?.height,
-            }
-          : undefined
-      },
+      imageVariables: this.getImageVariables(config.images),
     }
   }
 
-  getConfig() {
-    return this.config
+  getImageVariables(images?: Images) {
+    return images
+      ? {
+          imgSmallWidth: images.small?.width,
+          imgSmallHeight: images.small?.height,
+          imgMediumWidth: images.medium?.height,
+          imgMediumHeight: images.medium?.height,
+          imgLargeWidth: images.large?.height,
+          imgLargeHeight: images.large?.height,
+          imgXLWidth: images.xl?.height,
+          imgXLHeight: images.xl?.height,
+        }
+      : undefined
+  }
+
+  getConfig(userConfig: Partial<BigcommerceConfig> = {}) {
+    const { images: configImages, ...config } = this.config
+    const images = { ...configImages, ...userConfig.images }
+
+    return Object.assign(config, userConfig, {
+      images,
+      imageVariables: this.getImageVariables(images),
+    })
   }
 
   setConfig(newConfig: Partial<BigcommerceConfig>) {
@@ -85,11 +106,17 @@ export class Config {
 const config = new Config({
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
+  cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
   fetch: fetchAPI,
+  // REST API only
+  storeApiUrl: STORE_API_URL,
+  storeApiToken: STORE_API_TOKEN,
+  storeApiClientId: STORE_API_CLIENT_ID,
+  storeApiFetch: fetchStoreApi,
 })
 
-export function getConfig() {
-  return config.getConfig()
+export function getConfig(userConfig?: Partial<BigcommerceConfig>) {
+  return config.getConfig(userConfig)
 }
 
 export function setConfig(newConfig: Partial<BigcommerceConfig>) {

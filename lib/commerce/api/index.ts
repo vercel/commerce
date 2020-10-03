@@ -1,6 +1,7 @@
 export interface CommerceAPIConfig {
   commerceUrl: string
   apiToken: string
+  cartCookie: string
   fetch<Q, V = any>(
     query: string,
     queryData?: CommerceAPIFetchOptions<V>
