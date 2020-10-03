@@ -39,10 +39,10 @@ const ProductCard: FC<Props> = ({ className, productData }) => {
       </div>
 
       <div className="absolute top-0 left-0 w-full h-full z-0">
-        <img
+        {/* <img
           className="object-cover object-center w-full"
           src={productData.images.edges[0].node.urlSmall}
-        />
+        /> */}
       </div>
     </div>
   )

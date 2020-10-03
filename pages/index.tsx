@@ -13,7 +13,22 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <ProductGrid products={products} />
+  return (
+    <>
+      <ProductGrid
+        products={[
+          ...products,
+          ...products,
+          ...products,
+          ...products,
+          ...products,
+          ...products,
+        ]}
+      />
+      <div>asdsasad</div>
+      <ProductGrid products={products.slice(3)} />
+    </>
+  )
 }
 
 Home.Layout = Layout

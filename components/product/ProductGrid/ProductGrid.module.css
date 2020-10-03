@@ -1,29 +1,26 @@
 .root {
-  @apply grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-4 w-full h-96;
-  min-height: calc((100vh - 80px - 56px) * 2);
+  --row-height: calc(100vh - 80px - 56px);
+  @apply grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-4 w-full;
 
   & > * {
     @apply row-span-1 lg:col-span-1 h-full bg-black box-border;
   }
 
-  & > div:nth-child(1),
-  & > div:nth-child(5) {
-    @apply row-span-2 lg:col-span-2 h-full;
+  & > div:nth-child(6n + 1) {
+    @apply row-span-2 lg:col-span-2 bg-violet;
+    min-height: var(--row-height);
   }
 
-  & > div:nth-child(1) {
-    @apply bg-violet;
+  & > div:nth-child(6n + 5) {
+    @apply row-span-2 lg:col-span-2 bg-blue;
+    min-height: var(--row-height);
   }
 
-  & > div:nth-child(3) {
+  & > div:nth-child(6n + 3) {
     @apply bg-pink;
   }
 
-  & > div:nth-child(5) {
-    @apply bg-blue;
-  }
-
-  & > div:nth-child(6) {
+  & > div:nth-child(6n + 6) {
     @apply bg-cyan;
   }
 }
