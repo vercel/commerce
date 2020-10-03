@@ -56,12 +56,13 @@ async function getProduct<T, V = any>(opts: {
 async function getProduct({
   query = getProductQuery,
   variables: { slug, ...vars },
-  config = getConfig(),
+  config,
 }: {
   query?: string
   variables: ProductVariables
   config?: BigcommerceConfig
 }): Promise<GetProductResult<GetProductQuery>> {
+  config = getConfig(config)
   const variables: GetProductQueryVariables = {
     ...config.imageVariables,
     ...vars,

@@ -25,7 +25,7 @@ const cartApi: BigcommerceApiHandler = async (req, res, config) => {
       )
     } catch (error) {
       if (error instanceof BigcommerceApiError && error.status === 404) {
-        // The cookie exists but the cart wasn't found, so, remove the cookie
+        // Remove the cookie if it exists but the cart wasn't found
         res.setHeader('Set-Cookie', getCartCookie(name))
       } else {
         throw error

@@ -33,11 +33,12 @@ async function getAllProductPaths<T, V = any>(opts: {
 
 async function getAllProductPaths({
   query = getAllProductPathsQuery,
-  config = getConfig(),
+  config,
 }: {
   query?: string
   config?: BigcommerceConfig
 } = {}): Promise<GetAllProductPathsResult<GetAllProductPathsQuery>> {
+  config = getConfig(config)
   // RecursivePartial forces the method to check for every prop in the data, which is
   // required in case there's a custom `query`
   const data = await config.fetch<RecursivePartial<GetAllProductPathsQuery>>(
