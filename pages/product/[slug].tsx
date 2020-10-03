@@ -1,14 +1,14 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import getProduct from 'lib/bigcommerce/api/operations/get-product'
+// import getProduct from 'lib/bigcommerce/api/operations/get-product'
 import { Layout } from '@components/core'
 import { ProductView } from '@components/product'
-import getAllProductPaths from 'lib/bigcommerce/api/operations/get-all-product-paths'
+// import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-paths'
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
-  const { product } = await getProduct({ variables: { slug: params!.slug } })
+  // const { product } = await getProduct({ variables: { slug: params!.slug } })
   const productData = {
     name: 'T-Shirt',
     description: `
@@ -26,7 +26,7 @@ export async function getStaticProps({
   }
   return {
     props: {
-      product,
+      // product,
       productData,
     },
     revalidate: 200,
@@ -34,15 +34,12 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const { products } = await getAllProductPaths()
+  // const { products } = await getAllProductPaths()
 
   return {
-    paths: products.map((product) => {
-      const { path } = product!.node
-      // Exclude the slashes: `/slug/` -> `slug`
-      return { params: { slug: path.substring(1, path.length - 1) } }
-    }),
-    fallback: false,
+    paths: [],
+    // paths: products.map((product) => `/product${product!.node.path}`),
+    fallback: 'unstable_blocking',
   }
 }
 
