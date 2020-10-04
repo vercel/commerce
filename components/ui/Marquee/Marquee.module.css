@@ -1,5 +1,15 @@
 .root {
-  @apply bg-white py-10 w-full relative flex flex-row;
+  @apply w-full relative;
+  min-width: 100%;
+}
+
+.container {
+  @apply flex flex-row;
+
+  & > * {
+    @apply flex-1;
+    min-width: 500px;
+  }
 }
 
 .primary {
@@ -7,5 +17,5 @@
 }
 
 .secondary {
-  @apply bg-violet;
+  @apply bg-black;
 }

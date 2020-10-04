@@ -24,7 +24,6 @@
     "cookie": "^0.4.1",
     "lodash": "^4.17.20",
     "next": "^9.5.4-canary.23",
-    "postcss-nested": "^5.0.1",
     "postcss-nesting": "^7.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -17,34 +17,6 @@ export default function Home({
   return (
     <>
       <Grid items={products.slice(0, 3)} wrapper={ProductCard} />
-      <Marquee
-        items={[...products.slice(0, 3)]}
-        wrapper={(p: any) => (
-          <div className="p-3 flex flex-row">
-            <div className="h-24 w-full bg-yellow-300 overflow-hidden">
-              <img
-                className="w-full"
-                src={p.node.images.edges[0].node.urlSmall}
-              />
-            </div>
-            <span className="flex-0 bg-black text-white inline-block p-3 font-bold text-xl break-words">
-              {p.node.name}
-            </span>
-          </div>
-        )}
-      />
-      <Grid items={products.slice(3, 6)} layout="B" wrapper={ProductCard} />
-      <Marquee
-        variant="secondary"
-        items={products.slice(0, 3)}
-        wrapper={() => (
-          <div className="flex flex-1">
-            <h3 className="bg-black text-white inline p-3 font-bold text-2xl">
-              This is a very short title
-            </h3>
-          </div>
-        )}
-      />
       <Hero
         headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
         description="
@@ -55,6 +27,35 @@ export default function Home({
         Hebrew. It’s now undergone a name change, and will be referred to as
         ‘Natural’."
       />
+      <Marquee
+        items={[...products.slice(0, 3)]}
+        wrapper={(p: any) => (
+          <div className="relative overflow-hidden p-6 box-border">
+            <img
+              className="object-scale-down h-24"
+              src={p.node.images.edges[0].node.urlSmall}
+            />
+            <div className="absolute inset-0 flex items-center justify-end mr-8">
+              <span className="bg-black text-white inline-block p-3 font-bold text-xl break-words">
+                {p.node.name}
+              </span>
+            </div>
+          </div>
+        )}
+      />
+      <Grid items={products.slice(3, 6)} layout="B" wrapper={ProductCard} />
+      <Marquee
+        variant="secondary"
+        items={products.slice(0, 3)}
+        wrapper={() => (
+          <div className="flex">
+            <h3 className="bg-black text-white inline p-2 px-3 font-bold text-2xl">
+              This is a very short title
+            </h3>
+          </div>
+        )}
+      />
+
       <div className="py-12 max-h-80">
         <div className="break-word w-24">
           ALL CATEGORIES ACCESSORIES BAGS CLOTHING SHOES ALL DESIGNERS 032c 1017

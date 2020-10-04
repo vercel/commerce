@@ -17,7 +17,8 @@ const M: FC<Props> = ({
   className = '',
   items,
   wrapper: Component = DefaultWrapper,
-  variant = 'white',
+  variant = 'primary',
+  min = 'none',
 }) => {
   const rootClassName = cn(
     s.root,
@@ -28,17 +29,25 @@ const M: FC<Props> = ({
     className
   )
 
-  const flickityOptions = {
-    initialIndex: 2,
-  }
+  // return (
+  //   <div className={rootClassName}>
+  //     <div className={s.container}>
+  //       {items.map((p: any) => (
+  //         <Component {...p} />
+  //       ))}
+  //     </div>
+  //   </div>
+  // )
 
   return (
     <Ticker>
       {({ index }) => (
         <div className={rootClassName}>
-          {items.map((p: any) => (
-            <Component {...p} key={index} />
-          ))}
+          <div className={s.container}>
+            {items.map((p: any) => (
+              <Component {...p} key={index} />
+            ))}
+          </div>
         </div>
       )}
     </Ticker>
