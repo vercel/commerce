@@ -1,6 +1,6 @@
 import { createContext, useContext, FC } from 'react'
 import useSWR, { responseInterface } from 'swr'
-import { useCommerce } from '.'
+import { useCommerce } from '..'
 
 export type CartResponse<C> = responseInterface<C, Error> & {
   isEmpty: boolean
@@ -18,7 +18,8 @@ function getCartCookie() {
 }
 
 const CartProvider: FC<CartProviderProps> = ({ children, query, url }) => {
-  const { fetcher } = useCommerce()
+  const { fetcher: fetch } = useCommerce()
+  const fetcher = (url?: string, query?: string) => fetch({ url, query })
   const cartId = getCartCookie()
   const response = useSWR(() => (cartId ? [url, query] : null), fetcher)
 
