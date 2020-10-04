@@ -24,6 +24,9 @@ export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
 export type FetcherOptions = {
   url?: string
   query?: string
+  method?: string
+  variables?: any
+  body?: any
 }
 
 export function CommerceProvider({ children, config }: CommerceProps) {

@@ -33,7 +33,7 @@ const cartApi: BigcommerceApiHandler = async (req, res, config) => {
         }
       }
 
-      return res.status(200).json({ cart: result.data ?? null })
+      return res.status(200).json({ data: result.data ?? null })
     }
 
     // Create or add a product to the cart
@@ -62,9 +62,7 @@ const cartApi: BigcommerceApiHandler = async (req, res, config) => {
         getCartCookie(name, data.id, config.cartCookieMaxAge)
       )
 
-      // There's no need to send any additional data here, the UI can use this response to display a
-      // "success" for the operation and revalidate the GET request for this same endpoint right after.
-      return res.status(200).json({ done: true })
+      return res.status(200).json({ done: { data } })
     }
   } catch (error) {
     const message =

@@ -4,7 +4,7 @@ import {
   useCart as useCommerceCart,
 } from 'lib/commerce/cart'
 
-export type Cart = any
+export type Cart = {}
 
 export const CartProvider: FC = ({ children }) => {
   return <CommerceCartProvider url="/api/cart">{children}</CommerceCartProvider>
