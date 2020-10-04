@@ -1,5 +1,5 @@
 .root {
-  @apply relative w-full h-full p-6 box-border overflow-hidden;
+  @apply relative w-full p-6 box-border overflow-hidden;
 }
 
 .productTitle {

@@ -16,6 +16,7 @@ interface ProductData {
 
 const ProductCard: FC<Props> = ({ className, productData }) => {
   const rootClassName = cn(s.root, className)
+
   return (
     <div className={rootClassName}>
       {/* Overlay */}
@@ -30,18 +31,17 @@ const ProductCard: FC<Props> = ({ className, productData }) => {
             </div>
           </div>
         </div>
-
         <div className={s.wishlistButton}>
           <Heart />
         </div>
       </div>
 
-      <div className="absolute box-border top-0 left-0 w-full h-full z-0 m-12">
-        {/* <img
+      {/* <div className="absolute box-border top-0 left-0 w-full z-0 m-12"> */}
+      {/* <img
           className="object-cover object-center w-full"
           src={productData.images.edges[0].node.urlSmall}
         /> */}
-      </div>
+      {/* </div> */}
     </div>
   )
 }
