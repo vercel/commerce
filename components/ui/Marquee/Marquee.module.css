@@ -1,5 +1,5 @@
 .root {
-  @apply bg-white py-10 flex flex-row w-full;
+  @apply bg-white py-10 w-full relative flex flex-row;
 }
 
 .primary {

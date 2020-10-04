@@ -1,5 +1,5 @@
 .root {
-  @apply relative w-full p-6 box-border overflow-hidden;
+  @apply relative w-full p-6 box-border overflow-hidden bg-no-repeat bg-center bg-cover transition ease-linear;
 }
 
 .productTitle {
@@ -7,7 +7,7 @@
   max-width: calc(100% - 50px);
 
   @screen lg {
-    @apply text-xl;
+    @apply text-2xl;
   }
 }
 
@@ -16,5 +16,5 @@
 }
 
 .wishlistButton {
-  @apply w-14 h-14 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6;
+  @apply w-14 h-14 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6 cursor-pointer;
 }

@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import s from './Marquee.module.css'
 import { FC } from 'react'
+import Ticker from 'react-ticker'
 
 interface Props {
   className?: string
@@ -12,7 +13,7 @@ interface Props {
 
 const DefaultWrapper: FC<Props> = ({ children }) => <div>{children}</div> // DEFAULT PRODUCT WRAPPER
 
-const Marquee: FC<Props> = ({
+const M: FC<Props> = ({
   className = '',
   items,
   wrapper: Component = DefaultWrapper,
@@ -26,13 +27,22 @@ const Marquee: FC<Props> = ({
     },
     className
   )
+
+  const flickityOptions = {
+    initialIndex: 2,
+  }
+
   return (
-    <div className={rootClassName}>
-      {items.map((p: any) => (
-        <Component {...p} />
-      ))}
-    </div>
+    <Ticker>
+      {({ index }) => (
+        <div className={rootClassName}>
+          {items.map((p: any) => (
+            <Component {...p} key={index} />
+          ))}
+        </div>
+      )}
+    </Ticker>
   )
 }
 
-export default Marquee
+export default M
