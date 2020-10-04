@@ -3,7 +3,7 @@
   @apply grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-0;
 
   & > * {
-    @apply row-span-1 lg:col-span-1 bg-black border border-yellow-300 box-border overflow-hidden;
+    @apply row-span-1 lg:col-span-1 bg-black box-border overflow-hidden;
     height: 500px;
     max-height: 800px;
 
@@ -35,12 +35,12 @@
 
 .layoutB {
   & > div:nth-child(6n + 2) {
-    @apply row-span-2 lg:col-span-2 bg-violet;
+    @apply row-span-2 lg:col-span-2 bg-blue;
     height: var(--row-height);
   }
 
   & > div:nth-child(6n + 4) {
-    @apply row-span-2 lg:col-span-2 bg-blue;
+    @apply row-span-2 lg:col-span-2 bg-violet;
     height: var(--row-height);
   }
 
