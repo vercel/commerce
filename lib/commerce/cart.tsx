@@ -21,11 +21,9 @@ const CartProvider: FC<CartProviderProps> = ({ children, query, url }) => {
   const { fetcher } = useCommerce()
   const cartId = getCartCookie()
   const response = useSWR(() => (cartId ? [url, query] : null), fetcher)
-  // TODO: Do something to make this prop work
-  const isEmpty = true
 
   return (
-    <CartContext.Provider value={{ ...response, isEmpty }}>
+    <CartContext.Provider value={{ ...response, isEmpty: true }}>
       {children}
     </CartContext.Provider>
   )

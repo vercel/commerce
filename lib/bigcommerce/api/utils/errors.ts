@@ -1,16 +1,5 @@
 // Used for GraphQL errors
-export class BigcommerceError extends Error {
-  status?: number
-
-  constructor(msg: string, res?: Response) {
-    super(msg)
-    this.name = 'BigcommerceError'
-
-    if (res) {
-      this.status = res.status
-    }
-  }
-}
+export class BigcommerceGraphQLError extends Error {}
 
 export class BigcommerceApiError extends Error {
   status: number

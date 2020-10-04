@@ -103,10 +103,12 @@ export class Config {
   }
 }
 
+const ONE_DAY = 60 * 60 * 24
 const config = new Config({
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
   cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
+  cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
   // REST API only
   storeApiUrl: STORE_API_URL,
