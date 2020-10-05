@@ -14,7 +14,7 @@ const Navbar: FC<Props> = ({ className }) => {
   return (
     <Container className={rootClassName}>
       <Link href="/">
-        <h1 className="cursor-pointer">
+        <h1 className="inline-block cursor-pointer">
           <Logo />
         </h1>
       </Link>
