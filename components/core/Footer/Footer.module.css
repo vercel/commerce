@@ -1,5 +1,5 @@
 .root {
-  @apply p-0;
+  @apply p-0 bg-black text-white;
 }
 
 .container {

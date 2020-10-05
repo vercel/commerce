@@ -1,3 +1,7 @@
 .root {
   @apply h-full;
 }
+
+.main {
+  min-height: 100vh;
+}

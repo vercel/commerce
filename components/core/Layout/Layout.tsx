@@ -3,7 +3,7 @@ import { FC } from 'react'
 import s from './Layout.module.css'
 import { CommerceProvider } from '@lib/bigcommerce'
 import { CartProvider } from '@lib/bigcommerce/cart'
-import { Navbar, Featurebar } from '@components/core'
+import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { UIProvider, useUI } from '@components/ui/context'
@@ -25,8 +25,9 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
       />
       <Container>
         <Navbar />
-        <main className="h-screen">{children}</main>
+        <main className={s.main}>{children}</main>
       </Container>
+      <Footer />
       {displaySidebar && (
         <Sidebar>
           <CartSidebarView />
