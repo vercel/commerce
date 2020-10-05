@@ -36,8 +36,6 @@ const ProductView: FC<Props> = ({ product, productData, className }) => {
     })
   }
 
-  console.log('PRODUCT', product)
-
   return (
     <div className={cn(s.root, className)}>
       <div className="absolute">

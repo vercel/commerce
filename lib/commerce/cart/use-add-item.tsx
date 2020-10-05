@@ -6,11 +6,6 @@ export default function useAddItem<T, Input>(
   const { fetcher: fetch } = useCommerce()
 
   return async function addItem(input: Input) {
-    const data = fetcher(fetch, input)
-
-    // TODO: Using the state of the cart provider, update the saved cart
-    // return mutate('/api/cart')
-
-    return data
+    return fetcher(fetch, input)
   }
 }

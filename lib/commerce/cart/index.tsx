@@ -1,4 +1,4 @@
-import { createContext, useContext, FC } from 'react'
+import { createContext, useContext, FC, useCallback } from 'react'
 import useSWR, { responseInterface } from 'swr'
 import Cookies from 'js-cookie'
 import { useCommerce } from '..'
@@ -17,10 +17,13 @@ const CartProvider: FC<CartProviderProps> = ({ children, query, url }) => {
   const { fetcher: fetch, cartCookie } = useCommerce()
   const fetcher = (url?: string, query?: string) => fetch({ url, query })
   const cartId = Cookies.get(cartCookie)
-  const response = useSWR(() => (cartId ? [url, query] : null), fetcher)
+  const response = useSWR(() => (cartId ? [url, query] : null), fetcher, {
+    revalidateOnFocus: false,
+  })
 
   return (
-    <CartContext.Provider value={{ ...response, isEmpty: true }}>
+    // Avoid destructuring in `response` so we don't trigger the getters early
+    <CartContext.Provider value={Object.assign(response, { isEmpty: true })}>
       {children}
     </CartContext.Provider>
   )

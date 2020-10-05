@@ -1,7 +1,7 @@
 import type { Fetcher } from '@lib/commerce'
 import { default as useCartAddItem } from '@lib/commerce/cart/use-add-item'
 import type { Item } from '../api/cart'
-import { Cart } from '.'
+import { Cart, useCart } from '.'
 
 export type { Item }
 
@@ -19,5 +19,13 @@ function fetcher(fetch: Fetcher<Cart>, { item }: { item: Item }) {
 }
 
 export default function useAddItem() {
-  return useCartAddItem<Cart, { item: Item }>(fetcher)
+  const { mutate } = useCart()
+  const fn = useCartAddItem<Cart, { item: Item }>(fetcher)
+  const addItem: typeof fn = async (input) => {
+    const data = await fn(input)
+    mutate(data)
+    return data
+  }
+
+  return addItem
 }
