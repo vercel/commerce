@@ -28,6 +28,7 @@ const COLORS: Colors[] = ['pink', 'black', 'white']
 const ProductView: FC<Props> = ({ product, productData, className }) => {
   const addItem = useAddItem()
   const addToCart = () => {
+    // TODO: loading state by awating the promise
     addItem({
       item: {
         productId: product.entityId,
