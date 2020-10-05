@@ -19,20 +19,8 @@ export default function Home({
     <>
       <Grid items={products.slice(0, 3)} wrapper={ProductCard} />
       <Marquee
-        items={[...products.slice(3, 6)]}
-        wrapper={(p: any) => (
-          <div className="relative overflow-hidden p-6 box-border">
-            <img
-              className="object-scale-down h-24"
-              src={p.node.images.edges[0].node.urlSmall}
-            />
-            <div className="absolute inset-0 flex items-center justify-end mr-8">
-              <span className="bg-black text-white inline-block p-3 font-bold text-xl break-words">
-                {p.node.name}
-              </span>
-            </div>
-          </div>
-        )}
+        items={products.slice(0, 3)}
+        wrapper={(p: any) => <ProductCard {...p} variant="slim" />}
       />
       <Hero
         headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
@@ -48,19 +36,7 @@ export default function Home({
       <Marquee
         items={[...products.slice(3, 6)]}
         variant="secondary"
-        wrapper={(p: any) => (
-          <div className="relative overflow-hidden p-6 box-border">
-            <img
-              className="object-scale-down h-24"
-              src={p.node.images.edges[0].node.urlSmall}
-            />
-            <div className="absolute inset-0 flex items-center justify-end mr-8">
-              <span className="bg-black text-white inline-block p-3 font-bold text-xl break-words">
-                {p.node.name}
-              </span>
-            </div>
-          </div>
-        )}
+        wrapper={(p: any) => <ProductCard {...p} variant="slim" />}
       />
       <div className="py-12 flex flex-row w-full">
         <div className="flex-0 pr-3 w-48 break-words">

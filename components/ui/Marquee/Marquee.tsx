@@ -18,7 +18,6 @@ const M: FC<Props> = ({
   items,
   wrapper: Component = DefaultWrapper,
   variant = 'primary',
-  // min = 'none',
 }) => {
   const rootClassName = cn(
     s.root,
@@ -40,17 +39,17 @@ const M: FC<Props> = ({
   // )
 
   return (
-    <Ticker>
-      {({ index }) => (
-        <div className={rootClassName}>
+    <div className={rootClassName}>
+      <Ticker>
+        {({ index }) => (
           <div className={s.container}>
             {items.map((p: any) => (
               <Component {...p} key={index} />
             ))}
           </div>
-        </div>
-      )}
-    </Ticker>
+        )}
+      </Ticker>
+    </div>
   )
 }
 

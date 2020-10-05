@@ -1,14 +1,26 @@
 .root {
-  @apply w-full relative;
+  @apply w-full;
   min-width: 100%;
 }
 
 .container {
-  @apply flex flex-row;
+  @apply flex flex-row items-center;
 
   & > * {
-    @apply flex-1;
-    min-width: 500px;
+    @apply flex-1 px-16 py-4;
+    width: 460px;
+  }
+
+  & > *:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    height: 100px;
+    background: #999;
+    width: 2px;
+    left: 20px;
+    top: calc(50% - 53px);
+    transform: rotate(25deg);
   }
 }
 
