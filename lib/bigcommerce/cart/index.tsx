@@ -18,6 +18,8 @@ export const CartProvider: FC = ({ children }) => {
 export function useCart() {
   const cart = useCommerceCart<Cart>()
 
+  // Uses a getter to only calculate the prop when required
+  // cart.data is also a getter and it's better to not trigger it early
   Object.defineProperty(cart, 'isEmpty', {
     get() {
       return Object.values(cart.data?.line_items ?? {}).every(
