@@ -11,7 +11,20 @@ export type Item = {
   quantity?: number
 }
 
-export type Cart = any
+// TODO: this type should match:
+// https://developer.bigcommerce.com/api-reference/cart-checkout/server-server-cart-api/cart/getacart#responses
+export type Cart = {
+  id: string
+  parent_id?: string
+  customer_id: number
+  email: string
+  currency: { code: string }
+  tax_included: boolean
+  base_amount: number
+  discount_amount: number
+  cart_amount: number
+  // TODO: add missing fields
+}
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
@@ -91,7 +104,6 @@ function getCartCookie(name: string, cartId?: string, maxAge?: number) {
       ? {
           maxAge,
           expires: new Date(Date.now() + maxAge * 1000),
-          httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           path: '/',
           sameSite: 'lax',

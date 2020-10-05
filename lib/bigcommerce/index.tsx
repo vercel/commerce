@@ -23,6 +23,7 @@ async function getError(res: Response) {
 
 export const bigcommerceConfig: CommerceConfig = {
   locale: 'en-us',
+  cartCookie: 'bc_cartId',
   async fetcher({ url, method = 'GET', variables, body: bodyObj }) {
     const hasBody = Boolean(variables || bodyObj)
     const body = hasBody

@@ -1,5 +1,6 @@
 import { createContext, useContext, FC } from 'react'
 import useSWR, { responseInterface } from 'swr'
+import Cookies from 'js-cookie'
 import { useCommerce } from '..'
 
 export type CartResponse<C> = responseInterface<C, Error> & {
@@ -12,15 +13,10 @@ export type CartProviderProps =
 
 const CartContext = createContext<CartResponse<any> | null>(null)
 
-function getCartCookie() {
-  // TODO: Figure how the cart should be persisted
-  return null
-}
-
 const CartProvider: FC<CartProviderProps> = ({ children, query, url }) => {
-  const { fetcher: fetch } = useCommerce()
+  const { fetcher: fetch, cartCookie } = useCommerce()
   const fetcher = (url?: string, query?: string) => fetch({ url, query })
-  const cartId = getCartCookie()
+  const cartId = Cookies.get(cartCookie)
   const response = useSWR(() => (cartId ? [url, query] : null), fetcher)
 
   return (

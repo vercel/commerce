@@ -17,6 +17,7 @@ export type CommerceProps = {
 export type CommerceConfig = {
   fetcher: Fetcher<any>
   locale: string
+  cartCookie: string
 }
 
 export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
