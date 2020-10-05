@@ -5,11 +5,19 @@ import createApiHandler, {
 } from './utils/create-api-handler'
 import { BigcommerceApiError } from './utils/errors'
 
-export type Item = {
+type Body<T> = Partial<T> | undefined
+
+export type ItemBody = {
   productId: number
   variantId: number
   quantity?: number
 }
+
+export type AddItemBody = { item: ItemBody }
+
+export type UpdateItemBody = { itemId: string; item: ItemBody }
+
+export type RemoveItemBody = { itemId: string }
 
 // TODO: this type should match:
 // https://developer.bigcommerce.com/api-reference/cart-checkout/server-server-cart-api/cart/getacart#responses
@@ -34,6 +42,7 @@ export type Cart = {
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
+// TODO: a complete implementation should have schema validation for `req.body`
 const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
   if (!isAllowedMethod(req, res, METHODS)) return
 
@@ -63,7 +72,7 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
 
     // Create or add an item to the cart
     if (req.method === 'POST') {
-      const item: Item | undefined = req.body?.item
+      const { item } = (req.body as Body<AddItemBody>) ?? {}
 
       if (!item) {
         return res.status(400).json({
@@ -71,6 +80,7 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
           errors: [{ message: 'Missing item' }],
         })
       }
+      if (!item.quantity) item.quantity = 1
 
       const options = {
         method: 'POST',
@@ -93,10 +103,7 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
 
     // Update item in cart
     if (req.method === 'PUT') {
-      const { itemId, item } = (req.body ?? {}) as {
-        itemId?: string
-        item?: Item
-      }
+      const { itemId, item } = (req.body as Body<UpdateItemBody>) ?? {}
 
       if (!cartId || !itemId || !item) {
         return res.status(400).json({
@@ -112,6 +119,33 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
           body: JSON.stringify({
             line_items: [parseItem(item)],
           }),
+        }
+      )
+
+      // Update the cart cookie
+      res.setHeader(
+        'Set-Cookie',
+        getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
+      )
+
+      return res.status(200).json({ data })
+    }
+
+    // Remove an item from the cart
+    if (req.method === 'DELETE') {
+      const { itemId } = (req.body as Body<RemoveItemBody>) ?? {}
+
+      if (!cartId || !itemId) {
+        return res.status(400).json({
+          data: null,
+          errors: [{ message: 'Invalid request' }],
+        })
+      }
+
+      const { data } = await config.storeApiFetch(
+        `/v3/carts/${cartId}/items/${itemId}`,
+        {
+          method: 'DELETE',
         }
       )
 
@@ -150,8 +184,8 @@ function getCartCookie(name: string, cartId?: string, maxAge?: number) {
   return serialize(name, cartId || '', options)
 }
 
-const parseItem = (item: Item) => ({
-  quantity: item.quantity || 1,
+const parseItem = (item: ItemBody) => ({
+  quantity: item.quantity,
   product_id: item.productId,
   variant_id: item.variantId,
 })
