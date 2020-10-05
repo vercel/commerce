@@ -14,9 +14,9 @@ const Navbar: FC<Props> = ({ className }) => {
   return (
     <Container className={rootClassName}>
       <Link href="/">
-        <h1 className="inline-block cursor-pointer">
+        <span className="inline-block cursor-pointer">
           <Logo />
-        </h1>
+        </span>
       </Link>
       <div className="flex flex-row h-full content-center flex-1 ml-10">
         <nav className="hidden flex-row items-center px-6 lg:flex space-x-4">
