@@ -1,9 +1,67 @@
 .root {
   @apply relative w-full p-6 box-border overflow-hidden bg-no-repeat bg-center bg-cover transition ease-linear;
+
+  &:hover {
+    @apply cursor-pointer;
+
+    & .squareBg {
+      @apply inset-10;
+    }
+
+    & .productTitle,
+    & .productPrice,
+    & .wishlistButton {
+      @apply bg-black text-white;
+    }
+
+    &:nth-child(6n + 1) .productTitle,
+    &:nth-child(6n + 1) .productPrice,
+    &:nth-child(6n + 1) .wishlistButton {
+      @apply bg-violet text-white;
+    }
+
+    &:nth-child(6n + 5) .productTitle,
+    &:nth-child(6n + 5) .productPrice,
+    &:nth-child(6n + 5) .wishlistButton {
+      @apply bg-blue text-white;
+    }
+
+    &:nth-child(6n + 3) .productTitle,
+    &:nth-child(6n + 3) .productPrice,
+    &:nth-child(6n + 3) .wishlistButton {
+      @apply bg-pink text-white;
+    }
+
+    &:nth-child(6n + 6) .productTitle,
+    &:nth-child(6n + 6) .productPrice,
+    &:nth-child(6n + 6) .wishlistButton {
+      @apply bg-cyan text-black;
+    }
+  }
+
+  &:nth-child(6n + 1) .squareBg {
+    @apply bg-violet;
+  }
+
+  &:nth-child(6n + 5) .squareBg {
+    @apply bg-blue;
+  }
+
+  &:nth-child(6n + 3) .squareBg {
+    @apply bg-pink;
+  }
+
+  &:nth-child(6n + 6) .squareBg {
+    @apply bg-cyan;
+  }
+}
+
+.squareBg {
+  @apply cursor-pointer absolute inset-0 z-0 transition-all duration-75 ease-in-out bg-black;
 }
 
 .productTitle {
-  @apply p-3 h-14 bg-white text-black font-bold text-lg truncate leading-8 inline-flex;
+  @apply p-3 h-14 bg-white text-black font-bold text-lg truncate leading-8 inline-flex transition ease-linear;
   max-width: calc(100% - 50px);
 
   @screen lg {
@@ -12,9 +70,9 @@
 }
 
 .productPrice {
-  @apply px-6 py-1 pb-3 bg-white text-black font-semibold inline-block text-sm leading-6;
+  @apply px-6 py-1 pb-3 bg-white text-black font-semibold inline-block text-sm leading-6 transition ease-linear;
 }
 
 .wishlistButton {
-  @apply w-14 h-14 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6 cursor-pointer;
+  @apply w-14 h-14 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6 cursor-pointer transition ease-linear;
 }

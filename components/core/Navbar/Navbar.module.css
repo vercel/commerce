@@ -1,3 +1,7 @@
 .root {
   @apply flex justify-between items-center flex-row px-6 h-20 relative;
 }
+
+.link {
+  @apply group text-gray-500 inline-flex items-center text-base leading-6 font-medium hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150 cursor-pointer;
+}

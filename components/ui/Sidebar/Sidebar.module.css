@@ -1,2 +1,3 @@
 .root {
+  @apply transition-all duration-75 ease-in-out;
 }

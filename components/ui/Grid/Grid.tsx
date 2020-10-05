@@ -8,6 +8,7 @@ interface Props {
   items: [any] | any
   layout?: 'A' | 'B' | 'C' | 'D' | 'normal'
   wrapper?: ReactNode | Component | any
+  variant?: 'default' | 'filled'
 }
 
 const DefaultWrapper: FC<Props> = ({ children }) => <div>{children}</div> // DEFAULT ITEMS WRAPPER
@@ -17,6 +18,7 @@ const Grid: FC<Props> = ({
   className,
   layout = 'A',
   wrapper: Component = DefaultWrapper,
+  variant = 'default',
 }) => {
   const rootClassName = cn(
     s.root,
@@ -26,6 +28,8 @@ const Grid: FC<Props> = ({
       [s.layoutC]: layout === 'C',
       [s.layoutD]: layout === 'D',
       [s.layoutNormal]: layout === 'normal',
+      [s.default]: variant === 'default',
+      [s.filled]: variant === 'filled',
     },
     className
   )
