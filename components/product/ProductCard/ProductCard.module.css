@@ -5,7 +5,7 @@
     @apply cursor-pointer;
 
     & .squareBg {
-      @apply inset-10;
+      @apply inset-12;
     }
 
     & .productTitle,
