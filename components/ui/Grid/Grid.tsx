@@ -6,7 +6,7 @@ interface Props {
   className?: string
   children?: any
   items: [any] | any
-  layout?: 'A' | 'B' | 'C' | 'D'
+  layout?: 'A' | 'B' | 'C' | 'D' | 'normal'
   wrapper?: ReactNode | Component | any
 }
 
@@ -25,6 +25,7 @@ const Grid: FC<Props> = ({
       [s.layoutB]: layout === 'B',
       [s.layoutC]: layout === 'C',
       [s.layoutD]: layout === 'D',
+      [s.layoutNormal]: layout === 'normal',
     },
     className
   )

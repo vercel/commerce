@@ -21,11 +21,9 @@ const ProductCard: FC<Props> = ({ className, node: productData }) => {
   return (
     <div
       className={rootClassName}
-      style={
-        {
-          // backgroundImage: `url('${productData.images.edges[0].node.urlSmall}')`,
-        }
-      }
+      style={{
+        backgroundImage: `url('${productData.images.edges[0].node.urlSmall}')`,
+      }}
     >
       <div className="flex flex-row justify-between box-border w-full z-10 relative">
         <div className="flex flex-col flex-1 overflow-hidden">

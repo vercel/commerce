@@ -13,6 +13,15 @@
   }
 }
 
+.layoutNormal {
+  @apply gap-6;
+
+  & > * {
+    min-height: 325px;
+    @apply bg-white;
+  }
+}
+
 .layoutA {
   & > div:nth-child(6n + 1),
   & > div:nth-child(6n + 5) {
