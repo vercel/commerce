@@ -45,6 +45,7 @@ export type BigcommerceConfig = Partial<CommerceConfig>
 
 export type BigcommerceProps = {
   children?: ReactNode
+  locale: string
 } & BigcommerceConfig
 
 export function CommerceProvider({ children, ...config }: BigcommerceProps) {

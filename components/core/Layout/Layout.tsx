@@ -37,7 +37,7 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
 }
 
 const Layout: FC<Props> = (props) => (
-  <CommerceProvider>
+  <CommerceProvider locale="en-us">
     <CartProvider>
       <UIProvider>
         <CoreLayout {...props} />
