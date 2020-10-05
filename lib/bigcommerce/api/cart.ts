@@ -23,6 +23,12 @@ export type Cart = {
   base_amount: number
   discount_amount: number
   cart_amount: number
+  line_items: {
+    custom_items: any[]
+    digital_items: any[]
+    gift_certificates: any[]
+    psysical_items: any[]
+  }
   // TODO: add missing fields
 }
 

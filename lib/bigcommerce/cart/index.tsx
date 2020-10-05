@@ -18,8 +18,14 @@ export const CartProvider: FC = ({ children }) => {
 export function useCart() {
   const cart = useCommerceCart<Cart>()
 
-  // TODO: Do something to make this prop work
-  cart.isEmpty = true
+  Object.defineProperty(cart, 'isEmpty', {
+    get() {
+      return Object.values(cart.data?.line_items ?? {}).every(
+        (items) => !items.length
+      )
+    },
+    set: (x) => x,
+  })
 
   return cart
 }
