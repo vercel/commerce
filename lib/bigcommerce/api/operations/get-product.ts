@@ -50,7 +50,7 @@ async function getProduct(opts: {
   config?: BigcommerceConfig
 }): Promise<GetProductResult>
 
-async function getProduct<T, V = any>(opts: {
+async function getProduct<T extends { product?: any }, V = any>(opts: {
   query: string
   variables: V
   config?: BigcommerceConfig
