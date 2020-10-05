@@ -1,11 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-} from 'react'
-import useSWR from 'swr'
+import { createContext, ReactNode, useContext, useMemo } from 'react'
 
 const Commerce = createContext<CommerceConfig | null>(null)
 

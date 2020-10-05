@@ -1,4 +1,4 @@
-import { createContext, useContext, FC, useCallback } from 'react'
+import { createContext, useContext, FC, useCallback, useMemo } from 'react'
 import useSWR, { responseInterface } from 'swr'
 import Cookies from 'js-cookie'
 import { useCommerce } from '..'
@@ -22,7 +22,9 @@ const CartProvider: FC<CartProviderProps> = ({ children, query, url }) => {
   })
 
   return (
-    // Avoid destructuring in `response` so we don't trigger the getters early
+    // Avoid destructuring the `response` obj from SWR so we don't trigger the getters
+    // early, also the result of useSWR is memoized and it's better to keep it that way
+    // so we don't re-render every consumer
     <CartContext.Provider value={Object.assign(response, { isEmpty: true })}>
       {children}
     </CartContext.Provider>
