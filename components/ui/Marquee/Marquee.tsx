@@ -18,7 +18,7 @@ const M: FC<Props> = ({
   items,
   wrapper: Component = DefaultWrapper,
   variant = 'primary',
-  min = 'none',
+  // min = 'none',
 }) => {
   const rootClassName = cn(
     s.root,

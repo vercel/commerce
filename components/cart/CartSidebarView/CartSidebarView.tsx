@@ -3,9 +3,14 @@ import { UserNav } from '@components/core'
 import { Button } from '@components/ui'
 import { Trash, Cross } from '@components/icon'
 import { useUI } from '@components/ui/context'
+import { useCart } from '@lib/bigcommerce/cart'
 
 const CartSidebarView: FC = () => {
+  const { data, isEmpty } = useCart()
   const { closeSidebar } = useUI()
+
+  console.log('CART', data, isEmpty)
+
   return (
     <>
       <header className="px-4 py-6 sm:px-6 border-b border-gray-200">

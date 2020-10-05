@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react'
+import useSWR from 'swr'
 
 const Commerce = createContext<CommerceConfig | null>(null)
 
@@ -10,9 +17,18 @@ export type CommerceProps = {
 export type CommerceConfig = {
   fetcher: Fetcher<any>
   locale: string
+  cartCookie: string
 }
 
-export type Fetcher<T> = (...args: any) => T | Promise<T>
+export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
+
+export type FetcherOptions = {
+  url?: string
+  query?: string
+  method?: string
+  variables?: any
+  body?: any
+}
 
 export function CommerceProvider({ children, config }: CommerceProps) {
   if (!config) {

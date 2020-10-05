@@ -9,6 +9,11 @@ export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
   const { product } = await getProduct({ variables: { slug: params!.slug } })
+
+  if (!product) {
+    throw new Error(`Product with slug '${params!.slug}' not found`)
+  }
+
   const productData = {
     name: 'T-Shirt',
     description: `
@@ -51,7 +56,7 @@ export default function Slug({
   return router.isFallback ? (
     <h1>Loading...</h1>
   ) : (
-    <ProductView productData={productData} />
+    <ProductView product={product} productData={productData} />
   )
 }
 
