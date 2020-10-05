@@ -2,10 +2,11 @@ import cn from 'classnames'
 import s from './ProductCard.module.css'
 import { FC } from 'react'
 import { Heart } from '@components/icon'
+import { url } from 'inspector'
 interface Props {
   className?: string
   children?: any
-  productData: ProductData
+  node: ProductData
 }
 
 interface ProductData {
@@ -14,11 +15,18 @@ interface ProductData {
   prices: any
 }
 
-const ProductCard: FC<Props> = ({ className, productData }) => {
+const ProductCard: FC<Props> = ({ className, node: productData }) => {
   const rootClassName = cn(s.root, className)
+
   return (
-    <div className={rootClassName}>
-      {/* Overlay */}
+    <div
+      className={rootClassName}
+      style={
+        {
+          // backgroundImage: `url('${productData.images.edges[0].node.urlSmall}')`,
+        }
+      }
+    >
       <div className="flex flex-row justify-between box-border w-full z-10 relative">
         <div className="flex flex-col flex-1 overflow-hidden">
           <div className="flex-1">
@@ -30,17 +38,9 @@ const ProductCard: FC<Props> = ({ className, productData }) => {
             </div>
           </div>
         </div>
-
         <div className={s.wishlistButton}>
           <Heart />
         </div>
-      </div>
-
-      <div className="absolute box-border top-0 left-0 w-full h-full z-0 m-12">
-        {/* <img
-          className="object-cover object-center w-full"
-          src={productData.images.edges[0].node.urlSmall}
-        /> */}
       </div>
     </div>
   )

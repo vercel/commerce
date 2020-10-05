@@ -1,0 +1,21 @@
+.root {
+  @apply w-full relative;
+  min-width: 100%;
+}
+
+.container {
+  @apply flex flex-row;
+
+  & > * {
+    @apply flex-1;
+    min-width: 500px;
+  }
+}
+
+.primary {
+  @apply bg-white;
+}
+
+.secondary {
+  @apply bg-black;
+}
