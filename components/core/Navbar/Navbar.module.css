@@ -1,4 +1,7 @@
 .root {
+}
+
+.container {
   @apply flex justify-between items-center flex-row px-6 h-20 relative;
 }
 
