@@ -33,6 +33,7 @@ export const bigcommerceConfig: CommerceConfig = {
 
     if (res.ok) {
       const { data } = await res.json()
+      console.log('DATA', data)
       return data
     }
 
@@ -44,12 +45,11 @@ export type BigcommerceConfig = Partial<CommerceConfig>
 
 export type BigcommerceProps = {
   children?: ReactNode
-  config: BigcommerceConfig
-}
+} & BigcommerceConfig
 
-export function CommerceProvider({ children, config }: BigcommerceProps) {
+export function CommerceProvider({ children, ...config }: BigcommerceProps) {
   return (
-    <CoreCommerceProvider config={{ ...config, ...bigcommerceConfig }}>
+    <CoreCommerceProvider config={{ ...bigcommerceConfig, ...config }}>
       {children}
     </CoreCommerceProvider>
   )

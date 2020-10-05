@@ -7,7 +7,11 @@ import {
 export type Cart = {}
 
 export const CartProvider: FC = ({ children }) => {
-  return <CommerceCartProvider url="/api/cart">{children}</CommerceCartProvider>
+  return (
+    <CommerceCartProvider url="/api/bigcommerce/cart">
+      {children}
+    </CommerceCartProvider>
+  )
 }
 
 export function useCart() {

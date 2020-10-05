@@ -30,7 +30,7 @@ export default async function fetchStoreApi<T>(
 
   const contentType = res.headers.get('Content-Type')
 
-  if (contentType?.includes('application/json')) {
+  if (!contentType?.includes('application/json')) {
     throw new BigcommerceApiError(
       `Fetch to Bigcommerce API failed, expected JSON content but found: ${contentType}`,
       res

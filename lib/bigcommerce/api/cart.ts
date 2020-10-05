@@ -5,11 +5,17 @@ import createApiHandler, {
 } from './utils/create-api-handler'
 import { BigcommerceApiError } from './utils/errors'
 
-type Cart = any
+export type Item = {
+  productId: number
+  variantId: number
+  quantity?: number
+}
+
+export type Cart = any
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
-const cartApi: BigcommerceApiHandler = async (req, res, config) => {
+const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
   if (!isAllowedMethod(req, res, METHODS)) return
 
   const { cookies } = req
@@ -27,7 +33,7 @@ const cartApi: BigcommerceApiHandler = async (req, res, config) => {
       } catch (error) {
         if (error instanceof BigcommerceApiError && error.status === 404) {
           // Remove the cookie if it exists but the cart wasn't found
-          res.setHeader('Set-Cookie', getCartCookie(name))
+          res.setHeader('Set-Cookie', getCartCookie(config.cartCookie))
         } else {
           throw error
         }
@@ -38,10 +44,11 @@ const cartApi: BigcommerceApiHandler = async (req, res, config) => {
 
     // Create or add a product to the cart
     if (req.method === 'POST') {
-      const { product } = req.body
+      const item: Item | undefined = req.body?.item
 
-      if (!product) {
+      if (!item) {
         return res.status(400).json({
+          data: null,
           errors: [{ message: 'Missing product' }],
         })
       }
@@ -49,28 +56,32 @@ const cartApi: BigcommerceApiHandler = async (req, res, config) => {
       const options = {
         method: 'POST',
         body: JSON.stringify({
-          line_items: [parseProduct(product)],
+          line_items: [parseItem(item)],
         }),
       }
       const { data } = cartId
         ? await config.storeApiFetch(`/v3/carts/${cartId}/items`, options)
         : await config.storeApiFetch('/v3/carts', options)
 
+      console.log('API DATA', data)
+
       // Create or update the cart cookie
       res.setHeader(
         'Set-Cookie',
-        getCartCookie(name, data.id, config.cartCookieMaxAge)
+        getCartCookie(config.cartCookie, data.id, config.cartCookieMaxAge)
       )
 
-      return res.status(200).json({ done: { data } })
+      return res.status(200).json({ data })
     }
   } catch (error) {
+    console.error(error)
+
     const message =
       error instanceof BigcommerceApiError
         ? 'An unexpected error ocurred with the Bigcommerce API'
         : 'An unexpected error ocurred'
 
-    res.status(500).json({ errors: [{ message }] })
+    res.status(500).json({ data: null, errors: [{ message }] })
   }
 }
 
@@ -90,10 +101,10 @@ function getCartCookie(name: string, cartId?: string, maxAge?: number) {
   return serialize(name, cartId || '', options)
 }
 
-const parseProduct = (product: any) => ({
-  quantity: product.quantity,
-  product_id: product.productId,
-  variant_id: product.variantId,
+const parseItem = (item: Item) => ({
+  quantity: item.quantity || 1,
+  product_id: item.productId,
+  variant_id: item.variantId,
 })
 
 export default createApiHandler(cartApi)

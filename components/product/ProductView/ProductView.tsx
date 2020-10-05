@@ -4,6 +4,9 @@ import s from './ProductView.module.css'
 import { Button } from '@components/ui'
 import { Swatch } from '@components/product'
 import { Colors } from '@components/ui/types'
+import type { Product } from '@lib/bigcommerce/api/operations/get-product'
+import useAddItem from '@lib/bigcommerce/cart/use-add-item'
+
 interface ProductData {
   name: string
   images: any
@@ -12,17 +15,31 @@ interface ProductData {
   colors?: any[]
   sizes?: any[]
 }
+
 interface Props {
   className?: string
   children?: any
   productData: ProductData
+  product: Product
 }
 
-const ProductView: FC<Props> = ({ productData, className }) => {
-  const rootClassName = cn(s.root, className)
-  const colors: Colors[] = ['pink', 'black', 'white']
+const COLORS: Colors[] = ['pink', 'black', 'white']
+
+const ProductView: FC<Props> = ({ product, productData, className }) => {
+  const addItem = useAddItem()
+  const addToCart = () => {
+    addItem({
+      item: {
+        productId: product.entityId,
+        variantId: product.variants.edges?.[0]?.node.entityId!,
+      },
+    })
+  }
+
+  console.log('PRODUCT', product)
+
   return (
-    <div className={rootClassName}>
+    <div className={cn(s.root, className)}>
       <div className="absolute">
         <h1 className="px-8 py-2 bg-violet text-white font-bold text-3xl">
           {productData.name}
@@ -38,8 +55,8 @@ const ProductView: FC<Props> = ({ productData, className }) => {
         <section className="pb-4">
           <h2 className="uppercase font-medium">Color</h2>
           <div className="flex flex-row py-4">
-            {colors.map((c) => (
-              <Swatch color={c} />
+            {COLORS.map((c) => (
+              <Swatch key={c} color={c} />
             ))}
           </div>
         </section>
@@ -57,7 +74,9 @@ const ProductView: FC<Props> = ({ productData, className }) => {
           <p>{productData.description}</p>
         </section>
         <section className="pb-4">
-          <Button className={s.button}>Add to Cart</Button>
+          <Button type="button" className={s.button} onClick={addToCart}>
+            Add to Cart
+          </Button>
         </section>
       </div>
     </div>
