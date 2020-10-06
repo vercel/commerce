@@ -1390,6 +1390,11 @@
     is-promise "4.0.0"
     tslib "~2.0.1"
 
+"@headlessui/react@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-0.2.0.tgz#a31f90892d736243ba91c1474f534b3256d0c538"
+  integrity sha512-YV+vF+QhTRcspydPdHF3ZXe+FkOiJpRdqMjjFIIX9bSdT2O2T7GurgKQdGgamNUM+B99MZBOTRqxS8Dlh485eg==
+
 "@next/env@9.5.4-canary.23":
   version "9.5.4-canary.23"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-9.5.4-canary.23.tgz#2078ce80a1d9424bab7ec169dcf98b8d684bc845"
