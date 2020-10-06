@@ -50,7 +50,11 @@ const CartSidebarView: FC = () => {
           <div className="px-4 sm:px-6 py-4 flex-1">
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200">
               {items.map((item) => (
-                <CartItem key={item.id} />
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  currencyCode={data?.currency.code!}
+                />
               ))}
             </ul>
           </div>

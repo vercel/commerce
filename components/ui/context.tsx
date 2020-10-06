@@ -43,7 +43,6 @@ export const useUI = () => {
 }
 
 function uiReducer(state: State, action: Action) {
-  console.log(action)
   switch (action.type) {
     case 'OPEN_SIDEBAR': {
       return {
