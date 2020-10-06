@@ -28,11 +28,9 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
         <main className={s.main}>{children}</main>
       </Container>
       <Footer />
-      {displaySidebar && (
-        <Sidebar>
-          <CartSidebarView />
-        </Sidebar>
-      )}
+      <Sidebar show={displaySidebar}>
+        <CartSidebarView />
+      </Sidebar>
     </div>
   )
 }
