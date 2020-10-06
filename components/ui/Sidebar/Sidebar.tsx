@@ -12,7 +12,7 @@ const Sidebar: FC<Props> = ({ className, children, show = true }) => {
   const rootClassName = cn(s.root, className)
   return (
     <Transition show={show}>
-      <div className="fixed inset-0 overflow-hidden h-full">
+      <div className={rootClassName}>
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
             enter="transition-opacity ease-linear duration-300"
@@ -34,7 +34,7 @@ const Sidebar: FC<Props> = ({ className, children, show = true }) => {
               leaveTo="translate-x-full"
             >
               <div className="h-full w-screen max-w-2xl">
-                <div className="h-full flex flex-col space-y-6 py-6 bg-white shadow-xl overflow-y-scroll">
+                <div className="h-full flex flex-col space-y-6 bg-white shadow-xl overflow-y-scroll">
                   {children}
                 </div>
               </div>
