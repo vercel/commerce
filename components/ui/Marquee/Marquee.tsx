@@ -43,8 +43,8 @@ const M: FC<Props> = ({
       <Ticker>
         {({ index }) => (
           <div className={s.container}>
-            {items.map((p: any) => (
-              <Component {...p} key={index} />
+            {items.map((p: any, i: any) => (
+              <Component key={i} {...p} />
             ))}
           </div>
         )}
