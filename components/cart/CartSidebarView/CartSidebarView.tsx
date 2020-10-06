@@ -4,10 +4,12 @@ import { Button } from '@components/ui'
 import { Trash, Cross } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import { useCart } from '@lib/bigcommerce/cart'
+import CartItem from '../CartItem'
 
 const CartSidebarView: FC = () => {
   const { data, isEmpty } = useCart()
   const { closeSidebar } = useUI()
+  const items = data?.line_items.physical_items ?? []
 
   console.log('CART', data, isEmpty)
 
@@ -28,39 +30,35 @@ const CartSidebarView: FC = () => {
             <UserNav />
           </div>
         </div>
-        <h2 className="pt-6 text-lg leading-7 font-medium text-gray-900 uppercase">
-          My Cart
-        </h2>
+        {isEmpty ? (
+          <h2 className="pt-6 text-lg leading-7 font-medium text-gray-900 uppercase">
+            Your cart is currently empty
+          </h2>
+        ) : (
+          <h2 className="pt-6 text-lg leading-7 font-medium text-gray-900 uppercase">
+            My Cart
+          </h2>
+        )}
       </header>
 
-      <div className="px-4 sm:px-6 py-4 flex-1">
-        <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200">
-          <li className="flex flex-row space-x-6">
-            <div className="h-12 w-12 bg-violet"></div>
-            <div className="flex-1 flex flex-col">
-              <span>T-Shirt</span>
-              <div className="py-2">
-                <span>-</span>
-                <input
-                  className="w-6 border-gray-300 border mx-3 rounded text-center text-sm"
-                  defaultValue="1"
-                />
-                <span>+</span>
-              </div>
-            </div>
-            <div className="flex flex-col space-y-2">
-              <span>$50.00</span>
-              <span className="flex justify-end">
-                <Trash />
-              </span>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div className="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
-        <Button>Proceed to Checkout</Button>
-      </div>
+      {isEmpty ? (
+        <div className="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
+          <Button>Continue Shopping</Button>
+        </div>
+      ) : (
+        <>
+          <div className="px-4 sm:px-6 py-4 flex-1">
+            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200">
+              {items.map((item) => (
+                <CartItem key={item.id} />
+              ))}
+            </ul>
+          </div>
+          <div className="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
+            <Button>Proceed to Checkout</Button>
+          </div>
+        </>
+      )}
     </>
   )
 }

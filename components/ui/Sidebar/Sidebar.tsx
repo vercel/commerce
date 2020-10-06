@@ -15,7 +15,7 @@ const Sidebar: FC<Props> = ({ className, children }) => {
         <div className="absolute inset-0 overflow-hidden">
           <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16 ">
             <div className="w-screen max-w-2xl">
-              <div className="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
+              <div className="h-full flex flex-col bg-white shadow-xl overflow-y-auto">
                 {children}
               </div>
             </div>

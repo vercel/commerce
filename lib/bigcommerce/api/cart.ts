@@ -35,7 +35,7 @@ export type Cart = {
     custom_items: any[]
     digital_items: any[]
     gift_certificates: any[]
-    psysical_items: any[]
+    physical_items: any[]
   }
   // TODO: add missing fields
 }
