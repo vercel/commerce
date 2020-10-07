@@ -146,14 +146,18 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
         `/v3/carts/${cartId}/items/${itemId}`,
         { method: 'DELETE' }
       )
+      const data = result?.data ?? null
 
-      // Update the cart cookie
       res.setHeader(
         'Set-Cookie',
-        getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
+        data
+          ? // Update the cart cookie
+            getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
+          : // Remove the cart cookie if the cart was removed (empty items)
+            getCartCookie(config.cartCookie)
       )
 
-      return res.status(200).json({ data: result?.data })
+      return res.status(200).json({ data })
     }
   } catch (error) {
     console.error(error)

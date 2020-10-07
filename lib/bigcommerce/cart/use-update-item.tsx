@@ -1,18 +1,22 @@
 import type { Fetcher } from '@lib/commerce'
 import { default as useCartUpdateItem } from '@lib/commerce/cart/use-update-item'
 import type { ItemBody, UpdateItemBody } from '../api/cart'
+import { fetcher as removeFetcher } from './use-remove-item'
 import { Cart, useCart } from '.'
 
-export type { ItemBody, UpdateItemBody }
+export type UpdateItemInput = Partial<{ id: string } & ItemBody>
 
-function fetcher(fetch: Fetcher<Cart>, { itemId, item }: UpdateItemBody) {
-  if (
-    item.quantity &&
-    (!Number.isInteger(item.quantity) || item.quantity! < 1)
-  ) {
-    throw new Error(
-      'The item quantity has to be a valid integer greater than 0'
-    )
+function fetcher(
+  fetch: Fetcher<Cart | null>,
+  { itemId, item }: UpdateItemBody
+) {
+  if (Number.isInteger(item.quantity)) {
+    // Also allow the update hook to remove an item if the quantity is lower than 1
+    if (item.quantity! < 1) {
+      return removeFetcher(fetch, { itemId })
+    }
+  } else if (item.quantity) {
+    throw new Error('The item quantity has to be a valid integer')
   }
 
   return fetch({
@@ -22,11 +26,18 @@ function fetcher(fetch: Fetcher<Cart>, { itemId, item }: UpdateItemBody) {
   })
 }
 
-export default function useUpdateItem() {
+export default function useUpdateItem(item: any = {}) {
   const { mutate } = useCart()
-  const fn = useCartUpdateItem<Cart, UpdateItemBody>(fetcher)
-  const updateItem: typeof fn = async (input) => {
-    const data = await fn(input)
+  const fn = useCartUpdateItem<Cart | null, UpdateItemBody>(fetcher)
+  const updateItem = async (input: UpdateItemInput) => {
+    const data = await fn({
+      itemId: input.id ?? item.id,
+      item: {
+        productId: input.productId ?? item.product_id,
+        variantId: input.productId ?? item.variant_id,
+        quantity: input.quantity,
+      },
+    })
     await mutate(data, false)
     return data
   }

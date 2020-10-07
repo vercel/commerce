@@ -23,7 +23,7 @@ export default function useAddItem() {
   const fn = useCartAddItem<Cart, AddItemBody>(fetcher)
   const addItem: typeof fn = async (input) => {
     const data = await fn(input)
-    mutate(data)
+    await mutate(data, false)
     return data
   }
 

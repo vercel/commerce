@@ -14,7 +14,7 @@ const CartItem = ({
   currencyCode: string
 }) => {
   const { locale } = useCommerce()
-  const updateItem = useUpdateItem()
+  const updateItem = useUpdateItem(item)
   const removeItem = useRemoveItem()
   const [quantity, setQuantity] = useState(item.quantity)
   const { price } = formatVariantPrice({
@@ -24,14 +24,7 @@ const CartItem = ({
     locale,
   })
   const updateQuantity = async (val: number) => {
-    const data = await updateItem({
-      itemId: item.id,
-      item: {
-        productId: item.product_id,
-        variantId: item.variant_id,
-        quantity: val,
-      },
-    })
+    const data = await updateItem({ quantity: val })
   }
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)

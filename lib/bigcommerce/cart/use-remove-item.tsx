@@ -5,7 +5,10 @@ import { Cart, useCart } from '.'
 
 export type { ItemBody, RemoveItemBody }
 
-function fetcher(fetch: Fetcher<Cart>, { itemId }: RemoveItemBody) {
+export function fetcher(
+  fetch: Fetcher<Cart | null>,
+  { itemId }: RemoveItemBody
+) {
   return fetch({
     url: '/api/bigcommerce/cart',
     method: 'DELETE',
@@ -15,10 +18,10 @@ function fetcher(fetch: Fetcher<Cart>, { itemId }: RemoveItemBody) {
 
 export default function useRemoveItem() {
   const { mutate } = useCart()
-  const fn = useCartRemoveItem<Cart, RemoveItemBody>(fetcher)
+  const fn = useCartRemoveItem<Cart | null, RemoveItemBody>(fetcher)
   const removeItem: typeof fn = async (input) => {
     const data = await fn(input)
-    mutate(data)
+    await mutate(data, false)
     return data
   }
 

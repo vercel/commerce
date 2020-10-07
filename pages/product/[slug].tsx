@@ -8,6 +8,7 @@ import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
+  console.log('SLUG', params!.slug)
   const { product } = await getProduct({ variables: { slug: params!.slug } })
 
   if (!product) {
@@ -43,7 +44,7 @@ export async function getStaticPaths() {
 
   return {
     paths: products.map((product) => `/product${product!.node.path}`),
-    fallback: 'unstable_blocking',
+    fallback: false,
   }
 }
 
