@@ -27,7 +27,7 @@ export default function useUpdateItem() {
   const fn = useCartUpdateItem<Cart, UpdateItemBody>(fetcher)
   const updateItem: typeof fn = async (input) => {
     const data = await fn(input)
-    mutate(data)
+    await mutate(data)
     return data
   }
 

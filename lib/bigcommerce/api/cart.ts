@@ -117,7 +117,7 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
         {
           method: 'PUT',
           body: JSON.stringify({
-            line_items: [parseItem(item)],
+            line_item: parseItem(item),
           }),
         }
       )
