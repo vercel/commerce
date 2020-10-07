@@ -1,7 +1,7 @@
 import { Trash } from '@components/icon'
 import { useCommerce } from '@lib/bigcommerce'
 import useUpdateItem from '@lib/bigcommerce/cart/use-update-item'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import formatVariantPrice from 'utils/format-item-price'
 import styles from './CartItem.module.css'
 
@@ -21,18 +21,36 @@ const CartItem = ({
     currencyCode,
     locale,
   })
-  const handleBlur = async () => {
+  const updateQuantity = async (val: number) => {
+    const data = await updateItem({
+      itemId: item.id,
+      item: {
+        productId: item.product_id,
+        variantId: item.variant_id,
+        quantity: val,
+      },
+    })
+  }
+  const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
+    const val = Number(e.target.value)
+
+    if (Number.isInteger(val) && val >= 0) {
+      setQuantity(e.target.value)
+    }
+  }
+  const handleBlur = () => {
     const val = Number(quantity)
 
     if (val !== item.quantity) {
-      const data = await updateItem({
-        itemId: item.id,
-        item: {
-          productId: item.product_id,
-          variantId: item.variant_id,
-          quantity: val,
-        },
-      })
+      updateQuantity(val)
+    }
+  }
+  const increaseQuantity = (n = 1) => {
+    const val = Number(quantity) + n
+
+    if (Number.isInteger(val) && val >= 0) {
+      setQuantity(val)
+      updateQuantity(val)
     }
   }
 
@@ -49,21 +67,19 @@ const CartItem = ({
       <div className="flex-1 flex flex-col">
         <span>{item.name}</span>
         <div className="py-2">
-          <span>-</span>
+          <button type="button" onClick={() => increaseQuantity(-1)}>
+            -
+          </button>
           <input
             type="number"
             className={styles.quantity}
             value={quantity}
-            onChange={(e) => {
-              const val = Number(e.target.value)
-
-              if (Number.isInteger(val) && val >= 0) {
-                setQuantity(e.target.value)
-              }
-            }}
+            onChange={handleQuantity}
             onBlur={handleBlur}
           />
-          <span>+</span>
+          <button type="button" onClick={() => increaseQuantity(1)}>
+            +
+          </button>
         </div>
       </div>
       <div className="flex flex-col space-y-2">
