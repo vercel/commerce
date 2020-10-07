@@ -38,12 +38,10 @@ const CartItem = ({
 
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
-    if (item.quantity !== quantity) {
+    if (item.quantity !== Number(quantity)) {
       setQuantity(item.quantity)
     }
   }, [item.quantity])
-
-  console.log('ITEM', item)
 
   return (
     <li className="flex flex-row space-x-6">
