@@ -19,8 +19,6 @@ interface ProductData {
 }
 
 const ProductCard: FC<Props> = ({ className, node: p, variant }) => {
-  const rootClassName = cn(s.root, className)
-
   if (variant === 'slim') {
     return (
       <div className="relative overflow-hidden box-border">
@@ -39,7 +37,7 @@ const ProductCard: FC<Props> = ({ className, node: p, variant }) => {
 
   return (
     <Link href={`product${p.path}`}>
-      <div className={rootClassName}>
+      <a className={cn(s.root, className)}>
         <div className="absolute z-10 inset-0 flex items-center justify-center">
           <img
             className="w-full object-cover"
@@ -60,7 +58,7 @@ const ProductCard: FC<Props> = ({ className, node: p, variant }) => {
             <Heart />
           </div>
         </div>
-      </div>
+      </a>
     </Link>
   )
 }
