@@ -1,9 +1,11 @@
 import type { Fetcher } from '@lib/commerce'
 import { default as useCartRemoveItem } from '@lib/commerce/cart/use-remove-item'
-import type { ItemBody, RemoveItemBody } from '../api/cart'
+import type { RemoveItemBody } from '../api/cart'
 import { Cart, useCart } from '.'
 
-export type { ItemBody, RemoveItemBody }
+export type RemoveItemInput = {
+  id: string
+}
 
 export function fetcher(
   fetch: Fetcher<Cart | null>,
@@ -16,11 +18,11 @@ export function fetcher(
   })
 }
 
-export default function useRemoveItem() {
+export default function useRemoveItem(item?: any) {
   const { mutate } = useCart()
   const fn = useCartRemoveItem<Cart | null, RemoveItemBody>(fetcher)
-  const removeItem: typeof fn = async (input) => {
-    const data = await fn(input)
+  const removeItem = async (input: RemoveItemInput) => {
+    const data = await fn({ itemId: input.id ?? item?.id })
     await mutate(data, false)
     return data
   }

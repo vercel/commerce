@@ -26,15 +26,15 @@ function fetcher(
   })
 }
 
-export default function useUpdateItem(item: any = {}) {
+export default function useUpdateItem(item?: any) {
   const { mutate } = useCart()
   const fn = useCartUpdateItem<Cart | null, UpdateItemBody>(fetcher)
   const updateItem = async (input: UpdateItemInput) => {
     const data = await fn({
-      itemId: input.id ?? item.id,
+      itemId: input.id ?? item?.id,
       item: {
-        productId: input.productId ?? item.product_id,
-        variantId: input.productId ?? item.variant_id,
+        productId: input.productId ?? item?.product_id,
+        variantId: input.productId ?? item?.variant_id,
         quantity: input.quantity,
       },
     })

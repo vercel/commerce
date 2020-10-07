@@ -30,10 +30,8 @@ const ProductView: FC<Props> = ({ product, productData, className }) => {
   const addToCart = () => {
     // TODO: loading state by awating the promise
     addItem({
-      item: {
-        productId: product.entityId,
-        variantId: product.variants.edges?.[0]?.node.entityId!,
-      },
+      productId: product.entityId,
+      variantId: product.variants.edges?.[0]?.node.entityId!,
     })
   }
 

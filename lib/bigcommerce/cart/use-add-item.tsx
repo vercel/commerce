@@ -3,7 +3,7 @@ import { default as useCartAddItem } from '@lib/commerce/cart/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/cart'
 import { Cart, useCart } from '.'
 
-export type { ItemBody, AddItemBody }
+export type UpdateItemInput = ItemBody
 
 function fetcher(fetch: Fetcher<Cart>, { item }: AddItemBody) {
   if (
@@ -21,8 +21,8 @@ function fetcher(fetch: Fetcher<Cart>, { item }: AddItemBody) {
 export default function useAddItem() {
   const { mutate } = useCart()
   const fn = useCartAddItem<Cart, AddItemBody>(fetcher)
-  const addItem: typeof fn = async (input) => {
-    const data = await fn(input)
+  const addItem = async (input: UpdateItemInput) => {
+    const data = await fn({ item: input })
     await mutate(data, false)
     return data
   }

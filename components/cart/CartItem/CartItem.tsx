@@ -81,7 +81,7 @@ const CartItem = ({
         <span>{price}</span>
         <button
           className="flex justify-end"
-          onClick={() => removeItem({ itemId: item.id })}
+          onClick={() => removeItem({ id: item.id })}
         >
           <Trash />
         </button>
