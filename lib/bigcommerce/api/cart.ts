@@ -142,11 +142,9 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
         })
       }
 
-      const { data } = await config.storeApiFetch(
+      const result = await config.storeApiFetch<{ data: any } | null>(
         `/v3/carts/${cartId}/items/${itemId}`,
-        {
-          method: 'DELETE',
-        }
+        { method: 'DELETE' }
       )
 
       // Update the cart cookie
@@ -155,7 +153,7 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
         getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
       )
 
-      return res.status(200).json({ data })
+      return res.status(200).json({ data: result?.data })
     }
   } catch (error) {
     console.error(error)

@@ -42,7 +42,7 @@ const CartSidebarView: FC = () => {
       </header>
 
       {isEmpty ? (
-        <div className="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
+        <div className="flex-shrink-0 px-4 border-gray-200 py-5 sm:px-6">
           <Button>Continue Shopping</Button>
         </div>
       ) : (

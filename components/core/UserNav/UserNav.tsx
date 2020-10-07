@@ -25,9 +25,11 @@ const UserNav: FC<Props> = ({ className }) => {
       <ul className={s.list}>
         <li className={s.item} onClick={() => openSidebar()}>
           <Bag />
-          <span className="bg-black h-4 w-4 absolute rounded-full inset-3 text-white flex items-center justify-center font-bold text-xs">
-            {itemsCount}
-          </span>
+          {itemsCount > 0 && (
+            <span className="bg-black h-4 w-4 absolute rounded-full inset-3 text-white flex items-center justify-center font-bold text-xs">
+              {itemsCount}
+            </span>
+          )}
         </li>
         <li className={s.item}>
           <Heart />

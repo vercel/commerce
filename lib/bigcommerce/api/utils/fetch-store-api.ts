@@ -37,9 +37,8 @@ export default async function fetchStoreApi<T>(
     )
   }
 
-  const data = await res.json()
-
-  return data
+  // If something was removed, the response will be empty
+  return res.status === 204 ? null : await res.json()
 }
 
 async function getErrorText(res: Response) {
