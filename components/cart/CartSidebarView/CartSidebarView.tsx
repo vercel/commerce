@@ -10,6 +10,7 @@ const CartSidebarView: FC = () => {
   const { data, isEmpty } = useCart()
   const { closeSidebar } = useUI()
   const items = data?.line_items.physical_items ?? []
+  const handleClose = () => closeSidebar()
 
   console.log('CART', data, isEmpty)
 
@@ -19,7 +20,7 @@ const CartSidebarView: FC = () => {
         <div className="flex items-start justify-between space-x-3">
           <div className="h-7 flex items-center">
             <button
-              onClick={() => closeSidebar()}
+              onClick={handleClose}
               aria-label="Close panel"
               className="text-gray-400 hover:text-gray-500 transition ease-in-out duration-150"
             >
@@ -43,7 +44,7 @@ const CartSidebarView: FC = () => {
 
       {isEmpty ? (
         <div className="flex-shrink-0 px-4 border-gray-200 py-5 sm:px-6">
-          <Button>Continue Shopping</Button>
+          <Button onClick={handleClose}>Continue Shopping</Button>
         </div>
       ) : (
         <>
