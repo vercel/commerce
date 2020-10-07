@@ -1,6 +1,7 @@
 import { Trash } from '@components/icon'
 import { useCommerce } from '@lib/bigcommerce'
 import useUpdateItem from '@lib/bigcommerce/cart/use-update-item'
+import useRemoveItem from '@lib/bigcommerce/cart/use-remove-item'
 import { ChangeEvent, useEffect, useState } from 'react'
 import formatVariantPrice from 'utils/format-item-price'
 import styles from './CartItem.module.css'
@@ -14,6 +15,7 @@ const CartItem = ({
 }) => {
   const { locale } = useCommerce()
   const updateItem = useUpdateItem()
+  const removeItem = useRemoveItem()
   const [quantity, setQuantity] = useState(item.quantity)
   const { price } = formatVariantPrice({
     listPrice: item.extended_list_price,
@@ -84,9 +86,12 @@ const CartItem = ({
       </div>
       <div className="flex flex-col space-y-2">
         <span>{price}</span>
-        <span className="flex justify-end">
+        <button
+          className="flex justify-end"
+          onClick={() => removeItem({ itemId: item.id })}
+        >
           <Trash />
-        </span>
+        </button>
       </div>
     </li>
   )

@@ -8,7 +8,7 @@ export type { ItemBody, RemoveItemBody }
 function fetcher(fetch: Fetcher<Cart>, { itemId }: RemoveItemBody) {
   return fetch({
     url: '/api/bigcommerce/cart',
-    method: 'POST',
+    method: 'DELETE',
     body: { itemId },
   })
 }
