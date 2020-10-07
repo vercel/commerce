@@ -17,6 +17,7 @@ type Action =
     }
 
 export const UIContext = React.createContext<State | any>(initialState)
+
 UIContext.displayName = 'UIContext'
 
 export const UIProvider: FC = (props) => {
@@ -45,16 +46,20 @@ export const useUI = () => {
 function uiReducer(state: State, action: Action) {
   switch (action.type) {
     case 'OPEN_SIDEBAR': {
-      return {
-        ...state,
-        displaySidebar: true,
-      }
+      return !state.displaySidebar
+        ? {
+            ...state,
+            displaySidebar: true,
+          }
+        : state
     }
     case 'CLOSE_SIDEBAR': {
-      return {
-        ...state,
-        displaySidebar: false,
-      }
+      return state.displaySidebar
+        ? {
+            ...state,
+            displaySidebar: false,
+          }
+        : state
     }
   }
 }
