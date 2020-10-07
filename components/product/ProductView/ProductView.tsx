@@ -6,6 +6,7 @@ import { Swatch } from '@components/product'
 import { Colors } from '@components/ui/types'
 import type { Product } from '@lib/bigcommerce/api/operations/get-product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
+import { useUI } from '@components/ui/context'
 
 interface ProductData {
   name: string
@@ -27,12 +28,14 @@ const COLORS: Colors[] = ['pink', 'black', 'white']
 
 const ProductView: FC<Props> = ({ product, productData, className }) => {
   const addItem = useAddItem()
-  const addToCart = () => {
+  const { openSidebar } = useUI()
+  const addToCart = async () => {
     // TODO: loading state by awating the promise
-    addItem({
+    await addItem({
       productId: product.entityId,
       variantId: product.variants.edges?.[0]?.node.entityId!,
     })
+    openSidebar()
   }
 
   return (
