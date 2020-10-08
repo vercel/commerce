@@ -1,5 +1,5 @@
 .separator {
-  @apply mx-3 bg-white;
+  @apply mx-3 bg-gray-400;
   width: 1px;
   height: 20px;
 }

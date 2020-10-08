@@ -6,7 +6,11 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative;
+  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100;
+
+  &:hover {
+    @apply text-gray-500;
+  }
 
   &:last-child {
     @apply mr-0;
