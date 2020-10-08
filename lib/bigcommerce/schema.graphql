@@ -152,6 +152,51 @@ type BrandEdge {
 }
 
 """
+Breadcrumb
+"""
+type Breadcrumb {
+  """
+  Category id.
+  """
+  entityId: Int!
+
+  """
+  Name of the category.
+  """
+  name: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type BreadcrumbConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [BreadcrumbEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type BreadcrumbEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Breadcrumb!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
 Bulk pricing tier that sets a fixed price for the product or variant.
 """
 type BulkPricingFixedPriceDiscount implements BulkPricingTier {
@@ -299,6 +344,17 @@ type Category implements Node {
   Category description.
   """
   description: String!
+
+  """
+  Category breadcrumbs.
+  """
+  breadcrumbs(
+    depth: Int!
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): BreadcrumbConnection!
   products(
     before: String
     after: String
@@ -666,6 +722,11 @@ type Image {
   Absolute path to image using store CDN.
   """
   url(width: Int!, height: Int): String!
+
+  """
+  Absolute path to original image using store CDN.
+  """
+  urlOriginal: String!
 
   """
   Text description of an image that can be used for SEO and/or accessibility purposes.

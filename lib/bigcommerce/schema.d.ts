@@ -121,6 +121,33 @@ export type BrandEdge = {
   cursor: Scalars['String']
 }
 
+/** Breadcrumb */
+export type Breadcrumb = {
+  __typename?: 'Breadcrumb'
+  /** Category id. */
+  entityId: Scalars['Int']
+  /** Name of the category. */
+  name: Scalars['String']
+}
+
+/** A connection to a list of items. */
+export type BreadcrumbConnection = {
+  __typename?: 'BreadcrumbConnection'
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo
+  /** A list of edges. */
+  edges?: Maybe<Array<Maybe<BreadcrumbEdge>>>
+}
+
+/** An edge in a connection. */
+export type BreadcrumbEdge = {
+  __typename?: 'BreadcrumbEdge'
+  /** The item at the end of the edge. */
+  node: Breadcrumb
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']
+}
+
 /** Bulk pricing tier that sets a fixed price for the product or variant. */
 export type BulkPricingFixedPriceDiscount = BulkPricingTier & {
   __typename?: 'BulkPricingFixedPriceDiscount'
@@ -197,9 +224,20 @@ export type Category = Node & {
   defaultImage?: Maybe<Image>
   /** Category description. */
   description: Scalars['String']
+  /** Category breadcrumbs. */
+  breadcrumbs: BreadcrumbConnection
   products: ProductConnection
   /** Metafield data related to a category. */
   metafields: MetafieldConnection
+}
+
+/** Category */
+export type CategoryBreadcrumbsArgs = {
+  depth: Scalars['Int']
+  before?: Maybe<Scalars['String']>
+  after?: Maybe<Scalars['String']>
+  first?: Maybe<Scalars['Int']>
+  last?: Maybe<Scalars['Int']>
 }
 
 /** Category */
@@ -408,6 +446,8 @@ export type Image = {
   __typename?: 'Image'
   /** Absolute path to image using store CDN. */
   url: Scalars['String']
+  /** Absolute path to original image using store CDN. */
+  urlOriginal: Scalars['String']
   /** Text description of an image that can be used for SEO and/or accessibility purposes. */
   altText: Scalars['String']
   /** Indicates whether this is the primary image. */
@@ -1613,12 +1653,15 @@ export enum CurrencyCode {
   Zwr = 'ZWR',
 }
 
-export type ResponsiveImageFragment = { __typename?: 'Image' } & {
-  urlSmall: Image['url']
-  urlMedium: Image['url']
-  urlLarge: Image['url']
-  urlXL: Image['url']
-}
+export type ResponsiveImageFragment = { __typename?: 'Image' } & Pick<
+  Image,
+  'urlOriginal' | 'altText' | 'isDefault'
+> & {
+    urlSmall: Image['url']
+    urlMedium: Image['url']
+    urlLarge: Image['url']
+    urlXL: Image['url']
+  }
 
 export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
   Product,
