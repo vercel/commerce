@@ -1,7 +1,0 @@
-.root {
-  @apply p-0 bg-black text-white;
-}
-
-.container {
-  @apply flex justify-between items-center flex-row px-4 py-5;
-}
