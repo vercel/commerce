@@ -27,19 +27,25 @@ const Footer: FC<Props> = ({ className }) => {
       <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
         <li className="py-3 md:py-0 md:pb-4">
           <Link href="/about">
-            <a>About</a>
+            <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+              About
+            </a>
           </Link>
         </li>
 
         <li className="py-3 md:py-0 md:pb-4">
           <Link href="/terms">
-            <a>Terms of Use</a>
+            <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+              Terms of Use
+            </a>
           </Link>
         </li>
 
         <li className="py-3 md:py-0 md:pb-4">
           <Link href="/privacy">
-            <a>Privacy Policy</a>
+            <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+              Privacy Policy
+            </a>
           </Link>
         </li>
       </ul>
