@@ -1,13 +1,5 @@
-.root {
-  @apply px-4 items-center hidden md:flex;
-}
-
-.container {
-  @apply relative rounded-lg flex flex-row text-sm items-center bg-accent-1;
-}
-
 .input {
-  @apply bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out rounded-lg text-accent-1 placeholder-accent-4;
+  @apply bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out rounded-lg text-gray-600 placeholder-accent-4;
   min-width: 300px;
 }
 

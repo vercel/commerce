@@ -10,25 +10,40 @@ interface Props {
 }
 
 const Navbar: FC<Props> = ({ className }) => {
-  const rootClassName = cn(s.root, className)
+  const rootClassName = className
   return (
     <div className={rootClassName}>
       <Container>
-        <div className={s.container}>
-          <Link href="/">
-            <span className="flex-0 cursor-pointer">
-              <Logo />
-            </span>
-          </Link>
-          <div className="flex flex-row h-full content-center flex-1 ml-10">
-            <nav className="hidden flex-row items-center px-6 lg:flex space-x-4">
-              <a className={s.link}>All</a>
-              <a className={s.link}>Clothes</a>
-              <a className={s.link}>Accesories</a>
+        <div className="flex justify-between align-center flex-row px-6 py-4 md:py-6 relative">
+          <div className="flex flex-1 items-center">
+            <Link href="/">
+              <a className="cursor-pointer">
+                <Logo />
+              </a>
+            </Link>
+            <nav className="space-x-4 ml-6 hidden md:block">
+              <Link href="/">
+                <a className={s.link}>All</a>
+              </Link>
+              <Link href="/">
+                <a className={s.link}>Clothes</a>
+              </Link>
+              <Link href="/">
+                <a className={s.link}>Accessories</a>
+              </Link>
             </nav>
+          </div>
+
+          <div className="md:flex flex-1 justify-center hidden">
             <Searchbar />
           </div>
-          <UserNav />
+
+          <div className="flex flex-initial md:flex-1 justify-end">
+            <UserNav />
+          </div>
+        </div>
+        <div className="block flex pb-4 md:hidden px-6">
+          <Searchbar />
         </div>
       </Container>
     </div>
