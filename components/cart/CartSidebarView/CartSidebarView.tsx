@@ -5,6 +5,7 @@ import { Trash, Cross } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import { useCart } from '@lib/bigcommerce/cart'
 import CartItem from '../CartItem'
+import Link from '@components/ui/Link'
 
 const CartSidebarView: FC = () => {
   const { data, isEmpty } = useCart()
@@ -60,7 +61,9 @@ const CartSidebarView: FC = () => {
             </ul>
           </div>
           <div className="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
-            <Button>Proceed to Checkout</Button>
+            <Button href="/checkout" Component={Link}>
+              Proceed to Checkout
+            </Button>
           </div>
         </>
       )}

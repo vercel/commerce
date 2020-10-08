@@ -10,7 +10,7 @@
   @apply border-gray-700 shadow-outline;
 }
 
-.root:active {
+.root[data-active] {
   @apply bg-gray-700;
 }
 
