@@ -9,7 +9,7 @@ import mergeRefs from 'react-merge-refs'
 import { useButton } from 'react-aria'
 import s from './Button.module.css'
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
   className?: string
   variant?: 'filled' | 'outlined' | 'flat' | 'none'
@@ -18,7 +18,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   Component?: string | JSXElementConstructor<any>
 }
 
-const Button: React.FC<Props> = forwardRef((props, buttonRef) => {
+const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   const {
     className,
     variant = 'filled',

@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import s from './ProductView.module.css'
 import { Button } from '@components/ui'
 import { Swatch } from '@components/product'
@@ -24,11 +24,22 @@ interface Props {
   product: Product
 }
 
+interface Choices {
+  size?: string | null
+  color?: string | null
+}
+
 const COLORS: Colors[] = ['pink', 'black', 'white']
+const SIZES = ['s', 'm', 'l', 'xl', 'xxl']
 
 const ProductView: FC<Props> = ({ product, productData, className }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
+  const [choices, setChoices] = useState<Choices>({
+    size: null,
+    color: null,
+  })
+
   const addToCart = async () => {
     // TODO: loading state by awating the promise
     await addItem({
@@ -37,6 +48,9 @@ const ProductView: FC<Props> = ({ product, productData, className }) => {
     })
     openSidebar()
   }
+
+  const activeSize = choices.size
+  const activeColor = choices.color
 
   return (
     <div className={cn(s.root, className)}>
@@ -48,26 +62,44 @@ const ProductView: FC<Props> = ({ product, productData, className }) => {
           {productData.prices}
         </div>
       </div>
-      <div className="flex-1 h-full p-24">
-        <div className="bg-violet h-full"></div>
+      <div className="flex-1 h-48 p-24">
+        <div className="bg-violet h-48"></div>
       </div>
       <div className="flex-1 flex flex-col">
         <section className="pb-4">
           <h2 className="uppercase font-medium">Color</h2>
           <div className="flex flex-row py-4">
-            {COLORS.map((c) => (
-              <Swatch key={c} color={c} />
+            {COLORS.map((color) => (
+              <Swatch
+                key={color}
+                color={color}
+                active={color === activeColor}
+                onClick={() =>
+                  setChoices((choices) => {
+                    return { ...choices, color }
+                  })
+                }
+              />
             ))}
           </div>
         </section>
         <section className="pb-4">
           <h2 className="uppercase font-medium">Size</h2>
           <div className="flex flex-row py-4">
-            <Swatch size="S" />
-            <Swatch size="M" />
-            <Swatch size="L" />
-            <Swatch size="XL" />
-            <Swatch size="XXL" />
+            {SIZES.map((size) => {
+              return (
+                <Swatch
+                  size={size.toUpperCase()}
+                  key={`size-${size}`}
+                  active={size === activeSize}
+                  onClick={() =>
+                    setChoices((choices) => {
+                      return { ...choices, size }
+                    })
+                  }
+                />
+              )
+            })}
           </div>
         </section>
         <section className="pb-12">
