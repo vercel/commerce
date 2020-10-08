@@ -1,9 +1,11 @@
 import cn from 'classnames'
 import React, {
+  forwardRef,
   ButtonHTMLAttributes,
   JSXElementConstructor,
   useRef,
 } from 'react'
+import mergeRefs from 'react-merge-refs'
 import { useButton } from 'react-aria'
 import s from './Button.module.css'
 
@@ -16,7 +18,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   Component?: string | JSXElementConstructor<any>
 }
 
-const Button: React.FC<Props> = (props) => {
+const Button: React.FC<Props> = forwardRef((props, buttonRef) => {
   const {
     className,
     variant = 'filled',
@@ -54,7 +56,7 @@ const Button: React.FC<Props> = (props) => {
       href={href}
       aria-pressed={active}
       data-variant={variant}
-      ref={ref}
+      ref={mergeRefs([ref, buttonRef])}
       {...rest}
       {...buttonProps}
       data-active={isPressed ? '' : undefined}
@@ -62,6 +64,6 @@ const Button: React.FC<Props> = (props) => {
       {children}
     </Component>
   )
-}
+})
 
 export default Button
