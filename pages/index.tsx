@@ -3,17 +3,20 @@ import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
 import { Layout } from '@components/core'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
+import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { products } = await getAllProducts()
+  const { categories } = await getSiteInfo()
 
   return {
-    props: { products },
+    props: { products, categories },
   }
 }
 
 export default function Home({
   products,
+  categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -39,8 +42,17 @@ export default function Home({
         wrapper={(p: any) => <ProductCard {...p} variant="slim" />}
       />
       <div className="py-12 flex flex-row w-full">
-        <div className="flex-0 pr-3 w-48 break-words">
-          ALL CATEGORIES ACCESSORIES BAGS CLOTHING SHOES ALL DESIGNERS 032c 1017
+        <div className="pr-3 w-48">
+          <ul className="uppercase">
+            <li>
+              <h2 className="font-bold">All Categories</h2>
+            </li>
+            {categories.map((cat) => (
+              <li key={cat.path} className="mt-2">
+                <a href="#">{cat.name}</a>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="flex-1">
           <Grid

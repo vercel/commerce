@@ -1653,6 +1653,13 @@ export enum CurrencyCode {
   Zwr = 'ZWR',
 }
 
+export type CategoryTreeItemFragment = {
+  __typename?: 'CategoryTreeItem'
+} & Pick<
+  CategoryTreeItem,
+  'entityId' | 'name' | 'path' | 'description' | 'productCount'
+>
+
 export type ResponsiveImageFragment = { __typename?: 'Image' } & Pick<
   Image,
   'urlOriginal' | 'altText' | 'isDefault'
@@ -1805,5 +1812,23 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         | { __typename: 'Variant' }
       >
     }
+  }
+}
+
+export type GetSiteInfoQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSiteInfoQuery = { __typename?: 'Query' } & {
+  site: { __typename?: 'Site' } & {
+    categoryTree: Array<
+      { __typename?: 'CategoryTreeItem' } & {
+        children: Array<
+          { __typename?: 'CategoryTreeItem' } & {
+            children: Array<
+              { __typename?: 'CategoryTreeItem' } & CategoryTreeItemFragment
+            >
+          } & CategoryTreeItemFragment
+        >
+      } & CategoryTreeItemFragment
+    >
   }
 }
