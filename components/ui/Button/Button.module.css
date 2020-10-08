@@ -11,7 +11,7 @@
 }
 
 .root[data-active] {
-  @apply bg-gray-700;
+  @apply bg-gray-200;
 }
 
 s.filled {
