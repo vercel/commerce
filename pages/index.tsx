@@ -38,7 +38,7 @@ export default function Home({
         variant="secondary"
         wrapper={(p: any) => <ProductCard {...p} variant="slim" />}
       />
-      <div className="py-12 flex flex-row w-full">
+      <div className="py-12 px-4 flex flex-row w-full">
         <div className="flex-0 pr-3 w-48 break-words">
           ALL CATEGORIES ACCESSORIES BAGS CLOTHING SHOES ALL DESIGNERS 032c 1017
         </div>

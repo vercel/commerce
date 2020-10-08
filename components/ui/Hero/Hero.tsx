@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Hero: FC<Props> = ({ headline, description, className }) => {
-  const rootClassName = cn(s.root, className)
+  const rootClassName = cn('bg-black py-12 px-4 md:px-6', className)
   return (
     <div className={rootClassName}>
       <Container>

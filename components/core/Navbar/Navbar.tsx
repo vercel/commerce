@@ -14,7 +14,7 @@ const Navbar: FC<Props> = ({ className }) => {
   return (
     <div className={rootClassName}>
       <Container>
-        <div className="flex justify-between align-center flex-row px-6 py-4 md:py-6 relative">
+        <div className="flex justify-between align-center flex-row p-4 md:p-6 relative">
           <div className="flex flex-1 items-center">
             <Link href="/">
               <a className="cursor-pointer">
@@ -42,7 +42,7 @@ const Navbar: FC<Props> = ({ className }) => {
             <UserNav />
           </div>
         </div>
-        <div className="block flex pb-4 md:hidden px-6">
+        <div className="block flex pb-4 md:hidden px-4 md:px-6">
           <Searchbar />
         </div>
       </Container>
