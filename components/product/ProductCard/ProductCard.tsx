@@ -48,7 +48,7 @@ const ProductCard: FC<Props> = ({ className, node: p, variant }) => {
         <div className="flex flex-row justify-between box-border w-full z-10 relative">
           <div className="flex flex-col flex-1 overflow-hidden">
             <div className="flex-1">
-              <h1 className={s.productTitle}>{p.name}</h1>
+              <span className={s.productTitle}>{p.name}</span>
             </div>
             <div className="flex-0">
               <div className={s.productPrice}>${p.prices.price.value}</div>
