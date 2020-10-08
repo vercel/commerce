@@ -1,5 +1,5 @@
 .root {
-  @apply flex flex-row h-screen py-12;
+  @apply flex flex-row h-screen py-12 px-6;
 }
 
 .button {
