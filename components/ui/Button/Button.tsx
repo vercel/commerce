@@ -16,6 +16,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean
   type?: 'submit' | 'reset' | 'button'
   Component?: string | JSXElementConstructor<any>
+  width?: string | number
 }
 
 const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     active,
     onClick,
     disabled,
+    width,
     Component = 'button',
     ...rest
   } = props
@@ -59,6 +61,9 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       ref={mergeRefs([ref, buttonRef])}
       {...rest}
       {...buttonProps}
+      style={{
+        width,
+      }}
       data-active={isPressed ? '' : undefined}
     >
       {children}

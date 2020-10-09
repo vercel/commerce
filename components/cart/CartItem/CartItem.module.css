@@ -1,6 +1,6 @@
 .quantity {
   appearance: textfield;
-  @apply w-6 border-gray-300 border mx-3 rounded text-center text-sm;
+  @apply w-8 border-gray-300 border mx-3 rounded text-center text-sm;
 }
 
 .quantity::-webkit-outer-spin-button,
