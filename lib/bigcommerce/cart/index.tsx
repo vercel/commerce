@@ -19,7 +19,7 @@ export const fetcher: HookFetcher<Cart | null, HookDeps[]> = (
   })
 }
 
-function extend(customFetcher: typeof fetcher) {
+export function extendHook(customFetcher: typeof fetcher) {
   const useCart = () => {
     const cart = useCommerceCart<Cart | null>(
       [defaultOpts.url, undefined],
@@ -40,9 +40,9 @@ function extend(customFetcher: typeof fetcher) {
     return cart
   }
 
-  useCart.extend = extend
+  useCart.extend = extendHook
 
   return useCart
 }
 
-export const useCart = extend(fetcher)
+export const useCart = extendHook(fetcher)

@@ -25,7 +25,7 @@ export const fetcher: HookFetcher<Cart | null, RemoveItemBody> = (
   })
 }
 
-function extend(customFetcher: typeof fetcher) {
+export function extendHook(customFetcher: typeof fetcher) {
   const useRemoveItem = (item?: any) => {
     const { mutate } = useCart()
     const fn = useCartRemoveItem<Cart | null, RemoveItemBody>(
@@ -43,9 +43,9 @@ function extend(customFetcher: typeof fetcher) {
     )
   }
 
-  useRemoveItem.extend = extend
+  useRemoveItem.extend = extendHook
 
   return useRemoveItem
 }
 
-export default extend(fetcher)
+export default extendHook(fetcher)

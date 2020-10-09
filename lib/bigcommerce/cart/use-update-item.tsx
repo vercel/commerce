@@ -34,7 +34,7 @@ export const fetcher: HookFetcher<Cart | null, UpdateItemBody> = (
   })
 }
 
-function extend(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
+function extendHook(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
   const useUpdateItem = (item?: any) => {
     const { mutate } = useCart()
     const fn = useCartUpdateItem<Cart | null, UpdateItemBody>(
@@ -59,9 +59,9 @@ function extend(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
     )
   }
 
-  useUpdateItem.extend = extend
+  useUpdateItem.extend = extendHook
 
   return useUpdateItem
 }
 
-export default extend(fetcher)
+export default extendHook(fetcher)

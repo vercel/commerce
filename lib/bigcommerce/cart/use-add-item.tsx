@@ -32,7 +32,7 @@ export const fetcher: HookFetcher<Cart, AddItemBody> = (
   })
 }
 
-function extend(customFetcher: typeof fetcher) {
+export function extendHook(customFetcher: typeof fetcher) {
   const useAddItem = () => {
     const { mutate } = useCart()
     const fn = useCartAddItem<Cart, AddItemBody>(defaultOpts, customFetcher)
@@ -47,9 +47,9 @@ function extend(customFetcher: typeof fetcher) {
     )
   }
 
-  useAddItem.extend = extend
+  useAddItem.extend = extendHook
 
   return useAddItem
 }
 
-export default extend(fetcher)
+export default extendHook(fetcher)
