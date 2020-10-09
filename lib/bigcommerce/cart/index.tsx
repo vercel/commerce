@@ -1,21 +1,48 @@
+import { HookFetcher, HookDeps } from '@lib/commerce/utils/types'
 import { useCart as useCommerceCart } from '@lib/commerce/cart'
 import type { Cart } from '../api/cart'
 
+const defaultOpts = {
+  url: '/api/bigcommerce/cart',
+}
+
 export type { Cart }
 
-export function useCart() {
-  const cart = useCommerceCart<Cart | null>()
-
-  // Uses a getter to only calculate the prop when required
-  // cart.data is also a getter and it's better to not trigger it early
-  Object.defineProperty(cart, 'isEmpty', {
-    get() {
-      return Object.values(cart.data?.line_items ?? {}).every(
-        (items) => !items.length
-      )
-    },
-    set: (x) => x,
+export const fetcher: HookFetcher<Cart | null, HookDeps[]> = (
+  options,
+  _,
+  fetch
+) => {
+  return fetch({
+    url: options?.url,
+    query: options?.query,
   })
-
-  return cart
 }
+
+function extend(customFetcher: typeof fetcher) {
+  const useCart = () => {
+    const cart = useCommerceCart<Cart | null>(
+      [defaultOpts.url, undefined],
+      customFetcher
+    )
+
+    // Uses a getter to only calculate the prop when required
+    // cart.data is also a getter and it's better to not trigger it early
+    Object.defineProperty(cart, 'isEmpty', {
+      get() {
+        return Object.values(cart.data?.line_items ?? {}).every(
+          (items) => !items.length
+        )
+      },
+      set: (x) => x,
+    })
+
+    return cart
+  }
+
+  useCart.extend = extend
+
+  return useCart
+}
+
+export const useCart = extend(fetcher)

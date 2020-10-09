@@ -20,3 +20,5 @@ export type HookFetcherOptions = {
   url?: string
   method?: string
 }
+
+export type HookDeps = string | number | undefined[]
