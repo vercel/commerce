@@ -1,4 +1,4 @@
-const ArrowLeft = ({ ...props }) => {
+const Check = ({ ...props }) => {
   return (
     <svg
       width="24"
@@ -9,14 +9,8 @@ const ArrowLeft = ({ ...props }) => {
       {...props}
     >
       <path
-        d="M19 12H5"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M12 19L5 12L12 5"
-        stroke-width="1.5"
+        d="M20 6L9 17L4 12"
+        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -24,4 +18,4 @@ const ArrowLeft = ({ ...props }) => {
   )
 }
 
-export default ArrowLeft
+export default Check
