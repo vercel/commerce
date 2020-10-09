@@ -6,6 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
+import { Fetcher } from './utils/types'
 
 const Commerce = createContext<CommerceConfig | null>(null)
 
@@ -18,16 +19,6 @@ export type CommerceConfig = {
   fetcherRef: MutableRefObject<any>
   locale: string
   cartCookie: string
-}
-
-export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
-
-export type FetcherOptions = {
-  url?: string
-  query?: string
-  method?: string
-  variables?: any
-  body?: any
 }
 
 export function CommerceProvider({ children, config }: CommerceProps) {

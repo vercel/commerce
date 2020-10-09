@@ -1,14 +1,16 @@
 import { useCallback } from 'react'
-import { Fetcher, useCommerce } from '..'
+import { HookFetcher, HookFetcherOptions } from '../utils/types'
+import { useCommerce } from '..'
 
 export default function useAddItem<T, Input>(
-  fetcher: (fetch: Fetcher<T>, input: Input) => T | Promise<T>
+  options: HookFetcherOptions,
+  fetcher: HookFetcher<T, Input>
 ) {
   const { fetcherRef } = useCommerce()
 
   return useCallback(
     function addItem(input: Input) {
-      return fetcher(fetcherRef.current, input)
+      return fetcher(options, input, fetcherRef.current)
     },
     [fetcher]
   )
