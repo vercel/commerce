@@ -8,14 +8,19 @@ import {
 } from 'react'
 import { Fetcher } from './utils/types'
 
-const Commerce = createContext<CommerceConfig | null>(null)
+const Commerce = createContext<CommerceContextValue | null>(null)
 
 export type CommerceProps = {
   children?: ReactNode
-  config: { fetcher: Fetcher<any> } & CommerceConfig
+  config: CommerceConfig
 }
 
-export type CommerceConfig = {
+export type CommerceConfig = { fetcher: Fetcher<any> } & Omit<
+  CommerceContextValue,
+  'fetcherRef'
+>
+
+export type CommerceContextValue = {
   fetcherRef: MutableRefObject<any>
   locale: string
   cartCookie: string
@@ -41,6 +46,6 @@ export function CommerceProvider({ children, config }: CommerceProps) {
   return <Commerce.Provider value={cfg}>{children}</Commerce.Provider>
 }
 
-export function useCommerce<T extends CommerceConfig>() {
+export function useCommerce<T extends CommerceContextValue>() {
   return useContext(Commerce) as T
 }

@@ -15,11 +15,6 @@ export type HookFetcher<T, Input> = (
   fetch: Fetcher<T>
 ) => T | Promise<T>
 
-// export type HookFetcher<T> = (
-//   options: FetcherOptions,
-//   fetch: Fetcher<T>
-// ) => T | Promise<T>
-
 export type HookFetcherOptions = {
   query?: string
   url?: string

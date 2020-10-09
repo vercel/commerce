@@ -6,7 +6,7 @@ import type { ItemBody, UpdateItemBody } from '../api/cart'
 import { fetcher as removeFetcher } from './use-remove-item'
 import { Cart, useCart } from '.'
 
-const defualtOpts = {
+const defaultOpts = {
   url: '/api/bigcommerce/cart',
   method: 'PUT',
 }
@@ -28,8 +28,8 @@ export const fetcher: HookFetcher<Cart | null, UpdateItemBody> = (
   }
 
   return fetch({
-    url: options?.url ?? defualtOpts.url,
-    method: options?.method ?? defualtOpts.method,
+    url: options?.url ?? defaultOpts.url,
+    method: options?.method ?? defaultOpts.method,
     body: { itemId, item },
   })
 }
@@ -38,7 +38,7 @@ function extend(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
   const useUpdateItem = (item?: any) => {
     const { mutate } = useCart()
     const fn = useCartUpdateItem<Cart | null, UpdateItemBody>(
-      defualtOpts,
+      defaultOpts,
       customFetcher
     )
 
