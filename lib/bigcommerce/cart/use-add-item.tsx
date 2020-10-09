@@ -4,12 +4,12 @@ import { default as useCartAddItem } from '@lib/commerce/cart/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/cart'
 import { Cart, useCart } from '.'
 
-export type UpdateItemInput = ItemBody
-
 const defaultOpts = {
   url: '/api/bigcommerce/cart',
   method: 'POST',
 }
+
+export type UpdateItemInput = ItemBody
 
 export const fetcher: HookFetcher<Cart, AddItemBody> = (
   options,
