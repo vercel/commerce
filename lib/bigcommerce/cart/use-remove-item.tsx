@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import type { Fetcher } from '@lib/commerce'
 import { default as useCartRemoveItem } from '@lib/commerce/cart/use-remove-item'
 import type { RemoveItemBody } from '../api/cart'
@@ -21,11 +22,13 @@ export function fetcher(
 export default function useRemoveItem(item?: any) {
   const { mutate } = useCart()
   const fn = useCartRemoveItem<Cart | null, RemoveItemBody>(fetcher)
-  const removeItem = async (input: RemoveItemInput) => {
-    const data = await fn({ itemId: input.id ?? item?.id })
-    await mutate(data, false)
-    return data
-  }
 
-  return removeItem
+  return useCallback(
+    async function removeItem(input: RemoveItemInput) {
+      const data = await fn({ itemId: input.id ?? item?.id })
+      await mutate(data, false)
+      return data
+    },
+    [fn, mutate]
+  )
 }

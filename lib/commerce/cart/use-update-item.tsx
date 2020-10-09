@@ -1,11 +1,15 @@
+import { useCallback } from 'react'
 import { Fetcher, useCommerce } from '..'
 
 export default function useUpdateItem<T, Input>(
   fetcher: (fetch: Fetcher<T>, input: Input) => T | Promise<T>
 ) {
-  const { fetcher: fetch } = useCommerce()
+  const { fetcherRef } = useCommerce()
 
-  return async function updateItem(input: Input) {
-    return fetcher(fetch, input)
-  }
+  return useCallback(
+    function updateItem(input: Input) {
+      return fetcher(fetcherRef.current, input)
+    },
+    [fetcher]
+  )
 }

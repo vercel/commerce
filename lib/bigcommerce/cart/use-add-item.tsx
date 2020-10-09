@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import type { Fetcher } from '@lib/commerce'
 import { default as useCartAddItem } from '@lib/commerce/cart/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/cart'
@@ -21,11 +22,13 @@ function fetcher(fetch: Fetcher<Cart>, { item }: AddItemBody) {
 export default function useAddItem() {
   const { mutate } = useCart()
   const fn = useCartAddItem<Cart, AddItemBody>(fetcher)
-  const addItem = async (input: UpdateItemInput) => {
-    const data = await fn({ item: input })
-    await mutate(data, false)
-    return data
-  }
 
-  return addItem
+  return useCallback(
+    async function addItem(input: UpdateItemInput) {
+      const data = await fn({ item: input })
+      await mutate(data, false)
+      return data
+    },
+    [fn, mutate]
+  )
 }

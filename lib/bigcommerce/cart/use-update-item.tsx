@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+import debounce from 'lodash.debounce'
 import type { Fetcher } from '@lib/commerce'
 import { default as useCartUpdateItem } from '@lib/commerce/cart/use-update-item'
 import type { ItemBody, UpdateItemBody } from '../api/cart'
@@ -26,21 +28,23 @@ function fetcher(
   })
 }
 
-export default function useUpdateItem(item?: any) {
+export default function useUpdateItem(item?: any, cfg?: { wait?: number }) {
   const { mutate } = useCart()
   const fn = useCartUpdateItem<Cart | null, UpdateItemBody>(fetcher)
-  const updateItem = async (input: UpdateItemInput) => {
-    const data = await fn({
-      itemId: input.id ?? item?.id,
-      item: {
-        productId: input.productId ?? item?.product_id,
-        variantId: input.productId ?? item?.variant_id,
-        quantity: input.quantity,
-      },
-    })
-    await mutate(data, false)
-    return data
-  }
 
-  return updateItem
+  return useCallback(
+    debounce(async (input: UpdateItemInput) => {
+      const data = await fn({
+        itemId: input.id ?? item?.id,
+        item: {
+          productId: input.productId ?? item?.product_id,
+          variantId: input.productId ?? item?.variant_id,
+          quantity: input.quantity,
+        },
+      })
+      await mutate(data, false)
+      return data
+    }, cfg?.wait ?? 500),
+    [fn, mutate]
+  )
 }

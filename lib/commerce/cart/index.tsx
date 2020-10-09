@@ -19,10 +19,9 @@ const CartProvider: FC<CartProviderProps> = ({ children, query, url }) => {
 }
 
 function useCart<C>() {
-  const { fetcher: fetch, cartCookie } = useCommerce()
-  const fetcher = (url?: string, query?: string) => {
-    return Cookies.get(cartCookie) ? fetch({ url, query }) : null
-  }
+  const { fetcherRef, cartCookie } = useCommerce()
+  const fetcher = (url?: string, query?: string) =>
+    Cookies.get(cartCookie) ? fetcherRef.current({ url, query }) : null
   const { url, query } = useContext(CartContext)
   const response = useSWR([url, query], fetcher, {
     revalidateOnFocus: false,
