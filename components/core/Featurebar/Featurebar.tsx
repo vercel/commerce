@@ -9,12 +9,15 @@ interface Props {
 }
 
 const Featurebar: FC<Props> = ({ title, description, className }) => {
-  const rootClassName = cn(s.root, className)
+  const rootClassName = cn(
+    'hidden py-2 px-6 bg-gray-100 text-sm text-gray-600 md:flex flex-row justify-center items-center font-medium',
+    className
+  )
   return (
     <div className={rootClassName}>
-      <span className={s.title}>{title}</span>
+      <span>{title}</span>
       <span className={s.separator} />
-      <span className={s.description}>{description}</span>
+      <span>{description}</span>
     </div>
   )
 }

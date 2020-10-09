@@ -29,7 +29,9 @@
     "next": "^9.5.4-canary.23",
     "postcss-nesting": "^7.0.1",
     "react": "^16.13.1",
+    "react-aria": "^3.0.0",
     "react-dom": "^16.13.1",
+    "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
     "swr": "^0.3.3"
   },

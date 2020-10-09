@@ -2,8 +2,10 @@ import cn from 'classnames'
 import { FC } from 'react'
 import s from './Swatch.module.css'
 import { Colors } from '@components/ui/types'
+import { Check } from '@components/icon'
+import Button, { ButtonProps } from '@components/ui/Button'
 
-interface Props {
+interface Props extends ButtonProps {
   className?: string
   children?: any
   active?: boolean
@@ -11,7 +13,7 @@ interface Props {
   size?: string
 }
 
-const Swatch: FC<Props> = ({ className, size, color, active }) => {
+const Swatch: FC<Props> = ({ className, size, color, active, ...props }) => {
   const rootClassName = cn(
     s.root,
     {
@@ -24,7 +26,25 @@ const Swatch: FC<Props> = ({ className, size, color, active }) => {
     },
     className
   )
-  return <span className={rootClassName}>{size ? size : null}</span>
+
+  // TODO: technically this is a radio
+
+  return (
+    <Button className={rootClassName} {...props}>
+      {color && active && (
+        <span
+          className={cn('absolute', {
+            'text-white': color !== 'white',
+            'text-black': color === 'white',
+          })}
+        >
+          <Check />
+        </span>
+      )}
+      {size}
+    </Button>
+  )
 }
 
 export default Swatch
+

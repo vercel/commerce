@@ -15,7 +15,7 @@ interface Props {
 
 const CoreLayout: FC<Props> = ({ className, children }) => {
   const rootClassName = cn(s.root, className)
-  const { displaySidebar } = useUI()
+  const { displaySidebar, closeSidebar } = useUI()
 
   return (
     <div className={rootClassName}>
@@ -28,7 +28,7 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
         <main className={s.main}>{children}</main>
       </Container>
       <Footer />
-      <Sidebar show={displaySidebar}>
+      <Sidebar show={displaySidebar} close={closeSidebar}>
         <CartSidebarView />
       </Sidebar>
     </div>

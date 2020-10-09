@@ -1,6 +1,4 @@
 @import './font.css';
-@tailwind base;
-@tailwind components;
 
 :root {
   /* Spacing variables */
@@ -190,5 +188,3 @@ body {
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
-@tailwind utilities;

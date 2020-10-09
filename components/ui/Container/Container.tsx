@@ -1,6 +1,5 @@
 import cn from 'classnames'
 import React, { FC } from 'react'
-import s from './Container.module.css'
 
 interface Props {
   className?: string
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const Container: FC<Props> = ({ children, className, el = 'div' }) => {
-  const rootClassName = cn(s.root, className)
+  const rootClassName = cn('mx-auto max-w-screen-xl', className)
 
   let Component: React.ComponentType<React.HTMLAttributes<
     HTMLDivElement

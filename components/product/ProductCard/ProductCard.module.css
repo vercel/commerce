@@ -1,11 +1,9 @@
 .root {
-  @apply relative w-full p-6 box-border overflow-hidden bg-no-repeat bg-center bg-cover transition ease-linear;
+  @apply relative w-full box-border overflow-hidden bg-no-repeat bg-center bg-cover transition ease-linear cursor-pointer;
 
   &:hover {
-    @apply cursor-pointer;
-
     & .squareBg {
-      @apply inset-12;
+      @apply scale-75;
     }
 
     & .productTitle,
@@ -35,7 +33,7 @@
     &:nth-child(6n + 6) .productTitle,
     &:nth-child(6n + 6) .productPrice,
     &:nth-child(6n + 6) .wishlistButton {
-      @apply bg-cyan text-black;
+      @apply bg-cyan text-white;
     }
   }
 
@@ -56,12 +54,19 @@
   }
 }
 
+.squareBg,
+.productTitle,
+.productPrice,
+.wishlistButton {
+  @apply transition ease-in-out duration-300;
+}
+
 .squareBg {
-  @apply cursor-pointer absolute inset-0 z-0 transition-all duration-75 ease-in-out bg-black;
+  @apply transform absolute inset-0 z-0 bg-black;
 }
 
 .productTitle {
-  @apply p-3 h-14 bg-white text-black font-bold text-lg truncate leading-8 inline-flex transition ease-linear;
+  @apply p-3 h-14 bg-white text-black font-bold text-lg truncate leading-8 inline-flex;
   max-width: calc(100% - 50px);
 
   @screen lg {
@@ -70,9 +75,9 @@
 }
 
 .productPrice {
-  @apply px-6 py-1 pb-3 bg-white text-black font-semibold inline-block text-sm leading-6 transition ease-linear;
+  @apply px-3 py-1 pb-2 bg-white text-black font-semibold inline-block text-sm leading-6;
 }
 
 .wishlistButton {
-  @apply w-14 h-14 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6 cursor-pointer transition ease-linear;
+  @apply w-10 h-10 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6 cursor-pointer;
 }

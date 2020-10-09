@@ -1,21 +1,9 @@
-.root {
-  @apply py-4 px-6 bg-black text-white flex flex-row justify-center items-center;
-}
-
-.title {
-  @apply text-white font-medium;
-}
-
 .separator {
-  @apply mx-3 bg-white;
+  @apply mx-3 bg-gray-400;
   width: 1px;
   height: 20px;
 }
 
 .separator:before {
   content: '';
-}
-
-.description {
-  @apply text-white font-medium;
 }

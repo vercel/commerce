@@ -1,4 +1,4 @@
-import { Trash } from '@components/icon'
+import { Trash, Plus, Minus } from '@components/icon'
 import { useCommerce } from '@lib/bigcommerce'
 import useUpdateItem from '@lib/bigcommerce/cart/use-update-item'
 import useRemoveItem from '@lib/bigcommerce/cart/use-remove-item'
@@ -57,27 +57,29 @@ const CartItem = ({
   }, [item.quantity])
 
   return (
-    <li className="flex flex-row space-x-6">
+    <li className="flex flex-row space-x-6 py-6">
       <div className="h-12 w-12 bg-violet"></div>
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col justify-between">
         <span>{item.name}</span>
-        <div className="py-2">
+        <div className="flex items-center">
           <button type="button" onClick={() => increaseQuantity(-1)}>
-            -
+            <Minus width={18} height={18} />
           </button>
           <input
             type="number"
+            max={99}
+            min={0}
             className={styles.quantity}
             value={quantity}
             onChange={handleQuantity}
             onBlur={handleBlur}
           />
           <button type="button" onClick={() => increaseQuantity(1)}>
-            +
+            <Plus width={18} height={18} />
           </button>
         </div>
       </div>
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col justify-between space-y-2">
         <span>{price}</span>
         <button
           className="flex justify-end"

@@ -1,25 +1,29 @@
 .root {
-  @apply h-12 w-12 bg-white rounded-full mr-3 border border-gray-200 inline-flex items-center justify-center cursor-pointer transition duration-75 ease-in-out;
+  @apply h-12 w-12 bg-white text-black rounded-full mr-3 inline-flex items-center justify-center cursor-pointer transition duration-75 ease-in-out p-0 shadow-none;
 }
 
-.active,
+.active.size {
+  @apply border-black;
+}
+
 .root:hover {
-  @apply border-gray-700;
+  @apply transform scale-110;
 }
 
 .colorViolet {
-  @apply bg-violet;
+  @apply bg-violet !important;
 }
 
 .colorPink {
-  @apply bg-pink;
+  @apply bg-pink !important;
 }
 
 .colorBlack {
-  @apply bg-black;
+  @apply bg-black !important;
 }
 
 .colorWhite,
 .size {
-  @apply bg-white;
+  @apply bg-white !important;
+  @apply border border-gray-200;
 }
