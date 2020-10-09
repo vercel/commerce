@@ -10,7 +10,7 @@ export type FetcherOptions = {
 }
 
 export type HookFetcher<T, Input> = (
-  options: HookFetcherOptions,
+  options: HookFetcherOptions | null,
   input: Input,
   fetch: Fetcher<T>
 ) => T | Promise<T>
