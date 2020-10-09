@@ -23,7 +23,8 @@ export function extendHook(customFetcher: typeof fetcher) {
   const useCart = () => {
     const cart = useCommerceCart<Cart | null>(
       [defaultOpts.url, undefined],
-      customFetcher
+      customFetcher,
+      { revalidateOnFocus: false }
     )
 
     // Uses a getter to only calculate the prop when required
