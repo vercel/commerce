@@ -1,5 +1,5 @@
 import { HookFetcher, HookDeps } from '@lib/commerce/utils/types'
-import { useCart as useCommerceCart } from '@lib/commerce/cart'
+import useCommerceCart from '@lib/commerce/cart/use-cart'
 import type { Cart } from '../api/cart'
 
 const defaultOpts = {

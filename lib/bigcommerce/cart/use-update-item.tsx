@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
 import { HookFetcher } from '@lib/commerce/utils/types'
-import { default as useCartUpdateItem } from '@lib/commerce/cart/use-update-item'
+import useCartUpdateItem from '@lib/commerce/cart/use-update-item'
 import type { ItemBody, UpdateItemBody } from '../api/cart'
 import { fetcher as removeFetcher } from './use-remove-item'
 import { Cart, useCart } from '.'

@@ -7,7 +7,7 @@ export type CartResponse<C> = responseInterface<C, Error> & {
   isEmpty: boolean
 }
 
-export function useCart<T>(
+export default function useCart<T>(
   deps: [string | undefined, string | undefined, ...HookDeps[]],
   fetcherFn: HookFetcher<T, HookDeps[]>,
   swrOptions?: ConfigInterface<T | null>

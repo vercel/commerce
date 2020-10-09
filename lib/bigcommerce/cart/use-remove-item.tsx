@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { HookFetcher } from '@lib/commerce/utils/types'
-import { default as useCartRemoveItem } from '@lib/commerce/cart/use-remove-item'
+import useCartRemoveItem from '@lib/commerce/cart/use-remove-item'
 import type { RemoveItemBody } from '../api/cart'
 import { Cart, useCart } from '.'
 
