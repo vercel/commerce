@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import { useCart } from '@lib/bigcommerce/cart'
+import useCart from '@lib/bigcommerce/cart/use-cart'
 import { Avatar } from '@components/core'
 import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'

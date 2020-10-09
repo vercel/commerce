@@ -4,7 +4,7 @@ import { UserNav } from '@components/core'
 import { Button } from '@components/ui'
 import { ArrowLeft, Bag, Cross, Check } from '@components/icon'
 import { useUI } from '@components/ui/context'
-import { useCart } from '@lib/bigcommerce/cart'
+import useCart from '@lib/bigcommerce/cart/use-cart'
 import CartItem from '../CartItem'
 import Link from '@components/ui/Link'
 

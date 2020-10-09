@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { HookFetcher } from '@lib/commerce/utils/types'
 import useCartAddItem from '@lib/commerce/cart/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/cart'
-import { Cart, useCart } from '.'
+import useCart, { Cart } from './use-cart'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',

@@ -4,7 +4,7 @@ import { HookFetcher } from '@lib/commerce/utils/types'
 import useCartUpdateItem from '@lib/commerce/cart/use-update-item'
 import type { ItemBody, UpdateItemBody } from '../api/cart'
 import { fetcher as removeFetcher } from './use-remove-item'
-import { Cart, useCart } from '.'
+import useCart, { Cart } from './use-cart'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',

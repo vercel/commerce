@@ -46,4 +46,4 @@ export function extendHook(customFetcher: typeof fetcher) {
   return useCart
 }
 
-export const useCart = extendHook(fetcher)
+export default extendHook(fetcher)
