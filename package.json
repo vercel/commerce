@@ -26,7 +26,7 @@
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.20",
     "lodash.debounce": "^4.0.8",
-    "next": "^9.5.4-canary.23",
+    "next": "^9.5.4",
     "postcss-nesting": "^7.0.1",
     "react": "^16.13.1",
     "react-aria": "^3.0.0",

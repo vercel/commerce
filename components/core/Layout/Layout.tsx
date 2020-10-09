@@ -2,7 +2,6 @@ import cn from 'classnames'
 import { FC } from 'react'
 import s from './Layout.module.css'
 import { CommerceProvider } from '@lib/bigcommerce'
-import { CartProvider } from '@lib/bigcommerce/cart'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
@@ -37,11 +36,9 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
 
 const Layout: FC<Props> = (props) => (
   <CommerceProvider locale="en-us">
-    <CartProvider>
       <UIProvider>
         <CoreLayout {...props} />
       </UIProvider>
-    </CartProvider>
   </CommerceProvider>
 )
 
