@@ -1,9 +1,7 @@
-import { CartProvider, useCart as useCommerceCart } from '@lib/commerce/cart'
+import { useCart as useCommerceCart } from '@lib/commerce/cart'
 import type { Cart } from '../api/cart'
 
 export type { Cart }
-
-export { CartProvider }
 
 export function useCart() {
   const cart = useCommerceCart<Cart | null>()
