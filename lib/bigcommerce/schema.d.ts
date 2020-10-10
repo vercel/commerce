@@ -1830,5 +1830,36 @@ export type GetSiteInfoQuery = { __typename?: 'Query' } & {
         >
       } & CategoryTreeItemFragment
     >
+    brands: { __typename?: 'BrandConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'startCursor' | 'endCursor'
+      >
+      edges?: Maybe<
+        Array<
+          Maybe<
+            { __typename?: 'BrandEdge' } & Pick<BrandEdge, 'cursor'> & {
+                node: { __typename?: 'Brand' } & Pick<
+                  Brand,
+                  | 'entityId'
+                  | 'name'
+                  | 'pageTitle'
+                  | 'metaDesc'
+                  | 'metaKeywords'
+                  | 'searchKeywords'
+                  | 'path'
+                > & {
+                    defaultImage?: Maybe<
+                      { __typename?: 'Image' } & Pick<
+                        Image,
+                        'urlOriginal' | 'altText'
+                      >
+                    >
+                  }
+              }
+          >
+        >
+      >
+    }
   }
 }

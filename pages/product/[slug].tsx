@@ -42,7 +42,7 @@ export async function getStaticPaths() {
   const { products } = await getAllProductPaths()
 
   return {
-    paths: products.map((product) => `/product${product!.node.path}`),
+    paths: products.map((product) => `/product${product.node.path}`),
     fallback: false,
   }
 }

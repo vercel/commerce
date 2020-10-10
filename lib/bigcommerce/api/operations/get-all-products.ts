@@ -3,6 +3,7 @@ import type {
   GetAllProductsQueryVariables,
 } from 'lib/bigcommerce/schema'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import filterEdges from '../utils/filter-edges'
 import { productInfoFragment } from '../fragments/product'
 import { BigcommerceConfig, getConfig, Images, ProductImageVariables } from '..'
 
@@ -37,9 +38,11 @@ export const getAllProductsQuery = /* GraphQL */ `
   ${productInfoFragment}
 `
 
-export type Products = NonNullable<
-  GetAllProductsQuery['site']['products']['edges']
+export type Product = NonNullable<
+  NonNullable<GetAllProductsQuery['site']['products']['edges']>[0]
 >
+
+export type Products = Product[]
 
 export type GetAllProductsResult<
   T extends { products: any[] } = { products: Products }
@@ -82,7 +85,7 @@ async function getAllProducts({
   const products = data.site?.products?.edges
 
   return {
-    products: (products as RecursiveRequired<typeof products>) ?? [],
+    products: filterEdges(products as RecursiveRequired<typeof products>),
   }
 }
 

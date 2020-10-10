@@ -7,16 +7,17 @@ import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { products } = await getAllProducts()
-  const { categories } = await getSiteInfo()
+  const { categories, brands } = await getSiteInfo()
 
   return {
-    props: { products, categories },
+    props: { products, categories, brands },
   }
 }
 
 export default function Home({
   products,
   categories,
+  brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -50,6 +51,16 @@ export default function Home({
             {categories.map((cat) => (
               <li key={cat.path} className="mt-2">
                 <a href="#">{cat.name}</a>
+              </li>
+            ))}
+          </ul>
+          <ul className="uppercase mt-6">
+            <li>
+              <h2 className="font-bold">All Designers</h2>
+            </li>
+            {brands.flatMap(({ node }) => (
+              <li key={node.path} className="mt-2">
+                <a href="#">{node.name}</a>
               </li>
             ))}
           </ul>
