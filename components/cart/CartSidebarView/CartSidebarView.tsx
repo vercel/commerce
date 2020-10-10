@@ -6,10 +6,11 @@ import { ArrowLeft, Bag, Cross, Check } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import useCart from '@lib/bigcommerce/cart/use-cart'
 import CartItem from '../CartItem'
-import Link from '@components/ui/Link'
+import useOpenCheckout from '@lib/bigcommerce/cart/use-open-checkout'
 
 const CartSidebarView: FC = () => {
   const { data, isEmpty } = useCart()
+  const openCheckout = useOpenCheckout()
   const { closeSidebar } = useUI()
   const items = data?.line_items.physical_items ?? []
   const handleClose = () => closeSidebar()
@@ -90,7 +91,12 @@ const CartSidebarView: FC = () => {
             </ul>
           </div>
           <div className="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
-            <Button href="/checkout" Component={Link} width="100%">
+            <Button
+              width="100%"
+              onClick={() => {
+                openCheckout()
+              }}
+            >
               Proceed to Checkout
             </Button>
           </div>

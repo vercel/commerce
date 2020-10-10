@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   const ref = useRef<typeof Component>(null)
   const { buttonProps, isPressed } = useButton(
     {
-      ...props,
+      ...rest,
       // @ts-ignore onClick === onPress for our purposes
       onPress: onClick,
       isDisabled: disabled,
@@ -59,7 +59,6 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       aria-pressed={active}
       data-variant={variant}
       ref={mergeRefs([ref, buttonRef])}
-      {...rest}
       {...buttonProps}
       style={{
         width,
