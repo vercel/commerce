@@ -9,7 +9,7 @@ const defaultOpts = {
   method: 'POST',
 }
 
-export type UpdateItemInput = ItemBody
+export type AddItemInput = ItemBody
 
 export const fetcher: HookFetcher<Cart, AddItemBody> = (
   options,
@@ -38,7 +38,7 @@ export function extendHook(customFetcher: typeof fetcher) {
     const fn = useCartAddItem<Cart, AddItemBody>(defaultOpts, customFetcher)
 
     return useCallback(
-      async function addItem(input: UpdateItemInput) {
+      async function addItem(input: AddItemInput) {
         const data = await fn({ item: input })
         await mutate(data, false)
         return data
