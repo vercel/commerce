@@ -1,9 +1,11 @@
 import { serialize, CookieSerializeOptions } from 'cookie'
-import isAllowedMethod from './utils/is-allowed-method'
+import isAllowedMethod from '../utils/is-allowed-method'
 import createApiHandler, {
   BigcommerceApiHandler,
-} from './utils/create-api-handler'
-import { BigcommerceApiError } from './utils/errors'
+  BigcommerceHandler,
+} from '../utils/create-api-handler'
+import { BigcommerceApiError } from '../utils/errors'
+import getCart from './handlers/get-cart'
 
 type Body<T> = Partial<T> | undefined
 
@@ -40,10 +42,19 @@ export type Cart = {
   // TODO: add missing fields
 }
 
+export type CartHandlers = {
+  getCart: BigcommerceHandler<Cart, { cartId?: string }>
+}
+
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
 // TODO: a complete implementation should have schema validation for `req.body`
-const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
+const cartApi: BigcommerceApiHandler<Cart, CartHandlers> = async (
+  req,
+  res,
+  config,
+  handlers
+) => {
   if (!isAllowedMethod(req, res, METHODS)) return
 
   const { cookies } = req
@@ -52,22 +63,7 @@ const cartApi: BigcommerceApiHandler<Cart> = async (req, res, config) => {
   try {
     // Return current cart info
     if (req.method === 'GET') {
-      let result: { data?: Cart } = {}
-
-      try {
-        result = await config.storeApiFetch(
-          `/v3/carts/${cartId}?include=redirect_urls`
-        )
-      } catch (error) {
-        if (error instanceof BigcommerceApiError && error.status === 404) {
-          // Remove the cookie if it exists but the cart wasn't found
-          res.setHeader('Set-Cookie', getCartCookie(config.cartCookie))
-        } else {
-          throw error
-        }
-      }
-
-      return res.status(200).json({ data: result.data ?? null })
+      return await handlers['getCart']({ req, res, config, body: { cartId } })
     }
 
     // Create or add an item to the cart
@@ -192,4 +188,10 @@ const parseItem = (item: ItemBody) => ({
   variant_id: item.variantId,
 })
 
-export default createApiHandler(cartApi)
+const handlers = {
+  getCart,
+}
+
+const h = createApiHandler(cartApi, handlers)
+
+export default h
