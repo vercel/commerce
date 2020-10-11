@@ -35,6 +35,11 @@ export type Cart = {
   base_amount: number
   discount_amount: number
   cart_amount: number
+  redirect_urls: {
+    cart_url: string
+    checkout_url: string
+    embedded_checkout_url: string
+  }
   line_items: {
     custom_items: any[]
     digital_items: any[]

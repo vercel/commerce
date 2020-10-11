@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { HookFetcher, HookFetcherOptions } from '../utils/types'
+import type { HookFetcher, HookFetcherOptions } from '../utils/types'
 import { useCommerce } from '..'
 
 export default function useRemoveItem<T, Input>(

@@ -5,7 +5,15 @@ import createApiHandler, {
 import isAllowedMethod from './utils/is-allowed-method'
 import { BigcommerceApiError } from './utils/errors'
 
+type Body<T> = Partial<T> | undefined
+
 export type Customer = any
+
+export type AddCustomerBody = { item: any }
+
+export type CartHandlers = {
+  addItem: BigcommerceHandler<Customer, { cartId?: string } & Body<any>>
+}
 
 const METHODS = ['POST']
 
