@@ -10,8 +10,8 @@ import { useUI } from '@components/ui/context'
 
 interface ProductData {
   name: string
-  images: any
-  prices: any
+  images?: any
+  prices?: any
   path: string
 }
 
