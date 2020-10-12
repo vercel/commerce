@@ -77,7 +77,7 @@ const CartSidebarView: FC = () => {
       ) : (
         <>
           <div className="px-4 sm:px-6 flex-1">
-            <h2 className="pt-6 pb-4 text-lg leading-7 font-medium text-gray-900 uppercase">
+            <h2 className="pt-1 pb-4 text-lg leading-7 font-medium text-gray-900 uppercase">
               My Cart
             </h2>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200 border-t border-gray-200">
