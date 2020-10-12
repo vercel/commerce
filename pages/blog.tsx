@@ -22,7 +22,7 @@ export default function Blog({}: InferGetStaticPropsType<
           this ‘Natural’ joint. Revealed by Yeezy Mafia earlier this year, the
           shoe was originally called ‘Abez’, which translated to ‘Tin’ in
           Hebrew. It’s now undergone a name change, and will be referred to as
-          ‘Natura
+          ‘Natura`
         </p>
         <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-12">
           <div className="flex">
