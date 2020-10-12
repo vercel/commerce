@@ -8,10 +8,17 @@ import type { Product } from '@lib/bigcommerce/api/operations/get-product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { useUI } from '@components/ui/context'
 
+interface ProductData {
+  name: string
+  images: any
+  prices: any
+  path: string
+}
+
 interface Props {
   className?: string
   children?: any
-  product: Product
+  product: Product & ProductData
 }
 
 interface Choices {
@@ -41,7 +48,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
   const activeSize = choices.size
   const activeColor = choices.color
-  console.log(product, product.images.edges)
 
   return (
     <div className={cn(s.root, className)}>
