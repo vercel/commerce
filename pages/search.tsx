@@ -4,6 +4,7 @@ import { Layout } from '@components/core'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+import { useRouter } from 'next/router'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { products } = await getAllProducts()
@@ -19,6 +20,7 @@ export default function Home({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter()
   return (
     <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
       <div className="col-span-2">
@@ -45,7 +47,7 @@ export default function Home({
       </div>
       <div className="col-span-8">
         <div className="mb-12">
-          Showing 8 results for "<strong>Jacket</strong>"
+          Showing 8 results for "<strong>{router.query.q}</strong>"
         </div>
         <Grid
           items={[
