@@ -90,13 +90,29 @@ const CartSidebarView: FC = () => {
               ))}
             </ul>
           </div>
-          <div className="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
-            <Button
-              width="100%"
-              onClick={() => {
-                openCheckout()
-              }}
-            >
+
+          <div className="flex-shrink-0 px-4  py-5 sm:px-6">
+            <div className="border-t border-gray-200">
+              <ul className="py-3">
+                <li className="flex justify-between py-1">
+                  <span>Subtotal</span>
+                  <span>$100</span>
+                </li>
+                <li className="flex justify-between py-1">
+                  <span>Taxes</span>
+                  <span>$9.99</span>
+                </li>
+                <li className="flex justify-between py-1">
+                  <span>Estimated Shipping</span>
+                  <span>FREE</span>
+                </li>
+              </ul>
+              <div className="flex justify-between border-t border-gray-300 py-3 font-bold mb-10">
+                <span>Total</span>
+                <span>$1320.23</span>
+              </div>
+            </div>
+            <Button width="100%" onClick={() => openCheckout()}>
               Proceed to Checkout
             </Button>
           </div>

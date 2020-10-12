@@ -16,7 +16,6 @@ interface ProductData {
   colors?: any[]
   sizes?: any[]
 }
-
 interface Props {
   className?: string
   children?: any
