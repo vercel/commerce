@@ -79,5 +79,5 @@
 }
 
 .wishlistButton {
-  @apply w-10 h-10 flex items-center justify-center bg-white text-black font-semibold inline-block text-sm leading-6 cursor-pointer;
+  @apply w-10 h-10 flex items-center justify-center bg-white text-black font-semibold inline-block text-xs leading-6 cursor-pointer;
 }

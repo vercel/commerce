@@ -20,7 +20,7 @@ export default function Home({
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <>
+    <div className="mt-3">
       <Grid items={products.slice(0, 3)} wrapper={ProductCard} />
       <Marquee
         items={products.slice(0, 3)}
@@ -77,7 +77,7 @@ export default function Home({
           />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

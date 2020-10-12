@@ -8,18 +8,9 @@ import type { Product } from '@lib/bigcommerce/api/operations/get-product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { useUI } from '@components/ui/context'
 
-interface ProductData {
-  name: string
-  images: any
-  prices: any
-  description: string
-  colors?: any[]
-  sizes?: any[]
-}
 interface Props {
   className?: string
   children?: any
-  productData: ProductData
   product: Product
 }
 
@@ -31,7 +22,7 @@ interface Choices {
 const COLORS: Colors[] = ['pink', 'black', 'white']
 const SIZES = ['s', 'm', 'l', 'xl', 'xxl']
 
-const ProductView: FC<Props> = ({ product, productData, className }) => {
+const ProductView: FC<Props> = ({ product, className }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
   const [choices, setChoices] = useState<Choices>({
@@ -50,19 +41,28 @@ const ProductView: FC<Props> = ({ product, productData, className }) => {
 
   const activeSize = choices.size
   const activeColor = choices.color
+  console.log(product, product.images.edges)
 
   return (
     <div className={cn(s.root, className)}>
       <div className="absolute">
         <h1 className="px-8 py-2 bg-violet text-white font-bold text-3xl">
-          {productData.name}
+          {product.name}
         </h1>
         <div className="px-6 py-2 pb-4 bg-violet text-white font-semibold inline-block">
-          {productData.prices}
+          {product.prices.price.value}
+          {` `}
+          {product.prices.price.currencyCode}
         </div>
       </div>
-      <div className="flex-1 h-48 p-24">
-        <div className="bg-violet h-48"></div>
+      <div className="flex-1 h-48 p-24 relative min-h-screen overflow-hidden">
+        <div className="absolute z-10 inset-0 flex items-center justify-center">
+          <img
+            className="w-full object-cover"
+            src={product.images.edges[0].node.urlSmall}
+          />
+        </div>
+        <div className=" absolute inset-24 z-0 bg-violet"></div>
       </div>
       <div className="flex-1 flex flex-col">
         <section className="pb-4">
@@ -102,7 +102,7 @@ const ProductView: FC<Props> = ({ product, productData, className }) => {
           </div>
         </section>
         <section className="pb-12">
-          <p>{productData.description}</p>
+          <div dangerouslySetInnerHTML={{ __html: product.description }} />
         </section>
         <section className="pb-4">
           <Button type="button" className={s.button} onClick={addToCart}>

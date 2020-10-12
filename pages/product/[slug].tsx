@@ -14,25 +14,9 @@ export async function getStaticProps({
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }
 
-  const productData = {
-    name: 'T-Shirt',
-    description: `
-      Nothing undercover about this tee. Nope. This is the official Bad
-      Boys tee. Printed in white or black ink on Black, Brown, or Oatmeal.
-      Like everything in this collection, it is extremely limited edition
-      and available for 10 days only. This is a limited edition production
-      run. Printing starts when the drop ends. Reminder: Bad Boys For
-      Life. Shipping may take 10+ days due to COVID-19.
-    `,
-    images: null,
-    prices: '$50',
-    colors: ['black', 'white', 'pink'],
-    sizes: ['s', 'm', 'l', 'xl', 'xxl'],
-  }
   return {
     props: {
       product,
-      productData,
     },
     revalidate: 200,
   }
@@ -49,14 +33,13 @@ export async function getStaticPaths() {
 
 export default function Slug({
   product,
-  productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
   return router.isFallback ? (
-    <h1>Loading...</h1>
+    <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
-    <ProductView product={product} productData={productData} />
+    <ProductView product={product} />
   )
 }
 
