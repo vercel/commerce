@@ -1,13 +1,14 @@
 import cn from 'classnames'
 import { FC } from 'react'
 import s from './Searchbar.module.css'
-
+import { useRouter } from 'next/router'
 interface Props {
   className?: string
   children?: any
 }
 
 const Searchbar: FC<Props> = ({ className }) => {
+  const router = useRouter()
   return (
     <div
       className={cn(
@@ -15,7 +16,15 @@ const Searchbar: FC<Props> = ({ className }) => {
         className
       )}
     >
-      <input className={s.input} placeholder="Search for products..." />
+      <input
+        className={s.input}
+        placeholder="Search for products..."
+        onChange={(e) => {
+          e.preventDefault()
+          router.push('/search')
+          console.log('changing')
+        }}
+      />
       <div className={s.iconContainer}>
         <svg className={s.icon} fill="currentColor" viewBox="0 0 20 20">
           <path

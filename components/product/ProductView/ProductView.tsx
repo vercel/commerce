@@ -46,7 +46,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
   return (
     <div className={cn(s.root, className)}>
       <div className="absolute">
-        <h1 className="px-8 py-2 bg-violet text-white font-bold text-3xl">
+        <h1 className="px-6 py-2 bg-violet text-white font-bold text-3xl">
           {product.name}
         </h1>
         <div className="px-6 py-2 pb-4 bg-violet text-white font-semibold inline-block">
@@ -102,7 +102,10 @@ const ProductView: FC<Props> = ({ product, className }) => {
           </div>
         </section>
         <section className="pb-12">
-          <div dangerouslySetInnerHTML={{ __html: product.description }} />
+          <div
+            className="break-words"
+            dangerouslySetInnerHTML={{ __html: product.description }}
+          />
         </section>
         <section className="pb-4">
           <Button type="button" className={s.button} onClick={addToCart}>
