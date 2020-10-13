@@ -42,7 +42,7 @@ export default function Home({
         variant="secondary"
         wrapper={(p: any) => <ProductCard {...p} variant="slim" />}
       />
-      <div className="py-12 flex flex-row w-full">
+      <div className="py-12 flex flex-row w-full px-12">
         <div className="pr-3 w-48">
           <ul className="mb-10">
             <li className="py-1 text-primary font-bold tracking-wide">

@@ -24,8 +24,8 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
       />
       <Container>
         <Navbar />
-        <main className={s.main}>{children}</main>
       </Container>
+      <main className={s.main}>{children}</main>
       <Footer />
       <Sidebar show={displaySidebar} close={closeSidebar}>
         <CartSidebarView />
@@ -36,9 +36,9 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
 
 const Layout: FC<Props> = (props) => (
   <CommerceProvider locale="en-us">
-      <UIProvider>
-        <CoreLayout {...props} />
-      </UIProvider>
+    <UIProvider>
+      <CoreLayout {...props} />
+    </UIProvider>
   </CommerceProvider>
 )
 
