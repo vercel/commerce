@@ -1,6 +1,5 @@
 import cn from 'classnames'
 import { FC } from 'react'
-import s from './Layout.module.css'
 import { CommerceProvider } from '@lib/bigcommerce'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const CoreLayout: FC<Props> = ({ className, children }) => {
-  const rootClassName = cn(s.root, className)
+  const rootClassName = cn('h-full bg-primary', className)
   const { displaySidebar, closeSidebar } = useUI()
 
   return (
@@ -25,7 +24,7 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
       <Container>
         <Navbar />
       </Container>
-      <main className={s.main}>{children}</main>
+      <main className="h-screen">{children}</main>
       <Footer />
       <Sidebar show={displaySidebar} close={closeSidebar}>
         <CartSidebarView />

@@ -1,7 +1,0 @@
-.root {
-  @apply h-full bg-primary;
-}
-
-.main {
-  min-height: 100vh;
-}
