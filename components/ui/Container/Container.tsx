@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Container: FC<Props> = ({ children, className, el = 'div' }) => {
-  const rootClassName = cn('mx-auto max-w-screen-xl', className)
+  const rootClassName = cn('mx-auto max-w-7xl', className)
 
   let Component: React.ComponentType<React.HTMLAttributes<
     HTMLDivElement

@@ -11,14 +11,18 @@ import useOpenCheckout from '@lib/bigcommerce/cart/use-open-checkout'
 
 const CartSidebarView: FC = () => {
   const { data, isEmpty } = useCart()
-  const { price: subTotal } = usePrice(data && {
-    amount: data.base_amount,
-    currencyCode: data.currency.code,
-  })
-  const { price: total } = usePrice(data && {
-    amount: data.cart_amount,
-    currencyCode: data.currency.code,
-  })
+  const { price: subTotal } = usePrice(
+    data && {
+      amount: data.base_amount,
+      currencyCode: data.currency.code,
+    }
+  )
+  const { price: total } = usePrice(
+    data && {
+      amount: data.cart_amount,
+      currencyCode: data.currency.code,
+    }
+  )
   const openCheckout = useOpenCheckout()
   const { closeSidebar } = useUI()
   const handleClose = () => closeSidebar()
@@ -87,7 +91,7 @@ const CartSidebarView: FC = () => {
       ) : (
         <>
           <div className="px-4 sm:px-6 flex-1">
-            <h2 className="pt-1 pb-4 text-lg leading-7 font-medium text-gray-900 uppercase">
+            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-primary tracking-wide">
               My Cart
             </h2>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200 border-t border-gray-200">
