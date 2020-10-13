@@ -10,7 +10,7 @@ interface Props {
 
 const Featurebar: FC<Props> = ({ title, description, className }) => {
   const rootClassName = cn(
-    'hidden py-2 px-6 bg-gray-100 text-sm text-gray-600 md:flex flex-row justify-center items-center font-medium',
+    'hidden py-2 px-6 bg-primary-accent text-primary text-sm text-gray-600 md:flex flex-row justify-center items-center font-medium border-b border-primary-accent',
     className
   )
   return (
