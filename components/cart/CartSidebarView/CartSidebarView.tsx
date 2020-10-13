@@ -4,34 +4,26 @@ import { UserNav } from '@components/core'
 import { Button } from '@components/ui'
 import { ArrowLeft, Bag, Cross, Check } from '@components/icon'
 import { useUI } from '@components/ui/context'
-import { useCommerce } from '@lib/bigcommerce'
 import useCart from '@lib/bigcommerce/cart/use-cart'
+import usePrice from '@lib/bigcommerce/use-price'
 import CartItem from '../CartItem'
 import useOpenCheckout from '@lib/bigcommerce/cart/use-open-checkout'
-import formatPrice from 'utils/format-price'
 
 const CartSidebarView: FC = () => {
-  const { locale } = useCommerce()
   const { data, isEmpty } = useCart()
+  const { price: subTotal } = usePrice(data && {
+    amount: data.base_amount,
+    currencyCode: data.currency.code,
+  })
+  const { price: total } = usePrice(data && {
+    amount: data.cart_amount,
+    currencyCode: data.currency.code,
+  })
   const openCheckout = useOpenCheckout()
   const { closeSidebar } = useUI()
   const handleClose = () => closeSidebar()
 
   const items = data?.line_items.physical_items ?? []
-  const subTotal = data
-    ? formatPrice({
-        amount: data.base_amount,
-        currencyCode: data.currency.code,
-        locale,
-      })
-    : 0
-  const total = data
-    ? formatPrice({
-        amount: data.cart_amount,
-        currencyCode: data.currency.code,
-        locale,
-      })
-    : 0
 
   console.log('CART', data, isEmpty)
 
