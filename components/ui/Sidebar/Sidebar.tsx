@@ -73,7 +73,7 @@ const Sidebar: FC<Props> = ({ className, children, show = true, close }) => {
                   leaveTo="translate-x-full"
                 >
                   <div className="h-full w-screen max-w-md">
-                    <div className="h-full flex flex-col bg-white shadow-xl overflow-y-auto">
+                    <div className="h-full flex flex-col text-primary bg-primary shadow-xl overflow-y-auto">
                       {children}
                     </div>
                   </div>
