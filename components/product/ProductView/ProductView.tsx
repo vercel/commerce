@@ -44,7 +44,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
   return (
     <Container>
-      <div className="relative flex flex-row items-start overflow-hidden">
+      <div className="relative flex flex-row items-start overflow-hidden fit">
         <div className="absolute top-0 left-0 z-50">
           <h1 className="px-6 py-2 bg-violet text-white font-bold text-3xl">
             {product.name}
@@ -55,7 +55,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
             {product.prices?.price.currencyCode}
           </div>
         </div>
-        <div className="flex-1 p-24 relative fit overflow-hidden box-border">
+        <div className="flex-1 px-24 pb-0 relative fit overflow-hidden box-border">
           <div className="absolute z-10 inset-0 flex items-center justify-center">
             <img
               className="w-full object-cover"
@@ -105,7 +105,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
           </section>
-          <section className="pb-4">
+          <section className="">
             <Button type="button" className={s.button} onClick={addToCart}>
               Add to Cart
             </Button>

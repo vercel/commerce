@@ -23,7 +23,7 @@
 }
 
 .fit {
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - 300px);
 }
 
 *,
