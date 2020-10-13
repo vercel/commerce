@@ -9,7 +9,7 @@
 }
 
 .root:hover {
-  @apply transform scale-110 bg-primary-accent;
+  @apply transform scale-110 bg-primary-hover;
 }
 
 .colorViolet {

@@ -24,7 +24,7 @@ const WishlistCard: FC<Props> = ({ className, data }) => {
         <p className="mb-4">
           Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
         </p>
-        <button className="py-1 px-3 border border-secondary rounded-md shadow-sm">
+        <button className="py-1 px-3 border border-secondary rounded-md shadow-sm hover:bg-primary-hover">
           Add to cart
         </button>
       </div>
