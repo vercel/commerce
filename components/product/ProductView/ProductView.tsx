@@ -42,8 +42,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
   const activeSize = choices.size
   const activeColor = choices.color
 
-  console.log(product.images.edges.map((n) => n.node))
-
   return (
     <div className={cn(s.root, className)}>
       <div className="absolute">
