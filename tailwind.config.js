@@ -27,7 +27,7 @@ module.exports = {
         primary: 'var(--bg-primary)',
         secondary: 'var(--bg-secondary)',
         'primary-accent': 'var(--bg-primary-accent)',
-        'primary-hover': 'var(--bg-primary-accent)',
+        'primary-hover': 'var(--bg-primary-hover)',
       },
       textColor: {
         base: 'var(--text-primary)',
