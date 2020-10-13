@@ -3,15 +3,27 @@
 :root {
   --bg-primary: white;
   --bg-secondary: black;
+  --bg-primary-accent: rgba(0, 0, 0, 0.075);
+
   --text-primary: black;
-  --text-secondary: #252f3f;
+  --text-secondary: white;
+
+  --text-default: #252f3f;
 }
 
 [data-theme='dark'] {
   --bg-primary: black;
   --bg-secondary: white;
+  --bg-primary-accent: rgba(255, 255, 255, 0.075);
+
   --text-primary: white;
-  --text-secondary: white;
+  --text-secondary: black;
+
+  --text-default: white;
+}
+
+.fit {
+  min-height: calc(100vh - 200px);
 }
 
 *,

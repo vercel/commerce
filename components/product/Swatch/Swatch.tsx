@@ -27,8 +27,6 @@ const Swatch: FC<Props> = ({ className, size, color, active, ...props }) => {
     className
   )
 
-  // TODO: technically this is a radio
-
   return (
     <Button className={rootClassName} {...props}>
       {color && active && (
@@ -47,4 +45,3 @@ const Swatch: FC<Props> = ({ className, size, color, active, ...props }) => {
 }
 
 export default Swatch
-

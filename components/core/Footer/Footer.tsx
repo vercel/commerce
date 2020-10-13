@@ -15,6 +15,10 @@ const Footer: FC<Props> = ({ className }) => {
   )
   return (
     <div className="bg-black text-white">
+      <hr
+        className="hidden md:block mt-4 border-gray-700"
+        style={{ flexBasis: '100%', height: 0 }}
+      />
       <footer className={rootClassName}>
         <Link href="/">
           <a className="flex flex-initial items-center md:items-start font-bold md:mr-24">
@@ -54,11 +58,6 @@ const Footer: FC<Props> = ({ className }) => {
         <small className="text-base">
           &copy; 2020 ACME, Inc. All rights reserved.
         </small>
-
-        <hr
-          className="hidden md:block mt-4 border-gray-700"
-          style={{ flexBasis: '100%', height: 0 }}
-        />
       </footer>
     </div>
   )

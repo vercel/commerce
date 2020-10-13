@@ -1,7 +1,7 @@
-.root {
-  @apply flex flex-row h-screen py-12 px-6;
-}
-
 .button {
   min-width: 300px;
+}
+
+.squareBg {
+  @apply absolute inset-24 z-0 bg-violet;
 }

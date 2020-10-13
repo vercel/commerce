@@ -24,7 +24,7 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
       <Container>
         <Navbar />
       </Container>
-      <main className="h-screen">{children}</main>
+      <main className="fit">{children}</main>
       <Footer />
       <Sidebar show={displaySidebar} close={closeSidebar}>
         <CartSidebarView />

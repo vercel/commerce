@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundOpacity: {
+        075: '0.75',
+      },
       colors: {
         'accent-1': '#FAFAFA',
         'accent-2': '#F1F3F5',
@@ -22,6 +25,7 @@ module.exports = {
         red: '#DA3C3C',
         primary: 'var(--bg-primary)',
         secondary: 'var(--bg-secondary)',
+        'primary-accent': 'var(--bg-primary-accent)',
       },
       textColor: {
         base: 'var(--text-primary)',

@@ -13,14 +13,41 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
   }
 }
 
-export default function Home({}: InferGetStaticPropsType<
-  typeof getStaticProps
->) {
+export default function Home({
+  categories,
+  brands,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Container>
       <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-primary tracking-wide">
         My Wishlist
       </h2>
+      <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
+        <div className="col-span-2">
+          <ul className="mb-10">
+            <li className="py-1 text-primary font-bold tracking-wide">
+              All Categories
+            </li>
+            {categories.map((cat) => (
+              <li key={cat.path} className="py-1 text-secondary">
+                <a href="#">{cat.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="col-span-8">Items.</div>
+        <div className="col-span-2">
+          <ul>
+            <li className="py-1 text-primary font-bold tracking-wide">
+              Relevance
+            </li>
+            <li className="py-1 text-secondary">Latest arrivals</li>
+            <li className="py-1 text-secondary">Trending</li>
+            <li className="py-1 text-secondary">Price: Low to high</li>
+            <li className="py-1 text-secondary">Price: High to low</li>
+          </ul>
+        </div>
+      </div>
     </Container>
   )
 }
