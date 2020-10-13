@@ -1674,7 +1674,7 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
   Product,
   'entityId' | 'name' | 'path' | 'description'
 > & {
-    brand?: Maybe<{ __typename?: 'Brand' } & Pick<Brand, 'name'>>
+    brand?: Maybe<{ __typename?: 'Brand' } & Pick<Brand, 'name' | 'entityId'>>
     prices?: Maybe<
       { __typename?: 'Prices' } & {
         price: { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
@@ -1759,6 +1759,7 @@ export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
 }
 
 export type GetAllProductsQueryVariables = Exact<{
+  entityIds?: Maybe<Array<Scalars['Int']>>
   first?: Maybe<Scalars['Int']>
   imgSmallWidth?: Maybe<Scalars['Int']>
   imgSmallHeight?: Maybe<Scalars['Int']>

@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
@@ -8,23 +7,22 @@ import { ProductCard } from '@components/product'
 import { useRouter } from 'next/router'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { products } = await getAllProducts()
   const { categories, brands } = await getSiteInfo()
 
   return {
-    props: { products, categories, brands },
+    props: { categories, brands },
   }
 }
 
 export default function Home({
-  products,
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
-  const search = useSearch({ search: router.query.search as string })
-
-  console.log('SEARCH', search)
+  const { q } = router.query
+  const { data } = useSearch({
+    search: typeof q === 'string' ? q : '',
+  })
 
   return (
     <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
@@ -51,18 +49,23 @@ export default function Home({
         </ul>
       </div>
       <div className="col-span-8">
-        <div className="mb-12">
-          Showing 8 results for "<strong>{router.query.q}</strong>"
-        </div>
-        <Grid
-          items={[
-            ...products.slice(6),
-            ...products.slice(6),
-            ...products.slice(6),
-          ]}
-          layout="normal"
-          wrapper={ProductCard}
-        />
+        {data ? (
+          <>
+            {q && (
+              <div className="mb-12">
+                {data.found ? (
+                  <>Showing {data.products.length} results for</>
+                ) : (
+                  <>There are no products that match</>
+                )}{' '}
+                "<strong>{q}</strong>"
+              </div>
+            )}
+            <Grid items={data.products} layout="normal" wrapper={ProductCard} />
+          </>
+        ) : (
+          <div>Searching...</div>
+        )}
       </div>
       <div className="col-span-2">
         <ul>

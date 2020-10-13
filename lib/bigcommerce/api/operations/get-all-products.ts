@@ -9,6 +9,7 @@ import { BigcommerceConfig, getConfig, Images, ProductImageVariables } from '..'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
+    $entityIds: [Int!]
     $first: Int = 10
     $imgSmallWidth: Int = 320
     $imgSmallHeight: Int
@@ -20,7 +21,7 @@ export const getAllProductsQuery = /* GraphQL */ `
     $imgXLHeight: Int
   ) {
     site {
-      products(first: $first) {
+      products(first: $first, entityIds: $entityIds) {
         pageInfo {
           startCursor
           endCursor

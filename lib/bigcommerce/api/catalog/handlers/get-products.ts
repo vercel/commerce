@@ -1,3 +1,4 @@
+import getAllProducts from '../../operations/get-all-products'
 import type { ProductsHandlers } from '../products'
 
 // Return current cart info
@@ -11,9 +12,18 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
 
   if (search) url.searchParams.set('keyword', search)
 
-  const { data } = await config.storeApiFetch(url.pathname + url.search)
+  // We only want the id of each product
+  url.searchParams.set('include_fields', 'id')
 
-  res.status(200).json({ data })
+  const { data } = await config.storeApiFetch<{ data: { id: number }[] }>(
+    url.pathname + url.search
+  )
+  const entityIds = data.map((p) => p.id)
+  const found = entityIds.length > 0
+  // We want the GraphQL version of each product
+  const { products } = await getAllProducts({ variables: { entityIds } })
+
+  res.status(200).json({ data: { products, found } })
 }
 
 export default getProducts

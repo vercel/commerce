@@ -24,14 +24,21 @@ const Searchbar: FC<Props> = ({ className }) => {
       <input
         className={s.input}
         placeholder="Search for products..."
+        defaultValue={router.query.q}
         onKeyUp={(e) => {
           e.preventDefault()
 
           if (e.key === 'Enter') {
-            router.push({
-              pathname: `/search`,
-              query: { q: e.currentTarget.value },
-            })
+            const q = e.currentTarget.value
+
+            router.push(
+              {
+                pathname: `/search`,
+                query: q ? { q } : {},
+              },
+              undefined,
+              { shallow: true }
+            )
           }
         }}
       />

@@ -1,8 +1,7 @@
-import useSWR, { ConfigInterface } from 'swr'
-import { HookDeps, HookFetcher } from '@lib/commerce/utils/types'
+import { ConfigInterface } from 'swr'
+import { HookFetcher } from '@lib/commerce/utils/types'
 import useCommerceSearch from '@lib/commerce/products/use-search'
-import type { Product } from '../api/catalog/products'
-import { useCommerce } from '..'
+import type { SearchProductsData } from '../api/catalog/products'
 
 const defaultOpts = {
   url: '/api/bigcommerce/catalog/products',
@@ -13,7 +12,7 @@ export type SearchProductsInput = {
   search?: string
 }
 
-export const fetcher: HookFetcher<Product[], SearchProductsInput> = (
+export const fetcher: HookFetcher<SearchProductsData, SearchProductsInput> = (
   options,
   { search },
   fetch
@@ -34,7 +33,7 @@ export function extendHook(
   swrOptions?: ConfigInterface
 ) {
   const useSearch = (input: SearchProductsInput = {}) => {
-    const response = useCommerceSearch<Product[]>(
+    const response = useCommerceSearch<SearchProductsData>(
       defaultOpts,
       [['search', input.search]],
       customFetcher,

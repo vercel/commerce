@@ -1,4 +1,3 @@
-import type { definitions } from '../definitions/catalog'
 import isAllowedMethod from '../utils/is-allowed-method'
 import createApiHandler, {
   BigcommerceApiHandler,
@@ -6,22 +5,24 @@ import createApiHandler, {
 } from '../utils/create-api-handler'
 import { BigcommerceApiError } from '../utils/errors'
 import getProducts from './handlers/get-products'
+import { Products } from '../operations/get-all-products'
 
-export type Product = definitions['product_Full']
+export type SearchProductsData = {
+  products: Products
+  found: boolean
+}
 
 export type ProductsHandlers = {
-  getProducts: BigcommerceHandler<Product[], { search?: 'string' }>
+  getProducts: BigcommerceHandler<SearchProductsData, { search?: 'string' }>
 }
 
 const METHODS = ['GET']
 
 // TODO: a complete implementation should have schema validation for `req.body`
-const cartApi: BigcommerceApiHandler<Product[], ProductsHandlers> = async (
-  req,
-  res,
-  config,
-  handlers
-) => {
+const cartApi: BigcommerceApiHandler<
+  SearchProductsData,
+  ProductsHandlers
+> = async (req, res, config, handlers) => {
   if (!isAllowedMethod(req, res, METHODS)) return
 
   try {
