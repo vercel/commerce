@@ -42,6 +42,8 @@ const ProductView: FC<Props> = ({ product, className }) => {
   const activeSize = choices.size
   const activeColor = choices.color
 
+  console.log(product.images.edges.map((n) => n.node))
+
   return (
     <div className={cn(s.root, className)}>
       <div className="absolute">
@@ -58,7 +60,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
         <div className="absolute z-10 inset-0 flex items-center justify-center">
           <img
             className="w-full object-cover"
-            src={product.images.edges?.[0]?.node.urlSmall}
+            src={product.images.edges?.[0]?.node.urlXL}
           />
         </div>
         <div className=" absolute inset-24 z-0 bg-violet"></div>
