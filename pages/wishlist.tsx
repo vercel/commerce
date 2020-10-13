@@ -2,6 +2,8 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
 import { Layout } from '@components/core'
 import { Container } from '@components/ui'
+import { WishlistCard } from '@components/wishlist'
+
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
@@ -19,9 +21,6 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Container>
-      <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-primary tracking-wide">
-        My Wishlist
-      </h2>
       <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
         <div className="col-span-2">
           <ul className="mb-10">
@@ -35,7 +34,16 @@ export default function Home({
             ))}
           </ul>
         </div>
-        <div className="col-span-8">Items.</div>
+        <div className="col-span-8">
+          <h2 className="pt-1 px-3 pb-4 text-2xl leading-7 font-bold text-primary tracking-wide">
+            My Wishlist
+          </h2>
+          <div className="group flex flex-col">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <WishlistCard />
+            ))}
+          </div>
+        </div>
         <div className="col-span-2">
           <ul>
             <li className="py-1 text-primary font-bold tracking-wide">
