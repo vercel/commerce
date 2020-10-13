@@ -5,7 +5,7 @@ import { Avatar } from '@components/core'
 import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import s from './UserNav.module.css'
-
+import Link from 'next/link'
 interface Props {
   className?: string
 }
@@ -34,9 +34,11 @@ const UserNav: FC<Props> = ({ className }) => {
             </span>
           )}
         </li>
-        <li className={s.item}>
-          <Heart />
-        </li>
+        <Link href="/wishlist">
+          <li className={s.item}>
+            <Heart />
+          </li>
+        </Link>
         <li className={s.item}>
           <Avatar />
         </li>

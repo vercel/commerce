@@ -17,6 +17,7 @@ module.exports = {
         'accent-1': '#FAFAFA',
         'accent-2': '#F1F3F5',
         'accent-4': '#888',
+        'accent-8': '#111111',
         violet: '#7928CA',
         pink: '#FF0080',
         cyan: '#50E3C2',
@@ -26,6 +27,7 @@ module.exports = {
         primary: 'var(--bg-primary)',
         secondary: 'var(--bg-secondary)',
         'primary-accent': 'var(--bg-primary-accent)',
+        'primary-hover': 'var(--bg-primary-hover)',
       },
       textColor: {
         base: 'var(--text-primary)',

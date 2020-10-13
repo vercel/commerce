@@ -1,5 +1,5 @@
 .input {
-  @apply bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out rounded-lg text-gray-600 placeholder-accent-4 pr-10;
+  @apply bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out rounded-lg  placeholder-accent-4 pr-10;
   min-width: 300px;
 }
 

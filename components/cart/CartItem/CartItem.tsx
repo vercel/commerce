@@ -56,8 +56,8 @@ const CartItem = ({
   return (
     <li className="flex flex-row space-x-6 py-6">
       <div className="h-12 w-12 bg-violet"></div>
-      <div className="flex-1 flex flex-col justify-between">
-        <span>{item.name}</span>
+      <div className="flex-1 flex flex-col justify-between text-primary">
+        <span className="font-bold mb-3">{item.name}</span>
         <div className="flex items-center">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />
@@ -76,7 +76,7 @@ const CartItem = ({
           </button>
         </div>
       </div>
-      <div className="flex flex-col justify-between space-y-2">
+      <div className="flex flex-col justify-between space-y-2 text-primary">
         <span>{price}</span>
         <button
           className="flex justify-end"

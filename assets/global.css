@@ -2,8 +2,9 @@
 
 :root {
   --bg-primary: white;
+  --bg-primary-hover: rgba(0, 0, 0, 0.075);
+  --bg-primary-accent: #f1f3f5;
   --bg-secondary: black;
-  --bg-primary-accent: rgba(0, 0, 0, 0.075);
 
   --text-primary: black;
   --text-secondary: white;
@@ -14,7 +15,8 @@
 [data-theme='dark'] {
   --bg-primary: black;
   --bg-secondary: white;
-  --bg-primary-accent: rgba(255, 255, 255, 0.075);
+  --bg-primary-hover: rgba(255, 255, 255, 0.075);
+  --bg-primary-accent: #111;
 
   --text-primary: white;
   --text-secondary: black;

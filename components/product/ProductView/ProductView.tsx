@@ -44,7 +44,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
   return (
     <Container>
-      <div className="relative flex flex-row items-start overflow-hidden fit">
+      <div className="relative flex flex-row items-start overflow-hidden fit my-12">
         <div className="absolute top-0 left-0 z-50">
           <h1 className="px-6 py-2 bg-violet text-white font-bold text-3xl">
             {product.name}
