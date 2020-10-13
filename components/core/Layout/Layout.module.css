@@ -1,5 +1,5 @@
 .root {
-  @apply h-full;
+  @apply h-full bg-primary;
 }
 
 .main {

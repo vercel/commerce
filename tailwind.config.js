@@ -19,10 +19,13 @@ module.exports = {
         blue: '#0070F3',
         green: '#37B679',
         red: '#DA3C3C',
-        primary: '#000',
-        textColor: {
-          primary: '#FFF',
-        },
+        primary: 'var(--bg-primary)',
+        secondary: 'var(--bg-secondary)',
+      },
+      textColor: {
+        base: 'var(--text-primary)',
+        primary: 'var(--text-primary)',
+        secondary: 'var(--text-secondary)',
       },
     },
   },

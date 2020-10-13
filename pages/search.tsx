@@ -25,21 +25,21 @@ export default function Home({
     <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
       <div className="col-span-2">
         <ul className="mb-10">
-          <li className="py-1 text-black font-bold tracking-wide">
+          <li className="py-1 text-primary font-bold tracking-wide">
             All Categories
           </li>
           {categories.map((cat) => (
-            <li key={cat.path} className="py-1 text-gray-800">
+            <li key={cat.path} className="py-1 text-secondary">
               <a href="#">{cat.name}</a>
             </li>
           ))}
         </ul>
         <ul>
-          <li className="py-1 text-black font-bold tracking-wide">
+          <li className="py-1 text-primary font-bold tracking-wide">
             All Designers
           </li>
           {brands.flatMap(({ node }) => (
-            <li key={node.path} className="py-1 text-gray-800">
+            <li key={node.path} className="py-1 text-secondary">
               <a href="#">{node.name}</a>
             </li>
           ))}
@@ -61,11 +61,13 @@ export default function Home({
       </div>
       <div className="col-span-2">
         <ul>
-          <li className="py-1 text-black font-bold tracking-wide">Relevance</li>
-          <li className="py-1 text-gray-800">Latest arrivals</li>
-          <li className="py-1 text-gray-800">Trending</li>
-          <li className="py-1 text-gray-800">Price: Low to high</li>
-          <li className="py-1 text-gray-800">Price: High to low</li>
+          <li className="py-1 text-primary font-bold tracking-wide">
+            Relevance
+          </li>
+          <li className="py-1 text-secondary">Latest arrivals</li>
+          <li className="py-1 text-secondary">Trending</li>
+          <li className="py-1 text-secondary">Price: Low to high</li>
+          <li className="py-1 text-secondary">Price: High to low</li>
         </ul>
       </div>
     </div>

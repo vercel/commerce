@@ -53,21 +53,21 @@ export default function Home({
       <div className="py-12 flex flex-row w-full">
         <div className="pr-3 w-48">
           <ul className="mb-10">
-            <li className="py-1 text-black font-bold tracking-wide">
+            <li className="py-1 text-primary font-bold tracking-wide">
               All Categories
             </li>
             {categories.map((cat) => (
-              <li key={cat.path} className="py-1 text-gray-800">
+              <li key={cat.path} className="py-1 text-secondary">
                 <a href="#">{cat.name}</a>
               </li>
             ))}
           </ul>
           <ul className="">
-            <li className="py-1 text-black font-bold tracking-wide">
+            <li className="py-1 text-primary font-bold tracking-wide">
               All Designers
             </li>
             {brands.flatMap(({ node }) => (
-              <li key={node.path} className="py-1 text-gray-800">
+              <li key={node.path} className="py-1 text-secondary">
                 <a href="#">{node.name}</a>
               </li>
             ))}
