@@ -33,7 +33,7 @@ export default function Home({
               All Categories
             </li>
             {categories.map((cat) => (
-              <li key={cat.path} className="py-1 text-secondary">
+              <li key={cat.path} className="py-1 text-default">
                 <a href="#">{cat.name}</a>
               </li>
             ))}
@@ -43,7 +43,7 @@ export default function Home({
               All Designers
             </li>
             {brands.flatMap(({ node }) => (
-              <li key={node.path} className="py-1 text-secondary">
+              <li key={node.path} className="py-1 text-default">
                 <a href="#">{node.name}</a>
               </li>
             ))}
@@ -77,10 +77,10 @@ export default function Home({
             <li className="py-1 text-primary font-bold tracking-wide">
               Relevance
             </li>
-            <li className="py-1 text-secondary">Latest arrivals</li>
-            <li className="py-1 text-secondary">Trending</li>
-            <li className="py-1 text-secondary">Price: Low to high</li>
-            <li className="py-1 text-secondary">Price: High to low</li>
+            <li className="py-1 text-default">Latest arrivals</li>
+            <li className="py-1 text-default">Trending</li>
+            <li className="py-1 text-default">Price: Low to high</li>
+            <li className="py-1 text-default">Price: High to low</li>
           </ul>
         </div>
       </div>
