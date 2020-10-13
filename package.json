@@ -24,7 +24,6 @@
     "classnames": "^2.2.6",
     "cookie": "^0.4.1",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.20",
     "lodash.debounce": "^4.0.8",
     "next": "^9.5.4",
     "next-themes": "^0.0.4",
