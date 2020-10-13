@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
 import { Container, Grid } from '@components/ui'
 import { ProductCard } from '@components/product'
-import { useRouter } from 'next/router'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { categories, brands } = await getSiteInfo()
@@ -23,6 +25,9 @@ export default function Home({
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
   })
+  const { category, brand } = useSearchMeta(router.asPath)
+
+  console.log('Q', category, brand)
 
   return (
     <Container>
@@ -34,7 +39,9 @@ export default function Home({
             </li>
             {categories.map((cat) => (
               <li key={cat.path} className="py-1 text-default">
-                <a href="#">{cat.name}</a>
+                <Link href={getCategoryPath(cat.path, brand)}>
+                  <a>{cat.name}</a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -44,7 +51,9 @@ export default function Home({
             </li>
             {brands.flatMap(({ node }) => (
               <li key={node.path} className="py-1 text-default">
-                <a href="#">{node.name}</a>
+                <Link href={getDesignerPath(node.path, category)}>
+                  <a>{node.name}</a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -89,3 +98,38 @@ export default function Home({
 }
 
 Home.Layout = Layout
+
+function useSearchMeta(asPath: string) {
+  const [category, setCategory] = useState<string | undefined>()
+  const [brand, setBrand] = useState<string | undefined>()
+
+  useEffect(() => {
+    const parts = asPath.split('/')
+
+    // console.log('parts', parts)
+
+    let c = parts[2]
+    let b = parts[3]
+
+    if (c === 'designers') {
+      c = parts[4]
+    }
+
+    if (c !== category) setCategory(c)
+    if (b !== brand) setBrand(b)
+  }, [asPath])
+
+  return { category, brand }
+}
+
+function getCategoryPath(path: string, designer?: string) {
+  return designer ? `/search/designers/${designer}${path}` : `/search${path}`
+}
+
+function getDesignerPath(path: string, category?: string) {
+  // Remove the trailing slash and replace /brands with /designers
+  const designer = path.replace(/^\/brands/, '/designers').replace(/\/$/, '')
+  const href = `/search${designer}`
+
+  return category ? `${href}/${category}` : href
+}
