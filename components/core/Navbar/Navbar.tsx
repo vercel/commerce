@@ -1,4 +1,3 @@
-import cn from 'classnames'
 import { FC } from 'react'
 import s from './Navbar.module.css'
 import { Logo, Container } from '@components/ui'

@@ -21,4 +21,6 @@ export type HookFetcherOptions = {
   method?: string
 }
 
+export type HookInput = [string, string | number | undefined][]
+
 export type HookDeps = string | number | undefined[]

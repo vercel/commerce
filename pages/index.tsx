@@ -4,8 +4,6 @@ import { Layout } from '@components/core'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { products } = await getAllProducts()
@@ -21,12 +19,6 @@ export default function Home({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.prefetch('/search')
-  }, [])
-
   return (
     <div className="mt-3">
       <Grid items={products.slice(0, 3)} wrapper={ProductCard} />

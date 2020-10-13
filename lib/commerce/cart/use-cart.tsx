@@ -1,6 +1,6 @@
 import useSWR, { responseInterface, ConfigInterface } from 'swr'
 import Cookies from 'js-cookie'
-import { HookDeps, HookFetcher } from '../utils/types'
+import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import { useCommerce } from '..'
 
 export type CartResponse<C> = responseInterface<C, Error> & {
@@ -8,16 +8,28 @@ export type CartResponse<C> = responseInterface<C, Error> & {
 }
 
 export default function useCart<T>(
-  deps: [string | undefined, string | undefined, ...HookDeps[]],
-  fetcherFn: HookFetcher<T, HookDeps[]>,
+  options: HookFetcherOptions,
+  input: HookInput,
+  fetcherFn: HookFetcher<T, any>,
   swrOptions?: ConfigInterface<T | null>
 ) {
   const { fetcherRef, cartCookie } = useCommerce()
-  const fetcher = (url?: string, query?: string, ...args: HookDeps[]) =>
+  const fetcher = (url?: string, query?: string, ...args: any[]) =>
     Cookies.get(cartCookie)
-      ? fetcherFn({ url, query }, args, fetcherRef.current)
+      ? fetcherFn(
+          { url, query },
+          args.reduce((obj, val, i) => {
+            obj[input[i][1]!] = val
+            return obj
+          }, {}),
+          fetcherRef.current
+        )
       : null
-  const response = useSWR(deps, fetcher, swrOptions)
+  const response = useSWR(
+    [options.url, options.query, ...input.map((e) => e[1])],
+    fetcher,
+    swrOptions
+  )
 
   return Object.assign(response, { isEmpty: true }) as CartResponse<T>
 }

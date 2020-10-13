@@ -1,9 +1,10 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
-import { Layout } from '@components/core'
-import { Grid, Marquee, Hero } from '@components/ui'
-import { ProductCard } from '@components/product'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+import useSearch from '@lib/bigcommerce/products/use-search'
+import { Layout } from '@components/core'
+import { Grid } from '@components/ui'
+import { ProductCard } from '@components/product'
 import { useRouter } from 'next/router'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
@@ -21,6 +22,10 @@ export default function Home({
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
+  const search = useSearch({ search: router.query.search as string })
+
+  console.log('SEARCH', search)
+
   return (
     <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
       <div className="col-span-2">

@@ -1,14 +1,19 @@
+import { FC, useEffect } from 'react'
 import cn from 'classnames'
-import { FC } from 'react'
 import s from './Searchbar.module.css'
 import { useRouter } from 'next/router'
+
 interface Props {
   className?: string
-  children?: any
 }
 
 const Searchbar: FC<Props> = ({ className }) => {
   const router = useRouter()
+
+  useEffect(() => {
+    router.prefetch('/search')
+  }, [])
+
   return (
     <div
       className={cn(
