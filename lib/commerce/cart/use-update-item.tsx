@@ -1,17 +1,5 @@
-import { useCallback } from 'react'
-import type { HookFetcher, HookFetcherOptions } from '../utils/types'
-import { useCommerce } from '..'
+import useAction from '../utils/use-action'
 
-export default function useUpdateItem<T, Input>(
-  options: HookFetcherOptions,
-  fetcher: HookFetcher<T, Input>
-) {
-  const { fetcherRef } = useCommerce()
+const useUpdateItem = useAction
 
-  return useCallback(
-    function updateItem(input: Input) {
-      return fetcher(options, input, fetcherRef.current)
-    },
-    [fetcher]
-  )
-}
+export default useUpdateItem

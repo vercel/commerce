@@ -1,6 +1,6 @@
 import { ConfigInterface } from 'swr'
-import { HookFetcher, HookDeps } from '@lib/commerce/utils/types'
-import useCommerceCart from '@lib/commerce/cart/use-cart'
+import { HookFetcher } from '@lib/commerce/utils/types'
+import useCommerceCart, { CartInput } from '@lib/commerce/cart/use-cart'
 import type { Cart } from '../api/cart'
 
 const defaultOpts = {
@@ -9,11 +9,17 @@ const defaultOpts = {
 
 export type { Cart }
 
-export const fetcher: HookFetcher<Cart | null, {}> = (options, _, fetch) => {
-  return fetch({
-    url: options?.url,
-    query: options?.query,
-  })
+export const fetcher: HookFetcher<Cart | null, CartInput> = (
+  options,
+  { cartId },
+  fetch
+) => {
+  return cartId
+    ? fetch({
+        url: options?.url,
+        query: options?.query,
+      })
+    : null
 }
 
 export function extendHook(
