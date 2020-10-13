@@ -5,7 +5,6 @@ export default function useOpenCheckout() {
 
   return async function openCheckout() {
     window.open(data?.redirect_urls.checkout_url)
-    console.log('URL1', data?.redirect_urls.checkout_url)
     // Get new redirect urls
     await mutate()
   }

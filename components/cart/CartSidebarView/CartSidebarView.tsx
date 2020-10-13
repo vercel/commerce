@@ -4,16 +4,34 @@ import { UserNav } from '@components/core'
 import { Button } from '@components/ui'
 import { ArrowLeft, Bag, Cross, Check } from '@components/icon'
 import { useUI } from '@components/ui/context'
+import { useCommerce } from '@lib/bigcommerce'
 import useCart from '@lib/bigcommerce/cart/use-cart'
 import CartItem from '../CartItem'
 import useOpenCheckout from '@lib/bigcommerce/cart/use-open-checkout'
+import formatPrice from 'utils/format-price'
 
 const CartSidebarView: FC = () => {
+  const { locale } = useCommerce()
   const { data, isEmpty } = useCart()
   const openCheckout = useOpenCheckout()
   const { closeSidebar } = useUI()
-  const items = data?.line_items.physical_items ?? []
   const handleClose = () => closeSidebar()
+
+  const items = data?.line_items.physical_items ?? []
+  const subTotal = data
+    ? formatPrice({
+        amount: data.base_amount,
+        currencyCode: data.currency.code,
+        locale,
+      })
+    : 0
+  const total = data
+    ? formatPrice({
+        amount: data.cart_amount,
+        currencyCode: data.currency.code,
+        locale,
+      })
+    : 0
 
   console.log('CART', data, isEmpty)
 
@@ -96,11 +114,11 @@ const CartSidebarView: FC = () => {
               <ul className="py-3">
                 <li className="flex justify-between py-1">
                   <span>Subtotal</span>
-                  <span>$100</span>
+                  <span>{subTotal}</span>
                 </li>
                 <li className="flex justify-between py-1">
                   <span>Taxes</span>
-                  <span>$9.99</span>
+                  <span>Calculated at checkout</span>
                 </li>
                 <li className="flex justify-between py-1">
                   <span>Estimated Shipping</span>
@@ -109,7 +127,7 @@ const CartSidebarView: FC = () => {
               </ul>
               <div className="flex justify-between border-t border-gray-300 py-3 font-bold mb-10">
                 <span>Total</span>
-                <span>$1320.23</span>
+                <span>{total}</span>
               </div>
             </div>
             <Button width="100%" onClick={() => openCheckout()}>
