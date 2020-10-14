@@ -31,9 +31,8 @@ export default function Search({
   const { asPath } = router
   const { q, sort } = router.query
   const query = filterQuery({ q, sort })
-  const pathname = asPath.split('?')[0]
 
-  const { category, brand } = useSearchMeta(asPath)
+  const { pathname, category, brand } = useSearchMeta(asPath)
   const activeCategory = categories.find(
     (cat) => getSlug(cat.path) === category
   )

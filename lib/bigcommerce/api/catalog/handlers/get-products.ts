@@ -58,7 +58,7 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
     },
     {}
   )
-  const products: Products = []
+  const products: Products = found ? [] : graphqlData.products
 
   // Populate the products array with the graphql products, in the order
   // assigned by the list of entity ids
