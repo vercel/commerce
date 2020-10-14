@@ -7,7 +7,7 @@ import { Colors } from '@components/ui/types'
 import type { Product } from '@lib/bigcommerce/api/operations/get-product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { useUI } from '@components/ui/context'
-
+import { NextSeo } from 'next-seo'
 interface Props {
   className?: string
   children?: any
@@ -44,6 +44,23 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
   return (
     <Container>
+      <NextSeo
+        title={product.name}
+        description={product.description}
+        openGraph={{
+          type: 'website',
+          title: product.name,
+          description: product.description,
+          images: [
+            {
+              url: product.images.edges?.[0]?.node.urlXL || '',
+              width: 800,
+              height: 600,
+              alt: product.name,
+            },
+          ],
+        }}
+      />
       <div className="relative flex flex-row items-start overflow-hidden fit my-12">
         <div className="absolute top-0 left-0 z-50">
           <h1 className="px-6 py-2 bg-violet text-white font-bold text-3xl">
