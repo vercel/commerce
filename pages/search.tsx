@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -8,6 +7,13 @@ import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
 import { Container, Grid } from '@components/ui'
 import { ProductCard } from '@components/product'
+import {
+  filterQuery,
+  getCategoryPath,
+  getDesignerPath,
+  getSlug,
+  useSearchMeta,
+} from '@utils/search'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { categories, brands } = await getSiteInfo()
@@ -180,47 +186,3 @@ export default function Search({
 }
 
 Search.Layout = Layout
-
-function useSearchMeta(asPath: string) {
-  const [category, setCategory] = useState<string | undefined>()
-  const [brand, setBrand] = useState<string | undefined>()
-
-  useEffect(() => {
-    const parts = asPath.split('/')
-
-    let c = parts[2]
-    let b = parts[3]
-
-    if (c === 'designers') {
-      c = parts[4]
-    }
-
-    if (c !== category) setCategory(c)
-    if (b !== brand) setBrand(b)
-  }, [asPath])
-
-  return { category, brand }
-}
-
-// Removes empty query parameters from the query object
-const filterQuery = (query: any) =>
-  Object.keys(query).reduce<any>((obj, key) => {
-    if (query[key]?.length) {
-      obj[key] = query[key]
-    }
-    return obj
-  }, {})
-
-// Remove trailing and leading slash
-const getSlug = (path: string) => path.replace(/^\/|\/$/g, '')
-
-const getCategoryPath = (slug: string, brand?: string) =>
-  `/search${brand ? `/designers/${brand}` : ''}${slug ? `/${slug}` : ''}`
-
-const getDesignerPath = (slug: string, category?: string) => {
-  const designer = slug.replace(/^brands/, 'designers')
-
-  return `/search${designer ? `/${designer}` : ''}${
-    category ? `/${category}` : ''
-  }`
-}
