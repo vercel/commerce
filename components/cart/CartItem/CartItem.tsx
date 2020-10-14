@@ -56,10 +56,10 @@ const CartItem = ({
   console.log(item)
 
   return (
-    <li className="flex flex-row space-x-8 py-6 relative">
-      <div className="h-12 w-12 bg-violet">
+    <li className="flex flex-row space-x-8 py-6">
+      <div className="w-12 h-12 bg-violet relative overflow-hidden">
         <img
-          className="h-24 w-24 absolute -ml-4 left-0 top-4"
+          className="w-full absolute top-3 left-0 -ml-3 transform scale-150"
           src={item.image_url}
         />
       </div>
