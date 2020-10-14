@@ -53,9 +53,16 @@ const CartItem = ({
     }
   }, [item.quantity])
 
+  console.log(item)
+
   return (
-    <li className="flex flex-row space-x-6 py-6">
-      <div className="h-12 w-12 bg-violet"></div>
+    <li className="flex flex-row space-x-8 py-6 relative">
+      <div className="h-12 w-12 bg-violet">
+        <img
+          className="h-24 w-24 absolute -ml-4 left-0 top-4"
+          src={item.image_url}
+        />
+      </div>
       <div className="flex-1 flex flex-col justify-between text-primary">
         <span className="font-bold mb-3">{item.name}</span>
         <div className="flex items-center">
