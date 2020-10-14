@@ -22,8 +22,10 @@ export default function Home({
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
-  const { q } = router.query
-  const { category, brand } = useSearchMeta(router.asPath)
+  const { asPath } = router
+  const { q, sort } = router.query
+  const query = filterQuery({ q, sort })
+  const { category, brand } = useSearchMeta(asPath)
   const activeCategory = categories.find(
     (cat) => getSlug(cat.path) === category
   )
@@ -42,7 +44,7 @@ export default function Home({
         <div className="col-span-2">
           <ul className="mb-10">
             <li className="py-1 text-primary font-bold tracking-wide">
-              <Link href={getCategoryPath('', brand)}>
+              <Link href={{ pathname: getCategoryPath('', brand), query }}>
                 <a>All Categories</a>
               </Link>
             </li>
@@ -53,7 +55,12 @@ export default function Home({
                   underline: activeCategory?.entityId === cat.entityId,
                 })}
               >
-                <Link href={getCategoryPath(getSlug(cat.path), brand)}>
+                <Link
+                  href={{
+                    pathname: getCategoryPath(getSlug(cat.path), brand),
+                    query,
+                  }}
+                >
                   <a>{cat.name}</a>
                 </Link>
               </li>
@@ -61,7 +68,7 @@ export default function Home({
           </ul>
           <ul>
             <li className="py-1 text-primary font-bold tracking-wide">
-              <Link href={getDesignerPath('', category)}>
+              <Link href={{ pathname: getDesignerPath('', category), query }}>
                 <a>All Designers</a>
               </Link>
             </li>
@@ -72,7 +79,12 @@ export default function Home({
                   underline: activeBrand?.entityId === node.entityId,
                 })}
               >
-                <Link href={getDesignerPath(getSlug(node.path), category)}>
+                <Link
+                  href={{
+                    pathname: getDesignerPath(getSlug(node.path), category),
+                    query,
+                  }}
+                >
                   <a>{node.name}</a>
                 </Link>
               </li>
@@ -104,8 +116,16 @@ export default function Home({
         </div>
         <div className="col-span-2">
           <ul>
-            <li className="py-1 text-primary font-bold tracking-wide">
-              Relevance
+            <li className="py-1 text-primary font-bold tracking-wide">Sort</li>
+            <li className="py-1 text-default">
+              <Link
+                href={{
+                  pathname: asPath.split('?')[0],
+                  query: filterQuery({ q }),
+                }}
+              >
+                <a>Relevance</a>
+              </Link>
             </li>
             <li className="py-1 text-default">Latest arrivals</li>
             <li className="py-1 text-default">Trending</li>
@@ -127,8 +147,6 @@ function useSearchMeta(asPath: string) {
   useEffect(() => {
     const parts = asPath.split('/')
 
-    // console.log('parts', parts)
-
     let c = parts[2]
     let b = parts[3]
 
@@ -142,6 +160,15 @@ function useSearchMeta(asPath: string) {
 
   return { category, brand }
 }
+
+// Removes empty query parameters from the query object
+const filterQuery = (query: any) =>
+  Object.keys(query).reduce<any>((obj, key) => {
+    if (query[key]?.length) {
+      obj[key] = query[key]
+    }
+    return obj
+  }, {})
 
 // Remove trailing and leading slash
 const getSlug = (path: string) => path.replace(/^\/|\/$/g, '')
