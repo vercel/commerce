@@ -10,8 +10,6 @@ export function useSearchMeta(asPath: string) {
     const path = asPath.split('?')[0]
     const parts = path.split('/')
 
-    console.log('P', parts)
-
     let c = parts[2]
     let b = parts[3]
 
