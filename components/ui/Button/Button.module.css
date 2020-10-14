@@ -18,5 +18,5 @@
 }
 
 .loading {
-  @apply bg-accent-1 text-accent-3 border-accent-2 cursor-not-allowed;
+  @apply bg-accents-1 text-accents-3 border-accents-2 cursor-not-allowed;
 }

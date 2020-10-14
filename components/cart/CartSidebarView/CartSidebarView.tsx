@@ -68,7 +68,7 @@ const CartSidebarView: FC = () => {
           <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
             Your cart is empty
           </h2>
-          <p className="text-accent-3 px-10 text-center pt-2">
+          <p className="text-accents-3 px-10 text-center pt-2">
             Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
           </p>
         </div>
