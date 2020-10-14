@@ -42,7 +42,9 @@ export default function Home({
         <div className="col-span-2">
           <ul className="mb-10">
             <li className="py-1 text-primary font-bold tracking-wide">
-              All Categories
+              <Link href={getCategoryPath('', brand)}>
+                <a>All Categories</a>
+              </Link>
             </li>
             {categories.map((cat) => (
               <li
@@ -59,7 +61,9 @@ export default function Home({
           </ul>
           <ul>
             <li className="py-1 text-primary font-bold tracking-wide">
-              All Designers
+              <Link href={getDesignerPath('', category)}>
+                <a>All Designers</a>
+              </Link>
             </li>
             {brands.flatMap(({ node }) => (
               <li
@@ -142,10 +146,13 @@ function useSearchMeta(asPath: string) {
 // Remove trailing and leading slash
 const getSlug = (path: string) => path.replace(/^\/|\/$/g, '')
 
-const getCategoryPath = (slug: string, designer?: string) =>
-  designer ? `/search/designers/${designer}/${slug}` : `/search/${slug}`
+const getCategoryPath = (slug: string, brand?: string) =>
+  `/search${brand ? `/designers/${brand}` : ''}${slug ? `/${slug}` : ''}`
 
 const getDesignerPath = (slug: string, category?: string) => {
   const designer = slug.replace(/^brands/, 'designers')
-  return `/search/${designer}${category ? `/${category}` : ''}`
+
+  return `/search${designer ? `/${designer}` : ''}${
+    category ? `/${category}` : ''
+  }`
 }
