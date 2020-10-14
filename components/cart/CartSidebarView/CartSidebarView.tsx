@@ -61,13 +61,16 @@ const CartSidebarView: FC = () => {
       </header>
 
       {isEmpty ? (
-        <div className="flex-1 px-4 flex flex-col justify-center items-center">
-          <span className="border border-dashed border-white rounded-full flex items-center justify-center w-16 h-16">
-            <Bag />
+        <div className="flex-1 px-4 flex flex-col justify-center items-center ">
+          <span className="border border-dashed border-white rounded-full flex items-center justify-center w-16 h-16 bg-black p-12 rounded-lg text-white">
+            <Bag className="absolute" />
           </span>
-          <h2 className="pt-6 text-xl font-light text-center">
-            Your cart is empty.
+          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
+            Your cart is empty
           </h2>
+          <p className="text-accent-3 px-10 text-center pt-2">
+            Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
+          </p>
         </div>
       ) : error ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
