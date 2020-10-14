@@ -29,11 +29,8 @@ const cartApi: BigcommerceApiHandler<
   if (!isAllowedMethod(req, res, METHODS)) return
 
   try {
-    // Return current cart info
-    if (req.method === 'GET') {
-      const body = req.query
-      return await handlers['getProducts']({ req, res, config, body })
-    }
+    const body = req.query
+    return await handlers['getProducts']({ req, res, config, body })
   } catch (error) {
     console.error(error)
 
