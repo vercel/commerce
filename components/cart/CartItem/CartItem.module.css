@@ -7,3 +7,11 @@
 .quantity::-webkit-inner-spin-button {
   @apply appearance-none m-0;
 }
+
+.productImage {
+  position: absolute;
+  top: 0;
+  left: -10px;
+  top: 15px;
+  transform: scale(1.9);
+}

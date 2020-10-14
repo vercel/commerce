@@ -8,7 +8,7 @@ interface Props {
 }
 
 function getRandomPairOfColors() {
-  const colors = ['#f33', '#7928ca', '#50e3c2', '#7928ca', '#7928CA']
+  const colors = ['#37B679', '#DA3C3C', '#3291FF', '#7928CA', '#79FFE1']
   const getRandomIdx = () => random(0, colors.length - 1)
   let idx = getRandomIdx()
   let idx2 = getRandomIdx()
@@ -27,7 +27,7 @@ const Avatar: FC<Props> = ({}) => {
 
   return (
     <div
-      className="inline-block h-8 w-8 rounded-full border border-accent-8"
+      className="inline-block h-8 w-8 rounded-full border-2 border-accents-2"
       style={{
         backgroundImage: `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`,
       }}

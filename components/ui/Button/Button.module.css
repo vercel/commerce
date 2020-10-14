@@ -2,7 +2,7 @@
   @apply text-secondary cursor-pointer inline-flex px-10 rounded-sm leading-6
   bg-secondary transition ease-in-out duration-150 shadow-sm font-semibold
   text-center justify-center uppercase py-4 uppercase text-center focus:outline-none
-  border border-transparent;
+  border border-transparent items-center;
 }
 
 .root:hover {
@@ -17,6 +17,6 @@
   @apply bg-gray-600;
 }
 
-s.filled {
-  @apply text-white bg-black;
+.loading {
+  @apply bg-accents-1 text-accents-3 border-accents-2 cursor-not-allowed;
 }
