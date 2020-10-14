@@ -17,12 +17,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link
-          rel="manifest"
-          href="/site.webmanifest"
-          importance="low"
-          key="site-manifest"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
       </Head>
       <DefaultSeo {...config.seo} />
       <ThemeProvider>

@@ -1,13 +1,13 @@
 import cn from 'classnames'
+import { NextSeo } from 'next-seo'
 import { FC, useState } from 'react'
 import s from './ProductView.module.css'
-import { Button, Container } from '@components/ui'
-import { Swatch } from '@components/product'
 import { Colors } from '@components/ui/types'
-import type { Product } from '@lib/bigcommerce/api/operations/get-product'
-import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { useUI } from '@components/ui/context'
-import { NextSeo } from 'next-seo'
+import { Button, Container } from '@components/ui'
+import { Swatch, ProductSlider } from '@components/product'
+import useAddItem from '@lib/bigcommerce/cart/use-add-item'
+import type { Product } from '@lib/bigcommerce/api/operations/get-product'
 interface Props {
   className?: string
   children?: any
@@ -61,7 +61,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
           ],
         }}
       />
-      <div className="relative flex flex-row items-start overflow-hidden fit my-12">
+      <div className="relative flex flex-row items-start fit my-12">
         <div className="absolute top-0 left-0 z-50">
           <h1 className="px-6 py-2 bg-violet text-white font-bold text-3xl">
             {product.name}
@@ -72,13 +72,18 @@ const ProductView: FC<Props> = ({ product, className }) => {
             {product.prices?.price.currencyCode}
           </div>
         </div>
-        <div className="flex-1 px-24 pb-0 relative fit overflow-hidden box-border">
+        <div className="flex-1 px-24 pb-0 relative fit  box-border">
           <div className="absolute z-10 inset-0 flex items-center justify-center">
-            <img
-              className="w-full object-cover"
-              src={product.images.edges?.[0]?.node.urlXL}
-            />
+            <ProductSlider>
+              {product.images.edges?.map((image) => (
+                <img className="w-full object-cover" src={image?.node.urlXL} />
+              ))}
+            </ProductSlider>
           </div>
+          <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
+            <img src="/slider-arrows.png" />
+          </div>
+
           <div className={s.squareBg}></div>
         </div>
         <div className="flex-1 flex flex-col">
