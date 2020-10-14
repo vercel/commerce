@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import cn from 'classnames'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
 import { Container, Grid } from '@components/ui'
 import { ProductCard } from '@components/product'
+import { useRouter } from 'next/router'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { categories, brands } = await getSiteInfo()
@@ -26,9 +24,8 @@ export default function Home({
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
   })
-  const { category, brand } = useSearchMeta(router.asPath)
 
-  console.log('Q', category, brand)
+  console.log('Q', router.query)
 
   return (
     <Container>
@@ -39,13 +36,8 @@ export default function Home({
               All Categories
             </li>
             {categories.map((cat) => (
-              <li
-                key={cat.path}
-                className={cn('py-1 text-default', {
-                  underline: getSlug(cat.path) === category,
-                })}
-              >
-                <Link href={getCategoryPath(getSlug(cat.path), brand)}>
+              <li key={cat.path} className="py-1 text-default">
+                <Link href={`/search${cat.path}`}>
                   <a>{cat.name}</a>
                 </Link>
               </li>
@@ -56,15 +48,8 @@ export default function Home({
               All Designers
             </li>
             {brands.flatMap(({ node }) => (
-              <li
-                key={node.path}
-                className={cn('py-1 text-default', {
-                  underline: getSlug(node.path) === `brands/${brand}`,
-                })}
-              >
-                <Link href={getDesignerPath(getSlug(node.path), category)}>
-                  <a>{node.name}</a>
-                </Link>
+              <li key={node.path} className="py-1 text-default">
+                <a href="#">{node.name}</a>
               </li>
             ))}
           </ul>
@@ -109,37 +94,3 @@ export default function Home({
 }
 
 Home.Layout = Layout
-
-function useSearchMeta(asPath: string) {
-  const [category, setCategory] = useState<string | undefined>()
-  const [brand, setBrand] = useState<string | undefined>()
-
-  useEffect(() => {
-    const parts = asPath.split('/')
-
-    // console.log('parts', parts)
-
-    let c = parts[2]
-    let b = parts[3]
-
-    if (c === 'designers') {
-      c = parts[4]
-    }
-
-    if (c !== category) setCategory(c)
-    if (b !== brand) setBrand(b)
-  }, [asPath])
-
-  return { category, brand }
-}
-
-// Remove trailing and leading slash
-const getSlug = (path: string) => path.replace(/^\/|\/$/g, '')
-
-const getCategoryPath = (slug: string, designer?: string) =>
-  designer ? `/search/designers/${designer}/${slug}` : `/search/${slug}`
-
-const getDesignerPath = (slug: string, category?: string) => {
-  const designer = slug.replace(/^brands/, 'designers')
-  return `/search/${designer}${category ? `/${category}` : ''}`
-}
