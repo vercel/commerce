@@ -4,13 +4,17 @@ import type { ProductsHandlers } from '../products'
 // Return current cart info
 const getProducts: ProductsHandlers['getProducts'] = async ({
   res,
-  body: { search },
+  body: { search, category, brand },
   config,
 }) => {
   // Use a dummy base as we only care about the relative path
   const url = new URL('/v3/catalog/products', 'http://a')
 
   if (search) url.searchParams.set('keyword', search)
+  if (category && Number.isInteger(Number(category)))
+    url.searchParams.set('categories:in', category)
+  if (brand && Number.isInteger(Number(brand)))
+    url.searchParams.set('brand_id', brand)
 
   // We only want the id of each product
   url.searchParams.set('include_fields', 'id')

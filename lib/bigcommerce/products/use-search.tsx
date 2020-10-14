@@ -10,17 +10,23 @@ const defaultOpts = {
 
 export type SearchProductsInput = {
   search?: string
+  categoryId?: number
+  brandId?: number
 }
 
 export const fetcher: HookFetcher<SearchProductsData, SearchProductsInput> = (
   options,
-  { search },
+  { search, categoryId, brandId },
   fetch
 ) => {
   // Use a dummy base as we only care about the relative path
   const url = new URL(options?.url ?? defaultOpts.url, 'http://a')
 
   if (search) url.searchParams.set('search', search)
+  if (Number.isInteger(categoryId))
+    url.searchParams.set('category', String(categoryId))
+  if (Number.isInteger(categoryId))
+    url.searchParams.set('brand', String(brandId))
 
   return fetch({
     url: url.pathname + url.search,
@@ -35,7 +41,11 @@ export function extendHook(
   const useSearch = (input: SearchProductsInput = {}) => {
     const response = useCommerceSearch<SearchProductsData>(
       defaultOpts,
-      [['search', input.search]],
+      [
+        ['search', input.search],
+        ['categoryId', input.categoryId],
+        ['brandId', input.brandId],
+      ],
       customFetcher,
       { revalidateOnFocus: false, ...swrOptions }
     )

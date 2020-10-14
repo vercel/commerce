@@ -23,12 +23,18 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
   const { q } = router.query
+  const { category, brand } = useSearchMeta(router.asPath)
+  const activeCategory = categories.find(
+    (cat) => getSlug(cat.path) === category
+  )
+  const activeBrand = brands.find(
+    (b) => getSlug(b.node.path) === `brands/${brand}`
+  )?.node
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
+    categoryId: activeCategory?.entityId,
+    brandId: activeBrand?.entityId,
   })
-  const { category, brand } = useSearchMeta(router.asPath)
-
-  console.log('Q', category, brand)
 
   return (
     <Container>
@@ -42,7 +48,7 @@ export default function Home({
               <li
                 key={cat.path}
                 className={cn('py-1 text-default', {
-                  underline: getSlug(cat.path) === category,
+                  underline: activeCategory?.entityId === cat.entityId,
                 })}
               >
                 <Link href={getCategoryPath(getSlug(cat.path), brand)}>
@@ -59,7 +65,7 @@ export default function Home({
               <li
                 key={node.path}
                 className={cn('py-1 text-default', {
-                  underline: getSlug(node.path) === `brands/${brand}`,
+                  underline: activeBrand?.entityId === node.entityId,
                 })}
               >
                 <Link href={getDesignerPath(getSlug(node.path), category)}>
