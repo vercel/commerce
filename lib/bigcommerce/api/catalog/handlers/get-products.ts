@@ -9,6 +9,7 @@ const SORT: { [key: string]: string | undefined } = {
   trending: 'total_sold',
   price: 'price',
 }
+const LIMIT = 12
 
 // Return current cart info
 const getProducts: ProductsHandlers['getProducts'] = async ({
@@ -19,8 +20,8 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   // Use a dummy base as we only care about the relative path
   const url = new URL('/v3/catalog/products', 'http://a')
 
-  // The limit should math the number of products returned by `getAllProducts`
-  url.searchParams.set('limit', '10')
+  url.searchParams.set('is_visible', 'true')
+  url.searchParams.set('limit', String(LIMIT))
 
   if (search) url.searchParams.set('keyword', search)
 
@@ -41,7 +42,7 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   }
 
   // We only want the id of each product
-  url.searchParams.set('include_fields', 'id,price')
+  url.searchParams.set('include_fields', 'id')
 
   const { data } = await config.storeApiFetch<{ data: { id: number }[] }>(
     url.pathname + url.search
@@ -49,7 +50,9 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   const entityIds = data.map((p) => p.id)
   const found = entityIds.length > 0
   // We want the GraphQL version of each product
-  const graphqlData = await getAllProducts({ variables: { entityIds } })
+  const graphqlData = await getAllProducts({
+    variables: { first: LIMIT, entityIds },
+  })
   // Put the products in an object that we can use to get them by id
   const productsById = graphqlData.products.reduce<{ [k: number]: Product }>(
     (prods, p) => {

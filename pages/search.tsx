@@ -23,6 +23,13 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
   }
 }
 
+const SORT = Object.entries({
+  'latest-desc': 'Latest arrivals',
+  'trending-desc': 'Trending',
+  'price-asc': 'Price: Low to high',
+  'price-desc': 'Price: High to low',
+})
+
 export default function Search({
   categories,
   brands,
@@ -127,56 +134,27 @@ export default function Search({
         <div className="col-span-2">
           <ul>
             <li className="py-1 text-primary font-bold tracking-wide">Sort</li>
-            <li className="py-1 text-default">
-              <Link
-                href={{
-                  pathname,
-                  query: filterQuery({ q }),
-                }}
-              >
+            <li
+              className={cn('py-1 text-default', {
+                underline: !sort,
+              })}
+            >
+              <Link href={{ pathname, query: filterQuery({ q }) }}>
                 <a>Relevance</a>
               </Link>
             </li>
-            <li className="py-1 text-default">
-              <Link
-                href={{
-                  pathname,
-                  query: filterQuery({ q, sort: 'latest-desc' }),
-                }}
+            {SORT.map(([key, text]) => (
+              <li
+                key={key}
+                className={cn('py-1 text-default', {
+                  underline: sort === key,
+                })}
               >
-                <a>Latest arrivals</a>
-              </Link>
-            </li>
-            <li className="py-1 text-default">
-              <Link
-                href={{
-                  pathname,
-                  query: filterQuery({ q, sort: 'trending-desc' }),
-                }}
-              >
-                <a>Trending</a>
-              </Link>
-            </li>
-            <li className="py-1 text-default">
-              <Link
-                href={{
-                  pathname,
-                  query: filterQuery({ q, sort: 'price-asc' }),
-                }}
-              >
-                <a>Price: Low to high</a>
-              </Link>
-            </li>
-            <li className="py-1 text-default">
-              <Link
-                href={{
-                  pathname,
-                  query: filterQuery({ q, sort: 'price-desc' }),
-                }}
-              >
-                <a>Price: High to low</a>
-              </Link>
-            </li>
+                <Link href={{ pathname, query: filterQuery({ q, sort: key }) }}>
+                  <a>{text}</a>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
