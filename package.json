@@ -21,6 +21,7 @@
     "@headlessui/react": "^0.2.0",
     "@tailwindcss/ui": "^0.6.2",
     "@types/classnames": "^2.2.10",
+    "@types/react-swipeable-views": "^0.13.0",
     "classnames": "^2.2.6",
     "cookie": "^0.4.1",
     "js-cookie": "^2.2.1",
