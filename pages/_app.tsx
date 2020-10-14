@@ -7,6 +7,8 @@ import '@assets/global.css'
 import '@assets/tailwind.css'
 import '@assets/utils.css'
 import config from '../config.json'
+import Head from 'next/head'
+
 const Noop: FC = ({ children }) => <>{children}</>
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -14,6 +16,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <link
+          rel="manifest"
+          href="/site.webmanifest"
+          importance="low"
+          key="site-manifest"
+        />
+      </Head>
       <DefaultSeo {...config.seo} />
       <ThemeProvider>
         <SSRProvider>
