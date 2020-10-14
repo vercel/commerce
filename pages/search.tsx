@@ -17,7 +17,7 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
   }
 }
 
-export default function Home({
+export default function Search({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -39,6 +39,7 @@ export default function Home({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.entityId,
     brandId: activeBrand?.entityId,
+    sort: typeof sort === 'string' ? sort : '',
   })
 
   return (
@@ -178,7 +179,7 @@ export default function Home({
   )
 }
 
-Home.Layout = Layout
+Search.Layout = Layout
 
 function useSearchMeta(asPath: string) {
   const [category, setCategory] = useState<string | undefined>()
