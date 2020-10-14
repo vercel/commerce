@@ -8,7 +8,7 @@ import React, {
 import mergeRefs from 'react-merge-refs'
 import { useButton } from 'react-aria'
 import s from './Button.module.css'
-
+import { LoadingDots } from '@components/ui'
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
   className?: string
@@ -17,6 +17,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'submit' | 'reset' | 'button'
   Component?: string | JSXElementConstructor<any>
   width?: string | number
+  loading?: boolean
 }
 
 const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
@@ -30,6 +31,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     disabled,
     width,
     Component = 'button',
+    loading = false,
     ...rest
   } = props
   const ref = useRef<typeof Component>(null)
@@ -47,7 +49,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   const rootClassName = cn(
     s.root,
     {
-      [s.filled]: variant === 'filled',
+      [s.loading]: loading,
     },
     className
   )
@@ -66,6 +68,11 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       data-active={isPressed ? '' : undefined}
     >
       {children}
+      {loading && (
+        <i className="pl-2 m-0 flex">
+          <LoadingDots />
+        </i>
+      )}
     </Component>
   )
 })

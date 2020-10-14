@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import s from './ProductView.module.css'
 import { Colors } from '@components/ui/types'
 import { useUI } from '@components/ui/context'
-import { Button, Container } from '@components/ui'
+import { Button, Container, LoadingDots } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import type { Product } from '@lib/bigcommerce/api/operations/get-product'
@@ -25,18 +25,28 @@ const SIZES = ['s', 'm', 'l', 'xl', 'xxl']
 const ProductView: FC<Props> = ({ product, className }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
+
   const [choices, setChoices] = useState<Choices>({
     size: null,
     color: null,
   })
 
+  const [loading, setLoading] = useState(false)
+
   const addToCart = async () => {
-    // TODO: loading state by awating the promise
-    await addItem({
-      productId: product.entityId,
-      variantId: product.variants.edges?.[0]?.node.entityId!,
-    })
-    openSidebar()
+    setLoading(true)
+
+    try {
+      await addItem({
+        productId: product.entityId,
+        variantId: product.variants.edges?.[0]?.node.entityId!,
+      })
+      openSidebar()
+      setLoading(false)
+    } catch (err) {
+      // Error err.
+      setLoading(false)
+    }
   }
 
   const activeSize = choices.size
@@ -75,11 +85,16 @@ const ProductView: FC<Props> = ({ product, className }) => {
         <div className="flex-1 px-24 pb-0 relative fit  box-border">
           <div className="absolute z-10 inset-0 flex items-center justify-center">
             <ProductSlider>
-              {product.images.edges?.map((image) => (
-                <img className="w-full object-cover" src={image?.node.urlXL} />
+              {product.images.edges?.map((image, i) => (
+                <img
+                  className="w-full object-cover"
+                  src={image?.node.urlXL}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
               ))}
             </ProductSlider>
           </div>
+
           <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
             <img src="/slider-arrows.png" />
           </div>
@@ -128,7 +143,12 @@ const ProductView: FC<Props> = ({ product, className }) => {
             />
           </section>
           <section className="">
-            <Button type="button" className={s.button} onClick={addToCart}>
+            <Button
+              type="button"
+              className={s.button}
+              onClick={addToCart}
+              loading={loading}
+            >
               Add to Cart
             </Button>
           </section>
