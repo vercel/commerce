@@ -3,7 +3,7 @@ import usePrice from '@lib/bigcommerce/use-price'
 import useUpdateItem from '@lib/bigcommerce/cart/use-update-item'
 import useRemoveItem from '@lib/bigcommerce/cart/use-remove-item'
 import { ChangeEvent, useEffect, useState } from 'react'
-import styles from './CartItem.module.css'
+import s from './CartItem.module.css'
 
 const CartItem = ({
   item,
@@ -58,10 +58,7 @@ const CartItem = ({
   return (
     <li className="flex flex-row space-x-8 py-6">
       <div className="w-12 h-12 bg-violet relative overflow-hidden">
-        <img
-          className="w-full absolute top-3 left-0 -ml-3 transform scale-150"
-          src={item.image_url}
-        />
+        <img className={s.productImage} src={item.image_url} />
       </div>
       <div className="flex-1 flex flex-col justify-between text-primary">
         <span className="font-bold mb-3">{item.name}</span>
@@ -73,7 +70,7 @@ const CartItem = ({
             type="number"
             max={99}
             min={0}
-            className={styles.quantity}
+            className={s.quantity}
             value={quantity}
             onChange={handleQuantity}
             onBlur={handleBlur}
