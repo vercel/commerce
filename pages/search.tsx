@@ -25,6 +25,8 @@ export default function Home({
   const { asPath } = router
   const { q, sort } = router.query
   const query = filterQuery({ q, sort })
+  const pathname = asPath.split('?')[0]
+
   const { category, brand } = useSearchMeta(asPath)
   const activeCategory = categories.find(
     (cat) => getSlug(cat.path) === category
@@ -32,6 +34,7 @@ export default function Home({
   const activeBrand = brands.find(
     (b) => getSlug(b.node.path) === `brands/${brand}`
   )?.node
+
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.entityId,
@@ -120,17 +123,53 @@ export default function Home({
             <li className="py-1 text-default">
               <Link
                 href={{
-                  pathname: asPath.split('?')[0],
+                  pathname,
                   query: filterQuery({ q }),
                 }}
               >
                 <a>Relevance</a>
               </Link>
             </li>
-            <li className="py-1 text-default">Latest arrivals</li>
-            <li className="py-1 text-default">Trending</li>
-            <li className="py-1 text-default">Price: Low to high</li>
-            <li className="py-1 text-default">Price: High to low</li>
+            <li className="py-1 text-default">
+              <Link
+                href={{
+                  pathname,
+                  query: filterQuery({ q, sort: 'latest-desc' }),
+                }}
+              >
+                <a>Latest arrivals</a>
+              </Link>
+            </li>
+            <li className="py-1 text-default">
+              <Link
+                href={{
+                  pathname,
+                  query: filterQuery({ q, sort: 'trending-desc' }),
+                }}
+              >
+                <a>Trending</a>
+              </Link>
+            </li>
+            <li className="py-1 text-default">
+              <Link
+                href={{
+                  pathname,
+                  query: filterQuery({ q, sort: 'price-asc' }),
+                }}
+              >
+                <a>Price: Low to high</a>
+              </Link>
+            </li>
+            <li className="py-1 text-default">
+              <Link
+                href={{
+                  pathname,
+                  query: filterQuery({ q, sort: 'price-desc' }),
+                }}
+              >
+                <a>Price: High to low</a>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
