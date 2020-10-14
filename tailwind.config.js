@@ -17,6 +17,7 @@ module.exports = {
         'accent-1': '#FAFAFA',
         'accent-2': '#F1F3F5',
         'accent-4': '#888',
+        'accent-6': '#E5E5E5',
         'accent-8': '#111111',
         violet: '#7928CA',
         pink: '#FF0080',
