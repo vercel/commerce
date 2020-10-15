@@ -19,6 +19,7 @@ export default function useData<T, Input = any>(
       fetcherRef.current
     )
   }
+
   const response = useSWR(
     () => {
       const opts = typeof options === 'function' ? options() : options

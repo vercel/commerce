@@ -145,7 +145,7 @@ export default function Search({
                 : () => (
                     <Skeleton
                       className="w-full animate__animated animate__fadeIn rounded-md"
-                      height={200}
+                      height={325}
                     />
                   )
             }
