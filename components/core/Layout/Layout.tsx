@@ -1,13 +1,11 @@
 import cn from 'classnames'
 import { FC } from 'react'
-
+import s from './Layout.module.css'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { UIProvider, useUI } from '@components/ui/context'
-import s from './Layout.module.css'
-import { ThemeProvider } from 'next-themes'
-import { SSRProvider, OverlayProvider } from 'react-aria'
+import { CommerceProvider } from '@lib/bigcommerce'
 
 interface Props {
   className?: string
@@ -37,15 +35,11 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
 }
 
 const Layout: FC<Props> = (props) => (
-  <UIProvider>
-    <ThemeProvider>
-      <SSRProvider>
-        <OverlayProvider>
-          <CoreLayout {...props} />
-        </OverlayProvider>
-      </SSRProvider>
-    </ThemeProvider>
-  </UIProvider>
+  <CommerceProvider locale="en-us">
+    <UIProvider>
+      <CoreLayout {...props} />
+    </UIProvider>
+  </CommerceProvider>
 )
 
 export default Layout
