@@ -60,7 +60,7 @@ const CartItem = ({
       <div className="w-12 h-12 bg-violet relative overflow-hidden">
         <img className={s.productImage} src={item.image_url} />
       </div>
-      <div className="flex-1 flex flex-col justify-between text-primary">
+      <div className="flex-1 flex flex-col justify-between text-base">
         <span className="font-bold mb-3">{item.name}</span>
         <div className="flex items-center">
           <button type="button" onClick={() => increaseQuantity(-1)}>
@@ -80,7 +80,7 @@ const CartItem = ({
           </button>
         </div>
       </div>
-      <div className="flex flex-col justify-between space-y-2 text-primary">
+      <div className="flex flex-col justify-between space-y-2 text-base">
         <span>{price}</span>
         <button
           className="flex justify-end"

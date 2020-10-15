@@ -9,7 +9,7 @@
     & .productTitle,
     & .productPrice,
     & .wishlistButton {
-      @apply bg-black text-white;
+      @apply bg-secondary text-secondary;
     }
 
     &:nth-child(6n + 1) .productTitle,
@@ -66,7 +66,7 @@
 }
 
 .productTitle {
-  @apply p-3 h-14 bg-primary text-primary font-bold text-xl truncate leading-8 inline-flex;
+  @apply p-3 h-14 bg-primary text-base font-bold text-xl truncate leading-8 inline-flex;
   max-width: calc(100% - 50px);
 
   @screen lg {
@@ -75,9 +75,9 @@
 }
 
 .productPrice {
-  @apply px-3 py-1 pb-2 bg-primary text-primary font-semibold inline-block text-sm leading-6;
+  @apply px-3 py-1 pb-2 bg-primary text-base font-semibold inline-block text-sm leading-6;
 }
 
 .wishlistButton {
-  @apply w-10 h-10 flex items-center justify-center bg-primary text-primary font-semibold inline-block text-xs leading-6 cursor-pointer;
+  @apply w-10 h-10 flex items-center justify-center bg-primary text-base font-semibold inline-block text-xs leading-6 cursor-pointer;
 }

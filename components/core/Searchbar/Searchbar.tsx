@@ -17,7 +17,7 @@ const Searchbar: FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
-        'relative rounded-lg text-sm bg-primary-accent text-primary w-full',
+        'relative rounded-lg text-sm bg-primary-accent text-base w-full',
         className
       )}
     >

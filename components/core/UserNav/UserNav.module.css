@@ -6,10 +6,10 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-primary;
+  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-base;
 
   &:hover {
-    @apply text-secondary;
+    @apply text-accents-8;
   }
 
   &:last-child {

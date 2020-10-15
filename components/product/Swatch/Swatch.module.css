@@ -1,15 +1,15 @@
 .root {
-  @apply h-12 w-12 bg-primary text-primary rounded-full mr-3 inline-flex
+  @apply h-12 w-12 bg-primary text-base rounded-full mr-3 inline-flex
   items-center justify-center cursor-pointer transition duration-75 ease-in-out
   p-0 shadow-none border-gray-200 border box-border;
 }
 
 .active.size {
-  @apply border-secondary border-2;
+  @apply border-accents-2 border-2;
 }
 
 .root:hover {
-  @apply transform scale-110 bg-primary-hover;
+  @apply transform scale-110 bg-hover;
 }
 
 .colorViolet {

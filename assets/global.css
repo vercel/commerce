@@ -1,20 +1,27 @@
 @import './font.css';
 
 :root {
-  --bg-primary: white;
-  --bg-primary-hover: rgba(0, 0, 0, 0.075);
-  --bg-primary-accent: #f1f3f5;
-  --bg-secondary: black;
+  --primary: white;
+  --primary-2: #f1f3f5;
+  --secondary: black;
+  --secondary-2: #111;
+
+  --selection: var(--cyan);
+
+  --text-base: black;
   --text-primary: black;
   --text-secondary: white;
-  --text-default: #252f3f;
+
+  --hover: rgba(0, 0, 0, 0.075);
 
   --cyan: #50e3c2;
   --purple: #f81ce5;
+  --violet: #7928ca;
+  --pink: #ff0080;
+  --blue: #0070f3;
+  --green: #37b679;
+  --red: #da3c3c;
 
-  --foreground: #000;
-  --background: #fff;
-  --selection: var(--cyan);
   --accents-1: #fafafa;
   --accents-2: #eaeaea;
   --accents-3: #999999;
@@ -26,25 +33,25 @@
 }
 
 [data-theme='dark'] {
-  --bg-primary: black;
-  --bg-secondary: white;
-  --bg-primary-hover: rgba(255, 255, 255, 0.075);
-  --bg-primary-accent: #111;
+  --primary: black;
+  --primary-2: #111;
+  --secondary: white;
+  --secondary-2: #f1f3f5;
+  --hover: rgba(255, 255, 255, 0.075);
+  --selection: var(--purple);
+
+  --text-base: white;
   --text-primary: white;
   --text-secondary: black;
-  --text-default: white;
 
-  --foreground: #fff;
-  --background: #000;
-  --selection: var(--purple);
-  --accents-8: #fafafa;
-  --accents-7: #eaeaea;
-  --accents-6: #999999;
-  --accents-5: #888888;
-  --accents-4: #666666;
-  --accents-3: #444444;
-  --accents-2: #333333;
   --accents-1: #111111;
+  --accents-2: #333333;
+  --accents-3: #444444;
+  --accents-4: #666666;
+  --accents-5: #888888;
+  --accents-6: #999999;
+  --accents-7: #eaeaea;
+  --accents-8: #fafafa;
 }
 
 .fit {

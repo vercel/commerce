@@ -60,7 +60,7 @@ export default function Search({
       <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
         <div className="col-span-2">
           <ul className="mb-10">
-            <li className="py-1 text-primary font-bold tracking-wide">
+            <li className="py-1 text-base font-bold tracking-wide">
               <Link href={{ pathname: getCategoryPath('', brand), query }}>
                 <a>All Categories</a>
               </Link>
@@ -68,7 +68,7 @@ export default function Search({
             {categories.map((cat) => (
               <li
                 key={cat.path}
-                className={cn('py-1 text-default', {
+                className={cn('py-1 text-accents-8', {
                   underline: activeCategory?.entityId === cat.entityId,
                 })}
               >
@@ -84,7 +84,7 @@ export default function Search({
             ))}
           </ul>
           <ul>
-            <li className="py-1 text-primary font-bold tracking-wide">
+            <li className="py-1 text-base font-bold tracking-wide">
               <Link href={{ pathname: getDesignerPath('', category), query }}>
                 <a>All Designers</a>
               </Link>
@@ -92,7 +92,7 @@ export default function Search({
             {brands.flatMap(({ node }) => (
               <li
                 key={node.path}
-                className={cn('py-1 text-default', {
+                className={cn('py-1 text-accents-8', {
                   underline: activeBrand?.entityId === node.entityId,
                 })}
               >
@@ -158,9 +158,9 @@ export default function Search({
         </div>
         <div className="col-span-2">
           <ul>
-            <li className="py-1 text-primary font-bold tracking-wide">Sort</li>
+            <li className="py-1 text-base font-bold tracking-wide">Sort</li>
             <li
-              className={cn('py-1 text-default', {
+              className={cn('py-1 text-accents-8', {
                 underline: !sort,
               })}
             >
@@ -171,7 +171,7 @@ export default function Search({
             {SORT.map(([key, text]) => (
               <li
                 key={key}
-                className={cn('py-1 text-default', {
+                className={cn('py-1 text-accents-8', {
                   underline: sort === key,
                 })}
               >
