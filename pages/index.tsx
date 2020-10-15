@@ -4,21 +4,26 @@ import { Layout } from '@components/core'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
+  const { pages } = await getAllPages()
   const { products } = await getAllProducts()
   const { categories, brands } = await getSiteInfo()
 
   return {
-    props: { products, categories, brands },
+    props: { pages, products, categories, brands },
   }
 }
 
 export default function Home({
+  pages,
   products,
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log('PAGES', pages)
+
   return (
     <div className="mt-3">
       <Grid items={products.slice(0, 3)} wrapper={ProductCard} />
