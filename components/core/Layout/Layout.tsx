@@ -6,7 +6,8 @@ import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { UIProvider, useUI } from '@components/ui/context'
 import { CommerceProvider } from '@lib/bigcommerce'
-
+import { ThemeProvider } from 'next-themes'
+import { SSRProvider, OverlayProvider } from 'react-aria'
 interface Props {
   className?: string
   children?: any
@@ -35,11 +36,15 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
 }
 
 const Layout: FC<Props> = (props) => (
-  <CommerceProvider locale="en-us">
-    <UIProvider>
-      <CoreLayout {...props} />
-    </UIProvider>
-  </CommerceProvider>
+  <ThemeProvider>
+    <SSRProvider>
+      <OverlayProvider>
+        <UIProvider>
+          <CoreLayout {...props} />
+        </UIProvider>
+      </OverlayProvider>
+    </SSRProvider>
+  </ThemeProvider>
 )
 
 export default Layout

@@ -5,8 +5,7 @@ import 'animate.css'
 import { FC } from 'react'
 import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
-import { ThemeProvider } from 'next-themes'
-import { SSRProvider, OverlayProvider } from 'react-aria'
+
 import config from '../config.json'
 import Head from 'next/head'
 import { CommerceProvider } from '@lib/bigcommerce'
@@ -24,15 +23,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <DefaultSeo {...config.seo} />
       <CommerceProvider locale="en-us">
-        <ThemeProvider>
-          <SSRProvider>
-            <OverlayProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </OverlayProvider>
-          </SSRProvider>
-        </ThemeProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </CommerceProvider>
     </>
   )
