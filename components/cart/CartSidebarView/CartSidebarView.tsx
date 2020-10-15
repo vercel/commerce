@@ -7,7 +7,6 @@ import { useUI } from '@components/ui/context'
 import useCart from '@lib/bigcommerce/cart/use-cart'
 import usePrice from '@lib/bigcommerce/use-price'
 import CartItem from '../CartItem'
-import useOpenCheckout from '@lib/bigcommerce/cart/use-open-checkout'
 
 const CartSidebarView: FC = () => {
   const { data, isEmpty } = useCart()
@@ -23,7 +22,6 @@ const CartSidebarView: FC = () => {
       currencyCode: data.currency.code,
     }
   )
-  const openCheckout = useOpenCheckout()
   const { closeSidebar } = useUI()
   const handleClose = () => closeSidebar()
 
