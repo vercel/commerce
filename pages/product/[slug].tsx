@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import getProduct from '@lib/bigcommerce/api/operations/get-product'
 import { Layout } from '@components/core'
 import { ProductView } from '@components/product'
@@ -8,6 +9,7 @@ import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
+  const { pages } = await getAllPages()
   const { product } = await getProduct({ variables: { slug: params!.slug } })
 
   if (!product) {
@@ -15,9 +17,7 @@ export async function getStaticProps({
   }
 
   return {
-    props: {
-      product,
-    },
+    props: { pages, product },
     revalidate: 200,
   }
 }

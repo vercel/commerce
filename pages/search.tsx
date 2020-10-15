@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import cn from 'classnames'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
@@ -17,10 +18,11 @@ import {
 import { range } from 'lodash'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
+  const { pages } = await getAllPages()
   const { categories, brands } = await getSiteInfo()
 
   return {
-    props: { categories, brands },
+    props: { pages, categories, brands },
   }
 }
 

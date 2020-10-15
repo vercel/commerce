@@ -1,10 +1,12 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Container } from '@components/ui'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
+  const { pages } = await getAllPages()
   return {
-    props: {},
+    props: { pages },
   }
 }
 

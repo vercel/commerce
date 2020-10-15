@@ -1,15 +1,12 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Container } from '@components/ui'
-import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { products } = await getAllProducts()
-  const { categories, brands } = await getSiteInfo()
-
+  const { pages } = await getAllPages()
   return {
-    props: { products, categories, brands },
+    props: { pages },
   }
 }
 

@@ -1,5 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Container } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
@@ -7,11 +7,11 @@ import { WishlistCard } from '@components/wishlist'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { products } = await getAllProducts()
+  const { pages } = await getAllPages()
   const { categories, brands } = await getSiteInfo()
 
   return {
-    props: { products, categories, brands },
+    props: { pages, categories, brands },
   }
 }
 
