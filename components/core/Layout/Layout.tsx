@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { ThemeProvider } from 'next-themes'
 import { SSRProvider, OverlayProvider } from 'react-aria'
 import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
+import { CommerceProvider } from '@lib/bigcommerce'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
@@ -44,9 +45,11 @@ const Layout: FC<LayoutProps> = ({ children, pageProps }) => (
   <ThemeProvider>
     <SSRProvider>
       <OverlayProvider>
-        <UIProvider>
-          <CoreLayout pages={pageProps.pages}>{children}</CoreLayout>
-        </UIProvider>
+        <CommerceProvider locale="en-us">
+          <UIProvider>
+            <CoreLayout pages={pageProps.pages}>{children}</CoreLayout>
+          </UIProvider>
+        </CommerceProvider>
       </OverlayProvider>
     </SSRProvider>
   </ThemeProvider>

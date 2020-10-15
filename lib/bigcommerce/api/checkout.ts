@@ -43,7 +43,6 @@ const checkoutApi: BigcommerceApiHandler<any> = async (req, res, config) => {
           <script>
             window.onload = function() {
               checkoutKitLoader.load('checkout-sdk').then(function (service) {
-                console.log('SERVICE', service)
                 service.embedCheckout({
                   containerId: 'checkout',
                   url: '${data.embedded_checkout_url}'

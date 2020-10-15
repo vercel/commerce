@@ -5,10 +5,9 @@ import 'animate.css'
 import { FC } from 'react'
 import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 
 import config from '../config.json'
-import Head from 'next/head'
-import { CommerceProvider } from '@lib/bigcommerce'
 
 const Noop: FC = ({ children }) => <>{children}</>
 
@@ -22,11 +21,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
       </Head>
       <DefaultSeo {...config.seo} />
-      <CommerceProvider locale="en-us">
-        <Layout pageProps={pageProps}>
-          <Component {...pageProps} />
-        </Layout>
-      </CommerceProvider>
+      <Layout pageProps={pageProps}>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }
