@@ -7,7 +7,8 @@
     "pre-build": "yarn generate",
     "build": "next build",
     "start": "next start",
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen",
+    "generate:definitions": "node lib/bigcommerce/scripts/generate-definitions.js"
   },
   "graphql": {
     "schema": "lib/bigcommerce/schema.graphql",
@@ -46,6 +47,7 @@
     "@graphql-codegen/schema-ast": "^1.17.8",
     "@graphql-codegen/typescript": "^1.17.10",
     "@graphql-codegen/typescript-operations": "^1.17.8",
+    "@manifoldco/swagger-to-ts": "^2.1.0",
     "@types/cookie": "^0.4.0",
     "@types/js-cookie": "^2.2.6",
     "@types/lodash.debounce": "^4.0.6",
