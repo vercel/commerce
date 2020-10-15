@@ -1,12 +1,12 @@
 .root {
-  @apply text-accents-8 cursor-pointer inline-flex px-10 rounded-sm leading-6
+  @apply text-accents-1 cursor-pointer inline-flex px-10 rounded-sm leading-6
   bg-secondary transition ease-in-out duration-150 shadow-sm font-semibold
   text-center justify-center uppercase py-4 uppercase text-center focus:outline-none
   border border-transparent items-center;
 }
 
 .root:hover {
-  @apply bg-primary-2 text-base border border-secondary;
+  @apply bg-accents-0 text-base border border-secondary;
 }
 
 .root:focus {

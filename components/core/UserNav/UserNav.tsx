@@ -29,7 +29,7 @@ const UserNav: FC<Props> = ({ className }) => {
         >
           <Bag />
           {itemsCount > 0 && (
-            <span className="bg-secondary text-base h-4 w-4 absolute rounded-full right-3 top-3 flex items-center justify-center font-bold text-xs">
+            <span className="border border-accent-1 bg-secondary text-secondary h-4 w-4 absolute rounded-full right-3 top-3 flex items-center justify-center font-bold text-xs">
               {itemsCount}
             </span>
           )}
