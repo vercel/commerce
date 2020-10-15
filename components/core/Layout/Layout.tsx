@@ -1,10 +1,13 @@
 import { FC } from 'react'
+import cn from 'classnames'
 import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
-import { CommerceProvider } from '@lib/bigcommerce'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { UIProvider, useUI } from '@components/ui/context'
+import s from './Layout.module.css'
+import { ThemeProvider } from 'next-themes'
+import { SSRProvider, OverlayProvider } from 'react-aria'
 
 interface LayoutProps {
   pageProps: {
@@ -13,7 +16,6 @@ interface LayoutProps {
 }
 
 interface Props {
-  children?: any
   pages?: Page[]
 }
 
@@ -21,7 +23,7 @@ const CoreLayout: FC<Props> = ({ children, pages }) => {
   const { displaySidebar, closeSidebar } = useUI()
 
   return (
-    <div className="h-full bg-primary">
+    <div className={cn(s.root)}>
       <Featurebar
         title="Free Standard Shipping on orders over $99.99"
         description="Due to COVID-19, some orders may experience processing and delivery delays."
@@ -39,11 +41,15 @@ const CoreLayout: FC<Props> = ({ children, pages }) => {
 }
 
 const Layout: FC<LayoutProps> = ({ children, pageProps }) => (
-  <CommerceProvider locale="en-us">
-    <UIProvider>
-      <CoreLayout pages={pageProps.pages}>{children}</CoreLayout>
-    </UIProvider>
-  </CommerceProvider>
+  <UIProvider>
+    <ThemeProvider>
+      <SSRProvider>
+        <OverlayProvider>
+          <CoreLayout pages={pageProps.pages}>{children}</CoreLayout>
+        </OverlayProvider>
+      </SSRProvider>
+    </ThemeProvider>
+  </UIProvider>
 )
 
 export default Layout

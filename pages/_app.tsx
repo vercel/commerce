@@ -5,10 +5,10 @@ import 'animate.css'
 import { FC } from 'react'
 import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
-import { ThemeProvider } from 'next-themes'
-import { SSRProvider, OverlayProvider } from 'react-aria'
+
 import config from '../config.json'
 import Head from 'next/head'
+import { CommerceProvider } from '@lib/bigcommerce'
 
 const Noop: FC = ({ children }) => <>{children}</>
 
@@ -22,15 +22,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
       </Head>
       <DefaultSeo {...config.seo} />
-      <ThemeProvider>
-        <SSRProvider>
-          <OverlayProvider>
-            <Layout pageProps={pageProps}>
-              <Component {...pageProps} />
-            </Layout>
-          </OverlayProvider>
-        </SSRProvider>
-      </ThemeProvider>
+      <CommerceProvider locale="en-us">
+        <Layout pageProps={pageProps}>
+          <Component {...pageProps} />
+        </Layout>
+      </CommerceProvider>
     </>
   )
 }

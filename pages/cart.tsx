@@ -18,7 +18,7 @@ export default function Home({}: InferGetStaticPropsType<
 >) {
   return (
     <Container>
-      <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-primary tracking-wide">
+      <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
         My Cart
       </h2>
     </Container>

@@ -24,7 +24,7 @@ export default function Home({
       <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
         <div className="col-span-2">
           <ul className="mb-10">
-            <li className="py-1 text-primary font-bold tracking-wide">
+            <li className="py-1 text-base font-bold tracking-wide">
               All Categories
             </li>
             {categories.map((cat) => (
@@ -35,7 +35,7 @@ export default function Home({
           </ul>
         </div>
         <div className="col-span-8">
-          <h2 className="pt-1 px-3 pb-4 text-2xl leading-7 font-bold text-primary tracking-wide">
+          <h2 className="pt-1 px-3 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
             My Wishlist
           </h2>
           <div className="group flex flex-col">
@@ -46,7 +46,7 @@ export default function Home({
         </div>
         <div className="col-span-2">
           <ul>
-            <li className="py-1 text-primary font-bold tracking-wide">
+            <li className="py-1 text-base font-bold tracking-wide">
               Relevance
             </li>
             <li className="py-1 text-secondary">Latest arrivals</li>
