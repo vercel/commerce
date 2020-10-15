@@ -141,10 +141,15 @@ export default function Search({
             layout="normal"
             wrapper={
               data
-                ? ProductCard
+                ? (p: any) => (
+                    <ProductCard
+                      className="animate__animated animate__fadeIn"
+                      {...p}
+                    />
+                  )
                 : () => (
                     <Skeleton
-                      className="w-full animate__animated animate__fadeIn rounded-md"
+                      className="w-full animate__animated animate__fadeIn"
                       height={325}
                     />
                   )
