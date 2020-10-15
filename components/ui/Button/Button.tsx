@@ -9,6 +9,7 @@ import mergeRefs from 'react-merge-refs'
 import { useButton } from 'react-aria'
 import s from './Button.module.css'
 import { LoadingDots } from '@components/ui'
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
   className?: string
@@ -25,7 +26,6 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     className,
     variant = 'filled',
     children,
-    href,
     active,
     onClick,
     disabled,
@@ -57,7 +57,6 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   return (
     <Component
       className={rootClassName}
-      href={href}
       aria-pressed={active}
       data-variant={variant}
       ref={mergeRefs([ref, buttonRef])}

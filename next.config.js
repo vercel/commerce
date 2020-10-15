@@ -14,6 +14,10 @@ module.exports = {
         source: '/search/:category',
         destination: '/search',
       },
+      {
+        source: '/checkout',
+        destination: '/api/bigcommerce/checkout',
+      },
     ]
   },
 }
