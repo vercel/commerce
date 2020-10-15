@@ -1,16 +1,4 @@
-@keyframes blink {
-  0% {
-    opacity: 0.2;
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.2;
-  }
-}
-
-.loading {
+.root {
   @apply inline-flex text-center items-center leading-7;
 
   & span {
@@ -28,5 +16,17 @@
     &:nth-of-type(3) {
       animation-delay: 0.4s;
     }
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
   }
 }

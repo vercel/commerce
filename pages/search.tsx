@@ -128,7 +128,10 @@ export default function Search({
             </>
           ) : (
             // TODO: add a proper loading state
-            <div>Searching...</div>
+            <div>
+              Searching...
+              <Skeleton></Skeleton>
+            </div>
           )}
         </div>
         <div className="col-span-2">
