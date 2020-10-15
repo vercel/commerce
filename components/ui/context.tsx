@@ -1,4 +1,6 @@
 import React, { FC } from 'react'
+import { ThemeProvider } from 'next-themes'
+import { SSRProvider, OverlayProvider } from 'react-aria'
 
 export interface State {
   displaySidebar: boolean
@@ -63,3 +65,13 @@ function uiReducer(state: State, action: Action) {
     }
   }
 }
+
+export const ManagedUIContext: FC = ({ children }) => (
+  <UIProvider>
+    <ThemeProvider>
+      <SSRProvider>
+        <OverlayProvider>{children}</OverlayProvider>
+      </SSRProvider>
+    </ThemeProvider>
+  </UIProvider>
+)

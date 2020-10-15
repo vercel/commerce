@@ -46,17 +46,11 @@ const ProductCard: FC<Props> = ({ className, node: p, variant }) => {
         </div>
         <div className={s.squareBg} />
         <div className="flex flex-row justify-between box-border w-full z-10 relative">
-          <div className="flex flex-col flex-1 overflow-hidden">
-            <div className="flex-1">
-              <span className={s.productTitle}>
-                <h2>
-                  <strong>{p.name}</strong>
-                </h2>
-              </span>
+          <div className="">
+            <div className={s.productTitle}>
+              <span>{p.name}</span>
             </div>
-            <div className="flex-0">
-              <div className={s.productPrice}>${p.prices.price.value}</div>
-            </div>
+            <span className={s.productPrice}>${p.prices.price.value}</span>
           </div>
           <div className={s.wishlistButton}>
             <Heart />

@@ -4,16 +4,15 @@ import s from './Layout.module.css'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
-import { UIProvider, useUI } from '@components/ui/context'
+import { useUI } from '@components/ui/context'
+
 import { CommerceProvider } from '@lib/bigcommerce'
-import { ThemeProvider } from 'next-themes'
-import { SSRProvider, OverlayProvider } from 'react-aria'
 interface Props {
   className?: string
   children?: any
 }
 
-const CoreLayout: FC<Props> = ({ className, children }) => {
+const Layout: FC<Props> = ({ className, children }) => {
   const rootClassName = cn(s.root, className)
   const { displaySidebar, closeSidebar } = useUI()
 
@@ -34,17 +33,5 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
     </div>
   )
 }
-
-const Layout: FC<Props> = (props) => (
-  <ThemeProvider>
-    <SSRProvider>
-      <OverlayProvider>
-        <UIProvider>
-          <CoreLayout {...props} />
-        </UIProvider>
-      </OverlayProvider>
-    </SSRProvider>
-  </ThemeProvider>
-)
 
 export default Layout

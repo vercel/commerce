@@ -6,31 +6,31 @@
       @apply scale-75;
     }
 
-    & .productTitle,
+    & .productTitle > span,
     & .productPrice,
     & .wishlistButton {
       @apply bg-secondary text-secondary;
     }
 
-    &:nth-child(6n + 1) .productTitle,
+    &:nth-child(6n + 1) .productTitle > span,
     &:nth-child(6n + 1) .productPrice,
     &:nth-child(6n + 1) .wishlistButton {
       @apply bg-violet text-white;
     }
 
-    &:nth-child(6n + 5) .productTitle,
+    &:nth-child(6n + 5) .productTitle > span,
     &:nth-child(6n + 5) .productPrice,
     &:nth-child(6n + 5) .wishlistButton {
       @apply bg-blue text-white;
     }
 
-    &:nth-child(6n + 3) .productTitle,
+    &:nth-child(6n + 3) .productTitle > span,
     &:nth-child(6n + 3) .productPrice,
     &:nth-child(6n + 3) .wishlistButton {
       @apply bg-pink text-white;
     }
 
-    &:nth-child(6n + 6) .productTitle,
+    &:nth-child(6n + 6) .productTitle > span,
     &:nth-child(6n + 6) .productPrice,
     &:nth-child(6n + 6) .wishlistButton {
       @apply bg-cyan text-white;
@@ -66,29 +66,13 @@
 }
 
 .productTitle {
-  /* @apply p-3 h-14 bg-primary text-base font-bold text-xl truncate leading-8 inline-flex; */
-  /* max-width: calc(100% - 50px); */
-  line-height: 1.3;
-  padding: 2px 0;
-  border-left: 20px solid #c0c;
-  width: 400px;
-  margin: 20px auto;
+  line-height: 51px;
+  width: 200px;
 
-  & h2 {
-    background-color: #c0c;
-    padding: 4px 0;
-    color: #fff;
-    display: inline;
-    margin: 0;
-
-    & .strong {
-      position: relative;
-      left: -10px;
-    }
-  }
-
-  @screen lg {
-    @apply text-2xl;
+  & span {
+    @apply inline text-2xl leading-6 p-4 bg-primary text-primary font-bold;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 }
 

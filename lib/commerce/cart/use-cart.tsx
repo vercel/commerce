@@ -18,7 +18,7 @@ export default function useCart<T>(
   fetcherFn: HookFetcher<T | null, CartInput>,
   swrOptions?: ConfigInterface<T | null>
 ) {
-  const { cartCookie } = useCommerce()
+  const { cartCookie = '' } = useCommerce() | {}
   const fetcher: typeof fetcherFn = (options, input, fetch) => {
     input.cartId = Cookies.get(cartCookie)
     return fetcherFn(options, input, fetch)
