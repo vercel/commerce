@@ -14,15 +14,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const Layout = (Component as any).Layout || Noop
 
   return (
-    <>
+    <CommerceProvider locale="en-us">
       <Head />
-      <CommerceProvider locale="en-us">
-        <ManagedUIContext>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ManagedUIContext>
-      </CommerceProvider>
-    </>
+      <ManagedUIContext>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ManagedUIContext>
+    </CommerceProvider>
   )
 }
