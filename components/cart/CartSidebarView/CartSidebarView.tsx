@@ -27,9 +27,6 @@ const CartSidebarView: FC = () => {
 
   const items = data?.line_items.physical_items ?? []
 
-  console.log('CART', data, isEmpty)
-
-  // This should come from the API via hook I guess
   const error = null
   const success = null
 
@@ -95,7 +92,7 @@ const CartSidebarView: FC = () => {
             <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
               My Cart
             </h2>
-            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200 border-t border-gray-200">
+            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
               {items.map((item) => (
                 <CartItem
                   key={item.id}
@@ -107,7 +104,7 @@ const CartSidebarView: FC = () => {
           </div>
 
           <div className="flex-shrink-0 px-4  py-5 sm:px-6">
-            <div className="border-t border-gray-200">
+            <div className="border-t border-accents-3">
               <ul className="py-3">
                 <li className="flex justify-between py-1">
                   <span>Subtotal</span>
@@ -122,7 +119,7 @@ const CartSidebarView: FC = () => {
                   <span>FREE</span>
                 </li>
               </ul>
-              <div className="flex justify-between border-t border-gray-300 py-3 font-bold mb-10">
+              <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
                 <span>{total}</span>
               </div>

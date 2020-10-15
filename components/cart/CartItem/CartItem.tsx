@@ -53,8 +53,6 @@ const CartItem = ({
     }
   }, [item.quantity])
 
-  console.log(item)
-
   return (
     <li className="flex flex-row space-x-8 py-6">
       <div className="w-12 h-12 bg-violet relative overflow-hidden">
