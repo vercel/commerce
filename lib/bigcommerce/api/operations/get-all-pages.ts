@@ -11,18 +11,22 @@ export type GetAllPagesResult<
 
 async function getAllPages(opts?: {
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetAllPagesResult>
 
 async function getAllPages<T extends { pages: any[] }, V = any>(opts: {
   url: string
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetAllPagesResult<T>>
 
 async function getAllPages({
   config,
+  preview,
 }: {
   url?: string
   config?: BigcommerceConfig
+  preview?: boolean
 } = {}): Promise<GetAllPagesResult> {
   config = getConfig(config)
   // RecursivePartial forces the method to check for every prop in the data, which is
@@ -30,9 +34,10 @@ async function getAllPages({
   const { data } = await config.storeApiFetch<
     RecursivePartial<{ data: Page[] }>
   >('/v3/content/pages')
+  const pages = (data as RecursiveRequired<typeof data>) ?? []
 
   return {
-    pages: (data as RecursiveRequired<typeof data>) ?? [],
+    pages: preview ? pages : pages.filter((p) => p.is_visible),
   }
 }
 

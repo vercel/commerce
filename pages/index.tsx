@@ -17,13 +17,10 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
 }
 
 export default function Home({
-  pages,
   products,
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('PAGES', pages)
-
   return (
     <div className="mt-3">
       <Grid items={products.slice(0, 3)} wrapper={ProductCard} />

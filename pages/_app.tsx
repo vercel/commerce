@@ -25,7 +25,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider>
         <SSRProvider>
           <OverlayProvider>
-            <Layout>
+            <Layout pageProps={pageProps}>
               <Component {...pageProps} />
             </Layout>
           </OverlayProvider>

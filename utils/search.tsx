@@ -34,9 +34,6 @@ export const filterQuery = (query: any) =>
     return obj
   }, {})
 
-// Remove trailing and leading slash
-export const getSlug = (path: string) => path.replace(/^\/|\/$/g, '')
-
 export const getCategoryPath = (slug: string, brand?: string) =>
   `/search${brand ? `/designers/${brand}` : ''}${slug ? `/${slug}` : ''}`
 

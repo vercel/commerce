@@ -1,18 +1,25 @@
-import cn from 'classnames'
 import { FC } from 'react'
-import { Logo } from '@components/ui'
+import cn from 'classnames'
 import Link from 'next/link'
+import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
+import getSlug from '@utils/get-slug'
+import { Logo } from '@components/ui'
 
 interface Props {
   className?: string
   children?: any
+  pages?: Page[]
 }
 
-const Footer: FC<Props> = ({ className }) => {
+const LEGAL_PAGES = ['terms-of-use', 'shipping-returns', 'privacy-policy']
+
+const Footer: FC<Props> = ({ className, pages }) => {
   const rootClassName = cn(
     'flex flex-col p-6 md:py-12 md:flex-row flex-wrap max-w-screen-xl m-auto',
     className
   )
+  const { sitePages, legalPages } = getPages(pages)
+
   return (
     <div className="bg-black text-white">
       <hr
@@ -30,29 +37,27 @@ const Footer: FC<Props> = ({ className }) => {
         </Link>
 
         <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
-          <li className="py-3 md:py-0 md:pb-4">
-            <Link href="/about">
-              <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
-                About
-              </a>
-            </Link>
-          </li>
+          {sitePages.map((page) => (
+            <li key={page.url} className="py-3 md:py-0 md:pb-4">
+              <Link href={page.url!}>
+                <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                  {page.name}
+                </a>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-          <li className="py-3 md:py-0 md:pb-4">
-            <Link href="/terms">
-              <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
-                Terms of Use
-              </a>
-            </Link>
-          </li>
-
-          <li className="py-3 md:py-0 md:pb-4">
-            <Link href="/privacy">
-              <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
-                Privacy Policy
-              </a>
-            </Link>
-          </li>
+        <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
+          {legalPages.map((page) => (
+            <li key={page.url} className="py-3 md:py-0 md:pb-4">
+              <Link href={page.url!}>
+                <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                  {page.name}
+                </a>
+              </Link>
+            </li>
+          ))}
         </ul>
 
         <small className="text-base">
@@ -61,6 +66,33 @@ const Footer: FC<Props> = ({ className }) => {
       </footer>
     </div>
   )
+}
+
+function getPages(pages?: Page[]) {
+  const sitePages: Page[] = []
+  const legalPages: Page[] = []
+
+  if (pages) {
+    pages.forEach((page) => {
+      if (page.url) {
+        if (LEGAL_PAGES.includes(getSlug(page.url))) {
+          legalPages.push(page)
+        } else {
+          sitePages.push(page)
+        }
+      }
+    })
+  }
+
+  return {
+    sitePages: sitePages.sort(bySortOrder),
+    legalPages: legalPages.sort(bySortOrder),
+  }
+}
+
+// Sort pages by the sort order assigned in the BC dashboard
+function bySortOrder(a: Page, b: Page) {
+  return (a.sort_order ?? 0) - (b.sort_order ?? 0)
 }
 
 export default Footer

@@ -1,22 +1,27 @@
-import cn from 'classnames'
 import { FC } from 'react'
+import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
 import { CommerceProvider } from '@lib/bigcommerce'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { Container, Sidebar } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { UIProvider, useUI } from '@components/ui/context'
 
-interface Props {
-  className?: string
-  children?: any
+interface LayoutProps {
+  pageProps: {
+    pages?: Page[]
+  }
 }
 
-const CoreLayout: FC<Props> = ({ className, children }) => {
-  const rootClassName = cn('h-full bg-primary', className)
+interface Props {
+  children?: any
+  pages?: Page[]
+}
+
+const CoreLayout: FC<Props> = ({ children, pages }) => {
   const { displaySidebar, closeSidebar } = useUI()
 
   return (
-    <div className={rootClassName}>
+    <div className="h-full bg-primary">
       <Featurebar
         title="Free Standard Shipping on orders over $99.99"
         description="Due to COVID-19, some orders may experience processing and delivery delays."
@@ -25,7 +30,7 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
         <Navbar />
       </Container>
       <main className="fit">{children}</main>
-      <Footer />
+      <Footer pages={pages} />
       <Sidebar show={displaySidebar} close={closeSidebar}>
         <CartSidebarView />
       </Sidebar>
@@ -33,10 +38,10 @@ const CoreLayout: FC<Props> = ({ className, children }) => {
   )
 }
 
-const Layout: FC<Props> = (props) => (
+const Layout: FC<LayoutProps> = ({ children, pageProps }) => (
   <CommerceProvider locale="en-us">
     <UIProvider>
-      <CoreLayout {...props} />
+      <CoreLayout pages={pageProps.pages}>{children}</CoreLayout>
     </UIProvider>
   </CommerceProvider>
 )

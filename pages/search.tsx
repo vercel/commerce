@@ -7,11 +7,11 @@ import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
 import { Container, Grid, Skeleton } from '@components/ui'
 import { ProductCard } from '@components/product'
+import getSlug from '@utils/get-slug'
 import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
-  getSlug,
   useSearchMeta,
 } from '@utils/search'
 import { range } from 'lodash'
