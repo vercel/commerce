@@ -5,7 +5,7 @@ import cn from 'classnames'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
-import { Container, Grid } from '@components/ui'
+import { Container, Grid, Skeleton } from '@components/ui'
 import { ProductCard } from '@components/product'
 import {
   filterQuery,
@@ -14,6 +14,7 @@ import {
   getSlug,
   useSearchMeta,
 } from '@utils/search'
+import { range } from 'lodash'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { categories, brands } = await getSiteInfo()
@@ -108,31 +109,47 @@ export default function Search({
           </ul>
         </div>
         <div className="col-span-8">
-          {data ? (
-            <>
-              {q && (
-                <div className="mb-12">
-                  {data.found ? (
-                    <>Showing {data.products.length} results for</>
-                  ) : (
-                    <>There are no products that match</>
-                  )}{' '}
-                  "<strong>{q}</strong>"
-                </div>
-              )}
-              <Grid
-                items={data.products}
-                layout="normal"
-                wrapper={ProductCard}
-              />
-            </>
-          ) : (
-            // TODO: add a proper loading state
-            <div>
-              Searching...
-              <Skeleton></Skeleton>
-            </div>
-          )}
+          <div className="mb-12 animate__animated animate__fadeIn">
+            {data ? (
+              <>
+                <span
+                  className={cn('animate__animated', {
+                    animate__fadeIn: data.found,
+                    hidden: !data.found,
+                  })}
+                >
+                  Showing {data.products.length} results for "
+                  <strong>{q}</strong>"
+                </span>
+                <span
+                  className={cn('animate__animated', {
+                    animate__fadeIn: !data.found,
+                    hidden: data.found,
+                  })}
+                >
+                  There are no products that match "<strong>{q}</strong>"
+                </span>
+              </>
+            ) : (
+              <>
+                Searching for: "<strong>{q}</strong>"
+              </>
+            )}
+          </div>
+          <Grid
+            items={data ? data.products : range(12)}
+            layout="normal"
+            wrapper={
+              data
+                ? ProductCard
+                : () => (
+                    <Skeleton
+                      className="w-full animate__animated animate__fadeIn rounded-md"
+                      height={200}
+                    />
+                  )
+            }
+          />
         </div>
         <div className="col-span-2">
           <ul>

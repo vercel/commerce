@@ -1,25 +1,14 @@
 .skeleton {
-  @apply block rounded-md;
-
-  &.loaded {
-    width: unset !important;
-  }
-
-  &:not(.wrapper):not(.show) {
-    display: none;
-  }
-
-  &::not(.wrapper):not(.loaded) {
-    background-image: linear-gradient(
-      270deg,
-      var(--accents-1),
-      var(--accents-2),
-      var(--accents-2),
-      var(--accents-1)
-    );
-    background-size: 400% 100%;
-    animation: loading 8s ease-in-out infinite;
-  }
+  @apply block rounded;
+  background-image: linear-gradient(
+    270deg,
+    var(--accents-1),
+    var(--accents-2),
+    var(--accents-2),
+    var(--accents-1)
+  );
+  background-size: 400% 100%;
+  animation: loading 8s ease-in-out infinite;
 }
 
 .wrapper {
