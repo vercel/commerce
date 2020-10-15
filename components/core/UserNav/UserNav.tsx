@@ -16,8 +16,8 @@ const countItems = (count: number, items: any[]) =>
   items.reduce(countItem, count)
 
 const UserNav: FC<Props> = ({ className }) => {
-  const { openSidebar, closeSidebar, displaySidebar } = useUI()
   const { data } = useCart()
+  const { openSidebar, closeSidebar, displaySidebar } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
 
   return (
