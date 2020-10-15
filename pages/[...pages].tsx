@@ -3,6 +3,7 @@ import { Layout } from '@components/core'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import getPage from '@lib/bigcommerce/api/operations/get-page'
 import getSlug from '@utils/get-slug'
+import PageContent from '@components/custom-pages/PageContent'
 
 export async function getStaticProps({
   preview,
@@ -37,8 +38,11 @@ export async function getStaticPaths() {
 export default function Pages({
   page,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('PAGE', page)
-  return <div className="mt-3">Hello!</div>
+  return (
+    <div className="max-w-2xl mx-auto py-20">
+      <PageContent html={page.body} />
+    </div>
+  )
 }
 
 Pages.Layout = Layout
