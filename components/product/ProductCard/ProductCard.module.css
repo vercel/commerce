@@ -66,8 +66,26 @@
 }
 
 .productTitle {
-  @apply p-3 h-14 bg-primary text-base font-bold text-xl truncate leading-8 inline-flex;
-  max-width: calc(100% - 50px);
+  /* @apply p-3 h-14 bg-primary text-base font-bold text-xl truncate leading-8 inline-flex; */
+  /* max-width: calc(100% - 50px); */
+  line-height: 1.3;
+  padding: 2px 0;
+  border-left: 20px solid #c0c;
+  width: 400px;
+  margin: 20px auto;
+
+  & h2 {
+    background-color: #c0c;
+    padding: 4px 0;
+    color: #fff;
+    display: inline;
+    margin: 0;
+
+    & .strong {
+      position: relative;
+      left: -10px;
+    }
+  }
 
   @screen lg {
     @apply text-2xl;
