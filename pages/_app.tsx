@@ -3,11 +3,9 @@ import '@assets/tailwind.css'
 import '@assets/utils.css'
 import 'animate.css'
 import { FC } from 'react'
-import { DefaultSeo } from 'next-seo'
+
 import type { AppProps } from 'next/app'
 
-import config from '../config.json'
-import Head from 'next/head'
 import { CommerceProvider } from '@lib/bigcommerce'
 
 const Noop: FC = ({ children }) => <>{children}</>
@@ -17,11 +15,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
-      </Head>
-      <DefaultSeo {...config.seo} />
       <CommerceProvider locale="en-us">
         <Layout>
           <Component {...pageProps} />
