@@ -53,6 +53,7 @@ export default function Blog({}: InferGetStaticPropsType<
         <div className="-mt-96 mx-auto">
           <img src="/jacket.png" />
         </div>
+        {/** Replace by HTML Content */}
         <div className="text-lg leading-7 font-medium py-6 text-justify max-w-6xl mx-auto">
           <p className="py-6">
             Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.

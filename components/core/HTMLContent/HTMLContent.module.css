@@ -1,3 +1,11 @@
+.root {
+  @apply text-lg leading-7 font-medium max-w-6xl mx-auto;
+}
+
+.root p {
+  @apply text-justify;
+}
+
 .root h1 {
   @apply text-5xl mb-12;
 }
@@ -14,5 +22,5 @@
 .root ul,
 .root ol,
 .root blockquote {
-  @apply my-6;
+  @apply mb-6;
 }
