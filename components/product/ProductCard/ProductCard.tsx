@@ -1,12 +1,12 @@
 import cn from 'classnames'
 import s from './ProductCard.module.css'
-import { FC } from 'react'
+import { FC, ReactNode, Component } from 'react'
 import { Heart } from '@components/icon'
 import Link from 'next/link'
 
 interface Props {
   className?: string
-  children?: any
+  children?: ReactNode[] | Component[] | any[]
   node: ProductData
   variant?: 'slim'
 }

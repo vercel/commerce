@@ -4,20 +4,15 @@ import s from './Grid.module.css'
 
 interface Props {
   className?: string
-  children?: any
-  items: [any] | any
+  children?: ReactNode[] | Component[] | any[]
   layout?: 'A' | 'B' | 'C' | 'D' | 'normal'
-  wrapper?: ReactNode | Component | any
   variant?: 'default' | 'filled'
 }
 
-const DefaultWrapper: FC<Props> = ({ children }) => <div>{children}</div> // DEFAULT ITEMS WRAPPER
-
 const Grid: FC<Props> = ({
-  items = [],
   className,
   layout = 'A',
-  wrapper: Component = DefaultWrapper,
+  children,
   variant = 'default',
 }) => {
   const rootClassName = cn(
@@ -33,13 +28,7 @@ const Grid: FC<Props> = ({
     },
     className
   )
-  return (
-    <div className={rootClassName}>
-      {items.map((data: any, i: any) => (
-        <Component key={i} {...data} />
-      ))}
-    </div>
-  )
+  return <div className={rootClassName}>{children}</div>
 }
 
 export default Grid

@@ -23,11 +23,16 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="mt-3">
-      <Grid items={products.slice(0, 3)} wrapper={ProductCard} />
-      <Marquee
-        items={products.slice(0, 3)}
-        wrapper={(p: any) => <ProductCard {...p} variant="slim" />}
-      />
+      <Grid>
+        {products.slice(0, 3).map((p: any) => (
+          <ProductCard key={p.id} {...p} />
+        ))}
+      </Grid>
+      <Marquee variant="secondary">
+        {products.slice(0, 3).map((p: any) => (
+          <ProductCard key={p.id} {...p} variant="slim" />
+        ))}
+      </Marquee>
       <Hero
         headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
         description="
@@ -38,12 +43,16 @@ export default function Home({
         Hebrew. It’s now undergone a name change, and will be referred to as
         ‘Natural’."
       />
-      <Grid items={products.slice(3, 6)} layout="B" wrapper={ProductCard} />
-      <Marquee
-        items={[...products.slice(3, 6)]}
-        variant="secondary"
-        wrapper={(p: any) => <ProductCard {...p} variant="slim" />}
-      />
+      <Grid layout="B">
+        {products.slice(3, 6).map((p: any) => (
+          <ProductCard key={p.id} {...p} />
+        ))}
+      </Grid>
+      <Marquee>
+        {products.slice(0, 3).map((p: any) => (
+          <ProductCard key={p.id} {...p} variant="slim" />
+        ))}
+      </Marquee>
       <div className="py-12 flex flex-row w-full px-12">
         <div className="pr-3 w-48">
           <ul className="mb-10">
@@ -68,15 +77,11 @@ export default function Home({
           </ul>
         </div>
         <div className="flex-1">
-          <Grid
-            items={[
-              ...products.slice(6),
-              ...products.slice(6),
-              ...products.slice(6),
-            ]}
-            layout="normal"
-            wrapper={ProductCard}
-          />
+          <Grid layout="normal">
+            {products.map((p: any) => (
+              <ProductCard key={p.id} {...p} />
+            ))}
+          </Grid>
         </div>
       </div>
     </div>
