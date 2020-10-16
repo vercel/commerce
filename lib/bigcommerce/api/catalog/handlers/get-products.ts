@@ -5,7 +5,7 @@ import getAllProducts, {
 import type { ProductsHandlers } from '../products'
 
 const SORT: { [key: string]: string | undefined } = {
-  latest: 'date_modified',
+  latest: 'id',
   trending: 'total_sold',
   price: 'price',
 }
