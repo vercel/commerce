@@ -9,37 +9,46 @@ interface Props extends ButtonProps {
   className?: string
   children?: any
   active?: boolean
-  color?: Colors
-  size?: string
+  label?: string
+  variant?: 'size' | 'color' | string
 }
 
-const Swatch: FC<Props> = ({ className, size, color, active, ...props }) => {
+const Swatch: FC<Props> = ({
+  className,
+  label,
+  variant = 'size',
+  active,
+  ...props
+}) => {
+  variant = variant?.toLowerCase()
+  label = label?.toLowerCase()
+
   const rootClassName = cn(
     s.root,
     {
       [s.active]: active,
-      [s.size]: size,
-      [s.colorPink]: color === 'pink',
-      [s.colorWhite]: color === 'white',
-      [s.colorBlack]: color === 'black',
-      [s.colorViolet]: color === 'violet',
+      [s.size]: variant === 'size',
+      [s.colorPink]: label === 'pink',
+      [s.colorWhite]: label === 'white',
+      [s.colorBlack]: label === 'black',
+      [s.colorViolet]: label === 'violet',
     },
     className
   )
 
   return (
-    <Button className={rootClassName} {...props}>
-      {color && active && (
+    <Button className={rootClassName}>
+      {variant === 'color' && active && (
         <span
           className={cn('absolute', {
-            'text-white': color !== 'white',
-            'text-black': color === 'white',
+            'text-white': label !== 'white',
+            'text-black': label === 'white',
           })}
         >
           <Check />
         </span>
       )}
-      {size}
+      {variant === 'size' ? label : null}
     </Button>
   )
 }

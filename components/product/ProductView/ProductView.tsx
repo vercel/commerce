@@ -7,6 +7,8 @@ import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import type { Product } from '@lib/bigcommerce/api/operations/get-product'
+import { getProductOptions } from '../helpers'
+
 interface Props {
   className?: string
   children?: any
@@ -22,6 +24,9 @@ const COLORS: Colors[] = ['pink', 'black', 'white']
 const SIZES = ['s', 'm', 'l', 'xl', 'xxl']
 
 const ProductView: FC<Props> = ({ product, className }) => {
+  const options = getProductOptions(product)
+  console.log(options)
+
   const addItem = useAddItem()
   const { openSidebar } = useUI()
 
@@ -100,41 +105,33 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
           <div className={s.squareBg}></div>
         </div>
-        <div className="flex-1 flex flex-col">
-          <section className="pt-24">
-            <h2 className="uppercase font-medium">Color</h2>
-            <div className="flex flex-row py-4">
-              {COLORS.map((color) => (
-                <Swatch
-                  key={color}
-                  color={color}
-                  active={color === activeColor}
-                  onClick={() =>
-                    setChoices((choices) => {
-                      return { ...choices, color }
-                    })
-                  }
-                />
-              ))}
-            </div>
-          </section>
-          <section className="pb-4">
-            <h2 className="uppercase font-medium">Size</h2>
-            <div className="flex flex-row py-4">
-              {SIZES.map((size) => {
-                return (
-                  <Swatch
-                    size={size.toUpperCase()}
-                    key={`size-${size}`}
-                    active={size === activeSize}
-                    onClick={() =>
-                      setChoices((choices) => ({ ...choices, size }))
-                    }
-                  />
-                )
-              })}
-            </div>
-          </section>
+
+        <div className="flex-1 flex flex-col pt-24">
+          {options?.map((opt) => (
+            <section className="pb-4">
+              <h2 className="uppercase font-medium">{opt.displayName}</h2>
+              <div className="flex flex-row py-4">
+                {opt.values.map((v: any) => {
+                  return (
+                    <Swatch
+                      key={v.entityId}
+                      label={v.label}
+                      active={v.label === activeColor}
+                      variant={opt.displayName}
+                      onClick={() =>
+                        setChoices((choices) => {
+                          return {
+                            ...choices,
+                            [opt.displayName.toLowerCase()]: v.label,
+                          }
+                        })
+                      }
+                    />
+                  )
+                })}
+              </div>
+            </section>
+          ))}
           <section className="pb-12">
             <div
               className="break-words"
