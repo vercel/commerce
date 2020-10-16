@@ -1,9 +1,8 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { Layout } from '@components/core'
-import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
-import getPage from '@lib/bigcommerce/api/operations/get-page'
 import getSlug from '@utils/get-slug'
-import PageContent from '@components/custom-pages/PageContent'
+import getPage from '@lib/bigcommerce/api/operations/get-page'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
+import { Layout, HTMLContent } from '@components/core'
 
 export async function getStaticProps({
   preview,
@@ -40,7 +39,7 @@ export default function Pages({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="max-w-2xl mx-auto py-20">
-      <PageContent html={page.body} />
+      <HTMLContent html={page.body} />
     </div>
   )
 }
