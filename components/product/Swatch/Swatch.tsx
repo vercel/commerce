@@ -5,16 +5,18 @@ import { Colors } from '@components/ui/types'
 import { Check } from '@components/icon'
 import Button, { ButtonProps } from '@components/ui/Button'
 
-interface Props extends ButtonProps {
-  className?: string
-  children?: any
+interface Props {
   active?: boolean
+  children?: any
+  className?: string
   label?: string
   variant?: 'size' | 'color' | string
+  color?: string
 }
 
-const Swatch: FC<Props> = ({
+const Swatch: FC<Props & ButtonProps> = ({
   className,
+  color,
   label,
   variant = 'size',
   active,
@@ -22,22 +24,21 @@ const Swatch: FC<Props> = ({
 }) => {
   variant = variant?.toLowerCase()
   label = label?.toLowerCase()
-
+  console.log(variant)
   const rootClassName = cn(
     s.root,
     {
       [s.active]: active,
       [s.size]: variant === 'size',
-      [s.colorPink]: label === 'pink',
-      [s.colorWhite]: label === 'white',
-      [s.colorBlack]: label === 'black',
-      [s.colorViolet]: label === 'violet',
     },
     className
   )
 
   return (
-    <Button className={rootClassName}>
+    <Button
+      className={rootClassName}
+      style={color ? { backgroundColor: color } : {}}
+    >
       {variant === 'color' && active && (
         <span
           className={cn('absolute', {

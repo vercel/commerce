@@ -1,5 +1,5 @@
 .root {
-  @apply h-12 w-12 bg-primary text-base rounded-full mr-3 inline-flex
+  @apply h-12 w-12 bg-primary text-primary rounded-full mr-3 inline-flex
   items-center justify-center cursor-pointer transition duration-75 ease-in-out
   p-0 shadow-none border-gray-200 border box-border;
 }
@@ -10,20 +10,4 @@
 
 .root:hover {
   @apply transform scale-110 bg-hover;
-}
-
-.colorViolet {
-  @apply bg-violet !important;
-}
-
-.colorPink {
-  @apply bg-pink !important;
-}
-
-.colorBlack {
-  @apply bg-black !important;
-}
-
-.colorWhite {
-  @apply bg-white text-black !important;
 }

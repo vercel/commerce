@@ -32,6 +32,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     width,
     Component = 'button',
     loading = false,
+    style = {},
     ...rest
   } = props
   const ref = useRef<typeof Component>(null)
@@ -63,6 +64,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       {...buttonProps}
       style={{
         width,
+        ...style,
       }}
       data-active={isPressed ? '' : undefined}
     >

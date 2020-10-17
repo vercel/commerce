@@ -9,6 +9,24 @@ export const responsiveImageFragment = /* GraphQL */ `
     isDefault
   }
 `
+export const multipleChoiceFragment = /* GraphQL */ `
+  fragment swatchOption on SwatchOptionValue {
+    isDefault
+    hexColors
+  }
+
+  fragment multipleChoiceOption on MultipleChoiceOption {
+    entityId
+    values {
+      edges {
+        node {
+          label
+          ...swatchOption
+        }
+      }
+    }
+  }
+`
 
 export const productInfoFragment = /* GraphQL */ `
   fragment productInfo on Product {
@@ -46,24 +64,17 @@ export const productInfoFragment = /* GraphQL */ `
         }
       }
     }
-    options {
+    productOptions {
       edges {
         node {
           entityId
           displayName
-          isRequired
-          values {
-            edges {
-              node {
-                entityId
-                label
-              }
-            }
-          }
+          ...multipleChoiceOption
         }
       }
     }
   }
 
   ${responsiveImageFragment}
+  ${multipleChoiceFragment}
 `

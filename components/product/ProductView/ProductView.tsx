@@ -20,9 +20,6 @@ interface Choices {
   color?: string | null
 }
 
-const COLORS: Colors[] = ['pink', 'black', 'white']
-const SIZES = ['s', 'm', 'l', 'xl', 'xxl']
-
 const ProductView: FC<Props> = ({ product, className }) => {
   const options = getProductOptions(product)
   console.log(options)
@@ -39,7 +36,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
   const addToCart = async () => {
     setLoading(true)
-
     try {
       await addItem({
         productId: product.entityId,
@@ -48,7 +44,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
       openSidebar()
       setLoading(false)
     } catch (err) {
-      // Error err.
       setLoading(false)
     }
   }
@@ -86,9 +81,11 @@ const ProductView: FC<Props> = ({ product, className }) => {
             {product.prices?.price.currencyCode}
           </div>
         </div>
+
         <div className="flex-1 px-24 pb-0 relative fit  box-border">
           <div className="absolute z-10 inset-0 flex items-center justify-center">
             <ProductSlider>
+              {/** TODO: Change with Image Component */}
               {product.images.edges?.map((image, i) => (
                 <img
                   className="w-full object-cover"
@@ -98,16 +95,14 @@ const ProductView: FC<Props> = ({ product, className }) => {
               ))}
             </ProductSlider>
           </div>
-
           <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
             <img src="/slider-arrows.png" />
           </div>
-
           <div className={s.squareBg}></div>
         </div>
 
         <div className="flex-1 flex flex-col pt-24">
-          {options?.map((opt) => (
+          {options?.map((opt: any) => (
             <section className="pb-4">
               <h2 className="uppercase font-medium">{opt.displayName}</h2>
               <div className="flex flex-row py-4">
@@ -115,14 +110,15 @@ const ProductView: FC<Props> = ({ product, className }) => {
                   return (
                     <Swatch
                       key={v.entityId}
-                      label={v.label}
                       active={v.label === activeColor}
                       variant={opt.displayName}
+                      color={v.hexColors ? v.hexColors[0] : ''}
+                      label={v.label}
                       onClick={() =>
                         setChoices((choices) => {
                           return {
                             ...choices,
-                            [opt.displayName.toLowerCase()]: v.label,
+                            [opt.displayName]: v.label,
                           }
                         })
                       }
@@ -130,24 +126,22 @@ const ProductView: FC<Props> = ({ product, className }) => {
                   )
                 })}
               </div>
+              <div className="pb-12">
+                <div
+                  className="break-words"
+                  dangerouslySetInnerHTML={{ __html: product.description }}
+                />
+                <Button
+                  type="button"
+                  className={s.button}
+                  onClick={addToCart}
+                  loading={loading}
+                >
+                  Add to Cart
+                </Button>
+              </div>
             </section>
           ))}
-          <section className="pb-12">
-            <div
-              className="break-words"
-              dangerouslySetInnerHTML={{ __html: product.description }}
-            />
-          </section>
-          <section className="">
-            <Button
-              type="button"
-              className={s.button}
-              onClick={addToCart}
-              loading={loading}
-            >
-              Add to Cart
-            </Button>
-          </section>
         </div>
       </div>
     </Container>
