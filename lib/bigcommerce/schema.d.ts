@@ -1670,6 +1670,40 @@ export type ResponsiveImageFragment = { __typename?: 'Image' } & Pick<
     urlXL: Image['url']
   }
 
+export type SwatchOptionFragment = { __typename?: 'SwatchOptionValue' } & Pick<
+  SwatchOptionValue,
+  'isDefault' | 'hexColors'
+>
+
+export type MultipleChoiceOptionFragment = {
+  __typename?: 'MultipleChoiceOption'
+} & Pick<MultipleChoiceOption, 'entityId'> & {
+    values: { __typename?: 'ProductOptionValueConnection' } & {
+      edges?: Maybe<
+        Array<
+          Maybe<
+            { __typename?: 'ProductOptionValueEdge' } & {
+              node:
+                | ({ __typename?: 'MultipleChoiceOptionValue' } & Pick<
+                    MultipleChoiceOptionValue,
+                    'label'
+                  >)
+                | ({ __typename?: 'ProductPickListOptionValue' } & Pick<
+                    ProductPickListOptionValue,
+                    'label'
+                  >)
+                | ({ __typename?: 'SwatchOptionValue' } & Pick<
+                    SwatchOptionValue,
+                    'label'
+                  > &
+                    SwatchOptionFragment)
+            }
+          >
+        >
+      >
+    }
+  }
+
 export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
   Product,
   'entityId' | 'name' | 'path' | 'description'
@@ -1709,30 +1743,41 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
         >
       >
     }
-    options: { __typename?: 'OptionConnection' } & {
+    productOptions: { __typename?: 'ProductOptionConnection' } & {
       edges?: Maybe<
         Array<
           Maybe<
-            { __typename?: 'OptionEdge' } & {
-              node: { __typename?: 'ProductOption' } & Pick<
-                ProductOption,
-                'entityId' | 'displayName' | 'isRequired'
-              > & {
-                  values: { __typename?: 'OptionValueConnection' } & {
-                    edges?: Maybe<
-                      Array<
-                        Maybe<
-                          { __typename?: 'OptionValueEdge' } & {
-                            node: { __typename?: 'ProductOptionValue' } & Pick<
-                              ProductOptionValue,
-                              'entityId' | 'label'
-                            >
-                          }
-                        >
-                      >
-                    >
-                  }
-                }
+            { __typename?: 'ProductOptionEdge' } & {
+              node:
+                | ({ __typename?: 'CheckboxOption' } & Pick<
+                    CheckboxOption,
+                    'entityId' | 'displayName'
+                  >)
+                | ({ __typename?: 'DateFieldOption' } & Pick<
+                    DateFieldOption,
+                    'entityId' | 'displayName'
+                  >)
+                | ({ __typename?: 'FileUploadFieldOption' } & Pick<
+                    FileUploadFieldOption,
+                    'entityId' | 'displayName'
+                  >)
+                | ({ __typename?: 'MultiLineTextFieldOption' } & Pick<
+                    MultiLineTextFieldOption,
+                    'entityId' | 'displayName'
+                  >)
+                | ({ __typename?: 'MultipleChoiceOption' } & Pick<
+                    MultipleChoiceOption,
+                    'entityId' | 'displayName'
+                  > &
+                    MultipleChoiceOptionFragment)
+                | ({ __typename?: 'NumberFieldOption' } & Pick<
+                    NumberFieldOption,
+                    'entityId' | 'displayName'
+                  >)
+                | ({ __typename?: 'TextFieldOption' } & Pick<
+                    TextFieldOption,
+                    'entityId' | 'displayName'
+                  >)
             }
           >
         >

@@ -24,7 +24,7 @@ const Swatch: FC<Props & ButtonProps> = ({
 }) => {
   variant = variant?.toLowerCase()
   label = label?.toLowerCase()
-  console.log(variant)
+  // console.log(variant)
   const rootClassName = cn(
     s.root,
     {

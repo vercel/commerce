@@ -1,21 +1,21 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
 import cn from 'classnames'
+import Link from 'next/link'
+import { range } from 'lodash'
+import { useRouter } from 'next/router'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { Layout } from '@components/core'
+import { ProductCard } from '@components/product'
+import { Container, Grid, Skeleton } from '@components/ui'
+import getSlug from '@utils/get-slug'
+import useSearch from '@lib/bigcommerce/products/use-search'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
-import useSearch from '@lib/bigcommerce/products/use-search'
-import { Layout } from '@components/core'
-import { Container, Grid, Skeleton } from '@components/ui'
-import { ProductCard } from '@components/product'
-import getSlug from '@utils/get-slug'
 import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
   useSearchMeta,
 } from '@utils/search'
-import { range } from 'lodash'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { pages } = await getAllPages()
@@ -138,25 +138,26 @@ export default function Search({
               </>
             )}
           </div>
-          <Grid
-            items={data ? data.products : range(12)}
-            layout="normal"
-            wrapper={
-              data
-                ? (p: any) => (
-                    <ProductCard
-                      className="animate__animated animate__fadeIn"
-                      {...p}
-                    />
-                  )
-                : () => (
-                    <Skeleton
-                      className="w-full animate__animated animate__fadeIn"
-                      height={325}
-                    />
-                  )
-            }
-          />
+
+          {data ? (
+            <Grid layout="normal">
+              {data.products.map((p: any) => (
+                <ProductCard
+                  className="animate__animated animate__fadeIn"
+                  {...p}
+                />
+              ))}
+            </Grid>
+          ) : (
+            <Grid>
+              {range(12).map(() => (
+                <Skeleton
+                  className="w-full animate__animated animate__fadeIn"
+                  height={325}
+                />
+              ))}
+            </Grid>
+          )}
         </div>
         <div className="col-span-2">
           <ul>

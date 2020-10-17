@@ -22,7 +22,7 @@ interface Choices {
 
 const ProductView: FC<Props> = ({ product, className }) => {
   const options = getProductOptions(product)
-  console.log(options)
+  // console.log(options)
 
   const addItem = useAddItem()
   const { openSidebar } = useUI()
@@ -102,46 +102,48 @@ const ProductView: FC<Props> = ({ product, className }) => {
         </div>
 
         <div className="flex-1 flex flex-col pt-24">
-          {options?.map((opt: any) => (
-            <section className="pb-4">
-              <h2 className="uppercase font-medium">{opt.displayName}</h2>
-              <div className="flex flex-row py-4">
-                {opt.values.map((v: any) => {
-                  return (
-                    <Swatch
-                      key={v.entityId}
-                      active={v.label === activeColor}
-                      variant={opt.displayName}
-                      color={v.hexColors ? v.hexColors[0] : ''}
-                      label={v.label}
-                      onClick={() =>
-                        setChoices((choices) => {
-                          return {
-                            ...choices,
-                            [opt.displayName]: v.label,
-                          }
-                        })
-                      }
-                    />
-                  )
-                })}
+          <section>
+            {options?.map((opt: any) => (
+              <div className="pb-4">
+                <h2 className="uppercase font-medium">{opt.displayName}</h2>
+                <div className="flex flex-row py-4">
+                  {opt.values.map((v: any) => {
+                    return (
+                      <Swatch
+                        key={v.entityId}
+                        active={v.label === activeColor}
+                        variant={opt.displayName}
+                        color={v.hexColors ? v.hexColors[0] : ''}
+                        label={v.label}
+                        onClick={() =>
+                          setChoices((choices) => {
+                            return {
+                              ...choices,
+                              [opt.displayName]: v.label,
+                            }
+                          })
+                        }
+                      />
+                    )
+                  })}
+                </div>
               </div>
-              <div className="pb-12">
-                <div
-                  className="break-words"
-                  dangerouslySetInnerHTML={{ __html: product.description }}
-                />
-                <Button
-                  type="button"
-                  className={s.button}
-                  onClick={addToCart}
-                  loading={loading}
-                >
-                  Add to Cart
-                </Button>
-              </div>
-            </section>
-          ))}
+            ))}
+            <div className="pb-12">
+              <div
+                className="pb-14 break-words"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              />
+              <Button
+                type="button"
+                className={s.button}
+                onClick={addToCart}
+                loading={loading}
+              >
+                Add to Cart
+              </Button>
+            </div>
+          </section>
         </div>
       </div>
     </Container>
