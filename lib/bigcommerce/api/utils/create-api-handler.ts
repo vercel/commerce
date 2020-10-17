@@ -3,12 +3,15 @@ import { BigcommerceConfig, getConfig } from '..'
 
 export type BigcommerceApiHandler<
   T = any,
-  H extends BigcommerceHandlers = {}
+  H extends BigcommerceHandlers = {},
+  Options extends {} = {}
 > = (
   req: NextApiRequest,
   res: NextApiResponse<BigcommerceApiResponse<T>>,
   config: BigcommerceConfig,
-  handlers: H
+  handlers: H,
+  // Custom configs that may be used by a particular handler
+  options: Options
 ) => void | Promise<void>
 
 export type BigcommerceHandler<T = any, Body = any> = (options: {
@@ -27,21 +30,29 @@ export type BigcommerceApiResponse<T> = {
   errors?: { message: string }[]
 }
 
-export default function createApiHandler<H extends BigcommerceHandlers>(
-  handler: BigcommerceApiHandler<any, H>,
-  handlers: H
+export default function createApiHandler<
+  T = any,
+  H extends BigcommerceHandlers = {},
+  Options extends {} = {}
+>(
+  handler: BigcommerceApiHandler<T, H, Options>,
+  handlers: H,
+  defaultOptions: Options
 ) {
   return function getApiHandler({
     config,
     operations,
+    options,
   }: {
     config?: BigcommerceConfig
     operations?: Partial<H>
+    options?: Options extends {} ? Partial<Options> : never
   } = {}): NextApiHandler {
     const ops = { ...operations, ...handlers }
+    const opts = { ...defaultOptions, ...options }
 
     return function apiHandler(req, res) {
-      return handler(req, res, getConfig(config), ops)
+      return handler(req, res, getConfig(config), ops, opts)
     }
   }
 }

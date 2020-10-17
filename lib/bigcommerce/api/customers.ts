@@ -53,4 +53,4 @@ const handlers = {
   createCustomer,
 }
 
-export default createApiHandler(customersApi, handlers)
+export default createApiHandler(customersApi, handlers, {})
