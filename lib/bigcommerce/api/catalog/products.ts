@@ -45,4 +45,4 @@ const cartApi: BigcommerceApiHandler<
 
 export const handlers = { getProducts }
 
-export default createApiHandler(cartApi, handlers)
+export default createApiHandler(cartApi, handlers, {})

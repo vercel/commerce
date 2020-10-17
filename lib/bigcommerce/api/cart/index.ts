@@ -109,4 +109,4 @@ const cartApi: BigcommerceApiHandler<Cart, CartHandlers> = async (
 
 export const handlers = { getCart, addItem, updateItem, removeItem }
 
-export default createApiHandler(cartApi, handlers)
+export default createApiHandler(cartApi, handlers, {})

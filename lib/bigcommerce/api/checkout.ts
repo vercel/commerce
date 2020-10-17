@@ -73,4 +73,4 @@ const checkoutApi: BigcommerceApiHandler<any> = async (req, res, config) => {
   }
 }
 
-export default createApiHandler(checkoutApi, {})
+export default createApiHandler(checkoutApi, {}, {})
