@@ -9,6 +9,9 @@ import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { pages } = await getAllPages()
   const { products } = await getAllProducts()
+  // const { products: featuredProducts } = await getAllProducts({
+  //   variables: { field: 'featuredProducts' },
+  // })
   const { categories, brands } = await getSiteInfo()
 
   return {

@@ -19,27 +19,22 @@ export const getAllProductsQuery = /* GraphQL */ `
     $imgLargeHeight: Int
     $imgXLWidth: Int = 1280
     $imgXLHeight: Int
+    $products: Boolean = false
     $featuredProducts: Boolean = false
-    $featuredProducts__first: Int = 10
     $bestSellingProducts: Boolean = false
-    $bestSellingProducts__first: Int = 10
     $newestProducts: Boolean = false
-    $newestProducts__first: Int = 10
   ) {
     site {
-      products(first: $first, entityIds: $entityIds) {
+      products(first: $first, entityIds: $entityIds) @include(if: $products) {
         ...productConnnection
       }
-      featuredProducts(first: $featuredProducts__first)
-        @include(if: $featuredProducts) {
+      featuredProducts(first: $first) @include(if: $featuredProducts) {
         ...productConnnection
       }
-      bestSellingProducts(first: $bestSellingProducts__first)
-        @include(if: $bestSellingProducts) {
+      bestSellingProducts(first: $first) @include(if: $bestSellingProducts) {
         ...productConnnection
       }
-      newestProducts(first: $newestProducts__first)
-        @include(if: $newestProducts) {
+      newestProducts(first: $first) @include(if: $newestProducts) {
         ...productConnnection
       }
     }
@@ -55,20 +50,17 @@ export type Product = NonNullable<
 export type Products = Product[]
 
 export type GetAllProductsResult<
-  T extends Record<keyof GetAllProductsResult, any[]> = {
-    products: Products
-    featuredProducts: Products
-    bestSellingProducts: Products
-    newestProducts: Products
-  }
+  T extends Record<keyof GetAllProductsResult, any[]> = { products: Products }
 > = T
 
-export type ProductVariables = {
-  featured?: boolean | { first?: number }
-  bestSelling?: boolean | { first?: number }
-  newest?: boolean | { first?: number }
-} & Images &
-  Omit<GetAllProductsQueryVariables, keyof ProductImageVariables>
+export type ProductTypes =
+  | 'products'
+  | 'featuredProducts'
+  | 'bestSellingProducts'
+  | 'newestProducts'
+
+export type ProductVariables = { field?: ProductTypes } & Images &
+  Omit<GetAllProductsQueryVariables, ProductTypes | keyof ProductImageVariables>
 
 async function getAllProducts(opts?: {
   variables?: ProductVariables
@@ -86,7 +78,7 @@ async function getAllProducts<
 
 async function getAllProducts({
   query = getAllProductsQuery,
-  variables: { featured, bestSelling, newest, ...vars } = {},
+  variables: { field = 'products', ...vars } = {},
   config,
 }: {
   query?: string
@@ -94,28 +86,25 @@ async function getAllProducts({
   config?: BigcommerceConfig
 } = {}): Promise<GetAllProductsResult> {
   config = getConfig(config)
+
   const variables: GetAllProductsQueryVariables = {
     ...config.imageVariables,
     ...vars,
   }
 
-  if (bestSelling) {
-    variables.bestSellingProducts = true
-    if (typeof bestSelling === 'object' && bestSelling.first) {
-      variables.bestSellingProducts__first = bestSelling.first
-    }
-  }
-  if (featured) {
-    variables.featuredProducts = true
-    if (typeof featured === 'object' && featured.first) {
-      variables.featuredProducts__first = featured.first
-    }
-  }
-  if (newest) {
-    variables.newestProducts = true
-    if (typeof newest === 'object' && newest.first) {
-      variables.newestProducts__first = newest.first
-    }
+  switch (field) {
+    case 'products':
+      variables.products = true
+      break
+    case 'featuredProducts':
+      variables.featuredProducts = true
+      break
+    case 'bestSellingProducts':
+      variables.bestSellingProducts = true
+      break
+    case 'newestProducts':
+      variables.newestProducts = true
+      break
   }
 
   // RecursivePartial forces the method to check for every prop in the data, which is
@@ -124,17 +113,10 @@ async function getAllProducts({
     query,
     { variables }
   )
-  const products = data.site?.products?.edges
-
-  type P = RecursiveRequired<typeof products>
+  const products = data.site?.[field]?.edges
 
   return {
-    products: filterEdges(products as P),
-    featuredProducts: filterEdges(data.site?.featuredProducts?.edges as P),
-    bestSellingProducts: filterEdges(
-      data.site?.bestSellingProducts?.edges as P
-    ),
-    newestProducts: filterEdges(data.site?.newestProducts?.edges as P),
+    products: filterEdges(products as RecursiveRequired<typeof products>),
   }
 }
 
