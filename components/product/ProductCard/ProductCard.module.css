@@ -55,7 +55,7 @@
 }
 
 .squareBg,
-.productTitle,
+.productTitle > span,
 .productPrice,
 .wishlistButton {
   @apply transition ease-in-out duration-300;
@@ -65,9 +65,13 @@
   @apply transform absolute inset-0 z-0 bg-secondary;
 }
 
+.squareBg.gray {
+  @apply bg-gray-300 !important;
+}
+
 .productTitle {
-  line-height: 51px;
-  width: 200px;
+  line-height: 40px;
+  width: 18vw;
 
   & span {
     @apply inline text-2xl leading-6 p-4 bg-primary text-primary font-bold;
