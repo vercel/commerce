@@ -23,7 +23,7 @@ const ProductCard: FC<Props> = ({ className, node: p, variant }) => {
     return (
       <div className="relative overflow-hidden box-border">
         <img
-          className="object-scale-down h-24"
+          className="object-scale-down h-48"
           src={p.images.edges[0].node.urlSmall}
         />
         <div className="absolute inset-0 flex items-center justify-end mr-8">
