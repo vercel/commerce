@@ -6,11 +6,12 @@ interface Props {
   className?: string
   title: string
   description: string
+  action?: React.ReactNode
 }
 
-const Featurebar: FC<Props> = ({ title, description, className }) => {
+const Featurebar: FC<Props> = ({ title, description, className, action }) => {
   const rootClassName = cn(
-    'hidden py-2 px-6 bg-accents-1 border-b border-accents-2 text-base text-sm text-gray-600 md:flex flex-row justify-center items-center font-medium border-b border-accents-1',
+    'transition-transform transform duration-500 ease-out p-6 bg-primary text-base text-sm md:flex flex-row justify-center items-center font-medium fixed bottom-0 w-full z-10',
     className
   )
   return (
@@ -18,6 +19,7 @@ const Featurebar: FC<Props> = ({ title, description, className }) => {
       <span>{title}</span>
       <span className={s.separator} />
       <span>{description}</span>
+      {action && action}
     </div>
   )
 }
