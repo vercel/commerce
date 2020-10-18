@@ -9,12 +9,15 @@ export const responsiveImageFragment = /* GraphQL */ `
     isDefault
   }
 `
-export const multipleChoiceFragment = /* GraphQL */ `
+
+export const swatchOptionFragment = /* GraphQL */ `
   fragment swatchOption on SwatchOptionValue {
     isDefault
     hexColors
   }
+`
 
+export const multipleChoiceOptionFragment = /* GraphQL */ `
   fragment multipleChoiceOption on MultipleChoiceOption {
     entityId
     values {
@@ -26,6 +29,8 @@ export const multipleChoiceFragment = /* GraphQL */ `
       }
     }
   }
+
+  ${swatchOptionFragment}
 `
 
 export const productInfoFragment = /* GraphQL */ `
@@ -76,5 +81,22 @@ export const productInfoFragment = /* GraphQL */ `
   }
 
   ${responsiveImageFragment}
-  ${multipleChoiceFragment}
+  ${multipleChoiceOptionFragment}
+`
+
+export const productConnectionFragment = /* GraphQL */ `
+  fragment productConnnection on ProductConnection {
+    pageInfo {
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        ...productInfo
+      }
+    }
+  }
+
+  ${productInfoFragment}
 `

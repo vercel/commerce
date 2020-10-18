@@ -1785,6 +1785,24 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
     }
   }
 
+export type ProductConnnectionFragment = {
+  __typename?: 'ProductConnection'
+} & {
+  pageInfo: { __typename?: 'PageInfo' } & Pick<
+    PageInfo,
+    'startCursor' | 'endCursor'
+  >
+  edges?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
+            node: { __typename?: 'Product' } & ProductInfoFragment
+          }
+      >
+    >
+  >
+}
+
 export type GetAllProductPathsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
@@ -1814,11 +1832,62 @@ export type GetAllProductsQueryVariables = Exact<{
   imgLargeHeight?: Maybe<Scalars['Int']>
   imgXLWidth?: Maybe<Scalars['Int']>
   imgXLHeight?: Maybe<Scalars['Int']>
+  featuredProducts?: Maybe<Scalars['Boolean']>
+  featuredProducts__first?: Maybe<Scalars['Int']>
+  bestSellingProducts?: Maybe<Scalars['Boolean']>
+  bestSellingProducts__first?: Maybe<Scalars['Int']>
+  newestProducts?: Maybe<Scalars['Boolean']>
+  newestProducts__first?: Maybe<Scalars['Int']>
 }>
 
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
   site: { __typename?: 'Site' } & {
     products: { __typename?: 'ProductConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'startCursor' | 'endCursor'
+      >
+      edges?: Maybe<
+        Array<
+          Maybe<
+            { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
+                node: { __typename?: 'Product' } & ProductInfoFragment
+              }
+          >
+        >
+      >
+    }
+    featuredProducts: { __typename?: 'ProductConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'startCursor' | 'endCursor'
+      >
+      edges?: Maybe<
+        Array<
+          Maybe<
+            { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
+                node: { __typename?: 'Product' } & ProductInfoFragment
+              }
+          >
+        >
+      >
+    }
+    bestSellingProducts: { __typename?: 'ProductConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'startCursor' | 'endCursor'
+      >
+      edges?: Maybe<
+        Array<
+          Maybe<
+            { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
+                node: { __typename?: 'Product' } & ProductInfoFragment
+              }
+          >
+        >
+      >
+    }
+    newestProducts: { __typename?: 'ProductConnection' } & {
       pageInfo: { __typename?: 'PageInfo' } & Pick<
         PageInfo,
         'startCursor' | 'endCursor'
