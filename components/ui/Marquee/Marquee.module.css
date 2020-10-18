@@ -8,7 +8,7 @@
 
   & > * {
     @apply flex-1 px-16 py-4;
-    width: 400px;
+    width: 430px;
   }
 }
 
