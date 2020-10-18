@@ -54,32 +54,34 @@ export default function Home({
         ))}
       </Marquee>
       <div className="py-12 flex flex-row w-full px-12">
-        <div className="pr-3 w-48">
-          <ul className="mb-10">
-            <li className="py-1 text-base font-bold tracking-wide">
-              All Categories
-            </li>
-            {categories.map((cat) => (
-              <li key={cat.path} className="py-1 text-accents-8">
-                <a href="#">{cat.name}</a>
+        <div className="pr-3 w-48 relative">
+          <div className="sticky top-2">
+            <ul className="mb-10">
+              <li className="py-1 text-base font-bold tracking-wide">
+                All Categories
               </li>
-            ))}
-          </ul>
-          <ul className="">
-            <li className="py-1 text-base font-bold tracking-wide">
-              All Designers
-            </li>
-            {brands.flatMap(({ node }) => (
-              <li key={node.path} className="py-1 text-accents-8">
-                <a href="#">{node.name}</a>
+              {categories.map((cat) => (
+                <li key={cat.path} className="py-1 text-accents-8">
+                  <a href="#">{cat.name}</a>
+                </li>
+              ))}
+            </ul>
+            <ul className="">
+              <li className="py-1 text-base font-bold tracking-wide">
+                All Designers
               </li>
-            ))}
-          </ul>
+              {brands.flatMap(({ node }) => (
+                <li key={node.path} className="py-1 text-accents-8">
+                  <a href="#">{node.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="flex-1">
           <Grid layout="normal">
             {products.map((p: any) => (
-              <ProductCard key={p.id} {...p} />
+              <ProductCard key={p.id} {...p} variant="simple" />
             ))}
           </Grid>
         </div>
