@@ -1,7 +1,6 @@
 import { NextSeo } from 'next-seo'
 import { FC, useState } from 'react'
 import s from './ProductView.module.css'
-import { Colors } from '@components/ui/types'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'

@@ -16,6 +16,7 @@ export function getRandomPairOfColors() {
 }
 
 function hexToRgb(hex: string = '') {
+  // @ts-ignore
   const match = hex.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i)
 
   if (!match) {
