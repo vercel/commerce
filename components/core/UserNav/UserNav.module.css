@@ -2,12 +2,11 @@
 }
 
 .list {
-  @apply flex flex-row items-center;
+  @apply flex flex-row items-center h-full;
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-base;
-
+  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-base flex items-center;
   &:hover {
     @apply text-accents-8;
   }

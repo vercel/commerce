@@ -28,7 +28,7 @@ export default function Home({
   return (
     <div className="mt-3">
       <Grid>
-        {featuredProducts.map((p: any) => (
+        {featuredProducts.slice(0, 3).map((p: any) => (
           <ProductCard key={p.id} {...p} />
         ))}
       </Grid>
@@ -48,12 +48,12 @@ export default function Home({
         ‘Natural’."
       />
       <Grid layout="B">
-        {products.slice(3, 6).map((p: any) => (
+        {featuredProducts.slice(3, 6).map((p: any) => (
           <ProductCard key={p.id} {...p} />
         ))}
       </Grid>
       <Marquee>
-        {products.slice(0, 3).map((p: any) => (
+        {products.slice(3, 6).map((p: any) => (
           <ProductCard key={p.id} {...p} variant="slim" />
         ))}
       </Marquee>

@@ -1,0 +1,8 @@
+.root {
+  @apply fixed bg-black flex items-center inset-0 z-50 justify-center;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.modal {
+  @apply bg-white p-12;
+}
