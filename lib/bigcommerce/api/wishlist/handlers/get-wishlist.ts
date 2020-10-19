@@ -1,4 +1,3 @@
-import { BigcommerceApiError } from '../../utils/errors'
 import type { Wishlist, WishlistHandlers } from '..'
 
 // Return wishlist info

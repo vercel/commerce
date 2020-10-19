@@ -53,6 +53,13 @@ export type GetAllProductsResult<
   T extends Record<keyof GetAllProductsResult, any[]> = { products: Products }
 > = T
 
+const FIELDS = [
+  'products',
+  'featuredProducts',
+  'bestSellingProducts',
+  'newestProducts',
+]
+
 export type ProductTypes =
   | 'products'
   | 'featuredProducts'
@@ -92,20 +99,13 @@ async function getAllProducts({
     ...vars,
   }
 
-  switch (field) {
-    case 'products':
-      variables.products = true
-      break
-    case 'featuredProducts':
-      variables.featuredProducts = true
-      break
-    case 'bestSellingProducts':
-      variables.bestSellingProducts = true
-      break
-    case 'newestProducts':
-      variables.newestProducts = true
-      break
+  if (!FIELDS.includes(field)) {
+    throw new Error(
+      `The field variable has to match one of ${FIELDS.join(', ')}`
+    )
   }
+
+  variables[field] = true
 
   // RecursivePartial forces the method to check for every prop in the data, which is
   // required in case there's a custom `query`
