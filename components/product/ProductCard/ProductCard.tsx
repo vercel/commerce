@@ -1,14 +1,14 @@
 import cn from 'classnames'
 import s from './ProductCard.module.css'
 import { FC, ReactNode, Component } from 'react'
-import type { Product } from '@lib/bigcommerce/api/operations/get-all-products'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
 import { Heart } from '@components/icon'
 import Link from 'next/link'
 
 interface Props {
   className?: string
   children?: ReactNode[] | Component[] | any[]
-  product: Product['node']
+  product: ProductNode
   variant?: 'slim' | 'simple'
 }
 
