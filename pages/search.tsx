@@ -1,15 +1,15 @@
 import cn from 'classnames'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
-import { range } from 'lodash'
 import { useRouter } from 'next/router'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { Layout } from '@components/core'
 import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
-import getSlug from '@utils/get-slug'
 import useSearch from '@lib/bigcommerce/products/use-search'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+import rangeMap from '@lib/range-map'
+import getSlug from '@utils/get-slug'
 import {
   filterQuery,
   getCategoryPath,
@@ -151,8 +151,9 @@ export default function Search({
             </Grid>
           ) : (
             <Grid layout="normal">
-              {range(12).map(() => (
+              {rangeMap(12, (i) => (
                 <Skeleton
+                  key={i}
                   className="w-full animate__animated animate__fadeIn"
                   height={325}
                 />
