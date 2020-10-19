@@ -1,7 +1,6 @@
 import { NextSeo } from 'next-seo'
 import { FC, useState } from 'react'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
-import { Colors } from '@components/ui/types'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
@@ -110,6 +109,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
                         label={v.label}
                         onClick={() => {
                           setChoices((choices) => {
+                            console.log(choices)
                             return {
                               ...choices,
                               [opt.displayName]: v.label,
