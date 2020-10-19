@@ -9,25 +9,26 @@ import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { pages } = await getAllPages()
   const { products } = await getAllProducts()
-  // const { products: featuredProducts } = await getAllProducts({
-  //   variables: { field: 'featuredProducts' },
-  // })
+  const { products: featuredProducts } = await getAllProducts({
+    variables: { field: 'featuredProducts', first: 3 },
+  })
   const { categories, brands } = await getSiteInfo()
 
   return {
-    props: { pages, products, categories, brands },
+    props: { pages, products, featuredProducts, categories, brands },
   }
 }
 
 export default function Home({
   products,
+  featuredProducts,
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="mt-3">
       <Grid>
-        {products.slice(0, 3).map((p: any) => (
+        {featuredProducts.map((p: any) => (
           <ProductCard key={p.id} {...p} />
         ))}
       </Grid>
