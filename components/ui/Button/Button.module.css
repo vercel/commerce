@@ -20,3 +20,7 @@
 .loading {
   @apply bg-accents-1 text-accents-3 border-accents-2 cursor-not-allowed;
 }
+
+.slim {
+  @apply py-2 transform-none normal-case;
+}

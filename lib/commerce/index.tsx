@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { Fetcher } from './utils/types'
 
-const Commerce = createContext<CommerceContextValue | null>(null)
+const Commerce = createContext<CommerceContextValue | {}>({})
 
 export type CommerceProps = {
   children?: ReactNode

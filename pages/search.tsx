@@ -149,7 +149,7 @@ export default function Search({
               ))}
             </Grid>
           ) : (
-            <Grid>
+            <Grid layout="normal">
               {range(12).map(() => (
                 <Skeleton
                   className="w-full animate__animated animate__fadeIn"
