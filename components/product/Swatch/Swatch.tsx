@@ -1,10 +1,9 @@
 import cn from 'classnames'
 import { FC } from 'react'
 import s from './Swatch.module.css'
-import { Colors } from '@components/ui/types'
 import { Check } from '@components/icon'
 import Button, { ButtonProps } from '@components/ui/Button'
-
+import { isDark } from '@lib/colors'
 interface Props {
   active?: boolean
   children?: any
@@ -24,6 +23,7 @@ const Swatch: FC<Props & ButtonProps> = ({
 }) => {
   variant = variant?.toLowerCase()
   label = label?.toLowerCase()
+  const isDarkBg = isDark(color)
 
   const rootClassName = cn(
     s.root,
@@ -43,8 +43,7 @@ const Swatch: FC<Props & ButtonProps> = ({
       {variant === 'color' && active && (
         <span
           className={cn('absolute', {
-            'text-white': label !== 'white',
-            'text-black': label === 'white',
+            'text-white': isDarkBg,
           })}
         >
           <Check />
