@@ -19,10 +19,12 @@ export default function useCart<T>(
   swrOptions?: ConfigInterface<T | null>
 ) {
   const { cartCookie } = useCommerce()
+
   const fetcher: typeof fetcherFn = (options, input, fetch) => {
     input.cartId = Cookies.get(cartCookie)
     return fetcherFn(options, input, fetch)
   }
+
   const response = useData(options, input, fetcher, swrOptions)
 
   return Object.assign(response, { isEmpty: true }) as CartResponse<T>
