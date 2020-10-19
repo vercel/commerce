@@ -2095,6 +2095,13 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
+"@types/bunyan-prettystream@^0.1.31":
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/@types/bunyan-prettystream/-/bunyan-prettystream-0.1.31.tgz#3864836abb907ab151f7edf7c64c323c9609e1d1"
+  integrity sha512-NE7fq2ZcX7OSMK+VhTNJkVEHlo+hm0uVXpuLeH1ifGm52Qwuo/kLD2GHo7UcEXMFu3duKver/AFo8C4TME93zw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/bunyan@^1.8.6":
   version "1.8.6"
   resolved "https://registry.yarnpkg.com/@types/bunyan/-/bunyan-1.8.6.tgz#6527641cca30bedec5feb9ab527b7803b8000582"
@@ -2976,6 +2983,11 @@ bufferutil@^4.0.1:
   integrity sha512-xowrxvpxojqkagPcWRQVXZl0YXhRhAtBEIq3VoER1NH5Mw1n1o0ojdspp+GS2J//2gCVyrzQDApQ4unGF+QOoA==
   dependencies:
     node-gyp-build "~3.7.0"
+
+bunyan-prettystream@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/bunyan-prettystream/-/bunyan-prettystream-0.1.3.tgz#6c3b713266f6ad32007c7b6ab1e998a245349d98"
+  integrity sha1-bDtxMmb2rTIAfHtqsemYokU0nZg=
 
 bunyan@^1.8.14:
   version "1.8.14"

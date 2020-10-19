@@ -24,7 +24,7 @@ const Swatch: FC<Props & ButtonProps> = ({
 }) => {
   variant = variant?.toLowerCase()
   label = label?.toLowerCase()
-  // console.log(variant)
+
   const rootClassName = cn(
     s.root,
     {
@@ -38,6 +38,7 @@ const Swatch: FC<Props & ButtonProps> = ({
     <Button
       className={rootClassName}
       style={color ? { backgroundColor: color } : {}}
+      {...props}
     >
       {variant === 'color' && active && (
         <span

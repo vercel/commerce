@@ -15,19 +15,12 @@ interface Props {
   product: Product
 }
 
-interface Choices {
-  size?: string | null
-  color?: string | null
-}
-
 const ProductView: FC<Props> = ({ product, className }) => {
-  const options = getProductOptions(product)
-  // console.log(options)
-
   const addItem = useAddItem()
   const { openSidebar } = useUI()
+  const options = getProductOptions(product)
 
-  const [choices, setChoices] = useState<Choices>({
+  const [choices, setChoices] = useState<Record<string, any>>({
     size: null,
     color: null,
   })
@@ -47,9 +40,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
       setLoading(false)
     }
   }
-
-  const activeSize = choices.size
-  const activeColor = choices.color
 
   return (
     <Container>
@@ -88,6 +78,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
               {/** TODO: Change with Image Component */}
               {product.images.edges?.map((image, i) => (
                 <img
+                  key={image?.node.urlSmall}
                   className="w-full object-cover"
                   src={image?.node.urlXL}
                   loading={i === 0 ? 'eager' : 'lazy'}
@@ -104,25 +95,27 @@ const ProductView: FC<Props> = ({ product, className }) => {
         <div className="flex-1 flex flex-col pt-24">
           <section>
             {options?.map((opt: any) => (
-              <div className="pb-4">
+              <div className="pb-4" key={opt.displayName}>
                 <h2 className="uppercase font-medium">{opt.displayName}</h2>
                 <div className="flex flex-row py-4">
                   {opt.values.map((v: any) => {
+                    const active = choices[opt.displayName]
+
                     return (
                       <Swatch
                         key={v.entityId}
-                        active={v.label === activeColor}
+                        active={v.label === active}
                         variant={opt.displayName}
                         color={v.hexColors ? v.hexColors[0] : ''}
                         label={v.label}
-                        onClick={() =>
+                        onClick={() => {
                           setChoices((choices) => {
                             return {
                               ...choices,
                               [opt.displayName]: v.label,
                             }
                           })
-                        }
+                        }}
                       />
                     )
                   })}
