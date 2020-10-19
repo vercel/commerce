@@ -43,11 +43,13 @@ export const getAllProductsQuery = /* GraphQL */ `
   ${productConnectionFragment}
 `
 
-export type Product = NonNullable<
+export type ProductEdge = NonNullable<
   NonNullable<GetAllProductsQuery['site']['products']['edges']>[0]
 >
 
-export type Products = Product[]
+export type Product = ProductEdge
+
+export type Products = ProductEdge[]
 
 export type GetAllProductsResult<
   T extends Record<keyof GetAllProductsResult, any[]> = { products: Products }

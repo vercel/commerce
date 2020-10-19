@@ -141,10 +141,11 @@ export default function Search({
 
           {data ? (
             <Grid layout="normal">
-              {data.products.map((p: any) => (
+              {data.products.map(({ node }) => (
                 <ProductCard
+                  key={node.path}
                   className="animate__animated animate__fadeIn"
-                  {...p}
+                  product={node}
                 />
               ))}
             </Grid>

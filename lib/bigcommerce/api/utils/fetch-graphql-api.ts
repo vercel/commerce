@@ -6,7 +6,7 @@ export default async function fetchGraphqlApi<Q, V = any>(
   query: string,
   { variables, preview }: CommerceAPIFetchOptions<V> = {}
 ): Promise<Q> {
-  log.warn(query)
+  // log.warn(query)
   const config = getConfig()
   const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
     method: 'POST',
