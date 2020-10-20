@@ -76,13 +76,13 @@ const ProductView: FC<Props> = ({ product, className }) => {
             </div>
           </div>
 
-          <div className={s.productSliderContainer}>
+          <div className={s.sliderContainer}>
             <ProductSlider>
               {/** TODO: Change with Image Component  **/}
               {product.images.edges?.map((image, i) => (
                 <img
                   key={image?.node.urlSmall}
-                  className="w-full object-cover"
+                  className={s.img}
                   src={image?.node.urlXL}
                   loading={i === 0 ? 'eager' : 'lazy'}
                 />
@@ -97,7 +97,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
           )}
         </div>
 
-        <div className="flex flex-col md:pt-24">
+        <div className={s.sidebar}>
           <section>
             {options?.map((opt: any) => (
               <div className="pb-4" key={opt.displayName}>
