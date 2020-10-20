@@ -1,4 +1,4 @@
-import { random } from 'lodash'
+import random from 'lodash.random'
 
 export function getRandomPairOfColors() {
   const colors = ['#37B679', '#DA3C3C', '#3291FF', '#7928CA', '#79FFE1']
