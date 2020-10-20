@@ -15,7 +15,7 @@ interface Props {
 
 const Swatch: FC<Props & ButtonProps> = ({
   className,
-  color,
+  color = '',
   label,
   variant = 'size',
   active,
@@ -23,13 +23,14 @@ const Swatch: FC<Props & ButtonProps> = ({
 }) => {
   variant = variant?.toLowerCase()
   label = label?.toLowerCase()
-  const isDarkBg = isDark(color)
 
   const rootClassName = cn(
     s.root,
     {
       [s.active]: active,
       [s.size]: variant === 'size',
+      [s.color]: color,
+      [s.dark]: color ? isDark(color) : false,
     },
     className
   )
@@ -41,11 +42,7 @@ const Swatch: FC<Props & ButtonProps> = ({
       {...props}
     >
       {variant === 'color' && active && (
-        <span
-          className={cn('absolute', {
-            'text-white': isDarkBg,
-          })}
-        >
+        <span>
           <Check />
         </span>
       )}
