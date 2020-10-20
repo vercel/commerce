@@ -1,7 +1,6 @@
-import { FC, useState } from 'react'
-import React from 'react'
+import React, { FC, useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
-
+import s from './ProductSlider.module.css'
 interface Props {
   children?: any
 }
@@ -19,10 +18,10 @@ const ProductSlider: FC<Props> = ({ children }) => {
   }
 
   return (
-    <div className="relative w-full h-full">
-      <div className="absolute flex flex-row inset-0 z-10 opacity-0">
-        <div className="flex-1 bg-cyan" onClick={goBack}></div>
-        <div className="flex-1 bg-pink" onClick={goNext}></div>
+    <div className={s.root}>
+      <div className={s.rootPanel}>
+        <div className={s.leftPanel} onClick={goBack}></div>
+        <div className={s.rightPanel} onClick={goNext}></div>
       </div>
       <SwipeableViews index={idx} onChangeIndex={setIdx}>
         {children}

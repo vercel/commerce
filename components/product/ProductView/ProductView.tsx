@@ -1,5 +1,5 @@
 import { NextSeo } from 'next-seo'
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
@@ -7,7 +7,7 @@ import { Swatch, ProductSlider } from '@components/product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { getProductOptions } from '../helpers'
 import s from './ProductView.module.css'
-
+import * as Bowser from 'bowser'
 interface Props {
   className?: string
   children?: any
@@ -18,6 +18,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
+  let notValidBrowser = null
 
   const [choices, setChoices] = useState<Record<string, any>>({
     size: null,
@@ -25,6 +26,16 @@ const ProductView: FC<Props> = ({ product, className }) => {
   })
 
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const browser = Bowser.getParser(window.navigator.userAgent)
+    const notValidBrowser = browser.satisfies({
+      mobile: {
+        safari: '>=14',
+        android: '>81',
+      },
+    })
+  }, [notValidBrowser])
 
   const addToCart = async () => {
     setLoading(true)
@@ -85,9 +96,13 @@ const ProductView: FC<Props> = ({ product, className }) => {
               ))}
             </ProductSlider>
           </div>
-          <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
-            <img src="/slider-arrows.png" />
-          </div>
+
+          {notValidBrowser && (
+            <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
+              <img src="/slider-arrows.png" />
+            </div>
+          )}
+
           <div className={s.squareBg}></div>
         </div>
 

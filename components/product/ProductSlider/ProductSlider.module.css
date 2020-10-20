@@ -1,0 +1,17 @@
+.root {
+  @apply relative w-full h-full;
+}
+
+.rootPanel {
+  @apply absolute flex flex-row inset-0 z-20 overflow-hidden;
+}
+
+.leftPanel {
+  @apply flex-1;
+  cursor: url('/cursor-left.png'), auto;
+}
+
+.rightPanel {
+  @apply flex-1;
+  cursor: url('/cursor-right.png'), auto;
+}
