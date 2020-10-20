@@ -2,19 +2,17 @@
   @apply relative grid items-start my-12 gap-8 grid-cols-1;
 
   @screen md {
-    @apply grid-cols-2;
+    @apply grid-cols-12;
   }
 }
 
 .button {
   min-width: 300px;
   text-align: center;
-
-  justify-self: center;
 }
 
 .productDisplay {
-  @apply flex px-0 pb-0 relative box-border min-h-full;
+  @apply flex px-0 pb-0 relative box-border min-h-full col-span-7;
   margin-right: -2rem;
   margin-left: -2rem;
 
@@ -50,10 +48,27 @@
 
   @screen md {
     @apply inset-14;
-    min-height: 400px;
+    min-height: 100%;
   }
 }
 
-.productSliderContainer {
-  @apply absolute z-10 inset-0 flex items-center justify-center mt-6;
+.sidebar {
+  @apply flex flex-col md:pt-24 col-span-5;
+}
+
+.sliderContainer {
+  @apply absolute z-10 inset-0 flex items-center justify-center;
+
+  @screen lg {
+    @apply -m-12;
+  }
+}
+
+.img {
+  @apply w-full object-cover;
+
+  @screen xl {
+    margin-top: -14%;
+    height: 140%;
+  }
 }
