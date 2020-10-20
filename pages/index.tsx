@@ -1,40 +1,77 @@
+import { useMemo } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
+import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
+import rangeMap from '@lib/range-map'
 import { Layout } from '@components/core'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
-import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
-import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { pages } = await getAllPages()
-  const { products } = await getAllProducts()
   const { products: featuredProducts } = await getAllProducts({
-    variables: { field: 'featuredProducts', first: 3 },
+    variables: { field: 'featuredProducts', first: 6 },
+  })
+  const { products: bestSellingProducts } = await getAllProducts({
+    variables: { field: 'bestSellingProducts', first: 6 },
+  })
+  const { products: newestProducts } = await getAllProducts({
+    variables: { field: 'newestProducts', first: 12 },
   })
   const { categories, brands } = await getSiteInfo()
+  const { pages } = await getAllPages()
 
   return {
-    props: { pages, products, featuredProducts, categories, brands },
+    props: {
+      featuredProducts,
+      bestSellingProducts,
+      newestProducts,
+      categories,
+      brands,
+      pages,
+    },
+    revalidate: 10,
   }
 }
 
+const nonNullable = (v: any) => v
+
 export default function Home({
-  products,
   featuredProducts,
+  bestSellingProducts,
+  newestProducts,
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { featured, bestSelling } = useMemo(() => {
+    // Create a copy of products that we can mutate
+    const products = [...newestProducts]
+    // If the lists of featured and best selling products don't have enough
+    // products, then fill them with products from the products list, this
+    // is useful for new commerce sites that don't have a lot of products
+    return {
+      featured: rangeMap(
+        6,
+        (i) => featuredProducts[i] ?? products.shift()
+      ).filter(nonNullable),
+      bestSelling: rangeMap(
+        6,
+        (i) => bestSellingProducts[i] ?? products.shift()
+      ).filter(nonNullable),
+    }
+    // Props from getStaticProps won't change
+  }, [])
+
   return (
     <div className="mt-3">
       <Grid>
-        {featuredProducts.slice(0, 3).map((p: any) => (
-          <ProductCard key={p.id} {...p} />
+        {featured.slice(0, 3).map(({ node }) => (
+          <ProductCard key={node.path} product={node} />
         ))}
       </Grid>
       <Marquee variant="secondary">
-        {products.slice(0, 3).map((p: any) => (
-          <ProductCard key={p.id} {...p} variant="slim" />
+        {bestSelling.slice(0, 3).map(({ node }) => (
+          <ProductCard key={node.path} product={node} variant="slim" />
         ))}
       </Marquee>
       <Hero
@@ -48,13 +85,13 @@ export default function Home({
         ‘Natural’."
       />
       <Grid layout="B">
-        {featuredProducts.slice(3, 6).map((p: any) => (
-          <ProductCard key={p.id} {...p} />
+        {featured.slice(3, 6).map(({ node }) => (
+          <ProductCard key={node.path} product={node} />
         ))}
       </Grid>
       <Marquee>
-        {products.slice(3, 6).map((p: any) => (
-          <ProductCard key={p.id} {...p} variant="slim" />
+        {bestSelling.slice(3, 6).map(({ node }) => (
+          <ProductCard key={node.path} product={node} variant="slim" />
         ))}
       </Marquee>
       <div className="py-12 flex flex-row w-full px-12">
@@ -84,8 +121,8 @@ export default function Home({
         </div>
         <div className="flex-1">
           <Grid layout="normal">
-            {products.map((p: any) => (
-              <ProductCard key={p.id} {...p} variant="simple" />
+            {newestProducts.map(({ node }) => (
+              <ProductCard key={node.path} product={node} variant="simple" />
             ))}
           </Grid>
         </div>

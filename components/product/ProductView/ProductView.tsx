@@ -1,30 +1,35 @@
 import { NextSeo } from 'next-seo'
-import { FC, useState } from 'react'
-import s from './ProductView.module.css'
+import { FC, useState, useEffect } from 'react'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
-import type { Product } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
-
+import s from './ProductView.module.css'
+import { isDesktop } from '@lib/browser'
+import cn from 'classnames'
 interface Props {
   className?: string
   children?: any
-  product: Product
+  product: ProductNode
 }
 
 const ProductView: FC<Props> = ({ product, className }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
+  const [loading, setLoading] = useState(false)
+  const [validMedia, setValidMedia] = useState(false)
 
   const [choices, setChoices] = useState<Record<string, any>>({
     size: null,
     color: null,
   })
 
-  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    setValidMedia(isDesktop())
+  }, [])
 
   const addToCart = async () => {
     setLoading(true)
@@ -59,39 +64,40 @@ const ProductView: FC<Props> = ({ product, className }) => {
           ],
         }}
       />
-      <div className="relative flex flex-row items-start fit my-12">
-        <div className="absolute top-0 left-0 z-50">
-          <h1 className="px-6 py-2 bg-violet text-white font-bold text-3xl">
-            {product.name}
-          </h1>
-          <div className="px-6 py-2 pb-4 bg-violet text-white font-bold inline-block traking">
-            {product.prices?.price.value}
-            {` `}
-            {product.prices?.price.currencyCode}
+      <div className={cn(s.root, 'fit')}>
+        <div className={cn(s.productDisplay, 'fit')}>
+          <div className={s.squareBg}></div>
+          <div className={s.nameBox}>
+            <h1 className={s.name}>{product.name}</h1>
+            <div className={s.price}>
+              {product.prices?.price.value}
+              {` `}
+              {product.prices?.price.currencyCode}
+            </div>
           </div>
-        </div>
 
-        <div className="flex-1 px-24 pb-0 relative fit  box-border">
-          <div className="absolute z-10 inset-0 flex items-center justify-center">
+          <div className={s.sliderContainer}>
             <ProductSlider>
-              {/** TODO: Change with Image Component */}
+              {/** TODO: Change with Image Component  **/}
               {product.images.edges?.map((image, i) => (
                 <img
                   key={image?.node.urlSmall}
-                  className="w-full object-cover"
+                  className={s.img}
                   src={image?.node.urlXL}
                   loading={i === 0 ? 'eager' : 'lazy'}
                 />
               ))}
             </ProductSlider>
           </div>
-          <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
-            <img src="/slider-arrows.png" />
-          </div>
-          <div className={s.squareBg}></div>
+
+          {!validMedia && (
+            <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
+              <img src="/slider-arrows.png" />
+            </div>
+          )}
         </div>
 
-        <div className="flex-1 flex flex-col pt-24">
+        <div className={s.sidebar}>
           <section>
             {options?.map((opt: any) => (
               <div className="pb-4" key={opt.displayName}>

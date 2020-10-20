@@ -33,13 +33,13 @@ export const getProductQuery = /* GraphQL */ `
   ${productInfoFragment}
 `
 
-export type Product = Extract<
+export type ProductNode = Extract<
   GetProductQuery['site']['route']['node'],
   { __typename: 'Product' }
 >
 
 export type GetProductResult<
-  T extends { product?: any } = { product?: Product }
+  T extends { product?: any } = { product?: ProductNode }
 > = T
 
 export type ProductVariables = Images &

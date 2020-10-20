@@ -20,7 +20,7 @@ const Navbar: FC<Props> = ({ className }) => {
               <Logo />
             </a>
           </Link>
-          <nav className="space-x-4 ml-6 hidden md:block">
+          <nav className="space-x-4 ml-6 sm:hidden lg:block">
             <Link href="/">
               <a className={s.link}>All</a>
             </Link>
@@ -33,11 +33,11 @@ const Navbar: FC<Props> = ({ className }) => {
           </nav>
         </div>
 
-        <div className="md:flex flex-1 justify-center hidden">
+        <div className="lg:flex flex-1 justify-center sm:hidden">
           <Searchbar />
         </div>
 
-        <div className="flex flex-initial md:flex-1 justify-end space-x-8">
+        <div className="flex flex-1 justify-end space-x-8">
           <Toggle
             checked={theme === 'dark'}
             onChange={() =>
@@ -47,7 +47,8 @@ const Navbar: FC<Props> = ({ className }) => {
           <UserNav />
         </div>
       </div>
-      <div className="block flex pb-4 md:hidden px-4 md:px-6">
+
+      <div className="sm:flex pb-4 lg:px-6 lg:hidden">
         <Searchbar />
       </div>
     </div>

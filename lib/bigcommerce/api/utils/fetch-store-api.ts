@@ -24,13 +24,22 @@ export default async function fetchStoreApi<T>(
     )
   }
 
+  const contentType = res.headers.get('Content-Type')
+  const isJSON = contentType?.includes('application/json')
+
   if (!res.ok) {
-    throw new BigcommerceApiError(await getErrorText(res), res)
+    const data = isJSON ? await res.json() : await getTextOrNull(res)
+    const headers = getRawHeaders(res)
+    const msg = `Big Commerce API error (${
+      res.status
+    }) \nHeaders: ${JSON.stringify(headers, null, 2)}\n${
+      typeof data === 'string' ? data : JSON.stringify(data, null, 2)
+    }`
+
+    throw new BigcommerceApiError(msg, res, data)
   }
 
-  const contentType = res.headers.get('Content-Type')
-
-  if (!contentType?.includes('application/json')) {
+  if (!isJSON) {
     throw new BigcommerceApiError(
       `Fetch to Bigcommerce API failed, expected JSON content but found: ${contentType}`,
       res
@@ -39,12 +48,6 @@ export default async function fetchStoreApi<T>(
 
   // If something was removed, the response will be empty
   return res.status === 204 ? null : await res.json()
-}
-
-async function getErrorText(res: Response) {
-  return `Big Commerce API error (${res.status}) \n${JSON.stringify(
-    getRawHeaders(res)
-  )}\n ${await getTextOrNull(res)}`
 }
 
 function getRawHeaders(res: Response) {
