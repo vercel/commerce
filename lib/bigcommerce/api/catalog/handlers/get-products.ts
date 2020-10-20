@@ -49,6 +49,7 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   // We want the GraphQL version of each product
   const graphqlData = await getAllProducts({
     variables: { first: LIMIT, entityIds },
+    config,
   })
   // Put the products in an object that we can use to get them by id
   const productsById = graphqlData.products.reduce<{
