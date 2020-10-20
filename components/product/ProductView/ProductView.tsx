@@ -7,7 +7,7 @@ import { Swatch, ProductSlider } from '@components/product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { getProductOptions } from '../helpers'
 import s from './ProductView.module.css'
-import * as Bowser from 'bowser'
+import { isDesktop } from '@lib/browser'
 interface Props {
   className?: string
   children?: any
@@ -18,24 +18,17 @@ const ProductView: FC<Props> = ({ product, className }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
-  let notValidBrowser = null
+  const [loading, setLoading] = useState(false)
+  const [validMedia, setValidMedia] = useState(false)
 
   const [choices, setChoices] = useState<Record<string, any>>({
     size: null,
     color: null,
   })
 
-  const [loading, setLoading] = useState(false)
-
   useEffect(() => {
-    const browser = Bowser.getParser(window.navigator.userAgent)
-    const notValidBrowser = browser.satisfies({
-      mobile: {
-        safari: '>=14',
-        android: '>81',
-      },
-    })
-  }, [notValidBrowser])
+    setValidMedia(isDesktop())
+  }, [])
 
   const addToCart = async () => {
     setLoading(true)
@@ -97,7 +90,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
             </ProductSlider>
           </div>
 
-          {notValidBrowser && (
+          {!validMedia && (
             <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
               <img src="/slider-arrows.png" />
             </div>
