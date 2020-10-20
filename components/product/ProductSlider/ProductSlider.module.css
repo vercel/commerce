@@ -1,9 +1,14 @@
 .root {
   @apply relative w-full h-full;
+  overflow-y: hidden;
+
+  & > div {
+    overflow: visible !important;
+  }
 }
 
 .rootPanel {
-  @apply absolute flex flex-row inset-0 z-20 overflow-hidden;
+  @apply absolute flex flex-row inset-0 z-20 m-20;
 }
 
 .leftPanel {
