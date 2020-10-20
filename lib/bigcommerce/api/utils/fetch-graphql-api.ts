@@ -23,7 +23,7 @@ export default async function fetchGraphqlApi<Q, V = any>(
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
-    throw new Error('Failed to fetch API')
+    throw new Error('Failed to fetch BigCommerce API')
   }
   return json.data
 }
