@@ -1,7 +1,59 @@
+.root {
+  @apply relative grid items-start my-12 gap-8 grid-cols-1;
+
+  @screen md {
+    @apply grid-cols-2;
+  }
+}
+
 .button {
   min-width: 300px;
+  text-align: center;
+
+  justify-self: center;
+}
+
+.productDisplay {
+  @apply flex px-0 pb-0 relative box-border min-h-full;
+  margin-right: -2rem;
+  margin-left: -2rem;
+
+  min-height: 400px;
+
+  @screen md {
+    @apply px-24 mx-0;
+  }
+}
+
+.nameBox {
+  @apply absolute top-0 left-0 z-50;
+
+  & .name {
+    @apply px-6 py-2 bg-primary text-primary font-bold text-3xl;
+  }
+
+  & .price {
+    @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide;
+  }
+
+  @screen md {
+    & .name,
+    & .price {
+      @apply bg-violet text-white;
+    }
+  }
 }
 
 .squareBg {
-  @apply absolute inset-24 z-0 bg-violet;
+  @apply absolute inset-0 bg-violet z-0;
+  max-height: 250px;
+
+  @screen md {
+    @apply inset-14;
+    min-height: 400px;
+  }
+}
+
+.productSliderContainer {
+  @apply absolute z-10 inset-0 flex items-center justify-center mt-6;
 }
