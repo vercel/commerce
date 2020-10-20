@@ -2,7 +2,7 @@
   @apply relative grid items-start gap-8 grid-cols-1;
 
   @screen lg {
-    @apply grid-cols-12;
+    @apply grid-cols-12 pt-10;
   }
 }
 
