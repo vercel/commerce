@@ -8,7 +8,7 @@ import createCustomer from './handlers/create-customer'
 
 type Body<T> = Partial<T> | undefined
 
-export type Customer = any
+export type Customer = null
 
 export type CreateCustomerBody = {
   firstName: string
@@ -38,7 +38,6 @@ const customersApi: BigcommerceApiHandler<Customer, CustomersHandlers> = async (
 
   try {
     if (req.method === 'POST') {
-      console.log('BODY', req.body)
       const body = { cartId, ...req.body }
       return await handlers['createCustomer']({ req, res, config, body })
     }
