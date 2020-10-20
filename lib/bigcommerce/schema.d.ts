@@ -1926,3 +1926,12 @@ export type GetSiteInfoQuery = { __typename?: 'Query' } & {
     }
   }
 }
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String']
+  password: Scalars['String']
+}>
+
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login: { __typename?: 'LoginResult' } & Pick<LoginResult, 'result'>
+}
