@@ -1653,6 +1653,30 @@ export enum CurrencyCode {
   Zwr = 'ZWR',
 }
 
+export type GetLoggedInCustomerQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetLoggedInCustomerQuery = { __typename?: 'Query' } & {
+  customer?: Maybe<
+    { __typename?: 'Customer' } & Pick<
+      Customer,
+      | 'entityId'
+      | 'firstName'
+      | 'lastName'
+      | 'email'
+      | 'company'
+      | 'customerGroupId'
+      | 'notes'
+      | 'phone'
+      | 'addressCount'
+      | 'attributeCount'
+    > & {
+        storeCredit: Array<
+          { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
+        >
+      }
+  >
+}
+
 export type CategoryTreeItemFragment = {
   __typename?: 'CategoryTreeItem'
 } & Pick<
