@@ -20,9 +20,10 @@
 }
 
 .layoutNormal {
-  @apply gap-6;
+  @apply gap-3;
 
   & > * {
+    font-size: 1.5rem;
     min-height: 325px;
   }
 }

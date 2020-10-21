@@ -65,23 +65,30 @@
   @apply transform absolute inset-0 z-0 bg-secondary;
 }
 
-.squareBg.gray {
-  @apply bg-gray-300 !important;
+.simple {
+  & .squareBg {
+    @apply bg-gray-300 !important;
+  }
 }
 
 .productTitle {
-  line-height: 40px;
-  width: 18vw;
+  @apply pt-4 leading-8;
+  box-sizing: border-box;
+  width: 17vw;
+  margin-top: -1.2rem;
 
   & span {
-    @apply inline text-2xl leading-6 p-4 bg-primary text-primary font-bold;
+    @apply inline p-4 bg-primary text-primary font-bold;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: 0.4px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
 }
 
 .productPrice {
-  @apply px-3 py-1 pb-2 bg-primary text-base font-semibold inline-block text-sm leading-6;
+  @apply py-4 px-4 bg-primary text-base font-semibold inline-block text-sm leading-6;
 }
 
 .wishlistButton {
