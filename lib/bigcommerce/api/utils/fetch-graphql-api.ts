@@ -20,10 +20,22 @@ export default async function fetchGraphqlApi<Q, V = any>(
     }),
   })
 
+  // console.log('HEADERS', getRawHeaders(res))
+
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
     throw new Error('Failed to fetch BigCommerce API')
   }
   return json.data
+}
+
+function getRawHeaders(res: Response) {
+  const headers: { [key: string]: string } = {}
+
+  res.headers.forEach((value, key) => {
+    headers[key] = value
+  })
+
+  return headers
 }
