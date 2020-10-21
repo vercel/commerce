@@ -19,13 +19,18 @@ const ProductSlider: FC<Props> = ({ children }) => {
 
   return (
     <div className={s.root}>
+      <SwipeableViews
+        index={idx}
+        onChangeIndex={setIdx}
+        containerStyle={{ overflow: 'visible' }}
+        slideStyle={{ overflow: 'visible' }}
+      >
+        {children}
+      </SwipeableViews>
       <div className={s.rootPanel}>
         <div className={s.leftPanel} onClick={goBack}></div>
         <div className={s.rightPanel} onClick={goNext}></div>
       </div>
-      <SwipeableViews index={idx} onChangeIndex={setIdx}>
-        {children}
-      </SwipeableViews>
     </div>
   )
 }

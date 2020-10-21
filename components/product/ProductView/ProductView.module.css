@@ -1,30 +1,40 @@
 .root {
-  @apply relative grid items-start my-12 gap-8 grid-cols-1;
+  @apply relative grid items-start gap-8 grid-cols-1;
 
-  @screen md {
-    @apply grid-cols-12;
+  @screen lg {
+    @apply grid-cols-12 pt-10;
   }
 }
 
-.button {
-  min-width: 300px;
-  text-align: center;
-}
-
 .productDisplay {
-  @apply flex px-0 pb-0 relative box-border min-h-full col-span-7;
+  @apply relative flex px-0 pb-0 relative box-border col-span-7;
   margin-right: -2rem;
   margin-left: -2rem;
-
   min-height: 400px;
 
   @screen md {
-    @apply px-24 mx-0;
+    min-height: 700px;
+  }
+
+  @screen lg {
+    @apply mx-0;
+    min-height: 100%;
+    height: 100%;
+  }
+}
+
+.squareBg {
+  @apply absolute inset-0 bg-violet z-0;
+  max-height: 250px;
+
+  @screen md {
+    @apply inset-20;
+    max-height: 500px;
   }
 }
 
 .nameBox {
-  @apply absolute top-0 left-0 z-50;
+  @apply absolute top-6 left-0 z-50;
 
   & .name {
     @apply px-6 py-2 bg-primary text-primary font-bold text-3xl;
@@ -42,33 +52,38 @@
   }
 }
 
-.squareBg {
-  @apply absolute inset-0 bg-violet z-0;
-  max-height: 250px;
-
-  @screen md {
-    @apply inset-14;
-    min-height: 100%;
-  }
-}
-
 .sidebar {
-  @apply flex flex-col md:pt-24 col-span-5;
+  @apply flex flex-col col-span-5;
+
+  @screen lg {
+    padding-top: 5rem;
+  }
 }
 
 .sliderContainer {
-  @apply absolute z-10 inset-0 flex items-center justify-center;
-
-  @screen lg {
-    @apply -m-12;
-  }
+  @apply absolute z-10 inset-0 flex items-center justify-center overflow-x-hidden;
 }
 
 .img {
-  @apply w-full object-cover;
+  @apply w-full h-full object-cover;
+
+  @screen md {
+    height: 100%;
+    margin-top: -2.75rem;
+  }
+
+  @screen lg {
+    height: 150%;
+    margin-top: -10%;
+  }
 
   @screen xl {
-    margin-top: -14%;
-    height: 140%;
+    height: 170%;
+    margin-top: -19%;
   }
+}
+
+.button {
+  min-width: 300px;
+  text-align: center;
 }

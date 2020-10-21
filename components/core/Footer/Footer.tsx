@@ -22,10 +22,6 @@ const Footer: FC<Props> = ({ className, pages }) => {
 
   return (
     <div className="bg-black text-white">
-      <hr
-        className="hidden md:block mt-4 border-gray-700"
-        style={{ flexBasis: '100%', height: 0 }}
-      />
       <footer className={rootClassName}>
         <Link href="/">
           <a className="flex flex-initial items-center md:items-start font-bold md:mr-24">
