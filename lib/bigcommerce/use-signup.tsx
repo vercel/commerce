@@ -22,8 +22,8 @@ export const fetcher: HookFetcher<null, SignupBody> = (
   }
 
   return fetch({
-    url: options?.url ?? defaultOpts.url,
-    method: options?.method ?? defaultOpts.method,
+    ...defaultOpts,
+    ...options,
     body: { firstName, lastName, email, password },
   })
 }

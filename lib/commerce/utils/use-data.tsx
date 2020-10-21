@@ -9,9 +9,14 @@ export default function useData<T, Input = any>(
   swrOptions?: ConfigInterface<T>
 ) {
   const { fetcherRef } = useCommerce()
-  const fetcher = (url?: string, query?: string, ...args: any[]) => {
+  const fetcher = (
+    url?: string,
+    query?: string,
+    method?: string,
+    ...args: any[]
+  ) => {
     return fetcherFn(
-      { url, query },
+      { url, query, method },
       // Transform the input array into an object
       args.reduce((obj, val, i) => {
         obj[input[i][0]!] = val
@@ -24,7 +29,9 @@ export default function useData<T, Input = any>(
   const response = useSWR(
     () => {
       const opts = typeof options === 'function' ? options() : options
-      return opts ? [opts.url, opts.query, ...input.map((e) => e[1])] : null
+      return opts
+        ? [opts.url, opts.query, opts.method, ...input.map((e) => e[1])]
+        : null
     },
     fetcher,
     swrOptions

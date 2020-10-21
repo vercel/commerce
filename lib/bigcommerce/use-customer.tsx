@@ -5,6 +5,7 @@ import type { Customer, CustomerData } from './api/customers'
 
 const defaultOpts = {
   url: '/api/bigcommerce/customer',
+  method: 'GET',
 }
 
 export type { Customer }
@@ -14,7 +15,7 @@ export const fetcher: HookFetcher<CustomerData | null, CustomerInput> = (
   { cartId },
   fetch
 ) => {
-  return cartId ? fetch({ ...options }) : null
+  return cartId ? fetch({ ...defaultOpts, ...options }) : null
 }
 
 export function extendHook(
