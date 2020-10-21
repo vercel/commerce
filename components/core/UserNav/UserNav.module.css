@@ -2,12 +2,16 @@
   @apply relative;
 }
 
+.mainContainer {
+}
+
 .list {
-  @apply flex flex-row items-center h-full;
+  @apply flex flex-row items-center justify-items-end h-full;
 }
 
 .item {
   @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-base flex items-center;
+
   &:hover {
     @apply text-accents-8;
   }
@@ -18,14 +22,26 @@
 }
 
 .dropdownMenu {
-  @apply absolute right-0 mt-2 w-screen max-w-xs sm:px-0 z-50 border border-accents-1 bg-primary;
-  max-width: 160px;
+  @apply bg-primary fixed right-0 z-50 w-full h-full;
 
-  &.dropdownMenuContainer {
-    @apply shadow-lg overflow-hidden relative grid py-2;
+  @screen lg {
+    @apply absolute mt-3 right-0 w-screen;
+    max-width: 160px;
+  }
+
+  & .dropdownMenuContainer {
+    @apply flex-col py-6 bg-primary h-full justify-around h-auto;
+
+    @screen lg {
+      @apply border border-accents-1 shadow-lg py-2;
+    }
   }
 
   & .link {
-    @apply px-6 py-3 block space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900;
+    @apply cursor-pointer px-6 py-3 block space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900;
+  }
+
+  &.off {
+    @apply hidden;
   }
 }

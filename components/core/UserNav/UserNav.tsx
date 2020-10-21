@@ -6,6 +6,10 @@ import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import s from './UserNav.module.css'
 import Link from 'next/link'
+import { Logo } from '@components/ui'
+import { Toggle } from '@components/core'
+import { useTheme } from 'next-themes'
+
 interface Props {
   className?: string
 }
@@ -17,54 +21,65 @@ const countItems = (count: number, items: any[]) =>
 
 const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
-  const [displayDropdown, setDisplayDropdown] = useState(false)
+  const [displayDropdown, setDisplayDropdown] = useState(true)
   const { openSidebar, closeSidebar, displaySidebar } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
+  const { theme, setTheme } = useTheme()
 
   return (
     <nav className={cn(s.root, className)}>
-      <ul className={s.list}>
-        <li
-          className={s.item}
-          onClick={() => (displaySidebar ? closeSidebar() : openSidebar())}
-        >
-          <Bag />
-          {itemsCount > 0 && (
-            <span className="border border-accent-1 bg-secondary text-secondary h-4 w-4 absolute rounded-full right-3 top-3 flex items-center justify-center font-bold text-xs">
-              {itemsCount}
-            </span>
-          )}
-        </li>
-        <Link href="/wishlist">
-          <li className={s.item}>
-            <Heart />
+      <div className={s.mainContainer}>
+        <ul className={s.list}>
+          <li
+            className={s.item}
+            onClick={() => (displaySidebar ? closeSidebar() : openSidebar())}
+          >
+            <Bag />
+            {itemsCount > 0 && (
+              <span className="border border-accent-1 bg-secondary text-secondary h-4 w-4 absolute rounded-full right-3 top-3 flex items-center justify-center font-bold text-xs">
+                {itemsCount}
+              </span>
+            )}
           </li>
-        </Link>
-        <li
-          className={s.item}
-          onClick={() => {
-            setDisplayDropdown((i) => !i)
-          }}
-        >
-          <Avatar />
-        </li>
-      </ul>
+          <Link href="/wishlist">
+            <li className={s.item}>
+              <Heart />
+            </li>
+          </Link>
+          <li
+            className={s.item}
+            onClick={() => {
+              setDisplayDropdown((i) => !i)
+            }}
+          >
+            <Avatar />
+          </li>
+        </ul>
+      </div>
 
-      {displayDropdown && (
-        <div className={s.dropdownMenu}>
-          <nav className={s.dropdownMenuContainer}>
-            <Link href="#">
-              <a className={s.link}>My Purchases</a>
-            </Link>
-            <Link href="#">
-              <a className={s.link}>My Account</a>
-            </Link>
-            <Link href="#">
-              <a className={cn(s.link, 'mt-4')}>Logout</a>
-            </Link>
-          </nav>
-        </div>
-      )}
+      <div className={cn(s.dropdownMenu, { [s.off]: displayDropdown })}>
+        <nav className={s.dropdownMenuContainer}>
+          <Link href="#">
+            <a className={s.link}>My Purchases</a>
+          </Link>
+          <Link href="#">
+            <a className={s.link}>My Account</a>
+          </Link>
+          <a
+            className={s.link}
+            onClick={() =>
+              theme === 'dark' ? setTheme('light') : setTheme('dark')
+            }
+          >
+            Theme: <strong>{theme}</strong>
+          </a>
+          <Link href="#">
+            <a className={cn(s.link, 'border-t border-accents-2 mt-4')}>
+              Logout
+            </a>
+          </Link>
+        </nav>
+      </div>
     </nav>
   )
 }
