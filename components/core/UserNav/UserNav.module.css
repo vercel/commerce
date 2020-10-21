@@ -17,7 +17,7 @@
 }
 
 .dropdownMenu {
-  @apply absolute right-0 mt-2 w-screen max-w-xs sm:px-0 z-50 border border-accents-1;
+  @apply absolute right-0 mt-2 w-screen max-w-xs sm:px-0 z-50 border border-accents-1 bg-primary;
   max-width: 160px;
 
   & .link {
