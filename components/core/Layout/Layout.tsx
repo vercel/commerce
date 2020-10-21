@@ -39,10 +39,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
       <div className={cn(s.root)}>
         <header
           className={cn(
-            'sticky top-0 bg-primary z-40 transition-shadow duration-200',
-            {
-              'shadow-magical': hasScrolled,
-            }
+            'sticky top-0 bg-primary z-40 transition-all duration-150',
+            { 'shadow-magical': hasScrolled }
           )}
         >
           <Container>

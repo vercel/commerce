@@ -9,7 +9,11 @@ interface Props {
 
 const Toggle: FC<Props> = ({ className, checked, onChange }) => {
   return (
-    <Switch checked={checked} onChange={onChange}>
+    <Switch
+      checked={checked}
+      onChange={onChange}
+      className="focus:outline-none"
+    >
       <span
         role="checkbox"
         aria-checked="false"

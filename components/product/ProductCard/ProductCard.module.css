@@ -58,7 +58,7 @@
 .productTitle > span,
 .productPrice,
 .wishlistButton {
-  @apply transition ease-in-out duration-300;
+  @apply transition ease-in-out duration-150;
 }
 
 .squareBg {
