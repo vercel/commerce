@@ -1,5 +1,4 @@
-import { BigcommerceApiError } from '../../utils/errors'
-import type { WishlistList, WishlistHandlers } from '..'
+import type { Wishlist, WishlistHandlers } from '..'
 
 // Return all wishlists
 const getAllWishlists: WishlistHandlers['getAllWishlists'] = async ({
@@ -7,10 +6,12 @@ const getAllWishlists: WishlistHandlers['getAllWishlists'] = async ({
   body: { customerId },
   config,
 }) => {
-  let result: { data?: WishlistList } = {}
+  let result: { data?: Wishlist[] } = {}
 
   try {
-    result = await config.storeApiFetch(`/v3/wishlists/customer_id=${customerId}`)
+    result = await config.storeApiFetch(
+      `/v3/wishlists/customer_id=${customerId}`
+    )
   } catch (error) {
     throw error
   }

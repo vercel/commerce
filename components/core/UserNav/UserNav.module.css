@@ -1,4 +1,5 @@
 .root {
+  @apply relative;
 }
 
 .list {
@@ -13,5 +14,18 @@
 
   &:last-child {
     @apply mr-0;
+  }
+}
+
+.dropdownMenu {
+  @apply absolute right-0 mt-2 w-screen max-w-xs sm:px-0 z-50 border border-accents-1 bg-primary;
+  max-width: 160px;
+
+  &.dropdownMenuContainer {
+    @apply shadow-lg overflow-hidden relative grid py-2;
+  }
+
+  & .link {
+    @apply px-6 py-3 block space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900;
   }
 }

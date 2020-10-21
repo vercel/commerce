@@ -59,7 +59,7 @@ export default function Search({
 
   return (
     <Container>
-      <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
+      <div className="grid grid-cols-12 gap-4 mt-3 mb-20">
         <div className="col-span-2">
           <ul className="mb-10">
             <li className="py-1 text-base font-bold tracking-wide">
@@ -143,6 +143,7 @@ export default function Search({
             <Grid layout="normal">
               {data.products.map(({ node }) => (
                 <ProductCard
+                  variant="simple"
                   key={node.path}
                   className="animate__animated animate__fadeIn"
                   product={node}

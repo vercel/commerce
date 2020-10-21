@@ -44,10 +44,8 @@ export type Wishlist = {
   // TODO: add missing fields
 }
 
-export type WishlistList = Wishlist[]
-
 export type WishlistHandlers = {
-	getAllWishlists: BigcommerceHandler<WishlistList, { customerId?: string }>
+  getAllWishlists: BigcommerceHandler<Wishlist[], { customerId?: string }>
   getWishlist: BigcommerceHandler<Wishlist, { wishlistId?: string }>
   addWishlist: BigcommerceHandler<
     Wishlist,
@@ -57,7 +55,10 @@ export type WishlistHandlers = {
     Wishlist,
     { wishlistId: string } & Body<AddWishlistBody>
   >
-  addItem: BigcommerceHandler<Wishlist, { wishlistId: string } & Body<AddItemBody>>
+  addItem: BigcommerceHandler<
+    Wishlist,
+    { wishlistId: string } & Body<AddItemBody>
+  >
   removeItem: BigcommerceHandler<
     Wishlist,
     { wishlistId: string } & Body<RemoveItemBody>
@@ -86,13 +87,13 @@ const wishlistApi: BigcommerceApiHandler<Wishlist, WishlistHandlers> = async (
 
     // Add an item to the wishlist
     if (req.method === 'POST' && wishlistId) {
-      const body = { wishlistId, ...req.body }
+      const body = { ...req.body, wishlistId }
       return await handlers['addItem']({ req, res, config, body })
     }
 
     // Update a wishlist
     if (req.method === 'PUT' && wishlistId) {
-      const body = { wishlistId, ...req.body }
+      const body = { ...req.body, wishlistId }
       return await handlers['updateWishlist']({ req, res, config, body })
     }
 

@@ -1514,20 +1514,20 @@
     meow "^7.0.0"
     prettier "^2.0.5"
 
-"@next/env@9.5.6-canary.6":
-  version "9.5.6-canary.6"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-9.5.6-canary.6.tgz#1aef358efc8d97ef6279d8539067df1ee4cea8af"
-  integrity sha512-WeM+gDMDUSDq+AidayYYkYKM9d8tqrpz6NMeM1Ga7zB96iymj72RdYZjEG2du4YcoSZ69m4nRHKUTMO9D2FTfQ==
+"@next/env@9.5.6-canary.9":
+  version "9.5.6-canary.9"
+  resolved "https://registry.yarnpkg.com/@next/env/-/env-9.5.6-canary.9.tgz#d1f4fbfc424074b791b5e94ed8b1018624d8f588"
+  integrity sha512-/LQJcKrgWOCMWiEE4V56IQivLeVx8dvEpWLNGdeX5zaWIB9Vqp/peK8VJaz2mZf2+RRwy3GidBCueatAa37SLg==
 
-"@next/polyfill-module@9.5.6-canary.6":
-  version "9.5.6-canary.6"
-  resolved "https://registry.yarnpkg.com/@next/polyfill-module/-/polyfill-module-9.5.6-canary.6.tgz#185b659bbc06f75ff221c02a934a342bde181f85"
-  integrity sha512-rt1XA3RILd4MU+mVI33yeyyCS8qlEaWuRHbX/LTKNNlVY9u3fQKr1ir0EboPj4ovQrZQaPzShgOoeN9Xe5xeaw==
+"@next/polyfill-module@9.5.6-canary.9":
+  version "9.5.6-canary.9"
+  resolved "https://registry.yarnpkg.com/@next/polyfill-module/-/polyfill-module-9.5.6-canary.9.tgz#1270e7bbeb11c88103f6013794f89c92d7e37d5a"
+  integrity sha512-X4csjgv4CBcu6hr4XT21fWv9s5CvQw7UlCvTQa4H+No/ELfi4ITCBJJzHa4smCYcYSZXRHkW1J71p+D2HvQ23w==
 
-"@next/react-dev-overlay@9.5.6-canary.6":
-  version "9.5.6-canary.6"
-  resolved "https://registry.yarnpkg.com/@next/react-dev-overlay/-/react-dev-overlay-9.5.6-canary.6.tgz#73950f96f2f57b34424988693e4734b3a5c010b6"
-  integrity sha512-oEY43VgFRdesKzI42Q+gfiagXlBbDtvQ0m8WSuFZS1VqTPFvrOKQ1BqUhOyNciryi5vdNo6QFW0vreeejlccLw==
+"@next/react-dev-overlay@9.5.6-canary.9":
+  version "9.5.6-canary.9"
+  resolved "https://registry.yarnpkg.com/@next/react-dev-overlay/-/react-dev-overlay-9.5.6-canary.9.tgz#a295117b6837e6c0bd7822fb689a5765e74702b4"
+  integrity sha512-sqcler8Jl29p4UPdGRUAIfbWO0UwsWUyJ7KY4w5xLNu21z5fu0+cb47JoZAaOfdxYx15ySnkhMqCp5O14/QpUA==
   dependencies:
     "@babel/code-frame" "7.10.4"
     ally.js "1.4.1"
@@ -1540,10 +1540,10 @@
     stacktrace-parser "0.1.10"
     strip-ansi "6.0.0"
 
-"@next/react-refresh-utils@9.5.6-canary.6":
-  version "9.5.6-canary.6"
-  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.5.6-canary.6.tgz#a81fce1feb00e2ba8bc13e42191b04e4d810c6dd"
-  integrity sha512-SEVl95GfbwRWBZOkCUkMX9iYnD7EufIsduBs8npFuUfFwqVxGmvL2RmWqKQhloHeLPJELzTzPBxuydJ07MXxog==
+"@next/react-refresh-utils@9.5.6-canary.9":
+  version "9.5.6-canary.9"
+  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.5.6-canary.9.tgz#e552e441a6a61acb94d81e76bea315d88bd12fed"
+  integrity sha512-i9lbMJ3RTZ3GBVAmgjpRuvr3nxLEdJeAbUD8WDcHJo5Asa2VIsH/+TJgdhZ7Td9eJ6c2A+xmrEVBVvVwZsca+w==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
@@ -2528,16 +2528,13 @@ acorn@^8.0.3:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.0.4.tgz#7a3ae4191466a6984eee0fe3407a4f3aa9db8354"
   integrity sha512-XNP0PqF1XD19ZlLKvB7cMmnZswW4C/03pRHgirB30uSJTaS3A3V1/P4sS3HPvFmjoriPCJQs+JDSbm4bL1TxGQ==
 
-adjust-sourcemap-loader@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/adjust-sourcemap-loader/-/adjust-sourcemap-loader-2.0.0.tgz#6471143af75ec02334b219f54bc7970c52fb29a4"
-  integrity sha512-4hFsTsn58+YjrU9qKzML2JSSDqKvN8mUGQ0nNIrfPi8hmIONT4L3uUaT6MKdMsZ9AjsU6D2xDkZxCkbQPxChrA==
+adjust-sourcemap-loader@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/adjust-sourcemap-loader/-/adjust-sourcemap-loader-3.0.0.tgz#5ae12fb5b7b1c585e80bbb5a63ec163a1a45e61e"
+  integrity sha512-YBrGyT2/uVQ/c6Rr+t6ZJXniY03YtHGMJQYal368burRGYKqhx9qGTWqcBU5s1CwYY9E/ri63RYyG1IacMZtqw==
   dependencies:
-    assert "1.4.1"
-    camelcase "5.0.0"
-    loader-utils "1.2.3"
-    object-path "0.11.4"
-    regex-parser "2.2.10"
+    loader-utils "^2.0.0"
+    regex-parser "^2.2.11"
 
 agent-base@6:
   version "6.0.1"
@@ -2731,13 +2728,6 @@ assert-plus@1.0.0, assert-plus@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-1.0.0.tgz#f12e0f3c5d77b0b1cdd9146942e4e96c1e4dd525"
   integrity sha1-8S4PPF13sLHN2RRpQuTpbB5N1SU=
-
-assert@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
-  integrity sha1-mZEtWRg2tab1s0XA8H7vwI/GXZE=
-  dependencies:
-    util "0.10.3"
 
 assign-symbols@^1.0.0:
   version "1.0.0"
@@ -3186,11 +3176,6 @@ camelcase-keys@^6.2.2:
     camelcase "^5.3.1"
     map-obj "^4.0.0"
     quick-lru "^4.0.1"
-
-camelcase@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.0.0.tgz#03295527d58bd3cd4aa75363f35b2e8d97be2f42"
-  integrity sha512-faqwZqnWxbxn+F1d399ygeamQNy3lPp/H9H6rNrqYh4FSVCtcY+3cub1MxA8o9mDd55mM8Aghuu/kuyYA6VTsA==
 
 camelcase@5.3.1, camelcase@^5.0.0, camelcase@^5.3.1:
   version "5.3.1"
@@ -4918,11 +4903,6 @@ inherits@2, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.3, 
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-inherits@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
-  integrity sha1-sX0I0ya0Qj5Wjv9xn5GwscvfafE=
-
 ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
@@ -6011,10 +5991,10 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-next@^9.5.6-canary.4:
-  version "9.5.6-canary.6"
-  resolved "https://registry.yarnpkg.com/next/-/next-9.5.6-canary.6.tgz#5335a3cd93a3fe85ebfb986c614081885d8e1a2d"
-  integrity sha512-u54H/v91wHayaJzIx+u9x9mtt8fuPUJpFzLk6VORM9jhwDZbgbtzaFyp7rkq71rECtJhzu+X2KtTHPcEejtX8A==
+next@^9.5.6-canary.9:
+  version "9.5.6-canary.9"
+  resolved "https://registry.yarnpkg.com/next/-/next-9.5.6-canary.9.tgz#93acf48d395a54269eeff77d67a5bb6b46c87c22"
+  integrity sha512-i/vNrr4VxqPUiPn5HdR0C2TcAqUmfc5lY6Qj7Hywi4Uit+f9ltWKC+r4WoOw6iIs+TRTej/EzrKnyXEUn5vAcQ==
   dependencies:
     "@ampproject/toolbox-optimizer" "2.6.0"
     "@babel/code-frame" "7.10.4"
@@ -6035,10 +6015,10 @@ next@^9.5.6-canary.4:
     "@babel/runtime" "7.11.2"
     "@babel/types" "7.11.5"
     "@hapi/accept" "5.0.1"
-    "@next/env" "9.5.6-canary.6"
-    "@next/polyfill-module" "9.5.6-canary.6"
-    "@next/react-dev-overlay" "9.5.6-canary.6"
-    "@next/react-refresh-utils" "9.5.6-canary.6"
+    "@next/env" "9.5.6-canary.9"
+    "@next/polyfill-module" "9.5.6-canary.9"
+    "@next/react-dev-overlay" "9.5.6-canary.9"
+    "@next/react-refresh-utils" "9.5.6-canary.9"
     ast-types "0.13.2"
     babel-plugin-transform-define "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.24"
@@ -6064,7 +6044,7 @@ next@^9.5.6-canary.4:
     prop-types "15.7.2"
     react-is "16.13.1"
     react-refresh "0.8.3"
-    resolve-url-loader "3.1.1"
+    resolve-url-loader "3.1.2"
     sass-loader "10.0.2"
     schema-utils "2.7.1"
     stream-browserify "3.0.0"
@@ -6234,11 +6214,6 @@ object-keys@^1.0.12, object-keys@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
-
-object-path@0.11.4:
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
-  integrity sha1-NwrnUvvzfePqcKhhwju6iRVpGUk=
 
 object-visit@^1.0.0:
   version "1.0.1"
@@ -7274,10 +7249,10 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regex-parser@2.2.10:
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/regex-parser/-/regex-parser-2.2.10.tgz#9e66a8f73d89a107616e63b39d4deddfee912b37"
-  integrity sha512-8t6074A68gHfU8Neftl0Le6KTDwfGAj7IyjPIMSfikI2wJUTHDMaIq42bUsfVnj8mhx0R+45rdUXHGpN164avA==
+regex-parser@^2.2.11:
+  version "2.2.11"
+  resolved "https://registry.yarnpkg.com/regex-parser/-/regex-parser-2.2.11.tgz#3b37ec9049e19479806e878cabe7c1ca83ccfe58"
+  integrity sha512-jbD/FT0+9MBU2XAZluI7w2OBs1RBi6p9M83nkoZayQXXU9e8Robt69FcZc7wU4eJD/YFTjn1JdCk3rbMJajz8Q==
 
 regexpu-core@^4.7.1:
   version "4.7.1"
@@ -7423,12 +7398,12 @@ resolve-from@^4.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
-resolve-url-loader@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/resolve-url-loader/-/resolve-url-loader-3.1.1.tgz#28931895fa1eab9be0647d3b2958c100ae3c0bf0"
-  integrity sha512-K1N5xUjj7v0l2j/3Sgs5b8CjrrgtC70SmdCuZiJ8tSyb5J+uk3FoeZ4b7yTnH6j7ngI+Bc5bldHJIa8hYdu2gQ==
+resolve-url-loader@3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/resolve-url-loader/-/resolve-url-loader-3.1.2.tgz#235e2c28e22e3e432ba7a5d4e305c59a58edfc08"
+  integrity sha512-QEb4A76c8Mi7I3xNKXlRKQSlLBwjUV/ULFMP+G7n3/7tJZ8MG5wsZ3ucxP1Jz8Vevn6fnJsxDx9cIls+utGzPQ==
   dependencies:
-    adjust-sourcemap-loader "2.0.0"
+    adjust-sourcemap-loader "3.0.0"
     camelcase "5.3.1"
     compose-function "3.0.3"
     convert-source-map "1.7.0"
@@ -8416,13 +8391,6 @@ util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
-
-util@0.10.3:
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/util/-/util-0.10.3.tgz#7afb1afe50805246489e3db7fe0ed379336ac0f9"
-  integrity sha1-evsa/lCAUkZInj23/g7TeTNqwPk=
-  dependencies:
-    inherits "2.0.1"
 
 uuid@^3.3.2:
   version "3.4.0"

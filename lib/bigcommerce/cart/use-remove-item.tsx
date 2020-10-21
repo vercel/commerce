@@ -19,8 +19,8 @@ export const fetcher: HookFetcher<Cart | null, RemoveItemBody> = (
   fetch
 ) => {
   return fetch({
-    url: options?.url ?? defaultOpts.url,
-    method: options?.method ?? defaultOpts.method,
+    ...defaultOpts,
+    ...options,
     body: { itemId },
   })
 }
