@@ -52,19 +52,17 @@ const UserNav: FC<Props> = ({ className }) => {
 
       {displayDropdown && (
         <div className={s.dropdownMenu}>
-          <div className="shadow-lg overflow-hidden">
-            <nav className="relative grid bg-primary py-2">
-              <Link href="#">
-                <a className={s.link}>My Purchases</a>
-              </Link>
-              <Link href="#">
-                <a className={s.link}>My Account</a>
-              </Link>
-              <Link href="#">
-                <a className={cn(s.link, 'mt-4')}>Logout</a>
-              </Link>
-            </nav>
-          </div>
+          <nav className={s.dropdownMenuContainer}>
+            <Link href="#">
+              <a className={s.link}>My Purchases</a>
+            </Link>
+            <Link href="#">
+              <a className={s.link}>My Account</a>
+            </Link>
+            <Link href="#">
+              <a className={cn(s.link, 'mt-4')}>Logout</a>
+            </Link>
+          </nav>
         </div>
       )}
     </nav>
