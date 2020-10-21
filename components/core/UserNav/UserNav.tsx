@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import cn from 'classnames'
 import useCart from '@lib/bigcommerce/cart/use-cart'
 import { Avatar } from '@components/core'
@@ -17,6 +17,7 @@ const countItems = (count: number, items: any[]) =>
 
 const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
+  const [displayDropdown, setDisplayDropdown] = useState(false)
   const { openSidebar, closeSidebar, displaySidebar } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
 
@@ -39,10 +40,33 @@ const UserNav: FC<Props> = ({ className }) => {
             <Heart />
           </li>
         </Link>
-        <li className={s.item}>
+        <li
+          className={s.item}
+          onClick={() => {
+            setDisplayDropdown((i) => !i)
+          }}
+        >
           <Avatar />
         </li>
       </ul>
+
+      {displayDropdown && (
+        <div className={s.dropdownMenu}>
+          <div className="shadow-lg overflow-hidden">
+            <nav className="relative grid bg-primary py-2">
+              <Link href="#">
+                <a className={s.link}>My Purchases</a>
+              </Link>
+              <Link href="#">
+                <a className={s.link}>My Account</a>
+              </Link>
+              <Link href="#">
+                <a className={cn(s.link, 'mt-4')}>Logout</a>
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
