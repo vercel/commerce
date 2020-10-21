@@ -57,6 +57,7 @@ const createCustomer: CustomersHandlers['createCustomer'] = async ({
 
   console.log('DATA', result.data)
 
+  // TODO: Currently not working, fix this asap.
   const loginData = await login({ variables: { email, password }, config })
 
   console.log('LOGIN DATA', loginData)

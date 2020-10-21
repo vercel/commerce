@@ -10,7 +10,7 @@ const defaultOpts = {
 
 export type SignupInput = CreateCustomerBody
 
-export const fetcher: HookFetcher<undefined, CreateCustomerBody> = (
+export const fetcher: HookFetcher<null, CreateCustomerBody> = (
   options,
   { firstName, lastName, email, password },
   fetch
@@ -30,10 +30,7 @@ export const fetcher: HookFetcher<undefined, CreateCustomerBody> = (
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useSignup = () => {
-    const fn = useCommerceSignup<undefined, SignupInput>(
-      defaultOpts,
-      customFetcher
-    )
+    const fn = useCommerceSignup<null, SignupInput>(defaultOpts, customFetcher)
 
     return useCallback(
       async function signup(input: SignupInput) {
