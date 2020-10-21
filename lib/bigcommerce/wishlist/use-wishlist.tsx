@@ -4,6 +4,7 @@ import type { Wishlist } from '../api/wishlist'
 
 const defaultOpts = {
   url: '/api/bigcommerce/wishlists',
+  method: 'GET',
 }
 
 export type { Wishlist }
@@ -18,7 +19,8 @@ export const fetcher: HookFetcher<Wishlist | null, WishlistInput> = (
   fetch
 ) => {
   return fetch({
-    url: options?.url,
+    ...defaultOpts,
+    ...options,
     body: { wishlistId },
   })
 }

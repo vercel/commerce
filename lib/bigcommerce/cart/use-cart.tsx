@@ -5,6 +5,7 @@ import type { Cart } from '../api/cart'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',
+  method: 'GET',
 }
 
 export type { Cart }
@@ -14,12 +15,7 @@ export const fetcher: HookFetcher<Cart | null, CartInput> = (
   { cartId },
   fetch
 ) => {
-  return cartId
-    ? fetch({
-        url: options?.url,
-        query: options?.query,
-      })
-    : null
+  return cartId ? fetch({ ...defaultOpts, ...options }) : null
 }
 
 export function extendHook(

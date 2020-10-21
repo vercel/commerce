@@ -17,8 +17,8 @@ export const fetcher: HookFetcher<Wishlist, AddItemBody> = (
   fetch
 ) => {
   return fetch({
-    url: options?.url ?? defaultOpts.url,
-    method: options?.method ?? defaultOpts.method,
+    ...defaultOpts,
+    ...options,
     body: { wishlistId, item },
   })
 }

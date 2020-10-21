@@ -1,8 +1,8 @@
 import { BigcommerceApiError } from '../../utils/errors'
 import login from '../../operations/login'
-import type { CustomersHandlers } from '..'
+import { SignupHandlers } from '../signup'
 
-const createCustomer: CustomersHandlers['createCustomer'] = async ({
+const signup: SignupHandlers['signup'] = async ({
   res,
   body: { firstName, lastName, email, password },
   config,
@@ -57,6 +57,7 @@ const createCustomer: CustomersHandlers['createCustomer'] = async ({
 
   console.log('DATA', result.data)
 
+  // TODO: Currently not working, fix this asap.
   const loginData = await login({ variables: { email, password }, config })
 
   console.log('LOGIN DATA', loginData)
@@ -64,4 +65,4 @@ const createCustomer: CustomersHandlers['createCustomer'] = async ({
   res.status(200).json({ data: result.data ?? null })
 }
 
-export default createCustomer
+export default signup
