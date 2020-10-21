@@ -1,16 +1,16 @@
 import { useCallback } from 'react'
 import { HookFetcher } from '@lib/commerce/utils/types'
 import useCommerceSignup from '@lib/commerce/use-signup'
-import type { CreateCustomerBody } from './api/customers'
+import type { SignupBody } from './api/customers/signup'
 
 const defaultOpts = {
-  url: '/api/bigcommerce/customers',
+  url: '/api/bigcommerce/customers/signup',
   method: 'POST',
 }
 
-export type SignupInput = CreateCustomerBody
+export type SignupInput = SignupBody
 
-export const fetcher: HookFetcher<null, CreateCustomerBody> = (
+export const fetcher: HookFetcher<null, SignupBody> = (
   options,
   { firstName, lastName, email, password },
   fetch
