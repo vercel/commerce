@@ -3,7 +3,7 @@ import { BigcommerceConfig, getConfig } from '..'
 
 export type BigcommerceApiHandler<
   T = any,
-  H extends BigcommerceHandlers<T> = {},
+  H extends BigcommerceHandlers = {},
   Options extends {} = {}
 > = (
   req: NextApiRequest,
