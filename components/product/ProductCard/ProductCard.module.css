@@ -35,6 +35,26 @@
     &:nth-child(6n + 6) .wishlistButton {
       @apply bg-cyan text-white;
     }
+
+    & .squareBg {
+      @apply bg-white;
+    }
+
+    &:nth-child(6n + 1) .squareBg {
+      @apply bg-white;
+    }
+
+    &:nth-child(6n + 5) .squareBg {
+      @apply bg-white;
+    }
+
+    &:nth-child(6n + 3) .squareBg {
+      @apply bg-white;
+    }
+
+    &:nth-child(6n + 6) .squareBg {
+      @apply bg-white;
+    }
   }
 
   &:nth-child(6n + 1) .squareBg {
@@ -58,7 +78,7 @@
 .productTitle > span,
 .productPrice,
 .wishlistButton {
-  @apply transition ease-in-out duration-300;
+  @apply transition ease-in-out duration-500;
 }
 
 .squareBg {
