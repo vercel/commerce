@@ -14,12 +14,7 @@ export const fetcher: HookFetcher<Cart | null, CartInput> = (
   { cartId },
   fetch
 ) => {
-  return cartId
-    ? fetch({
-        url: options?.url,
-        query: options?.query,
-      })
-    : null
+  return cartId ? fetch({ ...options }) : null
 }
 
 export function extendHook(

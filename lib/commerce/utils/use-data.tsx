@@ -12,6 +12,7 @@ export default function useData<T, Input = any>(
   const fetcher = (url?: string, query?: string, ...args: any[]) => {
     return fetcherFn(
       { url, query },
+      // Transform the input array into an object
       args.reduce((obj, val, i) => {
         obj[input[i][0]!] = val
         return obj
