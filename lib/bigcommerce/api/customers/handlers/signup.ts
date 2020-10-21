@@ -20,40 +20,40 @@ const signup: SignupHandlers['signup'] = async ({
 
   let result: { data?: any } = {}
 
-  try {
-    result = await config.storeApiFetch('/v3/customers', {
-      method: 'POST',
-      body: JSON.stringify([
-        {
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          authentication: {
-            new_password: password,
-          },
-        },
-      ]),
-    })
-  } catch (error) {
-    if (error instanceof BigcommerceApiError && error.status === 422) {
-      const hasEmailError = '0.email' in error.data?.errors
+  // try {
+  //   result = await config.storeApiFetch('/v3/customers', {
+  //     method: 'POST',
+  //     body: JSON.stringify([
+  //       {
+  //         first_name: firstName,
+  //         last_name: lastName,
+  //         email,
+  //         authentication: {
+  //           new_password: password,
+  //         },
+  //       },
+  //     ]),
+  //   })
+  // } catch (error) {
+  //   if (error instanceof BigcommerceApiError && error.status === 422) {
+  //     const hasEmailError = '0.email' in error.data?.errors
 
-      // If there's an error with the email, it most likely means it's duplicated
-      if (hasEmailError) {
-        return res.status(400).json({
-          data: null,
-          errors: [
-            {
-              message: 'The email is already in use',
-              code: 'duplicated_email',
-            },
-          ],
-        })
-      }
-    }
+  //     // If there's an error with the email, it most likely means it's duplicated
+  //     if (hasEmailError) {
+  //       return res.status(400).json({
+  //         data: null,
+  //         errors: [
+  //           {
+  //             message: 'The email is already in use',
+  //             code: 'duplicated_email',
+  //           },
+  //         ],
+  //       })
+  //     }
+  //   }
 
-    throw error
-  }
+  //   throw error
+  // }
 
   console.log('DATA', result.data)
 
