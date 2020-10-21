@@ -30,10 +30,10 @@
   }
 
   & .dropdownMenuContainer {
-    @apply flex-col py-6 bg-primary h-full justify-around h-auto;
+    @apply flex-col py-6 bg-primary h-full justify-around;
 
     @screen lg {
-      @apply border border-accents-1 shadow-lg py-2;
+      @apply border border-accents-1 shadow-lg py-2 h-auto;
     }
   }
 

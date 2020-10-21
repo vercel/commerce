@@ -1,31 +1,36 @@
-import { FC, useState } from 'react'
+import Link from 'next/link'
 import cn from 'classnames'
-import useCart from '@lib/bigcommerce/cart/use-cart'
+import s from './UserNav.module.css'
+import { FC, useState, useRef, useCallback } from 'react'
+import { useTheme } from 'next-themes'
 import { Avatar } from '@components/core'
 import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'
-import s from './UserNav.module.css'
-import Link from 'next/link'
-import { Logo } from '@components/ui'
-import { Toggle } from '@components/core'
-import { useTheme } from 'next-themes'
+import { FocusScope } from '@react-aria/focus'
+
+import {
+  useOverlay,
+  DismissButton,
+  usePreventScroll,
+} from '@react-aria/overlays'
+import useCart from '@lib/bigcommerce/cart/use-cart'
 
 interface Props {
   className?: string
 }
 
 const countItem = (count: number, item: any) => count + item.quantity
-
 const countItems = (count: number, items: any[]) =>
   items.reduce(countItem, count)
 
-const UserNav: FC<Props> = ({ className }) => {
+const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { data } = useCart()
-  const [displayDropdown, setDisplayDropdown] = useState(true)
   const { openSidebar, closeSidebar, displaySidebar } = useUI()
+  const [displayDropdown, setDisplayDropdown] = useState(false)
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
-  const { theme, setTheme } = useTheme()
+  let ref = useRef() as React.MutableRefObject<HTMLInputElement>
 
+  const toggleDropdown = () => setDisplayDropdown((v) => !v)
   return (
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
@@ -46,18 +51,47 @@ const UserNav: FC<Props> = ({ className }) => {
               <Heart />
             </li>
           </Link>
-          <li
-            className={s.item}
-            onClick={() => {
-              setDisplayDropdown((i) => !i)
-            }}
-          >
+          <li className={s.item} onClick={() => toggleDropdown()}>
             <Avatar />
           </li>
         </ul>
       </div>
+      <DismissButton onDismiss={() => setDisplayDropdown(false)} />
+      {displayDropdown && (
+        <DropdownMenu
+          onClose={() => setDisplayDropdown(false)}
+          innerRef={ref}
+        />
+      )}
+    </nav>
+  )
+}
 
-      <div className={cn(s.dropdownMenu, { [s.off]: displayDropdown })}>
+interface DropdownMenuProps {
+  onClose: () => void
+  innerRef: React.MutableRefObject<HTMLInputElement>
+}
+
+const DropdownMenu: FC<DropdownMenuProps> = ({
+  onClose,
+  children,
+  innerRef,
+  ...props
+}) => {
+  const { theme, setTheme } = useTheme()
+
+  let { overlayProps } = useOverlay(
+    {
+      onClose: onClose,
+      isOpen: true,
+    },
+    innerRef
+  )
+
+  usePreventScroll()
+  return (
+    <FocusScope contain restoreFocus autoFocus>
+      <div className={cn(s.dropdownMenu)} ref={innerRef} {...overlayProps}>
         <nav className={s.dropdownMenuContainer}>
           <Link href="#">
             <a className={s.link}>My Purchases</a>
@@ -80,7 +114,7 @@ const UserNav: FC<Props> = ({ className }) => {
           </Link>
         </nav>
       </div>
-    </nav>
+    </FocusScope>
   )
 }
 
