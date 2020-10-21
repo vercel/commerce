@@ -1,10 +1,11 @@
 import { FC, useState } from 'react'
 import cn from 'classnames'
 import useCart from '@lib/bigcommerce/cart/use-cart'
-import { Avatar } from '@components/core'
+import { Avatar, Toggle } from '@components/core'
 import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import s from './UserNav.module.css'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 interface Props {
   className?: string
@@ -17,6 +18,7 @@ const countItems = (count: number, items: any[]) =>
 
 const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
+  const { theme, setTheme } = useTheme()
   const [displayDropdown, setDisplayDropdown] = useState(false)
   const { openSidebar, closeSidebar, displaySidebar } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
@@ -59,6 +61,17 @@ const UserNav: FC<Props> = ({ className }) => {
             <Link href="#">
               <a className={s.link}>My Account</a>
             </Link>
+            <span className="inline-flex items-start px-6 py-2">
+              <span className="capitalize inline-block mr-2 text-base leading-6 font-medium text-gray-900">
+                Theme
+              </span>
+              <Toggle
+                checked={theme === 'dark'}
+                onChange={() =>
+                  theme === 'dark' ? setTheme('light') : setTheme('dark')
+                }
+              />
+            </span>
             <Link href="#">
               <a className={cn(s.link, 'mt-4')}>Logout</a>
             </Link>

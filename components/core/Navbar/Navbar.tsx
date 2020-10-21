@@ -1,16 +1,16 @@
 import s from './Navbar.module.css'
 import { FC } from 'react'
 import Link from 'next/link'
-import { useTheme } from 'next-themes'
 import { Logo } from '@components/ui'
-import { Searchbar, Toggle, UserNav } from '@components/core'
+import { Searchbar, UserNav } from '@components/core'
+
 interface Props {
   className?: string
 }
 
 const Navbar: FC<Props> = ({ className }) => {
   const rootClassName = className
-  const { theme, setTheme } = useTheme()
+
   return (
     <div className={rootClassName}>
       <div className="flex justify-between align-center flex-row py-4 md:py-6 relative">
@@ -38,12 +38,6 @@ const Navbar: FC<Props> = ({ className }) => {
         </div>
 
         <div className="flex flex-1 justify-end space-x-8">
-          <Toggle
-            checked={theme === 'dark'}
-            onChange={() =>
-              theme === 'dark' ? setTheme('light') : setTheme('dark')
-            }
-          />
           <UserNav />
         </div>
       </div>

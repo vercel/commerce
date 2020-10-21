@@ -26,6 +26,6 @@
   }
 
   & .link {
-    @apply px-6 py-3 block space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900;
+    @apply px-6 py-3 flex items-center space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900;
   }
 }
