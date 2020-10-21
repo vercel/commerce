@@ -20,7 +20,7 @@ const Navbar: FC<Props> = ({ className }) => {
               <Logo />
             </a>
           </Link>
-          <nav className="space-x-4 ml-6 sm:hidden lg:block">
+          <nav className="space-x-4 ml-6 hidden lg:block">
             <Link href="/">
               <a className={s.link}>All</a>
             </Link>
@@ -33,7 +33,7 @@ const Navbar: FC<Props> = ({ className }) => {
           </nav>
         </div>
 
-        <div className="lg:flex flex-1 justify-center sm:hidden">
+        <div className="flex-1 justify-center hidden lg:flex">
           <Searchbar />
         </div>
 
@@ -48,7 +48,7 @@ const Navbar: FC<Props> = ({ className }) => {
         </div>
       </div>
 
-      <div className="sm:flex pb-4 lg:px-6 lg:hidden">
+      <div className="flex pb-4 lg:px-6 lg:hidden">
         <Searchbar />
       </div>
     </div>
