@@ -3,14 +3,29 @@ export interface CommerceAPIConfig {
   apiToken: string
   cartCookie: string
   cartCookieMaxAge: number
-  fetch<Q, V = any>(
+  fetch<Data = any, Variables = any>(
     query: string,
-    queryData?: CommerceAPIFetchOptions<V>
-  ): Promise<Q>
+    queryData?: CommerceAPIFetchOptions<Variables>,
+    fetchOptions?: RequestInit
+  ): Promise<GraphQLFetcherResult<Data>>
 }
 
-export interface CommerceAPIFetchOptions<V> {
-  variables?: V
+export type GraphQLFetcher<
+  Data extends GraphQLFetcherResult = GraphQLFetcherResult,
+  Variables = any
+> = (
+  query: string,
+  queryData?: CommerceAPIFetchOptions<Variables>,
+  fetchOptions?: RequestInit
+) => Promise<Data>
+
+export interface GraphQLFetcherResult<Data = any> {
+  data: Data
+  res: Response
+}
+
+export interface CommerceAPIFetchOptions<Variables> {
+  variables?: Variables
   preview?: boolean
 }
 

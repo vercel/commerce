@@ -1,8 +1,10 @@
+import type { ServerResponse } from 'http'
 import type {
   LoginMutation,
   LoginMutationVariables,
 } from 'lib/bigcommerce/schema'
 import type { RecursivePartial } from '../utils/types'
+import concatHeader from '../utils/concat-cookie'
 import { BigcommerceConfig, getConfig } from '..'
 
 export const loginMutation = /* GraphQL */ `
@@ -20,28 +22,41 @@ export type LoginVariables = LoginMutationVariables
 async function login(opts: {
   variables: LoginVariables
   config?: BigcommerceConfig
+  res: ServerResponse
 }): Promise<LoginResult>
 
 async function login<T extends { result?: any }, V = any>(opts: {
   query: string
   variables: V
+  res: ServerResponse
   config?: BigcommerceConfig
 }): Promise<LoginResult<T>>
 
 async function login({
   query = loginMutation,
   variables,
+  res: response,
   config,
 }: {
   query?: string
   variables: LoginVariables
+  res: ServerResponse
   config?: BigcommerceConfig
 }): Promise<LoginResult> {
   config = getConfig(config)
 
-  const data = await config.fetch<RecursivePartial<LoginMutation>>(query, {
-    variables,
-  })
+  const { data, res } = await config.fetch<RecursivePartial<LoginMutation>>(
+    query,
+    { variables }
+  )
+  const cookie = res.headers.get('Set-Cookie')
+
+  if (cookie && typeof cookie === 'string') {
+    response.setHeader(
+      'Set-Cookie',
+      concatHeader(response.getHeader('Set-Cookie'), cookie)!
+    )
+  }
 
   return {
     result: data.login?.result,
