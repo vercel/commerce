@@ -2,9 +2,10 @@ import { FC, ReactNode, Component } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './ProductCard.module.css'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
+import getPathname from '@lib/get-pathname'
 import { Heart } from '@components/icon'
+import s from './ProductCard.module.css'
 
 interface Props {
   className?: string
@@ -16,11 +17,6 @@ interface Props {
   priority?: boolean
 }
 
-function getImagePath(imageUrl: string) {
-  const url = new URL(imageUrl)
-  return url.pathname
-}
-
 const ProductCard: FC<Props> = ({
   className,
   product: p,
@@ -29,7 +25,7 @@ const ProductCard: FC<Props> = ({
   imgHeight,
   priority,
 }) => {
-  const src = getImagePath(p.images.edges?.[0]?.node.urlOriginal!)
+  const src = getPathname(p.images.edges?.[0]?.node.urlOriginal!)
 
   if (variant === 'slim') {
     return (
