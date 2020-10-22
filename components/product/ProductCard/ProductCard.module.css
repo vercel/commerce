@@ -2,8 +2,12 @@
   @apply relative w-full box-border overflow-hidden bg-no-repeat bg-center bg-cover transition ease-linear cursor-pointer;
 
   &:hover {
-    & .squareBg {
-      @apply scale-75;
+    & .squareBg:before {
+      transform: scale(0.98);
+    }
+
+    & .product-image {
+      transform: scale(1.05);
     }
 
     & .productTitle > span,
@@ -37,6 +41,10 @@
     }
   }
 
+  & .product-image {
+    @apply transform transition-transform duration-500;
+  }
+
   &:nth-child(6n + 1) .squareBg {
     @apply bg-violet;
   }
@@ -58,16 +66,23 @@
 .productTitle > span,
 .productPrice,
 .wishlistButton {
-  @apply transition ease-in-out duration-300;
+  @apply transition ease-in-out duration-500;
 }
 
 .squareBg {
-  @apply transform absolute inset-0 z-0 bg-secondary;
+  @apply transform absolute inset-0 z-0;
+  background-color: #212529;
+}
+
+.squareBg:before {
+  @apply transition ease-in-out duration-500 bg-repeat-space w-full h-full block;
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg width='48' height='46' viewBox='0 0 48 46' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline opacity='0.1' x1='9.41421' y1='8' x2='21' y2='19.5858' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline opacity='0.1' x1='1' y1='-1' x2='17.3848' y2='-1' transform='matrix(-0.707107 0.707107 0.707107 0.707107 40 8)' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline opacity='0.1' x1='1' y1='-1' x2='17.3848' y2='-1' transform='matrix(0.707107 -0.707107 -0.707107 -0.707107 8 38)' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline opacity='0.1' x1='38.5858' y1='38' x2='27' y2='26.4142' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
 }
 
 .simple {
   & .squareBg {
-    @apply bg-gray-300 !important;
+    @apply bg-accents-0 !important;
   }
 
   & .productTitle {
@@ -102,5 +117,5 @@
 }
 
 .wishlistButton {
-  @apply w-10 h-10 flex items-center justify-center bg-primary text-base font-semibold inline-block text-xs leading-6 cursor-pointer;
+  @apply w-10 h-10 flex ml-auto items-center justify-center bg-primary text-base font-semibold inline-block text-xs leading-6 cursor-pointer;
 }
