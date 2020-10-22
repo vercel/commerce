@@ -2,12 +2,11 @@ import Link from 'next/link'
 import cn from 'classnames'
 import s from './UserNav.module.css'
 import { FC, useRef } from 'react'
-
 import { Avatar } from '@components/core'
 import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
-
+import { Menu } from '@headlessui/react'
 import useCart from '@lib/bigcommerce/cart/use-cart'
 
 interface Props {
@@ -48,22 +47,24 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
             )}
           </li>
           <Link href="/wishlist">
-            <li className={cn(s.item, s.heart)}>
+            <li className={s.item}>
               <Heart />
             </li>
           </Link>
-          <li
-            className={s.item}
-            onClick={() => (displayDropdown ? closeDropdown() : openDropdown())}
-          >
-            <Avatar />
+          <li className={s.item}>
+            <Menu>
+              {({ open }) => (
+                <>
+                  <Menu.Button className="inline-flex justify-center rounded-full">
+                    <Avatar />
+                  </Menu.Button>
+                  <DropdownMenu onClose={closeDropdown} open={open} />
+                </>
+              )}
+            </Menu>
           </li>
         </ul>
       </div>
-
-      {displayDropdown && (
-        <DropdownMenu onClose={closeDropdown} innerRef={ref} />
-      )}
     </nav>
   )
 }

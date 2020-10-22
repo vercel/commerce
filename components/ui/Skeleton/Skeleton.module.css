@@ -1,5 +1,5 @@
 .skeleton {
-  @apply block rounded;
+  @apply block;
   background-image: linear-gradient(
     270deg,
     var(--accents-1),

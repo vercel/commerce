@@ -12,7 +12,7 @@ const Avatar: FC<Props> = ({}) => {
 
   return (
     <div
-      className="inline-block h-8 w-8 rounded-full border-2 border-accents-2 transition-colors duration-150"
+      className="inline-block h-8 w-8 rounded-full border-2 border-primary hover:border-secondary transition linear-out duration-150"
       style={{
         backgroundImage: `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`,
       }}

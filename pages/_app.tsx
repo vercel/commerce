@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 import '@assets/global.css'
 import '@assets/tailwind.css'
 import '@assets/utils.css'
 import 'keen-slider/keen-slider.min.css'
+=======
+import '@assets/main.css'
+>>>>>>> master
 
 // To be removed
 import 'animate.css'

@@ -1,74 +1,75 @@
-import { useTheme } from 'next-themes'
-import s from './DropdownMenu.module.css'
 import { FC } from 'react'
-import { FocusScope } from '@react-aria/focus'
-import {
-  useOverlay,
-  DismissButton,
-  usePreventScroll,
-} from '@react-aria/overlays'
 import Link from 'next/link'
+import { useTheme } from 'next-themes'
 import cn from 'classnames'
+import s from './DropdownMenu.module.css'
 import { Moon, Sun } from '@components/icon'
+import { Menu, Transition } from '@headlessui/react'
+import { usePreventScroll } from '@react-aria/overlays'
 interface DropdownMenuProps {
   onClose: () => void
-  innerRef: React.MutableRefObject<HTMLInputElement>
+  open: boolean
 }
 
 const DropdownMenu: FC<DropdownMenuProps> = ({
   onClose,
   children,
-  innerRef,
+  open = false,
   ...props
 }) => {
   const { theme, setTheme } = useTheme()
 
-  let { overlayProps } = useOverlay(
-    {
-      isDismissable: true,
-      onClose: onClose,
-      isOpen: true,
-    },
-    innerRef
-  )
+  usePreventScroll({
+    isDisabled: !open,
+  })
 
-  usePreventScroll()
   return (
-    <FocusScope restoreFocus>
-      <div className={cn(s.dropdownMenu)} ref={innerRef} {...overlayProps}>
-        {/* Needed placeholder for User Interation*/}
-        <div className="flex justify-end">
-          <span onClick={onClose} className="bg-transparent h-12 w-12" />
-        </div>
-
-        <nav className={s.dropdownMenuContainer}>
-          <Link href="#">
-            <a className={s.link}>My Purchases</a>
-          </Link>
-          <Link href="#">
-            <a className={s.link}>My Account</a>
-          </Link>
-          <a
-            className={s.link}
-            onClick={() =>
-              theme === 'dark' ? setTheme('light') : setTheme('dark')
-            }
-          >
-            <span>
-              Theme: <strong>{theme}</strong>{' '}
-            </span>
-            <span className={s.icons}>
-              {theme === 'dark' ? <Moon /> : <Sun />}
-            </span>
-          </a>
-          <Link href="#">
+    <Transition
+      show={open}
+      enter="transition ease-out duration-100 z-20"
+      enterFrom="transform opacity-0 scale-95"
+      enterTo="transform opacity-100 scale-100"
+      leave="transition ease-in duration-75"
+      leaveFrom="transform opacity-100 scale-100"
+      leaveTo="transform opacity-0 scale-95"
+    >
+      <Menu.Items className={s.dropdownMenu}>
+        <Menu.Item>
+          {({ active }) => <a className={s.link}>My Purchases</a>}
+        </Menu.Item>
+        <Menu.Item>
+          {({ active }) => <a className={s.link}>My Account</a>}
+        </Menu.Item>
+        <Menu.Item>
+          {({ active }) => (
+            <a
+              className={cn(s.link, 'justify-between')}
+              onClick={() =>
+                theme === 'dark' ? setTheme('light') : setTheme('dark')
+              }
+            >
+              <div>
+                Theme: <strong>{theme}</strong>{' '}
+              </div>
+              <div className="ml-3">
+                {theme == 'dark' ? (
+                  <Moon width={20} height={20} />
+                ) : (
+                  <Sun width="20" height={20} />
+                )}
+              </div>
+            </a>
+          )}
+        </Menu.Item>
+        <Menu.Item>
+          {({ active }) => (
             <a className={cn(s.link, 'border-t border-accents-2 mt-4')}>
               Logout
             </a>
-          </Link>
-        </nav>
-      </div>
-    </FocusScope>
+          )}
+        </Menu.Item>
+      </Menu.Items>
+    </Transition>
   )
 }
 

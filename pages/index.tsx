@@ -70,7 +70,7 @@ export default function Home({
         ))}
       </Grid>
       <Marquee variant="secondary">
-        {bestSelling.slice(0, 3).map(({ node }) => (
+        {bestSelling.slice(3, 6).map(({ node }) => (
           <ProductCard key={node.path} product={node} variant="slim" />
         ))}
       </Marquee>

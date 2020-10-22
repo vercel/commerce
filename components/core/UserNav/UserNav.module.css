@@ -12,14 +12,14 @@
 .item {
   @apply mr-6 cursor-pointer relative transition ease-in-out duration-150 text-base flex items-center;
   &:hover {
-    @apply text-accents-8 transition ease-in-out duration-100 transform scale-110;
-  }
-
-  &.heart:hover svg {
-    fill: var(--accents-9);
+    @apply text-accents-8 transition scale-110 duration-100;
   }
 
   &:last-child {
     @apply mr-0;
+  }
+
+  &:focus {
+    outline: none;
   }
 }
