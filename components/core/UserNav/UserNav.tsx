@@ -7,7 +7,7 @@ import { Avatar } from '@components/core'
 import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
-
+import { Menu, Transition } from '@headlessui/react'
 import useCart from '@lib/bigcommerce/cart/use-cart'
 
 interface Props {
@@ -52,18 +52,30 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
               <Heart />
             </li>
           </Link>
-          <li
-            className={s.item}
-            onClick={() => (displayDropdown ? closeDropdown() : openDropdown())}
-          >
-            <Avatar />
+          <li className={s.item}>
+            <Menu>
+              {({ open }) => (
+                <>
+                  <Menu.Button className="inline-flex justify-center">
+                    <Avatar />
+                  </Menu.Button>
+                  <Transition
+                    show={open}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <DropdownMenu onClose={closeDropdown} />
+                  </Transition>
+                </>
+              )}
+            </Menu>
           </li>
         </ul>
       </div>
-
-      {displayDropdown && (
-        <DropdownMenu onClose={closeDropdown} innerRef={ref} />
-      )}
     </nav>
   )
 }

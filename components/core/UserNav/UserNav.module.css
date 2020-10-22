@@ -13,7 +13,7 @@
   @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-base flex items-center;
 
   &:hover {
-    @apply text-accents-8 transition ease-in-out duration-100 transform scale-110;
+    @apply text-accents-8;
   }
 
   &.heart:hover svg {
