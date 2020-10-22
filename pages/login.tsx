@@ -4,7 +4,7 @@ import { Logo, Modal, Button } from '@components/ui'
 
 export default function Login() {
   const signup = useSignup()
-  // TODO: use this method
+  // TODO: use this method. It can take more than 5 seconds to do a signup
   const handleSignup = async () => {
     // TODO: validate the password and email before calling the signup
     // Passwords must be at least 7 characters and contain both alphabetic

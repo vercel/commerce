@@ -17,8 +17,7 @@ const loginHandler: LoginHandlers['login'] = async ({
   // Passwords must be at least 7 characters and contain both alphabetic
   // and numeric characters.
 
-  // TODO: Currently not working, fix this asap.
-  const loginData = await login({ variables: { email, password }, config })
+  await login({ variables: { email, password }, config, res })
 
   res.status(200).json({ data: null })
 }
