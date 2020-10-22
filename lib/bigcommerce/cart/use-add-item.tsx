@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
-import { HookFetcher } from '@lib/commerce/utils/types'
+import type { HookFetcher } from '@lib/commerce/utils/types'
+import { CommerceError } from '@lib/commerce/utils/errors'
 import useCartAddItem from '@lib/commerce/cart/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/cart'
 import useCart, { Cart } from './use-cart'
@@ -20,9 +21,9 @@ export const fetcher: HookFetcher<Cart, AddItemBody> = (
     item.quantity &&
     (!Number.isInteger(item.quantity) || item.quantity! < 1)
   ) {
-    throw new Error(
-      'The item quantity has to be a valid integer greater than 0'
-    )
+    throw new CommerceError({
+      message: 'The item quantity has to be a valid integer greater than 0',
+    })
   }
 
   return fetch({

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
-import { HookFetcher } from '@lib/commerce/utils/types'
+import type { HookFetcher } from '@lib/commerce/utils/types'
+import { CommerceError } from '@lib/commerce/utils/errors'
 import useCartUpdateItem from '@lib/commerce/cart/use-update-item'
 import type { ItemBody, UpdateItemBody } from '../api/cart'
 import { fetcher as removeFetcher } from './use-remove-item'
@@ -24,7 +25,9 @@ export const fetcher: HookFetcher<Cart | null, UpdateItemBody> = (
       return removeFetcher(null, { itemId }, fetch)
     }
   } else if (item.quantity) {
-    throw new Error('The item quantity has to be a valid integer')
+    throw new CommerceError({
+      message: 'The item quantity has to be a valid integer',
+    })
   }
 
   return fetch({
