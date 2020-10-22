@@ -21,7 +21,7 @@ export type CommerceConfig = { fetcher: Fetcher<any> } & Omit<
 >
 
 export type CommerceContextValue = {
-  fetcherRef: MutableRefObject<any>
+  fetcherRef: MutableRefObject<Fetcher<any>>
   locale: string
   cartCookie: string
 }
