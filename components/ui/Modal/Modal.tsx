@@ -2,13 +2,7 @@ import cn from 'classnames'
 import { FC, useRef } from 'react'
 import s from './Modal.module.css'
 import { useDialog } from '@react-aria/dialog'
-import {
-  useOverlay,
-  usePreventScroll,
-  useModal,
-  OverlayProvider,
-  OverlayContainer,
-} from '@react-aria/overlays'
+import { useOverlay, usePreventScroll, useModal } from '@react-aria/overlays'
 import { FocusScope } from '@react-aria/focus'
 
 interface Props {
