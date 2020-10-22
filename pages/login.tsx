@@ -2,10 +2,12 @@ import useSignup from '@lib/bigcommerce/use-signup'
 import { Layout } from '@components/core'
 import { Logo, Modal, Button } from '@components/ui'
 import useLogin from '@lib/bigcommerce/use-login'
+import useLogout from '@lib/bigcommerce/use-logout'
 
 export default function Login() {
   const signup = useSignup()
   const login = useLogin()
+  const logout = useLogout()
   // TODO: use this method. It can take more than 5 seconds to do a signup
   const handleSignup = async () => {
     // TODO: validate the password and email before calling the signup
