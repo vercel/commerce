@@ -71,9 +71,10 @@ async function getProduct({
     ...vars,
     path: slug ? `/${slug}/` : vars.path!,
   }
-  const data = await config.fetch<RecursivePartial<GetProductQuery>>(query, {
-    variables,
-  })
+  const { data } = await config.fetch<RecursivePartial<GetProductQuery>>(
+    query,
+    { variables }
+  )
   const product = data.site?.route?.node
 
   if (product?.__typename === 'Product') {
