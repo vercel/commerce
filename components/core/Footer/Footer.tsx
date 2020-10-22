@@ -21,7 +21,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
   return (
     <footer className={rootClassName}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 border-b border-accents-2 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12">
           <div className="col-span-1 lg:col-span-2">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
@@ -33,8 +33,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </Link>
           </div>
           <div className="col-span-1 lg:col-span-2">
-            {' '}
-            <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
+            <ul className="flex flex-initial flex-col md:flex-1">
               <li className="py-3 md:py-0 md:pb-4">
                 <Link href="/">
                   <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
@@ -68,7 +67,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </ul>
           </div>
           <div className="col-span-1 lg:col-span-2">
-            <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
+            <ul className="flex flex-initial flex-col md:flex-1">
               {legalPages.map((page) => (
                 <li key={page.url} className="py-3 md:py-0 md:pb-4">
                   <Link href={page.url!}>
@@ -80,18 +79,18 @@ const Footer: FC<Props> = ({ className, pages }) => {
               ))}
             </ul>
           </div>
-          <div className="col-span-1 lg:col-span-6 flex justify-end">
-            <div className="text-white">
+          <div className="col-span-1 lg:col-span-6 flex lg:justify-end text-white">
+            <div>
               <Github />
             </div>
           </div>
         </div>
-        <div className="py-12 flex flex-row justify-between">
-          <small className="text-white">
-            &copy; 2020 ACME, Inc. All rights reserved.
-          </small>
+        <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
+          <div className="text-white">
+            <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
+          </div>
           <div className="flex items-center text-accents-4">
-            Crafted by
+            <span>Crafted by</span>
             <a href="https://vercel.com">
               <img
                 src="/vercel.png"
