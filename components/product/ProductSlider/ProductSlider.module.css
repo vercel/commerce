@@ -1,22 +1,48 @@
 .root {
-  @apply relative w-full h-full;
+  @apply relative w-full h-full relative;
   overflow-y: hidden;
+}
 
-  & > div {
-    overflow: visible !important;
+.leftControl,
+.rightControl {
+  @apply text-white absolute top-1/2 -translate-x-1/2 z-20 w-16 h-16 flex items-center justify-center bg-hover-1 rounded focus:outline-none focus:shadow-outline-blue hover:bg-hover-2;
+}
+
+.leftControl {
+  @apply left-6;
+}
+
+.rightControl {
+  @apply right-6 rotate-180 transform;
+}
+
+.control {
+  @apply opacity-0 transition-all duration-150;
+}
+
+.root:hover .control {
+  @apply opacity-100;
+}
+
+.positionIndicatorsContainer {
+  @apply hidden;
+  @screen sm {
+    @apply block absolute bottom-6 left-1/2 -translate-x-1/2 transform;
   }
 }
 
-.rootPanel {
-  @apply absolute flex flex-row inset-0 z-20 m-20;
+.positionIndicator {
+  @apply bg-hover-1 hover:bg-hover-2 transition-colors w-3 h-3 rounded-full mx-2 focus:outline-none;
 }
 
-.leftPanel {
-  @apply flex-1;
-  cursor: url('/cursor-left.png'), auto;
+.positionIndicatorActive {
+  @apply bg-white hover:bg-white;
 }
-
-.rightPanel {
-  @apply flex-1;
-  cursor: url('/cursor-right.png'), auto;
-}
+/* sx={{
+  width: '10px',
+  height: '10px',
+  bg: currentSlide === idx ? 'primary' : 'gray',
+  borderRadius: 'full',
+  mx: 2,
+  '&:focus': { outline: 'none' },
+}} */

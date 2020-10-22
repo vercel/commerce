@@ -2,7 +2,7 @@
   @apply relative grid items-start gap-8 grid-cols-1;
 
   @screen lg {
-    @apply grid-cols-12 pt-10;
+    @apply grid-cols-12;
   }
 }
 
@@ -24,17 +24,11 @@
 }
 
 .squareBg {
-  @apply absolute inset-0 bg-violet z-0;
-  max-height: 250px;
-
-  @screen md {
-    @apply inset-20;
-    max-height: 500px;
-  }
+  @apply absolute inset-0 bg-violet z-0 h-full;
 }
 
 .nameBox {
-  @apply absolute top-6 left-0 z-10;
+  @apply absolute top-6 left-6 z-20;
 
   & .name {
     @apply px-6 py-2 bg-primary text-primary font-bold;
@@ -49,7 +43,7 @@
   @screen md {
     & .name,
     & .price {
-      @apply bg-violet text-white;
+      @apply bg-hover-1 text-white;
     }
   }
 }
@@ -67,22 +61,7 @@
 }
 
 .img {
-  @apply w-full h-full object-cover;
-
-  @screen md {
-    height: 100%;
-    margin-top: -2.75rem;
-  }
-
-  @screen lg {
-    height: 150%;
-    margin-top: -10%;
-  }
-
-  @screen xl {
-    height: 170%;
-    margin-top: -19%;
-  }
+  @apply w-full h-auto max-h-full object-cover;
 }
 
 .button {
