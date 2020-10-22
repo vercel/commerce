@@ -139,6 +139,8 @@ const ProductView: FC<Props> = ({ product, className }) => {
             </div>
           </section>
         </div>
+
+        {/* TODO make it work */}
         <div className={s.wishlistButton}>
           <Heart />
         </div>
