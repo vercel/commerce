@@ -3,7 +3,8 @@ import cn from 'classnames'
 import Link from 'next/link'
 import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSlug from '@utils/get-slug'
-import { Logo } from '@components/ui'
+import { Logo, Container } from '@components/ui'
+import { Github } from '@components/icon'
 
 interface Props {
   className?: string
@@ -14,53 +15,93 @@ interface Props {
 const LEGAL_PAGES = ['terms-of-use', 'shipping-returns', 'privacy-policy']
 
 const Footer: FC<Props> = ({ className, pages }) => {
-  const rootClassName = cn(
-    'flex flex-col p-6 md:py-12 md:flex-row flex-wrap max-w-screen-xl m-auto',
-    className
-  )
+  const rootClassName = cn(className)
   const { sitePages, legalPages } = getPages(pages)
 
   return (
-    <div className="bg-black text-white">
-      <footer className={rootClassName}>
-        <Link href="/">
-          <a className="flex flex-initial items-center md:items-start font-bold md:mr-24">
-            <span className="rounded-full border border-gray-700 mr-2">
-              <Logo />
-            </span>
-            <span>ACME</span>
-          </a>
-        </Link>
-
-        <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
-          {sitePages.map((page) => (
-            <li key={page.url} className="py-3 md:py-0 md:pb-4">
-              <Link href={page.url!}>
-                <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
-                  {page.name}
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
-          {legalPages.map((page) => (
-            <li key={page.url} className="py-3 md:py-0 md:pb-4">
-              <Link href={page.url!}>
-                <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
-                  {page.name}
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <small className="text-base">
-          &copy; 2020 ACME, Inc. All rights reserved.
-        </small>
-      </footer>
-    </div>
+    <footer className={rootClassName}>
+      <Container>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12">
+          <div className="col-span-1 lg:col-span-2">
+            <Link href="/">
+              <a className="flex flex-initial items-center font-bold md:mr-24">
+                <span className="rounded-full border border-gray-700 mr-2">
+                  <Logo />
+                </span>
+                <span>ACME</span>
+              </a>
+            </Link>
+          </div>
+          <div className="col-span-1 lg:col-span-2">
+            <ul className="flex flex-initial flex-col md:flex-1">
+              <li className="py-3 md:py-0 md:pb-4">
+                <Link href="/">
+                  <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                    Home
+                  </a>
+                </Link>
+              </li>
+              <li className="py-3 md:py-0 md:pb-4">
+                <Link href="/">
+                  <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                    Careers
+                  </a>
+                </Link>
+              </li>
+              <li className="py-3 md:py-0 md:pb-4">
+                <Link href="/blog">
+                  <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                    Blog
+                  </a>
+                </Link>
+              </li>
+              {sitePages.map((page) => (
+                <li key={page.url} className="py-3 md:py-0 md:pb-4">
+                  <Link href={page.url!}>
+                    <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                      {page.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-1 lg:col-span-2">
+            <ul className="flex flex-initial flex-col md:flex-1">
+              {legalPages.map((page) => (
+                <li key={page.url} className="py-3 md:py-0 md:pb-4">
+                  <Link href={page.url!}>
+                    <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                      {page.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-1 lg:col-span-6 flex lg:justify-end text-white">
+            <div>
+              <Github />
+            </div>
+          </div>
+        </div>
+        <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
+          <div className="text-white">
+            <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
+          </div>
+          <div className="flex items-center text-accents-4">
+            <span>Crafted by</span>
+            <a href="https://vercel.com">
+              <img
+                src="/vercel.png"
+                alt="Vercel.com Logo"
+                className="inline-block h-6 ml-4"
+              />
+            </a>
+          </div>
+        </div>
+      </Container>
+    </footer>
   )
 }
 

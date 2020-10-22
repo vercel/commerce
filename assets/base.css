@@ -1,5 +1,3 @@
-@import './font.css';
-
 :root {
   --primary: white;
   --primary-2: #f1f3f5;
@@ -56,10 +54,6 @@
   --accents-7: #e9ecef;
   --accents-8: #f1f3f5;
   --accents-9: #f8f9fa;
-}
-
-.fit {
-  min-height: calc(100vh - 88px - 41px);
 }
 
 *,

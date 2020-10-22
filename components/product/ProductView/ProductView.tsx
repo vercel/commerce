@@ -1,14 +1,14 @@
+import cn from 'classnames'
 import { NextSeo } from 'next-seo'
+import s from './ProductView.module.css'
 import { FC, useState, useEffect } from 'react'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
-import { getProductOptions } from '../helpers'
-import s from './ProductView.module.css'
 import { isDesktop } from '@lib/browser'
-import cn from 'classnames'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
+import { getProductOptions } from '../helpers'
 interface Props {
   className?: string
   children?: any
@@ -130,7 +130,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
             ))}
             <div className="pb-12">
               <div
-                className="pb-14 break-words"
+                className="pb-14 break-words w-full"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
               <Button
