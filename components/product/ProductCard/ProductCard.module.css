@@ -7,7 +7,7 @@
     }
 
     & .product-image {
-      @apply scale-90;
+      transform: scale(0.98);
     }
 
     & .productTitle > span,
