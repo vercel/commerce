@@ -1,3 +1,4 @@
+import { FetcherError } from '@lib/commerce/utils/errors'
 import type { GraphQLFetcher } from 'lib/commerce/api'
 import { getConfig } from '..'
 import log from '@lib/logger'
@@ -25,8 +26,10 @@ const fetchGraphqlApi: GraphQLFetcher = async (
 
   const json = await res.json()
   if (json.errors) {
-    console.error(json.errors)
-    throw new Error('Failed to fetch BigCommerce API')
+    throw new FetcherError({
+      errors: json.errors ?? [{ message: 'Failed to fetch Bigcommerce API' }],
+      status: res.status,
+    })
   }
 
   return { data: json.data, res }

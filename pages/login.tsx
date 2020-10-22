@@ -1,9 +1,11 @@
 import useSignup from '@lib/bigcommerce/use-signup'
 import { Layout } from '@components/core'
 import { Logo, Modal, Button } from '@components/ui'
+import useLogin from '@lib/bigcommerce/use-login'
 
 export default function Login() {
   const signup = useSignup()
+  const login = useLogin()
   // TODO: use this method. It can take more than 5 seconds to do a signup
   const handleSignup = async () => {
     // TODO: validate the password and email before calling the signup
@@ -21,6 +23,25 @@ export default function Login() {
       if (error.code === 'duplicated_email') {
         // TODO: handle duplicated email
       }
+      // Show a generic error saying that something bad happened, try again later
+    }
+  }
+
+  const handleLogin = async () => {
+    // TODO: validate the password and email before calling the signup
+    // Passwords must be at least 7 characters and contain both alphabetic
+    // and numeric characters.
+    try {
+      await login({
+        email: 'luis@vercel.com',
+        // This is an invalid password so it will throw the "invalid_credentials" error
+        password: 'luis1234', // will work with `luis123`
+      })
+    } catch (error) {
+      if (error.code === 'invalid_credentials') {
+        // The email and password didn't match an existing account
+      }
+      // Show a generic error saying that something bad happened, try again later
     }
   }
 
