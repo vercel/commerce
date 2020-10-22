@@ -55,7 +55,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
             <Menu>
               {({ open }) => (
                 <>
-                  <Menu.Button className="inline-flex justify-center">
+                  <Menu.Button className="inline-flex justify-center rounded-full">
                     <Avatar />
                   </Menu.Button>
                   <DropdownMenu onClose={closeDropdown} open={open} />
