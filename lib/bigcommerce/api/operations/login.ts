@@ -49,9 +49,17 @@ async function login({
     query,
     { variables }
   )
-  const cookie = res.headers.get('Set-Cookie')
+  // Bigcommerce returns a Set-Cookie header with the auth cookie
+  let cookie = res.headers.get('Set-Cookie')
 
   if (cookie && typeof cookie === 'string') {
+    // In development, don't set a secure cookie or the browser will ignore it
+    if (process.env.NODE_ENV !== 'production') {
+      cookie = cookie.replace('; Secure', '')
+      // SameSite=none can't be set unless the cookie is Secure
+      cookie = cookie.replace('; SameSite=none', '; SameSite=lax')
+    }
+
     response.setHeader(
       'Set-Cookie',
       concatHeader(response.getHeader('Set-Cookie'), cookie)!
