@@ -4,7 +4,7 @@ import Link from 'next/link'
 import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSlug from '@utils/get-slug'
 import { Logo, Container } from '@components/ui'
-import { Github } from '@components/icon'
+import { Github, DoubleChevron } from '@components/icon'
 
 interface Props {
   className?: string
@@ -21,7 +21,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
   return (
     <footer className={rootClassName}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12 text-primary bg-primary">
           <div className="col-span-1 lg:col-span-2">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
@@ -79,14 +79,21 @@ const Footer: FC<Props> = ({ className, pages }) => {
               ))}
             </ul>
           </div>
-          <div className="col-span-1 lg:col-span-6 flex lg:justify-end text-white">
-            <div>
+          <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
+            <div className="flex space-x-6 items-center h-10">
               <Github />
+              <div className="h-10 px-2 rounded-md border border-accents-2 flex items-center space-x-2 justify-center">
+                <img className="" src="/flag-us.png" />
+                <span>English</span>
+                <span className="">
+                  <DoubleChevron />
+                </span>
+              </div>
             </div>
           </div>
         </div>
         <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
-          <div className="text-white">
+          <div>
             <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
           </div>
           <div className="flex items-center text-accents-4">
