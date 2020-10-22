@@ -1,5 +1,5 @@
 .root {
-  @apply relative grid items-start gap-8 grid-cols-1;
+  @apply relative grid items-start gap-8 grid-cols-1 overflow-x-hidden;
 
   @screen lg {
     @apply grid-cols-12;
@@ -49,7 +49,7 @@
 }
 
 .sidebar {
-  @apply flex flex-col col-span-1;
+  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-12 w-full;
 
   @screen lg {
     @apply col-span-5 pl-12 pt-20;
