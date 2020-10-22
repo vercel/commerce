@@ -10,6 +10,7 @@ const Sun = ({ ...props }) => {
       stroke-linejoin="round"
       fill="none"
       shape-rendering="geometricPrecision"
+      {...props}
     >
       <circle cx="12" cy="12" r="5" />
       <path d="M12 1v2" />
