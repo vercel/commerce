@@ -21,10 +21,13 @@ const Modal: FC<Props> = ({
 }) => {
   const rootClassName = cn(s.root, className)
   let ref = useRef() as React.MutableRefObject<HTMLInputElement>
-  usePreventScroll()
   let { modalProps } = useModal()
   let { overlayProps } = useOverlay(props, ref)
   let { dialogProps } = useDialog(props, ref)
+
+  usePreventScroll({
+    isDisabled: !show,
+  })
 
   return (
     <div className={rootClassName}>
