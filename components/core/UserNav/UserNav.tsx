@@ -25,12 +25,18 @@ const countItems = (count: number, items: any[]) =>
 
 const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { data } = useCart()
-  const { openSidebar, closeSidebar, displaySidebar } = useUI()
-  const [displayDropdown, setDisplayDropdown] = useState(false)
+  const {
+    openSidebar,
+    closeSidebar,
+    displaySidebar,
+    displayDropdown,
+    openDropdown,
+    closeDropdown,
+  } = useUI()
+
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
   let ref = useRef() as React.MutableRefObject<HTMLInputElement>
 
-  const toggleDropdown = () => setDisplayDropdown((v) => !v)
   return (
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
@@ -51,17 +57,17 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
               <Heart />
             </li>
           </Link>
-          <li className={s.item} onClick={() => toggleDropdown()}>
+          <li
+            className={s.item}
+            onClick={() => (displayDropdown ? closeDropdown() : openDropdown())}
+          >
             <Avatar />
           </li>
         </ul>
       </div>
-      <DismissButton onDismiss={() => setDisplayDropdown(false)} />
+
       {displayDropdown && (
-        <DropdownMenu
-          onClose={() => setDisplayDropdown(false)}
-          innerRef={ref}
-        />
+        <DropdownMenu onClose={closeDropdown} innerRef={ref} />
       )}
     </nav>
   )
@@ -82,6 +88,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
 
   let { overlayProps } = useOverlay(
     {
+      isDismissable: true,
       onClose: onClose,
       isOpen: true,
     },
@@ -90,8 +97,9 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
 
   usePreventScroll()
   return (
-    <FocusScope contain restoreFocus autoFocus>
+    <FocusScope restoreFocus>
       <div className={cn(s.dropdownMenu)} ref={innerRef} {...overlayProps}>
+        <span onClick={onClose} className="w-full bg-transparent block h-12" />
         <nav className={s.dropdownMenuContainer}>
           <Link href="#">
             <a className={s.link}>My Purchases</a>

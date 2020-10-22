@@ -22,10 +22,10 @@
 }
 
 .dropdownMenu {
-  @apply bg-primary fixed right-0 z-50 w-full h-full;
+  @apply fixed top-0 right-0 z-20 w-full h-full;
 
   @screen lg {
-    @apply absolute mt-3 right-0 w-screen;
+    @apply absolute right-0 w-screen;
     max-width: 160px;
   }
 
