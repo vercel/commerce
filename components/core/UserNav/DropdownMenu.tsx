@@ -18,7 +18,11 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
   ...props
 }) => {
   const { theme, setTheme } = useTheme()
-  usePreventScroll()
+
+  usePreventScroll({
+    isDisabled: !open,
+  })
+
   return (
     <Transition
       show={open}

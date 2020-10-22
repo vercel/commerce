@@ -24,7 +24,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
     <div className="bg-black text-white">
       <footer className={rootClassName}>
         <Link href="/">
-          <a className="flex flex-initial items-center md:items-start font-bold md:mr-24">
+          <a className="flex flex-initial items-center  font-bold md:mr-24">
             <span className="rounded-full border border-gray-700 mr-2">
               <Logo />
             </span>
