@@ -9,6 +9,8 @@ import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { isDesktop } from '@lib/browser'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
+import { Heart } from '@components/icon'
+
 interface Props {
   className?: string
   children?: any
@@ -136,6 +138,9 @@ const ProductView: FC<Props> = ({ product, className }) => {
               </Button>
             </div>
           </section>
+        </div>
+        <div className={s.wishlistButton}>
+          <Heart />
         </div>
       </div>
     </Container>

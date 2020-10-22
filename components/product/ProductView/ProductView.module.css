@@ -68,3 +68,7 @@
   min-width: 300px;
   text-align: center;
 }
+
+.wishlistButton {
+  @apply absolute right-12 text-white w-10 h-10 flex items-center justify-center bg-violet font-semibold leading-6 cursor-pointer;
+}
