@@ -6,6 +6,10 @@
       transform: scale(1.05);
     }
 
+    & .product-image {
+      @apply scale-90;
+    }
+
     & .productTitle > span,
     & .productPrice,
     & .wishlistButton {
@@ -35,6 +39,10 @@
     &:nth-child(6n + 6) .wishlistButton {
       @apply bg-cyan text-white;
     }
+  }
+
+  & .product-image {
+    @apply transform transition-transform duration-500;
   }
 
   &:nth-child(6n + 1) .squareBg {
