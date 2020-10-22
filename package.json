@@ -34,6 +34,7 @@
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
     "nextjs-progressbar": "^0.0.6",
+    "postcss-import": "^13.0.0",
     "postcss-nesting": "^7.0.1",
     "react": "^16.14.0",
     "react-aria": "^3.0.0",
