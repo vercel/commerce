@@ -9,7 +9,7 @@ import {
 } from '@react-aria/overlays'
 import Link from 'next/link'
 import cn from 'classnames'
-
+import { Moon, Sun } from '@components/icon'
 interface DropdownMenuProps {
   onClose: () => void
   innerRef: React.MutableRefObject<HTMLInputElement>
@@ -54,7 +54,12 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
               theme === 'dark' ? setTheme('light') : setTheme('dark')
             }
           >
-            Theme: <strong>{theme}</strong>
+            <span>
+              Theme: <strong>{theme}</strong>{' '}
+            </span>
+            <span className={s.icons}>
+              {theme === 'dark' ? <Moon /> : <Sun />}
+            </span>
           </a>
           <Link href="#">
             <a className={cn(s.link, 'border-t border-accents-2 mt-4')}>

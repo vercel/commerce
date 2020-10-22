@@ -3,7 +3,7 @@
 
   @screen lg {
     @apply absolute right-0 w-screen;
-    max-width: 160px;
+    max-width: 200px;
   }
 
   & .dropdownMenuContainer {
@@ -15,8 +15,12 @@
   }
 
   & .link {
-    @apply cursor-pointer px-6 py-3 block space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900;
+    @apply flex space-x-2 cursor-pointer px-6 py-3 block space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900 items-center;
     text-transform: capitalize;
+
+    & .icons svg {
+      @apply w-6 h-6;
+    }
   }
 
   &.off {
