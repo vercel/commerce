@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react'
 import cn from 'classnames'
+import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
@@ -86,11 +87,12 @@ const ProductView: FC<Props> = ({ product, className }) => {
             <ProductSlider>
               {/** TODO: Change with Image Component  **/}
               {product.images.edges?.map((image, i) => (
-                <img
-                  key={image?.node.urlSmall}
-                  className={s.img}
-                  src={image?.node.urlXL}
-                  loading={i === 0 ? 'eager' : 'lazy'}
+                <Image
+                  key={image?.node.urlOriginal}
+                  src={getPathname(image?.node.urlOriginal!)}
+                  width={1200}
+                  height={1200}
+                  priority={i === 0}
                 />
               ))}
             </ProductSlider>
