@@ -36,7 +36,7 @@ const ProductCard: FC<Props> = ({ className, product: p, variant }) => {
       >
         <div className="absolute z-10 inset-0 flex items-center justify-center">
           <img
-            className="w-full object-cover"
+            className={cn('w-full object-cover', s['product-image'])}
             src={p.images.edges?.[0]?.node.urlXL}
           />
         </div>
