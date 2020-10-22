@@ -24,7 +24,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 border-b border-accents-2 py-6">
           <div className="col-span-1 lg:col-span-2">
             <Link href="/">
-              <a className="flex flex-initial items-center  font-bold md:mr-24">
+              <a className="flex flex-initial items-center font-bold md:mr-24">
                 <span className="rounded-full border border-gray-700 mr-2">
                   <Logo />
                 </span>
@@ -81,11 +81,8 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </ul>
           </div>
           <div className="col-span-1 lg:col-span-6 flex justify-end">
-            {' '}
-            <div>
-              <small className="text-white">
-                <Github />
-              </small>
+            <div className="text-white">
+              <Github />
             </div>
           </div>
         </div>
