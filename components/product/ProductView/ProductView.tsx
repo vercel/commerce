@@ -1,14 +1,17 @@
-import { NextSeo } from 'next-seo'
 import { FC, useState, useEffect } from 'react'
+import cn from 'classnames'
+import { NextSeo } from 'next-seo'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
+import useAddItem from '@lib/bigcommerce/cart/use-add-item'
+import bcImageSrc from '@lib/bc-image-src'
+import getPathname from '@lib/get-pathname'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
-import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { getProductOptions } from '../helpers'
 import s from './ProductView.module.css'
 import { isDesktop } from '@lib/browser'
-import cn from 'classnames'
+
 interface Props {
   className?: string
   children?: any
@@ -56,7 +59,10 @@ const ProductView: FC<Props> = ({ product, className }) => {
           description: product.description,
           images: [
             {
-              url: product.images.edges?.[0]?.node.urlXL || '',
+              url: bcImageSrc({
+                src: getPathname(product.images.edges?.[0]?.node.urlOriginal!),
+                width: 1200,
+              }),
               width: 800,
               height: 600,
               alt: product.name,

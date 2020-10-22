@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    sizes: [320, 480, 1024, 1600],
+    sizes: [320, 480, 820, 1200, 1600],
     path: 'https://cdn11.bigcommerce.com/',
     loader: 'bigCommerce',
   },

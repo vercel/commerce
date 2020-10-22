@@ -70,8 +70,8 @@ export default function Home({
             key={node.path}
             product={node}
             // The first image is the largest one in the grid
-            imgWidth={i === 0 ? 1600 : 1024}
-            imgHeight={i === 0 ? 1600 : 1024}
+            imgWidth={i === 0 ? 1600 : 820}
+            imgHeight={i === 0 ? 1600 : 820}
             priority
           />
         ))}
@@ -103,8 +103,8 @@ export default function Home({
             key={node.path}
             product={node}
             // The second image is the largest one in the grid
-            imgWidth={i === 1 ? 1600 : 1024}
-            imgHeight={i === 1 ? 1600 : 1024}
+            imgWidth={i === 1 ? 1600 : 820}
+            imgHeight={i === 1 ? 1600 : 820}
           />
         ))}
       </Grid>
