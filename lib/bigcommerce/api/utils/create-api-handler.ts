@@ -14,7 +14,7 @@ export type BigcommerceApiHandler<
   options: Options
 ) => void | Promise<void>
 
-export type BigcommerceHandler<T = any, Body = any> = (options: {
+export type BigcommerceHandler<T = any, Body = null> = (options: {
   req: NextApiRequest
   res: NextApiResponse<BigcommerceApiResponse<T>>
   config: BigcommerceConfig
