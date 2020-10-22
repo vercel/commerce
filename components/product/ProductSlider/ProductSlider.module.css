@@ -5,7 +5,7 @@
 
 .leftControl,
 .rightControl {
-  @apply text-white absolute top-1/2 -translate-x-1/2 z-20 w-16 h-16 flex items-center justify-center bg-hover-1 rounded focus:outline-none focus:shadow-outline-blue hover:bg-hover-2;
+  @apply text-white text-xl absolute top-1/2 -translate-x-1/2 z-20 w-16 h-16 flex items-center justify-center bg-hover-1 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-hover-2;
 }
 
 .leftControl {
@@ -13,11 +13,11 @@
 }
 
 .rightControl {
-  @apply right-6 rotate-180 transform;
+  @apply right-6;
 }
 
 .control {
-  @apply opacity-0 transition-all duration-150;
+  @apply opacity-0 transition duration-150;
 }
 
 .root:hover .control {

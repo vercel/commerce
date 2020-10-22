@@ -17,7 +17,7 @@
   }
 
   @screen lg {
-    @apply mx-0 col-span-7;
+    @apply mx-0 col-span-6;
     min-height: 100%;
     height: 100%;
   }
@@ -52,8 +52,7 @@
   @apply flex flex-col col-span-1;
 
   @screen lg {
-    @apply col-span-5;
-    padding-top: 5rem;
+    @apply col-span-5 pl-12 pt-20;
   }
 }
 

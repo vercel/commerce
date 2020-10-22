@@ -1,6 +1,6 @@
-import { ArrowLeft } from '@components/icon'
 import { useKeenSlider } from 'keen-slider/react'
 import React, { Children, FC, isValidElement, useState } from 'react'
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
@@ -17,10 +17,10 @@ const ProductSlider: FC = ({ children }) => {
   return (
     <div className={s.root}>
       <button className={cn(s.leftControl, s.control)} onClick={slider?.prev}>
-        <ArrowLeft />
+        <HiChevronLeft />
       </button>
       <button className={cn(s.rightControl, s.control)} onClick={slider?.next}>
-        <ArrowLeft />
+        <HiChevronRight />
       </button>
       <div ref={ref} className="keen-slider h-full">
         {Children.map(children, (child) => {

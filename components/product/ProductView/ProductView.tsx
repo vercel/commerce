@@ -46,7 +46,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
   }
 
   return (
-    <Container>
+    <Container className="max-w-none w-full" clean>
       <NextSeo
         title={product.name}
         description={product.description}
@@ -88,12 +88,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
               ))}
             </ProductSlider>
           </div>
-
-          {!validMedia && (
-            <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
-              <img src="/slider-arrows.png" />
-            </div>
-          )}
         </div>
 
         <div className={s.sidebar}>
