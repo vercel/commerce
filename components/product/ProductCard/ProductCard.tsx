@@ -36,7 +36,7 @@ const ProductCard: FC<Props> = ({ className, product: p, variant }) => {
       >
         <div className="absolute z-10 inset-0 flex items-center justify-center">
           <img
-            className="w-full object-cover transform scale-75 hover:scale-90 transition-transform duration-500"
+            className="w-full object-cover transform hover:scale-95 transition-transform duration-500"
             src={p.images.edges?.[0]?.node.urlXL}
           />
         </div>

@@ -3,7 +3,27 @@
 
   &:hover {
     & .squareBg {
-      @apply scale-75;
+      background-color: var(--violet);
+      background: radial-gradient(
+          circle,
+          transparent 20%,
+          var(--violet) 20%,
+          var(--violet) 80%,
+          transparent 80%,
+          transparent
+        ),
+        radial-gradient(
+            circle,
+            transparent 20%,
+            var(--violet) 20%,
+            var(--violet) 80%,
+            transparent 80%,
+            transparent
+          )
+          50px 50px,
+        linear-gradient(red 4px, transparent 4px) 0 -2px,
+        linear-gradient(90deg, red 4px, var(--violet) 4px) -2px 0;
+      background-size: 100px 100px, 100px 100px, 50px 50px, 50px 50px;
     }
 
     & .productTitle > span,
@@ -36,7 +56,7 @@
       @apply bg-cyan text-white;
     }
 
-    & .squareBg {
+    /* & .squareBg {
       @apply bg-white;
     }
 
@@ -54,7 +74,7 @@
 
     &:nth-child(6n + 6) .squareBg {
       @apply bg-white;
-    }
+    } */
   }
 
   &:nth-child(6n + 1) .squareBg {
@@ -122,5 +142,5 @@
 }
 
 .wishlistButton {
-  @apply w-10 h-10 flex items-center justify-center bg-primary text-base font-semibold inline-block text-xs leading-6 cursor-pointer;
+  @apply w-10 h-10 flex ml-auto items-center justify-center bg-primary text-base font-semibold inline-block text-xs leading-6 cursor-pointer;
 }
