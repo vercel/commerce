@@ -15,7 +15,7 @@ interface Props {
 const ProductCard: FC<Props> = ({ className, product: p, variant }) => {
   if (variant === 'slim') {
     return (
-      <div className="relative overflow-hidden box-border">
+      <div className="block relative overflow-hidden box-border">
         <img
           className="object-scale-down h-48"
           src={p.images.edges?.[0]?.node.urlSmall}
