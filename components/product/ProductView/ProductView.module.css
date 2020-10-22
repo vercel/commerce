@@ -7,7 +7,7 @@
 }
 
 .productDisplay {
-  @apply relative flex px-0 pb-0 relative box-border col-span-7;
+  @apply relative flex px-0 pb-0 relative box-border col-span-1;
   margin-right: -2rem;
   margin-left: -2rem;
   min-height: 400px;
@@ -17,7 +17,7 @@
   }
 
   @screen lg {
-    @apply mx-0;
+    @apply mx-0 col-span-7;
     min-height: 100%;
     height: 100%;
   }
@@ -55,9 +55,10 @@
 }
 
 .sidebar {
-  @apply flex flex-col col-span-5;
+  @apply flex flex-col col-span-1;
 
   @screen lg {
+    @apply col-span-5;
     padding-top: 5rem;
   }
 }
