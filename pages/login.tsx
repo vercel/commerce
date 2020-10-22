@@ -1,7 +1,29 @@
+import useSignup from '@lib/bigcommerce/use-signup'
 import { Layout } from '@components/core'
 import { Logo, Modal, Button } from '@components/ui'
 
 export default function Login() {
+  const signup = useSignup()
+  // TODO: use this method
+  const handleSignup = async () => {
+    // TODO: validate the password and email before calling the signup
+    // Passwords must be at least 7 characters and contain both alphabetic
+    // and numeric characters.
+    try {
+      await signup({
+        // This account already exists, so it will throw the "duplicated_email" error
+        email: 'luis@vercel.com',
+        firstName: 'Luis',
+        lastName: 'Alvarez',
+        password: 'luis123',
+      })
+    } catch (error) {
+      if (error.code === 'duplicated_email') {
+        // TODO: handle duplicated email
+      }
+    }
+  }
+
   return (
     <div className="pb-20">
       <Modal close={() => {}}>
@@ -22,7 +44,9 @@ export default function Login() {
                 className="focus:outline-none focus:shadow-outline-gray border-none py-2 px-6 w-full appearance-none transition duration-150 ease-in-out placeholder-accents-5 pr-10"
               />
             </div>
-            <Button variant="slim">Log In</Button>
+            <Button variant="slim" onClick={handleSignup}>
+              Log In
+            </Button>
             <span className="pt-3 text-center text-sm">
               <span className="text-accents-7">Don't have an account?</span>
               {` `}
