@@ -1,3 +1,4 @@
+import { serialize } from 'cookie'
 import { LogoutHandlers } from '../logout'
 
 const logoutHandler: LogoutHandlers['logout'] = async ({
@@ -5,6 +6,12 @@ const logoutHandler: LogoutHandlers['logout'] = async ({
   body: { redirectTo },
   config,
 }) => {
+  // Remove the cookie
+  res.setHeader(
+    'Set-Cookie',
+    serialize(config.customerCookie, '', { maxAge: -1, path: '/' })
+  )
+
   // Only allow redirects to a relative URL
   if (redirectTo?.startsWith('/')) {
     res.redirect(redirectTo)
