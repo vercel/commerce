@@ -23,16 +23,40 @@ const Footer: FC<Props> = ({ className, pages }) => {
   return (
     <div className="bg-black text-white">
       <footer className={rootClassName}>
-        <Link href="/">
-          <a className="flex flex-initial items-center  font-bold md:mr-24">
-            <span className="rounded-full border border-gray-700 mr-2">
-              <Logo />
-            </span>
-            <span>ACME</span>
-          </a>
-        </Link>
+        <div className="grid grid-col-12"></div>
+        <div>
+          <Link href="/">
+            <a className="flex flex-initial items-center  font-bold md:mr-24">
+              <span className="rounded-full border border-gray-700 mr-2">
+                <Logo />
+              </span>
+              <span>ACME</span>
+            </a>
+          </Link>
+        </div>
 
         <ul className="flex flex-initial flex-col divide-y divide-gray-700 md:divide-y-0 my-12 md:my-0 md:flex-1">
+          <li className="py-3 md:py-0 md:pb-4">
+            <Link href="/">
+              <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                Home
+              </a>
+            </Link>
+          </li>
+          <li className="py-3 md:py-0 md:pb-4">
+            <Link href="/">
+              <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                Careers
+              </a>
+            </Link>
+          </li>
+          <li className="py-3 md:py-0 md:pb-4">
+            <Link href="/blog">
+              <a className="text-gray-400 hover:text-white transition ease-in-out duration-100">
+                Blog
+              </a>
+            </Link>
+          </li>
           {sitePages.map((page) => (
             <li key={page.url} className="py-3 md:py-0 md:pb-4">
               <Link href={page.url!}>
@@ -56,9 +80,11 @@ const Footer: FC<Props> = ({ className, pages }) => {
           ))}
         </ul>
 
-        <small className="text-base">
-          &copy; 2020 ACME, Inc. All rights reserved.
-        </small>
+        <div>
+          <small className="text-white">
+            &copy; 2020 ACME, Inc. All rights reserved.
+          </small>
+        </div>
       </footer>
     </div>
   )
