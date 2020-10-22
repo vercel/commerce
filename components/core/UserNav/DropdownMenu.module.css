@@ -1,0 +1,29 @@
+.dropdownMenu {
+  @apply fixed top-0 right-0 z-20 w-full h-full;
+
+  @screen lg {
+    @apply absolute right-0 w-screen;
+    max-width: 200px;
+  }
+
+  & .dropdownMenuContainer {
+    @apply flex-col py-6 bg-primary h-full justify-around;
+
+    @screen lg {
+      @apply border border-accents-1 shadow-lg py-2 h-auto;
+    }
+  }
+
+  & .link {
+    @apply flex space-x-2 cursor-pointer px-6 py-3 block space-y-1 hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900 items-center;
+    text-transform: capitalize;
+
+    & .icons svg {
+      @apply w-6 h-6;
+    }
+  }
+
+  &.off {
+    @apply hidden;
+  }
+}
