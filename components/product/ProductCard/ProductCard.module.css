@@ -3,27 +3,7 @@
 
   &:hover {
     & .squareBg {
-      background-color: var(--violet);
-      background: radial-gradient(
-          circle,
-          transparent 20%,
-          var(--violet) 20%,
-          var(--violet) 80%,
-          transparent 80%,
-          transparent
-        ),
-        radial-gradient(
-            circle,
-            transparent 20%,
-            var(--violet) 20%,
-            var(--violet) 80%,
-            transparent 80%,
-            transparent
-          )
-          50px 50px,
-        linear-gradient(red 4px, transparent 4px) 0 -2px,
-        linear-gradient(90deg, red 4px, var(--violet) 4px) -2px 0;
-      background-size: 100px 100px, 100px 100px, 50px 50px, 50px 50px;
+      transform: scale(1.05);
     }
 
     & .productTitle > span,
@@ -55,26 +35,6 @@
     &:nth-child(6n + 6) .wishlistButton {
       @apply bg-cyan text-white;
     }
-
-    /* & .squareBg {
-      @apply bg-white;
-    }
-
-    &:nth-child(6n + 1) .squareBg {
-      @apply bg-white;
-    }
-
-    &:nth-child(6n + 5) .squareBg {
-      @apply bg-white;
-    }
-
-    &:nth-child(6n + 3) .squareBg {
-      @apply bg-white;
-    }
-
-    &:nth-child(6n + 6) .squareBg {
-      @apply bg-white;
-    } */
   }
 
   &:nth-child(6n + 1) .squareBg {
@@ -103,6 +63,7 @@
 
 .squareBg {
   @apply transform absolute inset-0 z-0 bg-secondary;
+  background-image: url("data:image/svg+xml,%3Csvg width='48' height='44' viewBox='0 0 48 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline opacity='0.3' x1='9.41421' y1='7' x2='21' y2='18.5858' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline opacity='0.3' x1='1' y1='-1' x2='17.3848' y2='-1' transform='matrix(-0.707107 0.707107 0.707107 0.707107 40 7)' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline opacity='0.3' x1='1' y1='-1' x2='17.3848' y2='-1' transform='matrix(0.707107 -0.707107 -0.707107 -0.707107 8 37)' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline opacity='0.3' x1='38.5858' y1='37' x2='27' y2='25.4142' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
 }
 
 .simple {
