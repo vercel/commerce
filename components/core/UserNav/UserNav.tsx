@@ -48,7 +48,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
             )}
           </li>
           <Link href="/wishlist">
-            <li className={s.item}>
+            <li className={cn(s.item, s.heart)}>
               <Heart />
             </li>
           </Link>
