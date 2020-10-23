@@ -31,7 +31,7 @@ const Toggle: FC<Props> = ({ className, checked, onChange }) => {
           <span
             className={`${
               checked
-                ? 'opacity-0 ease-out duration-100'
+                ? 'opacity-0 ease-out duration-150'
                 : 'opacity-100 ease-in duration-200'
             } absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}
           >
@@ -41,8 +41,8 @@ const Toggle: FC<Props> = ({ className, checked, onChange }) => {
             className={`${
               checked
                 ? 'opacity-100 ease-in duration-200'
-                : 'opacity-0 ease-out duration-100'
-            } opacity-0 ease-out duration-100 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}
+                : 'opacity-0 ease-out duration-150'
+            } opacity-0 ease-out duration-150 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}
           >
             <HiMoon className="h-3 w-3 text-yellow-400" />
           </span>

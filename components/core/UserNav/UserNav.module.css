@@ -12,7 +12,7 @@
 .item {
   @apply mr-6 cursor-pointer relative transition ease-in-out duration-150 text-base flex items-center;
   &:hover {
-    @apply text-accents-8 transition scale-110 duration-100;
+    @apply text-accents-8 transition scale-110 duration-150;
   }
 
   &:last-child {
