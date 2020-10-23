@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Hero: FC<Props> = ({ headline, description, className }) => {
-  const rootClassName = cn('bg-black py-24 min-h-72', className)
+  const rootClassName = cn('bg-black py-40 min-h-72', className)
   return (
     <div className={rootClassName}>
       <Container>
