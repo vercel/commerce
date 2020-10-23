@@ -11,6 +11,8 @@
   --text-secondary: white;
 
   --hover: rgba(0, 0, 0, 0.075);
+  --hover-1: rgba(0, 0, 0, 0.15);
+  --hover-2: rgba(0, 0, 0, 0.25);
 
   --cyan: #22b8cf;
   --green: #37b679;
@@ -41,6 +43,8 @@
   --secondary: white;
   --secondary-2: #f1f3f5;
   --hover: rgba(255, 255, 255, 0.075);
+  --hover-1: rgba(255, 255, 255, 0.15);
+  --hover-2: rgba(255, 255, 255, 0.25);
   --selection: var(--purple);
 
   --text-base: white;

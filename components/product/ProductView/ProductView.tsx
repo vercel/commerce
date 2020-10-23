@@ -9,6 +9,8 @@ import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { isDesktop } from '@lib/browser'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
+import { Heart } from '@components/icon'
+
 interface Props {
   className?: string
   children?: any
@@ -46,7 +48,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
   }
 
   return (
-    <Container>
+    <Container className="max-w-none w-full" clean>
       <NextSeo
         title={product.name}
         description={product.description}
@@ -88,12 +90,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
               ))}
             </ProductSlider>
           </div>
-
-          {!validMedia && (
-            <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
-              <img src="/slider-arrows.png" />
-            </div>
-          )}
         </div>
 
         <div className={s.sidebar}>
@@ -142,6 +138,11 @@ const ProductView: FC<Props> = ({ product, className }) => {
               </Button>
             </div>
           </section>
+        </div>
+
+        {/* TODO make it work */}
+        <div className={s.wishlistButton}>
+          <Heart />
         </div>
       </div>
     </Container>

@@ -63,7 +63,7 @@ export default function Home({
   }, [])
 
   return (
-    <div className="mt-3">
+    <div>
       <Grid>
         {featured.slice(0, 3).map(({ node }) => (
           <ProductCard key={node.path} product={node} />
@@ -96,7 +96,7 @@ export default function Home({
       </Marquee>
       <div className="py-12 flex flex-row w-full px-12">
         <div className="pr-3 w-48 relative">
-          <div className="sticky top-2">
+          <div className="sticky top-32">
             <ul className="mb-10">
               <li className="py-1 text-base font-bold tracking-wide">
                 All Categories
