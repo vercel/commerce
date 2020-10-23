@@ -1,4 +1,4 @@
-const DoubleChevron = ({ ...props }) => {
+const RightArrow = ({ ...props }) => {
   return (
     <svg
       width="24"
@@ -9,7 +9,14 @@ const DoubleChevron = ({ ...props }) => {
       {...props}
     >
       <path
-        d="M16 8.90482L12 4L8 8.90482M8 15.0952L12 20L16 15.0952"
+        d="M5 12H19"
+        stroke="white"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M12 5L19 12L12 19"
         stroke="currentColor"
         stroke-width="1.5"
         stroke-linecap="round"
@@ -19,4 +26,4 @@ const DoubleChevron = ({ ...props }) => {
   )
 }
 
-export default DoubleChevron
+export default RightArrow
