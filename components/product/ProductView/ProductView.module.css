@@ -60,6 +60,15 @@
   @apply absolute z-10 inset-0 flex items-center justify-center overflow-x-hidden;
 }
 
+.imageContainer {
+  & > div {
+    @apply h-full;
+    & > div {
+      @apply h-full;
+    }
+  }
+}
+
 .img {
   @apply w-full h-auto max-h-full object-cover;
 }
