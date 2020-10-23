@@ -8,15 +8,15 @@
 
 .productDisplay {
   @apply relative flex px-0 pb-0 relative box-border col-span-1 bg-violet;
-  margin-right: -2rem;
-  margin-left: -2rem;
-  min-height: 400px;
+  min-height: 600px;
 
   @screen md {
     min-height: 700px;
   }
 
   @screen lg {
+    margin-right: -2rem;
+    margin-left: -2rem;
     @apply mx-0 col-span-6;
     min-height: 100%;
     height: 100%;
@@ -28,7 +28,11 @@
 }
 
 .nameBox {
-  @apply absolute top-6 left-6 z-20;
+  @apply absolute top-6 left-0 z-20 pr-16;
+
+  @screen lg {
+    @apply left-6 pr-16;
+  }
 
   & .name {
     @apply px-6 py-2 bg-primary text-primary font-bold;
@@ -49,10 +53,10 @@
 }
 
 .sidebar {
-  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-12 w-full;
+  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full;
 
   @screen lg {
-    @apply col-span-5 pl-12 pt-20;
+    @apply col-span-6 pt-20;
   }
 }
 
