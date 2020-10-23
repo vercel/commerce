@@ -1,8 +1,7 @@
 module.exports = {
   images: {
     sizes: [320, 480, 820, 1200, 1600],
-    path: 'https://cdn11.bigcommerce.com/',
-    loader: 'bigCommerce',
+    domains: ['cdn11.bigcommerce.com'],
   },
   rewrites() {
     return [

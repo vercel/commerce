@@ -6,12 +6,10 @@ import { FC, useState, useEffect } from 'react'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
-import getPathname from '@lib/get-pathname'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { isDesktop } from '@lib/browser'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
-import bcImageSrc from '@lib/bc-image-src'
 
 interface Props {
   className?: string
@@ -60,10 +58,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
           description: product.description,
           images: [
             {
-              url: bcImageSrc({
-                src: getPathname(product.images.edges?.[0]?.node.urlOriginal!),
-                width: 1200,
-              }),
+              url: product.images.edges?.[0]?.node.urlOriginal!,
               width: 800,
               height: 600,
               alt: product.name,
@@ -84,14 +79,14 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
           <div className={s.sliderContainer}>
             <ProductSlider>
-              {/** TODO: Change with Image Component  **/}
               {product.images.edges?.map((image, i) => (
                 <Image
                   key={image?.node.urlOriginal}
-                  src={getPathname(image?.node.urlOriginal!)}
+                  src={image?.node.urlOriginal!}
                   width={1200}
                   height={1200}
                   priority={i === 0}
+                  quality="90"
                 />
               ))}
             </ProductSlider>
