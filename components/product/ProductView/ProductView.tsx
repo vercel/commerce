@@ -2,14 +2,16 @@ import { FC, useState, useEffect } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
-import useAddItem from '@lib/bigcommerce/cart/use-add-item'
-import { isDesktop } from '@lib/browser'
+
+import s from './ProductView.module.css'
+import { Heart } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
+
+import useAddItem from '@lib/bigcommerce/cart/use-add-item'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
-import s from './ProductView.module.css'
 
 interface Props {
   className?: string
@@ -22,16 +24,11 @@ const ProductView: FC<Props> = ({ product, className }) => {
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
-  const [validMedia, setValidMedia] = useState(false)
 
   const [choices, setChoices] = useState<Record<string, any>>({
     size: null,
     color: null,
   })
-
-  useEffect(() => {
-    setValidMedia(isDesktop())
-  }, [])
 
   const addToCart = async () => {
     setLoading(true)
@@ -48,7 +45,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
   }
 
   return (
-    <Container>
+    <Container className="max-w-none w-full" clean>
       <NextSeo
         title={product.name}
         description={product.description}
@@ -91,12 +88,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
               ))}
             </ProductSlider>
           </div>
-
-          {!validMedia && (
-            <div className="absolute z-10 bottom-10 left-1/2 transform -translate-x-1/2 inline-block">
-              <img src="/slider-arrows.png" />
-            </div>
-          )}
         </div>
 
         <div className={s.sidebar}>
@@ -145,6 +136,11 @@ const ProductView: FC<Props> = ({ product, className }) => {
               </Button>
             </div>
           </section>
+        </div>
+
+        {/* TODO make it work */}
+        <div className={s.wishlistButton}>
+          <Heart />
         </div>
       </div>
     </Container>
