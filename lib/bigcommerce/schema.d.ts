@@ -1827,7 +1827,9 @@ export type ProductConnnectionFragment = {
   >
 }
 
-export type GetAllProductPathsQueryVariables = Exact<{ [key: string]: never }>
+export type GetAllProductPathsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>
+}>
 
 export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
   site: { __typename?: 'Site' } & {

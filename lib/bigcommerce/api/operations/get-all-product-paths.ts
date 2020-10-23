@@ -1,12 +1,15 @@
-import type { GetAllProductPathsQuery } from 'lib/bigcommerce/schema'
+import type {
+  GetAllProductPathsQuery,
+  GetAllProductPathsQueryVariables,
+} from 'lib/bigcommerce/schema'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import { BigcommerceConfig, getConfig } from '..'
 
 export const getAllProductPathsQuery = /* GraphQL */ `
-  query getAllProductPaths {
+  query getAllProductPaths($first: Int = 100) {
     site {
-      products {
+      products(first: $first) {
         edges {
           node {
             path
@@ -23,11 +26,14 @@ export type ProductPath = NonNullable<
 
 export type ProductPaths = ProductPath[]
 
+export type { GetAllProductPathsQueryVariables }
+
 export type GetAllProductPathsResult<
   T extends { products: any[] } = { products: ProductPaths }
 > = T
 
 async function getAllProductPaths(opts?: {
+  variables?: GetAllProductPathsQueryVariables
   config?: BigcommerceConfig
 }): Promise<GetAllProductPathsResult>
 
@@ -36,14 +42,17 @@ async function getAllProductPaths<
   V = any
 >(opts: {
   query: string
+  variables?: V
   config?: BigcommerceConfig
 }): Promise<GetAllProductPathsResult<T>>
 
 async function getAllProductPaths({
   query = getAllProductPathsQuery,
+  variables,
   config,
 }: {
   query?: string
+  variables?: GetAllProductPathsQueryVariables
   config?: BigcommerceConfig
 } = {}): Promise<GetAllProductPathsResult> {
   config = getConfig(config)
@@ -51,7 +60,7 @@ async function getAllProductPaths({
   // required in case there's a custom `query`
   const { data } = await config.fetch<
     RecursivePartial<GetAllProductPathsQuery>
-  >(query)
+  >(query, { variables })
   const products = data.site?.products?.edges
 
   return {
