@@ -10,11 +10,11 @@ interface Props {
 }
 
 const Hero: FC<Props> = ({ headline, description, className }) => {
-  const rootClassName = cn('bg-black py-24', className)
+  const rootClassName = cn('bg-black py-24 min-h-72', className)
   return (
     <div className={rootClassName}>
       <Container>
-        <div className="mx-auto grid lg:grid-cols-2">
+        <div className="mx-auto grid grid-cols-2">
           <h2 className="text-4xl leading-10 font-extrabold text-white sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">
             {headline}
           </h2>
