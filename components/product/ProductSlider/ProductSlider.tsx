@@ -7,11 +7,15 @@ import s from './ProductSlider.module.css'
 
 const ProductSlider: FC = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
+
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
+    loop: true,
+    slidesPerView: 1,
+    mounted: () => setIsMounted(true),
     slideChanged(s) {
       setCurrentSlide(s.details().relativeSlide)
     },
-    loop: true,
   })
 
   return (
@@ -22,7 +26,11 @@ const ProductSlider: FC = ({ children }) => {
       <button className={cn(s.rightControl, s.control)} onClick={slider?.next}>
         <HiChevronRight />
       </button>
-      <div ref={ref} className="keen-slider h-full">
+      <div
+        ref={ref}
+        className="keen-slider h-full transition-opacity duration-150"
+        style={{ opacity: isMounted ? 1 : 0 }}
+      >
         {Children.map(children, (child) => {
           // Add the keen-slider__slide className to children
           if (isValidElement(child)) {
