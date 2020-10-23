@@ -1,8 +1,8 @@
 .root {
-  @apply relative grid items-start gap-8 grid-cols-1;
+  @apply relative grid items-start gap-8 grid-cols-1 overflow-x-hidden;
 
   @screen lg {
-    @apply grid-cols-12 pt-10;
+    @apply grid-cols-12;
   }
 }
 
@@ -17,24 +17,18 @@
   }
 
   @screen lg {
-    @apply mx-0 col-span-7;
+    @apply mx-0 col-span-6;
     min-height: 100%;
     height: 100%;
   }
 }
 
 .squareBg {
-  @apply absolute inset-0 bg-violet z-0;
-  max-height: 250px;
-
-  @screen md {
-    @apply inset-20;
-    max-height: 500px;
-  }
+  @apply absolute inset-0 bg-violet z-0 h-full;
 }
 
 .nameBox {
-  @apply absolute top-6 left-10 z-10;
+  @apply absolute top-6 left-6 z-20;
 
   & .name {
     @apply px-6 py-2 bg-primary text-primary font-bold;
@@ -46,20 +40,19 @@
     @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide;
   }
 
-  @screen md {
+  @screen lg {
     & .name,
     & .price {
-      @apply bg-violet-light text-white;
+      @apply bg-hover-1 text-white;
     }
   }
 }
 
 .sidebar {
-  @apply flex flex-col col-span-1;
+  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-12 w-full;
 
   @screen lg {
-    @apply col-span-5;
-    padding-top: 5rem;
+    @apply col-span-5 pl-12 pt-20;
   }
 }
 
@@ -68,20 +61,18 @@
 }
 
 .img {
-  @apply w-full h-full object-cover;
-
-  @screen md {
-    height: 100%;
-    margin-top: -2.75rem;
-  }
-
-  @screen lg {
-    height: 100%;
-    margin-top: -8%;
-  }
+  @apply w-full h-auto max-h-full object-cover;
 }
 
 .button {
   min-width: 300px;
   text-align: center;
+}
+
+.wishlistButton {
+  @apply absolute z-30 top-6 right-0 bg-primary text-base w-10 h-10 flex items-center justify-center font-semibold leading-6 cursor-pointer;
+
+  @screen lg {
+    @apply right-12 text-white bg-violet;
+  }
 }
