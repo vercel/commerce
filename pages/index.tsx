@@ -94,10 +94,10 @@ export default function Home({
           <ProductCard key={node.path} product={node} variant="slim" />
         ))}
       </Marquee>
-      <div className="py-12 flex flex-row w-full px-12">
-        <div className="pr-3 w-48 relative">
-          <div className="sticky top-32">
-            <ul className="mb-10">
+      <div className="py-12 flex flex-col md:flex-row w-full px-12">
+        <div className="pr-3 md:w-48 relative">
+          <div className="flex flex-row mb-8 md:mb-0 md:flex-col justify-between md:sticky md:top-32">
+            <ul className="md:mb-10">
               <li className="py-1 text-base font-bold tracking-wide">
                 All Categories
               </li>

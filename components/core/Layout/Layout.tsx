@@ -43,9 +43,9 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             { 'shadow-magical': hasScrolled }
           )}
         >
-          <Container>
+          <div className="px-4">
             <Navbar />
-          </Container>
+          </div>
         </header>
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
