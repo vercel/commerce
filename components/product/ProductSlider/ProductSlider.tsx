@@ -59,7 +59,9 @@ const ProductSlider: FC = ({ children }) => {
                 onClick={() => {
                   slider.moveToSlideRelative(idx)
                 }}
-              />
+              >
+                <div className={s.dot} />
+              </button>
             )
           })}
         </div>
