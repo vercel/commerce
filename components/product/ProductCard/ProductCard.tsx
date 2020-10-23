@@ -64,6 +64,7 @@ const ProductCard: FC<Props> = ({
         </div>
         <div className="absolute z-10 inset-0 flex items-center justify-center">
           <Image
+            className={cn('w-full object-cover', s['product-image'])}
             src={src}
             width={imgWidth}
             height={imgHeight}
