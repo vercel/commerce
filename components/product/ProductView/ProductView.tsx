@@ -78,8 +78,9 @@ const ProductView: FC<Props> = ({ product, className }) => {
             <ProductSlider>
               {product.images.edges?.map((image, i) => (
                 <Image
-                  key={image?.node.urlOriginal}
-                  src={image?.node.urlOriginal!}
+                  className={s.img}
+                  key={image?.node.urlXL}
+                  src={image?.node.urlXL!}
                   width={1050}
                   height={1050}
                   priority={i === 0}

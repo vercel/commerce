@@ -26,6 +26,7 @@
 
 .positionIndicatorsContainer {
   @apply hidden;
+
   @screen sm {
     @apply block absolute bottom-6 left-1/2 -translate-x-1/2 transform;
   }
@@ -33,14 +34,6 @@
 
 .positionIndicator {
   @apply rounded-full p-2;
-
-  /* :hover .dot {
-    @apply bg-hover-2;
-  }
-
-  :focus .dot {
-    @apply outline-none;
-  } */
 }
 
 .dot {
@@ -66,11 +59,3 @@
 .positionIndicatorActive:hover .dot {
   @apply bg-white;
 }
-/* sx={{
-  width: '10px',
-  height: '10px',
-  bg: currentSlide === idx ? 'primary' : 'gray',
-  borderRadius: 'full',
-  mx: 2,
-  '&:focus': { outline: 'none' },
-}} */
