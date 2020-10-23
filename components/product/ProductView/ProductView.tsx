@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
@@ -77,15 +77,16 @@ const ProductView: FC<Props> = ({ product, className }) => {
           <div className={s.sliderContainer}>
             <ProductSlider>
               {product.images.edges?.map((image, i) => (
-                <Image
-                  className={s.img}
-                  key={image?.node.urlXL}
-                  src={image?.node.urlXL!}
-                  width={1050}
-                  height={1050}
-                  priority={i === 0}
-                  quality="90"
-                />
+                <div key={image?.node.urlXL}>
+                  <Image
+                    className={s.img}
+                    src={image?.node.urlXL!}
+                    width={1050}
+                    height={1050}
+                    priority={i === 0}
+                    quality="90"
+                  />
+                </div>
               ))}
             </ProductSlider>
           </div>

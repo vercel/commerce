@@ -1,5 +1,4 @@
 import { useKeenSlider } from 'keen-slider/react'
-import Image from 'next/image'
 import React, { Children, FC, isValidElement, useState } from 'react'
 import cn from 'classnames'
 
