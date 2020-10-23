@@ -83,8 +83,8 @@ const ProductView: FC<Props> = ({ product, className }) => {
                 <Image
                   key={image?.node.urlOriginal}
                   src={image?.node.urlOriginal!}
-                  width={1200}
-                  height={1200}
+                  width={1050}
+                  height={1050}
                   priority={i === 0}
                   quality="90"
                 />
