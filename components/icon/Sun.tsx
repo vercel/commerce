@@ -5,9 +5,9 @@ const Sun = ({ ...props }) => {
       width="24"
       height="24"
       stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       fill="none"
       shape-rendering="geometricPrecision"
       {...props}
