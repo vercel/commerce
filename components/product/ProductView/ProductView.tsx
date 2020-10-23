@@ -1,12 +1,11 @@
 import cn from 'classnames'
 import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'
-import { FC, useState, useEffect } from 'react'
+import { FC, useState } from 'react'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
-import { isDesktop } from '@lib/browser'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
 import { Heart } from '@components/icon'
@@ -22,16 +21,11 @@ const ProductView: FC<Props> = ({ product, className }) => {
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
-  const [validMedia, setValidMedia] = useState(false)
 
   const [choices, setChoices] = useState<Record<string, any>>({
     size: null,
     color: null,
   })
-
-  useEffect(() => {
-    setValidMedia(isDesktop())
-  }, [])
 
   const addToCart = async () => {
     setLoading(true)

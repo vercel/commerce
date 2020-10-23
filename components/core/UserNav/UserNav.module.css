@@ -10,16 +10,18 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative transition ease-in-out duration-150 text-base flex items-center;
+  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-base flex items-center outline-none;
+
   &:hover {
-    @apply text-accents-8 transition scale-110 duration-150;
+    @apply text-accents-8 transition scale-110 duration-100;
   }
 
   &:last-child {
     @apply mr-0;
   }
 
-  &:focus {
-    outline: none;
+  &:focus,
+  &:active {
+    @apply outline-none;
   }
 }
