@@ -1,17 +1,17 @@
-import { FC, useState, useEffect } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
-import useAddItem from '@lib/bigcommerce/cart/use-add-item'
-import bcImageSrc from '@lib/bc-image-src'
-import getPathname from '@lib/get-pathname'
+import s from './ProductView.module.css'
+import { FC, useState, useEffect } from 'react'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
-import { getProductOptions } from '../helpers'
-import s from './ProductView.module.css'
+import getPathname from '@lib/get-pathname'
+import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import { isDesktop } from '@lib/browser'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
+import { getProductOptions } from '../helpers'
+import bcImageSrc from '@lib/bc-image-src'
 
 interface Props {
   className?: string
@@ -73,7 +73,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
       />
       <div className={cn(s.root, 'fit')}>
         <div className={cn(s.productDisplay, 'fit')}>
-          <div className={s.squareBg}></div>
           <div className={s.nameBox}>
             <h1 className={s.name}>{product.name}</h1>
             <div className={s.price}>
@@ -138,7 +137,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
             ))}
             <div className="pb-12">
               <div
-                className="pb-14 break-words"
+                className="pb-14 break-words w-full"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
               <Button

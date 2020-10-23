@@ -1,9 +1,0 @@
-.separator {
-  @apply mx-3 bg-secondary;
-  width: 1px;
-  height: 20px;
-}
-
-.separator:before {
-  content: '';
-}

@@ -62,12 +62,14 @@ const ProductCard: FC<Props> = ({
             <Heart />
           </div>
         </div>
-        <Image
-          src={src}
-          width={imgWidth}
-          height={imgHeight}
-          priority={priority}
-        />
+        <div className="absolute z-10 inset-0 flex items-center justify-center">
+          <Image
+            src={src}
+            width={imgWidth}
+            height={imgHeight}
+            priority={priority}
+          />
+        </div>
       </a>
     </Link>
   )

@@ -9,7 +9,7 @@ export type FetcherOptions = {
   body?: any
 }
 
-export type HookFetcher<T, Input> = (
+export type HookFetcher<T, Input = null> = (
   options: HookFetcherOptions | null,
   input: Input,
   fetch: Fetcher<T>
@@ -22,5 +22,3 @@ export type HookFetcherOptions = {
 }
 
 export type HookInput = [string, string | number | undefined][]
-
-export type HookDeps = string | number | undefined[]

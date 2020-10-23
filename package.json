@@ -34,6 +34,7 @@
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
     "nextjs-progressbar": "^0.0.6",
+    "postcss-import": "^13.0.0",
     "postcss-nesting": "^7.0.1",
     "react": "^16.14.0",
     "react-aria": "^3.0.0",
@@ -43,7 +44,8 @@
     "react-swipeable-views": "^0.13.9",
     "react-swipeable-views-utils": "^0.14.0-alpha.0",
     "react-ticker": "^1.2.2",
-    "swr": "^0.3.3"
+    "swr": "^0.3.3",
+    "tailwindcss": "^1.9"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.10",
@@ -65,7 +67,6 @@
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.2",
-    "tailwindcss": "^1.8.10",
     "typescript": "^4.0.3"
   },
   "resolutions": {

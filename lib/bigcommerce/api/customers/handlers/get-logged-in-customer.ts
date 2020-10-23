@@ -26,7 +26,7 @@ const getLoggedInCustomer: CustomersHandlers['getLoggedInCustomer'] = async ({
   res,
   config,
 }) => {
-  const data = await config.fetch<GetLoggedInCustomerQuery>(
+  const { data } = await config.fetch<GetLoggedInCustomerQuery>(
     getLoggedInCustomerQuery
   )
   const { customer } = data
