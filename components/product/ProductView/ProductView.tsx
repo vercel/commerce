@@ -98,12 +98,12 @@ const ProductView: FC<Props> = ({ product, className }) => {
               <div className="pb-4" key={opt.displayName}>
                 <h2 className="uppercase font-medium">{opt.displayName}</h2>
                 <div className="flex flex-row py-4">
-                  {opt.values.map((v: any) => {
+                  {opt.values.map((v: any, i: number) => {
                     const active = choices[opt.displayName]
 
                     return (
                       <Swatch
-                        key={v.entityId}
+                        key={`${v.entityId}-${i}`}
                         active={v.label === active}
                         variant={opt.displayName}
                         color={v.hexColors ? v.hexColors[0] : ''}

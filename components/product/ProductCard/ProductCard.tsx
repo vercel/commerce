@@ -51,7 +51,7 @@ const ProductCard: FC<Props> = ({
         className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}
       >
         <div className={s.squareBg} />
-        <div className="flex flex-row justify-between box-border w-full z-10 absolute">
+        <div className="flex flex-row justify-between box-border w-full z-20 absolute">
           <div className="absolute top-0 left-0">
             <h3 className={s.productTitle}>
               <span>{p.name}</span>
