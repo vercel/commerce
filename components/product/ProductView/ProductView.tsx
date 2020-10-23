@@ -1,15 +1,15 @@
+import { FC, useState, useEffect } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import s from './ProductView.module.css'
-import { FC, useState, useEffect } from 'react'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
+import useAddItem from '@lib/bigcommerce/cart/use-add-item'
+import { isDesktop } from '@lib/browser'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
-import useAddItem from '@lib/bigcommerce/cart/use-add-item'
-import { isDesktop } from '@lib/browser'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
+import s from './ProductView.module.css'
 
 interface Props {
   className?: string
