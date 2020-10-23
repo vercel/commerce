@@ -9,12 +9,12 @@
 }
 
 .leftControl {
-  @apply left-6;
+  @apply left-10 md:left-6;
   background-image: url('public/cursor-left.png');
 }
 
 .rightControl {
-  @apply right-6;
+  @apply right-10 md:right-6;
   background-image: url('public/cursor-right.png');
 }
 
