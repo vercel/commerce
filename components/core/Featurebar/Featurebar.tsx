@@ -18,7 +18,13 @@ const Featurebar: FC<Props> = ({
   action,
   hide,
 }) => {
-  const rootClassName = cn(s.root, { 'translate-y-full': hide }, className)
+  const rootClassName = cn(
+    s.root,
+    {
+      'transition-transform transform duration-500 ease-out translate-y-full': hide,
+    },
+    className
+  )
   return (
     <div className={rootClassName}>
       <span className="block md:inline">{title}</span>

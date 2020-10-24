@@ -47,7 +47,7 @@
   @screen lg {
     & .name,
     & .price {
-      @apply bg-hover-1 text-white;
+      @apply bg-violet-light text-white;
     }
   }
 }
