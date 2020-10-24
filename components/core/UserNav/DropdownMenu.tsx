@@ -10,6 +10,21 @@ interface DropdownMenuProps {
   open: boolean
 }
 
+const LINKS = [
+  {
+    name: 'My Orders',
+    href: '/orders',
+  },
+  {
+    name: 'My Profile',
+    href: '/profile',
+  },
+  {
+    name: 'Cart',
+    href: '/cart',
+  },
+]
+
 const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
   const { theme, setTheme } = useTheme()
 
@@ -24,39 +39,36 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
       leaveTo="transform opacity-0 scale-95"
     >
       <Menu.Items className={s.dropdownMenu}>
+        {LINKS.map(({ name, href }) => (
+          <Link href={href}>
+            <Menu.Item key={href}>
+              {({ active }) => (
+                <a className={cn(s.link, { [s.active]: active })}>{name}</a>
+              )}
+            </Menu.Item>
+          </Link>
+        ))}
         <Menu.Item>
-          {({ active }) => <a className={s.link}>My Purchases</a>}
+          <a
+            className={cn(s.link, 'justify-between')}
+            onClick={() =>
+              theme === 'dark' ? setTheme('light') : setTheme('dark')
+            }
+          >
+            <div>
+              Theme: <strong>{theme}</strong>{' '}
+            </div>
+            <div className="ml-3">
+              {theme == 'dark' ? (
+                <Moon width={20} height={20} />
+              ) : (
+                <Sun width="20" height={20} />
+              )}
+            </div>
+          </a>
         </Menu.Item>
         <Menu.Item>
-          {({ active }) => <a className={s.link}>My Account</a>}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <a
-              className={cn(s.link, 'justify-between')}
-              onClick={() =>
-                theme === 'dark' ? setTheme('light') : setTheme('dark')
-              }
-            >
-              <div>
-                Theme: <strong>{theme}</strong>{' '}
-              </div>
-              <div className="ml-3">
-                {theme == 'dark' ? (
-                  <Moon width={20} height={20} />
-                ) : (
-                  <Sun width="20" height={20} />
-                )}
-              </div>
-            </a>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <a className={cn(s.link, 'border-t border-accents-2 mt-4')}>
-              Logout
-            </a>
-          )}
+          <a className={cn(s.link, 'border-t border-accents-2 mt-4')}>Logout</a>
         </Menu.Item>
       </Menu.Items>
     </Transition>
