@@ -2,43 +2,33 @@ import cn from 'classnames'
 import { FC, useRef } from 'react'
 import s from './Sidebar.module.css'
 import { Transition } from '@headlessui/react'
-import {
-  useOverlay,
-  usePreventScroll,
-  useModal,
-  OverlayContainer,
-} from '@react-aria/overlays'
+import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
 import { useDialog } from '@react-aria/dialog'
 import { FocusScope } from '@react-aria/focus'
 
 interface Props {
   className?: string
   children?: any
-  show?: boolean
-  close: () => void
+  open?: boolean
+  onClose: () => void
 }
 
-const Sidebar: FC<Props> = ({ className, children, show = true, close }) => {
+const Sidebar: FC<Props> = ({ className, children, open = false, onClose }) => {
   const rootClassName = cn(s.root, className)
-
   const ref = useRef<HTMLDivElement>(null)
   const { modalProps } = useModal()
   const { overlayProps } = useOverlay(
     {
-      isOpen: show,
-      onClose: close,
+      isOpen: open,
       isDismissable: true,
+      onClose: onClose,
     },
     ref
   )
   const { dialogProps } = useDialog({}, ref)
 
-  usePreventScroll({
-    isDisabled: !show,
-  })
-
   return (
-    <Transition show={show}>
+    <Transition show={open}>
       <OverlayContainer>
         <FocusScope contain restoreFocus autoFocus>
           <div className={rootClassName}>
@@ -54,7 +44,7 @@ const Sidebar: FC<Props> = ({ className, children, show = true, close }) => {
                 <div
                   className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
                   // Close the sidebar when clicking on the backdrop
-                  onClick={close}
+                  onClick={onClose}
                 />
               </Transition.Child>
               <section
