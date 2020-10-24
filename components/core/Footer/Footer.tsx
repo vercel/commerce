@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSlug from '@utils/get-slug'
+import { Github } from '@components/icon'
 import { Logo, Container } from '@components/ui'
-import { Github, DoubleChevron } from '@components/icon'
-
+import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
+import { I18nWidget } from '@components/core'
 interface Props {
   className?: string
   children?: any
@@ -82,13 +82,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
           <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
             <div className="flex space-x-6 items-center h-10">
               <Github />
-              <div className="h-10 px-2 rounded-md border border-accents-2 flex items-center space-x-2 justify-center">
-                <img className="" src="/flag-us.png" />
-                <span>English</span>
-                <span className="">
-                  <DoubleChevron />
-                </span>
-              </div>
+              <I18nWidget />
             </div>
           </div>
         </div>
