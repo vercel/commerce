@@ -55,18 +55,19 @@ const CartItem = ({
   }, [item.quantity])
 
   return (
-    <li className="flex flex-row space-x-8 py-6">
-      <div className="w-12 h-12 bg-violet relative overflow-hidden">
+    <li className="flex flex-row space-x-8 py-8">
+      <div className="w-16 h-16 bg-violet relative overflow-hidden">
         <Image
+          className={s.productImage}
           src={item.image_url}
-          width={60}
-          height={60}
+          width={150}
+          height={150}
           // The cart item image is already optimized and very small in size
           unoptimized
         />
       </div>
-      <div className="flex-1 flex flex-col justify-between text-base">
-        <span className="font-bold mb-3">{item.name}</span>
+      <div className="flex-1 flex flex-col text-base">
+        <span className="font-bold mb-5">{item.name}</span>
         <div className="flex items-center">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />

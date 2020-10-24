@@ -10,8 +10,9 @@
 
 .productImage {
   position: absolute;
-  top: 0;
-  left: -10px;
-  top: 15px;
   transform: scale(1.9);
+  width: 100%;
+  height: 100%;
+  left: 30% !important;
+  top: 30% !important;
 }

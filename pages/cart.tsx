@@ -72,9 +72,8 @@ export default function Cart({}: InferGetStaticPropsType<
           </div>
         ) : (
           <div className="px-4 sm:px-6 flex-1">
-            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
-              My Cart
-            </h2>
+            <Text variant="pageHeading">My Cart</Text>
+            <Text variant="sectionHeading">Review your Order</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-t border-accents-2">
               {items.map((item) => (
                 <CartItem
@@ -84,7 +83,7 @@ export default function Cart({}: InferGetStaticPropsType<
                 />
               ))}
             </ul>
-            <hr className="mb-6" />
+            <hr className="my-6" />
             <Text>
               Before you leave, take a look at these items. We picked them just
               for you
@@ -98,7 +97,7 @@ export default function Cart({}: InferGetStaticPropsType<
         )}
       </div>
       <div className="lg:col-span-4">
-        <div className="flex-shrink-0 px-4 py-12 sm:px-6">
+        <div className="flex-shrink-0 px-4 py-24 sm:px-6">
           <div className="border-t border-accents-2">
             <ul className="py-3">
               <li className="flex justify-between py-1">
@@ -122,7 +121,7 @@ export default function Cart({}: InferGetStaticPropsType<
           <div className="flex flex-row justify-end">
             <div className="w-full lg:w-72">
               <Button href="/checkout" Component="a" width="100%">
-                Proceed to Checkout
+                Confirm Purchase
               </Button>
             </div>
           </div>
