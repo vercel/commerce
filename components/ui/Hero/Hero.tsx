@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import { Container } from '@components/ui'
 import { RightArrow } from '@components/icon'
+import s from './Hero.module.css'
+
 interface Props {
   className?: string
   headline: string
@@ -11,7 +13,7 @@ const Hero: FC<Props> = ({ headline, description }) => {
   return (
     <div className="bg-black">
       <Container>
-        <div className="mx-auto grid grid-cols-1 py-32 md:grid-cols-2 gap-4">
+        <div className={s.root}>
           <h2 className="text-4xl leading-10 font-extrabold text-white sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">
             {headline}
           </h2>
