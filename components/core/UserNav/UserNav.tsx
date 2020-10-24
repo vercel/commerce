@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import cn from 'classnames'
 import s from './UserNav.module.css'
-import { FC, useRef } from 'react'
-import { Avatar } from '@components/core'
+import { FC } from 'react'
 import { Heart, Bag } from '@components/icon'
+import { Avatar } from '@components/core'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import { Menu } from '@headlessui/react'
@@ -22,7 +22,6 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { openSidebar, closeSidebar, displaySidebar } = useUI()
 
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
-  let ref = useRef() as React.MutableRefObject<HTMLInputElement>
 
   return (
     <nav className={cn(s.root, className)}>

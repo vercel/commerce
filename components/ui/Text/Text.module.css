@@ -1,0 +1,7 @@
+.body {
+  @apply text-lg leading-7 font-medium max-w-6xl mx-auto;
+}
+
+.heading {
+  @apply text-5xl mb-12;
+}

@@ -35,7 +35,6 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     }
   }, [])
 
-  console.log(displaySidebar, displayDropdown)
   usePreventScroll({
     isDisabled: !displaySidebar,
   })
