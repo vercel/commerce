@@ -21,6 +21,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   const [hasScrolled, setHasScrolled] = useState(false)
 
   // TODO: Update code, add throttle and more.
+  // TODO: Make sure to not do any unnecessary updates as it's doing right now
   useEffect(() => {
     const offset = 0
     function handleScroll() {
