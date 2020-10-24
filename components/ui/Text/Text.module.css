@@ -5,3 +5,7 @@
 .heading {
   @apply text-5xl mb-12;
 }
+
+.pageHeading {
+  @apply pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide;
+}

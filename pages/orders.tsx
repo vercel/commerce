@@ -1,10 +1,10 @@
 import { Layout } from '@components/core'
-import { Container } from '@components/ui'
+import { Container, Text } from '@components/ui'
 
 export default function Orders() {
   return (
     <Container>
-      <h2>My Orders</h2>
+      <Text variant="pageHeading">My Orders</Text>
     </Container>
   )
 }

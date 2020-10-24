@@ -13,7 +13,7 @@ interface Props {
   children: React.ReactNode | any
 }
 
-type Variant = 'heading' | 'body'
+type Variant = 'heading' | 'body' | 'pageHeading'
 
 const Text: FunctionComponent<Props> = ({
   style,
@@ -25,7 +25,8 @@ const Text: FunctionComponent<Props> = ({
     [P in Variant]: React.ComponentType<any> | string
   } = {
     body: 'p',
-    heading: 'h2',
+    heading: 'h1',
+    pageHeading: 'h1',
   }
 
   const Component:
@@ -41,6 +42,7 @@ const Text: FunctionComponent<Props> = ({
         {
           [s.body]: variant === 'body',
           [s.heading]: variant === 'heading',
+          [s.pageHeading]: variant === 'pageHeading',
         },
         className
       )}

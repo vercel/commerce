@@ -1,10 +1,10 @@
 import { Layout } from '@components/core'
-import { Container } from '@components/ui'
+import { Container, Text } from '@components/ui'
 
 export default function Profile() {
   return (
     <Container>
-      <h2>My Profile</h2>
+      <Text variant="pageHeading">My Profile</Text>
     </Container>
   )
 }
