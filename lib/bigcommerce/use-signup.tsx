@@ -3,6 +3,7 @@ import type { HookFetcher } from '@lib/commerce/utils/types'
 import { CommerceError } from '@lib/commerce/utils/errors'
 import useCommerceSignup from '@lib/commerce/use-signup'
 import type { SignupBody } from './api/customers/signup'
+import useCustomer from './use-customer'
 
 const defaultOpts = {
   url: '/api/bigcommerce/customers/signup',
@@ -32,11 +33,13 @@ export const fetcher: HookFetcher<null, SignupBody> = (
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useSignup = () => {
+    const { revalidate } = useCustomer()
     const fn = useCommerceSignup<null, SignupInput>(defaultOpts, customFetcher)
 
     return useCallback(
       async function signup(input: SignupInput) {
         const data = await fn(input)
+        await revalidate()
         return data
       },
       [fn]

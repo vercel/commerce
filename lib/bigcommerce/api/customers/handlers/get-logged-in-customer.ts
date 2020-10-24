@@ -43,8 +43,6 @@ const getLoggedInCustomer: CustomersHandlers['getLoggedInCustomer'] = async ({
     )
     const { customer } = data
 
-    console.log('CUSTOMER', customer)
-
     if (!customer) {
       return res.status(400).json({
         data: null,

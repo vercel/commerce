@@ -1,4 +1,4 @@
-import { HookFetcher } from '@lib/commerce/utils/types'
+import type { HookFetcher } from '@lib/commerce/utils/types'
 import type { SwrOptions } from '@lib/commerce/utils/use-data'
 import useCommerceCustomer from '@lib/commerce/use-customer'
 import type { Customer, CustomerData } from './api/customers'
@@ -15,8 +15,8 @@ export const fetcher: HookFetcher<Customer | null> = async (
   _,
   fetch
 ) => {
-  const data = await fetch<CustomerData>({ ...defaultOpts, ...options })
-  return data.customer
+  const data = await fetch<CustomerData | null>({ ...defaultOpts, ...options })
+  return data?.customer ?? null
 }
 
 export function extendHook(
