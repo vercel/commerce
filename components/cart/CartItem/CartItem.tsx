@@ -1,8 +1,9 @@
+import { ChangeEvent, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Trash, Plus, Minus } from '@components/icon'
 import usePrice from '@lib/bigcommerce/use-price'
 import useUpdateItem from '@lib/bigcommerce/cart/use-update-item'
 import useRemoveItem from '@lib/bigcommerce/cart/use-remove-item'
-import { ChangeEvent, useEffect, useState } from 'react'
 import s from './CartItem.module.css'
 
 const CartItem = ({
@@ -56,7 +57,13 @@ const CartItem = ({
   return (
     <li className="flex flex-row space-x-8 py-6">
       <div className="w-12 h-12 bg-violet relative overflow-hidden">
-        <img className={s.productImage} src={item.image_url} />
+        <Image
+          src={item.image_url}
+          width={60}
+          height={60}
+          // The cart item image is already optimized and very small in size
+          unoptimized
+        />
       </div>
       <div className="flex-1 flex flex-col justify-between text-base">
         <span className="font-bold mb-3">{item.name}</span>

@@ -11,9 +11,9 @@ const DoubleChevron = ({ ...props }) => {
       <path
         d="M16 8.90482L12 4L8 8.90482M8 15.0952L12 20L16 15.0952"
         stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )

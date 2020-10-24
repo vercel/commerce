@@ -4,16 +4,18 @@ import createApiHandler, {
 } from '../utils/create-api-handler'
 import isAllowedMethod from '../utils/is-allowed-method'
 import { BigcommerceApiError } from '../utils/errors'
-import getLoggedInCustomer from './handlers/get-logged-in-customer'
+import getLoggedInCustomer, {
+  Customer,
+} from './handlers/get-logged-in-customer'
 
-export type Customer = any
+export type { Customer }
 
 export type CustomerData = {
   customer: Customer
 }
 
 export type CustomersHandlers = {
-  getLoggedInCustomer: BigcommerceHandler<CustomerData, null>
+  getLoggedInCustomer: BigcommerceHandler<CustomerData>
 }
 
 const METHODS = ['GET']
@@ -25,10 +27,8 @@ const customersApi: BigcommerceApiHandler<
   if (!isAllowedMethod(req, res, METHODS)) return
 
   try {
-    if (req.method === 'GET') {
-      const body = null
-      return await handlers['getLoggedInCustomer']({ req, res, config, body })
-    }
+    const body = null
+    return await handlers['getLoggedInCustomer']({ req, res, config, body })
   } catch (error) {
     console.error(error)
 

@@ -147,6 +147,8 @@ export default function Search({
                   key={node.path}
                   className="animate__animated animate__fadeIn"
                   product={node}
+                  imgWidth={480}
+                  imgHeight={480}
                 />
               ))}
             </Grid>

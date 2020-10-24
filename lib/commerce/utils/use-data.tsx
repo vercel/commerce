@@ -1,31 +1,48 @@
-import useSWR, { ConfigInterface } from 'swr'
+import useSWR, { ConfigInterface, responseInterface } from 'swr'
 import type { HookInput, HookFetcher, HookFetcherOptions } from './types'
+import { CommerceError } from './errors'
 import { useCommerce } from '..'
 
-export default function useData<T, Input = any>(
+export type SwrOptions<Result, Input = null> = ConfigInterface<
+  Result,
+  CommerceError,
+  HookFetcher<Result, Input>
+>
+
+export type UseData = <Result = any, Input = null>(
   options: HookFetcherOptions | (() => HookFetcherOptions | null),
   input: HookInput,
-  fetcherFn: HookFetcher<T, Input>,
-  swrOptions?: ConfigInterface<T>
-) {
+  fetcherFn: HookFetcher<Result, Input>,
+  swrOptions?: SwrOptions<Result, Input>
+) => responseInterface<Result, CommerceError>
+
+const useData: UseData = (options, input, fetcherFn, swrOptions) => {
   const { fetcherRef } = useCommerce()
-  const fetcher = (
+  const fetcher = async (
     url?: string,
     query?: string,
     method?: string,
     ...args: any[]
   ) => {
-    return fetcherFn(
-      { url, query, method },
-      // Transform the input array into an object
-      args.reduce((obj, val, i) => {
-        obj[input[i][0]!] = val
-        return obj
-      }, {}),
-      fetcherRef.current
-    )
+    try {
+      return await fetcherFn(
+        { url, query, method },
+        // Transform the input array into an object
+        args.reduce((obj, val, i) => {
+          obj[input[i][0]!] = val
+          return obj
+        }, {}),
+        fetcherRef.current
+      )
+    } catch (error) {
+      // SWR will not log errors, but any error that's not an instance
+      // of CommerceError is not welcomed by this hook
+      if (!(error instanceof CommerceError)) {
+        console.error(error)
+      }
+      throw error
+    }
   }
-
   const response = useSWR(
     () => {
       const opts = typeof options === 'function' ? options() : options
@@ -39,3 +56,5 @@ export default function useData<T, Input = any>(
 
   return response
 }
+
+export default useData

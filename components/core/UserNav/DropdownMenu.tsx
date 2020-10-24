@@ -5,23 +5,13 @@ import cn from 'classnames'
 import s from './DropdownMenu.module.css'
 import { Moon, Sun } from '@components/icon'
 import { Menu, Transition } from '@headlessui/react'
-import { usePreventScroll } from '@react-aria/overlays'
+
 interface DropdownMenuProps {
-  onClose: () => void
   open: boolean
 }
 
-const DropdownMenu: FC<DropdownMenuProps> = ({
-  onClose,
-  children,
-  open = false,
-  ...props
-}) => {
+const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
   const { theme, setTheme } = useTheme()
-
-  usePreventScroll({
-    isDisabled: !open,
-  })
 
   return (
     <Transition
