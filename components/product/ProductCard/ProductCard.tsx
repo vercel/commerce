@@ -62,7 +62,7 @@ const ProductCard: FC<Props> = ({
             <Heart />
           </div>
         </div>
-        <div className="absolute z-10 inset-0 flex items-center justify-center">
+        <div className={cn(s.imageContainer)}>
           <Image
             className={cn('w-full object-cover', s['product-image'])}
             src={src}

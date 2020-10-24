@@ -120,3 +120,15 @@
 .wishlistButton {
   @apply w-10 h-10 flex ml-auto items-center justify-center bg-primary text-base font-semibold inline-block text-xs leading-6 cursor-pointer;
 }
+
+.imageContainer {
+  @apply absolute z-10 inset-0 flex items-center justify-center;
+
+  & > div {
+    @apply h-full;
+    & > div {
+      @apply h-full;
+      padding-bottom: 0 !important;
+    }
+  }
+}
