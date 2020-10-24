@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^0.2.0",
+    "@react-aria/overlays": "^3.4.0",
     "@tailwindcss/ui": "^0.6.2",
     "animate.css": "^4.1.1",
     "bowser": "^2.11.0",

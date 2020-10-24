@@ -19,14 +19,7 @@ const countItems = (count: number, items: any[]) =>
 
 const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { data } = useCart()
-  const {
-    openSidebar,
-    closeSidebar,
-    displaySidebar,
-    displayDropdown,
-    openDropdown,
-    closeDropdown,
-  } = useUI()
+  const { openSidebar, closeSidebar, displaySidebar } = useUI()
 
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
   let ref = useRef() as React.MutableRefObject<HTMLInputElement>
@@ -53,14 +46,16 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
           </Link>
           <li className={s.item}>
             <Menu>
-              {({ open }) => (
-                <>
-                  <Menu.Button className="inline-flex justify-center rounded-full">
-                    <Avatar />
-                  </Menu.Button>
-                  <DropdownMenu onClose={closeDropdown} open={open} />
-                </>
-              )}
+              {({ open }) => {
+                return (
+                  <>
+                    <Menu.Button className="inline-flex justify-center rounded-full">
+                      <Avatar />
+                    </Menu.Button>
+                    <DropdownMenu open={open} />
+                  </>
+                )
+              }}
             </Menu>
           </li>
         </ul>
