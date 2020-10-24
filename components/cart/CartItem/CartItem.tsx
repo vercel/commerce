@@ -1,10 +1,11 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import s from './CartItem.module.css'
 import Image from 'next/image'
+import Link from 'next/link'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Trash, Plus, Minus } from '@components/icon'
 import usePrice from '@lib/bigcommerce/use-price'
 import useUpdateItem from '@lib/bigcommerce/cart/use-update-item'
 import useRemoveItem from '@lib/bigcommerce/cart/use-remove-item'
-import s from './CartItem.module.css'
 
 const CartItem = ({
   item,
@@ -53,7 +54,7 @@ const CartItem = ({
       setQuantity(item.quantity)
     }
   }, [item.quantity])
-
+  console.log(item)
   return (
     <li className="flex flex-row space-x-8 py-8">
       <div className="w-16 h-16 bg-violet relative overflow-hidden">
@@ -67,7 +68,13 @@ const CartItem = ({
         />
       </div>
       <div className="flex-1 flex flex-col text-base">
-        <span className="font-bold mb-5">{item.name}</span>
+        {/** TODO: Replace this. No `path` found at Cart */}
+        <Link href={`/product/${item.url.split('/')[3]}`}>
+          <span className="font-bold mb-5 text-lg cursor-pointer">
+            {item.name}
+          </span>
+        </Link>
+
         <div className="flex items-center">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />

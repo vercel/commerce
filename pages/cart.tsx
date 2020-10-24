@@ -36,6 +36,9 @@ export default function Cart({}: InferGetStaticPropsType<
 
   const error = null
   const success = null
+
+  console.log(items)
+
   return (
     <div className="grid lg:grid-cols-12">
       <div className="lg:col-span-8">
@@ -88,9 +91,9 @@ export default function Cart({}: InferGetStaticPropsType<
               Before you leave, take a look at these items. We picked them just
               for you
             </Text>
-            <div className="flex py-6 space-x-2">
+            <div className="flex py-6 space-x-6">
               {[1, 2, 3, 4, 5, 6].map((x) => (
-                <div className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50" />
+                <div className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75" />
               ))}
             </div>
           </div>
