@@ -1,5 +1,5 @@
-import { ConfigInterface } from 'swr'
-import { HookFetcher } from '@lib/commerce/utils/types'
+import type { HookFetcher } from '@lib/commerce/utils/types'
+import type { SwrOptions } from '@lib/commerce/utils/use-data'
 import useCommerceSearch from '@lib/commerce/products/use-search'
 import type { SearchProductsData } from '../api/catalog/products'
 
@@ -38,10 +38,10 @@ export const fetcher: HookFetcher<SearchProductsData, SearchProductsInput> = (
 
 export function extendHook(
   customFetcher: typeof fetcher,
-  swrOptions?: ConfigInterface
+  swrOptions?: SwrOptions<SearchProductsData, SearchProductsInput>
 ) {
   const useSearch = (input: SearchProductsInput = {}) => {
-    const response = useCommerceSearch<SearchProductsData>(
+    const response = useCommerceSearch(
       defaultOpts,
       [
         ['search', input.search],
@@ -49,7 +49,7 @@ export function extendHook(
         ['brandId', input.brandId],
         ['sort', input.sort],
       ],
-      customFetcher as any,
+      customFetcher,
       { revalidateOnFocus: false, ...swrOptions }
     )
 

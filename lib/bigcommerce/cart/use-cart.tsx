@@ -1,5 +1,5 @@
-import { ConfigInterface } from 'swr'
-import { HookFetcher } from '@lib/commerce/utils/types'
+import type { HookFetcher } from '@lib/commerce/utils/types'
+import type { SwrOptions } from '@lib/commerce/utils/use-data'
 import useCommerceCart, { CartInput } from '@lib/commerce/cart/use-cart'
 import type { Cart } from '../api/cart'
 
@@ -20,10 +20,10 @@ export const fetcher: HookFetcher<Cart | null, CartInput> = (
 
 export function extendHook(
   customFetcher: typeof fetcher,
-  swrOptions?: ConfigInterface
+  swrOptions?: SwrOptions<Cart | null, CartInput>
 ) {
   const useCart = () => {
-    const cart = useCommerceCart<Cart | null>(defaultOpts, [], customFetcher, {
+    const cart = useCommerceCart(defaultOpts, [], customFetcher, {
       revalidateOnFocus: false,
       ...swrOptions,
     })
