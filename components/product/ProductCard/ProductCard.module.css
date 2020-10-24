@@ -86,9 +86,11 @@
   }
 
   & .productTitle {
-    width: 18vw;
     margin-top: -7px;
     font-size: 1rem;
+    & span {
+      line-height: 3;
+    }
   }
 
   & .productPrice {
@@ -97,13 +99,12 @@
 }
 
 .productTitle {
-  @apply pt-4 leading-8;
-  width: 400px;
+  @apply pt-2 max-w-full w-full;
   font-size: 2rem;
   letter-spacing: 0.4px;
 
   & span {
-    @apply inline p-4 bg-primary text-primary font-bold;
+    @apply py-4 px-6 bg-primary text-primary font-bold;
     font-size: inherit;
     letter-spacing: inherit;
     box-decoration-break: clone;
@@ -112,10 +113,22 @@
 }
 
 .productPrice {
-  @apply py-4 px-4 bg-primary text-base font-semibold inline-block text-sm leading-6;
+  @apply py-4 px-6 bg-primary text-base font-semibold inline-block text-sm leading-6;
   letter-spacing: 0.4px;
 }
 
 .wishlistButton {
   @apply w-10 h-10 flex ml-auto items-center justify-center bg-primary text-base font-semibold inline-block text-xs leading-6 cursor-pointer;
+}
+
+.imageContainer {
+  @apply absolute z-10 inset-0 flex items-center justify-center;
+
+  & > div {
+    @apply h-full;
+    & > div {
+      @apply h-full;
+      padding-bottom: 0 !important;
+    }
+  }
 }

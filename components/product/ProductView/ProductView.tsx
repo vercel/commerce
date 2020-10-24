@@ -1,14 +1,17 @@
-import cn from 'classnames'
-import { NextSeo } from 'next-seo'
-import s from './ProductView.module.css'
 import { FC, useState } from 'react'
+import cn from 'classnames'
+import Image from 'next/image'
+import { NextSeo } from 'next-seo'
+
+import s from './ProductView.module.css'
+import { Heart } from '@components/icon'
 import { useUI } from '@components/ui/context'
 import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
+
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
-import { Heart } from '@components/icon'
 
 interface Props {
   className?: string
@@ -52,7 +55,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
           description: product.description,
           images: [
             {
-              url: product.images.edges?.[0]?.node.urlXL || '',
+              url: product.images.edges?.[0]?.node.urlOriginal!,
               width: 800,
               height: 600,
               alt: product.name,
@@ -73,14 +76,17 @@ const ProductView: FC<Props> = ({ product, className }) => {
 
           <div className={s.sliderContainer}>
             <ProductSlider>
-              {/** TODO: Change with Image Component  **/}
               {product.images.edges?.map((image, i) => (
-                <img
-                  key={image?.node.urlSmall}
-                  className={s.img}
-                  src={image?.node.urlXL}
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                />
+                <div key={image?.node.urlXL} className={s.imageContainer}>
+                  <Image
+                    className={s.img}
+                    src={image?.node.urlXL!}
+                    width={1050}
+                    height={1050}
+                    priority={i === 0}
+                    quality="90"
+                  />
+                </div>
               ))}
             </ProductSlider>
           </div>
@@ -92,12 +98,12 @@ const ProductView: FC<Props> = ({ product, className }) => {
               <div className="pb-4" key={opt.displayName}>
                 <h2 className="uppercase font-medium">{opt.displayName}</h2>
                 <div className="flex flex-row py-4">
-                  {opt.values.map((v: any) => {
+                  {opt.values.map((v: any, i: number) => {
                     const active = choices[opt.displayName]
 
                     return (
                       <Swatch
-                        key={v.entityId}
+                        key={`${v.entityId}-${i}`}
                         active={v.label === active}
                         variant={opt.displayName}
                         color={v.hexColors ? v.hexColors[0] : ''}

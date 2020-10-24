@@ -49,7 +49,7 @@ export function extendHook(
         ['brandId', input.brandId],
         ['sort', input.sort],
       ],
-      customFetcher,
+      customFetcher as any,
       { revalidateOnFocus: false, ...swrOptions }
     )
 

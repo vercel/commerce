@@ -1,0 +1,23 @@
+.root {
+  @apply relative;
+}
+
+.button {
+  @apply h-10 px-2 rounded-md border border-accents-2 flex items-center space-x-2 justify-center;
+}
+
+.dropdownMenu {
+  @apply fixed right-0 top-12 mt-2 origin-top-right outline-none bg-primary z-40 w-full h-full;
+
+  @screen lg {
+    @apply absolute border border-accents-1 shadow-lg w-56 h-auto;
+  }
+}
+
+.item {
+  @apply flex cursor-pointer px-6 py-3 block hover:bg-accents-1 transition ease-in-out duration-150 text-base leading-6 font-medium text-gray-900 items-center;
+  text-transform: capitalize;
+}
+
+.item.active {
+}
