@@ -9,7 +9,9 @@ interface Props {
 }
 
 const Container: FC<Props> = ({ children, className, el = 'div', clean }) => {
-  const rootClassName = cn(className, { 'mx-auto max-w-8xl px-12': !clean })
+  const rootClassName = cn(className, {
+    'mx-auto max-w-8xl px-6': !clean,
+  })
 
   let Component: React.ComponentType<React.HTMLAttributes<
     HTMLDivElement
