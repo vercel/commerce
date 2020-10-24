@@ -9,11 +9,11 @@ export type FetcherOptions = {
   body?: any
 }
 
-export type HookFetcher<T, Input = null> = (
+export type HookFetcher<Result, Input = null> = (
   options: HookFetcherOptions | null,
   input: Input,
-  fetch: Fetcher<T>
-) => T | Promise<T>
+  fetch: <T = Result>(options: FetcherOptions) => Promise<T>
+) => Result | Promise<Result>
 
 export type HookFetcherOptions = {
   query?: string

@@ -1,13 +1,22 @@
-import useSWR, { ConfigInterface } from 'swr'
+import useSWR, { ConfigInterface, responseInterface } from 'swr'
 import type { HookInput, HookFetcher, HookFetcherOptions } from './types'
+import { CommerceError } from './errors'
 import { useCommerce } from '..'
 
-export default function useData<T, Input = any>(
+export type SwrOptions<Result, Input = null> = ConfigInterface<
+  Result,
+  CommerceError,
+  HookFetcher<Result, Input>
+>
+
+export type UseData = <Result = any, Input = null>(
   options: HookFetcherOptions | (() => HookFetcherOptions | null),
   input: HookInput,
-  fetcherFn: HookFetcher<T, Input>,
-  swrOptions?: ConfigInterface<T>
-) {
+  fetcherFn: HookFetcher<Result, Input>,
+  swrOptions?: SwrOptions<Result, Input>
+) => responseInterface<Result, CommerceError>
+
+const useData: UseData = (options, input, fetcherFn, swrOptions) => {
   const { fetcherRef } = useCommerce()
   const fetcher = (
     url?: string,
@@ -25,7 +34,6 @@ export default function useData<T, Input = any>(
       fetcherRef.current
     )
   }
-
   const response = useSWR(
     () => {
       const opts = typeof options === 'function' ? options() : options
@@ -39,3 +47,5 @@ export default function useData<T, Input = any>(
 
   return response
 }
+
+export default useData

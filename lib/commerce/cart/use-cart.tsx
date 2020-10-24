@@ -1,4 +1,4 @@
-import { responseInterface, ConfigInterface } from 'swr'
+import type { responseInterface, ConfigInterface } from 'swr'
 import Cookies from 'js-cookie'
 import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import useData from '../utils/use-data'
