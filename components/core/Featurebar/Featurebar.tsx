@@ -1,6 +1,8 @@
 import cn from 'classnames'
 import { FC } from 'react'
 
+import s from './Featurebar.module.css'
+
 interface Props {
   className?: string
   title: string
@@ -16,11 +18,7 @@ const Featurebar: FC<Props> = ({
   action,
   hide,
 }) => {
-  const rootClassName = cn(
-    'transition-transform transform duration-500 text-center ease-out p-6 bg-primary text-base text-sm md:flex md:text-left flex-row justify-center items-center font-medium fixed bottom-0 w-full z-30',
-    { 'translate-y-full': hide },
-    className
-  )
+  const rootClassName = cn(s.root, { 'translate-y-full': hide }, className)
   return (
     <div className={rootClassName}>
       <span className="block md:inline">{title}</span>
