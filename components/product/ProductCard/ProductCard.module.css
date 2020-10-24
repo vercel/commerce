@@ -86,7 +86,6 @@
   }
 
   & .productTitle {
-    width: 18vw;
     margin-top: -7px;
     font-size: 1rem;
     & span {
@@ -100,8 +99,7 @@
 }
 
 .productTitle {
-  @apply pt-2 max-w-full;
-  width: 400px;
+  @apply pt-2 max-w-full w-full;
   font-size: 2rem;
   letter-spacing: 0.4px;
 
