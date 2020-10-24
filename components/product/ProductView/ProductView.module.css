@@ -53,10 +53,10 @@
 }
 
 .sidebar {
-  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full;
+  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full h-full;
 
   @screen lg {
-    @apply col-span-6 pt-20;
+    @apply col-span-6 py-24 justify-between;
   }
 }
 

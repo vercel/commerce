@@ -37,8 +37,6 @@ export default function Cart({}: InferGetStaticPropsType<
   const error = null
   const success = null
 
-  console.log(items)
-
   return (
     <div className="grid lg:grid-cols-12">
       <div className="lg:col-span-8">

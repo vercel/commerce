@@ -6,8 +6,9 @@ import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'
 import { Heart } from '@components/icon'
 import { useUI } from '@components/ui/context'
-import { Button, Container } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
+import { Button, Container } from '@components/ui'
+import { HTMLContent } from '@components/core'
 
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
@@ -123,21 +124,21 @@ const ProductView: FC<Props> = ({ product, className }) => {
                 </div>
               </div>
             ))}
-            <div className="pb-12">
-              <div
-                className="pb-14 break-words w-full"
-                dangerouslySetInnerHTML={{ __html: product.description }}
-              />
-              <Button
-                type="button"
-                className={s.button}
-                onClick={addToCart}
-                loading={loading}
-              >
-                Add to Cart
-              </Button>
+
+            <div className="pb-14 break-words w-full max-w-xl">
+              <HTMLContent html={product.description} />
             </div>
           </section>
+          <div>
+            <Button
+              type="button"
+              className={s.button}
+              onClick={addToCart}
+              loading={loading}
+            >
+              Add to Cart
+            </Button>
+          </div>
         </div>
 
         {/* TODO make it work */}
