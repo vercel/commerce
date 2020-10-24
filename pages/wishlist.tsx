@@ -40,7 +40,7 @@ export default function Home({
           </h2>
           <div className="group flex flex-col">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <WishlistCard />
+              <WishlistCard key={i} />
             ))}
           </div>
         </div>
