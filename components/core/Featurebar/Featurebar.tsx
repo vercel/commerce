@@ -17,7 +17,7 @@ const Featurebar: FC<Props> = ({
   hide,
 }) => {
   const rootClassName = cn(
-    'transition-transform transform duration-500 text-center ease-out p-6 bg-primary text-base text-sm md:flex md:text-left flex-row justify-center items-center font-medium fixed bottom-0 w-full z-10',
+    'transition-transform transform duration-500 text-center ease-out p-6 bg-primary text-base text-sm md:flex md:text-left flex-row justify-center items-center font-medium fixed bottom-0 w-full z-30',
     { 'translate-y-full': hide },
     className
   )

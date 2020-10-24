@@ -89,6 +89,9 @@
     width: 18vw;
     margin-top: -7px;
     font-size: 1rem;
+    & span {
+      line-height: 3;
+    }
   }
 
   & .productPrice {
@@ -103,7 +106,7 @@
   letter-spacing: 0.4px;
 
   & span {
-    @apply inline py-4 px-6 bg-primary text-primary font-bold;
+    @apply py-4 px-6 bg-primary text-primary font-bold;
     font-size: inherit;
     letter-spacing: inherit;
     box-decoration-break: clone;
