@@ -3,7 +3,7 @@
 }
 
 .button {
-  @apply h-10 px-2 rounded-md border border-accents-2 flex items-center space-x-2 justify-center;
+  @apply h-10 px-2 rounded-md border border-accents-2 flex items-center space-x-2 justify-center outline-none focus:outline-none;
 }
 
 .dropdownMenu {
