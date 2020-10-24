@@ -6,3 +6,7 @@
 .modal {
   @apply bg-primary p-12 border border-accents-2;
 }
+
+.modal:focus {
+  @apply outline-none;
+}
