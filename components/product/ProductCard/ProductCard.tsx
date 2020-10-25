@@ -1,10 +1,10 @@
-import { FC, ReactNode, Component } from 'react'
+import React, { FC, ReactNode, Component } from 'react'
 import cn from 'classnames'
-import Image from 'next/image'
-import Link from 'next/link'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
-import { Heart } from '@components/icon'
 import s from './ProductCard.module.css'
+import Link from 'next/link'
+import { Heart } from '@components/icon'
+import { EnhancedImage } from '@components/core'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
 
 interface Props {
   className?: string
@@ -34,7 +34,7 @@ const ProductCard: FC<Props> = ({
             {p.name}
           </span>
         </div>
-        <Image
+        <EnhancedImage
           src={src}
           alt={p.name}
           width={imgWidth}
@@ -64,7 +64,7 @@ const ProductCard: FC<Props> = ({
           </div>
         </div>
         <div className={cn(s.imageContainer)}>
-          <Image
+          <EnhancedImage
             alt={p.name}
             className={cn('w-full object-cover', s['product-image'])}
             src={src}
