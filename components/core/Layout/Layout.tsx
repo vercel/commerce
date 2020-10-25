@@ -1,14 +1,14 @@
-import { FC, useEffect, useState } from 'react'
 import cn from 'classnames'
-import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
-import { CommerceProvider } from '@lib/bigcommerce'
-import { Navbar, Featurebar, Footer } from '@components/core'
-import { Container, Sidebar } from '@components/ui'
-import Button from '@components/ui/Button'
-import { CartSidebarView } from '@components/cart'
-import { useUI } from '@components/ui/context'
 import s from './Layout.module.css'
+import { FC, useEffect, useState } from 'react'
+import { CartSidebarView } from '@components/cart'
+import { Container, Sidebar, Button, Modal } from '@components/ui'
+import { Navbar, Featurebar, Footer } from '@components/core'
+import { LoginView } from '@components/auth'
+import { useUI } from '@components/ui/context'
 import { usePreventScroll } from '@react-aria/overlays'
+import { CommerceProvider } from '@lib/bigcommerce'
+import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
 interface Props {
   pageProps: {
     pages?: Page[]
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, pageProps }) => {
-  const { displaySidebar, displayDropdown, closeSidebar } = useUI()
+  const { displaySidebar, displayModal, closeSidebar, closeModal } = useUI()
   const [acceptedCookies, setAcceptedCookies] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
 
@@ -36,7 +36,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   }, [])
 
   usePreventScroll({
-    isDisabled: !displaySidebar,
+    isDisabled: !(displaySidebar || displayModal),
   })
 
   return (
@@ -54,11 +54,12 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
         </header>
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
-
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
           <CartSidebarView />
         </Sidebar>
-
+        <Modal open={displayModal} onClose={closeModal}>
+          <LoginView />
+        </Modal>
         <Featurebar
           title="This site uses cookies to improve your experience."
           description="By clicking, you agree to our Privacy Policy."

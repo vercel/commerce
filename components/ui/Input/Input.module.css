@@ -1,0 +1,4 @@
+.root {
+  @apply focus:outline-none bg-primary focus:shadow-outline-gray border-none py-2 
+  px-6 w-full appearance-none transition duration-150 ease-in-out placeholder-accents-5 pr-10;
+}

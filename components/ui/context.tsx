@@ -101,8 +101,6 @@ export const UIProvider: FC = (props) => {
     closeModal,
   }
 
-  console.log('state', state)
-
   return <UIContext.Provider value={value} {...props} />
 }
 

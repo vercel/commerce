@@ -22,7 +22,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
 
-  const { openSidebar, closeSidebar, displaySidebar } = useUI()
+  const { openSidebar, closeSidebar, displaySidebar, openModal } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
   return (
     <nav className={cn(s.root, className)}>
@@ -30,7 +30,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
         <ul className={s.list}>
           <li
             className={s.item}
-            onClick={() => (displaySidebar ? closeSidebar() : openSidebar())}
+            onClick={(e) => (displaySidebar ? closeSidebar() : openSidebar())}
           >
             <Bag />
             {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
@@ -41,20 +41,26 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
             </li>
           </Link>
           <li className={s.item}>
-            <Menu>
-              {({ open }) => (
-                <>
-                  <Menu.Button className={s.avatarButton} aria-label="Menu">
-                    <Avatar />
-                  </Menu.Button>
-                  {customer ? (
+            {customer ? (
+              <Menu>
+                {({ open }) => (
+                  <>
+                    <Menu.Button className={s.avatarButton} aria-label="Menu">
+                      <Avatar />
+                    </Menu.Button>
                     <DropdownMenu open={open} />
-                  ) : (
-                    <LoginView open={open} />
-                  )}
-                </>
-              )}
-            </Menu>
+                  </>
+                )}
+              </Menu>
+            ) : (
+              <button
+                className={s.avatarButton}
+                aria-label="Menu"
+                onClick={() => openModal()}
+              >
+                <Avatar />
+              </button>
+            )}
           </li>
         </ul>
       </div>
