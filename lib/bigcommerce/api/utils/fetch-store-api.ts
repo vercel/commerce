@@ -1,6 +1,6 @@
 import { getConfig } from '..'
 import { BigcommerceApiError, BigcommerceNetworkError } from './errors'
-import fetch from '@lib/fetch'
+import fetch from './fetch'
 
 export default async function fetchStoreApi<T>(
   endpoint: string,
