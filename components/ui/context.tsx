@@ -6,12 +6,14 @@ export interface State {
   displaySidebar: boolean
   displayDropdown: boolean
   displayModal: boolean
+  modalView: string
 }
 
 const initialState = {
   displaySidebar: false,
   displayDropdown: false,
   displayModal: false,
+  modalView: 'LOGIN_VIEW',
 }
 
 type Action =
@@ -33,6 +35,16 @@ type Action =
   | {
       type: 'CLOSE_MODAL'
     }
+  | {
+      type: 'SET_MODAL_VIEW'
+      view: 'LOGIN_VIEW'
+    }
+  | {
+      type: 'SET_MODAL_VIEW'
+      view: 'SIGNUP_VIEW'
+    }
+
+type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW'
 
 export const UIContext = React.createContext<State | any>(initialState)
 
@@ -76,6 +88,12 @@ function uiReducer(state: State, action: Action) {
         displayModal: false,
       }
     }
+    case 'SET_MODAL_VIEW': {
+      return {
+        ...state,
+        modalView: action.view,
+      }
+    }
   }
 }
 
@@ -91,6 +109,9 @@ export const UIProvider: FC = (props) => {
   const openModal = () => dispatch({ type: 'OPEN_MODAL' })
   const closeModal = () => dispatch({ type: 'CLOSE_MODAL' })
 
+  const setModalView = (view: MODAL_VIEWS) =>
+    dispatch({ type: 'SET_MODAL_VIEW', view })
+
   const value = {
     ...state,
     openSidebar,
@@ -99,6 +120,7 @@ export const UIProvider: FC = (props) => {
     closeDropdown,
     openModal,
     closeModal,
+    setModalView,
   }
 
   return <UIContext.Provider value={value} {...props} />

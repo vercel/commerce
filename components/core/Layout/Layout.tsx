@@ -1,10 +1,10 @@
 import cn from 'classnames'
 import s from './Layout.module.css'
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { CartSidebarView } from '@components/cart'
 import { Container, Sidebar, Button, Modal } from '@components/ui'
 import { Navbar, Featurebar, Footer } from '@components/core'
-import { LoginView } from '@components/auth'
+import { LoginView, SignUpView } from '@components/auth'
 import { useUI } from '@components/ui/context'
 import { usePreventScroll } from '@react-aria/overlays'
 import { CommerceProvider } from '@lib/bigcommerce'
@@ -16,7 +16,13 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, pageProps }) => {
-  const { displaySidebar, displayModal, closeSidebar, closeModal } = useUI()
+  const {
+    displaySidebar,
+    displayModal,
+    closeSidebar,
+    closeModal,
+    modalView,
+  } = useUI()
   const [acceptedCookies, setAcceptedCookies] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
 
@@ -58,7 +64,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           <CartSidebarView />
         </Sidebar>
         <Modal open={displayModal} onClose={closeModal}>
-          <LoginView />
+          {modalView === 'LOGIN_VIEW' && <LoginView />}
+          {modalView === 'SIGNUP_VIEW' && <SignUpView />}
         </Modal>
         <Featurebar
           title="This site uses cookies to improve your experience."

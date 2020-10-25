@@ -9,11 +9,10 @@ interface Props {}
 const LoginView: FC<Props> = () => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
-  const { setModalView } = useUI()
 
   const signup = useSignup()
   const login = useLogin()
-
+  const { setModalView } = useUI()
   // // Data about the currently logged in customer, it will update
   // // automatically after a signup/login/logout
   // const { data } = useCustomer()
@@ -69,16 +68,16 @@ const LoginView: FC<Props> = () => {
           <Input placeholder="Password" onChange={setEmail} />
         </div>
         <Button variant="slim" onClick={handleSignup}>
-          Log In
+          Sign Up
         </Button>
         <span className="pt-3 text-center text-sm">
           <span className="text-accents-7">Don't have an account?</span>
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView('SIGNUP_VIEW')}
+            onClick={() => setModalView('LOGIN_VIEW')}
           >
-            Sign Up
+            Log In
           </a>
         </span>
       </div>
