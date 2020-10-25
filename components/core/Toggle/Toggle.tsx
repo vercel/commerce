@@ -35,7 +35,7 @@ const Toggle: FC<Props> = ({ className, checked, onChange }) => {
                 : 'opacity-100 ease-in duration-150'
             } absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}
           >
-            <Sun className="h-3 w-3 text-gray-400" />
+            <Sun className="h-3 w-3 text-accent-3" />
           </span>
           <span
             className={`${

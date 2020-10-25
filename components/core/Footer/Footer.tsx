@@ -36,21 +36,21 @@ const Footer: FC<Props> = ({ className, pages }) => {
             <ul className="flex flex-initial flex-col md:flex-1">
               <li className="py-3 md:py-0 md:pb-4">
                 <Link href="/">
-                  <a className="text-gray-400 hover:text-white transition ease-in-out duration-150">
+                  <a className="text-accent-3 hover:text-white transition ease-in-out duration-150">
                     Home
                   </a>
                 </Link>
               </li>
               <li className="py-3 md:py-0 md:pb-4">
                 <Link href="/">
-                  <a className="text-gray-400 hover:text-white transition ease-in-out duration-150">
+                  <a className="text-accent-3 hover:text-white transition ease-in-out duration-150">
                     Careers
                   </a>
                 </Link>
               </li>
               <li className="py-3 md:py-0 md:pb-4">
                 <Link href="/blog">
-                  <a className="text-gray-400 hover:text-white transition ease-in-out duration-150">
+                  <a className="text-accent-3 hover:text-white transition ease-in-out duration-150">
                     Blog
                   </a>
                 </Link>
@@ -58,7 +58,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               {sitePages.map((page) => (
                 <li key={page.url} className="py-3 md:py-0 md:pb-4">
                   <Link href={page.url!}>
-                    <a className="text-gray-400 hover:text-white transition ease-in-out duration-150">
+                    <a className="text-accent-3 hover:text-white transition ease-in-out duration-150">
                       {page.name}
                     </a>
                   </Link>
@@ -71,7 +71,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               {legalPages.map((page) => (
                 <li key={page.url} className="py-3 md:py-0 md:pb-4">
                   <Link href={page.url!}>
-                    <a className="text-gray-400 hover:text-white transition ease-in-out duration-150">
+                    <a className="text-accent-3 hover:text-white transition ease-in-out duration-150">
                       {page.name}
                     </a>
                   </Link>
@@ -90,8 +90,8 @@ const Footer: FC<Props> = ({ className, pages }) => {
           <div>
             <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
           </div>
-          <div className="flex items-center text-accents-4">
-            <span>Crafted by</span>
+          <div className="flex items-center">
+            <span className="text-accent-3">Crafted by</span>
             <a href="https://vercel.com" aria-label="Vercel.com Link">
               <img
                 src="/vercel.png"
