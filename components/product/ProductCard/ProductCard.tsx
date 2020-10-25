@@ -24,7 +24,7 @@ const ProductCard: FC<Props> = ({
   imgHeight,
   priority,
 }) => {
-  const src = p.images.edges?.[0]?.node.urlOriginal!
+  const src = p.images.edges?.[0]?.node.urlLarge!
 
   if (variant === 'slim') {
     return (
@@ -35,7 +35,7 @@ const ProductCard: FC<Props> = ({
           </span>
         </div>
         <EnhancedImage
-          src={src}
+          src={p.images.edges?.[0]?.node.urlSmall!}
           alt={p.name}
           width={imgWidth}
           height={imgHeight}
