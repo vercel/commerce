@@ -9,7 +9,7 @@ const I18nWidget: FC = () => {
     <nav className={s.root}>
       <Menu>
         <Menu.Button className={s.button}>
-          <img className="" src="/flag-us.png" />
+          <img className="" src="/flag-us.png" alt="US Flag" />
           <span>English</span>
           <span className="">
             <DoubleChevron />
