@@ -42,7 +42,7 @@ const Navbar: FC<Props> = ({ className }) => {
       </div>
 
       <div className="flex pb-4 lg:px-6 lg:hidden">
-        <Searchbar />
+        <Searchbar id="mobileSearch" />
       </div>
     </div>
   )

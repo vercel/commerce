@@ -5,9 +5,10 @@ import { useRouter } from 'next/router'
 
 interface Props {
   className?: string
+  id?: string
 }
 
-const Searchbar: FC<Props> = ({ className }) => {
+const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
   const router = useRouter()
 
   useEffect(() => {
@@ -16,14 +17,14 @@ const Searchbar: FC<Props> = ({ className }) => {
 
   return (
     <label
-      htmlFor="search"
+      htmlFor={id}
       className={cn(
         'relative text-sm bg-accents-1 text-base w-full transition-colors duration-150',
         className
       )}
     >
       <input
-        id="search"
+        id={id}
         className={s.input}
         placeholder="Search for products..."
         defaultValue={router.query.q}
