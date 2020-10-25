@@ -54,7 +54,7 @@ const CartItem = ({
       setQuantity(item.quantity)
     }
   }, [item.quantity])
-  console.log(item)
+
   return (
     <li className="flex flex-row space-x-8 py-8">
       <div className="w-16 h-16 bg-violet relative overflow-hidden">

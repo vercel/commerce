@@ -112,7 +112,6 @@ const ProductView: FC<Props> = ({ product, className }) => {
                         label={v.label}
                         onClick={() => {
                           setChoices((choices) => {
-                            console.log(choices)
                             return {
                               ...choices,
                               [opt.displayName]: v.label,

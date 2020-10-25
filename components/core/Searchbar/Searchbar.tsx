@@ -15,7 +15,7 @@ const Searchbar: FC<Props> = ({ className }) => {
   }, [])
 
   return (
-    <div
+    <label
       className={cn(
         'relative text-sm bg-accents-1 text-base w-full transition-colors duration-150',
         className
@@ -51,7 +51,7 @@ const Searchbar: FC<Props> = ({ className }) => {
           />
         </svg>
       </div>
-    </div>
+    </label>
   )
 }
 
