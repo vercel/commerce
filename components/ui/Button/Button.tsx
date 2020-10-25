@@ -19,6 +19,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   Component?: string | JSXElementConstructor<any>
   width?: string | number
   loading?: boolean
+  disabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
@@ -28,10 +29,10 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     children,
     active,
     onClick,
-    disabled,
     width,
     Component = 'button',
     loading = false,
+    disabled = false,
     style = {},
     ...rest
   } = props
@@ -52,6 +53,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     {
       [s.slim]: variant === 'slim',
       [s.loading]: loading,
+      [s.disabled]: disabled,
     },
     className
   )
@@ -64,6 +66,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       {...buttonProps}
       data-active={isPressed ? '' : undefined}
       className={rootClassName}
+      disabled={disabled}
       style={{
         width,
         ...style,

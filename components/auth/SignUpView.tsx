@@ -1,24 +1,26 @@
 import { FC, useEffect, useState } from 'react'
-import { Logo, Modal, Button, Input } from '@components/ui'
-import useLogin from '@lib/bigcommerce/use-login'
+import { Logo, Button, Input } from '@components/ui'
+import useSignup from '@lib/bigcommerce/use-signup'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 
 interface Props {}
 
-const LoginView: FC<Props> = () => {
+const SignUpView: FC<Props> = () => {
   // Form State
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [dirty, setDirty] = useState(false)
   const [disabled, setDisabled] = useState(false)
+
+  const signup = useSignup()
   const { setModalView, closeModal } = useUI()
 
-  const login = useLogin()
-
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     if (!dirty && !disabled) {
       setDirty(true)
       handleValidation()
@@ -27,8 +29,10 @@ const LoginView: FC<Props> = () => {
     try {
       setLoading(true)
       setMessage('')
-      await login({
+      await signup({
         email,
+        firstName,
+        lastName,
         password,
       })
       setLoading(false)
@@ -62,25 +66,26 @@ const LoginView: FC<Props> = () => {
         {message && (
           <div className="text-red border border-red p-3">{message}</div>
         )}
-
+        <Input placeholder="First Name" onChange={setFirstName} />
+        <Input placeholder="Last Name" onChange={setLastName} />
         <Input placeholder="Email" onChange={setEmail} />
         <Input placeholder="Password" onChange={setPassword} />
         <Button
           variant="slim"
-          onClick={() => handleLogin()}
+          onClick={() => handleSignup()}
           loading={loading}
           disabled={disabled}
         >
-          Log In
+          Sign Up
         </Button>
         <span className="pt-3 text-center text-sm">
-          <span className="text-accents-7">Don't have an account?</span>
+          <span className="text-accents-7">Do you have an account?</span>
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView('SIGNUP_VIEW')}
+            onClick={() => setModalView('LOGIN_VIEW')}
           >
-            Sign Up
+            Log In
           </a>
         </span>
       </div>
@@ -88,4 +93,4 @@ const LoginView: FC<Props> = () => {
   )
 }
 
-export default LoginView
+export default SignUpView

@@ -8,7 +8,7 @@ import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
 interface Props {
   className?: string
   children?: any
-  open?: boolean
+  open: boolean
   onClose?: () => void
 }
 
@@ -22,14 +22,22 @@ const Modal: FC<Props> = ({
   const rootClassName = cn(s.root, className)
   let ref = useRef() as React.MutableRefObject<HTMLInputElement>
   let { modalProps } = useModal()
-  let { overlayProps } = useOverlay(props, ref)
-  let { dialogProps } = useDialog(props, ref)
+  let { dialogProps } = useDialog({}, ref)
+  let { overlayProps } = useOverlay(
+    {
+      isOpen: open,
+      isDismissable: true,
+      onClose: onClose,
+      ...props,
+    },
+    ref
+  )
 
   return (
     <Transition show={open}>
       <OverlayContainer>
-        <div className={rootClassName} onClick={onClose}>
-          <FocusScope contain restoreFocus autoFocus>
+        <FocusScope contain restoreFocus autoFocus>
+          <div className={rootClassName}>
             <Transition.Child
               enter="transition-opacity ease-linear duration-300"
               enterFrom="opacity-0"
@@ -39,17 +47,17 @@ const Modal: FC<Props> = ({
               leaveTo="opacity-0"
             >
               <div
+                className={s.modal}
                 {...overlayProps}
                 {...dialogProps}
                 {...modalProps}
                 ref={ref}
-                className={s.modal}
               >
                 {children}
               </div>
             </Transition.Child>
-          </FocusScope>
-        </div>
+          </div>
+        </FocusScope>
       </OverlayContainer>
     </Transition>
   )
