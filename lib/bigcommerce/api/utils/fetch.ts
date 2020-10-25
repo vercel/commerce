@@ -1,3 +1,3 @@
-import zeitFetch from '@zeit/fetch'
+import zeitFetch from '@vercel/fetch'
 
 export default zeitFetch()

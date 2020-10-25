@@ -22,6 +22,7 @@
     "@headlessui/react": "^0.2.0",
     "@react-aria/overlays": "^3.4.0",
     "@tailwindcss/ui": "^0.6.2",
+    "@vercel/fetch": "^6.1.0",
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
     "cookie": "^0.4.1",
