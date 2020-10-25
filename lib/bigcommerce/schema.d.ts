@@ -1739,6 +1739,9 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
         salePrice?: Maybe<
           { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
         >
+        retailPrice?: Maybe<
+          { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
+        >
       }
     >
     images: { __typename?: 'ImageConnection' } & {

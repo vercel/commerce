@@ -1,10 +1,11 @@
 import React, { FC, ReactNode, Component } from 'react'
 import cn from 'classnames'
-import s from './ProductCard.module.css'
 import Link from 'next/link'
+import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
+import usePrice from '@lib/bigcommerce/use-price'
 import { Heart } from '@components/icon'
 import { EnhancedImage } from '@components/core'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
+import s from './ProductCard.module.css'
 
 interface Props {
   className?: string
@@ -46,6 +47,12 @@ const ProductCard: FC<Props> = ({
     )
   }
 
+  const { price } = usePrice({
+    amount: p.prices?.price?.value,
+    baseAmount: p.prices?.retailPrice?.value,
+    currencyCode: p.prices?.price?.currencyCode!,
+  })
+
   return (
     <Link href={`product${p.path}`}>
       <a
@@ -57,7 +64,7 @@ const ProductCard: FC<Props> = ({
             <h3 className={s.productTitle}>
               <span>{p.name}</span>
             </h3>
-            <span className={s.productPrice}>${p.prices?.price.value}</span>
+            <span className={s.productPrice}>{price}</span>
           </div>
           <div className={s.wishlistButton}>
             <Heart />

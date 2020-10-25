@@ -51,6 +51,10 @@ export const productInfoFragment = /* GraphQL */ `
         value
         currencyCode
       }
+      retailPrice {
+        value
+        currencyCode
+      }
     }
     images {
       edges {
