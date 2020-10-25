@@ -28,6 +28,9 @@ export type ProductImageVariables = Pick<
 >
 
 export interface BigcommerceConfigOptions extends CommerceAPIConfig {
+  // Indicates if the returned metadata with translations should be applied to the
+  // data or returned as it is
+  applyLocale?: boolean
   images?: Images
   storeApiUrl: string
   storeApiToken: string
@@ -113,6 +116,7 @@ const config = new Config({
   cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
+  applyLocale: true,
   // REST API only
   storeApiUrl: STORE_API_URL,
   storeApiToken: STORE_API_TOKEN,

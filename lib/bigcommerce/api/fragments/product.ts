@@ -78,6 +78,15 @@ export const productInfoFragment = /* GraphQL */ `
         }
       }
     }
+    localeMeta: metafields(namespace: $locale, keys: ["name", "description"])
+      @include(if: $hasLocale) {
+      edges {
+        node {
+          key
+          value
+        }
+      }
+    }
   }
 
   ${responsiveImageFragment}
