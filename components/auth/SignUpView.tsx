@@ -6,25 +6,26 @@ import { validate } from 'email-validator'
 
 interface Props {}
 
-interface Error {
-  code: string
-  message: string
-}
-
-const LoginView: FC<Props> = () => {
+const SignUpView: FC<Props> = () => {
   // Form State
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [loading, setLoading] = useState(false)
-  const [disabled, setDisabled] = useState(true)
   const [message, setMessage] = useState('')
+  const [dirty, setDirty] = useState(false)
+  const [disabled, setDisabled] = useState(false)
 
   const signup = useSignup()
   const { setModalView, closeModal } = useUI()
 
   const handleSignup = async () => {
+    if (!dirty && !disabled) {
+      setDirty(true)
+      handleValidation()
+    }
+
     try {
       setLoading(true)
       setMessage('')
@@ -42,13 +43,19 @@ const LoginView: FC<Props> = () => {
     }
   }
 
-  useEffect(() => {
+  const handleValidation = () => {
     // Test for Alphanumeric password
     const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
 
     // Unable to send form unless fields are valid.
-    setDisabled(!validate(email) || password.length < 7 || !validPassword)
-  }, [email, password])
+    if (dirty) {
+      setDisabled(!validate(email) || password.length < 7 || !validPassword)
+    }
+  }
+
+  useEffect(() => {
+    handleValidation()
+  }, [email, password, dirty])
 
   return (
     <div className="w-80 flex flex-col justify-between p-3">
@@ -86,4 +93,4 @@ const LoginView: FC<Props> = () => {
   )
 }
 
-export default LoginView
+export default SignUpView

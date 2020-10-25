@@ -1,74 +1,76 @@
 import { FC, useEffect, useState } from 'react'
 import { Logo, Modal, Button, Input } from '@components/ui'
-import useSignup from '@lib/bigcommerce/use-signup'
 import useLogin from '@lib/bigcommerce/use-login'
 import { useUI } from '@components/ui/context'
+import { validate } from 'email-validator'
 
 interface Props {}
 
 const LoginView: FC<Props> = () => {
+  // Form State
   const [email, setEmail] = useState('')
-  const [pass, setPass] = useState('')
-  const { setModalView } = useUI()
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+  const [dirty, setDirty] = useState(false)
+  const [disabled, setDisabled] = useState(false)
+  const { setModalView, closeModal } = useUI()
 
-  const signup = useSignup()
   const login = useLogin()
 
-  // // Data about the currently logged in customer, it will update
-  // // automatically after a signup/login/logout
-  // const { data } = useCustomer()
-  // TODO: use this method. It can take more than 5 seconds to do a signup
-  const handleSignup = async () => {
-    // TODO: validate the password and email before calling the signup
-    // Passwords must be at least 7 characters and contain both alphabetic
-    // and numeric characters.
+  const handleLogin = async () => {
+    if (!dirty && !disabled) {
+      setDirty(true)
+      handleValidation()
+    }
+
     try {
-      await signup({
-        // This account already exists, so it will throw the "duplicated_email" error
-        email: 'luis@vercel.com',
-        firstName: 'Luis',
-        lastName: 'Alvarez',
-        password: 'luis123',
+      setLoading(true)
+      setMessage('')
+      await login({
+        email,
+        password,
       })
-    } catch (error) {
-      if (error.code === 'duplicated_email') {
-        // TODO: handle duplicated email
-      }
-      // Show a generic error saying that something bad happened, try again later
+      setLoading(false)
+      closeModal()
+    } catch ({ errors }) {
+      setMessage(errors[0].message)
+      setLoading(false)
     }
   }
 
-  const handleLogin = async () => {
-    // TODO: validate the password and email before calling the signup
-    // Passwords must be at least 7 characters and contain both alphabetic
-    // and numeric characters.
-    try {
-      await login({
-        email: 'luis@vercel.com',
-        // This is an invalid password so it will throw the "invalid_credentials" error
-        password: 'luis1234', // will work with `luis123`
-      })
-    } catch (error) {
-      if (error.code === 'invalid_credentials') {
-        // The email and password didn't match an existing account
-      }
-      // Show a generic error saying that something bad happened, try again later
+  const handleValidation = () => {
+    // Test for Alphanumeric password
+    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
+
+    // Unable to send form unless fields are valid.
+    if (dirty) {
+      setDisabled(!validate(email) || password.length < 7 || !validPassword)
     }
   }
+
+  useEffect(() => {
+    handleValidation()
+  }, [email, password, dirty])
 
   return (
-    <div className="h-80 w-80 flex flex-col justify-between py-3 px-3">
+    <div className="w-80 flex flex-col justify-between p-3">
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
       <div className="flex flex-col space-y-3">
-        <div className="border border-accents-3 text-accents-6">
-          <Input placeholder="Email" onChange={setEmail} />
-        </div>
-        <div className="border border-accents-3 text-accents-6">
-          <Input placeholder="Password" onChange={setEmail} />
-        </div>
-        <Button variant="slim" onClick={handleSignup}>
+        {message && (
+          <div className="text-red border border-red p-3">{message}</div>
+        )}
+
+        <Input placeholder="Email" onChange={setEmail} />
+        <Input placeholder="Password" onChange={setPassword} />
+        <Button
+          variant="slim"
+          onClick={() => handleLogin()}
+          loading={loading}
+          disabled={disabled}
+        >
           Log In
         </Button>
         <span className="pt-3 text-center text-sm">
