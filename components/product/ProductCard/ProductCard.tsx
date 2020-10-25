@@ -26,6 +26,11 @@ const ProductCard: FC<Props> = ({
   priority,
 }) => {
   const src = p.images.edges?.[0]?.node.urlLarge!
+  const { price } = usePrice({
+    amount: p.prices?.price?.value,
+    baseAmount: p.prices?.retailPrice?.value,
+    currencyCode: p.prices?.price?.currencyCode!,
+  })
 
   if (variant === 'slim') {
     return (
@@ -46,12 +51,6 @@ const ProductCard: FC<Props> = ({
       </div>
     )
   }
-
-  const { price } = usePrice({
-    amount: p.prices?.price?.value,
-    baseAmount: p.prices?.retailPrice?.value,
-    currencyCode: p.prices?.price?.currencyCode!,
-  })
 
   return (
     <Link href={`product${p.path}`}>

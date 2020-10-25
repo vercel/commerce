@@ -1,14 +1,16 @@
+import { FC, useEffect, useState } from 'react'
 import cn from 'classnames'
-import s from './Layout.module.css'
-import React, { FC, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
+import { CommerceProvider } from '@lib/bigcommerce'
 import { CartSidebarView } from '@components/cart'
 import { Container, Sidebar, Button, Modal } from '@components/ui'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { LoginView, SignUpView } from '@components/auth'
 import { useUI } from '@components/ui/context'
 import { usePreventScroll } from '@react-aria/overlays'
-import { CommerceProvider } from '@lib/bigcommerce'
-import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
+import s from './Layout.module.css'
+
 interface Props {
   pageProps: {
     pages?: Page[]
@@ -25,6 +27,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   } = useUI()
   const [acceptedCookies, setAcceptedCookies] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const { locale = 'en-US' } = useRouter()
 
   // TODO: Update code, add throttle and more.
   // TODO: Make sure to not do any unnecessary updates as it's doing right now
@@ -47,7 +50,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   })
 
   return (
-    <CommerceProvider locale="en-us">
+    <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
         <header
           className={cn(
