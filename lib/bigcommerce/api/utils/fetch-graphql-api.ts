@@ -1,7 +1,8 @@
 import { FetcherError } from '@lib/commerce/utils/errors'
-import type { GraphQLFetcher } from 'lib/commerce/api'
+import type { GraphQLFetcher } from '@lib/commerce/api'
 import { getConfig } from '..'
 import log from '@lib/logger'
+import fetch from './fetch'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
