@@ -1,10 +1,11 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import s from './CartItem.module.css'
 import Image from 'next/image'
+import Link from 'next/link'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Trash, Plus, Minus } from '@components/icon'
 import usePrice from '@lib/bigcommerce/use-price'
 import useUpdateItem from '@lib/bigcommerce/cart/use-update-item'
 import useRemoveItem from '@lib/bigcommerce/cart/use-remove-item'
-import s from './CartItem.module.css'
 
 const CartItem = ({
   item,
@@ -55,18 +56,26 @@ const CartItem = ({
   }, [item.quantity])
 
   return (
-    <li className="flex flex-row space-x-8 py-6">
-      <div className="w-12 h-12 bg-violet relative overflow-hidden">
+    <li className="flex flex-row space-x-8 py-8">
+      <div className="w-16 h-16 bg-violet relative overflow-hidden">
         <Image
+          className={s.productImage}
           src={item.image_url}
-          width={60}
-          height={60}
+          width={150}
+          height={150}
+          alt="Product Image"
           // The cart item image is already optimized and very small in size
           unoptimized
         />
       </div>
-      <div className="flex-1 flex flex-col justify-between text-base">
-        <span className="font-bold mb-3">{item.name}</span>
+      <div className="flex-1 flex flex-col text-base">
+        {/** TODO: Replace this. No `path` found at Cart */}
+        <Link href={`/product/${item.url.split('/')[3]}`}>
+          <span className="font-bold mb-5 text-lg cursor-pointer">
+            {item.name}
+          </span>
+        </Link>
+
         <div className="flex items-center">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />

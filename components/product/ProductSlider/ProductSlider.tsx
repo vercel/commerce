@@ -19,10 +19,15 @@ const ProductSlider: FC = ({ children }) => {
 
   return (
     <div className={s.root}>
-      <button className={cn(s.leftControl, s.control)} onClick={slider?.prev} />
+      <button
+        className={cn(s.leftControl, s.control)}
+        onClick={slider?.prev}
+        aria-label="Previous Product Image"
+      />
       <button
         className={cn(s.rightControl, s.control)}
         onClick={slider?.next}
+        aria-label="Next Product Image"
       />
       <div
         ref={ref}
@@ -50,6 +55,7 @@ const ProductSlider: FC = ({ children }) => {
           {[...Array(slider.details().size).keys()].map((idx) => {
             return (
               <button
+                aria-label="Position indicator"
                 key={idx}
                 className={cn(s.positionIndicator, {
                   [s.positionIndicatorActive]: currentSlide === idx,

@@ -9,3 +9,7 @@
 .pageHeading {
   @apply pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide;
 }
+
+.sectionHeading {
+  @apply pt-1 pb-4 text-base leading-7 text-base tracking-wide uppercase border-b border-accents-2;
+}

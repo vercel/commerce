@@ -111,12 +111,12 @@ export default function Search({
           </ul>
         </div>
         <div className="col-span-8">
-          <div className="mb-12 animate__animated animate__fadeIn">
+          <div className="mb-12 transition ease-in duration-75">
             {data ? (
               <>
                 <span
-                  className={cn('animate__animated', {
-                    animate__fadeIn: data.found,
+                  className={cn('animated', {
+                    fadeIn: data.found,
                     hidden: !data.found,
                   })}
                 >
@@ -124,8 +124,8 @@ export default function Search({
                   <strong>{q}</strong>"
                 </span>
                 <span
-                  className={cn('animate__animated', {
-                    animate__fadeIn: !data.found,
+                  className={cn('animated', {
+                    fadeIn: !data.found,
                     hidden: data.found,
                   })}
                 >
@@ -145,7 +145,7 @@ export default function Search({
                 <ProductCard
                   variant="simple"
                   key={node.path}
-                  className="animate__animated animate__fadeIn"
+                  className="animated fadeIn"
                   product={node}
                   imgWidth={480}
                   imgHeight={480}
@@ -157,7 +157,7 @@ export default function Search({
               {rangeMap(12, (i) => (
                 <Skeleton
                   key={i}
-                  className="w-full animate__animated animate__fadeIn"
+                  className="w-full animated fadeIn"
                   height={325}
                 />
               ))}
