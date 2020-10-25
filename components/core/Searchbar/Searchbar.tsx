@@ -16,35 +16,36 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
   }, [])
 
   return (
-    <label
-      htmlFor={id}
+    <div
       className={cn(
         'relative text-sm bg-accents-1 text-base w-full transition-colors duration-150',
         className
       )}
     >
-      <input
-        id={id}
-        className={s.input}
-        placeholder="Search for products..."
-        defaultValue={router.query.q}
-        onKeyUp={(e) => {
-          e.preventDefault()
+      <label htmlFor={id}>
+        <input
+          id={id}
+          className={s.input}
+          placeholder="Search for products..."
+          defaultValue={router.query.q}
+          onKeyUp={(e) => {
+            e.preventDefault()
 
-          if (e.key === 'Enter') {
-            const q = e.currentTarget.value
+            if (e.key === 'Enter') {
+              const q = e.currentTarget.value
 
-            router.push(
-              {
-                pathname: `/search`,
-                query: q ? { q } : {},
-              },
-              undefined,
-              { shallow: true }
-            )
-          }
-        }}
-      />
+              router.push(
+                {
+                  pathname: `/search`,
+                  query: q ? { q } : {},
+                },
+                undefined,
+                { shallow: true }
+              )
+            }
+          }}
+        />
+      </label>
       <div className={s.iconContainer}>
         <svg className={s.icon} fill="currentColor" viewBox="0 0 20 20">
           <path
@@ -54,7 +55,7 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
           />
         </svg>
       </div>
-    </label>
+    </div>
   )
 }
 
