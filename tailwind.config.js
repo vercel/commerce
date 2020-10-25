@@ -4,8 +4,6 @@ module.exports = {
     purgeLayersByDefault: true,
   },
   purge: {
-    preserveHtmlElements: false,
-    mode: 'all',
     content: [
       './pages/**/*.{js,ts,jsx,tsx}',
       './components/**/*.{js,ts,jsx,tsx}',
