@@ -5,7 +5,7 @@ import cn from 'classnames'
 import s from './DropdownMenu.module.css'
 import { Moon, Sun } from '@components/icon'
 import { Menu, Transition } from '@headlessui/react'
-
+import useLogout from '@lib/bigcommerce/use-logout'
 interface DropdownMenuProps {
   open: boolean
 }
@@ -27,7 +27,7 @@ const LINKS = [
 
 const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
   const { theme, setTheme } = useTheme()
-
+  const logout = useLogout()
   return (
     <Transition
       show={open}
@@ -68,7 +68,12 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
           </a>
         </Menu.Item>
         <Menu.Item>
-          <a className={cn(s.link, 'border-t border-accents-2 mt-4')}>Logout</a>
+          <a
+            className={cn(s.link, 'border-t border-accents-2 mt-4')}
+            onClick={() => logout()}
+          >
+            Logout
+          </a>
         </Menu.Item>
       </Menu.Items>
     </Transition>

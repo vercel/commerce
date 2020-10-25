@@ -2,43 +2,64 @@ import cn from 'classnames'
 import { FC, useRef } from 'react'
 import s from './Modal.module.css'
 import { useDialog } from '@react-aria/dialog'
-import { useOverlay, useModal } from '@react-aria/overlays'
 import { FocusScope } from '@react-aria/focus'
-
+import { Transition } from '@headlessui/react'
+import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
 interface Props {
   className?: string
   children?: any
-  show?: boolean
-  close: () => void
+  open: boolean
+  onClose?: () => void
 }
 
 const Modal: FC<Props> = ({
   className,
   children,
-  show = true,
-  close,
+  open = false,
+  onClose,
   ...props
 }) => {
   const rootClassName = cn(s.root, className)
   let ref = useRef() as React.MutableRefObject<HTMLInputElement>
   let { modalProps } = useModal()
-  let { overlayProps } = useOverlay(props, ref)
-  let { dialogProps } = useDialog(props, ref)
+  let { dialogProps } = useDialog({}, ref)
+  let { overlayProps } = useOverlay(
+    {
+      isOpen: open,
+      isDismissable: true,
+      onClose: onClose,
+      ...props,
+    },
+    ref
+  )
 
   return (
-    <div className={rootClassName}>
-      <FocusScope contain restoreFocus autoFocus>
-        <div
-          {...overlayProps}
-          {...dialogProps}
-          {...modalProps}
-          ref={ref}
-          className={s.modal}
-        >
-          {children}
-        </div>
-      </FocusScope>
-    </div>
+    <Transition show={open}>
+      <OverlayContainer>
+        <FocusScope contain restoreFocus autoFocus>
+          <div className={rootClassName}>
+            <Transition.Child
+              enter="transition-opacity ease-linear duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity ease-linear duration-300"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div
+                className={s.modal}
+                {...overlayProps}
+                {...dialogProps}
+                {...modalProps}
+                ref={ref}
+              >
+                {children}
+              </div>
+            </Transition.Child>
+          </div>
+        </FocusScope>
+      </OverlayContainer>
+    </Transition>
   )
 }
 

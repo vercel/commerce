@@ -5,11 +5,15 @@ import { SSRProvider, OverlayProvider } from 'react-aria'
 export interface State {
   displaySidebar: boolean
   displayDropdown: boolean
+  displayModal: boolean
+  modalView: string
 }
 
 const initialState = {
   displaySidebar: false,
   displayDropdown: false,
+  displayModal: false,
+  modalView: 'LOGIN_VIEW',
 }
 
 type Action =
@@ -25,6 +29,22 @@ type Action =
   | {
       type: 'CLOSE_DROPDOWN'
     }
+  | {
+      type: 'OPEN_MODAL'
+    }
+  | {
+      type: 'CLOSE_MODAL'
+    }
+  | {
+      type: 'SET_MODAL_VIEW'
+      view: 'LOGIN_VIEW'
+    }
+  | {
+      type: 'SET_MODAL_VIEW'
+      view: 'SIGNUP_VIEW'
+    }
+
+type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW'
 
 export const UIContext = React.createContext<State | any>(initialState)
 
@@ -56,6 +76,24 @@ function uiReducer(state: State, action: Action) {
         displayDropdown: false,
       }
     }
+    case 'OPEN_MODAL': {
+      return {
+        ...state,
+        displayModal: true,
+      }
+    }
+    case 'CLOSE_MODAL': {
+      return {
+        ...state,
+        displayModal: false,
+      }
+    }
+    case 'SET_MODAL_VIEW': {
+      return {
+        ...state,
+        modalView: action.view,
+      }
+    }
   }
 }
 
@@ -68,12 +106,21 @@ export const UIProvider: FC = (props) => {
   const openDropdown = () => dispatch({ type: 'OPEN_DROPDOWN' })
   const closeDropdown = () => dispatch({ type: 'CLOSE_DROPDOWN' })
 
+  const openModal = () => dispatch({ type: 'OPEN_MODAL' })
+  const closeModal = () => dispatch({ type: 'CLOSE_MODAL' })
+
+  const setModalView = (view: MODAL_VIEWS) =>
+    dispatch({ type: 'SET_MODAL_VIEW', view })
+
   const value = {
     ...state,
     openSidebar,
     closeSidebar,
     openDropdown,
     closeDropdown,
+    openModal,
+    closeModal,
+    setModalView,
   }
 
   return <UIContext.Provider value={value} {...props} />
