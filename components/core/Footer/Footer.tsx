@@ -92,7 +92,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
           </div>
           <div className="flex items-center text-accents-4">
             <span>Crafted by</span>
-            <a href="https://vercel.com">
+            <a href="https://vercel.com" aria-label="Vercel.com Link">
               <img
                 src="/vercel.png"
                 alt="Vercel.com Logo"
