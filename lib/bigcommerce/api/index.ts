@@ -1,3 +1,4 @@
+import type { RequestInit } from '@vercel/fetch'
 import { CommerceAPIConfig } from 'lib/commerce/api'
 import { GetAllProductsQueryVariables } from '../schema'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
