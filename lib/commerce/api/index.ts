@@ -1,3 +1,5 @@
+import type { RequestInit, Response } from '@vercel/fetch'
+
 export interface CommerceAPIConfig {
   locale?: string
   commerceUrl: string
