@@ -1,9 +1,6 @@
 import '@assets/main.css'
 import 'keen-slider/keen-slider.min.css'
 
-// To be removed
-import 'animate.css'
-
 import { FC } from 'react'
 import type { AppProps } from 'next/app'
 
