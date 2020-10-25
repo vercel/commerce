@@ -63,6 +63,7 @@ const CartItem = ({
           src={item.image_url}
           width={150}
           height={150}
+          alt="Product Image"
           // The cart item image is already optimized and very small in size
           unoptimized
         />

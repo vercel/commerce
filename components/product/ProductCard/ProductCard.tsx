@@ -36,6 +36,7 @@ const ProductCard: FC<Props> = ({
         </div>
         <Image
           src={src}
+          alt={p.name}
           width={imgWidth}
           height={imgHeight}
           priority={priority}
@@ -64,6 +65,7 @@ const ProductCard: FC<Props> = ({
         </div>
         <div className={cn(s.imageContainer)}>
           <Image
+            alt={p.name}
             className={cn('w-full object-cover', s['product-image'])}
             src={src}
             width={imgWidth}
