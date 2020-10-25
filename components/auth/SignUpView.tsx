@@ -1,77 +1,78 @@
 import { FC, useEffect, useState } from 'react'
-import { Logo, Modal, Button, Input } from '@components/ui'
+import { Logo, Button, Input } from '@components/ui'
 import useSignup from '@lib/bigcommerce/use-signup'
-import useLogin from '@lib/bigcommerce/use-login'
 import { useUI } from '@components/ui/context'
+import { validate } from 'email-validator'
 
 interface Props {}
 
+interface Error {
+  code: string
+  message: string
+}
+
 const LoginView: FC<Props> = () => {
+  // Form State
   const [email, setEmail] = useState('')
-  const [pass, setPass] = useState('')
+  const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+  const [message, setMessage] = useState('')
 
   const signup = useSignup()
-  const login = useLogin()
-  const { setModalView } = useUI()
-  // // Data about the currently logged in customer, it will update
-  // // automatically after a signup/login/logout
-  // const { data } = useCustomer()
-  // TODO: use this method. It can take more than 5 seconds to do a signup
+  const { setModalView, closeModal } = useUI()
+
   const handleSignup = async () => {
-    // TODO: validate the password and email before calling the signup
-    // Passwords must be at least 7 characters and contain both alphabetic
-    // and numeric characters.
     try {
+      setLoading(true)
+      setMessage('')
       await signup({
-        // This account already exists, so it will throw the "duplicated_email" error
-        email: 'luis@vercel.com',
-        firstName: 'Luis',
-        lastName: 'Alvarez',
-        password: 'luis123',
+        email,
+        firstName,
+        lastName,
+        password,
       })
-    } catch (error) {
-      if (error.code === 'duplicated_email') {
-        // TODO: handle duplicated email
-      }
-      // Show a generic error saying that something bad happened, try again later
+      setLoading(false)
+      closeModal()
+    } catch ({ errors }) {
+      setMessage(errors[0].message)
+      setLoading(false)
     }
   }
 
-  const handleLogin = async () => {
-    // TODO: validate the password and email before calling the signup
-    // Passwords must be at least 7 characters and contain both alphabetic
-    // and numeric characters.
-    try {
-      await login({
-        email: 'luis@vercel.com',
-        // This is an invalid password so it will throw the "invalid_credentials" error
-        password: 'luis1234', // will work with `luis123`
-      })
-    } catch (error) {
-      if (error.code === 'invalid_credentials') {
-        // The email and password didn't match an existing account
-      }
-      // Show a generic error saying that something bad happened, try again later
-    }
-  }
+  useEffect(() => {
+    // Test for Alphanumeric password
+    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
+
+    // Unable to send form unless fields are valid.
+    setDisabled(!validate(email) || password.length < 7 || !validPassword)
+  }, [email, password])
 
   return (
-    <div className="h-80 w-80 flex flex-col justify-between py-3 px-3">
+    <div className="w-80 flex flex-col justify-between p-3">
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
       <div className="flex flex-col space-y-3">
-        <div className="border border-accents-3 text-accents-6">
-          <Input placeholder="Email" onChange={setEmail} />
-        </div>
-        <div className="border border-accents-3 text-accents-6">
-          <Input placeholder="Password" onChange={setEmail} />
-        </div>
-        <Button variant="slim" onClick={handleSignup}>
+        {message && (
+          <div className="text-red border border-red p-3">{message}</div>
+        )}
+        <Input placeholder="First Name" onChange={setFirstName} />
+        <Input placeholder="Last Name" onChange={setLastName} />
+        <Input placeholder="Email" onChange={setEmail} />
+        <Input placeholder="Password" onChange={setPassword} />
+        <Button
+          variant="slim"
+          onClick={() => handleSignup()}
+          loading={loading}
+          disabled={disabled}
+        >
           Sign Up
         </Button>
         <span className="pt-3 text-center text-sm">
-          <span className="text-accents-7">Don't have an account?</span>
+          <span className="text-accents-7">Do you have an account?</span>
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"
