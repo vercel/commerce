@@ -8,7 +8,7 @@ const I18nWidget: FC = () => {
   return (
     <nav className={s.root}>
       <Menu>
-        <Menu.Button className={s.button}>
+        <Menu.Button className={s.button} aria-label="Language selector">
           <img className="" src="/flag-us.png" alt="US Flag" />
           <span>English</span>
           <span className="">

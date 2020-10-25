@@ -16,12 +16,14 @@ const Searchbar: FC<Props> = ({ className }) => {
 
   return (
     <label
+      htmlFor="search"
       className={cn(
         'relative text-sm bg-accents-1 text-base w-full transition-colors duration-150',
         className
       )}
     >
       <input
+        id="search"
         className={s.input}
         placeholder="Search for products..."
         defaultValue={router.query.q}
