@@ -8,7 +8,7 @@ import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
 interface Props {
   className?: string
   children?: any
-  open: boolean
+  open?: boolean
   onClose?: () => void
 }
 

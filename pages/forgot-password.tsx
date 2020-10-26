@@ -3,7 +3,7 @@ import { Logo, Modal, Button } from '@components/ui'
 export default function ForgotPassword() {
   return (
     <div className="pb-20">
-      <Modal close={() => {}}>
+      <Modal onClose={() => {}}>
         <div className="h-80 w-80 flex flex-col justify-between py-3 px-3">
           <div className="flex justify-center pb-12 ">
             <Logo width="64px" height="64px" />
