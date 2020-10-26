@@ -111,33 +111,35 @@ export default function Search({
           </ul>
         </div>
         <div className="col-span-8">
-          <div className="mb-12 transition ease-in duration-75">
-            {data ? (
-              <>
-                <span
-                  className={cn('animated', {
-                    fadeIn: data.found,
-                    hidden: !data.found,
-                  })}
-                >
-                  Showing {data.products.length} results for "
-                  <strong>{q}</strong>"
-                </span>
-                <span
-                  className={cn('animated', {
-                    fadeIn: !data.found,
-                    hidden: data.found,
-                  })}
-                >
-                  There are no products that match "<strong>{q}</strong>"
-                </span>
-              </>
-            ) : (
-              <>
-                Searching for: "<strong>{q}</strong>"
-              </>
-            )}
-          </div>
+          {q && (
+            <div className="mb-12 transition ease-in duration-75">
+              {data ? (
+                <>
+                  <span
+                    className={cn('animated', {
+                      fadeIn: data.found,
+                      hidden: !data.found,
+                    })}
+                  >
+                    Showing {data.products.length} results for "
+                    <strong>{q}</strong>"
+                  </span>
+                  <span
+                    className={cn('animated', {
+                      fadeIn: !data.found,
+                      hidden: data.found,
+                    })}
+                  >
+                    There are no products that match "<strong>{q}</strong>"
+                  </span>
+                </>
+              ) : (
+                <>
+                  Searching for: "<strong>{q}</strong>"
+                </>
+              )}
+            </div>
+          )}
 
           {data ? (
             <Grid layout="normal">
