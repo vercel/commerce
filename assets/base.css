@@ -1,13 +1,13 @@
 :root {
-  --primary: white;
+  --primary: #ffffff;
   --primary-2: #f1f3f5;
-  --secondary: black;
+  --secondary: #000000;
   --secondary-2: #111;
 
   --selection: var(--cyan);
 
-  --text-base: black;
-  --text-primary: black;
+  --text-base: #000000;
+  --text-primary: #000000;
   --text-secondary: white;
 
   --hover: rgba(0, 0, 0, 0.075);
@@ -38,9 +38,9 @@
 }
 
 [data-theme='dark'] {
-  --primary: black;
+  --primary: #000000;
   --primary-2: #111;
-  --secondary: white;
+  --secondary: #000000;
   --secondary-2: #f1f3f5;
   --hover: rgba(255, 255, 255, 0.075);
   --hover-1: rgba(255, 255, 255, 0.15);

@@ -7,6 +7,7 @@ import { useUI } from '@components/ui/context'
 import useCart from '@lib/bigcommerce/cart/use-cart'
 import usePrice from '@lib/bigcommerce/use-price'
 import CartItem from '../CartItem'
+import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { data, isEmpty } = useCart()
@@ -32,10 +33,10 @@ const CartSidebarView: FC = () => {
 
   return (
     <div
-      className={cn('h-full flex flex-col', {
-        'bg-secondary text-secondary': isEmpty,
-        'bg-red text-white': error,
-        'bg-green text-white': success,
+      className={cn(s.root, {
+        [s.empty]: error,
+        [s.empty]: success,
+        [s.empty]: isEmpty,
       })}
     >
       <header className="px-4 pt-6 pb-4 sm:px-6">
@@ -56,7 +57,7 @@ const CartSidebarView: FC = () => {
       </header>
 
       {isEmpty ? (
-        <div className="flex-1 px-4 flex flex-col justify-center items-center ">
+        <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />
           </span>
