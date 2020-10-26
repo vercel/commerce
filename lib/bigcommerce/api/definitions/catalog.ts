@@ -1215,12 +1215,11 @@ export interface definitions {
     /**
      * Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base variant.
      */
-    option_values?: definitions['productVariantOptionValue_Full'][]
+    option_values?: definitions['productVariantOptionValue_Base'][]
     /**
      * The price of the variant as seen on the storefront. This price takes into account `sale_price` and any price adjustment rules that are applicable to this variant.
      */
     calculated_price?: number
-    ''?: string
   }
   /**
    * The model for a POST to create variants on a product.
@@ -1296,7 +1295,7 @@ export interface definitions {
     /**
      * Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base variant.
      */
-    option_values?: definitions['productVariantOptionValue_Full'][]
+    option_values?: { id?: number; option_id?: number }[]
   }
   variantCollection_Put: definitions['productVariant_Full'][]
   /**
@@ -1481,16 +1480,7 @@ export interface definitions {
   /**
    * Common Product Variant Option properties.
    */
-  productVariantOptionValue_Base: {
-    /**
-     * `option_value` ID.
-     */
-    id?: number
-    /**
-     * `option` ID.
-     */
-    option_id?: number
-  }
+  productVariantOptionValue_Base: { id?: number; option_id?: number }
   /**
    * The model for a POST to create option values on a variant.
    */
@@ -1909,7 +1899,9 @@ export interface definitions {
      */
     image_url?: string
   }
-  product_Post: definitions['product_Base']
+  product_Post: definitions['product_Base'] & {
+    variants?: definitions['productVariant_Post_Product']
+  }
   /**
    * The model for a PUT to update a product.
    */
@@ -2721,11 +2713,11 @@ export interface definitions {
     /**
      * The product name.
      */
-    name: string
+    name?: string
     /**
      * The product type. One of: `physical` - a physical stock unit, `digital` - a digital download.
      */
-    type: 'physical' | 'digital'
+    type?: 'physical' | 'digital'
     /**
      * User defined product code/stock keeping unit (SKU).
      */
@@ -2737,7 +2729,7 @@ export interface definitions {
     /**
      * Weight of the product, which can be used when calculating shipping costs. This is based on the unit set on the store
      */
-    weight: number
+    weight?: number
     /**
      * Width of the product, which can be used when calculating shipping costs.
      */
@@ -2753,7 +2745,7 @@ export interface definitions {
     /**
      * The price of the product. The price should include or exclude tax, based on the store settings.
      */
-    price: number
+    price?: number
     /**
      * The cost price of the product. Stored for reference only; it is not used or displayed anywhere on the store.
      */
