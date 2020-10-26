@@ -129,9 +129,9 @@ export default function Home({
           />
         ))}
       </Marquee>
-      <div className="py-12 flex flex-row w-full px-6">
-        <div className="pr-3 w-48 relative">
-          <div className="sticky top-32">
+      <div className="py-12 flex flex-col md:flex-row w-full px-6">
+        <div className="pr-3 w-full md:w-48 relative">
+          <div className="flex flex-row w-full justify-around mb-12 md:mb-0 md:block md:sticky md:top-32">
             <ul className="mb-10">
               <li className="py-1 text-base font-bold tracking-wide">
                 <Link href={getCategoryPath('')}>
