@@ -22,7 +22,7 @@ export type ItemBody = {
 
 export type AddItemBody = { item: ItemBody }
 
-export type RemoveItemBody = { wishlistId: string; itemId: string }
+export type RemoveItemBody = { itemId: string }
 
 export type WishlistBody = {
   customer_id: number
@@ -52,7 +52,7 @@ export type WishlistHandlers = {
   >
   removeItem: BigcommerceHandler<
     Wishlist,
-    { wishlistId: string } & Body<RemoveItemBody>
+    { customerToken?: string } & Body<RemoveItemBody>
   >
   removeWishlist: BigcommerceHandler<Wishlist, { wishlistId: string }>
 }
@@ -93,11 +93,8 @@ const wishlistApi: BigcommerceApiHandler<Wishlist, WishlistHandlers> = async (
     }
 
     // Remove an item from the wishlist
-    if (req.method === 'DELETE' && wishlistId && itemId) {
-      const body = {
-        wishlistId: wishlistId as string,
-        itemId: itemId as string,
-      }
+    if (req.method === 'DELETE') {
+      const body = { ...req.body, customerToken }
       return await handlers['removeItem']({ req, res, config, body })
     }
 
