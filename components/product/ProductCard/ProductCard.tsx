@@ -3,7 +3,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
 import usePrice from '@lib/bigcommerce/use-price'
-import { Heart } from '@components/icon'
+import { Heart } from '@components/icons'
 import { EnhancedImage } from '@components/core'
 import s from './ProductCard.module.css'
 

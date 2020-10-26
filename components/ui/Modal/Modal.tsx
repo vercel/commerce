@@ -5,11 +5,12 @@ import { useDialog } from '@react-aria/dialog'
 import { FocusScope } from '@react-aria/focus'
 import { Transition } from '@headlessui/react'
 import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
+import { Cross } from '@components/icons'
 interface Props {
   className?: string
   children?: any
   open?: boolean
-  onClose?: () => void
+  onClose: () => void
 }
 
 const Modal: FC<Props> = ({
@@ -26,7 +27,7 @@ const Modal: FC<Props> = ({
   let { overlayProps } = useOverlay(
     {
       isOpen: open,
-      isDismissable: true,
+      isDismissable: false,
       onClose: onClose,
       ...props,
     },
@@ -53,6 +54,16 @@ const Modal: FC<Props> = ({
                 {...modalProps}
                 ref={ref}
               >
+                <div className="h-7 flex items-center justify-end w-full">
+                  <button
+                    onClick={() => onClose()}
+                    aria-label="Close panel"
+                    className="hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none"
+                  >
+                    <Cross className="h-6 w-6" />
+                  </button>
+                </div>
+
                 {children}
               </div>
             </Transition.Child>

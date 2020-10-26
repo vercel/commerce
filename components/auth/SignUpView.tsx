@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { validate } from 'email-validator'
-import { Info } from '@components/icon'
+import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Logo, Button, Input } from '@components/ui'
 import useSignup from '@lib/bigcommerce/use-signup'
@@ -59,7 +59,7 @@ const SignUpView: FC<Props> = () => {
   }, [handleValidation])
 
   return (
-    <div className="w-80 flex flex-col justify-between p-3">
+    <div className="w-96 flex flex-col justify-between p-3">
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
@@ -72,13 +72,13 @@ const SignUpView: FC<Props> = () => {
         <Input placeholder="Email" onChange={setEmail} />
         <Input placeholder="Password" onChange={setPassword} />
         <span className="text-accents-8">
-          <Info
-            width="20"
-            height="20"
-            className="inline-block mr-1 text-accents-8"
-          />
-          <strong>Info</strong>: Password must be longer than 7 chars and
-          include numbers.
+          <span className="inline-block align-middle ">
+            <Info width="15" height="15" />
+          </span>{' '}
+          <span className="leading-6 text-sm">
+            <strong>Info</strong>: Passwords must be longer than 7 chars and
+            include numbers.{' '}
+          </span>
         </span>
         <div className="pt-2 w-full flex flex-col">
           <Button
@@ -91,7 +91,7 @@ const SignUpView: FC<Props> = () => {
           </Button>
         </div>
 
-        <span className="pt-3 text-center text-sm">
+        <span className="pt-1 text-center text-sm">
           <span className="text-accents-7">Do you have an account?</span>
           {` `}
           <a

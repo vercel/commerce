@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import cn from 'classnames'
 import s from './DropdownMenu.module.css'
-import { Moon, Sun } from '@components/icon'
+import { Moon, Sun } from '@components/icons'
 import { Menu, Transition } from '@headlessui/react'
 import useLogout from '@lib/bigcommerce/use-logout'
 interface DropdownMenuProps {

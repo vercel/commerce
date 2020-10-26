@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSlug from '@utils/get-slug'
-import { Github } from '@components/icon'
+import { Github } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/core'
 

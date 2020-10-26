@@ -6,7 +6,7 @@ import { CommerceProvider } from '@lib/bigcommerce'
 import { CartSidebarView } from '@components/cart'
 import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
 import { Navbar, Featurebar, Footer } from '@components/core'
-import { LoginView, SignUpView } from '@components/auth'
+import { LoginView, SignUpView, ForgotPassword } from '@components/auth'
 import { useUI } from '@components/ui/context'
 import { usePreventScroll } from '@react-aria/overlays'
 import s from './Layout.module.css'
@@ -74,6 +74,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
         <Modal open={displayModal} onClose={closeModal}>
           {modalView === 'LOGIN_VIEW' && <LoginView />}
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
+          {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
         </Modal>
         <Featurebar
           title="This site uses cookies to improve your experience."

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Switch } from '@headlessui/react'
-import { Moon, Sun } from '@components/icon'
+import { Moon, Sun } from '@components/icons'
 interface Props {
   className?: string
   checked: boolean

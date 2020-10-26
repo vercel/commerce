@@ -60,11 +60,19 @@ const LoginView: FC<Props> = () => {
       </div>
       <div className="flex flex-col space-y-3">
         {message && (
-          <div className="text-red border border-red p-3">{message}</div>
+          <div className="text-red border border-red p-3">
+            {message}. Did you {` `}
+            <a
+              className="text-accent-9 inline font-bold hover:underline cursor-pointer"
+              onClick={() => setModalView('FORGOT_VIEW')}
+            >
+              forgot your password?
+            </a>
+          </div>
         )}
-
         <Input placeholder="Email" onChange={setEmail} />
         <Input placeholder="Password" onChange={setPassword} />
+
         <Button
           variant="slim"
           onClick={() => handleLogin()}
@@ -73,7 +81,7 @@ const LoginView: FC<Props> = () => {
         >
           Log In
         </Button>
-        <span className="pt-3 text-center text-sm">
+        <div className="pt-1 text-center text-sm">
           <span className="text-accents-7">Don't have an account?</span>
           {` `}
           <a
@@ -82,7 +90,7 @@ const LoginView: FC<Props> = () => {
           >
             Sign Up
           </a>
-        </span>
+        </div>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Menu } from '@headlessui/react'
-import { DoubleChevron } from '@components/icon'
+import { DoubleChevron } from '@components/icons'
 import s from './I18nWidget.module.css'
 
 const LOCALES_MAP: Record<string, string> = {
