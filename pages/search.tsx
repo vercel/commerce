@@ -76,7 +76,7 @@ export default function Search({
               >
                 <Link
                   href={{
-                    pathname: getCategoryPath(getSlug(cat.path), brand),
+                    pathname: getCategoryPath(cat.path, brand),
                     query,
                   }}
                 >
@@ -100,7 +100,7 @@ export default function Search({
               >
                 <Link
                   href={{
-                    pathname: getDesignerPath(getSlug(node.path), category),
+                    pathname: getDesignerPath(node.path, category),
                     query,
                   }}
                 >
