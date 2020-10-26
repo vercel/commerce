@@ -1,5 +1,11 @@
 .link {
-  @apply group inline-flex items-center text-base leading-6 font-medium
-  hover:text-accents-8 focus:outline-none focus:text-accents-8 transition
-  ease-in-out duration-150 cursor-pointer;
+  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-150 cursor-pointer;
+}
+
+.link:hover {
+  @apply text-accents-8;
+}
+
+.link:focus {
+  @apply outline-none text-accents-8;
 }

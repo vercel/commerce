@@ -4,14 +4,17 @@
   @screen lg {
     @apply absolute border border-accents-1 shadow-lg w-56 h-auto;
   }
+}
 
-  & .link {
-    @apply flex cursor-pointer px-6 py-3 block hover:bg-accents-1 transition ease-in-out
-    duration-150 text-base leading-6 font-medium text-gray-900 items-center;
-    text-transform: capitalize;
-  }
+.link {
+  @apply flex cursor-pointer px-6 py-3 block transition ease-in-out duration-150 text-primary leading-6 font-medium text-gray-900 items-center;
+  text-transform: capitalize;
+}
 
-  &.off {
-    @apply hidden;
-  }
+.link:hover {
+  @apply bg-accents-1;
+}
+
+.off {
+  @apply hidden;
 }

@@ -1,16 +1,13 @@
 .root {
-  @apply text-accents-1 cursor-pointer inline-flex px-10 rounded-sm leading-6
-  bg-secondary transition ease-in-out duration-150 shadow-sm font-semibold
-  text-center justify-center uppercase py-4 uppercase text-center focus:outline-none
-  border border-transparent items-center;
+  @apply text-accents-1 cursor-pointer inline-flex px-10 rounded-sm leading-6 bg-secondary transition ease-in-out duration-150 shadow-sm font-semibold text-center justify-center uppercase py-4 uppercase text-center border border-transparent items-center;
 }
 
 .root:hover {
-  @apply bg-accents-0 text-base border border-secondary;
+  @apply bg-accents-0 text-primary border border-secondary;
 }
 
 .root:focus {
-  @apply shadow-outline;
+  @apply shadow-outline outline-none;
 }
 
 .root[data-active] {

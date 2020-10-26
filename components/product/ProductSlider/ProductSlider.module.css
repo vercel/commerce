@@ -5,7 +5,17 @@
 
 .leftControl,
 .rightControl {
-  @apply absolute top-1/2 -translate-x-1/2 z-20 w-16 h-16 flex items-center justify-center bg-hover-1 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-hover-2;
+  @apply absolute top-1/2 -translate-x-1/2 z-20 w-16 h-16 flex items-center justify-center bg-hover-1 rounded-full;
+}
+
+.leftControl:hover,
+.rightControl:hover {
+  @apply bg-hover-2;
+}
+
+.leftControl:hover,
+.rightControl:hover {
+  @apply outline-none shadow-outline-blue;
 }
 
 .leftControl {

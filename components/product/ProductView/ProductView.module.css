@@ -83,7 +83,7 @@
 }
 
 .wishlistButton {
-  @apply absolute z-30 top-6 right-0 bg-primary text-base w-10 h-10 flex items-center justify-center font-semibold leading-6 cursor-pointer;
+  @apply absolute z-30 top-6 right-0 bg-primary text-primary w-10 h-10 flex items-center justify-center font-semibold leading-6 cursor-pointer;
 
   @screen lg {
     @apply right-12 text-white bg-violet;
