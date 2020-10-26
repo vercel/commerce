@@ -5,6 +5,7 @@ import { Container, Text } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
 
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+import useWishlist from '@lib/bigcommerce/wishlist/use-wishlist'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { pages } = await getAllPages()
@@ -19,6 +20,7 @@ export default function Home({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  // const { data } = useWishlist()
   return (
     <Container>
       <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
