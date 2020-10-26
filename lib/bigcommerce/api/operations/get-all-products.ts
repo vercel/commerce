@@ -6,7 +6,7 @@ import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productConnectionFragment } from '../fragments/product'
-import { BigcommerceConfig, getConfig, Images, ProductImageVariables } from '..'
+import { BigcommerceConfig, getConfig } from '..'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -14,14 +14,6 @@ export const getAllProductsQuery = /* GraphQL */ `
     $locale: String = "null"
     $entityIds: [Int!]
     $first: Int = 10
-    $imgSmallWidth: Int = 320
-    $imgSmallHeight: Int
-    $imgMediumWidth: Int = 640
-    $imgMediumHeight: Int
-    $imgLargeWidth: Int = 960
-    $imgLargeHeight: Int
-    $imgXLWidth: Int = 1280
-    $imgXLHeight: Int
     $products: Boolean = false
     $featuredProducts: Boolean = false
     $bestSellingProducts: Boolean = false
@@ -71,11 +63,10 @@ export type ProductTypes =
   | 'bestSellingProducts'
   | 'newestProducts'
 
-export type ProductVariables = { field?: ProductTypes } & Images &
-  Omit<
-    GetAllProductsQueryVariables,
-    ProductTypes | keyof ProductImageVariables | 'hasLocale'
-  >
+export type ProductVariables = { field?: ProductTypes } & Omit<
+  GetAllProductsQueryVariables,
+  ProductTypes | 'hasLocale'
+>
 
 async function getAllProducts(opts?: {
   variables?: ProductVariables
@@ -104,7 +95,6 @@ async function getAllProducts({
 
   const locale = vars.locale || config.locale
   const variables: GetAllProductsQueryVariables = {
-    ...config.imageVariables,
     ...vars,
     locale,
     hasLocale: !!locale,

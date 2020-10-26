@@ -27,7 +27,7 @@ type Props = Omit<
 const EnhancedImage: FC<Props & JSX.IntrinsicElements['img']> = ({
   ...props
 }) => {
-  const [ref, inView] = useInView({
+  const [ref] = useInView({
     triggerOnce: true,
     rootMargin: '220px 0px',
   })

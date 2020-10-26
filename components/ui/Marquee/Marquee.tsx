@@ -19,16 +19,6 @@ const M: FC<Props> = ({ className = '', children, variant = 'primary' }) => {
     className
   )
 
-  // return (
-  //   <div className={rootClassName}>
-  //     <div className={s.container}>
-  //       {items.map((p: any) => (
-  //         <Component {...p} />
-  //       ))}
-  //     </div>
-  //   </div>
-  // )
-
   return (
     <div className={rootClassName}>
       <Ticker offset={80}>

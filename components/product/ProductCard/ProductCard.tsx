@@ -25,7 +25,7 @@ const ProductCard: FC<Props> = ({
   imgHeight,
   priority,
 }) => {
-  const src = p.images.edges?.[0]?.node.urlLarge!
+  const src = p.images.edges?.[0]?.node.urlOriginal!
   const { price } = usePrice({
     amount: p.prices?.price?.value,
     baseAmount: p.prices?.retailPrice?.value,
@@ -41,7 +41,7 @@ const ProductCard: FC<Props> = ({
           </span>
         </div>
         <EnhancedImage
-          src={p.images.edges?.[0]?.node.urlSmall!}
+          src={p.images.edges?.[0]?.node.urlOriginal!}
           alt={p.name}
           width={imgWidth}
           height={imgHeight}

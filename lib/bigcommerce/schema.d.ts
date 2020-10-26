@@ -1684,16 +1684,6 @@ export type CategoryTreeItemFragment = {
   'entityId' | 'name' | 'path' | 'description' | 'productCount'
 >
 
-export type ResponsiveImageFragment = { __typename?: 'Image' } & Pick<
-  Image,
-  'urlOriginal' | 'altText' | 'isDefault'
-> & {
-    urlSmall: Image['url']
-    urlMedium: Image['url']
-    urlLarge: Image['url']
-    urlXL: Image['url']
-  }
-
 export type SwatchOptionFragment = { __typename?: 'SwatchOptionValue' } & Pick<
   SwatchOptionValue,
   'isDefault' | 'hexColors'
@@ -1749,7 +1739,10 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
         Array<
           Maybe<
             { __typename?: 'ImageEdge' } & {
-              node: { __typename?: 'Image' } & ResponsiveImageFragment
+              node: { __typename?: 'Image' } & Pick<
+                Image,
+                'urlOriginal' | 'altText' | 'isDefault'
+              >
             }
           >
         >
@@ -1762,7 +1755,10 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
             { __typename?: 'VariantEdge' } & {
               node: { __typename?: 'Variant' } & Pick<Variant, 'entityId'> & {
                   defaultImage?: Maybe<
-                    { __typename?: 'Image' } & ResponsiveImageFragment
+                    { __typename?: 'Image' } & Pick<
+                      Image,
+                      'urlOriginal' | 'altText' | 'isDefault'
+                    >
                   >
                 }
             }
@@ -1869,14 +1865,6 @@ export type GetAllProductsQueryVariables = Exact<{
   locale?: Maybe<Scalars['String']>
   entityIds?: Maybe<Array<Scalars['Int']>>
   first?: Maybe<Scalars['Int']>
-  imgSmallWidth?: Maybe<Scalars['Int']>
-  imgSmallHeight?: Maybe<Scalars['Int']>
-  imgMediumWidth?: Maybe<Scalars['Int']>
-  imgMediumHeight?: Maybe<Scalars['Int']>
-  imgLargeWidth?: Maybe<Scalars['Int']>
-  imgLargeHeight?: Maybe<Scalars['Int']>
-  imgXLWidth?: Maybe<Scalars['Int']>
-  imgXLHeight?: Maybe<Scalars['Int']>
   products?: Maybe<Scalars['Boolean']>
   featuredProducts?: Maybe<Scalars['Boolean']>
   bestSellingProducts?: Maybe<Scalars['Boolean']>
@@ -1902,14 +1890,6 @@ export type GetProductQueryVariables = Exact<{
   hasLocale?: Maybe<Scalars['Boolean']>
   locale?: Maybe<Scalars['String']>
   path: Scalars['String']
-  imgSmallWidth?: Maybe<Scalars['Int']>
-  imgSmallHeight?: Maybe<Scalars['Int']>
-  imgMediumWidth?: Maybe<Scalars['Int']>
-  imgMediumHeight?: Maybe<Scalars['Int']>
-  imgLargeWidth?: Maybe<Scalars['Int']>
-  imgLargeHeight?: Maybe<Scalars['Int']>
-  imgXLWidth?: Maybe<Scalars['Int']>
-  imgXLHeight?: Maybe<Scalars['Int']>
 }>
 
 export type GetProductQuery = { __typename?: 'Query' } & {

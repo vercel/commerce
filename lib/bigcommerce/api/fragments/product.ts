@@ -1,15 +1,3 @@
-export const responsiveImageFragment = /* GraphQL */ `
-  fragment responsiveImage on Image {
-    urlSmall: url(width: $imgSmallWidth, height: $imgSmallHeight)
-    urlMedium: url(width: $imgMediumWidth, height: $imgMediumHeight)
-    urlLarge: url(width: $imgLargeWidth, height: $imgLargeHeight)
-    urlXL: url(width: $imgXLWidth, height: $imgXLHeight)
-    urlOriginal
-    altText
-    isDefault
-  }
-`
-
 export const swatchOptionFragment = /* GraphQL */ `
   fragment swatchOption on SwatchOptionValue {
     isDefault
@@ -59,7 +47,9 @@ export const productInfoFragment = /* GraphQL */ `
     images {
       edges {
         node {
-          ...responsiveImage
+          urlOriginal
+          altText
+          isDefault
         }
       }
     }
@@ -68,7 +58,9 @@ export const productInfoFragment = /* GraphQL */ `
         node {
           entityId
           defaultImage {
-            ...responsiveImage
+            urlOriginal
+            altText
+            isDefault
           }
         }
       }
@@ -93,7 +85,6 @@ export const productInfoFragment = /* GraphQL */ `
     }
   }
 
-  ${responsiveImageFragment}
   ${multipleChoiceOptionFragment}
 `
 
