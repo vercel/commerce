@@ -4,7 +4,7 @@ import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import useData, { SwrOptions } from '../utils/use-data'
 import { useCommerce } from '..'
 
-export type CartResponse<C> = responseInterface<C, Error> & {
+export type CartResponse<Result> = responseInterface<Result, Error> & {
   isEmpty: boolean
 }
 

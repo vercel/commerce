@@ -13,7 +13,7 @@ async function getAllPages(opts?: {
   preview?: boolean
 }): Promise<GetAllPagesResult>
 
-async function getAllPages<T extends { pages: any[] }, V = any>(opts: {
+async function getAllPages<T extends { pages: any[] }>(opts: {
   url: string
   config?: BigcommerceConfig
   preview?: boolean

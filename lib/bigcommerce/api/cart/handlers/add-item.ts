@@ -1,4 +1,4 @@
-import parseItem from '../../utils/parse-item'
+import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartHandlers } from '..'
 
@@ -19,7 +19,7 @@ const addItem: CartHandlers['addItem'] = async ({
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      line_items: [parseItem(item)],
+      line_items: [parseCartItem(item)],
     }),
   }
   const { data } = cartId
