@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import cn from 'classnames'
 import { useRouter } from 'next/router'
 import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
@@ -10,7 +10,7 @@ import { LoginView, SignUpView } from '@components/auth'
 import { useUI } from '@components/ui/context'
 import { usePreventScroll } from '@react-aria/overlays'
 import s from './Layout.module.css'
-
+import debounce from 'lodash.debounce'
 interface Props {
   pageProps: {
     pages?: Page[]
@@ -29,25 +29,25 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   const [hasScrolled, setHasScrolled] = useState(false)
   const { locale = 'en-US' } = useRouter()
 
-  // TODO: Update code, add throttle and more.
-  // TODO: Make sure to not do any unnecessary updates as it's doing right now
-  useEffect(() => {
-    const offset = 0
-    function handleScroll() {
-      const { scrollTop } = document.documentElement
-      if (scrollTop > offset) setHasScrolled(true)
-      else setHasScrolled(false)
-    }
-    document.addEventListener('scroll', handleScroll)
-
-    return () => {
-      document.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
   usePreventScroll({
     isDisabled: !(displaySidebar || displayModal),
   })
+
+  const handleScroll = useCallback(() => {
+    debounce(() => {
+      const offset = 0
+      const { scrollTop } = document.documentElement
+      if (scrollTop > offset) setHasScrolled(true)
+      else setHasScrolled(false)
+    }, 1)
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('scroll', handleScroll)
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [handleScroll])
 
   return (
     <CommerceProvider locale={locale}>
