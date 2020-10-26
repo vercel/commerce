@@ -1,7 +1,10 @@
 .input {
-  @apply bg-transparent px-3 py-2 appearance-none w-full transition
-  duration-150 ease-in-out pr-10;
+  @apply bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out pr-10;
   min-width: 300px;
+}
+
+.input:focus {
+  @apply outline-none shadow-outline-2;
 }
 
 .iconContainer {

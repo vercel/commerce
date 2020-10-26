@@ -19,10 +19,10 @@ const I18nWidget: FC = () => {
     <nav className={s.root}>
       <Menu>
         <Menu.Button className={s.button} aria-label="Language selector">
-          <img className="" src="/flag-us.png" alt="US Flag" />
-          <span>{LOCALES_MAP[locale || defaultLocale]}</span>
+          <img className="mr-2" src="/flag-us.png" alt="US Flag" />
+          <span className="mr-2">{LOCALES_MAP[locale || defaultLocale]}</span>
           {options && (
-            <span className="">
+            <span>
               <DoubleChevron />
             </span>
           )}
