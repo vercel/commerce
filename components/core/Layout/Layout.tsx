@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import type { Page } from '@lib/bigcommerce/api/operations/get-all-pages'
 import { CommerceProvider } from '@lib/bigcommerce'
 import { CartSidebarView } from '@components/cart'
-import { Container, Sidebar, Button, Modal } from '@components/ui'
+import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
 import { Navbar, Featurebar, Footer } from '@components/core'
 import { LoginView, SignUpView } from '@components/auth'
 import { useUI } from '@components/ui/context'
@@ -24,6 +24,9 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     closeSidebar,
     closeModal,
     modalView,
+    toastText,
+    closeToast,
+    displayToast,
   } = useUI()
   const [acceptedCookies, setAcceptedCookies] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -67,6 +70,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
           <CartSidebarView />
         </Sidebar>
+
         <Modal open={displayModal} onClose={closeModal}>
           {modalView === 'LOGIN_VIEW' && <LoginView />}
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
@@ -81,6 +85,9 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             </Button>
           }
         />
+        {/* <Toast open={displayToast} onClose={closeModal}>
+          {toastText}
+        </Toast> */}
       </div>
     </CommerceProvider>
   )
