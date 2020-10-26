@@ -15,7 +15,7 @@ const Navbar: FC<Props> = ({ className }) => {
       <div className="flex justify-between align-center flex-row py-4 md:py-6 relative">
         <div className="flex flex-1 items-center">
           <Link href="/">
-            <a className="cursor-pointer" aria-label="Logo">
+            <a className={s.logo} aria-label="Logo">
               <Logo />
             </a>
           </Link>
