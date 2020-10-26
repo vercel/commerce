@@ -19,7 +19,7 @@
 }
 
 .item {
-  @apply flex cursor-pointer px-6 py-3 block transition ease-in-out duration-150 text-primary leading-6 font-medium text-gray-900 items-center;
+  @apply flex cursor-pointer px-6 py-3 flex transition ease-in-out duration-150 text-primary leading-6 font-medium items-center;
   text-transform: capitalize;
 }
 
