@@ -1,3 +1,5 @@
 .link {
-  @apply group inline-flex items-center text-base leading-6 font-medium hover:text-accents-8 focus:outline-none focus:text-accents-8 transition ease-in-out duration-150 cursor-pointer;
+  @apply group inline-flex items-center text-base leading-6 font-medium
+  hover:text-accents-8 focus:outline-none focus:text-accents-8 transition
+  ease-in-out duration-150 cursor-pointer;
 }

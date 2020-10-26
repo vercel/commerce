@@ -157,10 +157,6 @@ export const UIProvider: FC = (props) => {
     closeToast,
   }
 
-  setTimeout(() => {
-    openToast()
-  }, 200)
-
   return <UIContext.Provider value={value} {...props} />
 }
 
