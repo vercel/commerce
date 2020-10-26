@@ -1,4 +1,8 @@
 module.exports = {
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
   purge: {
     content: [
       './pages/**/*.{js,ts,jsx,tsx}',
@@ -50,5 +54,9 @@ module.exports = {
       },
     },
   },
+  variants: {},
   plugins: [require('@tailwindcss/ui')],
+  experimental: {
+    applyComplexClasses: true,
+  },
 }

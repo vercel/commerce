@@ -9,13 +9,21 @@
 }
 
 .leftControl {
-  @apply bg-cover left-10 md:left-6;
+  @apply bg-cover left-10;
   background-image: url('public/cursor-left.png');
+
+  @screen md {
+    @apply left-6;
+  }
 }
 
 .rightControl {
-  @apply bg-cover right-10 md:right-6;
+  @apply bg-cover right-10;
   background-image: url('public/cursor-right.png');
+
+  @screen md {
+    @apply right-6;
+  }
 }
 
 .control {
