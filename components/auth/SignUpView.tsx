@@ -59,7 +59,7 @@ const SignUpView: FC<Props> = () => {
   }, [handleValidation])
 
   return (
-    <div className="w-96 flex flex-col justify-between p-3">
+    <div className="w-80 flex flex-col justify-between p-3">
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
