@@ -7,10 +7,10 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-primary flex items-center outline-none text-accents-6;
+  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-primary flex items-center outline-none text-primary;
 
   &:hover {
-    @apply text-accents-9 transition scale-110 duration-100;
+    @apply text-accents-6 transition scale-110 duration-100;
   }
 
   &:last-child {
