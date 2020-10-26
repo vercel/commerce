@@ -17,7 +17,7 @@ const initialState = {
   displayModal: false,
   modalView: 'LOGIN_VIEW',
   displayToast: false,
-  toastText: 'HOLAAAA',
+  toastText: '',
 }
 
 type Action =
