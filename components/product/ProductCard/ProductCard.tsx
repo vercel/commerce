@@ -12,8 +12,8 @@ interface Props {
   children?: ReactNode[] | Component[] | any[]
   product: ProductNode
   variant?: 'slim' | 'simple'
-  imgWidth: number
-  imgHeight: number
+  imgWidth: number | string
+  imgHeight: number | string
   priority?: boolean
 }
 
