@@ -27,7 +27,7 @@ export const fetcher: HookFetcher<Wishlist | null, RemoveItemBody> = (
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useRemoveItem = (wishlistId: string, item?: any) => {
-    const { mutate } = useWishlist(wishlistId)
+    const { mutate } = useWishlist()
     const fn = useAction<Wishlist | null, RemoveItemBody>(
       defaultOpts,
       customFetcher
