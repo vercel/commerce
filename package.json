@@ -48,6 +48,7 @@
     "tailwindcss": "^1.9"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^3.0.0",
     "@graphql-codegen/cli": "^1.17.10",
     "@graphql-codegen/schema-ast": "^1.17.8",
     "@graphql-codegen/typescript": "^1.17.10",
