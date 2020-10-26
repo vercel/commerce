@@ -19,7 +19,17 @@ const Input: React.FC<Props> = (props) => {
     return null
   }
 
-  return <input className={rootClassName} onChange={handleOnChange} {...rest} />
+  return (
+    <input
+      className={rootClassName}
+      onChange={handleOnChange}
+      autoComplete="off"
+      autoCorrect="off"
+      autoCapitalize="off"
+      spellCheck="false"
+      {...rest}
+    />
+  )
 }
 
 export default Input

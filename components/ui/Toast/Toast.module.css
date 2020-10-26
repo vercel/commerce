@@ -1,0 +1,9 @@
+.root {
+}
+
+.toast {
+  @apply absolute bg-primary text-primary flex items-center border border-accents-1
+   rounded-md z-50 shadow-2xl top-0 right-0 p-6 my-6 mx-3;
+  width: 420px;
+  z-index: 20000;
+}

@@ -7,12 +7,9 @@ import useSignup from '@lib/bigcommerce/use-signup'
 
 interface Props {}
 
-const SignUpView: FC<Props> = () => {
+const ForgotPassword: FC<Props> = () => {
   // Form State
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [dirty, setDirty] = useState(false)
@@ -27,32 +24,26 @@ const SignUpView: FC<Props> = () => {
       handleValidation()
     }
 
-    try {
-      setLoading(true)
-      setMessage('')
-      await signup({
-        email,
-        firstName,
-        lastName,
-        password,
-      })
-      setLoading(false)
-      closeModal()
-    } catch ({ errors }) {
-      setMessage(errors[0].message)
-      setLoading(false)
-    }
+    // try {
+    //   setLoading(true)
+    //   setMessage('')
+    //   await signup({
+    //     email,
+    //   })
+    //   setLoading(false)
+    //   closeModal()
+    // } catch ({ errors }) {
+    //   setMessage(errors[0].message)
+    //   setLoading(false)
+    // }
   }
 
   const handleValidation = useCallback(() => {
-    // Test for Alphanumeric password
-    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
-
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword)
+      setDisabled(!validate(email))
     }
-  }, [email, password, dirty])
+  }, [email, dirty])
 
   useEffect(() => {
     handleValidation()
@@ -67,19 +58,8 @@ const SignUpView: FC<Props> = () => {
         {message && (
           <div className="text-red border border-red p-3">{message}</div>
         )}
-        <Input placeholder="First Name" onChange={setFirstName} />
-        <Input placeholder="Last Name" onChange={setLastName} />
+
         <Input placeholder="Email" onChange={setEmail} />
-        <Input placeholder="Password" onChange={setPassword} />
-        <span className="text-accents-8">
-          <Info
-            width="20"
-            height="20"
-            className="inline-block mr-1 text-accents-8"
-          />
-          <strong>Info</strong>: Password must be longer than 7 chars and
-          include numbers.
-        </span>
         <div className="pt-2 w-full flex flex-col">
           <Button
             variant="slim"
@@ -87,7 +67,7 @@ const SignUpView: FC<Props> = () => {
             loading={loading}
             disabled={disabled}
           >
-            Sign Up
+            Recover Password
           </Button>
         </div>
 
@@ -106,4 +86,4 @@ const SignUpView: FC<Props> = () => {
   )
 }
 
-export default SignUpView
+export default ForgotPassword

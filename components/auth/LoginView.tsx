@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useCallback } from 'react'
 import { Logo, Modal, Button, Input } from '@components/ui'
 import useLogin from '@lib/bigcommerce/use-login'
 import { useUI } from '@components/ui/context'
@@ -39,7 +39,7 @@ const LoginView: FC<Props> = () => {
     }
   }
 
-  const handleValidation = () => {
+  const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
     const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
 
@@ -47,11 +47,11 @@ const LoginView: FC<Props> = () => {
     if (dirty) {
       setDisabled(!validate(email) || password.length < 7 || !validPassword)
     }
-  }
+  }, [email, password, dirty])
 
   useEffect(() => {
     handleValidation()
-  }, [email, password, dirty])
+  }, [handleValidation])
 
   return (
     <div className="w-80 flex flex-col justify-between p-3">
