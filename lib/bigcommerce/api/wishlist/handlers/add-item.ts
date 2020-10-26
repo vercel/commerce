@@ -38,11 +38,14 @@ const addItem: WishlistHandlers['addItem'] = async ({
             items: [parseWishlistItem(item)],
           }
         : {
+            name: 'Wishlist',
             customer_id: customerId,
             items: [parseWishlistItem(item)],
+            is_public: false,
           }
     ),
   }
+
   const { data } = wishlist
     ? await config.storeApiFetch(`/v3/wishlists/${wishlist.id}/items`, options)
     : await config.storeApiFetch('/v3/wishlists', options)

@@ -75,7 +75,7 @@ const wishlistApi: BigcommerceApiHandler<Wishlist, WishlistHandlers> = async (
     const { wishlistId, itemId, customerId } = req.body
 
     // Return current wishlist info
-    if (req.method === 'GET' && wishlistId) {
+    if (req.method === 'GET') {
       const body = { customerToken }
       return await handlers['getWishlist']({ req, res, config, body })
     }

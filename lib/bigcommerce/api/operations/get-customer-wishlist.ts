@@ -41,7 +41,7 @@ async function getCustomerWishlist({
 
   const { data } = await config.storeApiFetch<
     RecursivePartial<{ data: Wishlist[] }>
-  >(`/v3/wishlists/customer_id=${variables.customerId}`)
+  >(`/v3/wishlists?customer_id=${variables.customerId}`)
   const wishlists = (data as RecursiveRequired<typeof data>) ?? []
   const wishlist = wishlists[0]
 
