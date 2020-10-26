@@ -69,8 +69,8 @@ const SignUpView: FC<Props> = () => {
         )}
         <Input placeholder="First Name" onChange={setFirstName} />
         <Input placeholder="Last Name" onChange={setLastName} />
-        <Input placeholder="Email" onChange={setEmail} />
-        <Input placeholder="Password" onChange={setPassword} />
+        <Input placeholder="Email" onChange={setEmail} type="email" />
+        <Input placeholder="Password" onChange={setPassword} type="password" />
         <span className="text-accents-8">
           <span className="inline-block align-middle ">
             <Info width="15" height="15" />
