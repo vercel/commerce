@@ -15,6 +15,10 @@
   @apply bg-accents-1;
 }
 
+.link.active {
+  @apply font-bold bg-accents-2;
+}
+
 .off {
   @apply hidden;
 }
