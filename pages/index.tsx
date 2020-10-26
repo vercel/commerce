@@ -68,8 +68,7 @@ export default function Home({
         (i) => bestSellingProducts[i] ?? products.shift()
       ).filter(nonNullable),
     }
-    // Props from getStaticProps won't change
-  }, [])
+  }, [newestProducts, featuredProducts, bestSellingProducts])
 
   return (
     <div>
