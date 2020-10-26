@@ -66,7 +66,7 @@ const WishlistButton: FC<Props> = ({
       className={cn({ 'opacity-50': loading }, className)}
       onClick={handleWishlistChange}
     >
-      <Heart fill={itemInWishlist ? 'white' : 'none'} />
+      <Heart fill={itemInWishlist ? 'var(--pink)' : 'none'} />
     </button>
   )
 }

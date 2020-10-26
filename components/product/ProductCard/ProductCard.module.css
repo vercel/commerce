@@ -119,7 +119,7 @@
 }
 
 .wishlistButton {
-  @apply w-10 h-10 flex ml-auto flex items-center justify-center bg-primary text-primary font-semibold  text-xs leading-6 cursor-pointer;
+  @apply w-10 h-10 flex ml-auto flex items-center justify-center bg-primary text-primary font-semibold  text-xs leading-6 cursor-pointer z-10;
 }
 
 .imageContainer {
