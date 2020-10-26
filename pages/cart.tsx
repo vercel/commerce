@@ -75,7 +75,7 @@ export default function Cart({}: InferGetStaticPropsType<
           <div className="px-4 sm:px-6 flex-1">
             <Text variant="pageHeading">My Cart</Text>
             <Text variant="sectionHeading">Review your Order</Text>
-            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-t border-accents-2">
+            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-b border-accents-2">
               {items.map((item) => (
                 <CartItem
                   key={item.id}
@@ -84,15 +84,16 @@ export default function Cart({}: InferGetStaticPropsType<
                 />
               ))}
             </ul>
-            <hr className="my-6" />
-            <Text>
-              Before you leave, take a look at these items. We picked them just
-              for you
-            </Text>
-            <div className="flex py-6 space-x-6">
-              {[1, 2, 3, 4, 5, 6].map((x) => (
-                <div className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75" />
-              ))}
+            <div className="my-6">
+              <Text>
+                Before you leave, take a look at these items. We picked them
+                just for you
+              </Text>
+              <div className="flex py-6 space-x-6">
+                {[1, 2, 3, 4, 5, 6].map((x) => (
+                  <div className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75" />
+                ))}
+              </div>
             </div>
           </div>
         )}

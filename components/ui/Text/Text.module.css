@@ -11,5 +11,5 @@
 }
 
 .sectionHeading {
-  @apply pt-1 pb-4 text-base leading-7 text-base tracking-wide uppercase border-b border-accents-2;
+  @apply pt-1 pb-2 text-base font-semibold leading-7 text-base tracking-wider uppercase border-b border-accents-2 mb-3;
 }
