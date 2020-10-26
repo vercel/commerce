@@ -7,7 +7,7 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 text-primary flex items-center outline-none text-primary;
+  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 flex items-center outline-none text-primary;
 
   &:hover {
     @apply text-accents-6 transition scale-110 duration-100;

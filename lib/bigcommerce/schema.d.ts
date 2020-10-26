@@ -1886,6 +1886,12 @@ export type GetAllProductsQuery = { __typename?: 'Query' } & {
   }
 }
 
+export type GetCustomerIdQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetCustomerIdQuery = { __typename?: 'Query' } & {
+  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'entityId'>>
+}
+
 export type GetProductQueryVariables = Exact<{
   hasLocale?: Maybe<Scalars['Boolean']>
   locale?: Maybe<Scalars['String']>

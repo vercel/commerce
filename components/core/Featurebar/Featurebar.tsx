@@ -6,7 +6,7 @@ import s from './Featurebar.module.css'
 interface Props {
   className?: string
   title: string
-  description: string
+  description?: string
   hide?: boolean
   action?: React.ReactNode
 }

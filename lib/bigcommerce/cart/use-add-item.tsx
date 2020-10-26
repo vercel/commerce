@@ -36,7 +36,7 @@ export const fetcher: HookFetcher<Cart, AddItemBody> = (
 export function extendHook(customFetcher: typeof fetcher) {
   const useAddItem = () => {
     const { mutate } = useCart()
-    const fn = useCartAddItem<Cart, AddItemBody>(defaultOpts, customFetcher)
+    const fn = useCartAddItem(defaultOpts, customFetcher)
 
     return useCallback(
       async function addItem(input: AddItemInput) {

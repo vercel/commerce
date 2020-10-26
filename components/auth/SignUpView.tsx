@@ -59,7 +59,7 @@ const SignUpView: FC<Props> = () => {
   }, [handleValidation])
 
   return (
-    <div className="w-96 flex flex-col justify-between p-3">
+    <div className="w-80 flex flex-col justify-between p-3">
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
@@ -69,8 +69,8 @@ const SignUpView: FC<Props> = () => {
         )}
         <Input placeholder="First Name" onChange={setFirstName} />
         <Input placeholder="Last Name" onChange={setLastName} />
-        <Input placeholder="Email" onChange={setEmail} />
-        <Input placeholder="Password" onChange={setPassword} />
+        <Input type="email" placeholder="Email" onChange={setEmail} />
+        <Input type="password" placeholder="Password" onChange={setPassword} />
         <span className="text-accents-8">
           <span className="inline-block align-middle ">
             <Info width="15" height="15" />
