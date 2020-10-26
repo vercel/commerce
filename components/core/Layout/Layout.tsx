@@ -77,8 +77,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
         </Modal>
         <Featurebar
-          title="This site uses cookies to improve your experience."
-          description="By clicking, you agree to our Privacy Policy."
+          title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
           action={
             <Button className="mx-5" onClick={() => setAcceptedCookies(true)}>
