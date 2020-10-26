@@ -44,7 +44,7 @@ export default function Pages({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="max-w-2xl mx-auto py-20">
-      <HTMLContent html={page.body} />
+      {page?.body && <HTMLContent html={page.body} />}
     </div>
   )
 }
