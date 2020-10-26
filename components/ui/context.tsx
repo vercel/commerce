@@ -51,11 +51,7 @@ type Action =
     }
   | {
       type: 'SET_MODAL_VIEW'
-      view: 'LOGIN_VIEW'
-    }
-  | {
-      type: 'SET_MODAL_VIEW'
-      view: 'SIGNUP_VIEW'
+      view: MODAL_VIEWS
     }
 
 type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
@@ -160,10 +156,6 @@ export const UIProvider: FC = (props) => {
     openToast,
     closeToast,
   }
-
-  setTimeout(() => {
-    openToast()
-  }, 200)
 
   return <UIContext.Provider value={value} {...props} />
 }

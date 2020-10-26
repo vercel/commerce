@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^0.2.0",
+    "@next/bundle-analyzer": "^9.5.5",
     "@react-aria/overlays": "^3.4.0",
     "@tailwindcss/ui": "^0.6.2",
     "@vercel/fetch": "^6.1.0",

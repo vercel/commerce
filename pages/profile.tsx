@@ -7,18 +7,20 @@ export default function Profile() {
   return (
     <Container>
       <Text variant="pageHeading">My Profile</Text>
-      <div className="max-w-2xl flex flex-col space-y-5">
-        <div>
-          <Text variant="sectionHeading">Full Name</Text>
-          <span>
-            {data.firstName} {data.lastName}
-          </span>
+      {data && (
+        <div className="max-w-2xl flex flex-col space-y-5">
+          <div>
+            <Text variant="sectionHeading">Full Name</Text>
+            <span>
+              {data.firstName} {data.lastName}
+            </span>
+          </div>
+          <div>
+            <Text variant="sectionHeading">Email</Text>
+            <span>{data.email}</span>
+          </div>
         </div>
-        <div>
-          <Text variant="sectionHeading">Email</Text>
-          <span>{data.email}</span>
-        </div>
-      </div>
+      )}
     </Container>
   )
 }
