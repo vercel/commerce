@@ -1,14 +1,15 @@
 import Link from 'next/link'
 import cn from 'classnames'
 import s from './UserNav.module.css'
-import { FC, useRef } from 'react'
+import { FC } from 'react'
+import { Heart, Bag } from '@components/icons'
 import { Avatar } from '@components/core'
-import { Heart, Bag } from '@components/icon'
 import { useUI } from '@components/ui/context'
+import { LoginView } from '@components/auth'
 import DropdownMenu from './DropdownMenu'
 import { Menu } from '@headlessui/react'
 import useCart from '@lib/bigcommerce/cart/use-cart'
-
+import useCustomer from '@lib/bigcommerce/use-customer'
 interface Props {
   className?: string
 }
@@ -19,25 +20,20 @@ const countItems = (count: number, items: any[]) =>
 
 const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { data } = useCart()
-  const { openSidebar, closeSidebar, displaySidebar } = useUI()
+  const { data: customer } = useCustomer()
 
+  const { openSidebar, closeSidebar, displaySidebar, openModal } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
-  let ref = useRef() as React.MutableRefObject<HTMLInputElement>
-
   return (
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={s.list}>
           <li
             className={s.item}
-            onClick={() => (displaySidebar ? closeSidebar() : openSidebar())}
+            onClick={(e) => (displaySidebar ? closeSidebar() : openSidebar())}
           >
             <Bag />
-            {itemsCount > 0 && (
-              <span className="border border-accent-1 bg-secondary text-secondary h-4 w-4 absolute rounded-full right-3 top-3 flex items-center justify-center font-bold text-xs">
-                {itemsCount}
-              </span>
-            )}
+            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
           <Link href="/wishlist">
             <li className={s.item}>
@@ -45,18 +41,26 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
             </li>
           </Link>
           <li className={s.item}>
-            <Menu>
-              {({ open }) => {
-                return (
+            {customer ? (
+              <Menu>
+                {({ open }) => (
                   <>
-                    <Menu.Button className="inline-flex justify-center rounded-full">
+                    <Menu.Button className={s.avatarButton} aria-label="Menu">
                       <Avatar />
                     </Menu.Button>
                     <DropdownMenu open={open} />
                   </>
-                )
-              }}
-            </Menu>
+                )}
+              </Menu>
+            ) : (
+              <button
+                className={s.avatarButton}
+                aria-label="Menu"
+                onClick={() => openModal()}
+              >
+                <Avatar />
+              </button>
+            )}
           </li>
         </ul>
       </div>

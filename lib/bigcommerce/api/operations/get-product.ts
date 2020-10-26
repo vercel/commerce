@@ -3,20 +3,15 @@ import type {
   GetProductQueryVariables,
 } from 'lib/bigcommerce/schema'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productInfoFragment } from '../fragments/product'
-import { BigcommerceConfig, getConfig, Images } from '..'
+import { BigcommerceConfig, getConfig } from '..'
 
 export const getProductQuery = /* GraphQL */ `
   query getProduct(
+    $hasLocale: Boolean = false
+    $locale: String = "null"
     $path: String!
-    $imgSmallWidth: Int = 320
-    $imgSmallHeight: Int
-    $imgMediumWidth: Int = 640
-    $imgMediumHeight: Int
-    $imgLargeWidth: Int = 960
-    $imgLargeHeight: Int
-    $imgXLWidth: Int = 1280
-    $imgXLHeight: Int
   ) {
     site {
       route(path: $path) {
@@ -42,8 +37,10 @@ export type GetProductResult<
   T extends { product?: any } = { product?: ProductNode }
 > = T
 
-export type ProductVariables = Images &
-  ({ path: string; slug?: never } | { path?: never; slug: string })
+export type ProductVariables = { locale?: string } & (
+  | { path: string; slug?: never }
+  | { path?: never; slug: string }
+)
 
 async function getProduct(opts: {
   variables: ProductVariables
@@ -66,9 +63,12 @@ async function getProduct({
   config?: BigcommerceConfig
 }): Promise<GetProductResult> {
   config = getConfig(config)
+
+  const locale = vars.locale || config.locale
   const variables: GetProductQueryVariables = {
-    ...config.imageVariables,
     ...vars,
+    locale,
+    hasLocale: !!locale,
     path: slug ? `/${slug}/` : vars.path!,
   }
   const { data } = await config.fetch<RecursivePartial<GetProductQuery>>(
@@ -78,6 +78,10 @@ async function getProduct({
   const product = data.site?.route?.node
 
   if (product?.__typename === 'Product') {
+    if (locale && config.applyLocale) {
+      setProductLocaleMeta(product)
+    }
+
     return {
       product: product as RecursiveRequired<typeof product>,
     }

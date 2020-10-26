@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Trash } from '@components/icon'
+import { Trash } from '@components/icons'
 import s from './WishlistCard.module.css'
 
 interface Props {

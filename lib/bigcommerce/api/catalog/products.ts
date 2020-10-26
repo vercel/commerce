@@ -22,7 +22,7 @@ export type ProductsHandlers = {
 const METHODS = ['GET']
 
 // TODO: a complete implementation should have schema validation for `req.body`
-const productApi: BigcommerceApiHandler<
+const productsApi: BigcommerceApiHandler<
   SearchProductsData,
   ProductsHandlers
 > = async (req, res, config, handlers) => {
@@ -45,4 +45,4 @@ const productApi: BigcommerceApiHandler<
 
 export const handlers = { getProducts }
 
-export default createApiHandler(productApi, handlers, {})
+export default createApiHandler(productsApi, handlers, {})

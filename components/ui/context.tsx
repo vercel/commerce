@@ -5,11 +5,19 @@ import { SSRProvider, OverlayProvider } from 'react-aria'
 export interface State {
   displaySidebar: boolean
   displayDropdown: boolean
+  displayModal: boolean
+  displayToast: boolean
+  modalView: string
+  toastText: string
 }
 
 const initialState = {
   displaySidebar: false,
   displayDropdown: false,
+  displayModal: false,
+  modalView: 'LOGIN_VIEW',
+  displayToast: false,
+  toastText: '',
 }
 
 type Action =
@@ -20,11 +28,38 @@ type Action =
       type: 'CLOSE_SIDEBAR'
     }
   | {
+      type: 'OPEN_TOAST'
+    }
+  | {
+      type: 'CLOSE_TOAST'
+    }
+  | {
+      type: 'SET_TOAST_TEXT'
+      text: ToastText
+    }
+  | {
       type: 'OPEN_DROPDOWN'
     }
   | {
       type: 'CLOSE_DROPDOWN'
     }
+  | {
+      type: 'OPEN_MODAL'
+    }
+  | {
+      type: 'CLOSE_MODAL'
+    }
+  | {
+      type: 'SET_MODAL_VIEW'
+      view: 'LOGIN_VIEW'
+    }
+  | {
+      type: 'SET_MODAL_VIEW'
+      view: 'SIGNUP_VIEW'
+    }
+
+type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
+type ToastText = string
 
 export const UIContext = React.createContext<State | any>(initialState)
 
@@ -56,6 +91,42 @@ function uiReducer(state: State, action: Action) {
         displayDropdown: false,
       }
     }
+    case 'OPEN_MODAL': {
+      return {
+        ...state,
+        displayModal: true,
+      }
+    }
+    case 'CLOSE_MODAL': {
+      return {
+        ...state,
+        displayModal: false,
+      }
+    }
+    case 'OPEN_TOAST': {
+      return {
+        ...state,
+        displayToast: true,
+      }
+    }
+    case 'CLOSE_TOAST': {
+      return {
+        ...state,
+        displayToast: false,
+      }
+    }
+    case 'SET_MODAL_VIEW': {
+      return {
+        ...state,
+        modalView: action.view,
+      }
+    }
+    case 'SET_TOAST_TEXT': {
+      return {
+        ...state,
+        toastText: action.text,
+      }
+    }
   }
 }
 
@@ -68,13 +139,31 @@ export const UIProvider: FC = (props) => {
   const openDropdown = () => dispatch({ type: 'OPEN_DROPDOWN' })
   const closeDropdown = () => dispatch({ type: 'CLOSE_DROPDOWN' })
 
+  const openModal = () => dispatch({ type: 'OPEN_MODAL' })
+  const closeModal = () => dispatch({ type: 'CLOSE_MODAL' })
+
+  const openToast = () => dispatch({ type: 'OPEN_TOAST' })
+  const closeToast = () => dispatch({ type: 'CLOSE_TOAST' })
+
+  const setModalView = (view: MODAL_VIEWS) =>
+    dispatch({ type: 'SET_MODAL_VIEW', view })
+
   const value = {
     ...state,
     openSidebar,
     closeSidebar,
     openDropdown,
     closeDropdown,
+    openModal,
+    closeModal,
+    setModalView,
+    openToast,
+    closeToast,
   }
+
+  setTimeout(() => {
+    openToast()
+  }, 200)
 
   return <UIContext.Provider value={value} {...props} />
 }

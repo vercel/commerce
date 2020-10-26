@@ -1,25 +1,36 @@
 import { useMemo } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { getConfig } from '@lib/bigcommerce/api'
 import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import rangeMap from '@lib/range-map'
+import { getCategoryPath, getDesignerPath } from '@utils/search'
 import { Layout } from '@components/core'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
+import Link from 'next/link'
 
-export async function getStaticProps({ preview }: GetStaticPropsContext) {
+export async function getStaticProps({
+  preview,
+  locale,
+}: GetStaticPropsContext) {
+  const config = getConfig({ locale })
+
   const { products: featuredProducts } = await getAllProducts({
     variables: { field: 'featuredProducts', first: 6 },
+    config,
   })
   const { products: bestSellingProducts } = await getAllProducts({
     variables: { field: 'bestSellingProducts', first: 6 },
+    config,
   })
   const { products: newestProducts } = await getAllProducts({
     variables: { field: 'newestProducts', first: 12 },
+    config,
   })
-  const { categories, brands } = await getSiteInfo()
-  const { pages } = await getAllPages()
+  const { categories, brands } = await getSiteInfo({ config })
+  const { pages } = await getAllPages({ config })
 
   return {
     props: {
@@ -59,8 +70,7 @@ export default function Home({
         (i) => bestSellingProducts[i] ?? products.shift()
       ).filter(nonNullable),
     }
-    // Props from getStaticProps won't change
-  }, [])
+  }, [newestProducts, featuredProducts, bestSellingProducts])
 
   return (
     <div>
@@ -124,21 +134,29 @@ export default function Home({
           <div className="sticky top-32">
             <ul className="mb-10">
               <li className="py-1 text-base font-bold tracking-wide">
-                All Categories
+                <Link href={getCategoryPath('')}>
+                  <a>All Categories</a>
+                </Link>
               </li>
               {categories.map((cat) => (
                 <li key={cat.path} className="py-1 text-accents-8">
-                  <a href="#">{cat.name}</a>
+                  <Link href={getCategoryPath(cat.path)}>
+                    <a>{cat.name}</a>
+                  </Link>
                 </li>
               ))}
             </ul>
             <ul className="">
               <li className="py-1 text-base font-bold tracking-wide">
-                All Designers
+                <Link href={getDesignerPath('')}>
+                  <a>All Designers</a>
+                </Link>
               </li>
               {brands.flatMap(({ node }) => (
                 <li key={node.path} className="py-1 text-accents-8">
-                  <a href="#">{node.name}</a>
+                  <Link href={getDesignerPath(node.path)}>
+                    <a>{node.name}</a>
+                  </Link>
                 </li>
               ))}
             </ul>

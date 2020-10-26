@@ -1,7 +1,7 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
-import { Container } from '@components/ui'
+import { Container, Text } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
 
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
@@ -35,12 +35,10 @@ export default function Home({
           </ul>
         </div>
         <div className="col-span-8">
-          <h2 className="pt-1 px-3 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
-            My Wishlist
-          </h2>
+          <Text variant="pageHeading">My Wishlist</Text>
           <div className="group flex flex-col">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <WishlistCard />
+              <WishlistCard key={i} />
             ))}
           </div>
         </div>

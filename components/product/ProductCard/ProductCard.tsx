@@ -1,9 +1,10 @@
-import { FC, ReactNode, Component } from 'react'
+import React, { FC, ReactNode, Component } from 'react'
 import cn from 'classnames'
-import Image from 'next/image'
 import Link from 'next/link'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
-import { Heart } from '@components/icon'
+import usePrice from '@lib/bigcommerce/use-price'
+import { Heart } from '@components/icons'
+import { EnhancedImage } from '@components/core'
 import s from './ProductCard.module.css'
 
 interface Props {
@@ -25,6 +26,11 @@ const ProductCard: FC<Props> = ({
   priority,
 }) => {
   const src = p.images.edges?.[0]?.node.urlOriginal!
+  const { price } = usePrice({
+    amount: p.prices?.price?.value,
+    baseAmount: p.prices?.retailPrice?.value,
+    currencyCode: p.prices?.price?.currencyCode!,
+  })
 
   if (variant === 'slim') {
     return (
@@ -34,8 +40,9 @@ const ProductCard: FC<Props> = ({
             {p.name}
           </span>
         </div>
-        <Image
-          src={src}
+        <EnhancedImage
+          src={p.images.edges?.[0]?.node.urlOriginal!}
+          alt={p.name}
           width={imgWidth}
           height={imgHeight}
           priority={priority}
@@ -56,14 +63,15 @@ const ProductCard: FC<Props> = ({
             <h3 className={s.productTitle}>
               <span>{p.name}</span>
             </h3>
-            <span className={s.productPrice}>${p.prices?.price.value}</span>
+            <span className={s.productPrice}>{price}</span>
           </div>
           <div className={s.wishlistButton}>
             <Heart />
           </div>
         </div>
         <div className={cn(s.imageContainer)}>
-          <Image
+          <EnhancedImage
+            alt={p.name}
             className={cn('w-full object-cover', s['product-image'])}
             src={src}
             width={imgWidth}

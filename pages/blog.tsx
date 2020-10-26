@@ -34,7 +34,7 @@ export default function Blog({}: InferGetStaticPropsType<
                 <img
                   className="h-12 w-12 rounded-full"
                   src="https://vercel.com/api/www/avatar/61182a9f6bda512b4d9263c9c8a60aabe0402f4c?s=204"
-                  alt=""
+                  alt="Avatar"
                 />
               </div>
               <div className="ml-4">
@@ -51,7 +51,7 @@ export default function Blog({}: InferGetStaticPropsType<
       </div>
       <Container>
         <div className="-mt-96 mx-auto">
-          <img src="/jacket.png" />
+          <img src="/jacket.png" alt="Jacket" />
         </div>
         {/** Replace by HTML Content */}
         <div className="text-lg leading-7 font-medium py-6 text-justify max-w-6xl mx-auto">

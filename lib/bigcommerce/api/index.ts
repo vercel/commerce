@@ -1,42 +1,16 @@
-import { CommerceAPIConfig } from 'lib/commerce/api'
-import { GetAllProductsQueryVariables } from '../schema'
+import type { RequestInit } from '@vercel/fetch'
+import type { CommerceAPIConfig } from 'lib/commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
 
-export interface Images {
-  small?: ImageOptions
-  medium?: ImageOptions
-  large?: ImageOptions
-  xl?: ImageOptions
-}
-
-export interface ImageOptions {
-  width: number
-  height?: number
-}
-
-export type ProductImageVariables = Pick<
-  GetAllProductsQueryVariables,
-  | 'imgSmallWidth'
-  | 'imgSmallHeight'
-  | 'imgMediumWidth'
-  | 'imgMediumHeight'
-  | 'imgLargeWidth'
-  | 'imgLargeHeight'
-  | 'imgXLWidth'
-  | 'imgXLHeight'
->
-
-export interface BigcommerceConfigOptions extends CommerceAPIConfig {
-  images?: Images
+export interface BigcommerceConfig extends CommerceAPIConfig {
+  // Indicates if the returned metadata with translations should be applied to the
+  // data or returned as it is
+  applyLocale?: boolean
   storeApiUrl: string
   storeApiToken: string
   storeApiClientId: string
   storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
-}
-
-export interface BigcommerceConfig extends BigcommerceConfigOptions {
-  readonly imageVariables?: ProductImageVariables
 }
 
 const API_URL = process.env.BIGCOMMERCE_STOREFRONT_API_URL
@@ -66,39 +40,20 @@ if (!(STORE_API_URL && STORE_API_TOKEN && STORE_API_CLIENT_ID)) {
 export class Config {
   private config: BigcommerceConfig
 
-  constructor(config: Omit<BigcommerceConfigOptions, 'customerCookie'>) {
+  constructor(config: Omit<BigcommerceConfig, 'customerCookie'>) {
     this.config = {
       ...config,
       // The customerCookie is not customizable for now, BC sets the cookie and it's
       // not important to rename it
       customerCookie: 'SHOP_TOKEN',
-      imageVariables: this.getImageVariables(config.images),
     }
   }
 
-  getImageVariables(images?: Images) {
-    return images
-      ? {
-          imgSmallWidth: images.small?.width,
-          imgSmallHeight: images.small?.height,
-          imgMediumWidth: images.medium?.height,
-          imgMediumHeight: images.medium?.height,
-          imgLargeWidth: images.large?.height,
-          imgLargeHeight: images.large?.height,
-          imgXLWidth: images.xl?.height,
-          imgXLHeight: images.xl?.height,
-        }
-      : undefined
-  }
-
   getConfig(userConfig: Partial<BigcommerceConfig> = {}) {
-    const { images: configImages, ...config } = this.config
-    const images = { ...configImages, ...userConfig.images }
-
-    return Object.assign(config, userConfig, {
-      images,
-      imageVariables: this.getImageVariables(images),
-    })
+    return Object.entries(userConfig).reduce<BigcommerceConfig>(
+      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
+      { ...this.config }
+    )
   }
 
   setConfig(newConfig: Partial<BigcommerceConfig>) {
@@ -113,6 +68,7 @@ const config = new Config({
   cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
+  applyLocale: true,
   // REST API only
   storeApiUrl: STORE_API_URL,
   storeApiToken: STORE_API_TOKEN,
