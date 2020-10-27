@@ -32,7 +32,12 @@ const LOCALES_MAP: Record<string, LOCALE_DATA> = {
 }
 
 const I18nWidget: FC = () => {
-  const { locale, locales, defaultLocale = 'en-US' } = useRouter()
+  const {
+    locale,
+    locales,
+    defaultLocale = 'en-US',
+    asPath: currentPath,
+  } = useRouter()
   const options = locales?.filter((val) => val !== locale)
 
   const currentLocale = locale || defaultLocale
@@ -59,7 +64,7 @@ const I18nWidget: FC = () => {
             {options.map((locale) => (
               <Menu.Item key={locale}>
                 {({ active }) => (
-                  <Link href="/" locale={locale}>
+                  <Link href={currentPath} locale={locale}>
                     <a className={cn(s.item, { [s.active]: active })}>
                       {LOCALES_MAP[locale].name}
                     </a>
