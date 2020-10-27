@@ -1,6 +1,6 @@
-import { HookFetcher } from '@lib/commerce/utils/types'
-import { SwrOptions } from '@lib/commerce/utils/use-data'
-import useCommerceWishlist from '@lib/commerce/wishlist/use-wishlist'
+import { HookFetcher } from '../../commerce/utils/types'
+import { SwrOptions } from '../../commerce/utils/use-data'
+import useCommerceWishlist from '../../commerce/wishlist/use-wishlist'
 import type { Wishlist } from '../api/wishlist'
 import useCustomer from '../use-customer'
 

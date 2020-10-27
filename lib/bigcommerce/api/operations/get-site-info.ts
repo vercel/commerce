@@ -1,7 +1,4 @@
-import type {
-  GetSiteInfoQuery,
-  GetSiteInfoQueryVariables,
-} from 'lib/bigcommerce/schema'
+import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../../schema'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import { BigcommerceConfig, getConfig } from '..'

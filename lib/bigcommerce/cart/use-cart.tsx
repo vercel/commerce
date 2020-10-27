@@ -1,6 +1,6 @@
-import type { HookFetcher } from '@lib/commerce/utils/types'
-import type { SwrOptions } from '@lib/commerce/utils/use-data'
-import useCommerceCart, { CartInput } from '@lib/commerce/cart/use-cart'
+import type { HookFetcher } from '../../commerce/utils/types'
+import type { SwrOptions } from '../../commerce/utils/use-data'
+import useCommerceCart, { CartInput } from '../../commerce/cart/use-cart'
 import type { Cart } from '../api/cart'
 
 const defaultOpts = {

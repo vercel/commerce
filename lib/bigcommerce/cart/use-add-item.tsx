@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@lib/commerce/utils/types'
-import { CommerceError } from '@lib/commerce/utils/errors'
-import useCartAddItem from '@lib/commerce/cart/use-add-item'
+import type { HookFetcher } from '../../commerce/utils/types'
+import { CommerceError } from '../../commerce/utils/errors'
+import useCartAddItem from '../../commerce/cart/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/cart'
 import useCart, { Cart } from './use-cart'
 

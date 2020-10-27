@@ -1,7 +1,7 @@
 import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
-} from '@lib/bigcommerce/schema'
+} from '../../schema'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
