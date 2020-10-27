@@ -101,7 +101,7 @@
 }
 
 .productTitle {
-  @apply max-w-full w-full;
+  @apply pt-0 max-w-full w-full leading-extra-loose;
   font-size: 2rem;
   letter-spacing: 0.4px;
 
