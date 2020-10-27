@@ -1,11 +1,11 @@
 import getCustomerId from '../../operations/get-customer-id'
-import type { Wishlist, WishlistHandlers } from '..'
 import getCustomerWishlist from '../../operations/get-customer-wishlist'
+import type { Wishlist, WishlistHandlers } from '..'
 
 // Return wishlist info
 const getWishlist: WishlistHandlers['getWishlist'] = async ({
   res,
-  body: { customerToken },
+  body: { customerToken, includeProducts },
   config,
 }) => {
   let result: { data?: Wishlist } = {}
@@ -24,8 +24,10 @@ const getWishlist: WishlistHandlers['getWishlist'] = async ({
 
     const { wishlist } = await getCustomerWishlist({
       variables: { customerId },
+      includeProducts,
       config,
     })
+
     result = { data: wishlist }
   }
 

@@ -11,23 +11,44 @@ const defaultOpts = {
 
 export type { Wishlist }
 
-export const fetcher: HookFetcher<Wishlist | null, { customerId?: number }> = (
+export interface UseWishlistOptions {
+  includeProducts?: boolean
+}
+
+export interface UseWishlistInput extends UseWishlistOptions {
+  customerId?: number
+}
+
+export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = (
   options,
-  { customerId },
+  { customerId, includeProducts },
   fetch
 ) => {
-  return customerId ? fetch({ ...defaultOpts, ...options }) : null
+  if (!customerId) return null
+
+  // Use a dummy base as we only care about the relative path
+  const url = new URL(options?.url ?? defaultOpts.url, 'http://a')
+
+  if (includeProducts) url.searchParams.set('products', '1')
+
+  return fetch({
+    url: url.pathname + url.search,
+    method: options?.method ?? defaultOpts.method,
+  })
 }
 
 export function extendHook(
   customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<Wishlist | null, { customerId?: number }>
+  swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
 ) {
-  const useWishlists = () => {
+  const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
     const { data: customer } = useCustomer()
     const response = useCommerceWishlist(
       defaultOpts,
-      [['customerId', customer?.entityId]],
+      [
+        ['customerId', customer?.entityId],
+        ['includeProducts', includeProducts],
+      ],
       customFetcher,
       {
         revalidateOnFocus: false,
@@ -47,9 +68,9 @@ export function extendHook(
     return response
   }
 
-  useWishlists.extend = extendHook
+  useWishlist.extend = extendHook
 
-  return useWishlists
+  return useWishlist
 }
 
 export default extendHook(fetcher)

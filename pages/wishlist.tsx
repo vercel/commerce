@@ -20,7 +20,8 @@ export default function Home({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data } = useWishlist()
+  const { data } = useWishlist({ includeProducts: true })
+  console.log(data)
   return (
     <Container>
       <div className="grid grid-cols-12 gap-8 mt-3 mb-20">

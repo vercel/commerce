@@ -4,10 +4,12 @@ import createApiHandler, {
   BigcommerceHandler,
 } from '../utils/create-api-handler'
 import { BigcommerceApiError } from '../utils/errors'
+import type { Wishlist } from '../operations/get-customer-wishlist'
 import getWishlist from './handlers/get-wishlist'
 import addItem from './handlers/add-item'
 import removeItem from './handlers/remove-item'
-import { definitions } from '../definitions/wishlist'
+
+export type { Wishlist }
 
 export type ItemBody = {
   productId: number
@@ -27,10 +29,11 @@ export type WishlistBody = {
 
 export type AddWishlistBody = { wishlist: WishlistBody }
 
-export type Wishlist = definitions['wishlist_Full']
-
 export type WishlistHandlers = {
-  getWishlist: BigcommerceHandler<Wishlist, { customerToken?: string }>
+  getWishlist: BigcommerceHandler<
+    Wishlist,
+    { customerToken?: string; includeProducts?: boolean }
+  >
   addItem: BigcommerceHandler<
     Wishlist,
     { customerToken?: string } & Partial<AddItemBody>
@@ -58,7 +61,10 @@ const wishlistApi: BigcommerceApiHandler<Wishlist, WishlistHandlers> = async (
   try {
     // Return current wishlist info
     if (req.method === 'GET') {
-      const body = { customerToken }
+      const body = {
+        customerToken,
+        includeProducts: req.query.products === '1',
+      }
       return await handlers['getWishlist']({ req, res, config, body })
     }
 
