@@ -1,10 +1,10 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import getAllPages from '@bigcommerce/storefront-data-hooks/dist/api/operations/get-all-pages'
+import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
-import useCart from '@bigcommerce/storefront-data-hooks/dist/cart/use-cart'
-import usePrice from '@bigcommerce/storefront-data-hooks/dist/use-price'
+import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
+import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
 import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
 
