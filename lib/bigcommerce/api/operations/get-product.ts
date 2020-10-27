@@ -16,6 +16,38 @@ export const getProductQuery = /* GraphQL */ `
           __typename
           ... on Product {
             ...productInfo
+            variants {
+              edges {
+                node {
+                  entityId
+                  defaultImage {
+                    urlOriginal
+                    altText
+                    isDefault
+                  }
+                  prices {
+                    ...productPrices
+                  }
+                  inventory {
+                    aggregated {
+                      availableToSell
+                      warningLevel
+                    }
+                    isInStock
+                  }
+                  productOptions {
+                    edges {
+                      node {
+                        __typename
+                        entityId
+                        displayName
+                        ...multipleChoiceOption
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

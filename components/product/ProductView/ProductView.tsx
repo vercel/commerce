@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 
 import s from './ProductView.module.css'
-import { Heart } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container } from '@components/ui'
@@ -12,7 +11,11 @@ import { HTMLContent } from '@components/core'
 
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
-import { getProductOptions } from '../helpers'
+import {
+  getCurrentVariant,
+  getProductOptions,
+  ProductOptions,
+} from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
@@ -21,16 +24,17 @@ interface Props {
   product: ProductNode
 }
 
-const ProductView: FC<Props> = ({ product, className }) => {
+const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
-
-  const [choices, setChoices] = useState<Record<string, any>>({
+  const [choices, setChoices] = useState<ProductOptions>({
     size: null,
     color: null,
   })
+  const variant =
+    getCurrentVariant(product, choices) || product.variants.edges?.[0]
 
   const addToCart = async () => {
     setLoading(true)
@@ -102,7 +106,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
                 <h2 className="uppercase font-medium">{opt.displayName}</h2>
                 <div className="flex flex-row py-4">
                   {opt.values.map((v: any, i: number) => {
-                    const active = choices[opt.displayName]
+                    const active = (choices as any)[opt.displayName]
 
                     return (
                       <Swatch
@@ -137,6 +141,7 @@ const ProductView: FC<Props> = ({ product, className }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
+              disabled={!variant}
             >
               Add to Cart
             </Button>

@@ -1684,6 +1684,16 @@ export type CategoryTreeItemFragment = {
   'entityId' | 'name' | 'path' | 'description' | 'productCount'
 >
 
+export type ProductPricesFragment = { __typename?: 'Prices' } & {
+  price: { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
+  salePrice?: Maybe<
+    { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
+  >
+  retailPrice?: Maybe<
+    { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
+  >
+}
+
 export type SwatchOptionFragment = { __typename?: 'SwatchOptionValue' } & Pick<
   SwatchOptionValue,
   'isDefault' | 'hexColors'
@@ -1723,17 +1733,7 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
   'entityId' | 'name' | 'path' | 'description'
 > & {
     brand?: Maybe<{ __typename?: 'Brand' } & Pick<Brand, 'entityId'>>
-    prices?: Maybe<
-      { __typename?: 'Prices' } & {
-        price: { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
-        salePrice?: Maybe<
-          { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
-        >
-        retailPrice?: Maybe<
-          { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
-        >
-      }
-    >
+    prices?: Maybe<{ __typename?: 'Prices' } & ProductPricesFragment>
     images: { __typename?: 'ImageConnection' } & {
       edges?: Maybe<
         Array<
@@ -1904,7 +1904,101 @@ export type GetProductQuery = { __typename?: 'Query' } & {
       node?: Maybe<
         | { __typename: 'Brand' }
         | { __typename: 'Category' }
-        | ({ __typename: 'Product' } & ProductInfoFragment)
+        | ({ __typename: 'Product' } & {
+            variants: { __typename?: 'VariantConnection' } & {
+              edges?: Maybe<
+                Array<
+                  Maybe<
+                    { __typename?: 'VariantEdge' } & {
+                      node: { __typename?: 'Variant' } & Pick<
+                        Variant,
+                        'entityId'
+                      > & {
+                          defaultImage?: Maybe<
+                            { __typename?: 'Image' } & Pick<
+                              Image,
+                              'urlOriginal' | 'altText' | 'isDefault'
+                            >
+                          >
+                          prices?: Maybe<
+                            { __typename?: 'Prices' } & ProductPricesFragment
+                          >
+                          inventory?: Maybe<
+                            { __typename?: 'VariantInventory' } & Pick<
+                              VariantInventory,
+                              'isInStock'
+                            > & {
+                                aggregated?: Maybe<
+                                  { __typename?: 'Aggregated' } & Pick<
+                                    Aggregated,
+                                    'availableToSell' | 'warningLevel'
+                                  >
+                                >
+                              }
+                          >
+                          productOptions: {
+                            __typename?: 'ProductOptionConnection'
+                          } & {
+                            edges?: Maybe<
+                              Array<
+                                Maybe<
+                                  { __typename?: 'ProductOptionEdge' } & {
+                                    node:
+                                      | ({
+                                          __typename?: 'CheckboxOption'
+                                        } & Pick<
+                                          CheckboxOption,
+                                          'entityId' | 'displayName'
+                                        >)
+                                      | ({
+                                          __typename?: 'DateFieldOption'
+                                        } & Pick<
+                                          DateFieldOption,
+                                          'entityId' | 'displayName'
+                                        >)
+                                      | ({
+                                          __typename?: 'FileUploadFieldOption'
+                                        } & Pick<
+                                          FileUploadFieldOption,
+                                          'entityId' | 'displayName'
+                                        >)
+                                      | ({
+                                          __typename?: 'MultiLineTextFieldOption'
+                                        } & Pick<
+                                          MultiLineTextFieldOption,
+                                          'entityId' | 'displayName'
+                                        >)
+                                      | ({
+                                          __typename?: 'MultipleChoiceOption'
+                                        } & Pick<
+                                          MultipleChoiceOption,
+                                          'entityId' | 'displayName'
+                                        > &
+                                          MultipleChoiceOptionFragment)
+                                      | ({
+                                          __typename?: 'NumberFieldOption'
+                                        } & Pick<
+                                          NumberFieldOption,
+                                          'entityId' | 'displayName'
+                                        >)
+                                      | ({
+                                          __typename?: 'TextFieldOption'
+                                        } & Pick<
+                                          TextFieldOption,
+                                          'entityId' | 'displayName'
+                                        >)
+                                  }
+                                >
+                              >
+                            >
+                          }
+                        }
+                    }
+                  >
+                >
+              >
+            }
+          } & ProductInfoFragment)
         | { __typename: 'Variant' }
       >
     }

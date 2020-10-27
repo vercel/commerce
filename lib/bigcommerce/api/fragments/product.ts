@@ -1,3 +1,20 @@
+export const productPrices = /* GraphQL */ `
+  fragment productPrices on Prices {
+    price {
+      value
+      currencyCode
+    }
+    salePrice {
+      value
+      currencyCode
+    }
+    retailPrice {
+      value
+      currencyCode
+    }
+  }
+`
+
 export const swatchOptionFragment = /* GraphQL */ `
   fragment swatchOption on SwatchOptionValue {
     isDefault
@@ -7,7 +24,6 @@ export const swatchOptionFragment = /* GraphQL */ `
 
 export const multipleChoiceOptionFragment = /* GraphQL */ `
   fragment multipleChoiceOption on MultipleChoiceOption {
-    entityId
     values {
       edges {
         node {
@@ -31,18 +47,7 @@ export const productInfoFragment = /* GraphQL */ `
     }
     description
     prices {
-      price {
-        value
-        currencyCode
-      }
-      salePrice {
-        value
-        currencyCode
-      }
-      retailPrice {
-        value
-        currencyCode
-      }
+      ...productPrices
     }
     images {
       edges {
@@ -68,6 +73,7 @@ export const productInfoFragment = /* GraphQL */ `
     productOptions {
       edges {
         node {
+          __typename
           entityId
           displayName
           ...multipleChoiceOption
@@ -85,6 +91,7 @@ export const productInfoFragment = /* GraphQL */ `
     }
   }
 
+  ${productPrices}
   ${multipleChoiceOptionFragment}
 `
 
