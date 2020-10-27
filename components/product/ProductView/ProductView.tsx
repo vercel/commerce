@@ -91,7 +91,7 @@ const ProductView: FC<Props> = ({ product }) => {
                     width={1050}
                     height={1050}
                     priority={i === 0}
-                    quality="90"
+                    quality="85"
                   />
                 </div>
               ))}
