@@ -11,13 +11,13 @@ import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
 
 import rangeMap from '@lib/range-map'
-import getSlug from '@utils/get-slug'
+import getSlug from '@lib/get-slug'
 import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
   useSearchMeta,
-} from '@utils/search'
+} from '@lib/search'
 
 export async function getStaticProps({
   preview,
