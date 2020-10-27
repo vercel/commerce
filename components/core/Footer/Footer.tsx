@@ -7,7 +7,7 @@ import getSlug from '@utils/get-slug'
 import { Github } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/core'
-
+import s from './Footer.module.css'
 interface Props {
   className?: string
   children?: any
@@ -83,7 +83,9 @@ const Footer: FC<Props> = ({ className, pages }) => {
           </div>
           <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
             <div className="flex space-x-6 items-center h-10">
-              <Github />
+              <a href="https://github.com/vercel/commerce" className={s.link}>
+                <Github />
+              </a>
               <I18nWidget />
             </div>
           </div>
