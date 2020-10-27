@@ -19,6 +19,7 @@ This project is currently under development.
 - Theming
 - Standarized Data Hooks
 - Integrations - Integrate seamlessly with the most common ecommerce platforms.
+- Dark Mode Support
 
 ## Work in progress
 We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
