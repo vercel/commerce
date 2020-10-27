@@ -45,7 +45,7 @@ export function extendHook(customFetcher: typeof fetcher) {
         await mutate(data, false)
         return data
       },
-      [fn, mutate]
+      [fn, mutate, customer]
     )
   }
 
