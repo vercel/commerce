@@ -1,6 +1,6 @@
 # Next.js Commerce
-The all-in-one starter kit for high-performance ecommerce sites. With a few clicks, Next.js developers can clone, deploy, and fully customize it.
-Start right now at [nextjs.org/commerce](https://nextjs.org/commerce) 
+The all-in-one starter kit for high-performance e-commerce sites. With a few clicks, Next.js developers can clone, deploy and fully own their own store.
+Start right now at nextjs.org/commerce
 
 Demo live at: [commerce-demo.vercel.app](https://commerce-demo.vercel.app/)
 
