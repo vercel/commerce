@@ -16,7 +16,8 @@ const checkoutApi: BigcommerceApiHandler<any> = async (req, res, config) => {
 
   try {
     if (!cartId) {
-      return res.status(404).end()
+      res.redirect('/cart')
+      return
     }
 
     const { data } = await config.storeApiFetch(
