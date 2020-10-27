@@ -13,6 +13,7 @@ import { HTMLContent } from '@components/core'
 import useAddItem from '@lib/bigcommerce/cart/use-add-item'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import { getProductOptions } from '../helpers'
+import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   className?: string
@@ -142,10 +143,11 @@ const ProductView: FC<Props> = ({ product, className }) => {
           </div>
         </div>
 
-        {/* TODO make it work */}
-        <div className={s.wishlistButton}>
-          <Heart />
-        </div>
+        <WishlistButton
+          className={s.wishlistButton}
+          productId={product.entityId}
+          variant={product.variants.edges?.[0]!}
+        />
       </div>
     </Container>
   )
