@@ -1,0 +1,14 @@
+.root {
+  @apply transform transition-transform duration-500;
+  height: 100%;
+  margin: auto;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  & div {
+    height: 100%;
+    margin: auto;
+  }
+}
