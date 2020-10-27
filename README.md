@@ -20,6 +20,9 @@ This project is currently under development.
 - Standarized Data Hooks
 - Integrations - Integrate seamlessly with the most common ecommerce platforms.
 
+## Work in progress
+We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
+
 ## Contribute
 
 Our commitment to Open Source can be found [here](https://vercel.com/oss).
