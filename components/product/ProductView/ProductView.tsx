@@ -14,7 +14,7 @@ import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
 import {
   getCurrentVariant,
   getProductOptions,
-  ProductOptions,
+  SelectedOptions,
 } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
@@ -29,7 +29,7 @@ const ProductView: FC<Props> = ({ product }) => {
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
-  const [choices, setChoices] = useState<ProductOptions>({
+  const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
     color: null,
   })

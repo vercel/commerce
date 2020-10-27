@@ -4,12 +4,15 @@ import createApiHandler, {
   BigcommerceHandler,
 } from '../utils/create-api-handler'
 import { BigcommerceApiError } from '../utils/errors'
-import type { Wishlist } from '../operations/get-customer-wishlist'
+import type {
+  Wishlist,
+  WishlistItem,
+} from '../operations/get-customer-wishlist'
 import getWishlist from './handlers/get-wishlist'
 import addItem from './handlers/add-item'
 import removeItem from './handlers/remove-item'
 
-export type { Wishlist }
+export type { Wishlist, WishlistItem }
 
 export type ItemBody = {
   productId: number

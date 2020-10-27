@@ -4,7 +4,7 @@ import { CommerceError } from '../../commerce/utils/errors'
 import useWishlistRemoveItem from '../../commerce/wishlist/use-remove-item'
 import type { RemoveItemBody } from '../api/wishlist'
 import useCustomer from '../use-customer'
-import useWishlist, { Wishlist } from './use-wishlist'
+import useWishlist, { UseWishlistOptions, Wishlist } from './use-wishlist'
 
 const defaultOpts = {
   url: '/api/bigcommerce/wishlist',
@@ -28,9 +28,9 @@ export const fetcher: HookFetcher<Wishlist | null, RemoveItemBody> = (
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
-  const useRemoveItem = () => {
+  const useRemoveItem = (opts?: UseWishlistOptions) => {
     const { data: customer } = useCustomer()
-    const { mutate } = useWishlist()
+    const { revalidate } = useWishlist(opts)
     const fn = useWishlistRemoveItem<Wishlist | null, RemoveItemBody>(
       defaultOpts,
       customFetcher
@@ -46,10 +46,10 @@ export function extendHook(customFetcher: typeof fetcher) {
         }
 
         const data = await fn({ itemId: String(input.id) })
-        await mutate(data, false)
+        await revalidate()
         return data
       },
-      [fn, mutate, customer]
+      [fn, revalidate, customer]
     )
   }
 

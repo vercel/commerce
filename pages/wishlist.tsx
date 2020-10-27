@@ -1,64 +1,49 @@
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import type { GetStaticPropsContext } from 'next'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import useWishlist from '@lib/bigcommerce/wishlist/use-wishlist'
 import { Layout } from '@components/core'
+import { Heart } from '@components/icons'
 import { Container, Text } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
 
-import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
-
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { pages } = await getAllPages({ preview })
-  const { categories, brands } = await getSiteInfo({ preview })
 
   return {
-    props: { pages, categories, brands },
+    props: { pages },
   }
 }
 
-export default function Home({
-  categories,
-  brands,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data } = useWishlist({ includeProducts: true })
-  console.log(data)
+export default function Wishlist() {
+  const { data, isEmpty } = useWishlist({ includeProducts: true })
+
   return (
     <Container>
-      <div className="grid grid-cols-12 gap-8 mt-3 mb-20">
-        <div className="col-span-2">
-          <ul className="mb-10">
-            <li className="py-1 text-base font-bold tracking-wide">
-              All Categories
-            </li>
-            {categories.map((cat) => (
-              <li key={cat.path} className="py-1 text-secondary">
-                <a href="#">{cat.name}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="col-span-8">
-          <Text variant="pageHeading">My Wishlist</Text>
-          <div className="group flex flex-col">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <WishlistCard key={i} />
-            ))}
-          </div>
-        </div>
-        <div className="col-span-2">
-          <ul>
-            <li className="py-1 text-base font-bold tracking-wide">
-              Relevance
-            </li>
-            <li className="py-1 text-secondary">Latest arrivals</li>
-            <li className="py-1 text-secondary">Trending</li>
-            <li className="py-1 text-secondary">Price: Low to high</li>
-            <li className="py-1 text-secondary">Price: High to low</li>
-          </ul>
+      <div className="mt-3 mb-20">
+        <Text variant="pageHeading">My Wishlist</Text>
+        <div className="group flex flex-col">
+          {isEmpty ? (
+            <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center ">
+              <span className="border border-dashed border-secondary rounded-full flex items-center justify-center w-16 h-16 bg-primary p-12 rounded-lg text-primary">
+                <Heart className="absolute" />
+              </span>
+              <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
+                Your wishlist is empty
+              </h2>
+              <p className="text-accents-6 px-10 text-center pt-2">
+                Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
+              </p>
+            </div>
+          ) : (
+            data &&
+            data.items?.map((item) => (
+              <WishlistCard key={item.id} item={item} />
+            ))
+          )}
         </div>
       </div>
     </Container>
   )
 }
 
-Home.Layout = Layout
+Wishlist.Layout = Layout

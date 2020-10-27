@@ -60,7 +60,7 @@ export function extendHook(
     // response.data is also a getter and it's better to not trigger it early
     Object.defineProperty(response, 'isEmpty', {
       get() {
-        return (response.data?.items?.length || 0) > 0
+        return (response.data?.items?.length || 0) <= 0
       },
       set: (x) => x,
     })

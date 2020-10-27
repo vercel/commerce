@@ -4,9 +4,13 @@ import { BigcommerceConfig, getConfig } from '..'
 import getAllProducts, { ProductEdge } from './get-all-products'
 
 export type Wishlist = Omit<definitions['wishlist_Full'], 'items'> & {
-  items?: (NonNullable<definitions['wishlist_Full']['items']>[0] & {
-    product?: ProductEdge['node']
-  })[]
+  items?: WishlistItem[]
+}
+
+export type WishlistItem = NonNullable<
+  definitions['wishlist_Full']['items']
+>[0] & {
+  product?: ProductEdge['node']
 }
 
 export type GetCustomerWishlistResult<

@@ -4,7 +4,7 @@ import { CommerceError } from '../../commerce/utils/errors'
 import useWishlistAddItem from '../../commerce/wishlist/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/wishlist'
 import useCustomer from '../use-customer'
-import useWishlist, { Wishlist } from './use-wishlist'
+import useWishlist, { UseWishlistOptions, Wishlist } from './use-wishlist'
 
 const defaultOpts = {
   url: '/api/bigcommerce/wishlist',
@@ -27,9 +27,9 @@ export const fetcher: HookFetcher<Wishlist, AddItemBody> = (
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
-  const useAddItem = () => {
+  const useAddItem = (opts?: UseWishlistOptions) => {
     const { data: customer } = useCustomer()
-    const { mutate } = useWishlist()
+    const { revalidate } = useWishlist(opts)
     const fn = useWishlistAddItem(defaultOpts, customFetcher)
 
     return useCallback(
@@ -42,10 +42,10 @@ export function extendHook(customFetcher: typeof fetcher) {
         }
 
         const data = await fn({ item: input })
-        await mutate(data, false)
+        await revalidate()
         return data
       },
-      [fn, mutate, customer]
+      [fn, revalidate, customer]
     )
   }
 
