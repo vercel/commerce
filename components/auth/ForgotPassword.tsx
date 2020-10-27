@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { validate } from 'email-validator'
-import { Info } from'@components/icons'
+import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Logo, Button, Input } from '@components/ui'
 import useSignup from '@lib/bigcommerce/use-signup'
@@ -59,7 +59,7 @@ const ForgotPassword: FC<Props> = () => {
           <div className="text-red border border-red p-3">{message}</div>
         )}
 
-        <Input placeholder="Email" onChange={setEmail} />
+        <Input placeholder="Email" onChange={setEmail} type="email" />
         <div className="pt-2 w-full flex flex-col">
           <Button
             variant="slim"
