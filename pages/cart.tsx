@@ -120,9 +120,15 @@ export default function Cart() {
           </div>
           <div className="flex flex-row justify-end">
             <div className="w-full lg:w-72">
-              <Button href="/checkout" Component="a" width="100%">
-                Confirm Purchase
-              </Button>
+              {isEmpty ? (
+                <Button href="/" Component="a" width="100%">
+                  Continue Shopping
+                </Button>
+              ) : (
+                <Button href="/checkout" Component="a" width="100%">
+                  Proceed to Checkout
+                </Button>
+              )}
             </div>
           </div>
         </div>
