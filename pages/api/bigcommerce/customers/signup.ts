@@ -1,3 +1,3 @@
-import signupApi from '@lib/bigcommerce/api/customers/signup'
+import signupApi from '@bigcommerce/storefront-data-hooks/dist/api/customers/signup'
 
 export default signupApi()

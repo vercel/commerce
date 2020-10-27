@@ -5,7 +5,7 @@ import cn from 'classnames'
 import s from './DropdownMenu.module.css'
 import { Moon, Sun } from '@components/icons'
 import { Menu, Transition } from '@headlessui/react'
-import useLogout from '@lib/bigcommerce/use-logout'
+import useLogout from '@bigcommerce/storefront-data-hooks/dist/use-logout'
 import { useRouter } from 'next/router'
 
 interface DropdownMenuProps {

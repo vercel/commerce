@@ -7,8 +7,8 @@ import { Avatar } from '@components/core'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import { Menu } from '@headlessui/react'
-import useCart from '@lib/bigcommerce/cart/use-cart'
-import useCustomer from '@lib/bigcommerce/use-customer'
+import useCart from '@bigcommerce/storefront-data-hooks/dist/cart/use-cart'
+import useCustomer from '@bigcommerce/storefront-data-hooks/dist/use-customer'
 interface Props {
   className?: string
 }
