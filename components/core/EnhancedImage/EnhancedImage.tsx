@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Image from 'next/image'
-import s from './EnhancedImage.module.css'
 
 type Props = Omit<
   JSX.IntrinsicElements['img'],
@@ -34,7 +33,7 @@ const EnhancedImage: FC<Props & JSX.IntrinsicElements['img']> = ({
   })
 
   return (
-    <div ref={ref} className={s.root}>
+    <div ref={ref}>
       <Image {...props} />
     </div>
   )

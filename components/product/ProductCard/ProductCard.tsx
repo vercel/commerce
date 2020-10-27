@@ -72,7 +72,7 @@ const ProductCard: FC<Props> = ({
         </div>
         <EnhancedImage
           alt={p.name}
-          className="w-full object-cover"
+          className={cn('w-full object-cover', s['product-image'])}
           src={src}
           width={imgWidth}
           height={imgHeight}
