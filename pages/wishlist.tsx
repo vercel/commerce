@@ -1,11 +1,11 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import getAllPages from '@bigcommerce/storefront-data-hooks/dist/api/operations/get-all-pages'
+import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Container, Text } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
 
-import getSiteInfo from '@bigcommerce/storefront-data-hooks/dist/api/operations/get-site-info'
-import useWishlist from '@bigcommerce/storefront-data-hooks/dist/wishlist/use-wishlist'
+import getSiteInfo from '@bigcommerce/storefront-data-hooks/api/operations/get-site-info'
+import useWishlist from '@bigcommerce/storefront-data-hooks/wishlist/use-wishlist'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   const { pages } = await getAllPages()
