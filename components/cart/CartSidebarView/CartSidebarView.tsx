@@ -51,7 +51,7 @@ const CartSidebarView: FC = () => {
             </button>
           </div>
           <div className="space-y-1">
-            <UserNav />
+            <UserNav className="" />
           </div>
         </div>
       </header>
