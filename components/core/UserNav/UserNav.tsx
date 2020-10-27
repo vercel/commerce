@@ -34,11 +34,13 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
             <Bag />
             {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
-          <Link href="/wishlist">
-            <li className={s.item}>
-              <Heart />
-            </li>
-          </Link>
+          <li className={s.item}>
+            <Link href="/wishlist">
+              <a>
+                <Heart />
+              </a>
+            </Link>
+          </li>
           <li className={s.item}>
             {customer ? (
               <Menu>
