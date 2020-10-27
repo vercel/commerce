@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { Logo, Modal, Button, Input } from '@components/ui'
-import useLogin from '@lib/bigcommerce/use-login'
+import useLogin from '@bigcommerce/storefront-data-hooks/dist/use-login'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 

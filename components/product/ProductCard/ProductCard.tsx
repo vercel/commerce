@@ -1,8 +1,8 @@
 import type { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
-import usePrice from '@lib/bigcommerce/use-price'
+import type { ProductNode } from '@bigcommerce/storefront-data-hooks/dist/api/operations/get-all-products'
+import usePrice from '@bigcommerce/storefront-data-hooks/dist/use-price'
 import { EnhancedImage } from '@components/core'
 import s from './ProductCard.module.css'
 import WishlistButton from '@components/wishlist/WishlistButton'
@@ -70,7 +70,7 @@ const ProductCard: FC<Props> = ({
             variant={p.variants.edges?.[0]!}
           />
         </div>
-        <div className={cn(s.imageContainer)}>
+        <div className={s.imageContainer}>
           <EnhancedImage
             alt={p.name}
             className={cn('w-full object-cover', s['product-image'])}

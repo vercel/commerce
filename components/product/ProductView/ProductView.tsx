@@ -10,8 +10,8 @@ import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container } from '@components/ui'
 import { HTMLContent } from '@components/core'
 
-import useAddItem from '@lib/bigcommerce/cart/use-add-item'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-product'
+import useAddItem from '@bigcommerce/storefront-data-hooks/dist/cart/use-add-item'
+import type { ProductNode } from '@bigcommerce/storefront-data-hooks/dist/api/operations/get-product'
 import { getProductOptions } from '../helpers'
 
 interface Props {
