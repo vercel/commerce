@@ -1701,32 +1701,32 @@ export type SwatchOptionFragment = { __typename?: 'SwatchOptionValue' } & Pick<
 
 export type MultipleChoiceOptionFragment = {
   __typename?: 'MultipleChoiceOption'
-} & Pick<MultipleChoiceOption, 'entityId'> & {
-    values: { __typename?: 'ProductOptionValueConnection' } & {
-      edges?: Maybe<
-        Array<
-          Maybe<
-            { __typename?: 'ProductOptionValueEdge' } & {
-              node:
-                | ({ __typename?: 'MultipleChoiceOptionValue' } & Pick<
-                    MultipleChoiceOptionValue,
-                    'label'
-                  >)
-                | ({ __typename?: 'ProductPickListOptionValue' } & Pick<
-                    ProductPickListOptionValue,
-                    'label'
-                  >)
-                | ({ __typename?: 'SwatchOptionValue' } & Pick<
-                    SwatchOptionValue,
-                    'label'
-                  > &
-                    SwatchOptionFragment)
-            }
-          >
+} & {
+  values: { __typename?: 'ProductOptionValueConnection' } & {
+    edges?: Maybe<
+      Array<
+        Maybe<
+          { __typename?: 'ProductOptionValueEdge' } & {
+            node:
+              | ({ __typename?: 'MultipleChoiceOptionValue' } & Pick<
+                  MultipleChoiceOptionValue,
+                  'label'
+                >)
+              | ({ __typename?: 'ProductPickListOptionValue' } & Pick<
+                  ProductPickListOptionValue,
+                  'label'
+                >)
+              | ({ __typename?: 'SwatchOptionValue' } & Pick<
+                  SwatchOptionValue,
+                  'label'
+                > &
+                  SwatchOptionFragment)
+          }
         >
       >
-    }
+    >
   }
+}
 
 export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
   Product,
@@ -1772,32 +1772,32 @@ export type ProductInfoFragment = { __typename?: 'Product' } & Pick<
           Maybe<
             { __typename?: 'ProductOptionEdge' } & {
               node:
-                | ({ __typename?: 'CheckboxOption' } & Pick<
+                | ({ __typename: 'CheckboxOption' } & Pick<
                     CheckboxOption,
                     'entityId' | 'displayName'
                   >)
-                | ({ __typename?: 'DateFieldOption' } & Pick<
+                | ({ __typename: 'DateFieldOption' } & Pick<
                     DateFieldOption,
                     'entityId' | 'displayName'
                   >)
-                | ({ __typename?: 'FileUploadFieldOption' } & Pick<
+                | ({ __typename: 'FileUploadFieldOption' } & Pick<
                     FileUploadFieldOption,
                     'entityId' | 'displayName'
                   >)
-                | ({ __typename?: 'MultiLineTextFieldOption' } & Pick<
+                | ({ __typename: 'MultiLineTextFieldOption' } & Pick<
                     MultiLineTextFieldOption,
                     'entityId' | 'displayName'
                   >)
-                | ({ __typename?: 'MultipleChoiceOption' } & Pick<
+                | ({ __typename: 'MultipleChoiceOption' } & Pick<
                     MultipleChoiceOption,
                     'entityId' | 'displayName'
                   > &
                     MultipleChoiceOptionFragment)
-                | ({ __typename?: 'NumberFieldOption' } & Pick<
+                | ({ __typename: 'NumberFieldOption' } & Pick<
                     NumberFieldOption,
                     'entityId' | 'displayName'
                   >)
-                | ({ __typename?: 'TextFieldOption' } & Pick<
+                | ({ __typename: 'TextFieldOption' } & Pick<
                     TextFieldOption,
                     'entityId' | 'displayName'
                   >)
@@ -1945,44 +1945,44 @@ export type GetProductQuery = { __typename?: 'Query' } & {
                                   { __typename?: 'ProductOptionEdge' } & {
                                     node:
                                       | ({
-                                          __typename?: 'CheckboxOption'
+                                          __typename: 'CheckboxOption'
                                         } & Pick<
                                           CheckboxOption,
                                           'entityId' | 'displayName'
                                         >)
                                       | ({
-                                          __typename?: 'DateFieldOption'
+                                          __typename: 'DateFieldOption'
                                         } & Pick<
                                           DateFieldOption,
                                           'entityId' | 'displayName'
                                         >)
                                       | ({
-                                          __typename?: 'FileUploadFieldOption'
+                                          __typename: 'FileUploadFieldOption'
                                         } & Pick<
                                           FileUploadFieldOption,
                                           'entityId' | 'displayName'
                                         >)
                                       | ({
-                                          __typename?: 'MultiLineTextFieldOption'
+                                          __typename: 'MultiLineTextFieldOption'
                                         } & Pick<
                                           MultiLineTextFieldOption,
                                           'entityId' | 'displayName'
                                         >)
                                       | ({
-                                          __typename?: 'MultipleChoiceOption'
+                                          __typename: 'MultipleChoiceOption'
                                         } & Pick<
                                           MultipleChoiceOption,
                                           'entityId' | 'displayName'
                                         > &
                                           MultipleChoiceOptionFragment)
                                       | ({
-                                          __typename?: 'NumberFieldOption'
+                                          __typename: 'NumberFieldOption'
                                         } & Pick<
                                           NumberFieldOption,
                                           'entityId' | 'displayName'
                                         >)
                                       | ({
-                                          __typename?: 'TextFieldOption'
+                                          __typename: 'TextFieldOption'
                                         } & Pick<
                                           TextFieldOption,
                                           'entityId' | 'displayName'

@@ -13,20 +13,10 @@ import { Trash } from '@components/icons'
 import s from './WishlistCard.module.css'
 
 interface Props {
-  className?: string
-  children?: any
-  data?: ProductData
   item: WishlistItem
 }
 
-interface ProductData {
-  name: string
-  images: any
-  prices: any
-  path: string
-}
-
-const WishlistCard: FC<Props> = ({ className, item }) => {
+const WishlistCard: FC<Props> = ({ item }) => {
   const product = item.product!
   const { price } = usePrice({
     amount: product.prices?.price?.value,

@@ -1,5 +1,4 @@
 import type { GetProductQuery, GetProductQueryVariables } from '../../schema'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productInfoFragment } from '../fragments/product'
 import { BigcommerceConfig, getConfig } from '..'
@@ -103,20 +102,14 @@ async function getProduct({
     hasLocale: !!locale,
     path: slug ? `/${slug}/` : vars.path!,
   }
-  const { data } = await config.fetch<RecursivePartial<GetProductQuery>>(
-    query,
-    { variables }
-  )
+  const { data } = await config.fetch<GetProductQuery>(query, { variables })
   const product = data.site?.route?.node
 
   if (product?.__typename === 'Product') {
     if (locale && config.applyLocale) {
       setProductLocaleMeta(product)
     }
-
-    return {
-      product: product as RecursiveRequired<typeof product>,
-    }
+    return { product }
   }
 
   return {}
