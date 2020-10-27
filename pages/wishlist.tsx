@@ -1,5 +1,5 @@
 import type { GetStaticPropsContext } from 'next'
-import { getConfig } from '@lib/bigcommerce/api'
+import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import useWishlist from '@bigcommerce/storefront-data-hooks/wishlist/use-wishlist'
 import { Layout } from '@components/core'
