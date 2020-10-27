@@ -1,7 +1,4 @@
-import type {
-  GetProductQuery,
-  GetProductQueryVariables,
-} from 'lib/bigcommerce/schema'
+import type { GetProductQuery, GetProductQueryVariables } from '../../schema'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productInfoFragment } from '../fragments/product'

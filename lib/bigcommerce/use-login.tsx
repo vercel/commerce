@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@lib/commerce/utils/types'
-import { CommerceError } from '@lib/commerce/utils/errors'
-import useCommerceLogin from '@lib/commerce/use-login'
+import type { HookFetcher } from '../commerce/utils/types'
+import { CommerceError } from '../commerce/utils/errors'
+import useCommerceLogin from '../commerce/use-login'
 import type { LoginBody } from './api/customers/login'
 import useCustomer from './use-customer'
 
