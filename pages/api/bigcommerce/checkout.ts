@@ -1,3 +1,3 @@
-import checkoutApi from '@lib/bigcommerce/api/checkout'
+import checkoutApi from '@bigcommerce/storefront-data-hooks/dist/api/checkout'
 
 export default checkoutApi()

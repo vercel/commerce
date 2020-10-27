@@ -19,6 +19,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@bigcommerce/storefront-data-hooks": "^1.0.0",
     "@headlessui/react": "^0.2.0",
     "@next/bundle-analyzer": "^9.5.5",
     "@react-aria/overlays": "^3.4.0",
