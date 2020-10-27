@@ -1142,8 +1142,8 @@
 
 "@bigcommerce/storefront-data-hooks@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@bigcommerce/storefront-data-hooks/-/storefront-data-hooks-1.0.0.tgz#072160c4d6bfe04b22cf332299f408fd02bfd529"
-  integrity sha512-LI5uqRv30/UgdGsGN6KXTrFF91z3x+1D7/xIsOdy7KFbaqX0v086OYyi9r35d5DJ0ml3lujnURNClmoDMOglmQ==
+  resolved "https://registry.yarnpkg.com/@bigcommerce/storefront-data-hooks/-/storefront-data-hooks-1.0.0.tgz#1f5fe03f44190552e457609f12976deb159711ed"
+  integrity sha512-vdfNA8dVVBKjbVwCj4KS4hZULTHYEnH0fRFa3ujPybQbvaVO2ltVRTiGbA+hqCZkSMNI5koE6FEO9CIhMrHFsQ==
   dependencies:
     "@vercel/fetch" "6.1.0"
     cookie "0.4.1"
