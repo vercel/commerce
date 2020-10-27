@@ -61,10 +61,10 @@ export default function Home({
     // products, then fill them with products from the products list, this
     // is useful for new commerce sites that don't have a lot of products
     return {
-      featured: rangeMap(
-        6,
-        (i) => featuredProducts[i] ?? products.shift()
-      ).filter(nonNullable),
+      featured: rangeMap(6, (i) => featuredProducts[i] ?? products.shift())
+        .filter(nonNullable)
+        .sort((a, b) => a.node.prices.price.value - b.node.prices.price.value)
+        .reverse(),
       bestSelling: rangeMap(
         6,
         (i) => bestSellingProducts[i] ?? products.shift()
@@ -87,7 +87,7 @@ export default function Home({
         ))}
       </Grid>
       <Marquee variant="secondary">
-        {bestSelling.slice(0, 3).map(({ node }) => (
+        {bestSelling.slice(3, 6).map(({ node }) => (
           <ProductCard
             key={node.path}
             product={node}
@@ -119,7 +119,7 @@ export default function Home({
         ))}
       </Grid>
       <Marquee>
-        {bestSelling.slice(3, 6).map(({ node }) => (
+        {bestSelling.slice(0, 3).map(({ node }) => (
           <ProductCard
             key={node.path}
             product={node}
