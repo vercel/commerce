@@ -22,10 +22,41 @@ This project is currently <b>under development</b>.
 - Dark Mode Support
 
 ## Work in progress
+
 We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
 
 ## Integrations
+
 Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support all major ecommerce backends.
+
+## Troubleshoot
+
+<details>
+<summary>I already own a BigCommerce store. What should I do?</summary>
+<br>
+First thing you do is: <b>set your environment variables</b>
+<br>
+<br>
+.env.local
+
+```sh
+BIGCOMMERCE_STOREFRONT_API_URL=<>
+BIGCOMMERCE_STOREFRONT_API_TOKEN=<>
+BIGCOMMERCE_STORE_API_URL=<>
+BIGCOMMERCE_STORE_API_TOKEN=<>
+BIGCOMMERCE_STORE_API_CLIENT_ID=<>
+```
+
+</details>
+
+<details>
+<summary>BigCommerce shows a Coming Soon page and requests a Preview Code</summary>
+<br>
+After Email confirmation, Checkout should be manually enabled through BigCommerce platform. Look for "Review & test your store" section through BigCommerce's dashboard.
+<br>
+<br>
+BigCommerce team has been notified and they plan to add more detailed about this subject.
+</details>
 
 ## Contribute
 
