@@ -1,4 +1,5 @@
 import type { GetStaticPropsContext } from 'next'
+import { getConfig } from '@lib/bigcommerce/api'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Button } from '@components/ui'
@@ -8,8 +9,12 @@ import usePrice from '@lib/bigcommerce/use-price'
 import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
 
-export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { pages } = await getAllPages({ preview })
+export async function getStaticProps({
+  preview,
+  locale,
+}: GetStaticPropsContext) {
+  const config = getConfig({ locale })
+  const { pages } = await getAllPages({ config, preview })
   return {
     props: { pages },
   }

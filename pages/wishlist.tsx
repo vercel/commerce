@@ -1,4 +1,5 @@
 import type { GetStaticPropsContext } from 'next'
+import { getConfig } from '@lib/bigcommerce/api'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import useWishlist from '@lib/bigcommerce/wishlist/use-wishlist'
 import { Layout } from '@components/core'
@@ -6,9 +7,12 @@ import { Heart } from '@components/icons'
 import { Container, Text } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
 
-export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { pages } = await getAllPages({ preview })
-
+export async function getStaticProps({
+  preview,
+  locale,
+}: GetStaticPropsContext) {
+  const config = getConfig({ locale })
+  const { pages } = await getAllPages({ config, preview })
   return {
     props: { pages },
   }

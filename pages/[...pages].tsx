@@ -1,4 +1,5 @@
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { getConfig } from '@lib/bigcommerce/api'
 import getPage from '@lib/bigcommerce/api/operations/get-page'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import getSlug from '@utils/get-slug'
@@ -9,13 +10,15 @@ export async function getStaticProps({
   params,
   locale,
 }: GetStaticPropsContext<{ pages: string[] }>) {
-  const { pages } = await getAllPages({ preview })
+  const config = getConfig({ locale })
+  const { pages } = await getAllPages({ preview, config })
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
 
   const pageItem = pages.find((p) => (p.url ? getSlug(p.url) === slug : false))
   const data =
-    pageItem && (await getPage({ variables: { id: pageItem.id! }, preview }))
+    pageItem &&
+    (await getPage({ variables: { id: pageItem.id! }, config, preview }))
   const page = data?.page
 
   if (!page) {

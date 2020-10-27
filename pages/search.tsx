@@ -2,12 +2,14 @@ import cn from 'classnames'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { getConfig } from '@lib/bigcommerce/api'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
+import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+import useSearch from '@lib/bigcommerce/products/use-search'
 import { Layout } from '@components/core'
 import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
-import useSearch from '@lib/bigcommerce/products/use-search'
-import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
-import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
+
 import rangeMap from '@lib/range-map'
 import getSlug from '@utils/get-slug'
 import {
@@ -17,9 +19,13 @@ import {
   useSearchMeta,
 } from '@utils/search'
 
-export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { pages } = await getAllPages({ preview })
-  const { categories, brands } = await getSiteInfo({ preview })
+export async function getStaticProps({
+  preview,
+  locale,
+}: GetStaticPropsContext) {
+  const config = getConfig({ locale })
+  const { pages } = await getAllPages({ config, preview })
+  const { categories, brands } = await getSiteInfo({ config, preview })
 
   return {
     props: { pages, categories, brands },
