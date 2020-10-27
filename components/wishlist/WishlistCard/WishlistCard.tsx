@@ -62,7 +62,6 @@ const WishlistCard: FC<Props> = ({ item }) => {
           width={400}
           height={400}
           alt={product.images.edges?.[0]?.node.altText || 'Product Image'}
-          // The cart item image is already optimized and very small in size
         />
       </div>
 

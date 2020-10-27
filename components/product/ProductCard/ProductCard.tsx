@@ -41,7 +41,7 @@ const ProductCard: FC<Props> = ({
         </div>
         <EnhancedImage
           src={p.images.edges?.[0]?.node.urlOriginal!}
-          alt={p.name}
+          alt={p.images.edges?.[0]?.node.altText || 'Product Image'}
           width={imgWidth}
           height={imgHeight}
           priority={priority}
