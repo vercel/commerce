@@ -15,7 +15,9 @@ const ForgotPassword: FC<Props> = () => {
 
   const { setModalView, closeModal } = useUI()
 
-  const handleSignup = async () => {
+  const handleResetPassword = async (e: React.SyntheticEvent<EventTarget>) => {
+    e.preventDefault()
+
     if (!dirty && !disabled) {
       setDirty(true)
       handleValidation()
@@ -34,7 +36,10 @@ const ForgotPassword: FC<Props> = () => {
   }, [handleValidation])
 
   return (
-    <div className="w-80 flex flex-col justify-between p-3">
+    <form
+      onSubmit={handleResetPassword}
+      className="w-80 flex flex-col justify-between p-3"
+    >
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
@@ -47,7 +52,7 @@ const ForgotPassword: FC<Props> = () => {
         <div className="pt-2 w-full flex flex-col">
           <Button
             variant="slim"
-            onClick={() => handleSignup()}
+            type="submit"
             loading={loading}
             disabled={disabled}
           >
@@ -66,7 +71,7 @@ const ForgotPassword: FC<Props> = () => {
           </a>
         </span>
       </div>
-    </div>
+    </form>
   )
 }
 
