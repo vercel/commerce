@@ -47,6 +47,8 @@ BIGCOMMERCE_STORE_API_TOKEN=<>
 BIGCOMMERCE_STORE_API_CLIENT_ID=<>
 ```
 
+Next, you're free to customize the starter. More updates coming soon. Stay tuned.
+
 </details>
 
 <details>
