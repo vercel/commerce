@@ -1,4 +1,4 @@
-import type { GetLoggedInCustomerQuery } from '@lib/bigcommerce/schema'
+import type { GetLoggedInCustomerQuery } from '../../../schema'
 import type { CustomersHandlers } from '..'
 
 export const getLoggedInCustomerQuery = /* GraphQL */ `

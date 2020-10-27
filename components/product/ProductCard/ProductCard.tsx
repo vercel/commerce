@@ -1,15 +1,14 @@
-import React, { FC, ReactNode, Component } from 'react'
+import type { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
 import usePrice from '@lib/bigcommerce/use-price'
-import { Heart } from '@components/icons'
 import { EnhancedImage } from '@components/core'
 import s from './ProductCard.module.css'
+import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   className?: string
-  children?: ReactNode[] | Component[] | any[]
   product: ProductNode
   variant?: 'slim' | 'simple'
   imgWidth: number | string
@@ -25,7 +24,7 @@ const ProductCard: FC<Props> = ({
   imgHeight,
   priority,
 }) => {
-  const src = p.images.edges?.[0]?.node.urlOriginal!
+  const src = p.images.edges?.[0]?.node?.urlOriginal!
   const { price } = usePrice({
     amount: p.prices?.price?.value,
     baseAmount: p.prices?.retailPrice?.value,
@@ -53,7 +52,7 @@ const ProductCard: FC<Props> = ({
   }
 
   return (
-    <Link href={`product${p.path}`}>
+    <Link href={`/product${p.path}`}>
       <a
         className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}
       >
@@ -65,9 +64,11 @@ const ProductCard: FC<Props> = ({
             </h3>
             <span className={s.productPrice}>{price}</span>
           </div>
-          <div className={s.wishlistButton}>
-            <Heart />
-          </div>
+          <WishlistButton
+            className={s.wishlistButton}
+            productId={p.entityId}
+            variant={p.variants.edges?.[0]!}
+          />
         </div>
         <div className={cn(s.imageContainer)}>
           <EnhancedImage

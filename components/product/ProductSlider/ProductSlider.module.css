@@ -48,7 +48,8 @@
   @apply hidden;
 
   @screen sm {
-    @apply block absolute bottom-6 left-1/2 -translate-x-1/2 transform;
+    @apply block absolute bottom-6 left-1/2;
+    transform: translateX(-50%);
   }
 }
 

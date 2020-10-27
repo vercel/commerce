@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { HookFetcher } from '@lib/commerce/utils/types'
-import useCartRemoveItem from '@lib/commerce/cart/use-remove-item'
+import { HookFetcher } from '../../commerce/utils/types'
+import useCartRemoveItem from '../../commerce/cart/use-remove-item'
 import type { RemoveItemBody } from '../api/cart'
 import useCart, { Cart } from './use-cart'
 
@@ -26,7 +26,7 @@ export const fetcher: HookFetcher<Cart | null, RemoveItemBody> = (
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
-  const useRemoveItem = (item?: any) => {
+  const useRemoveItem = () => {
     const { mutate } = useCart()
     const fn = useCartRemoveItem<Cart | null, RemoveItemBody>(
       defaultOpts,
@@ -35,7 +35,7 @@ export function extendHook(customFetcher: typeof fetcher) {
 
     return useCallback(
       async function removeItem(input: RemoveItemInput) {
-        const data = await fn({ itemId: input.id ?? item?.id })
+        const data = await fn({ itemId: input.id })
         await mutate(data, false)
         return data
       },

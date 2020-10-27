@@ -1,36 +1,48 @@
-import { HookFetcher } from '@lib/commerce/utils/types'
-import useData from '@lib/commerce/utils/use-data'
+import { HookFetcher } from '../../commerce/utils/types'
+import { SwrOptions } from '../../commerce/utils/use-data'
+import useCommerceWishlist from '../../commerce/wishlist/use-wishlist'
 import type { Wishlist } from '../api/wishlist'
+import useCustomer from '../use-customer'
 
 const defaultOpts = {
-  url: '/api/bigcommerce/wishlists',
+  url: '/api/bigcommerce/wishlist',
   method: 'GET',
 }
 
 export type { Wishlist }
 
-export type WishlistInput = {
-  wishlistId: string | undefined
-}
-
-export const fetcher: HookFetcher<Wishlist | null, WishlistInput> = (
+export const fetcher: HookFetcher<Wishlist | null, { customerId?: number }> = (
   options,
-  { wishlistId },
+  { customerId },
   fetch
 ) => {
-  return fetch({
-    ...defaultOpts,
-    ...options,
-    body: { wishlistId },
-  })
+  return customerId ? fetch({ ...defaultOpts, ...options }) : null
 }
 
-export function extendHook(customFetcher: typeof fetcher) {
-  const useWishlists = (wishlistId: string) => {
-    const fetchFn: typeof fetcher = (options, input, fetch) => {
-      return customFetcher(options, input, fetch)
-    }
-    const response = useData(defaultOpts, [['wishlistId', wishlistId]], fetchFn)
+export function extendHook(
+  customFetcher: typeof fetcher,
+  swrOptions?: SwrOptions<Wishlist | null, { customerId?: number }>
+) {
+  const useWishlists = () => {
+    const { data: customer } = useCustomer()
+    const response = useCommerceWishlist(
+      defaultOpts,
+      [['customerId', customer?.entityId]],
+      customFetcher,
+      {
+        revalidateOnFocus: false,
+        ...swrOptions,
+      }
+    )
+
+    // Uses a getter to only calculate the prop when required
+    // response.data is also a getter and it's better to not trigger it early
+    Object.defineProperty(response, 'isEmpty', {
+      get() {
+        return (response.data?.items?.length || 0) > 0
+      },
+      set: (x) => x,
+    })
 
     return response
   }
