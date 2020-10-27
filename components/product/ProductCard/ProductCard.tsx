@@ -57,7 +57,7 @@ const ProductCard: FC<Props> = ({
             <div className={s.squareBg} />
             <div className="flex flex-row justify-between box-border w-full z-20 absolute">
               <div className="absolute top-0 left-0 pr-16 max-w-full">
-                <h3 className={s.productTitle}>
+                <h3 className={cn('leading-extra-loose pt-0 sm:pt-2 sm:leading-normal', s['productTitle'])}>
                   <span>{p.name}</span>
                 </h3>
                 <span className={s.productPrice}>{price}</span>
