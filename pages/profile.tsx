@@ -1,7 +1,7 @@
 import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@lib/bigcommerce/api'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
-import useCustomer from '@lib/bigcommerce/use-customer'
+import useCustomer from '@bigcommerce/storefront-data-hooks/use-customer'
 import { Layout } from '@components/core'
 import { Container, Text } from '@components/ui'
 
@@ -22,16 +22,18 @@ export default function Profile() {
     <Container>
       <Text variant="pageHeading">My Profile</Text>
       {data && (
-        <div className="max-w-2xl flex flex-col space-y-5">
-          <div>
-            <Text variant="sectionHeading">Full Name</Text>
-            <span>
-              {data.firstName} {data.lastName}
-            </span>
-          </div>
-          <div>
-            <Text variant="sectionHeading">Email</Text>
-            <span>{data.email}</span>
+        <div className="grid lg:grid-cols-12">
+          <div className="lg:col-span-8 pr-4">
+            <div>
+              <Text variant="sectionHeading">Full Name</Text>
+              <span>
+                {data.firstName} {data.lastName}
+              </span>
+            </div>
+            <div className="mt-5">
+              <Text variant="sectionHeading">Email</Text>
+              <span>{data.email}</span>
+            </div>
           </div>
         </div>
       )}

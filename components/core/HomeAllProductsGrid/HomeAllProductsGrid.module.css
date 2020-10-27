@@ -4,20 +4,20 @@
   @screen md {
     @apply flex-row;
   }
-}
 
-.asideWrapper {
-  @apply pr-3 w-full relative;
+  & .asideWrapper {
+    @apply pr-3 w-full relative;
 
-  @screen md {
-    @apply w-48;
+    @screen md {
+      @apply w-48;
+    }
   }
-}
 
-.aside {
-  @apply flex flex-row w-full justify-around mb-12;
+  & .aside {
+    @apply flex flex-row w-full justify-around mb-12;
 
-  @screen md {
-    @apply mb-0 block sticky top-32;
+    @screen md {
+      @apply mb-0 block sticky top-32;
+    }
   }
 }

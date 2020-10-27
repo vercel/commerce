@@ -3,7 +3,7 @@ import { validate } from 'email-validator'
 import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Logo, Button, Input } from '@components/ui'
-import useSignup from '@lib/bigcommerce/use-signup'
+import useSignup from '@bigcommerce/storefront-data-hooks/use-signup'
 
 interface Props {}
 
@@ -21,7 +21,9 @@ const SignUpView: FC<Props> = () => {
   const signup = useSignup()
   const { setModalView, closeModal } = useUI()
 
-  const handleSignup = async () => {
+  const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
+    e.preventDefault()
+
     if (!dirty && !disabled) {
       setDirty(true)
       handleValidation()
@@ -59,7 +61,10 @@ const SignUpView: FC<Props> = () => {
   }, [handleValidation])
 
   return (
-    <div className="w-80 flex flex-col justify-between p-3">
+    <form
+      onSubmit={handleSignup}
+      className="w-80 flex flex-col justify-between p-3"
+    >
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
       </div>
@@ -83,7 +88,7 @@ const SignUpView: FC<Props> = () => {
         <div className="pt-2 w-full flex flex-col">
           <Button
             variant="slim"
-            onClick={() => handleSignup()}
+            type="submit"
             loading={loading}
             disabled={disabled}
           >
@@ -102,7 +107,7 @@ const SignUpView: FC<Props> = () => {
           </a>
         </span>
       </div>
-    </div>
+    </form>
   )
 }
 

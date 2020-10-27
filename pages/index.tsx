@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { getConfig } from '@lib/bigcommerce/api'
-import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
-import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
-import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
+import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
+import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
+import getSiteInfo from '@bigcommerce/storefront-data-hooks/api/operations/get-site-info'
+import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import rangeMap from '@lib/range-map'
 import { Layout } from '@components/core'
 import { Grid, Marquee, Hero } from '@components/ui'
@@ -82,8 +82,8 @@ export default function Home({
             key={node.path}
             product={node}
             // The first image is the largest one in the grid
-            imgWidth={i === 0 ? '65vw' : '30vw'}
-            imgHeight={i === 0 ? '45vw' : '22vw'}
+            imgWidth={i === 0 ? 1600 : 820}
+            imgHeight={i === 0 ? 1600 : 820}
             priority
           />
         ))}

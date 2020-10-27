@@ -1,5 +1,6 @@
 .root {
-  @apply relative w-full box-border overflow-hidden bg-no-repeat bg-center bg-cover transition ease-linear cursor-pointer;
+  @apply relative max-h-full w-full box-border overflow-hidden bg-no-repeat bg-center bg-cover transition ease-linear cursor-pointer;
+  height: 100% !important;
 
   &:hover {
     & .squareBg:before {
@@ -119,17 +120,19 @@
 }
 
 .wishlistButton {
-  @apply w-10 h-10 flex ml-auto flex items-center justify-center bg-primary text-primary font-semibold  text-xs leading-6 cursor-pointer z-10;
+  @apply w-10 h-10 flex ml-auto items-center justify-center bg-primary text-primary font-semibold  text-xs leading-6 cursor-pointer;
 }
 
 .imageContainer {
-  @apply absolute z-10 inset-0 flex items-center justify-center;
-
   & > div {
-    @apply h-full;
     & > div {
-      @apply h-full;
-      padding-bottom: 0 !important;
+      height: 100%;
+      margin: 0 auto;
     }
   }
+}
+
+.product-image {
+  height: 120% !important;
+  top: -10% !important;
 }

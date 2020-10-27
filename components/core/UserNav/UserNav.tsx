@@ -1,14 +1,15 @@
+import { FC } from 'react'
 import Link from 'next/link'
 import cn from 'classnames'
-import s from './UserNav.module.css'
-import { FC } from 'react'
+import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
+import useCustomer from '@bigcommerce/storefront-data-hooks/use-customer'
+import { Menu } from '@headlessui/react'
 import { Heart, Bag } from '@components/icons'
 import { Avatar } from '@components/core'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
-import { Menu } from '@headlessui/react'
-import useCart from '@lib/bigcommerce/cart/use-cart'
-import useCustomer from '@lib/bigcommerce/use-customer'
+import s from './UserNav.module.css'
+
 interface Props {
   className?: string
 }
@@ -21,22 +22,19 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
 
-  const { openSidebar, closeSidebar, displaySidebar, openModal } = useUI()
+  const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
   return (
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={s.list}>
-          <li
-            className={s.item}
-            onClick={(e) => (displaySidebar ? closeSidebar() : openSidebar())}
-          >
+          <li className={s.item} onClick={toggleSidebar}>
             <Bag />
             {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
           <li className={s.item}>
             <Link href="/wishlist">
-              <a>
+              <a onClick={closeSidebarIfPresent}>
                 <Heart />
               </a>
             </Link>

@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react'
 import cn from 'classnames'
-import type { ProductNode } from '@lib/bigcommerce/api/operations/get-all-products'
-import useAddItem from '@lib/bigcommerce/wishlist/use-add-item'
-import useRemoveItem from '@lib/bigcommerce/wishlist/use-remove-item'
-import useWishlist from '@lib/bigcommerce/wishlist/use-wishlist'
-import useCustomer from '@lib/bigcommerce/use-customer'
+import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
+import useAddItem from '@bigcommerce/storefront-data-hooks/wishlist/use-add-item'
+import useRemoveItem from '@bigcommerce/storefront-data-hooks/wishlist/use-remove-item'
+import useWishlist from '@bigcommerce/storefront-data-hooks/wishlist/use-wishlist'
+import useCustomer from '@bigcommerce/storefront-data-hooks/use-customer'
 import { Heart } from '@components/icons'
 import { useUI } from '@components/ui/context'
 
@@ -62,9 +62,10 @@ const WishlistButton: FC<Props> = ({
 
   return (
     <button
-      {...props}
+      aria-label="Add to wishlist"
       className={cn({ 'opacity-50': loading }, className)}
       onClick={handleWishlistChange}
+      {...props}
     >
       <Heart fill={itemInWishlist ? 'var(--pink)' : 'none'} />
     </button>
