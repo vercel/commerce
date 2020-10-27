@@ -98,9 +98,9 @@ const Footer: FC<Props> = ({ className, pages }) => {
             <span className="text-accent-3">Crafted by</span>
             <a href="https://vercel.com" aria-label="Vercel.com Link">
               <img
-                src="/vercel.png"
+                src="/vercel.svg"
                 alt="Vercel.com Logo"
-                className="inline-block h-6 ml-4"
+                className="inline-block h-6 ml-4 text-primary"
               />
             </a>
           </div>
