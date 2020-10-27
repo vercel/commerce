@@ -25,7 +25,7 @@ This project is currently <b>under development</b>.
 We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
 
 ## Integrations
-Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support all mayor ecommerce backends.
+Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support all major ecommerce backends.
 
 ## Contribute
 
