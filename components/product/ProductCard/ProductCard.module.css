@@ -123,10 +123,16 @@
   @apply w-10 h-10 flex ml-auto items-center justify-center bg-primary text-primary font-semibold  text-xs leading-6 cursor-pointer;
 }
 
-.product-image {
-  margin: auto;
-
-  & div {
-    margin: auto;
+.imageContainer {
+  & > div {
+    & > div {
+      height: 100%;
+      margin: 0 auto;
+    }
   }
+}
+
+.product-image {
+  height: 120% !important;
+  top: -10% !important;
 }

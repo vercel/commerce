@@ -70,15 +70,17 @@ const ProductCard: FC<Props> = ({
             variant={p.variants.edges?.[0]!}
           />
         </div>
-        <EnhancedImage
-          alt={p.name}
-          className={cn('w-full object-cover', s['product-image'])}
-          src={src}
-          width={imgWidth}
-          height={imgHeight}
-          priority={priority}
-          quality="90"
-        />
+        <div className={s.imageContainer}>
+          <EnhancedImage
+            alt={p.name}
+            className={cn('w-full object-cover', s['product-image'])}
+            src={src}
+            width={imgWidth}
+            height={imgHeight}
+            priority={priority}
+            quality="90"
+          />
+        </div>
       </a>
     </Link>
   )
