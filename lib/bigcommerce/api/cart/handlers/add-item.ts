@@ -20,6 +20,9 @@ const addItem: CartHandlers['addItem'] = async ({
     method: 'POST',
     body: JSON.stringify({
       line_items: [parseCartItem(item)],
+      ...(!cartId && config.storeChannelId
+        ? { channel_id: config.storeChannelId }
+        : {}),
     }),
   }
   const { data } = cartId
