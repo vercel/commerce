@@ -2,7 +2,7 @@ import { FC } from 'react'
 import cn from 'classnames'
 import { UserNav } from '@components/core'
 import { Button } from '@components/ui'
-import { ArrowLeft, Bag, Cross, Check } from '@components/icons'
+import { Bag, Cross, Check } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
 import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
@@ -47,11 +47,11 @@ const CartSidebarView: FC = () => {
               aria-label="Close panel"
               className="hover:text-gray-500 transition ease-in-out duration-150"
             >
-              <ArrowLeft className="h-6 w-6" />
+              <Cross className="h-6 w-6" />
             </button>
           </div>
           <div className="space-y-1">
-            <UserNav />
+            <UserNav className="" />
           </div>
         </div>
       </header>
