@@ -19,8 +19,7 @@
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@config/*": ["config/*"],
-      "@bigcommerce/*": ["pkg/*"]
+      "@config/*": ["config/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
