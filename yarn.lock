@@ -1076,10 +1076,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bigcommerce/storefront-data-hooks@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@bigcommerce/storefront-data-hooks/-/storefront-data-hooks-1.0.0.tgz#1f5fe03f44190552e457609f12976deb159711ed"
-  integrity sha512-vdfNA8dVVBKjbVwCj4KS4hZULTHYEnH0fRFa3ujPybQbvaVO2ltVRTiGbA+hqCZkSMNI5koE6FEO9CIhMrHFsQ==
+"@bigcommerce/storefront-data-hooks@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@bigcommerce/storefront-data-hooks/-/storefront-data-hooks-1.0.2.tgz#2d9f0dca4f297324f853ba9f09bf09a269c8ff64"
+  integrity sha512-uqbL5Wn2iGtBRhOxu+lhqGRAnXoaDVbyRQN+BFP1ClbpdUUWDtXmmLKbK0lpo52OSnj0i7Eu1RYXkZIy3EJofg==
   dependencies:
     "@vercel/fetch" "6.1.0"
     cookie "0.4.1"
