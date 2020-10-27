@@ -5,7 +5,7 @@ import useRemoveItem from './use-remove-item'
 // to show how a commerce should be structuring it
 export default function useWishlistActions() {
   const addItem = useAddItem()
-  const removeItem = useRemoveItem('')
+  const removeItem = useRemoveItem()
 
   return { addItem, removeItem }
 }
