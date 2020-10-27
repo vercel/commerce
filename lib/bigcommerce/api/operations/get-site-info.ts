@@ -64,6 +64,7 @@ export type GetSiteInfoResult<
 async function getSiteInfo(opts?: {
   variables?: GetSiteInfoQueryVariables
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetSiteInfoResult>
 
 async function getSiteInfo<
@@ -73,6 +74,7 @@ async function getSiteInfo<
   query: string
   variables?: V
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetSiteInfoResult<T>>
 
 async function getSiteInfo({
@@ -83,6 +85,7 @@ async function getSiteInfo({
   query?: string
   variables?: GetSiteInfoQueryVariables
   config?: BigcommerceConfig
+  preview?: boolean
 } = {}): Promise<GetSiteInfoResult> {
   config = getConfig(config)
   // RecursivePartial forces the method to check for every prop in the data, which is

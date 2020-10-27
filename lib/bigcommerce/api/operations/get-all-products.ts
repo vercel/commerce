@@ -71,6 +71,7 @@ export type ProductVariables = { field?: ProductTypes } & Omit<
 async function getAllProducts(opts?: {
   variables?: ProductVariables
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetAllProductsResult>
 
 async function getAllProducts<
@@ -80,6 +81,7 @@ async function getAllProducts<
   query: string
   variables?: V
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetAllProductsResult<T>>
 
 async function getAllProducts({
@@ -90,6 +92,7 @@ async function getAllProducts({
   query?: string
   variables?: ProductVariables
   config?: BigcommerceConfig
+  preview?: boolean
 } = {}): Promise<GetAllProductsResult> {
   config = getConfig(config)
 

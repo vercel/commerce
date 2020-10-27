@@ -1,4 +1,4 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import type { GetStaticPropsContext } from 'next'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Button } from '@components/ui'
@@ -9,15 +9,13 @@ import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { pages } = await getAllPages()
+  const { pages } = await getAllPages({ preview })
   return {
     props: { pages },
   }
 }
 
-export default function Cart({}: InferGetStaticPropsType<
-  typeof getStaticProps
->) {
+export default function Cart() {
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {

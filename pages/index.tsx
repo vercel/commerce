@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { getConfig } from '@lib/bigcommerce/api'
 import getAllProducts from '@lib/bigcommerce/api/operations/get-all-products'
 import getSiteInfo from '@lib/bigcommerce/api/operations/get-site-info'
@@ -19,17 +19,20 @@ export async function getStaticProps({
   const { products: featuredProducts } = await getAllProducts({
     variables: { field: 'featuredProducts', first: 6 },
     config,
+    preview,
   })
   const { products: bestSellingProducts } = await getAllProducts({
     variables: { field: 'bestSellingProducts', first: 6 },
     config,
+    preview,
   })
   const { products: newestProducts } = await getAllProducts({
     variables: { field: 'newestProducts', first: 12 },
     config,
+    preview,
   })
-  const { categories, brands } = await getSiteInfo({ config })
-  const { pages } = await getAllPages({ config })
+  const { categories, brands } = await getSiteInfo({ config, preview })
+  const { pages } = await getAllPages({ config, preview })
 
   return {
     props: {

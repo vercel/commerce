@@ -74,12 +74,14 @@ export type ProductVariables = { locale?: string } & (
 async function getProduct(opts: {
   variables: ProductVariables
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetProductResult>
 
 async function getProduct<T extends { product?: any }, V = any>(opts: {
   query: string
   variables: V
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetProductResult<T>>
 
 async function getProduct({
@@ -90,6 +92,7 @@ async function getProduct({
   query?: string
   variables: ProductVariables
   config?: BigcommerceConfig
+  preview?: boolean
 }): Promise<GetProductResult> {
   config = getConfig(config)
 

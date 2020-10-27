@@ -15,7 +15,6 @@ export type GetCustomerWishlistVariables = {
 async function getCustomerWishlist(opts: {
   variables: GetCustomerWishlistVariables
   config?: BigcommerceConfig
-  preview?: boolean
 }): Promise<GetCustomerWishlistResult>
 
 async function getCustomerWishlist<
@@ -25,7 +24,6 @@ async function getCustomerWishlist<
   url: string
   variables: V
   config?: BigcommerceConfig
-  preview?: boolean
 }): Promise<GetCustomerWishlistResult<T>>
 
 async function getCustomerWishlist({
@@ -35,7 +33,6 @@ async function getCustomerWishlist({
   url?: string
   variables: GetCustomerWishlistVariables
   config?: BigcommerceConfig
-  preview?: boolean
 }): Promise<GetCustomerWishlistResult> {
   config = getConfig(config)
 

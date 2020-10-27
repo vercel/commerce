@@ -1,4 +1,4 @@
-import {
+import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
   InferGetStaticPropsType,
@@ -14,13 +14,15 @@ import getAllProductPaths from '@lib/bigcommerce/api/operations/get-all-product-
 export async function getStaticProps({
   params,
   locale,
+  preview,
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
 
-  const { pages } = await getAllPages({ config })
+  const { pages } = await getAllPages({ config, preview })
   const { product } = await getProduct({
     variables: { slug: params!.slug },
     config,
+    preview,
   })
 
   if (!product) {

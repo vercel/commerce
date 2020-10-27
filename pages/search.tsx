@@ -18,8 +18,8 @@ import {
 } from '@utils/search'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { pages } = await getAllPages()
-  const { categories, brands } = await getSiteInfo()
+  const { pages } = await getAllPages({ preview })
+  const { categories, brands } = await getSiteInfo({ preview })
 
   return {
     props: { pages, categories, brands },

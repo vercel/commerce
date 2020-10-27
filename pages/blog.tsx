@@ -1,18 +1,16 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import type { GetStaticPropsContext } from 'next'
 import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Container } from '@components/ui'
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  const { pages } = await getAllPages()
+  const { pages } = await getAllPages({ preview })
   return {
     props: { pages },
   }
 }
 
-export default function Blog({}: InferGetStaticPropsType<
-  typeof getStaticProps
->) {
+export default function Blog() {
   return (
     <div className="pb-20">
       <div className="text-center pt-40 pb-56 bg-violet">

@@ -1,6 +1,16 @@
+import type { GetStaticPropsContext } from 'next'
+import getAllPages from '@lib/bigcommerce/api/operations/get-all-pages'
 import { Layout } from '@components/core'
 import { Container, Text } from '@components/ui'
 import { Bag } from '@components/icons'
+
+export async function getStaticProps({ preview }: GetStaticPropsContext) {
+  const { pages } = await getAllPages({ preview })
+  return {
+    props: { pages },
+  }
+}
+
 export default function Orders() {
   return (
     <Container>
