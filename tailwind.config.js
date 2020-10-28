@@ -10,9 +10,6 @@ module.exports = {
       maxWidth: {
         '8xl': '1920px',
       },
-      backgroundOpacity: {
-        075: '0.75',
-      },
       colors: {
         primary: 'var(--primary)',
         'primary-2': 'var(--primary-2)',
