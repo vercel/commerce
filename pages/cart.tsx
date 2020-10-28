@@ -40,6 +40,11 @@ export default function Cart() {
   const error = null
   const success = null
 
+  // Loading state
+  if (!data) {
+    return <div className="px-4 pt-2 sm:px-6 flex-1">Loading...</div>
+  }
+
   return (
     <div className="grid lg:grid-cols-12">
       <div className="lg:col-span-8">
