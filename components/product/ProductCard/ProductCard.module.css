@@ -88,10 +88,11 @@
   }
 
   & .productTitle {
-    margin-top: -7px;
+    @apply pt-2;
     font-size: 1rem;
+
     & span {
-      line-height: 3;
+      @apply leading-extra-loose;
     }
   }
 
