@@ -4,7 +4,7 @@ import type {
   InferGetStaticPropsType,
 } from 'next'
 import { useRouter } from 'next/router'
-import { Layout } from '@components/core'
+import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
 
 // Data

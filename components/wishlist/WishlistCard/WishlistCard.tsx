@@ -8,7 +8,7 @@ import useRemoveItem from '@bigcommerce/storefront-data-hooks/wishlist/use-remov
 import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
 import { useUI } from '@components/ui/context'
 import { Button } from '@components/ui'
-import { HTMLContent } from '@components/core'
+import { HTMLContent } from '@components/common'
 import { Trash } from '@components/icons'
 import s from './WishlistCard.module.css'
 

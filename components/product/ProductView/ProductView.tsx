@@ -7,7 +7,7 @@ import s from './ProductView.module.css'
 import { useUI } from '@components/ui/context'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container } from '@components/ui'
-import { HTMLContent } from '@components/core'
+import { HTMLContent } from '@components/common'
 
 import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
 import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-product'

@@ -3,7 +3,7 @@ import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getPage from '@bigcommerce/storefront-data-hooks/api/operations/get-page'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import getSlug from '@lib/get-slug'
-import { Layout, HTMLContent } from '@components/core'
+import { Layout, HTMLContent } from '@components/common'
 
 export async function getStaticProps({
   preview,
