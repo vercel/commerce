@@ -14,7 +14,7 @@ interface Props {
   className?: string
 }
 
-const countItem = (count: number, item: any) => count + item.quantity
+const countItem = (count: number, item: any) => count + (item.quantity > 0 ? 1 : 0)
 const countItems = (count: number, items: any[]) =>
   items.reduce(countItem, count)
 
