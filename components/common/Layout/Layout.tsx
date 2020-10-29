@@ -1,16 +1,18 @@
-import { FC, useCallback, useEffect, useState } from 'react'
 import cn from 'classnames'
+import s from './Layout.module.css'
 import { useRouter } from 'next/router'
-import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
+import { usePreventScroll } from '@react-aria/overlays'
+import { FC, useCallback, useEffect, useState } from 'react'
+import { useUI } from '@components/ui/context'
 import { CartSidebarView } from '@components/cart'
-import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
 import { Navbar, Featurebar, Footer } from '@components/common'
 import { LoginView, SignUpView, ForgotPassword } from '@components/auth'
-import { useUI } from '@components/ui/context'
-import { usePreventScroll } from '@react-aria/overlays'
-import s from './Layout.module.css'
+import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
 import debounce from 'lodash.debounce'
+
+import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
+import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
+
 interface Props {
   pageProps: {
     pages?: Page[]
@@ -24,9 +26,6 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     closeSidebar,
     closeModal,
     modalView,
-    toastText,
-    closeToast,
-    displayToast,
   } = useUI()
   const [acceptedCookies, setAcceptedCookies] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -55,18 +54,15 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <header
-          className={cn(
-            'sticky top-0 bg-primary z-40 transition-all duration-150',
-            { 'shadow-magical': hasScrolled }
-          )}
-        >
+        <header className={cn(s.header, { 'shadow-magical': hasScrolled })}>
           <Container>
             <Navbar />
           </Container>
         </header>
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
+
+        {/** Aditional UI Components */}
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
           <CartSidebarView />
         </Sidebar>
@@ -76,6 +72,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
           {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
         </Modal>
+
         <Featurebar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
@@ -85,9 +82,6 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             </Button>
           }
         />
-        {/* <Toast open={displayToast} onClose={closeModal}>
-          {toastText}
-        </Toast> */}
       </div>
     </CommerceProvider>
   )
