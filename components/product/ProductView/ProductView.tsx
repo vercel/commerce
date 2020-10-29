@@ -9,6 +9,7 @@ import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container } from '@components/ui'
 import { HTMLContent } from '@components/core'
 
+import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
 import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
 import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
 import {
@@ -26,6 +27,11 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
+  const { price } = usePrice({
+    amount: product.prices?.price.value,
+    baseAmount: product.prices?.retailPrice?.value,
+    currencyCode: product.prices?.price?.currencyCode!,
+  })
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
   const [loading, setLoading] = useState(false)
@@ -74,7 +80,7 @@ const ProductView: FC<Props> = ({ product }) => {
           <div className={s.nameBox}>
             <h1 className={s.name}>{product.name}</h1>
             <div className={s.price}>
-              {product.prices?.price.value}
+              {price}
               {` `}
               {product.prices?.price.currencyCode}
             </div>
