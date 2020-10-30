@@ -1,8 +1,7 @@
 import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
+import { useCart } from '@lib/hooks/use-cart'
 import { Layout } from '@components/core'
 import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
@@ -21,28 +20,20 @@ export async function getStaticProps({
 }
 
 export default function Cart() {
-  const { data, error, isEmpty } = useCart()
-  const isLoading = data === undefined
-
-  const { price: subTotal } = usePrice(
-    data && {
-      amount: data.base_amount,
-      currencyCode: data.currency.code,
-    }
-  )
-  const { price: total } = usePrice(
-    data && {
-      amount: data.cart_amount,
-      currencyCode: data.currency.code,
-    }
-  )
-
-  const items = data?.line_items.physical_items ?? []
+  const {
+    items,
+    isLoading,
+    isError,
+    isEmpty,
+    subtotal,
+    total,
+    currency,
+  } = useCart()
 
   return (
     <div className="px-4 pt-2 sm:px-6 flex-1">
       <Text variant="pageHeading">My Cart</Text>
-      {error && <div className="mt-2">Failed to load</div>}
+      {isError && <div className="mt-2">Failed to load</div>}
       {isLoading && <div>Loading...</div>}
       {isEmpty ? (
         <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center ">
@@ -66,10 +57,21 @@ export default function Cart() {
                   <CartItem
                     key={item.id}
                     item={item}
-                    currencyCode={data?.currency.code!}
+                    currencyCode={currency?.code!}
                   />
                 ))}
               </ul>
+            </div>
+            <div className="mt-8 text-gray-700">
+              <div>
+                Before you leave, take a look at these items. We picked them
+                just for you:
+              </div>
+              <div className="flex py-6 space-x-6">
+                {[1, 2, 3, 4, 5, 6].map((x) => (
+                  <div className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75" />
+                ))}
+              </div>
             </div>
           </div>
           <div className="lg:col-span-4">
@@ -78,7 +80,7 @@ export default function Cart() {
                 <ul className="pt-5 pb-7">
                   <li className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>{subTotal}</span>
+                    <span>{subtotal}</span>
                   </li>
                   <li className="flex justify-between mt-3">
                     <span>Taxes</span>
