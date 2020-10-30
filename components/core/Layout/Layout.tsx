@@ -6,7 +6,7 @@ import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { CartSidebarView } from '@components/cart'
 import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
-import { Navbar, Featurebar, Footer } from '@components/core'
+import { Navbar, FeatureBar, Footer } from '@components/core'
 import { LoginView, SignUpView, ForgotPassword } from '@components/auth'
 import { useUI } from '@components/ui/context'
 import { usePreventScroll } from '@react-aria/overlays'
@@ -54,7 +54,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     }
   }, [handleScroll])
 
-  const handleAcceptCookies = () => {}
+  console.log(acceptedCookies)
 
   return (
     <CommerceProvider locale={locale}>
@@ -80,7 +80,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
           {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
         </Modal>
-        <Featurebar
+        <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
           action={
@@ -89,6 +89,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             </Button>
           }
         />
+
         {/* <Toast open={displayToast} onClose={closeModal}>
           {toastText}
         </Toast> */}
