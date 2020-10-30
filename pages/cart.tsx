@@ -7,6 +7,8 @@ import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
 import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
+import CartSkeleton from '@components/cart/CartSkeleton'
+import CartEmpty from '@components/cart/CartEmpty'
 
 export async function getStaticProps({
   preview,
@@ -33,23 +35,12 @@ export default function Cart() {
   return (
     <div className="px-4 pt-2 sm:px-6 flex-1">
       <Text variant="pageHeading">My Cart</Text>
-      {isError && <div className="mt-2">Failed to load</div>}
-      {isLoading && <div>Loading...</div>}
-      {isEmpty ? (
-        <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center ">
-          <span className="border border-dashed border-secondary rounded-full flex items-center justify-center w-16 h-16 bg-primary p-12 rounded-lg text-primary">
-            <Bag className="absolute" />
-          </span>
-          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
-            Your cart is empty
-          </h2>
-          <p className="text-accents-6 px-10 text-center pt-2">
-            Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
-          </p>
-          <Button href="/" Component="a" className="block mt-8">
-            Continue Shopping
-          </Button>
-        </div>
+      {true ? (
+        <CartSkeleton />
+      ) : isError ? (
+        <div className="mt-2">Failed to load</div>
+      ) : isEmpty ? (
+        <CartEmpty />
       ) : (
         <div className="grid lg:grid-cols-12">
           <div className="lg:col-span-8">
@@ -72,7 +63,10 @@ export default function Cart() {
               </div>
               <div className="flex py-6 space-x-6">
                 {[1, 2, 3, 4, 5, 6].map((x) => (
-                  <div className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75" />
+                  <div
+                    key={x}
+                    className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75"
+                  />
                 ))}
               </div>
             </div>

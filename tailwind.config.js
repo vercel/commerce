@@ -49,6 +49,20 @@ module.exports = {
         magical:
           'rgba(0, 0, 0, 0.02) 0px 30px 30px, rgba(0, 0, 0, 0.03) 0px 0px 8px, rgba(0, 0, 0, 0.05) 0px 1px 0px',
       },
+      animation: {
+        'cart-pulse': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+
+      keyframes: {
+        'cart-pulse': {
+          '0%, 100%': {
+            opacity: 0.2,
+          },
+          '50%': {
+            opacity: 1,
+          },
+        },
+      },
     },
   },
   plugins: [require('@tailwindcss/ui')],
