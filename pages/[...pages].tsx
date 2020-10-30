@@ -1,8 +1,13 @@
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import type {
+  GetStaticPathsContext,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from 'next'
 import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getPage from '@bigcommerce/storefront-data-hooks/api/operations/get-page'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import getSlug from '@lib/get-slug'
+import { missingLocaleInPages } from '@lib/usage-warns'
 import { Layout, HTMLContent } from '@components/core'
 
 export async function getStaticProps({
@@ -32,11 +37,22 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const { pages } = await getAllPages()
+  const [invalidPaths, log] = missingLocaleInPages()
+  const paths = pages
+    .map((page) => page.url)
+    .filter((url) => {
+      if (!url || !locales) return url
+      // If there are locales, only include the pages that include one of the available locales
+      if (locales.includes(getSlug(url).split('/')[0])) return url
+
+      invalidPaths.push(url)
+    })
+  log()
 
   return {
-    paths: pages.map((page) => page.url).filter((url) => url),
+    paths,
     // Fallback shouldn't be enabled here or otherwise this route
     // will catch every page, even 404s, and we don't want that
     fallback: false,
