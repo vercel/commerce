@@ -46,6 +46,9 @@ export default function Cart() {
           <p className="text-accents-6 px-10 text-center pt-2">
             Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
           </p>
+          <Button href="/" Component="a" className="block mt-8">
+            Continue Shopping
+          </Button>
         </div>
       ) : (
         <div className="grid lg:grid-cols-12">
@@ -98,15 +101,9 @@ export default function Cart() {
               </div>
               <div className="flex flex-row justify-end">
                 <div className="w-full lg:w-72">
-                  {isEmpty ? (
-                    <Button href="/" Component="a" width="100%">
-                      Continue Shopping
-                    </Button>
-                  ) : (
-                    <Button href="/checkout" Component="a" width="100%">
-                      Proceed to Checkout
-                    </Button>
-                  )}
+                  <Button href="/checkout" Component="a" width="100%">
+                    Proceed to Checkout
+                  </Button>
                 </div>
               </div>
             </div>
