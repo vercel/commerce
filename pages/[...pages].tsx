@@ -8,6 +8,7 @@ import getPage from '@bigcommerce/storefront-data-hooks/api/operations/get-page'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import getSlug from '@lib/get-slug'
 import { Layout, HTMLContent } from '@components/core'
+import { missingLocaleInPages } from '@lib/usage-warns'
 
 export async function getStaticProps({
   preview,
@@ -38,19 +39,20 @@ export async function getStaticProps({
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const { pages } = await getAllPages()
+  const [invalidPaths, log] = missingLocaleInPages()
+  const paths = pages
+    .map((page) => page.url)
+    .filter((url) => {
+      if (!url || !locales) return url
+      // If there are locales, only include the pages that include one of the available locales
+      if (locales.includes(getSlug(url).split('/')[0])) return url
+
+      invalidPaths.push(url)
+    })
+  log()
 
   return {
-    paths: pages
-      .map((page) => page.url)
-      .filter((url) => {
-        if (!locales) return url
-        // If there are locales, only include the pages that include one of the available locales
-        if (url && locales.includes(getSlug(url).split('/')[0])) return url
-
-        console.log(
-          `The page '${url}' does not include a locale, when using i18n web pages from BigCommerce are expected to have a locale or they will be ignored`
-        )
-      }),
+    paths,
     // Fallback shouldn't be enabled here or otherwise this route
     // will catch every page, even 404s, and we don't want that
     fallback: false,
