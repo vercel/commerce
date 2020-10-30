@@ -35,7 +35,7 @@ export default function Cart() {
   return (
     <div className="px-4 pt-2 sm:px-6 flex-1">
       <Text variant="pageHeading">My Cart</Text>
-      {true ? (
+      {isLoading ? (
         <CartSkeleton />
       ) : isError ? (
         <div className="mt-2">Failed to load</div>
