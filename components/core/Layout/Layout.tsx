@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { useRouter } from 'next/router'
 import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
+import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { CartSidebarView } from '@components/cart'
 import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
 import { Navbar, Featurebar, Footer } from '@components/core'
@@ -28,7 +29,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     closeToast,
     displayToast,
   } = useUI()
-  const [acceptedCookies, setAcceptedCookies] = useState(false)
+  const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const [hasScrolled, setHasScrolled] = useState(false)
   const { locale = 'en-US' } = useRouter()
 
@@ -52,6 +53,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
       document.removeEventListener('scroll', handleScroll)
     }
   }, [handleScroll])
+
+  const handleAcceptCookies = () => {}
 
   return (
     <CommerceProvider locale={locale}>
@@ -81,7 +84,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
           action={
-            <Button className="mx-5" onClick={() => setAcceptedCookies(true)}>
+            <Button className="mx-5" onClick={onAcceptCookies}>
               Accept cookies
             </Button>
           }
