@@ -1,8 +1,12 @@
+/**
+ * The utils here are used to help developers use the example
+ */
+
 export function missingLocaleInPages(): [string[], () => void] {
   const invalidPaths: string[] = []
   const log = () => {
     if (invalidPaths.length) {
-      const single = invalidPaths.length === 0
+      const single = invalidPaths.length === 1
       const pages = single ? 'page' : 'pages'
 
       console.log(
