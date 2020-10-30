@@ -3,11 +3,9 @@ module.exports = {
     sizes: [320, 480, 820, 1200, 1600],
     domains: ['cdn11.bigcommerce.com'],
   },
-  experimental: {
-    i18n: {
-      locales: ['en-US', 'es'],
-      defaultLocale: 'en-US',
-    },
+  i18n: {
+    locales: ['en-US', 'es'],
+    defaultLocale: 'en-US',
   },
   rewrites() {
     return [
