@@ -24,7 +24,7 @@ export const useCart = () => {
     items: data?.line_items.physical_items ?? [],
     isLoading: data === undefined,
     isError: error,
-    isEmpty,
+    isEmpty: isEmpty && data == null,
     subtotal,
     total,
     currency: data?.currency,
