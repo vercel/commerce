@@ -36,14 +36,14 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     isDisabled: !(displaySidebar || displayModal),
   })
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = useCallback(
     debounce(() => {
       const offset = 0
       const { scrollTop } = document.documentElement
       if (scrollTop > offset) setHasScrolled(true)
       else setHasScrolled(false)
     }, 1)
-  }, [])
+  , [])
 
   useEffect(() => {
     document.addEventListener('scroll', handleScroll)
