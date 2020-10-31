@@ -1,10 +1,10 @@
 import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import { useCart } from '@lib/hooks/use-cart'
+import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
+import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
 import { Layout } from '@components/core'
 import { Button } from '@components/ui'
-import { Bag, Cross, Check } from '@components/icons'
 import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
 import CartSkeleton from '@components/cart/CartSkeleton'
@@ -22,26 +22,31 @@ export async function getStaticProps({
 }
 
 export default function Cart() {
-  const {
-    items,
-    isLoading,
-    isError,
-    isEmpty,
-    subtotal,
-    total,
-    currency,
-  } = useCart()
+  const { data, error } = useCart()
+  const isLoading = data === undefined
+  const items = data?.line_items.physical_items ?? []
+
+  const { price: subtotal } = usePrice(
+    data && {
+      amount: data.base_amount,
+      currencyCode: data.currency.code,
+    }
+  )
+  const { price: total } = usePrice(
+    data && {
+      amount: data.cart_amount,
+      currencyCode: data.currency.code,
+    }
+  )
 
   return (
     <div className="px-4 pt-2 sm:px-6 flex-1">
       <Text variant="pageHeading">My Cart</Text>
-      {isLoading ? (
-        <CartSkeleton />
-      ) : isError ? (
+      {error ? (
         <div className="mt-2">Failed to load</div>
-      ) : isEmpty ? (
-        <CartEmpty />
-      ) : (
+      ) : isLoading ? (
+        <CartSkeleton />
+      ) : items.length > 0 ? (
         <div className="grid lg:grid-cols-12">
           <div className="lg:col-span-8">
             <div className="flex-1">
@@ -51,7 +56,7 @@ export default function Cart() {
                   <CartItem
                     key={item.id}
                     item={item}
-                    currencyCode={currency?.code!}
+                    currencyCode={data?.currency.code!}
                   />
                 ))}
               </ul>
@@ -103,6 +108,8 @@ export default function Cart() {
             </div>
           </div>
         </div>
+      ) : (
+        <CartEmpty />
       )}
     </div>
   )
