@@ -1,0 +1,11 @@
+.action {
+  @apply block mt-8 bg-secondary text-accents-1 px-10 rounded-sm leading-6 transition ease-in-out duration-150 shadow-sm font-semibold text-center uppercase py-4 border border-transparent;
+}
+
+.action:hover {
+  @apply bg-accents-0 text-primary border border-secondary;
+}
+
+.action:focus {
+  @apply shadow-outline outline-none;
+}

@@ -1,4 +1,6 @@
-const CartSkeleton: React.FC = () => {
+import { FC } from 'react'
+
+const CartSkeleton: FC = () => {
   return (
     <div className="grid lg:grid-cols-12">
       <div className="lg:col-span-8">
