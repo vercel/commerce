@@ -20,7 +20,7 @@ const Navbar: FC<Props> = ({ className }) => {
             </a>
           </Link>
           <nav className="space-x-4 ml-6 hidden lg:block">
-            <Link href="/">
+            <Link href="/search">
               <a className={s.link}>All</a>
             </Link>
             <Link href="/search?q=clothes">
