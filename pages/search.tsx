@@ -69,7 +69,7 @@ export default function Search({
   return (
     <Container>
       <div className="grid grid-cols-12 gap-4 mt-3 mb-20">
-        <div className="col-span-2">
+        <div className="col-span-6 row-start-2 sm:col-span-2 md:row-start-1">
           <ul className="mb-10">
             <li className="py-1 text-base font-bold tracking-wide">
               <Link href={{ pathname: getCategoryPath('', brand), query }}>
@@ -119,7 +119,7 @@ export default function Search({
             ))}
           </ul>
         </div>
-        <div className="col-span-8">
+        <div className="col-span-12 sm:col-span-8">
           {(q || activeCategory || activeBrand) && (
             <div className="mb-12 transition ease-in duration-75">
               {data ? (
@@ -190,7 +190,7 @@ export default function Search({
             </Grid>
           )}
         </div>
-        <div className="col-span-2">
+        <div className="col-span-6 sm:col-span-2">
           <ul>
             <li className="py-1 text-base font-bold tracking-wide">Sort</li>
             <li
