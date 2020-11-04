@@ -5,7 +5,7 @@ import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get
 import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
 import { CartSidebarView } from '@components/cart'
 import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
-import { Navbar, Featurebar, Footer } from '@components/core'
+import { Navbar, Featurebar, Footer } from '@components/common'
 import { LoginView, SignUpView, ForgotPassword } from '@components/auth'
 import { useUI } from '@components/ui/context'
 import { usePreventScroll } from '@react-aria/overlays'
@@ -43,8 +43,9 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
       const scrolled = scrollTop > offset
 
       setHasScrolled(scrolled)
-    }, 1)
-  , [])
+    }, 1),
+    []
+  )
 
   useEffect(() => {
     document.addEventListener('scroll', handleScroll)

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import { UserNav } from '@components/core'
+import { UserNav } from '@components/common'
 import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
 import { useUI } from '@components/ui/context'

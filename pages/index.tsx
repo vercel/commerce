@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import rangeMap from '@lib/range-map'
-import { Layout } from '@components/core'
+import { Layout } from '@components/common'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
-import HomeAllProductsGrid from '@components/core/HomeAllProductsGrid'
+import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 
 import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'

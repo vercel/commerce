@@ -1,7 +1,7 @@
 import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import { Layout } from '@components/core'
+import { Layout } from '@components/common'
 import { Container } from '@components/ui'
 
 export async function getStaticProps({
