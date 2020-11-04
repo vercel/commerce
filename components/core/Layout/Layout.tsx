@@ -44,8 +44,9 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
       const scrolled = scrollTop > offset
 
       setHasScrolled(scrolled)
-    }, 1)
-  , [])
+    }, 1),
+    []
+  )
 
   useEffect(() => {
     document.addEventListener('scroll', handleScroll)
@@ -53,8 +54,6 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
       document.removeEventListener('scroll', handleScroll)
     }
   }, [handleScroll])
-
-  console.log(acceptedCookies)
 
   return (
     <CommerceProvider locale={locale}>
