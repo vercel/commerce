@@ -47,6 +47,12 @@ BIGCOMMERCE_STORE_API_TOKEN=<>
 BIGCOMMERCE_STORE_API_CLIENT_ID=<>
 ```
 
+If your project was started with a "Deploy with Vercel" button, you can use Vercel's CLI to retrieve these credentials.
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
+3. Download your environment variables: `vercel env pull .env.local`
+
 Next, you're free to customize the starter. More updates coming soon. Stay tuned.
 
 </details>
