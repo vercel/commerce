@@ -1,14 +1,15 @@
 import { useMemo } from 'react'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import rangeMap from '@lib/range-map'
+import { Layout } from '@components/common'
+import { Grid, Marquee, Hero } from '@components/ui'
+import { ProductCard } from '@components/product'
+import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+
 import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
 import getSiteInfo from '@bigcommerce/storefront-data-hooks/api/operations/get-site-info'
 import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import rangeMap from '@lib/range-map'
-import { Layout } from '@components/core'
-import { Grid, Marquee, Hero } from '@components/ui'
-import { ProductCard } from '@components/product'
-import HomeAllProductsGrid from '@components/core/HomeAllProductsGrid'
 
 export async function getStaticProps({
   preview,
