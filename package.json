@@ -1,7 +1,6 @@
 {
-  "name": "e-comm-example",
-  "version": "0.1.0",
-  "private": true,
+  "name": "nextjs-commerce",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,18 +11,18 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@vercel/fetch": "^6.1.0",
     "@bigcommerce/storefront-data-hooks": "^1.0.2",
     "@headlessui/react": "^0.2.0",
-    "@tailwindcss/ui": "^0.6.2",
     "@react-aria/overlays": "^3.4.0",
+    "@tailwindcss/ui": "^0.6.2",
+    "@vercel/fetch": "^6.1.0",
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
     "email-validator": "^2.0.4",
     "keen-slider": "^5.2.4",
     "lodash.debounce": "^4.0.8",
     "lodash.random": "^3.2.0",
-    "next": "^10.0.1-canary.1",
+    "next": "^10.0.1-canary.7",
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
     "postcss-nesting": "^7.0.1",
@@ -51,5 +50,6 @@
   },
   "resolutions": {
     "webpack": "^5.0.0-beta.30"
-  }
+  },
+  "license": "MIT"
 }
