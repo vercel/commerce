@@ -14,6 +14,7 @@ interface Props {
   imgWidth: number | string
   imgHeight: number | string
   priority?: boolean
+  imgLayout?: 'fixed' | 'intrinsic' | 'responsive' | undefined
 }
 
 const ProductCard: FC<Props> = ({
@@ -22,6 +23,7 @@ const ProductCard: FC<Props> = ({
   variant,
   imgWidth,
   imgHeight,
+  imgLayout = 'responsive',
   priority,
 }) => {
   const src = p.images.edges?.[0]?.node?.urlOriginal!
@@ -50,6 +52,7 @@ const ProductCard: FC<Props> = ({
               height={imgHeight}
               priority={priority}
               quality="85"
+              layout={imgLayout}
             />
           </div>
         ) : (
