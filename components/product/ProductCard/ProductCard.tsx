@@ -3,7 +3,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
 import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import { EnhancedImage } from '@components/core'
+import Image from 'next/image'
 import s from './ProductCard.module.css'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
@@ -43,7 +43,7 @@ const ProductCard: FC<Props> = ({
                 {p.name}
               </span>
             </div>
-            <EnhancedImage
+            <Image
               src={p.images.edges?.[0]?.node.urlOriginal!}
               alt={p.images.edges?.[0]?.node.altText || 'Product Image'}
               width={imgWidth}
@@ -69,7 +69,7 @@ const ProductCard: FC<Props> = ({
               />
             </div>
             <div className={s.imageContainer}>
-              <EnhancedImage
+              <Image
                 alt={p.name}
                 className={cn('w-full object-cover', s['product-image'])}
                 src={src}

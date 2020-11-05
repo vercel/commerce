@@ -4,11 +4,14 @@ import type {
   InferGetStaticPropsType,
 } from 'next'
 import { useRouter } from 'next/router'
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import getProduct from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
-import { Layout } from '@components/core'
+import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
+
+// Data
+
+import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
+import getProduct from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
+import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import getAllProductPaths from '@bigcommerce/storefront-data-hooks/api/operations/get-all-product-paths'
 
 export async function getStaticProps({

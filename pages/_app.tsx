@@ -5,7 +5,7 @@ import { FC } from 'react'
 import type { AppProps } from 'next/app'
 
 import { ManagedUIContext } from '@components/ui/context'
-import { Head } from '@components/core'
+import { Head } from '@components/common'
 
 const Noop: FC = ({ children }) => <>{children}</>
 
