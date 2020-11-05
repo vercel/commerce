@@ -27,7 +27,7 @@ const Maquee: FC<Props> = ({
     triggerOnce: true,
     rootMargin: '200px 0px',
   })
-  console.log(inView)
+
   return (
     <div className={rootClassName} ref={ref}>
       {inView ? (
