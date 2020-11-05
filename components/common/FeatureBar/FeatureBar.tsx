@@ -1,9 +1,7 @@
 import cn from 'classnames'
-import { FC } from 'react'
+import s from './FeatureBar.module.css'
 
-import s from './Featurebar.module.css'
-
-interface Props {
+interface FeatureBarProps {
   className?: string
   title: string
   description?: string
@@ -11,7 +9,7 @@ interface Props {
   action?: React.ReactNode
 }
 
-const Featurebar: FC<Props> = ({
+const FeatureBar: React.FC<FeatureBarProps> = ({
   title,
   description,
   className,
@@ -21,7 +19,9 @@ const Featurebar: FC<Props> = ({
   const rootClassName = cn(
     s.root,
     {
-      'transition-transform transform duration-500 ease-out translate-y-full': hide,
+      transform: true,
+      'translate-y-0 opacity-100': !hide,
+      'translate-y-full opacity-0': hide,
     },
     className
   )
@@ -36,4 +36,4 @@ const Featurebar: FC<Props> = ({
   )
 }
 
-export default Featurebar
+export default FeatureBar
