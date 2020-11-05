@@ -30,6 +30,7 @@
     "react": "^16.14.0",
     "react-aria": "^3.0.0",
     "react-dom": "^16.14.0",
+    "react-intersection-observer": "^8.30.1",
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
     "tailwindcss": "^1.9"
