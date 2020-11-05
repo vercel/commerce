@@ -34,7 +34,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
           </li>
           <li className={s.item}>
             <Link href="/wishlist">
-              <a onClick={closeSidebarIfPresent}>
+              <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
                 <Heart />
               </a>
             </Link>

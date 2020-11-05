@@ -22,9 +22,8 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
         className
       )}
     >
-      <label htmlFor={id}>
+      <label>
         <input
-          id={id}
           className={s.input}
           placeholder="Search for products..."
           defaultValue={router.query.q}
