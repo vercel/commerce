@@ -4,11 +4,33 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "analyze": "BUNDLE_ANALYZE=both yarn build",
+    "find:unused": "next-unused"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true
+  },
+    "next-unused": {
+    "alias": {
+      "@lib/*": ["lib/*"],
+      "@assets/*": ["assets/*"],
+      "@config/*": ["config/*"],
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"]
+    },
+    "debug": true,
+    "include": [
+      "components",
+      "lib",
+      "pages"
+    ],
+    "exclude": [
+    ],
+    "entrypoints": [
+      "pages"
+    ]
   },
   "dependencies": {
     "@bigcommerce/storefront-data-hooks": "^1.0.2",
@@ -37,6 +59,7 @@
     "tailwindcss": "^1.9"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^10.0.1",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-prettystream": "^0.1.31",
     "@types/classnames": "^2.2.10",
@@ -46,6 +69,7 @@
     "@types/react": "^16.9.49",
     "bunyan": "^1.8.14",
     "bunyan-prettystream": "^0.1.3",
+    "next-unused": "^0.0.3",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.2",
