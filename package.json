@@ -19,6 +19,7 @@
     "@tailwindcss/ui": "^0.6.2",
     "@types/lodash.throttle": "^4.1.6",
     "@vercel/fetch": "^6.1.0",
+    "@zeit/next-source-maps": "^0.0.3",
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
     "email-validator": "^2.0.4",
