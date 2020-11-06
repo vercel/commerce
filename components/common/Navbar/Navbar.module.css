@@ -1,3 +1,7 @@
+.root {
+  @apply sticky top-0 bg-primary z-40 transition-all duration-150;
+}
+
 .link {
   @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-accents-6;
 }
