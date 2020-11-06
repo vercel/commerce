@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import cn from 'classnames'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
@@ -43,6 +44,8 @@ export default function Search({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
+
   const router = useRouter()
   const { asPath } = router
   const { q, sort } = router.query
@@ -66,101 +69,155 @@ export default function Search({
     sort: typeof sort === 'string' ? sort : '',
   })
 
+  const Sort = () => (
+    <ul>
+      <li className="py-1 text-base font-bold tracking-wide">Sort</li>
+      <li
+        className={cn('py-1 text-accents-8', {
+          underline: !sort,
+        })}
+      >
+        <Link href={{ pathname, query: filterQuery({ q }) }}>
+          <a>Relevance</a>
+        </Link>
+      </li>
+      {SORT.map(([key, text]) => (
+        <li
+          key={key}
+          className={cn('py-1 text-accents-8', {
+            underline: sort === key,
+          })}
+        >
+          <Link href={{ pathname, query: filterQuery({ q, sort: key }) }}>
+            <a>{text}</a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+
+  const Categories = () => (
+    <ul className="mb-6 md:mb-10">
+      <li className="py-1 text-base font-bold tracking-wide">
+        <Link href={{ pathname: getCategoryPath('', brand), query }}>
+          <a>All Categories</a>
+        </Link>
+      </li>
+      {categories.map((cat) => (
+        <li
+          key={cat.path}
+          className={cn('py-1 text-accents-8', {
+            underline: activeCategory?.entityId === cat.entityId,
+          })}
+        >
+          <Link
+            href={{
+              pathname: getCategoryPath(cat.path, brand),
+              query,
+            }}
+          >
+            <a>{cat.name}</a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+
+  const Designers = () => (
+    <ul>
+      <li className="py-1 text-base font-bold tracking-wide">
+        <Link href={{ pathname: getDesignerPath('', category), query }}>
+          <a>All Designers</a>
+        </Link>
+      </li>
+      {brands.flatMap(({ node }) => (
+        <li
+          key={node.path}
+          className={cn('py-1 text-accents-8', {
+            underline: activeBrand?.entityId === node.entityId,
+          })}
+        >
+          <Link
+            href={{
+              pathname: getDesignerPath(node.path, category),
+              query,
+            }}
+          >
+            <a>{node.name}</a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+
   return (
     <Container>
       <div className="grid grid-cols-12 gap-4 mt-3 mb-20">
-        <div className="col-span-2">
-          <ul className="mb-10">
-            <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={{ pathname: getCategoryPath('', brand), query }}>
-                <a>All Categories</a>
-              </Link>
-            </li>
-            {categories.map((cat) => (
-              <li
-                key={cat.path}
-                className={cn('py-1 text-accents-8', {
-                  underline: activeCategory?.entityId === cat.entityId,
-                })}
-              >
-                <Link
-                  href={{
-                    pathname: getCategoryPath(cat.path, brand),
-                    query,
-                  }}
-                >
-                  <a>{cat.name}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul>
-            <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={{ pathname: getDesignerPath('', category), query }}>
-                <a>All Designers</a>
-              </Link>
-            </li>
-            {brands.flatMap(({ node }) => (
-              <li
-                key={node.path}
-                className={cn('py-1 text-accents-8', {
-                  underline: activeBrand?.entityId === node.entityId,
-                })}
-              >
-                <Link
-                  href={{
-                    pathname: getDesignerPath(node.path, category),
-                    query,
-                  }}
-                >
-                  <a>{node.name}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="col-span-2 hidden md:block">
+          <Categories />
+          <Designers />
         </div>
-        <div className="col-span-8">
+        <div className="col-span-12 md:col-span-8">
           {(q || activeCategory || activeBrand) && (
-            <div className="mb-12 transition ease-in duration-75">
-              {data ? (
-                <>
-                  <span
-                    className={cn('animated', {
-                      fadeIn: data.found,
-                      hidden: !data.found,
-                    })}
-                  >
-                    Showing {data.products.length} results{' '}
-                    {q && (
-                      <>
-                        for "<strong>{q}</strong>"
-                      </>
-                    )}
-                  </span>
-                  <span
-                    className={cn('animated', {
-                      fadeIn: !data.found,
-                      hidden: data.found,
-                    })}
-                  >
-                    {q ? (
-                      <>
-                        There are no products that match "<strong>{q}</strong>"
-                      </>
-                    ) : (
-                      <>
-                        There are no products that match the selected category &
-                        designer
-                      </>
-                    )}
-                  </span>
-                </>
-              ) : q ? (
-                <>
-                  Searching for: "<strong>{q}</strong>"
-                </>
-              ) : (
-                <>Searching...</>
+            <div className="mb-6 transition ease-in duration-75">
+              <div className="flex justify-between">
+                {data ? (
+                  <>
+                    <span
+                      className={cn('animated', {
+                        fadeIn: data.found,
+                        hidden: !data.found,
+                      })}
+                    >
+                      Showing {data.products.length} results{' '}
+                      {q && (
+                        <>
+                          for "<strong>{q}</strong>"
+                        </>
+                      )}
+                    </span>
+                    <span
+                      className={cn('animated', {
+                        fadeIn: !data.found,
+                        hidden: data.found,
+                      })}
+                    >
+                      {q ? (
+                        <>
+                          There are no products that match "<strong>{q}</strong>"
+                        </>
+                      ) : (
+                        <>
+                          There are no products that match the selected category &
+                          designer
+                        </>
+                      )}
+                    </span>
+                  </>
+                ) : q ? (
+                  <div>
+                    Searching for: "<strong>{q}</strong>"
+                  </div>
+                ) : (
+                  <>Searching...</>
+                )}
+
+                <button
+                  className="md:invisible text-accents-8 outline-none"
+                  onClick={() => setShowMobileMenu(prev => !prev)}
+                >
+                  Filter & Sort
+                </button>
+              </div>
+
+              {showMobileMenu && (
+                <div className="flex justify-between mt-4 md:hidden">
+                  <div className="flex flex-col">
+                    <Categories />
+                    <Designers />
+                  </div>
+                  <Sort />
+                </div>
               )}
             </div>
           )}
@@ -190,31 +247,8 @@ export default function Search({
             </Grid>
           )}
         </div>
-        <div className="col-span-2">
-          <ul>
-            <li className="py-1 text-base font-bold tracking-wide">Sort</li>
-            <li
-              className={cn('py-1 text-accents-8', {
-                underline: !sort,
-              })}
-            >
-              <Link href={{ pathname, query: filterQuery({ q }) }}>
-                <a>Relevance</a>
-              </Link>
-            </li>
-            {SORT.map(([key, text]) => (
-              <li
-                key={key}
-                className={cn('py-1 text-accents-8', {
-                  underline: sort === key,
-                })}
-              >
-                <Link href={{ pathname, query: filterQuery({ q, sort: key }) }}>
-                  <a>{text}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="col-span-2 hidden md:block">
+          <Sort />
         </div>
       </div>
     </Container>
