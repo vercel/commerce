@@ -1,6 +1,7 @@
 .root {
-  --row-height: calc(100vh - 80px - 56px);
+  --row-height: calc(100vh - 88px);
   @apply grid grid-cols-1 gap-0;
+  min-height: var(--row-height);
 
   @screen lg {
     @apply grid-cols-3 grid-rows-2;

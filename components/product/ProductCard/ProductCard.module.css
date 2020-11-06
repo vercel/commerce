@@ -1,5 +1,7 @@
 .root {
-  @apply relative max-h-full w-full box-border overflow-hidden bg-no-repeat bg-center bg-cover transition-transform ease-linear cursor-pointer;
+  @apply relative max-h-full w-full box-border overflow-hidden
+  bg-no-repeat bg-center bg-cover transition-transform
+  ease-linear cursor-pointer;
   height: 100% !important;
 
   &:hover {
@@ -77,8 +79,8 @@
 
 .squareBg:before {
   @apply transition ease-in-out duration-500 bg-repeat-space w-full h-full block;
-  content: '';
   background-image: url('/bg-products.svg');
+  content: '';
 }
 
 .simple {
@@ -125,8 +127,12 @@
 }
 
 .imageContainer {
-  overflow: hidden;
   @apply flex items-center justify-center;
+  overflow: hidden;
+
+  & > div {
+    min-width: 100%;
+  }
 }
 
 .image {

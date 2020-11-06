@@ -1,10 +1,9 @@
-import { useMemo } from 'react'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import rangeMap from '@lib/range-map'
 import { Layout } from '@components/common'
-import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
+import { Grid, Marquee, Hero } from '@components/ui'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
 import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
@@ -90,10 +89,10 @@ export default function Home({
           <ProductCard
             key={node.path}
             product={node}
-            // The first image is the largest one in the grid
             imgWidth={i === 0 ? 1080 : 540}
             imgHeight={i === 0 ? 1080 : 540}
-            priority
+            imgPriority
+            imgLoading="eager"
           />
         ))}
       </Grid>
@@ -124,7 +123,6 @@ export default function Home({
           <ProductCard
             key={node.path}
             product={node}
-            // The second image is the largest one in the grid
             imgWidth={i === 1 ? 1080 : 540}
             imgHeight={i === 1 ? 1080 : 540}
           />
