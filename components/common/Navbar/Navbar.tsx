@@ -5,12 +5,8 @@ import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 import cn from 'classnames'
 import throttle from 'lodash.throttle'
-interface Props {
-  className?: string
-}
 
-const Navbar: FC<Props> = ({ className }) => {
-  const rootClassName = className
+const Navbar: FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
 
   const handleScroll = () => {
