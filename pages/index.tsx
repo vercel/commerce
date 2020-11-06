@@ -83,6 +83,7 @@ export default function Home({
   categories,
   newestProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log('x')
   return (
     <div>
       <Grid>
