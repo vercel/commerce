@@ -2,14 +2,13 @@ import cn from 'classnames'
 import dynamic from 'next/dynamic'
 import s from './Layout.module.css'
 import { useRouter } from 'next/router'
-import debounce from 'lodash.debounce'
-import React, { FC, useCallback, useEffect, useState, Suspense } from 'react'
+import React, { FC } from 'react'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer } from '@components/common'
 import { usePreventScroll } from '@react-aria/overlays'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
-import { Container, Sidebar, Button, Modal, LoadingDots } from '@components/ui'
+import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 
 const Loading = () => (
@@ -56,46 +55,16 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     modalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const [hasScrolled, setHasScrolled] = useState(false)
   const { locale = 'en-US' } = useRouter()
-
-  console.log('Layout')
 
   usePreventScroll({
     isDisabled: !(displaySidebar || displayModal),
   })
 
-  // const handleScroll = useCallback(
-  //   debounce(() => {
-  //     const offset = 0
-  //     const { scrollTop } = document.documentElement
-  //     const scrolled = scrollTop > offset
-
-  //     setHasScrolled(scrolled)
-  //   }, 1),
-  //   []
-  // )
-
-  // useEffect(() => {
-  //   document.addEventListener('scroll', handleScroll)
-  //   return () => {
-  //     document.removeEventListener('scroll', handleScroll)
-  //   }
-  // }, [handleScroll])
-
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <header
-          className={cn(
-            'sticky top-0 bg-primary z-40 transition-all duration-150',
-            { 'shadow-magical': hasScrolled }
-          )}
-        >
-          <Container>
-            <Navbar />
-          </Container>
-        </header>
+        <Navbar />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
