@@ -17,47 +17,33 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
 
+  // Get Featured Products
   const { products: featuredProducts } = await getAllProducts({
     variables: { field: 'featuredProducts', first: 6 },
     config,
     preview,
   })
+
+  // Get Best Selling Products
   const { products: bestSellingProducts } = await getAllProducts({
     variables: { field: 'bestSellingProducts', first: 6 },
     config,
     preview,
   })
+
+  // Get Best Newest Products
   const { products: newestProducts } = await getAllProducts({
     variables: { field: 'newestProducts', first: 12 },
     config,
     preview,
   })
+
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
 
-  return {
-    props: {
-      featuredProducts,
-      bestSellingProducts,
-      newestProducts,
-      categories,
-      brands,
-      pages,
-    },
-    revalidate: 10,
-  }
-}
-
-const nonNullable = (v: any) => v
-
-export default function Home({
-  featuredProducts,
-  bestSellingProducts,
-  newestProducts,
-  categories,
-  brands,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { featured, bestSelling } = useMemo(() => {
+  // These are the products that are going to be displayed in the landing.
+  // We prefer to do the computation at buildtime/servertime
+  const { featured, bestSelling } = (() => {
     // Create a copy of products that we can mutate
     const products = [...newestProducts]
     // If the lists of featured and best selling products don't have enough
@@ -73,8 +59,30 @@ export default function Home({
         (i) => bestSellingProducts[i] ?? products.shift()
       ).filter(nonNullable),
     }
-  }, [newestProducts, featuredProducts, bestSellingProducts])
+  })()
 
+  return {
+    props: {
+      featured,
+      bestSelling,
+      newestProducts,
+      categories,
+      brands,
+      pages,
+    },
+    revalidate: 10,
+  }
+}
+
+const nonNullable = (v: any) => v
+
+export default function Home({
+  featured,
+  bestSelling,
+  brands,
+  categories,
+  newestProducts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
       <Grid>
