@@ -1,10 +1,10 @@
 
-const nextSourceMaps = require('@zeit/next-source-maps');
+
 const bundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: !!process.env.BUNDLE_ANALYZE
 })
 
-module.exports = nextSourceMaps(bundleAnalyzer({
+module.exports = bundleAnalyzer({
   images: {
     domains: ['cdn11.bigcommerce.com'],
   },
@@ -56,4 +56,4 @@ module.exports = nextSourceMaps(bundleAnalyzer({
       },
     ]
   },
-}));
+});
