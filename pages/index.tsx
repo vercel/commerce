@@ -83,7 +83,6 @@ export default function Home({
   categories,
   newestProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('x')
   return (
     <div>
       <Grid>
@@ -98,7 +97,7 @@ export default function Home({
           />
         ))}
       </Grid>
-      <Marquee variant="secondary">
+      {/* <Marquee variant="secondary">
         {bestSelling.slice(3, 6).map(({ node }) => (
           <ProductCard
             key={node.path}
@@ -147,7 +146,7 @@ export default function Home({
         categories={categories}
         brands={brands}
         newestProducts={newestProducts}
-      />
+      /> */}
     </div>
   )
 }

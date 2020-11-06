@@ -37,23 +37,23 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     isDisabled: !(displaySidebar || displayModal),
   })
 
-  const handleScroll = useCallback(
-    debounce(() => {
-      const offset = 0
-      const { scrollTop } = document.documentElement
-      const scrolled = scrollTop > offset
+  // const handleScroll = useCallback(
+  //   debounce(() => {
+  //     const offset = 0
+  //     const { scrollTop } = document.documentElement
+  //     const scrolled = scrollTop > offset
 
-      setHasScrolled(scrolled)
-    }, 1),
-    []
-  )
+  //     setHasScrolled(scrolled)
+  //   }, 1),
+  //   []
+  // )
 
-  useEffect(() => {
-    document.addEventListener('scroll', handleScroll)
-    return () => {
-      document.removeEventListener('scroll', handleScroll)
-    }
-  }, [handleScroll])
+  // useEffect(() => {
+  //   document.addEventListener('scroll', handleScroll)
+  //   return () => {
+  //     document.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [handleScroll])
 
   return (
     <CommerceProvider locale={locale}>
