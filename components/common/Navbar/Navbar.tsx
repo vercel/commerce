@@ -56,7 +56,7 @@ const Navbar: FC = () => {
         </div>
 
         <div className="flex pb-4 lg:px-6 lg:hidden">
-          <Searchbar id="mobileSearch" />
+          <Searchbar id="mobile-search" />
         </div>
       </Container>
     </div>
