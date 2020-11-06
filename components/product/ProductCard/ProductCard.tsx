@@ -51,8 +51,8 @@ const ProductCard: FC<Props> = ({
               width={imgWidth}
               height={imgHeight}
               priority={priority}
-              quality="85"
               layout={imgLayout}
+              quality="85"
             />
           </div>
         ) : (
@@ -73,8 +73,8 @@ const ProductCard: FC<Props> = ({
             </div>
             <div className={s.imageContainer}>
               <Image
+                className={s.image}
                 alt={p.name}
-                className={cn('w-full object-cover', s['product-image'])}
                 src={src}
                 width={imgWidth}
                 height={imgHeight}

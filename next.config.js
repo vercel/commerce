@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    imagesSizes: [320, 480, 820, 1200, 1600],
+    imagesSizes: [320, 480, 820, 1280],
     domains: ['cdn11.bigcommerce.com'],
   },
   i18n: {

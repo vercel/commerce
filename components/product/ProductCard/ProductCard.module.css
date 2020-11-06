@@ -125,15 +125,11 @@
 }
 
 .imageContainer {
-  & > div {
-    & > div {
-      height: 100%;
-      margin: 0 auto;
-    }
-  }
+  overflow: hidden;
+  @apply flex items-center justify-center;
 }
 
-.product-image {
-  height: 120% !important;
-  top: -10% !important;
+.image {
+  object-fit: cover;
+  transform: scale(1.2);
 }
