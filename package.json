@@ -12,6 +12,26 @@
     "semi": false,
     "singleQuote": true
   },
+    "next-unused": {
+    "alias": {
+      "@lib/*": ["lib/*"],
+      "@assets/*": ["assets/*"],
+      "@config/*": ["config/*"],
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"]
+    },
+    "debug": true,
+    "include": [
+      "components",
+      "lib",
+      "pages"
+    ],
+    "exclude": [
+    ],
+    "entrypoints": [
+      "pages"
+    ]
+  },
   "dependencies": {
     "@bigcommerce/storefront-data-hooks": "^1.0.2",
     "@headlessui/react": "^0.2.0",
