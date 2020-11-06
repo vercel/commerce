@@ -33,6 +33,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   const [hasScrolled, setHasScrolled] = useState(false)
   const { locale = 'en-US' } = useRouter()
 
+  console.log('Layout')
+
   usePreventScroll({
     isDisabled: !(displaySidebar || displayModal),
   })
@@ -70,7 +72,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
         </header>
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
-        <Sidebar open={displaySidebar} onClose={closeSidebar}>
+
+        {/* <Sidebar open={displaySidebar} onClose={closeSidebar}>
           <CartSidebarView />
         </Sidebar>
 
@@ -78,7 +81,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           {modalView === 'LOGIN_VIEW' && <LoginView />}
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
           {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
-        </Modal>
+        </Modal> */}
+
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
