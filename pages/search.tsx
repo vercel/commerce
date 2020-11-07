@@ -10,6 +10,7 @@ import useSearch from '@bigcommerce/storefront-data-hooks/products/use-search'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
+import { Filter } from '@components/icons'
 
 import rangeMap from '@lib/range-map'
 import getSlug from '@lib/get-slug'
@@ -206,7 +207,7 @@ export default function Search({
                   className="md:invisible text-accents-8 outline-none"
                   onClick={() => setShowMobileMenu(prev => !prev)}
                 >
-                  Filter & Sort
+                  <Filter width={22} />
                 </button>
               </div>
 
