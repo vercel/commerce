@@ -1,11 +1,10 @@
-import cn from 'classnames'
 import { FC, useRef } from 'react'
 import s from './Modal.module.css'
-import { useDialog } from '@react-aria/dialog'
 import { FocusScope } from '@react-aria/focus'
 import { Transition } from '@headlessui/react'
-import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
 import { Cross } from '@components/icons'
+import { useOverlay, OverlayContainer } from '@react-aria/overlays'
+import Portal from '@reach/portal'
 interface Props {
   className?: string
   children?: any
@@ -13,17 +12,8 @@ interface Props {
   onClose: () => void
 }
 
-const Modal: FC<Props> = ({
-  className,
-  children,
-  open = false,
-  onClose,
-  ...props
-}) => {
-  const rootClassName = cn(s.root, className)
+const Modal: FC<Props> = ({ children, open = false, onClose, ...props }) => {
   let ref = useRef() as React.MutableRefObject<HTMLInputElement>
-  let { modalProps } = useModal()
-  let { dialogProps } = useDialog({}, ref)
   let { overlayProps } = useOverlay(
     {
       isOpen: open,
@@ -38,7 +28,7 @@ const Modal: FC<Props> = ({
     <Transition show={open}>
       <OverlayContainer>
         <FocusScope contain restoreFocus autoFocus>
-          <div className={rootClassName}>
+          <div className={s.root}>
             <Transition.Child
               enter="transition-opacity ease-linear duration-300"
               enterFrom="opacity-0"
@@ -47,13 +37,7 @@ const Modal: FC<Props> = ({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div
-                className={s.modal}
-                {...overlayProps}
-                {...dialogProps}
-                {...modalProps}
-                ref={ref}
-              >
+              <div className={s.modal} {...overlayProps} ref={ref}>
                 <div className="h-7 flex items-center justify-end w-full">
                   <button
                     onClick={() => onClose()}
@@ -63,7 +47,6 @@ const Modal: FC<Props> = ({
                     <Cross className="h-6 w-6" />
                   </button>
                 </div>
-
                 {children}
               </div>
             </Transition.Child>

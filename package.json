@@ -12,13 +12,23 @@
     "semi": false,
     "singleQuote": true
   },
-    "next-unused": {
+  "next-unused": {
     "alias": {
-      "@lib/*": ["lib/*"],
-      "@assets/*": ["assets/*"],
-      "@config/*": ["config/*"],
-      "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"]
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
     },
     "debug": true,
     "include": [
@@ -26,8 +36,7 @@
       "lib",
       "pages"
     ],
-    "exclude": [
-    ],
+    "exclude": [],
     "entrypoints": [
       "pages"
     ]
@@ -35,6 +44,7 @@
   "dependencies": {
     "@bigcommerce/storefront-data-hooks": "^1.0.2",
     "@headlessui/react": "^0.2.0",
+    "@reach/portal": "^0.11.2",
     "@react-aria/overlays": "^3.4.0",
     "@tailwindcss/ui": "^0.6.2",
     "@types/lodash.throttle": "^4.1.6",

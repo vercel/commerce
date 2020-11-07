@@ -10,6 +10,7 @@ import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
+  const { closeSidebar } = useUI()
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
     data && {
@@ -23,7 +24,6 @@ const CartSidebarView: FC = () => {
       currencyCode: data.currency.code,
     }
   )
-  const { closeSidebar } = useUI()
   const handleClose = () => closeSidebar()
 
   const items = data?.line_items.physical_items ?? []
