@@ -1,5 +1,4 @@
-import cn from 'classnames'
-import { FC, useRef, useMemo } from 'react'
+import { FC, useRef } from 'react'
 import s from './Sidebar.module.css'
 import { Transition } from '@headlessui/react'
 import { useOverlay, OverlayContainer } from '@react-aria/overlays'
