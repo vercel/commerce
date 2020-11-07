@@ -13,7 +13,10 @@ interface Props {
   variant?: 'slim' | 'simple'
   imgWidth: number | string
   imgHeight: number | string
-  priority?: boolean
+  imgLayout?: 'fixed' | 'intrinsic' | 'responsive' | undefined
+  imgPriority?: boolean
+  imgLoading?: 'eager' | 'lazy'
+  imgSizes?: string
 }
 
 const ProductCard: FC<Props> = ({
@@ -22,7 +25,10 @@ const ProductCard: FC<Props> = ({
   variant,
   imgWidth,
   imgHeight,
-  priority,
+  imgPriority,
+  imgLoading,
+  imgSizes,
+  imgLayout = 'responsive',
 }) => {
   const src = p.images.edges?.[0]?.node?.urlOriginal!
   const { price } = usePrice({
@@ -44,12 +50,15 @@ const ProductCard: FC<Props> = ({
               </span>
             </div>
             <Image
+              quality="85"
+              width={imgWidth}
+              sizes={imgSizes}
+              height={imgHeight}
+              layout={imgLayout}
+              loading={imgLoading}
+              priority={imgPriority}
               src={p.images.edges?.[0]?.node.urlOriginal!}
               alt={p.images.edges?.[0]?.node.altText || 'Product Image'}
-              width={imgWidth}
-              height={imgHeight}
-              priority={priority}
-              quality="85"
             />
           </div>
         ) : (
@@ -70,13 +79,16 @@ const ProductCard: FC<Props> = ({
             </div>
             <div className={s.imageContainer}>
               <Image
-                alt={p.name}
-                className={cn('w-full object-cover', s['product-image'])}
-                src={src}
-                width={imgWidth}
-                height={imgHeight}
-                priority={priority}
                 quality="85"
+                src={src}
+                alt={p.name}
+                className={s.image}
+                width={imgWidth}
+                sizes={imgSizes}
+                height={imgHeight}
+                layout={imgLayout}
+                loading={imgLoading}
+                priority={imgPriority}
               />
             </div>
           </>

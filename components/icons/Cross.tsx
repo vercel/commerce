@@ -5,11 +5,11 @@ const Cross = ({ ...props }) => {
       width="24"
       height="24"
       stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       fill="none"
-      shape-rendering="geometricPrecision"
+      shapeRendering="geometricPrecision"
       {...props}
     >
       <path d="M18 6L6 18" />
