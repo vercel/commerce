@@ -57,7 +57,7 @@ const ProductCard: FC<Props> = ({
               layout={imgLayout}
               loading={imgLoading}
               priority={imgPriority}
-              src={p.images.edges?.[0]?.node.urlOriginal!}
+              src={p.images.edges?.[0]?.node.urlOriginal! || '/product-img-placeholder.svg'}
               alt={p.images.edges?.[0]?.node.altText || 'Product Image'}
             />
           </div>
@@ -80,7 +80,7 @@ const ProductCard: FC<Props> = ({
             <div className={s.imageContainer}>
               <Image
                 quality="85"
-                src={src}
+                src={src || '/product-img-placeholder.svg'}
                 alt={p.name}
                 className={s.image}
                 width={imgWidth}
