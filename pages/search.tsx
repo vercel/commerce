@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { FC, useState } from 'react'
 import cn from 'classnames'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
@@ -20,6 +20,18 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
+
+interface OptionLinkProps {
+  active: boolean
+  name: string
+  pathname: string
+  query: string
+}
+
+interface FilterOptionsProps {
+  pathname: string
+  title: string
+}
 
 export async function getStaticProps({
   preview,
@@ -70,6 +82,43 @@ export default function Search({
     sort: typeof sort === 'string' ? sort : '',
   })
 
+  const OptionLink: FC<OptionLinkProps> = ({
+    active,
+    name,
+    pathname,
+    query
+  }) => (
+    <li
+      className={cn('py-1 text-accents-8', {
+        underline: active,
+      })}
+    >
+      <Link
+        href={{
+          pathname,
+          query,
+        }}
+      >
+        <a>{name}</a>
+      </Link>
+    </li>
+  )
+
+  const FilterOptions: FC<FilterOptionsProps> = ({
+    pathname,
+    title,
+    children,
+  }) => (
+    <ul>
+      <li className="py-1 text-base font-bold tracking-wide">
+        <Link href={{ pathname, query }}>
+          <a>{title}</a>
+        </Link>
+      </li>
+      {children}
+    </ul>
+  )
+
   const Sort = () => (
     <ul>
       <li className="py-1 text-base font-bold tracking-wide">Sort</li>
@@ -83,70 +132,13 @@ export default function Search({
         </Link>
       </li>
       {SORT.map(([key, text]) => (
-        <li
+        <OptionLink
           key={key}
-          className={cn('py-1 text-accents-8', {
-            underline: sort === key,
-          })}
-        >
-          <Link href={{ pathname, query: filterQuery({ q, sort: key }) }}>
-            <a>{text}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  )
-
-  const Categories = () => (
-    <ul className="mb-6 md:mb-10">
-      <li className="py-1 text-base font-bold tracking-wide">
-        <Link href={{ pathname: getCategoryPath('', brand), query }}>
-          <a>All Categories</a>
-        </Link>
-      </li>
-      {categories.map((cat) => (
-        <li
-          key={cat.path}
-          className={cn('py-1 text-accents-8', {
-            underline: activeCategory?.entityId === cat.entityId,
-          })}
-        >
-          <Link
-            href={{
-              pathname: getCategoryPath(cat.path, brand),
-              query,
-            }}
-          >
-            <a>{cat.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  )
-
-  const Designers = () => (
-    <ul>
-      <li className="py-1 text-base font-bold tracking-wide">
-        <Link href={{ pathname: getDesignerPath('', category), query }}>
-          <a>All Designers</a>
-        </Link>
-      </li>
-      {brands.flatMap(({ node }) => (
-        <li
-          key={node.path}
-          className={cn('py-1 text-accents-8', {
-            underline: activeBrand?.entityId === node.entityId,
-          })}
-        >
-          <Link
-            href={{
-              pathname: getDesignerPath(node.path, category),
-              query,
-            }}
-          >
-            <a>{node.name}</a>
-          </Link>
-        </li>
+          pathname={pathname}
+          active={sort === key}
+          name={text}
+          query={filterQuery({ q, sort: key })}
+        />
       ))}
     </ul>
   )
@@ -155,8 +147,38 @@ export default function Search({
     <Container>
       <div className="grid grid-cols-12 gap-4 mt-3 mb-20">
         <div className="col-span-2 hidden md:block">
-          <Categories />
-          <Designers />
+          <FilterOptions
+            title="All Categories"
+            pathname={getCategoryPath('', brand)}
+          >
+            <>
+              {categories.map((cat) => (
+                <OptionLink
+                  key={cat.path}
+                  pathname={getCategoryPath(cat.path, brand)}
+                  active={activeCategory?.entityId === cat.entityId}
+                  name={cat.name}
+                  query={query}
+                />
+              ))}
+            </>
+          </FilterOptions>
+          <FilterOptions
+            title="All Designers"
+            pathname={getDesignerPath('', category)}
+          >
+            <>
+              {brands.flatMap(({ node }) => (
+                <OptionLink
+                  key={node.path}
+                  pathname={getDesignerPath(node.path, category)}
+                  active={activeBrand?.entityId === node.entityId}
+                  name={node.name}
+                  query={query}
+                />
+              ))}
+            </>
+          </FilterOptions>
         </div>
         <div className="col-span-12 md:col-span-8">
           {(q || activeCategory || activeBrand) && (
@@ -214,8 +236,38 @@ export default function Search({
               {showMobileMenu && (
                 <div className="flex justify-between mt-4 md:hidden">
                   <div className="flex flex-col">
-                    <Categories />
-                    <Designers />
+                  <FilterOptions
+                    title="All Categories"
+                    pathname={getCategoryPath('', brand)}
+                  >
+                    <>
+                      {categories.map((cat) => (
+                        <OptionLink
+                          key={cat.path}
+                          pathname={getCategoryPath(cat.path, brand)}
+                          active={activeCategory?.entityId === cat.entityId}
+                          name={cat.name}
+                          query={query}
+                        />
+                      ))}
+                    </>
+                  </FilterOptions>
+                  <FilterOptions
+                    title="All Designers"
+                    pathname={getDesignerPath('', category)}
+                  >
+                    <>
+                      {brands.flatMap(({ node }) => (
+                        <OptionLink
+                          key={node.path}
+                          pathname={getDesignerPath(node.path, category)}
+                          active={activeBrand?.entityId === node.entityId}
+                          name={node.name}
+                          query={query}
+                        />
+                      ))}
+                    </>
+                  </FilterOptions>
                   </div>
                   <Sort />
                 </div>
