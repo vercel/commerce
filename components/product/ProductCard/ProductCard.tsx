@@ -31,6 +31,7 @@ const ProductCard: FC<Props> = ({
   imgLayout = 'responsive',
 }) => {
   const src = p.images.edges?.[0]?.node?.urlOriginal!
+  const placeholderImg = '/product-img-placeholder.svg';
   const { price } = usePrice({
     amount: p.prices?.price?.value,
     baseAmount: p.prices?.retailPrice?.value,
@@ -57,7 +58,7 @@ const ProductCard: FC<Props> = ({
               layout={imgLayout}
               loading={imgLoading}
               priority={imgPriority}
-              src={p.images.edges?.[0]?.node.urlOriginal! || '/product-img-placeholder.svg'}
+              src={p.images.edges?.[0]?.node.urlOriginal! || placeholderImg}
               alt={p.images.edges?.[0]?.node.altText || 'Product Image'}
             />
           </div>
@@ -80,7 +81,7 @@ const ProductCard: FC<Props> = ({
             <div className={s.imageContainer}>
               <Image
                 quality="85"
-                src={src || '/product-img-placeholder.svg'}
+                src={src || placeholderImg}
                 alt={p.name}
                 className={s.image}
                 width={imgWidth}
