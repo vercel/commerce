@@ -51,7 +51,6 @@
     "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
-    "contentstack": "^3.11.0",
     "email-validator": "^2.0.4",
     "js-cookie": "^2.2.1",
     "keen-slider": "^5.2.4",
