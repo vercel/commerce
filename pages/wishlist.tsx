@@ -23,7 +23,7 @@ export default function Wishlist() {
   const { data, isEmpty } = useWishlist({ includeProducts: true })
 
   return (
-    <div className="mt-3 mb-20 px-3">
+    <div className="mt-3 mb-20 px-6">
       <Text variant="pageHeading">My Wishlist</Text>
       <div className="group flex flex-col">
         {isEmpty ? (
