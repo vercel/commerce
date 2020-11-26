@@ -71,7 +71,7 @@ const WishlistCard: FC<Props> = ({ item }) => {
           </Link>
         </h3>
         <div className="mb-4">
-          <Text variant="body" html={product.description} />
+          <Text html={product.description} />
         </div>
         <Button
           aria-label="Add to Cart"

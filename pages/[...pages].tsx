@@ -66,7 +66,7 @@ export default function Pages({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="max-w-2xl mx-auto py-20">
-      {page?.body && <Text variant="body" html={page.body} />}
+      {page?.body && <Text html={page.body} />}
     </div>
   )
 }

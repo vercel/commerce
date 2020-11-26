@@ -136,7 +136,7 @@ const ProductView: FC<Props> = ({ product }) => {
             ))}
 
             <div className="pb-14 break-words w-full max-w-xl">
-              <Text variant="body" html={product.description} />
+              <Text html={product.description} />
             </div>
           </section>
           <div>
