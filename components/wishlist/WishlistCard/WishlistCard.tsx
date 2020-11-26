@@ -7,8 +7,7 @@ import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
 import useRemoveItem from '@bigcommerce/storefront-data-hooks/wishlist/use-remove-item'
 import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
 import { useUI } from '@components/ui/context'
-import { Button } from '@components/ui'
-import { HTMLContent } from '@components/common'
+import { Button, Text } from '@components/ui'
 import { Trash } from '@components/icons'
 import s from './WishlistCard.module.css'
 
@@ -72,7 +71,7 @@ const WishlistCard: FC<Props> = ({ item }) => {
           </Link>
         </h3>
         <div className="mb-4">
-          <HTMLContent html={product.description!} />
+          <Text variant="body" html={product.description} />
         </div>
         <Button
           aria-label="Add to Cart"
