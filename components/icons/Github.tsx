@@ -1,4 +1,4 @@
-const Sun = ({ ...props }) => {
+const Github = ({ ...props }) => {
   return (
     <svg
       width="24"
@@ -17,4 +17,4 @@ const Sun = ({ ...props }) => {
   )
 }
 
-export default Sun
+export default Github
