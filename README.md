@@ -17,7 +17,7 @@ This project is currently <b>under development</b>.
 - Responsive
 - UI Components
 - Theming
-- Standarized Data Hooks
+- Standardized Data Hooks
 - Integrations - Integrate seamlessly with the most common ecommerce platforms.
 - Dark Mode Support
 
@@ -65,6 +65,15 @@ After Email confirmation, Checkout should be manually enabled through BigCommerc
 <br>
 BigCommerce team has been notified and they plan to add more detailed about this subject.
 </details>
+
+<details>
+<summary>I have issues with BigCommerce data hooks</summary>
+<br>
+Report issue with Data Hooks here: https://github.com/bigcommerce/storefront-data-hooks
+</details>
+
+
+
 
 ## Contribute
 

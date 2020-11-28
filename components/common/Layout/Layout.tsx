@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer } from '@components/common'
-import { usePreventScroll } from '@react-aria/overlays'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
@@ -55,10 +54,6 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
-
-  usePreventScroll({
-    isDisabled: !(displaySidebar || displayModal),
-  })
 
   return (
     <CommerceProvider locale={locale}>
