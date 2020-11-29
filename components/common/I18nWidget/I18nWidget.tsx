@@ -43,12 +43,13 @@ const I18nWidget: FC = () => {
   return (
     <nav className={s.root}>
       <div className="flex items-center relative">
-        <button className={s.button} aria-label="Language selector" />
-        <img
+        <button className={s.button} aria-label="Language selector">
+          <img
           className="block mr-2 w-5"
           src={`/${LOCALES_MAP[currentLocale].img.filename}`}
           alt={LOCALES_MAP[currentLocale].img.alt}
         />
+        </button>
         {options && (
           <span className="cursor-pointer" onClick={() => setDisplay(!display)}>
             <svg
