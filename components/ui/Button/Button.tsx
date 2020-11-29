@@ -57,6 +57,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
         width,
         ...style,
       }}
+      onClick={onClick}
     >
       {children}
       {loading && (
