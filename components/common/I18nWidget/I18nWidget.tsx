@@ -51,7 +51,7 @@ const I18nWidget: FC = () => {
         />
           {LOCALES_MAP[currentLocale].name}
           {options && (
-          <span style={{transform:"translateY(0.1rem)"}} className="cursor-pointer">
+          <span style={{transform:"translateY(0.1rem)"}} className="cursor-pointer ml-2">
             <svg
               viewBox="0 0 24 24"
               width="24"
@@ -72,7 +72,7 @@ const I18nWidget: FC = () => {
       <div className="absolute top-0 right-0">
         {options?.length && display ? (
           <div className={s.dropdownMenu}>
-            <div className="flex flex-row justify-end px-2 pt-2">
+            <div className="flex flex-row justify-end px-2 mt-2">
               <button
                 onClick={() => setDisplay(false)}
                 aria-label="Close panel"
