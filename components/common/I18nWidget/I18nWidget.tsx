@@ -51,7 +51,7 @@ const I18nWidget: FC = () => {
         />
           {LOCALES_MAP[currentLocale].name}
           {options && (
-          <span style={{transform:"translateY(0.15rem)"}} className="cursor-pointer">
+          <span style={{transform:"translateY(0.1rem)"}} className="cursor-pointer">
             <svg
               viewBox="0 0 24 24"
               width="24"
@@ -72,7 +72,7 @@ const I18nWidget: FC = () => {
       <div className="absolute top-0 right-0">
         {options?.length && display ? (
           <div className={s.dropdownMenu}>
-            <div className="flex flex-row justify-end px-4 pt-4">
+            <div className="flex flex-row justify-end px-2 pt-2">
               <button
                 onClick={() => setDisplay(false)}
                 aria-label="Close panel"
@@ -86,6 +86,11 @@ const I18nWidget: FC = () => {
                 <li key={locale}>
                   <Link href={currentPath} locale={locale}>
                     <a className={cn(s.item)} onClick={() => setDisplay(false)}>
+                      <img
+                        className="block mr-2 w-5"
+                        src={`/${LOCALES_MAP[currentLocale].img.filename}`}
+                        alt={LOCALES_MAP[currentLocale].img.alt}
+                      />
                       {LOCALES_MAP[locale].name}
                     </a>
                   </Link>
