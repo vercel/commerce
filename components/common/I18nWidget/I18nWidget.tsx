@@ -49,6 +49,7 @@ const I18nWidget: FC = () => {
           src={`/${LOCALES_MAP[currentLocale].img.filename}`}
           alt={LOCALES_MAP[currentLocale].img.alt}
         />
+          {LOCALES_MAP[currentLocale].name}
           {options && (
           <span className="cursor-pointer" onClick={() => setDisplay(!display)}>
             <svg
