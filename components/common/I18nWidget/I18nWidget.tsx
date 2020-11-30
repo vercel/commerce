@@ -49,8 +49,7 @@ const I18nWidget: FC = () => {
           src={`/${LOCALES_MAP[currentLocale].img.filename}`}
           alt={LOCALES_MAP[currentLocale].img.alt}
         />
-        </button>
-        {options && (
+          {options && (
           <span className="cursor-pointer" onClick={() => setDisplay(!display)}>
             <svg
               viewBox="0 0 24 24"
@@ -67,6 +66,7 @@ const I18nWidget: FC = () => {
             </svg>
           </span>
         )}
+        </button>
       </div>
       <div className="absolute top-0 right-0">
         {options?.length && display ? (
