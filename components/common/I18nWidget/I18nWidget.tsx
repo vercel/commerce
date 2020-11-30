@@ -72,7 +72,7 @@ const I18nWidget: FC = () => {
       <div className="absolute top-0 right-0">
         {options?.length && display ? (
           <div className={s.dropdownMenu}>
-            <div className="flex flex-row justify-end px-2 mt-2">
+            <div className="flex flex-row justify-end px-4 pt-2">
               <button
                 onClick={() => setDisplay(false)}
                 aria-label="Close panel"
@@ -88,8 +88,8 @@ const I18nWidget: FC = () => {
                     <a className={cn(s.item)} onClick={() => setDisplay(false)}>
                       <img
                         className="block mr-2 w-5"
-                        src={`/${LOCALES_MAP[currentLocale].img.filename}`}
-                        alt={LOCALES_MAP[currentLocale].img.alt}
+                        src={`/${LOCALES_MAP[locale].img.filename}`}
+                        alt={LOCALES_MAP[locale].img.alt}
                       />
                       {LOCALES_MAP[locale].name}
                     </a>
