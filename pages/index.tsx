@@ -49,13 +49,17 @@ export async function getStaticProps({
     // products, then fill them with products from the products list, this
     // is useful for new commerce sites that don't have a lot of products
     return {
-      featured: rangeMap(6, (i) => featuredProducts[i] ?? products.shift())
+      featured: rangeMap(
+        6,
+        (i) => featuredProducts[i] ?? nonDuplicated(products, featuredProducts)
+      )
         .filter(nonNullable)
         .sort((a, b) => a.node.prices.price.value - b.node.prices.price.value)
         .reverse(),
       bestSelling: rangeMap(
         6,
-        (i) => bestSellingProducts[i] ?? products.shift()
+        (i) =>
+          bestSellingProducts[i] ?? nonDuplicated(products, bestSellingProducts)
       ).filter(nonNullable),
     }
   })()
@@ -74,6 +78,16 @@ export async function getStaticProps({
 }
 
 const nonNullable = (v: any) => v
+
+const nonDuplicated: any = (products: any[], arr: any[]) => {
+  if (!!products.length) {
+    const product = products.shift()
+    return !arr.some(({ node }) => node.entityId === product.node.entityId)
+      ? product
+      : nonDuplicated(products, arr)
+  }
+  return
+}
 
 export default function Home({
   featured,
