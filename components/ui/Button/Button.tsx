@@ -33,6 +33,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     loading = false,
     disabled = false,
     style = {},
+    href,
   } = props
   const ref = useRef<typeof Component>(null)
 
@@ -48,6 +49,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
 
   return (
     <Component
+      href={href}
       onClick={onClick}
       aria-pressed={active}
       data-variant={variant}
