@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import s from './I18nWidget.module.css'
-import { Cross } from '@components/icons'
+import { Cross, ChevronUp } from '@components/icons'
 interface LOCALE_DATA {
   name: string
   img: {
@@ -43,29 +43,21 @@ const I18nWidget: FC = () => {
   return (
     <nav className={s.root}>
       <div className="flex items-center relative">
-        <button className={s.button} aria-label="Language selector" />
-        <img
-          className="block mr-2 w-5"
-          src={`/${LOCALES_MAP[currentLocale].img.filename}`}
-          alt={LOCALES_MAP[currentLocale].img.alt}
-        />
-        {options && (
-          <span className="cursor-pointer" onClick={() => setDisplay(!display)}>
-            <svg
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-              shapeRendering="geometricPrecision"
+        <button className={s.button} aria-label="Language selector">
+          <img
+            className="block mr-2 w-5"
+            src={`/${LOCALES_MAP[currentLocale].img.filename}`}
+            alt={LOCALES_MAP[currentLocale].img.alt}
+          />
+          {options && (
+            <span
+              className="cursor-pointer"
+              onClick={() => setDisplay(!display)}
             >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </span>
-        )}
+              <ChevronUp className={cn({ [s.icon]: display })} />
+            </span>
+          )}
+        </button>
       </div>
       <div className="absolute top-0 right-0">
         {options?.length && display ? (
