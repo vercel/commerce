@@ -11,11 +11,9 @@ const ClickOutside = (
   { active = true, onClick, children }: ClickOutsideProps,
   ref: Ref<HTMLDivElement> | null | any = {}
 ) => {
-  console.log('--------', active, '-----------')
   const innerRef = ref?.current
 
   const handleClick = (event: any) => {
-    console.log(innerRef, event.target)
     if (!hasParent(event.target, innerRef)) {
       if (typeof onClick === 'function') {
         event.preventDefault()
