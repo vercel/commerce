@@ -6,6 +6,10 @@
   @apply h-10 px-2 rounded-md border border-accents-2 flex items-center justify-center;
 }
 
+.button:hover {
+  @apply border-accents-4 shadow-sm;
+}
+
 .button:focus {
   @apply outline-none;
 }
@@ -18,6 +22,12 @@
   }
 }
 
+.closeButton {
+  @screen md {
+    @apply hidden;
+  }
+}
+
 .item {
   @apply flex cursor-pointer px-6 py-3 flex transition ease-in-out duration-150 text-primary leading-6 font-medium items-center;
   text-transform: capitalize;
@@ -25,4 +35,8 @@
 
 .item:hover {
   @apply bg-accents-1;
+}
+
+.icon {
+  transform: rotate(180deg);
 }
