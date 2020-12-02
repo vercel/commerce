@@ -10,7 +10,8 @@ interface Props {
   variant?: Variant
   className?: string
   style?: CSSProperties
-  children: React.ReactNode | any
+  children?: React.ReactNode | any
+  html?: string
 }
 
 type Variant = 'heading' | 'body' | 'pageHeading' | 'sectionHeading'
@@ -20,6 +21,7 @@ const Text: FunctionComponent<Props> = ({
   className = '',
   variant = 'body',
   children,
+  html,
 }) => {
   const componentsMap: {
     [P in Variant]: React.ComponentType<any> | string
@@ -36,6 +38,12 @@ const Text: FunctionComponent<Props> = ({
     | React.ComponentType<any>
     | string = componentsMap![variant!]
 
+  const htmlContentProps = html
+    ? {
+        dangerouslySetInnerHTML: { __html: html },
+      }
+    : {}
+
   return (
     <Component
       className={cn(
@@ -49,6 +57,7 @@ const Text: FunctionComponent<Props> = ({
         className
       )}
       style={style}
+      {...htmlContentProps}
     >
       {children}
     </Component>

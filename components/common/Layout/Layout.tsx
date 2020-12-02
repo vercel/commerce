@@ -1,17 +1,43 @@
-import { FC, useCallback, useEffect, useState } from 'react'
 import cn from 'classnames'
-import { useRouter } from 'next/router'
-import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
-import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
-import { CartSidebarView } from '@components/cart'
-import { Container, Sidebar, Button, Modal, Toast } from '@components/ui'
-import { Navbar, FeatureBar, Footer } from '@components/common'
-import { LoginView, SignUpView, ForgotPassword } from '@components/auth'
-import { useUI } from '@components/ui/context'
-import { usePreventScroll } from '@react-aria/overlays'
+import dynamic from 'next/dynamic'
 import s from './Layout.module.css'
-import debounce from 'lodash.debounce'
+import { useRouter } from 'next/router'
+import React, { FC } from 'react'
+import { useUI } from '@components/ui/context'
+import { Navbar, Footer } from '@components/common'
+import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
+import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
+import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
+import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
+import { CartSidebarView } from '@components/cart'
+
+const Loading = () => (
+  <div className="w-80 h-80 flex items-center text-center justify-center p-3">
+    <LoadingDots />
+  </div>
+)
+
+const dynamicProps = {
+  loading: () => <Loading />,
+}
+
+const LoginView = dynamic(
+  () => import('@components/auth/LoginView'),
+  dynamicProps
+)
+const SignUpView = dynamic(
+  () => import('@components/auth/SignUpView'),
+  dynamicProps
+)
+const ForgotPassword = dynamic(
+  () => import('@components/auth/ForgotPassword'),
+  dynamicProps
+)
+const FeatureBar = dynamic(
+  () => import('@components/common/FeatureBar'),
+  dynamicProps
+)
+
 interface Props {
   pageProps: {
     pages?: Page[]
@@ -25,51 +51,17 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
     closeSidebar,
     closeModal,
     modalView,
-    toastText,
-    closeToast,
-    displayToast,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const [hasScrolled, setHasScrolled] = useState(false)
   const { locale = 'en-US' } = useRouter()
-
-  usePreventScroll({
-    isDisabled: !(displaySidebar || displayModal),
-  })
-
-  const handleScroll = useCallback(
-    debounce(() => {
-      const offset = 0
-      const { scrollTop } = document.documentElement
-      const scrolled = scrollTop > offset
-
-      setHasScrolled(scrolled)
-    }, 1),
-    []
-  )
-
-  useEffect(() => {
-    document.addEventListener('scroll', handleScroll)
-    return () => {
-      document.removeEventListener('scroll', handleScroll)
-    }
-  }, [handleScroll])
 
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <header
-          className={cn(
-            'sticky top-0 bg-primary z-40 transition-all duration-150',
-            { 'shadow-magical': hasScrolled }
-          )}
-        >
-          <Container>
-            <Navbar />
-          </Container>
-        </header>
+        <Navbar />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
+
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
           <CartSidebarView />
         </Sidebar>
@@ -79,6 +71,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
           {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
         </Modal>
+
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
@@ -88,10 +81,6 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             </Button>
           }
         />
-
-        {/* <Toast open={displayToast} onClose={closeModal}>
-          {toastText}
-        </Toast> */}
       </div>
     </CommerceProvider>
   )
