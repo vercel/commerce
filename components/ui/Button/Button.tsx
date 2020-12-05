@@ -28,6 +28,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     children,
     active,
     onClick,
+    href,
     width,
     Component = 'button',
     loading = false,
@@ -53,6 +54,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       ref={mergeRefs([ref, buttonRef])}
       className={rootClassName}
       onClick={onClick}
+      href={href}
       disabled={disabled}
       style={{
         width,
