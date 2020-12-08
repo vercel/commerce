@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
+import { useEffect, useState } from 'react'
 
 const COOKIE_NAME = 'accept_cookies'
 
@@ -14,9 +14,7 @@ export const useAcceptCookies = () => {
 
   const acceptCookies = () => {
     setAcceptedCookies(true)
-    Cookies.set(COOKIE_NAME, 'accepted', {
-      expires: 365,
-    })
+    Cookies.set(COOKIE_NAME, 'accepted', { expires: 365 })
   }
 
   return {

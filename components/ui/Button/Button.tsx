@@ -27,12 +27,12 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     variant = 'flat',
     children,
     active,
-    onClick,
     width,
-    Component = 'button',
     loading = false,
     disabled = false,
     style = {},
+    Component = 'button',
+    ...rest
   } = props
   const ref = useRef<typeof Component>(null)
 
@@ -57,6 +57,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
         width,
         ...style,
       }}
+      {...rest}
     >
       {children}
       {loading && (
