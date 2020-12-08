@@ -1,11 +1,12 @@
-import type { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
 import Image from 'next/image'
+import type { FC } from 'react'
 import s from './ProductCard.module.css'
 import WishlistButton from '@components/wishlist/WishlistButton'
+
+import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
+import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
 
 interface Props {
   className?: string
@@ -82,7 +83,7 @@ const ProductCard: FC<Props> = ({
                 quality="85"
                 src={src}
                 alt={p.name}
-                className={s.image}
+                className={s.productImage}
                 width={imgWidth}
                 sizes={imgSizes}
                 height={imgHeight}
