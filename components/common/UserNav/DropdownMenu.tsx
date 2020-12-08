@@ -8,6 +8,7 @@ import { Avatar } from '@components/common'
 import { Moon, Sun } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import ClickOutside from '@lib/click-outside'
+
 import {
   disableBodyScroll,
   enableBodyScroll,
@@ -15,6 +16,7 @@ import {
 } from 'body-scroll-lock'
 
 import useLogout from '@bigcommerce/storefront-data-hooks/use-logout'
+
 interface DropdownMenuProps {
   open?: boolean
 }
@@ -75,7 +77,10 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
                       className={cn(s.link, {
                         [s.active]: pathname === href,
                       })}
-                      onClick={closeSidebarIfPresent}
+                      onClick={() => {
+                        setDisplay(false)
+                        closeSidebarIfPresent()
+                      }}
                     >
                       {name}
                     </a>
@@ -86,9 +91,10 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
             <li>
               <a
                 className={cn(s.link, 'justify-between')}
-                onClick={() =>
+                onClick={() => {
                   theme === 'dark' ? setTheme('light') : setTheme('dark')
-                }
+                  setDisplay(false)
+                }}
               >
                 <div>
                   Theme: <strong>{theme}</strong>{' '}
