@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import Link from 'next/link'
-import { useRef, FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import s from './I18nWidget.module.css'
 import { Cross, ChevronUp } from '@components/icons'
@@ -41,10 +41,9 @@ const I18nWidget: FC = () => {
 
   const options = locales?.filter((val) => val !== locale)
   const currentLocale = locale || defaultLocale
-  const ref = useRef<HTMLDivElement | null>(null)
 
   return (
-    <ClickOutside active={display} onClick={() => setDisplay(false)} ref={ref}>
+    <ClickOutside active={display} onClick={() => setDisplay(false)} >
       <nav className={s.root}>
         <div
           className="flex items-center relative"
