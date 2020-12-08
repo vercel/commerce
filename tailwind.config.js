@@ -51,6 +51,9 @@ module.exports = {
       },
       lineHeight: {
         'extra-loose': '2.2'
+      },
+      scale: {
+        '120': '1.2',
       }
     },
   },

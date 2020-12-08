@@ -132,7 +132,5 @@
 }
 
 .productImage {
-  @apply transform transition-transform duration-500;
-  object-fit: cover;
-  transform: scale(1.2);
+  @apply transform transition-transform duration-500 object-cover scale-120;
 }
