@@ -182,7 +182,7 @@ interface ManagedUIContextProps {
   children: React.ReactNode
 }
 
-// please see https://medium.com/variant-as/a-better-way-to-type-react-components-9a6460a1d4b7
+// please see for benefits of this configuretaion https://medium.com/variant-as/a-better-way-to-type-react-components-9a6460a1d4b7
 export function ManagedUIContext(props: ManagedUIContextProps) {
   const { children } = props
   return (
