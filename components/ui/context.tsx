@@ -10,7 +10,7 @@ export interface State {
   toastText: string
 }
 
-const initialState = {
+const initialState: State = {
   displaySidebar: false,
   displayDropdown: false,
   displayModal: false,
@@ -178,8 +178,16 @@ export const useUI = () => {
   return context
 }
 
-export const ManagedUIContext: FC = ({ children }) => (
-  <UIProvider>
-    <ThemeProvider>{children}</ThemeProvider>
-  </UIProvider>
-)
+interface ManagedUIContextProps {
+  children: React.ReactNode
+}
+
+// please see https://medium.com/variant-as/a-better-way-to-type-react-components-9a6460a1d4b7
+export function ManagedUIContext(props: ManagedUIContextProps) {
+  const { children } = props
+  return (
+    <UIProvider>
+      <ThemeProvider>{children}</ThemeProvider>
+    </UIProvider>
+  )
+}
