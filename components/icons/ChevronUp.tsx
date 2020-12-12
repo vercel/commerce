@@ -9,7 +9,7 @@ const ChevronUp = ({ ...props }) => {
       strokeLinecap="round"
       strokeLinejoin="round"
       fill="none"
-      shape-rendering="geometricPrecision"
+      shapeRendering="geometricPrecision"
       {...props}
     >
       <path d="M18 15l-6-6-6 6" />
