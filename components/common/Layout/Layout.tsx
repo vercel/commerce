@@ -5,12 +5,12 @@ import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer } from '@components/common'
-import { usePreventScroll } from '@react-aria/overlays'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
-import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
-import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 import { CartSidebarView } from '@components/cart'
+
+import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
+import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -56,10 +56,6 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
 
-  usePreventScroll({
-    isDisabled: !(displaySidebar || displayModal),
-  })
-
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
@@ -81,7 +77,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
           action={
-            <Button className="mx-5" onClick={onAcceptCookies}>
+            <Button className="mx-5" onClick={() => onAcceptCookies()}>
               Accept cookies
             </Button>
           }
