@@ -26,7 +26,7 @@ const Text: FunctionComponent<Props> = ({
   const componentsMap: {
     [P in Variant]: React.ComponentType<any> | string
   } = {
-    body: 'p',
+    body: 'div',
     heading: 'h1',
     pageHeading: 'h1',
     sectionHeading: 'h2',
