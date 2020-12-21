@@ -29,6 +29,9 @@ We're using Github Projects to keep track of issues in progress and todo's. Here
 
 Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support all major ecommerce backends.
 
+If you wish to work on a new cms/headless ecommerce provider, please check this repo https://github.com/vercel/commerce-framework and open a PR with your functions and utilities under the standard mentioned in the README.
+
+
 ## Troubleshoot
 
 <details>
