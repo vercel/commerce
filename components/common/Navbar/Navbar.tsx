@@ -9,31 +9,31 @@ import throttle from 'lodash.throttle'
 const Navbar: FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
 
-  const handleScroll = () => {
-    const offset = 0
-    const { scrollTop } = document.documentElement
-    const scrolled = scrollTop > offset
-    setHasScrolled(scrolled)
-  }
-
   useEffect(() => {
-    document.addEventListener('scroll', throttle(handleScroll, 200))
+    const handleScroll = throttle(() => {
+      const offset = 0
+      const { scrollTop } = document.documentElement
+      const scrolled = scrollTop > offset
+      setHasScrolled(scrolled)
+    }, 200)
+
+    document.addEventListener('scroll', handleScroll)
     return () => {
       document.removeEventListener('scroll', handleScroll)
     }
-  }, [handleScroll])
+  }, [])
 
   return (
     <div className={cn(s.root, { 'shadow-magical': hasScrolled })}>
       <Container>
-        <div className="flex justify-between align-center flex-row py-4 md:py-6 relative">
-          <div className="flex flex-1 items-center">
+        <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
+          <div className="flex items-center flex-1">
             <Link href="/">
               <a className={s.logo} aria-label="Logo">
                 <Logo />
               </a>
             </Link>
-            <nav className="space-x-4 ml-6 hidden lg:block">
+            <nav className="hidden ml-6 space-x-4 lg:block">
               <Link href="/search">
                 <a className={s.link}>All</a>
               </Link>
@@ -46,11 +46,11 @@ const Navbar: FC = () => {
             </nav>
           </div>
 
-          <div className="flex-1 justify-center hidden lg:flex">
+          <div className="justify-center flex-1 hidden lg:flex">
             <Searchbar />
           </div>
 
-          <div className="flex flex-1 justify-end space-x-8">
+          <div className="flex justify-end flex-1 space-x-8">
             <UserNav />
           </div>
         </div>
