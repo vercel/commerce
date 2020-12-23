@@ -1,5 +1,5 @@
 import { useKeenSlider } from 'keen-slider/react'
-import React, { Children, FC, isValidElement, useState } from 'react'
+import React, { Children, FC, isValidElement, useState, useRef, useEffect } from 'react'
 import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
@@ -7,6 +7,7 @@ import s from './ProductSlider.module.css'
 const ProductSlider: FC = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
+  const sliderContainerRef = useRef<HTMLDivElement>(null)
 
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
@@ -17,8 +18,25 @@ const ProductSlider: FC = ({ children }) => {
     },
   })
 
+  // Stop the history navigation gesture on touch devices
+  useEffect(() => {
+    const preventNavigation = (event: TouchEvent) => {
+      const touchXPosition = event.touches[0].pageX
+      if (touchXPosition > 10 && touchXPosition < window.innerWidth - 10) return
+      event.preventDefault()
+    }
+
+    sliderContainerRef.current!
+      .addEventListener('touchstart', preventNavigation)
+
+    return () => {
+      sliderContainerRef.current!
+      .removeEventListener('touchstart', preventNavigation)
+    }
+  }, [])
+
   return (
-    <div className={s.root}>
+    <div className={s.root} ref={sliderContainerRef}>
       <button
         className={cn(s.leftControl, s.control)}
         onClick={slider?.prev}
