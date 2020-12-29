@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
+import { nanoid } from 'nanoid'
 
 import s from './ProductView.module.css'
 import { useUI } from '@components/ui/context'
@@ -86,7 +87,7 @@ const ProductView: FC<Props> = ({ product }) => {
           </div>
 
           <div className={s.sliderContainer}>
-            <ProductSlider>
+            <ProductSlider key={nanoid()}>
               {product.images.edges?.map((image, i) => (
                 <div key={image?.node.urlOriginal} className={s.imageContainer}>
                   <Image
