@@ -21,7 +21,9 @@
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
       "@commerce/*": ["framework/commerce/*"],
-      "@framework/*": ["framework/bigcommerce/*"]
+      "@commerce": ["framework/commerce"],
+      "@framework/*": ["framework/bigcommerce/*"],
+      "@framework": ["framework/bigcommerce"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

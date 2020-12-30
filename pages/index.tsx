@@ -5,10 +5,10 @@ import { Grid, Marquee, Hero } from '@components/ui'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
-import getSiteInfo from '@bigcommerce/storefront-data-hooks/api/operations/get-site-info'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
+import { getConfig } from '@framework/api'
+import getAllProducts from '@framework/api/operations/get-all-products'
+import getSiteInfo from '@framework/api/operations/get-site-info'
+import getAllPages from '@framework/api/operations/get-all-pages'
 
 export async function getStaticProps({
   preview,

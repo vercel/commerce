@@ -3,9 +3,9 @@ import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trash, Plus, Minus } from '@components/icons'
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import useUpdateItem from '@bigcommerce/storefront-data-hooks/cart/use-update-item'
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/cart/use-remove-item'
+import usePrice from '@framework/use-price'
+import useUpdateItem from '@framework/cart/use-update-item'
+import useRemoveItem from '@framework/cart/use-remove-item'
 import s from './CartItem.module.css'
 
 const CartItem = ({

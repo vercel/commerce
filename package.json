@@ -6,7 +6,9 @@
     "build": "next build",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
-    "find:unused": "next-unused"
+    "find:unused": "next-unused",
+    "generate": "graphql-codegen",
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
   },
   "prettier": {
     "semi": false,
@@ -42,7 +44,6 @@
     ]
   },
   "dependencies": {
-    "@bigcommerce/storefront-data-hooks": "^1.0.2",
     "@reach/portal": "^0.11.2",
     "@tailwindcss/ui": "^0.6.2",
     "@vercel/fetch": "^6.1.0",

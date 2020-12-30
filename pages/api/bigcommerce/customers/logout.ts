@@ -1,3 +1,3 @@
-import logoutApi from '@bigcommerce/storefront-data-hooks/api/customers/logout'
+import logoutApi from '@framework/api/customers/logout'
 
 export default logoutApi()
