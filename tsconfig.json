@@ -19,7 +19,9 @@
       "@assets/*": ["assets/*"],
       "@config/*": ["config/*"],
       "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@commerce/*": ["framework/commerce/*"],
+      "@framework/*": ["framework/bigcommerce/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
