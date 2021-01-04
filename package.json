@@ -52,6 +52,7 @@
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
     "email-validator": "^2.0.4",
+    "focus-trap-react": "^8.3.2",
     "js-cookie": "^2.2.1",
     "keen-slider": "^5.2.4",
     "lodash.random": "^3.2.0",
