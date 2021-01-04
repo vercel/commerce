@@ -16,12 +16,10 @@ interface Props {
   onEnter?: () => void | null
 }
 
-// Todo: Drag focus to component
-
 const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  const handleKey = (e: KeyboardEvent<HTMLDivElement>) => {
+  const handleKey = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       return onClose()
     }
