@@ -7,7 +7,7 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
-import FocusTrap from 'focus-trap-react'
+import FocusTrap from '@lib/focus-trap'
 interface Props {
   className?: string
   children?: any
@@ -45,21 +45,19 @@ const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
   return (
     <Portal>
       {open ? (
-        <FocusTrap>
-          <div className={s.root} ref={ref}>
-            <div className={s.modal}>
-              <button
-                onClick={() => onClose()}
-                aria-label="Close panel"
-                className="hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none absolute right-0 top-0 m-6"
-              >
-                <Cross className="h-6 w-6" />
-              </button>
+        <div role="dialog" className={s.root} ref={ref}>
+          <div className={s.modal}>
+            <button
+              onClick={() => onClose()}
+              aria-label="Close panel"
+              className="hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none absolute right-0 top-0 m-6"
+            >
+              <Cross className="h-6 w-6" />
+            </button>
 
-              <div>{children}</div>
-            </div>
+            <FocusTrap>{children}</FocusTrap>
           </div>
-        </FocusTrap>
+        </div>
       ) : null}
     </Portal>
   )

@@ -8,6 +8,11 @@ module.exports = {
       './pages/**/*.{js,ts,jsx,tsx}',
       './components/**/*.{js,ts,jsx,tsx}',
     ],
+    options: {
+      safelist: {
+        standard: ['outline-none'],
+      },
+    },
   },
   theme: {
     extend: {

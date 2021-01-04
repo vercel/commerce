@@ -2047,20 +2047,6 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
-focus-trap-react@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/focus-trap-react/-/focus-trap-react-8.3.2.tgz#b319888b57c7d7e63ce9f5c9a3b687df64c03369"
-  integrity sha512-sy4zUjlyC2szBejQ9RVf6WCeA+9fWbxrK6fo+jnrMvfiP5rbuzuK6461V6Q7YsEsHwZolVL3AthlfFfIvZrPwg==
-  dependencies:
-    focus-trap "^6.2.2"
-
-focus-trap@^6.2.2:
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-6.2.3.tgz#1f1443063f08241020d4ffb269bab9847ada97b7"
-  integrity sha512-87orNbj6UqKEDxmqDfYBDLBbqgxNIA5cXUBvHCt7dZ8/L0KTuzkjKoI0xXHU+5TyI9fImqfOJyvEkXYmZeClZA==
-  dependencies:
-    tabbable "^5.1.4"
-
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
@@ -4477,7 +4463,7 @@ swr@0.3.6:
   dependencies:
     dequal "2.0.2"
 
-tabbable@^5.1.4:
+tabbable@^5.1.5:
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.1.5.tgz#efec48ede268d511c261e3b81facbb4782a35147"
   integrity sha512-oVAPrWgLLqrbvQE8XqcU7CVBq6SQbaIbHkhOca3u7/jzuQvyZycrUKPCGr04qpEIUslmUlULbSeN+m3QrKEykA==
