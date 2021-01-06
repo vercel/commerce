@@ -3,7 +3,7 @@ import { validate } from 'email-validator'
 import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Logo, Button, Input } from '@components/ui'
-import useSignup from '@bigcommerce/storefront-data-hooks/use-signup'
+import useSignup from '@framework/use-signup'
 
 interface Props {}
 
