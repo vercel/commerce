@@ -30,7 +30,7 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
   const selectFirstFocusableEl = () => {
     // Try to find focusable elements, if match then focus.
     let match = null
-    let end = 10 // Try to find match at least 10 times.
+    let end = 20 // Try to find match at least 10 times.
     let i = 0
 
     while (!match !== i > end) {
