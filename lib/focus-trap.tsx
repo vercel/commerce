@@ -37,7 +37,10 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
       console.log('-----------', i)
       match = !!tabbable(root.current).length
       if (match) {
-        tabbable(root.current)[0].focus()
+        const delay = i === 0 ? 0 : 100
+        setTimeout(() => {
+          tabbable(root.current)[0].focus()
+        }, delay)
       }
       i = i + 1
     }
