@@ -41,12 +41,12 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
           // Attempt to focus the first el
           tabbable(root.current)[0].focus()
         }
-        i = i++
+        i = i + 1
       } else {
         // Clear interval after n attempts
         clearInterval(timer)
       }
-    }, 1000)
+    }, 100)
   }
 
   useEffect(() => {
