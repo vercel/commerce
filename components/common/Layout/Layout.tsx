@@ -8,7 +8,7 @@ import { Navbar, Footer } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
-
+import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
 import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
 
@@ -22,10 +22,6 @@ const dynamicProps = {
   loading: () => <Loading />,
 }
 
-const LoginView = dynamic(
-  () => import('@components/auth/LoginView'),
-  dynamicProps
-)
 const SignUpView = dynamic(
   () => import('@components/auth/SignUpView'),
   dynamicProps

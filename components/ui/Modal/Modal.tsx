@@ -43,8 +43,8 @@ const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
   return (
     <Portal>
       {open ? (
-        <div role="dialog" className={s.root} ref={ref}>
-          <div className={s.modal}>
+        <div className={s.root}>
+          <div className={s.modal} role="dialog" ref={ref}>
             <button
               onClick={() => onClose()}
               aria-label="Close panel"
@@ -52,7 +52,6 @@ const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
             >
               <Cross className="h-6 w-6" />
             </button>
-
             <FocusTrap>{children}</FocusTrap>
           </div>
         </div>
