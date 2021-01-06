@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect } from 'react'
+import { FC, useRef, useEffect, useCallback } from 'react'
 import Portal from '@reach/portal'
 import s from './Modal.module.css'
 import { Cross } from '@components/icons'
@@ -19,11 +19,12 @@ interface Props {
 const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  const handleKey = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      return onClose()
-    }
-  }
+  const handleKey = (e: KeyboardEvent) =>
+    useCallback(() => {
+      if (e.key === 'Escape') {
+        return onClose()
+      }
+    }, [onClose])
 
   useEffect(() => {
     if (ref.current) {
