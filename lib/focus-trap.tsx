@@ -34,7 +34,6 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
     let end = 60 // Try to find match at least n times
     let i = 0
     const timer = setInterval(() => {
-      console.log('-----------', i)
       if (!match !== i > end) {
         match = !!tabbable(root.current).length
         if (match) {
