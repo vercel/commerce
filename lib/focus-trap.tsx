@@ -32,7 +32,7 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
     let match = false
     let end = 20 // Try to find match at least n times.
     let i = 0
-    const timer = setTimeout(
+    const timer = setInterval(
       () => {
         if (!match !== i > end) {
           match = !!tabbable(root.current).length
@@ -40,7 +40,7 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
             tabbable(root.current)[0].focus()
           }
         } else {
-          clearTimeout(timer)
+          clearInterval(timer)
         }
         i = i++
         console.log('-----------', i)
