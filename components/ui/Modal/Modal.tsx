@@ -52,7 +52,7 @@ const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
             >
               <Cross className="h-6 w-6" />
             </button>
-            <FocusTrap>{children}</FocusTrap>
+            <FocusTrap focusFirst>{children}</FocusTrap>
           </div>
         </div>
       ) : null}

@@ -3,7 +3,7 @@ import { tabbable } from 'tabbable'
 
 interface Props {
   children: React.ReactNode | any
-  focusFirst: boolean
+  focusFirst?: boolean
 }
 
 export default function FocusTrap({ children, focusFirst = false }: Props) {
