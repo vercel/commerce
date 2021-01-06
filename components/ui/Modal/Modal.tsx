@@ -39,7 +39,7 @@ const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
       window.removeEventListener('keydown', handleKey)
       clearAllBodyScrollLocks()
     }
-  }, [open])
+  }, [open, handleKey])
 
   return (
     <Portal>
