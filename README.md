@@ -86,10 +86,14 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 * **Next.js Commerce** should have a completely data **agnostic** UI
 * **Aware of schema**: should ship with the right data schemas and types.
-* All providers should return the right datatypes/schemas to blend correctly with Next.js Commerce.
+* All providers should return the right data types and schemas to blend correctly with Next.js Commerce.
+* `@framework` will be the alias utilized in commerce and it will map to the ecommerce provider of preference- e.g BigCommerce, Shopify, Swell. All providers should expose the same standardized functions. _Note that the same applies for recipes using a CMS + an ecommerce provider._
 
-Here are our efforts towards achieving these goals. https://github.com/vercel/commerce-framework
+There is a `framework` folder in the root folder that will contain multiple ecommerce providers.
 
-We plan on having some ecommerce providers in the repo, but that’s not the goal. Each provider should have its own standarized data hooks.
+Additionally, we need to ensure feature parity (not all providers have e.g. wishlist) we will also have to build a feature API to disable/enable features in the UI.
 
-`@framework` will be the alias utilized and it will map to the ecommerce provider of preference.
+People actively working on this project: @okbel & @lfades.
+
+
+
