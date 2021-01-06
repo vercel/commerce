@@ -32,15 +32,21 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
     let match = false
     let end = 20 // Try to find match at least n times.
     let i = 0
-    const timer = setTimeout(() => {
-      if (!match !== i > end) {
-        match = !!tabbable(root.current).length
-        tabbable(root.current)[0].focus()
-      } else {
-        clearTimeout(timer)
-      }
-      console.log('-----------', i)
-    }, 100)
+    const timer = setTimeout(
+      () => {
+        if (!match !== i > end) {
+          match = !!tabbable(root.current).length
+          if (root.current) {
+            tabbable(root.current)[0].focus()
+          }
+        } else {
+          clearTimeout(timer)
+        }
+        i = i++
+        console.log('-----------', i)
+      },
+      i < 2 ? 0 : 200
+    )
   }
 
   useEffect(() => {
