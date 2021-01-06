@@ -91,3 +91,15 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 7. Run `yarn dev` to build and watch for code changes
 8. The development branch is `development` (this is the branch pull requests should be made against).
    On a release, the relevant parts of the changes in the `staging` branch are rebased into `master`.
+
+## Goals
+
+* **Next.js Commerce** should have a completely data **agnostic** UI
+* **Aware of schema**: should ship with the right data schemas and types.
+* All providers should return the right datatypes/schemas to blend correctly with Next.js Commerce.
+
+Here are our efforts towards achieving these goals. https://github.com/vercel/commerce-framework
+
+We plan on having some ecommerce providers in the repo, but that’s not the goal. Each provider should have its own standarized data hooks.
+
+`@framework` will be the alias utilized and it will map to the ecommerce provider of preference.
