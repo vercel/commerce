@@ -8,9 +8,15 @@ import { Navbar, Footer } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
+<<<<<<< HEAD
 import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
 import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
+=======
+
+import { CommerceProvider } from '@framework'
+import type { Page } from '@framework/api/operations/get-all-pages'
+>>>>>>> 79269edbd3b96eecdc3b96b7c671670ddb74bb3b
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">

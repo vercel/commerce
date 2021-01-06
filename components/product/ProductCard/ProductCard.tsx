@@ -5,8 +5,8 @@ import type { FC } from 'react'
 import s from './ProductCard.module.css'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
+import usePrice from '@framework/use-price'
+import type { ProductNode } from '@framework/api/operations/get-all-products'
 
 interface Props {
   className?: string
