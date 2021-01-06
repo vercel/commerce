@@ -29,27 +29,24 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
 
   const selectFirstFocusableEl = () => {
     // Try to find focusable elements, if match then focus
-    // Up to 4 seconds of load time threshold
+    // Up to 6 seconds of load time threshold
     let match = false
-    let end = 22 // Try to find match at least n times
+    let end = 60 // Try to find match at least n times
     let i = 0
-    const timer = setInterval(
-      () => {
-        console.log('-----------', i)
-        if (!match !== i > end) {
-          match = !!tabbable(root.current).length
-          if (match) {
-            // Attempt to focus the first el
-            tabbable(root.current)[0].focus()
-          }
-          i = i + 1
-        } else {
-          // Clear interval after n attempts
-          clearInterval(timer)
+    const timer = setInterval(() => {
+      console.log('-----------', i)
+      if (!match !== i > end) {
+        match = !!tabbable(root.current).length
+        if (match) {
+          // Attempt to focus the first el
+          tabbable(root.current)[0].focus()
         }
-      },
-      i < 2 ? 0 : 200
-    )
+        i = i++
+      } else {
+        // Clear interval after n attempts
+        clearInterval(timer)
+      }
+    }, 1000)
   }
 
   useEffect(() => {
