@@ -37,7 +37,7 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
       console.log('-----------', i)
       match = !!tabbable(root.current).length
       if (match) {
-        const delay = i === 0 ? 0 : 100
+        const delay = i === 0 ? 0 : 200
         setTimeout(() => {
           tabbable(root.current)[0].focus()
         }, delay)
