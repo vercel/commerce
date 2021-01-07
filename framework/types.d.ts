@@ -2,13 +2,13 @@ interface Product {
   id: string | number
   name: string
   description: string
-  images: Images[]
+  images: Image[]
   slug: string
   price: string
   variantId: string
 }
 
-interface Images {
+interface Image {
   src: string
   alt?: string
 }

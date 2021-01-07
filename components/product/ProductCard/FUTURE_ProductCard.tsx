@@ -13,6 +13,7 @@ interface Props {
 }
 
 const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
+  const firstImage = product.images[0]
   return (
     <a className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}>
       {variant === 'slim' ? (
@@ -36,14 +37,16 @@ const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
             </div>
           </div>
           <div className={s.imageContainer}>
-            <Image
-              alt={product.name}
-              className={s.productImage}
-              src={product.images[0].src}
-              height={540}
-              width={540}
-              {...imgProps}
-            />
+            {firstImage.src && (
+              <Image
+                alt={product.name}
+                className={s.productImage}
+                src={firstImage.src}
+                height={540}
+                width={540}
+                {...imgProps}
+              />
+            )}
           </div>
         </>
       )}

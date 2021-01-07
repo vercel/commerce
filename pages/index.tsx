@@ -12,6 +12,7 @@ import getAllPages from '@framework/api/operations/get-all-pages'
 
 // Outputs from providers should already be normalized
 // TODO (bc) move this to the provider
+
 function normalize(arr: any[]) {
   // Normalizes products arr response and flattens node edges
   return arr.map(
@@ -19,9 +20,15 @@ function normalize(arr: any[]) {
       node: { entityId: id, images, variants, productOptions, ...rest },
     }) => ({
       id,
-      images: images.edges,
-      variants: variants.edges,
-      productOptions: productOptions.edges,
+      images: images.edges.map(
+        ({ node: { urlOriginal, altText, ...rest } }: any) => ({
+          url: urlOriginal,
+          alt: altText,
+          ...rest,
+        })
+      ),
+      variants: variants.edges.map(({ node }: any) => node),
+      productOptions: productOptions.edges.map(({ node }: any) => node),
       ...rest,
     })
   )
@@ -41,7 +48,7 @@ export async function getStaticProps({
 
   const products = normalize(rawProducts)
 
-  console.log(products)
+  // console.log(products)
 
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
@@ -65,10 +72,10 @@ export default function Home({
   return (
     <div>
       <Grid>
-        {products.slice(0, 3).map(({ p }, i) => (
+        {products.slice(0, 3).map((product, i) => (
           <ProductCard
-            key={p.id}
-            product={p}
+            key={product.id}
+            product={product}
             imgProps={{
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
