@@ -11,44 +11,6 @@ import getSiteInfo from '@framework/api/operations/get-site-info'
 import getAllPages from '@framework/api/operations/get-all-pages'
 
 // Outputs from providers should already be normalized
-// TODO (bc) move this to the provider
-
-function productsNormalizer(arr: any[]) {
-  // Normalizes products arr response and flattens node edges
-  return arr.map(
-    ({
-      node: {
-        entityId: id,
-        images,
-        variants,
-        productOptions,
-        prices,
-        path,
-        ...rest
-      },
-    }) => ({
-      id,
-      path,
-      slug: path.slice(1, -1),
-      images: images.edges.map(
-        ({ node: { urlOriginal, altText, ...rest } }: any) => ({
-          url: urlOriginal,
-          alt: altText,
-          ...rest,
-        })
-      ),
-      variants: variants.edges.map(({ node }: any) => node),
-      productOptions: productOptions.edges.map(({ node }: any) => node),
-      prices: [
-        {
-          value: prices.price.value,
-          currencyCode: prices.price.currencyCode,
-        },
-      ],
-      ...rest,
-    })
-  )
-}
 
 export async function getStaticProps({
   preview,
@@ -56,14 +18,12 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
 
-  const { products: rawProducts } = await getAllProducts({
+  const { products } = await getAllProducts({
     variables: { first: 12 },
     config,
     preview,
   })
 
-  // Remove normalizer and send to framework provider.
-  const products = productsNormalizer(rawProducts)
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
 
