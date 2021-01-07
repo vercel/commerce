@@ -5,7 +5,7 @@ import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/use-price'
+import usePrice from '@framework/product/use-price'
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
 

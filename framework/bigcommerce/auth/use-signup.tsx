@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCommerceSignup from '@commerce/use-signup'
-import type { SignupBody } from './api/customers/signup'
-import useCustomer from './use-customer'
+import type { SignupBody } from '../api/customers/signup'
+import useCustomer from '../customer/use-customer'
 
 const defaultOpts = {
   url: '/api/bigcommerce/customers/signup',

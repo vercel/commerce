@@ -5,7 +5,7 @@ import type { FC } from 'react'
 import s from './ProductCard.module.css'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
-import usePrice from '@framework/use-price'
+import usePrice from '@framework/product/use-price'
 import type { ProductNode } from '@framework/api/operations/get-all-products'
 
 interface Props {

@@ -4,7 +4,7 @@ import { Heart } from '@components/icons'
 import { useUI } from '@components/ui/context'
 
 import type { ProductNode } from '@framework/api/operations/get-all-products'
-import useCustomer from '@framework/use-customer'
+import useCustomer from '@framework/customer/use-customer'
 import useAddItem from '@framework/wishlist/use-add-item'
 import useWishlist from '@framework/wishlist/use-wishlist'
 import useRemoveItem from '@framework/wishlist/use-remove-item'

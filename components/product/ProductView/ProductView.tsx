@@ -8,7 +8,7 @@ import { useUI } from '@components/ui/context'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text } from '@components/ui'
 
-import usePrice from '@framework/use-price'
+import usePrice from '@framework/product/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import type { ProductNode } from '@framework/api/operations/get-product'
 import {

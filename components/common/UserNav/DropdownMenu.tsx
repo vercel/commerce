@@ -15,7 +15,7 @@ import {
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
 
-import useLogout from '@framework/use-logout'
+import useLogout from '@framework/auth/use-logout'
 
 interface DropdownMenuProps {
   open?: boolean

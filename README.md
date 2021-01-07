@@ -97,17 +97,30 @@ People actively working on this project: @okbel & @lfades.
 
 ## Framework
 
-Framework is where the data comes from. Contains mostly hooks and functions.
+Framework is where the data comes from. It contains mostly hooks and functions.
 
 ## Structure
 
-- ## product
-- wishlist
+Main folder and its exposed functions
+
+- `product`
+  - usePrice
+  - useSearch
+- `wishlist`
   - useWishlist
   - addWishlistItem
   - removeWishlistItem
-- auth
+- `auth`
+  - useLogin
+  - useLogout
+  - useSignup
+- `cart`
 
-- config.json
+  - useCart
+  - useAddItem
+  - useRemoveItem
+  - useCartActions
+  - useUpdateItem
 
-## Wishlist
+- `config.json`
+- README.md

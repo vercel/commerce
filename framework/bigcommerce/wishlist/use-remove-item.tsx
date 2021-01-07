@@ -3,7 +3,7 @@ import { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useWishlistRemoveItem from '@commerce/wishlist/use-remove-item'
 import type { RemoveItemBody } from '../api/wishlist'
-import useCustomer from '../use-customer'
+import useCustomer from '../customer/use-customer'
 import useWishlist, { UseWishlistOptions, Wishlist } from './use-wishlist'
 
 const defaultOpts = {
