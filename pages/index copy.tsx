@@ -1,6 +1,6 @@
 import rangeMap from '@lib/range-map'
 import { Layout } from '@components/common'
-import ProductCard from '@components/product/ProductCard/FUTURE_ProductCard'
+import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
@@ -89,10 +89,10 @@ export default function Home({
           <ProductCard
             key={node.path}
             product={node}
-            imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
-            }}
+            imgWidth={i === 0 ? 1080 : 540}
+            imgHeight={i === 0 ? 1080 : 540}
+            imgPriority
+            imgLoading="eager"
           />
         ))}
       </Grid>
@@ -102,10 +102,9 @@ export default function Home({
             key={node.path}
             product={node}
             variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
+            imgWidth={320}
+            imgHeight={320}
+            imgLayout="fixed"
           />
         ))}
       </Marquee>
@@ -124,10 +123,8 @@ export default function Home({
           <ProductCard
             key={node.path}
             product={node}
-            imgProps={{
-              width: i === 1 ? 1080 : 540,
-              height: i === 1 ? 1080 : 540,
-            }}
+            imgWidth={i === 1 ? 1080 : 540}
+            imgHeight={i === 1 ? 1080 : 540}
           />
         ))}
       </Grid>
@@ -137,17 +134,16 @@ export default function Home({
             key={node.path}
             product={node}
             variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
+            imgWidth={320}
+            imgHeight={320}
+            imgLayout="fixed"
           />
         ))}
       </Marquee>
       <HomeAllProductsGrid
-        newestProducts={newestProducts}
         categories={categories}
         brands={brands}
+        newestProducts={newestProducts}
       />
     </div>
   )

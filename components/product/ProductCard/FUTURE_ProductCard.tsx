@@ -1,20 +1,18 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import Image from 'next/image'
+import Image, { ImageProps } from 'next/image'
 import s from './ProductCard.module.css'
+// Restore Wishlist func
 // import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   className?: string
   product: Product
   variant?: 'slim' | 'simple'
+  imgProps?: Omit<ImageProps, 'src'>
 }
 
-const ProductCard: FC<Props> = ({ className, product, variant }) => {
-  const defaultImageProps = {
-    layout: 'responsive',
-  }
-
+const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
   return (
     <a className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}>
       {variant === 'slim' ? (
@@ -38,14 +36,13 @@ const ProductCard: FC<Props> = ({ className, product, variant }) => {
             </div>
           </div>
           <div className={s.imageContainer}>
-            {/* Image */}
-
             <Image
-              quality="85"
-              src={product.images[0].src}
               alt={product.name}
               className={s.productImage}
-              {...defaultImageProps}
+              src={product.images[0].src}
+              height={540}
+              width={540}
+              {...imgProps}
             />
           </div>
         </>
