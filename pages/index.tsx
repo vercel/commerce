@@ -1,7 +1,6 @@
-import rangeMap from '@lib/range-map'
 import { Layout } from '@components/common'
-import ProductCard from '@components/product/ProductCard/FUTURE_ProductCard'
 import { Grid, Marquee, Hero } from '@components/ui'
+import { ProductCard } from '@components/product'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
