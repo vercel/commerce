@@ -1,25 +1,20 @@
+interface ProductImage {
+  url: string
+  alt?: string
+}
+
 interface Product {
   id: string | number
   name: string
   description: string
-  images: Image[]
+  images: ProductImage[]
+  prices: ProductPrice[]
   slug: string
-  price: string
-  variantId: string
+  path?: string
 }
 
-interface Image {
-  src: string
-  alt?: string
+interface ProductPrice {
+  value: number | string
+  currencyCode: 'USD' | 'ARS'
+  type?: 'price' | 'retail' | 'sale' | string
 }
-
-// interface NextImageProps {
-//   src: string
-//   width: number | string
-//   height: number | string
-//   layout?: 'fixed' | 'intrinsic' | 'responsive' | undefined
-//   priority?: boolean
-//   loading?: 'eager' | 'lazy'
-//   sizes?: string
-//   alt?: string
-// }

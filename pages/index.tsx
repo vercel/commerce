@@ -13,13 +13,23 @@ import getAllPages from '@framework/api/operations/get-all-pages'
 // Outputs from providers should already be normalized
 // TODO (bc) move this to the provider
 
-function normalize(arr: any[]) {
+function productsNormalizer(arr: any[]) {
   // Normalizes products arr response and flattens node edges
   return arr.map(
     ({
-      node: { entityId: id, images, variants, productOptions, ...rest },
+      node: {
+        entityId: id,
+        images,
+        variants,
+        productOptions,
+        prices,
+        path,
+        ...rest
+      },
     }) => ({
       id,
+      path,
+      slug: path.slice(1, -1),
       images: images.edges.map(
         ({ node: { urlOriginal, altText, ...rest } }: any) => ({
           url: urlOriginal,
@@ -29,6 +39,12 @@ function normalize(arr: any[]) {
       ),
       variants: variants.edges.map(({ node }: any) => node),
       productOptions: productOptions.edges.map(({ node }: any) => node),
+      prices: [
+        {
+          value: prices.price.value,
+          currencyCode: prices.price.currencyCode,
+        },
+      ],
       ...rest,
     })
   )
@@ -46,10 +62,8 @@ export async function getStaticProps({
     preview,
   })
 
-  const products = normalize(rawProducts)
-
-  // console.log(products)
-
+  // Remove normalizer and send to framework provider.
+  const products = productsNormalizer(rawProducts)
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
 
@@ -83,11 +97,11 @@ export default function Home({
           />
         ))}
       </Grid>
-      {/* <Marquee variant="secondary">
-        {bestSelling.slice(3, 6).map(({ node }) => (
+      <Marquee variant="secondary">
+        {products.slice(0, 3).map((product, i) => (
           <ProductCard
-            key={node.path}
-            product={node}
+            key={product.id}
+            product={product}
             variant="slim"
             imgProps={{
               width: 320,
@@ -107,22 +121,22 @@ export default function Home({
         ‘Natural’."
       />
       <Grid layout="B">
-        {featured.slice(3, 6).map(({ node }, i) => (
+        {products.slice(0, 3).map((product, i) => (
           <ProductCard
-            key={node.path}
-            product={node}
+            key={product.id}
+            product={product}
             imgProps={{
-              width: i === 1 ? 1080 : 540,
-              height: i === 1 ? 1080 : 540,
+              width: i === 0 ? 1080 : 540,
+              height: i === 0 ? 1080 : 540,
             }}
           />
         ))}
       </Grid>
       <Marquee>
-        {bestSelling.slice(0, 3).map(({ node }) => (
+        {products.slice(0, 3).map((product, i) => (
           <ProductCard
-            key={node.path}
-            product={node}
+            key={product.id}
+            product={product}
             variant="slim"
             imgProps={{
               width: 320,
@@ -130,7 +144,7 @@ export default function Home({
             }}
           />
         ))}
-      </Marquee> */}
+      </Marquee>
       {/* <HomeAllProductsGrid
         newestProducts={newestProducts}
         categories={categories}
