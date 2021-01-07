@@ -1,16 +1,17 @@
 import React, { FC, useState } from 'react'
 import cn from 'classnames'
-import type { ProductNode } from '@framework/api/operations/get-all-products'
-import useAddItem from '@framework/wishlist/use-add-item'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
-import useWishlist from '@framework/wishlist/use-wishlist'
-import useCustomer from '@framework/use-customer'
 import { Heart } from '@components/icons'
 import { useUI } from '@components/ui/context'
 
+import type { ProductNode } from '@framework/api/operations/get-all-products'
+import useCustomer from '@framework/use-customer'
+import useAddItem from '@framework/wishlist/use-add-item'
+import useWishlist from '@framework/wishlist/use-wishlist'
+import useRemoveItem from '@framework/wishlist/use-remove-item'
+
 type Props = {
-  productId: number
-  variant: NonNullable<ProductNode['variants']['edges']>[0]
+  productId: Product['id']
+  variant: ProductVariant
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const WishlistButton: FC<Props> = ({
@@ -19,16 +20,15 @@ const WishlistButton: FC<Props> = ({
   className,
   ...props
 }) => {
+  const { data } = useWishlist()
   const addItem = useAddItem()
   const removeItem = useRemoveItem()
-  const { data } = useWishlist()
   const { data: customer } = useCustomer()
-  const [loading, setLoading] = useState(false)
   const { openModal, setModalView } = useUI()
+  const [loading, setLoading] = useState(false)
+
   const itemInWishlist = data?.items?.find(
-    (item) =>
-      item.product_id === productId &&
-      item.variant_id === variant?.node.entityId
+    (item) => item.product_id === productId && item.variant_id === variant.id
   )
 
   const handleWishlistChange = async (e: any) => {
@@ -50,7 +50,7 @@ const WishlistButton: FC<Props> = ({
       } else {
         await addItem({
           productId,
-          variantId: variant?.node.entityId!,
+          variantId: variant?.id,
         })
       }
 

@@ -1,10 +1,9 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import Image, { ImageProps } from 'next/image'
 import s from './ProductCard.module.css'
-// Restore Wishlist func
-// import WishlistButton from '@components/wishlist/WishlistButton'
+import Image, { ImageProps } from 'next/image'
+import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   className?: string
@@ -52,6 +51,11 @@ const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
                   {product.prices[0].currencyCode}
                 </span>
               </div>
+              <WishlistButton
+                className={s.wishlistButton}
+                productId={product.id}
+                variant={product.variants[0]!}
+              />
             </div>
             <div className={s.imageContainer}>
               {product.images[0] && (
