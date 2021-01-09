@@ -7,10 +7,12 @@ import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import { Layout } from '@components/common'
 import { Text } from '@components/ui'
+
 import { getConfig } from '@framework/api'
 import getPage from '@framework/api/operations/get-page'
 import getAllPages from '@framework/api/operations/get-all-pages'
 import { defatultPageProps } from '@lib/defaults'
+
 
 export async function getStaticProps({
   preview,
@@ -34,7 +36,7 @@ export async function getStaticProps({
   }
 
   return {
-    props: { ...defatultPageProps, pages, page },
+    props: { ...defaultPageProps, pages, page },
     revalidate: 60 * 60, // Every hour
   }
 }
