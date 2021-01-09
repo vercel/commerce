@@ -23,7 +23,7 @@ interface ProductPrice {
   type?: 'price' | 'retail' | 'sale' | string
 }
 
-interface Wishlist {
+interface Cart {
   id: string
   products: Pick<Product, 'id' | 'name' | 'prices'>[]
 }
@@ -32,12 +32,23 @@ interface Wishlist {
   id: string
   products: Pick<Product, 'id' | 'name' | 'prices'>[]
 }
+
+interface Order {}
 
 interface Customer {
   id: string
   name: string
+  email: string
 }
 
-interface Category {}
+interface Category {
+  id: string
+  name: string
+}
 
-interface Brand {}
+interface Brand {
+  id: string
+  name: string
+}
+
+type Features = 'wishlist' | 'customer'
