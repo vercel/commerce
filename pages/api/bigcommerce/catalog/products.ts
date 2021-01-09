@@ -1,3 +1,3 @@
-import catalogProductsApi from '@bigcommerce/storefront-data-hooks/api/catalog/products'
+import catalogProductsApi from '@framework/api/catalog/products'
 
 export default catalogProductsApi()

@@ -1,0 +1,2422 @@
+"""
+Login result
+"""
+type LoginResult {
+  """
+  The result of a login
+  """
+  result: String!
+}
+
+"""
+Logout result
+"""
+type LogoutResult {
+  """
+  The result of a logout
+  """
+  result: String!
+}
+
+type Mutation {
+  login(email: String!, password: String!): LoginResult!
+  logout: LogoutResult!
+}
+
+"""
+Aggregated
+"""
+type Aggregated {
+  """
+  Number of available products in stock. This can be 'null' if inventory is not set orif the store's Inventory Settings disable displaying stock levels on the storefront.
+  """
+  availableToSell: Long!
+
+  """
+  Indicates a threshold low-stock level.  This can be 'null' if the inventory warning level is not set or if the store's Inventory Settings disable displaying stock levels on the storefront.
+  """
+  warningLevel: Int!
+}
+
+"""
+Aggregated Product Inventory
+"""
+type AggregatedInventory {
+  """
+  Number of available products in stock. This can be 'null' if inventory is not set orif the store's Inventory Settings disable displaying stock levels on the storefront.
+  """
+  availableToSell: Int!
+
+  """
+  Indicates a threshold low-stock level. This can be 'null' if the inventory warning level is not set or if the store's Inventory Settings disable displaying stock levels on the storefront.
+  """
+  warningLevel: Int!
+}
+
+"""
+Brand
+"""
+type Brand implements Node {
+  """
+  The ID of an object
+  """
+  id: ID!
+
+  """
+  Id of the brand.
+  """
+  entityId: Int!
+
+  """
+  Name of the brand.
+  """
+  name: String!
+
+  """
+  Default image for brand.
+  """
+  defaultImage: Image
+
+  """
+  Page title for the brand.
+  """
+  pageTitle: String!
+
+  """
+  Meta description for the brand.
+  """
+  metaDesc: String!
+
+  """
+  Meta keywords for the brand.
+  """
+  metaKeywords: [String!]!
+
+  """
+  Search keywords for the brand.
+  """
+  searchKeywords: [String!]!
+
+  """
+  Path for the brand page.
+  """
+  path: String!
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductConnection!
+
+  """
+  Metafield data related to a brand.
+  """
+  metafields(
+    namespace: String!
+    keys: [String!] = []
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): MetafieldConnection!
+}
+
+"""
+A connection to a list of items.
+"""
+type BrandConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [BrandEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type BrandEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Brand!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Breadcrumb
+"""
+type Breadcrumb {
+  """
+  Category id.
+  """
+  entityId: Int!
+
+  """
+  Name of the category.
+  """
+  name: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type BreadcrumbConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [BreadcrumbEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type BreadcrumbEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Breadcrumb!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Bulk pricing tier that sets a fixed price for the product or variant.
+"""
+type BulkPricingFixedPriceDiscount implements BulkPricingTier {
+  """
+  This price will override the current product price.
+  """
+  price: BigDecimal!
+
+  """
+  Minimum item quantity that applies to this bulk pricing tier.
+  """
+  minimumQuantity: Int!
+
+  """
+  Maximum item quantity that applies to this bulk pricing tier - if not defined then the tier does not have an upper bound.
+  """
+  maximumQuantity: Int
+}
+
+"""
+Bulk pricing tier that reduces the price of the product or variant by a percentage.
+"""
+type BulkPricingPercentageDiscount implements BulkPricingTier {
+  """
+  The percentage that will be removed from the product price.
+  """
+  percentOff: BigDecimal!
+
+  """
+  Minimum item quantity that applies to this bulk pricing tier.
+  """
+  minimumQuantity: Int!
+
+  """
+  Maximum item quantity that applies to this bulk pricing tier - if not defined then the tier does not have an upper bound.
+  """
+  maximumQuantity: Int
+}
+
+"""
+Bulk pricing tier that will subtract an amount from the price of the product or variant.
+"""
+type BulkPricingRelativePriceDiscount implements BulkPricingTier {
+  """
+  The price of the product/variant will be reduced by this priceAdjustment.
+  """
+  priceAdjustment: BigDecimal!
+
+  """
+  Minimum item quantity that applies to this bulk pricing tier.
+  """
+  minimumQuantity: Int!
+
+  """
+  Maximum item quantity that applies to this bulk pricing tier - if not defined then the tier does not have an upper bound.
+  """
+  maximumQuantity: Int
+}
+
+"""
+A set of bulk pricing tiers that define price discounts which apply when purchasing specified quantities of a product or variant.
+"""
+interface BulkPricingTier {
+  """
+  Minimum item quantity that applies to this bulk pricing tier.
+  """
+  minimumQuantity: Int!
+
+  """
+  Maximum item quantity that applies to this bulk pricing tier - if not defined then the tier does not have an upper bound.
+  """
+  maximumQuantity: Int
+}
+
+"""
+Product Option
+"""
+interface CatalogProductOption {
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+"""
+Product Option Value
+"""
+interface CatalogProductOptionValue {
+  """
+  Unique ID for the option value.
+  """
+  entityId: Int!
+
+  """
+  Label for the option value.
+  """
+  label: String!
+
+  """
+  Indicates whether this value is the chosen default selected value.
+  """
+  isDefault: Boolean!
+}
+
+"""
+Category
+"""
+type Category implements Node {
+  """
+  The ID of an object
+  """
+  id: ID!
+
+  """
+  Unique ID for the category.
+  """
+  entityId: Int!
+
+  """
+  Category name.
+  """
+  name: String!
+
+  """
+  Category path.
+  """
+  path: String!
+
+  """
+  Default image for the category.
+  """
+  defaultImage: Image
+
+  """
+  Category description.
+  """
+  description: String!
+
+  """
+  Category breadcrumbs.
+  """
+  breadcrumbs(
+    depth: Int!
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): BreadcrumbConnection!
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductConnection!
+
+  """
+  Metafield data related to a category.
+  """
+  metafields(
+    namespace: String!
+    keys: [String!] = []
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): MetafieldConnection!
+}
+
+"""
+A connection to a list of items.
+"""
+type CategoryConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [CategoryEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type CategoryEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Category!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+An item in a tree of categories.
+"""
+type CategoryTreeItem {
+  """
+  The id category.
+  """
+  entityId: Int!
+
+  """
+  The name of category.
+  """
+  name: String!
+
+  """
+  Path assigned to this category
+  """
+  path: String!
+
+  """
+  The description of this category.
+  """
+  description: String!
+
+  """
+  The number of products in this category.
+  """
+  productCount: Int!
+
+  """
+  Subcategories of this category
+  """
+  children: [CategoryTreeItem!]!
+}
+
+"""
+A simple yes/no question represented by a checkbox.
+"""
+type CheckboxOption implements CatalogProductOption {
+  """
+  Indicates the default checked status.
+  """
+  checkedByDefault: Boolean!
+
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+"""
+Contact field
+"""
+type ContactField {
+  """
+  Store address line.
+  """
+  address: String!
+
+  """
+  Store country.
+  """
+  country: String!
+
+  """
+  Store address type.
+  """
+  addressType: String!
+
+  """
+  Store email.
+  """
+  email: String!
+
+  """
+  Store phone number.
+  """
+  phone: String!
+}
+
+"""
+Custom field
+"""
+type CustomField {
+  """
+  Custom field id.
+  """
+  entityId: Int!
+
+  """
+  Name of the custom field.
+  """
+  name: String!
+
+  """
+  Value of the custom field.
+  """
+  value: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type CustomFieldConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [CustomFieldEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type CustomFieldEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: CustomField!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+A customer that shops on a store
+"""
+type Customer {
+  """
+  The ID of the customer.
+  """
+  entityId: Int!
+
+  """
+  The company name of the customer.
+  """
+  company: String!
+
+  """
+  The customer group id of the customer.
+  """
+  customerGroupId: Int!
+
+  """
+  The email address of the customer.
+  """
+  email: String!
+
+  """
+  The first name of the customer.
+  """
+  firstName: String!
+
+  """
+  The last name of the customer.
+  """
+  lastName: String!
+
+  """
+  The notes of the customer.
+  """
+  notes: String!
+
+  """
+  The phone number of the customer.
+  """
+  phone: String!
+
+  """
+  The tax exempt category of the customer.
+  """
+  taxExemptCategory: String!
+
+  """
+  Customer addresses count.
+  """
+  addressCount: Int!
+
+  """
+  Customer attributes count.
+  """
+  attributeCount: Int!
+
+  """
+  Customer store credit.
+  """
+  storeCredit: [Money!]!
+
+  """
+  Customer attributes.
+  """
+  attributes: CustomerAttributes!
+}
+
+"""
+A custom, store-specific attribute for a customer
+"""
+type CustomerAttribute {
+  """
+  The ID of the custom customer attribute
+  """
+  entityId: Int!
+
+  """
+  The value of the custom customer attribute
+  """
+  value: String
+
+  """
+  The name of the custom customer attribute
+  """
+  name: String!
+}
+
+"""
+Custom, store-specific customer attributes
+"""
+type CustomerAttributes {
+  attribute(
+    """
+    The ID of the customer attribute
+    """
+    entityId: Int!
+  ): CustomerAttribute!
+}
+
+"""
+A calendar for allowing selection of a date.
+"""
+type DateFieldOption implements CatalogProductOption {
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+scalar DateTime
+
+"""
+Date Time Extended
+"""
+type DateTimeExtended {
+  """
+  ISO-8601 formatted date in UTC
+  """
+  utc: DateTime!
+}
+
+"""
+Display field
+"""
+type DisplayField {
+  """
+  Short date format.
+  """
+  shortDateFormat: String!
+
+  """
+  Extended date format.
+  """
+  extendedDateFormat: String!
+}
+
+"""
+A form allowing selection and uploading of a file from the user's local computer.
+"""
+type FileUploadFieldOption implements CatalogProductOption {
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+"""
+Image
+"""
+type Image {
+  """
+  Absolute path to image using store CDN.
+  """
+  url(width: Int!, height: Int): String!
+
+  """
+  Absolute path to original image using store CDN.
+  """
+  urlOriginal: String!
+
+  """
+  Text description of an image that can be used for SEO and/or accessibility purposes.
+  """
+  altText: String!
+
+  """
+  Indicates whether this is the primary image.
+  """
+  isDefault: Boolean!
+}
+
+"""
+A connection to a list of items.
+"""
+type ImageConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [ImageEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type ImageEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Image!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+An inventory
+"""
+type Inventory {
+  """
+  Locations
+  """
+  locations(
+    entityIds: [Int!]
+    codes: [String!]
+    typeIds: [String!]
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): LocationConnection!
+}
+
+"""
+Inventory By Locations
+"""
+type InventoryByLocations {
+  """
+  Location id.
+  """
+  locationEntityId: Long!
+
+  """
+  Number of available products in stock.
+  """
+  availableToSell: Long!
+
+  """
+  Indicates a threshold low-stock level.
+  """
+  warningLevel: Int!
+
+  """
+  Indicates whether this product is in stock.
+  """
+  isInStock: Boolean!
+}
+
+"""
+A connection to a list of items.
+"""
+type LocationConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [LocationEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type LocationEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: InventoryByLocations!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Logo field
+"""
+type LogoField {
+  """
+  Logo title.
+  """
+  title: String!
+
+  """
+  Store logo image.
+  """
+  image: Image!
+}
+
+"""
+Measurement
+"""
+type Measurement {
+  """
+  Unformatted weight measurement value.
+  """
+  value: Float!
+
+  """
+  Unit of measurement.
+  """
+  unit: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type MetafieldConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [MetafieldEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type MetafieldEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Metafields!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Key/Value pairs of data attached tied to a resource entity (product, brand, category, etc.)
+"""
+type Metafields {
+  """
+  The ID of an object
+  """
+  id: ID!
+
+  """
+  The ID of the metafield when referencing via our backend API.
+  """
+  entityId: Int!
+
+  """
+  A label for identifying a metafield data value.
+  """
+  key: String!
+
+  """
+  A metafield value.
+  """
+  value: String!
+}
+
+"""
+A money object - includes currency code and a money amount
+"""
+type Money {
+  """
+  Currency code of the current money.
+  """
+  currencyCode: String!
+
+  """
+  The amount of money.
+  """
+  value: BigDecimal!
+}
+
+"""
+A min and max pair of money objects
+"""
+type MoneyRange {
+  """
+  Minimum money object.
+  """
+  min: Money!
+
+  """
+  Maximum money object.
+  """
+  max: Money!
+}
+
+"""
+A multi-line text input field, aka a text box.
+"""
+type MultiLineTextFieldOption implements CatalogProductOption {
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+"""
+An option type that has a fixed list of values.
+"""
+type MultipleChoiceOption implements CatalogProductOption {
+  """
+  The chosen display style for this multiple choice option.
+  """
+  displayStyle: String!
+
+  """
+  List of option values.
+  """
+  values(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductOptionValueConnection!
+
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+"""
+A simple multiple choice value comprised of an id and a label.
+"""
+type MultipleChoiceOptionValue implements CatalogProductOptionValue {
+  """
+  Unique ID for the option value.
+  """
+  entityId: Int!
+
+  """
+  Label for the option value.
+  """
+  label: String!
+
+  """
+  Indicates whether this value is the chosen default selected value.
+  """
+  isDefault: Boolean!
+}
+
+"""
+An object with an ID
+"""
+interface Node {
+  """
+  The id of the object.
+  """
+  id: ID!
+}
+
+"""
+A single line text input field that only accepts numbers.
+"""
+type NumberFieldOption implements CatalogProductOption {
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+"""
+A connection to a list of items.
+"""
+type OptionConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [OptionEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type OptionEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: ProductOption!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type OptionValueConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [OptionValueEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type OptionValueEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: ProductOptionValue!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+input OptionValueId {
+  optionEntityId: Int!
+  valueEntityId: Int!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+"""
+The min and max range of prices that apply to this product.
+"""
+type PriceRanges {
+  """
+  Product price min/max range.
+  """
+  priceRange: MoneyRange!
+
+  """
+  Product retail price min/max range.
+  """
+  retailPriceRange: MoneyRange
+}
+
+"""
+The various prices that can be set on a product.
+"""
+type Prices {
+  """
+  Calculated price of the product.
+  """
+  price: Money!
+
+  """
+  Sale price of the product.
+  """
+  salePrice: Money
+
+  """
+  Original price of the product.
+  """
+  basePrice: Money
+
+  """
+  Retail price of the product.
+  """
+  retailPrice: Money
+
+  """
+  Minimum advertised price of the product.
+  """
+  mapPrice: Money
+
+  """
+  Product price min/max range.
+  """
+  priceRange: MoneyRange!
+
+  """
+  Product retail price min/max range.
+  """
+  retailPriceRange: MoneyRange
+
+  """
+  The difference between the retail price (MSRP) and the current price, which can be presented to the shopper as their savings.
+  """
+  saved: Money
+
+  """
+  List of bulk pricing tiers applicable to a product or variant.
+  """
+  bulkPricing: [BulkPricingTier!]!
+}
+
+"""
+Product
+"""
+type Product implements Node {
+  """
+  The ID of an object
+  """
+  id: ID!
+
+  """
+  Id of the product.
+  """
+  entityId: Int!
+
+  """
+  Default product variant when no options are selected.
+  """
+  sku: String!
+
+  """
+  Relative URL path to product page.
+  """
+  path: String!
+
+  """
+  Name of the product.
+  """
+  name: String!
+
+  """
+  Description of the product.
+  """
+  description: String!
+
+  """
+  Description of the product in plain text.
+  """
+  plainTextDescription(characterLimit: Int = 120): String!
+
+  """
+  Warranty information of the product.
+  """
+  warranty: String!
+
+  """
+  Minimum purchasable quantity for this product in a single order.
+  """
+  minPurchaseQuantity: Int
+
+  """
+  Maximum purchasable quantity for this product in a single order.
+  """
+  maxPurchaseQuantity: Int
+
+  """
+  Absolute URL path for adding a product to cart.
+  """
+  addToCartUrl: String!
+
+  """
+  Absolute URL path for adding a product to customer's wishlist.
+  """
+  addToWishlistUrl: String!
+
+  """
+  Prices object determined by supplied product ID, variant ID, and selected option IDs.
+  """
+  prices(includeTax: Boolean = false, currencyCode: currencyCode): Prices
+
+  """
+  The minimum and maximum price of this product based on variant pricing and/or modifier price rules.
+  """
+  priceRanges(includeTax: Boolean = false): PriceRanges
+    @deprecated(reason: "Use priceRanges inside prices node instead.")
+
+  """
+  Weight of the product.
+  """
+  weight: Measurement
+
+  """
+  Height of the product.
+  """
+  height: Measurement
+
+  """
+  Width of the product.
+  """
+  width: Measurement
+
+  """
+  Depth of the product.
+  """
+  depth: Measurement
+
+  """
+  Product options.
+  """
+  options(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OptionConnection!
+
+  """
+  Product options.
+  """
+  productOptions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductOptionConnection!
+
+  """
+  Summary of the product reviews, includes the total number of reviews submitted and summation of the ratings on the reviews (ratings range from 0-5 per review).
+  """
+  reviewSummary: Reviews!
+
+  """
+  Type of product, ex: physical, digital
+  """
+  type: String!
+
+  """
+  The availability state of the product.
+  """
+  availability: String!
+    @deprecated(reason: "Use status inside availabilityV2 instead.")
+
+  """
+  A few words telling the customer how long it will normally take to ship this product, such as 'Usually ships in 24 hours'.
+  """
+  availabilityDescription: String!
+    @deprecated(reason: "Use description inside availabilityV2 instead.")
+
+  """
+  The availability state of the product.
+  """
+  availabilityV2: ProductAvailability!
+
+  """
+  List of categories associated with the product.
+  """
+  categories(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryConnection!
+
+  """
+  Brand associated with the product.
+  """
+  brand: Brand
+
+  """
+  Variants associated with the product.
+  """
+  variants(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    entityIds: [Int!] = []
+    optionValueIds: [OptionValueId!] = []
+  ): VariantConnection!
+
+  """
+  Custom fields of the product.
+  """
+  customFields(
+    names: [String!] = []
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomFieldConnection!
+
+  """
+  A list of the images for a product.
+  """
+  images(before: String, after: String, first: Int, last: Int): ImageConnection!
+
+  """
+  Default image for a product.
+  """
+  defaultImage: Image
+
+  """
+  Related products for this product.
+  """
+  relatedProducts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): RelatedProductsConnection!
+
+  """
+  Inventory information of the product.
+  """
+  inventory: ProductInventory!
+
+  """
+  Metafield data related to a product.
+  """
+  metafields(
+    namespace: String!
+    keys: [String!] = []
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): MetafieldConnection!
+
+  """
+  Product creation date
+  """
+  createdAt: DateTimeExtended!
+    @deprecated(reason: "Alpha version. Do not use in production.")
+}
+
+"""
+Product availability
+"""
+interface ProductAvailability {
+  """
+  The availability state of the product.
+  """
+  status: ProductAvailabilityStatus!
+
+  """
+  A few words telling the customer how long it will normally take to ship this product, such as 'Usually ships in 24 hours'.
+  """
+  description: String!
+}
+
+"""
+Product availability status
+"""
+enum ProductAvailabilityStatus {
+  Available
+  Preorder
+  Unavailable
+}
+
+"""
+Available Product
+"""
+type ProductAvailable implements ProductAvailability {
+  """
+  The availability state of the product.
+  """
+  status: ProductAvailabilityStatus!
+
+  """
+  A few words telling the customer how long it will normally take to ship this product, such as 'Usually ships in 24 hours'.
+  """
+  description: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type ProductConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [ProductEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type ProductEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Product!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Product Inventory Information
+"""
+type ProductInventory {
+  """
+  Indicates whether this product is in stock.
+  """
+  isInStock: Boolean!
+
+  """
+  Indicates whether this product's inventory is being tracked on variant level. If true, you may wish to check the variants node to understand the true inventory of each individual variant, rather than relying on this product-level aggregate to understand how many items may be added to cart.
+  """
+  hasVariantInventory: Boolean!
+
+  """
+  Aggregated product inventory information. This data may not be available if not set or if the store's Inventory Settings have disabled displaying stock levels on the storefront.
+  """
+  aggregated: AggregatedInventory
+}
+
+"""
+Product Option
+"""
+type ProductOption {
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+
+  """
+  Option values.
+  """
+  values(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OptionValueConnection!
+}
+
+"""
+A connection to a list of items.
+"""
+type ProductOptionConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [ProductOptionEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type ProductOptionEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: CatalogProductOption!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Product Option Value
+"""
+type ProductOptionValue {
+  """
+  Unique ID for the option value.
+  """
+  entityId: Int!
+
+  """
+  Label for the option value.
+  """
+  label: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type ProductOptionValueConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [ProductOptionValueEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type ProductOptionValueEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: CatalogProductOptionValue!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+A Product PickList Value - a product to be mapped to the base product if selected.
+"""
+type ProductPickListOptionValue implements CatalogProductOptionValue {
+  """
+  The ID of the product associated with this option value.
+  """
+  productId: Int!
+
+  """
+  Unique ID for the option value.
+  """
+  entityId: Int!
+
+  """
+  Label for the option value.
+  """
+  label: String!
+
+  """
+  Indicates whether this value is the chosen default selected value.
+  """
+  isDefault: Boolean!
+}
+
+"""
+PreOrder Product
+"""
+type ProductPreOrder implements ProductAvailability {
+  """
+  The message to be shown in the store when a product is put into the pre-order availability state, e.g. "Expected release date is %%DATE%%"
+  """
+  message: String
+
+  """
+  Product release date
+  """
+  willBeReleasedAt: DateTimeExtended
+
+  """
+  The availability state of the product.
+  """
+  status: ProductAvailabilityStatus!
+
+  """
+  A few words telling the customer how long it will normally take to ship this product, such as 'Usually ships in 24 hours'.
+  """
+  description: String!
+}
+
+"""
+Unavailable Product
+"""
+type ProductUnavailable implements ProductAvailability {
+  """
+  The message to be shown in the store when "Call for pricing" is enabled for this product, e.g. "Contact us at 555-5555"
+  """
+  message: String
+
+  """
+  The availability state of the product.
+  """
+  status: ProductAvailabilityStatus!
+
+  """
+  A few words telling the customer how long it will normally take to ship this product, such as 'Usually ships in 24 hours'.
+  """
+  description: String!
+}
+
+type Query {
+  site: Site!
+
+  """
+  The currently logged in customer.
+  """
+  customer: Customer
+
+  """
+  Fetches an object given its ID
+  """
+  node(
+    """
+    The ID of an object
+    """
+    id: ID!
+  ): Node
+  inventory: Inventory!
+    @deprecated(reason: "Alpha version. Do not use in production.")
+}
+
+"""
+A connection to a list of items.
+"""
+type RelatedProductsConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [RelatedProductsEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type RelatedProductsEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Product!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Review Rating Summary
+"""
+type Reviews {
+  """
+  Total number of reviews on product.
+  """
+  numberOfReviews: Int!
+
+  """
+  Summation of rating scores from each review.
+  """
+  summationOfRatings: Int!
+}
+
+"""
+route
+"""
+type Route {
+  """
+  node
+  """
+  node: Node
+}
+
+"""
+Store settings information from the control panel.
+"""
+type Settings {
+  """
+  The name of the store.
+  """
+  storeName: String!
+
+  """
+  The hash of the store.
+  """
+  storeHash: String!
+
+  """
+  The current store status.
+  """
+  status: StorefrontStatusType!
+
+  """
+  Logo information for the store.
+  """
+  logo: LogoField!
+
+  """
+  Contact information for the store.
+  """
+  contact: ContactField
+
+  """
+  Store urls.
+  """
+  url: UrlField!
+
+  """
+  Store display format information.
+  """
+  display: DisplayField!
+
+  """
+  Channel ID.
+  """
+  channelId: Long!
+}
+
+"""
+A site
+"""
+type Site {
+  categoryTree: [CategoryTreeItem!]!
+
+  """
+  Details of the brand.
+  """
+  brands(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    productEntityIds: [Int!] = []
+  ): BrandConnection!
+
+  """
+  Details of the products.
+  """
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    ids: [ID!] = []
+    entityIds: [Int!] = []
+  ): ProductConnection!
+
+  """
+  Details of the newest products.
+  """
+  newestProducts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductConnection!
+
+  """
+  Details of the best selling products.
+  """
+  bestSellingProducts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductConnection!
+
+  """
+  Details of the featured products.
+  """
+  featuredProducts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductConnection!
+
+  """
+  A single product object with variant pricing overlay capabilities.
+  """
+  product(
+    id: ID
+    entityId: Int
+    variantEntityId: Int
+    optionValueIds: [OptionValueId!] = []
+    sku: String
+  ): Product
+
+  """
+  Route for a node
+  """
+  route(path: String!): Route!
+
+  """
+  Store settings.
+  """
+  settings: Settings
+}
+
+"""
+Storefront Mode
+"""
+enum StorefrontStatusType {
+  LAUNCHED
+  MAINTENANCE
+  PRE_LAUNCH
+  HIBERNATION
+}
+
+"""
+A swatch option value - swatch values can be associated with a list of hexidecimal colors or an image.
+"""
+type SwatchOptionValue implements CatalogProductOptionValue {
+  """
+  List of up to 3 hex encoded colors to associate with a swatch value.
+  """
+  hexColors: [String!]!
+
+  """
+  Absolute path of a swatch texture image.
+  """
+  imageUrl(width: Int!, height: Int): String
+
+  """
+  Unique ID for the option value.
+  """
+  entityId: Int!
+
+  """
+  Label for the option value.
+  """
+  label: String!
+
+  """
+  Indicates whether this value is the chosen default selected value.
+  """
+  isDefault: Boolean!
+}
+
+"""
+A single line text input field.
+"""
+type TextFieldOption implements CatalogProductOption {
+  """
+  Unique ID for the option.
+  """
+  entityId: Int!
+
+  """
+  Display name for the option.
+  """
+  displayName: String!
+
+  """
+  One of the option values is required to be selected for the checkout.
+  """
+  isRequired: Boolean!
+}
+
+"""
+Url field
+"""
+type UrlField {
+  """
+  Store url.
+  """
+  vanityUrl: String!
+
+  """
+  CDN url to fetch assets.
+  """
+  cdnUrl: String!
+}
+
+"""
+Variant
+"""
+type Variant implements Node {
+  """
+  The ID of an object
+  """
+  id: ID!
+
+  """
+  Id of the variant.
+  """
+  entityId: Int!
+
+  """
+  Sku of the variant.
+  """
+  sku: String!
+
+  """
+  The variant's weight. If a weight was not explicitly specified on the variant, this will be the product's weight.
+  """
+  weight: Measurement
+
+  """
+  The variant's height. If a height was not explicitly specified on the variant, this will be the product's height.
+  """
+  height: Measurement
+
+  """
+  The variant's width. If a width was not explicitly specified on the variant, this will be the product's width.
+  """
+  width: Measurement
+
+  """
+  The variant's depth. If a depth was not explicitly specified on the variant, this will be the product's depth.
+  """
+  depth: Measurement
+
+  """
+  The options which define a variant.
+  """
+  options(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OptionConnection!
+
+  """
+  Product options that compose this variant.
+  """
+  productOptions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductOptionConnection!
+
+  """
+  Default image for a variant.
+  """
+  defaultImage: Image
+
+  """
+  Variant prices
+  """
+  prices(includeTax: Boolean = false, currencyCode: currencyCode): Prices
+
+  """
+  Variant inventory
+  """
+  inventory: VariantInventory
+
+  """
+  Metafield data related to a variant.
+  """
+  metafields(
+    namespace: String!
+    keys: [String!] = []
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): MetafieldConnection!
+}
+
+"""
+A connection to a list of items.
+"""
+type VariantConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [VariantEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type VariantEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Variant!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Variant Inventory
+"""
+type VariantInventory {
+  """
+  Aggregated product variant inventory information. This data may not be available if not set or if the store's Inventory Settings have disabled displaying stock levels on the storefront.
+  """
+  aggregated: Aggregated
+
+  """
+  Indicates whether this product is in stock.
+  """
+  isInStock: Boolean!
+
+  """
+  Inventory by locations.
+  """
+  byLocation(
+    locationEntityIds: [Int!] = []
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): LocationConnection
+}
+
+"""
+Please select a currency
+"""
+enum currencyCode {
+  ADP
+  AED
+  AFA
+  AFN
+  ALK
+  ALL
+  AMD
+  ANG
+  AOA
+  AOK
+  AON
+  AOR
+  ARA
+  ARL
+  ARM
+  ARP
+  ARS
+  ATS
+  AUD
+  AWG
+  AZM
+  AZN
+  BAD
+  BAM
+  BAN
+  BBD
+  BDT
+  BEC
+  BEF
+  BEL
+  BGL
+  BGM
+  BGN
+  BGO
+  BHD
+  BIF
+  BMD
+  BND
+  BOB
+  BOL
+  BOP
+  BOV
+  BRB
+  BRC
+  BRE
+  BRL
+  BRN
+  BRR
+  BRZ
+  BSD
+  BTN
+  BUK
+  BWP
+  BYB
+  BYR
+  BZD
+  CAD
+  CDF
+  CHE
+  CHF
+  CHW
+  CLE
+  CLF
+  CLP
+  CNX
+  CNY
+  COP
+  COU
+  CRC
+  CSD
+  CSK
+  CVE
+  CYP
+  CZK
+  DDM
+  DEM
+  DJF
+  DKK
+  DOP
+  DZD
+  ECS
+  ECV
+  EEK
+  EGP
+  ERN
+  ESA
+  ESB
+  ESP
+  ETB
+  EUR
+  FIM
+  FJD
+  FKP
+  FRF
+  GBP
+  GEK
+  GEL
+  GHC
+  GHS
+  GIP
+  GMD
+  GNF
+  GNS
+  GQE
+  GRD
+  GTQ
+  GWE
+  GWP
+  GYD
+  HKD
+  HNL
+  HRD
+  HRK
+  HTG
+  HUF
+  IDR
+  IEP
+  ILP
+  ILR
+  ILS
+  INR
+  IQD
+  ISJ
+  ISK
+  ITL
+  JMD
+  JOD
+  JPY
+  KES
+  KGS
+  KHR
+  KMF
+  KRH
+  KRO
+  KRW
+  KWD
+  KYD
+  KZT
+  LAK
+  LBP
+  LKR
+  LRD
+  LSL
+  LTL
+  LTT
+  LUC
+  LUF
+  LUL
+  LVL
+  LVR
+  LYD
+  MAD
+  MAF
+  MCF
+  MDC
+  MDL
+  MGA
+  MGF
+  MKD
+  MKN
+  MLF
+  MMK
+  MNT
+  MOP
+  MRO
+  MTL
+  MTP
+  MUR
+  MVP
+  MVR
+  MWK
+  MXN
+  MXP
+  MXV
+  MYR
+  MZE
+  MZM
+  MZN
+  NAD
+  NGN
+  NIC
+  NIO
+  NLG
+  NOK
+  NPR
+  NZD
+  OMR
+  PAB
+  PEI
+  PEN
+  PES
+  PGK
+  PHP
+  PKR
+  PLN
+  PLZ
+  PTE
+  PYG
+  QAR
+  RHD
+  ROL
+  RON
+  RSD
+  RUB
+  RUR
+  RWF
+  SAR
+  SBD
+  SCR
+  SDD
+  SDG
+  SDP
+  SEK
+  SGD
+  SHP
+  SIT
+  SKK
+  SLL
+  SOS
+  SRD
+  SRG
+  SSP
+  STD
+  SUR
+  SVC
+  SYP
+  SZL
+  THB
+  TJR
+  TJS
+  TMM
+  TMT
+  TND
+  TOP
+  TPE
+  TRL
+  TRY
+  TTD
+  TWD
+  TZS
+  UAH
+  UAK
+  UGS
+  UGX
+  USD
+  USN
+  USS
+  UYI
+  UYP
+  UYU
+  UZS
+  VEB
+  VEF
+  VND
+  VNN
+  VUV
+  WST
+  XAF
+  XCD
+  XEU
+  XFO
+  XFU
+  XOF
+  XPF
+  XRE
+  YDD
+  YER
+  YUD
+  YUM
+  YUN
+  YUR
+  ZAL
+  ZAR
+  ZMK
+  ZMW
+  ZRN
+  ZRZ
+  ZWD
+  ZWL
+  ZWR
+}
+
+"""
+The `BigDecimal` scalar type represents signed fractional values with arbitrary precision.
+"""
+scalar BigDecimal
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long

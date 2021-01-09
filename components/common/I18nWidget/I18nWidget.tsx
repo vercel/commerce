@@ -51,6 +51,8 @@ const I18nWidget: FC = () => {
         >
           <button className={s.button} aria-label="Language selector">
             <img
+              width="20"
+              height="20"
               className="block mr-2 w-5"
               src={`/${LOCALES_MAP[currentLocale].img.filename}`}
               alt={LOCALES_MAP[currentLocale].img.alt}
