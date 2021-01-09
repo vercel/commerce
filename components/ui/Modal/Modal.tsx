@@ -19,12 +19,14 @@ interface Props {
 const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  const handleKey = (e: KeyboardEvent) =>
-    useCallback(() => {
+  const handleKey = useCallback(
+    (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         return onClose()
       }
-    }, [onClose])
+    },
+    [onClose]
+  )
 
   useEffect(() => {
     if (ref.current) {
