@@ -25,7 +25,12 @@ interface ProductPrice {
 
 interface Wishlist {
   id: string
-  products: Pick<Product, ['id', 'name']>[]
+  products: Pick<Product, 'id' | 'name' | 'prices'>[]
+}
+
+interface Wishlist {
+  id: string
+  products: Pick<Product, 'id' | 'name' | 'prices'>[]
 }
 
 interface Customer {
