@@ -9,8 +9,10 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 
+import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/api/operations/get-all-pages'
+
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -22,10 +24,6 @@ const dynamicProps = {
   loading: () => <Loading />,
 }
 
-const LoginView = dynamic(
-  () => import('@components/auth/LoginView'),
-  dynamicProps
-)
 const SignUpView = dynamic(
   () => import('@components/auth/SignUpView'),
   dynamicProps
