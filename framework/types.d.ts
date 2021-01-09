@@ -22,3 +22,17 @@ interface ProductPrice {
   currencyCode: 'USD' | 'ARS'
   type?: 'price' | 'retail' | 'sale' | string
 }
+
+interface Wishlist {
+  id: string
+  products: Pick<Product, ['id', 'name']>[]
+}
+
+interface Customer {
+  id: string
+  name: string
+}
+
+interface Category {}
+
+interface Brand {}
