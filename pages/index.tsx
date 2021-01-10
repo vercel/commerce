@@ -45,10 +45,9 @@ export async function getStaticProps({
   const { featured, bestSelling } = (() => {
     // Create a copy of products that we can mutate
     const products = [...newestProducts]
-      .filter((product) => {
-        const featuredList = featuredProducts.map((product) => product.node.entityId)
-        return !featuredList.includes(product.node.entityId)
-      })
+      .filter((product) => !featuredProducts
+              .map((product) => product.node.entityId)
+              .includes(product.node.entityId))
     // If the lists of featured and best selling products don't have enough
     // products, then fill them with products from the products list, this
     // is useful for new commerce sites that don't have a lot of products
