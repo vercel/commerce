@@ -36,10 +36,13 @@ interface Wishlist {
 interface Order {}
 
 interface Customer {
-  id: string
-  name: string
-  email: string
+  id: string | number | undefined
+  [prop: string]: any
 }
+
+type UseCustomerResponse = {
+  customer: Customer
+} | null
 
 interface Category {
   id: string

@@ -7,6 +7,7 @@ import { Heart } from '@components/icons'
 import { Text, Container } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
 import { defatultPageProps } from '@lib/defaults'
+import { useCustomer } from '@framework/customer'
 
 export async function getStaticProps({
   preview,
@@ -20,7 +21,8 @@ export async function getStaticProps({
 }
 
 export default function Wishlist() {
-  const { data, isEmpty } = useWishlist({ includeProducts: true })
+  const { data: customer } = useCustomer()
+  const { data, isEmpty } = useWishlist()
 
   return (
     <Container>
