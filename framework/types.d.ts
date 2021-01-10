@@ -6,7 +6,7 @@ interface Product {
   path?: string
   images: ProductImage[]
   variants: ProductVariant[]
-  prices: ProductPrice[]
+  price: ProductPrice
 }
 interface ProductImage {
   url: string
@@ -18,9 +18,10 @@ interface ProductVariant {
 }
 
 interface ProductPrice {
-  value: number | string
+  value: number
   currencyCode: 'USD' | 'ARS'
-  type?: 'price' | 'retail' | 'sale' | string
+  retailValue?: number
+  saleValue?: number
 }
 
 interface Cart {

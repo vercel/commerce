@@ -34,12 +34,10 @@ function productsNormalizer(arr: any[]): Product[] {
       ),
       variants: variants.edges.map(({ node }: any) => node),
       productOptions: productOptions.edges.map(({ node }: any) => node),
-      prices: [
-        {
-          value: prices.price.value,
-          currencyCode: prices.price.currencyCode,
-        },
-      ],
+      price: {
+        value: prices.price.value,
+        currencyCode: prices.price.currencyCode,
+      },
       ...rest,
     })
   )

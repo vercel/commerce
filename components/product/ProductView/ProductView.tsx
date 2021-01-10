@@ -1,16 +1,16 @@
-import { FC, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-
+import { FC, useState } from 'react'
 import s from './ProductView.module.css'
-import { useUI } from '@components/ui/context'
+
+import { useUI } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text } from '@components/ui'
 
-import usePrice from '@framework/product/use-price'
-import useAddItem from '@framework/cart/use-add-item'
-import type { ProductNode } from '@framework/api/operations/get-product'
+import { usePrice } from '@framework/product'
+import { useAddItem } from '@framework/cart'
+
 import {
   getCurrentVariant,
   getProductOptions,
@@ -21,15 +21,15 @@ import WishlistButton from '@components/wishlist/WishlistButton'
 interface Props {
   className?: string
   children?: any
-  product: ProductNode
+  product: Product
 }
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
   const { price } = usePrice({
-    amount: product.prices?.price?.value,
-    baseAmount: product.prices?.retailPrice?.value,
-    currencyCode: product.prices?.price?.currencyCode!,
+    amount: product.price.value,
+    baseAmount: product.price.retailValue,
+    currencyCode: product.price.currencyCode!,
   })
   const { openSidebar } = useUI()
   const options = getProductOptions(product)
@@ -38,15 +38,15 @@ const ProductView: FC<Props> = ({ product }) => {
     size: null,
     color: null,
   })
-  const variant =
-    getCurrentVariant(product, choices) || product.variants.edges?.[0]
+
+  const variant = getCurrentVariant(product, choices) || product.variants[0]
 
   const addToCart = async () => {
     setLoading(true)
     try {
       await addItem({
-        productId: product.entityId,
-        variantId: product.variants.edges?.[0]?.node.entityId!,
+        productId: Number(product.id),
+        variantId: Number(product.variants[0].id),
       })
       openSidebar()
       setLoading(false)
@@ -66,7 +66,7 @@ const ProductView: FC<Props> = ({ product }) => {
           description: product.description,
           images: [
             {
-              url: product.images.edges?.[0]?.node.urlOriginal!,
+              url: product.images[0]?.url!,
               width: 800,
               height: 600,
               alt: product.name,
@@ -81,18 +81,18 @@ const ProductView: FC<Props> = ({ product }) => {
             <div className={s.price}>
               {price}
               {` `}
-              {product.prices?.price.currencyCode}
+              {product.price?.currencyCode}
             </div>
           </div>
 
           <div className={s.sliderContainer}>
-            <ProductSlider key={product.entityId}>
-              {product.images.edges?.map((image, i) => (
-                <div key={image?.node.urlOriginal} className={s.imageContainer}>
+            <ProductSlider key={product.id}>
+              {product.images.map((image, i) => (
+                <div key={image.url} className={s.imageContainer}>
                   <Image
                     className={s.img}
-                    src={image?.node.urlOriginal!}
-                    alt={image?.node.altText || 'Product Image'}
+                    src={image.url!}
+                    alt={image.alt || 'Product Image'}
                     width={1050}
                     height={1050}
                     priority={i === 0}
@@ -152,11 +152,10 @@ const ProductView: FC<Props> = ({ product }) => {
             </Button>
           </div>
         </div>
-
         <WishlistButton
           className={s.wishlistButton}
-          productId={product.entityId}
-          variant={product.variants.edges?.[0]!}
+          productId={product.id}
+          variant={product.variants[0]!}
         />
       </div>
     </Container>

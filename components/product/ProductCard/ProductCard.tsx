@@ -46,9 +46,9 @@ const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
                   <span>{product.name}</span>
                 </h3>
                 <span className={s.productPrice}>
-                  {product.prices[0].value}
+                  {product.price.value}
                   &nbsp;
-                  {product.prices[0].currencyCode}
+                  {product.price.currencyCode}
                 </span>
               </div>
               <WishlistButton
