@@ -106,6 +106,8 @@ Main folder and its exposed functions
 - `product`
   - usePrice
   - useSearch
+  - getProduct
+  - getAllProducts
 - `wishlist`
   - useWishlist
   - addWishlistItem
