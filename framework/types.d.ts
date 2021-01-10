@@ -9,7 +9,7 @@ interface Product extends Entity {
   slug: string
   path?: string
   images: ProductImage[] | any[] | undefined
-  variants: ProductVariant[] | any[] | undefined
+  variants: ProductVariant[] | any[] | null | undefined
   price: ProductPrice
 }
 interface ProductImage {

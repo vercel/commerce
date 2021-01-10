@@ -25,7 +25,7 @@ const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
                 {product.name}
               </span>
             </div>
-            {product.images[0] && (
+            {product.images?[0] && (
               <Image
                 quality="85"
                 alt={product.name}
@@ -54,11 +54,11 @@ const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
               <WishlistButton
                 className={s.wishlistButton}
                 productId={product.id}
-                variant={product.variants[0]!}
+                variant={product.variants?[0]}
               />
             </div>
             <div className={s.imageContainer}>
-              {product.images[0] && (
+              {product.images?[0] && (
                 <Image
                   alt={product.name}
                   className={s.productImage}
