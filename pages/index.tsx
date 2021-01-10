@@ -9,8 +9,6 @@ import getAllProducts from '@framework/api/operations/get-all-products'
 import getSiteInfo from '@framework/api/operations/get-site-info'
 import getAllPages from '@framework/api/operations/get-all-pages'
 
-// Outputs from providers should already be normalized
-
 export async function getStaticProps({
   preview,
   locale,

@@ -21,10 +21,10 @@ export type ItemBody = {
 
 export type AddItemBody = { item: ItemBody }
 
-export type RemoveItemBody = { itemId: string }
+export type RemoveItemBody = { itemId: Product['id'] }
 
 export type WishlistBody = {
-  customer_id: number
+  customer_id: Customer['id']
   is_public: number
   name: string
   items: any[]

@@ -16,7 +16,7 @@ export interface UseWishlistOptions {
 }
 
 export interface UseWishlistInput extends UseWishlistOptions {
-  customerId?: number
+  customerId?: Customer['id']
 }
 
 export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = (

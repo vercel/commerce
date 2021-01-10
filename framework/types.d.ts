@@ -2,11 +2,11 @@ interface Product {
   id: string | number
   name: string
   description: string
+  slug: string
+  path?: string
   images: ProductImage[]
   variants: ProductVariant[]
   prices: ProductPrice[]
-  slug: string
-  path?: string
 }
 interface ProductImage {
   url: string

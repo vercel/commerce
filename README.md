@@ -124,3 +124,11 @@ Main folder and its exposed functions
 
 - `config.json`
 - README.md
+
+#### Example of correct usage of Commece Framework
+
+```js
+import { useUI } from '@components/ui'
+import { useCustomer } from '@framework/customer'
+import { useAddItem, useWishlist, useRemoveItem } from '@framework/wishlist'
+```
