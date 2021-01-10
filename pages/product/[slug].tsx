@@ -7,8 +7,6 @@ import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
 
-// Data
-
 import { getConfig } from '@framework/api'
 import getProduct from '@framework/api/operations/get-product'
 import getAllPages from '@framework/api/operations/get-all-pages'

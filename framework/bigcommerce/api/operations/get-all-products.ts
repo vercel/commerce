@@ -7,41 +7,7 @@ import filterEdges from '../utils/filter-edges'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productConnectionFragment } from '../fragments/product'
 import { BigcommerceConfig, getConfig } from '..'
-
-function productsNormalizer(arr: any[]): Product[] {
-  // Normalizes products arr response and flattens node edges
-  return arr.map(
-    ({
-      node: {
-        entityId: id,
-        images,
-        variants,
-        productOptions,
-        prices,
-        path,
-        ...rest
-      },
-    }) => ({
-      id,
-      path,
-      slug: path.slice(1, -1),
-      images: images.edges.map(
-        ({ node: { urlOriginal, altText, ...rest } }: any) => ({
-          url: urlOriginal,
-          alt: altText,
-          ...rest,
-        })
-      ),
-      variants: variants.edges.map(({ node }: any) => node),
-      productOptions: productOptions.edges.map(({ node }: any) => node),
-      price: {
-        value: prices.price.value,
-        currencyCode: prices.price.currencyCode,
-      },
-      ...rest,
-    })
-  )
-}
+import { normalizeProduct } from '../../lib/normalize'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -161,7 +127,7 @@ async function getAllProducts({
     })
   }
 
-  return { products: productsNormalizer(products) }
+  return { products: products.map(normalizeProduct) }
 }
 
 export default getAllProducts
