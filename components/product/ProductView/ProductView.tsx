@@ -11,11 +11,7 @@ import { Button, Container, Text } from '@components/ui'
 import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 
-import {
-  getCurrentVariant,
-  getProductOptions,
-  SelectedOptions,
-} from '../helpers'
+import { getCurrentVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
@@ -41,13 +37,13 @@ const ProductView: FC<Props> = ({ product }) => {
   })
 
   // const variant = getCurrentVariant(product, choices) || product.variants[0]
-
+  console.log('PRODUCT VIEW', product)
   const addToCart = async () => {
     setLoading(true)
     try {
       await addItem({
         productId: Number(product.id),
-        variantId: Number(product.variants[0].id),
+        variantId: Number(product.variants[0].id), // TODO(bc) send the correct variant
       })
       openSidebar()
       setLoading(false)
@@ -113,7 +109,6 @@ const ProductView: FC<Props> = ({ product }) => {
                 <div className="flex flex-row py-4">
                   {opt.values.map((v, i: number) => {
                     const active = (choices as any)[opt.displayName]
-
                     return (
                       <Swatch
                         key={`${opt.id}-${i}`}
@@ -147,7 +142,6 @@ const ProductView: FC<Props> = ({ product }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
-              // disabled={!variant}
             >
               Add to Cart
             </Button>

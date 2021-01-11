@@ -8,11 +8,13 @@ export function normalizeProduct(productNode: BCProduct): Product {
     productOptions,
     prices,
     path,
-    options: _,
+    id: _,
+    options: _0,
     ...rest
   } = productNode
 
   return {
+    id,
     path,
     slug: path?.replace(/^\/+|\/+$/g, ''),
     images: images.edges
