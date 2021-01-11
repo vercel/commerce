@@ -6,12 +6,8 @@ import { Layout } from '@components/common'
 import { Heart } from '@components/icons'
 import { Text, Container } from '@components/ui'
 import { WishlistCard } from '@components/wishlist'
-<<<<<<< HEAD
-import { defatultPageProps } from '@lib/defaults'
-import { useCustomer } from '@framework/customer'
-=======
 import { defaultPageProps } from '@lib/defaults'
->>>>>>> master
+import { useCustomer } from '@framework/customer'
 
 export async function getStaticProps({
   preview,

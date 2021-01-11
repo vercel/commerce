@@ -22,18 +22,19 @@ This project is currently <b>under development</b>.
 - Dark Mode Support
 
 ## Work in progress
+
 We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
 
 ## Integrations
-Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support all major ecommerce backends.
 
+Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support all major ecommerce backends.
 
 ## Goals
 
-* **Next.js Commerce** should have a completely data **agnostic** UI
-* **Aware of schema**: should ship with the right data schemas and types.
-* All providers should return the right data types and schemas to blend correctly with Next.js Commerce.
-* `@framework` will be the alias utilized in commerce and it will map to the ecommerce provider of preference- e.g BigCommerce, Shopify, Swell. All providers should expose the same standardized functions. _Note that the same applies for recipes using a CMS + an ecommerce provider._
+- **Next.js Commerce** should have a completely data **agnostic** UI
+- **Aware of schema**: should ship with the right data schemas and types.
+- All providers should return the right data types and schemas to blend correctly with Next.js Commerce.
+- `@framework` will be the alias utilized in commerce and it will map to the ecommerce provider of preference- e.g BigCommerce, Shopify, Swell. All providers should expose the same standardized functions. _Note that the same applies for recipes using a CMS + an ecommerce provider._
 
 There is a `framework` folder in the root folder that will contain multiple ecommerce providers.
 
@@ -91,21 +92,6 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 7. Run `yarn dev` to build and watch for code changes
 8. The development branch is `development` (this is the branch pull requests should be made against).
    On a release, `develop` branch is rebased into `master`.
-
-
-<<<<<<< HEAD
-- **Next.js Commerce** should have a completely data **agnostic** UI
-- **Aware of schema**: should ship with the right data schemas and types.
-- All providers should return the right data types and schemas to blend correctly with Next.js Commerce.
-- `@framework` will be the alias utilized in commerce and it will map to the ecommerce provider of preference- e.g BigCommerce, Shopify, Swell. All providers should expose the same standardized functions. _Note that the same applies for recipes using a CMS + an ecommerce provider._
-
-There is a `framework` folder in the root folder that will contain multiple ecommerce providers.
-
-Additionally, we need to ensure feature parity (not all providers have e.g. wishlist) we will also have to build a feature API to disable/enable features in the UI.
-
-People actively working on this project: @okbel & @lfades.
-=======
->>>>>>> master
 
 ## Framework
 
