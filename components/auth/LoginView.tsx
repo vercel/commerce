@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { Logo, Button, Input } from '@components/ui'
-import useLogin from '@framework/auth/use-login'
+import { useLogin } from '@framework/auth'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 
