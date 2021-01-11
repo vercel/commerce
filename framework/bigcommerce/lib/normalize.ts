@@ -1,15 +1,14 @@
-export function normalizeProduct(productNode: any): Product {
-  // console.log(productNode)
+import { Product as BCProduct } from '@framework/schema'
+
+export function normalizeProduct(productNode: BCProduct): Product {
   const {
-    node: {
-      entityId: id,
-      images,
-      variants,
-      productOptions,
-      prices,
-      path,
-      ...rest
-    },
+    entityId: id,
+    images,
+    variants,
+    productOptions,
+    prices,
+    path,
+    ...rest
   } = productNode
 
   return {

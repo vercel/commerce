@@ -8,7 +8,7 @@ import { Avatar } from '@components/common'
 import { Moon, Sun } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import ClickOutside from '@lib/click-outside'
-import { useLogout } from '@framework/auth'
+import useLogout from '@framework/auth/use-logout'
 
 import {
   disableBodyScroll,

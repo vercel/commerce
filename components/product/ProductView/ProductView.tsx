@@ -8,7 +8,7 @@ import { useUI } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text } from '@components/ui'
 
-import { usePrice } from '@framework/product'
+import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 
 import {

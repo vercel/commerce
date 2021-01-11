@@ -99,5 +99,8 @@
   "resolutions": {
     "webpack": "5.11.1"
   },
+  "node": {
+    "net": "empty"
+  },
   "license": "MIT"
 }

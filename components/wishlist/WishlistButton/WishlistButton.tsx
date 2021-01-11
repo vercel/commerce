@@ -3,8 +3,10 @@ import cn from 'classnames'
 import { Heart } from '@components/icons'
 
 import { useUI } from '@components/ui'
-import { useCustomer } from '@framework/customer'
-import { useAddItem, useWishlist, useRemoveItem } from '@framework/wishlist'
+import useCustomer from '@framework/customer/use-customer'
+import useAddItem from '@framework/wishlist/use-add-item'
+import useRemoveItem from '@framework/wishlist/use-remove-item'
+import useWishlist from '@framework/wishlist/use-add-item'
 
 type Props = {
   productId: Product['id']
