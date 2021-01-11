@@ -1,6 +1,4 @@
-import { ProductEdge } from '@framework/schema'
-
-export function normalizeProduct(productNode: ProductEdge): Product {
+export function normalizeProduct(productNode: any): Product {
   // console.log(productNode)
   const {
     node: {
