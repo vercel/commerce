@@ -25,8 +25,6 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
-  console.log(product)
-
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
@@ -35,8 +33,6 @@ const ProductView: FC<Props> = ({ product }) => {
   })
 
   const { openSidebar } = useUI()
-
-  // const options = getProductOptions(product)
 
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
@@ -111,16 +107,16 @@ const ProductView: FC<Props> = ({ product }) => {
 
         <div className={s.sidebar}>
           <section>
-            {/* {options?.map((opt: any) => (
+            {product.options?.map((opt) => (
               <div className="pb-4" key={opt.displayName}>
                 <h2 className="uppercase font-medium">{opt.displayName}</h2>
                 <div className="flex flex-row py-4">
-                  {opt.values.map((v: any, i: number) => {
+                  {opt.values.map((v, i: number) => {
                     const active = (choices as any)[opt.displayName]
 
                     return (
                       <Swatch
-                        key={`${v.entityId}-${i}`}
+                        key={`${opt.id}-${i}`}
                         active={v.label === active}
                         variant={opt.displayName}
                         color={v.hexColors ? v.hexColors[0] : ''}
@@ -138,7 +134,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   })}
                 </div>
               </div>
-            ))} */}
+            ))}
 
             <div className="pb-14 break-words w-full max-w-xl">
               <Text html={product.description} />

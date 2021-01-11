@@ -8,6 +8,7 @@ export function normalizeProduct(productNode: BCProduct): Product {
     productOptions,
     prices,
     path,
+    options: _,
     ...rest
   } = productNode
 
@@ -29,8 +30,20 @@ export function normalizeProduct(productNode: BCProduct): Product {
           ...rest,
         }))
       : [],
-    productOptions: productOptions.edges
-      ? productOptions.edges.map(({ node }: any) => node)
+    options: productOptions.edges
+      ? productOptions.edges.map(
+          ({
+            node: {
+              entityId,
+              values: { edges },
+              ...rest
+            },
+          }: any) => ({
+            id: entityId,
+            values: edges.map(({ node }: any) => node),
+            ...rest,
+          })
+        )
       : [],
     price: {
       value: prices?.price.value,

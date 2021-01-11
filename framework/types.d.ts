@@ -11,7 +11,19 @@ interface Product extends Entity {
   images: ProductImage[]
   variants: ProductVariant[]
   price: ProductPrice
+  options: ProductOption[]
 }
+
+interface ProductOption extends Entity {
+  displayName: string
+  values: ProductOptionValues[]
+}
+
+interface ProductOptionValues {
+  label: string
+  hexColors?: string[]
+}
+
 interface ProductImage {
   url: string
   alt?: string
