@@ -21,7 +21,7 @@ export type ProductsHandlers = {
 
 const METHODS = ['GET']
 
-// TODO: a complete implementation should have schema validation for `req.body`
+// TODO(lf): a complete implementation should have schema validation for `req.body`
 const productsApi: BigcommerceApiHandler<
   SearchProductsData,
   ProductsHandlers

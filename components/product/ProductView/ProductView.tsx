@@ -11,7 +11,7 @@ import { Button, Container, Text } from '@components/ui'
 import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 
-import { getCurrentVariant, SelectedOptions } from '../helpers'
+import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
@@ -27,23 +27,24 @@ const ProductView: FC<Props> = ({ product }) => {
     baseAmount: product.price.retailValue,
     currencyCode: product.price.currencyCode!,
   })
-
   const { openSidebar } = useUI()
-
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
     color: null,
   })
 
-  // const variant = getCurrentVariant(product, choices) || product.variants[0]
-  console.log('PRODUCT VIEW', product)
+  // Select the correct variant based on choices
+  const variant = getVariant(product, choices)
+
   const addToCart = async () => {
     setLoading(true)
     try {
       await addItem({
         productId: Number(product.id),
-        variantId: Number(product.variants[0].id), // TODO(bc) send the correct variant
+        variantId: variant
+          ? Number(variant.id)
+          : Number(product.variants[0].id),
       })
       openSidebar()
       setLoading(false)
@@ -108,11 +109,14 @@ const ProductView: FC<Props> = ({ product }) => {
                 <h2 className="uppercase font-medium">{opt.displayName}</h2>
                 <div className="flex flex-row py-4">
                   {opt.values.map((v, i: number) => {
-                    const active = (choices as any)[opt.displayName]
+                    const active = (choices as any)[
+                      opt.displayName.toLowerCase()
+                    ]
+
                     return (
                       <Swatch
                         key={`${opt.id}-${i}`}
-                        active={v.label === active}
+                        active={v.label.toLowerCase() === active}
                         variant={opt.displayName}
                         color={v.hexColors ? v.hexColors[0] : ''}
                         label={v.label}
@@ -120,7 +124,7 @@ const ProductView: FC<Props> = ({ product }) => {
                           setChoices((choices) => {
                             return {
                               ...choices,
-                              [opt.displayName]: v.label,
+                              [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
                             }
                           })
                         }}
@@ -142,6 +146,7 @@ const ProductView: FC<Props> = ({ product }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
+              disabled={!variant}
             >
               Add to Cart
             </Button>

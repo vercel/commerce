@@ -46,7 +46,7 @@ export function extendHook(
     const response = useCommerceWishlist(
       defaultOpts,
       [
-        ['customerId', customer?.entityId],
+        ['customerId', customer?.id],
         ['includeProducts', includeProducts],
       ],
       customFetcher,

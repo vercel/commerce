@@ -31,6 +31,7 @@ interface ProductImage {
 
 interface ProductVariant {
   id: string | number
+  options: ProductOption[]
 }
 
 interface ProductPrice {
@@ -51,21 +52,17 @@ interface Wishlist extends Entity {
 
 interface Order {}
 
-interface Customer extends Entity {
-  [prop: string]: any
-}
+interface Customer extends Entity {}
 
 type UseCustomerResponse = {
   customer: Customer
 } | null
 
 interface Category extends Entity {
-  id: string
   name: string
 }
 
 interface Brand extends Entity {
-  id: string
   name: string
 }
 
