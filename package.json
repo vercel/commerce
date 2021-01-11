@@ -8,7 +8,7 @@
     "analyze": "BUNDLE_ANALYZE=both yarn build",
     "find:unused": "next-unused",
     "generate": "graphql-codegen",
-    "generate:definitions": "node framework/bigcommerce/lib/generate-definitions.js"
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
   },
   "prettier": {
     "semi": false,
@@ -46,7 +46,9 @@
   "dependencies": {
     "@reach/portal": "^0.11.2",
     "@tailwindcss/ui": "^0.6.2",
+    "@types/node-fetch": "2",
     "@vercel/fetch": "^6.1.0",
+    "@vercel/fetch-cached-dns": "^2.0.1",
     "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
@@ -60,12 +62,14 @@
     "next": "^10.0.5-canary.11",
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
+    "node-fetch": "^2.6.1",
     "postcss-nesting": "^7.0.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
-    "swr": "^0.3.11",
+    "swr": "^0.4.0",
+    "tabbable": "^5.1.5",
     "tailwindcss": "^1.9"
   },
   "devDependencies": {

@@ -12,9 +12,15 @@ interface Props {
   imgProps?: Omit<ImageProps, 'src'>
 }
 
-const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
+const ProductCard: FC<Props> = ({
+  className,
+  product,
+  variant,
+  imgProps,
+  ...props
+}) => {
   return (
-    <Link href={`product/${product.slug}`}>
+    <Link href={`product/${product.slug}`} {...props}>
       <a
         className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}
       >
@@ -25,11 +31,11 @@ const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
                 {product.name}
               </span>
             </div>
-            {product.images?[0] && (
+            {product?.images && (
               <Image
                 quality="85"
                 alt={product.name}
-                src={product.images[0].url}
+                src={product.images[0].url!}
                 height={320}
                 width={320}
                 layout="fixed"
@@ -54,11 +60,11 @@ const ProductCard: FC<Props> = ({ className, product, variant, imgProps }) => {
               <WishlistButton
                 className={s.wishlistButton}
                 productId={product.id}
-                variant={product.variants?[0]}
+                variant={product.variant[0]!}
               />
             </div>
             <div className={s.imageContainer}>
-              {product.images?[0] && (
+              {product?.images && (
                 <Image
                   alt={product.name}
                   className={s.productImage}

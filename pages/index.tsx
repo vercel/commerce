@@ -102,11 +102,11 @@ export default function Home({
           />
         ))}
       </Marquee>
-      <HomeAllProductsGrid
+      {/* <HomeAllProductsGrid
         newestProducts={products}
         categories={categories}
         brands={brands}
-      />
+      /> */}
     </>
   )
 }

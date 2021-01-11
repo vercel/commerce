@@ -9,7 +9,7 @@ interface Props {
   variant?: 'primary' | 'secondary'
 }
 
-const Maquee: FC<Props> = ({
+const Marquee: FC<Props> = ({
   className = '',
   children,
   variant = 'primary',
@@ -32,4 +32,4 @@ const Maquee: FC<Props> = ({
   )
 }
 
-export default Maquee
+export default Marquee

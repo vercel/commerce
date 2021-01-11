@@ -47,7 +47,7 @@ const WishlistButton: FC<Props> = ({
       } else {
         await addItem({
           productId,
-          variantId: variant?.id,
+          variantId: variant?.id!,
         })
       }
 

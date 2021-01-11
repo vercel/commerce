@@ -1,21 +1,23 @@
-import { ProductNode } from '@framework/api/operations/get-all-products'
+import { ProductEdge } from '@framework/schema'
 
-export function normalizeProduct(productNode: ProductNode | any): Product {
+export function normalizeProduct(productNode: ProductEdge): Product {
+  // console.log(productNode)
   const {
-    entityId: id,
-    images,
-    variants,
-    productOptions,
-    prices,
-    path,
-    ...rest
+    node: {
+      entityId: id,
+      images,
+      variants,
+      productOptions,
+      prices,
+      path,
+      ...rest
+    },
   } = productNode
 
   return {
-    id,
     path,
-    slug: path.slice(1, -1),
-    images: images.edges?.map(
+    slug: path?.slice(1, -1),
+    images: images?.edges?.map(
       ({ node: { urlOriginal, altText, ...rest } }: any) => ({
         url: urlOriginal,
         alt: altText,
