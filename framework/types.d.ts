@@ -8,8 +8,8 @@ interface Product extends Entity {
   description: string
   slug: string
   path?: string
-  images: ProductImage[] | any[] | undefined
-  variants: ProductVariant[] | any[] | null | undefined
+  images: ProductImage[]
+  variants: ProductVariant[]
   price: ProductPrice
 }
 interface ProductImage {

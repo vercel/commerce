@@ -25,21 +25,26 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
+  console.log(product)
+
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailValue,
     currencyCode: product.price.currencyCode!,
   })
+
   const { openSidebar } = useUI()
-  const options = getProductOptions(product)
+
+  // const options = getProductOptions(product)
+
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
     color: null,
   })
 
-  const variant = getCurrentVariant(product, choices) || product.variants[0]
+  // const variant = getCurrentVariant(product, choices) || product.variants[0]
 
   const addToCart = async () => {
     setLoading(true)
@@ -106,7 +111,7 @@ const ProductView: FC<Props> = ({ product }) => {
 
         <div className={s.sidebar}>
           <section>
-            {options?.map((opt: any) => (
+            {/* {options?.map((opt: any) => (
               <div className="pb-4" key={opt.displayName}>
                 <h2 className="uppercase font-medium">{opt.displayName}</h2>
                 <div className="flex flex-row py-4">
@@ -133,7 +138,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   })}
                 </div>
               </div>
-            ))}
+            ))} */}
 
             <div className="pb-14 break-words w-full max-w-xl">
               <Text html={product.description} />
@@ -146,7 +151,7 @@ const ProductView: FC<Props> = ({ product }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
-              disabled={!variant}
+              // disabled={!variant}
             >
               Add to Cart
             </Button>

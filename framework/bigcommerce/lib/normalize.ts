@@ -13,16 +13,25 @@ export function normalizeProduct(productNode: BCProduct): Product {
 
   return {
     path,
-    slug: path?.slice(1, -1),
-    images: images?.edges?.map(
-      ({ node: { urlOriginal, altText, ...rest } }: any) => ({
-        url: urlOriginal,
-        alt: altText,
-        ...rest,
-      })
-    ),
-    variants: variants?.edges?.map(({ node }: any) => node),
-    productOptions: productOptions?.edges?.map(({ node }: any) => node),
+    slug: path?.replace(/^\/+|\/+$/g, ''),
+    images: images.edges
+      ? images.edges.map(
+          ({ node: { urlOriginal, altText, ...rest } }: any) => ({
+            url: urlOriginal,
+            alt: altText,
+            ...rest,
+          })
+        )
+      : [],
+    variants: variants.edges
+      ? variants.edges.map(({ node: { entityId, ...rest } }: any) => ({
+          id: entityId,
+          ...rest,
+        }))
+      : [],
+    productOptions: productOptions.edges
+      ? productOptions.edges.map(({ node }: any) => node)
+      : [],
     price: {
       value: prices?.price.value,
       currencyCode: prices?.price.currencyCode,
