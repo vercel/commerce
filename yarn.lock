@@ -5038,7 +5038,7 @@ next-unused@^0.0.3:
     madge "^3.8.0"
     ts-loader "^7.0.0"
 
-next@^10.0.5-canary.11:
+next@^10.0.5:
   version "10.0.5"
   resolved "https://registry.yarnpkg.com/next/-/next-10.0.5.tgz#8071e0aa1883266c91943aa7c6b73deadb064793"
   integrity sha512-yr7ap2TLugf0aMHz+3JoKFP9CCkFE+k6jCfdUymORhptjLYZbD3YGlTcUC1CRl+b5Phlbl7m/WUIPde0VcguiA==

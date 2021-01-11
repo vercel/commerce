@@ -93,7 +93,7 @@ async function getProduct({
   variables: ProductVariables
   config?: BigcommerceConfig
   preview?: boolean
-}): Promise<Product | {}> {
+}): Promise<Product | {} | any> {
   config = getConfig(config)
 
   const locale = vars.locale || config.locale
@@ -111,7 +111,7 @@ async function getProduct({
       setProductLocaleMeta(product)
     }
 
-    return { product: normalizeProduct(product) }
+    return { product }
   }
 
   return {}

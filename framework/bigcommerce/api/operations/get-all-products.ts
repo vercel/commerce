@@ -94,7 +94,7 @@ async function getAllProducts({
   variables?: ProductVariables
   config?: BigcommerceConfig
   preview?: boolean
-} = {}): Promise<{ products: Product[] }> {
+} = {}): Promise<{ products: Product[] | any[] }> {
   config = getConfig(config)
 
   const locale = vars.locale || config.locale
@@ -127,7 +127,7 @@ async function getAllProducts({
     })
   }
 
-  return { products: products.map(normalizeProduct) }
+  return { products }
 }
 
 export default getAllProducts
