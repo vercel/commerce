@@ -42,7 +42,10 @@ interface ProductPrice {
 }
 
 interface Cart extends Entity {
-  id: string
+  id: string | undefined
+  currency: { code: string }
+  taxIncluded?: boolean
+  totalAmmount: number | string
   products: Pick<Product, 'id' | 'name' | 'prices'>[]
 }
 

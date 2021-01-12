@@ -3,11 +3,6 @@ export type SelectedOptions = {
   color: string | null
 }
 
-export type ProductOption = {
-  displayName: string
-  values: any
-}
-
 export function getVariant(product: Product, opts: SelectedOptions) {
   const variant = product.variants.find((variant) => {
     return Object.entries(opts).every(([key, value]) =>

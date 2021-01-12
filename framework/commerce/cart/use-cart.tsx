@@ -9,7 +9,7 @@ export type CartResponse<Result> = responseInterface<Result, Error> & {
 }
 
 export type CartInput = {
-  cartId: string | undefined
+  cartId: Cart['id']
 }
 
 export default function useCart<Result>(

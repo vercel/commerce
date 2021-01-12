@@ -22,23 +22,34 @@ export async function getStaticProps({
 
 export default function Cart() {
   const { data, isEmpty } = useCart()
-  const { price: subTotal } = usePrice(
-    data && {
-      amount: data.base_amount,
-      currencyCode: data.currency.code,
-    }
-  )
-  const { price: total } = usePrice(
-    data && {
-      amount: data.cart_amount,
-      currencyCode: data.currency.code,
-    }
-  )
+  const loading = !data
 
-  const items = data?.line_items.physical_items ?? []
+  if (loading) {
+    // Load skeleton
+    return <div>Loading</div>
+  }
 
-  const error = null
-  const success = null
+  console.log('Cart Data', data)
+
+  // const { price: subTotal } = usePrice(
+  //   data && {
+  //     amount: data.base_amount,
+  //     currencyCode: data.currency.code,
+  //   }
+  // )
+  // const { price: total } = usePrice(
+  //   data && {
+  //     amount: data.cart_amount,
+  //     currencyCode: data.currency.code,
+  //   }
+  // )
+
+  // const items = data?.line_items.physical_items ?? []
+
+  // const error = null
+  // const success = null
+
+  return <div>hola</div>
 
   return (
     <div className="grid lg:grid-cols-12">

@@ -1,6 +1,6 @@
 import { Product as BCProduct } from '@framework/schema'
 
-function productOptionNormalize({
+function normalizeProductOption({
   node: {
     entityId,
     values: { edges },
@@ -9,7 +9,7 @@ function productOptionNormalize({
 }: any) {
   return {
     id: entityId,
-    values: edges.map(({ node }: any) => node),
+    values: edges?.map(({ node }: any) => node),
     ...rest,
   }
 }
@@ -45,16 +45,18 @@ export function normalizeProduct(productNode: BCProduct): Product {
       ? variants.edges.map(
           ({ node: { entityId, productOptions, ...rest } }: any) => ({
             id: entityId,
-            options: productOptions.edges.map(productOptionNormalize),
+            options: productOptions?.edges
+              ? productOptions.edges.map(normalizeProductOption)
+              : [],
             ...rest,
           })
         )
       : [],
     options: productOptions.edges
-      ? productOptions.edges.map(productOptionNormalize)
+      ? productOptions?.edges.map(normalizeProductOption)
       : [],
     brand: {
-      id: brand?.entityId,
+      id: brand?.entityId ? brand?.entityId : null,
       ...brand,
     },
     price: {
@@ -62,5 +64,15 @@ export function normalizeProduct(productNode: BCProduct): Product {
       currencyCode: prices?.price.currencyCode,
     },
     ...rest,
+  }
+}
+
+export function normalizeCart({ data, ...rest }: any) {
+  return {
+    ...rest,
+    data: {
+      products: data?.line_items?.physical_items ?? [],
+      ...data,
+    },
   }
 }

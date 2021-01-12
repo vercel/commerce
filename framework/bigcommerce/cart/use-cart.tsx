@@ -2,6 +2,7 @@ import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
 import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
 import type { Cart } from '../api/cart'
+import { normalizeCart } from '../lib/normalize'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',
@@ -39,7 +40,7 @@ export function extendHook(
       set: (x) => x,
     })
 
-    return response
+    return normalizeCart(response)
   }
 
   useCart.extend = extendHook
