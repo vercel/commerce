@@ -29,20 +29,18 @@ export default function Cart() {
     return <div>Loading</div>
   }
 
-  console.log('Cart Data', data)
-
-  // const { price: subTotal } = usePrice(
-  //   data && {
-  //     amount: data.base_amount,
-  //     currencyCode: data.currency.code,
-  //   }
-  // )
-  // const { price: total } = usePrice(
-  //   data && {
-  //     amount: data.cart_amount,
-  //     currencyCode: data.currency.code,
-  //   }
-  // )
+  const { price: subTotal } = usePrice(
+    data && {
+      amount: data.base_amount,
+      currencyCode: data.currency.code,
+    }
+  )
+  const { price: total } = usePrice(
+    data && {
+      amount: data.cart_amount,
+      currencyCode: data.currency.code,
+    }
+  )
 
   // const items = data?.line_items.physical_items ?? []
 

@@ -4,11 +4,11 @@ import createApiHandler, {
   BigcommerceHandler,
 } from '../utils/create-api-handler'
 import { BigcommerceApiError } from '../utils/errors'
-import type { ProductEdge } from '../operations/get-all-products'
 import getProducts from './handlers/get-products'
+import { Product } from 'framework/types'
 
 export type SearchProductsData = {
-  products: ProductEdge[]
+  products: Product[]
   found: boolean
 }
 

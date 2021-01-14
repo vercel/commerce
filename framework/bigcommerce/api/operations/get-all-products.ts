@@ -127,7 +127,7 @@ async function getAllProducts({
     })
   }
 
-  return { products: products.map(({ node }) => normalizeProduct(node)) }
+  return { products: products.map(({ node }) => normalizeProduct(node as any)) }
 }
 
 export default getAllProducts

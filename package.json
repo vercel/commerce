@@ -60,6 +60,7 @@
     "next": "^10.0.5",
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
+    "normalizr": "^3.6.1",
     "postcss-nesting": "^7.0.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",

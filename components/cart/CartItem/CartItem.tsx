@@ -12,7 +12,7 @@ const CartItem = ({
   item,
   currencyCode,
 }: {
-  item: any
+  item: CartItem
   currencyCode: string
 }) => {
   const { price } = usePrice({
@@ -55,7 +55,7 @@ const CartItem = ({
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ id: item.id })
+      await removeItem({ id: String(item.id) })
     } catch (error) {
       setRemoving(false)
     }
@@ -77,16 +77,14 @@ const CartItem = ({
       <div className="w-16 h-16 bg-violet relative overflow-hidden">
         <Image
           className={s.productImage}
-          src={item.image_url}
           width={150}
           height={150}
-          alt="Product Image"
-          // The cart item image is already optimized and very small in size
+          src={item.images[0].url}
+          alt={item.images[0].alt}
           unoptimized
         />
       </div>
       <div className="flex-1 flex flex-col text-base">
-        {/** TODO: Replace this. No `path` found at Cart */}
         <Link href={`/product/${item.url.split('/')[3]}`}>
           <span className="font-bold mb-5 text-lg cursor-pointer">
             {item.name}
@@ -115,7 +113,10 @@ const CartItem = ({
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
         <span>{price}</span>
-        <button className="flex justify-end" onClick={handleRemove}>
+        <button
+          className="flex justify-end outline-none"
+          onClick={handleRemove}
+        >
           <Trash />
         </button>
       </div>

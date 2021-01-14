@@ -146,7 +146,7 @@ const ProductView: FC<Props> = ({ product }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
-              disabled={!variant}
+              disabled={!variant && product.options.length > 0}
             >
               Add to Cart
             </Button>

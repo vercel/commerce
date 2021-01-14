@@ -111,7 +111,7 @@ async function getProduct({
       setProductLocaleMeta(product)
     }
 
-    return { product: normalizeProduct(product) }
+    return { product: normalizeProduct(product as any) }
   }
 
   return {}

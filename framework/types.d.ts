@@ -1,3 +1,5 @@
+import { CartItem } from '@components/cart'
+
 interface Entity {
   id: string | number
   [prop: string]: any
@@ -12,6 +14,7 @@ interface Product extends Entity {
   variants: ProductVariant[]
   price: ProductPrice
   options: ProductOption[]
+  sku?: string
 }
 
 interface ProductOption extends Entity {
@@ -37,8 +40,11 @@ interface ProductVariant {
 interface ProductPrice {
   value: number
   currencyCode: 'USD' | 'ARS' | string | undefined
-  retailValue?: number
-  saleValue?: number
+  retailPrice?: number
+  salePrice?: number
+  listPrice?: number
+  extendedSalePrice?: number
+  extendedListPrice?: number
 }
 
 interface Cart extends Entity {
@@ -46,7 +52,14 @@ interface Cart extends Entity {
   currency: { code: string }
   taxIncluded?: boolean
   totalAmmount: number | string
-  products: Pick<Product, 'id' | 'name' | 'prices'>[]
+  products: Pick<Product, 'id' | 'name' | 'prices'> & CartItem[]
+}
+
+interface CartItem extends Entity {
+  quantity: number
+  productId: Product['id']
+  variantId: ProductVariant['id']
+  images: ProductImage[]
 }
 
 interface Wishlist extends Entity {
