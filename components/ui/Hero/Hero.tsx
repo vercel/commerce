@@ -6,10 +6,13 @@ import Link from 'next/link'
 interface Props {
   className?: string
   headline: string
-  description: string
+  description: string,
+  linkText?: string,
+  linkUrl?: string
 }
 
-const Hero: FC<Props> = ({ headline, description }) => {
+const Hero: FC<Props> = ({ headline, description, linkText, linkUrl }) => {
+
   return (
     <div className="bg-black">
       <Container>
@@ -21,12 +24,14 @@ const Hero: FC<Props> = ({ headline, description }) => {
             <p className="mt-5 text-xl leading-7 text-accent-2 text-white">
               {description}
             </p>
-            <Link href="/blog">
+			{ linkText && linkUrl &&
+            <Link href={linkUrl}>
               <a className="text-white pt-3 font-bold hover:underline flex flex-row cursor-pointer w-max-content">
-                Read it here
+                {linkText}
                 <RightArrow width="20" heigh="20" className="ml-1" />
               </a>
             </Link>
+			}
           </div>
         </div>
       </Container>

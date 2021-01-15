@@ -35,9 +35,11 @@ async function getAllPages({
   >('/v3/content/pages')
   const pages = (data as RecursiveRequired<typeof data>) ?? []
 
-  return {
+  const retPages =  {
     pages: preview ? pages : pages.filter((p) => p.is_visible),
   }
+
+  return retPages
 }
 
 export default getAllPages

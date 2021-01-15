@@ -8,7 +8,9 @@
     "analyze": "BUNDLE_ANALYZE=both yarn build",
     "find:unused": "next-unused",
     "generate": "graphql-codegen",
-    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
+    "cms-pull": "NODE_ENV=development && node framework/agility/agility.sync.js sync",
+    "cms-clear": "node framework/agility/agility.sync.js clear"
   },
   "prettier": {
     "semi": false,
@@ -44,6 +46,7 @@
     ]
   },
   "dependencies": {
+    "@agility/content-sync": "^0.1.23",
     "@reach/portal": "^0.11.2",
     "@tailwindcss/ui": "^0.6.2",
     "@vercel/fetch": "^6.1.0",

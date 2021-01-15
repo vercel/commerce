@@ -3,8 +3,9 @@ const bundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = bundleAnalyzer({
+
   images: {
-    domains: ['cdn11.bigcommerce.com'],
+    domains: ['cdn11.bigcommerce.com', 'cdn.aglty.io'],
   },
   i18n: {
     locales: ['en-US', 'es'],

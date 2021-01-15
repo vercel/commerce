@@ -23,9 +23,12 @@
       "@commerce/*": ["framework/commerce/*"],
       "@commerce": ["framework/commerce"],
       "@framework/*": ["framework/bigcommerce/*"],
-      "@framework": ["framework/bigcommerce"]
+	  "@framework": ["framework/bigcommerce"],
+	  "@agility/*": ["framework/agility/*"],
+	  "@agility": ["framework/agility"]
+
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "pages/XXXpages.tsx.bak"],
   "exclude": ["node_modules"]
 }
