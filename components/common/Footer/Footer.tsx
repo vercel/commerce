@@ -45,9 +45,9 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 </Link>
               </li>
               <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/">
+                <Link href="/about">
                   <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                    Careers
+                    About
                   </a>
                 </Link>
               </li>

@@ -1,16 +1,17 @@
-import {FC} from "react"
-import * as AgilityTypes from "@agility/types"
-
 import BestsellingProductsData from "./BestsellingProductsData"
 import FeaturedProductsData from "./FeaturedProductsData"
+import HomeAllProductsGridData from "./HomeAllProductsGridData"
+import ProductSearchData from "./ProductSearchData"
 
 const allModules:any =[
 	{ name: "BestsellingProducts", init: BestsellingProductsData },
-	{ name: "FeaturedProducts", init: FeaturedProductsData}
+	{ name: "FeaturedProducts", init: FeaturedProductsData},
+	{ name: "HomeAllProductsGrid", init: HomeAllProductsGridData},
+	{ name: "ProductSearch", init: ProductSearchData}
 ]
 
 /**
- * Find the data method for a module.
+ * Find the data method for a module by module reference name.
  * @param moduleName
  */
 const getInitMethod =  (moduleName:string):any => {
