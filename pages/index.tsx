@@ -5,9 +5,9 @@ import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@framework/api'
-import getAllProducts from '@framework/api/operations/get-all-products'
-import getSiteInfo from '@framework/api/operations/get-site-info'
-import getAllPages from '@framework/api/operations/get-all-pages'
+import getAllProducts from '@framework/product/get-all-products'
+import getSiteInfo from '@framework/common/get-site-info'
+import getAllPages from '@framework/common/get-all-pages'
 
 export async function getStaticProps({
   preview,

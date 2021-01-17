@@ -1,6 +1,6 @@
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
-import { BigcommerceConfig, getConfig } from '..'
-import { definitions } from '../definitions/store-content'
+import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
+import { BigcommerceConfig, getConfig } from '../api'
+import { definitions } from '../api/definitions/store-content'
 
 export type Page = definitions['page_Full']
 

@@ -1,6 +1,6 @@
 import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@framework/api'
-import getAllPages from '@framework/api/operations/get-all-pages'
+import getAllPages from '@framework/common/get-all-pages'
 import useWishlist from '@framework/wishlist/use-wishlist'
 import { Layout } from '@components/common'
 import { Heart } from '@components/icons'

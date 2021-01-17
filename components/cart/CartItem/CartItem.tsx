@@ -2,13 +2,14 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
+import s from './CartItem.module.css'
 import { Trash, Plus, Minus } from '@components/icons'
 import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
-import s from './CartItem.module.css'
+import { CartItem } from 'framework/types'
 
-const CartItem = ({
+const Item = ({
   item,
   currencyCode,
 }: {
@@ -31,7 +32,7 @@ const CartItem = ({
     const val = Number(e.target.value)
 
     if (Number.isInteger(val) && val >= 0) {
-      setQuantity(e.target.value)
+      setQuantity(Number(e.target.value))
     }
   }
   const handleBlur = () => {
@@ -124,4 +125,4 @@ const CartItem = ({
   )
 }
 
-export default CartItem
+export default Item

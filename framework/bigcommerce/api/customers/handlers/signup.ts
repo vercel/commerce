@@ -1,5 +1,5 @@
 import { BigcommerceApiError } from '../../utils/errors'
-import login from '../../operations/login'
+import login from '../../../auth/login'
 import { SignupHandlers } from '../signup'
 
 const signup: SignupHandlers['signup'] = async ({

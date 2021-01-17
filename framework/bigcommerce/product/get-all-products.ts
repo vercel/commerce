@@ -1,13 +1,13 @@
 import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
-} from '../../schema'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
-import filterEdges from '../utils/filter-edges'
-import setProductLocaleMeta from '../utils/set-product-locale-meta'
-import { productConnectionFragment } from '../fragments/product'
-import { BigcommerceConfig, getConfig } from '..'
-import { normalizeProduct } from '../../lib/normalize'
+} from '../schema'
+import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
+import filterEdges from '../api/utils/filter-edges'
+import setProductLocaleMeta from '../api/utils/set-product-locale-meta'
+import { productConnectionFragment } from '../api/fragments/product'
+import { BigcommerceConfig, getConfig } from '../api'
+import { normalizeProduct } from '../lib/normalize'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(

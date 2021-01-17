@@ -1,10 +1,10 @@
 import type {
   GetAllProductPathsQuery,
   GetAllProductPathsQueryVariables,
-} from '../../schema'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
-import filterEdges from '../utils/filter-edges'
-import { BigcommerceConfig, getConfig } from '..'
+} from '../schema'
+import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
+import filterEdges from '../api/utils/filter-edges'
+import { BigcommerceConfig, getConfig } from '../api'
 
 export const getAllProductPathsQuery = /* GraphQL */ `
   query getAllProductPaths($first: Int = 100) {

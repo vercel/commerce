@@ -1,8 +1,8 @@
-import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../../schema'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
-import filterEdges from '../utils/filter-edges'
-import { BigcommerceConfig, getConfig } from '..'
-import { categoryTreeItemFragment } from '../fragments/category-tree'
+import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../schema'
+import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
+import filterEdges from '../api/utils/filter-edges'
+import { BigcommerceConfig, getConfig } from '../api'
+import { categoryTreeItemFragment } from '../api/fragments/category-tree'
 
 // Get 3 levels of categories
 export const getSiteInfoQuery = /* GraphQL */ `

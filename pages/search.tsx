@@ -9,9 +9,9 @@ import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
 
 import { getConfig } from '@framework/api'
-import getAllPages from '@framework/api/operations/get-all-pages'
-import getSiteInfo from '@framework/api/operations/get-site-info'
 import useSearch from '@framework/product/use-search'
+import getAllPages from '@framework/common/get-all-pages'
+import getSiteInfo from '@framework/common/get-site-info'
 
 import rangeMap from '@lib/range-map'
 

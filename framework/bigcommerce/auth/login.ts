@@ -1,8 +1,8 @@
 import type { ServerResponse } from 'http'
-import type { LoginMutation, LoginMutationVariables } from '../../schema'
-import type { RecursivePartial } from '../utils/types'
-import concatHeader from '../utils/concat-cookie'
-import { BigcommerceConfig, getConfig } from '..'
+import type { LoginMutation, LoginMutationVariables } from '../schema'
+import type { RecursivePartial } from '../api/utils/types'
+import concatHeader from '../api/utils/concat-cookie'
+import { BigcommerceConfig, getConfig } from '../api'
 
 export const loginMutation = /* GraphQL */ `
   mutation login($email: String!, $password: String!) {

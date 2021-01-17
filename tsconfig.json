@@ -27,8 +27,8 @@
     }
   },
   "include": [
+    "/framework/types.d.ts",
     "next-env.d.ts",
-    "framework/types.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.js"

@@ -1,5 +1,5 @@
 import { Product } from 'framework/types'
-import getAllProducts, { ProductEdge } from '../../operations/get-all-products'
+import getAllProducts, { ProductEdge } from '../../../product/get-all-products'
 import type { ProductsHandlers } from '../products'
 
 const SORT: { [key: string]: string | undefined } = {

@@ -11,7 +11,7 @@ import CartSidebarView from '@components/cart/CartSidebarView'
 
 import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@framework'
-import type { Page } from '@framework/api/operations/get-all-pages'
+import type { Page } from '@framework/common/get-all-pages'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">

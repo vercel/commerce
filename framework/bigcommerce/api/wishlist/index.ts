@@ -7,7 +7,7 @@ import { BigcommerceApiError } from '../utils/errors'
 import type {
   Wishlist,
   WishlistItem,
-} from '../operations/get-customer-wishlist'
+} from '../../customer/get-customer-wishlist'
 import getWishlist from './handlers/get-wishlist'
 import addItem from './handlers/add-item'
 import removeItem from './handlers/remove-item'
