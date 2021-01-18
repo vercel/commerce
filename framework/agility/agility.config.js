@@ -11,14 +11,17 @@ const agilityConfig = {
 };
 
 const getSyncClient = ({ isPreview, isDevelopmentMode }) => {
-  let cachePath = `node_modules/@agility/content-sync/cache/${
+
+	const rootPath = process.cwd()
+
+  let cachePath = `${rootPath}/.next/cache/agility/${
     isPreview ? "preview" : "live"
   }`;
 
-  if (!isDevelopmentMode) {
-    //we are in prod and need to use a different directory that Vercel understands
-    cachePath = `/tmp/agilitycache/${isPreview ? "preview" : "live"}`;
-  }
+//   if (!isDevelopmentMode) {
+//     //we are in prod and need to use a different directory that Vercel understands
+//     cachePath = `/tmp/agilitycache/${isPreview ? "preview" : "live"}`;
+//   }
 
   console.log(`Agility CMS => Content cache path is ${cachePath}`);
   const apiKey = isPreview

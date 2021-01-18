@@ -2,7 +2,8 @@
   "name": "nextjs-commerce",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next dev",
+	"dev": "next dev",
+	"prebuild": "node framework/agility/agility.sync.js sync-all",
     "build": "next build",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
