@@ -1,6 +1,12 @@
 import { Cart, CartItem, Product } from '../../types'
-import { Product as BigCommerceProduct } from '@framework/schema'
-import update from "immutability-helper"
+import update, { extend } from "immutability-helper"
+
+// Allows auto creation when needed
+extend('$auto', function(value, object) {
+  return object ?
+    update(object, value):
+    update({}, value);
+});
 
 function normalizeProductOption(productOption:any) {
   const {
@@ -69,47 +75,46 @@ export function normalizeProduct(productNode: any): Product {
   })
 }
 
-export function normalizeCart({ data, ...rest }: any): Cart {
-  return {
-    ...rest,
-    data: {
-      products: data?.line_items?.physical_items.map(itemsToProducts) ?? [],
-      ...data,
+export function normalizeCart(cart: any): Cart {
+  return update(cart, {
+    $auto: {
+      products: { $set: cart?.line_items?.physical_items?.map(itemsToProducts)}
     },
-  }
+    $unset: ['created_time', 'coupons', 'line_items']
+  })
 }
 
-function itemsToProducts({
-  id,
-  name,
-  quantity,
-  product_id,
-  variant_id,
-  image_url,
-  list_price,
-  sale_price,
-  extended_list_price,
-  extended_sale_price,
-  ...rest
-}: any): CartItem {
-  return {
+function itemsToProducts(item: any): CartItem {
+  const {
     id,
     name,
-    prices: {
-      listPrice: list_price,
-      salePrice: sale_price,
-      extendedListPrice: extended_list_price,
-      extendedSalePrice: extended_sale_price,
-    },
-    images: [
-      {
-        alt: name,
-        url: image_url,
-      },
-    ],
-    productId: product_id,
-    variantId: variant_id,
     quantity,
-    ...rest,
-  }
+    product_id,
+    variant_id,
+    image_url,
+    list_price,
+    sale_price,
+    extended_list_price,
+    extended_sale_price,
+    ...rest
+  } = item;
+
+  return update(item, {
+    $auto: {
+      prices: {
+        $auto: {
+          listPrice: { $set: list_price },
+          salePrice: { $set: sale_price } ,
+          extendedListPrice: { $set: extended_list_price },
+          extendedSalePrice: { $set: extended_sale_price },
+        }
+      },
+      images: { $set: [{
+          alt: name,
+          url: image_url
+        }]},
+      productId: { $set: product_id },
+      variantId: { $set: variant_id }
+    }
+  })
 }

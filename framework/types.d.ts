@@ -1,5 +1,3 @@
-import { CartItem } from '@components/cart'
-
 interface Entity {
   id: string | number
   [prop: string]: any

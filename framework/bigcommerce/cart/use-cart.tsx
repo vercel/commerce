@@ -3,6 +3,7 @@ import type { SwrOptions } from '@commerce/utils/use-data'
 import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
 import type { Cart } from '../api/cart'
 import { normalizeCart } from '../lib/normalize'
+import update from 'immutability-helper'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',
@@ -40,7 +41,9 @@ export function extendHook(
       set: (x) => x,
     })
 
-    return normalizeCart(response)
+    return update(response, { 
+      data: { $set: normalizeCart(response.data) }
+    })
   }
 
   useCart.extend = extendHook

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import s from './CartItem.module.css'
 import { Trash, Plus, Minus } from '@components/icons'
+import {useUI} from '@components/ui/context'
 import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
@@ -16,18 +17,23 @@ const Item = ({
   item: CartItem
   currencyCode: string
 }) => {
+  const { closeSidebarIfPresent } = useUI()
+
   const { price } = usePrice({
     amount: item.extended_sale_price,
     baseAmount: item.extended_list_price,
     currencyCode,
   })
+
   const updateItem = useUpdateItem(item)
   const removeItem = useRemoveItem()
   const [quantity, setQuantity] = useState(item.quantity)
   const [removing, setRemoving] = useState(false)
+
   const updateQuantity = async (val: number) => {
     await updateItem({ quantity: val })
   }
+
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
 
@@ -87,7 +93,7 @@ const Item = ({
       </div>
       <div className="flex-1 flex flex-col text-base">
         <Link href={`/product/${item.url.split('/')[3]}`}>
-          <span className="font-bold mb-5 text-lg cursor-pointer">
+          <span className="font-bold mb-5 text-lg cursor-pointer" onClick={() => closeSidebarIfPresent()}>
             {item.name}
           </span>
         </Link>
