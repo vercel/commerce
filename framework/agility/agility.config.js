@@ -52,6 +52,7 @@ const getSyncClient = ({ isPreview, isDevelopmentMode, isIncremental }) => {
 
 const prepIncrementalMode = async () => {
 
+	const rootPath = process.cwd()
 	let cachePath = `${rootPath}/.next/cache/agility/`;
 	const tempPath = `/tmp/agilitycache/`;
 
