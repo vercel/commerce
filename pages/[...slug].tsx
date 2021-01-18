@@ -34,6 +34,8 @@ export async function getStaticProps({ preview, params, locale }: GetStaticProps
 
 	const page = await getAgilityPageProps({ preview, params, locale });
 
+	let rebuildFrequency = 10
+
 	if (productCode) {
 		const config = getConfig({ locale })
 		const { product } = await getProduct({
@@ -44,6 +46,7 @@ export async function getStaticProps({ preview, params, locale }: GetStaticProps
 
 		if (product !== null) {
 			page.dynamicPageItem = product
+			rebuildFrequency = 60 * 60 //once per hour for products
 		} else {
 			throw new Error(`Product not found`)
 		}
@@ -58,7 +61,7 @@ export async function getStaticProps({ preview, params, locale }: GetStaticProps
 
 	return {
 		props: { ...defaultPageProps, pages, page },
-		revalidate: 60 * 60, // Every hour
+		revalidate: rebuildFrequency
 	}
 }
 
