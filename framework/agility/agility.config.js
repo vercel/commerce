@@ -63,6 +63,8 @@ const prepIncrementalMode = async () => {
 		console.log(`Copying Agility Content files to temp folder: ${tempPath}`)
 		//copy everything across from cachePath
 		await fs.copy(cachePath, tempPath)
+	} else {
+		console.log(`Agility tmp folder up to date: ${tempPath}`)
 	}
 }
 
