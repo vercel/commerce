@@ -1,8 +1,5 @@
-/*
-THIS FILE IS ONLY EXECUTED LOCALLY
-WHEN DOING A LOCAL SYNC ON DEMAND
-IN DEVELOPMENT MODE
-*/
+
+const fs = require('fs')
 
 require("dotenv").config({
 	path: `.env.local`,
@@ -12,22 +9,44 @@ const { getSyncClient } = require('./agility.config')
 
 
 const runSync = async () => {
+	setBuildLog(false)
 
 	const agilitySyncClient = getSyncClient({ isPreview: true, isDevelopmentMode: true })
 	if (! agilitySyncClient) {
-		console.log("Agility CMS => Sync client could not be accessed.")
+		console.log("AgilityCMS => Sync client could not be accessed.")
 		return;
 	}
 
 	await agilitySyncClient.runSync();
 }
 
-const syncAll = async () => {
+const setBuildLog = (builtYN) => {
+	//clear out a file saying WE HAVE SYNC'D
+	const rootPath = process.cwd()
+	const filePath = `${rootPath}/.next/cache/agility/build.log`
+	if (fs.existsSync(filePath)) {
+		fs.unlinkSync(filePath);
+	}
+
+	if (builtYN) {
+		//write out the build log so we know that we are up to date
+		fs.writeFileSync(filePath, "BUILT");
+	} else {
+		if (fs.existsSync(filePath)) {
+			fs.unlinkSync(filePath);
+		}
+	}
+}
+
+const preBuild = async () => {
+
+	//clear the build log
+	setBuildLog(false)
 
 	//sync preview mode
 	let agilitySyncClient = getSyncClient({ isPreview: true, isDevelopmentMode: false })
 	if (! agilitySyncClient) {
-		console.log("Agility CMS => Sync client could not be accessed.")
+		console.log("AgilityCMS => Sync client could not be accessed.")
 		return;
 	}
 
@@ -36,18 +55,27 @@ const syncAll = async () => {
 	//sync production mode
 	agilitySyncClient = getSyncClient({ isPreview: false, isDevelopmentMode: false })
 	if (! agilitySyncClient) {
-		console.log("Agility CMS => Sync client could not be accessed.")
+		console.log("AgilityCMS => Sync client could not be accessed.")
 		return;
 	}
 
 	await agilitySyncClient.runSync();
+
+
+}
+
+const postBuild = async() => {
+	//mark the build log as BUILT
+	setBuildLog(true)
 }
 
 const clearSync = async () => {
 
+	setBuildLog(false)
+
 	const agilitySyncClient = getSyncClient({ isPreview: true, isDevelopmentMode: true })
 	if (! agilitySyncClient) {
-		console.log("Agility CMS => Sync client could not be accessed.")
+		console.log("AgilityCMS => Sync client could not be accessed.")
 		return;
 	}
 	await agilitySyncClient.clearSync();
@@ -63,10 +91,13 @@ if (process.argv[2]) {
 		//run the sync
 		return runSync()
 
-	} else if (process.argv[2] === "sync-all") {
-		//sync both staging and live content
-		return syncAll()
+	} else if (process.argv[2] === "prebuild") {
+		//pre build actions
+		return preBuild()
 
+	} else if (process.argv[2] === "postbuild") {
+		//post build actions
+		return postBuild()
 	}
 }
 

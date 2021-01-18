@@ -52,7 +52,7 @@ export async function getStaticProps({ preview, params, locale }: GetStaticProps
 		}
 	}
 
-	const pages = await getAgilityPaths()
+	const pages = await getAgilityPaths(preview)
 
 	if (!page) {
 		// We throw to make sure this fails at build time as this is never expected to happen
@@ -68,7 +68,7 @@ export async function getStaticProps({ preview, params, locale }: GetStaticProps
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 
 	//get the paths configured in agility
-	let agilityPaths = await getAgilityPaths()
+	let agilityPaths = await getAgilityPaths(false)
 
 	//remove product/product-details from the agility paths (special details page...)
 	agilityPaths = agilityPaths.filter(p => p !== "/product/product-details")
