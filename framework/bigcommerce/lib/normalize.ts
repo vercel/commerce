@@ -1,13 +1,16 @@
 import { Cart, CartItem, Product } from '../../types'
 import { Product as BigCommerceProduct } from '@framework/schema'
+import update from "immutability-helper"
 
-function normalizeProductOption({
-  node: {
-    entityId,
-    values: { edges },
-    ...rest
-  },
-}: any) {
+function normalizeProductOption(productOption:any) {
+  const {
+    node: {
+      entityId,
+      values: { edges },
+      ...rest
+    },
+  } = productOption;
+
   return {
     id: entityId,
     values: edges?.map(({ node }: any) => node),
@@ -15,57 +18,55 @@ function normalizeProductOption({
   }
 }
 
-export function normalizeProduct(productNode: BigCommerceProduct): Product {
+export function normalizeProduct(productNode: any): Product {
   const {
     entityId: id,
-    images,
-    variants,
     productOptions,
     prices,
     path,
     id: _,
     options: _0,
-    brand,
-    ...rest
   } = productNode
 
-  return {
-    id,
-    path,
-    slug: path?.replace(/^\/+|\/+$/g, ''),
-    images: images.edges
-      ? images.edges.map(
-          ({ node: { urlOriginal, altText, ...rest } }: any) => ({
-            url: urlOriginal,
-            alt: altText,
-            ...rest,
-          })
-        )
-      : [],
-    variants: variants.edges
-      ? variants.edges.map(
-          ({ node: { entityId, productOptions, ...rest } }: any) => ({
-            id: entityId,
-            options: productOptions?.edges
-              ? productOptions.edges.map(normalizeProductOption)
-              : [],
-            ...rest,
-          })
-        )
-      : [],
-    options: productOptions.edges
-      ? productOptions?.edges.map(normalizeProductOption)
-      : [],
+  return update(productNode, {
+    id: { $set: String(id) },
+    images: {
+      $apply: ({edges} : any) => edges?.map(
+        ({ node: { urlOriginal, altText, ...rest } }: any) => ({
+          url: urlOriginal,
+          alt: altText,
+          ...rest,
+        })
+      )
+    }, 
+    variants: {
+      $apply: ({edges} : any) => edges?.map(
+        ({ node: { entityId, productOptions, ...rest } }: any) => ({
+          id: entityId,
+          options: productOptions?.edges
+            ? productOptions.edges.map(normalizeProductOption)
+            : [],
+          ...rest,
+        })
+      )
+    },
+    options: {
+      $set: productOptions.edges ? productOptions?.edges.map(normalizeProductOption) : []
+    },
     brand: {
-      id: brand?.entityId ? brand?.entityId : null,
-      ...brand,
+      $apply:(brand : any) => brand?.entityId ? brand?.entityId : null,
+    }, 
+    slug: { 
+      $set: path?.replace(/^\/+|\/+$/g, '')
     },
     price: {
-      value: prices?.price.value,
-      currencyCode: prices?.price.currencyCode,
-    },
-    ...rest,
-  }
+      $set: {
+        value: prices?.price.value,
+        currencyCode: prices?.price.currencyCode,
+      }
+    }, 
+    $unset: ['entityId']
+  })
 }
 
 export function normalizeCart({ data, ...rest }: any): Cart {

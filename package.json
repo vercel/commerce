@@ -53,6 +53,7 @@
     "cookie": "^0.4.1",
     "dot-object": "^2.1.4",
     "email-validator": "^2.0.4",
+    "immutability-helper": "^3.1.1",
     "js-cookie": "^2.2.1",
     "keen-slider": "^5.2.4",
     "lodash.debounce": "^4.0.8",
