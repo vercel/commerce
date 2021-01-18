@@ -12,7 +12,7 @@ import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 
 import { getVariant, SelectedOptions } from '../helpers'
-import WishlistButton from '@components/wishlist/WishlistButton'
+// import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   className?: string
@@ -24,7 +24,7 @@ const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
-    baseAmount: product.price.retailValue,
+    baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   })
   const { openSidebar } = useUI()
@@ -152,11 +152,11 @@ const ProductView: FC<Props> = ({ product }) => {
             </Button>
           </div>
         </div>
-        <WishlistButton
+        {/* <WishlistButton
           className={s.wishlistButton}
           productId={product.id}
           variant={product.variants[0]!}
-        />
+        /> */}
       </div>
     </Container>
   )

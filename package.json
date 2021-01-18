@@ -103,7 +103,7 @@
     "webpack": "5.11.1"
   },
   "engines": {
-    "node": ">=14"
+    "node": "12.x"
   },
   "license": "MIT"
 }

@@ -3,7 +3,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
-import WishlistButton from '@components/wishlist/WishlistButton'
+// import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   className?: string
@@ -57,11 +57,11 @@ const ProductCard: FC<Props> = ({
                   {product.price.currencyCode}
                 </span>
               </div>
-              <WishlistButton
+              {/* <WishlistButton
                 className={s.wishlistButton}
                 productId={product.id}
                 variant={product.variants[0]}
-              />
+              /> */}
             </div>
             <div className={s.imageContainer}>
               {product?.images && (
