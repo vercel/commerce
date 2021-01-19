@@ -59,12 +59,14 @@ const useData: UseData = (options, input, fetcherFn, swrOptions) => {
     swrOptions
   )
 
-  defineProperty(response, 'isLoading', {
-    get() {
-      return response.data === undefined
-    },
-    set: (x) => x,
-  })
+  if (!('isLoading' in response)) {
+    defineProperty(response, 'isLoading', {
+      get() {
+        return response.data === undefined
+      },
+      set: (x) => x,
+    })
+  }
 
   return response
 }
