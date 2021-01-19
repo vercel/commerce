@@ -2,7 +2,6 @@ import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartHandlers } from '..'
 
-// Return current cart info
 const addItem: CartHandlers['addItem'] = async ({
   res,
   body: { cartId, item },
