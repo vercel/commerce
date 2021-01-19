@@ -75,10 +75,12 @@ export function normalizeProduct(productNode: any): Product {
   })
 }
 
-export function normalizeCart(cart: any): Cart {
-  return update(cart, {
+export function normalizeCart(data: any): Cart {
+  return update(data, {
     $auto: {
-      products: { $set: cart?.line_items?.physical_items?.map(itemsToProducts)}
+      products: { $set: data?.line_items?.physical_items?.map(itemsToProducts)},
+      subTotal: { $set: data.base_amount },
+      total: { $set: data.cart_amount }
     },
     $unset: ['created_time', 'coupons', 'line_items']
   })

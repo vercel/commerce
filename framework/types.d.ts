@@ -49,8 +49,9 @@ interface Cart extends Entity {
   id: string | undefined
   currency: { code: string }
   taxIncluded?: boolean
-  totalAmmount: number | string
   products: Pick<Product, 'id' | 'name' | 'prices'> & CartItem[]
+  subTotal: number | string
+  total: number | string
 }
 
 interface CartItem extends Entity {

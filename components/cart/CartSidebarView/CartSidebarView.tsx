@@ -15,13 +15,14 @@ const CartSidebarView: FC = () => {
 
   const { price: subTotal } = usePrice(
     data && {
-      amount: data.base_amount,
+      amount: data.subTotal,
       currencyCode: data.currency?.code || 'USD',
     }
   )
+  
   const { price: total } = usePrice(
     data && {
-      amount: data.cart_amount,
+      amount: data.total,
       currencyCode: data.currency?.code || 'USD',
     }
   )
