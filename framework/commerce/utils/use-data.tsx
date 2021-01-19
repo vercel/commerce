@@ -1,5 +1,6 @@
 import useSWR, { ConfigInterface, responseInterface } from 'swr'
 import type { HookInput, HookFetcher, HookFetcherOptions } from './types'
+import defineProperty from './define-property'
 import { CommerceError } from './errors'
 import { useCommerce } from '..'
 
@@ -9,12 +10,16 @@ export type SwrOptions<Result, Input = null> = ConfigInterface<
   HookFetcher<Result, Input>
 >
 
+export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
+  isLoading: boolean
+}
+
 export type UseData = <Result = any, Input = null>(
   options: HookFetcherOptions | (() => HookFetcherOptions | null),
   input: HookInput,
   fetcherFn: HookFetcher<Result, Input>,
   swrOptions?: SwrOptions<Result, Input>
-) => responseInterface<Result, CommerceError>
+) => ResponseState<Result>
 
 const useData: UseData = (options, input, fetcherFn, swrOptions) => {
   const { fetcherRef } = useCommerce()
@@ -53,6 +58,13 @@ const useData: UseData = (options, input, fetcherFn, swrOptions) => {
     fetcher,
     swrOptions
   )
+
+  defineProperty(response, 'isLoading', {
+    get() {
+      return response.data === undefined
+    },
+    set: (x) => x,
+  })
 
   return response
 }

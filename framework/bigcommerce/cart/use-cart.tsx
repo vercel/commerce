@@ -1,10 +1,9 @@
-
 import { normalizeCart } from '../lib/normalize'
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
 import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
 import type { Cart as BigCommerceCart } from '../api/cart'
-import update from "@framework/lib/immutability"
+import update from '@framework/lib/immutability'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',
@@ -13,7 +12,7 @@ const defaultOpts = {
 
 type UseCartResponse = BigCommerceCart & Cart
 
-export const fetcher: HookFetcher<UseCartResponse | null , CartInput> = (
+export const fetcher: HookFetcher<UseCartResponse | null, CartInput> = (
   options,
   { cartId },
   fetch
@@ -42,11 +41,11 @@ export function extendHook(
       set: (x) => x,
     })
 
-
-
-    return response.data ? update(response, {
-      data: { $set: normalizeCart(response.data ) }
-    }) : response
+    return response.data
+      ? update(response, {
+          data: { $set: normalizeCart(response.data) },
+        })
+      : response
   }
 
   useCart.extend = extendHook
