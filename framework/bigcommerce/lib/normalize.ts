@@ -1,12 +1,5 @@
+import update from "@framework/lib/immutability"
 import { Cart, CartItem, Product } from '../../types'
-import update, { extend } from "immutability-helper"
-
-// Allows auto creation when needed
-extend('$auto', function(value, object) {
-  return object ?
-    update(object, value):
-    update({}, value);
-});
 
 function normalizeProductOption(productOption:any) {
   const {
@@ -78,11 +71,11 @@ export function normalizeProduct(productNode: any): Product {
 export function normalizeCart(data: any): Cart {
   return update(data, {
     $auto: {
-      products: { $set: data?.line_items?.physical_items?.map(itemsToProducts)},
-      subTotal: { $set: data.base_amount },
-      total: { $set: data.cart_amount }
+      items: { $set: data?.line_items?.physical_items?.map(itemsToProducts)},
+      subTotal: { $set: data?.base_amount },
+      total: { $set: data?.cart_amount }
     },
-    $unset: ['created_time', 'coupons', 'line_items']
+    $unset: ['created_time', 'coupons', 'line_items', 'email']
   })
 }
 

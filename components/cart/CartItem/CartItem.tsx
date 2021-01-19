@@ -12,6 +12,7 @@ import useRemoveItem from '@framework/cart/use-remove-item'
 const Item = ({
   item,
   currencyCode,
+  ...rest
 }: {
   item: CartItem
   currencyCode: string
@@ -79,6 +80,7 @@ const Item = ({
       className={cn('flex flex-row space-x-8 py-8', {
         'opacity-75 pointer-events-none': removing,
       })}
+      {...rest}
     >
       <div className="w-16 h-16 bg-violet relative overflow-hidden">
         <Image

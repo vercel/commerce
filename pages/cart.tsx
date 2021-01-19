@@ -8,6 +8,7 @@ import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
 import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
+import products from '@framework/api/catalog/products'
 
 export async function getStaticProps({
   preview,
@@ -21,33 +22,22 @@ export async function getStaticProps({
 }
 
 export default function Cart() {
+  const error = null
+  const success = null
   const { data, isEmpty } = useCart()
-  const loading = !data
-
-  if (loading) {
-    // Load skeleton
-    return <div>Loading</div>
-  }
 
   const { price: subTotal } = usePrice(
     data && {
-      amount: data.base_amount,
-      currencyCode: data.currency.code,
+      amount: Number(data.subTotal),
+      currencyCode: data.currency.code || 'USD',
     }
   )
   const { price: total } = usePrice(
     data && {
-      amount: data.cart_amount,
-      currencyCode: data.currency.code,
+      amount: Number(data.total),
+      currencyCode: data.currency?.code || 'USD',
     }
   )
-
-  // const items = data?.line_items.physical_items ?? []
-
-  // const error = null
-  // const success = null
-
-  return <div>hola</div>
 
   return (
     <div className="grid lg:grid-cols-12">
@@ -88,7 +78,7 @@ export default function Cart() {
             <Text variant="pageHeading">My Cart</Text>
             <Text variant="sectionHeading">Review your Order</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-b border-accents-2">
-              {items.map((item) => (
+              {data?.items.map((item) => (
                 <CartItem
                   key={item.id}
                   item={item}

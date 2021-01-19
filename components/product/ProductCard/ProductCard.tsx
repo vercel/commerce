@@ -20,7 +20,7 @@ const ProductCard: FC<Props> = ({
   ...props
 }) => {
   return (
-    <Link href={`product/${product.slug}`} {...props}>
+    <Link href={`/product/${product.slug}`} {...props}>
       <a
         className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}
       >
