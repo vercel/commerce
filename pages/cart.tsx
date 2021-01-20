@@ -24,7 +24,7 @@ export async function getStaticProps({
 export default function Cart() {
   const error = null
   const success = null
-  const { data, isEmpty } = useCart()
+  const { data, isLoading, isEmpty } = useCart()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -42,7 +42,7 @@ export default function Cart() {
   return (
     <div className="grid lg:grid-cols-12">
       <div className="lg:col-span-8">
-        {isEmpty ? (
+        {isLoading || isEmpty ? (
           <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center ">
             <span className="border border-dashed border-secondary flex items-center justify-center w-16 h-16 bg-primary p-12 rounded-lg text-primary">
               <Bag className="absolute" />

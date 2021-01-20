@@ -11,7 +11,7 @@ import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const { data, isEmpty } = useCart()
+  const { data, isLoading, isEmpty } = useCart()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -19,7 +19,7 @@ const CartSidebarView: FC = () => {
       currencyCode: data.currency?.code || 'USD',
     }
   )
-  
+
   const { price: total } = usePrice(
     data && {
       amount: Number(data.total),
@@ -34,9 +34,7 @@ const CartSidebarView: FC = () => {
   return (
     <div
       className={cn(s.root, {
-        [s.empty]: error,
-        [s.empty]: success,
-        [s.empty]: isEmpty,
+        [s.empty]: error || success || isLoading || isEmpty,
       })}
     >
       <header className="px-4 pt-6 pb-4 sm:px-6">
@@ -56,7 +54,7 @@ const CartSidebarView: FC = () => {
         </div>
       </header>
 
-      {isEmpty ? (
+      {isLoading || isEmpty ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />

@@ -22,14 +22,14 @@ export async function getStaticProps({
 
 export default function Wishlist() {
   const { data: customer } = useCustomer()
-  const { data, isEmpty } = useWishlist()
+  const { data, isLoading, isEmpty } = useWishlist()
 
   return (
     <Container>
       <div className="mt-3 mb-20">
         <Text variant="pageHeading">My Wishlist</Text>
         <div className="group flex flex-col">
-          {isEmpty ? (
+          {isLoading || isEmpty ? (
             <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center ">
               <span className="border border-dashed border-secondary flex items-center justify-center w-16 h-16 bg-primary p-12 rounded-lg text-primary">
                 <Heart className="absolute" />

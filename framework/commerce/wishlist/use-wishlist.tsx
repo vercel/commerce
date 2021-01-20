@@ -3,7 +3,7 @@ import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import useData, { ResponseState, SwrOptions } from '../utils/use-data'
 
 export type WishlistResponse<Result> = ResponseState<Result> & {
-  isEmpty: boolean
+  isEmpty?: boolean
 }
 
 export default function useWishlist<Result, Input = null>(
@@ -13,5 +13,5 @@ export default function useWishlist<Result, Input = null>(
   swrOptions?: SwrOptions<Result, Input>
 ): WishlistResponse<Result> {
   const response = useData(options, input, fetcherFn, swrOptions)
-  return Object.assign(response, { isEmpty: true })
+  return response
 }

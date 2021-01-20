@@ -1,5 +1,6 @@
 import { HookFetcher } from '@commerce/utils/types'
 import { SwrOptions } from '@commerce/utils/use-data'
+import defineProperty from '@commerce/utils/define-property'
 import useCommerceWishlist from '@commerce/wishlist/use-wishlist'
 import type { Wishlist } from '../api/wishlist'
 import useCustomer from '../customer/use-customer'
@@ -58,12 +59,14 @@ export function extendHook(
 
     // Uses a getter to only calculate the prop when required
     // response.data is also a getter and it's better to not trigger it early
-    Object.defineProperty(response, 'isEmpty', {
-      get() {
-        return (response.data?.items?.length || 0) <= 0
-      },
-      set: (x) => x,
-    })
+    if (!('isEmpty' in response)) {
+      defineProperty(response, 'isEmpty', {
+        get() {
+          return (response.data?.items?.length || 0) <= 0
+        },
+        set: (x) => x,
+      })
+    }
 
     return response
   }

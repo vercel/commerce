@@ -4,7 +4,7 @@ import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import useData, { ResponseState, SwrOptions } from '../utils/use-data'
 import { useCommerce } from '..'
 
-export type CartResponse<Result> = ResponseState<Result> & { isEmpty: boolean }
+export type CartResponse<Result> = ResponseState<Result> & { isEmpty?: boolean }
 
 export type CartInput = {
   cartId: Cart['id']
@@ -25,5 +25,5 @@ export default function useCart<Result>(
 
   const response = useData(options, input, fetcher, swrOptions)
 
-  return Object.assign(response, { isEmpty: true })
+  return response
 }
