@@ -22,8 +22,8 @@
       "@utils/*": ["utils/*"],
       "@commerce/*": ["framework/commerce/*"],
       "@commerce": ["framework/commerce"],
-      "@framework/*": ["framework/bigcommerce/*"],
-      "@framework": ["framework/bigcommerce"]
+      "@framework/*": ["framework/vendure/*"],
+      "@framework": ["framework/vendure"]
     }
   },
   "include": [
