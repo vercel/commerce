@@ -1,4 +1,3 @@
-import type { responseInterface } from 'swr'
 import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import useData, { ResponseState, SwrOptions } from '../utils/use-data'
 

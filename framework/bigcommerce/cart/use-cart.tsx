@@ -1,10 +1,9 @@
 import { normalizeCart } from '../lib/normalize'
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
-import defineProperty from '@commerce/utils/define-property'
+import useResponse from '@commerce/utils/use-response'
 import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
 import type { Cart as BigCommerceCart } from '../api/cart'
-import update from '@framework/lib/immutability'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',
@@ -30,25 +29,21 @@ export function extendHook(
       revalidateOnFocus: false,
       ...swrOptions,
     })
-
-    // Uses a getter to only calculate the prop when required
-    // response.data is also a getter and it's better to not trigger it early
-    if (!('isEmpty' in response)) {
-      defineProperty(response, 'isEmpty', {
-        get() {
-          return Object.values(response.data?.line_items ?? {}).every(
-            (items) => !items.length
-          )
+    const res = useResponse(response, {
+      normalizer: normalizeCart,
+      descriptors: {
+        isEmpty: {
+          get() {
+            return Object.values(response.data?.line_items ?? {}).every(
+              (items) => !items.length
+            )
+          },
+          enumerable: true,
         },
-        set: (x) => x,
-      })
-    }
+      },
+    })
 
-    return response.data
-      ? update(response, {
-          data: { $set: normalizeCart(response.data) },
-        })
-      : response
+    return res
   }
 
   useCart.extend = extendHook

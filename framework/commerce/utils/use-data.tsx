@@ -64,7 +64,7 @@ const useData: UseData = (options, input, fetcherFn, swrOptions) => {
       get() {
         return response.data === undefined
       },
-      set: (x) => x,
+      enumerable: true,
     })
   }
 

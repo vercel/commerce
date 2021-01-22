@@ -1,4 +1,3 @@
-import type { responseInterface } from 'swr'
 import Cookies from 'js-cookie'
 import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import useData, { ResponseState, SwrOptions } from '../utils/use-data'
@@ -17,12 +16,10 @@ export default function useCart<Result>(
   swrOptions?: SwrOptions<Result, CartInput>
 ): CartResponse<Result> {
   const { cartCookie } = useCommerce()
-
   const fetcher: typeof fetcherFn = (options, input, fetch) => {
     input.cartId = Cookies.get(cartCookie)
     return fetcherFn(options, input, fetch)
   }
-
   const response = useData(options, input, fetcher, swrOptions)
 
   return response
