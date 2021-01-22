@@ -1,0 +1,22 @@
+{
+  "schema": {
+    "http://localhost:3001/shop-api": {}
+  },
+  "generates": {
+    "./framework/vendure/schema.d.ts": {
+      "plugins": [
+        "typescript"
+      ]
+    },
+    "./framework/vendure/schema.graphql": {
+      "plugins": [
+        "schema-ast"
+      ]
+    }
+  },
+  "hooks": {
+    "afterAllFileWrite": [
+      "prettier --write"
+    ]
+  }
+}
