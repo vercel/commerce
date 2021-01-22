@@ -1,27 +1,25 @@
+# Table of Contents
 
-Table of Contents
-=================
-
-   * [BigCommerce Storefront Data Hooks](#bigcommerce-storefront-data-hooks)
-      * [Installation](#installation)
-      * [General Usage](#general-usage)
-         * [CommerceProvider](#commerceprovider)
-         * [useLogin hook](#uselogin-hook)
-         * [useLogout](#uselogout)
-         * [useCustomer](#usecustomer)
-         * [useSignup](#usesignup)
-         * [usePrice](#useprice)
-      * [Cart Hooks](#cart-hooks)
-         * [useCart](#usecart)
-         * [useAddItem](#useadditem)
-         * [useUpdateItem](#useupdateitem)
-         * [useRemoveItem](#useremoveitem)
-      * [Wishlist Hooks](#wishlist-hooks)
-      * [Product Hooks and API](#product-hooks-and-api)
-         * [useSearch](#usesearch)
-         * [getAllProducts](#getallproducts)
-         * [getProduct](#getproduct)
-      * [More](#more)
+- [BigCommerce Storefront Data Hooks](#bigcommerce-storefront-data-hooks)
+  - [Installation](#installation)
+  - [General Usage](#general-usage)
+    - [CommerceProvider](#commerceprovider)
+    - [useLogin hook](#uselogin-hook)
+    - [useLogout](#uselogout)
+    - [useCustomer](#usecustomer)
+    - [useSignup](#usesignup)
+    - [usePrice](#useprice)
+  - [Cart Hooks](#cart-hooks)
+    - [useCart](#usecart)
+    - [useAddItem](#useadditem)
+    - [useUpdateItem](#useupdateitem)
+    - [useRemoveItem](#useremoveitem)
+  - [Wishlist Hooks](#wishlist-hooks)
+  - [Product Hooks and API](#product-hooks-and-api)
+    - [useSearch](#usesearch)
+    - [getAllProducts](#getallproducts)
+    - [getProduct](#getproduct)
+  - [More](#more)
 
 # BigCommerce Storefront Data Hooks
 
@@ -235,7 +233,7 @@ import useUpdateItem from '@bigcommerce/storefront-data-hooks/cart/use-update-it
 const CartItem = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity)
   const updateItem = useUpdateItem(item)
-  
+
   const updateQuantity = async (e) => {
     const val = e.target.value
     await updateItem({ quantity: val })
@@ -264,7 +262,7 @@ import useRemoveItem from '@bigcommerce/storefront-data-hooks/cart/use-remove-it
 
 const RemoveButton = ({ item }) => {
   const removeItem = useRemoveItem()
-  
+
   const handleRemove = async () => {
     await removeItem({ id: item.id })
   }

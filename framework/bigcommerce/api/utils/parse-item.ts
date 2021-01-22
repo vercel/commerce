@@ -10,5 +10,5 @@ export const parseCartItem = (item: ItemBody) => ({
   quantity: item.quantity,
   product_id: item.productId,
   variant_id: item.variantId,
-  option_selections: item.optionSelections
+  option_selections: item.optionSelections,
 })

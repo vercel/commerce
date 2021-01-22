@@ -54,7 +54,7 @@ async function login({
     if (process.env.NODE_ENV !== 'production') {
       cookie = cookie.replace('; Secure', '')
       // SameSite=none can't be set unless the cookie is Secure
-      // bc seems to sometimes send back SameSite=None rather than none so make 
+      // bc seems to sometimes send back SameSite=None rather than none so make
       // this case insensitive
       cookie = cookie.replace(/; SameSite=none/gi, '; SameSite=lax')
     }

@@ -10,15 +10,15 @@ import updateItem from './handlers/update-item'
 import removeItem from './handlers/remove-item'
 
 type OptionSelections = {
-	option_id: Number
-	option_value: Number|String
+  option_id: Number
+  option_value: Number | String
 }
 
 export type ItemBody = {
   productId: number
   variantId: number
-	quantity?: number
-	optionSelections?: OptionSelections
+  quantity?: number
+  optionSelections?: OptionSelections
 }
 
 export type AddItemBody = { item: ItemBody }

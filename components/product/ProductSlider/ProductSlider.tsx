@@ -1,5 +1,12 @@
 import { useKeenSlider } from 'keen-slider/react'
-import React, { Children, FC, isValidElement, useState, useRef, useEffect } from 'react'
+import React, {
+  Children,
+  FC,
+  isValidElement,
+  useState,
+  useRef,
+  useEffect,
+} from 'react'
 import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
@@ -25,7 +32,7 @@ const ProductSlider: FC = ({ children }) => {
       const touchXPosition = event.touches[0].pageX
       // Size of the touch area
       const touchXRadius = event.touches[0].radiusX || 0
-      
+
       // We set a threshold (10px) on both sizes of the screen,
       // if the touch area overlaps with the screen edges
       // it's likely to trigger the navigation. We prevent the
@@ -33,15 +40,20 @@ const ProductSlider: FC = ({ children }) => {
       if (
         touchXPosition - touchXRadius < 10 ||
         touchXPosition + touchXRadius > window.innerWidth - 10
-      ) event.preventDefault()
+      )
+        event.preventDefault()
     }
 
-    sliderContainerRef.current!
-      .addEventListener('touchstart', preventNavigation)
+    sliderContainerRef.current!.addEventListener(
+      'touchstart',
+      preventNavigation
+    )
 
     return () => {
-      sliderContainerRef.current!
-      .removeEventListener('touchstart', preventNavigation)
+      sliderContainerRef.current!.removeEventListener(
+        'touchstart',
+        preventNavigation
+      )
     }
   }, [])
 
