@@ -8,6 +8,13 @@ import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import s from './CartItem.module.css'
 
+type ItemOption = {
+  name: string,
+  nameId: number,
+  value: string,
+  valueId: number
+}
+
 const CartItem = ({
   item,
   currencyCode,
@@ -88,11 +95,19 @@ const CartItem = ({
       <div className="flex-1 flex flex-col text-base">
         {/** TODO: Replace this. No `path` found at Cart */}
         <Link href={`/product/${item.url.split('/')[3]}`}>
-          <span className="font-bold mb-5 text-lg cursor-pointer">
+          <span className="font-bold mb-2 text-lg cursor-pointer">
             {item.name}
           </span>
         </Link>
-
+        {item.options && item.options.length > 0 ? (
+          <div className="flex flex-col mb-2">
+            {item.options.map((option:ItemOption) =>
+              <span key={`${item.id}-${option.name}`} className="text-sm">
+                {`${option.name}: ${option.value}`}
+              </span>
+            )}
+          </div>
+        ) : null}
         <div className="flex items-center">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />
