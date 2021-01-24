@@ -4,7 +4,7 @@
 }
 
 .modal {
-  @apply bg-primary p-12 border border-accents-2;
+  @apply bg-primary p-12 border border-accents-2 relative;
 }
 
 .modal:focus {

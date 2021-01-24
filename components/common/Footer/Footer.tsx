@@ -2,9 +2,9 @@ import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
+import type { Page } from '@framework/api/operations/get-all-pages'
 import getSlug from '@lib/get-slug'
-import { Github } from '@components/icons'
+import { Github, Vercel } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
 import s from './Footer.module.css'
@@ -99,13 +99,18 @@ const Footer: FC<Props> = ({ className, pages }) => {
           <div>
             <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center text-primary">
             <span className="text-primary">Crafted by</span>
-            <a href="https://vercel.com" aria-label="Vercel.com Link">
-              <img
-                src="/vercel.svg"
-                alt="Vercel.com Logo"
+            <a
+              rel="noopener"
+              href="https://vercel.com"
+              aria-label="Vercel.com Link"
+              target="_blank"
+              className="text-primary"
+            >
+              <Vercel
                 className="inline-block h-6 ml-4 text-primary"
+                alt="Vercel.com Logo"
               />
             </a>
           </div>

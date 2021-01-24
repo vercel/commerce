@@ -8,9 +8,9 @@ import { useUI } from '@components/ui/context'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text } from '@components/ui'
 
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
-import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
+import usePrice from '@framework/use-price'
+import useAddItem from '@framework/cart/use-add-item'
+import type { ProductNode } from '@framework/api/operations/get-product'
 import {
   getCurrentVariant,
   getProductOptions,
@@ -86,7 +86,7 @@ const ProductView: FC<Props> = ({ product }) => {
           </div>
 
           <div className={s.sliderContainer}>
-            <ProductSlider>
+            <ProductSlider key={product.entityId}>
               {product.images.edges?.map((image, i) => (
                 <div key={image?.node.urlOriginal} className={s.imageContainer}>
                   <Image
