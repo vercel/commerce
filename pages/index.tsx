@@ -44,6 +44,7 @@ export async function getStaticProps({
   // We prefer to do the computation at buildtime/servertime
   const { featured, bestSelling } = (() => {
     // Create a copy of products that we can mutate
+    // Filter products that do not have images
     const products = [...newestProducts]
     // If the lists of featured and best selling products don't have enough
     // products, then fill them with products from the products list, this
