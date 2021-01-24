@@ -6,7 +6,6 @@ import React, {
   useRef,
 } from 'react'
 import mergeRefs from 'react-merge-refs'
-import { useButton } from 'react-aria'
 import s from './Button.module.css'
 import { LoadingDots } from '@components/ui'
 
@@ -34,19 +33,8 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     loading = false,
     disabled = false,
     style = {},
-    ...rest
   } = props
   const ref = useRef<typeof Component>(null)
-  const { buttonProps, isPressed } = useButton(
-    {
-      ...rest,
-      // @ts-ignore onClick === onPress for our purposes
-      onPress: onClick,
-      isDisabled: disabled,
-      elementType: Component,
-    },
-    ref
-  )
 
   const rootClassName = cn(
     s.root,
@@ -63,8 +51,6 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       aria-pressed={active}
       data-variant={variant}
       ref={mergeRefs([ref, buttonRef])}
-      {...buttonProps}
-      data-active={isPressed ? '' : undefined}
       className={rootClassName}
       disabled={disabled}
       style={{
