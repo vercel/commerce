@@ -46,7 +46,6 @@ export async function getStaticProps({
     // Create a copy of products that we can mutate
     // Filter products that do not have images
     const products = [...newestProducts]
-      .filter((p) => p.node.images.edges!.length > 0)
     // If the lists of featured and best selling products don't have enough
     // products, then fill them with products from the products list, this
     // is useful for new commerce sites that don't have a lot of products
