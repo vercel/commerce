@@ -18,7 +18,7 @@ export type ItemBody = {
   productId: number
   variantId: number
 	quantity?: number
-	optionSelections?: OptionSelections
+	optionSelections?: Array<OptionSelections>
 }
 
 export type AddItemBody = { item: ItemBody }
