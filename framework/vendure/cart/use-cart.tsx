@@ -14,19 +14,15 @@ export const getCartQuery = /* GraphQL */ `
   ${cartFragment}
 `
 
-export const fetcher: HookFetcher<any, null> = (
-  options,
-  input,
-  fetch
-) => {
+export const fetcher: HookFetcher<any, null> = (options, input, fetch) => {
   return fetch({ ...options, query: getCartQuery })
 }
 
 export type CartResult = {
-  activeOrder?: CartFragment;
-  addItemToOrder?: CartFragment;
-  adjustOrderLine?: CartFragment;
-  removeOrderLine?: CartFragment;
+  activeOrder?: CartFragment
+  addItemToOrder?: CartFragment
+  adjustOrderLine?: CartFragment
+  removeOrderLine?: CartFragment
 }
 
 export function extendHook(
@@ -34,20 +30,29 @@ export function extendHook(
   swrOptions?: SwrOptions<any | null>
 ) {
   const useCart = () => {
-    const response = useData<Cart>({ query: getCartQuery }, [], customFetcher, swrOptions)
+    const response = useData<CartResult>(
+      { query: getCartQuery },
+      [],
+      customFetcher,
+      swrOptions
+    )
     const res = useResponse(response, {
-      normalizer: (data => {
-        const order = data?.activeOrder || data?.addItemToOrder || data?.adjustOrderLine || data?.removeOrderLine;
-        return (order ? normalizeCart(order) : null)
-      }),
+      normalizer: (data) => {
+        const order =
+          data?.activeOrder ||
+          data?.addItemToOrder ||
+          data?.adjustOrderLine ||
+          data?.removeOrderLine
+        return order ? normalizeCart(order) : null
+      },
       descriptors: {
         isEmpty: {
           get() {
             return response.data?.activeOrder?.totalQuantity === 0
           },
-          enumerable: true
-        }
-      }
+          enumerable: true,
+        },
+      },
     })
 
     return res

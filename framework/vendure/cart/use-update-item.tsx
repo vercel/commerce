@@ -4,21 +4,30 @@ import type { HookFetcher } from '@commerce/utils/types'
 import useCartUpdateItem from '@commerce/cart/use-update-item'
 import useCart from './use-cart'
 import { cartFragment } from '@framework/api/fragments/cart'
-import { AdjustOrderLineMutation, AdjustOrderLineMutationVariables } from '@framework/schema'
+import {
+  AdjustOrderLineMutation,
+  AdjustOrderLineMutationVariables,
+  ErrorResult,
+} from '@framework/schema'
+import { CommerceError } from '@commerce/utils/errors'
 
 export const adjustOrderLineMutation = /* GraphQL */ `
   mutation adjustOrderLine($orderLineId: ID!, $quantity: Int!) {
     adjustOrderLine(orderLineId: $orderLineId, quantity: $quantity) {
+      __typename
       ...Cart
+      ... on ErrorResult {
+        errorCode
+        message
+      }
     }
   }
   ${cartFragment}
 `
-export const fetcher: HookFetcher<AdjustOrderLineMutation, AdjustOrderLineMutationVariables> = (
-  options,
-  { orderLineId, quantity },
-  fetch
-) => {
+export const fetcher: HookFetcher<
+  AdjustOrderLineMutation,
+  AdjustOrderLineMutationVariables
+> = (options, { orderLineId, quantity }, fetch) => {
   return fetch({
     ...options,
     query: adjustOrderLineMutation,
@@ -29,10 +38,10 @@ export const fetcher: HookFetcher<AdjustOrderLineMutation, AdjustOrderLineMutati
 function extendHook(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
   const useUpdateItem = (item?: any) => {
     const { mutate } = useCart()
-    const fn = useCartUpdateItem<AdjustOrderLineMutation, AdjustOrderLineMutationVariables>(
-      {},
-      customFetcher
-    )
+    const fn = useCartUpdateItem<
+      AdjustOrderLineMutation,
+      AdjustOrderLineMutationVariables
+    >({}, customFetcher)
 
     return useCallback(
       debounce(async (input: any) => {
@@ -42,6 +51,10 @@ function extendHook(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
         })
         if (adjustOrderLine.__typename === 'Order') {
           await mutate({ adjustOrderLine }, false)
+        } else {
+          throw new CommerceError({
+            message: (adjustOrderLine as ErrorResult).message,
+          })
         }
         return { adjustOrderLine }
       }, cfg?.wait ?? 500),

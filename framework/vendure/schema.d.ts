@@ -2843,10 +2843,19 @@ export type LoginServerMutationVariables = Exact<{
 
 export type LoginServerMutation = { __typename?: 'Mutation' } & {
   login:
-    | ({ __typename?: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
-    | { __typename?: 'InvalidCredentialsError' }
-    | { __typename?: 'NotVerifiedError' }
-    | { __typename?: 'NativeAuthStrategyError' }
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | ({ __typename: 'InvalidCredentialsError' } & Pick<
+        InvalidCredentialsError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NotVerifiedError' } & Pick<
+        NotVerifiedError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
 }
 
 export type LoginMutationVariables = Exact<{
@@ -2857,9 +2866,18 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = { __typename?: 'Mutation' } & {
   login:
     | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
-    | { __typename: 'InvalidCredentialsError' }
-    | { __typename: 'NotVerifiedError' }
-    | { __typename: 'NativeAuthStrategyError' }
+    | ({ __typename: 'InvalidCredentialsError' } & Pick<
+        InvalidCredentialsError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NotVerifiedError' } & Pick<
+        NotVerifiedError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
 }
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>
@@ -2874,9 +2892,15 @@ export type SignupMutationVariables = Exact<{
 
 export type SignupMutation = { __typename?: 'Mutation' } & {
   registerCustomerAccount:
-    | ({ __typename?: 'Success' } & Pick<Success, 'success'>)
-    | { __typename?: 'MissingPasswordError' }
-    | { __typename?: 'NativeAuthStrategyError' }
+    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+    | ({ __typename: 'MissingPasswordError' } & Pick<
+        MissingPasswordError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
 }
 
 export type AddItemToOrderMutationVariables = Exact<{
@@ -2886,11 +2910,23 @@ export type AddItemToOrderMutationVariables = Exact<{
 
 export type AddItemToOrderMutation = { __typename?: 'Mutation' } & {
   addItemToOrder:
-    | ({ __typename?: 'Order' } & CartFragment)
-    | { __typename?: 'OrderModificationError' }
-    | { __typename?: 'OrderLimitError' }
-    | { __typename?: 'NegativeQuantityError' }
-    | { __typename?: 'InsufficientStockError' }
+    | ({ __typename: 'Order' } & CartFragment)
+    | ({ __typename: 'OrderModificationError' } & Pick<
+        OrderModificationError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'OrderLimitError' } & Pick<
+        OrderLimitError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NegativeQuantityError' } & Pick<
+        NegativeQuantityError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'InsufficientStockError' } & Pick<
+        InsufficientStockError,
+        'errorCode' | 'message'
+      >)
 }
 
 export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
@@ -2906,7 +2942,10 @@ export type RemoveOrderLineMutationVariables = Exact<{
 export type RemoveOrderLineMutation = { __typename?: 'Mutation' } & {
   removeOrderLine:
     | ({ __typename: 'Order' } & CartFragment)
-    | { __typename: 'OrderModificationError' }
+    | ({ __typename: 'OrderModificationError' } & Pick<
+        OrderModificationError,
+        'errorCode' | 'message'
+      >)
 }
 
 export type AdjustOrderLineMutationVariables = Exact<{
@@ -2916,11 +2955,23 @@ export type AdjustOrderLineMutationVariables = Exact<{
 
 export type AdjustOrderLineMutation = { __typename?: 'Mutation' } & {
   adjustOrderLine:
-    | ({ __typename?: 'Order' } & CartFragment)
-    | { __typename?: 'OrderModificationError' }
-    | { __typename?: 'OrderLimitError' }
-    | { __typename?: 'NegativeQuantityError' }
-    | { __typename?: 'InsufficientStockError' }
+    | ({ __typename: 'Order' } & CartFragment)
+    | ({ __typename: 'OrderModificationError' } & Pick<
+        OrderModificationError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'OrderLimitError' } & Pick<
+        OrderLimitError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NegativeQuantityError' } & Pick<
+        NegativeQuantityError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'InsufficientStockError' } & Pick<
+        InsufficientStockError,
+        'errorCode' | 'message'
+      >)
 }
 
 export type GetCollectionsQueryVariables = Exact<{ [key: string]: never }>
