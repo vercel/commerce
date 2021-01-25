@@ -45,6 +45,8 @@ export type Cart = {
     gift_certificates: any[]
     physical_items: any[]
   }
+  created_time: string
+  discounts?: { id: number; discounted_amount: number }[]
   // TODO: add missing fields
 }
 

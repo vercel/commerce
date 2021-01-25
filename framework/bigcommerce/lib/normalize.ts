@@ -1,4 +1,5 @@
-import update from '@framework/lib/immutability'
+import type { Cart as BigCommerceCart } from '../api/cart'
+import update from './immutability'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -67,8 +68,24 @@ export function normalizeProduct(productNode: any): Product {
   })
 }
 
-export function normalizeCart(data: any): Cart {
-  return update(data, {
+export function normalizeCart(data: BigCommerceCart): Cart {
+  const d: BaseCart = data && {
+    id: data.id,
+    customerId: String(data.customer_id),
+    email: data.email,
+    createdAt: data.created_time,
+    currency: data.currency,
+    taxesIncluded: data.tax_included,
+    lineItems: data.line_items as any,
+    lineItemsSubtotalPrice: data.base_amount,
+    subtotalPrice: data.base_amount + data.discount_amount,
+    totalPrice: data.cart_amount,
+    discounts: data.discounts?.map((discount) => ({
+      value: discount.discounted_amount,
+    })),
+  }
+
+  return update(data as any, {
     $auto: {
       items: { $set: data?.line_items?.physical_items?.map(itemsToProducts) },
       subTotal: { $set: data?.base_amount },

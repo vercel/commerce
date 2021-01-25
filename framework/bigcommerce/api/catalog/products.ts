@@ -15,7 +15,7 @@ export type SearchProductsData = {
 export type ProductsHandlers = {
   getProducts: BigcommerceHandler<
     SearchProductsData,
-    { search?: 'string'; category?: string; brand?: string; sort?: string }
+    { search?: string; category?: string; brand?: string; sort?: string }
   >
 }
 
