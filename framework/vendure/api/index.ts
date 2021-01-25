@@ -3,11 +3,11 @@ import fetchGraphqlApi from './utils/fetch-graphql-api'
 
 export interface VendureConfig extends CommerceAPIConfig {}
 
-const API_URL = process.env.VENDURE_SHOP_API_URL
+const API_URL = process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL
 
 if (!API_URL) {
   throw new Error(
-    `The environment variable VENDURE_SHOP_API_URL is missing and it's required to access your store`
+    `The environment variable NEXT_PUBLIC_VENDURE_SHOP_API_URL is missing and it's required to access your store`
   )
 }
 
