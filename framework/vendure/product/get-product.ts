@@ -74,7 +74,7 @@ async function getProduct({
         },
         options: product.optionGroups.map((og: any) => ({
           displayName: og.name,
-          values: og.options.map((o: any) => ({ label: o.name + ' hello' })),
+          values: og.options.map((o: any) => ({ label: o.name })),
         })),
       },
     }

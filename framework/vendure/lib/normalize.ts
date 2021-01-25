@@ -75,7 +75,7 @@ export function normalizeSearchResult(item: SearchResultFragment): Product {
     description: item.description,
     slug: item.slug,
     path: item.slug,
-    images: [{ url: item.productAsset?.preview || '' }],
+    images: [{ url: item.productAsset?.preview + '?preset=medium' || '' }],
     variants: [],
     price: {
       value: (item.priceWithTax as any).min / 100,
@@ -100,7 +100,7 @@ export function normalizeCart(order: CartFragment): Cart {
       url: l.productVariant.product.slug,
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
-      images: [{ url: l.featuredAsset?.preview || '' }],
+      images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
       prices: [],
     })),
   }
