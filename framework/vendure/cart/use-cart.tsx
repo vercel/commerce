@@ -1,12 +1,9 @@
-import fetchGraphqlApi from '@framework/api/utils/fetch-graphql-api'
 import { HookFetcher } from '@commerce/utils/types'
 import useData, { SwrOptions } from '@commerce/utils/use-data'
-import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
 import useResponse from '@commerce/utils/use-response'
-import useAction from '@commerce/utils/use-action'
-import { useCallback } from 'react'
-import { normalizeCart } from '../../bigcommerce/lib/normalize'
 import { cartFragment } from '../api/fragments/cart'
+import { CartFragment } from '../schema'
+import { normalizeCart } from '@framework/lib/normalize'
 
 export const getCartQuery = /* GraphQL */ `
   query activeOrder {
@@ -17,7 +14,7 @@ export const getCartQuery = /* GraphQL */ `
   ${cartFragment}
 `
 
-export const fetcher: HookFetcher<any | null> = (
+export const fetcher: HookFetcher<any, null> = (
   options,
   input,
   fetch
@@ -25,30 +22,23 @@ export const fetcher: HookFetcher<any | null> = (
   return fetch({ ...options, query: getCartQuery })
 }
 
+export type CartResult = {
+  activeOrder?: CartFragment;
+  addItemToOrder?: CartFragment;
+  adjustOrderLine?: CartFragment;
+  removeOrderLine?: CartFragment;
+}
+
 export function extendHook(
   customFetcher: typeof fetcher,
   swrOptions?: SwrOptions<any | null>
 ) {
   const useCart = () => {
-    const response = useData({ query: getCartQuery }, [], customFetcher, swrOptions)
+    const response = useData<CartResult>({ query: getCartQuery }, [], customFetcher, swrOptions)
     const res = useResponse(response, {
       normalizer: (data => {
         const order = data?.activeOrder || data?.addItemToOrder || data?.adjustOrderLine || data?.removeOrderLine;
-        return (order ? {
-          id: order.id,
-          currency: { code: order.currencyCode },
-          subTotal: order.subTotalWithTax / 100,
-          total: order.totalWithTax / 100,
-          items: order.lines?.map(l => ({
-            id: l.id,
-            name: l.productVariant.name,
-            quantity: l.quantity,
-            url: l.productVariant.product.slug,
-            variantId: l.productVariant.id,
-            productId: l.productVariant.productId,
-            images: [{ url: l.featuredAsset?.preview }]
-          }))
-        } : null)
+        return (order ? normalizeCart(order) : null)
       }),
       descriptors: {
         isEmpty: {

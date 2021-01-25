@@ -1,7 +1,4 @@
-import setProductLocaleMeta from '../api/utils/set-product-locale-meta'
-import { productInfoFragment } from '../api/fragments/product'
-import { VendureConfig, getConfig } from '../api'
-import { normalizeProduct } from '@framework/lib/normalize'
+import { getConfig, VendureConfig } from '../api'
 
 export const getProductQuery = /* GraphQL */ `
   query getProduct($slug: String!) {

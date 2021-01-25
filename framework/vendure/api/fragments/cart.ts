@@ -8,6 +8,9 @@ export const cartFragment = /* GraphQL */ `
      total
      totalWithTax
      currencyCode
+     customer {
+       id
+     }
      lines {
        id
        quantity
@@ -16,6 +19,7 @@ export const cartFragment = /* GraphQL */ `
          preview
        }
        productVariant {
+         id
          name
          product {
            slug

@@ -131,7 +131,7 @@ interface Cart extends Entity {
   id: string | undefined
   currency: { code: string }
   taxIncluded?: boolean
-  items: Pick<Product, 'id' | 'name' | 'prices'> & CartItem[]
+  items: (Pick<Product, 'id' | 'name' | 'prices'> & CartItem)[]
   subTotal: number | string
   total: number | string
   customerId: Customer['id']

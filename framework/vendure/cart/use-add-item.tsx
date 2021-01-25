@@ -5,6 +5,7 @@ import useCartAddItem from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
 import { useCallback } from 'react'
 import { cartFragment } from '../api/fragments/cart'
+import { AddItemToOrderMutation, AddItemToOrderMutationVariables } from '@framework/schema'
 
 export const addItemToOrderMutation = /* GraphQL */ `
   mutation addItemToOrder($variantId: ID!, $quantity: Int!) {
@@ -17,7 +18,7 @@ export const addItemToOrderMutation = /* GraphQL */ `
 
 export type AddItemInput = { productId?: number; variantId: number; quantity?: number; };
 
-export const fetcher: HookFetcher<Cart, AddItemInput> = (
+export const fetcher: HookFetcher<AddItemToOrderMutation, AddItemToOrderMutationVariables> = (
   options,
   { variantId, quantity },
   fetch
@@ -48,7 +49,7 @@ export function extendHook(customFetcher: typeof fetcher) {
 
     return useCallback(
       async function addItem(input: AddItemInput) {
-        const data = await fn({ quantity: input.quantity, variantId: input.variantId })
+        const data = await fn({ quantity: input.quantity || 1, variantId: input.variantId })
         await mutate(data, false)
         return data
       },

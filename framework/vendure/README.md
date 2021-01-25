@@ -44,11 +44,7 @@ yarn add storefront-data-hooks
 After install, the first thing you do is: <b>set your environment variables</b> in `.env.local`
 
 ```sh
-BIGCOMMERCE_STOREFRONT_API_URL=<>
-BIGCOMMERCE_STOREFRONT_API_TOKEN=<>
-BIGCOMMERCE_STORE_API_URL=<>
-BIGCOMMERCE_STORE_API_TOKEN=<>
-BIGCOMMERCE_STORE_API_CLIENT_ID=<>
+VENDURE_SHOP_API_URL=<>
 ```
 
 ## General Usage
