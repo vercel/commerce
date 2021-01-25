@@ -1,106 +1,117 @@
-import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../schema'
 import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
 import filterEdges from '../api/utils/filter-edges'
 import { VendureConfig, getConfig } from '../api'
-import { categoryTreeItemFragment } from '../api/fragments/category-tree'
 
-// Get 3 levels of categories
-export const getSiteInfoQuery = /* GraphQL */ `
-  query getSiteInfo {
-    site {
-      categoryTree {
-        ...categoryTreeItem
-        children {
-          ...categoryTreeItem
-          children {
-            ...categoryTreeItem
+export const getCollectionsQuery = /* GraphQL */ `
+    query getCollections {
+      collections {
+        items {
+          id
+          name
+          description
+          slug
+          productVariants {
+            totalItems
           }
-        }
-      }
-      brands {
-        pageInfo {
-          startCursor
-          endCursor
-        }
-        edges {
-          cursor
-          node {
-            entityId
-            name
-            defaultImage {
-              urlOriginal
-              altText
-            }
-            pageTitle
-            metaDesc
-            metaKeywords
-            searchKeywords
-            path
+          parent {
+            id
+          }
+          children {
+            id
           }
         }
       }
     }
-  }
-  ${categoryTreeItemFragment}
-`
-
-export type CategoriesTree = NonNullable<
-  GetSiteInfoQuery['site']['categoryTree']
->
-
-export type BrandEdge = NonNullable<
-  NonNullable<GetSiteInfoQuery['site']['brands']['edges']>[0]
->
-
-export type Brands = BrandEdge[]
-
-export type GetSiteInfoResult<
-  T extends { categories: any[]; brands: any[] } = {
-    categories: CategoriesTree
-    brands: Brands
-  }
-> = T
-
-async function getSiteInfo(opts?: {
-  variables?: GetSiteInfoQueryVariables
-  config?: VendureConfig
-  preview?: boolean
-}): Promise<GetSiteInfoResult>
-
-async function getSiteInfo<
-  T extends { categories: any[]; brands: any[] },
-  V = any
->(opts: {
-  query: string
-  variables?: V
-  config?: VendureConfig
-  preview?: boolean
-}): Promise<GetSiteInfoResult<T>>
+`;
 
 async function getSiteInfo({
-  query = getSiteInfoQuery,
+  query = getCollectionsQuery,
   variables,
   config,
 }: {
   query?: string
-  variables?: GetSiteInfoQueryVariables
+  variables?: any
   config?: VendureConfig
   preview?: boolean
-} = {}): Promise<GetSiteInfoResult> {
+} = {}): Promise<any> {
   config = getConfig(config)
   // RecursivePartial forces the method to check for every prop in the data, which is
   // required in case there's a custom `query`
-  const { data } = await config.fetch<RecursivePartial<GetSiteInfoQuery>>(
+  const { data } = await config.fetch<any>(
     query,
     { variables }
   )
-  const categories = data.site?.categoryTree
+  const categories = arrayToTree(data.collections?.items.map(i => ({
+    ...i,
+    entityId: i.id,
+    name: i.name,
+    path: i.slug,
+    description: i.description,
+    productCount: i.productVariants.totalItems,
+  }))).children;
   const brands = data.site?.brands?.edges
 
   return {
     categories: (categories as RecursiveRequired<typeof categories>) ?? [],
-    brands: filterEdges(brands as RecursiveRequired<typeof brands>),
+    brands: [],
   }
 }
 
 export default getSiteInfo
+
+export type HasParent = { id: string; parent?: { id: string } | null };
+export type TreeNode<T extends HasParent> = T & { children: Array<TreeNode<T>>; expanded: boolean };
+export type RootNode<T extends HasParent> = { id?: string; children: Array<TreeNode<T>> };
+
+export function arrayToTree<T extends HasParent>(nodes: T[], currentState?: RootNode<T>): RootNode<T> {
+    const topLevelNodes: Array<TreeNode<T>> = [];
+    const mappedArr: { [id: string]: TreeNode<T> } = {};
+    const currentStateMap = treeToMap(currentState);
+
+    // First map the nodes of the array to an object -> create a hash table.
+    for (const node of nodes) {
+        mappedArr[node.id] = { ...(node as any), children: [] };
+    }
+
+    for (const id of nodes.map(n => n.id)) {
+        if (mappedArr.hasOwnProperty(id)) {
+            const mappedElem = mappedArr[id];
+            mappedElem.expanded = currentStateMap.get(id)?.expanded ?? false;
+            const parent = mappedElem.parent;
+            if (!parent) {
+                continue;
+            }
+            // If the element is not at the root level, add it to its parent array of children.
+            const parentIsRoot = !mappedArr[parent.id];
+            if (!parentIsRoot) {
+                if (mappedArr[parent.id]) {
+                    mappedArr[parent.id].children.push(mappedElem);
+                } else {
+                    mappedArr[parent.id] = { children: [mappedElem] } as any;
+                }
+            } else {
+                topLevelNodes.push(mappedElem);
+            }
+        }
+    }
+    // tslint:disable-next-line:no-non-null-assertion
+    const rootId = topLevelNodes.length ? topLevelNodes[0].parent!.id : undefined;
+    return { id: rootId, children: topLevelNodes };
+}
+
+/**
+ * Converts an existing tree (as generated by the arrayToTree function) into a flat
+ * Map. This is used to persist certain states (e.g. `expanded`) when re-building the
+ * tree.
+ */
+function treeToMap<T extends HasParent>(tree?: RootNode<T>): Map<string, TreeNode<T>> {
+    const nodeMap = new Map<string, TreeNode<T>>();
+    function visit(node: TreeNode<T>) {
+        nodeMap.set(node.id, node);
+        node.children.forEach(visit);
+    }
+    if (tree) {
+        visit(tree as TreeNode<T>);
+    }
+    return nodeMap;
+}
