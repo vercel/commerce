@@ -3,7 +3,11 @@ import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCommerceLogin from '@commerce/use-login'
 import useCustomer from '../customer/use-customer'
-import { LoginMutation, LoginMutationVariables } from '@framework/schema'
+import {
+  ErrorResult,
+  LoginMutation,
+  LoginMutationVariables,
+} from '@framework/schema'
 
 export const loginMutation = /* GraphQL */ `
   mutation login($username: String!, $password: String!) {
@@ -11,6 +15,10 @@ export const loginMutation = /* GraphQL */ `
       __typename
       ... on CurrentUser {
         id
+      }
+      ... on ErrorResult {
+        errorCode
+        message
       }
     }
   }
@@ -49,7 +57,9 @@ export function extendHook(customFetcher: typeof fetcher) {
           password: input.password,
         })
         if (data.login.__typename !== 'CurrentUser') {
-          throw new CommerceError({ message: 'The credentials are not valid' })
+          throw new CommerceError({
+            message: (data.login as ErrorResult).message,
+          })
         }
         await revalidate()
         return data

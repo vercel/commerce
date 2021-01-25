@@ -7,12 +7,19 @@ import { cartFragment } from '@framework/api/fragments/cart'
 import {
   AdjustOrderLineMutation,
   AdjustOrderLineMutationVariables,
+  ErrorResult,
 } from '@framework/schema'
+import { CommerceError } from '@commerce/utils/errors'
 
 export const adjustOrderLineMutation = /* GraphQL */ `
   mutation adjustOrderLine($orderLineId: ID!, $quantity: Int!) {
     adjustOrderLine(orderLineId: $orderLineId, quantity: $quantity) {
+      __typename
       ...Cart
+      ... on ErrorResult {
+        errorCode
+        message
+      }
     }
   }
   ${cartFragment}
@@ -44,6 +51,10 @@ function extendHook(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
         })
         if (adjustOrderLine.__typename === 'Order') {
           await mutate({ adjustOrderLine }, false)
+        } else {
+          throw new CommerceError({
+            message: (adjustOrderLine as ErrorResult).message,
+          })
         }
         return { adjustOrderLine }
       }, cfg?.wait ?? 500),

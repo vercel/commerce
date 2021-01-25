@@ -1,14 +1,20 @@
 import type { ServerResponse } from 'http'
 import type { LoginMutation, LoginMutationVariables } from '../schema'
-import type { RecursivePartial } from '../api/utils/types'
 import concatHeader from '../api/utils/concat-cookie'
-import { VendureConfig, getConfig } from '../api'
+import { getConfig, VendureConfig } from '../api'
+import { CommerceError } from '@commerce/utils/errors'
+import { ErrorResult } from '../schema'
 
 export const loginMutation = /* GraphQL */ `
   mutation loginServer($email: String!, $password: String!) {
     login(username: $email, password: $password) {
+      __typename
       ... on CurrentUser {
         id
+      }
+      ... on ErrorResult {
+        errorCode
+        message
       }
     }
   }
@@ -44,10 +50,11 @@ async function login({
 }): Promise<LoginResult> {
   config = getConfig(config)
 
-  const { data, res } = await config.fetch<RecursivePartial<LoginMutation>>(
-    query,
-    { variables }
-  )
+  const { data, res } = await config.fetch<LoginMutation>(query, { variables })
+
+  if (data.login.__typename !== 'CurrentUser') {
+    throw new CommerceError({ message: (data.login as ErrorResult).message })
+  }
   // Bigcommerce returns a Set-Cookie header with the auth cookie
   let cookie = res.headers.get('Set-Cookie')
 
@@ -68,7 +75,7 @@ async function login({
   }
 
   return {
-    result: data.login?.result,
+    result: data.login.id.toString(),
   }
 }
 

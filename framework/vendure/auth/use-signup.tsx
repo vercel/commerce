@@ -3,13 +3,22 @@ import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCommerceSignup from '@commerce/use-signup'
 import useCustomer from '../customer/use-customer'
-import { SignupMutation, SignupMutationVariables } from '@framework/schema'
+import {
+  ErrorResult,
+  SignupMutation,
+  SignupMutationVariables,
+} from '@framework/schema'
 
 export const signupMutation = /* GraphQL */ `
   mutation signup($input: RegisterCustomerInput!) {
     registerCustomerAccount(input: $input) {
+      __typename
       ... on Success {
         success
+      }
+      ... on ErrorResult {
+        errorCode
+        message
       }
     }
   }
@@ -52,7 +61,7 @@ export function extendHook(customFetcher: typeof fetcher) {
 
     return useCallback(
       async function signup(input: SignupInput) {
-        const data = await fn({
+        const { registerCustomerAccount } = await fn({
           input: {
             firstName: input.firstName,
             lastName: input.lastName,
@@ -60,8 +69,13 @@ export function extendHook(customFetcher: typeof fetcher) {
             password: input.password,
           },
         })
+        if (registerCustomerAccount.__typename !== 'Success') {
+          throw new CommerceError({
+            message: (registerCustomerAccount as ErrorResult).message,
+          })
+        }
         await revalidate()
-        return data
+        return { registerCustomerAccount }
       },
       [fn]
     )

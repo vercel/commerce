@@ -8,12 +8,18 @@ import { cartFragment } from '../api/fragments/cart'
 import {
   AddItemToOrderMutation,
   AddItemToOrderMutationVariables,
+  ErrorResult,
 } from '@framework/schema'
 
 export const addItemToOrderMutation = /* GraphQL */ `
   mutation addItemToOrder($variantId: ID!, $quantity: Int!) {
     addItemToOrder(productVariantId: $variantId, quantity: $quantity) {
+      __typename
       ...Cart
+      ... on ErrorResult {
+        errorCode
+        message
+      }
     }
   }
   ${cartFragment}
@@ -39,9 +45,6 @@ export const fetcher: HookFetcher<
     ...options,
     query: addItemToOrderMutation,
     variables: { variantId, quantity: quantity || 1 },
-  }).then((res) => {
-    console.log({ res })
-    return res
   })
 }
 
@@ -52,12 +55,18 @@ export function extendHook(customFetcher: typeof fetcher) {
 
     return useCallback(
       async function addItem(input: AddItemInput) {
-        const data = await fn({
+        const { addItemToOrder } = await fn({
           quantity: input.quantity || 1,
           variantId: input.variantId,
         })
-        await mutate(data, false)
-        return data
+        if (addItemToOrder.__typename === 'Order') {
+          await mutate({ addItemToOrder }, false)
+        } else {
+          throw new CommerceError({
+            message: (addItemToOrder as ErrorResult).message,
+          })
+        }
+        return { addItemToOrder }
       },
       [fn, mutate]
     )
