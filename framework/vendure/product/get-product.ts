@@ -40,7 +40,7 @@ async function getProduct({
   config,
 }: {
   query?: string
-  variables: { slug: string; }
+  variables: { slug: string }
   config?: VendureConfig
   preview?: boolean
 }): Promise<Product | {} | any> {
@@ -57,10 +57,16 @@ async function getProduct({
         name: product.name,
         description: product.description,
         slug: product.slug,
-        images: product.assets.map((a: any) => ({ url: a.preview, alt: a.name })),
+        images: product.assets.map((a: any) => ({
+          url: a.preview,
+          alt: a.name,
+        })),
         variants: product.variants.map((v: any) => ({
           id: v.id,
-          options: v.options.map((o: any) => ({ displayName: o.name, values: [] })),
+          options: v.options.map((o: any) => ({
+            displayName: o.name,
+            values: [],
+          })),
         })),
         price: {
           value: product.variants[0].priceWithTax / 100,
@@ -68,14 +74,13 @@ async function getProduct({
         },
         options: product.optionGroups.map((og: any) => ({
           displayName: og.name,
-          values: og.options.map((o: any) => ({ label: o.name + ' hello' })),
+          values: og.options.map((o: any) => ({ label: o.name })),
         })),
-      }
-    };
+      },
+    }
   }
 
   return {}
 }
 
 export default getProduct
-

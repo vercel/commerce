@@ -61,10 +61,10 @@ export function normalizeProduct(productNode: any): Product {
     price: {
       $set: {
         value: prices?.price.value,
-        currencyCode: prices?.price.currencyCode
-      }
+        currencyCode: prices?.price.currencyCode,
+      },
     },
-    $unset: ['entityId']
+    $unset: ['entityId'],
   })
 }
 
@@ -75,14 +75,14 @@ export function normalizeSearchResult(item: SearchResultFragment): Product {
     description: item.description,
     slug: item.slug,
     path: item.slug,
-    images: [{ url: item.productAsset?.preview || '' }],
+    images: [{ url: item.productAsset?.preview + '?preset=medium' || '' }],
     variants: [],
     price: {
-      value: ((item.priceWithTax as any).min / 100),
-      currencyCode: item.currencyCode
+      value: (item.priceWithTax as any).min / 100,
+      currencyCode: item.currencyCode,
     },
     options: [],
-    sku: item.sku
+    sku: item.sku,
   }
 }
 
@@ -93,15 +93,15 @@ export function normalizeCart(order: CartFragment): Cart {
     subTotal: order.subTotalWithTax / 100,
     total: order.totalWithTax / 100,
     customerId: order.customer?.id as number,
-    items: order.lines?.map(l => ({
+    items: order.lines?.map((l) => ({
       id: l.id,
       name: l.productVariant.name,
       quantity: l.quantity,
       url: l.productVariant.product.slug,
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
-      images: [{ url: l.featuredAsset?.preview || '' }],
-      prices: []
-    }))
+      images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
+      prices: [],
+    })),
   }
 }
