@@ -15,8 +15,9 @@ export const fetcher: HookFetcher<Customer | null> = async (
   _,
   fetch
 ) => {
-  const data = await fetch<CustomerData | null>({ ...defaultOpts, ...options })
-  return data?.customer ?? null
+  // const data = await fetch<CustomerData | null>({ ...defaultOpts, ...options })
+  // return data?.customer ?? null
+  return null;
 }
 
 export function extendHook(

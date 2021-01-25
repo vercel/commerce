@@ -9,7 +9,7 @@ const API_URL = process.env.VENDURE_SHOP_API_URL
 
 if (!API_URL) {
   throw new Error(
-    `The environment variable BIGCOMMERCE_STOREFRONT_API_URL is missing and it's required to access your store`
+    `The environment variable VENDURE_SHOP_API_URL is missing and it's required to access your store`
   )
 }
 

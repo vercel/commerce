@@ -1,25 +1,43 @@
-import { useCallback } from 'react'
-import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
+import { HookFetcher } from '@commerce/utils/types'
+import fetchGraphqlApi from '@framework/api/utils/fetch-graphql-api'
 import useCartAddItem from '@commerce/cart/use-add-item'
-import type { ItemBody, AddItemBody } from '../api/cart'
-import useCart, { Cart } from './use-cart'
+import useCart from './use-cart'
+import { useCallback } from 'react'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/cart',
-  method: 'POST',
-}
+export const addItemToOrderMutation = /* GraphQL */ `
+  mutation addItemToOrder($variantId: ID!, $quantity: Int!) {
+    addItemToOrder(productVariantId: $variantId, quantity: $quantity) {
+      ... on Order {
+        id
+        code
+        totalQuantity
+        total
+        totalWithTax
+        lines {
+          id
+          productVariant {
+            featuredAsset {
+              id
+              preview
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
-export type AddItemInput = ItemBody
+export type AddItemInput = { productId?: number; variantId: number; quantity?: number; };
 
-export const fetcher: HookFetcher<Cart, AddItemBody> = (
+export const fetcher: HookFetcher<Cart, AddItemInput> = (
   options,
-  { item },
+  { variantId, quantity },
   fetch
 ) => {
   if (
-    item.quantity &&
-    (!Number.isInteger(item.quantity) || item.quantity! < 1)
+    quantity &&
+    (!Number.isInteger(quantity) || quantity! < 1)
   ) {
     throw new CommerceError({
       message: 'The item quantity has to be a valid integer greater than 0',
@@ -27,20 +45,23 @@ export const fetcher: HookFetcher<Cart, AddItemBody> = (
   }
 
   return fetch({
-    ...defaultOpts,
     ...options,
-    body: { item },
+    query: addItemToOrderMutation,
+    variables: { variantId, quantity: quantity || 1 },
+  }).then(res => {
+    console.log({ res });
+    return res;
   })
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useAddItem = () => {
     const { mutate } = useCart()
-    const fn = useCartAddItem(defaultOpts, customFetcher)
+    const fn = useCartAddItem({}, customFetcher)
 
     return useCallback(
       async function addItem(input: AddItemInput) {
-        const data = await fn({ item: input })
+        const data = await fn({ quantity: input.quantity, variantId: input.variantId })
         await mutate(data, false)
         return data
       },

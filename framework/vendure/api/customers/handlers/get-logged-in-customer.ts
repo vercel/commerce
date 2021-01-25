@@ -1,4 +1,3 @@
-import type { GetLoggedInCustomerQuery } from '../../../schema'
 import type { CustomersHandlers } from '..'
 
 export const getLoggedInCustomerQuery = /* GraphQL */ `
@@ -22,7 +21,7 @@ export const getLoggedInCustomerQuery = /* GraphQL */ `
   }
 `
 
-export type Customer = NonNullable<GetLoggedInCustomerQuery['customer']>
+export type Customer = NonNullable<any>
 
 const getLoggedInCustomer: CustomersHandlers['getLoggedInCustomer'] = async ({
   req,
