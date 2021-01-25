@@ -1,8 +1,6 @@
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
-import { VendureConfig, getConfig } from '../api'
-import { definitions } from '../api/definitions/store-content'
+import { getConfig, VendureConfig } from '../api'
 
-export type Page = definitions['page_Full']
+export type Page = any
 
 export type GetAllPagesResult<
   T extends { pages: any[] } = { pages: Page[] }

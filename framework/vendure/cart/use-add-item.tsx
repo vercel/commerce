@@ -5,27 +5,31 @@ import useCartAddItem from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
 import { useCallback } from 'react'
 import { cartFragment } from '../api/fragments/cart'
+import {
+  AddItemToOrderMutation,
+  AddItemToOrderMutationVariables,
+} from '@framework/schema'
 
 export const addItemToOrderMutation = /* GraphQL */ `
   mutation addItemToOrder($variantId: ID!, $quantity: Int!) {
     addItemToOrder(productVariantId: $variantId, quantity: $quantity) {
-      ... Cart
+      ...Cart
     }
   }
   ${cartFragment}
 `
 
-export type AddItemInput = { productId?: number; variantId: number; quantity?: number; };
+export type AddItemInput = {
+  productId?: number
+  variantId: number
+  quantity?: number
+}
 
-export const fetcher: HookFetcher<Cart, AddItemInput> = (
-  options,
-  { variantId, quantity },
-  fetch
-) => {
-  if (
-    quantity &&
-    (!Number.isInteger(quantity) || quantity! < 1)
-  ) {
+export const fetcher: HookFetcher<
+  AddItemToOrderMutation,
+  AddItemToOrderMutationVariables
+> = (options, { variantId, quantity }, fetch) => {
+  if (quantity && (!Number.isInteger(quantity) || quantity! < 1)) {
     throw new CommerceError({
       message: 'The item quantity has to be a valid integer greater than 0',
     })
@@ -35,9 +39,9 @@ export const fetcher: HookFetcher<Cart, AddItemInput> = (
     ...options,
     query: addItemToOrderMutation,
     variables: { variantId, quantity: quantity || 1 },
-  }).then(res => {
-    console.log({ res });
-    return res;
+  }).then((res) => {
+    console.log({ res })
+    return res
   })
 }
 
@@ -48,7 +52,10 @@ export function extendHook(customFetcher: typeof fetcher) {
 
     return useCallback(
       async function addItem(input: AddItemInput) {
-        const data = await fn({ quantity: input.quantity, variantId: input.variantId })
+        const data = await fn({
+          quantity: input.quantity || 1,
+          variantId: input.variantId,
+        })
         await mutate(data, false)
         return data
       },

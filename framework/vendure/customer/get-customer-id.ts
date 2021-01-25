@@ -1,7 +1,7 @@
 import { GetCustomerIdQuery } from '../schema'
 import { VendureConfig, getConfig } from '../api'
 
-export const getCustomerIdQuery = /* GraphQL */ `
+export const getCustomerIdQuery = /* */ `
   query getCustomerId {
     customer {
       entityId

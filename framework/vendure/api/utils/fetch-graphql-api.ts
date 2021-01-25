@@ -27,7 +27,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   const json = await res.json()
   if (json.errors) {
     throw new FetcherError({
-      errors: json.errors ?? [{ message: 'Failed to fetch Bigcommerce API' }],
+      errors: json.errors ?? [{ message: 'Failed to fetch Vendure API' }],
       status: res.status,
     })
   }

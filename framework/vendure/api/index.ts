@@ -1,7 +1,5 @@
-import type { RequestInit } from '@vercel/fetch'
 import type { CommerceAPIConfig } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
-import fetchStoreApi from './utils/fetch-store-api'
 
 export interface VendureConfig extends CommerceAPIConfig {}
 

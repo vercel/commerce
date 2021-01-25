@@ -2,8 +2,6 @@ import type {
   GetAllProductPathsQuery,
   GetAllProductPathsQueryVariables,
 } from '../schema'
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
-import filterEdges from '../api/utils/filter-edges'
 import { VendureConfig, getConfig } from '../api'
 
 export const getAllProductPathsQuery = /* GraphQL */ `
@@ -16,17 +14,9 @@ export const getAllProductPathsQuery = /* GraphQL */ `
   }
 `
 
-export type ProductPath = NonNullable<
-  NonNullable<GetAllProductPathsQuery['site']['products']['edges']>[0]
->
-
-export type ProductPaths = ProductPath[]
-
-export type { GetAllProductPathsQueryVariables }
-
-export type GetAllProductPathsResult<
-  T extends { products: any[] } = { products: ProductPaths }
-> = T
+export type GetAllProductPathsResult = {
+  products: Array<{ node: { path: string } }>
+}
 
 async function getAllProductPaths(opts?: {
   variables?: GetAllProductPathsQueryVariables
@@ -40,7 +30,7 @@ async function getAllProductPaths<
   query: string
   variables?: V
   config?: VendureConfig
-}): Promise<GetAllProductPathsResult<T>>
+}): Promise<GetAllProductPathsResult>
 
 async function getAllProductPaths({
   query = getAllProductPathsQuery,
@@ -54,13 +44,13 @@ async function getAllProductPaths({
   config = getConfig(config)
   // RecursivePartial forces the method to check for every prop in the data, which is
   // required in case there's a custom `query`
-  const { data } = await config.fetch<
-    RecursivePartial<GetAllProductPathsQuery>
-  >(query, { variables })
+  const { data } = await config.fetch<GetAllProductPathsQuery>(query, {
+    variables,
+  })
   const products = data.products.items
 
   return {
-    products: products.map(p => ({ node: { path: `/${p.slug}` } })),
+    products: products.map((p) => ({ node: { path: `/${p.slug}` } })),
   }
 }
 

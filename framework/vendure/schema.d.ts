@@ -8,7 +8,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string
+  ID: number
   String: string
   Boolean: boolean
   Int: number
@@ -2794,4 +2794,194 @@ export type AuthenticationInput = {
 export type NativeAuthInput = {
   username: Scalars['String']
   password: Scalars['String']
+}
+
+export type CartFragment = { __typename?: 'Order' } & Pick<
+  Order,
+  | 'id'
+  | 'code'
+  | 'totalQuantity'
+  | 'subTotal'
+  | 'subTotalWithTax'
+  | 'total'
+  | 'totalWithTax'
+  | 'currencyCode'
+> & {
+    customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+    lines: Array<
+      { __typename?: 'OrderLine' } & Pick<OrderLine, 'id' | 'quantity'> & {
+          featuredAsset?: Maybe<
+            { __typename?: 'Asset' } & Pick<Asset, 'id' | 'preview'>
+          >
+          productVariant: { __typename?: 'ProductVariant' } & Pick<
+            ProductVariant,
+            'id' | 'name' | 'productId'
+          > & { product: { __typename?: 'Product' } & Pick<Product, 'slug'> }
+        }
+    >
+  }
+
+export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
+  SearchResult,
+  'productId' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
+> & {
+    productAsset?: Maybe<
+      { __typename?: 'SearchResultAsset' } & Pick<
+        SearchResultAsset,
+        'id' | 'preview'
+      >
+    >
+    priceWithTax:
+      | ({ __typename?: 'PriceRange' } & Pick<PriceRange, 'min' | 'max'>)
+      | ({ __typename?: 'SinglePrice' } & Pick<SinglePrice, 'value'>)
+  }
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String']
+  password: Scalars['String']
+}>
+
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login:
+    | ({ __typename?: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | { __typename?: 'InvalidCredentialsError' }
+    | { __typename?: 'NotVerifiedError' }
+    | { __typename?: 'NativeAuthStrategyError' }
+}
+
+export type AddItemToOrderMutationVariables = Exact<{
+  variantId: Scalars['ID']
+  quantity: Scalars['Int']
+}>
+
+export type AddItemToOrderMutation = { __typename?: 'Mutation' } & {
+  addItemToOrder:
+    | ({ __typename?: 'Order' } & CartFragment)
+    | { __typename?: 'OrderModificationError' }
+    | { __typename?: 'OrderLimitError' }
+    | { __typename?: 'NegativeQuantityError' }
+    | { __typename?: 'InsufficientStockError' }
+}
+
+export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
+
+export type ActiveOrderQuery = { __typename?: 'Query' } & {
+  activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
+}
+
+export type RemoveOrderLineMutationVariables = Exact<{
+  orderLineId: Scalars['ID']
+}>
+
+export type RemoveOrderLineMutation = { __typename?: 'Mutation' } & {
+  removeOrderLine:
+    | ({ __typename: 'Order' } & CartFragment)
+    | { __typename: 'OrderModificationError' }
+}
+
+export type AdjustOrderLineMutationVariables = Exact<{
+  orderLineId: Scalars['ID']
+  quantity: Scalars['Int']
+}>
+
+export type AdjustOrderLineMutation = { __typename?: 'Mutation' } & {
+  adjustOrderLine:
+    | ({ __typename?: 'Order' } & CartFragment)
+    | { __typename?: 'OrderModificationError' }
+    | { __typename?: 'OrderLimitError' }
+    | { __typename?: 'NegativeQuantityError' }
+    | { __typename?: 'InsufficientStockError' }
+}
+
+export type GetCollectionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetCollectionsQuery = { __typename?: 'Query' } & {
+  collections: { __typename?: 'CollectionList' } & {
+    items: Array<
+      { __typename?: 'Collection' } & Pick<
+        Collection,
+        'id' | 'name' | 'description' | 'slug'
+      > & {
+          productVariants: { __typename?: 'ProductVariantList' } & Pick<
+            ProductVariantList,
+            'totalItems'
+          >
+          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          children?: Maybe<
+            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          >
+        }
+    >
+  }
+}
+
+export type GetAllProductPathsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>
+}>
+
+export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
+  products: { __typename?: 'ProductList' } & {
+    items: Array<{ __typename?: 'Product' } & Pick<Product, 'slug'>>
+  }
+}
+
+export type GetAllProductsQueryVariables = Exact<{
+  input: SearchInput
+}>
+
+export type GetAllProductsQuery = { __typename?: 'Query' } & {
+  search: { __typename?: 'SearchResponse' } & {
+    items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>
+  }
+}
+
+export type GetProductQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type GetProductQuery = { __typename?: 'Query' } & {
+  product?: Maybe<
+    { __typename?: 'Product' } & Pick<
+      Product,
+      'id' | 'name' | 'slug' | 'description'
+    > & {
+        assets: Array<
+          { __typename?: 'Asset' } & Pick<Asset, 'id' | 'preview' | 'name'>
+        >
+        variants: Array<
+          { __typename?: 'ProductVariant' } & Pick<
+            ProductVariant,
+            'id' | 'priceWithTax' | 'currencyCode'
+          > & {
+              options: Array<
+                { __typename?: 'ProductOption' } & Pick<
+                  ProductOption,
+                  'id' | 'name' | 'code' | 'groupId'
+                >
+              >
+            }
+        >
+        optionGroups: Array<
+          { __typename?: 'ProductOptionGroup' } & Pick<
+            ProductOptionGroup,
+            'code' | 'name'
+          > & {
+              options: Array<
+                { __typename?: 'ProductOption' } & Pick<ProductOption, 'name'>
+              >
+            }
+        >
+      }
+  >
+}
+
+export type SearchQueryVariables = Exact<{
+  input: SearchInput
+}>
+
+export type SearchQuery = { __typename?: 'Query' } & {
+  search: { __typename?: 'SearchResponse' } & Pick<
+    SearchResponse,
+    'totalItems'
+  > & { items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment> }
 }

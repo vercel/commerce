@@ -1,4 +1,5 @@
 import update from '@framework/lib/immutability'
+import { CartFragment, SearchResultFragment } from '@framework/schema'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -67,52 +68,40 @@ export function normalizeProduct(productNode: any): Product {
   })
 }
 
-export function normalizeCart(data: any): Cart {
-  return update(data, {
-    $auto: {
-      items: { $set: data?.line_items?.physical_items?.map(itemsToProducts) },
-      subTotal: { $set: data?.base_amount },
-      total: { $set: data?.cart_amount },
+export function normalizeSearchResult(item: SearchResultFragment): Product {
+  return {
+    id: item.productId,
+    name: item.productName,
+    description: item.description,
+    slug: item.slug,
+    path: item.slug,
+    images: [{ url: item.productAsset?.preview || '' }],
+    variants: [],
+    price: {
+      value: (item.priceWithTax as any).min / 100,
+      currencyCode: item.currencyCode,
     },
-    $unset: ['created_time', 'coupons', 'line_items', 'email'],
-  })
+    options: [],
+    sku: item.sku,
+  }
 }
 
-function itemsToProducts(item: any): CartItem {
-  const {
-    id,
-    name,
-    quantity,
-    product_id,
-    variant_id,
-    image_url,
-    list_price,
-    sale_price,
-    extended_list_price,
-    extended_sale_price,
-    ...rest
-  } = item
-
-  return update(item, {
-    $auto: {
-      prices: {
-        $auto: {
-          listPrice: { $set: list_price },
-          salePrice: { $set: sale_price },
-          extendedListPrice: { $set: extended_list_price },
-          extendedSalePrice: { $set: extended_sale_price },
-        },
-      },
-      images: {
-        $set: [
-          {
-            alt: name,
-            url: image_url,
-          },
-        ],
-      },
-      productId: { $set: product_id },
-      variantId: { $set: variant_id },
-    },
-  })
+export function normalizeCart(order: CartFragment): Cart {
+  return {
+    id: order.id.toString(),
+    currency: { code: order.currencyCode },
+    subTotal: order.subTotalWithTax / 100,
+    total: order.totalWithTax / 100,
+    customerId: order.customer?.id as number,
+    items: order.lines?.map((l) => ({
+      id: l.id,
+      name: l.productVariant.name,
+      quantity: l.quantity,
+      url: l.productVariant.product.slug,
+      variantId: l.productVariant.id,
+      productId: l.productVariant.productId,
+      images: [{ url: l.featuredAsset?.preview || '' }],
+      prices: [],
+    })),
+  }
 }

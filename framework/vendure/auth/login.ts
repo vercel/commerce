@@ -6,8 +6,10 @@ import { VendureConfig, getConfig } from '../api'
 
 export const loginMutation = /* GraphQL */ `
   mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      result
+    login(username: $email, password: $password) {
+      ... on CurrentUser {
+        id
+      }
     }
   }
 `

@@ -1,33 +1,21 @@
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
 import useCommerceSearch from '@commerce/products/use-search'
-import type { SearchProductsData } from '../api/catalog/products'
 import useResponse from '@commerce/utils/use-response'
+import { searchResultFragment } from '@framework/api/fragments/search-result'
+import { SearchQuery } from '@framework/schema'
+import { normalizeSearchResult } from '@framework/lib/normalize'
 
 export const searchQuery = /* GraphQL */ `
   query search($input: SearchInput!) {
     search(input: $input) {
       items {
-        productId
-        currencyCode
-        productName
-        description
-        priceWithTax {
-          ...on SinglePrice {
-            value
-          }
-          ...on PriceRange {
-            min max
-          }
-        }
-        productAsset {
-          preview
-        }
-        slug
+        ...SearchResult
       }
       totalItems
     }
   }
+  ${searchResultFragment}
 `
 
 export type SearchProductsInput = {
@@ -37,7 +25,7 @@ export type SearchProductsInput = {
   sort?: string
 }
 
-export const fetcher: HookFetcher<SearchProductsData, SearchProductsInput> = (
+export const fetcher: HookFetcher<SearchQuery, SearchProductsInput> = (
   options,
   { search, categoryId, brandId, sort },
   fetch
@@ -48,9 +36,9 @@ export const fetcher: HookFetcher<SearchProductsData, SearchProductsInput> = (
       input: {
         term: search,
         collectionId: categoryId,
-        groupByProduct: true
-      }
-    }
+        groupByProduct: true,
+      },
+    },
   })
 }
 
@@ -59,39 +47,26 @@ export function extendHook(
   swrOptions?: SwrOptions<any, SearchProductsInput>
 ) {
   const useSearch = (input: SearchProductsInput = {}) => {
-    const response = useCommerceSearch(
+    const response = useCommerceSearch<SearchQuery, SearchProductsInput>(
       {},
       [
         ['search', input.search],
         ['categoryId', input.categoryId],
         ['brandId', input.brandId],
-        ['sort', input.sort]
+        ['sort', input.sort],
       ],
       customFetcher,
       { revalidateOnFocus: false, ...swrOptions }
     )
 
     return useResponse(response, {
-      normalizer: data => {
+      normalizer: (data) => {
         return {
-          found: data?.search.totalItems > 0,
-          products: data?.search.items.map((item: any) => ({
-            id: item.productId,
-            name: item.productName,
-            description: item.description,
-            slug: item.slug,
-            path: item.slug,
-            images: [{ url: item.productAsset?.preview }],
-            variants: [],
-            price: {
-              value: (item.priceWithTax.min / 100),
-              currencyCode: item.currencyCode
-            },
-            options: [],
-            sku: item.sku
-          })) ?? [],
+          found: data?.search.totalItems && data?.search.totalItems > 0,
+          products:
+            data?.search.items.map((item) => normalizeSearchResult(item)) ?? [],
         }
-      }
+      },
     })
   }
 

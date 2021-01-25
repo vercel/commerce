@@ -1,8 +1,6 @@
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
 import { VendureConfig, getConfig } from '../api'
-import { definitions } from '../api/definitions/store-content'
 
-export type Page = definitions['page_Full']
+export type Page = any
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
@@ -36,17 +34,6 @@ async function getPage({
   preview?: boolean
 }): Promise<GetPageResult> {
   config = getConfig(config)
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `url`
-  const { data } = await config.storeApiFetch<RecursivePartial<{ data: Page[] }>>(
-    url || `/v3/content/pages?id=${variables.id}&include=body`
-  )
-  const firstPage = data?.[0]
-  const page = firstPage as RecursiveRequired<typeof firstPage>
-
-  if (preview || page?.is_visible) {
-    return { page }
-  }
   return {}
 }
 
