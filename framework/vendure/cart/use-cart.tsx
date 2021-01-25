@@ -1,46 +1,83 @@
-import { normalizeCart } from '../lib/normalize'
-import type { HookFetcher } from '@commerce/utils/types'
-import type { SwrOptions } from '@commerce/utils/use-data'
-import useResponse from '@commerce/utils/use-response'
+import fetchGraphqlApi from '@framework/api/utils/fetch-graphql-api'
+import { HookFetcher } from '@commerce/utils/types'
+import useData, { SwrOptions } from '@commerce/utils/use-data'
 import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
-import type { Cart as BigCommerceCart } from '../api/cart'
+import useResponse from '@commerce/utils/use-response'
+import useAction from '@commerce/utils/use-action'
+import { useCallback } from 'react'
+import { normalizeCart } from '../../bigcommerce/lib/normalize'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/cart',
-  method: 'GET',
-}
+export const getCartQuery = /* GraphQL */ `
+  query activeOrder {
+    activeOrder {
+      id
+      code
+      totalQuantity
+      subTotal
+      subTotalWithTax
+      total
+      totalWithTax
+      currencyCode
+      lines {
+        id
+        quantity
+        featuredAsset {
+          id
+          preview
+        }
+        productVariant {
+          name
+          product {
+            slug
+          }
+          productId
+        }
+      }
+    }
+  }
+`
 
-type UseCartResponse = BigCommerceCart & Cart
-
-export const fetcher: HookFetcher<UseCartResponse | null, CartInput> = (
+export const fetcher: HookFetcher<any | null> = (
   options,
-  { cartId },
+  input,
   fetch
 ) => {
-  return cartId ? fetch({ ...defaultOpts, ...options }) : null
+  return fetch({ ...options, query: getCartQuery })
 }
 
 export function extendHook(
   customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<UseCartResponse | null, CartInput>
+  swrOptions?: SwrOptions<any | null>
 ) {
   const useCart = () => {
-    const response = useCommerceCart(defaultOpts, [], customFetcher, {
-      revalidateOnFocus: false,
-      ...swrOptions,
-    })
+    const response = useData({}, [], customFetcher, swrOptions)
     const res = useResponse(response, {
-      normalizer: normalizeCart,
+      normalizer: (data => {
+        const order = data?.activeOrder;
+        console.log({ order });
+        return (order ? {
+          id: order.id,
+          currency: { code: order.currencyCode },
+          subTotal: order.subTotalWithTax / 100,
+          total: order.totalWithTax / 100,
+          items: order.lines?.map(l => ({
+            name: l.productVariant.name,
+            quantity: l.quantity,
+            url: l.productVariant.product.slug,
+            variantId: l.productVariant.id,
+            productId: l.productVariant.productId,
+            images: [{ url: l.featuredAsset?.preview }]
+          }))
+        } : null)
+      }),
       descriptors: {
         isEmpty: {
           get() {
-            return Object.values(response.data?.line_items ?? {}).every(
-              (items) => !items.length
-            )
+            return response.data?.activeOrder?.totalQuantity === 0
           },
-          enumerable: true,
-        },
-      },
+          enumerable: true
+        }
+      }
     })
 
     return res

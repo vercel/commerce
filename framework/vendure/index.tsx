@@ -26,13 +26,13 @@ async function getError(res: Response) {
 export const vendureConfig: CommerceConfig = {
   locale: 'en-us',
   cartCookie: 'bc_cartId',
-  async fetcher({ url, method = 'GET', variables, body: bodyObj }) {
-    const hasBody = Boolean(variables || bodyObj)
+  async fetcher({ url, method = 'POST', variables, query, body: bodyObj }) {
+    const hasBody = Boolean(variables || query)
     const body = hasBody
-      ? JSON.stringify(variables ? { variables } : bodyObj)
+      ? JSON.stringify({ query, variables })
       : undefined
     const headers = hasBody ? { 'Content-Type': 'application/json' } : undefined
-    const res = await fetch(url!, { method, body, headers })
+    const res = await fetch('http://localhost:3001/shop-api'!, { method, body, headers, credentials: 'include' })
 
     if (res.ok) {
       const { data } = await res.json()
