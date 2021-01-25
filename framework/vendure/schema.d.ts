@@ -2836,16 +2836,46 @@ export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
       | ({ __typename?: 'SinglePrice' } & Pick<SinglePrice, 'value'>)
   }
 
-export type LoginMutationVariables = Exact<{
+export type LoginServerMutationVariables = Exact<{
   email: Scalars['String']
+  password: Scalars['String']
+}>
+
+export type LoginServerMutation = { __typename?: 'Mutation' } & {
+  login:
+    | ({ __typename?: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | { __typename?: 'InvalidCredentialsError' }
+    | { __typename?: 'NotVerifiedError' }
+    | { __typename?: 'NativeAuthStrategyError' }
+}
+
+export type LoginMutationVariables = Exact<{
+  username: Scalars['String']
   password: Scalars['String']
 }>
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
   login:
-    | ({ __typename?: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
-    | { __typename?: 'InvalidCredentialsError' }
-    | { __typename?: 'NotVerifiedError' }
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | { __typename: 'InvalidCredentialsError' }
+    | { __typename: 'NotVerifiedError' }
+    | { __typename: 'NativeAuthStrategyError' }
+}
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>
+
+export type LogoutMutation = { __typename?: 'Mutation' } & {
+  logout: { __typename?: 'Success' } & Pick<Success, 'success'>
+}
+
+export type SignupMutationVariables = Exact<{
+  input: RegisterCustomerInput
+}>
+
+export type SignupMutation = { __typename?: 'Mutation' } & {
+  registerCustomerAccount:
+    | ({ __typename?: 'Success' } & Pick<Success, 'success'>)
+    | { __typename?: 'MissingPasswordError' }
     | { __typename?: 'NativeAuthStrategyError' }
 }
 
@@ -2913,6 +2943,17 @@ export type GetCollectionsQuery = { __typename?: 'Query' } & {
         }
     >
   }
+}
+
+export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
+
+export type ActiveCustomerQuery = { __typename?: 'Query' } & {
+  activeCustomer?: Maybe<
+    { __typename?: 'Customer' } & Pick<
+      Customer,
+      'id' | 'firstName' | 'lastName' | 'emailAddress'
+    >
+  >
 }
 
 export type GetAllProductPathsQueryVariables = Exact<{

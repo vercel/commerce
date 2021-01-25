@@ -34,7 +34,7 @@ export function extendHook(
   swrOptions?: SwrOptions<any | null>
 ) {
   const useCart = () => {
-    const response = useData<CartResult>({ query: getCartQuery }, [], customFetcher, swrOptions)
+    const response = useData<Cart>({ query: getCartQuery }, [], customFetcher, swrOptions)
     const res = useResponse(response, {
       normalizer: (data => {
         const order = data?.activeOrder || data?.addItemToOrder || data?.adjustOrderLine || data?.removeOrderLine;
