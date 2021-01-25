@@ -4,28 +4,15 @@ import fetchGraphqlApi from '@framework/api/utils/fetch-graphql-api'
 import useCartAddItem from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
 import { useCallback } from 'react'
+import { cartFragment } from '../api/fragments/cart'
 
 export const addItemToOrderMutation = /* GraphQL */ `
   mutation addItemToOrder($variantId: ID!, $quantity: Int!) {
     addItemToOrder(productVariantId: $variantId, quantity: $quantity) {
-      ... on Order {
-        id
-        code
-        totalQuantity
-        total
-        totalWithTax
-        lines {
-          id
-          productVariant {
-            featuredAsset {
-              id
-              preview
-            }
-          }
-        }
-      }
+      ... Cart
     }
   }
+  ${cartFragment}
 `
 
 export type AddItemInput = { productId?: number; variantId: number; quantity?: number; };

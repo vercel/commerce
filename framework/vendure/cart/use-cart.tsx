@@ -6,35 +6,15 @@ import useResponse from '@commerce/utils/use-response'
 import useAction from '@commerce/utils/use-action'
 import { useCallback } from 'react'
 import { normalizeCart } from '../../bigcommerce/lib/normalize'
+import { cartFragment } from '../api/fragments/cart'
 
 export const getCartQuery = /* GraphQL */ `
   query activeOrder {
     activeOrder {
-      id
-      code
-      totalQuantity
-      subTotal
-      subTotalWithTax
-      total
-      totalWithTax
-      currencyCode
-      lines {
-        id
-        quantity
-        featuredAsset {
-          id
-          preview
-        }
-        productVariant {
-          name
-          product {
-            slug
-          }
-          productId
-        }
-      }
+      ...Cart
     }
   }
+  ${cartFragment}
 `
 
 export const fetcher: HookFetcher<any | null> = (
@@ -50,17 +30,17 @@ export function extendHook(
   swrOptions?: SwrOptions<any | null>
 ) {
   const useCart = () => {
-    const response = useData({}, [], customFetcher, swrOptions)
+    const response = useData({ query: getCartQuery }, [], customFetcher, swrOptions)
     const res = useResponse(response, {
       normalizer: (data => {
-        const order = data?.activeOrder;
-        console.log({ order });
+        const order = data?.activeOrder || data?.addItemToOrder || data?.adjustOrderLine || data?.removeOrderLine;
         return (order ? {
           id: order.id,
           currency: { code: order.currencyCode },
           subTotal: order.subTotalWithTax / 100,
           total: order.totalWithTax / 100,
           items: order.lines?.map(l => ({
+            id: l.id,
             name: l.productVariant.name,
             quantity: l.quantity,
             url: l.productVariant.product.slug,

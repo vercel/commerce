@@ -1,41 +1,41 @@
 import { useCallback } from 'react'
 import { HookFetcher } from '@commerce/utils/types'
 import useCartRemoveItem from '@commerce/cart/use-remove-item'
-import type { RemoveItemBody } from '../api/cart'
 import useCart, { Cart } from './use-cart'
+import { cartFragment } from '@framework/api/fragments/cart'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/cart',
-  method: 'DELETE',
-}
+export const removeOrderLineMutation = /* GraphQL */ `
+  mutation removeOrderLine($orderLineId: ID!) {
+    removeOrderLine(orderLineId: $orderLineId) {
+      ...Cart
+    }
+  }
+  ${cartFragment}
+`
 
-export type RemoveItemInput = {
-  id: string
-}
-
-export const fetcher: HookFetcher<Cart | null, RemoveItemBody> = (
+export const fetcher: HookFetcher<Cart | null, any> = (
   options,
-  { itemId },
+  { lineId },
   fetch
 ) => {
   return fetch({
-    ...defaultOpts,
     ...options,
-    body: { itemId },
+    query: removeOrderLineMutation,
+    variables: { orderLineId: lineId },
   })
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useRemoveItem = (item?: any) => {
     const { mutate } = useCart()
-    const fn = useCartRemoveItem<Cart | null, RemoveItemBody>(
-      defaultOpts,
+    const fn = useCartRemoveItem<Cart | null, any>(
+      {},
       customFetcher
     )
 
     return useCallback(
-      async function removeItem(input: RemoveItemInput) {
-        const data = await fn({ itemId: input.id ?? item?.id })
+      async function removeItem(input: any) {
+        const data = await fn({ lineId: input.id })
         await mutate(data, false)
         return data
       },
