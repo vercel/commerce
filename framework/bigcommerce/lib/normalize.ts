@@ -1,4 +1,4 @@
-import type { Cart as BigCommerceCart } from '../api/cart'
+import type { Cart as BigcommerceCart } from '../api/cart'
 import update from './immutability'
 
 function normalizeProductOption(productOption: any) {
@@ -68,7 +68,7 @@ export function normalizeProduct(productNode: any): Product {
   })
 }
 
-export function normalizeCart(data: BigCommerceCart): Cart {
+export function normalizeCart(data: BigcommerceCart): Cart {
   const d: BaseCart = data && {
     id: data.id,
     customerId: String(data.customer_id),

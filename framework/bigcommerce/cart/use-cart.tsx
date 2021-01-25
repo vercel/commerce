@@ -10,9 +10,7 @@ const defaultOpts = {
   method: 'GET',
 }
 
-type UseCartResponse = BigcommerceCart & Cart
-
-export const fetcher: HookFetcher<UseCartResponse | null, CartInput> = (
+export const fetcher: HookFetcher<BigcommerceCart | null, CartInput> = (
   options,
   { cartId },
   fetch
@@ -22,7 +20,7 @@ export const fetcher: HookFetcher<UseCartResponse | null, CartInput> = (
 
 export function extendHook(
   customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<UseCartResponse | null, CartInput>
+  swrOptions?: SwrOptions<BigcommerceCart | null, CartInput>
 ) {
   const useCart = () => {
     const response = useCommerceCart(defaultOpts, [], customFetcher, {

@@ -25,7 +25,7 @@ const useResponse: UseResponse = (response, { descriptors, normalizer }) => {
           ? {
               data: {
                 get() {
-                  return normalizer(response.data)
+                  return response.data && normalizer(response.data)
                 },
                 enumerable: true,
               },

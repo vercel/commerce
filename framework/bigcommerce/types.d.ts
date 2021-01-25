@@ -1,0 +1,1 @@
+interface Cart extends BaseCart {}
