@@ -3,18 +3,18 @@ import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
 import useData, { ResponseState, SwrOptions } from '../utils/use-data'
 import { useCommerce } from '..'
 
-export type CartResponse<Result> = ResponseState<Result> & { isEmpty?: boolean }
+export type CartResponse<Data> = ResponseState<Data> & { isEmpty?: boolean }
 
 export type CartInput = {
   cartId: Cart['id']
 }
 
-export default function useCart<Result>(
+export default function useCart<Data>(
   options: HookFetcherOptions,
   input: HookInput,
-  fetcherFn: HookFetcher<Result, CartInput>,
-  swrOptions?: SwrOptions<Result, CartInput>
-): CartResponse<Result> {
+  fetcherFn: HookFetcher<Data, CartInput>,
+  swrOptions?: SwrOptions<Data, CartInput>
+): CartResponse<Data> {
   const { cartCookie } = useCommerce()
   const fetcher: typeof fetcherFn = (options, input, fetch) => {
     input.cartId = Cookies.get(cartCookie)

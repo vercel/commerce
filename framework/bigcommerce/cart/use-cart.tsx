@@ -10,17 +10,20 @@ const defaultOpts = {
   method: 'GET',
 }
 
-export const fetcher: HookFetcher<BigcommerceCart | null, CartInput> = (
+export const fetcher: HookFetcher<Cart | null, CartInput> = async (
   options,
   { cartId },
   fetch
 ) => {
-  return cartId ? fetch({ ...defaultOpts, ...options }) : null
+  const data = cartId
+    ? await fetch<BigcommerceCart>({ ...defaultOpts, ...options })
+    : null
+  return data && normalizeCart(data)
 }
 
 export function extendHook(
   customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<BigcommerceCart | null, CartInput>
+  swrOptions?: SwrOptions<Cart | null, CartInput>
 ) {
   const useCart = () => {
     const response = useCommerceCart(defaultOpts, [], customFetcher, {
@@ -28,7 +31,6 @@ export function extendHook(
       ...swrOptions,
     })
     const res = useResponse(response, {
-      normalizer: normalizeCart,
       descriptors: {
         isEmpty: {
           get() {
