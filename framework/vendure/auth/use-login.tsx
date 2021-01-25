@@ -2,43 +2,55 @@ import { useCallback } from 'react'
 import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCommerceLogin from '@commerce/use-login'
-import type { LoginBody } from '../api/customers/login'
 import useCustomer from '../customer/use-customer'
+import { LoginMutation, LoginMutationVariables } from '@framework/schema'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/customers/login',
-  method: 'POST',
-}
+export const loginMutation = /* GraphQL */ `
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      __typename
+      ... on CurrentUser {
+        id
+      }
+    }
+  }
+`
 
-export type LoginInput = LoginBody
-
-export const fetcher: HookFetcher<null, LoginBody> = (
+export const fetcher: HookFetcher<LoginMutation, LoginMutationVariables> = (
   options,
-  { email, password },
+  { username, password },
   fetch
 ) => {
-  if (!(email && password)) {
+  if (!(username && password)) {
     throw new CommerceError({
-      message:
-        'A first name, last name, email and password are required to login',
+      message: 'An email address and password are required to login',
     })
   }
 
   return fetch({
-    ...defaultOpts,
     ...options,
-    body: { email, password },
+    query: loginMutation,
+    variables: { username, password },
   })
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useLogin = () => {
     const { revalidate } = useCustomer()
-    const fn = useCommerceLogin<null, LoginInput>(defaultOpts, customFetcher)
+    const fn = useCommerceLogin<LoginMutation, LoginMutationVariables>(
+      {},
+      customFetcher
+    )
 
     return useCallback(
-      async function login(input: LoginInput) {
-        const data = await fn(input)
+      async function login(input: { email: string; password: string }) {
+        const data = await fn({
+          username: input.email,
+          password: input.password,
+        })
+        if (data.login.__typename !== 'CurrentUser') {
+          throw new CommerceError({ message: 'The credentials are not valid' })
+        }
         await revalidate()
         return data
       },

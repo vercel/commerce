@@ -30,7 +30,7 @@ export function extendHook(
   swrOptions?: SwrOptions<any | null>
 ) {
   const useCart = () => {
-    const response = useData<CartResult>(
+    const response = useData<Cart>(
       { query: getCartQuery },
       [],
       customFetcher,

@@ -5,7 +5,7 @@ import concatHeader from '../api/utils/concat-cookie'
 import { VendureConfig, getConfig } from '../api'
 
 export const loginMutation = /* GraphQL */ `
-  mutation login($email: String!, $password: String!) {
+  mutation loginServer($email: String!, $password: String!) {
     login(username: $email, password: $password) {
       ... on CurrentUser {
         id

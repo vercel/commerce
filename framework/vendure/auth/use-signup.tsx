@@ -2,22 +2,33 @@ import { useCallback } from 'react'
 import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCommerceSignup from '@commerce/use-signup'
-import type { SignupBody } from '../api/customers/signup'
 import useCustomer from '../customer/use-customer'
+import { SignupMutation, SignupMutationVariables } from '@framework/schema'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/customers/signup',
-  method: 'POST',
+export const signupMutation = /* GraphQL */ `
+  mutation signup($input: RegisterCustomerInput!) {
+    registerCustomerAccount(input: $input) {
+      ... on Success {
+        success
+      }
+    }
+  }
+`
+
+export type SignupInput = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
 }
 
-export type SignupInput = SignupBody
-
-export const fetcher: HookFetcher<null, SignupBody> = (
+export const fetcher: HookFetcher<SignupMutation, SignupMutationVariables> = (
   options,
-  { firstName, lastName, email, password },
+  { input },
   fetch
 ) => {
-  if (!(firstName && lastName && email && password)) {
+  const { firstName, lastName, emailAddress, password } = input
+  if (!(firstName && lastName && emailAddress && password)) {
     throw new CommerceError({
       message:
         'A first name, last name, email and password are required to signup',
@@ -25,20 +36,30 @@ export const fetcher: HookFetcher<null, SignupBody> = (
   }
 
   return fetch({
-    ...defaultOpts,
     ...options,
-    body: { firstName, lastName, email, password },
+    query: signupMutation,
+    variables: { input },
   })
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useSignup = () => {
     const { revalidate } = useCustomer()
-    const fn = useCommerceSignup<null, SignupInput>(defaultOpts, customFetcher)
+    const fn = useCommerceSignup<SignupMutation, SignupMutationVariables>(
+      {},
+      customFetcher
+    )
 
     return useCallback(
       async function signup(input: SignupInput) {
-        const data = await fn(input)
+        const data = await fn({
+          input: {
+            firstName: input.firstName,
+            lastName: input.lastName,
+            emailAddress: input.email,
+            password: input.password,
+          },
+        })
         await revalidate()
         return data
       },

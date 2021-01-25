@@ -2,28 +2,32 @@ import { useCallback } from 'react'
 import type { HookFetcher } from '@commerce/utils/types'
 import useCommerceLogout from '@commerce/use-logout'
 import useCustomer from '../customer/use-customer'
+import { LogoutMutation } from '@framework/schema'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/customers/logout',
-  method: 'GET',
-}
+export const logoutMutation = /* GraphQL */ `
+  mutation logout {
+    logout {
+      success
+    }
+  }
+`
 
-export const fetcher: HookFetcher<null> = (options, _, fetch) => {
+export const fetcher: HookFetcher<LogoutMutation> = (options, _, fetch) => {
   return fetch({
-    ...defaultOpts,
     ...options,
+    query: logoutMutation,
   })
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useLogout = () => {
     const { mutate } = useCustomer()
-    const fn = useCommerceLogout<null>(defaultOpts, customFetcher)
+    const fn = useCommerceLogout<LogoutMutation>({}, customFetcher)
 
     return useCallback(
-      async function login() {
+      async function logout() {
         const data = await fn(null)
-        await mutate(null, false)
+        await mutate(null as any, false)
         return data
       },
       [fn]
