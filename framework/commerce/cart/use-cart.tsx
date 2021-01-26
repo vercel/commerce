@@ -6,10 +6,10 @@ import { useCommerce } from '..'
 export type CartResponse<Data> = ResponseState<Data> & { isEmpty?: boolean }
 
 export type CartInput = {
-  cartId: Cart['id']
+  cartId?: BaseCart['id']
 }
 
-export default function useCart<Data>(
+export default function useCart<Data extends BaseCart | null>(
   options: HookFetcherOptions,
   input: HookInput,
   fetcherFn: HookFetcher<Data, CartInput>,

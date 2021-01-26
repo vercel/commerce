@@ -127,7 +127,8 @@ interface BaseCart {
   discounts?: DiscountBase[]
 }
 
-interface Cart extends Entity {
+// TODO: Remove this type in favor of BaseCart
+interface Cart2 extends Entity {
   id: string | undefined
   currency: { code: string }
   taxIncluded?: boolean
