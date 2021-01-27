@@ -34,9 +34,7 @@ export function extendHook(
       descriptors: {
         isEmpty: {
           get() {
-            return Object.values(response.data?.line_items ?? {}).every(
-              (items) => !items.length
-            )
+            return (response.data?.lineItems.length ?? 0) <= 0
           },
           enumerable: true,
         },

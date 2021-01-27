@@ -69,14 +69,30 @@ export function normalizeProduct(productNode: any): Product {
 }
 
 export function normalizeCart(data: BigcommerceCart): Cart {
-  const d: BaseCart = data && {
+  // const d: BaseCart = data && {
+  //   id: data.id,
+  //   customerId: String(data.customer_id),
+  //   email: data.email,
+  //   createdAt: data.created_time,
+  //   currency: data.currency,
+  //   taxesIncluded: data.tax_included,
+  //   lineItems: data.line_items as any,
+  //   lineItemsSubtotalPrice: data.base_amount,
+  //   subtotalPrice: data.base_amount + data.discount_amount,
+  //   totalPrice: data.cart_amount,
+  //   discounts: data.discounts?.map((discount) => ({
+  //     value: discount.discounted_amount,
+  //   })),
+  // }
+
+  return {
     id: data.id,
     customerId: String(data.customer_id),
     email: data.email,
     createdAt: data.created_time,
     currency: data.currency,
     taxesIncluded: data.tax_included,
-    lineItems: data.line_items as any,
+    lineItems: data.line_items.physical_items.map(itemsToProducts) as any,
     lineItemsSubtotalPrice: data.base_amount,
     subtotalPrice: data.base_amount + data.discount_amount,
     totalPrice: data.cart_amount,
@@ -85,14 +101,14 @@ export function normalizeCart(data: BigcommerceCart): Cart {
     })),
   }
 
-  return update(data as any, {
-    $auto: {
-      items: { $set: data?.line_items?.physical_items?.map(itemsToProducts) },
-      subTotal: { $set: data?.base_amount },
-      total: { $set: data?.cart_amount },
-    },
-    $unset: ['created_time', 'coupons', 'line_items', 'email'],
-  })
+  // return update(data as any, {
+  //   $auto: {
+  //     items: { $set: data?.line_items?.physical_items?.map(itemsToProducts) },
+  //     subTotal: { $set: data?.base_amount },
+  //     total: { $set: data?.cart_amount },
+  //   },
+  //   $unset: ['created_time', 'coupons', 'line_items', 'email'],
+  // })
 }
 
 function itemsToProducts(item: any): CartItem {

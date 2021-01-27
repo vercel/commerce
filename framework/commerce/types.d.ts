@@ -114,7 +114,7 @@ interface BaseCart {
   currency: { code: string }
   // Specifies if taxes are included in the line items.
   taxesIncluded: boolean
-  lineItems: Pick<Product, 'id' | 'name' | 'prices'> & CartItem[]
+  lineItems: BaseLineItem[]
   // The sum of all the prices of all the items in the cart.
   // Duties, taxes, shipping and discounts excluded.
   lineItemsSubtotalPrice: number
