@@ -52,6 +52,7 @@ These modifications are temporarily until contributions are made to remove them.
 #### Adding item to Cart
 
 ```js
+// components/product/ProductView/ProductView.tsx
 const ProductView: FC<Props> = ({ product }) => {
   const addToCart = async () => {
     setLoading(true)
