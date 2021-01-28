@@ -1,8 +1,8 @@
-import { normalizeCart } from '../lib/normalize'
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
 import useResponse from '@commerce/utils/use-response'
 import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
+import { normalizeCart } from '../lib/normalize'
 import type { Cart as BigcommerceCart } from '../api/cart'
 
 const defaultOpts = {
