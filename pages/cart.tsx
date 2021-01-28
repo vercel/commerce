@@ -28,14 +28,14 @@ export default function Cart() {
 
   const { price: subTotal } = usePrice(
     data && {
-      amount: Number(data.subTotal),
-      currencyCode: data.currency.code || 'USD',
+      amount: Number(data.subtotalPrice),
+      currencyCode: data.currency.code,
     }
   )
   const { price: total } = usePrice(
     data && {
-      amount: Number(data.total),
-      currencyCode: data.currency?.code || 'USD',
+      amount: Number(data.totalPrice),
+      currencyCode: data.currency.code,
     }
   )
 
@@ -78,7 +78,7 @@ export default function Cart() {
             <Text variant="pageHeading">My Cart</Text>
             <Text variant="sectionHeading">Review your Order</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-b border-accents-2">
-              {data?.items.map((item) => (
+              {data!.lineItems.map((item) => (
                 <CartItem
                   key={item.id}
                   item={item}
@@ -93,7 +93,10 @@ export default function Cart() {
               </Text>
               <div className="flex py-6 space-x-6">
                 {[1, 2, 3, 4, 5, 6].map((x) => (
-                  <div className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75" />
+                  <div
+                    key={x}
+                    className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75"
+                  />
                 ))}
               </div>
             </div>

@@ -191,13 +191,11 @@ Returns the current cart data for use
 ...
 import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
 
-const countItem = (count: number, item: any) => count + item.quantity
-const countItems = (count: number, items: any[]) =>
-  items.reduce(countItem, count)
+const countItem = (count: number, item: LineItem) => count + item.quantity
 
 const CartNumber = () => {
   const { data } = useCart()
-  const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
+  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return itemsCount > 0 ? <span>{itemsCount}</span> : null
 }

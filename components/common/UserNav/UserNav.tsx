@@ -13,15 +13,13 @@ interface Props {
   className?: string
 }
 
-const countItem = (count: number, item: any) => count + item.quantity
-const countItems = (count: number, items: any[]) =>
-  items.reduce(countItem, count)
+const countItem = (count: number, item: LineItem) => count + item.quantity
 
-const UserNav: FC<Props> = ({ className, children, ...props }) => {
+const UserNav: FC<Props> = ({ className, children }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
-  const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
+  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return (
     <nav className={cn(s.root, className)}>

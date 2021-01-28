@@ -79,9 +79,6 @@ interface BaseProductVariant {
   sku: string
   // The product variant’s title, or the product's name.
   name: string
-  // Image associated with the product variant. Falls back to the product image
-  // if no image is available.
-  image: Image
   // Whether a customer needs to provide a shipping address when placing
   // an order for the product variant.
   requiresShipping: boolean
@@ -89,6 +86,9 @@ interface BaseProductVariant {
   price: number
   // Product variant’s price, as quoted by the manufacturer/distributor.
   listPrice: number
+  // Image associated with the product variant. Falls back to the product image
+  // if no image is available.
+  image?: Image
   // Indicates whether this product variant is in stock.
   isInStock?: boolean
   // Indicates if the product variant is available for sale.
