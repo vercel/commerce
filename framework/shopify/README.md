@@ -36,6 +36,8 @@ yarn install -D @types/shopify-buy
 ```
 SHOPIFY_STORE_DOMAIN=
 SHOPIFY_STOREFRONT_ACCESS_TOKEN=
+NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=
+NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=
 ```
 
 4. Point the framework to `shopify` by updating `tsconfig.json`:
