@@ -14,14 +14,14 @@ const Item = ({
   currencyCode,
   ...rest
 }: {
-  item: CartItem
+  item: LineItem
   currencyCode: string
 }) => {
   const { closeSidebarIfPresent } = useUI()
 
   const { price } = usePrice({
-    amount: item.extended_sale_price,
-    baseAmount: item.extended_list_price,
+    amount: item.variant.price * item.quantity,
+    baseAmount: item.variant.listPrice * item.quantity,
     currencyCode,
   })
 
@@ -87,13 +87,13 @@ const Item = ({
           className={s.productImage}
           width={150}
           height={150}
-          src={item.images[0].url}
-          alt={item.images[0].alt}
+          src={item.variant.image.url}
+          alt={item.variant.image.altText}
           unoptimized
         />
       </div>
       <div className="flex-1 flex flex-col text-base">
-        <Link href={`/product/${item.url.split('/')[3]}`}>
+        <Link href={`/product/${item.path}`}>
           <span
             className="font-bold mb-5 text-lg cursor-pointer"
             onClick={() => closeSidebarIfPresent()}

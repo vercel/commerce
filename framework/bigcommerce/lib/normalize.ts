@@ -69,22 +69,6 @@ export function normalizeProduct(productNode: any): Product {
 }
 
 export function normalizeCart(data: BigcommerceCart): Cart {
-  // const d: BaseCart = data && {
-  //   id: data.id,
-  //   customerId: String(data.customer_id),
-  //   email: data.email,
-  //   createdAt: data.created_time,
-  //   currency: data.currency,
-  //   taxesIncluded: data.tax_included,
-  //   lineItems: data.line_items as any,
-  //   lineItemsSubtotalPrice: data.base_amount,
-  //   subtotalPrice: data.base_amount + data.discount_amount,
-  //   totalPrice: data.cart_amount,
-  //   discounts: data.discounts?.map((discount) => ({
-  //     value: discount.discounted_amount,
-  //   })),
-  // }
-
   return {
     id: data.id,
     customerId: String(data.customer_id),
@@ -92,7 +76,7 @@ export function normalizeCart(data: BigcommerceCart): Cart {
     createdAt: data.created_time,
     currency: data.currency,
     taxesIncluded: data.tax_included,
-    lineItems: data.line_items.physical_items.map(itemsToProducts) as any,
+    lineItems: data.line_items.physical_items.map(normalizeLineItem),
     lineItemsSubtotalPrice: data.base_amount,
     subtotalPrice: data.base_amount + data.discount_amount,
     totalPrice: data.cart_amount,
@@ -100,52 +84,28 @@ export function normalizeCart(data: BigcommerceCart): Cart {
       value: discount.discounted_amount,
     })),
   }
-
-  // return update(data as any, {
-  //   $auto: {
-  //     items: { $set: data?.line_items?.physical_items?.map(itemsToProducts) },
-  //     subTotal: { $set: data?.base_amount },
-  //     total: { $set: data?.cart_amount },
-  //   },
-  //   $unset: ['created_time', 'coupons', 'line_items', 'email'],
-  // })
 }
 
-function itemsToProducts(item: any): CartItem {
-  const {
-    id,
-    name,
-    quantity,
-    product_id,
-    variant_id,
-    image_url,
-    list_price,
-    sale_price,
-    extended_list_price,
-    extended_sale_price,
-    ...rest
-  } = item
-
-  return update(item, {
-    $auto: {
-      prices: {
-        $auto: {
-          listPrice: { $set: list_price },
-          salePrice: { $set: sale_price },
-          extendedListPrice: { $set: extended_list_price },
-          extendedSalePrice: { $set: extended_sale_price },
-        },
+function normalizeLineItem(item: any): LineItem {
+  return {
+    id: item.id,
+    variantId: String(item.variant_id),
+    name: item.name,
+    quantity: item.quantity,
+    variant: {
+      id: String(item.variant_id),
+      sku: item.sku,
+      name: item.name,
+      image: {
+        url: item.image_url,
       },
-      images: {
-        $set: [
-          {
-            alt: name,
-            url: image_url,
-          },
-        ],
-      },
-      productId: { $set: product_id },
-      variantId: { $set: variant_id },
+      requiresShipping: item.is_require_shipping,
+      price: item.sale_price,
+      listPrice: item.list_price,
     },
-  })
+    path: item.url.split('/')[3],
+    discounts: item.discounts.map((discount: any) => ({
+      value: discount.discounted_amount,
+    })),
+  }
 }

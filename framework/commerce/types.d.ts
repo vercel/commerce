@@ -56,6 +56,8 @@ interface BaseLineItem {
   name: string
   quantity: number
   discounts: DiscountBase[]
+  // A human-friendly unique string automatically generated from the product’s name
+  path: string
   variant: BaseProductVariant
 }
 
@@ -77,16 +79,20 @@ interface BaseProductVariant {
   sku: string
   // The product variant’s title, or the product's name.
   name: string
-  // Indicates whether this product variant is in stock.
-  isInStock: boolean
-  // Indicates if the product variant is available for sale.
-  availableForSale: boolean
-  // Whether a customer needs to provide a shipping address when placing
-  // an order for the product variant.
-  requiresShipping: boolean
   // Image associated with the product variant. Falls back to the product image
   // if no image is available.
   image: Image
+  // Whether a customer needs to provide a shipping address when placing
+  // an order for the product variant.
+  requiresShipping: boolean
+  // The product variant’s price after all discounts are applied.
+  price: number
+  // Product variant’s price, as quoted by the manufacturer/distributor.
+  listPrice: number
+  // Indicates whether this product variant is in stock.
+  isInStock?: boolean
+  // Indicates if the product variant is available for sale.
+  availableForSale?: boolean
   // The variant's weight. If a weight was not explicitly specified on the
   // variant this will be the product's weight.
   weight?: Measurement
