@@ -1,6 +1,6 @@
 import Client from 'shopify-buy'
 import { ShopifyConfig } from '../api'
-import { Product } from '../utils/types'
+import { Product } from '../types'
 import toCommerceProducts from '../utils/to-commerce-products'
 
 export type ProductNode = Product

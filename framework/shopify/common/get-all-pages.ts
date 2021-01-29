@@ -1,5 +1,5 @@
 import { getConfig, ShopifyConfig } from '../api'
-import { Page as PageType, PageEdge } from '../utils/types'
+import { Page as PageType, PageEdge } from '../types'
 
 export type Page = PageType
 

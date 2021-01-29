@@ -1,5 +1,5 @@
 import { ShopifyConfig, getConfig } from '..'
-import type { Page } from '../../utils/types'
+import type { Page } from '../../types'
 
 export type { Page }
 

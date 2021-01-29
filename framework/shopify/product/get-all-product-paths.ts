@@ -1,6 +1,6 @@
 import Client from 'shopify-buy'
 import { getConfig } from '../api'
-import { Product } from '../utils/types'
+import { Product } from '../types'
 import toCommerceProducts from '../utils/to-commerce-products'
 
 type ReturnType = {

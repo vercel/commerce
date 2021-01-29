@@ -7,7 +7,7 @@ import React, {
   useEffect,
 } from 'react'
 import Client from 'shopify-buy'
-import { Shop, Cart, Client as ClientType } from './utils/types'
+import { Shop, Cart, Client as ClientType } from './types'
 import {
   getCheckoutIdFromStorage,
   setCheckoutIdInStorage,
