@@ -61,15 +61,15 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
 
-        <Sidebar open={displaySidebar} onClose={closeSidebar}>
-          <CartSidebarView />
-        </Sidebar>
-
         <Modal open={displayModal} onClose={closeModal}>
           {modalView === 'LOGIN_VIEW' && <LoginView />}
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
           {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
         </Modal>
+
+        <Sidebar open={displaySidebar} onClose={closeSidebar}>
+          <CartSidebarView />
+        </Sidebar>
 
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
