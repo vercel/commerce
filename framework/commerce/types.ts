@@ -86,23 +86,25 @@ export interface Cart {
   discounts?: Discount[]
 }
 
-// interface OptionSelections {
-//   option_id: number
-//   option_value: number | string
-// }
-
-export interface LineItemBody {
+// Base cart item body used for cart mutations
+export interface CartItemBody {
   productId: string
   variantId: string
   quantity?: number
-  // optionSelections?: OptionSelections
 }
 
-export interface UpdateLineItemBody {
+// Body by the update operation
+export interface UpdateCartItemBody {
   itemId: string
-  item: LineItemBody
+  item: CartItemBody
 }
 
-export interface UpdateItemBody extends Partial<UpdateLineItemBody> {
+// Input expected by the `useUpdateItem` hook
+export interface UpdateCartItemInput extends Partial<CartItemBody> {
+  id?: string
+}
+
+// Body expected by the update operation handler
+export interface UpdateCartItemHandlerBody extends Partial<UpdateCartItemBody> {
   cartId?: string
 }
