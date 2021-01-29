@@ -8,7 +8,6 @@ import { Button } from '@components/ui'
 import { Bag, Cross, Check } from '@components/icons'
 import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
-import products from '@framework/api/catalog/products'
 
 export async function getStaticProps({
   preview,
