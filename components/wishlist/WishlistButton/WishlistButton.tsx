@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react'
 import cn from 'classnames'
-import { Heart } from '@components/icons'
 
 import { useUI } from '@components/ui'
-import useCustomer from '@framework/customer/use-customer'
+import { Heart } from '@components/icons'
 import useAddItem from '@framework/wishlist/use-add-item'
+import useWishlist from '@framework/wishlist/use-wishlist'
+import useCustomer from '@framework/customer/use-customer'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
-import useWishlist from '@framework/wishlist/use-add-item'
 
 type Props = {
   productId: Product['id']

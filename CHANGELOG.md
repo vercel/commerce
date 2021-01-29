@@ -1,4 +1,5 @@
 ## Changelog
 
-- Select Variants Working
-- Click on cart item title, closes the sidebar
+- Select Variants Fully Working
+- Click on the Cart Item Title, closes the sidebar.
+
