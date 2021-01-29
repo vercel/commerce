@@ -95,20 +95,20 @@ const CartItem = ({
       <div className="flex-1 flex flex-col text-base">
         {/** TODO: Replace this. No `path` found at Cart */}
         <Link href={`/product/${item.url.split('/')[3]}`}>
-          <span className="font-bold mb-2 text-lg cursor-pointer">
+          <span className="font-bold text-lg cursor-pointer leading-6">
             {item.name}
           </span>
         </Link>
         {item.options && item.options.length > 0 ? (
-          <div className="flex flex-col mb-2">
-            {item.options.map((option:ItemOption) =>
-              <span key={`${item.id}-${option.name}`} className="text-sm">
-                {`${option.name}: ${option.value}`}
+          <div className="">
+            {item.options.map((option:ItemOption, i: number) =>
+              <span key={`${item.id}-${option.name}`} className="text-sm font-semibold text-accents-7">
+                {option.value}{ i === item.options.length -1 ? "" : ", " }
               </span>
             )}
           </div>
         ) : null}
-        <div className="flex items-center">
+        <div className="flex items-center mt-3">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />
           </button>
