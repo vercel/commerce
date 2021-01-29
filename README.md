@@ -90,7 +90,7 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 6. Add proper store values to `.env.local`.
 7. Run `yarn dev` to build and watch for code changes
 8. The development branch is `canary` (this is the branch pull requests should be made against).
-   On a release, `develop` branch is rebased into `master`.
+   On a release, `canary` branch is rebased into `master`.
 
 
 
