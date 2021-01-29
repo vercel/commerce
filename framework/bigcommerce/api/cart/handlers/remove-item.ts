@@ -15,7 +15,7 @@ const removeItem: CartHandlers['removeItem'] = async ({
   }
 
   const result = await config.storeApiFetch<{ data: any } | null>(
-    `/v3/carts/${cartId}/items/${itemId}`,
+    `/v3/carts/${cartId}/items/${itemId}?include=line_items.physical_items.options`,
     { method: 'DELETE' }
   )
   const data = result?.data ?? null
