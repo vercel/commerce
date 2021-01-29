@@ -53,10 +53,7 @@ export type Cart = {
 export type CartHandlers = {
   getCart: BigcommerceHandler<Cart, { cartId?: string }>
   addItem: BigcommerceHandler<Cart, { cartId?: string } & Partial<AddItemBody>>
-  updateItem: BigcommerceHandler<
-    Cart,
-    { cartId?: string } & Partial<UpdateItemBody>
-  >
+  updateItem: BigcommerceHandler<Cart, UpdateItemBody>
   removeItem: BigcommerceHandler<
     Cart,
     { cartId?: string } & Partial<RemoveItemBody>
