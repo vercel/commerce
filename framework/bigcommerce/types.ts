@@ -39,6 +39,7 @@ export type OptionSelections = {
 }
 
 export interface CartItemBody extends Core.CartItemBody {
+  productId: string // The product id is always required for BC
   optionSelections?: OptionSelections
 }
 
@@ -46,7 +47,8 @@ export interface UpdateCartItemBody extends Core.UpdateCartItemBody {
   item: CartItemBody
 }
 
-export interface UpdateCartItemInput extends Core.UpdateCartItemInput {}
+export interface UpdateCartItemInput
+  extends Core.UpdateCartItemInput<CartItemBody> {}
 
 export interface UpdateCartItemHandlerBody
   extends Core.UpdateCartItemHandlerBody {}

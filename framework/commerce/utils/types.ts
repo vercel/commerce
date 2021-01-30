@@ -1,18 +1,18 @@
 // Core fetcher added by CommerceProvider
 export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
 
-export type FetcherOptions = {
+export type FetcherOptions<Body = any> = {
   url?: string
   query?: string
   method?: string
   variables?: any
-  body?: any
+  body?: Body
 }
 
 export type HookFetcher<Data, Input = null, Result = any> = (
   options: HookFetcherOptions | null,
   input: Input,
-  fetch: <T = Result>(options: FetcherOptions) => Promise<T>
+  fetch: <T = Result, Body = any>(options: FetcherOptions<Body>) => Promise<T>
 ) => Data | Promise<Data>
 
 export type HookFetcherOptions = {

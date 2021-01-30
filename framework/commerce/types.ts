@@ -6,6 +6,7 @@ export interface Discount {
 export interface LineItem {
   id: string
   variantId: string
+  productId: string
   name: string
   quantity: number
   discounts: Discount[]
@@ -88,8 +89,8 @@ export interface Cart {
 
 // Base cart item body used for cart mutations
 export interface CartItemBody {
-  productId: string
   variantId: string
+  productId?: string
   quantity?: number
 }
 
@@ -100,8 +101,8 @@ export interface UpdateCartItemBody {
 }
 
 // Input expected by the `useUpdateItem` hook
-export interface UpdateCartItemInput extends Partial<CartItemBody> {
-  id?: string
+export type UpdateCartItemInput<T extends CartItemBody> = T & {
+  id: string
 }
 
 // Body expected by the update operation handler
