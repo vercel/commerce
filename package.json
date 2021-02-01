@@ -8,7 +8,9 @@
     "analyze": "BUNDLE_ANALYZE=both yarn build",
     "find:unused": "next-unused",
     "generate": "graphql-codegen",
-    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
+    "test": "jest",
+    "test:watch": "yarn test --watch"
   },
   "prettier": {
     "semi": false,
@@ -81,6 +83,10 @@
     "@types/bunyan-prettystream": "^0.1.31",
     "@types/classnames": "^2.2.10",
     "@types/cookie": "^0.4.0",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.1",
+    "@testing-library/user-event": "^12.2.0",
+    "@types/jest": "^26.0.15",
     "@types/js-cookie": "^2.2.6",
     "@types/lodash.debounce": "^4.0.6",
     "@types/lodash.random": "^3.2.6",
@@ -90,6 +96,8 @@
     "bunyan": "^1.8.14",
     "bunyan-prettystream": "^0.1.3",
     "graphql": "^15.4.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
     "next-unused": "^0.0.3",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
