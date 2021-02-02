@@ -1,14 +1,16 @@
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
 import type { HookFetcher } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
+import { ValidationError } from '@commerce/utils/errors'
 import useCartUpdateItem from '@commerce/cart/use-update-item'
 import { normalizeCart } from '../lib/normalize'
 import type {
-  ItemBody,
-  UpdateItemBody,
-  Cart as BigcommerceCart,
-} from '../api/cart'
+  UpdateCartItemBody,
+  UpdateCartItemInput,
+  Cart,
+  BigcommerceCart,
+  LineItem,
+} from '../types'
 import { fetcher as removeFetcher } from './use-remove-item'
 import useCart from './use-cart'
 
@@ -17,9 +19,7 @@ const defaultOpts = {
   method: 'PUT',
 }
 
-export type UpdateItemInput = Partial<{ id: string } & ItemBody>
-
-export const fetcher: HookFetcher<Cart | null, UpdateItemBody> = async (
+export const fetcher: HookFetcher<Cart | null, UpdateCartItemBody> = async (
   options,
   { itemId, item },
   fetch
@@ -30,12 +30,12 @@ export const fetcher: HookFetcher<Cart | null, UpdateItemBody> = async (
       return removeFetcher(null, { itemId }, fetch)
     }
   } else if (item.quantity) {
-    throw new CommerceError({
+    throw new ValidationError({
       message: 'The item quantity has to be a valid integer',
     })
   }
 
-  const data = await fetch<BigcommerceCart>({
+  const data = await fetch<BigcommerceCart, UpdateCartItemBody>({
     ...defaultOpts,
     ...options,
     body: { itemId, item },
@@ -45,26 +45,41 @@ export const fetcher: HookFetcher<Cart | null, UpdateItemBody> = async (
 }
 
 function extendHook(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
-  const useUpdateItem = (item?: any) => {
+  const useUpdateItem = <T extends LineItem | undefined = undefined>(
+    item?: T
+  ) => {
     const { mutate } = useCart()
-    const fn = useCartUpdateItem<Cart | null, UpdateItemBody>(
+    const fn = useCartUpdateItem<Cart | null, UpdateCartItemBody>(
       defaultOpts,
       customFetcher
     )
 
     return useCallback(
-      debounce(async (input: UpdateItemInput) => {
-        const data = await fn({
-          itemId: input.id ?? item?.id,
-          item: {
-            productId: input.productId ?? item?.product_id,
-            variantId: input.productId ?? item?.variant_id,
-            quantity: input.quantity,
-          },
-        })
-        await mutate(data, false)
-        return data
-      }, cfg?.wait ?? 500),
+      debounce(
+        async (
+          input: T extends LineItem
+            ? Partial<UpdateCartItemInput>
+            : UpdateCartItemInput
+        ) => {
+          const itemId = input.id ?? item?.id
+          const productId = input.productId ?? item?.productId
+          const variantId = input.productId ?? item?.variantId
+
+          if (!itemId || !productId || !variantId) {
+            throw new ValidationError({
+              message: 'Invalid input used for this operation',
+            })
+          }
+
+          const data = await fn({
+            itemId,
+            item: { productId, variantId, quantity: input.quantity },
+          })
+          await mutate(data, false)
+          return data
+        },
+        cfg?.wait ?? 500
+      ),
       [fn, mutate]
     )
   }

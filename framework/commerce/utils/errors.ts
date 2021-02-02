@@ -26,6 +26,14 @@ export class CommerceError extends Error {
   }
 }
 
+// Used for errors that come from a bad implementation of the hooks
+export class ValidationError extends CommerceError {
+  constructor(options: ErrorProps) {
+    super(options)
+    this.code = 'validation_error'
+  }
+}
+
 export class FetcherError extends CommerceError {
   status: number
 

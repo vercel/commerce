@@ -1,4 +1,4 @@
-import type { Cart as BigcommerceCart } from '../api/cart'
+import type { Cart, BigcommerceCart, LineItem } from '../types'
 import update from './immutability'
 
 function normalizeProductOption(productOption: any) {
@@ -90,6 +90,7 @@ function normalizeLineItem(item: any): LineItem {
   return {
     id: item.id,
     variantId: String(item.variant_id),
+    productId: String(item.product_id),
     name: item.name,
     quantity: item.quantity,
     variant: {
