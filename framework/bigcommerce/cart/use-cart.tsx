@@ -3,7 +3,7 @@ import type { SwrOptions } from '@commerce/utils/use-data'
 import useResponse from '@commerce/utils/use-response'
 import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
 import { normalizeCart } from '../lib/normalize'
-import type { Cart as BigcommerceCart } from '../api/cart'
+import type { Cart, BigcommerceCart } from '../types'
 
 const defaultOpts = {
   url: '/api/bigcommerce/cart',

@@ -94,18 +94,19 @@ export interface CartItemBody {
   quantity?: number
 }
 
-// Body by the update operation
-export interface UpdateCartItemBody {
-  itemId: string
-  item: CartItemBody
+// Body used by the `getCart` operation handler
+export interface GetCartHandlerBody {
+  cartId?: string
 }
 
-// Input expected by the `useUpdateItem` hook
-export type UpdateCartItemInput<T extends CartItemBody> = T & {
-  id: string
+// Body used by the update operation
+export interface UpdateCartItemBody<T extends CartItemBody> {
+  itemId: string
+  item: T
 }
 
 // Body expected by the update operation handler
-export interface UpdateCartItemHandlerBody extends Partial<UpdateCartItemBody> {
+export interface UpdateCartItemHandlerBody<T extends CartItemBody>
+  extends Partial<UpdateCartItemBody<T>> {
   cartId?: string
 }

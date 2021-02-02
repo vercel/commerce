@@ -8,7 +8,11 @@ import getCart from './handlers/get-cart'
 import addItem from './handlers/add-item'
 import updateItem from './handlers/update-item'
 import removeItem from './handlers/remove-item'
-import type { Cart, UpdateCartItemHandlerBody } from '../../types'
+import type {
+  BigcommerceCart,
+  GetCartHandlerBody,
+  UpdateCartItemHandlerBody,
+} from '../../types'
 
 type OptionSelections = {
   option_id: Number
@@ -27,11 +31,14 @@ export type AddItemBody = { item: ItemBody }
 export type RemoveItemBody = { itemId: string }
 
 export type CartHandlers = {
-  getCart: BigcommerceHandler<Cart, { cartId?: string }>
-  addItem: BigcommerceHandler<Cart, { cartId?: string } & Partial<AddItemBody>>
-  updateItem: BigcommerceHandler<Cart, UpdateCartItemHandlerBody>
+  getCart: BigcommerceHandler<BigcommerceCart, GetCartHandlerBody>
+  addItem: BigcommerceHandler<
+    BigcommerceCart,
+    { cartId?: string } & Partial<AddItemBody>
+  >
+  updateItem: BigcommerceHandler<BigcommerceCart, UpdateCartItemHandlerBody>
   removeItem: BigcommerceHandler<
-    Cart,
+    BigcommerceCart,
     { cartId?: string } & Partial<RemoveItemBody>
   >
 }

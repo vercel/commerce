@@ -1,6 +1,7 @@
+import type { BigcommerceCart } from '../../../types'
 import { BigcommerceApiError } from '../../utils/errors'
 import getCartCookie from '../../utils/get-cart-cookie'
-import type { Cart, CartHandlers } from '..'
+import type { CartHandlers } from '../'
 
 // Return current cart info
 const getCart: CartHandlers['getCart'] = async ({
@@ -8,7 +9,7 @@ const getCart: CartHandlers['getCart'] = async ({
   body: { cartId },
   config,
 }) => {
-  let result: { data?: Cart } = {}
+  let result: { data?: BigcommerceCart } = {}
 
   if (cartId) {
     try {

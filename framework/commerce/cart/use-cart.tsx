@@ -6,6 +6,7 @@ import { useCommerce } from '..'
 
 export type CartResponse<Data> = ResponseState<Data> & { isEmpty?: boolean }
 
+// Input expected by the `useCart` hook
 export type CartInput = {
   cartId?: Cart['id']
 }
