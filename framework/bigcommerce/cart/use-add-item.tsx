@@ -1,13 +1,16 @@
 import { useCallback } from 'react'
 import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
-import useCartAddItem from '@commerce/cart/use-add-item'
+import useCartAddItem, {
+  AddItemInput as UseAddItemInput,
+} from '@commerce/cart/use-add-item'
 import { normalizeCart } from '../lib/normalize'
 import type {
-  ItemBody,
-  AddItemBody,
-  Cart as BigcommerceCart,
-} from '../api/cart'
+  AddCartItemBody,
+  Cart,
+  BigcommerceCart,
+  CartItemBody,
+} from '../types'
 import useCart from './use-cart'
 
 const defaultOpts = {
@@ -15,9 +18,9 @@ const defaultOpts = {
   method: 'POST',
 }
 
-export type AddItemInput = ItemBody
+export type AddItemInput = UseAddItemInput<CartItemBody>
 
-export const fetcher: HookFetcher<Cart, AddItemBody> = async (
+export const fetcher: HookFetcher<Cart, AddCartItemBody> = async (
   options,
   { item },
   fetch
@@ -31,7 +34,7 @@ export const fetcher: HookFetcher<Cart, AddItemBody> = async (
     })
   }
 
-  const data = await fetch<BigcommerceCart>({
+  const data = await fetch<BigcommerceCart, AddCartItemBody>({
     ...defaultOpts,
     ...options,
     body: { item },

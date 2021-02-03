@@ -87,6 +87,10 @@ export interface Cart {
   discounts?: Discount[]
 }
 
+/**
+ * Cart mutations
+ */
+
 // Base cart item body used for cart mutations
 export interface CartItemBody {
   variantId: string
@@ -99,14 +103,35 @@ export interface GetCartHandlerBody {
   cartId?: string
 }
 
-// Body used by the update operation
+// Body used by the add item to cart operation
+export interface AddCartItemBody<T extends CartItemBody> {
+  item: T
+}
+
+// Body expected by the add item to cart operation handler
+export interface AddCartItemHandlerBody<T extends CartItemBody>
+  extends Partial<AddCartItemBody<T>> {
+  cartId?: string
+}
+
+// Body used by the update cart item operation
 export interface UpdateCartItemBody<T extends CartItemBody> {
   itemId: string
   item: T
 }
 
-// Body expected by the update operation handler
+// Body expected by the update cart item operation handler
 export interface UpdateCartItemHandlerBody<T extends CartItemBody>
   extends Partial<UpdateCartItemBody<T>> {
+  cartId?: string
+}
+
+// Body used by the remove cart item operation
+export interface RemoveCartItemBody {
+  itemId: string
+}
+
+// Body expected by the remove cart item operation handler
+export interface RemoveCartItemHandlerBody extends Partial<RemoveCartItemBody> {
   cartId?: string
 }

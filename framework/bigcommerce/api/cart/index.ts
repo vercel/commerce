@@ -11,42 +11,22 @@ import removeItem from './handlers/remove-item'
 import type {
   BigcommerceCart,
   GetCartHandlerBody,
+  AddCartItemHandlerBody,
   UpdateCartItemHandlerBody,
+  RemoveCartItemHandlerBody,
 } from '../../types'
-
-type OptionSelections = {
-  option_id: Number
-  option_value: Number | String
-}
-
-export type ItemBody = {
-  productId: number
-  variantId: number
-  quantity?: number
-  optionSelections?: OptionSelections
-}
-
-export type AddItemBody = { item: ItemBody }
-
-export type RemoveItemBody = { itemId: string }
 
 export type CartHandlers = {
   getCart: BigcommerceHandler<BigcommerceCart, GetCartHandlerBody>
-  addItem: BigcommerceHandler<
-    BigcommerceCart,
-    { cartId?: string } & Partial<AddItemBody>
-  >
+  addItem: BigcommerceHandler<BigcommerceCart, AddCartItemHandlerBody>
   updateItem: BigcommerceHandler<BigcommerceCart, UpdateCartItemHandlerBody>
-  removeItem: BigcommerceHandler<
-    BigcommerceCart,
-    { cartId?: string } & Partial<RemoveItemBody>
-  >
+  removeItem: BigcommerceHandler<BigcommerceCart, RemoveCartItemHandlerBody>
 }
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
 // TODO: a complete implementation should have schema validation for `req.body`
-const cartApi: BigcommerceApiHandler<Cart, CartHandlers> = async (
+const cartApi: BigcommerceApiHandler<BigcommerceCart, CartHandlers> = async (
   req,
   res,
   config,
