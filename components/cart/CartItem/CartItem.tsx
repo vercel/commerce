@@ -63,7 +63,7 @@ const Item = ({
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ id: String(item.id) })
+      await removeItem(item)
     } catch (error) {
       setRemoving(false)
     }
