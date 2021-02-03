@@ -13,7 +13,9 @@ const getCart: CartHandlers['getCart'] = async ({
 
   if (cartId) {
     try {
-      result = await config.storeApiFetch(`/v3/carts/${cartId}`)
+      result = await config.storeApiFetch(
+        `/v3/carts/${cartId}?include=line_items.physical_items.options`
+      )
     } catch (error) {
       if (error instanceof BigcommerceApiError && error.status === 404) {
         // Remove the cookie if it exists but the cart wasn't found

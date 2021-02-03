@@ -10,7 +10,14 @@ import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 
-const Item = ({
+type ItemOption = {
+  name: string
+  nameId: number
+  value: string
+  valueId: number
+}
+
+const CartItem = ({
   item,
   currencyCode,
   ...rest
@@ -96,14 +103,26 @@ const Item = ({
       <div className="flex-1 flex flex-col text-base">
         <Link href={`/product/${item.path}`}>
           <span
-            className="font-bold mb-5 text-lg cursor-pointer"
+            className="font-bold text-lg cursor-pointer leading-6"
             onClick={() => closeSidebarIfPresent()}
           >
             {item.name}
           </span>
         </Link>
-
-        <div className="flex items-center">
+        {item.options && item.options.length > 0 ? (
+          <div className="">
+            {item.options.map((option: ItemOption, i: number) => (
+              <span
+                key={`${item.id}-${option.name}`}
+                className="text-sm font-semibold text-accents-7"
+              >
+                {option.value}
+                {i === item.options.length - 1 ? '' : ', '}
+              </span>
+            ))}
+          </div>
+        ) : null}
+        <div className="flex items-center mt-3">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />
           </button>
@@ -136,4 +155,4 @@ const Item = ({
   )
 }
 
-export default Item
+export default CartItem
