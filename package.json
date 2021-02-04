@@ -45,7 +45,6 @@
   },
   "dependencies": {
     "@reach/portal": "^0.11.2",
-    "@tailwindcss/ui": "^0.6.2",
     "@vercel/fetch": "^6.1.0",
     "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
@@ -60,6 +59,7 @@
     "next": "^10.0.7-canary.3",
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
+    "postcss": "^8.2.4",
     "postcss-nesting": "^7.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
