@@ -3,11 +3,11 @@ import Link from 'next/link'
 import cn from 'classnames'
 import useCart from '@framework/cart/use-cart'
 import useCustomer from '@framework/customer/use-customer'
+import { Avatar } from '@components/common'
 import { Heart, Bag } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
-import { Avatar } from '@components/common'
 
 interface Props {
   className?: string
