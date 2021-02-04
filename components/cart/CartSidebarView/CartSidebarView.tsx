@@ -122,7 +122,7 @@ const CartSidebarView: FC = () => {
                 <span>{total}</span>
               </div>
             </div>
-            <Button href="/checkout" Component="a" width="100%">
+            <Button href={data.webUrl} Component="a" width="100%">
               Proceed to Checkout
             </Button>
           </div>

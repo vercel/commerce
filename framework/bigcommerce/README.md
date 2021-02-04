@@ -329,6 +329,7 @@ const SearchPage = ({ searchString, category, brand, sortStr }) => {
   const { data } = useSearch({
     search: searchString || '',
     categoryId: category?.entityId,
+    categorySlug: category?.slug,
     brandId: brand?.entityId,
     sort: sortStr || '',
   })
