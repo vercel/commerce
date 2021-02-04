@@ -29,8 +29,6 @@ const getProduct = async (options: {
 
   const product = data?.productByHandle
 
-  console.info(normalizeProduct(product))
-
   return {
     product: product ? normalizeProduct(product) : null,
   }
