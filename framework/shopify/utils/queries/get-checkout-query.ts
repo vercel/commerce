@@ -19,7 +19,10 @@ export const checkoutDetailsFragment = /* GraphQL */ `
           sku
           title
           image {
-            src
+            originalSrc
+            altText
+            width
+            height
           }
           price
         }

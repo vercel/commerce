@@ -1,3 +1,5 @@
+import { checkoutDetailsFragment } from '../queries/get-checkout-query'
+
 const checkoutCreateMutation = /* GraphQL */ `
   mutation {
     checkoutCreate(input: {}) {
@@ -6,8 +8,7 @@ const checkoutCreateMutation = /* GraphQL */ `
         field
       }
       checkout {
-        id
-        webUrl
+        ${checkoutDetailsFragment}
       }
     }
   }
