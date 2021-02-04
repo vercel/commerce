@@ -92,9 +92,7 @@ export function normalizeCart(data: Checkout): Cart {
     lineItemsSubtotalPrice: data.subtotalPrice,
     subtotalPrice: data.subtotalPrice,
     totalPrice: data.totalPrice,
-    discounts: data.discountApplications?.edges.map(({ value }: any) => ({
-      value,
-    })),
+    discounts: [],
   }
 }
 
@@ -119,8 +117,6 @@ function normalizeLineItem({
       listPrice: variant?.compareAtPrice,
     },
     path: '',
-    discounts: item.discountAllocations.map(({ value }: any) => ({
-      value,
-    })),
+    discounts: [],
   }
 }
