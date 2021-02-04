@@ -1,9 +1,9 @@
 import type { CommerceAPIConfig } from '@commerce/api'
+import { SHOPIFY_CHECKOUT_ID_COOKIE } from '@framework/const'
 import fetchGraphqlApi from '../utils/fetch-graphql-api'
 
 export interface ShopifyConfig extends CommerceAPIConfig {}
 
-// No I don't like this - will fix it later
 const API_URL = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
 const API_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
@@ -38,9 +38,13 @@ export class Config {
   }
 }
 
+const ONE_DAY = 60 * 60 * 24
+
 const config = new Config({
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
+  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
   customerCookie: 'SHOP_TOKEN',
 })

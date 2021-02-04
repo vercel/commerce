@@ -2,17 +2,15 @@ import { useCallback } from 'react'
 import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCommerceSignup from '@commerce/use-signup'
-import type { SignupBody } from '../api/customers/signup'
 import useCustomer from '../customer/use-customer'
+import customerCreateMutation from '@framework/utils/mutations/customer-create'
+import { CustomerCreateInput } from '@framework/schema'
 
 const defaultOpts = {
-  url: '/api/bigcommerce/customers/signup',
-  method: 'POST',
+  query: customerCreateMutation,
 }
 
-export type SignupInput = SignupBody
-
-export const fetcher: HookFetcher<null, SignupBody> = (
+export const fetcher: HookFetcher<null, CustomerCreateInput> = (
   options,
   { firstName, lastName, email, password },
   fetch
@@ -27,17 +25,20 @@ export const fetcher: HookFetcher<null, SignupBody> = (
   return fetch({
     ...defaultOpts,
     ...options,
-    body: { firstName, lastName, email, password },
+    variables: { firstName, lastName, email, password },
   })
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
   const useSignup = () => {
     const { revalidate } = useCustomer()
-    const fn = useCommerceSignup<null, SignupInput>(defaultOpts, customFetcher)
+    const fn = useCommerceSignup<null, CustomerCreateInput>(
+      defaultOpts,
+      customFetcher
+    )
 
     return useCallback(
-      async function signup(input: SignupInput) {
+      async function signup(input: CustomerCreateInput) {
         const data = await fn(input)
         await revalidate()
         return data

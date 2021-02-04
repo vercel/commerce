@@ -8,7 +8,6 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   { variables, preview } = {},
   fetchOptions
 ) => {
-  // log.warn(query)
   const config = getConfig()
   const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
     ...fetchOptions,

@@ -7,6 +7,7 @@ import getCheckoutQuery from '@framework/utils/queries/get-checkout-query'
 
 import { Cart } from '@commerce/types'
 import { checkoutToCart, checkoutCreate } from './utils'
+import { getConfig } from '@framework/api'
 
 const defaultOpts = {
   query: getCheckoutQuery,

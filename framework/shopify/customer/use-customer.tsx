@@ -2,18 +2,17 @@ import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
 import useCommerceCustomer from '@commerce/use-customer'
 
-const defaultOpts = {}
-
-export type Customer = {
-  entityId: number
-  firstName: string
-  lastName: string
-  email: string
+const defaultOpts = {
+  query: '/api/bigcommerce/customers',
 }
-export type CustomerData = {}
 
-export const fetcher: HookFetcher<Customer | null> = async () => {
-  return null
+export const fetcher: HookFetcher<Customer | null> = async (
+  options,
+  _,
+  fetch
+) => {
+  const data = await fetch<CustomerData | null>({ ...defaultOpts, ...options })
+  return data?.customer ?? null
 }
 
 export function extendHook(
@@ -21,7 +20,10 @@ export function extendHook(
   swrOptions?: SwrOptions<Customer | null>
 ) {
   const useCustomer = () => {
-    return { data: { firstName: null, lastName: null, email: null } }
+    return useCommerceCustomer(defaultOpts, [], customFetcher, {
+      revalidateOnFocus: false,
+      ...swrOptions,
+    })
   }
 
   useCustomer.extend = extendHook
