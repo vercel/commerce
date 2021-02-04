@@ -35,7 +35,10 @@ const getAllProductsQuery = /* GraphQL */ `
             }
             edges {
               node {
-                src
+                originalSrc
+                altText
+                width
+                height
               }
             }
           }

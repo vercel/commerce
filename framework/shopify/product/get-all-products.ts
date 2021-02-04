@@ -1,8 +1,8 @@
 import { GraphQLFetcherResult } from '@commerce/api'
-import toCommerceProducts from '../utils/to-commerce-products'
 import { getConfig, ShopifyConfig } from '../api'
-import { Product } from '../schema'
+import { Product, ProductEdge } from '../schema'
 import { getAllProductsQuery } from '../utils/queries'
+import { normalizeProduct } from '@framework/lib/normalize'
 
 export type ProductNode = Product
 
@@ -28,8 +28,9 @@ const getAllProducts = async (options: {
     { variables }
   )
 
-  const shopifyProducts = data.products?.edges
-  const products = toCommerceProducts(shopifyProducts)
+  const products = data?.products?.edges?.map(({ node: p }: ProductEdge) =>
+    normalizeProduct(p)
+  )
 
   return {
     products,

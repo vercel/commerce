@@ -16,6 +16,7 @@ export const checkoutDetailsFragment = /* GraphQL */ `
         title
         variant {
           id
+          sku
           title
           image {
             src

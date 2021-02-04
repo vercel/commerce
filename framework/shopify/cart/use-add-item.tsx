@@ -9,32 +9,25 @@ import type { Cart } from '@commerce/types'
 import checkoutLineItemAddMutation from '../utils/mutations/checkout-line-item-add'
 import getCheckoutId from '@framework/utils/get-checkout-id'
 import { checkoutToCart } from './utils'
+import { AddCartItemBody, CartItemBody } from '@framework/types'
+import { AddItemBody } from '../types'
+import { MutationCheckoutLineItemsAddArgs } from '@framework/schema'
 
 const defaultOpts = {
   query: checkoutLineItemAddMutation,
 }
 
-export type AddItemInput = UseAddItemInput<any>
+export type AddItemInput = UseAddItemInput<CartItemBody>
 
-export const fetcher: HookFetcher<Cart, any> = async (
-  options,
-  { checkoutId, item },
-  fetch
-) => {
-  if (
-    item.quantity &&
-    (!Number.isInteger(item.quantity) || item.quantity! < 1)
-  ) {
-    throw new CommerceError({
-      message: 'The item quantity has to be a valid integer greater than 0',
-    })
-  }
-
-  const data = await fetch<any, any>({
+export const fetcher: HookFetcher<
+  Cart,
+  MutationCheckoutLineItemsAddArgs
+> = async (options, { checkoutId, lineItems }, fetch) => {
+  const data = await fetch<any, AddCartItemBody>({
     ...options,
     variables: {
       checkoutId,
-      lineItems: [item],
+      lineItems,
     },
   })
 
@@ -49,10 +42,12 @@ export function extendHook(customFetcher: typeof fetcher) {
     return useCallback(
       async function addItem(input: AddItemInput) {
         const data = await fn({
-          item: {
-            variantId: input.variantId,
-            quantity: input.quantity ?? 1,
-          },
+          lineItems: [
+            {
+              variantId: input.variantId,
+              quantity: input.quantity ?? 1,
+            },
+          ],
           checkoutId: getCheckoutId(cart?.id),
         })
         await mutate(data, false)

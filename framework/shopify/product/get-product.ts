@@ -2,8 +2,8 @@ import { GraphQLFetcherResult } from '@commerce/api'
 
 import { getConfig, ShopifyConfig } from '../api'
 import { Product } from '../schema'
-import { toCommerceProduct } from '../utils/to-commerce-products'
 import getProductQuery from '../utils/queries/get-product-query'
+import { normalizeProduct } from '@framework/lib/normalize'
 
 export type ProductNode = Product
 
@@ -25,12 +25,14 @@ const getProduct = async (options: Options): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
 
-  const {
-    data: { productByHandle: product },
-  }: GraphQLFetcherResult = await config.fetch(getProductQuery, { variables })
+  const { data }: GraphQLFetcherResult = await config.fetch(getProductQuery, {
+    variables,
+  })
+
+  const product = data?.productByHandle?.product
 
   return {
-    product: product ? toCommerceProduct(product) : null,
+    product: product ? normalizeProduct(product) : null,
   }
 }
 

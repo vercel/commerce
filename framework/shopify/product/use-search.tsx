@@ -1,6 +1,4 @@
 import useCommerceSearch from '@commerce/products/use-search'
-
-import toCommerceProducts from '@framework/utils/to-commerce-products'
 import getAllProductsQuery from '@framework/utils/queries/get-all-products-query'
 
 import type { Product } from 'framework/bigcommerce/schema'
@@ -14,10 +12,7 @@ import {
 } from '@framework/utils/get-search-variables'
 
 import sortBy from '@framework/utils/get-sort-variables'
-
-export type CommerceProductEdge = {
-  node: Product
-}
+import { normalizeProduct } from '@framework/lib/normalize'
 
 export type SearchProductsInput = {
   search?: string
@@ -49,8 +44,10 @@ export const fetcher: HookFetcher<
   }).then(
     ({ products }): SearchProductsData => {
       return {
-        products: toCommerceProducts(products.edges),
-        found: !!products.edges.length,
+        products: products?.edges?.map(({ node: p }: ProductEdge) =>
+          normalizeProduct(p)
+        ),
+        found: !!products?.edges?.length,
       }
     }
   )
