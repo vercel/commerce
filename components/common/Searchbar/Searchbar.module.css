@@ -7,7 +7,7 @@
 }
 
 .input:focus {
-  @apply outline-none shadow-outline-2;
+  @apply outline-none shadow-outline-normal;
 }
 
 .iconContainer {
