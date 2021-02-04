@@ -12,6 +12,22 @@ export const STORE_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
 export const API_URL = `https://${STORE_DOMAIN}/api/2021-01/graphql.json`
 export const API_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
+async function getText(res: Response) {
+  try {
+    return (await res.text()) || res.statusText
+  } catch (error) {
+    return res.statusText
+  }
+}
+
+async function getError(res: Response) {
+  if (res.headers.get('Content-Type')?.includes('application/json')) {
+    const data = await res.json()
+    return new FetcherError({ errors: data.errors, status: res.status })
+  }
+  return new FetcherError({ message: await getText(res), status: res.status })
+}
+
 const shopifyConfig: ShopifyConfig = {
   locale: 'en-us',
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
@@ -26,18 +42,18 @@ const shopifyConfig: ShopifyConfig = {
       },
     })
 
-    const json = await res.json()
+    if (res.ok) {
+      const { data, errors } = await res.json()
 
-    if (json.errors) {
-      throw new FetcherError({
-        errors: json.errors ?? [
-          { message: 'Failed to fetch Shopify Storefront API' },
-        ],
-        status: res.status,
-      })
+      if (errors && errors.length) {
+        throw new CommerceError({
+          message: errors[0].message,
+        })
+      }
+      return data
     }
 
-    return { data: json.data, res }
+    throw await getError(res)
   },
 }
 
