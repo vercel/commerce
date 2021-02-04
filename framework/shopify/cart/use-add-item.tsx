@@ -10,7 +10,6 @@ import checkoutLineItemAddMutation from '../utils/mutations/checkout-line-item-a
 import getCheckoutId from '@framework/utils/get-checkout-id'
 import { checkoutToCart } from './utils'
 import { AddCartItemBody, CartItemBody } from '@framework/types'
-import { AddItemBody } from '../types'
 import { MutationCheckoutLineItemsAddArgs } from '@framework/schema'
 
 const defaultOpts = {

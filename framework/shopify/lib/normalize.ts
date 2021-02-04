@@ -64,7 +64,7 @@ export function normalizeProduct(productNode: ShopifyProduct): any {
   } = productNode
 
   return {
-    id: { $set: String(id) },
+    id,
     name,
     vendor,
     description,
@@ -73,7 +73,7 @@ export function normalizeProduct(productNode: ShopifyProduct): any {
     price: money(priceRange?.minVariantPrice),
     images: normalizeProductImages(images),
     variants: variants ? normalizeProductVariants(variants) : null,
-    options: options ? options.map((o) => normalizeProductOption) : [],
+    options: options ? options.map((o) => normalizeProductOption(o)) : [],
     ...rest,
   }
 }
@@ -98,23 +98,25 @@ export function normalizeCart(data: Checkout): Cart {
   }
 }
 
-function normalizeLineItem({ node: item }: CheckoutLineItemEdge): LineItem {
+function normalizeLineItem({
+  node: { id, title, variant, quantity, ...item },
+}: CheckoutLineItemEdge): LineItem {
   return {
-    id: item.id,
-    variantId: String(item.variant?.id),
-    productId: String(item.variant?.id),
-    name: item.title,
-    quantity: item.quantity,
+    id,
+    variantId: String(variant?.id),
+    productId: String(variant?.id),
+    name: title,
+    quantity: quantity,
     variant: {
-      id: String(item.variant?.id),
-      sku: item.variant?.sku ?? '',
-      name: item.title,
+      id: String(variant?.id),
+      sku: variant?.sku ?? '',
+      name: title,
       image: {
-        url: item.variant?.image?.originalSrc,
+        url: variant?.image?.originalSrc,
       },
-      requiresShipping: item.variant?.requiresShipping ?? false,
-      price: item.variant?.price,
-      listPrice: item.variant?.compareAtPrice,
+      requiresShipping: variant?.requiresShipping ?? false,
+      price: variant?.price,
+      listPrice: variant?.compareAtPrice,
     },
     path: '',
     discounts: item.discountAllocations.map(({ value }: any) => ({

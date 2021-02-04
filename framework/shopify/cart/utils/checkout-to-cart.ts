@@ -1,18 +1,19 @@
 import { Cart } from '@commerce/types'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
-import { Checkout, CheckoutLineItemEdge, Maybe } from '@framework/schema'
+import { normalizeCart } from '@framework/lib/normalize'
+import { Checkout, Maybe, UserError } from '@framework/schema'
 
-const checkoutToCart = (checkoutResponse?: any): Maybe<Cart> => {
+const checkoutToCart = (checkoutResponse?: {
+  checkout: Checkout
+  userErrors?: UserError[]
+}): Maybe<Cart> => {
   if (!checkoutResponse) {
     throw new CommerceError({
       message: 'Missing checkout details from response cart Response',
     })
   }
 
-  const {
-    checkout,
-    userErrors,
-  }: { checkout?: Checkout; userErrors?: any[] } = checkoutResponse
+  const { checkout, userErrors } = checkoutResponse
 
   if (userErrors && userErrors.length) {
     throw new ValidationError({
@@ -26,32 +27,7 @@ const checkoutToCart = (checkoutResponse?: any): Maybe<Cart> => {
     })
   }
 
-  return {
-    ...checkout,
-    currency: { code: checkout.currencyCode },
-    lineItems: checkout.lineItems?.edges.map(
-      ({
-        node: { id, title: name, quantity, variant },
-      }: CheckoutLineItemEdge) => ({
-        id,
-        checkoutUrl: checkout.webUrl,
-        variantId: variant?.id,
-        productId: id,
-        name,
-        quantity,
-        discounts: [],
-        path: '',
-        variant: {
-          id: variant?.id,
-          image: {
-            url: variant?.image?.src,
-            altText: variant?.title,
-          },
-          price: variant?.price,
-        },
-      })
-    ),
-  }
+  return normalizeCart(checkout)
 }
 
 export default checkoutToCart

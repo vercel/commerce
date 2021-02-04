@@ -11,25 +11,23 @@ type Variables = {
   slug: string
 }
 
-type Options = {
-  variables: Variables
-  config: ShopifyConfig
-  preview?: boolean
-}
-
 type ReturnType = {
   product: any
 }
 
-const getProduct = async (options: Options): Promise<ReturnType> => {
-  let { config, variables = { first: 250 } } = options ?? {}
+const getProduct = async (options: {
+  variables: Variables
+  config: ShopifyConfig
+  preview?: boolean
+}): Promise<ReturnType> => {
+  let { config, variables } = options ?? {}
   config = getConfig(config)
 
   const { data }: GraphQLFetcherResult = await config.fetch(getProductQuery, {
     variables,
   })
 
-  const product = data?.productByHandle?.product
+  const product = data?.productByHandle
 
   return {
     product: product ? normalizeProduct(product) : null,
