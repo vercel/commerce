@@ -22,14 +22,17 @@ const normalizeProductOption = ({
   name: displayName,
   values,
   ...rest
-}: ProductOption) => ({
-  __typename: 'MultipleChoiceOption',
-  displayName,
-  values: values.map((value) => ({
-    label: value,
-  })),
-  ...rest,
-})
+}: ProductOption) => {
+  return {
+    __typename: 'MultipleChoiceOption',
+    displayName,
+    values: values.map((value) => ({
+      label: value,
+      hexColors: displayName === 'Color' ? [value] : null,
+    })),
+    ...rest,
+  }
+}
 
 const normalizeProductImages = ({ edges }: ImageConnection) =>
   edges?.map(({ node: { originalSrc: url, ...rest } }) => ({
