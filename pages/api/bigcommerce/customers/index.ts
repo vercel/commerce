@@ -1,3 +1,3 @@
-import customersApi from '@framework/api/customers'
+import customersApi from '@framework/api/customer'
 
 export default customersApi()

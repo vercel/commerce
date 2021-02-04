@@ -5,6 +5,9 @@ export const checkoutDetailsFragment = /* GraphQL */ `
   totalTax
   totalPrice
   currencyCode
+  completedAt
+  createdAt
+  taxesIncluded
   lineItems(first: 250) {
     pageInfo {
       hasNextPage

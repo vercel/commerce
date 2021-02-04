@@ -97,7 +97,7 @@ export function normalizeCart(data: Checkout): Cart {
 }
 
 function normalizeLineItem({
-  node: { id, title, variant, quantity, ...item },
+  node: { id, title, variant, quantity },
 }: CheckoutLineItemEdge): LineItem {
   return {
     id,

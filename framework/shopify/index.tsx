@@ -8,8 +8,7 @@ import {
 } from '@commerce'
 
 import { CommerceError, FetcherError } from '@commerce/utils/errors'
-
-export const SHOPIFY_CHECKOUT_COOKIE = 'shopify_checkoutId'
+import { SHOPIFY_CHECKOUT_ID_COOKIE } from './const'
 
 async function getText(res: Response) {
   try {
@@ -28,9 +27,11 @@ async function getError(res: Response) {
   return new FetcherError({ message: await getText(res), status: res.status })
 }
 
-export const shopifyConfig: CommerceConfig = {
+export type ShopifyConfig = Partial<CommerceConfig>
+
+export const shopifyConfig: ShopifyConfig = {
   locale: 'en-us',
-  cartCookie: SHOPIFY_CHECKOUT_COOKIE,
+  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
   async fetcher({ method = 'POST', variables, query }) {
     const res = await fetch(
       `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2021-01/graphql.json`,
@@ -59,8 +60,6 @@ export const shopifyConfig: CommerceConfig = {
     throw await getError(res)
   },
 }
-
-export type ShopifyConfig = Partial<CommerceConfig>
 
 export type ShopifyProps = {
   children?: ReactNode

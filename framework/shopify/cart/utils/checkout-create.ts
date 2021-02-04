@@ -1,8 +1,11 @@
-import { SHOPIFY_CHECKOUT_COOKIE } from '@framework'
+import {
+  SHOPIFY_CHECKOUT_ID_COOKIE,
+  SHOPIFY_CHECKOUT_URL_COOKIE,
+} from '@framework/const'
 import checkoutCreateMutation from '@framework/utils/mutations/checkout-create'
 import Cookies from 'js-cookie'
 
-export const createCheckout = async (fetch: any) => {
+export const checkoutCreate = async (fetch: any) => {
   const data = await fetch({
     query: checkoutCreateMutation,
   })
@@ -11,10 +14,11 @@ export const createCheckout = async (fetch: any) => {
   const checkoutId = checkout?.id
 
   if (checkoutId) {
-    Cookies.set(SHOPIFY_CHECKOUT_COOKIE, checkoutId)
+    Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId)
+    Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl)
   }
 
   return checkout
 }
 
-export default createCheckout
+export default checkoutCreate
