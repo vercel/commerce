@@ -26,8 +26,7 @@ export const fetcher: HookFetcher<SearchProductsData, SearchProductsInput> = (
   if (search) url.searchParams.set('search', search)
   if (Number.isInteger(categoryId))
     url.searchParams.set('category', String(categoryId))
-  if (Number.isInteger(categoryId))
-    url.searchParams.set('brand', String(brandId))
+  if (Number.isInteger(brandId)) url.searchParams.set('brand', String(brandId))
   if (sort) url.searchParams.set('sort', sort)
 
   return fetch({

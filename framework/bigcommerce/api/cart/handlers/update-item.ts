@@ -14,11 +14,8 @@ const updateItem: CartHandlers['updateItem'] = async ({
     })
   }
 
-  console.log('ITEM', item)
-  console.log('AFTER', parseCartItem(item))
-
   const { data } = await config.storeApiFetch(
-    `/v3/carts/${cartId}/items/${itemId}`,
+    `/v3/carts/${cartId}/items/${itemId}?include=line_items.physical_items.options`,
     {
       method: 'PUT',
       body: JSON.stringify({

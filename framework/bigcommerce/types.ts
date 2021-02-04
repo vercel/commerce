@@ -43,12 +43,20 @@ export interface CartItemBody extends Core.CartItemBody {
   optionSelections?: OptionSelections
 }
 
-export interface UpdateCartItemBody extends Core.UpdateCartItemBody {
-  item: CartItemBody
-}
+export interface GetCartHandlerBody extends Core.GetCartHandlerBody {}
 
-export interface UpdateCartItemInput
-  extends Core.UpdateCartItemInput<CartItemBody> {}
+export interface AddCartItemBody extends Core.AddCartItemBody<CartItemBody> {}
+
+export interface AddCartItemHandlerBody
+  extends Core.AddCartItemHandlerBody<CartItemBody> {}
+
+export interface UpdateCartItemBody
+  extends Core.UpdateCartItemBody<CartItemBody> {}
 
 export interface UpdateCartItemHandlerBody
-  extends Core.UpdateCartItemHandlerBody {}
+  extends Core.UpdateCartItemHandlerBody<CartItemBody> {}
+
+export interface RemoveCartItemBody extends Core.RemoveCartItemBody {}
+
+export interface RemoveCartItemHandlerBody
+  extends Core.RemoveCartItemHandlerBody {}
