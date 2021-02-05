@@ -15,6 +15,13 @@ export type HookFetcher<Data, Input = null, Result = any> = (
   fetch: <T = Result, Body = any>(options: FetcherOptions<Body>) => Promise<T>
 ) => Data | Promise<Data>
 
+export type HookFetcherFn<Data, Input, Result = any, Body = any> = (context: {
+  options: HookFetcherOptions | null
+  input: Input
+  fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
+  normalize?(data: Result): Data
+}) => Data | Promise<Data>
+
 export type HookFetcherOptions = {
   query?: string
   url?: string
