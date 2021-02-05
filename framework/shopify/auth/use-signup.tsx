@@ -3,8 +3,13 @@ import type { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCommerceSignup from '@commerce/use-signup'
 import useCustomer from '../customer/use-customer'
-import customerCreateMutation from '@framework/utils/mutations/customer-create'
 import { CustomerCreateInput } from '@framework/schema'
+
+import {
+  customerCreateMutation,
+  customerAccessTokenCreateMutation,
+} from '@framework/utils/mutations'
+import handleLogin from '@framework/utils/handle-login'
 
 const defaultOpts = {
   query: customerCreateMutation,
@@ -21,12 +26,23 @@ export const fetcher: HookFetcher<null, CustomerCreateInput> = (
         'A first name, last name, email and password are required to signup',
     })
   }
-
   return fetch({
     ...defaultOpts,
     ...options,
     variables: { input },
-  }).then((data) => {
+  }).then(async (data) => {
+    try {
+      const loginData = await fetch({
+        query: customerAccessTokenCreateMutation,
+        variables: {
+          input: {
+            email: input.email,
+            password: input.password,
+          },
+        },
+      })
+      handleLogin(loginData)
+    } catch (error) {}
     return data
   })
 }

@@ -5,25 +5,10 @@ import useCommerceLogin from '@commerce/use-login'
 import useCustomer from '../customer/use-customer'
 import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
 import { CustomerAccessTokenCreateInput } from '@framework/schema'
-import { setCustomerToken } from '@framework/utils/customer-token'
+import handleLogin from '@framework/utils/handle-login'
 
 const defaultOpts = {
   query: createCustomerAccessTokenMutation,
-}
-
-const getErrorMessage = ({
-  code,
-  message,
-}: {
-  code: string
-  message: string
-}) => {
-  switch (code) {
-    case 'UNIDENTIFIED_CUSTOMER':
-      message = 'Cannot find an account that matches the provided credentials'
-      break
-  }
-  return message
 }
 
 export const fetcher: HookFetcher<null, CustomerAccessTokenCreateInput> = (
@@ -42,25 +27,7 @@ export const fetcher: HookFetcher<null, CustomerAccessTokenCreateInput> = (
     ...defaultOpts,
     ...options,
     variables: { input },
-  }).then((data) => {
-    const response = data?.customerAccessTokenCreate
-    const errors = response?.customerUserErrors
-
-    if (errors && errors.length) {
-      throw new ValidationError({
-        message: getErrorMessage(errors[0]),
-      })
-    }
-
-    const customerAccessToken = response?.customerAccessToken
-    const accessToken = customerAccessToken?.accessToken
-
-    if (accessToken) {
-      setCustomerToken(accessToken)
-    }
-
-    return customerAccessToken
-  })
+  }).then(handleLogin)
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
