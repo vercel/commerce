@@ -32,7 +32,7 @@ const shopifyConfig: ShopifyConfig = {
   locale: 'en-us',
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
   storeDomain: STORE_DOMAIN,
-  async fetcher({ method = 'POST', variables, query }) {
+  async fetcher({ method = 'POST', query, variables }) {
     const res = await fetch(API_URL, {
       method,
       body: JSON.stringify({ query, variables }),

@@ -1,5 +1,8 @@
 import type { CommerceAPIConfig } from '@commerce/api'
-import { SHOPIFY_CHECKOUT_ID_COOKIE } from '@framework/const'
+import {
+  SHOPIFY_CHECKOUT_ID_COOKIE,
+  SHOPIFY_CUSTOMER_TOKEN_COOKIE,
+} from '@framework/const'
 import fetchGraphqlApi from '../utils/fetch-graphql-api'
 
 export interface ShopifyConfig extends CommerceAPIConfig {}
@@ -46,7 +49,7 @@ const config = new Config({
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
-  customerCookie: 'SHOP_TOKEN',
+  customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
 })
 
 export function getConfig(userConfig?: Partial<ShopifyConfig>) {

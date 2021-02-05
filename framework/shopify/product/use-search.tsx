@@ -61,7 +61,6 @@ export function extendHook(
     const response = useCommerceSearch(
       {
         query: getAllProductsQuery,
-        method: 'POST',
       },
       [
         ['search', input.search],

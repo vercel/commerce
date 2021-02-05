@@ -18,12 +18,12 @@ const getAllProductPaths = async (options?: {
     variables,
   })
 
-  const edges = data.products?.edges
-  const productInfo = data.products?.productInfo
+  const edges = data?.products?.edges
+  const productInfo = data?.products?.productInfo
   const hasNextPage = productInfo?.hasNextPage
 
   return {
-    products: edges.map(({ node: { handle } }: ProductEdge) => ({
+    products: edges?.map(({ node: { handle } }: ProductEdge) => ({
       node: {
         path: `/${handle}`,
       },
