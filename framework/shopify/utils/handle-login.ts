@@ -22,7 +22,7 @@ const handleLogin = (data: any) => {
 
   if (errors && errors.length) {
     throw new ValidationError({
-      message: errors[0],
+      message: getErrorMessage(errors[0]),
     })
   }
 
