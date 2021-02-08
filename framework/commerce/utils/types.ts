@@ -1,4 +1,6 @@
-import type { ResponseState, SwrOptions } from './use-data'
+import type { ConfigInterface } from 'swr'
+import type { CommerceError } from './errors'
+import type { ResponseState } from './use-data'
 
 export type Override<T, K> = Omit<T, keyof K> & K
 
@@ -67,3 +69,9 @@ export type HookHandler<
   fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
   normalizer?(data: Result): Data
 }
+
+export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
+  Data,
+  CommerceError,
+  HookFetcher<Data, Input, Result>
+>
