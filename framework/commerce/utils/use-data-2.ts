@@ -1,10 +1,5 @@
 import useSWR, { ConfigInterface, responseInterface } from 'swr'
-import type {
-  HookInput,
-  HookFetcher,
-  HookFetcherOptions,
-  HookFetcherFn,
-} from './types'
+import type { HookInput, HookFetcher, HookFetcherFn } from './types'
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
 import { HookHandler, useCommerce } from '..'
