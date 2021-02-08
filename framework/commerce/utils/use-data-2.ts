@@ -7,7 +7,7 @@ import type {
 } from './types'
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
-import { useCommerce } from '..'
+import { HookHandler, useCommerce } from '..'
 
 export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
   Data,
@@ -20,7 +20,7 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
 }
 
 export type UseData = <Data = any, Input = null, Result = any>(
-  options: HookFetcherOptions | (() => HookFetcherOptions | null),
+  options: HookHandler<Data, Input, Result>,
   input: HookInput,
   fetcherFn: HookFetcherFn<Data, Input, Result>,
   swrOptions?: SwrOptions<Data, Input, Result>
@@ -43,6 +43,7 @@ const useData: UseData = (options, input, fetcherFn, swrOptions) => {
           return obj
         }, {}),
         fetch: fetcherRef.current,
+        normalize: options.normalizer,
       })
     } catch (error) {
       // SWR will not log errors, but any error that's not an instance
@@ -55,7 +56,7 @@ const useData: UseData = (options, input, fetcherFn, swrOptions) => {
   }
   const response = useSWR(
     () => {
-      const opts = typeof options === 'function' ? options() : options
+      const opts = options.fetchOptions
       return opts
         ? [opts.url, opts.query, opts.method, ...input.map((e) => e[1])]
         : null

@@ -49,14 +49,18 @@ const fetcher: Fetcher<any> = async ({
   throw await getError(res)
 }
 
-const useCart: HookHandler<Cart, CartInput> = {
+const useCart: HookHandler<Cart, CartInput, any, any, { isEmpty?: boolean }> = {
   fetchOptions: {
     url: '/api/bigcommerce/cart',
     method: 'GET',
   },
-  fetcher(context) {
-    return undefined as any
+  swrOptions: {
+    revalidateOnFocus: false,
   },
+  // fetcher(context) {
+  //   return undefined as any
+  // },
+  normalizer: normalizeCart,
   onResponse(response) {
     return Object.create(response, {
       isEmpty: {

@@ -10,7 +10,11 @@ export type CartInput = {
   cartId?: Cart['id']
 }
 
-const fetcher: HookFetcherFn<Cart | null, CartInput> = async ({
+export type CartResponse<P extends Provider> = ReturnType<
+  NonNullable<NonNullable<NonNullable<P['cart']>['useCart']>['onResponse']>
+>
+
+export const fetcher: HookFetcherFn<Cart | null, CartInput> = async ({
   options,
   input: { cartId },
   fetch,
@@ -31,12 +35,11 @@ export default function useFake<P extends Provider>() {
     context.input.cartId = Cookies.get(cartCookie)
     return fetcherFn(context)
   }
-
   const response = useData(options, [], wrapper, opts?.swrOptions)
   const memoizedResponse = useMemo(
     () => (opts?.onResponse ? opts.onResponse(response) : response),
     [response]
   )
 
-  return memoizedResponse
+  return memoizedResponse as CartResponse<P>
 }

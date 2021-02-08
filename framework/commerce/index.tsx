@@ -21,9 +21,11 @@ export type Provider = CommerceConfig & {
   cartNormalizer(data: any): Cart
 }
 
-export type HookHandler<Data, Input, Result = any, Body = any> = {
+export type HookHandler<Data, Input, Result = any, Body = any, State = {}> = {
   swrOptions?: SwrOptions<Data | null, Input, Result>
-  onResponse?(response: ResponseState<Data | null>): ResponseState<Data | null>
+  onResponse?(
+    response: ResponseState<Data | null>
+  ): ResponseState<Data | null> & State
   onMutation?: any
   fetchOptions?: HookFetcherOptions
 } & (
