@@ -16,29 +16,19 @@ const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
 export type Provider = CommerceConfig & {
   cart?: {
-    useCart?: HookHandler<Cart, CartInput>
+    useCart?: HookHandler<Cart | null, CartInput>
   }
   cartNormalizer(data: any): Cart
 }
 
 export type HookHandler<Data, Input, Result = any, Body = any, State = {}> = {
-  swrOptions?: SwrOptions<Data | null, Input, Result>
-  onResponse?(
-    response: ResponseState<Data | null>
-  ): ResponseState<Data | null> & State
+  swrOptions?: SwrOptions<Data, Input, Result>
+  onResponse?(response: ResponseState<Data>): ResponseState<Data> & State
   onMutation?: any
   fetchOptions?: HookFetcherOptions
-} & (
-  | // TODO: Maybe the normalizer is not required if it's used by the API route directly?
-  {
-      fetcher: HookFetcherFn<Data | null, Input, Result, Body>
-      normalizer?(data: Result): Data
-    }
-  | {
-      fetcher?: never
-      normalizer(data: Result): Data
-    }
-)
+  fetcher?: HookFetcherFn<Data, Input, Result, Body>
+  normalizer?(data: Result): Data
+}
 
 export type CommerceProps<P extends Provider> = {
   children?: ReactNode

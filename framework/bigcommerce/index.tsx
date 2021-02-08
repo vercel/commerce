@@ -49,7 +49,13 @@ const fetcher: Fetcher<any> = async ({
   throw await getError(res)
 }
 
-const useCart: HookHandler<Cart, CartInput, any, any, { isEmpty?: boolean }> = {
+const useCart: HookHandler<
+  Cart | null,
+  CartInput,
+  any,
+  any,
+  { isEmpty?: boolean }
+> = {
   fetchOptions: {
     url: '/api/bigcommerce/cart',
     method: 'GET',
