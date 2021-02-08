@@ -5,10 +5,10 @@ import {
   CommerceConfig,
   CommerceProvider as CoreCommerceProvider,
   useCommerce as useCoreCommerce,
-  HookHandler,
 } from '@commerce'
 import { FetcherError } from '@commerce/utils/errors'
-import type { CartInput } from '@commerce/cart/use-cart'
+import type { HookHandler } from '@commerce/utils/types'
+import type { FetchCartInput } from '@commerce/cart/use-cart'
 import { normalizeCart } from './lib/normalize'
 import { Cart } from './types'
 
@@ -51,7 +51,8 @@ const fetcher: Fetcher<any> = async ({
 
 const useCart: HookHandler<
   Cart | null,
-  CartInput,
+  [],
+  FetchCartInput,
   any,
   any,
   { isEmpty?: boolean }
@@ -63,9 +64,6 @@ const useCart: HookHandler<
   swrOptions: {
     revalidateOnFocus: false,
   },
-  // fetcher(context) {
-  //   return undefined as any
-  // },
   normalizer: normalizeCart,
   onResponse(response) {
     return Object.create(response, {

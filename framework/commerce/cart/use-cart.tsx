@@ -6,7 +6,7 @@ import useData from '../utils/use-data-2'
 import { Provider, useCommerce } from '..'
 
 // Input expected by the `useCart` hook
-export type CartInput = {
+export type FetchCartInput = {
   cartId?: Cart['id']
 }
 
@@ -14,9 +14,15 @@ export type CartResponse<P extends Provider> = ReturnType<
   NonNullable<NonNullable<NonNullable<P['cart']>['useCart']>['onResponse']>
 >
 
-export type UseCart<P extends Provider> = () => CartResponse<P>
+export type UseCart<P extends Provider> = (
+  ...input: UseCartInput<P>
+) => CartResponse<P>
 
-export const fetcher: HookFetcherFn<Cart | null, CartInput> = async ({
+export type UseCartInput<P extends Provider> = NonNullable<
+  NonNullable<NonNullable<NonNullable<P['cart']>['useCart']>>['input']
+>
+
+export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
   options,
   input: { cartId },
   fetch,
@@ -26,7 +32,7 @@ export const fetcher: HookFetcherFn<Cart | null, CartInput> = async ({
   return data && normalize ? normalize(data) : data
 }
 
-export default function useCart<P extends Provider>() {
+export default function useCart<P extends Provider>(...input: UseCartInput<P>) {
   const { providerRef, cartCookie } = useCommerce<P>()
 
   const provider = providerRef.current
@@ -36,7 +42,7 @@ export default function useCart<P extends Provider>() {
     context.input.cartId = Cookies.get(cartCookie)
     return fetcherFn(context)
   }
-  const response = useData(opts!, [], wrapper, opts?.swrOptions)
+  const response = useData(opts!, input, wrapper, opts?.swrOptions)
   const memoizedResponse = useMemo(
     () => (opts?.onResponse ? opts.onResponse(response) : response),
     [response]

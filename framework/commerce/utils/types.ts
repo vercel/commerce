@@ -1,3 +1,7 @@
+import type { ResponseState, SwrOptions } from './use-data'
+
+export type Override<T, K> = Omit<T, keyof K> & K
+
 // Core fetcher added by CommerceProvider
 export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
 
@@ -15,7 +19,12 @@ export type HookFetcher<Data, Input = null, Result = any> = (
   fetch: <T = Result, Body = any>(options: FetcherOptions<Body>) => Promise<T>
 ) => Data | Promise<Data>
 
-export type HookFetcherFn<Data, Input, Result = any, Body = any> = (context: {
+export type HookFetcherFn<
+  Data,
+  Input = unknown,
+  Result = any,
+  Body = any
+> = (context: {
   options: HookFetcherOptions | null
   input: Input
   fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
@@ -30,4 +39,25 @@ export type HookFetcherOptions = {
 
 export type HookInput = [string, string | number | boolean | undefined][]
 
-export type Override<T, K> = Omit<T, keyof K> & K
+export type HookHandler<
+  // Data obj returned by the hook and fetch operation
+  Data,
+  // Input expected by the hook
+  Input = [...any],
+  // Input expected before doing a fetch operation
+  FetchInput = unknown,
+  // Data returned by the API after a fetch operation
+  Result = any,
+  // Body expected by the API endpoint
+  Body = any,
+  // Custom state added to the response object of SWR
+  State = {}
+> = {
+  input?: Input
+  swrOptions?: SwrOptions<Data, FetchInput, Result>
+  onResponse?(response: ResponseState<Data>): ResponseState<Data> & State
+  onMutation?: any
+  fetchOptions?: HookFetcherOptions
+  fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
+  normalizer?(data: Result): Data
+}

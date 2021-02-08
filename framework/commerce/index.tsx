@@ -7,27 +7,16 @@ import {
   useRef,
 } from 'react'
 import * as React from 'react'
-import { Fetcher, HookFetcherFn, HookFetcherOptions } from './utils/types'
+import { Fetcher, HookHandler } from './utils/types'
 import { Cart } from './types'
-import type { ResponseState, SwrOptions } from './utils/use-data'
-import type { CartInput } from './cart/use-cart'
+import type { FetchCartInput } from './cart/use-cart'
 
 const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
 export type Provider = CommerceConfig & {
   cart?: {
-    useCart?: HookHandler<Cart | null, CartInput>
+    useCart?: HookHandler<Cart | null, [...any], FetchCartInput>
   }
-  cartNormalizer(data: any): Cart
-}
-
-export type HookHandler<Data, Input, Result = any, Body = any, State = {}> = {
-  swrOptions?: SwrOptions<Data, Input, Result>
-  onResponse?(response: ResponseState<Data>): ResponseState<Data> & State
-  onMutation?: any
-  fetchOptions?: HookFetcherOptions
-  fetcher?: HookFetcherFn<Data, Input, Result, Body>
-  normalizer?(data: Result): Data
 }
 
 export type CommerceProps<P extends Provider> = {
