@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
 import * as React from 'react'
+import { ReactNode } from 'react'
 
 import {
   CommerceProvider as CoreCommerceProvider,
@@ -7,7 +7,6 @@ import {
 } from '@commerce'
 
 import shopifyConfig, { ShopifyConfig } from './config'
-
 export type ShopifyProps = {
   children?: ReactNode
   locale: string

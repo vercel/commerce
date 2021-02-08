@@ -1,10 +1,10 @@
 import type { GraphQLFetcher } from '@commerce/api'
-import { FetcherError } from '@commerce/utils/errors'
 import fetch from './fetch'
 
-import { STORE_DOMAIN, API_URL, API_TOKEN } from '../config'
+import { API_URL, API_TOKEN } from '../../config'
+import { getError } from '@framework/utils/handle-fetch-response'
 
-if (!STORE_DOMAIN) {
+if (!API_URL) {
   throw new Error(
     `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
   )
@@ -35,15 +35,12 @@ const fetchGraphqlApi: GraphQLFetcher = async (
     }),
   })
 
-  const json = await res.json()
+  const { data, errors, status } = await res.json()
 
-  if (json.errors) {
-    throw new FetcherError({
-      errors: json.errors ?? [{ message: 'Failed to fetch Shopify API' }],
-      status: res.status,
-    })
+  if (errors) {
+    throw getError(errors, status)
   }
 
-  return { data: json.data, res }
+  return { data: data, res }
 }
 export default fetchGraphqlApi

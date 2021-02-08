@@ -7,7 +7,7 @@ import {
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CHECKOUT_URL_COOKIE,
   SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-} from '@framework/const'
+} from '@framework/config'
 import { getConfig } from '..'
 import associateCustomerWithCheckoutMutation from '@framework/utils/mutations/associate-customer-with-checkout'
 

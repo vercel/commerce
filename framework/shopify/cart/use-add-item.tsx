@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import { CommerceError } from '@commerce/utils/errors'
 import useCart from './use-cart'
 import useCartAddItem, {
   AddItemInput as UseAddItemInput,
@@ -47,7 +46,7 @@ export function extendHook(customFetcher: typeof fetcher) {
               quantity: input.quantity ?? 1,
             },
           ],
-          checkoutId: getCheckoutId(cart?.id),
+          checkoutId: getCheckoutId(cart?.id)!,
         })
         await mutate(data, false)
         return data

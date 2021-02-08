@@ -44,7 +44,7 @@ export function extendHook(
 ) {
   const useCart = () => {
     const response = useCommerceCart(defaultOpts, [], customFetcher, {
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
       ...swrOptions,
     })
     const res = useResponse(response, {

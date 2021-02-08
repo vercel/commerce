@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { SHOPIFY_CHECKOUT_ID_COOKIE } from '../const'
+import { SHOPIFY_CHECKOUT_ID_COOKIE } from '../config'
 
 const getCheckoutId = (id?: string) => {
   return id ?? Cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE)

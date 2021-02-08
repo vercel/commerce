@@ -7,13 +7,8 @@ const checkoutToCart = (checkoutResponse?: {
   checkout: Checkout
   userErrors?: UserError[]
 }): Maybe<Cart> => {
-  if (!checkoutResponse) {
-    throw new CommerceError({
-      message: 'Missing checkout details from response cart Response',
-    })
-  }
-
-  const { checkout, userErrors } = checkoutResponse
+  const checkout = checkoutResponse?.checkout
+  const userErrors = checkoutResponse?.userErrors
 
   if (userErrors && userErrors.length) {
     throw new ValidationError({
@@ -22,7 +17,7 @@ const checkoutToCart = (checkoutResponse?: {
   }
 
   if (!checkout) {
-    throw new ValidationError({
+    throw new CommerceError({
       message: 'Missing checkout details from response cart Response',
     })
   }
