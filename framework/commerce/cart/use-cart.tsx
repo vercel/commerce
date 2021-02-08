@@ -5,7 +5,6 @@ import type { HookFetcherFn } from '../utils/types'
 import useData from '../utils/use-data-2'
 import { Provider, useCommerce } from '..'
 
-// Input expected by the `useCart` hook
 export type FetchCartInput = {
   cartId?: Cart['id']
 }
@@ -33,7 +32,7 @@ export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
 }
 
 export default function useCart<P extends Provider>(...input: UseCartInput<P>) {
-  const { providerRef, cartCookie } = useCommerce<P>()
+  const { providerRef, fetcherRef, cartCookie } = useCommerce<P>()
 
   const provider = providerRef.current
   const opts = provider.cart?.useCart
@@ -42,7 +41,11 @@ export default function useCart<P extends Provider>(...input: UseCartInput<P>) {
     context.input.cartId = Cookies.get(cartCookie)
     return fetcherFn(context)
   }
-  const response = useData(opts!, input, wrapper, opts?.swrOptions)
+  const response = useData(
+    { ...opts, fetcher: wrapper },
+    input,
+    provider.fetcher ?? fetcherRef.current
+  )
   const memoizedResponse = useMemo(
     () => (opts?.onResponse ? opts.onResponse(response) : response),
     [response]

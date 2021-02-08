@@ -2,6 +2,10 @@ import type { ResponseState, SwrOptions } from './use-data'
 
 export type Override<T, K> = Omit<T, keyof K> & K
 
+// Returns the properties in T with the properties in type K changed from optional to required
+export type PickRequired<T, K extends keyof T> = Omit<T, K> &
+  Required<Pick<T, K>>
+
 // Core fetcher added by CommerceProvider
 export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
 
