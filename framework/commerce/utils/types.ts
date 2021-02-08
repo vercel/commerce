@@ -7,7 +7,9 @@ export type PickRequired<T, K extends keyof T> = Omit<T, K> &
   Required<Pick<T, K>>
 
 // Core fetcher added by CommerceProvider
-export type Fetcher<T> = (options: FetcherOptions) => T | Promise<T>
+export type Fetcher<T = any, B = any> = (
+  options: FetcherOptions<B>
+) => T | Promise<T>
 
 export type FetcherOptions<Body = any> = {
   url?: string

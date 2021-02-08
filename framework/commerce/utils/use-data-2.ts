@@ -32,7 +32,7 @@ export type UseData = <
     'fetcher'
   >,
   input: HookInput,
-  fetcherFn: Fetcher<any>
+  fetcherFn: Fetcher
 ) => ResponseState<Data>
 
 const useData: UseData = (options, input, fetcherFn) => {

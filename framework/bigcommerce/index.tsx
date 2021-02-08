@@ -28,7 +28,7 @@ async function getError(res: Response) {
   return new FetcherError({ message: await getText(res), status: res.status })
 }
 
-const fetcher: Fetcher<any> = async ({
+const fetcher: Fetcher = async ({
   url,
   method = 'GET',
   variables,

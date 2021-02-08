@@ -25,14 +25,14 @@ export type CommerceProps<P extends Provider> = {
   config: CommerceConfig
 }
 
-export type CommerceConfig = { fetcher: Fetcher<any> } & Omit<
+export type CommerceConfig = { fetcher: Fetcher } & Omit<
   CommerceContextValue<any>,
   'providerRef' | 'fetcherRef'
 >
 
 export type CommerceContextValue<P extends Provider> = {
   providerRef: MutableRefObject<P>
-  fetcherRef: MutableRefObject<Fetcher<any>>
+  fetcherRef: MutableRefObject<Fetcher>
   locale: string
   cartCookie: string
 }
