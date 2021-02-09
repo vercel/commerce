@@ -3,5 +3,5 @@
 }
 
 .root:focus {
-  @apply outline-none shadow-outline-normal;
+  @apply outline-none shadow-outline-gray;
 }
