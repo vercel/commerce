@@ -7,57 +7,36 @@ import {
   useRef,
 } from 'react'
 import * as React from 'react'
-import { Fetcher, HookHandler } from './utils/types'
-import { Cart } from './types'
-import type { FetchCartInput } from './cart/use-cart'
+import { Fetcher } from './utils/types'
 
-const Commerce = createContext<CommerceContextValue<any> | {}>({})
+const Commerce = createContext<CommerceContextValue | {}>({})
 
-export type Provider = CommerceConfig & {
-  fetcher: Fetcher
-  cart?: {
-    useCart?: HookHandler<Cart | null, [...any], FetchCartInput>
-  }
-  wishlist?: {
-    useWishlist?: HookHandler<Cart | null, [...any], FetchCartInput>
-  }
-}
-
-export type CommerceProps<P extends Provider> = {
+export type CommerceProps = {
   children?: ReactNode
-  provider: P
   config: CommerceConfig
 }
 
-export type CommerceConfig = Omit<
-  CommerceContextValue<any>,
-  'providerRef' | 'fetcherRef'
+export type CommerceConfig = { fetcher: Fetcher<any> } & Omit<
+  CommerceContextValue,
+  'fetcherRef'
 >
 
-export type CommerceContextValue<P extends Provider> = {
-  providerRef: MutableRefObject<P>
-  fetcherRef: MutableRefObject<Fetcher>
+export type CommerceContextValue = {
+  fetcherRef: MutableRefObject<Fetcher<any>>
   locale: string
   cartCookie: string
 }
 
-export function CommerceProvider<P extends Provider>({
-  provider,
-  children,
-  config,
-}: CommerceProps<P>) {
+export function CommerceProvider({ children, config }: CommerceProps) {
   if (!config) {
     throw new Error('CommerceProvider requires a valid config object')
   }
 
-  const providerRef = useRef(provider)
-  // TODO: Remove the fetcherRef
-  const fetcherRef = useRef(provider.fetcher)
+  const fetcherRef = useRef(config.fetcher)
   // Because the config is an object, if the parent re-renders this provider
   // will re-render every consumer unless we memoize the config
   const cfg = useMemo(
     () => ({
-      providerRef,
       fetcherRef,
       locale: config.locale,
       cartCookie: config.cartCookie,
@@ -68,6 +47,6 @@ export function CommerceProvider<P extends Provider>({
   return <Commerce.Provider value={cfg}>{children}</Commerce.Provider>
 }
 
-export function useCommerce<P extends Provider>() {
-  return useContext(Commerce) as CommerceContextValue<P>
+export function useCommerce<T extends CommerceContextValue>() {
+  return useContext(Commerce) as T
 }

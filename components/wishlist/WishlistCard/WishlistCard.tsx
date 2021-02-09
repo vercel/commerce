@@ -42,8 +42,8 @@ const WishlistCard: FC<Props> = ({ product }) => {
     setLoading(true)
     try {
       await addItem({
-        productId: product.id,
-        variantId: product.variants[0].id,
+        productId: Number(product.id),
+        variantId: Number(product.variants[0].id),
       })
       openSidebar()
       setLoading(false)
