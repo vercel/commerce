@@ -45,7 +45,11 @@ export type HookFetcherOptions = {
   method?: string
 }
 
-export type HookInput = [string, string | number | boolean | undefined][]
+export type HookInputValue = string | number | boolean | undefined
+
+export type HookInput = [string, HookInputValue][]
+
+export type HookFetchInput = { [k: string]: HookInputValue }
 
 export type HookHandler<
   // Data obj returned by the hook and fetch operation
@@ -53,7 +57,7 @@ export type HookHandler<
   // Input expected by the hook
   Input = [...any],
   // Input expected before doing a fetch operation
-  FetchInput = unknown,
+  FetchInput extends HookFetchInput = never,
   // Data returned by the API after a fetch operation
   Result = any,
   // Body expected by the API endpoint
