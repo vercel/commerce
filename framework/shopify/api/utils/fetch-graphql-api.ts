@@ -1,20 +1,8 @@
 import type { GraphQLFetcher } from '@commerce/api'
 import fetch from './fetch'
 
-import { API_URL, API_TOKEN } from '../../config'
+import { API_URL, API_TOKEN } from '../../const'
 import { getError } from '@framework/utils/handle-fetch-response'
-
-if (!API_URL) {
-  throw new Error(
-    `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
-  )
-}
-
-if (!API_TOKEN) {
-  throw new Error(
-    `The environment variable NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN is missing and it's required to access your store`
-  )
-}
 
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,

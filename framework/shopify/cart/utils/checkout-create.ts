@@ -1,7 +1,7 @@
 import {
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CHECKOUT_URL_COOKIE,
-} from '@framework/config'
+} from '@framework/provider'
 import checkoutCreateMutation from '@framework/utils/mutations/checkout-create'
 import Cookies from 'js-cookie'
 

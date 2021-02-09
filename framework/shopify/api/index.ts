@@ -5,7 +5,19 @@ import {
   API_TOKEN,
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-} from '@framework/config'
+} from '@framework/const'
+
+if (!API_URL) {
+  throw new Error(
+    `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
+  )
+}
+
+if (!API_TOKEN) {
+  throw new Error(
+    `The environment variable NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN is missing and it's required to access your store`
+  )
+}
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 

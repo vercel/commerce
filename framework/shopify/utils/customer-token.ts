@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from '@framework/config'
+import { SHOPIFY_CUSTOMER_TOKEN_COOKIE } from '../const'
 
 export const getCustomerToken = () => Cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE)
 
