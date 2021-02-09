@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import Cookies from 'js-cookie'
-import type { Cart } from '../types'
 import type { HookFetcherFn } from '../utils/types'
 import useData from '../utils/use-data-2'
+import type { Cart } from '../types'
 import { Provider, useCommerce } from '..'
 
 export type FetchCartInput = {
@@ -13,13 +13,17 @@ export type CartResponse<P extends Provider> = ReturnType<
   NonNullable<NonNullable<NonNullable<P['cart']>['useCart']>['onResponse']>
 >
 
-export type UseCart<P extends Provider> = (
-  ...input: UseCartInput<P>
-) => CartResponse<P>
+export type UseCartInput<P extends Provider> = Parameters<
+  NonNullable<
+    NonNullable<NonNullable<NonNullable<P['cart']>['useCart']>>['input']
+  >
+>[0]
 
-export type UseCartInput<P extends Provider> = NonNullable<
-  NonNullable<NonNullable<NonNullable<P['cart']>['useCart']>>['input']
->
+export type UseCart<P extends Provider> = Partial<
+  UseCartInput<P>
+> extends UseCartInput<P>
+  ? (input?: UseCartInput<P>) => CartResponse<P>
+  : (input: UseCartInput<P>) => CartResponse<P>
 
 export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
   options,
@@ -31,7 +35,7 @@ export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
   return data && normalize ? normalize(data) : data
 }
 
-export default function useCart<P extends Provider>(...input: UseCartInput<P>) {
+export default function useCart<P extends Provider>(input?: UseCartInput<P>) {
   const { providerRef, fetcherRef, cartCookie } = useCommerce<P>()
 
   const provider = providerRef.current
@@ -43,7 +47,7 @@ export default function useCart<P extends Provider>(...input: UseCartInput<P>) {
   }
   const response = useData(
     { ...opts, fetcher: wrapper },
-    input,
+    opts?.input ? opts.input(input ?? {}) : [],
     provider.fetcher ?? fetcherRef.current
   )
   const memoizedResponse = useMemo(

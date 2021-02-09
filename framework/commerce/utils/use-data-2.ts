@@ -1,7 +1,7 @@
 import useSWR, { responseInterface } from 'swr'
 import type {
   HookHandler,
-  HookInput,
+  HookSwrInput,
   HookFetchInput,
   PickRequired,
   Fetcher,
@@ -15,7 +15,7 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
 
 export type UseData = <
   Data = any,
-  Input = [...any],
+  Input extends { [k: string]: unknown } = {},
   FetchInput extends HookFetchInput = never,
   Result = any,
   Body = any
@@ -24,11 +24,12 @@ export type UseData = <
     HookHandler<Data, Input, FetchInput, Result, Body>,
     'fetcher'
   >,
-  input: HookInput,
+  input: HookFetchInput | HookSwrInput,
   fetcherFn: Fetcher
 ) => ResponseState<Data>
 
 const useData: UseData = (options, input, fetcherFn) => {
+  const hookInput = Array.isArray(input) ? input : Object.entries(input)
   const fetcher = async (
     url?: string,
     query?: string,
@@ -40,7 +41,7 @@ const useData: UseData = (options, input, fetcherFn) => {
         options: { url, query, method },
         // Transform the input array into an object
         input: args.reduce((obj, val, i) => {
-          obj[input[i][0]!] = val
+          obj[hookInput[i][0]!] = val
           return obj
         }, {}),
         fetch: fetcherFn,
@@ -59,7 +60,7 @@ const useData: UseData = (options, input, fetcherFn) => {
     () => {
       const opts = options.fetchOptions
       return opts
-        ? [opts.url, opts.query, opts.method, ...input.map((e) => e[1])]
+        ? [opts.url, opts.query, opts.method, ...hookInput.map((e) => e[1])]
         : null
     },
     fetcher,

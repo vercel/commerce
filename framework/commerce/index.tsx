@@ -16,10 +16,10 @@ const Commerce = createContext<CommerceContextValue<any> | {}>({})
 export type Provider = CommerceConfig & {
   fetcher: Fetcher
   cart?: {
-    useCart?: HookHandler<Cart | null, [...any], FetchCartInput>
+    useCart?: HookHandler<Cart | null, {}, FetchCartInput>
   }
   wishlist?: {
-    useWishlist?: HookHandler<Cart | null, [...any], FetchCartInput>
+    useWishlist?: HookHandler<Cart | null, {}, FetchCartInput>
   }
 }
 

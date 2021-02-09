@@ -43,7 +43,7 @@ const fetcher: Fetcher = async ({
 
 const useCart: HookHandler<
   Cart | null,
-  [],
+  {},
   FetchCartInput,
   any,
   any,
@@ -71,7 +71,7 @@ const useCart: HookHandler<
 
 const useWishlist: HookHandler<
   Cart | null,
-  [],
+  {},
   FetchCartInput,
   any,
   any,

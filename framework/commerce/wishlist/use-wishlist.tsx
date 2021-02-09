@@ -1,4 +1,8 @@
-import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
+import type {
+  HookSwrInput,
+  HookFetcher,
+  HookFetcherOptions,
+} from '../utils/types'
 import useData, { ResponseState, SwrOptions } from '../utils/use-data'
 
 export type WishlistResponse<Result> = ResponseState<Result> & {
@@ -7,7 +11,7 @@ export type WishlistResponse<Result> = ResponseState<Result> & {
 
 export default function useWishlist<Result, Input = null>(
   options: HookFetcherOptions,
-  input: HookInput,
+  input: HookSwrInput,
   fetcherFn: HookFetcher<Result, Input>,
   swrOptions?: SwrOptions<Result, Input>
 ): WishlistResponse<Result> {
