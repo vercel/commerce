@@ -18,6 +18,9 @@ export type Provider = CommerceConfig & {
   cart?: {
     useCart?: HookHandler<Cart | null, [...any], FetchCartInput>
   }
+  wishlist?: {
+    useWishlist?: HookHandler<Cart | null, [...any], FetchCartInput>
+  }
 }
 
 export type CommerceProps<P extends Provider> = {
