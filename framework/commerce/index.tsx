@@ -14,6 +14,7 @@ import type { FetchCartInput } from './cart/use-cart'
 const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
 export type Provider = CommerceConfig & {
+  fetcher: Fetcher
   cart?: {
     useCart?: HookHandler<Cart | null, [...any], FetchCartInput>
   }
@@ -25,7 +26,7 @@ export type CommerceProps<P extends Provider> = {
   config: CommerceConfig
 }
 
-export type CommerceConfig = { fetcher: Fetcher } & Omit<
+export type CommerceConfig = Omit<
   CommerceContextValue<any>,
   'providerRef' | 'fetcherRef'
 >
@@ -47,7 +48,8 @@ export function CommerceProvider<P extends Provider>({
   }
 
   const providerRef = useRef(provider)
-  const fetcherRef = useRef(config.fetcher)
+  // TODO: Remove the fetcherRef
+  const fetcherRef = useRef(provider.fetcher)
   // Because the config is an object, if the parent re-renders this provider
   // will re-render every consumer unless we memoize the config
   const cfg = useMemo(
