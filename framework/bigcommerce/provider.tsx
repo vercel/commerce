@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { FetcherError } from '@commerce/utils/errors'
 import type { Fetcher, HookHandler } from '@commerce/utils/types'
 import type { FetchCartInput } from '@commerce/cart/use-cart'
@@ -57,6 +58,22 @@ const useCart: HookHandler<
     revalidateOnFocus: false,
   },
   normalizer: normalizeCart,
+  useHook({ input, useData }) {
+    const response = useData({ input })
+
+    return useMemo(
+      () =>
+        Object.create(response, {
+          isEmpty: {
+            get() {
+              return (response.data?.lineItems.length ?? 0) <= 0
+            },
+            enumerable: true,
+          },
+        }),
+      [response]
+    )
+  },
   onResponse(response) {
     return Object.create(response, {
       isEmpty: {

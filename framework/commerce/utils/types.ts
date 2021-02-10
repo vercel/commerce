@@ -74,9 +74,16 @@ export type HookHandler<
   input?(
     input: Input & { swrOptions?: SwrOptions<Data, FetchInput, Result> }
   ): HookFetchInput | HookSwrInput
+  useHook?(context: {
+    input: Input
+    swrOptions?: SwrOptions<Data, FetchInput, Result>
+    useData(context?: {
+      input?: HookFetchInput | HookSwrInput
+      swrOptions?: SwrOptions<Data, FetchInput, Result>
+    }): ResponseState<Data>
+  }): ResponseState<Data> & State
   swrOptions?: SwrOptions<Data, FetchInput, Result>
   onResponse?(response: ResponseState<Data>): ResponseState<Data> & State
-  onMutation?: any
   fetchOptions?: HookFetcherOptions
   fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
   normalizer?(data: Result): Data
@@ -87,3 +94,18 @@ export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
   CommerceError,
   HookFetcher<Data, Input, Result>
 >
+
+/**
+ * Returns the property K from type T excluding nullables
+ */
+export type Prop<T, K extends keyof T> = NonNullable<T[K]>
+
+export type UseHookParameters<H extends HookHandler<any>> = Parameters<
+  Prop<H, 'useHook'>
+>
+
+export type UseHookInput<
+  H extends HookHandler<any>
+> = UseHookParameters<H>[0]['input'] & {
+  swrOptions?: UseHookParameters<H>[0]['swrOptions']
+}
