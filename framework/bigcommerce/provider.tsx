@@ -54,12 +54,11 @@ const useCart: HookHandler<
     url: '/api/bigcommerce/cart',
     method: 'GET',
   },
-  swrOptions: {
-    revalidateOnFocus: false,
-  },
   normalizer: normalizeCart,
   useHook({ input, useData }) {
-    const response = useData({ input })
+    const response = useData({
+      swrOptions: { revalidateOnFocus: false, ...input.swrOptions },
+    })
 
     return useMemo(
       () =>
@@ -74,16 +73,6 @@ const useCart: HookHandler<
       [response]
     )
   },
-  onResponse(response) {
-    return Object.create(response, {
-      isEmpty: {
-        get() {
-          return (response.data?.lineItems.length ?? 0) <= 0
-        },
-        enumerable: true,
-      },
-    })
-  },
 }
 
 const useWishlist: HookHandler<
@@ -97,19 +86,6 @@ const useWishlist: HookHandler<
   fetchOptions: {
     url: '/api/bigcommerce/wishlist',
     method: 'GET',
-  },
-  swrOptions: {
-    revalidateOnFocus: false,
-  },
-  onResponse(response) {
-    return Object.create(response, {
-      isEmpty: {
-        get() {
-          return (response.data?.lineItems.length ?? 0) <= 0
-        },
-        enumerable: true,
-      },
-    })
   },
 }
 

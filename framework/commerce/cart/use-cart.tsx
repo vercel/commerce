@@ -1,7 +1,11 @@
-import { useMemo } from 'react'
 import Cookies from 'js-cookie'
 import type { Cart } from '../types'
-import type { Prop, HookFetcherFn, UseHookInput } from '../utils/types'
+import type {
+  Prop,
+  HookFetcherFn,
+  UseHookInput,
+  UseHookResponse,
+} from '../utils/types'
 import useData from '../utils/use-data-2'
 import { Provider, useCommerce } from '..'
 
@@ -14,11 +18,11 @@ export type UseCartHandler<P extends Provider> = Prop<
   'useCart'
 >
 
-export type CartResponse<P extends Provider> = ReturnType<
-  Prop<UseCartHandler<P>, 'onResponse'>
->
-
 export type UseCartInput<P extends Provider> = UseHookInput<UseCartHandler<P>>
+
+export type CartResponse<P extends Provider> = UseHookResponse<
+  UseCartHandler<P>
+>
 
 export type UseCart<P extends Provider> = Partial<
   UseCartInput<P>
@@ -36,8 +40,6 @@ export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
   return data && normalize ? normalize(data) : data
 }
 
-type X = UseCartInput<Provider>
-
 export default function useCart<P extends Provider>(
   input: UseCartInput<P> = {}
 ) {
@@ -46,49 +48,24 @@ export default function useCart<P extends Provider>(
   const provider = providerRef.current
   const opts = provider.cart?.useCart
 
-  const { swrOptions, ...hookInput } = input
+  const fetcherFn = opts?.fetcher ?? fetcher
+  const useHook = opts?.useHook ?? ((ctx) => ctx.useData())
 
-  return opts?.useHook!({
-    input: hookInput,
-    swrOptions,
+  const wrapper: typeof fetcher = (context) => {
+    context.input.cartId = Cookies.get(cartCookie)
+    return fetcherFn(context)
+  }
+
+  return useHook({
+    input,
     useData(ctx) {
-      const fetcherFn = opts?.fetcher ?? fetcher
-      const wrapper: typeof fetcher = (context) => {
-        context.input.cartId = Cookies.get(cartCookie)
-        return fetcherFn(context)
-      }
       const response = useData(
-        {
-          ...opts,
-          fetcher: wrapper,
-          swrOptions: {
-            ...opts.swrOptions,
-            ...(ctx?.swrOptions ?? swrOptions),
-          },
-        },
+        { ...opts, fetcher: wrapper },
         ctx?.input ?? [],
-        provider.fetcher ?? fetcherRef.current
+        provider.fetcher ?? fetcherRef.current,
+        ctx?.swrOptions ?? input.swrOptions
       )
       return response
     },
   })
-
-  // console.log(i)
-
-  // const fetcherFn = opts?.fetcher ?? fetcher
-  // const wrapper: typeof fetcher = (context) => {
-  //   context.input.cartId = Cookies.get(cartCookie)
-  //   return fetcherFn(context)
-  // }
-  // const response = useData(
-  //   { ...opts, fetcher: wrapper },
-  //   opts?.input ? opts.input(input ?? {}) : [],
-  //   provider.fetcher ?? fetcherRef.current
-  // )
-  // const memoizedResponse = useMemo(
-  //   () => (opts?.onResponse ? opts.onResponse(response) : response),
-  //   [response]
-  // )
-
-  // return memoizedResponse as CartResponse<P>
 }

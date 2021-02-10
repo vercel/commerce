@@ -5,6 +5,7 @@ import type {
   HookFetchInput,
   PickRequired,
   Fetcher,
+  SwrOptions,
 } from './types'
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
@@ -25,10 +26,11 @@ export type UseData = <
     'fetcher'
   >,
   input: HookFetchInput | HookSwrInput,
-  fetcherFn: Fetcher
+  fetcherFn: Fetcher,
+  swrOptions?: SwrOptions<Data, FetchInput, Result>
 ) => ResponseState<Data>
 
-const useData: UseData = (options, input, fetcherFn) => {
+const useData: UseData = (options, input, fetcherFn, swrOptions) => {
   const hookInput = Array.isArray(input) ? input : Object.entries(input)
   const fetcher = async (
     url?: string,
@@ -64,7 +66,7 @@ const useData: UseData = (options, input, fetcherFn) => {
         : null
     },
     fetcher,
-    options.swrOptions
+    swrOptions
   )
 
   if (!('isLoading' in response)) {

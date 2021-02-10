@@ -71,19 +71,13 @@ export type HookHandler<
   // Custom state added to the response object of SWR
   State = {}
 > = {
-  input?(
-    input: Input & { swrOptions?: SwrOptions<Data, FetchInput, Result> }
-  ): HookFetchInput | HookSwrInput
   useHook?(context: {
-    input: Input
-    swrOptions?: SwrOptions<Data, FetchInput, Result>
+    input: Input & { swrOptions?: SwrOptions<Data, FetchInput, Result> }
     useData(context?: {
       input?: HookFetchInput | HookSwrInput
       swrOptions?: SwrOptions<Data, FetchInput, Result>
     }): ResponseState<Data>
   }): ResponseState<Data> & State
-  swrOptions?: SwrOptions<Data, FetchInput, Result>
-  onResponse?(response: ResponseState<Data>): ResponseState<Data> & State
   fetchOptions?: HookFetcherOptions
   fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
   normalizer?(data: Result): Data
@@ -104,8 +98,10 @@ export type UseHookParameters<H extends HookHandler<any>> = Parameters<
   Prop<H, 'useHook'>
 >
 
+export type UseHookResponse<H extends HookHandler<any>> = ReturnType<
+  Prop<H, 'useHook'>
+>
+
 export type UseHookInput<
   H extends HookHandler<any>
-> = UseHookParameters<H>[0]['input'] & {
-  swrOptions?: UseHookParameters<H>[0]['swrOptions']
-}
+> = UseHookParameters<H>[0]['input']
