@@ -1,5 +1,5 @@
 import useSWR, { ConfigInterface, responseInterface } from 'swr'
-import type { HookInput, HookFetcher, HookFetcherOptions } from './types'
+import type { HookSwrInput, HookFetcher, HookFetcherOptions } from './types'
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
 import { useCommerce } from '..'
@@ -16,7 +16,7 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
 
 export type UseData = <Data = any, Input = null, Result = any>(
   options: HookFetcherOptions | (() => HookFetcherOptions | null),
-  input: HookInput,
+  input: HookSwrInput,
   fetcherFn: HookFetcher<Data, Input, Result>,
   swrOptions?: SwrOptions<Data, Input, Result>
 ) => ResponseState<Data>

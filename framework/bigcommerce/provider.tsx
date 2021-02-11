@@ -1,7 +1,10 @@
+import { useMemo } from 'react'
 import { FetcherError } from '@commerce/utils/errors'
 import type { Fetcher, HookHandler } from '@commerce/utils/types'
 import type { FetchCartInput } from '@commerce/cart/use-cart'
 import { normalizeCart } from './lib/normalize'
+import type { Wishlist } from './api/wishlist'
+import useCustomer from './customer/use-customer'
 import type { Cart } from './types'
 
 async function getText(res: Response) {
@@ -43,7 +46,7 @@ const fetcher: Fetcher = async ({
 
 const useCart: HookHandler<
   Cart | null,
-  [],
+  {},
   FetchCartInput,
   any,
   any,
@@ -53,26 +56,31 @@ const useCart: HookHandler<
     url: '/api/bigcommerce/cart',
     method: 'GET',
   },
-  swrOptions: {
-    revalidateOnFocus: false,
-  },
   normalizer: normalizeCart,
-  onResponse(response) {
-    return Object.create(response, {
-      isEmpty: {
-        get() {
-          return (response.data?.lineItems.length ?? 0) <= 0
-        },
-        enumerable: true,
-      },
+  useHook({ input, useData }) {
+    const response = useData({
+      swrOptions: { revalidateOnFocus: false, ...input.swrOptions },
     })
+
+    return useMemo(
+      () =>
+        Object.create(response, {
+          isEmpty: {
+            get() {
+              return (response.data?.lineItems.length ?? 0) <= 0
+            },
+            enumerable: true,
+          },
+        }),
+      [response]
+    )
   },
 }
 
 const useWishlist: HookHandler<
-  Cart | null,
-  [],
-  FetchCartInput,
+  Wishlist | null,
+  { includeProducts?: boolean },
+  { customerId?: number; includeProducts: boolean },
   any,
   any,
   { isEmpty?: boolean }
@@ -81,18 +89,44 @@ const useWishlist: HookHandler<
     url: '/api/bigcommerce/wishlist',
     method: 'GET',
   },
-  swrOptions: {
-    revalidateOnFocus: false,
+  fetcher({ input: { customerId, includeProducts }, options, fetch }) {
+    if (!customerId) return null
+
+    // Use a dummy base as we only care about the relative path
+    const url = new URL(options.url!, 'http://a')
+
+    if (includeProducts) url.searchParams.set('products', '1')
+
+    return fetch({
+      url: url.pathname + url.search,
+      method: options.method,
+    })
   },
-  onResponse(response) {
-    return Object.create(response, {
-      isEmpty: {
-        get() {
-          return (response.data?.lineItems.length ?? 0) <= 0
-        },
-        enumerable: true,
+  useHook({ input, useData }) {
+    const { data: customer } = useCustomer()
+    const response = useData({
+      input: [
+        ['customerId', customer?.id],
+        ['includeProducts', input.includeProducts],
+      ],
+      swrOptions: {
+        revalidateOnFocus: false,
+        ...input.swrOptions,
       },
     })
+
+    return useMemo(
+      () =>
+        Object.create(response, {
+          isEmpty: {
+            get() {
+              return (response.data?.items?.length || 0) <= 0
+            },
+            enumerable: true,
+          },
+        }),
+      [response]
+    )
   },
 }
 

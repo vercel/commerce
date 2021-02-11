@@ -1,3 +1,5 @@
+import type { Wishlist as BCWishlist } from '@framework/api/wishlist'
+
 export interface Discount {
   // The value of the discount, can be an amount or percentage
   value: number
@@ -86,6 +88,9 @@ export interface Cart {
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
 }
+
+// TODO: Properly define this type
+export interface Wishlist extends BCWishlist {}
 
 /**
  * Cart mutations

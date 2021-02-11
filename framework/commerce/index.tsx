@@ -8,18 +8,18 @@ import {
 } from 'react'
 import * as React from 'react'
 import { Fetcher, HookHandler } from './utils/types'
-import { Cart } from './types'
 import type { FetchCartInput } from './cart/use-cart'
+import type { Cart, Wishlist } from './types'
 
 const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
 export type Provider = CommerceConfig & {
   fetcher: Fetcher
   cart?: {
-    useCart?: HookHandler<Cart | null, [...any], FetchCartInput>
+    useCart?: HookHandler<Cart | null, any, FetchCartInput>
   }
   wishlist?: {
-    useWishlist?: HookHandler<Cart | null, [...any], FetchCartInput>
+    useWishlist?: HookHandler<Wishlist | null, any, any>
   }
 }
 

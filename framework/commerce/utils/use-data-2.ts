@@ -1,10 +1,11 @@
 import useSWR, { responseInterface } from 'swr'
 import type {
   HookHandler,
-  HookInput,
+  HookSwrInput,
   HookFetchInput,
   PickRequired,
   Fetcher,
+  SwrOptions,
 } from './types'
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
@@ -15,8 +16,8 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
 
 export type UseData = <
   Data = any,
-  Input = [...any],
-  FetchInput extends HookFetchInput = never,
+  Input extends { [k: string]: unknown } = {},
+  FetchInput extends HookFetchInput = {},
   Result = any,
   Body = any
 >(
@@ -24,13 +25,15 @@ export type UseData = <
     HookHandler<Data, Input, FetchInput, Result, Body>,
     'fetcher'
   >,
-  input: HookInput,
-  fetcherFn: Fetcher
+  input: HookFetchInput | HookSwrInput,
+  fetcherFn: Fetcher,
+  swrOptions?: SwrOptions<Data, FetchInput, Result>
 ) => ResponseState<Data>
 
-const useData: UseData = (options, input, fetcherFn) => {
+const useData: UseData = (options, input, fetcherFn, swrOptions) => {
+  const hookInput = Array.isArray(input) ? input : Object.entries(input)
   const fetcher = async (
-    url?: string,
+    url: string,
     query?: string,
     method?: string,
     ...args: any[]
@@ -40,7 +43,7 @@ const useData: UseData = (options, input, fetcherFn) => {
         options: { url, query, method },
         // Transform the input array into an object
         input: args.reduce((obj, val, i) => {
-          obj[input[i][0]!] = val
+          obj[hookInput[i][0]!] = val
           return obj
         }, {}),
         fetch: fetcherFn,
@@ -59,11 +62,11 @@ const useData: UseData = (options, input, fetcherFn) => {
     () => {
       const opts = options.fetchOptions
       return opts
-        ? [opts.url, opts.query, opts.method, ...input.map((e) => e[1])]
+        ? [opts.url, opts.query, opts.method, ...hookInput.map((e) => e[1])]
         : null
     },
     fetcher,
-    options.swrOptions
+    swrOptions
   )
 
   if (!('isLoading' in response)) {

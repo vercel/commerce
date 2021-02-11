@@ -4,11 +4,15 @@ import type { ResponseState } from './use-data'
 
 export type Override<T, K> = Omit<T, keyof K> & K
 
-// Returns the properties in T with the properties in type K changed from optional to required
+/**
+ * Returns the properties in T with the properties in type K changed from optional to required
+ */
 export type PickRequired<T, K extends keyof T> = Omit<T, K> &
   Required<Pick<T, K>>
 
-// Core fetcher added by CommerceProvider
+/**
+ * Core fetcher added by CommerceProvider
+ */
 export type Fetcher<T = any, B = any> = (
   options: FetcherOptions<B>
 ) => T | Promise<T>
@@ -29,35 +33,36 @@ export type HookFetcher<Data, Input = null, Result = any> = (
 
 export type HookFetcherFn<
   Data,
-  Input = unknown,
+  Input = never,
   Result = any,
   Body = any
 > = (context: {
-  options: HookFetcherOptions | null
+  options: HookFetcherOptions
   input: Input
   fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
   normalize?(data: Result): Data
 }) => Data | Promise<Data>
 
-export type HookFetcherOptions = {
-  query?: string
-  url?: string
-  method?: string
-}
+export type HookFetcherOptions = { method?: string } & (
+  | { query: string; url?: string }
+  | { query?: string; url: string }
+)
 
 export type HookInputValue = string | number | boolean | undefined
 
-export type HookInput = [string, HookInputValue][]
+export type HookSwrInput = [string, HookInputValue][]
 
 export type HookFetchInput = { [k: string]: HookInputValue }
+
+export type HookInput = {}
 
 export type HookHandler<
   // Data obj returned by the hook and fetch operation
   Data,
   // Input expected by the hook
-  Input = [...any],
+  Input extends { [k: string]: unknown } = {},
   // Input expected before doing a fetch operation
-  FetchInput extends HookFetchInput = never,
+  FetchInput extends HookFetchInput = {},
   // Data returned by the API after a fetch operation
   Result = any,
   // Body expected by the API endpoint
@@ -65,11 +70,14 @@ export type HookHandler<
   // Custom state added to the response object of SWR
   State = {}
 > = {
-  input?: Input
-  swrOptions?: SwrOptions<Data, FetchInput, Result>
-  onResponse?(response: ResponseState<Data>): ResponseState<Data> & State
-  onMutation?: any
-  fetchOptions?: HookFetcherOptions
+  useHook?(context: {
+    input: Input & { swrOptions?: SwrOptions<Data, FetchInput, Result> }
+    useData(context?: {
+      input?: HookFetchInput | HookSwrInput
+      swrOptions?: SwrOptions<Data, FetchInput, Result>
+    }): ResponseState<Data>
+  }): ResponseState<Data> & State
+  fetchOptions: HookFetcherOptions
   fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
   normalizer?(data: Result): Data
 }
@@ -79,3 +87,20 @@ export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
   CommerceError,
   HookFetcher<Data, Input, Result>
 >
+
+/**
+ * Returns the property K from type T excluding nullables
+ */
+export type Prop<T, K extends keyof T> = NonNullable<T[K]>
+
+export type UseHookParameters<H extends HookHandler<any>> = Parameters<
+  Prop<H, 'useHook'>
+>
+
+export type UseHookResponse<H extends HookHandler<any>> = ReturnType<
+  Prop<H, 'useHook'>
+>
+
+export type UseHookInput<
+  H extends HookHandler<any>
+> = UseHookParameters<H>[0]['input']
