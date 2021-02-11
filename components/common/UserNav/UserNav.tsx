@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Link from 'next/link'
 import cn from 'classnames'
+import type { LineItem } from '@framework/types'
 import useCart from '@framework/cart/use-cart'
 import useCustomer from '@framework/customer/use-customer'
 import { Avatar } from '@components/common'
@@ -15,7 +16,7 @@ interface Props {
 
 const countItem = (count: number, item: LineItem) => count + item.quantity
 
-const UserNav: FC<Props> = ({ className, children }) => {
+const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
