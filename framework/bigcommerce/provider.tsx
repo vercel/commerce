@@ -4,6 +4,7 @@ import type { Fetcher, HookHandler } from '@commerce/utils/types'
 import type { FetchCartInput } from '@commerce/cart/use-cart'
 import { normalizeCart } from './lib/normalize'
 import type { Wishlist } from './api/wishlist'
+import type { Customer, CustomerData } from './api/customers'
 import useCustomer from './customer/use-customer'
 import type { Cart } from './types'
 
@@ -130,6 +131,28 @@ const useWishlist: HookHandler<
   },
 }
 
+const useCustomerHandler: HookHandler<
+  Customer | null,
+  {},
+  {},
+  CustomerData | null,
+  any
+> = {
+  fetchOptions: {
+    url: '/api/bigcommerce/customers',
+    method: 'GET',
+  },
+  normalizer: (data) => data.customer,
+  useHook({ input, useData }) {
+    return useData({
+      swrOptions: {
+        revalidateOnFocus: false,
+        ...input.swrOptions,
+      },
+    })
+  },
+}
+
 export const bigcommerceProvider = {
   locale: 'en-us',
   cartCookie: 'bc_cartId',
@@ -137,6 +160,7 @@ export const bigcommerceProvider = {
   cartNormalizer: normalizeCart,
   cart: { useCart },
   wishlist: { useWishlist },
+  customer: { useCustomer: useCustomerHandler },
 }
 
 export type BigcommerceProvider = typeof bigcommerceProvider

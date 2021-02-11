@@ -1,4 +1,4 @@
-import type { Wishlist } from '../types'
+import type { Customer } from '../types'
 import type {
   Prop,
   HookFetcherFn,
@@ -8,26 +8,26 @@ import type {
 import useData from '../utils/use-data-2'
 import { Provider, useCommerce } from '..'
 
-export type UseWishlistHandler<P extends Provider> = Prop<
-  Prop<P, 'wishlist'>,
-  'useWishlist'
+export type UseCustomerHandler<P extends Provider> = Prop<
+  Prop<P, 'customer'>,
+  'useCustomer'
 >
 
-export type UseWishlistInput<P extends Provider> = UseHookInput<
-  UseWishlistHandler<P>
+export type UseCustomerInput<P extends Provider> = UseHookInput<
+  UseCustomerHandler<P>
 >
 
-export type WishlistResponse<P extends Provider> = UseHookResponse<
-  UseWishlistHandler<P>
+export type CustomerResponse<P extends Provider> = UseHookResponse<
+  UseCustomerHandler<P>
 >
 
-export type UseWishlist<P extends Provider> = Partial<
-  UseWishlistInput<P>
-> extends UseWishlistInput<P>
-  ? (input?: UseWishlistInput<P>) => WishlistResponse<P>
-  : (input: UseWishlistInput<P>) => WishlistResponse<P>
+export type UseCustomer<P extends Provider> = Partial<
+  UseCustomerInput<P>
+> extends UseCustomerInput<P>
+  ? (input?: UseCustomerInput<P>) => CustomerResponse<P>
+  : (input: UseCustomerInput<P>) => CustomerResponse<P>
 
-export const fetcher: HookFetcherFn<Wishlist | null> = async ({
+export const fetcher: HookFetcherFn<Customer | null> = async ({
   options,
   fetch,
   normalize,
@@ -36,13 +36,13 @@ export const fetcher: HookFetcherFn<Wishlist | null> = async ({
   return data && normalize ? normalize(data) : data
 }
 
-export default function useWishlist<P extends Provider>(
-  input: UseWishlistInput<P> = {}
+export default function useCustomer<P extends Provider>(
+  input: UseCustomerInput<P> = {}
 ) {
   const { providerRef, fetcherRef } = useCommerce<P>()
 
   const provider = providerRef.current
-  const opts = provider.wishlist?.useWishlist
+  const opts = provider.customer?.useCustomer
 
   const fetcherFn = opts?.fetcher ?? fetcher
   const useHook = opts?.useHook ?? ((ctx) => ctx.useData())

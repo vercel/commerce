@@ -79,7 +79,7 @@ export type HookHandler<
   }): ResponseState<Data> & State
   fetchOptions: HookFetcherOptions
   fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
-  normalizer?(data: Result): Data
+  normalizer?(data: NonNullable<Result>): Data
 }
 
 export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
