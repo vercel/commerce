@@ -5,6 +5,7 @@ import type {
   UseHookInput,
   UseHookResponse,
 } from '../utils/types'
+import defaultFetcher from '../utils/default-fetcher'
 import useData from '../utils/use-data-2'
 import { Provider, useCommerce } from '..'
 
@@ -27,14 +28,7 @@ export type UseCustomer<P extends Provider> = Partial<
   ? (input?: UseCustomerInput<P>) => CustomerResponse<P>
   : (input: UseCustomerInput<P>) => CustomerResponse<P>
 
-export const fetcher: HookFetcherFn<Customer | null> = async ({
-  options,
-  fetch,
-  normalize,
-}) => {
-  const data = await fetch({ ...options })
-  return data && normalize ? normalize(data) : data
-}
+export const fetcher = defaultFetcher as HookFetcherFn<Customer | null>
 
 export default function useCustomer<P extends Provider>(
   input: UseCustomerInput<P> = {}
