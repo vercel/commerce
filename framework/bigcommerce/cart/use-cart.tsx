@@ -1,4 +1,4 @@
-import useCommerceCart, { UseCart } from '@commerce/cart/use-cart'
+import useCart, { UseCart } from '@commerce/cart/use-cart'
 import type { BigcommerceProvider } from '..'
 
-export default useCommerceCart as UseCart<BigcommerceProvider>
+export default useCart as UseCart<BigcommerceProvider>

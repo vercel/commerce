@@ -17,7 +17,7 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
 export type UseData = <
   Data = any,
   Input extends { [k: string]: unknown } = {},
-  FetchInput extends HookFetchInput = never,
+  FetchInput extends HookFetchInput = {},
   Result = any,
   Body = any
 >(
@@ -33,7 +33,7 @@ export type UseData = <
 const useData: UseData = (options, input, fetcherFn, swrOptions) => {
   const hookInput = Array.isArray(input) ? input : Object.entries(input)
   const fetcher = async (
-    url?: string,
+    url: string,
     query?: string,
     method?: string,
     ...args: any[]

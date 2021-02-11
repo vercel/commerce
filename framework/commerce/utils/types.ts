@@ -33,21 +33,20 @@ export type HookFetcher<Data, Input = null, Result = any> = (
 
 export type HookFetcherFn<
   Data,
-  Input = unknown,
+  Input = never,
   Result = any,
   Body = any
 > = (context: {
-  options: HookFetcherOptions | null
+  options: HookFetcherOptions
   input: Input
   fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
   normalize?(data: Result): Data
 }) => Data | Promise<Data>
 
-export type HookFetcherOptions = {
-  query?: string
-  url?: string
-  method?: string
-}
+export type HookFetcherOptions = { method?: string } & (
+  | { query: string; url?: string }
+  | { query?: string; url: string }
+)
 
 export type HookInputValue = string | number | boolean | undefined
 
@@ -63,7 +62,7 @@ export type HookHandler<
   // Input expected by the hook
   Input extends { [k: string]: unknown } = {},
   // Input expected before doing a fetch operation
-  FetchInput extends HookFetchInput = never,
+  FetchInput extends HookFetchInput = {},
   // Data returned by the API after a fetch operation
   Result = any,
   // Body expected by the API endpoint
@@ -78,7 +77,7 @@ export type HookHandler<
       swrOptions?: SwrOptions<Data, FetchInput, Result>
     }): ResponseState<Data>
   }): ResponseState<Data> & State
-  fetchOptions?: HookFetcherOptions
+  fetchOptions: HookFetcherOptions
   fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
   normalizer?(data: Result): Data
 }

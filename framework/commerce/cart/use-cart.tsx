@@ -60,7 +60,7 @@ export default function useCart<P extends Provider>(
     input,
     useData(ctx) {
       const response = useData(
-        { ...opts, fetcher: wrapper },
+        { ...opts!, fetcher: wrapper },
         ctx?.input ?? [],
         provider.fetcher ?? fetcherRef.current,
         ctx?.swrOptions ?? input.swrOptions
