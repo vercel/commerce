@@ -6,7 +6,7 @@ import type {
   UseHookResponse,
 } from '../utils/types'
 import defaultFetcher from '../utils/default-fetcher'
-import useData from '../utils/use-data-2'
+import useData from '../utils/use-data'
 import { Provider, useCommerce } from '..'
 import { BigcommerceProvider } from '@framework'
 

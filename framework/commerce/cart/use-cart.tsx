@@ -6,7 +6,7 @@ import type {
   UseHookInput,
   UseHookResponse,
 } from '../utils/types'
-import useData from '../utils/use-data-2'
+import useData from '../utils/use-data'
 import { Provider, useCommerce } from '..'
 
 export type FetchCartInput = {
