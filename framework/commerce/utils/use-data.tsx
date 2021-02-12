@@ -17,17 +17,12 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
 export type UseData = <
   Data = any,
   Input extends { [k: string]: unknown } = {},
-  FetchInput extends HookFetchInput = {},
-  Result = any,
-  Body = any
+  FetchInput extends HookFetchInput = {}
 >(
-  options: PickRequired<
-    HookHandler<Data, Input, FetchInput, Result, Body>,
-    'fetcher'
-  >,
+  options: PickRequired<HookHandler<Data, Input, FetchInput>, 'fetcher'>,
   input: HookFetchInput | HookSwrInput,
   fetcherFn: Fetcher,
-  swrOptions?: SwrOptions<Data, FetchInput, Result>
+  swrOptions?: SwrOptions<Data, FetchInput>
 ) => ResponseState<Data>
 
 const useData: UseData = (options, input, fetcherFn, swrOptions) => {
@@ -47,7 +42,6 @@ const useData: UseData = (options, input, fetcherFn, swrOptions) => {
           return obj
         }, {}),
         fetch: fetcherFn,
-        normalize: options.normalizer,
       })
     } catch (error) {
       // SWR will not log errors, but any error that's not an instance

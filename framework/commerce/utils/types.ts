@@ -40,7 +40,6 @@ export type HookFetcherFn<
   options: HookFetcherOptions
   input: Input
   fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
-  normalize?(data: Result): Data
 }) => Data | Promise<Data>
 
 export type HookFetcherOptions = { method?: string } & (
@@ -63,23 +62,18 @@ export type HookHandler<
   Input extends { [k: string]: unknown } = {},
   // Input expected before doing a fetch operation
   FetchInput extends HookFetchInput = {},
-  // Data returned by the API after a fetch operation
-  Result = any,
-  // Body expected by the API endpoint
-  Body = any,
   // Custom state added to the response object of SWR
   State = {}
 > = {
   useHook?(context: {
-    input: Input & { swrOptions?: SwrOptions<Data, FetchInput, Result> }
+    input: Input & { swrOptions?: SwrOptions<Data, FetchInput> }
     useData(context?: {
       input?: HookFetchInput | HookSwrInput
-      swrOptions?: SwrOptions<Data, FetchInput, Result>
+      swrOptions?: SwrOptions<Data, FetchInput>
     }): ResponseState<Data>
   }): ResponseState<Data> & State
   fetchOptions: HookFetcherOptions
-  fetcher?: HookFetcherFn<Data, FetchInput, Result, Body>
-  normalizer?(data: NonNullable<Result>): Data
+  fetcher?: HookFetcherFn<Data, FetchInput>
 }
 
 export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<

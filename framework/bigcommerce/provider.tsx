@@ -50,15 +50,16 @@ const useCart: HookHandler<
   Cart | null,
   {},
   FetchCartInput,
-  any,
-  any,
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
     url: '/api/bigcommerce/cart',
     method: 'GET',
   },
-  normalizer: normalizeCart,
+  async fetcher({ input: { cartId }, options, fetch }) {
+    const data = cartId ? await fetch(options) : null
+    return data && normalizeCart(data)
+  },
   useHook({ input, useData }) {
     const response = useData({
       swrOptions: { revalidateOnFocus: false, ...input.swrOptions },
@@ -83,8 +84,6 @@ const useWishlist: HookHandler<
   Wishlist | null,
   { includeProducts?: boolean },
   { customerId?: number; includeProducts: boolean },
-  any,
-  any,
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
@@ -132,18 +131,15 @@ const useWishlist: HookHandler<
   },
 }
 
-const useCustomerHandler: HookHandler<
-  Customer | null,
-  {},
-  {},
-  CustomerData | null,
-  any
-> = {
+const useCustomerHandler: HookHandler<Customer | null> = {
   fetchOptions: {
     url: '/api/bigcommerce/customers',
     method: 'GET',
   },
-  normalizer: (data) => data.customer,
+  async fetcher({ options, fetch }) {
+    const data = await fetch<CustomerData | null>(options)
+    return data?.customer ?? null
+  },
   useHook({ input, useData }) {
     return useData({
       swrOptions: {
@@ -164,9 +160,7 @@ export type SearchProductsInput = {
 const useSearch: HookHandler<
   SearchProductsData,
   SearchProductsInput,
-  SearchProductsInput,
-  any,
-  any
+  SearchProductsInput
 > = {
   fetchOptions: {
     url: '/api/bigcommerce/catalog/products',

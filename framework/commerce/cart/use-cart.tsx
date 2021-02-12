@@ -34,10 +34,8 @@ export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
   options,
   input: { cartId },
   fetch,
-  normalize,
 }) => {
-  const data = cartId ? await fetch({ ...options }) : null
-  return data && normalize ? normalize(data) : data
+  return cartId ? await fetch({ ...options }) : null
 }
 
 export default function useCart<P extends Provider>(

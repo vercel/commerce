@@ -1,12 +1,6 @@
-import { HookFetcherFn } from './types'
+import type { HookFetcherFn } from './types'
 
-const defaultFetcher: HookFetcherFn<any> = async ({
-  options,
-  fetch,
-  normalize,
-}) => {
-  const data = await fetch({ ...options })
-  return data && normalize ? normalize(data) : data
-}
+const defaultFetcher: HookFetcherFn<any> = ({ options, fetch }) =>
+  fetch(options)
 
 export default defaultFetcher
