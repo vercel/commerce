@@ -1,13 +1,10 @@
 import useCommerceSearch from '@commerce/products/use-search'
-import {
-  getAllProductsQuery,
-  getCollectionProductsQuery,
-} from '@framework/utils/queries'
+import { getAllProductsQuery } from '@framework/utils/queries'
 
 import type { Product } from 'framework/bigcommerce/schema'
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
-import type { ProductEdge } from '@framework/schema'
+import type { ProductConnection, ProductEdge } from '@framework/schema'
 
 import getSearchVariables from '@framework/utils/get-search-variables'
 
@@ -30,25 +27,19 @@ export type SearchProductsData = {
 }
 
 export const fetcher: HookFetcher<
-  SearchRequestProductsData,
+  SearchProductsData,
   SearchProductsInput
-> = (options, input, fetch) => {
-  return fetch({
+> = async (options, input, fetch) => {
+  const resp = await fetch({
     query: options?.query,
     method: options?.method,
-    variables: {
-      ...getSearchVariables(input),
-    },
-  }).then(
-    (resp): SearchProductsData => {
-      const edges = resp.products?.edges
-
-      return {
-        products: edges?.map(({ node: p }: ProductEdge) => normalizeProduct(p)),
-        found: !!edges?.length,
-      }
-    }
-  )
+    variables: getSearchVariables(input),
+  })
+  const edges = resp.products?.edges
+  return {
+    products: edges?.map(({ node: p }: ProductEdge) => normalizeProduct(p)),
+    found: !!edges?.length,
+  }
 }
 
 export function extendHook(
