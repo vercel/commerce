@@ -1,22 +1,22 @@
 import useCommerceSearch from '@commerce/products/use-search'
-import getAllProductsQuery from '@framework/utils/queries/get-all-products-query'
+import {
+  getAllProductsQuery,
+  getCollectionProductsQuery,
+} from '@framework/utils/queries'
 
 import type { Product } from 'framework/bigcommerce/schema'
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
 import type { ProductEdge } from '@framework/schema'
 
-import {
-  searchByProductType,
-  searchByTag,
-} from '@framework/utils/get-search-variables'
+import getSearchVariables from '@framework/utils/get-search-variables'
 
-import sortBy from '@framework/utils/get-sort-variables'
 import { normalizeProduct } from '@framework/lib/normalize'
 
 export type SearchProductsInput = {
   search?: string
-  categoryPath?: string
+  categoryId?: string
+  brandId?: string
   sort?: string
 }
 
@@ -32,22 +32,20 @@ export type SearchProductsData = {
 export const fetcher: HookFetcher<
   SearchRequestProductsData,
   SearchProductsInput
-> = (options, { search, categoryPath, sort }, fetch) => {
+> = (options, input, fetch) => {
   return fetch({
     query: options?.query,
     method: options?.method,
     variables: {
-      ...searchByProductType(search),
-      ...searchByTag(categoryPath),
-      ...sortBy(sort),
+      ...getSearchVariables(input),
     },
   }).then(
-    ({ products }): SearchProductsData => {
+    (resp): SearchProductsData => {
+      const edges = resp.products?.edges
+
       return {
-        products: products?.edges?.map(({ node: p }: ProductEdge) =>
-          normalizeProduct(p)
-        ),
-        found: !!products?.edges?.length,
+        products: edges?.map(({ node: p }: ProductEdge) => normalizeProduct(p)),
+        found: !!edges?.length,
       }
     }
   )
@@ -64,7 +62,8 @@ export function extendHook(
       },
       [
         ['search', input.search],
-        ['categoryPath', input.categoryPath],
+        ['categoryId', input.categoryId],
+        ['brandId', input.brandId],
         ['sort', input.sort],
       ],
       customFetcher,

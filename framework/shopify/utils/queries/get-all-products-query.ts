@@ -1,3 +1,46 @@
+export const productsFragment = `
+products(
+  first: $first
+  sortKey: $sortKey
+  reverse: $reverse
+  query: $query
+) {
+  pageInfo {
+    hasNextPage
+    hasPreviousPage
+  }
+  edges {
+    node {
+      id
+      title
+      vendor
+      handle
+      description
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      images(first: 1) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          node {
+            originalSrc
+            altText
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $first: Int = 250
@@ -5,46 +48,7 @@ const getAllProductsQuery = /* GraphQL */ `
     $sortKey: ProductSortKeys = RELEVANCE
     $reverse: Boolean = false
   ) {
-    products(
-      first: $first
-      sortKey: $sortKey
-      reverse: $reverse
-      query: $query
-    ) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-      }
-      edges {
-        node {
-          id
-          title
-          vendor
-          handle
-          description
-          priceRange {
-            minVariantPrice {
-              amount
-              currencyCode
-            }
-          }
-          images(first: 1) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-            }
-            edges {
-              node {
-                originalSrc
-                altText
-                width
-                height
-              }
-            }
-          }
-        }
-      }
-    }
+    ${productsFragment}
   }
 `
 export default getAllProductsQuery

@@ -1,5 +1,5 @@
-const getAllProductsPathsQuery = /* GraphQL */ `
-  query getAllProductPaths($first: Int!, $cursor: String) {
+const getAllProductVendors = /* GraphQL */ `
+  query getAllProductVendors($first: Int = 250, $cursor: String) {
     products(first: $first, after: $cursor) {
       pageInfo {
         hasNextPage
@@ -7,11 +7,11 @@ const getAllProductsPathsQuery = /* GraphQL */ `
       }
       edges {
         node {
-          handle
+          vendor
         }
         cursor
       }
     }
   }
 `
-export default getAllProductsPathsQuery
+export default getAllProductVendors

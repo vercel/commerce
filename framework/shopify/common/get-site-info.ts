@@ -1,30 +1,30 @@
-import { CollectionEdge } from '@framework/schema'
+import getCategories, { Category } from '@framework/utils/get-categories'
+import getVendors, { Brands } from '@framework/utils/get-vendors'
+
 import { getConfig, ShopifyConfig } from '../api'
-import getAllCollectionsQuery from '../utils/queries/get-all-collections-query'
+
+export type GetSiteInfoResult<
+  T extends { categories: any[]; brands: any[] } = {
+    categories: Category[]
+    brands: Brands
+  }
+> = T
 
 const getSiteInfo = async (options?: {
   variables?: any
   config: ShopifyConfig
   preview?: boolean
-}) => {
-  let { config, variables = { first: 250 } } = options ?? {}
+}): Promise<GetSiteInfoResult> => {
+  let { config } = options ?? {}
 
   config = getConfig(config)
 
-  const { data } = await config.fetch(getAllCollectionsQuery, { variables })
-  const edges = data.collections?.edges ?? []
-
-  const categories = edges.map(
-    ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({
-      entityId,
-      name,
-      path: `/${handle}`,
-    })
-  )
+  const categories = await getCategories(config)
+  const brands = await getVendors(config)
 
   return {
     categories,
-    brands: [],
+    brands,
   }
 }
 

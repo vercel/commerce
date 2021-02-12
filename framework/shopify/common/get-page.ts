@@ -1,27 +1,39 @@
-import { ShopifyConfig, getConfig } from '../api'
-import type { Page } from '../types'
+import { GraphQLFetcherResult } from '@commerce/api'
 
-export type { Page }
+import { getConfig, ShopifyConfig } from '../api'
+import getPageQuery from '@framework/utils/queries/get-page-query'
+import { Page, PageEdge } from '@framework/schema'
 
-export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
-
-export type PageVariables = {
-  id: string
+type Variables = {
+  slug: string
 }
 
-async function getPage({
-  url,
-  variables,
-  config,
-  preview,
-}: {
-  url?: string
-  variables: PageVariables
-  config?: ShopifyConfig
+type ReturnType = {
+  page: any
+}
+
+const getPage = async (options: {
+  variables: Variables
+  config: ShopifyConfig
   preview?: boolean
-}): Promise<GetPageResult> {
+}): Promise<ReturnType> => {
+  let { config, variables } = options ?? {}
   config = getConfig(config)
-  return {}
+
+  const { data }: GraphQLFetcherResult = await config.fetch(getPageQuery, {
+    variables,
+  })
+
+  const page: Page = data?.pageByHandle
+
+  return {
+    page: page
+      ? {
+          ...page,
+          url: page?.handle,
+        }
+      : null,
+  }
 }
 
 export default getPage

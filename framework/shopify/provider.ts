@@ -9,6 +9,7 @@ import { normalizeCart } from './lib/normalize'
 import { Cart } from './types'
 
 import handleFetchResponse from './utils/handle-fetch-response'
+import { getCheckoutQuery } from './utils/queries'
 
 const useCart: HookHandler<
   Cart | null,
@@ -19,8 +20,7 @@ const useCart: HookHandler<
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
-    method: 'GET',
+    query: getCheckoutQuery,
   },
   swrOptions: {
     revalidateOnFocus: false,
@@ -38,7 +38,7 @@ const useCart: HookHandler<
   },
 }
 
-const fetcher: Fetcher = async ({ method = 'GET', variables, query }) => {
+const fetcher: Fetcher = async ({ method = 'POST', variables, query }) => {
   return handleFetchResponse(
     await fetch(API_URL, {
       method,

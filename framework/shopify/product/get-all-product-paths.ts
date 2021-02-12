@@ -1,4 +1,5 @@
 import { getConfig, ShopifyConfig } from '../api'
+import fetchAllProducts from '../api/utils/fetch-all-products'
 import { ProductEdge } from '../schema'
 import getAllProductsPathsQuery from '../utils/queries/get-all-products-paths-query'
 
@@ -9,21 +10,19 @@ type ReturnType = {
 const getAllProductPaths = async (options?: {
   variables?: any
   config?: ShopifyConfig
-  previe?: boolean
+  preview?: boolean
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
 
-  const { data } = await config.fetch(getAllProductsPathsQuery, {
+  const products = await fetchAllProducts({
+    config,
+    query: getAllProductsPathsQuery,
     variables,
   })
 
-  const edges = data?.products?.edges
-  const productInfo = data?.products?.productInfo
-  const hasNextPage = productInfo?.hasNextPage
-
   return {
-    products: edges?.map(({ node: { handle } }: ProductEdge) => ({
+    products: products?.map(({ node: { handle } }: ProductEdge) => ({
       node: {
         path: `/${handle}`,
       },

@@ -19,14 +19,12 @@ const getAllPages = async (options?: {
   config = getConfig(config)
 
   const { data } = await config.fetch(getAllPagesQuery, { variables })
+  const edges = data?.pages?.edges
 
-  const pages = data.pages.edges.map(({ node }: PageEdge) => {
-    return {
-      ...node,
-      name: node.handle,
-      url: `${config!.locale}/${node.handle}`,
-    }
-  })
+  const pages = edges?.map(({ node }: PageEdge) => ({
+    ...node,
+    url: node.handle,
+  }))
 
   return { pages }
 }

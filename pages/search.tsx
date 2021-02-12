@@ -71,7 +71,6 @@ export default function Search({
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.entityId,
-    categoryPath: activeCategory?.path,
     brandId: activeBrand?.entityId,
     sort: typeof sort === 'string' ? sort : '',
   })
