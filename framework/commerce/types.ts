@@ -148,3 +148,10 @@ export interface RemoveCartItemBody {
 export interface RemoveCartItemHandlerBody extends Partial<RemoveCartItemBody> {
   cartId?: string
 }
+
+// Features API
+type Features = 'wishlist' | 'checkout'
+
+export interface FrameworkConfig {
+  features: Record<Features, boolean>
+}

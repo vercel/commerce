@@ -1,13 +1,13 @@
-import type { SearchProductsData } from '../types'
+import type { SearchProductsData } from '../../types'
 import type {
   Prop,
   HookFetcherFn,
   UseHookInput,
   UseHookResponse,
-} from '../utils/types'
-import defaultFetcher from '../utils/default-fetcher'
-import useData from '../utils/use-data'
-import { Provider, useCommerce } from '..'
+} from '../../utils/types'
+import defaultFetcher from '../../utils/default-fetcher'
+import useData from '../../utils/use-data'
+import { Provider, useCommerce } from '../..'
 import { BigcommerceProvider } from '@framework'
 
 export type UseSearchHandler<P extends Provider> = Prop<
