@@ -1,4 +1,6 @@
 import type { Wishlist as BCWishlist } from '@framework/api/wishlist'
+import type { Customer as BCCustomer } from '@framework/api/customers'
+import type { SearchProductsData as BCSearchProductsData } from '@framework/api/catalog/products'
 
 export interface Discount {
   // The value of the discount, can be an amount or percentage
@@ -91,6 +93,12 @@ export interface Cart {
 
 // TODO: Properly define this type
 export interface Wishlist extends BCWishlist {}
+
+// TODO: Properly define this type
+export interface Customer extends BCCustomer {}
+
+// TODO: Properly define this type
+export interface SearchProductsData extends BCSearchProductsData {}
 
 /**
  * Cart mutations

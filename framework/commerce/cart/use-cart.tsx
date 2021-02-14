@@ -6,7 +6,7 @@ import type {
   UseHookInput,
   UseHookResponse,
 } from '../utils/types'
-import useData from '../utils/use-data-2'
+import useData from '../utils/use-data'
 import { Provider, useCommerce } from '..'
 
 export type FetchCartInput = {
@@ -34,10 +34,8 @@ export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
   options,
   input: { cartId },
   fetch,
-  normalize,
 }) => {
-  const data = cartId ? await fetch({ ...options }) : null
-  return data && normalize ? normalize(data) : data
+  return cartId ? await fetch({ ...options }) : null
 }
 
 export default function useCart<P extends Provider>(

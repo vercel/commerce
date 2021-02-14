@@ -6,10 +6,9 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import * as React from 'react'
 import { Fetcher, HookHandler } from './utils/types'
 import type { FetchCartInput } from './cart/use-cart'
-import type { Cart, Wishlist } from './types'
+import type { Cart, Wishlist, Customer, SearchProductsData } from './types'
 
 const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
@@ -20,6 +19,12 @@ export type Provider = CommerceConfig & {
   }
   wishlist?: {
     useWishlist?: HookHandler<Wishlist | null, any, any>
+  }
+  customer: {
+    useCustomer?: HookHandler<Customer | null, any, any>
+  }
+  products: {
+    useSearch?: HookHandler<SearchProductsData, any, any>
   }
 }
 
