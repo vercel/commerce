@@ -75,6 +75,8 @@ const CartItem = ({
       setRemoving(false)
     }
   }
+  // TODO: Add a type for this
+  const options = (item as any).options
 
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
@@ -95,8 +97,8 @@ const CartItem = ({
           className={s.productImage}
           width={150}
           height={150}
-          src={item.variant.image.url}
-          alt={item.variant.image.altText}
+          src={item.variant.image!.url}
+          alt={item.variant.image!.altText}
           unoptimized
         />
       </div>
@@ -109,15 +111,15 @@ const CartItem = ({
             {item.name}
           </span>
         </Link>
-        {item.options && item.options.length > 0 ? (
+        {options && options.length > 0 ? (
           <div className="">
-            {item.options.map((option: ItemOption, i: number) => (
+            {options.map((option: ItemOption, i: number) => (
               <span
                 key={`${item.id}-${option.name}`}
                 className="text-sm font-semibold text-accents-7"
               >
                 {option.value}
-                {i === item.options.length - 1 ? '' : ', '}
+                {i === options.length - 1 ? '' : ', '}
               </span>
             ))}
           </div>
