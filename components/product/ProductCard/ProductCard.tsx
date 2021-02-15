@@ -7,7 +7,8 @@ import Image, { ImageProps } from 'next/image'
 
 interface Props {
   className?: string
-  product: Product
+  // TODO: use the product type here
+  product: any
   variant?: 'slim' | 'simple'
   imgProps?: Omit<ImageProps, 'src'>
 }

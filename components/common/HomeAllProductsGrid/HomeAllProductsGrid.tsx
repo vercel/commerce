@@ -8,7 +8,8 @@ import { getCategoryPath, getDesignerPath } from '@lib/search'
 interface Props {
   categories?: any
   brands?: any
-  products?: Product[]
+  // TODO: use the product type here
+  products?: any[]
 }
 
 const Head: FC<Props> = ({ categories, brands, products = [] }) => {
