@@ -1,19 +1,23 @@
 import { useCallback } from 'react'
 import { HookFetcher } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
-import useWishlistAddItem from '@commerce/wishlist/use-add-item'
+import useWishlistAddItem, {
+  AddItemInput,
+} from '@commerce/wishlist/use-add-item'
+import { UseWishlistInput } from '@commerce/wishlist/use-wishlist'
 import type { ItemBody, AddItemBody } from '../api/wishlist'
 import useCustomer from '../customer/use-customer'
-import useWishlist, { UseWishlistOptions, Wishlist } from './use-wishlist'
+import useWishlist from './use-wishlist'
+import type { BigcommerceProvider } from '..'
 
 const defaultOpts = {
   url: '/api/bigcommerce/wishlist',
   method: 'POST',
 }
 
-export type AddItemInput = ItemBody
+// export type AddItemInput = ItemBody
 
-export const fetcher: HookFetcher<Wishlist, AddItemBody> = (
+export const fetcher: HookFetcher<any, AddItemBody> = (
   options,
   { item },
   fetch
@@ -27,13 +31,13 @@ export const fetcher: HookFetcher<Wishlist, AddItemBody> = (
 }
 
 export function extendHook(customFetcher: typeof fetcher) {
-  const useAddItem = (opts?: UseWishlistOptions) => {
+  const useAddItem = (opts?: UseWishlistInput<BigcommerceProvider>) => {
     const { data: customer } = useCustomer()
     const { revalidate } = useWishlist(opts)
     const fn = useWishlistAddItem(defaultOpts, customFetcher)
 
     return useCallback(
-      async function addItem(input: AddItemInput) {
+      async function addItem(input: AddItemInput<any>) {
         if (!customer) {
           // A signed customer is required in order to have a wishlist
           throw new CommerceError({

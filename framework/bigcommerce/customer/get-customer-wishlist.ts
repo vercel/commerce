@@ -68,7 +68,7 @@ async function getCustomerWishlist({
       const productsById = graphqlData.products.reduce<{
         [k: number]: ProductEdge
       }>((prods, p) => {
-        prods[p.node.entityId] = p
+        prods[Number(p.node.entityId)] = p as any
         return prods
       }, {})
       // Populate the wishlist items with the graphql products

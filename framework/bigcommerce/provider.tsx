@@ -107,7 +107,7 @@ const useWishlist: HookHandler<
     const { data: customer } = useCustomer()
     const response = useData({
       input: [
-        ['customerId', customer?.id],
+        ['customerId', (customer as any)?.id],
         ['includeProducts', input.includeProducts],
       ],
       swrOptions: {
