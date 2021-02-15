@@ -43,7 +43,7 @@ const ProductView: FC<Props> = ({ product }) => {
     try {
       await addItem({
         productId: String(product.id),
-        variantId: variant ? variant.id : product.variants[0].id,
+        variantId: String(variant ? variant.id : product.variants[0].id),
       })
       openSidebar()
       setLoading(false)
