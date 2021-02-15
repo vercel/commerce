@@ -9,11 +9,22 @@ import {
 } from './const'
 
 import { Cart } from './types'
-import { normalizeCart } from './lib/normalize'
-import handleFetchResponse from './utils/handle-fetch-response'
-import getCheckoutQuery from './utils/queries/get-checkout-query'
-import { FetchCartInput, UseCartInput } from '@commerce/cart/use-cart'
+import { Customer } from '@commerce/types'
+import { normalizeCart, normalizeProduct } from './lib/normalize'
+import { FetchCartInput } from '@commerce/cart/use-cart'
 import { checkoutCreate, checkoutToCart } from './cart/utils'
+
+import {
+  getAllProductsQuery,
+  getCustomerQuery,
+  getCheckoutQuery,
+  handleFetchResponse,
+  getSearchVariables,
+} from './utils'
+
+import { ProductEdge } from './schema'
+import { SearchProductsInput } from 'framework/bigcommerce/provider'
+import { SearchProductsData } from 'framework/bigcommerce/api/catalog/products'
 
 const fetcher: Fetcher = async ({ method = 'POST', variables, query }) => {
   return handleFetchResponse(
@@ -55,16 +66,13 @@ export const cartFetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
 const useCart: HookHandler<
   Cart | null,
   {},
-  any,
-  any,
-  any,
+  FetchCartInput,
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
     query: getCheckoutQuery,
   },
   fetcher: cartFetcher,
-  normalizer: normalizeCart,
   useHook({ input, useData }) {
     const response = useData({
       swrOptions: { revalidateOnFocus: false, ...input.swrOptions },
@@ -85,6 +93,60 @@ const useCart: HookHandler<
   },
 }
 
+const useSearch: HookHandler<
+  SearchProductsData,
+  SearchProductsInput,
+  SearchProductsInput
+> = {
+  fetchOptions: {
+    query: getAllProductsQuery,
+  },
+  async fetcher({ input, options, fetch }) {
+    const resp = await fetch({
+      query: options?.query,
+      method: options?.method,
+      variables: getSearchVariables(input),
+    })
+    const edges = resp.products?.edges
+    return {
+      products: edges?.map(({ node: p }: ProductEdge) => normalizeProduct(p)),
+      found: !!edges?.length,
+    }
+  },
+  useHook({ input, useData }) {
+    return useData({
+      input: [
+        ['search', input.search],
+        ['categoryId', input.categoryId],
+        ['brandId', input.brandId],
+        ['sort', input.sort],
+      ],
+      swrOptions: {
+        revalidateOnFocus: false,
+        ...input.swrOptions,
+      },
+    })
+  },
+}
+
+const useCustomerHandler: HookHandler<Customer | null> = {
+  fetchOptions: {
+    query: getCustomerQuery,
+  },
+  async fetcher({ options, fetch }) {
+    const data = await fetch<any | null>(options)
+    return data?.customer ?? null
+  },
+  useHook({ input, useData }) {
+    return useData({
+      swrOptions: {
+        revalidateOnFocus: false,
+        ...input.swrOptions,
+      },
+    })
+  },
+}
+
 export const shopifyProvider = {
   locale: 'en-us',
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
@@ -92,6 +154,8 @@ export const shopifyProvider = {
   fetcher,
   cartNormalizer: normalizeCart,
   cart: { useCart },
+  customer: { useCustomer: useCustomerHandler },
+  products: { useSearch },
 }
 
 export type ShopifyProvider = typeof shopifyProvider
