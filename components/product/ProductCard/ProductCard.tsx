@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
+import type { Product } from '@commerce/types'
 import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 // import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   className?: string
-  // TODO: use the product type here
-  product: any
+  product: Product
   variant?: 'slim' | 'simple'
   imgProps?: Omit<ImageProps, 'src'>
 }

@@ -1,3 +1,5 @@
+import type { Product } from '@commerce/types'
+
 export type SelectedOptions = {
   size: string | null
   color: string | null

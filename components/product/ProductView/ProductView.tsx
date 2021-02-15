@@ -8,6 +8,7 @@ import { useUI } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text } from '@components/ui'
 
+import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 
@@ -41,7 +42,7 @@ const ProductView: FC<Props> = ({ product }) => {
     setLoading(true)
     try {
       await addItem({
-        productId: product.id,
+        productId: String(product.id),
         variantId: variant ? variant.id : product.variants[0].id,
       })
       openSidebar()

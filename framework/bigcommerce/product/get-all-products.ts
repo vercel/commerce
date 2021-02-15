@@ -2,6 +2,7 @@ import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
 } from '../schema'
+import type { Product } from '@commerce/types'
 import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
 import filterEdges from '../api/utils/filter-edges'
 import setProductLocaleMeta from '../api/utils/set-product-locale-meta'
@@ -94,6 +95,7 @@ async function getAllProducts({
   variables?: ProductVariables
   config?: BigcommerceConfig
   preview?: boolean
+  // TODO: fix the product type here
 } = {}): Promise<{ products: Product[] | any[] }> {
   config = getConfig(config)
 

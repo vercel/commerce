@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import Link from 'next/link'
+import type { Product } from '@commerce/types'
 import { Grid } from '@components/ui'
 import { ProductCard } from '@components/product'
 import s from './HomeAllProductsGrid.module.css'
@@ -8,8 +9,7 @@ import { getCategoryPath, getDesignerPath } from '@lib/search'
 interface Props {
   categories?: any
   brands?: any
-  // TODO: use the product type here
-  products?: any[]
+  products?: Product[]
 }
 
 const Head: FC<Props> = ({ categories, brands, products = [] }) => {

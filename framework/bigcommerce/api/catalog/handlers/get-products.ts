@@ -1,4 +1,4 @@
-import { Product } from 'framework/types'
+import { Product } from '@commerce/types'
 import getAllProducts, { ProductEdge } from '../../../product/get-all-products'
 import type { ProductsHandlers } from '../products'
 

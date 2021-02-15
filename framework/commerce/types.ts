@@ -148,3 +148,54 @@ export interface RemoveCartItemBody {
 export interface RemoveCartItemHandlerBody extends Partial<RemoveCartItemBody> {
   cartId?: string
 }
+
+/**
+ * Temporal types
+ */
+
+interface Entity {
+  id: string | number
+  [prop: string]: any
+}
+
+export interface Product extends Entity {
+  name: string
+  description: string
+  slug?: string
+  path?: string
+  images: ProductImage[]
+  variants: ProductVariant2[]
+  price: ProductPrice
+  options: ProductOption[]
+  sku?: string
+}
+
+interface ProductOption extends Entity {
+  displayName: string
+  values: ProductOptionValues[]
+}
+
+interface ProductOptionValues {
+  label: string
+  hexColors?: string[]
+}
+
+interface ProductImage {
+  url: string
+  alt?: string
+}
+
+interface ProductVariant2 {
+  id: string | number
+  options: ProductOption[]
+}
+
+interface ProductPrice {
+  value: number
+  currencyCode: 'USD' | 'ARS' | string | undefined
+  retailPrice?: number
+  salePrice?: number
+  listPrice?: number
+  extendedSalePrice?: number
+  extendedListPrice?: number
+}
