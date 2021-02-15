@@ -1,10 +1,5 @@
 import { FetcherError } from '@commerce/utils/errors'
 import type { Fetcher } from '@commerce/utils/types'
-import { normalizeCart } from './lib/normalize'
-import { handler as useCart } from './cart/use-cart'
-import { handler as useWishlist } from './wishlist/use-wishlist'
-import { handler as useCustomer } from './customer/use-customer'
-import { handler as useSearch } from './product/use-search'
 
 async function getText(res: Response) {
   try {
@@ -43,15 +38,4 @@ const fetcher: Fetcher = async ({
   throw await getError(res)
 }
 
-export const bigcommerceProvider = {
-  locale: 'en-us',
-  cartCookie: 'bc_cartId',
-  fetcher,
-  cartNormalizer: normalizeCart,
-  cart: { useCart },
-  wishlist: { useWishlist },
-  customer: { useCustomer },
-  products: { useSearch },
-}
-
-export type BigcommerceProvider = typeof bigcommerceProvider
+export default fetcher
