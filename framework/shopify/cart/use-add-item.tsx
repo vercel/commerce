@@ -1,13 +1,16 @@
 import { useCallback } from 'react'
 import useCart from './use-cart'
+
 import useCartAddItem, {
   AddItemInput as UseAddItemInput,
 } from '@commerce/cart/use-add-item'
+
 import type { HookFetcher } from '@commerce/utils/types'
 import type { Cart } from '@commerce/types'
-import checkoutLineItemAddMutation from '../utils/mutations/checkout-line-item-add'
-import getCheckoutId from '@framework/utils/get-checkout-id'
+
+import { checkoutLineItemAddMutation, getCheckoutId } from '@framework/utils'
 import { checkoutToCart } from './utils'
+
 import { AddCartItemBody, CartItemBody } from '@framework/types'
 import { MutationCheckoutLineItemsAddArgs } from '@framework/schema'
 

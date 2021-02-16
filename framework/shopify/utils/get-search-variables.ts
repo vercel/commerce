@@ -1,5 +1,5 @@
-import { SearchProductsInput } from '@framework/product/use-search'
 import getSortVariables from './get-sort-variables'
+import type { SearchProductsInput } from '@framework/product/use-search'
 
 export const getSearchVariables = ({
   categoryId,

@@ -1,6 +1,6 @@
 import { Cart } from '@commerce/types'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
-import { normalizeCart } from '@framework/lib/normalize'
+import { normalizeCart } from '@framework/utils/normalize'
 import { Checkout, Maybe, UserError } from '@framework/schema'
 
 const checkoutToCart = (checkoutResponse?: {
