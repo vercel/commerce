@@ -76,6 +76,29 @@ export type HookHandler<
   fetcher?: HookFetcherFn<Data, FetchInput>
 }
 
+export type MutationHandler<
+  // Data obj returned by the hook and fetch operation
+  Data,
+  // Input expected by the hook
+  Input extends { [k: string]: unknown } = {},
+  // Input expected before doing a fetch operation
+  FetchInput extends HookFetchInput = {},
+  // Custom state added to the response object of SWR
+  State = {}
+> = {
+  useHook?(context: {
+    input: Input & { swrOptions?: SwrOptions<Data, FetchInput> }
+    useCallback(
+      fn: (context?: {
+        input?: HookFetchInput | HookSwrInput
+        swrOptions?: SwrOptions<Data, FetchInput>
+      }) => Data
+    ): ResponseState<Data>
+  }): ResponseState<Data> & State
+  fetchOptions: HookFetcherOptions
+  fetcher?: HookFetcherFn<Data, FetchInput>
+}
+
 export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
   Data,
   CommerceError,

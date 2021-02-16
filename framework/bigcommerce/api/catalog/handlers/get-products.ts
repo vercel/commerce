@@ -1,4 +1,4 @@
-import { Product } from 'framework/types'
+import { Product } from '@commerce/types'
 import getAllProducts, { ProductEdge } from '../../../product/get-all-products'
 import type { ProductsHandlers } from '../products'
 
@@ -60,7 +60,7 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   const productsById = graphqlData.products.reduce<{
     [k: number]: Product
   }>((prods, p) => {
-    prods[p.id] = p
+    prods[Number(p.id)] = p
     return prods
   }, {})
 

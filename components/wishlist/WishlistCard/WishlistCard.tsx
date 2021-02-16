@@ -7,6 +7,7 @@ import { Trash } from '@components/icons'
 import { Button, Text } from '@components/ui'
 
 import { useUI } from '@components/ui/context'
+import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
@@ -42,8 +43,8 @@ const WishlistCard: FC<Props> = ({ product }) => {
     setLoading(true)
     try {
       await addItem({
-        productId: product.id,
-        variantId: product.variants[0].id,
+        productId: String(product.id),
+        variantId: String(product.variants[0].id),
       })
       openSidebar()
       setLoading(false)

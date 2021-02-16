@@ -1,3 +1,4 @@
+import type { Product } from '@commerce/types'
 import type { Cart, BigcommerceCart, LineItem } from '../types'
 import update from './immutability'
 
