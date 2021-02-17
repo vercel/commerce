@@ -2,12 +2,12 @@ import type { Wishlist as BCWishlist } from '@framework/api/wishlist'
 import type { Customer as BCCustomer } from '@framework/api/customers'
 import type { SearchProductsData as BCSearchProductsData } from '@framework/api/catalog/products'
 
-export interface Discount {
+export type Discount = {
   // The value of the discount, can be an amount or percentage
   value: number
 }
 
-export interface LineItem {
+export type LineItem = {
   id: string
   variantId: string
   productId: string
@@ -19,19 +19,19 @@ export interface LineItem {
   variant: ProductVariant
 }
 
-export interface Measurement {
+export type Measurement = {
   value: number
   unit: 'KILOGRAMS' | 'GRAMS' | 'POUNDS' | 'OUNCES'
 }
 
-export interface Image {
+export type Image = {
   url: string
   altText?: string
   width?: number
   height?: number
 }
 
-export interface ProductVariant {
+export type ProductVariant = {
   id: string
   // The SKU (stock keeping unit) associated with the product variant.
   sku: string
@@ -66,7 +66,7 @@ export interface ProductVariant {
 }
 
 // Shopping cart, a.k.a Checkout
-export interface Cart {
+export type Cart = {
   id: string
   // ID of the customer to which the cart belongs.
   customerId?: string
@@ -105,47 +105,49 @@ export interface SearchProductsData extends BCSearchProductsData {}
  */
 
 // Base cart item body used for cart mutations
-export interface CartItemBody {
+export type CartItemBody = {
   variantId: string
   productId?: string
   quantity?: number
 }
 
 // Body used by the `getCart` operation handler
-export interface GetCartHandlerBody {
+export type GetCartHandlerBody = {
   cartId?: string
 }
 
 // Body used by the add item to cart operation
-export interface AddCartItemBody<T extends CartItemBody> {
+export type AddCartItemBody<T extends CartItemBody> = {
   item: T
 }
 
 // Body expected by the add item to cart operation handler
-export interface AddCartItemHandlerBody<T extends CartItemBody>
-  extends Partial<AddCartItemBody<T>> {
+export type AddCartItemHandlerBody<T extends CartItemBody> = Partial<
+  AddCartItemBody<T>
+> & {
   cartId?: string
 }
 
 // Body used by the update cart item operation
-export interface UpdateCartItemBody<T extends CartItemBody> {
+export type UpdateCartItemBody<T extends CartItemBody> = {
   itemId: string
   item: T
 }
 
 // Body expected by the update cart item operation handler
-export interface UpdateCartItemHandlerBody<T extends CartItemBody>
-  extends Partial<UpdateCartItemBody<T>> {
+export type UpdateCartItemHandlerBody<T extends CartItemBody> = Partial<
+  UpdateCartItemBody<T>
+> & {
   cartId?: string
 }
 
 // Body used by the remove cart item operation
-export interface RemoveCartItemBody {
+export type RemoveCartItemBody = {
   itemId: string
 }
 
 // Body expected by the remove cart item operation handler
-export interface RemoveCartItemHandlerBody extends Partial<RemoveCartItemBody> {
+export type RemoveCartItemHandlerBody = Partial<RemoveCartItemBody> & {
   cartId?: string
 }
 
