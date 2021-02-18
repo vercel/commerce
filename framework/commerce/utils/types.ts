@@ -82,19 +82,14 @@ export type MutationHandler<
   // Input expected by the hook
   Input extends { [k: string]: unknown } = {},
   // Input expected before doing a fetch operation
-  FetchInput extends HookFetchInput = {},
-  // Custom state added to the response object of SWR
-  State = {}
+  FetchInput extends { [k: string]: unknown } = {}
 > = {
   useHook?(context: {
-    input: Input & { swrOptions?: SwrOptions<Data, FetchInput> }
-    useCallback(
-      fn: (context?: {
-        input?: HookFetchInput | HookSwrInput
-        swrOptions?: SwrOptions<Data, FetchInput>
-      }) => Data
-    ): ResponseState<Data>
-  }): ResponseState<Data> & State
+    input: Input
+  }): (context: {
+    input: FetchInput
+    fetch: (context: { input: FetchInput }) => Data | Promise<Data>
+  }) => Data | Promise<Data>
   fetchOptions: HookFetcherOptions
   fetcher?: HookFetcherFn<Data, FetchInput>
 }
@@ -110,14 +105,18 @@ export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
  */
 export type Prop<T, K extends keyof T> = NonNullable<T[K]>
 
-export type UseHookParameters<H extends HookHandler<any>> = Parameters<
+export type HookHandlerType =
+  | HookHandler<any, any, any>
+  | MutationHandler<any, any, any>
+
+export type UseHookParameters<H extends HookHandlerType> = Parameters<
   Prop<H, 'useHook'>
 >
 
-export type UseHookResponse<H extends HookHandler<any>> = ReturnType<
+export type UseHookResponse<H extends HookHandlerType> = ReturnType<
   Prop<H, 'useHook'>
 >
 
 export type UseHookInput<
-  H extends HookHandler<any>
+  H extends HookHandlerType
 > = UseHookParameters<H>[0]['input']
