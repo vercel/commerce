@@ -8,7 +8,7 @@ import useCustomer from '@framework/customer/use-customer'
 import useAddItem from '@framework/wishlist/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
 import useWishlist from '@framework/wishlist/use-add-item'
-import type { Product } from '@framework/types'
+
 type Props = {
   productId: Product['id']
   variant: ProductVariant

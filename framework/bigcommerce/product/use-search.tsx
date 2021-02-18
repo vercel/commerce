@@ -1,5 +1,5 @@
 import { HookHandler } from '@commerce/utils/types'
-import useSearch, { UseSearch } from '@commerce/product/use-search'
+import useSearch, { UseSearch } from '@commerce/products/use-search'
 import type { SearchProductsData } from '../api/catalog/products'
 import type { BigcommerceProvider } from '..'
 
