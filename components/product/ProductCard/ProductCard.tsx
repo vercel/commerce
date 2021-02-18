@@ -4,8 +4,6 @@ import Link from 'next/link'
 import type { Product } from '@commerce/types'
 import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
-import frameworkConfig from '@framework/config.json'
-const isWishlistEnabled = !!frameworkConfig.features.wishlist
 import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
@@ -13,6 +11,7 @@ interface Props {
   product: Product
   variant?: 'slim' | 'simple'
   imgProps?: Omit<ImageProps, 'src'>
+  wishlist?: boolean
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
@@ -22,6 +21,7 @@ const ProductCard: FC<Props> = ({
   product,
   variant,
   imgProps,
+  wishlist = false,
   ...props
 }) => (
   <Link href={`/product/${product.slug}`} {...props}>
@@ -59,7 +59,7 @@ const ProductCard: FC<Props> = ({
                 {product.price.currencyCode}
               </span>
             </div>
-            {isWishlistEnabled && (
+            {wishlist && (
               <WishlistButton
                 className={s.wishlistButton}
                 productId={product.id}
