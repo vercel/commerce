@@ -1,14 +1,26 @@
 import { Cart } from '@commerce/types'
-import { ValidationError } from '@commerce/utils/errors'
-import { normalizeCart } from '@framework/utils/normalize'
-import { Checkout, UserError } from '@framework/schema'
+import { CommerceError, ValidationError } from '@commerce/utils/errors'
 
-const checkoutToCart = (checkoutResponse: {
-  checkout: Checkout
-  userErrors?: UserError[]
-}): Cart => {
-  const checkout = checkoutResponse?.checkout
-  const userErrors = checkoutResponse?.userErrors
+import {
+  CheckoutLineItemsAddPayload,
+  CheckoutLineItemsUpdatePayload,
+  Maybe,
+} from '@framework/schema'
+import { normalizeCart } from '@framework/utils'
+
+export type CheckoutPayload =
+  | CheckoutLineItemsAddPayload
+  | CheckoutLineItemsUpdatePayload
+
+const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
+  if (!checkoutPayload || !checkoutPayload?.checkout) {
+    throw new CommerceError({
+      message: 'Invalid response from Shopify',
+    })
+  }
+
+  const checkout = checkoutPayload?.checkout
+  const userErrors = checkoutPayload?.userErrors
 
   if (userErrors && userErrors.length) {
     throw new ValidationError({

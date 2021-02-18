@@ -3,18 +3,10 @@ import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
 import { ShopifyProvider } from '..'
-import { AddCartItemBody, CartItemBody } from '@commerce/types'
-import { Cart } from '@framework/types'
-import {
-  checkoutLineItemAddMutation,
-  getCheckoutId,
-  getCheckoutQuery,
-} from '@framework/utils'
+import { Cart, AddCartItemBody, CartItemBody } from '../types'
+import { checkoutLineItemAddMutation, getCheckoutId } from '../utils'
 import { checkoutToCart } from './utils'
-
-const defaultOpts = {
-  query: checkoutLineItemAddMutation,
-}
+import { Mutation } from '../schema'
 
 export default useAddItem as UseAddItem<ShopifyProvider, CartItemBody>
 
@@ -22,8 +14,7 @@ export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
   fetchOptions: {
     query: checkoutLineItemAddMutation,
   },
-  async fetcher({ input, options, fetch }) {
-    const item = input.item ?? input
+  async fetcher({ input: { item }, options, fetch }) {
     if (
       item.quantity &&
       (!Number.isInteger(item.quantity) || item.quantity! < 1)
@@ -33,8 +24,7 @@ export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
       })
     }
 
-    const data = await fetch<any, any>({
-      ...defaultOpts,
+    const { checkoutLineItemsAdd }: Mutation = await fetch<any, any>({
       ...options,
       variables: {
         lineItems: [
@@ -47,7 +37,7 @@ export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
       },
     })
 
-    return checkoutToCart(data.checkoutLineItemsAdd)
+    return checkoutToCart(checkoutLineItemsAdd)
   },
   useHook() {
     const { mutate } = useCart()

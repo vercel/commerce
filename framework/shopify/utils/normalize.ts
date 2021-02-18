@@ -81,20 +81,20 @@ export function normalizeProduct(productNode: ShopifyProduct): any {
   }
 }
 
-export function normalizeCart(data: Checkout): Cart {
+export function normalizeCart(checkout: Checkout): Cart {
   return {
-    id: data.id,
+    id: checkout.id,
     customerId: '',
     email: '',
-    createdAt: data.createdAt,
+    createdAt: checkout.createdAt,
     currency: {
-      code: data.currencyCode,
+      code: checkout.currencyCode,
     },
-    taxesIncluded: data.taxesIncluded,
-    lineItems: data.lineItems?.edges.map(normalizeLineItem),
-    lineItemsSubtotalPrice: data.subtotalPrice,
-    subtotalPrice: data.subtotalPrice,
-    totalPrice: data.totalPrice,
+    taxesIncluded: checkout.taxesIncluded,
+    lineItems: checkout.lineItems?.edges.map(normalizeLineItem),
+    lineItemsSubtotalPrice: checkout.subtotalPrice,
+    subtotalPrice: checkout.subtotalPrice,
+    totalPrice: checkout.totalPrice,
     discounts: [],
   }
 }
