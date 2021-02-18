@@ -9,16 +9,15 @@ import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
 import { Avatar } from '@components/common'
-import Features from '@commerce/utils/features'
 
 interface Props {
   className?: string
+  wishlist?: boolean
 }
 
 const countItem = (count: number, item: LineItem) => count + item.quantity
-const isWishlistEnabled = Features.isEnabled('wishlist')
 
-const UserNav: FC<Props> = ({ className }) => {
+const UserNav: FC<Props> = ({ className, wishlist = false }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
@@ -32,7 +31,7 @@ const UserNav: FC<Props> = ({ className }) => {
             <Bag />
             {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
-          {isWishlistEnabled && (
+          {wishlist && (
             <li className={s.item}>
               <Link href="/wishlist">
                 <a onClick={closeSidebarIfPresent} aria-label="Wishlist">

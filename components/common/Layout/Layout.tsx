@@ -44,7 +44,11 @@ interface Props {
   }
 }
 
-const Layout: FC<Props> = ({ children, pageProps }) => {
+const Layout: FC<Props> = ({
+  children,
+  pageProps: { commerceFeatures, ...pageProps },
+}) => {
+  console.log(pageProps)
   const {
     displaySidebar,
     displayModal,
@@ -54,11 +58,11 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
-
+  const isWishlistEnabled = commerceFeatures.wishlist
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar />
+        <Navbar wishlist={isWishlistEnabled} />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
 
@@ -69,7 +73,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
-          <CartSidebarView />
+          <CartSidebarView wishlist={isWishlistEnabled} />
         </Sidebar>
 
         <FeatureBar
