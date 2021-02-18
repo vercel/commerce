@@ -9,20 +9,20 @@ import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
 import { Avatar } from '@components/common'
-import frameworkConfig from '@framework/config.json'
+import Features from '@commerce/utils/features'
 
 interface Props {
   className?: string
 }
 
 const countItem = (count: number, item: LineItem) => count + item.quantity
+const isWishlistEnabled = Features.isEnabled('wishlist')
 
 const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
-  const isWishlistEnabled = !!frameworkConfig.features.wishlist
 
   return (
     <nav className={cn(s.root, className)}>

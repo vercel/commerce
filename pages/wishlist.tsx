@@ -11,14 +11,14 @@ import { useCustomer } from '@framework/customer'
 import { WishlistCard } from '@components/wishlist'
 import useWishlist from '@framework/wishlist/use-wishlist'
 import getAllPages from '@framework/common/get-all-pages'
-import frameworkConfig from '@framework/config.json'
+import Features from '@commerce/utils/features'
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
   // Disabling page if Feature is not available
-  if (!frameworkConfig.features.wishlist) {
+  if (Features.isEnabled('wishlist')) {
     return {
       notFound: true,
     }
