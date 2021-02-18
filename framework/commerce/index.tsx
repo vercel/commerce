@@ -6,12 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import {
-  Fetcher,
-  HookHandler,
-  MutationHandler,
-  MutationHook,
-} from './utils/types'
+import { Fetcher, HookHandler, MutationHook } from './utils/types'
 import type { FetchCartInput } from './cart/use-cart'
 import type { Cart, Wishlist, Customer, SearchProductsData } from './types'
 

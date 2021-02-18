@@ -74,24 +74,6 @@ export type HookHandler<
   fetcher?: HookFetcherFn<Data, FetchInput>
 }
 
-export type MutationHandler<
-  // Data obj returned by the hook and fetch operation
-  Data,
-  // Input expected by the hook
-  Input extends { [k: string]: unknown } = {},
-  // Input expected before doing a fetch operation
-  FetchInput extends { [k: string]: unknown } = {}
-> = {
-  useHook?(context: {
-    input: Input
-  }): (context: {
-    input: FetchInput
-    fetch: (context: { input: FetchInput }) => Data | Promise<Data>
-  }) => Data | Promise<Data>
-  fetchOptions: HookFetcherOptions
-  fetcher?: HookFetcherFn<Data, FetchInput>
-}
-
 export type HookFunction<
   Input extends { [k: string]: unknown } | {},
   T
