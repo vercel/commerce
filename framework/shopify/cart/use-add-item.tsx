@@ -14,7 +14,9 @@ export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
   fetchOptions: {
     query: checkoutLineItemAddMutation,
   },
-  async fetcher({ input: { item }, options, fetch }) {
+  async fetcher({ input, options, fetch }) {
+    const item = input?.item ?? input
+
     if (
       item.quantity &&
       (!Number.isInteger(item.quantity) || item.quantity! < 1)
