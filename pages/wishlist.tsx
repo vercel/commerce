@@ -59,7 +59,7 @@ export default function Wishlist() {
           ) : (
             data &&
             data.items?.map((item) => (
-              <WishlistCard key={item.id} item={item} />
+              <WishlistCard key={item.id} product={item as any} />
             ))
           )}
         </div>

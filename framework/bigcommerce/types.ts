@@ -23,11 +23,11 @@ export type BigcommerceCart = {
   // TODO: add missing fields
 }
 
-export interface Cart extends Core.Cart {
+export type Cart = Core.Cart & {
   lineItems: LineItem[]
 }
 
-export interface LineItem extends Core.LineItem {}
+export type LineItem = Core.LineItem
 
 /**
  * Cart mutations
@@ -38,25 +38,24 @@ export type OptionSelections = {
   option_value: number | string
 }
 
-export interface CartItemBody extends Core.CartItemBody {
+export type CartItemBody = Core.CartItemBody & {
   productId: string // The product id is always required for BC
   optionSelections?: OptionSelections
 }
 
-export interface GetCartHandlerBody extends Core.GetCartHandlerBody {}
+type X = Core.CartItemBody extends CartItemBody ? any : never
+type Y = CartItemBody extends Core.CartItemBody ? any : never
 
-export interface AddCartItemBody extends Core.AddCartItemBody<CartItemBody> {}
+export type GetCartHandlerBody = Core.GetCartHandlerBody
 
-export interface AddCartItemHandlerBody
-  extends Core.AddCartItemHandlerBody<CartItemBody> {}
+export type AddCartItemBody = Core.AddCartItemBody<CartItemBody>
 
-export interface UpdateCartItemBody
-  extends Core.UpdateCartItemBody<CartItemBody> {}
+export type AddCartItemHandlerBody = Core.AddCartItemHandlerBody<CartItemBody>
 
-export interface UpdateCartItemHandlerBody
-  extends Core.UpdateCartItemHandlerBody<CartItemBody> {}
+export type UpdateCartItemBody = Core.UpdateCartItemBody<CartItemBody>
 
-export interface RemoveCartItemBody extends Core.RemoveCartItemBody {}
+export type UpdateCartItemHandlerBody = Core.UpdateCartItemHandlerBody<CartItemBody>
 
-export interface RemoveCartItemHandlerBody
-  extends Core.RemoveCartItemHandlerBody {}
+export type RemoveCartItemBody = Core.RemoveCartItemBody
+
+export type RemoveCartItemHandlerBody = Core.RemoveCartItemHandlerBody

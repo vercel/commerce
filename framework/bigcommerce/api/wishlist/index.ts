@@ -11,6 +11,7 @@ import type {
 import getWishlist from './handlers/get-wishlist'
 import addItem from './handlers/add-item'
 import removeItem from './handlers/remove-item'
+import type { Product, ProductVariant, Customer } from '@commerce/types'
 
 export type { Wishlist, WishlistItem }
 
@@ -24,7 +25,7 @@ export type AddItemBody = { item: ItemBody }
 export type RemoveItemBody = { itemId: Product['id'] }
 
 export type WishlistBody = {
-  customer_id: Customer['id']
+  customer_id: Customer['entityId']
   is_public: number
   name: string
   items: any[]
