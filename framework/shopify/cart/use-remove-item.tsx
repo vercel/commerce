@@ -34,7 +34,7 @@ export const fetcher: HookFetcher<Cart | null, any> = async (
     ...options,
     variables: { lineItemIds: [itemId], checkoutId },
   })
-  return checkoutToCart(data?.checkoutLineItemsRemove)
+  return checkoutToCart(data.checkoutLineItemsRemove)
 }
 
 export function extendHook(customFetcher: typeof fetcher) {

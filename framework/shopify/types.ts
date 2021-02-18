@@ -8,6 +8,7 @@ export type ShopifyCheckout = {
 }
 
 export interface Cart extends Core.Cart {
+  id: string
   lineItems: LineItem[]
 }
 

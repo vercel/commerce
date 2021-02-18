@@ -44,7 +44,7 @@ export const fetcher: HookFetcher<Cart | null, any> = async (
     variables: { checkoutId, lineItems: [item] },
   })
 
-  return checkoutToCart(data?.checkoutLineItemsUpdate)
+  return checkoutToCart(data.checkoutLineItemsUpdate)
 }
 
 function extendHook(customFetcher: typeof fetcher, cfg?: { wait?: number }) {

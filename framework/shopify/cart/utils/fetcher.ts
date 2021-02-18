@@ -5,22 +5,22 @@ import { FetchCartInput } from '@commerce/cart/use-cart'
 
 const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
   options,
-  input: { cartId },
+  input: { cartId: checkoutId },
   fetch,
 }) => {
   let checkout
 
-  if (cartId) {
+  if (checkoutId) {
     const data = await fetch({
       ...options,
       variables: {
-        cartId,
+        checkoutId,
       },
     })
     checkout = data?.node
   }
 
-  if (checkout?.completedAt || !cartId) {
+  if (checkout?.completedAt || !checkoutId) {
     checkout = await checkoutCreate(fetch)
   }
 

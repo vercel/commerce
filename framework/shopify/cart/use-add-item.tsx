@@ -1,66 +1,60 @@
-import { useCallback } from 'react'
+import type { MutationHandler } from '@commerce/utils/types'
+import { CommerceError } from '@commerce/utils/errors'
+import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
-
-import useCartAddItem, {
-  AddItemInput as UseAddItemInput,
-} from '@commerce/cart/use-add-item'
-
-import type { HookFetcher } from '@commerce/utils/types'
-import type { Cart } from '@commerce/types'
-
-import { checkoutLineItemAddMutation, getCheckoutId } from '@framework/utils'
+import { ShopifyProvider } from '..'
+import { AddCartItemBody, CartItemBody } from '@commerce/types'
+import { Cart } from '@framework/types'
+import {
+  checkoutLineItemAddMutation,
+  getCheckoutId,
+  getCheckoutQuery,
+} from '@framework/utils'
 import { checkoutToCart } from './utils'
-
-import { AddCartItemBody, CartItemBody } from '@framework/types'
-import { MutationCheckoutLineItemsAddArgs } from '@framework/schema'
 
 const defaultOpts = {
   query: checkoutLineItemAddMutation,
 }
 
-export type AddItemInput = UseAddItemInput<CartItemBody>
+export default useAddItem as UseAddItem<ShopifyProvider, CartItemBody>
 
-export const fetcher: HookFetcher<
-  Cart,
-  MutationCheckoutLineItemsAddArgs
-> = async (options, { checkoutId, lineItems }, fetch) => {
-  const data = await fetch<any, AddCartItemBody>({
-    ...options,
-    variables: {
-      checkoutId,
-      lineItems,
-    },
-  })
+export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
+  fetchOptions: {
+    query: checkoutLineItemAddMutation,
+  },
+  async fetcher({ input, options, fetch }) {
+    const item = input.item ?? input
+    if (
+      item.quantity &&
+      (!Number.isInteger(item.quantity) || item.quantity! < 1)
+    ) {
+      throw new CommerceError({
+        message: 'The item quantity has to be a valid integer greater than 0',
+      })
+    }
 
-  return checkoutToCart(data?.checkoutLineItemsAdd)
-}
-
-export function extendHook(customFetcher: typeof fetcher) {
-  const useAddItem = () => {
-    const { mutate, data: cart } = useCart()
-    const fn = useCartAddItem(defaultOpts, customFetcher)
-
-    return useCallback(
-      async function addItem(input: AddItemInput) {
-        const data = await fn({
-          lineItems: [
-            {
-              variantId: input.variantId,
-              quantity: input.quantity ?? 1,
-            },
-          ],
-          checkoutId: getCheckoutId(cart?.id)!,
-        })
-        await mutate(data, false)
-        return data
+    const data = await fetch<any, any>({
+      ...defaultOpts,
+      ...options,
+      variables: {
+        lineItems: [
+          {
+            variantId: item.variantId,
+            quantity: item.quantity ?? 1,
+          },
+        ],
+        checkoutId: getCheckoutId(),
       },
-      [fn, mutate]
-    )
-  }
+    })
 
-  useAddItem.extend = extendHook
-
-  return useAddItem
+    return checkoutToCart(data.checkoutLineItemsAdd)
+  },
+  useHook() {
+    const { mutate } = useCart()
+    return async function addItem({ input, fetch }) {
+      const data = await fetch({ input })
+      await mutate(data, false)
+      return data
+    }
+  },
 }
-
-export default extendHook(fetcher)

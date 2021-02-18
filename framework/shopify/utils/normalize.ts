@@ -107,7 +107,7 @@ function normalizeLineItem({
     variantId: String(variant?.id),
     productId: String(variant?.id),
     name: `${title} - ${variant?.title}`,
-    quantity: quantity,
+    quantity,
     variant: {
       id: String(variant?.id),
       sku: variant?.sku ?? '',
