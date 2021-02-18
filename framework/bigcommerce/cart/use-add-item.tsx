@@ -1,29 +1,24 @@
-import type { MutationHandler } from '@commerce/utils/types'
+import { useCallback } from 'react'
+import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import { normalizeCart } from '../lib/normalize'
 import type {
-  AddCartItemBody,
   Cart,
   BigcommerceCart,
   CartItemBody,
+  AddCartItemBody,
 } from '../types'
 import useCart from './use-cart'
-import { BigcommerceProvider } from '..'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/cart',
-  method: 'POST',
-}
+export default useAddItem as UseAddItem<typeof handler>
 
-export default useAddItem as UseAddItem<BigcommerceProvider, CartItemBody>
-
-export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
+export const handler: MutationHook<Cart, {}, CartItemBody> = {
   fetchOptions: {
     url: '/api/bigcommerce/cart',
-    method: 'GET',
+    method: 'POST',
   },
-  async fetcher({ input: { item }, options, fetch }) {
+  async fetcher({ input: item, options, fetch }) {
     if (
       item.quantity &&
       (!Number.isInteger(item.quantity) || item.quantity! < 1)
@@ -34,20 +29,22 @@ export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
     }
 
     const data = await fetch<BigcommerceCart, AddCartItemBody>({
-      ...defaultOpts,
       ...options,
       body: { item },
     })
 
     return normalizeCart(data)
   },
-  useHook() {
+  useHook: ({ fetch }) => () => {
     const { mutate } = useCart()
 
-    return async function addItem({ input, fetch }) {
-      const data = await fetch({ input })
-      await mutate(data, false)
-      return data
-    }
+    return useCallback(
+      async function addItem(input) {
+        const data = await fetch({ input })
+        await mutate(data, false)
+        return data
+      },
+      [fetch, mutate]
+    )
   },
 }

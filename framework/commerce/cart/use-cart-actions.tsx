@@ -1,5 +1,5 @@
 import type { HookFetcher, HookFetcherOptions } from '../utils/types'
-import useAddItem from './use-add-item'
+// import useAddItem from './use-add-item'
 import useRemoveItem from './use-remove-item'
 import useUpdateItem from './use-update-item'
 
@@ -9,9 +9,9 @@ export default function useCartActions<T, Input>(
   options: HookFetcherOptions,
   fetcher: HookFetcher<T, Input>
 ) {
-  const addItem = useAddItem<T, Input>(options, fetcher)
+  // const addItem = useAddItem<T, Input>(options, fetcher)
   const updateItem = useUpdateItem<T, Input>(options, fetcher)
   const removeItem = useRemoveItem<T, Input>(options, fetcher)
 
-  return { addItem, updateItem, removeItem }
+  return { updateItem, removeItem }
 }
