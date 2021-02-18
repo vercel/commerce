@@ -41,6 +41,7 @@ const FeatureBar = dynamic(
 interface Props {
   pageProps: {
     pages?: Page[]
+    commerceFeatures: Record<string, boolean>
   }
 }
 
@@ -48,7 +49,6 @@ const Layout: FC<Props> = ({
   children,
   pageProps: { commerceFeatures, ...pageProps },
 }) => {
-  console.log(pageProps)
   const {
     displaySidebar,
     displayModal,
