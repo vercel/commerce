@@ -13,7 +13,7 @@ import type {
   BigcommerceCart,
   LineItem,
 } from '../types'
-import { fetcher as removeFetcher } from './use-remove-item'
+import { handler as removeItemHandler } from './use-remove-item'
 import useCart from './use-cart'
 
 export type UpdateItemInput<T = any> = T extends LineItem
@@ -35,7 +35,11 @@ export const handler = {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
-        return removeFetcher(null, { itemId }, fetch)
+        return removeItemHandler.fetcher({
+          options: removeItemHandler.fetchOptions,
+          input: { itemId },
+          fetch,
+        })
       }
     } else if (item.quantity) {
       throw new ValidationError({
