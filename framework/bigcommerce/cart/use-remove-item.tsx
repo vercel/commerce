@@ -46,7 +46,7 @@ export const handler = {
     ctx: { item?: T } = {}
   ) => {
     const { item } = ctx
-    const { mutate } = useCart() as any
+    const { mutate } = useCart()
     const removeItem: RemoveItemFn<LineItem> = async (input) => {
       const itemId = input?.id ?? item?.id
 

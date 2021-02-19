@@ -1,11 +1,11 @@
 import useSWR, { responseInterface } from 'swr'
 import type {
-  HookHandler,
   HookSwrInput,
   HookFetchInput,
-  PickRequired,
   Fetcher,
   SwrOptions,
+  HookFetcherOptions,
+  HookFetcherFn,
 } from './types'
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
@@ -19,7 +19,10 @@ export type UseData = <
   Input extends { [k: string]: unknown } = {},
   FetchInput extends HookFetchInput = {}
 >(
-  options: PickRequired<HookHandler<Data, Input, FetchInput>, 'fetcher'>,
+  options: {
+    fetchOptions: HookFetcherOptions
+    fetcher: HookFetcherFn<Data, FetchInput>
+  },
   input: HookFetchInput | HookSwrInput,
   fetcherFn: Fetcher,
   swrOptions?: SwrOptions<Data, FetchInput>

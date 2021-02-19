@@ -1,6 +1,6 @@
-import useHook, { useHookHandler } from '../utils/use-hook'
+import { useHook, useMutationHook } from '../utils/use-hook'
 import { mutationFetcher } from '../utils/default-fetcher'
-import type { MutationHook } from '../utils/types'
+import type { HookFetcherFn, MutationHook } from '../utils/types'
 import type { Cart, LineItem, RemoveCartItemBody } from '../types'
 import type { Provider } from '..'
 
@@ -20,13 +20,16 @@ export type UseRemoveItem<
   >
 > = ReturnType<H['useHook']>
 
-export const fetcher = mutationFetcher
+export const fetcher: HookFetcherFn<
+  Cart | null,
+  RemoveCartItemBody
+> = mutationFetcher
 
 const fn = (provider: Provider) => provider.cart?.useRemoveItem!
 
 const useRemoveItem: UseRemoveItem = (input) => {
-  const handler = useHookHandler(fn, fetcher)
-  return handler(useHook(fn, fetcher))(input)
+  const hook = useHook(fn)
+  return useMutationHook({ fetcher, ...hook })(input)
 }
 
 export default useRemoveItem

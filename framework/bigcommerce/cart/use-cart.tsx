@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
-import { HookHandler } from '@commerce/utils/types'
+import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart, FetchCartInput } from '@commerce/cart/use-cart'
 import { normalizeCart } from '../lib/normalize'
 import type { Cart } from '../types'
-import type { BigcommerceProvider } from '..'
 
-export default useCart as UseCart<BigcommerceProvider>
+export default useCart as UseCart<typeof handler>
 
-export const handler: HookHandler<
+export const handler: SWRHook<
   Cart | null,
   {},
   FetchCartInput,
@@ -21,9 +20,9 @@ export const handler: HookHandler<
     const data = cartId ? await fetch(options) : null
     return data && normalizeCart(data)
   },
-  useHook({ input, useData }) {
+  useHook: ({ useData }) => (input) => {
     const response = useData({
-      swrOptions: { revalidateOnFocus: false, ...input.swrOptions },
+      swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
     })
 
     return useMemo(

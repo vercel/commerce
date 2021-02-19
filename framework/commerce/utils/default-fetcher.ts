@@ -3,7 +3,7 @@ import type { HookFetcherFn } from './types'
 const defaultFetcher: HookFetcherFn<any> = ({ options, fetch }) =>
   fetch(options)
 
-export const mutationFetcher: HookFetcherFn<any> = ({
+export const mutationFetcher: HookFetcherFn<any, any> = ({
   input,
   options,
   fetch,

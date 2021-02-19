@@ -9,7 +9,9 @@ export type Override<T, K> = Omit<T, keyof K> & K
  * Returns the properties in T with the properties in type K changed from optional to required
  */
 export type PickRequired<T, K extends keyof T> = Omit<T, K> &
-  Required<Pick<T, K>>
+  {
+    [P in K]-?: NonNullable<T[P]>
+  }
 
 /**
  * Core fetcher added by CommerceProvider
@@ -83,6 +85,36 @@ export type HookFunction<
   ? (input?: Input) => T
   : (input: Input) => T
 
+export type SWRHook<
+  // Data obj returned by the hook and fetch operation
+  Data,
+  // Input expected by the hook
+  Input extends { [k: string]: unknown } = {},
+  // Input expected before doing a fetch operation
+  FetchInput extends HookFetchInput = {},
+  // Custom state added to the response object of SWR
+  State = {}
+> = {
+  useHook(
+    context: SWRHookContext<Data, FetchInput>
+  ): HookFunction<
+    Input & { swrOptions?: SwrOptions<Data, FetchInput> },
+    ResponseState<Data> & State
+  >
+  fetchOptions: HookFetcherOptions
+  fetcher?: HookFetcherFn<Data, FetchInput>
+}
+
+export type SWRHookContext<
+  Data,
+  FetchInput extends { [k: string]: unknown } = {}
+> = {
+  useData(context?: {
+    input?: HookFetchInput | HookSwrInput
+    swrOptions?: SwrOptions<Data, FetchInput>
+  }): ResponseState<Data>
+}
+
 export type MutationHook<
   // Data obj returned by the hook and fetch operation
   Data,
@@ -118,9 +150,7 @@ export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
  */
 export type Prop<T, K extends keyof T> = NonNullable<T[K]>
 
-export type HookHandlerType =
-  | HookHandler<any, any, any>
-  | MutationHandler<any, any, any>
+export type HookHandlerType = HookHandler<any, any, any>
 
 export type UseHookParameters<H extends HookHandlerType> = Parameters<
   Prop<H, 'useHook'>

@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { Fetcher, HookHandler, MutationHook } from './utils/types'
+import { Fetcher, HookHandler, SWRHook, MutationHook } from './utils/types'
 import type { FetchCartInput } from './cart/use-cart'
 import type { Cart, Wishlist, Customer, SearchProductsData } from './types'
 
@@ -15,7 +15,7 @@ const Commerce = createContext<CommerceContextValue<any> | {}>({})
 export type Provider = CommerceConfig & {
   fetcher: Fetcher
   cart?: {
-    useCart?: HookHandler<Cart | null, any, FetchCartInput>
+    useCart?: SWRHook<Cart | null, any, FetchCartInput>
     useAddItem?: MutationHook<any, any, any>
     useUpdateItem?: MutationHook<any, any, any>
     useRemoveItem?: MutationHook<any, any, any>
