@@ -1,5 +1,8 @@
 import { useCallback } from 'react'
-import { HookContext, HookFetcherContext } from '@commerce/utils/types'
+import type {
+  MutationHookContext,
+  HookFetcherContext,
+} from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
 import useRemoveItem, {
   RemoveItemInput as RemoveItemInputBase,
@@ -40,7 +43,9 @@ export const handler = {
     })
     return normalizeCart(data)
   },
-  useHook: ({ fetch }: HookContext<Cart | null, RemoveCartItemBody>) => <
+  useHook: ({
+    fetch,
+  }: MutationHookContext<Cart | null, RemoveCartItemBody>) => <
     T extends LineItem | undefined = undefined
   >(
     ctx: { item?: T } = {}

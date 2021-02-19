@@ -1,6 +1,9 @@
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
-import type { HookContext, HookFetcherContext } from '@commerce/utils/types'
+import type {
+  MutationHookContext,
+  HookFetcherContext,
+} from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
 import useUpdateItem, {
   UpdateItemInput as UpdateItemInputBase,
@@ -54,7 +57,9 @@ export const handler = {
 
     return normalizeCart(data)
   },
-  useHook: ({ fetch }: HookContext<Cart | null, UpdateCartItemBody>) => <
+  useHook: ({
+    fetch,
+  }: MutationHookContext<Cart | null, UpdateCartItemBody>) => <
     T extends LineItem | undefined = undefined
   >(
     ctx: {

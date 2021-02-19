@@ -1,6 +1,6 @@
 import useSWR, { responseInterface } from 'swr'
 import type {
-  HookSwrInput,
+  HookSWRInput,
   HookFetchInput,
   Fetcher,
   SwrOptions,
@@ -23,7 +23,7 @@ export type UseData = <
     fetchOptions: HookFetcherOptions
     fetcher: HookFetcherFn<Data, FetchInput>
   },
-  input: HookFetchInput | HookSwrInput,
+  input: HookFetchInput | HookSWRInput,
   fetcherFn: Fetcher,
   swrOptions?: SwrOptions<Data, FetchInput>
 ) => ResponseState<Data>

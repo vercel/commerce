@@ -1,8 +1,10 @@
-import { LineItem } from '@framework/types'
 import type { ConfigInterface } from 'swr'
 import type { CommerceError } from './errors'
 import type { ResponseState } from './use-data'
 
+/**
+ * Returns the properties in T with the properties in type K, overriding properties defined in T
+ */
 export type Override<T, K> = Omit<T, keyof K> & K
 
 /**
@@ -51,30 +53,9 @@ export type HookFetcherOptions = { method?: string } & (
 
 export type HookInputValue = string | number | boolean | undefined
 
-export type HookSwrInput = [string, HookInputValue][]
+export type HookSWRInput = [string, HookInputValue][]
 
 export type HookFetchInput = { [k: string]: HookInputValue }
-
-export type HookHandler<
-  // Data obj returned by the hook and fetch operation
-  Data,
-  // Input expected by the hook
-  Input extends { [k: string]: unknown } = {},
-  // Input expected before doing a fetch operation
-  FetchInput extends HookFetchInput = {},
-  // Custom state added to the response object of SWR
-  State = {}
-> = {
-  useHook?(context: {
-    input: Input & { swrOptions?: SwrOptions<Data, FetchInput> }
-    useData(context?: {
-      input?: HookFetchInput | HookSwrInput
-      swrOptions?: SwrOptions<Data, FetchInput>
-    }): ResponseState<Data>
-  }): ResponseState<Data> & State
-  fetchOptions: HookFetcherOptions
-  fetcher?: HookFetcherFn<Data, FetchInput>
-}
 
 export type HookFunction<
   Input extends { [k: string]: unknown } | {},
@@ -110,7 +91,7 @@ export type SWRHookContext<
   FetchInput extends { [k: string]: unknown } = {}
 > = {
   useData(context?: {
-    input?: HookFetchInput | HookSwrInput
+    input?: HookFetchInput | HookSWRInput
     swrOptions?: SwrOptions<Data, FetchInput>
   }): ResponseState<Data>
 }
@@ -126,13 +107,13 @@ export type MutationHook<
   FetchInput extends { [k: string]: unknown } = ActionInput
 > = {
   useHook(
-    context: HookContext<Data, FetchInput>
+    context: MutationHookContext<Data, FetchInput>
   ): HookFunction<Input, HookFunction<ActionInput, Data | Promise<Data>>>
   fetchOptions: HookFetcherOptions
   fetcher?: HookFetcherFn<Data, FetchInput>
 }
 
-export type HookContext<
+export type MutationHookContext<
   Data,
   FetchInput extends { [k: string]: unknown } = {}
 > = {
@@ -144,22 +125,3 @@ export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
   CommerceError,
   HookFetcher<Data, Input, Result>
 >
-
-/**
- * Returns the property K from type T excluding nullables
- */
-export type Prop<T, K extends keyof T> = NonNullable<T[K]>
-
-export type HookHandlerType = HookHandler<any, any, any>
-
-export type UseHookParameters<H extends HookHandlerType> = Parameters<
-  Prop<H, 'useHook'>
->
-
-export type UseHookResponse<H extends HookHandlerType> = ReturnType<
-  Prop<H, 'useHook'>
->
-
-export type UseHookInput<
-  H extends HookHandlerType
-> = UseHookParameters<H>[0]['input']
