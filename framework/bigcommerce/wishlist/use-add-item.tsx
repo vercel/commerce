@@ -1,43 +1,24 @@
 import { useCallback } from 'react'
-import { HookFetcher } from '@commerce/utils/types'
+import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
-import useWishlistAddItem, {
-  AddItemInput,
-} from '@commerce/wishlist/use-add-item'
-import { UseWishlistInput } from '@commerce/wishlist/use-wishlist'
+import useAddItem, { UseAddItem } from '@commerce/wishlist/use-add-item'
 import type { ItemBody, AddItemBody } from '../api/wishlist'
 import useCustomer from '../customer/use-customer'
 import useWishlist from './use-wishlist'
-import type { BigcommerceProvider } from '..'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/wishlist',
-  method: 'POST',
-}
+export default useAddItem as UseAddItem<typeof handler>
 
-// export type AddItemInput = ItemBody
-
-export const fetcher: HookFetcher<any, AddItemBody> = (
-  options,
-  { item },
-  fetch
-) => {
-  // TODO: add validations before doing the fetch
-  return fetch({
-    ...defaultOpts,
-    ...options,
-    body: { item },
-  })
-}
-
-export function extendHook(customFetcher: typeof fetcher) {
-  const useAddItem = (opts?: UseWishlistInput<BigcommerceProvider>) => {
+export const handler: MutationHook<any, {}, ItemBody, AddItemBody> = {
+  fetchOptions: {
+    url: '/api/bigcommerce/wishlist',
+    method: 'POST',
+  },
+  useHook: ({ fetch }) => () => {
     const { data: customer } = useCustomer()
-    const { revalidate } = useWishlist(opts)
-    const fn = useWishlistAddItem(defaultOpts, customFetcher)
+    const { revalidate } = useWishlist()
 
     return useCallback(
-      async function addItem(input: AddItemInput<any>) {
+      async function addItem(item) {
         if (!customer) {
           // A signed customer is required in order to have a wishlist
           throw new CommerceError({
@@ -45,17 +26,12 @@ export function extendHook(customFetcher: typeof fetcher) {
           })
         }
 
-        const data = await fn({ item: input })
+        // TODO: add validations before doing the fetch
+        const data = await fetch({ input: { item } })
         await revalidate()
         return data
       },
-      [fn, revalidate, customer]
+      [fetch, revalidate, customer]
     )
-  }
-
-  useAddItem.extend = extendHook
-
-  return useAddItem
+  },
 }
-
-export default extendHook(fetcher)

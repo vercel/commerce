@@ -1,12 +1,19 @@
-import useAction from '../utils/use-action'
-import type { CartItemBody } from '../types'
+import { useHook, useMutationHook } from '../utils/use-hook'
+import { mutationFetcher } from '../utils/default-fetcher'
+import type { MutationHook } from '../utils/types'
+import type { Provider } from '..'
 
-// Input expected by the action returned by the `useAddItem` hook
-// export interface AddItemInput {
-//   includeProducts?: boolean
-// }
-export type AddItemInput<T extends CartItemBody> = T
+export type UseAddItem<
+  H extends MutationHook<any, any, any> = MutationHook<any, {}, {}>
+> = ReturnType<H['useHook']>
 
-const useAddItem = useAction
+export const fetcher = mutationFetcher
+
+const fn = (provider: Provider) => provider.wishlist?.useAddItem!
+
+const useAddItem: UseAddItem = (...args) => {
+  const hook = useHook(fn)
+  return useMutationHook({ fetcher, ...hook })(...args)
+}
 
 export default useAddItem

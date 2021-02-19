@@ -22,6 +22,8 @@ export type Provider = CommerceConfig & {
   }
   wishlist?: {
     useWishlist?: SWRHook<Wishlist | null, any, any>
+    useAddItem?: MutationHook<any, any, any>
+    useRemoveItem?: MutationHook<any, any, any>
   }
   customer: {
     useCustomer?: SWRHook<Customer | null, any, any>
