@@ -4,12 +4,14 @@ import useWishlist, { UseWishlist } from '@commerce/wishlist/use-wishlist'
 import type { Wishlist } from '../api/wishlist'
 import useCustomer from '../customer/use-customer'
 
+export type UseWishlistInput = { includeProducts?: boolean }
+
 export default useWishlist as UseWishlist<typeof handler>
 
 export const handler: SWRHook<
   Wishlist | null,
-  { includeProducts?: boolean },
-  { customerId?: number; includeProducts: boolean },
+  UseWishlistInput,
+  { customerId?: number } & UseWishlistInput,
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
