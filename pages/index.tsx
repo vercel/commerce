@@ -1,13 +1,14 @@
 import { Layout } from '@components/common'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
-import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
+import Features from '@commerce/utils/features'
 
 export async function getStaticProps({
   preview,
@@ -23,6 +24,7 @@ export async function getStaticProps({
 
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
+  const isWishlistEnabled = Features.isEnabled('wishlist')
 
   return {
     props: {
@@ -30,6 +32,9 @@ export async function getStaticProps({
       categories,
       brands,
       pages,
+      commerceFeatures: {
+        wishlist: isWishlistEnabled,
+      },
     },
     revalidate: 14400,
   }
@@ -39,6 +44,7 @@ export default function Home({
   products,
   brands,
   categories,
+  commerceFeatures,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -51,6 +57,7 @@ export default function Home({
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
             }}
+            wishlist={commerceFeatures.wishlist}
           />
         ))}
       </Grid>
@@ -64,6 +71,7 @@ export default function Home({
               width: 320,
               height: 320,
             }}
+            wishlist={commerceFeatures.wishlist}
           />
         ))}
       </Marquee>
@@ -86,6 +94,7 @@ export default function Home({
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
             }}
+            wishlist={commerceFeatures.wishlist}
           />
         ))}
       </Grid>
@@ -99,6 +108,7 @@ export default function Home({
               width: 320,
               height: 320,
             }}
+            wishlist={commerceFeatures.wishlist}
           />
         ))}
       </Marquee>
