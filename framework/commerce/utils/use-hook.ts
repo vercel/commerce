@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import type { Fetcher, MutationHook, PickRequired, SWRHook } from './types'
+import type { MutationHook, PickRequired, SWRHook } from './types'
 import { Provider, useCommerce } from '..'
 import useData from './use-data'
 

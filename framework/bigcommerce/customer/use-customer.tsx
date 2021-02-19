@@ -1,11 +1,10 @@
-import { HookHandler } from '@commerce/utils/types'
+import { SWRHook } from '@commerce/utils/types'
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
 import type { Customer, CustomerData } from '../api/customers'
-import type { BigcommerceProvider } from '..'
 
-export default useCustomer as UseCustomer<BigcommerceProvider>
+export default useCustomer as UseCustomer<typeof handler>
 
-export const handler: HookHandler<Customer | null> = {
+export const handler: SWRHook<Customer | null> = {
   fetchOptions: {
     url: '/api/bigcommerce/customers',
     method: 'GET',
@@ -14,11 +13,11 @@ export const handler: HookHandler<Customer | null> = {
     const data = await fetch<CustomerData | null>(options)
     return data?.customer ?? null
   },
-  useHook({ input, useData }) {
+  useHook: ({ useData }) => (input) => {
     return useData({
       swrOptions: {
         revalidateOnFocus: false,
-        ...input.swrOptions,
+        ...input?.swrOptions,
       },
     })
   },
