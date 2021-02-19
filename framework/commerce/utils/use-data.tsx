@@ -14,11 +14,7 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
   isLoading: boolean
 }
 
-export type UseData = <
-  Data = any,
-  Input extends { [k: string]: unknown } = {},
-  FetchInput extends HookFetchInput = {}
->(
+export type UseData = <Data = any, FetchInput extends HookFetchInput = {}>(
   options: {
     fetchOptions: HookFetcherOptions
     fetcher: HookFetcherFn<Data, FetchInput>
