@@ -9,6 +9,9 @@ import { handler as useWishlistRemoveItem } from './wishlist/use-remove-item'
 
 import { handler as useCustomer } from './customer/use-customer'
 import { handler as useSearch } from './product/use-search'
+
+import { handler as useLogin } from './auth/use-login'
+
 import fetcher from './fetcher'
 
 export const bigcommerceProvider = {
@@ -23,6 +26,7 @@ export const bigcommerceProvider = {
   },
   customer: { useCustomer },
   products: { useSearch },
+  auth: { useLogin },
 }
 
 export type BigcommerceProvider = typeof bigcommerceProvider

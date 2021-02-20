@@ -25,11 +25,16 @@ export type Provider = CommerceConfig & {
     useAddItem?: MutationHook<any, any, any>
     useRemoveItem?: MutationHook<any, any, any>
   }
-  customer: {
+  customer?: {
     useCustomer?: SWRHook<Customer | null, any, any>
   }
-  products: {
+  products?: {
     useSearch?: SWRHook<SearchProductsData, any, any>
+  }
+  auth?: {
+    useSignup?: MutationHook<any, any, any>
+    useLogin?: MutationHook<any, any, any>
+    useLogout?: MutationHook<any, any, any>
   }
 }
 

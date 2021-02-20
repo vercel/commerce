@@ -36,11 +36,11 @@ export type HookFetcher<Data, Input = null, Result = any> = (
   fetch: <T = Result, Body = any>(options: FetcherOptions<Body>) => Promise<T>
 ) => Data | Promise<Data>
 
-export type HookFetcherFn<Data, Input = never, Result = any, Body = any> = (
+export type HookFetcherFn<Data, Input = undefined, Result = any, Body = any> = (
   context: HookFetcherContext<Input, Result, Body>
 ) => Data | Promise<Data>
 
-export type HookFetcherContext<Input = never, Result = any, Body = any> = {
+export type HookFetcherContext<Input = undefined, Result = any, Body = any> = {
   options: HookFetcherOptions
   input: Input
   fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
@@ -58,7 +58,7 @@ export type HookSWRInput = [string, HookInputValue][]
 export type HookFetchInput = { [k: string]: HookInputValue }
 
 export type HookFunction<
-  Input extends { [k: string]: unknown } | {},
+  Input extends { [k: string]: unknown } | null,
   T
 > = keyof Input extends never
   ? () => T
@@ -115,9 +115,13 @@ export type MutationHook<
 
 export type MutationHookContext<
   Data,
-  FetchInput extends { [k: string]: unknown } = {}
+  FetchInput extends { [k: string]: unknown } | null = {}
 > = {
-  fetch: (context: { input: FetchInput }) => Data | Promise<Data>
+  fetch: keyof FetchInput extends never
+    ? () => Data | Promise<Data>
+    : Partial<FetchInput> extends FetchInput
+    ? (context?: { input?: FetchInput }) => Data | Promise<Data>
+    : (context: { input: FetchInput }) => Data | Promise<Data>
 }
 
 export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<
