@@ -1,16 +1,17 @@
 import { useMemo } from 'react'
-import { HookHandler } from '@commerce/utils/types'
+import { SWRHook } from '@commerce/utils/types'
 import useWishlist, { UseWishlist } from '@commerce/wishlist/use-wishlist'
 import type { Wishlist } from '../api/wishlist'
 import useCustomer from '../customer/use-customer'
-import type { BigcommerceProvider } from '..'
 
-export default useWishlist as UseWishlist<BigcommerceProvider>
+export type UseWishlistInput = { includeProducts?: boolean }
 
-export const handler: HookHandler<
+export default useWishlist as UseWishlist<typeof handler>
+
+export const handler: SWRHook<
   Wishlist | null,
-  { includeProducts?: boolean },
-  { customerId?: number; includeProducts: boolean },
+  UseWishlistInput,
+  { customerId?: number } & UseWishlistInput,
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
@@ -30,16 +31,16 @@ export const handler: HookHandler<
       method: options.method,
     })
   },
-  useHook({ input, useData }) {
+  useHook: ({ useData }) => (input) => {
     const { data: customer } = useCustomer()
     const response = useData({
       input: [
         ['customerId', (customer as any)?.id],
-        ['includeProducts', input.includeProducts],
+        ['includeProducts', input?.includeProducts],
       ],
       swrOptions: {
         revalidateOnFocus: false,
-        ...input.swrOptions,
+        ...input?.swrOptions,
       },
     })
 

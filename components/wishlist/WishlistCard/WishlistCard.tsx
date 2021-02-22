@@ -22,7 +22,7 @@ const WishlistCard: FC<Props> = ({ product }) => {
     baseAmount: product.prices?.retailPrice?.value,
     currencyCode: product.prices?.price?.currencyCode!,
   })
-  const removeItem = useRemoveItem({ includeProducts: true })
+  const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
   const [loading, setLoading] = useState(false)
   const [removing, setRemoving] = useState(false)
   const addItem = useAddItem()

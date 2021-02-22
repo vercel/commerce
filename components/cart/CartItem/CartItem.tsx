@@ -33,7 +33,7 @@ const CartItem = ({
     currencyCode,
   })
 
-  const updateItem = useUpdateItem(item)
+  const updateItem = useUpdateItem({ item })
   const removeItem = useRemoveItem()
   const [quantity, setQuantity] = useState(item.quantity)
   const [removing, setRemoving] = useState(false)

@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { Fetcher, HookHandler, MutationHandler } from './utils/types'
+import { Fetcher, SWRHook, MutationHook } from './utils/types'
 import type { FetchCartInput } from './cart/use-cart'
 import type { Cart, Wishlist, Customer, SearchProductsData } from './types'
 
@@ -15,17 +15,26 @@ const Commerce = createContext<CommerceContextValue<any> | {}>({})
 export type Provider = CommerceConfig & {
   fetcher: Fetcher
   cart?: {
-    useCart?: HookHandler<Cart | null, any, FetchCartInput>
-    useAddItem?: MutationHandler<Cart, any, any>
+    useCart?: SWRHook<Cart | null, any, FetchCartInput>
+    useAddItem?: MutationHook<any, any, any>
+    useUpdateItem?: MutationHook<any, any, any>
+    useRemoveItem?: MutationHook<any, any, any>
   }
   wishlist?: {
-    useWishlist?: HookHandler<Wishlist | null, any, any>
+    useWishlist?: SWRHook<Wishlist | null, any, any>
+    useAddItem?: MutationHook<any, any, any>
+    useRemoveItem?: MutationHook<any, any, any>
   }
-  customer: {
-    useCustomer?: HookHandler<Customer | null, any, any>
+  customer?: {
+    useCustomer?: SWRHook<Customer | null, any, any>
   }
-  products: {
-    useSearch?: HookHandler<SearchProductsData, any, any>
+  products?: {
+    useSearch?: SWRHook<SearchProductsData, any, any>
+  }
+  auth?: {
+    useSignup?: MutationHook<any, any, any>
+    useLogin?: MutationHook<any, any, any>
+    useLogout?: MutationHook<any, any, any>
   }
 }
 

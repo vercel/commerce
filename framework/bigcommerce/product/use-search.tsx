@@ -1,9 +1,8 @@
-import { HookHandler } from '@commerce/utils/types'
-import useSearch, { UseSearch } from '@commerce/products/use-search'
+import { SWRHook } from '@commerce/utils/types'
+import useSearch, { UseSearch } from '@commerce/product/use-search'
 import type { SearchProductsData } from '../api/catalog/products'
-import type { BigcommerceProvider } from '..'
 
-export default useSearch as UseSearch<BigcommerceProvider>
+export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
   search?: string
@@ -12,7 +11,7 @@ export type SearchProductsInput = {
   sort?: string
 }
 
-export const handler: HookHandler<
+export const handler: SWRHook<
   SearchProductsData,
   SearchProductsInput,
   SearchProductsInput
@@ -37,7 +36,7 @@ export const handler: HookHandler<
       method: options.method,
     })
   },
-  useHook({ input, useData }) {
+  useHook: ({ useData }) => (input = {}) => {
     return useData({
       input: [
         ['search', input.search],

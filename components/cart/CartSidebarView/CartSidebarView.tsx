@@ -9,7 +9,7 @@ import usePrice from '@framework/product/use-price'
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
 
-const CartSidebarView: FC = () => {
+const CartSidebarView: FC<{ wishlist?: boolean }> = ({ wishlist }) => {
   const { closeSidebar } = useUI()
   const { data, isLoading, isEmpty } = useCart()
 
@@ -48,7 +48,7 @@ const CartSidebarView: FC = () => {
             </button>
           </div>
           <div className="space-y-1">
-            <UserNav className="" />
+            <UserNav wishlist={wishlist} />
           </div>
         </div>
       </header>
