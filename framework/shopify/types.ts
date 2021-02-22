@@ -12,7 +12,9 @@ export interface Cart extends Core.Cart {
   lineItems: LineItem[]
 }
 
-export interface LineItem extends Core.LineItem {}
+export interface LineItem extends Core.LineItem {
+  options: any[]
+}
 
 /**
  * Cart mutations

@@ -1,10 +1,18 @@
 export const checkoutDetailsFragment = `
   id
   webUrl
-  subtotalPrice
-  totalTax
-  totalPrice
-  currencyCode
+  subtotalPriceV2{
+    amount
+    currencyCode
+  }
+  totalTaxV2 {
+    amount
+    currencyCode
+  }
+  totalPriceV2 {
+    amount
+    currencyCode
+  }
   completedAt
   createdAt
   taxesIncluded
@@ -27,7 +35,14 @@ export const checkoutDetailsFragment = `
             width
             height
           }
-          price
+          priceV2{
+            amount
+            currencyCode
+          }
+          compareAtPriceV2{
+            amount
+            currencyCode
+          }
         }
         quantity
       }

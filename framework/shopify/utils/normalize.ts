@@ -40,8 +40,9 @@ const normalizeProductImages = ({ edges }: ImageConnection) =>
     ...rest,
   }))
 
-const normalizeProductVariants = ({ edges }: ProductVariantConnection) =>
-  edges?.map(({ node: { id, selectedOptions } }) => ({
+const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
+  console.log(edges)
+  return edges?.map(({ node: { id, selectedOptions } }) => ({
     id,
     options: selectedOptions.map(({ name, value }: SelectedOption) =>
       normalizeProductOption({
@@ -51,6 +52,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) =>
       })
     ),
   }))
+}
 
 export function normalizeProduct(productNode: ShopifyProduct): any {
   const {
@@ -66,7 +68,7 @@ export function normalizeProduct(productNode: ShopifyProduct): any {
     ...rest
   } = productNode
 
-  return {
+  const product = {
     id,
     name,
     vendor,
@@ -79,6 +81,8 @@ export function normalizeProduct(productNode: ShopifyProduct): any {
     options: options ? options.map((o) => normalizeProductOption(o)) : [],
     ...rest,
   }
+
+  return product
 }
 
 export function normalizeCart(checkout: Checkout): Cart {
@@ -88,13 +92,13 @@ export function normalizeCart(checkout: Checkout): Cart {
     email: '',
     createdAt: checkout.createdAt,
     currency: {
-      code: checkout.currencyCode,
+      code: checkout.totalPriceV2?.currencyCode,
     },
     taxesIncluded: checkout.taxesIncluded,
     lineItems: checkout.lineItems?.edges.map(normalizeLineItem),
-    lineItemsSubtotalPrice: checkout.subtotalPrice,
-    subtotalPrice: checkout.subtotalPrice,
-    totalPrice: checkout.totalPrice,
+    lineItemsSubtotalPrice: checkout.subtotalPriceV2?.amount,
+    subtotalPrice: checkout.subtotalPriceV2?.amount,
+    totalPrice: checkout.totalPriceV2?.amount,
     discounts: [],
   }
 }
@@ -106,7 +110,7 @@ function normalizeLineItem({
     id,
     variantId: String(variant?.id),
     productId: String(variant?.id),
-    name: `${title} - ${variant?.title}`,
+    name: `${title}`,
     quantity,
     variant: {
       id: String(variant?.id),
@@ -116,10 +120,15 @@ function normalizeLineItem({
         url: variant?.image?.originalSrc,
       },
       requiresShipping: variant?.requiresShipping ?? false,
-      price: variant?.price,
-      listPrice: variant?.compareAtPrice,
+      price: variant?.priceV2?.amount,
+      listPrice: variant?.compareAtPriceV2?.amount,
     },
     path: '',
     discounts: [],
+    options: [
+      {
+        value: variant?.title,
+      },
+    ],
   }
 }
