@@ -16,7 +16,7 @@ const getCategories = async (config: ShopifyConfig): Promise<Category[]> => {
   })
 
   return (
-    data?.collections?.edges?.map(
+    data.collections?.edges?.map(
       ({ node: { title: name, handle } }: CollectionEdge) => ({
         entityId: handle,
         name,

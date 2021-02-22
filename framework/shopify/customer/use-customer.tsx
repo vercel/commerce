@@ -1,24 +1,26 @@
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
 import { Customer } from '@commerce/types'
-import { HookHandler } from '@commerce/utils/types'
-import { getCustomerQuery } from '@framework/utils'
+import { SWRHook } from '@commerce/utils/types'
+import { getCustomerQuery, getCustomerToken } from '../utils'
 import type { ShopifyProvider } from '..'
 
 export default useCustomer as UseCustomer<ShopifyProvider>
-
-export const handler: HookHandler<Customer | null> = {
+export const handler: SWRHook<Customer | null> = {
   fetchOptions: {
     query: getCustomerQuery,
   },
   async fetcher({ options, fetch }) {
-    const data = await fetch<any | null>(options)
-    return data?.customer ?? null
+    const data = await fetch<any | null>({
+      ...options,
+      variables: { customerAccessToken: getCustomerToken() },
+    })
+    return data.customer ?? null
   },
-  useHook({ input, useData }) {
+  useHook: ({ useData }) => (input) => {
     return useData({
       swrOptions: {
         revalidateOnFocus: false,
-        ...input.swrOptions,
+        ...input?.swrOptions,
       },
     })
   },

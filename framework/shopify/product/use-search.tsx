@@ -1,6 +1,6 @@
-import useSearch, { UseSearch } from '@commerce/products/use-search'
-import { SearchProductsData } from '@commerce/types'
-import { HookHandler } from '@commerce/utils/types'
+import { SWRHook } from '@commerce/utils/types'
+import useSearch, { UseSearch } from '@commerce/product/use-search'
+
 import { ProductEdge } from '@framework/schema'
 import {
   getAllProductsQuery,
@@ -8,6 +8,8 @@ import {
   normalizeProduct,
 } from '@framework/utils'
 import type { ShopifyProvider } from '..'
+
+import { Product } from '@commerce/types'
 
 export default useSearch as UseSearch<ShopifyProvider>
 
@@ -18,7 +20,11 @@ export type SearchProductsInput = {
   sort?: string
 }
 
-export const handler: HookHandler<
+export type SearchProductsData = {
+  products: Product[]
+  found: boolean
+}
+export const handler: SWRHook<
   SearchProductsData,
   SearchProductsInput,
   SearchProductsInput
@@ -38,7 +44,7 @@ export const handler: HookHandler<
       found: !!edges?.length,
     }
   },
-  useHook({ input, useData }) {
+  useHook: ({ useData }) => (input = {}) => {
     return useData({
       input: [
         ['search', input.search],

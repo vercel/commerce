@@ -24,7 +24,7 @@ const getPage = async (options: {
     variables,
   })
 
-  const page: Page = data?.pageByHandle
+  const page: Page = data.pageByHandle
 
   return {
     page: page

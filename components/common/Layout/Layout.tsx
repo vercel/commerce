@@ -58,7 +58,7 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
-  const isWishlistEnabled = commerceFeatures.wishlist
+  const isWishlistEnabled = commerceFeatures?.wishlist
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>

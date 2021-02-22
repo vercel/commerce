@@ -27,13 +27,27 @@ const HomeAllProductsGrid: FC<Props> = ({
           <ul className="mb-10">
             <li className="py-1 text-base font-bold tracking-wide">
               <Link href={getCategoryPath('')}>
-                <a>All Collections</a>
+                <a>All Categories</a>
               </Link>
             </li>
             {categories.map((cat: any) => (
               <li key={cat.path} className="py-1 text-accents-8 text-base">
                 <Link href={getCategoryPath(cat.path)}>
                   <a>{cat.name}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <ul className="">
+            <li className="py-1 text-base font-bold tracking-wide">
+              <Link href={getDesignerPath('')}>
+                <a>All Designers</a>
+              </Link>
+            </li>
+            {brands.flatMap(({ node }: any) => (
+              <li key={node.path} className="py-1 text-accents-8 text-base">
+                <Link href={getDesignerPath(node.path)}>
+                  <a>{node.name}</a>
                 </Link>
               </li>
             ))}

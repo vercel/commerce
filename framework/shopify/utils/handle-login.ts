@@ -17,7 +17,7 @@ const getErrorMessage = ({
 }
 
 const handleLogin = (data: any) => {
-  const response = data?.customerAccessTokenCreate
+  const response = data.customerAccessTokenCreate
   const errors = response?.customerUserErrors
 
   if (errors && errors.length) {

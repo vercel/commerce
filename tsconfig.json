@@ -22,8 +22,8 @@
       "@utils/*": ["utils/*"],
       "@commerce/*": ["framework/commerce/*"],
       "@commerce": ["framework/commerce"],
-      "@framework/*": ["framework/shopify/*"],
-      "@framework": ["framework/shopify"]
+      "@framework/*": ["framework/bigcommerce/*"],
+      "@framework": ["framework/bigcommerce"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

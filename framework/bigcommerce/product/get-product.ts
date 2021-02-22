@@ -2,7 +2,7 @@ import type { GetProductQuery, GetProductQueryVariables } from '../schema'
 import setProductLocaleMeta from '../api/utils/set-product-locale-meta'
 import { productInfoFragment } from '../api/fragments/product'
 import { BigcommerceConfig, getConfig } from '../api'
-import { normalizeProduct } from '@framework/utils/normalize'
+import { normalizeProduct } from '@framework/lib/normalize'
 import type { Product } from '@commerce/types'
 
 export const getProductQuery = /* GraphQL */ `

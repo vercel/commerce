@@ -17,7 +17,7 @@ const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
         checkoutId,
       },
     })
-    checkout = data?.node
+    checkout = data.node
   }
 
   if (checkout?.completedAt || !checkoutId) {

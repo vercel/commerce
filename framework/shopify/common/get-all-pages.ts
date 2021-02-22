@@ -19,7 +19,7 @@ const getAllPages = async (options?: {
   config = getConfig(config)
 
   const { data } = await config.fetch(getAllPagesQuery, { variables })
-  const edges = data?.pages?.edges
+  const edges = data.pages?.edges
 
   const pages = edges?.map(({ node }: PageEdge) => ({
     ...node,

@@ -1,56 +1,80 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@commerce/utils/types'
+import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
-import useCommerceLogin from '@commerce/use-login'
 import useCustomer from '../customer/use-customer'
 import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
-import { CustomerAccessTokenCreateInput } from '@framework/schema'
-import handleLogin from '@framework/utils/handle-login'
+import {
+  CustomerAccessToken,
+  CustomerAccessTokenCreateInput,
+  CustomerAccessTokenCreatePayload,
+  CustomerUserError,
+  Mutation,
+  MutationCheckoutCreateArgs,
+} from '@framework/schema'
+import useLogin, { UseLogin } from '@commerce/use-login'
+import { setCustomerToken } from '@framework/utils'
 
-const defaultOpts = {
-  query: createCustomerAccessTokenMutation,
-}
+export default useLogin as UseLogin<typeof handler>
 
-export const fetcher: HookFetcher<null, CustomerAccessTokenCreateInput> = (
-  options,
-  input,
-  fetch
-) => {
-  if (!(input.email && input.password)) {
-    throw new CommerceError({
-      message:
-        'A first name, last name, email and password are required to login',
-    })
+const getErrorMessage = ({ code, message }: CustomerUserError) => {
+  console.log(code)
+
+  switch (code) {
+    case 'UNIDENTIFIED_CUSTOMER':
+      message = 'Cannot find an account that matches the provided credentials'
+      break
   }
-
-  return fetch({
-    ...defaultOpts,
-    ...options,
-    variables: { input },
-  }).then(handleLogin)
+  return message
 }
 
-export function extendHook(customFetcher: typeof fetcher) {
-  const useLogin = () => {
+export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
+  fetchOptions: {
+    query: createCustomerAccessTokenMutation,
+  },
+  async fetcher({ input: { email, password }, options, fetch }) {
+    if (!(email && password)) {
+      throw new CommerceError({
+        message:
+          'A first name, last name, email and password are required to login',
+      })
+    }
+
+    const { customerAccessTokenCreate } = await fetch<
+      Mutation,
+      MutationCheckoutCreateArgs
+    >({
+      ...options,
+      variables: {
+        input: { email, password },
+      },
+    })
+
+    const errors = customerAccessTokenCreate?.customerUserErrors
+
+    if (errors && errors.length) {
+      throw new ValidationError({
+        message: getErrorMessage(errors[0]),
+      })
+    }
+    const customerAccessToken = customerAccessTokenCreate?.customerAccessToken
+    const accessToken = customerAccessToken?.accessToken
+
+    if (accessToken) {
+      setCustomerToken(accessToken)
+    }
+
+    return null
+  },
+  useHook: ({ fetch }) => () => {
     const { revalidate } = useCustomer()
-    const fn = useCommerceLogin<null, CustomerAccessTokenCreateInput>(
-      defaultOpts,
-      customFetcher
-    )
 
     return useCallback(
-      async function login(input: CustomerAccessTokenCreateInput) {
-        const data = await fn(input)
+      async function login(input) {
+        const data = await fetch({ input })
         await revalidate()
         return data
       },
-      [fn]
+      [fetch, revalidate]
     )
-  }
-
-  useLogin.extend = extendHook
-
-  return useLogin
+  },
 }
-
-export default extendHook(fetcher)

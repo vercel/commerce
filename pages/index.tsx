@@ -36,7 +36,7 @@ export async function getStaticProps({
         wishlist: isWishlistEnabled,
       },
     },
-    revalidate: 1440,
+    revalidate: 14400,
   }
 }
 

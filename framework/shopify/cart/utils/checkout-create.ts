@@ -11,7 +11,7 @@ export const checkoutCreate = async (fetch: any) => {
     query: checkoutCreateMutation,
   })
 
-  const checkout = data?.checkoutCreate?.checkout
+  const checkout = data.checkoutCreate?.checkout
   const checkoutId = checkout?.id
 
   if (checkoutId) {

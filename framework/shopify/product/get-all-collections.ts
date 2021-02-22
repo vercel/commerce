@@ -11,7 +11,7 @@ const getAllCollections = async (options?: {
   config = getConfig(config)
 
   const { data } = await config.fetch(getAllCollectionsQuery, { variables })
-  const edges = data?.collections?.edges ?? []
+  const edges = data.collections?.edges ?? []
 
   const categories = edges.map(
     ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({

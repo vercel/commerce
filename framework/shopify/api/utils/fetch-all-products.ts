@@ -18,8 +18,8 @@ const fetchAllProducts = async ({
     variables: { ...variables, cursor },
   })
 
-  const edges: ProductEdge[] = data?.products?.edges ?? []
-  const hasNextPage = data?.products?.pageInfo?.hasNextPage
+  const edges: ProductEdge[] = data.products?.edges ?? []
+  const hasNextPage = data.products?.pageInfo?.hasNextPage
   acc = acc.concat(edges)
 
   if (hasNextPage) {

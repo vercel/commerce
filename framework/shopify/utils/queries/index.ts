@@ -7,4 +7,4 @@ export { default as getCollectionProductsQuery } from './get-collection-products
 export { default as getCheckoutQuery } from './get-checkout-query'
 export { default as getAllPagesQuery } from './get-all-pages-query'
 export { default as getPageQuery } from './get-page-query'
-export { default as getCustomerQuery } from './get-checkout-query'
+export { default as getCustomerQuery } from './get-customer-query'

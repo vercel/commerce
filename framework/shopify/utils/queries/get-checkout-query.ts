@@ -1,4 +1,4 @@
-export const checkoutDetailsFragment = /* GraphQL */ `
+export const checkoutDetailsFragment = `
   id
   webUrl
   subtotalPrice

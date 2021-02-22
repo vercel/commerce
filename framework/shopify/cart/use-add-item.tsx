@@ -1,22 +1,20 @@
-import type { MutationHandler } from '@commerce/utils/types'
+import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
-import { ShopifyProvider } from '..'
-import { Cart, AddCartItemBody, CartItemBody } from '../types'
+import { Cart, CartItemBody } from '../types'
 import { checkoutLineItemAddMutation, getCheckoutId } from '../utils'
 import { checkoutToCart } from './utils'
-import { Mutation } from '../schema'
+import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
+import { useCallback } from 'react'
 
-export default useAddItem as UseAddItem<ShopifyProvider, CartItemBody>
+export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
+export const handler: MutationHook<Cart, {}, CartItemBody> = {
   fetchOptions: {
     query: checkoutLineItemAddMutation,
   },
-  async fetcher({ input, options, fetch }) {
-    const item = input?.item ?? input
-
+  async fetcher({ input: item, options, fetch }) {
     if (
       item.quantity &&
       (!Number.isInteger(item.quantity) || item.quantity! < 1)
@@ -26,27 +24,34 @@ export const handler: MutationHandler<Cart, {}, AddCartItemBody> = {
       })
     }
 
-    const { checkoutLineItemsAdd }: Mutation = await fetch<any, any>({
+    const { checkoutLineItemsAdd } = await fetch<
+      Mutation,
+      MutationCheckoutLineItemsAddArgs
+    >({
       ...options,
       variables: {
+        checkoutId: getCheckoutId(),
         lineItems: [
           {
             variantId: item.variantId,
             quantity: item.quantity ?? 1,
           },
         ],
-        checkoutId: getCheckoutId(),
       },
     })
 
     return checkoutToCart(checkoutLineItemsAdd)
   },
-  useHook() {
+  useHook: ({ fetch }) => () => {
     const { mutate } = useCart()
-    return async function addItem({ input, fetch }) {
-      const data = await fetch({ input })
-      await mutate(data, false)
-      return data
-    }
+
+    return useCallback(
+      async function addItem(input) {
+        const data = await fetch({ input })
+        await mutate(data, false)
+        return data
+      },
+      [fetch, mutate]
+    )
   },
 }

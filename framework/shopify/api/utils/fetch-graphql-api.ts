@@ -29,6 +29,6 @@ const fetchGraphqlApi: GraphQLFetcher = async (
     throw getError(errors, status)
   }
 
-  return { data: data, res }
+  return { data, res }
 }
 export default fetchGraphqlApi

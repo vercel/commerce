@@ -18,7 +18,7 @@ async function getCustomerId({
     },
   })
 
-  return data?.customer?.id
+  return data.customer?.id
 }
 
 export default getCustomerId

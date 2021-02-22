@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@commerce/utils/types'
+import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
-import useCommerceSignup from '@commerce/use-signup'
+import useSignup, { UseSignup } from '@commerce/use-signup'
 import useCustomer from '../customer/use-customer'
 import { CustomerCreateInput } from '@framework/schema'
 
@@ -11,63 +11,64 @@ import {
 } from '@framework/utils/mutations'
 import handleLogin from '@framework/utils/handle-login'
 
-const defaultOpts = {
-  query: customerCreateMutation,
-}
+export default useSignup as UseSignup<typeof handler>
 
-export const fetcher: HookFetcher<null, CustomerCreateInput> = (
-  options,
-  input,
-  fetch
-) => {
-  if (!(input.firstName && input.lastName && input.email && input.password)) {
-    throw new CommerceError({
-      message:
-        'A first name, last name, email and password are required to signup',
+export const handler: MutationHook<
+  null,
+  {},
+  CustomerCreateInput,
+  CustomerCreateInput
+> = {
+  fetchOptions: {
+    query: customerCreateMutation,
+  },
+  async fetcher({
+    input: { firstName, lastName, email, password },
+    options,
+    fetch,
+  }) {
+    if (!(firstName && lastName && email && password)) {
+      throw new CommerceError({
+        message:
+          'A first name, last name, email and password are required to signup',
+      })
+    }
+    const data = await fetch({
+      ...options,
+      variables: {
+        input: {
+          firstName,
+          lastName,
+          email,
+          password,
+        },
+      },
     })
-  }
-  return fetch({
-    ...defaultOpts,
-    ...options,
-    variables: { input },
-  }).then(async (data) => {
+
     try {
       const loginData = await fetch({
         query: customerAccessTokenCreateMutation,
         variables: {
           input: {
-            email: input.email,
-            password: input.password,
+            email,
+            password,
           },
         },
       })
       handleLogin(loginData)
     } catch (error) {}
     return data
-  })
-}
-
-export function extendHook(customFetcher: typeof fetcher) {
-  const useSignup = () => {
+  },
+  useHook: ({ fetch }) => () => {
     const { revalidate } = useCustomer()
-    const fn = useCommerceSignup<null, CustomerCreateInput>(
-      defaultOpts,
-      customFetcher
-    )
 
     return useCallback(
-      async function signup(input: CustomerCreateInput) {
-        const data = await fn(input)
+      async function signup(input) {
+        const data = await fetch({ input })
         await revalidate()
         return data
       },
-      [fn]
+      [fetch, revalidate]
     )
-  }
-
-  useSignup.extend = extendHook
-
-  return useSignup
+  },
 }
-
-export default extendHook(fetcher)
