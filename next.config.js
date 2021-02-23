@@ -7,7 +7,7 @@ module.exports = {
     defaultLocale: 'en-US',
   },
   env: {
-    WISHLIST_ENABLED: true,
+    WISHLIST_ENABLED: false,
   },
   rewrites() {
     return [
