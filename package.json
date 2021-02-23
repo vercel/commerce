@@ -11,6 +11,7 @@
     "generate": "graphql-codegen",
     "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
   },
+  "sideEffects": false,
   "license": "MIT",
   "engines": {
     "node": "12.x"

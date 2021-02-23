@@ -71,7 +71,7 @@ export default function Slug({
   ) : (
     <ProductView
       product={product as any}
-      wishlist={commerceFeatures.wishlist}
+      wishlist={!!process.env.WISHLIST_ENABLED}
     />
   )
 }

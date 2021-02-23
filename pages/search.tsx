@@ -34,6 +34,7 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
+import { Product } from '@commerce/types'
 
 export async function getStaticProps({
   preview,

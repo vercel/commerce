@@ -7,7 +7,7 @@ import type { Product, ProductVariant } from '@commerce/types'
 import useCustomer from '@framework/customer/use-customer'
 import useAddItem from '@framework/wishlist/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
-import useWishlist from '@framework/wishlist/use-add-item'
+import useWishlist from '@framework/wishlist/use-wishlist'
 
 type Props = {
   productId: Product['id']
@@ -28,7 +28,8 @@ const WishlistButton: FC<Props> = ({
   const [loading, setLoading] = useState(false)
 
   const itemInWishlist = data?.items?.find(
-    (item) => item.product_id === productId && item.variant_id === variant.id
+    (item) =>
+      item.product_id === productId && (item.variant_id as any) === variant.id
   )
 
   const handleWishlistChange = async (e: any) => {

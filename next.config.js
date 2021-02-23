@@ -6,6 +6,9 @@ module.exports = {
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
   },
+  env: {
+    WISHLIST_ENABLED: false,
+  },
   rewrites() {
     return [
       {

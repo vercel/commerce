@@ -59,11 +59,11 @@ const ProductCard: FC<Props> = ({
                 {product.price.currencyCode}
               </span>
             </div>
-            {wishlist && (
+            {process.env.WISHLIST_ENABLED && (
               <WishlistButton
                 className={s.wishlistButton}
                 productId={product.id}
-                variant={product.variants[0]}
+                variant={product.variants[0] as any}
               />
             )}
           </div>

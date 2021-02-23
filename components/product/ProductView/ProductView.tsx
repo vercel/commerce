@@ -152,11 +152,11 @@ const ProductView: FC<Props> = ({ product, wishlist = false }) => {
             </Button>
           </div>
         </div>
-        {wishlist && (
+        {process.env.WISHLIST_ENABLED && (
           <WishlistButton
             className={s.wishlistButton}
             productId={product.id}
-            variant={product.variants[0]!}
+            variant={product.variants[0]! as any}
           />
         )}
       </div>

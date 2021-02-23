@@ -57,7 +57,7 @@ export default function Home({
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
             }}
-            wishlist={commerceFeatures.wishlist}
+            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Grid>
@@ -71,7 +71,7 @@ export default function Home({
               width: 320,
               height: 320,
             }}
-            wishlist={commerceFeatures.wishlist}
+            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Marquee>
@@ -94,7 +94,7 @@ export default function Home({
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
             }}
-            wishlist={commerceFeatures.wishlist}
+            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Grid>
@@ -108,7 +108,7 @@ export default function Home({
               width: 320,
               height: 320,
             }}
-            wishlist={commerceFeatures.wishlist}
+            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Marquee>

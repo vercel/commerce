@@ -1,4 +1,4 @@
-import commerceProviderConfig from '@framework/config.json'
+import commerceProviderConfig from '../config.json'
 import type { CommerceProviderConfig } from '../types'
 import memo from 'lodash.memoize'
 
