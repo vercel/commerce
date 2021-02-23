@@ -19,10 +19,9 @@ interface Props {
   className?: string
   children?: any
   product: Product
-  wishlist?: boolean
 }
 
-const ProductView: FC<Props> = ({ product, wishlist = false }) => {
+const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,

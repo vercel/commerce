@@ -11,7 +11,6 @@ interface Props {
   product: Product
   variant?: 'slim' | 'simple'
   imgProps?: Omit<ImageProps, 'src'>
-  wishlist?: boolean
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
@@ -21,7 +20,6 @@ const ProductCard: FC<Props> = ({
   product,
   variant,
   imgProps,
-  wishlist = false,
   ...props
 }) => (
   <Link href={`/product/${product.slug}`} {...props}>

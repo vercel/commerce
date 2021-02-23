@@ -8,7 +8,6 @@ import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
-import Features from '@commerce/utils/features'
 
 export async function getStaticProps({
   preview,
@@ -24,7 +23,6 @@ export async function getStaticProps({
 
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
-  const isWishlistEnabled = Features.isEnabled('wishlist')
 
   return {
     props: {
@@ -32,9 +30,6 @@ export async function getStaticProps({
       categories,
       brands,
       pages,
-      commerceFeatures: {
-        wishlist: isWishlistEnabled,
-      },
     },
     revalidate: 14400,
   }
@@ -44,7 +39,6 @@ export default function Home({
   products,
   brands,
   categories,
-  commerceFeatures,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -57,7 +51,6 @@ export default function Home({
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
             }}
-            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Grid>
@@ -71,7 +64,6 @@ export default function Home({
               width: 320,
               height: 320,
             }}
-            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Marquee>
@@ -94,7 +86,6 @@ export default function Home({
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
             }}
-            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Grid>
@@ -108,7 +99,6 @@ export default function Home({
               width: 320,
               height: 320,
             }}
-            wishlist={!!process.env.WISHLIST_ENABLED}
           />
         ))}
       </Marquee>
