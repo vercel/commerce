@@ -61,7 +61,7 @@ const Layout: FC<Props> = ({
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar wishlist={!!process.env.WISHLIST_ENABLED} />
+        <Navbar />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
 
@@ -72,7 +72,7 @@ const Layout: FC<Props> = ({
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
-          <CartSidebarView wishlist={!!process.env.WISHLIST_ENABLED} />
+          <CartSidebarView />
         </Sidebar>
 
         <FeatureBar

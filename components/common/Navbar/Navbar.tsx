@@ -5,7 +5,7 @@ import { Searchbar, UserNav } from '@components/common'
 import NavbarRoot from './NavbarRoot'
 import s from './Navbar.module.css'
 
-const Navbar: FC<{ wishlist?: boolean }> = ({ wishlist }) => (
+const Navbar: FC = () => (
   <NavbarRoot>
     <Container>
       <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
@@ -33,7 +33,7 @@ const Navbar: FC<{ wishlist?: boolean }> = ({ wishlist }) => (
         </div>
 
         <div className="flex justify-end flex-1 space-x-8">
-          <UserNav wishlist={wishlist} />
+          <UserNav />
         </div>
       </div>
 

@@ -12,12 +12,11 @@ import { Avatar } from '@components/common'
 
 interface Props {
   className?: string
-  wishlist?: boolean
 }
 
 const countItem = (count: number, item: LineItem) => count + item.quantity
 
-const UserNav: FC<Props> = ({ className, wishlist = false }) => {
+const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
@@ -31,7 +30,7 @@ const UserNav: FC<Props> = ({ className, wishlist = false }) => {
             <Bag />
             {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
-          {wishlist && (
+          {process.env.WISHLIST_ENABLED && (
             <li className={s.item}>
               <Link href="/wishlist">
                 <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
