@@ -17,7 +17,7 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext) {
   // Disabling page if Feature is not available
-  if (!process.env.WISHLIST_ENABLED) {
+  if (!process.env.COMMERCE_WISHLIST_ENABLED) {
     return {
       notFound: true,
     }

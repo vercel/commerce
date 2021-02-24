@@ -2,8 +2,10 @@ import type { Wishlist as BCWishlist } from '@framework/api/wishlist'
 import type { Customer as BCCustomer } from '@framework/api/customers'
 import type { SearchProductsData as BCSearchProductsData } from '@framework/api/catalog/products'
 
+export type Features = 'wishlist' | 'checkout' | string
+
 export type CommerceProviderConfig = {
-  features: Record<string, boolean>
+  features: Record<Features, boolean>
 }
 
 export type Discount = {

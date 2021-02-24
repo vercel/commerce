@@ -14,6 +14,16 @@ function isFeatureEnabled(config: CommerceProviderConfig) {
       .includes(desideredFeature)
 }
 
+export function toEnvConfig(
+  configMap: CommerceProviderConfig['features']
+): Map<string, boolean> {
+  let toEnvConfigMap = new Map<string, boolean>()
+  Object.keys(configMap).map((r) =>
+    toEnvConfigMap.set(`${r.toUpperCase()}_ENABLED`, configMap[r])
+  )
+  return toEnvConfigMap
+}
+
 function boostrap(): FeaturesAPI {
   const basis = {
     isEnabled: () => false,

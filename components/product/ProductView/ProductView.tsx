@@ -151,7 +151,7 @@ const ProductView: FC<Props> = ({ product }) => {
             </Button>
           </div>
         </div>
-        {process.env.WISHLIST_ENABLED && (
+        {process.env.COMMERCE_WISHLIST_ENABLED && (
           <WishlistButton
             className={s.wishlistButton}
             productId={product.id}

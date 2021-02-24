@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
-import useSignup, { UseSignup } from '@commerce/use-signup'
+import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import type { SignupBody } from '../api/customers/signup'
 import useCustomer from '../customer/use-customer'
 
