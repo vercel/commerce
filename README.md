@@ -57,18 +57,21 @@ Main folder and its exposed functions
   - getAllProducts
 - `wishlist`
   - useWishlist
-  - addWishlistItem
-  - removeWishlistItem
+  - useAddItem
+  - useRemoveItem
 - `auth`
   - useLogin
   - useLogout
   - useSignup
+- `customer`
+  - useCustomer
+  - getCustomerId
+  - getCustomerWistlist
 - `cart`
 
   - useCart
   - useAddItem
   - useRemoveItem
-  - useCartActions
   - useUpdateItem
 
 - `config.json`
