@@ -1,6 +1,6 @@
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
-import useCommerceSearch from '@commerce/products/use-search'
+import useCommerceSearch from '@commerce/product/use-search'
 import { ProductEdge } from '../types'
 
 const defaultOpts = {}

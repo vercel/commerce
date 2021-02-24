@@ -1,6 +1,6 @@
 import type { HookFetcher } from '@commerce/utils/types'
 import type { SwrOptions } from '@commerce/utils/use-data'
-import useCommerceCustomer from '@commerce/use-customer'
+import useCommerceCustomer from '@commerce/customer/use-customer'
 
 const defaultOpts = {}
 
