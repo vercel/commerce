@@ -16,11 +16,10 @@
     "jsx": "preserve",
     "paths": {
       "@lib/*": ["lib/*"],
-      "@assets/*": ["assets/*"],
-      "@config/*": ["config/*"],
-      "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@commerce/*": ["framework/commerce/*"],
+      "@config/*": ["config/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
       "@commerce": ["framework/commerce"],
       "@framework/*": ["framework/shopify/*"],
       "@framework": ["framework/shopify"]

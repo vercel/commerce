@@ -1,4 +1,4 @@
-import commerceProviderConfig from '@framework/config.json'
+import commerceProviderConfig from '../config.json'
 import type { CommerceProviderConfig } from '../types'
 import memo from 'lodash.memoize'
 
@@ -12,6 +12,16 @@ function isFeatureEnabled(config: CommerceProviderConfig) {
     Object.keys(features)
       .filter((k) => features[k])
       .includes(desideredFeature)
+}
+
+export function toEnvConfig(
+  configMap: CommerceProviderConfig['features']
+): Map<string, boolean> {
+  let toEnvConfigMap = new Map<string, boolean>()
+  Object.keys(configMap).map((r) =>
+    toEnvConfigMap.set(`${r.toUpperCase()}_ENABLED`, configMap[r])
+  )
+  return toEnvConfigMap
 }
 
 function boostrap(): FeaturesAPI {

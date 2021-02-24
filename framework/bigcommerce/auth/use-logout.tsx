@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
-import useLogout, { UseLogout } from '@commerce/use-logout'
+import useLogout, { UseLogout } from '@commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
 
 export default useLogout as UseLogout<typeof handler>

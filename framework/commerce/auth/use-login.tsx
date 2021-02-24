@@ -1,7 +1,7 @@
-import { useHook, useMutationHook } from './utils/use-hook'
-import { mutationFetcher } from './utils/default-fetcher'
-import type { MutationHook, HookFetcherFn } from './utils/types'
-import type { Provider } from '.'
+import { useHook, useMutationHook } from '../utils/use-hook'
+import { mutationFetcher } from '../utils/default-fetcher'
+import type { MutationHook, HookFetcherFn } from '../utils/types'
+import type { Provider } from '..'
 
 export type UseLogin<
   H extends MutationHook<any, any, any> = MutationHook<null, {}, {}>

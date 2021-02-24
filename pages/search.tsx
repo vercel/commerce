@@ -26,14 +26,13 @@ const SORT = Object.entries({
   'price-desc': 'Price: High to low',
 })
 
-import Features from '@commerce/utils/features'
-
 import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
+import { Product } from '@commerce/types'
 
 export async function getStaticProps({
   preview,
@@ -42,15 +41,11 @@ export async function getStaticProps({
   const config = getConfig({ locale })
   const { pages } = await getAllPages({ config, preview })
   const { categories, brands } = await getSiteInfo({ config, preview })
-  const isWishlistEnabled = Features.isEnabled('wishlist')
   return {
     props: {
       pages,
       categories,
       brands,
-      commerceFeatures: {
-        wishlist: isWishlistEnabled,
-      },
     },
   }
 }
@@ -58,7 +53,6 @@ export async function getStaticProps({
 export default function Search({
   categories,
   brands,
-  commerceFeatures: { wishlist },
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
@@ -358,7 +352,6 @@ export default function Search({
                     width: 480,
                     height: 480,
                   }}
-                  wishlist={wishlist}
                 />
               ))}
             </Grid>

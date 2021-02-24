@@ -11,6 +11,7 @@
     "generate": "graphql-codegen",
     "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
   },
+  "sideEffects": false,
   "license": "MIT",
   "engines": {
     "node": "12.x"
@@ -45,6 +46,7 @@
     "react-dom": "^17.0.1",
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
+    "shopify-buy": "^2.11.0",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
     "tailwindcss": "^2.0.2"
@@ -65,6 +67,7 @@
     "@types/lodash.throttle": "^4.1.6",
     "@types/node": "^14.14.16",
     "@types/react": "^17.0.0",
+    "deepmerge": "^4.2.2",
     "graphql": "^15.4.0",
     "husky": "^4.3.8",
     "lint-staged": "^10.5.3",

@@ -8,6 +8,7 @@ export interface State {
   displayToast: boolean
   modalView: string
   toastText: string
+  userAvatar: string
 }
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   modalView: 'LOGIN_VIEW',
   displayToast: false,
   toastText: '',
+  userAvatar: '',
 }
 
 type Action =

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useCommerce } from '.'
+import { useCommerce } from '..'
 
 export function formatPrice({
   amount,
