@@ -1,11 +1,9 @@
+import { SHOPIFY_CHECKOUT_ID_COOKIE, STORE_DOMAIN } from './const'
+
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
 import { handler as useUpdateItem } from './cart/use-update-item'
 import { handler as useRemoveItem } from './cart/use-remove-item'
-
-import { handler as useWishlist } from './wishlist/use-wishlist'
-import { handler as useWishlistAddItem } from './wishlist/use-add-item'
-import { handler as useWishlistRemoveItem } from './wishlist/use-remove-item'
 
 import { handler as useCustomer } from './customer/use-customer'
 import { handler as useSearch } from './product/use-search'
@@ -18,17 +16,16 @@ import fetcher from './fetcher'
 
 export const shopifyProvider = {
   locale: 'en-us',
-  cartCookie: 'sp_cartId',
+  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  storeDomain: STORE_DOMAIN,
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
-  wishlist: {
-    useWishlist,
-    useAddItem: useWishlistAddItem,
-    useRemoveItem: useWishlistRemoveItem,
-  },
   customer: { useCustomer },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
+  features: {
+    wishlist: false,
+  },
 }
 
 export type ShopifyProvider = typeof shopifyProvider

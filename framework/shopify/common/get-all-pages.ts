@@ -1,53 +1,39 @@
 import { getConfig, ShopifyConfig } from '../api'
-import { Page as PageType, PageEdge } from '../types'
-
-export type Page = PageType
-
-export const getAllPagesQuery = /* GraphQL */ `
-  query($first: Int!) {
-    pages(first: $first) {
-      edges {
-        node {
-          id
-          title
-          handle
-          body
-          bodySummary
-          url
-        }
-      }
-    }
-  }
-`
+import { PageEdge } from '../schema'
+import { getAllPagesQuery } from '../utils/queries'
 
 type Variables = {
   first?: number
-}
-
-type Options = {
-  variables?: Variables
-  config: ShopifyConfig
-  preview?: boolean
 }
 
 type ReturnType = {
   pages: Page[]
 }
 
-const getAllPages = async (options?: Options): Promise<ReturnType> => {
-  let { config, variables = { first: 250 } } = options || {}
+export type Page = {
+  id: string
+  name: string
+  url: string
+  sort_order?: number
+  body: string
+}
 
+const getAllPages = async (options?: {
+  variables?: Variables
+  config: ShopifyConfig
+  preview?: boolean
+}): Promise<ReturnType> => {
+  let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-
   const { data } = await config.fetch(getAllPagesQuery, { variables })
 
-  const pages = data.pages.edges.map(({ node }: PageEdge) => {
-    return {
+  const pages = data.pages?.edges?.map(
+    ({ node: { title: name, handle, ...node } }: PageEdge) => ({
       ...node,
-      name: node.handle,
-      url: `${config!.locale}/${node.handle}`,
-    }
-  })
+      url: `/${handle}`,
+      name,
+    })
+  )
 
   return { pages }
 }

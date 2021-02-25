@@ -1,30 +1,57 @@
+import type { MutationHook } from '@commerce/utils/types'
+import { CommerceError } from '@commerce/utils/errors'
+import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
+import useCart from './use-cart'
+import { Cart, CartItemBody } from '../types'
+import { checkoutLineItemAddMutation, getCheckoutId } from '../utils'
+import { checkoutToCart } from './utils'
+import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
 import { useCallback } from 'react'
-import { LineItemToAdd } from 'shopify-buy'
-import { useCommerce } from '../index'
 
-type Options = {
-  productId: number
-  variantId: string | number
+export default useAddItem as UseAddItem<typeof handler>
+
+export const handler: MutationHook<Cart, {}, CartItemBody> = {
+  fetchOptions: {
+    query: checkoutLineItemAddMutation,
+  },
+  async fetcher({ input: item, options, fetch }) {
+    if (
+      item.quantity &&
+      (!Number.isInteger(item.quantity) || item.quantity! < 1)
+    ) {
+      throw new CommerceError({
+        message: 'The item quantity has to be a valid integer greater than 0',
+      })
+    }
+
+    const { checkoutLineItemsAdd } = await fetch<
+      Mutation,
+      MutationCheckoutLineItemsAddArgs
+    >({
+      ...options,
+      variables: {
+        checkoutId: getCheckoutId(),
+        lineItems: [
+          {
+            variantId: item.variantId,
+            quantity: item.quantity ?? 1,
+          },
+        ],
+      },
+    })
+
+    return checkoutToCart(checkoutLineItemsAdd)
+  },
+  useHook: ({ fetch }) => () => {
+    const { mutate } = useCart()
+
+    return useCallback(
+      async function addItem(input) {
+        const data = await fetch({ input })
+        await mutate(data, false)
+        return data
+      },
+      [fetch, mutate]
+    )
+  },
 }
-
-const useAddItem = () => {
-  const { checkout, client, updateCheckout } = useCommerce()
-
-  return useCallback(
-    async function addItem(options: Options) {
-      const lineItems: LineItemToAdd[] = [
-        {
-          variantId: `${options.variantId}`,
-          quantity: 1,
-        },
-      ]
-
-      const cart = await client?.checkout.addLineItems(checkout.id, lineItems)
-      updateCheckout(cart)
-      return cart
-    },
-    [checkout, client]
-  )
-}
-
-export default useAddItem

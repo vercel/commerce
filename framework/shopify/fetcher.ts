@@ -1,51 +1,18 @@
-import { FetcherError } from '@commerce/utils/errors'
-import type { Fetcher } from '@commerce/utils/types'
+import { Fetcher } from '@commerce/utils/types'
+import { API_TOKEN, API_URL } from './const'
+import { handleFetchResponse } from './utils'
 
-async function getText(res: Response) {
-  try {
-    return (await res.text()) || res.statusText
-  } catch (error) {
-    return res.statusText
-  }
-}
-
-async function getError(res: Response) {
-  if (res.headers.get('Content-Type')?.includes('application/json')) {
-    const data = await res.json()
-    return new FetcherError({ errors: data.errors, status: res.status })
-  }
-  return new FetcherError({ message: await getText(res), status: res.status })
-}
-
-const fetcher: Fetcher = async ({
-  url,
-  query,
-  method = 'POST',
-  variables,
-  body: bodyObj,
-}) => {
-  // const config = getConfig()
-  // url = `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2021-01/graphql.json`
-
-  const hasBody = Boolean(variables || bodyObj)
-  const body = hasBody
-    ? JSON.stringify(variables ? { query, variables } : bodyObj)
-    : undefined
-  const headers = hasBody
-    ? {
-        'X-Shopify-Storefront-Access-Token': config.apiToken,
+const fetcher: Fetcher = async ({ method = 'POST', variables, query }) => {
+  return handleFetchResponse(
+    await fetch(API_URL, {
+      method,
+      body: JSON.stringify({ query, variables }),
+      headers: {
+        'X-Shopify-Storefront-Access-Token': API_TOKEN!,
         'Content-Type': 'application/json',
-      }
-    : undefined
-
-  const res = await fetch(url!, { method, body, headers })
-
-  if (res.ok) {
-    const { data } = await res.json()
-    return data
-  }
-
-  throw await getError(res)
+      },
+    })
+  )
 }
 
 export default fetcher

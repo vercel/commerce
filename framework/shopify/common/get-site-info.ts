@@ -1,29 +1,30 @@
-import { ShopifyConfig } from '../index'
+import getCategories, { Category } from '@framework/utils/get-categories'
+import getVendors, { Brands } from '@framework/utils/get-vendors'
 
-type Options = {
+import { getConfig, ShopifyConfig } from '../api'
+
+export type GetSiteInfoResult<
+  T extends { categories: any[]; brands: any[] } = {
+    categories: Category[]
+    brands: Brands
+  }
+> = T
+
+const getSiteInfo = async (options?: {
+  variables?: any
   config: ShopifyConfig
   preview?: boolean
-}
+}): Promise<GetSiteInfoResult> => {
+  let { config } = options ?? {}
 
-const getSiteInfo = async (options: Options) => {
-  // TODO
+  config = getConfig(config)
+
+  const categories = await getCategories(config)
+  const brands = await getVendors(config)
+
   return {
-    categories: [
-      {
-        path: '',
-        name: '',
-        entityId: 0,
-      },
-    ],
-    brands: [
-      {
-        node: {
-          path: '',
-          name: '',
-          entityId: 0,
-        },
-      },
-    ],
+    categories,
+    brands,
   }
 }
 

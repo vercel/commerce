@@ -1,47 +1,60 @@
-import { useCommerce } from '../index'
-import useCart, { UseCart, FetchCartInput } from '@commerce/cart/use-cart'
-import type { Cart } from '../types'
+import { useMemo } from 'react'
+import type { ShopifyProvider } from '..'
 
-// export default useCart as UseCart<typeof handler>
-export default useCart as UseCart
+import useCommerceCart, {
+  FetchCartInput,
+  UseCart,
+} from '@commerce/cart/use-cart'
 
-export const handler = () => {
-  const { checkout } = useCommerce()
-  const { lineItems, totalPriceV2 } = checkout || {}
+import { Cart } from '@commerce/types'
+import { SWRHook } from '@commerce/utils/types'
+import { checkoutCreate, checkoutToCart } from './utils'
+import getCheckoutQuery from '../utils/queries/get-checkout-query'
 
-  console.log(checkout)
+export default useCommerceCart as UseCart<ShopifyProvider>
 
-  return {
-    data: {
-      subTotal: totalPriceV2?.amount || 0,
-      total: totalPriceV2?.amount || 0,
-      currency: {
-        code: '',
-      },
-      line_items:
-        lineItems?.map((item) => {
-          return [
-            {
-              id: item.id,
-              name: item.title,
-              quantity: item.quantity,
+export const handler: SWRHook<
+  Cart | null,
+  {},
+  FetchCartInput,
+  { isEmpty?: boolean }
+> = {
+  fetchOptions: {
+    query: getCheckoutQuery,
+  },
+  async fetcher({ input: { cartId: checkoutId }, options, fetch }) {
+    let checkout
+    if (checkoutId) {
+      const data = await fetch({
+        ...options,
+        variables: {
+          checkoutId,
+        },
+      })
+      checkout = data.node
+    }
+
+    if (checkout?.completedAt || !checkoutId) {
+      checkout = await checkoutCreate(fetch)
+    }
+
+    return checkoutToCart({ checkout })
+  },
+  useHook: ({ useData }) => (input) => {
+    const response = useData({
+      swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
+    })
+    return useMemo(
+      () =>
+        Object.create(response, {
+          isEmpty: {
+            get() {
+              return (response.data?.lineItems.length ?? 0) <= 0
             },
-          ]
-        }) || [],
-      items:
-        lineItems?.map((item) => {
-          return {
-            id: item.id,
-            name: item.title,
-            images: [{ url: '/jacket.png' }],
-            url: '/',
-            quantity: item.quantity,
-            productId: item.id,
-            variantId: item.id,
-          }
-        }) || [],
-    },
-    isEmpty: false,
-    isLoading: false,
-  }
+            enumerable: true,
+          },
+        }),
+      [response]
+    )
+  },
 }
