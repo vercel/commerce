@@ -1,17 +1,16 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
-import { ProductEdge } from '@framework/schema'
+import { ProductEdge } from '../schema'
 import {
   getAllProductsQuery,
   getSearchVariables,
   normalizeProduct,
-} from '@framework/utils'
-import type { ShopifyProvider } from '..'
+} from '../utils'
 
 import { Product } from '@commerce/types'
 
-export default useSearch as UseSearch<ShopifyProvider>
+export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
   search?: string
@@ -40,7 +39,10 @@ export const handler: SWRHook<
     })
     const edges = resp.products?.edges
     return {
-      products: edges?.map(({ node: p }: ProductEdge) => normalizeProduct(p)),
+      products: edges?.map(({ node: p }: ProductEdge) =>
+        // TODO: Fix this product type
+        normalizeProduct(p as any)
+      ),
       found: !!edges?.length,
     }
   },

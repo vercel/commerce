@@ -1,5 +1,5 @@
-import getCategories, { Category } from '@framework/utils/get-categories'
-import getVendors, { Brands } from '@framework/utils/get-vendors'
+import getCategories, { Category } from '../utils/get-categories'
+import getVendors, { Brands } from '../utils/get-vendors'
 
 import { getConfig, ShopifyConfig } from '../api'
 

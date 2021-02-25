@@ -2,7 +2,7 @@ import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, ShopifyConfig } from '../api'
 import { ProductEdge } from '../schema'
 import { getAllProductsQuery } from '../utils/queries'
-import { normalizeProduct } from '@framework/utils/normalize'
+import { normalizeProduct } from '../utils/normalize'
 import { Product } from '@commerce/types'
 
 type Variables = {

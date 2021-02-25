@@ -5,7 +5,7 @@ import {
   API_TOKEN,
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-} from '@framework/const'
+} from '../const'
 
 if (!API_URL) {
   console.log(process.env)

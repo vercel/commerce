@@ -8,9 +8,9 @@ import {
   CustomerUserError,
   Mutation,
   MutationCheckoutCreateArgs,
-} from '@framework/schema'
+} from '../schema'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import { setCustomerToken } from '@framework/utils'
+import { setCustomerToken } from '../utils'
 
 export default useLogin as UseLogin<typeof handler>
 

@@ -2,7 +2,7 @@ import type { GraphQLFetcher } from '@commerce/api'
 import fetch from './fetch'
 
 import { API_URL, API_TOKEN } from '../../const'
-import { getError } from '@framework/utils/handle-fetch-response'
+import { getError } from '../../utils/handle-fetch-response'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,

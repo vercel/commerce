@@ -1,4 +1,4 @@
-import { ProductEdge } from '@framework/schema'
+import { ProductEdge } from '../../schema'
 import { ShopifyConfig } from '..'
 
 const fetchAllProducts = async ({

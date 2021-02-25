@@ -1,5 +1,5 @@
-import { getConfig, ShopifyConfig } from '@framework/api'
-import getCustomerIdQuery from '@framework/utils/queries/get-customer-id-query'
+import { getConfig, ShopifyConfig } from '../api'
+import getCustomerIdQuery from '../utils/queries/get-customer-id-query'
 import Cookies from 'js-cookie'
 
 async function getCustomerId({

@@ -1,5 +1,5 @@
-import { ShopifyConfig } from '@framework/api'
-import { CollectionEdge } from '@framework/schema'
+import { ShopifyConfig } from '../api'
+import { CollectionEdge } from '../schema'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
 
 export type Category = {

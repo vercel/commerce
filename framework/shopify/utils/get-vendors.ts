@@ -1,5 +1,5 @@
-import { ShopifyConfig } from '@framework/api'
-import fetchAllProducts from '@framework/api/utils/fetch-all-products'
+import { ShopifyConfig } from '../api'
+import fetchAllProducts from '../api/utils/fetch-all-products'
 import getAllProductVendors from './queries/get-all-product-vendors-query'
 
 export type BrandNode = {

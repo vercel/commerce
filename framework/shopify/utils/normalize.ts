@@ -7,7 +7,7 @@ import {
   ProductVariantConnection,
   ProductOption,
   MoneyV2,
-} from '@framework/schema'
+} from '../schema'
 
 import type { Cart, LineItem } from '../types'
 

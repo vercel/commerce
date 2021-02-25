@@ -1,4 +1,4 @@
-import { CollectionEdge } from '@framework/schema'
+import { CollectionEdge } from '../schema'
 import { getConfig, ShopifyConfig } from '../api'
 import getAllCollectionsQuery from '../utils/queries/get-all-collections-query'
 

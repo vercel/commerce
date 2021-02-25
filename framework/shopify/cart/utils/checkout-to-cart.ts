@@ -6,8 +6,8 @@ import {
   CheckoutLineItemsRemovePayload,
   CheckoutLineItemsUpdatePayload,
   Maybe,
-} from '@framework/schema'
-import { normalizeCart } from '@framework/utils'
+} from '../../schema'
+import { normalizeCart } from '../../utils'
 
 export type CheckoutPayload =
   | CheckoutLineItemsAddPayload

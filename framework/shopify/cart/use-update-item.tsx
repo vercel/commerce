@@ -15,10 +15,7 @@ import { handler as removeItemHandler } from './use-remove-item'
 import type { Cart, LineItem, UpdateCartItemBody } from '../types'
 import { checkoutToCart } from './utils'
 import { getCheckoutId, checkoutLineItemUpdateMutation } from '../utils'
-import {
-  Mutation,
-  MutationCheckoutLineItemsUpdateArgs,
-} from '@framework/schema'
+import { Mutation, MutationCheckoutLineItemsUpdateArgs } from '../schema'
 
 export type UpdateItemInput<T = any> = T extends LineItem
   ? Partial<UpdateItemInputBase<LineItem>>

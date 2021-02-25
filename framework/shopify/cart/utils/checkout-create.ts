@@ -1,9 +1,9 @@
 import {
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CHECKOUT_URL_COOKIE,
-} from '@framework/const'
+} from '../../const'
 
-import checkoutCreateMutation from '@framework/utils/mutations/checkout-create'
+import checkoutCreateMutation from '../../utils/mutations/checkout-create'
 import Cookies from 'js-cookie'
 
 export const checkoutCreate = async (fetch: any) => {

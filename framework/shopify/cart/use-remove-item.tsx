@@ -13,13 +13,10 @@ import useRemoveItem, {
 } from '@commerce/cart/use-remove-item'
 
 import useCart from './use-cart'
-import { checkoutLineItemRemoveMutation, getCheckoutId } from '@framework/utils'
+import { checkoutLineItemRemoveMutation, getCheckoutId } from '../utils'
 import { checkoutToCart } from './utils'
-import { Cart, LineItem } from '@framework/types'
-import {
-  Mutation,
-  MutationCheckoutLineItemsRemoveArgs,
-} from '@framework/schema'
+import { Cart, LineItem } from '../types'
+import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../schema'
 import { RemoveCartItemBody } from '@commerce/types'
 
 export type RemoveItemFn<T = any> = T extends LineItem
