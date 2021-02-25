@@ -24,7 +24,8 @@ const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
     checkout = await checkoutCreate(fetch)
   }
 
-  return checkoutToCart({ checkout })
+  // TODO: Fix this type
+  return checkoutToCart({ checkout } as any)
 }
 
 export default fetcher

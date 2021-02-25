@@ -1,5 +1,7 @@
+// TODO: replace this hook and other wishlist hooks with a handler, or remove them if
+// Shopify doesn't have a wishlist
+
 import { HookFetcher } from '@commerce/utils/types'
-import { SwrOptions } from '@commerce/utils/use-data'
 import useCommerceWishlist from '@commerce/wishlist/use-wishlist'
 import { Product } from '../schema'
 import useCustomer from '../customer/use-customer'
@@ -31,7 +33,8 @@ export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = () => {
 
 export function extendHook(
   customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
+  // swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
+  swrOptions?: any
 ) {
   const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
     return { data: null }

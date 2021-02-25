@@ -39,5 +39,3 @@ module.exports = withCommerceConfig({
     ].filter((x) => x)
   },
 })
-
-console.log('configs', module.exports)

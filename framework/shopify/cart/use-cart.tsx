@@ -1,6 +1,4 @@
 import { useMemo } from 'react'
-import type { ShopifyProvider } from '..'
-
 import useCommerceCart, {
   FetchCartInput,
   UseCart,
@@ -11,7 +9,7 @@ import { SWRHook } from '@commerce/utils/types'
 import { checkoutCreate, checkoutToCart } from './utils'
 import getCheckoutQuery from '../utils/queries/get-checkout-query'
 
-export default useCommerceCart as UseCart<ShopifyProvider>
+export default useCommerceCart as UseCart<typeof handler>
 
 export const handler: SWRHook<
   Cart | null,
@@ -38,7 +36,8 @@ export const handler: SWRHook<
       checkout = await checkoutCreate(fetch)
     }
 
-    return checkoutToCart({ checkout })
+    // TODO: Fix this type
+    return checkoutToCart({ checkout } as any)
   },
   useHook: ({ useData }) => (input) => {
     const response = useData({

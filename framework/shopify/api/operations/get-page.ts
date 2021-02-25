@@ -1,7 +1,5 @@
+import { Page } from '../../schema'
 import { ShopifyConfig, getConfig } from '..'
-import type { Page } from '../../types'
-
-export type { Page }
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
