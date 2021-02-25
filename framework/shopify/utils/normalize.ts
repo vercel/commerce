@@ -41,7 +41,6 @@ const normalizeProductImages = ({ edges }: ImageConnection) =>
   }))
 
 const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
-  console.log(edges)
   return edges?.map(({ node: { id, selectedOptions } }) => ({
     id,
     options: selectedOptions.map(({ name, value }: SelectedOption) =>

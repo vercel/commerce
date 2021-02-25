@@ -15,8 +15,6 @@ import { setCustomerToken } from '@framework/utils'
 export default useLogin as UseLogin<typeof handler>
 
 const getErrorMessage = ({ code, message }: CustomerUserError) => {
-  console.log(code)
-
   switch (code) {
     case 'UNIDENTIFIED_CUSTOMER':
       message = 'Cannot find an account that matches the provided credentials'

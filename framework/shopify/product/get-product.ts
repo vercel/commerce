@@ -1,10 +1,6 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, ShopifyConfig } from '../api'
-import { Product } from '../schema'
-import getProductQuery from '../utils/queries/get-product-query'
-import { normalizeProduct } from '@framework/utils/normalize'
-
-export type ProductNode = Product
+import { normalizeProduct, getProductQuery } from '../utils'
 
 type Variables = {
   slug: string

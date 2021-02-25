@@ -25,14 +25,12 @@ const getAllPages = async (options?: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-
   const { data } = await config.fetch(getAllPagesQuery, { variables })
-  const edges = data.pages?.edges
 
-  const pages = edges?.map(
-    ({ node: { title: name, handle: url, ...node } }: PageEdge) => ({
+  const pages = data.pages?.edges?.map(
+    ({ node: { title: name, handle, ...node } }: PageEdge) => ({
       ...node,
-      url,
+      url: `/${handle}`,
       name,
     })
   )
