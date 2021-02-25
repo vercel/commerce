@@ -1060,13 +1060,6 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.memoize@^4.1.6":
-  version "4.1.6"
-  resolved "https://registry.yarnpkg.com/@types/lodash.memoize/-/lodash.memoize-4.1.6.tgz#3221f981790a415cab1a239f25c17efd8b604c23"
-  integrity sha512-mYxjKiKzRadRJVClLKxS4wb3Iy9kzwJ1CkbyKiadVxejnswnRByyofmPMscFKscmYpl36BEEhCMPuWhA1R/1ZQ==
-  dependencies:
-    "@types/lodash" "*"
-
 "@types/lodash.random@^3.2.6":
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.random/-/lodash.random-3.2.6.tgz#64b08abad168dca39c778ed40cce75b2f9e168eb"
@@ -4243,11 +4236,6 @@ lodash.isstring@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
   integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
-
-lodash.memoize@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
-  integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
 lodash.once@^4.0.0:
   version "4.1.1"
