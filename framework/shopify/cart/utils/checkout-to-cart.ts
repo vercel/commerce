@@ -1,4 +1,4 @@
-import { Cart } from '@commerce/types'
+import { Cart } from '../../types'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
 
 import {

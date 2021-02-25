@@ -1,6 +1,6 @@
-import type { Wishlist as BCWishlist } from '@framework/api/wishlist'
-import type { Customer as BCCustomer } from '@framework/api/customers'
-import type { SearchProductsData as BCSearchProductsData } from '@framework/api/catalog/products'
+import type { Wishlist as BCWishlist } from '../bigcommerce/api/wishlist'
+import type { Customer as BCCustomer } from '../bigcommerce/api/customers'
+import type { SearchProductsData as BCSearchProductsData } from '../bigcommerce/api/catalog/products'
 
 export type Discount = {
   // The value of the discount, can be an amount or percentage
