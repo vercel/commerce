@@ -44,6 +44,7 @@
     "react-dom": "^17.0.1",
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
+    "shopify-buy": "^2.11.0",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
     "tailwindcss": "^2.0.2"
