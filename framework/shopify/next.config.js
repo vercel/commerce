@@ -1,10 +1,7 @@
-const providerConfig = require('./config.json')
+const commerce = require('./commerce.config.json')
 
 module.exports = {
-  commerce: {
-    provider: 'shopify',
-    ...providerConfig,
-  },
+  commerce,
   images: {
     domains: ['cdn.shopify.com'],
   },

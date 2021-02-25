@@ -1,10 +1,7 @@
-const providerConfig = require('./config.json')
+const commerce = require('./commerce.config.json')
 
 module.exports = {
-  commerce: {
-    provider: 'bigcommerce',
-    ...providerConfig,
-  },
+  commerce,
   images: {
     domains: ['cdn11.bigcommerce.com'],
   },

@@ -1,6 +1,6 @@
+const commerce = require('./commerce.config.json')
 const withCommerceConfig = require('./framework/commerce/with-config')
 
-const commerce = { provider: 'shopify' }
 const isBC = commerce.provider === 'bigcommerce'
 const isShopify = commerce.provider === 'shopify'
 
@@ -39,3 +39,5 @@ module.exports = withCommerceConfig({
     ].filter((x) => x)
   },
 })
+
+console.log('configs', module.exports)
