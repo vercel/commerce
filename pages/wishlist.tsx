@@ -35,6 +35,7 @@ export async function getStaticProps({
 
 export default function Wishlist() {
   const { data: customer } = useCustomer()
+  // @ts-ignore Shopify - Fix this types
   const { data, isLoading, isEmpty } = useWishlist()
   const router = useRouter()
 
@@ -57,6 +58,7 @@ export default function Wishlist() {
             </div>
           ) : (
             data &&
+            // @ts-ignore Shopify - Fix this types
             data.items?.map((item) => (
               <WishlistCard key={item.id} product={item as any} />
             ))

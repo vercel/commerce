@@ -3,7 +3,7 @@ import { CollectionEdge } from '../schema'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
 
 export type Category = {
-  endityId: string
+  entityId: string
   name: string
   path: string
 }
