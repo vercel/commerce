@@ -3,14 +3,11 @@ import fetchGraphqlApi from './utils/fetch-graphql-api'
 
 export interface ShopifyConfig extends CommerceAPIConfig {}
 
-const API_URL =
-  process.env.SHOPIFY_STORE_DOMAIN ||
-  process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
-const API_TOKEN =
-  process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN ||
-  process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+const API_URL = process.env.SHOPIFY_STORE_DOMAIN
+const API_TOKEN = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
 if (!API_URL) {
+  console.log(process.env)
   throw new Error(
     `The environment variable SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
   )
