@@ -1,8 +1,15 @@
 import { useCommerce } from '../index'
+import useCart, { UseCart, FetchCartInput } from '@commerce/cart/use-cart'
+import type { Cart } from '../types'
 
-export function emptyHook() {
+// export default useCart as UseCart<typeof handler>
+export default useCart as UseCart
+
+export const handler = () => {
   const { checkout } = useCommerce()
   const { lineItems, totalPriceV2 } = checkout || {}
+
+  console.log(checkout)
 
   return {
     data: {
@@ -38,5 +45,3 @@ export function emptyHook() {
     isLoading: false,
   }
 }
-
-export default emptyHook

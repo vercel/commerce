@@ -21,7 +21,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   fetchOptions
 ) => {
   const config = getConfig()
-  const url = `https://${config.commerceUrl}/api/2020-10/graphql.json`
+  const url = `https://${config.commerceUrl}/api/2021-01/graphql.json`
 
   const res = await fetch(url, {
     ...fetchOptions,

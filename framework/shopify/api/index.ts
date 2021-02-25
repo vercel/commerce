@@ -3,7 +3,6 @@ import fetchGraphqlApi from './utils/fetch-graphql-api'
 
 export interface ShopifyConfig extends CommerceAPIConfig {}
 
-// TODO(bc)
 const API_URL =
   process.env.SHOPIFY_STORE_DOMAIN ||
   process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN

@@ -4,7 +4,7 @@
 
 const merge = require('deepmerge')
 
-const PROVIDERS = ['bigcommerce']
+const PROVIDERS = ['bigcommerce', 'shopify']
 
 function getProviderName() {
   return process.env.BIGCOMMERCE_STOREFRONT_API_URL ? 'bigcommerce' : null
