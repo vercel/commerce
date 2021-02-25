@@ -77,12 +77,12 @@ Main folder and its exposed functions
 - `config.json`
 - README.md
 
-#### Example of correct usage of Commece Framework
+#### Example of correct usage of Commerce Framework
 
 ```js
 import { useUI } from '@components/ui'
 import { useCustomer } from '@framework/customer'
-import { useAddItem, useWishlist, useRemoveItem } from '@framework/wishlist'
+import { useWishlist, useAddItem, useRemoveItem } from '@framework/wishlist'
 ```
 
 ## Config
@@ -131,6 +131,7 @@ BIGCOMMERCE_STOREFRONT_API_TOKEN=<>
 BIGCOMMERCE_STORE_API_URL=<>
 BIGCOMMERCE_STORE_API_TOKEN=<>
 BIGCOMMERCE_STORE_API_CLIENT_ID=<>
+BIGCOMMERCE_CHANNEL_ID=<>
 ```
 
 If your project was started with a "Deploy with Vercel" button, you can use Vercel's CLI to retrieve these credentials.
