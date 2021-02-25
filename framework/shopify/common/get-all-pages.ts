@@ -1,5 +1,5 @@
 import { getConfig, ShopifyConfig } from '../api'
-import { Page, PageEdge } from '../schema'
+import { PageEdge } from '../schema'
 import { getAllPagesQuery } from '../utils/queries'
 
 type Variables = {
@@ -8,6 +8,14 @@ type Variables = {
 
 type ReturnType = {
   pages: Page[]
+}
+
+export type Page = {
+  id: string
+  name: string
+  url: string
+  sort_order?: number
+  body: string
 }
 
 const getAllPages = async (options?: {
@@ -21,10 +29,13 @@ const getAllPages = async (options?: {
   const { data } = await config.fetch(getAllPagesQuery, { variables })
   const edges = data.pages?.edges
 
-  const pages = edges?.map(({ node }: PageEdge) => ({
-    ...node,
-    url: node.handle,
-  }))
+  const pages = edges?.map(
+    ({ node: { title: name, handle: url, ...node } }: PageEdge) => ({
+      ...node,
+      url,
+      name,
+    })
+  )
 
   return { pages }
 }

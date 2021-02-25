@@ -1,10 +1,19 @@
+import { Product } from '@commerce/types'
 import { getConfig, ShopifyConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
 import { ProductEdge } from '../schema'
 import getAllProductsPathsQuery from '../utils/queries/get-all-products-paths-query'
 
+type ProductPath = {
+  path: string
+}
+
+export type ProductPathNode = {
+  node: ProductPath
+}
+
 type ReturnType = {
-  products: any[]
+  products: ProductPathNode[]
 }
 
 const getAllProductPaths = async (options?: {

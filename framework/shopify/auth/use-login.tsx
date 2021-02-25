@@ -4,14 +4,12 @@ import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
 import {
-  CustomerAccessToken,
   CustomerAccessTokenCreateInput,
-  CustomerAccessTokenCreatePayload,
   CustomerUserError,
   Mutation,
   MutationCheckoutCreateArgs,
 } from '@framework/schema'
-import useLogin, { UseLogin } from '@commerce/use-login'
+import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import { setCustomerToken } from '@framework/utils'
 
 export default useLogin as UseLogin<typeof handler>

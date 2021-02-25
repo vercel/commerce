@@ -1,15 +1,13 @@
-import { GraphQLFetcherResult } from '@commerce/api'
-
 import { getConfig, ShopifyConfig } from '../api'
-import getPageQuery from '@framework/utils/queries/get-page-query'
-import { Page, PageEdge } from '@framework/schema'
+import getPageQuery from '../utils/queries/get-page-query'
+import { Page } from './get-all-pages'
 
 type Variables = {
   slug: string
 }
 
 type ReturnType = {
-  page: any
+  page: Page
 }
 
 const getPage = async (options: {
@@ -20,16 +18,17 @@ const getPage = async (options: {
   let { config, variables } = options ?? {}
   config = getConfig(config)
 
-  const { data }: GraphQLFetcherResult = await config.fetch(getPageQuery, {
+  const { data } = await config.fetch(getPageQuery, {
     variables,
   })
 
-  const page: Page = data.pageByHandle
+  const page = data.pageByHandle
 
   return {
     page: page
       ? {
           ...page,
+          name: page.title,
           url: page?.handle,
         }
       : null,

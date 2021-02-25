@@ -6,9 +6,6 @@ export const getAllPagesQuery = /* GraphQL */ `
           id
           title
           handle
-          body
-          bodySummary
-          url
         }
       }
     }

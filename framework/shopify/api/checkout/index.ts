@@ -21,16 +21,19 @@ const checkoutApi: ShopifyApiHandler<any> = async (req, res, config) => {
 
   const { cookies } = req
   const checkoutUrl = cookies[SHOPIFY_CHECKOUT_URL_COOKIE]
+  const customerCookie = cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE]
 
-  try {
-    await config.fetch(associateCustomerWithCheckoutMutation, {
-      variables: {
-        checkoutId: cookies[SHOPIFY_CHECKOUT_ID_COOKIE],
-        customerAccessToken: cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE],
-      },
-    })
-  } catch (error) {
-    console.error(error)
+  if (customerCookie) {
+    try {
+      await config.fetch(associateCustomerWithCheckoutMutation, {
+        variables: {
+          checkoutId: cookies[SHOPIFY_CHECKOUT_ID_COOKIE],
+          customerAccessToken: cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE],
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   if (checkoutUrl) {

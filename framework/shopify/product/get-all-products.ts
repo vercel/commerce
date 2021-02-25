@@ -1,10 +1,9 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, ShopifyConfig } from '../api'
-import { Product, ProductEdge } from '../schema'
+import { ProductEdge } from '../schema'
 import { getAllProductsQuery } from '../utils/queries'
 import { normalizeProduct } from '@framework/utils/normalize'
-
-export type ProductNode = Product
+import { Product } from '@commerce/types'
 
 type Variables = {
   first?: number
@@ -12,7 +11,7 @@ type Variables = {
 }
 
 type ReturnType = {
-  products: any[]
+  products: Product[]
 }
 
 const getAllProducts = async (options: {
@@ -28,9 +27,10 @@ const getAllProducts = async (options: {
     { variables }
   )
 
-  const products = data.products?.edges?.map(({ node: p }: ProductEdge) =>
-    normalizeProduct(p)
-  )
+  const products =
+    data.products?.edges?.map(({ node: p }: ProductEdge) =>
+      normalizeProduct(p)
+    ) ?? []
 
   return {
     products,

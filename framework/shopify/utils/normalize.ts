@@ -77,7 +77,7 @@ export function normalizeProduct(productNode: ShopifyProduct): any {
     slug: handle?.replace(/^\/+|\/+$/g, ''),
     price: money(priceRange?.minVariantPrice),
     images: normalizeProductImages(images),
-    variants: variants ? normalizeProductVariants(variants) : null,
+    variants: variants ? normalizeProductVariants(variants) : [],
     options: options ? options.map((o) => normalizeProductOption(o)) : [],
     ...rest,
   }

@@ -7,7 +7,6 @@ export const getPageQuery = /* GraphQL */ `
           title
           handle
           body
-          bodySummary
           url
         }
       }
