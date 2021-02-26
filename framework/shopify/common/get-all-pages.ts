@@ -25,12 +25,14 @@ const getAllPages = async (options?: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
+  const { locale = 'en-US' } = config
+
   const { data } = await config.fetch(getAllPagesQuery, { variables })
 
   const pages = data.pages?.edges?.map(
     ({ node: { title: name, handle, ...node } }: PageEdge) => ({
       ...node,
-      url: `/${handle}`,
+      url: `/${locale}/${handle}`,
       name,
     })
   )

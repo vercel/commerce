@@ -8,7 +8,6 @@ import {
 } from '../const'
 
 if (!API_URL) {
-  console.log(process.env)
   throw new Error(
     `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
   )

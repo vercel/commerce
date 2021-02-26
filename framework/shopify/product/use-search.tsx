@@ -23,6 +23,7 @@ export type SearchProductsData = {
   products: Product[]
   found: boolean
 }
+
 export const handler: SWRHook<
   SearchProductsData,
   SearchProductsInput,
