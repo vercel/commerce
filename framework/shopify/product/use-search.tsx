@@ -42,7 +42,7 @@ export const handler: SWRHook<
       variables: getSearchVariables(input),
     })
 
-    let edges = []
+    let edges
 
     if (categoryId) {
       edges = data.node?.products?.edges ?? []
@@ -52,7 +52,7 @@ export const handler: SWRHook<
         )
       }
     } else {
-      edges = data.products?.edges
+      edges = data.products?.edges ?? []
     }
 
     return {
