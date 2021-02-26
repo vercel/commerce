@@ -37,7 +37,7 @@ export const handler: SWRHook<
     const { categoryId, brandId } = input
 
     const data = await fetch({
-      query: categoryId ? getCollectionProductsQuery : options?.query,
+      query: categoryId ? getCollectionProductsQuery : options.query,
       method: options?.method,
       variables: getSearchVariables(input),
     })
@@ -56,10 +56,8 @@ export const handler: SWRHook<
     }
 
     return {
-      products: edges?.map(({ node }: ProductEdge) =>
-        normalizeProduct(node as any)
-      ),
-      found: !!edges?.length,
+      products: edges.map(({ node }: ProductEdge) => normalizeProduct(node)),
+      found: !!edges.length,
     }
   },
   useHook: ({ useData }) => (input = {}) => {
