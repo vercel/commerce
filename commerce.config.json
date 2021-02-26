@@ -2,6 +2,6 @@
   "provider": "bigcommerce",
   "features": {
     "wishlist": true,
-    "customCheckout": true
+    "customCheckout": false
   }
 }
