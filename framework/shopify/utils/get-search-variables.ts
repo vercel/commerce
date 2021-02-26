@@ -2,9 +2,9 @@ import getSortVariables from './get-sort-variables'
 import type { SearchProductsInput } from '../product/use-search'
 
 export const getSearchVariables = ({
-  categoryId,
   brandId,
   search,
+  categoryId,
   sort,
 }: SearchProductsInput) => {
   let query = ''
@@ -13,17 +13,14 @@ export const getSearchVariables = ({
     query += `product_type:${search} OR title:${search} OR tag:${search}`
   }
 
-  if (categoryId) {
-    query += `tag:${categoryId}`
-  }
-
   if (brandId) {
-    query += `${categoryId ? ' AND ' : ''}vendor:${brandId}`
+    query += `${search ? ' AND ' : ''}vendor:${brandId}`
   }
 
   return {
+    categoryId,
     query,
-    ...getSortVariables(sort),
+    ...getSortVariables(sort, !!categoryId),
   }
 }
 

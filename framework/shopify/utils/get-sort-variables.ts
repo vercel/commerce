@@ -1,4 +1,4 @@
-const getSortVariables = (sort?: string) => {
+const getSortVariables = (sort?: string, isCategory = false) => {
   let output = {}
   switch (sort) {
     case 'price-asc':
@@ -21,7 +21,7 @@ const getSortVariables = (sort?: string) => {
       break
     case 'latest-desc':
       output = {
-        sortKey: 'CREATED_AT',
+        sortKey: isCategory ? 'CREATED' : 'CREATED_AT',
         reverse: true,
       }
       break
