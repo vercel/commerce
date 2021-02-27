@@ -8,7 +8,6 @@
     "analyze": "BUNDLE_ANALYZE=both yarn build",
     "prettier-fix": "prettier --write .",
     "find:unused": "next-unused",
-    "commerce": "node scripts/commerce.js",
     "generate": "graphql-codegen",
     "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
   },
