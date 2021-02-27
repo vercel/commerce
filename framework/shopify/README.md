@@ -24,18 +24,14 @@ Collection of hooks and data fetching functions to integrate Shopify in a React 
 
 ## Getting Started
 
-1. Install dependencies:
-
-2. Environment variables need to be set:
+1. Environment variables need to be set:
 
 ```
-SHOPIFY_STORE_DOMAIN=
-SHOPIFY_STOREFRONT_ACCESS_TOKEN=
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=
 NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=
 ```
 
-3. Point the framework to `shopify` by updating `tsconfig.json`:
+2. Point the framework to `shopify` by updating `tsconfig.json`:
 
 ```
 "@framework/*": ["framework/shopify/*"],
