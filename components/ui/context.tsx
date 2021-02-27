@@ -59,7 +59,12 @@ type Action =
       value: string
     }
 
-type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
+type MODAL_VIEWS =
+  | 'SIGNUP_VIEW'
+  | 'LOGIN_VIEW'
+  | 'FORGOT_VIEW'
+  | 'NEW_SHIPPING_ADDRESS'
+  | 'NEW_PAYMENT_METHOD'
 type ToastText = string
 
 export const UIContext = React.createContext<State | any>(initialState)
