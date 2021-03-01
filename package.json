@@ -16,10 +16,6 @@
   "engines": {
     "node": "14.x"
   },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
-  },
   "dependencies": {
     "@reach/portal": "^0.11.2",
     "@vercel/fetch": "^6.1.0",
@@ -74,7 +70,7 @@
     "next-unused": "^0.0.3",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.1",
     "typescript": "^4.0.3"
   },
   "resolutions": {
