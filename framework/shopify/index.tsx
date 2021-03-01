@@ -28,7 +28,8 @@ export type ShopifyProps = {
 export function CommerceProvider({ children, ...config }: ShopifyProps) {
   return (
     <CoreCommerceProvider
-      provider={shopifyProvider}
+      // TODO: Fix this type
+      provider={shopifyProvider as any}
       config={{ ...shopifyConfig, ...config }}
     >
       {children}

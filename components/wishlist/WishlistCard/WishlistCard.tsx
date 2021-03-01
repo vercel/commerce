@@ -22,6 +22,7 @@ const WishlistCard: FC<Props> = ({ product }) => {
     baseAmount: product.prices?.retailPrice?.value,
     currencyCode: product.prices?.price?.currencyCode!,
   })
+  // @ts-ignore Wishlist is not always enabled
   const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
   const [loading, setLoading] = useState(false)
   const [removing, setRemoving] = useState(false)

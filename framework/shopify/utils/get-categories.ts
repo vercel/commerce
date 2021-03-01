@@ -3,7 +3,7 @@ import { CollectionEdge } from '../schema'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
 
 export type Category = {
-  endityId: string
+  entityId: string
   name: string
   path: string
 }
@@ -17,8 +17,8 @@ const getCategories = async (config: ShopifyConfig): Promise<Category[]> => {
 
   return (
     data.collections?.edges?.map(
-      ({ node: { title: name, handle } }: CollectionEdge) => ({
-        entityId: handle,
+      ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({
+        entityId,
         name,
         path: `/${handle}`,
       })

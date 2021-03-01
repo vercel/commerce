@@ -4,7 +4,7 @@ import useCommerceCart, {
   UseCart,
 } from '@commerce/cart/use-cart'
 
-import { Cart } from '@commerce/types'
+import { Cart } from '../types'
 import { SWRHook } from '@commerce/utils/types'
 import { checkoutCreate, checkoutToCart } from './utils'
 import getCheckoutQuery from '../utils/queries/get-checkout-query'

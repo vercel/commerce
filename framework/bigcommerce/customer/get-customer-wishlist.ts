@@ -68,14 +68,15 @@ async function getCustomerWishlist({
       const productsById = graphqlData.products.reduce<{
         [k: number]: ProductEdge
       }>((prods, p) => {
-        prods[Number(p.node.entityId)] = p as any
+        prods[Number(p.id)] = p as any
         return prods
       }, {})
       // Populate the wishlist items with the graphql products
       wishlist.items.forEach((item) => {
         const product = item && productsById[item.product_id!]
         if (item && product) {
-          item.product = product.node
+          // @ts-ignore Fix this type when the wishlist type is properly defined
+          item.product = product
         }
       })
     }

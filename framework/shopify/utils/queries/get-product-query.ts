@@ -32,6 +32,7 @@ const getProductQuery = /* GraphQL */ `
           node {
             id
             title
+            sku
             selectedOptions {
               name
               value

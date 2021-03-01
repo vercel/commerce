@@ -1,6 +1,7 @@
 import {
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CHECKOUT_URL_COOKIE,
+  SHOPIFY_COOKIE_EXPIRE,
 } from '../../const'
 
 import checkoutCreateMutation from '../../utils/mutations/checkout-create'
@@ -15,8 +16,11 @@ export const checkoutCreate = async (fetch: any) => {
   const checkoutId = checkout?.id
 
   if (checkoutId) {
-    Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId)
-    Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl)
+    const options = {
+      expires: SHOPIFY_COOKIE_EXPIRE,
+    }
+    Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId, options)
+    Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options)
   }
 
   return checkout
