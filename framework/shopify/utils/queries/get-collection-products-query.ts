@@ -1,16 +1,23 @@
-import { productsFragment } from './get-all-products-query'
+import { productConnection } from './get-all-products-query'
 
 const getCollectionProductsQuery = /* GraphQL */ `
   query getProductsFromCollection(
-    $categoryHandle: String!
+    $categoryId: ID!
     $first: Int = 250
-    $query: String = ""
-    $sortKey: ProductSortKeys = RELEVANCE
+    $sortKey: ProductCollectionSortKeys = RELEVANCE
     $reverse: Boolean = false
   ) {
-    collectionByHandle(handle: $categoryHandle)
-    {
-        ${productsFragment}
+    node(id: $categoryId) {
+      id
+      ... on Collection {
+        products(
+          first: $first
+          sortKey: $sortKey
+          reverse: $reverse
+        ) {
+          ${productConnection}
+        }
+      }
     }
   }
 `

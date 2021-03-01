@@ -1,3 +1,5 @@
+import { Product } from '@commerce/types'
+
 import {
   Product as ShopifyProduct,
   Checkout,
@@ -5,8 +7,8 @@ import {
   SelectedOption,
   ImageConnection,
   ProductVariantConnection,
-  ProductOption,
   MoneyV2,
+  ProductOption,
 } from '../schema'
 
 import type { Cart, LineItem } from '../types'
@@ -19,18 +21,26 @@ const money = ({ amount, currencyCode }: MoneyV2) => {
 }
 
 const normalizeProductOption = ({
+  id,
   name: displayName,
   values,
-  ...rest
 }: ProductOption) => {
   return {
     __typename: 'MultipleChoiceOption',
+    id,
     displayName,
-    values: values.map((value) => ({
-      label: value,
-      hexColors: displayName === 'Color' ? [value] : null,
-    })),
-    ...rest,
+    values: values.map((value) => {
+      let output: any = {
+        label: value,
+      }
+      if (displayName === 'Color') {
+        output = {
+          ...output,
+          hexColors: [value],
+        }
+      }
+      return output
+    }),
   }
 }
 
@@ -41,19 +51,28 @@ const normalizeProductImages = ({ edges }: ImageConnection) =>
   }))
 
 const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
-  return edges?.map(({ node: { id, selectedOptions } }) => ({
-    id,
-    options: selectedOptions.map(({ name, value }: SelectedOption) =>
-      normalizeProductOption({
-        id,
-        name,
-        values: [value],
-      })
-    ),
-  }))
+  return edges?.map(
+    ({
+      node: { id, selectedOptions, sku, title, priceV2, compareAtPriceV2 },
+    }) => ({
+      id,
+      name: title,
+      sku: sku ?? id,
+      price: +priceV2.amount,
+      listPrice: +compareAtPriceV2?.amount,
+      requiresShipping: true,
+      options: selectedOptions.map(({ name, value }: SelectedOption) =>
+        normalizeProductOption({
+          id,
+          name,
+          values: [value],
+        })
+      ),
+    })
+  )
 }
 
-export function normalizeProduct(productNode: ShopifyProduct): any {
+export function normalizeProduct(productNode: ShopifyProduct): Product {
   const {
     id,
     title: name,
@@ -95,8 +114,8 @@ export function normalizeCart(checkout: Checkout): Cart {
     },
     taxesIncluded: checkout.taxesIncluded,
     lineItems: checkout.lineItems?.edges.map(normalizeLineItem),
-    lineItemsSubtotalPrice: checkout.subtotalPriceV2?.amount,
-    subtotalPrice: checkout.subtotalPriceV2?.amount,
+    lineItemsSubtotalPrice: +checkout.subtotalPriceV2?.amount,
+    subtotalPrice: +checkout.subtotalPriceV2?.amount,
     totalPrice: checkout.totalPriceV2?.amount,
     discounts: [],
   }
