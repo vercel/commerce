@@ -14,7 +14,7 @@
   "sideEffects": false,
   "license": "MIT",
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "prettier": {
     "semi": false,
@@ -23,6 +23,7 @@
   "dependencies": {
     "@reach/portal": "^0.11.2",
     "@vercel/fetch": "^6.1.0",
+    "autoprefixer": "^10.2.4",
     "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
@@ -38,7 +39,7 @@
     "next": "^10.0.7",
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
-    "postcss": "^8.2.4",
+    "postcss": "^8.2.6",
     "postcss-nesting": "^7.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -47,7 +48,7 @@
     "shopify-buy": "^2.11.0",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
-    "tailwindcss": "^2.0.2"
+    "tailwindcss": "^2.0.3"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.20.0",
