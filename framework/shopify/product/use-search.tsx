@@ -4,6 +4,7 @@ import useSearch, { UseSearch } from '@commerce/product/use-search'
 import { ProductEdge } from '../schema'
 import {
   getAllProductsQuery,
+  getCollectionProductsQuery,
   getSearchVariables,
   normalizeProduct,
 } from '../utils'
@@ -14,8 +15,8 @@ export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
   search?: string
-  categoryId?: number
-  brandId?: number
+  categoryId?: string
+  brandId?: string
   sort?: string
 }
 
@@ -23,6 +24,7 @@ export type SearchProductsData = {
   products: Product[]
   found: boolean
 }
+
 export const handler: SWRHook<
   SearchProductsData,
   SearchProductsInput,
@@ -32,18 +34,30 @@ export const handler: SWRHook<
     query: getAllProductsQuery,
   },
   async fetcher({ input, options, fetch }) {
-    const resp = await fetch({
-      query: options?.query,
+    const { categoryId, brandId } = input
+
+    const data = await fetch({
+      query: categoryId ? getCollectionProductsQuery : options.query,
       method: options?.method,
       variables: getSearchVariables(input),
     })
-    const edges = resp.products?.edges
+
+    let edges
+
+    if (categoryId) {
+      edges = data.node?.products?.edges ?? []
+      if (brandId) {
+        edges = edges.filter(
+          ({ node: { vendor } }: ProductEdge) => vendor === brandId
+        )
+      }
+    } else {
+      edges = data.products?.edges ?? []
+    }
+
     return {
-      products: edges?.map(({ node: p }: ProductEdge) =>
-        // TODO: Fix this product type
-        normalizeProduct(p as any)
-      ),
-      found: !!edges?.length,
+      products: edges.map(({ node }: ProductEdge) => normalizeProduct(node)),
+      found: !!edges.length,
     }
   },
   useHook: ({ useData }) => (input = {}) => {

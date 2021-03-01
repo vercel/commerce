@@ -1,12 +1,13 @@
 export const getPageQuery = /* GraphQL */ `
-  query getPageBySlug($slug: String!) {
-    pageByHandle(handle: $slug) {
+  query($id: ID!) {
+    node(id: $id) {
       id
-      title
-      handle
-      body
-      bodySummary
-      url
+      ... on Page {
+        title
+        handle
+        body
+        bodySummary
+      }
     }
   }
 `
