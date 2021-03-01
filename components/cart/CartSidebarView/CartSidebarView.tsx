@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import { UserNav } from '@components/common'
-import { Button } from '@components/ui'
-import { Bag, Cross, Check } from '@components/icons'
-import { useUI } from '@components/ui/context'
-import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/product/use-price'
+import Link from 'next/link'
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
-import { LineItem } from '@commerce/types'
+import { Button } from '@components/ui'
+import { UserNav } from '@components/common'
+import { useUI } from '@components/ui/context'
+import { Bag, Cross, Check } from '@components/icons'
+import useCart from '@framework/cart/use-cart'
+import usePrice from '@framework/product/use-price'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
@@ -88,9 +88,14 @@ const CartSidebarView: FC = () => {
       ) : (
         <>
           <div className="px-4 sm:px-6 flex-1">
-            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
-              My Cart
-            </h2>
+            <Link href="/cart">
+              <h2
+                className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide cursor-pointer inline-block"
+                onClick={handleClose}
+              >
+                My Cart
+              </h2>
+            </Link>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
               {data!.lineItems.map((item: any) => (
                 <CartItem

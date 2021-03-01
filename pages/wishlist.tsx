@@ -1,7 +1,4 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import type { GetStaticPropsContext } from 'next'
-
 import { Heart } from '@components/icons'
 import { Layout } from '@components/common'
 import { Text, Container } from '@components/ui'
@@ -36,8 +33,7 @@ export async function getStaticProps({
 export default function Wishlist() {
   const { data: customer } = useCustomer()
   // @ts-ignore Shopify - Fix this types
-  const { data, isLoading, isEmpty } = useWishlist()
-  const router = useRouter()
+  const { data, isLoading, isEmpty } = useWishlist({ includeProducts: true })
 
   return (
     <Container>
@@ -60,7 +56,7 @@ export default function Wishlist() {
             data &&
             // @ts-ignore Shopify - Fix this types
             data.items?.map((item) => (
-              <WishlistCard key={item.id} product={item as any} />
+              <WishlistCard key={item.id} product={item.product! as any} />
             ))
           )}
         </div>

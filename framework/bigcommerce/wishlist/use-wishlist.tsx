@@ -18,7 +18,7 @@ export const handler: SWRHook<
     url: '/api/bigcommerce/wishlist',
     method: 'GET',
   },
-  fetcher({ input: { customerId, includeProducts }, options, fetch }) {
+  async fetcher({ input: { customerId, includeProducts }, options, fetch }) {
     if (!customerId) return null
 
     // Use a dummy base as we only care about the relative path
@@ -35,7 +35,7 @@ export const handler: SWRHook<
     const { data: customer } = useCustomer()
     const response = useData({
       input: [
-        ['customerId', (customer as any)?.id],
+        ['customerId', customer?.entityId],
         ['includeProducts', input?.includeProducts],
       ],
       swrOptions: {
