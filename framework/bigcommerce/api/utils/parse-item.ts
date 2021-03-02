@@ -1,6 +1,11 @@
 import type { ItemBody as WishlistItemBody } from '../wishlist'
 import type { CartItemBody, OptionSelections } from '../../types'
 
+type BCWishlistItemBody = {
+  product_id: number
+  variant_id: number
+}
+
 type BCCartItemBody = {
   product_id: number
   variant_id: number
@@ -8,9 +13,11 @@ type BCCartItemBody = {
   option_selections?: OptionSelections
 }
 
-export const parseWishlistItem = (item: WishlistItemBody) => ({
-  product_id: item.productId,
-  variant_id: item.variantId,
+export const parseWishlistItem = (
+  item: WishlistItemBody
+): BCWishlistItemBody => ({
+  product_id: Number(item.productId),
+  variant_id: Number(item.variantId),
 })
 
 export const parseCartItem = (item: CartItemBody): BCCartItemBody => ({

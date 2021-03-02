@@ -2,9 +2,7 @@
 // Shopify doesn't have a wishlist
 
 import { HookFetcher } from '@commerce/utils/types'
-import useCommerceWishlist from '@commerce/wishlist/use-wishlist'
 import { Product } from '../schema'
-import useCustomer from '../customer/use-customer'
 
 const defaultOpts = {}
 
