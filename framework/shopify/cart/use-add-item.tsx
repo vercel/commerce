@@ -40,8 +40,7 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       },
     })
 
-    // TODO: Fix this Cart type here
-    return checkoutToCart(checkoutLineItemsAdd) as any
+    return checkoutToCart(checkoutLineItemsAdd)
   },
   useHook: ({ fetch }) => () => {
     const { mutate } = useCart()

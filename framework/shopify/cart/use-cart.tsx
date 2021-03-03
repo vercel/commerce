@@ -22,6 +22,7 @@ export const handler: SWRHook<
   },
   async fetcher({ input: { cartId: checkoutId }, options, fetch }) {
     let checkout
+
     if (checkoutId) {
       const data = await fetch({
         ...options,
@@ -36,8 +37,7 @@ export const handler: SWRHook<
       checkout = await checkoutCreate(fetch)
     }
 
-    // TODO: Fix this type
-    return checkoutToCart({ checkout } as any)
+    return checkoutToCart({ checkout })
   },
   useHook: ({ useData }) => (input) => {
     const response = useData({

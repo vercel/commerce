@@ -6,8 +6,11 @@ import {
 
 import checkoutCreateMutation from '../../utils/mutations/checkout-create'
 import Cookies from 'js-cookie'
+import { CheckoutCreatePayload } from '../../schema'
 
-export const checkoutCreate = async (fetch: any) => {
+export const checkoutCreate = async (
+  fetch: any
+): Promise<CheckoutCreatePayload> => {
   const data = await fetch({
     query: checkoutCreateMutation,
   })

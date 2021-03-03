@@ -5,14 +5,24 @@ import {
   CheckoutLineItemsAddPayload,
   CheckoutLineItemsRemovePayload,
   CheckoutLineItemsUpdatePayload,
-  Maybe,
+  CheckoutCreatePayload,
+  Checkout,
+  UserError,
 } from '../../schema'
 import { normalizeCart } from '../../utils'
+import { Maybe } from 'framework/bigcommerce/schema'
+
+export type CheckoutQuery = {
+  checkout: Checkout
+  userErrors?: Array<UserError>
+}
 
 export type CheckoutPayload =
   | CheckoutLineItemsAddPayload
   | CheckoutLineItemsUpdatePayload
   | CheckoutLineItemsRemovePayload
+  | CheckoutCreatePayload
+  | CheckoutQuery
 
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
   if (!checkoutPayload) {

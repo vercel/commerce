@@ -1,5 +1,8 @@
 import { ValidationError } from '@commerce/utils/errors'
+import { FetcherOptions } from '@commerce/utils/types'
+import { CustomerAccessTokenCreateInput } from '../schema'
 import { setCustomerToken } from './customer-token'
+import { customerAccessTokenCreateMutation } from './mutations'
 
 const getErrorMessage = ({
   code,
@@ -34,6 +37,21 @@ const handleLogin = (data: any) => {
   }
 
   return customerAccessToken
+}
+
+export const handleAutomaticLogin = async (
+  fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
+  input: CustomerAccessTokenCreateInput
+) => {
+  try {
+    const loginData = await fetch({
+      query: customerAccessTokenCreateMutation,
+      variables: {
+        input,
+      },
+    })
+    handleLogin(loginData)
+  } catch (error) {}
 }
 
 export default handleLogin

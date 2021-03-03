@@ -14,6 +14,10 @@ export function getVariant(product: Product, opts: SelectedOptions) {
           option.displayName.toLowerCase() === key.toLowerCase()
         ) {
           return option.values.find((v) => v.label.toLowerCase() === value)
+        } else if (!value) {
+          return !variant.options.filter(
+            ({ displayName }) => displayName.toLowerCase() === key
+          ).length
         }
       })
     )
