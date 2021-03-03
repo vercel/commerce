@@ -27,7 +27,7 @@ We're using Github Projects to keep track of issues in progress and todo's. Here
 
 ## Integrations
 
-Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support all major ecommerce backends.
+Next.js Commerce integrates out-of-the-box with BigCommerce and Shopify. We plan to support all major ecommerce backends.
 
 ## Goals
 
@@ -38,13 +38,13 @@ Next.js Commerce integrates out-of-the-box with BigCommerce. We plan to support 
 
 There is a `framework` folder in the root folder that will contain multiple ecommerce providers.
 
-Additionally, we need to ensure feature parity (not all providers have e.g. wishlist) we will also have to build a feature API to disable/enable features in the UI.
+Additionally, we need to ensure feature parity (not all providers have e.g. wishlist) so we also have a feature API to disable/enable features in the UI.
 
 People actively working on this project: @okbel & @lfades.
 
 ## Framework
 
-Framework is where the data comes from. It contains mostly hooks and functions.
+Framework is where the data comes from. It contains mostly hook handlers and functions.
 
 ## Structure
 
@@ -77,7 +77,7 @@ Main folder and its exposed functions
 - `config.json`
 - README.md
 
-#### Example of correct usage of Commerce Framework
+#### Example of correct usage of the Commerce Framework
 
 ```js
 import { useUI } from '@components/ui'
@@ -85,21 +85,56 @@ import { useCustomer } from '@framework/customer'
 import { useWishlist, useAddItem, useRemoveItem } from '@framework/wishlist'
 ```
 
-## Config
+## Configuration
 
-### Features
+### How to change providers
 
-In order to make the UI entirely functional, we need to specify which features certain providers do not **provide**.
+First, update the provider selected in `commerce.config.json`:
 
-**Disabling wishlist:**
-
-```
+```json
 {
+  "provider": "bigcommerce",
   "features": {
-    "wishlist": false
+    "wishlist": true
   }
 }
 ```
+
+Then, change the paths defined in `tsconfig.json` and update the `@framework` paths to point to the right folder provider:
+
+```json
+"@framework": ["framework/bigcommerce"],
+"@framework/*": ["framework/bigcommerce/*"]
+```
+
+Make sure to add the environment variables required by the new provider.
+
+### Features
+
+Every provider defines the features that it supports under `framework/{provider}/commerce.config.json`
+
+#### How to turn Features on and off
+
+> NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
+
+- Open `commerce.config.json`
+- You'll see a config file like this:
+  ```json
+  {
+    "provider": "bigcommerce",
+    "features": {
+      "wishlist": false
+    }
+  }
+  ```
+- Turn wishlist on by setting wishlist to true.
+- Run the app and the wishlist functionality should be back on.
+
+### How to create a new provider
+
+We'd recommend to duplicate a provider folder and push your providers SDK.
+
+If you succeeded building a provider, submit a PR so we can all enjoy it.
 
 ## Contribute
 
