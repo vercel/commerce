@@ -7,7 +7,8 @@ Start right now at [nextjs.org/commerce](https://nextjs.org/commerce)
 
 Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 
-This project is currently <b>under development</b>.
+- Shopify Demo: https://shopify.demo.vercel.store/
+- BigCommerce Demo: https://bigcommerce.demo.vercel.store/
 
 ## Features
 
@@ -21,34 +22,22 @@ This project is currently <b>under development</b>.
 - Integrations - Integrate seamlessly with the most common ecommerce platforms.
 - Dark Mode Support
 
-## Work in progress
-
-We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
-
 ## Integrations
 
 Next.js Commerce integrates out-of-the-box with BigCommerce and Shopify. We plan to support all major ecommerce backends.
 
-## Goals
+## Considerations
 
-- **Next.js Commerce** should have a completely data **agnostic** UI
-- **Aware of schema**: should ship with the right data schemas and types.
-- All providers should return the right data types and schemas to blend correctly with Next.js Commerce.
-- `@framework` will be the alias utilized in commerce and it will map to the ecommerce provider of preference- e.g BigCommerce, Shopify, Swell. All providers should expose the same standardized functions. _Note that the same applies for recipes using a CMS + an ecommerce provider._
+- `framework/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
+- **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality.
+- **Features API** is to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
+- Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
+- **Providers don't depend on anything that's specific to the application they're used in**. They only depend on `framework/commerce`, on their own framework folder and on some dependencies included in `package.json`
+- We recommend that each **provider** ships with an `env.template` file and a `[readme.md](http://readme.md)` file.
 
-There is a `framework` folder in the root folder that will contain multiple ecommerce providers.
+## Provider Structure
 
-Additionally, we need to ensure feature parity (not all providers have e.g. wishlist) so we also have a feature API to disable/enable features in the UI.
-
-People actively working on this project: @okbel & @lfades.
-
-## Framework
-
-Framework is where the data comes from. It contains mostly hook handlers and functions.
-
-## Structure
-
-Main folder and its exposed functions
+Next.js Commerce provides a set of utilities and functions to create new providers. This is how a provider structure looks like.
 
 - `product`
   - usePrice
@@ -68,22 +57,15 @@ Main folder and its exposed functions
   - getCustomerId
   - getCustomerWistlist
 - `cart`
-
   - useCart
   - useAddItem
   - useRemoveItem
   - useUpdateItem
-
-- `config.json`
-- README.md
-
-#### Example of correct usage of the Commerce Framework
-
-```js
-import { useUI } from '@components/ui'
-import { useCustomer } from '@framework/customer'
-import { useWishlist, useAddItem, useRemoveItem } from '@framework/wishlist'
-```
+- `env.template`
+- `provider.ts`
+- `commerce.config.json`
+- `next.config.js`
+- `README.md`
 
 ## Configuration
 
@@ -135,6 +117,12 @@ Every provider defines the features that it supports under `framework/{provider}
 We'd recommend to duplicate a provider folder and push your providers SDK.
 
 If you succeeded building a provider, submit a PR so we can all enjoy it.
+
+## Work in progress
+
+We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
+
+People actively working on this project: @okbel & @lfades.
 
 ## Contribute
 
