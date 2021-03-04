@@ -7,12 +7,10 @@ import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
 
-// Data
-
 import { getConfig } from '@framework/api'
-import getProduct from '@framework/api/operations/get-product'
-import getAllPages from '@framework/api/operations/get-all-pages'
-import getAllProductPaths from '@framework/api/operations/get-all-product-paths'
+import getProduct from '@framework/product/get-product'
+import getAllPages from '@framework/common/get-all-pages'
+import getAllProductPaths from '@framework/product/get-all-product-paths'
 
 export async function getStaticProps({
   params,
@@ -20,7 +18,6 @@ export async function getStaticProps({
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
-
   const { pages } = await getAllPages({ config, preview })
   const { product } = await getProduct({
     variables: { slug: params!.slug },
@@ -33,7 +30,10 @@ export async function getStaticProps({
   }
 
   return {
-    props: { pages, product },
+    props: {
+      pages,
+      product,
+    },
     revalidate: 200,
   }
 }
@@ -63,7 +63,7 @@ export default function Slug({
   return router.isFallback ? (
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
-    <ProductView product={product} />
+    <ProductView product={product as any} />
   )
 }
 

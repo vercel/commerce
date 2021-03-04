@@ -1,76 +1,60 @@
-import { HookFetcher } from '@commerce/utils/types'
-import { SwrOptions } from '@commerce/utils/use-data'
-import useCommerceWishlist from '@commerce/wishlist/use-wishlist'
+import { useMemo } from 'react'
+import { SWRHook } from '@commerce/utils/types'
+import useWishlist, { UseWishlist } from '@commerce/wishlist/use-wishlist'
 import type { Wishlist } from '../api/wishlist'
-import useCustomer from '../use-customer'
+import useCustomer from '../customer/use-customer'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/wishlist',
-  method: 'GET',
-}
+export type UseWishlistInput = { includeProducts?: boolean }
 
-export type { Wishlist }
+export default useWishlist as UseWishlist<typeof handler>
 
-export interface UseWishlistOptions {
-  includeProducts?: boolean
-}
+export const handler: SWRHook<
+  Wishlist | null,
+  UseWishlistInput,
+  { customerId?: number } & UseWishlistInput,
+  { isEmpty?: boolean }
+> = {
+  fetchOptions: {
+    url: '/api/bigcommerce/wishlist',
+    method: 'GET',
+  },
+  async fetcher({ input: { customerId, includeProducts }, options, fetch }) {
+    if (!customerId) return null
 
-export interface UseWishlistInput extends UseWishlistOptions {
-  customerId?: number
-}
+    // Use a dummy base as we only care about the relative path
+    const url = new URL(options.url!, 'http://a')
 
-export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = (
-  options,
-  { customerId, includeProducts },
-  fetch
-) => {
-  if (!customerId) return null
+    if (includeProducts) url.searchParams.set('products', '1')
 
-  // Use a dummy base as we only care about the relative path
-  const url = new URL(options?.url ?? defaultOpts.url, 'http://a')
-
-  if (includeProducts) url.searchParams.set('products', '1')
-
-  return fetch({
-    url: url.pathname + url.search,
-    method: options?.method ?? defaultOpts.method,
-  })
-}
-
-export function extendHook(
-  customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
-) {
-  const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
+    return fetch({
+      url: url.pathname + url.search,
+      method: options.method,
+    })
+  },
+  useHook: ({ useData }) => (input) => {
     const { data: customer } = useCustomer()
-    const response = useCommerceWishlist(
-      defaultOpts,
-      [
+    const response = useData({
+      input: [
         ['customerId', customer?.entityId],
-        ['includeProducts', includeProducts],
+        ['includeProducts', input?.includeProducts],
       ],
-      customFetcher,
-      {
+      swrOptions: {
         revalidateOnFocus: false,
-        ...swrOptions,
-      }
-    )
-
-    // Uses a getter to only calculate the prop when required
-    // response.data is also a getter and it's better to not trigger it early
-    Object.defineProperty(response, 'isEmpty', {
-      get() {
-        return (response.data?.items?.length || 0) <= 0
+        ...input?.swrOptions,
       },
-      set: (x) => x,
     })
 
-    return response
-  }
-
-  useWishlist.extend = extendHook
-
-  return useWishlist
+    return useMemo(
+      () =>
+        Object.create(response, {
+          isEmpty: {
+            get() {
+              return (response.data?.items?.length || 0) <= 0
+            },
+            enumerable: true,
+          },
+        }),
+      [response]
+    )
+  },
 }
-
-export default extendHook(fetcher)

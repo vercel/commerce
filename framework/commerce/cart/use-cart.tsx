@@ -1,31 +1,41 @@
-import type { responseInterface } from 'swr'
 import Cookies from 'js-cookie'
-import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
-import useData, { SwrOptions } from '../utils/use-data'
-import { useCommerce } from '..'
+import { useHook, useSWRHook } from '../utils/use-hook'
+import type { HookFetcherFn, SWRHook } from '../utils/types'
+import type { Cart } from '../types'
+import { Provider, useCommerce } from '..'
 
-export type CartResponse<Result> = responseInterface<Result, Error> & {
-  isEmpty: boolean
+export type FetchCartInput = {
+  cartId?: Cart['id']
 }
 
-export type CartInput = {
-  cartId: string | undefined
+export type UseCart<
+  H extends SWRHook<any, any, any> = SWRHook<
+    Cart | null,
+    {},
+    FetchCartInput,
+    { isEmpty?: boolean }
+  >
+> = ReturnType<H['useHook']>
+
+export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
+  options,
+  input: { cartId },
+  fetch,
+}) => {
+  return cartId ? await fetch({ ...options }) : null
 }
 
-export default function useCart<Result>(
-  options: HookFetcherOptions,
-  input: HookInput,
-  fetcherFn: HookFetcher<Result, CartInput>,
-  swrOptions?: SwrOptions<Result, CartInput>
-) {
+const fn = (provider: Provider) => provider.cart?.useCart!
+
+const useCart: UseCart = (input) => {
+  const hook = useHook(fn)
   const { cartCookie } = useCommerce()
-
-  const fetcher: typeof fetcherFn = (options, input, fetch) => {
-    input.cartId = Cookies.get(cartCookie)
-    return fetcherFn(options, input, fetch)
+  const fetcherFn = hook.fetcher ?? fetcher
+  const wrapper: typeof fetcher = (context) => {
+    context.input.cartId = Cookies.get(cartCookie)
+    return fetcherFn(context)
   }
-
-  const response = useData(options, input, fetcher, swrOptions)
-
-  return Object.assign(response, { isEmpty: true }) as CartResponse<Result>
+  return useSWRHook({ ...hook, fetcher: wrapper })(input)
 }
+
+export default useCart

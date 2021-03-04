@@ -7,24 +7,25 @@ import { BigcommerceApiError } from '../utils/errors'
 import type {
   Wishlist,
   WishlistItem,
-} from '../operations/get-customer-wishlist'
+} from '../../customer/get-customer-wishlist'
 import getWishlist from './handlers/get-wishlist'
 import addItem from './handlers/add-item'
 import removeItem from './handlers/remove-item'
+import type { Product, ProductVariant, Customer } from '@commerce/types'
 
 export type { Wishlist, WishlistItem }
 
 export type ItemBody = {
-  productId: number
-  variantId: number
+  productId: Product['id']
+  variantId: ProductVariant['id']
 }
 
 export type AddItemBody = { item: ItemBody }
 
-export type RemoveItemBody = { itemId: string }
+export type RemoveItemBody = { itemId: Product['id'] }
 
 export type WishlistBody = {
-  customer_id: number
+  customer_id: Customer['entityId']
   is_public: number
   name: string
   items: any[]

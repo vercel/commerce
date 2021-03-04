@@ -1,6 +1,6 @@
 import type { WishlistHandlers } from '..'
-import getCustomerId from '../../operations/get-customer-id'
-import getCustomerWishlist from '../../operations/get-customer-wishlist'
+import getCustomerId from '../../../customer/get-customer-id'
+import getCustomerWishlist from '../../../customer/get-customer-wishlist'
 import { parseWishlistItem } from '../../utils/parse-item'
 
 // Returns the wishlist of the signed customer

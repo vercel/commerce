@@ -1,7 +1,6 @@
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartHandlers } from '..'
 
-// Return current cart info
 const removeItem: CartHandlers['removeItem'] = async ({
   res,
   body: { cartId, itemId },

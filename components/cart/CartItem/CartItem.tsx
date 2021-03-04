@@ -2,43 +2,51 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
+import s from './CartItem.module.css'
 import { Trash, Plus, Minus } from '@components/icons'
-import usePrice from '@framework/use-price'
+import { useUI } from '@components/ui/context'
+import type { LineItem } from '@framework/types'
+import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
-import s from './CartItem.module.css'
 
 type ItemOption = {
-  name: string,
-  nameId: number,
-  value: string,
+  name: string
+  nameId: number
+  value: string
   valueId: number
 }
 
 const CartItem = ({
   item,
   currencyCode,
+  ...rest
 }: {
-  item: any
+  item: LineItem
   currencyCode: string
 }) => {
+  const { closeSidebarIfPresent } = useUI()
+
   const { price } = usePrice({
-    amount: item.extended_sale_price,
-    baseAmount: item.extended_list_price,
+    amount: item.variant.price * item.quantity,
+    baseAmount: item.variant.listPrice * item.quantity,
     currencyCode,
   })
-  const updateItem = useUpdateItem(item)
+
+  const updateItem = useUpdateItem({ item })
   const removeItem = useRemoveItem()
   const [quantity, setQuantity] = useState(item.quantity)
   const [removing, setRemoving] = useState(false)
+
   const updateQuantity = async (val: number) => {
     await updateItem({ quantity: val })
   }
+
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
 
     if (Number.isInteger(val) && val >= 0) {
-      setQuantity(e.target.value)
+      setQuantity(Number(e.target.value))
     }
   }
   const handleBlur = () => {
@@ -62,11 +70,13 @@ const CartItem = ({
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ id: item.id })
+      await removeItem(item)
     } catch (error) {
       setRemoving(false)
     }
   }
+  // TODO: Add a type for this
+  const options = (item as any).options
 
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
@@ -80,32 +90,38 @@ const CartItem = ({
       className={cn('flex flex-row space-x-8 py-8', {
         'opacity-75 pointer-events-none': removing,
       })}
+      {...rest}
     >
       <div className="w-16 h-16 bg-violet relative overflow-hidden">
         <Image
           className={s.productImage}
-          src={item.image_url}
           width={150}
           height={150}
-          alt="Product Image"
-          // The cart item image is already optimized and very small in size
+          src={item.variant.image!.url}
+          alt={item.variant.image!.altText}
           unoptimized
         />
       </div>
       <div className="flex-1 flex flex-col text-base">
-        {/** TODO: Replace this. No `path` found at Cart */}
-        <Link href={`/product/${item.url.split('/')[3]}`}>
-          <span className="font-bold text-lg cursor-pointer leading-6">
+        <Link href={`/product/${item.path}`}>
+          <span
+            className="font-bold text-lg cursor-pointer leading-6"
+            onClick={() => closeSidebarIfPresent()}
+          >
             {item.name}
           </span>
         </Link>
-        {item.options && item.options.length > 0 ? (
+        {options && options.length > 0 ? (
           <div className="">
-            {item.options.map((option:ItemOption, i: number) =>
-              <span key={`${item.id}-${option.name}`} className="text-sm font-semibold text-accents-7">
-                {option.value}{ i === item.options.length -1 ? "" : ", " }
+            {options.map((option: ItemOption, i: number) => (
+              <span
+                key={`${item.id}-${option.name}`}
+                className="text-sm font-semibold text-accents-7"
+              >
+                {option.value}
+                {i === options.length - 1 ? '' : ', '}
               </span>
-            )}
+            ))}
           </div>
         ) : null}
         <div className="flex items-center mt-3">
@@ -130,7 +146,10 @@ const CartItem = ({
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
         <span>{price}</span>
-        <button className="flex justify-end" onClick={handleRemove}>
+        <button
+          className="flex justify-end outline-none"
+          onClick={handleRemove}
+        >
           <Trash />
         </button>
       </div>

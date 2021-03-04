@@ -1,50 +1,41 @@
-import type { HookFetcher } from '@commerce/utils/types'
-import type { SwrOptions } from '@commerce/utils/use-data'
-import useCommerceCart, { CartInput } from '@commerce/cart/use-cart'
-import type { Cart } from '../api/cart'
+import { useMemo } from 'react'
+import { SWRHook } from '@commerce/utils/types'
+import useCart, { UseCart, FetchCartInput } from '@commerce/cart/use-cart'
+import { normalizeCart } from '../lib/normalize'
+import type { Cart } from '../types'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/cart',
-  method: 'GET',
-}
+export default useCart as UseCart<typeof handler>
 
-export type { Cart }
-
-export const fetcher: HookFetcher<Cart | null, CartInput> = (
-  options,
-  { cartId },
-  fetch
-) => {
-  return cartId ? fetch({ ...defaultOpts, ...options }) : null
-}
-
-export function extendHook(
-  customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<Cart | null, CartInput>
-) {
-  const useCart = () => {
-    const response = useCommerceCart(defaultOpts, [], customFetcher, {
-      revalidateOnFocus: false,
-      ...swrOptions,
+export const handler: SWRHook<
+  Cart | null,
+  {},
+  FetchCartInput,
+  { isEmpty?: boolean }
+> = {
+  fetchOptions: {
+    url: '/api/bigcommerce/cart',
+    method: 'GET',
+  },
+  async fetcher({ input: { cartId }, options, fetch }) {
+    const data = cartId ? await fetch(options) : null
+    return data && normalizeCart(data)
+  },
+  useHook: ({ useData }) => (input) => {
+    const response = useData({
+      swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
     })
 
-    // Uses a getter to only calculate the prop when required
-    // response.data is also a getter and it's better to not trigger it early
-    Object.defineProperty(response, 'isEmpty', {
-      get() {
-        return Object.values(response.data?.line_items ?? {}).every(
-          (items) => !items.length
-        )
-      },
-      set: (x) => x,
-    })
-
-    return response
-  }
-
-  useCart.extend = extendHook
-
-  return useCart
+    return useMemo(
+      () =>
+        Object.create(response, {
+          isEmpty: {
+            get() {
+              return (response.data?.lineItems.length ?? 0) <= 0
+            },
+            enumerable: true,
+          },
+        }),
+      [response]
+    )
+  },
 }
-
-export default extendHook(fetcher)

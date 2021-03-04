@@ -1,4 +1,5 @@
-import getAllProducts, { ProductEdge } from '../../operations/get-all-products'
+import { Product } from '@commerce/types'
+import getAllProducts, { ProductEdge } from '../../../product/get-all-products'
 import type { ProductsHandlers } from '../products'
 
 const SORT: { [key: string]: string | undefined } = {
@@ -6,6 +7,7 @@ const SORT: { [key: string]: string | undefined } = {
   trending: 'total_sold',
   price: 'price',
 }
+
 const LIMIT = 12
 
 // Return current cart info
@@ -44,21 +46,25 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   const { data } = await config.storeApiFetch<{ data: { id: number }[] }>(
     url.pathname + url.search
   )
+
   const entityIds = data.map((p) => p.id)
   const found = entityIds.length > 0
+
   // We want the GraphQL version of each product
   const graphqlData = await getAllProducts({
     variables: { first: LIMIT, entityIds },
     config,
   })
+
   // Put the products in an object that we can use to get them by id
   const productsById = graphqlData.products.reduce<{
-    [k: number]: ProductEdge
+    [k: number]: Product
   }>((prods, p) => {
-    prods[p.node.entityId] = p
+    prods[Number(p.id)] = p
     return prods
   }, {})
-  const products: ProductEdge[] = found ? [] : graphqlData.products
+
+  const products: Product[] = found ? [] : graphqlData.products
 
   // Populate the products array with the graphql products, in the order
   // assigned by the list of entity ids

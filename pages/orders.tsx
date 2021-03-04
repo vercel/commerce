@@ -1,9 +1,9 @@
 import type { GetStaticPropsContext } from 'next'
-import { getConfig } from '@framework/api'
-import getAllPages from '@framework/api/operations/get-all-pages'
+import { Bag } from '@components/icons'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
-import { Bag } from '@components/icons'
+import { getConfig } from '@framework/api'
+import getAllPages from '@framework/common/get-all-pages'
 
 export async function getStaticProps({
   preview,

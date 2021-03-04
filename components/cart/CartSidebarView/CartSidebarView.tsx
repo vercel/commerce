@@ -1,32 +1,32 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import { UserNav } from '@components/common'
-import { Button } from '@components/ui'
-import { Bag, Cross, Check } from '@components/icons'
-import { useUI } from '@components/ui/context'
-import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/use-price'
+import Link from 'next/link'
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
+import { Button } from '@components/ui'
+import { UserNav } from '@components/common'
+import { useUI } from '@components/ui/context'
+import { Bag, Cross, Check } from '@components/icons'
+import useCart from '@framework/cart/use-cart'
+import usePrice from '@framework/product/use-price'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const { data, isEmpty } = useCart()
+  const { data, isLoading, isEmpty } = useCart()
+
   const { price: subTotal } = usePrice(
     data && {
-      amount: data.base_amount,
+      amount: Number(data.subtotalPrice),
       currencyCode: data.currency.code,
     }
   )
   const { price: total } = usePrice(
     data && {
-      amount: data.cart_amount,
+      amount: Number(data.totalPrice),
       currencyCode: data.currency.code,
     }
   )
   const handleClose = () => closeSidebar()
-
-  const items = data?.line_items.physical_items ?? []
 
   const error = null
   const success = null
@@ -34,9 +34,7 @@ const CartSidebarView: FC = () => {
   return (
     <div
       className={cn(s.root, {
-        [s.empty]: error,
-        [s.empty]: success,
-        [s.empty]: isEmpty,
+        [s.empty]: error || success || isLoading || isEmpty,
       })}
     >
       <header className="px-4 pt-6 pb-4 sm:px-6">
@@ -51,12 +49,12 @@ const CartSidebarView: FC = () => {
             </button>
           </div>
           <div className="space-y-1">
-            <UserNav className="" />
+            <UserNav />
           </div>
         </div>
       </header>
 
-      {isEmpty ? (
+      {isLoading || isEmpty ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />
@@ -90,15 +88,20 @@ const CartSidebarView: FC = () => {
       ) : (
         <>
           <div className="px-4 sm:px-6 flex-1">
-            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
-              My Cart
-            </h2>
+            <Link href="/cart">
+              <h2
+                className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide cursor-pointer inline-block"
+                onClick={handleClose}
+              >
+                My Cart
+              </h2>
+            </Link>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
-              {items.map((item: any) => (
+              {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}
-                  currencyCode={data?.currency.code!}
+                  currencyCode={data!.currency.code}
                 />
               ))}
             </ul>

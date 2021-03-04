@@ -3,22 +3,36 @@ import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { getConfig } from '@framework/api'
-import getAllPages from '@framework/api/operations/get-all-pages'
-import getSiteInfo from '@framework/api/operations/get-site-info'
-import useSearch from '@framework/products/use-search'
+
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
 
+import { getConfig } from '@framework/api'
+import useSearch from '@framework/product/use-search'
+import getAllPages from '@framework/common/get-all-pages'
+import getSiteInfo from '@framework/common/get-site-info'
+
 import rangeMap from '@lib/range-map'
+
+// TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
+
+// TODO (bc) : Remove or standarize this.
+const SORT = Object.entries({
+  'latest-desc': 'Latest arrivals',
+  'trending-desc': 'Trending',
+  'price-asc': 'Price: Low to high',
+  'price-desc': 'Price: High to low',
+})
+
 import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
+import { Product } from '@commerce/types'
 
 export async function getStaticProps({
   preview,
@@ -27,18 +41,14 @@ export async function getStaticProps({
   const config = getConfig({ locale })
   const { pages } = await getAllPages({ config, preview })
   const { categories, brands } = await getSiteInfo({ config, preview })
-
   return {
-    props: { pages, categories, brands },
+    props: {
+      pages,
+      categories,
+      brands,
+    },
   }
 }
-
-const SORT = Object.entries({
-  'latest-desc': 'Latest arrivals',
-  'trending-desc': 'Trending',
-  'price-asc': 'Price: Low to high',
-  'price-desc': 'Price: High to low',
-})
 
 export default function Search({
   categories,
@@ -65,8 +75,10 @@ export default function Search({
 
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
-    categoryId: activeCategory?.entityId,
-    brandId: activeBrand?.entityId,
+    // TODO: Shopify - Fix this type
+    categoryId: activeCategory?.entityId as any,
+    // TODO: Shopify - Fix this type
+    brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
   })
 
@@ -76,7 +88,6 @@ export default function Search({
     } else {
       setToggleFilter(!toggleFilter)
     }
-
     setActiveFilter(filter)
   }
 
@@ -257,6 +268,7 @@ export default function Search({
                         className={cn(
                           'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
                           {
+                            // @ts-ignore Shopify - Fix this types
                             underline: activeBrand?.entityId === node.entityId,
                           }
                         )}
@@ -333,14 +345,16 @@ export default function Search({
 
           {data ? (
             <Grid layout="normal">
-              {data.products.map(({ node }) => (
+              {data.products.map((product: Product) => (
                 <ProductCard
                   variant="simple"
-                  key={node.path}
+                  key={product.path}
                   className="animated fadeIn"
-                  product={node}
-                  imgWidth={480}
-                  imgHeight={480}
+                  product={product}
+                  imgProps={{
+                    width: 480,
+                    height: 480,
+                  }}
                 />
               ))}
             </Grid>

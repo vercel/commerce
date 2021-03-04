@@ -2,27 +2,28 @@ import { FC, useState } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import Image from 'next/image'
-import type { WishlistItem } from '@framework/api/wishlist'
-import usePrice from '@framework/use-price'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
-import useAddItem from '@framework/cart/use-add-item'
-import { useUI } from '@components/ui/context'
-import { Button, Text } from '@components/ui'
-import { Trash } from '@components/icons'
 import s from './WishlistCard.module.css'
+import { Trash } from '@components/icons'
+import { Button, Text } from '@components/ui'
+
+import { useUI } from '@components/ui/context'
+import type { Product } from '@commerce/types'
+import usePrice from '@framework/product/use-price'
+import useAddItem from '@framework/cart/use-add-item'
+import useRemoveItem from '@framework/wishlist/use-remove-item'
 
 interface Props {
-  item: WishlistItem
+  product: Product
 }
 
-const WishlistCard: FC<Props> = ({ item }) => {
-  const product = item.product!
+const WishlistCard: FC<Props> = ({ product }) => {
   const { price } = usePrice({
     amount: product.prices?.price?.value,
     baseAmount: product.prices?.retailPrice?.value,
     currencyCode: product.prices?.price?.currencyCode!,
   })
-  const removeItem = useRemoveItem({ includeProducts: true })
+  // @ts-ignore Wishlist is not always enabled
+  const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
   const [loading, setLoading] = useState(false)
   const [removing, setRemoving] = useState(false)
   const addItem = useAddItem()
@@ -34,7 +35,7 @@ const WishlistCard: FC<Props> = ({ item }) => {
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ id: item.id! })
+      await removeItem({ id: product.id! })
     } catch (error) {
       setRemoving(false)
     }
@@ -43,8 +44,8 @@ const WishlistCard: FC<Props> = ({ item }) => {
     setLoading(true)
     try {
       await addItem({
-        productId: product.entityId,
-        variantId: product.variants.edges?.[0]?.node.entityId!,
+        productId: String(product.id),
+        variantId: String(product.variants[0].id),
       })
       openSidebar()
       setLoading(false)
@@ -57,10 +58,10 @@ const WishlistCard: FC<Props> = ({ item }) => {
     <div className={cn(s.root, { 'opacity-75 pointer-events-none': removing })}>
       <div className={`col-span-3 ${s.productBg}`}>
         <Image
-          src={product.images.edges?.[0]?.node.urlOriginal!}
+          src={product.images[0].url}
           width={400}
           height={400}
-          alt={product.images.edges?.[0]?.node.altText || 'Product Image'}
+          alt={product.images[0].alt || 'Product Image'}
         />
       </div>
 

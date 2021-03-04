@@ -1,4 +1,5 @@
 .root {
+  composes: root from 'components/ui/Button/Button.module.css';
   @apply h-12 w-12 bg-primary text-primary rounded-full mr-3 inline-flex
   items-center justify-center cursor-pointer transition duration-150 ease-in-out
   p-0 shadow-none border-gray-200 border box-border;

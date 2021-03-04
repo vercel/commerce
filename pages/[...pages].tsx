@@ -8,8 +8,8 @@ import { Layout } from '@components/common'
 import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import { getConfig } from '@framework/api'
-import getPage from '@framework/api/operations/get-page'
-import getAllPages from '@framework/api/operations/get-all-pages'
+import getPage from '@framework/common/get-page'
+import getAllPages from '@framework/common/get-all-pages'
 import { defaultPageProps } from '@lib/defaults'
 
 export async function getStaticProps({
@@ -25,7 +25,8 @@ export async function getStaticProps({
   const pageItem = pages.find((p) => (p.url ? getSlug(p.url) === slug : false))
   const data =
     pageItem &&
-    (await getPage({ variables: { id: pageItem.id! }, config, preview }))
+    // TODO: Shopify - Fix this type
+    (await getPage({ variables: { id: pageItem.id! } as any, config, preview }))
   const page = data?.page
 
   if (!page) {
