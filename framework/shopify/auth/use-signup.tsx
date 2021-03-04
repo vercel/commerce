@@ -10,7 +10,7 @@ import {
 } from '../schema'
 
 import { customerCreateMutation } from '../utils/mutations'
-import { handleAutomaticLogin, handleAccountActivation } from '../utils'
+import { handleAutomaticLogin, throwUserErrors } from '../utils'
 
 export default useSignup as UseSignup<typeof handler>
 
@@ -50,15 +50,7 @@ export const handler: MutationHook<
       },
     })
 
-    const errors = customerCreate?.customerUserErrors
-
-    if (errors && errors.length) {
-      const [error] = errors
-      throw new ValidationError({
-        message: error.message,
-      })
-    }
-
+    throwUserErrors(customerCreate?.customerUserErrors)
     await handleAutomaticLogin(fetch, { email, password })
 
     return null

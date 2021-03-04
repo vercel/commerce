@@ -1,5 +1,6 @@
-import { ValidationError } from '@commerce/utils/errors'
 import { FetcherOptions } from '@commerce/utils/types'
+import throwUserErrors from './throw-user-errors'
+
 import {
   MutationCustomerActivateArgs,
   MutationCustomerActivateByUrlArgs,
@@ -22,13 +23,7 @@ const handleAccountActivation = async (
       },
     })
 
-    const errors = customerActivateByUrl?.customerUserErrors
-    if (errors && errors.length) {
-      const [error] = errors
-      throw new ValidationError({
-        message: error.message,
-      })
-    }
+    throwUserErrors(customerActivateByUrl?.customerUserErrors)
   } catch (error) {}
 }
 

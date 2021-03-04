@@ -1,12 +1,13 @@
+import Cookies from 'js-cookie'
+
 import {
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CHECKOUT_URL_COOKIE,
   SHOPIFY_COOKIE_EXPIRE,
-} from '../../const'
+} from '../const'
 
-import checkoutCreateMutation from '../../utils/mutations/checkout-create'
-import Cookies from 'js-cookie'
-import { CheckoutCreatePayload } from '../../schema'
+import checkoutCreateMutation from './mutations/checkout-create'
+import { CheckoutCreatePayload } from '../schema'
 
 export const checkoutCreate = async (
   fetch: any
@@ -23,7 +24,7 @@ export const checkoutCreate = async (
       expires: SHOPIFY_COOKIE_EXPIRE,
     }
     Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId, options)
-    Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options)
+    Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout.webUrl, options)
   }
 
   return checkout

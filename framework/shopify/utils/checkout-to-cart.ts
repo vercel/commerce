@@ -1,20 +1,22 @@
-import { Cart } from '../../types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import { Cart } from '../types'
+import { CommerceError } from '@commerce/utils/errors'
 
 import {
   CheckoutLineItemsAddPayload,
   CheckoutLineItemsRemovePayload,
   CheckoutLineItemsUpdatePayload,
   CheckoutCreatePayload,
+  CheckoutUserError,
   Checkout,
-  UserError,
-} from '../../schema'
-import { normalizeCart } from '../../utils'
-import { Maybe } from 'framework/bigcommerce/schema'
+  Maybe,
+} from '../schema'
+
+import { normalizeCart } from './normalize'
+import throwUserErrors from './throw-user-errors'
 
 export type CheckoutQuery = {
   checkout: Checkout
-  userErrors?: Array<UserError>
+  checkoutUserErrors: Array<CheckoutUserError>
 }
 
 export type CheckoutPayload =
@@ -27,22 +29,16 @@ export type CheckoutPayload =
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
   if (!checkoutPayload) {
     throw new CommerceError({
-      message: 'Invalid response from Shopify',
+      message: 'Missing checkout payload from response',
     })
   }
 
   const checkout = checkoutPayload?.checkout
-  const userErrors = checkoutPayload?.userErrors
-
-  if (userErrors && userErrors.length) {
-    throw new ValidationError({
-      message: userErrors[0].message,
-    })
-  }
+  throwUserErrors(checkoutPayload?.checkoutUserErrors)
 
   if (!checkout) {
     throw new CommerceError({
-      message: 'Invalid response from Shopify',
+      message: 'Missing checkout object from response',
     })
   }
 
