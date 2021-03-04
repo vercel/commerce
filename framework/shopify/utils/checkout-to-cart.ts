@@ -16,7 +16,7 @@ import throwUserErrors from './throw-user-errors'
 
 export type CheckoutQuery = {
   checkout: Checkout
-  checkoutUserErrors: Array<CheckoutUserError>
+  checkoutUserErrors?: Array<CheckoutUserError>
 }
 
 export type CheckoutPayload =
