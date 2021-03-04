@@ -23,9 +23,6 @@ export const shopifyProvider = {
   customer: { useCustomer },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
-  features: {
-    wishlist: false,
-  },
 }
 
 export type ShopifyProvider = typeof shopifyProvider

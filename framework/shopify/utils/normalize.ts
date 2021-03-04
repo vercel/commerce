@@ -33,7 +33,7 @@ const normalizeProductOption = ({
       let output: any = {
         label: value,
       }
-      if (displayName === 'Color') {
+      if (displayName.match(/colou?r/gi)) {
         output = {
           ...output,
           hexColors: [value],
@@ -54,21 +54,24 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
   return edges?.map(
     ({
       node: { id, selectedOptions, sku, title, priceV2, compareAtPriceV2 },
-    }) => ({
-      id,
-      name: title,
-      sku: sku ?? id,
-      price: +priceV2.amount,
-      listPrice: +compareAtPriceV2?.amount,
-      requiresShipping: true,
-      options: selectedOptions.map(({ name, value }: SelectedOption) =>
-        normalizeProductOption({
-          id,
-          name,
-          values: [value],
-        })
-      ),
-    })
+    }) => {
+      return {
+        id,
+        name: title,
+        sku: sku ?? id,
+        price: +priceV2.amount,
+        listPrice: +compareAtPriceV2?.amount,
+        requiresShipping: true,
+        options: selectedOptions.map(({ name, value }: SelectedOption) => {
+          const options = normalizeProductOption({
+            id,
+            name,
+            values: [value],
+          })
+          return options
+        }),
+      }
+    }
   )
 }
 
@@ -96,7 +99,12 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     price: money(priceRange?.minVariantPrice),
     images: normalizeProductImages(images),
     variants: variants ? normalizeProductVariants(variants) : [],
-    options: options ? options.map((o) => normalizeProductOption(o)) : [],
+    options:
+      options
+        ?.filter(({ name, values }) => {
+          return name !== 'Title' && values !== ['Default Title']
+        })
+        .map((o) => normalizeProductOption(o)) ?? [],
     ...rest,
   }
 
@@ -122,7 +130,7 @@ export function normalizeCart(checkout: Checkout): Cart {
 }
 
 function normalizeLineItem({
-  node: { id, title, variant, quantity },
+  node: { id, title, variant, quantity, ...rest },
 }: CheckoutLineItemEdge): LineItem {
   return {
     id,
@@ -135,7 +143,7 @@ function normalizeLineItem({
       sku: variant?.sku ?? '',
       name: variant?.title!,
       image: {
-        url: variant?.image?.originalSrc,
+        url: variant?.image?.originalSrc ?? '/product-img-placeholder.svg',
       },
       requiresShipping: variant?.requiresShipping ?? false,
       price: variant?.priceV2?.amount,
@@ -143,10 +151,13 @@ function normalizeLineItem({
     },
     path: '',
     discounts: [],
-    options: [
-      {
-        value: variant?.title,
-      },
-    ],
+    options:
+      variant?.title !== 'Default Title'
+        ? [
+            {
+              value: variant?.title,
+            },
+          ]
+        : [],
   }
 }
