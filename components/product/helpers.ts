@@ -1,5 +1,4 @@
 import type { Product } from '@commerce/types'
-
 export type SelectedOptions = Record<string, string | null>
 
 export function getVariant(product: Product, opts: SelectedOptions) {

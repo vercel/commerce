@@ -1,3 +1,7 @@
 {
-  "provider": "shopify"
+  "provider": "bigcommerce",
+  "features": {
+    "wishlist": true,
+    "customCheckout": false
+  }
 }

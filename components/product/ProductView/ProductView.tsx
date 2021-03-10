@@ -10,7 +10,6 @@ import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
-import products from 'framework/bigcommerce/api/catalog/products'
 
 interface Props {
   children?: any
