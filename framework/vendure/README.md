@@ -4,14 +4,22 @@ UI hooks and data fetching methods built from the ground up for e-commerce appli
 
 ## Usage
 
-1. First you'll need a Vendure server. You can your own local server up-and-running with just a single command:
+### 1. Choose a Vendure server
+
+For the fastest start, you can point to the live Vendure demo server which runs at https://demo.vendure.io. This lets you work with the Vendure data hooks without needing to set up a local server.
+
+If you want to have more control over the server, then getting up an running with a local server is only slightly more work:
+
+#### 1a. Running a local Vendure server
+
+1. Install Vendure locally with one command:
    ```shell
    npx @vendure/create my-app
    ```
-   See the [Vendure getting started guide](https://www.vendure.io/docs/getting-started/) for more info.
+   (See the [Vendure getting started guide](https://www.vendure.io/docs/getting-started/) for more info).
 2. Once you have Vendure set up, change the default port to something other than 3000, to avoid conflict with your Next.js Commerce dev server:
    ```TypeScript
-   // vendure-config.ts
+   // my-app/src/vendure-config.ts
    export const config: VendureConfig = {
        apiOptions: {
            port: 3001,  // <----- here
@@ -20,28 +28,43 @@ UI hooks and data fetching methods built from the ground up for e-commerce appli
        }
    };
    ```
-3. Clone this repo and install its dependencies with `yarn install` or `npm install`
-4. Change the paths in [tsconfig.json](../../tsconfig.json) to point to the Vendure hooks:
+3. Start your local Vendure server
+   ```shell
+   yarn start
+   ```
+
+### 2. Set up the Commerce storefront
+
+1. Clone this repo and install its dependencies with `yarn install` or `npm install`
+2. Change the paths in [tsconfig.json](../../tsconfig.json) to point to the Vendure hooks:
    ```diff
    -  "@framework/*": ["framework/bigcommerce/*"],
    -  "@framework": ["framework/bigcommerce"]
    +  "@framework/*": ["framework/vendure/*"],
    +  "@framework": ["framework/vendure"]
    ```
-5. Set the Vendure Shop API URL in your `.env.local` file:
+3. Set the Vendure Shop API URL in your `.env.local` file:
    ```sh
    NEXT_PUBLIC_VENDURE_SHOP_API_URL=http://localhost:3001/shop-api
    ```
-6. Add the `localhost` domain to the `images` property next.config.js file as per the [image optimization docs](https://nextjs.org/docs/basic-features/image-optimization#domains)
+   or if using the live demo server:
+   ```sh
+   NEXT_PUBLIC_VENDURE_SHOP_API_URL=https://demo.vendure.io/shop-api
+   ```
+4. Add the server domain to the `images` property next.config.js file as per the [image optimization docs](https://nextjs.org/docs/basic-features/image-optimization#domains)
    ```js
    module.exports = {
      // ...
      images: {
-       domains: ['example.com'],
+       domains: [
+         'localhost',
+         // or
+         'demo.vendure.io',
+       ],
      },
    }
    ```
-7. With the Vendure server running, start this project using `yarn dev` or `npm run dev`.
+5. With the Vendure server running, start this project using `yarn dev` or `npm run dev`.
 
 ## Known Limitations
 
