@@ -14,7 +14,7 @@
       "plugins": ["typescript", "typescript-operations"],
       "config": {
         "scalars": {
-          "ID": "number"
+          "ID": "string"
         }
       }
     },

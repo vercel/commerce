@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@commerce/utils/types'
-import useCommerceLogout from '@commerce/use-logout'
+import { MutationHook } from '@commerce/utils/types'
+import useLogout, { UseLogout } from '@commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
-import { LogoutMutation } from '@framework/schema'
+import { LogoutMutation } from '../schema'
 
 export const logoutMutation = /* GraphQL */ `
   mutation logout {
@@ -12,31 +12,28 @@ export const logoutMutation = /* GraphQL */ `
   }
 `
 
-export const fetcher: HookFetcher<LogoutMutation> = (options, _, fetch) => {
-  return fetch({
-    ...options,
-    query: logoutMutation,
-  })
-}
+export default useLogout as UseLogout<typeof handler>
 
-export function extendHook(customFetcher: typeof fetcher) {
-  const useLogout = () => {
+export const handler: MutationHook<null> = {
+  fetchOptions: {
+    query: logoutMutation,
+  },
+  async fetcher({ options, fetch }) {
+    await fetch<LogoutMutation>({
+      ...options,
+    })
+    return null
+  },
+  useHook: ({ fetch }) => () => {
     const { mutate } = useCustomer()
-    const fn = useCommerceLogout<LogoutMutation>({}, customFetcher)
 
     return useCallback(
       async function logout() {
-        const data = await fn(null)
-        await mutate(null as any, false)
+        const data = await fetch()
+        await mutate(null, false)
         return data
       },
-      [fn]
+      [fetch, mutate]
     )
-  }
-
-  useLogout.extend = extendHook
-
-  return useLogout
+  },
 }
-
-export default extendHook(fetcher)

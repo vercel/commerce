@@ -37,6 +37,11 @@ type Query {
   eligibleShippingMethods: [ShippingMethodQuote!]!
 
   """
+  Returns a list of payment methods and their eligibility based on the current active Order
+  """
+  eligiblePaymentMethods: [PaymentMethodQuote!]!
+
+  """
   Returns information about the current authenticated User
   """
   me: CurrentUser
@@ -289,6 +294,7 @@ type Asset implements Node {
   source: String!
   preview: String!
   focalPoint: Coordinate
+  customFields: JSON
 }
 
 type Coordinate {
@@ -331,6 +337,7 @@ type Channel implements Node {
   defaultLanguageCode: LanguageCode!
   currencyCode: CurrencyCode!
   pricesIncludeTax: Boolean!
+  customFields: JSON
 }
 
 type Collection implements Node {
@@ -568,6 +575,7 @@ enum ErrorCode {
   ORDER_MODIFICATION_ERROR
   INELIGIBLE_SHIPPING_METHOD_ERROR
   ORDER_PAYMENT_STATE_ERROR
+  INELIGIBLE_PAYMENT_METHOD_ERROR
   PAYMENT_FAILED_ERROR
   PAYMENT_DECLINED_ERROR
   COUPON_CODE_INVALID_ERROR
@@ -704,6 +712,8 @@ type ConfigArgDefinition {
   name: String!
   type: String!
   list: Boolean!
+  required: Boolean!
+  defaultValue: JSON
   label: String
   description: String
   ui: JSON
@@ -727,6 +737,10 @@ type DeletionResponse {
 
 input ConfigArgInput {
   name: String!
+
+  """
+  A JSON stringified representation of the actual value
+  """
   value: String!
 }
 
@@ -837,6 +851,26 @@ Indicates that an operation succeeded, where we do not want to return any more s
 """
 type Success {
   success: Boolean!
+}
+
+type ShippingMethodQuote {
+  id: ID!
+  price: Int!
+  priceWithTax: Int!
+  name: String!
+  description: String!
+
+  """
+  Any optional metadata returned by the ShippingCalculator in the ShippingCalculationResult
+  """
+  metadata: JSON
+}
+
+type PaymentMethodQuote {
+  id: ID!
+  code: String!
+  isEligible: Boolean!
+  eligibilityMessage: String
 }
 
 type Country implements Node {
@@ -2817,15 +2851,6 @@ type OrderList implements PaginatedList {
   totalItems: Int!
 }
 
-type ShippingMethodQuote {
-  id: ID!
-  price: Int!
-  priceWithTax: Int!
-  name: String!
-  description: String!
-  metadata: JSON
-}
-
 type ShippingLine {
   shippingMethod: ShippingMethod!
   price: Int!
@@ -2903,6 +2928,16 @@ type OrderLine implements Node {
   The price of a single unit, including tax but excluding discounts
   """
   unitPriceWithTax: Int!
+
+  """
+  Non-zero if the unitPrice has changed since it was initially added to Order
+  """
+  unitPriceChangeSinceAdded: Int!
+
+  """
+  Non-zero if the unitPriceWithTax has changed since it was initially added to Order
+  """
+  unitPriceWithTaxChangeSinceAdded: Int!
 
   """
   The price of a single unit including discounts, excluding tax.
@@ -3197,6 +3232,7 @@ type ProductVariant implements Node {
   priceIncludesTax: Boolean!
     @deprecated(reason: "price now always excludes tax")
   priceWithTax: Int!
+  stockLevel: String!
   taxRateApplied: TaxRate!
   taxCategory: TaxCategory!
   options: [ProductOption!]!
@@ -3292,6 +3328,7 @@ type TaxCategory implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
+  isDefault: Boolean!
 }
 
 type TaxRate implements Node {
@@ -3347,7 +3384,7 @@ type OrderModificationError implements ErrorResult {
 }
 
 """
-Returned when attempting to set a ShippingMethod for which the order is not eligible
+Returned when attempting to set a ShippingMethod for which the Order is not eligible
 """
 type IneligibleShippingMethodError implements ErrorResult {
   errorCode: ErrorCode!
@@ -3360,6 +3397,15 @@ Returned when attempting to add a Payment to an Order that is not in the `Arrang
 type OrderPaymentStateError implements ErrorResult {
   errorCode: ErrorCode!
   message: String!
+}
+
+"""
+Returned when attempting to add a Payment using a PaymentMethod for which the Order is not eligible.
+"""
+type IneligiblePaymentMethodError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+  eligibilityCheckerMessage: String
 }
 
 """
@@ -3562,6 +3608,7 @@ union ApplyCouponCodeResult =
 union AddPaymentToOrderResult =
     Order
   | OrderPaymentStateError
+  | IneligiblePaymentMethodError
   | PaymentFailedError
   | PaymentDeclinedError
   | OrderStateTransitionError
@@ -3718,6 +3765,7 @@ input ProductVariantFilterParameter {
   currencyCode: StringOperators
   priceIncludesTax: BooleanOperators
   priceWithTax: NumberOperators
+  stockLevel: StringOperators
 }
 
 input ProductVariantSortParameter {
@@ -3729,6 +3777,7 @@ input ProductVariantSortParameter {
   name: SortOrder
   price: SortOrder
   priceWithTax: SortOrder
+  stockLevel: SortOrder
 }
 
 input CustomerFilterParameter {

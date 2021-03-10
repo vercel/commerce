@@ -1,7 +1,8 @@
+import { Product } from '@commerce/types'
 import { getConfig, VendureConfig } from '../api'
-import { searchResultFragment } from '@framework/api/fragments/search-result'
-import { GetAllProductsQuery } from '@framework/schema'
-import { normalizeSearchResult } from '@framework/lib/normalize'
+import { searchResultFragment } from '../api/fragments/search-result'
+import { GetAllProductsQuery } from '../schema'
+import { normalizeSearchResult } from '../lib/normalize'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts($input: SearchInput!) {

@@ -1,9 +1,10 @@
-import { HookFetcher } from '@commerce/utils/types'
-import useData, { SwrOptions } from '@commerce/utils/use-data'
-import useResponse from '@commerce/utils/use-response'
+import { Cart } from '@commerce/types'
+import { SWRHook } from '@commerce/utils/types'
+import useCart, { FetchCartInput, UseCart } from '@commerce/cart/use-cart'
 import { cartFragment } from '../api/fragments/cart'
-import { CartFragment } from '../schema'
-import { normalizeCart } from '@framework/lib/normalize'
+import { ActiveOrderQuery, CartFragment } from '../schema'
+import { normalizeCart } from '../lib/normalize'
+import { useMemo } from 'react'
 
 export const getCartQuery = /* GraphQL */ `
   query activeOrder {
@@ -14,10 +15,6 @@ export const getCartQuery = /* GraphQL */ `
   ${cartFragment}
 `
 
-export const fetcher: HookFetcher<any, null> = (options, input, fetch) => {
-  return fetch({ ...options, query: getCartQuery })
-}
-
 export type CartResult = {
   activeOrder?: CartFragment
   addItemToOrder?: CartFragment
@@ -25,42 +22,37 @@ export type CartResult = {
   removeOrderLine?: CartFragment
 }
 
-export function extendHook(
-  customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<any | null>
-) {
-  const useCart = () => {
-    const response = useData<CartResult>(
-      { query: getCartQuery },
-      [],
-      customFetcher,
-      swrOptions
-    )
-    const res = useResponse(response, {
-      normalizer: (data) => {
-        const order =
-          data?.activeOrder ||
-          data?.addItemToOrder ||
-          data?.adjustOrderLine ||
-          data?.removeOrderLine
-        return order ? normalizeCart(order) : null
-      },
-      descriptors: {
-        isEmpty: {
-          get() {
-            return response.data?.activeOrder?.totalQuantity === 0
-          },
-          enumerable: true,
-        },
-      },
+export default useCart as UseCart<typeof handler>
+
+export const handler: SWRHook<
+  Cart | null,
+  {},
+  FetchCartInput,
+  { isEmpty?: boolean }
+> = {
+  fetchOptions: {
+    query: getCartQuery,
+  },
+  async fetcher({ input: { cartId }, options, fetch }) {
+    const { activeOrder } = await fetch<ActiveOrderQuery>(options)
+    return activeOrder ? normalizeCart(activeOrder) : null
+  },
+  useHook: ({ useData }) => (input) => {
+    const response = useData({
+      swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
     })
 
-    return res
-  }
-
-  useCart.extend = extendHook
-
-  return useCart
+    return useMemo(
+      () =>
+        Object.create(response, {
+          isEmpty: {
+            get() {
+              return (response.data?.lineItems.length ?? 0) <= 0
+            },
+            enumerable: true,
+          },
+        }),
+      [response]
+    )
+  },
 }
-
-export default extendHook(fetcher)

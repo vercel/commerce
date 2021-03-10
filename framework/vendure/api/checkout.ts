@@ -1,9 +1,8 @@
 import { BigcommerceConfig, getConfig } from '../../bigcommerce/api'
 import { NextApiHandler } from 'next'
 
-const checkoutApi= async (req: any, res: any, config: any) => {
+const checkoutApi = async (req: any, res: any, config: any) => {
   try {
-    // TODO: make the embedded checkout work too!
     const html = `
       <!DOCTYPE html>
         <html lang="en">
@@ -15,6 +14,9 @@ const checkoutApi= async (req: any, res: any, config: any) => {
         <body>
           <div style='margin: 10rem auto; text-align: center; font-family: SansSerif, "Segoe UI", Helvetica'>
              <h1>Checkout not implemented :(</h1>
+             <p>
+             See <a href='https://github.com/vercel/commerce/issues/64' target='_blank'>#64</a>
+             </p>
           </div>
         </body>
       </html>
@@ -33,11 +35,7 @@ const checkoutApi= async (req: any, res: any, config: any) => {
   }
 }
 
-export function createApiHandler<
-  T = any,
-  H = {},
-  Options extends {} = {}
->(
+export function createApiHandler<T = any, H = {}, Options extends {} = {}>(
   handler: any,
   handlers: H,
   defaultOptions: Options

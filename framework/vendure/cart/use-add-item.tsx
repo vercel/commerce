@@ -1,15 +1,12 @@
+import { Cart, CartItemBody } from '@commerce/types'
+import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import { CommerceError } from '@commerce/utils/errors'
-import { HookFetcher } from '@commerce/utils/types'
-import fetchGraphqlApi from '@framework/api/utils/fetch-graphql-api'
-import useCartAddItem from '@commerce/cart/use-add-item'
-import useCart from './use-cart'
+import { MutationHook } from '@commerce/utils/types'
 import { useCallback } from 'react'
+import useCart from './use-cart'
 import { cartFragment } from '../api/fragments/cart'
-import {
-  AddItemToOrderMutation,
-  AddItemToOrderMutationVariables,
-  ErrorResult,
-} from '@framework/schema'
+import { AddItemToOrderMutation } from '../schema'
+import { normalizeCart } from '../lib/normalize'
 
 export const addItemToOrderMutation = /* GraphQL */ `
   mutation addItemToOrder($variantId: ID!, $quantity: Int!) {
@@ -25,56 +22,45 @@ export const addItemToOrderMutation = /* GraphQL */ `
   ${cartFragment}
 `
 
-export type AddItemInput = {
-  productId?: number
-  variantId: number
-  quantity?: number
-}
+export default useAddItem as UseAddItem<typeof handler>
 
-export const fetcher: HookFetcher<
-  AddItemToOrderMutation,
-  AddItemToOrderMutationVariables
-> = (options, { variantId, quantity }, fetch) => {
-  if (quantity && (!Number.isInteger(quantity) || quantity! < 1)) {
-    throw new CommerceError({
-      message: 'The item quantity has to be a valid integer greater than 0',
-    })
-  }
-
-  return fetch({
-    ...options,
+export const handler: MutationHook<Cart, {}, CartItemBody> = {
+  fetchOptions: {
     query: addItemToOrderMutation,
-    variables: { variantId, quantity: quantity || 1 },
-  })
-}
+  },
+  async fetcher({ input, options, fetch }) {
+    if (
+      input.quantity &&
+      (!Number.isInteger(input.quantity) || input.quantity! < 1)
+    ) {
+      throw new CommerceError({
+        message: 'The item quantity has to be a valid integer greater than 0',
+      })
+    }
 
-export function extendHook(customFetcher: typeof fetcher) {
-  const useAddItem = () => {
+    const { addItemToOrder } = await fetch<AddItemToOrderMutation>({
+      ...options,
+      variables: {
+        quantity: input.quantity || 1,
+        variantId: input.variantId,
+      },
+    })
+
+    if (addItemToOrder.__typename === 'Order') {
+      return normalizeCart(addItemToOrder)
+    }
+    throw new CommerceError(addItemToOrder)
+  },
+  useHook: ({ fetch }) => () => {
     const { mutate } = useCart()
-    const fn = useCartAddItem({}, customFetcher)
 
     return useCallback(
-      async function addItem(input: AddItemInput) {
-        const { addItemToOrder } = await fn({
-          quantity: input.quantity || 1,
-          variantId: input.variantId,
-        })
-        if (addItemToOrder.__typename === 'Order') {
-          await mutate({ addItemToOrder }, false)
-        } else {
-          throw new CommerceError({
-            message: (addItemToOrder as ErrorResult).message,
-          })
-        }
-        return { addItemToOrder }
+      async function addItem(input) {
+        const data = await fetch({ input })
+        await mutate(data, false)
+        return data
       },
-      [fn, mutate]
+      [fetch, mutate]
     )
-  }
-
-  useAddItem.extend = extendHook
-
-  return useAddItem
+  },
 }
-
-export default extendHook(fetcher)

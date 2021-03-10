@@ -2,6 +2,7 @@ export const cartFragment = /* GraphQL */ `
   fragment Cart on Order {
     id
     code
+    createdAt
     totalQuantity
     subTotal
     subTotalWithTax
@@ -14,13 +15,23 @@ export const cartFragment = /* GraphQL */ `
     lines {
       id
       quantity
+      linePriceWithTax
+      discountedLinePriceWithTax
       featuredAsset {
         id
         preview
       }
+      discounts {
+        description
+        amount
+      }
       productVariant {
         id
         name
+        sku
+        price
+        priceWithTax
+        stockLevel
         product {
           slug
         }

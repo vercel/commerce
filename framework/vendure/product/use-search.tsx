@@ -1,10 +1,9 @@
-import type { HookFetcher } from '@commerce/utils/types'
-import type { SwrOptions } from '@commerce/utils/use-data'
-import useCommerceSearch from '@commerce/products/use-search'
-import useResponse from '@commerce/utils/use-response'
-import { searchResultFragment } from '@framework/api/fragments/search-result'
-import { SearchQuery } from '@framework/schema'
-import { normalizeSearchResult } from '@framework/lib/normalize'
+import { SWRHook } from '@commerce/utils/types'
+import useSearch, { UseSearch } from '@commerce/product/use-search'
+import { Product } from '@commerce/types'
+import { SearchQuery, SearchQueryVariables } from '../schema'
+import { searchResultFragment } from '../api/fragments/search-result'
+import { normalizeSearchResult } from '../lib/normalize'
 
 export const searchQuery = /* GraphQL */ `
   query search($input: SearchInput!) {
@@ -18,61 +17,61 @@ export const searchQuery = /* GraphQL */ `
   ${searchResultFragment}
 `
 
+export default useSearch as UseSearch<typeof handler>
+
 export type SearchProductsInput = {
   search?: string
-  categoryId?: number
-  brandId?: number
+  categoryId?: string
+  brandId?: string
   sort?: string
 }
 
-export const fetcher: HookFetcher<SearchQuery, SearchProductsInput> = (
-  options,
-  { search, categoryId, brandId, sort },
-  fetch
-) => {
-  return fetch({
-    query: searchQuery,
-    variables: {
-      input: {
-        term: search,
-        collectionId: categoryId,
-        groupByProduct: true,
-      },
-    },
-  })
+export type SearchProductsData = {
+  products: Product[]
+  found: boolean
 }
 
-export function extendHook(
-  customFetcher: typeof fetcher,
-  swrOptions?: SwrOptions<any, SearchProductsInput>
-) {
-  const useSearch = (input: SearchProductsInput = {}) => {
-    const response = useCommerceSearch<SearchQuery, SearchProductsInput>(
-      {},
-      [
+export const handler: SWRHook<
+  SearchProductsData,
+  SearchProductsInput,
+  SearchProductsInput
+> = {
+  fetchOptions: {
+    query: searchQuery,
+  },
+  async fetcher({ input, options, fetch }) {
+    const { categoryId, brandId } = input
+
+    const variables: SearchQueryVariables = {
+      input: {
+        term: input.search,
+        collectionId: input.categoryId,
+        groupByProduct: true,
+        // TODO: what is the "sort" value?
+      },
+    }
+    const { search } = await fetch<SearchQuery>({
+      query: searchQuery,
+      variables,
+    })
+
+    return {
+      found: search.totalItems > 0,
+      products: search.items.map((item) => normalizeSearchResult(item)) ?? [],
+    }
+  },
+  useHook: ({ useData }) => (input = {}) => {
+    return useData({
+      input: [
         ['search', input.search],
         ['categoryId', input.categoryId],
         ['brandId', input.brandId],
         ['sort', input.sort],
       ],
-      customFetcher,
-      { revalidateOnFocus: false, ...swrOptions }
-    )
-
-    return useResponse(response, {
-      normalizer: (data) => {
-        return {
-          found: data?.search.totalItems && data?.search.totalItems > 0,
-          products:
-            data?.search.items.map((item) => normalizeSearchResult(item)) ?? [],
-        }
+      swrOptions: {
+        revalidateOnFocus: false,
+        ...input.swrOptions,
       },
     })
-  }
-
-  useSearch.extend = extendHook
-
-  return useSearch
+  },
 }
-
-export default extendHook(fetcher)

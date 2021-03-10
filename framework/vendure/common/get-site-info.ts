@@ -1,6 +1,6 @@
 import { VendureConfig, getConfig } from '../api'
-import { GetCollectionsQuery } from '@framework/schema'
-import { arrayToTree } from '@framework/lib/array-to-tree'
+import { GetCollectionsQuery } from '../schema'
+import { arrayToTree } from '../lib/array-to-tree'
 
 export const getCollectionsQuery = /* GraphQL */ `
   query getCollections {

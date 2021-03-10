@@ -1,13 +1,9 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
-import useCommerceLogin from '@commerce/use-login'
+import { MutationHook } from '@commerce/utils/types'
+import useLogin, { UseLogin } from '@commerce/auth/use-login'
+import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
-import {
-  ErrorResult,
-  LoginMutation,
-  LoginMutationVariables,
-} from '@framework/schema'
+import { LoginMutation, LoginMutationVariables } from '../schema'
 
 export const loginMutation = /* GraphQL */ `
   mutation login($username: String!, $password: String!) {
@@ -24,53 +20,45 @@ export const loginMutation = /* GraphQL */ `
   }
 `
 
-export const fetcher: HookFetcher<LoginMutation, LoginMutationVariables> = (
-  options,
-  { username, password },
-  fetch
-) => {
-  if (!(username && password)) {
-    throw new CommerceError({
-      message: 'An email address and password are required to login',
-    })
-  }
+export default useLogin as UseLogin<typeof handler>
 
-  return fetch({
-    ...options,
+export const handler: MutationHook<null, {}, any> = {
+  fetchOptions: {
     query: loginMutation,
-    variables: { username, password },
-  })
-}
+  },
+  async fetcher({ input: { email, password }, options, fetch }) {
+    if (!(email && password)) {
+      throw new CommerceError({
+        message: 'A email and password are required to login',
+      })
+    }
 
-export function extendHook(customFetcher: typeof fetcher) {
-  const useLogin = () => {
+    const variables: LoginMutationVariables = {
+      username: email,
+      password,
+    }
+
+    const { login } = await fetch<LoginMutation>({
+      ...options,
+      variables,
+    })
+
+    if (login.__typename !== 'CurrentUser') {
+      throw new ValidationError(login)
+    }
+
+    return null
+  },
+  useHook: ({ fetch }) => () => {
     const { revalidate } = useCustomer()
-    const fn = useCommerceLogin<LoginMutation, LoginMutationVariables>(
-      {},
-      customFetcher
-    )
 
     return useCallback(
-      async function login(input: { email: string; password: string }) {
-        const data = await fn({
-          username: input.email,
-          password: input.password,
-        })
-        if (data.login.__typename !== 'CurrentUser') {
-          throw new CommerceError({
-            message: (data.login as ErrorResult).message,
-          })
-        }
+      async function login(input) {
+        const data = await fetch({ input })
         await revalidate()
         return data
       },
-      [fn]
+      [fetch, revalidate]
     )
-  }
-
-  useLogin.extend = extendHook
-
-  return useLogin
+  },
 }
-
-export default extendHook(fetcher)

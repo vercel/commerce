@@ -1,5 +1,6 @@
-import update from '@framework/lib/immutability'
-import { CartFragment, SearchResultFragment } from '@framework/schema'
+import { Cart, Product } from '@commerce/types'
+import update from '../lib/immutability'
+import { CartFragment, SearchResultFragment } from '../schema'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -89,11 +90,14 @@ export function normalizeSearchResult(item: SearchResultFragment): Product {
 export function normalizeCart(order: CartFragment): Cart {
   return {
     id: order.id.toString(),
+    createdAt: order.createdAt,
+    taxesIncluded: true,
+    lineItemsSubtotalPrice: order.subTotalWithTax / 100,
     currency: { code: order.currencyCode },
-    subTotal: order.subTotalWithTax / 100,
-    total: order.totalWithTax / 100,
-    customerId: order.customer?.id as number,
-    items: order.lines?.map((l) => ({
+    subtotalPrice: order.subTotalWithTax / 100,
+    totalPrice: order.totalWithTax / 100,
+    customerId: order.customer?.id,
+    lineItems: order.lines?.map((l) => ({
       id: l.id,
       name: l.productVariant.name,
       quantity: l.quantity,
@@ -101,7 +105,19 @@ export function normalizeCart(order: CartFragment): Cart {
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
-      prices: [],
+      discounts: l.discounts.map((d) => ({ value: d.amount / 100 })),
+      path: '',
+      variant: {
+        id: l.productVariant.id,
+        name: l.productVariant.name,
+        sku: l.productVariant.sku,
+        price: l.discountedLinePriceWithTax / 100,
+        listPrice: l.linePriceWithTax / 100,
+        image: {
+          url: l.featuredAsset?.preview + '?preset=thumb' || '',
+        },
+        requiresShipping: true,
+      },
     })),
   }
 }

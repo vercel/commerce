@@ -1,15 +1,20 @@
 import { useCallback } from 'react'
-import debounce from 'lodash.debounce'
-import type { HookFetcher } from '@commerce/utils/types'
-import useCartUpdateItem from '@commerce/cart/use-update-item'
+import { HookFetcherContext, MutationHookContext } from '@commerce/utils/types'
+import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
+import {
+  Cart,
+  CartItemBody,
+  LineItem,
+  UpdateCartItemBody,
+} from '@commerce/types'
 import useCart from './use-cart'
-import { cartFragment } from '@framework/api/fragments/cart'
 import {
   AdjustOrderLineMutation,
   AdjustOrderLineMutationVariables,
-  ErrorResult,
-} from '@framework/schema'
-import { CommerceError } from '@commerce/utils/errors'
+} from '../schema'
+import { cartFragment } from '../api/fragments/cart'
+import { normalizeCart } from '../lib/normalize'
 
 export const adjustOrderLineMutation = /* GraphQL */ `
   mutation adjustOrderLine($orderLineId: ID!, $quantity: Int!) {
@@ -24,47 +29,64 @@ export const adjustOrderLineMutation = /* GraphQL */ `
   }
   ${cartFragment}
 `
-export const fetcher: HookFetcher<
-  AdjustOrderLineMutation,
-  AdjustOrderLineMutationVariables
-> = (options, { orderLineId, quantity }, fetch) => {
-  return fetch({
-    ...options,
-    query: adjustOrderLineMutation,
-    variables: { orderLineId, quantity },
-  })
-}
 
-function extendHook(customFetcher: typeof fetcher, cfg?: { wait?: number }) {
-  const useUpdateItem = (item?: any) => {
+export default useUpdateItem as UseUpdateItem<typeof handler>
+
+export const handler = {
+  fetchOptions: {
+    query: adjustOrderLineMutation,
+  },
+  async fetcher(context: HookFetcherContext<UpdateCartItemBody<CartItemBody>>) {
+    const { input, options, fetch } = context
+    const variables: AdjustOrderLineMutationVariables = {
+      quantity: input.item.quantity || 1,
+      orderLineId: input.itemId,
+    }
+    const { adjustOrderLine } = await fetch<AdjustOrderLineMutation>({
+      ...options,
+      variables,
+    })
+
+    if (adjustOrderLine.__typename === 'Order') {
+      return normalizeCart(adjustOrderLine)
+    }
+    throw new CommerceError(adjustOrderLine)
+  },
+  useHook: ({
+    fetch,
+  }: MutationHookContext<Cart | null, UpdateCartItemBody<CartItemBody>>) => (
+    ctx: {
+      item?: LineItem
+      wait?: number
+    } = {}
+  ) => {
+    const { item } = ctx
     const { mutate } = useCart()
-    const fn = useCartUpdateItem<
-      AdjustOrderLineMutation,
-      AdjustOrderLineMutationVariables
-    >({}, customFetcher)
 
     return useCallback(
-      debounce(async (input: any) => {
-        const { adjustOrderLine } = await fn({
-          orderLineId: item.id,
-          quantity: input.quantity,
-        })
-        if (adjustOrderLine.__typename === 'Order') {
-          await mutate({ adjustOrderLine }, false)
-        } else {
-          throw new CommerceError({
-            message: (adjustOrderLine as ErrorResult).message,
+      async function addItem(input: CartItemBody) {
+        const itemId = item?.id
+        const productId = input.productId ?? item?.productId
+        const variantId = input.productId ?? item?.variantId
+        if (!itemId || !productId || !variantId) {
+          throw new ValidationError({
+            message: 'Invalid input used for this operation',
           })
         }
-        return { adjustOrderLine }
-      }, cfg?.wait ?? 500),
-      [fn, mutate]
+        const data = await fetch({
+          input: {
+            item: {
+              productId,
+              variantId,
+              quantity: input.quantity,
+            },
+            itemId,
+          },
+        })
+        await mutate(data, false)
+        return data
+      },
+      [fetch, mutate]
     )
-  }
-
-  useUpdateItem.extend = extendHook
-
-  return useUpdateItem
+  },
 }
-
-export default extendHook(fetcher)

@@ -1,10 +1,10 @@
-export type HasParent = { id: number; parent?: { id: number } | null }
+export type HasParent = { id: string; parent?: { id: string } | null }
 export type TreeNode<T extends HasParent> = T & {
   children: Array<TreeNode<T>>
   expanded: boolean
 }
 export type RootNode<T extends HasParent> = {
-  id?: number
+  id?: string
   children: Array<TreeNode<T>>
 }
 
@@ -54,8 +54,8 @@ export function arrayToTree<T extends HasParent>(
  */
 function treeToMap<T extends HasParent>(
   tree?: RootNode<T>
-): Map<number, TreeNode<T>> {
-  const nodeMap = new Map<number, TreeNode<T>>()
+): Map<string, TreeNode<T>> {
+  const nodeMap = new Map<string, TreeNode<T>>()
   function visit(node: TreeNode<T>) {
     nodeMap.set(node.id, node)
     node.children.forEach(visit)

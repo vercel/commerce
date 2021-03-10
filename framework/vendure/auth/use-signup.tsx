@@ -1,13 +1,13 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
-import useCommerceSignup from '@commerce/use-signup'
+import { MutationHook } from '@commerce/utils/types'
+import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import useCustomer from '../customer/use-customer'
 import {
-  ErrorResult,
+  RegisterCustomerInput,
   SignupMutation,
   SignupMutationVariables,
-} from '@framework/schema'
+} from '../schema'
 
 export const signupMutation = /* GraphQL */ `
   mutation signup($input: RegisterCustomerInput!) {
@@ -24,66 +24,57 @@ export const signupMutation = /* GraphQL */ `
   }
 `
 
-export type SignupInput = {
-  email: string
-  firstName: string
-  lastName: string
-  password: string
-}
+export default useSignup as UseSignup<typeof handler>
 
-export const fetcher: HookFetcher<SignupMutation, SignupMutationVariables> = (
-  options,
-  { input },
-  fetch
-) => {
-  const { firstName, lastName, emailAddress, password } = input
-  if (!(firstName && lastName && emailAddress && password)) {
-    throw new CommerceError({
-      message:
-        'A first name, last name, email and password are required to signup',
-    })
-  }
-
-  return fetch({
-    ...options,
+export const handler: MutationHook<
+  null,
+  {},
+  RegisterCustomerInput,
+  RegisterCustomerInput
+> = {
+  fetchOptions: {
     query: signupMutation,
-    variables: { input },
-  })
-}
+  },
+  async fetcher({
+    input: { firstName, lastName, emailAddress, password },
+    options,
+    fetch,
+  }) {
+    if (!(firstName && lastName && emailAddress && password)) {
+      throw new CommerceError({
+        message:
+          'A first name, last name, email and password are required to signup',
+      })
+    }
+    const variables: SignupMutationVariables = {
+      input: {
+        firstName,
+        lastName,
+        emailAddress,
+        password,
+      },
+    }
+    const { registerCustomerAccount } = await fetch<SignupMutation>({
+      ...options,
+      variables,
+    })
 
-export function extendHook(customFetcher: typeof fetcher) {
-  const useSignup = () => {
+    if (registerCustomerAccount.__typename !== 'Success') {
+      throw new ValidationError(registerCustomerAccount)
+    }
+
+    return null
+  },
+  useHook: ({ fetch }) => () => {
     const { revalidate } = useCustomer()
-    const fn = useCommerceSignup<SignupMutation, SignupMutationVariables>(
-      {},
-      customFetcher
-    )
 
     return useCallback(
-      async function signup(input: SignupInput) {
-        const { registerCustomerAccount } = await fn({
-          input: {
-            firstName: input.firstName,
-            lastName: input.lastName,
-            emailAddress: input.email,
-            password: input.password,
-          },
-        })
-        if (registerCustomerAccount.__typename !== 'Success') {
-          throw new CommerceError({
-            message: (registerCustomerAccount as ErrorResult).message,
-          })
-        }
+      async function signup(input) {
+        const data = await fetch({ input })
         await revalidate()
-        return { registerCustomerAccount }
+        return data
       },
-      [fn]
+      [fetch, revalidate]
     )
-  }
-
-  useSignup.extend = extendHook
-
-  return useSignup
+  },
 }
-
-export default extendHook(fetcher)
