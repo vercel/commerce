@@ -39,7 +39,6 @@ const ProductView: FC<Props> = ({ product }) => {
     })
   }, [])
 
-  console.log(product.variants[0])
   const variant = getVariant(product, choices)
 
   const addToCart = async () => {
