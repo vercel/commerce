@@ -1,28 +1,7 @@
-import { VendureConfig, getConfig } from '../api'
+import { getConfig, VendureConfig } from '../api'
 import { GetCollectionsQuery } from '../schema'
 import { arrayToTree } from '../lib/array-to-tree'
-
-export const getCollectionsQuery = /* GraphQL */ `
-  query getCollections {
-    collections {
-      items {
-        id
-        name
-        description
-        slug
-        productVariants {
-          totalItems
-        }
-        parent {
-          id
-        }
-        children {
-          id
-        }
-      }
-    }
-  }
-`
+import { getCollectionsQuery } from '../lib/queries/get-collections-query'
 
 async function getSiteInfo({
   query = getCollectionsQuery,

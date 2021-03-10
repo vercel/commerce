@@ -1,19 +1,10 @@
 import { Cart } from '@commerce/types'
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { FetchCartInput, UseCart } from '@commerce/cart/use-cart'
-import { cartFragment } from '../api/fragments/cart'
 import { ActiveOrderQuery, CartFragment } from '../schema'
 import { normalizeCart } from '../lib/normalize'
 import { useMemo } from 'react'
-
-export const getCartQuery = /* GraphQL */ `
-  query activeOrder {
-    activeOrder {
-      ...Cart
-    }
-  }
-  ${cartFragment}
-`
+import { getCartQuery } from '../lib/queries/get-cart-query'
 
 export type CartResult = {
   activeOrder?: CartFragment

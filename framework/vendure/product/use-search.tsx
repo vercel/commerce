@@ -2,20 +2,8 @@ import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 import { Product } from '@commerce/types'
 import { SearchQuery, SearchQueryVariables } from '../schema'
-import { searchResultFragment } from '../api/fragments/search-result'
 import { normalizeSearchResult } from '../lib/normalize'
-
-export const searchQuery = /* GraphQL */ `
-  query search($input: SearchInput!) {
-    search(input: $input) {
-      items {
-        ...SearchResult
-      }
-      totalItems
-    }
-  }
-  ${searchResultFragment}
-`
+import { searchQuery } from '../lib/queries/search-query'
 
 export default useSearch as UseSearch<typeof handler>
 

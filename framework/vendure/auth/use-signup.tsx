@@ -8,21 +8,7 @@ import {
   SignupMutation,
   SignupMutationVariables,
 } from '../schema'
-
-export const signupMutation = /* GraphQL */ `
-  mutation signup($input: RegisterCustomerInput!) {
-    registerCustomerAccount(input: $input) {
-      __typename
-      ... on Success {
-        success
-      }
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-`
+import { signupMutation } from '../lib/mutations/sign-up-mutation'
 
 export default useSignup as UseSignup<typeof handler>
 

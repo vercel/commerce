@@ -4,23 +4,9 @@ import { CommerceError } from '@commerce/utils/errors'
 import { MutationHook } from '@commerce/utils/types'
 import { useCallback } from 'react'
 import useCart from './use-cart'
-import { cartFragment } from '../api/fragments/cart'
 import { AddItemToOrderMutation } from '../schema'
 import { normalizeCart } from '../lib/normalize'
-
-export const addItemToOrderMutation = /* GraphQL */ `
-  mutation addItemToOrder($variantId: ID!, $quantity: Int!) {
-    addItemToOrder(productVariantId: $variantId, quantity: $quantity) {
-      __typename
-      ...Cart
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-  ${cartFragment}
-`
+import { addItemToOrderMutation } from '../lib/mutations/add-item-to-order-mutation'
 
 export default useAddItem as UseAddItem<typeof handler>
 

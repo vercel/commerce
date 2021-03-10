@@ -4,21 +4,7 @@ import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import { LoginMutation, LoginMutationVariables } from '../schema'
-
-export const loginMutation = /* GraphQL */ `
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      __typename
-      ... on CurrentUser {
-        id
-      }
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-`
+import { loginMutation } from '../lib/mutations/log-in-mutation'
 
 export default useLogin as UseLogin<typeof handler>
 

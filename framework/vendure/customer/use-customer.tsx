@@ -2,17 +2,7 @@ import { SWRHook } from '@commerce/utils/types'
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
 import { Customer } from '@commerce/types'
 import { ActiveCustomerQuery } from '../schema'
-
-export const activeCustomerQuery = /* GraphQL */ `
-  query activeCustomer {
-    activeCustomer {
-      id
-      firstName
-      lastName
-      emailAddress
-    }
-  }
-`
+import { activeCustomerQuery } from '../lib/queries/active-customer-query'
 
 export default useCustomer as UseCustomer<typeof handler>
 

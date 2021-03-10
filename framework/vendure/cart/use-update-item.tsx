@@ -13,22 +13,8 @@ import {
   AdjustOrderLineMutation,
   AdjustOrderLineMutationVariables,
 } from '../schema'
-import { cartFragment } from '../api/fragments/cart'
 import { normalizeCart } from '../lib/normalize'
-
-export const adjustOrderLineMutation = /* GraphQL */ `
-  mutation adjustOrderLine($orderLineId: ID!, $quantity: Int!) {
-    adjustOrderLine(orderLineId: $orderLineId, quantity: $quantity) {
-      __typename
-      ...Cart
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-  ${cartFragment}
-`
+import { adjustOrderLineMutation } from '../lib/mutations/adjust-order-line-mutation'
 
 export default useUpdateItem as UseUpdateItem<typeof handler>
 

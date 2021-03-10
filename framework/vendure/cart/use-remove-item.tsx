@@ -3,27 +3,13 @@ import { HookFetcherContext, MutationHookContext } from '@commerce/utils/types'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
 import { CommerceError } from '@commerce/utils/errors'
 import useCart from './use-cart'
-import { cartFragment } from '../api/fragments/cart'
 import {
   RemoveOrderLineMutation,
   RemoveOrderLineMutationVariables,
 } from '../schema'
 import { Cart, LineItem, RemoveCartItemBody } from '@commerce/types'
 import { normalizeCart } from '../lib/normalize'
-
-export const removeOrderLineMutation = /* GraphQL */ `
-  mutation removeOrderLine($orderLineId: ID!) {
-    removeOrderLine(orderLineId: $orderLineId) {
-      __typename
-      ...Cart
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-  ${cartFragment}
-`
+import { removeOrderLineMutation } from '../lib/mutations/remove-order-line-mutation'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 

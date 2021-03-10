@@ -1,19 +1,8 @@
 import { Product } from '@commerce/types'
 import { getConfig, VendureConfig } from '../api'
-import { searchResultFragment } from '../api/fragments/search-result'
 import { GetAllProductsQuery } from '../schema'
 import { normalizeSearchResult } from '../lib/normalize'
-
-export const getAllProductsQuery = /* GraphQL */ `
-  query getAllProducts($input: SearchInput!) {
-    search(input: $input) {
-      items {
-        ...SearchResult
-      }
-    }
-  }
-  ${searchResultFragment}
-`
+import { getAllProductsQuery } from '../lib/queries/get-all-products-query'
 
 export type ProductVariables = { first?: number }
 

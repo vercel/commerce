@@ -2,17 +2,8 @@ import type {
   GetAllProductPathsQuery,
   GetAllProductPathsQueryVariables,
 } from '../schema'
-import { VendureConfig, getConfig } from '../api'
-
-export const getAllProductPathsQuery = /* GraphQL */ `
-  query getAllProductPaths($first: Int = 100) {
-    products(options: { take: $first }) {
-      items {
-        slug
-      }
-    }
-  }
-`
+import { getConfig, VendureConfig } from '../api'
+import { getAllProductPathsQuery } from '../lib/queries/get-all-product-paths-query'
 
 export type GetAllProductPathsResult = {
   products: Array<{ node: { path: string } }>

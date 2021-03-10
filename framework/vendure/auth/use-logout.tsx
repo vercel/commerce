@@ -3,14 +3,7 @@ import { MutationHook } from '@commerce/utils/types'
 import useLogout, { UseLogout } from '@commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
 import { LogoutMutation } from '../schema'
-
-export const logoutMutation = /* GraphQL */ `
-  mutation logout {
-    logout {
-      success
-    }
-  }
-`
+import { logoutMutation } from '../lib/mutations/log-out-mutation'
 
 export default useLogout as UseLogout<typeof handler>
 
