@@ -27,7 +27,7 @@ export const handler: SWRHook<
       const data = await fetch({
         ...options,
         variables: {
-          checkoutId,
+          checkoutId: checkoutId,
         },
       })
       checkout = data.node

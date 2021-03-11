@@ -1,49 +1,46 @@
-import { useMemo } from 'react'
-import { SWRHook } from '@commerce/utils/types'
-import useWishlist, { UseWishlist } from '@commerce/wishlist/use-wishlist'
-import useCustomer from '../customer/use-customer'
+// TODO: replace this hook and other wishlist hooks with a handler, or remove them if
+// Shopify doesn't have a wishlist
 
-export type UseWishlistInput = { includeProducts?: boolean }
+import { HookFetcher } from '@commerce/utils/types'
+import { Product } from '../schema'
 
-export default useWishlist as UseWishlist<typeof handler>
+const defaultOpts = {}
 
-export const handler: SWRHook<
-  any | null,
-  UseWishlistInput,
-  { customerId?: number } & UseWishlistInput,
-  { isEmpty?: boolean }
-> = {
-  fetchOptions: {
-    url: '/api/bigcommerce/wishlist',
-    method: 'GET',
-  },
-  fetcher() {
-    return { items: [] }
-  },
-  useHook: ({ useData }) => (input) => {
-    const { data: customer } = useCustomer()
-    const response = useData({
-      input: [
-        ['customerId', customer?.entityId],
-        ['includeProducts', input?.includeProducts],
-      ],
-      swrOptions: {
-        revalidateOnFocus: false,
-        ...input?.swrOptions,
-      },
-    })
-
-    return useMemo(
-      () =>
-        Object.create(response, {
-          isEmpty: {
-            get() {
-              return (response.data?.items?.length || 0) <= 0
-            },
-            enumerable: true,
-          },
-        }),
-      [response]
-    )
-  },
+export type Wishlist = {
+  items: [
+    {
+      product_id: number
+      variant_id: number
+      id: number
+      product: Product
+    }
+  ]
 }
+
+export interface UseWishlistOptions {
+  includeProducts?: boolean
+}
+
+export interface UseWishlistInput extends UseWishlistOptions {
+  customerId?: number
+}
+
+export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = () => {
+  return null
+}
+
+export function extendHook(
+  customFetcher: typeof fetcher,
+  // swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
+  swrOptions?: any
+) {
+  const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
+    return { data: null }
+  }
+
+  useWishlist.extend = extendHook
+
+  return useWishlist
+}
+
+export default extendHook(fetcher)
