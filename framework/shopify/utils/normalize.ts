@@ -99,12 +99,11 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     price: money(priceRange?.minVariantPrice),
     images: normalizeProductImages(images),
     variants: variants ? normalizeProductVariants(variants) : [],
-    options:
-      options
-        ?.filter(({ name, values }) => {
-          return name !== 'Title' && values !== ['Default Title']
-        })
-        .map((o) => normalizeProductOption(o)) ?? [],
+    options: options
+      ? options
+          .filter((o) => o.name !== 'Title') // By default Shopify adds a 'Title' name when there's only one option. We don't need it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
+          .map((o) => normalizeProductOption(o))
+      : [],
     ...rest,
   }
 
@@ -152,12 +151,13 @@ function normalizeLineItem({
     path: '',
     discounts: [],
     options:
-      variant?.title !== 'Default Title'
-        ? [
+      // By default Shopify adds a default variant with default names, we're removing it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
+      variant?.title == 'Default Title'
+        ? []
+        : [
             {
               value: variant?.title,
             },
-          ]
-        : [],
+          ],
   }
 }
