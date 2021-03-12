@@ -1,5 +1,5 @@
 import type { RequestInit } from '@vercel/fetch'
-import type { CommerceAPIConfig } from '@commerce/api'
+import { CommerceAPIConfig, createAPIProvider } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
 
@@ -78,6 +78,24 @@ const config = new Config({
   storeChannelId: STORE_CHANNEL_ID,
   storeApiFetch: fetchStoreApi,
 })
+
+const config2: BigcommerceConfig = {
+  commerceUrl: API_URL,
+  apiToken: API_TOKEN,
+  customerCookie: 'SHOP_TOKEN',
+  cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
+  cartCookieMaxAge: ONE_DAY * 30,
+  fetch: fetchGraphqlApi,
+  applyLocale: true,
+  // REST API only
+  storeApiUrl: STORE_API_URL,
+  storeApiToken: STORE_API_TOKEN,
+  storeApiClientId: STORE_API_CLIENT_ID,
+  storeChannelId: STORE_CHANNEL_ID,
+  storeApiFetch: fetchStoreApi,
+}
+
+export const commerce = createAPIProvider({ config: config2 })
 
 export function getConfig(userConfig?: Partial<BigcommerceConfig>) {
   return config.getConfig(userConfig)

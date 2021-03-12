@@ -160,6 +160,19 @@ interface Entity {
   [prop: string]: any
 }
 
+export interface Product2 {
+  id: string
+  name: string
+  description: string
+  sku?: string
+  slug?: string
+  path?: string
+  images: ProductImage[]
+  variants: ProductVariant2[]
+  price: ProductPrice
+  options: ProductOption[]
+}
+
 export interface Product extends Entity {
   name: string
   description: string

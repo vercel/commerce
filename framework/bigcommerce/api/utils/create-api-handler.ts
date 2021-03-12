@@ -48,7 +48,7 @@ export default function createApiHandler<
     operations?: Partial<H>
     options?: Options extends {} ? Partial<Options> : never
   } = {}): NextApiHandler {
-    const ops = { ...operations, ...handlers }
+    const ops = { ...handlers, ...operations }
     const opts = { ...defaultOptions, ...options }
 
     return function apiHandler(req, res) {
