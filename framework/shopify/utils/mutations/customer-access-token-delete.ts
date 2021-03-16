@@ -3,7 +3,7 @@ const customerAccessTokenDeleteMutation = /* GraphQL */ `
     customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
       deletedAccessToken
       deletedCustomerAccessTokenId
-      userErrors {
+      customerUserErrors {
         field
         message
       }

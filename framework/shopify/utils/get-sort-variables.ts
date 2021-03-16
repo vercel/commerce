@@ -1,4 +1,4 @@
-const getSortVariables = (sort?: string, isCategory = false) => {
+const getSortVariables = (sort?: string, isCategory: boolean = false) => {
   let output = {}
   switch (sort) {
     case 'price-asc':
