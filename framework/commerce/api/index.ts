@@ -1,19 +1,19 @@
 import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
 
-export type CartHandlers = {
-  getCart: APIHandler<any>
-  addItem: APIHandler<any>
-  updateItem: APIHandler<any>
-  removeItem: APIHandler<any>
+export type CartHandlers<Body extends { cartId: 'string' }> = {
+  getCart: APIHandler<any, CartHandlers<Body>, any, Body>
+  addItem: APIHandler<any, CartHandlers<Body>, any, Body>
+  updateItem: APIHandler<any, CartHandlers<Body>, any, Body>
+  removeItem: APIHandler<any, CartHandlers<Body>, any, Body>
 }
 
 export type CoreAPIProvider = {
   config: CommerceAPIConfig
   endpoints?: {
     cart?: {
-      handler: APIEndpoint<any, any, CartHandlers, any>
-      handlers: CartHandlers
+      handler: APIEndpoint<any, any, CartHandlers<any>, any>
+      handlers: CartHandlers<any>
     }
   }
 }
@@ -21,6 +21,23 @@ export type CoreAPIProvider = {
 export type APIProvider<P extends CoreAPIProvider = CoreAPIProvider> = P & {
   getConfig(userConfig?: Partial<P['config']>): P['config']
   setConfig(newConfig: Partial<P['config']>): void
+}
+
+export class CommerceAPI<P extends CoreAPIProvider = CoreAPIProvider> {
+  constructor(readonly provider: P) {
+    this.provider = provider
+  }
+
+  getConfig(userConfig: Partial<P['config']> = {}) {
+    return Object.entries(userConfig).reduce(
+      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
+      { ...this.provider.config }
+    )
+  }
+
+  setConfig(newConfig: Partial<P['config']>) {
+    Object.assign(this.provider.config, newConfig)
+  }
 }
 
 export function createAPIProvider<P extends CoreAPIProvider>(

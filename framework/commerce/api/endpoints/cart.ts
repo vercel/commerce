@@ -3,7 +3,7 @@ import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
 import type { APIProvider, CartHandlers } from '..'
 
-const cartApi: APIEndpoint<APIProvider, CartHandlers> = async (ctx) => {
+const cartApi: APIEndpoint<APIProvider, CartHandlers<any>> = async (ctx) => {
   const { req, res, handlers, config } = ctx
 
   if (
@@ -55,3 +55,5 @@ const cartApi: APIEndpoint<APIProvider, CartHandlers> = async (ctx) => {
     res.status(500).json({ data: null, errors: [{ message }] })
   }
 }
+
+export default cartApi

@@ -1,5 +1,9 @@
 import type { RequestInit } from '@vercel/fetch'
-import { CommerceAPIConfig, createAPIProvider } from '@commerce/api'
+import {
+  CommerceAPI,
+  CommerceAPIConfig,
+  createAPIProvider,
+} from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
 
@@ -95,7 +99,13 @@ const config2: BigcommerceConfig = {
   storeApiFetch: fetchStoreApi,
 }
 
-export const commerce = createAPIProvider({ config: config2 })
+const provider = {
+  config: config2,
+  // endpoints
+}
+
+export const commerce2 = createAPIProvider(provider)
+export const commerce = new CommerceAPI(provider)
 
 export function getConfig(userConfig?: Partial<BigcommerceConfig>) {
   return config.getConfig(userConfig)

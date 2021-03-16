@@ -5,7 +5,7 @@ import { APIHandler } from './types'
 export default function isAllowedOperation(
   req: NextApiRequest,
   res: NextApiResponse,
-  allowedHandlers: { [k in HTTP_METHODS]?: APIHandler<any> }
+  allowedHandlers: { [k in HTTP_METHODS]?: APIHandler<any, any> }
 ) {
   const methods = Object.keys(allowedHandlers) as HTTP_METHODS[]
   const allowedMethods = methods.reduce<HTTP_METHODS[]>((arr, method) => {
