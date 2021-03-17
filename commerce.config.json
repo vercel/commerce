@@ -1,4 +1,5 @@
 {
+  "updateTSConfig": true,
   "features": {
     "wishlist": true,
     "customCheckout": false

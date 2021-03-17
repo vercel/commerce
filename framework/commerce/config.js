@@ -2,7 +2,10 @@
  * This file is expected to be used in next.config.js only
  */
 
+const path = require('path')
+const fs = require('fs')
 const merge = require('deepmerge')
+const prettier = require('prettier')
 
 const PROVIDERS = ['bigcommerce', 'shopify']
 
@@ -31,7 +34,7 @@ function withCommerceConfig(nextConfig = {}) {
     )
   }
 
-  const commerceNextConfig = require(`../${name}/next.config`)
+  const commerceNextConfig = require(path.join('../', name, 'next.config'))
   const config = merge(commerceNextConfig, nextConfig)
 
   config.env = config.env || {}
@@ -39,6 +42,20 @@ function withCommerceConfig(nextConfig = {}) {
   Object.entries(config.commerce.features).forEach(([k, v]) => {
     if (v) config.env[`COMMERCE_${k.toUpperCase()}_ENABLED`] = true
   })
+
+  // Update paths in `tsconfig.json` to point to the selected provider
+  if (config.commerce.updateTSConfig) {
+    const tsconfigPath = path.join(process.cwd(), 'tsconfig.json')
+    const tsconfig = require(tsconfigPath)
+
+    tsconfig.compilerOptions.paths['@framework'] = [`framework/${name}`]
+    tsconfig.compilerOptions.paths['@framework/*'] = [`framework/${name}/*`]
+
+    fs.writeFileSync(
+      tsconfigPath,
+      prettier.format(JSON.stringify(tsconfig), { parser: 'json' })
+    )
+  }
 
   return config
 }
