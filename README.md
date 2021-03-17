@@ -71,25 +71,9 @@ Next.js Commerce provides a set of utilities and functions to create new provide
 
 ### How to change providers
 
-First, update the provider selected in `commerce.config.json`:
+Open `.env.local` and set the environment variables for the provider you would like to use (use `.env.template` as the base).
 
-```json
-{
-  "provider": "bigcommerce",
-  "features": {
-    "wishlist": true
-  }
-}
-```
-
-Then, change the paths defined in `tsconfig.json` and update the `@framework` paths to point to the right folder provider:
-
-```json
-"@framework": ["framework/bigcommerce"],
-"@framework/*": ["framework/bigcommerce/*"]
-```
-
-Make sure to add the environment variables required by the new provider.
+Comment or remove environment variables of other providers to avoid conflicts.
 
 ### Features
 
@@ -103,7 +87,6 @@ Every provider defines the features that it supports under `framework/{provider}
 - You'll see a config file like this:
   ```json
   {
-    "provider": "bigcommerce",
     "features": {
       "wishlist": false
     }
