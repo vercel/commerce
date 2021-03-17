@@ -1,5 +1,8 @@
+import type { NextApiHandler } from 'next'
 import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
+
+export type CartEndpoint = APIEndpoint<any, any, CartHandlers<any>, any>
 
 export type CartHandlers<Body extends { cartId: 'string' }> = {
   getCart: APIHandler<any, CartHandlers<Body>, any, Body>
@@ -8,14 +11,18 @@ export type CartHandlers<Body extends { cartId: 'string' }> = {
   removeItem: APIHandler<any, CartHandlers<Body>, any, Body>
 }
 
+export type Endpoints = CartEndpoint
+
+export type EndpointHandlers<E> = E extends APIEndpoint<any, any, infer T>
+  ? T
+  : never
+
+export type EndpointOptions<E> = E extends APIEndpoint<any, any, any, infer T>
+  ? T
+  : never
+
 export type CoreAPIProvider = {
   config: CommerceAPIConfig
-  endpoints?: {
-    cart?: {
-      handler: APIEndpoint<any, any, CartHandlers<any>, any>
-      handlers: CartHandlers<any>
-    }
-  }
 }
 
 export type APIProvider<P extends CoreAPIProvider = CoreAPIProvider> = P & {
@@ -23,7 +30,10 @@ export type APIProvider<P extends CoreAPIProvider = CoreAPIProvider> = P & {
   setConfig(newConfig: Partial<P['config']>): void
 }
 
-export class CommerceAPI<P extends CoreAPIProvider = CoreAPIProvider> {
+export class CommerceAPI<
+  P extends CoreAPIProvider = CoreAPIProvider,
+  E extends Endpoints = Endpoints
+> {
   constructor(readonly provider: P) {
     this.provider = provider
   }
@@ -37,6 +47,27 @@ export class CommerceAPI<P extends CoreAPIProvider = CoreAPIProvider> {
 
   setConfig(newConfig: Partial<P['config']>) {
     Object.assign(this.provider.config, newConfig)
+  }
+
+  endpoint(context: {
+    handler: E
+    config?: P['config']
+    operations: EndpointHandlers<typeof context.handler>
+    options?: EndpointOptions<typeof context.handler>
+  }): NextApiHandler {
+    const provider = this
+    const cfg = this.getConfig(context.config)
+
+    return function apiHandler(req, res) {
+      return context.handler({
+        req,
+        res,
+        provider,
+        config: cfg,
+        handlers: context.operations,
+        options: context.options,
+      })
+    }
   }
 }
 
