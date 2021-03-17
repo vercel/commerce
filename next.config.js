@@ -43,3 +43,5 @@ module.exports = withCommerceConfig({
     ].filter((x) => x)
   },
 })
+
+console.log('next.config.js', JSON.stringify(module.exports, null, 2))
