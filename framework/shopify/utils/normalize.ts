@@ -148,7 +148,7 @@ function normalizeLineItem({
       price: variant?.priceV2?.amount,
       listPrice: variant?.compareAtPriceV2?.amount,
     },
-    path: '',
+    path: String(variant?.product?.handle),
     discounts: [],
     options:
       // By default Shopify adds a default variant with default names, we're removing it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
