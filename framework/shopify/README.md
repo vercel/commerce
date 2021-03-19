@@ -27,8 +27,9 @@ Collection of hooks and data fetching functions to integrate Shopify in a React 
 1. Install dependencies:
 
 ```
-yarn install shopify-buy
-yarn install -D @types/shopify-buy
+yarn add shopify-buy
+
+yarn add @types/shopify-buy --dev
 ```
 
 3. Environment variables need to be set:
