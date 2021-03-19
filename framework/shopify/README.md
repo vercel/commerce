@@ -28,8 +28,7 @@ Collection of hooks and data fetching functions to integrate Shopify in a React 
 
 ```
 yarn add shopify-buy
-
-yarn add @types/shopify-buy --dev
+yarn add @types/shopify-buy
 ```
 
 3. Environment variables need to be set:
