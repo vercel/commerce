@@ -104,7 +104,9 @@ export const provider = {
 
 export type Provider = typeof provider
 
-export class CommerceAPI<P extends Provider> extends CoreCommerceAPI<P> {
+export class CommerceAPI<
+  P extends Provider = Provider
+> extends CoreCommerceAPI<P> {
   constructor(readonly provider: P = provider) {
     super(provider)
   }

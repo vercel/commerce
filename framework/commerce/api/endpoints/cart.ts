@@ -1,9 +1,9 @@
 import type { APIEndpoint } from '../utils/types'
 import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
-import type { APIProvider, CartHandlers } from '..'
+import type { CommerceAPI, CartHandlers } from '..'
 
-const cartApi: APIEndpoint<APIProvider, CartHandlers<any>> = async (ctx) => {
+const cartApi: APIEndpoint<CommerceAPI, CartHandlers<any>> = async (ctx) => {
   const { req, res, handlers, config } = ctx
 
   if (

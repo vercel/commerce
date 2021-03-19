@@ -1,7 +1,7 @@
+import { CartHandlers as CartHandlersCore } from '@commerce/api'
 import isAllowedMethod from '../utils/is-allowed-method'
 import createApiHandler, {
   BigcommerceApiHandler,
-  BigcommerceHandler,
 } from '../utils/create-api-handler'
 import { BigcommerceApiError } from '../utils/errors'
 import getCart from './handlers/get-cart'
@@ -14,14 +14,22 @@ import type {
   AddCartItemHandlerBody,
   UpdateCartItemHandlerBody,
   RemoveCartItemHandlerBody,
+  Cart,
 } from '../../types'
+import { APIHandler } from '@commerce/api/utils/types'
+import { CommerceAPI } from '..'
 
-export type CartHandlers = {
-  getCart: BigcommerceHandler<BigcommerceCart, GetCartHandlerBody>
-  addItem: BigcommerceHandler<BigcommerceCart, AddCartItemHandlerBody>
-  updateItem: BigcommerceHandler<BigcommerceCart, UpdateCartItemHandlerBody>
-  removeItem: BigcommerceHandler<BigcommerceCart, RemoveCartItemHandlerBody>
-}
+export type CartHandlers<
+  C extends CommerceAPI = CommerceAPI
+> = CartHandlersCore<
+  C,
+  {
+    getCart: APIHandler<C, CartHandlers<C>, Cart | null, GetCartHandlerBody>
+    addItem: APIHandler<C, CartHandlers<C>, Cart, AddCartItemHandlerBody>
+    updateItem: APIHandler<C, CartHandlers<C>, Cart, UpdateCartItemHandlerBody>
+    removeItem: APIHandler<C, CartHandlers<C>, Cart, RemoveCartItemHandlerBody>
+  }
+>
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
