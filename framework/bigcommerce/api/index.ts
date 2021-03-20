@@ -2,11 +2,9 @@ import type { RequestInit } from '@vercel/fetch'
 import {
   CommerceAPI as CoreCommerceAPI,
   CommerceAPIConfig,
-  GetEndpointsSchema,
 } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
-import { CartEndpointSchema } from './cart'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
   // Indicates if the returned metadata with translations should be applied to the
@@ -106,8 +104,6 @@ export const provider = {
 
 export type Provider = typeof provider
 
-export type EndpointsSchema = { cart: CartEndpointSchema }
-
 export class CommerceAPI<
   P extends Provider = Provider
 > extends CoreCommerceAPI<P> {
@@ -115,11 +111,6 @@ export class CommerceAPI<
     super(provider)
   }
 }
-
-export type CommerceAPIEndpoints = GetEndpointsSchema<
-  CommerceAPI,
-  EndpointsSchema
->
 
 export function getConfig(userConfig?: Partial<BigcommerceConfig>) {
   return config.getConfig(userConfig)

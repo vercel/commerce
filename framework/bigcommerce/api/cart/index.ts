@@ -1,4 +1,4 @@
-import { EndpointSchema, GetAPISchema } from '@commerce/api'
+import { GetAPISchema } from '@commerce/api'
 import getCart from './get-cart'
 import addItem from './add-item'
 import updateItem from './handlers/update-item'

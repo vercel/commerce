@@ -1,12 +1,11 @@
 import type { APIEndpoint } from '../utils/types'
 import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
-import type { GetAPISchema, CommerceAPI, CartSchema } from '..'
+import type { GetAPISchema, CartSchema } from '..'
 
-const cartApi: GetAPISchema<
-  CommerceAPI,
-  CartSchema
->['endpoint']['handler'] = async (ctx) => {
+const cartApi: GetAPISchema<any, CartSchema>['endpoint']['handler'] = async (
+  ctx
+) => {
   const { req, res, handlers, config } = ctx
 
   if (
@@ -20,6 +19,7 @@ const cartApi: GetAPISchema<
     return
   }
 
+  const body2 = req.body
   const { cookies } = req
   const cartId = cookies[config.cartCookie]
 
