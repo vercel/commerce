@@ -1,7 +1,5 @@
-import cartApi from '@framework/api/cart'
 import cart from '@commerce/api/endpoints/cart'
+import { operations } from '@framework/api/cart'
 import commerce from '@lib/api/commerce'
 
-const x = commerce.endpoint({ handler: cart, operations: {} as any })
-
-export default cartApi()
+export default commerce.endpoint({ handler: cart, operations })

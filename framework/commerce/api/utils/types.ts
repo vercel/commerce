@@ -37,8 +37,8 @@ export type APIHandler<
   context: APIHandlerContext<C, H, Data, Options> & { body: Body }
 ) => void | Promise<void>
 
-export type APIHandlers<C extends CommerceAPI, Data = any> = {
-  [k: string]: APIHandler<C, any, Data, any, any>
+export type APIHandlers<C extends CommerceAPI> = {
+  [k: string]: APIHandler<C, any, any, any, any>
 }
 
 export type APIEndpoint<
