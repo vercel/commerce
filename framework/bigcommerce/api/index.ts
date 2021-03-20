@@ -109,15 +109,17 @@ export type Provider = typeof provider
 export type EndpointsSchema = { cart: CartEndpointSchema }
 
 export class CommerceAPI<
-  P extends Provider = Provider,
-  E extends EndpointsSchema = EndpointsSchema
-> extends CoreCommerceAPI<P, E> {
+  P extends Provider = Provider
+> extends CoreCommerceAPI<P> {
   constructor(readonly provider: P = provider) {
     super(provider)
   }
 }
 
-export type CommerceAPIEndpoints = GetEndpointsSchema<CommerceAPI>
+export type CommerceAPIEndpoints = GetEndpointsSchema<
+  CommerceAPI,
+  EndpointsSchema
+>
 
 export function getConfig(userConfig?: Partial<BigcommerceConfig>) {
   return config.getConfig(userConfig)

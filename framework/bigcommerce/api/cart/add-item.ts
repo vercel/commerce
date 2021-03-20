@@ -1,9 +1,9 @@
 import { normalizeCart } from '@framework/lib/normalize'
 import { parseCartItem } from '../utils/parse-item'
 import getCartCookie from '../utils/get-cart-cookie'
-import type { CartHandlers } from '.'
+import type { CartEndpoint } from '.'
 
-const addItem: CartHandlers['addItem'] = async ({
+const addItem: CartEndpoint['operations']['addItem'] = async ({
   res,
   body: { cartId, item },
   config,

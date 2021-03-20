@@ -2,10 +2,10 @@ import { normalizeCart } from '@framework/lib/normalize'
 import { BigcommerceApiError } from '../utils/errors'
 import getCartCookie from '../utils/get-cart-cookie'
 import type { BigcommerceCart } from '../../types'
-import type { CartHandlers } from '.'
+import type { CartEndpoint } from '.'
 
 // Return current cart info
-const getCart: CartHandlers['getCart'] = async ({
+const getCart: CartEndpoint['operations']['getCart'] = async ({
   res,
   body: { cartId },
   config,

@@ -46,6 +46,36 @@ export type CartHandlers2<
   removeItem: APIHandler<any, CartHandlersBase<C>, Cart, any>
 }
 
+export type CartSchema = {
+  endpoint: {
+    options: {}
+    operations: {
+      getCart: { data?: Cart | null; body?: any }
+      addItem: { data?: Cart; body?: any }
+      updateItem: { data?: Cart; body?: any }
+      removeItem: { data?: Cart; body?: any }
+    }
+  }
+}
+
+export type APISchemas = CartSchema
+
+export type GetAPISchema<
+  C extends CommerceAPI,
+  S extends APISchemas = APISchemas
+> = {
+  schema: S
+  endpoint: EndpointContext2<C, S['endpoint']>
+}
+
+export type EndpointContext2<
+  C extends CommerceAPI,
+  E extends EndpointSchemaBase
+> = {
+  handler: Endpoint<C, E>
+  operations: EndpointHandlers<C, E>
+}
+
 export type EndpointsSchema = {
   cart?: {
     options: {}
@@ -60,17 +90,16 @@ export type EndpointsSchema = {
 
 export type GetEndpointsSchema<
   C extends CommerceAPI,
-  Schema extends EndpointsSchema = C extends CommerceAPI<any, infer E>
-    ? E
-    : never
+  Schema extends EndpointsSchema
 > = {
-  [E in keyof EndpointsSchema]-?: Schema[E] & {
-    endpoint: Endpoint<C, NonNullable<Schema[E]>>
-    handlers: EndpointHandlers<C, NonNullable<Schema[E]>>
-  }
+  [E in keyof EndpointsSchema]-?: {
+    schema: Schema[E]
+  } & EndpointContext<C, NonNullable<Schema[E]>>
 }
 
-type X = Endpoint<CommerceAPI, NonNullable<EndpointsSchema['cart']>>
+export type GetEndpointsFromSchema<T> = T[keyof T] extends { endpoint: infer E }
+  ? E
+  : never
 
 export type EndpointSchemaBase = {
   options: {}
@@ -111,10 +140,6 @@ export type EndpointHandlers<
   >
 }
 
-export type CommerceEndpointsSchema<C> = C extends CommerceAPI<any, infer E>
-  ? E
-  : never
-
 export type HandlerOperations<E> = E extends APIEndpoint<any, any, infer T>
   ? T
   : never
@@ -127,10 +152,15 @@ export type APIProvider = {
   config: CommerceAPIConfig
 }
 
-export class CommerceAPI<
-  P extends APIProvider = APIProvider,
-  E extends EndpointsSchema = EndpointsSchema
-> {
+export type EndpointContext<
+  C extends CommerceAPI,
+  E extends EndpointSchemaBase
+> = {
+  endpoint: Endpoint<C, E>
+  operations: EndpointHandlers<C, E>
+}
+
+export class CommerceAPI<P extends APIProvider = APIProvider> {
   constructor(readonly provider: P) {
     this.provider = provider
   }
@@ -146,12 +176,12 @@ export class CommerceAPI<
     Object.assign(this.provider.config, newConfig)
   }
 
-  endpoint(context: {
-    handler: E
-    config?: P['config']
-    operations: HandlerOperations<typeof context.handler>
-    options?: HandlerOptions<typeof context.handler>
-  }): NextApiHandler {
+  endpoint<E extends GetAPISchema<this>>(
+    context: E['endpoint'] & {
+      config?: P['config']
+      options?: E['schema']['endpoint']['options']
+    }
+  ): NextApiHandler {
     const commerce = this
     const cfg = this.getConfig(context.config)
 
@@ -162,7 +192,7 @@ export class CommerceAPI<
         commerce,
         config: cfg,
         handlers: context.operations,
-        options: context.options,
+        options: context.options ?? {},
       })
     }
   }

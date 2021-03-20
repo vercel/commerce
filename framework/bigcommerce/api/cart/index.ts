@@ -1,4 +1,4 @@
-import { EndpointSchema } from '@commerce/api'
+import { EndpointSchema, GetAPISchema } from '@commerce/api'
 import getCart from './get-cart'
 import addItem from './add-item'
 import updateItem from './handlers/update-item'
@@ -10,25 +10,27 @@ import type {
   RemoveCartItemHandlerBody,
   Cart,
 } from '../../types'
-import type { CommerceAPIEndpoints } from '..'
+import type { CommerceAPI } from '..'
 
-export type CartEndpointSchema = EndpointSchema<
-  'cart',
+export type CartAPI = GetAPISchema<
+  CommerceAPI,
   {
-    options: {}
-    operations: {
-      getCart: {
-        data: Cart | null
-        body: GetCartHandlerBody
-        options: { yay: string }
+    endpoint: {
+      options: {}
+      operations: {
+        getCart: {
+          data: Cart | null
+          body: GetCartHandlerBody
+          options: { yay: string }
+        }
+        addItem: { data: Cart; body: AddCartItemHandlerBody; options: {} }
+        updateItem: { data: Cart; body: UpdateCartItemHandlerBody; options: {} }
+        removeItem: { data: Cart; body: RemoveCartItemHandlerBody; options: {} }
       }
-      addItem: { data: Cart; body: AddCartItemHandlerBody; options: {} }
-      updateItem: { data: Cart; body: UpdateCartItemHandlerBody; options: {} }
-      removeItem: { data: Cart; body: RemoveCartItemHandlerBody; options: {} }
     }
   }
 >
 
-export type CartAPI = CommerceAPIEndpoints['cart']
+export type CartEndpoint = CartAPI['endpoint']
 
 export const operations = { getCart, addItem }
