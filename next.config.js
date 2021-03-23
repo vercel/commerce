@@ -3,6 +3,7 @@ const withCommerceConfig = require('./framework/commerce/with-config')
 
 const isBC = commerce.provider === 'bigcommerce'
 const isShopify = commerce.provider === 'shopify'
+const isAquilacms = commerce.provider === 'aquilacms'
 
 module.exports = withCommerceConfig({
   commerce,
