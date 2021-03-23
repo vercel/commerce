@@ -10,11 +10,14 @@ const prettier = require('prettier')
 const PROVIDERS = ['bigcommerce', 'shopify']
 
 function getProviderName() {
-  return process.env.BIGCOMMERCE_STOREFRONT_API_URL
-    ? 'bigcommerce'
-    : process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
-    ? 'shopify'
-    : null
+  return (
+    process.env.COMMERCE_PROVIDER ||
+    (process.env.BIGCOMMERCE_STOREFRONT_API_URL
+      ? 'bigcommerce'
+      : process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
+      ? 'shopify'
+      : null)
+  )
 }
 
 function withCommerceConfig(nextConfig = {}) {

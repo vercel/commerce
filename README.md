@@ -71,9 +71,7 @@ Next.js Commerce provides a set of utilities and functions to create new provide
 
 ### How to change providers
 
-Open `.env.local` and set the environment variables for the provider you would like to use (use `.env.template` as the base).
-
-Comment or remove environment variables of other providers to avoid conflicts.
+Open `.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `.env.template` as the base).
 
 ### Features
 
