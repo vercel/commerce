@@ -10,6 +10,7 @@ edges {
     vendor
     handle
     description
+    totalInventory
     priceRange {
       minVariantPrice {
         amount

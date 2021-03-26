@@ -1,5 +1,5 @@
 import * as Core from '@commerce/types'
-import { CheckoutLineItem } from './schema'
+import { CheckoutLineItem, Maybe, Scalars } from './schema'
 
 export type ShopifyCheckout = {
   id: string
@@ -17,6 +17,10 @@ export interface LineItem extends Core.LineItem {
 /**
  * Cart mutations
  */
+
+export type Product = Core.Product & {
+  totalInventory?: Maybe<Scalars['Int']>
+}
 
 export type OptionSelections = {
   option_id: number

@@ -1,5 +1,3 @@
-import { Product } from '@commerce/types'
-
 import {
   Product as ShopifyProduct,
   Checkout,
@@ -11,7 +9,7 @@ import {
   ProductOption,
 } from '../schema'
 
-import type { Cart, LineItem } from '../types'
+import type { Cart, LineItem, Product } from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -86,6 +84,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     handle,
     priceRange,
     options,
+    totalInventory,
     ...rest
   } = productNode
 
@@ -99,6 +98,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     price: money(priceRange?.minVariantPrice),
     images: normalizeProductImages(images),
     variants: variants ? normalizeProductVariants(variants) : [],
+    totalInventory,
     options: options
       ? options
           .filter((o) => o.name !== 'Title') // By default Shopify adds a 'Title' name when there's only one option. We don't need it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
