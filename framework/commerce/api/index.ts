@@ -1,7 +1,7 @@
 import type { NextApiHandler } from 'next'
 import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
-import type { CartSchema } from '../types'
+import type { CartSchema } from '../types/cart'
 
 export type APISchemas = CartSchema
 

@@ -129,8 +129,7 @@ export type CartOperations = {
   removeItem: RemoveItemOperation
 }
 
-export type GetCartOperation = {
-  data: Cart | null
+export type GetCartOperation = GetCartHook & {
   body: { cartId?: string }
 }
 

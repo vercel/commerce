@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import { useHook, useSWRHook } from '../utils/use-hook'
 import type { HookFetcherFn, SWRHook } from '../utils/types'
-import type { Cart } from '../types'
+import type { Cart } from '../types/cart'
 import { Provider, useCommerce } from '..'
 
 export type FetchCartInput = {
