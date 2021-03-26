@@ -1,19 +1,7 @@
 import type { NextApiHandler } from 'next'
 import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
-import type { Cart } from '../types'
-
-export type CartSchema = {
-  endpoint: {
-    options: {}
-    operations: {
-      getCart: { data?: Cart | null; body?: any }
-      addItem: { data?: Cart; body?: any }
-      updateItem: { data?: Cart; body?: any }
-      removeItem: { data?: Cart; body?: any }
-    }
-  }
-}
+import type { CartSchema } from '../types'
 
 export type APISchemas = CartSchema
 
@@ -78,10 +66,10 @@ export class CommerceAPI<P extends APIProvider = APIProvider> {
     Object.assign(this.provider.config, newConfig)
   }
 
-  endpoint<E extends GetAPISchema<this>>(
-    context: E['endpoint'] & {
+  endpoint<T extends GetAPISchema<any, any>>(
+    context: T['endpoint'] & {
       config?: P['config']
-      options?: E['schema']['endpoint']['options']
+      options?: T['schema']['endpoint']['options']
     }
   ): NextApiHandler {
     const commerce = this
@@ -93,7 +81,7 @@ export class CommerceAPI<P extends APIProvider = APIProvider> {
         res,
         commerce,
         config: cfg,
-        handlers: context.operations,
+        operations: context.operations,
         options: context.options ?? {},
       })
     }

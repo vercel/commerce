@@ -1,3 +1,4 @@
+import type { NextApiHandler } from 'next'
 import type { RequestInit } from '@vercel/fetch'
 import {
   CommerceAPI as CoreCommerceAPI,
@@ -5,6 +6,8 @@ import {
 } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
+
+import type { CartAPI } from './cart'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
   // Indicates if the returned metadata with translations should be applied to the
@@ -104,11 +107,20 @@ export const provider = {
 
 export type Provider = typeof provider
 
-export class CommerceAPI<
-  P extends Provider = Provider
-> extends CoreCommerceAPI<P> {
-  constructor(readonly provider: P = provider) {
-    super(provider)
+export type APIs = CartAPI
+
+export class CommerceAPI extends CoreCommerceAPI<Provider> {
+  constructor(customProvider: Provider = provider) {
+    super(customProvider)
+  }
+
+  endpoint<E extends APIs>(
+    context: E['endpoint'] & {
+      config?: Provider['config']
+      options?: E['schema']['endpoint']['options']
+    }
+  ): NextApiHandler {
+    return this.endpoint(context)
   }
 }
 

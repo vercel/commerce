@@ -25,7 +25,6 @@ export type BigcommerceCart = {
 
 export type Cart = Core.Cart & {
   lineItems: LineItem[]
-  core: string
 }
 
 export type LineItem = Core.LineItem

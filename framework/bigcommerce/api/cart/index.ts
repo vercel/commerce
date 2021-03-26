@@ -1,8 +1,9 @@
-import { GetAPISchema } from '@commerce/api'
+import type { GetAPISchema } from '@commerce/api'
+import type { AddItemOperation } from '@commerce/types'
 import getCart from './get-cart'
 import addItem from './add-item'
-import updateItem from './handlers/update-item'
-import removeItem from './handlers/remove-item'
+import updateItem from './update-item'
+import removeItem from './remove-item'
 import type {
   GetCartHandlerBody,
   AddCartItemHandlerBody,
@@ -18,14 +19,10 @@ export type CartAPI = GetAPISchema<
     endpoint: {
       options: {}
       operations: {
-        getCart: {
-          data: Cart | null
-          body: GetCartHandlerBody
-          options: { yay: string }
-        }
-        addItem: { data: Cart; body: AddCartItemHandlerBody; options: {} }
-        updateItem: { data: Cart; body: UpdateCartItemHandlerBody; options: {} }
-        removeItem: { data: Cart; body: RemoveCartItemHandlerBody; options: {} }
+        getCart: { data: Cart | null; body: GetCartHandlerBody }
+        addItem: { data: Cart; body: AddItemOperation['body'] }
+        updateItem: { data: Cart; body: UpdateCartItemHandlerBody }
+        removeItem: { data: Cart; body: RemoveCartItemHandlerBody }
       }
     }
   }
@@ -33,4 +30,4 @@ export type CartAPI = GetAPISchema<
 
 export type CartEndpoint = CartAPI['endpoint']
 
-export const operations = { getCart, addItem }
+export const operations = { getCart, addItem, updateItem, removeItem }
