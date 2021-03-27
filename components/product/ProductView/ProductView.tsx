@@ -146,8 +146,12 @@ const ProductView: FC<Props> = ({ product }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
+              disabled={variant?.availableForSale === false}
             >
-              Add to Cart
+              {variant?.isInStock === false &&
+              variant?.availableForSale === false
+                ? 'Out Of Stock'
+                : 'Add To Cart'}
             </Button>
           </div>
         </div>

@@ -8,7 +8,6 @@ const getProductQuery = /* GraphQL */ `
       vendor
       description
       descriptionHtml
-      totalInventory
       options {
         id
         name
@@ -34,6 +33,9 @@ const getProductQuery = /* GraphQL */ `
             id
             title
             sku
+            availableForSale
+            requiresShipping
+            quantityAvailable
             selectedOptions {
               name
               value

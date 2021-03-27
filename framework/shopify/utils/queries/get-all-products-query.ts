@@ -10,7 +10,7 @@ edges {
     vendor
     handle
     description
-    totalInventory
+    availableForSale
     priceRange {
       minVariantPrice {
         amount
@@ -48,7 +48,7 @@ products(
 const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $first: Int = 250
-    $query: String = ""
+    $query: String = "available_for_sale:true"
     $sortKey: ProductSortKeys = RELEVANCE
     $reverse: Boolean = false
   ) {

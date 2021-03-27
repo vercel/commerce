@@ -18,9 +18,7 @@ export interface LineItem extends Core.LineItem {
  * Cart mutations
  */
 
-export type Product = Core.Product & {
-  totalInventory?: Maybe<Scalars['Int']>
-}
+export type Product = Core.Product
 
 export type OptionSelections = {
   option_id: number

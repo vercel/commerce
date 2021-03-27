@@ -190,6 +190,12 @@ interface ProductImage {
 interface ProductVariant2 {
   id: string | number
   options: ProductOption[]
+  // Indicates whether this product variant is in stock.
+  isInStock?: boolean
+  // Indicates if the product variant is available for sale.
+  availableForSale?: boolean
+  //  The total sellable quantity of the variant for online sales channels.
+  quantityAvailable?: number
 }
 
 interface ProductPrice {
