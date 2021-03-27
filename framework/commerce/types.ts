@@ -51,6 +51,8 @@ export type ProductVariant = {
   isInStock?: boolean
   // Indicates if the product variant is available for sale.
   availableForSale?: boolean
+  //  The total sellable quantity of the variant for online sales channels.
+  quantityAvailable?: number
   // The variant's weight. If a weight was not explicitly specified on the
   // variant this will be the product's weight.
   weight?: Measurement
