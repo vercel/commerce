@@ -18,7 +18,8 @@ export const handler: SWRHook<
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
-    query: getCheckoutQuery,
+    query: 'cart',
+    method: 'get',
   },
   async fetcher({ input: { cartId: checkoutId }, options, fetch }) {
     let checkout

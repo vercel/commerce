@@ -1,4 +1,4 @@
-import { getConfig, ShopifyConfig } from '../api'
+import { getConfig, SwellConfig } from '../api'
 import getCustomerIdQuery from '../utils/queries/get-customer-id-query'
 import Cookies from 'js-cookie'
 
@@ -7,7 +7,7 @@ async function getCustomerId({
   config,
 }: {
   customerToken: string
-  config?: ShopifyConfig
+  config?: SwellConfig
 }): Promise<number | undefined> {
   config = getConfig(config)
 

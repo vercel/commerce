@@ -1,5 +1,5 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import { ShopifyConfig, getConfig } from '..'
+import { SwellConfig, getConfig } from '..'
 
 export type ShopifyApiHandler<
   T = any,
@@ -8,7 +8,7 @@ export type ShopifyApiHandler<
 > = (
   req: NextApiRequest,
   res: NextApiResponse<ShopifyApiResponse<T>>,
-  config: ShopifyConfig,
+  config: SwellConfig,
   handlers: H,
   // Custom configs that may be used by a particular handler
   options: Options
@@ -17,7 +17,7 @@ export type ShopifyApiHandler<
 export type ShopifyHandler<T = any, Body = null> = (options: {
   req: NextApiRequest
   res: NextApiResponse<ShopifyApiResponse<T>>
-  config: ShopifyConfig
+  config: SwellConfig
   body: Body
 }) => void | Promise<void>
 
@@ -44,7 +44,7 @@ export default function createApiHandler<
     operations,
     options,
   }: {
-    config?: ShopifyConfig
+    config?: SwellConfig
     operations?: Partial<H>
     options?: Options extends {} ? Partial<Options> : never
   } = {}): NextApiHandler {

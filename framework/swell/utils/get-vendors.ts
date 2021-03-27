@@ -1,4 +1,4 @@
-import { ShopifyConfig } from '../api'
+import { SwellConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
 import getAllProductVendors from './queries/get-all-product-vendors-query'
 
@@ -13,7 +13,7 @@ export type BrandEdge = {
 
 export type Brands = BrandEdge[]
 
-const getVendors = async (config: ShopifyConfig): Promise<BrandEdge[]> => {
+const getVendors = async (config: SwellConfig): Promise<BrandEdge[]> => {
   const vendors = await fetchAllProducts({
     config,
     query: getAllProductVendors,

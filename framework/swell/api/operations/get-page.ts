@@ -1,5 +1,5 @@
 import { Page } from '../../schema'
-import { ShopifyConfig, getConfig } from '..'
+import { SwellConfig, getConfig } from '..'
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
@@ -15,7 +15,7 @@ async function getPage({
 }: {
   url?: string
   variables: PageVariables
-  config?: ShopifyConfig
+  config?: SwellConfig
   preview?: boolean
 }): Promise<GetPageResult> {
   config = getConfig(config)

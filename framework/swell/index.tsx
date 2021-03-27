@@ -1,4 +1,5 @@
 import * as React from 'react'
+import swell from 'swell-js'
 import { ReactNode } from 'react'
 
 import {
@@ -7,30 +8,36 @@ import {
   useCommerce as useCoreCommerce,
 } from '@commerce'
 
-import { shopifyProvider, ShopifyProvider } from './provider'
-import { SHOPIFY_CHECKOUT_ID_COOKIE } from './const'
+import { swellProvider, SwellProvider } from './provider'
+import {
+  SHOPIFY_CHECKOUT_ID_COOKIE,
+  SWELL_STORE_ID,
+  SWELL_PUBLIC_KEY,
+} from './const'
+swell.init(SWELL_STORE_ID, SWELL_PUBLIC_KEY)
 
-export { shopifyProvider }
-export type { ShopifyProvider }
+export { swellProvider }
+export type { SwellProvider }
 
-export const shopifyConfig: CommerceConfig = {
+export const swellConfig: any = {
   locale: 'en-us',
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  swell,
 }
 
-export type ShopifyConfig = Partial<CommerceConfig>
+export type SwellConfig = Partial<CommerceConfig>
 
-export type ShopifyProps = {
+export type SwellProps = {
   children?: ReactNode
   locale: string
-} & ShopifyConfig
+} & SwellConfig
 
-export function CommerceProvider({ children, ...config }: ShopifyProps) {
+export function CommerceProvider({ children, ...config }: SwellProps) {
   return (
     <CoreCommerceProvider
       // TODO: Fix this type
-      provider={shopifyProvider as any}
-      config={{ ...shopifyConfig, ...config }}
+      provider={swellProvider as any}
+      config={{ ...swellConfig, ...config }}
     >
       {children}
     </CoreCommerceProvider>

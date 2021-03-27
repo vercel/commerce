@@ -1,8 +1,8 @@
 import Client from 'shopify-buy'
-import { ShopifyConfig } from '../index'
+import { SwellConfig } from '../index'
 
 type Options = {
-  config: ShopifyConfig
+  config: SwellConfig
 }
 
 const getAllCollections = async (options: Options) => {

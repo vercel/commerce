@@ -11,15 +11,16 @@ export async function getAsyncError(res: Response) {
 }
 
 const handleFetchResponse = async (res: Response) => {
-  if (res.ok) {
-    const { data, errors } = await res.json()
+  // if (res.ok) {
+  //   const { data, errors } = await res.json()
 
-    if (errors && errors.length) {
-      throw getError(errors, res.status)
-    }
+  //   if (errors && errors.length) {
+  //     throw getError(errors, res.status)
+  //   }
 
-    return data
-  }
+  //   return data
+  // }
+  if (res) return res
 
   throw await getAsyncError(res)
 }

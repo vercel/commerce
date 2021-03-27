@@ -1,4 +1,4 @@
-import { getConfig, ShopifyConfig } from '../api'
+import { getConfig, SwellConfig } from '../api'
 import getPageQuery from '../utils/queries/get-page-query'
 import { Page } from './get-all-pages'
 
@@ -10,7 +10,7 @@ export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
 const getPage = async (options: {
   variables: Variables
-  config: ShopifyConfig
+  config: SwellConfig
   preview?: boolean
 }): Promise<GetPageResult> => {
   let { config, variables } = options ?? {}

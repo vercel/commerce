@@ -1,5 +1,5 @@
 import { GraphQLFetcherResult } from '@commerce/api'
-import { getConfig, ShopifyConfig } from '../api'
+import { getConfig, SwellConfig } from '../api'
 import { ProductEdge } from '../schema'
 import { getAllProductsQuery } from '../utils/queries'
 import { normalizeProduct } from '../utils/normalize'
@@ -16,7 +16,7 @@ type ReturnType = {
 
 const getAllProducts = async (options: {
   variables?: Variables
-  config?: ShopifyConfig
+  config?: SwellConfig
   preview?: boolean
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}

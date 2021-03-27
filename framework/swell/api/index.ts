@@ -22,23 +22,23 @@ if (!API_TOKEN) {
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
-export interface ShopifyConfig extends CommerceAPIConfig {}
+export interface SwellConfig extends CommerceAPIConfig {}
 
 export class Config {
-  private config: ShopifyConfig
+  private config: SwellConfig
 
-  constructor(config: ShopifyConfig) {
+  constructor(config: SwellConfig) {
     this.config = config
   }
 
-  getConfig(userConfig: Partial<ShopifyConfig> = {}) {
-    return Object.entries(userConfig).reduce<ShopifyConfig>(
+  getConfig(userConfig: Partial<SwellConfig> = {}) {
+    return Object.entries(userConfig).reduce<SwellConfig>(
       (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
       { ...this.config }
     )
   }
 
-  setConfig(newConfig: Partial<ShopifyConfig>) {
+  setConfig(newConfig: Partial<SwellConfig>) {
     Object.assign(this.config, newConfig)
   }
 }
@@ -53,10 +53,10 @@ const config = new Config({
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
 })
 
-export function getConfig(userConfig?: Partial<ShopifyConfig>) {
+export function getConfig(userConfig?: Partial<SwellConfig>) {
   return config.getConfig(userConfig)
 }
 
-export function setConfig(newConfig: Partial<ShopifyConfig>) {
+export function setConfig(newConfig: Partial<SwellConfig>) {
   return config.setConfig(newConfig)
 }

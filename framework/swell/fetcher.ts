@@ -1,18 +1,25 @@
 import { Fetcher } from '@commerce/utils/types'
-import { API_TOKEN, API_URL } from './const'
 import { handleFetchResponse } from './utils'
+import { swellConfig } from './index'
 
-const fetcher: Fetcher = async ({ method = 'POST', variables, query }) => {
-  return handleFetchResponse(
-    await fetch(API_URL, {
-      method,
-      body: JSON.stringify({ query, variables }),
-      headers: {
-        'X-Shopify-Storefront-Access-Token': API_TOKEN!,
-        'Content-Type': 'application/json',
-      },
-    })
-  )
+const fetcher: Fetcher = async ({ method = 'get', variables, query }) => {
+  const { swell } = swellConfig
+  async function callSwell() {
+    if (Array.isArray(variables)) {
+      const arg1 = variables[0]
+      const arg2 = variables[1]
+      const response = await swell[query][method](arg1, arg2)
+      console.log(response)
+      return handleFetchResponse(response)
+    } else {
+      const response = await swell[query][method](variables)
+      console.log(response)
+      return handleFetchResponse(response)
+    }
+  }
+  if (query) {
+    return await callSwell()
+  }
 }
 
 export default fetcher

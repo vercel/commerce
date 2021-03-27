@@ -14,7 +14,7 @@ import { handler as useSignup } from './auth/use-signup'
 
 import fetcher from './fetcher'
 
-export const shopifyProvider = {
+export const swellProvider = {
   locale: 'en-us',
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
   storeDomain: STORE_DOMAIN,
@@ -28,4 +28,4 @@ export const shopifyProvider = {
   },
 }
 
-export type ShopifyProvider = typeof shopifyProvider
+export type SwellProvider = typeof swellProvider

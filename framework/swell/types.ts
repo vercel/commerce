@@ -1,6 +1,11 @@
 import * as Core from '@commerce/types'
 import { CheckoutLineItem } from './schema'
 
+export interface SwellCustomer extends Core.Customer {
+  first_name: string
+  last_name: string
+}
+
 export type ShopifyCheckout = {
   id: string
   webUrl: string

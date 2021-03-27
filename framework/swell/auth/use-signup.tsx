@@ -20,7 +20,8 @@ export const handler: MutationHook<
   CustomerCreateInput
 > = {
   fetchOptions: {
-    query: customerCreateMutation,
+    query: 'account',
+    method: 'create',
   },
   async fetcher({
     input: { firstName, lastName, email, password },
@@ -36,23 +37,20 @@ export const handler: MutationHook<
     const data = await fetch({
       ...options,
       variables: {
-        input: {
-          firstName,
-          lastName,
-          email,
-          password,
-        },
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        password,
       },
     })
 
     try {
       const loginData = await fetch({
-        query: customerAccessTokenCreateMutation,
+        query: 'account',
+        method: 'login',
         variables: {
-          input: {
-            email,
-            password,
-          },
+          email,
+          password,
         },
       })
       handleLogin(loginData)

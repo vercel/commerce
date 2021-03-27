@@ -25,7 +25,8 @@ const getErrorMessage = ({ code, message }: CustomerUserError) => {
 
 export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
   fetchOptions: {
-    query: createCustomerAccessTokenMutation,
+    query: 'account',
+    method: 'login',
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
@@ -40,9 +41,7 @@ export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
       MutationCheckoutCreateArgs
     >({
       ...options,
-      variables: {
-        input: { email, password },
-      },
+      variables: [email, password],
     })
 
     const errors = customerAccessTokenCreate?.customerUserErrors

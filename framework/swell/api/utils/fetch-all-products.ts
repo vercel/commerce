@@ -1,5 +1,5 @@
 import { ProductEdge } from '../../schema'
-import { ShopifyConfig } from '..'
+import { SwellConfig } from '..'
 
 const fetchAllProducts = async ({
   config,
@@ -8,7 +8,7 @@ const fetchAllProducts = async ({
   acc = [],
   cursor,
 }: {
-  config: ShopifyConfig
+  config: SwellConfig
   query: string
   acc?: ProductEdge[]
   variables?: any

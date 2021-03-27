@@ -1,7 +1,7 @@
 import getCategories, { Category } from '../utils/get-categories'
 import getVendors, { Brands } from '../utils/get-vendors'
 
-import { getConfig, ShopifyConfig } from '../api'
+import { getConfig, SwellConfig } from '../api'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
@@ -12,7 +12,7 @@ export type GetSiteInfoResult<
 
 const getSiteInfo = async (options?: {
   variables?: any
-  config: ShopifyConfig
+  config: SwellConfig
   preview?: boolean
 }): Promise<GetSiteInfoResult> => {
   let { config } = options ?? {}

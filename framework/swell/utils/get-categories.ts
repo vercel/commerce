@@ -1,4 +1,4 @@
-import { ShopifyConfig } from '../api'
+import { SwellConfig } from '../api'
 import { CollectionEdge } from '../schema'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
 
@@ -8,7 +8,7 @@ export type Category = {
   path: string
 }
 
-const getCategories = async (config: ShopifyConfig): Promise<Category[]> => {
+const getCategories = async (config: SwellConfig): Promise<Category[]> => {
   const { data } = await config.fetch(getSiteCollectionsQuery, {
     variables: {
       first: 250,

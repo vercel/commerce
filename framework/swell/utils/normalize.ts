@@ -1,4 +1,5 @@
 import { Product } from '@commerce/types'
+import { Customer } from '@commerce/types'
 
 import {
   Product as ShopifyProduct,
@@ -11,7 +12,7 @@ import {
   ProductOption,
 } from '../schema'
 
-import type { Cart, LineItem } from '../types'
+import type { Cart, LineItem, SwellCustomer } from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -118,6 +119,15 @@ export function normalizeCart(checkout: Checkout): Cart {
     subtotalPrice: +checkout.subtotalPriceV2?.amount,
     totalPrice: checkout.totalPriceV2?.amount,
     discounts: [],
+  }
+}
+
+export function normalizeCustomer(customer: SwellCustomer): Customer {
+  const { first_name: firstName, last_name: lastName } = customer
+  return {
+    ...customer,
+    firstName,
+    lastName,
   }
 }
 

@@ -1,10 +1,10 @@
 import { CollectionEdge } from '../schema'
-import { getConfig, ShopifyConfig } from '../api'
+import { getConfig, SwellConfig } from '../api'
 import getAllCollectionsQuery from '../utils/queries/get-all-collections-query'
 
 const getAllCollections = async (options?: {
   variables?: any
-  config: ShopifyConfig
+  config: SwellConfig
   preview?: boolean
 }) => {
   let { config, variables = { first: 250 } } = options ?? {}

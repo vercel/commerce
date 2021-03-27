@@ -1,7 +1,7 @@
 {
-  "provider": "bigcommerce",
+  "provider": "swell",
   "features": {
-    "wishlist": true,
+    "wishlist": false,
     "customCheckout": false
   }
 }

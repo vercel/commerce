@@ -1,4 +1,4 @@
-import { getConfig, ShopifyConfig } from '../api'
+import { getConfig, SwellConfig } from '../api'
 import { PageEdge } from '../schema'
 import { getAllPagesQuery } from '../utils/queries'
 
@@ -20,7 +20,7 @@ export type Page = {
 
 const getAllPages = async (options?: {
   variables?: Variables
-  config: ShopifyConfig
+  config: SwellConfig
   preview?: boolean
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}

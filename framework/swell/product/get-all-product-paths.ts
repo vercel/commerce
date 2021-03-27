@@ -1,5 +1,5 @@
 import { Product } from '@commerce/types'
-import { getConfig, ShopifyConfig } from '../api'
+import { getConfig, SwellConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
 import { ProductEdge } from '../schema'
 import getAllProductsPathsQuery from '../utils/queries/get-all-products-paths-query'
@@ -18,7 +18,7 @@ type ReturnType = {
 
 const getAllProductPaths = async (options?: {
   variables?: any
-  config?: ShopifyConfig
+  config?: SwellConfig
   preview?: boolean
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
