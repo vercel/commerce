@@ -94,11 +94,16 @@ export type CartHooks = {
 
 export type GetCartHook = {
   data: Cart | null
+  input: {}
+  fetchInput: { cartId?: string }
+  swrState: { isEmpty: boolean }
 }
 
 export type AddItemHook = {
   data: Cart
   body: { item: CartItemBody }
+  input: CartItemBody
+  fetchInput: { item: CartItemBody }
 }
 
 export type UpdateItemHook = {

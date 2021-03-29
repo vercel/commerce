@@ -1,17 +1,12 @@
 import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
-import useCart, { UseCart, FetchCartInput } from '@commerce/cart/use-cart'
+import useCart, { UseCart } from '@commerce/cart/use-cart'
 import { normalizeCart } from '../lib/normalize'
-import type { Cart } from '../types'
+import type { GetCartHook } from '../types/cart'
 
 export default useCart as UseCart<typeof handler>
 
-export const handler: SWRHook<
-  Cart | null,
-  {},
-  FetchCartInput,
-  { isEmpty?: boolean }
-> = {
+export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     url: '/api/bigcommerce/cart',
     method: 'GET',
