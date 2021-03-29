@@ -9,15 +9,13 @@ const fetcher: Fetcher = async ({ method = 'get', variables, query }) => {
       const arg1 = variables[0]
       const arg2 = variables[1]
       const response = await swell[query][method](arg1, arg2)
-      console.log(response)
       return handleFetchResponse(response)
     } else {
       const response = await swell[query][method](variables)
-      console.log(response)
       return handleFetchResponse(response)
     }
   }
-  if (query) {
+  if (query in swell) {
     return await callSwell()
   }
 }

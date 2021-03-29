@@ -1,13 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
-import { ProductEdge } from '../schema'
-import {
-  getAllProductsQuery,
-  getCollectionProductsQuery,
-  getSearchVariables,
-  normalizeProduct,
-} from '../utils'
+import { getAllProductsQuery, normalizeProduct } from '../utils'
 
 import { Product } from '@commerce/types'
 
@@ -36,28 +30,17 @@ export const handler: SWRHook<
   async fetcher({ input, options, fetch }) {
     const { categoryId, brandId } = input
 
-    const data = await fetch({
-      query: categoryId ? getCollectionProductsQuery : options.query,
-      method: options?.method,
-      variables: getSearchVariables(input),
+    const { results, count: found } = await fetch({
+      query: 'products',
+      method: 'get',
+      // variables: { categoryId },
     })
 
-    let edges
-
-    if (categoryId) {
-      edges = data.node?.products?.edges ?? []
-      if (brandId) {
-        edges = edges.filter(
-          ({ node: { vendor } }: ProductEdge) => vendor === brandId
-        )
-      }
-    } else {
-      edges = data.products?.edges ?? []
-    }
+    const products = results.map((product) => normalizeProduct(product))
 
     return {
-      products: edges.map(({ node }: ProductEdge) => normalizeProduct(node)),
-      found: !!edges.length,
+      products,
+      found,
     }
   },
   useHook: ({ useData }) => (input = {}) => {

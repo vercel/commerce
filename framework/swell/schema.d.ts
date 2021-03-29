@@ -4147,7 +4147,7 @@ export type ProductOption = Node & {
   /** The product option’s name. */
   name: Scalars['String']
   /** The corresponding value to the product option name. */
-  values: Array<Scalars['String']>
+  values: Array<Scalars['Object']>
 }
 
 /** The price range of the product. */

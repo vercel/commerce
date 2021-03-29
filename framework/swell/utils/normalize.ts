@@ -1,5 +1,6 @@
 import { Product } from '@commerce/types'
 import { Customer } from '@commerce/types'
+import { fileURLToPath } from 'node:url'
 
 import {
   Product as ShopifyProduct,
@@ -12,7 +13,7 @@ import {
   ProductOption,
 } from '../schema'
 
-import type { Cart, LineItem, SwellCustomer } from '../types'
+import type { Cart, LineItem, SwellCustomer, SwellProduct } from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -32,7 +33,7 @@ const normalizeProductOption = ({
     displayName,
     values: values.map((value) => {
       let output: any = {
-        label: value,
+        label: value.name,
       }
       if (displayName === 'Color') {
         output = {
@@ -45,9 +46,9 @@ const normalizeProductOption = ({
   }
 }
 
-const normalizeProductImages = ({ edges }: ImageConnection) =>
-  edges?.map(({ node: { originalSrc: url, ...rest } }) => ({
-    url,
+const normalizeProductImages = (images) =>
+  images?.map(({ file, ...rest }) => ({
+    url: file.url,
     ...rest,
   }))
 
@@ -73,16 +74,16 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
   )
 }
 
-export function normalizeProduct(productNode: ShopifyProduct): Product {
+export function normalizeProduct(productNode: SwellProduct): Product {
   const {
     id,
-    title: name,
+    name,
     vendor,
     images,
     variants,
     description,
-    handle,
-    priceRange,
+    slug,
+    price,
     options,
     ...rest
   } = productNode
@@ -92,9 +93,9 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     name,
     vendor,
     description,
-    path: `/${handle}`,
-    slug: handle?.replace(/^\/+|\/+$/g, ''),
-    price: money(priceRange?.minVariantPrice),
+    path: `/${slug}`,
+    slug,
+    price,
     images: normalizeProductImages(images),
     variants: variants ? normalizeProductVariants(variants) : [],
     options: options ? options.map((o) => normalizeProductOption(o)) : [],

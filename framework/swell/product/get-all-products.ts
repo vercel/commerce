@@ -21,16 +21,8 @@ const getAllProducts = async (options: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-
-  const { data }: GraphQLFetcherResult = await config.fetch(
-    getAllProductsQuery,
-    { variables }
-  )
-
-  const products =
-    data.products?.edges?.map(({ node: p }: ProductEdge) =>
-      normalizeProduct(p)
-    ) ?? []
+  const { results } = await config.fetchSwell('products', 'get')
+  const products = results.map((product) => normalizeProduct(product)) ?? []
 
   return {
     products,

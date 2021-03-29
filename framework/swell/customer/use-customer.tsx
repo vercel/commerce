@@ -12,13 +12,9 @@ export const handler: SWRHook<Customer | null> = {
     method: 'get',
   },
   async fetcher({ options, fetch }) {
-    // console.log('STORE_ID', STORE_ID, 'PUBLIC_KEY', PUBLIC_KEY);
-    // const data = await swell.account.get()
     const data = await fetch<any | null>({
       ...options,
-      // variables: { customerAccessToken: getCustomerToken() },
     })
-    console.log(`Customer data ${data}`)
     return data ? normalizeCustomer(data) : null
   },
   useHook: ({ useData }) => (input) => {
