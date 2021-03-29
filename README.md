@@ -81,6 +81,11 @@ First, update the provider selected in `commerce.config.json`:
   }
 }
 ```
+Add your provider to the list of supported providers in `framework/commerce/with-config.js`:
+
+```
+const PROVIDERS = ['bigcommerce', 'shopify', 'your-provider']
+```
 
 Then, change the paths defined in `tsconfig.json` and update the `@framework` paths to point to the right folder provider:
 
