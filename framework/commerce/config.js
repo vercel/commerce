@@ -47,7 +47,7 @@ function withCommerceConfig(nextConfig = {}) {
   })
 
   // Update paths in `tsconfig.json` to point to the selected provider
-  if (config.commerce.updateTSConfig) {
+  if (config.commerce.updateTSConfig !== false) {
     const tsconfigPath = path.join(process.cwd(), 'tsconfig.json')
     const tsconfig = require(tsconfigPath)
 
