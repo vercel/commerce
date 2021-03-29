@@ -1,28 +1,19 @@
 import { SwellConfig } from '../api'
-import { CollectionEdge } from '../schema'
-import getSiteCollectionsQuery from './queries/get-all-collections-query'
 
 export type Category = {
-  entityId: string
+  id: string
   name: string
-  path: string
+  slug: string
 }
 
 const getCategories = async (config: SwellConfig): Promise<Category[]> => {
-  const { data } = await config.fetch(getSiteCollectionsQuery, {
-    variables: {
-      first: 250,
-    },
-  })
-
+  const data = await config.fetchSwell('categories', 'get')
   return (
-    data.collections?.edges?.map(
-      ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({
-        entityId,
-        name,
-        path: `/${handle}`,
-      })
-    ) ?? []
+    data.results.map(({ id: entityId, name, slug }: Category) => ({
+      entityId,
+      name,
+      path: `/${slug}`,
+    })) ?? []
   )
 }
 

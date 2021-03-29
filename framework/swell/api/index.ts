@@ -21,8 +21,11 @@ if (!API_TOKEN) {
 }
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
+import fetchSwellApi from './utils/fetch-swell-api'
 
-export interface SwellConfig extends CommerceAPIConfig {}
+export interface SwellConfig extends CommerceAPIConfig {
+  fetchSwell: any
+}
 
 export class Config {
   private config: SwellConfig
@@ -49,6 +52,7 @@ const config = new Config({
   apiToken: API_TOKEN!,
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
   cartCookieMaxAge: SHOPIFY_COOKIE_EXPIRE,
+  fetchSwell: fetchSwellApi,
   fetch: fetchGraphqlApi,
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
 })
