@@ -3,6 +3,7 @@ const withCommerceConfig = require('./framework/commerce/with-config')
 
 const isBC = commerce.provider === 'bigcommerce'
 const isShopify = commerce.provider === 'shopify'
+const isRC = commerce.provider === 'reactioncommerce'
 
 module.exports = withCommerceConfig({
   commerce,
@@ -12,7 +13,7 @@ module.exports = withCommerceConfig({
   },
   rewrites() {
     return [
-      (isBC || isShopify) && {
+      (isBC || isShopify || isRC) && {
         source: '/checkout',
         destination: '/api/bigcommerce/checkout',
       },

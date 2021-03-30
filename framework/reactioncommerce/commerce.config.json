@@ -1,0 +1,6 @@
+{
+  "provider": "reactioncommerce",
+  "features": {
+    "wishlist": false
+  }
+}

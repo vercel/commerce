@@ -30,7 +30,6 @@ const ProductView: FC<Props> = ({ product }) => {
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
-    size: null,
     color: null,
   })
 
@@ -40,9 +39,17 @@ const ProductView: FC<Props> = ({ product }) => {
   const addToCart = async () => {
     setLoading(true)
     try {
+      const selectedVariant = variant ? variant : product.variants[0]
+
+      console.log('selected variant', selectedVariant)
+
       await addItem({
         productId: String(product.id),
-        variantId: String(variant ? variant.id : product.variants[0].id),
+        variantId: String(selectedVariant.id),
+        pricing: {
+          amount: selectedVariant.price,
+          currencyCode: product.price.currencyCode,
+        },
       })
       openSidebar()
       setLoading(false)

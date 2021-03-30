@@ -46,6 +46,7 @@ export async function getStaticProps({
       pages,
       categories,
       brands,
+      shopId: config?.shopId,
     },
   }
 }
@@ -53,6 +54,7 @@ export async function getStaticProps({
 export default function Search({
   categories,
   brands,
+  shopId,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
@@ -80,6 +82,7 @@ export default function Search({
     // TODO: Shopify - Fix this type
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
+    shopId,
   })
 
   const handleClick = (event: any, filter: string) => {

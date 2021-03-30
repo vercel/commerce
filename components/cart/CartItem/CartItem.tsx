@@ -39,6 +39,7 @@ const CartItem = ({
   const [removing, setRemoving] = useState(false)
 
   const updateQuantity = async (val: number) => {
+    console.log('updateQuantity', val)
     await updateItem({ quantity: val })
   }
 

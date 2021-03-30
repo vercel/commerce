@@ -1,23 +1,14 @@
 {
   "schema": {
-    "https://buybutton.store/graphql": {
-      "headers": {
-        "Authorization": "Bearer xzy"
-      }
+    "http://localhost:3000/graphql": {
+      "headers": {}
     }
   },
-  "documents": [
-    {
-      "./framework/bigcommerce/api/**/*.ts": {
-        "noRequire": true
-      }
-    }
-  ],
   "generates": {
-    "./framework/bigcommerce/schema.d.ts": {
+    "./framework/reactioncommerce/schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"]
     },
-    "./framework/bigcommerce/schema.graphql": {
+    "./framework/reactioncommerce/schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },
