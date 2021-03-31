@@ -21,14 +21,16 @@
   - [Commerce API](#commerce-api)
   - [More](#more)
 
-> The core commerce framework is under active development, new features and updates will be continuously added over time. Breaking changes are expected while we finish the API.
-
 The commerce framework ships multiple hooks and a Node.js API, both using an underlying headless e-commerce platform, which we call commerce providers.
 
 The core features are:
 
 - Code splitted hooks for data fetching using [SWR](https://swr.vercel.app/), and to handle common user actions
 - A Node.js API for initial data population, static generation of content and for creating the API endpoints that connect to the hooks, if required.
+
+> 👩‍🔬 If you would like to contribute a new provider, check the docs for [Adding a new Commerce Provider](./new-provider.md).
+
+> 🚧 The core commerce framework is under active development, new features and updates will be continuously added over time. Breaking changes are expected while we finish the API.
 
 ## Commerce Hooks
 

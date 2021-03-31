@@ -30,42 +30,9 @@ Next.js Commerce integrates out-of-the-box with BigCommerce and Shopify. We plan
 
 - `framework/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
 - **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality (`framework/commerce`).
-- **Features API** is to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
+- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
 - Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
 - **Providers don't depend on anything that's specific to the application they're used in**. They only depend on `framework/commerce`, on their own framework folder and on some dependencies included in `package.json`
-- We recommend that each **provider** ships with an `env.template` file and a `[readme.md](http://readme.md)` file.
-
-## Provider Structure
-
-Next.js Commerce provides a set of utilities and functions to create new providers. This is how a provider structure looks like.
-
-- `product`
-  - usePrice
-  - useSearch
-  - getProduct
-  - getAllProducts
-- `wishlist`
-  - useWishlist
-  - useAddItem
-  - useRemoveItem
-- `auth`
-  - useLogin
-  - useLogout
-  - useSignup
-- `customer`
-  - useCustomer
-  - getCustomerId
-  - getCustomerWistlist
-- `cart`
-  - useCart
-  - useAddItem
-  - useRemoveItem
-  - useUpdateItem
-- `env.template`
-- `provider.ts`
-- `commerce.config.json`
-- `next.config.js`
-- `README.md`
 
 ## Configuration
 
@@ -95,9 +62,9 @@ Every provider defines the features that it supports under `framework/{provider}
 
 ### How to create a new provider
 
-We'd recommend to duplicate a provider folder and push your providers SDK.
+Follow our docs for [Adding a new Commerce Provider](framework/commerce/new-provider.md).
 
-If you succeeded building a provider, submit a PR so we can all enjoy it.
+If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
 
 ## Contribute
 

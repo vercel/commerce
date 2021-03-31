@@ -5,11 +5,46 @@ A commerce provider is a headless e-commerce platform that integrates with the [
 - BigCommerce ([framework/bigcommerce](../bigcommerce))
 - Shopify ([framework/shopify](../shopify))
 
-Adding a commerce provider means adding a provider object with handlers for the [Commerce Hooks](./README.md#commerce-hooks) and a Node.js provider for the [Commerce API](./README.md#commerce-api)
+Adding a commerce provider means adding a new folder in `framework` with a folder structure like the next one:
+
+- `api`
+  - index.ts
+- `product`
+  - usePrice
+  - useSearch
+  - getProduct
+  - getAllProducts
+- `wishlist`
+  - useWishlist
+  - useAddItem
+  - useRemoveItem
+- `auth`
+  - useLogin
+  - useLogout
+  - useSignup
+- `customer`
+  - useCustomer
+  - getCustomerId
+  - getCustomerWistlist
+- `cart`
+  - useCart
+  - useAddItem
+  - useRemoveItem
+  - useUpdateItem
+- `env.template`
+- `index.ts`
+- `provider.ts`
+- `commerce.config.json`
+- `next.config.js`
+- `README.md`
+
+`provider.ts` exports a provider object with handlers for the [Commerce Hooks](./README.md#commerce-hooks) and `api/index.ts` exports a Node.js provider for the [Commerce API](./README.md#commerce-api)
 
 > **Important:** We use TypeScript for every provider and expect its usage for every new one.
 
 The app imports from the provider directly instead of the core commerce folder (`framework/commerce`), but all providers are interchangeable and to achieve it every provider always has to implement the core types and helpers.
+
+The provider folder should only depend on `framework/commerce` and dependencies in the main `package.json`. In the future we'll move the `framework` folder to a package that can be shared easily for multiple apps.
 
 ## Adding the provider hooks
 
