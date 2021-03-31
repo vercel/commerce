@@ -327,36 +327,7 @@ const WishlistButton = ({ productId, variant }) => {
 
 While commerce hooks focus on client side data fetching and interactions, the commerce API focuses on static content generation for pages and API endpoints in a Node.js context.
 
-### getAllProducts
-
-API function to retrieve a product list.
-
-```js
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
-
-const { products } = await getAllProducts({
-  variables: { field: 'featuredProducts', first: 6 },
-  config,
-  preview,
-})
-```
-
-### getProduct
-
-API product to retrieve a single product when provided with the product
-slug string.
-
-```js
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getProduct from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
-
-const { product } = await getProduct({
-  variables: { slug },
-  config,
-  preview,
-})
-```
+> The commerce API is currently going through a refactor in https://github.com/vercel/commerce/pull/252 - We'll update the docs once the API is released.
 
 ## More
 
