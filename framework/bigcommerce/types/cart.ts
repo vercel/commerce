@@ -45,7 +45,13 @@ export type CartItemBody = Core.CartItemBody & {
 
 export type CartHooks = Core.CartHooks & {
   getCart: { data: Cart | null }
-  addItem: { data: Cart; body: { item: CartItemBody } }
+  addItem: {
+    data: Cart
+    body: { item: CartItemBody }
+    input: CartItemBody
+    fetchInput: CartItemBody
+    actionInput: CartItemBody
+  }
   updateItem: { data: Cart; body: { item: CartItemBody } }
   removeItem: { data: Cart | null }
 }

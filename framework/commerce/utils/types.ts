@@ -39,7 +39,7 @@ export type HookFetcher<Data, Input = null, Result = any> = (
 export type HookFetcherFn<
   H extends HookSchemaBase,
   Result = any,
-  Body = any
+  Body = H['body']
 > = (
   context: HookFetcherContext<H['fetchInput'], Result, Body>
 ) => H['data'] | Promise<H['data']>
@@ -77,6 +77,8 @@ export type HookSchemaBase = {
   input: {}
   // Input expected before doing a fetch operation
   fetchInput?: {}
+  // Data expected by the fetch operation
+  body?: {}
 }
 
 export type SWRHookSchemaBase = HookSchemaBase & {
@@ -123,7 +125,7 @@ export type MutationHook<H extends MutationSchemaBase> = {
     HookFunction<H['actionInput'], H['data'] | Promise<H['data']>>
   >
   fetchOptions: HookFetcherOptions
-  fetcher?: HookFetcherFn<H['data'], H['fetchInput']>
+  fetcher?: HookFetcherFn<H>
 }
 
 export type MutationHookContext<H extends MutationSchemaBase> = {

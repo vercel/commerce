@@ -103,7 +103,8 @@ export type AddItemHook = {
   data: Cart
   body: { item: CartItemBody }
   input: CartItemBody
-  fetchInput: { item: CartItemBody }
+  fetchInput: CartItemBody
+  actionInput: CartItemBody
 }
 
 export type UpdateItemHook = {
