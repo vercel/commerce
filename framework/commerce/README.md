@@ -280,37 +280,37 @@ const RemoveButton = ({ item }) => {
 
 ## Wishlist Hooks
 
-Wishlist hooks are similar to cart hooks. See the below example for how to use `useWishlist`, `useAddItem`, and `useRemoveItem`.
+Wishlist hooks work just like [cart hooks](#cart-hooks). Feel free to check how those work first.
+
+The example below shows how to use the `useWishlist`, `useAddItem` and `useRemoveItem` hooks:
 
 ```jsx
-import useAddItem from '@bigcommerce/storefront-data-hooks/wishlist/use-add-item'
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/wishlist/use-remove-item'
-import useWishlist from '@bigcommerce/storefront-data-hooks/wishlist/use-wishlist'
+import { useWishlist, useAddItem, useRemoveItem } from '@framework/wishlist'
 
 const WishlistButton = ({ productId, variant }) => {
   const addItem = useAddItem()
   const removeItem = useRemoveItem()
-  const { data } = useWishlist()
+  const { data, isLoading, isEmpty, error } = useWishlist()
+
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>{error.message}</p>
+  if (isEmpty) return <p>The wihslist is empty</p>
+
   const { data: customer } = useCustomer()
   const itemInWishlist = data?.items?.find(
-    (item) =>
-      item.product_id === productId &&
-      item.variant_id === variant?.node.entityId
+    (item) => item.product_id === productId && item.variant_id === variant.id
   )
 
   const handleWishlistChange = async (e) => {
     e.preventDefault()
-
-    if (!customer) {
-      return
-    }
+    if (!customer) return
 
     if (itemInWishlist) {
-      await removeItem({ id: itemInWishlist.id! })
+      await removeItem({ id: itemInWishlist.id })
     } else {
       await addItem({
         productId,
-        variantId: variant?.node.entityId!,
+        variantId: variant.id,
       })
     }
   }
@@ -323,7 +323,9 @@ const WishlistButton = ({ productId, variant }) => {
 }
 ```
 
-## Product Hooks and API
+## Commerce API
+
+While commerce hooks focus on client side data fetching and interactions, the commerce API focuses on static content generation for pages and API endpoints in a Node.js context.
 
 ### getAllProducts
 
