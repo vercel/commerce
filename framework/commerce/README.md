@@ -1,27 +1,25 @@
-# Table of Contents
+# Commerce Framework
 
-- [BigCommerce Storefront Data Hooks](#bigcommerce-storefront-data-hooks)
-  - [Installation](#installation)
-  - [General Usage](#general-usage)
+- [Commerce Framework](#commerce-framework)
+  - [Commerce Hooks](#commerce-hooks)
     - [CommerceProvider](#commerceprovider)
-    - [useLogin hook](#uselogin-hook)
-    - [useLogout](#uselogout)
-    - [useCustomer](#usecustomer)
+  - [Authentication Hooks](#authentication-hooks)
     - [useSignup](#usesignup)
+    - [useLogin](#uselogin)
+    - [useLogout](#uselogout)
+  - [Customer Hooks](#customer-hooks)
+    - [useCustomer](#usecustomer)
+  - [Product Hooks](#product-hooks)
     - [usePrice](#useprice)
+    - [useSearch](#usesearch)
   - [Cart Hooks](#cart-hooks)
     - [useCart](#usecart)
     - [useAddItem](#useadditem)
     - [useUpdateItem](#useupdateitem)
     - [useRemoveItem](#useremoveitem)
   - [Wishlist Hooks](#wishlist-hooks)
-  - [Product Hooks and API](#product-hooks-and-api)
-    - [useSearch](#usesearch)
-    - [getAllProducts](#getallproducts)
-    - [getProduct](#getproduct)
+  - [Commerce API](#commerce-api)
   - [More](#more)
-
-# Commerce Framework
 
 > The core commerce framework is under active development, new features and updates will be continuously added over time. Breaking changes are expected while we finish the API.
 
