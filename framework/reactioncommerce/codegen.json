@@ -1,0 +1,18 @@
+{
+  "schema": {
+    "http://localhost:3000/graphql": {
+      "headers": {}
+    }
+  },
+  "generates": {
+    "./framework/reactioncommerce/schema.d.ts": {
+      "plugins": ["typescript", "typescript-operations"]
+    },
+    "./framework/reactioncommerce/schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  },
+  "hooks": {
+    "afterAllFileWrite": ["prettier --write"]
+  }
+}

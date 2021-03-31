@@ -9,6 +9,7 @@
     "prettier-fix": "prettier --write .",
     "find:unused": "next-unused",
     "generate": "graphql-codegen",
+    "generate:reactioncommerce": "graphql-codegen --config framework/reactioncommerce/codegen.json",
     "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
   },
   "sideEffects": false,
