@@ -85,35 +85,40 @@ export type CartItemBody = {
  * Hooks schema
  */
 
-export type CartHooks = {
-  getCart: GetCartHook
-  addItem: AddItemHook
-  updateItem: UpdateItemHook
-  remoteItem: RemoveItemHook
+export type CartTypes = {
+  cart: Cart
+  item: CartItemBody
 }
 
-export type GetCartHook = {
-  data: Cart | null
+export type CartHooks<T extends CartTypes = CartTypes> = {
+  getCart: GetCartHook<T>
+  addItem: AddItemHook<T>
+  updateItem: UpdateItemHook<T>
+  removeItem: RemoveItemHook<T>
+}
+
+export type GetCartHook<T extends CartTypes = CartTypes> = {
+  data: T['cart'] | null
   input: {}
   fetchInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export type AddItemHook = {
-  data: Cart
-  body: { item: CartItemBody }
-  input: CartItemBody
-  fetchInput: CartItemBody
-  actionInput: CartItemBody
+export type AddItemHook<T extends CartTypes = CartTypes> = {
+  data: T['cart']
+  body: { item: T['item'] }
+  input: T['item']
+  fetchInput: T['item']
+  actionInput: T['item']
 }
 
-export type UpdateItemHook = {
-  data: Cart
-  body: { itemId: string; item: CartItemBody }
+export type UpdateItemHook<T extends CartTypes = CartTypes> = {
+  data: T['cart']
+  body: { itemId: string; item: T['item'] }
 }
 
-export type RemoveItemHook = {
-  data: Cart | null
+export type RemoveItemHook<T extends CartTypes = CartTypes> = {
+  data: T['cart'] | null
   body: { itemId: string }
 }
 
@@ -121,32 +126,40 @@ export type RemoveItemHook = {
  * API Schema
  */
 
-export type CartSchema = {
+export type CartSchema<T extends CartTypes = CartTypes> = {
   endpoint: {
     options: {}
-    operations: CartOperations
+    operations: CartOperations<T>
   }
 }
 
-export type CartOperations = {
-  getCart: GetCartOperation
-  addItem: AddItemOperation
-  updateItem: UpdateItemOperation
-  removeItem: RemoveItemOperation
+export type CartOperations<T extends CartTypes = CartTypes> = {
+  getCart: GetCartOperation<T>
+  addItem: AddItemOperation<T>
+  updateItem: UpdateItemOperation<T>
+  removeItem: RemoveItemOperation<T>
 }
 
-export type GetCartOperation = GetCartHook & {
+export type GetCartOperation<
+  T extends CartTypes = CartTypes
+> = GetCartHook<T> & {
   body: { cartId?: string }
 }
 
-export type AddItemOperation = AddItemHook & {
+export type AddItemOperation<
+  T extends CartTypes = CartTypes
+> = AddItemHook<T> & {
   body: { cartId: string }
 }
 
-export type UpdateItemOperation = UpdateItemHook & {
+export type UpdateItemOperation<
+  T extends CartTypes = CartTypes
+> = UpdateItemHook<T> & {
   body: { cartId: string }
 }
 
-export type RemoveItemOperation = RemoveItemHook & {
+export type RemoveItemOperation<
+  T extends CartTypes = CartTypes
+> = RemoveItemHook<T> & {
   body: { cartId: string }
 }

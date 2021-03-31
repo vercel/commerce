@@ -43,36 +43,21 @@ export type CartItemBody = Core.CartItemBody & {
   optionSelections?: OptionSelections
 }
 
-export type CartHooks = Core.CartHooks & {
-  getCart: { data: Cart | null }
-  addItem: {
-    data: Cart
-    body: { item: CartItemBody }
-    input: CartItemBody
-    fetchInput: CartItemBody
-    actionInput: CartItemBody
-  }
-  updateItem: { data: Cart; body: { item: CartItemBody } }
-  removeItem: { data: Cart | null }
+export type CartTypes = {
+  cart: Cart
+  item: CartItemBody
 }
+
+export type CartHooks = Core.CartHooks<CartTypes>
 
 export type GetCartHook = CartHooks['getCart']
 export type AddItemHook = CartHooks['addItem']
 export type UpdateItemHook = CartHooks['updateItem']
 export type RemoveItemHook = CartHooks['removeItem']
 
-export type CartSchema = Core.CartSchema & {
-  endpoint: {
-    operations: CartOperations
-  }
-}
+export type CartSchema = Core.CartSchema<CartTypes>
 
-export type CartOperations = {
-  getCart: GetCartHook
-  addItem: AddItemHook
-  updateItem: UpdateItemHook
-  removeItem: RemoveItemHook
-}
+export type CartOperations = Core.CartOperations<CartTypes>
 
 export type GetCartOperation = CartOperations['getCart']
 export type AddItemOperation = CartOperations['addItem']
