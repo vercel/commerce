@@ -1,8 +1,8 @@
-export const getCustomerQuery = /* GraphQL */ `
+export const viewerQuery = /* GraphQL */ `
   query getCustomerId($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
       id
     }
   }
 `
-export default getCustomerQuery
+export default viewerQuery
