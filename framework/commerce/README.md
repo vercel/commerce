@@ -110,9 +110,13 @@ Returns a _logout_ function that signs out the current customer when called.
 ```jsx
 import useLogout from '@framework/auth/use-logout'
 
-const LogoutLink = () => {
+const LogoutButton = () => {
   const logout = useLogout()
-  return <a onClick={() => logout()}>Logout</a>
+  return (
+    <button type="button" onClick={() => logout()}>
+      Logout
+    </button>
+  )
 }
 ```
 
@@ -120,7 +124,7 @@ const LogoutLink = () => {
 
 ### useCustomer
 
-Fetches the data of the signed in customer:
+Fetches and returns the data of the signed in customer:
 
 ```jsx
 import useCustomer from '@framework/customer/use-customer'
@@ -136,20 +140,52 @@ const Profile = () => {
 }
 ```
 
+## Product Hooks
+
 ### usePrice
 
-Helper hook to format price according to commerce locale, and return discount if available.
+Helper hook to format price according to the commerce locale and currency code. It also handles discounts:
 
 ```jsx
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-...
-  const { price, discount, basePrice } = usePrice(
-    data && {
-      amount: data.cart_amount,
-      currencyCode: data.currency.code,
-    }
+import useCart from '@framework/cart/use-cart'
+import usePrice from '@framework/product/use-price'
+
+// ...
+const { data } = useCart()
+const { price, discount, basePrice } = usePrice(
+  data && {
+    amount: data.subtotalPrice,
+    currencyCode: data.currency.code,
+    // If `baseAmount` is used, a discount will be calculated
+    // baseAmount: number,
+  }
+)
+// ...
+```
+
+### useSearch
+
+Fetches and returns the products that match a set of filters:
+
+```jsx
+import useSearch from '@framework/product/use-search'
+
+const SearchPage = ({ searchString, category, brand, sortStr }) => {
+  const { data } = useSearch({
+    search: searchString || '',
+    categoryId: category?.entityId,
+    brandId: brand?.entityId,
+    sort: sortStr,
+  })
+
+  return (
+    <Grid layout="normal">
+      {data.products.map((product) => (
+        <ProductCard key={product.path} product={product} />
+      ))}
+    </Grid>
   )
-...
+}
 ```
 
 ## Cart Hooks
@@ -287,32 +323,6 @@ const WishlistButton = ({ productId, variant }) => {
 ```
 
 ## Product Hooks and API
-
-### useSearch
-
-`useSearch` handles searching the bigcommerce storefront product catalog by catalog, brand, and query string.
-
-```jsx
-...
-import useSearch from '@bigcommerce/storefront-data-hooks/products/use-search'
-
-const SearchPage = ({ searchString, category, brand, sortStr }) => {
-  const { data } = useSearch({
-    search: searchString || '',
-    categoryId: category?.entityId,
-    brandId: brand?.entityId,
-    sort: sortStr || '',
-  })
-
-  return (
-    <Grid layout="normal">
-      {data.products.map(({ node }) => (
-        <ProductCard key={node.path} product={node} />
-      ))}
-    </Grid>
-  )
-}
-```
 
 ### getAllProducts
 
