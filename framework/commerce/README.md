@@ -192,27 +192,28 @@ const SearchPage = ({ searchString, category, brand, sortStr }) => {
 
 ### useCart
 
-Returns the current cart data for use
+Fetches and returns the data of the current cart:
 
 ```jsx
-...
-import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
+import useCart from '@framework/cart/use-cart'
 
-const countItem = (count: number, item: LineItem) => count + item.quantity
+const CartTotal = () => {
+  const { data, isLoading, isEmpty, error } = useCart()
 
-const CartNumber = () => {
-  const { data } = useCart()
-  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>{error.message}</p>
+  if (isEmpty) return <p>The cart is empty</p>
 
-  return itemsCount > 0 ? <span>{itemsCount}</span> : null
+  return <p>The cart total is {data.totalPrice}</p>
 }
 ```
 
 ### useAddItem
 
+Returns a function that adds a new item to the cart when called, if this is the first item it will create the cart:
+
 ```jsx
-...
-import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
+import { useAddItem } from '@framework/cart'
 
 const AddToCartButton = ({ productId, variantId }) => {
   const addItem = useAddItem()
@@ -226,21 +227,23 @@ const AddToCartButton = ({ productId, variantId }) => {
 
   return <button onClick={addToCart}>Add To Cart</button>
 }
-...
 ```
 
 ### useUpdateItem
 
-```jsx
-...
-import useUpdateItem from '@bigcommerce/storefront-data-hooks/cart/use-update-item'
+Returns a function that updates a current item in the cart when called, usually the quantity.
 
-const CartItem = ({ item }) => {
+```jsx
+import { useUpdateItem } from '@framework/cart'
+
+const CartItemQuantity = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity)
-  const updateItem = useUpdateItem(item)
+  const updateItem = useUpdateItem({ item })
 
   const updateQuantity = async (e) => {
     const val = e.target.value
+
+    setQuantity(val)
     await updateItem({ quantity: val })
   }
 
@@ -254,27 +257,25 @@ const CartItem = ({ item }) => {
     />
   )
 }
-...
 ```
+
+If the `quantity` is lower than 1 the item will be removed from the cart.
 
 ### useRemoveItem
 
-Provided with a cartItemId, will remove an item from the cart:
+Returns a function that removes an item in the cart when called:
 
 ```jsx
-...
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/cart/use-remove-item'
+import { useRemoveItem } from '@framework/cart'
 
 const RemoveButton = ({ item }) => {
   const removeItem = useRemoveItem()
-
   const handleRemove = async () => {
-    await removeItem({ id: item.id })
+    await removeItem(item)
   }
 
   return <button onClick={handleRemove}>Remove</button>
 }
-...
 ```
 
 ## Wishlist Hooks
