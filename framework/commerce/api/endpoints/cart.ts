@@ -1,19 +1,19 @@
-import type { APIEndpoint } from '../utils/types'
+import type { CartSchema } from '../../types/cart'
 import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
-import type { GetAPISchema, CartSchema } from '..'
+import type { GetAPISchema } from '..'
 
 const cartApi: GetAPISchema<any, CartSchema>['endpoint']['handler'] = async (
   ctx
 ) => {
-  const { req, res, handlers, config } = ctx
+  const { req, res, operations, config } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      GET: handlers['getCart'],
-      POST: handlers['addItem'],
-      PUT: handlers['updateItem'],
-      DELETE: handlers['removeItem'],
+      GET: operations['getCart'],
+      POST: operations['addItem'],
+      PUT: operations['updateItem'],
+      DELETE: operations['removeItem'],
     })
   ) {
     return
@@ -27,25 +27,25 @@ const cartApi: GetAPISchema<any, CartSchema>['endpoint']['handler'] = async (
     // Return current cart info
     if (req.method === 'GET') {
       const body = { cartId }
-      return await handlers['getCart']({ ...ctx, body })
+      return await operations['getCart']({ ...ctx, body })
     }
 
     // Create or add an item to the cart
     if (req.method === 'POST') {
       const body = { ...req.body, cartId }
-      return await handlers['addItem']({ ...ctx, body })
+      return await operations['addItem']({ ...ctx, body })
     }
 
     // Update item in cart
     if (req.method === 'PUT') {
       const body = { ...req.body, cartId }
-      return await handlers['updateItem']({ ...ctx, body })
+      return await operations['updateItem']({ ...ctx, body })
     }
 
     // Remove an item from the cart
     if (req.method === 'DELETE') {
       const body = { ...req.body, cartId }
-      return await handlers['removeItem']({ ...ctx, body })
+      return await operations['removeItem']({ ...ctx, body })
     }
   } catch (error) {
     console.error(error)
