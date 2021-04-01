@@ -18,11 +18,7 @@ const getProduct = async (options: {
   let { config, variables } = options ?? {}
   config = getConfig(config)
 
-  const { data }: GraphQLFetcherResult = await config.fetch(getProductQuery, {
-    variables,
-  })
-
-  const { productByHandle: product } = data
+  const product = await config.fetchSwell('products', 'get', variables.slug)
 
   return {
     product: product ? normalizeProduct(product) : null,

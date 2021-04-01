@@ -8,9 +8,11 @@ const fetcher: Fetcher = async ({ method = 'get', variables, query }) => {
     if (Array.isArray(variables)) {
       const arg1 = variables[0]
       const arg2 = variables[1]
+      // console.log('fetcher', query, method, variables);
       const response = await swell[query][method](arg1, arg2)
       return handleFetchResponse(response)
     } else {
+      // console.log('fetcher', query, method, variables);
       const response = await swell[query][method](variables)
       return handleFetchResponse(response)
     }

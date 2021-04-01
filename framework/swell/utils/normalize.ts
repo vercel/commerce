@@ -47,31 +47,28 @@ const normalizeProductOption = ({
 }
 
 const normalizeProductImages = (images) =>
-  images?.map(({ file, ...rest }) => ({
+  images?.map(({ file, id }) => ({
     url: file.url,
-    ...rest,
+    id,
   }))
 
-const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
-  return edges?.map(
-    ({
-      node: { id, selectedOptions, sku, title, priceV2, compareAtPriceV2 },
-    }) => ({
-      id,
-      name: title,
-      sku: sku ?? id,
-      price: +priceV2.amount,
-      listPrice: +compareAtPriceV2?.amount,
-      requiresShipping: true,
-      options: selectedOptions.map(({ name, value }: SelectedOption) =>
-        normalizeProductOption({
-          id,
-          name,
-          values: [value],
-        })
-      ),
-    })
-  )
+const normalizeProductVariants = (variants) => {
+  // console.log('variant', variants);
+  return variants?.map(({ id, name, values, price, stock_status }) => ({
+    id,
+    name,
+    sku: sku ?? id,
+    price,
+    listPrice: price,
+    // requiresShipping: true,
+    options: values.map(({ name, value }: SelectedOption) =>
+      normalizeProductOption({
+        id,
+        name,
+        values: [value],
+      })
+    ),
+  }))
 }
 
 export function normalizeProduct(productNode: SwellProduct): Product {
@@ -91,13 +88,13 @@ export function normalizeProduct(productNode: SwellProduct): Product {
   const product = {
     id,
     name,
-    vendor,
+    vendor: 'our brands',
     description,
     path: `/${slug}`,
     slug,
     price,
     images: normalizeProductImages(images),
-    variants: variants ? normalizeProductVariants(variants) : [],
+    variants: [], //variants ? normalizeProductVariants(options) : [],
     options: options ? options.map((o) => normalizeProductOption(o)) : [],
     ...rest,
   }
@@ -105,21 +102,19 @@ export function normalizeProduct(productNode: SwellProduct): Product {
   return product
 }
 
-export function normalizeCart(checkout: Checkout): Cart {
+export function normalizeCart(cart: Checkout): Cart {
   return {
-    id: checkout.id,
-    customerId: '',
+    id: cart.id,
+    customerId: cart.account_id,
     email: '',
-    createdAt: checkout.createdAt,
-    currency: {
-      code: checkout.totalPriceV2?.currencyCode,
-    },
-    taxesIncluded: checkout.taxesIncluded,
-    lineItems: checkout.lineItems?.edges.map(normalizeLineItem),
-    lineItemsSubtotalPrice: +checkout.subtotalPriceV2?.amount,
-    subtotalPrice: +checkout.subtotalPriceV2?.amount,
-    totalPrice: checkout.totalPriceV2?.amount,
-    discounts: [],
+    createdAt: cart.date_created,
+    currency: cart.currency,
+    taxesIncluded: cart.tax_included_total,
+    lineItems: cart.items?.map(normalizeLineItem),
+    lineItemsSubtotalPrice: +cart.sub_total,
+    subtotalPrice: +cart.sub_total,
+    totalPrice: cart.grand_total,
+    discounts: cart.discounts,
   }
 }
 
@@ -133,30 +128,34 @@ export function normalizeCustomer(customer: SwellCustomer): Customer {
 }
 
 function normalizeLineItem({
-  node: { id, title, variant, quantity },
+  id,
+  product,
+  price,
+  variant,
+  quantity,
 }: CheckoutLineItemEdge): LineItem {
   return {
     id,
     variantId: String(variant?.id),
-    productId: String(variant?.id),
-    name: `${title}`,
+    productId: String(product?.id),
+    name: product.name,
     quantity,
     variant: {
       id: String(variant?.id),
       sku: variant?.sku ?? '',
-      name: variant?.title!,
+      name: variant?.name!,
       image: {
-        url: variant?.image?.originalSrc,
+        url: product?.images[0].file.url,
       },
-      requiresShipping: variant?.requiresShipping ?? false,
-      price: variant?.priceV2?.amount,
-      listPrice: variant?.compareAtPriceV2?.amount,
+      requiresShipping: false,
+      price: price,
+      listPrice: price,
     },
     path: '',
     discounts: [],
     options: [
       {
-        value: variant?.title,
+        value: variant?.name,
       },
     ],
   }
