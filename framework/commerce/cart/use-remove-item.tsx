@@ -1,29 +1,14 @@
 import { useHook, useMutationHook } from '../utils/use-hook'
 import { mutationFetcher } from '../utils/default-fetcher'
 import type { HookFetcherFn, MutationHook } from '../utils/types'
-import type { Cart, LineItem, RemoveCartItemBody } from '../types'
+import type { RemoveItemHook } from '../types/cart'
 import type { Provider } from '..'
 
-/**
- * Input expected by the action returned by the `useRemoveItem` hook
- */
-export type RemoveItemInput = {
-  id: string
-}
-
 export type UseRemoveItem<
-  H extends MutationHook<any, any, any> = MutationHook<
-    Cart | null,
-    { item?: LineItem },
-    RemoveItemInput,
-    RemoveCartItemBody
-  >
+  H extends MutationHook<RemoveItemHook<any>> = MutationHook<RemoveItemHook>
 > = ReturnType<H['useHook']>
 
-export const fetcher: HookFetcherFn<
-  Cart | null,
-  RemoveCartItemBody
-> = mutationFetcher
+export const fetcher: HookFetcherFn<RemoveItemHook> = mutationFetcher
 
 const fn = (provider: Provider) => provider.cart?.useRemoveItem!
 

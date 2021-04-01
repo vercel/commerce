@@ -36,18 +36,14 @@ export type HookFetcher<Data, Input = null, Result = any> = (
   fetch: <T = Result, Body = any>(options: FetcherOptions<Body>) => Promise<T>
 ) => Data | Promise<Data>
 
-export type HookFetcherFn<
-  H extends HookSchemaBase,
-  Result = any,
-  Body = H['body']
-> = (
-  context: HookFetcherContext<H['fetchInput'], Result, Body>
+export type HookFetcherFn<H extends HookSchemaBase> = (
+  context: HookFetcherContext<H>
 ) => H['data'] | Promise<H['data']>
 
-export type HookFetcherContext<Input = undefined, Result = any, Body = any> = {
+export type HookFetcherContext<H extends HookSchemaBase> = {
   options: HookFetcherOptions
-  input: Input
-  fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
+  input: H['fetchInput']
+  fetch: <T = any, B = H['body']>(options: FetcherOptions<B>) => Promise<T>
 }
 
 export type HookFetcherOptions = { method?: string } & (

@@ -3,12 +3,11 @@ import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import { normalizeCart } from '../lib/normalize'
-import type { BigcommerceCart, AddItemHook } from '../types/cart'
+import type { BigcommerceCart, AddItemHook, CartTypes } from '../types/cart'
 import useCart from './use-cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-// export const handler: MutationHook<Cart, {}, CartItemBody> = {
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
     url: '/api/bigcommerce/cart',

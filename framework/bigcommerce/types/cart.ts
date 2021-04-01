@@ -45,7 +45,8 @@ export type CartItemBody = Core.CartItemBody & {
 
 export type CartTypes = {
   cart: Cart
-  item: CartItemBody
+  item: Core.LineItem
+  itemBody: CartItemBody
 }
 
 export type CartHooks = Core.CartHooks<CartTypes>

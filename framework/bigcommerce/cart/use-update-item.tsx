@@ -5,23 +5,15 @@ import type {
   HookFetcherContext,
 } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
-import useUpdateItem, {
-  UpdateItemInput as UpdateItemInputBase,
-  UseUpdateItem,
-} from '@commerce/cart/use-update-item'
+import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
 import { normalizeCart } from '../lib/normalize'
-import type {
-  UpdateCartItemBody,
-  Cart,
-  BigcommerceCart,
-  LineItem,
-} from '../types'
+import type { Cart, BigcommerceCart, LineItem, UpdateItemHook } from '../types'
 import { handler as removeItemHandler } from './use-remove-item'
 import useCart from './use-cart'
 
-export type UpdateItemInput<T = any> = T extends LineItem
-  ? Partial<UpdateItemInputBase<LineItem>>
-  : UpdateItemInputBase<LineItem>
+export type UpdateItemActionInput<T = any> = T extends LineItem
+  ? Partial<UpdateItemHook['actionInput']>
+  : UpdateItemHook['actionInput']
 
 export default useUpdateItem as UseUpdateItem<typeof handler>
 
@@ -34,7 +26,7 @@ export const handler = {
     input: { itemId, item },
     options,
     fetch,
-  }: HookFetcherContext<UpdateCartItemBody>) {
+  }: HookFetcherContext<UpdateItemHook>) {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
@@ -50,16 +42,14 @@ export const handler = {
       })
     }
 
-    const data = await fetch<BigcommerceCart, UpdateCartItemBody>({
+    const data = await fetch<BigcommerceCart>({
       ...options,
       body: { itemId, item },
     })
 
     return normalizeCart(data)
   },
-  useHook: ({
-    fetch,
-  }: MutationHookContext<Cart | null, UpdateCartItemBody>) => <
+  useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) => <
     T extends LineItem | undefined = undefined
   >(
     ctx: {
@@ -71,7 +61,7 @@ export const handler = {
     const { mutate } = useCart() as any
 
     return useCallback(
-      debounce(async (input: UpdateItemInput<T>) => {
+      debounce(async (input: UpdateItemActionInput<T>) => {
         const itemId = input.id ?? item?.id
         const productId = input.productId ?? item?.productId
         const variantId = input.productId ?? item?.variantId
