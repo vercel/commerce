@@ -107,25 +107,25 @@ export type GetCartHook<T extends CartTypes = CartTypes> = {
 
 export type AddItemHook<T extends CartTypes = CartTypes> = {
   data: T['cart']
-  body: { item: T['itemBody'] }
   input: T['itemBody']
   fetchInput: T['itemBody']
+  body: { item: T['itemBody'] }
   actionInput: T['itemBody']
 }
 
 export type UpdateItemHook<T extends CartTypes = CartTypes> = {
   data: T['cart'] | null
-  body: { itemId: string; item: T['itemBody'] }
   input: { item?: T['item']; wait?: number }
   fetchInput: { itemId: string; item: T['itemBody'] }
+  body: { itemId: string; item: T['itemBody'] }
   actionInput: T['itemBody'] & { id: string }
 }
 
 export type RemoveItemHook<T extends CartTypes = CartTypes> = {
   data: T['cart'] | null
-  body: { itemId: string }
   input: { item?: T['item'] }
   fetchInput: { itemId: string }
+  body: { itemId: string }
   actionInput: { id: string }
 }
 

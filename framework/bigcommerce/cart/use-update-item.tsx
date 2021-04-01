@@ -6,8 +6,7 @@ import type {
 } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
-import { normalizeCart } from '../lib/normalize'
-import type { Cart, BigcommerceCart, LineItem, UpdateItemHook } from '../types'
+import type { LineItem, UpdateItemHook } from '../types'
 import { handler as removeItemHandler } from './use-remove-item'
 import useCart from './use-cart'
 
@@ -42,12 +41,10 @@ export const handler = {
       })
     }
 
-    const data = await fetch<BigcommerceCart>({
+    return await fetch({
       ...options,
       body: { itemId, item },
     })
-
-    return normalizeCart(data)
   },
   useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) => <
     T extends LineItem | undefined = undefined

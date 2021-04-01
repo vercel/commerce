@@ -5,13 +5,7 @@ import type {
 } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
-import { normalizeCart } from '../lib/normalize'
-import type {
-  Cart,
-  LineItem,
-  RemoveItemHook,
-  BigcommerceCart,
-} from '../types/cart'
+import type { Cart, LineItem, RemoveItemHook } from '../types/cart'
 import useCart from './use-cart'
 
 export type RemoveItemFn<T = any> = T extends LineItem
@@ -34,11 +28,7 @@ export const handler = {
     options,
     fetch,
   }: HookFetcherContext<RemoveItemHook>) {
-    const data = await fetch<BigcommerceCart>({
-      ...options,
-      body: { itemId },
-    })
-    return normalizeCart(data)
+    return await fetch({ ...options, body: { itemId } })
   },
   useHook: ({ fetch }: MutationHookContext<RemoveItemHook>) => <
     T extends LineItem | undefined = undefined

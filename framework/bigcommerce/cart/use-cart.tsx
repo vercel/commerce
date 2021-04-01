@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart } from '@commerce/cart/use-cart'
-import { normalizeCart } from '../lib/normalize'
 import type { GetCartHook } from '../types/cart'
 
 export default useCart as UseCart<typeof handler>
@@ -10,10 +9,6 @@ export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     url: '/api/bigcommerce/cart',
     method: 'GET',
-  },
-  async fetcher({ input: { cartId }, options, fetch }) {
-    const data = cartId ? await fetch(options) : null
-    return data && normalizeCart(data)
   },
   useHook: ({ useData }) => (input) => {
     const response = useData({

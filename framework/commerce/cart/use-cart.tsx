@@ -13,7 +13,7 @@ export const fetcher: HookFetcherFn<GetCartHook> = async ({
   input: { cartId },
   fetch,
 }) => {
-  return cartId ? await fetch({ ...options }) : null
+  return cartId ? await fetch(options) : null
 }
 
 const fn = (provider: Provider) => provider.cart?.useCart!
