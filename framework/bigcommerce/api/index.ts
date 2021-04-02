@@ -120,7 +120,7 @@ export class CommerceAPI extends CoreCommerceAPI<Provider> {
       options?: E['schema']['endpoint']['options']
     }
   ): NextApiHandler {
-    return this.endpoint(context)
+    return super.endpoint(context)
   }
 }
 

@@ -28,7 +28,7 @@ const removeItem: CartEndpoint['operations']['removeItem'] = async ({
       : // Remove the cart cookie if the cart was removed (empty items)
         getCartCookie(config.cartCookie)
   )
-  res.status(200).json({ data: normalizeCart(data) })
+  res.status(200).json({ data: data && normalizeCart(data) })
 }
 
 export default removeItem
