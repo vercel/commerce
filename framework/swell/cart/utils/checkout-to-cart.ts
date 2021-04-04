@@ -17,26 +17,11 @@ export type CheckoutPayload =
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
   if (!checkoutPayload) {
     throw new CommerceError({
-      message: 'Invalid response from Shopify',
+      message: 'Invalid response from Swell',
     })
   }
 
-  const checkout = checkoutPayload?.checkout
-  const userErrors = checkoutPayload?.userErrors
-
-  if (userErrors && userErrors.length) {
-    throw new ValidationError({
-      message: userErrors[0].message,
-    })
-  }
-
-  if (!checkout) {
-    throw new CommerceError({
-      message: 'Invalid response from Shopify',
-    })
-  }
-
-  return normalizeCart(checkout)
+  return normalizeCart(checkoutPayload)
 }
 
 export default checkoutToCart

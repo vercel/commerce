@@ -53,7 +53,6 @@ const normalizeProductImages = (images) =>
   }))
 
 const normalizeProductVariants = (variants) => {
-  // console.log('variant', variants);
   return variants?.map(({ id, name, values, price, stock_status }) => ({
     id,
     name,

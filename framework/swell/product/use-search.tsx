@@ -28,12 +28,11 @@ export const handler: SWRHook<
     query: getAllProductsQuery,
   },
   async fetcher({ input, options, fetch }) {
-    const { categoryId, brandId } = input
-
+    const { categoryId, search } = input
     const { results, count: found } = await fetch({
       query: 'products',
       method: 'list',
-      variables: { category: categoryId },
+      variables: { category: categoryId, search },
     })
 
     const products = results.map((product) => normalizeProduct(product))

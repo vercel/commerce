@@ -1,6 +1,26 @@
 import * as Core from '@commerce/types'
 import { CheckoutLineItem } from './schema'
 
+export type SwellCart = {
+  id: string
+  account_id: number
+  currency: string
+  tax_included_total: number
+  sub_total: number
+  discount_total: number
+  quantity: number
+  items: {
+    id: string
+    product: object
+    price: number
+    variant: boolean
+    quantity: number
+  }
+  date_created: string
+  discounts?: { id: number; amount: number }[]
+  // TODO: add missing fields
+}
+
 export interface SwellProduct extends Core.Product {
   name: string
   slug: string

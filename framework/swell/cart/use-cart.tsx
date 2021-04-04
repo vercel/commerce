@@ -1,12 +1,12 @@
 import useCart, { UseCart } from '@commerce/cart/use-cart'
-import { Customer } from '@commerce/types'
+import { Cart } from '@commerce/types'
 import { SWRHook } from '@commerce/utils/types'
 import { normalizeCart } from '../utils/normalize'
 // import { getCustomerQuery, getCustomerToken } from '../utils'
 
 export default useCart as UseCart<typeof handler>
 
-export const handler: SWRHook<Customer | null> = {
+export const handler: SWRHook<Cart | null> = {
   fetchOptions: {
     query: 'cart',
     method: 'get',

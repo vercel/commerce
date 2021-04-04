@@ -14,7 +14,6 @@ import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
 import type { Cart, LineItem, UpdateCartItemBody } from '../types'
 import { checkoutToCart } from './utils'
-import { getCheckoutId, checkoutLineItemUpdateMutation } from '../utils'
 import { Mutation, MutationCheckoutLineItemsUpdateArgs } from '../schema'
 
 export type UpdateItemInput<T = any> = T extends LineItem
@@ -25,7 +24,8 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    query: checkoutLineItemUpdateMutation,
+    query: 'cart',
+    method: 'updateItem',
   },
   async fetcher({
     input: { itemId, item },
@@ -46,23 +46,14 @@ export const handler = {
         message: 'The item quantity has to be a valid integer',
       })
     }
-    const { checkoutLineItemsUpdate } = await fetch<
-      Mutation,
-      MutationCheckoutLineItemsUpdateArgs
-    >({
-      ...options,
-      variables: {
-        checkoutId: getCheckoutId(),
-        lineItems: [
-          {
-            id: itemId,
-            quantity: item.quantity,
-          },
-        ],
-      },
-    })
+    const response = await fetch<Mutation, MutationCheckoutLineItemsUpdateArgs>(
+      {
+        ...options,
+        variables: [item.itemId, { quantity: item.quantity }],
+      }
+    )
 
-    return checkoutToCart(checkoutLineItemsUpdate)
+    return checkoutToCart(response)
   },
   useHook: ({
     fetch,
@@ -75,13 +66,13 @@ export const handler = {
     } = {}
   ) => {
     const { item } = ctx
-    const { mutate } = useCart() as any
+    const { mutate, data: cartData } = useCart() as any
 
     return useCallback(
       debounce(async (input: UpdateItemInput<T>) => {
-        const itemId = input.id ?? item?.id
-        const productId = input.productId ?? item?.productId
-        const variantId = input.productId ?? item?.variantId
+        const itemId = cartData.lineItems[0].id
+        const productId = cartData.lineItems[0].productId
+        const variantId = cartData.lineItems[0].variant.id
         if (!itemId || !productId || !variantId) {
           throw new ValidationError({
             message: 'Invalid input used for this operation',
@@ -91,6 +82,7 @@ export const handler = {
         const data = await fetch({
           input: {
             item: {
+              itemId,
               productId,
               variantId,
               quantity: input.quantity,
