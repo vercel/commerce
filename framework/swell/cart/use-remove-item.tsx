@@ -31,27 +31,30 @@ export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    query: checkoutLineItemRemoveMutation,
+    query: 'cart',
+    method: 'removeItem',
   },
   async fetcher({
     input: { itemId },
     options,
     fetch,
   }: HookFetcherContext<RemoveCartItemBody>) {
-    const data = await fetch<Mutation, MutationCheckoutLineItemsRemoveArgs>({
-      ...options,
-      variables: { checkoutId: getCheckoutId(), lineItemIds: [itemId] },
-    })
-    return checkoutToCart(data.checkoutLineItemsRemove)
+    const response = await fetch<Mutation, MutationCheckoutLineItemsRemoveArgs>(
+      {
+        ...options,
+        variables: [itemId],
+      }
+    )
+    return checkoutToCart(response)
   },
   useHook: ({
     fetch,
   }: MutationHookContext<Cart | null, RemoveCartItemBody>) => <
     T extends LineItem | undefined = undefined
   >(
-    ctx: { item?: T } = {}
+    item
   ) => {
-    const { item } = ctx
+    // const { item } = ctx
     const { mutate } = useCart()
     const removeItem: RemoveItemFn<LineItem> = async (input) => {
       const itemId = input?.id ?? item?.id

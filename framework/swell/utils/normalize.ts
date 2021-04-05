@@ -46,11 +46,25 @@ const normalizeProductOption = ({
   }
 }
 
-const normalizeProductImages = (images) =>
-  images?.map(({ file, id }) => ({
-    url: file.url,
-    id,
+type SwellImage = {
+  file: {
+    url: String
+    height: Number
+    width: Number
+  }
+  id: string
+}
+const normalizeProductImages = (images) => {
+  if (!images) {
+    return [{ url: '/' }]
+  }
+  return images?.map(({ file, ...rest }: SwellImage) => ({
+    url: file?.url,
+    height: file.height,
+    width: file.width,
+    ...rest,
   }))
+}
 
 const normalizeProductVariants = (variants) => {
   return variants?.map(({ id, name, values, price, stock_status }) => ({
