@@ -40,7 +40,7 @@ module.exports = withCommerceConfig({
         source: '/search/:category',
         destination: '/search',
       },
-    ].filter((x) => x)
+    ].filter(Boolean)
   },
 })
 
