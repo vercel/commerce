@@ -1,3 +1,4 @@
-import wishlistApi from '@framework/api/wishlist'
+export {}
+// import wishlistApi from '@framework/api/wishlist'
 
-export default wishlistApi()
+// export default wishlistApi()

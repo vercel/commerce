@@ -1,13 +1,11 @@
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
 import { AquilacmsConfig, getConfig } from '../api'
-import { definitions } from '../api/definitions/store-content'
-
-export type Page = definitions['page_Full']
+import { Page } from './get-all-pages'
+import type { AquilacmsStatic } from '../types'
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
 export type PageVariables = {
-  id: number
+  id: string
 }
 
 async function getPage(opts: {
@@ -26,7 +24,7 @@ async function getPage<T extends { page?: any }, V = any>(opts: {
 
 async function getPage({
   url,
-  variables,
+  variables: { id },
   config,
   preview,
 }: {
@@ -36,18 +34,42 @@ async function getPage({
   preview?: boolean
 }): Promise<GetPageResult> {
   config = getConfig(config)
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `url`
-  const { data } = await config.storeApiFetch<
-    RecursivePartial<{ data: Page[] }>
-  >(url || `/v3/content/pages?id=${variables.id}&include=body`)
-  const firstPage = data?.[0]
-  const page = firstPage as RecursiveRequired<typeof firstPage>
+  const [locale, _id] = id.split('/')
+  const lang = locale.split('-')[0]
+  // const page: any = await config.storeApiFetch('/v2/category', {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     lang,
+  //     PostBody: {
+  //       filter: {
+  //         action: 'page',
+  //         _id,
+  //       },
+  //       limit: 10,
+  //       page: 1,
+  //     },
+  //   }),
+  // })
+  const staticPage: AquilacmsStatic = await config.storeApiFetch('/v2/static', {
+    method: 'POST',
+    body: JSON.stringify({
+      lang,
+      PostBody: {
+        filter: {
+          _id,
+        },
+      },
+    }),
+  })
 
-  if (preview || page?.is_visible) {
-    return { page }
+  return {
+    page: {
+      id: `${locale}/${staticPage._id}`,
+      name: staticPage.slug[lang],
+      url: `/${locale}/${staticPage.slug[lang]}`,
+      body: staticPage?.content ?? '',
+    },
   }
-  return {}
 }
 
 export default getPage

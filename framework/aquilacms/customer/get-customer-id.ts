@@ -1,13 +1,5 @@
-import { GetCustomerIdQuery } from '../schema'
 import { AquilacmsConfig, getConfig } from '../api'
-
-export const getCustomerIdQuery = /* GraphQL */ `
-  query getCustomerId {
-    customer {
-      entityId
-    }
-  }
-`
+import { AquilacmsUser } from '../types'
 
 async function getCustomerId({
   customerToken,
@@ -15,20 +7,19 @@ async function getCustomerId({
 }: {
   customerToken: string
   config?: AquilacmsConfig
-}): Promise<number | undefined> {
+}): Promise<string | undefined> {
   config = getConfig(config)
+  const data: AquilacmsUser = await config.storeApiFetch('/v2/user', {
+    method: 'POST',
+    body: JSON.stringify({
+      PostBody: {},
+    }),
+    headers: {
+      authorization: customerToken,
+    },
+  })
 
-  const { data } = await config.fetch<GetCustomerIdQuery>(
-    getCustomerIdQuery,
-    undefined,
-    {
-      headers: {
-        cookie: `${config.customerCookie}=${customerToken}`,
-      },
-    }
-  )
-
-  return data?.customer?.entityId
+  return data._id
 }
 
 export default getCustomerId

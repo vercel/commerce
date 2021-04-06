@@ -1,6 +1,7 @@
-import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartHandlers } from '..'
+import { AquilacmsCart } from '../../../types'
+import { normalizeCart } from '../../../lib/normalize'
 
 const addItem: CartHandlers['addItem'] = async ({
   res,
@@ -14,32 +15,23 @@ const addItem: CartHandlers['addItem'] = async ({
     })
   }
   if (!item.quantity) item.quantity = 1
-
-  const options = {
-    method: 'POST',
+  const result: AquilacmsCart = await config.storeApiFetch('/v2/cart/item', {
+    method: 'PUT',
     body: JSON.stringify({
-      line_items: [parseCartItem(item)],
-      ...(!cartId && config.storeChannelId
-        ? { channel_id: config.storeChannelId }
-        : {}),
+      cartId,
+      item: {
+        id: item.productId,
+        quantity: item.quantity,
+      },
     }),
-  }
-  const { data } = cartId
-    ? await config.storeApiFetch(
-        `/v3/carts/${cartId}/items?include=line_items.physical_items.options`,
-        options
-      )
-    : await config.storeApiFetch(
-        '/v3/carts?include=line_items.physical_items.options',
-        options
-      )
+  })
 
   // Create or update the cart cookie
   res.setHeader(
     'Set-Cookie',
-    getCartCookie(config.cartCookie, data.id, config.cartCookieMaxAge)
+    getCartCookie(config.cartCookie, result._id, config.cartCookieMaxAge)
   )
-  res.status(200).json({ data })
+  res.status(200).json({ data: normalizeCart(result) })
 }
 
 export default addItem

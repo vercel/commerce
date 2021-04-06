@@ -2,10 +2,10 @@ import React, { FC, useState } from 'react'
 import cn from 'classnames'
 import { useUI } from '@components/ui'
 import { Heart } from '@components/icons'
-import useAddItem from '@framework/wishlist/use-add-item'
+// import useAddItem from '@framework/wishlist/use-add-item'
 import useCustomer from '@framework/customer/use-customer'
-import useWishlist from '@framework/wishlist/use-wishlist'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
+// import useWishlist from '@framework/wishlist/use-wishlist'
+// import useRemoveItem from '@framework/wishlist/use-remove-item'
 import type { Product, ProductVariant } from '@commerce/types'
 
 type Props = {
@@ -19,8 +19,11 @@ const WishlistButton: FC<Props> = ({
   className,
   ...props
 }) => {
+  // @ts-ignore
   const { data } = useWishlist()
+  // @ts-ignore
   const addItem = useAddItem()
+  // @ts-ignore
   const removeItem = useRemoveItem()
   const { data: customer } = useCustomer()
   const { openModal, setModalView } = useUI()

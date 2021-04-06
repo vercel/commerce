@@ -41,7 +41,8 @@ export const handler = {
       ...options,
       body: { itemId },
     })
-    return normalizeCart(data)
+    // return normalizeCart(data)
+    return data
   },
   useHook: ({
     fetch,

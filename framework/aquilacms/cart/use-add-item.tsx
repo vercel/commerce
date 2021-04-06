@@ -3,12 +3,7 @@ import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import { normalizeCart } from '../lib/normalize'
-import type {
-  Cart,
-  AquilacmsCart,
-  CartItemBody,
-  AddCartItemBody,
-} from '../types'
+import type { Cart, CartItemBody, AddCartItemBody } from '../types'
 import useCart from './use-cart'
 
 export default useAddItem as UseAddItem<typeof handler>
@@ -28,12 +23,13 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       })
     }
 
-    const data = await fetch<AquilacmsCart, AddCartItemBody>({
+    const data = await fetch<Cart, AddCartItemBody>({
       ...options,
       body: { item },
     })
 
-    return normalizeCart(data)
+    // return normalizeCart(data)
+    return data
   },
   useHook: ({ fetch }) => () => {
     const { mutate } = useCart()

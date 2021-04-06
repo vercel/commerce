@@ -48,11 +48,13 @@ const SignUpView: FC<Props> = () => {
 
   const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
-    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
+    const validPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d:])([^\s]){6,}$/.test(
+      password
+    )
 
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword)
+      setDisabled(!validate(email) || password.length < 6 || !validPassword)
     }
   }, [email, password, dirty])
 
@@ -81,8 +83,8 @@ const SignUpView: FC<Props> = () => {
             <Info width="15" height="15" />
           </span>{' '}
           <span className="leading-6 text-sm">
-            <strong>Info</strong>: Passwords must be longer than 7 chars and
-            include numbers.{' '}
+            <strong>Info</strong>: Passwords must be longer than 6 chars and
+            include numbers, upper and lower case.{' '}
           </span>
         </span>
         <div className="pt-2 w-full flex flex-col">

@@ -34,7 +34,7 @@ module.exports = (nextConfig = {}) => {
   config.env = config.env || {}
 
   Object.entries(config.commerce.features).forEach(([k, v]) => {
-    if (v) config.env[`COMMERCE_${k.toUpperCase()}_ENABLED`] = true
+    if (v) config.env[`COMMERCE_${k.toUpperCase()}_ENABLED`] = v
   })
 
   return config

@@ -1,71 +1,90 @@
-import type {
-  GetAllProductPathsQuery,
-  GetAllProductPathsQueryVariables,
-} from '../schema'
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
-import filterEdges from '../api/utils/filter-edges'
 import { AquilacmsConfig, getConfig } from '../api'
 
-export const getAllProductPathsQuery = /* GraphQL */ `
-  query getAllProductPaths($first: Int = 100) {
-    site {
-      products(first: $first) {
-        edges {
-          node {
-            path
-          }
-        }
-      }
-    }
+export type GetAllProductsResultAquila = {
+  datas: any[]
+  count: number
+  min: {
+    et: number
+    ati: number
   }
-`
+  max: {
+    et: number
+    ati: number
+  }
+  specialPriceMin: {
+    et: number
+    ati: number
+  }
+  specialPriceMax: {
+    et: number
+    ati: number
+  }
+}
 
-export type ProductPath = NonNullable<
-  NonNullable<GetAllProductPathsQuery['site']['products']['edges']>[0]
->
+type ProductPath = {
+  node: {
+    path: string
+  }
+}
 
-export type ProductPaths = ProductPath[]
+type ProductPaths = ProductPath[]
 
-export type { GetAllProductPathsQueryVariables }
-
-export type GetAllProductPathsResult<
+type GetAllProductPathsResult<
   T extends { products: any[] } = { products: ProductPaths }
 > = T
 
-async function getAllProductPaths(opts?: {
-  variables?: GetAllProductPathsQueryVariables
-  config?: AquilacmsConfig
-}): Promise<GetAllProductPathsResult>
-
-async function getAllProductPaths<
-  T extends { products: any[] },
-  V = any
->(opts: {
-  query: string
-  variables?: V
-  config?: AquilacmsConfig
-}): Promise<GetAllProductPathsResult<T>>
-
 async function getAllProductPaths({
-  query = getAllProductPathsQuery,
   variables,
   config,
 }: {
-  query?: string
-  variables?: GetAllProductPathsQueryVariables
+  variables?: {
+    locales?: string[] | undefined
+  }
   config?: AquilacmsConfig
 } = {}): Promise<GetAllProductPathsResult> {
   config = getConfig(config)
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `query`
-  const { data } = await config.fetch<
-    RecursivePartial<GetAllProductPathsQuery>
-  >(query, { variables })
-  const products = data.site?.products?.edges
-
-  return {
-    products: filterEdges(products as RecursiveRequired<typeof products>),
+  let data: any = {
+    paths: [],
+    products: [],
   }
+  try {
+    const result: GetAllProductsResultAquila = await config.storeApiFetch(
+      '/v2/products',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          PostBody: {
+            structure: {
+              translation: 1,
+            },
+            limit: 200,
+            page: 1,
+          },
+        }),
+      }
+    )
+    // if (variables?.locales) {
+    //   for (const locale of variables?.locales) {
+    //     for (const p of result.datas) {
+    //       const loc = locale.split('-')[0]
+    //       if (p.slug[loc]) data.paths.push(`/${locale}/product/${p.slug[loc]}/`)
+    //     }
+    //   }
+    // } else {
+    return {
+      products: result.datas.map((p) => {
+        return {
+          node: {
+            path: `/${p.slug['en']}/`,
+          },
+        }
+      }),
+    }
+    // }
+  } catch (err) {
+    console.error(err)
+  }
+  return data
 }
 
 export default getAllProductPaths

@@ -1,5 +1,7 @@
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartHandlers } from '..'
+import { AquilacmsCart } from '../../../types'
+import { normalizeCart } from '../../../lib/normalize'
 
 const removeItem: CartHandlers['removeItem'] = async ({
   res,
@@ -13,11 +15,13 @@ const removeItem: CartHandlers['removeItem'] = async ({
     })
   }
 
-  const result = await config.storeApiFetch<{ data: any } | null>(
-    `/v3/carts/${cartId}/items/${itemId}?include=line_items.physical_items.options`,
-    { method: 'DELETE' }
+  const result: AquilacmsCart = await config.storeApiFetch(
+    `/v2/cart/${cartId}/item/${itemId}`,
+    {
+      method: 'DELETE',
+    }
   )
-  const data = result?.data ?? null
+  let data = normalizeCart(result) ?? null
 
   res.setHeader(
     'Set-Cookie',

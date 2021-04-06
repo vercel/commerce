@@ -1,5 +1,6 @@
 import { Product } from '@commerce/types'
-import getAllProducts, { ProductEdge } from '../../../product/get-all-products'
+import { normalizeProduct } from '../../../lib/normalize'
+import getAllProducts from '../../../product/get-all-products'
 import type { ProductsHandlers } from '../products'
 
 const SORT: { [key: string]: string | undefined } = {
@@ -13,65 +14,87 @@ const LIMIT = 12
 // Return current cart info
 const getProducts: ProductsHandlers['getProducts'] = async ({
   res,
-  body: { search, category, brand, sort },
+  body: { search, category, brand, sort: sortParam },
   config,
 }) => {
-  // Use a dummy base as we only care about the relative path
-  const url = new URL('/v3/catalog/products', 'http://a')
+  let filter: any = {}
+  let sort = {}
 
-  url.searchParams.set('is_visible', 'true')
-  url.searchParams.set('limit', String(LIMIT))
+  if (search) filter['$text'] = { $search: search }
 
-  if (search) url.searchParams.set('keyword', search)
+  if (category) {
+    const cat: any = await config.storeApiFetch('/v2/category', {
+      method: 'POST',
+      body: JSON.stringify({
+        lang: 'en',
+        PostBody: {
+          filter: {
+            _id: category,
+          },
+          structure: {
+            productsList: 1,
+          },
+          page: 1,
+          limit: 1,
+        },
+      }),
+    })
 
-  if (category && Number.isInteger(Number(category)))
-    url.searchParams.set('categories:in', category)
+    const productIds: string[] = cat.productsList
+      .filter((p: any) => p.checked)
+      .map((p: any) => p.id)
+    // if (search) {
+    //   filter = {
+    //     $and: [{ ...filter }, { _id: { $in: productIds } }],
+    //   }
+    // } else {
+    filter = {
+      _id: { $in: productIds },
+    }
+    // }
+  }
 
-  if (brand && Number.isInteger(Number(brand)))
-    url.searchParams.set('brand_id', brand)
-
-  if (sort) {
-    const [_sort, direction] = sort.split('-')
+  if (sortParam) {
+    const [_sort, direction] = sortParam.split('-')
     const sortValue = SORT[_sort]
 
     if (sortValue && direction) {
-      url.searchParams.set('sort', sortValue)
-      url.searchParams.set('direction', direction)
+      switch (sortValue) {
+        case 'latest':
+          // 'desc'
+          console.log(`sort by ${sortValue} not implemented`)
+        case 'trending':
+          // 'desc'
+          console.log(`sort by ${sortValue} not implemented`)
+        case 'price':
+          if (direction === 'asc') sort = { 'price.priceSort.ati': 1 }
+          else if (direction === 'desc') sort = { 'price.priceSort.ati': -1 }
+      }
     }
   }
 
-  // We only want the id of each product
-  url.searchParams.set('include_fields', 'id')
-
-  const { data } = await config.storeApiFetch<{ data: { id: number }[] }>(
-    url.pathname + url.search
-  )
-
-  const entityIds = data.map((p) => p.id)
-  const found = entityIds.length > 0
-
-  // We want the GraphQL version of each product
-  const graphqlData = await getAllProducts({
-    variables: { first: LIMIT, entityIds },
-    config,
+  const { datas } = await config.storeApiFetch('/v2/products', {
+    method: 'POST',
+    body: JSON.stringify({
+      lang: 'en',
+      PostBody: {
+        filter,
+        structure: {
+          canonical: 1,
+          reviews: 1,
+          stock: 1,
+          universe: 1,
+        },
+        // populate: ['bundle_sections.products.id'],
+        sort,
+        page: 1,
+        limit: LIMIT,
+      },
+    }),
   })
 
-  // Put the products in an object that we can use to get them by id
-  const productsById = graphqlData.products.reduce<{
-    [k: number]: Product
-  }>((prods, p) => {
-    prods[Number(p.id)] = p
-    return prods
-  }, {})
-
-  const products: Product[] = found ? [] : graphqlData.products
-
-  // Populate the products array with the graphql products, in the order
-  // assigned by the list of entity ids
-  entityIds.forEach((id) => {
-    const product = productsById[id]
-    if (product) products.push(product)
-  })
+  const found = datas ? datas.length > 0 : false
+  const products = datas ? datas.map(normalizeProduct) : []
 
   res.status(200).json({ data: { products, found } })
 }

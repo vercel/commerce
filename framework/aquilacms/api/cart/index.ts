@@ -14,19 +14,20 @@ import type {
   AddCartItemHandlerBody,
   UpdateCartItemHandlerBody,
   RemoveCartItemHandlerBody,
+  Cart,
 } from '../../types'
 
 export type CartHandlers = {
-  getCart: AquilacmsHandler<AquilacmsCart, GetCartHandlerBody>
-  addItem: AquilacmsHandler<AquilacmsCart, AddCartItemHandlerBody>
-  updateItem: AquilacmsHandler<AquilacmsCart, UpdateCartItemHandlerBody>
-  removeItem: AquilacmsHandler<AquilacmsCart, RemoveCartItemHandlerBody>
+  getCart: AquilacmsHandler<Cart, GetCartHandlerBody>
+  addItem: AquilacmsHandler<Cart, AddCartItemHandlerBody>
+  updateItem: AquilacmsHandler<Cart, UpdateCartItemHandlerBody>
+  removeItem: AquilacmsHandler<Cart, RemoveCartItemHandlerBody>
 }
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
 // TODO: a complete implementation should have schema validation for `req.body`
-const cartApi: AquilacmsApiHandler<AquilacmsCart, CartHandlers> = async (
+const cartApi: AquilacmsApiHandler<Cart, CartHandlers> = async (
   req,
   res,
   config,

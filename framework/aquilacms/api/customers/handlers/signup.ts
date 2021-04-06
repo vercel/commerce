@@ -1,36 +1,49 @@
 import { AquilacmsApiError } from '../../utils/errors'
 import login from '../../../auth/login'
 import { SignupHandlers } from '../signup'
+import Joi, { valid } from 'joi'
 
 const signup: SignupHandlers['signup'] = async ({
   res,
   body: { firstName, lastName, email, password },
   config,
 }) => {
-  // TODO: Add proper validations with something like Ajv
+  const schema = Joi.object({
+    firstName: Joi.string().min(1),
+    lastName: Joi.string().min(1),
+    email: Joi.string().email({ tlds: false }),
+    password: Joi.string().pattern(
+      new RegExp('^(?=.*d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^wd:])([^s]){6,}$')
+    ),
+  })
+
+  const validation = schema.validate({ email, password })
   if (!(firstName && lastName && email && password)) {
     return res.status(400).json({
       data: null,
       errors: [{ message: 'Invalid request' }],
     })
   }
-  // TODO: validate the password and email
-  // Passwords must be at least 7 characters and contain both alphabetic
-  // and numeric characters.
+  if (validation?.error?.details) {
+    let message = validation.error.details[0].message
+    if (validation.error.details[0].path[0] === 'password')
+      message =
+        'password must  have a lowercase, a uppercase, a number and be at least 6 characters long'
+    return res.status(400).json({
+      data: null,
+      errors: [{ message }],
+    })
+  }
 
   try {
-    await config.storeApiFetch('/v3/customers', {
-      method: 'POST',
-      body: JSON.stringify([
-        {
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          authentication: {
-            new_password: password,
-          },
-        },
-      ]),
+    await config.storeApiFetch('/v2/user', {
+      method: 'PUT',
+      body: JSON.stringify({
+        firstname: firstName,
+        lastname: lastName,
+        email,
+        password,
+      }),
     })
   } catch (error) {
     if (error instanceof AquilacmsApiError && error.status === 422) {

@@ -1,4 +1,5 @@
 import { serialize } from 'cookie'
+import { getConfig } from '../..'
 import { LogoutHandlers } from '../logout'
 
 const logoutHandler: LogoutHandlers['logout'] = async ({
@@ -6,6 +7,12 @@ const logoutHandler: LogoutHandlers['logout'] = async ({
   body: { redirectTo },
   config,
 }) => {
+  config = getConfig(config)
+
+  await config.storeApiFetch('/v2/auth/logout', {
+    method: 'GET',
+  })
+
   // Remove the cookie
   res.setHeader(
     'Set-Cookie',
