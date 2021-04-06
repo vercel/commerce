@@ -5,7 +5,7 @@ import createApiHandler, {
 import { AquilacmsApiError } from './utils/errors'
 
 const METHODS = ['GET']
-const fullCheckout = true
+const fullCheckout = false
 
 // TODO: a complete implementation should have schema validation for `req.body`
 const checkoutApi: AquilacmsApiHandler<any> = async (req, res, config) => {
@@ -13,6 +13,8 @@ const checkoutApi: AquilacmsApiHandler<any> = async (req, res, config) => {
 
   const { cookies } = req
   const cartId = cookies[config.cartCookie]
+  const token = cookies[config.customerCookie]
+  console.log(config.customerCookie, cookies)
 
   try {
     if (!cartId) {
@@ -20,14 +22,13 @@ const checkoutApi: AquilacmsApiHandler<any> = async (req, res, config) => {
       return
     }
 
-    const { data } = await config.storeApiFetch(
-      `/v3/carts/${cartId}/redirect_urls`,
-      {
-        method: 'POST',
-      }
-    )
-
     if (fullCheckout) {
+      const { data } = await config.storeApiFetch(
+        `/v/carts/${cartId}/redirect_urls`,
+        {
+          method: 'POST',
+        }
+      )
       res.redirect(data.checkout_url)
       return
     }
@@ -40,20 +41,13 @@ const checkoutApi: AquilacmsApiHandler<any> = async (req, res, config) => {
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Checkout</title>
-          <script src="https://checkout-sdk.bigcommerce.com/v1/loader.js"></script>
           <script>
-            window.onload = function() {
-              checkoutKitLoader.load('checkout-sdk').then(function (service) {
-                service.embedCheckout({
-                  containerId: 'checkout',
-                  url: '${data.embedded_checkout_url}'
-                });
-              });
+            window.onload = () => {
+              window.location.href = "${process.env.AQUILACMS_URL}/cart/address?jwt=${token}&cartid=${cartId}"
             }
           </script>
         </head>
         <body>
-          <div id="checkout"></div>
         </body>
       </html>
     `

@@ -3,6 +3,6 @@ const commerce = require('./commerce.config.json')
 module.exports = {
   commerce,
   images: {
-    domains: ['cdn11.bigcommerce.com'],
+    domains: ['recdem.hosting-ns.com', '192.168.1.138'],
   },
 }

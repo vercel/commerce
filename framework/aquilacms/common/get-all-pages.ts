@@ -1,8 +1,13 @@
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
 import { AquilacmsConfig, getConfig } from '../api'
-import { definitions } from '../api/definitions/store-content'
+import type { AquilacmsStatic } from '../types'
 
-export type Page = definitions['page_Full']
+export type Page = {
+  id: string
+  name: string
+  url: string
+  sort_order?: number
+  body: string
+}
 
 export type GetAllPagesResult<
   T extends { pages: any[] } = { pages: Page[] }
@@ -28,15 +33,42 @@ async function getAllPages({
   preview?: boolean
 } = {}): Promise<GetAllPagesResult> {
   config = getConfig(config)
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `url`
-  const { data } = await config.storeApiFetch<
-    RecursivePartial<{ data: Page[] }>
-  >('/v3/content/pages')
-  const pages = (data as RecursiveRequired<typeof data>) ?? []
+  // const { datas } = await config.storeApiFetch('/v2/categories', {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     lang: 'en',
+  //     PostBody: {
+  //       filter: {
+  //         action: 'page',
+  //       },
+  //       limit: 10,
+  //       page: 1,
+  //     },
+  //   }),
+  // })
 
+  const { datas }: { datas: AquilacmsStatic[] } = await config.storeApiFetch(
+    '/v2/statics',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        lang: 'en',
+        PostBody: {
+          limit: 10,
+          page: 1,
+        },
+      }),
+    }
+  )
+
+  const pages: Page[] = datas.map((s: AquilacmsStatic) => ({
+    id: `en-US/${s._id}`,
+    name: s.slug['en'],
+    url: `/en-US/${s.slug['en']}`,
+    body: s.content,
+  }))
   return {
-    pages: preview ? pages : pages.filter((p) => p.is_visible),
+    pages,
   }
 }
 

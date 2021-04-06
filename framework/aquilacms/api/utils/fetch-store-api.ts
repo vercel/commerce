@@ -16,8 +16,6 @@ export default async function fetchStoreApi<T>(
       headers: {
         ...options?.headers,
         'Content-Type': 'application/json',
-        'X-Auth-Token': config.storeApiToken,
-        'X-Auth-Client': config.storeApiClientId,
       },
     })
   } catch (error) {
@@ -32,7 +30,7 @@ export default async function fetchStoreApi<T>(
   if (!res.ok) {
     const data = isJSON ? await res.json() : await getTextOrNull(res)
     const headers = getRawHeaders(res)
-    const msg = `Big Commerce API error (${
+    const msg = `Aquilacms API error (${
       res.status
     }) \nHeaders: ${JSON.stringify(headers, null, 2)}\n${
       typeof data === 'string' ? data : JSON.stringify(data, null, 2)
@@ -40,7 +38,6 @@ export default async function fetchStoreApi<T>(
 
     throw new AquilacmsApiError(msg, res, data)
   }
-
   if (res.status !== 204 && !isJSON) {
     throw new AquilacmsApiError(
       `Fetch to Aquilacms API failed, expected JSON content but found: ${contentType}`,

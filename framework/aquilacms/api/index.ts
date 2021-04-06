@@ -29,13 +29,8 @@ if (!STORE_API_URL) {
 export class Config {
   private config: AquilacmsConfig
 
-  constructor(config: Omit<AquilacmsConfig, 'customerCookie'>) {
-    this.config = {
-      ...config,
-      // The customerCookie is not customizable for now, BC sets the cookie and it's
-      // not important to rename it
-      customerCookie: 'SHOP_TOKEN',
-    }
+  constructor(config: AquilacmsConfig) {
+    this.config = config
   }
 
   getConfig(userConfig: Partial<AquilacmsConfig> = {}) {
@@ -60,6 +55,7 @@ const config = new Config({
   applyLocale: true,
   storeApiUrl: STORE_API_URL,
   storeApiFetch: fetchStoreApi,
+  customerCookie: 'jwt',
 })
 
 export function getConfig(userConfig?: Partial<AquilacmsConfig>) {

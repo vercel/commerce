@@ -2,6 +2,7 @@ import type { AquilacmsCart } from '../../../types'
 import { AquilacmsApiError } from '../../utils/errors'
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartHandlers } from '..'
+import { normalizeCart } from '../../../lib/normalize'
 
 // Return current cart info
 const getCart: CartHandlers['getCart'] = async ({
@@ -9,13 +10,21 @@ const getCart: CartHandlers['getCart'] = async ({
   body: { cartId },
   config,
 }) => {
-  let result: { data?: AquilacmsCart } = {}
-
   if (cartId) {
     try {
-      result = await config.storeApiFetch(
-        `/v3/carts/${cartId}?include=line_items.physical_items.options`
+      let result: AquilacmsCart = await config.storeApiFetch(
+        `/v2/cart/${cartId}`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            lang: 'en',
+            PostBody: {
+              populate: ['items.id'],
+            },
+          }),
+        }
       )
+      return res.status(200).json({ data: normalizeCart(result) })
     } catch (error) {
       if (error instanceof AquilacmsApiError && error.status === 404) {
         // Remove the cookie if it exists but the cart wasn't found
@@ -25,8 +34,7 @@ const getCart: CartHandlers['getCart'] = async ({
       }
     }
   }
-
-  res.status(200).json({ data: result.data ?? null })
+  res.status(200).json({ data: null })
 }
 
 export default getCart

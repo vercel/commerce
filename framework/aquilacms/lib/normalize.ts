@@ -1,113 +1,141 @@
-import type { Product } from '@commerce/types'
-import type { Cart, AquilacmsCart, LineItem } from '../types'
-import update from './immutability'
+import type { Product, ProductOption } from '@commerce/types'
+import { getConfig } from '../api'
+import type {
+  Cart,
+  AquilacmsCart,
+  LineItem,
+  AquilacmsItem,
+  AquilacmsProduct,
+  AquilacmsProductImage,
+  AquilacmsUser,
+  User,
+  AquilacmsProductAttribute,
+} from '../types'
 
-function normalizeProductOption(productOption: any) {
-  const {
-    node: {
-      entityId,
-      values: { edges },
-      ...rest
-    },
-  } = productOption
-
-  return {
-    id: entityId,
-    values: edges?.map(({ node }: any) => node),
-    ...rest,
+function normalizeProductOption(
+  productOption: AquilacmsProductAttribute
+): ProductOption {
+  if (productOption.type === 'color') {
+    return {
+      id: productOption.id,
+      displayName: productOption.name,
+      values: [
+        {
+          label: productOption.value,
+          hexColors: [productOption.value],
+        },
+      ],
+    }
+  } else if (productOption.type === 'multiselect') {
+    return {
+      id: productOption.id,
+      displayName: productOption.name,
+      values: productOption.values.map((opt) => ({ label: opt })),
+    }
+  } else {
+    return {
+      id: productOption.id,
+      displayName: productOption.name,
+      values: [],
+    }
   }
 }
 
-export function normalizeProduct(productNode: any): Product {
-  const {
-    entityId: id,
-    productOptions,
-    prices,
-    path,
-    id: _,
-    options: _0,
-  } = productNode
+export function normalizeProductImage(image: AquilacmsProductImage) {
+  return {
+    url: `${process.env.AQUILACMS_URL}/${image.url}`,
+    alt: image.alt,
+  }
+}
 
-  return update(productNode, {
-    id: { $set: String(id) },
-    images: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
-          url: urlOriginal,
-          alt: altText,
-          ...rest,
-        })),
-    },
-    variants: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
-          id: entityId,
-          options: productOptions?.edges
-            ? productOptions.edges.map(normalizeProductOption)
-            : [],
-          ...rest,
-        })),
-    },
-    options: {
-      $set: productOptions.edges
-        ? productOptions?.edges.map(normalizeProductOption)
-        : [],
-    },
-    brand: {
-      $apply: (brand: any) => (brand?.entityId ? brand?.entityId : null),
-    },
-    slug: {
-      $set: path?.replace(/^\/+|\/+$/g, ''),
-    },
-    price: {
-      $set: {
-        value: prices?.price.value,
-        currencyCode: prices?.price.currencyCode,
+export function normalizeProduct(productNode: AquilacmsProduct): Product {
+  return {
+    id: productNode._id,
+    name: productNode.name,
+    description: productNode.description1?.text ?? '',
+    slug: productNode.slug['en'],
+    images: productNode.images.map(normalizeProductImage),
+    variants: [
+      {
+        id: productNode._id,
+        options:
+          [] ??
+          productNode.attributes
+            .filter(
+              (attr) => ['color', 'multiselect'].indexOf(attr.type) !== -1
+            )
+            .map(normalizeProductOption),
       },
+    ],
+    price: {
+      currencyCode: 'EUR',
+      value: productNode.price.ati.special ?? productNode.price.ati.normal,
     },
-    $unset: ['entityId'],
-  })
+    options: [] ?? productNode.attributes.map(normalizeProductOption),
+  }
 }
 
 export function normalizeCart(data: AquilacmsCart): Cart {
+  const lineItems = data.items.map(normalizeLineItem)
+  // TODO: not good, need to change
+  const price = lineItems.reduce((total, item) => total + item.variant.price, 0)
   return {
-    id: data.id,
-    customerId: String(data.customer_id),
-    email: data.email,
-    createdAt: data.created_time,
-    currency: data.currency,
-    taxesIncluded: data.tax_included,
-    lineItems: data.line_items.physical_items.map(normalizeLineItem),
-    lineItemsSubtotalPrice: data.base_amount,
-    subtotalPrice: data.base_amount + data.discount_amount,
-    totalPrice: data.cart_amount,
-    discounts: data.discounts?.map((discount) => ({
-      value: discount.discounted_amount,
-    })),
+    id: data._id,
+    customerId: data.customer?.id,
+    email: data.customer?.email,
+    createdAt: data.createdAt,
+    currency: { code: 'EUR' },
+    taxesIncluded: true,
+    lineItems,
+    lineItemsSubtotalPrice: price,
+    subtotalPrice: data.priceSubTotal.ati,
+    totalPrice: data.priceTotal.ati,
+    discounts: [],
   }
 }
 
-function normalizeLineItem(item: any): LineItem {
+function normalizeLineItem(item: AquilacmsItem): LineItem {
+  const image = item.id.images.find((i: any) => i.default)
   return {
-    id: item.id,
-    variantId: String(item.variant_id),
-    productId: String(item.product_id),
+    id: item._id,
+    variantId: item.id._id,
+    productId: item.id._id,
     name: item.name,
     quantity: item.quantity,
     variant: {
-      id: String(item.variant_id),
-      sku: item.sku,
+      id: item.id._id,
+      sku: item.code,
       name: item.name,
       image: {
-        url: item.image_url,
+        url: `${process.env.AQUILACMS_URL}/${image?.url}`,
+        altText: image?.alt,
       },
-      requiresShipping: item.is_require_shipping,
-      price: item.sale_price,
-      listPrice: item.list_price,
+      requiresShipping: true,
+      price: item.price?.special?.ati ?? item.price.unit.ati,
+      listPrice: item.price?.special?.ati ?? item.price.unit.ati,
     },
-    path: item.url.split('/')[3],
-    discounts: item.discounts.map((discount: any) => ({
-      value: discount.discounted_amount,
-    })),
+    path: `${item.id.slug['en']}`,
+    discounts: [],
+  }
+}
+
+export function normalizeUser(data: AquilacmsUser): User {
+  return {
+    entityId: data._id,
+    firstName: data.firstname,
+    lastName: data.lastname,
+    email: data.email,
+    company: data?.company?.name,
+    customerGroupId: '',
+    notes: '',
+    phone:
+      data?.addresses?.[data?.delivery_address].phone ||
+      data?.addresses?.[data?.delivery_address].phone_mobile,
+    addressCount: data?.addresses?.length,
+    attributeCount: 0,
+    storeCredit: {
+      value: 0,
+      currencyCode: 'EUR',
+    },
   }
 }

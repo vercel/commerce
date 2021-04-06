@@ -1,56 +1,6 @@
-import type {
-  GetAllProductsQuery,
-  GetAllProductsQueryVariables,
-} from '../schema'
 import type { Product } from '@commerce/types'
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
-import filterEdges from '../api/utils/filter-edges'
-import setProductLocaleMeta from '../api/utils/set-product-locale-meta'
-import { productConnectionFragment } from '../api/fragments/product'
 import { AquilacmsConfig, getConfig } from '../api'
 import { normalizeProduct } from '../lib/normalize'
-
-export const getAllProductsQuery = /* GraphQL */ `
-  query getAllProducts(
-    $hasLocale: Boolean = false
-    $locale: String = "null"
-    $entityIds: [Int!]
-    $first: Int = 10
-    $products: Boolean = false
-    $featuredProducts: Boolean = false
-    $bestSellingProducts: Boolean = false
-    $newestProducts: Boolean = false
-  ) {
-    site {
-      products(first: $first, entityIds: $entityIds) @include(if: $products) {
-        ...productConnnection
-      }
-      featuredProducts(first: $first) @include(if: $featuredProducts) {
-        ...productConnnection
-      }
-      bestSellingProducts(first: $first) @include(if: $bestSellingProducts) {
-        ...productConnnection
-      }
-      newestProducts(first: $first) @include(if: $newestProducts) {
-        ...productConnnection
-      }
-    }
-  }
-
-  ${productConnectionFragment}
-`
-
-export type ProductEdge = NonNullable<
-  NonNullable<GetAllProductsQuery['site']['products']['edges']>[0]
->
-
-export type ProductNode = ProductEdge['node']
-
-export type GetAllProductsResult<
-  T extends Record<keyof GetAllProductsResult, any[]> = {
-    products: ProductEdge[]
-  }
-> = T
 
 const FIELDS = [
   'products',
@@ -65,29 +15,12 @@ export type ProductTypes =
   | 'bestSellingProducts'
   | 'newestProducts'
 
-export type ProductVariables = { field?: ProductTypes } & Omit<
-  GetAllProductsQueryVariables,
-  ProductTypes | 'hasLocale'
->
-
-async function getAllProducts(opts?: {
-  variables?: ProductVariables
-  config?: AquilacmsConfig
-  preview?: boolean
-}): Promise<{ products: Product[] }>
-
-async function getAllProducts<
-  T extends Record<keyof GetAllProductsResult, any[]>,
-  V = any
->(opts: {
-  query: string
-  variables?: V
-  config?: AquilacmsConfig
-  preview?: boolean
-}): Promise<GetAllProductsResult<T>>
+export type ProductVariables = { field?: ProductTypes; first?: number } & {
+  locale?: string
+  hasLocale?: boolean
+}
 
 async function getAllProducts({
-  query = getAllProductsQuery,
   variables: { field = 'products', ...vars } = {},
   config,
 }: {
@@ -95,12 +28,11 @@ async function getAllProducts({
   variables?: ProductVariables
   config?: AquilacmsConfig
   preview?: boolean
-  // TODO: fix the product type here
 } = {}): Promise<{ products: Product[] | any[] }> {
   config = getConfig(config)
 
-  const locale = vars.locale || config.locale
-  const variables: GetAllProductsQueryVariables = {
+  const locale = (vars.locale || config.locale)?.split('-')[0]
+  const variables = {
     ...vars,
     locale,
     hasLocale: !!locale,
@@ -112,24 +44,31 @@ async function getAllProducts({
     )
   }
 
-  variables[field] = true
-
   // RecursivePartial forces the method to check for every prop in the data, which is
   // required in case there's a custom `query`
-  const { data } = await config.fetch<RecursivePartial<GetAllProductsQuery>>(
-    query,
-    { variables }
-  )
-  const edges = data.site?.[field]?.edges
-  const products = filterEdges(edges as RecursiveRequired<typeof edges>)
+  let { datas } = await config.storeApiFetch('/v2/products', {
+    method: 'POST',
+    body: JSON.stringify({
+      lang: locale,
+      PostBody: {
+        structure: {
+          code: 1,
+          id: 1,
+          translation: 1,
+          attributes: 1,
+          pictos: 1,
+          canonical: 1,
+          images: 1,
+        },
+        page: 1,
+        limit: variables.first,
+      },
+    }),
+  })
 
-  if (locale && config.applyLocale) {
-    products.forEach((product: RecursivePartial<ProductEdge>) => {
-      if (product.node) setProductLocaleMeta(product.node)
-    })
-  }
+  const products = datas.map(normalizeProduct)
 
-  return { products: products.map(({ node }) => normalizeProduct(node as any)) }
+  return { products }
 }
 
 export default getAllProducts

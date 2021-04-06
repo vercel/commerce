@@ -1,6 +1,7 @@
-import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartHandlers } from '..'
+import { AquilacmsCart } from '../../../types'
+import { normalizeCart } from '../../../lib/normalize'
 
 const updateItem: CartHandlers['updateItem'] = async ({
   res,
@@ -14,14 +15,19 @@ const updateItem: CartHandlers['updateItem'] = async ({
     })
   }
 
-  const { data } = await config.storeApiFetch(
-    `/v3/carts/${cartId}/items/${itemId}?include=line_items.physical_items.options`,
-    {
-      method: 'PUT',
-      body: JSON.stringify({
-        line_item: parseCartItem(item),
-      }),
-    }
+  const options = {
+    method: 'PUT',
+    body: JSON.stringify({
+      item: {
+        _id: itemId,
+        quantity: item.quantity,
+      },
+      cartId,
+    }),
+  }
+  const result: AquilacmsCart = await config.storeApiFetch(
+    '/v2/cart/updateqty',
+    options
   )
 
   // Update the cart cookie
@@ -29,7 +35,7 @@ const updateItem: CartHandlers['updateItem'] = async ({
     'Set-Cookie',
     getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
   )
-  res.status(200).json({ data })
+  res.status(200).json({ data: normalizeCart(result) })
 }
 
 export default updateItem

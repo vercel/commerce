@@ -172,7 +172,7 @@ export interface Product extends Entity {
   sku?: string
 }
 
-interface ProductOption extends Entity {
+export interface ProductOption extends Entity {
   displayName: string
   values: ProductOptionValues[]
 }

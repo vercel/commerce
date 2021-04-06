@@ -1,92 +1,18 @@
-import type { GetProductQuery, GetProductQueryVariables } from '../schema'
-import setProductLocaleMeta from '../api/utils/set-product-locale-meta'
-import { productInfoFragment } from '../api/fragments/product'
 import { AquilacmsConfig, getConfig } from '../api'
 import { normalizeProduct } from '../lib/normalize'
 import type { Product } from '@commerce/types'
-
-export const getProductQuery = /* GraphQL */ `
-  query getProduct(
-    $hasLocale: Boolean = false
-    $locale: String = "null"
-    $path: String!
-  ) {
-    site {
-      route(path: $path) {
-        node {
-          __typename
-          ... on Product {
-            ...productInfo
-            variants {
-              edges {
-                node {
-                  entityId
-                  defaultImage {
-                    urlOriginal
-                    altText
-                    isDefault
-                  }
-                  prices {
-                    ...productPrices
-                  }
-                  inventory {
-                    aggregated {
-                      availableToSell
-                      warningLevel
-                    }
-                    isInStock
-                  }
-                  productOptions {
-                    edges {
-                      node {
-                        __typename
-                        entityId
-                        displayName
-                        ...multipleChoiceOption
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  ${productInfoFragment}
-`
-
-export type ProductNode = Extract<
-  GetProductQuery['site']['route']['node'],
-  { __typename: 'Product' }
->
-
-export type GetProductResult<
-  T extends { product?: any } = { product?: ProductNode }
-> = T
+import { AquilacmsProduct } from '../types'
 
 export type ProductVariables = { locale?: string } & (
   | { path: string; slug?: never }
   | { path?: never; slug: string }
 )
 
-async function getProduct(opts: {
-  variables: ProductVariables
-  config?: AquilacmsConfig
-  preview?: boolean
-}): Promise<GetProductResult>
-
-async function getProduct<T extends { product?: any }, V = any>(opts: {
-  query: string
-  variables: V
-  config?: AquilacmsConfig
-  preview?: boolean
-}): Promise<GetProductResult<T>>
+export type GetProductResult<
+  T extends { product?: any } = { product?: Product }
+> = T
 
 async function getProduct({
-  query = getProductQuery,
   variables: { slug, ...vars },
   config,
 }: {
@@ -94,28 +20,32 @@ async function getProduct({
   variables: ProductVariables
   config?: AquilacmsConfig
   preview?: boolean
-}): Promise<Product | {} | any> {
+}): Promise<Product | any> {
   config = getConfig(config)
-
-  const locale = vars.locale || config.locale
-  const variables: GetProductQueryVariables = {
-    ...vars,
-    locale,
-    hasLocale: !!locale,
-    path: slug ? `/${slug}/` : vars.path!,
-  }
-  const { data } = await config.fetch<GetProductQuery>(query, { variables })
-  const product = data.site?.route?.node
-
-  if (product?.__typename === 'Product') {
-    if (locale && config.applyLocale) {
-      setProductLocaleMeta(product)
-    }
-
-    return { product: normalizeProduct(product as any) }
-  }
-
-  return {}
+  const locale = (vars.locale || config.locale)?.split('-')[0]
+  const data: AquilacmsProduct = await config.storeApiFetch('/v2/product', {
+    method: 'POST',
+    body: JSON.stringify({
+      lang: locale,
+      countviews: true,
+      withFilters: false,
+      PostBody: {
+        filter: {
+          [`translation.${locale}.slug`]: slug,
+        },
+        structure: {
+          code: 1,
+          id: 1,
+          translation: 1,
+          attributes: 1,
+          pictos: 1,
+          canonical: 1,
+          images: 1,
+        },
+      },
+    }),
+  })
+  return { product: normalizeProduct(data) }
 }
 
 export default getProduct

@@ -55,7 +55,8 @@ export const handler = {
       body: { itemId, item },
     })
 
-    return normalizeCart(data)
+    // return normalizeCart(data)
+    return data
   },
   useHook: ({
     fetch,

@@ -1,28 +1,8 @@
-import type { GetLoggedInCustomerQuery } from '../../../schema'
 import type { CustomersHandlers } from '..'
+import { normalizeUser } from '../../../lib/normalize'
+import type { AquilacmsUser, User } from '../../../types'
 
-export const getLoggedInCustomerQuery = /* GraphQL */ `
-  query getLoggedInCustomer {
-    customer {
-      entityId
-      firstName
-      lastName
-      email
-      company
-      customerGroupId
-      notes
-      phone
-      addressCount
-      attributeCount
-      storeCredit {
-        value
-        currencyCode
-      }
-    }
-  }
-`
-
-export type Customer = NonNullable<GetLoggedInCustomerQuery['customer']>
+export type Customer = User
 
 const getLoggedInCustomer: CustomersHandlers['getLoggedInCustomer'] = async ({
   req,
@@ -32,25 +12,27 @@ const getLoggedInCustomer: CustomersHandlers['getLoggedInCustomer'] = async ({
   const token = req.cookies[config.customerCookie]
 
   if (token) {
-    const { data } = await config.fetch<GetLoggedInCustomerQuery>(
-      getLoggedInCustomerQuery,
-      undefined,
-      {
+    try {
+      const data = await config.storeApiFetch('/v2/user', {
+        method: 'POST',
+        body: JSON.stringify({
+          PostBody: {},
+        }),
         headers: {
-          cookie: `${config.customerCookie}=${token}`,
+          authorization: token,
         },
-      }
-    )
-    const { customer } = data
-
-    if (!customer) {
-      return res.status(400).json({
-        data: null,
-        errors: [{ message: 'Customer not found', code: 'not_found' }],
       })
+      if (!data) {
+        return res.status(400).json({
+          data: null,
+          errors: [{ message: 'Customer not found', code: 'not_found' }],
+        })
+      }
+      const customer = normalizeUser(data as AquilacmsUser)
+      return res.status(200).json({ data: { customer } })
+    } catch (err) {
+      console.error(err)
     }
-
-    return res.status(200).json({ data: { customer } })
   }
 
   res.status(200).json({ data: null })
