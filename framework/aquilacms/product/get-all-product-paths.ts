@@ -54,6 +54,9 @@ async function getAllProductPaths({
         method: 'POST',
         body: JSON.stringify({
           PostBody: {
+            filter: {
+              kind: 'SimpleProduct',
+            },
             structure: {
               translation: 1,
             },

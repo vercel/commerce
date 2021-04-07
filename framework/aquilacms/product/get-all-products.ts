@@ -51,6 +51,9 @@ async function getAllProducts({
     body: JSON.stringify({
       lang: locale,
       PostBody: {
+        filter: {
+          kind: 'SimpleProduct',
+        },
         structure: {
           code: 1,
           id: 1,

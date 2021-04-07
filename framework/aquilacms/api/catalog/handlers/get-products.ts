@@ -17,7 +17,9 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   body: { search, category, brand, sort: sortParam },
   config,
 }) => {
-  let filter: any = {}
+  let filter: any = {
+    kind: 'SimpleProduct',
+  }
   let sort = {}
 
   if (search) filter['$text'] = { $search: search }
