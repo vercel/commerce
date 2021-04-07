@@ -41,19 +41,17 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
         },
       }),
     })
-
     const productIds: string[] = cat.productsList
       .filter((p: any) => p.checked)
       .map((p: any) => p.id)
-    // if (search) {
-    //   filter = {
-    //     $and: [{ ...filter }, { _id: { $in: productIds } }],
-    //   }
-    // } else {
     filter = {
-      _id: { $in: productIds },
+      $and: [
+        filter,
+        {
+          _id: { $in: productIds },
+        },
+      ],
     }
-    // }
   }
 
   if (sortParam) {
@@ -74,7 +72,23 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
       }
     }
   }
-
+  console.log(
+    JSON.stringify({
+      lang: 'en',
+      PostBody: {
+        filter,
+        structure: {
+          canonical: 1,
+          reviews: 1,
+          stock: 1,
+          universe: 1,
+        },
+        sort,
+        page: 1,
+        limit: LIMIT,
+      },
+    })
+  )
   const { datas } = await config.storeApiFetch('/v2/products', {
     method: 'POST',
     body: JSON.stringify({
@@ -87,7 +101,6 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
           stock: 1,
           universe: 1,
         },
-        // populate: ['bundle_sections.products.id'],
         sort,
         page: 1,
         limit: LIMIT,
