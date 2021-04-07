@@ -1,5 +1,4 @@
 import type { Product, ProductOption } from '@commerce/types'
-import { getConfig } from '../api'
 import type {
   Cart,
   AquilacmsCart,
@@ -10,6 +9,8 @@ import type {
   AquilacmsUser,
   User,
   AquilacmsProductAttribute,
+  AquilacmsOrder,
+  Order,
 } from '../types'
 
 function normalizeProductOption(
@@ -137,5 +138,19 @@ export function normalizeUser(data: AquilacmsUser): User {
       value: 0,
       currencyCode: 'EUR',
     },
+  }
+}
+
+export function normalizeOrder(data: AquilacmsOrder): Order {
+  return {
+    id: data._id,
+    code: data.number,
+    status: data.status,
+    price: {
+      value: data.priceTotal.ati,
+      currency: 'EUR',
+    },
+    items: [],
+    createdAt: data.created_at,
   }
 }

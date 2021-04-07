@@ -8,7 +8,13 @@ import {
 } from 'react'
 import { Fetcher, SWRHook, MutationHook } from './utils/types'
 import type { FetchCartInput } from './cart/use-cart'
-import type { Cart, Wishlist, Customer, SearchProductsData } from './types'
+import type {
+  Cart,
+  Wishlist,
+  Customer,
+  SearchProductsData,
+  Order,
+} from './types'
 
 const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
@@ -35,6 +41,9 @@ export type Provider = CommerceConfig & {
     useSignup?: MutationHook<any, any, any>
     useLogin?: MutationHook<any, any, any>
     useLogout?: MutationHook<any, any, any>
+  }
+  orders?: {
+    useOrders?: SWRHook<Order[] | null, any, any>
   }
 }
 

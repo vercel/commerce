@@ -392,6 +392,8 @@ export type RemoveCartItemBody = Core.RemoveCartItemBody
 
 export type RemoveCartItemHandlerBody = Core.RemoveCartItemHandlerBody
 
+export type Order = Core.Order
+
 export type User = {
   entityId: string
   firstName: string
@@ -433,4 +435,20 @@ export type AquilacmsStatic = {
     [index: string]: string
   }
   name: string
+}
+
+export type AquilacmsCartItem = {}
+
+export type AquilacmsOrder = {
+  _id: string
+  items: AquilacmsCartItem[]
+  number: string
+  priceTotal: {
+    ati: number
+    et: number
+    paidTax: number
+  }
+  status: string
+  created_at: string
+  updated_at: string
 }

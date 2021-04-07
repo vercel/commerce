@@ -1,5 +1,4 @@
 {
-  "provider": "aquilacms",
   "features": {
     "wishlist": false,
     "customCheckout": false
