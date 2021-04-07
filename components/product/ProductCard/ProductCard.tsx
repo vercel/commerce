@@ -22,7 +22,7 @@ const ProductCard: FC<Props> = ({
   imgProps,
   ...props
 }) => (
-  <Link href={`/product/${product.slug}`} {...props}>
+  <Link href={`/product/${product.slug}`}>
     <a className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}>
       {variant === 'slim' ? (
         <div className="relative overflow-hidden box-border">
