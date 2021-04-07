@@ -13,13 +13,17 @@ import { REACTION_ANONYMOUS_CART_TOKEN_COOKIE, SHOP_ID } from './const'
 export { reactionCommerceProvider }
 export type { ReactionCommerceProvider }
 
-export const reactionCommerceConfig: CommerceConfig = {
+type ReactionConfig = CommerceConfig & {
+  shopId: string
+}
+
+export const reactionCommerceConfig: ReactionConfig = {
   locale: 'en-us',
   cartCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   shopId: SHOP_ID,
 }
 
-export type ReactionCommerceConfig = Partial<CommerceConfig>
+export type ReactionCommerceConfig = Partial<ReactionConfig>
 
 export type ReactionCommerceProps = {
   children?: ReactNode

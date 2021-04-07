@@ -5,7 +5,6 @@ export interface CommerceAPIConfig {
   commerceUrl: string
   apiToken: string
   cartCookie: string
-  cartIdCookie: string
   cartCookieMaxAge: number
   customerCookie: string
   fetch<Data = any, Variables = any>(

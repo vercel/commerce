@@ -29,7 +29,7 @@ edges {
           minPrice
           maxPrice
         }
-        primaryImage {
+        media {
           URLs {
             thumbnail
             small

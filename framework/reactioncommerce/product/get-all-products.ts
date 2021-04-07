@@ -1,6 +1,6 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, ReactionCommerceConfig } from '../api'
-import { CatalogItemEdge } from '../schema'
+import { CatalogItemEdge, CatalogItemProduct } from '../schema'
 import { catalogItemsQuery } from '../utils/queries'
 import { normalizeProduct } from '../utils/normalize'
 import { Product } from '@commerce/types'
@@ -30,8 +30,8 @@ const getAllProducts = async (options: {
   })
 
   const catalogItems =
-    data.catalogItems?.edges?.map(({ node: p }: CatalogItemEdge) =>
-      normalizeProduct(p)
+    data.catalogItems?.edges?.map(({ node: itemProduct }: CatalogItemEdge) =>
+      normalizeProduct(itemProduct as CatalogItemProduct)
     ) ?? []
 
   return {

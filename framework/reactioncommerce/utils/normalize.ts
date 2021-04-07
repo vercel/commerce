@@ -1,14 +1,24 @@
 import { Product } from '@commerce/types'
 
 import {
-  CatalogItem,
   Cart as ReactionCart,
   ProductPricingInfo,
   CatalogProductVariant,
   CartItemEdge,
+  CatalogItemProduct,
+  CatalogProduct,
+  ImageInfo,
+  Maybe,
 } from '../schema'
 
 import type { Cart, LineItem } from '../types'
+
+type ProductOption = {
+  __typename?: string
+  id: string
+  displayName: string
+  values: any[]
+}
 
 const money = ({ displayPrice }: ProductPricingInfo) => {
   return {
@@ -16,11 +26,13 @@ const money = ({ displayPrice }: ProductPricingInfo) => {
   }
 }
 
-const normalizeProductOption = ({
-  id,
-  name: displayName,
-  values,
-}: ProductOption) => {
+const normalizeProductImages = (images: Maybe<ImageInfo>[], name: string) =>
+  images.map((image) => ({
+    url: image?.URLs?.original || image?.URLs?.medium || '',
+    alt: name,
+  }))
+
+const normalizeProductOption = ({ id, displayName, values }: ProductOption) => {
   return {
     __typename: 'MultipleChoiceOption',
     id,
@@ -29,7 +41,7 @@ const normalizeProductOption = ({
       let output: any = {
         label: value,
       }
-      if (displayName === 'Color') {
+      if (displayName.toLowerCase() === 'color') {
         output = {
           ...output,
           hexColors: [value],
@@ -40,53 +52,39 @@ const normalizeProductOption = ({
   }
 }
 
-const normalizeProductVariants = (variants: [CatalogProductVariant]) => {
-  return variants?.map(
-    ({
-      variantId,
-      attributeLabel,
-      optionTitle,
-      options,
-      sku,
-      title,
-      pricing,
-    }) => {
-      const variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice
+const normalizeProductVariants = (variants: Maybe<CatalogProductVariant>[]) => {
+  return variants.map((variant) => {
+    const { _id, options, sku, title, pricing = [], variantId } = variant ?? {}
+    const variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice ?? 0
 
-      return {
-        id: variantId,
-        name: title,
-        sku: sku ?? variantId,
-        price: variantPrice,
-        listPrice: pricing[0]?.compareAtPrice?.amount ?? variantPrice,
-        requiresShipping: true,
-        // options: options?.map(({ attributeLabel, optionTitle }: CatalogProductVariant) =>
-        //   normalizeProductOption({
-        //     id: _id,
-        //     name: attributeLabel,
-        //     values: [optionTitle],
-        //   })
-        // ) ?? [],
-        options: [
-          {
-            __typename: 'MultipleChoiceOption',
-            displayName: attributeLabel,
-            values: [{ label: optionTitle }],
-          },
-        ],
-      }
+    return {
+      id: _id ?? '',
+      name: title,
+      sku: sku ?? variantId,
+      price: variantPrice,
+      listPrice: pricing[0]?.compareAtPrice?.amount ?? variantPrice,
+      requiresShipping: true,
+      options: options?.length
+        ? options.map((option) => {
+            return normalizeProductOption({
+              id: option?._id ?? '',
+              displayName: option?.attributeLabel ?? '',
+              values: [option?.optionTitle],
+            })
+          })
+        : [],
     }
-  )
+  })
 }
 
 export function groupProductOptionsByAttributeLabel(
-  options: [CatalogProductVariant]
+  options: Maybe<CatalogProductVariant>[]
 ) {
   return options.reduce((groupedOptions, currentOption) => {
     const attributeLabelIndex = groupedOptions.findIndex((option) => {
       return (
         option.displayName.toLowerCase() ===
-        currentOption.attributeLabel.toLowerCase()
+        currentOption?.attributeLabel.toLowerCase()
       )
     })
 
@@ -94,68 +92,61 @@ export function groupProductOptionsByAttributeLabel(
       groupedOptions[attributeLabelIndex].values = [
         ...groupedOptions[attributeLabelIndex].values,
         {
-          label: currentOption.optionTitle,
-          hexColors: [currentOption.optionTitle],
+          label: currentOption?.optionTitle ?? '',
+          hexColors: [currentOption?.optionTitle] ?? '',
         },
       ]
     } else {
       groupedOptions = [
         ...groupedOptions,
         normalizeProductOption({
-          id: currentOption.variantId,
-          name: currentOption.attributeLabel,
-          values: [currentOption.optionTitle],
+          id: currentOption?.variantId ?? '',
+          displayName: currentOption?.attributeLabel ?? '',
+          values: [currentOption?.optionTitle ?? ''],
         }),
       ]
     }
 
     return groupedOptions
-  }, [])
+  }, [] as ProductOption[])
 }
 
-export function normalizeProduct(productNode: CatalogItemEdge): CatalogItem {
+export function normalizeProduct(productNode: CatalogItemProduct): Product {
+  const product = productNode.product as CatalogProduct
+
   const {
     _id,
-    product: {
-      productId,
-      description,
-      title: name,
-      vendor,
-      pricing,
-      slug,
-      primaryImage,
-      variants,
-    },
-    ...rest
-  } = productNode
-
-  const product = {
-    id: productId ?? _id,
-    name,
-    vendor,
+    productId,
+    title,
     description,
-    path: `/${slug}`,
-    slug: slug?.replace(/^\/+|\/+$/g, ''),
+    slug,
+    sku,
+    media,
+    pricing,
+    vendor,
+    variants,
+    ...rest
+  } = product
+
+  return {
+    id: productId ?? _id,
+    name: title ?? '',
+    description: description ?? '',
+    slug: slug?.replace(/^\/+|\/+$/g, '') ?? '',
+    path: slug ?? '',
+    sku: sku ?? '',
+    images: media?.length ? normalizeProductImages(media, title ?? '') : [],
+    vendor: product.vendor,
     price: {
-      value: pricing[0].minPrice,
-      currencyCode: pricing[0].currency.code,
+      value: pricing[0]?.price ?? 0,
+      currencyCode: pricing[0]?.currency.code,
     },
-    variants: variants ? normalizeProductVariants(variants) : [],
-    options: variants ? groupProductOptionsByAttributeLabel(variants) : [],
-    images: [],
+    variants: variants?.length ? normalizeProductVariants(variants) : [],
+    options: variants?.length
+      ? groupProductOptionsByAttributeLabel(variants)
+      : [],
     ...rest,
   }
-
-  if (productNode.product.primaryImage) {
-    product.images = [
-      {
-        url: primaryImage?.URLs?.original,
-        alt: name,
-      },
-    ]
-  }
-
-  return product
 }
 
 export function normalizeCart(cart: ReactionCart): Cart {

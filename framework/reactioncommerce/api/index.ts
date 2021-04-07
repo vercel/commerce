@@ -5,8 +5,8 @@ import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   REACTION_CART_ID_COOKIE,
   REACTION_EMPTY_DUMMY_CART_ID,
-  SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-  SHOPIFY_COOKIE_EXPIRE,
+  REACTION_CUSTOMER_TOKEN_COOKIE,
+  REACTION_COOKIE_EXPIRE,
   SHOP_ID,
 } from '../const'
 
@@ -18,7 +18,11 @@ if (!API_URL) {
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
-export interface ReactionCommerceConfig extends CommerceAPIConfig {}
+export interface ReactionCommerceConfig extends CommerceAPIConfig {
+  shopId: string
+  cartIdCookie: string
+  dummyEmptyCartId: string
+}
 
 export class Config {
   private config: ReactionCommerceConfig
@@ -42,12 +46,13 @@ export class Config {
 const config = new Config({
   locale: 'en-US',
   commerceUrl: API_URL,
+  apiToken: '',
   cartCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   cartIdCookie: REACTION_CART_ID_COOKIE,
   dummyEmptyCartId: REACTION_EMPTY_DUMMY_CART_ID,
-  cartCookieMaxAge: SHOPIFY_COOKIE_EXPIRE,
+  cartCookieMaxAge: REACTION_COOKIE_EXPIRE,
   fetch: fetchGraphqlApi,
-  customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
+  customerCookie: REACTION_CUSTOMER_TOKEN_COOKIE,
   shopId: SHOP_ID,
 })
 
