@@ -12,6 +12,8 @@ import usePrice from '@framework/product/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
 
+const placeholderImg = '/product-img-placeholder.svg'
+
 interface Props {
   product: Product
 }
@@ -58,10 +60,10 @@ const WishlistCard: FC<Props> = ({ product }) => {
     <div className={cn(s.root, { 'opacity-75 pointer-events-none': removing })}>
       <div className={`col-span-3 ${s.productBg}`}>
         <Image
-          src={product.images[0].url}
+          src={product.images[0]?.url || placeholderImg}
           width={400}
           height={400}
-          alt={product.images[0].alt || 'Product Image'}
+          alt={product.images[0]?.alt || 'Product Image'}
         />
       </div>
 
