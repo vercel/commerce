@@ -1,6 +1,4 @@
-import { Product } from '@commerce/types'
 import { normalizeProduct } from '../../../lib/normalize'
-import getAllProducts from '../../../product/get-all-products'
 import type { ProductsHandlers } from '../products'
 
 const SORT: { [key: string]: string | undefined } = {
@@ -22,7 +20,9 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
   }
   let sort = {}
 
-  if (search) filter['$text'] = { $search: search }
+  if (search) {
+    filter['$text'] = { $search: search }
+  }
 
   if (category) {
     const cat: any = await config.storeApiFetch('/v2/category', {
@@ -44,13 +44,29 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
     const productIds: string[] = cat.productsList
       .filter((p: any) => p.checked)
       .map((p: any) => p.id)
-    filter = {
-      $and: [
-        filter,
-        {
-          _id: { $in: productIds },
-        },
-      ],
+    if (filter['$and']) {
+      filter['$and'].push({
+        _id: { $in: productIds },
+      })
+    } else {
+      filter = {
+        $and: [
+          filter,
+          {
+            _id: { $in: productIds },
+          },
+        ],
+      }
+    }
+  }
+
+  if (brand) {
+    if (filter['$and']) {
+      filter['$and'].push({ 'trademark.code': brand })
+    } else {
+      filter = {
+        $and: [filter, { 'trademark.code': brand }],
+      }
     }
   }
 
@@ -61,8 +77,6 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
     if (sortValue && direction) {
       switch (sortValue) {
         case 'latest':
-          // 'desc'
-          console.log(`sort by ${sortValue} not implemented`)
         case 'trending':
           // 'desc'
           console.log(`sort by ${sortValue} not implemented`)
@@ -72,23 +86,6 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
       }
     }
   }
-  console.log(
-    JSON.stringify({
-      lang: 'en',
-      PostBody: {
-        filter,
-        structure: {
-          canonical: 1,
-          reviews: 1,
-          stock: 1,
-          universe: 1,
-        },
-        sort,
-        page: 1,
-        limit: LIMIT,
-      },
-    })
-  )
   const { datas } = await config.storeApiFetch('/v2/products', {
     method: 'POST',
     body: JSON.stringify({

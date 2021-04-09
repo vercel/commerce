@@ -33,20 +33,6 @@ async function getAllPages({
   preview?: boolean
 } = {}): Promise<GetAllPagesResult> {
   config = getConfig(config)
-  // const { datas } = await config.storeApiFetch('/v2/categories', {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     lang: 'en',
-  //     PostBody: {
-  //       filter: {
-  //         action: 'page',
-  //       },
-  //       limit: 10,
-  //       page: 1,
-  //     },
-  //   }),
-  // })
-
   const { datas }: { datas: AquilacmsStatic[] } = await config.storeApiFetch(
     '/v2/statics',
     {

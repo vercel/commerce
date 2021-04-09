@@ -14,7 +14,6 @@ const checkoutApi: AquilacmsApiHandler<any> = async (req, res, config) => {
   const { cookies } = req
   const cartId = cookies[config.cartCookie]
   const token = cookies[config.customerCookie]
-  console.log(config.customerCookie, cookies)
 
   try {
     if (!cartId) {
@@ -22,9 +21,15 @@ const checkoutApi: AquilacmsApiHandler<any> = async (req, res, config) => {
       return
     }
 
+    if (!token)
+      return res.status(401).json({
+        data: null,
+        errors: [{ message: 'You need to be logged in to continue' }],
+      })
+
     if (fullCheckout) {
       const { data } = await config.storeApiFetch(
-        `/v/carts/${cartId}/redirect_urls`,
+        `/v3/carts/${cartId}/redirect_urls`,
         {
           method: 'POST',
         }

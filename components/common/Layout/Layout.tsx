@@ -43,6 +43,7 @@ interface Props {
     pages?: Page[]
     commerceFeatures: Record<string, boolean>
   }
+  categories: any[]
 }
 
 const Layout: FC<Props> = ({

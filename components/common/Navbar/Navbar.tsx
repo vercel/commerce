@@ -5,7 +5,7 @@ import { Searchbar, UserNav } from '@components/common'
 import NavbarRoot from './NavbarRoot'
 import s from './Navbar.module.css'
 
-const Navbar: FC = () => (
+const Navbar: FC = ({ categories }: any) => (
   <NavbarRoot>
     <Container>
       <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
@@ -19,7 +19,7 @@ const Navbar: FC = () => (
             <Link href="/search">
               <a className={s.link}>All</a>
             </Link>
-            <Link href="/search?q=clothes">
+            {/* <Link href="/search?q=clothes">
               <a className={s.link}>Clothes</a>
             </Link>
             <Link href="/search?q=accessories">
@@ -27,7 +27,7 @@ const Navbar: FC = () => (
             </Link>
             <Link href="/search?q=shoes">
               <a className={s.link}>Shoes</a>
-            </Link>
+            </Link> */}
           </nav>
         </div>
 

@@ -26,8 +26,7 @@ export const handler: SWRHook<
 
     if (search) url.searchParams.set('search', search)
     if (categoryId) url.searchParams.set('category', String(categoryId))
-    if (Number.isInteger(brandId))
-      url.searchParams.set('brand', String(brandId))
+    if (brandId) url.searchParams.set('brand', String(brandId))
     if (sort) url.searchParams.set('sort', sort)
 
     return fetch({

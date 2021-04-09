@@ -13,7 +13,7 @@ const signup: SignupHandlers['signup'] = async ({
     lastName: Joi.string().min(1),
     email: Joi.string().email({ tlds: false }),
     password: Joi.string().pattern(
-      new RegExp('^(?=.*d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^wd:])([^s]){6,}$')
+      new RegExp(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\d\s:])([^\s]){6,}$/)
     ),
   })
 
