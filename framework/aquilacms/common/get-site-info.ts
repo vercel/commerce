@@ -43,19 +43,19 @@ async function getSiteInfo({
         },
       }),
     }),
-    config.storeApiFetch('/v2/trademarks', {
-      method: 'POST',
-      body: JSON.stringify({
-        PostBody: {
-          limit: 10,
-          structure: {
-            _id: 1,
-            name: 1,
-            code: 1,
-          },
-        },
-      }),
-    }),
+    // config.storeApiFetch('/v2/trademarks', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     PostBody: {
+    //       limit: 10,
+    //       structure: {
+    //         _id: 1,
+    //         name: 1,
+    //         code: 1,
+    //       },
+    //     },
+    //   }),
+    // }),
   ])
 
   const categories = p1.datas
