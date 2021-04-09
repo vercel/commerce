@@ -21,9 +21,11 @@ const getAllProducts = async (options: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-  const { results } = await config.fetchSwell('products', 'list', {
-    limit: variables.first,
-  })
+  const { results } = await config.fetchSwell('products', 'list', [
+    {
+      limit: variables.first,
+    },
+  ])
   const products = results.map((product) => normalizeProduct(product)) ?? []
   return {
     products,

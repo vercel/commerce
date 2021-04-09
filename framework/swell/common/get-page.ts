@@ -17,18 +17,15 @@ const getPage = async (options: {
 
   config = getConfig(config)
   const { locale } = config
-
-  const { data } = await config.fetch(getPageQuery, {
-    variables,
-  })
-  const page = data.node
+  const { id } = variables
+  const result = await config.fetchSwell('content', 'get', ['pages', id])
+  const page = result
 
   return {
     page: page
       ? {
           ...page,
-          name: page.title,
-          url: `/${locale}/${page.handle}`,
+          url: `/${locale}/${page.slug}`,
         }
       : null,
   }

@@ -25,16 +25,12 @@ const getAllPages = async (options?: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-  const { locale } = config
-  const { data } = await config.fetch(getAllPagesQuery, { variables })
-
-  const pages = data.pages?.edges?.map(
-    ({ node: { title: name, handle, ...node } }: PageEdge) => ({
-      ...node,
-      url: `/${locale}/${handle}`,
-      name,
-    })
-  )
+  const { locale, fetchSwell } = config
+  const { results } = await fetchSwell('content', 'list', ['pages'])
+  const pages = results.map(({ slug, ...rest }) => ({
+    url: `/${locale}/${slug}`,
+    ...rest,
+  }))
 
   return { pages }
 }
