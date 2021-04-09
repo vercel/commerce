@@ -58,8 +58,8 @@ async function getSiteInfo({
     // }),
   ])
 
-  const categories = p1.datas
-  const brands = p2.datas
+  const categories = p1?.datas ?? []
+  const brands = p2?.datas ?? []
 
   return {
     categories: categories.map((c: any) => ({
