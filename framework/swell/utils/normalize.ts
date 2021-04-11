@@ -27,22 +27,24 @@ const normalizeProductOption = ({
   name: displayName,
   values,
 }: ProductOption) => {
+  let returnValues = values.map((value) => {
+    let output: any = {
+      label: value.name,
+    }
+    if (displayName === 'Color') {
+      output = {
+        ...output,
+        hexColors: [value.name],
+      }
+    }
+    return output
+  })
+
   return {
     __typename: 'MultipleChoiceOption',
     id,
     displayName,
-    values: values.map((value) => {
-      let output: any = {
-        label: value.name,
-      }
-      if (displayName === 'Color') {
-        output = {
-          ...output,
-          hexColors: [value],
-        }
-      }
-      return output
-    }),
+    values: returnValues,
   }
 }
 
@@ -60,56 +62,46 @@ const normalizeProductImages = (images) => {
   }
   return images?.map(({ file, ...rest }: SwellImage) => ({
     url: file?.url,
-    height: file.height,
-    width: file.width,
+    height: file?.height,
+    width: file?.width,
     ...rest,
   }))
 }
 
 const normalizeProductVariants = (variants) => {
-  return variants?.map(({ id, name, values, price, stock_status }) => ({
+  return variants?.map(({ id, name, values, price, sku }) => ({
     id,
     name,
     sku: sku ?? id,
-    price,
-    listPrice: price,
+    price: price ?? null,
+    listPrice: price ?? null,
     // requiresShipping: true,
     options: values.map(({ name, value }: SelectedOption) =>
       normalizeProductOption({
         id,
         name,
-        values: [value],
+        values: value ? [value] : [],
       })
     ),
   }))
 }
 
 export function normalizeProduct(productNode: SwellProduct): Product {
-  const {
-    id,
-    name,
-    vendor,
-    images,
-    variants,
-    description,
-    slug,
-    price,
-    options,
-    ...rest
-  } = productNode
+  const { images, options, slug, price } = productNode
+
+  const productOptions = options.map((o) => normalizeProductOption(o))
+  const productVariants = normalizeProductVariants(
+    options.filter((option) => option.variant)
+  )
+  const productImages = normalizeProductImages(images)
 
   const product = {
-    id,
-    name,
+    ...productNode,
     vendor: 'our brands',
-    description,
     path: `/${slug}`,
-    slug,
-    price,
-    images: normalizeProductImages(images),
-    variants: [], //variants ? normalizeProductVariants(options) : [],
-    options: options ? options.map((o) => normalizeProductOption(o)) : [],
-    ...rest,
+    images: productImages ?? [],
+    variants: productVariants,
+    options: productOptions,
   }
 
   return product
@@ -158,7 +150,7 @@ function normalizeLineItem({
       sku: variant?.sku ?? '',
       name: variant?.name!,
       image: {
-        url: product?.images[0].file.url,
+        url: product.images ? product?.images[0].file.url : '',
       },
       requiresShipping: false,
       price: price,
