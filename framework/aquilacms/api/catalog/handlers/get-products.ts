@@ -41,9 +41,7 @@ const getProducts: ProductsHandlers['getProducts'] = async ({
         },
       }),
     })
-    const productIds: string[] = cat.productsList
-      .filter((p: any) => p.checked)
-      .map((p: any) => p.id)
+    const productIds: string[] = cat.productsList.map((p: any) => p.id)
     if (filter['$and']) {
       filter['$and'].push({
         _id: { $in: productIds },
