@@ -75,10 +75,8 @@ export default function Search({
 
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
-    // TODO: Shopify - Fix this type
-    categoryId: activeCategory?.entityId as any,
-    // TODO: Shopify - Fix this type
-    brandId: (activeBrand as any)?.entityId,
+    categoryId: activeCategory?.entityId,
+    brandId: activeBrand?.entityId,
     sort: typeof sort === 'string' ? sort : '',
   })
 

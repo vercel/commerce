@@ -3,9 +3,10 @@ import { checkoutDetailsFragment } from '../queries/get-checkout-query'
 const checkoutCreateMutation = /* GraphQL */ `
   mutation {
     checkoutCreate(input: {}) {
-      userErrors {
-        message
+      checkoutUserErrors {
+        code
         field
+        message
       }
       checkout {
         ${checkoutDetailsFragment}
