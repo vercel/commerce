@@ -5,7 +5,7 @@ import { Searchbar, UserNav } from '@components/common'
 import NavbarRoot from './NavbarRoot'
 import s from './Navbar.module.css'
 
-const Navbar: FC = ({ categories }: any) => (
+const Navbar: FC = () => (
   <NavbarRoot>
     <Container>
       <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
