@@ -5,6 +5,12 @@ import { Searchbar, UserNav } from '@components/common'
 import NavbarRoot from './NavbarRoot'
 import s from './Navbar.module.css'
 
+const searchPath = [
+  { link: '/search?q=clothes', name: 'Clothes' },
+  { link: '/search?q=accessories', name: 'Accessories' },
+  { link: '/search?q=shoes', name: 'Shoes' },
+]
+
 const Navbar: FC = () => (
   <NavbarRoot>
     <Container>
@@ -19,15 +25,11 @@ const Navbar: FC = () => (
             <Link href="/search">
               <a className={s.link}>All</a>
             </Link>
-            {/* <Link href="/search?q=clothes">
-              <a className={s.link}>Clothes</a>
-            </Link>
-            <Link href="/search?q=accessories">
-              <a className={s.link}>Accessories</a>
-            </Link>
-            <Link href="/search?q=shoes">
-              <a className={s.link}>Shoes</a>
-            </Link> */}
+            {searchPath.map((e) => (
+              <Link href={e.link}>
+                <a className={s.link}>{e.name}</a>
+              </Link>
+            ))}
           </nav>
         </div>
 

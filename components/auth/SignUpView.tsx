@@ -48,9 +48,7 @@ const SignUpView: FC<Props> = () => {
 
   const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
-    const validPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d:])([^\s]){6,}$/.test(
-      password
-    )
+    const validPassword = /^(.*[a-zA-Z0-9]){6,}/.test(password)
 
     // Unable to send form unless fields are valid.
     if (dirty) {
@@ -84,7 +82,7 @@ const SignUpView: FC<Props> = () => {
           </span>{' '}
           <span className="leading-6 text-sm">
             <strong>Info</strong>: Passwords must be longer than 6 chars and
-            include numbers, upper and lower case.{' '}
+            include numbers.{' '}
           </span>
         </span>
         <div className="pt-2 w-full flex flex-col">

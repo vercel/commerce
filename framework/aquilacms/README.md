@@ -1,6 +1,7 @@
 # Table of Contents
 
-- [BigCommerce Storefront Data Hooks](#bigcommerce-storefront-data-hooks)
+- [Table of Contents](#table-of-contents)
+- [Aquilacms Storefront Data Hooks](#aquilacms-storefront-data-hooks)
   - [Installation](#installation)
   - [General Usage](#general-usage)
     - [CommerceProvider](#commerceprovider)
@@ -21,11 +22,11 @@
     - [getProduct](#getproduct)
   - [More](#more)
 
-# BigCommerce Storefront Data Hooks
+# Aquilacms Storefront Data Hooks
 
 > This project is under active development, new features and updates will be continuously added over time
 
-UI hooks and data fetching methods built from the ground up for e-commerce applications written in React, that use BigCommerce as a headless e-commerce platform. The package provides:
+UI hooks and data fetching methods built from the ground up for e-commerce applications written in React, that use Aquilacms as a headless e-commerce platform. The package provides:
 
 - Code splitted hooks for data fetching using [SWR](https://swr.vercel.app/), and to handle common user actions
 - Code splitted data fetching methods for initial data population and static generation of content
@@ -42,12 +43,8 @@ yarn add storefront-data-hooks
 After install, the first thing you do is: <b>set your environment variables</b> in `.env.local`
 
 ```sh
-BIGCOMMERCE_STOREFRONT_API_URL=<>
-BIGCOMMERCE_STOREFRONT_API_TOKEN=<>
-BIGCOMMERCE_STORE_API_URL=<>
-BIGCOMMERCE_STORE_API_TOKEN=<>
-BIGCOMMERCE_STORE_API_CLIENT_ID=<>
-BIGCOMMERCE_CHANNEL_ID=<>
+AQUILACMS_URL=<>
+AQUILACMS_API_URL=<>
 ```
 
 ## General Usage
@@ -58,7 +55,7 @@ This component is a provider pattern component that creates commerce context for
 
 ```jsx
 ...
-import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
+import { CommerceProvider } from '@aquilacms/storefront-data-hooks'
 
 const App = ({ locale = 'en-US', children }) => {
   return (
@@ -72,11 +69,11 @@ const App = ({ locale = 'en-US', children }) => {
 
 ### useLogin hook
 
-Hook for bigcommerce user login functionality, returns `login` function to handle user login.
+Hook for aquilacms user login functionality, returns `login` function to handle user login.
 
 ```jsx
 ...
-import useLogin from '@bigcommerce/storefront-data-hooks/use-login'
+import useLogin from '@aquilacms/storefront-data-hooks/use-login'
 
 const LoginView = () => {
   const login = useLogin()
@@ -103,7 +100,7 @@ Hook to logout user.
 
 ```jsx
 ...
-import useLogout from '@bigcommerce/storefront-data-hooks/use-logout'
+import useLogout from '@aquilacms/storefront-data-hooks/use-logout'
 
 const LogoutLink = () => {
   const logout = useLogout()
@@ -121,7 +118,7 @@ Hook for getting logged in customer data, and fetching customer info.
 
 ```jsx
 ...
-import useCustomer from '@bigcommerce/storefront-data-hooks/use-customer'
+import useCustomer from '@aquilacms/storefront-data-hooks/use-customer'
 ...
 
 const Profile = () => {
@@ -139,11 +136,11 @@ const Profile = () => {
 
 ### useSignup
 
-Hook for bigcommerce user signup, returns `signup` function to handle user signups.
+Hook for aquilacms user signup, returns `signup` function to handle user signups.
 
 ```jsx
 ...
-import useSignup from '@bigcommerce/storefront-data-hooks/use-login'
+import useSignup from '@aquilacms/storefront-data-hooks/use-login'
 
 const SignupView = () => {
   const signup = useSignup()
@@ -171,7 +168,7 @@ const SignupView = () => {
 Helper hook to format price according to commerce locale, and return discount if available.
 
 ```jsx
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
+import usePrice from '@aquilacms/storefront-data-hooks/use-price'
 ...
   const { price, discount, basePrice } = usePrice(
     data && {
@@ -190,7 +187,7 @@ Returns the current cart data for use
 
 ```jsx
 ...
-import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
+import useCart from '@aquilacms/storefront-data-hooks/cart/use-cart'
 
 const countItem = (count: number, item: LineItem) => count + item.quantity
 
@@ -206,7 +203,7 @@ const CartNumber = () => {
 
 ```jsx
 ...
-import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
+import useAddItem from '@aquilacms/storefront-data-hooks/cart/use-add-item'
 
 const AddToCartButton = ({ productId, variantId }) => {
   const addItem = useAddItem()
@@ -227,7 +224,7 @@ const AddToCartButton = ({ productId, variantId }) => {
 
 ```jsx
 ...
-import useUpdateItem from '@bigcommerce/storefront-data-hooks/cart/use-update-item'
+import useUpdateItem from '@aquilacms/storefront-data-hooks/cart/use-update-item'
 
 const CartItem = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity)
@@ -257,7 +254,7 @@ Provided with a cartItemId, will remove an item from the cart:
 
 ```jsx
 ...
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/cart/use-remove-item'
+import useRemoveItem from '@aquilacms/storefront-data-hooks/cart/use-remove-item'
 
 const RemoveButton = ({ item }) => {
   const removeItem = useRemoveItem()
@@ -276,9 +273,9 @@ const RemoveButton = ({ item }) => {
 Wishlist hooks are similar to cart hooks. See the below example for how to use `useWishlist`, `useAddItem`, and `useRemoveItem`.
 
 ```jsx
-import useAddItem from '@bigcommerce/storefront-data-hooks/wishlist/use-add-item'
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/wishlist/use-remove-item'
-import useWishlist from '@bigcommerce/storefront-data-hooks/wishlist/use-wishlist'
+import useAddItem from '@aquilacms/storefront-data-hooks/wishlist/use-add-item'
+import useRemoveItem from '@aquilacms/storefront-data-hooks/wishlist/use-remove-item'
+import useWishlist from '@aquilacms/storefront-data-hooks/wishlist/use-wishlist'
 
 const WishlistButton = ({ productId, variant }) => {
   const addItem = useAddItem()
@@ -320,11 +317,11 @@ const WishlistButton = ({ productId, variant }) => {
 
 ### useSearch
 
-`useSearch` handles searching the bigcommerce storefront product catalog by catalog, brand, and query string.
+`useSearch` handles searching the aquilacms storefront product catalog by catalog, brand, and query string.
 
 ```jsx
 ...
-import useSearch from '@bigcommerce/storefront-data-hooks/products/use-search'
+import useSearch from '@aquilacms/storefront-data-hooks/products/use-search'
 
 const SearchPage = ({ searchString, category, brand, sortStr }) => {
   const { data } = useSearch({
@@ -349,8 +346,8 @@ const SearchPage = ({ searchString, category, brand, sortStr }) => {
 API function to retrieve a product list.
 
 ```js
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
+import { getConfig } from '@aquilacms/storefront-data-hooks/api'
+import getAllProducts from '@aquilacms/storefront-data-hooks/api/operations/get-all-products'
 
 const { products } = await getAllProducts({
   variables: { field: 'featuredProducts', first: 6 },
@@ -365,8 +362,8 @@ API product to retrieve a single product when provided with the product
 slug string.
 
 ```js
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getProduct from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
+import { getConfig } from '@aquilacms/storefront-data-hooks/api'
+import getProduct from '@aquilacms/storefront-data-hooks/api/operations/get-product'
 
 const { product } = await getProduct({
   variables: { slug },

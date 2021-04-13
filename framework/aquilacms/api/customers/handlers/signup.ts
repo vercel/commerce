@@ -12,9 +12,7 @@ const signup: SignupHandlers['signup'] = async ({
     firstName: Joi.string().min(1),
     lastName: Joi.string().min(1),
     email: Joi.string().email({ tlds: false }),
-    password: Joi.string().pattern(
-      new RegExp(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\d\s:])([^\s]){6,}$/)
-    ),
+    password: Joi.string().pattern(new RegExp(/^(.*[a-zA-Z0-9]){6,}/)),
   })
 
   const validation = schema.validate({ email, password })
