@@ -6,7 +6,7 @@ import { defaultPageProps } from '@lib/defaults'
 import { getConfig } from '@framework/api'
 import { useCustomer } from '@framework/customer'
 import { WishlistCard } from '@components/wishlist'
-// import useWishlist from '@framework/wishlist/use-wishlist'
+import useWishlist from '@framework/wishlist/use-wishlist'
 import getAllPages from '@framework/common/get-all-pages'
 
 export async function getStaticProps({
@@ -56,7 +56,6 @@ export default function Wishlist() {
             data &&
             // @ts-ignore Shopify - Fix this types
             data.items?.map((item) => (
-              // @ts-ignore
               <WishlistCard key={item.id} product={item.product! as any} />
             ))
           )}
