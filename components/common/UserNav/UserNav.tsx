@@ -26,9 +26,16 @@ const UserNav: FC<Props> = ({ className }) => {
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={s.list}>
-          <li className={s.item} onClick={toggleSidebar}>
-            <Bag />
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+          <li className={s.item}>
+            <button
+              aria-label={`Cart items: ${itemsCount}`}
+              onClick={toggleSidebar}
+            >
+              <Bag />
+              {itemsCount > 0 && (
+                <span className={s.bagCount}>{itemsCount}</span>
+              )}
+            </button>
           </li>
           {process.env.COMMERCE_WISHLIST_ENABLED && (
             <li className={s.item}>
