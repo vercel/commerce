@@ -1,6 +1,14 @@
 import { AquilacmsConfig, getConfig } from '../api'
 
-export type Wishlist = Omit<any, 'items'> & {
+type wishlist_Full = {
+  id?: number
+  customer_id?: number
+  name?: string
+  is_public?: boolean
+  token?: string
+}
+
+export type Wishlist = wishlist_Full & {
   items?: WishlistItem[]
 }
 
@@ -13,7 +21,7 @@ export type GetCustomerWishlistResult<
 > = T
 
 export type GetCustomerWishlistVariables = {
-  customerId: number
+  customerId: string
 }
 
 async function getCustomerWishlist(opts: {
@@ -44,7 +52,7 @@ async function getCustomerWishlist({
 }): Promise<GetCustomerWishlistResult> {
   config = getConfig(config)
 
-  return { wishlist: [] }
+  return { wishlist: {} }
 }
 
 export default getCustomerWishlist

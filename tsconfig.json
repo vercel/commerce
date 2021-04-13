@@ -27,12 +27,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": [
-    "node_modules/*",
-    "components/wishlist",
-    "components/wishlist/WishlistButton",
-    "components/wishlist/WishlistCard",
-    "pages/api/bigcommerce/wishlist",
-    "pages/wishlist"
-  ]
+  "exclude": ["node_modules/*"]
 }

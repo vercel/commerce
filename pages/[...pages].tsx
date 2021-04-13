@@ -1,6 +1,5 @@
 import type {
   GetStaticPathsContext,
-  GetStaticPathsResult,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from 'next'
@@ -41,9 +40,7 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths({
-  locales,
-}: GetStaticPathsContext): Promise<GetStaticPathsResult> {
+export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const { pages } = await getAllPages()
   const [invalidPaths, log] = missingLocaleInPages()
   const paths = pages
@@ -56,6 +53,7 @@ export async function getStaticPaths({
       invalidPaths.push(url)
     })
   log()
+
   return {
     paths,
     // Fallback shouldn't be enabled here or otherwise this route
