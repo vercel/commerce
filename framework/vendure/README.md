@@ -4,13 +4,7 @@ UI hooks and data fetching methods built from the ground up for e-commerce appli
 
 ## Usage
 
-### 1. Choose a Vendure server
-
-For the fastest start, you can point to the live Vendure demo server which runs at https://demo.vendure.io. This lets you work with the Vendure data hooks without needing to set up a local server.
-
-If you want to have more control over the server, then getting up an running with a local server is only slightly more work:
-
-#### 1a. Running a local Vendure server
+#### 1. Running a local Vendure server
 
 1. Install Vendure locally with one command:
    ```shell
@@ -36,35 +30,12 @@ If you want to have more control over the server, then getting up an running wit
 ### 2. Set up the Commerce storefront
 
 1. Clone this repo and install its dependencies with `yarn install` or `npm install`
-2. Change the paths in [tsconfig.json](../../tsconfig.json) to point to the Vendure hooks:
-   ```diff
-   -  "@framework/*": ["framework/bigcommerce/*"],
-   -  "@framework": ["framework/bigcommerce"]
-   +  "@framework/*": ["framework/vendure/*"],
-   +  "@framework": ["framework/vendure"]
+2. Set the Vendure provider and API URL in your `.env.local` file:
    ```
-3. Set the Vendure Shop API URL in your `.env.local` file:
-   ```sh
+   COMMERCE_PROVIDER=vendure
    NEXT_PUBLIC_VENDURE_SHOP_API_URL=http://localhost:3001/shop-api
    ```
-   or if using the live demo server:
-   ```sh
-   NEXT_PUBLIC_VENDURE_SHOP_API_URL=https://demo.vendure.io/shop-api
-   ```
-4. Add the server domain to the `images` property next.config.js file as per the [image optimization docs](https://nextjs.org/docs/basic-features/image-optimization#domains)
-   ```js
-   module.exports = {
-     // ...
-     images: {
-       domains: [
-         'localhost',
-         // or
-         'demo.vendure.io',
-       ],
-     },
-   }
-   ```
-5. With the Vendure server running, start this project using `yarn dev` or `npm run dev`.
+3. With the Vendure server running, start this project using `yarn dev` or `npm run dev`.
 
 ## Known Limitations
 
