@@ -1,23 +1,22 @@
 import { useCallback } from 'react'
-
 import type {
   MutationHookContext,
   HookFetcherContext,
 } from '@commerce/utils/types'
-
+import { RemoveCartItemBody } from '@commerce/types'
 import { ValidationError } from '@commerce/utils/errors'
-
 import useRemoveItem, {
   RemoveItemInput as RemoveItemInputBase,
   UseRemoveItem,
 } from '@commerce/cart/use-remove-item'
-
 import useCart from './use-cart'
-import { checkoutLineItemRemoveMutation, getCheckoutId } from '../utils'
-import { checkoutToCart } from './utils'
+import {
+  checkoutLineItemRemoveMutation,
+  getCheckoutId,
+  checkoutToCart,
+} from '../utils'
 import { Cart, LineItem } from '../types'
 import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../schema'
-import { RemoveCartItemBody } from '@commerce/types'
 
 export type RemoveItemFn<T = any> = T extends LineItem
   ? (input?: RemoveItemInput<T>) => Promise<Cart | null>
