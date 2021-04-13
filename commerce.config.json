@@ -1,4 +1,5 @@
 {
+  "provider": "shopify",
   "features": {
     "wishlist": true,
     "customCheckout": false
