@@ -7,6 +7,7 @@ edges {
   node {
     id
     title
+    availableForSale
     vendor
     handle
     description
