@@ -10,7 +10,6 @@ edges {
     availableForSale
     vendor
     handle
-    description
     priceRange {
       minVariantPrice {
         amount
