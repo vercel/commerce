@@ -1,11 +1,11 @@
 const getSiteCollectionsQuery = /* GraphQL */ `
-  query getSiteCollections($first: Int!) {
-    collections(first: $first) {
+  query getSiteCollections($first: Int!, $channel: String = "default-channel") {
+    collections(first: $first, channel: $channel) {
       edges {
         node {
           id
-          title
-          handle
+          name
+          slug
         }
       }
     }

@@ -7,17 +7,17 @@ const getAllCollections = async (options?: {
   config: SaleorConfig
   preview?: boolean
 }) => {
-  let { config, variables = { first: 250 } } = options ?? {}
+  let { config, variables = { first: 100 } } = options ?? {}
   config = getConfig(config)
 
   const { data } = await config.fetch(getAllCollectionsQuery, { variables })
   const edges = data.collections?.edges ?? []
 
   const categories = edges.map(
-    ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({
+    ({ node: { id: entityId, name, slug } }: CollectionEdge) => ({
       entityId,
       name,
-      path: `/${handle}`,
+      path: `/${slug}`,
     })
   )
 

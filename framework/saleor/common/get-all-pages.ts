@@ -23,7 +23,7 @@ const getAllPages = async (options?: {
   config: SaleorConfig
   preview?: boolean
 }): Promise<ReturnType> => {
-  let { config, variables = { first: 250 } } = options ?? {}
+  let { config, variables = { first: 100 } } = options ?? {}
   config = getConfig(config)
   const { locale } = config
   const { data } = await config.fetch(getAllPagesQuery, { variables })

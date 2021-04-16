@@ -1,16 +1,17 @@
 import { checkoutDetailsFragment } from '../queries/get-checkout-query'
 
 const checkoutCreateMutation = /* GraphQL */ `
-  mutation {
+  mutation createCheckout {
     checkoutCreate(input: {}) {
       checkoutUserErrors {
         code
         field
         message
       }
-      checkout {
-        ${checkoutDetailsFragment}
-      }
+      # Breaks GraphQL Codegen
+      # checkout { 
+      #    ${checkoutDetailsFragment}
+      # }
     }
   }
 `

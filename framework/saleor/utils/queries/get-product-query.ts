@@ -1,66 +1,34 @@
 const getProductQuery = /* GraphQL */ `
-  query getProductBySlug($slug: String!) {
-    productByHandle(handle: $slug) {
+  query getProductBySlug($slug: String!, $channel: String = "default-channel") {
+    product(slug: $slug, channel: $channel) {
       id
-      handle
-      title
-      productType
-      vendor
+      slug
+      name
       description
-      descriptionHtml
-      options {
+      pricing {
+        priceRange {
+          start {
+            net {
+              amount
+            }
+          }
+        }
+      }
+      variants {
         id
         name
-        values
-      }
-      priceRange {
-        maxVariantPrice {
-          amount
-          currencyCode
-        }
-        minVariantPrice {
-          amount
-          currencyCode
-        }
-      }
-      variants(first: 250) {
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
-        edges {
-          node {
-            id
-            title
-            sku
-            selectedOptions {
-              name
-              value
-            }
-            priceV2 {
+        pricing {
+          price {
+            net {
               amount
-              currencyCode
-            }
-            compareAtPriceV2 {
-              amount
-              currencyCode
+              currency
             }
           }
         }
       }
-      images(first: 250) {
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
-        edges {
-          node {
-            originalSrc
-            altText
-            width
-            height
-          }
-        }
+      images {
+        url
+        alt
       }
     }
   }

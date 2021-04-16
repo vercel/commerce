@@ -11,16 +11,16 @@ export type Category = {
 const getCategories = async (config: SaleorConfig): Promise<Category[]> => {
   const { data } = await config.fetch(getSiteCollectionsQuery, {
     variables: {
-      first: 250,
+      first: 100,
     },
   })
 
   return (
     data.collections?.edges?.map(
-      ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({
+      ({ node: { id: entityId, name, slug } }: CollectionEdge) => ({
         entityId,
         name,
-        path: `/${handle}`,
+        path: `/${slug}`,
       })
     ) ?? []
   )

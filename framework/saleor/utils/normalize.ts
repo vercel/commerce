@@ -9,67 +9,68 @@ import {
   ProductVariantConnection,
   MoneyV2,
   ProductOption,
+  Money,
 } from '../schema'
 
 import type { Cart, LineItem } from '../types'
 
-const money = ({ amount, currencyCode }: MoneyV2) => {
+const money = ({ amount, currency }: Money) => {
   return {
     value: +amount,
-    currencyCode,
+    currencyCode: currency || 'USD',
   }
 }
 
-const normalizeProductOption = ({
-  id,
-  name: displayName,
-  values,
-}: ProductOption) => {
-  return {
+const normalizeProductOptions = (options: ProductOption[]) => {
+  return options?.map(({ id, name: displayName, values }) => ({
     __typename: 'MultipleChoiceOption',
     id,
     displayName,
-    values: values.map((value) => {
-      let output: any = {
-        label: value,
-      }
-      if (displayName.match(/colou?r/gi)) {
-        output = {
-          ...output,
-          hexColors: [value],
-        }
-      }
-      return output
-    }),
-  }
+    // values: values.map((value) => {
+    //   let output: any = {
+    //     label: value,
+    //   }
+    //   if (displayName.match(/colou?r/gi)) {
+    //     output = {
+    //       ...output,
+    //       hexColors: [value],
+    //     }
+    //   }
+    //   return output
+    // })
+    values: [],
+  }))
 }
 
-const normalizeProductImages = ({ edges }: ImageConnection) =>
-  edges?.map(({ node: { originalSrc: url, ...rest } }) => ({
+const normalizeProductImages = (images: any) =>
+  images.map(({ node: { originalSrc: url, ...rest } }) => ({
     url,
     ...rest,
   }))
 
-const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
-  return edges?.map(
-    ({
-      node: { id, selectedOptions, sku, title, priceV2, compareAtPriceV2 },
-    }) => {
+const normalizeProductVariants = (variants: any) => {
+  return variants?.map(
+    ({ id, selectedOptions, sku, name, priceV2, pricing }) => {
+      const price = money(pricing?.price?.net)?.value
+
+      console.log({ price })
+
       return {
         id,
-        name: title,
+        name,
         sku: sku ?? id,
-        price: +priceV2.amount,
-        listPrice: +compareAtPriceV2?.amount,
+        price,
+        listPrice: price,
         requiresShipping: true,
-        options: selectedOptions.map(({ name, value }: SelectedOption) => {
-          const options = normalizeProductOption({
-            id,
-            name,
-            values: [value],
-          })
-          return options
-        }),
+        // options: selectedOptions.map(({ name, value }: SelectedOption) => {
+        //   const options = normalizeProductOption({
+        //     id,
+        //     name,
+        //     values: [value],
+        //   })
+        //   return options
+        // }),
+        options: [],
       }
     }
   )
@@ -78,28 +79,27 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
 export function normalizeProduct(productNode: SaleorProduct): Product {
   const {
     id,
-    title: name,
-    vendor,
-    images,
+    name,
+    media,
     variants,
     description,
-    handle,
-    priceRange,
-    options,
+    slug,
+    pricing,
+    // options,
     ...rest
   } = productNode
 
   const product = {
     id,
     name,
-    vendor,
+    vendor: '',
     description,
-    path: `/${handle}`,
-    slug: handle?.replace(/^\/+|\/+$/g, ''),
-    price: money(priceRange?.minVariantPrice),
-    images: normalizeProductImages(images),
+    path: `/${slug}`,
+    slug: slug?.replace(/^\/+|\/+$/g, ''),
+    price: money(pricing?.priceRange?.start?.net) || 0,
+    images: media,
     variants: variants ? normalizeProductVariants(variants) : [],
-    options: options ? options.map((o) => normalizeProductOption(o)) : [],
+    options: variants ? normalizeProductOptions(variants) : [],
     ...rest,
   }
 

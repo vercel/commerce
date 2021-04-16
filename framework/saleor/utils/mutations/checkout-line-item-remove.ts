@@ -1,7 +1,7 @@
 import { checkoutDetailsFragment } from '../queries/get-checkout-query'
 
 const checkoutLineItemRemoveMutation = /* GraphQL */ `
-  mutation($checkoutId: ID!, $lineItemIds: [ID!]!) {
+  mutation checkoutLineItemRemove($checkoutId: ID!, $lineItemIds: [ID!]!) {
     checkoutLineItemsRemove(
       checkoutId: $checkoutId
       lineItemIds: $lineItemIds
@@ -11,9 +11,9 @@ const checkoutLineItemRemoveMutation = /* GraphQL */ `
         field
         message
       }
-      checkout {
-       ${checkoutDetailsFragment}
-      }
+      # checkout {
+      #  ${checkoutDetailsFragment}
+      # }
     }
   }
 `

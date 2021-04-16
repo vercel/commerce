@@ -1,6 +1,6 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, SaleorConfig } from '../api'
-import { ProductEdge } from '../schema'
+import { Product as SaleorProduct } from '../schema'
 import { getAllProductsQuery } from '../utils/queries'
 import { normalizeProduct } from '../utils/normalize'
 import { Product } from '@commerce/types'
@@ -19,7 +19,7 @@ const getAllProducts = async (options: {
   config?: SaleorConfig
   preview?: boolean
 }): Promise<ReturnType> => {
-  let { config, variables = { first: 250 } } = options ?? {}
+  let { config, variables = { first: 100 } } = options ?? {}
   config = getConfig(config)
 
   const { data }: GraphQLFetcherResult = await config.fetch(
@@ -28,7 +28,7 @@ const getAllProducts = async (options: {
   )
 
   const products =
-    data.products?.edges?.map(({ node: p }: ProductEdge) =>
+    data.products?.edges?.map(({ node: p }: SaleorProduct) =>
       normalizeProduct(p)
     ) ?? []
 
