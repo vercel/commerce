@@ -1,24 +1,21 @@
 import { Product } from '@commerce/types'
 
-import { CSVConfig } from '../index'
-
-import mock from './mock'
+import api from '../api/product'
 
 interface GetProduct {
-  product: Product | null
+  product?: Product
 }
 
 interface Parameters {
   variables: {
     slug?: string
   }
-  config: CSVConfig
   preview?: boolean
 }
 
-const getProduct = async (_parameters: Parameters): Promise<GetProduct> => {
+const getProduct = async ({ variables }: Parameters): Promise<GetProduct> => {
   return {
-    product: mock.full,
+    product: await api.fetch(variables.slug),
   }
 }
 

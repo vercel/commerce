@@ -1,3 +1,5 @@
+import api from '../api/product'
+
 interface ProductPath {
   node: {
     path: string
@@ -9,8 +11,16 @@ interface GetAllProductPaths {
 }
 
 const getAllProductPaths = async (): Promise<GetAllProductPaths> => {
+  const products = await api.list().then((products) =>
+    products.map((product) => ({
+      node: {
+        path: product.path || product.id,
+      },
+    }))
+  )
+
   return {
-    products: [],
+    products: products as ProductPath[],
   }
 }
 

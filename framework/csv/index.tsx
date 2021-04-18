@@ -9,10 +9,8 @@ import {
 import { csvProvider, CSVProvider } from './provider'
 import { CSVConfig } from './common/types'
 
-export { csvProvider }
-export type { CSVProvider }
-
 export const csvConfig: CommerceConfig = {
+  cartCookie: '',
   locale: 'en-us',
 }
 
@@ -20,6 +18,9 @@ export type CSVProps = {
   children?: React.ReactNode
   locale: string
 } & CSVConfig
+
+export { csvProvider }
+export type { CSVProvider }
 
 export function CommerceProvider({ children, ...config }: CSVProps) {
   return (
