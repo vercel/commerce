@@ -1,0 +1,6 @@
+{
+  "provider": "csv",
+  "features": {
+    "wishlist": false
+  }
+}
