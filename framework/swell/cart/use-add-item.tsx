@@ -3,7 +3,6 @@ import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
 import { Cart, CartItemBody } from '../types'
-import { checkoutLineItemAddMutation, getCheckoutId } from '../utils'
 import { checkoutToCart } from './utils'
 import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
 import { useCallback } from 'react'
@@ -12,7 +11,8 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<Cart, {}, CartItemBody> = {
   fetchOptions: {
-    query: checkoutLineItemAddMutation,
+    query: 'cart',
+    method: 'addItem',
   },
   async fetcher({ input: item, options, fetch }) {
     if (
@@ -26,18 +26,13 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
     const response = await fetch<Mutation, MutationCheckoutLineItemsAddArgs>({
       ...options,
       variables: {
-        checkoutId: getCheckoutId(),
-        lineItems: [
-          {
-            variantId: item.variantId,
-            quantity: item.quantity ?? 1,
-          },
-        ],
+        product_id: item.productId,
+        quantity: item.quantity,
       },
     })
 
     // TODO: Fix this Cart type here
-    return checkoutToCart(checkoutLineItemsAdd) as any
+    return checkoutToCart(response) as any
   },
   useHook: ({ fetch }) => () => {
     const { mutate } = useCart()

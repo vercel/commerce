@@ -29,6 +29,7 @@ const normalizeProductOption = ({
 }: ProductOption) => {
   let returnValues = values.map((value) => {
     let output: any = {
+      displayName,
       label: value.name,
     }
     if (displayName === 'Color') {
@@ -39,7 +40,6 @@ const normalizeProductOption = ({
     }
     return output
   })
-
   return {
     __typename: 'MultipleChoiceOption',
     id,
@@ -69,38 +69,49 @@ const normalizeProductImages = (images) => {
 }
 
 const normalizeProductVariants = (variants) => {
-  return variants?.map(({ id, name, values, price, sku }) => ({
-    id,
-    name,
-    sku: sku ?? id,
-    price: price ?? null,
-    listPrice: price ?? null,
-    // requiresShipping: true,
-    options: values.map(({ name, value }: SelectedOption) =>
-      normalizeProductOption({
+  return variants?.map(({ id, name, values, price, sku }) => {
+    const options = values.map((option: SelectedOption) => {
+      return normalizeProductOption({
         id,
         name,
-        values: value ? [value] : [],
+        values: option ? [option] : [],
       })
-    ),
-  }))
+    })
+
+    return {
+      id,
+      name,
+      sku: sku ?? id,
+      price: price ?? null,
+      listPrice: price ?? null,
+      // requiresShipping: true,
+      options,
+    }
+  })
 }
 
 export function normalizeProduct(productNode: SwellProduct): Product {
   const { images, options, slug, price } = productNode
-
-  const productOptions = options.map((o) => normalizeProductOption(o))
+  const productOptions = options
+    ? options.map((o) => normalizeProductOption(o))
+    : []
   const productVariants = normalizeProductVariants(
     options.filter((option) => option.variant)
   )
+
+  // ProductView.tsx assumes the existence of at least one product variant
+  const emptyVariants = [{ options: [{ id: 123 }] }]
   const productImages = normalizeProductImages(images)
 
   const product = {
     ...productNode,
     vendor: 'our brands',
     path: `/${slug}`,
-    images: productImages ?? [],
-    variants: productVariants,
+    images: productImages,
+    variants:
+      productVariants && productVariants.length
+        ? productVariants
+        : emptyVariants,
     options: productOptions,
   }
 
@@ -139,18 +150,18 @@ function normalizeLineItem({
   variant,
   quantity,
 }: CheckoutLineItemEdge): LineItem {
-  return {
+  const item = {
     id,
     variantId: String(variant?.id),
     productId: String(product?.id),
-    name: product.name,
+    name: product?.name ?? '',
     quantity,
     variant: {
       id: String(variant?.id),
       sku: variant?.sku ?? '',
       name: variant?.name!,
       image: {
-        url: product.images ? product?.images[0].file.url : '',
+        url: product && product.images ? product?.images[0].file.url : '',
       },
       requiresShipping: false,
       price: price,
@@ -164,4 +175,5 @@ function normalizeLineItem({
       },
     ],
   }
+  return item
 }
