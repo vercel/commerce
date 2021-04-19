@@ -1,7 +1,7 @@
 import { Product } from '@commerce/types'
 import { getConfig, SaleorConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
-import { ProductEdge } from '../schema'
+import { ProductCountableEdge } from '../schema'
 import getAllProductsPathsQuery from '../utils/queries/get-all-products-paths-query'
 
 type ProductPath = {
@@ -31,7 +31,7 @@ const getAllProductPaths = async (options?: {
   })
 
   return {
-    products: products?.map(({ node: { handle } }: ProductEdge) => ({
+    products: products?.map(({ node: { slug } }: ProductCountableEdge) => ({
       node: {
         path: `/${handle}`,
       },

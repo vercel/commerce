@@ -1,5 +1,5 @@
 import { getConfig, SaleorConfig } from '../api'
-import { PageEdge } from '../schema'
+import { PageCountableEdge } from '../schema'
 import { getAllPagesQuery } from '../utils/queries'
 
 type Variables = {

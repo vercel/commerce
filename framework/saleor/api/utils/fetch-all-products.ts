@@ -1,4 +1,4 @@
-import { ProductEdge } from '../../schema'
+import { ProductCountableEdge } from '../../schema'
 import { SaleorConfig } from '..'
 
 const fetchAllProducts = async ({
@@ -10,15 +10,15 @@ const fetchAllProducts = async ({
 }: {
   config: SaleorConfig
   query: string
-  acc?: ProductEdge[]
+  acc?: ProductCountableEdge[]
   variables?: any
   cursor?: string
-}): Promise<ProductEdge[]> => {
+}): Promise<ProductCountableEdge[]> => {
   const { data } = await config.fetch(query, {
     variables: { ...variables, cursor },
   })
 
-  const edges: ProductEdge[] = data.products?.edges ?? []
+  const edges: ProductCountableEdge[] = data.products?.edges ?? []
   const hasNextPage = data.products?.pageInfo?.hasNextPage
   acc = acc.concat(edges)
 

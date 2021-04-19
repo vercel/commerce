@@ -1,7 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
-import { ProductEdge } from '../schema'
+import { ProductCountableEdge } from '../schema'
 import {
   getAllProductsQuery,
   getCollectionProductsQuery,
@@ -57,7 +57,9 @@ export const handler: SWRHook<
     }
 
     return {
-      products: edges.map(({ node }: ProductEdge) => normalizeProduct(node)),
+      products: edges.map(({ node }: ProductCountableEdge) =>
+        normalizeProduct(node)
+      ),
       found: !!edges.length,
     }
   },

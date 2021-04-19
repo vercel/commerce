@@ -1,4 +1,4 @@
-import { CollectionEdge } from '../schema'
+import { CollectionCountableEdge } from '../schema'
 import { getConfig, SaleorConfig } from '../api'
 import getAllCollectionsQuery from '../utils/queries/get-all-collections-query'
 
@@ -14,7 +14,7 @@ const getAllCollections = async (options?: {
   const edges = data.collections?.edges ?? []
 
   const categories = edges.map(
-    ({ node: { id: entityId, name, slug } }: CollectionEdge) => ({
+    ({ node: { id: entityId, name, slug } }: CollectionCountableEdge) => ({
       entityId,
       name,
       path: `/${slug}`,

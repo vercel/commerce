@@ -1,6 +1,6 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, SaleorConfig } from '../api'
-import { Product as SaleorProduct } from '../schema'
+import { ProductCountableEdge } from '../schema'
 import { getAllProductsQuery } from '../utils/queries'
 import { normalizeProduct } from '../utils/normalize'
 import { Product } from '@commerce/types'
@@ -28,7 +28,7 @@ const getAllProducts = async (options: {
   )
 
   const products =
-    data.products?.edges?.map(({ node: p }: SaleorProduct) =>
+    data.products?.edges?.map(({ node: p }: ProductCountableEdge) =>
       normalizeProduct(p)
     ) ?? []
 
