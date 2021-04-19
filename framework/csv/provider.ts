@@ -1,7 +1,7 @@
-import { handler as useCart } from './cart/use-cart'
-import { handler as useAddItem } from './cart/use-add-item'
-import { handler as useUpdateItem } from './cart/use-update-item'
-import { handler as useRemoveItem } from './cart/use-remove-item'
+import useCart from './cart/use-cart'
+import useAddItem from './cart/use-add-item'
+import useUpdateItem from './cart/use-update-item'
+import useRemoveItem from './cart/use-remove-item'
 
 import { handler as useCustomer } from './customer/use-customer'
 import { handler as useSearch } from './product/use-search'
