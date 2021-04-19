@@ -21,9 +21,21 @@ export type SwellCart = {
   // TODO: add missing fields
 }
 
-export interface SwellProduct extends Core.Product {
+export type VariantResult = {
+  id: string
+  option_value_ids: string[]
+}
+
+export interface SwellProduct {
+  id: string
+  description: string
   name: string
   slug: string
+  currency: string
+  price: number
+  images: any[]
+  options: any[]
+  variants: any[]
 }
 
 export interface SwellCustomer extends Core.Customer {

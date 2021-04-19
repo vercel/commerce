@@ -35,7 +35,12 @@ export const handler: SWRHook<
       variables: { category: categoryId, search },
     })
 
-    const products = results.map((product) => normalizeProduct(product))
+    const products = results.map((product) => {
+      if (product.variants) {
+        product.variants = product.variants?.results
+      }
+      return normalizeProduct(product)
+    })
 
     return {
       products,

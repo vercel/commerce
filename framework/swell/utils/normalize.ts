@@ -69,12 +69,16 @@ const normalizeProductImages = (images) => {
 }
 
 const normalizeProductVariants = (variants) => {
-  return variants?.map(({ id, name, values, price, sku }) => {
-    const options = values.map((option: SelectedOption) => {
+  return variants?.map(({ id, name, price, sku }) => {
+    const values = name
+      .split(',')
+      .map((i) => ({ name: i.trim(), label: i.trim() }))
+
+    const options = values.map((value) => {
       return normalizeProductOption({
         id,
         name,
-        values: option ? [option] : [],
+        values: [value],
       })
     })
 
@@ -90,22 +94,30 @@ const normalizeProductVariants = (variants) => {
   })
 }
 
-export function normalizeProduct(productNode: SwellProduct): Product {
-  const { images, options, slug, price } = productNode
+export function normalizeProduct(swellProduct: SwellProduct): Product {
+  const {
+    id,
+    description,
+    images,
+    options,
+    slug,
+    variants,
+    price: value,
+    currency: currencyCode,
+  } = swellProduct
   const productOptions = options
     ? options.map((o) => normalizeProductOption(o))
     : []
-  const productVariants = normalizeProductVariants(
-    options.filter((option) => option.variant)
-  )
+  const productVariants = variants ? normalizeProductVariants(variants) : []
 
   // ProductView.tsx assumes the existence of at least one product variant
   const emptyVariants = [{ options: [{ id: 123 }] }]
   const productImages = normalizeProductImages(images)
-
   const product = {
-    ...productNode,
-    vendor: 'our brands',
+    ...swellProduct,
+    description,
+    id,
+    vendor: '',
     path: `/${slug}`,
     images: productImages,
     variants:
@@ -113,8 +125,11 @@ export function normalizeProduct(productNode: SwellProduct): Product {
         ? productVariants
         : emptyVariants,
     options: productOptions,
+    price: {
+      value,
+      currencyCode,
+    },
   }
-
   return product
 }
 
