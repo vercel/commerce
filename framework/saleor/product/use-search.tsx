@@ -46,12 +46,13 @@ export const handler: SWRHook<
 
     if (categoryId) {
       edges = data.node?.products?.edges ?? []
-      if (brandId) {
-        edges = edges.filter(
-          ({ node: { vendor } }: ProductEdge) =>
-            vendor.replace(/\s+/g, '-').toLowerCase() === brandId
-        )
-      }
+      // FIXME @zaiste, no `vendor` in Saleor
+      // if (brandId) {
+      //   edges = edges.filter(
+      //     ({ node: { vendor } }: ProductCountableEdge) =>
+      //       vendor.replace(/\s+/g, '-').toLowerCase() === brandId
+      //   )
+      // }
     } else {
       edges = data.products?.edges ?? []
     }
