@@ -16,7 +16,7 @@
   "sideEffects": false,
   "license": "MIT",
   "engines": {
-    "node": "14.x"
+    "node": ">=14.x"
   },
   "dependencies": {
     "@reach/portal": "^0.11.2",
