@@ -29,9 +29,9 @@ const getAllPages = async (options?: {
   const { data } = await config.fetch(getAllPagesQuery, { variables })
 
   const pages = data.pages?.edges?.map(
-    ({ node: { title: name, handle, ...node } }: PageEdge) => ({
+    ({ node: { title: name, slug, ...node } }: PageCountableEdge) => ({
       ...node,
-      url: `/${locale}/${handle}`,
+      url: `/${locale}/${slug}`,
       name,
     })
   )

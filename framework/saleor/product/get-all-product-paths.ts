@@ -33,7 +33,7 @@ const getAllProductPaths = async (options?: {
   return {
     products: products?.map(({ node: { slug } }: ProductCountableEdge) => ({
       node: {
-        path: `/${handle}`,
+        path: `/${slug}`,
       },
     })),
   }

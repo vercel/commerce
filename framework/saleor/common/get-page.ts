@@ -21,14 +21,14 @@ const getPage = async (options: {
   const { data } = await config.fetch(getPageQuery, {
     variables,
   })
-  const page = data.node
+  const page = data.page
 
   return {
     page: page
       ? {
           ...page,
           name: page.title,
-          url: `/${locale}/${page.handle}`,
+          url: `/${locale}/${page.slug}`,
         }
       : null,
   }
