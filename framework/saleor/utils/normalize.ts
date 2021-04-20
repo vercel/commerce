@@ -5,6 +5,7 @@ import {
   Checkout,
   CheckoutLine,
   Money,
+  ProductVariant,
 } from '../schema'
 
 import type { Cart, LineItem } from '../types'
@@ -19,60 +20,47 @@ const money = ({ amount, currency }: Money) => {
   }
 }
 
-const normalizeProductOptions = (options: ProductOption[]) => {
-  return options?.map(({ id, name: displayName, values }) => ({
-    __typename: 'MultipleChoiceOption',
-    id,
-    displayName,
-    // values: values.map((value) => {
-    //   let output: any = {
-    //     label: value,
-    //   }
-    //   if (displayName.match(/colou?r/gi)) {
-    //     output = {
-    //       ...output,
-    //       hexColors: [value],
-    //     }
-    //   }
-    //   return output
-    // })
-    values: [],
-  }))
-}
+const normalizeProductOptions = (options: ProductVariant[]) => {
+  const optionNames = options
+    .map((option) => {
+      // can a variant have multiple attributes?
+      return option.attributes[0].attribute.name
+    })
+    .filter((x, i, a) => a.indexOf(x) == i)
 
-const normalizeProductImages = (images: any) =>
-  images.map(({ node: { originalSrc: url, ...rest } }) => ({
-    url,
-    ...rest,
-  }))
+  return optionNames.map((displayName) => {
+    const matchedOptions = options.filter(
+      ({ attributes }) => attributes[0].attribute.name === displayName // can a variant have multiple attributes?
+    )
 
-const normalizeProductVariants = (variants: any) => {
-  return variants?.map(
-    ({ id, selectedOptions, sku, name, priceV2, pricing }) => {
-      const price = money(pricing?.price?.net)?.value
-
-      console.log({ price })
-
-      return {
-        id,
-        name,
-        sku: sku ?? id,
-        price,
-        listPrice: price,
-        requiresShipping: true,
-        // options: selectedOptions.map(({ name, value }: SelectedOption) => {
-        //   const options = normalizeProductOption({
-        //     id,
-        //     name,
-        //     values: [value],
-        //   })
-        //   return options
-        // }),
-        options: [],
-      }
+    return {
+      __typename: 'MultipleChoiceOption',
+      id: 123,
+      // next-commerce can only display labels for options with displayName 'size', or colors
+      displayName: displayName?.toLowerCase().includes('size')
+        ? 'size'
+        : displayName,
+      values: matchedOptions.map(({ name }) => ({
+        label: name,
+      })),
     }
-  )
+  })
 }
+
+const normalizeProductVariants = (variants: ProductVariant[]) =>
+  variants?.map(({ id, sku, name, pricing }) => {
+    const price = pricing?.price?.net && money(pricing.price.net)?.value
+
+    return {
+      id,
+      name,
+      sku: sku ?? id,
+      price,
+      listPrice: price,
+      requiresShipping: true,
+      options: normalizeProductOptions(variants),
+    }
+  })
 
 export function normalizeProduct(productNode: SaleorProduct): Product {
   const {
@@ -83,22 +71,28 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
     description,
     slug,
     pricing,
-    // options,
     ...rest
   } = productNode
+
+  const { blocks } = JSON.parse(description)
 
   const product = {
     id,
     name,
     vendor: '',
-    description,
+    description: blocks[0]?.data.text,
     path: `/${slug}`,
     slug: slug?.replace(/^\/+|\/+$/g, ''),
-    price: money(pricing?.priceRange?.start?.net) || 0,
+    price:
+      (pricing?.priceRange?.start?.net &&
+        money(pricing.priceRange.start.net)) ||
+      0,
     // TODO: Check nextjs-commerce bug if no images are added for a product
     images: media?.length ? media : [{ url: placeholderImg }],
-    variants: variants ? normalizeProductVariants(variants) : [],
-    options: variants ? normalizeProductOptions(variants) : [],
+    variants:
+      variants && variants.length > 0 ? normalizeProductVariants(variants) : [],
+    options:
+      variants && variants.length > 0 ? normalizeProductOptions(variants) : [],
     ...rest,
   }
 

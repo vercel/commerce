@@ -17,6 +17,14 @@ const getProductQuery = /* GraphQL */ `
       variants {
         id
         name
+        attributes {
+          attribute {
+            name
+          }
+          values {
+            name
+          }
+        }
         pricing {
           price {
             net {
