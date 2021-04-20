@@ -1634,7 +1634,7 @@ enum WebhookEventTypeEnum {
   ORDER_CREATED
 
   """
-  An order is confirmed (status change unconfirmed -> unfulfilled) by staff user using OrderConfirm mutation. Also triggers when user finish checkout and shop setting `automatically_confirm_all_new_orders` is enabled.
+  An order is confirmed (status change unconfirmed -> unfulfilled) by a staff user using the OrderConfirm mutation. It also triggers when the user completes the checkout and the shop setting `automatically_confirm_all_new_orders` is enabled.
   """
   ORDER_CONFIRMED
 
@@ -1719,7 +1719,7 @@ enum WebhookEventTypeEnum {
   CHECKOUT_CREATED
 
   """
-  A checkout is updated. Also triggers for all updates related to a checkout.
+  A checkout is updated. It also triggers all updates related to the checkout.
   """
   CHECKOUT_UPDATED
 
@@ -2254,6 +2254,7 @@ type ShippingMethod implements Node & ObjectWithMetadata {
   """
   id: ID!
   name: String!
+  description: JSONString
   minimumOrderWeight: Weight
   maximumOrderWeight: Weight
   maximumDeliveryDays: Int
@@ -2374,6 +2375,7 @@ type ShippingMethodTranslation implements Node {
   """
   id: ID!
   name: String
+  description: JSONString
 
   """
   Translation language.
@@ -4929,6 +4931,7 @@ type ShippingMethodTranslatableContent implements Node {
   """
   id: ID!
   name: String!
+  description: JSONString
 
   """
   Returns translated shipping method fields for the given language code.
@@ -8927,7 +8930,7 @@ type Mutation {
     Shipping method ID.
     """
     id: ID!
-    input: NameTranslationInput!
+    input: ShippingPriceTranslationInput!
 
     """
     Translation language code.
@@ -12792,6 +12795,11 @@ input ShippingPriceInput {
   name: String
 
   """
+  Shipping method description (JSON).
+  """
+  description: JSONString
+
+  """
   Minimum order weight to use this shipping method.
   """
   minimumOrderWeight: WeightScalar
@@ -12929,8 +12937,13 @@ type ShippingPriceTranslate {
   shippingMethod: ShippingMethod
 }
 
-input NameTranslationInput {
+input ShippingPriceTranslationInput {
   name: String
+
+  """
+  Translated shipping method description (JSON).
+  """
+  description: JSONString
 }
 
 """
@@ -14857,6 +14870,10 @@ type ProductVariantTranslate {
     )
   translationErrors: [TranslationError!]!
   productVariant: ProductVariant
+}
+
+input NameTranslationInput {
+  name: String
 }
 
 """
@@ -19721,6 +19738,11 @@ input AccountRegisterInput {
   User language code.
   """
   languageCode: LanguageCodeEnum
+
+  """
+  User public metadata.
+  """
+  metadata: [MetadataInput!]
 }
 
 """

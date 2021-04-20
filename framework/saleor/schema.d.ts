@@ -680,7 +680,7 @@ export enum WebhookEventTypeEnum {
   AnyEvents = 'ANY_EVENTS',
   /** A new order is placed. */
   OrderCreated = 'ORDER_CREATED',
-  /** An order is confirmed (status change unconfirmed -> unfulfilled) by staff user using OrderConfirm mutation. Also triggers when user finish checkout and shop setting `automatically_confirm_all_new_orders` is enabled. */
+  /** An order is confirmed (status change unconfirmed -> unfulfilled) by a staff user using the OrderConfirm mutation. It also triggers when the user completes the checkout and the shop setting `automatically_confirm_all_new_orders` is enabled. */
   OrderConfirmed = 'ORDER_CONFIRMED',
   /** Payment is made and an order is fully paid. */
   OrderFullyPaid = 'ORDER_FULLY_PAID',
@@ -714,7 +714,7 @@ export enum WebhookEventTypeEnum {
   ProductVariantDeleted = 'PRODUCT_VARIANT_DELETED',
   /** A new checkout is created. */
   CheckoutCreated = 'CHECKOUT_CREATED',
-  /** A checkout is updated. Also triggers for all updates related to a checkout. */
+  /** A checkout is updated. It also triggers all updates related to the checkout. */
   CheckoutUpdated = 'CHECKOUT_UPDATED',
   /** A new fulfillment is created. */
   FulfillmentCreated = 'FULFILLMENT_CREATED',
@@ -1035,6 +1035,7 @@ export type ShippingMethod = Node &
     /** The ID of the object. */
     id: Scalars['ID']
     name: Scalars['String']
+    description?: Maybe<Scalars['JSONString']>
     minimumOrderWeight?: Maybe<Weight>
     maximumOrderWeight?: Maybe<Weight>
     maximumDeliveryDays?: Maybe<Scalars['Int']>
@@ -1102,6 +1103,7 @@ export type ShippingMethodTranslation = Node & {
   /** The ID of the object. */
   id: Scalars['ID']
   name?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['JSONString']>
   /** Translation language. */
   language: LanguageDisplay
 }
@@ -2779,6 +2781,7 @@ export type ShippingMethodTranslatableContent = Node & {
   /** The ID of the object. */
   id: Scalars['ID']
   name: Scalars['String']
+  description?: Maybe<Scalars['JSONString']>
   /** Returns translated shipping method fields for the given language code. */
   translation?: Maybe<ShippingMethodTranslation>
   /** Shipping method are the methods you'll use to get customer's orders  to them. They are directly exposed to the customers. */
@@ -5614,7 +5617,7 @@ export type MutationShippingPriceUpdateArgs = {
 
 export type MutationShippingPriceTranslateArgs = {
   id: Scalars['ID']
-  input: NameTranslationInput
+  input: ShippingPriceTranslationInput
   languageCode: LanguageCodeEnum
 }
 
@@ -7211,6 +7214,8 @@ export type ShippingPriceCreate = {
 export type ShippingPriceInput = {
   /** Name of the shipping method. */
   name?: Maybe<Scalars['String']>
+  /** Shipping method description (JSON). */
+  description?: Maybe<Scalars['JSONString']>
   /** Minimum order weight to use this shipping method. */
   minimumOrderWeight?: Maybe<Scalars['WeightScalar']>
   /** Maximum order weight to use this shipping method. */
@@ -7292,8 +7297,10 @@ export type ShippingPriceTranslate = {
   shippingMethod?: Maybe<ShippingMethod>
 }
 
-export type NameTranslationInput = {
+export type ShippingPriceTranslationInput = {
   name?: Maybe<Scalars['String']>
+  /** Translated shipping method description (JSON). */
+  description?: Maybe<Scalars['JSONString']>
 }
 
 /** Exclude products from shipping price. */
@@ -8493,6 +8500,10 @@ export type ProductVariantTranslate = {
   errors: Array<Error>
   translationErrors: Array<TranslationError>
   productVariant?: Maybe<ProductVariant>
+}
+
+export type NameTranslationInput = {
+  name?: Maybe<Scalars['String']>
 }
 
 /** Manage product variant prices in channels. */
@@ -11678,6 +11689,8 @@ export type AccountRegisterInput = {
   redirectUrl?: Maybe<Scalars['String']>
   /** User language code. */
   languageCode?: Maybe<LanguageCodeEnum>
+  /** User public metadata. */
+  metadata?: Maybe<Array<MetadataInput>>
 }
 
 /** Updates the account of the logged-in user. */

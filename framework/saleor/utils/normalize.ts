@@ -14,6 +14,9 @@ import {
 
 import type { Cart, LineItem } from '../types'
 
+// TODO: Check nextjs-commerce bug if no images are added for a product
+const placeholderImg = '/product-img-placeholder.svg'
+
 const money = ({ amount, currency }: Money) => {
   return {
     value: +amount,
@@ -97,7 +100,8 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
     path: `/${slug}`,
     slug: slug?.replace(/^\/+|\/+$/g, ''),
     price: money(pricing?.priceRange?.start?.net) || 0,
-    images: media,
+    // TODO: Check nextjs-commerce bug if no images are added for a product
+    images: media?.length ? media : [{ url: placeholderImg }],
     variants: variants ? normalizeProductVariants(variants) : [],
     options: variants ? normalizeProductOptions(variants) : [],
     ...rest,
