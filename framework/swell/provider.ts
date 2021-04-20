@@ -1,4 +1,4 @@
-import { SHOPIFY_CHECKOUT_ID_COOKIE, STORE_DOMAIN } from './const'
+import { SWELL_CHECKOUT_URL_COOKIE, STORE_DOMAIN } from './const'
 
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
@@ -16,7 +16,7 @@ import fetcher from './fetcher'
 
 export const swellProvider = {
   locale: 'en-us',
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  cartCookie: SWELL_CHECKOUT_URL_COOKIE,
   storeDomain: STORE_DOMAIN,
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },

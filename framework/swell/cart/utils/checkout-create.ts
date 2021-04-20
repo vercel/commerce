@@ -1,10 +1,5 @@
-import {
-  SHOPIFY_CHECKOUT_ID_COOKIE,
-  SHOPIFY_CHECKOUT_URL_COOKIE,
-  SHOPIFY_COOKIE_EXPIRE,
-} from '../../const'
+import { SWELL_CHECKOUT_URL_COOKIE } from '../../const'
 
-// import checkoutCreateMutation from '../../utils/mutations/checkout-create'
 import Cookies from 'js-cookie'
 
 export const checkoutCreate = async (fetch: any) => {
@@ -13,16 +8,11 @@ export const checkoutCreate = async (fetch: any) => {
     method: 'get',
   })
 
-  // const checkout = data.checkoutCreate?.checkout
-  const checkoutId = cart?.id
+  const checkoutUrl = cart?.checkout_url
 
-  // if (checkoutId) {
-  //   const options = {
-  //     expires: SHOPIFY_COOKIE_EXPIRE,
-  //   }
-  //   Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId, options)
-  //   Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options)
-  // }
+  if (checkoutUrl) {
+    Cookies.set(SWELL_CHECKOUT_URL_COOKIE, checkoutUrl)
+  }
 
   return cart
 }

@@ -2,7 +2,7 @@ import useCart, { UseCart } from '@commerce/cart/use-cart'
 import { Cart } from '@commerce/types'
 import { SWRHook } from '@commerce/utils/types'
 import { normalizeCart } from '../utils/normalize'
-// import { getCustomerQuery, getCustomerToken } from '../utils'
+import { checkoutCreate, checkoutToCart } from './utils'
 
 export default useCart as UseCart<typeof handler>
 
@@ -12,10 +12,10 @@ export const handler: SWRHook<Cart | null> = {
     method: 'get',
   },
   async fetcher({ options, fetch }) {
-    const data = await fetch<any | null>({
-      ...options,
-    })
-    return data ? normalizeCart(data) : null
+    const cart = await checkoutCreate(fetch)
+
+    return cart ? normalizeCart(cart) : null
+    // return checkoutToCart({ checkout } as any)
   },
   useHook: ({ useData }) => (input) => {
     return useData({
