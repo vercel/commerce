@@ -5024,6 +5024,7 @@ export type Unnamed_1_Mutation = { __typename?: 'Mutation' } & {
           'code' | 'field' | 'message'
         >
       >
+      checkout?: Maybe<{ __typename?: 'Checkout' } & CheckoutDetailsFragment>
     }
   >
 }
