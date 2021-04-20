@@ -8,8 +8,10 @@ const checkoutCreateMutation = /* GraphQL */ `
         field
         message
       }
-      ${checkoutDetailsFragment}
+      ...checkoutDetails
     }
   }
+
+  ${checkoutDetailsFragment}
 `
 export default checkoutCreateMutation
