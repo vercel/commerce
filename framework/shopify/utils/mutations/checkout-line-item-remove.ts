@@ -12,9 +12,10 @@ const checkoutLineItemRemoveMutation = /* GraphQL */ `
         message
       }
       checkout {
-       ${checkoutDetailsFragment}
+        ...checkoutDetails
       }
     }
   }
+  ${checkoutDetailsFragment}
 `
 export default checkoutLineItemRemoveMutation
