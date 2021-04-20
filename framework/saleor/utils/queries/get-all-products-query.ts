@@ -31,9 +31,10 @@ export const productConnection = /* GraphQL */ `
 const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $first: Int = 100
+    $filter: ProductFilterInput
     $channel: String = "default-channel"
   ) {
-    products(first: $first, channel: $channel) {
+    products(first: $first, channel: $channel, filter: $filter) {
       ...productConnnection
     }
   }

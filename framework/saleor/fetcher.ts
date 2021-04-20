@@ -9,7 +9,7 @@ const fetcher: Fetcher = async ({
   query,
 }) => {
   return handleFetchResponse(
-    await fetch(url, {
+    await fetch(url!, {
       method,
       body: JSON.stringify({ query, variables }),
       headers: {
