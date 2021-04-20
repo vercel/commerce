@@ -3,13 +3,17 @@ import fetch from './fetch'
 
 import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
+import { getConfig } from '..'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
   { variables } = {},
   fetchOptions
 ) => {
-  const res = await fetch(API_URL, {
+  // FIXME @zaiste follow the bigcommerce example
+  const config = getConfig()
+
+  const res = await fetch(API_URL || '', {
     ...fetchOptions,
     method: 'POST',
     headers: {
