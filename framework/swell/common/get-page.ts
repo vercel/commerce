@@ -1,5 +1,4 @@
 import { getConfig, SwellConfig } from '../api'
-import getPageQuery from '../utils/queries/get-page-query'
 import { Page } from './get-all-pages'
 
 type Variables = {

@@ -1,19 +1,22 @@
-import { Product } from '@commerce/types'
-import { Customer } from '@commerce/types'
+import { Product, Customer } from '@commerce/types'
 import { fileURLToPath } from 'node:url'
 
 import {
-  Product as ShopifyProduct,
   Checkout,
   CheckoutLineItemEdge,
-  SelectedOption,
-  ImageConnection,
-  ProductVariantConnection,
   MoneyV2,
   ProductOption,
 } from '../schema'
 
-import type { Cart, LineItem, SwellCustomer, SwellProduct } from '../types'
+import type {
+  Cart,
+  LineItem,
+  SwellCustomer,
+  SwellProduct,
+  SwellImage,
+  SwellVariant,
+  ProductOptionValue,
+} from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -22,15 +25,22 @@ const money = ({ amount, currencyCode }: MoneyV2) => {
   }
 }
 
+type normalizedProductOption = {
+  __typename?: string
+  id: string
+  displayName: string
+  values: ProductOptionValue[]
+}
+
 const normalizeProductOption = ({
   id,
-  name: displayName,
+  name: displayName = '',
   values,
 }: ProductOption) => {
   let returnValues = values.map((value) => {
     let output: any = {
-      displayName,
       label: value.name,
+      id: value?.id || id,
     }
     if (displayName === 'Color') {
       output = {
@@ -48,50 +58,52 @@ const normalizeProductOption = ({
   }
 }
 
-type SwellImage = {
-  file: {
-    url: String
-    height: Number
-    width: Number
-  }
-  id: string
-}
-const normalizeProductImages = (images) => {
+const normalizeProductImages = (images: SwellImage[]) => {
   if (!images) {
     return [{ url: '/' }]
   }
   return images?.map(({ file, ...rest }: SwellImage) => ({
-    url: file?.url,
-    height: file?.height,
-    width: file?.width,
+    url: file?.url + '',
+    height: Number(file?.height),
+    width: Number(file?.width),
     ...rest,
   }))
 }
 
-const normalizeProductVariants = (variants) => {
-  return variants?.map(({ id, name, price, sku }) => {
-    const values = name
-      .split(',')
-      .map((i) => ({ name: i.trim(), label: i.trim() }))
+const normalizeProductVariants = (
+  variants: SwellVariant[],
+  productOptions: normalizedProductOption[]
+) => {
+  return variants?.map(
+    ({ id, name, price, option_value_ids: optionValueIds }) => {
+      const values = name
+        .split(',')
+        .map((i) => ({ name: i.trim(), label: i.trim() }))
 
-    const options = values.map((value) => {
-      return normalizeProductOption({
+      const options = optionValueIds.map((id) => {
+        const matchingOption = productOptions.find((option) => {
+          return option.values.find(
+            (value: ProductOptionValue) => value.id == id
+          )
+        })
+        return normalizeProductOption({
+          id,
+          name: matchingOption?.displayName ?? '',
+          values,
+        })
+      })
+
+      return {
         id,
         name,
-        values: [value],
-      })
-    })
-
-    return {
-      id,
-      name,
-      sku: sku ?? id,
-      price: price ?? null,
-      listPrice: price ?? null,
-      // requiresShipping: true,
-      options,
+        // sku: sku ?? id,
+        price: price ?? null,
+        listPrice: price ?? null,
+        // requiresShipping: true,
+        options,
+      }
     }
-  })
+  )
 }
 
 export function normalizeProduct(swellProduct: SwellProduct): Product {
@@ -108,10 +120,10 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
   const productOptions = options
     ? options.map((o) => normalizeProductOption(o))
     : []
-  const productVariants = variants ? normalizeProductVariants(variants) : []
+  const productVariants = variants
+    ? normalizeProductVariants(variants, productOptions)
+    : []
 
-  // ProductView.tsx assumes the existence of at least one product variant
-  const emptyVariants = [{ options: [{ id: 123 }] }]
   const productImages = normalizeProductImages(images)
   const product = {
     ...swellProduct,
@@ -120,10 +132,7 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
     vendor: '',
     path: `/${slug}`,
     images: productImages,
-    variants:
-      productVariants && productVariants.length
-        ? productVariants
-        : emptyVariants,
+    variants: productVariants,
     options: productOptions,
     price: {
       value,
@@ -167,12 +176,12 @@ function normalizeLineItem({
 }: CheckoutLineItemEdge): LineItem {
   const item = {
     id,
-    variantId: String(variant?.id),
-    productId: String(product?.id),
+    variantId: variant?.id ?? '',
+    productId: product?.id ?? '',
     name: product?.name ?? '',
     quantity,
     variant: {
-      id: String(variant?.id),
+      id: variant?.id ?? '',
       sku: variant?.sku ?? '',
       name: variant?.name!,
       image: {

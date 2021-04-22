@@ -321,96 +321,113 @@ export enum CardBrand {
 }
 
 /** A container for all the information required to checkout items and pay. */
-export type Checkout = Node & {
-  __typename?: 'Checkout'
-  /** The gift cards used on the checkout. */
-  appliedGiftCards: Array<AppliedGiftCard>
-  /**
-   * The available shipping rates for this Checkout.
-   * Should only be used when checkout `requiresShipping` is `true` and
-   * the shipping address is valid.
-   */
-  availableShippingRates?: Maybe<AvailableShippingRates>
-  /** The date and time when the checkout was completed. */
-  completedAt?: Maybe<Scalars['DateTime']>
-  /** The date and time when the checkout was created. */
-  createdAt: Scalars['DateTime']
-  /** The currency code for the Checkout. */
-  currencyCode: CurrencyCode
-  /** A list of extra information that is added to the checkout. */
-  customAttributes: Array<Attribute>
-  /**
-   * The customer associated with the checkout.
-   * @deprecated This field will always return null. If you have an authentication token for the customer, you can use the `customer` field on the query root to retrieve it.
-   */
-  customer?: Maybe<Customer>
-  /** Discounts that have been applied on the checkout. */
-  discountApplications: DiscountApplicationConnection
-  /** The email attached to this checkout. */
-  email?: Maybe<Scalars['String']>
-  /** Globally unique identifier. */
-  id: Scalars['ID']
-  /** A list of line item objects, each one containing information about an item in the checkout. */
-  lineItems: CheckoutLineItemConnection
-  /** The sum of all the prices of all the items in the checkout. Duties, taxes, shipping and discounts excluded. */
-  lineItemsSubtotalPrice: MoneyV2
-  /** The note associated with the checkout. */
-  note?: Maybe<Scalars['String']>
-  /** The resulting order from a paid checkout. */
-  order?: Maybe<Order>
-  /** The Order Status Page for this Checkout, null when checkout is not completed. */
-  orderStatusUrl?: Maybe<Scalars['URL']>
-  /**
-   * The amount left to be paid. This is equal to the cost of the line items, taxes and shipping minus discounts and gift cards.
-   * @deprecated Use `paymentDueV2` instead
-   */
-  paymentDue: Scalars['Money']
-  /** The amount left to be paid. This is equal to the cost of the line items, duties, taxes and shipping minus discounts and gift cards. */
-  paymentDueV2: MoneyV2
-  /**
-   * Whether or not the Checkout is ready and can be completed. Checkouts may
-   * have asynchronous operations that can take time to finish. If you want
-   * to complete a checkout or ensure all the fields are populated and up to
-   * date, polling is required until the value is true.
-   */
-  ready: Scalars['Boolean']
-  /** States whether or not the fulfillment requires shipping. */
-  requiresShipping: Scalars['Boolean']
-  /** The shipping address to where the line items will be shipped. */
-  shippingAddress?: Maybe<MailingAddress>
-  /** The discounts that have been allocated onto the shipping line by discount applications. */
-  shippingDiscountAllocations: Array<DiscountAllocation>
-  /** Once a shipping rate is selected by the customer it is transitioned to a `shipping_line` object. */
-  shippingLine?: Maybe<ShippingRate>
-  /**
-   * Price of the checkout before shipping and taxes.
-   * @deprecated Use `subtotalPriceV2` instead
-   */
-  subtotalPrice: Scalars['Money']
-  /** Price of the checkout before duties, shipping and taxes. */
-  subtotalPriceV2: MoneyV2
-  /** Specifies if the Checkout is tax exempt. */
-  taxExempt: Scalars['Boolean']
-  /** Specifies if taxes are included in the line item and shipping line prices. */
-  taxesIncluded: Scalars['Boolean']
-  /**
-   * The sum of all the prices of all the items in the checkout, taxes and discounts included.
-   * @deprecated Use `totalPriceV2` instead
-   */
-  totalPrice: Scalars['Money']
-  /** The sum of all the prices of all the items in the checkout, duties, taxes and discounts included. */
-  totalPriceV2: MoneyV2
-  /**
-   * The sum of all the taxes applied to the line items and shipping lines in the checkout.
-   * @deprecated Use `totalTaxV2` instead
-   */
-  totalTax: Scalars['Money']
-  /** The sum of all the taxes applied to the line items and shipping lines in the checkout. */
-  totalTaxV2: MoneyV2
-  /** The date and time when the checkout was last updated. */
-  updatedAt: Scalars['DateTime']
-  /** The url pointing to the checkout accessible from the web. */
-  webUrl: Scalars['URL']
+export type Checkout = {
+  name: string
+  currency: string
+  support_email: string
+  fields: any[]
+  scripts: any[]
+  accounts: string
+  email_optin: boolean
+  terms_policy?: string
+  refund_policy?: string
+  privacy_policy?: string
+  theme?: stirng
+  countries: any[]
+  currencies: any[]
+  payment_methods: any[]
+  coupons: boolean
+  giftcards: boolean
+
+  // __typename?: 'Checkout'
+  // /** The gift cards used on the checkout. */
+  // appliedGiftCards: Array<AppliedGiftCard>
+  // /**
+  //  * The available shipping rates for this Checkout.
+  //  * Should only be used when checkout `requiresShipping` is `true` and
+  //  * the shipping address is valid.
+  //  */
+  // availableShippingRates?: Maybe<AvailableShippingRates>
+  // /** The date and time when the checkout was completed. */
+  // completedAt?: Maybe<Scalars['DateTime']>
+  // /** The date and time when the checkout was created. */
+  // createdAt: Scalars['DateTime']
+  // /** The currency code for the Checkout. */
+  // currencyCode: CurrencyCode
+  // /** A list of extra information that is added to the checkout. */
+  // customAttributes: Array<Attribute>
+  // /**
+  //  * The customer associated with the checkout.
+  //  * @deprecated This field will always return null. If you have an authentication token for the customer, you can use the `customer` field on the query root to retrieve it.
+  //  */
+  // customer?: Maybe<Customer>
+  // /** Discounts that have been applied on the checkout. */
+  // discountApplications: DiscountApplicationConnection
+  // /** The email attached to this checkout. */
+  // email?: Maybe<Scalars['String']>
+  // /** Globally unique identifier. */
+  // id: Scalars['ID']
+  // /** A list of line item objects, each one containing information about an item in the checkout. */
+  // lineItems: CheckoutLineItemConnection
+  // /** The sum of all the prices of all the items in the checkout. Duties, taxes, shipping and discounts excluded. */
+  // lineItemsSubtotalPrice: MoneyV2
+  // /** The note associated with the checkout. */
+  // note?: Maybe<Scalars['String']>
+  // /** The resulting order from a paid checkout. */
+  // order?: Maybe<Order>
+  // /** The Order Status Page for this Checkout, null when checkout is not completed. */
+  // orderStatusUrl?: Maybe<Scalars['URL']>
+  // /**
+  //  * The amount left to be paid. This is equal to the cost of the line items, taxes and shipping minus discounts and gift cards.
+  //  * @deprecated Use `paymentDueV2` instead
+  //  */
+  // paymentDue: Scalars['Money']
+  // /** The amount left to be paid. This is equal to the cost of the line items, duties, taxes and shipping minus discounts and gift cards. */
+  // paymentDueV2: MoneyV2
+  // /**
+  //  * Whether or not the Checkout is ready and can be completed. Checkouts may
+  //  * have asynchronous operations that can take time to finish. If you want
+  //  * to complete a checkout or ensure all the fields are populated and up to
+  //  * date, polling is required until the value is true.
+  //  */
+  // ready: Scalars['Boolean']
+  // /** States whether or not the fulfillment requires shipping. */
+  // requiresShipping: Scalars['Boolean']
+  // /** The shipping address to where the line items will be shipped. */
+  // shippingAddress?: Maybe<MailingAddress>
+  // /** The discounts that have been allocated onto the shipping line by discount applications. */
+  // shippingDiscountAllocations: Array<DiscountAllocation>
+  // /** Once a shipping rate is selected by the customer it is transitioned to a `shipping_line` object. */
+  // shippingLine?: Maybe<ShippingRate>
+  // /**
+  //  * Price of the checkout before shipping and taxes.
+  //  * @deprecated Use `subtotalPriceV2` instead
+  //  */
+  // subtotalPrice: Scalars['Money']
+  // /** Price of the checkout before duties, shipping and taxes. */
+  // subtotalPriceV2: MoneyV2
+  // /** Specifies if the Checkout is tax exempt. */
+  // taxExempt: Scalars['Boolean']
+  // /** Specifies if taxes are included in the line item and shipping line prices. */
+  // taxesIncluded: Scalars['Boolean']
+  // /**
+  //  * The sum of all the prices of all the items in the checkout, taxes and discounts included.
+  //  * @deprecated Use `totalPriceV2` instead
+  //  */
+  // totalPrice: Scalars['Money']
+  // /** The sum of all the prices of all the items in the checkout, duties, taxes and discounts included. */
+  // totalPriceV2: MoneyV2
+  // /**
+  //  * The sum of all the taxes applied to the line items and shipping lines in the checkout.
+  //  * @deprecated Use `totalTaxV2` instead
+  //  */
+  // totalTax: Scalars['Money']
+  // /** The sum of all the taxes applied to the line items and shipping lines in the checkout. */
+  // totalTaxV2: MoneyV2
+  // /** The date and time when the checkout was last updated. */
+  // updatedAt: Scalars['DateTime']
+  // /** The url pointing to the checkout accessible from the web. */
+  // webUrl: Scalars['URL']
 }
 
 /** A container for all the information required to checkout items and pay. */

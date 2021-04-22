@@ -1,6 +1,15 @@
 import * as Core from '@commerce/types'
 import { CheckoutLineItem } from './schema'
 
+export type SwellImage = {
+  file: {
+    url: String
+    height: Number
+    width: Number
+  }
+  id: string
+}
+
 export type SwellCart = {
   id: string
   account_id: number
@@ -21,9 +30,28 @@ export type SwellCart = {
   // TODO: add missing fields
 }
 
-export type VariantResult = {
+export type SwellVariant = {
   id: string
   option_value_ids: string[]
+  name: string
+  price?: number
+  stock_status?: string
+}
+
+export interface ProductOptionValue {
+  label: string
+  hexColors?: string[]
+  id: string
+}
+
+export type ProductOptions = {
+  id: string
+  name: string
+  variant: boolean
+  values: ProductOptionValue[]
+  required: boolean
+  active: boolean
+  attribute_id: string
 }
 
 export interface SwellProduct {
