@@ -6,6 +6,9 @@ const isShopify = commerce.provider === 'shopify'
 const isRC = commerce.provider === 'reactioncommerce'
 
 module.exports = withCommerceConfig({
+  env: {
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  },
   commerce,
   i18n: {
     locales: ['en-US', 'es'],

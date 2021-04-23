@@ -7,7 +7,7 @@ import { CustomerCreateInput } from '../schema'
 
 import {
   customerCreateMutation,
-  customerAccessTokenCreateMutation,
+  authenticateMutation,
 } from '../utils/mutations'
 import handleLogin from '../utils/handle-login'
 
@@ -47,7 +47,7 @@ export const handler: MutationHook<
 
     try {
       const loginData = await fetch({
-        query: customerAccessTokenCreateMutation,
+        query: authenticateMutation,
         variables: {
           input: {
             email,

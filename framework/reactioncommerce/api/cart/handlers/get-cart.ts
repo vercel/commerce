@@ -9,16 +9,14 @@ import {
 import { normalizeCart } from '@framework/utils'
 
 // Return current cart info
-const getCart: CartHandlers['getCart'] = async ({
-  req: {
+const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
+  const {
     cookies: {
       [REACTION_ANONYMOUS_CART_TOKEN_COOKIE]: anonymousCartToken,
       [REACTION_CART_ID_COOKIE]: cartId,
     },
-  },
-  res,
-  config,
-}) => {
+  } = req
+
   let normalizedCart
 
   console.log('get-cart API')

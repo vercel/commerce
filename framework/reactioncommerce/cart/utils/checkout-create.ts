@@ -1,7 +1,7 @@
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   SHOPIFY_CHECKOUT_URL_COOKIE,
-  SHOPIFY_COOKIE_EXPIRE,
+  REACTION_COOKIE_EXPIRE,
 } from '../../const'
 
 import checkoutCreateMutation from '../../utils/mutations/checkout-create'
@@ -22,7 +22,7 @@ export const checkoutCreate = async (fetch: any) => {
 
   if (checkoutId) {
     const options = {
-      expires: SHOPIFY_COOKIE_EXPIRE,
+      expires: REACTION_COOKIE_EXPIRE,
     }
     Cookies.set(REACTION_ANONYMOUS_CART_TOKEN_COOKIE, checkoutId, options)
     Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options)

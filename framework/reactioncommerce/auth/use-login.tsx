@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
-import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
+import authenticateMutation from '../utils/mutations/authenticate'
 import {
   CustomerAccessTokenCreateInput,
   CustomerUserError,
@@ -25,7 +25,7 @@ const getErrorMessage = ({ code, message }: CustomerUserError) => {
 
 export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
   fetchOptions: {
-    query: createCustomerAccessTokenMutation,
+    query: authenticateMutation,
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
@@ -35,25 +35,24 @@ export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
       })
     }
 
-    const { customerAccessTokenCreate } = await fetch<
-      Mutation,
-      MutationCheckoutCreateArgs
-    >({
+    console.log('querying API')
+
+    const { authenticate } = await fetch<Mutation, MutationCheckoutCreateArgs>({
       ...options,
       variables: {
-        input: { email, password },
+        serviceName: 'password',
+        params: { user: { email }, password },
       },
     })
 
-    const errors = customerAccessTokenCreate?.customerUserErrors
+    // if (errors && errors.length) {
+    //   throw new ValidationError({
+    //     message: getErrorMessage(errors[0].message),
+    //   })
+    // }
+    const accessToken = authenticate?.tokens?.accessToken
 
-    if (errors && errors.length) {
-      throw new ValidationError({
-        message: getErrorMessage(errors[0]),
-      })
-    }
-    const customerAccessToken = customerAccessTokenCreate?.customerAccessToken
-    const accessToken = customerAccessToken?.accessToken
+    console.log('accessToken', accessToken)
 
     if (accessToken) {
       setCustomerToken(accessToken)

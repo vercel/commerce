@@ -6,7 +6,7 @@ import createApiHandler, {
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   SHOPIFY_CHECKOUT_URL_COOKIE,
-  SHOPIFY_CUSTOMER_TOKEN_COOKIE,
+  REACTION_CUSTOMER_TOKEN_COOKIE,
 } from '../../const'
 
 import { getConfig } from '..'
@@ -25,14 +25,14 @@ const checkoutApi: ReactionCommerceApiHandler<any> = async (
 
   const { cookies } = req
   const checkoutUrl = cookies[SHOPIFY_CHECKOUT_URL_COOKIE]
-  const customerCookie = cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE]
+  const customerCookie = cookies[REACTION_CUSTOMER_TOKEN_COOKIE]
 
   if (customerCookie) {
     try {
       await config.fetch(associateCustomerWithCheckoutMutation, {
         variables: {
           checkoutId: cookies[REACTION_ANONYMOUS_CART_TOKEN_COOKIE],
-          customerAccessToken: cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE],
+          customerAccessToken: cookies[REACTION_CUSTOMER_TOKEN_COOKIE],
         },
       })
     } catch (error) {

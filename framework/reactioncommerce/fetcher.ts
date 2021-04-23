@@ -2,6 +2,7 @@ import { FetcherError } from '@commerce/utils/errors'
 import type { Fetcher } from '@commerce/utils/types'
 import { handleFetchResponse } from './utils'
 import { API_URL } from './const'
+import { getCustomerToken } from './utils'
 
 async function getText(res: Response) {
   try {
@@ -28,12 +29,20 @@ const fetcher: Fetcher = async ({
 }) => {
   // if no URL is passed but we have a `query` param, we assume it's GraphQL
   if (!url && query) {
+    const customerToken = getCustomerToken()
+    const authorizationHeader = {}
+
+    if (customerToken) {
+      authorizationHeader['Authorization'] = `bearer ${customerToken}`
+    }
+
     return handleFetchResponse(
       await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify({ query, variables }),
         headers: {
           'Content-Type': 'application/json',
+          ...authorizationHeader,
         },
       })
     )
