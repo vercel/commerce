@@ -33,7 +33,7 @@ const fetcher: Fetcher = async ({
     const authorizationHeader = {}
 
     if (customerToken) {
-      authorizationHeader['Authorization'] = `bearer ${customerToken}`
+      authorizationHeader['Authorization'] = `Bearer ${customerToken}`
     }
 
     return handleFetchResponse(
