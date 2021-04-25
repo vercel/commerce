@@ -2,7 +2,6 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
-import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
 import {
   CustomerAccessTokenCreateInput,
   CustomerUserError,

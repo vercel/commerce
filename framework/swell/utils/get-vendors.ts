@@ -1,7 +1,4 @@
-import { swellConfig } from '@framework'
-import { getConfig, SwellConfig } from '../api'
-import fetchAllProducts from '../api/utils/fetch-all-products'
-import getAllProductVendors from './queries/get-all-product-vendors-query'
+import { SwellConfig } from '../api'
 
 export type BrandNode = {
   name: string
@@ -15,8 +12,8 @@ export type BrandEdge = {
 export type Brands = BrandEdge[]
 
 const getVendors = async (config: SwellConfig) => {
-  const vendors =
-    (await config.fetchSwell('attributes', 'get', ['brand']).values) ?? []
+  const vendors: [string] =
+    (await config.fetchSwell('attributes', 'get', ['brand'])).values ?? []
 
   return [...new Set(vendors)].map((v) => ({
     node: {

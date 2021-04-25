@@ -15,7 +15,6 @@ export const handler: SWRHook<Cart | null> = {
     const cart = await checkoutCreate(fetch)
 
     return cart ? normalizeCart(cart) : null
-    // return checkoutToCart({ checkout } as any)
   },
   useHook: ({ useData }) => (input) => {
     return useData({

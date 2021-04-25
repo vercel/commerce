@@ -6,7 +6,6 @@ const fetchSwellApi = async (
   variables: [] = []
 ) => {
   const { swell } = swellConfig
-
   return await swell[query][method](...variables)
 }
 export default fetchSwellApi

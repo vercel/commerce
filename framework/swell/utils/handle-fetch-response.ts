@@ -1,7 +1,7 @@
 import { FetcherError } from '@commerce/utils/errors'
 
 export function getError(errors: any[], status: number) {
-  errors = errors ?? [{ message: 'Failed to fetch Shopify API' }]
+  errors = errors ?? [{ message: 'Failed to fetch Swell API' }]
   return new FetcherError({ errors, status })
 }
 

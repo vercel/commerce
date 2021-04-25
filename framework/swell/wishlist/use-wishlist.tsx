@@ -1,5 +1,5 @@
 // TODO: replace this hook and other wishlist hooks with a handler, or remove them if
-// Shopify doesn't have a wishlist
+// Swell doesn't have a wishlist
 
 import { HookFetcher } from '@commerce/utils/types'
 import { Product } from '../schema'

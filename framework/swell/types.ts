@@ -78,7 +78,7 @@ export interface SwellCustomer extends Core.Customer {
   last_name: string
 }
 
-export type ShopifyCheckout = {
+export type SwellCheckout = {
   id: string
   webUrl: string
   lineItems: CheckoutLineItem[]

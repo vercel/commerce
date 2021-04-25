@@ -4,7 +4,6 @@ export { default as getSortVariables } from './get-sort-variables'
 export { default as getVendors } from './get-vendors'
 export { default as getCategories } from './get-categories'
 export { default as getCheckoutId } from './get-checkout-id'
-export * from './queries'
-export * from './mutations'
+
 export * from './normalize'
 export * from './customer-token'

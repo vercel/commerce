@@ -4,6 +4,7 @@ import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
 import { Cart, CartItemBody } from '../types'
 import { checkoutToCart } from './utils'
+import { getCheckoutId } from '../utils'
 import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
 import { useCallback } from 'react'
 
@@ -26,12 +27,12 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
     const response = await fetch<Mutation, MutationCheckoutLineItemsAddArgs>({
       ...options,
       variables: {
+        checkoutId: getCheckoutId(),
         product_id: item.productId,
         quantity: item.quantity,
       },
     })
 
-    // TODO: Fix this Cart type here
     return checkoutToCart(response) as any
   },
   useHook: ({ fetch }) => () => {

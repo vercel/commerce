@@ -1,26 +1,12 @@
 import type { CommerceAPIConfig } from '@commerce/api'
 
 import {
-  API_URL,
-  API_TOKEN,
-  SHOPIFY_CHECKOUT_ID_COOKIE,
-  SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-  SHOPIFY_COOKIE_EXPIRE,
+  SWELL_CHECKOUT_ID_COOKIE,
+  SWELL_CUSTOMER_TOKEN_COOKIE,
+  SWELL_COOKIE_EXPIRE,
 } from '../const'
 
-if (!API_URL) {
-  throw new Error(
-    `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
-  )
-}
-
-if (!API_TOKEN) {
-  throw new Error(
-    `The environment variable NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN is missing and it's required to access your store`
-  )
-}
-
-import fetchGraphqlApi from './utils/fetch-graphql-api'
+import fetcher from '../fetcher'
 import fetchSwellApi from './utils/fetch-swell-api'
 
 export interface SwellConfig extends CommerceAPIConfig {
@@ -48,13 +34,13 @@ export class Config {
 
 const config = new Config({
   locale: 'en-US',
-  commerceUrl: API_URL,
-  apiToken: API_TOKEN!,
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
-  cartCookieMaxAge: SHOPIFY_COOKIE_EXPIRE,
+  commerceUrl: '',
+  apiToken: ''!,
+  cartCookie: SWELL_CHECKOUT_ID_COOKIE,
+  cartCookieMaxAge: SWELL_COOKIE_EXPIRE,
   fetchSwell: fetchSwellApi,
-  fetch: fetchGraphqlApi,
-  customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
+  fetch: fetcher,
+  customerCookie: SWELL_CUSTOMER_TOKEN_COOKIE,
 })
 
 export function getConfig(userConfig?: Partial<SwellConfig>) {

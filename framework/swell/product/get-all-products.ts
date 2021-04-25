@@ -1,7 +1,4 @@
-import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, SwellConfig } from '../api'
-import { ProductEdge } from '../schema'
-import { getAllProductsQuery } from '../utils/queries'
 import { normalizeProduct } from '../utils/normalize'
 import { Product } from '@commerce/types'
 

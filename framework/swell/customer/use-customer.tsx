@@ -2,7 +2,6 @@ import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
 import { Customer } from '@commerce/types'
 import { SWRHook } from '@commerce/utils/types'
 import { normalizeCustomer } from '../utils/normalize'
-// import { getCustomerQuery, getCustomerToken } from '../utils'
 
 export default useCustomer as UseCustomer<typeof handler>
 

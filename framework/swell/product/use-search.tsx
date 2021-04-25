@@ -1,7 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
-import { getAllProductsQuery, normalizeProduct } from '../utils'
+import { normalizeProduct } from '../utils'
 
 import { Product } from '@commerce/types'
 
@@ -25,14 +25,22 @@ export const handler: SWRHook<
   SearchProductsInput
 > = {
   fetchOptions: {
-    query: getAllProductsQuery,
+    query: 'products', // String(Math.random()),
+    method: 'list',
   },
   async fetcher({ input, options, fetch }) {
-    const { categoryId, search } = input
+    const sortMap = new Map([
+      ['latest-desc', ''],
+      ['price-asc', 'price_asc'],
+      ['price-desc', 'price_desc'],
+      ['trending-desc', 'popularity'],
+    ])
+    const { categoryId, search, sort = 'latest-desc' } = input
+    const mappedSort = sortMap.get(sort)
     const { results, count: found } = await fetch({
       query: 'products',
       method: 'list',
-      variables: { category: categoryId, search },
+      variables: { category: categoryId, search, sort: mappedSort },
     })
 
     const products = results.map((product) => {

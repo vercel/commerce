@@ -10,7 +10,7 @@ import {
 
 import { swellProvider, SwellProvider } from './provider'
 import {
-  SHOPIFY_CHECKOUT_ID_COOKIE,
+  SWELL_CHECKOUT_ID_COOKIE,
   SWELL_STORE_ID,
   SWELL_PUBLIC_KEY,
 } from './const'
@@ -21,7 +21,7 @@ export type { SwellProvider }
 
 export const swellConfig: any = {
   locale: 'en-us',
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  cartCookie: SWELL_CHECKOUT_ID_COOKIE,
   swell,
 }
 

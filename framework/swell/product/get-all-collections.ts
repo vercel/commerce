@@ -1,17 +1,16 @@
 import { CollectionEdge } from '../schema'
 import { getConfig, SwellConfig } from '../api'
-import getAllCollectionsQuery from '../utils/queries/get-all-collections-query'
 
 const getAllCollections = async (options?: {
   variables?: any
   config: SwellConfig
   preview?: boolean
 }) => {
-  let { config, variables = { first: 250 } } = options ?? {}
+  let { config, variables = { limit: 25 } } = options ?? {}
   config = getConfig(config)
 
-  const { data } = await config.fetch(getAllCollectionsQuery, { variables })
-  const edges = data.collections?.edges ?? []
+  const response = await config.fetchSwell('categories', 'list', { variables })
+  const edges = response.results ?? []
 
   const categories = edges.map(
     ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({

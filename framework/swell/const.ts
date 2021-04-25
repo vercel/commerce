@@ -1,16 +1,12 @@
-export const SHOPIFY_CHECKOUT_ID_COOKIE = 'shopify_checkoutId'
+export const SWELL_CHECKOUT_ID_COOKIE = 'SWELL_checkoutId'
 
 export const SWELL_CHECKOUT_URL_COOKIE = 'swell_checkoutUrl'
 
-export const SHOPIFY_CUSTOMER_TOKEN_COOKIE = 'shopify_customerToken'
+export const SWELL_CUSTOMER_TOKEN_COOKIE = 'swell_customerToken'
 
-export const STORE_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
+export const STORE_DOMAIN = process.env.NEXT_PUBLIC_SWELL_STORE_DOMAIN
 
-export const SHOPIFY_COOKIE_EXPIRE = 30
-
-export const API_URL = `https://${STORE_DOMAIN}/api/2021-01/graphql.json`
-
-export const API_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+export const SWELL_COOKIE_EXPIRE = 30
 
 export const SWELL_STORE_ID = process.env.NEXT_PUBLIC_SWELL_STORE_ID
 

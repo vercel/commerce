@@ -22,7 +22,6 @@ const getProduct = async (options: {
   if (product.variants) {
     product.variants = product.variants?.results
   }
-  // console.log('product', product)
   return {
     product: normalizeProduct(product),
   }

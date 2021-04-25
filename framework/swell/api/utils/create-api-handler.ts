@@ -1,41 +1,41 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { SwellConfig, getConfig } from '..'
 
-export type ShopifyApiHandler<
+export type SwellApiHandler<
   T = any,
-  H extends ShopifyHandlers = {},
+  H extends SwellHandlers = {},
   Options extends {} = {}
 > = (
   req: NextApiRequest,
-  res: NextApiResponse<ShopifyApiResponse<T>>,
+  res: NextApiResponse<SwellApiResponse<T>>,
   config: SwellConfig,
   handlers: H,
   // Custom configs that may be used by a particular handler
   options: Options
 ) => void | Promise<void>
 
-export type ShopifyHandler<T = any, Body = null> = (options: {
+export type SwellHandler<T = any, Body = null> = (options: {
   req: NextApiRequest
-  res: NextApiResponse<ShopifyApiResponse<T>>
+  res: NextApiResponse<SwellApiResponse<T>>
   config: SwellConfig
   body: Body
 }) => void | Promise<void>
 
-export type ShopifyHandlers<T = any> = {
-  [k: string]: ShopifyHandler<T, any>
+export type SwellHandlers<T = any> = {
+  [k: string]: SwellHandler<T, any>
 }
 
-export type ShopifyApiResponse<T> = {
+export type SwellApiResponse<T> = {
   data: T | null
   errors?: { message: string; code?: string }[]
 }
 
 export default function createApiHandler<
   T = any,
-  H extends ShopifyHandlers = {},
+  H extends SwellHandlers = {},
   Options extends {} = {}
 >(
-  handler: ShopifyApiHandler<T, H, Options>,
+  handler: SwellApiHandler<T, H, Options>,
   handlers: H,
   defaultOptions: Options
 ) {

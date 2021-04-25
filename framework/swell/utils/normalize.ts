@@ -36,7 +36,7 @@ type normalizedProductOption = {
 const normalizeProductOption = ({
   id,
   name: displayName = '',
-  values,
+  values = [],
 }: ProductOption) => {
   let returnValues = values.map((value) => {
     let output: any = {
