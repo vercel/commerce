@@ -73,7 +73,7 @@ export const handler = {
         const itemId = cartData.lineItems[0].id
         const productId = cartData.lineItems[0].productId
         const variantId = cartData.lineItems[0].variant.id
-        if (!itemId || !productId || !variantId) {
+        if (!itemId || !productId) {
           throw new ValidationError({
             message: 'Invalid input used for this operation',
           })

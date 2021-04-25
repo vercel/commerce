@@ -10,23 +10,30 @@ export type SwellImage = {
   id: string
 }
 
+export type CartLineItem = {
+  id: string
+  product: SwellProduct
+  price: number
+  variant: {
+    name: string | null
+    sku: string | null
+    id: string
+  }
+  quantity: number
+}
+
 export type SwellCart = {
   id: string
   account_id: number
   currency: string
   tax_included_total: number
   sub_total: number
+  grand_total: number
   discount_total: number
   quantity: number
-  items: {
-    id: string
-    product: object
-    price: number
-    variant: boolean
-    quantity: number
-  }
+  items: CartLineItem[]
   date_created: string
-  discounts?: { id: number; amount: number }[]
+  discounts?: { id: number; amount: number }[] | null
   // TODO: add missing fields
 }
 

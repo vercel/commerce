@@ -1,5 +1,4 @@
 import { Product, Customer } from '@commerce/types'
-import { fileURLToPath } from 'node:url'
 
 import {
   Checkout,
@@ -10,12 +9,14 @@ import {
 
 import type {
   Cart,
-  LineItem,
+  CartLineItem,
   SwellCustomer,
   SwellProduct,
   SwellImage,
   SwellVariant,
   ProductOptionValue,
+  SwellCart,
+  LineItem,
 } from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
@@ -142,20 +143,31 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
   return product
 }
 
-export function normalizeCart(cart: Checkout): Cart {
-  return {
-    id: cart.id,
-    customerId: cart.account_id,
+export function normalizeCart({
+  id,
+  account_id,
+  date_created,
+  currency,
+  tax_included_total,
+  items,
+  sub_total,
+  grand_total,
+  discounts,
+}: SwellCart) {
+  const cart: Cart = {
+    id: id,
+    customerId: account_id + '',
     email: '',
-    createdAt: cart.date_created,
-    currency: cart.currency,
-    taxesIncluded: cart.tax_included_total,
-    lineItems: cart.items?.map(normalizeLineItem),
-    lineItemsSubtotalPrice: +cart.sub_total,
-    subtotalPrice: +cart.sub_total,
-    totalPrice: cart.grand_total,
-    discounts: cart.discounts,
+    createdAt: date_created,
+    currency: { code: currency },
+    taxesIncluded: tax_included_total > 0,
+    lineItems: items?.map(normalizeLineItem),
+    lineItemsSubtotalPrice: +sub_total,
+    subtotalPrice: +sub_total,
+    totalPrice: grand_total,
+    discounts: discounts?.map((discount) => ({ value: discount.amount })),
   }
+  return cart
 }
 
 export function normalizeCustomer(customer: SwellCustomer): Customer {
@@ -173,11 +185,11 @@ function normalizeLineItem({
   price,
   variant,
   quantity,
-}: CheckoutLineItemEdge): LineItem {
+}: CartLineItem): LineItem {
   const item = {
     id,
-    variantId: variant?.id ?? '',
-    productId: product?.id ?? '',
+    variantId: variant?.id,
+    productId: product.id ?? '',
     name: product?.name ?? '',
     quantity,
     variant: {

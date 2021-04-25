@@ -1,4 +1,5 @@
-import { SwellConfig } from '../api'
+import { swellConfig } from '@framework'
+import { getConfig, SwellConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
 import getAllProductVendors from './queries/get-all-product-vendors-query'
 
@@ -13,18 +14,11 @@ export type BrandEdge = {
 
 export type Brands = BrandEdge[]
 
-const getVendors = async (config: SwellConfig): Promise<BrandEdge[]> => {
-  const vendors = await fetchAllProducts({
-    config,
-    query: getAllProductVendors,
-    variables: {
-      first: 250,
-    },
-  })
+const getVendors = async (config: SwellConfig) => {
+  const vendors =
+    (await config.fetchSwell('attributes', 'get', ['brand']).values) ?? []
 
-  let vendorsStrings = vendors.map(({ node: { vendor } }) => vendor)
-
-  return [...new Set(vendorsStrings)].map((v) => ({
+  return [...new Set(vendors)].map((v) => ({
     node: {
       entityId: v,
       name: v,
