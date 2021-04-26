@@ -5,7 +5,6 @@ import {
   API_TOKEN,
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-  SHOPIFY_COOKIE_EXPIRE,
 } from '../const'
 
 if (!API_URL) {
@@ -48,7 +47,7 @@ const config = new Config({
   commerceUrl: API_URL,
   apiToken: API_TOKEN!,
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
-  cartCookieMaxAge: SHOPIFY_COOKIE_EXPIRE,
+  cartCookieMaxAge: 60 * 60 * 24 * 30,
   fetch: fetchGraphqlApi,
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
 })

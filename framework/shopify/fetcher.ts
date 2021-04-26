@@ -2,9 +2,14 @@ import { Fetcher } from '@commerce/utils/types'
 import { API_TOKEN, API_URL } from './const'
 import { handleFetchResponse } from './utils'
 
-const fetcher: Fetcher = async ({ method = 'POST', variables, query }) => {
+const fetcher: Fetcher = async ({
+  url = API_URL,
+  method = 'POST',
+  variables,
+  query,
+}) => {
   return handleFetchResponse(
-    await fetch(API_URL, {
+    await fetch(url, {
       method,
       body: JSON.stringify({ query, variables }),
       headers: {
