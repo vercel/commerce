@@ -34,10 +34,10 @@
     "lodash.debounce": "^4.0.8",
     "lodash.random": "^3.2.0",
     "lodash.throttle": "^4.1.1",
-    "next": "^10.1.3",
+    "next": "10.1.3",
     "next-seo": "^4.24.0",
     "next-themes": "^0.0.14",
-    "postcss": "^8.2.10",
+    "postcss": "^8.2.13",
     "postcss-nesting": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -47,7 +47,7 @@
     "swell-js": "^4.0.0-next.0",
     "swr": "^0.5.5",
     "tabbable": "^5.2.0",
-    "tailwindcss": "^2.1.1"
+    "tailwindcss": "^2.1.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.4",
@@ -64,7 +64,7 @@
     "@types/lodash.random": "^3.2.6",
     "@types/lodash.throttle": "^4.1.6",
     "@types/node": "^14.14.41",
-    "@types/react": "^17.0.3",
+    "@types/react": "^17.0.4",
     "@types/shopify-buy": "^2.10.5",
     "deepmerge": "^4.2.2",
     "graphql": "^15.5.0",
