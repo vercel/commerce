@@ -9,7 +9,7 @@ import {
   checkoutToCart,
 } from '../utils'
 import { Cart, CartItemBody } from '../types'
-import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
+import { Mutation, MutationCheckoutLinesAddArgs } from '../schema'
 
 export default useAddItem as UseAddItem<typeof handler>
 
@@ -27,13 +27,13 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       })
     }
 
-    const { checkoutLineItemsAdd } = await fetch<
+    const { checkoutLinesAdd } = await fetch<
       Mutation,
-      MutationCheckoutLineItemsAddArgs
+      MutationCheckoutLinesAddArgs
     >({
       ...options,
       variables: {
-        checkoutId: getCheckoutId(),
+        checkoutId: getCheckoutId().checkoutId,
         lineItems: [
           {
             variantId: item.variantId,
@@ -43,7 +43,7 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       },
     })
 
-    return checkoutToCart(checkoutLineItemsAdd)
+    return checkoutToCart(checkoutLinesAdd)
   },
   useHook: ({ fetch }) => () => {
     const { mutate } = useCart()

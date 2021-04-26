@@ -15,6 +15,7 @@ import fetcher from './fetcher'
 export const saleorProvider = {
   locale: 'en-us',
   cartCookie: "",
+  cartCookieToken: "",
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },

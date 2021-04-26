@@ -6,7 +6,7 @@ import useCommerceCart, {
 
 import { Cart } from '../types'
 import { SWRHook } from '@commerce/utils/types'
-import { checkoutCreate, checkoutToCart } from '../utils'
+import { checkoutCreate, checkoutToCart, getCheckoutId } from '../utils'
 import getCheckoutQuery from '../utils/queries/get-checkout-query'
 
 export default useCommerceCart as UseCart<typeof handler>
@@ -27,7 +27,7 @@ export const handler: SWRHook<
       const data = await fetch({
         ...options,
         variables: {
-          checkoutId: checkoutId,
+          checkoutId: getCheckoutId().checkoutToken,
         },
       })
       checkout = data.node
