@@ -51,7 +51,11 @@ const normalizeProductVariants = (variants: [CatalogProductVariant]) => {
       title,
       pricing,
     }) => {
-      const variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice
+      let variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice
+
+      if (variantPrice === undefined) {
+        variantPrice = 0
+      }
 
       return {
         id: variantId,
@@ -60,20 +64,22 @@ const normalizeProductVariants = (variants: [CatalogProductVariant]) => {
         price: variantPrice,
         listPrice: pricing[0]?.compareAtPrice?.amount ?? variantPrice,
         requiresShipping: true,
-        // options: options?.map(({ attributeLabel, optionTitle }: CatalogProductVariant) =>
-        //   normalizeProductOption({
-        //     id: _id,
-        //     name: attributeLabel,
-        //     values: [optionTitle],
-        //   })
-        // ) ?? [],
-        options: [
-          {
-            __typename: 'MultipleChoiceOption',
-            displayName: attributeLabel,
-            values: [{ label: optionTitle }],
-          },
-        ],
+        options:
+          options?.map(
+            ({ _id, attributeLabel, optionTitle }: CatalogProductVariant) =>
+              normalizeProductOption({
+                id: _id,
+                name: attributeLabel,
+                values: [optionTitle],
+              })
+          ) ?? [],
+        // options: [
+        //   {
+        //     __typename: 'MultipleChoiceOption',
+        //     displayName: attributeLabel,
+        //     values: [{ label: optionTitle }],
+        //   },
+        // ],
       }
     }
   )
