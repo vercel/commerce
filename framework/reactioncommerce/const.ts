@@ -5,8 +5,6 @@ export const REACTION_CART_ID_COOKIE = 'reaction_cartId'
 
 export const REACTION_EMPTY_DUMMY_CART_ID = 'DUMMY_EMPTY_CART_ID'
 
-export const SHOPIFY_CHECKOUT_URL_COOKIE = 'shopify_checkoutUrl'
-
 export const REACTION_CUSTOMER_TOKEN_COOKIE = 'reaction_customerToken'
 
 export const STORE_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN

@@ -1,7 +1,7 @@
 import type { CartHandlers } from '..'
 import {
   addCartItemsMutation,
-  checkoutCreateMutation,
+  createCartMutation,
 } from '@framework/utils/mutations'
 import getCartCookie from '@framework/api/utils/get-cart-cookie'
 import {
@@ -41,7 +41,7 @@ const addItem: CartHandlers['addItem'] = async ({
   if (!item.quantity) item.quantity = 1
 
   if (cartId === config.dummyEmptyCartId) {
-    const createdCart = await config.fetch(checkoutCreateMutation, {
+    const createdCart = await config.fetch(createCartMutation, {
       variables: {
         input: {
           shopId: config.shopId,
