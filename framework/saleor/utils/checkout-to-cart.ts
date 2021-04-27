@@ -2,11 +2,10 @@ import { Cart } from '../types'
 import { CommerceError } from '@commerce/utils/errors'
 
 import {
-  CheckoutLineItemsAddPayload,
-  CheckoutLineItemsRemovePayload,
-  CheckoutLineItemsUpdatePayload,
-  CheckoutCreatePayload,
-  CheckoutUserError,
+  CheckoutLinesAdd,
+  CheckoutLinesUpdate,
+  CheckoutCreate,
+  CheckoutError,
   Checkout,
   Maybe,
 } from '../schema'
@@ -16,14 +15,13 @@ import throwUserErrors from './throw-user-errors'
 
 export type CheckoutQuery = {
   checkout: Checkout
-  checkoutUserErrors?: Array<CheckoutUserError>
+  errors?: Array<CheckoutError>
 }
 
 export type CheckoutPayload =
-  | CheckoutLineItemsAddPayload
-  | CheckoutLineItemsUpdatePayload
-  | CheckoutLineItemsRemovePayload
-  | CheckoutCreatePayload
+  | CheckoutLinesAdd
+  | CheckoutLinesUpdate
+  | CheckoutCreate
   | CheckoutQuery
 
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
@@ -34,7 +32,7 @@ const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
   }
 
   const checkout = checkoutPayload?.checkout
-  throwUserErrors(checkoutPayload?.checkoutUserErrors)
+  throwUserErrors(checkoutPayload?.errors)
 
   if (!checkout) {
     throw new CommerceError({

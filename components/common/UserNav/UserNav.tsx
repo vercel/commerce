@@ -18,7 +18,8 @@ const countItem = (count: number, item: LineItem) => count + item.quantity
 
 const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
-  const { data: customer } = useCustomer()
+  let customer;
+  // const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 

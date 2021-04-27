@@ -3,12 +3,7 @@ import { Product } from '@commerce/types'
 import {
   Product as SaleorProduct,
   Checkout,
-  CheckoutLineItemEdge,
-  SelectedOption,
-  ImageConnection,
-  ProductVariantConnection,
-  MoneyV2,
-  ProductOption,
+  CheckoutLine,
   Money,
 } from '../schema'
 
@@ -111,49 +106,46 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
 }
 
 export function normalizeCart(checkout: Checkout): Cart {
+  const lines = checkout.lines as CheckoutLine[]; 
+  const lineItems: LineItem[] = lines.length > 0 ? lines?.map<LineItem>(normalizeLineItem) : [];
+
   return {
     id: checkout.id,
     customerId: '',
     email: '',
-    createdAt: checkout.createdAt,
+    createdAt: checkout.created,
     currency: {
-      code: checkout.totalPriceV2?.currencyCode,
+      code: checkout.totalPrice?.currency!
     },
-    taxesIncluded: checkout.taxesIncluded,
-    lineItems: checkout.lineItems?.edges.map(normalizeLineItem),
-    lineItemsSubtotalPrice: +checkout.subtotalPriceV2?.amount,
-    subtotalPrice: +checkout.subtotalPriceV2?.amount,
-    totalPrice: checkout.totalPriceV2?.amount,
+    taxesIncluded: false,
+    lineItems, 
+    lineItemsSubtotalPrice: 0, 
+    subtotalPrice: 0, 
+    totalPrice: checkout.totalPrice?.gross.amount!,
     discounts: [],
   }
 }
 
-function normalizeLineItem({
-  node: { id, title, variant, quantity, ...rest },
-}: CheckoutLineItemEdge): LineItem {
+function normalizeLineItem({ id, variant, quantity }: CheckoutLine): LineItem {
   return {
     id,
     variantId: String(variant?.id),
     productId: String(variant?.id),
-    name: `${title}`,
+    name: `${variant.name}`,
     quantity,
     variant: {
       id: String(variant?.id),
       sku: variant?.sku ?? '',
-      name: variant?.title!,
+      name: variant?.name!,
       image: {
-        url: variant?.image?.originalSrc ?? '/product-img-placeholder.svg',
+        url: variant?.media![0].url ?? '/product-img-placeholder.svg',
       },
-      requiresShipping: variant?.requiresShipping ?? false,
-      price: variant?.priceV2?.amount,
-      listPrice: variant?.compareAtPriceV2?.amount,
+      requiresShipping: false,
+      price: variant?.pricing?.price?.gross.amount!,
+      listPrice: 0 
     },
-    path: String(variant?.product?.handle),
+    path: String(variant?.product?.slug),
     discounts: [],
-    options: [
-      {
-        value: variant?.title,
-      },
-    ],
+    options: [ ],
   }
 }

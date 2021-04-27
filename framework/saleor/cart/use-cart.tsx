@@ -30,14 +30,15 @@ export const handler: SWRHook<
           checkoutId: getCheckoutId().checkoutToken,
         },
       })
-      checkout = data.node
+
+      checkout = data;
     }
 
     if (checkout?.completedAt || !checkoutId) {
       checkout = await checkoutCreate(fetch)
     }
 
-    return checkoutToCart({ checkout })
+    return checkoutToCart(checkout);
   },
   useHook: ({ useData }) => (input) => {
     const response = useData({

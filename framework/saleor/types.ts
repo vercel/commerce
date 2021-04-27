@@ -1,10 +1,10 @@
 import * as Core from '@commerce/types'
-import { CheckoutLineItem } from './schema'
+import { CheckoutLine } from './schema'
 
 export type SaleorCheckout = {
   id: string
   webUrl: string
-  lineItems: CheckoutLineItem[]
+  lineItems: CheckoutLine[]
 }
 
 export type Cart = Core.Cart & {
