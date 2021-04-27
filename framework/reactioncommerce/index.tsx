@@ -15,7 +15,7 @@ export type { ReactionCommerceProvider }
 
 export const reactionCommerceConfig: CommerceConfig = {
   locale: 'en-us',
-  cartCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
+  anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   shopId: SHOP_ID,
 }
 

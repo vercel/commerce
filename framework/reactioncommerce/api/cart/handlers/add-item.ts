@@ -6,14 +6,14 @@ import {
 import getCartCookie from '@framework/api/utils/get-cart-cookie'
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
-  REACTION_CART_ID_COOKIE,
+  REACTION_ANONYMOUS_CART_ID_COOKIE,
 } from '@framework/const'
 
 const addItem: CartHandlers['addItem'] = async ({
   req: {
     cookies: {
       [REACTION_ANONYMOUS_CART_TOKEN_COOKIE]: anonymousCartToken,
-      [REACTION_CART_ID_COOKIE]: cartId,
+      [REACTION_ANONYMOUS_CART_ID_COOKIE]: cartId,
     },
   },
   res,
@@ -54,9 +54,13 @@ const addItem: CartHandlers['addItem'] = async ({
     console.log('created cart', createdCart.data.createCart.cart)
 
     res.setHeader('Set-Cookie', [
-      getCartCookie(config.cartCookie, createdCart.data.createCart.token, 999),
       getCartCookie(
-        config.cartIdCookie,
+        config.anonymousCartTokenCookie,
+        createdCart.data.createCart.token,
+        999
+      ),
+      getCartCookie(
+        config.anonymousCartIdCookie,
         createdCart.data.createCart.cart._id,
         999
       ),

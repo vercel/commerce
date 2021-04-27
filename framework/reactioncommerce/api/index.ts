@@ -3,7 +3,7 @@ import type { CommerceAPIConfig } from '@commerce/api'
 import {
   API_URL,
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
-  REACTION_CART_ID_COOKIE,
+  REACTION_ANONYMOUS_CART_ID_COOKIE,
   REACTION_EMPTY_DUMMY_CART_ID,
   REACTION_CUSTOMER_TOKEN_COOKIE,
   REACTION_COOKIE_EXPIRE,
@@ -42,10 +42,10 @@ export class Config {
 const config = new Config({
   locale: 'en-US',
   commerceUrl: API_URL,
-  cartCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
-  cartIdCookie: REACTION_CART_ID_COOKIE,
+  anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
+  anonymousCartIdCookie: REACTION_ANONYMOUS_CART_ID_COOKIE,
   dummyEmptyCartId: REACTION_EMPTY_DUMMY_CART_ID,
-  cartCookieMaxAge: REACTION_COOKIE_EXPIRE,
+  anonymousCartTokenCookieMaxAge: REACTION_COOKIE_EXPIRE,
   fetch: fetchGraphqlApi,
   customerCookie: REACTION_CUSTOMER_TOKEN_COOKIE,
   shopId: SHOP_ID,

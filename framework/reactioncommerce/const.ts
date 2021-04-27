@@ -1,7 +1,7 @@
 export const REACTION_ANONYMOUS_CART_TOKEN_COOKIE =
   'reaction_anonymousCartToken'
 
-export const REACTION_CART_ID_COOKIE = 'reaction_cartId'
+export const REACTION_ANONYMOUS_CART_ID_COOKIE = 'reaction_cartId'
 
 export const REACTION_EMPTY_DUMMY_CART_ID = 'DUMMY_EMPTY_CART_ID'
 
