@@ -1,6 +1,5 @@
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
-  SHOPIFY_CHECKOUT_URL_COOKIE,
   REACTION_COOKIE_EXPIRE,
 } from '../../const'
 import createCartMutation from '../../utils/mutations/create-cart'
