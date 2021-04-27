@@ -4,6 +4,7 @@ import {
   createCartMutation,
 } from '@framework/utils/mutations'
 import getCartCookie from '@framework/api/utils/get-cart-cookie'
+import reconcileCarts from '@framework/api/utils/reconcile-carts'
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   REACTION_CART_ID_COOKIE,
@@ -11,19 +12,20 @@ import {
 } from '@framework/const'
 
 const addItem: CartHandlers['addItem'] = async ({
-  req: {
-    cookies: {
-      [REACTION_ANONYMOUS_CART_TOKEN_COOKIE]: anonymousCartToken,
-      [REACTION_CART_ID_COOKIE]: cartId,
-      [REACTION_CUSTOMER_TOKEN_COOKIE]: reactionCustomerToken,
-    },
-  },
+  req: { cookies },
   res,
   body: { item },
   config,
 }) => {
   console.log('add-item API', item.productId)
   console.log('variantId', item.variantId)
+
+  const {
+    [REACTION_ANONYMOUS_CART_TOKEN_COOKIE]: anonymousCartToken,
+    [REACTION_CUSTOMER_TOKEN_COOKIE]: reactionCustomerToken,
+  } = cookies
+
+  let { [REACTION_CART_ID_COOKIE]: cartId } = cookies
 
   if (!cartId) {
     return res.status(400).json({
@@ -74,6 +76,7 @@ const addItem: CartHandlers['addItem'] = async ({
         999
       ),
     ])
+
     return res.status(200).json(createdCart.data)
   }
 
@@ -88,6 +91,23 @@ const addItem: CartHandlers['addItem'] = async ({
     authorizationHeaderParam[
       'Authorization'
     ] = `Bearer ${reactionCustomerToken}`
+  }
+
+  if (anonymousCartToken && reactionCustomerToken) {
+    console.log('reconciliating carts')(
+      ({ _id: cartId } = await reconcileCarts({
+        config,
+        anonymousCartId: cartId,
+        cartToken: anonymousCartToken,
+        reactionCustomerToken,
+      }))
+    )
+
+    // Clear the anonymous cart token cookie and update cart ID cookie
+    res.setHeader('Set-Cookie', [
+      getCartCookie(config.anonymousCartTokenCookie),
+      getCartCookie(config.cartIdCookie, cartId, 999),
+    ])
   }
 
   const updatedCart = await config.fetch(

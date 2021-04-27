@@ -2,8 +2,8 @@ import type { Cart } from '../../../types'
 import type { CartHandlers } from '../'
 import getAnomymousCartQuery from '@framework/utils/queries/get-anonymous-cart'
 import accountCartByAccountIdQuery from '@framework/utils/queries/account-cart-by-account-id'
-import reconcileCartsMutation from '@framework/utils/mutations/reconcile-carts'
 import getCartCookie from '@framework/api/utils/get-cart-cookie'
+import reconcileCarts from '@framework/api/utils/reconcile-carts'
 import getViewerId from '@framework/customer/get-viewer-id'
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
@@ -25,27 +25,12 @@ const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
   let normalizedCart
 
   if (cartId && anonymousCartToken && reactionCustomerToken) {
-    const {
-      data: {
-        reconcileCarts: { cart: rawReconciledCart },
-      },
-    } = await config.fetch(
-      reconcileCartsMutation,
-      {
-        variables: {
-          input: {
-            anonymousCartId: cartId,
-            cartToken: anonymousCartToken,
-            shopId: config.shopId,
-          },
-        },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${reactionCustomerToken}`,
-        },
-      }
-    )
+    const rawReconciledCart = await reconcileCarts({
+      config,
+      anonymousCartId,
+      cartToken,
+      reactionCustomerToken,
+    })
 
     normalizedCart = normalizeCart(rawReconciledCart)
 
