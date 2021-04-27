@@ -5,6 +5,8 @@ import { normalizeProduct } from '../utils'
 
 import { Product } from '@commerce/types'
 
+import { SwellProduct } from '../types'
+
 export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
@@ -43,12 +45,9 @@ export const handler: SWRHook<
       variables: { category: categoryId, search, sort: mappedSort },
     })
 
-    const products = results.map((product) => {
-      if (product.variants) {
-        product.variants = product.variants?.results
-      }
-      return normalizeProduct(product)
-    })
+    const products = results.map((product: SwellProduct) =>
+      normalizeProduct(product)
+    )
 
     return {
       products,

@@ -962,28 +962,28 @@ export type CheckoutLineItemUpdateInput = {
 export type CheckoutLineItemsAddPayload = {
   __typename?: 'CheckoutLineItemsAddPayload'
   /** The updated checkout object. */
-  checkout?: Maybe<Checkout>
+  items?: Maybe<Checkout>
   /** List of errors that occurred executing the mutation. */
-  checkoutUserErrors: Array<CheckoutUserError>
-  /**
-   * List of errors that occurred executing the mutation.
-   * @deprecated Use `checkoutUserErrors` instead
-   */
-  userErrors: Array<UserError>
+  // checkoutUserErrors: Array<CheckoutUserError>
+  // /**
+  //  * List of errors that occurred executing the mutation.
+  //  * @deprecated Use `checkoutUserErrors` instead
+  //  */
+  // userErrors: Array<UserError>
 }
 
 /** Return type for `checkoutLineItemsRemove` mutation. */
 export type CheckoutLineItemsRemovePayload = {
   __typename?: 'CheckoutLineItemsRemovePayload'
   /** The updated checkout object. */
-  checkout?: Maybe<Checkout>
+  items?: Maybe<Checkout>
   /** List of errors that occurred executing the mutation. */
-  checkoutUserErrors: Array<CheckoutUserError>
-  /**
-   * List of errors that occurred executing the mutation.
-   * @deprecated Use `checkoutUserErrors` instead
-   */
-  userErrors: Array<UserError>
+  // checkoutUserErrors: Array<CheckoutUserError>
+  // /**
+  //  * List of errors that occurred executing the mutation.
+  //  * @deprecated Use `checkoutUserErrors` instead
+  //  */
+  // userErrors: Array<UserError>
 }
 
 /** Return type for `checkoutLineItemsReplace` mutation. */
@@ -999,14 +999,14 @@ export type CheckoutLineItemsReplacePayload = {
 export type CheckoutLineItemsUpdatePayload = {
   __typename?: 'CheckoutLineItemsUpdatePayload'
   /** The updated checkout object. */
-  checkout?: Maybe<Checkout>
+  items?: Maybe<Checkout>
   /** List of errors that occurred executing the mutation. */
-  checkoutUserErrors: Array<CheckoutUserError>
-  /**
-   * List of errors that occurred executing the mutation.
-   * @deprecated Use `checkoutUserErrors` instead
-   */
-  userErrors: Array<UserError>
+  // checkoutUserErrors: Array<CheckoutUserError>
+  // /**
+  //  * List of errors that occurred executing the mutation.
+  //  * @deprecated Use `checkoutUserErrors` instead
+  //  */
+  // userErrors: Array<UserError>
 }
 
 /** Return type for `checkoutShippingAddressUpdate` mutation. */

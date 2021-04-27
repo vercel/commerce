@@ -1,6 +1,7 @@
 import { getConfig, SwellConfig } from '../api'
 import { normalizeProduct } from '../utils/normalize'
 import { Product } from '@commerce/types'
+import { SwellProduct } from '../types'
 
 type Variables = {
   first?: number
@@ -23,12 +24,10 @@ const getAllProducts = async (options: {
       limit: variables.first,
     },
   ])
-  const products = results.map((product) => {
-    if (product.variants) {
-      product.variants = product.variants.results
-    }
-    return normalizeProduct(product) ?? []
-  })
+  const products = results.map((product: SwellProduct) =>
+    normalizeProduct(product)
+  )
+
   return {
     products,
   }

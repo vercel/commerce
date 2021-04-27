@@ -24,13 +24,23 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
         message: 'The item quantity has to be a valid integer greater than 0',
       })
     }
+    const variables: {
+      product_id: string
+      variant_id?: string
+      checkoutId?: string
+      quantity?: number
+    } = {
+      checkoutId: getCheckoutId(),
+      product_id: item.productId,
+      quantity: item.quantity,
+    }
+    if (item.productId !== item.variantId) {
+      variables.variant_id = item.variantId
+    }
+
     const response = await fetch<Mutation, MutationCheckoutLineItemsAddArgs>({
       ...options,
-      variables: {
-        checkoutId: getCheckoutId(),
-        product_id: item.productId,
-        quantity: item.quantity,
-      },
+      variables,
     })
 
     return checkoutToCart(response) as any

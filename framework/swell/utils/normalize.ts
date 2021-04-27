@@ -110,6 +110,7 @@ const normalizeProductVariants = (
 export function normalizeProduct(swellProduct: SwellProduct): Product {
   const {
     id,
+    name,
     description,
     images,
     options,
@@ -118,6 +119,8 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
     price: value,
     currency: currencyCode,
   } = swellProduct
+  // ProductView accesses variants for each product
+  const emptyVariants = [{ options: [], id, name }]
   const productOptions = options
     ? options.map((o) => normalizeProductOption(o))
     : []
@@ -133,7 +136,10 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
     vendor: '',
     path: `/${slug}`,
     images: productImages,
-    variants: productVariants,
+    variants:
+      productVariants && productVariants.length
+        ? productVariants
+        : emptyVariants,
     options: productOptions,
     price: {
       value,
