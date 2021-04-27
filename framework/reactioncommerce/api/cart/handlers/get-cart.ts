@@ -7,7 +7,7 @@ import getCartCookie from '@framework/api/utils/get-cart-cookie'
 import getViewerId from '@framework/customer/get-viewer-id'
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
-  REACTION_ANONYMOUS_CART_ID_COOKIE,
+  REACTION_CART_ID_COOKIE,
   REACTION_CUSTOMER_TOKEN_COOKIE,
 } from '@framework/const.ts'
 import { normalizeCart } from '@framework/utils'
@@ -17,14 +17,14 @@ const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
   const {
     cookies: {
       [REACTION_ANONYMOUS_CART_TOKEN_COOKIE]: anonymousCartToken,
-      [REACTION_ANONYMOUS_CART_ID_COOKIE]: anonymousCartId,
+      [REACTION_CART_ID_COOKIE]: cartId,
       [REACTION_CUSTOMER_TOKEN_COOKIE]: reactionCustomerToken,
     },
   } = req
 
   let normalizedCart
 
-  if (anonymousCartId && anonymousCartToken && reactionCustomerToken) {
+  if (cartId && anonymousCartToken && reactionCustomerToken) {
     const {
       data: {
         reconcileCarts: { cart: rawReconciledCart },
@@ -34,7 +34,7 @@ const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
       {
         variables: {
           input: {
-            anonymousCartId,
+            anonymousCartId: cartId,
             cartToken: anonymousCartToken,
             shopId: config.shopId,
           },
@@ -49,23 +49,23 @@ const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
 
     normalizedCart = normalizeCart(rawReconciledCart)
 
-    // Clear the anonymous cart cookies, as we're now using an account-tied cart
+    // Clear the anonymous cart token cookie and update cart ID cookie
     res.setHeader('Set-Cookie', [
       getCartCookie(config.anonymousCartTokenCookie),
-      getCartCookie(config.anonymousCartIdCookie),
+      getCartCookie(config.cartIdCookie, normalizedCart.id, 999),
     ])
-  } else if (anonymousCartId && anonymousCartToken) {
+  } else if (cartId && anonymousCartToken) {
     const {
       data: { cart: rawAnonymousCart },
     } = await config.fetch(getAnomymousCartQuery, {
       variables: {
-        cartId: anonymousCartId,
+        cartId,
         cartToken: anonymousCartToken,
       },
     })
 
     normalizedCart = normalizeCart(rawAnonymousCart)
-  } else if (reactionCustomerToken && !anonymousCartToken && !anonymousCartId) {
+  } else if (reactionCustomerToken && !anonymousCartToken) {
     const accountId = await getViewerId({
       customerToken: reactionCustomerToken,
       config,
@@ -89,11 +89,18 @@ const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
     )
 
     normalizedCart = normalizeCart(rawAccountCart)
+
+    if (cartId !== normalizedCart.id) {
+      res.setHeader(
+        'Set-Cookie',
+        getCartCookie(config.cartIdCookie, rawAccountCart._id, 999)
+      )
+    }
   } else {
-    // If there's no cart for now, return a dummy cart ID to keep Next Commerce happy
+    // If there's no cart for now, store a dummy cart ID to keep Next Commerce happy
     res.setHeader(
       'Set-Cookie',
-      getCartCookie(config.anonymousCartIdCookie, config.dummyEmptyCartId, 999)
+      getCartCookie(config.cartIdCookie, config.dummyEmptyCartId, 999)
     )
   }
 

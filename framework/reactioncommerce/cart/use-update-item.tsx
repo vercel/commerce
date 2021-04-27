@@ -15,7 +15,7 @@ import { handler as removeItemHandler } from './use-remove-item'
 import type { Cart, LineItem, UpdateCartItemBody } from '../types'
 import {
   getAnonymousCartToken,
-  getCartId,
+  getAnonymousCartId,
   updateCartItemsQuantityMutation,
   normalizeCart,
 } from '../utils'
@@ -59,7 +59,7 @@ export const handler = {
       ...options,
       variables: {
         updateCartItemsQuantityInput: {
-          cartId: getCartId(),
+          cartId: getAnonymousCartId(),
           cartToken: getAnonymousCartToken(),
           items: [
             {

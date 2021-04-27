@@ -1,6 +1,6 @@
 import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
-  REACTION_ANONYMOUS_CART_ID_COOKIE,
+  REACTION_CART_ID_COOKIE,
   STORE_DOMAIN,
 } from './const'
 
@@ -21,7 +21,7 @@ import fetcher from './fetcher'
 export const reactionCommerceProvider = {
   locale: 'en-us',
   anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
-  anonymousCartIdCookie: REACTION_ANONYMOUS_CART_ID_COOKIE,
+  cartIdCookie: REACTION_CART_ID_COOKIE,
   storeDomain: STORE_DOMAIN,
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
