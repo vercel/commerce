@@ -1,5 +1,5 @@
 import { getConfig, ReactionCommerceConfig } from '../api'
-import getViewerIdQuery from '../utils/queries/get-customer-id-query'
+import getViewerIdQuery from '../utils/queries/get-viewer-id-query'
 
 async function getViewerId({
   customerToken: customerAccessToken,

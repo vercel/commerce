@@ -7,7 +7,7 @@ import {
   CustomerAccessTokenCreateInput,
   CustomerUserError,
   Mutation,
-  MutationCheckoutCreateArgs,
+  MutationAuthenticateArgs,
 } from '../schema'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import { setCustomerToken } from '../utils'
@@ -37,7 +37,7 @@ export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
 
     console.log('querying API')
 
-    const { authenticate } = await fetch<Mutation, MutationCheckoutCreateArgs>({
+    const { authenticate } = await fetch<Mutation, MutationAuthenticateArgs>({
       ...options,
       variables: {
         serviceName: 'password',
@@ -45,11 +45,6 @@ export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
       },
     })
 
-    // if (errors && errors.length) {
-    //   throw new ValidationError({
-    //     message: getErrorMessage(errors[0].message),
-    //   })
-    // }
     const accessToken = authenticate?.tokens?.accessToken
 
     console.log('accessToken', accessToken)

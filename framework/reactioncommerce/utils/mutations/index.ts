@@ -1,5 +1,5 @@
 export { default as addCartItemsMutation } from './add-cart-items'
-export { default as customerCreateMutation } from './customer-create'
+export { default as createUserMutation } from './create-user'
 export { default as checkoutCreateMutation } from './checkout-create'
 export { default as authenticateMutation } from './authenticate'
 export { default as logoutMutation } from './logout'
