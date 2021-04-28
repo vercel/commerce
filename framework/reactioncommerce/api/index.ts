@@ -12,7 +12,7 @@ import {
 
 if (!API_URL) {
   throw new Error(
-    `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
+    `The environment variable API_URL is missing and it's required to access your store`
   )
 }
 

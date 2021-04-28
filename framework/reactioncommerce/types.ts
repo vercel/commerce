@@ -1,11 +1,4 @@
 import * as Core from '@commerce/types'
-import { CheckoutLineItem } from './schema'
-
-export type ShopifyCheckout = {
-  id: string
-  webUrl: string
-  lineItems: CheckoutLineItem[]
-}
 
 export interface Cart extends Core.Cart {
   id: string
