@@ -1,8 +1,7 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, ReactionCommerceConfig } from '../api'
 import { CatalogItemEdge } from '../schema'
-import { catalogItemsQuery } from '../utils/queries'
-import { normalizeProduct } from '../utils/normalize'
+import { catalogItemsQuery, normalizeProduct } from '../utils'
 import { Product } from '@commerce/types'
 
 type Variables = {

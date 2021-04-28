@@ -2,7 +2,7 @@ import {
   cartPayloadFragment,
   incorrectPriceFailureDetailsFragment,
   minOrderQuantityFailureDetailsFragment,
-} from '@framework/utils/queries/get-checkout-query'
+} from '@framework/utils/queries/get-cart-query'
 
 const createCartMutation = /* GraphQL */ `
   mutation createCartMutation($input: CreateCartInput!) {

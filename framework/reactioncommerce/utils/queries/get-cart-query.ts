@@ -221,7 +221,7 @@ export const minOrderQuantityFailureDetailsFragment = `
   quantity
 `
 
-const getCheckoutQuery = /* GraphQL */ `
+const getCartQuery = /* GraphQL */ `
   query($checkoutId: ID!) {
     node(id: $checkoutId) {
       ... on Checkout {
@@ -238,4 +238,4 @@ export const cartQueryFragment = `
   }
 `
 
-export default getCheckoutQuery
+export default getCartQuery
