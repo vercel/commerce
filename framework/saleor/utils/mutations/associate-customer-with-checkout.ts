@@ -1,5 +1,5 @@
 const associateCustomerWithCheckoutMutation = /* GraphQl */ `
-mutation associateCustomerWithCheckout($checkoutId: ID!, $customerAccessToken: String!) {
+  mutation associateCustomerWithCheckout($checkoutId: ID!, $customerAccessToken: String!) {
     checkoutCustomerAssociateV2(checkoutId: $checkoutId, customerAccessToken: $customerAccessToken) {
       checkout {
         id

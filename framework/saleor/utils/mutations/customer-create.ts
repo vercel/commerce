@@ -1,7 +1,7 @@
 const customerCreateMutation = /* GraphQL */ `
-  mutation customerCreate($input: CustomerCreateInput!) {
+  mutation customerCreate($input: UserCreateInput!) {
     customerCreate(input: $input) {
-      customerUserErrors {
+      errors {
         code
         field
         message
