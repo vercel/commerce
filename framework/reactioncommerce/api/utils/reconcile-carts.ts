@@ -2,8 +2,8 @@ import reconcileCartsMutation from '@framework/utils/mutations/reconcile-carts'
 
 async function reconcileCarts({
   config,
-  anonymousCartId,
-  cartToken,
+  cartId,
+  anonymousCartToken,
   reactionCustomerToken,
 }) {
   const {

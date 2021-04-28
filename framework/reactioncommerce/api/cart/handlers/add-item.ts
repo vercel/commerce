@@ -97,8 +97,8 @@ const addItem: CartHandlers['addItem'] = async ({
     console.log('reconciliating carts')(
       ({ _id: cartId } = await reconcileCarts({
         config,
-        anonymousCartId: cartId,
-        cartToken: anonymousCartToken,
+        cartId,
+        anonymousCartToken,
         reactionCustomerToken,
       }))
     )

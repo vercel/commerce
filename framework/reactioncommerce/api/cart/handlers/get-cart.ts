@@ -27,8 +27,8 @@ const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
   if (cartId && anonymousCartToken && reactionCustomerToken) {
     const rawReconciledCart = await reconcileCarts({
       config,
-      anonymousCartId,
-      cartToken,
+      cartId,
+      anonymousCartToken,
       reactionCustomerToken,
     })
 
