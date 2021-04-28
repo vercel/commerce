@@ -1,4 +1,4 @@
-import { cartQueryFragment } from '../queries/get-checkout-query'
+import { cartQueryFragment } from './get-cart-query'
 
 export const getAnomymousCart = `
   query anonymousCartByCartIdQuery($cartId: ID!, $cartToken: String!, $itemsAfterCursor: ConnectionCursor) {

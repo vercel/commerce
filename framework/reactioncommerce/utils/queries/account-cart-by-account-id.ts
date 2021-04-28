@@ -1,4 +1,4 @@
-import { cartQueryFragment } from '@framework/utils/queries/get-checkout-query'
+import { cartQueryFragment } from '@framework/utils/queries/get-cart-query'
 
 const accountCartByAccountIdQuery = `
   query accountCartByAccountIdQuery($accountId: ID!, $shopId: ID!, $itemsAfterCursor: ConnectionCursor) {

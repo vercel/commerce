@@ -1,8 +1,7 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, ReactionCommerceConfig } from '../api'
 import { CatalogItemEdge, CatalogItemProduct } from '../schema'
-import { catalogItemsQuery } from '../utils/queries'
-import { normalizeProduct } from '../utils/normalize'
+import { catalogItemsQuery, normalizeProduct } from '../utils'
 import { Product } from '@commerce/types'
 
 type Variables = {
@@ -11,7 +10,7 @@ type Variables = {
 }
 
 type ReturnType = {
-  products: CatalogItemConnection[]
+  products: Product[]
 }
 
 const getAllProducts = async (options: {

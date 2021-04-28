@@ -18,7 +18,8 @@ if (!API_URL) {
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
-export interface ReactionCommerceConfig extends Partial<CommerceAPIConfig> {
+export interface ReactionCommerceConfig
+  extends Omit<CommerceAPIConfig, 'apiToken'> {
   shopId: string
   cartIdCookie: string
   dummyEmptyCartId?: string
