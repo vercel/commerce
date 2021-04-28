@@ -15,7 +15,7 @@ import { handler as removeItemHandler } from './use-remove-item'
 import type { Cart, LineItem, UpdateCartItemBody } from '../types'
 import { checkoutToCart } from '../utils'
 import { getCheckoutId, checkoutLineItemUpdateMutation } from '../utils'
-import { Mutation, MutationCheckoutLineItemsUpdateArgs } from '../schema'
+import { Mutation, MutationCheckoutLinesUpdateArgs } from '../schema'
 
 export type UpdateItemInput<T = any> = T extends LineItem
   ? Partial<UpdateItemInputBase<LineItem>>
@@ -46,23 +46,25 @@ export const handler = {
         message: 'The item quantity has to be a valid integer',
       })
     }
-    const { checkoutLineItemsUpdate } = await fetch<
+
+    const checkoutId = getCheckoutId().checkoutId;
+    const { checkoutLinesUpdate } = await fetch<
       Mutation,
-      MutationCheckoutLineItemsUpdateArgs
+      MutationCheckoutLinesUpdateArgs
     >({
       ...options,
       variables: {
-        checkoutId: getCheckoutId(),
+        checkoutId,
         lineItems: [
           {
-            id: itemId,
+            variantId: item.variantId,
             quantity: item.quantity,
           },
         ],
       },
     })
 
-    return checkoutToCart(checkoutLineItemsUpdate)
+    return checkoutToCart(checkoutLinesUpdate)
   },
   useHook: ({
     fetch,
