@@ -1,30 +1,12 @@
-import { ValidationError } from '@commerce/utils/errors'
+import { FetcherOptions } from '@commerce/utils/types'
+import { CustomerAccessTokenCreateInput } from '../schema'
 import { setCustomerToken } from './customer-token'
-
-const getErrorMessage = ({
-  code,
-  message,
-}: {
-  code: string
-  message: string
-}) => {
-  switch (code) {
-    case 'UNIDENTIFIED_CUSTOMER':
-      message = 'Cannot find an account that matches the provided credentials'
-      break
-  }
-  return message
-}
+import { customerAccessTokenCreateMutation } from './mutations'
+import throwUserErrors from './throw-user-errors'
 
 const handleLogin = (data: any) => {
   const response = data.customerAccessTokenCreate
-  const errors = response?.customerUserErrors
-
-  if (errors && errors.length) {
-    throw new ValidationError({
-      message: getErrorMessage(errors[0]),
-    })
-  }
+  throwUserErrors(response?.customerUserErrors)
 
   const customerAccessToken = response?.customerAccessToken
   const accessToken = customerAccessToken?.accessToken
@@ -34,6 +16,21 @@ const handleLogin = (data: any) => {
   }
 
   return customerAccessToken
+}
+
+export const handleAutomaticLogin = async (
+  fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
+  input: CustomerAccessTokenCreateInput
+) => {
+  try {
+    const loginData = await fetch({
+      query: customerAccessTokenCreateMutation,
+      variables: {
+        input,
+      },
+    })
+    handleLogin(loginData)
+  } catch (error) {}
 }
 
 export default handleLogin

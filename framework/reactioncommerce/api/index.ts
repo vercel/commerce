@@ -12,16 +12,18 @@ import {
 
 if (!API_URL) {
   throw new Error(
-    `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
+    `The environment variable API_URL is missing and it's required to access your store`
   )
 }
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
-export interface ReactionCommerceConfig extends CommerceAPIConfig {
+export interface ReactionCommerceConfig extends Partial<CommerceAPIConfig> {
   shopId: string
   cartIdCookie: string
-  dummyEmptyCartId: string
+  dummyEmptyCartId?: string
+  anonymousCartTokenCookie?: string
+  anonymousCartTokenCookieMaxAge?: number
 }
 
 export class Config {
@@ -46,11 +48,12 @@ export class Config {
 const config = new Config({
   locale: 'en-US',
   commerceUrl: API_URL,
-  apiToken: '',
   cartCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   cartIdCookie: REACTION_CART_ID_COOKIE,
   dummyEmptyCartId: REACTION_EMPTY_DUMMY_CART_ID,
   cartCookieMaxAge: REACTION_COOKIE_EXPIRE,
+  anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
+  anonymousCartTokenCookieMaxAge: REACTION_COOKIE_EXPIRE,
   fetch: fetchGraphqlApi,
   customerCookie: REACTION_CUSTOMER_TOKEN_COOKIE,
   shopId: SHOP_ID,

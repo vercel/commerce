@@ -2,13 +2,14 @@ import { ShopifyConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
 import getAllProductVendors from './queries/get-all-product-vendors-query'
 
-export type BrandNode = {
+export type Brand = {
+  entityId: string
   name: string
   path: string
 }
 
 export type BrandEdge = {
-  node: BrandNode
+  node: Brand
 }
 
 export type Brands = BrandEdge[]
@@ -24,13 +25,16 @@ const getVendors = async (config: ShopifyConfig): Promise<BrandEdge[]> => {
 
   let vendorsStrings = vendors.map(({ node: { vendor } }) => vendor)
 
-  return [...new Set(vendorsStrings)].map((v) => ({
-    node: {
-      entityId: v,
-      name: v,
-      path: `brands/${v}`,
-    },
-  }))
+  return [...new Set(vendorsStrings)].map((v) => {
+    const id = v.replace(/\s+/g, '-').toLowerCase()
+    return {
+      node: {
+        entityId: id,
+        name: v,
+        path: `brands/${id}`,
+      },
+    }
+  })
 }
 
 export default getVendors

@@ -39,8 +39,6 @@ export default function createApiHandler<
   handlers: H,
   defaultOptions: Options
 ) {
-  console.log('next api handler', defaultOptions)
-
   return function getApiHandler({
     config,
     operations,

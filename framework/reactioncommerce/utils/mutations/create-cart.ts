@@ -4,7 +4,7 @@ import {
   minOrderQuantityFailureDetailsFragment,
 } from '@framework/utils/queries/get-checkout-query'
 
-const checkoutCreateMutation = /* GraphQL */ `
+const createCartMutation = /* GraphQL */ `
   mutation createCartMutation($input: CreateCartInput!) {
     createCart(input: $input) {
       cart {
@@ -21,4 +21,4 @@ const checkoutCreateMutation = /* GraphQL */ `
     }
   }
 `
-export default checkoutCreateMutation
+export default createCartMutation

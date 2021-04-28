@@ -1,6 +1,5 @@
 import type { GraphQLFetcher } from '@commerce/api'
 import fetch from './fetch'
-
 import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
 

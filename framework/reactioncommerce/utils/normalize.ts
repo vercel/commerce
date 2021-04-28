@@ -1,6 +1,7 @@
-import { Product } from '@commerce/types'
+import { Product, Customer } from '@commerce/types'
 
 import {
+  Account,
   Cart as ReactionCart,
   ProductPricingInfo,
   CatalogProductVariant,
@@ -205,5 +206,13 @@ function normalizeLineItem({
         value: String(optionTitle || variantTitle),
       },
     ],
+  }
+}
+
+export function normalizeCustomer(viewer: Account): Customer {
+  return {
+    firstName: viewer.firstName ?? '',
+    lastName: viewer.lastName ?? '',
+    email: viewer.primaryEmailAddress,
   }
 }

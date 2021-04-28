@@ -6,9 +6,10 @@ const checkoutLineItemRemoveMutation = /* GraphQL */ `
       checkoutId: $checkoutId
       lineItemIds: $lineItemIds
     ) {
-      userErrors {
-        message
+      checkoutUserErrors {
+        code
         field
+        message
       }
       checkout {
        ${checkoutDetailsFragment}

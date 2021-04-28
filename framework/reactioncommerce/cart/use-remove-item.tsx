@@ -16,7 +16,7 @@ import useCart from './use-cart'
 import {
   removeCartItemsMutation,
   getAnonymousCartToken,
-  getCartId,
+  getAnonymousCartId,
   normalizeCart,
 } from '../utils'
 import { Cart, LineItem } from '../types'
@@ -49,7 +49,7 @@ export const handler = {
       ...options,
       variables: {
         input: {
-          cartId: getCartId(),
+          cartId: getAnonymousCartId(),
           cartToken: getAnonymousCartToken(),
           cartItemIds: [itemId],
         },
