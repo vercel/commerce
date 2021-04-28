@@ -13,7 +13,7 @@ import useUpdateItem, {
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
 import type { Cart, LineItem, UpdateCartItemBody } from '../types'
-import { checkoutToCart } from './utils'
+import { checkoutToCart } from '../utils'
 import { getCheckoutId, checkoutLineItemUpdateMutation } from '../utils'
 import { Mutation, MutationCheckoutLineItemsUpdateArgs } from '../schema'
 

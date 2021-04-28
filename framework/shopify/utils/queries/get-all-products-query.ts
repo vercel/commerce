@@ -9,7 +9,6 @@ edges {
     title
     vendor
     handle
-    description
     priceRange {
       minVariantPrice {
         amount

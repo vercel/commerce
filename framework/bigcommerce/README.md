@@ -1,45 +1,34 @@
-# Table of Contents
+# Bigcommerce Provider
 
-- [BigCommerce Storefront Data Hooks](#bigcommerce-storefront-data-hooks)
-  - [Installation](#installation)
-  - [General Usage](#general-usage)
-    - [CommerceProvider](#commerceprovider)
-    - [useLogin hook](#uselogin-hook)
-    - [useLogout](#uselogout)
-    - [useCustomer](#usecustomer)
-    - [useSignup](#usesignup)
-    - [usePrice](#useprice)
-  - [Cart Hooks](#cart-hooks)
-    - [useCart](#usecart)
-    - [useAddItem](#useadditem)
-    - [useUpdateItem](#useupdateitem)
-    - [useRemoveItem](#useremoveitem)
-  - [Wishlist Hooks](#wishlist-hooks)
-  - [Product Hooks and API](#product-hooks-and-api)
-    - [useSearch](#usesearch)
-    - [getAllProducts](#getallproducts)
-    - [getProduct](#getproduct)
-  - [More](#more)
+**Demo:** https://bigcommerce.demo.vercel.store/
 
-# BigCommerce Storefront Data Hooks
+With the deploy button below you'll be able to have a [BigCommerce](https://www.bigcommerce.com/) account and a store that works with this starter:
 
-> This project is under active development, new features and updates will be continuously added over time
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites.&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT)
 
-UI hooks and data fetching methods built from the ground up for e-commerce applications written in React, that use BigCommerce as a headless e-commerce platform. The package provides:
+If you already have a BigCommerce account and want to use your current store, then copy the `.env.template` file in this directory to `.env.local` in the main directory (which will be ignored by Git):
 
-- Code splitted hooks for data fetching using [SWR](https://swr.vercel.app/), and to handle common user actions
-- Code splitted data fetching methods for initial data population and static generation of content
-- Helpers to create the API endpoints that connect to the hooks, very well suited for Next.js applications
-
-## Installation
-
-To install:
-
-```
-yarn add storefront-data-hooks
+```bash
+cp framework/bigcommerce/.env.template .env.local
 ```
 
-After install, the first thing you do is: <b>set your environment variables</b> in `.env.local`
+Then, set the environment variables in `.env.local` to match the ones from your store.
+
+## Contribute
+
+Our commitment to Open Source can be found [here](https://vercel.com/oss).
+
+If you find an issue with the provider or want a new feature, feel free to open a PR or [create a new issue](https://github.com/vercel/commerce/issues).
+
+## Troubleshoot
+
+<details>
+<summary>I already own a BigCommerce store. What should I do?</summary>
+<br>
+First thing you do is: <b>set your environment variables</b>
+<br>
+<br>
+.env.local
 
 ```sh
 BIGCOMMERCE_STOREFRONT_API_URL=<>
@@ -50,331 +39,21 @@ BIGCOMMERCE_STORE_API_CLIENT_ID=<>
 BIGCOMMERCE_CHANNEL_ID=<>
 ```
 
-## General Usage
-
-### CommerceProvider
-
-This component is a provider pattern component that creates commerce context for it's children. It takes config values for the locale and an optional `fetcherRef` object for data fetching.
-
-```jsx
-...
-import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
-
-const App = ({ locale = 'en-US', children }) => {
-  return (
-    <CommerceProvider locale={locale}>
-      {children}
-    </CommerceProvider>
-  )
-}
-...
-```
-
-### useLogin hook
-
-Hook for bigcommerce user login functionality, returns `login` function to handle user login.
-
-```jsx
-...
-import useLogin from '@bigcommerce/storefront-data-hooks/use-login'
-
-const LoginView = () => {
-  const login = useLogin()
-
-  const handleLogin = async () => {
-    await login({
-      email,
-      password,
-    })
-  }
-
-  return (
-    <form onSubmit={handleLogin}>
-      {children}
-    </form>
-  )
-}
-...
-```
-
-### useLogout
-
-Hook to logout user.
-
-```jsx
-...
-import useLogout from '@bigcommerce/storefront-data-hooks/use-logout'
-
-const LogoutLink = () => {
-  const logout = useLogout()
-  return (
-    <a onClick={() => logout()}>
-      Logout
-    </a>
-  )
-}
-```
-
-### useCustomer
-
-Hook for getting logged in customer data, and fetching customer info.
-
-```jsx
-...
-import useCustomer from '@bigcommerce/storefront-data-hooks/use-customer'
-...
-
-const Profile = () => {
-  const { data } = useCustomer()
-
-  if (!data) {
-    return null
-  }
-
-  return (
-    <div>Hello, {data.firstName}</div>
-  )
-}
-```
-
-### useSignup
-
-Hook for bigcommerce user signup, returns `signup` function to handle user signups.
-
-```jsx
-...
-import useSignup from '@bigcommerce/storefront-data-hooks/use-login'
-
-const SignupView = () => {
-  const signup = useSignup()
-
-  const handleSignup = async () => {
-    await signup({
-      email,
-      firstName,
-      lastName,
-      password,
-    })
-  }
-
-  return (
-    <form onSubmit={handleSignup}>
-      {children}
-    </form>
-  )
-}
-...
-```
-
-### usePrice
-
-Helper hook to format price according to commerce locale, and return discount if available.
-
-```jsx
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-...
-  const { price, discount, basePrice } = usePrice(
-    data && {
-      amount: data.cart_amount,
-      currencyCode: data.currency.code,
-    }
-  )
-...
-```
-
-## Cart Hooks
-
-### useCart
-
-Returns the current cart data for use
-
-```jsx
-...
-import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
-
-const countItem = (count: number, item: LineItem) => count + item.quantity
-
-const CartNumber = () => {
-  const { data } = useCart()
-  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
-
-  return itemsCount > 0 ? <span>{itemsCount}</span> : null
-}
-```
-
-### useAddItem
-
-```jsx
-...
-import useAddItem from '@bigcommerce/storefront-data-hooks/cart/use-add-item'
-
-const AddToCartButton = ({ productId, variantId }) => {
-  const addItem = useAddItem()
-
-  const addToCart = async () => {
-    await addItem({
-      productId,
-      variantId,
-    })
-  }
-
-  return <button onClick={addToCart}>Add To Cart</button>
-}
-...
-```
-
-### useUpdateItem
-
-```jsx
-...
-import useUpdateItem from '@bigcommerce/storefront-data-hooks/cart/use-update-item'
-
-const CartItem = ({ item }) => {
-  const [quantity, setQuantity] = useState(item.quantity)
-  const updateItem = useUpdateItem(item)
-
-  const updateQuantity = async (e) => {
-    const val = e.target.value
-    await updateItem({ quantity: val })
-  }
-
-  return (
-    <input
-      type="number"
-      max={99}
-      min={0}
-      value={quantity}
-      onChange={updateQuantity}
-    />
-  )
-}
-...
-```
-
-### useRemoveItem
-
-Provided with a cartItemId, will remove an item from the cart:
-
-```jsx
-...
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/cart/use-remove-item'
-
-const RemoveButton = ({ item }) => {
-  const removeItem = useRemoveItem()
-
-  const handleRemove = async () => {
-    await removeItem({ id: item.id })
-  }
-
-  return <button onClick={handleRemove}>Remove</button>
-}
-...
-```
-
-## Wishlist Hooks
-
-Wishlist hooks are similar to cart hooks. See the below example for how to use `useWishlist`, `useAddItem`, and `useRemoveItem`.
-
-```jsx
-import useAddItem from '@bigcommerce/storefront-data-hooks/wishlist/use-add-item'
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/wishlist/use-remove-item'
-import useWishlist from '@bigcommerce/storefront-data-hooks/wishlist/use-wishlist'
-
-const WishlistButton = ({ productId, variant }) => {
-  const addItem = useAddItem()
-  const removeItem = useRemoveItem()
-  const { data } = useWishlist()
-  const { data: customer } = useCustomer()
-  const itemInWishlist = data?.items?.find(
-    (item) =>
-      item.product_id === productId &&
-      item.variant_id === variant?.node.entityId
-  )
-
-  const handleWishlistChange = async (e) => {
-    e.preventDefault()
-
-    if (!customer) {
-      return
-    }
-
-    if (itemInWishlist) {
-      await removeItem({ id: itemInWishlist.id! })
-    } else {
-      await addItem({
-        productId,
-        variantId: variant?.node.entityId!,
-      })
-    }
-  }
-
-  return (
-    <button onClick={handleWishlistChange}>
-      <Heart fill={itemInWishlist ? 'var(--pink)' : 'none'} />
-    </button>
-  )
-}
-```
-
-## Product Hooks and API
-
-### useSearch
-
-`useSearch` handles searching the bigcommerce storefront product catalog by catalog, brand, and query string.
-
-```jsx
-...
-import useSearch from '@bigcommerce/storefront-data-hooks/products/use-search'
-
-const SearchPage = ({ searchString, category, brand, sortStr }) => {
-  const { data } = useSearch({
-    search: searchString || '',
-    categoryId: category?.entityId,
-    brandId: brand?.entityId,
-    sort: sortStr || '',
-  })
-
-  return (
-    <Grid layout="normal">
-      {data.products.map(({ node }) => (
-        <ProductCard key={node.path} product={node} />
-      ))}
-    </Grid>
-  )
-}
-```
-
-### getAllProducts
-
-API function to retrieve a product list.
-
-```js
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
-
-const { products } = await getAllProducts({
-  variables: { field: 'featuredProducts', first: 6 },
-  config,
-  preview,
-})
-```
-
-### getProduct
-
-API product to retrieve a single product when provided with the product
-slug string.
-
-```js
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getProduct from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
-
-const { product } = await getProduct({
-  variables: { slug },
-  config,
-  preview,
-})
-```
-
-## More
-
-Feel free to read through the source for more usage, and check the commerce vercel demo and commerce repo for usage examples: ([demo.vercel.store](https://demo.vercel.store/)) ([repo](https://github.com/vercel/commerce))
+If your project was started with a "Deploy with Vercel" button, you can use Vercel's CLI to retrieve these credentials.
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
+3. Download your environment variables: `vercel env pull .env.local`
+
+Next, you're free to customize the starter. More updates coming soon. Stay tuned.
+
+</details>
+
+<details>
+<summary>BigCommerce shows a Coming Soon page and requests a Preview Code</summary>
+<br>
+After Email confirmation, Checkout should be manually enabled through BigCommerce platform. Look for "Review & test your store" section through BigCommerce's dashboard.
+<br>
+<br>
+BigCommerce team has been notified and they plan to add more detailed about this subject.
+</details>

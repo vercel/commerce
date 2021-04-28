@@ -27,5 +27,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": ["node_modules", "swell-js"]
+  "exclude": ["node_modules"]
 }
