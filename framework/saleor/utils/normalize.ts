@@ -35,7 +35,6 @@ const normalizeProductOptions = (options: ProductVariant[]) => {
 
     return {
       __typename: 'MultipleChoiceOption',
-      id: 123,
       // next-commerce can only display labels for options with displayName 'size', or colors
       displayName: displayName?.toLowerCase().includes('size')
         ? 'size'
@@ -48,7 +47,8 @@ const normalizeProductOptions = (options: ProductVariant[]) => {
 }
 
 const normalizeProductVariants = (variants: ProductVariant[]) =>
-  variants?.map(({ id, sku, name, pricing }) => {
+  variants?.map((variant) => {
+    const { id, sku, name, pricing } = variant
     const price = pricing?.price?.net && money(pricing.price.net)?.value
 
     return {
@@ -58,7 +58,7 @@ const normalizeProductVariants = (variants: ProductVariant[]) =>
       price,
       listPrice: price,
       requiresShipping: true,
-      options: normalizeProductOptions(variants),
+      options: normalizeProductOptions([variant]),
     }
   })
 
@@ -74,13 +74,13 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
     ...rest
   } = productNode
 
-  const { blocks } = JSON.parse(description)
-
   const product = {
     id,
     name,
     vendor: '',
-    description: blocks[0]?.data.text,
+    description: description
+      ? JSON.parse(description)?.blocks[0]?.data.text
+      : '',
     path: `/${slug}`,
     slug: slug?.replace(/^\/+|\/+$/g, ''),
     price:
