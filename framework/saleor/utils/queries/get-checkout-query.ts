@@ -3,6 +3,19 @@ export const checkoutDetailsFragment = `
   token
   created
 
+  totalPrice {
+    currency
+    gross {
+      amount
+    }
+  }
+  subtotalPrice {
+    currency
+    gross {
+      amount
+    }
+  }
+
   lines {
     id
     variant {

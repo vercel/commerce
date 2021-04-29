@@ -119,8 +119,8 @@ export function normalizeCart(checkout: Checkout): Cart {
     },
     taxesIncluded: false,
     lineItems, 
-    lineItemsSubtotalPrice: 0, 
-    subtotalPrice: 0, 
+    lineItemsSubtotalPrice: checkout.subtotalPrice?.gross?.amount!, 
+    subtotalPrice: checkout.subtotalPrice?.gross?.amount!, 
     totalPrice: checkout.totalPrice?.gross.amount!,
     discounts: [],
   }
