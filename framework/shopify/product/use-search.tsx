@@ -1,7 +1,12 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
-import { ProductEdge } from '../schema'
+import {
+  CollectionEdge,
+  GetAllProductsQuery,
+  Product as ShopifyProduct,
+  ProductEdge,
+} from '../schema'
 import {
   getAllProductsQuery,
   getCollectionProductsQuery,
@@ -35,30 +40,38 @@ export const handler: SWRHook<
   },
   async fetcher({ input, options, fetch }) {
     const { categoryId, brandId } = input
+    const method = options?.method
+    const variables = getSearchVariables(input)
+    let products
 
-    const data = await fetch({
-      query: categoryId ? getCollectionProductsQuery : options.query,
-      method: options?.method,
-      variables: getSearchVariables(input),
-    })
-
-    let edges
-
+    // change the query to getCollectionProductsQuery when categoryId is set
     if (categoryId) {
-      edges = data.node?.products?.edges ?? []
-      if (brandId) {
-        edges = edges.filter(
-          ({ node: { vendor } }: ProductEdge) =>
-            vendor.replace(/\s+/g, '-').toLowerCase() === brandId
-        )
-      }
+      const data = await fetch<CollectionEdge>({
+        query: getCollectionProductsQuery,
+        method,
+        variables,
+      })
+      // filter on client when brandId & categoryId are set since is not available on collection product query
+      products = brandId
+        ? data.node.products.edges.filter(
+            ({ node: { vendor } }: ProductEdge) =>
+              vendor.replace(/\s+/g, '-').toLowerCase() === brandId
+          )
+        : data.node.products.edges
     } else {
-      edges = data.products?.edges ?? []
+      const data = await fetch<GetAllProductsQuery>({
+        query: options.query,
+        method,
+        variables,
+      })
+      products = data.products.edges
     }
 
     return {
-      products: edges.map(({ node }: ProductEdge) => normalizeProduct(node)),
-      found: !!edges.length,
+      products: products?.map(({ node }) =>
+        normalizeProduct(node as ShopifyProduct)
+      ),
+      found: !!products?.length,
     }
   },
   useHook: ({ useData }) => (input = {}) => {

@@ -28,7 +28,7 @@ type ApiVersion {
   handle: String!
 
   """
-  Whether the version is supported by Shopify.
+  Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/concepts/about-apis/versioning).
   """
   supported: Boolean!
 }
@@ -768,6 +768,11 @@ type Checkout implements Node {
   Specifies if taxes are included in the line item and shipping line prices.
   """
   taxesIncluded: Boolean!
+
+  """
+  The sum of all the duties applied to the line items in the checkout.
+  """
+  totalDuties: MoneyV2
 
   """
   The sum of all the prices of all the items in the checkout, taxes and discounts included.
@@ -3306,6 +3311,11 @@ enum CountryCode {
   Zimbabwe.
   """
   ZW
+
+  """
+  Unknown Region.
+  """
+  ZZ
 }
 
 """
@@ -5179,6 +5189,11 @@ type ExternalVideo implements Node & Media {
   embeddedUrl: URL!
 
   """
+  The host of the external video.
+  """
+  host: MediaHost!
+
+  """
   Globally unique identifier.
   """
   id: ID!
@@ -5801,6 +5816,21 @@ type MediaEdge {
   The item at the end of MediaEdge.
   """
   node: Media!
+}
+
+"""
+Host for a Media Resource.
+"""
+enum MediaHost {
+  """
+  Host for YouTube embedded videos.
+  """
+  YOUTUBE
+
+  """
+  Host for Vimeo embedded videos.
+  """
+  VIMEO
 }
 
 """
@@ -6746,6 +6776,11 @@ type Order implements Node {
   currentSubtotalPrice: MoneyV2!
 
   """
+  The total cost of duties for the order, including refunds.
+  """
+  currentTotalDuties: MoneyV2
+
+  """
   The total amount of the order, including duties, taxes and discounts, minus amounts for line items that have been removed.
   """
   currentTotalPrice: MoneyV2!
@@ -6860,6 +6895,11 @@ type Order implements Node {
   A unique numeric identifier for the order for use by shop owner and customer.
   """
   orderNumber: Int!
+
+  """
+  The total cost of duties charged at checkout.
+  """
+  originalTotalDuties: MoneyV2
 
   """
   The total price of the order before any applied edits.

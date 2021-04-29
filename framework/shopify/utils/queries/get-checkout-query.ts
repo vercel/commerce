@@ -56,7 +56,7 @@ export const checkoutDetailsFragment = /* GraphQL */ `
 `
 
 const getCheckoutQuery = /* GraphQL */ `
-  query($checkoutId: ID!) {
+  query getCheckout($checkoutId: ID!) {
     node(id: $checkoutId) {
       ...checkoutDetails
     }

@@ -9,7 +9,9 @@ export type ShopifyCheckout = {
 
 export type Cart = Core.Cart & {
   lineItems: LineItem[]
+  url?: String
 }
+
 export interface LineItem extends Core.LineItem {
   options?: any[]
 }

@@ -37,7 +37,7 @@ export type ApiVersion = {
   displayName: Scalars['String']
   /** The unique identifier of an ApiVersion. All supported API versions have a date-based (YYYY-MM) or `unstable` handle. */
   handle: Scalars['String']
-  /** Whether the version is supported by Shopify. */
+  /** Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/concepts/about-apis/versioning). */
   supported: Scalars['Boolean']
 }
 
@@ -393,6 +393,8 @@ export type Checkout = Node & {
   taxExempt: Scalars['Boolean']
   /** Specifies if taxes are included in the line item and shipping line prices. */
   taxesIncluded: Scalars['Boolean']
+  /** The sum of all the duties applied to the line items in the checkout. */
+  totalDuties?: Maybe<MoneyV2>
   /**
    * The sum of all the prices of all the items in the checkout, taxes and discounts included.
    * @deprecated Use `totalPriceV2` instead
@@ -1661,6 +1663,8 @@ export enum CountryCode {
   Zm = 'ZM',
   /** Zimbabwe. */
   Zw = 'ZW',
+  /** Unknown Region. */
+  Zz = 'ZZ',
 }
 
 /** Credit card information used for a payment. */
@@ -2561,6 +2565,8 @@ export type ExternalVideo = Node &
     alt?: Maybe<Scalars['String']>
     /** The URL. */
     embeddedUrl: Scalars['URL']
+    /** The host of the external video. */
+    host: MediaHost
     /** Globally unique identifier. */
     id: Scalars['ID']
     /** The media content type. */
@@ -2933,6 +2939,14 @@ export type MediaEdge = {
   cursor: Scalars['String']
   /** The item at the end of MediaEdge. */
   node: Media
+}
+
+/** Host for a Media Resource. */
+export enum MediaHost {
+  /** Host for YouTube embedded videos. */
+  Youtube = 'YOUTUBE',
+  /** Host for Vimeo embedded videos. */
+  Vimeo = 'VIMEO',
 }
 
 /** Represents a Shopify hosted image. */
@@ -3503,6 +3517,8 @@ export type Order = Node & {
   currencyCode: CurrencyCode
   /** The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, duties, shipping costs, or shipping discounts. Taxes are not included unless the order is a taxes-included order. */
   currentSubtotalPrice: MoneyV2
+  /** The total cost of duties for the order, including refunds. */
+  currentTotalDuties?: Maybe<MoneyV2>
   /** The total amount of the order, including duties, taxes and discounts, minus amounts for line items that have been removed. */
   currentTotalPrice: MoneyV2
   /** The total of all taxes applied to the order, excluding taxes for returned line items. */
@@ -3532,6 +3548,8 @@ export type Order = Node & {
   name: Scalars['String']
   /** A unique numeric identifier for the order for use by shop owner and customer. */
   orderNumber: Scalars['Int']
+  /** The total cost of duties charged at checkout. */
+  originalTotalDuties?: Maybe<MoneyV2>
   /** The total price of the order before any applied edits. */
   originalTotalPrice: MoneyV2
   /** The customer's phone number for receiving SMS notifications. */
@@ -5013,9 +5031,11 @@ export type AssociateCustomerWithCheckoutMutation = {
   >
 }
 
-export type Unnamed_1_MutationVariables = Exact<{ [key: string]: never }>
+export type CheckoutCreateMutationVariables = Exact<{
+  input?: Maybe<CheckoutCreateInput>
+}>
 
-export type Unnamed_1_Mutation = { __typename?: 'Mutation' } & {
+export type CheckoutCreateMutation = { __typename?: 'Mutation' } & {
   checkoutCreate?: Maybe<
     { __typename?: 'CheckoutCreatePayload' } & {
       checkoutUserErrors: Array<
@@ -5029,12 +5049,12 @@ export type Unnamed_1_Mutation = { __typename?: 'Mutation' } & {
   >
 }
 
-export type Unnamed_2_MutationVariables = Exact<{
+export type CheckoutLineItemAddMutationVariables = Exact<{
   checkoutId: Scalars['ID']
   lineItems: Array<CheckoutLineItemInput> | CheckoutLineItemInput
 }>
 
-export type Unnamed_2_Mutation = { __typename?: 'Mutation' } & {
+export type CheckoutLineItemAddMutation = { __typename?: 'Mutation' } & {
   checkoutLineItemsAdd?: Maybe<
     { __typename?: 'CheckoutLineItemsAddPayload' } & {
       checkoutUserErrors: Array<
@@ -5048,12 +5068,12 @@ export type Unnamed_2_Mutation = { __typename?: 'Mutation' } & {
   >
 }
 
-export type Unnamed_3_MutationVariables = Exact<{
+export type CheckoutLineItemRemoveMutationVariables = Exact<{
   checkoutId: Scalars['ID']
   lineItemIds: Array<Scalars['ID']> | Scalars['ID']
 }>
 
-export type Unnamed_3_Mutation = { __typename?: 'Mutation' } & {
+export type CheckoutLineItemRemoveMutation = { __typename?: 'Mutation' } & {
   checkoutLineItemsRemove?: Maybe<
     { __typename?: 'CheckoutLineItemsRemovePayload' } & {
       checkoutUserErrors: Array<
@@ -5067,12 +5087,12 @@ export type Unnamed_3_Mutation = { __typename?: 'Mutation' } & {
   >
 }
 
-export type Unnamed_4_MutationVariables = Exact<{
+export type CheckoutLineItemUpdateMutationVariables = Exact<{
   checkoutId: Scalars['ID']
   lineItems: Array<CheckoutLineItemUpdateInput> | CheckoutLineItemUpdateInput
 }>
 
-export type Unnamed_4_Mutation = { __typename?: 'Mutation' } & {
+export type CheckoutLineItemUpdateMutation = { __typename?: 'Mutation' } & {
   checkoutLineItemsUpdate?: Maybe<
     { __typename?: 'CheckoutLineItemsUpdatePayload' } & {
       checkoutUserErrors: Array<
@@ -5370,11 +5390,11 @@ export type CheckoutDetailsFragment = { __typename?: 'Checkout' } & Pick<
     }
   }
 
-export type Unnamed_5_QueryVariables = Exact<{
+export type GetCheckoutQueryVariables = Exact<{
   checkoutId: Scalars['ID']
 }>
 
-export type Unnamed_5_Query = { __typename?: 'QueryRoot' } & {
+export type GetCheckoutQuery = { __typename?: 'QueryRoot' } & {
   node?: Maybe<
     | { __typename?: 'AppliedGiftCard' }
     | { __typename?: 'Article' }
@@ -5464,11 +5484,11 @@ export type GetCustomerQuery = { __typename?: 'QueryRoot' } & {
   >
 }
 
-export type Unnamed_6_QueryVariables = Exact<{
+export type GetPageQueryVariables = Exact<{
   id: Scalars['ID']
 }>
 
-export type Unnamed_6_Query = { __typename?: 'QueryRoot' } & {
+export type GetPageQuery = { __typename?: 'QueryRoot' } & {
   node?: Maybe<
     | ({ __typename?: 'AppliedGiftCard' } & Pick<AppliedGiftCard, 'id'>)
     | ({ __typename?: 'Article' } & Pick<Article, 'id'>)
