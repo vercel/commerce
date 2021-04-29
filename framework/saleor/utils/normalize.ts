@@ -21,33 +21,41 @@ const money = ({ amount, currency }: Money) => {
 }
 
 const normalizeProductOptions = (options: ProductVariant[]) => {
-  const optionNames = options
-    .map((option) => {
-      // can a variant have multiple attributes?
-      return option.attributes[0].attribute.name
-    })
-    .filter((x, i, a) => a.indexOf(x) == i)
+  return options
+    ?.map((option) => option?.attributes)
+    .flat(1)
+    .reduce<any>((acc, x) => {
+      if (
+        acc.find(({ displayName }: any) => displayName === x.attribute.name)
+      ) {
+        return acc.map((opt: any) => {
+          return opt.displayName === x.attribute.name
+            ? {
+                ...opt,
+                values: [
+                  ...opt.values,
+                  ...x.values.map((value: any) => ({
+                    label: value?.name,
+                  })),
+                ],
+              }
+            : opt
+        })
+      }
 
-  return optionNames.map((displayName) => {
-    const matchedOptions = options.filter(
-      ({ attributes }) => attributes[0].attribute.name === displayName // can a variant have multiple attributes?
-    )
-
-    return {
-      __typename: 'MultipleChoiceOption',
-      // next-commerce can only display labels for options with displayName 'size', or colors
-      displayName: displayName?.toLowerCase().includes('size')
-        ? 'size'
-        : displayName,
-      values: matchedOptions.map(({ name }) => ({
-        label: name,
-      })),
-    }
-  })
+      return acc.concat({
+        __typename: 'MultipleChoiceOption',
+        displayName: x.attribute.name,
+        variant: 'size',
+        values: x.values.map((value: any) => ({
+          label: value?.name,
+        })),
+      })
+    }, [])
 }
 
-const normalizeProductVariants = (variants: ProductVariant[]) =>
-  variants?.map((variant) => {
+const normalizeProductVariants = (variants: ProductVariant[]) => {
+  return variants?.map((variant) => {
     const { id, sku, name, pricing } = variant
     const price = pricing?.price?.net && money(pricing.price.net)?.value
 
@@ -61,6 +69,7 @@ const normalizeProductVariants = (variants: ProductVariant[]) =>
       options: normalizeProductOptions([variant]),
     }
   })
+}
 
 export function normalizeProduct(productNode: SaleorProduct): Product {
   const {
