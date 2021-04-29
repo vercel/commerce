@@ -1,4 +1,4 @@
-import { CollectionEdge } from '../schema'
+import { GetSiteCollectionsQuery } from '../schema'
 import { getConfig, ShopifyConfig } from '../api'
 import getAllCollectionsQuery from '../utils/queries/get-all-collections-query'
 
@@ -10,11 +10,13 @@ const getAllCollections = async (options?: {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
 
-  const { data } = await config.fetch(getAllCollectionsQuery, { variables })
-  const edges = data.collections?.edges ?? []
+  const { data } = await config.fetch<GetSiteCollectionsQuery>(
+    getAllCollectionsQuery,
+    { variables }
+  )
 
-  const categories = edges.map(
-    ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({
+  const categories = data.collections.edges.map(
+    ({ node: { id: entityId, title: name, handle } }) => ({
       entityId,
       name,
       path: `/${handle}`,

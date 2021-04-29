@@ -1,6 +1,7 @@
 import { getConfig, ShopifyConfig } from '../api'
 import getCustomerIdQuery from '../utils/queries/get-customer-id-query'
 import Cookies from 'js-cookie'
+import { GetCustomerIdQuery } from '../schema'
 
 async function getCustomerId({
   customerToken: customerAccesToken,
@@ -8,17 +9,19 @@ async function getCustomerId({
 }: {
   customerToken: string
   config?: ShopifyConfig
-}): Promise<number | undefined> {
+}): Promise<string | undefined> {
   config = getConfig(config)
 
-  const { data } = await config.fetch(getCustomerIdQuery, {
+  const {
+    data: { customer },
+  } = await config.fetch<GetCustomerIdQuery>(getCustomerIdQuery, {
     variables: {
       customerAccesToken:
         customerAccesToken || Cookies.get(config.customerCookie),
     },
   })
 
-  return data.customer?.id
+  return customer?.id
 }
 
 export default getCustomerId
