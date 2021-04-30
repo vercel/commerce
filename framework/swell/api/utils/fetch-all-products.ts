@@ -1,5 +1,5 @@
-import { ProductEdge } from '../../schema'
 import { SwellConfig } from '..'
+import { SwellProduct } from '../../types'
 
 const fetchAllProducts = async ({
   config,
@@ -7,35 +7,17 @@ const fetchAllProducts = async ({
   method,
   variables,
   acc = [],
-  cursor,
 }: {
   config: SwellConfig
   query: string
-  acc?: ProductEdge[]
+  method: string
+  acc?: SwellProduct[]
   variables?: any
   cursor?: string
-}): Promise<ProductEdge[]> => {
-  // const response = await config.fetch(query, {
-  //   variables: { ...variables, cursor },
-  // })
-  const response = await config.fetchSwell('products', 'list', [{ limit: 100 }])
+}): Promise<SwellProduct[]> => {
+  const response = await config.fetchSwell(query, method, variables)
 
-  const edges: ProductEdge[] = response.results ?? []
-  const hasNextPage = response.results.length < response.count
-  acc = acc.concat(edges)
-
-  if (hasNextPage) {
-    const cursor = edges.pop()?.cursor
-    if (cursor) {
-      return fetchAllProducts({
-        config,
-        query,
-        variables,
-        acc,
-        cursor,
-      })
-    }
-  }
+  acc = acc.concat(response.results)
 
   return acc
 }

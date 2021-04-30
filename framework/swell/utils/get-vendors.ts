@@ -13,7 +13,7 @@ export type Brands = BrandEdge[]
 
 const getVendors = async (config: SwellConfig) => {
   const vendors: [string] =
-    (await config.fetchSwell('attributes', 'get', ['brand'])).values ?? []
+    (await config.fetchSwell('attributes', 'get', ['brand']))?.values ?? []
 
   return [...new Set(vendors)].map((v) => ({
     node: {

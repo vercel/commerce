@@ -76,7 +76,7 @@ const normalizeProductVariants = (
   productOptions: normalizedProductOption[]
 ) => {
   return variants?.map(
-    ({ id, name, price, option_value_ids: optionValueIds }) => {
+    ({ id, name, price, option_value_ids: optionValueIds = [] }) => {
       const values = name
         .split(',')
         .map((i) => ({ name: i.trim(), label: i.trim() }))
@@ -167,7 +167,7 @@ export function normalizeCart({
     createdAt: date_created,
     currency: { code: currency },
     taxesIncluded: tax_included_total > 0,
-    lineItems: items?.map(normalizeLineItem),
+    lineItems: items?.map(normalizeLineItem) ?? [],
     lineItemsSubtotalPrice: +sub_total,
     subtotalPrice: +sub_total,
     totalPrice: grand_total,

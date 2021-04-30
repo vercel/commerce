@@ -1,7 +1,5 @@
-import { Product } from '@commerce/types'
 import { getConfig, SwellConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
-import { ProductEdge } from '../schema'
 
 type ProductPath = {
   path: string
@@ -20,7 +18,7 @@ const getAllProductPaths = async (options?: {
   config?: SwellConfig
   preview?: boolean
 }): Promise<ReturnType> => {
-  let { config, variables = { limit: 100 } } = options ?? {}
+  let { config, variables = [{ limit: 100 }] } = options ?? {}
   config = getConfig(config)
 
   const products = await fetchAllProducts({
