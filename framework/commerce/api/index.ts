@@ -2,6 +2,7 @@ import type { NextApiHandler } from 'next'
 import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
 import type { CartSchema } from '../types/cart'
+import { APIOperations } from './operations'
 
 export type APISchemas = CartSchema
 
@@ -48,14 +49,13 @@ export type EndpointHandlers<
 
 export type APIProvider = {
   config: CommerceAPIConfig
+  operations: APIOperations<any>
 }
 
 export class CommerceAPI<P extends APIProvider = APIProvider> {
-  constructor(readonly provider: P) {
-    this.provider = provider
-  }
+  constructor(readonly provider: P) {}
 
-  getConfig(userConfig: Partial<P['config']> = {}) {
+  getConfig(userConfig: Partial<P['config']> = {}): P['config'] {
     return Object.entries(userConfig).reduce(
       (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
       { ...this.provider.config }
