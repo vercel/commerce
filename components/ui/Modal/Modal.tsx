@@ -8,8 +8,8 @@ import {
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
 import FocusTrap from '@lib/focus-trap'
+
 interface Props {
-  className?: string
   children?: any
   open?: boolean
   onClose: () => void
