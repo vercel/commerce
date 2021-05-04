@@ -13,6 +13,7 @@ export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
+  console.log('getStaticProps')
   const config = getConfig({ locale })
 
   const { products } = await getAllProducts({
