@@ -2,7 +2,7 @@ import type { NextApiHandler } from 'next'
 import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
 import type { CartSchema } from '../types/cart'
-import { APIOperations } from './operations'
+import { APIOperations, getOperations } from './operations'
 
 export type APISchemas = CartSchema
 
@@ -65,26 +65,36 @@ export class CommerceAPI<P extends APIProvider = APIProvider> {
   setConfig(newConfig: Partial<P['config']>) {
     Object.assign(this.provider.config, newConfig)
   }
+}
 
-  endpoint<T extends GetAPISchema<any, any>>(
-    context: T['endpoint'] & {
-      config?: P['config']
-      options?: T['schema']['endpoint']['options']
-    }
-  ): NextApiHandler {
-    const commerce = this
-    const cfg = this.getConfig(context.config)
+export function getCommerceApi<P extends APIProvider>(customProvider: P) {
+  const commerce = new CommerceAPI(customProvider)
+  const operations = getOperations(customProvider.operations, { commerce })
 
-    return function apiHandler(req, res) {
-      return context.handler({
-        req,
-        res,
-        commerce,
-        config: cfg,
-        operations: context.operations,
-        options: context.options ?? {},
-      })
-    }
+  return Object.assign(commerce, operations)
+}
+
+export function getEndpoint<
+  P extends APIProvider,
+  T extends GetAPISchema<any, any>
+>(
+  commerce: CommerceAPI<P>,
+  context: T['endpoint'] & {
+    config?: P['config']
+    options?: T['schema']['endpoint']['options']
+  }
+): NextApiHandler {
+  const cfg = commerce.getConfig(context.config)
+
+  return function apiHandler(req, res) {
+    return context.handler({
+      req,
+      res,
+      commerce,
+      config: cfg,
+      operations: context.operations,
+      options: context.options ?? {},
+    })
   }
 }
 

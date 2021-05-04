@@ -1,19 +1,15 @@
 import type { NextApiHandler } from 'next'
 import type { RequestInit } from '@vercel/fetch'
-import { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
+import {
+  CommerceAPIConfig,
+  getCommerceApi as commerceApi,
+  getEndpoint,
+} from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
 
 import type { CartAPI } from './cart'
 import login from './operations/login'
-import {
-  Operations,
-  defaultOperations,
-  AllowedOperations,
-  OPERATIONS,
-  getOperations,
-  APIOperations,
-} from '@commerce/api/operations'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
   // Indicates if the returned metadata with translations should be applied to the
@@ -119,17 +115,16 @@ export type APIs = CartAPI
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
 ) {
-  const commerce = new CommerceAPI(customProvider)
-  const operations = getOperations(customProvider.operations, { commerce })
+  const api = commerceApi(customProvider)
 
-  return Object.assign(commerce, operations, {
+  return Object.assign(api, {
     endpoint<E extends APIs>(
       context: E['endpoint'] & {
         config?: P['config']
         options?: E['schema']['endpoint']['options']
       }
     ): NextApiHandler {
-      return super.endpoint(context)
+      return getEndpoint(api, context)
     },
   })
 }
