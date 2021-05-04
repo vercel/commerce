@@ -1,7 +1,6 @@
 import { Layout } from '@components/common'
 import { Grid, Marquee, Hero } from '@components/ui'
-import { ProductCard } from '@components/product'
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import { BagelCard } from '@components/product'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@framework/api'
@@ -45,7 +44,7 @@ export default function Home({
       <Grid>
         {/* main product */}
         {products.slice(0, 3).map((product, i) => (
-          <ProductCard
+          <BagelCard
             key={product.id}
             product={product}
             imgProps={{
@@ -62,7 +61,7 @@ export default function Home({
       <Marquee variant="secondary">
         {/* instagram */}
         {products.slice(0, 3).map((product, i) => (
-          <ProductCard
+          <BagelCard
             key={product.id}
             product={product}
             variant="slim"

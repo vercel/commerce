@@ -1,0 +1,103 @@
+@import "mixins";
+@import "variables";
+
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main {
+  padding: 5rem 0;
+  margin: 2em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  div {
+    display: flex;
+  }
+}
+
+.grid {
+  flex-flow: row nowrap;
+  margin: 2em;
+  div {
+    width: 50%;
+    margin: 2em;
+  }
+  .square {
+    background: #9c0000;
+    @include aspect-ratio(1, 1);
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 3em;
+  }
+}
+
+.featured {
+  flex-flow: column nowrap;
+  width: calc(100% - 4em);
+  margin: 2em;
+  h2 {
+    text-align: center;
+    margin: 1em;
+  }
+  .mags {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    margin: 1em;
+  }
+}
+
+.banana {
+  flex-flow: column nowrap;
+  width: calc(100% - 8em);
+  margin: 4em;
+  h2 {
+    margin: 1em;
+  }
+  .bananagif {
+    margin: 1em;
+    background: #ffffa7;
+    @include aspect-ratio(16, 9);
+  }
+}
+
+.nutrition {
+  flex-flow: column nowrap;
+  width: calc(100% - 8em);
+  margin: 4em;
+  align-items: flex-end;
+  .table {
+    margin: 4em 1em;
+    width: calc(100% - 2em);
+    background: #6ea145;
+    @include aspect-ratio(4, 5);
+  }
+}
+
+.mission {
+  flex-flow: column nowrap;
+}
+
+.instagram {
+  flex-flow: row;
+  width: calc(100% - 8em);
+  margin: 4em;
+  .image {
+    margin: 0.5em;
+    background: rgb(137, 137, 255);
+    width: 30%;
+    @include aspect-ratio(1, 1);
+  }
+}
