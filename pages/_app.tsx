@@ -1,6 +1,6 @@
-import '@assets/main.css'
-import '@assets/chrome-bug.css'
-import 'keen-slider/keen-slider.min.css'
+import '@assets/main.scss'
+import '@assets/chrome-bug.scss'
+// import 'keen-slider/keen-slider.min.css'
 
 import { FC, useEffect } from 'react'
 import type { AppProps } from 'next/app'

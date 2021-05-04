@@ -25,40 +25,47 @@ const Footer: FC<Props> = ({ className, pages }) => {
     <footer className={rootClassName}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12 text-primary bg-primary transition-colors duration-150">
-          <div className="col-span-1 lg:col-span-2">
+          {/* <div className="col-span-1 lg:col-span-2">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
                 <span className="rounded-full border border-gray-700 mr-2">
                   <Logo />
                 </span>
-                <span>ACME</span>
+                <span>BetterBrand</span>
               </a>
             </Link>
-          </div>
+          </div> */}
           <div className="col-span-1 lg:col-span-2">
             <ul className="flex flex-initial flex-col md:flex-1">
               <li className="py-3 md:py-0 md:pb-4">
                 <Link href="/">
                   <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                    Home
+                    <h6>Subscribe to newsletter</h6>
                   </a>
                 </Link>
               </li>
               <li className="py-3 md:py-0 md:pb-4">
                 <Link href="/">
                   <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                    Careers
+                    <h6>Instagram</h6>
+                  </a>
+                </Link>
+              </li>
+              <li className="py-3 md:py-0 md:pb-4">
+                <Link href="/">
+                  <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
+                    <h6>Facebook</h6>
                   </a>
                 </Link>
               </li>
               <li className="py-3 md:py-0 md:pb-4">
                 <Link href="/blog">
                   <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                    Blog
+                    <h6>Email</h6>
                   </a>
                 </Link>
               </li>
-              {sitePages.map((page) => (
+              {/* {sitePages.map((page) => (
                 <li key={page.url} className="py-3 md:py-0 md:pb-4">
                   <Link href={page.url!}>
                     <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
@@ -66,10 +73,10 @@ const Footer: FC<Props> = ({ className, pages }) => {
                     </a>
                   </Link>
                 </li>
-              ))}
+              ))} */}
             </ul>
           </div>
-          <div className="col-span-1 lg:col-span-2">
+          {/* <div className="col-span-1 lg:col-span-2">
             <ul className="flex flex-initial flex-col md:flex-1">
               {legalPages.map((page) => (
                 <li key={page.url} className="py-3 md:py-0 md:pb-4">
@@ -81,8 +88,8 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
+          </div> */}
+          {/* <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
             <div className="flex space-x-6 items-center h-10">
               <a
                 aria-label="Github Repository"
@@ -93,9 +100,9 @@ const Footer: FC<Props> = ({ className, pages }) => {
               </a>
               <I18nWidget />
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
+        {/* <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
           <div>
             <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
           </div>
@@ -114,7 +121,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               />
             </a>
           </div>
-        </div>
+        </div> */}
       </Container>
     </footer>
   )

@@ -26,11 +26,19 @@ const UserNav: FC<Props> = ({ className }) => {
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={s.list}>
-          <li className={s.item} onClick={toggleSidebar}>
-            <Bag />
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+          <li className={s.item}>
+            <Link href="/">
+              <a onClick={closeSidebarIfPresent} aria-label="Shop">
+                <h5>Shop</h5>
+              </a>
+            </Link>
           </li>
-          {process.env.COMMERCE_WISHLIST_ENABLED && (
+          <li className={s.item} onClick={toggleSidebar}>
+            {/* <Bag /> */}
+            <h5>Cart</h5>
+            {/* {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>} */}
+          </li>
+          {/* {process.env.COMMERCE_WISHLIST_ENABLED && (
             <li className={s.item}>
               <Link href="/wishlist">
                 <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
@@ -38,8 +46,8 @@ const UserNav: FC<Props> = ({ className }) => {
                 </a>
               </Link>
             </li>
-          )}
-          <li className={s.item}>
+          )} */}
+          {/* <li className={s.item}>
             {customer ? (
               <DropdownMenu />
             ) : (
@@ -51,7 +59,7 @@ const UserNav: FC<Props> = ({ className }) => {
                 <Avatar />
               </button>
             )}
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>

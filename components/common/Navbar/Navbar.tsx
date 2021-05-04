@@ -12,10 +12,11 @@ const Navbar: FC = () => (
         <div className="flex items-center flex-1">
           <Link href="/">
             <a className={s.logo} aria-label="Logo">
-              <Logo />
+              {/* <Logo /> */}
+              <h5>BetterBrand</h5>
             </a>
           </Link>
-          <nav className="hidden ml-6 space-x-4 lg:block">
+          {/* <nav className="hidden ml-6 space-x-4 lg:block">
             <Link href="/search">
               <a className={s.link}>All</a>
             </Link>
@@ -28,21 +29,21 @@ const Navbar: FC = () => (
             <Link href="/search?q=shoes">
               <a className={s.link}>Shoes</a>
             </Link>
-          </nav>
+          </nav> */}
         </div>
 
-        <div className="justify-center flex-1 hidden lg:flex">
+        {/* <div className="justify-center flex-1 hidden lg:flex">
           <Searchbar />
-        </div>
+        </div> */}
 
         <div className="flex justify-end flex-1 space-x-8">
           <UserNav />
         </div>
       </div>
 
-      <div className="flex pb-4 lg:px-6 lg:hidden">
+      {/* <div className="flex pb-4 lg:px-6 lg:hidden">
         <Searchbar id="mobile-search" />
-      </div>
+      </div> */}
     </Container>
   </NavbarRoot>
 )
