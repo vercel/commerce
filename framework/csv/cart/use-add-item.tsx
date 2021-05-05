@@ -1,7 +1,11 @@
-import { Cart, CartItemBody } from '../types'
+import { Cart, CartItemBody, LineItem } from '../types'
+
+import api from '../api/cart'
 
 export default function useAddItem() {
-  return (_item: CartItemBody): Cart => {
+  return (item: CartItemBody): Cart => {
+    api.add(item as LineItem)
+
     return (null as unknown) as Cart
   }
 }
