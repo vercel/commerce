@@ -17,7 +17,9 @@ a {
 
 h1 {
   margin: 0;
+  font-size: 42px;
   font-weight: 400;
+  line-height: 44px;
 }
 
 h2 {
@@ -32,18 +34,24 @@ h3 {
 
 h4 {
   margin: 0;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 h5 {
   margin: 0;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 h6 {
   margin: 0;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-btn {
-  padding: 10px 30px;
+button {
+  padding: 10px 36px;
   color: white;
   background: black;
   width: fit-content;
@@ -53,6 +61,6 @@ btn {
   transition: 0.3s;
 }
 
-btn:hover {
+button:hover {
   background: rgb(78, 78, 78);
 }

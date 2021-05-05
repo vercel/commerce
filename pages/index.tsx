@@ -1,12 +1,15 @@
 import { Layout } from '@components/common'
 import { Grid, Marquee, Hero } from '@components/ui'
 import { BagelCard } from '@components/product'
+import { ProductCard } from '@components/product'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
+
+import styles from '../styles/Home.module.scss'
 
 export async function getStaticProps({
   preview,
@@ -41,37 +44,23 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Grid>
-        {/* main product */}
-        {products.slice(0, 3).map((product, i) => (
-          <BagelCard
-            key={product.id}
-            product={product}
-            imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
-            }}
-          />
-        ))}
-      </Grid>
-      {/* <FeaturedIn>Featured In</FeaturedIn> */}
-      {/* <Banana>Banana Comparison</Banana> */}
-      {/* <Nutrition></Nutrition> */}
-      {/* <Mission></Mission> */}
-      <Marquee variant="secondary">
-        {/* instagram */}
-        {products.slice(0, 3).map((product, i) => (
-          <BagelCard
-            key={product.id}
-            product={product}
-            variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
-          />
-        ))}
-      </Marquee>
+      <div className={styles.container}>
+        <div className={styles.main}>
+          <div className={styles.row}>
+            <div className={styles.square}>
+              <img src={products[0].images[0].url} alt="" />
+            </div>
+            <div className={styles.info}>
+              <h1>
+                Featuring <i>Grain</i>changing Technology
+              </h1>
+              <button>
+                <h5>Try The Better Bagel</h5>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

@@ -12,21 +12,22 @@
 }
 
 .main {
-  padding: 5rem 0;
   margin: 2em;
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   div {
     display: flex;
   }
 }
 
-.grid {
+.row {
   flex-flow: row nowrap;
-  margin: 2em;
+  margin: 0 2em;
+  width: 100%;
   div {
     width: 50%;
     margin: 2em;
