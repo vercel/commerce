@@ -18,7 +18,14 @@ if (!API_URL) {
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
-export interface ReactionCommerceConfig extends CommerceAPIConfig {}
+export interface ReactionCommerceConfig
+  extends Omit<CommerceAPIConfig, 'apiToken'> {
+  shopId: string
+  cartIdCookie: string
+  dummyEmptyCartId?: string
+  anonymousCartTokenCookie?: string
+  anonymousCartTokenCookieMaxAge?: number
+}
 
 export class Config {
   private config: ReactionCommerceConfig
@@ -42,9 +49,11 @@ export class Config {
 const config = new Config({
   locale: 'en-US',
   commerceUrl: API_URL,
-  anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
+  cartCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   cartIdCookie: REACTION_CART_ID_COOKIE,
   dummyEmptyCartId: REACTION_EMPTY_DUMMY_CART_ID,
+  cartCookieMaxAge: REACTION_COOKIE_EXPIRE,
+  anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   anonymousCartTokenCookieMaxAge: REACTION_COOKIE_EXPIRE,
   fetch: fetchGraphqlApi,
   customerCookie: REACTION_CUSTOMER_TOKEN_COOKIE,

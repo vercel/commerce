@@ -8,18 +8,28 @@ import {
 } from '@commerce'
 
 import { reactionCommerceProvider, ReactionCommerceProvider } from './provider'
-import { REACTION_ANONYMOUS_CART_TOKEN_COOKIE, SHOP_ID } from './const'
+import {
+  REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
+  SHOP_ID,
+  REACTION_CART_ID_COOKIE,
+} from './const'
 
 export { reactionCommerceProvider }
 export type { ReactionCommerceProvider }
 
-export const reactionCommerceConfig: CommerceConfig = {
+type ReactionConfig = CommerceConfig & {
+  shopId: string
+  anonymousCartTokenCookie: string
+}
+
+export const reactionCommerceConfig: ReactionConfig = {
   locale: 'en-us',
   anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
+  cartCookie: REACTION_CART_ID_COOKIE,
   shopId: SHOP_ID,
 }
 
-export type ReactionCommerceConfig = Partial<CommerceConfig>
+export type ReactionCommerceConfig = Partial<ReactionConfig>
 
 export type ReactionCommerceProps = {
   children?: ReactNode
