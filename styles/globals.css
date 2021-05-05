@@ -24,7 +24,9 @@ h1 {
 
 h2 {
   margin: 0;
+  font-size: 32px;
   font-weight: 400;
+  line-height: 34px;
 }
 
 h3 {
@@ -48,19 +50,5 @@ h6 {
   margin: 0;
   font-size: 12px;
   font-weight: 700;
-}
-
-button {
-  padding: 10px 36px;
-  color: white;
-  background: black;
-  width: fit-content;
-  height: auto;
-  border-radius: 20px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: rgb(78, 78, 78);
+  line-height: 14px;
 }

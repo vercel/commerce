@@ -24,7 +24,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
   return (
     <footer className={rootClassName}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12 text-primary bg-primary transition-colors duration-150">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 border-b border-accents-2 py-12 text-primary bg-primary transition-colors duration-150">
           {/* <div className="col-span-1 lg:col-span-2">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
