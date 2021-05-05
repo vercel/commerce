@@ -21,15 +21,6 @@
   }
 }
 
-.container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-}
-
 .btn {
   padding: 10px 36px;
   color: white;
@@ -44,19 +35,6 @@
 }
 }
 
-.main {
-  margin: 2em;
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  div {
-    display: flex;
-  }
-}
-
 .row {
   flex-flow: row nowrap;
   margin: 0 2em;
@@ -68,6 +46,9 @@
   .square {
     background: #9c0000;
     @include aspect-ratio(1, 1);
+    img {
+      object-fit: cover;
+    }
   }
   .info {
     display: flex;
