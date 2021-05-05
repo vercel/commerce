@@ -22,6 +22,7 @@ export const handler: SWRHook<
   },
   async fetcher({ input: { cartId: checkoutId }, options, fetch }) {
     let checkout
+
     if (checkoutId) {
       const data = await fetch({
         ...options,
