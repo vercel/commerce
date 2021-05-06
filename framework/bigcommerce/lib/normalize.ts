@@ -106,6 +106,7 @@ function normalizeLineItem(item: any): LineItem {
       listPrice: item.list_price,
     },
     path: item.url.split('/')[3],
+    options: item.options,
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,
     })),
