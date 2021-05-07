@@ -1,4 +1,5 @@
 {
+  "provider": "csv",
   "features": {
     "wishlist": true,
     "customCheckout": false
