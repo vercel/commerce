@@ -11,7 +11,7 @@ const isRC = provider === 'reactioncommerce'
 
 module.exports = withCommerceConfig({
   env: {
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    REACTION_API_DOMAIN: process.env.REACTION_API_DOMAIN,
   },
   commerce,
   i18n: {

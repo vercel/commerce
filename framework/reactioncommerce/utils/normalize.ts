@@ -53,7 +53,7 @@ const normalizeProductOption = ({ id, displayName, values }: ProductOption) => {
   }
 }
 
-const normalizeProductVariants = (variants: Maybe<CatalogProductVariant>[]) => {
+const normalizeProductVariants = (variants: CatalogProductVariant[]) => {
   return variants.map((variant) => {
     const { _id, options, sku, title, pricing = [], variantId } = variant ?? {}
     const variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice ?? 0
@@ -79,7 +79,7 @@ const normalizeProductVariants = (variants: Maybe<CatalogProductVariant>[]) => {
 }
 
 export function groupProductOptionsByAttributeLabel(
-  options: Maybe<CatalogProductVariant>[]
+  options: CatalogProductVariant[]
 ) {
   return options.reduce((groupedOptions, currentOption) => {
     const attributeLabelIndex = groupedOptions.findIndex((option) => {
@@ -101,7 +101,7 @@ export function groupProductOptionsByAttributeLabel(
       groupedOptions = [
         ...groupedOptions,
         normalizeProductOption({
-          id: currentOption?.variantId ?? '',
+          id: currentOption?._id ?? '',
           displayName: currentOption?.attributeLabel ?? '',
           values: [currentOption?.optionTitle ?? ''],
         }),
