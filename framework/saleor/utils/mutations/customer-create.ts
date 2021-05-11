@@ -1,13 +1,14 @@
 const customerCreateMutation = /* GraphQL */ `
-  mutation customerCreate($input: UserCreateInput!) {
-    customerCreate(input: $input) {
+  mutation customerCreate($input: AccountRegisterInput!) {
+    accountRegister(input: $input) {
       errors {
         code
         field
         message
       }
-      customer {
-        id
+      user {
+        email
+        isActive
       }
     }
   }

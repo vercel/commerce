@@ -4,7 +4,7 @@ const checkoutCreateMutation = /* GraphQL */ `
   mutation createCheckout {
     checkoutCreate(input: {
       email: "customer@example.com", 
-      lines: [{quantity: 1, variantId: "UHJvZHVjdFZhcmlhbnQ6Mjk3"}], 
+      lines: [], 
       channel: "default-channel"
     }) {
       errors {
