@@ -1,4 +1,3 @@
-import { Product } from '@commerce/types'
 import { getConfig, SaleorConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
 import { ProductCountableEdge } from '../schema'

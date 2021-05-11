@@ -1,31 +1,20 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import { CommerceError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
-import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
+import tokenCreateMutation from '../utils/mutations/customer-access-token-create'
 import {
-  CustomerAccessTokenCreateInput,
-  CustomerUserError,
   Mutation,
-  MutationCheckoutCreateArgs,
+  MutationTokenCreateArgs,
 } from '../schema'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import { setCustomerToken, throwUserErrors } from '../utils'
+import { setCSRFToken, setToken, throwUserErrors } from '../utils'
 
 export default useLogin as UseLogin<typeof handler>
 
-const getErrorMessage = ({ code, message }: CustomerUserError) => {
-  switch (code) {
-    case 'UNIDENTIFIED_CUSTOMER':
-      message = 'Cannot find an account that matches the provided credentials'
-      break
-  }
-  return message
-}
-
-export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
+export const handler: MutationHook<null, {}, MutationTokenCreateArgs> = {
   fetchOptions: {
-    query: createCustomerAccessTokenMutation,
+    query: tokenCreateMutation,
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
@@ -35,23 +24,21 @@ export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
       })
     }
 
-    const { customerAccessTokenCreate } = await fetch<
+    const { tokenCreate } = await fetch<
       Mutation,
-      MutationCheckoutCreateArgs
+      MutationTokenCreateArgs
     >({
       ...options,
-      variables: {
-        input: { email, password },
-      },
+      variables: { email, password },
     })
 
-    throwUserErrors(customerAccessTokenCreate?.customerUserErrors)
+    throwUserErrors(tokenCreate?.errors)
 
-    const customerAccessToken = customerAccessTokenCreate?.customerAccessToken
-    const accessToken = customerAccessToken?.accessToken
+    const { token, csrfToken }  = tokenCreate!;
 
-    if (accessToken) {
-      setCustomerToken(accessToken)
+    if (token && csrfToken) {
+      setToken(token)
+      setCSRFToken(csrfToken)
     }
 
     return null

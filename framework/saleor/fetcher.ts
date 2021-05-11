@@ -1,6 +1,6 @@
 import { Fetcher } from '@commerce/utils/types'
 import { API_URL } from './const'
-import { handleFetchResponse } from './utils'
+import { getToken, handleFetchResponse } from './utils'
 
 const fetcher: Fetcher = async ({
   url = API_URL,
@@ -8,11 +8,14 @@ const fetcher: Fetcher = async ({
   variables,
   query,
 }) => {
+  const token = getToken();
+  
   return handleFetchResponse(
     await fetch(url!, {
       method,
       body: JSON.stringify({ query, variables }),
       headers: {
+        Authorization: `JWT ${token}`,
         'Content-Type': 'application/json',
       },
     })

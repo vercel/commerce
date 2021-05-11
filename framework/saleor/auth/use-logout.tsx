@@ -3,7 +3,7 @@ import type { MutationHook } from '@commerce/utils/types'
 import useLogout, { UseLogout } from '@commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
 import customerAccessTokenDeleteMutation from '../utils/mutations/customer-access-token-delete'
-import { getCustomerToken, setCustomerToken } from '../utils/customer-token'
+import { setToken } from '../utils/customer-token'
 
 export default useLogout as UseLogout<typeof handler>
 
@@ -14,11 +14,9 @@ export const handler: MutationHook<null> = {
   async fetcher({ options, fetch }) {
     await fetch({
       ...options,
-      variables: {
-        customerAccessToken: getCustomerToken(),
-      },
+      variables: {},
     })
-    setCustomerToken(null)
+    setToken()
     return null
   },
   useHook: ({ fetch }) => () => {

@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import { CommerceError } from '@commerce/utils/errors'
 import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import useCustomer from '../customer/use-customer'
 import {
-  CustomerCreate,
+  AccountRegisterInput,
   Mutation,
-  MutationCustomerCreateArgs,
+  MutationAccountRegisterArgs
 } from '../schema'
 
 import { customerCreateMutation } from '../utils/mutations'
@@ -17,27 +17,18 @@ export default useSignup as UseSignup<typeof handler>
 export const handler: MutationHook<
   null,
   {},
-  CustomerCreate,
-  CustomerCreate
+  AccountRegisterInput,
+  AccountRegisterInput
 > = {
   fetchOptions: {
     query: customerCreateMutation,
   },
   async fetcher({
-    input: { user },
+    input: { email, password },
     options,
     fetch,
   }) {
-    if (!user) {
-      throw new CommerceError({
-        message:
-          'A first name, last name, email and password are required to signup',
-      })
-    }
-
-    const { firstName, lastName, email, password } = user;
-
-    if (!(firstName && lastName && email && password)) {
+    if (!(email && password)) {
       throw new CommerceError({
         message:
           'A first name, last name, email and password are required to signup',
@@ -46,13 +37,11 @@ export const handler: MutationHook<
 
     const { customerCreate } = await fetch<
       Mutation,
-      MutationCustomerCreateArgs
+      MutationAccountRegisterArgs
     >({
       ...options,
       variables: {
         input: {
-          firstName,
-          lastName,
           email,
           password,
         },

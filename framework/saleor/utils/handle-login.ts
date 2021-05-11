@@ -1,36 +1,38 @@
 import { FetcherOptions } from '@commerce/utils/types'
-import { CustomerAccessTokenCreateInput } from '../schema'
-import { setCustomerToken } from './customer-token'
+import { CreateToken, Mutation, MutationTokenCreateArgs } from '../schema'
+import { setToken, setCSRFToken } from './customer-token'
 import { customerAccessTokenCreateMutation } from './mutations'
 import throwUserErrors from './throw-user-errors'
 
-const handleLogin = (data: any) => {
-  const response = data.customerAccessTokenCreate
-  throwUserErrors(response?.customerUserErrors)
+const handleLogin = (data: CreateToken) => {
+  throwUserErrors(data?.errors)
 
-  const customerAccessToken = response?.customerAccessToken
-  const accessToken = customerAccessToken?.accessToken
+  const token = data?.token
 
-  if (accessToken) {
-    setCustomerToken(accessToken)
+  if (token) {
+    setToken(token)
+    setCSRFToken(token)
   }
 
-  return customerAccessToken
+  return token 
 }
 
 export const handleAutomaticLogin = async (
   fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
-  input: CustomerAccessTokenCreateInput
+  input: MutationTokenCreateArgs 
 ) => {
   try {
-    const loginData = await fetch({
+    const { tokenCreate } = await fetch<
+      Mutation,
+      MutationTokenCreateArgs
+    >({
       query: customerAccessTokenCreateMutation,
-      variables: {
-        input,
-      },
+      variables: { ...input },
     })
-    handleLogin(loginData)
-  } catch (error) {}
+    handleLogin(tokenCreate!)
+  } catch (error) {
+    //
+  }
 }
 
 export default handleLogin

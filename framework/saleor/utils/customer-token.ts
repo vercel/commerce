@@ -1,20 +1,19 @@
 import Cookies, { CookieAttributes } from 'js-cookie'
 
-export const getCustomerToken = () => Cookies.get('saleorAccessToken')
+export const getToken = () => Cookies.get('saleor.Token')
+export const setToken = (token?: string, options?: CookieAttributes) => {
+  setCookie('saleor.Token', token, options)
+}
 
-export const setCustomerToken = (
-  token: string | null,
-  options?: CookieAttributes
-) => {
+export const getCSRFToken = () => Cookies.get('saleor.CSRFToken')
+export const setCSRFToken = (token?: string, options?: CookieAttributes) => {
+  setCookie('saleor.CSRFToken', token, options)
+}
+
+const setCookie = (name: string, token?: string, options?: CookieAttributes) => {
   if (!token) {
-    Cookies.remove('saleorAccessToken')
+    Cookies.remove(name)
   } else {
-    Cookies.set(
-      'saleorAccessToken',
-      token,
-      options ?? {
-        expires: 60 * 60 * 24 * 30,
-      }
-    )
+    Cookies.set(name, token, options ?? { expires: 60 * 60 * 24 * 30 })
   }
 }

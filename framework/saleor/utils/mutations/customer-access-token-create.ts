@@ -1,11 +1,10 @@
-const customerAccessTokenCreateMutation = /* GraphQL */ `
-  mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
-    customerAccessTokenCreate(input: $input) {
-      customerAccessToken {
-        accessToken
-        expiresAt
-      }
-      customerUserErrors {
+const tokenCreateMutation = /* GraphQL */ `
+  mutation tokenCreate($email: String!, $password: String!) {
+    tokenCreate(email: $email, password: $password) {
+      token
+      refreshToken
+      csrfToken
+      errors {
         code
         field
         message
@@ -13,4 +12,4 @@ const customerAccessTokenCreateMutation = /* GraphQL */ `
     }
   }
 `
-export default customerAccessTokenCreateMutation
+export default tokenCreateMutation;

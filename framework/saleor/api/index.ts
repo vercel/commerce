@@ -45,8 +45,8 @@ export class Config {
 const config = new Config({
   locale: 'en-US',
   commerceUrl: API_URL,
-  apiToken: "",
-  cartCookie: "saleorCheckoutID",
+  apiToken: "saleor.Token",
+  cartCookie: "saleor.CheckoutID",
   cartCookieMaxAge: 60 * 60 * 24 * 30,
   fetch: fetchGraphqlApi,
   customerCookie: "",
