@@ -1,4 +1,4 @@
-import { swellConfig } from '../../index'
+import { swellConfig } from '../..'
 
 const fetchSwellApi = async (
   query: string,

@@ -13,10 +13,8 @@ import useRemoveItem, {
 } from '@commerce/cart/use-remove-item'
 
 import useCart from './use-cart'
-import { checkoutLineItemRemoveMutation, getCheckoutId } from '../utils'
 import { checkoutToCart } from './utils'
 import { Cart, LineItem } from '../types'
-import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../schema'
 import { RemoveCartItemBody } from '@commerce/types'
 
 export type RemoveItemFn<T = any> = T extends LineItem
@@ -39,12 +37,10 @@ export const handler = {
     options,
     fetch,
   }: HookFetcherContext<RemoveCartItemBody>) {
-    const response = await fetch<Mutation, MutationCheckoutLineItemsRemoveArgs>(
-      {
-        ...options,
-        variables: [itemId],
-      }
-    )
+    const response = await fetch({
+      ...options,
+      variables: [itemId],
+    })
     return checkoutToCart(response)
   },
   useHook: ({
@@ -52,9 +48,9 @@ export const handler = {
   }: MutationHookContext<Cart | null, RemoveCartItemBody>) => <
     T extends LineItem | undefined = undefined
   >(
-    item
+    ctx: { item?: T } = {}
   ) => {
-    // const { item } = ctx
+    const { item } = ctx
     const { mutate } = useCart()
     const removeItem: RemoveItemFn<LineItem> = async (input) => {
       const itemId = input?.id ?? item?.id

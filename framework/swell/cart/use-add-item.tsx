@@ -5,7 +5,6 @@ import useCart from './use-cart'
 import { Cart, CartItemBody } from '../types'
 import { checkoutToCart } from './utils'
 import { getCheckoutId } from '../utils'
-import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
 import { useCallback } from 'react'
 
 export default useAddItem as UseAddItem<typeof handler>
@@ -38,7 +37,7 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       variables.variant_id = item.variantId
     }
 
-    const response = await fetch<Mutation, MutationCheckoutLineItemsAddArgs>({
+    const response = await fetch({
       ...options,
       variables,
     })

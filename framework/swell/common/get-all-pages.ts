@@ -25,7 +25,7 @@ const getAllPages = async (options?: {
   config = getConfig(config)
   const { locale, fetchSwell } = config
   const { results } = await fetchSwell('content', 'list', ['pages'])
-  const pages = results.map(({ slug, ...rest }) => ({
+  const pages = results.map(({ slug, ...rest }: { slug: string }) => ({
     url: `/${locale}/${slug}`,
     ...rest,
   }))
