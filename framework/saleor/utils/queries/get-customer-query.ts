@@ -1,15 +1,19 @@
+// FIXME move to `mutations/` @zaiste
 export const getCustomerQuery = /* GraphQL */ `
-  query getCustomer($customerAccessToken: String!) {
-    customer(customerAccessToken: $customerAccessToken) {
-      id
-      firstName
-      lastName
-      displayName
-      email
-      phone
-      tags
-      acceptsMarketing
-      createdAt
+  mutation getCustomer($customerAccessToken: String!) {
+    tokenRefresh(csrfToken: $customerAccessToken) {
+      token
+      user {
+        id
+        email
+        firstName
+        lastName
+        dateJoined
+      }
+      errors {
+        code
+        message
+      }
     }
   }
 `
