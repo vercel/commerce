@@ -139,7 +139,7 @@ export function normalizeProduct(productNode: CatalogItemProduct): Product {
     images: media?.length ? normalizeProductImages(media, title ?? '') : [],
     vendor: product.vendor,
     price: {
-      value: pricing[0]?.price ?? 0,
+      value: pricing[0]?.minPrice ?? 0,
       currencyCode: pricing[0]?.currency.code,
     },
     variants: variants?.length ? normalizeProductVariants(variants) : [],
