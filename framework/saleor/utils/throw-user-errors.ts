@@ -1,35 +1,21 @@
 import { ValidationError } from '@commerce/utils/errors'
 
-import {
-  CheckoutErrorCode,
-  CheckoutUserError,
-  CustomerErrorCode,
-  CustomerUserError,
-} from '../schema'
+import { CheckoutError, CheckoutErrorCode, AppError, AccountError, AccountErrorCode } from '../schema'
 
-export type UserErrors = Array<CheckoutUserError | CustomerUserError>
+export type UserErrors = Array<CheckoutError | AccountError | AppError> 
 
 export type UserErrorCode =
-  | CustomerErrorCode
   | CheckoutErrorCode
+  | AccountErrorCode 
   | null
   | undefined
-
-const getCustomMessage = (code: UserErrorCode, message: string) => {
-  switch (code) {
-    case 'UNIDENTIFIED_CUSTOMER':
-      message = 'Cannot find an account that matches the provided credentials'
-      break
-  }
-  return message
-}
 
 export const throwUserErrors = (errors?: UserErrors) => {
   if (errors && errors.length) {
     throw new ValidationError({
       errors: errors.map(({ code, message }) => ({
         code: code ?? 'validation_error',
-        message: getCustomMessage(code, message),
+        message: message || "", 
       })),
     })
   }
