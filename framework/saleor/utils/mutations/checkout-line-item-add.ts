@@ -1,6 +1,6 @@
 import { checkoutDetailsFragment } from '../queries/get-checkout-query'
 
-const checkoutLineItemAddMutation = /* GraphQL */ `
+export const checkoutLineAdd = /* GraphQL */ `
   mutation checkoutLineItemAdd($checkoutId: ID!, $lineItems: [CheckoutLineInput!]!) {
     checkoutLinesAdd(checkoutId: $checkoutId, lines: $lineItems) {
       errors {
@@ -14,4 +14,3 @@ const checkoutLineItemAddMutation = /* GraphQL */ `
     }
   }
 `
-export default checkoutLineItemAddMutation

@@ -10,8 +10,8 @@ import useRemoveItem, {
   UseRemoveItem,
 } from '@commerce/cart/use-remove-item'
 import useCart from './use-cart'
+import * as mutation from '../utils/mutations'
 import {
-  checkoutLineItemRemoveMutation,
   getCheckoutId,
   checkoutToCart,
 } from '../utils'
@@ -29,9 +29,7 @@ export type RemoveItemInput<T = any> = T extends LineItem
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
-  fetchOptions: {
-    query: checkoutLineItemRemoveMutation,
-  },
+  fetchOptions: { query: mutation.checkoutLineDelete },
   async fetcher({
     input: { itemId },
     options,

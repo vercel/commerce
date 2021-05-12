@@ -1,5 +1,5 @@
 import { getConfig, SaleorConfig } from '../api'
-import getPageQuery from '../utils/queries/get-page-query'
+import { getPageQuery } from '../utils/queries'
 import { Page } from './get-all-pages'
 
 type Variables = {

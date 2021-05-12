@@ -47,7 +47,7 @@ export const checkoutDetailsFragment = `
   }
 `
 
-const getCheckoutQuery = /* GraphQL */ `
+export const getCheckoutQuery = /* GraphQL */ `
   query($checkoutId: UUID!) {
     checkout(token: $checkoutId) {
       ... on Checkout {
@@ -56,4 +56,3 @@ const getCheckoutQuery = /* GraphQL */ `
     }
   }
 `
-export default getCheckoutQuery

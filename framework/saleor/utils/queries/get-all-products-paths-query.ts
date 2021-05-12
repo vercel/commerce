@@ -1,4 +1,4 @@
-const getAllProductsPathsQuery = /* GraphQL */ `
+export const getAllProductsPathsQuery = /* GraphQL */ `
   query getAllProductPaths(
     $first: Int = 100
     $cursor: String
@@ -18,4 +18,3 @@ const getAllProductsPathsQuery = /* GraphQL */ `
     }
   }
 `
-export default getAllProductsPathsQuery

@@ -1,6 +1,6 @@
 import { checkoutDetailsFragment } from '../queries/get-checkout-query'
 
-const checkoutCreateMutation = /* GraphQL */ `
+export const checkoutCreate = /* GraphQL */ `
   mutation createCheckout {
     checkoutCreate(input: {
       email: "customer@example.com", 
@@ -18,4 +18,3 @@ const checkoutCreateMutation = /* GraphQL */ `
     }
   }
 `
-export default checkoutCreateMutation

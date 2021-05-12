@@ -1,5 +1,5 @@
 import { getConfig, SaleorConfig } from '../api'
-import getCustomerIdQuery from '../utils/queries/get-customer-id-query'
+import { getCustomerIdQuery } from '../utils/queries'
 import Cookies from 'js-cookie'
 
 async function getCustomerId({

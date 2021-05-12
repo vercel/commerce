@@ -1,4 +1,4 @@
-const customerCreateMutation = /* GraphQL */ `
+export const accountRegister = /* GraphQL */ `
   mutation customerCreate($input: AccountRegisterInput!) {
     accountRegister(input: $input) {
       errors {
@@ -13,4 +13,3 @@ const customerCreateMutation = /* GraphQL */ `
     }
   }
 `
-export default customerCreateMutation

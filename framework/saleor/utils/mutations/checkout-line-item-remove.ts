@@ -1,6 +1,6 @@
 import { checkoutDetailsFragment } from '../queries/get-checkout-query'
 
-const checkoutLineItemRemoveMutation = /* GraphQL */ `
+export const checkoutLineDelete = /* GraphQL */ `
   mutation checkoutLineItemRemove($checkoutId: ID!, $lineId: ID!) {
     checkoutLineDelete(
       checkoutId: $checkoutId
@@ -17,4 +17,3 @@ const checkoutLineItemRemoveMutation = /* GraphQL */ `
     }
   }
 `
-export default checkoutLineItemRemoveMutation

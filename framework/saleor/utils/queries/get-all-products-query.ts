@@ -28,7 +28,7 @@ export const productConnection = /* GraphQL */ `
   }
 `
 
-const getAllProductsQuery = /* GraphQL */ `
+export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $first: Int = 100
     $filter: ProductFilterInput
@@ -40,4 +40,3 @@ const getAllProductsQuery = /* GraphQL */ `
   }
   ${productConnection}
 `
-export default getAllProductsQuery

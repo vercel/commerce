@@ -1,8 +1,9 @@
 import { useCallback } from 'react'
+
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
-import tokenCreateMutation from '../utils/mutations/customer-access-token-create'
+import * as mutation from '../utils/mutations'
 import {
   Mutation,
   MutationTokenCreateArgs,
@@ -14,7 +15,7 @@ export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<null, {}, MutationTokenCreateArgs> = {
   fetchOptions: {
-    query: tokenCreateMutation,
+    query: mutation.sessionCreate,
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {

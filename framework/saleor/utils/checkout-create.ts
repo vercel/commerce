@@ -1,16 +1,13 @@
 import Cookies from 'js-cookie'
 
-import checkoutCreateMutation from './mutations/checkout-create'
+import * as mutation from './mutations'
 import { CheckoutCreate } from '../schema'
 import { CHECKOUT_ID_COOKIE } from '@framework/const'
 
 export const checkoutCreate = async (
   fetch: any
 ): Promise<CheckoutCreate> => {
-  const data = await fetch({
-    query: checkoutCreateMutation,
-  })
-
+  const data = await fetch({ query: mutation.checkoutCreate })
   const checkout = data.checkoutCreate?.checkout
   const checkoutId = checkout?.id
   const checkoutToken = checkout?.token 

@@ -9,7 +9,7 @@ import {
   MutationAccountRegisterArgs
 } from '../schema'
 
-import { customerCreateMutation } from '../utils/mutations'
+import * as mutation from '../utils/mutations'
 import { handleAutomaticLogin, throwUserErrors } from '../utils'
 
 export default useSignup as UseSignup<typeof handler>
@@ -21,7 +21,7 @@ export const handler: MutationHook<
   AccountRegisterInput
 > = {
   fetchOptions: {
-    query: customerCreateMutation,
+    query: mutation.accountRegister 
   },
   async fetcher({
     input: { email, password },

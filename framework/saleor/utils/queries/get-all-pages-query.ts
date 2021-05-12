@@ -11,4 +11,3 @@ export const getAllPagesQuery = /* GraphQL */ `
     }
   }
 `
-export default getAllPagesQuery

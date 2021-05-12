@@ -7,4 +7,3 @@ export const getPageQuery = /* GraphQL */ `
     }
   }
 `
-export default getPageQuery

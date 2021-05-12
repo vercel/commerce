@@ -1,4 +1,4 @@
-const customerAccessTokenDeleteMutation = /* GraphQL */ `
+export const sessionDestroy = /* GraphQL */ `
   mutation customerAccessTokenDelete {
     tokensDeactivateAll {
       errors {
@@ -8,5 +8,3 @@ const customerAccessTokenDeleteMutation = /* GraphQL */ `
     }
   }
 `
-
-export default customerAccessTokenDeleteMutation

@@ -3,20 +3,21 @@ import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
+
+import * as mutation from '../utils/mutations'
+
 import {
-  checkoutLineItemAddMutation,
   getCheckoutId,
   checkoutToCart,
 } from '../utils'
+
 import { Cart, CartItemBody } from '../types'
 import { Mutation, MutationCheckoutLinesAddArgs } from '../schema'
 
 export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<Cart, {}, CartItemBody> = {
-  fetchOptions: {
-    query: checkoutLineItemAddMutation,
-  },
+  fetchOptions: { query: mutation.checkoutLineAdd },
   async fetcher({ input: item, options, fetch }) {
     if (
       item.quantity &&

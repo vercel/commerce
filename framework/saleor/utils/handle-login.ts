@@ -1,7 +1,7 @@
 import { FetcherOptions } from '@commerce/utils/types'
 import { CreateToken, Mutation, MutationTokenCreateArgs } from '../schema'
 import { setToken, setCSRFToken } from './customer-token'
-import { customerAccessTokenCreateMutation } from './mutations'
+import * as mutation from './mutations'
 import throwUserErrors from './throw-user-errors'
 
 const handleLogin = (data: CreateToken) => {
@@ -26,7 +26,7 @@ export const handleAutomaticLogin = async (
       Mutation,
       MutationTokenCreateArgs
     >({
-      query: customerAccessTokenCreateMutation,
+      query: mutation.sessionCreate,
       variables: { ...input },
     })
     handleLogin(tokenCreate!)

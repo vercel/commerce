@@ -1,4 +1,4 @@
-const tokenCreateMutation = /* GraphQL */ `
+export const sessionCreate = /* GraphQL */ `
   mutation tokenCreate($email: String!, $password: String!) {
     tokenCreate(email: $email, password: $password) {
       token
@@ -12,4 +12,3 @@ const tokenCreateMutation = /* GraphQL */ `
     }
   }
 `
-export default tokenCreateMutation;

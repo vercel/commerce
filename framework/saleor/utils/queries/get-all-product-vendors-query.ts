@@ -1,4 +1,4 @@
-const getAllProductVendors = /* GraphQL */ `
+export const getAllProductVendors = /* GraphQL */ `
   query getAllProductVendors($first: Int = 250, $cursor: String) {
     products(first: $first, after: $cursor) {
       pageInfo {
@@ -14,4 +14,3 @@ const getAllProductVendors = /* GraphQL */ `
     }
   }
 `
-export default getAllProductVendors

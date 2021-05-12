@@ -14,8 +14,10 @@ import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
 import type { Cart, LineItem, UpdateCartItemBody } from '../types'
 import { checkoutToCart } from '../utils'
-import { getCheckoutId, checkoutLineItemUpdateMutation } from '../utils'
+import { getCheckoutId } from '../utils'
 import { Mutation, MutationCheckoutLinesUpdateArgs } from '../schema'
+
+import * as mutation from '../utils/mutations'
 
 export type UpdateItemInput<T = any> = T extends LineItem
   ? Partial<UpdateItemInputBase<LineItem>>
@@ -24,9 +26,7 @@ export type UpdateItemInput<T = any> = T extends LineItem
 export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
-  fetchOptions: {
-    query: checkoutLineItemUpdateMutation,
-  },
+  fetchOptions: { query: mutation.checkoutLineUpdate },
   async fetcher({
     input: { itemId, item },
     options,
