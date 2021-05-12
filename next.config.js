@@ -7,7 +7,7 @@ const {
 const provider = commerce.provider || getProviderName()
 const isBC = provider === 'bigcommerce'
 const isShopify = provider === 'shopify'
-const isSwell = commerce.provider === 'swell'
+const isSwell = provider === 'swell'
 
 module.exports = withCommerceConfig({
   commerce,

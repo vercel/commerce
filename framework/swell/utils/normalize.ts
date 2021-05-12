@@ -60,7 +60,7 @@ const normalizeProductOption = ({
 }
 
 const normalizeProductImages = (images: SwellImage[]) => {
-  if (!images) {
+  if (!images || images.length < 1) {
     return [{ url: '/' }]
   }
   return images?.map(({ file, ...rest }: SwellImage) => ({
