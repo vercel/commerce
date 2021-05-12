@@ -49,6 +49,7 @@ catalogItems(
   sortBy: $sortBy
   tagIds: $tagIds
   shopIds: $shopIds
+  searchQuery: $searchQuery
 ) {
   ${catalogItemsConnection}
 }
@@ -60,6 +61,7 @@ const catalogItemsQuery = /* GraphQL */ `
     $sortBy: CatalogItemSortByField = updatedAt
     $tagIds: [ID]
     $shopIds: [ID]!
+    $searchQuery: String
   ) {
     ${catalogItemsFragment}
   }

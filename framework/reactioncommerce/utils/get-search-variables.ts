@@ -7,15 +7,15 @@ export const getSearchVariables = ({
   categoryId,
   sort,
 }: SearchProductsInput) => {
-  let query = ''
+  let searchQuery = ''
   let tagIdsParam = {}
 
   if (search) {
-    query += `product_type:${search} OR title:${search} OR tag:${search}`
+    searchQuery += search
   }
 
   if (brandId) {
-    query += `${search ? ' AND ' : ''}vendor:${brandId}`
+    searchQuery += `${search ? ' ' : ''}${brandId}`
   }
 
   if (categoryId) {
@@ -25,8 +25,7 @@ export const getSearchVariables = ({
   }
 
   return {
-    // categoryId,
-    // query,
+    searchQuery,
     ...tagIdsParam,
     ...getSortVariables(sort, !!categoryId),
   }
