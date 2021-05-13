@@ -17,7 +17,7 @@ const getPage = async (options: {
   config = getConfig(config)
   const { locale } = config
   const { id } = variables
-  const result = await config.fetchSwell('content', 'get', ['pages', id])
+  const result = await config.fetch('content', 'get', ['pages', id])
   const page = result
 
   return {

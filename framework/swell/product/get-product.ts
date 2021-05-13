@@ -18,10 +18,12 @@ const getProduct = async (options: {
   let { config, variables } = options ?? {}
   config = getConfig(config)
 
-  const product = await config.fetchSwell('products', 'get', [variables.slug])
+  const product = await config.fetch('products', 'get', [variables.slug])
+
   if (product && product.variants) {
     product.variants = product.variants?.results
   }
+
   return {
     product: product ? normalizeProduct(product) : null,
   }

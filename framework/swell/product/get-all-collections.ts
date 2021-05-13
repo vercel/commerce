@@ -9,7 +9,7 @@ const getAllCollections = async (options?: {
   let { config, variables = { limit: 25 } } = options ?? {}
   config = getConfig(config)
 
-  const response = await config.fetchSwell('categories', 'list', { variables })
+  const response = await config.fetch('categories', 'list', { variables })
   const edges = response.results ?? []
 
   const categories = edges.map(

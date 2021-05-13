@@ -75,9 +75,8 @@ export default function Search({
 
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
-    // TODO: Shopify - Fix this type
+    // @ts-ignore Swell - Fix this types
     categoryId: activeCategory?.entityId as any,
-    // TODO: Shopify - Fix this type
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
   })

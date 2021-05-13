@@ -47,7 +47,7 @@ export const handler = {
     }
     const response = await fetch({
       ...options,
-      variables: [item.itemId, { quantity: item.quantity }],
+      variables: [itemId, { quantity: item.quantity }],
     })
 
     return checkoutToCart(response)
@@ -79,7 +79,6 @@ export const handler = {
         const data = await fetch({
           input: {
             item: {
-              itemId,
               productId,
               variantId,
               quantity: input.quantity,

@@ -1,5 +1,5 @@
 import { Cart } from '../../types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import { CommerceError } from '@commerce/utils/errors'
 
 import {
   CheckoutLineItemsAddPayload,
@@ -20,8 +20,7 @@ const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
       message: 'Invalid response from Swell',
     })
   }
-
-  return normalizeCart(checkoutPayload)
+  return normalizeCart(checkoutPayload as any)
 }
 
 export default checkoutToCart

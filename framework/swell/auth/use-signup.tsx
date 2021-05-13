@@ -5,10 +5,6 @@ import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import useCustomer from '../customer/use-customer'
 import { CustomerCreateInput } from '../schema'
 
-import {
-  customerCreateMutation,
-  customerAccessTokenCreateMutation,
-} from '../utils/mutations'
 import handleLogin from '../utils/handle-login'
 
 export default useSignup as UseSignup<typeof handler>

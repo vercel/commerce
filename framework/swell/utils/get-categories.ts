@@ -1,15 +1,15 @@
 import { SwellConfig } from '../api'
 
 export type Category = {
-  id: string
+  entityId: string
   name: string
-  slug: string
+  path: string
 }
 
 const getCategories = async (config: SwellConfig): Promise<Category[]> => {
-  const data = await config.fetchSwell('categories', 'get')
+  const data = await config.fetch('categories', 'get')
   return (
-    data.results.map(({ id: entityId, name, slug }: Category) => ({
+    data.results.map(({ id: entityId, name, slug }: any) => ({
       entityId,
       name,
       path: `/${slug}`,
