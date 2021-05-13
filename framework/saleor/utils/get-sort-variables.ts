@@ -1,32 +1,31 @@
-const getSortVariables = (sort?: string, isCategory: boolean = false) => {
+export const getSortVariables = (sort?: string, isCategory: boolean = false) => {
   let output = {}
   switch (sort) {
     case 'price-asc':
       output = {
-        sortKey: 'PRICE',
-        reverse: false,
+        field: 'PRICE',
+        direction: 'ASC'
       }
       break
     case 'price-desc':
       output = {
-        sortKey: 'PRICE',
-        reverse: true,
+        field: 'PRICE',
+        direction: 'DESC',
       }
       break
     case 'trending-desc':
       output = {
-        sortKey: 'BEST_SELLING',
-        reverse: false,
+        field: 'RANK',
+        direction: 'DESC',
       }
       break
     case 'latest-desc':
       output = {
-        sortKey: isCategory ? 'CREATED' : 'CREATED_AT',
-        reverse: true,
+        field: 'DATE',
+        direction: 'DESC'
       }
       break
   }
   return output
 }
 
-export default getSortVariables

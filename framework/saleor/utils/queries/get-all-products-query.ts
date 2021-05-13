@@ -1,5 +1,5 @@
 export const productConnection = /* GraphQL */ `
-  fragment productConnnection on ProductCountableConnection {
+  fragment productConnection on ProductCountableConnection {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -32,10 +32,11 @@ export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $first: Int = 100
     $filter: ProductFilterInput
+    $sortBy: ProductOrder
     $channel: String = "default-channel"
   ) {
-    products(first: $first, channel: $channel, filter: $filter) {
-      ...productConnnection
+    products(first: $first, channel: $channel, filter: $filter, sortBy: $sortBy) {
+      ...productConnection
     }
   }
   ${productConnection}

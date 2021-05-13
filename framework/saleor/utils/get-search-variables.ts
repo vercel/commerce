@@ -1,4 +1,4 @@
-import getSortVariables from './get-sort-variables'
+import { getSortVariables } from './get-sort-variables'
 import type { SearchProductsInput } from '../product/use-search'
 
 export const getSearchVariables = ({
@@ -7,10 +7,11 @@ export const getSearchVariables = ({
   categoryId,
   sort,
 }: SearchProductsInput) => {
+  const sortBy = { direction: 'ASC', ...getSortVariables(sort, !!categoryId), channel: "default-channel"};
   return {
     categoryId,
     filter: { search },
-    ...getSortVariables(sort, !!categoryId),
+    sortBy
   }
 }
 
