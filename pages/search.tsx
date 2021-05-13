@@ -75,8 +75,7 @@ export default function Search({
 
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
-    // @ts-ignore Swell - Fix this types
-    categoryId: activeCategory?.entityId as any,
+    categoryId: activeCategory?.entityId,
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
   })
