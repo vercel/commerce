@@ -1,4 +1,4 @@
-import { SwellProduct } from '@framework/types'
+import { SwellProduct } from '../types'
 import { getConfig, SwellConfig } from '../api'
 
 type ProductPath = {
