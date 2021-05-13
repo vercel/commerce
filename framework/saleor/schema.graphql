@@ -73,6 +73,11 @@ type AccountError {
   The error code.
   """
   code: AccountErrorCode!
+
+  """
+  A type of address that causes the error.
+  """
+  addressType: AddressTypeEnum
 }
 
 """
@@ -109,6 +114,8 @@ enum AccountErrorCode {
   JWT_DECODE_ERROR
   JWT_MISSING_TOKEN
   JWT_INVALID_CSRF_TOKEN
+  CHANNEL_INACTIVE
+  MISSING_CHANNEL_SLUG
 }
 
 input AccountInput {
@@ -179,6 +186,11 @@ input AccountRegisterInput {
   User public metadata.
   """
   metadata: [MetadataInput!]
+
+  """
+  Slug of a channel which will be used to notify users. Optional when only one channel exists.
+  """
+  channel: String
 }
 
 """
@@ -888,6 +900,18 @@ type AppUpdate {
 }
 
 """
+An enumeration.
+"""
+enum AreaUnitsEnum {
+  SQ_CM
+  SQ_M
+  SQ_KM
+  SQ_FT
+  SQ_YD
+  SQ_INCH
+}
+
+"""
 Assigns storefront's navigation menus.
 """
 type AssignNavigation {
@@ -957,6 +981,11 @@ type Attribute implements Node & ObjectWithMetadata {
   The attribute type.
   """
   type: AttributeTypeEnum
+
+  """
+  The unit of attribute values.
+  """
+  unit: MeasurementUnitsEnum
 
   """
   List of attribute's values.
@@ -1083,6 +1112,11 @@ input AttributeCreateInput {
   type: AttributeTypeEnum!
 
   """
+  The unit of attribute values.
+  """
+  unit: MeasurementUnitsEnum
+
+  """
   List of attribute's values.
   """
   values: [AttributeValueCreateInput]
@@ -1202,6 +1236,11 @@ input AttributeInput {
   Internal representation of a value (unique per attribute).
   """
   values: [String]
+
+  """
+  The range that the returned values should be in.
+  """
+  valuesRange: IntRangeInput
 }
 
 """
@@ -1212,6 +1251,7 @@ enum AttributeInputTypeEnum {
   MULTISELECT
   FILE
   REFERENCE
+  NUMERIC
   RICH_TEXT
 }
 
@@ -1367,6 +1407,11 @@ input AttributeUpdateInput {
   Internal representation of an attribute name.
   """
   slug: String
+
+  """
+  The unit of attribute values.
+  """
+  unit: MeasurementUnitsEnum
 
   """
   IDs of values to be removed from this attribute.
@@ -1742,13 +1787,12 @@ input CatalogueInput {
 Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront.
 """
 type Category implements Node & ObjectWithMetadata {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   name: String!
   description: JSONString
   slug: String!
@@ -2007,13 +2051,12 @@ input CategorySortingInput {
 }
 
 type CategoryTranslatableContent implements Node {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   name: String!
   description: JSONString
 
@@ -2054,13 +2097,12 @@ type CategoryTranslate {
 }
 
 type CategoryTranslation implements Node {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   name: String!
   description: JSONString
 
@@ -2107,11 +2149,6 @@ type Channel implements Node {
   Whether a channel has associated orders.
   """
   hasOrders: Boolean!
-
-  """
-  List of channel shipping zones.
-  """
-  shippingZones: [ShippingZone!]!
 }
 
 """
@@ -2286,7 +2323,6 @@ type Checkout implements Node & ObjectWithMetadata {
   created: DateTime!
   lastChange: DateTime!
   user: User
-  quantity: Int!
   channel: Channel!
   billingAddress: Address
   shippingAddress: Address
@@ -2335,6 +2371,11 @@ type Checkout implements Node & ObjectWithMetadata {
   Returns True, if checkout requires shipping.
   """
   isShippingRequired: Boolean!
+
+  """
+  The number of items purchased.
+  """
+  quantity: Int!
 
   """
   A list of checkout lines, each containing information about an item in the checkout.
@@ -2457,7 +2498,7 @@ Create a new checkout.
 """
 type CheckoutCreate {
   """
-  Whether the checkout was created or the current active one was returned. Refer to checkoutLinesAdd and checkoutLinesUpdate to merge a cart with an active checkout.
+  Whether the checkout was created or the current active one was returned. Refer to checkoutLinesAdd and checkoutLinesUpdate to merge a cart with an active checkout.DEPRECATED: Will be removed in Saleor 4.0. Always returns True.
   """
   created: Boolean
   checkoutErrors: [CheckoutError!]!
@@ -2565,6 +2606,11 @@ type CheckoutError {
   List of varint IDs which causes the error.
   """
   variants: [ID!]
+
+  """
+  A type of address that causes the error.
+  """
+  addressType: AddressTypeEnum
 }
 
 """
@@ -2789,13 +2835,12 @@ type ChoiceValue {
 Represents a collection of products.
 """
 type Collection implements Node & ObjectWithMetadata {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   name: String!
   description: JSONString
   slug: String!
@@ -2909,13 +2954,12 @@ type CollectionBulkDelete {
 Represents collection channel listing.
 """
 type CollectionChannelListing implements Node {
-  publicationDate: Date
-  isPublished: Boolean!
-
   """
   The ID of the object.
   """
   id: ID!
+  publicationDate: Date
+  isPublished: Boolean!
   channel: Channel!
 }
 
@@ -3238,13 +3282,12 @@ input CollectionSortingInput {
 }
 
 type CollectionTranslatableContent implements Node {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   name: String!
   description: JSONString
 
@@ -3285,13 +3328,12 @@ type CollectionTranslate {
 }
 
 type CollectionTranslation implements Node {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   name: String!
   description: JSONString
 
@@ -3373,6 +3415,7 @@ enum ConfigurationTypeFieldEnum {
   SECRET
   PASSWORD
   SECRETMULTILINE
+  OUTPUT
 }
 
 """
@@ -4207,6 +4250,18 @@ enum DiscountStatusEnum {
 enum DiscountValueTypeEnum {
   FIXED
   PERCENTAGE
+}
+
+"""
+An enumeration.
+"""
+enum DistanceUnitsEnum {
+  CM
+  M
+  KM
+  FT
+  YD
+  INCH
 }
 
 """
@@ -5625,6 +5680,42 @@ type Manifest {
 type Margin {
   start: Int
   stop: Int
+}
+
+"""
+An enumeration.
+"""
+enum MeasurementUnitsEnum {
+  CM
+  M
+  KM
+  FT
+  YD
+  INCH
+  SQ_CM
+  SQ_M
+  SQ_KM
+  SQ_FT
+  SQ_YD
+  SQ_INCH
+  CUBIC_MILLIMETER
+  CUBIC_CENTIMETER
+  CUBIC_DECIMETER
+  CUBIC_METER
+  LITER
+  CUBIC_FOOT
+  CUBIC_INCH
+  CUBIC_YARD
+  QT
+  PINT
+  FL_OZ
+  ACRE_IN
+  ACRE_FT
+  G
+  LB
+  OZ
+  KG
+  TONNE
 }
 
 """
@@ -7289,6 +7380,11 @@ type Mutation {
   """
   paymentInitialize(
     """
+    Slug of a channel for which the data should be returned.
+    """
+    channel: String
+
+    """
     A gateway name used to initialize the payment.
     """
     gateway: String!
@@ -8180,6 +8276,11 @@ type Mutation {
   Update plugin configuration.
   """
   pluginUpdate(
+    """
+    ID of a channel for which the data should be modified.
+    """
+    channel: ID
+
     """
     ID of plugin to update.
     """
@@ -9095,6 +9196,11 @@ type Mutation {
   """
   requestPasswordReset(
     """
+    Slug of a channel which will be used for notify user. Optional when only one channel exists.
+    """
+    channel: String
+
+    """
     Email of the user that will be used for password recovery.
     """
     email: String!
@@ -9160,6 +9266,11 @@ type Mutation {
   """
   requestEmailChange(
     """
+    Slug of a channel which will be used to notify users. Optional when only one channel exists.
+    """
+    channel: String
+
+    """
     New user email.
     """
     newEmail: String!
@@ -9179,6 +9290,11 @@ type Mutation {
   Confirm the email change of the logged-in user.
   """
   confirmEmailChange(
+    """
+    Slug of a channel which will be used to notify users. Optional when only one channel exists.
+    """
+    channel: String
+
     """
     A one-time token required to change the email.
     """
@@ -9264,6 +9380,11 @@ type Mutation {
   Sends an email with the account removal link for the logged-in user.
   """
   accountRequestDeletion(
+    """
+    Slug of a channel which will be used to notify users. Optional when only one channel exists.
+    """
+    channel: String
+
     """
     URL of a view where users should be redirected to delete their account. URL in RFC 1808 format.
     """
@@ -9608,6 +9729,16 @@ type Order implements Node & ObjectWithMetadata {
   User-friendly number of an order.
   """
   number: String
+
+  """
+  The ID of the order that was the base for this order.
+  """
+  original: ID
+
+  """
+  The order origin.
+  """
+  origin: OrderOriginEnum!
 
   """
   Informs if an order is fully paid.
@@ -10014,6 +10145,11 @@ type OrderError {
   List of product variants that are associated with the error
   """
   variants: [ID!]
+
+  """
+  A type of address that causes the error.
+  """
+  addressType: AddressTypeEnum
 }
 
 """
@@ -10586,6 +10722,15 @@ type OrderMarkAsPaid {
 }
 
 """
+An enumeration.
+"""
+enum OrderOriginEnum {
+  CHECKOUT
+  DRAFT
+  REISSUE
+}
+
+"""
 Refund an order.
 """
 type OrderRefund {
@@ -10924,13 +11069,12 @@ type OrderVoid {
 A static page that can be manually added by a shop operator through the dashboard.
 """
 type Page implements Node & ObjectWithMetadata {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   title: String!
   content: JSONString
   publicationDate: Date
@@ -11167,6 +11311,7 @@ enum PageErrorCode {
 input PageFilterInput {
   search: String
   metadata: [MetadataInput]
+  pageTypes: [ID]
 }
 
 """
@@ -11286,13 +11431,12 @@ input PageSortingInput {
 }
 
 type PageTranslatableContent implements Node {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   title: String!
   content: JSONString
 
@@ -11333,13 +11477,12 @@ type PageTranslate {
 }
 
 type PageTranslation implements Node {
-  seoTitle: String
-  seoDescription: String
-
   """
   The ID of the object.
   """
   id: ID!
+  seoTitle: String
+  seoDescription: String
   title: String!
   content: JSONString
 
@@ -11754,6 +11897,7 @@ enum PaymentErrorCode {
   SHIPPING_METHOD_NOT_SET
   PAYMENT_ERROR
   NOT_SUPPORTED_GATEWAY
+  CHANNEL_INACTIVE
 }
 
 input PaymentFilterInput {
@@ -12069,12 +12213,56 @@ input PermissionGroupUpdateInput {
 """
 Plugin.
 """
-type Plugin implements Node {
+type Plugin {
+  """
+  Identifier of the plugin.
+  """
   id: ID!
+
+  """
+  Name of the plugin.
+  """
   name: String!
+
+  """
+  Description of the plugin.
+  """
   description: String!
+
+  """
+  Global configuration of the plugin (not channel-specific).
+  """
+  globalConfiguration: PluginConfiguration
+
+  """
+  Channel-specific plugin configuration.
+  """
+  channelConfigurations: [PluginConfiguration!]!
+}
+
+"""
+Stores information about a configuration of plugin.
+"""
+type PluginConfiguration {
+  """
+  Determines if plugin is active or not.
+  """
   active: Boolean!
+
+  """
+  The channel to which the plugin configuration is assigned to.
+  """
+  channel: Channel
+
+  """
+  Configuration of the plugin.
+  """
   configuration: [ConfigurationItem]
+}
+
+enum PluginConfigurationType {
+  PER_CHANNEL
+  GLOBAL
 }
 
 type PluginCountableConnection {
@@ -12132,8 +12320,9 @@ enum PluginErrorCode {
 }
 
 input PluginFilterInput {
-  active: Boolean
+  statusInChannels: PluginStatusInChannelsInput
   search: String
+  type: PluginConfigurationType
 }
 
 enum PluginSortField {
@@ -12151,6 +12340,11 @@ input PluginSortingInput {
   Sort plugins by the selected field.
   """
   field: PluginSortField!
+}
+
+input PluginStatusInChannelsInput {
+  active: Boolean!
+  channels: [ID!]!
 }
 
 """
@@ -16732,6 +16926,7 @@ type ShippingZoneDelete {
 
 input ShippingZoneFilterInput {
   search: String
+  channels: [ID]
 }
 
 """
@@ -16797,9 +16992,14 @@ type Shop {
   """
   availablePaymentGateways(
     """
-    A currency for which gateways will be returned.
+    DEPRECATED: use `channel` argument instead. This argument will be removed in Saleor 4.0.A currency for which gateways will be returned.
     """
     currency: String
+
+    """
+    Slug of a channel for which the data should be returned.
+    """
+    channel: String
   ): [PaymentGateway!]!
 
   """
@@ -17252,6 +17452,11 @@ type StaffError {
   The error code.
   """
   code: AccountErrorCode!
+
+  """
+  A type of address that causes the error.
+  """
+  addressType: AddressTypeEnum
 
   """
   List of permissions which causes the error.
@@ -17962,7 +18167,12 @@ type User implements Node & ObjectWithMetadata {
   """
   List of stored payment sources.
   """
-  storedPaymentSources: [PaymentSource]
+  storedPaymentSources(
+    """
+    Slug of a channel for which the data should be returned.
+    """
+    channel: String
+  ): [PaymentSource]
 
   """
   User language code.
@@ -18085,6 +18295,11 @@ input UserCreateInput {
   URL of a view where users should be redirected to set the password. URL in RFC 1808 format.
   """
   redirectUrl: String
+
+  """
+  Slug of a channel which will be used for notify user. Optional when only one channel exists.
+  """
+  channel: String
 }
 
 type UserPermission {
@@ -18253,6 +18468,25 @@ type VerifyToken {
       reason: "Use errors field instead. This field will be removed in Saleor 4.0."
     )
   errors: [AccountError!]!
+}
+
+"""
+An enumeration.
+"""
+enum VolumeUnitsEnum {
+  CUBIC_MILLIMETER
+  CUBIC_CENTIMETER
+  CUBIC_DECIMETER
+  CUBIC_METER
+  LITER
+  CUBIC_FOOT
+  CUBIC_INCH
+  CUBIC_YARD
+  QT
+  PINT
+  FL_OZ
+  ACRE_IN
+  ACRE_FT
 }
 
 """
@@ -19367,10 +19601,11 @@ scalar WeightScalar
 An enumeration.
 """
 enum WeightUnitsEnum {
-  KG
+  G
   LB
   OZ
-  G
+  KG
+  TONNE
 }
 
 """

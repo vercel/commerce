@@ -102,6 +102,8 @@ export type AccountError = {
   message?: Maybe<Scalars['String']>
   /** The error code. */
   code: AccountErrorCode
+  /** A type of address that causes the error. */
+  addressType?: Maybe<AddressTypeEnum>
 }
 
 /** An enumeration. */
@@ -136,6 +138,8 @@ export enum AccountErrorCode {
   JwtDecodeError = 'JWT_DECODE_ERROR',
   JwtMissingToken = 'JWT_MISSING_TOKEN',
   JwtInvalidCsrfToken = 'JWT_INVALID_CSRF_TOKEN',
+  ChannelInactive = 'CHANNEL_INACTIVE',
+  MissingChannelSlug = 'MISSING_CHANNEL_SLUG',
 }
 
 export type AccountInput = {
@@ -173,6 +177,8 @@ export type AccountRegisterInput = {
   languageCode?: Maybe<LanguageCodeEnum>
   /** User public metadata. */
   metadata?: Maybe<Array<MetadataInput>>
+  /** Slug of a channel which will be used to notify users. Optional when only one channel exists. */
+  channel?: Maybe<Scalars['String']>
 }
 
 /** Sends an email with the account removal link for the logged-in user. */
@@ -616,6 +622,16 @@ export type AppUpdate = {
   app?: Maybe<App>
 }
 
+/** An enumeration. */
+export enum AreaUnitsEnum {
+  SqCm = 'SQ_CM',
+  SqM = 'SQ_M',
+  SqKm = 'SQ_KM',
+  SqFt = 'SQ_FT',
+  SqYd = 'SQ_YD',
+  SqInch = 'SQ_INCH',
+}
+
 /** Assigns storefront's navigation menus. */
 export type AssignNavigation = {
   __typename?: 'AssignNavigation'
@@ -648,6 +664,8 @@ export type Attribute = Node &
     slug?: Maybe<Scalars['String']>
     /** The attribute type. */
     type?: Maybe<AttributeTypeEnum>
+    /** The unit of attribute values. */
+    unit?: Maybe<MeasurementUnitsEnum>
     /** List of attribute's values. */
     values?: Maybe<Array<Maybe<AttributeValue>>>
     /** Whether the attribute requires values to be passed or not. */
@@ -734,6 +752,8 @@ export type AttributeCreateInput = {
   slug?: Maybe<Scalars['String']>
   /** The attribute type. */
   type: AttributeTypeEnum
+  /** The unit of attribute values. */
+  unit?: Maybe<MeasurementUnitsEnum>
   /** List of attribute's values. */
   values?: Maybe<Array<Maybe<AttributeValueCreateInput>>>
   /** Whether the attribute requires values to be passed or not. */
@@ -809,6 +829,8 @@ export type AttributeInput = {
   slug: Scalars['String']
   /** Internal representation of a value (unique per attribute). */
   values?: Maybe<Array<Maybe<Scalars['String']>>>
+  /** The range that the returned values should be in. */
+  valuesRange?: Maybe<IntRangeInput>
 }
 
 /** An enumeration. */
@@ -817,6 +839,7 @@ export enum AttributeInputTypeEnum {
   Multiselect = 'MULTISELECT',
   File = 'FILE',
   Reference = 'REFERENCE',
+  Numeric = 'NUMERIC',
   RichText = 'RICH_TEXT',
 }
 
@@ -911,6 +934,8 @@ export type AttributeUpdateInput = {
   name?: Maybe<Scalars['String']>
   /** Internal representation of an attribute name. */
   slug?: Maybe<Scalars['String']>
+  /** The unit of attribute values. */
+  unit?: Maybe<MeasurementUnitsEnum>
   /** IDs of values to be removed from this attribute. */
   removeValues?: Maybe<Array<Maybe<Scalars['ID']>>>
   /** New values to be created for this attribute. */
@@ -1121,10 +1146,10 @@ export type CatalogueInput = {
 export type Category = Node &
   ObjectWithMetadata & {
     __typename?: 'Category'
-    seoTitle?: Maybe<Scalars['String']>
-    seoDescription?: Maybe<Scalars['String']>
     /** The ID of the object. */
     id: Scalars['ID']
+    seoTitle?: Maybe<Scalars['String']>
+    seoDescription?: Maybe<Scalars['String']>
     name: Scalars['String']
     description?: Maybe<Scalars['JSONString']>
     slug: Scalars['String']
@@ -1271,10 +1296,10 @@ export type CategorySortingInput = {
 
 export type CategoryTranslatableContent = Node & {
   __typename?: 'CategoryTranslatableContent'
-  seoTitle?: Maybe<Scalars['String']>
-  seoDescription?: Maybe<Scalars['String']>
   /** The ID of the object. */
   id: Scalars['ID']
+  seoTitle?: Maybe<Scalars['String']>
+  seoDescription?: Maybe<Scalars['String']>
   name: Scalars['String']
   description?: Maybe<Scalars['JSONString']>
   /**
@@ -1303,10 +1328,10 @@ export type CategoryTranslate = {
 
 export type CategoryTranslation = Node & {
   __typename?: 'CategoryTranslation'
-  seoTitle?: Maybe<Scalars['String']>
-  seoDescription?: Maybe<Scalars['String']>
   /** The ID of the object. */
   id: Scalars['ID']
+  seoTitle?: Maybe<Scalars['String']>
+  seoDescription?: Maybe<Scalars['String']>
   name: Scalars['String']
   description?: Maybe<Scalars['JSONString']>
   /** Translation language. */
@@ -1338,8 +1363,6 @@ export type Channel = Node & {
   currencyCode: Scalars['String']
   /** Whether a channel has associated orders. */
   hasOrders: Scalars['Boolean']
-  /** List of channel shipping zones. */
-  shippingZones: Array<ShippingZone>
 }
 
 /** Activate a channel. */
@@ -1453,7 +1476,6 @@ export type Checkout = Node &
     created: Scalars['DateTime']
     lastChange: Scalars['DateTime']
     user?: Maybe<User>
-    quantity: Scalars['Int']
     channel: Channel
     billingAddress?: Maybe<Address>
     shippingAddress?: Maybe<Address>
@@ -1478,6 +1500,8 @@ export type Checkout = Node &
     email: Scalars['String']
     /** Returns True, if checkout requires shipping. */
     isShippingRequired: Scalars['Boolean']
+    /** The number of items purchased. */
+    quantity: Scalars['Int']
     /** A list of checkout lines, each containing information about an item in the checkout. */
     lines?: Maybe<Array<Maybe<CheckoutLine>>>
     /** The price of the shipping, with all the taxes included. */
@@ -1548,7 +1572,7 @@ export type CheckoutCountableEdge = {
 /** Create a new checkout. */
 export type CheckoutCreate = {
   __typename?: 'CheckoutCreate'
-  /** Whether the checkout was created or the current active one was returned. Refer to checkoutLinesAdd and checkoutLinesUpdate to merge a cart with an active checkout. */
+  /** Whether the checkout was created or the current active one was returned. Refer to checkoutLinesAdd and checkoutLinesUpdate to merge a cart with an active checkout.DEPRECATED: Will be removed in Saleor 4.0. Always returns True. */
   created?: Maybe<Scalars['Boolean']>
   /** @deprecated Use errors field instead. This field will be removed in Saleor 4.0. */
   checkoutErrors: Array<CheckoutError>
@@ -1611,6 +1635,8 @@ export type CheckoutError = {
   code: CheckoutErrorCode
   /** List of varint IDs which causes the error. */
   variants?: Maybe<Array<Scalars['ID']>>
+  /** A type of address that causes the error. */
+  addressType?: Maybe<AddressTypeEnum>
 }
 
 /** An enumeration. */
@@ -1769,10 +1795,10 @@ export type ChoiceValue = {
 export type Collection = Node &
   ObjectWithMetadata & {
     __typename?: 'Collection'
-    seoTitle?: Maybe<Scalars['String']>
-    seoDescription?: Maybe<Scalars['String']>
     /** The ID of the object. */
     id: Scalars['ID']
+    seoTitle?: Maybe<Scalars['String']>
+    seoDescription?: Maybe<Scalars['String']>
     name: Scalars['String']
     description?: Maybe<Scalars['JSONString']>
     slug: Scalars['String']
@@ -1837,10 +1863,10 @@ export type CollectionBulkDelete = {
 /** Represents collection channel listing. */
 export type CollectionChannelListing = Node & {
   __typename?: 'CollectionChannelListing'
-  publicationDate?: Maybe<Scalars['Date']>
-  isPublished: Scalars['Boolean']
   /** The ID of the object. */
   id: Scalars['ID']
+  publicationDate?: Maybe<Scalars['Date']>
+  isPublished: Scalars['Boolean']
   channel: Channel
 }
 
@@ -2031,10 +2057,10 @@ export type CollectionSortingInput = {
 
 export type CollectionTranslatableContent = Node & {
   __typename?: 'CollectionTranslatableContent'
-  seoTitle?: Maybe<Scalars['String']>
-  seoDescription?: Maybe<Scalars['String']>
   /** The ID of the object. */
   id: Scalars['ID']
+  seoTitle?: Maybe<Scalars['String']>
+  seoDescription?: Maybe<Scalars['String']>
   name: Scalars['String']
   description?: Maybe<Scalars['JSONString']>
   /**
@@ -2063,10 +2089,10 @@ export type CollectionTranslate = {
 
 export type CollectionTranslation = Node & {
   __typename?: 'CollectionTranslation'
-  seoTitle?: Maybe<Scalars['String']>
-  seoDescription?: Maybe<Scalars['String']>
   /** The ID of the object. */
   id: Scalars['ID']
+  seoTitle?: Maybe<Scalars['String']>
+  seoDescription?: Maybe<Scalars['String']>
   name: Scalars['String']
   description?: Maybe<Scalars['JSONString']>
   /** Translation language. */
@@ -2117,6 +2143,7 @@ export enum ConfigurationTypeFieldEnum {
   Secret = 'SECRET',
   Password = 'PASSWORD',
   Secretmultiline = 'SECRETMULTILINE',
+  Output = 'OUTPUT',
 }
 
 /** Confirm user account with token sent by email during registration. */
@@ -2726,6 +2753,16 @@ export enum DiscountStatusEnum {
 export enum DiscountValueTypeEnum {
   Fixed = 'FIXED',
   Percentage = 'PERCENTAGE',
+}
+
+/** An enumeration. */
+export enum DistanceUnitsEnum {
+  Cm = 'CM',
+  M = 'M',
+  Km = 'KM',
+  Ft = 'FT',
+  Yd = 'YD',
+  Inch = 'INCH',
 }
 
 /** Represents shop's domain. */
@@ -3602,6 +3639,40 @@ export type Margin = {
   __typename?: 'Margin'
   start?: Maybe<Scalars['Int']>
   stop?: Maybe<Scalars['Int']>
+}
+
+/** An enumeration. */
+export enum MeasurementUnitsEnum {
+  Cm = 'CM',
+  M = 'M',
+  Km = 'KM',
+  Ft = 'FT',
+  Yd = 'YD',
+  Inch = 'INCH',
+  SqCm = 'SQ_CM',
+  SqM = 'SQ_M',
+  SqKm = 'SQ_KM',
+  SqFt = 'SQ_FT',
+  SqYd = 'SQ_YD',
+  SqInch = 'SQ_INCH',
+  CubicMillimeter = 'CUBIC_MILLIMETER',
+  CubicCentimeter = 'CUBIC_CENTIMETER',
+  CubicDecimeter = 'CUBIC_DECIMETER',
+  CubicMeter = 'CUBIC_METER',
+  Liter = 'LITER',
+  CubicFoot = 'CUBIC_FOOT',
+  CubicInch = 'CUBIC_INCH',
+  CubicYard = 'CUBIC_YARD',
+  Qt = 'QT',
+  Pint = 'PINT',
+  FlOz = 'FL_OZ',
+  AcreIn = 'ACRE_IN',
+  AcreFt = 'ACRE_FT',
+  G = 'G',
+  Lb = 'LB',
+  Oz = 'OZ',
+  Kg = 'KG',
+  Tonne = 'TONNE',
 }
 
 /** Represents a single menu - an object that is used to help navigate through the store. */
@@ -4876,6 +4947,7 @@ export type MutationPaymentVoidArgs = {
 }
 
 export type MutationPaymentInitializeArgs = {
+  channel?: Maybe<Scalars['String']>
   gateway: Scalars['String']
   paymentData?: Maybe<Scalars['JSONString']>
 }
@@ -5194,6 +5266,7 @@ export type MutationGiftCardUpdateArgs = {
 }
 
 export type MutationPluginUpdateArgs = {
+  channel?: Maybe<Scalars['ID']>
   id: Scalars['ID']
   input: PluginUpdateInput
 }
@@ -5520,6 +5593,7 @@ export type MutationExternalVerifyArgs = {
 }
 
 export type MutationRequestPasswordResetArgs = {
+  channel?: Maybe<Scalars['String']>
   email: Scalars['String']
   redirectUrl: Scalars['String']
 }
@@ -5541,12 +5615,14 @@ export type MutationPasswordChangeArgs = {
 }
 
 export type MutationRequestEmailChangeArgs = {
+  channel?: Maybe<Scalars['String']>
   newEmail: Scalars['String']
   password: Scalars['String']
   redirectUrl: Scalars['String']
 }
 
 export type MutationConfirmEmailChangeArgs = {
+  channel?: Maybe<Scalars['String']>
   token: Scalars['String']
 }
 
@@ -5578,6 +5654,7 @@ export type MutationAccountUpdateArgs = {
 }
 
 export type MutationAccountRequestDeletionArgs = {
+  channel?: Maybe<Scalars['String']>
   redirectUrl: Scalars['String']
 }
 
@@ -5727,6 +5804,10 @@ export type Order = Node &
     invoices?: Maybe<Array<Maybe<Invoice>>>
     /** User-friendly number of an order. */
     number?: Maybe<Scalars['String']>
+    /** The ID of the order that was the base for this order. */
+    original?: Maybe<Scalars['ID']>
+    /** The order origin. */
+    origin: OrderOriginEnum
     /** Informs if an order is fully paid. */
     isPaid: Scalars['Boolean']
     /** Internal payment status. */
@@ -5958,6 +6039,8 @@ export type OrderError = {
   orderLine?: Maybe<Scalars['ID']>
   /** List of product variants that are associated with the error */
   variants?: Maybe<Array<Scalars['ID']>>
+  /** A type of address that causes the error. */
+  addressType?: Maybe<AddressTypeEnum>
 }
 
 /** An enumeration. */
@@ -6312,6 +6395,13 @@ export type OrderMarkAsPaid = {
   errors: Array<OrderError>
 }
 
+/** An enumeration. */
+export enum OrderOriginEnum {
+  Checkout = 'CHECKOUT',
+  Draft = 'DRAFT',
+  Reissue = 'REISSUE',
+}
+
 /** Refund an order. */
 export type OrderRefund = {
   __typename?: 'OrderRefund'
@@ -6511,10 +6601,10 @@ export type OrderVoid = {
 export type Page = Node &
   ObjectWithMetadata & {
     __typename?: 'Page'
-    seoTitle?: Maybe<Scalars['String']>
-    seoDescription?: Maybe<Scalars['String']>
     /** The ID of the object. */
     id: Scalars['ID']
+    seoTitle?: Maybe<Scalars['String']>
+    seoDescription?: Maybe<Scalars['String']>
     title: Scalars['String']
     content?: Maybe<Scalars['JSONString']>
     publicationDate?: Maybe<Scalars['Date']>
@@ -6664,6 +6754,7 @@ export enum PageErrorCode {
 export type PageFilterInput = {
   search?: Maybe<Scalars['String']>
   metadata?: Maybe<Array<Maybe<MetadataInput>>>
+  pageTypes?: Maybe<Array<Maybe<Scalars['ID']>>>
 }
 
 /** The Relay compliant `PageInfo` type, containing data necessary to paginate this connection. */
@@ -6728,10 +6819,10 @@ export type PageSortingInput = {
 
 export type PageTranslatableContent = Node & {
   __typename?: 'PageTranslatableContent'
-  seoTitle?: Maybe<Scalars['String']>
-  seoDescription?: Maybe<Scalars['String']>
   /** The ID of the object. */
   id: Scalars['ID']
+  seoTitle?: Maybe<Scalars['String']>
+  seoDescription?: Maybe<Scalars['String']>
   title: Scalars['String']
   content?: Maybe<Scalars['JSONString']>
   /**
@@ -6760,10 +6851,10 @@ export type PageTranslate = {
 
 export type PageTranslation = Node & {
   __typename?: 'PageTranslation'
-  seoTitle?: Maybe<Scalars['String']>
-  seoDescription?: Maybe<Scalars['String']>
   /** The ID of the object. */
   id: Scalars['ID']
+  seoTitle?: Maybe<Scalars['String']>
+  seoDescription?: Maybe<Scalars['String']>
   title: Scalars['String']
   content?: Maybe<Scalars['JSONString']>
   /** Translation language. */
@@ -7027,6 +7118,7 @@ export enum PaymentErrorCode {
   ShippingMethodNotSet = 'SHIPPING_METHOD_NOT_SET',
   PaymentError = 'PAYMENT_ERROR',
   NotSupportedGateway = 'NOT_SUPPORTED_GATEWAY',
+  ChannelInactive = 'CHANNEL_INACTIVE',
 }
 
 export type PaymentFilterInput = {
@@ -7228,13 +7320,34 @@ export type PermissionGroupUpdateInput = {
 }
 
 /** Plugin. */
-export type Plugin = Node & {
+export type Plugin = {
   __typename?: 'Plugin'
+  /** Identifier of the plugin. */
   id: Scalars['ID']
+  /** Name of the plugin. */
   name: Scalars['String']
+  /** Description of the plugin. */
   description: Scalars['String']
+  /** Global configuration of the plugin (not channel-specific). */
+  globalConfiguration?: Maybe<PluginConfiguration>
+  /** Channel-specific plugin configuration. */
+  channelConfigurations: Array<PluginConfiguration>
+}
+
+/** Stores information about a configuration of plugin. */
+export type PluginConfiguration = {
+  __typename?: 'PluginConfiguration'
+  /** Determines if plugin is active or not. */
   active: Scalars['Boolean']
+  /** The channel to which the plugin configuration is assigned to. */
+  channel?: Maybe<Channel>
+  /** Configuration of the plugin. */
   configuration?: Maybe<Array<Maybe<ConfigurationItem>>>
+}
+
+export enum PluginConfigurationType {
+  PerChannel = 'PER_CHANNEL',
+  Global = 'GLOBAL',
 }
 
 export type PluginCountableConnection = {
@@ -7275,8 +7388,9 @@ export enum PluginErrorCode {
 }
 
 export type PluginFilterInput = {
-  active?: Maybe<Scalars['Boolean']>
+  statusInChannels?: Maybe<PluginStatusInChannelsInput>
   search?: Maybe<Scalars['String']>
+  type?: Maybe<PluginConfigurationType>
 }
 
 export enum PluginSortField {
@@ -7289,6 +7403,11 @@ export type PluginSortingInput = {
   direction: OrderDirection
   /** Sort plugins by the selected field. */
   field: PluginSortField
+}
+
+export type PluginStatusInChannelsInput = {
+  active: Scalars['Boolean']
+  channels: Array<Scalars['ID']>
 }
 
 /** Update plugin configuration. */
@@ -9708,6 +9827,7 @@ export type ShippingZoneDelete = {
 
 export type ShippingZoneFilterInput = {
   search?: Maybe<Scalars['String']>
+  channels?: Maybe<Array<Maybe<Scalars['ID']>>>
 }
 
 /** Updates a new shipping zone. */
@@ -9802,6 +9922,7 @@ export type Shop = {
 /** Represents a shop resource containing general shop data and configuration. */
 export type ShopAvailablePaymentGatewaysArgs = {
   currency?: Maybe<Scalars['String']>
+  channel?: Maybe<Scalars['String']>
 }
 
 /** Represents a shop resource containing general shop data and configuration. */
@@ -9995,6 +10116,8 @@ export type StaffError = {
   message?: Maybe<Scalars['String']>
   /** The error code. */
   code: AccountErrorCode
+  /** A type of address that causes the error. */
+  addressType?: Maybe<AddressTypeEnum>
   /** List of permissions which causes the error. */
   permissions?: Maybe<Array<PermissionEnum>>
   /** List of permission group IDs which cause the error. */
@@ -10440,6 +10563,11 @@ export type UserAvatarArgs = {
   size?: Maybe<Scalars['Int']>
 }
 
+/** Represents user data. */
+export type UserStoredPaymentSourcesArgs = {
+  channel?: Maybe<Scalars['String']>
+}
+
 /** Deletes a user avatar. Only for staff members. */
 export type UserAvatarDelete = {
   __typename?: 'UserAvatarDelete'
@@ -10506,6 +10634,8 @@ export type UserCreateInput = {
   languageCode?: Maybe<LanguageCodeEnum>
   /** URL of a view where users should be redirected to set the password. URL in RFC 1808 format. */
   redirectUrl?: Maybe<Scalars['String']>
+  /** Slug of a channel which will be used for notify user. Optional when only one channel exists. */
+  channel?: Maybe<Scalars['String']>
 }
 
 export type UserPermission = {
@@ -10606,6 +10736,23 @@ export type VerifyToken = {
   /** @deprecated Use errors field instead. This field will be removed in Saleor 4.0. */
   accountErrors: Array<AccountError>
   errors: Array<AccountError>
+}
+
+/** An enumeration. */
+export enum VolumeUnitsEnum {
+  CubicMillimeter = 'CUBIC_MILLIMETER',
+  CubicCentimeter = 'CUBIC_CENTIMETER',
+  CubicDecimeter = 'CUBIC_DECIMETER',
+  CubicMeter = 'CUBIC_METER',
+  Liter = 'LITER',
+  CubicFoot = 'CUBIC_FOOT',
+  CubicInch = 'CUBIC_INCH',
+  CubicYard = 'CUBIC_YARD',
+  Qt = 'QT',
+  Pint = 'PINT',
+  FlOz = 'FL_OZ',
+  AcreIn = 'ACRE_IN',
+  AcreFt = 'ACRE_FT',
 }
 
 /** Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes. */
@@ -11260,10 +11407,11 @@ export type Weight = {
 
 /** An enumeration. */
 export enum WeightUnitsEnum {
-  Kg = 'KG',
+  G = 'G',
   Lb = 'LB',
   Oz = 'OZ',
-  G = 'G',
+  Kg = 'KG',
+  Tonne = 'TONNE',
 }
 
 export type _Entity =
@@ -11308,7 +11456,7 @@ export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
   >
 }
 
-export type ProductConnnectionFragment = {
+export type ProductConnectionFragment = {
   __typename?: 'ProductCountableConnection'
 } & {
   pageInfo: { __typename?: 'PageInfo' } & Pick<
@@ -11350,11 +11498,12 @@ export type ProductConnnectionFragment = {
 export type GetAllProductsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>
   filter?: Maybe<ProductFilterInput>
+  sortBy?: Maybe<ProductOrder>
   channel?: Maybe<Scalars['String']>
 }>
 
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
   products?: Maybe<
-    { __typename?: 'ProductCountableConnection' } & ProductConnnectionFragment
+    { __typename?: 'ProductCountableConnection' } & ProductConnectionFragment
   >
 }
