@@ -45,7 +45,7 @@ export const handler: SWRHook<
     let edges
 
     if (categoryId) {
-      edges = data.node?.products?.edges ?? []
+      edges = data.collection?.products?.edges ?? []
       // FIXME @zaiste, no `vendor` in Saleor
       // if (brandId) {
       //   edges = edges.filter(

@@ -3,21 +3,15 @@ import { productConnection } from './get-all-products-query'
 export const getCollectionProductsQuery = /* GraphQL */ `
   query getProductsFromCollection(
     $categoryId: ID!
-    $first: Int = 250
-    $sortKey: ProductCollectionSortKeys = RELEVANCE
-    $reverse: Boolean = false
+    $first: Int = 100
+    $channel: String = "default-channel"
   ) {
-    node(id: $categoryId) {
+    collection(id: $categoryId, channel: $channel) {
       id
-      ... on Collection {
-        products(
-          first: $first
-          sortKey: $sortKey
-          reverse: $reverse
-        ) {
-          ${productConnection}
-        }
+      products(first: $first) {
+        ...productConnection
       }
     }
   }
+  ${productConnection}
 `

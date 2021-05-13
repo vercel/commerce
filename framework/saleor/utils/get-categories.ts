@@ -1,5 +1,5 @@
 import { SaleorConfig } from '../api'
-import { Collection, CollectionCountableEdge } from '../schema'
+import { CollectionCountableEdge } from '../schema'
 import { getSiteCollectionsQuery } from './queries/'
 
 export type Category = {
