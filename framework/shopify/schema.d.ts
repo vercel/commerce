@@ -393,8 +393,6 @@ export type Checkout = Node & {
   taxExempt: Scalars['Boolean']
   /** Specifies if taxes are included in the line item and shipping line prices. */
   taxesIncluded: Scalars['Boolean']
-  /** The sum of all the duties applied to the line items in the checkout. */
-  totalDuties?: Maybe<MoneyV2>
   /**
    * The sum of all the prices of all the items in the checkout, taxes and discounts included.
    * @deprecated Use `totalPriceV2` instead
@@ -1663,8 +1661,6 @@ export enum CountryCode {
   Zm = 'ZM',
   /** Zimbabwe. */
   Zw = 'ZW',
-  /** Unknown Region. */
-  Zz = 'ZZ',
 }
 
 /** Credit card information used for a payment. */
@@ -2565,8 +2561,6 @@ export type ExternalVideo = Node &
     alt?: Maybe<Scalars['String']>
     /** The URL. */
     embeddedUrl: Scalars['URL']
-    /** The host of the external video. */
-    host: MediaHost
     /** Globally unique identifier. */
     id: Scalars['ID']
     /** The media content type. */
@@ -2939,14 +2933,6 @@ export type MediaEdge = {
   cursor: Scalars['String']
   /** The item at the end of MediaEdge. */
   node: Media
-}
-
-/** Host for a Media Resource. */
-export enum MediaHost {
-  /** Host for YouTube embedded videos. */
-  Youtube = 'YOUTUBE',
-  /** Host for Vimeo embedded videos. */
-  Vimeo = 'VIMEO',
 }
 
 /** Represents a Shopify hosted image. */
@@ -3517,8 +3503,6 @@ export type Order = Node & {
   currencyCode: CurrencyCode
   /** The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, duties, shipping costs, or shipping discounts. Taxes are not included unless the order is a taxes-included order. */
   currentSubtotalPrice: MoneyV2
-  /** The total cost of duties for the order, including refunds. */
-  currentTotalDuties?: Maybe<MoneyV2>
   /** The total amount of the order, including duties, taxes and discounts, minus amounts for line items that have been removed. */
   currentTotalPrice: MoneyV2
   /** The total of all taxes applied to the order, excluding taxes for returned line items. */
@@ -3548,8 +3532,6 @@ export type Order = Node & {
   name: Scalars['String']
   /** A unique numeric identifier for the order for use by shop owner and customer. */
   orderNumber: Scalars['Int']
-  /** The total cost of duties charged at checkout. */
-  originalTotalDuties?: Maybe<MoneyV2>
   /** The total price of the order before any applied edits. */
   originalTotalPrice: MoneyV2
   /** The customer's phone number for receiving SMS notifications. */
