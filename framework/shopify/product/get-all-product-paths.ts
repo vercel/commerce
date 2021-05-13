@@ -19,7 +19,7 @@ const getAllProductPaths = async (options?: {
   config?: ShopifyConfig
   preview?: boolean
 }): Promise<ReturnType> => {
-  let { config, variables = { first: 250, sortKey: 'BEST_SELLING' } } =
+  let { config, variables = { first: 100, sortKey: 'BEST_SELLING' } } =
     options ?? {}
   config = getConfig(config)
 
