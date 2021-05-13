@@ -90,7 +90,7 @@ export interface Cart extends Core.Cart {
 }
 
 export interface LineItem extends Core.LineItem {
-  options: any[]
+  options?: any[]
 }
 
 /**

@@ -1,11 +1,6 @@
 import { Product, Customer } from '@commerce/types'
 
-import {
-  Checkout,
-  CheckoutLineItemEdge,
-  MoneyV2,
-  ProductOption,
-} from '../schema'
+import { MoneyV2, ProductOption } from '../schema'
 
 import type {
   Cart,

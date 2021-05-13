@@ -23,12 +23,13 @@ const getAllPages = async (options?: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-  const { locale, fetchSwell } = config
-  const { results } = await fetchSwell('content', 'list', ['pages'])
-  const pages = results.map(({ slug, ...rest }: { slug: string }) => ({
-    url: `/${locale}/${slug}`,
-    ...rest,
-  }))
+  const { locale, fetch } = config
+  const data = await fetch('content', 'list', ['pages'])
+  const pages =
+    data?.results?.map(({ slug, ...rest }: { slug: string }) => ({
+      url: `/${locale}/${slug}`,
+      ...rest,
+    })) ?? []
 
   return { pages }
 }

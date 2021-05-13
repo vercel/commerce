@@ -6,11 +6,10 @@ import {
   SWELL_COOKIE_EXPIRE,
 } from '../const'
 
-import fetcher from '../fetcher'
-import fetchSwellApi from './utils/fetch-swell-api'
+import fetchApi from './utils/fetch-swell-api'
 
 export interface SwellConfig extends CommerceAPIConfig {
-  fetchSwell: any
+  fetch: any
 }
 
 export class Config {
@@ -38,8 +37,7 @@ const config = new Config({
   apiToken: ''!,
   cartCookie: SWELL_CHECKOUT_ID_COOKIE,
   cartCookieMaxAge: SWELL_COOKIE_EXPIRE,
-  fetchSwell: fetchSwellApi,
-  fetch: fetcher,
+  fetch: fetchApi,
   customerCookie: SWELL_CUSTOMER_TOKEN_COOKIE,
 })
 

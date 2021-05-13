@@ -19,7 +19,7 @@ const getAllProducts = async (options: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-  const { results } = await config.fetchSwell('products', 'list', [
+  const { results } = await config.fetch('products', 'list', [
     {
       limit: variables.first,
     },

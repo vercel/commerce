@@ -1,5 +1,5 @@
+import { SwellProduct } from '../types'
 import { getConfig, SwellConfig } from '../api'
-import fetchAllProducts from '../api/utils/fetch-all-products'
 
 type ProductPath = {
   path: string
@@ -21,15 +21,14 @@ const getAllProductPaths = async (options?: {
   let { config, variables = [{ limit: 100 }] } = options ?? {}
   config = getConfig(config)
 
-  const products = await fetchAllProducts({
-    config,
-    query: 'products',
-    method: 'list',
-    variables,
-  })
+  const { results } = await config.fetch('products', 'list', [
+    {
+      limit: variables.first,
+    },
+  ])
 
   return {
-    products: products?.map(({ slug: handle }) => ({
+    products: results?.map(({ slug: handle }: SwellProduct) => ({
       node: {
         path: `/${handle}`,
       },
