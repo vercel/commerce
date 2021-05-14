@@ -1,5 +1,5 @@
-export const checkoutCustomerAttach = /* GraphQl */ `
-  mutation associateCustomerWithCheckout($checkoutId: ID!) {
+export const AttachCheckout = /* GraphQl */ `
+  mutation AttachCheckout($checkoutId: ID!) {
     checkoutCustomerAttach(checkoutId: $checkoutId) {
       errors {
         message

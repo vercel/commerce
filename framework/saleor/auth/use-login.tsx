@@ -9,7 +9,7 @@ import {
   MutationTokenCreateArgs,
 } from '../schema'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import { setCSRFToken, setToken, throwUserErrors } from '../utils'
+import { setCSRFToken, setToken, throwUserErrors, checkoutAttach, getCheckoutId } from '../utils'
 
 export default useLogin as UseLogin<typeof handler>
 
@@ -40,6 +40,14 @@ export const handler: MutationHook<null, {}, MutationTokenCreateArgs> = {
     if (token && csrfToken) {
       setToken(token)
       setCSRFToken(csrfToken)
+      
+      const { checkoutId } = getCheckoutId();
+      checkoutAttach(fetch, { 
+        variables: { checkoutId },
+        headers: {
+          Authorization: `JWT ${token}`
+        }
+      })
     }
 
     return null
