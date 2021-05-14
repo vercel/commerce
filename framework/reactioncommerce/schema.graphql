@@ -9509,6 +9509,11 @@ type Query {
     booleanFilters: [CatalogBooleanFilter]
 
     """
+    Optional text search query
+    """
+    searchQuery: String
+
+    """
     Return only results that come after this cursor. Use this with `first` to specify the number of results to return.
     """
     after: ConnectionCursor
@@ -9564,6 +9569,51 @@ type Query {
     """
     slugOrId: String
   ): CatalogItemProduct
+
+  """
+  Gets an array of all vendors
+  """
+  vendors(
+    """
+    Optionally provide a list of shop IDs from which you want to get the vendors
+    """
+    shopIds: [ID]!
+
+    """
+    Optionally provide a list of tag IDs to further filter the vendors
+    """
+    tagIds: [ID]
+
+    """
+    Return only results that come after this cursor. Use this with `first` to specify the number of results to return.
+    """
+    after: ConnectionCursor
+
+    """
+    Return only results that come before this cursor. Use this with `last` to specify the number of results to return.
+    """
+    before: ConnectionCursor
+
+    """
+    Return at most this many results. This parameter may be used with either `after` or `offset` parameters.
+    """
+    first: ConnectionLimitInt
+
+    """
+    Return at most this many results. This parameter may be used with the `before` parameter.
+    """
+    last: ConnectionLimitInt
+
+    """
+    Return only results that come after the Nth result. This parameter may be used with the `first` parameter.
+    """
+    offset: Int
+
+    """
+    Return results sorted in this order
+    """
+    sortOrder: SortOrder = asc
+  ): VendorConnection
 
   """
   Returns a list of product in a tag
@@ -14161,6 +14211,59 @@ input UserInput {
   id: ID
   email: String
   username: String
+}
+
+type Vendor {
+  """
+  The name of the vendor
+  """
+  name: String
+}
+
+"""
+Wraps an array of vendors, providing pagination cursors and information.
+
+For information about what Relay-compatible connections are and how to use them, see the following articles:
+- [Relay Connection Documentation](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#connections)
+- [Relay Connection Specification](https://facebook.github.io/relay/graphql/connections.htm)
+- [Using Relay-style Connections With Apollo Client](https://www.apollographql.com/docs/react/recipes/pagination.html)
+"""
+type VendorConnection {
+  """
+  The list of nodes that match the query, wrapped in an edge to provide a cursor string for each
+  """
+  edges: [VendorEdge]
+
+  """
+  You can request the `nodes` directly to avoid the extra wrapping that `NodeEdge` has,
+  if you know you will not need to paginate the results.
+  """
+  nodes: [Vendor]
+
+  """
+  Information to help a client request the next or previous page
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of nodes that match your query
+  """
+  totalCount: Int!
+}
+
+"""
+A connection edge in which each node is a String representing a vendor
+"""
+type VendorEdge {
+  """
+  The cursor that represents this node in the paginated results
+  """
+  cursor: ConnectionCursor!
+
+  """
+  The vendor
+  """
+  node: Vendor
 }
 
 """

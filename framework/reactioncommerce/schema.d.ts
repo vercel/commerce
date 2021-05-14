@@ -5062,6 +5062,8 @@ export type Query = {
   catalogItems?: Maybe<CatalogItemConnection>
   /** Gets product from catalog */
   catalogItemProduct?: Maybe<CatalogItemProduct>
+  /** Gets an array of all vendors */
+  vendors?: Maybe<VendorConnection>
   /** Returns a list of product in a tag */
   productsByTagId: TagProductConnection
   /** Returns a tag from a provided tag ID or slug. Tags with isVisible set to false are excluded by default. */
@@ -5272,6 +5274,7 @@ export type QueryCatalogItemsArgs = {
   shopIds: Array<Maybe<Scalars['ID']>>
   tagIds?: Maybe<Array<Maybe<Scalars['ID']>>>
   booleanFilters?: Maybe<Array<Maybe<CatalogBooleanFilter>>>
+  searchQuery?: Maybe<Scalars['String']>
   after?: Maybe<Scalars['ConnectionCursor']>
   before?: Maybe<Scalars['ConnectionCursor']>
   first?: Maybe<Scalars['ConnectionLimitInt']>
@@ -5285,6 +5288,17 @@ export type QueryCatalogItemsArgs = {
 export type QueryCatalogItemProductArgs = {
   shopId?: Maybe<Scalars['ID']>
   slugOrId?: Maybe<Scalars['String']>
+}
+
+export type QueryVendorsArgs = {
+  shopIds: Array<Maybe<Scalars['ID']>>
+  tagIds?: Maybe<Array<Maybe<Scalars['ID']>>>
+  after?: Maybe<Scalars['ConnectionCursor']>
+  before?: Maybe<Scalars['ConnectionCursor']>
+  first?: Maybe<Scalars['ConnectionLimitInt']>
+  last?: Maybe<Scalars['ConnectionLimitInt']>
+  offset?: Maybe<Scalars['Int']>
+  sortOrder?: Maybe<SortOrder>
 }
 
 export type QueryProductsByTagIdArgs = {
@@ -7573,6 +7587,44 @@ export type UserInput = {
   id?: Maybe<Scalars['ID']>
   email?: Maybe<Scalars['String']>
   username?: Maybe<Scalars['String']>
+}
+
+export type Vendor = {
+  __typename?: 'Vendor'
+  /** The name of the vendor */
+  name?: Maybe<Scalars['String']>
+}
+
+/**
+ * Wraps an array of vendors, providing pagination cursors and information.
+ *
+ * For information about what Relay-compatible connections are and how to use them, see the following articles:
+ * - [Relay Connection Documentation](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#connections)
+ * - [Relay Connection Specification](https://facebook.github.io/relay/graphql/connections.htm)
+ * - [Using Relay-style Connections With Apollo Client](https://www.apollographql.com/docs/react/recipes/pagination.html)
+ */
+export type VendorConnection = {
+  __typename?: 'VendorConnection'
+  /** The list of nodes that match the query, wrapped in an edge to provide a cursor string for each */
+  edges?: Maybe<Array<Maybe<VendorEdge>>>
+  /**
+   * You can request the `nodes` directly to avoid the extra wrapping that `NodeEdge` has,
+   * if you know you will not need to paginate the results.
+   */
+  nodes?: Maybe<Array<Maybe<Vendor>>>
+  /** Information to help a client request the next or previous page */
+  pageInfo: PageInfo
+  /** The total number of nodes that match your query */
+  totalCount: Scalars['Int']
+}
+
+/** A connection edge in which each node is a String representing a vendor */
+export type VendorEdge = {
+  __typename?: 'VendorEdge'
+  /** The cursor that represents this node in the paginated results */
+  cursor: Scalars['ConnectionCursor']
+  /** The vendor */
+  node?: Maybe<Vendor>
 }
 
 /** Input for an `VerifySMTPEmailSettingsInput` */

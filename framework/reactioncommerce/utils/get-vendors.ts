@@ -1,14 +1,15 @@
 import { ReactionCommerceConfig } from '../api'
-import fetchAllProducts from '../api/utils/fetch-all-products'
 import getAllProductVendors from './queries/get-all-product-vendors-query'
+import { Vendor } from '@framework/schema'
 
-export type BrandNode = {
+export type Brand = {
+  entityId: string
   name: string
   path: string
 }
 
 export type BrandEdge = {
-  node: BrandNode
+  node: Brand
 }
 
 export type Brands = BrandEdge[]
@@ -16,15 +17,15 @@ export type Brands = BrandEdge[]
 const getVendors = async (
   config: ReactionCommerceConfig
 ): Promise<BrandEdge[]> => {
-  const vendors = await fetchAllProducts({
-    config,
-    query: getAllProductVendors,
+  const {
+    data: { vendors },
+  } = await config.fetch(getAllProductVendors, {
     variables: {
-      first: 250,
+      shopIds: [config.shopId],
     },
   })
 
-  let vendorsStrings = vendors.map(({ node: { vendor } }) => vendor)
+  let vendorsStrings: string[] = vendors.nodes?.map(({ name }: Vendor) => name)
 
   return [...new Set(vendorsStrings)].map((v) => ({
     node: {
