@@ -1,12 +1,12 @@
 import type { GetAPISchema } from '@commerce/api'
 import type { CartSchema } from '../../types/cart'
-import type { CommerceAPI } from '..'
+import type { BigcommerceAPI } from '..'
 import getCart from './get-cart'
 import addItem from './add-item'
 import updateItem from './update-item'
 import removeItem from './remove-item'
 
-export type CartAPI = GetAPISchema<CommerceAPI, CartSchema>
+export type CartAPI = GetAPISchema<BigcommerceAPI, CartSchema>
 
 export type CartEndpoint = CartAPI['endpoint']
 

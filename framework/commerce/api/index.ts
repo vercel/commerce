@@ -2,12 +2,17 @@ import type { NextApiHandler } from 'next'
 import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
 import type { CartSchema } from '../types/cart'
-import { APIOperations, getOperations } from './operations'
+import {
+  defaultOperations,
+  OPERATIONS,
+  AllOperations,
+  APIOperations,
+} from './operations'
 
 export type APISchemas = CartSchema
 
 export type GetAPISchema<
-  C extends CommerceAPI,
+  C extends CommerceAPI<any>,
   S extends APISchemas = APISchemas
 > = {
   schema: S
@@ -52,7 +57,11 @@ export type APIProvider = {
   operations: APIOperations<any>
 }
 
-export class CommerceAPI<P extends APIProvider = APIProvider> {
+export type CommerceAPI<
+  P extends APIProvider = APIProvider
+> = CommerceAPICore<P> & AllOperations<P>
+
+export class CommerceAPICore<P extends APIProvider = APIProvider> {
   constructor(readonly provider: P) {}
 
   getConfig(userConfig: Partial<P['config']> = {}): P['config'] {
@@ -67,11 +76,23 @@ export class CommerceAPI<P extends APIProvider = APIProvider> {
   }
 }
 
-export function getCommerceApi<P extends APIProvider>(customProvider: P) {
-  const commerce = new CommerceAPI(customProvider)
-  const operations = getOperations(customProvider.operations, { commerce })
+export function getCommerceApi<P extends APIProvider>(
+  customProvider: P
+): CommerceAPI<P> {
+  const commerce = Object.assign(
+    new CommerceAPICore(customProvider),
+    defaultOperations as AllOperations<P>
+  )
+  const ops = customProvider.operations
 
-  return Object.assign(commerce, operations)
+  OPERATIONS.forEach((k) => {
+    const op = ops[k]
+    if (op) {
+      commerce[k] = op({ commerce }) as AllOperations<P>[typeof k]
+    }
+  })
+
+  return commerce
 }
 
 export function getEndpoint<

@@ -1,6 +1,7 @@
 import type { NextApiHandler } from 'next'
 import type { RequestInit } from '@vercel/fetch'
 import {
+  CommerceAPI,
   CommerceAPIConfig,
   getCommerceApi as commerceApi,
   getEndpoint,
@@ -112,9 +113,11 @@ export type Provider = typeof provider
 
 export type APIs = CartAPI
 
+export type BigcommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
+
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
-) {
+): BigcommerceAPI<P> {
   const api = commerceApi(customProvider)
 
   return Object.assign(api, {

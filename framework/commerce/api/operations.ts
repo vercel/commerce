@@ -1,29 +1,16 @@
 import type { ServerResponse } from 'http'
-import type { APIProvider, CommerceAPI, CommerceAPIConfig } from '.'
+import type { APIProvider, CommerceAPI, CommerceAPICore } from '.'
 
 const noop = () => {
   throw new Error('Not implemented')
 }
 
-const OPERATIONS = ['login'] as const
+export const OPERATIONS = ['login'] as const
 
-const defaultOperations = OPERATIONS.reduce((ops, k) => {
+export const defaultOperations = OPERATIONS.reduce((ops, k) => {
   ops[k] = noop
   return ops
 }, {} as { [K in AllowedOperations]: typeof noop })
-
-export function getOperations<P extends APIProvider>(
-  ops: P['operations'],
-  ctx: { commerce: CommerceAPI<P> }
-) {
-  return OPERATIONS.reduce<Operations<P>>((carry, k) => {
-    const op = ops[k]
-    if (op) {
-      carry[k] = op({ ...ctx, operations: carry })
-    }
-    return carry
-  }, defaultOperations) as AllOperations<P>
-}
 
 export type AllowedOperations = typeof OPERATIONS[number]
 
@@ -51,7 +38,7 @@ export type APIOperations<P extends APIProvider> = {
 }
 
 export type AllOperations<P extends APIProvider> = {
-  [K in keyof APIOperations<P>]: P['operations'][K] extends (
+  [K in keyof APIOperations<P>]-?: P['operations'][K] extends (
     ...args: any
   ) => any
     ? ReturnType<P['operations'][K]>
@@ -60,5 +47,4 @@ export type AllOperations<P extends APIProvider> = {
 
 export type OperationContext<P extends APIProvider> = {
   commerce: CommerceAPI<P>
-  operations: Operations<P>
 }
