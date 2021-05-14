@@ -5,11 +5,9 @@ const noop = () => {
   throw new Error('Not implemented')
 }
 
-export type LoginResult<T extends { result?: any } = { result?: string }> = T
+const OPERATIONS = ['login'] as const
 
-export const OPERATIONS = ['login'] as const
-
-export const defaultOperations = OPERATIONS.reduce((ops, k) => {
+const defaultOperations = OPERATIONS.reduce((ops, k) => {
   ops[k] = noop
   return ops
 }, {} as { [K in AllowedOperations]: typeof noop })
@@ -19,12 +17,17 @@ export function getOperations<P extends APIProvider>(
   ctx: { commerce: CommerceAPI<P> }
 ) {
   return OPERATIONS.reduce<Operations<P>>((carry, k) => {
-    carry[k] = ops[k]({ ...ctx, operations: carry })
+    const op = ops[k]
+    if (op) {
+      carry[k] = op({ ...ctx, operations: carry })
+    }
     return carry
-  }, defaultOperations) as APIOperations2<P>
+  }, defaultOperations) as AllOperations<P>
 }
 
 export type AllowedOperations = typeof OPERATIONS[number]
+
+export type LoginResult<T extends { result?: any } = { result?: string }> = T
 
 export type Operations<P extends APIProvider> = {
   login: {
@@ -44,11 +47,15 @@ export type Operations<P extends APIProvider> = {
 }
 
 export type APIOperations<P extends APIProvider> = {
-  [K in keyof Operations<P>]: (ctx: OperationContext<P>) => Operations<P>[K]
+  [K in keyof Operations<P>]?: (ctx: OperationContext<P>) => Operations<P>[K]
 }
 
-export type APIOperations2<P extends APIProvider> = {
-  [K in keyof APIOperations<P>]: ReturnType<P['operations'][K]>
+export type AllOperations<P extends APIProvider> = {
+  [K in keyof APIOperations<P>]: P['operations'][K] extends (
+    ...args: any
+  ) => any
+    ? ReturnType<P['operations'][K]>
+    : typeof noop
 }
 
 export type OperationContext<P extends APIProvider> = {
