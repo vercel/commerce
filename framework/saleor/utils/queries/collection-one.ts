@@ -1,6 +1,6 @@
-import { productConnection } from './get-all-products-query'
+import * as fragment from '../fragments'
 
-export const getCollectionProductsQuery = /* GraphQL */ `
+export const CollectionOne = /* GraphQL */ `
   query getProductsFromCollection(
     $categoryId: ID!
     $first: Int = 100
@@ -9,9 +9,9 @@ export const getCollectionProductsQuery = /* GraphQL */ `
     collection(id: $categoryId, channel: $channel) {
       id
       products(first: $first) {
-        ...productConnection
+        ...ProductConnection
       }
     }
   }
-  ${productConnection}
+  ${fragment.ProductConnection}
 `

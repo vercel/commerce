@@ -1,6 +1,7 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, SaleorConfig } from '../api'
-import { normalizeProduct, getProductQuery } from '../utils'
+import { normalizeProduct } from '../utils'
+import * as query from '../utils/queries';
 
 type Variables = {
   slug: string
@@ -18,9 +19,7 @@ const getProduct = async (options: {
   let { config, variables } = options ?? {}
   config = getConfig(config)
 
-  const { data }: GraphQLFetcherResult = await config.fetch(getProductQuery, {
-    variables,
-  })
+  const { data }: GraphQLFetcherResult = await config.fetch(query.ProductOneBySlug, { variables })
 
   return {
     product: data?.product ? normalizeProduct(data.product) : null,

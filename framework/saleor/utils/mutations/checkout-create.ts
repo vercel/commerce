@@ -1,7 +1,7 @@
-import { checkoutDetailsFragment } from '../queries/get-checkout-query'
+import * as fragment from '../fragments'
 
-export const checkoutCreate = /* GraphQL */ `
-  mutation createCheckout {
+export const CheckoutCreate = /* GraphQL */ `
+  mutation CheckoutCreate {
     checkoutCreate(input: {
       email: "customer@example.com", 
       lines: [], 
@@ -13,7 +13,7 @@ export const checkoutCreate = /* GraphQL */ `
         message
       }
       checkout { 
-        ${checkoutDetailsFragment}
+        ${fragment.CheckoutDetails}
       }
     }
   }

@@ -1,5 +1,5 @@
-export const accountRegister = /* GraphQL */ `
-  mutation customerCreate($input: AccountRegisterInput!) {
+export const AccountCreate = /* GraphQL */ `
+  mutation AccountCreate($input: AccountRegisterInput!) {
     accountRegister(input: $input) {
       errors {
         code

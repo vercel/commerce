@@ -1,6 +1,6 @@
 import { CollectionCountableEdge } from '../schema'
 import { getConfig, SaleorConfig } from '../api'
-import { getSiteCollectionsQuery } from '../utils/queries'
+import * as query from '../utils/queries'
 
 const getAllCollections = async (options?: {
   variables?: any
@@ -10,7 +10,7 @@ const getAllCollections = async (options?: {
   let { config, variables = { first: 100 } } = options ?? {}
   config = getConfig(config)
 
-  const { data } = await config.fetch(getSiteCollectionsQuery, { variables })
+  const { data } = await config.fetch(query.CollectionMany, { variables })
   const edges = data.collections?.edges ?? []
 
   const categories = edges.map(

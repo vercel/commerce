@@ -21,7 +21,7 @@ export const handler: MutationHook<
   AccountRegisterInput
 > = {
   fetchOptions: {
-    query: mutation.accountRegister 
+    query: mutation.AccountCreate
   },
   async fetcher({
     input: { email, password },

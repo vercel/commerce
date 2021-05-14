@@ -1,6 +1,4 @@
 import { SaleorConfig } from '../api'
-import fetchAllProducts from '../api/utils/fetch-all-products'
-import { getAllProductVendors } from './queries'
 
 export type Brand = {
   entityId: string

@@ -1,15 +1,14 @@
 import { SWRHook } from '@commerce/utils/types'
+import { Product } from '@commerce/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
 import { ProductCountableEdge } from '../schema'
 import {
-  getAllProductsQuery,
-  getCollectionProductsQuery,
   getSearchVariables,
   normalizeProduct,
 } from '../utils'
 
-import { Product } from '@commerce/types'
+import * as query from '../utils/queries'
 
 export default useSearch as UseSearch<typeof handler>
 
@@ -31,13 +30,13 @@ export const handler: SWRHook<
   SearchProductsInput
 > = {
   fetchOptions: {
-    query: getAllProductsQuery,
+    query: query.ProductMany 
   },
   async fetcher({ input, options, fetch }) {
     const { categoryId, brandId } = input
 
     const data = await fetch({
-      query: categoryId ? getCollectionProductsQuery : options.query,
+      query: categoryId ? query.CollectionOne : options.query,
       method: options?.method,
       variables: getSearchVariables(input),
     })

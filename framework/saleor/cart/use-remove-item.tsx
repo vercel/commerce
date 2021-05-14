@@ -29,7 +29,7 @@ export type RemoveItemInput<T = any> = T extends LineItem
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
-  fetchOptions: { query: mutation.checkoutLineDelete },
+  fetchOptions: { query: mutation.CheckoutLineDelete },
   async fetcher({
     input: { itemId },
     options,

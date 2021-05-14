@@ -6,7 +6,7 @@ export const checkoutAttach = async (
   { variables, headers }: any,
 ): Promise<CheckoutCustomerAttach> => {
   const data = await fetch({ 
-    query: mutation.AttachCheckout,
+    query: mutation.CheckoutAttach,
     variables, 
     headers
   })

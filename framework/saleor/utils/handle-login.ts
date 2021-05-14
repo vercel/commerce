@@ -26,7 +26,7 @@ export const handleAutomaticLogin = async (
       Mutation,
       MutationTokenCreateArgs
     >({
-      query: mutation.sessionCreate,
+      query: mutation.SessionCreate,
       variables: { ...input },
     })
     handleLogin(tokenCreate!)

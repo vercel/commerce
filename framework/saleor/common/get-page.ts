@@ -1,6 +1,7 @@
 import { getConfig, SaleorConfig } from '../api'
-import { getPageQuery } from '../utils/queries'
 import { Page } from './get-all-pages'
+
+import * as query from '../utils/queries'
 
 type Variables = {
   id: string
@@ -18,9 +19,7 @@ const getPage = async (options: {
   config = getConfig(config)
   const { locale } = config
 
-  const { data } = await config.fetch(getPageQuery, {
-    variables,
-  })
+  const { data } = await config.fetch(query.PageOne, { variables })
   const page = data.page
 
   return {

@@ -15,7 +15,7 @@ export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<null, {}, MutationTokenCreateArgs> = {
   fetchOptions: {
-    query: mutation.sessionCreate,
+    query: mutation.SessionCreate,
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {

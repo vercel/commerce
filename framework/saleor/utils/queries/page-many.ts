@@ -1,5 +1,5 @@
-export const getAllPagesQuery = /* GraphQL */ `
-  query getAllPages($first: Int = 100) {
+export const PageMany = /* GraphQL */ `
+  query PageMany($first: Int = 100) {
     pages(first: $first) {
       edges {
         node {

@@ -9,7 +9,7 @@ export default useLogout as UseLogout<typeof handler>
 
 export const handler: MutationHook<null> = {
   fetchOptions: {
-    query:  mutation.sessionDestroy,
+    query:  mutation.SessionDestroy,
   },
   async fetcher({ options, fetch }) {
     await fetch({

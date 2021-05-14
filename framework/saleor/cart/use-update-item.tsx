@@ -26,7 +26,7 @@ export type UpdateItemInput<T = any> = T extends LineItem
 export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
-  fetchOptions: { query: mutation.checkoutLineUpdate },
+  fetchOptions: { query: mutation.CheckoutLineUpdate },
   async fetcher({
     input: { itemId, item },
     options,

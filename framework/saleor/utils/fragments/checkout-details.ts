@@ -1,4 +1,4 @@
-export const checkoutDetailsFragment = `
+export const CheckoutDetails = `
   id
   token
   created
@@ -42,16 +42,6 @@ export const checkoutDetailsFragment = `
       currency
       gross {
         amount
-      }
-    }
-  }
-`
-
-export const getCheckoutQuery = /* GraphQL */ `
-  query($checkoutId: UUID!) {
-    checkout(token: $checkoutId) {
-      ... on Checkout {
-        ${checkoutDetailsFragment}
       }
     }
   }

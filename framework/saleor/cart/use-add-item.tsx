@@ -17,7 +17,7 @@ import { Mutation, MutationCheckoutLinesAddArgs } from '../schema'
 export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<Cart, {}, CartItemBody> = {
-  fetchOptions: { query: mutation.checkoutLineAdd },
+  fetchOptions: { query: mutation.CheckoutLineAdd },
   async fetcher({ input: item, options, fetch }) {
     if (
       item.quantity &&

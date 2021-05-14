@@ -7,7 +7,7 @@ export const getSearchVariables = ({
   categoryId,
   sort,
 }: SearchProductsInput) => {
-  const sortBy = { direction: 'ASC', ...getSortVariables(sort, !!categoryId), channel: "default-channel"};
+  const sortBy = { field: "NAME", direction: 'ASC', ...getSortVariables(sort, !!categoryId), channel: "default-channel"};
   return {
     categoryId,
     filter: { search },

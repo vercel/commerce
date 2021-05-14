@@ -1,6 +1,6 @@
 import { getConfig, SaleorConfig } from '../api'
 import { PageCountableEdge } from '../schema'
-import { getAllPagesQuery } from '../utils/queries'
+import * as query from '../utils/queries'
 
 type Variables = {
   first?: number
@@ -26,7 +26,7 @@ const getAllPages = async (options?: {
   let { config, variables = { first: 100 } } = options ?? {}
   config = getConfig(config)
   const { locale } = config
-  const { data } = await config.fetch(getAllPagesQuery, { variables })
+  const { data } = await config.fetch(query.PageMany, { variables })
 
   const pages = data.pages?.edges?.map(
     ({ node: { title: name, slug, ...node } }: PageCountableEdge) => ({

@@ -7,7 +7,7 @@ import useCommerceCart, {
 import { Cart } from '../types'
 import { SWRHook } from '@commerce/utils/types'
 import { checkoutCreate, checkoutToCart, getCheckoutId } from '../utils'
-import { getCheckoutQuery } from '../utils/queries'
+import * as query from '../utils/queries'
 
 export default useCommerceCart as UseCart<typeof handler>
 
@@ -18,7 +18,7 @@ export const handler: SWRHook<
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
-    query: getCheckoutQuery,
+    query: query.CheckoutOne,
   },
   async fetcher({ input: { cartId: checkoutId }, options, fetch }) {
     let checkout

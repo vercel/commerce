@@ -1,5 +1,5 @@
-export const sessionCreate = /* GraphQL */ `
-  mutation tokenCreate($email: String!, $password: String!) {
+export const SessionCreate = /* GraphQL */ `
+  mutation SessionCreate($email: String!, $password: String!) {
     tokenCreate(email: $email, password: $password) {
       token
       refreshToken

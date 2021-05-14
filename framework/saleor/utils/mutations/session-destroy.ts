@@ -1,5 +1,5 @@
-export const sessionDestroy = /* GraphQL */ `
-  mutation customerAccessTokenDelete {
+export const SessionDestroy = /* GraphQL */ `
+  mutation SessionDestroy {
     tokensDeactivateAll {
       errors {
         field
