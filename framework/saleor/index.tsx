@@ -8,13 +8,14 @@ import {
 } from '@commerce'
 
 import { saleorProvider, SaleorProvider } from './provider'
+import * as Const from './const'; 
 
 export { saleorProvider }
 export type { SaleorProvider }
 
 export const saleorConfig: CommerceConfig = {
   locale: 'en-us',
-  cartCookie: "saleorCheckoutID",
+  cartCookie: Const.CHECKOUT_ID_COOKIE 
 }
 
 export type SaleorConfig = Partial<CommerceConfig>

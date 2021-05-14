@@ -24,11 +24,10 @@ export const handler: SWRHook<
     let checkout
 
     if (checkoutId) {
+      const checkoutId = getCheckoutId().checkoutToken;
       const data = await fetch({
         ...options,
-        variables: {
-          checkoutId: getCheckoutId().checkoutToken,
-        },
+        variables: { checkoutId },
       })
 
       checkout = data;

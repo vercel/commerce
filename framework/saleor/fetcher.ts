@@ -9,7 +9,7 @@ const fetcher: Fetcher = async ({
   query,
 }) => {
   const token = getToken();
-  
+
   return handleFetchResponse(
     await fetch(url!, {
       method,

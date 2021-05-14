@@ -3,7 +3,7 @@ import type { MutationHook } from '@commerce/utils/types'
 import useLogout, { UseLogout } from '@commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
 import * as mutation from '../utils/mutations'
-import { setToken } from '../utils/customer-token'
+import { setCSRFToken, setToken, setCheckoutToken } from '../utils/customer-token'
 
 export default useLogout as UseLogout<typeof handler>
 
@@ -16,7 +16,11 @@ export const handler: MutationHook<null> = {
       ...options,
       variables: {},
     })
+
     setToken()
+    setCSRFToken()
+    setCheckoutToken()
+
     return null
   },
   useHook: ({ fetch }) => () => {
