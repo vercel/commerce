@@ -38,7 +38,7 @@ const normalizeProductOption = ({
       label: value.name,
       id: value?.id || id,
     }
-    if (displayName === 'Color') {
+    if (displayName.match(/colou?r/gi)) {
       output = {
         ...output,
         hexColors: [value.name],
