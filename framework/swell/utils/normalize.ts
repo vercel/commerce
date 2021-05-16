@@ -198,7 +198,10 @@ function normalizeLineItem({
       sku: variant?.sku ?? '',
       name: variant?.name!,
       image: {
-        url: product && product.images ? product?.images[0].file.url : '',
+        url:
+          product?.images && product.images.length > 0
+            ? product?.images[0].file.url
+            : '/',
       },
       requiresShipping: false,
       price: price,
