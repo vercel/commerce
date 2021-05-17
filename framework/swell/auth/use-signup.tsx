@@ -44,10 +44,7 @@ export const handler: MutationHook<
       const loginData = await fetch({
         query: 'account',
         method: 'login',
-        variables: {
-          email,
-          password,
-        },
+        variables: [email, password],
       })
       handleLogin(loginData)
     } catch (error) {}
