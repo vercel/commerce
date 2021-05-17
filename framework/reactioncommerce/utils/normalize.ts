@@ -210,6 +210,10 @@ function normalizeLineItem({
 }
 
 export function normalizeCustomer(viewer: Account): Customer {
+  if (!viewer) {
+    return {}
+  }
+
   return {
     firstName: viewer.firstName ?? '',
     lastName: viewer.lastName ?? '',

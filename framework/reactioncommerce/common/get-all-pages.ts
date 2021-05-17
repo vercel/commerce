@@ -1,5 +1,5 @@
 import { getConfig, ReactionCommerceConfig } from '../api'
-import { PageEdge } from '../schema'
+import { NavigationTreeItem } from '../schema'
 import { getAllPagesQuery } from '../utils/queries'
 
 type Variables = {
@@ -23,20 +23,32 @@ const getAllPages = async (options?: {
   config: ReactionCommerceConfig
   preview?: boolean
 }): Promise<ReturnType> => {
-  // let { config, variables = { first: 250 } } = options ?? {}
-  // config = getConfig(config)
-  // const { locale } = config
-  // const { data } = await config.fetch(getAllPagesQuery, { variables })
-  //
-  // const pages = data.pages?.edges?.map(
-  //   ({ node: { title: name, handle, ...node } }: PageEdge) => ({
-  //     ...node,
-  //     url: `/${locale}/${handle}`,
-  //     name,
-  //   })
-  // )
+  let { config, variables } = options ?? {}
+  config = getConfig(config)
+  const { locale } = config
+  console.log('locale', locale)
+  const { data } = await config.fetch(getAllPagesQuery, {
+    variables: {
+      ...variables,
+      shopId: config.shopId,
+    },
+  })
 
-  return { pages: [] }
+  const pages = data.shop?.defaultNavigationTree?.items?.map(
+    ({
+      navigationItem: {
+        _id: id,
+        data: { contentForLanguage: name, url },
+      },
+    }: NavigationTreeItem) => ({
+      id,
+      url,
+      name,
+      body: '',
+    })
+  )
+
+  return { pages }
 }
 
 export default getAllPages

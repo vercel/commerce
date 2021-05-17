@@ -1,11 +1,18 @@
 export const getAllPagesQuery = /* GraphQL */ `
-  query getAllPages($first: Int = 250) {
-    pages(first: $first) {
-      edges {
-        node {
-          id
-          title
-          handle
+  query getAllPages($shopId: ID!, $language: String! = "en") {
+    shop(id: $shopId) {
+      defaultNavigationTree(language: $language) {
+        items {
+          navigationItem {
+            _id
+            data {
+              contentForLanguage
+              classNames
+              url
+              isUrlRelative
+              shouldOpenInNewWindow
+            }
+          }
         }
       }
     }
