@@ -64,7 +64,7 @@ const normalizeProductVariants = (variants: ProductVariant[]) => {
 }
 
 export function normalizeProduct(productNode: SaleorProduct): Product {
-  const { id, name, media, variants, description, slug, pricing, ...rest } = productNode
+  const { id, name, media = [], variants, description, slug, pricing, ...rest } = productNode
 
   const product = {
     id,
@@ -73,15 +73,15 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
     description: description ? JSON.parse(description)?.blocks[0]?.data.text : '',
     path: `/${slug}`,
     slug: slug?.replace(/^\/+|\/+$/g, ''),
-    price: (pricing?.priceRange?.start?.net && money(pricing.priceRange.start.net)) || 0,
+    price: (pricing?.priceRange?.start?.net && money(pricing.priceRange.start.net)) || { value: 0, currencyCode: 'USD' },
     // TODO: Check nextjs-commerce bug if no images are added for a product
     images: media?.length ? media : [{ url: placeholderImg }],
-    variants: variants && variants.length > 0 ? normalizeProductVariants(variants) : [],
-    options: variants && variants.length > 0 ? normalizeProductOptions(variants) : [],
+    variants: variants && variants.length > 0 ? normalizeProductVariants(variants as ProductVariant[]) : [],
+    options: variants && variants.length > 0 ? normalizeProductOptions(variants as ProductVariant[]) : [],
     ...rest,
   }
 
-  return product
+  return product as Product
 }
 
 export function normalizeCart(checkout: Checkout): Cart {
@@ -117,7 +117,7 @@ function normalizeLineItem({ id, variant, quantity }: CheckoutLine): LineItem {
       sku: variant?.sku ?? '',
       name: variant?.name!,
       image: {
-        url: variant?.media![0].url ?? '/product-img-placeholder.svg',
+        url: variant?.media![0].url ?? placeholderImg,
       },
       requiresShipping: false,
       price: variant?.pricing?.price?.gross.amount!,
