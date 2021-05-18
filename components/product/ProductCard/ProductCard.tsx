@@ -10,7 +10,7 @@ interface Props {
   className?: string
   product: Product
   variant?: 'slim' | 'simple'
-  imgProps?: Omit<ImageProps, 'src'>
+  imgProps?: Omit<any, 'src'>
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
@@ -38,7 +38,7 @@ const ProductCard: FC<Props> = ({
               alt={product.name || 'Product Image'}
               height={320}
               width={320}
-              layout="fixed"
+              layout="fixed" 
               {...imgProps}
             />
           )}
