@@ -11,6 +11,7 @@ import fetchStoreApi from './utils/fetch-store-api'
 
 import type { CartAPI } from './cart'
 import type { CustomerAPI } from './customer'
+import type { LoginAPI } from './login'
 import login from './operations/login'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
@@ -112,7 +113,7 @@ export const provider = {
 
 export type Provider = typeof provider
 
-export type APIs = CartAPI | CustomerAPI
+export type APIs = CartAPI | CustomerAPI | LoginAPI
 
 export type BigcommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
 

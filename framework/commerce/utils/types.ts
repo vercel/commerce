@@ -71,7 +71,7 @@ export type HookSchemaBase = {
   data: any
   // Input expected by the hook
   input: {}
-  // Input expected before doing a fetch operation
+  // Input expected before doing a fetch operation (aka fetch handler)
   fetchInput?: {}
   // Data expected by the fetch operation
   body?: {}

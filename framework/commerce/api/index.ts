@@ -3,6 +3,7 @@ import type { RequestInit, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
 import type { CartSchema } from '../types/cart'
 import type { CustomerSchema } from '../types/customer'
+import type { LoginSchema } from '../types/login'
 import {
   defaultOperations,
   OPERATIONS,
@@ -10,7 +11,7 @@ import {
   APIOperations,
 } from './operations'
 
-export type APISchemas = CartSchema | CustomerSchema
+export type APISchemas = CartSchema | CustomerSchema | LoginSchema
 
 export type GetAPISchema<
   C extends CommerceAPI<any>,
