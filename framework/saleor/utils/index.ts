@@ -7,7 +7,7 @@ export { default as getCategories } from './get-categories'
 export { default as getCheckoutId } from './get-checkout-id'
 
 export { default as checkoutCreate } from './checkout-create'
-export { checkoutAttach } from './checkout-attach';
+export { checkoutAttach } from './checkout-attach'
 
 export { default as checkoutToCart } from './checkout-to-cart'
 export { default as handleLogin, handleAutomaticLogin } from './handle-login'

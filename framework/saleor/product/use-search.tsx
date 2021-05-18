@@ -3,10 +3,7 @@ import { Product } from '@commerce/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
 import { ProductCountableEdge } from '../schema'
-import {
-  getSearchVariables,
-  normalizeProduct,
-} from '../utils'
+import { getSearchVariables, normalizeProduct } from '../utils'
 
 import * as query from '../utils/queries'
 
@@ -24,13 +21,9 @@ export type SearchProductsData = {
   found: boolean
 }
 
-export const handler: SWRHook<
-  SearchProductsData,
-  SearchProductsInput,
-  SearchProductsInput
-> = {
+export const handler: SWRHook<SearchProductsData, SearchProductsInput, SearchProductsInput> = {
   fetchOptions: {
-    query: query.ProductMany 
+    query: query.ProductMany,
   },
   async fetcher({ input, options, fetch }) {
     const { categoryId, brandId } = input
@@ -57,24 +50,24 @@ export const handler: SWRHook<
     }
 
     return {
-      products: edges.map(({ node }: ProductCountableEdge) =>
-        normalizeProduct(node)
-      ),
+      products: edges.map(({ node }: ProductCountableEdge) => normalizeProduct(node)),
       found: !!edges.length,
     }
   },
-  useHook: ({ useData }) => (input = {}) => {
-    return useData({
-      input: [
-        ['search', input.search],
-        ['categoryId', input.categoryId],
-        ['brandId', input.brandId],
-        ['sort', input.sort],
-      ],
-      swrOptions: {
-        revalidateOnFocus: false,
-        ...input.swrOptions,
-      },
-    })
-  },
+  useHook:
+    ({ useData }) =>
+    (input = {}) => {
+      return useData({
+        input: [
+          ['search', input.search],
+          ['categoryId', input.categoryId],
+          ['brandId', input.brandId],
+          ['sort', input.sort],
+        ],
+        swrOptions: {
+          revalidateOnFocus: false,
+          ...input.swrOptions,
+        },
+      })
+    },
 }

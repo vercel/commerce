@@ -6,10 +6,7 @@ import useCart from './use-cart'
 
 import * as mutation from '../utils/mutations'
 
-import {
-  getCheckoutId,
-  checkoutToCart,
-} from '../utils'
+import { getCheckoutId, checkoutToCart } from '../utils'
 
 import { Cart, CartItemBody } from '../types'
 import { Mutation, MutationCheckoutLinesAddArgs } from '../schema'
@@ -19,19 +16,13 @@ export default useAddItem as UseAddItem<typeof handler>
 export const handler: MutationHook<Cart, {}, CartItemBody> = {
   fetchOptions: { query: mutation.CheckoutLineAdd },
   async fetcher({ input: item, options, fetch }) {
-    if (
-      item.quantity &&
-      (!Number.isInteger(item.quantity) || item.quantity! < 1)
-    ) {
+    if (item.quantity && (!Number.isInteger(item.quantity) || item.quantity! < 1)) {
       throw new CommerceError({
         message: 'The item quantity has to be a valid integer greater than 0',
       })
     }
 
-    const { checkoutLinesAdd } = await fetch<
-      Mutation,
-      MutationCheckoutLinesAddArgs
-    >({
+    const { checkoutLinesAdd } = await fetch<Mutation, MutationCheckoutLinesAddArgs>({
       ...options,
       variables: {
         checkoutId: getCheckoutId().checkoutId,
@@ -46,16 +37,18 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
 
     return checkoutToCart(checkoutLinesAdd)
   },
-  useHook: ({ fetch }) => () => {
-    const { mutate } = useCart()
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCart()
 
-    return useCallback(
-      async function addItem(input) {
-        const data = await fetch({ input })
-        await mutate(data, false)
-        return data
-      },
-      [fetch, mutate]
-    )
-  },
+      return useCallback(
+        async function addItem(input) {
+          const data = await fetch({ input })
+          await mutate(data, false)
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }

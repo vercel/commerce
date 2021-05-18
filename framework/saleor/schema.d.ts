@@ -2,10 +2,8 @@ export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -11442,15 +11440,11 @@ export type GetAllProductPathsQueryVariables = Exact<{
 export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
   products?: Maybe<
     { __typename?: 'ProductCountableConnection' } & {
-      pageInfo: { __typename?: 'PageInfo' } & Pick<
-        PageInfo,
-        'hasNextPage' | 'hasPreviousPage'
-      >
+      pageInfo: { __typename?: 'PageInfo' } & Pick<PageInfo, 'hasNextPage' | 'hasPreviousPage'>
       edges: Array<
-        { __typename?: 'ProductCountableEdge' } & Pick<
-          ProductCountableEdge,
-          'cursor'
-        > & { node: { __typename?: 'Product' } & Pick<Product, 'slug'> }
+        { __typename?: 'ProductCountableEdge' } & Pick<ProductCountableEdge, 'cursor'> & {
+            node: { __typename?: 'Product' } & Pick<Product, 'slug'>
+          }
       >
     }
   >
@@ -11459,16 +11453,10 @@ export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
 export type ProductConnectionFragment = {
   __typename?: 'ProductCountableConnection'
 } & {
-  pageInfo: { __typename?: 'PageInfo' } & Pick<
-    PageInfo,
-    'hasNextPage' | 'hasPreviousPage'
-  >
+  pageInfo: { __typename?: 'PageInfo' } & Pick<PageInfo, 'hasNextPage' | 'hasPreviousPage'>
   edges: Array<
     { __typename?: 'ProductCountableEdge' } & {
-      node: { __typename?: 'Product' } & Pick<
-        Product,
-        'id' | 'name' | 'description' | 'slug'
-      > & {
+      node: { __typename?: 'Product' } & Pick<Product, 'id' | 'name' | 'description' | 'slug'> & {
           pricing?: Maybe<
             { __typename?: 'ProductPricingInfo' } & {
               priceRange?: Maybe<
@@ -11482,14 +11470,7 @@ export type ProductConnectionFragment = {
               >
             }
           >
-          media?: Maybe<
-            Array<
-              { __typename?: 'ProductMedia' } & Pick<
-                ProductMedia,
-                'url' | 'alt'
-              >
-            >
-          >
+          media?: Maybe<Array<{ __typename?: 'ProductMedia' } & Pick<ProductMedia, 'url' | 'alt'>>>
         }
     }
   >
@@ -11503,7 +11484,5 @@ export type GetAllProductsQueryVariables = Exact<{
 }>
 
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
-  products?: Maybe<
-    { __typename?: 'ProductCountableConnection' } & ProductConnectionFragment
-  >
+  products?: Maybe<{ __typename?: 'ProductCountableConnection' } & ProductConnectionFragment>
 }

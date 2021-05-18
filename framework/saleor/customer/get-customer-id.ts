@@ -13,8 +13,7 @@ async function getCustomerId({
 
   const { data } = await config.fetch(query.CustomerOne, {
     variables: {
-      customerAccesToken:
-        customerAccesToken || Cookies.get(config.customerCookie),
+      customerAccesToken: customerAccesToken || Cookies.get(config.customerCookie),
     },
   })
 

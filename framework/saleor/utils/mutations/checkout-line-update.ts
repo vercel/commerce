@@ -1,4 +1,4 @@
-import * as fragment from '../fragments';
+import * as fragment from '../fragments'
 
 export const CheckoutLineUpdate = /* GraphQL */ `
   mutation CheckoutLineUpdate($checkoutId: ID!, $lineItems: [CheckoutLineInput!]!) {

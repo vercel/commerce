@@ -1,4 +1,4 @@
-export const ProductConnection  = /* GraphQL */ `
+export const ProductConnection = /* GraphQL */ `
   fragment ProductConnection on ProductCountableConnection {
     pageInfo {
       hasNextPage

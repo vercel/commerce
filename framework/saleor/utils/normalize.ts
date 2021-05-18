@@ -1,12 +1,6 @@
 import { Product } from '@commerce/types'
 
-import {
-  Product as SaleorProduct,
-  Checkout,
-  CheckoutLine,
-  Money,
-  ProductVariant,
-} from '../schema'
+import { Product as SaleorProduct, Checkout, CheckoutLine, Money, ProductVariant } from '../schema'
 
 import type { Cart, LineItem } from '../types'
 
@@ -25,9 +19,7 @@ const normalizeProductOptions = (options: ProductVariant[]) => {
     ?.map((option) => option?.attributes)
     .flat(1)
     .reduce<any>((acc, x) => {
-      if (
-        acc.find(({ displayName }: any) => displayName === x.attribute.name)
-      ) {
+      if (acc.find(({ displayName }: any) => displayName === x.attribute.name)) {
         return acc.map((opt: any) => {
           return opt.displayName === x.attribute.name
             ? {
@@ -72,36 +64,20 @@ const normalizeProductVariants = (variants: ProductVariant[]) => {
 }
 
 export function normalizeProduct(productNode: SaleorProduct): Product {
-  const {
-    id,
-    name,
-    media,
-    variants,
-    description,
-    slug,
-    pricing,
-    ...rest
-  } = productNode
+  const { id, name, media, variants, description, slug, pricing, ...rest } = productNode
 
   const product = {
     id,
     name,
     vendor: '',
-    description: description
-      ? JSON.parse(description)?.blocks[0]?.data.text
-      : '',
+    description: description ? JSON.parse(description)?.blocks[0]?.data.text : '',
     path: `/${slug}`,
     slug: slug?.replace(/^\/+|\/+$/g, ''),
-    price:
-      (pricing?.priceRange?.start?.net &&
-        money(pricing.priceRange.start.net)) ||
-      0,
+    price: (pricing?.priceRange?.start?.net && money(pricing.priceRange.start.net)) || 0,
     // TODO: Check nextjs-commerce bug if no images are added for a product
     images: media?.length ? media : [{ url: placeholderImg }],
-    variants:
-      variants && variants.length > 0 ? normalizeProductVariants(variants) : [],
-    options:
-      variants && variants.length > 0 ? normalizeProductOptions(variants) : [],
+    variants: variants && variants.length > 0 ? normalizeProductVariants(variants) : [],
+    options: variants && variants.length > 0 ? normalizeProductOptions(variants) : [],
     ...rest,
   }
 
@@ -109,8 +85,8 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
 }
 
 export function normalizeCart(checkout: Checkout): Cart {
-  const lines = checkout.lines as CheckoutLine[]; 
-  const lineItems: LineItem[] = lines.length > 0 ? lines?.map<LineItem>(normalizeLineItem) : [];
+  const lines = checkout.lines as CheckoutLine[]
+  const lineItems: LineItem[] = lines.length > 0 ? lines?.map<LineItem>(normalizeLineItem) : []
 
   return {
     id: checkout.id,
@@ -118,12 +94,12 @@ export function normalizeCart(checkout: Checkout): Cart {
     email: '',
     createdAt: checkout.created,
     currency: {
-      code: checkout.totalPrice?.currency!
+      code: checkout.totalPrice?.currency!,
     },
     taxesIncluded: false,
-    lineItems, 
-    lineItemsSubtotalPrice: checkout.subtotalPrice?.gross?.amount!, 
-    subtotalPrice: checkout.subtotalPrice?.gross?.amount!, 
+    lineItems,
+    lineItemsSubtotalPrice: checkout.subtotalPrice?.gross?.amount!,
+    subtotalPrice: checkout.subtotalPrice?.gross?.amount!,
     totalPrice: checkout.totalPrice?.gross.amount!,
     discounts: [],
   }
@@ -145,10 +121,10 @@ function normalizeLineItem({ id, variant, quantity }: CheckoutLine): LineItem {
       },
       requiresShipping: false,
       price: variant?.pricing?.price?.gross.amount!,
-      listPrice: 0 
+      listPrice: 0,
     },
     path: String(variant?.product?.slug),
     discounts: [],
-    options: [ ],
+    options: [],
   }
 }

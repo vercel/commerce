@@ -14,18 +14,15 @@ const handleLogin = (data: CreateToken) => {
     setCSRFToken(token)
   }
 
-  return token 
+  return token
 }
 
 export const handleAutomaticLogin = async (
   fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
-  input: MutationTokenCreateArgs 
+  input: MutationTokenCreateArgs
 ) => {
   try {
-    const { tokenCreate } = await fetch<
-      Mutation,
-      MutationTokenCreateArgs
-    >({
+    const { tokenCreate } = await fetch<Mutation, MutationTokenCreateArgs>({
       query: mutation.SessionCreate,
       variables: { ...input },
     })

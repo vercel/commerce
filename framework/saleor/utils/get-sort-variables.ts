@@ -4,7 +4,7 @@ export const getSortVariables = (sort?: string, isCategory: boolean = false) => 
     case 'price-asc':
       output = {
         field: 'PRICE',
-        direction: 'ASC'
+        direction: 'ASC',
       }
       break
     case 'price-desc':
@@ -22,10 +22,9 @@ export const getSortVariables = (sort?: string, isCategory: boolean = false) => 
     case 'latest-desc':
       output = {
         field: 'DATE',
-        direction: 'DESC'
+        direction: 'DESC',
       }
       break
   }
   return output
 }
-

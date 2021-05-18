@@ -1,5 +1,5 @@
 import Cookies, { CookieAttributes } from 'js-cookie'
-import * as Const from '../const';
+import * as Const from '../const'
 
 export const getToken = () => Cookies.get(Const.SALEOR_TOKEN)
 export const setToken = (token?: string, options?: CookieAttributes) => {

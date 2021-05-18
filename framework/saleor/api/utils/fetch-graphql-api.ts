@@ -6,14 +6,10 @@ import { getError } from '../../utils/handle-fetch-response'
 import { getConfig } from '..'
 import { getToken } from '@framework/utils'
 
-const fetchGraphqlApi: GraphQLFetcher = async (
-  query: string,
-  { variables } = {},
-  fetchOptions
-) => {
+const fetchGraphqlApi: GraphQLFetcher = async (query: string, { variables } = {}, fetchOptions) => {
   // FIXME @zaiste follow the bigcommerce example
   const config = getConfig()
-  const token = getToken();
+  const token = getToken()
 
   const res = await fetch(API_URL || '', {
     ...fetchOptions,

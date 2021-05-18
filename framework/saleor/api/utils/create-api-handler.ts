@@ -1,11 +1,7 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { SaleorConfig, getConfig } from '..'
 
-export type SaleorApiHandler<
-  T = any,
-  H extends SaleorHandlers = {},
-  Options extends {} = {}
-> = (
+export type SaleorApiHandler<T = any, H extends SaleorHandlers = {}, Options extends {} = {}> = (
   req: NextApiRequest,
   res: NextApiResponse<SaleorApiResponse<T>>,
   config: SaleorConfig,
@@ -30,11 +26,7 @@ export type SaleorApiResponse<T> = {
   errors?: { message: string; code?: string }[]
 }
 
-export default function createApiHandler<
-  T = any,
-  H extends SaleorHandlers = {},
-  Options extends {} = {}
->(
+export default function createApiHandler<T = any, H extends SaleorHandlers = {}, Options extends {} = {}>(
   handler: SaleorApiHandler<T, H, Options>,
   handlers: H,
   defaultOptions: Options

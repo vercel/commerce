@@ -1,14 +1,8 @@
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
-import type {
-  HookFetcherContext,
-  MutationHookContext,
-} from '@commerce/utils/types'
+import type { HookFetcherContext, MutationHookContext } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
-import useUpdateItem, {
-  UpdateItemInput as UpdateItemInputBase,
-  UseUpdateItem,
-} from '@commerce/cart/use-update-item'
+import useUpdateItem, { UpdateItemInput as UpdateItemInputBase, UseUpdateItem } from '@commerce/cart/use-update-item'
 
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
@@ -27,11 +21,7 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: { query: mutation.CheckoutLineUpdate },
-  async fetcher({
-    input: { itemId, item },
-    options,
-    fetch,
-  }: HookFetcherContext<UpdateCartItemBody>) {
+  async fetcher({ input: { itemId, item }, options, fetch }: HookFetcherContext<UpdateCartItemBody>) {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
@@ -47,11 +37,8 @@ export const handler = {
       })
     }
 
-    const checkoutId = getCheckoutId().checkoutId;
-    const { checkoutLinesUpdate } = await fetch<
-      Mutation,
-      MutationCheckoutLinesUpdateArgs
-    >({
+    const checkoutId = getCheckoutId().checkoutId
+    const { checkoutLinesUpdate } = await fetch<Mutation, MutationCheckoutLinesUpdateArgs>({
       ...options,
       variables: {
         checkoutId,
@@ -66,44 +53,42 @@ export const handler = {
 
     return checkoutToCart(checkoutLinesUpdate)
   },
-  useHook: ({
-    fetch,
-  }: MutationHookContext<Cart | null, UpdateCartItemBody>) => <
-    T extends LineItem | undefined = undefined
-  >(
-    ctx: {
-      item?: T
-      wait?: number
-    } = {}
-  ) => {
-    const { item } = ctx
-    const { mutate } = useCart() as any
+  useHook:
+    ({ fetch }: MutationHookContext<Cart | null, UpdateCartItemBody>) =>
+    <T extends LineItem | undefined = undefined>(
+      ctx: {
+        item?: T
+        wait?: number
+      } = {}
+    ) => {
+      const { item } = ctx
+      const { mutate } = useCart() as any
 
-    return useCallback(
-      debounce(async (input: UpdateItemInput<T>) => {
-        const itemId = input.id ?? item?.id
-        const productId = input.productId ?? item?.productId
-        const variantId = input.productId ?? item?.variantId
-        if (!itemId || !productId || !variantId) {
-          throw new ValidationError({
-            message: 'Invalid input used for this operation',
-          })
-        }
+      return useCallback(
+        debounce(async (input: UpdateItemInput<T>) => {
+          const itemId = input.id ?? item?.id
+          const productId = input.productId ?? item?.productId
+          const variantId = input.productId ?? item?.variantId
+          if (!itemId || !productId || !variantId) {
+            throw new ValidationError({
+              message: 'Invalid input used for this operation',
+            })
+          }
 
-        const data = await fetch({
-          input: {
-            item: {
-              productId,
-              variantId,
-              quantity: input.quantity,
+          const data = await fetch({
+            input: {
+              item: {
+                productId,
+                variantId,
+                quantity: input.quantity,
+              },
+              itemId,
             },
-            itemId,
-          },
-        })
-        await mutate(data, false)
-        return data
-      }, ctx.wait ?? 500),
-      [fetch, mutate]
-    )
-  },
+          })
+          await mutate(data, false)
+          return data
+        }, ctx.wait ?? 500),
+        [fetch, mutate]
+      )
+    },
 }

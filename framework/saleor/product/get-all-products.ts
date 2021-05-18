@@ -24,12 +24,11 @@ const getAllProducts = async (options: {
   let { config, variables = { first: 100 } } = options ?? {}
   config = getConfig(config)
 
-  const { data }: GraphQLFetcherResult = await config.fetch(query.ProductMany, { variables })
+  const { data }: GraphQLFetcherResult = await config.fetch(query.ProductMany, {
+    variables,
+  })
 
-  const products =
-    data.products?.edges?.map(({ node: p }: ProductCountableEdge) =>
-      normalizeProduct(p)
-    ) ?? []
+  const products = data.products?.edges?.map(({ node: p }: ProductCountableEdge) => normalizeProduct(p)) ?? []
 
   return {
     products,

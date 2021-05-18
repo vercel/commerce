@@ -1,4 +1,4 @@
-import * as fragment from '../fragments';
+import * as fragment from '../fragments'
 
 export const ProductMany = /* GraphQL */ `
   query ProductMany(

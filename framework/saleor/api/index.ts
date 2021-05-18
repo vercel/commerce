@@ -39,10 +39,10 @@ const config = new Config({
   locale: 'en-US',
   commerceUrl: Const.API_URL,
   apiToken: Const.SALEOR_TOKEN,
-  cartCookie: Const.CHECKOUT_ID_COOKIE, 
+  cartCookie: Const.CHECKOUT_ID_COOKIE,
   cartCookieMaxAge: 60 * 60 * 24 * 30,
   fetch: fetchGraphqlApi,
-  customerCookie: "",
+  customerCookie: '',
   storeChannel: Const.API_CHANNEL,
 })
 

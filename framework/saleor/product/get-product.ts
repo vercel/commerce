@@ -1,7 +1,7 @@
 import { GraphQLFetcherResult } from '@commerce/api'
 import { getConfig, SaleorConfig } from '../api'
 import { normalizeProduct } from '../utils'
-import * as query from '../utils/queries';
+import * as query from '../utils/queries'
 
 type Variables = {
   slug: string
