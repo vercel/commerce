@@ -10,6 +10,7 @@ import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
 
 import type { CartAPI } from './cart'
+import type { CustomerAPI } from './customer'
 import login from './operations/login'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
@@ -111,14 +112,14 @@ export const provider = {
 
 export type Provider = typeof provider
 
-export type APIs = CartAPI
+export type APIs = CartAPI | CustomerAPI
 
 export type BigcommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
 
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
-): BigcommerceAPI<P> {
-  const api = commerceApi(customProvider)
+) {
+  const api: BigcommerceAPI<P> = commerceApi(customProvider)
 
   return Object.assign(api, {
     endpoint<E extends APIs>(

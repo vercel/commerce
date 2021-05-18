@@ -3,9 +3,10 @@ import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
 import type { GetAPISchema } from '..'
 
-const cartApi: GetAPISchema<any, CartSchema>['endpoint']['handler'] = async (
-  ctx
-) => {
+const cartEndpoint: GetAPISchema<
+  any,
+  CartSchema
+>['endpoint']['handler'] = async (ctx) => {
   const { req, res, operations, config } = ctx
 
   if (
@@ -19,7 +20,6 @@ const cartApi: GetAPISchema<any, CartSchema>['endpoint']['handler'] = async (
     return
   }
 
-  const body2 = req.body
   const { cookies } = req
   const cartId = cookies[config.cartCookie]
 
@@ -59,4 +59,4 @@ const cartApi: GetAPISchema<any, CartSchema>['endpoint']['handler'] = async (
   }
 }
 
-export default cartApi
+export default cartEndpoint
