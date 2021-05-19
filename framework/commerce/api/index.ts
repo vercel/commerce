@@ -4,6 +4,7 @@ import type { APIEndpoint, APIHandler } from './utils/types'
 import type { CartSchema } from '../types/cart'
 import type { CustomerSchema } from '../types/customer'
 import type { LoginSchema } from '../types/login'
+import type { LogoutSchema } from '../types/logout'
 import {
   defaultOperations,
   OPERATIONS,
@@ -11,7 +12,11 @@ import {
   APIOperations,
 } from './operations'
 
-export type APISchemas = CartSchema | CustomerSchema | LoginSchema
+export type APISchemas =
+  | CartSchema
+  | CustomerSchema
+  | LoginSchema
+  | LogoutSchema
 
 export type GetAPISchema<
   C extends CommerceAPI<any>,
