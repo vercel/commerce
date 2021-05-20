@@ -1,5 +1,5 @@
 import type { LoginOperation } from '../types/login'
-import type { GetAllPagesResult } from '../types/page'
+import type { GetAllPagesOperation } from '../types/page'
 import type { ServerResponse } from 'http'
 import type { APIProvider, CommerceAPI, CommerceAPICore } from '.'
 
@@ -33,17 +33,17 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
   getAllPages: {
-    (opts?: {
+    <T extends GetAllPagesOperation>(opts?: {
       config?: P['config']
       preview?: boolean
-    }): Promise<GetAllPagesResult>
+    }): Promise<T['data']>
 
-    <T extends GetAllPagesResult>(
+    <T extends GetAllPagesOperation>(
       opts: {
         config?: P['config']
         preview?: boolean
       } & OperationOptions
-    ): Promise<T>
+    ): Promise<T['data']>
   }
 }
 
