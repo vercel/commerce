@@ -1,5 +1,8 @@
 import type { ServerResponse } from 'http'
-import type { OperationContext } from '@commerce/api/operations'
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
 import type { LoginMutation, LoginMutationVariables } from '../../schema'
 import type { RecursivePartial } from '../utils/types'
 import concatHeader from '../utils/concat-cookie'
@@ -24,12 +27,13 @@ function loginOperation({ commerce }: OperationContext<Provider>) {
     res: ServerResponse
   }): Promise<LoginResult>
 
-  async function login<T extends { result?: any }, V = any>(opts: {
-    query: string
-    variables: V
-    res: ServerResponse
-    config?: BigcommerceConfig
-  }): Promise<LoginResult<T>>
+  async function login<T extends { result?: any }, V = any>(
+    opts: {
+      variables: V
+      config?: BigcommerceConfig
+      res: ServerResponse
+    } & OperationOptions
+  ): Promise<LoginResult<T>>
 
   async function login({
     query = loginMutation,

@@ -24,12 +24,13 @@ export type Operations<P extends APIProvider> = {
       res: ServerResponse
     }): Promise<LoginResult>
 
-    <T extends { result?: any }, V = any>(opts: {
-      query: string
-      variables: V
-      res: ServerResponse
-      config?: P['config'] | undefined
-    }): Promise<LoginResult<T>>
+    <T extends { result?: any }, V = any>(
+      opts: {
+        variables: V
+        config?: P['config']
+        res: ServerResponse
+      } & OperationOptions
+    ): Promise<LoginResult<T>>
   }
 }
 
@@ -48,3 +49,7 @@ export type AllOperations<P extends APIProvider> = {
 export type OperationContext<P extends APIProvider> = {
   commerce: CommerceAPI<P>
 }
+
+export type OperationOptions =
+  | { query: string; url?: never }
+  | { query?: never; url: string }
