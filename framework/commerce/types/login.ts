@@ -18,3 +18,8 @@ export type LoginSchema<T extends LoginTypes = LoginTypes> = {
     }
   }
 }
+
+export type LoginOperation = {
+  data: { result?: string }
+  variables: unknown
+}

@@ -1,3 +1,5 @@
+import type { LoginOperation } from '../types/login'
+import type { GetAllPagesResult } from '../types/page'
 import type { ServerResponse } from 'http'
 import type { APIProvider, CommerceAPI, CommerceAPICore } from '.'
 
@@ -14,23 +16,34 @@ export const defaultOperations = OPERATIONS.reduce((ops, k) => {
 
 export type AllowedOperations = typeof OPERATIONS[number]
 
-export type LoginResult<T extends { result?: any } = { result?: string }> = T
-
 export type Operations<P extends APIProvider> = {
   login: {
-    (opts: {
-      variables: any
+    <T extends LoginOperation>(opts: {
+      variables: T['variables']
       config?: P['config']
       res: ServerResponse
-    }): Promise<LoginResult>
+    }): Promise<T['data']>
 
-    <T extends { result?: any }, V = any>(
+    <T extends LoginOperation>(
       opts: {
-        variables: V
+        variables: T['variables']
         config?: P['config']
         res: ServerResponse
       } & OperationOptions
-    ): Promise<LoginResult<T>>
+    ): Promise<T['data']>
+  }
+  getAllPages: {
+    (opts?: {
+      config?: P['config']
+      preview?: boolean
+    }): Promise<GetAllPagesResult>
+
+    <T extends GetAllPagesResult>(
+      opts: {
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T>
   }
 }
 

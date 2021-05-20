@@ -3,7 +3,8 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@commerce/api/operations'
-import type { LoginMutation, LoginMutationVariables } from '../../schema'
+import type { LoginOperation } from '../../types/login'
+import type { LoginMutation } from '../../schema'
 import type { RecursivePartial } from '../utils/types'
 import concatHeader from '../utils/concat-cookie'
 import type { BigcommerceConfig, Provider } from '..'
@@ -16,24 +17,20 @@ export const loginMutation = /* GraphQL */ `
   }
 `
 
-export type LoginResult<T extends { result?: any } = { result?: string }> = T
-
-export type LoginVariables = LoginMutationVariables
-
 function loginOperation({ commerce }: OperationContext<Provider>) {
   async function login(opts: {
-    variables: LoginVariables
+    variables: LoginOperation['variables']
     config?: BigcommerceConfig
     res: ServerResponse
-  }): Promise<LoginResult>
+  }): Promise<LoginOperation['data']>
 
-  async function login<T extends { result?: any }, V = any>(
+  async function login<T extends LoginOperation>(
     opts: {
-      variables: V
+      variables: T['variables']
       config?: BigcommerceConfig
       res: ServerResponse
     } & OperationOptions
-  ): Promise<LoginResult<T>>
+  ): Promise<T['data']>
 
   async function login({
     query = loginMutation,
@@ -42,10 +39,10 @@ function loginOperation({ commerce }: OperationContext<Provider>) {
     config,
   }: {
     query?: string
-    variables: LoginVariables
+    variables: LoginOperation['variables']
     res: ServerResponse
     config?: BigcommerceConfig
-  }): Promise<LoginResult> {
+  }): Promise<LoginOperation['data']> {
     config = commerce.getConfig(config)
 
     const { data, res } = await config.fetch<RecursivePartial<LoginMutation>>(
