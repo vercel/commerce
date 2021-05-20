@@ -4,8 +4,9 @@ export const CheckoutOne = /* GraphQL */ `
   query CheckoutOne($checkoutId: UUID!) {
     checkout(token: $checkoutId) {
       ... on Checkout {
-        ${fragment.CheckoutDetails}
+        ...CheckoutDetails
       }
     }
   }
+  ${fragment.CheckoutDetails}
 `
