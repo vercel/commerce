@@ -20,9 +20,6 @@ module.exports = withCommerceConfig({
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
   },
-  images: {
-    domains: [process.env.COMMERCE_IMAGE_HOST],
-  },
   rewrites() {
     return [
       (isBC || isShopify || isSwell || isVendure) && {
