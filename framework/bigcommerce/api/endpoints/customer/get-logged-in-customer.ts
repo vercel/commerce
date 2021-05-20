@@ -1,4 +1,4 @@
-import type { GetLoggedInCustomerQuery } from '../../schema'
+import type { GetLoggedInCustomerQuery } from '../../../schema'
 import type { CustomerEndpoint } from '.'
 
 export const getLoggedInCustomerQuery = /* GraphQL */ `

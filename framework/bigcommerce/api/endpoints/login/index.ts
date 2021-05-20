@@ -1,6 +1,6 @@
 import type { GetAPISchema } from '@commerce/api'
-import type { LoginSchema } from '../../types/login'
-import type { BigcommerceAPI } from '..'
+import type { LoginSchema } from '../../../types/login'
+import type { BigcommerceAPI } from '../..'
 import login from './login'
 
 export type LoginAPI = GetAPISchema<BigcommerceAPI, LoginSchema>

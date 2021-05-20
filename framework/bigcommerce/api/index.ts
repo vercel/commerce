@@ -9,11 +9,11 @@ import {
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
 
-import type { CartAPI } from './cart'
-import type { CustomerAPI } from './customer'
-import type { LoginAPI } from './login'
-import type { LogoutAPI } from './logout'
-import type { SignupAPI } from './signup'
+import type { CartAPI } from './endpoints/cart'
+import type { CustomerAPI } from './endpoints/customer'
+import type { LoginAPI } from './endpoints/login'
+import type { LogoutAPI } from './endpoints/logout'
+import type { SignupAPI } from './endpoints/signup'
 import login from './operations/login'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {

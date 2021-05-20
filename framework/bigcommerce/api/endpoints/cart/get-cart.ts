@@ -1,7 +1,7 @@
 import { normalizeCart } from '@framework/lib/normalize'
-import { BigcommerceApiError } from '../utils/errors'
-import getCartCookie from '../utils/get-cart-cookie'
-import type { BigcommerceCart } from '../../types'
+import { BigcommerceApiError } from '../../utils/errors'
+import getCartCookie from '../../utils/get-cart-cookie'
+import type { BigcommerceCart } from '../../../types'
 import type { CartEndpoint } from '.'
 
 // Return current cart info

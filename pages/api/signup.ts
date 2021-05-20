@@ -1,5 +1,5 @@
 import signup from '@commerce/api/endpoints/signup'
-import { SignupAPI, operations } from '@framework/api/signup'
+import { SignupAPI, operations } from '@framework/api/endpoints/signup'
 import commerce from '@lib/api/commerce'
 
 export default commerce.endpoint({
