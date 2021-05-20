@@ -5,6 +5,7 @@ import type { CartSchema } from '../types/cart'
 import type { CustomerSchema } from '../types/customer'
 import type { LoginSchema } from '../types/login'
 import type { LogoutSchema } from '../types/logout'
+import type { SignupSchema } from '../types/signup'
 import {
   defaultOperations,
   OPERATIONS,
@@ -17,6 +18,7 @@ export type APISchemas =
   | CustomerSchema
   | LoginSchema
   | LogoutSchema
+  | SignupSchema
 
 export type GetAPISchema<
   C extends CommerceAPI<any>,
