@@ -10,7 +10,7 @@ export type LoginTypes = {
 export type LoginSchema<T extends LoginTypes = LoginTypes> = {
   endpoint: {
     options: {}
-    operations: {
+    handlers: {
       login: {
         data: null
         body: T['body']

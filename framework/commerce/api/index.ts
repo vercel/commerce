@@ -33,12 +33,12 @@ export type EndpointContext<
   E extends EndpointSchemaBase
 > = {
   handler: Endpoint<C, E>
-  operations: EndpointHandlers<C, E>
+  handlers: EndpointHandlers<C, E>
 }
 
 export type EndpointSchemaBase = {
   options: {}
-  operations: {
+  handlers: {
     [k: string]: { data?: any; body?: any }
   }
 }
@@ -52,11 +52,11 @@ export type EndpointHandlers<
   C extends CommerceAPI,
   E extends EndpointSchemaBase
 > = {
-  [H in keyof E['operations']]: APIHandler<
+  [H in keyof E['handlers']]: APIHandler<
     C,
     EndpointHandlers<C, E>,
-    E['operations'][H]['data'],
-    E['operations'][H]['body'],
+    E['handlers'][H]['data'],
+    E['handlers'][H]['body'],
     E['options']
   >
 }
@@ -122,7 +122,7 @@ export function getEndpoint<
       res,
       commerce,
       config: cfg,
-      operations: context.operations,
+      handlers: context.handlers,
       options: context.options ?? {},
     })
   }

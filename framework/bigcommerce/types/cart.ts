@@ -58,9 +58,9 @@ export type RemoveItemHook = CartHooks['removeItem']
 
 export type CartSchema = Core.CartSchema<CartTypes>
 
-export type CartOperations = Core.CartOperations<CartTypes>
+export type CartHandlers = Core.CartHandlers<CartTypes>
 
-export type GetCartOperation = CartOperations['getCart']
-export type AddItemOperation = CartOperations['addItem']
-export type UpdateItemOperation = CartOperations['updateItem']
-export type RemoveItemOperation = CartOperations['removeItem']
+export type GetCartHandler = CartHandlers['getCart']
+export type AddItemHandler = CartHandlers['addItem']
+export type UpdateItemHandler = CartHandlers['updateItem']
+export type RemoveItemHandler = CartHandlers['removeItem']

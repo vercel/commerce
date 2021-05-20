@@ -1,7 +1,7 @@
 export type LogoutSchema = {
   endpoint: {
     options: {}
-    operations: {
+    handlers: {
       logout: {
         data: null
         body: { redirectTo?: string }

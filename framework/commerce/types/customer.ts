@@ -8,16 +8,10 @@ export type CustomerTypes = {
 export type CustomerSchema<T extends CustomerTypes = CustomerTypes> = {
   endpoint: {
     options: {}
-    operations: {
+    handlers: {
       getLoggedInCustomer: {
         data: { customer: T['customer'] } | null
       }
     }
   }
 }
-
-// export type CustomerOperations<T extends CustomerTypes = CustomerTypes> = {
-//   getLoggedInCustomer: GetCartOperation<T>
-// }
-
-// export type GetLoggedInCustomerOperation = {}

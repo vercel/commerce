@@ -136,37 +136,33 @@ export type RemoveItemHook<T extends CartTypes = CartTypes> = {
 export type CartSchema<T extends CartTypes = CartTypes> = {
   endpoint: {
     options: {}
-    operations: CartOperations<T>
+    handlers: CartHandlers<T>
   }
 }
 
-export type CartOperations<T extends CartTypes = CartTypes> = {
-  getCart: GetCartOperation<T>
-  addItem: AddItemOperation<T>
-  updateItem: UpdateItemOperation<T>
-  removeItem: RemoveItemOperation<T>
+export type CartHandlers<T extends CartTypes = CartTypes> = {
+  getCart: GetCartHandler<T>
+  addItem: AddItemHandler<T>
+  updateItem: UpdateItemHandler<T>
+  removeItem: RemoveItemHandler<T>
 }
 
-export type GetCartOperation<
-  T extends CartTypes = CartTypes
-> = GetCartHook<T> & {
+export type GetCartHandler<T extends CartTypes = CartTypes> = GetCartHook<T> & {
   body: { cartId?: string }
 }
 
-export type AddItemOperation<
-  T extends CartTypes = CartTypes
-> = AddItemHook<T> & {
+export type AddItemHandler<T extends CartTypes = CartTypes> = AddItemHook<T> & {
   body: { cartId: string }
 }
 
-export type UpdateItemOperation<
+export type UpdateItemHandler<
   T extends CartTypes = CartTypes
 > = UpdateItemHook<T> & {
   data: T['cart']
   body: { cartId: string }
 }
 
-export type RemoveItemOperation<
+export type RemoveItemHandler<
   T extends CartTypes = CartTypes
 > = RemoveItemHook<T> & {
   body: { cartId: string }

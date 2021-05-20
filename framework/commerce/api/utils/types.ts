@@ -20,7 +20,7 @@ export type APIHandlerContext<
   res: NextApiResponse<APIResponse<Data>>
   commerce: C
   config: C['provider']['config']
-  operations: H
+  handlers: H
   /**
    * Custom configs that may be used by a particular handler
    */

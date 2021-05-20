@@ -12,7 +12,7 @@ export type SignupTypes = {
 export type SignupSchema<T extends SignupTypes = SignupTypes> = {
   endpoint: {
     options: {}
-    operations: {
+    handlers: {
       signup: {
         data: null
         body: T['body']
