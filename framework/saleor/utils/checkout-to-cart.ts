@@ -1,7 +1,7 @@
 import { Cart } from '../types'
 import { CommerceError } from '@commerce/utils/errors'
 
-import { CheckoutLinesAdd, CheckoutLinesUpdate, CheckoutCreate, CheckoutError, Checkout, Maybe } from '../schema'
+import { CheckoutLinesAdd, CheckoutLinesUpdate, CheckoutCreate, CheckoutError, Checkout, Maybe, CheckoutLineDelete } from '../schema'
 
 import { normalizeCart } from './normalize'
 import throwUserErrors from './throw-user-errors'
@@ -11,7 +11,7 @@ export type CheckoutQuery = {
   errors?: Array<CheckoutError>
 }
 
-export type CheckoutPayload = CheckoutLinesAdd | CheckoutLinesUpdate | CheckoutCreate | CheckoutQuery
+export type CheckoutPayload = CheckoutLinesAdd | CheckoutLinesUpdate | CheckoutCreate | CheckoutQuery | CheckoutLineDelete
 
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
   if (!checkoutPayload) {

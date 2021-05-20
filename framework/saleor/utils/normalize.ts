@@ -73,7 +73,10 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
     description: description ? JSON.parse(description)?.blocks[0]?.data.text : '',
     path: `/${slug}`,
     slug: slug?.replace(/^\/+|\/+$/g, ''),
-    price: (pricing?.priceRange?.start?.net && money(pricing.priceRange.start.net)) || { value: 0, currencyCode: 'USD' },
+    price: (pricing?.priceRange?.start?.net && money(pricing.priceRange.start.net)) || {
+      value: 0,
+      currencyCode: 'USD',
+    },
     // TODO: Check nextjs-commerce bug if no images are added for a product
     images: media?.length ? media : [{ url: placeholderImg }],
     variants: variants && variants.length > 0 ? normalizeProductVariants(variants as ProductVariant[]) : [],

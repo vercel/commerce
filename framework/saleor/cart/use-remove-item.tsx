@@ -27,7 +27,7 @@ export const handler = {
         lineId: itemId,
       },
     })
-    return checkoutToCart(data.checkoutLinesUpdate)
+    return checkoutToCart(data.checkoutLineDelete)
   },
   useHook:
     ({ fetch }: MutationHookContext<Cart | null, RemoveCartItemBody>) =>

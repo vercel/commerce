@@ -34,7 +34,7 @@ export const ProductOneBySlug = /* GraphQL */ `
           }
         }
       }
-      images {
+      media {
         url
         alt
       }

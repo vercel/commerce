@@ -9,8 +9,9 @@ export const CheckoutLineUpdate = /* GraphQL */ `
         message
       }
       checkout {
-        ${fragment.CheckoutDetails}
+        ...CheckoutDetails
       }
     }
   }
+  ${fragment.CheckoutDetails}
 `
