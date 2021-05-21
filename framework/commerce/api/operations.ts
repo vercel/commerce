@@ -1,6 +1,7 @@
+import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
 import type { GetAllPagesOperation, GetPageOperation } from '../types/page'
-import type { ServerResponse } from 'http'
+import type { GetSiteInfoOperation } from '../types/site'
 import type { APIProvider, CommerceAPI } from '.'
 
 const noop = () => {
@@ -32,6 +33,7 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
+
   getAllPages: {
     <T extends GetAllPagesOperation>(opts?: {
       config?: P['config']
@@ -45,6 +47,7 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
+
   getPage: {
     <T extends GetPageOperation>(opts: {
       variables: T['variables']
@@ -55,6 +58,20 @@ export type Operations<P extends APIProvider> = {
     <T extends GetPageOperation>(
       opts: {
         variables: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getSiteInfo: {
+    <T extends GetSiteInfoOperation>(opts: {
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetSiteInfoOperation>(
+      opts: {
         config?: P['config']
         preview?: boolean
       } & OperationOptions

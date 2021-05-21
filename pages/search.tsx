@@ -10,7 +10,6 @@ import { Container, Grid, Skeleton } from '@components/ui'
 
 import { getConfig } from '@framework/api'
 import useSearch from '@framework/product/use-search'
-import getSiteInfo from '@framework/common/get-site-info'
 import commerce from '@lib/api/commerce'
 import rangeMap from '@lib/range-map'
 
@@ -39,7 +38,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
   const { pages } = await commerce.getAllPages({ config, preview })
-  const { categories, brands } = await getSiteInfo({ config, preview })
+  const { categories, brands } = await commerce.getSiteInfo({ config, preview })
   return {
     props: {
       pages,

@@ -18,6 +18,7 @@ import type { SignupAPI } from './endpoints/signup'
 import login from './operations/login'
 import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
+import getSiteInfo from './operations/get-site-info'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
   // Indicates if the returned metadata with translations should be applied to the
@@ -113,7 +114,7 @@ const config2: BigcommerceConfig = {
 
 export const provider = {
   config: config2,
-  operations: { login, getAllPages, getPage },
+  operations: { login, getAllPages, getPage, getSiteInfo },
 }
 
 export type Provider = typeof provider
