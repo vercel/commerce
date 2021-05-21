@@ -4,12 +4,12 @@ import type {
   InferGetStaticPropsType,
 } from 'next'
 import { useRouter } from 'next/router'
+import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
 
 import { getConfig } from '@framework/api'
 import getProduct from '@framework/product/get-product'
-import getAllPages from '@framework/common/get-all-pages'
 import getAllProductPaths from '@framework/product/get-all-product-paths'
 
 export async function getStaticProps({
@@ -18,7 +18,7 @@ export async function getStaticProps({
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const { pages } = await commerce.getAllPages({ config, preview })
   const { product } = await getProduct({
     variables: { slug: params!.slug },
     config,

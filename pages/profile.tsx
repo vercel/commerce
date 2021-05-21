@@ -1,7 +1,7 @@
 import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@framework/api'
-import getAllPages from '@framework/common/get-all-pages'
 import useCustomer from '@framework/customer/use-customer'
+import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
 
@@ -10,7 +10,7 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const { pages } = await commerce.getAllPages({ config, preview })
   return {
     props: { pages },
   }

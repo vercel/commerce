@@ -1,8 +1,8 @@
 import type { GetStaticPropsContext } from 'next'
 import { getConfig } from '@framework/api'
-import getAllPages from '@framework/common/get-all-pages'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
+import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
@@ -13,7 +13,7 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const { pages } = await commerce.getAllPages({ config, preview })
   return {
     props: { pages },
   }

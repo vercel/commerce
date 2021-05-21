@@ -10,10 +10,17 @@ import { Container, Grid, Skeleton } from '@components/ui'
 
 import { getConfig } from '@framework/api'
 import useSearch from '@framework/product/use-search'
-import getAllPages from '@framework/common/get-all-pages'
 import getSiteInfo from '@framework/common/get-site-info'
-
+import commerce from '@lib/api/commerce'
 import rangeMap from '@lib/range-map'
+
+import {
+  filterQuery,
+  getCategoryPath,
+  getDesignerPath,
+  useSearchMeta,
+} from '@lib/search'
+import { Product } from '@commerce/types'
 
 // TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
@@ -26,20 +33,12 @@ const SORT = Object.entries({
   'price-desc': 'Price: High to low',
 })
 
-import {
-  filterQuery,
-  getCategoryPath,
-  getDesignerPath,
-  useSearchMeta,
-} from '@lib/search'
-import { Product } from '@commerce/types'
-
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const { pages } = await commerce.getAllPages({ config, preview })
   const { categories, brands } = await getSiteInfo({ config, preview })
   return {
     props: {
