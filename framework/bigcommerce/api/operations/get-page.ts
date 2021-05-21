@@ -2,45 +2,52 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@commerce/api/operations'
-import type { Page, GetAllPagesOperation } from '../../types/page'
+import type { GetPageOperation, Page } from '../../types/page'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
-import { BigcommerceConfig, Provider } from '..'
+import type { BigcommerceConfig, Provider } from '..'
 
-export default function getAllPagesOperation({
+export default function getPageOperation({
   commerce,
 }: OperationContext<Provider>) {
-  async function getAllPages(opts?: {
+  async function getPage<T extends GetPageOperation>(opts: {
+    variables: T['variables']
     config?: BigcommerceConfig
     preview?: boolean
-  }): Promise<GetAllPagesOperation['data']>
+  }): Promise<T['data']>
 
-  async function getAllPages<T extends GetAllPagesOperation>(
+  async function getPage<T extends GetPageOperation>(
     opts: {
+      variables: T['variables']
       config?: BigcommerceConfig
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
 
-  async function getAllPages({
+  async function getPage<T extends GetPageOperation>({
+    url,
+    variables,
     config,
     preview,
   }: {
     url?: string
+    variables: T['variables']
     config?: BigcommerceConfig
     preview?: boolean
-  } = {}): Promise<GetAllPagesOperation['data']> {
+  }): Promise<T['data']> {
     config = commerce.getConfig(config)
     // RecursivePartial forces the method to check for every prop in the data, which is
     // required in case there's a custom `url`
     const { data } = await config.storeApiFetch<
       RecursivePartial<{ data: Page[] }>
-    >('/v3/content/pages')
-    const pages = (data as RecursiveRequired<typeof data>) ?? []
+    >(url || `/v3/content/pages?id=${variables.id}&include=body`)
+    const firstPage = data?.[0]
+    const page = firstPage as RecursiveRequired<typeof firstPage>
 
-    return {
-      pages: preview ? pages : pages.filter((p) => p.is_visible),
+    if (preview || page?.is_visible) {
+      return { page }
     }
+    return {}
   }
 
-  return getAllPages
+  return getPage
 }

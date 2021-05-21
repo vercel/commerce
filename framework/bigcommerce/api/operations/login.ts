@@ -17,7 +17,9 @@ export const loginMutation = /* GraphQL */ `
   }
 `
 
-function loginOperation({ commerce }: OperationContext<Provider>) {
+export default function loginOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function login(opts: {
     variables: LoginOperation['variables']
     config?: BigcommerceConfig
@@ -75,5 +77,3 @@ function loginOperation({ commerce }: OperationContext<Provider>) {
 
   return login
 }
-
-export default loginOperation

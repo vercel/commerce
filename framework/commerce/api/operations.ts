@@ -1,5 +1,5 @@
 import type { LoginOperation } from '../types/login'
-import type { GetAllPagesOperation } from '../types/page'
+import type { GetAllPagesOperation, GetPageOperation } from '../types/page'
 import type { ServerResponse } from 'http'
 import type { APIProvider, CommerceAPI } from '.'
 
@@ -40,6 +40,21 @@ export type Operations<P extends APIProvider> = {
 
     <T extends GetAllPagesOperation>(
       opts: {
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+  getPage: {
+    <T extends GetPageOperation>(opts: {
+      variables: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetPageOperation>(
+      opts: {
+        variables: T['variables']
         config?: P['config']
         preview?: boolean
       } & OperationOptions

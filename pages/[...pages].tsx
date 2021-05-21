@@ -9,7 +9,7 @@ import commerce from '@lib/api/commerce'
 import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import { getConfig } from '@framework/api'
-import getPage from '@framework/common/get-page'
+import getPage from '@framework/api/operations/get-page'
 import { defaultPageProps } from '@lib/defaults'
 
 export async function getStaticProps({
