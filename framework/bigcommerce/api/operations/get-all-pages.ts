@@ -9,10 +9,10 @@ import { BigcommerceConfig, Provider } from '..'
 export default function getAllPagesOperation({
   commerce,
 }: OperationContext<Provider>) {
-  async function getAllPages(opts?: {
+  async function getAllPages<T extends GetAllPagesOperation>(opts?: {
     config?: BigcommerceConfig
     preview?: boolean
-  }): Promise<GetAllPagesOperation['data']>
+  }): Promise<T['data']>
 
   async function getAllPages<T extends GetAllPagesOperation>(
     opts: {
@@ -21,14 +21,14 @@ export default function getAllPagesOperation({
     } & OperationOptions
   ): Promise<T['data']>
 
-  async function getAllPages({
+  async function getAllPages<T extends GetAllPagesOperation>({
     config,
     preview,
   }: {
     url?: string
     config?: BigcommerceConfig
     preview?: boolean
-  } = {}): Promise<GetAllPagesOperation['data']> {
+  } = {}): Promise<T['data']> {
     config = commerce.getConfig(config)
     // RecursivePartial forces the method to check for every prop in the data, which is
     // required in case there's a custom `url`

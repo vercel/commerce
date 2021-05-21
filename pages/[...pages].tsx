@@ -3,13 +3,12 @@ import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from 'next'
+import commerce from '@lib/api/commerce'
 import { Text } from '@components/ui'
 import { Layout } from '@components/common'
-import commerce from '@lib/api/commerce'
 import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import { getConfig } from '@framework/api'
-import getPage from '@framework/api/operations/get-page'
 import { defaultPageProps } from '@lib/defaults'
 
 export async function getStaticProps({
@@ -26,7 +25,11 @@ export async function getStaticProps({
   const data =
     pageItem &&
     // TODO: Shopify - Fix this type
-    (await getPage({ variables: { id: pageItem.id! } as any, config, preview }))
+    (await commerce.getPage({
+      variables: { id: pageItem.id! } as any,
+      config,
+      preview,
+    }))
   const page = data?.page
 
   if (!page) {

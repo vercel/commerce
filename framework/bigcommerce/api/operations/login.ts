@@ -20,11 +20,11 @@ export const loginMutation = /* GraphQL */ `
 export default function loginOperation({
   commerce,
 }: OperationContext<Provider>) {
-  async function login(opts: {
-    variables: LoginOperation['variables']
+  async function login<T extends LoginOperation>(opts: {
+    variables: T['variables']
     config?: BigcommerceConfig
     res: ServerResponse
-  }): Promise<LoginOperation['data']>
+  }): Promise<T['data']>
 
   async function login<T extends LoginOperation>(
     opts: {
@@ -34,17 +34,17 @@ export default function loginOperation({
     } & OperationOptions
   ): Promise<T['data']>
 
-  async function login({
+  async function login<T extends LoginOperation>({
     query = loginMutation,
     variables,
     res: response,
     config,
   }: {
     query?: string
-    variables: LoginOperation['variables']
+    variables: T['variables']
     res: ServerResponse
     config?: BigcommerceConfig
-  }): Promise<LoginOperation['data']> {
+  }): Promise<T['data']> {
     config = commerce.getConfig(config)
 
     const { data, res } = await config.fetch<RecursivePartial<LoginMutation>>(
