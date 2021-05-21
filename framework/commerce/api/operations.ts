@@ -1,7 +1,7 @@
 import type { LoginOperation } from '../types/login'
 import type { GetAllPagesOperation } from '../types/page'
 import type { ServerResponse } from 'http'
-import type { APIProvider, CommerceAPI, CommerceAPICore } from '.'
+import type { APIProvider, CommerceAPI } from '.'
 
 const noop = () => {
   throw new Error('Not implemented')

@@ -5,11 +5,11 @@ import type {
 } from 'next'
 import { Text } from '@components/ui'
 import { Layout } from '@components/common'
+import commerce from '@lib/api/commerce'
 import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import { getConfig } from '@framework/api'
 import getPage from '@framework/common/get-page'
-import getAllPages from '@framework/common/get-all-pages'
 import { defaultPageProps } from '@lib/defaults'
 
 export async function getStaticProps({
@@ -18,7 +18,7 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext<{ pages: string[] }>) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ preview, config })
+  const { pages } = await commerce.getAllPages({ preview, config })
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
 
@@ -41,7 +41,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const { pages } = await getAllPages()
+  const { pages } = await commerce.getAllPages()
   const [invalidPaths, log] = missingLocaleInPages()
   const paths = pages
     .map((page) => page.url)
