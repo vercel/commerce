@@ -1,7 +1,7 @@
 import { serialize } from 'cookie'
 import type { LogoutEndpoint } from '.'
 
-const logout: LogoutEndpoint['operations']['logout'] = async ({
+const logout: LogoutEndpoint['handlers']['logout'] = async ({
   res,
   body: { redirectTo },
   config,

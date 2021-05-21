@@ -1,7 +1,7 @@
 import { BigcommerceApiError } from '../../utils/errors'
 import type { SignupEndpoint } from '.'
 
-const signup: SignupEndpoint['operations']['signup'] = async ({
+const signup: SignupEndpoint['handlers']['signup'] = async ({
   res,
   body: { firstName, lastName, email, password },
   config,

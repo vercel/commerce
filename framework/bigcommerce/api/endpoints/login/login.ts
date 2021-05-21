@@ -3,7 +3,7 @@ import type { LoginEndpoint } from '.'
 
 const invalidCredentials = /invalid credentials/i
 
-const login: LoginEndpoint['operations']['login'] = async ({
+const login: LoginEndpoint['handlers']['login'] = async ({
   res,
   body: { email, password },
   config,

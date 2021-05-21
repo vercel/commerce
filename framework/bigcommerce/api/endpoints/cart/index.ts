@@ -10,4 +10,4 @@ export type CartAPI = GetAPISchema<BigcommerceAPI, CartSchema>
 
 export type CartEndpoint = CartAPI['endpoint']
 
-export const operations = { getCart, addItem, updateItem, removeItem }
+export const handlers = { getCart, addItem, updateItem, removeItem }

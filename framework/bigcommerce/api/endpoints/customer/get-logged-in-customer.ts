@@ -24,7 +24,7 @@ export const getLoggedInCustomerQuery = /* GraphQL */ `
 
 export type Customer = NonNullable<GetLoggedInCustomerQuery['customer']>
 
-const getLoggedInCustomer: CustomerEndpoint['operations']['getLoggedInCustomer'] = async ({
+const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] = async ({
   req,
   res,
   config,

@@ -5,7 +5,7 @@ import type { BigcommerceCart } from '../../../types'
 import type { CartEndpoint } from '.'
 
 // Return current cart info
-const getCart: CartEndpoint['operations']['getCart'] = async ({
+const getCart: CartEndpoint['handlers']['getCart'] = async ({
   res,
   body: { cartId },
   config,

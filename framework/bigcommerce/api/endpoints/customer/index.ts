@@ -7,4 +7,4 @@ export type CustomerAPI = GetAPISchema<BigcommerceAPI, CustomerSchema>
 
 export type CustomerEndpoint = CustomerAPI['endpoint']
 
-export const operations = { getLoggedInCustomer }
+export const handlers = { getLoggedInCustomer }

@@ -7,4 +7,4 @@ export type LoginAPI = GetAPISchema<BigcommerceAPI, LoginSchema>
 
 export type LoginEndpoint = LoginAPI['endpoint']
 
-export const operations = { login }
+export const handlers = { login }

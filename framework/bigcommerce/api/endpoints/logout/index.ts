@@ -7,4 +7,4 @@ export type LogoutAPI = GetAPISchema<BigcommerceAPI, LogoutSchema>
 
 export type LogoutEndpoint = LogoutAPI['endpoint']
 
-export const operations = { logout }
+export const handlers = { logout }

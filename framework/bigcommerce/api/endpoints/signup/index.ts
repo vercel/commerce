@@ -7,4 +7,4 @@ export type SignupAPI = GetAPISchema<BigcommerceAPI, SignupSchema>
 
 export type SignupEndpoint = SignupAPI['endpoint']
 
-export const operations = { signup }
+export const handlers = { signup }

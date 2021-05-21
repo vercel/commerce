@@ -3,7 +3,7 @@ import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartEndpoint } from '.'
 
-const addItem: CartEndpoint['operations']['addItem'] = async ({
+const addItem: CartEndpoint['handlers']['addItem'] = async ({
   res,
   body: { cartId, item },
   config,
