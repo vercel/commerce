@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import { CommerceError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import authenticateMutation from '../utils/mutations/authenticate'
 import {
