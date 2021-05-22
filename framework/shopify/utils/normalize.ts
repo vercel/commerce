@@ -9,9 +9,13 @@ import {
   ProductVariantConnection,
   MoneyV2,
   ProductOption,
+  PageEdge,
+  Page as ShopifyPage,
 } from '../schema'
 
 import type { Cart, LineItem } from '../types'
+
+import type { Page } from '../common/get-all-pages'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -39,6 +43,7 @@ const normalizeProductOption = ({
           hexColors: [value],
         }
       }
+
       return output
     }),
   }
@@ -163,3 +168,15 @@ function normalizeLineItem({
           ],
   }
 }
+
+export const normalizePage = (
+  { title: name, handle, ...page }: ShopifyPage,
+  locale: string
+): Page => ({
+  ...page,
+  url: `/${locale}/${handle}`,
+  name,
+})
+
+export const normalizePages = (edges: PageEdge[], locale: string): Page[] =>
+  edges?.map((edge) => normalizePage(edge.node, locale))

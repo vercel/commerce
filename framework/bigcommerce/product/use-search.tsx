@@ -1,15 +1,8 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import type { SearchProductsData } from '../api/catalog/products'
+import { SearchProductsData, SearchProductsInput } from '@commerce/types'
 
 export default useSearch as UseSearch<typeof handler>
-
-export type SearchProductsInput = {
-  search?: string
-  categoryId?: number
-  brandId?: number
-  sort?: string
-}
 
 export const handler: SWRHook<
   SearchProductsData,

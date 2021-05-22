@@ -1,14 +1,6 @@
 import { getConfig, ShopifyConfig } from '../api'
-import { PageEdge } from '../schema'
-import { getAllPagesQuery } from '../utils/queries'
-
-type Variables = {
-  first?: number
-}
-
-type ReturnType = {
-  pages: Page[]
-}
+import { QueryRoot, QueryRootPagesArgs } from '../schema'
+import { normalizePages, getAllPagesQuery } from '../utils'
 
 export type Page = {
   id: string
@@ -18,25 +10,40 @@ export type Page = {
   body: string
 }
 
-const getAllPages = async (options?: {
-  variables?: Variables
-  config: ShopifyConfig
-  preview?: boolean
-}): Promise<ReturnType> => {
-  let { config, variables = { first: 250 } } = options ?? {}
-  config = getConfig(config)
-  const { locale } = config
-  const { data } = await config.fetch(getAllPagesQuery, { variables })
+export type GetAllPagesResult = Promise<{
+  pages: Page[]
+}>
 
-  const pages = data.pages?.edges?.map(
-    ({ node: { title: name, handle, ...node } }: PageEdge) => ({
-      ...node,
-      url: `/${locale}/${handle}`,
-      name,
-    })
+const getAllPages = async (options?: {
+  variables?: QueryRootPagesArgs
+  config?: ShopifyConfig
+  preview?: boolean
+}): GetAllPagesResult => {
+  let { config, variables } = options ?? {}
+  const { fetch, locale = 'en-US', locales = ['en-US'] } = getConfig(config)
+
+  const {
+    data: {
+      pages: { edges },
+    },
+  } = await fetch<QueryRoot, QueryRootPagesArgs>(
+    getAllPagesQuery,
+    {
+      variables,
+    },
+    {
+      headers: {
+        'Accept-Language': locale,
+      },
+    }
   )
 
-  return { pages }
+  return {
+    pages: locales.reduce<Page[]>(
+      (arr, locale) => arr.concat(normalizePages(edges, locale)),
+      []
+    ),
+  }
 }
 
 export default getAllPages

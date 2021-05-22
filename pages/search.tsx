@@ -37,8 +37,9 @@ import { Product } from '@commerce/types'
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
+  const config = getConfig({ locale, locales })
   const { pages } = await getAllPages({ config, preview })
   const { categories, brands } = await getSiteInfo({ config, preview })
   return {
@@ -46,6 +47,7 @@ export async function getStaticProps({
       pages,
       categories,
       brands,
+      locale,
     },
   }
 }
@@ -53,6 +55,7 @@ export async function getStaticProps({
 export default function Search({
   categories,
   brands,
+  locale,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
@@ -78,6 +81,7 @@ export default function Search({
     categoryId: activeCategory?.entityId,
     brandId: activeBrand?.entityId,
     sort: typeof sort === 'string' ? sort : '',
+    locale,
   })
 
   const handleClick = (event: any, filter: string) => {

@@ -1,11 +1,12 @@
 import getSortVariables from './get-sort-variables'
-import type { SearchProductsInput } from '../product/use-search'
+import type { SearchProductsInput } from '@commerce/types'
 
 export const getSearchVariables = ({
   brandId,
   search,
   categoryId,
   sort,
+  locale,
 }: SearchProductsInput) => {
   let query = ''
 
@@ -20,6 +21,7 @@ export const getSearchVariables = ({
   return {
     categoryId,
     query,
+    locale,
     ...getSortVariables(sort, !!categoryId),
   }
 }

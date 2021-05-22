@@ -1,4 +1,3 @@
-import { Product } from '@commerce/types'
 import { getConfig, ShopifyConfig } from '../api'
 import fetchAllProducts from '../api/utils/fetch-all-products'
 import { ProductEdge } from '../schema'

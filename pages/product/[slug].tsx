@@ -16,9 +16,11 @@ export async function getStaticProps({
   params,
   locale,
   preview,
+  locales,
 }: GetStaticPropsContext<{ slug: string }>) {
-  const config = getConfig({ locale })
+  const config = getConfig({ locale, locales })
   const { pages } = await getAllPages({ config, preview })
+
   const { product } = await getProduct({
     variables: { slug: params!.slug },
     config,

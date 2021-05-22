@@ -22,7 +22,6 @@ export type ShopifyConfig = Partial<CommerceConfig>
 
 export type ShopifyProps = {
   children?: ReactNode
-  locale: string
 } & ShopifyConfig
 
 export function CommerceProvider({ children, ...config }: ShopifyProps) {

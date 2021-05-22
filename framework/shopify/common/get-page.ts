@@ -1,37 +1,41 @@
+import { Page as ShopifyPage, QueryRoot, QueryRootPagesArgs } from '../schema'
+import { normalizePage, getPageQuery } from '../utils'
 import { getConfig, ShopifyConfig } from '../api'
-import getPageQuery from '../utils/queries/get-page-query'
-import { Page } from './get-all-pages'
+import type { Page } from './get-all-pages'
 
-type Variables = {
+type GetPageInput = {
   id: string
 }
 
-export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
+type GetPageResult = {
+  page?: Page
+}
 
-const getPage = async (options: {
-  variables: Variables
-  config: ShopifyConfig
+const getPage = async ({
+  variables,
+  config,
+}: {
+  variables: GetPageInput
+  config?: ShopifyConfig
   preview?: boolean
 }): Promise<GetPageResult> => {
-  let { config, variables } = options ?? {}
+  const { locale = 'en-US', fetch } = getConfig(config)
 
-  config = getConfig(config)
-  const { locale } = config
+  const {
+    data: { node: page },
+  } = await fetch<QueryRoot, GetPageInput>(
+    getPageQuery,
+    {
+      variables,
+    },
+    {
+      headers: {
+        'Accept-Language': locale,
+      },
+    }
+  )
 
-  const { data } = await config.fetch(getPageQuery, {
-    variables,
-  })
-  const page = data.node
-
-  return {
-    page: page
-      ? {
-          ...page,
-          name: page.title,
-          url: `/${locale}/${page.handle}`,
-        }
-      : null,
-  }
+  return page ? { page: normalizePage(page as ShopifyPage, locale) } : {}
 }
 
 export default getPage

@@ -12,6 +12,7 @@ import getAllPages from '@framework/common/get-all-pages'
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
   // Disabling page if Feature is not available
   if (!process.env.COMMERCE_WISHLIST_ENABLED) {
@@ -20,7 +21,7 @@ export async function getStaticProps({
     }
   }
 
-  const config = getConfig({ locale })
+  const config = getConfig({ locale, locales })
   const { pages } = await getAllPages({ config, preview })
   return {
     props: {

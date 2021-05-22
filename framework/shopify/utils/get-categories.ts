@@ -1,5 +1,5 @@
 import { ShopifyConfig } from '../api'
-import { CollectionEdge } from '../schema'
+import { CollectionEdge, QueryRoot, QueryRootCollectionsArgs } from '../schema'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
 
 export type Category = {
@@ -9,11 +9,22 @@ export type Category = {
 }
 
 const getCategories = async (config: ShopifyConfig): Promise<Category[]> => {
-  const { data } = await config.fetch(getSiteCollectionsQuery, {
-    variables: {
-      first: 250,
+  const { fetch, locale } = config
+  const { data } = await fetch<QueryRoot, QueryRootCollectionsArgs>(
+    getSiteCollectionsQuery,
+    {
+      variables: {
+        first: 250,
+      },
     },
-  })
+    {
+      ...(locale && {
+        headers: {
+          'Accept-Language': locale,
+        },
+      }),
+    }
+  )
 
   return (
     data.collections?.edges?.map(

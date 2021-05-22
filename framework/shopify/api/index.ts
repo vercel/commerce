@@ -43,7 +43,6 @@ export class Config {
 }
 
 const config = new Config({
-  locale: 'en-US',
   commerceUrl: API_URL,
   apiToken: API_TOKEN!,
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,

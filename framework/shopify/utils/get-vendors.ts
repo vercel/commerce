@@ -18,9 +18,6 @@ const getVendors = async (config: ShopifyConfig): Promise<BrandEdge[]> => {
   const vendors = await fetchAllProducts({
     config,
     query: getAllProductVendors,
-    variables: {
-      first: 250,
-    },
   })
 
   let vendorsStrings = vendors.map(({ node: { vendor } }) => vendor)

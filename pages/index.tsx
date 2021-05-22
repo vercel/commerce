@@ -12,8 +12,9 @@ import getAllPages from '@framework/common/get-all-pages'
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
+  const config = getConfig({ locale, locales })
 
   const { products } = await getAllProducts({
     variables: { first: 12 },

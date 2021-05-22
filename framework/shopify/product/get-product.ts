@@ -1,31 +1,43 @@
-import { GraphQLFetcherResult } from '@commerce/api'
+import { Product } from '@commerce/types'
+import { QueryRoot } from '../schema'
 import { getConfig, ShopifyConfig } from '../api'
 import { normalizeProduct, getProductQuery } from '../utils'
 
-type Variables = {
+export type GetProductInput = {
   slug: string
 }
 
-type ReturnType = {
-  product: any
+export type GetProductResult = {
+  product?: Product
 }
 
-const getProduct = async (options: {
-  variables: Variables
-  config: ShopifyConfig
+const getProduct = async ({
+  variables,
+  config,
+}: {
+  variables: GetProductInput
+  config?: ShopifyConfig
   preview?: boolean
-}): Promise<ReturnType> => {
-  let { config, variables } = options ?? {}
-  config = getConfig(config)
+}): Promise<GetProductResult> => {
+  const { fetch, locale } = getConfig(config)
 
-  const { data }: GraphQLFetcherResult = await config.fetch(getProductQuery, {
-    variables,
-  })
-  const { productByHandle } = data
+  const {
+    data: { productByHandle },
+  } = await fetch<QueryRoot>(
+    getProductQuery,
+    {
+      variables,
+    },
+    {
+      ...(locale && {
+        headers: {
+          'Accept-Language': locale,
+        },
+      }),
+    }
+  )
 
-  return {
-    product: productByHandle ? normalizeProduct(productByHandle) : null,
-  }
+  return productByHandle ? { product: normalizeProduct(productByHandle) } : {}
 }
 
 export default getProduct

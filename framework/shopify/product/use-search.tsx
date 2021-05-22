@@ -1,7 +1,9 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
+import { SearchProductsInput, SearchProductsData } from '@commerce/types'
 
 import { ProductEdge } from '../schema'
+
 import {
   getAllProductsQuery,
   getCollectionProductsQuery,
@@ -9,21 +11,7 @@ import {
   normalizeProduct,
 } from '../utils'
 
-import { Product } from '@commerce/types'
-
 export default useSearch as UseSearch<typeof handler>
-
-export type SearchProductsInput = {
-  search?: string
-  categoryId?: string
-  brandId?: string
-  sort?: string
-}
-
-export type SearchProductsData = {
-  products: Product[]
-  found: boolean
-}
 
 export const handler: SWRHook<
   SearchProductsData,
@@ -68,6 +56,7 @@ export const handler: SWRHook<
         ['categoryId', input.categoryId],
         ['brandId', input.brandId],
         ['sort', input.sort],
+        ['locale', input.locale],
       ],
       swrOptions: {
         revalidateOnFocus: false,

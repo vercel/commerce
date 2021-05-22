@@ -1,10 +1,12 @@
-import { ProductEdge } from '../../schema'
+import { ProductEdge, QueryRoot, QueryRootProductsArgs } from '../../schema'
 import { ShopifyConfig } from '..'
 
 const fetchAllProducts = async ({
   config,
   query,
-  variables,
+  variables = {
+    first: 250,
+  },
   acc = [],
   cursor,
 }: {
@@ -14,9 +16,20 @@ const fetchAllProducts = async ({
   variables?: any
   cursor?: string
 }): Promise<ProductEdge[]> => {
-  const { data } = await config.fetch(query, {
-    variables: { ...variables, cursor },
-  })
+  const { fetch, locale } = config
+  const { data } = await fetch<QueryRoot, QueryRootProductsArgs>(
+    query,
+    {
+      variables: { ...variables, cursor },
+    },
+    {
+      ...(locale && {
+        headers: {
+          'Accept-Locale': locale,
+        },
+      }),
+    }
+  )
 
   const edges: ProductEdge[] = data.products?.edges ?? []
   const hasNextPage = data.products?.pageInfo?.hasNextPage
