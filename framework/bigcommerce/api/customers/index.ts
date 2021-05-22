@@ -4,9 +4,8 @@ import createApiHandler, {
 } from '../utils/create-api-handler'
 import isAllowedMethod from '../utils/is-allowed-method'
 import { BigcommerceApiError } from '../utils/errors'
-import getLoggedInCustomer, {
-  Customer,
-} from './handlers/get-logged-in-customer'
+import getLoggedInCustomer from './handlers/get-logged-in-customer'
+import type { Customer } from './handlers/get-logged-in-customer'
 
 export type { Customer }
 
