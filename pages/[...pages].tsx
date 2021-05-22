@@ -24,9 +24,8 @@ export async function getStaticProps({
   const pageItem = pages.find((p) => (p.url ? getSlug(p.url) === slug : false))
   const data =
     pageItem &&
-    // TODO: Shopify - Fix this type
     (await commerce.getPage({
-      variables: { id: pageItem.id! } as any,
+      variables: { id: pageItem.id! },
       config,
       preview,
     }))

@@ -21,11 +21,10 @@ const getProduct = async (options: {
   const { data }: GraphQLFetcherResult = await config.fetch(getProductQuery, {
     variables,
   })
-
-  const { productByHandle: product } = data
+  const { productByHandle } = data
 
   return {
-    product: product ? normalizeProduct(product) : null,
+    product: productByHandle ? normalizeProduct(productByHandle) : null,
   }
 }
 

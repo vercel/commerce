@@ -6,7 +6,7 @@ import useCommerceCart, {
 
 import { Cart } from '../types'
 import { SWRHook } from '@commerce/utils/types'
-import { checkoutCreate, checkoutToCart } from './utils'
+import { checkoutCreate, checkoutToCart } from '../utils'
 import getCheckoutQuery from '../utils/queries/get-checkout-query'
 
 export default useCommerceCart as UseCart<typeof handler>
@@ -22,11 +22,12 @@ export const handler: SWRHook<
   },
   async fetcher({ input: { cartId: checkoutId }, options, fetch }) {
     let checkout
+
     if (checkoutId) {
       const data = await fetch({
         ...options,
         variables: {
-          checkoutId,
+          checkoutId: checkoutId,
         },
       })
       checkout = data.node
@@ -36,8 +37,7 @@ export const handler: SWRHook<
       checkout = await checkoutCreate(fetch)
     }
 
-    // TODO: Fix this type
-    return checkoutToCart({ checkout } as any)
+    return checkoutToCart({ checkout })
   },
   useHook: ({ useData }) => (input) => {
     const response = useData({

@@ -48,7 +48,8 @@ export const handler: SWRHook<
       edges = data.node?.products?.edges ?? []
       if (brandId) {
         edges = edges.filter(
-          ({ node: { vendor } }: ProductEdge) => vendor === brandId
+          ({ node: { vendor } }: ProductEdge) =>
+            vendor.replace(/\s+/g, '-').toLowerCase() === brandId
         )
       }
     } else {
