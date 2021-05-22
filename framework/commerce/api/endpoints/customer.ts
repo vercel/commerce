@@ -7,11 +7,11 @@ const customerEndpoint: GetAPISchema<
   any,
   CustomerSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, operations } = ctx
+  const { req, res, handlers } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      GET: operations['getLoggedInCustomer'],
+      GET: handlers['getLoggedInCustomer'],
     })
   ) {
     return
@@ -19,7 +19,7 @@ const customerEndpoint: GetAPISchema<
 
   try {
     const body = null
-    return await operations['getLoggedInCustomer']({ ...ctx, body })
+    return await handlers['getLoggedInCustomer']({ ...ctx, body })
   } catch (error) {
     console.error(error)
 

@@ -1,6 +1,6 @@
-import { Product } from '@commerce/types'
-import getAllProducts, { ProductEdge } from '../../../product/get-all-products'
-import type { ProductsHandlers } from '../products'
+import { Product } from '@commerce/types/product'
+import { ProductsEndpoint } from '.'
+import getAllProducts from '../../../../product/get-all-products'
 
 const SORT: { [key: string]: string | undefined } = {
   latest: 'id',
@@ -11,7 +11,7 @@ const SORT: { [key: string]: string | undefined } = {
 const LIMIT = 12
 
 // Return current cart info
-const getProducts: ProductsHandlers['getProducts'] = async ({
+const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   res,
   body: { search, category, brand, sort },
   config,

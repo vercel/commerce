@@ -7,11 +7,11 @@ const logoutEndpoint: GetAPISchema<
   any,
   LogoutSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, operations } = ctx
+  const { req, res, handlers } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      GET: operations['logout'],
+      GET: handlers['logout'],
     })
   ) {
     return
@@ -21,7 +21,7 @@ const logoutEndpoint: GetAPISchema<
     const redirectTo = req.query.redirect_to
     const body = typeof redirectTo === 'string' ? { redirectTo } : {}
 
-    return await operations['logout']({ ...ctx, body })
+    return await handlers['logout']({ ...ctx, body })
   } catch (error) {
     console.error(error)
 

@@ -1,16 +1,66 @@
-// TODO: define this type
-export type Product = any
+export type ProductImage = {
+  url: string
+  alt?: string
+}
+
+export type ProductPrice = {
+  value: number
+  currencyCode?: 'USD' | 'ARS' | string
+  retailPrice?: number
+  salePrice?: number
+  listPrice?: number
+  extendedSalePrice?: number
+  extendedListPrice?: number
+}
+
+export type ProductOption = {
+  displayName: string
+  values: ProductOptionValues[]
+}
+
+export type ProductOptionValues = {
+  label: string
+  hexColors?: string[]
+}
+
+export type ProductVariant = {
+  id: string | number
+  options: ProductOption[]
+}
+
+export type Product = {
+  id: string
+  name: string
+  description: string
+  descriptionHtml?: string
+  sku?: string
+  slug?: string
+  path?: string
+  images: ProductImage[]
+  variants: ProductVariant[]
+  price: ProductPrice
+  options: ProductOption[]
+}
 
 export type ProductTypes = {
   product: Product
 }
 
-export type ProductSchema<T extends ProductTypes = ProductTypes> = {
+export type ProductsSchema<T extends ProductTypes = ProductTypes> = {
   endpoint: {
     options: {}
     handlers: {
       getProducts: {
-        data: { product: T['product'] } | null
+        data: {
+          products: T['product'][]
+          found: boolean
+        }
+        body: {
+          search?: string
+          category?: string
+          brand?: string
+          sort?: string
+        }
       }
     }
   }

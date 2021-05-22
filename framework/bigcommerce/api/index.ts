@@ -14,6 +14,7 @@ import type { CustomerAPI } from './endpoints/customer'
 import type { LoginAPI } from './endpoints/login'
 import type { LogoutAPI } from './endpoints/logout'
 import type { SignupAPI } from './endpoints/signup'
+import type { ProductsAPI } from './endpoints/catalog/products'
 
 import login from './operations/login'
 import getAllPages from './operations/get-all-pages'
@@ -119,7 +120,13 @@ export const provider = {
 
 export type Provider = typeof provider
 
-export type APIs = CartAPI | CustomerAPI | LoginAPI | LogoutAPI | SignupAPI
+export type APIs =
+  | CartAPI
+  | CustomerAPI
+  | LoginAPI
+  | LogoutAPI
+  | SignupAPI
+  | ProductsAPI
 
 export type BigcommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
 

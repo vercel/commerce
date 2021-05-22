@@ -7,11 +7,11 @@ const loginEndpoint: GetAPISchema<
   any,
   LoginSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, operations } = ctx
+  const { req, res, handlers } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      POST: operations['login'],
+      POST: handlers['login'],
     })
   ) {
     return
@@ -19,7 +19,7 @@ const loginEndpoint: GetAPISchema<
 
   try {
     const body = req.body ?? {}
-    return await operations['login']({ ...ctx, body })
+    return await handlers['login']({ ...ctx, body })
   } catch (error) {
     console.error(error)
 

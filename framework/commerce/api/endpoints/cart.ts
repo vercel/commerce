@@ -7,14 +7,14 @@ const cartEndpoint: GetAPISchema<
   any,
   CartSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, operations, config } = ctx
+  const { req, res, handlers, config } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      GET: operations['getCart'],
-      POST: operations['addItem'],
-      PUT: operations['updateItem'],
-      DELETE: operations['removeItem'],
+      GET: handlers['getCart'],
+      POST: handlers['addItem'],
+      PUT: handlers['updateItem'],
+      DELETE: handlers['removeItem'],
     })
   ) {
     return
@@ -27,25 +27,25 @@ const cartEndpoint: GetAPISchema<
     // Return current cart info
     if (req.method === 'GET') {
       const body = { cartId }
-      return await operations['getCart']({ ...ctx, body })
+      return await handlers['getCart']({ ...ctx, body })
     }
 
     // Create or add an item to the cart
     if (req.method === 'POST') {
       const body = { ...req.body, cartId }
-      return await operations['addItem']({ ...ctx, body })
+      return await handlers['addItem']({ ...ctx, body })
     }
 
     // Update item in cart
     if (req.method === 'PUT') {
       const body = { ...req.body, cartId }
-      return await operations['updateItem']({ ...ctx, body })
+      return await handlers['updateItem']({ ...ctx, body })
     }
 
     // Remove an item from the cart
     if (req.method === 'DELETE') {
       const body = { ...req.body, cartId }
-      return await operations['removeItem']({ ...ctx, body })
+      return await handlers['removeItem']({ ...ctx, body })
     }
   } catch (error) {
     console.error(error)

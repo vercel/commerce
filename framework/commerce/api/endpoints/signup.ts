@@ -7,11 +7,11 @@ const signupEndpoint: GetAPISchema<
   any,
   SignupSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, operations, config } = ctx
+  const { req, res, handlers, config } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      POST: operations['signup'],
+      POST: handlers['signup'],
     })
   ) {
     return
@@ -22,7 +22,7 @@ const signupEndpoint: GetAPISchema<
 
   try {
     const body = { ...req.body, cartId }
-    return await operations['signup']({ ...ctx, body })
+    return await handlers['signup']({ ...ctx, body })
   } catch (error) {
     console.error(error)
 
