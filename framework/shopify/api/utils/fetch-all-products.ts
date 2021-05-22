@@ -25,7 +25,7 @@ const fetchAllProducts = async ({
     {
       ...(locale && {
         headers: {
-          'Accept-Locale': locale,
+          'Accept-Language': locale,
         },
       }),
     }
