@@ -1,4 +1,5 @@
-import { useKeenSlider } from 'keen-slider/react'
+import keenSlider from 'keen-slider/react'
+const { useKeenSlider } = keenSlider
 import React, {
   Children,
   FC,
