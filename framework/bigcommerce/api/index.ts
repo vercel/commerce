@@ -15,6 +15,7 @@ import type { LoginAPI } from './endpoints/login'
 import type { LogoutAPI } from './endpoints/logout'
 import type { SignupAPI } from './endpoints/signup'
 import type { ProductsAPI } from './endpoints/catalog/products'
+import type { WishlistAPI } from './endpoints/wishlist'
 
 import login from './operations/login'
 import getAllPages from './operations/get-all-pages'
@@ -127,6 +128,7 @@ export type APIs =
   | LogoutAPI
   | SignupAPI
   | ProductsAPI
+  | WishlistAPI
 
 export type BigcommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
 

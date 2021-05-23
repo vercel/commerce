@@ -1,5 +1,5 @@
-import { GetCustomerIdQuery } from '../schema'
-import { BigcommerceConfig, getConfig } from '../api'
+import type { GetCustomerIdQuery } from '../../../../schema'
+import type { BigcommerceConfig } from '../../..'
 
 export const getCustomerIdQuery = /* GraphQL */ `
   query getCustomerId {
@@ -14,10 +14,8 @@ async function getCustomerId({
   config,
 }: {
   customerToken: string
-  config?: BigcommerceConfig
+  config: BigcommerceConfig
 }): Promise<number | undefined> {
-  config = getConfig(config)
-
   const { data } = await config.fetch<GetCustomerIdQuery>(
     getCustomerIdQuery,
     undefined,

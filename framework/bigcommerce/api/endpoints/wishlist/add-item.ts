@@ -1,10 +1,10 @@
-import type { WishlistHandlers } from '..'
-import getCustomerId from '../../endpoints/wishlist/utils/get-customer-id'
 import getCustomerWishlist from '../../../customer/get-customer-wishlist'
 import { parseWishlistItem } from '../../utils/parse-item'
+import getCustomerId from './utils/get-customer-id'
+import type { WishlistEndpoint } from '.'
 
-// Returns the wishlist of the signed customer
-const addItem: WishlistHandlers['addItem'] = async ({
+// Return wishlist info
+const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
   res,
   body: { customerToken, item },
   config,
