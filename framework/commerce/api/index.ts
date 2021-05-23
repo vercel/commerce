@@ -132,6 +132,18 @@ export function getEndpoint<
   }
 }
 
+export const createEndpoint = <API extends GetAPISchema<any, any>>(
+  endpoint: API['endpoint']
+) => <P extends APIProvider>(
+  commerce: CommerceAPI<P>,
+  context?: Partial<API['endpoint']> & {
+    config?: P['config']
+    options?: API['schema']['endpoint']['options']
+  }
+): NextApiHandler => {
+  return getEndpoint(commerce, { ...endpoint, ...context })
+}
+
 export interface CommerceAPIConfig {
   locale?: string
   commerceUrl: string
