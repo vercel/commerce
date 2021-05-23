@@ -63,6 +63,7 @@ export type ProductVariant = {
   // The variant's depth. If a depth was not explicitly specified on the
   // variant, this will be the product's depth.
   depth?: Measurement
+  options: ProductOption[]
 }
 
 // Shopping cart, a.k.a Checkout
@@ -109,6 +110,10 @@ export type CartItemBody = {
   variantId: string
   productId?: string
   quantity?: number
+  pricing?: {
+      amount: number,
+      currencyCode: string,
+  }
 }
 
 // Body used by the `getCart` operation handler
@@ -167,18 +172,18 @@ export interface Product extends Entity {
   slug?: string
   path?: string
   images: ProductImage[]
-  variants: ProductVariant2[]
+  variants: ProductVariant[]
   price: ProductPrice
   options: ProductOption[]
   sku?: string
 }
 
-interface ProductOption extends Entity {
+export interface ProductOption extends Entity {
   displayName: string
   values: ProductOptionValues[]
 }
 
-interface ProductOptionValues {
+export interface ProductOptionValues {
   label: string
   hexColors?: string[]
 }
@@ -186,11 +191,6 @@ interface ProductOptionValues {
 interface ProductImage {
   url: string
   alt?: string
-}
-
-interface ProductVariant2 {
-  id: string | number
-  options: ProductOption[]
 }
 
 interface ProductPrice {

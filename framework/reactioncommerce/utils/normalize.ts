@@ -8,15 +8,15 @@ import {
   CatalogItemProduct,
   CatalogProduct,
   ImageInfo,
-  Maybe,
+  CartItem,
 } from '../schema'
 
 import type {Cart, LineItem} from '../types'
 
-const normalizeProductImages = (images: Maybe<ImageInfo>[], name: string) =>
+const normalizeProductImages = (images: ImageInfo[], name: string) =>
   images.map((image) => ({
     url: image?.URLs?.original || image?.URLs?.medium || '',
-    alt: name,
+    alt: name
   }))
 
 const normalizeProductOption = (variant: CatalogProductVariant) => {
@@ -38,7 +38,8 @@ function colorizeProductOptionValue(value: ProductOptionValues, displayName: str
   return value;
 }
 
-const normalizeProductVariants = (variants: CatalogProductVariant[]): ProductVariant[] => {
+const normalizeProductVariants = (variants: Array<CatalogProductVariant>): ProductVariant[] => {
+  console.log(variants);
   return variants.reduce((productVariants: ProductVariant[], variant: CatalogProductVariant) => {
 
     if (variantHasOptions(variant)) {
@@ -141,14 +142,14 @@ export function normalizeProduct(productNode: CatalogItemProduct): Product {
     slug: slug?.replace(/^\/+|\/+$/g, '') ?? '',
     path: slug ?? '',
     sku: sku ?? '',
-    images: media?.length ? normalizeProductImages(media, title ?? '') : [],
+    images: media?.length ? normalizeProductImages(<ImageInfo[]>media, title ?? '') : [],
     vendor: product.vendor,
     price: {
       value: pricing[0]?.minPrice ?? 0,
       currencyCode: pricing[0]?.currency.code,
     },
-    variants: variants !== null ? normalizeProductVariants(<CatalogProductVariant[]>variants) : [],
-    options: variants !== null ? groupProductOptionsByAttributeLabel(<CatalogProductVariant[]>variants) : []
+    variants: !!variants ? normalizeProductVariants(<CatalogProductVariant[]>variants) : [],
+    options: !!variants ? groupProductOptionsByAttributeLabel(<CatalogProductVariant[]>variants) : []
   }
 }
 
@@ -172,20 +173,18 @@ export function normalizeCart(cart: ReactionCart): Cart {
 
 function normalizeLineItem(cartItem: CartItemEdge): LineItem {
   const {
-    node: {
-      _id,
-      compareAtPrice,
-      imageURLs,
-      title,
-      productConfiguration,
-      priceWhenAdded,
-      optionTitle,
-      variantTitle,
-      quantity,
-    }
-  } = cartItem
+    _id,
+    compareAtPrice,
+    imageURLs,
+    title,
+    productConfiguration,
+    priceWhenAdded,
+    optionTitle,
+    variantTitle,
+    quantity
+  } = <CartItem>cartItem.node
 
-  console.log('imageURLs', imageURLs)
+  console.log('imageURLs', cartItem)
   return {
     id: _id,
     variantId: String(productConfiguration?.productVariantId),
@@ -197,11 +196,12 @@ function normalizeLineItem(cartItem: CartItemEdge): LineItem {
       sku: String(productConfiguration?.productVariantId),
       name: String(optionTitle || variantTitle),
       image: {
-        url: imageURLs?.thumbnail  ?? '/product-img-placeholder.svg',
+        url: imageURLs?.thumbnail ?? '/product-img-placeholder.svg',
       },
       requiresShipping: true,
       price: priceWhenAdded?.amount,
-      listPrice: compareAtPrice?.amount,
+      listPrice: compareAtPrice?.amount ?? 0,
+      options: []
     },
     path: '',
     discounts: [],
