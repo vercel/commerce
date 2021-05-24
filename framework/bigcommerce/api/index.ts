@@ -4,7 +4,6 @@ import {
   CommerceAPI,
   CommerceAPIConfig,
   getCommerceApi as commerceApi,
-  getEndpoint,
 } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'

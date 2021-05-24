@@ -1,5 +1,5 @@
 import { GetAPISchema, createEndpoint } from '@commerce/api'
-import wishlist from '@commerce/api/endpoints/wishlist'
+import wishlistEndpoint from '@commerce/api/endpoints/wishlist'
 import type { WishlistSchema } from '../../../types/wishlist'
 import type { BigcommerceAPI } from '../..'
 import getWishlist from './get-wishlist'
@@ -16,9 +16,9 @@ export const handlers: WishlistEndpoint['handlers'] = {
   removeItem,
 }
 
-const wishlistEndpoint = createEndpoint({
-  handler: wishlist as WishlistAPI['endpoint']['handler'],
+const wishlistApi = createEndpoint<WishlistAPI>({
+  handler: wishlistEndpoint,
   handlers,
 })
 
-export default wishlistEndpoint
+export default wishlistApi

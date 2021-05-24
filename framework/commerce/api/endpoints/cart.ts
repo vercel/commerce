@@ -5,7 +5,7 @@ import type { GetAPISchema } from '..'
 
 const cartEndpoint: GetAPISchema<
   any,
-  CartSchema
+  CartSchema<any>
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers, config } = ctx
 

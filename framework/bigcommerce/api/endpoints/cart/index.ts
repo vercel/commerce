@@ -1,4 +1,5 @@
-import type { GetAPISchema } from '@commerce/api'
+import { GetAPISchema, createEndpoint } from '@commerce/api'
+import cartEndpoint from '@commerce/api/endpoints/cart'
 import type { CartSchema } from '../../../types/cart'
 import type { BigcommerceAPI } from '../..'
 import getCart from './get-cart'
@@ -10,4 +11,16 @@ export type CartAPI = GetAPISchema<BigcommerceAPI, CartSchema>
 
 export type CartEndpoint = CartAPI['endpoint']
 
-export const handlers = { getCart, addItem, updateItem, removeItem }
+export const handlers: CartEndpoint['handlers'] = {
+  getCart,
+  addItem,
+  updateItem,
+  removeItem,
+}
+
+const cartApi = createEndpoint<CartAPI>({
+  handler: cartEndpoint,
+  handlers,
+})
+
+export default cartApi

@@ -5,7 +5,7 @@ import type { GetAPISchema } from '..'
 
 const wishlistEndpoint: GetAPISchema<
   any,
-  WishlistSchema
+  WishlistSchema<any>
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers, config } = ctx
 
