@@ -1,11 +1,10 @@
-import getCustomerId from '../../endpoints/wishlist/utils/get-customer-id'
-import getCustomerWishlist, {
-  Wishlist,
-} from '../../../customer/get-customer-wishlist'
-import type { WishlistHandlers } from '..'
+import type { Wishlist } from '../../../types/wishlist'
+import getCustomerWishlist from '../../../customer/get-customer-wishlist'
+import getCustomerId from './utils/get-customer-id'
+import type { WishlistEndpoint } from '.'
 
-// Return current wishlist info
-const removeItem: WishlistHandlers['removeItem'] = async ({
+// Return wishlist info
+const removeItem: WishlistEndpoint['handlers']['removeItem'] = async ({
   res,
   body: { customerToken, itemId },
   config,

@@ -1,9 +1,10 @@
-import getCustomerId from '../../endpoints/wishlist/utils/get-customer-id'
+import type { Wishlist } from '../../../types/wishlist'
+import type { WishlistEndpoint } from '.'
+import getCustomerId from './utils/get-customer-id'
 import getCustomerWishlist from '../../../customer/get-customer-wishlist'
-import type { Wishlist, WishlistHandlers } from '..'
 
 // Return wishlist info
-const getWishlist: WishlistHandlers['getWishlist'] = async ({
+const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
   res,
   body: { customerToken, includeProducts },
   config,

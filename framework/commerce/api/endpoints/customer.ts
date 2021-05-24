@@ -5,7 +5,7 @@ import type { GetAPISchema } from '..'
 
 const customerEndpoint: GetAPISchema<
   any,
-  CustomerSchema
+  CustomerSchema<any>
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers } = ctx
 

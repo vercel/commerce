@@ -1,19 +1,18 @@
-import type { CartSchema } from '../../types/cart'
+import type { WishlistSchema } from '../../types/wishlist'
 import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
 import type { GetAPISchema } from '..'
 
-const cartEndpoint: GetAPISchema<
+const wishlistEndpoint: GetAPISchema<
   any,
-  CartSchema<any>
+  WishlistSchema<any>
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers, config } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      GET: handlers['getCart'],
+      GET: handlers['getWishlist'],
       POST: handlers['addItem'],
-      PUT: handlers['updateItem'],
       DELETE: handlers['removeItem'],
     })
   ) {
@@ -21,30 +20,27 @@ const cartEndpoint: GetAPISchema<
   }
 
   const { cookies } = req
-  const cartId = cookies[config.cartCookie]
+  const customerToken = cookies[config.customerCookie]
 
   try {
-    // Return current cart info
+    // Return current wishlist info
     if (req.method === 'GET') {
-      const body = { cartId }
-      return await handlers['getCart']({ ...ctx, body })
+      const body = {
+        customerToken,
+        includeProducts: req.query.products === '1',
+      }
+      return await handlers['getWishlist']({ ...ctx, body })
     }
 
-    // Create or add an item to the cart
+    // Add an item to the wishlist
     if (req.method === 'POST') {
-      const body = { ...req.body, cartId }
+      const body = { ...req.body, customerToken }
       return await handlers['addItem']({ ...ctx, body })
     }
 
-    // Update item in cart
-    if (req.method === 'PUT') {
-      const body = { ...req.body, cartId }
-      return await handlers['updateItem']({ ...ctx, body })
-    }
-
-    // Remove an item from the cart
+    // Remove an item from the wishlist
     if (req.method === 'DELETE') {
-      const body = { ...req.body, cartId }
+      const body = { ...req.body, customerToken }
       return await handlers['removeItem']({ ...ctx, body })
     }
   } catch (error) {
@@ -59,4 +55,4 @@ const cartEndpoint: GetAPISchema<
   }
 }
 
-export default cartEndpoint
+export default wishlistEndpoint

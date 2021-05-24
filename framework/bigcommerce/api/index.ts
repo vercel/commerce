@@ -4,7 +4,6 @@ import {
   CommerceAPI,
   CommerceAPIConfig,
   getCommerceApi as commerceApi,
-  getEndpoint,
 } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
@@ -15,6 +14,7 @@ import type { LoginAPI } from './endpoints/login'
 import type { LogoutAPI } from './endpoints/logout'
 import type { SignupAPI } from './endpoints/signup'
 import type { ProductsAPI } from './endpoints/catalog/products'
+import type { WishlistAPI } from './endpoints/wishlist'
 
 import login from './operations/login'
 import getAllPages from './operations/get-all-pages'
@@ -127,24 +127,14 @@ export type APIs =
   | LogoutAPI
   | SignupAPI
   | ProductsAPI
+  | WishlistAPI
 
 export type BigcommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
 
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
-) {
-  const api: BigcommerceAPI<P> = commerceApi(customProvider)
-
-  return Object.assign(api, {
-    endpoint<E extends APIs>(
-      context: E['endpoint'] & {
-        config?: P['config']
-        options?: E['schema']['endpoint']['options']
-      }
-    ): NextApiHandler {
-      return getEndpoint(api, context)
-    },
-  })
+): BigcommerceAPI<P> {
+  return commerceApi(customProvider)
 }
 
 export function getConfig(userConfig?: Partial<BigcommerceConfig>) {
