@@ -10,7 +10,6 @@ import { ProductView } from '@components/product'
 
 import { getConfig } from '@framework/api'
 import getProduct from '@framework/product/get-product'
-import getAllProductPaths from '@framework/product/get-all-product-paths'
 
 export async function getStaticProps({
   params,
@@ -39,18 +38,18 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const { products } = await getAllProductPaths()
+  const { products } = await commerce.getAllProductPaths()
 
   return {
     paths: locales
       ? locales.reduce<string[]>((arr, locale) => {
           // Add a product path for every locale
           products.forEach((product) => {
-            arr.push(`/${locale}/product${product.node.path}`)
+            arr.push(`/${locale}/product${product.path}`)
           })
           return arr
         }, [])
-      : products.map((product) => `/product${product.node.path}`),
+      : products.map((product) => `/product${product.path}`),
     fallback: 'blocking',
   }
 }
