@@ -1,5 +1,11 @@
-import { ProductEdge } from '../../schema'
+import {
+  GetAllProductPathsQuery,
+  GetAllProductVendorsQuery,
+  ProductEdge,
+} from '../../schema'
 import { ShopifyConfig } from '..'
+
+type FetchAllProductsQuery = GetAllProductPathsQuery | GetAllProductVendorsQuery
 
 const fetchAllProducts = async ({
   config,
@@ -10,19 +16,18 @@ const fetchAllProducts = async ({
 }: {
   config: ShopifyConfig
   query: string
-  acc?: ProductEdge[]
+  acc?: any[]
   variables?: any
   cursor?: string
 }): Promise<ProductEdge[]> => {
-  const { data } = await config.fetch(query, {
+  const { data } = await config.fetch<FetchAllProductsQuery>(query, {
     variables: { ...variables, cursor },
   })
 
-  const edges: ProductEdge[] = data.products?.edges ?? []
-  const hasNextPage = data.products?.pageInfo?.hasNextPage
+  const edges = data.products.edges
   acc = acc.concat(edges)
 
-  if (hasNextPage) {
+  if (data.products.pageInfo.hasNextPage) {
     const cursor = edges.pop()?.cursor
     if (cursor) {
       return fetchAllProducts({

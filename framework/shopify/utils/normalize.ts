@@ -75,22 +75,21 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
   )
 }
 
-export function normalizeProduct(productNode: ShopifyProduct): Product {
-  const {
-    id,
-    title: name,
-    vendor,
-    images,
-    variants,
-    description,
-    descriptionHtml,
-    handle,
-    priceRange,
-    options,
-    ...rest
-  } = productNode
-
-  const product = {
+export function normalizeProduct({
+  id,
+  title: name,
+  vendor,
+  images,
+  variants,
+  description,
+  descriptionHtml,
+  handle,
+  priceRange,
+  options,
+  metafields,
+  ...rest
+}: ShopifyProduct): Product {
+  return {
     id,
     name,
     vendor,
@@ -108,13 +107,12 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     ...(descriptionHtml && { descriptionHtml }),
     ...rest,
   }
-
-  return product
 }
 
 export function normalizeCart(checkout: Checkout): Cart {
   return {
     id: checkout.id,
+    url: checkout.webUrl,
     customerId: '',
     email: '',
     createdAt: checkout.createdAt,
@@ -131,7 +129,7 @@ export function normalizeCart(checkout: Checkout): Cart {
 }
 
 function normalizeLineItem({
-  node: { id, title, variant, quantity, ...rest },
+  node: { id, title, variant, quantity },
 }: CheckoutLineItemEdge): LineItem {
   return {
     id,
@@ -144,7 +142,7 @@ function normalizeLineItem({
       sku: variant?.sku ?? '',
       name: variant?.title!,
       image: {
-        url: variant?.image?.originalSrc ?? '/product-img-placeholder.svg',
+        url: variant?.image?.originalSrc || '/product-img-placeholder.svg',
       },
       requiresShipping: variant?.requiresShipping ?? false,
       price: variant?.priceV2?.amount,

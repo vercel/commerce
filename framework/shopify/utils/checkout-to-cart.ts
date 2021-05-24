@@ -27,12 +27,6 @@ export type CheckoutPayload =
   | CheckoutQuery
 
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
-  if (!checkoutPayload) {
-    throw new CommerceError({
-      message: 'Missing checkout payload from response',
-    })
-  }
-
   const checkout = checkoutPayload?.checkout
   throwUserErrors(checkoutPayload?.checkoutUserErrors)
 
