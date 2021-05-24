@@ -14,6 +14,16 @@ directive @accessRestricted(
 ) on FIELD_DEFINITION | OBJECT
 
 """
+Contextualize data.
+"""
+directive @inContext(
+  """
+  The country code for context.
+  """
+  country: CountryCode!
+) on QUERY | MUTATION
+
+"""
 A version of the API.
 """
 type ApiVersion {

@@ -1,4 +1,9 @@
-import type { CommerceAPIConfig } from '@commerce/api'
+import {
+  CommerceAPI,
+  CommerceAPIConfig,
+  getCommerceApi as commerceApi,
+  getEndpoint,
+} from '@commerce/api'
 
 import {
   API_URL,
@@ -6,6 +11,11 @@ import {
   SHOPIFY_CHECKOUT_ID_COOKIE,
   SHOPIFY_CUSTOMER_TOKEN_COOKIE,
 } from '../const'
+
+import fetchGraphqlApi from './utils/fetch-graphql-api'
+
+import getSiteInfo from './operations/get-site-info'
+import { NextApiHandler } from 'next'
 
 if (!API_URL) {
   throw new Error(
@@ -18,44 +28,26 @@ if (!API_TOKEN) {
     `The environment variable NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN is missing and it's required to access your store`
   )
 }
-
-import fetchGraphqlApi from './utils/fetch-graphql-api'
-
-export interface ShopifyConfig extends CommerceAPIConfig {}
-
-export class Config {
-  private config: ShopifyConfig
-
-  constructor(config: ShopifyConfig) {
-    this.config = config
-  }
-
-  getConfig(userConfig: Partial<ShopifyConfig> = {}) {
-    return Object.entries(userConfig).reduce<ShopifyConfig>(
-      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
-      { ...this.config }
-    )
-  }
-
-  setConfig(newConfig: Partial<ShopifyConfig>) {
-    Object.assign(this.config, newConfig)
-  }
+export interface ShopifyConfig extends CommerceAPIConfig {
+  applyLocale?: boolean
 }
 
-const config = new Config({
-  locale: 'en-US',
+const ONE_DAY = 60 * 60 * 24
+const config: ShopifyConfig = {
   commerceUrl: API_URL,
-  apiToken: API_TOKEN!,
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
-  cartCookieMaxAge: 60 * 60 * 24 * 30,
-  fetch: fetchGraphqlApi,
+  apiToken: API_TOKEN,
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-})
-
-export function getConfig(userConfig?: Partial<ShopifyConfig>) {
-  return config.getConfig(userConfig)
+  cartCookie: process.env.SHOPIFY_CART_COOKIE ?? 'shopify_checkoutId',
+  cartCookieMaxAge: ONE_DAY * 30,
+  fetch: fetchGraphqlApi,
+  applyLocale: true,
 }
 
-export function setConfig(newConfig: Partial<ShopifyConfig>) {
-  return config.setConfig(newConfig)
+export const provider = {
+  config: config,
+  operations: { getSiteInfo },
 }
+
+export type Provider = typeof provider
+
+export default provider

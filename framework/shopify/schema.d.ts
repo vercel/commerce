@@ -5578,3 +5578,9 @@ export type GetProductBySlugQuery = { __typename?: 'QueryRoot' } & {
       }
   >
 }
+
+export type GetSiteInfoQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSiteInfoQuery = { __typename?: 'QueryRoot' } & {
+  shop: { __typename?: 'Shop' } & Pick<Shop, 'name'>
+}
