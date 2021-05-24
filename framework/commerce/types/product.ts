@@ -81,3 +81,8 @@ export type GetAllProductsOperation<T extends ProductTypes = ProductTypes> = {
     first?: number
   }
 }
+
+export type GetProductOperation<T extends ProductTypes = ProductTypes> = {
+  data: { product?: T['product'] }
+  variables: { path: string; slug?: never } | { path?: never; slug: string }
+}

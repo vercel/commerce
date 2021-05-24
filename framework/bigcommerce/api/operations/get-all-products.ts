@@ -56,27 +56,9 @@ export type GetAllProductsResult<
   }
 > = T
 
-const FIELDS = [
-  'products',
-  'featuredProducts',
-  'bestSellingProducts',
-  'newestProducts',
-]
-
-export type ProductTypes =
-  | 'products'
-  | 'featuredProducts'
-  | 'bestSellingProducts'
-  | 'newestProducts'
-
-export type ProductVariables = { field?: ProductTypes } & Omit<
-  GetAllProductsQueryVariables,
-  ProductTypes | 'hasLocale'
->
-
 function getProductsType(
   relevance?: GetAllProductsOperation['variables']['relevance']
-): ProductTypes {
+) {
   switch (relevance) {
     case 'featured':
       return 'featuredProducts'
@@ -118,17 +100,11 @@ export default function getAllProductsOperation({
   } = {}): Promise<T['data']> {
     config = commerce.getConfig(config)
 
-    const locale = config.locale
+    const { locale } = config
     const field = getProductsType(vars.relevance)
     const variables: GetAllProductsQueryVariables = {
       locale,
       hasLocale: !!locale,
-    }
-
-    if (!FIELDS.includes(field)) {
-      throw new Error(
-        `The field variable has to match one of ${FIELDS.join(', ')}`
-      )
     }
 
     variables[field] = true

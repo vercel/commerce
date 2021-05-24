@@ -23,6 +23,7 @@ import getSiteInfo from './operations/get-site-info'
 import getCustomerWishlist from './operations/get-customer-wishlist'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
+import getProduct from './operations/get-product'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
   // Indicates if the returned metadata with translations should be applied to the
@@ -126,6 +127,7 @@ export const provider = {
     getCustomerWishlist,
     getAllProductPaths,
     getAllProducts,
+    getProduct,
   },
 }
 
