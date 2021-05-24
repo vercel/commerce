@@ -6,7 +6,6 @@ import { ProductCard } from '@components/product'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@framework/api'
-import getAllProducts from '@framework/product/get-all-products'
 
 export async function getStaticProps({
   preview,
@@ -14,7 +13,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
 
-  const { products } = await getAllProducts({
+  const { products } = await commerce.getAllProducts({
     variables: { first: 12 },
     config,
     preview,

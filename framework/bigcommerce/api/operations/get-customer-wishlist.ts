@@ -8,7 +8,7 @@ import type {
 } from '../../types/wishlist'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import { BigcommerceConfig, Provider } from '..'
-import getAllProducts, { ProductEdge } from '../../product/get-all-products'
+import getAllProducts, { ProductEdge } from './get-all-products'
 
 export default function getCustomerWishlistOperation({
   commerce,
@@ -47,13 +47,13 @@ export default function getCustomerWishlistOperation({
     const wishlist = data[0]
 
     if (includeProducts && wishlist?.items?.length) {
-      const entityIds = wishlist.items
-        ?.map((item) => item?.product_id)
-        .filter((id): id is number => !!id)
+      const ids = wishlist.items
+        ?.map((item) => (item?.product_id ? String(item?.product_id) : null))
+        .filter((id): id is string => !!id)
 
-      if (entityIds?.length) {
-        const graphqlData = await getAllProducts({
-          variables: { first: 100, entityIds },
+      if (ids?.length) {
+        const graphqlData = await commerce.getAllProducts({
+          variables: { first: 100, ids },
           config,
         })
         // Put the products in an object that we can use to get them by id
