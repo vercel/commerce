@@ -20,7 +20,6 @@ const getAllProducts = async (options: {
 }): Promise<ReturnType> => {
   let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
-  let products: Product[] = []
 
   const { data } = await config!.fetch<QueryRoot, QueryRootProductsArgs>(
     getAllProductsQuery,

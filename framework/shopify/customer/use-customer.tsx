@@ -10,11 +10,15 @@ export const handler: SWRHook<Customer | null> = {
     query: getCustomerQuery,
   },
   async fetcher({ options, fetch }) {
-    const data = await fetch<any | null>({
-      ...options,
-      variables: { customerAccessToken: getCustomerToken() },
-    })
-    return data.customer ?? null
+    const customerAccessToken = getCustomerToken()
+    if (customerAccessToken) {
+      const data = await fetch({
+        ...options,
+        variables: { customerAccessToken: getCustomerToken() },
+      })
+      return data.customer
+    }
+    return null
   },
   useHook: ({ useData }) => (input) => {
     return useData({
