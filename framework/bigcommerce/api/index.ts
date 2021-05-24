@@ -21,6 +21,7 @@ import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
 import getSiteInfo from './operations/get-site-info'
 import getCustomerWishlist from './operations/get-customer-wishlist'
+import getAllProductPaths from './operations/get-all-product-paths'
 
 export interface BigcommerceConfig extends CommerceAPIConfig {
   // Indicates if the returned metadata with translations should be applied to the
@@ -116,7 +117,14 @@ const config2: BigcommerceConfig = {
 
 export const provider = {
   config: config2,
-  operations: { login, getAllPages, getPage, getSiteInfo, getCustomerWishlist },
+  operations: {
+    login,
+    getAllPages,
+    getPage,
+    getSiteInfo,
+    getCustomerWishlist,
+    getAllProductPaths,
+  },
 }
 
 export type Provider = typeof provider

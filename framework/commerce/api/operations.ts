@@ -3,6 +3,7 @@ import type { LoginOperation } from '../types/login'
 import type { GetAllPagesOperation, GetPageOperation } from '../types/page'
 import type { GetSiteInfoOperation } from '../types/site'
 import type { GetCustomerWishlistOperation } from '../types/wishlist'
+import type { GetAllProductPathsOperation } from '../types/product'
 import type { APIProvider, CommerceAPI } from '.'
 
 const noop = () => {
@@ -91,6 +92,20 @@ export type Operations<P extends APIProvider> = {
         variables: T['variables']
         config?: P['config']
         includeProducts?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllProductPaths: {
+    <T extends GetAllProductPathsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+    }): Promise<T['data']>
+
+    <T extends GetAllProductPathsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
       } & OperationOptions
     ): Promise<T['data']>
   }
