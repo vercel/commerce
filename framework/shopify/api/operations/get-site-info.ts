@@ -1,7 +1,5 @@
 import type { OperationContext } from '@commerce/api/operations'
-
 import type { GetSiteInfoQuery } from '../../schema'
-
 import type { ShopifyConfig, Provider } from '..'
 import { GetSiteInfoOperation } from '../../types/site'
 
@@ -24,7 +22,7 @@ export default function getSiteInfoOperation({
     const categories = await getCategories(config)
     const brands = await getVendors(config)
 
-    const { data } = await config.fetch<GetSiteInfoQuery>(query)
+    // const { data } = await config.fetch<GetSiteInfoQuery>(query)
 
     return {
       categories,
