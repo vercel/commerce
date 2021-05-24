@@ -1,5 +1,5 @@
 import getCustomerId from '../../endpoints/wishlist/utils/get-customer-id'
-import getCustomerWishlist from '../../../customer/get-customer-wishlist'
+import getCustomerWishlist from '../../operations/get-customer-wishlist'
 import type { Wishlist, WishlistHandlers } from '..'
 
 // Return wishlist info

@@ -15,7 +15,7 @@ async function getCustomerId({
 }: {
   customerToken: string
   config: BigcommerceConfig
-}): Promise<number | undefined> {
+}): Promise<string | undefined> {
   const { data } = await config.fetch<GetCustomerIdQuery>(
     getCustomerIdQuery,
     undefined,
@@ -26,7 +26,7 @@ async function getCustomerId({
     }
   )
 
-  return data?.customer?.entityId
+  return String(data?.customer?.entityId)
 }
 
 export default getCustomerId

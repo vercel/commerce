@@ -1,7 +1,7 @@
 import getCustomerId from '../../endpoints/wishlist/utils/get-customer-id'
 import getCustomerWishlist, {
   Wishlist,
-} from '../../../customer/get-customer-wishlist'
+} from '../../operations/get-customer-wishlist'
 import type { WishlistHandlers } from '..'
 
 // Return current wishlist info

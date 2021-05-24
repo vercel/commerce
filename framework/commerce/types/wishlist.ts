@@ -30,3 +30,10 @@ export type WishlistSchema<T extends WishlistTypes = WishlistTypes> = {
     }
   }
 }
+
+export type GetCustomerWishlistOperation<
+  T extends WishlistTypes = WishlistTypes
+> = {
+  data: { wishlist?: T['wishlist'] }
+  variables: { customerId: string }
+}

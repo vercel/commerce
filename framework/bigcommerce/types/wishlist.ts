@@ -20,3 +20,4 @@ export type WishlistTypes = {
 }
 
 export type WishlistSchema = Core.WishlistSchema<WishlistTypes>
+export type GetCustomerWishlistOperation = Core.GetCustomerWishlistOperation<WishlistTypes>
