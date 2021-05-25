@@ -3,12 +3,11 @@ import { provider } from '..'
 import { BigcommerceApiError, BigcommerceNetworkError } from './errors'
 import fetch from './fetch'
 
-const { config } = provider
-
 export default async function fetchStoreApi<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
+  const { config } = provider
   let res: Response
 
   try {

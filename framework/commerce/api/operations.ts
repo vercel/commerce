@@ -14,7 +14,16 @@ const noop = () => {
   throw new Error('Not implemented')
 }
 
-export const OPERATIONS = ['login'] as const
+export const OPERATIONS = [
+  'login',
+  'getAllPages',
+  'getPage',
+  'getSiteInfo',
+  'getCustomerWishlist',
+  'getAllProductPaths',
+  'getAllProducts',
+  'getProduct',
+] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
   ops[k] = noop
