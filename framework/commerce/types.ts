@@ -111,8 +111,8 @@ export type CartItemBody = {
   productId?: string
   quantity?: number
   pricing?: {
-      amount: number,
-      currencyCode: string,
+    amount: number
+    currencyCode: string
   }
 }
 
