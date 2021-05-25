@@ -1,6 +1,5 @@
 import { Product } from '@commerce/types/product'
 import { ProductsEndpoint } from '.'
-import getAllProducts from '../../../../product/get-all-products'
 
 const SORT: { [key: string]: string | undefined } = {
   latest: 'id',
@@ -15,6 +14,7 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   res,
   body: { search, category, brand, sort },
   config,
+  commerce,
 }) => {
   // Use a dummy base as we only care about the relative path
   const url = new URL('/v3/catalog/products', 'http://a')
@@ -47,18 +47,18 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
     url.pathname + url.search
   )
 
-  const entityIds = data.map((p) => p.id)
-  const found = entityIds.length > 0
+  const ids = data.map((p) => String(p.id))
+  const found = ids.length > 0
 
   // We want the GraphQL version of each product
-  const graphqlData = await getAllProducts({
-    variables: { first: LIMIT, entityIds },
+  const graphqlData = await commerce.getAllProducts({
+    variables: { first: LIMIT, ids },
     config,
   })
 
   // Put the products in an object that we can use to get them by id
   const productsById = graphqlData.products.reduce<{
-    [k: number]: Product
+    [k: string]: Product
   }>((prods, p) => {
     prods[Number(p.id)] = p
     return prods
@@ -68,7 +68,7 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
 
   // Populate the products array with the graphql products, in the order
   // assigned by the list of entity ids
-  entityIds.forEach((id) => {
+  ids.forEach((id) => {
     const product = productsById[id]
     if (product) products.push(product)
   })

@@ -2,6 +2,12 @@ import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
 import type { GetAllPagesOperation, GetPageOperation } from '../types/page'
 import type { GetSiteInfoOperation } from '../types/site'
+import type { GetCustomerWishlistOperation } from '../types/wishlist'
+import type {
+  GetAllProductPathsOperation,
+  GetAllProductsOperation,
+  GetProductOperation,
+} from '../types/product'
 import type { APIProvider, CommerceAPI } from '.'
 
 const noop = () => {
@@ -72,6 +78,68 @@ export type Operations<P extends APIProvider> = {
 
     <T extends GetSiteInfoOperation>(
       opts: {
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getCustomerWishlist: {
+    <T extends GetCustomerWishlistOperation>(opts: {
+      variables: T['variables']
+      config?: P['config']
+      includeProducts?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetCustomerWishlistOperation>(
+      opts: {
+        variables: T['variables']
+        config?: P['config']
+        includeProducts?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllProductPaths: {
+    <T extends GetAllProductPathsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+    }): Promise<T['data']>
+
+    <T extends GetAllProductPathsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllProducts: {
+    <T extends GetAllProductsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetAllProductsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getProduct: {
+    <T extends GetProductOperation>(opts: {
+      variables: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetProductOperation>(
+      opts: {
+        variables: T['variables']
         config?: P['config']
         preview?: boolean
       } & OperationOptions

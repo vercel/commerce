@@ -1,5 +1,4 @@
 import type { GetStaticPropsContext } from 'next'
-import { getConfig } from '@framework/api'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import commerce from '@lib/api/commerce'
@@ -12,7 +11,7 @@ export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
+  const config = { locale }
   const { pages } = await commerce.getAllPages({ config, preview })
   return {
     props: { pages },

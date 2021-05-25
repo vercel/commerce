@@ -1,13 +1,14 @@
 import type { Wishlist } from '../../../types/wishlist'
 import type { WishlistEndpoint } from '.'
 import getCustomerId from './utils/get-customer-id'
-import getCustomerWishlist from '../../../customer/get-customer-wishlist'
+import getCustomerWishlist from '../../operations/get-customer-wishlist'
 
 // Return wishlist info
 const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
   res,
   body: { customerToken, includeProducts },
   config,
+  commerce,
 }) => {
   let result: { data?: Wishlist } = {}
 
@@ -23,7 +24,7 @@ const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
       })
     }
 
-    const { wishlist } = await getCustomerWishlist({
+    const { wishlist } = await commerce.getCustomerWishlist({
       variables: { customerId },
       includeProducts,
       config,

@@ -4,7 +4,6 @@ import { Heart } from '@components/icons'
 import { Layout } from '@components/common'
 import { Text, Container } from '@components/ui'
 import { defaultPageProps } from '@lib/defaults'
-import { getConfig } from '@framework/api'
 import { useCustomer } from '@framework/customer'
 import { WishlistCard } from '@components/wishlist'
 import useWishlist from '@framework/wishlist/use-wishlist'
@@ -20,7 +19,7 @@ export async function getStaticProps({
     }
   }
 
-  const config = getConfig({ locale })
+  const config = { locale }
   const { pages } = await commerce.getAllPages({ config, preview })
   return {
     props: {

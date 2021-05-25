@@ -1,5 +1,5 @@
 import type { Wishlist } from '../../../types/wishlist'
-import getCustomerWishlist from '../../../customer/get-customer-wishlist'
+import getCustomerWishlist from '../../operations/get-customer-wishlist'
 import getCustomerId from './utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
 
@@ -8,12 +8,13 @@ const removeItem: WishlistEndpoint['handlers']['removeItem'] = async ({
   res,
   body: { customerToken, itemId },
   config,
+  commerce,
 }) => {
   const customerId =
     customerToken && (await getCustomerId({ customerToken, config }))
   const { wishlist } =
     (customerId &&
-      (await getCustomerWishlist({
+      (await commerce.getCustomerWishlist({
         variables: { customerId },
         config,
       }))) ||

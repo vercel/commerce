@@ -1,4 +1,4 @@
-import getCustomerWishlist from '../../../customer/get-customer-wishlist'
+import getCustomerWishlist from '../../operations/get-customer-wishlist'
 import { parseWishlistItem } from '../../utils/parse-item'
 import getCustomerId from './utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
@@ -8,6 +8,7 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
   res,
   body: { customerToken, item },
   config,
+  commerce,
 }) => {
   if (!item) {
     return res.status(400).json({
@@ -26,7 +27,7 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
     })
   }
 
-  const { wishlist } = await getCustomerWishlist({
+  const { wishlist } = await commerce.getCustomerWishlist({
     variables: { customerId },
     config,
   })

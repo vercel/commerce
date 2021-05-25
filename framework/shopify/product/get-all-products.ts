@@ -2,7 +2,7 @@ import { getConfig, ShopifyConfig } from '../api'
 import { GetAllProductsQuery, Product as ShopifyProduct } from '../schema'
 import { getAllProductsQuery } from '../utils/queries'
 import { normalizeProduct } from '../utils/normalize'
-import { Product } from '@commerce/types'
+import { Product } from '../types/product'
 
 type Variables = {
   first?: number

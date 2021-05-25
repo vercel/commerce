@@ -1,4 +1,5 @@
-import type { GetAPISchema } from '@commerce/api'
+import { GetAPISchema, createEndpoint } from '@commerce/api'
+import productsEndpoint from '@commerce/api/endpoints/catalog/products'
 import type { ProductsSchema } from '../../../../types/product'
 import type { BigcommerceAPI } from '../../..'
 import getProducts from './get-products'
@@ -7,4 +8,11 @@ export type ProductsAPI = GetAPISchema<BigcommerceAPI, ProductsSchema>
 
 export type ProductsEndpoint = ProductsAPI['endpoint']
 
-export const handlers = { getProducts }
+export const handlers: ProductsEndpoint['handlers'] = { getProducts }
+
+const productsApi = createEndpoint<ProductsAPI>({
+  handler: productsEndpoint,
+  handlers,
+})
+
+export default productsApi

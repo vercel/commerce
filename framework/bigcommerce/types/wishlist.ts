@@ -1,6 +1,6 @@
 import * as Core from '@commerce/types/wishlist'
 import { definitions } from '../api/definitions/wishlist'
-import type { ProductEdge } from '../product/get-all-products'
+import type { ProductEdge } from '../api/operations/get-all-products'
 
 export * from '@commerce/types/wishlist'
 
@@ -20,3 +20,4 @@ export type WishlistTypes = {
 }
 
 export type WishlistSchema = Core.WishlistSchema<WishlistTypes>
+export type GetCustomerWishlistOperation = Core.GetCustomerWishlistOperation<WishlistTypes>
