@@ -1,4 +1,3 @@
-import type { NextApiHandler } from 'next'
 import type { RequestInit } from '@vercel/fetch'
 import {
   CommerceAPI,
