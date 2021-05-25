@@ -1,2 +1,2 @@
-export * from '@commerce/product/use-price'
-export { default } from '@commerce/product/use-price'
+ *  '@commerce/product/use-price'
+ { default } '@commerce/product/use-price'
