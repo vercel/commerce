@@ -42,8 +42,23 @@ export type Product = {
   options: ProductOption[]
 }
 
+export type SearchProductsBody = {
+  search?: string
+  categoryId?: string
+  brandId?: string
+  sort?: string
+}
+
 export type ProductTypes = {
   product: Product
+  searchBody: SearchProductsBody
+}
+
+export type SearchProductsHook<T extends ProductTypes = ProductTypes> = {
+  data: T['product'][]
+  body: T['searchBody']
+  input: T['searchBody']
+  fetchInput: T['searchBody']
 }
 
 export type ProductsSchema<T extends ProductTypes = ProductTypes> = {
@@ -55,12 +70,7 @@ export type ProductsSchema<T extends ProductTypes = ProductTypes> = {
           products: T['product'][]
           found: boolean
         }
-        body: {
-          search?: string
-          category?: string
-          brand?: string
-          sort?: string
-        }
+        body: SearchProductsHook<T>['body']
       }
     }
   }
