@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'demo',
+            name: 'typescript tests',
             script: './start.js',
             env: {
                 HOST: 'localhost',
