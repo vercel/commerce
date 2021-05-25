@@ -36,4 +36,4 @@ ReturnType = {
   }
 }
 
-export default getAllProducts
+ getAllProducts
