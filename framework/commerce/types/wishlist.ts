@@ -11,21 +11,42 @@ export type WishlistTypes = {
   itemBody: WishlistItemBody
 }
 
+export type GetWishlistHook<T extends WishlistTypes = WishlistTypes> = {
+  data: T['wishlist'] | null
+  body: { includeProducts?: boolean }
+  input: { includeProducts?: boolean }
+  fetchInput: { customerId: string; includeProducts?: boolean }
+  swrState: { isEmpty: boolean }
+}
+
+export type AddItemHook<T extends WishlistTypes = WishlistTypes> = {
+  data: T['wishlist']
+  body: { item: T['itemBody'] }
+  fetchInput: { item: T['itemBody'] }
+  actionInput: T['itemBody']
+}
+
+export type RemoveItemHook<T extends WishlistTypes = WishlistTypes> = {
+  data: T['wishlist'] | null
+  body: { itemId: string }
+  fetchInput: { itemId: string }
+  actionInput: { id: string }
+  input: { wishlist?: { includeProducts?: boolean } }
+}
+
 export type WishlistSchema<T extends WishlistTypes = WishlistTypes> = {
   endpoint: {
     options: {}
     handlers: {
-      getWishlist: {
+      getWishlist: GetWishlistHook<T> & {
         data: T['wishlist'] | null
-        body: { customerToken?: string; includeProducts?: boolean }
+        body: { customerToken?: string }
       }
-      addItem: {
-        data: T['wishlist']
-        body: { customerToken?: string; item: T['itemBody'] }
+      addItem: AddItemHook<T> & {
+        body: { customerToken?: string }
       }
-      removeItem: {
-        data: T['wishlist'] | null
-        body: { customerToken?: string; itemId: string }
+      removeItem: RemoveItemHook<T> & {
+        body: { customerToken?: string }
       }
     }
   }
