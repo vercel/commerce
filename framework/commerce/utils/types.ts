@@ -43,7 +43,12 @@ export type HookFetcherFn<H extends HookSchemaBase> = (
 export type HookFetcherContext<H extends HookSchemaBase> = {
   options: HookFetcherOptions
   input: H['fetchInput']
-  fetch: <T = any, B = H['body']>(options: FetcherOptions<B>) => Promise<T>
+  fetch: {
+    (
+      options: FetcherOptions<H['body'] extends {} ? H['body'] : never>
+    ): Promise<H['fetchData'] extends {} | null ? H['fetchData'] : any>
+    <T = any, B = any>(options: FetcherOptions<B>): Promise<T>
+  }
 }
 
 export type HookFetcherOptions = { method?: string } & (
@@ -67,19 +72,21 @@ export type HookFunction<
   : (input: Input) => T
 
 export type HookSchemaBase = {
-  // Data obj returned by the hook and fetch operation
+  // Data obj returned by the hook
   data: any
   // Input expected by the hook
   input?: {}
   // Input expected before doing a fetch operation (aka fetch handler)
   fetchInput?: {}
-  // Data expected by the fetch operation
+  // Body object expected by the fetch operation
   body?: {}
+  // Data returned by the fetch operation
+  fetchData?: any
 }
 
 export type SWRHookSchemaBase = HookSchemaBase & {
   // Custom state added to the response object of SWR
-  swrState: {}
+  swrState?: {}
 }
 
 export type MutationSchemaBase = HookSchemaBase & {
@@ -100,8 +107,6 @@ export type SWRHook<H extends SWRHookSchemaBase> = {
   fetchOptions: HookFetcherOptions
   fetcher?: HookFetcherFn<H>
 }
-
-type X = {} & undefined
 
 export type SWRHookContext<H extends SWRHookSchemaBase> = {
   useData(context?: {
