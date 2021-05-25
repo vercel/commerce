@@ -53,7 +53,7 @@ export default function Blog() {
         </Container>
       </div>
       <Container>
-        <div className="-mt-96 mx-auto">
+        <div className="-mt-64 mx-auto md:-mt-72 lg:-mt-80 xl:-mt-96">
           <img src="/jacket.png" alt="Jacket" />
         </div>
         {/** Replace by HTML Content */}
