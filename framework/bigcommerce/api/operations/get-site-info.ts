@@ -53,13 +53,13 @@ export default function getSiteInfoOperation({
   commerce,
 }: OperationContext<Provider>) {
   async function getSiteInfo<T extends GetSiteInfoOperation>(opts?: {
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getSiteInfo<T extends GetSiteInfoOperation>(
     opts: {
-      config?: BigcommerceConfig
+      config?: Partial<BigcommerceConfig>
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
@@ -69,15 +69,13 @@ export default function getSiteInfoOperation({
     config,
   }: {
     query?: string
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
-    config = commerce.getConfig(config)
+    const cfg = commerce.getConfig(config)
     // RecursivePartial forces the method to check for every prop in the data, which is
     // required in case there's a custom `query`
-    const { data } = await config.fetch<RecursivePartial<GetSiteInfoQuery>>(
-      query
-    )
+    const { data } = await cfg.fetch<RecursivePartial<GetSiteInfoQuery>>(query)
     const categories = data.site?.categoryTree
     const brands = data.site?.brands?.edges
 

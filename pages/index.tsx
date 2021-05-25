@@ -5,14 +5,11 @@ import { ProductCard } from '@components/product'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
-import { getConfig } from '@framework/api'
-
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-
+  const config = { locale }
   const { products } = await commerce.getAllProducts({
     variables: { first: 12 },
     config,

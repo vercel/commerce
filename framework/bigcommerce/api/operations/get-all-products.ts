@@ -76,14 +76,14 @@ export default function getAllProductsOperation({
 }: OperationContext<Provider>) {
   async function getAllProducts<T extends GetAllProductsOperation>(opts?: {
     variables?: T['variables']
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getAllProducts<T extends GetAllProductsOperation>(
     opts: {
       variables?: T['variables']
-      config?: BigcommerceConfig
+      config?: Partial<BigcommerceConfig>
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
@@ -91,15 +91,14 @@ export default function getAllProductsOperation({
   async function getAllProducts<T extends GetAllProductsOperation>({
     query = getAllProductsQuery,
     variables: vars = {},
-    config,
+    config: cfg,
   }: {
     query?: string
     variables?: T['variables']
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
-    config = commerce.getConfig(config)
-
+    const config = commerce.getConfig(cfg)
     const { locale } = config
     const field = getProductsType(vars.relevance)
     const variables: GetAllProductsQueryVariables = {

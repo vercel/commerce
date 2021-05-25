@@ -3,13 +3,12 @@ import commerce from '@lib/api/commerce'
 import { Bag } from '@components/icons'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
-import { getConfig } from '@framework/api'
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
+  const config = { locale }
   const { pages } = await commerce.getAllPages({ config, preview })
   return {
     props: { pages },

@@ -73,14 +73,14 @@ export default function getAllProductPathsOperation({
 }: OperationContext<Provider>) {
   async function getProduct<T extends GetProductOperation>(opts: {
     variables: T['variables']
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getProduct<T extends GetProductOperation>(
     opts: {
       variables: T['variables']
-      config?: BigcommerceConfig
+      config?: Partial<BigcommerceConfig>
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
@@ -88,15 +88,14 @@ export default function getAllProductPathsOperation({
   async function getProduct<T extends GetProductOperation>({
     query = getProductQuery,
     variables: { slug, ...vars },
-    config,
+    config: cfg,
   }: {
     query?: string
     variables: T['variables']
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   }): Promise<T['data']> {
-    config = commerce.getConfig(config)
-
+    const config = commerce.getConfig(cfg)
     const { locale } = config
     const variables: GetProductQueryVariables = {
       locale,

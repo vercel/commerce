@@ -11,14 +11,14 @@ export default function getPageOperation({
 }: OperationContext<Provider>) {
   async function getPage<T extends GetPageOperation>(opts: {
     variables: T['variables']
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getPage<T extends GetPageOperation>(
     opts: {
       variables: T['variables']
-      config?: BigcommerceConfig
+      config?: Partial<BigcommerceConfig>
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
@@ -31,13 +31,13 @@ export default function getPageOperation({
   }: {
     url?: string
     variables: T['variables']
-    config?: BigcommerceConfig
+    config?: Partial<BigcommerceConfig>
     preview?: boolean
   }): Promise<T['data']> {
-    config = commerce.getConfig(config)
+    const cfg = commerce.getConfig(config)
     // RecursivePartial forces the method to check for every prop in the data, which is
     // required in case there's a custom `url`
-    const { data } = await config.storeApiFetch<
+    const { data } = await cfg.storeApiFetch<
       RecursivePartial<{ data: Page[] }>
     >(url || `/v3/content/pages?id=${variables.id}&include=body`)
     const firstPage = data?.[0]

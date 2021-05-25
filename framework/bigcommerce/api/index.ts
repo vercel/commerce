@@ -61,47 +61,9 @@ if (!(STORE_API_URL && STORE_API_TOKEN && STORE_API_CLIENT_ID)) {
   )
 }
 
-export class Config {
-  private config: BigcommerceConfig
-
-  constructor(config: Omit<BigcommerceConfig, 'customerCookie'>) {
-    this.config = {
-      ...config,
-      // The customerCookie is not customizable for now, BC sets the cookie and it's
-      // not important to rename it
-      customerCookie: 'SHOP_TOKEN',
-    }
-  }
-
-  getConfig(userConfig: Partial<BigcommerceConfig> = {}) {
-    return Object.entries(userConfig).reduce<BigcommerceConfig>(
-      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
-      { ...this.config }
-    )
-  }
-
-  setConfig(newConfig: Partial<BigcommerceConfig>) {
-    Object.assign(this.config, newConfig)
-  }
-}
-
 const ONE_DAY = 60 * 60 * 24
-const config = new Config({
-  commerceUrl: API_URL,
-  apiToken: API_TOKEN,
-  cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
-  cartCookieMaxAge: ONE_DAY * 30,
-  fetch: fetchGraphqlApi,
-  applyLocale: true,
-  // REST API only
-  storeApiUrl: STORE_API_URL,
-  storeApiToken: STORE_API_TOKEN,
-  storeApiClientId: STORE_API_CLIENT_ID,
-  storeChannelId: STORE_CHANNEL_ID,
-  storeApiFetch: fetchStoreApi,
-})
 
-const config2: BigcommerceConfig = {
+const config: BigcommerceConfig = {
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
   customerCookie: 'SHOP_TOKEN',
@@ -117,19 +79,18 @@ const config2: BigcommerceConfig = {
   storeApiFetch: fetchStoreApi,
 }
 
-export const provider = {
-  config: config2,
-  operations: {
-    login,
-    getAllPages,
-    getPage,
-    getSiteInfo,
-    getCustomerWishlist,
-    getAllProductPaths,
-    getAllProducts,
-    getProduct,
-  },
+const operations = {
+  login,
+  getAllPages,
+  getPage,
+  getSiteInfo,
+  getCustomerWishlist,
+  getAllProductPaths,
+  getAllProducts,
+  getProduct,
 }
+
+export const provider = { config, operations }
 
 export type Provider = typeof provider
 
@@ -148,12 +109,4 @@ export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
 ): BigcommerceAPI<P> {
   return commerceApi(customProvider)
-}
-
-export function getConfig(userConfig?: Partial<BigcommerceConfig>) {
-  return config.getConfig(userConfig)
-}
-
-export function setConfig(newConfig: Partial<BigcommerceConfig>) {
-  return config.setConfig(newConfig)
 }
