@@ -1,6 +1,5 @@
-import type { Cart } from '../../../types'
 import type { CartHandlers } from '../'
-import getAnomymousCartQuery from '@framework/utils/queries/get-anonymous-cart'
+import getAnonymousCartQuery from '@framework/utils/queries/get-anonymous-cart'
 import accountCartByAccountIdQuery from '@framework/utils/queries/account-cart-by-account-id'
 import getCartCookie from '@framework/api/utils/get-cart-cookie'
 import reconcileCarts from '@framework/api/utils/reconcile-carts'
@@ -9,7 +8,7 @@ import {
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   REACTION_CART_ID_COOKIE,
   REACTION_CUSTOMER_TOKEN_COOKIE,
-} from '@framework/const.ts'
+} from '@framework/const'
 import { normalizeCart } from '@framework/utils'
 
 // Return current cart info
@@ -42,7 +41,7 @@ const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
   } else if (cartId && anonymousCartToken) {
     const {
       data: { cart: rawAnonymousCart },
-    } = await config.fetch(getAnomymousCartQuery, {
+    } = await config.fetch(getAnonymousCartQuery, {
       variables: {
         cartId,
         cartToken: anonymousCartToken,

@@ -49,10 +49,10 @@ const ProductView: FC<Props> = ({ product }) => {
 
       await addItem({
         productId: String(product.id),
-        variantId: String(selectedVariant.sku),
+        variantId: String(selectedVariant.id),
         pricing: {
           amount: selectedVariant.price,
-          currencyCode: product.price.currencyCode,
+          currencyCode: product.price.currencyCode ?? 'USD',
         },
       })
       openSidebar()
