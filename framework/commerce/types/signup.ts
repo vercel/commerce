@@ -9,14 +9,18 @@ export type SignupTypes = {
   body: SignupBody
 }
 
+export type SignupHook<T extends SignupTypes = SignupTypes> = {
+  data: null
+  body: T['body']
+  actionInput: T['body']
+  fetchInput: T['body']
+}
+
 export type SignupSchema<T extends SignupTypes = SignupTypes> = {
   endpoint: {
     options: {}
     handlers: {
-      signup: {
-        data: null
-        body: T['body']
-      }
+      signup: SignupHook<T>
     }
   }
 }

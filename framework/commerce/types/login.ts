@@ -7,14 +7,18 @@ export type LoginTypes = {
   body: LoginBody
 }
 
+export type LoginHook<T extends LoginTypes = LoginTypes> = {
+  data: null
+  actionInput: LoginBody
+  fetchInput: LoginBody
+  body: T['body']
+}
+
 export type LoginSchema<T extends LoginTypes = LoginTypes> = {
   endpoint: {
     options: {}
     handlers: {
-      login: {
-        data: null
-        body: T['body']
-      }
+      login: LoginHook<T>
     }
   }
 }
