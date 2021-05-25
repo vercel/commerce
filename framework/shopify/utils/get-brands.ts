@@ -1,5 +1,8 @@
+import {
+  GetAllProductVendorsQuery,
+  GetAllProductVendorsQueryVariables,
+} from '@framework/schema'
 import { ShopifyConfig } from '../api'
-import fetchAllProducts from '../api/utils/fetch-all-products'
 import getAllProductVendors from './queries/get-all-product-vendors-query'
 
 export type Brand = {
@@ -14,16 +17,17 @@ export type BrandEdge = {
 
 export type Brands = BrandEdge[]
 
-const getVendors = async (config: ShopifyConfig): Promise<BrandEdge[]> => {
-  const vendors = await fetchAllProducts({
-    config,
-    query: getAllProductVendors,
+const getBrands = async (config: ShopifyConfig): Promise<BrandEdge[]> => {
+  const { data } = await config.fetch<
+    GetAllProductVendorsQuery,
+    GetAllProductVendorsQueryVariables
+  >(getAllProductVendors, {
     variables: {
       first: 250,
     },
   })
 
-  let vendorsStrings = vendors.map(({ node: { vendor } }) => vendor)
+  let vendorsStrings = data.products.edges.map(({ node: { vendor } }) => vendor)
 
   return [...new Set(vendorsStrings)].map((v) => {
     const id = v.replace(/\s+/g, '-').toLowerCase()
@@ -37,4 +41,4 @@ const getVendors = async (config: ShopifyConfig): Promise<BrandEdge[]> => {
   })
 }
 
-export default getVendors
+export default getBrands

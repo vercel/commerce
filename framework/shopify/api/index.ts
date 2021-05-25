@@ -8,10 +8,7 @@ import { API_URL, API_TOKEN, SHOPIFY_CUSTOMER_TOKEN_COOKIE } from '../const'
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
-import login from './operations/login'
-import getAllPages from './operations/get-all-pages'
-import getPage from './operations/get-page'
-import getSiteInfo from './operations/get-site-info'
+import * as operations from './operations'
 
 if (!API_URL) {
   throw new Error(
@@ -24,46 +21,22 @@ if (!API_TOKEN) {
     `The environment variable NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN is missing and it's required to access your store`
   )
 }
-export interface ShopifyConfig extends CommerceAPIConfig {
-  applyLocale?: boolean
-}
-
-export class Config {
-  private config: ShopifyConfig
-
-  constructor(config: ShopifyConfig) {
-    this.config = config
-  }
-
-  getConfig(userConfig: Partial<ShopifyConfig> = {}) {
-    return Object.entries(userConfig).reduce<ShopifyConfig>(
-      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
-      { ...this.config }
-    )
-  }
-
-  setConfig(newConfig: Partial<ShopifyConfig>) {
-    Object.assign(this.config, newConfig)
-  }
-}
+export interface ShopifyConfig extends CommerceAPIConfig {}
 
 const ONE_DAY = 60 * 60 * 24
 
-const configJson: ShopifyConfig = {
+const config: ShopifyConfig = {
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
   cartCookie: process.env.SHOPIFY_CART_COOKIE ?? 'shopify_checkoutId',
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
-  applyLocale: true,
 }
 
-const config = new Config(configJson)
-
 export const provider = {
-  config: configJson,
-  operations: { getSiteInfo, getPage, getAllPages, login },
+  config,
+  operations,
 }
 
 export type Provider = typeof provider
@@ -73,13 +46,6 @@ export type ShopifyAPI<P extends Provider = Provider> = CommerceAPI<P>
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
 ): ShopifyAPI<P> {
+  console.log(customProvider)
   return commerceApi(customProvider)
-}
-
-export function getConfig(userConfig?: Partial<ShopifyConfig>) {
-  return config.getConfig(userConfig)
-}
-
-export function setConfig(newConfig: Partial<ShopifyConfig>) {
-  return config.setConfig(newConfig)
 }

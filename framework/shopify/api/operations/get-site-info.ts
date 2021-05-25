@@ -1,28 +1,45 @@
-import type { OperationContext } from '@commerce/api/operations'
-import type { GetSiteInfoQuery } from '../../schema'
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
+import { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '@framework/schema'
 import type { ShopifyConfig, Provider } from '..'
 import { GetSiteInfoOperation } from '../../types/site'
 
-import getSiteInfoQuery from '../../utils/queries/get-site-info-query'
-import { getCategories, getVendors } from '@framework/utils'
+import { getCategories, getBrands, getSiteInfoQuery } from '../../utils'
 
 export default function getSiteInfoOperation({
   commerce,
 }: OperationContext<Provider>) {
+  async function getSiteInfo<T extends GetSiteInfoOperation>(opts?: {
+    config?: Partial<ShopifyConfig>
+    preview?: boolean
+  }): Promise<T['data']>
+
+  async function getSiteInfo<T extends GetSiteInfoOperation>(
+    opts: {
+      config?: Partial<ShopifyConfig>
+      preview?: boolean
+    } & OperationOptions
+  ): Promise<T['data']>
+
   async function getSiteInfo<T extends GetSiteInfoOperation>({
     query = getSiteInfoQuery,
     config,
   }: {
     query?: string
-    config?: ShopifyConfig
+    config?: Partial<ShopifyConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
-    config = commerce.getConfig(config)
+    const cfg = commerce.getConfig(config)
 
-    const categories = await getCategories(config)
-    const brands = await getVendors(config)
+    const categories = await getCategories(cfg)
+    const brands = await getBrands(cfg)
 
-    // const { data } = await config.fetch<GetSiteInfoQuery>(query)
+    const { data } = await cfg.fetch<
+      GetSiteInfoQuery,
+      GetSiteInfoQueryVariables
+    >(query)
 
     return {
       categories,
