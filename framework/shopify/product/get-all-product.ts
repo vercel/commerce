@@ -19,7 +19,7 @@ ReturnType = {
   config?: ShopifyConfig
   preview?: boolean
 }): PromiseReturnType => {
-  let { config, variables = { first: 250 } } = options ?? {}
+   { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
 
    { data }: GraphQLFetcherResult = config.fetch(
