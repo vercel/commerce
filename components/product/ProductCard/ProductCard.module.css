@@ -1,0 +1,136 @@
+.root {
+  @apply relative max-h-full w-full box-border overflow-hidden
+  bg-no-repeat bg-center bg-cover transition-transform
+  ease-linear cursor-pointer;
+  height: 100% !important;
+
+  &:hover {
+    & .squareBg:before {
+      transform: scale(0.98);
+    }
+
+    & .productImage {
+      transform: scale(1.2625);
+    }
+
+    & .productTitle > span,
+    & .productPrice,
+    & .wishlistButton {
+      @apply bg-secondary text-secondary;
+    }
+
+    &:nth-child(6n + 1) .productTitle > span,
+    &:nth-child(6n + 1) .productPrice,
+    &:nth-child(6n + 1) .wishlistButton {
+      @apply bg-violet text-white;
+    }
+
+    &:nth-child(6n + 5) .productTitle > span,
+    &:nth-child(6n + 5) .productPrice,
+    &:nth-child(6n + 5) .wishlistButton {
+      @apply bg-blue text-white;
+    }
+
+    &:nth-child(6n + 3) .productTitle > span,
+    &:nth-child(6n + 3) .productPrice,
+    &:nth-child(6n + 3) .wishlistButton {
+      @apply bg-pink text-white;
+    }
+
+    &:nth-child(6n + 6) .productTitle > span,
+    &:nth-child(6n + 6) .productPrice,
+    &:nth-child(6n + 6) .wishlistButton {
+      @apply bg-cyan text-white;
+    }
+  }
+
+  &:nth-child(6n + 1) .squareBg {
+    @apply bg-violet;
+  }
+
+  &:nth-child(6n + 5) .squareBg {
+    @apply bg-blue;
+  }
+
+  &:nth-child(6n + 3) .squareBg {
+    @apply bg-pink;
+  }
+
+  &:nth-child(6n + 6) .squareBg {
+    @apply bg-cyan;
+  }
+}
+
+.squareBg,
+.productTitle > span,
+.productPrice,
+.wishlistButton {
+  @apply transition-colors ease-in-out duration-500;
+}
+
+.squareBg {
+  @apply transition-colors absolute inset-0 z-0;
+  background-color: #212529;
+}
+
+.squareBg:before {
+  @apply transition ease-in-out duration-500 bg-repeat-space w-full h-full block;
+  background-image: url('/bg-products.svg');
+  content: '';
+}
+
+.simple {
+  & .squareBg {
+    @apply bg-accents-0 !important;
+    background-image: url('/bg-products.svg');
+  }
+
+  & .productTitle {
+    @apply pt-2;
+    font-size: 1rem;
+
+    & span {
+      @apply leading-extra-loose;
+    }
+  }
+
+  & .productPrice {
+    @apply text-sm;
+  }
+}
+
+.productTitle {
+  @apply pt-0 max-w-full w-full leading-extra-loose;
+  font-size: 2rem;
+  letter-spacing: 0.4px;
+
+  & span {
+    @apply py-4 px-6 bg-primary text-primary font-bold;
+    font-size: inherit;
+    letter-spacing: inherit;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+}
+
+.productPrice {
+  @apply py-4 px-6 bg-primary text-primary font-semibold inline-block text-sm leading-6;
+  letter-spacing: 0.4px;
+}
+
+.wishlistButton {
+  @apply w-10 h-10 flex ml-auto items-center justify-center bg-primary text-primary font-semibold  text-xs leading-6 cursor-pointer;
+}
+
+.imageContainer {
+  @apply flex items-center justify-center;
+  overflow: hidden;
+
+  & > div {
+    min-width: 100%;
+  }
+}
+
+.productImage {
+  @apply transform transition-transform duration-500 object-cover scale-120;
+}

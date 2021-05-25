@@ -1,18 +1,17 @@
-import Document_, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 
-export default class Document extends Document_ {
+class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html>
         <Head />
-        <body>
+        <body className="loading">
           <Main />
           <NextScript />
-          {/**
-           * Here add your GA and more scripts.
-           */}
         </body>
       </Html>
-    );
+    )
   }
 }
+
+export default MyDocument

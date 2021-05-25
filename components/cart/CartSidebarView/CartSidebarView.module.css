@@ -1,0 +1,16 @@
+.root {
+  @apply h-full flex flex-col relative w-full;
+  height: calc(100vh + 300px);
+}
+
+.root.empty {
+  @apply bg-secondary text-secondary;
+}
+
+.root.success {
+  @apply bg-green text-white;
+}
+
+.root.error {
+  @apply bg-red text-white;
+}

@@ -1,0 +1,42 @@
+.root {
+  @apply relative;
+}
+
+.button {
+  @apply h-10 px-2 rounded-md border border-accents-2 flex items-center justify-center;
+}
+
+.button:hover {
+  @apply border-accents-4 shadow-sm;
+}
+
+.button:focus {
+  @apply outline-none;
+}
+
+.dropdownMenu {
+  @apply fixed right-0 top-12 mt-2 origin-top-right outline-none bg-primary z-40 w-full h-full;
+
+  @screen lg {
+    @apply absolute border border-accents-1 shadow-lg w-56 h-auto;
+  }
+}
+
+.closeButton {
+  @screen md {
+    @apply hidden;
+  }
+}
+
+.item {
+  @apply flex cursor-pointer px-6 py-3 transition ease-in-out duration-150 text-primary leading-6 font-medium items-center;
+  text-transform: capitalize;
+}
+
+.item:hover {
+  @apply bg-accents-1;
+}
+
+.icon {
+  transform: rotate(180deg);
+}

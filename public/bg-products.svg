@@ -1,0 +1,7 @@
+<svg width="48" height="46" viewBox="0 0 48 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <line opacity="0.1" x1="9.41421" y1="8" x2="21" y2="19.5858" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line opacity="0.1" x1="1" y1="-1" x2="17.3848" y2="-1" transform="matrix(-0.707107 0.707107 0.707107 0.707107 40 8)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line opacity="0.1" x1="1" y1="-1" x2="17.3848" y2="-1" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 8 38)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line opacity="0.1" x1="38.5858" y1="38" x2="27" y2="26.4142" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+

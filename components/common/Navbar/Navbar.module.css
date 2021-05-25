@@ -1,0 +1,24 @@
+.root {
+  @apply sticky top-0 bg-primary z-40 transition-all duration-150;
+}
+
+.link {
+  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-accents-6;
+}
+
+.link:hover {
+  @apply text-accents-9;
+}
+
+.link:focus {
+  @apply outline-none text-accents-8;
+}
+
+.logo {
+  @apply cursor-pointer rounded-full border transform duration-100 ease-in-out;
+
+  &:hover {
+    @apply shadow-md;
+    transform: scale(1.05);
+  }
+}

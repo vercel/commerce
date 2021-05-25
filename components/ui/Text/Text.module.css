@@ -1,0 +1,15 @@
+.body {
+  @apply text-base leading-7 max-w-6xl mx-auto;
+}
+
+.heading {
+  @apply text-5xl mb-12;
+}
+
+.pageHeading {
+  @apply pt-1 pb-4 text-2xl leading-7 font-bold tracking-wide;
+}
+
+.sectionHeading {
+  @apply pt-1 pb-2 font-semibold leading-7 tracking-wider uppercase border-b border-accents-2 mb-3;
+}

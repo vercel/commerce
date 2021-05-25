@@ -1,0 +1,22 @@
+.root {
+  @apply w-full relative;
+  height: 320px;
+  min-width: 100%;
+}
+
+.container {
+  @apply flex flex-row items-center;
+}
+
+.container > * {
+  @apply relative flex-1 px-16 py-4 h-full;
+  min-height: 320px;
+}
+
+.primary {
+  @apply bg-white;
+}
+
+.secondary {
+  @apply bg-black;
+}
