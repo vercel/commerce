@@ -162,7 +162,7 @@ const ProductView: FC<Props> = ({ product }) => {
 
           <div className="mt-2">
             <ul>
-              <li className="border-b border-accents-2 py-4 px-2 flex flex-row">
+              <li className="border-b border-accent-2 py-4 px-2 flex flex-row">
                 Details
               </li>
             </ul>

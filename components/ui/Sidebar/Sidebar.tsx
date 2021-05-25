@@ -40,7 +40,7 @@ const Sidebar: FC<Props> = ({ children, open = false, onClose }) => {
             />
             <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16 outline-none">
               <div className="h-full md:w-screen md:max-w-md">
-                <div className="h-full flex flex-col text-base bg-accents-0 shadow-xl overflow-y-auto">
+                <div className="h-full flex flex-col text-base bg-accent-0 shadow-xl overflow-y-auto">
                   {children}
                 </div>
               </div>

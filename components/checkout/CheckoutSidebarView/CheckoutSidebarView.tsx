@@ -13,6 +13,7 @@ import {
   MapPin,
   CreditCard,
   ChevronLeft,
+  ChevronRight,
 } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
@@ -53,7 +54,7 @@ const CheckoutSidebarView: FC = () => {
               className="hover:text-gray-500 transition ease-in-out duration-150 flex items-center focus:outline-none"
             >
               <ChevronLeft className="h-6 w-6" />
-              <span className="ml-2 text-accents-7 text-xs hover:text-gray-500">
+              <span className="ml-2 text-accent-7 text-xs hover:text-gray-500">
                 Back
               </span>
             </button>
@@ -72,7 +73,7 @@ const CheckoutSidebarView: FC = () => {
           <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
             Your cart is empty
           </h2>
-          <p className="text-accents-3 px-10 text-center pt-2">
+          <p className="text-accent-3 px-10 text-center pt-2">
             Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
           </p>
         </div>
@@ -99,10 +100,7 @@ const CheckoutSidebarView: FC = () => {
         <>
           <div className="px-4 sm:px-6 flex-1">
             <Link href="/cart">
-              <h2
-                className="pt-1 pb-2 text-sm uppercase font-semibold tracking-wide cursor-pointer inline-block"
-                onClick={handleClose}
-              >
+              <h2 className="pt-1 pb-8 text-2xl font-semibold tracking-wide cursor-pointer inline-block">
                 Checkout
               </h2>
             </Link>
@@ -111,14 +109,17 @@ const CheckoutSidebarView: FC = () => {
             {/* Only available with checkout set to true - Meaning that the provider does offer checkout functionality. */}
             <div
               onClick={() => setSidebarView('PAYMENT_VIEW')}
-              className="rounded-md border border-accents-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accents-4"
+              className="border border-accent-2 px-6 py-5 mb-4 text-center flex items-center cursor-pointer hover:border-accent-4"
             >
-              <div className="mr-5">
-                <CreditCard />
-              </div>
-              <div className="text-sm text-center font-medium">
-                <span>Add Payment Method</span>
+              <div className="flex flex-1 items-center">
+                <CreditCard className="w-5 flex" />
+                <span className="ml-5 text-sm text-center font-medium">
+                  Add Payment Method
+                </span>
                 {/* <span>VISA #### #### #### 2345</span> */}
+              </div>
+              <div>
+                <ChevronRight />
               </div>
             </div>
 
@@ -126,32 +127,36 @@ const CheckoutSidebarView: FC = () => {
             {/* Only available with checkout set to true - Meaning that the provider does offer checkout functionality. */}
             <div
               onClick={() => setSidebarView('SHIPPING_VIEW')}
-              className="rounded-md border border-accents-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accents-4"
+              className="border border-accent-2 px-6 py-5 mb-4 text-center flex items-center cursor-pointer hover:border-accent-4"
             >
-              <div className="mr-5">
-                <MapPin />
-              </div>
-              <div className="text-sm text-center font-medium">
-                <span>Add Shipping Address</span>
+              <div className="flex flex-1 items-center">
+                <MapPin className="w-5 flex" />
+                <span className="ml-5 text-sm text-center font-medium">
+                  Add Shipping Address
+                </span>
                 {/* <span>
                     1046 Kearny Street.<br/>
                     San Franssisco, California
                   </span> */}
               </div>
+              <div>
+                <ChevronRight />
+              </div>
             </div>
 
-            <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-accents-3">
+            <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-3 border-accent-3">
               {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}
                   currencyCode={data!.currency.code}
+                  noEdit
                 />
               ))}
             </ul>
           </div>
 
-          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accents-0 shadow-outline-normal text-sm">
+          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 shadow-outline-normal text-sm">
             <ul className="pb-2">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>
@@ -166,7 +171,7 @@ const CheckoutSidebarView: FC = () => {
                 <span className="font-bold tracking-wide">FREE</span>
               </li>
             </ul>
-            <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-2">
+            <div className="flex justify-between border-t border-accent-3 py-3 font-bold mb-2">
               <span>Total</span>
               <span>{total}</span>
             </div>

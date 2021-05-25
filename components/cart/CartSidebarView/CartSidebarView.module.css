@@ -1,6 +1,5 @@
 .root {
-  @apply h-full flex flex-col relative w-full;
-  height: calc(100vh + 300px);
+  @apply h-full flex flex-col relative w-full relative;
 }
 
 .root.empty {

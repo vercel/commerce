@@ -1,4 +1,4 @@
-const CreditCard = ({ ...props }) => {
+const ChevronUp = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -12,10 +12,9 @@ const CreditCard = ({ ...props }) => {
       shapeRendering="geometricPrecision"
       {...props}
     >
-      <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-      <path d="M1 10h22" />
+      <path d="M9 18l6-6-6-6" />
     </svg>
   )
 }
 
-export default CreditCard
+export default ChevronUp

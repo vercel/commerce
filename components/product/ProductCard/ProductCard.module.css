@@ -81,7 +81,7 @@
 
 .simple {
   & .squareBg {
-    @apply bg-accents-0 !important;
+    @apply bg-accent-0 !important;
     background-image: url('/bg-products.svg');
   }
 

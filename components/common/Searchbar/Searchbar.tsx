@@ -19,7 +19,7 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
     () => (
       <div
         className={cn(
-          'relative text-sm bg-accents-1 text-base w-full transition-colors duration-150',
+          'relative text-sm bg-accent-1 text-base w-full transition-colors duration-150',
           className
         )}
       >

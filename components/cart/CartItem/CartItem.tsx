@@ -20,8 +20,10 @@ type ItemOption = {
 const CartItem = ({
   item,
   currencyCode,
+  noEdit = false,
   ...rest
 }: {
+  noEdit?: boolean
   item: LineItem
   currencyCode: string
 }) => {
@@ -123,18 +125,18 @@ const CartItem = ({
               {options.map((option: ItemOption, i: number) => (
                 <div
                   key={`${item.id}-${option.name}`}
-                  className="text-sm font-semibold text-accents-7 inline-flex items-center justify-center"
+                  className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center"
                 >
                   {option.name}
                   {option.name === 'Color' ? (
                     <span
-                      className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accents-9 inline-flex items-center justify-center overflow-hidden"
+                      className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden"
                       style={{
                         backgroundColor: `${option.value}`,
                       }}
                     ></span>
                   ) : (
-                    <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-accents-9 inline-flex items-center justify-center overflow-hidden">
+                    <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden">
                       {option.value}
                     </span>
                   )}
@@ -148,38 +150,42 @@ const CartItem = ({
           <span>{price}</span>
         </div>
       </div>
-      <div className="flex flex-row h-9">
-        <button className={s.actions} onClick={handleRemove}>
-          <Cross width={20} height={20} />
-        </button>
-        <label className="w-full border-accents-3 border ml-2">
-          <input
-            type="number"
-            max={99}
-            min={0}
-            className="bg-transparent px-4 w-full h-full focus:outline-none"
-            value={quantity}
-            onChange={handleQuantity}
-            onBlur={handleBlur}
-          />
-        </label>
-        <button
-          type="button"
-          onClick={() => increaseQuantity(-1)}
-          className={s.actions}
-          style={{ marginLeft: '-1px' }}
-        >
-          <Minus width={18} height={18} />
-        </button>
-        <button
-          type="button"
-          onClick={() => increaseQuantity(1)}
-          className={cn(s.actions)}
-          style={{ marginLeft: '-1px' }}
-        >
-          <Plus width={18} height={18} />
-        </button>
-      </div>
+      {!noEdit ? (
+        <div className="flex flex-row h-9">
+          <button className={s.actions} onClick={handleRemove}>
+            <Cross width={20} height={20} />
+          </button>
+          <label className="w-full border-accent-3 border ml-2">
+            <input
+              type="number"
+              max={99}
+              min={0}
+              className="bg-transparent px-4 w-full h-full focus:outline-none"
+              value={quantity}
+              onChange={handleQuantity}
+              onBlur={handleBlur}
+            />
+          </label>
+          <button
+            type="button"
+            onClick={() => increaseQuantity(-1)}
+            className={s.actions}
+            style={{ marginLeft: '-1px' }}
+          >
+            <Minus width={18} height={18} />
+          </button>
+          <button
+            type="button"
+            onClick={() => increaseQuantity(1)}
+            className={cn(s.actions)}
+            style={{ marginLeft: '-1px' }}
+          >
+            <Plus width={18} height={18} />
+          </button>
+        </div>
+      ) : (
+        <div>x{quantity}</div>
+      )}
     </li>
   )
 }
