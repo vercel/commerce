@@ -22,10 +22,10 @@
       "@components/*": ["components/*"],
       "@commerce": ["framework/commerce"],
       "@commerce/*": ["framework/commerce/*"],
-      "@framework": ["framework/shopify"],
-      "@framework/*": ["framework/shopify/*"]
+      "@framework": ["framework/aquilacms"],
+      "@framework/*": ["framework/aquilacms/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules/*"]
 }

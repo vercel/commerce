@@ -7,17 +7,14 @@ const fs = require('fs')
 const merge = require('deepmerge')
 const prettier = require('prettier')
 
-const PROVIDERS = ['bigcommerce', 'shopify']
+const PROVIDERS = ['bigcommerce', 'shopify', 'aquilacms']
 
 function getProviderName() {
-  return (
-    process.env.COMMERCE_PROVIDER ||
-    (process.env.BIGCOMMERCE_STOREFRONT_API_URL
-      ? 'bigcommerce'
-      : process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
-      ? 'shopify'
-      : null)
-  )
+  if (process.env.COMMERCE_PROVIDER) return process.env.COMMERCE_PROVIDER
+  else if (process.env.BIGCOMMERCE_STOREFRONT_API_URL) return 'bigcommerce'
+  else if (process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN) return 'shopify'
+  else if (process.env.AQUILACMS_URL) return 'aquilacms'
+  else return null
 }
 
 function withCommerceConfig(nextConfig = {}) {

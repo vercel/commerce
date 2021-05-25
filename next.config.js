@@ -7,22 +7,23 @@ const {
 const provider = commerce.provider || getProviderName()
 const isBC = provider === 'bigcommerce'
 const isShopify = provider === 'shopify'
+const isAquilacms = provider === 'aquilacms'
 
 module.exports = withCommerceConfig({
   commerce,
   i18n: {
-    locales: ['en-US', 'es'],
+    locales: ['en-US'],
     defaultLocale: 'en-US',
   },
   rewrites() {
     return [
-      (isBC || isShopify) && {
+      (isBC || isShopify || isAquilacms) && {
         source: '/checkout',
         destination: '/api/bigcommerce/checkout',
       },
       // The logout is also an action so this route is not required, but it's also another way
       // you can allow a logout!
-      isBC && {
+      (isBC || isAquilacms) && {
         source: '/logout',
         destination: '/api/bigcommerce/customers/logout?redirect_to=/',
       },

@@ -43,11 +43,11 @@ const LoginView: FC<Props> = () => {
 
   const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
-    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
+    const validPassword = /^(.*[a-zA-Z0-9]){6,}/.test(password)
 
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword)
+      setDisabled(!validate(email) || password.length < 6 || !validPassword)
     }
   }, [email, password, dirty])
 

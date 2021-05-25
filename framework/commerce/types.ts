@@ -151,6 +151,20 @@ export type RemoveCartItemHandlerBody = Partial<RemoveCartItemBody> & {
   cartId?: string
 }
 
+export type OrderItem = {}
+
+export type Order = {
+  id: string
+  items: OrderItem[]
+  code: string
+  price: {
+    value: number
+    currency: string
+  }
+  status: string
+  createdAt: string
+}
+
 /**
  * Temporal types
  */
@@ -173,7 +187,7 @@ export interface Product extends Entity {
   sku?: string
 }
 
-interface ProductOption extends Entity {
+export interface ProductOption extends Entity {
   displayName: string
   values: ProductOptionValues[]
 }
