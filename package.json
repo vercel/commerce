@@ -35,7 +35,7 @@
     "next": "^10.0.9-canary.5",
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
-    "postcss": "^8.2.8",
+    "postcss": "^8.2.6",
     "postcss-nesting": "^7.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -44,7 +44,7 @@
     "shopify-buy": "^2.11.0",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
-    "tailwindcss": "^2.0.4"
+    "tailwindcss": "^2.0.3"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.20.0",
