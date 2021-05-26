@@ -148,6 +148,7 @@ export const createEndpoint = <API extends GetAPISchema<any, any>>(
 
 export interface CommerceAPIConfig {
   locale?: string
+  locales?: string[]
   commerceUrl: string
   apiToken: string
   cartCookie: string

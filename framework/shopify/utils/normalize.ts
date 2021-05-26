@@ -1,4 +1,6 @@
-import { Product } from '@commerce/types'
+import type { Page } from '../types/page'
+import type { Product } from '../types/product'
+import type { Cart, LineItem } from '../types/cart'
 
 import {
   Product as ShopifyProduct,
@@ -9,9 +11,9 @@ import {
   ProductVariantConnection,
   MoneyV2,
   ProductOption,
+  Page as ShopifyPage,
+  PageEdge,
 } from '../schema'
-
-import type { Cart, LineItem } from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -152,12 +154,18 @@ function normalizeLineItem({
     discounts: [],
     options:
       // By default Shopify adds a default variant with default names, we're removing it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
-      variant?.title == 'Default Title'
-        ? []
-        : [
-            {
-              value: variant?.title,
-            },
-          ],
+      variant?.title == 'Default Title' ? [] : variant?.selectedOptions,
   }
 }
+
+export const normalizePage = (
+  { title: name, handle, ...page }: ShopifyPage,
+  locale: string
+): Page => ({
+  ...page,
+  url: `/${locale}/${handle}`,
+  name,
+})
+
+export const normalizePages = (edges: PageEdge[], locale: string): Page[] =>
+  edges?.map((edge) => normalizePage(edge.node, locale))

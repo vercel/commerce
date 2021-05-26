@@ -8,8 +8,9 @@ import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = { locale }
+  const config = { locale, locales }
   const { products } = await commerce.getAllProducts({
     variables: { first: 12 },
     config,

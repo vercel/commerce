@@ -1,12 +1,13 @@
 import getSortVariables from './get-sort-variables'
-import type { SearchProductsInput } from '../product/use-search'
+import { SearchProductsBody } from '../types/product'
 
 export const getSearchVariables = ({
   brandId,
   search,
   categoryId,
   sort,
-}: SearchProductsInput) => {
+  locale,
+}: SearchProductsBody) => {
   let query = ''
 
   if (search) {
@@ -21,6 +22,9 @@ export const getSearchVariables = ({
     categoryId,
     query,
     ...getSortVariables(sort, !!categoryId),
+    ...(locale && {
+      locale,
+    }),
   }
 }
 

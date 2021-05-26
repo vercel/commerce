@@ -2,9 +2,14 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@commerce/api/operations'
-import { GetAllPagesQuery, GetAllPagesQueryVariables } from '@framework/schema'
+import {
+  GetAllPagesQuery,
+  GetAllPagesQueryVariables,
+  PageEdge,
+} from '@framework/schema'
+import { normalizePages } from '@framework/utils'
 import type { ShopifyConfig, Provider } from '..'
-import { GetAllPagesOperation } from '../../types/page'
+import type { GetAllPagesOperation, Page } from '../../types/page'
 import getAllPagesQuery from '../../utils/queries/get-all-pages-query'
 
 export default function getAllPagesOperation({
@@ -25,21 +30,36 @@ export default function getAllPagesOperation({
   async function getAllPages<T extends GetAllPagesOperation>({
     query = getAllPagesQuery,
     config,
+    variables,
   }: {
     url?: string
     config?: Partial<ShopifyConfig>
+    variables?: GetAllPagesQueryVariables
     preview?: boolean
     query?: string
   } = {}): Promise<T['data']> {
-    const cfg = commerce.getConfig(config)
+    const { fetch, locale, locales = ['en-US'] } = commerce.getConfig(config)
 
-    const { data } = await cfg.fetch<
-      GetAllPagesQuery,
-      GetAllPagesQueryVariables
-    >(query)
+    const { data } = await fetch<GetAllPagesQuery, GetAllPagesQueryVariables>(
+      query,
+      {
+        variables,
+      },
+      {
+        ...(locale && {
+          headers: {
+            'Accept-Language': locale,
+          },
+        }),
+      }
+    )
 
     return {
-      pages: data.pages.edges,
+      pages: locales.reduce<Page[]>(
+        (arr, locale) =>
+          arr.concat(normalizePages(data.pages.edges as PageEdge[], locale)),
+        []
+      ),
     }
   }
 

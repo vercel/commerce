@@ -35,11 +35,23 @@ export default function getPageOperation({
     config?: Partial<ShopifyConfig>
     preview?: boolean
   }): Promise<T['data']> {
-    const cfg = commerce.getConfig(config)
+    const { fetch, locale } = commerce.getConfig(config)
 
     const {
       data: { node: page },
-    } = await cfg.fetch<GetPageQuery, GetPageQueryVariables>(query)
+    } = await fetch<GetPageQuery, GetPageQueryVariables>(
+      query,
+      {
+        variables,
+      },
+      {
+        ...(locale && {
+          headers: {
+            'Accept-Language': locale,
+          },
+        }),
+      }
+    )
 
     return page ? { page } : {}
   }

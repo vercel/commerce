@@ -18,7 +18,7 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
-import { Product } from '@commerce/types'
+import type { Product } from '@framework/types/product'
 
 // TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
@@ -34,8 +34,9 @@ const SORT = Object.entries({
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = { locale }
+  const config = { locale, locales }
   const { pages } = await commerce.getAllPages({ config, preview })
   const { categories, brands } = await commerce.getSiteInfo({ config, preview })
   return {
@@ -55,7 +56,7 @@ export default function Search({
   const [toggleFilter, setToggleFilter] = useState(false)
 
   const router = useRouter()
-  const { asPath } = router
+  const { asPath, locale } = router
   const { q, sort } = router.query
   // `q` can be included but because categories and designers can't be searched
   // in the same way of products, it's better to ignore the search input if one
@@ -75,6 +76,7 @@ export default function Search({
     categoryId: activeCategory?.entityId,
     brandId: activeBrand?.entityId,
     sort: typeof sort === 'string' ? sort : '',
+    locale,
   })
 
   const handleClick = (event: any, filter: string) => {

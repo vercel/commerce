@@ -7,7 +7,7 @@ import { Trash } from '@components/icons'
 import { Button, Text } from '@components/ui'
 
 import { useUI } from '@components/ui/context'
-import type { Product } from '@commerce/types'
+import type { Product } from '@framework/types/product'
 import usePrice from '@framework/product/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
@@ -18,9 +18,9 @@ interface Props {
 
 const WishlistCard: FC<Props> = ({ product }) => {
   const { price } = usePrice({
-    amount: product.prices?.price?.value,
-    baseAmount: product.prices?.retailPrice?.value,
-    currencyCode: product.prices?.price?.currencyCode!,
+    amount: product.price?.value,
+    baseAmount: product.price?.retailPrice,
+    currencyCode: product.price?.currencyCode!,
   })
   // @ts-ignore Wishlist is not always enabled
   const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })

@@ -9,6 +9,7 @@ export type SearchProductsInput = {
   categoryId?: number
   brandId?: number
   sort?: string
+  locale?: string
 }
 
 export const handler: SWRHook<SearchProductsHook> = {

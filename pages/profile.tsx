@@ -7,8 +7,9 @@ import { Container, Text } from '@components/ui'
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = { locale }
+  const config = { locale, locales }
   const { pages } = await commerce.getAllPages({ config, preview })
   return {
     props: { pages },

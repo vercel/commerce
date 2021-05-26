@@ -26,20 +26,31 @@ export default function getSiteInfoOperation({
   async function getSiteInfo<T extends GetSiteInfoOperation>({
     query = getSiteInfoQuery,
     config,
+    variables,
   }: {
     query?: string
     config?: Partial<ShopifyConfig>
     preview?: boolean
+    variables?: GetSiteInfoQueryVariables
   } = {}): Promise<T['data']> {
     const cfg = commerce.getConfig(config)
 
     const categories = await getCategories(cfg)
     const brands = await getBrands(cfg)
-
-    const { data } = await cfg.fetch<
-      GetSiteInfoQuery,
-      GetSiteInfoQueryVariables
-    >(query)
+    /*    
+    const { fetch, locale } = cfg
+    const { data } = await fetch<GetSiteInfoQuery, GetSiteInfoQueryVariables>(
+      query,
+      { variables },
+      {
+        ...(locale && {
+          headers: {
+            'Accept-Language': locale,
+          },
+        }),
+      }
+    )
+    */
 
     return {
       categories,

@@ -4,7 +4,12 @@ import {
   getCommerceApi as commerceApi,
 } from '@commerce/api'
 
-import { API_URL, API_TOKEN, SHOPIFY_CUSTOMER_TOKEN_COOKIE } from '../const'
+import {
+  API_URL,
+  API_TOKEN,
+  SHOPIFY_CUSTOMER_TOKEN_COOKIE,
+  SHOPIFY_CHECKOUT_ID_COOKIE,
+} from '../const'
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
@@ -29,7 +34,7 @@ const config: ShopifyConfig = {
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-  cartCookie: process.env.SHOPIFY_CART_COOKIE ?? 'shopify_checkoutId',
+  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
 }
@@ -46,6 +51,5 @@ export type ShopifyAPI<P extends Provider = Provider> = CommerceAPI<P>
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
 ): ShopifyAPI<P> {
-  console.log(customProvider)
   return commerceApi(customProvider)
 }

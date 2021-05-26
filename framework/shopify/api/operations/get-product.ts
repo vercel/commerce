@@ -20,13 +20,23 @@ export default function getProductOperation({
     config?: ShopifyConfig
     variables?: GetProductBySlugQueryVariables
   } = {}): Promise<T['data']> {
-    config = commerce.getConfig(config)
+    const { fetch, locale } = commerce.getConfig(config)
 
     const {
       data: { productByHandle },
-    } = await config.fetch<GetProductBySlugQuery>(query, {
-      variables,
-    })
+    } = await fetch<GetProductBySlugQuery>(
+      query,
+      {
+        variables,
+      },
+      {
+        ...(locale && {
+          headers: {
+            'Accept-Language': locale,
+          },
+        }),
+      }
+    )
 
     return {
       ...(productByHandle && {

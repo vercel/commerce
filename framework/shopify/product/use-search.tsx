@@ -4,9 +4,11 @@ import useSearch, { UseSearch } from '@commerce/product/use-search'
 import {
   CollectionEdge,
   GetAllProductsQuery,
+  GetProductsFromCollectionQueryVariables,
   Product as ShopifyProduct,
   ProductEdge,
 } from '../schema'
+
 import {
   getAllProductsQuery,
   getCollectionProductsQuery,
@@ -14,27 +16,19 @@ import {
   normalizeProduct,
 } from '../utils'
 
-import { Product } from '@commerce/types'
-
-export default useSearch as UseSearch<typeof handler>
+import type { SearchProductsHook } from '../types/product'
 
 export type SearchProductsInput = {
   search?: string
-  categoryId?: string
-  brandId?: string
+  categoryId?: number
+  brandId?: number
   sort?: string
+  locale?: string
 }
 
-export type SearchProductsData = {
-  products: Product[]
-  found: boolean
-}
+export default useSearch as UseSearch<typeof handler>
 
-export const handler: SWRHook<
-  SearchProductsData,
-  SearchProductsInput,
-  SearchProductsInput
-> = {
+export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
     query: getAllProductsQuery,
   },
@@ -46,7 +40,10 @@ export const handler: SWRHook<
 
     // change the query to getCollectionProductsQuery when categoryId is set
     if (categoryId) {
-      const data = await fetch<CollectionEdge>({
+      const data = await fetch<
+        CollectionEdge,
+        GetProductsFromCollectionQueryVariables
+      >({
         query: getCollectionProductsQuery,
         method,
         variables,
@@ -81,6 +78,7 @@ export const handler: SWRHook<
         ['categoryId', input.categoryId],
         ['brandId', input.brandId],
         ['sort', input.sort],
+        ['locale', input.locale],
       ],
       swrOptions: {
         revalidateOnFocus: false,

@@ -14,6 +14,8 @@ export type ProductPrice = {
 }
 
 export type ProductOption = {
+  __typename: 'MultipleChoiceOption'
+  id: string
   displayName: string
   values: ProductOptionValues[]
 }
@@ -47,6 +49,7 @@ export type SearchProductsBody = {
   categoryId?: string
   brandId?: string
   sort?: string
+  locale?: string
 }
 
 export type ProductTypes = {

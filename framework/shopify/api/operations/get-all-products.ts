@@ -39,12 +39,22 @@ export default function getAllProductsOperation({
     config?: Partial<ShopifyConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
-    const cfg = commerce.getConfig(config)
+    const { fetch, locale } = commerce.getConfig(config)
 
-    const { data } = await cfg.fetch<
+    const { data } = await fetch<
       GetAllProductsQuery,
       GetAllProductsQueryVariables
-    >(query, { variables })
+    >(
+      query,
+      { variables },
+      {
+        ...(locale && {
+          headers: {
+            'Accept-Language': locale,
+          },
+        }),
+      }
+    )
 
     return {
       products: data.products.edges.map(({ node }) =>

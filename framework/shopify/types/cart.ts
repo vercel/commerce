@@ -10,23 +10,10 @@ export type ShopifyCart = {}
 
 export type Cart = Core.Cart & {
   lineItems: Core.LineItem[]
+  url?: string
 }
 
-export type OptionSelections = {
-  option_id: number
-  option_value: number | string
-}
-
-export type CartItemBody = Core.CartItemBody & {
-  productId: string // The product id is always required for BC
-  optionSelections?: OptionSelections
-}
-
-export type CartTypes = {
-  cart: Cart
-  item: Core.LineItem
-  itemBody: CartItemBody
-}
+export type CartTypes = Core.CartTypes
 
 export type CartHooks = Core.CartHooks<CartTypes>
 

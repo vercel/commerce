@@ -1,5 +1,5 @@
-import type { Product } from '@commerce/types'
-import type { Cart, BigcommerceCart, LineItem } from '../types'
+import type { Product } from '../types/product'
+import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
 import update from './immutability'
 
 function normalizeProductOption(productOption: any) {

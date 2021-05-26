@@ -11,6 +11,7 @@ import useWishlist from '@framework/wishlist/use-wishlist'
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
   // Disabling page if Feature is not available
   if (!process.env.COMMERCE_WISHLIST_ENABLED) {
@@ -19,7 +20,7 @@ export async function getStaticProps({
     }
   }
 
-  const config = { locale }
+  const config = { locale, locales }
   const { pages } = await commerce.getAllPages({ config, preview })
   return {
     props: {

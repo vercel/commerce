@@ -8,12 +8,25 @@ export type Category = {
   path: string
 }
 
-const getCategories = async (config: ShopifyConfig): Promise<Category[]> => {
-  const { data } = await config.fetch(getSiteCollectionsQuery, {
-    variables: {
-      first: 250,
+const getCategories = async ({
+  fetch,
+  locale,
+}: ShopifyConfig): Promise<Category[]> => {
+  const { data } = await fetch(
+    getSiteCollectionsQuery,
+    {
+      variables: {
+        first: 250,
+      },
     },
-  })
+    {
+      ...(locale && {
+        headers: {
+          'Accept-Language': locale,
+        },
+      }),
+    }
+  )
 
   return (
     data.collections?.edges?.map(
