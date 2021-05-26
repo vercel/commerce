@@ -7,8 +7,9 @@ Start right now at [nextjs.org/commerce](https://nextjs.org/commerce)
 
 Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 
-- Shopify Demo: https://shopify.demo.vercel.store/
-- BigCommerce Demo: https://bigcommerce.demo.vercel.store/
+- Shopify Demo: https://shopify.vercel.store/
+- Swell Demo: https://swell.vercel.store/
+- BigCommerce Demo: https://bigcommerce.vercel.store/
 
 ## Features
 
@@ -39,6 +40,22 @@ Next.js Commerce integrates out-of-the-box with BigCommerce and Shopify. We plan
 ### How to change providers
 
 Open `.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `.env.template` as the base).
+
+The setup for Shopify would look like this for example:
+
+```
+COMMERCE_PROVIDER=shopify
+NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
+```
+
+And change the `tsconfig.json` to resolve to the chosen provider:
+```
+  "@framework": ["framework/shopify"],
+  "@framework/*": ["framework/shopify/*"]
+```
+
+That's it!
 
 ### Features
 
