@@ -43,12 +43,9 @@ export type HookFetcherFn<H extends HookSchemaBase> = (
 export type HookFetcherContext<H extends HookSchemaBase> = {
   options: HookFetcherOptions
   input: H['fetchInput']
-  fetch: {
-    (
-      options: FetcherOptions<H['body'] extends {} ? H['body'] : never>
-    ): Promise<H['fetchData'] extends {} | null ? H['fetchData'] : any>
-    <T = any, B = any>(options: FetcherOptions<B>): Promise<T>
-  }
+  fetch: <T = H['fetchData'], B = H['body']>(
+    options: FetcherOptions<B>
+  ) => Promise<T>
 }
 
 export type HookFetcherOptions = { method?: string } & (

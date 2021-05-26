@@ -9,7 +9,7 @@ export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/customers/login',
+    url: '/api/login',
     method: 'POST',
   },
   async fetcher({ input: { email, password }, options, fetch }) {

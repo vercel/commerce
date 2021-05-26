@@ -6,7 +6,7 @@ import type {
 } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
-import type { LineItem, UpdateItemHook } from '../types'
+import type { LineItem, UpdateItemHook } from '../types/cart'
 import { handler as removeItemHandler } from './use-remove-item'
 import useCart from './use-cart'
 
@@ -18,7 +18,7 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
+    url: '/api/cart',
     method: 'PUT',
   },
   async fetcher({
