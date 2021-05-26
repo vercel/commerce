@@ -1,14 +1,14 @@
 import { useHook, useSWRHook } from '../utils/use-hook'
 import { SWRFetcher } from '../utils/default-fetcher'
+import type { CustomerHook } from '../types/customer'
 import type { HookFetcherFn, SWRHook } from '../utils/types'
-import type { Customer } from '../types'
-import { Provider } from '..'
+import type { Provider } from '..'
 
 export type UseCustomer<
-  H extends SWRHook<any, any, any> = SWRHook<Customer | null>
+  H extends SWRHook<CustomerHook<any>> = SWRHook<CustomerHook>
 > = ReturnType<H['useHook']>
 
-export const fetcher: HookFetcherFn<Customer | null, any> = SWRFetcher
+export const fetcher: HookFetcherFn<CustomerHook> = SWRFetcher
 
 const fn = (provider: Provider) => provider.customer?.useCustomer!
 

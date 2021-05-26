@@ -1,14 +1,25 @@
-import type { Wishlist as BCWishlist } from '../../bigcommerce/api/wishlist'
-import type { Customer as BCCustomer } from '../../bigcommerce/api/customers'
-import type { SearchProductsData as BCSearchProductsData } from '../../bigcommerce/api/catalog/products'
+import * as Cart from './cart'
+import * as Checkout from './checkout'
+import * as Common from './common'
+import * as Customer from './customer'
+import * as Login from './login'
+import * as Logout from './logout'
+import * as Page from './page'
+import * as Product from './product'
+import * as Signup from './signup'
+import * as Site from './site'
+import * as Wishlist from './wishlist'
 
-export * from './common'
-
-// TODO: Properly define this type
-export interface Wishlist extends BCWishlist {}
-
-// TODO: Properly define this type
-export interface Customer extends BCCustomer {}
-
-// TODO: Properly define this type
-export interface SearchProductsData extends BCSearchProductsData {}
+export type {
+  Cart,
+  Checkout,
+  Common,
+  Customer,
+  Login,
+  Logout,
+  Page,
+  Product,
+  Signup,
+  Site,
+  Wishlist,
+}

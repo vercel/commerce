@@ -1,16 +1,16 @@
 import { SWRHook } from '@commerce/utils/types'
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
-import type { Customer, CustomerData } from '../api/customers'
+import type { CustomerHook } from '../types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 
-export const handler: SWRHook<Customer | null> = {
+export const handler: SWRHook<CustomerHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/customers',
+    url: '/api/customer',
     method: 'GET',
   },
   async fetcher({ options, fetch }) {
-    const data = await fetch<CustomerData | null>(options)
+    const data = await fetch(options)
     return data?.customer ?? null
   },
   useHook: ({ useData }) => (input) => {

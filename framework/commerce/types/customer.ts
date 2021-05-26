@@ -5,6 +5,13 @@ export type CustomerTypes = {
   customer: Customer
 }
 
+export type CustomerHook<T extends CustomerTypes = CustomerTypes> = {
+  data: T['customer'] | null
+  fetchData: { customer: T['customer'] } | null
+  // actionInput: T['body']
+  // fetchInput: T['body']
+}
+
 export type CustomerSchema<T extends CustomerTypes = CustomerTypes> = {
   endpoint: {
     options: {}

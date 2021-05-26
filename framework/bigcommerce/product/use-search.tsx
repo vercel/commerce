@@ -1,6 +1,6 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import type { SearchProductsData } from '../api/catalog/products'
+import type { SearchProductsHook } from '../types/product'
 
 export default useSearch as UseSearch<typeof handler>
 
@@ -11,13 +11,9 @@ export type SearchProductsInput = {
   sort?: string
 }
 
-export const handler: SWRHook<
-  SearchProductsData,
-  SearchProductsInput,
-  SearchProductsInput
-> = {
+export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/catalog/products',
+    url: '/api/catalog/products',
     method: 'GET',
   },
   fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {

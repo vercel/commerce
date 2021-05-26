@@ -8,10 +8,6 @@ export type UseAddItem<
   H extends MutationHook<AddItemHook<any>> = MutationHook<AddItemHook>
 > = ReturnType<H['useHook']>
 
-export type UseAddItem2<
-  H extends MutationHook<any> = MutationHook<AddItemHook>
-> = ReturnType<H['useHook']>
-
 export const fetcher: HookFetcherFn<AddItemHook> = mutationFetcher
 
 const fn = (provider: Provider) => provider.cart?.useAddItem!

@@ -1,19 +1,12 @@
 import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
 import useWishlist, { UseWishlist } from '@commerce/wishlist/use-wishlist'
-import type { Wishlist } from '../api/wishlist'
+import type { GetWishlistHook } from '../types/wishlist'
 import useCustomer from '../customer/use-customer'
-
-export type UseWishlistInput = { includeProducts?: boolean }
 
 export default useWishlist as UseWishlist<typeof handler>
 
-export const handler: SWRHook<
-  Wishlist | null,
-  UseWishlistInput,
-  { customerId?: number } & UseWishlistInput,
-  { isEmpty?: boolean }
-> = {
+export const handler: SWRHook<GetWishlistHook> = {
   fetchOptions: {
     url: '/api/bigcommerce/wishlist',
     method: 'GET',
