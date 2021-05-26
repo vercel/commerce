@@ -16,6 +16,8 @@ function getProviderName() {
       ? 'bigcommerce'
       : process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
       ? 'shopify'
+      : process.env.NEXT_PUBLIC_SWELL_STORE_ID
+      ? 'swell'
       : null)
   )
 }
