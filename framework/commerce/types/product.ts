@@ -58,7 +58,7 @@ export type SearchProductsHook<T extends ProductTypes = ProductTypes> = {
   data: T['product'][]
   body: T['searchBody']
   input: T['searchBody']
-  fetchInput: T['searchBody']
+  fetcherInput: T['searchBody']
 }
 
 export type ProductsSchema<T extends ProductTypes = ProductTypes> = {

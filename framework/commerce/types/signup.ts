@@ -13,7 +13,7 @@ export type SignupHook<T extends SignupTypes = SignupTypes> = {
   data: null
   body: T['body']
   actionInput: T['body']
-  fetchInput: T['body']
+  fetcherInput: T['body']
 }
 
 export type SignupSchema<T extends SignupTypes = SignupTypes> = {
