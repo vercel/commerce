@@ -29,67 +29,16 @@ Next.js Commerce integrates out-of-the-box with BigCommerce and Shopify. We plan
 ## Considerations
 
 - `framework/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
-- **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality.
-- **Features API** is to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
+- **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality (`framework/commerce`).
+- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
 - Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
 - **Providers don't depend on anything that's specific to the application they're used in**. They only depend on `framework/commerce`, on their own framework folder and on some dependencies included in `package.json`
-- We recommend that each **provider** ships with an `env.template` file and a `[readme.md](http://readme.md)` file.
-
-## Provider Structure
-
-Next.js Commerce provides a set of utilities and functions to create new providers. This is how a provider structure looks like.
-
-- `product`
-  - usePrice
-  - useSearch
-  - getProduct
-  - getAllProducts
-- `wishlist`
-  - useWishlist
-  - useAddItem
-  - useRemoveItem
-- `auth`
-  - useLogin
-  - useLogout
-  - useSignup
-- `customer`
-  - useCustomer
-  - getCustomerId
-  - getCustomerWistlist
-- `cart`
-  - useCart
-  - useAddItem
-  - useRemoveItem
-  - useUpdateItem
-- `env.template`
-- `provider.ts`
-- `commerce.config.json`
-- `next.config.js`
-- `README.md`
 
 ## Configuration
 
 ### How to change providers
 
-First, update the provider selected in `commerce.config.json`:
-
-```json
-{
-  "provider": "bigcommerce",
-  "features": {
-    "wishlist": true
-  }
-}
-```
-
-Then, change the paths defined in `tsconfig.json` and update the `@framework` paths to point to the right folder provider:
-
-```json
-"@framework": ["framework/bigcommerce"],
-"@framework/*": ["framework/bigcommerce/*"]
-```
-
-Make sure to add the environment variables required by the new provider.
+Open `.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `.env.template` as the base).
 
 ### Features
 
@@ -103,7 +52,6 @@ Every provider defines the features that it supports under `framework/{provider}
 - You'll see a config file like this:
   ```json
   {
-    "provider": "bigcommerce",
     "features": {
       "wishlist": false
     }
@@ -114,15 +62,9 @@ Every provider defines the features that it supports under `framework/{provider}
 
 ### How to create a new provider
 
-We'd recommend to duplicate a provider folder and push your providers SDK.
+Follow our docs for [Adding a new Commerce Provider](framework/commerce/new-provider.md).
 
-If you succeeded building a provider, submit a PR so we can all enjoy it.
-
-## Work in progress
-
-We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
-
-People actively working on this project: @okbel & @lfades.
+If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
 
 ## Contribute
 
@@ -132,11 +74,15 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 2. Create a new branch `git checkout -b MY_BRANCH_NAME`
 3. Install yarn: `npm install -g yarn`
 4. Install the dependencies: `yarn`
-5. Duplicate `.env.template` and rename it to `.env.local`.
-6. Add proper store values to `.env.local`.
+5. Duplicate `.env.template` and rename it to `.env.local`
+6. Add proper store values to `.env.local`
 7. Run `yarn dev` to build and watch for code changes
-8. The development branch is `canary` (this is the branch pull requests should be made against).
-   On a release, `canary` branch is rebased into `master`.
+
+## Work in progress
+
+We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
+
+People actively working on this project: @okbel & @lfades.
 
 ## Troubleshoot
 
