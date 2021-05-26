@@ -27,10 +27,9 @@ const getAllProducts = async (options: {
     { variables }
   )
 
-  const products =
-    data.products?.edges?.map(({ node: p }: ProductEdge) =>
-      normalizeProduct(p)
-    ) ?? []
+  const products = data.products?.edges?.map(({ node: p }: ProductEdge) =>
+    normalizeProduct(p)
+  )
 
   return {
     products,
