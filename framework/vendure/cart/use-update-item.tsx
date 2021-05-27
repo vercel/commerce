@@ -50,7 +50,7 @@ export const handler = {
     const { mutate } = useCart()
 
     return useCallback(
-      async function addItem(input: CartItemBody) {
+      async function addItem(input: Partial<CartItemBody>) {
         const itemId = item?.id
         const productId = input.productId ?? item?.productId
         const variantId = input.productId ?? item?.variantId

@@ -12,21 +12,23 @@ import { signupMutation } from '../lib/mutations/sign-up-mutation'
 
 export default useSignup as UseSignup<typeof handler>
 
-export const handler: MutationHook<
-  null,
-  {},
-  RegisterCustomerInput,
-  RegisterCustomerInput
-> = {
+export type SignupInput = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+}
+
+export const handler: MutationHook<null, {}, SignupInput, SignupInput> = {
   fetchOptions: {
     query: signupMutation,
   },
   async fetcher({
-    input: { firstName, lastName, emailAddress, password },
+    input: { firstName, lastName, email, password },
     options,
     fetch,
   }) {
-    if (!(firstName && lastName && emailAddress && password)) {
+    if (!(firstName && lastName && email && password)) {
       throw new CommerceError({
         message:
           'A first name, last name, email and password are required to signup',
@@ -36,7 +38,7 @@ export const handler: MutationHook<
       input: {
         firstName,
         lastName,
-        emailAddress,
+        emailAddress: email,
         password,
       },
     }
