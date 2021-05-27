@@ -131,7 +131,7 @@ const CartSidebarView: FC = () => {
               <span>{total}</span>
             </div>
             <div>
-              {process.env.COMMERCE_CHECKOUT_ENABLED ? (
+              {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (
                 <Button
                   Component="a"
                   width="100%"
