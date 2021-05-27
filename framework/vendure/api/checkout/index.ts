@@ -1,4 +1,3 @@
-import { BigcommerceConfig, getConfig } from '../../bigcommerce/api'
 import { NextApiHandler } from 'next'
 
 const checkoutApi = async (req: any, res: any, config: any) => {
@@ -45,7 +44,7 @@ export function createApiHandler<T = any, H = {}, Options extends {} = {}>(
     operations,
     options,
   }: {
-    config?: BigcommerceConfig
+    config?: any
     operations?: Partial<H>
     options?: Options extends {} ? Partial<Options> : never
   } = {}): NextApiHandler {
@@ -53,7 +52,7 @@ export function createApiHandler<T = any, H = {}, Options extends {} = {}>(
     const opts = { ...defaultOptions, ...options }
 
     return function apiHandler(req, res) {
-      return handler(req, res, getConfig(config), ops, opts)
+      return handler(req, res, config, ops, opts)
     }
   }
 }
