@@ -1,5 +1,5 @@
 .root {
-  @apply relative grid items-start gap-8 grid-cols-1 overflow-x-hidden;
+  @apply relative grid items-start gap-1 grid-cols-1 overflow-x-hidden;
 
   @screen lg {
     @apply grid-cols-12;
@@ -17,7 +17,7 @@
   @screen lg {
     margin-right: -2rem;
     margin-left: -2rem;
-    @apply mx-0 col-span-6;
+    @apply mx-0 col-span-8;
     min-height: 100%;
     height: 100%;
   }
@@ -56,7 +56,7 @@
   @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full h-full;
 
   @screen lg {
-    @apply col-span-6 py-24 justify-between;
+    @apply col-span-4 py-12;
   }
 }
 
@@ -91,6 +91,26 @@
   @apply absolute z-30 top-6 right-0 bg-primary text-primary w-10 h-10 flex items-center justify-center font-semibold leading-6 cursor-pointer;
 
   @screen lg {
-    @apply right-12 text-white bg-violet;
+    @apply right-0 top-0 text-black bg-white w-14 h-14;
   }
+}
+
+.tab {
+  @apply border-b border-accent-2 py-4 px-2 flex flex-col;
+}
+
+.tab .header {
+  @apply flex flex-row items-center;
+}
+
+.tab .header .label {
+  @apply text-sm font-medium;
+}
+
+.tab .icon {
+  @apply mr-3 text-accent-6 transform;
+}
+
+.tab .icon.open {
+  transform: rotate(90deg);
 }

@@ -1,4 +1,4 @@
-const ChevronLeft = ({ ...props }) => {
+const ChevronDown = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -12,9 +12,9 @@ const ChevronLeft = ({ ...props }) => {
       shapeRendering="geometricPrecision"
       {...props}
     >
-      <path d="M15 18l-6-6 6-6" />
+      <path d="M6 9l6 6 6-6" />
     </svg>
   )
 }
 
-export default ChevronLeft
+export default ChevronDown

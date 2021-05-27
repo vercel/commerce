@@ -10,6 +10,7 @@ import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
+import { ChevronDown, ChevronRight } from '@components/icons'
 
 interface Props {
   children?: any
@@ -26,6 +27,7 @@ const ProductView: FC<Props> = ({ product }) => {
   })
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
+  const [tabId, setTabId] = useState('')
   const [choices, setChoices] = useState<SelectedOptions>({})
 
   useEffect(() => {
@@ -101,6 +103,13 @@ const ProductView: FC<Props> = ({ product }) => {
               ))}
             </ProductSlider>
           </div>
+          {process.env.COMMERCE_WISHLIST_ENABLED && (
+            <WishlistButton
+              className={s.wishlistButton}
+              productId={product.id}
+              variant={product.variants[0]! as any}
+            />
+          )}
         </div>
         <div className={s.sidebar}>
           <section>
@@ -150,14 +159,25 @@ const ProductView: FC<Props> = ({ product }) => {
               Add to Cart
             </Button>
           </div>
+
+          <div className="mt-6">
+            <ul>
+              <li className={s.tab}>
+                <div className={s.header}>
+                  <ChevronRight
+                    className={cn(s.icon, { [s.open]: tabId })}
+                    onClick={() => tabId('1')}
+                  />
+                  <span className={s.label}>Details</span>
+                </div>
+                <div className={s.content}>
+                  This is a limited edition production run. Printing starts when
+                  the drop ends.
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        {process.env.COMMERCE_WISHLIST_ENABLED && (
-          <WishlistButton
-            className={s.wishlistButton}
-            productId={product.id}
-            variant={product.variants[0]! as any}
-          />
-        )}
       </div>
     </Container>
   )
