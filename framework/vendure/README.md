@@ -4,36 +4,12 @@ UI hooks and data fetching methods built from the ground up for e-commerce appli
 
 ## Usage
 
-#### 1. Running a local Vendure server
-
-1. Install Vendure locally with one command:
-   ```shell
-   npx @vendure/create my-app
-   ```
-   (See the [Vendure getting started guide](https://www.vendure.io/docs/getting-started/) for more info).
-2. Once you have Vendure set up, change the default port to something other than 3000, to avoid conflict with your Next.js Commerce dev server:
-   ```TypeScript
-   // my-app/src/vendure-config.ts
-   export const config: VendureConfig = {
-       apiOptions: {
-           port: 3001,  // <----- here
-           adminApiPath: 'admin-api',
-           // ...
-       }
-   };
-   ```
-3. Start your local Vendure server
-   ```shell
-   yarn start
-   ```
-
-### 2. Set up the Commerce storefront
-
 1. Clone this repo and install its dependencies with `yarn install` or `npm install`
 2. Set the Vendure provider and API URL in your `.env.local` file:
    ```
    COMMERCE_PROVIDER=vendure
-   NEXT_PUBLIC_VENDURE_SHOP_API_URL=http://localhost:3001/shop-api
+   NEXT_PUBLIC_VENDURE_SHOP_API_URL=https://demo.vendure.io/shop-api
+   NEXT_PUBLIC_VENDURE_LOCAL_URL=/vendure-shop-api
    ```
 3. With the Vendure server running, start this project using `yarn dev` or `npm run dev`.
 
