@@ -12,7 +12,7 @@ import { fetcher } from './fetcher'
 
 export const vendureProvider: Provider = {
   locale: 'en-us',
-  cartCookie: '',
+  cartCookie: 'session',
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
