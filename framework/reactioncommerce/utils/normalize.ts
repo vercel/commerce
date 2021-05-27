@@ -1,119 +1,168 @@
-import { Product, Customer } from '@commerce/types'
+import {
+  Product,
+  Customer,
+  ProductVariant,
+  ProductOption,
+  ProductOptionValues,
+} from '@commerce/types'
 
 import {
   Account,
   Cart as ReactionCart,
-  ProductPricingInfo,
   CatalogProductVariant,
   CartItemEdge,
   CatalogItemProduct,
   CatalogProduct,
   ImageInfo,
-  Maybe,
+  CartItem,
 } from '../schema'
 
 import type { Cart, LineItem } from '../types'
 
-type ProductOption = {
-  __typename?: string
-  id: string
-  displayName: string
-  values: any[]
-}
-
-const money = ({ displayPrice }: ProductPricingInfo) => {
-  return {
-    displayPrice,
-  }
-}
-
-const normalizeProductImages = (images: Maybe<ImageInfo>[], name: string) =>
+const normalizeProductImages = (images: ImageInfo[], name: string) =>
   images.map((image) => ({
     url: image?.URLs?.original || image?.URLs?.medium || '',
     alt: name,
   }))
 
-const normalizeProductOption = ({ id, displayName, values }: ProductOption) => {
-  return {
+const normalizeProductOption = (variant: CatalogProductVariant) => {
+  const option = <ProductOption>{
     __typename: 'MultipleChoiceOption',
-    id,
-    displayName,
-    values: values.map((value) => {
-      let output: any = {
-        label: value,
-      }
-      if (displayName.toLowerCase() === 'color') {
-        output = {
-          ...output,
-          hexColors: [value],
-        }
-      }
-      return output
-    }),
+    id: variant._id,
+    displayName: variant.attributeLabel,
+    values: variant.optionTitle ? [{ label: variant.optionTitle }] : [],
   }
+  option.values = option.values.map((value) =>
+    colorizeProductOptionValue(value, option.displayName)
+  )
+
+  return option
 }
 
-const normalizeProductVariants = (variants: CatalogProductVariant[]) => {
-  return variants.map((variant) => {
-    const { _id, options, sku, title, pricing = [], variantId } = variant ?? {}
-    const variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice ?? 0
-
-    return {
-      id: _id ?? '',
-      name: title,
-      sku: sku ?? variantId,
-      price: variantPrice,
-      listPrice: pricing[0]?.compareAtPrice?.amount ?? variantPrice,
-      requiresShipping: true,
-      options: options?.length
-        ? options.map((option) => {
-            return normalizeProductOption({
-              id: option?._id ?? '',
-              displayName: option?.attributeLabel ?? '',
-              values: [option?.optionTitle],
-            })
-          })
-        : [],
-    }
-  })
+function colorizeProductOptionValue(
+  value: ProductOptionValues,
+  displayName: string
+): ProductOptionValues {
+  if (displayName.toLowerCase() === 'color') {
+    value.hexColors = [value.label]
+  }
+  return value
 }
 
-export function groupProductOptionsByAttributeLabel(
-  options: CatalogProductVariant[]
-) {
-  return options.reduce((groupedOptions, currentOption) => {
-    const attributeLabelIndex = groupedOptions.findIndex((option) => {
-      return (
-        option.displayName.toLowerCase() ===
-        currentOption?.attributeLabel.toLowerCase()
+const normalizeProductVariants = (
+  variants: Array<CatalogProductVariant>
+): ProductVariant[] => {
+  return variants.reduce(
+    (productVariants: ProductVariant[], variant: CatalogProductVariant) => {
+      if (variantHasOptions(variant)) {
+        productVariants.push(...flatVariantOptions(variant))
+        return productVariants
+      }
+
+      const { sku, title, pricing = [], variantId } = variant ?? {}
+      const variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice ?? 0
+
+      productVariants.push(<ProductVariant>{
+        id: variantId ?? '',
+        name: title,
+        sku: sku ?? variantId,
+        price: variantPrice,
+        listPrice: pricing[0]?.compareAtPrice?.amount ?? variantPrice,
+        requiresShipping: true,
+        options: [normalizeProductOption(variant)],
+      })
+
+      return productVariants
+    },
+    []
+  )
+}
+
+function groupProductOptionsByAttributeLabel(
+  variants: CatalogProductVariant[]
+): ProductOption[] {
+  return variants.reduce(
+    (
+      groupedOptions: ProductOption[],
+      currentVariant: CatalogProductVariant
+    ) => {
+      groupedOptions = mergeVariantOptionsWithExistingOptions(
+        groupedOptions,
+        currentVariant
       )
-    })
 
-    if (attributeLabelIndex !== -1) {
-      groupedOptions[attributeLabelIndex].values = [
-        ...groupedOptions[attributeLabelIndex].values,
-        {
-          label: currentOption?.optionTitle ?? '',
-          hexColors: [currentOption?.optionTitle] ?? '',
-        },
-      ]
-    } else {
-      groupedOptions = [
-        ...groupedOptions,
-        normalizeProductOption({
-          id: currentOption?._id ?? '',
-          displayName: currentOption?.attributeLabel ?? '',
-          values: [currentOption?.optionTitle ?? ''],
-        }),
-      ]
-    }
+      if (variantHasOptions(currentVariant)) {
+        (<CatalogProductVariant[]>currentVariant.options).forEach(
+          (variantOption) => {
+            groupedOptions = mergeVariantOptionsWithExistingOptions(
+              groupedOptions,
+              variantOption
+            )
+          }
+        )
+      }
 
-    return groupedOptions
-  }, [] as ProductOption[])
+      return groupedOptions
+    },
+    []
+  )
+}
+
+function mergeVariantOptionsWithExistingOptions(
+  groupedOptions: ProductOption[],
+  currentVariant: CatalogProductVariant
+): ProductOption[] {
+  const matchingOptionIndex = findCurrentVariantOptionsInGroupedOptions(
+    groupedOptions,
+    currentVariant
+  )
+
+  return matchingOptionIndex !== -1
+    ? mergeWithExistingOptions(
+        groupedOptions,
+        currentVariant,
+        matchingOptionIndex
+      )
+    : addNewProductOption(groupedOptions, currentVariant)
+}
+
+function findCurrentVariantOptionsInGroupedOptions(
+  groupedOptions: ProductOption[],
+  currentVariant: CatalogProductVariant
+): number {
+  return groupedOptions.findIndex(
+    (option) =>
+      option.displayName.toLowerCase() ===
+      currentVariant.attributeLabel.toLowerCase()
+  )
+}
+
+function mergeWithExistingOptions(
+  groupedOptions: ProductOption[],
+  currentVariant: CatalogProductVariant,
+  matchingOptionIndex: number
+) {
+  const currentVariantOption = normalizeProductOption(currentVariant)
+  groupedOptions[matchingOptionIndex].values = [
+    ...groupedOptions[matchingOptionIndex].values,
+    ...currentVariantOption.values,
+  ]
+
+  return groupedOptions
+}
+
+function addNewProductOption(
+  groupedOptions: ProductOption[],
+  currentVariant: CatalogProductVariant
+) {
+  return [...groupedOptions, normalizeProductOption(currentVariant)]
 }
 
 export function normalizeProduct(productNode: CatalogItemProduct): Product {
-  const product = productNode.product as CatalogProduct
+  const product = productNode.product
+  if (!product) {
+    return <Product>{}
+  }
 
   const {
     _id,
@@ -124,10 +173,8 @@ export function normalizeProduct(productNode: CatalogItemProduct): Product {
     sku,
     media,
     pricing,
-    vendor,
     variants,
-    ...rest
-  } = product
+  } = <CatalogProduct>product
 
   return {
     id: productId ?? _id,
@@ -136,17 +183,20 @@ export function normalizeProduct(productNode: CatalogItemProduct): Product {
     slug: slug?.replace(/^\/+|\/+$/g, '') ?? '',
     path: slug ?? '',
     sku: sku ?? '',
-    images: media?.length ? normalizeProductImages(media, title ?? '') : [],
+    images: media?.length
+      ? normalizeProductImages(<ImageInfo[]>media, title ?? '')
+      : [],
     vendor: product.vendor,
     price: {
       value: pricing[0]?.minPrice ?? 0,
       currencyCode: pricing[0]?.currency.code,
     },
-    variants: variants?.length ? normalizeProductVariants(variants) : [],
-    options: variants?.length
-      ? groupProductOptionsByAttributeLabel(variants)
+    variants: !!variants
+      ? normalizeProductVariants(<CatalogProductVariant[]>variants)
       : [],
-    ...rest,
+    options: !!variants
+      ? groupProductOptionsByAttributeLabel(<CatalogProductVariant[]>variants)
+      : [],
   }
 }
 
@@ -157,19 +207,28 @@ export function normalizeCart(cart: ReactionCart): Cart {
     email: '',
     createdAt: cart.createdAt,
     currency: {
-      code: cart.checkout?.summary?.total?.currency.code,
+      code: cart.checkout?.summary?.total?.currency.code ?? '',
     },
     taxesIncluded: false,
-    lineItems: cart.items?.edges?.map(normalizeLineItem),
-    lineItemsSubtotalPrice: +cart.checkout?.summary?.itemTotal?.amount,
-    subtotalPrice: +cart.checkout?.summary?.itemTotal?.amount,
-    totalPrice: cart.checkout?.summary?.total?.amount,
+    lineItems:
+      cart.items?.edges?.map((cartItem) =>
+        normalizeLineItem(<CartItemEdge>cartItem)
+      ) ?? [],
+    lineItemsSubtotalPrice: +(cart.checkout?.summary?.itemTotal?.amount ?? 0),
+    subtotalPrice: +(cart.checkout?.summary?.itemTotal?.amount ?? 0),
+    totalPrice: cart.checkout?.summary?.total?.amount ?? 0,
     discounts: [],
   }
 }
 
-function normalizeLineItem({
-  node: {
+function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
+  const cartItem = cartItemEdge.node
+
+  if (!cartItem) {
+    return <LineItem>{}
+  }
+
+  const {
     _id,
     compareAtPrice,
     imageURLs,
@@ -179,9 +238,8 @@ function normalizeLineItem({
     optionTitle,
     variantTitle,
     quantity,
-  },
-}: CartItemEdge): LineItem {
-  console.log('imageURLs', imageURLs)
+  } = <CartItem>cartItem
+
   return {
     id: _id,
     variantId: String(productConfiguration?.productVariantId),
@@ -193,11 +251,12 @@ function normalizeLineItem({
       sku: String(productConfiguration?.productVariantId),
       name: String(optionTitle || variantTitle),
       image: {
-        url: imageURLs?.original ?? '/product-img-placeholder.svg',
+        url: imageURLs?.thumbnail ?? '/product-img-placeholder.svg',
       },
       requiresShipping: true,
       price: priceWhenAdded?.amount,
-      listPrice: compareAtPrice?.amount,
+      listPrice: compareAtPrice?.amount ?? 0,
+      options: [],
     },
     path: '',
     discounts: [],
@@ -211,12 +270,25 @@ function normalizeLineItem({
 
 export function normalizeCustomer(viewer: Account): Customer {
   if (!viewer) {
-    return {}
+    return <Customer>{}
   }
 
-  return {
+  return <Customer>{
     firstName: viewer.firstName ?? '',
     lastName: viewer.lastName ?? '',
     email: viewer.primaryEmailAddress,
   }
+}
+
+function flatVariantOptions(variant: CatalogProductVariant): ProductVariant[] {
+  const variantOptions = <CatalogProductVariant[]>variant.options
+
+  return normalizeProductVariants(variantOptions).map((variantOption) => {
+    variantOption.options.push(normalizeProductOption(variant))
+    return variantOption
+  })
+}
+
+function variantHasOptions(variant: CatalogProductVariant) {
+  return !!variant.options && variant.options.length != 0
 }
