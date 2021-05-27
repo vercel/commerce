@@ -8,6 +8,9 @@ import { Navbar, Footer } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import CartSidebarView from '@components/cart/CartSidebarView'
+import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
+import PaymentMethodView from '@components/checkout/PaymentMethodView'
+import ShippingView from '@components/checkout/ShippingView'
 
 import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@framework'
@@ -55,6 +58,7 @@ const Layout: FC<Props> = ({
     closeSidebar,
     closeModal,
     modalView,
+    sidebarView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
@@ -72,7 +76,10 @@ const Layout: FC<Props> = ({
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
-          <CartSidebarView />
+          {sidebarView === 'CART_VIEW' && <CartSidebarView />}
+          {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
+          {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
+          {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
         </Sidebar>
 
         <FeatureBar

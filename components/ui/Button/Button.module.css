@@ -1,9 +1,12 @@
 .root {
-  @apply bg-secondary text-accents-1 cursor-pointer inline-flex px-10 rounded-sm leading-6  transition ease-in-out duration-150 shadow-sm font-semibold text-center justify-center uppercase py-4 border border-transparent items-center;
+  @apply bg-secondary text-accent-1 cursor-pointer inline-flex
+  px-10 rounded-sm leading-6  transition ease-in-out duration-150
+  shadow-sm font-semibold text-center justify-center uppercase
+  py-4 border border-transparent items-center;
 }
 
 .root:hover {
-  @apply bg-accents-0 text-primary border border-secondary;
+  @apply bg-accent-0 text-primary border border-secondary;
 }
 
 .root:focus {
@@ -15,16 +18,20 @@
 }
 
 .loading {
-  @apply bg-accents-1 text-accents-3 border-accents-2 cursor-not-allowed;
+  @apply bg-accent-1 text-accent-3 border-accent-2 cursor-not-allowed;
 }
 
 .slim {
   @apply py-2 transform-none normal-case;
 }
 
+.ghost {
+  @apply border border-accent-3 bg-accent-0 text-accent-9 text-sm;
+}
+
 .disabled,
 .disabled:hover {
-  @apply text-accents-4 border-accents-2 bg-accents-1 cursor-not-allowed;
+  @apply text-accent-4 border-accent-2 bg-accent-1 cursor-not-allowed;
   filter: grayscale(1);
   -webkit-transform: translateZ(0);
   -webkit-perspective: 1000;

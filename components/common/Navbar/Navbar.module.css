@@ -3,15 +3,15 @@
 }
 
 .link {
-  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-accents-6;
+  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-accent-6;
 }
 
 .link:hover {
-  @apply text-accents-9;
+  @apply text-accent-9;
 }
 
 .link:focus {
-  @apply outline-none text-accents-8;
+  @apply outline-none text-accent-8;
 }
 
 .logo {

@@ -1,5 +1,5 @@
 .root {
-  @apply h-full flex flex-col;
+  @apply h-full flex flex-col relative w-full relative;
 }
 
 .root.empty {

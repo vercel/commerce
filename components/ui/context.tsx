@@ -7,6 +7,7 @@ export interface State {
   displayModal: boolean
   displayToast: boolean
   modalView: string
+  sidebarView: string
   toastText: string
   userAvatar: string
 }
@@ -16,6 +17,7 @@ const initialState = {
   displayDropdown: false,
   displayModal: false,
   modalView: 'LOGIN_VIEW',
+  sidebarView: 'CART_VIEW',
   displayToast: false,
   toastText: '',
   userAvatar: '',
@@ -55,6 +57,10 @@ type Action =
       view: MODAL_VIEWS
     }
   | {
+      type: 'SET_SIDEBAR_VIEW'
+      view: SIDEBAR_VIEWS
+    }
+  | {
       type: 'SET_USER_AVATAR'
       value: string
     }
@@ -65,6 +71,9 @@ type MODAL_VIEWS =
   | 'FORGOT_VIEW'
   | 'NEW_SHIPPING_ADDRESS'
   | 'NEW_PAYMENT_METHOD'
+
+type SIDEBAR_VIEWS = 'CART_VIEW' | 'CHECKOUT_VIEW' | 'PAYMENT_METHOD_VIEW'
+
 type ToastText = string
 
 export const UIContext = React.createContext<State | any>(initialState)
@@ -128,6 +137,12 @@ function uiReducer(state: State, action: Action) {
         modalView: action.view,
       }
     }
+    case 'SET_SIDEBAR_VIEW': {
+      return {
+        ...state,
+        sidebarView: action.view,
+      }
+    }
     case 'SET_TOAST_TEXT': {
       return {
         ...state,
@@ -170,6 +185,9 @@ export const UIProvider: FC = (props) => {
   const setModalView = (view: MODAL_VIEWS) =>
     dispatch({ type: 'SET_MODAL_VIEW', view })
 
+  const setSidebarView = (view: SIDEBAR_VIEWS) =>
+    dispatch({ type: 'SET_SIDEBAR_VIEW', view })
+
   const value = useMemo(
     () => ({
       ...state,
@@ -182,6 +200,7 @@ export const UIProvider: FC = (props) => {
       openModal,
       closeModal,
       setModalView,
+      setSidebarView,
       openToast,
       closeToast,
       setUserAvatar,

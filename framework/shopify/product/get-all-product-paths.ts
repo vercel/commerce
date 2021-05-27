@@ -1,4 +1,6 @@
+import { Product } from '@commerce/types'
 import { getConfig, ShopifyConfig } from '../api'
+import fetchAllProducts from '../api/utils/fetch-all-products'
 import { ProductEdge } from '../schema'
 import getAllProductsPathsQuery from '../utils/queries/get-all-products-paths-query'
 
@@ -19,22 +21,21 @@ const getAllProductPaths = async (options?: {
   config?: ShopifyConfig
   preview?: boolean
 }): Promise<ReturnType> => {
-  let { config, variables = { first: 100, sortKey: 'BEST_SELLING' } } =
-    options ?? {}
+  let { config, variables = { first: 250 } } = options ?? {}
   config = getConfig(config)
 
-  const { data } = await config.fetch(getAllProductsPathsQuery, {
+  const products = await fetchAllProducts({
+    config,
+    query: getAllProductsPathsQuery,
     variables,
   })
 
   return {
-    products: data.products?.edges?.map(
-      ({ node: { handle } }: ProductEdge) => ({
-        node: {
-          path: `/${handle}`,
-        },
-      })
-    ),
+    products: products?.map(({ node: { handle } }: ProductEdge) => ({
+      node: {
+        path: `/${handle}`,
+      },
+    })),
   }
 }
 

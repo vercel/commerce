@@ -1,5 +1,5 @@
 .body {
-  @apply text-lg leading-7 font-medium max-w-6xl mx-auto;
+  @apply text-base leading-7 max-w-6xl mx-auto;
 }
 
 .heading {
@@ -11,5 +11,5 @@
 }
 
 .sectionHeading {
-  @apply pt-1 pb-2 font-semibold leading-7 tracking-wider uppercase border-b border-accents-2 mb-3;
+  @apply pt-1 pb-2 font-semibold leading-7 tracking-wider uppercase border-b border-accent-2 mb-3;
 }

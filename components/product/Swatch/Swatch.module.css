@@ -28,6 +28,6 @@
 
 .active {
   &.size {
-    @apply border-accents-9 border-2;
+    @apply border-accent-9 border-2;
   }
 }

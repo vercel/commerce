@@ -1,16 +1,24 @@
 import cn from 'classnames'
 import Link from 'next/link'
 import { FC } from 'react'
-import s from './CartSidebarView.module.css'
-import CartItem from '../CartItem'
+import s from './CheckoutSidebarView.module.css'
+import CartItem from '@components/cart/CartItem'
 import { Button } from '@components/ui'
 import { UserNav } from '@components/common'
 import { useUI } from '@components/ui/context'
-import { Bag, Cross, Check } from '@components/icons'
+import {
+  Bag,
+  Cross,
+  Check,
+  MapPin,
+  CreditCard,
+  ChevronLeft,
+  ChevronRight,
+} from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 
-const CartSidebarView: FC = () => {
+const CheckoutSidebarView: FC = () => {
   const { closeSidebar, setSidebarView } = useUI()
   const { data, isLoading, isEmpty } = useCart()
 
@@ -27,7 +35,6 @@ const CartSidebarView: FC = () => {
     }
   )
   const handleClose = () => closeSidebar()
-  const goToCheckout = () => setSidebarView('CHECKOUT_VIEW')
 
   const error = null
   const success = null
@@ -42,13 +49,13 @@ const CartSidebarView: FC = () => {
         <div className="flex items-start justify-between space-x-3">
           <div className="h-7 flex items-center">
             <button
-              onClick={handleClose}
+              onClick={() => setSidebarView('CART_VIEW')}
               aria-label="Close panel"
               className="hover:text-gray-500 transition ease-in-out duration-150 flex items-center focus:outline-none"
             >
-              <Cross className="h-6 w-6" />
+              <ChevronLeft className="h-6 w-6" />
               <span className="ml-2 text-accent-7 text-xs hover:text-gray-500">
-                Close
+                Back
               </span>
             </button>
           </div>
@@ -93,19 +100,57 @@ const CartSidebarView: FC = () => {
         <>
           <div className="px-4 sm:px-6 flex-1">
             <Link href="/cart">
-              <h2
-                className="pt-1 pb-8 text-2xl font-semibold tracking-wide cursor-pointer inline-block"
-                onClick={handleClose}
-              >
-                My Cart
+              <h2 className="pt-1 pb-8 text-2xl font-semibold tracking-wide cursor-pointer inline-block">
+                Checkout
               </h2>
             </Link>
+
+            {/* Payment Method */}
+            {/* Only available with checkout set to true - Meaning that the provider does offer checkout functionality. */}
+            <div
+              onClick={() => setSidebarView('PAYMENT_VIEW')}
+              className="border border-accent-2 px-6 py-5 mb-4 text-center flex items-center cursor-pointer hover:border-accent-4"
+            >
+              <div className="flex flex-1 items-center">
+                <CreditCard className="w-5 flex" />
+                <span className="ml-5 text-sm text-center font-medium">
+                  Add Payment Method
+                </span>
+                {/* <span>VISA #### #### #### 2345</span> */}
+              </div>
+              <div>
+                <ChevronRight />
+              </div>
+            </div>
+
+            {/* Shipping Address */}
+            {/* Only available with checkout set to true - Meaning that the provider does offer checkout functionality. */}
+            <div
+              onClick={() => setSidebarView('SHIPPING_VIEW')}
+              className="border border-accent-2 px-6 py-5 mb-4 text-center flex items-center cursor-pointer hover:border-accent-4"
+            >
+              <div className="flex flex-1 items-center">
+                <MapPin className="w-5 flex" />
+                <span className="ml-5 text-sm text-center font-medium">
+                  Add Shipping Address
+                </span>
+                {/* <span>
+                    1046 Kearny Street.<br/>
+                    San Franssisco, California
+                  </span> */}
+              </div>
+              <div>
+                <ChevronRight />
+              </div>
+            </div>
+
             <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-3 border-accent-3">
               {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}
                   currencyCode={data!.currency.code}
+                  noEdit
                 />
               ))}
             </ul>
@@ -131,20 +176,9 @@ const CartSidebarView: FC = () => {
               <span>{total}</span>
             </div>
             <div>
-              {process.env.COMMERCE_CHECKOUT_ENABLED ? (
-                <Button
-                  Component="a"
-                  width="100%"
-                  variant="ghost"
-                  onClick={goToCheckout}
-                >
-                  Continue to Checkout
-                </Button>
-              ) : (
-                <Button href="/checkout" Component="a" width="100%">
-                  Proceed to Checkout
-                </Button>
-              )}
+              <Button href="/checkout" Component="a" width="100%">
+                Confirm Purchase
+              </Button>
             </div>
           </div>
         </>
@@ -153,4 +187,4 @@ const CartSidebarView: FC = () => {
   )
 }
 
-export default CartSidebarView
+export default CheckoutSidebarView

@@ -68,6 +68,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             name,
             values: [value],
           })
+
           return options
         }),
       }
@@ -154,12 +155,6 @@ function normalizeLineItem({
     discounts: [],
     options:
       // By default Shopify adds a default variant with default names, we're removing it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
-      variant?.title == 'Default Title'
-        ? []
-        : [
-            {
-              value: variant?.title,
-            },
-          ],
+      variant?.title == 'Default Title' ? [] : variant?.selectedOptions,
   }
 }
