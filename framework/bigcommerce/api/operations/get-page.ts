@@ -5,6 +5,7 @@ import type {
 import type { GetPageOperation, Page } from '../../types/page'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import type { BigcommerceConfig, Provider } from '..'
+import { normalizePage } from '../../lib/normalize'
 
 export default function getPageOperation({
   commerce,
@@ -44,7 +45,7 @@ export default function getPageOperation({
     const page = firstPage as RecursiveRequired<typeof firstPage>
 
     if (preview || page?.is_visible) {
-      return { page }
+      return { page: normalizePage(page as any) }
     }
     return {}
   }

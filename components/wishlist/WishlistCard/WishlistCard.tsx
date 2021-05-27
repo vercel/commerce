@@ -7,7 +7,7 @@ import { Trash } from '@components/icons'
 import { Button, Text } from '@components/ui'
 
 import { useUI } from '@components/ui/context'
-import type { Product } from '@framework/types/product'
+import type { Product } from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
@@ -26,6 +26,9 @@ const WishlistCard: FC<Props> = ({ product }) => {
   const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
   const [loading, setLoading] = useState(false)
   const [removing, setRemoving] = useState(false)
+
+  // TODO: fix this missing argument issue
+  /* @ts-ignore */
   const addItem = useAddItem()
   const { openSidebar } = useUI()
 

@@ -30,6 +30,10 @@ export const checkoutDetailsFragment = /* GraphQL */ `
             id
             sku
             title
+            selectedOptions {
+              name
+              value
+            }
             image {
               originalSrc
               altText

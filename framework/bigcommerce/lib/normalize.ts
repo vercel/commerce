@@ -1,6 +1,8 @@
 import type { Product } from '../types/product'
 import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
+import type { Page } from '../types/page'
 import update from './immutability'
+import { definitions } from '../api/definitions/store-content'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -67,6 +69,16 @@ export function normalizeProduct(productNode: any): Product {
     },
     $unset: ['entityId'],
   })
+}
+
+export function normalizePage(page: definitions['page_Full']): Page {
+  return {
+    id: String(page.id),
+    name: page.name,
+    is_visible: page.is_visible,
+    sort_order: page.sort_order,
+    body: page.body,
+  }
 }
 
 export function normalizeCart(data: BigcommerceCart): Cart {

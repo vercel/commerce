@@ -8,51 +8,42 @@ import {
 } from 'react'
 
 import type {
-  AddItemHook,
-  GetCartHook,
-  RemoveItemHook,
-  UpdateItemHook,
-} from '@framework/types/cart'
+  Customer,
+  Wishlist,
+  Cart,
+  Product,
+  Signup,
+  Login,
+  Logout,
+} from '@commerce/types'
 
-import {
-  AddItemHook as WishlistAddItemHook,
-  GetWishlistHook,
-  RemoveItemHook as WishlistRemoveItemHook,
-} from '@framework/types/wishlist'
-
-import { CustomerHook } from '@framework/types/customer'
-import { LoginHook } from '@framework/types/login'
-import { LogoutHook } from '@framework/types/logout'
-import { SearchProductsHook } from '@framework/types/product'
-import { SignupHook } from '@framework/types/signup'
-
-import { Fetcher, SWRHook, MutationHook } from './utils/types'
+import type { Fetcher, SWRHook, MutationHook } from './utils/types'
 
 const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
 export type Provider = CommerceConfig & {
   fetcher: Fetcher
   cart?: {
-    useCart?: SWRHook<GetCartHook>
-    useAddItem?: MutationHook<AddItemHook>
-    useUpdateItem?: MutationHook<UpdateItemHook>
-    useRemoveItem?: MutationHook<RemoveItemHook>
+    useCart?: SWRHook<Cart.GetCartHook>
+    useAddItem?: MutationHook<Cart.AddItemHook>
+    useUpdateItem?: MutationHook<Cart.UpdateItemHook>
+    useRemoveItem?: MutationHook<Cart.RemoveItemHook>
   }
   wishlist?: {
-    useWishlist?: SWRHook<GetWishlistHook>
-    useAddItem?: MutationHook<WishlistAddItemHook>
-    useRemoveItem?: MutationHook<WishlistRemoveItemHook>
+    useWishlist?: SWRHook<Wishlist.GetWishlistHook>
+    useAddItem?: MutationHook<Wishlist.AddItemHook>
+    useRemoveItem?: MutationHook<Wishlist.RemoveItemHook>
   }
   customer?: {
-    useCustomer?: SWRHook<CustomerHook>
+    useCustomer?: SWRHook<Customer.CustomerHook>
   }
   products?: {
-    useSearch?: SWRHook<SearchProductsHook>
+    useSearch?: SWRHook<Product.SearchProductsHook>
   }
   auth?: {
-    useSignup?: MutationHook<SignupHook>
-    useLogin?: MutationHook<LoginHook>
-    useLogout?: MutationHook<LogoutHook>
+    useSignup?: MutationHook<Signup.SignupHook>
+    useLogin?: MutationHook<Login.LoginHook>
+    useLogout?: MutationHook<Logout.LogoutHook>
   }
 }
 

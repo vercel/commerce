@@ -24,4 +24,4 @@ export const shopifyProvider = {
   auth: { useLogin, useLogout, useSignup },
 }
 
-export type ShopifyProvider = any
+export type ShopifyProvider = typeof shopifyProvider

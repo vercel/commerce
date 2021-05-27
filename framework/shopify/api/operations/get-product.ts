@@ -1,26 +1,40 @@
-import type { OperationContext } from '@commerce/api/operations'
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
 import { GetProductOperation } from '../../types/product'
 import { normalizeProduct, getProductQuery } from '../../utils'
 import type { ShopifyConfig, Provider } from '..'
-import {
-  GetProductBySlugQuery,
-  GetProductBySlugQueryVariables,
-  Product as ShopifyProduct,
-} from '../../schema'
+import { GetProductBySlugQuery, Product as ShopifyProduct } from '../../schema'
 
 export default function getProductOperation({
   commerce,
 }: OperationContext<Provider>) {
+  async function getProduct<T extends GetProductOperation>(opts: {
+    variables: T['variables']
+    config?: Partial<ShopifyConfig>
+    preview?: boolean
+  }): Promise<T['data']>
+
+  async function getProduct<T extends GetProductOperation>(
+    opts: {
+      variables: T['variables']
+      config?: Partial<ShopifyConfig>
+      preview?: boolean
+    } & OperationOptions
+  ): Promise<T['data']>
+
   async function getProduct<T extends GetProductOperation>({
     query = getProductQuery,
-    config,
     variables,
+    config: cfg,
   }: {
     query?: string
-    config?: ShopifyConfig
-    variables?: GetProductBySlugQueryVariables
-  } = {}): Promise<T['data']> {
-    const { fetch, locale } = commerce.getConfig(config)
+    variables: T['variables']
+    config?: Partial<ShopifyConfig>
+    preview?: boolean
+  }): Promise<T['data']> {
+    const { fetch, locale } = commerce.getConfig(cfg)
 
     const {
       data: { productByHandle },

@@ -2,8 +2,13 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@commerce/api/operations'
+import { normalizePage } from '@framework/utils'
 import type { ShopifyConfig, Provider } from '..'
-import { GetPageQuery, GetPageQueryVariables, Page } from '../../schema'
+import {
+  GetPageQuery,
+  GetPageQueryVariables,
+  Page as ShopifyPage,
+} from '../../schema'
 import { GetPageOperation } from '../../types/page'
 import getPageQuery from '../../utils/queries/get-page-query'
 
@@ -28,14 +33,13 @@ export default function getPageOperation({
     query = getPageQuery,
     variables,
     config,
-    preview,
   }: {
     query?: string
     variables: T['variables']
     config?: Partial<ShopifyConfig>
     preview?: boolean
   }): Promise<T['data']> {
-    const { fetch, locale } = commerce.getConfig(config)
+    const { fetch, locale = 'en-US' } = commerce.getConfig(config)
 
     const {
       data: { node: page },
@@ -53,7 +57,7 @@ export default function getPageOperation({
       }
     )
 
-    return page ? { page } : {}
+    return page ? { page: normalizePage(page as ShopifyPage, locale) } : {}
   }
 
   return getPage

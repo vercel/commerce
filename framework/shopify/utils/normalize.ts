@@ -14,6 +14,7 @@ import {
   Page as ShopifyPage,
   PageEdge,
 } from '../schema'
+import { colorMap } from '@lib/colors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -30,7 +31,7 @@ const normalizeProductOption = ({
   return {
     __typename: 'MultipleChoiceOption',
     id,
-    displayName,
+    displayName: displayName.toLowerCase(),
     values: values.map((value) => {
       let output: any = {
         label: value,
@@ -38,7 +39,7 @@ const normalizeProductOption = ({
       if (displayName.match(/colou?r/gi)) {
         output = {
           ...output,
-          hexColors: [value],
+          hexColors: [colorMap[value] || value],
         }
       }
       return output
@@ -152,9 +153,7 @@ function normalizeLineItem({
     },
     path: String(variant?.product?.handle),
     discounts: [],
-    options:
-      // By default Shopify adds a default variant with default names, we're removing it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
-      variant?.title == 'Default Title' ? [] : variant?.selectedOptions,
+    options: variant?.title == 'Default Title' ? [] : variant?.selectedOptions,
   }
 }
 
