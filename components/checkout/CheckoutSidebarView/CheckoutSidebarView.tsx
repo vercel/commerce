@@ -176,7 +176,7 @@ const CheckoutSidebarView: FC = () => {
               <span>{total}</span>
             </div>
             <div>
-              <Button href="/checkout" Component="a" width="100%">
+              <Button Component="a" width="100%">
                 Confirm Purchase
               </Button>
             </div>

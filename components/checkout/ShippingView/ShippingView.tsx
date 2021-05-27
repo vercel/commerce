@@ -87,7 +87,7 @@ const PaymentMethodView: FC = () => {
         </div>
       </div>
       <div className="mt-10 sticky z-20 bottom-0 w-full right-0 left-0 p-6">
-        <Button href="/checkout" Component="a" width="100%" variant="ghost">
+        <Button Component="a" width="100%" variant="ghost">
           Continue
         </Button>
       </div>
