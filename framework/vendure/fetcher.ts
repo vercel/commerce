@@ -24,7 +24,9 @@ export const fetcher: Fetcher = async ({
   query,
   body: bodyObj,
 }) => {
-  const shopApiUrl = process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL
+  const shopApiUrl =
+    process.env.NEXT_PUBLIC_VENDURE_LOCAL_URL ||
+    process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL
   if (!shopApiUrl) {
     throw new Error(
       'The Vendure Shop API url has not been provided. Please define NEXT_PUBLIC_VENDURE_SHOP_API_URL in .env.local'
