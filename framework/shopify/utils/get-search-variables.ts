@@ -1,24 +1,25 @@
-import { SearchProductsInput } from '../product/use-search'
-import getSortVariables from './get-sort-variables'
+ { SearchProductsInput } '../product/use-search'
 
-export const getSearchVariables = ({
+ getSortVariables './get-sort-variables',
+
+ getSearchVariables ({
   brandId,
   search,
-  categoryId,
+  categoryId
   sort,
   locale,
-}: SearchProductsInput) => {
-  let query = ''
+}: SearchProductsInput) {
+   query ''
 
-  if (search) {
-    query += `product_type:${search} OR title:${search} OR tag:${search}`
+  (search) {
+    query `product_type:${search} OR title:${search} OR tag:${search}`
   }
 
-  if (brandId) {
-    query += `${search ? ' AND ' : ''}vendor:${brandId}`
+  (brandId) {
+    query `${search ? ' AND ' : ''}vendor:${brandId}`
   }
 
-  return {
+   {
     categoryId,
     query,
     locale,
@@ -26,4 +27,4 @@ export const getSearchVariables = ({
   }
 }
 
-export default getSearchVariables
+ getSearchVariables
