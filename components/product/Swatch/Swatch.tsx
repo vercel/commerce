@@ -4,42 +4,44 @@ import s from './Swatch.module.css'
 import { Check } from '@components/icons'
 import Button, { ButtonProps } from '@components/ui/Button'
 import { isDark } from '@lib/colors'
-interface Props {
+interface SwatchProps {
   active?: boolean
   children?: any
   className?: string
-  label?: string
   variant?: 'size' | 'color' | string
   color?: string
+  label?: string | null
 }
 
-const Swatch: FC<Omit<ButtonProps, 'variant'> & Props> = ({
+const Swatch: FC<Omit<ButtonProps, 'variant'> & SwatchProps> = ({
   className,
   color = '',
-  label,
+  label = null,
   variant = 'size',
   active,
   ...props
 }) => {
   variant = variant?.toLowerCase()
-  label = label?.toLowerCase()
 
-  const rootClassName = cn(
-    s.root,
+  if (label) {
+    label = label?.toLowerCase()
+  }
+
+  const swatchClassName = cn(
+    s.swatch,
     {
       [s.active]: active,
       [s.size]: variant === 'size',
       [s.color]: color,
       [s.dark]: color ? isDark(color) : false,
+      [s.textLabel]: !color && label && label.length < 4,
     },
     className
   )
 
   return (
     <Button
-      className={cn(rootClassName, {
-        [s.wrapper]: !color,
-      })}
+      className={swatchClassName}
       style={color ? { backgroundColor: color } : {}}
       aria-label="Variant Swatch"
       {...props}
