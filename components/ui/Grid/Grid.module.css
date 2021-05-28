@@ -3,10 +3,6 @@
   @apply grid grid-cols-1 gap-0;
   min-height: var(--row-height);
 
-  @screen lg {
-    @apply grid-cols-3 grid-rows-2;
-  }
-
   & > * {
     @apply row-span-1 bg-transparent box-border overflow-hidden;
     height: 500px;
@@ -16,6 +12,17 @@
       @apply col-span-1;
       height: inherit;
     }
+  }
+}
+
+@screen lg {
+  .root {
+    @apply grid-cols-3 grid-rows-2;
+  }
+
+  .root & > * {
+    @apply col-span-1;
+    height: inherit;
   }
 }
 

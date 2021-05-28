@@ -9,6 +9,7 @@
     "prettier-fix": "prettier --write .",
     "find:unused": "next-unused",
     "generate": "graphql-codegen",
+    "generate:vendure": "graphql-codegen --config framework/vendure/codegen.json",
     "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
   },
   "sideEffects": false,
@@ -35,16 +36,17 @@
     "next": "^10.0.9-canary.5",
     "next-seo": "^4.11.0",
     "next-themes": "^0.0.4",
-    "postcss": "^8.2.6",
+    "postcss": "^8.2.8",
     "postcss-nesting": "^7.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
     "shopify-buy": "^2.11.0",
+    "swell-js": "^4.0.0-next.0",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
-    "tailwindcss": "^2.0.3"
+    "tailwindcss": "^2.0.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.20.0",
@@ -53,6 +55,7 @@
     "@graphql-codegen/typescript-operations": "^1.17.13",
     "@manifoldco/swagger-to-ts": "^2.1.0",
     "@next/bundle-analyzer": "^10.0.1",
+    "@tailwindcss/jit": "^0.1.3",
     "@types/body-scroll-lock": "^2.6.1",
     "@types/classnames": "^2.2.10",
     "@types/cookie": "^0.4.0",
