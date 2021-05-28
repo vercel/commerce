@@ -6,7 +6,7 @@ export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
   search?: string
-  categoryId?: number
+  categoryId?: number | string
   brandId?: number
   sort?: string
 }
