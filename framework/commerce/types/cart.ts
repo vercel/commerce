@@ -107,7 +107,7 @@ export type GetCartHook<T extends CartTypes = CartTypes> = {
 
 export type AddItemHook<T extends CartTypes = CartTypes> = {
   data: T['cart']
-  input: T['itemBody']
+  input?: T['itemBody']
   fetcherInput: T['itemBody']
   body: { item: T['itemBody'] }
   actionInput: T['itemBody']
