@@ -10,6 +10,7 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Shopify Demo: https://shopify.vercel.store/
 - Swell Demo: https://swell.vercel.store/
 - BigCommerce Demo: https://bigcommerce.vercel.store/
+- Vendure Demo: https://vendure.vercel.store
 
 ## Features
 
