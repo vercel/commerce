@@ -81,7 +81,9 @@ export default function Search({
     categoryId: activeCategory?.entityId,
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
-    locale,
+    ...(process.env.COMMERCE_PROVIDER === 'shopify' && {
+      locale,
+    }),
   })
 
   const handleClick = (event: any, filter: string) => {

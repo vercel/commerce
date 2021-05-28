@@ -1,7 +1,6 @@
 import { SWRHook } from '@commerce/utils/types'
+import { Product } from '@commerce/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import { SearchProductsInput, SearchProductsData } from '@commerce/types'
-
 import { ProductEdge } from '../schema'
 
 import {
@@ -10,6 +9,19 @@ import {
   getSearchVariables,
   normalizeProduct,
 } from '../utils'
+
+export type SearchProductsInput = {
+  search?: string
+  categoryId?: string
+  brandId?: string
+  sort?: string
+  locale?: string
+}
+
+export type SearchProductsData = {
+  products: Product[]
+  found: boolean
+}
 
 export default useSearch as UseSearch<typeof handler>
 

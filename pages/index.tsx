@@ -23,14 +23,14 @@ export async function getStaticProps({
   })
 
   // const { categories, brands } = await getSiteInfo({ config, preview })
-  // const { pages } = await getAllPages({ config, preview })
+  const { pages } = await getAllPages({ config, preview })
 
   return {
     props: {
       products,
       categories: [],
       brands: [],
-      pages: [],
+      pages,
     },
     revalidate: 14400,
   }
