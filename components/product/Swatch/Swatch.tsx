@@ -44,14 +44,15 @@ const Swatch: FC<Omit<ButtonProps, 'variant'> & SwatchProps> = ({
       className={swatchClassName}
       style={color ? { backgroundColor: color } : {}}
       aria-label="Variant Swatch"
+      {...(label && color && { title: label })}
       {...props}
     >
-      {variant === 'color' && active && (
+      {variant === 'color' && color && active && (
         <span>
           <Check />
         </span>
       )}
-      {variant !== 'color' ? label : null}
+      {variant !== 'color' || !color ? label : null}
     </Button>
   )
 }
