@@ -16,6 +16,7 @@ import {
 import type { Cart, LineItem } from '../types'
 
 import type { Page } from '../common/get-all-pages'
+import { colorMap } from '@lib/colors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -38,9 +39,12 @@ const normalizeProductOption = ({
         label: value,
       }
       if (displayName.match(/colou?r/gi)) {
-        output = {
-          ...output,
-          hexColors: [value],
+        const mapedColor = colorMap[value]
+        if (mapedColor) {
+          output = {
+            ...output,
+            hexColors: [mapedColor],
+          }
         }
       }
 
