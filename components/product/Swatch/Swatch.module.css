@@ -1,6 +1,6 @@
 .root {
   composes: root from 'components/ui/Button/Button.module.css';
-  @apply h-12 py-0 px-3 bg-primary text-primary rounded-full mr-3 inline-flex
+  @apply h-12 p-0 bg-primary text-primary rounded-full mr-3 inline-flex
   items-center justify-center cursor-pointer transition duration-150 ease-in-out
    shadow-none border-gray-200 border box-border;
 
@@ -13,6 +13,10 @@
   &:hover {
     @apply transform scale-110 bg-hover;
   }
+}
+
+.size {
+  @apply px-3 leading-none;
 }
 
 .color {

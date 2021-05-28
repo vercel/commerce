@@ -37,9 +37,12 @@ const normalizeProductOption = ({
         label: value,
       }
       if (displayName.match(/colou?r/gi)) {
-        output = {
-          ...output,
-          hexColors: [colorMap[value] || value],
+        const mapedColor = colorMap[value]
+        if (mapedColor) {
+          output = {
+            ...output,
+            hexColors: [mapedColor],
+          }
         }
       }
       return output
@@ -56,7 +59,16 @@ const normalizeProductImages = ({ edges }: ImageConnection) =>
 const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
   return edges?.map(
     ({
-      node: { id, selectedOptions, sku, title, priceV2, compareAtPriceV2 },
+      node: {
+        id,
+        selectedOptions,
+        sku,
+        title,
+        priceV2,
+        compareAtPriceV2,
+        requiresShipping,
+        availableForSale,
+      },
     }) => {
       return {
         id,
@@ -64,7 +76,8 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         sku: sku ?? id,
         price: +priceV2.amount,
         listPrice: +compareAtPriceV2?.amount,
-        requiresShipping: true,
+        requiresShipping,
+        availableForSale,
         options: selectedOptions.map(({ name, value }: SelectedOption) => {
           const options = normalizeProductOption({
             id,
