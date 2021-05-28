@@ -34,7 +34,7 @@ const Swatch: FC<Omit<ButtonProps, 'variant'> & SwatchProps> = ({
       [s.size]: variant === 'size',
       [s.color]: color,
       [s.dark]: color ? isDark(color) : false,
-      [s.textLabel]: !color && label && label.length < 4,
+      [s.textLabel]: !color && label && label.length > 3,
     },
     className
   )
