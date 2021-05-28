@@ -44,3 +44,8 @@
   @apply w-auto px-4;
   min-width: 3rem;
 }
+
+.active.textLabel {
+  padding-right: calc(1rem - 1px);
+  padding-left: calc(1rem - 1px);
+}
