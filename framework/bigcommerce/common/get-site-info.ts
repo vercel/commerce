@@ -5,7 +5,6 @@ import { BigcommerceConfig, getConfig } from '../api'
 import { categoryTreeItemFragment } from '../api/fragments/category-tree'
 import { Category } from '@commerce/types'
 import getSlug from '@lib/get-slug'
-import { CategoryTreeItem } from '@framework/schema'
 
 // Get 3 levels of categories
 export const getSiteInfoQuery = /* GraphQL */ `
@@ -50,8 +49,6 @@ export const getSiteInfoQuery = /* GraphQL */ `
 export type CategoriesTree = NonNullable<
   GetSiteInfoQuery['site']['categoryTree']
 >
-
-export type CategoryItem = Pick<CategoryTreeItem, 'entityId' | 'name' | 'path'>
 
 export type BrandEdge = NonNullable<
   NonNullable<GetSiteInfoQuery['site']['brands']['edges']>[0]
