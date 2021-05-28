@@ -1,4 +1,4 @@
-import { SearchProductsInput } from '@framework/product/use-search'
+import { SearchProductsInput } from '../product/use-search'
 import getSortVariables from './get-sort-variables'
 
 export const getSearchVariables = ({
