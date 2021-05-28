@@ -22,9 +22,9 @@ export const handler: SWRHook<SearchProductsHook> = {
 
     if (search) url.searchParams.set('search', search)
     if (Number.isInteger(categoryId))
-      url.searchParams.set('category', String(categoryId))
+      url.searchParams.set('categoryId', String(categoryId))
     if (Number.isInteger(brandId))
-      url.searchParams.set('brand', String(brandId))
+      url.searchParams.set('brandId', String(brandId))
     if (sort) url.searchParams.set('sort', sort)
 
     return fetch({

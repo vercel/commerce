@@ -18,7 +18,6 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
-import { Product } from '@commerce/types'
 
 // TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
