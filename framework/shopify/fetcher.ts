@@ -8,7 +8,7 @@ const fetcher: Fetcher = async ({
   variables,
   query,
 }) => {
-  const { locale, ...vars } = variables
+  const { locale, ...vars } = variables ?? {}
   return handleFetchResponse(
     await fetch(url, {
       method,

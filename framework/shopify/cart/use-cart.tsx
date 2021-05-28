@@ -6,6 +6,12 @@ import { checkoutCreate, checkoutToCart } from '../utils'
 import getCheckoutQuery from '../utils/queries/get-checkout-query'
 import { GetCartHook } from '../types/cart'
 
+import {
+  GetCheckoutQuery,
+  GetCheckoutQueryVariables,
+  CheckoutDetailsFragment,
+} from '../schema'
+
 export default useCommerceCart as UseCart<typeof handler>
 
 export const handler: SWRHook<GetCartHook> = {
