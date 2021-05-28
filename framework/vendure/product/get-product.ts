@@ -20,6 +20,9 @@ async function getProduct({
   const product = data.product
 
   if (product) {
+    const getOptionGroupName = (id: string): string => {
+      return product.optionGroups.find((og) => og.id === id)!.name
+    }
     return {
       product: {
         id: product.id,
@@ -33,9 +36,13 @@ async function getProduct({
         variants: product.variants.map((v) => ({
           id: v.id,
           options: v.options.map((o) => ({
+            // This __typename property is required in order for the correct
+            // variant selection to work, see `components/product/helpers.ts`
+            // `getVariant()` function.
+            __typename: 'MultipleChoiceOption',
             id: o.id,
-            displayName: o.name,
-            values: o.group.options.map((_o) => ({ label: _o.name })),
+            displayName: getOptionGroupName(o.groupId),
+            values: [{ label: o.name }],
           })),
         })),
         price: {
