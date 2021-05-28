@@ -62,7 +62,6 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         compareAtPriceV2,
         requiresShipping,
         availableForSale,
-        quantityAvailable,
       },
     }) => {
       return {
@@ -73,7 +72,6 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         listPrice: +compareAtPriceV2?.amount,
         requiresShipping,
         availableForSale,
-        isInStock: Number(quantityAvailable) > 0,
         options: selectedOptions.map(({ name, value }: SelectedOption) => {
           const options = normalizeProductOption({
             id,

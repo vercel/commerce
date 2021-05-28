@@ -34,7 +34,6 @@ const getProductQuery = /* GraphQL */ `
             title
             sku
             availableForSale
-            quantityAvailable
             requiresShipping
             selectedOptions {
               name

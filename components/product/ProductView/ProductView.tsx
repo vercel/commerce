@@ -148,9 +148,8 @@ const ProductView: FC<Props> = ({ product }) => {
               loading={loading}
               disabled={variant?.availableForSale === false}
             >
-              {variant?.isInStock === false &&
-              variant?.availableForSale === false
-                ? 'Sold Out'
+              {variant?.availableForSale === false
+                ? 'Not Available'
                 : 'Add To Cart'}
             </Button>
           </div>
