@@ -79,7 +79,7 @@ export default function Search({
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.entityId,
-    brandId: activeBrand?.entityId,
+    brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
     locale,
   })
