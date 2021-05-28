@@ -1,9 +1,8 @@
 import { Layout } from '@components/common'
-import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
+import { Grid, Marquee, Hero } from '@components/ui'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
@@ -14,6 +13,8 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
+  const { pages } = await getAllPages({ config, preview })
+  const { categories } = await getSiteInfo({ config, preview })
 
   const { products } = await getAllProducts({
     variables: { first: 12 },
@@ -21,15 +22,12 @@ export async function getStaticProps({
     preview,
   })
 
-  // const { categories, brands } = await getSiteInfo({ config, preview })
-  // const { pages } = await getAllPages({ config, preview })
-
   return {
     props: {
       products,
-      categories: [],
+      categories,
       brands: [],
-      pages: [],
+      pages,
     },
     revalidate: 14400,
   }
@@ -37,8 +35,6 @@ export async function getStaticProps({
 
 export default function Home({
   products,
-  brands,
-  categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>

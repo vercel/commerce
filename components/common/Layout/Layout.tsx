@@ -8,10 +8,9 @@ import { Navbar, Footer } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import CartSidebarView from '@components/cart/CartSidebarView'
-
+import type { Page, Category } from '@commerce/types'
 import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@framework'
-import type { Page } from '@framework/common/get-all-pages'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -41,13 +40,13 @@ const FeatureBar = dynamic(
 interface Props {
   pageProps: {
     pages?: Page[]
-    commerceFeatures: Record<string, boolean>
+    categories: Category[]
   }
 }
 
 const Layout: FC<Props> = ({
   children,
-  pageProps: { commerceFeatures, ...pageProps },
+  pageProps: { categories = [], ...pageProps },
 }) => {
   const {
     displaySidebar,
@@ -58,10 +57,16 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
+
+  const navBarlinks = categories.slice(0, 2).map((c) => ({
+    label: c.name,
+    href: `/search/${c.slug}`,
+  }))
+
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar />
+        <Navbar links={navBarlinks} />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
 

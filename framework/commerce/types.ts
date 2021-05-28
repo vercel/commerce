@@ -151,6 +151,15 @@ export type RemoveCartItemHandlerBody = Partial<RemoveCartItemBody> & {
   cartId?: string
 }
 
+export type Category = {
+  id: string
+  name: string
+  slug: string
+  path: string
+}
+
+export type Page = any
+
 /**
  * Temporal types
  */

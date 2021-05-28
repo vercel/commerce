@@ -3,6 +3,7 @@ import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
 import filterEdges from '../api/utils/filter-edges'
 import { BigcommerceConfig, getConfig } from '../api'
 import { categoryTreeItemFragment } from '../api/fragments/category-tree'
+import { Category } from '@commerce/types'
 
 // Get 3 levels of categories
 export const getSiteInfoQuery = /* GraphQL */ `
@@ -68,7 +69,7 @@ async function getSiteInfo(opts?: {
 }): Promise<GetSiteInfoResult>
 
 async function getSiteInfo<
-  T extends { categories: any[]; brands: any[] },
+  T extends { categories: Category[]; brands: any[] },
   V = any
 >(opts: {
   query: string

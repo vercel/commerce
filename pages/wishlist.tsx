@@ -1,13 +1,13 @@
 import type { GetStaticPropsContext } from 'next'
 import { Heart } from '@components/icons'
+import { getConfig } from '@framework/api'
 import { Layout } from '@components/common'
 import { Text, Container } from '@components/ui'
-import { defaultPageProps } from '@lib/defaults'
-import { getConfig } from '@framework/api'
 import { useCustomer } from '@framework/customer'
 import { WishlistCard } from '@components/wishlist'
 import useWishlist from '@framework/wishlist/use-wishlist'
 import getAllPages from '@framework/common/get-all-pages'
+import getSiteInfo from '@framework/common/get-site-info'
 
 export async function getStaticProps({
   preview,
@@ -21,11 +21,12 @@ export async function getStaticProps({
   }
 
   const config = getConfig({ locale })
+  const { categories } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
   return {
     props: {
       pages,
-      ...defaultPageProps,
+      categories,
     },
   }
 }

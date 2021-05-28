@@ -7,15 +7,17 @@ import { Layout } from '@components/common'
 import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
+import getSiteInfo from '@framework/common/get-site-info'
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
+  const { categories } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
   return {
-    props: { pages },
+    props: { pages, categories },
   }
 }
 

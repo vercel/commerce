@@ -4,15 +4,17 @@ import getAllPages from '@framework/common/get-all-pages'
 import useCustomer from '@framework/customer/use-customer'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
+import getSiteInfo from '@framework/common/get-site-info'
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
+  const { categories } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
   return {
-    props: { pages },
+    props: { pages, categories },
   }
 }
 
