@@ -10,6 +10,7 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Shopify Demo: https://shopify.vercel.store/
 - Swell Demo: https://swell.vercel.store/
 - BigCommerce Demo: https://bigcommerce.vercel.store/
+- Vendure Demo: https://vendure.vercel.store
 
 ## Features
 
@@ -49,7 +50,7 @@ NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
 ```
 
-And change the `tsconfig.json` to resolve to the chosen provider:
+And check that the `tsconfig.json` resolves to the chosen provider:
 
 ```
   "@framework": ["framework/shopify"],
