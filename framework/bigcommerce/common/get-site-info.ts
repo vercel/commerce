@@ -4,6 +4,8 @@ import filterEdges from '../api/utils/filter-edges'
 import { BigcommerceConfig, getConfig } from '../api'
 import { categoryTreeItemFragment } from '../api/fragments/category-tree'
 import { Category } from '@commerce/types'
+import getSlug from '@lib/get-slug'
+import { CategoryTreeItem } from '@framework/schema'
 
 // Get 3 levels of categories
 export const getSiteInfoQuery = /* GraphQL */ `
@@ -49,6 +51,8 @@ export type CategoriesTree = NonNullable<
   GetSiteInfoQuery['site']['categoryTree']
 >
 
+export type CategoryItem = Pick<CategoryTreeItem, 'entityId' | 'name' | 'path'>
+
 export type BrandEdge = NonNullable<
   NonNullable<GetSiteInfoQuery['site']['brands']['edges']>[0]
 >
@@ -57,7 +61,7 @@ export type Brands = BrandEdge[]
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
-    categories: CategoriesTree
+    categories: Category[]
     brands: Brands
   }
 > = T
@@ -95,11 +99,20 @@ async function getSiteInfo({
     query,
     { variables }
   )
-  const categories = data.site?.categoryTree
+
+  let categories = data!.site!.categoryTree?.map(
+    ({ entityId, name, path }: any) => ({
+      id: `${entityId}`,
+      name,
+      slug: getSlug(path),
+      path,
+    })
+  )
+
   const brands = data.site?.brands?.edges
 
   return {
-    categories: (categories as RecursiveRequired<typeof categories>) ?? [],
+    categories: categories ?? [],
     brands: filterEdges(brands as RecursiveRequired<typeof brands>),
   }
 }

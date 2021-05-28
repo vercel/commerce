@@ -13,12 +13,9 @@ import useSearch from '@framework/product/use-search'
 import getAllPages from '@framework/common/get-all-pages'
 import getSiteInfo from '@framework/common/get-site-info'
 
+import getSlug from '@lib/get-slug'
 import rangeMap from '@lib/range-map'
 
-// TODO(bc) Remove this. This should come from the API
-import getSlug from '@lib/get-slug'
-
-// TODO (bc) : Remove or standarize this.
 const SORT = Object.entries({
   'latest-desc': 'Latest arrivals',
   'trending-desc': 'Trending',
