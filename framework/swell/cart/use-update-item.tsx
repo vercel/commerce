@@ -67,9 +67,10 @@ export const handler = {
 
     return useCallback(
       debounce(async (input: UpdateItemInput<T>) => {
-        const itemId = cartData.lineItems[0].id
-        const productId = cartData.lineItems[0].productId
-        const variantId = cartData.lineItems[0].variant.id
+        const firstLineItem = cartData.lineItems[0]
+        const itemId = item?.id || firstLineItem.id
+        const productId = item?.productId || firstLineItem.productId
+        const variantId = item?.variant.id || firstLineItem.variant.id
         if (!itemId || !productId) {
           throw new ValidationError({
             message: 'Invalid input used for this operation',
