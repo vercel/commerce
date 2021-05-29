@@ -34,8 +34,9 @@ const SORT = Object.entries({
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = { locale }
+  const config = { locale, locales }
   const { pages } = await commerce.getAllPages({ config, preview })
   const { categories, brands } = await commerce.getSiteInfo({ config, preview })
   return {

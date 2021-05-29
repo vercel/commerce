@@ -21,14 +21,14 @@ const Swatch: FC<Omit<ButtonProps, 'variant'> & Props> = ({
   active,
   ...props
 }) => {
+  variant = variant?.toLowerCase()
   label = label?.toLowerCase()
-  const isColor = color !== ''
 
   const rootClassName = cn(
     s.root,
     {
       [s.active]: active,
-      [s.size]: !isColor,
+      [s.size]: variant === 'size',
       [s.color]: color,
       [s.dark]: color ? isDark(color) : false,
     },
@@ -38,18 +38,16 @@ const Swatch: FC<Omit<ButtonProps, 'variant'> & Props> = ({
   return (
     <Button
       className={rootClassName}
-      style={isColor ? { backgroundColor: color } : {}}
+      style={color ? { backgroundColor: color } : {}}
       aria-label="Variant Swatch"
-      {...(isColor && { title: label })}
       {...props}
     >
-      {isColor ? (
+      {variant === 'color' && active && (
         <span>
           <Check />
         </span>
-      ) : (
-        label
       )}
+      {variant === 'size' ? label : null}
     </Button>
   )
 }

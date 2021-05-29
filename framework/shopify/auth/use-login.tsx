@@ -5,18 +5,18 @@ import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import type { LoginHook } from '../types/login'
 import useCustomer from '../customer/use-customer'
 
-import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
-import { setCustomerToken, throwUserErrors } from '@framework/utils'
 import {
-  Mutation,
-  MutationCustomerAccessTokenCreateArgs,
-} from '@framework/schema'
+  setCustomerToken,
+  throwUserErrors,
+  customerAccessTokenCreateMutation,
+} from '../utils'
+import { Mutation, MutationCustomerAccessTokenCreateArgs } from '../schema'
 
 export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
-    query: createCustomerAccessTokenMutation,
+    query: customerAccessTokenCreateMutation,
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {

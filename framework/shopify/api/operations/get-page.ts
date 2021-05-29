@@ -2,7 +2,7 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@commerce/api/operations'
-import { normalizePage } from '@framework/utils'
+import { normalizePage } from '../../utils'
 import type { ShopifyConfig, Provider } from '..'
 import {
   GetPageQuery,

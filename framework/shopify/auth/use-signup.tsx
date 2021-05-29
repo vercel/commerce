@@ -10,7 +10,7 @@ import {
   handleAutomaticLogin,
   throwUserErrors,
   customerCreateMutation,
-} from '@framework/utils'
+} from '../utils'
 
 export default useSignup as UseSignup<typeof handler>
 

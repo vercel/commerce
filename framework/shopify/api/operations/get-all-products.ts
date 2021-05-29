@@ -10,7 +10,7 @@ import {
 } from '../../schema'
 import type { ShopifyConfig, Provider } from '..'
 import getAllProductsQuery from '../../utils/queries/get-all-products-query'
-import { normalizeProduct } from '@framework/utils'
+import { normalizeProduct } from '../../utils'
 
 export default function getAllProductsOperation({
   commerce,
