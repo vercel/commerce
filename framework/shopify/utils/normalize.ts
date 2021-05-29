@@ -39,7 +39,7 @@ const normalizeProductOption = ({
         label: value,
       }
       if (displayName.match(/colou?r/gi)) {
-        const mapedColor = colorMap[value]
+        const mapedColor = colorMap[value.toLowerCase()]
         if (mapedColor) {
           output = {
             ...output,
