@@ -24,7 +24,7 @@ module.exports = withCommerceConfig({
       // you can allow a logout!
       isBC && {
         source: '/logout',
-        destination: '/api/bigcommerce/customers/logout?redirect_to=/',
+        destination: '/api/logout?redirect_to=/',
       },
       // Rewrites for /search
       {

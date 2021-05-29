@@ -18,7 +18,7 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
+    url: '/api/cart',
     method: 'PUT',
   },
   async fetcher({

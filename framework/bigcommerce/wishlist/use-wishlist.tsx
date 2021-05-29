@@ -8,7 +8,7 @@ export default useWishlist as UseWishlist<typeof handler>
 
 export const handler: SWRHook<GetWishlistHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/wishlist',
+    url: '/api/wishlist',
     method: 'GET',
   },
   async fetcher({ input: { customerId, includeProducts }, options, fetch }) {

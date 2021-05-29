@@ -42,13 +42,13 @@ export type HookFetcherFn<H extends HookSchemaBase> = (
 
 export type HookFetcherContext<H extends HookSchemaBase> = {
   options: HookFetcherOptions
-  input: H['fetchInput']
-  fetch: {
-    (
-      options: FetcherOptions<H['body'] extends {} ? H['body'] : never>
-    ): Promise<H['fetchData'] extends {} | null ? H['fetchData'] : any>
-    <T = any, B = any>(options: FetcherOptions<B>): Promise<T>
-  }
+  input: H['fetcherInput']
+  fetch: <
+    T = H['fetchData'] extends {} | null ? H['fetchData'] : any,
+    B = H['body']
+  >(
+    options: FetcherOptions<B>
+  ) => Promise<T>
 }
 
 export type HookFetcherOptions = { method?: string } & (
@@ -77,7 +77,7 @@ export type HookSchemaBase = {
   // Input expected by the hook
   input?: {}
   // Input expected before doing a fetch operation (aka fetch handler)
-  fetchInput?: {}
+  fetcherInput?: {}
   // Body object expected by the fetch operation
   body?: {}
   // Data returned by the fetch operation
@@ -101,7 +101,7 @@ export type SWRHook<H extends SWRHookSchemaBase> = {
   useHook(
     context: SWRHookContext<H>
   ): HookFunction<
-    H['input'] & { swrOptions?: SwrOptions<H['data'], H['fetchInput']> },
+    H['input'] & { swrOptions?: SwrOptions<H['data'], H['fetcherInput']> },
     ResponseState<H['data']> & H['swrState']
   >
   fetchOptions: HookFetcherOptions
@@ -111,7 +111,7 @@ export type SWRHook<H extends SWRHookSchemaBase> = {
 export type SWRHookContext<H extends SWRHookSchemaBase> = {
   useData(context?: {
     input?: HookFetchInput | HookSWRInput
-    swrOptions?: SwrOptions<H['data'], H['fetchInput']>
+    swrOptions?: SwrOptions<H['data'], H['fetcherInput']>
   }): ResponseState<H['data']>
 }
 
@@ -130,11 +130,13 @@ export type MutationHook<H extends MutationSchemaBase> = {
 }
 
 export type MutationHookContext<H extends MutationSchemaBase> = {
-  fetch: keyof H['fetchInput'] extends never
+  fetch: keyof H['fetcherInput'] extends never
     ? () => H['data'] | Promise<H['data']>
-    : Partial<H['fetchInput']> extends H['fetchInput']
-    ? (context?: { input?: H['fetchInput'] }) => H['data'] | Promise<H['data']>
-    : (context: { input: H['fetchInput'] }) => H['data'] | Promise<H['data']>
+    : Partial<H['fetcherInput']> extends H['fetcherInput']
+    ? (context?: {
+        input?: H['fetcherInput']
+      }) => H['data'] | Promise<H['data']>
+    : (context: { input: H['fetcherInput'] }) => H['data'] | Promise<H['data']>
 }
 
 export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<

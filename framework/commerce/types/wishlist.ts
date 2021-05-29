@@ -15,21 +15,21 @@ export type GetWishlistHook<T extends WishlistTypes = WishlistTypes> = {
   data: T['wishlist'] | null
   body: { includeProducts?: boolean }
   input: { includeProducts?: boolean }
-  fetchInput: { customerId: string; includeProducts?: boolean }
+  fetcherInput: { customerId: string; includeProducts?: boolean }
   swrState: { isEmpty: boolean }
 }
 
 export type AddItemHook<T extends WishlistTypes = WishlistTypes> = {
   data: T['wishlist']
   body: { item: T['itemBody'] }
-  fetchInput: { item: T['itemBody'] }
+  fetcherInput: { item: T['itemBody'] }
   actionInput: T['itemBody']
 }
 
 export type RemoveItemHook<T extends WishlistTypes = WishlistTypes> = {
   data: T['wishlist'] | null
   body: { itemId: string }
-  fetchInput: { itemId: string }
+  fetcherInput: { itemId: string }
   actionInput: { id: string }
   input: { wishlist?: { includeProducts?: boolean } }
 }

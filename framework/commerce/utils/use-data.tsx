@@ -22,7 +22,7 @@ export type UseData = <H extends SWRHookSchemaBase>(
   },
   input: HookFetchInput | HookSWRInput,
   fetcherFn: Fetcher,
-  swrOptions?: SwrOptions<H['data'], H['fetchInput']>
+  swrOptions?: SwrOptions<H['data'], H['fetcherInput']>
 ) => ResponseState<H['data']>
 
 const useData: UseData = (options, input, fetcherFn, swrOptions) => {

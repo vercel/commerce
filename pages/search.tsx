@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
+import type { Product } from '@commerce/types/product'
 import { Container, Grid, Skeleton } from '@components/ui'
 
 import useSearch from '@framework/product/use-search'
@@ -18,8 +19,6 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
-
-import type { Product } from '@commerce/types/product'
 
 // TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
@@ -35,9 +34,8 @@ const SORT = Object.entries({
 export async function getStaticProps({
   preview,
   locale,
-  locales,
 }: GetStaticPropsContext) {
-  const config = { locale, locales }
+  const config = { locale }
   const { pages } = await commerce.getAllPages({ config, preview })
   const { categories, brands } = await commerce.getSiteInfo({ config, preview })
   return {

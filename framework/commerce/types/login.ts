@@ -10,7 +10,7 @@ export type LoginTypes = {
 export type LoginHook<T extends LoginTypes = LoginTypes> = {
   data: null
   actionInput: LoginBody
-  fetchInput: LoginBody
+  fetcherInput: LoginBody
   body: T['body']
 }
 

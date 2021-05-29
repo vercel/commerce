@@ -65,20 +65,14 @@ export type SearchProductsHook<T extends ProductTypes = ProductTypes> = {
   }
   body: T['searchBody']
   input: T['searchBody']
-  fetchInput: T['searchBody']
+  fetcherInput: T['searchBody']
 }
 
 export type ProductsSchema<T extends ProductTypes = ProductTypes> = {
   endpoint: {
     options: {}
     handlers: {
-      getProducts: {
-        data: {
-          products: T['product'][]
-          found: boolean
-        }
-        body: SearchProductsHook<T>['body']
-      }
+      getProducts: SearchProductsHook<T>
     }
   }
 }

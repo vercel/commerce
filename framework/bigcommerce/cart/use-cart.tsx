@@ -7,7 +7,7 @@ export default useCart as UseCart<typeof handler>
 
 export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
+    url: '/api/cart',
     method: 'GET',
   },
   useHook: ({ useData }) => (input) => {
