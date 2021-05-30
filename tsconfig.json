@@ -19,6 +19,7 @@
       "@utils/*": ["utils/*"],
       "@config/*": ["config/*"],
       "@assets/*": ["assets/*"],
+      "@components/checkout/*": ["framework/shopify/components/checkout/*"],
       "@components/*": ["components/*"],
       "@commerce": ["framework/commerce"],
       "@commerce/*": ["framework/commerce/*"],

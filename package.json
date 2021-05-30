@@ -102,9 +102,6 @@
       "@config/*": [
         "config/*"
       ],
-      "@components/*": [
-        "components/*"
-      ],
       "@utils/*": [
         "utils/*"
       ]
