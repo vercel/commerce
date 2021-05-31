@@ -69,7 +69,7 @@
   }
 }
 
-.img {
+.sliderContainer .img {
   @apply w-full h-auto max-h-full object-cover;
 }
 
@@ -84,9 +84,11 @@
 }
 
 .wishlistButton {
-  @apply absolute z-30 top-6 right-0 bg-primary text-primary w-10 h-10 flex items-center justify-center font-semibold leading-6 cursor-pointer;
+  @apply absolute z-30 top-6 right-0 bg-primary text-primary
+  w-10 h-10 flex items-center justify-center font-semibold
+  leading-6 cursor-pointer px-6;
 
   @screen lg {
-    @apply right-0 top-0 text-black bg-white w-14 h-14;
+    @apply top-6 right-0 text-black bg-white w-14 h-14;
   }
 }

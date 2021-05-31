@@ -325,8 +325,7 @@ export default function Search({
                       </>
                     ) : (
                       <>
-                        There are no products that match the selected category &
-                        designer
+                        There are no products that match the selected category.
                       </>
                     )}
                   </span>
@@ -362,7 +361,7 @@ export default function Search({
                 <Skeleton
                   key={i}
                   className="w-full animated fadeIn"
-                  height={325}
+                  height={480}
                 />
               ))}
             </Grid>

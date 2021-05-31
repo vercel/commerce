@@ -16,6 +16,12 @@ interface Props {
 }
 
 const LEGAL_PAGES = ['terms-of-use', 'shipping-returns', 'privacy-policy']
+const links = [
+  {
+    name: 'Home',
+    href: '/',
+  },
+]
 
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages, legalPages } = usePages(pages)
@@ -37,27 +43,15 @@ const Footer: FC<Props> = ({ className, pages }) => {
           </div>
           <div className="col-span-1 lg:col-span-2">
             <ul className="flex flex-initial flex-col md:flex-1">
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/">
-                  <a className="text-primary hover:text-accent-6 transition ease-in-out duration-150">
-                    Home
-                  </a>
-                </Link>
-              </li>
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/">
-                  <a className="text-primary hover:text-accent-6 transition ease-in-out duration-150">
-                    Careers
-                  </a>
-                </Link>
-              </li>
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/blog">
-                  <a className="text-primary hover:text-accent-6 transition ease-in-out duration-150">
-                    Blog
-                  </a>
-                </Link>
-              </li>
+              {links.map(({ href, name }) => (
+                <li className="py-3 md:py-0 md:pb-4">
+                  <Link href={href}>
+                    <a className="text-primary hover:text-accent-6 transition ease-in-out duration-150">
+                      {name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
               {sitePages.map((page) => (
                 <li key={page.url} className="py-3 md:py-0 md:pb-4">
                   <Link href={page.url!}>

@@ -1,24 +1,27 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import { FC, useEffect, useState } from 'react'
 import s from './ProductView.module.css'
-import { Swatch, ProductSlider } from '@components/product'
-import { Button, Container, Text, useUI } from '@components/ui'
+import { FC, useEffect, useState } from 'react'
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
-import { useAddItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
-import WishlistButton from '@components/wishlist/WishlistButton'
+import { Swatch, ProductSlider } from '@components/product'
+import { Button, Container, Text, useUI } from '@components/ui'
+import { useAddItem } from '@framework/cart'
 import Collapse from '@components/ui/Collapse'
+import Skeleton from '@components/ui/Skeleton'
+import ProductCard from '@components/product/ProductCard'
+import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
   children?: any
   product: Product
+  relatedProducts: Product[]
   className?: string
 }
 
-const ProductView: FC<Props> = ({ product }) => {
+const ProductView: FC<Props> = ({ product, relatedProducts }) => {
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
@@ -173,10 +176,28 @@ const ProductView: FC<Props> = ({ product }) => {
       </div>
       <section className="py-12 px-6">
         <Text variant="sectionHeading">Related Products</Text>
-        <div className="grid grid-cols-4 py-3 gap-5  h-48">
-          {Array.from({ length: 4 }).map((i) => (
-            <div className="bg-accent-6" />
+        <div className="grid grid-cols-4 py-3 gap-10">
+          {relatedProducts.map((p) => (
+            <div className="animated fadeIn bg-accent-0 border border-accent-3">
+              <ProductCard
+                variant="simple"
+                key={p.path}
+                className="animated fadeIn"
+                product={p}
+                noNameTag
+                imgProps={{
+                  width: 275,
+                  height: 275,
+                }}
+              />
+            </div>
           ))}
+          {/* {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton
+              key={i}
+              className="w-full animated fadeIn bg-accent-0 border border-accent-3"
+            />
+          ))} */}
         </div>
       </section>
     </Container>

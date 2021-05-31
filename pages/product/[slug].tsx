@@ -11,6 +11,7 @@ import { getConfig } from '@framework/api'
 import getProduct from '@framework/product/get-product'
 import getAllPages from '@framework/common/get-all-pages'
 import getAllProductPaths from '@framework/product/get-all-product-paths'
+import getAllProducts from '@framework/product/get-all-products'
 
 export async function getStaticProps({
   params,
@@ -19,6 +20,11 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
   const { pages } = await getAllPages({ config, preview })
+  const { products: relatedProducts } = await getAllProducts({
+    variables: { first: 4 },
+    config,
+    preview,
+  })
   const { product } = await getProduct({
     variables: { slug: params!.slug },
     config,
@@ -33,6 +39,7 @@ export async function getStaticProps({
     props: {
       pages,
       product,
+      relatedProducts,
     },
     revalidate: 200,
   }
@@ -57,13 +64,14 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 
 export default function Slug({
   product,
+  relatedProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
   return router.isFallback ? (
-    <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
+    <h1>Loading...</h1>
   ) : (
-    <ProductView product={product as any} />
+    <ProductView product={product as any} relatedProducts={relatedProducts} />
   )
 }
 
