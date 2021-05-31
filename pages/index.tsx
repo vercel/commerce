@@ -56,15 +56,7 @@ export default function Home({
       </Grid>
       <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
-          />
+          <ProductCard key={product.id} product={product} variant="slim" />
         ))}
       </Marquee>
       <Hero
@@ -91,15 +83,7 @@ export default function Home({
       </Grid>
       <Marquee>
         {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
-          />
+          <ProductCard key={product.id} product={product} variant="slim" />
         ))}
       </Marquee>
       {/* <HomeAllProductsGrid
