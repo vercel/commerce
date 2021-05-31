@@ -35,7 +35,7 @@
 }
 
 .active {
-  @apply border-accents-9 border-2;
+  @apply border-accent-9 border-2;
   padding-right: 1px;
   padding-left: 1px;
 }
@@ -46,7 +46,7 @@
 }
 
 .active.textLabel {
-  @apply border-accents-9 border-2;
+  @apply border-accent-9 border-2;
   padding-right: calc(1rem - 1px);
   padding-left: calc(1rem - 1px);
 }

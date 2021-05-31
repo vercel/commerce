@@ -10,7 +10,7 @@ import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
-import { ChevronDown, ChevronRight } from '@components/icons'
+import Collapse from '@components/ui/Collapse'
 
 interface Props {
   children?: any
@@ -27,7 +27,6 @@ const ProductView: FC<Props> = ({ product }) => {
   })
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
-  const [tabId, setTabId] = useState('')
   const [choices, setChoices] = useState<SelectedOptions>({})
 
   useEffect(() => {
@@ -161,21 +160,14 @@ const ProductView: FC<Props> = ({ product }) => {
           </div>
 
           <div className="mt-6">
-            <ul>
-              <li className={s.tab}>
-                <div className={s.header}>
-                  <ChevronRight
-                    className={cn(s.icon, { [s.open]: tabId })}
-                    onClick={() => tabId('1')}
-                  />
-                  <span className={s.label}>Details</span>
-                </div>
-                <div className={s.content}>
-                  This is a limited edition production run. Printing starts when
-                  the drop ends.
-                </div>
-              </li>
-            </ul>
+            <Collapse title="Details">
+              This is a limited edition production run. Printing starts when the
+              drop ends.
+            </Collapse>
+            <Collapse title="Care">
+              This is a limited edition production run. Printing starts when the
+              drop ends.
+            </Collapse>
           </div>
         </div>
       </div>

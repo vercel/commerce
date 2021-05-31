@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@reach/portal": "^0.11.2",
+    "@react-spring/web": "^9.2.1",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.4",
     "body-scroll-lock": "^3.1.5",
@@ -41,7 +42,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-merge-refs": "^1.1.0",
+    "react-spring": "^9.2.1",
     "react-ticker": "^1.2.2",
+    "react-use-measure": "^2.0.4",
     "shopify-buy": "^2.11.0",
     "swell-js": "^4.0.0-next.0",
     "swr": "^0.4.0",

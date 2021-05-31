@@ -94,23 +94,3 @@
     @apply right-0 top-0 text-black bg-white w-14 h-14;
   }
 }
-
-.tab {
-  @apply border-b border-accent-2 py-4 px-2 flex flex-col;
-}
-
-.tab .header {
-  @apply flex flex-row items-center;
-}
-
-.tab .header .label {
-  @apply text-sm font-medium;
-}
-
-.tab .icon {
-  @apply mr-3 text-accent-6 transform;
-}
-
-.tab .icon.open {
-  transform: rotate(90deg);
-}
