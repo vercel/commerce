@@ -11,9 +11,10 @@ import { ProductView } from '@components/product'
 export async function getStaticProps({
   params,
   locale,
+  locales,
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
-  const config = { locale }
+  const config = { locale, locales }
   const { pages } = await commerce.getAllPages({ config, preview })
   const { product } = await commerce.getProduct({
     variables: { slug: params!.slug },

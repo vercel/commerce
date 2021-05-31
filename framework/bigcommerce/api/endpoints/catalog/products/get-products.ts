@@ -25,10 +25,10 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   if (search) url.searchParams.set('keyword', search)
 
   if (categoryId && Number.isInteger(Number(categoryId)))
-    url.searchParams.set('categories:in', categoryId)
+    url.searchParams.set('categories:in', String(categoryId))
 
   if (brandId && Number.isInteger(Number(brandId)))
-    url.searchParams.set('brand_id', brandId)
+    url.searchParams.set('brand_id', String(brandId))
 
   if (sort) {
     const [_sort, direction] = sort.split('-')

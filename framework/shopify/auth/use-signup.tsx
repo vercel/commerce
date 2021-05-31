@@ -1,25 +1,20 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import { CommerceError } from '@commerce/utils/errors'
 import useSignup, { UseSignup } from '@commerce/auth/use-signup'
+import type { SignupHook } from '../types/signup'
 import useCustomer from '../customer/use-customer'
-import {
-  CustomerCreateInput,
-  Mutation,
-  MutationCustomerCreateArgs,
-} from '../schema'
+import { Mutation, MutationCustomerCreateArgs } from '../schema'
 
-import { customerCreateMutation } from '../utils/mutations'
-import { handleAutomaticLogin, throwUserErrors } from '../utils'
+import {
+  handleAutomaticLogin,
+  throwUserErrors,
+  customerCreateMutation,
+} from '../utils'
 
 export default useSignup as UseSignup<typeof handler>
 
-export const handler: MutationHook<
-  null,
-  {},
-  CustomerCreateInput,
-  CustomerCreateInput
-> = {
+export const handler: MutationHook<SignupHook> = {
   fetchOptions: {
     query: customerCreateMutation,
   },

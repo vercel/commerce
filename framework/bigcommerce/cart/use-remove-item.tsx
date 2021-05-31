@@ -5,11 +5,11 @@ import type {
 } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
-import type { Cart, LineItem, RemoveItemHook } from '../types/cart'
+import type { Cart, LineItem, RemoveItemHook } from '@commerce/types/cart'
 import useCart from './use-cart'
 
 export type RemoveItemFn<T = any> = T extends LineItem
-  ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null>
+  ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
   : (input: RemoveItemActionInput<T>) => Promise<Cart | null>
 
 export type RemoveItemActionInput<T = any> = T extends LineItem

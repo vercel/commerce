@@ -1,4 +1,4 @@
-import type { Product } from '@commerce/types'
+import type { Product } from '@commerce/types/product'
 export type SelectedOptions = Record<string, string | null>
 
 export function getVariant(product: Product, opts: SelectedOptions) {

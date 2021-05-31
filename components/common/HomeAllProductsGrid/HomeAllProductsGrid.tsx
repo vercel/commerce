@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import Link from 'next/link'
-import type { Product } from '@commerce/types'
+import type { Product } from '@commerce/types/product'
 import { Grid } from '@components/ui'
 import { ProductCard } from '@components/product'
 import s from './HomeAllProductsGrid.module.css'

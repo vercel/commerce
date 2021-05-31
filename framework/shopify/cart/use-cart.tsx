@@ -1,22 +1,20 @@
 import { useMemo } from 'react'
-import useCommerceCart, {
-  FetchCartInput,
-  UseCart,
-} from '@commerce/cart/use-cart'
+import useCommerceCart, { UseCart } from '@commerce/cart/use-cart'
 
-import { Cart } from '../types'
 import { SWRHook } from '@commerce/utils/types'
 import { checkoutCreate, checkoutToCart } from '../utils'
 import getCheckoutQuery from '../utils/queries/get-checkout-query'
+import { GetCartHook } from '../types/cart'
+
+import {
+  GetCheckoutQuery,
+  GetCheckoutQueryVariables,
+  CheckoutDetailsFragment,
+} from '../schema'
 
 export default useCommerceCart as UseCart<typeof handler>
 
-export const handler: SWRHook<
-  Cart | null,
-  {},
-  FetchCartInput,
-  { isEmpty?: boolean }
-> = {
+export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     query: getCheckoutQuery,
   },

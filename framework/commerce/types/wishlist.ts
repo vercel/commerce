@@ -2,7 +2,7 @@
 export type Wishlist = any
 
 export type WishlistItemBody = {
-  variantId: string
+  variantId: string | number
   productId: string
 }
 

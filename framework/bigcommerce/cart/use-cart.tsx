@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart } from '@commerce/cart/use-cart'
-import type { GetCartHook } from '../types/cart'
+import type { GetCartHook } from '@commerce/types/cart'
 
 export default useCart as UseCart<typeof handler>
 

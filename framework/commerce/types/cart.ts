@@ -1,5 +1,14 @@
 import type { Discount, Measurement, Image } from './common'
 
+export type SelectedOption = {
+  // The option's id.
+  id?: string
+  // The product option’s name.
+  name: string
+  /// The product option’s value.
+  value: string
+}
+
 export type LineItem = {
   id: string
   variantId: string
@@ -10,6 +19,7 @@ export type LineItem = {
   // A human-friendly unique string automatically generated from the product’s name
   path: string
   variant: ProductVariant
+  options?: SelectedOption[]
 }
 
 export type ProductVariant = {
@@ -86,7 +96,7 @@ export type CartItemBody = {
  */
 
 export type CartTypes = {
-  cart: Cart
+  cart?: Cart
   item: LineItem
   itemBody: CartItemBody
 }

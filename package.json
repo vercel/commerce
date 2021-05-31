@@ -9,7 +9,8 @@
     "prettier-fix": "prettier --write .",
     "find:unused": "next-unused",
     "generate": "graphql-codegen",
-    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
+    "generate:shopify": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config framework/shopify/codegen.json"
   },
   "sideEffects": false,
   "license": "MIT",

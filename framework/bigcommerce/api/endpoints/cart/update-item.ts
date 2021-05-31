@@ -1,4 +1,4 @@
-import { normalizeCart } from '@framework/lib/normalize'
+import { normalizeCart } from '../../../lib/normalize'
 import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartEndpoint } from '.'

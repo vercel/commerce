@@ -32,12 +32,12 @@ export default function getAllProductPathsOperation({
     config?: BigcommerceConfig
   }): Promise<T['data']>
 
-  async function getAllProductPaths<
-    T extends GetAllProductPathsOperation
-  >(opts: {
-    variables?: T['variables']
-    config?: BigcommerceConfig
-  } & OperationOptions): Promise<T['data']>
+  async function getAllProductPaths<T extends GetAllProductPathsOperation>(
+    opts: {
+      variables?: T['variables']
+      config?: BigcommerceConfig
+    } & OperationOptions
+  ): Promise<T['data']>
 
   async function getAllProductPaths<T extends GetAllProductPathsOperation>({
     query = getAllProductPathsQuery,
