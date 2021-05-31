@@ -1,18 +1,21 @@
 import type { GetStaticPropsContext } from 'next'
 import { Bag } from '@components/icons'
+import { getConfig } from '@framework/api'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
-import { getConfig } from '@framework/api'
 import getAllPages from '@framework/common/get-all-pages'
+import getSiteInfo from '@framework/common/get-site-info'
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
+  const { categories } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
+
   return {
-    props: { pages },
+    props: { pages, categories },
   }
 }
 

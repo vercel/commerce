@@ -11,6 +11,7 @@ import { getConfig } from '@framework/api'
 import getProduct from '@framework/product/get-product'
 import getAllPages from '@framework/common/get-all-pages'
 import getAllProductPaths from '@framework/product/get-all-product-paths'
+import getSiteInfo from '@framework/common/get-site-info'
 
 export async function getStaticProps({
   params,
@@ -24,6 +25,7 @@ export async function getStaticProps({
     config,
     preview,
   })
+  const { categories } = await getSiteInfo({ config, preview })
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
@@ -33,6 +35,7 @@ export async function getStaticProps({
     props: {
       pages,
       product,
+      categories,
     },
     revalidate: 200,
   }

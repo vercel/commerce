@@ -1,7 +1,7 @@
-import getCategories, { Category } from '../utils/get-categories'
-import getVendors, { Brands } from '../utils/get-vendors'
-
+import { Category } from '@commerce/types'
 import { getConfig, ShopifyConfig } from '../api'
+import getCategories from '../utils/get-categories'
+import getVendors, { Brands } from '../utils/get-vendors'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {

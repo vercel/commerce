@@ -1,12 +1,7 @@
 import { ShopifyConfig } from '../api'
 import { CollectionEdge } from '../schema'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
-
-export type Category = {
-  entityId: string
-  name: string
-  path: string
-}
+import { Category } from '@commerce/types'
 
 const getCategories = async (config: ShopifyConfig): Promise<Category[]> => {
   const { data } = await config.fetch(getSiteCollectionsQuery, {
@@ -17,9 +12,10 @@ const getCategories = async (config: ShopifyConfig): Promise<Category[]> => {
 
   return (
     data.collections?.edges?.map(
-      ({ node: { id: entityId, title: name, handle } }: CollectionEdge) => ({
-        entityId,
+      ({ node: { id, title: name, handle } }: CollectionEdge) => ({
+        id,
         name,
+        slug: handle,
         path: `/${handle}`,
       })
     ) ?? []

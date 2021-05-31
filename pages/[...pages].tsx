@@ -10,7 +10,7 @@ import { missingLocaleInPages } from '@lib/usage-warns'
 import { getConfig } from '@framework/api'
 import getPage from '@framework/common/get-page'
 import getAllPages from '@framework/common/get-all-pages'
-import { defaultPageProps } from '@lib/defaults'
+import getSiteInfo from '@framework/common/get-site-info'
 
 export async function getStaticProps({
   preview,
@@ -19,9 +19,9 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ pages: string[] }>) {
   const config = getConfig({ locale })
   const { pages } = await getAllPages({ preview, config })
+  const { categories } = await getSiteInfo({ config, preview })
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
-
   const pageItem = pages.find((p) => (p.url ? getSlug(p.url) === slug : false))
   const data =
     pageItem &&
@@ -34,7 +34,7 @@ export async function getStaticProps({
   }
 
   return {
-    props: { ...defaultPageProps, pages, page },
+    props: { pages, page, categories },
     revalidate: 60 * 60, // Every hour
   }
 }
