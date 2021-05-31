@@ -1,5 +1,4 @@
-import keenSlider from 'keen-slider/react'
-const { useKeenSlider } = keenSlider
+import { useKeenSlider } from 'keen-slider/react.esm.js'
 import React, {
   Children,
   FC,
