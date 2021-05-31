@@ -15,15 +15,19 @@ interface Props {
 
 const Sidebar: FC<Props> = ({ children, open = false, onClose }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
+  console.log(ref, ref.current, open)
 
   useEffect(() => {
-    if (ref.current) {
-      if (open) {
+    setTimeout(() => {
+      if (ref.current && open) {
+        window.document.body.style.overflow = 'hidden'
         disableBodyScroll(ref.current)
       } else {
-        enableBodyScroll(ref.current)
+        window.document.body.style.overflow &&
+          setTimeout(() => (window.document.body.style.overflow = 'unset'), 30)
+        !!ref.current && enableBodyScroll(ref.current)
       }
-    }
+    }, 30)
     return () => {
       clearAllBodyScrollLocks()
     }
