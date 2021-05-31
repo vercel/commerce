@@ -24,7 +24,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
   return (
     <footer className={rootClassName}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accent-2 py-12 text-primary bg-primary transition-colors duration-150">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accent-2 py-6 text-primary bg-primary transition-colors duration-150">
           <div className="col-span-1 lg:col-span-2">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
@@ -95,12 +95,12 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </div>
           </div>
         </div>
-        <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
+        <div className="pt-6 pb-10 flex flex-col md:flex-row justify-between items-center space-y-4 text-accent-6 text-sm">
           <div>
             <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
           </div>
-          <div className="flex items-center text-primary">
-            <span className="text-primary">Crafted by</span>
+          <div className="flex items-center text-primary text-sm">
+            <span className="text-primary">Created by</span>
             <a
               rel="noopener"
               href="https://vercel.com"
@@ -109,7 +109,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               className="text-primary"
             >
               <Vercel
-                className="inline-block h-6 ml-4 text-primary"
+                className="inline-block h-6 ml-3 text-primary"
                 alt="Vercel.com Logo"
               />
             </a>

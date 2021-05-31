@@ -75,7 +75,7 @@ const ProductView: FC<Props> = ({ product }) => {
         }}
       />
       <div className={cn(s.root, 'fit')}>
-        <div className={cn(s.productDisplay, 'fit')}>
+        <div className={cn(s.main, 'fit')}>
           <div className={s.nameBox}>
             <h1 className={s.name}>{product.name}</h1>
             <div className={s.price}>
@@ -171,6 +171,14 @@ const ProductView: FC<Props> = ({ product }) => {
           </div>
         </div>
       </div>
+      <section className="py-12 px-6">
+        <Text variant="sectionHeading">Related Products</Text>
+        <div className="grid grid-cols-4 py-3 gap-5  h-48">
+          {Array.from({ length: 4 }).map((i) => (
+            <div className="bg-accent-6" />
+          ))}
+        </div>
+      </section>
     </Container>
   )
 }
