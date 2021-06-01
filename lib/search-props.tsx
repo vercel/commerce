@@ -9,8 +9,10 @@ export async function getSearchStaticProps({
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
-  const { categories, brands } = await getSiteInfo({ config, preview })
+  const pagesPromise = getAllPages({ config, preview })
+  const siteInfoPromise = getSiteInfo({ config, preview })
+  const { pages } = await pagesPromise
+  const { categories, brands } = await siteInfoPromise
   return {
     props: {
       pages,
