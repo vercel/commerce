@@ -6,35 +6,44 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { Fetcher, SWRHook, MutationHook } from './utils/types'
-import type { FetchCartInput } from './cart/use-cart'
-import type { Cart, Wishlist, Customer, SearchProductsData } from './types'
+
+import type {
+  Customer,
+  Wishlist,
+  Cart,
+  Product,
+  Signup,
+  Login,
+  Logout,
+} from '@commerce/types'
+
+import type { Fetcher, SWRHook, MutationHook } from './utils/types'
 
 const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
 export type Provider = CommerceConfig & {
   fetcher: Fetcher
   cart?: {
-    useCart?: SWRHook<Cart | null, any, FetchCartInput>
-    useAddItem?: MutationHook<any, any, any>
-    useUpdateItem?: MutationHook<any, any, any>
-    useRemoveItem?: MutationHook<any, any, any>
+    useCart?: SWRHook<Cart.GetCartHook>
+    useAddItem?: MutationHook<Cart.AddItemHook>
+    useUpdateItem?: MutationHook<Cart.UpdateItemHook>
+    useRemoveItem?: MutationHook<Cart.RemoveItemHook>
   }
   wishlist?: {
-    useWishlist?: SWRHook<Wishlist | null, any, any>
-    useAddItem?: MutationHook<any, any, any>
-    useRemoveItem?: MutationHook<any, any, any>
+    useWishlist?: SWRHook<Wishlist.GetWishlistHook>
+    useAddItem?: MutationHook<Wishlist.AddItemHook>
+    useRemoveItem?: MutationHook<Wishlist.RemoveItemHook>
   }
   customer?: {
-    useCustomer?: SWRHook<Customer | null, any, any>
+    useCustomer?: SWRHook<Customer.CustomerHook>
   }
   products?: {
-    useSearch?: SWRHook<SearchProductsData, any, any>
+    useSearch?: SWRHook<Product.SearchProductsHook>
   }
   auth?: {
-    useSignup?: MutationHook<any, any, any>
-    useLogin?: MutationHook<any, any, any>
-    useLogout?: MutationHook<any, any, any>
+    useSignup?: MutationHook<Signup.SignupHook>
+    useLogin?: MutationHook<Login.LoginHook>
+    useLogout?: MutationHook<Logout.LogoutHook>
   }
 }
 

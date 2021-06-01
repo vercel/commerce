@@ -5,7 +5,7 @@ import Link from 'next/link'
 import s from './CartItem.module.css'
 import { Trash, Plus, Minus } from '@components/icons'
 import { useUI } from '@components/ui/context'
-import type { LineItem } from '@framework/types'
+import type { LineItem } from '@commerce/types/cart'
 import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
@@ -35,7 +35,7 @@ const CartItem = ({
 
   const updateItem = useUpdateItem({ item })
   const removeItem = useRemoveItem()
-  const [quantity, setQuantity] = useState(item.quantity)
+  const [quantity, setQuantity] = useState<number | ''>(item.quantity)
   const [removing, setRemoving] = useState(false)
 
   const updateQuantity = async (val: number) => {
@@ -43,10 +43,10 @@ const CartItem = ({
   }
 
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value)
+    const val = !e.target.value ? '' : Number(e.target.value)
 
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(Number(e.target.value))
+    if (!val || (Number.isInteger(val) && val >= 0)) {
+      setQuantity(val)
     }
   }
   const handleBlur = () => {

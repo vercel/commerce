@@ -1,4 +1,4 @@
-import { Cart } from '../types'
+import type { Cart } from '../types/cart'
 import { CommerceError } from '@commerce/utils/errors'
 
 import {
@@ -27,12 +27,6 @@ export type CheckoutPayload =
   | CheckoutQuery
 
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
-  if (!checkoutPayload) {
-    throw new CommerceError({
-      message: 'Missing checkout payload from response',
-    })
-  }
-
   const checkout = checkoutPayload?.checkout
   throwUserErrors(checkoutPayload?.checkoutUserErrors)
 

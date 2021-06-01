@@ -1,13 +1,14 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import useLogout, { UseLogout } from '@commerce/auth/use-logout'
+import type { LogoutHook } from '../types/logout'
 import useCustomer from '../customer/use-customer'
 import customerAccessTokenDeleteMutation from '../utils/mutations/customer-access-token-delete'
 import { getCustomerToken, setCustomerToken } from '../utils/customer-token'
 
 export default useLogout as UseLogout<typeof handler>
 
-export const handler: MutationHook<null> = {
+export const handler: MutationHook<LogoutHook> = {
   fetchOptions: {
     query: customerAccessTokenDeleteMutation,
   },

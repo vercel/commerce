@@ -56,6 +56,19 @@ function withCommerceConfig(nextConfig = {}) {
     tsconfig.compilerOptions.paths['@framework'] = [`framework/${name}`]
     tsconfig.compilerOptions.paths['@framework/*'] = [`framework/${name}/*`]
 
+    // When running for production it may be useful to exclude the other providers
+    // from TS checking
+    if (process.env.VERCEL) {
+      const exclude = tsconfig.exclude.filter(
+        (item) => !item.startsWith('framework/')
+      )
+
+      tsconfig.exclude = PROVIDERS.reduce((exclude, current) => {
+        if (current !== name) exclude.push(`framework/${current}`)
+        return exclude
+      }, exclude)
+    }
+
     fs.writeFileSync(
       tsconfigPath,
       prettier.format(JSON.stringify(tsconfig), { parser: 'json' })

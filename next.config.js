@@ -20,13 +20,13 @@ module.exports = withCommerceConfig({
     return [
       (isBC || isShopify || isSwell || isVendure) && {
         source: '/checkout',
-        destination: '/api/bigcommerce/checkout',
+        destination: '/api/checkout',
       },
       // The logout is also an action so this route is not required, but it's also another way
       // you can allow a logout!
       isBC && {
         source: '/logout',
-        destination: '/api/bigcommerce/customers/logout?redirect_to=/',
+        destination: '/api/logout?redirect_to=/',
       },
       // For Vendure, rewrite the local api url to the remote (external) api url. This is required
       // to make the session cookies work.

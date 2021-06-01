@@ -37,7 +37,7 @@ export type ApiVersion = {
   displayName: Scalars['String']
   /** The unique identifier of an ApiVersion. All supported API versions have a date-based (YYYY-MM) or `unstable` handle. */
   handle: Scalars['String']
-  /** Whether the version is supported by Shopify. */
+  /** Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/concepts/about-apis/versioning). */
   supported: Scalars['Boolean']
 }
 
@@ -306,17 +306,17 @@ export enum BlogSortKeys {
 
 /** Card brand, such as Visa or Mastercard, which can be used for payments. */
 export enum CardBrand {
-  /** Visa */
+  /** Visa. */
   Visa = 'VISA',
-  /** Mastercard */
+  /** Mastercard. */
   Mastercard = 'MASTERCARD',
-  /** Discover */
+  /** Discover. */
   Discover = 'DISCOVER',
-  /** American Express */
+  /** American Express. */
   AmericanExpress = 'AMERICAN_EXPRESS',
-  /** Diners Club */
+  /** Diners Club. */
   DinersClub = 'DINERS_CLUB',
-  /** JCB */
+  /** JCB. */
   Jcb = 'JCB',
 }
 
@@ -1195,6 +1195,8 @@ export enum CountryCode {
   Am = 'AM',
   /** Aruba. */
   Aw = 'AW',
+  /** Ascension Island. */
+  Ac = 'AC',
   /** Australia. */
   Au = 'AU',
   /** Austria. */
@@ -1613,6 +1615,8 @@ export enum CountryCode {
   To = 'TO',
   /** Trinidad & Tobago. */
   Tt = 'TT',
+  /** Tristan da Cunha. */
+  Ta = 'TA',
   /** Tunisia. */
   Tn = 'TN',
   /** Turkey. */
@@ -1687,7 +1691,7 @@ export type CreditCard = {
 export type CreditCardPaymentInput = {
   /** The amount of the payment. */
   amount: Scalars['Money']
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
   idempotencyKey: Scalars['String']
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput
@@ -1704,7 +1708,7 @@ export type CreditCardPaymentInput = {
 export type CreditCardPaymentInputV2 = {
   /** The amount and currency of the payment. */
   paymentAmount: MoneyInput
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
   idempotencyKey: Scalars['String']
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput
@@ -1766,10 +1770,6 @@ export enum CurrencyCode {
   Bhd = 'BHD',
   /** Burundian Franc (BIF). */
   Bif = 'BIF',
-  /** Belarusian Ruble (BYN). */
-  Byn = 'BYN',
-  /** Belarusian Ruble (BYR). */
-  Byr = 'BYR',
   /** Belize Dollar (BZD). */
   Bzd = 'BZD',
   /** Bermudian Dollar (BMD). */
@@ -1816,26 +1816,18 @@ export enum CurrencyCode {
   Czk = 'CZK',
   /** Danish Kroner (DKK). */
   Dkk = 'DKK',
-  /** Djiboutian Franc (DJF). */
-  Djf = 'DJF',
   /** Dominican Peso (DOP). */
   Dop = 'DOP',
   /** East Caribbean Dollar (XCD). */
   Xcd = 'XCD',
   /** Egyptian Pound (EGP). */
   Egp = 'EGP',
-  /** Eritrean Nakfa (ERN). */
-  Ern = 'ERN',
   /** Ethiopian Birr (ETB). */
   Etb = 'ETB',
-  /** Falkland Islands Pounds (FKP). */
-  Fkp = 'FKP',
   /** CFP Franc (XPF). */
   Xpf = 'XPF',
   /** Fijian Dollars (FJD). */
   Fjd = 'FJD',
-  /** Gibraltar Pounds (GIP). */
-  Gip = 'GIP',
   /** Gambian Dalasi (GMD). */
   Gmd = 'GMD',
   /** Ghanaian Cedi (GHS). */
@@ -1846,8 +1838,6 @@ export enum CurrencyCode {
   Gyd = 'GYD',
   /** Georgian Lari (GEL). */
   Gel = 'GEL',
-  /** Guinean Franc (GNF). */
-  Gnf = 'GNF',
   /** Haitian Gourde (HTG). */
   Htg = 'HTG',
   /** Honduran Lempira (HNL). */
@@ -1864,8 +1854,6 @@ export enum CurrencyCode {
   Idr = 'IDR',
   /** Israeli New Shekel (NIS). */
   Ils = 'ILS',
-  /** Iranian Rial (IRR). */
-  Irr = 'IRR',
   /** Iraqi Dinar (IQD). */
   Iqd = 'IQD',
   /** Jamaican Dollars (JMD). */
@@ -1880,8 +1868,6 @@ export enum CurrencyCode {
   Kzt = 'KZT',
   /** Kenyan Shilling (KES). */
   Kes = 'KES',
-  /** Kiribati Dollar (KID). */
-  Kid = 'KID',
   /** Kuwaiti Dinar (KWD). */
   Kwd = 'KWD',
   /** Kyrgyzstani Som (KGS). */
@@ -1896,8 +1882,6 @@ export enum CurrencyCode {
   Lsl = 'LSL',
   /** Liberian Dollar (LRD). */
   Lrd = 'LRD',
-  /** Libyan Dinar (LYD). */
-  Lyd = 'LYD',
   /** Lithuanian Litai (LTL). */
   Ltl = 'LTL',
   /** Malagasy Ariary (MGA). */
@@ -1910,8 +1894,6 @@ export enum CurrencyCode {
   Mwk = 'MWK',
   /** Maldivian Rufiyaa (MVR). */
   Mvr = 'MVR',
-  /** Mauritanian Ouguiya (MRU). */
-  Mru = 'MRU',
   /** Mexican Pesos (MXN). */
   Mxn = 'MXN',
   /** Malaysian Ringgits (MYR). */
@@ -1966,8 +1948,6 @@ export enum CurrencyCode {
   Rwf = 'RWF',
   /** Samoan Tala (WST). */
   Wst = 'WST',
-  /** Saint Helena Pounds (SHP). */
-  Shp = 'SHP',
   /** Saudi Riyal (SAR). */
   Sar = 'SAR',
   /** Sao Tome And Principe Dobra (STD). */
@@ -1976,14 +1956,10 @@ export enum CurrencyCode {
   Rsd = 'RSD',
   /** Seychellois Rupee (SCR). */
   Scr = 'SCR',
-  /** Sierra Leonean Leone (SLL). */
-  Sll = 'SLL',
   /** Singapore Dollars (SGD). */
   Sgd = 'SGD',
   /** Sudanese Pound (SDG). */
   Sdg = 'SDG',
-  /** Somali Shilling (SOS). */
-  Sos = 'SOS',
   /** Syrian Pound (SYP). */
   Syp = 'SYP',
   /** South African Rand (ZAR). */
@@ -2008,12 +1984,8 @@ export enum CurrencyCode {
   Twd = 'TWD',
   /** Thai baht (THB). */
   Thb = 'THB',
-  /** Tajikistani Somoni (TJS). */
-  Tjs = 'TJS',
   /** Tanzanian Shilling (TZS). */
   Tzs = 'TZS',
-  /** Tongan Pa'anga (TOP). */
-  Top = 'TOP',
   /** Trinidad and Tobago Dollars (TTD). */
   Ttd = 'TTD',
   /** Tunisian Dinar (TND). */
@@ -2034,10 +2006,6 @@ export enum CurrencyCode {
   Uzs = 'UZS',
   /** Vanuatu Vatu (VUV). */
   Vuv = 'VUV',
-  /** Venezuelan Bolivares (VEF). */
-  Vef = 'VEF',
-  /** Venezuelan Bolivares (VES). */
-  Ves = 'VES',
   /** Vietnamese đồng (VND). */
   Vnd = 'VND',
   /** West African CFA franc (XOF). */
@@ -2046,6 +2014,42 @@ export enum CurrencyCode {
   Yer = 'YER',
   /** Zambian Kwacha (ZMW). */
   Zmw = 'ZMW',
+  /** Belarusian Ruble (BYN). */
+  Byn = 'BYN',
+  /** Belarusian Ruble (BYR). */
+  Byr = 'BYR',
+  /** Djiboutian Franc (DJF). */
+  Djf = 'DJF',
+  /** Eritrean Nakfa (ERN). */
+  Ern = 'ERN',
+  /** Falkland Islands Pounds (FKP). */
+  Fkp = 'FKP',
+  /** Gibraltar Pounds (GIP). */
+  Gip = 'GIP',
+  /** Guinean Franc (GNF). */
+  Gnf = 'GNF',
+  /** Iranian Rial (IRR). */
+  Irr = 'IRR',
+  /** Kiribati Dollar (KID). */
+  Kid = 'KID',
+  /** Libyan Dinar (LYD). */
+  Lyd = 'LYD',
+  /** Mauritanian Ouguiya (MRU). */
+  Mru = 'MRU',
+  /** Sierra Leonean Leone (SLL). */
+  Sll = 'SLL',
+  /** Saint Helena Pounds (SHP). */
+  Shp = 'SHP',
+  /** Somali Shilling (SOS). */
+  Sos = 'SOS',
+  /** Tajikistani Somoni (TJS). */
+  Tjs = 'TJS',
+  /** Tongan Pa'anga (TOP). */
+  Top = 'TOP',
+  /** Venezuelan Bolivares (VEF). */
+  Vef = 'VEF',
+  /** Venezuelan Bolivares (VES). */
+  Ves = 'VES',
 }
 
 /** A customer represents a customer account with the shop. Customer accounts store contact information for the customer, saving logged-in customers the trouble of having to provide it at every checkout. */
@@ -3817,7 +3821,11 @@ export type Payment = Node & {
   errorMessage?: Maybe<Scalars['String']>
   /** Globally unique identifier. */
   id: Scalars['ID']
-  /** A client-side generated token to identify a payment and perform idempotent operations. */
+  /**
+   * A client-side generated token to identify a payment and perform idempotent operations.
+   * For more information, refer to
+   * [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+   */
   idempotencyKey?: Maybe<Scalars['String']>
   /** The URL where the customer needs to be redirected so they can complete the 3D Secure payment flow. */
   nextActionUrl?: Maybe<Scalars['URL']>
@@ -4386,7 +4394,9 @@ export type QueryRoot = {
   collections: CollectionConnection
   /** Find a customer by its access token. */
   customer?: Maybe<Customer>
+  /** Returns a specific node by ID. */
   node?: Maybe<Node>
+  /** Returns the list of nodes with the given IDs. */
   nodes: Array<Maybe<Node>>
   /** Find a page by its handle. */
   pageByHandle?: Maybe<Page>
@@ -4768,7 +4778,7 @@ export type StringEdge = {
 export type TokenizedPaymentInput = {
   /** The amount of the payment. */
   amount: Scalars['Money']
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
   idempotencyKey: Scalars['String']
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput
@@ -4789,7 +4799,7 @@ export type TokenizedPaymentInput = {
 export type TokenizedPaymentInputV2 = {
   /** The amount and currency of the payment. */
   paymentAmount: MoneyInput
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
   idempotencyKey: Scalars['String']
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput
@@ -4810,7 +4820,7 @@ export type TokenizedPaymentInputV2 = {
 export type TokenizedPaymentInputV3 = {
   /** The amount and currency of the payment. */
   paymentAmount: MoneyInput
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
   idempotencyKey: Scalars['String']
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput
@@ -4847,18 +4857,32 @@ export type Transaction = {
   test: Scalars['Boolean']
 }
 
+/** The different kinds of order transactions. */
 export enum TransactionKind {
+  /** An authorization and capture performed together in a single step. */
   Sale = 'SALE',
+  /** A transfer of the money that was reserved during the authorization stage. */
   Capture = 'CAPTURE',
+  /**
+   * An amount reserved against the cardholder's funding source.
+   * Money does not change hands until the authorization is captured.
+   */
   Authorization = 'AUTHORIZATION',
+  /** An authorization for a payment taken with an EMV credit card reader. */
   EmvAuthorization = 'EMV_AUTHORIZATION',
+  /** Money returned to the customer when they have paid too much. */
   Change = 'CHANGE',
 }
 
+/** Transaction statuses describe the status of a transaction. */
 export enum TransactionStatus {
+  /** The transaction is pending. */
   Pending = 'PENDING',
+  /** The transaction succeeded. */
   Success = 'SUCCESS',
+  /** The transaction failed. */
   Failure = 'FAILURE',
+  /** There was an error while processing the transaction. */
   Error = 'ERROR',
 }
 
@@ -4967,19 +4991,596 @@ export enum WeightUnit {
   Ounces = 'OUNCES',
 }
 
-export type Unnamed_1_QueryVariables = Exact<{
+export type AssociateCustomerWithCheckoutMutationVariables = Exact<{
+  checkoutId: Scalars['ID']
+  customerAccessToken: Scalars['String']
+}>
+
+export type AssociateCustomerWithCheckoutMutation = {
+  __typename?: 'Mutation'
+} & {
+  checkoutCustomerAssociateV2?: Maybe<
+    { __typename?: 'CheckoutCustomerAssociateV2Payload' } & {
+      checkout?: Maybe<{ __typename?: 'Checkout' } & Pick<Checkout, 'id'>>
+      checkoutUserErrors: Array<
+        { __typename?: 'CheckoutUserError' } & Pick<
+          CheckoutUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+      customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+    }
+  >
+}
+
+export type CheckoutCreateMutationVariables = Exact<{
+  input?: Maybe<CheckoutCreateInput>
+}>
+
+export type CheckoutCreateMutation = { __typename?: 'Mutation' } & {
+  checkoutCreate?: Maybe<
+    { __typename?: 'CheckoutCreatePayload' } & {
+      checkoutUserErrors: Array<
+        { __typename?: 'CheckoutUserError' } & Pick<
+          CheckoutUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+      checkout?: Maybe<{ __typename?: 'Checkout' } & CheckoutDetailsFragment>
+    }
+  >
+}
+
+export type CheckoutLineItemAddMutationVariables = Exact<{
+  checkoutId: Scalars['ID']
+  lineItems: Array<CheckoutLineItemInput> | CheckoutLineItemInput
+}>
+
+export type CheckoutLineItemAddMutation = { __typename?: 'Mutation' } & {
+  checkoutLineItemsAdd?: Maybe<
+    { __typename?: 'CheckoutLineItemsAddPayload' } & {
+      checkoutUserErrors: Array<
+        { __typename?: 'CheckoutUserError' } & Pick<
+          CheckoutUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+      checkout?: Maybe<{ __typename?: 'Checkout' } & CheckoutDetailsFragment>
+    }
+  >
+}
+
+export type CheckoutLineItemRemoveMutationVariables = Exact<{
+  checkoutId: Scalars['ID']
+  lineItemIds: Array<Scalars['ID']> | Scalars['ID']
+}>
+
+export type CheckoutLineItemRemoveMutation = { __typename?: 'Mutation' } & {
+  checkoutLineItemsRemove?: Maybe<
+    { __typename?: 'CheckoutLineItemsRemovePayload' } & {
+      checkoutUserErrors: Array<
+        { __typename?: 'CheckoutUserError' } & Pick<
+          CheckoutUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+      checkout?: Maybe<{ __typename?: 'Checkout' } & CheckoutDetailsFragment>
+    }
+  >
+}
+
+export type CheckoutLineItemUpdateMutationVariables = Exact<{
+  checkoutId: Scalars['ID']
+  lineItems: Array<CheckoutLineItemUpdateInput> | CheckoutLineItemUpdateInput
+}>
+
+export type CheckoutLineItemUpdateMutation = { __typename?: 'Mutation' } & {
+  checkoutLineItemsUpdate?: Maybe<
+    { __typename?: 'CheckoutLineItemsUpdatePayload' } & {
+      checkoutUserErrors: Array<
+        { __typename?: 'CheckoutUserError' } & Pick<
+          CheckoutUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+      checkout?: Maybe<{ __typename?: 'Checkout' } & CheckoutDetailsFragment>
+    }
+  >
+}
+
+export type CustomerAccessTokenCreateMutationVariables = Exact<{
+  input: CustomerAccessTokenCreateInput
+}>
+
+export type CustomerAccessTokenCreateMutation = { __typename?: 'Mutation' } & {
+  customerAccessTokenCreate?: Maybe<
+    { __typename?: 'CustomerAccessTokenCreatePayload' } & {
+      customerAccessToken?: Maybe<
+        { __typename?: 'CustomerAccessToken' } & Pick<
+          CustomerAccessToken,
+          'accessToken' | 'expiresAt'
+        >
+      >
+      customerUserErrors: Array<
+        { __typename?: 'CustomerUserError' } & Pick<
+          CustomerUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+    }
+  >
+}
+
+export type CustomerAccessTokenDeleteMutationVariables = Exact<{
+  customerAccessToken: Scalars['String']
+}>
+
+export type CustomerAccessTokenDeleteMutation = { __typename?: 'Mutation' } & {
+  customerAccessTokenDelete?: Maybe<
+    { __typename?: 'CustomerAccessTokenDeletePayload' } & Pick<
+      CustomerAccessTokenDeletePayload,
+      'deletedAccessToken' | 'deletedCustomerAccessTokenId'
+    > & {
+        userErrors: Array<
+          { __typename?: 'UserError' } & Pick<UserError, 'field' | 'message'>
+        >
+      }
+  >
+}
+
+export type CustomerActivateByUrlMutationVariables = Exact<{
+  activationUrl: Scalars['URL']
+  password: Scalars['String']
+}>
+
+export type CustomerActivateByUrlMutation = { __typename?: 'Mutation' } & {
+  customerActivateByUrl?: Maybe<
+    { __typename?: 'CustomerActivateByUrlPayload' } & {
+      customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+      customerAccessToken?: Maybe<
+        { __typename?: 'CustomerAccessToken' } & Pick<
+          CustomerAccessToken,
+          'accessToken' | 'expiresAt'
+        >
+      >
+      customerUserErrors: Array<
+        { __typename?: 'CustomerUserError' } & Pick<
+          CustomerUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+    }
+  >
+}
+
+export type CustomerActivateMutationVariables = Exact<{
+  id: Scalars['ID']
+  input: CustomerActivateInput
+}>
+
+export type CustomerActivateMutation = { __typename?: 'Mutation' } & {
+  customerActivate?: Maybe<
+    { __typename?: 'CustomerActivatePayload' } & {
+      customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+      customerAccessToken?: Maybe<
+        { __typename?: 'CustomerAccessToken' } & Pick<
+          CustomerAccessToken,
+          'accessToken' | 'expiresAt'
+        >
+      >
+      customerUserErrors: Array<
+        { __typename?: 'CustomerUserError' } & Pick<
+          CustomerUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+    }
+  >
+}
+
+export type CustomerCreateMutationVariables = Exact<{
+  input: CustomerCreateInput
+}>
+
+export type CustomerCreateMutation = { __typename?: 'Mutation' } & {
+  customerCreate?: Maybe<
+    { __typename?: 'CustomerCreatePayload' } & {
+      customerUserErrors: Array<
+        { __typename?: 'CustomerUserError' } & Pick<
+          CustomerUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+      customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+    }
+  >
+}
+
+export type GetSiteCollectionsQueryVariables = Exact<{
   first: Scalars['Int']
 }>
 
-export type Unnamed_1_Query = { __typename?: 'QueryRoot' } & {
-  pages: { __typename?: 'PageConnection' } & {
+export type GetSiteCollectionsQuery = { __typename?: 'QueryRoot' } & {
+  collections: { __typename?: 'CollectionConnection' } & {
     edges: Array<
-      { __typename?: 'PageEdge' } & {
-        node: { __typename?: 'Page' } & Pick<
-          Page,
-          'id' | 'title' | 'handle' | 'body' | 'bodySummary' | 'url'
+      { __typename?: 'CollectionEdge' } & {
+        node: { __typename?: 'Collection' } & Pick<
+          Collection,
+          'id' | 'title' | 'handle'
         >
       }
     >
   }
+}
+
+export type GetAllPagesQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>
+}>
+
+export type GetAllPagesQuery = { __typename?: 'QueryRoot' } & {
+  pages: { __typename?: 'PageConnection' } & {
+    edges: Array<
+      { __typename?: 'PageEdge' } & {
+        node: { __typename?: 'Page' } & Pick<Page, 'id' | 'title' | 'handle'>
+      }
+    >
+  }
+}
+
+export type GetAllProductVendorsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>
+  cursor?: Maybe<Scalars['String']>
+}>
+
+export type GetAllProductVendorsQuery = { __typename?: 'QueryRoot' } & {
+  products: { __typename?: 'ProductConnection' } & {
+    pageInfo: { __typename?: 'PageInfo' } & Pick<
+      PageInfo,
+      'hasNextPage' | 'hasPreviousPage'
+    >
+    edges: Array<
+      { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
+          node: { __typename?: 'Product' } & Pick<Product, 'vendor'>
+        }
+    >
+  }
+}
+
+export type GetAllProductPathsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>
+  cursor?: Maybe<Scalars['String']>
+}>
+
+export type GetAllProductPathsQuery = { __typename?: 'QueryRoot' } & {
+  products: { __typename?: 'ProductConnection' } & {
+    pageInfo: { __typename?: 'PageInfo' } & Pick<
+      PageInfo,
+      'hasNextPage' | 'hasPreviousPage'
+    >
+    edges: Array<
+      { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
+          node: { __typename?: 'Product' } & Pick<Product, 'handle'>
+        }
+    >
+  }
+}
+
+export type ProductConnectionFragment = { __typename?: 'ProductConnection' } & {
+  pageInfo: { __typename?: 'PageInfo' } & Pick<
+    PageInfo,
+    'hasNextPage' | 'hasPreviousPage'
+  >
+  edges: Array<
+    { __typename?: 'ProductEdge' } & {
+      node: { __typename?: 'Product' } & Pick<
+        Product,
+        'id' | 'title' | 'vendor' | 'handle'
+      > & {
+          priceRange: { __typename?: 'ProductPriceRange' } & {
+            minVariantPrice: { __typename?: 'MoneyV2' } & Pick<
+              MoneyV2,
+              'amount' | 'currencyCode'
+            >
+          }
+          images: { __typename?: 'ImageConnection' } & {
+            pageInfo: { __typename?: 'PageInfo' } & Pick<
+              PageInfo,
+              'hasNextPage' | 'hasPreviousPage'
+            >
+            edges: Array<
+              { __typename?: 'ImageEdge' } & {
+                node: { __typename?: 'Image' } & Pick<
+                  Image,
+                  'originalSrc' | 'altText' | 'width' | 'height'
+                >
+              }
+            >
+          }
+        }
+    }
+  >
+}
+
+export type GetAllProductsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>
+  query?: Maybe<Scalars['String']>
+  sortKey?: Maybe<ProductSortKeys>
+  reverse?: Maybe<Scalars['Boolean']>
+}>
+
+export type GetAllProductsQuery = { __typename?: 'QueryRoot' } & {
+  products: { __typename?: 'ProductConnection' } & ProductConnectionFragment
+}
+
+export type CheckoutDetailsFragment = { __typename?: 'Checkout' } & Pick<
+  Checkout,
+  'id' | 'webUrl' | 'completedAt' | 'createdAt' | 'taxesIncluded'
+> & {
+    subtotalPriceV2: { __typename?: 'MoneyV2' } & Pick<
+      MoneyV2,
+      'amount' | 'currencyCode'
+    >
+    totalTaxV2: { __typename?: 'MoneyV2' } & Pick<
+      MoneyV2,
+      'amount' | 'currencyCode'
+    >
+    totalPriceV2: { __typename?: 'MoneyV2' } & Pick<
+      MoneyV2,
+      'amount' | 'currencyCode'
+    >
+    lineItems: { __typename?: 'CheckoutLineItemConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'hasNextPage' | 'hasPreviousPage'
+      >
+      edges: Array<
+        { __typename?: 'CheckoutLineItemEdge' } & {
+          node: { __typename?: 'CheckoutLineItem' } & Pick<
+            CheckoutLineItem,
+            'id' | 'title' | 'quantity'
+          > & {
+              variant?: Maybe<
+                { __typename?: 'ProductVariant' } & Pick<
+                  ProductVariant,
+                  'id' | 'sku' | 'title'
+                > & {
+                    image?: Maybe<
+                      { __typename?: 'Image' } & Pick<
+                        Image,
+                        'originalSrc' | 'altText' | 'width' | 'height'
+                      >
+                    >
+                    priceV2: { __typename?: 'MoneyV2' } & Pick<
+                      MoneyV2,
+                      'amount' | 'currencyCode'
+                    >
+                    compareAtPriceV2?: Maybe<
+                      { __typename?: 'MoneyV2' } & Pick<
+                        MoneyV2,
+                        'amount' | 'currencyCode'
+                      >
+                    >
+                    product: { __typename?: 'Product' } & Pick<
+                      Product,
+                      'handle'
+                    >
+                  }
+              >
+            }
+        }
+      >
+    }
+  }
+
+export type GetCheckoutQueryVariables = Exact<{
+  checkoutId: Scalars['ID']
+}>
+
+export type GetCheckoutQuery = { __typename?: 'QueryRoot' } & {
+  node?: Maybe<
+    | { __typename?: 'AppliedGiftCard' }
+    | { __typename?: 'Article' }
+    | { __typename?: 'Blog' }
+    | ({ __typename?: 'Checkout' } & CheckoutDetailsFragment)
+    | { __typename?: 'CheckoutLineItem' }
+    | { __typename?: 'Collection' }
+    | { __typename?: 'Comment' }
+    | { __typename?: 'ExternalVideo' }
+    | { __typename?: 'MailingAddress' }
+    | { __typename?: 'MediaImage' }
+    | { __typename?: 'Metafield' }
+    | { __typename?: 'Model3d' }
+    | { __typename?: 'Order' }
+    | { __typename?: 'Page' }
+    | { __typename?: 'Payment' }
+    | { __typename?: 'Product' }
+    | { __typename?: 'ProductOption' }
+    | { __typename?: 'ProductVariant' }
+    | { __typename?: 'ShopPolicy' }
+    | { __typename?: 'Video' }
+  >
+}
+
+export type GetProductsFromCollectionQueryVariables = Exact<{
+  categoryId: Scalars['ID']
+  first?: Maybe<Scalars['Int']>
+  sortKey?: Maybe<ProductCollectionSortKeys>
+  reverse?: Maybe<Scalars['Boolean']>
+}>
+
+export type GetProductsFromCollectionQuery = { __typename?: 'QueryRoot' } & {
+  node?: Maybe<
+    | ({ __typename?: 'AppliedGiftCard' } & Pick<AppliedGiftCard, 'id'>)
+    | ({ __typename?: 'Article' } & Pick<Article, 'id'>)
+    | ({ __typename?: 'Blog' } & Pick<Blog, 'id'>)
+    | ({ __typename?: 'Checkout' } & Pick<Checkout, 'id'>)
+    | ({ __typename?: 'CheckoutLineItem' } & Pick<CheckoutLineItem, 'id'>)
+    | ({ __typename?: 'Collection' } & Pick<Collection, 'id'> & {
+          products: {
+            __typename?: 'ProductConnection'
+          } & ProductConnectionFragment
+        })
+    | ({ __typename?: 'Comment' } & Pick<Comment, 'id'>)
+    | ({ __typename?: 'ExternalVideo' } & Pick<ExternalVideo, 'id'>)
+    | ({ __typename?: 'MailingAddress' } & Pick<MailingAddress, 'id'>)
+    | ({ __typename?: 'MediaImage' } & Pick<MediaImage, 'id'>)
+    | ({ __typename?: 'Metafield' } & Pick<Metafield, 'id'>)
+    | ({ __typename?: 'Model3d' } & Pick<Model3d, 'id'>)
+    | ({ __typename?: 'Order' } & Pick<Order, 'id'>)
+    | ({ __typename?: 'Page' } & Pick<Page, 'id'>)
+    | ({ __typename?: 'Payment' } & Pick<Payment, 'id'>)
+    | ({ __typename?: 'Product' } & Pick<Product, 'id'>)
+    | ({ __typename?: 'ProductOption' } & Pick<ProductOption, 'id'>)
+    | ({ __typename?: 'ProductVariant' } & Pick<ProductVariant, 'id'>)
+    | ({ __typename?: 'ShopPolicy' } & Pick<ShopPolicy, 'id'>)
+    | ({ __typename?: 'Video' } & Pick<Video, 'id'>)
+  >
+}
+
+export type GetCustomerIdQueryVariables = Exact<{
+  customerAccessToken: Scalars['String']
+}>
+
+export type GetCustomerIdQuery = { __typename?: 'QueryRoot' } & {
+  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+}
+
+export type GetCustomerQueryVariables = Exact<{
+  customerAccessToken: Scalars['String']
+}>
+
+export type GetCustomerQuery = { __typename?: 'QueryRoot' } & {
+  customer?: Maybe<
+    { __typename?: 'Customer' } & Pick<
+      Customer,
+      | 'id'
+      | 'firstName'
+      | 'lastName'
+      | 'displayName'
+      | 'email'
+      | 'phone'
+      | 'tags'
+      | 'acceptsMarketing'
+      | 'createdAt'
+    >
+  >
+}
+
+export type GetPageQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type GetPageQuery = { __typename?: 'QueryRoot' } & {
+  node?: Maybe<
+    | ({ __typename?: 'AppliedGiftCard' } & Pick<AppliedGiftCard, 'id'>)
+    | ({ __typename?: 'Article' } & Pick<Article, 'id'>)
+    | ({ __typename?: 'Blog' } & Pick<Blog, 'id'>)
+    | ({ __typename?: 'Checkout' } & Pick<Checkout, 'id'>)
+    | ({ __typename?: 'CheckoutLineItem' } & Pick<CheckoutLineItem, 'id'>)
+    | ({ __typename?: 'Collection' } & Pick<Collection, 'id'>)
+    | ({ __typename?: 'Comment' } & Pick<Comment, 'id'>)
+    | ({ __typename?: 'ExternalVideo' } & Pick<ExternalVideo, 'id'>)
+    | ({ __typename?: 'MailingAddress' } & Pick<MailingAddress, 'id'>)
+    | ({ __typename?: 'MediaImage' } & Pick<MediaImage, 'id'>)
+    | ({ __typename?: 'Metafield' } & Pick<Metafield, 'id'>)
+    | ({ __typename?: 'Model3d' } & Pick<Model3d, 'id'>)
+    | ({ __typename?: 'Order' } & Pick<Order, 'id'>)
+    | ({ __typename?: 'Page' } & Pick<
+        Page,
+        'title' | 'handle' | 'body' | 'bodySummary' | 'id'
+      >)
+    | ({ __typename?: 'Payment' } & Pick<Payment, 'id'>)
+    | ({ __typename?: 'Product' } & Pick<Product, 'id'>)
+    | ({ __typename?: 'ProductOption' } & Pick<ProductOption, 'id'>)
+    | ({ __typename?: 'ProductVariant' } & Pick<ProductVariant, 'id'>)
+    | ({ __typename?: 'ShopPolicy' } & Pick<ShopPolicy, 'id'>)
+    | ({ __typename?: 'Video' } & Pick<Video, 'id'>)
+  >
+}
+
+export type GetProductBySlugQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type GetProductBySlugQuery = { __typename?: 'QueryRoot' } & {
+  productByHandle?: Maybe<
+    { __typename?: 'Product' } & Pick<
+      Product,
+      | 'id'
+      | 'handle'
+      | 'title'
+      | 'productType'
+      | 'vendor'
+      | 'description'
+      | 'descriptionHtml'
+    > & {
+        options: Array<
+          { __typename?: 'ProductOption' } & Pick<
+            ProductOption,
+            'id' | 'name' | 'values'
+          >
+        >
+        priceRange: { __typename?: 'ProductPriceRange' } & {
+          maxVariantPrice: { __typename?: 'MoneyV2' } & Pick<
+            MoneyV2,
+            'amount' | 'currencyCode'
+          >
+          minVariantPrice: { __typename?: 'MoneyV2' } & Pick<
+            MoneyV2,
+            'amount' | 'currencyCode'
+          >
+        }
+        variants: { __typename?: 'ProductVariantConnection' } & {
+          pageInfo: { __typename?: 'PageInfo' } & Pick<
+            PageInfo,
+            'hasNextPage' | 'hasPreviousPage'
+          >
+          edges: Array<
+            { __typename?: 'ProductVariantEdge' } & {
+              node: { __typename?: 'ProductVariant' } & Pick<
+                ProductVariant,
+                'id' | 'title' | 'sku'
+              > & {
+                  selectedOptions: Array<
+                    { __typename?: 'SelectedOption' } & Pick<
+                      SelectedOption,
+                      'name' | 'value'
+                    >
+                  >
+                  priceV2: { __typename?: 'MoneyV2' } & Pick<
+                    MoneyV2,
+                    'amount' | 'currencyCode'
+                  >
+                  compareAtPriceV2?: Maybe<
+                    { __typename?: 'MoneyV2' } & Pick<
+                      MoneyV2,
+                      'amount' | 'currencyCode'
+                    >
+                  >
+                }
+            }
+          >
+        }
+        images: { __typename?: 'ImageConnection' } & {
+          pageInfo: { __typename?: 'PageInfo' } & Pick<
+            PageInfo,
+            'hasNextPage' | 'hasPreviousPage'
+          >
+          edges: Array<
+            { __typename?: 'ImageEdge' } & {
+              node: { __typename?: 'Image' } & Pick<
+                Image,
+                'originalSrc' | 'altText' | 'width' | 'height'
+              >
+            }
+          >
+        }
+      }
+  >
+}
+
+export type GetSiteInfoQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSiteInfoQuery = { __typename?: 'QueryRoot' } & {
+  shop: { __typename?: 'Shop' } & Pick<Shop, 'name'>
 }

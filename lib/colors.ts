@@ -42,7 +42,7 @@ function hexToRgb(hex: string = '') {
   return [r, g, b]
 }
 
-const colorMap: Record<string, string> = {
+export const colorMap: Record<string, string> = {
   aliceblue: '#F0F8FF',
   antiquewhite: '#FAEBD7',
   aqua: '#00FFFF',
@@ -56,6 +56,8 @@ const colorMap: Record<string, string> = {
   blueviolet: '#8A2BE2',
   brown: '#A52A2A',
   burlywood: '#DEB887',
+  burgandy: '#800020',
+  burgundy: '#800020',
   cadetblue: '#5F9EA0',
   chartreuse: '#7FFF00',
   chocolate: '#D2691E',
@@ -177,6 +179,8 @@ const colorMap: Record<string, string> = {
   slateblue: '#6A5ACD',
   slategray: '#708090',
   slategrey: '#708090',
+  spacegrey: '#65737e',
+  spacegray: '#65737e',
   snow: '#FFFAFA',
   springgreen: '#00FF7F',
   steelblue: '#4682B4',

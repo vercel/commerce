@@ -1,17 +1,16 @@
 import type { GetStaticPropsContext } from 'next'
+import commerce from '@lib/api/commerce'
 import { Heart } from '@components/icons'
-import { getConfig } from '@framework/api'
 import { Layout } from '@components/common'
 import { Text, Container } from '@components/ui'
 import { useCustomer } from '@framework/customer'
 import { WishlistCard } from '@components/wishlist'
 import useWishlist from '@framework/wishlist/use-wishlist'
-import getAllPages from '@framework/common/get-all-pages'
-import getSiteInfo from '@framework/common/get-site-info'
 
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
   // Disabling page if Feature is not available
   if (!process.env.COMMERCE_WISHLIST_ENABLED) {
@@ -20,9 +19,10 @@ export async function getStaticProps({
     }
   }
 
-  const config = getConfig({ locale })
-  const { categories } = await getSiteInfo({ config, preview })
-  const { pages } = await getAllPages({ config, preview })
+  const config = { locale, locales }
+  const { pages } = await commerce.getAllPages({ config, preview })
+  const { categories } = await commerce.getSiteInfo({ config, preview })
+
   return {
     props: {
       pages,

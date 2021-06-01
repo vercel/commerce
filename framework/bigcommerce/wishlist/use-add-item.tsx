@@ -2,15 +2,15 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/wishlist/use-add-item'
-import type { ItemBody, AddItemBody } from '../api/wishlist'
+import type { AddItemHook } from '../types/wishlist'
 import useCustomer from '../customer/use-customer'
 import useWishlist from './use-wishlist'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<any, {}, ItemBody, AddItemBody> = {
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/wishlist',
+    url: '/api/wishlist',
     method: 'POST',
   },
   useHook: ({ fetch }) => () => {
