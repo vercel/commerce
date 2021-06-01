@@ -1,7 +1,8 @@
+import type { Category } from '../types/site'
 import { ShopifyConfig } from '../api'
 import { CollectionEdge } from '../schema'
+import { normalizeCategory } from './normalize'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
-import { Category } from '@commerce/types'
 
 const getCategories = async ({
   fetch,
@@ -24,13 +25,8 @@ const getCategories = async ({
   )
 
   return (
-    data.collections?.edges?.map(
-      ({ node: { id, title: name, handle } }: CollectionEdge) => ({
-        id,
-        name,
-        slug: handle,
-        path: `/${handle}`,
-      })
+    data.collections?.edges?.map(({ node }: CollectionEdge) =>
+      normalizeCategory(node)
     ) ?? []
   )
 }

@@ -1,8 +1,10 @@
 import type { Product } from '../types/product'
 import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
 import type { Page } from '../types/page'
-import update from './immutability'
+import type { BCCategory, Category } from '../types/site'
 import { definitions } from '../api/definitions/store-content'
+import update from './immutability'
+import getSlug from './get-slug'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -121,5 +123,14 @@ function normalizeLineItem(item: any): LineItem {
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,
     })),
+  }
+}
+
+export function normalizeCategory(category: BCCategory): Category {
+  return {
+    id: `${category.entityId}`,
+    name: category.name,
+    slug: getSlug(category.path),
+    path: category.path,
   }
 }

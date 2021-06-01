@@ -139,15 +139,6 @@ export type RemoveItemHook<T extends CartTypes = CartTypes> = {
   actionInput: { id: string }
 }
 
-export type Category = {
-  id: string
-  name: string
-  slug: string
-  path: string
-}
-
-export type Page = any
-
 /**
  * API Schema
  */

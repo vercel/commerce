@@ -1,6 +1,7 @@
 import type { Page } from '../types/page'
 import type { Product } from '../types/product'
 import type { Cart, LineItem } from '../types/cart'
+import type { Category } from '../types/site'
 
 import {
   Product as ShopifyProduct,
@@ -181,3 +182,11 @@ export const normalizePage = (
 
 export const normalizePages = (edges: PageEdge[], locale: string): Page[] =>
   edges?.map((edge) => normalizePage(edge.node, locale))
+
+export const normalizeCategory = (category: any): Category => ({
+  id: category.id,
+  name: category.name,
+  slug: category.handle,
+  path: `/${category.handle}`,
+})
+

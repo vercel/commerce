@@ -3,14 +3,16 @@ import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../schema'
 
 export * from '@commerce/types/site'
 
-export type Category = NonNullable<GetSiteInfoQuery['site']['categoryTree']>[0]
+export type BCCategory = NonNullable<
+  GetSiteInfoQuery['site']['categoryTree']
+>[0]
 
 export type Brand = NonNullable<
   NonNullable<GetSiteInfoQuery['site']['brands']['edges']>[0]
 >
 
 export type SiteTypes = {
-  category: Category
+  category: Core.Category
   brand: Brand
 }
 

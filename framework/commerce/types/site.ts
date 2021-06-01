@@ -1,4 +1,9 @@
-export type Category = any
+export type Category = {
+  id: string
+  name: string
+  slug: string
+  path: string
+}
 
 export type Brand = any
 
