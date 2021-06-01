@@ -11,6 +11,7 @@ interface Props {
   product: Product
   variant?: 'default' | 'slim' | 'simple'
   imgProps?: Omit<ImageProps, 'src'>
+  noNameTag?: boolean
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
@@ -18,8 +19,9 @@ const placeholderImg = '/product-img-placeholder.svg'
 const ProductCard: FC<Props> = ({
   className,
   product,
-  variant = 'default',
   imgProps,
+  variant = 'default',
+  noNameTag = false,
   ...props
 }) => (
   <Link href={`/product/${product.slug}`} {...props}>
@@ -62,17 +64,20 @@ const ProductCard: FC<Props> = ({
               variant={product.variants[0] as any}
             />
           )}
+
           <div className="flex flex-row justify-between box-border w-full z-20 absolute ">
-            <div className="absolute top-0 left-0 pr-16 max-w-full">
-              <h3 className={s.productTitle}>
-                <span>{product.name}</span>
-              </h3>
-              <span className={s.productPrice}>
-                {product.price.value}
-                &nbsp;
-                {product.price.currencyCode}
-              </span>
-            </div>
+            {!noNameTag && (
+              <div className="absolute top-0 left-0 pr-16 max-w-full">
+                <h3 className={s.productTitle}>
+                  <span>{product.name}</span>
+                </h3>
+                <span className={s.productPrice}>
+                  {product.price.value}
+                  &nbsp;
+                  {product.price.currencyCode}
+                </span>
+              </div>
+            )}
           </div>
           <div className={s.imageContainer}>
             {product?.images && (

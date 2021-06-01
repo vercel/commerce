@@ -1,69 +1,37 @@
 .root {
   @apply relative grid items-start gap-1 grid-cols-1 overflow-x-hidden;
-
-  @screen lg {
-    @apply grid-cols-12;
-  }
 }
 
 .main {
   @apply relative px-0 pb-0 box-border  flex flex-col col-span-1;
   min-height: 600px;
-
-  @screen md {
-    min-height: 700px;
-  }
-
-  @screen lg {
-    @apply mx-0 col-span-8;
-  }
 }
 
 .nameBox {
   @apply absolute top-0 left-0 z-20 pr-16;
+}
 
-  @screen lg {
-    @apply left-0 pr-16;
-  }
+.nameBox .name {
+  @apply px-6 py-2 bg-primary text-primary font-bold;
+  font-size: 1.8rem;
+  letter-spacing: 0.4px;
+}
 
-  & .name {
-    @apply px-6 py-2 bg-primary text-primary font-bold;
-    font-size: 1.8rem;
-    letter-spacing: 0.4px;
-  }
-
-  & .price {
-    @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide;
-  }
-
-  @screen lg {
-    & .name,
-    & .price {
-      @apply bg-accent-0 text-accent-9;
-    }
-  }
+.nameBox .price {
+  @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide;
 }
 
 .sidebar {
   @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full h-full;
-
-  @screen lg {
-    @apply col-span-4 py-12;
-  }
 }
 
 .sliderContainer {
   @apply flex items-center justify-center overflow-x-hidden bg-violet;
 }
 
-.imageContainer {
-  @apply text-center;
-  & > div {
-    @apply h-full;
-    & > div {
-      @apply h-full;
-    }
-  }
+.imageContainer > div,
+.imageContainer > div > div {
+  @apply h-full;
 }
 
 .sliderContainer .img {
@@ -71,15 +39,44 @@
 }
 
 .button {
-  text-align: center;
-  width: 100%;
-  max-width: 300px;
-
-  @screen sm {
-    min-width: 300px;
-  }
+  min-width: 300px;
 }
 
 .wishlistButton {
   @apply absolute z-30 top-0 right-0;
+}
+
+@screen md {
+  .main {
+    min-height: 700px;
+  }
+
+  .button {
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@screen lg {
+  .root {
+    @apply grid-cols-12;
+  }
+
+  .main {
+    @apply mx-0 col-span-8;
+  }
+
+  .nameBox {
+    @apply left-0 pr-16;
+  }
+
+  .nameBox .name,
+  .nameBox .price {
+    @apply bg-accent-0 text-accent-9;
+  }
+
+  .sidebar {
+    @apply col-span-4 py-12;
+  }
 }
