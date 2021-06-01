@@ -1,8 +1,10 @@
 .root {
-  @apply p-5 text-accent-9 flex items-center
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: color, background-color, opacity;
+  @apply p-3 text-accent-9 flex items-center
   justify-center font-semibold cursor-pointer
   bg-accent-0 text-sm;
-  transition: opacity 0.2s ease;
 }
 
 .root:focus {
@@ -10,10 +12,22 @@
 }
 
 .icon {
-  @apply text-accent-9;
-  transition: transform 0.2s ease;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: transform, fill;
+  color: currentColor;
 }
 
-.icon {
-  transition: fill 0.4s ease;
+.icon.loading {
+  fill: var(--pink-light);
+}
+
+.icon.inWishlist {
+  fill: var(--pink);
+}
+
+@screen lg {
+  .root {
+    @apply p-4;
+  }
 }

@@ -15,9 +15,13 @@
   --cyan: #22b8cf;
   --green: #37b679;
   --red: #da3c3c;
-  --pink: #e64980;
   --purple: #f81ce5;
   --blue: #0070f3;
+
+  --pink: #ff0080;
+  --pink-light: #ff379c;
+
+  --magenta: #eb367f;
 
   --violet: #7928ca;
   --violet-dark: #4c2889;

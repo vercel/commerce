@@ -72,8 +72,10 @@ const WishlistButton: FC<Props> = ({
       {...props}
     >
       <Heart
-        className={cn(s.icon, { 'opacity-80': loading })}
-        fill={itemInWishlist ? 'var(--pink)' : 'none'}
+        className={cn(s.icon, {
+          [s.loading]: loading,
+          [s.inWishlist]: itemInWishlist,
+        })}
       />
     </button>
   )
