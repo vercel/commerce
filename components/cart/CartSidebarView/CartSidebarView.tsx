@@ -126,7 +126,7 @@ const CartSidebarView: FC = () => {
                 <span className="font-bold tracking-wide">FREE</span>
               </li>
             </ul>
-            <div className="flex justify-between border-t border-accent-3 py-3 font-bold mb-2">
+            <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
               <span>Total</span>
               <span>{total}</span>
             </div>
