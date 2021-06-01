@@ -1,5 +1,5 @@
 .root {
-  @apply border-b border-accent-2 py-4 px-2 flex flex-col;
+  @apply border-b border-accent-2 py-4 flex flex-col;
 }
 
 .header {
@@ -11,11 +11,12 @@
 }
 
 .content {
-  @apply pt-3 overflow-hidden pl-9;
+  @apply pt-3 overflow-hidden pl-8;
 }
 
 .icon {
   @apply mr-3 text-accent-6;
+  margin-left: -6px;
   transition: transform 0.2s ease;
 }
 

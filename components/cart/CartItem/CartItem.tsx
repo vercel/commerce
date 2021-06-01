@@ -155,7 +155,7 @@ const CartItem = ({
           <button className={s.actions} onClick={handleRemove}>
             <Cross width={20} height={20} />
           </button>
-          <label className="w-full border-accent-3 border ml-2">
+          <label className="w-full border-accent-2 border ml-2">
             <input
               type="number"
               max={99}

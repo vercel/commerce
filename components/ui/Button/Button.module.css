@@ -1,13 +1,13 @@
 .root {
-  @apply bg-secondary text-accent-1 cursor-pointer inline-flex
-  px-10 rounded-sm leading-6  transition ease-in-out duration-150
+  @apply bg-accent-9 text-accent-0 cursor-pointer inline-flex
+  px-10 py-4 rounded-sm leading-6 transition ease-in-out duration-150
   shadow-sm text-center justify-center uppercase
-  py-4 border border-transparent items-center text-sm font-semibold
+  border border-transparent items-center text-sm font-semibold
   tracking-wide;
 }
 
 .root:hover {
-  @apply bg-accent-0 text-primary border border-secondary;
+  @apply border-accent-9 bg-accent-6;
 }
 
 .root:focus {

@@ -100,7 +100,7 @@ const CartSidebarView: FC = () => {
                 My Cart
               </h2>
             </Link>
-            <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-3 border-accent-3">
+            <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-accent-2">
               {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
@@ -132,13 +132,8 @@ const CartSidebarView: FC = () => {
             </div>
             <div>
               {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (
-                <Button
-                  Component="a"
-                  width="100%"
-                  variant="ghost"
-                  onClick={goToCheckout}
-                >
-                  Continue to Checkout
+                <Button Component="a" width="100%" onClick={goToCheckout}>
+                  Proceed to Checkout ({total})
                 </Button>
               ) : (
                 <Button href="/checkout" Component="a" width="100%">

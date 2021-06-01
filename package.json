@@ -42,7 +42,6 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-merge-refs": "^1.1.0",
-    "react-spring": "^9.2.1",
     "react-ticker": "^1.2.2",
     "react-use-measure": "^2.0.4",
     "shopify-buy": "^2.11.0",
