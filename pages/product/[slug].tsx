@@ -19,13 +19,16 @@ export async function getStaticProps({
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
-  const { product } = await getProduct({
+  const pagesPromise = getAllPages({ config, preview })
+  const productPromise = getProduct({
     variables: { slug: params!.slug },
     config,
     preview,
   })
-  const { categories } = await getSiteInfo({ config, preview })
+  const siteInfoPromise = getSiteInfo({ config, preview })
+  const { pages } = await pagesPromise
+  const { product } = await productPromise
+  const { categories } = await siteInfoPromise
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
