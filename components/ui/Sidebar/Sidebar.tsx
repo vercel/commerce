@@ -15,7 +15,6 @@ interface Props {
 
 const Sidebar: FC<Props> = ({ children, open = false, onClose }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
-  console.log(ref, ref.current, open)
 
   useEffect(() => {
     setTimeout(() => {
