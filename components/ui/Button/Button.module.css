@@ -27,7 +27,11 @@
 }
 
 .ghost {
-  @apply border border-accent-3 bg-accent-0 text-accent-9 text-sm;
+  @apply border border-accent-2 bg-accent-0 text-accent-9 text-sm;
+}
+
+.ghost:hover {
+  @apply border-accent-9 bg-accent-9 text-accent-0;
 }
 
 .disabled,

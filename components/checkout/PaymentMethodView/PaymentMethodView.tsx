@@ -53,7 +53,7 @@ const PaymentMethodView: FC = () => {
               <input className={s.input} />
             </div>
           </div>
-          <hr className="border-accent-3 my-6" />
+          <hr className="border-accent-2 my-6" />
           <div className="grid gap-3 grid-flow-row grid-cols-12">
             <div className={cn(s.fieldset, 'col-span-6')}>
               <label className={s.label}>First Name</label>
@@ -92,12 +92,12 @@ const PaymentMethodView: FC = () => {
               <option>Hong Kong</option>
             </select>
           </div>
-          <div className="mt-10 sticky z-20 bottom-0 w-full right-0 left-0 ">
-            <Button Component="a" width="100%" variant="ghost">
-              Continue
-            </Button>
-          </div>
         </div>
+      </div>
+      <div className="sticky z-20 bottom-0 w-full right-0 left-0 py-12 bg-accent-0 border-t border-accent-2 px-6">
+        <Button Component="a" width="100%" variant="ghost">
+          Continue
+        </Button>
       </div>
     </div>
   )

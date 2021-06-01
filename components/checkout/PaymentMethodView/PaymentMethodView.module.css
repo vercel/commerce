@@ -12,7 +12,7 @@
 
 .fieldset .input,
 .fieldset .select {
-  @apply p-2 border border-accent-3 w-full text-sm font-normal;
+  @apply p-2 border border-accent-2 w-full text-sm font-normal;
 }
 
 .fieldset .input:focus,

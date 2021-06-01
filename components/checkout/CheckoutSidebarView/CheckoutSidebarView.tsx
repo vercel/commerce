@@ -180,7 +180,7 @@ const CheckoutSidebarView: FC = () => {
               {/* <Button Component="a" width="100%">
                 Confirm Purchase
               </Button> */}
-              <Button Component="a" width="100%" variant="ghost">
+              <Button Component="a" width="100%" variant="ghost" disabled>
                 Continue
               </Button>
             </div>
