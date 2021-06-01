@@ -13,14 +13,18 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
-  const { categories } = await getSiteInfo({ config, preview })
+  const pagesPromise = getAllPages({ config, preview })
+  const siteInfoPromise = getSiteInfo({ config, preview })
 
-  const { products } = await getAllProducts({
+  const productsPromise = getAllProducts({
     variables: { first: 12 },
     config,
     preview,
   })
+
+  const { pages } = await pagesPromise
+  const { categories } = await siteInfoPromise
+  const { products } = await productsPromise
 
   return {
     props: {
