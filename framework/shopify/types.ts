@@ -10,9 +10,7 @@ export type ShopifyCheckout = {
 export type Cart = Core.Cart & {
   lineItems: LineItem[]
 }
-export interface LineItem extends Core.LineItem {
-  options?: any[]
-}
+export type LineItem = Core.LineItem
 
 /**
  * Cart mutations

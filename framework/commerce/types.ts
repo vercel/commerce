@@ -17,6 +17,7 @@ export type LineItem = {
   // A human-friendly unique string automatically generated from the product’s name
   path: string
   variant: ProductVariant
+  options?: any[]
 }
 
 export type Measurement = {

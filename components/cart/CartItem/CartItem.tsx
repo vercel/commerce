@@ -116,15 +116,34 @@ const CartItem = ({
         </Link>
         {options && options.length > 0 ? (
           <div className="">
-            {options.map((option: ItemOption, i: number) => (
-              <span
-                key={`${item.id}-${option.name}`}
-                className="text-sm font-semibold text-accents-7"
-              >
-                {option.value}
-                {i === options.length - 1 ? '' : ', '}
-              </span>
-            ))}
+            {/** attempt to sort the options array alphabetically by option name, that way options will always appear in the same order */}
+            {options
+              .sort((first: any, second: any) => {
+                if (first.name && second.name) {
+                  return first.name < second.name
+                    ? -1
+                    : first.name > second.name
+                    ? 1
+                    : 0
+                } else {
+                  if (JSON.stringify(first) < JSON.stringify(second)) {
+                    return -1
+                  } else if (JSON.stringify(first) > JSON.stringify(second)) {
+                    return 1
+                  } else {
+                    return 0
+                  }
+                }
+              })
+              .map((option: ItemOption, i: number) => (
+                <span
+                  key={`${item.id}-${option.name}`}
+                  className="text-sm font-semibold text-accents-7"
+                >
+                  {option.value}
+                  {i === options.length - 1 ? '' : ', '}
+                </span>
+              ))}
           </div>
         ) : null}
         <div className="flex items-center mt-3">
