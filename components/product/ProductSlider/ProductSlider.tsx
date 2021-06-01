@@ -8,7 +8,7 @@ import React, {
   useEffect,
 } from 'react'
 import cn from 'classnames'
-
+import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
 import { ChevronLeft, ChevronRight } from '@components/icons'
 
@@ -16,13 +16,26 @@ const ProductSlider: FC = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
+  const thumbsContainerRef = useRef<HTMLDivElement>(null)
 
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
     slidesPerView: 1,
     mounted: () => setIsMounted(true),
     slideChanged(s) {
-      setCurrentSlide(s.details().relativeSlide)
+      const slideNumber = s.details().relativeSlide
+      setCurrentSlide(slideNumber)
+
+      if (thumbsContainerRef.current) {
+        const $el = document.getElementById(
+          `thumb-${s.details().relativeSlide}`
+        )
+        if (slideNumber >= 3) {
+          thumbsContainerRef.current.scrollLeft = $el!.offsetLeft
+        } else {
+          thumbsContainerRef.current.scrollLeft = 0
+        }
+      }
     },
   })
 
@@ -67,22 +80,24 @@ const ProductSlider: FC = ({ children }) => {
         className="relative keen-slider h-full transition-opacity duration-150"
         style={{ opacity: isMounted ? 1 : 0 }}
       >
-        <div className={s.control}>
-          <button
-            onClick={slider?.prev}
-            className={cn(s.leftControl)}
-            aria-label="Previous Product Image"
-          >
-            <ChevronLeft />
-          </button>
-          <button
-            onClick={slider?.next}
-            className={cn(s.rightControl)}
-            aria-label="Next Product Image"
-          >
-            <ChevronRight />
-          </button>
-        </div>
+        {slider && (
+          <div className={s.control}>
+            <button
+              className={cn(s.leftControl)}
+              onClick={slider.prev}
+              aria-label="Previous Product Image"
+            >
+              <ChevronLeft />
+            </button>
+            <button
+              className={cn(s.rightControl)}
+              onClick={slider.next}
+              aria-label="Next Product Image"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+        )}
         {Children.map(children, (child) => {
           // Add the keen-slider__slide className to children
           if (isValidElement(child)) {
@@ -98,29 +113,29 @@ const ProductSlider: FC = ({ children }) => {
           }
           return child
         })}
-        {slider && (
-          <div className={cn(s.positionIndicatorsContainer)}>
-            {[...Array(slider.details().size).keys()].map((idx) => {
-              return (
-                <button
-                  aria-label="Position indicator"
-                  key={idx}
-                  className={cn(s.positionIndicator, {
-                    [s.positionIndicatorActive]: currentSlide === idx,
-                  })}
-                  onClick={() => {
-                    slider.moveToSlideRelative(idx)
-                  }}
-                >
-                  <div className={s.dot} />
-                </button>
-              )
-            })}
-          </div>
-        )}
       </div>
 
-      <div className={s.album}>{Children.map(children, (child) => child)}</div>
+      <a.div className={s.album} ref={thumbsContainerRef}>
+        {slider &&
+          Children.map(children, (child, idx) => {
+            if (isValidElement(child)) {
+              return {
+                ...child,
+                props: {
+                  ...child.props,
+                  className: cn(child.props.className, s.thumb, {
+                    [s.selected]: currentSlide === idx,
+                  }),
+                  id: `thumb-${idx}`,
+                  onClick: () => {
+                    slider.moveToSlideRelative(idx)
+                  },
+                },
+              }
+            }
+            return child
+          })}
+      </a.div>
     </div>
   )
 }

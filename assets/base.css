@@ -91,6 +91,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary);
   color: var(--text-primary);
+  overscroll-behavior-x: none;
 }
 
 body {
