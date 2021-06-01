@@ -185,8 +185,7 @@ export const normalizePages = (edges: PageEdge[], locale: string): Page[] =>
 
 export const normalizeCategory = (category: any): Category => ({
   id: category.id,
-  name: category.name,
+  name: category.title,
   slug: category.handle,
   path: `/${category.handle}`,
 })
-
