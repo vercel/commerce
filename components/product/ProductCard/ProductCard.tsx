@@ -11,7 +11,7 @@ interface Props {
   product: Product
   variant?: 'slim' | 'simple'
   imgProps?: Omit<ImageProps, 'src'>
-  noNameTag: boolean
+  noNameTag?: boolean
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
