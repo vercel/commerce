@@ -1,17 +1,13 @@
 import { SwellConfig } from '../api'
-
-export type Category = {
-  entityId: string
-  name: string
-  path: string
-}
+import { Category } from '@commerce/types'
 
 const getCategories = async (config: SwellConfig): Promise<Category[]> => {
   const data = await config.fetch('categories', 'get')
   return (
-    data.results.map(({ id: entityId, name, slug }: any) => ({
-      entityId,
+    data.results.map(({ id, name, slug }: any) => ({
+      id,
       name,
+      slug,
       path: `/${slug}`,
     })) ?? []
   )

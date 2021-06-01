@@ -36,14 +36,19 @@ export type HookFetcher<Data, Input = null, Result = any> = (
   fetch: <T = Result, Body = any>(options: FetcherOptions<Body>) => Promise<T>
 ) => Data | Promise<Data>
 
-export type HookFetcherFn<Data, Input = undefined, Result = any, Body = any> = (
-  context: HookFetcherContext<Input, Result, Body>
-) => Data | Promise<Data>
+export type HookFetcherFn<H extends HookSchemaBase> = (
+  context: HookFetcherContext<H>
+) => H['data'] | Promise<H['data']>
 
-export type HookFetcherContext<Input = undefined, Result = any, Body = any> = {
+export type HookFetcherContext<H extends HookSchemaBase> = {
   options: HookFetcherOptions
-  input: Input
-  fetch: <T = Result, B = Body>(options: FetcherOptions<B>) => Promise<T>
+  input: H['fetcherInput']
+  fetch: <
+    T = H['fetchData'] extends {} | null ? H['fetchData'] : any,
+    B = H['body']
+  >(
+    options: FetcherOptions<B>
+  ) => Promise<T>
 }
 
 export type HookFetcherOptions = { method?: string } & (
@@ -58,7 +63,7 @@ export type HookSWRInput = [string, HookInputValue][]
 export type HookFetchInput = { [k: string]: HookInputValue }
 
 export type HookFunction<
-  Input extends { [k: string]: unknown } | null,
+  Input extends { [k: string]: unknown } | undefined,
   T
 > = keyof Input extends never
   ? () => T
@@ -66,62 +71,72 @@ export type HookFunction<
   ? (input?: Input) => T
   : (input: Input) => T
 
-export type SWRHook<
-  // Data obj returned by the hook and fetch operation
-  Data,
+export type HookSchemaBase = {
+  // Data obj returned by the hook
+  data: any
   // Input expected by the hook
-  Input extends { [k: string]: unknown } = {},
-  // Input expected before doing a fetch operation
-  FetchInput extends HookFetchInput = {},
+  input?: {}
+  // Input expected before doing a fetch operation (aka fetch handler)
+  fetcherInput?: {}
+  // Body object expected by the fetch operation
+  body?: {}
+  // Data returned by the fetch operation
+  fetchData?: any
+}
+
+export type SWRHookSchemaBase = HookSchemaBase & {
   // Custom state added to the response object of SWR
-  State = {}
-> = {
+  swrState?: {}
+}
+
+export type MutationSchemaBase = HookSchemaBase & {
+  // Input expected by the action returned by the hook
+  actionInput?: {}
+}
+
+/**
+ * Generates a SWR hook handler based on the schema of a hook
+ */
+export type SWRHook<H extends SWRHookSchemaBase> = {
   useHook(
-    context: SWRHookContext<Data, FetchInput>
+    context: SWRHookContext<H>
   ): HookFunction<
-    Input & { swrOptions?: SwrOptions<Data, FetchInput> },
-    ResponseState<Data> & State
+    H['input'] & { swrOptions?: SwrOptions<H['data'], H['fetcherInput']> },
+    ResponseState<H['data']> & H['swrState']
   >
   fetchOptions: HookFetcherOptions
-  fetcher?: HookFetcherFn<Data, FetchInput>
+  fetcher?: HookFetcherFn<H>
 }
 
-export type SWRHookContext<
-  Data,
-  FetchInput extends { [k: string]: unknown } = {}
-> = {
+export type SWRHookContext<H extends SWRHookSchemaBase> = {
   useData(context?: {
     input?: HookFetchInput | HookSWRInput
-    swrOptions?: SwrOptions<Data, FetchInput>
-  }): ResponseState<Data>
+    swrOptions?: SwrOptions<H['data'], H['fetcherInput']>
+  }): ResponseState<H['data']>
 }
 
-export type MutationHook<
-  // Data obj returned by the hook and fetch operation
-  Data,
-  // Input expected by the hook
-  Input extends { [k: string]: unknown } = {},
-  // Input expected by the action returned by the hook
-  ActionInput extends { [k: string]: unknown } = {},
-  // Input expected before doing a fetch operation
-  FetchInput extends { [k: string]: unknown } = ActionInput
-> = {
+/**
+ * Generates a mutation hook handler based on the schema of a hook
+ */
+export type MutationHook<H extends MutationSchemaBase> = {
   useHook(
-    context: MutationHookContext<Data, FetchInput>
-  ): HookFunction<Input, HookFunction<ActionInput, Data | Promise<Data>>>
+    context: MutationHookContext<H>
+  ): HookFunction<
+    H['input'],
+    HookFunction<H['actionInput'], H['data'] | Promise<H['data']>>
+  >
   fetchOptions: HookFetcherOptions
-  fetcher?: HookFetcherFn<Data, FetchInput>
+  fetcher?: HookFetcherFn<H>
 }
 
-export type MutationHookContext<
-  Data,
-  FetchInput extends { [k: string]: unknown } | null = {}
-> = {
-  fetch: keyof FetchInput extends never
-    ? () => Data | Promise<Data>
-    : Partial<FetchInput> extends FetchInput
-    ? (context?: { input?: FetchInput }) => Data | Promise<Data>
-    : (context: { input: FetchInput }) => Data | Promise<Data>
+export type MutationHookContext<H extends MutationSchemaBase> = {
+  fetch: keyof H['fetcherInput'] extends never
+    ? () => H['data'] | Promise<H['data']>
+    : Partial<H['fetcherInput']> extends H['fetcherInput']
+    ? (context?: {
+        input?: H['fetcherInput']
+      }) => H['data'] | Promise<H['data']>
+    : (context: { input: H['fetcherInput'] }) => H['data'] | Promise<H['data']>
 }
 
 export type SwrOptions<Data, Input = null, Result = any> = ConfigInterface<

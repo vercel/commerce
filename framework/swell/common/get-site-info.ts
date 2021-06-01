@@ -1,6 +1,6 @@
-import getCategories, { Category } from '../utils/get-categories'
+import getCategories from '../utils/get-categories'
 import getVendors, { Brands } from '../utils/get-vendors'
-
+import { Category } from '@commerce/types'
 import { getConfig, SwellConfig } from '../api'
 
 export type GetSiteInfoResult<

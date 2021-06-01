@@ -1,46 +1,38 @@
-export const productConnection = `
-pageInfo {
-  hasNextPage
-  hasPreviousPage
-}
-edges {
-  node {
-    id
-    title
-    vendor
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
+export const productConnectionFragment = /* GraphQL */ `
+  fragment productConnection on ProductConnection {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
     }
-    images(first: 1) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-      }
-      edges {
-        node {
-          originalSrc
-          altText
-          width
-          height
+    edges {
+      node {
+        id
+        title
+        vendor
+        handle
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 1) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+          }
+          edges {
+            node {
+              originalSrc
+              altText
+              width
+              height
+            }
+          }
         }
       }
     }
   }
-}`
-
-export const productsFragment = `
-products(
-  first: $first
-  sortKey: $sortKey
-  reverse: $reverse
-  query: $query
-) {
-  ${productConnection}
-}
 `
 
 const getAllProductsQuery = /* GraphQL */ `
@@ -50,7 +42,16 @@ const getAllProductsQuery = /* GraphQL */ `
     $sortKey: ProductSortKeys = RELEVANCE
     $reverse: Boolean = false
   ) {
-    ${productsFragment}
+    products(
+      first: $first
+      sortKey: $sortKey
+      reverse: $reverse
+      query: $query
+    ) {
+      ...productConnection
+    }
   }
+
+  ${productConnectionFragment}
 `
 export default getAllProductsQuery

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { Product } from '@commerce/types'
+import type { Product } from '@commerce/types/product'
 import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'

@@ -1,65 +1,70 @@
-export const checkoutDetailsFragment = `
-  id
-  webUrl
-  subtotalPriceV2{
-    amount
-    currencyCode
-  }
-  totalTaxV2 {
-    amount
-    currencyCode
-  }
-  totalPriceV2 {
-    amount
-    currencyCode
-  }
-  completedAt
-  createdAt
-  taxesIncluded
-  lineItems(first: 250) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
+export const checkoutDetailsFragment = /* GraphQL */ `
+  fragment checkoutDetails on Checkout {
+    id
+    webUrl
+    subtotalPriceV2 {
+      amount
+      currencyCode
     }
-    edges {
-      node {
-        id
-        title
-        variant {
+    totalTaxV2 {
+      amount
+      currencyCode
+    }
+    totalPriceV2 {
+      amount
+      currencyCode
+    }
+    completedAt
+    createdAt
+    taxesIncluded
+    lineItems(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
           id
-          sku
           title
-          image {
-            originalSrc
-            altText
-            width
-            height
+          variant {
+            id
+            sku
+            title
+            selectedOptions {
+              name
+              value
+            }
+            image {
+              originalSrc
+              altText
+              width
+              height
+            }
+            priceV2 {
+              amount
+              currencyCode
+            }
+            compareAtPriceV2 {
+              amount
+              currencyCode
+            }
+            product {
+              handle
+            }
           }
-          priceV2{
-            amount
-            currencyCode
-          }
-          compareAtPriceV2{
-            amount
-            currencyCode
-          }
-          product {
-            handle
-          }
+          quantity
         }
-        quantity
       }
     }
   }
 `
 
 const getCheckoutQuery = /* GraphQL */ `
-  query($checkoutId: ID!) {
+  query getCheckout($checkoutId: ID!) {
     node(id: $checkoutId) {
-      ... on Checkout {
-        ${checkoutDetailsFragment}
-      }
+      ...checkoutDetails
     }
   }
+  ${checkoutDetailsFragment}
 `
 export default getCheckoutQuery
