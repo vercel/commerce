@@ -8,6 +8,7 @@ export interface State {
   displayToast: boolean
   modalView: string
   toastText: string
+  userAvatar: string
 }
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   modalView: 'LOGIN_VIEW',
   displayToast: false,
   toastText: '',
+  userAvatar: '',
 }
 
 type Action =
@@ -57,7 +59,12 @@ type Action =
       value: string
     }
 
-type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
+type MODAL_VIEWS =
+  | 'SIGNUP_VIEW'
+  | 'LOGIN_VIEW'
+  | 'FORGOT_VIEW'
+  | 'NEW_SHIPPING_ADDRESS'
+  | 'NEW_PAYMENT_METHOD'
 type ToastText = string
 
 export const UIContext = React.createContext<State | any>(initialState)

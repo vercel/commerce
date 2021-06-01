@@ -1,28 +1,23 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './ProductView.module.css'
-
-import { useUI } from '@components/ui'
 import { Swatch, ProductSlider } from '@components/product'
-import { Button, Container, Text } from '@components/ui'
-
+import { Button, Container, Text, useUI } from '@components/ui'
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
-
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
 interface Props {
-  className?: string
   children?: any
   product: Product
-  wishlist?: boolean
+  className?: string
 }
 
-const ProductView: FC<Props> = ({ product, wishlist = false }) => {
+const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
@@ -31,12 +26,18 @@ const ProductView: FC<Props> = ({ product, wishlist = false }) => {
   })
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
-  const [choices, setChoices] = useState<SelectedOptions>({
-    size: null,
-    color: null,
-  })
+  const [choices, setChoices] = useState<SelectedOptions>({})
 
-  // Select the correct variant based on choices
+  useEffect(() => {
+    // Selects the default option
+    product.variants[0].options?.forEach((v) => {
+      setChoices((choices) => ({
+        ...choices,
+        [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
+      }))
+    })
+  }, [])
+
   const variant = getVariant(product, choices)
 
   const addToCart = async () => {
@@ -101,7 +102,6 @@ const ProductView: FC<Props> = ({ product, wishlist = false }) => {
             </ProductSlider>
           </div>
         </div>
-
         <div className={s.sidebar}>
           <section>
             {product.options?.map((opt) => (
@@ -136,7 +136,7 @@ const ProductView: FC<Props> = ({ product, wishlist = false }) => {
             ))}
 
             <div className="pb-14 break-words w-full max-w-xl">
-              <Text html={product.description} />
+              <Text html={product.descriptionHtml || product.description} />
             </div>
           </section>
           <div>
@@ -146,17 +146,16 @@ const ProductView: FC<Props> = ({ product, wishlist = false }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
-              disabled={!variant && product.options.length > 0}
             >
               Add to Cart
             </Button>
           </div>
         </div>
-        {wishlist && (
+        {process.env.COMMERCE_WISHLIST_ENABLED && (
           <WishlistButton
             className={s.wishlistButton}
             productId={product.id}
-            variant={product.variants[0]!}
+            variant={product.variants[0]! as any}
           />
         )}
       </div>

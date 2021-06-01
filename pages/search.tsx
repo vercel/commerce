@@ -26,31 +26,28 @@ const SORT = Object.entries({
   'price-desc': 'Price: High to low',
 })
 
-import Features from '@commerce/utils/features'
-
 import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
+import { Product } from '@commerce/types'
 
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
+  const config = getConfig({ locale, locales })
   const { pages } = await getAllPages({ config, preview })
   const { categories, brands } = await getSiteInfo({ config, preview })
-  const isWishlistEnabled = Features.isEnabled('wishlist')
   return {
     props: {
       pages,
       categories,
       brands,
-      commerceFeatures: {
-        wishlist: isWishlistEnabled,
-      },
+      locale,
     },
   }
 }
@@ -58,7 +55,7 @@ export async function getStaticProps({
 export default function Search({
   categories,
   brands,
-  commerceFeatures: { wishlist },
+  locale,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
@@ -82,8 +79,11 @@ export default function Search({
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.entityId,
-    brandId: activeBrand?.entityId,
+    brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
+    ...(process.env.COMMERCE_PROVIDER === 'shopify' && {
+      locale,
+    }),
   })
 
   const handleClick = (event: any, filter: string) => {
@@ -272,6 +272,7 @@ export default function Search({
                         className={cn(
                           'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
                           {
+                            // @ts-ignore Shopify - Fix this types
                             underline: activeBrand?.entityId === node.entityId,
                           }
                         )}
@@ -358,7 +359,6 @@ export default function Search({
                     width: 480,
                     height: 480,
                   }}
-                  wishlist={wishlist}
                 />
               ))}
             </Grid>

@@ -2,6 +2,7 @@ import type { RequestInit, Response } from '@vercel/fetch'
 
 export interface CommerceAPIConfig {
   locale?: string
+  locales?: string[]
   commerceUrl: string
   apiToken: string
   cartCookie: string

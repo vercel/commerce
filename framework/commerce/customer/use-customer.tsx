@@ -1,56 +1,20 @@
+import { useHook, useSWRHook } from '../utils/use-hook'
+import { SWRFetcher } from '../utils/default-fetcher'
+import type { HookFetcherFn, SWRHook } from '../utils/types'
 import type { Customer } from '../types'
-import type {
-  Prop,
-  HookFetcherFn,
-  UseHookInput,
-  UseHookResponse,
-} from '../utils/types'
-import defaultFetcher from '../utils/default-fetcher'
-import useData from '../utils/use-data'
-import { Provider, useCommerce } from '..'
+import { Provider } from '..'
 
-export type UseCustomerHandler<P extends Provider> = Prop<
-  Prop<P, 'customer'>,
-  'useCustomer'
->
+export type UseCustomer<
+  H extends SWRHook<any, any, any> = SWRHook<Customer | null>
+> = ReturnType<H['useHook']>
 
-export type UseCustomerInput<P extends Provider> = UseHookInput<
-  UseCustomerHandler<P>
->
+export const fetcher: HookFetcherFn<Customer | null, any> = SWRFetcher
 
-export type CustomerResponse<P extends Provider> = UseHookResponse<
-  UseCustomerHandler<P>
->
+const fn = (provider: Provider) => provider.customer?.useCustomer!
 
-export type UseCustomer<P extends Provider> = Partial<
-  UseCustomerInput<P>
-> extends UseCustomerInput<P>
-  ? (input?: UseCustomerInput<P>) => CustomerResponse<P>
-  : (input: UseCustomerInput<P>) => CustomerResponse<P>
-
-export const fetcher = defaultFetcher as HookFetcherFn<Customer | null>
-
-export default function useCustomer<P extends Provider>(
-  input: UseCustomerInput<P> = {}
-) {
-  const { providerRef, fetcherRef } = useCommerce<P>()
-
-  const provider = providerRef.current
-  const opts = provider.customer?.useCustomer
-
-  const fetcherFn = opts?.fetcher ?? fetcher
-  const useHook = opts?.useHook ?? ((ctx) => ctx.useData())
-
-  return useHook({
-    input,
-    useData(ctx) {
-      const response = useData(
-        { ...opts!, fetcher: fetcherFn },
-        ctx?.input ?? [],
-        provider.fetcher ?? fetcherRef.current,
-        ctx?.swrOptions ?? input.swrOptions
-      )
-      return response
-    },
-  })
+const useCustomer: UseCustomer = (input) => {
+  const hook = useHook(fn)
+  return useSWRHook({ fetcher, ...hook })(input)
 }
+
+export default useCustomer

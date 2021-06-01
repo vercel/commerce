@@ -1,43 +1,32 @@
 import { useCallback } from 'react'
-import { HookFetcher } from '@commerce/utils/types'
+import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
-import useWishlistRemoveItem from '@commerce/wishlist/use-remove-item'
-import type { RemoveItemBody } from '../api/wishlist'
+import useRemoveItem, {
+  RemoveItemInput,
+  UseRemoveItem,
+} from '@commerce/wishlist/use-remove-item'
+import type { RemoveItemBody, Wishlist } from '../api/wishlist'
 import useCustomer from '../customer/use-customer'
-import useWishlist from './use-wishlist'
+import useWishlist, { UseWishlistInput } from './use-wishlist'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/wishlist',
-  method: 'DELETE',
-}
+export default useRemoveItem as UseRemoveItem<typeof handler>
 
-export type RemoveItemInput = {
-  id: string | number
-}
-
-export const fetcher: HookFetcher<any | null, RemoveItemBody> = (
-  options,
-  { itemId },
-  fetch
-) => {
-  return fetch({
-    ...defaultOpts,
-    ...options,
-    body: { itemId },
-  })
-}
-
-export function extendHook(customFetcher: typeof fetcher) {
-  const useRemoveItem = (opts?: any) => {
+export const handler: MutationHook<
+  Wishlist | null,
+  { wishlist?: UseWishlistInput },
+  RemoveItemInput,
+  RemoveItemBody
+> = {
+  fetchOptions: {
+    url: '/api/bigcommerce/wishlist',
+    method: 'DELETE',
+  },
+  useHook: ({ fetch }) => ({ wishlist } = {}) => {
     const { data: customer } = useCustomer()
-    const { revalidate } = useWishlist(opts)
-    const fn = useWishlistRemoveItem<any | null, RemoveItemBody>(
-      defaultOpts,
-      customFetcher
-    )
+    const { revalidate } = useWishlist(wishlist)
 
     return useCallback(
-      async function removeItem(input: RemoveItemInput) {
+      async function removeItem(input) {
         if (!customer) {
           // A signed customer is required in order to have a wishlist
           throw new CommerceError({
@@ -45,17 +34,11 @@ export function extendHook(customFetcher: typeof fetcher) {
           })
         }
 
-        const data = await fn({ itemId: String(input.id) })
+        const data = await fetch({ input: { itemId: String(input.id) } })
         await revalidate()
         return data
       },
-      [fn, revalidate, customer]
+      [fetch, revalidate, customer]
     )
-  }
-
-  useRemoveItem.extend = extendHook
-
-  return useRemoveItem
+  },
 }
-
-export default extendHook(fetcher)

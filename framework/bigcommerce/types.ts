@@ -43,9 +43,6 @@ export type CartItemBody = Core.CartItemBody & {
   optionSelections?: OptionSelections
 }
 
-type X = Core.CartItemBody extends CartItemBody ? any : never
-type Y = CartItemBody extends Core.CartItemBody ? any : never
-
 export type GetCartHandlerBody = Core.GetCartHandlerBody
 
 export type AddCartItemBody = Core.AddCartItemBody<CartItemBody>

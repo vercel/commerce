@@ -9,16 +9,18 @@ import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import { getConfig } from '@framework/api'
 import getPage from '@framework/common/get-page'
-import getAllPages from '@framework/common/get-all-pages'
+import getAllPages, { Page } from '@framework/common/get-all-pages'
 import { defaultPageProps } from '@lib/defaults'
 
 export async function getStaticProps({
   preview,
   params,
   locale,
+  locales,
 }: GetStaticPropsContext<{ pages: string[] }>) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ preview, config })
+  const config = getConfig({ locale, locales })
+  let { pages } = await getAllPages({ preview, config })
+
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
 
@@ -40,8 +42,10 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const { pages } = await getAllPages()
+  const config = getConfig({ locales })
+  let { pages } = await getAllPages({ config })
   const [invalidPaths, log] = missingLocaleInPages()
+
   const paths = pages
     .map((page) => page.url)
     .filter((url) => {

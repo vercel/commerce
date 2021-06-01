@@ -1,57 +1,20 @@
+import { useHook, useSWRHook } from '../utils/use-hook'
+import { SWRFetcher } from '../utils/default-fetcher'
+import type { HookFetcherFn, SWRHook } from '../utils/types'
 import type { SearchProductsData } from '../types'
-import type {
-  Prop,
-  HookFetcherFn,
-  UseHookInput,
-  UseHookResponse,
-} from '../utils/types'
-import defaultFetcher from '../utils/default-fetcher'
-import useData from '../utils/use-data'
-import { Provider, useCommerce } from '..'
-import { BigcommerceProvider } from '@framework'
+import { Provider } from '..'
 
-export type UseSearchHandler<P extends Provider> = Prop<
-  Prop<P, 'products'>,
-  'useSearch'
->
+export type UseSearch<
+  H extends SWRHook<any, any, any> = SWRHook<SearchProductsData>
+> = ReturnType<H['useHook']>
 
-export type UseSeachInput<P extends Provider> = UseHookInput<
-  UseSearchHandler<P>
->
+export const fetcher: HookFetcherFn<SearchProductsData, any> = SWRFetcher
 
-export type SearchResponse<P extends Provider> = UseHookResponse<
-  UseSearchHandler<P>
->
+const fn = (provider: Provider) => provider.products?.useSearch!
 
-export type UseSearch<P extends Provider> = Partial<
-  UseSeachInput<P>
-> extends UseSeachInput<P>
-  ? (input?: UseSeachInput<P>) => SearchResponse<P>
-  : (input: UseSeachInput<P>) => SearchResponse<P>
-
-export const fetcher = defaultFetcher as HookFetcherFn<SearchProductsData>
-
-export default function useSearch<P extends Provider>(
-  input: UseSeachInput<P> = {}
-) {
-  const { providerRef, fetcherRef } = useCommerce<P>()
-
-  const provider = providerRef.current
-  const opts = provider.products?.useSearch
-
-  const fetcherFn = opts?.fetcher ?? fetcher
-  const useHook = opts?.useHook ?? ((ctx) => ctx.useData())
-
-  return useHook({
-    input,
-    useData(ctx) {
-      const response = useData(
-        { ...opts!, fetcher: fetcherFn },
-        ctx?.input ?? [],
-        provider.fetcher ?? fetcherRef.current,
-        ctx?.swrOptions ?? input.swrOptions
-      )
-      return response
-    },
-  })
+const useSearch: UseSearch = (input) => {
+  const hook = useHook(fn)
+  return useSWRHook({ fetcher, ...hook })(input)
 }
+
+export default useSearch

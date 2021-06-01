@@ -1,13 +1,12 @@
 import React, { FC, useState } from 'react'
 import cn from 'classnames'
-import { Heart } from '@components/icons'
-
 import { useUI } from '@components/ui'
-import type { Product, ProductVariant } from '@commerce/types'
-import useCustomer from '@framework/customer/use-customer'
+import { Heart } from '@components/icons'
 import useAddItem from '@framework/wishlist/use-add-item'
+import useCustomer from '@framework/customer/use-customer'
+import useWishlist from '@framework/wishlist/use-wishlist'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
-import useWishlist from '@framework/wishlist/use-add-item'
+import type { Product, ProductVariant } from '@commerce/types'
 
 type Props = {
   productId: Product['id']
@@ -27,8 +26,12 @@ const WishlistButton: FC<Props> = ({
   const { openModal, setModalView } = useUI()
   const [loading, setLoading] = useState(false)
 
+  // @ts-ignore Wishlist is not always enabled
   const itemInWishlist = data?.items?.find(
-    (item) => item.product_id === productId && item.variant_id === variant.id
+    // @ts-ignore Wishlist is not always enabled
+    (item) =>
+      item.product_id === Number(productId) &&
+      (item.variant_id as any) === Number(variant.id)
   )
 
   const handleWishlistChange = async (e: any) => {
