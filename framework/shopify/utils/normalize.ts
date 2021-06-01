@@ -14,6 +14,7 @@ import {
   ProductOption,
   Page as ShopifyPage,
   PageEdge,
+  Collection,
 } from '../schema'
 import { colorMap } from '@lib/colors'
 
@@ -38,7 +39,7 @@ const normalizeProductOption = ({
         label: value,
       }
       if (displayName.match(/colou?r/gi)) {
-        const mapedColor = colorMap[value]
+        const mapedColor = colorMap[value.toLowerCase().replace(/ /g, '')]
         if (mapedColor) {
           output = {
             ...output,
@@ -183,9 +184,13 @@ export const normalizePage = (
 export const normalizePages = (edges: PageEdge[], locale: string): Page[] =>
   edges?.map((edge) => normalizePage(edge.node, locale))
 
-export const normalizeCategory = (category: any): Category => ({
-  id: category.id,
-  name: category.title,
-  slug: category.handle,
-  path: `/${category.handle}`,
+export const normalizeCategory = ({
+  title: name,
+  handle,
+  id,
+}: Collection): Category => ({
+  id,
+  name,
+  slug: handle,
+  path: `/${handle}`,
 })
