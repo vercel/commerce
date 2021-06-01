@@ -16,6 +16,8 @@ interface Props {
   product: Product
 }
 
+const placeholderImg = '/product-img-placeholder.svg'
+
 const WishlistCard: FC<Props> = ({ product }) => {
   const { price } = usePrice({
     amount: product.prices?.price?.value,
@@ -58,10 +60,10 @@ const WishlistCard: FC<Props> = ({ product }) => {
     <div className={cn(s.root, { 'opacity-75 pointer-events-none': removing })}>
       <div className={`col-span-3 ${s.productBg}`}>
         <Image
-          src={product.images[0].url}
+          src={product.images[0]?.url || placeholderImg}
           width={400}
           height={400}
-          alt={product.images[0].alt || 'Product Image'}
+          alt={product.images[0]?.alt || 'Product Image'}
         />
       </div>
 
