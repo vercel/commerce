@@ -8,7 +8,6 @@ import { Text } from '@components/ui'
 import { Layout } from '@components/common'
 import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
-import { defaultPageProps } from '@lib/defaults'
 
 export async function getStaticProps({
   preview,
@@ -17,10 +16,10 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext<{ pages: string[] }>) {
   const config = { locale, locales }
-  const { pages } = await commerce.getAllPages({ preview, config })
+  const { pages } = await commerce.getAllPages({ config, preview })
+  const { categories } = await commerce.getSiteInfo({ config, preview })
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
-
   const pageItem = pages.find((p) => (p.url ? getSlug(p.url) === slug : false))
   const data =
     pageItem &&
@@ -37,7 +36,7 @@ export async function getStaticProps({
   }
 
   return {
-    props: { ...defaultPageProps, pages, page },
+    props: { pages, page, categories },
     revalidate: 60 * 60, // Every hour
   }
 }

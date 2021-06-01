@@ -23,7 +23,6 @@ import {
 // TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
 
-// TODO (bc) : Remove or standarize this.
 const SORT = Object.entries({
   'latest-desc': 'Latest arrivals',
   'trending-desc': 'Trending',
@@ -73,8 +72,8 @@ export default function Search({
 
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
-    categoryId: activeCategory?.entityId,
-    brandId: activeBrand?.entityId,
+    categoryId: activeCategory?.id,
+    brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
     locale,
   })
@@ -163,8 +162,7 @@ export default function Search({
                         className={cn(
                           'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
                           {
-                            underline:
-                              activeCategory?.entityId === cat.entityId,
+                            underline: activeCategory?.id === cat.id,
                           }
                         )}
                       >

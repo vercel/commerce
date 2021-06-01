@@ -21,6 +21,7 @@ export async function getStaticProps({
     config,
     preview,
   })
+  const { categories } = await commerce.getSiteInfo({ config, preview })
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
@@ -30,6 +31,7 @@ export async function getStaticProps({
     props: {
       pages,
       product,
+      categories,
     },
     revalidate: 200,
   }
