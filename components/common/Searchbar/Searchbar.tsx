@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from 'react'
+import { FC, InputHTMLAttributes, useEffect, useMemo } from 'react'
 import cn from 'classnames'
 import s from './Searchbar.module.css'
 import { useRouter } from 'next/router'
@@ -15,7 +15,7 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
     router.prefetch('/search')
   }, [])
 
-  const handleKeyUp = (e) => {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault()
 
     if (e.key === 'Enter') {
