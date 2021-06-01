@@ -41,8 +41,8 @@
   }
 }
 
-.wishlistButton {
-  @apply top-3 right-3 z-50 absolute bg-accent-9 text-accent-0;
+.root .wishlistButton {
+  @apply top-0 right-0 z-30 absolute;
 }
 
 .productTitle > span,

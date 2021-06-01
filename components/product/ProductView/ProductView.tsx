@@ -175,7 +175,7 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
           </div>
         </div>
       </div>
-      <section className="py-12 px-6">
+      <section className="py-12 px-6 mb-10">
         <Text variant="sectionHeading">Related Products</Text>
         <div className="grid grid-cols-4 py-3 gap-10">
           {relatedProducts.map((p) => (
@@ -185,9 +185,9 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
             >
               <ProductCard
                 key={p.path}
+                variant="simple"
                 className="animated fadeIn"
                 product={p}
-                noNameTag
                 imgProps={{
                   width: 275,
                   height: 275,

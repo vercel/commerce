@@ -5,7 +5,7 @@
 
 .control {
   @apply bg-violet absolute bottom-10 right-10 flex flex-row
-  border-accent-0 border text-accent-0 z-50 shadow-xl;
+  border-accent-0 border text-accent-0 z-30 shadow-xl;
   height: 48px;
 }
 
