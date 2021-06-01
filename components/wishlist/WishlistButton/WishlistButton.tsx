@@ -7,6 +7,7 @@ import useCustomer from '@framework/customer/use-customer'
 import useWishlist from '@framework/wishlist/use-wishlist'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
 import type { Product, ProductVariant } from '@commerce/types'
+import s from './WishlistButton.module.css'
 
 type Props = {
   productId: Product['id']
@@ -66,11 +67,14 @@ const WishlistButton: FC<Props> = ({
   return (
     <button
       aria-label="Add to wishlist"
-      className={cn({ 'opacity-50': loading }, className)}
+      className={cn(s.root, className)}
       onClick={handleWishlistChange}
       {...props}
     >
-      <Heart fill={itemInWishlist ? 'var(--pink)' : 'none'} />
+      <Heart
+        className={cn(s.icon, { 'opacity-80': loading })}
+        fill={itemInWishlist ? 'var(--pink)' : 'none'}
+      />
     </button>
   )
 }

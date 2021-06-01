@@ -10,6 +10,7 @@ import React, {
 import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
+import { ChevronLeft, ChevronRight } from '@components/icons'
 
 const ProductSlider: FC = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -61,16 +62,23 @@ const ProductSlider: FC = ({ children }) => {
 
   return (
     <div className={s.root} ref={sliderContainerRef}>
-      <button
-        className={cn(s.leftControl, s.control)}
-        onClick={slider?.prev}
-        aria-label="Previous Product Image"
-      />
-      <button
-        className={cn(s.rightControl, s.control)}
-        onClick={slider?.next}
-        aria-label="Next Product Image"
-      />
+      <div className={s.control}>
+        <button
+          className={cn(s.leftControl)}
+          onClick={slider?.prev}
+          aria-label="Previous Product Image"
+        >
+          <ChevronLeft />
+        </button>
+        <button
+          className={cn(s.rightControl)}
+          onClick={slider?.next}
+          aria-label="Next Product Image"
+        >
+          <ChevronRight />
+        </button>
+      </div>
+
       <div
         ref={ref}
         className="keen-slider h-full transition-opacity duration-150"

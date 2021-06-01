@@ -2,8 +2,14 @@
   @apply sticky top-0 bg-primary z-40 transition-all duration-150;
 }
 
+.nav {
+  @apply hidden ml-6 space-x-4 lg:block;
+}
+
 .link {
-  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-accent-6;
+  @apply inline-flex items-center leading-6
+  transition ease-in-out duration-75 cursor-pointer
+  text-accent-5;
 }
 
 .link:hover {

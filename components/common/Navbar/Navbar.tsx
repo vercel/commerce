@@ -15,7 +15,7 @@ const Navbar: FC = () => (
               <Logo />
             </a>
           </Link>
-          <nav className="hidden ml-6 space-x-4 lg:block">
+          <nav className={s.nav}>
             <Link href="/search">
               <a className={s.link}>All</a>
             </Link>

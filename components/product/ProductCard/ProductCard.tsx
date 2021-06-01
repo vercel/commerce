@@ -50,7 +50,7 @@ const ProductCard: FC<Props> = ({
       ) : (
         <>
           <div className={s.squareBg} />
-          <div className="flex flex-row justify-between box-border w-full z-20 absolute bg-red">
+          <div className="flex flex-row justify-between box-border w-full z-20 absolute ">
             {!noNameTag && (
               <div className="absolute top-0 left-0 pr-16 max-w-full">
                 <h3 className={s.productTitle}>

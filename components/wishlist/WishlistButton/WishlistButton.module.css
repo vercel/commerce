@@ -1,0 +1,19 @@
+.root {
+  @apply p-5 text-accent-9 flex items-center
+  justify-center font-semibold cursor-pointer
+  bg-accent-0 text-sm;
+  transition: opacity 0.2s ease;
+}
+
+.root:focus {
+  @apply outline-none;
+}
+
+.icon {
+  @apply text-accent-9;
+  transition: transform 0.2s ease;
+}
+
+.icon {
+  transition: fill 0.4s ease;
+}

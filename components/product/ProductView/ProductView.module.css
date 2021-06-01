@@ -24,10 +24,10 @@
 }
 
 .nameBox {
-  @apply absolute top-6 left-0 z-20 pr-16;
+  @apply absolute top-0 left-0 z-20 pr-16;
 
   @screen lg {
-    @apply left-6 pr-16;
+    @apply left-0 pr-16;
   }
 
   & .name {
@@ -43,7 +43,7 @@
   @screen lg {
     & .name,
     & .price {
-      @apply bg-violet-light text-white;
+      @apply bg-accent-0 text-accent-9;
     }
   }
 }
@@ -61,6 +61,7 @@
 }
 
 .imageContainer {
+  @apply text-center;
   & > div {
     @apply h-full;
     & > div {
@@ -84,11 +85,5 @@
 }
 
 .wishlistButton {
-  @apply absolute z-30 top-6 right-0 bg-primary text-primary
-  w-10 h-10 flex items-center justify-center font-semibold
-  leading-6 cursor-pointer px-6;
-
-  @screen lg {
-    @apply top-6 right-0 text-black bg-white w-14 h-14;
-  }
+  @apply absolute z-30 top-0 right-0;
 }

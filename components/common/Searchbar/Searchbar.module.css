@@ -1,3 +1,7 @@
+.root {
+  @apply relative text-sm bg-accent-0 text-base w-full transition-colors duration-150 border border-accent-2;
+}
+
 .input {
   @apply bg-transparent px-3 py-2 appearance-none w-full transition duration-150 ease-in-out pr-10;
 

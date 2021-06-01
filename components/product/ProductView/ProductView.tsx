@@ -185,7 +185,6 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
               key={p.path}
             >
               <ProductCard
-                variant="simple"
                 key={p.path}
                 className="animated fadeIn"
                 product={p}

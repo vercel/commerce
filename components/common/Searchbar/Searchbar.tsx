@@ -15,14 +15,26 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
     router.prefetch('/search')
   }, [])
 
+  const handleKeyUp = (e) => {
+    e.preventDefault()
+
+    if (e.key === 'Enter') {
+      const q = e.currentTarget.value
+
+      router.push(
+        {
+          pathname: `/search`,
+          query: q ? { q } : {},
+        },
+        undefined,
+        { shallow: true }
+      )
+    }
+  }
+
   return useMemo(
     () => (
-      <div
-        className={cn(
-          'relative text-sm bg-accent-1 text-base w-full transition-colors duration-150',
-          className
-        )}
-      >
+      <div className={cn(s.root, className)}>
         <label className="hidden" htmlFor={id}>
           Search
         </label>
@@ -31,22 +43,7 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
           className={s.input}
           placeholder="Search for products..."
           defaultValue={router.query.q}
-          onKeyUp={(e) => {
-            e.preventDefault()
-
-            if (e.key === 'Enter') {
-              const q = e.currentTarget.value
-
-              router.push(
-                {
-                  pathname: `/search`,
-                  query: q ? { q } : {},
-                },
-                undefined,
-                { shallow: true }
-              )
-            }
-          }}
+          onKeyUp={handleKeyUp}
         />
         <div className={s.iconContainer}>
           <svg className={s.icon} fill="currentColor" viewBox="0 0 20 20">
