@@ -49,7 +49,13 @@ const ProductCard: FC<Props> = ({
         </div>
       ) : (
         <>
-          <div className={s.squareBg} />
+          {process.env.COMMERCE_WISHLIST_ENABLED && (
+            <WishlistButton
+              className={s.wishlistButton}
+              productId={product.id}
+              variant={product.variants[0] as any}
+            />
+          )}
           <div className="flex flex-row justify-between box-border w-full z-20 absolute ">
             {!noNameTag && (
               <div className="absolute top-0 left-0 pr-16 max-w-full">
@@ -62,13 +68,6 @@ const ProductCard: FC<Props> = ({
                   {product.price.currencyCode}
                 </span>
               </div>
-            )}
-            {process.env.COMMERCE_WISHLIST_ENABLED && (
-              <WishlistButton
-                className={s.wishlistButton}
-                productId={product.id}
-                variant={product.variants[0] as any}
-              />
             )}
           </div>
           <div className={s.imageContainer}>

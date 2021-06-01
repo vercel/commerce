@@ -62,28 +62,27 @@ const ProductSlider: FC = ({ children }) => {
 
   return (
     <div className={s.root} ref={sliderContainerRef}>
-      <div className={s.control}>
-        <button
-          className={cn(s.leftControl)}
-          onClick={slider?.prev}
-          aria-label="Previous Product Image"
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          className={cn(s.rightControl)}
-          onClick={slider?.next}
-          aria-label="Next Product Image"
-        >
-          <ChevronRight />
-        </button>
-      </div>
-
       <div
         ref={ref}
-        className="keen-slider h-full transition-opacity duration-150"
+        className="relative keen-slider h-full transition-opacity duration-150"
         style={{ opacity: isMounted ? 1 : 0 }}
       >
+        <div className={s.control}>
+          <button
+            onClick={slider?.prev}
+            className={cn(s.leftControl)}
+            aria-label="Previous Product Image"
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            onClick={slider?.next}
+            className={cn(s.rightControl)}
+            aria-label="Next Product Image"
+          >
+            <ChevronRight />
+          </button>
+        </div>
         {Children.map(children, (child) => {
           // Add the keen-slider__slide className to children
           if (isValidElement(child)) {
@@ -99,27 +98,29 @@ const ProductSlider: FC = ({ children }) => {
           }
           return child
         })}
+        {slider && (
+          <div className={cn(s.positionIndicatorsContainer)}>
+            {[...Array(slider.details().size).keys()].map((idx) => {
+              return (
+                <button
+                  aria-label="Position indicator"
+                  key={idx}
+                  className={cn(s.positionIndicator, {
+                    [s.positionIndicatorActive]: currentSlide === idx,
+                  })}
+                  onClick={() => {
+                    slider.moveToSlideRelative(idx)
+                  }}
+                >
+                  <div className={s.dot} />
+                </button>
+              )
+            })}
+          </div>
+        )}
       </div>
-      {slider && (
-        <div className={cn(s.positionIndicatorsContainer)}>
-          {[...Array(slider.details().size).keys()].map((idx) => {
-            return (
-              <button
-                aria-label="Position indicator"
-                key={idx}
-                className={cn(s.positionIndicator, {
-                  [s.positionIndicatorActive]: currentSlide === idx,
-                })}
-                onClick={() => {
-                  slider.moveToSlideRelative(idx)
-                }}
-              >
-                <div className={s.dot} />
-              </button>
-            )
-          })}
-        </div>
-      )}
+
+      <div className={s.album}>{Children.map(children, (child) => child)}</div>
     </div>
   )
 }

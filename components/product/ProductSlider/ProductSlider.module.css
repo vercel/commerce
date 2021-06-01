@@ -113,3 +113,19 @@
 .positionIndicatorActive:hover .dot {
   @apply bg-white;
 }
+
+.album {
+  @apply bg-violet-dark;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.album > * {
+  @apply cursor-pointer;
+  display: inline-block;
+  width: 300px;
+}
+
+.album > div:hover {
+  @apply bg-violet-light;
+}

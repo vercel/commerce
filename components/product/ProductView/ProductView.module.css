@@ -19,10 +19,6 @@
   }
 }
 
-.squareBg {
-  @apply absolute inset-0 bg-violet z-0 h-full;
-}
-
 .nameBox {
   @apply absolute top-0 left-0 z-20 pr-16;
 
@@ -32,7 +28,7 @@
 
   & .name {
     @apply px-6 py-2 bg-primary text-primary font-bold;
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: 0.4px;
   }
 
