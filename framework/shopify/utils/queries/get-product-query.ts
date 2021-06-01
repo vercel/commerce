@@ -3,6 +3,7 @@ const getProductQuery = /* GraphQL */ `
     productByHandle(handle: $slug) {
       id
       handle
+      availableForSale
       title
       productType
       vendor
@@ -33,6 +34,8 @@ const getProductQuery = /* GraphQL */ `
             id
             title
             sku
+            availableForSale
+            requiresShipping
             selectedOptions {
               name
               value

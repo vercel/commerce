@@ -6,25 +6,12 @@ import { useRouter } from 'next/router'
 
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
+import type { Product } from '@commerce/types/product'
 import { Container, Grid, Skeleton } from '@components/ui'
 
-import { getConfig } from '@framework/api'
 import useSearch from '@framework/product/use-search'
-import getAllPages from '@framework/common/get-all-pages'
-import getSiteInfo from '@framework/common/get-site-info'
-
+import commerce from '@lib/api/commerce'
 import rangeMap from '@lib/range-map'
-
-// TODO(bc) Remove this. This should come from the API
-import getSlug from '@lib/get-slug'
-
-// TODO (bc) : Remove or standarize this.
-const SORT = Object.entries({
-  'latest-desc': 'Latest arrivals',
-  'trending-desc': 'Trending',
-  'price-asc': 'Price: Low to high',
-  'price-desc': 'Price: High to low',
-})
 
 import {
   filterQuery,
@@ -32,15 +19,25 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
-import { Product } from '@commerce/types'
+
+// TODO(bc) Remove this. This should come from the API
+import getSlug from '@lib/get-slug'
+
+const SORT = Object.entries({
+  'latest-desc': 'Latest arrivals',
+  'trending-desc': 'Trending',
+  'price-asc': 'Price: Low to high',
+  'price-desc': 'Price: High to low',
+})
 
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
-  const { categories, brands } = await getSiteInfo({ config, preview })
+  const config = { locale, locales }
+  const { pages } = await commerce.getAllPages({ config, preview })
+  const { categories, brands } = await commerce.getSiteInfo({ config, preview })
   return {
     props: {
       pages,
@@ -58,7 +55,7 @@ export default function Search({
   const [toggleFilter, setToggleFilter] = useState(false)
 
   const router = useRouter()
-  const { asPath } = router
+  const { asPath, locale } = router
   const { q, sort } = router.query
   // `q` can be included but because categories and designers can't be searched
   // in the same way of products, it's better to ignore the search input if one
@@ -66,18 +63,17 @@ export default function Search({
   const query = filterQuery({ sort })
 
   const { pathname, category, brand } = useSearchMeta(asPath)
-  const activeCategory = categories.find(
-    (cat) => getSlug(cat.path) === category
-  )
+  const activeCategory = categories.find((cat) => cat.slug === category)
   const activeBrand = brands.find(
     (b) => getSlug(b.node.path) === `brands/${brand}`
   )?.node
 
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',
-    categoryId: activeCategory?.entityId,
+    categoryId: activeCategory?.id,
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
+    locale,
   })
 
   const handleClick = (event: any, filter: string) => {
@@ -164,8 +160,7 @@ export default function Search({
                         className={cn(
                           'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
                           {
-                            underline:
-                              activeCategory?.entityId === cat.entityId,
+                            underline: activeCategory?.id === cat.id,
                           }
                         )}
                       >

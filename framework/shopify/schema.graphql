@@ -14,6 +14,16 @@ directive @accessRestricted(
 ) on FIELD_DEFINITION | OBJECT
 
 """
+Contextualize data.
+"""
+directive @inContext(
+  """
+  The country code for context.
+  """
+  country: CountryCode!
+) on QUERY | MUTATION
+
+"""
 A version of the API.
 """
 type ApiVersion {
@@ -28,7 +38,7 @@ type ApiVersion {
   handle: String!
 
   """
-  Whether the version is supported by Shopify.
+  Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/concepts/about-apis/versioning).
   """
   supported: Boolean!
 }
@@ -547,32 +557,32 @@ Card brand, such as Visa or Mastercard, which can be used for payments.
 """
 enum CardBrand {
   """
-  Visa
+  Visa.
   """
   VISA
 
   """
-  Mastercard
+  Mastercard.
   """
   MASTERCARD
 
   """
-  Discover
+  Discover.
   """
   DISCOVER
 
   """
-  American Express
+  American Express.
   """
   AMERICAN_EXPRESS
 
   """
-  Diners Club
+  Diners Club.
   """
   DINERS_CLUB
 
   """
-  JCB
+  JCB.
   """
   JCB
 }
@@ -2143,6 +2153,11 @@ enum CountryCode {
   AW
 
   """
+  Ascension Island.
+  """
+  AC
+
+  """
   Australia.
   """
   AU
@@ -3188,6 +3203,11 @@ enum CountryCode {
   TT
 
   """
+  Tristan da Cunha.
+  """
+  TA
+
+  """
   Tunisia.
   """
   TN
@@ -3354,7 +3374,7 @@ input CreditCardPaymentInput {
   amount: Money!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -3385,7 +3405,7 @@ input CreditCardPaymentInputV2 {
   paymentAmount: MoneyInput!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -3530,16 +3550,6 @@ enum CurrencyCode {
   BIF
 
   """
-  Belarusian Ruble (BYN).
-  """
-  BYN
-
-  """
-  Belarusian Ruble (BYR).
-  """
-  BYR
-
-  """
   Belize Dollar (BZD).
   """
   BZD
@@ -3655,11 +3665,6 @@ enum CurrencyCode {
   DKK
 
   """
-  Djiboutian Franc (DJF).
-  """
-  DJF
-
-  """
   Dominican Peso (DOP).
   """
   DOP
@@ -3675,19 +3680,9 @@ enum CurrencyCode {
   EGP
 
   """
-  Eritrean Nakfa (ERN).
-  """
-  ERN
-
-  """
   Ethiopian Birr (ETB).
   """
   ETB
-
-  """
-  Falkland Islands Pounds (FKP).
-  """
-  FKP
 
   """
   CFP Franc (XPF).
@@ -3698,11 +3693,6 @@ enum CurrencyCode {
   Fijian Dollars (FJD).
   """
   FJD
-
-  """
-  Gibraltar Pounds (GIP).
-  """
-  GIP
 
   """
   Gambian Dalasi (GMD).
@@ -3728,11 +3718,6 @@ enum CurrencyCode {
   Georgian Lari (GEL).
   """
   GEL
-
-  """
-  Guinean Franc (GNF).
-  """
-  GNF
 
   """
   Haitian Gourde (HTG).
@@ -3775,11 +3760,6 @@ enum CurrencyCode {
   ILS
 
   """
-  Iranian Rial (IRR).
-  """
-  IRR
-
-  """
   Iraqi Dinar (IQD).
   """
   IQD
@@ -3813,11 +3793,6 @@ enum CurrencyCode {
   Kenyan Shilling (KES).
   """
   KES
-
-  """
-  Kiribati Dollar (KID).
-  """
-  KID
 
   """
   Kuwaiti Dinar (KWD).
@@ -3855,11 +3830,6 @@ enum CurrencyCode {
   LRD
 
   """
-  Libyan Dinar (LYD).
-  """
-  LYD
-
-  """
   Lithuanian Litai (LTL).
   """
   LTL
@@ -3888,11 +3858,6 @@ enum CurrencyCode {
   Maldivian Rufiyaa (MVR).
   """
   MVR
-
-  """
-  Mauritanian Ouguiya (MRU).
-  """
-  MRU
 
   """
   Mexican Pesos (MXN).
@@ -4030,11 +3995,6 @@ enum CurrencyCode {
   WST
 
   """
-  Saint Helena Pounds (SHP).
-  """
-  SHP
-
-  """
   Saudi Riyal (SAR).
   """
   SAR
@@ -4055,11 +4015,6 @@ enum CurrencyCode {
   SCR
 
   """
-  Sierra Leonean Leone (SLL).
-  """
-  SLL
-
-  """
   Singapore Dollars (SGD).
   """
   SGD
@@ -4068,11 +4023,6 @@ enum CurrencyCode {
   Sudanese Pound (SDG).
   """
   SDG
-
-  """
-  Somali Shilling (SOS).
-  """
-  SOS
 
   """
   Syrian Pound (SYP).
@@ -4135,19 +4085,9 @@ enum CurrencyCode {
   THB
 
   """
-  Tajikistani Somoni (TJS).
-  """
-  TJS
-
-  """
   Tanzanian Shilling (TZS).
   """
   TZS
-
-  """
-  Tongan Pa'anga (TOP).
-  """
-  TOP
 
   """
   Trinidad and Tobago Dollars (TTD).
@@ -4200,16 +4140,6 @@ enum CurrencyCode {
   VUV
 
   """
-  Venezuelan Bolivares (VEF).
-  """
-  VEF
-
-  """
-  Venezuelan Bolivares (VES).
-  """
-  VES
-
-  """
   Vietnamese đồng (VND).
   """
   VND
@@ -4228,6 +4158,96 @@ enum CurrencyCode {
   Zambian Kwacha (ZMW).
   """
   ZMW
+
+  """
+  Belarusian Ruble (BYN).
+  """
+  BYN
+
+  """
+  Belarusian Ruble (BYR).
+  """
+  BYR
+
+  """
+  Djiboutian Franc (DJF).
+  """
+  DJF
+
+  """
+  Eritrean Nakfa (ERN).
+  """
+  ERN
+
+  """
+  Falkland Islands Pounds (FKP).
+  """
+  FKP
+
+  """
+  Gibraltar Pounds (GIP).
+  """
+  GIP
+
+  """
+  Guinean Franc (GNF).
+  """
+  GNF
+
+  """
+  Iranian Rial (IRR).
+  """
+  IRR
+
+  """
+  Kiribati Dollar (KID).
+  """
+  KID
+
+  """
+  Libyan Dinar (LYD).
+  """
+  LYD
+
+  """
+  Mauritanian Ouguiya (MRU).
+  """
+  MRU
+
+  """
+  Sierra Leonean Leone (SLL).
+  """
+  SLL
+
+  """
+  Saint Helena Pounds (SHP).
+  """
+  SHP
+
+  """
+  Somali Shilling (SOS).
+  """
+  SOS
+
+  """
+  Tajikistani Somoni (TJS).
+  """
+  TJS
+
+  """
+  Tongan Pa'anga (TOP).
+  """
+  TOP
+
+  """
+  Venezuelan Bolivares (VEF).
+  """
+  VEF
+
+  """
+  Venezuelan Bolivares (VES).
+  """
+  VES
 }
 
 """
@@ -7355,6 +7375,8 @@ type Payment implements Node {
 
   """
   A client-side generated token to identify a payment and perform idempotent operations.
+  For more information, refer to
+  [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
   """
   idempotencyKey: String
 
@@ -8589,12 +8611,20 @@ type QueryRoot {
     """
     customerAccessToken: String!
   ): Customer
+
+  """
+  Returns a specific node by ID.
+  """
   node(
     """
     The ID of the Node to return.
     """
     id: ID!
   ): Node
+
+  """
+  Returns the list of nodes with the given IDs.
+  """
   nodes(
     """
     The IDs of the Nodes to return.
@@ -9246,7 +9276,7 @@ input TokenizedPaymentInput {
   amount: Money!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -9287,7 +9317,7 @@ input TokenizedPaymentInputV2 {
   paymentAmount: MoneyInput!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -9328,7 +9358,7 @@ input TokenizedPaymentInputV3 {
   paymentAmount: MoneyInput!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -9393,18 +9423,59 @@ type Transaction {
   test: Boolean!
 }
 
+"""
+The different kinds of order transactions.
+"""
 enum TransactionKind {
+  """
+  An authorization and capture performed together in a single step.
+  """
   SALE
+
+  """
+  A transfer of the money that was reserved during the authorization stage.
+  """
   CAPTURE
+
+  """
+  An amount reserved against the cardholder's funding source.
+  Money does not change hands until the authorization is captured.
+  """
   AUTHORIZATION
+
+  """
+  An authorization for a payment taken with an EMV credit card reader.
+  """
   EMV_AUTHORIZATION
+
+  """
+  Money returned to the customer when they have paid too much.
+  """
   CHANGE
 }
 
+"""
+Transaction statuses describe the status of a transaction.
+"""
 enum TransactionStatus {
+  """
+  The transaction is pending.
+  """
   PENDING
+
+  """
+  The transaction succeeded.
+  """
   SUCCESS
+
+  """
+  The transaction failed.
+  """
   FAILURE
+
+  """
+  There was an error while processing the transaction.
+  """
   ERROR
 }
 

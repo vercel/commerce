@@ -1,5 +1,5 @@
 import type { RequestInit, Response } from '@vercel/fetch'
-import { getConfig } from '..'
+import { provider } from '..'
 import { BigcommerceApiError, BigcommerceNetworkError } from './errors'
 import fetch from './fetch'
 
@@ -7,7 +7,7 @@ export default async function fetchStoreApi<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
-  const config = getConfig()
+  const { config } = provider
   let res: Response
 
   try {

@@ -1,17 +1,17 @@
-import cn from 'classnames'
-import dynamic from 'next/dynamic'
-import s from './Layout.module.css'
-import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+import cn from 'classnames'
+import type { Page } from '@commerce/types/page'
+import type { Category } from '@commerce/types/site'
+import { CommerceProvider } from '@framework'
+import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer } from '@components/common'
-import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import CartSidebarView from '@components/cart/CartSidebarView'
-
 import LoginView from '@components/auth/LoginView'
-import { CommerceProvider } from '@framework'
-import type { Page } from '@framework/common/get-all-pages'
+import s from './Layout.module.css'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -41,13 +41,13 @@ const FeatureBar = dynamic(
 interface Props {
   pageProps: {
     pages?: Page[]
-    commerceFeatures: Record<string, boolean>
+    categories: Category[]
   }
 }
 
 const Layout: FC<Props> = ({
   children,
-  pageProps: { commerceFeatures, ...pageProps },
+  pageProps: { categories = [], ...pageProps },
 }) => {
   const {
     displaySidebar,
@@ -58,10 +58,16 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
+
+  const navBarlinks = categories.slice(0, 2).map((c) => ({
+    label: c.name,
+    href: `/search/${c.slug}`,
+  }))
+
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar />
+        <Navbar links={navBarlinks} />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
 

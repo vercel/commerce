@@ -1,5 +1,5 @@
-import type { ItemBody as WishlistItemBody } from '../wishlist'
-import type { CartItemBody, OptionSelections } from '../../types'
+import type { WishlistItemBody } from '../../types/wishlist'
+import type { CartItemBody, OptionSelections } from '../../types/cart'
 
 type BCWishlistItemBody = {
   product_id: number

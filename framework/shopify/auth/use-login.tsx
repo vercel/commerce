@@ -1,31 +1,22 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
-import useCustomer from '../customer/use-customer'
-import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
-import {
-  CustomerAccessTokenCreateInput,
-  CustomerUserError,
-  Mutation,
-  MutationCheckoutCreateArgs,
-} from '../schema'
+import { CommerceError } from '@commerce/utils/errors'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import { setCustomerToken, throwUserErrors } from '../utils'
+import type { LoginHook } from '../types/login'
+import useCustomer from '../customer/use-customer'
+
+import {
+  setCustomerToken,
+  throwUserErrors,
+  customerAccessTokenCreateMutation,
+} from '../utils'
+import { Mutation, MutationCustomerAccessTokenCreateArgs } from '../schema'
 
 export default useLogin as UseLogin<typeof handler>
 
-const getErrorMessage = ({ code, message }: CustomerUserError) => {
-  switch (code) {
-    case 'UNIDENTIFIED_CUSTOMER':
-      message = 'Cannot find an account that matches the provided credentials'
-      break
-  }
-  return message
-}
-
-export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
+export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
-    query: createCustomerAccessTokenMutation,
+    query: customerAccessTokenCreateMutation,
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
@@ -37,7 +28,7 @@ export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
 
     const { customerAccessTokenCreate } = await fetch<
       Mutation,
-      MutationCheckoutCreateArgs
+      MutationCustomerAccessTokenCreateArgs
     >({
       ...options,
       variables: {

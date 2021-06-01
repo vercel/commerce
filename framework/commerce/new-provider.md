@@ -149,7 +149,7 @@ export const handler: SWRHook<
   { isEmpty?: boolean }
 > = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
+    url: '/api/cart',
     method: 'GET',
   },
   async fetcher({ input: { cartId }, options, fetch }) {
@@ -197,7 +197,7 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<Cart, {}, CartItemBody> = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
+    url: '/api/cart',
     method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {

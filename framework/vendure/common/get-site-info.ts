@@ -2,13 +2,7 @@ import { getConfig, VendureConfig } from '../api'
 import { GetCollectionsQuery } from '../schema'
 import { arrayToTree } from '../lib/array-to-tree'
 import { getCollectionsQuery } from '../lib/queries/get-collections-query'
-
-export type Category = {
-  entityId: string
-  name: string
-  path: string
-  productCount: number
-}
+import { Category } from '@commerce/types'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
