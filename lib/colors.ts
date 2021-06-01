@@ -179,6 +179,8 @@ export const colorMap: Record<string, string> = {
   slateblue: '#6A5ACD',
   slategray: '#708090',
   slategrey: '#708090',
+  spacegrey: '#65737e',
+  spacegray: '#65737e',
   snow: '#FFFAFA',
   springgreen: '#00FF7F',
   steelblue: '#4682B4',
