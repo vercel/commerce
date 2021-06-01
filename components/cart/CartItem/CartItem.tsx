@@ -19,11 +19,11 @@ type ItemOption = {
 
 const CartItem = ({
   item,
+  variant = 'default',
   currencyCode,
-  noEdit = false,
   ...rest
 }: {
-  noEdit?: boolean
+  variant: 'default' | 'display'
   item: LineItem
   currencyCode: string
 }) => {
@@ -46,7 +46,6 @@ const CartItem = ({
 
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
-
     if (Number.isInteger(val) && val >= 0) {
       setQuantity(Number(e.target.value))
     }
@@ -54,7 +53,6 @@ const CartItem = ({
 
   const handleBlur = () => {
     const val = Number(quantity)
-
     if (val !== item.quantity) {
       updateQuantity(val)
     }
@@ -62,7 +60,6 @@ const CartItem = ({
 
   const increaseQuantity = (n = 1) => {
     const val = Number(quantity) + n
-
     if (Number.isInteger(val) && val >= 0) {
       setQuantity(val)
       updateQuantity(val)
@@ -71,7 +68,6 @@ const CartItem = ({
 
   const handleRemove = async () => {
     setRemoving(true)
-
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
@@ -80,6 +76,7 @@ const CartItem = ({
       setRemoving(false)
     }
   }
+
   // TODO: Add a type for this
   const options = (item as any).options
 
@@ -114,14 +111,14 @@ const CartItem = ({
         <div className="flex-1 flex flex-col text-base">
           <Link href={`/product/${item.path}`}>
             <span
-              className="font-medium cursor-pointer leading-6"
+              className={s.productName}
               onClick={() => closeSidebarIfPresent()}
             >
               {item.name}
             </span>
           </Link>
-          {options && options.length > 0 ? (
-            <div className="">
+          {options && options.length > 0 && (
+            <div className="flex items-center pb-1">
               {options.map((option: ItemOption, i: number) => (
                 <div
                   key={`${item.id}-${option.name}`}
@@ -144,13 +141,16 @@ const CartItem = ({
                 </div>
               ))}
             </div>
-          ) : null}
+          )}
+          {variant === 'display' && (
+            <div className="text-sm tracking-wider">{quantity}x</div>
+          )}
         </div>
         <div className="flex flex-col justify-between space-y-2 text-sm">
           <span>{price}</span>
         </div>
       </div>
-      {!noEdit ? (
+      {variant === 'default' && (
         <div className="flex flex-row h-9">
           <button className={s.actions} onClick={handleRemove}>
             <Cross width={20} height={20} />
@@ -183,8 +183,6 @@ const CartItem = ({
             <Plus width={18} height={18} />
           </button>
         </div>
-      ) : (
-        <div>x{quantity}</div>
       )}
     </li>
   )

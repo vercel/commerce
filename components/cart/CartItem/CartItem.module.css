@@ -41,3 +41,8 @@
   left: 30% !important;
   top: 30% !important;
 }
+
+.productName {
+  @apply font-medium cursor-pointer pb-1;
+  margin-top: -4px;
+}

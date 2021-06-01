@@ -144,13 +144,13 @@ const CheckoutSidebarView: FC = () => {
               </div>
             </div>
 
-            <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-3 border-accent-3">
+            <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-accent-2">
               {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}
                   currencyCode={data!.currency.code}
-                  noEdit
+                  variant="display"
                 />
               ))}
             </ul>
@@ -171,13 +171,17 @@ const CheckoutSidebarView: FC = () => {
                 <span className="font-bold tracking-wide">FREE</span>
               </li>
             </ul>
-            <div className="flex justify-between border-t border-accent-3 py-3 font-bold mb-2">
+            <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
               <span>Total</span>
               <span>{total}</span>
             </div>
             <div>
-              <Button Component="a" width="100%">
+              {/* Once data is correcly filled */}
+              {/* <Button Component="a" width="100%">
                 Confirm Purchase
+              </Button> */}
+              <Button Component="a" width="100%" variant="ghost">
+                Continue
               </Button>
             </div>
           </div>
