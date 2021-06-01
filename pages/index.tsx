@@ -15,6 +15,7 @@ export async function getStaticProps({
     variables: { first: 12 },
     config,
     preview,
+    featured: true
   })
   const { categories, brands } = await commerce.getSiteInfo({ config, preview })
   const { pages } = await commerce.getAllPages({ config, preview })

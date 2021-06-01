@@ -20,18 +20,34 @@ const getAllProducts = async (options: {
   variables?: Variables
   config?: SaleorConfig
   preview?: boolean
+  featured?: boolean
 }): Promise<ReturnType> => {
-  let { config, variables = { first: 100 } } = options ?? {}
+  let { config, variables = { first: 100 }, featured } = options ?? {}
   config = getConfig(config)
 
-  const { data }: GraphQLFetcherResult = await config.fetch(query.ProductMany, {
-    variables,
-  })
+  if (featured) {
+    const { data }: GraphQLFetcherResult = await config.fetch(query.CollectionOne, {
+      variables: { ...variables, categoryId: 'Q29sbGVjdGlvbjoxOQ==' },
+    })
 
-  const products = data.products?.edges?.map(({ node: p }: ProductCountableEdge) => normalizeProduct(p)) ?? []
+    debugger
 
-  return {
-    products,
+    const products = data.collection.products?.edges?.map(({ node: p }: ProductCountableEdge) => normalizeProduct(p)) ?? []
+
+    return {
+      products,
+    }
+
+  } else {
+    const { data }: GraphQLFetcherResult = await config.fetch(query.ProductMany, {
+      variables,
+    })
+
+    const products = data.products?.edges?.map(({ node: p }: ProductCountableEdge) => normalizeProduct(p)) ?? []
+
+    return {
+      products,
+    }
   }
 }
 
