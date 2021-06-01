@@ -180,7 +180,10 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
         <Text variant="sectionHeading">Related Products</Text>
         <div className="grid grid-cols-4 py-3 gap-10">
           {relatedProducts.map((p) => (
-            <div className="animated fadeIn bg-accent-0 border border-accent-2">
+            <div
+              className="animated fadeIn bg-accent-0 border border-accent-2"
+              key={p.path}
+            >
               <ProductCard
                 variant="simple"
                 key={p.path}
