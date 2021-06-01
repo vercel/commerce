@@ -200,6 +200,7 @@ interface ProductImage {
 interface ProductVariant2 {
   id: string | number
   options: ProductOption[]
+  price?: ProductPrice
 }
 
 interface ProductPrice {
