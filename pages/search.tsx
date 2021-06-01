@@ -63,9 +63,7 @@ export default function Search({
   const query = filterQuery({ sort })
 
   const { pathname, category, brand } = useSearchMeta(asPath)
-  const activeCategory = categories.find(
-    (cat) => getSlug(cat.path) === category
-  )
+  const activeCategory = categories.find((cat) => cat.slug === category)
   const activeBrand = brands.find(
     (b) => getSlug(b.node.path) === `brands/${brand}`
   )?.node
