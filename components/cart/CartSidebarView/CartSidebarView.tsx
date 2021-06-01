@@ -38,13 +38,13 @@ const CartSidebarView: FC = () => {
         [s.empty]: error || success || isLoading || isEmpty,
       })}
     >
-      <header className="px-4 pt-6 pb-4 sm:px-6">
+      <header className="pl-4 pr-6 pt-4 pb-4 lg:pt-6">
         <div className="flex items-start justify-between space-x-3">
           <div className="h-7 flex items-center">
             <button
               onClick={handleClose}
               aria-label="Close panel"
-              className="hover:text-gray-500 transition ease-in-out duration-150 flex items-center focus:outline-none"
+              className="hover:text-accent-3 transition ease-in-out duration-150 flex items-center focus:outline-none"
             >
               <Cross className="h-6 w-6" />
               <span className="ml-2 text-accent-7 text-xs hover:text-gray-500">

@@ -4,7 +4,7 @@
 
 .main {
   @apply relative px-0 pb-0 box-border  flex flex-col col-span-1;
-  min-height: 600px;
+  min-height: 500px;
 }
 
 .nameBox {
@@ -22,11 +22,15 @@
 }
 
 .sidebar {
-  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full h-full;
+  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 py-6 w-full h-full;
 }
 
 .sliderContainer {
   @apply flex items-center justify-center overflow-x-hidden bg-violet;
+}
+
+.imageContainer {
+  @apply text-center;
 }
 
 .imageContainer > div,
@@ -39,7 +43,7 @@
 }
 
 .button {
-  min-width: 300px;
+  width: 100%;
 }
 
 .wishlistButton {
@@ -47,13 +51,7 @@
 }
 
 @screen md {
-  .main {
-    min-height: 700px;
-  }
-
   .button {
-    text-align: center;
-    width: 100%;
     max-width: 300px;
   }
 }

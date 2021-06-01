@@ -45,7 +45,7 @@ const CheckoutSidebarView: FC = () => {
         [s.empty]: error || success || isLoading || isEmpty,
       })}
     >
-      <header className="px-4 pt-6 pb-4 sm:px-6">
+      <header className="pl-4 pr-6 pt-4 pb-4 lg:pt-6">
         <div className="flex items-start justify-between space-x-3">
           <div className="h-7 flex items-center">
             <button

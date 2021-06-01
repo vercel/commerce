@@ -77,8 +77,7 @@ const ProductSlider: FC = ({ children }) => {
     <div className={s.root} ref={sliderContainerRef}>
       <div
         ref={ref}
-        className="relative keen-slider h-full transition-opacity duration-150"
-        style={{ opacity: isMounted ? 1 : 0 }}
+        className={cn(s.slider, { [s.show]: isMounted }, 'keen-slider')}
       >
         {slider && (
           <div className={s.control}>

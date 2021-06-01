@@ -3,6 +3,15 @@
   overflow-y: hidden;
 }
 
+.slider {
+  @apply relative h-full transition-opacity duration-150;
+  opacity: 0;
+}
+
+.slider.show {
+  opacity: 1;
+}
+
 .control {
   @apply bg-violet absolute bottom-10 right-10 flex flex-row
   border-accent-0 border text-accent-0 z-30 shadow-xl;
@@ -36,17 +45,11 @@
 .thumb {
   @apply transition-transform transition-colors ease-linear duration-75 overflow-hidden
   inline-block cursor-pointer;
-  width: 275px;
+  width: 125px;
 }
 
-.thumb:focus,
 .thumb.selected {
   @apply bg-white;
-}
-
-.thumb:hover {
-  transform: scale(1.02);
-  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .album {
@@ -54,5 +57,34 @@
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
-  height: 275px;
+  height: 125px;
+}
+
+@screen md {
+  .thumb:hover {
+    transform: scale(1.02);
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .thumb.selected {
+    @apply bg-white;
+  }
+
+  .album {
+    height: 235px;
+  }
+
+  .slider {
+    max-height: 700px;
+  }
+
+  .thumb {
+    width: 235px;
+  }
+}
+
+@screen lg {
+  .slider {
+    max-height: 750px;
+  }
 }
