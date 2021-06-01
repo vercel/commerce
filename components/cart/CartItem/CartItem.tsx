@@ -23,7 +23,7 @@ const CartItem = ({
   currencyCode,
   ...rest
 }: {
-  variant: 'default' | 'display'
+  variant?: 'default' | 'display'
   item: LineItem
   currencyCode: string
 }) => {
