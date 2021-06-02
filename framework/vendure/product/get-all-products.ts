@@ -4,7 +4,14 @@ import { GetAllProductsQuery } from '../schema'
 import { normalizeSearchResult } from '../lib/normalize'
 import { getAllProductsQuery } from '../lib/queries/get-all-products-query'
 
-export type ProductVariables = { first?: number }
+export type ProductVariables = {
+  first?: number
+  skip?: number
+  facetValueIds?: number[] | number
+  collectionSlug?: string
+  searchTerm?: string
+  groupByProduct?: boolean
+}
 
 async function getAllProducts(opts?: {
   variables?: ProductVariables
@@ -26,7 +33,11 @@ async function getAllProducts({
   const variables = {
     input: {
       take: vars.first,
-      groupByProduct: true,
+      skip: vars.skip,
+      term: vars.searchTerm,
+      facetValueIds: vars.facetValueIds,
+      collectionSlug: vars.collectionSlug,
+      groupByProduct: vars.groupByProduct ? true : false,
     },
   }
   const { data } = await config.fetch<GetAllProductsQuery>(query, { variables })
