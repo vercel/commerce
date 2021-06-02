@@ -8,7 +8,8 @@ import {
   SignupMutation,
   SignupMutationVariables,
 } from '../schema'
-import { signupMutation } from '../lib/mutations/sign-up-mutation'
+import { signupMutation } from '../utils/mutations/sign-up-mutation'
+import { SignupHook } from '../types/signup'
 
 export default useSignup as UseSignup<typeof handler>
 
@@ -19,7 +20,7 @@ export type SignupInput = {
   password: string
 }
 
-export const handler: MutationHook<null, {}, SignupInput, SignupInput> = {
+export const handler: MutationHook<SignupHook> = {
   fetchOptions: {
     query: signupMutation,
   },

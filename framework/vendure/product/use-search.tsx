@@ -1,9 +1,10 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import { Product } from '@commerce/types'
+import { Product } from '@commerce/types/product'
 import { SearchQuery, SearchQueryVariables } from '../schema'
-import { normalizeSearchResult } from '../lib/normalize'
-import { searchQuery } from '../lib/queries/search-query'
+import { normalizeSearchResult } from '../utils/normalize'
+import { searchQuery } from '../utils/queries/search-query'
+import { SearchProductsHook } from '../types/product'
 
 export default useSearch as UseSearch<typeof handler>
 
@@ -19,11 +20,7 @@ export type SearchProductsData = {
   found: boolean
 }
 
-export const handler: SWRHook<
-  SearchProductsData,
-  SearchProductsInput,
-  SearchProductsInput
-> = {
+export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
     query: searchQuery,
   },
@@ -33,7 +30,7 @@ export const handler: SWRHook<
     const variables: SearchQueryVariables = {
       input: {
         term: input.search,
-        collectionId: input.categoryId,
+        collectionId: input.categoryId?.toString(),
         groupByProduct: true,
         // TODO: what is the "sort" value?
       },

@@ -1,5 +1,5 @@
 // TODO: replace this hook and other wishlist hooks with a handler, or remove them if
-// Shopify doesn't have a wishlist
+// Vendure doesn't have a built-in wishlist
 
 import { HookFetcher } from '@commerce/utils/types'
 import { Product } from '../schema'

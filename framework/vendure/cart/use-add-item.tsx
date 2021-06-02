@@ -1,16 +1,16 @@
-import { Cart, CartItemBody } from '@commerce/types'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import { CommerceError } from '@commerce/utils/errors'
 import { MutationHook } from '@commerce/utils/types'
 import { useCallback } from 'react'
 import useCart from './use-cart'
 import { AddItemToOrderMutation } from '../schema'
-import { normalizeCart } from '../lib/normalize'
-import { addItemToOrderMutation } from '../lib/mutations/add-item-to-order-mutation'
+import { normalizeCart } from '../utils/normalize'
+import { addItemToOrderMutation } from '../utils/mutations/add-item-to-order-mutation'
+import { AddItemHook } from '../types/cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<Cart, {}, CartItemBody> = {
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
     query: addItemToOrderMutation,
   },
