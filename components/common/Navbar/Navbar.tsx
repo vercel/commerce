@@ -8,14 +8,14 @@ import s from './Navbar.module.css'
 const Navbar: FC = () => (
   <NavbarRoot>
     <Container>
-      <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
+      <div className={s.nav}>
         <div className="flex items-center flex-1">
           <Link href="/">
             <a className={s.logo} aria-label="Logo">
               <Logo />
             </a>
           </Link>
-          <nav className={s.nav}>
+          <nav className={s.navMenu}>
             <Link href="/search">
               <a className={s.link}>All</a>
             </Link>
@@ -35,7 +35,7 @@ const Navbar: FC = () => (
           <Searchbar />
         </div>
 
-        <div className="flex justify-end flex-1 space-x-8">
+        <div className="flex items-center justify-end flex-1 space-x-8">
           <UserNav />
         </div>
       </div>

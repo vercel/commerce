@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { FC } from 'react'
 import s from './CartSidebarView.module.css'
 import CartItem from '../CartItem'
-import { Button } from '@components/ui'
-import { UserNav } from '@components/common'
+import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
+import SidebarLayout from '@components/common/SidebarLayout'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar, setSidebarView } = useUI()
@@ -33,31 +33,12 @@ const CartSidebarView: FC = () => {
   const success = null
 
   return (
-    <div
-      className={cn(s.root, {
+    <SidebarLayout
+      className={cn({
         [s.empty]: error || success || isLoading || isEmpty,
       })}
+      handleClose={handleClose}
     >
-      <header className="pl-4 pr-6 pt-4 pb-4 lg:pt-6">
-        <div className="flex items-start justify-between space-x-3">
-          <div className="h-7 flex items-center">
-            <button
-              onClick={handleClose}
-              aria-label="Close panel"
-              className="hover:text-accent-3 transition ease-in-out duration-150 flex items-center focus:outline-none"
-            >
-              <Cross className="h-6 w-6" />
-              <span className="ml-2 text-accent-7 text-xs hover:text-gray-500">
-                Close
-              </span>
-            </button>
-          </div>
-          <div className="space-y-1">
-            <UserNav />
-          </div>
-        </div>
-      </header>
-
       {isLoading || isEmpty ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
@@ -93,14 +74,11 @@ const CartSidebarView: FC = () => {
         <>
           <div className="px-4 sm:px-6 flex-1">
             <Link href="/cart">
-              <h2
-                className="pt-1 pb-8 text-2xl font-semibold tracking-wide cursor-pointer inline-block"
-                onClick={handleClose}
-              >
+              <Text variant="sectionHeading" onClick={handleClose}>
                 My Cart
-              </h2>
+              </Text>
             </Link>
-            <ul className="py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-accent-2">
+            <ul className={s.lineItemsList}>
               {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
@@ -144,7 +122,7 @@ const CartSidebarView: FC = () => {
           </div>
         </>
       )}
-    </div>
+    </SidebarLayout>
   )
 }
 

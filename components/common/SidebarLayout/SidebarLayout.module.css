@@ -1,0 +1,8 @@
+.root {
+  @apply relative h-full flex flex-col w-full;
+}
+
+.header {
+  @apply pl-4 pr-6 pt-4 pb-4 lg:pt-5 flex items-center justify-between space-x-3;
+  margin-top: 1px;
+}

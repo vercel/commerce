@@ -1,39 +1,17 @@
 import { FC } from 'react'
-import s from './PaymentMethodView.module.css'
-import { ChevronLeft } from '@components/icons'
-import { UserNav } from '@components/common'
-import { useUI } from '@components/ui/context'
-import Button from '@components/ui/Button'
 import cn from 'classnames'
+import { Button, Text } from '@components/ui'
+import { useUI } from '@components/ui/context'
+import s from './PaymentMethodView.module.css'
+import SidebarLayout from '@components/common/SidebarLayout'
 
 const PaymentMethodView: FC = () => {
   const { setSidebarView } = useUI()
 
   return (
-    <div className={s.root}>
-      <header className="pl-4 pr-6 pt-4 pb-4 lg:pt-6">
-        <div className="flex items-start justify-between space-x-3">
-          <div className="h-7 flex items-center">
-            <button
-              onClick={() => setSidebarView('CHECKOUT_VIEW')}
-              aria-label="Close panel"
-              className="hover:text-gray-500 transition ease-in-out duration-150 flex items-center focus:outline-none"
-            >
-              <ChevronLeft className="h-6 w-6" />
-              <span className="ml-2 text-accent-7 text-xs hover:text-gray-500">
-                Back
-              </span>
-            </button>
-          </div>
-          <div className="space-y-1">
-            <UserNav />
-          </div>
-        </div>
-      </header>
+    <SidebarLayout handleBack={() => setSidebarView('CHECKOUT_VIEW')}>
       <div className="px-4 sm:px-6 flex-1">
-        <h2 className="pt-1 pb-6 text-2xl font-semibold tracking-wide cursor-pointer inline-block">
-          Payment Method
-        </h2>
+        <Text variant="sectionHeading"> Payment Method</Text>
         <div>
           <div className={s.fieldset}>
             <label className={s.label}>Cardholder Name</label>
@@ -99,7 +77,7 @@ const PaymentMethodView: FC = () => {
           Continue
         </Button>
       </div>
-    </div>
+    </SidebarLayout>
   )
 }
 

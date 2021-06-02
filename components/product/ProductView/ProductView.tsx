@@ -175,7 +175,8 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
           </div>
         </div>
       </div>
-      <section className="py-12 px-6 mb-10">
+      <hr className="mt-6" />
+      <section className="py-6 px-6 mb-10">
         <Text variant="sectionHeading">Related Products</Text>
         <div className="grid grid-cols-4 py-3 gap-10">
           {relatedProducts.map((p) => (

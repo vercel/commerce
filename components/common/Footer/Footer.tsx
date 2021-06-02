@@ -44,7 +44,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
           <div className="col-span-1 lg:col-span-2">
             <ul className="flex flex-initial flex-col md:flex-1">
               {links.map(({ href, name }) => (
-                <li className="py-3 md:py-0 md:pb-4">
+                <li className="py-3 md:py-0 md:pb-4" key={href}>
                   <Link href={href}>
                     <a className="text-primary hover:text-accent-6 transition ease-in-out duration-150">
                       {name}

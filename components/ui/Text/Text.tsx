@@ -12,6 +12,7 @@ interface Props {
   style?: CSSProperties
   children?: React.ReactNode | any
   html?: string
+  onClick?: () => any
 }
 
 type Variant = 'heading' | 'body' | 'pageHeading' | 'sectionHeading'
@@ -22,6 +23,7 @@ const Text: FunctionComponent<Props> = ({
   variant = 'body',
   children,
   html,
+  onClick,
 }) => {
   const componentsMap: {
     [P in Variant]: React.ComponentType<any> | string
@@ -56,6 +58,7 @@ const Text: FunctionComponent<Props> = ({
         },
         className
       )}
+      onClick={onClick}
       style={style}
       {...htmlContentProps}
     >

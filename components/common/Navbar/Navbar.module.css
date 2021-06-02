@@ -3,6 +3,10 @@
 }
 
 .nav {
+  @apply relative flex flex-row justify-between py-4 md:py-4;
+}
+
+.navMenu {
   @apply hidden ml-6 space-x-4 lg:block;
 }
 

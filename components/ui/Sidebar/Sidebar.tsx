@@ -34,7 +34,7 @@ const Sidebar: FC<Props> = ({ children, open = false, onClose }) => {
 
   return (
     <Portal>
-      {open ? (
+      {open && (
         <div className={s.root} ref={ref}>
           <div className="absolute inset-0 overflow-hidden">
             <div
@@ -48,7 +48,7 @@ const Sidebar: FC<Props> = ({ children, open = false, onClose }) => {
             </section>
           </div>
         </div>
-      ) : null}
+      )}
     </Portal>
   )
 }
