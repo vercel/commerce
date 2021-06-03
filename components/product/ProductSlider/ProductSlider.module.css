@@ -43,14 +43,19 @@
 }
 
 .thumb {
-  @apply transition-transform transition-colors ease-linear duration-75 overflow-hidden
-  inline-block cursor-pointer h-full;
+  @apply transition-transform transition-colors
+  ease-linear duration-75 overflow-hidden inline-block
+  cursor-pointer h-full;
   width: 125px;
   width: calc(100% / 3);
 }
 
 .thumb.selected {
   @apply bg-white;
+}
+
+.thumb img {
+  height: 85% !important;
 }
 
 .album {
@@ -72,7 +77,7 @@
   }
 
   .album {
-    height: 235px;
+    height: 182px;
   }
   .thumb {
     width: 235px;

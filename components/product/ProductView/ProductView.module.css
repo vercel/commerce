@@ -50,15 +50,10 @@
   @apply absolute z-30 top-0 right-0;
 }
 
-@screen md {
-  .button {
-    max-width: 300px;
-  }
-}
-
 @screen lg {
   .root {
     @apply grid-cols-12;
+    min-height: 900px;
   }
 
   .main {
@@ -75,10 +70,10 @@
   }
 
   .sidebar {
-    @apply col-span-4 py-12;
+    @apply col-span-4 py-6;
   }
 
   .imageContainer {
-    height: 600px;
+    max-height: 600px;
   }
 }

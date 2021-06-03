@@ -12,7 +12,8 @@ import { useAddItem } from '@framework/cart'
 import Collapse from '@components/ui/Collapse'
 import ProductCard from '@components/product/ProductCard'
 import WishlistButton from '@components/wishlist/WishlistButton'
-
+import rangeMap from '@lib/range-map'
+import { Star } from '@components/icons'
 interface Props {
   children?: any
   product: Product
@@ -97,8 +98,8 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
                     className={s.img}
                     src={image.url!}
                     alt={image.alt || 'Product Image'}
-                    width={1050}
-                    height={1050}
+                    width={600}
+                    height={600}
                     priority={i === 0}
                     quality="85"
                   />
@@ -148,10 +149,26 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
                 </div>
               </div>
             ))}
-            <div className="pb-14 break-words w-full max-w-xl">
+            <div className="pb-4 break-words w-full max-w-xl">
               <Text html={product.descriptionHtml || product.description} />
             </div>
           </section>
+          <div className="flex flex-row justify-between items-center">
+            {/**
+             * TODO make component Rate stars={}
+             */}
+            <div className="flex flex-row py-6">
+              {rangeMap(4, (i) => (
+                <span className="inline-block ml-1">
+                  <Star />
+                </span>
+              ))}
+              <span className="inline-block ml-1 text-accent-5">
+                <Star />
+              </span>
+            </div>
+            <div className="text-accent-6 pr-1">36 reviews</div>
+          </div>
           <div>
             <Button
               aria-label="Add to Cart"
@@ -174,7 +191,8 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
             </Collapse>
             <Collapse title="Care">
               This is a limited edition production run. Printing starts when the
-              drop ends.
+              drop ends. Reminder: Bad Boys For Life. Shipping may take 10+ days
+              due to COVID-19.
             </Collapse>
           </div>
         </div>
@@ -182,7 +200,7 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
       <hr className="mt-6" />
       <section className="py-6 px-6 mb-10">
         <Text variant="sectionHeading">Related Products</Text>
-        <div className="grid grid-cols-4 py-3 gap-10">
+        <div className="grid grid-cols-2 py-2 gap-4 md:grid-cols-4 md:gap-20">
           {relatedProducts.map((p) => (
             <div
               key={p.path}
@@ -193,10 +211,10 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
                 product={p}
                 key={p.path}
                 variant="simple"
-                className="animated fadeIn w-12"
+                className="animated fadeIn"
                 imgProps={{
-                  width: 275,
-                  height: 275,
+                  width: 182,
+                  height: 182,
                 }}
               />
             </div>
