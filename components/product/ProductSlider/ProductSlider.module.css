@@ -44,8 +44,9 @@
 
 .thumb {
   @apply transition-transform transition-colors ease-linear duration-75 overflow-hidden
-  inline-block cursor-pointer;
+  inline-block cursor-pointer h-full;
   width: 125px;
+  width: calc(100% / 3);
 }
 
 .thumb.selected {
@@ -73,18 +74,7 @@
   .album {
     height: 235px;
   }
-
-  .slider {
-    max-height: 700px;
-  }
-
   .thumb {
     width: 235px;
-  }
-}
-
-@screen lg {
-  .slider {
-    max-height: 750px;
   }
 }

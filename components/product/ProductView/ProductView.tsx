@@ -10,7 +10,6 @@ import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text, useUI } from '@components/ui'
 import { useAddItem } from '@framework/cart'
 import Collapse from '@components/ui/Collapse'
-import Skeleton from '@components/ui/Skeleton'
 import ProductCard from '@components/product/ProductCard'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
@@ -111,7 +110,7 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
             <WishlistButton
               className={s.wishlistButton}
               productId={product.id}
-              variant={product.variants[0]! as any}
+              variant={product.variants[0]}
             />
           )}
         </div>
@@ -186,15 +185,15 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
         <div className="grid grid-cols-4 py-3 gap-10">
           {relatedProducts.map((p) => (
             <div
-              className="animated fadeIn bg-accent-0 border border-accent-2"
               key={p.path}
+              className="animated fadeIn bg-accent-0 border border-accent-2"
             >
               <ProductCard
+                noNameTag
+                product={p}
                 key={p.path}
                 variant="simple"
-                className="animated fadeIn"
-                product={p}
-                noNameTag
+                className="animated fadeIn w-12"
                 imgProps={{
                   width: 275,
                   height: 275,
@@ -202,12 +201,6 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
               />
             </div>
           ))}
-          {/* {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton
-              key={i}
-              className="w-full animated fadeIn bg-accent-0 border border-accent-3"
-            />
-          ))} */}
         </div>
       </section>
     </Container>

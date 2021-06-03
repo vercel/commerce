@@ -6,8 +6,8 @@ export interface State {
   displayDropdown: boolean
   displayModal: boolean
   displayToast: boolean
-  modalView: string
   sidebarView: string
+  modalView: string
   toastText: string
   userAvatar: string
 }

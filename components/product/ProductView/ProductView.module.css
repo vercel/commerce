@@ -77,4 +77,8 @@
   .sidebar {
     @apply col-span-4 py-12;
   }
+
+  .imageContainer {
+    height: 600px;
+  }
 }
