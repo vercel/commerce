@@ -1,5 +1,15 @@
-import type { CommerceAPIConfig } from '@commerce/api'
+import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
+import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
+
+import login from './operations/login'
+import getAllPages from './operations/get-all-pages'
+import getPage from './operations/get-page'
+import getSiteInfo from './operations/get-site-info'
+import getCustomerWishlist from './operations/get-customer-wishlist'
+import getAllProductPaths from './operations/get-all-product-paths'
+import getAllProducts from './operations/get-all-products'
+import getProduct from './operations/get-product'
 
 export interface VendureConfig extends CommerceAPIConfig {}
 
@@ -11,41 +21,33 @@ if (!API_URL) {
   )
 }
 
-export class Config {
-  private config: VendureConfig
-
-  constructor(config: VendureConfig) {
-    this.config = {
-      ...config,
-    }
-  }
-
-  getConfig(userConfig: Partial<VendureConfig> = {}) {
-    return Object.entries(userConfig).reduce<VendureConfig>(
-      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
-      { ...this.config }
-    )
-  }
-
-  setConfig(newConfig: Partial<VendureConfig>) {
-    Object.assign(this.config, newConfig)
-  }
-}
-
 const ONE_DAY = 60 * 60 * 24
-const config = new Config({
+const config: VendureConfig = {
   commerceUrl: API_URL,
   apiToken: '',
   cartCookie: '',
   customerCookie: '',
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
-})
-
-export function getConfig(userConfig?: Partial<VendureConfig>) {
-  return config.getConfig(userConfig)
 }
 
-export function setConfig(newConfig: Partial<VendureConfig>) {
-  return config.setConfig(newConfig)
+const operations = {
+  login,
+  getAllPages,
+  getPage,
+  getSiteInfo,
+  getCustomerWishlist,
+  getAllProductPaths,
+  getAllProducts,
+  getProduct,
+}
+
+export const provider = { config, operations }
+
+export type Provider = typeof provider
+
+export function getCommerceApi<P extends Provider>(
+  customProvider: P = provider as any
+): CommerceAPI<P> {
+  return commerceApi(customProvider)
 }

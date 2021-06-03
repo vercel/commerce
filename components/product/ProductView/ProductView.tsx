@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'
 import { FC, useEffect, useState } from 'react'
-import type { Product } from '@commerce/types'
+import type { Product } from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
 import { getVariant, SelectedOptions } from '../helpers'
 import { Swatch, ProductSlider } from '@components/product'
@@ -22,6 +22,8 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product, relatedProducts }) => {
+  // TODO: fix this missing argument issue
+  /* @ts-ignore */
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
@@ -158,8 +160,11 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
+              disabled={variant?.availableForSale === false}
             >
-              Add to Cart
+              {variant?.availableForSale === false
+                ? 'Not Available'
+                : 'Add To Cart'}
             </Button>
           </div>
 

@@ -6,8 +6,8 @@ import useAddItem from '@framework/wishlist/use-add-item'
 import useCustomer from '@framework/customer/use-customer'
 import useWishlist from '@framework/wishlist/use-wishlist'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
-import type { Product, ProductVariant } from '@commerce/types'
 import s from './WishlistButton.module.css'
+import type { Product, ProductVariant } from '@commerce/types/product'
 
 type Props = {
   productId: Product['id']

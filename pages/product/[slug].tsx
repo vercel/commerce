@@ -4,29 +4,27 @@ import type {
   InferGetStaticPropsType,
 } from 'next'
 import { useRouter } from 'next/router'
+import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
-
-import { getConfig } from '@framework/api'
-import getProduct from '@framework/product/get-product'
-import getAllPages from '@framework/common/get-all-pages'
-import getAllProductPaths from '@framework/product/get-all-product-paths'
-import getAllProducts from '@framework/product/get-all-products'
 
 export async function getStaticProps({
   params,
   locale,
+  locales,
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
-  const { products: relatedProducts } = await getAllProducts({
-    variables: { first: 4 },
+  const config = { locale, locales }
+  const { pages } = await commerce.getAllPages({ config, preview })
+  const { categories } = await commerce.getSiteInfo({ config, preview })
+  const { product } = await commerce.getProduct({
+    variables: { slug: params!.slug },
     config,
     preview,
   })
-  const { product } = await getProduct({
-    variables: { slug: params!.slug },
+
+  const { products: relatedProducts } = await commerce.getAllProducts({
+    variables: { first: 4 },
     config,
     preview,
   })
@@ -40,24 +38,25 @@ export async function getStaticProps({
       pages,
       product,
       relatedProducts,
+      categories,
     },
     revalidate: 200,
   }
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const { products } = await getAllProductPaths()
+  const { products } = await commerce.getAllProductPaths()
 
   return {
     paths: locales
       ? locales.reduce<string[]>((arr, locale) => {
           // Add a product path for every locale
           products.forEach((product) => {
-            arr.push(`/${locale}/product${product.node.path}`)
+            arr.push(`/${locale}/product${product.path}`)
           })
           return arr
         }, [])
-      : products.map((product) => `/product${product.node.path}`),
+      : products.map((product) => `/product${product.path}`),
     fallback: 'blocking',
   }
 }

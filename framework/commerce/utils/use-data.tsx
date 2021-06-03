@@ -2,10 +2,11 @@ import useSWR, { responseInterface } from 'swr'
 import type {
   HookSWRInput,
   HookFetchInput,
-  Fetcher,
-  SwrOptions,
   HookFetcherOptions,
   HookFetcherFn,
+  Fetcher,
+  SwrOptions,
+  SWRHookSchemaBase,
 } from './types'
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
@@ -14,15 +15,15 @@ export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
   isLoading: boolean
 }
 
-export type UseData = <Data = any, FetchInput extends HookFetchInput = {}>(
+export type UseData = <H extends SWRHookSchemaBase>(
   options: {
     fetchOptions: HookFetcherOptions
-    fetcher: HookFetcherFn<Data, FetchInput>
+    fetcher: HookFetcherFn<H>
   },
   input: HookFetchInput | HookSWRInput,
   fetcherFn: Fetcher,
-  swrOptions?: SwrOptions<Data, FetchInput>
-) => ResponseState<Data>
+  swrOptions?: SwrOptions<H['data'], H['fetcherInput']>
+) => ResponseState<H['data']>
 
 const useData: UseData = (options, input, fetcherFn, swrOptions) => {
   const hookInput = Array.isArray(input) ? input : Object.entries(input)

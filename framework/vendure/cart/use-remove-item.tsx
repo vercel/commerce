@@ -1,25 +1,31 @@
 import { useCallback } from 'react'
-import { HookFetcherContext, MutationHookContext } from '@commerce/utils/types'
+import {
+  HookFetcherContext,
+  MutationHook,
+  MutationHookContext,
+  SWRHook,
+} from '@commerce/utils/types'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
 import { CommerceError } from '@commerce/utils/errors'
+import { Cart } from '@commerce/types/cart'
 import useCart from './use-cart'
 import {
   RemoveOrderLineMutation,
   RemoveOrderLineMutationVariables,
 } from '../schema'
-import { Cart, LineItem, RemoveCartItemBody } from '@commerce/types'
-import { normalizeCart } from '../lib/normalize'
-import { removeOrderLineMutation } from '../lib/mutations/remove-order-line-mutation'
+import { normalizeCart } from '../utils/normalize'
+import { RemoveItemHook } from '../types/cart'
+import { removeOrderLineMutation } from '../utils/mutations/remove-order-line-mutation'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
-export const handler = {
+export const handler: MutationHook<RemoveItemHook> = {
   fetchOptions: {
     query: removeOrderLineMutation,
   },
-  async fetcher({ input, options, fetch }: HookFetcherContext<LineItem>) {
+  async fetcher({ input, options, fetch }) {
     const variables: RemoveOrderLineMutationVariables = {
-      orderLineId: input.id,
+      orderLineId: input.itemId,
     }
     const { removeOrderLine } = await fetch<RemoveOrderLineMutation>({
       ...options,
@@ -31,14 +37,12 @@ export const handler = {
     }
     throw new CommerceError(removeOrderLine)
   },
-  useHook: ({
-    fetch,
-  }: MutationHookContext<Cart | null, RemoveCartItemBody>) => (ctx = {}) => {
+  useHook: ({ fetch }) => () => {
     const { mutate } = useCart()
 
     return useCallback(
       async function removeItem(input) {
-        const data = await fetch({ input })
+        const data = await fetch({ input: { itemId: input.id } })
         await mutate(data, false)
         return data
       },

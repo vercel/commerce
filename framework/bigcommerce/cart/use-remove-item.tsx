@@ -4,48 +4,33 @@ import type {
   HookFetcherContext,
 } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
-import useRemoveItem, {
-  RemoveItemInput as RemoveItemInputBase,
-  UseRemoveItem,
-} from '@commerce/cart/use-remove-item'
-import { normalizeCart } from '../lib/normalize'
-import type {
-  RemoveCartItemBody,
-  Cart,
-  BigcommerceCart,
-  LineItem,
-} from '../types'
+import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
+import type { Cart, LineItem, RemoveItemHook } from '@commerce/types/cart'
 import useCart from './use-cart'
 
 export type RemoveItemFn<T = any> = T extends LineItem
-  ? (input?: RemoveItemInput<T>) => Promise<Cart | null>
-  : (input: RemoveItemInput<T>) => Promise<Cart | null>
+  ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
+  : (input: RemoveItemActionInput<T>) => Promise<Cart | null>
 
-export type RemoveItemInput<T = any> = T extends LineItem
-  ? Partial<RemoveItemInputBase>
-  : RemoveItemInputBase
+export type RemoveItemActionInput<T = any> = T extends LineItem
+  ? Partial<RemoveItemHook['actionInput']>
+  : RemoveItemHook['actionInput']
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
+    url: '/api/cart',
     method: 'DELETE',
   },
   async fetcher({
     input: { itemId },
     options,
     fetch,
-  }: HookFetcherContext<RemoveCartItemBody>) {
-    const data = await fetch<BigcommerceCart>({
-      ...options,
-      body: { itemId },
-    })
-    return normalizeCart(data)
+  }: HookFetcherContext<RemoveItemHook>) {
+    return await fetch({ ...options, body: { itemId } })
   },
-  useHook: ({
-    fetch,
-  }: MutationHookContext<Cart | null, RemoveCartItemBody>) => <
+  useHook: ({ fetch }: MutationHookContext<RemoveItemHook>) => <
     T extends LineItem | undefined = undefined
   >(
     ctx: { item?: T } = {}

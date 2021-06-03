@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { Product } from '@commerce/types'
+import type { Product } from '@commerce/types/product'
 import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
@@ -122,7 +122,7 @@ const ProductCard: FC<Props> = ({
               <Image
                 alt={product.name || 'Product Image'}
                 className={s.productImage}
-                src={product.images[0].url || placeholderImg}
+                src={product.images[0]?.url || placeholderImg}
                 height={540}
                 width={540}
                 quality="85"

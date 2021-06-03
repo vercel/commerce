@@ -2,20 +2,14 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
-import { normalizeCart } from '../lib/normalize'
-import type {
-  Cart,
-  BigcommerceCart,
-  CartItemBody,
-  AddCartItemBody,
-} from '../types'
+import type { AddItemHook } from '@commerce/types/cart'
 import useCart from './use-cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<Cart, {}, CartItemBody> = {
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/cart',
+    url: '/api/cart',
     method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {
@@ -28,12 +22,12 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       })
     }
 
-    const data = await fetch<BigcommerceCart, AddCartItemBody>({
+    const data = await fetch({
       ...options,
       body: { item },
     })
 
-    return normalizeCart(data)
+    return data
   },
   useHook: ({ fetch }) => () => {
     const { mutate } = useCart()
