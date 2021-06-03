@@ -4,13 +4,10 @@ import { UserNav } from '@components/common'
 import cn from 'classnames'
 import s from './SidebarLayout.module.css'
 
-interface BaseProps {
-  className?: string
-}
-
-type ComponentProps =
-  | (BaseProps & { handleClose: () => any })
-  | (BaseProps & { handleBack: () => any })
+type ComponentProps = { className?: string } & (
+  | { handleClose: () => any; handleBack?: never }
+  | { handleBack: () => any; handleClose?: never }
+)
 
 const SidebarLayout: FC<ComponentProps> = ({
   children,
