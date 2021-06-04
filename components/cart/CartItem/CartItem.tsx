@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FocusEventHandler, useEffect, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,6 +9,7 @@ import type { LineItem } from '@commerce/types/cart'
 import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
+import Quantity from '@components/ui/Quantity'
 
 type ItemOption = {
   name: string
@@ -28,6 +29,10 @@ const CartItem = ({
   currencyCode: string
 }) => {
   const { closeSidebarIfPresent } = useUI()
+  const [removing, setRemoving] = useState(false)
+  const [quantity, setQuantity] = useState<number>(item.quantity)
+  const removeItem = useRemoveItem()
+  const updateItem = useUpdateItem({ item })
 
   const { price } = usePrice({
     amount: item.variant.price * item.quantity,
@@ -35,43 +40,22 @@ const CartItem = ({
     currencyCode,
   })
 
-  const updateItem = useUpdateItem({ item })
-  const removeItem = useRemoveItem()
-  const [quantity, setQuantity] = useState<number | ''>(item.quantity)
-  const [removing, setRemoving] = useState(false)
-
-  const updateQuantity = async (val: number) => {
-    await updateItem({ quantity: val })
+  const handleChange = async ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setQuantity(Number(value))
+    await updateItem({ quantity: Number(value) })
   }
 
-  const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = !e.target.value ? '' : Number(e.target.value)
-
-    if (!val || (Number.isInteger(val) && val >= 0)) {
-      setQuantity(val)
-    }
-  }
-
-  const handleBlur = () => {
-    const val = Number(quantity)
-    if (val !== item.quantity) {
-      updateQuantity(val)
-    }
-  }
-
-  const increaseQuantity = (n = 1) => {
+  const increaseQuantity = async (n = 1) => {
     const val = Number(quantity) + n
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(val)
-      updateQuantity(val)
-    }
+    setQuantity(val)
+    await updateItem({ quantity: val })
   }
 
   const handleRemove = async () => {
     setRemoving(true)
     try {
-      // If this action succeeds then there's no need to do `setRemoving(true)`
-      // because the component will be removed from the view
       await removeItem(item)
     } catch (error) {
       setRemoving(false)
@@ -152,38 +136,13 @@ const CartItem = ({
         </div>
       </div>
       {variant === 'default' && (
-        <div className="flex flex-row h-9">
-          <button className={s.actions} onClick={handleRemove}>
-            <Cross width={20} height={20} />
-          </button>
-          <label className="w-full border-accent-2 border ml-2">
-            <input
-              type="number"
-              max={99}
-              min={0}
-              className="bg-transparent px-4 w-full h-full focus:outline-none"
-              value={quantity}
-              onChange={handleQuantity}
-              onBlur={handleBlur}
-            />
-          </label>
-          <button
-            type="button"
-            onClick={() => increaseQuantity(-1)}
-            className={s.actions}
-            style={{ marginLeft: '-1px' }}
-          >
-            <Minus width={18} height={18} />
-          </button>
-          <button
-            type="button"
-            onClick={() => increaseQuantity(1)}
-            className={cn(s.actions)}
-            style={{ marginLeft: '-1px' }}
-          >
-            <Plus width={18} height={18} />
-          </button>
-        </div>
+        <Quantity
+          value={quantity}
+          handleRemove={handleRemove}
+          handleChange={handleChange}
+          increase={() => increaseQuantity(1)}
+          decrease={() => increaseQuantity(-1)}
+        />
       )}
     </li>
   )
