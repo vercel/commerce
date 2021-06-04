@@ -15,19 +15,22 @@ export async function getStaticProps({
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = { locale, locales }
-  const { pages } = await commerce.getAllPages({ config, preview })
-  const { categories } = await commerce.getSiteInfo({ config, preview })
-  const { product } = await commerce.getProduct({
+  const pagesPromise = commerce.getAllPages({ config, preview })
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  const productPromise = commerce.getProduct({
     variables: { slug: params!.slug },
     config,
     preview,
   })
-
-  const { products: relatedProducts } = await commerce.getAllProducts({
+  const allProductsPromise = commerce.getAllProducts({
     variables: { first: 4 },
     config,
     preview,
   })
+  const { pages } = await pagesPromise
+  const { categories } = await siteInfoPromise
+  const { product } = await productPromise
+  const { products: relatedProducts } = await allProductsPromise
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
