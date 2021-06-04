@@ -3,11 +3,11 @@
 }
 
 .button {
-  @apply h-10 px-2 rounded-md border border-accent-2 flex items-center justify-center;
+  @apply h-10 px-2 rounded-md border border-accent-2 flex items-center justify-center transition-colors ease-linear;
 }
 
 .button:hover {
-  @apply border-accent-4 shadow-sm;
+  @apply border-accent-3 shadow-sm;
 }
 
 .button:focus {
@@ -38,5 +38,9 @@
 }
 
 .icon {
+  transition: transform 0.2s ease;
+}
+
+.icon.active {
   transform: rotate(180deg);
 }
