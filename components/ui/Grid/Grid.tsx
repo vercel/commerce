@@ -2,14 +2,14 @@ import cn from 'classnames'
 import { FC, ReactNode, Component } from 'react'
 import s from './Grid.module.css'
 
-interface Props {
+interface GridProps {
   className?: string
   children?: ReactNode[] | Component[] | any[]
   layout?: 'A' | 'B' | 'C' | 'D' | 'normal'
   variant?: 'default' | 'filled'
 }
 
-const Grid: FC<Props> = ({
+const Grid: FC<GridProps> = ({
   className,
   layout = 'A',
   children,

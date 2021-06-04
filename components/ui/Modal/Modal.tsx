@@ -8,7 +8,7 @@ import {
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
 import FocusTrap from '@lib/focus-trap'
-interface Props {
+interface ModalProps {
   className?: string
   children?: any
   open?: boolean
@@ -16,7 +16,7 @@ interface Props {
   onEnter?: () => void | null
 }
 
-const Modal: FC<Props> = ({ children, open, onClose, onEnter = null }) => {
+const Modal: FC<ModalProps> = ({ children, open, onClose, onEnter = null }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const handleKey = useCallback(

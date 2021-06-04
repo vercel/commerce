@@ -3,7 +3,7 @@ import cn from 'classnames'
 import px from '@lib/to-pixels'
 import s from './Skeleton.module.css'
 
-interface Props {
+interface SkeletonProps {
   width?: string | number
   height?: string | number
   boxHeight?: string | number
@@ -13,7 +13,7 @@ interface Props {
   className?: string
 }
 
-const Skeleton: React.FC<Props> = ({
+const Skeleton: React.FC<SkeletonProps> = ({
   style,
   width,
   height,
