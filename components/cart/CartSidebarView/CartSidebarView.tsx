@@ -89,7 +89,7 @@ const CartSidebarView: FC = () => {
             </ul>
           </div>
 
-          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 shadow-outline-normal text-sm">
+          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
             <ul className="pb-2">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>

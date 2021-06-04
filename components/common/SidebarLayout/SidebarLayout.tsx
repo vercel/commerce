@@ -25,7 +25,7 @@ const SidebarLayout: FC<ComponentProps> = ({
             className="hover:text-gray-500 transition ease-in-out duration-150 flex items-center focus:outline-none"
           >
             <Cross className="h-6 w-6" />
-            <span className="ml-2 text-accent-7 text-xs hover:text-gray-500">
+            <span className="ml-2 text-accent-7 text-sm hover:text-gray-500">
               Close
             </span>
           </button>
