@@ -120,8 +120,7 @@ const ProductView: FC<Props> = ({ product }) => {
                       <Swatch
                         key={`${opt.id}-${i}`}
                         active={v.label.toLowerCase() === active}
-                        // variant={opt.displayName}
-                        variant={opt.variant}
+                        variant={opt.displayName}
                         color={v.hexColors ? v.hexColors[0] : ''}
                         label={v.label}
                         onClick={() => {

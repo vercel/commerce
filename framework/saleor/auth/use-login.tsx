@@ -7,10 +7,11 @@ import * as mutation from '../utils/mutations'
 import { Mutation, MutationTokenCreateArgs } from '../schema'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import { setCSRFToken, setToken, throwUserErrors, checkoutAttach, getCheckoutId } from '../utils'
+import { LoginHook } from '@commerce/types/login'
 
 export default useLogin as UseLogin<typeof handler>
 
-export const handler: MutationHook<null, {}, MutationTokenCreateArgs> = {
+export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
     query: mutation.SessionCreate,
   },

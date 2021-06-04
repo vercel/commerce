@@ -8,12 +8,12 @@ import * as mutation from '../utils/mutations'
 
 import { getCheckoutId, checkoutToCart } from '../utils'
 
-import { Cart, CartItemBody } from '../types'
 import { Mutation, MutationCheckoutLinesAddArgs } from '../schema'
+import { AddItemHook } from '@commerce/types/cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<Cart, {}, CartItemBody> = {
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: { query: mutation.CheckoutLineAdd },
   async fetcher({ input: item, options, fetch }) {
     if (item.quantity && (!Number.isInteger(item.quantity) || item.quantity! < 1)) {

@@ -7,10 +7,11 @@ import { AccountRegisterInput, Mutation, MutationAccountRegisterArgs } from '../
 
 import * as mutation from '../utils/mutations'
 import { handleAutomaticLogin, throwUserErrors } from '../utils'
+import { SignupHook } from '@commerce/types/signup'
 
 export default useSignup as UseSignup<typeof handler>
 
-export const handler: MutationHook<null, {}, AccountRegisterInput, AccountRegisterInput> = {
+export const handler: MutationHook<SignupHook> = {
   fetchOptions: {
     query: mutation.AccountCreate,
   },
@@ -27,6 +28,8 @@ export const handler: MutationHook<null, {}, AccountRegisterInput, AccountRegist
         input: {
           email,
           password,
+          redirectUrl: 'https://localhost.com',
+          channel: 'default-channel'
         },
       },
     })

@@ -16,26 +16,7 @@ export interface SaleorConfig extends CommerceAPIConfig {
   storeChannel: string
 }
 
-export class Config {
-  private config: SaleorConfig
-
-  constructor(config: SaleorConfig) {
-    this.config = config
-  }
-
-  getConfig(userConfig: Partial<SaleorConfig> = {}) {
-    return Object.entries(userConfig).reduce<SaleorConfig>(
-      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
-      { ...this.config }
-    )
-  }
-
-  setConfig(newConfig: Partial<SaleorConfig>) {
-    Object.assign(this.config, newConfig)
-  }
-}
-
-const config = new Config({
+const config: SaleorConfig = {
   locale: 'en-US',
   commerceUrl: Const.API_URL,
   apiToken: Const.SALEOR_TOKEN,
@@ -44,12 +25,25 @@ const config = new Config({
   fetch: fetchGraphqlApi,
   customerCookie: '',
   storeChannel: Const.API_CHANNEL,
-})
-
-export function getConfig(userConfig?: Partial<SaleorConfig>) {
-  return config.getConfig(userConfig)
 }
 
-export function setConfig(newConfig: Partial<SaleorConfig>) {
-  return config.setConfig(newConfig)
+import {
+  CommerceAPI,
+  getCommerceApi as commerceApi,
+} from '@commerce/api'
+
+import * as operations from './operations'
+
+export interface ShopifyConfig extends CommerceAPIConfig {}
+
+export const provider = { config, operations }
+
+export type Provider = typeof provider
+
+export type SaleorAPI<P extends Provider = Provider> = CommerceAPI<P>
+
+export function getCommerceApi<P extends Provider>(
+  customProvider: P = provider as any
+): SaleorAPI<P> {
+  return commerceApi(customProvider)
 }

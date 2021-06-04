@@ -3,12 +3,11 @@ import fetch from './fetch'
 
 import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
-import { getConfig } from '..'
+import { getCommerceApi } from '..'
 import { getToken } from '@framework/utils'
 
 const fetchGraphqlApi: GraphQLFetcher = async (query: string, { variables } = {}, fetchOptions) => {
-  // FIXME @zaiste follow the bigcommerce example
-  const config = getConfig()
+  const config = getCommerceApi().getConfig()
   const token = getToken()
 
   const res = await fetch(API_URL!, {

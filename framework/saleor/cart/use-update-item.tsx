@@ -2,26 +2,32 @@ import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
 import type { HookFetcherContext, MutationHookContext } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
-import useUpdateItem, { UpdateItemInput as UpdateItemInputBase, UseUpdateItem } from '@commerce/cart/use-update-item'
+import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
 
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
-import type { Cart, LineItem, UpdateCartItemBody } from '../types'
+import type { LineItem } from '../types'
 import { checkoutToCart } from '../utils'
 import { getCheckoutId } from '../utils'
 import { Mutation, MutationCheckoutLinesUpdateArgs } from '../schema'
 
 import * as mutation from '../utils/mutations'
 
-export type UpdateItemInput<T = any> = T extends LineItem
-  ? Partial<UpdateItemInputBase<LineItem>>
-  : UpdateItemInputBase<LineItem>
+import type { UpdateItemHook } from '../types/cart'
+
+export type UpdateItemActionInput<T = any> = T extends LineItem
+  ? Partial<UpdateItemHook['actionInput']>
+  : UpdateItemHook['actionInput']
 
 export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: { query: mutation.CheckoutLineUpdate },
-  async fetcher({ input: { itemId, item }, options, fetch }: HookFetcherContext<UpdateCartItemBody>) {
+  async fetcher({ 
+    input: { itemId, item }, 
+    options, 
+    fetch 
+  }: HookFetcherContext<UpdateItemHook>) {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
@@ -53,8 +59,7 @@ export const handler = {
 
     return checkoutToCart(checkoutLinesUpdate)
   },
-  useHook:
-    ({ fetch }: MutationHookContext<Cart | null, UpdateCartItemBody>) =>
+  useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) => 
     <T extends LineItem | undefined = undefined>(
       ctx: {
         item?: T
@@ -65,7 +70,7 @@ export const handler = {
       const { mutate } = useCart() as any
 
       return useCallback(
-        debounce(async (input: UpdateItemInput<T>) => {
+        debounce(async (input: UpdateItemActionInput<T>) => {
           const itemId = input.id ?? item?.id
           const productId = input.productId ?? item?.productId
           const variantId = input.productId ?? item?.variantId

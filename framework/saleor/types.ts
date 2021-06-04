@@ -1,4 +1,4 @@
-import * as Core from '@commerce/types'
+import type { Cart as CoreCart } from '@commerce/types'
 import { CheckoutLine } from './schema'
 
 export type SaleorCheckout = {
@@ -7,10 +7,10 @@ export type SaleorCheckout = {
   lineItems: CheckoutLine[]
 }
 
-export type Cart = Core.Cart & {
+export type Cart = CoreCart.Cart & {
   lineItems: LineItem[]
 }
-export interface LineItem extends Core.LineItem {
+export interface LineItem extends CoreCart.LineItem {
   options?: any[]
 }
 
@@ -23,21 +23,21 @@ export type OptionSelections = {
   option_value: number | string
 }
 
-export type CartItemBody = Core.CartItemBody & {
+export type CartItemBody = CoreCart.CartItemBody & {
   productId: string // The product id is always required for BC
   optionSelections?: OptionSelections
 }
 
-export type GetCartHandlerBody = Core.GetCartHandlerBody
+// export type GetCartHandlerBody = CoreCart.GetCartHandlerBody
 
-export type AddCartItemBody = Core.AddCartItemBody<CartItemBody>
+// export type AddCartItemBody = Core.AddCartItemBody<CartItemBody>
 
-export type AddCartItemHandlerBody = Core.AddCartItemHandlerBody<CartItemBody>
+// export type AddCartItemHandlerBody = Core.AddCartItemHandlerBody<CartItemBody>
 
-export type UpdateCartItemBody = Core.UpdateCartItemBody<CartItemBody>
+// export type UpdateCartItemBody = Core.UpdateCartItemBody<CartItemBody>
 
-export type UpdateCartItemHandlerBody = Core.UpdateCartItemHandlerBody<CartItemBody>
+// export type UpdateCartItemHandlerBody = Core.UpdateCartItemHandlerBody<CartItemBody>
 
-export type RemoveCartItemBody = Core.RemoveCartItemBody
+// export type RemoveCartItemBody = Core.RemoveCartItemBody
 
-export type RemoveCartItemHandlerBody = Core.RemoveCartItemHandlerBody
+// export type RemoveCartItemHandlerBody = Core.RemoveCartItemHandlerBody

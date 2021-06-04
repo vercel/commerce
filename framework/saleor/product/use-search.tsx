@@ -1,18 +1,19 @@
 import { SWRHook } from '@commerce/utils/types'
-import { Product } from '@commerce/types'
+import { Product } from '@commerce/types/product'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
 import { ProductCountableEdge } from '../schema'
 import { getSearchVariables, normalizeProduct } from '../utils'
 
 import * as query from '../utils/queries'
+import { SearchProductsHook } from '@commerce/types/product'
 
 export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
   search?: string
-  categoryId?: string
-  brandId?: string
+  categoryId?: string | number
+  brandId?: string | number
   sort?: string
 }
 
@@ -21,7 +22,7 @@ export type SearchProductsData = {
   found: boolean
 }
 
-export const handler: SWRHook<SearchProductsData, SearchProductsInput, SearchProductsInput> = {
+export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
     query: query.ProductMany,
   },

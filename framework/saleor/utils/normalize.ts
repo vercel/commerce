@@ -1,4 +1,4 @@
-import { Product } from '@commerce/types'
+import { Product } from '@commerce/types/product'
 
 import { Product as SaleorProduct, Checkout, CheckoutLine, Money, ProductVariant } from '../schema'
 
@@ -120,7 +120,7 @@ function normalizeLineItem({ id, variant, quantity }: CheckoutLine): LineItem {
       sku: variant?.sku ?? '',
       name: variant?.name!,
       image: {
-        url: variant?.media![0].url ?? placeholderImg,
+        url: variant?.media![0] ? variant?.media![0].url : placeholderImg,
       },
       requiresShipping: false,
       price: variant?.pricing?.price?.gross.amount!,

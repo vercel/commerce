@@ -72,7 +72,7 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.3.0",
-    "typescript": "^4.2.4"
+    "typescript": "4.2.4"
   },
   "husky": {
     "hooks": {

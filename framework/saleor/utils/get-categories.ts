@@ -1,12 +1,7 @@
+import { Category } from '@commerce/types/site'
 import { SaleorConfig } from '../api'
 import { CollectionCountableEdge } from '../schema'
 import * as query from './queries'
-
-export type Category = {
-  entityId: string
-  name: string
-  path: string
-}
 
 const getCategories = async (config: SaleorConfig): Promise<Category[]> => {
   const { data } = await config.fetch(query.CollectionMany, {
@@ -16,9 +11,10 @@ const getCategories = async (config: SaleorConfig): Promise<Category[]> => {
   })
 
   return (
-    data.collections?.edges?.map(({ node: { id: entityId, name, slug } }: CollectionCountableEdge) => ({
-      entityId,
+    data.collections?.edges?.map(({ node: { id, name, slug } }: CollectionCountableEdge) => ({
+      id,
       name,
+      slug,
       path: `/${slug}`,
     })) ?? []
   )
