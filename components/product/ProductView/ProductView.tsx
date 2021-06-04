@@ -159,7 +159,7 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
              */}
             <div className="flex flex-row py-6">
               {rangeMap(4, (i) => (
-                <span className="inline-block ml-1">
+                <span className="inline-block ml-1" key={i}>
                   <Star />
                 </span>
               ))}
