@@ -155,7 +155,9 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
           </section>
           <div className="flex flex-row justify-between items-center">
             <Rating value={2} />
-            <div className="text-accent-6 pr-1">36 reviews</div>
+            <div className="text-accent-6 pr-1 font-medium select-none">
+              36 reviews
+            </div>
           </div>
           <div>
             <Button
