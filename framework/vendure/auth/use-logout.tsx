@@ -3,11 +3,12 @@ import { MutationHook } from '@commerce/utils/types'
 import useLogout, { UseLogout } from '@commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
 import { LogoutMutation } from '../schema'
-import { logoutMutation } from '../lib/mutations/log-out-mutation'
+import { logoutMutation } from '../utils/mutations/log-out-mutation'
+import { LogoutHook } from '../types/logout'
 
 export default useLogout as UseLogout<typeof handler>
 
-export const handler: MutationHook<null> = {
+export const handler: MutationHook<LogoutHook> = {
   fetchOptions: {
     query: logoutMutation,
   },
