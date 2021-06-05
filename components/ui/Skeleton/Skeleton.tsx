@@ -4,13 +4,13 @@ import px from '@lib/to-pixels'
 import s from './Skeleton.module.css'
 
 interface SkeletonProps {
-  width?: string | number
-  height?: string | number
-  boxHeight?: string | number
-  style?: CSSProperties
   show?: boolean
   block?: boolean
   className?: string
+  style?: CSSProperties
+  width?: string | number
+  height?: string | number
+  boxHeight?: string | number
 }
 
 const Skeleton: React.FC<SkeletonProps> = ({

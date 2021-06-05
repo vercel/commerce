@@ -96,3 +96,7 @@
 .productImage {
   @apply transform transition-transform duration-500 object-cover scale-120;
 }
+
+.slim {
+  @apply bg-transparent relative overflow-hidden box-border;
+}

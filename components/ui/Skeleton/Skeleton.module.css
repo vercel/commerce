@@ -2,9 +2,9 @@
   @apply block;
   background-image: linear-gradient(
     270deg,
-    var(--accent-1),
+    var(--accent-0),
     var(--accent-2),
-    var(--accent-2),
+    var(--accent-0),
     var(--accent-1)
   );
   background-size: 400% 100%;
@@ -28,9 +28,9 @@
     z-index: 100;
     background-image: linear-gradient(
       270deg,
-      var(--accent-1),
+      var(--accent-0),
       var(--accent-2),
-      var(--accent-2),
+      var(--accent-0),
       var(--accent-1)
     );
     background-size: 400% 100%;

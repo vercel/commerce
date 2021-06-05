@@ -16,6 +16,10 @@
   @apply outline-none;
 }
 
+.actions:disabled {
+  @apply cursor-not-allowed;
+}
+
 .input {
   @apply bg-transparent px-4 w-full h-full focus:outline-none;
   user-select: none;

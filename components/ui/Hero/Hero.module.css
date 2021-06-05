@@ -1,6 +1,18 @@
 .root {
-  @apply mx-auto grid grid-cols-1 py-32 gap-4;
-  @screen md {
-    @apply grid-cols-2;
+  @apply flex flex-col py-32 mx-auto;
+}
+
+.headline {
+  @apply text-accent-0 font-extrabold text-5xl leading-none tracking-tight;
+}
+
+@screen md {
+  .root {
+    @apply flex-row items-center justify-center;
+  }
+
+  .headline {
+    @apply text-6xl max-w-xl text-right leading-10 -mt-3;
+    line-height: 4rem;
   }
 }

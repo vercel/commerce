@@ -34,24 +34,22 @@ const ProductCard: FC<Props> = ({
     >
       {variant === 'slim' && (
         <>
-          <div className="relative overflow-hidden box-border ">
-            <div className="absolute inset-0 flex items-center justify-end mr-8 z-20">
-              <span className="bg-black text-white inline-block p-3 font-bold text-xl break-words">
-                {product.name}
-              </span>
-            </div>
-            {product?.images && (
-              <Image
-                quality="85"
-                src={product.images[0].url || placeholderImg}
-                alt={product.name || 'Product Image'}
-                height={320}
-                width={320}
-                layout="fixed"
-                {...imgProps}
-              />
-            )}
+          <div className="absolute inset-0 flex items-center justify-end mr-8 z-20">
+            <span className="bg-accent-0 text-accent-9 inline-block p-3 font-bold text-xl break-words">
+              {product.name}
+            </span>
           </div>
+          {product?.images && (
+            <Image
+              quality="85"
+              src={product.images[0].url || placeholderImg}
+              alt={product.name || 'Product Image'}
+              height={320}
+              width={320}
+              layout="fixed"
+              {...imgProps}
+            />
+          )}
         </>
       )}
 

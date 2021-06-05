@@ -17,11 +17,13 @@ export async function getStaticProps({
   const config = { locale, locales }
   const { pages } = await commerce.getAllPages({ config, preview })
   const { categories } = await commerce.getSiteInfo({ config, preview })
+
   const { product } = await commerce.getProduct({
     variables: { slug: params!.slug },
     config,
     preview,
   })
+  console.log(product?.variants[0])
 
   const { products: relatedProducts } = await commerce.getAllProducts({
     variables: { first: 4 },
