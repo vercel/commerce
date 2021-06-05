@@ -5,47 +5,46 @@ import s from './ProductView.module.css'
 import { FC, useEffect, useState } from 'react'
 import type { Product } from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
-import { getVariant, SelectedOptions } from '../helpers'
-import { Swatch, ProductSlider } from '@components/product'
-import { Button, Container, Text, useUI } from '@components/ui'
+import {
+  getProductVariant,
+  selectDefaultOptionFromProduct,
+  SelectedOptions,
+} from '../helpers'
 import { useAddItem } from '@framework/cart'
-import Rating from '@components/ui/Rating'
-import Collapse from '@components/ui/Collapse'
-import ProductCard from '@components/product/ProductCard'
-import WishlistButton from '@components/wishlist/WishlistButton'
+import { WishlistButton } from '@components/wishlist'
+import { ProductSlider, ProductCard, ProductOptions } from '@components/product'
+import {
+  Button,
+  Container,
+  Text,
+  useUI,
+  Rating,
+  Collapse,
+} from '@components/ui'
 
-interface Props {
-  children?: any
+interface ProductViewProps {
   product: Product
-  relatedProducts: Product[]
   className?: string
+  relatedProducts: Product[]
+  children?: React.ReactNode
 }
 
-const ProductView: FC<Props> = ({ product, relatedProducts }) => {
-  // TODO: fix this missing argument issue
-  /* @ts-ignore */
+const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
+  const { openSidebar } = useUI()
+  const [loading, setLoading] = useState(false)
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   })
-  const { openSidebar } = useUI()
-  const [loading, setLoading] = useState(false)
-  const [choices, setChoices] = useState<SelectedOptions>({})
 
   useEffect(() => {
-    // Selects the default option
-    product.variants[0].options?.forEach((v) => {
-      setChoices((choices) => ({
-        ...choices,
-        [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
-      }))
-    })
+    selectDefaultOptionFromProduct(product, setSelectedOptions)
   }, [])
 
-  const variant = getVariant(product, choices)
-
+  const variant = getProductVariant(product, selectedOptions)
   const addToCart = async () => {
     setLoading(true)
     try {
@@ -84,9 +83,7 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
           <div className={s.nameBox}>
             <h1 className={s.name}>{product.name}</h1>
             <div className={s.price}>
-              {price}
-              {` `}
-              {product.price?.currencyCode}
+              {`${price} ${product.price?.currencyCode}`}
             </div>
           </div>
 
@@ -116,43 +113,15 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
           )}
         </div>
         <div className={s.sidebar}>
-          <section>
-            {product.options?.map((opt) => (
-              <div className="pb-4" key={opt.displayName}>
-                <h2 className="uppercase font-medium text-sm tracking-wide">
-                  {opt.displayName}
-                </h2>
-                <div className="flex flex-row py-4">
-                  {opt.values.map((v, i: number) => {
-                    const active = (choices as any)[
-                      opt.displayName.toLowerCase()
-                    ]
-
-                    return (
-                      <Swatch
-                        key={`${opt.id}-${i}`}
-                        active={v.label.toLowerCase() === active}
-                        variant={opt.displayName}
-                        color={v.hexColors ? v.hexColors[0] : ''}
-                        label={v.label}
-                        onClick={() => {
-                          setChoices((choices) => {
-                            return {
-                              ...choices,
-                              [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
-                            }
-                          })
-                        }}
-                      />
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
-            <div className="pb-4 break-words w-full max-w-xl">
-              <Text html={product.descriptionHtml || product.description} />
-            </div>
-          </section>
+          <ProductOptions
+            options={product.options}
+            selectedOptions={selectedOptions}
+            setSelectedOptions={setSelectedOptions}
+          />
+          <Text
+            className="pb-4 break-words w-full max-w-xl"
+            html={product.descriptionHtml || product.description}
+          />
           <div className="flex flex-row justify-between items-center">
             <Rating value={2} />
             <div className="text-accent-6 pr-1 font-medium select-none">
@@ -173,13 +142,12 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
                 : 'Add To Cart'}
             </Button>
           </div>
-
           <div className="mt-6">
-            <Collapse title="Details">
+            <Collapse title="Care">
               This is a limited edition production run. Printing starts when the
               drop ends.
             </Collapse>
-            <Collapse title="Care">
+            <Collapse title="Details">
               This is a limited edition production run. Printing starts when the
               drop ends. Reminder: Bad Boys For Life. Shipping may take 10+ days
               due to COVID-19.

@@ -1,7 +1,7 @@
 .root {
   @apply relative max-h-full w-full box-border overflow-hidden
   bg-no-repeat bg-center bg-cover transition-transform
-  ease-linear cursor-pointer inline-block;
+  ease-linear cursor-pointer inline-block bg-accent-1;
   height: 100% !important;
 
   &:hover {
@@ -95,4 +95,12 @@
 
 .productImage {
   @apply transform transition-transform duration-500 object-cover scale-120;
+}
+
+.slim {
+  @apply bg-transparent relative overflow-hidden box-border;
+}
+
+.slim .tag {
+  @apply bg-secondary text-secondary inline-block p-3 font-bold text-xl break-words;
 }

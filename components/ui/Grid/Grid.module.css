@@ -1,6 +1,6 @@
 .root {
-  --row-height: calc(100vh - 88px);
   @apply grid grid-cols-1 gap-0;
+  --row-height: calc(100vh - 88px);
   min-height: var(--row-height);
 
   @screen lg {
@@ -27,9 +27,17 @@
 
 .layoutNormal {
   @apply gap-3;
+}
 
-  & > * {
-    min-height: 325px;
+@screen md {
+  .layoutNormal > * {
+    max-height: min-content !important;
+  }
+}
+
+@screen lg {
+  .layoutNormal > * {
+    max-height: 400px;
   }
 }
 
