@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import s from './Marquee.module.css'
-import { FC, ReactNode, Component, Children, isValidElement } from 'react'
+import { FC, ReactNode, Component, Children } from 'react'
 import Ticker from 'react-ticker'
 
 interface MarqueeProps {
@@ -28,18 +28,13 @@ const Marquee: FC<MarqueeProps> = ({
       <Ticker offset={80}>
         {() => (
           <div className={s.container}>
-            {Children.map(children, (child) => {
-              if (isValidElement(child)) {
-                return {
-                  ...child,
-                  props: {
-                    ...child.props,
-                    className: cn(child.props.className, `${variant}`),
-                  },
-                }
-              }
-              return child
-            })}
+            {Children.map(children, (child) => ({
+              ...child,
+              props: {
+                ...child.props,
+                className: cn(child.props.className, `${variant}`),
+              },
+            }))}
           </div>
         )}
       </Ticker>

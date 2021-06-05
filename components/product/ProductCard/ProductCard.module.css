@@ -102,5 +102,9 @@
 }
 
 .slim .tag {
-  @apply bg-secondary text-secondary inline-block p-3 font-bold text-xl break-words;
+  @apply bg-accent-9 text-accent-0 inline-block p-3 font-bold text-xl break-words;
+}
+
+.root:global(.secondary) .tag {
+  @apply bg-accent-0 text-accent-9;
 }
