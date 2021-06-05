@@ -1,5 +1,5 @@
-import { CollectionEdge } from '../schema'
-import { getConfig, SwellConfig } from '../api'
+import { CollectionEdge } from '../../schema'
+import { getConfig, SwellConfig } from '..'
 
 const getAllCollections = async (options?: {
   variables?: any

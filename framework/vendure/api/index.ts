@@ -1,4 +1,4 @@
-import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
+import type { CommerceAPIConfig } from '@commerce/api'
 import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 

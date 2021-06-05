@@ -1,11 +1,8 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-
 import { normalizeProduct } from '../utils'
-
-import { Product } from '@commerce/types'
-
 import { SwellProduct } from '../types'
+import type { SearchProductsHook } from '../types/product'
 
 export default useSearch as UseSearch<typeof handler>
 
@@ -16,18 +13,9 @@ export type SearchProductsInput = {
   sort?: string
 }
 
-export type SearchProductsData = {
-  products: Product[]
-  found: boolean
-}
-
-export const handler: SWRHook<
-  SearchProductsData,
-  SearchProductsInput,
-  SearchProductsInput
-> = {
+export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    query: 'products', // String(Math.random()),
+    query: 'products',
     method: 'list',
   },
   async fetcher({ input, options, fetch }) {

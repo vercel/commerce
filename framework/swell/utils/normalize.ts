@@ -1,6 +1,6 @@
-import { Product, Customer } from '@commerce/types'
-
-import { MoneyV2, ProductOption } from '../schema'
+import { Customer } from '../types/customer'
+import { Product, ProductOption } from '../types/product'
+import { MoneyV2 } from '../schema'
 
 import type {
   Cart,
@@ -21,8 +21,13 @@ const money = ({ amount, currencyCode }: MoneyV2) => {
   }
 }
 
+type swellProductOption = {
+  id: string
+  name: string
+  values: any[]
+}
+
 type normalizedProductOption = {
-  __typename?: string
   id: string
   displayName: string
   values: ProductOptionValue[]
@@ -32,11 +37,11 @@ const normalizeProductOption = ({
   id,
   name: displayName = '',
   values = [],
-}: ProductOption) => {
+}: swellProductOption): ProductOption => {
   let returnValues = values.map((value) => {
     let output: any = {
       label: value.name,
-      id: value?.id || id,
+      // id: value?.id || id,
     }
     if (displayName.match(/colou?r/gi)) {
       output = {
@@ -91,10 +96,10 @@ const normalizeProductVariants = (
 
       return {
         id,
-        name,
+        // name,
         // sku: sku ?? id,
-        price: price ?? null,
-        listPrice: price ?? null,
+        // price: price ?? null,
+        // listPrice: price ?? null,
         // requiresShipping: true,
         options,
       }
@@ -116,6 +121,7 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
   } = swellProduct
   // ProductView accesses variants for each product
   const emptyVariants = [{ options: [], id, name }]
+
   const productOptions = options
     ? options.map((o) => normalizeProductOption(o))
     : []

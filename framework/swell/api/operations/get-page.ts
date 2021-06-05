@@ -1,25 +1,44 @@
 import { Page } from '../../schema'
-import { SwellConfig, getConfig } from '..'
+import { SwellConfig, Provider } from '..'
+import { OperationContext } from '@commerce/api/operations'
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
 export type PageVariables = {
-  id: string
+  id: number
 }
 
-async function getPage({
-  url,
-  variables,
-  config,
-  preview,
-}: {
-  url?: string
-  variables: PageVariables
-  config?: SwellConfig
-  preview?: boolean
-}): Promise<GetPageResult> {
-  config = getConfig(config)
-  return {}
-}
+export default function getPageOperation({
+  commerce,
+}: OperationContext<Provider>) {
+  async function getPage(opts: {
+    url?: string
+    variables: PageVariables
+    config?: Partial<SwellConfig>
+    preview?: boolean
+  }): Promise<GetPageResult>
 
-export default getPage
+  async function getPage<T extends { page?: any }, V = any>(opts: {
+    url: string
+    variables: V
+    config?: Partial<SwellConfig>
+    preview?: boolean
+  }): Promise<GetPageResult<T>>
+
+  async function getPage({
+    url,
+    variables,
+    config: cfg,
+    preview,
+  }: {
+    url?: string
+    variables: PageVariables
+    config?: Partial<SwellConfig>
+    preview?: boolean
+  }): Promise<GetPageResult> {
+    const config = commerce.getConfig(cfg)
+    return {}
+  }
+
+  return getPage
+}

@@ -3,12 +3,12 @@ import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import {
-  CustomerAccessTokenCreateInput,
   CustomerUserError,
   Mutation,
   MutationCheckoutCreateArgs,
 } from '../schema'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
+import { LoginHook } from '../types/login'
 import { setCustomerToken } from '../utils'
 
 export default useLogin as UseLogin<typeof handler>
@@ -22,7 +22,7 @@ const getErrorMessage = ({ code, message }: CustomerUserError) => {
   return message
 }
 
-export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
+export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
     query: 'account',
     method: 'login',
