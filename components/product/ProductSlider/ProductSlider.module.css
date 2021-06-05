@@ -35,7 +35,7 @@
 }
 
 .rightControl {
-  @apply border-l;
+  @apply border-l border-accent-0;
 }
 
 .leftControl {

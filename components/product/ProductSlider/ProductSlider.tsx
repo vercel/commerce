@@ -10,7 +10,7 @@ import React, {
 import cn from 'classnames'
 import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
-import { ChevronLeft, ChevronRight } from '@components/icons'
+import { ArrowLeft, ArrowRight } from '@components/icons'
 
 const ProductSlider: FC = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -86,14 +86,14 @@ const ProductSlider: FC = ({ children }) => {
               onClick={slider.prev}
               aria-label="Previous Product Image"
             >
-              <ChevronLeft />
+              <ArrowLeft />
             </button>
             <button
               className={cn(s.rightControl)}
               onClick={slider.next}
               aria-label="Next Product Image"
             >
-              <ChevronRight />
+              <ArrowRight />
             </button>
           </div>
         )}

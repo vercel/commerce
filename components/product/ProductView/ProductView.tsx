@@ -155,7 +155,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           </div>
         </div>
       </div>
-      <hr className="mt-6" />
+      <hr className="mt-6 border-accent-2" />
       <section className="py-6 px-6 mb-10">
         <Text variant="sectionHeading">Related Products</Text>
         <div className="grid grid-cols-2 py-2 gap-4 md:grid-cols-4 md:gap-20">
