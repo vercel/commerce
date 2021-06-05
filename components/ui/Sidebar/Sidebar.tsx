@@ -7,13 +7,13 @@ import {
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
 
-interface Props {
+interface SidebarProps {
   children: any
   open: boolean
   onClose: () => void
 }
 
-const Sidebar: FC<Props> = ({ children, open = false, onClose }) => {
+const Sidebar: FC<SidebarProps> = ({ children, open = false, onClose }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
   useEffect(() => {

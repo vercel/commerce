@@ -3,13 +3,13 @@ import s from './Marquee.module.css'
 import { FC, ReactNode, Component } from 'react'
 import Ticker from 'react-ticker'
 
-interface Props {
+interface MarqueeProps {
   className?: string
   children?: ReactNode[] | Component[] | any[]
   variant?: 'primary' | 'secondary'
 }
 
-const Marquee: FC<Props> = ({
+const Marquee: FC<MarqueeProps> = ({
   className = '',
   children,
   variant = 'primary',

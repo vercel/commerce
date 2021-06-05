@@ -9,11 +9,11 @@ import { getVariant, SelectedOptions } from '../helpers'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text, useUI } from '@components/ui'
 import { useAddItem } from '@framework/cart'
+import Rating from '@components/ui/Rating'
 import Collapse from '@components/ui/Collapse'
 import ProductCard from '@components/product/ProductCard'
 import WishlistButton from '@components/wishlist/WishlistButton'
-import rangeMap from '@lib/range-map'
-import { Star } from '@components/icons'
+
 interface Props {
   children?: any
   product: Product
@@ -154,20 +154,10 @@ const ProductView: FC<Props> = ({ product, relatedProducts }) => {
             </div>
           </section>
           <div className="flex flex-row justify-between items-center">
-            {/**
-             * TODO make component Rate stars={}
-             */}
-            <div className="flex flex-row py-6">
-              {rangeMap(4, (i) => (
-                <span className="inline-block ml-1" key={i}>
-                  <Star />
-                </span>
-              ))}
-              <span className="inline-block ml-1 text-accent-5">
-                <Star />
-              </span>
+            <Rating value={2} />
+            <div className="text-accent-6 pr-1 font-medium select-none">
+              36 reviews
             </div>
-            <div className="text-accent-6 pr-1">36 reviews</div>
           </div>
           <div>
             <Button

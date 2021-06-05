@@ -6,7 +6,7 @@ import React, {
 import cn from 'classnames'
 import s from './Text.module.css'
 
-interface Props {
+interface TextProps {
   variant?: Variant
   className?: string
   style?: CSSProperties
@@ -17,7 +17,7 @@ interface Props {
 
 type Variant = 'heading' | 'body' | 'pageHeading' | 'sectionHeading'
 
-const Text: FunctionComponent<Props> = ({
+const Text: FunctionComponent<TextProps> = ({
   style,
   className = '',
   variant = 'body',
