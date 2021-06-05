@@ -16,21 +16,21 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ children, open = false, onClose }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (ref.current && open) {
-        window.document.body.style.overflow = 'hidden'
-        disableBodyScroll(ref.current)
-      } else {
-        window.document.body.style.overflow &&
-          setTimeout(() => (window.document.body.style.overflow = 'unset'), 30)
-        !!ref.current && enableBodyScroll(ref.current)
-      }
-    }, 30)
-    return () => {
-      clearAllBodyScrollLocks()
-    }
-  }, [open])
+  // useEffect(() => {
+  //   // setTimeout(() => {
+  //   //   if (ref.current && open) {
+  //   //     window.document.body.style.overflow = 'hidden'
+  //   //     disableBodyScroll(ref.current)
+  //   //   } else {
+  //   //     window.document.body.style.overflow &&
+  //   //       setTimeout(() => (window.document.body.style.overflow = 'unset'), 30)
+  //   //     !!ref.current && enableBodyScroll(ref.current)
+  //   //   }
+  //   // }, 30)
+  //   return () => {
+  //     clearAllBodyScrollLocks()
+  //   }
+  // }, [open])
 
   return (
     <Portal>
