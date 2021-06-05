@@ -23,7 +23,6 @@ export async function getStaticProps({
     config,
     preview,
   })
-  console.log(product?.variants[0])
 
   const { products: relatedProducts } = await commerce.getAllProducts({
     variables: { first: 4 },

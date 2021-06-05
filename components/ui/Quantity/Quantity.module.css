@@ -1,6 +1,8 @@
 .actions {
-  @apply flex p-1 border-accent-2 border items-center justify-center w-12 text-accent-7;
+  @apply flex p-1 border-accent-2 border items-center justify-center
+  w-12 text-accent-7;
   transition-property: border-color, background, color, transform, box-shadow;
+
   transition-duration: 0.15s;
   transition-timing-function: ease;
   user-select: none;
@@ -21,6 +23,5 @@
 }
 
 .input {
-  @apply bg-transparent px-4 w-full h-full focus:outline-none;
-  user-select: none;
+  @apply bg-transparent px-4 w-full h-full focus:outline-none select-none pointer-events-auto;
 }

@@ -1,5 +1,6 @@
 .root {
   @apply relative h-full flex flex-col w-full;
+  min-width: 400px;
 }
 
 .header {
