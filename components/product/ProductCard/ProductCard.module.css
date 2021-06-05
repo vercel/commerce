@@ -100,3 +100,7 @@
 .slim {
   @apply bg-transparent relative overflow-hidden box-border;
 }
+
+.slim .tag {
+  @apply bg-secondary text-secondary inline-block p-3 font-bold text-xl break-words;
+}
