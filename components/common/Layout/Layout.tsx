@@ -76,18 +76,22 @@ const Layout: FC<Props> = ({
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
 
-        <Modal open={displayModal} onClose={closeModal}>
-          {modalView === 'LOGIN_VIEW' && <LoginView />}
-          {modalView === 'SIGNUP_VIEW' && <SignUpView />}
-          {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
-        </Modal>
+        {displayModal && (
+          <Modal onClose={closeModal}>
+            {modalView === 'LOGIN_VIEW' && <LoginView />}
+            {modalView === 'SIGNUP_VIEW' && <SignUpView />}
+            {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
+          </Modal>
+        )}
 
-        <Sidebar open={displaySidebar} onClose={closeSidebar}>
-          {sidebarView === 'CART_VIEW' && <CartSidebarView />}
-          {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
-          {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
-          {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
-        </Sidebar>
+        {displaySidebar && (
+          <Sidebar onClose={closeSidebar}>
+            {sidebarView === 'CART_VIEW' && <CartSidebarView />}
+            {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
+            {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
+            {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
+          </Sidebar>
+        )}
 
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
