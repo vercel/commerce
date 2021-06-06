@@ -174,14 +174,14 @@ function normalizeLineItem({
 
 export const normalizePage = (
   { title: name, handle, ...page }: ShopifyPage,
-  locale: string
+  locale: string = 'en-US'
 ): Page => ({
   ...page,
   url: `/${locale}/${handle}`,
   name,
 })
 
-export const normalizePages = (edges: PageEdge[], locale: string): Page[] =>
+export const normalizePages = (edges: PageEdge[], locale?: string): Page[] =>
   edges?.map((edge) => normalizePage(edge.node, locale))
 
 export const normalizeCategory = ({

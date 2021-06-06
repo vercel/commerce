@@ -39,7 +39,7 @@ export default function getPageOperation({
     config?: Partial<ShopifyConfig>
     preview?: boolean
   }): Promise<T['data']> {
-    const { fetch, locale = 'en-US' } = commerce.getConfig(config)
+    const { fetch, locale } = commerce.getConfig(config)
 
     const {
       data: { node: page },
