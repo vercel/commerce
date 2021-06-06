@@ -80,8 +80,10 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
       />
       <div className={cn(s.root, 'fit')}>
         <div className={cn(s.main, 'fit')}>
-          <div className={s.nameBox}>
-            <h1 className={s.name}>{product.name}</h1>
+          <div className={s.header}>
+            <h3 className={s.name}>
+              <span>{product.name}</span>
+            </h3>
             <div className={s.price}>
               {`${price} ${product.price?.currencyCode}`}
             </div>

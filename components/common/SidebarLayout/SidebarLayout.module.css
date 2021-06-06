@@ -1,8 +1,16 @@
 .root {
   @apply relative h-full flex flex-col w-full;
+  min-height: 100vh;
 }
 
 .header {
-  @apply pl-4 pr-6 pt-4 pb-4 lg:pt-5 flex items-center justify-between space-x-3;
+  @apply sticky top-0 pl-4 pr-6 pt-4 pb-4 lg:pt-5
+  flex items-center justify-between space-x-3
+  bg-accent-0 border-b border-accent-2 z-50;
   margin-top: 1px;
+}
+
+.container,
+.container > *:first-child {
+  min-height: calc(100vh - 70px);
 }

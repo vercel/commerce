@@ -7,18 +7,28 @@
   min-height: 500px;
 }
 
-.nameBox {
-  @apply absolute top-0 left-0 z-20 pr-16;
+.header {
+  @apply transition-colors ease-in-out duration-500
+  absolute top-0 left-0 z-20 pr-16;
 }
 
-.nameBox .name {
-  @apply px-6 py-2 bg-primary text-primary font-bold;
-  font-size: 1.8rem;
+.header .name {
+  @apply pt-0 max-w-full w-full leading-extra-loose;
+  font-size: 2rem;
   letter-spacing: 0.4px;
 }
 
-.nameBox .price {
-  @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide;
+.header .name span {
+  @apply py-4 px-6 bg-primary text-primary font-bold;
+  font-size: inherit;
+  letter-spacing: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.header .price {
+  @apply pt-2 px-6 pb-4 text-sm bg-primary text-accent-9
+  font-semibold inline-block tracking-wide;
 }
 
 .sidebar {
@@ -58,15 +68,6 @@
 
   .main {
     @apply mx-0 col-span-8;
-  }
-
-  .nameBox {
-    @apply left-0 pr-16;
-  }
-
-  .nameBox .name,
-  .nameBox .price {
-    @apply bg-accent-0 text-accent-9;
   }
 
   .sidebar {

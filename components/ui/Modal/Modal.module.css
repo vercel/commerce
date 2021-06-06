@@ -11,3 +11,7 @@
 .modal:focus {
   @apply outline-none;
 }
+
+.close {
+  @apply hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none absolute right-0 top-0 m-6;
+}
