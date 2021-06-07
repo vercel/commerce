@@ -22,7 +22,7 @@
     "@react-spring/web": "^9.2.1",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.6",
-    "body-scroll-lock": "2.6.3",
+    "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
     "classnames": "^2.3.1",
     "cookie": "^0.4.1",

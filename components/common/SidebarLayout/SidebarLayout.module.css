@@ -1,5 +1,5 @@
 .root {
-  @apply relative h-full flex flex-col min-h-full w-full overflow-y-auto;
+  @apply relative h-full flex flex-col;
 }
 
 .header {
@@ -9,12 +9,12 @@
   min-height: 66px;
 }
 
+.container {
+  @apply flex flex-col flex-1 box-border;
+}
+
 @screen lg {
   .header {
     min-height: 74px;
   }
-}
-
-.container {
-  @apply flex flex-col flex-1 box-border;
 }
