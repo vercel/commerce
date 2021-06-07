@@ -15,7 +15,7 @@
 }
 
 .root[data-active] {
-  @apply bg-gray-600;
+  @apply bg-accent-6;
 }
 
 .loading {
