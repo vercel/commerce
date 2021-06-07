@@ -28,7 +28,6 @@ const SidebarLayout: FC<ComponentProps> = ({
             <span className="ml-2 text-accent-7 text-sm ">Close</span>
           </button>
         )}
-
         {handleBack && (
           <button
             onClick={handleBack}
@@ -36,10 +35,12 @@ const SidebarLayout: FC<ComponentProps> = ({
             className="hover:text-gray-500 transition ease-in-out duration-150 flex items-center focus:outline-none"
           >
             <ChevronLeft className="h-6 w-6 hover:text-accent-3" />
-            <span className="ml-2 text-accent-7 text-xs ">Back</span>
+            <span className="ml-2 text-accent-7 text-xs">Back</span>
           </button>
         )}
-        <UserNav />
+        <span className={s.nav}>
+          <UserNav />
+        </span>
       </header>
       <div className={s.container}>{children}</div>
     </div>

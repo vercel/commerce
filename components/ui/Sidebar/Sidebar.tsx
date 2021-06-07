@@ -16,11 +16,13 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
   useEffect(() => {
-    console.log('Sidebar', ref)
     if (ref.current) {
-      disableBodyScroll(ref.current)
+      disableBodyScroll(ref.current, { reserveScrollBarGap: true })
     }
     return () => {
+      if (ref && ref.current) {
+        enableBodyScroll(ref.current)
+      }
       clearAllBodyScrollLocks()
     }
   }, [])
@@ -29,8 +31,8 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
     <div className={cn(s.root)} ref={ref}>
       <div className="absolute inset-0 overflow-hidden">
         <div className={s.backdrop} onClick={onClose} />
-        <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16 outline-none">
-          <div className="h-full md:w-screen md:max-w-md">
+        <section className="absolute inset-y-0 right-0 max-w-full flex outline-none pl-10">
+          <div className="h-full w-full md:w-screen md:max-w-md">
             <div className={s.sidebar}>{children}</div>
           </div>
         </section>

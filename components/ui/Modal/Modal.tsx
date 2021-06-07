@@ -2,7 +2,11 @@ import { FC, useRef, useEffect, useCallback } from 'react'
 import s from './Modal.module.css'
 import FocusTrap from '@lib/focus-trap'
 import { Cross } from '@components/icons'
-import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import {
+  disableBodyScroll,
+  clearAllBodyScrollLocks,
+  enableBodyScroll,
+} from 'body-scroll-lock'
 interface ModalProps {
   className?: string
   children?: any
@@ -24,14 +28,17 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
 
   useEffect(() => {
     if (ref.current) {
-      disableBodyScroll(ref.current)
+      disableBodyScroll(ref.current, { reserveScrollBarGap: true })
       window.addEventListener('keydown', handleKey)
     }
     return () => {
-      window.removeEventListener('keydown', handleKey)
+      if (ref && ref.current) {
+        enableBodyScroll(ref.current)
+      }
       clearAllBodyScrollLocks()
+      window.removeEventListener('keydown', handleKey)
     }
-  }, [open, handleKey])
+  }, [handleKey])
 
   return (
     <div className={s.root}>

@@ -1,10 +1,10 @@
 .root {
-  @apply fixed inset-0 overflow-hidden h-full z-50;
+  @apply fixed inset-0 overflow-hidden h-full z-50 box-border;
 }
 
 .sidebar {
   @apply h-full flex flex-col text-base bg-accent-0 shadow-xl overflow-y-auto;
-  min-width: 335px;
+  right: 0;
 }
 
 .backdrop {

@@ -24,36 +24,34 @@ const UserNav: FC<Props> = ({ className }) => {
 
   return (
     <nav className={cn(s.root, className)}>
-      <div className={s.mainContainer}>
-        <ul className={s.list}>
-          <li className={s.item} onClick={toggleSidebar}>
-            <Bag />
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
-          </li>
-          {process.env.COMMERCE_WISHLIST_ENABLED && (
-            <li className={s.item}>
-              <Link href="/wishlist">
-                <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
-                  <Heart />
-                </a>
-              </Link>
-            </li>
-          )}
+      <ul className={s.list}>
+        <li className={s.item} onClick={toggleSidebar}>
+          <Bag />
+          {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+        </li>
+        {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
-            {customer ? (
-              <DropdownMenu />
-            ) : (
-              <button
-                className={s.avatarButton}
-                aria-label="Menu"
-                onClick={() => openModal()}
-              >
-                <Avatar />
-              </button>
-            )}
+            <Link href="/wishlist">
+              <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
+                <Heart />
+              </a>
+            </Link>
           </li>
-        </ul>
-      </div>
+        )}
+        <li className={s.item}>
+          {customer ? (
+            <DropdownMenu />
+          ) : (
+            <button
+              className={s.avatarButton}
+              aria-label="Menu"
+              onClick={() => openModal()}
+            >
+              <Avatar />
+            </button>
+          )}
+        </li>
+      </ul>
     </nav>
   )
 }

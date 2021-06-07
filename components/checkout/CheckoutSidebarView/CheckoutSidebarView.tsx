@@ -29,7 +29,10 @@ const CheckoutSidebarView: FC = () => {
   )
 
   return (
-    <SidebarLayout handleBack={() => setSidebarView('CART_VIEW')}>
+    <SidebarLayout
+      className={s.root}
+      handleBack={() => setSidebarView('CART_VIEW')}
+    >
       <div className="px-4 sm:px-6 flex-1">
         <Link href="/cart">
           <Text variant="sectionHeading">Checkout</Text>
