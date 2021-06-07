@@ -11,5 +11,5 @@
 }
 
 .sectionHeading {
-  @apply pt-1 pb-2 text-2xl font-semibold tracking-wide cursor-pointer mb-2;
+  @apply pt-1 pb-2 text-2xl font-bold tracking-wide cursor-pointer mb-2;
 }

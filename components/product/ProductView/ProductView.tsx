@@ -126,7 +126,9 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           />
           <div className="flex flex-row justify-between items-center">
             <Rating value={2} />
-            <div className="text-accent-6 pr-1 font-medium">36 reviews</div>
+            <div className="text-accent-6 pr-1 font-medium text-sm">
+              36 reviews
+            </div>
           </div>
           <div>
             <Button
@@ -155,10 +157,10 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           </div>
         </div>
       </div>
-      <hr className="mt-6 border-accent-2" />
-      <section className="py-6 px-6 mb-10">
+      <hr className="mt-7 border-accent-2" />
+      <section className="py-12 px-6 mb-10">
         <Text variant="sectionHeading">Related Products</Text>
-        <div className="grid grid-cols-2 py-2 gap-4 md:grid-cols-4 md:gap-20">
+        <div className="grid grid-cols-2 py-2 gap-2 md:grid-cols-4 md:gap-20">
           {relatedProducts.map((p) => (
             <div
               key={p.path}
@@ -171,8 +173,8 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                 variant="simple"
                 className="animated fadeIn"
                 imgProps={{
-                  width: 182,
-                  height: 182,
+                  width: 300,
+                  height: 300,
                 }}
               />
             </div>

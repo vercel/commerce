@@ -1,5 +1,6 @@
 .root {
   @apply relative grid items-start gap-1 grid-cols-1 overflow-x-hidden;
+  min-height: auto;
 }
 
 .main {
@@ -63,7 +64,6 @@
 @screen lg {
   .root {
     @apply grid-cols-12;
-    min-height: 900px;
   }
 
   .main {
