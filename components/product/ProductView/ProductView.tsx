@@ -160,7 +160,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
       <hr className="mt-7 border-accent-2" />
       <section className="py-12 px-6 mb-10">
         <Text variant="sectionHeading">Related Products</Text>
-        <div className="grid grid-cols-2 py-2 gap-2 md:grid-cols-4 md:gap-20">
+        <div className={s.relatedProductsGrid}>
           {relatedProducts.map((p) => (
             <div
               key={p.path}

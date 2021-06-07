@@ -61,6 +61,10 @@
   @apply absolute z-30 top-0 right-0;
 }
 
+.relatedProductsGrid {
+  @apply grid grid-cols-2 py-2 gap-2 md:grid-cols-4 md:gap-7;
+}
+
 @screen lg {
   .root {
     @apply grid-cols-12;
