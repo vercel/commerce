@@ -96,7 +96,7 @@ export default function Search({
                 <button
                   type="button"
                   onClick={(e) => handleClick(e, 'categories')}
-                  className="flex justify-between w-full rounded-sm border border-gray-300 px-4 py-3 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+                  className="flex justify-between w-full rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
                   id="options-menu"
                   aria-haspopup="true"
                   aria-expanded="true"
@@ -126,7 +126,7 @@ export default function Search({
                   : ''
               }`}
             >
-              <div className="rounded-sm bg-white shadow-xs lg:bg-none lg:shadow-none">
+              <div className="rounded-sm bg-accent-0 shadow-xs lg:bg-none lg:shadow-none">
                 <div
                   role="menu"
                   aria-orientation="vertical"
@@ -135,7 +135,7 @@ export default function Search({
                   <ul>
                     <li
                       className={cn(
-                        'block text-sm leading-5 text-gray-700 lg:text-base lg:no-underline lg:font-bold lg:tracking-wide hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
+                        'block text-sm leading-5 text-accent-4 lg:text-base lg:no-underline lg:font-bold lg:tracking-wide hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                         {
                           underline: !activeCategory?.name,
                         }
@@ -158,7 +158,7 @@ export default function Search({
                       <li
                         key={cat.path}
                         className={cn(
-                          'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
+                          'block text-sm leading-5 text-accent-4 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                           {
                             underline: activeCategory?.id === cat.id,
                           }
@@ -194,7 +194,7 @@ export default function Search({
                 <button
                   type="button"
                   onClick={(e) => handleClick(e, 'brands')}
-                  className="flex justify-between w-full rounded-sm border border-gray-300 px-4 py-3 bg-white text-sm leading-5 font-medium text-gray-900 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+                  className="flex justify-between w-full rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-8 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
                   id="options-menu"
                   aria-haspopup="true"
                   aria-expanded="true"
@@ -224,7 +224,7 @@ export default function Search({
                   : ''
               }`}
             >
-              <div className="rounded-sm bg-white shadow-xs lg:bg-none lg:shadow-none">
+              <div className="rounded-sm bg-accent-0 shadow-xs lg:bg-none lg:shadow-none">
                 <div
                   role="menu"
                   aria-orientation="vertical"
@@ -233,7 +233,7 @@ export default function Search({
                   <ul>
                     <li
                       className={cn(
-                        'block text-sm leading-5 text-gray-700 lg:text-base lg:no-underline lg:font-bold lg:tracking-wide hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
+                        'block text-sm leading-5 text-accent-4 lg:text-base lg:no-underline lg:font-bold lg:tracking-wide hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                         {
                           underline: !activeBrand?.name,
                         }
@@ -259,7 +259,7 @@ export default function Search({
                       <li
                         key={node.path}
                         className={cn(
-                          'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
+                          'block text-sm leading-5 text-accent-4 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                           {
                             // @ts-ignore Shopify - Fix this types
                             underline: activeBrand?.entityId === node.entityId,
@@ -367,7 +367,7 @@ export default function Search({
                 <button
                   type="button"
                   onClick={(e) => handleClick(e, 'sort')}
-                  className="flex justify-between w-full rounded-sm border border-gray-300 px-4 py-3 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+                  className="flex justify-between w-full rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
                   id="options-menu"
                   aria-haspopup="true"
                   aria-expanded="true"
@@ -393,7 +393,7 @@ export default function Search({
                 activeFilter !== 'sort' || toggleFilter !== true ? 'hidden' : ''
               }`}
             >
-              <div className="rounded-sm bg-white shadow-xs lg:bg-none lg:shadow-none">
+              <div className="rounded-sm bg-accent-0 shadow-xs lg:bg-none lg:shadow-none">
                 <div
                   role="menu"
                   aria-orientation="vertical"
@@ -402,7 +402,7 @@ export default function Search({
                   <ul>
                     <li
                       className={cn(
-                        'block text-sm leading-5 text-gray-700 lg:text-base lg:no-underline lg:font-bold lg:tracking-wide hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
+                        'block text-sm leading-5 text-accent-4 lg:text-base lg:no-underline lg:font-bold lg:tracking-wide hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                         {
                           underline: !sort,
                         }
@@ -423,7 +423,7 @@ export default function Search({
                       <li
                         key={key}
                         className={cn(
-                          'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
+                          'block text-sm leading-5 text-accent-4 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                           {
                             underline: sort === key,
                           }
