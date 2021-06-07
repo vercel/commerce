@@ -4,6 +4,7 @@
 
 .sidebar {
   @apply h-full flex flex-col text-base bg-accent-0 shadow-xl overflow-y-auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .backdrop {
