@@ -336,7 +336,7 @@ export default function Search({
           )}
 
           {data ? (
-            <Grid layout="normal">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {data.products.map((product: Product) => (
                 <ProductCard
                   variant="simple"
@@ -349,13 +349,15 @@ export default function Search({
                   }}
                 />
               ))}
-            </Grid>
+            </div>
           ) : (
-            <Grid layout="normal">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {rangeMap(12, (i) => (
-                <Skeleton key={i} />
+                <Skeleton key={i}>
+                  <div className="w-60 h-60" />
+                </Skeleton>
               ))}
-            </Grid>
+            </div>
           )}
         </div>
 
