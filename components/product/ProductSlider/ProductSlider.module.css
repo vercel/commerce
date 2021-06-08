@@ -37,8 +37,7 @@
   overflow-x: auto;
   white-space: nowrap;
   height: 125px;
-  padding-bottom: 10px;
-  margin-bottom: -10px;
+  margin-bottom: -12px;
 }
 
 @screen md {
