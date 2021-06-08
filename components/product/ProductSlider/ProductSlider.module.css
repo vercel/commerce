@@ -37,7 +37,12 @@
   overflow-x: auto;
   white-space: nowrap;
   height: 125px;
-  margin-bottom: -12px;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.album::-webkit-scrollbar {
+  display: none;
 }
 
 @screen md {
