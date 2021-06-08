@@ -12,7 +12,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = { locale, locales }
   const { products } = await commerce.getAllProducts({
-    variables: { first: 12 },
+    variables: { first: 6 },
     config,
     preview,
   })
@@ -69,7 +69,7 @@ export default function Home({
         ))}
       </Grid>
       <Marquee>
-        {products.slice(0, 3).map((product, i) => (
+        {products.slice(3).map((product, i) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
       </Marquee>
