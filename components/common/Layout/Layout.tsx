@@ -49,21 +49,53 @@ interface Props {
   }
 }
 
+const ModalView: FC<{ modalView: string; closeModal(): any }> = ({
+  modalView,
+  closeModal,
+}) => {
+  return (
+    <Modal onClose={closeModal}>
+      {modalView === 'LOGIN_VIEW' && <LoginView />}
+      {modalView === 'SIGNUP_VIEW' && <SignUpView />}
+      {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
+    </Modal>
+  )
+}
+
+const ModalUI: FC = () => {
+  const { displayModal, closeModal, modalView } = useUI()
+  return displayModal ? (
+    <ModalView modalView={modalView} closeModal={closeModal} />
+  ) : null
+}
+
+const SidebarView: FC<{ sidebarView: string; closeSidebar(): any }> = ({
+  sidebarView,
+  closeSidebar,
+}) => {
+  return (
+    <Sidebar onClose={closeSidebar}>
+      {sidebarView === 'CART_VIEW' && <CartSidebarView />}
+      {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
+      {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
+      {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
+    </Sidebar>
+  )
+}
+
+const SidebarUI: FC = () => {
+  const { displaySidebar, closeSidebar, sidebarView } = useUI()
+  return displaySidebar ? (
+    <SidebarView sidebarView={sidebarView} closeSidebar={closeSidebar} />
+  ) : null
+}
+
 const Layout: FC<Props> = ({
   children,
   pageProps: { categories = [], ...pageProps },
 }) => {
-  const {
-    displaySidebar,
-    displayModal,
-    closeSidebar,
-    closeModal,
-    modalView,
-    sidebarView,
-  } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
-
   const navBarlinks = categories.slice(0, 2).map((c) => ({
     label: c.name,
     href: `/search/${c.slug}`,
@@ -75,24 +107,8 @@ const Layout: FC<Props> = ({
         <Navbar links={navBarlinks} />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
-
-        {displayModal && (
-          <Modal onClose={closeModal}>
-            {modalView === 'LOGIN_VIEW' && <LoginView />}
-            {modalView === 'SIGNUP_VIEW' && <SignUpView />}
-            {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
-          </Modal>
-        )}
-
-        {displaySidebar && (
-          <Sidebar onClose={closeSidebar}>
-            {sidebarView === 'CART_VIEW' && <CartSidebarView />}
-            {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
-            {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
-            {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
-          </Sidebar>
-        )}
-
+        <ModalUI />
+        <SidebarUI />
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}

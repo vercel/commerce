@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC, useCallback, useMemo } from 'react'
 import { ThemeProvider } from 'next-themes'
 
 export interface State {
@@ -161,32 +161,60 @@ function uiReducer(state: State, action: Action) {
 export const UIProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState)
 
-  const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
-  const closeSidebar = () => dispatch({ type: 'CLOSE_SIDEBAR' })
-  const toggleSidebar = () =>
-    state.displaySidebar
-      ? dispatch({ type: 'CLOSE_SIDEBAR' })
-      : dispatch({ type: 'OPEN_SIDEBAR' })
-  const closeSidebarIfPresent = () =>
-    state.displaySidebar && dispatch({ type: 'CLOSE_SIDEBAR' })
+  const openSidebar = useCallback(() => dispatch({ type: 'OPEN_SIDEBAR' }), [
+    dispatch,
+  ])
+  const closeSidebar = useCallback(() => dispatch({ type: 'CLOSE_SIDEBAR' }), [
+    dispatch,
+  ])
+  const toggleSidebar = useCallback(
+    () =>
+      state.displaySidebar
+        ? dispatch({ type: 'CLOSE_SIDEBAR' })
+        : dispatch({ type: 'OPEN_SIDEBAR' }),
+    [dispatch, state.displaySidebar]
+  )
+  const closeSidebarIfPresent = useCallback(
+    () => state.displaySidebar && dispatch({ type: 'CLOSE_SIDEBAR' }),
+    [dispatch, state.displaySidebar]
+  )
 
-  const openDropdown = () => dispatch({ type: 'OPEN_DROPDOWN' })
-  const closeDropdown = () => dispatch({ type: 'CLOSE_DROPDOWN' })
+  const openDropdown = useCallback(() => dispatch({ type: 'OPEN_DROPDOWN' }), [
+    dispatch,
+  ])
+  const closeDropdown = useCallback(
+    () => dispatch({ type: 'CLOSE_DROPDOWN' }),
+    [dispatch]
+  )
 
-  const openModal = () => dispatch({ type: 'OPEN_MODAL' })
-  const closeModal = () => dispatch({ type: 'CLOSE_MODAL' })
+  const openModal = useCallback(() => dispatch({ type: 'OPEN_MODAL' }), [
+    dispatch,
+  ])
+  const closeModal = useCallback(() => dispatch({ type: 'CLOSE_MODAL' }), [
+    dispatch,
+  ])
 
-  const openToast = () => dispatch({ type: 'OPEN_TOAST' })
-  const closeToast = () => dispatch({ type: 'CLOSE_TOAST' })
+  const openToast = useCallback(() => dispatch({ type: 'OPEN_TOAST' }), [
+    dispatch,
+  ])
+  const closeToast = useCallback(() => dispatch({ type: 'CLOSE_TOAST' }), [
+    dispatch,
+  ])
 
-  const setUserAvatar = (value: string) =>
-    dispatch({ type: 'SET_USER_AVATAR', value })
+  const setUserAvatar = useCallback(
+    (value: string) => dispatch({ type: 'SET_USER_AVATAR', value }),
+    [dispatch]
+  )
 
-  const setModalView = (view: MODAL_VIEWS) =>
-    dispatch({ type: 'SET_MODAL_VIEW', view })
+  const setModalView = useCallback(
+    (view: MODAL_VIEWS) => dispatch({ type: 'SET_MODAL_VIEW', view }),
+    [dispatch]
+  )
 
-  const setSidebarView = (view: SIDEBAR_VIEWS) =>
-    dispatch({ type: 'SET_SIDEBAR_VIEW', view })
+  const setSidebarView = useCallback(
+    (view: SIDEBAR_VIEWS) => dispatch({ type: 'SET_SIDEBAR_VIEW', view }),
+    [dispatch]
+  )
 
   const value = useMemo(
     () => ({
