@@ -3,7 +3,7 @@
 }
 
 .heading {
-  @apply text-5xl mb-12;
+  @apply text-5xl pt-1 pb-2 font-semibold tracking-wide cursor-pointer mb-2;
 }
 
 .pageHeading {
