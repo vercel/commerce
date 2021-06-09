@@ -10,6 +10,7 @@ import type {
   SwellImage,
   SwellVariant,
   ProductOptionValue,
+  SwellProductOptionValue,
   SwellCart,
   LineItem,
 } from '../types'
@@ -73,7 +74,7 @@ const normalizeProductImages = (images: SwellImage[]) => {
 
 const normalizeProductVariants = (
   variants: SwellVariant[],
-  productOptions: normalizedProductOption[]
+  productOptions: swellProductOption[]
 ) => {
   return variants?.map(
     ({ id, name, price, option_value_ids: optionValueIds = [] }) => {
@@ -84,12 +85,12 @@ const normalizeProductVariants = (
       const options = optionValueIds.map((id) => {
         const matchingOption = productOptions.find((option) => {
           return option.values.find(
-            (value: ProductOptionValue) => value.id == id
+            (value: SwellProductOptionValue) => value.id == id
           )
         })
         return normalizeProductOption({
           id,
-          name: matchingOption?.displayName ?? '',
+          name: matchingOption?.name ?? '',
           values,
         })
       })
@@ -126,7 +127,7 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
     ? options.map((o) => normalizeProductOption(o))
     : []
   const productVariants = variants
-    ? normalizeProductVariants(variants, productOptions)
+    ? normalizeProductVariants(variants, options)
     : []
 
   const productImages = normalizeProductImages(images)

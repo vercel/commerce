@@ -47,10 +47,15 @@ export type SwellVariant = {
   __type?: 'MultipleChoiceOption' | undefined
 }
 
+export interface SwellProductOptionValue {
+  id: string
+  label: string
+  hexColors?: string[]
+}
+
 export interface ProductOptionValue {
   label: string
   hexColors?: string[]
-  id: string
 }
 
 export type ProductOptions = {
