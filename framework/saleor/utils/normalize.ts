@@ -113,7 +113,7 @@ function normalizeLineItem({ id, variant, quantity }: CheckoutLine): LineItem {
     id,
     variantId: String(variant?.id),
     productId: String(variant?.id),
-    name: `${variant.name}`,
+    name: `${variant.product.name}`,
     quantity,
     variant: {
       id: String(variant?.id),

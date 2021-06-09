@@ -23,6 +23,7 @@ export const CheckoutDetails = /* GraphQL */ `
         name
         sku
         product {
+          name
           slug
         }
         media {
