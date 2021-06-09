@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import type { Product } from '@commerce/types/product'
-import { Container, Grid, Skeleton } from '@components/ui'
+import { Container, Skeleton } from '@components/ui'
 
 import useSearch from '@framework/product/use-search'
 import commerce from '@lib/api/commerce'
@@ -24,8 +24,8 @@ import {
 import getSlug from '@lib/get-slug'
 
 const SORT = Object.entries({
-  'latest-desc': 'Latest arrivals',
   'trending-desc': 'Trending',
+  'latest-desc': 'Latest arrivals',
   'price-asc': 'Price: Low to high',
   'price-desc': 'Price: High to low',
 })
@@ -44,6 +44,7 @@ export async function getStaticProps({
       categories,
       brands,
     },
+    revalidate: 200,
   }
 }
 
