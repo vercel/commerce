@@ -12,9 +12,10 @@ import {
 
 interface ProductSidebarProps {
   product: Product
+  className?: string
 }
 
-const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
+const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   const addItem = useAddItem()
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
@@ -40,7 +41,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   }
 
   return (
-    <>
+    <div className={className}>
       <ProductOptions
         options={product.options}
         selectedOptions={selectedOptions}
@@ -51,7 +52,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         html={product.descriptionHtml || product.description}
       />
       <div className="flex flex-row justify-between items-center">
-        <Rating value={2} />
+        <Rating value={4} />
         <div className="text-accent-6 pr-1 font-medium text-sm">36 reviews</div>
       </div>
       <div>
@@ -79,7 +80,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
           to COVID-19.
         </Collapse>
       </div>
-    </>
+    </div>
   )
 }
 

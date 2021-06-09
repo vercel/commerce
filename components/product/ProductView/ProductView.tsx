@@ -77,9 +77,8 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               />
             )}
           </div>
-          <div className={s.sidebar}>
-            <ProductSidebar product={product} />
-          </div>
+
+          <ProductSidebar product={product} className={s.sidebar} />
         </div>
         <hr className="mt-7 border-accent-2" />
         <section className="py-12 px-6 mb-10">
