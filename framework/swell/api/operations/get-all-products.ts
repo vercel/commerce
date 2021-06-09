@@ -17,6 +17,7 @@ export default function getAllProductsOperation({
 
   async function getAllProducts({
     config: cfg,
+    variables = { first: 250 },
   }: {
     query?: string
     variables?: ProductVariables
@@ -26,7 +27,7 @@ export default function getAllProductsOperation({
     const config = commerce.getConfig(cfg)
     const { results } = await config.fetch('products', 'list', [
       {
-        limit: 250,
+        limit: variables.first,
       },
     ])
     const products = results.map((product: SwellProduct) =>

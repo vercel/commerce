@@ -9,7 +9,7 @@ export const checkoutCreate = async (fetch: any) => {
   })
 
   if (!cart) {
-    const cart = await fetch({
+    await fetch({
       query: 'cart',
       method: 'setItems',
       variables: [[]],
