@@ -10,14 +10,18 @@ const getCategories = async (config: SaleorConfig): Promise<Category[]> => {
     },
   })
 
-  return (
+  const categories =
     data.collections?.edges?.map(({ node: { id, name, slug } }: CollectionCountableEdge) => ({
       id,
       name,
       slug,
       path: `/${slug}`,
     })) ?? []
-  )
+
+  // FIXME temp hack
+  const result = categories.sort((a: any, b: any) => a.name.localeCompare(b.name))
+
+  return result
 }
 
 export default getCategories
