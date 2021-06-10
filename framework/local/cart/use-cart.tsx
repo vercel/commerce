@@ -1,15 +1,42 @@
-import { useCallback } from 'react'
+import { useMemo } from 'react'
+import { SWRHook } from '@commerce/utils/types'
+import useCart, { UseCart } from '@commerce/cart/use-cart'
 
-export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
-    return useCallback(async function () {
-      return Promise.resolve()
-    }, [])
-  }
+export default useCart as UseCart<typeof handler>
 
-  return useEmptyHook
+export const handler: SWRHook<any> = {
+  fetchOptions: {
+    query: '',
+  },
+  async fetcher() {
+    return {
+      id: '',
+      createdAt: '',
+      currency: { code: '' },
+      taxesIncluded: '',
+      lineItems: [],
+      lineItemsSubtotalPrice: '',
+      subtotalPrice: 0,
+      totalPrice: 0,
+    }
+  },
+  useHook:
+    ({ useData }) =>
+    (input) => {
+      return useMemo(
+        () =>
+          Object.create(
+            {},
+            {
+              isEmpty: {
+                get() {
+                  return true
+                },
+                enumerable: true,
+              },
+            }
+          ),
+        []
+      )
+    },
 }
-
-export const handler = {}
-
-export default emptyHook

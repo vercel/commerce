@@ -1,14 +1,15 @@
-import { useCallback } from 'react'
+import { SWRHook } from '@commerce/utils/types'
+import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
 
-export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
-    return useCallback(async function () {
-      return Promise.resolve()
-    }, [])
-  }
-
-  return useEmptyHook
+export default useCustomer as UseCustomer<typeof handler>
+export const handler: SWRHook<any> = {
+  fetchOptions: {
+    query: '',
+  },
+  async fetcher({ input, options, fetch }) {},
+  useHook: () => () => {
+    return async function addItem() {
+      return {}
+    }
+  },
 }
-export const handler = {}
-
-export default emptyHook

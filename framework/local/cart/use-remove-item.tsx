@@ -1,15 +1,18 @@
-import { useCallback } from 'react'
+import { MutationHook } from '@commerce/utils/types'
+import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
 
-export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
-    return useCallback(async function () {
-      return Promise.resolve()
-    }, [])
-  }
+export default useRemoveItem as UseRemoveItem<typeof handler>
 
-  return useEmptyHook
+export const handler: MutationHook<any> = {
+  fetchOptions: {
+    query: '',
+  },
+  async fetcher({ input, options, fetch }) {},
+  useHook:
+    ({ fetch }) =>
+    () => {
+      return async function removeItem(input) {
+        return {}
+      }
+    },
 }
-
-export const handler = {}
-
-export default emptyHook

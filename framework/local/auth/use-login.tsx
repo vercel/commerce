@@ -1,15 +1,16 @@
-import { useCallback } from 'react'
+import { MutationHook } from '@commerce/utils/types'
+import useLogin, { UseLogin } from '@commerce/auth/use-login'
 
-export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
-    return useCallback(async function () {
-      return Promise.resolve()
-    }, [])
-  }
+export default useLogin as UseLogin<typeof handler>
 
-  return useEmptyHook
+export const handler: MutationHook<any> = {
+  fetchOptions: {
+    query: '',
+  },
+  async fetcher() {
+    return null
+  },
+  useHook: () => () => {
+    return async function () {}
+  },
 }
-
-export const handler = {}
-
-export default emptyHook
