@@ -7,10 +7,14 @@ const {
 const provider = commerce.provider || getProviderName()
 const isBC = provider === 'bigcommerce'
 const isShopify = provider === 'shopify'
+const isSaleor = provider === 'saleor'
 const isSwell = provider === 'swell'
 const isVendure = provider === 'vendure'
 
 module.exports = withCommerceConfig({
+  future: {
+    webpack5: true,
+  },
   commerce,
   i18n: {
     locales: ['en-US', 'es'],

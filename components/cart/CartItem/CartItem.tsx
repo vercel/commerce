@@ -108,10 +108,14 @@ const CartItem = ({
       <div className="flex-1 flex flex-col text-base">
         <Link href={`/product/${item.path}`}>
           <span
-            className="font-bold text-lg cursor-pointer leading-6"
             onClick={() => closeSidebarIfPresent()}
           >
-            {item.name}
+            <div
+              className="font-bold text-lg cursor-pointer leading-6"
+            >
+              {item.name}
+            </div>
+            {item.variant ? <span> {item.variant.name}</span> : ""}
           </span>
         </Link>
         {options && options.length > 0 ? (
