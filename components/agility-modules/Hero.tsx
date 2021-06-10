@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Hero } from '@components/ui'
 import * as AgilityTypes from "@agility/types"
+import { Module } from '@agility/nextjs'
 
 
 interface Fields {
@@ -9,11 +10,7 @@ interface Fields {
 	cTA?:AgilityTypes.URLField
 }
 
-interface Props {
-	fields: Fields
-  }
-
-const HeroModule:FC<Props> = ({fields}) => {
+const HeroModule:Module<Fields> = ({ module: {fields }}) => {
 
 	return (
 		<Hero

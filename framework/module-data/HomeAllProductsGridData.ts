@@ -8,7 +8,7 @@ import rangeMap from '@lib/range-map'
 
 const nonNullable = (v: any) => v
 
-const HomeAllProductsGridData = async function ({ item, agility, languageCode, channelName, pageInSitemap, dynamicPageItem }: any) {
+const getCustomInitialProps = async function ({ item, agility, languageCode, channelName, pageInSitemap, dynamicPageItem }: any) {
 	//TODO: pass the locale and preview mode as props...
 
 	const locale = "en-US"
@@ -35,4 +35,4 @@ const HomeAllProductsGridData = async function ({ item, agility, languageCode, c
 
 }
 
-export default HomeAllProductsGridData
+export default { getCustomInitialProps }

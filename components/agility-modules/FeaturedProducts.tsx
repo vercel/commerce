@@ -1,16 +1,22 @@
 import { FC } from "react"
 import { Grid, Marquee, Hero } from '@components/ui'
 import { ProductCard } from '@components/product'
+import { ModuleWithInit } from "@agility/nextjs"
 
-interface Fields {
+interface ICustomData {
+	featured: any
 }
 
-interface Props {
-	fields: Fields,
-	customData: any
+interface IModule {
 }
 
-const FeaturedProducts:FC<Props> = ({fields, customData}) => {
+
+const FeaturedProducts: ModuleWithInit<IModule, ICustomData> = ({ customData }) => {
+
+	if (! customData) {
+		return <div>No featured products returned.</div>
+	}
+
 	const featured:any = customData.featured
 
 	return (

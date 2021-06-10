@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moduleComponents from "components/agility-modules"
+import {getModule} from "components/agility-modules"
 
 
  function ContentZone({ name, page, dynamicPageItem }) {
@@ -11,7 +11,7 @@ import moduleComponents from "components/agility-modules"
 
 		const modulesToRender = modules.map(m => {
 
-			const AgilityModule = moduleComponents(m.moduleName)
+			const AgilityModule = getModule(m.moduleName)
 
 			if (AgilityModule) {
 				return <AgilityModule key={m.item.contentID} page={page} dynamicPageItem={dynamicPageItem} {...m.item} />

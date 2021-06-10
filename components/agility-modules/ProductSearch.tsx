@@ -15,6 +15,8 @@ import {
 	getDesignerPath,
 	useSearchMeta,
 } from '@lib/search'
+import { ModuleWithInit } from '@agility/nextjs'
+
 
 const SORT = Object.entries({
 	'latest-desc': 'Latest arrivals',
@@ -23,21 +25,24 @@ const SORT = Object.entries({
 	'price-desc': 'Price: High to low',
   })
 
-interface Fields {
+
+interface ICustomData {
+	categories: any
+	brands: any
 }
 
-interface Props {
-	fields: Fields,
-	customData: any
+interface IModule {
 }
 
-const ProductSearch: FC<Props> = ({ fields, customData }) => {
+
+const ProductSearch: ModuleWithInit<IModule, ICustomData> = ({ customData }) => {
 
 	const categories:[any]  = customData.categories
 	const brands:[any]  = customData.brands
 
 	const [activeFilter, setActiveFilter] = useState('')
-  const [toggleFilter, setToggleFilter] = useState(false)
+	const [toggleFilter, setToggleFilter] = useState(false)
+
 
   const router = useRouter()
   const { asPath } = router
@@ -446,5 +451,7 @@ const ProductSearch: FC<Props> = ({ fields, customData }) => {
 	</Container>
   )
 }
+
+
 
 export default ProductSearch

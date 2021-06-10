@@ -1,15 +1,14 @@
 import React, {FC} from 'react';
 import { Text, Container } from '@components/ui'
+import { Module } from '@agility/nextjs';
 
 interface Fields {
 	textblob:string,
 }
 
-interface Props {
-	fields: Fields
-}
+const RichTextArea:Module<Fields> =  ({ module: {fields} }) => {
 
-const RichTextArea:FC<Props> =  ({fields}) => {
+
 
 	return (
 		<Container>

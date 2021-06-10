@@ -1,7 +1,8 @@
 import { getConfig } from '@framework/api'
 import getSiteInfo from '@framework/api/operations/get-site-info'
 
-const ProductSearchData = async function ({ item, agility, languageCode, channelName, pageInSitemap, dynamicPageItem }: any) {
+const getCustomInitialProps = async ({ agility, channelName, languageCode }:any) => {
+
 	//TODO: pass the locale and preview mode as props...
 
 	const locale = "en-US"
@@ -18,4 +19,6 @@ const ProductSearchData = async function ({ item, agility, languageCode, channel
 
 }
 
-export default ProductSearchData
+export default {
+	getCustomInitialProps
+}

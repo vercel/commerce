@@ -1,19 +1,26 @@
 import React, { FC } from 'react'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import { ModuleWithInit } from '@agility/nextjs'
 
-interface Fields {
+
+
+interface ICustomData {
+	categories: any
+	newestProducts: any
+	brands: any
 }
 
-interface Props {
-	fields: Fields,
-	customData: any
+interface IModule {
 }
 
-const HomeAllProductsGridModule:FC<Props> = ({fields, customData}) => {
+
+const HomeAllProductsGridModule: ModuleWithInit<IModule, ICustomData> = ({ customData }) => {
 
 	const categories  = customData.categories
 	const newestProducts  = customData.newestProducts
 	const brands  = customData.brands
+
+	if (!categories) return <div>No data</div>
 
 	return (
 		<HomeAllProductsGrid

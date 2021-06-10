@@ -33,10 +33,8 @@ const allModules = [
  * Find the component for a module by name.
  * @param moduleName
  */
-const getModule = (moduleName: string): any | null => {
+export const getModule = (moduleName: string): any | null => {
 	const obj = allModules.find(m => m.name.toLowerCase() === moduleName.toLowerCase())
 	if (!obj) return null
 	return obj.module
 }
-
-export default getModule

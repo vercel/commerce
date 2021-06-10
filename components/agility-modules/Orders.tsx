@@ -2,17 +2,13 @@ import React, { FC } from 'react'
 
 import { Container, Text } from '@components/ui'
 import { Bag } from '@components/icons'
+import { Module } from '@agility/nextjs'
 
 
 interface Fields {
 }
 
-interface Props {
-	fields: Fields,
-	customData: any
-}
-
-const Orders: FC<Props> = ({ fields, customData }) => {
+const Orders: Module<Fields> = ({  }) => {
 	return (
 		<Container>
 			<Text variant="pageHeading">My Orders</Text>

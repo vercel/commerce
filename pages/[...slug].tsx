@@ -6,69 +6,91 @@ import type {
 } from 'next'
 
 
-
 import { Layout } from '@components/common'
 import { missingLocaleInPages } from '@lib/usage-warns'
 
+import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node"
+import { handlePreview } from "@agility/nextjs"
+
 import { defaultPageProps } from '@lib/defaults'
-
 import AgilityPage from "components/agility-global/AgilityPage"
-
 import { getConfig } from '@framework/api'
 import getProduct from '@framework/api/operations/get-product'
+import { getModuleData  } from "framework/module-data"
 
-import { getAgilityPageProps, getAgilityPaths } from "framework/agility/agility.node";
 import getAllProductPaths from '@framework/api/operations/get-all-product-paths'
 
 
-export async function getStaticProps({ preview, params, locale }: GetStaticPropsContext<{ slug: string[] }>) {
+export async function getStaticProps({ preview, params, locale, locales, defaultLocale }: GetStaticPropsContext<{ slug: string[] }>) {
+	try {
+		let productCode: string | null = null
 
-	let productCode: string | null = null
-
-	//check if this page is a product...
-	if (params?.slug.length === 2
-		&& params?.slug[0] === "product") {
-		productCode = params.slug[1]
-		params.slug[1] = "product-details"
-	}
-
-	const page = await getAgilityPageProps({ preview, params, locale });
-
-	let rebuildFrequency = 10
-
-	if (productCode) {
-		const config = getConfig({ locale })
-		const { product } = await getProduct({
-			variables: { slug: productCode },
-			config,
-			preview,
-		})
-
-		if (product !== null) {
-			page.dynamicPageItem = product
-			rebuildFrequency = 60 * 60 //once per hour for products
-		} else {
-			throw new Error(`Product not found`)
+		//check if this page is a product...
+		if (params?.slug.length === 2
+			&& params?.slug[0] === "product") {
+			productCode = params.slug[1]
+			params.slug[1] = "product-details"
 		}
-	}
 
-	const pages = await getAgilityPaths(preview)
+		//add any global components (header, footer) that need agility data here
+		const globalComponents = {
+			// "header": GlobalHeader,
+			// "footer": GlobalFooter
+		}
 
-	if (!page) {
-		// We throw to make sure this fails at build time as this is never expected to happen
-		throw new Error(`Page not found`)
-	}
+		const agilityProps = await getAgilityPageProps({ preview, params, locale, getModule: getModuleData, defaultLocale, globalComponents });
 
-	return {
-		props: { ...defaultPageProps, pages, page },
-		revalidate: rebuildFrequency
+
+		let rebuildFrequency = 10
+
+		let productDetail:any = null
+
+		if (productCode) {
+			const config = getConfig({ locale })
+			const { product } = await getProduct({
+				variables: { slug: productCode },
+				config,
+				preview,
+			})
+
+			if (product !== null) {
+
+				//moderate hack: use the Product as the dynamic page item for product detail pages
+				agilityProps.dynamicPageItem = product
+				rebuildFrequency = 60 * 60 //once per hour for products
+			} else {
+				throw new Error(`Product not found`)
+			}
+		}
+
+		if (!agilityProps) {
+			// We throw to make sure this fails at build time as this is never expected to happen
+			throw new Error(`Page not found`)
+		}
+
+		return {
+			props: { ...defaultPageProps, agilityProps },
+			revalidate: rebuildFrequency
+		}
+	} catch (err) {
+		var e = new Error();
+		const st = e.stack;
+
+		console.log("Error getting page props", params, err)
+
+		return {
+			props: {
+				error: `Params: ${params}, Error: ${err}, Stack: ${st}`,
+				revalidate: 60000
+			}
+		}
 	}
 }
 
-export async function getStaticPaths({ locales }: GetStaticPathsContext) {
+export async function getStaticPaths({ defaultLocale, locales }: GetStaticPathsContext) {
 
 	//get the paths configured in agility
-	let agilityPaths = await getAgilityPaths(false)
+	let agilityPaths = await getAgilityPaths({ preview: false, defaultLocale, locales })
 
 	//remove product/product-details from the agility paths (special details page...)
 	agilityPaths = agilityPaths.filter(p => p !== "/product/product-details")
@@ -85,10 +107,10 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 	}
 }
 
-export default function Pages({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Pages(props: InferGetStaticPropsType<typeof getStaticProps>) {
 
 	return (
-		<AgilityPage  {...page} />
+		<AgilityPage  {...props} />
 	)
 }
 

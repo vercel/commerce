@@ -5,7 +5,7 @@ import rangeMap from '@lib/range-map'
 
 const nonNullable = (v: any) => v
 
-const BestsellingProductsInit = async function ({ item, agility, languageCode, channelName, pageInSitemap, dynamicPageItem }: any) {
+const getCustomInitialProps = async function ({   }):Promise<{bestSelling:any}> {
 	//TODO: pass the locale and preview mode as props...
 
 
@@ -52,4 +52,4 @@ const BestsellingProductsInit = async function ({ item, agility, languageCode, c
 
 }
 
-export default BestsellingProductsInit
+export default {getCustomInitialProps}

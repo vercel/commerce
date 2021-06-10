@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 
 import useCustomer from '@framework/use-customer'
 import { Container, Text } from '@components/ui'
+import { Module } from '@agility/nextjs'
 
 interface Fields {
 	heading: string,
@@ -10,11 +11,8 @@ interface Fields {
 	notLoggedInMessage: string
 }
 
-interface Props {
-	fields: Fields
-  }
 
-const ProfileModule:FC<Props> = ({fields}) => {
+const ProfileModule:Module<Fields> = ({ module: {fields}}) => {
 
 	const { data } = useCustomer()
   return (
