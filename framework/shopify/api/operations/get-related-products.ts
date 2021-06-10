@@ -65,8 +65,9 @@ export default function getRelatedProductsOperation({
     return {
       products:
         data.productRecommendations
-          ?.map((product) => normalizeProduct(product as ShopifyProduct))
-          .splice(0, variables?.first || 4) ?? [],
+          ?.sort(() => 0.5 - Math.random())
+          .splice(0, variables?.first || 4)
+          .map((product) => normalizeProduct(product as ShopifyProduct)) ?? [],
     }
   }
 
