@@ -1,3 +1,32 @@
+export const listProductDetailsFragment = /* GraphQL */ `
+  fragment listProductDetails on Product {
+    id
+    title
+    vendor
+    handle
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 1) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          originalSrc
+          altText
+          width
+          height
+        }
+      }
+    }
+  }
+`
+
 export const productConnectionFragment = /* GraphQL */ `
   fragment productConnection on ProductConnection {
     pageInfo {
@@ -6,33 +35,11 @@ export const productConnectionFragment = /* GraphQL */ `
     }
     edges {
       node {
-        id
-        title
-        vendor
-        handle
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-        images(first: 1) {
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
-          edges {
-            node {
-              originalSrc
-              altText
-              width
-              height
-            }
-          }
-        }
+        ...listProductDetails
       }
     }
   }
+  ${listProductDetailsFragment}
 `
 
 const getAllProductsQuery = /* GraphQL */ `

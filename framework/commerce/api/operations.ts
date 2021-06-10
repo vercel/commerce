@@ -7,10 +7,11 @@ import type {
   GetAllProductPathsOperation,
   GetAllProductsOperation,
   GetProductOperation,
+  GetRelatedProductsOperation,
 } from '../types/product'
 import type { APIProvider, CommerceAPI } from '.'
 
-const noop = () => {
+const noop = (_props?: any) => {
   throw new Error('Not implemented')
 }
 
@@ -22,6 +23,7 @@ export const OPERATIONS = [
   'getCustomerWishlist',
   'getAllProductPaths',
   'getAllProducts',
+  'getRelatedProducts',
   'getProduct',
 ] as const
 
@@ -133,6 +135,22 @@ export type Operations<P extends APIProvider> = {
     <T extends GetAllProductsOperation>(
       opts: {
         variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getRelatedProducts: {
+    <T extends GetRelatedProductsOperation>(opts: {
+      variables: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetAllProductsOperation>(
+      opts: {
+        variables: T['variables']
         config?: P['config']
         preview?: boolean
       } & OperationOptions

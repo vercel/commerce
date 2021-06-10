@@ -2635,7 +2635,7 @@ export type FulfillmentTrackingInfo = {
 
 /** Represents information about the metafields associated to the specified resource. */
 export type HasMetafields = {
-  /** The metafield associated with the resource. */
+  /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>
   /** A paginated list of metafields associated with the resource. */
   metafields: MetafieldConnection
@@ -3908,7 +3908,7 @@ export type Product = Node &
     images: ImageConnection
     /** The media associated with the product. */
     media: MediaConnection
-    /** The metafield associated with the resource. */
+    /** Returns a metafield found by namespace and key. */
     metafield?: Maybe<Metafield>
     /** A paginated list of metafields associated with the resource. */
     metafields: MetafieldConnection
@@ -4235,7 +4235,7 @@ export type ProductVariant = Node &
     id: Scalars['ID']
     /** Image associated with the product variant. This field falls back to the product image if no image is available. */
     image?: Maybe<Image>
-    /** The metafield associated with the resource. */
+    /** Returns a metafield found by namespace and key. */
     metafield?: Maybe<Metafield>
     /** A paginated list of metafields associated with the resource. */
     metafields: MetafieldConnection
@@ -5265,6 +5265,32 @@ export type GetAllProductPathsQuery = { __typename?: 'QueryRoot' } & {
   }
 }
 
+export type ListProductDetailsFragment = { __typename?: 'Product' } & Pick<
+  Product,
+  'id' | 'title' | 'vendor' | 'handle'
+> & {
+    priceRange: { __typename?: 'ProductPriceRange' } & {
+      minVariantPrice: { __typename?: 'MoneyV2' } & Pick<
+        MoneyV2,
+        'amount' | 'currencyCode'
+      >
+    }
+    images: { __typename?: 'ImageConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'hasNextPage' | 'hasPreviousPage'
+      >
+      edges: Array<
+        { __typename?: 'ImageEdge' } & {
+          node: { __typename?: 'Image' } & Pick<
+            Image,
+            'originalSrc' | 'altText' | 'width' | 'height'
+          >
+        }
+      >
+    }
+  }
+
 export type ProductConnectionFragment = { __typename?: 'ProductConnection' } & {
   pageInfo: { __typename?: 'PageInfo' } & Pick<
     PageInfo,
@@ -5272,31 +5298,7 @@ export type ProductConnectionFragment = { __typename?: 'ProductConnection' } & {
   >
   edges: Array<
     { __typename?: 'ProductEdge' } & {
-      node: { __typename?: 'Product' } & Pick<
-        Product,
-        'id' | 'title' | 'vendor' | 'handle'
-      > & {
-          priceRange: { __typename?: 'ProductPriceRange' } & {
-            minVariantPrice: { __typename?: 'MoneyV2' } & Pick<
-              MoneyV2,
-              'amount' | 'currencyCode'
-            >
-          }
-          images: { __typename?: 'ImageConnection' } & {
-            pageInfo: { __typename?: 'PageInfo' } & Pick<
-              PageInfo,
-              'hasNextPage' | 'hasPreviousPage'
-            >
-            edges: Array<
-              { __typename?: 'ImageEdge' } & {
-                node: { __typename?: 'Image' } & Pick<
-                  Image,
-                  'originalSrc' | 'altText' | 'width' | 'height'
-                >
-              }
-            >
-          }
-        }
+      node: { __typename?: 'Product' } & ListProductDetailsFragment
     }
   >
 }
@@ -5344,6 +5346,12 @@ export type CheckoutDetailsFragment = { __typename?: 'Checkout' } & Pick<
                   ProductVariant,
                   'id' | 'sku' | 'title'
                 > & {
+                    selectedOptions: Array<
+                      { __typename?: 'SelectedOption' } & Pick<
+                        SelectedOption,
+                        'name' | 'value'
+                      >
+                    >
                     image?: Maybe<
                       { __typename?: 'Image' } & Pick<
                         Image,
@@ -5498,84 +5506,95 @@ export type GetPageQuery = { __typename?: 'QueryRoot' } & {
   >
 }
 
+export type ProductDetailsFragment = { __typename?: 'Product' } & Pick<
+  Product,
+  | 'id'
+  | 'handle'
+  | 'availableForSale'
+  | 'title'
+  | 'productType'
+  | 'vendor'
+  | 'description'
+  | 'descriptionHtml'
+> & {
+    options: Array<
+      { __typename?: 'ProductOption' } & Pick<
+        ProductOption,
+        'id' | 'name' | 'values'
+      >
+    >
+    priceRange: { __typename?: 'ProductPriceRange' } & {
+      maxVariantPrice: { __typename?: 'MoneyV2' } & Pick<
+        MoneyV2,
+        'amount' | 'currencyCode'
+      >
+      minVariantPrice: { __typename?: 'MoneyV2' } & Pick<
+        MoneyV2,
+        'amount' | 'currencyCode'
+      >
+    }
+    variants: { __typename?: 'ProductVariantConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'hasNextPage' | 'hasPreviousPage'
+      >
+      edges: Array<
+        { __typename?: 'ProductVariantEdge' } & {
+          node: { __typename?: 'ProductVariant' } & Pick<
+            ProductVariant,
+            'id' | 'title' | 'sku' | 'availableForSale' | 'requiresShipping'
+          > & {
+              selectedOptions: Array<
+                { __typename?: 'SelectedOption' } & Pick<
+                  SelectedOption,
+                  'name' | 'value'
+                >
+              >
+              priceV2: { __typename?: 'MoneyV2' } & Pick<
+                MoneyV2,
+                'amount' | 'currencyCode'
+              >
+              compareAtPriceV2?: Maybe<
+                { __typename?: 'MoneyV2' } & Pick<
+                  MoneyV2,
+                  'amount' | 'currencyCode'
+                >
+              >
+            }
+        }
+      >
+    }
+    images: { __typename?: 'ImageConnection' } & {
+      pageInfo: { __typename?: 'PageInfo' } & Pick<
+        PageInfo,
+        'hasNextPage' | 'hasPreviousPage'
+      >
+      edges: Array<
+        { __typename?: 'ImageEdge' } & {
+          node: { __typename?: 'Image' } & Pick<
+            Image,
+            'originalSrc' | 'altText' | 'width' | 'height'
+          >
+        }
+      >
+    }
+  }
+
 export type GetProductBySlugQueryVariables = Exact<{
   slug: Scalars['String']
 }>
 
 export type GetProductBySlugQuery = { __typename?: 'QueryRoot' } & {
-  productByHandle?: Maybe<
-    { __typename?: 'Product' } & Pick<
-      Product,
-      | 'id'
-      | 'handle'
-      | 'title'
-      | 'productType'
-      | 'vendor'
-      | 'description'
-      | 'descriptionHtml'
-    > & {
-        options: Array<
-          { __typename?: 'ProductOption' } & Pick<
-            ProductOption,
-            'id' | 'name' | 'values'
-          >
-        >
-        priceRange: { __typename?: 'ProductPriceRange' } & {
-          maxVariantPrice: { __typename?: 'MoneyV2' } & Pick<
-            MoneyV2,
-            'amount' | 'currencyCode'
-          >
-          minVariantPrice: { __typename?: 'MoneyV2' } & Pick<
-            MoneyV2,
-            'amount' | 'currencyCode'
-          >
-        }
-        variants: { __typename?: 'ProductVariantConnection' } & {
-          pageInfo: { __typename?: 'PageInfo' } & Pick<
-            PageInfo,
-            'hasNextPage' | 'hasPreviousPage'
-          >
-          edges: Array<
-            { __typename?: 'ProductVariantEdge' } & {
-              node: { __typename?: 'ProductVariant' } & Pick<
-                ProductVariant,
-                'id' | 'title' | 'sku'
-              > & {
-                  selectedOptions: Array<
-                    { __typename?: 'SelectedOption' } & Pick<
-                      SelectedOption,
-                      'name' | 'value'
-                    >
-                  >
-                  priceV2: { __typename?: 'MoneyV2' } & Pick<
-                    MoneyV2,
-                    'amount' | 'currencyCode'
-                  >
-                  compareAtPriceV2?: Maybe<
-                    { __typename?: 'MoneyV2' } & Pick<
-                      MoneyV2,
-                      'amount' | 'currencyCode'
-                    >
-                  >
-                }
-            }
-          >
-        }
-        images: { __typename?: 'ImageConnection' } & {
-          pageInfo: { __typename?: 'PageInfo' } & Pick<
-            PageInfo,
-            'hasNextPage' | 'hasPreviousPage'
-          >
-          edges: Array<
-            { __typename?: 'ImageEdge' } & {
-              node: { __typename?: 'Image' } & Pick<
-                Image,
-                'originalSrc' | 'altText' | 'width' | 'height'
-              >
-            }
-          >
-        }
-      }
+  productByHandle?: Maybe<{ __typename?: 'Product' } & ProductDetailsFragment>
+}
+
+export type GetRelatedProductsQueryVariables = Exact<{
+  productId: Scalars['ID']
+}>
+
+export type GetRelatedProductsQuery = { __typename?: 'QueryRoot' } & {
+  productRecommendations?: Maybe<
+    Array<{ __typename?: 'Product' } & ListProductDetailsFragment>
   >
 }
 

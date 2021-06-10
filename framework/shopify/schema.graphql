@@ -14,16 +14,6 @@ directive @accessRestricted(
 ) on FIELD_DEFINITION | OBJECT
 
 """
-Contextualize data.
-"""
-directive @inContext(
-  """
-  The country code for context.
-  """
-  country: CountryCode!
-) on QUERY | MUTATION
-
-"""
 A version of the API.
 """
 type ApiVersion {
@@ -829,7 +819,7 @@ input CheckoutAttributesUpdateInput {
   The required attributes are city, province, and country.
   Full validation of the addresses is still done at complete time.
   """
-  allowPartialAddresses: Boolean
+  allowPartialAddresses: Boolean = false
 }
 
 """
@@ -872,7 +862,7 @@ input CheckoutAttributesUpdateV2Input {
   The required attributes are city, province, and country.
   Full validation of the addresses is still done at complete time.
   """
-  allowPartialAddresses: Boolean
+  allowPartialAddresses: Boolean = false
 }
 
 """
@@ -3391,7 +3381,7 @@ input CreditCardPaymentInput {
   """
   Executes the payment in test mode if possible. Defaults to `false`.
   """
-  test: Boolean
+  test: Boolean = false
 }
 
 """
@@ -3422,7 +3412,7 @@ input CreditCardPaymentInputV2 {
   """
   Executes the payment in test mode if possible. Defaults to `false`.
   """
-  test: Boolean
+  test: Boolean = false
 }
 
 """
@@ -5325,7 +5315,7 @@ Represents information about the metafields associated to the specified resource
 """
 interface HasMetafields {
   """
-  The metafield associated with the resource.
+  Returns a metafield found by namespace and key.
   """
   metafield(
     """
@@ -7648,7 +7638,7 @@ type Product implements Node & HasMetafields {
   ): MediaConnection!
 
   """
-  The metafield associated with the resource.
+  Returns a metafield found by namespace and key.
   """
   metafield(
     """
@@ -8150,7 +8140,7 @@ type ProductVariant implements Node & HasMetafields {
   ): Image
 
   """
-  The metafield associated with the resource.
+  Returns a metafield found by namespace and key.
   """
   metafield(
     """
@@ -9298,7 +9288,7 @@ input TokenizedPaymentInput {
   """
   Executes the payment in test mode if possible. Defaults to `false`.
   """
-  test: Boolean
+  test: Boolean = false
 
   """
   Public Hash Key used for AndroidPay payments only.
@@ -9334,7 +9324,7 @@ input TokenizedPaymentInputV2 {
   """
   Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.
   """
-  test: Boolean
+  test: Boolean = false
 
   """
   Public Hash Key used for AndroidPay payments only.
@@ -9375,7 +9365,7 @@ input TokenizedPaymentInputV3 {
   """
   Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.
   """
-  test: Boolean
+  test: Boolean = false
 
   """
   Public Hash Key used for AndroidPay payments only.

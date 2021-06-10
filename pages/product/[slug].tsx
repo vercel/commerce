@@ -28,14 +28,26 @@ export async function getStaticProps({
     config,
     preview,
   })
+
   const { pages } = await pagesPromise
   const { categories } = await siteInfoPromise
   const { product } = await productPromise
-  const { products: relatedProducts } = await allProductsPromise
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }
+
+  const relatedProductsPromise = commerce.getRelatedProducts({
+    variables: { productId: product.id, first: 4 },
+    config,
+    preview,
+  })
+
+  // Temporary conditional query
+  const { products: relatedProducts } =
+    process.env.COMMERCE_PROVIDER === 'shopify'
+      ? await relatedProductsPromise
+      : await allProductsPromise
 
   return {
     props: {
