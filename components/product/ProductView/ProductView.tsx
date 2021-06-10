@@ -9,6 +9,7 @@ import { WishlistButton } from '@components/wishlist'
 import { ProductSlider, ProductCard } from '@components/product'
 import { Container, Text } from '@components/ui'
 import ProductSidebar from '../ProductSidebar'
+import ProductTag from '../ProductTag'
 interface ProductViewProps {
   product: Product
   relatedProducts: Product[]
@@ -23,35 +24,14 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
 
   return (
     <>
-      <NextSeo
-        title={product.name}
-        description={product.description}
-        openGraph={{
-          type: 'website',
-          title: product.name,
-          description: product.description,
-          images: [
-            {
-              url: product.images[0]?.url!,
-              width: 800,
-              height: 600,
-              alt: product.name,
-            },
-          ],
-        }}
-      />
       <Container className="max-w-none w-full" clean>
         <div className={cn(s.root, 'fit')}>
           <div className={cn(s.main, 'fit')}>
-            <div className={s.header}>
-              <h3 className={s.name}>
-                <span>{product.name}</span>
-              </h3>
-              <div className={s.price}>
-                {`${price} ${product.price?.currencyCode}`}
-              </div>
-            </div>
-
+            <ProductTag
+              name={product.name}
+              price={`${price} ${product.price?.currencyCode}`}
+              fontSize={32}
+            />
             <div className={s.sliderContainer}>
               <ProductSlider key={product.id}>
                 {product.images.map((image, i) => (
@@ -105,6 +85,23 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           </div>
         </section>
       </Container>
+      <NextSeo
+        title={product.name}
+        description={product.description}
+        openGraph={{
+          type: 'website',
+          title: product.name,
+          description: product.description,
+          images: [
+            {
+              url: product.images[0]?.url!,
+              width: 800,
+              height: 600,
+              alt: product.name,
+            },
+          ],
+        }}
+      />
     </>
   )
 }

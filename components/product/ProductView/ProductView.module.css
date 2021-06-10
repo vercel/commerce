@@ -8,30 +8,6 @@
   min-height: 500px;
 }
 
-.header {
-  @apply transition-colors ease-in-out duration-500
-  absolute top-0 left-0 z-20 pr-16;
-}
-
-.header .name {
-  @apply pt-0 max-w-full w-full leading-extra-loose;
-  font-size: 2rem;
-  letter-spacing: 0.4px;
-}
-
-.header .name span {
-  @apply py-4 px-6 bg-primary text-primary font-bold;
-  font-size: inherit;
-  letter-spacing: inherit;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-.header .price {
-  @apply pt-2 px-6 pb-4 text-sm bg-primary text-accent-9
-  font-semibold inline-block tracking-wide;
-}
-
 .sidebar {
   @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 py-6 w-full h-full;
 }
