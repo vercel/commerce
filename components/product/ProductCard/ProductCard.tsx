@@ -6,7 +6,7 @@ import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
-
+import ProductTag from '../ProductTag'
 interface Props {
   className?: string
   product: Product
@@ -104,14 +104,10 @@ const ProductCard: FC<Props> = ({
                 variant={product.variants[0] as any}
               />
             )}
-            <div className={s.header}>
-              <h3 className={s.name}>
-                <span>{product.name}</span>
-              </h3>
-              <div className={s.price}>
-                {`${price} ${product.price?.currencyCode}`}
-              </div>
-            </div>
+            <ProductTag
+              name={product.name}
+              price={`${price} ${product.price?.currencyCode}`}
+            />
             <div className={s.imageContainer}>
               {product?.images && (
                 <Image

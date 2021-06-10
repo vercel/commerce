@@ -12,7 +12,15 @@ import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
 import ProductSliderControl from '../ProductSliderControl'
 
-const ProductSlider: FC = ({ children }) => {
+interface ProductSliderProps {
+  children: React.ReactNode[]
+  className?: string
+}
+
+const ProductSlider: React.FC<ProductSliderProps> = ({
+  children,
+  className = '',
+}) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
@@ -77,7 +85,7 @@ const ProductSlider: FC = ({ children }) => {
   const onNext = React.useCallback(() => slider.next(), [slider])
 
   return (
-    <div className={s.root} ref={sliderContainerRef}>
+    <div className={cn(s.root, className)} ref={sliderContainerRef}>
       <div
         ref={ref}
         className={cn(s.slider, { [s.show]: isMounted }, 'keen-slider')}
