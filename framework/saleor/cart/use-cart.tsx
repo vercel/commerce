@@ -16,11 +16,17 @@ export const handler: SWRHook<GetCartHook> = {
     let checkout
 
     if (checkoutId) {
-      const checkoutId = getCheckoutId().checkoutToken
+      const r = getCheckoutId()
+      const checkoutToken = r.checkoutToken
+
       const data = await fetch({
         ...options,
-        variables: { checkoutId },
+        variables: { checkoutId: checkoutToken },
       })
+
+      if (!data.checkout) {
+        checkout = await checkoutCreate(fetch)
+      }
 
       checkout = data
     }
@@ -33,21 +39,21 @@ export const handler: SWRHook<GetCartHook> = {
   },
   useHook:
     ({ useData }) =>
-    (input) => {
-      const response = useData({
-        swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
-      })
-      return useMemo(
-        () =>
-          Object.create(response, {
-            isEmpty: {
-              get() {
-                return (response.data?.lineItems.length ?? 0) <= 0
+      (input) => {
+        const response = useData({
+          swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
+        })
+        return useMemo(
+          () =>
+            Object.create(response, {
+              isEmpty: {
+                get() {
+                  return (response.data?.lineItems.length ?? 0) <= 0
+                },
+                enumerable: true,
               },
-              enumerable: true,
-            },
-          }),
-        [response]
-      )
-    },
+            }),
+          [response]
+        )
+      },
 }
