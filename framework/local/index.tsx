@@ -1,29 +1,28 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
+import { localProvider } from './provider'
 import {
   CommerceConfig,
   CommerceProvider as CoreCommerceProvider,
   useCommerce as useCoreCommerce,
 } from '@commerce'
-import { vendureProvider } from './provider'
 
-export const vendureConfig: CommerceConfig = {
+export const localConfig: CommerceConfig = {
   locale: 'en-us',
   cartCookie: 'session',
 }
 
-export type VendureConfig = Partial<CommerceConfig>
-
-export type VendureProps = {
+export function CommerceProvider({
+  children,
+  ...config
+}: {
   children?: ReactNode
   locale: string
-} & VendureConfig
-
-export function CommerceProvider({ children, ...config }: VendureProps) {
+} & Partial<CommerceConfig>) {
   return (
     <CoreCommerceProvider
-      provider={vendureProvider}
-      config={{ ...vendureConfig, ...config }}
+      provider={localProvider}
+      config={{ ...localConfig, ...config }}
     >
       {children}
     </CoreCommerceProvider>

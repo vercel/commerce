@@ -9,11 +9,11 @@ export type GetSiteInfoResult<
 > = T
 
 export default function getSiteInfoOperation({}: OperationContext<any>) {
-  function getSiteInfo(): GetSiteInfoResult {
-    return {
+  function getSiteInfo(): Promise<GetSiteInfoResult> {
+    return Promise.resolve({
       categories: [],
       brands: [],
-    }
+    })
   }
 
   return getSiteInfo

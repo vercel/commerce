@@ -10,10 +10,12 @@ import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 import { fetcher } from './fetcher'
 
-export const vendureProvider: Provider = {
+export type Provider = typeof localProvider
+
+export const localProvider: Provider = {
   locale: 'en-us',
   cartCookie: 'session',
-  fetcher: (e) => e,
+  fetcher: fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
   products: { useSearch },

@@ -3,10 +3,10 @@ export type GetAllProductPathsResult = {
 }
 
 export default function getAllProductPathsOperation() {
-  function getAllProductPaths(): GetAllProductPathsResult {
-    return {
+  function getAllProductPaths(): Promise<GetAllProductPathsResult> {
+    return Promise.resolve({
       products: [].map((p) => ({ path: `/hello` })),
-    }
+    })
   }
 
   return getAllProductPaths

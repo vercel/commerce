@@ -5,8 +5,8 @@ export type PageVariables = {
 }
 
 export default function getPageOperation() {
-  function getPage(): GetPageResult {
-    return {}
+  function getPage(): Promise<GetPageResult> {
+    return Promise.resolve({})
   }
   return getPage
 }
