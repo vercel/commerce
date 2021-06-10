@@ -34,7 +34,7 @@
     'Helvetica', sans-serif;
 }
 
-[data-theme='dark'] {
+/* [data-theme='dark'] {
   --primary: #000000;
   --primary-2: #111;
   --secondary: #ffffff;
@@ -58,7 +58,7 @@
   --accents-7: #e9ecef;
   --accents-8: #f1f3f5;
   --accents-9: #f8f9fa;
-}
+} */
 
 *,
 *:before,
