@@ -1,0 +1,8 @@
+{
+  "provider": "local",
+  "features": {
+    "cart": false,
+    "customer": false,
+    "wishlist": false
+  }
+}

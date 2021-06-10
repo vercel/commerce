@@ -7,7 +7,7 @@ const fs = require('fs')
 const merge = require('deepmerge')
 const prettier = require('prettier')
 
-const PROVIDERS = ['bigcommerce', 'shopify', 'swell', 'vendure']
+const PROVIDERS = ['bigcommerce', 'shopify', 'swell', 'vendure', 'local']
 
 function getProviderName() {
   return (
@@ -67,6 +67,14 @@ function withCommerceConfig(nextConfig = {}) {
         if (current !== name) exclude.push(`framework/${current}`)
         return exclude
       }, exclude)
+    }
+
+    if (process.env.COMMERCE_PROVIDER == 'local') {
+      tsconfig.exclude = tsconfig.exclude.concat(
+        'components/cart',
+        'components/auth',
+        'components/wishlist'
+      )
     }
 
     fs.writeFileSync(

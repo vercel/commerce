@@ -38,19 +38,21 @@ const UserNav: FC<Props> = ({ className }) => {
             </Link>
           </li>
         )}
-        <li className={s.item}>
-          {customer ? (
-            <DropdownMenu />
-          ) : (
-            <button
-              className={s.avatarButton}
-              aria-label="Menu"
-              onClick={() => openModal()}
-            >
-              <Avatar />
-            </button>
-          )}
-        </li>
+        {process.env.COMMERCE_CUSTOMER_ENABLED && (
+          <li className={s.item}>
+            {customer ? (
+              <DropdownMenu />
+            ) : (
+              <button
+                className={s.avatarButton}
+                aria-label="Menu"
+                onClick={() => openModal()}
+              >
+                <Avatar />
+              </button>
+            )}
+          </li>
+        )}
       </ul>
     </nav>
   )
