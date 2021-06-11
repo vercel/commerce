@@ -1,3 +1,5 @@
+import data from '../../data.json'
+
 export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
 }
@@ -5,7 +7,7 @@ export type GetAllProductPathsResult = {
 export default function getAllProductPathsOperation() {
   function getAllProductPaths(): Promise<GetAllProductPathsResult> {
     return Promise.resolve({
-      products: [].map((p) => ({ path: `/hello` })),
+      products: data.products.map(({ path }) => ({ path })),
     })
   }
 

@@ -8,6 +8,10 @@ export const handler: SWRHook<any> = {
   },
   async fetcher({ input, options, fetch }) {},
   useHook: () => () => {
-    return {}
+    return {
+      data: {
+        products: [],
+      },
+    }
   },
 }

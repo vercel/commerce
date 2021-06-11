@@ -17,7 +17,6 @@ export default function getAllProductsOperation({
     config?: Partial<LocalConfig>
     preview?: boolean
   } = {}): Promise<{ products: Product[] | any[] }> {
-    console.log(data.products[0])
     return Promise.resolve({
       products: data.products,
     })
