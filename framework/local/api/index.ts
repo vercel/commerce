@@ -1,6 +1,6 @@
 import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
 import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
-import fetchGraphqlApi from './utils/fetch-graphql-api'
+import fetcher from './utils/fetch-local'
 
 import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
@@ -11,15 +11,13 @@ import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
 export interface LocalConfig extends CommerceAPIConfig {}
-
-const ONE_DAY = 60 * 60 * 24
 const config: LocalConfig = {
   commerceUrl: '',
   apiToken: '',
   cartCookie: '',
   customerCookie: '',
-  cartCookieMaxAge: ONE_DAY * 30,
-  fetch: fetchGraphqlApi,
+  cartCookieMaxAge: 2592000,
+  fetch: fetcher,
 }
 
 const operations = {

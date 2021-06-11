@@ -1,13 +1,2 @@
-import { useCallback } from 'react'
-
-export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
-    return useCallback(async function () {
-      return Promise.resolve()
-    }, [])
-  }
-
-  return useEmptyHook
-}
-
-export default emptyHook
+export * from '@commerce/product/use-price'
+export { default } from '@commerce/product/use-price'

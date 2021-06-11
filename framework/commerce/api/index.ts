@@ -72,9 +72,8 @@ export type APIProvider = {
   operations: APIOperations<any>
 }
 
-export type CommerceAPI<
-  P extends APIProvider = APIProvider
-> = CommerceAPICore<P> & AllOperations<P>
+export type CommerceAPI<P extends APIProvider = APIProvider> =
+  CommerceAPICore<P> & AllOperations<P>
 
 export class CommerceAPICore<P extends APIProvider = APIProvider> {
   constructor(readonly provider: P) {}
@@ -134,17 +133,17 @@ export function getEndpoint<
   }
 }
 
-export const createEndpoint = <API extends GetAPISchema<any, any>>(
-  endpoint: API['endpoint']
-) => <P extends APIProvider>(
-  commerce: CommerceAPI<P>,
-  context?: Partial<API['endpoint']> & {
-    config?: P['config']
-    options?: API['schema']['endpoint']['options']
+export const createEndpoint =
+  <API extends GetAPISchema<any, any>>(endpoint: API['endpoint']) =>
+  <P extends APIProvider>(
+    commerce: CommerceAPI<P>,
+    context?: Partial<API['endpoint']> & {
+      config?: P['config']
+      options?: API['schema']['endpoint']['options']
+    }
+  ): NextApiHandler => {
+    return getEndpoint(commerce, { ...endpoint, ...context })
   }
-): NextApiHandler => {
-  return getEndpoint(commerce, { ...endpoint, ...context })
-}
 
 export interface CommerceAPIConfig {
   locale?: string

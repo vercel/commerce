@@ -69,14 +69,6 @@ function withCommerceConfig(nextConfig = {}) {
       }, exclude)
     }
 
-    if (process.env.COMMERCE_PROVIDER == 'local') {
-      tsconfig.exclude = tsconfig.exclude.concat(
-        'components/cart',
-        'components/auth',
-        'components/wishlist'
-      )
-    }
-
     fs.writeFileSync(
       tsconfigPath,
       prettier.format(JSON.stringify(tsconfig), { parser: 'json' })

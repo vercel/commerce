@@ -9,8 +9,44 @@
       "price": { "value": 25, "currencyCode": "USD" },
       "images": [
         {
-          "url": "/assets/drop-shirt-0",
-          "altText": null,
+          "url": "/assets/drop-shirt-0.png",
+          "altText": "Shirt",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [],
+      "options": []
+    },
+    {
+      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjA=",
+      "name": "New Short Sleeve T-Shirt",
+      "vendor": "Next.js",
+      "path": "/new-short-sleeve-t-shirt",
+      "slug": "new-short-sleeve-t-shirt",
+      "price": { "value": 25, "currencyCode": "USD" },
+      "images": [
+        {
+          "url": "/assets/drop-shirt-0.png",
+          "altText": "Shirt",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [],
+      "options": []
+    },
+    {
+      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjA=",
+      "name": "New Short Sleeve T-Shirt",
+      "vendor": "Next.js",
+      "path": "/new-short-sleeve-t-shirt",
+      "slug": "new-short-sleeve-t-shirt",
+      "price": { "value": 25, "currencyCode": "USD" },
+      "images": [
+        {
+          "url": "/assets/drop-shirt-0.png",
+          "altText": "Shirt",
           "width": 1000,
           "height": 1000
         }

@@ -27,27 +27,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": [
-    "node_modules",
-    "framework/swell",
-    "framework/vendure",
-    "components/cart",
-    "components/auth",
-    "components/wishlist",
-    "components/cart",
-    "components/auth",
-    "components/wishlist",
-    "components/cart",
-    "components/auth",
-    "components/wishlist",
-    "components/cart",
-    "components/auth",
-    "components/wishlist",
-    "components/cart",
-    "components/auth",
-    "components/wishlist",
-    "components/cart",
-    "components/auth",
-    "components/wishlist"
-  ]
+  "exclude": ["node_modules", "framework/swell", "framework/vendure"]
 }

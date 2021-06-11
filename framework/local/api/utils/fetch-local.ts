@@ -1,6 +1,6 @@
 import { FetcherError } from '@commerce/utils/errors'
 import type { GraphQLFetcher } from '@commerce/api'
-import { getCommerceApi } from '../'
+import { getCommerceApi } from '../index'
 import fetch from './fetch'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
@@ -25,7 +25,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   const json = await res.json()
   if (json.errors) {
     throw new FetcherError({
-      errors: json.errors ?? [{ message: 'Failed to fetch' }],
+      errors: json.errors ?? [{ message: 'Failed to fetch for API' }],
       status: res.status,
     })
   }
