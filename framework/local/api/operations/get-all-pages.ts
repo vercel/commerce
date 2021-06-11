@@ -1,4 +1,4 @@
-export type Page = any
+export type Page = { url: string }
 export type GetAllPagesResult = { pages: Page[] }
 import type { LocalConfig } from '../index'
 

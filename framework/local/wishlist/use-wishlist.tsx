@@ -1,13 +1,43 @@
-import { useCallback } from 'react'
+import { HookFetcher } from '@commerce/utils/types'
+import type { Product } from '@commerce/types/product'
 
-export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
-    return useCallback(async function () {
-      return Promise.resolve()
-    }, [])
-  }
+const defaultOpts = {}
 
-  return useEmptyHook
+export type Wishlist = {
+  items: [
+    {
+      product_id: number
+      variant_id: number
+      id: number
+      product: Product
+    }
+  ]
 }
 
-export default emptyHook
+export interface UseWishlistOptions {
+  includeProducts?: boolean
+}
+
+export interface UseWishlistInput extends UseWishlistOptions {
+  customerId?: number
+}
+
+export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = () => {
+  return null
+}
+
+export function extendHook(
+  customFetcher: typeof fetcher,
+  // swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
+  swrOptions?: any
+) {
+  const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
+    return { data: null }
+  }
+
+  useWishlist.extend = extendHook
+
+  return useWishlist
+}
+
+export default extendHook(fetcher)

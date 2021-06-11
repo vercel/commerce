@@ -33,10 +33,10 @@ const operations = {
 export const provider = { config, operations }
 
 export type Provider = typeof provider
-export type LocalAPI<P extends Provider = Provider> = CommerceAPI<P>
+export type LocalAPI<P extends Provider = Provider> = CommerceAPI<P | any>
 
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
 ): LocalAPI<P> {
-  return commerceApi(customProvider)
+  return commerceApi(customProvider as any)
 }

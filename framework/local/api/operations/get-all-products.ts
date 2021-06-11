@@ -6,7 +6,7 @@ import data from '../../data.json'
 
 export default function getAllProductsOperation({
   commerce,
-}: OperationContext<Provider>) {
+}: OperationContext<any>) {
   async function getAllProducts<T extends GetAllProductsOperation>({
     query = '',
     variables,

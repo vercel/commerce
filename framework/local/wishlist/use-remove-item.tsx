@@ -1,7 +1,11 @@
 import { useCallback } from 'react'
 
-export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
+type Options = {
+  includeProducts?: boolean
+}
+
+export function emptyHook(options?: Options) {
+  const useEmptyHook = async ({ id }: { id: string | number }) => {
     return useCallback(async function () {
       return Promise.resolve()
     }, [])
