@@ -41,9 +41,9 @@ export default function Search({ categories, brands }: SearchPropsType) {
   const query = filterQuery({ sort })
 
   const { pathname, category, brand } = useSearchMeta(asPath)
-  const activeCategory = categories.find((cat) => cat.slug === category)
+  const activeCategory = categories.find((cat: any) => cat.slug === category)
   const activeBrand = brands.find(
-    (b) => getSlug(b.node.path) === `brands/${brand}`
+    (b: any) => getSlug(b.node.path) === `brands/${brand}`
   )?.node
 
   const { data } = useSearch({
@@ -132,7 +132,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         </a>
                       </Link>
                     </li>
-                    {categories.map((cat) => (
+                    {categories.map((cat: any) => (
                       <li
                         key={cat.path}
                         className={cn(
@@ -233,7 +233,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         </a>
                       </Link>
                     </li>
-                    {brands.flatMap(({ node }) => (
+                    {brands.flatMap(({ node }: { node: any }) => (
                       <li
                         key={node.path}
                         className={cn(
@@ -312,7 +312,6 @@ export default function Search({ categories, brands }: SearchPropsType) {
               )}
             </div>
           )}
-
           {data ? (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {data.products.map((product: Product) => (
@@ -336,7 +335,8 @@ export default function Search({ categories, brands }: SearchPropsType) {
                 </Skeleton>
               ))}
             </div>
-          )}        </div>
+          )}{' '}
+        </div>
 
         {/* Sort */}
         <div className="col-span-8 lg:col-span-2 order-2 lg:order-none">
