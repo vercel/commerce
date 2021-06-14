@@ -1,6 +1,6 @@
-import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
-import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
-import fetcher from './utils/fetch-local'
+import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
+import { getCommerceApi as commerceApi } from '@commerce/api'
+import createFetcher from './utils/fetch-local'
 
 import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
@@ -17,7 +17,7 @@ const config: LocalConfig = {
   cartCookie: '',
   customerCookie: '',
   cartCookieMaxAge: 2592000,
-  fetch: fetcher,
+  fetch: createFetcher(() => getCommerceApi().getConfig()),
 }
 
 const operations = {
