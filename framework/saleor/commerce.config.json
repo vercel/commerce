@@ -1,0 +1,7 @@
+{
+  "provider": "saleor",
+  "features": {
+    "wishlist": false,
+    "customCheckout": true
+  }
+}

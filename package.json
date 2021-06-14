@@ -2,7 +2,7 @@
   "name": "nextjs-commerce",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
@@ -16,7 +16,7 @@
   "sideEffects": false,
   "license": "MIT",
   "engines": {
-    "node": "14.x"
+    "node": ">=14.x"
   },
   "dependencies": {
     "@react-spring/web": "^9.2.1",

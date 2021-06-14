@@ -1,11 +1,11 @@
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
-import { Customer } from '@commerce/types'
 import { SWRHook } from '@commerce/utils/types'
 import { normalizeCustomer } from '../utils/normalize'
+import type { CustomerHook } from '../types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 
-export const handler: SWRHook<Customer | null> = {
+export const handler: SWRHook<CustomerHook> = {
   fetchOptions: {
     query: 'account',
     method: 'get',
@@ -25,26 +25,3 @@ export const handler: SWRHook<Customer | null> = {
     })
   },
 }
-
-// const handler = (): { data: Customer } => {
-//   const swell = getContext();
-//   const response = swell.account.get();
-//   const { firstName, lastName, email, company, customerGroupId, notes, phone,
-//     entityId, addressCount, attributeCount, storeCredit } = response;
-//   return {
-//       data: {
-//         firstName,
-//         lastName,
-//         email,
-//         company,
-//         customerGroupId,
-//         notes,
-//         phone,
-//         entityId,
-//         addressCount,
-//         attributeCount,
-//         storeCredit
-//       }
-//   }
-// }
-// export default handler;

@@ -33,6 +33,7 @@ export async function getStaticProps({
       config,
       preview,
     }))
+
   const page = data?.page
 
   if (!page) {
@@ -63,16 +64,18 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 
   return {
     paths,
-    // Fallback shouldn't be enabled here or otherwise this route
-    // will catch every page, even 404s, and we don't want that
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 
 export default function Pages({
   page,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
+  const router = useRouter()
+
+  return router.isFallback ? (
+    <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
+  ) : (
     <div className="max-w-2xl mx-8 sm:mx-auto py-20">
       {page?.body && <Text html={page.body} />}
     </div>

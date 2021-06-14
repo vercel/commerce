@@ -1,4 +1,5 @@
-import * as Core from '@commerce/types'
+import * as Core from '@commerce/types/cart'
+import { Customer } from '@commerce/types'
 import { CheckoutLineItem } from './schema'
 
 export type SwellImage = {
@@ -43,12 +44,18 @@ export type SwellVariant = {
   name: string
   price?: number
   stock_status?: string
+  __type?: 'MultipleChoiceOption' | undefined
+}
+
+export interface SwellProductOptionValue {
+  id: string
+  label: string
+  hexColors?: string[]
 }
 
 export interface ProductOptionValue {
   label: string
   hexColors?: string[]
-  id: string
 }
 
 export type ProductOptions = {
@@ -73,10 +80,7 @@ export interface SwellProduct {
   variants: any[]
 }
 
-export interface SwellCustomer extends Core.Customer {
-  first_name: string
-  last_name: string
-}
+export type SwellCustomer = any
 
 export type SwellCheckout = {
   id: string
@@ -106,17 +110,3 @@ export type CartItemBody = Core.CartItemBody & {
   productId: string // The product id is always required for BC
   optionSelections?: OptionSelections
 }
-
-export type GetCartHandlerBody = Core.GetCartHandlerBody
-
-export type AddCartItemBody = Core.AddCartItemBody<CartItemBody>
-
-export type AddCartItemHandlerBody = Core.AddCartItemHandlerBody<CartItemBody>
-
-export type UpdateCartItemBody = Core.UpdateCartItemBody<CartItemBody>
-
-export type UpdateCartItemHandlerBody = Core.UpdateCartItemHandlerBody<CartItemBody>
-
-export type RemoveCartItemBody = Core.RemoveCartItemBody
-
-export type RemoveCartItemHandlerBody = Core.RemoveCartItemHandlerBody

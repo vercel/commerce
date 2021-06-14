@@ -40,7 +40,7 @@ function withCommerceConfig(nextConfig = {}) {
   }
 
   const commerceNextConfig = require(path.join('../', name, 'next.config'))
-  const config = merge(commerceNextConfig, nextConfig)
+  const config = merge(nextConfig, commerceNextConfig)
 
   config.env = config.env || {}
 

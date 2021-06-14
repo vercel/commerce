@@ -2,24 +2,29 @@ import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
 import type {
   HookFetcherContext,
+  MutationHook,
   MutationHookContext,
 } from '@commerce/utils/types'
 import { ValidationError } from '@commerce/utils/errors'
-import useUpdateItem, {
-  UpdateItemInput as UpdateItemInputBase,
-  UseUpdateItem,
-} from '@commerce/cart/use-update-item'
-
+// import useUpdateItem, {
+//   UpdateItemInput as UpdateItemInputBase,
+//   UseUpdateItem,
+// } from '@commerce/cart/use-update-item'
+import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
-import type { Cart, LineItem, UpdateCartItemBody } from '../types'
+import { CartItemBody, LineItem } from '@commerce/types/cart'
 import { checkoutToCart } from './utils'
-
-export type UpdateItemInput<T = any> = T extends LineItem
-  ? Partial<UpdateItemInputBase<LineItem>>
-  : UpdateItemInputBase<LineItem>
+import { UpdateItemHook } from '../types/cart'
+// export type UpdateItemInput<T = any> = T extends LineItem
+//   ? Partial<UpdateItemInputBase<LineItem>>
+//   : UpdateItemInputBase<LineItem>
 
 export default useUpdateItem as UseUpdateItem<typeof handler>
+
+export type UpdateItemActionInput<T = any> = T extends LineItem
+  ? Partial<UpdateItemHook['actionInput']>
+  : UpdateItemHook['actionInput']
 
 export const handler = {
   fetchOptions: {
@@ -30,7 +35,7 @@ export const handler = {
     input: { itemId, item },
     options,
     fetch,
-  }: HookFetcherContext<UpdateCartItemBody>) {
+  }: HookFetcherContext<UpdateItemHook>) {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
@@ -52,9 +57,7 @@ export const handler = {
 
     return checkoutToCart(response)
   },
-  useHook: ({
-    fetch,
-  }: MutationHookContext<Cart | null, UpdateCartItemBody>) => <
+  useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) => <
     T extends LineItem | undefined = undefined
   >(
     ctx: {
@@ -66,7 +69,7 @@ export const handler = {
     const { mutate, data: cartData } = useCart() as any
 
     return useCallback(
-      debounce(async (input: UpdateItemInput<T>) => {
+      debounce(async (input: UpdateItemActionInput) => {
         const firstLineItem = cartData.lineItems[0]
         const itemId = item?.id || firstLineItem.id
         const productId = item?.productId || firstLineItem.productId
