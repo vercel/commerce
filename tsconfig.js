@@ -9,7 +9,7 @@ function getProviderName() {
       ? 'shopify'
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
       ? 'swell'
-      : null)
+      : 'local')
   )
 }
 
