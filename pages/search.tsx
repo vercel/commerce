@@ -37,7 +37,10 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = { locale, locales }
   const { pages } = await commerce.getAllPages({ config, preview })
-  const { categories, brands } = await commerce.getSiteInfo({ config, preview })
+  const { categories, brands } = await commerce.getSiteInfo({
+    config,
+    preview,
+  })
   return {
     props: {
       pages,
@@ -64,9 +67,9 @@ export default function Search({
   const query = filterQuery({ sort })
 
   const { pathname, category, brand } = useSearchMeta(asPath)
-  const activeCategory = categories.find((cat) => cat.slug === category)
+  const activeCategory = categories.find((cat: any) => cat.slug === category)
   const activeBrand = brands.find(
-    (b) => getSlug(b.node.path) === `brands/${brand}`
+    (b: any) => getSlug(b.node.path) === `brands/${brand}`
   )?.node
 
   const { data } = useSearch({
@@ -155,7 +158,7 @@ export default function Search({
                         </a>
                       </Link>
                     </li>
-                    {categories.map((cat) => (
+                    {categories.map((cat: any) => (
                       <li
                         key={cat.path}
                         className={cn(
@@ -256,7 +259,7 @@ export default function Search({
                         </a>
                       </Link>
                     </li>
-                    {brands.flatMap(({ node }) => (
+                    {brands.flatMap(({ node }: { node: any }) => (
                       <li
                         key={node.path}
                         className={cn(

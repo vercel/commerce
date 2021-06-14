@@ -84,7 +84,7 @@ export default function Cart() {
             <Text variant="pageHeading">My Cart</Text>
             <Text variant="sectionHeading">Review your Order</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-b border-accent-2">
-              {data!.lineItems.map((item) => (
+              {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}
