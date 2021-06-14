@@ -11,13 +11,17 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext) {
   const config = { locale, locales }
-  const { products } = await commerce.getAllProducts({
-    variables: { first: 12 },
+  const productsPromise = commerce.getAllProducts({
+    variables: { first: 6 },
     config,
     preview,
+    // Saleor provider only
+    ...({ featured: true } as any),
   })
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+
+  const { products } = await productsPromise
   const { pages } = await pagesPromise
   const { categories, brands } = await siteInfoPromise
 
@@ -28,7 +32,7 @@ export async function getStaticProps({
       brands,
       pages,
     },
-    revalidate: 14400,
+    revalidate: 60,
   }
 }
 
@@ -38,7 +42,7 @@ export default function Home({
   return (
     <>
       <Grid variant="filled">
-        {products.slice(0, 3).map((product, i) => (
+        {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
             product={product}
@@ -50,7 +54,7 @@ export default function Home({
         ))}
       </Grid>
       <Marquee variant="secondary">
-        {products.slice(0, 3).map((product, i) => (
+        {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
       </Marquee>
@@ -59,7 +63,7 @@ export default function Home({
         description="Cupcake ipsum dolor sit amet lemon drops pastry cotton candy. Sweet carrot cake macaroon bonbon croissant fruitcake jujubes macaroon oat cake. Soufflé bonbon caramels jelly beans. Tiramisu sweet roll cheesecake pie carrot cake. "
       />
       <Grid layout="B" variant="filled">
-        {products.slice(0, 3).map((product, i) => (
+        {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
             product={product}
@@ -71,7 +75,7 @@ export default function Home({
         ))}
       </Grid>
       <Marquee>
-        {products.slice(0, 3).map((product, i) => (
+        {products.slice(3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
       </Marquee>

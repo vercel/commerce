@@ -1,8 +1,20 @@
 .root {
-  @apply relative h-full flex flex-col w-full;
+  @apply relative h-full flex flex-col;
 }
 
 .header {
-  @apply pl-4 pr-6 pt-4 pb-4 lg:pt-5 flex items-center justify-between space-x-3;
-  margin-top: 1px;
+  @apply sticky top-0 pl-4 py-4 pr-6
+  flex items-center justify-between 
+  bg-accent-0 box-border w-full z-10;
+  min-height: 66px;
+}
+
+.container {
+  @apply flex flex-col flex-1 box-border;
+}
+
+@screen lg {
+  .header {
+    min-height: 74px;
+  }
 }

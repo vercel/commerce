@@ -1,9 +1,10 @@
 .root {
   @apply bg-accent-9 text-accent-0 cursor-pointer inline-flex
-  px-10 py-4 rounded-sm leading-6 transition ease-in-out duration-150
+  px-10 py-5 leading-6 transition ease-in-out duration-150
   shadow-sm text-center justify-center uppercase
   border border-transparent items-center text-sm font-semibold
   tracking-wide;
+  max-height: 64px;
 }
 
 .root:hover {
@@ -15,7 +16,7 @@
 }
 
 .root[data-active] {
-  @apply bg-gray-600;
+  @apply bg-accent-6;
 }
 
 .loading {
@@ -41,4 +42,7 @@
   -webkit-transform: translateZ(0);
   -webkit-perspective: 1000;
   -webkit-backface-visibility: hidden;
+}
+
+.progress {
 }

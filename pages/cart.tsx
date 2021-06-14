@@ -12,6 +12,13 @@ export async function getStaticProps({
   locale,
   locales,
 }: GetStaticPropsContext) {
+  // Disabling page if Feature is not available
+  if (!process.env.COMMERCE_CART_ENABLED) {
+    return {
+      notFound: true,
+    }
+  }
+
   const config = { locale, locales }
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
@@ -79,7 +86,7 @@ export default function Cart() {
             <Text variant="pageHeading">My Cart</Text>
             <Text variant="sectionHeading">Review your Order</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-b border-accent-2">
-              {data!.lineItems.map((item) => (
+              {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}

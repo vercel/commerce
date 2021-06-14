@@ -12,36 +12,6 @@
   opacity: 1;
 }
 
-.control {
-  @apply bg-violet absolute bottom-10 right-10 flex flex-row
-  border-accent-0 border text-accent-0 z-30 shadow-xl select-none;
-  height: 48px;
-}
-
-.leftControl,
-.rightControl {
-  @apply px-8 cursor-pointer;
-  transition: background-color 0.2s ease;
-}
-
-.leftControl:hover,
-.rightControl:hover {
-  background-color: var(--violet-dark);
-}
-
-.leftControl:focus,
-.rightControl:focus {
-  @apply outline-none;
-}
-
-.rightControl {
-  @apply border-l;
-}
-
-.leftControl {
-  margin-right: -1px;
-}
-
 .thumb {
   @apply transition-transform transition-colors
   ease-linear duration-75 overflow-hidden inline-block
@@ -67,8 +37,12 @@
   overflow-x: auto;
   white-space: nowrap;
   height: 125px;
-  padding-bottom: 10px;
-  margin-bottom: -10px;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.album::-webkit-scrollbar {
+  display: none;
 }
 
 @screen md {

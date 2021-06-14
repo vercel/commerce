@@ -1,6 +1,6 @@
-import { Product, Customer } from '@commerce/types'
-
-import { MoneyV2, ProductOption } from '../schema'
+import { Customer } from '../types/customer'
+import { Product, ProductOption } from '../types/product'
+import { MoneyV2 } from '../schema'
 
 import type {
   Cart,
@@ -10,6 +10,7 @@ import type {
   SwellImage,
   SwellVariant,
   ProductOptionValue,
+  SwellProductOptionValue,
   SwellCart,
   LineItem,
 } from '../types'
@@ -21,8 +22,13 @@ const money = ({ amount, currencyCode }: MoneyV2) => {
   }
 }
 
+type swellProductOption = {
+  id: string
+  name: string
+  values: any[]
+}
+
 type normalizedProductOption = {
-  __typename?: string
   id: string
   displayName: string
   values: ProductOptionValue[]
@@ -32,11 +38,11 @@ const normalizeProductOption = ({
   id,
   name: displayName = '',
   values = [],
-}: ProductOption) => {
+}: swellProductOption): ProductOption => {
   let returnValues = values.map((value) => {
     let output: any = {
       label: value.name,
-      id: value?.id || id,
+      // id: value?.id || id,
     }
     if (displayName.match(/colou?r/gi)) {
       output = {
@@ -68,7 +74,7 @@ const normalizeProductImages = (images: SwellImage[]) => {
 
 const normalizeProductVariants = (
   variants: SwellVariant[],
-  productOptions: normalizedProductOption[]
+  productOptions: swellProductOption[]
 ) => {
   return variants?.map(
     ({ id, name, price, option_value_ids: optionValueIds = [] }) => {
@@ -79,22 +85,22 @@ const normalizeProductVariants = (
       const options = optionValueIds.map((id) => {
         const matchingOption = productOptions.find((option) => {
           return option.values.find(
-            (value: ProductOptionValue) => value.id == id
+            (value: SwellProductOptionValue) => value.id == id
           )
         })
         return normalizeProductOption({
           id,
-          name: matchingOption?.displayName ?? '',
+          name: matchingOption?.name ?? '',
           values,
         })
       })
 
       return {
         id,
-        name,
+        // name,
         // sku: sku ?? id,
-        price: price ?? null,
-        listPrice: price ?? null,
+        // price: price ?? null,
+        // listPrice: price ?? null,
         // requiresShipping: true,
         options,
       }
@@ -116,11 +122,12 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
   } = swellProduct
   // ProductView accesses variants for each product
   const emptyVariants = [{ options: [], id, name }]
+
   const productOptions = options
     ? options.map((o) => normalizeProductOption(o))
     : []
   const productVariants = variants
-    ? normalizeProductVariants(variants, productOptions)
+    ? normalizeProductVariants(variants, options)
     : []
 
   const productImages = normalizeProductImages(images)

@@ -10,9 +10,17 @@ import React, {
 import cn from 'classnames'
 import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
-import { ChevronLeft, ChevronRight } from '@components/icons'
+import ProductSliderControl from '../ProductSliderControl'
 
-const ProductSlider: FC = ({ children }) => {
+interface ProductSliderProps {
+  children: React.ReactNode[]
+  className?: string
+}
+
+const ProductSlider: React.FC<ProductSliderProps> = ({
+  children,
+  className = '',
+}) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
@@ -73,30 +81,16 @@ const ProductSlider: FC = ({ children }) => {
     }
   }, [])
 
+  const onPrev = React.useCallback(() => slider.prev(), [slider])
+  const onNext = React.useCallback(() => slider.next(), [slider])
+
   return (
-    <div className={s.root} ref={sliderContainerRef}>
+    <div className={cn(s.root, className)} ref={sliderContainerRef}>
       <div
         ref={ref}
         className={cn(s.slider, { [s.show]: isMounted }, 'keen-slider')}
       >
-        {slider && (
-          <div className={s.control}>
-            <button
-              className={cn(s.leftControl)}
-              onClick={slider.prev}
-              aria-label="Previous Product Image"
-            >
-              <ChevronLeft />
-            </button>
-            <button
-              className={cn(s.rightControl)}
-              onClick={slider.next}
-              aria-label="Next Product Image"
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        )}
+        {slider && <ProductSliderControl onPrev={onPrev} onNext={onNext} />}
         {Children.map(children, (child) => {
           // Add the keen-slider__slide className to children
           if (isValidElement(child)) {

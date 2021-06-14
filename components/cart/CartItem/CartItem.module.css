@@ -23,6 +23,7 @@
   height: 100%;
   left: 30% !important;
   top: 30% !important;
+  z-index: 1;
 }
 
 .productName {

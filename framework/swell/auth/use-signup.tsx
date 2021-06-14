@@ -3,18 +3,12 @@ import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import useCustomer from '../customer/use-customer'
-import { CustomerCreateInput } from '../schema'
-
+import { SignupHook } from '../types/signup'
 import handleLogin from '../utils/handle-login'
 
 export default useSignup as UseSignup<typeof handler>
 
-export const handler: MutationHook<
-  null,
-  {},
-  CustomerCreateInput,
-  CustomerCreateInput
-> = {
+export const handler: MutationHook<SignupHook> = {
   fetchOptions: {
     query: 'account',
     method: 'create',

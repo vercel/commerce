@@ -1,3 +1,5 @@
+import { Provider } from '@commerce'
+
 import { SWELL_CHECKOUT_URL_COOKIE, STORE_DOMAIN } from './const'
 
 import { handler as useCart } from './cart/use-cart'
@@ -14,18 +16,15 @@ import { handler as useSignup } from './auth/use-signup'
 
 import fetcher from './fetcher'
 
-export const swellProvider = {
+export const swellProvider: Provider = {
   locale: 'en-us',
   cartCookie: SWELL_CHECKOUT_URL_COOKIE,
-  storeDomain: STORE_DOMAIN,
+  // storeDomain: STORE_DOMAIN,
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
-  features: {
-    wishlist: false,
-  },
 }
 
 export type SwellProvider = typeof swellProvider
