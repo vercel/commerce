@@ -13,6 +13,7 @@ const PROVIDERS = [
   'swell',
   'vendure',
   'reactioncommerce',
+  'saleor',
 ]
 
 function getProviderName() {
@@ -24,6 +25,8 @@ function getProviderName() {
       ? 'shopify'
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
       ? 'swell'
+      : process.env.NEXT_PUBLIC_SALEOR_API_URL
+      ? 'saleor'
       : null)
   )
 }
@@ -46,7 +49,7 @@ function withCommerceConfig(nextConfig = {}) {
   }
 
   const commerceNextConfig = require(path.join('../', name, 'next.config'))
-  const config = merge(commerceNextConfig, nextConfig)
+  const config = merge(nextConfig, commerceNextConfig)
 
   config.env = config.env || {}
 

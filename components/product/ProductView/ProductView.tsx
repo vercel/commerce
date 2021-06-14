@@ -32,10 +32,11 @@ const ProductView: FC<Props> = ({ product }) => {
 
   useEffect(() => {
     // Selects the default option
-    product.variants[0].options?.forEach((v) => {
+    const options = product.variants[0].options || []
+    options.forEach((v) => {
       setChoices((choices) => ({
         ...choices,
-        [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
+        [v.displayName.toLowerCase()]: v.values[0]?.label.toLowerCase(),
       }))
     })
   }, [])

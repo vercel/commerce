@@ -386,6 +386,13 @@ type ProductVariantList implements PaginatedList {
   totalItems: Int!
 }
 
+input ProductVariantListOptions {
+  skip: Int
+  take: Int
+  sort: ProductVariantSortParameter
+  filter: ProductVariantFilterParameter
+}
+
 enum GlobalFlag {
   TRUE
   FALSE
@@ -417,6 +424,8 @@ GraphQL resolvers via the {@link Allow} decorator.
 @docsCategory common
 """
 enum Permission {
+  Placeholder
+
   """
   Authenticated means simply that the user is logged in
   """
@@ -438,44 +447,49 @@ enum Permission {
   Public
 
   """
-  Grants permission to create Catalog
+  Grants permission to update GlobalSettings
+  """
+  UpdateGlobalSettings
+
+  """
+  Grants permission to create Products, Facets, Assets, Collections
   """
   CreateCatalog
 
   """
-  Grants permission to read Catalog
+  Grants permission to read Products, Facets, Assets, Collections
   """
   ReadCatalog
 
   """
-  Grants permission to update Catalog
+  Grants permission to update Products, Facets, Assets, Collections
   """
   UpdateCatalog
 
   """
-  Grants permission to delete Catalog
+  Grants permission to delete Products, Facets, Assets, Collections
   """
   DeleteCatalog
 
   """
-  Grants permission to create Customer
+  Grants permission to create PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
   """
-  CreateCustomer
+  CreateSettings
 
   """
-  Grants permission to read Customer
+  Grants permission to read PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
   """
-  ReadCustomer
+  ReadSettings
 
   """
-  Grants permission to update Customer
+  Grants permission to update PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
   """
-  UpdateCustomer
+  UpdateSettings
 
   """
-  Grants permission to delete Customer
+  Grants permission to delete PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
   """
-  DeleteCustomer
+  DeleteSettings
 
   """
   Grants permission to create Administrator
@@ -498,6 +512,146 @@ enum Permission {
   DeleteAdministrator
 
   """
+  Grants permission to create Asset
+  """
+  CreateAsset
+
+  """
+  Grants permission to read Asset
+  """
+  ReadAsset
+
+  """
+  Grants permission to update Asset
+  """
+  UpdateAsset
+
+  """
+  Grants permission to delete Asset
+  """
+  DeleteAsset
+
+  """
+  Grants permission to create Channel
+  """
+  CreateChannel
+
+  """
+  Grants permission to read Channel
+  """
+  ReadChannel
+
+  """
+  Grants permission to update Channel
+  """
+  UpdateChannel
+
+  """
+  Grants permission to delete Channel
+  """
+  DeleteChannel
+
+  """
+  Grants permission to create Collection
+  """
+  CreateCollection
+
+  """
+  Grants permission to read Collection
+  """
+  ReadCollection
+
+  """
+  Grants permission to update Collection
+  """
+  UpdateCollection
+
+  """
+  Grants permission to delete Collection
+  """
+  DeleteCollection
+
+  """
+  Grants permission to create Country
+  """
+  CreateCountry
+
+  """
+  Grants permission to read Country
+  """
+  ReadCountry
+
+  """
+  Grants permission to update Country
+  """
+  UpdateCountry
+
+  """
+  Grants permission to delete Country
+  """
+  DeleteCountry
+
+  """
+  Grants permission to create Customer
+  """
+  CreateCustomer
+
+  """
+  Grants permission to read Customer
+  """
+  ReadCustomer
+
+  """
+  Grants permission to update Customer
+  """
+  UpdateCustomer
+
+  """
+  Grants permission to delete Customer
+  """
+  DeleteCustomer
+
+  """
+  Grants permission to create CustomerGroup
+  """
+  CreateCustomerGroup
+
+  """
+  Grants permission to read CustomerGroup
+  """
+  ReadCustomerGroup
+
+  """
+  Grants permission to update CustomerGroup
+  """
+  UpdateCustomerGroup
+
+  """
+  Grants permission to delete CustomerGroup
+  """
+  DeleteCustomerGroup
+
+  """
+  Grants permission to create Facet
+  """
+  CreateFacet
+
+  """
+  Grants permission to read Facet
+  """
+  ReadFacet
+
+  """
+  Grants permission to update Facet
+  """
+  UpdateFacet
+
+  """
+  Grants permission to delete Facet
+  """
+  DeleteFacet
+
+  """
   Grants permission to create Order
   """
   CreateOrder
@@ -516,6 +670,46 @@ enum Permission {
   Grants permission to delete Order
   """
   DeleteOrder
+
+  """
+  Grants permission to create PaymentMethod
+  """
+  CreatePaymentMethod
+
+  """
+  Grants permission to read PaymentMethod
+  """
+  ReadPaymentMethod
+
+  """
+  Grants permission to update PaymentMethod
+  """
+  UpdatePaymentMethod
+
+  """
+  Grants permission to delete PaymentMethod
+  """
+  DeletePaymentMethod
+
+  """
+  Grants permission to create Product
+  """
+  CreateProduct
+
+  """
+  Grants permission to read Product
+  """
+  ReadProduct
+
+  """
+  Grants permission to update Product
+  """
+  UpdateProduct
+
+  """
+  Grants permission to delete Product
+  """
+  DeleteProduct
 
   """
   Grants permission to create Promotion
@@ -538,24 +732,124 @@ enum Permission {
   DeletePromotion
 
   """
-  Grants permission to create Settings
+  Grants permission to create ShippingMethod
   """
-  CreateSettings
+  CreateShippingMethod
 
   """
-  Grants permission to read Settings
+  Grants permission to read ShippingMethod
   """
-  ReadSettings
+  ReadShippingMethod
 
   """
-  Grants permission to update Settings
+  Grants permission to update ShippingMethod
   """
-  UpdateSettings
+  UpdateShippingMethod
 
   """
-  Grants permission to delete Settings
+  Grants permission to delete ShippingMethod
   """
-  DeleteSettings
+  DeleteShippingMethod
+
+  """
+  Grants permission to create Tag
+  """
+  CreateTag
+
+  """
+  Grants permission to read Tag
+  """
+  ReadTag
+
+  """
+  Grants permission to update Tag
+  """
+  UpdateTag
+
+  """
+  Grants permission to delete Tag
+  """
+  DeleteTag
+
+  """
+  Grants permission to create TaxCategory
+  """
+  CreateTaxCategory
+
+  """
+  Grants permission to read TaxCategory
+  """
+  ReadTaxCategory
+
+  """
+  Grants permission to update TaxCategory
+  """
+  UpdateTaxCategory
+
+  """
+  Grants permission to delete TaxCategory
+  """
+  DeleteTaxCategory
+
+  """
+  Grants permission to create TaxRate
+  """
+  CreateTaxRate
+
+  """
+  Grants permission to read TaxRate
+  """
+  ReadTaxRate
+
+  """
+  Grants permission to update TaxRate
+  """
+  UpdateTaxRate
+
+  """
+  Grants permission to delete TaxRate
+  """
+  DeleteTaxRate
+
+  """
+  Grants permission to create System
+  """
+  CreateSystem
+
+  """
+  Grants permission to read System
+  """
+  ReadSystem
+
+  """
+  Grants permission to update System
+  """
+  UpdateSystem
+
+  """
+  Grants permission to delete System
+  """
+  DeleteSystem
+
+  """
+  Grants permission to create Zone
+  """
+  CreateZone
+
+  """
+  Grants permission to read Zone
+  """
+  ReadZone
+
+  """
+  Grants permission to update Zone
+  """
+  UpdateZone
+
+  """
+  Grants permission to delete Zone
+  """
+  DeleteZone
 }
 
 enum SortOrder {
@@ -789,10 +1083,24 @@ input DateOperators {
   between: DateRange
 }
 
+"""
+Used to construct boolean expressions for filtering search results
+by FacetValue ID. Examples:
+
+* ID=1 OR ID=2: `{ facetValueFilters: [{ or: [1,2] }] }`
+* ID=1 AND ID=2: `{ facetValueFilters: [{ and: 1 }, { and: 2 }] }`
+* ID=1 AND (ID=2 OR ID=3): `{ facetValueFilters: [{ and: 1 }, { or: [2,3] }] }`
+"""
+input FacetValueFilterInput {
+  and: ID
+  or: [ID!]
+}
+
 input SearchInput {
   term: String
   facetValueIds: [ID!]
   facetValueOperator: LogicalOperator
+  facetValueFilters: [FacetValueFilterInput!]
   collectionId: ID
   collectionSlug: String
   groupByProduct: Boolean
@@ -857,6 +1165,7 @@ type ShippingMethodQuote {
   id: ID!
   price: Int!
   priceWithTax: Int!
+  code: String!
   name: String!
   description: String!
 
@@ -869,6 +1178,8 @@ type ShippingMethodQuote {
 type PaymentMethodQuote {
   id: ID!
   code: String!
+  name: String!
+  description: String!
   isEligible: Boolean!
   eligibilityMessage: String
 }
@@ -1817,6 +2128,13 @@ type CustomerGroup implements Node {
   customers(options: CustomerListOptions): CustomerList!
 }
 
+input CustomerListOptions {
+  skip: Int
+  take: Int
+  sort: CustomerSortParameter
+  filter: CustomerFilterParameter
+}
+
 type Customer implements Node {
   id: ID!
   createdAt: DateTime!
@@ -1920,6 +2238,13 @@ enum HistoryEntryType {
 type HistoryEntryList implements PaginatedList {
   items: [HistoryEntry!]!
   totalItems: Int!
+}
+
+input HistoryEntryListOptions {
+  skip: Int
+  take: Int
+  sort: HistoryEntrySortParameter
+  filter: HistoryEntryFilterParameter
 }
 
 """
@@ -2751,12 +3076,7 @@ type Order implements Node {
   methods.
   """
   surcharges: [Surcharge!]!
-
-  """
-  Order-level adjustments to the order total, such as discounts from promotions
-  """
-  adjustments: [Adjustment!]! @deprecated(reason: "Use `discounts` instead")
-  discounts: [Adjustment!]!
+  discounts: [Discount!]!
 
   """
   An array of all coupon codes applied to the Order
@@ -2857,7 +3177,15 @@ type ShippingLine {
   priceWithTax: Int!
   discountedPrice: Int!
   discountedPriceWithTax: Int!
-  discounts: [Adjustment!]!
+  discounts: [Discount!]!
+}
+
+type Discount {
+  adjustmentSource: String!
+  type: AdjustmentType!
+  description: String!
+  amount: Int!
+  amountWithTax: Int!
 }
 
 type OrderItem implements Node {
@@ -2903,8 +3231,6 @@ type OrderItem implements Node {
   """
   proratedUnitPriceWithTax: Int!
   unitTax: Int!
-  unitPriceIncludesTax: Boolean!
-    @deprecated(reason: "`unitPrice` is now always without tax")
   taxRate: Float!
   adjustments: [Adjustment!]!
   taxLines: [TaxLine!]!
@@ -2967,7 +3293,6 @@ type OrderLine implements Node {
   proratedUnitPriceWithTax: Int!
   quantity: Int!
   items: [OrderItem!]!
-  totalPrice: Int! @deprecated(reason: "Use `linePriceWithTax` instead")
   taxRate: Float!
 
   """
@@ -3006,8 +3331,7 @@ type OrderLine implements Node {
   The total tax on this line
   """
   lineTax: Int!
-  adjustments: [Adjustment!]! @deprecated(reason: "Use `discounts` instead")
-  discounts: [Adjustment!]!
+  discounts: [Discount!]!
   taxLines: [TaxLine!]!
   order: Order!
   customFields: JSON
@@ -3137,13 +3461,9 @@ type SearchResult {
   slug: String!
   productId: ID!
   productName: String!
-  productPreview: String!
-    @deprecated(reason: "Use `productAsset.preview` instead")
   productAsset: SearchResultAsset
   productVariantId: ID!
   productVariantName: String!
-  productVariantPreview: String!
-    @deprecated(reason: "Use `productVariantAsset.preview` instead")
   productVariantAsset: SearchResultAsset
   price: SearchResultPrice!
   priceWithTax: SearchResultPrice!
@@ -3229,8 +3549,6 @@ type ProductVariant implements Node {
   assets: [Asset!]!
   price: Int!
   currencyCode: CurrencyCode!
-  priceIncludesTax: Boolean!
-    @deprecated(reason: "price now always excludes tax")
   priceWithTax: Int!
   stockLevel: String!
   taxRateApplied: TaxRate!
@@ -3238,7 +3556,7 @@ type ProductVariant implements Node {
   options: [ProductOption!]!
   facetValues: [FacetValue!]!
   translations: [ProductVariantTranslation!]!
-  customFields: JSON
+  customFields: ProductVariantCustomFields
 }
 
 type ProductVariantTranslation {
@@ -3550,6 +3868,10 @@ type NoActiveOrderError implements ErrorResult {
   message: String!
 }
 
+input AuthenticationInput {
+  native: NativeAuthInput
+}
+
 input RegisterCustomerInput {
   emailAddress: String!
   title: String
@@ -3564,6 +3886,10 @@ input UpdateCustomerInput {
   firstName: String
   lastName: String
   phoneNumber: String
+  customFields: JSON
+}
+
+input UpdateOrderInput {
   customFields: JSON
 }
 
@@ -3582,6 +3908,27 @@ input PaymentInput {
   data generated by the payment provider.
   """
   metadata: JSON!
+}
+
+input CollectionListOptions {
+  skip: Int
+  take: Int
+  sort: CollectionSortParameter
+  filter: CollectionFilterParameter
+}
+
+input OrderListOptions {
+  skip: Int
+  take: Int
+  sort: OrderSortParameter
+  filter: OrderFilterParameter
+}
+
+input ProductListOptions {
+  skip: Int
+  take: Int
+  sort: ProductSortParameter
+  filter: ProductFilterParameter
 }
 
 union UpdateOrderItemsResult =
@@ -3675,48 +4022,6 @@ union AuthenticationResult =
 
 union ActiveOrderResult = Order | NoActiveOrderError
 
-input CollectionListOptions {
-  skip: Int
-  take: Int
-  sort: CollectionSortParameter
-  filter: CollectionFilterParameter
-}
-
-input ProductListOptions {
-  skip: Int
-  take: Int
-  sort: ProductSortParameter
-  filter: ProductFilterParameter
-}
-
-input ProductVariantListOptions {
-  skip: Int
-  take: Int
-  sort: ProductVariantSortParameter
-  filter: ProductVariantFilterParameter
-}
-
-input CustomerListOptions {
-  skip: Int
-  take: Int
-  sort: CustomerSortParameter
-  filter: CustomerFilterParameter
-}
-
-input OrderListOptions {
-  skip: Int
-  take: Int
-  sort: OrderSortParameter
-  filter: OrderFilterParameter
-}
-
-input HistoryEntryListOptions {
-  skip: Int
-  take: Int
-  sort: HistoryEntrySortParameter
-  filter: HistoryEntryFilterParameter
-}
-
 input CollectionFilterParameter {
   createdAt: DateOperators
   updatedAt: DateOperators
@@ -3763,9 +4068,9 @@ input ProductVariantFilterParameter {
   name: StringOperators
   price: NumberOperators
   currencyCode: StringOperators
-  priceIncludesTax: BooleanOperators
   priceWithTax: NumberOperators
   stockLevel: StringOperators
+  discountPrice: NumberOperators
 }
 
 input ProductVariantSortParameter {
@@ -3778,6 +4083,7 @@ input ProductVariantSortParameter {
   price: SortOrder
   priceWithTax: SortOrder
   stockLevel: SortOrder
+  discountPrice: SortOrder
 }
 
 input CustomerFilterParameter {
@@ -3846,12 +4152,8 @@ input HistoryEntrySortParameter {
   updatedAt: SortOrder
 }
 
-input UpdateOrderInput {
-  customFields: JSON
-}
-
-input AuthenticationInput {
-  native: NativeAuthInput
+type ProductVariantCustomFields {
+  discountPrice: Int
 }
 
 input NativeAuthInput {

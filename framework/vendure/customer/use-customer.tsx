@@ -1,12 +1,12 @@
 import { SWRHook } from '@commerce/utils/types'
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
-import { Customer } from '@commerce/types'
 import { ActiveCustomerQuery } from '../schema'
-import { activeCustomerQuery } from '../lib/queries/active-customer-query'
+import { activeCustomerQuery } from '../utils/queries/active-customer-query'
+import { CustomerHook } from '../types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 
-export const handler: SWRHook<Customer | null> = {
+export const handler: SWRHook<CustomerHook> = {
   fetchOptions: {
     query: activeCustomerQuery,
   },

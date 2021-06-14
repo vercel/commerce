@@ -45,6 +45,7 @@ export async function getStaticProps({
       brands,
       shopId: config?.shopId,
     },
+    revalidate: 200,
   }
 }
 

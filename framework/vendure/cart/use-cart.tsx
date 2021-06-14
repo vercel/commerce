@@ -1,10 +1,10 @@
-import { Cart } from '@commerce/types'
 import { SWRHook } from '@commerce/utils/types'
-import useCart, { FetchCartInput, UseCart } from '@commerce/cart/use-cart'
+import useCart, { UseCart } from '@commerce/cart/use-cart'
 import { ActiveOrderQuery, CartFragment } from '../schema'
-import { normalizeCart } from '../lib/normalize'
+import { normalizeCart } from '../utils/normalize'
 import { useMemo } from 'react'
-import { getCartQuery } from '../lib/queries/get-cart-query'
+import { getCartQuery } from '../utils/queries/get-cart-query'
+import { GetCartHook } from '../types/cart'
 
 export type CartResult = {
   activeOrder?: CartFragment
@@ -15,12 +15,7 @@ export type CartResult = {
 
 export default useCart as UseCart<typeof handler>
 
-export const handler: SWRHook<
-  Cart | null,
-  {},
-  FetchCartInput,
-  { isEmpty?: boolean }
-> = {
+export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     query: getCartQuery,
   },

@@ -437,6 +437,13 @@ export type ProductVariantList = PaginatedList & {
   totalItems: Scalars['Int']
 }
 
+export type ProductVariantListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: Maybe<ProductVariantSortParameter>
+  filter?: Maybe<ProductVariantFilterParameter>
+}
+
 export enum GlobalFlag {
   True = 'TRUE',
   False = 'FALSE',
@@ -463,6 +470,7 @@ export enum DeletionResult {
  * @docsCategory common
  */
 export enum Permission {
+  Placeholder = 'Placeholder',
   /** Authenticated means simply that the user is logged in */
   Authenticated = 'Authenticated',
   /** SuperAdmin has unrestricted access to all operations */
@@ -471,22 +479,24 @@ export enum Permission {
   Owner = 'Owner',
   /** Public means any unauthenticated user may perform the operation */
   Public = 'Public',
-  /** Grants permission to create Catalog */
+  /** Grants permission to update GlobalSettings */
+  UpdateGlobalSettings = 'UpdateGlobalSettings',
+  /** Grants permission to create Products, Facets, Assets, Collections */
   CreateCatalog = 'CreateCatalog',
-  /** Grants permission to read Catalog */
+  /** Grants permission to read Products, Facets, Assets, Collections */
   ReadCatalog = 'ReadCatalog',
-  /** Grants permission to update Catalog */
+  /** Grants permission to update Products, Facets, Assets, Collections */
   UpdateCatalog = 'UpdateCatalog',
-  /** Grants permission to delete Catalog */
+  /** Grants permission to delete Products, Facets, Assets, Collections */
   DeleteCatalog = 'DeleteCatalog',
-  /** Grants permission to create Customer */
-  CreateCustomer = 'CreateCustomer',
-  /** Grants permission to read Customer */
-  ReadCustomer = 'ReadCustomer',
-  /** Grants permission to update Customer */
-  UpdateCustomer = 'UpdateCustomer',
-  /** Grants permission to delete Customer */
-  DeleteCustomer = 'DeleteCustomer',
+  /** Grants permission to create PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings */
+  CreateSettings = 'CreateSettings',
+  /** Grants permission to read PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings */
+  ReadSettings = 'ReadSettings',
+  /** Grants permission to update PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings */
+  UpdateSettings = 'UpdateSettings',
+  /** Grants permission to delete PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings */
+  DeleteSettings = 'DeleteSettings',
   /** Grants permission to create Administrator */
   CreateAdministrator = 'CreateAdministrator',
   /** Grants permission to read Administrator */
@@ -495,6 +505,62 @@ export enum Permission {
   UpdateAdministrator = 'UpdateAdministrator',
   /** Grants permission to delete Administrator */
   DeleteAdministrator = 'DeleteAdministrator',
+  /** Grants permission to create Asset */
+  CreateAsset = 'CreateAsset',
+  /** Grants permission to read Asset */
+  ReadAsset = 'ReadAsset',
+  /** Grants permission to update Asset */
+  UpdateAsset = 'UpdateAsset',
+  /** Grants permission to delete Asset */
+  DeleteAsset = 'DeleteAsset',
+  /** Grants permission to create Channel */
+  CreateChannel = 'CreateChannel',
+  /** Grants permission to read Channel */
+  ReadChannel = 'ReadChannel',
+  /** Grants permission to update Channel */
+  UpdateChannel = 'UpdateChannel',
+  /** Grants permission to delete Channel */
+  DeleteChannel = 'DeleteChannel',
+  /** Grants permission to create Collection */
+  CreateCollection = 'CreateCollection',
+  /** Grants permission to read Collection */
+  ReadCollection = 'ReadCollection',
+  /** Grants permission to update Collection */
+  UpdateCollection = 'UpdateCollection',
+  /** Grants permission to delete Collection */
+  DeleteCollection = 'DeleteCollection',
+  /** Grants permission to create Country */
+  CreateCountry = 'CreateCountry',
+  /** Grants permission to read Country */
+  ReadCountry = 'ReadCountry',
+  /** Grants permission to update Country */
+  UpdateCountry = 'UpdateCountry',
+  /** Grants permission to delete Country */
+  DeleteCountry = 'DeleteCountry',
+  /** Grants permission to create Customer */
+  CreateCustomer = 'CreateCustomer',
+  /** Grants permission to read Customer */
+  ReadCustomer = 'ReadCustomer',
+  /** Grants permission to update Customer */
+  UpdateCustomer = 'UpdateCustomer',
+  /** Grants permission to delete Customer */
+  DeleteCustomer = 'DeleteCustomer',
+  /** Grants permission to create CustomerGroup */
+  CreateCustomerGroup = 'CreateCustomerGroup',
+  /** Grants permission to read CustomerGroup */
+  ReadCustomerGroup = 'ReadCustomerGroup',
+  /** Grants permission to update CustomerGroup */
+  UpdateCustomerGroup = 'UpdateCustomerGroup',
+  /** Grants permission to delete CustomerGroup */
+  DeleteCustomerGroup = 'DeleteCustomerGroup',
+  /** Grants permission to create Facet */
+  CreateFacet = 'CreateFacet',
+  /** Grants permission to read Facet */
+  ReadFacet = 'ReadFacet',
+  /** Grants permission to update Facet */
+  UpdateFacet = 'UpdateFacet',
+  /** Grants permission to delete Facet */
+  DeleteFacet = 'DeleteFacet',
   /** Grants permission to create Order */
   CreateOrder = 'CreateOrder',
   /** Grants permission to read Order */
@@ -503,6 +569,22 @@ export enum Permission {
   UpdateOrder = 'UpdateOrder',
   /** Grants permission to delete Order */
   DeleteOrder = 'DeleteOrder',
+  /** Grants permission to create PaymentMethod */
+  CreatePaymentMethod = 'CreatePaymentMethod',
+  /** Grants permission to read PaymentMethod */
+  ReadPaymentMethod = 'ReadPaymentMethod',
+  /** Grants permission to update PaymentMethod */
+  UpdatePaymentMethod = 'UpdatePaymentMethod',
+  /** Grants permission to delete PaymentMethod */
+  DeletePaymentMethod = 'DeletePaymentMethod',
+  /** Grants permission to create Product */
+  CreateProduct = 'CreateProduct',
+  /** Grants permission to read Product */
+  ReadProduct = 'ReadProduct',
+  /** Grants permission to update Product */
+  UpdateProduct = 'UpdateProduct',
+  /** Grants permission to delete Product */
+  DeleteProduct = 'DeleteProduct',
   /** Grants permission to create Promotion */
   CreatePromotion = 'CreatePromotion',
   /** Grants permission to read Promotion */
@@ -511,14 +593,54 @@ export enum Permission {
   UpdatePromotion = 'UpdatePromotion',
   /** Grants permission to delete Promotion */
   DeletePromotion = 'DeletePromotion',
-  /** Grants permission to create Settings */
-  CreateSettings = 'CreateSettings',
-  /** Grants permission to read Settings */
-  ReadSettings = 'ReadSettings',
-  /** Grants permission to update Settings */
-  UpdateSettings = 'UpdateSettings',
-  /** Grants permission to delete Settings */
-  DeleteSettings = 'DeleteSettings',
+  /** Grants permission to create ShippingMethod */
+  CreateShippingMethod = 'CreateShippingMethod',
+  /** Grants permission to read ShippingMethod */
+  ReadShippingMethod = 'ReadShippingMethod',
+  /** Grants permission to update ShippingMethod */
+  UpdateShippingMethod = 'UpdateShippingMethod',
+  /** Grants permission to delete ShippingMethod */
+  DeleteShippingMethod = 'DeleteShippingMethod',
+  /** Grants permission to create Tag */
+  CreateTag = 'CreateTag',
+  /** Grants permission to read Tag */
+  ReadTag = 'ReadTag',
+  /** Grants permission to update Tag */
+  UpdateTag = 'UpdateTag',
+  /** Grants permission to delete Tag */
+  DeleteTag = 'DeleteTag',
+  /** Grants permission to create TaxCategory */
+  CreateTaxCategory = 'CreateTaxCategory',
+  /** Grants permission to read TaxCategory */
+  ReadTaxCategory = 'ReadTaxCategory',
+  /** Grants permission to update TaxCategory */
+  UpdateTaxCategory = 'UpdateTaxCategory',
+  /** Grants permission to delete TaxCategory */
+  DeleteTaxCategory = 'DeleteTaxCategory',
+  /** Grants permission to create TaxRate */
+  CreateTaxRate = 'CreateTaxRate',
+  /** Grants permission to read TaxRate */
+  ReadTaxRate = 'ReadTaxRate',
+  /** Grants permission to update TaxRate */
+  UpdateTaxRate = 'UpdateTaxRate',
+  /** Grants permission to delete TaxRate */
+  DeleteTaxRate = 'DeleteTaxRate',
+  /** Grants permission to create System */
+  CreateSystem = 'CreateSystem',
+  /** Grants permission to read System */
+  ReadSystem = 'ReadSystem',
+  /** Grants permission to update System */
+  UpdateSystem = 'UpdateSystem',
+  /** Grants permission to delete System */
+  DeleteSystem = 'DeleteSystem',
+  /** Grants permission to create Zone */
+  CreateZone = 'CreateZone',
+  /** Grants permission to read Zone */
+  ReadZone = 'ReadZone',
+  /** Grants permission to update Zone */
+  UpdateZone = 'UpdateZone',
+  /** Grants permission to delete Zone */
+  DeleteZone = 'DeleteZone',
 }
 
 export enum SortOrder {
@@ -734,10 +856,24 @@ export type DateOperators = {
   between?: Maybe<DateRange>
 }
 
+/**
+ * Used to construct boolean expressions for filtering search results
+ * by FacetValue ID. Examples:
+ *
+ * * ID=1 OR ID=2: `{ facetValueFilters: [{ or: [1,2] }] }`
+ * * ID=1 AND ID=2: `{ facetValueFilters: [{ and: 1 }, { and: 2 }] }`
+ * * ID=1 AND (ID=2 OR ID=3): `{ facetValueFilters: [{ and: 1 }, { or: [2,3] }] }`
+ */
+export type FacetValueFilterInput = {
+  and?: Maybe<Scalars['ID']>
+  or?: Maybe<Array<Scalars['ID']>>
+}
+
 export type SearchInput = {
   term?: Maybe<Scalars['String']>
   facetValueIds?: Maybe<Array<Scalars['ID']>>
   facetValueOperator?: Maybe<LogicalOperator>
+  facetValueFilters?: Maybe<Array<FacetValueFilterInput>>
   collectionId?: Maybe<Scalars['ID']>
   collectionSlug?: Maybe<Scalars['String']>
   groupByProduct?: Maybe<Scalars['Boolean']>
@@ -802,6 +938,7 @@ export type ShippingMethodQuote = {
   id: Scalars['ID']
   price: Scalars['Int']
   priceWithTax: Scalars['Int']
+  code: Scalars['String']
   name: Scalars['String']
   description: Scalars['String']
   /** Any optional metadata returned by the ShippingCalculator in the ShippingCalculationResult */
@@ -812,6 +949,8 @@ export type PaymentMethodQuote = {
   __typename?: 'PaymentMethodQuote'
   id: Scalars['ID']
   code: Scalars['String']
+  name: Scalars['String']
+  description: Scalars['String']
   isEligible: Scalars['Boolean']
   eligibilityMessage?: Maybe<Scalars['String']>
 }
@@ -1307,6 +1446,13 @@ export type CustomerGroupCustomersArgs = {
   options?: Maybe<CustomerListOptions>
 }
 
+export type CustomerListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: Maybe<CustomerSortParameter>
+  filter?: Maybe<CustomerFilterParameter>
+}
+
 export type Customer = Node & {
   __typename?: 'Customer'
   id: Scalars['ID']
@@ -1423,6 +1569,13 @@ export type HistoryEntryList = PaginatedList & {
   __typename?: 'HistoryEntryList'
   items: Array<HistoryEntry>
   totalItems: Scalars['Int']
+}
+
+export type HistoryEntryListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: Maybe<HistoryEntrySortParameter>
+  filter?: Maybe<HistoryEntryFilterParameter>
 }
 
 /**
@@ -1777,12 +1930,7 @@ export type Order = Node & {
    * methods.
    */
   surcharges: Array<Surcharge>
-  /**
-   * Order-level adjustments to the order total, such as discounts from promotions
-   * @deprecated Use `discounts` instead
-   */
-  adjustments: Array<Adjustment>
-  discounts: Array<Adjustment>
+  discounts: Array<Discount>
   /** An array of all coupon codes applied to the Order */
   couponCodes: Array<Scalars['String']>
   /** Promotions applied to the order. Only gets populated after the payment process has completed. */
@@ -1861,7 +2009,16 @@ export type ShippingLine = {
   priceWithTax: Scalars['Int']
   discountedPrice: Scalars['Int']
   discountedPriceWithTax: Scalars['Int']
-  discounts: Array<Adjustment>
+  discounts: Array<Discount>
+}
+
+export type Discount = {
+  __typename?: 'Discount'
+  adjustmentSource: Scalars['String']
+  type: AdjustmentType
+  description: Scalars['String']
+  amount: Scalars['Int']
+  amountWithTax: Scalars['Int']
 }
 
 export type OrderItem = Node & {
@@ -1894,8 +2051,6 @@ export type OrderItem = Node & {
   /** The proratedUnitPrice including tax */
   proratedUnitPriceWithTax: Scalars['Int']
   unitTax: Scalars['Int']
-  /** @deprecated `unitPrice` is now always without tax */
-  unitPriceIncludesTax: Scalars['Boolean']
   taxRate: Scalars['Float']
   adjustments: Array<Adjustment>
   taxLines: Array<TaxLine>
@@ -1939,8 +2094,6 @@ export type OrderLine = Node & {
   proratedUnitPriceWithTax: Scalars['Int']
   quantity: Scalars['Int']
   items: Array<OrderItem>
-  /** @deprecated Use `linePriceWithTax` instead */
-  totalPrice: Scalars['Int']
   taxRate: Scalars['Float']
   /** The total price of the line excluding tax and discounts. */
   linePrice: Scalars['Int']
@@ -1960,9 +2113,7 @@ export type OrderLine = Node & {
   proratedLinePriceWithTax: Scalars['Int']
   /** The total tax on this line */
   lineTax: Scalars['Int']
-  /** @deprecated Use `discounts` instead */
-  adjustments: Array<Adjustment>
-  discounts: Array<Adjustment>
+  discounts: Array<Discount>
   taxLines: Array<TaxLine>
   order: Order
   customFields?: Maybe<Scalars['JSON']>
@@ -2105,13 +2256,9 @@ export type SearchResult = {
   slug: Scalars['String']
   productId: Scalars['ID']
   productName: Scalars['String']
-  /** @deprecated Use `productAsset.preview` instead */
-  productPreview: Scalars['String']
   productAsset?: Maybe<SearchResultAsset>
   productVariantId: Scalars['ID']
   productVariantName: Scalars['String']
-  /** @deprecated Use `productVariantAsset.preview` instead */
-  productVariantPreview: Scalars['String']
   productVariantAsset?: Maybe<SearchResultAsset>
   price: SearchResultPrice
   priceWithTax: SearchResultPrice
@@ -2191,8 +2338,6 @@ export type ProductVariant = Node & {
   assets: Array<Asset>
   price: Scalars['Int']
   currencyCode: CurrencyCode
-  /** @deprecated price now always excludes tax */
-  priceIncludesTax: Scalars['Boolean']
   priceWithTax: Scalars['Int']
   stockLevel: Scalars['String']
   taxRateApplied: TaxRate
@@ -2200,7 +2345,7 @@ export type ProductVariant = Node & {
   options: Array<ProductOption>
   facetValues: Array<FacetValue>
   translations: Array<ProductVariantTranslation>
-  customFields?: Maybe<Scalars['JSON']>
+  customFields?: Maybe<ProductVariantCustomFields>
 }
 
 export type ProductVariantTranslation = {
@@ -2524,6 +2669,10 @@ export type NoActiveOrderError = ErrorResult & {
   message: Scalars['String']
 }
 
+export type AuthenticationInput = {
+  native?: Maybe<NativeAuthInput>
+}
+
 export type RegisterCustomerInput = {
   emailAddress: Scalars['String']
   title?: Maybe<Scalars['String']>
@@ -2541,6 +2690,10 @@ export type UpdateCustomerInput = {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+export type UpdateOrderInput = {
+  customFields?: Maybe<Scalars['JSON']>
+}
+
 /** Passed as input to the `addPaymentToOrder` mutation. */
 export type PaymentInput = {
   /** This field should correspond to the `code` property of a PaymentMethodHandler. */
@@ -2551,6 +2704,27 @@ export type PaymentInput = {
    * data generated by the payment provider.
    */
   metadata: Scalars['JSON']
+}
+
+export type CollectionListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: Maybe<CollectionSortParameter>
+  filter?: Maybe<CollectionFilterParameter>
+}
+
+export type OrderListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: Maybe<OrderSortParameter>
+  filter?: Maybe<OrderFilterParameter>
+}
+
+export type ProductListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: Maybe<ProductSortParameter>
+  filter?: Maybe<ProductFilterParameter>
 }
 
 export type UpdateOrderItemsResult =
@@ -2646,48 +2820,6 @@ export type AuthenticationResult =
 
 export type ActiveOrderResult = Order | NoActiveOrderError
 
-export type CollectionListOptions = {
-  skip?: Maybe<Scalars['Int']>
-  take?: Maybe<Scalars['Int']>
-  sort?: Maybe<CollectionSortParameter>
-  filter?: Maybe<CollectionFilterParameter>
-}
-
-export type ProductListOptions = {
-  skip?: Maybe<Scalars['Int']>
-  take?: Maybe<Scalars['Int']>
-  sort?: Maybe<ProductSortParameter>
-  filter?: Maybe<ProductFilterParameter>
-}
-
-export type ProductVariantListOptions = {
-  skip?: Maybe<Scalars['Int']>
-  take?: Maybe<Scalars['Int']>
-  sort?: Maybe<ProductVariantSortParameter>
-  filter?: Maybe<ProductVariantFilterParameter>
-}
-
-export type CustomerListOptions = {
-  skip?: Maybe<Scalars['Int']>
-  take?: Maybe<Scalars['Int']>
-  sort?: Maybe<CustomerSortParameter>
-  filter?: Maybe<CustomerFilterParameter>
-}
-
-export type OrderListOptions = {
-  skip?: Maybe<Scalars['Int']>
-  take?: Maybe<Scalars['Int']>
-  sort?: Maybe<OrderSortParameter>
-  filter?: Maybe<OrderFilterParameter>
-}
-
-export type HistoryEntryListOptions = {
-  skip?: Maybe<Scalars['Int']>
-  take?: Maybe<Scalars['Int']>
-  sort?: Maybe<HistoryEntrySortParameter>
-  filter?: Maybe<HistoryEntryFilterParameter>
-}
-
 export type CollectionFilterParameter = {
   createdAt?: Maybe<DateOperators>
   updatedAt?: Maybe<DateOperators>
@@ -2734,9 +2866,9 @@ export type ProductVariantFilterParameter = {
   name?: Maybe<StringOperators>
   price?: Maybe<NumberOperators>
   currencyCode?: Maybe<StringOperators>
-  priceIncludesTax?: Maybe<BooleanOperators>
   priceWithTax?: Maybe<NumberOperators>
   stockLevel?: Maybe<StringOperators>
+  discountPrice?: Maybe<NumberOperators>
 }
 
 export type ProductVariantSortParameter = {
@@ -2749,6 +2881,7 @@ export type ProductVariantSortParameter = {
   price?: Maybe<SortOrder>
   priceWithTax?: Maybe<SortOrder>
   stockLevel?: Maybe<SortOrder>
+  discountPrice?: Maybe<SortOrder>
 }
 
 export type CustomerFilterParameter = {
@@ -2817,12 +2950,9 @@ export type HistoryEntrySortParameter = {
   updatedAt?: Maybe<SortOrder>
 }
 
-export type UpdateOrderInput = {
-  customFields?: Maybe<Scalars['JSON']>
-}
-
-export type AuthenticationInput = {
-  native?: Maybe<NativeAuthInput>
+export type ProductVariantCustomFields = {
+  __typename?: 'ProductVariantCustomFields'
+  discountPrice?: Maybe<Scalars['Int']>
 }
 
 export type NativeAuthInput = {
@@ -2846,14 +2976,19 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
     lines: Array<
       { __typename?: 'OrderLine' } & Pick<
         OrderLine,
-        'id' | 'quantity' | 'linePriceWithTax' | 'discountedLinePriceWithTax'
+        | 'id'
+        | 'quantity'
+        | 'linePriceWithTax'
+        | 'discountedLinePriceWithTax'
+        | 'unitPriceWithTax'
+        | 'discountedUnitPriceWithTax'
       > & {
           featuredAsset?: Maybe<
             { __typename?: 'Asset' } & Pick<Asset, 'id' | 'preview'>
           >
           discounts: Array<
-            { __typename?: 'Adjustment' } & Pick<
-              Adjustment,
+            { __typename?: 'Discount' } & Pick<
+              Discount,
               'description' | 'amount'
             >
           >
@@ -2886,51 +3021,6 @@ export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
       | ({ __typename?: 'SinglePrice' } & Pick<SinglePrice, 'value'>)
   }
 
-export type LoginMutationVariables = Exact<{
-  username: Scalars['String']
-  password: Scalars['String']
-}>
-
-export type LoginMutation = { __typename?: 'Mutation' } & {
-  login:
-    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
-    | ({ __typename: 'InvalidCredentialsError' } & Pick<
-        InvalidCredentialsError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NotVerifiedError' } & Pick<
-        NotVerifiedError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
-        NativeAuthStrategyError,
-        'errorCode' | 'message'
-      >)
-}
-
-export type LogoutMutationVariables = Exact<{ [key: string]: never }>
-
-export type LogoutMutation = { __typename?: 'Mutation' } & {
-  logout: { __typename?: 'Success' } & Pick<Success, 'success'>
-}
-
-export type SignupMutationVariables = Exact<{
-  input: RegisterCustomerInput
-}>
-
-export type SignupMutation = { __typename?: 'Mutation' } & {
-  registerCustomerAccount:
-    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
-    | ({ __typename: 'MissingPasswordError' } & Pick<
-        MissingPasswordError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
-        NativeAuthStrategyError,
-        'errorCode' | 'message'
-      >)
-}
-
 export type AddItemToOrderMutationVariables = Exact<{
   variantId: Scalars['ID']
   quantity: Scalars['Int']
@@ -2953,25 +3043,6 @@ export type AddItemToOrderMutation = { __typename?: 'Mutation' } & {
       >)
     | ({ __typename: 'InsufficientStockError' } & Pick<
         InsufficientStockError,
-        'errorCode' | 'message'
-      >)
-}
-
-export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
-
-export type ActiveOrderQuery = { __typename?: 'Query' } & {
-  activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
-}
-
-export type RemoveOrderLineMutationVariables = Exact<{
-  orderLineId: Scalars['ID']
-}>
-
-export type RemoveOrderLineMutation = { __typename?: 'Mutation' } & {
-  removeOrderLine:
-    | ({ __typename: 'Order' } & CartFragment)
-    | ({ __typename: 'OrderModificationError' } & Pick<
-        OrderModificationError,
         'errorCode' | 'message'
       >)
 }
@@ -3002,26 +3073,62 @@ export type AdjustOrderLineMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
-export type GetCollectionsQueryVariables = Exact<{ [key: string]: never }>
+export type LoginMutationVariables = Exact<{
+  username: Scalars['String']
+  password: Scalars['String']
+}>
 
-export type GetCollectionsQuery = { __typename?: 'Query' } & {
-  collections: { __typename?: 'CollectionList' } & {
-    items: Array<
-      { __typename?: 'Collection' } & Pick<
-        Collection,
-        'id' | 'name' | 'description' | 'slug'
-      > & {
-          productVariants: { __typename?: 'ProductVariantList' } & Pick<
-            ProductVariantList,
-            'totalItems'
-          >
-          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
-          children?: Maybe<
-            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
-          >
-        }
-    >
-  }
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login:
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | ({ __typename: 'InvalidCredentialsError' } & Pick<
+        InvalidCredentialsError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NotVerifiedError' } & Pick<
+        NotVerifiedError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>
+
+export type LogoutMutation = { __typename?: 'Mutation' } & {
+  logout: { __typename?: 'Success' } & Pick<Success, 'success'>
+}
+
+export type RemoveOrderLineMutationVariables = Exact<{
+  orderLineId: Scalars['ID']
+}>
+
+export type RemoveOrderLineMutation = { __typename?: 'Mutation' } & {
+  removeOrderLine:
+    | ({ __typename: 'Order' } & CartFragment)
+    | ({ __typename: 'OrderModificationError' } & Pick<
+        OrderModificationError,
+        'errorCode' | 'message'
+      >)
+}
+
+export type SignupMutationVariables = Exact<{
+  input: RegisterCustomerInput
+}>
+
+export type SignupMutation = { __typename?: 'Mutation' } & {
+  registerCustomerAccount:
+    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+    | ({ __typename: 'MissingPasswordError' } & Pick<
+        MissingPasswordError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
 }
 
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
@@ -3052,6 +3159,34 @@ export type GetAllProductsQueryVariables = Exact<{
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
   search: { __typename?: 'SearchResponse' } & {
     items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>
+  }
+}
+
+export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
+
+export type ActiveOrderQuery = { __typename?: 'Query' } & {
+  activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
+}
+
+export type GetCollectionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetCollectionsQuery = { __typename?: 'Query' } & {
+  collections: { __typename?: 'CollectionList' } & {
+    items: Array<
+      { __typename?: 'Collection' } & Pick<
+        Collection,
+        'id' | 'name' | 'description' | 'slug'
+      > & {
+          productVariants: { __typename?: 'ProductVariantList' } & Pick<
+            ProductVariantList,
+            'totalItems'
+          >
+          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          children?: Maybe<
+            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          >
+        }
+    >
   }
 }
 
