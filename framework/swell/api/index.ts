@@ -1,5 +1,8 @@
-import type { CommerceAPIConfig } from '@commerce/api'
-
+import {
+  CommerceAPI,
+  CommerceAPIConfig,
+  getCommerceApi as commerceApi,
+} from '@commerce/api'
 import {
   SWELL_CHECKOUT_ID_COOKIE,
   SWELL_CUSTOMER_TOKEN_COOKIE,
@@ -7,31 +10,19 @@ import {
 } from '../const'
 
 import fetchApi from './utils/fetch-swell-api'
+import login from './operations/login'
+import getAllPages from './operations/get-all-pages'
+import getPage from './operations/get-page'
+import getSiteInfo from './operations/get-site-info'
+import getAllProductPaths from './operations/get-all-product-paths'
+import getAllProducts from './operations/get-all-products'
+import getProduct from './operations/get-product'
 
 export interface SwellConfig extends CommerceAPIConfig {
   fetch: any
 }
 
-export class Config {
-  private config: SwellConfig
-
-  constructor(config: SwellConfig) {
-    this.config = config
-  }
-
-  getConfig(userConfig: Partial<SwellConfig> = {}) {
-    return Object.entries(userConfig).reduce<SwellConfig>(
-      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
-      { ...this.config }
-    )
-  }
-
-  setConfig(newConfig: Partial<SwellConfig>) {
-    Object.assign(this.config, newConfig)
-  }
-}
-
-const config = new Config({
+const config: SwellConfig = {
   locale: 'en-US',
   commerceUrl: '',
   apiToken: ''!,
@@ -39,12 +30,24 @@ const config = new Config({
   cartCookieMaxAge: SWELL_COOKIE_EXPIRE,
   fetch: fetchApi,
   customerCookie: SWELL_CUSTOMER_TOKEN_COOKIE,
-})
-
-export function getConfig(userConfig?: Partial<SwellConfig>) {
-  return config.getConfig(userConfig)
 }
 
-export function setConfig(newConfig: Partial<SwellConfig>) {
-  return config.setConfig(newConfig)
+const operations = {
+  login,
+  getAllPages,
+  getPage,
+  getSiteInfo,
+  getAllProductPaths,
+  getAllProducts,
+  getProduct,
+}
+
+export const provider = { config, operations }
+
+export type Provider = typeof provider
+
+export function getCommerceApi<P extends Provider>(
+  customProvider: P = provider as any
+): CommerceAPI<P> {
+  return commerceApi(customProvider)
 }
