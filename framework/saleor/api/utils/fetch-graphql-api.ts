@@ -4,7 +4,7 @@ import fetch from './fetch'
 import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
 import { getCommerceApi } from '..'
-import { getToken } from '@framework/utils'
+import { getToken } from '../../utils/index'
 
 const fetchGraphqlApi: GraphQLFetcher = async (query: string, { variables } = {}, fetchOptions) => {
   const config = getCommerceApi().getConfig()

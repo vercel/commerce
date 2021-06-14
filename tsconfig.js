@@ -1,4 +1,4 @@
-const PROVIDERS = ['bigcommerce', 'shopify', 'swell', 'vendure']
+const PROVIDERS = ['bigcommerce', 'shopify', 'swell', 'vendure', 'saleor']
 
 function getProviderName() {
   return (
@@ -14,6 +14,9 @@ function getProviderName() {
 }
 
 const name = getProviderName()
+const EXCLUDED_PROVIDERS = PROVIDERS.filter((p) => p !== name).map(
+  (p) => `./framework/${p}`
+)
 
 module.exports = {
   compilerOptions: {
@@ -47,10 +50,8 @@ module.exports = {
   include: ['next-env.d.ts', '**/*.d.ts', '**/*.ts', '**/*.tsx', '**/*.js'],
   exclude: [
     'node_modules',
-    // When running for production it may be useful to exclude the other providers
+    // It may be useful to exclude the other providers
     // from TS checking
-    ...(process.env.VERCEL
-      ? PROVIDERS.filter((p) => p !== name).map((p) => `framework/${p}`)
-      : []),
+    ...EXCLUDED_PROVIDERS,
   ],
 }
