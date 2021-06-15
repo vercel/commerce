@@ -35,9 +35,9 @@ export default function getSiteInfoOperation({
   } = {}): Promise<T['data']> {
     const cfg = commerce.getConfig(config)
 
-    const categories = await getCategories(cfg)
-    const brands = await getBrands(cfg)
-    /*    
+    const categoriesPromise = getCategories(cfg)
+    const brandsPromise = getBrands(cfg)
+    /*
     const { fetch, locale } = cfg
     const { data } = await fetch<GetSiteInfoQuery, GetSiteInfoQueryVariables>(
       query,
@@ -53,8 +53,8 @@ export default function getSiteInfoOperation({
     */
 
     return {
-      categories,
-      brands,
+      categories: await categoriesPromise,
+      brands: await brandsPromise,
     }
   }
 

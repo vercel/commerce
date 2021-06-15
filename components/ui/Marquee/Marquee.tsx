@@ -1,15 +1,15 @@
 import cn from 'classnames'
 import s from './Marquee.module.css'
-import { FC, ReactNode, Component } from 'react'
-import Ticker from 'react-ticker'
+import { FC, ReactNode, Component, Children } from 'react'
+import { default as FastMarquee } from 'react-fast-marquee'
 
-interface Props {
+interface MarqueeProps {
   className?: string
   children?: ReactNode[] | Component[] | any[]
   variant?: 'primary' | 'secondary'
 }
 
-const Marquee: FC<Props> = ({
+const Marquee: FC<MarqueeProps> = ({
   className = '',
   children,
   variant = 'primary',
@@ -24,11 +24,15 @@ const Marquee: FC<Props> = ({
   )
 
   return (
-    <div className={rootClassName}>
-      <Ticker offset={80}>
-        {() => <div className={s.container}>{children}</div>}
-      </Ticker>
-    </div>
+    <FastMarquee gradient={false} className={rootClassName}>
+      {Children.map(children, (child) => ({
+        ...child,
+        props: {
+          ...child.props,
+          className: cn(child.props.className, `${variant}`),
+        },
+      }))}
+    </FastMarquee>
   )
 }
 

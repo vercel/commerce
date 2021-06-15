@@ -15,21 +15,28 @@
   --cyan: #22b8cf;
   --green: #37b679;
   --red: #da3c3c;
-  --pink: #e64980;
   --purple: #f81ce5;
   --blue: #0070f3;
-  --violet: #5f3dc4;
-  --violet-light: #7048e8;
-  --accents-0: #f8f9fa;
-  --accents-1: #f1f3f5;
-  --accents-2: #e9ecef;
-  --accents-3: #dee2e6;
-  --accents-4: #ced4da;
-  --accents-5: #adb5bd;
-  --accents-6: #868e96;
-  --accents-7: #495057;
-  --accents-8: #343a40;
-  --accents-9: #212529;
+
+  --pink: #ff0080;
+  --pink-light: #ff379c;
+
+  --magenta: #eb367f;
+
+  --violet: #7928ca;
+  --violet-dark: #4c2889;
+
+  --accent-0: #fff;
+  --accent-1: #fafafa;
+  --accent-2: #eaeaea;
+  --accent-3: #999999;
+  --accent-4: #888888;
+  --accent-5: #666666;
+  --accent-6: #444444;
+  --accent-7: #333333;
+  --accent-8: #111111;
+  --accent-9: #000;
+
   --font-sans: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
     'Helvetica', sans-serif;
 }
@@ -48,16 +55,16 @@
   --text-primary: white;
   --text-secondary: black;
 
-  --accents-0: #212529;
-  --accents-1: #343a40;
-  --accents-2: #495057;
-  --accents-3: #868e96;
-  --accents-4: #adb5bd;
-  --accents-5: #ced4da;
-  --accents-6: #dee2e6;
-  --accents-7: #e9ecef;
-  --accents-8: #f1f3f5;
-  --accents-9: #f8f9fa;
+  --accent-9: #fff;
+  --accent-8: #fafafa;
+  --accent-7: #eaeaea;
+  --accent-6: #999999;
+  --accent-5: #888888;
+  --accent-4: #666666;
+  --accent-3: #444444;
+  --accent-2: #333333;
+  --accent-1: #111111;
+  --accent-0: #000;
 }
 
 *,
@@ -84,6 +91,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary);
   color: var(--text-primary);
+  overscroll-behavior-x: none;
 }
 
 body {

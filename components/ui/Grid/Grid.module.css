@@ -1,7 +1,9 @@
 .root {
-  --row-height: calc(100vh - 88px);
   @apply grid grid-cols-1 gap-0;
-  min-height: var(--row-height);
+
+  @screen lg {
+    @apply grid-cols-3 grid-rows-2;
+  }
 
   & > * {
     @apply row-span-1 bg-transparent box-border overflow-hidden;
@@ -15,17 +17,6 @@
   }
 }
 
-@screen lg {
-  .root {
-    @apply grid-cols-3 grid-rows-2;
-  }
-
-  .root & > * {
-    @apply col-span-1;
-    height: inherit;
-  }
-}
-
 .default {
   & > * {
     @apply bg-transparent;
@@ -34,9 +25,17 @@
 
 .layoutNormal {
   @apply gap-3;
+}
 
-  & > * {
-    min-height: 325px;
+@screen md {
+  .layoutNormal > * {
+    max-height: min-content !important;
+  }
+}
+
+@screen lg {
+  .layoutNormal > * {
+    max-height: 400px;
   }
 }
 
@@ -52,13 +51,12 @@
   }
 
   &.filled {
-    & > *:nth-child(6n + 1),
-    & > *:nth-child(6n + 5) {
+    & > *:nth-child(6n + 1) {
       @apply bg-violet;
     }
 
-    & > *:nth-child(6n + 5) {
-      @apply bg-blue;
+    & > *:nth-child(6n + 2) {
+      @apply bg-accent-8;
     }
 
     & > *:nth-child(6n + 3) {
@@ -83,12 +81,12 @@
   }
 
   &.filled {
-    & > *:nth-child(6n + 2) {
-      @apply bg-blue;
+    & > *:nth-child(6n + 1) {
+      @apply bg-violet;
     }
 
-    & > *:nth-child(6n + 4) {
-      @apply bg-violet;
+    & > *:nth-child(6n + 2) {
+      @apply bg-accent-8;
     }
 
     & > *:nth-child(6n + 3) {

@@ -64,6 +64,11 @@ That's it!
 
 Every provider defines the features that it supports under `framework/{provider}/commerce.config.json`
 
+#### Features Available
+
+- wishlist
+- customCheckout
+
 #### How to turn Features on and off
 
 > NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
@@ -73,7 +78,8 @@ Every provider defines the features that it supports under `framework/{provider}
   ```json
   {
     "features": {
-      "wishlist": false
+      "wishlist": false,
+      "customCheckout": true
     }
   }
   ```

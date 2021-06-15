@@ -10,8 +10,10 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext) {
   const config = { locale, locales }
-  const { pages } = await commerce.getAllPages({ config, preview })
-  const { categories } = await commerce.getSiteInfo({ config, preview })
+  const pagesPromise = commerce.getAllPages({ config, preview })
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  const { pages } = await pagesPromise
+  const { categories } = await siteInfoPromise
 
   return {
     props: { pages, categories },

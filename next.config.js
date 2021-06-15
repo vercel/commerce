@@ -39,20 +39,6 @@ module.exports = withCommerceConfig({
           source: `${process.env.NEXT_PUBLIC_VENDURE_LOCAL_URL}/:path*`,
           destination: `${process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL}/:path*`,
         },
-      // Rewrites for /search
-      {
-        source: '/search/designers/:name',
-        destination: '/search',
-      },
-      {
-        source: '/search/designers/:name/:category',
-        destination: '/search',
-      },
-      {
-        // This rewrite will also handle `/search/designers`
-        source: '/search/:category',
-        destination: '/search',
-      },
     ].filter(Boolean)
   },
 })

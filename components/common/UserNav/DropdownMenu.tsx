@@ -109,7 +109,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
             </li>
             <li>
               <a
-                className={cn(s.link, 'border-t border-accents-2 mt-4')}
+                className={cn(s.link, 'border-t border-accent-2 mt-4')}
                 onClick={() => logout()}
               >
                 Logout

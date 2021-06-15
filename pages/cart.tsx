@@ -13,8 +13,10 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext) {
   const config = { locale, locales }
-  const { pages } = await commerce.getAllPages({ config, preview })
-  const { categories } = await commerce.getSiteInfo({ config, preview })
+  const pagesPromise = commerce.getAllPages({ config, preview })
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  const { pages } = await pagesPromise
+  const { categories } = await siteInfoPromise
   return {
     props: { pages, categories },
   }
@@ -49,7 +51,7 @@ export default function Cart() {
             <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
               Your cart is empty
             </h2>
-            <p className="text-accents-6 px-10 text-center pt-2">
+            <p className="text-accent-6 px-10 text-center pt-2">
               Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
             </p>
           </div>
@@ -76,8 +78,8 @@ export default function Cart() {
           <div className="px-4 sm:px-6 flex-1">
             <Text variant="pageHeading">My Cart</Text>
             <Text variant="sectionHeading">Review your Order</Text>
-            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-b border-accents-2">
-              {data!.lineItems.map((item) => (
+            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-b border-accent-2">
+              {data!.lineItems.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}
@@ -94,7 +96,7 @@ export default function Cart() {
                 {[1, 2, 3, 4, 5, 6].map((x) => (
                   <div
                     key={x}
-                    className="border border-accents-3 w-full h-24 bg-accents-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75"
+                    className="border border-accent-3 w-full h-24 bg-accent-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75"
                   />
                 ))}
               </div>
@@ -108,7 +110,7 @@ export default function Cart() {
             <>
               {/* Shipping Address */}
               {/* Only available with customCheckout set to true - Meaning that the provider does offer checkout functionality. */}
-              <div className="rounded-md border border-accents-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accents-4">
+              <div className="rounded-md border border-accent-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accent-4">
                 <div className="mr-5">
                   <MapPin />
                 </div>
@@ -122,7 +124,7 @@ export default function Cart() {
               </div>
               {/* Payment Method */}
               {/* Only available with customCheckout set to true - Meaning that the provider does offer checkout functionality. */}
-              <div className="rounded-md border border-accents-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accents-4">
+              <div className="rounded-md border border-accent-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accent-4">
                 <div className="mr-5">
                   <CreditCard />
                 </div>
@@ -133,7 +135,7 @@ export default function Cart() {
               </div>
             </>
           )}
-          <div className="border-t border-accents-2">
+          <div className="border-t border-accent-2">
             <ul className="py-3">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>
@@ -148,7 +150,7 @@ export default function Cart() {
                 <span className="font-bold tracking-wide">FREE</span>
               </li>
             </ul>
-            <div className="flex justify-between border-t border-accents-2 py-3 font-bold mb-10">
+            <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-10">
               <span>Total</span>
               <span>{total}</span>
             </div>

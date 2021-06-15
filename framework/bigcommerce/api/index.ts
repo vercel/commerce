@@ -4,8 +4,8 @@ import {
   CommerceAPIConfig,
   getCommerceApi as commerceApi,
 } from '@commerce/api'
-import fetchGraphqlApi from './utils/fetch-graphql-api'
-import fetchStoreApi from './utils/fetch-store-api'
+import createFetchGraphqlApi from './utils/fetch-graphql-api'
+import createFetchStoreApi from './utils/fetch-store-api'
 
 import type { CartAPI } from './endpoints/cart'
 import type { CustomerAPI } from './endpoints/customer'
@@ -68,14 +68,14 @@ const config: BigcommerceConfig = {
   customerCookie: 'SHOP_TOKEN',
   cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
   cartCookieMaxAge: ONE_DAY * 30,
-  fetch: fetchGraphqlApi,
+  fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
   applyLocale: true,
   // REST API only
   storeApiUrl: STORE_API_URL,
   storeApiToken: STORE_API_TOKEN,
   storeApiClientId: STORE_API_CLIENT_ID,
   storeChannelId: STORE_CHANNEL_ID,
-  storeApiFetch: fetchStoreApi,
+  storeApiFetch: createFetchStoreApi(() => getCommerceApi().getConfig()),
 }
 
 const operations = {
