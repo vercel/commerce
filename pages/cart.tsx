@@ -12,13 +12,6 @@ export async function getStaticProps({
   locale,
   locales,
 }: GetStaticPropsContext) {
-  // Disabling page if Feature is not available
-  if (!process.env.COMMERCE_CART_ENABLED) {
-    return {
-      notFound: true,
-    }
-  }
-
   const config = { locale, locales }
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
