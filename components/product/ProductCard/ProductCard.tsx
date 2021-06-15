@@ -23,7 +23,10 @@ const ProductCard: FC<Props> = ({
   ...props
 }) => (
   <Link href={`/product/${product.slug}`} {...props}>
-    <a className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}>
+    <a
+      aria-label={product.name}
+      className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}
+    >
       {variant === 'slim' ? (
         <div className="relative overflow-hidden box-border">
           <div className="absolute inset-0 flex items-center justify-end mr-8 z-20">

@@ -43,7 +43,9 @@ const Swatch: FC<Omit<ButtonProps, 'variant'> & SwatchProps> = ({
     <Button
       className={swatchClassName}
       style={color ? { backgroundColor: color } : {}}
-      aria-label="Variant Swatch"
+      role="option"
+      aria-label={`${variant} ${label}`}
+      aria-selected={active}
       {...(label && color && { title: label })}
       {...props}
     >
