@@ -1,8 +1,8 @@
 import getCategories from '../../utils/get-categories'
 import getVendors, { Brands } from '../../utils/get-vendors'
 import { Provider, SwellConfig } from '../'
-import { OperationContext } from '@commerce/api/operations'
-import { Category } from '@commerce/types/site'
+import type { OperationContext } from '@commerce/api/operations'
+import type { Category } from '@commerce/types/site'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {

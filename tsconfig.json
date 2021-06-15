@@ -22,15 +22,15 @@
       "@components/*": ["components/*"],
       "@commerce": ["framework/commerce"],
       "@commerce/*": ["framework/commerce/*"],
-      "@framework": ["framework/shopify"],
-      "@framework/*": ["framework/shopify/*"]
+      "@framework": ["framework/swell"],
+      "@framework/*": ["framework/swell/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": [
     "node_modules",
     "./framework/bigcommerce",
-    "./framework/swell",
+    "./framework/shopify",
     "./framework/vendure",
     "./framework/saleor"
   ]
