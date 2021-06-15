@@ -17,9 +17,9 @@ export default function getProductOperation({
     config?: Partial<LocalConfig>
     preview?: boolean
   } = {}): Promise<Product | {} | any> {
-    return Promise.resolve({
-      product: data.products[0],
-    })
+    return {
+      product: data.products.find(({ slug }) => slug === variables!.slug),
+    }
   }
 
   return getProduct

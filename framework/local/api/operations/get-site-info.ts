@@ -21,7 +21,20 @@ export default function getSiteInfoOperation({}: OperationContext<any>) {
     preview?: boolean
   } = {}): Promise<GetSiteInfoResult> {
     return Promise.resolve({
-      categories: [],
+      categories: [
+        {
+          id: 'new-arrivals',
+          name: 'New Arrivals',
+          slug: 'new-arrivals',
+          path: '/new-arrivals',
+        },
+        {
+          id: 'featured',
+          name: 'Featured',
+          slug: 'featured',
+          path: '/featured',
+        },
+      ],
       brands: [],
     })
   }
