@@ -26,12 +26,6 @@
           "altText": "Shirt",
           "width": 1000,
           "height": 1000
-        },
-        {
-          "url": "/assets/drop-shirt-3.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
         }
       ],
       "variants": [
@@ -102,24 +96,6 @@
         },
         {
           "url": "/assets/lightweight-jacket-2.png",
-          "altText": "Lightweight Jacket",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/lightweight-jacket-3.png",
-          "altText": "Lightweight Jacket",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/lightweight-jacket-4.png",
-          "altText": "Lightweight Jacket",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/lightweight-jacket-5.png",
           "altText": "Lightweight Jacket",
           "width": 1000,
           "height": 1000
@@ -205,12 +181,6 @@
         },
         {
           "url": "/assets/t-shirt-4.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/t-shirt-5.png",
           "altText": "Shirt",
           "width": 1000,
           "height": 1000
