@@ -121,3 +121,15 @@ const pages = await getAllPages({
   config,
 })
 ```
+
+## Code generation
+
+This provider makes use of GraphQL code generation. The [schema.graphql](./schema.graphql) and [schema.d.ts](./schema.d.ts) files contain the generated types & schema introspection results.
+
+When developing the provider, changes to any GraphQL operations should be followed by re-generation of the types and schema files:
+
+From the project root dir, run:
+
+```sh
+yarn generate:shopify
+```

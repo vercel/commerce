@@ -2,23 +2,17 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useRemoveItem, {
-  RemoveItemInput,
   UseRemoveItem,
 } from '@commerce/wishlist/use-remove-item'
-import type { RemoveItemBody, Wishlist } from '../api/wishlist'
+import type { RemoveItemHook } from '../types/wishlist'
 import useCustomer from '../customer/use-customer'
-import useWishlist, { UseWishlistInput } from './use-wishlist'
+import useWishlist from './use-wishlist'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
-export const handler: MutationHook<
-  Wishlist | null,
-  { wishlist?: UseWishlistInput },
-  RemoveItemInput,
-  RemoveItemBody
-> = {
+export const handler: MutationHook<RemoveItemHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/wishlist',
+    url: '/api/wishlist',
     method: 'DELETE',
   },
   useHook: ({ fetch }) => ({ wishlist } = {}) => {

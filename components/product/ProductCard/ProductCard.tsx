@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { Product } from '@commerce/types'
+import type { Product } from '@commerce/types/product'
 import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
@@ -10,7 +10,7 @@ interface Props {
   className?: string
   product: Product
   variant?: 'slim' | 'simple'
-  imgProps?: Omit<ImageProps, 'src'>
+  imgProps?: Omit<any, 'src'>
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
@@ -37,11 +37,11 @@ const ProductCard: FC<Props> = ({
           {product?.images && (
             <Image
               quality="85"
-              src={product.images[0].url || placeholderImg}
+              src={product.images[0]?.url || placeholderImg}
               alt={product.name || 'Product Image'}
               height={320}
               width={320}
-              layout="fixed"
+              layout="fixed" 
               {...imgProps}
             />
           )}
@@ -73,7 +73,7 @@ const ProductCard: FC<Props> = ({
               <Image
                 alt={product.name || 'Product Image'}
                 className={s.productImage}
-                src={product.images[0].url || placeholderImg}
+                src={product.images[0]?.url || placeholderImg}
                 height={540}
                 width={540}
                 quality="85"

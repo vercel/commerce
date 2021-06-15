@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from 'react'
 import s from './ProductView.module.css'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text, useUI } from '@components/ui'
-import type { Product } from '@commerce/types'
+import type { Product } from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
@@ -18,6 +18,8 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
+  // TODO: fix this missing argument issue
+  /* @ts-ignore */
   const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
@@ -30,10 +32,11 @@ const ProductView: FC<Props> = ({ product }) => {
 
   useEffect(() => {
     // Selects the default option
-    product.variants[0].options?.forEach((v) => {
+    const options = product.variants[0].options || []
+    options.forEach((v) => {
       setChoices((choices) => ({
         ...choices,
-        [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
+        [v.displayName.toLowerCase()]: v.values[0]?.label.toLowerCase(),
       }))
     })
   }, [])
@@ -124,7 +127,8 @@ const ProductView: FC<Props> = ({ product }) => {
                           setChoices((choices) => {
                             return {
                               ...choices,
-                              [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
+                              [opt.displayName.toLowerCase()]:
+                                v.label.toLowerCase(),
                             }
                           })
                         }}
@@ -146,8 +150,11 @@ const ProductView: FC<Props> = ({ product }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
+              disabled={variant?.availableForSale === false}
             >
-              Add to Cart
+              {variant?.availableForSale === false
+                ? 'Not Available'
+                : 'Add To Cart'}
             </Button>
           </div>
         </div>

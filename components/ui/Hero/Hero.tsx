@@ -21,7 +21,7 @@ const Hero: FC<Props> = ({ headline, description }) => {
             <p className="mt-5 text-xl leading-7 text-accent-2 text-white">
               {description}
             </p>
-            <Link href="/blog">
+            <Link href="/">
               <a className="text-white pt-3 font-bold hover:underline flex flex-row cursor-pointer w-max-content">
                 Read it here
                 <RightArrow width="20" heigh="20" className="ml-1" />
