@@ -11,7 +11,7 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Swell Demo: https://swell.vercel.store/
 - BigCommerce Demo: https://bigcommerce.vercel.store/
 - Vendure Demo: https://vendure.vercel.store
-- Saleor Demo: https://saleor-commerce.vercel.app/
+- Saleor Demo: https://saleor.vercel.store/
 
 ## Features
 
