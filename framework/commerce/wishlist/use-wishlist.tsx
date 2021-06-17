@@ -1,17 +1,20 @@
-import type { responseInterface } from 'swr'
-import type { HookInput, HookFetcher, HookFetcherOptions } from '../utils/types'
-import useData, { SwrOptions } from '../utils/use-data'
+import { useHook, useSWRHook } from '../utils/use-hook'
+import { SWRFetcher } from '../utils/default-fetcher'
+import type { HookFetcherFn, SWRHook } from '../utils/types'
+import type { GetWishlistHook } from '../types/wishlist'
+import type { Provider } from '..'
 
-export type WishlistResponse<Result> = responseInterface<Result, Error> & {
-  isEmpty: boolean
+export type UseWishlist<
+  H extends SWRHook<GetWishlistHook<any>> = SWRHook<GetWishlistHook>
+> = ReturnType<H['useHook']>
+
+export const fetcher: HookFetcherFn<GetWishlistHook> = SWRFetcher
+
+const fn = (provider: Provider) => provider.wishlist?.useWishlist!
+
+const useWishlist: UseWishlist = (...args) => {
+  const hook = useHook(fn)
+  return useSWRHook({ fetcher, ...hook })(...args)
 }
 
-export default function useWishlist<Result, Input = null>(
-  options: HookFetcherOptions,
-  input: HookInput,
-  fetcherFn: HookFetcher<Result, Input>,
-  swrOptions?: SwrOptions<Result, Input>
-) {
-  const response = useData(options, input, fetcherFn, swrOptions)
-  return Object.assign(response, { isEmpty: true }) as WishlistResponse<Result>
-}
+export default useWishlist

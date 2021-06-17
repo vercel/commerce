@@ -1,8 +1,13 @@
-import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../../schema'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
+import type { GetSiteInfoOperation } from '../../types/site'
+import type { GetSiteInfoQuery } from '../../schema'
 import filterEdges from '../utils/filter-edges'
-import { BigcommerceConfig, getConfig } from '..'
+import type { BigcommerceConfig, Provider } from '..'
 import { categoryTreeItemFragment } from '../fragments/category-tree'
+import { normalizeCategory } from '../../lib/normalize'
 
 // Get 3 levels of categories
 export const getSiteInfoQuery = /* GraphQL */ `
@@ -44,63 +49,39 @@ export const getSiteInfoQuery = /* GraphQL */ `
   ${categoryTreeItemFragment}
 `
 
-export type CategoriesTree = NonNullable<
-  GetSiteInfoQuery['site']['categoryTree']
->
+export default function getSiteInfoOperation({
+  commerce,
+}: OperationContext<Provider>) {
+  async function getSiteInfo<T extends GetSiteInfoOperation>(opts?: {
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  }): Promise<T['data']>
 
-export type BrandEdge = NonNullable<
-  NonNullable<GetSiteInfoQuery['site']['brands']['edges']>[0]
->
+  async function getSiteInfo<T extends GetSiteInfoOperation>(
+    opts: {
+      config?: Partial<BigcommerceConfig>
+      preview?: boolean
+    } & OperationOptions
+  ): Promise<T['data']>
 
-export type Brands = BrandEdge[]
+  async function getSiteInfo<T extends GetSiteInfoOperation>({
+    query = getSiteInfoQuery,
+    config,
+  }: {
+    query?: string
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  } = {}): Promise<T['data']> {
+    const cfg = commerce.getConfig(config)
+    const { data } = await cfg.fetch<GetSiteInfoQuery>(query)
+    const categories = data.site.categoryTree.map(normalizeCategory)
+    const brands = data.site?.brands?.edges
 
-export type GetSiteInfoResult<
-  T extends { categories: any[]; brands: any[] } = {
-    categories: CategoriesTree
-    brands: Brands
+    return {
+      categories: categories ?? [],
+      brands: filterEdges(brands),
+    }
   }
-> = T
 
-async function getSiteInfo(opts?: {
-  variables?: GetSiteInfoQueryVariables
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetSiteInfoResult>
-
-async function getSiteInfo<
-  T extends { categories: any[]; brands: any[] },
-  V = any
->(opts: {
-  query: string
-  variables?: V
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetSiteInfoResult<T>>
-
-async function getSiteInfo({
-  query = getSiteInfoQuery,
-  variables,
-  config,
-}: {
-  query?: string
-  variables?: GetSiteInfoQueryVariables
-  config?: BigcommerceConfig
-  preview?: boolean
-} = {}): Promise<GetSiteInfoResult> {
-  config = getConfig(config)
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `query`
-  const { data } = await config.fetch<RecursivePartial<GetSiteInfoQuery>>(
-    query,
-    { variables }
-  )
-  const categories = data.site?.categoryTree
-  const brands = data.site?.brands?.edges
-
-  return {
-    categories: (categories as RecursiveRequired<typeof categories>) ?? [],
-    brands: filterEdges(brands as RecursiveRequired<typeof brands>),
-  }
+  return getSiteInfo
 }
-
-export default getSiteInfo

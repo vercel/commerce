@@ -16,19 +16,23 @@
     "jsx": "preserve",
     "paths": {
       "@lib/*": ["lib/*"],
-      "@assets/*": ["assets/*"],
-      "@config/*": ["config/*"],
-      "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@commerce/*": ["framework/commerce/*"],
+      "@config/*": ["config/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
       "@commerce": ["framework/commerce"],
-      "@framework/*": ["framework/bigcommerce/*"],
-	  "@framework": ["framework/bigcommerce"],
-	  "@agility/*": ["framework/agility/*"],
-	  "@agility": ["framework/agility"]
-
+      "@commerce/*": ["framework/commerce/*"],
+      "@framework": ["framework/local"],
+      "@framework/*": ["framework/local/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "pages/XXXpages.tsx.bak"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": [
+    "node_modules",
+    "./framework/bigcommerce",
+    "./framework/shopify",
+    "./framework/swell",
+    "./framework/vendure",
+    "./framework/saleor"
+  ]
 }

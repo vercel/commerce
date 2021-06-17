@@ -1,56 +1,44 @@
 import { useCallback } from 'react'
-import type { HookFetcher } from '@commerce/utils/types'
+import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
-import useCartAddItem from '@commerce/cart/use-add-item'
-import type { ItemBody, AddItemBody } from '../api/cart'
-import useCart, { Cart } from './use-cart'
+import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
+import type { AddItemHook } from '@commerce/types/cart'
+import useCart from './use-cart'
 
-const defaultOpts = {
-  url: '/api/bigcommerce/cart',
-  method: 'POST',
-}
+export default useAddItem as UseAddItem<typeof handler>
 
-export type AddItemInput = ItemBody
+export const handler: MutationHook<AddItemHook> = {
+  fetchOptions: {
+    url: '/api/cart',
+    method: 'POST',
+  },
+  async fetcher({ input: item, options, fetch }) {
+    if (
+      item.quantity &&
+      (!Number.isInteger(item.quantity) || item.quantity! < 1)
+    ) {
+      throw new CommerceError({
+        message: 'The item quantity has to be a valid integer greater than 0',
+      })
+    }
 
-export const fetcher: HookFetcher<Cart, AddItemBody> = (
-  options,
-  { item },
-  fetch
-) => {
-  if (
-    item.quantity &&
-    (!Number.isInteger(item.quantity) || item.quantity! < 1)
-  ) {
-    throw new CommerceError({
-      message: 'The item quantity has to be a valid integer greater than 0',
+    const data = await fetch({
+      ...options,
+      body: { item },
     })
-  }
 
-  return fetch({
-    ...defaultOpts,
-    ...options,
-    body: { item },
-  })
-}
-
-export function extendHook(customFetcher: typeof fetcher) {
-  const useAddItem = () => {
+    return data
+  },
+  useHook: ({ fetch }) => () => {
     const { mutate } = useCart()
-    const fn = useCartAddItem(defaultOpts, customFetcher)
 
     return useCallback(
-      async function addItem(input: AddItemInput) {
-        const data = await fn({ item: input })
+      async function addItem(input) {
+        const data = await fetch({ input })
         await mutate(data, false)
         return data
       },
-      [fn, mutate]
+      [fetch, mutate]
     )
-  }
-
-  useAddItem.extend = extendHook
-
-  return useAddItem
+  },
 }
-
-export default extendHook(fetcher)

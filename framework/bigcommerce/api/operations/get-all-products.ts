@@ -1,12 +1,18 @@
 import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
+import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
 } from '../../schema'
+import type { GetAllProductsOperation } from '../../types/product'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productConnectionFragment } from '../fragments/product'
-import { BigcommerceConfig, getConfig } from '..'
+import { BigcommerceConfig, Provider } from '..'
+import { normalizeProduct } from '../../lib/normalize'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -50,83 +56,80 @@ export type GetAllProductsResult<
   }
 > = T
 
-const FIELDS = [
-  'products',
-  'featuredProducts',
-  'bestSellingProducts',
-  'newestProducts',
-]
-
-export type ProductTypes =
-  | 'products'
-  | 'featuredProducts'
-  | 'bestSellingProducts'
-  | 'newestProducts'
-
-export type ProductVariables = { field?: ProductTypes } & Omit<
-  GetAllProductsQueryVariables,
-  ProductTypes | 'hasLocale'
->
-
-async function getAllProducts(opts?: {
-  variables?: ProductVariables
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetAllProductsResult>
-
-async function getAllProducts<
-  T extends Record<keyof GetAllProductsResult, any[]>,
-  V = any
->(opts: {
-  query: string
-  variables?: V
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetAllProductsResult<T>>
-
-async function getAllProducts({
-  query = getAllProductsQuery,
-  variables: { field = 'products', ...vars } = {},
-  config,
-}: {
-  query?: string
-  variables?: ProductVariables
-  config?: BigcommerceConfig
-  preview?: boolean
-} = {}): Promise<GetAllProductsResult> {
-  config = getConfig(config)
-
-  const locale = vars.locale || config.locale
-  const variables: GetAllProductsQueryVariables = {
-    ...vars,
-    locale,
-    hasLocale: !!locale,
+function getProductsType(
+  relevance?: GetAllProductsOperation['variables']['relevance']
+) {
+  switch (relevance) {
+    case 'featured':
+      return 'featuredProducts'
+    case 'best_selling':
+      return 'bestSellingProducts'
+    case 'newest':
+      return 'newestProducts'
+    default:
+      return 'products'
   }
-
-  if (!FIELDS.includes(field)) {
-    throw new Error(
-      `The field variable has to match one of ${FIELDS.join(', ')}`
-    )
-  }
-
-  variables[field] = true
-
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `query`
-  const { data } = await config.fetch<RecursivePartial<GetAllProductsQuery>>(
-    query,
-    { variables }
-  )
-  const edges = data.site?.[field]?.edges
-  const products = filterEdges(edges as RecursiveRequired<typeof edges>)
-
-  if (locale && config.applyLocale) {
-    products.forEach((product: RecursivePartial<ProductEdge>) => {
-      if (product.node) setProductLocaleMeta(product.node)
-    })
-  }
-
-  return { products }
 }
 
-export default getAllProducts
+export default function getAllProductsOperation({
+  commerce,
+}: OperationContext<Provider>) {
+  async function getAllProducts<T extends GetAllProductsOperation>(opts?: {
+    variables?: T['variables']
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  }): Promise<T['data']>
+
+  async function getAllProducts<T extends GetAllProductsOperation>(
+    opts: {
+      variables?: T['variables']
+      config?: Partial<BigcommerceConfig>
+      preview?: boolean
+    } & OperationOptions
+  ): Promise<T['data']>
+
+  async function getAllProducts<T extends GetAllProductsOperation>({
+    query = getAllProductsQuery,
+    variables: vars = {},
+    config: cfg,
+  }: {
+    query?: string
+    variables?: T['variables']
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  } = {}): Promise<T['data']> {
+    const config = commerce.getConfig(cfg)
+    const { locale } = config
+    const field = getProductsType(vars.relevance)
+    const variables: GetAllProductsQueryVariables = {
+      locale,
+      hasLocale: !!locale,
+    }
+
+    variables[field] = true
+
+    if (vars.first) variables.first = vars.first
+    if (vars.ids) variables.entityIds = vars.ids.map((id) => Number(id))
+
+    // RecursivePartial forces the method to check for every prop in the data, which is
+    // required in case there's a custom `query`
+    const { data } = await config.fetch<RecursivePartial<GetAllProductsQuery>>(
+      query,
+      { variables }
+    )
+    const edges = data.site?.[field]?.edges
+    const products = filterEdges(edges as RecursiveRequired<typeof edges>)
+
+    if (locale && config.applyLocale) {
+      products.forEach((product: RecursivePartial<ProductEdge>) => {
+        if (product.node) setProductLocaleMeta(product.node)
+      })
+    }
+
+    return {
+      products: products.map(({ node }) => normalizeProduct(node as any)),
+    }
+  }
+
+  return getAllProducts
+}

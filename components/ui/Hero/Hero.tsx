@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { Container } from '@components/ui'
-import { RightArrow } from '@components/icons'
+import { ArrowRight } from '@components/icons'
 import s from './Hero.module.css'
 import Link from 'next/link'
-interface Props {
+interface HeroProps {
   className?: string
   headline: string
   description: string,
@@ -14,7 +14,7 @@ interface Props {
 const Hero: FC<Props> = ({ headline, description, linkText, linkUrl }) => {
 
   return (
-    <div className="bg-black">
+    <div className="bg-accent-9 border-b border-t border-accent-2">
       <Container>
         <div className={s.root}>
           <h2 className="text-4xl leading-10 font-extrabold text-white sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">

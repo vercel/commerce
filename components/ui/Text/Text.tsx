@@ -6,22 +6,24 @@ import React, {
 import cn from 'classnames'
 import s from './Text.module.css'
 
-interface Props {
+interface TextProps {
   variant?: Variant
   className?: string
   style?: CSSProperties
   children?: React.ReactNode | any
   html?: string
+  onClick?: () => any
 }
 
 type Variant = 'heading' | 'body' | 'pageHeading' | 'sectionHeading'
 
-const Text: FunctionComponent<Props> = ({
+const Text: FunctionComponent<TextProps> = ({
   style,
   className = '',
   variant = 'body',
   children,
   html,
+  onClick,
 }) => {
   const componentsMap: {
     [P in Variant]: React.ComponentType<any> | string
@@ -56,6 +58,7 @@ const Text: FunctionComponent<Props> = ({
         },
         className
       )}
+      onClick={onClick}
       style={style}
       {...htmlContentProps}
     >

@@ -1,23 +1,29 @@
 {
   "schema": {
-    "https://buybutton.store/graphql": {
-      "headers": {
-        "Authorization": "Bearer xzy"
-      }
-    }
+    "https://master.staging.saleor.cloud/graphql/": {}
   },
   "documents": [
     {
-      "./framework/bigcommerce/api/**/*.ts": {
+      "./framework/saleor/utils/queries/get-all-products-query.ts": {
+        "noRequire": true
+      }
+    },
+    {
+      "./framework/saleor/utils/queries/get-all-products-paths-query.ts": {
+        "noRequire": true
+      }
+    },
+    {
+      "./framework/saleor/utils/queries/get-products.ts": {
         "noRequire": true
       }
     }
   ],
   "generates": {
-    "./framework/bigcommerce/schema.d.ts": {
+    "./framework/saleor/schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"]
     },
-    "./framework/bigcommerce/schema.graphql": {
+    "./framework/saleor/schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },

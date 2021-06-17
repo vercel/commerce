@@ -1,0 +1,14 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": ["framework/saleor/**/*"],
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
+}

@@ -1,18 +1,22 @@
 import type { GetStaticPropsContext } from 'next'
-import { getConfig } from '@framework/api'
-import getAllPages from '@framework/api/operations/get-all-pages'
+import commerce from '@lib/api/commerce'
+import { Bag } from '@components/icons'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
-import { Bag } from '@components/icons'
 
 export async function getStaticProps({
   preview,
   locale,
+  locales,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const config = { locale, locales }
+  const pagesPromise = commerce.getAllPages({ config, preview })
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  const { pages } = await pagesPromise
+  const { categories } = await siteInfoPromise
+
   return {
-    props: { pages },
+    props: { pages, categories },
   }
 }
 
@@ -27,7 +31,7 @@ export default function Orders() {
         <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
           No orders found
         </h2>
-        <p className="text-accents-6 px-10 text-center pt-2">
+        <p className="text-accent-6 px-10 text-center pt-2">
           Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
         </p>
       </div>

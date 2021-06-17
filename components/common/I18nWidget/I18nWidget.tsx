@@ -43,7 +43,7 @@ const I18nWidget: FC = () => {
   const currentLocale = locale || defaultLocale
 
   return (
-    <ClickOutside active={display} onClick={() => setDisplay(false)} >
+    <ClickOutside active={display} onClick={() => setDisplay(false)}>
       <nav className={s.root}>
         <div
           className="flex items-center relative"
@@ -59,7 +59,7 @@ const I18nWidget: FC = () => {
             />
             {options && (
               <span className="cursor-pointer">
-                <ChevronUp className={cn({ [s.icon]: display })} />
+                <ChevronUp className={cn(s.icon, { [s.active]: display })} />
               </span>
             )}
           </button>

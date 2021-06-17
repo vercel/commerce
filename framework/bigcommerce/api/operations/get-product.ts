@@ -1,7 +1,13 @@
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
+import type { GetProductOperation } from '../../types/product'
 import type { GetProductQuery, GetProductQueryVariables } from '../../schema'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productInfoFragment } from '../fragments/product'
-import { BigcommerceConfig, getConfig } from '..'
+import { BigcommerceConfig, Provider } from '..'
+import { normalizeProduct } from '../../lib/normalize'
 
 export const getProductQuery = /* GraphQL */ `
   query getProduct(
@@ -56,63 +62,58 @@ export const getProductQuery = /* GraphQL */ `
   ${productInfoFragment}
 `
 
-export type ProductNode = Extract<
-  GetProductQuery['site']['route']['node'],
-  { __typename: 'Product' }
->
+// TODO: See if this type is useful for defining the Product type
+// export type ProductNode = Extract<
+//   GetProductQuery['site']['route']['node'],
+//   { __typename: 'Product' }
+// >
 
-export type GetProductResult<
-  T extends { product?: any } = { product?: ProductNode }
-> = T
+export default function getAllProductPathsOperation({
+  commerce,
+}: OperationContext<Provider>) {
+  async function getProduct<T extends GetProductOperation>(opts: {
+    variables: T['variables']
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  }): Promise<T['data']>
 
-export type ProductVariables = { locale?: string } & (
-  | { path: string; slug?: never }
-  | { path?: never; slug: string }
-)
+  async function getProduct<T extends GetProductOperation>(
+    opts: {
+      variables: T['variables']
+      config?: Partial<BigcommerceConfig>
+      preview?: boolean
+    } & OperationOptions
+  ): Promise<T['data']>
 
-async function getProduct(opts: {
-  variables: ProductVariables
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetProductResult>
-
-async function getProduct<T extends { product?: any }, V = any>(opts: {
-  query: string
-  variables: V
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetProductResult<T>>
-
-async function getProduct({
-  query = getProductQuery,
-  variables: { slug, ...vars },
-  config,
-}: {
-  query?: string
-  variables: ProductVariables
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetProductResult> {
-  config = getConfig(config)
-
-  const locale = vars.locale || config.locale
-  const variables: GetProductQueryVariables = {
-    ...vars,
-    locale,
-    hasLocale: !!locale,
-    path: slug ? `/${slug}/` : vars.path!,
-  }
-  const { data } = await config.fetch<GetProductQuery>(query, { variables })
-  const product = data.site?.route?.node
-
-  if (product?.__typename === 'Product') {
-    if (locale && config.applyLocale) {
-      setProductLocaleMeta(product)
+  async function getProduct<T extends GetProductOperation>({
+    query = getProductQuery,
+    variables: { slug, ...vars },
+    config: cfg,
+  }: {
+    query?: string
+    variables: T['variables']
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  }): Promise<T['data']> {
+    const config = commerce.getConfig(cfg)
+    const { locale } = config
+    const variables: GetProductQueryVariables = {
+      locale,
+      hasLocale: !!locale,
+      path: slug ? `/${slug}/` : vars.path!,
     }
-    return { product }
+    const { data } = await config.fetch<GetProductQuery>(query, { variables })
+    const product = data.site?.route?.node
+
+    if (product?.__typename === 'Product') {
+      if (locale && config.applyLocale) {
+        setProductLocaleMeta(product)
+      }
+
+      return { product: normalizeProduct(product as any) }
+    }
+
+    return {}
   }
-
-  return {}
+  return getProduct
 }
-
-export default getProduct

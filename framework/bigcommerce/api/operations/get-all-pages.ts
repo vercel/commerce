@@ -1,45 +1,46 @@
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
+import type { Page, GetAllPagesOperation } from '../../types/page'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
-import { BigcommerceConfig, getConfig } from '..'
-import { definitions } from '../definitions/store-content'
+import { BigcommerceConfig, Provider } from '..'
 
-export type Page = definitions['page_Full']
+export default function getAllPagesOperation({
+  commerce,
+}: OperationContext<Provider>) {
+  async function getAllPages<T extends GetAllPagesOperation>(opts?: {
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  }): Promise<T['data']>
 
-export type GetAllPagesResult<
-  T extends { pages: any[] } = { pages: Page[] }
-> = T
+  async function getAllPages<T extends GetAllPagesOperation>(
+    opts: {
+      config?: Partial<BigcommerceConfig>
+      preview?: boolean
+    } & OperationOptions
+  ): Promise<T['data']>
 
-async function getAllPages(opts?: {
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetAllPagesResult>
+  async function getAllPages<T extends GetAllPagesOperation>({
+    config,
+    preview,
+  }: {
+    url?: string
+    config?: Partial<BigcommerceConfig>
+    preview?: boolean
+  } = {}): Promise<T['data']> {
+    const cfg = commerce.getConfig(config)
+    // RecursivePartial forces the method to check for every prop in the data, which is
+    // required in case there's a custom `url`
+    const { data } = await cfg.storeApiFetch<
+      RecursivePartial<{ data: Page[] }>
+    >('/v3/content/pages')
+    const pages = (data as RecursiveRequired<typeof data>) ?? []
 
-async function getAllPages<T extends { pages: any[] }>(opts: {
-  url: string
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetAllPagesResult<T>>
-
-async function getAllPages({
-  config,
-  preview,
-}: {
-  url?: string
-  config?: BigcommerceConfig
-  preview?: boolean
-} = {}): Promise<GetAllPagesResult> {
-  config = getConfig(config)
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `url`
-  const { data } = await config.storeApiFetch<
-    RecursivePartial<{ data: Page[] }>
-  >('/v3/content/pages')
-  const pages = (data as RecursiveRequired<typeof data>) ?? []
-
-  const retPages =  {
-    pages: preview ? pages : pages.filter((p) => p.is_visible),
+    return {
+      pages: preview ? pages : pages.filter((p) => p.is_visible),
+    }
   }
 
-  return retPages
+  return getAllPages
 }
-
-export default getAllPages
