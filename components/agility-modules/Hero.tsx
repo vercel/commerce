@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 import { Hero } from '@components/ui'
-import * as AgilityTypes from "@agility/types"
+import { URLField } from "@agility/nextjs"
 import { Module } from '@agility/nextjs'
 
 
 interface Fields {
 	title:string,
 	description:string
-	cTA?:AgilityTypes.URLField
+	cTA?:URLField
 }
 
 const HeroModule:Module<Fields> = ({ module: {fields }}) => {

@@ -21,7 +21,7 @@ const LOCALES_MAP: Record<string, LOCALE_DATA> = {
       alt: 'Bandera Colombiana',
     },
   },
-  'en-US': {
+  'en-us': {
     name: 'English',
     img: {
       filename: 'flag-en-us.svg',

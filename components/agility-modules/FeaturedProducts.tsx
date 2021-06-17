@@ -4,7 +4,7 @@ import { ProductCard } from '@components/product'
 import { ModuleWithInit } from "@agility/nextjs"
 
 interface ICustomData {
-	featured: any
+	products: any
 }
 
 interface IModule {
@@ -17,16 +17,18 @@ const FeaturedProducts: ModuleWithInit<IModule, ICustomData> = ({ customData }) 
 		return <div>No featured products returned.</div>
 	}
 
-	const featured:any = customData.featured
+	const products:any = customData.products
 
 	return (
-		<Grid layout="B">
-        {featured.map(({ node }:any, i:number) => (
+		<Grid variant="filled">
+        {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
-            key={node.path}
-            product={node}
-            imgWidth={i === 1 ? 1080 : 540}
-            imgHeight={i === 1 ? 1080 : 540}
+            key={product.id}
+            product={product}
+            imgProps={{
+              width: i === 0 ? 1080 : 540,
+              height: i === 0 ? 1080 : 540,
+            }}
           />
         ))}
       </Grid>

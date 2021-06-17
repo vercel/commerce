@@ -4,17 +4,16 @@ const getCustomInitialProps = async function ({ item, agility, languageCode, cha
 	//TODO: pass the locale and preview mode as props...
 
 
-	const locale = "en-US"
+	const locale = "en-us"
 	const preview = false
 
 	const config = { locale, locales: [locale] }
 	const productsPromise = commerce.getAllProducts({
-		variables: { first: 6 },
+		variables: { first: 4 },
 		config,
 		preview,
-		// Saleor provider only
-		...({ featured: true } as any),
-	})
+	  })
+
 
 	const { products } = await productsPromise
 

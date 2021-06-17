@@ -8,7 +8,7 @@ import { Module } from '@agility/nextjs'
 interface Fields {
 }
 
-const Orders: Module<Fields> = ({  }) => {
+const Orders: Module<Fields> = ({ }) => {
 	return (
 		<Container>
 			<Text variant="pageHeading">My Orders</Text>
@@ -19,8 +19,8 @@ const Orders: Module<Fields> = ({  }) => {
 				<h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
 					No orders found
 				</h2>
-				<p className="text-accents-6 px-10 text-center pt-2">
-					Orders coming soon!
+				<p className="text-accent-6 px-10 text-center pt-2">
+					Orders coming soon.
 				</p>
 			</div>
 		</Container>

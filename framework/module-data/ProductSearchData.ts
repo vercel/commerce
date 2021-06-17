@@ -1,5 +1,4 @@
-import { getConfig } from '@framework/api'
-import getSiteInfo from '@framework/api/operations/get-site-info'
+import commerce from '@lib/api/commerce'
 
 const getCustomInitialProps = async ({ agility, channelName, languageCode }:any) => {
 
@@ -7,14 +6,16 @@ const getCustomInitialProps = async ({ agility, channelName, languageCode }:any)
 
 	const locale = "en-US"
 	const preview = false
+	const config = { locale, locales: [locale] }
+  const pagesPromise = commerce.getAllPages({ config, preview })
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
 
-	const config = getConfig({ locale })
-	const { categories, brands } = await getSiteInfo({ config, preview })
+  const { categories, brands } = await siteInfoPromise
+  return {
+      categories,
+      brands,
+  }
 
-	return {
-		categories,
-		brands
-	}
 
 
 }
