@@ -1,3 +1,5 @@
+export default {}
+
 // import { NextApiRequest, NextApiResponse } from "next"
 // import getProducts from "../../shopify-api/get-products"
 

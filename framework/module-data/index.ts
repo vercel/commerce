@@ -14,7 +14,7 @@ const allModules:any =[
  * Find the data method for a module by module reference name.
  * @param moduleName
  */
-export const getModuleData =  (moduleName:string):any => {
+export default (moduleName:string):any => {
 	const obj = allModules.find((m: { name: string }) => m.name.toLowerCase() === moduleName.toLowerCase())
 	if (!obj) return null
 	return obj.init

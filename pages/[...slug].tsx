@@ -16,7 +16,7 @@ import { defaultPageProps } from '@lib/defaults'
 import AgilityPage from "components/agility-global/AgilityPage"
 import { getConfig } from '@framework/api'
 import getProduct from '@framework/api/operations/get-product'
-import { getModuleData  } from "framework/module-data"
+import  getModuleData  from "framework/module-data"
 
 import getAllProductPaths from '@framework/api/operations/get-all-product-paths'
 
@@ -81,8 +81,10 @@ export async function getStaticProps({ preview, params, locale, locales, default
 		return {
 			props: {
 				error: `Params: ${params}, Error: ${err}, Stack: ${st}`,
-				revalidate: 60000
-			}
+				header: null,
+				agilityProps: null
+			},
+			revalidate: 60000
 		}
 	}
 }
