@@ -1,10 +1,7 @@
 
 import { NextApiRequest, NextApiResponse } from "next"
 
-import { getConfig } from '@framework/api'
-import getSiteInfo from '@framework/api/operations/get-site-info'
-import getAllProducts from '@framework/api/operations/get-all-products'
-
+import commerce from '@lib/api/commerce'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -24,25 +21,41 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 
 	try {
-		const filter = req.query.filter ?? ""
+		const filter = `${req.query.search}`.toLowerCase()
 
 		// const products = await getProducts({filter})
-		const locale = "en-US"
+
+
+		const locale = "en-us"
 		const preview = false
 
-
-		const config = getConfig({ locale })
-
-
-		// Get Best Newest Products
-		const { products } = await getAllProducts({
-			variables: { field: 'newestProducts', first: 12 },
+		const config = { locale, locales: [locale] }
+		const { products } = await commerce.getAllProducts({
+			variables: { first: 1000 },
 			config,
 			preview,
 		})
 
+
+		const ret = products
+			.filter(p => {
+				return filter === ""
+					|| p.name.toLowerCase().indexOf(filter) !== -1
+					|| p.description.toLowerCase().indexOf(filter) !== -1
+			})
+			.map(p => {
+
+			return {
+				name: p.name,
+				imageUrl: p.images[0].url,
+				price: p.price,
+				id: p.id,
+				description: p.description
+			}
+		})
+
 		res.statusCode = 200
-		res.json(products)
+		res.json(ret)
 
 	} catch (e) {
 
