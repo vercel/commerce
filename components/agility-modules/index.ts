@@ -1,5 +1,3 @@
-import { FC } from "react"
-import * as AgilityTypes from "@agility/types"
 import RichTextArea from "./RichTextArea"
 import BestsellingProducts from "./BestsellingProducts"
 import ProductDetails from "./ProductDetails"

@@ -1,6 +1,6 @@
 import pageTemplates from "components/agility-pageTemplates"
 
-const AgilityPage = ({ header, agilityProps, error, revalidate }: {header:any, agilityProps: any, error?: any, revalidate?: any}) => {
+const AgilityPage = ({ agilityProps, error, revalidate }: { agilityProps: any, error?: any, revalidate?: any}) => {
 
 	if (!agilityProps) {
 		console.error(`Page object or template was not found.`)

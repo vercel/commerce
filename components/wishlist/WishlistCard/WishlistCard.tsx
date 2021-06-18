@@ -13,7 +13,7 @@ import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
 
 interface Props {
-  product: Product
+  product: Product | any
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
