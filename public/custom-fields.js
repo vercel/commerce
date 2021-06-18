@@ -377,7 +377,7 @@ var ChooseProductCustomField = function () {
 							}
 
 							if (options.contentItem.Values.CTA) {
-								var productUrl = "~/products" + obj.slug
+								var productUrl = "~/product" + obj.slug
 								var cta = "<a href=" + productUrl + ">Buy Now</a>"
 								options.contentItem.Values.CTA(cta)
 							}
