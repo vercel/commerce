@@ -1,17 +1,18 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites.&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerceproject-name=next-commerce-agilitycms&repository-name=next-commerce-agilitycms&demo-title=Next.js%20Commerce%20Agility%20CMS&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites%20with%20Agility%20CMS.&demo-url=https%3A%2F%2Fnextjs-commerce-agility-cms.vercel.app/&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT)
 
-# Next.js Commerce
+# Next.js Commerce with Agility CMS
 
-The all-in-one starter kit for high-performance e-commerce sites. With a few clicks, Next.js developers can clone, deploy and fully customize their own store.
-Start right now at [nextjs.org/commerce](https://nextjs.org/commerce)
+The all-in-one starter kit for high-performance e-commerce sites. With a few clicks, Next.js developers can clone, deploy and fully customize their own store, managed with Agility CMS.
+Start right now!
 
-Demo live at: [demo.vercel.store](https://demo.vercel.store/)
+Demo live at: [nextjs-commerce-agility-cms.vercel.app](https://nextjs-commerce-agility-cms.vercel.app/)
 
-- Shopify Demo: https://shopify.vercel.store/
-- Swell Demo: https://swell.vercel.store/
-- BigCommerce Demo: https://bigcommerce.vercel.store/
-- Vendure Demo: https://vendure.vercel.store
-- Saleor Demo: https://saleor.vercel.store/
+Support Ecommerce Platforms
+- Shopify
+- Swell
+- BigCommerce
+- Vendure
+- Saleor
 
 ## Features
 
@@ -28,6 +29,8 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 ## Integrations
 
 Next.js Commerce integrates out-of-the-box with BigCommerce, Shopify, Swell, Saleor and Vendure. We plan to support all major ecommerce backends.
+
+Agility CMS for Page and Content Management
 
 ## Considerations
 
