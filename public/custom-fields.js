@@ -220,8 +220,12 @@ var ChooseProductCustomField = function () {
 
 			var htmlContent = `
 				<style>
+				.prod-item {
+					display: flex;
+					align-items: center;
+				}
 				.prod-img {
-					display:inline-block;
+					display:block;
 					height: 40px;
 					border-radius: 10px;
 					width: 40px;
@@ -238,7 +242,7 @@ var ChooseProductCustomField = function () {
     				background-repeat: no-repeat;
 				}
 				.prod-text {
-					display:inline-block;
+					flex: 1;
 					margin-left: 5px;
 					line-height: 20px;
 				}
@@ -269,15 +273,14 @@ var ChooseProductCustomField = function () {
 
 				self.formatResult = function (item) {
 
-					return $(`<div class='prod-img' style="background-image:url('${item.node.featuredImage.transformedSrc}')"/></div><div class='prod-text'>${item.node.title}</div>`);
+					return $(`<div class="prod-item"><div class='prod-img' style="background-image:url('${item.imageUrl}')"></div><div class='prod-text'>${item.name}</div></div>`);
 					//return item.node.title;
 				};
 
 
-
 				self.formatSelection = function (item) {
 
-					return $(`<div class='prod-img-small' style="background-image:url('${item.node.featuredImage.transformedSrc}')"/></div><div class='prod-text'>${item.node.title}</div>`);
+					return $(`<div class="prod-item"><div class='prod-img-small' style="background-image:url('${item.imageUrl}')"></div><div class='prod-text'>${item.name}</div></div>`);
 
 				};
 				self.ajaxRequest = null;
@@ -299,21 +302,13 @@ var ChooseProductCustomField = function () {
 					},
 
 					id: function (obj) {
-						//set content of the Agility CMS Content Item
 
-						//options.contentItem.Values.ExternalID(obj.ID)
-
-						//options.contentItem.Values.MyField1(obj.Value1)
-						//options.contentItem.Values.MyField2(obj.Value2)
-						//etc...
-
-						//save the whole thing as JSON
-						return JSON.stringify(obj.node)
+						return JSON.stringify(obj)
 					},
 
 					ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-						//url: "https://sample-swag-shopify.vercel.app/api/search-products",
-						url: "http://localhost:3000/api/search-products",
+						url: "https://nextjs-commerce-agility-cms.vercel.app/api/search-products",
+						//url: "http://localhost:3000/api/search-products",
 						dataType: 'json',
 						type: "get",
 						quietMillis: 250,
@@ -332,19 +327,17 @@ var ChooseProductCustomField = function () {
 							};
 						},
 						current: function (data) {
-
+							console.log("CURRENT", data)
 						},
 						cache: true
 					},
 					initSelection: function (element, callback) {
 						//use the hidden "product name" field
 						var json = ko.unwrap(options.fieldBinding);
-						console.log({json})
-						if (json && json.length > 0) {
 
+						if (json && json.length > 0) {
 							var node = JSON.parse(json)
-							console.log({node})
-							callback({node})
+							callback(node)
 						}
 
 
@@ -365,7 +358,32 @@ var ChooseProductCustomField = function () {
 						// }
 					},
 					allowClear: false,
-					dropdownCssClass: "bigdrop"
+					dropdownCssClass: "bigdrop",
+					change: function(e) {
+
+						if (e.added) {
+							var obj = e.added
+							//set the title and the description if we have them
+							if (options.contentItem.Values.Title) {
+								options.contentItem.Values.Title(obj.name)
+							}
+							if (options.contentItem.Values.Description) {
+
+								if (obj.description.indexOf("/>") != -1) {
+									obj.description =   $(obj.description).text()
+								}
+
+								options.contentItem.Values.Description(obj.description)
+							}
+
+							if (options.contentItem.Values.CTA) {
+								var productUrl = "~/products" + obj.slug
+								var cta = "<a href=" + productUrl + ">Buy Now</a>"
+								options.contentItem.Values.CTA(cta)
+							}
+
+						}
+					}
 				};
 			}
 

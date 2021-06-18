@@ -16,8 +16,8 @@ const HeroModule:Module<Fields> = ({ module: {fields }}) => {
 		<Hero
 			headline={fields.title}
 			description={fields.description}
-			linkText={fields.cTA?.text}
-			linkUrl={fields.cTA?.href}
+			ctaText={fields.cTA?.text}
+			ctaUrl={fields.cTA?.href}
       />
 	)
 }

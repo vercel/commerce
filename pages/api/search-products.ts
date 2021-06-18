@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
 import commerce from '@lib/api/commerce'
+import { truncate } from "fs/promises"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -45,14 +46,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			})
 			.map(p => {
 
-			return {
-				name: p.name,
-				imageUrl: p.images[0].url,
-				price: p.price,
-				id: p.id,
-				description: p.description
-			}
-		})
+				return {
+					name: p.name,
+					imageUrl: p.images[0].url,
+					price: p.price,
+					id: p.id,
+					description: p.description,
+					slug: p.path || p.slug
+				}
+			}).sort((a, b) => {
+				if (a.name > b.name) return 1
+				return -1
+			})
 
 		res.statusCode = 200
 		res.json(ret)
