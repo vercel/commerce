@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { Page } from '@commerce/types/page'
 import getSlug from '@lib/get-slug'
-import { Github, Vercel } from '@components/icons'
+import { Github, Vercel, Agility } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
 import s from './Footer.module.css'
@@ -58,7 +58,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               <a
                 className={s.link}
                 aria-label="Github Repository"
-                href="https://github.com/vercel/commerce"
+                href="https://github.com/joelvarty/nextsj-commerce-agilitycms"
               >
                 <Github />
               </a>
@@ -68,7 +68,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
         </div>
         <div className="pt-6 pb-10 flex flex-col md:flex-row justify-between items-center space-y-4 text-accent-6 text-sm">
           <div>
-            <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
+            <span>&copy; 2021 ACME, Inc. All rights reserved.</span>
           </div>
           <div className="flex items-center text-primary text-sm">
             <span className="text-primary">Created by</span>
@@ -82,6 +82,20 @@ const Footer: FC<Props> = ({ className, pages }) => {
               <Vercel
                 className="inline-block h-6 ml-3 text-primary"
                 alt="Vercel.com Logo"
+              />
+            </a>
+
+			<span className="text-primary ml-5">CMS Integration by</span>
+            <a
+              rel="noopener"
+              href="https://agilitycms.com"
+              aria-label="AgilityCMS.com Link"
+              target="_blank"
+              className="text-primary"
+            >
+              <Agility
+                className="inline-block h-6 ml-3 text-primary"
+                alt="AgilityCMS.com Logo"
               />
             </a>
           </div>
