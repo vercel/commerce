@@ -5,7 +5,7 @@ import { Grid, Marquee, Hero } from '@components/ui'
 import { ModuleWithInit } from '@agility/nextjs'
 
 interface ICustomData {
-	bestSelling: any
+	products: any
 }
 
 interface IModule {
@@ -14,21 +14,14 @@ interface IModule {
 
 const BestsellingProducts: ModuleWithInit<IModule, ICustomData> = ({ customData }) => {
 
-	const bestSelling = customData.bestSelling
+	const products = customData.products
 
 	return (
 		<Marquee variant="secondary">
-			{bestSelling.slice(0, 12).map(({ node }: any) => (
-				<ProductCard
-					key={node.path}
-					product={node}
-					variant="slim"
-					imgWidth={320}
-					imgHeight={320}
-					imgLayout="fixed"
-				/>
-			))}
-		</Marquee>
+        {products.slice(0, 3).map((product: any, i: number) => (
+          <ProductCard key={product.id} product={product} variant="slim" />
+        ))}
+      </Marquee>
 	)
 }
 

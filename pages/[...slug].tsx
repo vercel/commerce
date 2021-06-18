@@ -5,20 +5,14 @@ import type {
 
 } from 'next'
 
-
+import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
-import { missingLocaleInPages } from '@lib/usage-warns'
 
 import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node"
 import { handlePreview } from "@agility/nextjs"
 
-import { defaultPageProps } from '@lib/defaults'
 import AgilityPage from "components/agility-global/AgilityPage"
-import { getConfig } from '@framework/api'
-import getProduct from '@framework/api/operations/get-product'
-import  getModuleData  from "framework/module-data"
-
-import getAllProductPaths from '@framework/api/operations/get-all-product-paths'
+import getModuleData from "framework/module-data"
 
 
 export async function getStaticProps({ preview, params, locale, locales, defaultLocale }: GetStaticPropsContext<{ slug: string[] }>) {
@@ -43,11 +37,13 @@ export async function getStaticProps({ preview, params, locale, locales, default
 
 		let rebuildFrequency = 10
 
-		let productDetail:any = null
+		let productDetail: any = null
 
 		if (productCode) {
-			const config = getConfig({ locale })
-			const { product } = await getProduct({
+
+			const config = { locale, locales }
+
+			const { product } = await commerce.getProduct({
 				variables: { slug: productCode },
 				config,
 				preview,
@@ -69,7 +65,7 @@ export async function getStaticProps({ preview, params, locale, locales, default
 		}
 
 		return {
-			props: { ...defaultPageProps, agilityProps },
+			props: { agilityProps },
 			revalidate: rebuildFrequency
 		}
 	} catch (err) {
@@ -81,7 +77,6 @@ export async function getStaticProps({ preview, params, locale, locales, default
 		return {
 			props: {
 				error: `Params: ${params}, Error: ${err}, Stack: ${st}`,
-				header: null,
 				agilityProps: null
 			},
 			revalidate: 60000
@@ -98,14 +93,26 @@ export async function getStaticPaths({ defaultLocale, locales }: GetStaticPathsC
 	agilityPaths = agilityPaths.filter(p => p !== "/product/product-details")
 
 	//get the product paths from the commerce api
-	const { products } = await getAllProductPaths()
-	const productPaths = products.map(p => `/product${p.node.path}`)
+	const { products } = await commerce.getAllProductPaths()
+
+	let productPaths = []
+	if (locales) {
+		productPaths = locales.reduce<string[]>((arr, locale) => {
+			// Add a product path for every locale
+			products.forEach((product: any) => {
+				arr.push(`/${locale}/product${product.path}`)
+			})
+			return arr
+		}, [])
+	} else {
+		productPaths = products.map((product: any) => `/product${product.path}`)
+	}
 
 	const paths = [...agilityPaths, ...productPaths]
 
 	return {
 		paths,
-		fallback: true,
+		fallback: 'blocking',
 	}
 }
 

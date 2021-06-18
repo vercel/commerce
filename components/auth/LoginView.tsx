@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { Logo, Button, Input } from '@components/ui'
-import useLogin from '@framework/use-login'
+import useLogin from '@framework/auth/use-login'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 
@@ -87,7 +87,7 @@ const LoginView: FC<Props> = () => {
           Log In
         </Button>
         <div className="pt-1 text-center text-sm">
-          <span className="text-accents-7">Don't have an account?</span>
+          <span className="text-accent-7">Don't have an account?</span>
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"

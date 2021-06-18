@@ -3,17 +3,17 @@ import cn from 'classnames'
 import px from '@lib/to-pixels'
 import s from './Skeleton.module.css'
 
-interface Props {
-  width?: string | number
-  height?: string | number
-  boxHeight?: string | number
-  style?: CSSProperties
+interface SkeletonProps {
   show?: boolean
   block?: boolean
   className?: string
+  style?: CSSProperties
+  width?: string | number
+  height?: string | number
+  boxHeight?: string | number
 }
 
-const Skeleton: React.FC<Props> = ({
+const Skeleton: React.FC<SkeletonProps> = ({
   style,
   width,
   height,

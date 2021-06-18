@@ -1,13 +1,13 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC, useCallback, useMemo } from 'react'
 import { ThemeProvider } from 'next-themes'
 
 export interface State {
   displaySidebar: boolean
   displayDropdown: boolean
   displayModal: boolean
-  displayToast: boolean
+  sidebarView: string
   modalView: string
-  toastText: string
+  userAvatar: string
 }
 
 const initialState = {
@@ -15,8 +15,8 @@ const initialState = {
   displayDropdown: false,
   displayModal: false,
   modalView: 'LOGIN_VIEW',
-  displayToast: false,
-  toastText: '',
+  sidebarView: 'CART_VIEW',
+  userAvatar: '',
 }
 
 type Action =
@@ -25,16 +25,6 @@ type Action =
     }
   | {
       type: 'CLOSE_SIDEBAR'
-    }
-  | {
-      type: 'OPEN_TOAST'
-    }
-  | {
-      type: 'CLOSE_TOAST'
-    }
-  | {
-      type: 'SET_TOAST_TEXT'
-      text: ToastText
     }
   | {
       type: 'OPEN_DROPDOWN'
@@ -52,9 +42,23 @@ type Action =
       type: 'SET_MODAL_VIEW'
       view: MODAL_VIEWS
     }
+  | {
+      type: 'SET_SIDEBAR_VIEW'
+      view: SIDEBAR_VIEWS
+    }
+  | {
+      type: 'SET_USER_AVATAR'
+      value: string
+    }
 
-type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
-type ToastText = string
+type MODAL_VIEWS =
+  | 'SIGNUP_VIEW'
+  | 'LOGIN_VIEW'
+  | 'FORGOT_VIEW'
+  | 'NEW_SHIPPING_ADDRESS'
+  | 'NEW_PAYMENT_METHOD'
+
+type SIDEBAR_VIEWS = 'CART_VIEW' | 'CHECKOUT_VIEW' | 'PAYMENT_METHOD_VIEW'
 
 export const UIContext = React.createContext<State | any>(initialState)
 
@@ -90,6 +94,7 @@ function uiReducer(state: State, action: Action) {
       return {
         ...state,
         displayModal: true,
+        displaySidebar: false,
       }
     }
     case 'CLOSE_MODAL': {
@@ -98,28 +103,22 @@ function uiReducer(state: State, action: Action) {
         displayModal: false,
       }
     }
-    case 'OPEN_TOAST': {
-      return {
-        ...state,
-        displayToast: true,
-      }
-    }
-    case 'CLOSE_TOAST': {
-      return {
-        ...state,
-        displayToast: false,
-      }
-    }
     case 'SET_MODAL_VIEW': {
       return {
         ...state,
         modalView: action.view,
       }
     }
-    case 'SET_TOAST_TEXT': {
+    case 'SET_SIDEBAR_VIEW': {
       return {
         ...state,
-        toastText: action.text,
+        sidebarView: action.view,
+      }
+    }
+    case 'SET_USER_AVATAR': {
+      return {
+        ...state,
+        userAvatar: action.value,
       }
     }
   }
@@ -128,26 +127,58 @@ function uiReducer(state: State, action: Action) {
 export const UIProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState)
 
-  const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
-  const closeSidebar = () => dispatch({ type: 'CLOSE_SIDEBAR' })
-  const toggleSidebar = () =>
-    state.displaySidebar
-      ? dispatch({ type: 'CLOSE_SIDEBAR' })
-      : dispatch({ type: 'OPEN_SIDEBAR' })
-  const closeSidebarIfPresent = () =>
-    state.displaySidebar && dispatch({ type: 'CLOSE_SIDEBAR' })
+  const openSidebar = useCallback(
+    () => dispatch({ type: 'OPEN_SIDEBAR' }),
+    [dispatch]
+  )
+  const closeSidebar = useCallback(
+    () => dispatch({ type: 'CLOSE_SIDEBAR' }),
+    [dispatch]
+  )
+  const toggleSidebar = useCallback(
+    () =>
+      state.displaySidebar
+        ? dispatch({ type: 'CLOSE_SIDEBAR' })
+        : dispatch({ type: 'OPEN_SIDEBAR' }),
+    [dispatch, state.displaySidebar]
+  )
+  const closeSidebarIfPresent = useCallback(
+    () => state.displaySidebar && dispatch({ type: 'CLOSE_SIDEBAR' }),
+    [dispatch, state.displaySidebar]
+  )
 
-  const openDropdown = () => dispatch({ type: 'OPEN_DROPDOWN' })
-  const closeDropdown = () => dispatch({ type: 'CLOSE_DROPDOWN' })
+  const openDropdown = useCallback(
+    () => dispatch({ type: 'OPEN_DROPDOWN' }),
+    [dispatch]
+  )
+  const closeDropdown = useCallback(
+    () => dispatch({ type: 'CLOSE_DROPDOWN' }),
+    [dispatch]
+  )
 
-  const openModal = () => dispatch({ type: 'OPEN_MODAL' })
-  const closeModal = () => dispatch({ type: 'CLOSE_MODAL' })
+  const openModal = useCallback(
+    () => dispatch({ type: 'OPEN_MODAL' }),
+    [dispatch]
+  )
+  const closeModal = useCallback(
+    () => dispatch({ type: 'CLOSE_MODAL' }),
+    [dispatch]
+  )
 
-  const openToast = () => dispatch({ type: 'OPEN_TOAST' })
-  const closeToast = () => dispatch({ type: 'CLOSE_TOAST' })
+  const setUserAvatar = useCallback(
+    (value: string) => dispatch({ type: 'SET_USER_AVATAR', value }),
+    [dispatch]
+  )
 
-  const setModalView = (view: MODAL_VIEWS) =>
-    dispatch({ type: 'SET_MODAL_VIEW', view })
+  const setModalView = useCallback(
+    (view: MODAL_VIEWS) => dispatch({ type: 'SET_MODAL_VIEW', view }),
+    [dispatch]
+  )
+
+  const setSidebarView = useCallback(
+    (view: SIDEBAR_VIEWS) => dispatch({ type: 'SET_SIDEBAR_VIEW', view }),
+    [dispatch]
+  )
 
   const value = useMemo(
     () => ({
@@ -161,8 +192,8 @@ export const UIProvider: FC = (props) => {
       openModal,
       closeModal,
       setModalView,
-      openToast,
-      closeToast,
+      setSidebarView,
+      setUserAvatar,
     }),
     [state]
   )

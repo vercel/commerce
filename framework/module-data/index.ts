@@ -1,13 +1,17 @@
 import BestsellingProductsData from "./BestsellingProductsData"
+import CartData from "./CartData"
 import FeaturedProductsData from "./FeaturedProductsData"
 import HomeAllProductsGridData from "./HomeAllProductsGridData"
 import ProductSearchData from "./ProductSearchData"
+import ProductDetailsData from "./ProductDetailsData"
 
 const allModules:any =[
 	{ name: "BestsellingProducts", init: BestsellingProductsData },
 	{ name: "FeaturedProducts", init: FeaturedProductsData},
 	{ name: "HomeAllProductsGrid", init: HomeAllProductsGridData},
-	{ name: "ProductSearch", init: ProductSearchData}
+	{ name: "ProductSearch", init: ProductSearchData},
+	{ name: "Cart", init: CartData},
+	{ name: "ProductDetails", init: ProductDetailsData}
 ]
 
 /**

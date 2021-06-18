@@ -1,20 +1,25 @@
 import React, { FC } from 'react'
-import { Hero } from '@components/ui'
-import * as AgilityTypes from "@agility/types"
-import { GetProductResult } from '@framework/api/operations/get-product'
-import { ProductView } from '@components/product'
-import { Module } from '@agility/nextjs'
 
-interface Fields {
+import { ProductView } from '@components/product'
+import { Module, ModuleWithInit } from '@agility/nextjs'
+
+interface IFields {
+}
+interface ICustomData {
+	products: any
 }
 
 
-const HeroModule:Module<Fields> = ({ dynamicPageItem }) => {
+const ProductDetails:ModuleWithInit<IFields, ICustomData> = ({ dynamicPageItem, customData }) => {
 	const product:any = dynamicPageItem
+
+	const relatedProducts:[] = customData.products
+
+
 	return (
-		<ProductView product={product} />
+		<ProductView product={product} relatedProducts={relatedProducts} />
 	)
 }
 
-export default HeroModule
+export default ProductDetails
 

@@ -8,14 +8,13 @@ import { Avatar } from '@components/common'
 import { Moon, Sun } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import ClickOutside from '@lib/click-outside'
+import useLogout from '@framework/auth/use-logout'
 
 import {
   disableBodyScroll,
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
-
-import useLogout from '@framework/use-logout'
 
 interface DropdownMenuProps {
   open?: boolean
@@ -110,7 +109,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
             </li>
             <li>
               <a
-                className={cn(s.link, 'border-t border-accents-2 mt-4')}
+                className={cn(s.link, 'border-t border-accent-2 mt-4')}
                 onClick={() => logout()}
               >
                 Logout

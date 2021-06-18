@@ -1,0 +1,6 @@
+{
+  "provider": "shopify",
+  "features": {
+    "wishlist": false
+  }
+}
