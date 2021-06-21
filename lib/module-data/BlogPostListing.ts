@@ -10,7 +10,7 @@ const getCustomInitialProps = async ({
 
 
 	// get sitemap...
-	let sitemap = await api.getSitemap({
+	let sitemap = await api.getSitemapFlat({
 		channelName: channelName,
 		languageCode,
 	});
