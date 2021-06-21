@@ -16,18 +16,20 @@ interface NavbarProps {
 
 const Navbar: FC<NavbarProps> = ({ links, agilityProps }) => {
 
-	const siteData = agilityProps.globalData["sitedata"]
+	const siteData = agilityProps?.globalData["sitedata"] || null
 
 	return (
 		<NavbarRoot>
 			<Container>
 				<div className={s.nav}>
 					<div className="flex items-center flex-1">
-						<Link href="/">
-							<a className={s.logo} aria-label="Logo">
-								<img src={siteData.logo.url} alt={siteData.logo.label} height="32" width="32" className="rounded-full border border-accent-6" />
-							</a>
-						</Link>
+						{siteData &&
+							<Link href="/">
+								<a className={s.logo} aria-label="Logo">
+									<img src={siteData.logo.url} alt={siteData.logo.label} height="32" width="32" className="rounded-full border border-accent-6" />
+								</a>
+							</Link>
+						}
 						<nav className={s.navMenu}>
 							<Link href="/search">
 								<a className={s.link}>All</a>

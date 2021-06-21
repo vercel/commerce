@@ -22,23 +22,27 @@ const Footer: FC<Props> = ({ className, pages, agilityProps }) => {
 	const { sitePages } = usePages(pages)
 	const rootClassName = cn(s.root, className)
 
-	const siteData = agilityProps.globalData["sitedata"]
+	const siteData = agilityProps?.globalData["sitedata"] || null
+
+	const agilityLinks = siteData?.links || []
 
 	return (
 		<footer className={rootClassName}>
 			<Container>
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accent-2 py-12 text-primary bg-primary transition-colors duration-150">
 					<div className="col-span-1 lg:col-span-2">
-						<Link href="/">
-							<a className="flex flex-initial items-center font-bold md:mr-24 ">
-								<img src={siteData.logo.url} height="32" width="32" className="rounded-full border border-accent-6 mr-2" />
-								<span>{siteData.name}</span>
-							</a>
-						</Link>
+						{ siteData &&
+							<Link href="/">
+								<a className="flex flex-initial items-center font-bold md:mr-24 ">
+									<img src={siteData.logo.url} height="32" width="32" className="rounded-full border border-accent-6 mr-2" />
+									<span>{siteData.name}</span>
+								</a>
+							</Link>
+						}
 					</div>
 					<div className="col-span-1 lg:col-span-8">
 						<div className="grid md:grid-rows-4 md:grid-cols-3 md:grid-flow-col">
-							{[...links, ...sitePages, ...siteData.links].map((page) => (
+							{[...links, ...sitePages, ...agilityLinks].map((page) => (
 								<span key={page.url} className="py-3 md:py-0 md:pb-4">
 									<Link href={page.url!}>
 										<a className="text-accent-9 hover:text-accent-6 transition ease-in-out duration-150">
