@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@agility/content-fetch@^1.0.0":
+"@agility/content-fetch@^1.0.0", "@agility/content-fetch@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@agility/content-fetch/-/content-fetch-1.1.1.tgz#d8a91ceea8e7809c84ee954cb08444071612b3e0"
   integrity sha512-d7IyZSYL16HGOMhnWs/W4rMqMBUSHfTelDdxrwuGuc3EXlth83VwPVsZZuIxQDI5EJzXOcsvMUT6B1ENDSrd5A==

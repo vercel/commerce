@@ -25,6 +25,7 @@
     "node": ">=14.x"
   },
   "dependencies": {
+    "@agility/content-fetch": "^1.1.1",
     "@agility/content-sync": "^1.0.3",
     "@agility/nextjs": "^0.2.0-rc18",
     "@react-spring/web": "^9.2.1",
