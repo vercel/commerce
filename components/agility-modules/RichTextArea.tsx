@@ -8,8 +8,6 @@ interface Fields {
 
 const RichTextArea:Module<Fields> =  ({ module: {fields} }) => {
 
-
-
 	return (
 		<Container>
 			<Text className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl" html={fields.textblob} />

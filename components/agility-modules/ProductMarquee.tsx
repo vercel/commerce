@@ -12,7 +12,7 @@ interface IModule {
 }
 
 
-const BestsellingProducts: ModuleWithInit<IModule, ICustomData> = ({ customData }) => {
+const ProductMarqueeModule: ModuleWithInit<IModule, ICustomData> = ({ customData }) => {
 
 	const products = customData.products
 
@@ -26,5 +26,5 @@ const BestsellingProducts: ModuleWithInit<IModule, ICustomData> = ({ customData 
 }
 
 
-export default BestsellingProducts
+export default ProductMarqueeModule
 

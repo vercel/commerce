@@ -12,7 +12,8 @@ import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node"
 import { handlePreview } from "@agility/nextjs"
 
 import AgilityPage from "components/agility-global/AgilityPage"
-import getModuleData from "framework/module-data"
+import getModuleData from "@lib/module-data"
+import SiteData from '@lib/global-data/SiteData'
 
 
 export async function getStaticProps({ preview, params, locale, locales, defaultLocale }: GetStaticPropsContext<{ slug: string[] }>) {
@@ -26,14 +27,12 @@ export async function getStaticProps({ preview, params, locale, locales, default
 			params.slug[1] = "product-details"
 		}
 
-		//add any global components (header, footer) that need agility data here
+		//add any global data accessor here
 		const globalComponents = {
-			// "header": GlobalHeader,
-			// "footer": GlobalFooter
+			 "sitedata": SiteData
 		}
 
 		const agilityProps = await getAgilityPageProps({ preview, params, locale, getModule: getModuleData, defaultLocale, globalComponents });
-
 
 		let rebuildFrequency = 10
 

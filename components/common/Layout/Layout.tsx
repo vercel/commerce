@@ -45,7 +45,8 @@ const FeatureBar = dynamic(
 interface Props {
   pageProps: {
     pages?: Page[]
-    categories: Category[]
+    categories: Category[],
+	agilityProps: any
   }
 }
 
@@ -90,10 +91,14 @@ const SidebarUI: FC = () => {
   ) : null
 }
 
-const Layout: FC<Props> = ({
-  children,
-  pageProps: { categories = [], ...pageProps },
-}) => {
+const Layout: FC<Props> = (props) => {
+
+	const {
+		children,
+		pageProps: { agilityProps, categories = [], ...pageProps },
+	  } = props
+
+
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
   const navBarlinks = categories.slice(0, 2).map((c) => ({
@@ -104,9 +109,9 @@ const Layout: FC<Props> = ({
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar links={navBarlinks} />
+        <Navbar links={navBarlinks} agilityProps={agilityProps}/>
         <main className="fit">{children}</main>
-        <Footer pages={pageProps.pages} />
+        <Footer pages={pageProps.pages} agilityProps={agilityProps} />
         <ModalUI />
         <SidebarUI />
         <FeatureBar
