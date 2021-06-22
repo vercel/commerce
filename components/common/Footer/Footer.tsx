@@ -58,7 +58,7 @@ const Footer: FC<Props> = ({ className, pages, agilityProps }) => {
 							<a
 								className={s.link}
 								aria-label="Github Repository"
-								href="https://github.com/joelvarty/nextsj-commerce-agilitycms"
+								href="https://github.com/agility/nextsj-commerce-agilitycms"
 							>
 								<Github />
 							</a>
