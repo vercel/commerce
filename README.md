@@ -12,6 +12,7 @@ Support Ecommerce Platforms
 - Vendure
 - Saleor
 
+
 ## Features
 
 - Performant by default
