@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import Search from '@components/search'
 import { ModuleWithInit } from '@agility/nextjs'
+import { useRouter } from 'next/router'
 
 interface ICustomData {
 	categories: any

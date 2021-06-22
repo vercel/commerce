@@ -20,11 +20,18 @@ export async function getStaticProps({ preview, params, locale, locales, default
 	try {
 		let productCode: string | null = null
 
-		//check if this page is a product...
-		if (params?.slug.length === 2
-			&& params?.slug[0] === "product") {
-			productCode = params.slug[1]
-			params.slug[1] = "product-details"
+
+		if (params?.slug.length === 2) {
+			if (params.slug[0] === "product") {
+				//check if this page is a product...
+				productCode = params.slug[1]
+				params.slug[1] = "product-details"
+			}
+		}
+
+		if ((params?.slug.length || 0) >= 1 && params?.slug[0] === "search") {
+			//if this is a search/category page
+			params.slug = ["search"]
 		}
 
 		//add any global data accessor here

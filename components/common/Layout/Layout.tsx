@@ -95,13 +95,16 @@ const Layout: FC<Props> = (props) => {
 
 	const {
 		children,
-		pageProps: { agilityProps, categories = [], ...pageProps },
+		pageProps: { agilityProps, ...pageProps },
 	  } = props
 
 
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
-  const navBarlinks = categories.slice(0, 2).map((c) => ({
+
+  const categories = agilityProps?.globalData?.sitedata?.categoryLinks || []
+
+  const navBarlinks = categories.slice(0, 2).map((c:any) => ({
     label: c.name,
     href: `/search/${c.slug}`,
   }))

@@ -42,9 +42,12 @@ export default function Search({ categories, brands }: SearchPropsType) {
 
   const { pathname, category, brand } = useSearchMeta(asPath)
   const activeCategory = categories.find((cat: any) => cat.slug === category)
+
+
   const activeBrand = brands.find(
     (b: any) => getSlug(b.node.path) === `brands/${brand}`
   )?.node
+
 
   const { data } = useSearch({
     search: typeof q === 'string' ? q : '',

@@ -1,4 +1,5 @@
 import { ComponentWithInit } from "@agility/nextjs"
+import commerce from '@lib/api/commerce'
 
 interface ICustomData {
 	name: any,
@@ -19,6 +20,10 @@ SiteData.getCustomInitialProps = async function ({ agility, languageCode, channe
 
 	// set up links
 	let links = [];
+
+	let categoryLinks = []
+
+
 
 	try {
 		// try to fetch our site header
@@ -60,11 +65,27 @@ SiteData.getCustomInitialProps = async function ({ agility, languageCode, channe
 		throw new Error(`Could not load nested sitemap: ${error}`)
 	}
 
+	try {
+
+		const locale = "en-US"
+		const preview = false
+		const config = { locale, locales: [locale] }
+
+		const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+		const { categories, brands } = await siteInfoPromise
+
+		categoryLinks = categories
+
+	} catch (error) {
+		throw new Error(`Could not load ecommerce categories: ${error}`)
+	}
+
 	// return clean object...
 	return {
 		name: contentItem.fields.name,
 		logo: contentItem.fields.logo,
 		links,
+		categoryLinks
 	};
 };
 

@@ -21,9 +21,11 @@ export const handler: SWRHook<SearchProductsHook> = {
     // Use a dummy base as we only care about the relative path
     const url = new URL(options.url!, 'http://a')
 
+	const catID = parseInt(`${categoryId}`)
+
     if (search) url.searchParams.set('search', search)
-    if (Number.isInteger(categoryId))
-      url.searchParams.set('categoryId', String(categoryId))
+    if (Number.isInteger(catID))
+      url.searchParams.set('categoryId', String(catID))
     if (Number.isInteger(brandId))
       url.searchParams.set('brandId', String(brandId))
     if (sort) url.searchParams.set('sort', sort)
@@ -34,6 +36,7 @@ export const handler: SWRHook<SearchProductsHook> = {
     })
   },
   useHook: ({ useData }) => (input = {}) => {
+
     return useData({
       input: [
         ['search', input.search],
