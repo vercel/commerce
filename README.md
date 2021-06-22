@@ -66,14 +66,20 @@ Every provider defines the features that it supports under `framework/{provider}
 
 #### Features Available
 
+The following features can be enabled or disabled. This means that the UI will remove all code related to the feature.
+For example: Turning `cart` off will disable Cart capabilities.
+
+- cart
+- search
 - wishlist
+- customerAuth
 - customCheckout
 
 #### How to turn Features on and off
 
 > NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
 
-- Open `commerce.config.json`
+- Open `commerce.config.json` 
 - You'll see a config file like this:
   ```json
   {
@@ -83,7 +89,7 @@ Every provider defines the features that it supports under `framework/{provider}
     }
   }
   ```
-- Turn wishlist on by setting wishlist to true.
+- Turn `wishlist` on by setting `wishlist` to `true`.
 - Run the app and the wishlist functionality should be back on.
 
 ### How to create a new provider
