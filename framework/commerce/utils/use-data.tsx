@@ -1,4 +1,4 @@
-import useSWR, { responseInterface } from 'swr'
+import useSWR, { SWRResponse } from 'swr'
 import type {
   HookSWRInput,
   HookFetchInput,
@@ -11,7 +11,7 @@ import type {
 import defineProperty from './define-property'
 import { CommerceError } from './errors'
 
-export type ResponseState<Result> = responseInterface<Result, CommerceError> & {
+export type ResponseState<Result> = SWRResponse<Result, CommerceError> & {
   isLoading: boolean
 }
 
@@ -72,7 +72,7 @@ const useData: UseData = (options, input, fetcherFn, swrOptions) => {
     })
   }
 
-  return response
+  return response as typeof response & { isLoading: boolean }
 }
 
 export default useData
