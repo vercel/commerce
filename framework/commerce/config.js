@@ -57,11 +57,27 @@ function withCommerceConfig(nextConfig = {}) {
 
   // Update paths in `tsconfig.json` to point to the selected provider
   if (config.commerce.updateTSConfig !== false) {
-    const staticTsconfigPath = path.join(process.cwd(), 'tsconfig.json')
-    const tsconfig = require('../../tsconfig.js')
+    const tsconfigPath = path.join(process.cwd(), 'tsconfig.json')
+    const tsconfig = require(tsconfigPath)
+
+    tsconfig.compilerOptions.paths['@framework'] = [`framework/${name}`]
+    tsconfig.compilerOptions.paths['@framework/*'] = [`framework/${name}/*`]
+
+    // When running for production it may be useful to exclude the other providers
+    // from TS checking
+    if (process.env.VERCEL) {
+      const exclude = tsconfig.exclude.filter(
+        (item) => !item.startsWith('framework/')
+      )
+
+      tsconfig.exclude = PROVIDERS.reduce((exclude, current) => {
+        if (current !== name) exclude.push(`framework/${current}`)
+        return exclude
+      }, exclude)
+    }
 
     fs.writeFileSync(
-      staticTsconfigPath,
+      tsconfigPath,
       prettier.format(JSON.stringify(tsconfig), { parser: 'json' })
     )
   }
