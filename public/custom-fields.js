@@ -6,7 +6,7 @@
  * THIS FILE IS USED FOR THE AGILITY'S CUSTOM FIELDS
  */
 
-var baseUrl = "https://agility-nextjs-cloudinary.vercel.app/"
+var baseUrl = "https://forzaforni-commerce-agilitycms.vercel.app/"
 
 
 var FriendlyURLFormField = function () {
