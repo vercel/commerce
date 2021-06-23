@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 		const config = { locale, locales: [locale] }
 		const { products } = await commerce.getAllProducts({
-			variables: { first: 1000 },
+			variables: { first: 100 },
 			config,
 			preview,
 		})
