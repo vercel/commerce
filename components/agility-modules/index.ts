@@ -12,6 +12,7 @@ import Profile from "./Profile"
 import Wishlist from "./Wishlist"
 import BlogPostListing from "./BlogPostListing"
 import BlogPostDetails from "./BlogPostDetails"
+import FeaturedProduct from "./FeaturedProduct"
 
 
 const allModules = [
@@ -27,7 +28,8 @@ const allModules = [
 	{ name: "Profile", module: Profile },
 	{ name: "Wishlist", module: Wishlist },
 	{ name: "BlogPostListing", module: BlogPostListing },
-	{ name: "BlogPostDetails", module: BlogPostDetails }
+	{ name: "BlogPostDetails", module: BlogPostDetails },
+	{ name: "FeaturedProduct", module: FeaturedProduct }
 
 ]
 
