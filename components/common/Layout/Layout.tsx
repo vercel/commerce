@@ -125,7 +125,9 @@ const Layout: FC<Props> = (props) => {
 				}
 				{!isPreviewLoading &&
 					<>
-						<PreviewBar isDevelopmentMode={agilityProps.isDevelopmentMode} isPreview={agilityProps.isPreview}/>
+						{ agilityProps &&
+							<PreviewBar isDevelopmentMode={agilityProps.isDevelopmentMode} isPreview={agilityProps.isPreview}/>
+						}
 						<Navbar links={navBarlinks} agilityProps={agilityProps} />
 						<main className="fit">{children}</main>
 						<Footer pages={pageProps.pages} agilityProps={agilityProps} />
