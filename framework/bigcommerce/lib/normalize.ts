@@ -6,7 +6,7 @@ function normalizeProductOption(productOption: any) {
   const {
     node: {
       entityId,
-      values: { edges },
+      values: { edges = [] } = {},
       ...rest
     },
   } = productOption
