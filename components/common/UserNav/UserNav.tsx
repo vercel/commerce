@@ -25,10 +25,12 @@ const UserNav: FC<Props> = ({ className }) => {
   return (
     <nav className={cn(s.root, className)}>
       <ul className={s.list}>
-        <li className={s.item} onClick={toggleSidebar}>
-          <Bag />
-          {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
-        </li>
+        {process.env.COMMERCE_CART_ENABLED && (
+          <li className={s.item} onClick={toggleSidebar}>
+            <Bag />
+            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+          </li>
+        )}
         {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
             <Link href="/wishlist">
@@ -38,7 +40,7 @@ const UserNav: FC<Props> = ({ className }) => {
             </Link>
           </li>
         )}
-        {process.env.COMMERCE_CUSTOMER_ENABLED && (
+        {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
           <li className={s.item}>
             {customer ? (
               <DropdownMenu />
