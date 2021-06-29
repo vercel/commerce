@@ -83,7 +83,7 @@ const ProductCard: FC<Props> = ({
                 <Image
                   alt={product.name || 'Product Image'}
                   className={s.productImage}
-                  src={product.images[0].url || placeholderImg}
+                  src={product.images[0]?.url || placeholderImg}
                   height={540}
                   width={540}
                   quality="85"
