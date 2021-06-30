@@ -19,6 +19,11 @@
     "node": "14.x"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^1.13.0",
+    "@commercetools/sdk-client": "^2.1.2",
+    "@commercetools/sdk-middleware-auth": "^6.1.4",
+    "@commercetools/sdk-middleware-http": "^6.0.11",
+    "@commercetools/sdk-middleware-queue": "^2.1.4",
     "@reach/portal": "^0.11.2",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.4",

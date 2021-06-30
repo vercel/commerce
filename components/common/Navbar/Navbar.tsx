@@ -40,7 +40,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
         </div>
 
         <div className="flex justify-end flex-1 space-x-8">
-          <UserNav />
+          {/* <UserNav /> */}
         </div>
       </div>
 

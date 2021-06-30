@@ -7,7 +7,7 @@ import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, Text, useUI } from '@components/ui'
 import type { Product } from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
-import { useAddItem } from '@framework/cart'
+// import { useAddItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
 
@@ -20,7 +20,7 @@ interface Props {
 const ProductView: FC<Props> = ({ product }) => {
   // TODO: fix this missing argument issue
   /* @ts-ignore */
-  const addItem = useAddItem()
+  // const addItem = useAddItem()
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
@@ -32,28 +32,28 @@ const ProductView: FC<Props> = ({ product }) => {
 
   useEffect(() => {
     // Selects the default option
-    product.variants[0].options?.forEach((v) => {
-      setChoices((choices) => ({
-        ...choices,
-        [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
-      }))
-    })
+    // product.variants[0].options?.forEach((v) => {
+    //   setChoices((choices) => ({
+    //     ...choices,
+    //     [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
+    //   }))
+    // })
   }, [])
 
   const variant = getVariant(product, choices)
 
   const addToCart = async () => {
-    setLoading(true)
-    try {
-      await addItem({
-        productId: String(product.id),
-        variantId: String(variant ? variant.id : product.variants[0].id),
-      })
-      openSidebar()
-      setLoading(false)
-    } catch (err) {
-      setLoading(false)
-    }
+    // setLoading(true)
+    // try {
+    //   await addItem({
+    //     productId: String(product.id),
+    //     variantId: String(variant ? variant.id : product.variants[0].id),
+    //   })
+    //   openSidebar()
+    //   setLoading(false)
+    // } catch (err) {
+    //   setLoading(false)
+    // }
   }
 
   return (

@@ -1,0 +1,9 @@
+{
+  "provider": "commercetools",
+  "features": {
+    "wishlist": false,
+    "customer": false,
+    "cart": false,
+    "auth": false
+  }
+}

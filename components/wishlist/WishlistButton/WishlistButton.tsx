@@ -2,10 +2,10 @@ import React, { FC, useState } from 'react'
 import cn from 'classnames'
 import { useUI } from '@components/ui'
 import { Heart } from '@components/icons'
-import useAddItem from '@framework/wishlist/use-add-item'
-import useCustomer from '@framework/customer/use-customer'
-import useWishlist from '@framework/wishlist/use-wishlist'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
+// import useAddItem from '@framework/wishlist/use-add-item'
+// import useCustomer from '@framework/customer/use-customer'
+// import useWishlist from '@framework/wishlist/use-wishlist'
+// import useRemoveItem from '@framework/wishlist/use-remove-item'
 import type { Product, ProductVariant } from '@commerce/types/product'
 
 type Props = {
@@ -19,10 +19,11 @@ const WishlistButton: FC<Props> = ({
   className,
   ...props
 }) => {
-  const { data } = useWishlist()
-  const addItem = useAddItem()
-  const removeItem = useRemoveItem()
-  const { data: customer } = useCustomer()
+  // const { data } = useWishlist()
+  const data = {}
+  // const addItem = useAddItem()
+  // const removeItem = useRemoveItem()
+  // const { data: customer } = useCustomer()
   const { openModal, setModalView } = useUI()
   const [loading, setLoading] = useState(false)
 
@@ -40,21 +41,21 @@ const WishlistButton: FC<Props> = ({
     if (loading) return
 
     // A login is required before adding an item to the wishlist
-    if (!customer) {
-      setModalView('LOGIN_VIEW')
-      return openModal()
-    }
+    // if (!customer) {
+    //   setModalView('LOGIN_VIEW')
+    //   return openModal()
+    // }
 
     setLoading(true)
 
     try {
       if (itemInWishlist) {
-        await removeItem({ id: itemInWishlist.id! })
+        // await removeItem({ id: itemInWishlist.id! })
       } else {
-        await addItem({
-          productId,
-          variantId: variant?.id!,
-        })
+        // await addItem({
+        //   productId,
+        //   variantId: variant?.id!,
+        // })
       }
 
       setLoading(false)

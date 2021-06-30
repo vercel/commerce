@@ -4,7 +4,7 @@ import Link from 'next/link'
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
 import { Button } from '@components/ui'
-import { UserNav } from '@components/common'
+// import { UserNav } from '@components/common'
 import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
@@ -48,9 +48,7 @@ const CartSidebarView: FC = () => {
               <Cross className="h-6 w-6" />
             </button>
           </div>
-          <div className="space-y-1">
-            <UserNav />
-          </div>
+          <div className="space-y-1">{/* <UserNav /> */}</div>
         </div>
       </header>
 
