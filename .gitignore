@@ -34,3 +34,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# dependencies
+tsconfig.json
+yarn.lock
