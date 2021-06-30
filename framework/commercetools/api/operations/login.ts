@@ -3,18 +3,22 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@commerce/api/operations'
-import { Provider, CommercetoolsConfig } from '@framework/api'
+import type { LoginOperation } from '../../types/login'
+import { Provider, CommercetoolsConfig } from '..'
+import { loginMutation } from '../../utils/mutations/log-in-mutation'
+import { serialize } from 'cookie'
+const jwt = require('jwt-simple')
 
 export default function loginOperation({
   commerce,
 }: OperationContext<Provider>) {
-  async function login<T extends { variables: any; data: any }>(opts: {
+  async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: Partial<CommercetoolsConfig>
     res: ServerResponse
   }): Promise<T['data']>
 
-  async function login<T extends { variables: any; data: any }>(
+  async function login<T extends LoginOperation>(
     opts: {
       variables: T['variables']
       config?: Partial<CommercetoolsConfig>
@@ -22,11 +26,11 @@ export default function loginOperation({
     } & OperationOptions
   ): Promise<T['data']>
 
-  async function login<T extends { variables: any; data: any }>({
-    query = '',
+  async function login<T extends LoginOperation>({
+    query = loginMutation,
     variables,
-    res: response,
     config: cfg,
+    res: response,
   }: {
     query?: string
     variables: T['variables']
@@ -34,10 +38,29 @@ export default function loginOperation({
     config?: Partial<CommercetoolsConfig>
   }): Promise<T['data']> {
     const config = commerce.getConfig(cfg)
-    return {
-      result: '',
+    const expireTime = new Date(Date.now() + 30 * 30) // 1 month
+
+    const { data } = await config.fetch<any>(query, {
+      variables,
+    })
+
+    if (data) {
+      const customerToken = jwt.encode(
+        data.customerSignIn.customer.id,
+        config.customerCookie
+      )
+      response.setHeader('Set-Cookie', [
+        serialize(config.customerCookie, customerToken, {
+          maxAge: 30,
+          path: '/',
+          expires: expireTime,
+        }),
+      ])
+
+      return { result: data.customerSignIn.customer.id }
+    } else {
+      return {}
     }
   }
-
   return login
 }

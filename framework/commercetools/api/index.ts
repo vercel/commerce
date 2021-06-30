@@ -16,6 +16,9 @@ import getAllPages from '@framework/api/operations/get-all-pages'
 import login from '@framework/api/operations/login'
 import getCustomerWishlist from '@framework/api/operations/get-customer-wishlist'
 import getSiteInfo from '@framework/api/operations/get-site-info'
+import type { LoginAPI } from './endpoints/login'
+import type { CustomerAPI } from './endpoints/customer'
+import type { SignupAPI } from './endpoints/signup'
 
 export interface CommercetoolsConfig extends CommerceAPIConfig {
   locale: string
@@ -39,6 +42,7 @@ const CLIENT_SECRET = process.env.CTP_CLIENT_SECRET || 'projectKey'
 const AUTH_URL = process.env.CTP_AUTH_URL || 'projectKey'
 const API_URL = process.env.CTP_API_URL || 'projectKey'
 const CONCURRENCY = process.env.CTP_CONCURRENCY || 0
+const CUSTOMER_COOKIE_NAME = process.env.CTP_CUSTOMER_COOKIE || 'projectKey'
 
 if (!API_URL) {
   throw new Error(
@@ -72,7 +76,7 @@ const config: CommercetoolsConfig = {
   apiToken: '',
   cartCookie: '',
   cartCookieMaxAge: 0,
-  customerCookie: '',
+  customerCookie: CUSTOMER_COOKIE_NAME,
   fetch: fetchGraphql,
   fetchProducts: fetchProducts,
 }
@@ -87,6 +91,8 @@ const operations = {
   getCustomerWishlist,
   login,
 }
+
+export type APIs = LoginAPI | CustomerAPI | SignupAPI
 
 export const provider = { config, operations }
 

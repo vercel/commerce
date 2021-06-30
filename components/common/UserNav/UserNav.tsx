@@ -17,20 +17,20 @@ interface Props {
 const countItem = (count: number, item: LineItem) => count + item.quantity
 
 const UserNav: FC<Props> = ({ className }) => {
-  const { data } = useCart()
+  //const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
-  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  //const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return (
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={s.list}>
-          <li className={s.item} onClick={toggleSidebar}>
+          {/*<li className={s.item} onClick={toggleSidebar}>
             <Bag />
             {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
-          {process.env.COMMERCE_WISHLIST_ENABLED && (
+          process.env.COMMERCE_WISHLIST_ENABLED && (
             <li className={s.item}>
               <Link href="/wishlist">
                 <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
@@ -38,7 +38,7 @@ const UserNav: FC<Props> = ({ className }) => {
                 </a>
               </Link>
             </li>
-          )}
+          )*/}
           <li className={s.item}>
             {customer ? (
               <DropdownMenu />

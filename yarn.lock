@@ -3827,6 +3827,11 @@ jws@^3.2.2:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
 
+jwt-simple@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/jwt-simple/-/jwt-simple-0.5.6.tgz#3357adec55b26547114157be66748995b75b333a"
+  integrity sha512-40aUybvhH9t2h71ncA1/1SbtTNCVZHgsTsTgqPUxGWDmUDrXyDf2wMNQKEbdBjbf4AI+fQhbECNTV6lWxQKUzg==
+
 keen-slider@^5.2.4:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-5.4.0.tgz#e5a949e2bb237d7d6b068458dcda59ae9c415254"
