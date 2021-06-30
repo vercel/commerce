@@ -36,5 +36,4 @@ yarn-error.log*
 .vercel
 
 # dependencies
-tsconfig.json
 yarn.lock
