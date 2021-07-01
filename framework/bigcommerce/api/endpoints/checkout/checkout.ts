@@ -25,10 +25,19 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
       method: 'POST',
     }
   )
-  const customerId =
-    customerToken && (await getCustomerId({ customerToken, config }))
+  const customerId: string =
+    (customerToken && (await getCustomerId({ customerToken, config }))) ?? ''
+
+  console.log('customerId', customerId)
+  console.log('check', customerId == 'undefined')
+
   //if there is a customer create a jwt token
-  if (customerId >= 0) {
+  if (customerId == 'undefined') {
+    if (fullCheckout) {
+      res.redirect(data.checkout_url)
+      return
+    }
+  } else {
     const dateCreated = Math.round(new Date().getTime() / 1000)
     const payload = {
       iss: config.storeApiClientId,
@@ -40,17 +49,15 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
       channel_id: config.storeChannelId,
       redirect_to: data.checkout_url,
     }
-    let token = jwt.sign(payload, config.storeApiClientSecret, {
+    let token = jwt.sign(payload, config.storeApiClientSecret!, {
       algorithm: 'HS256',
     })
     checkouturl = `${config.storeUrl}/login/token/${token}`
-  } else {
-    checkouturl = data.checkout_url
-  }
 
-  if (fullCheckout) {
-    res.redirect(checkouturl)
-    return
+    if (fullCheckout) {
+      res.redirect(checkouturl)
+      return
+    }
   }
 
   // TODO: make the embedded checkout work too!
