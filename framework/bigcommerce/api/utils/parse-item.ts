@@ -10,7 +10,7 @@ type BCCartItemBody = {
   product_id: number
   variant_id: number
   quantity?: number
-  option_selections?: OptionSelections
+  option_selections?: OptionSelections[]
 }
 
 export const parseWishlistItem = (

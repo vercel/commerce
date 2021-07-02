@@ -40,7 +40,7 @@ export type OptionSelections = {
 
 export type CartItemBody = Core.CartItemBody & {
   productId: string // The product id is always required for BC
-  optionSelections?: OptionSelections
+  optionSelections?: OptionSelections[]
 }
 
 export type CartTypes = {
