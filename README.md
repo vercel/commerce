@@ -50,6 +50,11 @@ COMMERCE_PROVIDER=shopify
 NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
 ```
+Add your provider to the list of supported providers in `framework/commerce/with-config.js`:
+
+```
+const PROVIDERS = ['bigcommerce', 'shopify', 'your-provider']
+```
 
 And check that the `tsconfig.json` resolves to the chosen provider:
 
