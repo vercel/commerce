@@ -151,5 +151,5 @@ Next, you're free to customize the starter. More updates coming soon. Stay tuned
 After Email confirmation, Checkout should be manually enabled through BigCommerce platform. Look for "Review & test your store" section through BigCommerce's dashboard.
 <br>
 <br>
-BigCommerce team has been notified and they plan to add more detailed about this subject.
+BigCommerce team has been notified and they plan to add more details about this subject.
 </details>
