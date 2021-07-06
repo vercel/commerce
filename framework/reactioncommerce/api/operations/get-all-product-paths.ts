@@ -39,12 +39,17 @@ export default function getAllProductPathsOperation({
     // RecursivePartial forces the method to check for every prop in the data, which is
     // required in case there's a custom `query`
     const { data } = await config.fetch<CatalogItem>(query, {
-      variables,
+      variables: {
+        ...variables,
+        shopIds: [config.shopId],
+      },
     })
-    const products = data.products.items
+    const products = data.catalogItems?.edges
 
     return {
-      products: products.map((p) => ({ path: `/${p.slug}` })),
+      products: products.map(({ node }) => ({
+        path: `/${node.product?.slug}`,
+      })),
     }
   }
 
