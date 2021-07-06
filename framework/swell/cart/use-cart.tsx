@@ -1,13 +1,13 @@
 import useCart, { UseCart } from '@commerce/cart/use-cart'
-import { Cart } from '@commerce/types'
 import { SWRHook } from '@commerce/utils/types'
 import { useMemo } from 'react'
 import { normalizeCart } from '../utils/normalize'
 import { checkoutCreate, checkoutToCart } from './utils'
+import type { GetCartHook } from '@commerce/types/cart'
 
 export default useCart as UseCart<typeof handler>
 
-export const handler: SWRHook<Cart | null, {}, any, { isEmpty?: boolean }> = {
+export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     query: 'cart',
     method: 'get',

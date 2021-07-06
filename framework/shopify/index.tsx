@@ -7,7 +7,8 @@ import {
   useCommerce as useCoreCommerce,
 } from '@commerce'
 
-import { shopifyProvider, ShopifyProvider } from './provider'
+import { shopifyProvider } from './provider'
+import type { ShopifyProvider } from './provider'
 import { SHOPIFY_CHECKOUT_ID_COOKIE } from './const'
 
 export { shopifyProvider }

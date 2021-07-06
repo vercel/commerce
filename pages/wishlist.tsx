@@ -20,8 +20,10 @@ export async function getStaticProps({
   }
 
   const config = { locale, locales }
-  const { pages } = await commerce.getAllPages({ config, preview })
-  const { categories } = await commerce.getSiteInfo({ config, preview })
+  const pagesPromise = commerce.getAllPages({ config, preview })
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  const { pages } = await pagesPromise
+  const { categories } = await siteInfoPromise
 
   return {
     props: {
@@ -49,7 +51,7 @@ export default function Wishlist() {
               <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
                 Your wishlist is empty
               </h2>
-              <p className="text-accents-6 px-10 text-center pt-2">
+              <p className="text-accent-6 px-10 text-center pt-2">
                 Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
               </p>
             </div>

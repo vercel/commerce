@@ -1,6 +1,6 @@
 import getCustomerWishlist from '../../operations/get-customer-wishlist'
 import { parseWishlistItem } from '../../utils/parse-item'
-import getCustomerId from './utils/get-customer-id'
+import getCustomerId from '../../utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
 
 // Return wishlist info

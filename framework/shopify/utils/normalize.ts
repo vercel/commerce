@@ -86,6 +86,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             name,
             values: [value],
           })
+
           return options
         }),
       }

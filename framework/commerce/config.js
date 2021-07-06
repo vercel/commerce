@@ -14,6 +14,7 @@ const PROVIDERS = [
   'vendure',
   'reactioncommerce',
   'saleor',
+  'local',
 ]
 
 function getProviderName() {
@@ -25,9 +26,7 @@ function getProviderName() {
       ? 'shopify'
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
       ? 'swell'
-      : process.env.NEXT_PUBLIC_SALEOR_API_URL
-      ? 'saleor'
-      : null)
+      : 'local')
   )
 }
 

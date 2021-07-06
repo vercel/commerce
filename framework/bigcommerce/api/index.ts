@@ -4,8 +4,8 @@ import {
   CommerceAPIConfig,
   getCommerceApi as commerceApi,
 } from '@commerce/api'
-import fetchGraphqlApi from './utils/fetch-graphql-api'
-import fetchStoreApi from './utils/fetch-store-api'
+import createFetchGraphqlApi from './utils/fetch-graphql-api'
+import createFetchStoreApi from './utils/fetch-store-api'
 
 import type { CartAPI } from './endpoints/cart'
 import type { CustomerAPI } from './endpoints/customer'
@@ -32,6 +32,9 @@ export interface BigcommerceConfig extends CommerceAPIConfig {
   storeApiToken: string
   storeApiClientId: string
   storeChannelId?: string
+  storeUrl?: string
+  storeApiClientSecret?: string
+  storeHash?: string
   storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
 }
 
@@ -41,6 +44,9 @@ const STORE_API_URL = process.env.BIGCOMMERCE_STORE_API_URL
 const STORE_API_TOKEN = process.env.BIGCOMMERCE_STORE_API_TOKEN
 const STORE_API_CLIENT_ID = process.env.BIGCOMMERCE_STORE_API_CLIENT_ID
 const STORE_CHANNEL_ID = process.env.BIGCOMMERCE_CHANNEL_ID
+const STORE_URL = process.env.BIGCOMMERCE_STORE_URL
+const CLIENT_SECRET = process.env.BIGCOMMERCE_STORE_API_CLIENT_SECRET
+const STOREFRONT_HASH = process.env.BIGCOMMERCE_STORE_API_STORE_HASH
 
 if (!API_URL) {
   throw new Error(
@@ -68,14 +74,17 @@ const config: BigcommerceConfig = {
   customerCookie: 'SHOP_TOKEN',
   cartCookie: process.env.BIGCOMMERCE_CART_COOKIE ?? 'bc_cartId',
   cartCookieMaxAge: ONE_DAY * 30,
-  fetch: fetchGraphqlApi,
+  fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
   applyLocale: true,
   // REST API only
   storeApiUrl: STORE_API_URL,
   storeApiToken: STORE_API_TOKEN,
   storeApiClientId: STORE_API_CLIENT_ID,
   storeChannelId: STORE_CHANNEL_ID,
-  storeApiFetch: fetchStoreApi,
+  storeUrl: STORE_URL,
+  storeApiClientSecret: CLIENT_SECRET,
+  storeHash: STOREFRONT_HASH,
+  storeApiFetch: createFetchStoreApi(() => getCommerceApi().getConfig()),
 }
 
 const operations = {

@@ -2,14 +2,14 @@ import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import useCart from './use-cart'
-import { Cart, CartItemBody } from '../types'
 import { checkoutToCart } from './utils'
 import { getCheckoutId } from '../utils'
 import { useCallback } from 'react'
+import { AddItemHook } from '../types/cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<Cart, {}, CartItemBody> = {
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
     query: 'cart',
     method: 'addItem',
@@ -24,7 +24,7 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       })
     }
     const variables: {
-      product_id: string
+      product_id: string | undefined
       variant_id?: string
       checkoutId?: string
       quantity?: number

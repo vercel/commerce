@@ -1,96 +1,60 @@
 .root {
-  @apply relative grid items-start gap-8 grid-cols-1 overflow-x-hidden;
-
-  @screen lg {
-    @apply grid-cols-12;
-  }
+  @apply relative grid items-start gap-1 grid-cols-1 overflow-x-hidden;
+  min-height: auto;
 }
 
-.productDisplay {
-  @apply relative flex px-0 pb-0 box-border col-span-1 bg-violet;
-  min-height: 600px;
-
-  @screen md {
-    min-height: 700px;
-  }
-
-  @screen lg {
-    margin-right: -2rem;
-    margin-left: -2rem;
-    @apply mx-0 col-span-6;
-    min-height: 100%;
-    height: 100%;
-  }
-}
-
-.squareBg {
-  @apply absolute inset-0 bg-violet z-0 h-full;
-}
-
-.nameBox {
-  @apply absolute top-6 left-0 z-20 pr-16;
-
-  @screen lg {
-    @apply left-6 pr-16;
-  }
-
-  & .name {
-    @apply px-6 py-2 bg-primary text-primary font-bold;
-    font-size: 2rem;
-    letter-spacing: 0.4px;
-  }
-
-  & .price {
-    @apply px-6 py-2 pb-4 bg-primary text-primary font-bold inline-block tracking-wide;
-  }
-
-  @screen lg {
-    & .name,
-    & .price {
-      @apply bg-violet-light text-white;
-    }
-  }
+.main {
+  @apply relative px-0 pb-0 box-border  flex flex-col col-span-1;
+  min-height: 500px;
 }
 
 .sidebar {
-  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full h-full;
-
-  @screen lg {
-    @apply col-span-6 py-24 justify-between;
-  }
+  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 py-6 w-full h-full;
 }
 
 .sliderContainer {
-  @apply absolute z-10 inset-0 flex items-center justify-center overflow-x-hidden;
+  @apply flex items-center justify-center overflow-x-hidden bg-violet;
 }
 
 .imageContainer {
-  & > div {
-    @apply h-full;
-    & > div {
-      @apply h-full;
-    }
-  }
+  @apply text-center;
 }
 
-.img {
+.imageContainer > div,
+.imageContainer > div > div {
+  @apply h-full;
+}
+
+.sliderContainer .img {
   @apply w-full h-auto max-h-full object-cover;
 }
 
 .button {
-  text-align: center;
   width: 100%;
-  max-width: 300px;
-
-  @screen sm {
-    min-width: 300px;
-  }
 }
 
 .wishlistButton {
-  @apply absolute z-30 top-6 right-0 bg-primary text-primary w-10 h-10 flex items-center justify-center font-semibold leading-6 cursor-pointer;
+  @apply absolute z-30 top-0 right-0;
+}
 
-  @screen lg {
-    @apply right-12 text-white bg-violet;
+.relatedProductsGrid {
+  @apply grid grid-cols-2 py-2 gap-2 md:grid-cols-4 md:gap-7;
+}
+
+@screen lg {
+  .root {
+    @apply grid-cols-12;
+  }
+
+  .main {
+    @apply mx-0 col-span-8;
+  }
+
+  .sidebar {
+    @apply col-span-4 py-6;
+  }
+
+  .imageContainer {
+    max-height: 600px;
   }
 }
