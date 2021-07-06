@@ -1,6 +1,6 @@
 import catalogItemsQuery from '@framework/utils/queries/catalog-items-query'
 import { normalizeProduct } from '@framework/utils'
-import type { ProductsEndpoint } from '.'
+import type { ProductsEndpoint } from './products'
 
 const getCart: ProductsEndpoint['handlers']['getProducts'] = async ({
   req,
@@ -15,9 +15,13 @@ const getCart: ProductsEndpoint['handlers']['getProducts'] = async ({
     },
   })
 
-  const products = catalogItems.map((item) => normalizeProduct(item))
+  const products = catalogItems?.edges?.map(({ node }) => normalizeProduct(node))
 
-  res.status(200).json({ data: products ?? null })
+  res.status(200).json({
+    data: {
+      products: products ?? null
+    }
+  })
 }
 
 export default getCart
