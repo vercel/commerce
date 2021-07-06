@@ -1,4 +1,3 @@
-import type { CartHandlers } from '..'
 import {
   addCartItemsMutation,
   createCartMutation,
@@ -10,8 +9,9 @@ import {
   REACTION_CART_ID_COOKIE,
   REACTION_CUSTOMER_TOKEN_COOKIE,
 } from '@framework/const'
+import type { CartEndpoint } from '.'
 
-const addItem: CartHandlers['addItem'] = async ({
+const addItem: CartEndpoint['handlers']['addItem'] = async ({
   req: { cookies },
   res,
   body: { item },

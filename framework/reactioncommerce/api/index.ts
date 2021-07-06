@@ -1,5 +1,8 @@
-import type { CommerceAPIConfig } from '@commerce/api'
-
+import {
+  CommerceAPI,
+  CommerceAPIConfig,
+  getCommerceApi as commerceApi,
+} from '@commerce/api'
 import {
   API_URL,
   REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
@@ -17,6 +20,15 @@ if (!API_URL) {
 }
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
+import login from './operations/login'
+import getAllPages from './operations/get-all-pages'
+import getPage from './operations/get-page'
+import getSiteInfo from './operations/get-site-info'
+import getCustomerWishlist from './operations/get-customer-wishlist'
+import getAllProductPaths from './operations/get-all-product-paths'
+import getAllProducts from './operations/get-all-products'
+import getProduct from './operations/get-product'
+import type { CartAPI } from './endpoints/cart'
 
 export interface ReactionCommerceConfig
   extends Omit<CommerceAPIConfig, 'apiToken'> {
@@ -27,26 +39,7 @@ export interface ReactionCommerceConfig
   anonymousCartTokenCookieMaxAge?: number
 }
 
-export class Config {
-  private config: ReactionCommerceConfig
-
-  constructor(config: ReactionCommerceConfig) {
-    this.config = config
-  }
-
-  getConfig(userConfig: Partial<ReactionCommerceConfig> = {}) {
-    return Object.entries(userConfig).reduce<ReactionCommerceConfig>(
-      (cfg, [key, value]) => Object.assign(cfg, { [key]: value }),
-      { ...this.config }
-    )
-  }
-
-  setConfig(newConfig: Partial<ReactionCommerceConfig>) {
-    Object.assign(this.config, newConfig)
-  }
-}
-
-const config = new Config({
+const config: ReactionCommerceConfig = {
   locale: 'en-US',
   commerceUrl: API_URL,
   cartCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
@@ -58,12 +51,29 @@ const config = new Config({
   fetch: fetchGraphqlApi,
   customerCookie: REACTION_CUSTOMER_TOKEN_COOKIE,
   shopId: SHOP_ID,
-})
-
-export function getConfig(userConfig?: Partial<ReactionCommerceConfig>) {
-  return config.getConfig(userConfig)
 }
 
-export function setConfig(newConfig: Partial<ReactionCommerceConfig>) {
-  return config.setConfig(newConfig)
+const operations = {
+  login,
+  getAllPages,
+  getPage,
+  getSiteInfo,
+  getCustomerWishlist,
+  getAllProductPaths,
+  getAllProducts,
+  getProduct,
+}
+
+export const provider = { config, operations }
+
+export type Provider = typeof provider
+
+export type APIs = CartAPI
+
+export type ReactionCommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
+
+export function getCommerceApi<P extends Provider>(
+  customProvider: P = provider as any
+): ReactionCommerceAPI<P> {
+  return commerceApi(customProvider)
 }

@@ -26,6 +26,7 @@ const getCategories = async (
         entityId,
         name,
         path: `/${handle}`,
+        slug: handle,
       })
     ) ?? []
   )

@@ -1,5 +1,6 @@
-import { Page } from '../../schema'
-import { ReactionCommerceConfig, getConfig } from '..'
+import { OperationContext } from '@commerce/api/operations'
+import { Page } from '../../common/get-all-pages'
+import { ReactionCommerceConfig, Provider } from '..'
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
@@ -7,19 +8,37 @@ export type PageVariables = {
   id: string
 }
 
-async function getPage({
-  url,
-  variables,
-  config,
-  preview,
-}: {
-  url?: string
-  variables: PageVariables
-  config?: ReactionCommerceConfig
-  preview?: boolean
-}): Promise<GetPageResult> {
-  config = getConfig(config)
-  return {}
-}
+export default function getPageOperation({
+  commerce,
+}: OperationContext<Provider>) {
+  async function getPage(opts: {
+    url?: string
+    variables: PageVariables
+    config?: ReactionCommerceConfig
+    preview?: boolean
+  }): Promise<GetPageResult>
 
-export default getPage
+  async function getPage<T extends { page?: any }, V = any>(opts: {
+    url: string
+    variables: V
+    config?: Partial<VendureConfig>
+    preview?: boolean
+  }): Promise<GetPageResult<T>>
+
+  async function getPage({
+    url,
+    variables,
+    config: cfg,
+    preview,
+  }: {
+    url?: string
+    variables: PageVariables
+    config?: Partial<VendureConfig>
+    preview?: boolean
+  }): Promise<GetPageResult> {
+    const config = commerce.getConfig(cfg)
+    return {}
+  }
+
+  return getPage
+}

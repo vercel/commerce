@@ -1,7 +1,7 @@
+import commerce from '@lib/api/commerce'
 import getCategories, { Category } from '../utils/get-categories'
 import getVendors, { Brands } from '../utils/get-vendors'
-
-import { getConfig, ReactionCommerceConfig } from '../api'
+import { ReactionCommerceConfig } from '../api'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
@@ -17,7 +17,7 @@ const getSiteInfo = async (options?: {
 }): Promise<GetSiteInfoResult> => {
   let { config } = options ?? {}
 
-  config = getConfig(config)
+  config = commerce.getConfig(config)
 
   const categories = await getCategories(config)
   const brands = await getVendors(config)

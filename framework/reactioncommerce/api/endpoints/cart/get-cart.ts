@@ -1,4 +1,3 @@
-import type { CartHandlers } from '../'
 import getAnonymousCartQuery from '@framework/utils/queries/get-anonymous-cart'
 import accountCartByAccountIdQuery from '@framework/utils/queries/account-cart-by-account-id'
 import getCartCookie from '@framework/api/utils/get-cart-cookie'
@@ -10,9 +9,13 @@ import {
   REACTION_CUSTOMER_TOKEN_COOKIE,
 } from '@framework/const'
 import { normalizeCart } from '@framework/utils'
+import type { CartEndpoint } from '.'
 
-// Return current cart info
-const getCart: CartHandlers['getCart'] = async ({ req, res, config }) => {
+const getCart: CartEndpoint['handlers']['getCart'] = async ({
+  req,
+  res,
+  config,
+}) => {
   const {
     cookies: {
       [REACTION_ANONYMOUS_CART_TOKEN_COOKIE]: anonymousCartToken,

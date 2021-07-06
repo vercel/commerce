@@ -13,29 +13,31 @@ export const handler: SWRHook<
 > = {
   fetchOptions: {
     method: 'GET',
-    url: '/api/reactioncommerce/cart',
+    url: '/api/cart',
   },
   async fetcher({ input: { cartId }, options, fetch }) {
     console.log('cart API fetcher', options)
     const data = await fetch(options)
     return data
   },
-  useHook: ({ useData }) => (input) => {
-    const response = useData({
-      swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
-    })
+  useHook:
+    ({ useData }) =>
+    (input) => {
+      const response = useData({
+        swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
+      })
 
-    return useMemo(
-      () =>
-        Object.create(response, {
-          isEmpty: {
-            get() {
-              return (response.data?.lineItems.length ?? 0) <= 0
+      return useMemo(
+        () =>
+          Object.create(response, {
+            isEmpty: {
+              get() {
+                return (response.data?.lineItems.length ?? 0) <= 0
+              },
+              enumerable: true,
             },
-            enumerable: true,
-          },
-        }),
-      [response]
-    )
-  },
+          }),
+        [response]
+      )
+    },
 }
