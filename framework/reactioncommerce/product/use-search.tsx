@@ -1,80 +1,51 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 
-import { CatalogItemEdge } from '../schema'
-import {
-  catalogItemsQuery,
-  getCollectionProductsQuery,
-  getSearchVariables,
-  normalizeProduct,
-} from '../utils'
-
-import { Product } from '@commerce/types'
-
 export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
   search?: string
-  categoryId?: string
-  brandId?: string
+  categoryId?: number | string
+  brandId?: number
   sort?: string
-  shopId?: string
+  locale?: string
 }
 
-export type SearchProductsData = {
-  products: Product[]
-  found: boolean
-}
-
-export const handler: SWRHook<
-  SearchProductsData,
-  SearchProductsInput,
-  SearchProductsInput
-> = {
+export const handler: SWRHook<any> = {
   fetchOptions: {
-    query: catalogItemsQuery,
+    url: '/api/catalog/products',
+    method: 'GET',
   },
-  async fetcher({ input, options, fetch }) {
-    const { brandId, shopId } = input
+  fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {
+    // Use a dummy base as we only care about the relative path
+    const url = new URL(options.url!, 'http://a')
 
-    const data = await fetch({
-      query: options.query,
-      method: options?.method,
-      variables: {
-        ...getSearchVariables(input),
-        shopIds: [shopId],
-      },
-    })
+    if (search) url.searchParams.set('search', search)
+    if (Number.isInteger(categoryId))
+      url.searchParams.set('categoryId', String(categoryId))
+    if (Number.isInteger(brandId))
+      url.searchParams.set('brandId', String(brandId))
+    if (sort) url.searchParams.set('sort', sort)
 
-    let edges
-
-    edges = data.catalogItems?.edges ?? []
-    if (brandId) {
-      edges = edges.filter(
-        ({ node: { vendor } }: CatalogItemEdge) => vendor === brandId
-      )
-    }
-
-    return {
-      products: edges.map(({ node }: CatalogItemEdge) =>
-        normalizeProduct(node)
-      ),
-      found: !!edges.length,
-    }
-  },
-  useHook: ({ useData }) => (input = {}) => {
-    return useData({
-      input: [
-        ['search', input.search],
-        ['categoryId', input.categoryId],
-        ['brandId', input.brandId],
-        ['sort', input.sort],
-        ['shopId', input.shopId],
-      ],
-      swrOptions: {
-        revalidateOnFocus: false,
-        ...input.swrOptions,
-      },
+    return fetch({
+      url: url.pathname + url.search,
+      method: options.method,
     })
   },
+  useHook:
+    ({ useData }) =>
+    (input = {}) => {
+      return useData({
+        input: [
+          ['search', input.search],
+          ['categoryId', input.categoryId],
+          ['brandId', input.brandId],
+          ['sort', input.sort],
+        ],
+        swrOptions: {
+          revalidateOnFocus: false,
+          ...input.swrOptions,
+        },
+      })
+    },
 }
