@@ -16,7 +16,7 @@ export const handler: MutationHook<LoginHook> = {
     if (!(email && password)) {
       throw new CommerceError({
         message:
-          'A first name, last name, email and password are required to login',
+          'An email and password are required to login',
       })
     }
 
