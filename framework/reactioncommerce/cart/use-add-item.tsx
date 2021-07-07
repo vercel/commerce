@@ -9,7 +9,7 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<Cart, {}, CartItemBody> = {
   fetchOptions: {
-    url: '/api/reactioncommerce/cart',
+    url: '/api/cart',
     method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {

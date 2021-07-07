@@ -43,6 +43,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
   if (!item.quantity) item.quantity = 1
 
   if (cartId === config.dummyEmptyCartId) {
+    console.log("pricing", item.pricing)
     const createdCart = await config.fetch(createCartMutation, {
       variables: {
         input: {
