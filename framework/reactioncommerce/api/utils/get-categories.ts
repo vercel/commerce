@@ -1,6 +1,6 @@
-import { ReactionCommerceConfig } from '../api'
-import { CollectionEdge, TagEdge } from '../schema'
-import getTagsQuery from './queries/get-all-collections-query'
+import { ReactionCommerceConfig } from '../'
+import { TagEdge } from '../../schema'
+import getTagsQuery from '../../utils/queries/get-all-collections-query'
 
 export type Category = {
   entityId: string
@@ -10,7 +10,7 @@ export type Category = {
 
 const getCategories = async (
   config: ReactionCommerceConfig
-): Promise<Tag[]> => {
+): Promise<TagEdge[]> => {
   const { data } = await config.fetch(getTagsQuery, {
     variables: {
       first: 250,
@@ -21,9 +21,9 @@ const getCategories = async (
   return (
     data.tags?.edges?.map(
       ({
-        node: { _id: entityId, displayTitle: name, slug: handle },
+        node: { _id: id, displayTitle: name, slug: handle },
       }: TagEdge) => ({
-        entityId,
+        id,
         name,
         path: `/${handle}`,
         slug: handle,

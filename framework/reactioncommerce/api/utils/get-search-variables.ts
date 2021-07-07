@@ -1,5 +1,12 @@
 import getSortVariables from './get-sort-variables'
-import type { SearchProductsInput } from '../product/use-search'
+
+export type SearchProductsInput = {
+  search?: string
+  categoryId?: number | string
+  brandId?: number
+  sort?: string
+  locale?: string
+}
 
 export const getSearchVariables = ({
   brandId,

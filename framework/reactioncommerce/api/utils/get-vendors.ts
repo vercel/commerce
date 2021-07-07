@@ -1,6 +1,6 @@
-import { ReactionCommerceConfig } from '../api'
-import getAllProductVendors from './queries/get-all-product-vendors-query'
-import { Vendor } from '@framework/schema'
+import { ReactionCommerceConfig } from '../'
+import { Vendor } from '../../schema'
+import getAllProductVendors from '../../utils/queries/get-all-product-vendors-query'
 
 export type Brand = {
   entityId: string

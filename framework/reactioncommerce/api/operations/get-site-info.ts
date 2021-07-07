@@ -1,10 +1,9 @@
 import { Provider, ReactionCommerceConfig } from '../'
-import { GetCollectionsQuery } from '../../schema'
 import getCollectionsQuery from '../../utils/queries/get-all-collections-query'
 import { OperationContext } from '@commerce/api/operations'
 import { Category } from '@commerce/types/site'
-import getCategories from '../../utils/get-categories'
-import getVendors from '../../utils/get-vendors'
+import getCategories from '../utils/get-categories'
+import getVendors from '../utils/get-vendors'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {

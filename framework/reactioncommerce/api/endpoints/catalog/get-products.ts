@@ -1,6 +1,7 @@
 import catalogItemsQuery from '@framework/utils/queries/catalog-items-query'
 import { normalizeProduct } from '@framework/utils'
 import type { ProductsEndpoint } from './products'
+import getSearchVariables from '../../utils/get-search-variables'
 
 const getCart: ProductsEndpoint['handlers']['getProducts'] = async ({
   req,
@@ -8,9 +9,22 @@ const getCart: ProductsEndpoint['handlers']['getProducts'] = async ({
   config,
 }) => {
   const {
+    brandId,
+    categoryId,
+    search,
+    sort,
+  } = req.query
+
+  const {
     data: { catalogItems },
   } = await config.fetch(catalogItemsQuery, {
     variables: {
+      ...getSearchVariables({
+        brandId,
+        categoryId,
+        search,
+        sort,
+      }),
       shopIds: [config.shopId],
     },
   })
