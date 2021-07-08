@@ -24,36 +24,33 @@ export const getLoggedInCustomerQuery = /* GraphQL */ `
 
 export type Customer = NonNullable<GetLoggedInCustomerQuery['customer']>
 
-const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] = async ({
-  req,
-  res,
-  config,
-}) => {
-  const token = req.cookies[config.customerCookie]
+const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
+  async ({ req, res, config }) => {
+    const token = req.cookies[config.customerCookie]
 
-  if (token) {
-    const { data } = await config.fetch<GetLoggedInCustomerQuery>(
-      getLoggedInCustomerQuery,
-      undefined,
-      {
-        headers: {
-          cookie: `${config.customerCookie}=${token}`,
-        },
+    if (token) {
+      const { data } = await config.fetch<GetLoggedInCustomerQuery>(
+        getLoggedInCustomerQuery,
+        undefined,
+        {
+          headers: {
+            cookie: `${config.customerCookie}=${token}`,
+          },
+        }
+      )
+      const { customer } = data
+
+      if (!customer) {
+        return res.status(400).json({
+          data: null,
+          errors: [{ message: 'Customer not found', code: 'not_found' }],
+        })
       }
-    )
-    const { customer } = data
 
-    if (!customer) {
-      return res.status(400).json({
-        data: null,
-        errors: [{ message: 'Customer not found', code: 'not_found' }],
-      })
+      return res.status(200).json({ data: { customer } })
     }
 
-    return res.status(200).json({ data: { customer } })
+    res.status(200).json({ data: null })
   }
-
-  res.status(200).json({ data: null })
-}
 
 export default getLoggedInCustomer

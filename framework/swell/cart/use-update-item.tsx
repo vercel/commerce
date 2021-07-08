@@ -57,43 +57,43 @@ export const handler = {
 
     return checkoutToCart(response)
   },
-  useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) => <
-    T extends LineItem | undefined = undefined
-  >(
-    ctx: {
-      item?: T
-      wait?: number
-    } = {}
-  ) => {
-    const { item } = ctx
-    const { mutate, data: cartData } = useCart() as any
+  useHook:
+    ({ fetch }: MutationHookContext<UpdateItemHook>) =>
+    <T extends LineItem | undefined = undefined>(
+      ctx: {
+        item?: T
+        wait?: number
+      } = {}
+    ) => {
+      const { item } = ctx
+      const { mutate, data: cartData } = useCart() as any
 
-    return useCallback(
-      debounce(async (input: UpdateItemActionInput) => {
-        const firstLineItem = cartData.lineItems[0]
-        const itemId = item?.id || firstLineItem.id
-        const productId = item?.productId || firstLineItem.productId
-        const variantId = item?.variant.id || firstLineItem.variant.id
-        if (!itemId || !productId) {
-          throw new ValidationError({
-            message: 'Invalid input used for this operation',
-          })
-        }
+      return useCallback(
+        debounce(async (input: UpdateItemActionInput) => {
+          const firstLineItem = cartData.lineItems[0]
+          const itemId = item?.id || firstLineItem.id
+          const productId = item?.productId || firstLineItem.productId
+          const variantId = item?.variant.id || firstLineItem.variant.id
+          if (!itemId || !productId) {
+            throw new ValidationError({
+              message: 'Invalid input used for this operation',
+            })
+          }
 
-        const data = await fetch({
-          input: {
-            item: {
-              productId,
-              variantId,
-              quantity: input.quantity,
+          const data = await fetch({
+            input: {
+              item: {
+                productId,
+                variantId,
+                quantity: input.quantity,
+              },
+              itemId,
             },
-            itemId,
-          },
-        })
-        await mutate(data, false)
-        return data
-      }, ctx.wait ?? 500),
-      [fetch, mutate]
-    )
-  },
+          })
+          await mutate(data, false)
+          return data
+        }, ctx.wait ?? 500),
+        [fetch, mutate]
+      )
+    },
 }

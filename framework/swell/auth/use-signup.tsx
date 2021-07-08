@@ -44,16 +44,18 @@ export const handler: MutationHook<SignupHook> = {
     } catch (error) {}
     return data
   },
-  useHook: ({ fetch }) => () => {
-    const { revalidate } = useCustomer()
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { revalidate } = useCustomer()
 
-    return useCallback(
-      async function signup(input) {
-        const data = await fetch({ input })
-        await revalidate()
-        return data
-      },
-      [fetch, revalidate]
-    )
-  },
+      return useCallback(
+        async function signup(input) {
+          const data = await fetch({ input })
+          await revalidate()
+          return data
+        },
+        [fetch, revalidate]
+      )
+    },
 }

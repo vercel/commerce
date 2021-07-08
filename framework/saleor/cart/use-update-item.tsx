@@ -23,11 +23,7 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: { query: mutation.CheckoutLineUpdate },
-  async fetcher({ 
-    input: { itemId, item }, 
-    options, 
-    fetch 
-  }: HookFetcherContext<UpdateItemHook>) {
+  async fetcher({ input: { itemId, item }, options, fetch }: HookFetcherContext<UpdateItemHook>) {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
@@ -59,7 +55,8 @@ export const handler = {
 
     return checkoutToCart(checkoutLinesUpdate)
   },
-  useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) => 
+  useHook:
+    ({ fetch }: MutationHookContext<UpdateItemHook>) =>
     <T extends LineItem | undefined = undefined>(
       ctx: {
         item?: T

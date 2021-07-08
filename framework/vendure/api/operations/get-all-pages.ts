@@ -4,9 +4,8 @@ import { Provider } from '../../../bigcommerce/api'
 
 export type Page = any
 
-export type GetAllPagesResult<
-  T extends { pages: any[] } = { pages: Page[] }
-> = T
+export type GetAllPagesResult<T extends { pages: any[] } = { pages: Page[] }> =
+  T
 
 export default function getAllPagesOperation({
   commerce,

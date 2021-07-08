@@ -12,6 +12,9 @@ const isSwell = provider === 'swell'
 const isVendure = provider === 'vendure'
 
 module.exports = withCommerceConfig({
+  env: {
+    REACTION_API_DOMAIN: process.env.REACTION_API_DOMAIN,
+  },
   commerce,
   i18n: {
     locales: ['en-US', 'es'],

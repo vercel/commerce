@@ -38,9 +38,11 @@ export default function getAllPagesOperation({
     preview?: boolean
     query?: string
   } = {}): Promise<T['data']> {
-    const { fetch, locale, locales = ['en-US', 'es'] } = commerce.getConfig(
-      config
-    )
+    const {
+      fetch,
+      locale,
+      locales = ['en-US', 'es'],
+    } = commerce.getConfig(config)
 
     const { data } = await fetch<GetAllPagesQuery, GetAllPagesQueryVariables>(
       query,

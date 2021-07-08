@@ -6,19 +6,16 @@ import * as Query from '../../utils/queries'
 
 export type Page = any
 
- export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
+export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
-export default function getPageOperation({
-  commerce,
-}: OperationContext<Provider>) {
-
+export default function getPageOperation({ commerce }: OperationContext<Provider>) {
   async function getPage({
     query = Query.PageOne,
     variables,
     config,
   }: {
     query?: string
-    variables: QueryPageArgs, 
+    variables: QueryPageArgs
     config?: Partial<SaleorConfig>
     preview?: boolean
   }): Promise<GetPageResult> {
@@ -26,7 +23,9 @@ export default function getPageOperation({
 
     const {
       data: { page },
-    } = await fetch(query, { variables },
+    } = await fetch(
+      query,
+      { variables },
       {
         ...(locale && {
           headers: {

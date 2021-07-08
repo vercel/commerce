@@ -13,25 +13,27 @@ export const handler: MutationHook<AddItemHook> = {
     url: '/api/wishlist',
     method: 'POST',
   },
-  useHook: ({ fetch }) => () => {
-    const { data: customer } = useCustomer()
-    const { revalidate } = useWishlist()
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { data: customer } = useCustomer()
+      const { revalidate } = useWishlist()
 
-    return useCallback(
-      async function addItem(item) {
-        if (!customer) {
-          // A signed customer is required in order to have a wishlist
-          throw new CommerceError({
-            message: 'Signed customer not found',
-          })
-        }
+      return useCallback(
+        async function addItem(item) {
+          if (!customer) {
+            // A signed customer is required in order to have a wishlist
+            throw new CommerceError({
+              message: 'Signed customer not found',
+            })
+          }
 
-        // TODO: add validations before doing the fetch
-        const data = await fetch({ input: { item } })
-        await revalidate()
-        return data
-      },
-      [fetch, revalidate, customer]
-    )
-  },
+          // TODO: add validations before doing the fetch
+          const data = await fetch({ input: { item } })
+          await revalidate()
+          return data
+        },
+        [fetch, revalidate, customer]
+      )
+    },
 }

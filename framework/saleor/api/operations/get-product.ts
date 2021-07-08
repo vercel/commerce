@@ -1,5 +1,5 @@
 import type { OperationContext } from '@commerce/api/operations'
-import { normalizeProduct, } from '../../utils'
+import { normalizeProduct } from '../../utils'
 import type { Provider, SaleorConfig } from '..'
 
 import * as Query from '../../utils/queries'
@@ -12,22 +12,22 @@ type ReturnType = {
   product: any
 }
 
-export default function getProductOperation({
-  commerce,
-}: OperationContext<Provider>) {
+export default function getProductOperation({ commerce }: OperationContext<Provider>) {
   async function getProduct({
     query = Query.ProductOneBySlug,
     variables,
     config: cfg,
   }: {
     query?: string
-    variables: Variables 
+    variables: Variables
     config?: Partial<SaleorConfig>
     preview?: boolean
   }): Promise<ReturnType> {
     const { fetch, locale } = commerce.getConfig(cfg)
 
-    const { data } = await fetch(query, { variables },
+    const { data } = await fetch(
+      query,
+      { variables },
       {
         ...(locale && {
           headers: {

@@ -24,30 +24,32 @@ export const handler: SWRHook<GetWishlistHook> = {
       method: options.method,
     })
   },
-  useHook: ({ useData }) => (input) => {
-    const { data: customer } = useCustomer()
-    const response = useData({
-      input: [
-        ['customerId', customer?.entityId],
-        ['includeProducts', input?.includeProducts],
-      ],
-      swrOptions: {
-        revalidateOnFocus: false,
-        ...input?.swrOptions,
-      },
-    })
+  useHook:
+    ({ useData }) =>
+    (input) => {
+      const { data: customer } = useCustomer()
+      const response = useData({
+        input: [
+          ['customerId', customer?.entityId],
+          ['includeProducts', input?.includeProducts],
+        ],
+        swrOptions: {
+          revalidateOnFocus: false,
+          ...input?.swrOptions,
+        },
+      })
 
-    return useMemo(
-      () =>
-        Object.create(response, {
-          isEmpty: {
-            get() {
-              return (response.data?.items?.length || 0) <= 0
+      return useMemo(
+        () =>
+          Object.create(response, {
+            isEmpty: {
+              get() {
+                return (response.data?.items?.length || 0) <= 0
+              },
+              enumerable: true,
             },
-            enumerable: true,
-          },
-        }),
-      [response]
-    )
-  },
+          }),
+        [response]
+      )
+    },
 }

@@ -9,10 +9,11 @@ const prettier = require('prettier')
 
 const PROVIDERS = [
   'bigcommerce',
-  'saleor',
   'shopify',
   'swell',
   'vendure',
+  'reactioncommerce',
+  'saleor',
   'local',
 ]
 

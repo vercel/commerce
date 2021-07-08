@@ -37,16 +37,18 @@ export const handler: MutationHook<RemoveItemHook> = {
     }
     throw new CommerceError(removeOrderLine)
   },
-  useHook: ({ fetch }) => () => {
-    const { mutate } = useCart()
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCart()
 
-    return useCallback(
-      async function removeItem(input) {
-        const data = await fetch({ input: { itemId: input.id } })
-        await mutate(data, false)
-        return data
-      },
-      [fetch, mutate]
-    )
-  },
+      return useCallback(
+        async function removeItem(input) {
+          const data = await fetch({ input: { itemId: input.id } })
+          await mutate(data, false)
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }

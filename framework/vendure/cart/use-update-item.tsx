@@ -42,39 +42,41 @@ export const handler = {
     }
     throw new CommerceError(adjustOrderLine)
   },
-  useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) => (
-    ctx: {
-      item?: LineItem
-      wait?: number
-    } = {}
-  ) => {
-    const { item } = ctx
-    const { mutate } = useCart()
+  useHook:
+    ({ fetch }: MutationHookContext<UpdateItemHook>) =>
+    (
+      ctx: {
+        item?: LineItem
+        wait?: number
+      } = {}
+    ) => {
+      const { item } = ctx
+      const { mutate } = useCart()
 
-    return useCallback(
-      async function addItem(input: UpdateItemActionInput) {
-        const itemId = item?.id
-        const productId = input.productId ?? item?.productId
-        const variantId = input.productId ?? item?.variantId
-        if (!itemId || !productId || !variantId) {
-          throw new ValidationError({
-            message: 'Invalid input used for this operation',
-          })
-        }
-        const data = await fetch({
-          input: {
-            item: {
-              productId,
-              variantId,
-              quantity: input.quantity,
+      return useCallback(
+        async function addItem(input: UpdateItemActionInput) {
+          const itemId = item?.id
+          const productId = input.productId ?? item?.productId
+          const variantId = input.productId ?? item?.variantId
+          if (!itemId || !productId || !variantId) {
+            throw new ValidationError({
+              message: 'Invalid input used for this operation',
+            })
+          }
+          const data = await fetch({
+            input: {
+              item: {
+                productId,
+                variantId,
+                quantity: input.quantity,
+              },
+              itemId,
             },
-            itemId,
-          },
-        })
-        await mutate(data, false)
-        return data
-      },
-      [fetch, mutate]
-    )
-  },
+          })
+          await mutate(data, false)
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }

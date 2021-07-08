@@ -12,9 +12,7 @@ type ReturnType = {
   products: Product[]
 }
 
-export default function getAllProductsOperation({
-  commerce,
-}: OperationContext<Provider>) {
+export default function getAllProductsOperation({ commerce }: OperationContext<Provider>) {
   async function getAllProducts({
     query = Query.ProductMany,
     variables,
@@ -22,7 +20,7 @@ export default function getAllProductsOperation({
     featured,
   }: {
     query?: string
-    variables?: any 
+    variables?: any
     config?: Partial<SaleorConfig>
     preview?: boolean
     featured?: boolean
@@ -30,10 +28,9 @@ export default function getAllProductsOperation({
     const { fetch, locale } = commerce.getConfig(config)
 
     if (featured) {
-      variables = { ...variables, categoryId: 'Q29sbGVjdGlvbjo0' };
+      variables = { ...variables, categoryId: 'Q29sbGVjdGlvbjo0' }
       query = Query.CollectionOne
-    } 
-
+    }
 
     const { data }: GraphQLFetcherResult = await fetch(
       query,
@@ -48,7 +45,8 @@ export default function getAllProductsOperation({
     )
 
     if (featured) {
-      const products = data.collection.products?.edges?.map(({ node: p }: ProductCountableEdge) => normalizeProduct(p)) ?? []
+      const products =
+        data.collection.products?.edges?.map(({ node: p }: ProductCountableEdge) => normalizeProduct(p)) ?? []
 
       return {
         products,
@@ -60,7 +58,6 @@ export default function getAllProductsOperation({
         products,
       }
     }
-
   }
 
   return getAllProducts

@@ -27,10 +27,7 @@ const config: SaleorConfig = {
   storeChannel: Const.API_CHANNEL,
 }
 
-import {
-  CommerceAPI,
-  getCommerceApi as commerceApi,
-} from '@commerce/api'
+import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
 
 import * as operations from './operations'
 
@@ -42,8 +39,6 @@ export type Provider = typeof provider
 
 export type SaleorAPI<P extends Provider = Provider> = CommerceAPI<P>
 
-export function getCommerceApi<P extends Provider>(
-  customProvider: P = provider as any
-): SaleorAPI<P> {
+export function getCommerceApi<P extends Provider>(customProvider: P = provider as any): SaleorAPI<P> {
   return commerceApi(customProvider)
 }

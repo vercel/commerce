@@ -49,10 +49,8 @@ export type EndpointSchemaBase = {
   }
 }
 
-export type Endpoint<
-  C extends CommerceAPI,
-  E extends EndpointSchemaBase
-> = APIEndpoint<C, EndpointHandlers<C, E>, any, E['options']>
+export type Endpoint<C extends CommerceAPI, E extends EndpointSchemaBase> =
+  APIEndpoint<C, EndpointHandlers<C, E>, any, E['options']>
 
 export type EndpointHandlers<
   C extends CommerceAPI,
