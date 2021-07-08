@@ -1,5 +1,5 @@
 .root {
-  @apply fixed inset-0 h-full z-50 box-border;
+  @apply fixed inset-0 h-full z-50 box-border outline-none;
 }
 
 .sidebar {
