@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import Image from 'next/image'
+import NextImage from 'next/image'
 import s from './WishlistCard.module.css'
 import { Trash } from '@components/icons'
 import { Button, Text } from '@components/ui'
@@ -11,6 +11,15 @@ import type { Product } from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
+
+const Image = (props: any) => {
+  return (
+    <NextImage
+      unoptimized={process.env.NODE_ENV === 'development'}
+      {...props}
+    />
+  );
+}
 
 interface Props {
   product: Product
