@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import Image from 'next/image'
+import NextImage from 'next/image'
 import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'
 import { FC } from 'react'
@@ -10,6 +10,15 @@ import { ProductSlider, ProductCard } from '@components/product'
 import { Container, Text } from '@components/ui'
 import ProductSidebar from '../ProductSidebar'
 import ProductTag from '../ProductTag'
+
+const Image = (props: any) => {
+  return (
+    <NextImage
+      unoptimized={process.env.NODE_ENV === 'development'}
+      {...props}
+    />
+  );
+}
 interface ProductViewProps {
   product: Product
   relatedProducts: Product[]

@@ -1,6 +1,6 @@
 import { ChangeEvent, FocusEventHandler, useEffect, useState } from 'react'
 import cn from 'classnames'
-import Image from 'next/image'
+import NextImage from 'next/image'
 import Link from 'next/link'
 import s from './CartItem.module.css'
 import { Trash, Plus, Minus, Cross } from '@components/icons'
@@ -10,6 +10,15 @@ import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
+
+const Image = (props: any) => {
+  return (
+    <NextImage
+      unoptimized={process.env.NODE_ENV === 'development'}
+      {...props}
+    />
+  );
+}
 
 type ItemOption = {
   name: string

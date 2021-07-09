@@ -3,10 +3,19 @@ import cn from 'classnames'
 import Link from 'next/link'
 import type { Product } from '@commerce/types/product'
 import s from './ProductCard.module.css'
-import Image, { ImageProps } from 'next/image'
+import NextImage, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
 import ProductTag from '../ProductTag'
+
+const Image = (props: any) => {
+  return (
+    <NextImage
+      unoptimized={process.env.NODE_ENV === 'development'}
+      {...props}
+    />
+  );
+}
 interface Props {
   className?: string
   product: Product

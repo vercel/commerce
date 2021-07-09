@@ -1,0 +1,26 @@
+{
+  "title": "ACME Storefront | Powered by Next.js Commerce & Saleor",
+  "titleTemplate": "%s - ACME Storefront",
+  "description": "Next.js Commerce & Saleor - https://www.nextjs.org/commerce",
+  "openGraph": {
+    "title": "ACME Storefront | Powered by Next.js Commerce & Saleor",
+    "description": "Next.js Commerce & Saleor - https://www.nextjs.org/commerce",
+    "type": "website",
+    "locale": "en_IE",
+    "url": "https://nextjs.org/commerce",
+    "site_name": "Next.js Commerce & Saleor",
+    "images": [
+      {
+        "url": "/card-saleor.png",
+        "width": 1200,
+        "height": 675,
+        "alt": "Next.js Commerce & Saleor"
+      }
+    ]
+  },
+  "twitter": {
+    "handle": "@nextjs",
+    "site": "@nextjs",
+    "cardType": "summary_large_image"
+  }
+}
