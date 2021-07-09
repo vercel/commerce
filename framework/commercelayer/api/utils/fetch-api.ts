@@ -3,7 +3,8 @@ import { FetcherError } from '@commerce/utils/errors'
 import { CommercelayerConfig, getAccessToken, UserCredentials } from '../index'
 import fetch from './fetch'
 
-const fetchApi = <T>(getConfig: () => CommercelayerConfig) =>
+const fetchApi =
+  (getConfig: () => CommercelayerConfig) =>
   async (
     query: string,
     endpoint: string,
@@ -12,7 +13,7 @@ const fetchApi = <T>(getConfig: () => CommercelayerConfig) =>
   ) => {
     const config = getConfig()
     const getToken = await getAccessToken(user)
-    const token = getToken.accessToken
+    const token = getToken?.accessToken
     const res = await fetch(config.commerceUrl + endpoint, {
       ...fetchOptions,
       method: 'POST',
@@ -22,7 +23,7 @@ const fetchApi = <T>(getConfig: () => CommercelayerConfig) =>
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        query
+        query,
       }),
     })
 

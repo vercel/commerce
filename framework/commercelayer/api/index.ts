@@ -1,5 +1,5 @@
 import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
-import type { RequestInit } from '@vercel/fetch'
+import type { RequestInit, Response, Fetch } from '@vercel/fetch'
 import { getCommerceApi as commerceApi } from '@commerce/api'
 import createFetcher from './utils/fetch-api'
 
@@ -12,15 +12,17 @@ import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
 import { getToken } from './utils/get-token'
+import fetch from './utils/fetch'
 
-export interface CommercelayerConfig extends CommerceAPIConfig {
+export interface CommercelayerConfig extends Omit<CommerceAPIConfig, 'fetch'> {
   apiClientId: string
-  apiFetch<T>(
+  apiToken: string
+  apiFetch(
     query: string,
     endpoint: string,
     fetchOptions?: RequestInit,
     user?: UserCredentials
-  ): Promise<T>
+  ): Promise<{ data: any; res: Response }>
 }
 
 export type UserCredentials = {
@@ -51,22 +53,21 @@ if (!MARKET_SCOPE) {
 }
 
 export async function getAccessToken(user?: UserCredentials) {
-  const token = await getToken({
+  return await getToken({
     clientId: CLIENT_ID,
     endpoint: ENDPOINT,
     scope: MARKET_SCOPE,
     user,
   })
-  return token
 }
 
-export interface CommercelayerConfig extends CommerceAPIConfig {}
 const config: CommercelayerConfig = {
   commerceUrl: ENDPOINT,
   apiClientId: CLIENT_ID,
   cartCookie: '',
   customerCookie: '',
   cartCookieMaxAge: 2592000,
+  apiToken: '',
   apiFetch: createFetcher(() => getCommerceApi().getConfig()),
 }
 
