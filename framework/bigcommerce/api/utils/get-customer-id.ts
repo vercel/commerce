@@ -1,5 +1,5 @@
-import type { GetCustomerIdQuery } from '../../../../schema'
-import type { BigcommerceConfig } from '../../..'
+import type { GetCustomerIdQuery } from '../../schema'
+import type { BigcommerceConfig } from '../'
 
 export const getCustomerIdQuery = /* GraphQL */ `
   query getCustomerId {
