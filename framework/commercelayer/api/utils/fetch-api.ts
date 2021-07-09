@@ -1,22 +1,28 @@
+import type { RequestInit } from '@vercel/fetch'
 import { FetcherError } from '@commerce/utils/errors'
-import type { GraphQLFetcher } from '@commerce/api'
-import type { LocalConfig } from '../index'
+import { CommercelayerConfig, getAccessToken, UserCredentials } from '../index'
 import fetch from './fetch'
 
-const fetchGraphqlApi: (getConfig: () => LocalConfig) => GraphQLFetcher =
-  (getConfig) =>
-  async (query: string, { variables, preview } = {}, fetchOptions) => {
+const fetchApi = <T>(getConfig: () => CommercelayerConfig) =>
+  async (
+    query: string,
+    endpoint: string,
+    fetchOptions?: RequestInit,
+    user?: UserCredentials
+  ) => {
     const config = getConfig()
-    const res = await fetch(config.commerceUrl, {
+    const getToken = await getAccessToken(user)
+    const token = getToken.accessToken
+    const res = await fetch(config.commerceUrl + endpoint, {
       ...fetchOptions,
       method: 'POST',
       headers: {
         ...fetchOptions?.headers,
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        query,
-        variables,
+        query
       }),
     })
 
@@ -31,4 +37,4 @@ const fetchGraphqlApi: (getConfig: () => LocalConfig) => GraphQLFetcher =
     return { data: json.data, res }
   }
 
-export default fetchGraphqlApi
+export default fetchApi

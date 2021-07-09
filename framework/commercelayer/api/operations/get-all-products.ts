@@ -1,7 +1,7 @@
 import { Product } from '@commerce/types/product'
 import { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
-import type { LocalConfig, Provider } from '../index'
+import type { CommercelayerConfig, Provider } from '../index'
 import data from '../../data.json'
 
 export default function getAllProductsOperation({
@@ -14,7 +14,7 @@ export default function getAllProductsOperation({
   }: {
     query?: string
     variables?: T['variables']
-    config?: Partial<LocalConfig>
+    config?: Partial<CommercelayerConfig>
     preview?: boolean
   } = {}): Promise<{ products: Product[] | any[] }> {
     return {

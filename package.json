@@ -21,6 +21,8 @@
     "node": ">=14.x"
   },
   "dependencies": {
+    "@commercelayer/js-auth": "^2.0.6",
+    "@commercelayer/js-sdk": "^4.1.3",
     "@chec/commerce.js": "^2.8.0",
     "@react-spring/web": "^9.4.1",
     "@spree/storefront-api-v2-sdk": "^5.1.1",

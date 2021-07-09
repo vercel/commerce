@@ -1,4 +1,4 @@
-import type { LocalConfig } from '../index'
+import type { CommercelayerConfig } from '../index'
 import { Product } from '@commerce/types/product'
 import { GetProductOperation } from '@commerce/types/product'
 import data from '../../data.json'
@@ -14,7 +14,7 @@ export default function getProductOperation({
   }: {
     query?: string
     variables?: T['variables']
-    config?: Partial<LocalConfig>
+    config?: Partial<CommercelayerConfig>
     preview?: boolean
   } = {}): Promise<Product | {} | any> {
     return {

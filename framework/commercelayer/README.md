@@ -1,6 +1,6 @@
 # Commerce Layer Provider
 
-⚠️ Please note that this provider is still a work in progress.
+⚠️ This provider is still a work in progress.
 
 Before getting started, you should do the following:
 

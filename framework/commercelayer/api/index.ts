@@ -1,6 +1,7 @@
 import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
+import type { RequestInit } from '@vercel/fetch'
 import { getCommerceApi as commerceApi } from '@commerce/api'
-import createFetcher from './utils/fetch-local'
+import createFetcher from './utils/fetch-api'
 
 import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
@@ -10,14 +11,63 @@ import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
-export interface LocalConfig extends CommerceAPIConfig {}
-const config: LocalConfig = {
-  commerceUrl: '',
-  apiToken: '',
+import { getToken } from './utils/get-token'
+
+export interface CommercelayerConfig extends CommerceAPIConfig {
+  apiClientId: string
+  apiFetch<T>(
+    query: string,
+    endpoint: string,
+    fetchOptions?: RequestInit,
+    user?: UserCredentials
+  ): Promise<T>
+}
+
+export type UserCredentials = {
+  email: string
+  password: string
+}
+
+const CLIENT_ID = process.env.COMMERCELAYER_CLIENT_ID
+const ENDPOINT = process.env.COMMERCELAYER_ENDPOINT
+const MARKET_SCOPE = process.env.COMMERCELAYER_MARKET_SCOPE
+
+if (!CLIENT_ID) {
+  throw new Error(
+    `The environment variable COMMERCELAYER_CLIENT_ID is missing and it's required to access your store`
+  )
+}
+
+if (!ENDPOINT) {
+  throw new Error(
+    `The environment variable COMMERCELAYER_ENDPOINT is missing and it's required to access your store`
+  )
+}
+
+if (!MARKET_SCOPE) {
+  throw new Error(
+    `The environment variable COMMERCELAYER_MARKET_SCOPE is missing and it's required to access your store`
+  )
+}
+
+export async function getAccessToken(user?: UserCredentials) {
+  const token = await getToken({
+    clientId: CLIENT_ID,
+    endpoint: ENDPOINT,
+    scope: MARKET_SCOPE,
+    user,
+  })
+  return token
+}
+
+export interface CommercelayerConfig extends CommerceAPIConfig {}
+const config: CommercelayerConfig = {
+  commerceUrl: ENDPOINT,
+  apiClientId: CLIENT_ID,
   cartCookie: '',
   customerCookie: '',
   cartCookieMaxAge: 2592000,
-  fetch: createFetcher(() => getCommerceApi().getConfig()),
+  apiFetch: createFetcher(() => getCommerceApi().getConfig()),
 }
 
 const operations = {
@@ -33,10 +83,12 @@ const operations = {
 export const provider = { config, operations }
 
 export type Provider = typeof provider
-export type LocalAPI<P extends Provider = Provider> = CommerceAPI<P | any>
+export type CommercelayerAPI<P extends Provider = Provider> = CommerceAPI<
+  P | any
+>
 
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
-): LocalAPI<P> {
+): CommercelayerAPI<P> {
   return commerceApi(customProvider as any)
 }
