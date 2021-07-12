@@ -2,6 +2,7 @@ export type ChangePasswordBody = {
   email: string
   currentPassword: string
   newPassword: string
+  confirmPassword: string
 }
 
 export type ChangePasswordTypes = {

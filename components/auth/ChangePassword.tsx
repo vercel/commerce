@@ -3,9 +3,6 @@ import { Logo, Button, Input } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import useCustomer from '@framework/customer/use-customer'
 import useChangePassword from '@framework/auth/use-change-password'
-import changePassword from '@framework/api/endpoints/change-password/change-password'
-
-// import { validate } from 'email-validator'
 
 interface Props {
 }
@@ -34,15 +31,26 @@ const ChangePassword: FC<Props> = () => {
   const [disabled, setDisabled] = useState(false)
   const { setModalView, closeModal } = useUI()
 
+  const mismatchConfirmation = (newPassword !== confirmPassword) && newPassword !== ''
+
   // // const login = useLogin()
   //
   const handleChangePassword = async (e: React.SyntheticEvent<EventTarget>) => {
     console.log('handleChangePassword');
     e.preventDefault()
 
-    if (!dirty && !disabled) {
+    // if (!dirty && !disabled) {
       setDirty(true)
       handleValidation()
+    // }
+
+    if (newPassword !== confirmPassword) {
+      setDisabled(true)
+      setMessage('Passwords must match!')
+      return;
+    } else {
+
+
     }
 
     try {
@@ -51,7 +59,8 @@ const ChangePassword: FC<Props> = () => {
       await changePassword({
         email,
         currentPassword,
-        newPassword
+        newPassword,
+        confirmPassword
       })
       setLoading(false)
       closeModal()
@@ -64,13 +73,14 @@ const ChangePassword: FC<Props> = () => {
     }
   }
 
+  // Halt unless the password is valid, and both new password fields match!
   const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
     const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(newPassword)
 
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled( newPassword.length < 7 || !validPassword ||newPassword != confirmPassword )
+      setDisabled( !validPassword || newPassword != confirmPassword )
     }
   }, [newPassword, confirmPassword, dirty])
 
@@ -89,25 +99,20 @@ const ChangePassword: FC<Props> = () => {
       <div className='flex flex-col space-y-3'>
         {message && (
           <div className='text-red border border-red p-3'>
-            {message}. Did you {` `}
-            <a
-              className='text-accent-9 inline font-bold hover:underline cursor-pointer'
-              onClick={() => setModalView('FORGOT_VIEW')}
-            >
-              forgot your password?
-            </a>
+            {message}
           </div>
         )}
         <Input type='email' disabled={true} value={email} />
         <Input type='password' autoComplete={'current-password'} placeholder='Current Password' onChange={setCurrentPassword} />
         <Input type='password' autoComplete={'new-password'} placeholder='New Password' onChange={setNewPassword} />
         <Input type='password' autoComplete={'new-password'} placeholder='Confirm new Password' onChange={setConfirmPassword} />
+        { mismatchConfirmation && 'New password and confirmation must match.' }
 
         <Button
           variant='slim'
           type='submit'
           loading={loading}
-          disabled={disabled}
+          disabled={disabled || mismatchConfirmation}
         >
           Change Password
         </Button>

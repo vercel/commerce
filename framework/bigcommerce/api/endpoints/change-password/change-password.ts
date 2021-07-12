@@ -3,17 +3,16 @@ import type { ChangePasswordEndpoint } from '.'
 
 const changePassword: ChangePasswordEndpoint['handlers']['changePassword'] = async ({
                                                               res,
-                                                              body: { email, currentPassword, newPassword },
+                                                              body: { email, currentPassword, newPassword, confirmPassword},
                                                               config,
                                                               commerce
                                                             }) => {
-  // // TODO: Add proper validations with something like Ajv
-  // if (!(email && password)) {
-  //   return res.status(400).json({
-  //     data: null,
-  //     errors: [{ message: 'Invalid request' }]
-  //   })
-  // }
+  if (!(email && currentPassword && newPassword && confirmPassword)) {
+    return res.status(400).json({
+      data: null,
+      errors: [{ message: 'Invalid request' }]
+    })
+  }
   // // TODO: validate the password and email
   // // Passwords must be at least 7 characters and contain both alphabetic
   // // and numeric characters.

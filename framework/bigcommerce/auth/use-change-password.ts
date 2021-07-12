@@ -12,8 +12,8 @@ export const handler: MutationHook<ChangePasswordHook> = {
     url: '/api/change-password',
     method: 'POST',
   },
-  async fetcher({ input: { email, currentPassword, newPassword }, options, fetch }) {
-    if (!(email && currentPassword && newPassword)) {
+  async fetcher({ input: { email, currentPassword, newPassword, confirmPassword }, options, fetch }) {
+    if (!(email && currentPassword && newPassword && confirmPassword)) {
       throw new CommerceError({
         message:
           'An email, current password, and new password are required to change password',
@@ -21,11 +21,11 @@ export const handler: MutationHook<ChangePasswordHook> = {
     }
 
     console.log('fetcher')
-    console.dir({ email, currentPassword, newPassword })
+    console.dir({ email, currentPassword, newPassword, confirmPassword })
 
     return fetch({
       ...options,
-      body: { email, currentPassword, newPassword },
+      body: { email, currentPassword, newPassword, confirmPassword },
     })
   },
   useHook: ({ fetch }) => () => {
