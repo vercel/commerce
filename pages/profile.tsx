@@ -2,7 +2,9 @@ import type { GetStaticPropsContext } from 'next'
 import useCustomer from '@framework/customer/use-customer'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
-import { Container, Text } from '@components/ui'
+import { Container, Text, useUI } from '@components/ui'
+
+
 
 export async function getStaticProps({
   preview,
@@ -21,7 +23,15 @@ export async function getStaticProps({
 }
 
 export default function Profile() {
+  const { openModal, setModalView } = useUI()
+
   const { data } = useCustomer()
+
+  const triggerChangePassword = () => {
+    setModalView('CHANGE_PASSWORD')
+    openModal()
+  };
+
   return (
     <Container>
       <Text variant="pageHeading">My Profile</Text>
@@ -37,6 +47,14 @@ export default function Profile() {
             <div className="mt-5">
               <Text variant="sectionHeading">Email</Text>
               <span>{data.email}</span>
+            </div>
+
+            <div className="mt-5">
+              <Text variant="sectionHeading">Change Password</Text>
+              <a
+                className="text-accent-9 inline font-bold hover:underline cursor-pointer"
+                onClick={triggerChangePassword}
+              >Change Password</a>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import * as Cart from './cart'
+import * as ChangePassword from './change-password'
 import * as Checkout from './checkout'
 import * as Common from './common'
 import * as Customer from './customer'
@@ -12,6 +13,7 @@ import * as Wishlist from './wishlist'
 
 export type {
   Cart,
+  ChangePassword,
   Checkout,
   Common,
   Customer,

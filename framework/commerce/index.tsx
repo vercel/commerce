@@ -15,6 +15,7 @@ import type {
   Signup,
   Login,
   Logout,
+  ChangePassword
 } from '@commerce/types'
 
 import type { Fetcher, SWRHook, MutationHook } from './utils/types'
@@ -44,6 +45,7 @@ export type Provider = CommerceConfig & {
     useSignup?: MutationHook<Signup.SignupHook>
     useLogin?: MutationHook<Login.LoginHook>
     useLogout?: MutationHook<Logout.LogoutHook>
+    useChangePassword?: MutationHook<ChangePassword.ChangePasswordHook>
   }
 }
 

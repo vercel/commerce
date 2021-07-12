@@ -42,6 +42,11 @@ const FeatureBar = dynamic(
   dynamicProps
 )
 
+const ChangePassword = dynamic(
+  () => import('@components/auth/ChangePassword'),
+  dynamicProps
+)
+
 interface Props {
   pageProps: {
     pages?: Page[]
@@ -58,6 +63,7 @@ const ModalView: FC<{ modalView: string; closeModal(): any }> = ({
       {modalView === 'LOGIN_VIEW' && <LoginView />}
       {modalView === 'SIGNUP_VIEW' && <SignUpView />}
       {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
+      {modalView === 'CHANGE_PASSWORD' && <ChangePassword />}
     </Modal>
   )
 }

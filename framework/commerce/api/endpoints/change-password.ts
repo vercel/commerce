@@ -1,0 +1,35 @@
+import type { ChangePasswordSchema } from '../../types/change-password'
+import { CommerceAPIError } from '../utils/errors'
+import isAllowedOperation from '../utils/is-allowed-operation'
+import type { GetAPISchema } from '..'
+
+const changePasswordEndpoint: GetAPISchema<
+  any,
+  ChangePasswordSchema<any>
+  >['endpoint']['handler'] = async (ctx) => {
+  const { req, res, handlers } = ctx
+
+  if (
+    !isAllowedOperation(req, res, {
+      POST: handlers['changePassword'],
+    })
+  ) {
+    return
+  }
+
+  try {
+    const body = req.body ?? {}
+    return await handlers['changePassword']({ ...ctx, body })
+  } catch (error) {
+    console.error(error)
+
+    const message =
+      error instanceof CommerceAPIError
+        ? 'An unexpected error ocurred with the Commerce API'
+        : 'An unexpected error ocurred'
+
+    res.status(500).json({ data: null, errors: [{ message }] })
+  }
+}
+
+export default changePasswordEndpoint
