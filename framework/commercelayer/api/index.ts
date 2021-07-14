@@ -12,7 +12,6 @@ import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
 import { getToken } from './utils/get-token'
-import fetch from './utils/fetch'
 
 export interface CommercelayerConfig extends Omit<CommerceAPIConfig, 'fetch'> {
   apiClientId: string
@@ -36,19 +35,19 @@ const MARKET_SCOPE = process.env.COMMERCELAYER_MARKET_SCOPE
 
 if (!CLIENT_ID) {
   throw new Error(
-    `The environment variable COMMERCELAYER_CLIENT_ID is missing and it's required to access your store`
+    `The environment variable COMMERCELAYER_CLIENT_ID is missing and it's required.`
   )
 }
 
 if (!ENDPOINT) {
   throw new Error(
-    `The environment variable COMMERCELAYER_ENDPOINT is missing and it's required to access your store`
+    `The environment variable COMMERCELAYER_ENDPOINT is missing and it's required.`
   )
 }
 
 if (!MARKET_SCOPE) {
   throw new Error(
-    `The environment variable COMMERCELAYER_MARKET_SCOPE is missing and it's required to access your store`
+    `The environment variable COMMERCELAYER_MARKET_SCOPE is missing and it's required.`
   )
 }
 

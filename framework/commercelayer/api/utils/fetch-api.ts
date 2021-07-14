@@ -16,21 +16,20 @@ const fetchApi =
     const token = getToken?.accessToken
     const res = await fetch(config.commerceUrl + endpoint, {
       ...fetchOptions,
-      method: 'POST',
       headers: {
         ...fetchOptions?.headers,
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
+      body: JSON.stringify([
         query,
-      }),
+      ]),
     })
 
     const json = await res.json()
     if (json.errors) {
       throw new FetcherError({
-        errors: json.errors ?? [{ message: 'Failed to fetch for API' }],
+        errors: json.errors ?? [{ message: 'Failed to fetch Commerce Layer API' }],
         status: res.status,
       })
     }

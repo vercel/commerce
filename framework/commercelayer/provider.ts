@@ -9,8 +9,8 @@ import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
-export type Provider = typeof localProvider
-export const localProvider = {
+export type Provider = typeof commerceLayerProvider
+export const commerceLayerProvider = {
   locale: 'en-us',
   cartCookie: 'session',
   fetcher: fetcher,
