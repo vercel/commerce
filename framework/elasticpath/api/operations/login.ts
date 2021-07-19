@@ -8,7 +8,7 @@ import { Provider, ElasticpathConfig } from '..'
 
 export default function loginOperation({
   commerce,
-}: OperationContext<Provider>) {
+}: OperationContext<Provider | any>) {
   async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: Partial<ElasticpathConfig>
