@@ -22,8 +22,8 @@ export const handler: MutationHook<LoginHook> = {
 
     return fetch({
       ...options,
-      body: { email, password },
-    })
+      variables: { email, password },
+    });
   },
   useHook: ({ fetch }) => () => {
     const { revalidate } = useCustomer()

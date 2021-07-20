@@ -19,6 +19,7 @@
     "node": ">=14.x"
   },
   "dependencies": {
+    "@moltin/sdk": "^8.8.1",
     "@react-spring/web": "^9.2.1",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.6",

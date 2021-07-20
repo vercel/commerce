@@ -32,9 +32,9 @@ export const fetcher: Fetcher = async ({
     )
   }
   const hasBody = Boolean(variables || query)
-  const body = hasBody ? JSON.stringify({ query, variables }) : undefined
+  const body = hasBody ? JSON.stringify(variables) : undefined
   const headers = hasBody ? { 'Content-Type': 'application/json' } : undefined
-  const res = await fetch(shopApiUrl, {
+  const res = await fetch(""+url, {
     method,
     body,
     headers,
