@@ -1,7 +1,7 @@
 {
-  "name": "Next.js Commerce",
-  "short_name": "Next.js Commerce",
-  "description": "Next.js Commerce -> https://www.nextjs.org/commerce",
+  "name": "däp",
+  "short_name": "däp",
+  "description": "däp",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#fff",
@@ -9,14 +9,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+        "src": "/android-chrome-384x384.png",
+        "sizes": "384x384",
+        "type": "image/png"
     }
   ]
 }
