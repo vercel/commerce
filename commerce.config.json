@@ -1,4 +1,5 @@
 {
+  "provider": "vendure",
   "features": {
     "cart": true,
     "search": true,
