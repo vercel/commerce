@@ -1,5 +1,5 @@
 import { Fetcher } from '@commerce/utils/types'
-import { FetcherError } from '@commerce/utils/errors'
+import { ErrorProps, FetcherError } from '@commerce/utils/errors'
 
 async function getText(res: Response) {
   try {
@@ -9,12 +9,18 @@ async function getText(res: Response) {
   }
 }
 
+async function fetcherError(options: {
+  status: number
+} & ErrorProps) {
+  return new FetcherError(options)
+}
+
 async function getError(res: Response) {
   if (res.headers.get('Content-Type')?.includes('application/json')) {
     const data = await res.json()
-    return new FetcherError({ errors: data.errors, status: res.status })
+    return fetcherError({ errors: data.errors, status: res.status })
   }
-  return new FetcherError({ message: await getText(res), status: res.status })
+  return fetcherError({ message: await getText(res), status: res.status })
 }
 
 export const fetcher: Fetcher = async ({
@@ -41,11 +47,12 @@ export const fetcher: Fetcher = async ({
     headers,
     credentials: 'include',
   })
-
   if (res.ok) {
-    const { data } = await res.json()
+    const { data, errors } = await res.json()
+    if (errors) {
+      throw await fetcherError({ status: res.status, errors })
+    }
     return data
   }
-
   throw await getError(res)
 }
