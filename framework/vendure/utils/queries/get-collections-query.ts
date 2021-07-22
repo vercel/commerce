@@ -15,6 +15,13 @@ export const getCollectionsQuery = /* GraphQL */ `
         children {
           id
         }
+        assets {
+          id
+          name
+          source
+          width
+          height
+        }
       }
     }
   }

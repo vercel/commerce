@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev -p 8000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
     "prettier-fix": "prettier --write .",
     "find:unused": "npx next-unused",

@@ -4,6 +4,8 @@ import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export async function getStaticProps({
   preview,
@@ -36,23 +38,29 @@ export async function getStaticProps({
 }
 
 export default function Home({
-  products,
+  products, categories
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Grid variant="filled">
-        {products.slice(0, 3).map((product: any, i: number) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
-            }}
-          />
-        ))}
-      </Grid>
-      <Marquee variant="secondary">
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+      {categories.slice(0, 3).map((category: any, i: number) => (
+        <Link href={`/search/${category.slug}`}>
+          <a>
+            <Image
+              quality="100"
+              src={category.assets[0].source}
+              height={category.assets[0].height}
+              width={category.assets[0].width}
+              layout="fixed"
+            />
+          </a>
+        </Link>
+      ))}
+      </div>
+      <Marquee variant="primary">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
@@ -61,7 +69,7 @@ export default function Home({
         headline=" Dessert dragée halvah croissant."
         description="Cupcake ipsum dolor sit amet lemon drops pastry cotton candy. Sweet carrot cake macaroon bonbon croissant fruitcake jujubes macaroon oat cake. Soufflé bonbon caramels jelly beans. Tiramisu sweet roll cheesecake pie carrot cake. "
       />
-      <Grid layout="B" variant="filled">
+      {/* <Grid layout="B" variant="filled">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
@@ -77,7 +85,7 @@ export default function Home({
         {products.slice(3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
-      </Marquee>
+      </Marquee> */}
       {/* <HomeAllProductsGrid
         newestProducts={products}
         categories={categories}

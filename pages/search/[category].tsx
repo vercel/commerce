@@ -1,6 +1,6 @@
 import { getSearchStaticProps } from '@lib/search-props'
 import type { GetStaticPathsResult, GetStaticPropsContext } from 'next'
-import Search from '@components/search'
+import Search from '@theme/search'
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   return getSearchStaticProps(context)

@@ -24,7 +24,9 @@
       "@commerce": ["framework/commerce"],
       "@commerce/*": ["framework/commerce/*"],
       "@framework": ["framework/vendure"],
-      "@framework/*": ["framework/vendure/*"]
+      "@framework/*": ["framework/vendure/*"],
+      "@theme": ["theme/dap"],
+      "@theme/*": ["theme/dap/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
