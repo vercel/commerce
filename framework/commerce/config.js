@@ -14,6 +14,7 @@ const PROVIDERS = [
   'swell',
   'vendure',
   'local',
+  'spree',
 ]
 
 function getProviderName() {

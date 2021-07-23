@@ -7,37 +7,29 @@ import {
   useCommerce as useCoreCommerce,
 } from '@commerce'
 
-// import { provider, Provider } from './provider'
-import { createProvider, Provider } from './createProvider'
-
-// export { provider }
-
-// TODO: Below is probably not needed. Expect default values to be set by NextJS Commerce and be ok for now.
-// export const saleorConfig: CommerceConfig = {
-//   locale: 'en-us',
-//   cartCookie: Const.CHECKOUT_ID_COOKIE,
-// }
-
-export type Config = {
-  store: {
-    host: string
-  }
-} & CommerceConfig // This is the type that holds any custom values specifically for the Spree Framework.
+import { provider } from './provider'
+import type { Provider } from './provider'
+import { requireConfigValue } from './isomorphicConfig'
 
 export type SpreeProps = {
   children: ReactNode
   provider: Provider
-  config: Config
-} & Config
+  config: SpreeConfig
+} & SpreeConfig
 
-export function CommerceProvider({ children, ...config }: SpreeProps) {
-  console.log('CommerceProvider called')
+export const spreeCommerceConfigDefaults: CommerceConfig = {
+  locale: requireConfigValue('defaultLocale'),
+  cartCookie: requireConfigValue('cartCookieName'),
+}
 
-  // TODO: Make sure this doesn't get called all the time. If it does, useMemo.
-  const provider = createProvider({ config })
+export type SpreeConfig = CommerceConfig
 
+export function CommerceProvider({ children, ...restProps }: SpreeProps) {
   return (
-    <CoreCommerceProvider provider={provider} config={config}>
+    <CoreCommerceProvider
+      provider={provider}
+      config={{ ...spreeCommerceConfigDefaults, ...restProps }}
+    >
       {children}
     </CoreCommerceProvider>
   )
