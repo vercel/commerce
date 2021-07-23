@@ -12,4 +12,11 @@ Copy the `.env.template` file in this directory to `.env.local` in the main dire
 cp framework/saleor/.env.template .env.local
 ```
 
-Then, set the environment variables in `.env.local` to match the ones from your store.
+Then, set the environment following variables in your `.env.local`. Both, `NEXT_PUBLIC_SALEOR_API_URL` and `COMMERCE_IMAGE_HOST` must point to your own Saleor instance.  
+
+```
+COMMERCE_PROVIDER=saleor
+NEXT_PUBLIC_SALEOR_API_URL=https://vercel.saleor.cloud/graphql/
+NEXT_PUBLIC_SALEOR_CHANNEL=default-channel
+COMMERCE_IMAGE_HOST=vercel.saleor.cloud
+```
