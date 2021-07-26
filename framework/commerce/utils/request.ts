@@ -4,7 +4,7 @@ interface requestProps {
 }
 const request = async ({query, variables}: requestProps) => {
 
-  const data = await fetch('http://localhost:5000/shop-api', {
+  const data = await fetch(String(process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: 'include',
