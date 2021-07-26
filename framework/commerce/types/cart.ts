@@ -54,6 +54,7 @@ export type ProductVariant = {
   // The variant's depth. If a depth was not explicitly specified on the
   // variant, this will be the product's depth.
   depth?: Measurement
+  stockLevel?: string
 }
 
 // Shopping cart, a.k.a Checkout

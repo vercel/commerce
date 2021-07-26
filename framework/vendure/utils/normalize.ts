@@ -46,6 +46,7 @@ export function normalizeCart(order: CartFragment): Cart {
         sku: l.productVariant.sku,
         price: l.discountedUnitPriceWithTax / 100,
         listPrice: l.unitPriceWithTax / 100,
+        stockLevel: l.productVariant.stockLevel,
         image: {
           url: l.featuredAsset?.preview + '?preset=thumb' || '',
         },

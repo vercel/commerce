@@ -1,10 +1,11 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback, useEffect } from 'react'
 import cn from 'classnames'
 import s from './ShippingView.module.css'
 import { Button, Input } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 
+import { validate } from 'email-validator'
 import { v4 as uuid } from 'uuid'
 import { setCustomerForOrderMutation } from '@framework/utils/mutations/set-customer-for-order-mutation'
 import { setOrderShippingAddressMutation } from '@framework/utils/mutations/set-order-shipping-address-mutation'
@@ -19,7 +20,7 @@ const PaymentMethodView: FC = () => {
   const [streetDetails, setStreetDetails] = useState('')
   const [apartmentDetails, setApartmentDetails] = useState('')
   const [loading, setLoading] = useState(false)
-
+  const [disabled, setDisabled] = useState(true)
   const { setSidebarView } = useUI()
 
   const setCustomerForOrder = async () => {
@@ -54,10 +55,30 @@ const PaymentMethodView: FC = () => {
     })
     console.log(data, 222)
   }
+  const handleValidation = useCallback(
+    () => {
+      
+      setDisabled(
+        !validate(email)
+        || firstName.length < 3 
+        || lastName.length < 3
+        || phoneNumber.length < 6
+        || streetDetails.length < 5
+      )
+    },
+    [
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      streetDetails,
+      apartmentDetails
+    ],
+  )
 
   const handleAddShippingAddress = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
-
+    handleValidation()
     console.log('Handle Add Shipping Address')
 
     try {
@@ -71,6 +92,10 @@ const PaymentMethodView: FC = () => {
     }
     
   }
+  useEffect(() => {
+    handleValidation()
+  }, [handleValidation])
+
   return (
     <SidebarLayout handleBack={() => setSidebarView('CHECKOUT_VIEW')}>
       <form
@@ -143,6 +168,7 @@ const PaymentMethodView: FC = () => {
             type="submit"
             loading={loading}
             width="100%"
+            disabled={disabled}
           >
             Continue
           </Button>

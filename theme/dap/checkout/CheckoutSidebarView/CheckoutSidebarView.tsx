@@ -17,7 +17,7 @@ import request from '@commerce/utils/request'
 const CheckoutSidebarView: FC = () => {
   const { setSidebarView, closeSidebarIfPresent } = useUI()
   const { data } = useCart()
-
+  console.log(data, 555)
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
@@ -109,12 +109,17 @@ const CheckoutSidebarView: FC = () => {
         </div>
         <div>
           {/* Once data is correcly filled */}
-          <Button Component="a" width="100%" onClick={handleConfirmPurchase}>
-            Confirm Purchase
-          </Button>
-          {/* <Button Component="a" width="100%" variant="ghost" disabled>
-            Continue
-          </Button> */}
+          {data?.customerId ? (
+            <Button Component="a" width="100%" onClick={handleConfirmPurchase}>
+              Confirm Purchase
+            </Button>
+          ) : (
+            <Button Component="a" width="100%" variant="ghost" disabled>
+              Continue
+            </Button>
+          )}
+          
+          
         </div>
       </div>
     </SidebarLayout>
