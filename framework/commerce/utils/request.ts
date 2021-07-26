@@ -1,4 +1,8 @@
-const request = async ({query, variables}) => {
+interface requestProps {
+  query: string
+  variables: any
+}
+const request = async ({query, variables}: requestProps) => {
 
   const data = await fetch('http://localhost:5000/shop-api', {
     method: "POST",
