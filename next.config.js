@@ -38,6 +38,15 @@ module.exports = withCommerceConfig({
         },
     ].filter(Boolean)
   },
+  async redirects () {
+    return [
+      {
+        source: '/',
+        destination: '/search',
+        permanent: true,
+      }
+    ]
+  }
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
