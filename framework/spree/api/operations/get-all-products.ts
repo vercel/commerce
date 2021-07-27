@@ -1,78 +1,142 @@
-import { Product } from '@commerce/types/product'
-import { GetAllProductsOperation } from '@commerce/types/product'
+import type {
+  Product,
+  ProductOption,
+  ProductOptionValues,
+  ProductPrice,
+  ProductVariant,
+} from '@commerce/types/product'
+import type { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
-import type { LocalConfig, Provider, SpreeApiProvider } from '../index'
 import type { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
-// import data from '../../../local/data.json'
+import { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
+import type { SpreeApiConfig, SpreeApiProvider } from '../index'
+import type { SpreeSdkVariables } from 'framework/spree/types'
+import { findIncluded, findIncludedOfType } from 'framework/spree/utils/jsonApi'
+import getMediaGallery from 'framework/spree/utils/getMediaGallery'
+import createGetAbsoluteImageUrl from 'framework/spree/utils/createGetAbsoluteImageUrl'
+import { requireConfigValue } from 'framework/spree/isomorphicConfig'
+import SpreeResponseContentError from 'framework/spree/errors/SpreeResponseContentError'
+import expandOptions from 'framework/spree/utils/expandOptions'
 
 export default function getAllProductsOperation({
   commerce,
 }: OperationContext<SpreeApiProvider>) {
   async function getAllProducts<T extends GetAllProductsOperation>({
-    query = 'products.list',
-    variables = { first: 10 },
+    variables: getAllProductsVariables = {},
     config: userConfig,
   }: {
-    query?: string
     variables?: T['variables']
-    config?: Partial<LocalConfig>
+    config?: Partial<SpreeApiConfig>
   } = {}): Promise<{ products: Product[] | any[] }> {
-    const config = commerce.getConfig(userConfig)
-    const { fetch: apiFetch /*, locale*/ } = config
-    const first = variables.first // How many products to fetch.
-
-    console.log(
-      'sdfuasdufahsdf variables = ',
-      variables,
-      'query = ',
-      query,
-      'config = ',
-      config
+    console.info(
+      'getAllProducts called. Configuration: ',
+      'getAllProductsVariables: ',
+      getAllProductsVariables,
+      'config: ',
+      userConfig
     )
 
-    console.log('sdfasdg')
-
-    const { data } = await apiFetch<IProducts>(
-      query,
-      { variables }
-      // {
-      //   ...(locale && {}),
-      // }
-    )
-
-    console.log('asuidfhasdf', data)
-
-    // return {
-    //   products: data.products.edges.map(({ node }) =>
-    //     normalizeProduct(node as ShopifyProduct)
-    //   ),
-    // }
-
-    const normalizedProducts: Product[] = data.data.map((spreeProduct) => {
-      return {
-        id: spreeProduct.id,
-        name: spreeProduct.attributes.name,
-        description: spreeProduct.attributes.description,
-        images: [],
-        variants: [],
-        options: [],
-        price: {
-          value: 10,
-          currencyCode: 'USD',
-          retailPrice: 8,
-          salePrice: 7,
-          listPrice: 6,
-          extendedSalePrice: 2,
-          extendedListPrice: 1,
+    const first = getAllProductsVariables.first
+    const variables: SpreeSdkVariables = {
+      methodPath: 'products.list',
+      arguments: [
+        {
+          include: 'variants,images,option_types,variants.option_values',
+          per_page: first,
         },
-      }
-    })
-
-    return {
-      // products: data.products,
-      // TODO: Return Spree products.
-      products: normalizedProducts,
+      ],
     }
+
+    const config = commerce.getConfig(userConfig)
+    const { fetch: apiFetch } = config // TODO: Send config.locale to Spree.
+
+    const { data: spreeSuccessResponse } = await apiFetch<IProducts>(
+      '__UNUSED__',
+      { variables }
+    )
+
+    const normalizedProducts: Product[] = spreeSuccessResponse.data.map(
+      (spreeProduct) => {
+        const spreeImageRecords = findIncludedOfType(
+          spreeSuccessResponse,
+          spreeProduct,
+          'images'
+        )
+
+        const images = getMediaGallery(
+          spreeImageRecords,
+          createGetAbsoluteImageUrl(requireConfigValue('spreeImageHost'))
+        )
+
+        const price: ProductPrice = {
+          value: parseFloat(spreeProduct.attributes.price),
+          currencyCode: spreeProduct.attributes.currency,
+        }
+
+        // TODO: Add sku to product object equal to master SKU from Spree.
+        // Currently, the Spree API doesn't return it.
+
+        const hasNonMasterVariants =
+          (spreeProduct.relationships.variants.data as RelationType[]).length >
+          0
+
+        let variants: ProductVariant[]
+        let options: ProductOption[] = []
+
+        if (hasNonMasterVariants) {
+          const spreeVariantRecords = findIncludedOfType(
+            spreeSuccessResponse,
+            spreeProduct,
+            'variants'
+          )
+
+          variants = spreeVariantRecords.map((spreeVariantRecord) => {
+            const spreeOptionValues = findIncludedOfType(
+              spreeSuccessResponse,
+              spreeVariantRecord,
+              'option_values'
+            )
+
+            let variantOptions: ProductOption[] = []
+
+            // Only include options which are used by variants.
+
+            spreeOptionValues.forEach((spreeOptionValue) => {
+              variantOptions = expandOptions(
+                spreeSuccessResponse,
+                spreeOptionValue,
+                variantOptions
+              )
+
+              options = expandOptions(
+                spreeSuccessResponse,
+                spreeOptionValue,
+                options
+              )
+            })
+
+            return {
+              id: spreeVariantRecord.id,
+              options: variantOptions,
+            }
+          })
+        } else {
+          variants = []
+        }
+
+        return {
+          id: spreeProduct.id,
+          name: spreeProduct.attributes.name,
+          description: spreeProduct.attributes.description,
+          images,
+          variants,
+          options,
+          price,
+        }
+      }
+    )
+
+    return { products: normalizedProducts }
   }
 
   return getAllProducts

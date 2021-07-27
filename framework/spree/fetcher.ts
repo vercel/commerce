@@ -3,11 +3,12 @@ import convertSpreeErrorToGraphQlError from './utils/convertSpreeErrorToGraphQlE
 import { makeClient } from '@spree/storefront-api-v2-sdk'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type {
-  JsonApiDocument,
   JsonApiListResponse,
+  JsonApiResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import { errors } from '@spree/storefront-api-v2-sdk'
 import { requireConfigValue } from './isomorphicConfig'
+import getSpreeSdkMethodFromEndpointPath from './utils/getSpreeSdkMethodFromEndpointPath'
 // import { handleFetchResponse } from './utils'
 
 const client = makeClient({ host: requireConfigValue('spreeApiHost') })
@@ -31,32 +32,10 @@ const fetcher: Fetcher = async (requestOptions) => {
     `Fetching products using options: ${JSON.stringify(requestOptions)}.`
   )
 
-  // const storeResponse = await fetch(url, {
-  // method,
-  // body: JSON.stringify({ query, variables: vars }),
-  // headers: {
-  // 'X-Shopify-Storefront-Access-Token': API_TOKEN,
-  // 'Content-Type': 'application/json', TODO: Probably not needed. Check!
-  // },
-  // })
-
-  // const storeResponse.json()
-
-  // if (storeResponse.ok) {
-  //   return
-  // }
-
   // TODO: Not best to use url for finding the method, but should be good enough for now.
 
-  const clientEndpointMethod = url
-    .split('.')
-    .reduce((clientNode: any, pathPart) => {
-      // TODO: Fix clientNode type
-      return clientNode[pathPart]
-    }, client)
-
-  const storeResponse: ResultResponse<JsonApiDocument | JsonApiListResponse> =
-    await clientEndpointMethod(...variables.args) // TODO: Not the best to use variables here as it's type is any.
+  const storeResponse: ResultResponse<JsonApiResponse | JsonApiListResponse> =
+    await getSpreeSdkMethodFromEndpointPath(client, url)(...variables.args) // TODO: Not the best to use variables here as it's type is any.
 
   if (storeResponse.success()) {
     return storeResponse.success()

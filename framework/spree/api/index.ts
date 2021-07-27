@@ -1,4 +1,4 @@
-import type { APIProvider, CommerceAPI, CommerceAPIConfig } from '@commerce/api'
+import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
 import { getCommerceApi as commerceApi } from '@commerce/api'
 import createApiFetch from './utils/create-api-fetch'
 

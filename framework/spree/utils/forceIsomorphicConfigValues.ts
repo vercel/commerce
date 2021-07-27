@@ -4,7 +4,7 @@ import isServer from './isServer'
 
 const generateMisconfigurationErrorMessage = (
   keys: Array<string | number | symbol>
-) => `${keys.join(', ')} must have values before running the Framework.`
+) => `${keys.join(', ')} must have a value before running the Framework.`
 
 const forceIsomorphicConfigValues = <
   X extends keyof T,
