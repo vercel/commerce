@@ -38,27 +38,33 @@ export async function getStaticProps({
 }
 
 export default function Home({
-  products, categories
+  products,
+  categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center'
-      }}>
-      {categories.slice(0, 3).map((category: any, i: number) => (
-        <Link href={`/search/${category.slug}`}>
-          <a>
-            <Image
-              quality="100"
-              src={category.assets[0].source}
-              height={category.assets[0].height}
-              width={category.assets[0].width}
-              layout="fixed"
-            />
-          </a>
-        </Link>
-      ))}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          overflowX: 'hidden',
+          height: '30%',
+        }}
+      >
+        {categories.slice(0, 3).map((category: any, i: number) => (
+          <Link href={`/search/${category.slug}`}>
+            <a style={{ width: '33.33%' }}>
+              <Image
+                quality="100"
+                src={category.assets[0].source}
+                height={category.assets[0].height}
+                width={category.assets[0].height}
+                layout="responsive"
+                objectFit="cover"
+              />
+            </a>
+          </Link>
+        ))}
       </div>
       <Marquee variant="primary">
         {products.slice(0, 3).map((product: any, i: number) => (

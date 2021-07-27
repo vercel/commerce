@@ -7,6 +7,7 @@ import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
 import ProductTag from '../ProductTag'
+
 interface Props {
   className?: string
   product: Product
@@ -53,6 +54,7 @@ const ProductCard: FC<Props> = ({
                 height={320}
                 width={320}
                 layout="fixed"
+                objectFit="cover"
                 {...imgProps}
               />
             )}
