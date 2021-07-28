@@ -6,6 +6,13 @@ import normalizeProduct from '../utils/normalizeProduct'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 
+const nextToSpreeSortMap: { [key: string]: string } = {
+  'trending-desc': 'updated_at', // Spree has no "trending" filter. Use updated_at.
+  'latest-desc': 'updated_at',
+  'price-asc': 'price',
+  'price-desc': '-price',
+}
+
 export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
     url: '__UNUSED__',
@@ -13,7 +20,6 @@ export const handler: SWRHook<SearchProductsHook> = {
   },
   async fetcher({ input, options, fetch }) {
     // This method is only needed if the options need to be modified before calling the generic fetcher (created in createFetcher).
-    // TODO: Actually filter by input and query.
 
     console.info(
       'useSearch fetcher called. Configuration: ',
@@ -34,6 +40,8 @@ export const handler: SWRHook<SearchProductsHook> = {
           }
         : {}
 
+    const sort = input.sort ? { sort: nextToSpreeSortMap[input.sort] } : {}
+
     const { data: spreeSuccessResponse } = await fetch<
       GraphQLFetcherResult<IProducts>
     >({
@@ -44,6 +52,7 @@ export const handler: SWRHook<SearchProductsHook> = {
             include: 'variants,images,option_types,variants.option_values',
             per_page: 50,
             ...filter,
+            ...sort,
           },
         ],
       },
