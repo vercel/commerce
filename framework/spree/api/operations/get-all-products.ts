@@ -124,6 +124,9 @@ export default function getAllProductsOperation({
           variants = []
         }
 
+        const slug = spreeProduct.attributes.slug
+        const path = `/${spreeProduct.attributes.slug}`
+
         return {
           id: spreeProduct.id,
           name: spreeProduct.attributes.name,
@@ -132,6 +135,8 @@ export default function getAllProductsOperation({
           variants,
           options,
           price,
+          slug,
+          path,
         }
       }
     )
