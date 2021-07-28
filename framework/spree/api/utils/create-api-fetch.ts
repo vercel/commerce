@@ -22,8 +22,9 @@ const createApiFetch: (
   return async (url, queryData = {}, fetchOptions = {}) => {
     console.log(
       'apiFetch called. query = ',
-      url,
       'url = ',
+      url,
+      'queryData = ',
       queryData,
       'fetchOptions = ',
       fetchOptions
