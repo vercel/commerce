@@ -39,26 +39,26 @@ const normalizeProduct = (
   // Currently, the Spree API doesn't return it.
 
   const hasNonMasterVariants =
-    (spreeProduct.relationships.variants.data as RelationType[]).length > 0
+    (spreeProduct.relationships.variants.data as RelationType[]).length > 1
 
   let variants: ProductVariant[]
   let options: ProductOption[] = []
 
-  if (hasNonMasterVariants) {
-    const spreeVariantRecords = findIncludedOfType(
-      spreeSuccessResponse,
-      spreeProduct,
-      'variants'
-    )
+  const spreeVariantRecords = findIncludedOfType(
+    spreeSuccessResponse,
+    spreeProduct,
+    'variants'
+  )
 
-    variants = spreeVariantRecords.map((spreeVariantRecord) => {
+  variants = spreeVariantRecords.map((spreeVariantRecord) => {
+    let variantOptions: ProductOption[] = []
+
+    if (hasNonMasterVariants) {
       const spreeOptionValues = findIncludedOfType(
         spreeSuccessResponse,
         spreeVariantRecord,
         'option_values'
       )
-
-      let variantOptions: ProductOption[] = []
 
       // Only include options which are used by variants.
 
@@ -71,15 +71,13 @@ const normalizeProduct = (
 
         options = expandOptions(spreeSuccessResponse, spreeOptionValue, options)
       })
+    }
 
-      return {
-        id: spreeVariantRecord.id,
-        options: variantOptions,
-      }
-    })
-  } else {
-    variants = []
-  }
+    return {
+      id: spreeVariantRecord.id,
+      options: variantOptions,
+    }
+  })
 
   const slug = spreeProduct.attributes.slug
   const path = `/${spreeProduct.attributes.slug}`
