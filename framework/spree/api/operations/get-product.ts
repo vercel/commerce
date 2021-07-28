@@ -1,26 +1,76 @@
-import type { LocalConfig } from '../index'
-import { Product } from '@commerce/types/product'
-import { GetProductOperation } from '@commerce/types/product'
-import data from '../../../local/data.json'
-import type { OperationContext } from '@commerce/api/operations'
+import type { SpreeApiConfig, SpreeApiProvider } from '../index'
+import type { GetProductOperation } from '@commerce/types/product'
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
+import type { IProduct } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
+import type { SpreeSdkVariables } from 'framework/spree/types'
+import MissingSlugVariableError from 'framework/spree/errors/MissingSlugVariableError'
+import normalizeProduct from 'framework/spree/utils/normalizeProduct'
 
 export default function getProductOperation({
   commerce,
-}: OperationContext<any>) {
+}: OperationContext<SpreeApiProvider>) {
+  async function getProduct<T extends GetProductOperation>(opts: {
+    variables: T['variables']
+    config?: Partial<SpreeApiConfig>
+    preview?: boolean
+  }): Promise<T['data']>
+
+  async function getProduct<T extends GetProductOperation>(
+    opts: {
+      variables: T['variables']
+      config?: Partial<SpreeApiConfig>
+      preview?: boolean
+    } & OperationOptions
+  ): Promise<T['data']>
+
   async function getProduct<T extends GetProductOperation>({
     query = '',
-    variables,
-    config,
+    variables: getProductVariables,
+    config: userConfig,
   }: {
     query?: string
     variables?: T['variables']
-    config?: Partial<LocalConfig>
+    config?: Partial<SpreeApiConfig>
     preview?: boolean
-  } = {}): Promise<Product | {} | any> {
+  }): Promise<T['data']> {
+    console.log(
+      'getProduct called. Configuration: ',
+      'getProductVariables: ',
+      getProductVariables,
+      'config: ',
+      userConfig
+    )
+
+    if (!getProductVariables?.slug) {
+      throw new MissingSlugVariableError()
+    }
+
+    const variables: SpreeSdkVariables = {
+      methodPath: 'products.show',
+      arguments: [
+        getProductVariables.slug,
+        {
+          include: 'variants,images,option_types,variants.option_values',
+        },
+      ],
+    }
+
+    const config = commerce.getConfig(userConfig)
+    const { fetch: apiFetch } = config // TODO: Send config.locale to Spree.
+
+    const { data: spreeSuccessResponse } = await apiFetch<IProduct>(
+      '__UNUSED__',
+      { variables }
+    )
+
     return {
-      product: data.products.find(({ slug }) => slug === variables!.slug),
-      // TODO: Return Spree product.
-      // product: {},
+      product: normalizeProduct(
+        spreeSuccessResponse,
+        spreeSuccessResponse.data
+      ),
     }
   }
 

@@ -2,8 +2,10 @@ import type {
   ProductOption,
   ProductOptionValues,
 } from '@commerce/types/product'
-import type { JsonApiDocument } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
-import type { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
+import type {
+  JsonApiDocument,
+  JsonApiResponse,
+} from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import SpreeResponseContentError from '../errors/SpreeResponseContentError'
 import { findIncluded } from './jsonApi'
@@ -12,7 +14,7 @@ const isColorProductOption = (productOption: ProductOption) =>
   productOption.displayName === 'Color'
 
 const expandOptions = (
-  spreeSuccessResponse: IProducts,
+  spreeSuccessResponse: JsonApiResponse,
   spreeOptionValue: JsonApiDocument,
   accumulatedOptions: ProductOption[]
 ): ProductOption[] => {
