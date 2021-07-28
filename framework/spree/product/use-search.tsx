@@ -31,14 +31,12 @@ export const handler: SWRHook<SearchProductsHook> = {
 
     const taxons = [input.categoryId, input.brandId].filter(Boolean)
 
-    const filter =
-      taxons.length > 0
-        ? {
-            filter: {
-              taxons: taxons.join(','),
-            },
-          }
-        : {}
+    const filter = {
+      filter: {
+        ...(taxons.length > 0 ? { taxons: taxons.join(',') } : {}),
+        ...(input.search ? { name: input.search } : {}),
+      },
+    }
 
     const sort = input.sort ? { sort: nextToSpreeSortMap[input.sort] } : {}
 
