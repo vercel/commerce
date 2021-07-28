@@ -3,7 +3,7 @@ import type { LoginEndpoint } from '.'
 
 const MoltinGateway = require('@moltin/sdk').gateway
 const Moltin = MoltinGateway({
-  client_id: process.env.ELASTICPATH_CLIENTID,
+  client_id: process.env.NEXT_PUBLIC_ELASTICPATH_CLIENTID,
   client_secret: process.env.ELASTICPATH_SECRET
 })
 
@@ -33,7 +33,7 @@ const login: LoginEndpoint['handlers']['login'] = async ({
     let expiry = new Date(Date.now() + tokens.data.expires);
     // encodeing the tocken object with btoa
     // in clinet side, use atob to decode the token object
-    let cookieValue = `customer_token=${btoa(customer_token)};Expires=${expiry}`
+    let cookieValue = `customer_token=${btoa(customer_token)};Expires=${expiry};Path=/`
     res.setHeader("Set-Cookie", cookieValue);
 
     return res.status(200).json(tokens);
