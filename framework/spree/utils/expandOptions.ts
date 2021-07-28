@@ -73,8 +73,17 @@ const expandOptions = (
       }
     }
 
-    const expandedOptionValues = [...option.values, optionValue]
+    if (existingOptionIndex === -1) {
+      return [
+        ...accumulatedOptions,
+        {
+          ...option,
+          values: [optionValue],
+        },
+      ]
+    }
 
+    const expandedOptionValues = [...option.values, optionValue]
     const expandedOptions = [...accumulatedOptions]
 
     expandedOptions[existingOptionIndex] = {

@@ -12,7 +12,7 @@ const getMediaGallery = (
   ) => string | null
 ) => {
   return images.reduce<ProductImage[]>((productImages, _, imageIndex) => {
-    const imageUrl = getImageUrl(images[imageIndex], 9001, 9001)
+    const imageUrl = getImageUrl(images[imageIndex], 800, 800)
 
     if (imageUrl) {
       return [
