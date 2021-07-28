@@ -3,10 +3,28 @@ import type {
   OperationOptions,
 } from '@commerce/api/operations'
 import type { Category, GetSiteInfoOperation } from '@commerce/types/site'
-import type { ITaxons } from '@spree/storefront-api-v2-sdk/types/interfaces/Taxon'
+import type {
+  ITaxons,
+  TaxonAttr,
+} from '@spree/storefront-api-v2-sdk/types/interfaces/Taxon'
 import { requireConfigValue } from 'framework/spree/isomorphicConfig'
 import type { SpreeSdkVariables } from 'framework/spree/types'
 import type { SpreeApiConfig, SpreeApiProvider } from '..'
+
+const taxonsSort = (spreeTaxon1: TaxonAttr, spreeTaxon2: TaxonAttr): number => {
+  const { left: left1, right: right1 } = spreeTaxon1.attributes
+  const { left: left2, right: right2 } = spreeTaxon2.attributes
+
+  if (right1 < left2) {
+    return -1
+  }
+
+  if (right2 < left1) {
+    return 1
+  }
+
+  return 0
+}
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
@@ -83,7 +101,7 @@ export default function getSiteInfoOperation({
     )
 
     const normalizedCategories: GetSiteInfoOperation['data']['categories'] =
-      spreeCategoriesSuccessResponse.data.map((spreeTaxon) => {
+      spreeCategoriesSuccessResponse.data.sort(taxonsSort).map((spreeTaxon) => {
         return {
           id: spreeTaxon.id,
           name: spreeTaxon.attributes.name,
@@ -93,7 +111,7 @@ export default function getSiteInfoOperation({
       })
 
     const normalizedBrands: GetSiteInfoOperation['data']['brands'] =
-      spreeBrandsSuccessResponse.data.map((spreeTaxon) => {
+      spreeBrandsSuccessResponse.data.sort(taxonsSort).map((spreeTaxon) => {
         return {
           node: {
             entityId: spreeTaxon.id,
