@@ -53,7 +53,7 @@ const ProductCard: FC<Props> = ({
                 alt={product.name || 'Product Image'}
                 height={320}
                 width={320}
-                layout="fixed"
+                layout="responsive"
                 objectFit="cover"
                 {...imgProps}
               />
