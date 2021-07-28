@@ -23,15 +23,16 @@ export const handler: SWRHook<SearchProductsHook> = {
       options
     )
 
-    const categoryOrBrandId = input.categoryId || input.brandId
+    const taxons = [input.categoryId, input.brandId].filter(Boolean)
 
-    const filter = categoryOrBrandId
-      ? {
-          filter: {
-            taxons: categoryOrBrandId,
-          },
-        }
-      : {}
+    const filter =
+      taxons.length > 0
+        ? {
+            filter: {
+              taxons: taxons.join(','),
+            },
+          }
+        : {}
 
     const { data: spreeSuccessResponse } = await fetch<
       GraphQLFetcherResult<IProducts>
@@ -81,15 +82,6 @@ export const handler: SWRHook<SearchProductsHook> = {
         },
       })
     },
-  // (input = {}) => {
-
-  //   return {
-  //     data: {
-  //       // FIXME: Use actual fetcher
-  //       products: [],
-  //     },
-  //   }
-  // },
 }
 
 export default useSearch as UseSearch<typeof handler>

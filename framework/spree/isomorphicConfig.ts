@@ -6,12 +6,22 @@ const isomorphicConfig = {
   defaultLocale: process.env.NEXT_PUBLIC_SPREE_DEFAULT_LOCALE,
   cartCookieName: process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_NAME,
   spreeImageHost: process.env.NEXT_PUBLIC_SPREE_IMAGE_HOST,
+  spreeCategoriesTaxonomyId:
+    process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_ID,
+  spreeBrandsTaxonomyId: process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_ID,
 }
 
 export default forceIsomorphicConfigValues(
   isomorphicConfig,
   [],
-  ['spreeApiHost', 'defaultLocale', 'cartCookieName', 'spreeImageHost']
+  [
+    'spreeApiHost',
+    'defaultLocale',
+    'cartCookieName',
+    'spreeImageHost',
+    'spreeCategoriesTaxonomyId',
+    'spreeBrandsTaxonomyId',
+  ]
 )
 
 type IsomorphicConfig = typeof isomorphicConfig
