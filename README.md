@@ -58,14 +58,6 @@ And check that the `tsconfig.json` resolves to the chosen provider:
   "@framework/*": ["framework/shopify/*"]
 ```
 
-The setup for Vendure would look like this:
-
-```
-COMMERCE_PROVIDER=vendure
-NEXT_PUBLIC_VENDURE_SHOP_API_URL=https://demo.vendure.io/shop-api
-NEXT_PUBLIC_VENDURE_LOCAL_URL=/vendure-shop-api
-```
-
 That's it!
 
 ### Features
