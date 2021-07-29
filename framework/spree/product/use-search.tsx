@@ -40,9 +40,9 @@ export const handler: SWRHook<SearchProductsHook> = {
 
     const sort = input.sort ? { sort: nextToSpreeSortMap[input.sort] } : {}
 
-    const { data: spreeSuccessResponse } = await fetch<
-      GraphQLFetcherResult<IProducts>
-    >({
+    const {
+      data: { data: spreeSuccessResponse },
+    } = await fetch<GraphQLFetcherResult<{ data: IProducts }>>({
       variables: {
         methodPath: 'products.list',
         arguments: [

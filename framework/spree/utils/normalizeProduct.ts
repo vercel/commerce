@@ -5,7 +5,7 @@ import type {
 } from '@commerce/types/product'
 import type {
   JsonApiListResponse,
-  JsonApiResponse,
+  JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
@@ -16,7 +16,7 @@ import getMediaGallery from './getMediaGallery'
 import { findIncludedOfType } from './jsonApi'
 
 const normalizeProduct = (
-  spreeSuccessResponse: JsonApiResponse | JsonApiListResponse,
+  spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
   spreeProduct: ProductAttr
 ) => {
   const spreeImageRecords = findIncludedOfType(
@@ -27,7 +27,7 @@ const normalizeProduct = (
 
   const images = getMediaGallery(
     spreeImageRecords,
-    createGetAbsoluteImageUrl(requireConfigValue('spreeImageHost'))
+    createGetAbsoluteImageUrl(requireConfigValue('spreeImageHost') as string)
   )
 
   const price: ProductPrice = {
@@ -41,6 +41,10 @@ const normalizeProduct = (
   const hasNonMasterVariants =
     (spreeProduct.relationships.variants.data as RelationType[]).length > 1
 
+  const showOptions =
+    (requireConfigValue('showSingleVariantOptions') as boolean) ||
+    hasNonMasterVariants
+
   let variants: ProductVariant[]
   let options: ProductOption[] = []
 
@@ -53,7 +57,7 @@ const normalizeProduct = (
   variants = spreeVariantRecords.map((spreeVariantRecord) => {
     let variantOptions: ProductOption[] = []
 
-    if (hasNonMasterVariants) {
+    if (showOptions) {
       const spreeOptionValues = findIncludedOfType(
         spreeSuccessResponse,
         spreeVariantRecord,

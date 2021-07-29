@@ -9,6 +9,8 @@ const isomorphicConfig = {
   spreeCategoriesTaxonomyId:
     process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_ID,
   spreeBrandsTaxonomyId: process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_ID,
+  showSingleVariantOptions:
+    process.env.NEXT_PUBLIC_SHOW_SINGLE_VARIANT_OPTIONS === 'true',
 }
 
 export default forceIsomorphicConfigValues(
@@ -21,6 +23,7 @@ export default forceIsomorphicConfigValues(
     'spreeImageHost',
     'spreeCategoriesTaxonomyId',
     'spreeBrandsTaxonomyId',
+    'showSingleVariantOptions',
   ]
 )
 

@@ -84,21 +84,25 @@ export default function getSiteInfoOperation({
     const config = commerce.getConfig(userConfig)
     const { fetch: apiFetch } = config // TODO: Send config.locale to Spree.
 
-    const { data: spreeCategoriesSuccessResponse } = await apiFetch<ITaxons>(
-      '__UNUSED__',
-      {
-        variables: createVariables(
-          requireConfigValue('spreeCategoriesTaxonomyId')
-        ),
-      }
-    )
+    const {
+      data: { data: spreeCategoriesSuccessResponse },
+    } = await apiFetch<{
+      data: ITaxons
+    }>('__UNUSED__', {
+      variables: createVariables(
+        requireConfigValue('spreeCategoriesTaxonomyId') as string
+      ),
+    })
 
-    const { data: spreeBrandsSuccessResponse } = await apiFetch<ITaxons>(
-      '__UNUSED__',
-      {
-        variables: createVariables(requireConfigValue('spreeBrandsTaxonomyId')),
-      }
-    )
+    const {
+      data: { data: spreeBrandsSuccessResponse },
+    } = await apiFetch<{
+      data: ITaxons
+    }>('__UNUSED__', {
+      variables: createVariables(
+        requireConfigValue('spreeBrandsTaxonomyId') as string
+      ),
+    })
 
     const normalizedCategories: GetSiteInfoOperation['data']['categories'] =
       spreeCategoriesSuccessResponse.data.sort(taxonsSort).map((spreeTaxon) => {

@@ -18,8 +18,8 @@ export type SpreeProps = {
 } & SpreeConfig
 
 export const spreeCommerceConfigDefaults: CommerceConfig = {
-  locale: requireConfigValue('defaultLocale'),
-  cartCookie: requireConfigValue('cartCookieName'),
+  locale: requireConfigValue('defaultLocale') as string,
+  cartCookie: requireConfigValue('cartCookieName') as string,
 }
 
 export type SpreeConfig = CommerceConfig

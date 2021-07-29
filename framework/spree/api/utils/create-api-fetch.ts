@@ -1,4 +1,3 @@
-import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
 import { SpreeApiConfig } from '..'
 import { errors, makeClient } from '@spree/storefront-api-v2-sdk'
 import { requireConfigValue } from 'framework/spree/isomorphicConfig'
@@ -6,18 +5,25 @@ import convertSpreeErrorToGraphQlError from 'framework/spree/utils/convertSpreeE
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type {
   JsonApiListResponse,
-  JsonApiResponse,
+  JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import getSpreeSdkMethodFromEndpointPath from 'framework/spree/utils/getSpreeSdkMethodFromEndpointPath'
 import { SpreeSdkVariables } from 'framework/spree/types'
 import SpreeSdkMethodFromEndpointPathError from 'framework/spree/errors/SpreeSdkMethodFromEndpointPathError'
+import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
+import createCreateFetchFetcher from '../../utils/createCreateFetchFetcher'
+import createVercelFetch from '@vercel/fetch'
 
 const createApiFetch: (
   getConfig: () => SpreeApiConfig
 ) => GraphQLFetcher<GraphQLFetcherResult<any>, SpreeSdkVariables> = (
-  getConfig
+  _getConfig
 ) => {
-  const client = makeClient({ host: requireConfigValue('spreeApiHost') })
+  const client = makeClient({
+    host: requireConfigValue('spreeApiHost') as string,
+    fetcherType: 'custom',
+    createFetcher: createCreateFetchFetcher({ fetch: createVercelFetch() }),
+  })
 
   return async (url, queryData = {}, fetchOptions = {}) => {
     console.log(
@@ -38,21 +44,22 @@ const createApiFetch: (
       )
     }
 
-    const storeResponse: ResultResponse<JsonApiResponse | JsonApiListResponse> =
-      await getSpreeSdkMethodFromEndpointPath(
-        client,
-        variables.methodPath
-      )(...variables.arguments)
+    const storeResponse: ResultResponse<
+      JsonApiSingleResponse | JsonApiListResponse
+    > = await getSpreeSdkMethodFromEndpointPath(
+      client,
+      variables.methodPath
+    )(...variables.arguments)
 
-    if (storeResponse.success()) {
+    if (storeResponse.isSuccess()) {
+      const data = storeResponse.success()
+      const rawFetchRespone = Object.getPrototypeOf(data).response
+
       return {
-        data: storeResponse.success(),
-        res: storeResponse as any, //FIXME: MUST BE fetch() RESPONSE instead of axios.
+        data,
+        res: rawFetchRespone,
       }
     }
-
-    // FIXME: Allow Spree SDK to use fetch instead of axios
-    // (https://github.com/spree/spree-storefront-api-v2-js-sdk/issues/189)
 
     const storeResponseError = storeResponse.fail()
 

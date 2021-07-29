@@ -21,6 +21,7 @@
   "dependencies": {
     "@react-spring/web": "^9.2.1",
     "@spree/storefront-api-v2-sdk": "^4.5.4",
+    "@types/qs": "^6.9.7",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.6",
     "body-scroll-lock": "^3.1.5",
@@ -38,6 +39,7 @@
     "next-themes": "^0.0.14",
     "postcss": "^8.3.5",
     "postcss-nesting": "^8.0.1",
+    "qs": "^6.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-fast-marquee": "^1.1.4",

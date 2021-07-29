@@ -4,20 +4,26 @@ import { makeClient } from '@spree/storefront-api-v2-sdk'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type {
   JsonApiListResponse,
-  JsonApiResponse,
+  JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import { errors } from '@spree/storefront-api-v2-sdk'
 import { requireConfigValue } from './isomorphicConfig'
 import getSpreeSdkMethodFromEndpointPath from './utils/getSpreeSdkMethodFromEndpointPath'
 import SpreeSdkMethodFromEndpointPathError from './errors/SpreeSdkMethodFromEndpointPathError'
 import type { SpreeSdkVariables } from './types'
-import { GraphQLFetcherResult } from '@commerce/api'
+import type { GraphQLFetcherResult } from '@commerce/api'
+import createCreateFetchFetcher from './utils/createCreateFetchFetcher'
 
-const client = makeClient({ host: requireConfigValue('spreeApiHost') })
+const client = makeClient({
+  host: requireConfigValue('spreeApiHost') as string,
+  fetcherType: 'custom',
+  createFetcher: createCreateFetchFetcher({ fetch: globalThis.fetch }),
+})
 
-const fetcher: Fetcher<GraphQLFetcherResult<any>, SpreeSdkVariables> = async (
-  requestOptions
-) => {
+const fetcher: Fetcher<
+  GraphQLFetcherResult<JsonApiSingleResponse | JsonApiListResponse>,
+  SpreeSdkVariables
+> = async (requestOptions) => {
   // url?: string
   // query?: string
   // method?: string
@@ -40,21 +46,22 @@ const fetcher: Fetcher<GraphQLFetcherResult<any>, SpreeSdkVariables> = async (
     )
   }
 
-  const storeResponse: ResultResponse<JsonApiResponse | JsonApiListResponse> =
-    await getSpreeSdkMethodFromEndpointPath(
-      client,
-      variables.methodPath
-    )(...variables.arguments)
+  const storeResponse: ResultResponse<
+    JsonApiSingleResponse | JsonApiListResponse
+  > = await getSpreeSdkMethodFromEndpointPath(
+    client,
+    variables.methodPath
+  )(...variables.arguments)
 
-  if (storeResponse.success()) {
+  if (storeResponse.isSuccess()) {
+    const data = storeResponse.success()
+    const rawFetchRespone = Object.getPrototypeOf(data).response
+
     return {
-      data: storeResponse.success(),
-      res: storeResponse as any, //FIXME: MUST BE fetch() RESPONSE instead of axios.
+      data,
+      res: rawFetchRespone,
     }
   }
-
-  // FIXME: Allow Spree SDK to use fetch instead of axios
-  // (https://github.com/spree/spree-storefront-api-v2-js-sdk/issues/189)
 
   const storeResponseError = storeResponse.fail()
 
@@ -64,15 +71,5 @@ const fetcher: Fetcher<GraphQLFetcherResult<any>, SpreeSdkVariables> = async (
 
   throw storeResponseError
 }
-
-// export const fetcher: Fetcher = async () => {
-//   console.log('FETCHER')
-//   const res = await fetch('./data.json')
-//   if (res.ok) {
-//     const { data } = await res.json()
-//     return data
-//   }
-//   throw res
-// }
 
 export default fetcher
