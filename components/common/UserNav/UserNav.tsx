@@ -30,8 +30,8 @@ const UserNav: FC<Props> = ({ className }) => {
           <li className={s.item}>
             <Button className={s.item} variant="naked" onClick={toggleSidebar} aria-label="Cart">
               <Bag />
+              {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
             </Button>
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
         )}
         {process.env.COMMERCE_WISHLIST_ENABLED && (
