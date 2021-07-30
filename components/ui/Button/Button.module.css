@@ -36,12 +36,12 @@
 }
 
 .naked {
-  @apply bg-white text-gray-800 font-semibold border-none shadow-none outline-none py-0 px-0;
+  @apply bg-transparent font-semibold border-none shadow-none outline-none py-0 px-0;
 }
 
 .naked:hover,
 .naked:focus {
-  @apply bg-white border-none;
+  @apply bg-transparent border-none;
 }
 
 .disabled,
