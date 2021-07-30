@@ -13,9 +13,9 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
-
 import LoginView from '@components/auth/LoginView'
 import s from './Layout.module.css'
+import withStripeElements from '@components/checkout/withStripeElements'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -123,4 +123,4 @@ const Layout: FC<Props> = ({
   )
 }
 
-export default Layout
+export default withStripeElements(Layout)

@@ -14,6 +14,7 @@ const isVendure = provider === 'vendure'
 module.exports = withCommerceConfig({
   env: {
     REACTION_API_DOMAIN: process.env.REACTION_API_DOMAIN,
+    STRIPE_PUBLIC_API_KEY: process.env.STRIPE_PUBLIC_API_KEY,
   },
   commerce,
   i18n: {

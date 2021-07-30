@@ -1,5 +1,12 @@
 import { FC } from 'react'
 import cn from 'classnames'
+import {
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+  useStripe,
+  useElements
+} from '@stripe/react-stripe-js'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import s from './PaymentMethodView.module.css'
@@ -20,15 +27,15 @@ const PaymentMethodView: FC = () => {
           <div className="grid gap-3 grid-flow-row grid-cols-12">
             <div className={cn(s.fieldset, 'col-span-7')}>
               <label className={s.label}>Card Number</label>
-              <input className={s.input} />
+              <CardNumberElement className={s.input} />
             </div>
             <div className={cn(s.fieldset, 'col-span-3')}>
               <label className={s.label}>Expires</label>
-              <input className={s.input} placeholder="MM/YY" />
+              <CardExpiryElement className={s.input} placeholder='MM/YY' />
             </div>
             <div className={cn(s.fieldset, 'col-span-2')}>
               <label className={s.label}>CVC</label>
-              <input className={s.input} />
+              <CardCvcElement className={s.input} />
             </div>
           </div>
           <hr className="border-accent-2 my-6" />
