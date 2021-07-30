@@ -1,43 +1,34 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
-import useCustomer from '../customer/use-customer'
-import createCustomerAccessTokenMutation from '../utils/mutations/customer-access-token-create'
-import {
-  CustomerAccessTokenCreateInput,
-  CustomerUserError,
-  Mutation,
-  MutationCheckoutCreateArgs,
-} from '../schema'
+import { CommerceError } from '@commerce/utils/errors'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import { setCustomerToken } from '../utils'
+import type { LoginHook } from '../types/login'
+import useCustomer from '../customer/use-customer'
+
+import {
+  setCustomerToken,
+  throwUserErrors,
+  customerAccessTokenCreateMutation,
+} from '../utils'
+import { Mutation, MutationCustomerAccessTokenCreateArgs } from '../schema'
 
 export default useLogin as UseLogin<typeof handler>
 
-const getErrorMessage = ({ code, message }: CustomerUserError) => {
-  switch (code) {
-    case 'UNIDENTIFIED_CUSTOMER':
-      message = 'Cannot find an account that matches the provided credentials'
-      break
-  }
-  return message
-}
-
-export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
+export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
-    query: createCustomerAccessTokenMutation,
+    query: customerAccessTokenCreateMutation,
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
       throw new CommerceError({
         message:
-          'A first name, last name, email and password are required to login',
+          'An email and password are required to login',
       })
     }
 
     const { customerAccessTokenCreate } = await fetch<
       Mutation,
-      MutationCheckoutCreateArgs
+      MutationCustomerAccessTokenCreateArgs
     >({
       ...options,
       variables: {
@@ -45,13 +36,8 @@ export const handler: MutationHook<null, {}, CustomerAccessTokenCreateInput> = {
       },
     })
 
-    const errors = customerAccessTokenCreate?.customerUserErrors
+    throwUserErrors(customerAccessTokenCreate?.customerUserErrors)
 
-    if (errors && errors.length) {
-      throw new ValidationError({
-        message: getErrorMessage(errors[0]),
-      })
-    }
     const customerAccessToken = customerAccessTokenCreate?.customerAccessToken
     const accessToken = customerAccessToken?.accessToken
 

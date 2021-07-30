@@ -1,28 +1,19 @@
 import Cookies from 'js-cookie'
 import { useHook, useSWRHook } from '../utils/use-hook'
-import type { HookFetcherFn, SWRHook } from '../utils/types'
-import type { Cart } from '../types'
+import type { SWRHook, HookFetcherFn } from '../utils/types'
+import type { GetCartHook } from '../types/cart'
 import { Provider, useCommerce } from '..'
 
-export type FetchCartInput = {
-  cartId?: Cart['id']
-}
-
 export type UseCart<
-  H extends SWRHook<any, any, any> = SWRHook<
-    Cart | null,
-    {},
-    FetchCartInput,
-    { isEmpty?: boolean }
-  >
+  H extends SWRHook<GetCartHook<any>> = SWRHook<GetCartHook>
 > = ReturnType<H['useHook']>
 
-export const fetcher: HookFetcherFn<Cart | null, FetchCartInput> = async ({
+export const fetcher: HookFetcherFn<GetCartHook> = async ({
   options,
   input: { cartId },
   fetch,
 }) => {
-  return cartId ? await fetch({ ...options }) : null
+  return cartId ? await fetch(options) : null
 }
 
 const fn = (provider: Provider) => provider.cart?.useCart!

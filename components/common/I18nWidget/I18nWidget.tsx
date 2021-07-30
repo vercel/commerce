@@ -59,7 +59,7 @@ const I18nWidget: FC = () => {
             />
             {options && (
               <span className="cursor-pointer">
-                <ChevronUp className={cn({ [s.icon]: display })} />
+                <ChevronUp className={cn(s.icon, { [s.active]: display })} />
               </span>
             )}
           </button>

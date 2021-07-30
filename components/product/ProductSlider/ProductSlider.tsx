@@ -8,20 +8,42 @@ import React, {
   useEffect,
 } from 'react'
 import cn from 'classnames'
-
+import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
+import ProductSliderControl from '../ProductSliderControl'
 
-const ProductSlider: FC = ({ children }) => {
+interface ProductSliderProps {
+  children: React.ReactNode[]
+  className?: string
+}
+
+const ProductSlider: React.FC<ProductSliderProps> = ({
+  children,
+  className = '',
+}) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
+  const thumbsContainerRef = useRef<HTMLDivElement>(null)
 
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
     slidesPerView: 1,
     mounted: () => setIsMounted(true),
     slideChanged(s) {
-      setCurrentSlide(s.details().relativeSlide)
+      const slideNumber = s.details().relativeSlide
+      setCurrentSlide(slideNumber)
+
+      if (thumbsContainerRef.current) {
+        const $el = document.getElementById(
+          `thumb-${s.details().relativeSlide}`
+        )
+        if (slideNumber >= 3) {
+          thumbsContainerRef.current.scrollLeft = $el!.offsetLeft
+        } else {
+          thumbsContainerRef.current.scrollLeft = 0
+        }
+      }
     },
   })
 
@@ -59,23 +81,16 @@ const ProductSlider: FC = ({ children }) => {
     }
   }, [])
 
+  const onPrev = React.useCallback(() => slider.prev(), [slider])
+  const onNext = React.useCallback(() => slider.next(), [slider])
+
   return (
-    <div className={s.root} ref={sliderContainerRef}>
-      <button
-        className={cn(s.leftControl, s.control)}
-        onClick={slider?.prev}
-        aria-label="Previous Product Image"
-      />
-      <button
-        className={cn(s.rightControl, s.control)}
-        onClick={slider?.next}
-        aria-label="Next Product Image"
-      />
+    <div className={cn(s.root, className)} ref={sliderContainerRef}>
       <div
         ref={ref}
-        className="keen-slider h-full transition-opacity duration-150"
-        style={{ opacity: isMounted ? 1 : 0 }}
+        className={cn(s.slider, { [s.show]: isMounted }, 'keen-slider')}
       >
+        {slider && <ProductSliderControl onPrev={onPrev} onNext={onNext} />}
         {Children.map(children, (child) => {
           // Add the keen-slider__slide className to children
           if (isValidElement(child)) {
@@ -92,26 +107,28 @@ const ProductSlider: FC = ({ children }) => {
           return child
         })}
       </div>
-      {slider && (
-        <div className={cn(s.positionIndicatorsContainer)}>
-          {[...Array(slider.details().size).keys()].map((idx) => {
-            return (
-              <button
-                aria-label="Position indicator"
-                key={idx}
-                className={cn(s.positionIndicator, {
-                  [s.positionIndicatorActive]: currentSlide === idx,
-                })}
-                onClick={() => {
-                  slider.moveToSlideRelative(idx)
-                }}
-              >
-                <div className={s.dot} />
-              </button>
-            )
+
+      <a.div className={s.album} ref={thumbsContainerRef}>
+        {slider &&
+          Children.map(children, (child, idx) => {
+            if (isValidElement(child)) {
+              return {
+                ...child,
+                props: {
+                  ...child.props,
+                  className: cn(child.props.className, s.thumb, {
+                    [s.selected]: currentSlide === idx,
+                  }),
+                  id: `thumb-${idx}`,
+                  onClick: () => {
+                    slider.moveToSlideRelative(idx)
+                  },
+                },
+              }
+            }
+            return child
           })}
-        </div>
-      )}
+      </a.div>
     </div>
   )
 }

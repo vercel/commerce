@@ -1,9 +1,14 @@
 .root {
-  @apply bg-secondary text-accents-1 cursor-pointer inline-flex px-10 rounded-sm leading-6  transition ease-in-out duration-150 shadow-sm font-semibold text-center justify-center uppercase py-4 border border-transparent items-center;
+  @apply bg-accent-9 text-accent-0 cursor-pointer inline-flex
+  px-10 py-5 leading-6 transition ease-in-out duration-150
+  shadow-sm text-center justify-center uppercase
+  border border-transparent items-center text-sm font-semibold
+  tracking-wide;
+  max-height: 64px;
 }
 
 .root:hover {
-  @apply bg-accents-0 text-primary border border-secondary;
+  @apply border-accent-9 bg-accent-6;
 }
 
 .root:focus {
@@ -11,22 +16,33 @@
 }
 
 .root[data-active] {
-  @apply bg-gray-600;
+  @apply bg-accent-6;
 }
 
 .loading {
-  @apply bg-accents-1 text-accents-3 border-accents-2 cursor-not-allowed;
+  @apply bg-accent-1 text-accent-3 border-accent-2 cursor-not-allowed;
 }
 
 .slim {
   @apply py-2 transform-none normal-case;
 }
 
+.ghost {
+  @apply border border-accent-2 bg-accent-0 text-accent-9 text-sm;
+}
+
+.ghost:hover {
+  @apply border-accent-9 bg-accent-9 text-accent-0;
+}
+
 .disabled,
 .disabled:hover {
-  @apply text-accents-4 border-accents-2 bg-accents-1 cursor-not-allowed;
+  @apply text-accent-4 border-accent-2 bg-accent-1 cursor-not-allowed;
   filter: grayscale(1);
   -webkit-transform: translateZ(0);
   -webkit-perspective: 1000;
   -webkit-backface-visibility: hidden;
+}
+
+.progress {
 }

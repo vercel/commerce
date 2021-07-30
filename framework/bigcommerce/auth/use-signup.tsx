@@ -2,14 +2,14 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useSignup, { UseSignup } from '@commerce/auth/use-signup'
-import type { SignupBody } from '../api/customers/signup'
+import type { SignupHook } from '../types/signup'
 import useCustomer from '../customer/use-customer'
 
 export default useSignup as UseSignup<typeof handler>
 
-export const handler: MutationHook<null, {}, SignupBody, SignupBody> = {
+export const handler: MutationHook<SignupHook> = {
   fetchOptions: {
-    url: '/api/bigcommerce/customers/signup',
+    url: '/api/signup',
     method: 'POST',
   },
   async fetcher({

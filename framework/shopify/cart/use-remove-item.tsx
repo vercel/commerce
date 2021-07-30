@@ -1,33 +1,30 @@
 import { useCallback } from 'react'
-
 import type {
   MutationHookContext,
   HookFetcherContext,
 } from '@commerce/utils/types'
-
 import { ValidationError } from '@commerce/utils/errors'
-
-import useRemoveItem, {
-  RemoveItemInput as RemoveItemInputBase,
-  UseRemoveItem,
-} from '@commerce/cart/use-remove-item'
-
+import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
+import type { Cart, LineItem, RemoveItemHook } from '../types/cart'
 import useCart from './use-cart'
-import { checkoutLineItemRemoveMutation, getCheckoutId } from '../utils'
-import { checkoutToCart } from './utils'
-import { Cart, LineItem } from '../types'
-import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../schema'
-import { RemoveCartItemBody } from '@commerce/types'
 
 export type RemoveItemFn<T = any> = T extends LineItem
-  ? (input?: RemoveItemInput<T>) => Promise<Cart | null>
-  : (input: RemoveItemInput<T>) => Promise<Cart | null>
+  ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
+  : (input: RemoveItemActionInput<T>) => Promise<Cart | null>
 
-export type RemoveItemInput<T = any> = T extends LineItem
-  ? Partial<RemoveItemInputBase>
-  : RemoveItemInputBase
+export type RemoveItemActionInput<T = any> = T extends LineItem
+  ? Partial<RemoveItemHook['actionInput']>
+  : RemoveItemHook['actionInput']
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
+
+import {
+  checkoutLineItemRemoveMutation,
+  getCheckoutId,
+  checkoutToCart,
+} from '../utils'
+
+import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../schema'
 
 export const handler = {
   fetchOptions: {
@@ -37,16 +34,14 @@ export const handler = {
     input: { itemId },
     options,
     fetch,
-  }: HookFetcherContext<RemoveCartItemBody>) {
+  }: HookFetcherContext<RemoveItemHook>) {
     const data = await fetch<Mutation, MutationCheckoutLineItemsRemoveArgs>({
       ...options,
       variables: { checkoutId: getCheckoutId(), lineItemIds: [itemId] },
     })
     return checkoutToCart(data.checkoutLineItemsRemove)
   },
-  useHook: ({
-    fetch,
-  }: MutationHookContext<Cart | null, RemoveCartItemBody>) => <
+  useHook: ({ fetch }: MutationHookContext<RemoveItemHook>) => <
     T extends LineItem | undefined = undefined
   >(
     ctx: { item?: T } = {}
