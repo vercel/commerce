@@ -73,7 +73,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
           <div className="flex items-center text-primary text-sm">
             <span className="text-primary">Created by</span>
             <a
-              rel="noopener"
+              rel="noopener noreferrer"
               href="https://vercel.com"
               aria-label="Vercel.com Link"
               target="_blank"
