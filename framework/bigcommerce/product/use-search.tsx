@@ -22,7 +22,7 @@ export const handler: SWRHook<SearchProductsHook> = {
     const url = new URL(options.url!, 'http://a')
 
     if (search) url.searchParams.set('search', search)
-    if (Number.isInteger(categoryId))
+    if (Number.isInteger(Number(categoryId)))
       url.searchParams.set('categoryId', String(categoryId))
     if (Number.isInteger(brandId))
       url.searchParams.set('brandId', String(brandId))
