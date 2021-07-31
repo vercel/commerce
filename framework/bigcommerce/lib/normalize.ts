@@ -1,6 +1,10 @@
-import type { Product } from '@commerce/types'
-import type { Cart, BigcommerceCart, LineItem } from '../types'
+import type { Product } from '../types/product'
+import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
+import type { Page } from '../types/page'
+import type { BCCategory, Category } from '../types/site'
+import { definitions } from '../api/definitions/store-content'
 import update from './immutability'
+import getSlug from './get-slug'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -69,6 +73,16 @@ export function normalizeProduct(productNode: any): Product {
   })
 }
 
+export function normalizePage(page: definitions['page_Full']): Page {
+  return {
+    id: String(page.id),
+    name: page.name,
+    is_visible: page.is_visible,
+    sort_order: page.sort_order,
+    body: page.body,
+  }
+}
+
 export function normalizeCart(data: BigcommerceCart): Cart {
   return {
     id: data.id,
@@ -109,5 +123,14 @@ function normalizeLineItem(item: any): LineItem {
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,
     })),
+  }
+}
+
+export function normalizeCategory(category: BCCategory): Category {
+  return {
+    id: `${category.entityId}`,
+    name: category.name,
+    slug: getSlug(category.path),
+    path: category.path,
   }
 }

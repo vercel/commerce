@@ -1,5 +1,5 @@
 export const getPageQuery = /* GraphQL */ `
-  query($id: ID!) {
+  query getPage($id: ID!) {
     node(id: $id) {
       id
       ... on Page {

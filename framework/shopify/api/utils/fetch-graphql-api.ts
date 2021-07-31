@@ -9,26 +9,37 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   { variables } = {},
   fetchOptions
 ) => {
-  const res = await fetch(API_URL, {
-    ...fetchOptions,
-    method: 'POST',
-    headers: {
-      'X-Shopify-Storefront-Access-Token': API_TOKEN!,
-      ...fetchOptions?.headers,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  })
+  try {
+    const res = await fetch(API_URL, {
+      ...fetchOptions,
+      method: 'POST',
+      headers: {
+        'X-Shopify-Storefront-Access-Token': API_TOKEN!,
+        ...fetchOptions?.headers,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+    })
 
-  const { data, errors, status } = await res.json()
+    const { data, errors, status } = await res.json()
 
-  if (errors) {
-    throw getError(errors, status)
+    if (errors) {
+      throw getError(errors, status)
+    }
+
+    return { data, res }
+  } catch (err) {
+    throw getError(
+      [
+        {
+          message: `${err} \n Most likely related to an unexpected output. e.g the store might be protected with password or not available.`,
+        },
+      ],
+      500
+    )
   }
-
-  return { data, res }
 }
 export default fetchGraphqlApi

@@ -14,6 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "incremental": true,
     "paths": {
       "@lib/*": ["lib/*"],
       "@utils/*": ["utils/*"],
@@ -22,10 +23,17 @@
       "@components/*": ["components/*"],
       "@commerce": ["framework/commerce"],
       "@commerce/*": ["framework/commerce/*"],
-      "@framework": ["framework/bigcommerce"],
-      "@framework/*": ["framework/bigcommerce/*"]
+      "@framework": ["framework/local"],
+      "@framework/*": ["framework/local/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "./framework/bigcommerce",
+    "./framework/shopify",
+    "./framework/swell",
+    "./framework/vendure",
+    "./framework/saleor"
+  ]
 }

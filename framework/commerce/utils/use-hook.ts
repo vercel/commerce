@@ -10,14 +10,14 @@ export function useFetcher() {
 
 export function useHook<
   P extends Provider,
-  H extends MutationHook<any, any, any> | SWRHook<any, any, any>
+  H extends MutationHook<any> | SWRHook<any>
 >(fn: (provider: P) => H) {
   const { providerRef } = useCommerce<P>()
   const provider = providerRef.current
   return fn(provider)
 }
 
-export function useSWRHook<H extends SWRHook<any, any, any>>(
+export function useSWRHook<H extends SWRHook<any>>(
   hook: PickRequired<H, 'fetcher'>
 ) {
   const fetcher = useFetcher()
@@ -30,7 +30,7 @@ export function useSWRHook<H extends SWRHook<any, any, any>>(
   })
 }
 
-export function useMutationHook<H extends MutationHook<any, any, any>>(
+export function useMutationHook<H extends MutationHook<any>>(
   hook: PickRequired<H, 'fetcher'>
 ) {
   const fetcher = useFetcher()
