@@ -9,18 +9,12 @@ async function getText(res: Response) {
   }
 }
 
-async function fetcherError(options: {
-  status: number
-} & ErrorProps) {
-  return new FetcherError(options)
-}
-
 async function getError(res: Response) {
   if (res.headers.get('Content-Type')?.includes('application/json')) {
     const data = await res.json()
-    return fetcherError({ errors: data.errors, status: res.status })
+    return new FetcherError({ errors: data.errors, status: res.status })
   }
-  return fetcherError({ message: await getText(res), status: res.status })
+  return new FetcherError({ message: await getText(res), status: res.status })
 }
 
 export const fetcher: Fetcher = async ({
@@ -50,7 +44,7 @@ export const fetcher: Fetcher = async ({
   if (res.ok) {
     const { data, errors } = await res.json()
     if (errors) {
-      throw await fetcherError({ status: res.status, errors })
+      throw await new FetcherError({ status: res.status, errors })
     }
     return data
   }
