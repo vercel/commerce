@@ -1,5 +1,5 @@
 import { Fetcher } from '@commerce/utils/types'
-import { ErrorProps, FetcherError } from '@commerce/utils/errors'
+import { FetcherError } from '@commerce/utils/errors'
 
 async function getText(res: Response) {
   try {
@@ -48,5 +48,6 @@ export const fetcher: Fetcher = async ({
     }
     return data
   }
+  
   throw await getError(res)
 }
