@@ -8,15 +8,30 @@ export interface State {
   sidebarView: string
   modalView: string
   userAvatar: string
+  paymentMethodDetails: PAYMENT_METHOD_DETAILS
 }
 
-const initialState = {
+export const initialState = {
   displaySidebar: false,
   displayDropdown: false,
   displayModal: false,
   modalView: 'LOGIN_VIEW',
   sidebarView: 'CART_VIEW',
   userAvatar: '',
+  paymentMethodDetails: {
+    address: {
+      cardholderName: '',
+      firstName: '',
+      lastName: '',
+      company: '',
+      addressLine1: '',
+      addressLine2: '',
+      postalCode: '',
+      city: '',
+      countryOrRegion: '',
+    },
+    paymentMethod: null,
+  },
 }
 
 type Action =
@@ -50,6 +65,10 @@ type Action =
       type: 'SET_USER_AVATAR'
       value: string
     }
+  | {
+      type: 'SET_PAYMENT_METHOD_DETAILS',
+      paymentMethodDetails: PAYMENT_METHOD_DETAILS
+    }
 
 type MODAL_VIEWS =
   | 'SIGNUP_VIEW'
@@ -59,6 +78,11 @@ type MODAL_VIEWS =
   | 'NEW_PAYMENT_METHOD'
 
 type SIDEBAR_VIEWS = 'CART_VIEW' | 'CHECKOUT_VIEW' | 'PAYMENT_METHOD_VIEW'
+
+type PAYMENT_METHOD_DETAILS = {
+  address: object,
+  paymentMethod: object,
+}
 
 export const UIContext = React.createContext<State | any>(initialState)
 
@@ -121,6 +145,12 @@ function uiReducer(state: State, action: Action) {
         userAvatar: action.value,
       }
     }
+    case 'SET_PAYMENT_METHOD_DETAILS': {
+      return {
+        ...state,
+        paymentMethodDetails: action.paymentMethodDetails
+      }
+    }
   }
 }
 
@@ -180,6 +210,11 @@ export const UIProvider: FC = (props) => {
     [dispatch]
   )
 
+  const setPaymentMethodDetails = useCallback(
+    (paymentMethodDetails: PAYMENT_METHOD_DETAILS) => dispatch({ type: 'SET_PAYMENT_METHOD_DETAILS', paymentMethodDetails }),
+    [dispatch]
+  )
+
   const value = useMemo(
     () => ({
       ...state,
@@ -192,6 +227,7 @@ export const UIProvider: FC = (props) => {
       openModal,
       closeModal,
       setModalView,
+      setPaymentMethodDetails,
       setSidebarView,
       setUserAvatar,
     }),

@@ -1,9 +1,8 @@
-import cn from 'classnames'
 import Link from 'next/link'
 import { FC } from 'react'
 import CartItem from '@components/cart/CartItem'
 import { Button, Text } from '@components/ui'
-import { useUI } from '@components/ui/context'
+import { initialState as initialUIState, useUI } from '@components/ui/context'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import ShippingWidget from '../ShippingWidget'
@@ -12,7 +11,7 @@ import SidebarLayout from '@components/common/SidebarLayout'
 import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
-  const { setSidebarView } = useUI()
+  const { paymentMethodDetails, setPaymentMethodDetails, setSidebarView } = useUI()
   const { data } = useCart()
 
   const { price: subTotal } = usePrice(
@@ -38,11 +37,19 @@ const CheckoutSidebarView: FC = () => {
           <Text variant="sectionHeading">Checkout</Text>
         </Link>
 
-        <PaymentWidget onClick={() => setSidebarView('PAYMENT_VIEW')} />
+        <PaymentWidget
+          onClick={() => {
+            if (paymentMethodDetails.paymentMethod) {
+              setPaymentMethodDetails(initialUIState.paymentMethodDetails)
+            } else {
+              setSidebarView('PAYMENT_VIEW')
+            }
+          }}
+        />
         <ShippingWidget onClick={() => setSidebarView('SHIPPING_VIEW')} />
 
         <ul className={s.lineItemsList}>
-          {data!.lineItems.map((item: any) => (
+          {data!.lineItems?.map((item: any) => (
             <CartItem
               key={item.id}
               item={item}
