@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import type { Product } from '@commerce/types/product'
-import { Container, Grid, Skeleton } from '@components/ui'
+import { Container, Skeleton } from '@components/ui'
 
 import useSearch from '@framework/product/use-search'
 
