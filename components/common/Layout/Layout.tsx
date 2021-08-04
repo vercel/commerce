@@ -84,8 +84,9 @@ const SidebarView: FC<{ sidebarView: string; closeSidebar(): any }> = ({
 }
 
 const SidebarUI: FC = () => {
-  const { displaySidebar, closeSidebar, sidebarView, paymentMethodDetails } = useUI()
+  const { displaySidebar, closeSidebar, shippingAddress, sidebarView, paymentMethodDetails } = useUI()
   console.log("paymentMethodDetails", paymentMethodDetails)
+  console.log("shippingAddress", shippingAddress)
   return displaySidebar ? (
     <SidebarView sidebarView={sidebarView} closeSidebar={closeSidebar} />
   ) : null

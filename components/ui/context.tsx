@@ -32,6 +32,17 @@ export const initialState = {
     },
     paymentMethod: null,
   },
+  shippingAddress: {
+    firstName: '',
+    lastName: '',
+    company: '',
+    addressLine1: '',
+    addressLine2: '',
+    postalCode: '',
+    city: '',
+    countryOrRegion: '',
+  },
+  useBillingAddressForShipping: true,
 }
 
 type Action =
@@ -69,6 +80,14 @@ type Action =
       type: 'SET_PAYMENT_METHOD_DETAILS',
       paymentMethodDetails: PAYMENT_METHOD_DETAILS
     }
+  | {
+      type: 'SET_SHIPPING_ADDRESS',
+      shippingAddress: SHIPPING_ADDRESS
+    }
+  | {
+      type: 'SET_USE_BILLING_ADDRESS_FOR_SHIPPING',
+      value: boolean
+    }
 
 type MODAL_VIEWS =
   | 'SIGNUP_VIEW'
@@ -82,6 +101,17 @@ type SIDEBAR_VIEWS = 'CART_VIEW' | 'CHECKOUT_VIEW' | 'PAYMENT_METHOD_VIEW'
 type PAYMENT_METHOD_DETAILS = {
   address: object,
   paymentMethod: object,
+}
+
+type SHIPPING_ADDRESS = {
+  firstName: string,
+  lastName: string,
+  company: string,
+  addressLine1: string,
+  addressLine2: string,
+  postalCode: string,
+  city: string,
+  countryOrRegion: string,
 }
 
 export const UIContext = React.createContext<State | any>(initialState)
@@ -148,7 +178,19 @@ function uiReducer(state: State, action: Action) {
     case 'SET_PAYMENT_METHOD_DETAILS': {
       return {
         ...state,
-        paymentMethodDetails: action.paymentMethodDetails
+        paymentMethodDetails: action.paymentMethodDetails,
+      }
+    }
+    case 'SET_SHIPPING_ADDRESS': {
+      return {
+        ...state,
+        shippingAddress: action.shippingAddress,
+      }
+    }
+    case 'SET_USE_BILLING_ADDRESS_FOR_SHIPPING': {
+      return {
+        ...state,
+        useBillingAddressForShipping: action.useBillingAddressForShipping
       }
     }
   }
@@ -211,7 +253,32 @@ export const UIProvider: FC = (props) => {
   )
 
   const setPaymentMethodDetails = useCallback(
-    (paymentMethodDetails: PAYMENT_METHOD_DETAILS) => dispatch({ type: 'SET_PAYMENT_METHOD_DETAILS', paymentMethodDetails }),
+    (paymentMethodDetails: PAYMENT_METHOD_DETAILS) => {
+      dispatch({ type: 'SET_PAYMENT_METHOD_DETAILS', paymentMethodDetails })
+
+      if (state.useBillingAddressForShipping) {
+        setShippingAddress({
+          firstName: paymentMethodDetails.address?.firstName,
+          lastName: paymentMethodDetails.address?.lastName,
+          company: paymentMethodDetails.address?.company,
+          addressLine1: paymentMethodDetails.address?.addressLine1,
+          addressLine2: paymentMethodDetails.address?.addressLine2,
+          postalCode: paymentMethodDetails.address?.postalCode,
+          city: paymentMethodDetails.address?.city,
+          countryOrRegion: paymentMethodDetails.address?.countryOrRegion,
+        })
+      }
+    },
+    [dispatch]
+  )
+
+  const setShippingAddress = useCallback(
+    (shippingAddress: SHIPPING_ADDRESS) => dispatch({ type: 'SET_SHIPPING_ADDRESS', shippingAddress }),
+    [dispatch]
+  )
+
+  const setUseBillingAddressForShipping = useCallback(
+    (useBillingAddressForShipping: boolean) => dispatch({ type: 'SET_USE_BILLING_ADDRESS_FOR_SHIPPING', useBillingAddressForShipping }),
     [dispatch]
   )
 
@@ -228,7 +295,9 @@ export const UIProvider: FC = (props) => {
       closeModal,
       setModalView,
       setPaymentMethodDetails,
+      setShippingAddress,
       setSidebarView,
+      setUseBillingAddressForShipping,
       setUserAvatar,
     }),
     [state]

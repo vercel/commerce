@@ -11,6 +11,7 @@ import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import s from './PaymentMethodView.module.css'
 import SidebarLayout from '@components/common/SidebarLayout'
+import countries from '@lib/countries'
 
 const PaymentMethodView: FC = () => {
   const { paymentMethodDetails, setPaymentMethodDetails, setSidebarView } = useUI()
@@ -150,7 +151,14 @@ const PaymentMethodView: FC = () => {
               onChange={updateAddressData}
               value={address.countryOrRegion}
             >
-              <option>Hong Kong</option>
+              {countries.map((country) => (
+                <option
+                  key={country.code}
+                  value={country.code}
+                >
+                  {country.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>
