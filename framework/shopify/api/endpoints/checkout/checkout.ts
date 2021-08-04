@@ -19,7 +19,7 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
     try {
       await config.fetch(associateCustomerWithCheckoutMutation, {
         variables: {
-          checkoutId: cookies[SHOPIFY_CHECKOUT_ID_COOKIE],
+          cartId: cookies[SHOPIFY_CHECKOUT_ID_COOKIE],
           customerAccessToken: cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE],
         },
       })

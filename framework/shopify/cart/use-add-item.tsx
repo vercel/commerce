@@ -4,19 +4,19 @@ import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import type { AddItemHook } from '../types/cart'
 import useCart from './use-cart'
-
 import {
-  checkoutLineItemAddMutation,
-  getCheckoutId,
-  checkoutToCart,
+  getCartId,
+  normalizeCart,
+  throwUserErrors,
+  cartLineItemAddMutation,
 } from '../utils'
-import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
+import { CartLinesAddMutation, CartLinesAddMutationVariables } from '../schema'
 
 export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    query: checkoutLineItemAddMutation,
+    query: cartLineItemAddMutation,
   },
   async fetcher({ input: item, options, fetch }) {
     if (
@@ -28,13 +28,13 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
-    const { checkoutLineItemsAdd } = await fetch<
-      Mutation,
-      MutationCheckoutLineItemsAddArgs
+    const { cartLinesAdd } = await fetch<
+      CartLinesAddMutation,
+      CartLinesAddMutationVariables
     >({
       ...options,
       variables: {
-        checkoutId: getCheckoutId(),
+        checkoutId: getCartId(),
         lineItems: [
           {
             variantId: item.variantId,
@@ -44,18 +44,26 @@ export const handler: MutationHook<AddItemHook> = {
       },
     })
 
-    return checkoutToCart(checkoutLineItemsAdd)
-  },
-  useHook: ({ fetch }) => () => {
-    const { mutate } = useCart()
+    throwUserErrors(cartLinesAdd?.userErrors)
 
-    return useCallback(
-      async function addItem(input) {
-        const data = await fetch({ input })
-        await mutate(data, false)
-        return data
-      },
-      [fetch, mutate]
-    )
+    if (!cartLinesAdd?.cart) {
+      throw new CommerceError({ message: 'Missing cart from response' })
+    }
+
+    return normalizeCart(cartLinesAdd?.cart)
   },
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCart()
+
+      return useCallback(
+        async function addItem(input) {
+          const data = await fetch({ input })
+          await mutate(data, false)
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }

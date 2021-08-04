@@ -3,9 +3,9 @@ import type { OperationContext } from '@commerce/api/operations'
 import type { LoginOperation } from '../../types/login'
 import type { ShopifyConfig, Provider } from '..'
 import {
-  customerAccessTokenCreateMutation,
   setCustomerToken,
   throwUserErrors,
+  customerAccessTokenCreateMutation,
 } from '../../utils'
 import { CustomerAccessTokenCreateMutation } from '../../schema'
 

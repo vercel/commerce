@@ -5,13 +5,18 @@ import {
   CheckoutUserError,
   CustomerErrorCode,
   CustomerUserError,
+  CartUserError,
+  CartErrorCode,
 } from '../schema'
 
-export type UserErrors = Array<CheckoutUserError | CustomerUserError>
+export type UserErrors = Array<
+  CheckoutUserError | CustomerUserError | CartUserError
+>
 
 export type UserErrorCode =
   | CustomerErrorCode
   | CheckoutErrorCode
+  | CartErrorCode
   | null
   | undefined
 

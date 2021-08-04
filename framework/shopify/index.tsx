@@ -9,14 +9,14 @@ import {
 
 import { shopifyProvider } from './provider'
 import type { ShopifyProvider } from './provider'
-import { SHOPIFY_CHECKOUT_ID_COOKIE } from './const'
+import { SHOPIFY_CART_ID_COOKIE } from './const'
 
 export { shopifyProvider }
 export type { ShopifyProvider }
 
 export const shopifyConfig: CommerceConfig = {
   locale: 'en-us',
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  cartCookie: SHOPIFY_CART_ID_COOKIE,
 }
 
 export type ShopifyConfig = Partial<CommerceConfig>

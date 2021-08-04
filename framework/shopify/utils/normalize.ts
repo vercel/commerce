@@ -5,18 +5,18 @@ import type { Category } from '../types/site'
 
 import {
   Product as ShopifyProduct,
-  Checkout,
-  CheckoutLineItemEdge,
   SelectedOption,
   ImageConnection,
-  ProductVariantConnection,
   MoneyV2,
   ProductOption,
   Page as ShopifyPage,
   PageEdge,
   Collection,
+  CartDetailsFragment,
+  ProductVariantConnection,
 } from '../schema'
 import { colorMap } from '@lib/colors'
+import { CommerceError } from '@commerce/utils/errors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -128,34 +128,41 @@ export function normalizeProduct({
   }
 }
 
-export function normalizeCart(checkout: Checkout): Cart {
+export function normalizeCart(
+  cart: CartDetailsFragment | undefined | null
+): Cart {
+  if (!cart) {
+    throw new CommerceError({ message: 'Missing cart details' })
+  }
+
   return {
-    id: checkout.id,
-    url: checkout.webUrl,
-    customerId: '',
-    email: '',
-    createdAt: checkout.createdAt,
+    id: cart.id,
+    customerId: cart.buyerIdentity?.customer?.id,
+    email: cart.buyerIdentity?.email ?? '',
+    createdAt: cart.createdAt,
     currency: {
-      code: checkout.totalPriceV2?.currencyCode,
+      code: cart.estimatedCost?.totalAmount?.currencyCode,
     },
-    taxesIncluded: checkout.taxesIncluded,
-    lineItems: checkout.lineItems?.edges.map(normalizeLineItem),
-    lineItemsSubtotalPrice: +checkout.subtotalPriceV2?.amount,
-    subtotalPrice: +checkout.subtotalPriceV2?.amount,
-    totalPrice: checkout.totalPriceV2?.amount,
+    taxesIncluded: !!cart.estimatedCost?.totalTaxAmount,
+    lineItems: cart.lines?.edges?.map(normalizeLineItem) ?? [],
+    lineItemsSubtotalPrice: +cart.estimatedCost?.totalAmount,
+    subtotalPrice: +cart.estimatedCost?.subtotalAmount,
+    totalPrice: +cart.estimatedCost?.totalAmount,
     discounts: [],
   }
 }
 
 function normalizeLineItem({
-  node: { id, title, variant, quantity },
-}: CheckoutLineItemEdge): LineItem {
+  node: { id, merchandise: variant, quantity },
+}: {
+  node: any
+}): LineItem {
   return {
     id,
     variantId: String(variant?.id),
     productId: String(variant?.id),
-    name: `${title}`,
-    quantity,
+    name: `${variant?.title}`,
+    quantity: quantity ?? 0,
     variant: {
       id: String(variant?.id),
       sku: variant?.sku ?? '',
