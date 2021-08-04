@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import s from './PaymentWidget.module.css'
-import { ChevronRight, CreditCard, Pencil } from '@components/icons'
+import { ChevronRight, CreditCard, Trash } from '@components/icons'
 import { useUI } from '@components/ui/context'
 
 interface ComponentProps {
@@ -32,7 +32,7 @@ const PaymentWidget: FC<ComponentProps> = ({ onClick }) => {
       </div>
       <div>
         {paymentMethodDetails?.paymentMethod ?
-          <Pencil />
+          <Trash />
         :
           <ChevronRight />
         }
