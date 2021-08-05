@@ -7,11 +7,9 @@ import {
 } from '../const'
 
 import checkoutCreateMutation from './mutations/checkout-create'
-import { CheckoutCreatePayload } from '../schema'
+import { Checkout } from '../schema'
 
-export const checkoutCreate = async (
-  fetch: any
-): Promise<CheckoutCreatePayload> => {
+export const checkoutCreate = async (fetch: any): Promise<Checkout> => {
   const data = await fetch({
     query: checkoutCreateMutation,
   })
