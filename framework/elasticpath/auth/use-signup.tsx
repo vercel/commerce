@@ -3,7 +3,6 @@ import useCustomer from '../customer/use-customer'
 import { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useSignup, { UseSignup } from '@commerce/auth/use-signup'
-import { constants } from 'buffer'
 
 export default useSignup as UseSignup<typeof handler>
 

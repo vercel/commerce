@@ -34,7 +34,7 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
   } catch (error) {
     let errorData = error.errors[0];
     // Check if the email and password didn't match an existing account
-    if (errorData.status == 404) {
+    if (errorData.status == 409) {
       return res.status(401).json({
         data: null,
         errors: [
