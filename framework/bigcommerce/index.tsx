@@ -1,7 +1,6 @@
-import type { ReactNode } from 'react'
 import {
-  CommerceConfig,
   CommerceProvider as CoreCommerceProvider,
+  CommerceProviderProps,
   useCommerce as useCoreCommerce,
 } from '@commerce'
 import { bigcommerceProvider } from './provider'
@@ -10,24 +9,12 @@ import type { BigcommerceProvider } from './provider'
 export { bigcommerceProvider }
 export type { BigcommerceProvider }
 
-export const bigcommerceConfig: CommerceConfig = {
-  locale: 'en-us',
-  cartCookie: 'bc_cartId',
-}
-
-export type BigcommerceConfig = Partial<CommerceConfig>
-
-export type BigcommerceProps = {
-  children?: ReactNode
-  locale: string
-} & BigcommerceConfig
-
-export function CommerceProvider({ children, ...config }: BigcommerceProps) {
+export function CommerceProvider({
+  children,
+  ...props
+}: CommerceProviderProps) {
   return (
-    <CoreCommerceProvider
-      provider={bigcommerceProvider}
-      config={{ ...bigcommerceConfig, ...config }}
-    >
+    <CoreCommerceProvider provider={{ ...bigcommerceProvider, ...props }}>
       {children}
     </CoreCommerceProvider>
   )
