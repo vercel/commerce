@@ -29,36 +29,35 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
+    const lineItems = [
+      {
+        variantId: item.variantId,
+        quantity: item.quantity ?? 1,
+      },
+    ]
+
     let checkoutId = getCheckoutId()
 
     if (!checkoutId) {
-      const checkout = await checkoutCreate(fetch)
-      checkoutId = checkout.id
+      return checkoutToCart(await checkoutCreate(fetch, lineItems))
+    } else {
+      const { checkoutLineItemsAdd } = await fetch<
+        Mutation,
+        MutationCheckoutLineItemsAddArgs
+      >({
+        ...options,
+        variables: {
+          checkoutId,
+          lineItems,
+        },
+      })
+      return checkoutToCart(checkoutLineItemsAdd)
     }
-
-    const { checkoutLineItemsAdd } = await fetch<
-      Mutation,
-      MutationCheckoutLineItemsAddArgs
-    >({
-      ...options,
-      variables: {
-        checkoutId,
-        lineItems: [
-          {
-            variantId: item.variantId,
-            quantity: item.quantity ?? 1,
-          },
-        ],
-      },
-    })
-
-    return checkoutToCart(checkoutLineItemsAdd)
   },
   useHook:
     ({ fetch }) =>
     () => {
       const { mutate } = useCart()
-
       return useCallback(
         async function addItem(input) {
           const data = await fetch({ input })

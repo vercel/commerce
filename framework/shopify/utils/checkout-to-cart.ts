@@ -27,16 +27,15 @@ export type CheckoutPayload =
   | CheckoutQuery
 
 const checkoutToCart = (checkoutPayload?: Maybe<CheckoutPayload>): Cart => {
-  const checkout = checkoutPayload?.checkout
   throwUserErrors(checkoutPayload?.checkoutUserErrors)
 
-  if (!checkout) {
+  if (!checkoutPayload?.checkout) {
     throw new CommerceError({
       message: 'Missing checkout object from response',
     })
   }
 
-  return normalizeCart(checkout)
+  return normalizeCart(checkoutPayload?.checkout)
 }
 
 export default checkoutToCart
