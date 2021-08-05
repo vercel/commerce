@@ -10,11 +10,11 @@ import {
   CartDetailsFragment,
 } from '../schema'
 import { FetcherOptions } from '@commerce/utils/types'
-import { FetcherError } from '@commerce/utils/errors'
+import { CommerceError } from '@commerce/utils/errors'
 
 export const cartCreate = async (
   fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>
-): Promise<{ node: CartDetailsFragment }> => {
+): Promise<CartDetailsFragment> => {
   const { cartCreate } = await fetch<
     CartCreateMutation,
     CartCreateMutationVariables
@@ -24,23 +24,20 @@ export const cartCreate = async (
 
   const cart = cartCreate?.cart
 
-  if (!cart) {
-    throw new FetcherError({
-      status: 500,
+  if (cart?.id) {
+    const options = {
+      expires: SHOPIFY_COOKIE_EXPIRE,
+    }
+    Cookies.set(SHOPIFY_CART_ID_COOKIE, cart.id, options)
+  } else {
+    throw new CommerceError({
       errors: cartCreate?.userErrors?.map((e) => ({
         message: e.message,
       })) ?? [{ message: 'Could not create cart' }],
     })
   }
 
-  if (cart?.id) {
-    const options = {
-      expires: SHOPIFY_COOKIE_EXPIRE,
-    }
-    Cookies.set(SHOPIFY_CART_ID_COOKIE, cart.id, options)
-  }
-
-  return { node: cart }
+  return cart
 }
 
 export default cartCreate

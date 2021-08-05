@@ -4,7 +4,7 @@ const cartCreateMutation = /* GraphQL */ `
   mutation cartCreate {
     cartCreate {
       cart {
-        ...cartDetails
+        id
       }
       userErrors {
         code

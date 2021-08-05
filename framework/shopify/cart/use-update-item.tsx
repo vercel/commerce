@@ -54,8 +54,8 @@ export const handler = {
     >({
       ...options,
       variables: {
-        checkoutId: getCartId(),
-        lineItems: [
+        cartItems: getCartId(),
+        lines: [
           {
             id: itemId,
             quantity: item.quantity,

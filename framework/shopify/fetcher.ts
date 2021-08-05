@@ -9,6 +9,7 @@ const fetcher: Fetcher = async ({
   query,
 }) => {
   const { locale, ...vars } = variables ?? {}
+
   return handleFetchResponse(
     await fetch(url, {
       method,

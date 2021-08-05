@@ -9,6 +9,7 @@ import {
   normalizeCart,
   throwUserErrors,
   cartLineItemAddMutation,
+  cartCreate,
 } from '../utils'
 import { CartLinesAddMutation, CartLinesAddMutationVariables } from '../schema'
 
@@ -28,13 +29,20 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
+    let cartId = getCartId()
+
+    if (!cartId) {
+      const { id } = await cartCreate(fetch)
+      cartId = id
+    }
+
     const { cartLinesAdd } = await fetch<
       CartLinesAddMutation,
       CartLinesAddMutationVariables
     >({
       ...options,
       variables: {
-        checkoutId: getCartId(),
+        cartId,
         lineItems: [
           {
             variantId: item.variantId,
@@ -45,10 +53,6 @@ export const handler: MutationHook<AddItemHook> = {
     })
 
     throwUserErrors(cartLinesAdd?.userErrors)
-
-    if (!cartLinesAdd?.cart) {
-      throw new CommerceError({ message: 'Missing cart from response' })
-    }
 
     return normalizeCart(cartLinesAdd?.cart)
   },
