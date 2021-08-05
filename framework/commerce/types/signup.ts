@@ -24,3 +24,8 @@ export type SignupSchema<T extends SignupTypes = SignupTypes> = {
     }
   }
 }
+
+export type SignupOperation = {
+  data: { result?: string }
+  variables: unknown
+}
