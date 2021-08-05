@@ -1,44 +1,74 @@
 {
   "products": [
     {
-      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjA=",
-      "name": "New Short Sleeve T-Shirt",
-      "vendor": "Next.js",
-      "path": "/new-short-sleeve-t-shirt",
-      "slug": "new-short-sleeve-t-shirt",
-      "price": { "value": 25, "currencyCode": "USD" },
-      "descriptionHtml": "<p><span>Show off your love for Next.js and Vercel with this unique,&nbsp;</span><strong>limited edition</strong><span>&nbsp;t-shirt. This design is part of a limited run, numbered drop at the June 2021 Next.js Conf. It features a unique, handcrafted triangle design. Get it while supplies last – only 200 of these shirts will be made!&nbsp;</span><strong>All proceeds will be donated to charity.</strong></p>",
+      "id": "SHIRTWLS000000FFFFFF",
+      "name": "Black Women Long Sleeve Shirt",
+      "vendor": "Commerce Layer",
+      "path": "/women-long-sleeve-shirt",
+      "slug": "women-long-sleeve-shirt",
+      "price": { "value": 50, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>This relaxed long sleeve tee combines the best of both worlds, proving that cozy can also be chic. 65/35 polyester/viscose. Drop shoulder. Curved bottom hem.</span></p>",
       "images": [
         {
-          "url": "/assets/drop-shirt-0.png",
-          "altText": "Shirt",
+          "url": "/commercelayer_assets/SHIRTWLS000000FFFFFF_FLAT.png",
+          "altText": "Black Women Long Sleeve Shirt",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/drop-shirt-1.png",
-          "altText": "Shirt",
+          "url": "/commercelayer_assets/SHIRTWLS000000FFFFFF_01.png",
+          "altText": "Black Women Long Sleeve Shirt",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/drop-shirt-2.png",
-          "altText": "Shirt",
+          "url": "/commercelayer_assets/SHIRTWLS000000FFFFFF_02.png",
+          "altText": "Black Women Long Sleeve Shirt",
           "width": 1000,
           "height": 1000
         }
       ],
       "variants": [
         {
-          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjAss=",
+          "id": "SHIRTWLS000000FFFFFF",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
-              "id": "asd",
+              "id": "SHIRTWLS000000FFFFFFXSXX",
               "displayName": "Size",
               "values": [
                 {
-                  "label": "XL"
+                  "label": "XS"
+                }
+              ]
+            },
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "SHIRTWLS000000FFFFFFSXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "S"
+                }
+              ]
+            },
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "SHIRTWLS000000FFFFFFMXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "M"
+                }
+              ]
+            },
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "SHIRTWLS000000FFFFFFLXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "L"
                 }
               ]
             }
@@ -51,8 +81,8 @@
           "displayName": "Color",
           "values": [
             {
-              "label": "color",
-              "hexColors": ["#222"]
+              "label": "Black color",
+              "hexColors": ["#000"]
             }
           ]
         },
@@ -60,6 +90,9 @@
           "id": "option-size",
           "displayName": "Size",
           "values": [
+            {
+              "label": "XS"
+            },
             {
               "label": "S"
             },
@@ -74,44 +107,44 @@
       ]
     },
     {
-      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9ksdWN0LzU0NDczMjUwMjQ0MjA=",
-      "name": "Lightweight Jacket",
-      "vendor": "Next.js",
-      "path": "/lightweight-jacket",
-      "slug": "lightweight-jacket",
-      "price": { "value": 249.99, "currencyCode": "USD" },
-      "descriptionHtml": "<p><span>Show off your love for Next.js and Vercel with this unique,&nbsp;</span><strong>limited edition</strong><span>&nbsp;t-shirt. This design is part of a limited run, numbered drop at the June 2021 Next.js Conf. It features a unique, handcrafted triangle design. Get it while supplies last – only 200 of these shirts will be made!&nbsp;</span><strong>All proceeds will be donated to charity.</strong></p>",
+      "id": "EMUG12OZFFFFFF000000",
+      "name": "White Enamel Mug",
+      "vendor": "Commerce Layer",
+      "path": "/white-enamel-mug",
+      "slug": "white-enamel-mug",
+      "price": { "value": 100, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Lightweight and durable, this mug is a must-have for every devoted camper. Use it for your favorite beverage or a hot meal, and attach it to your bag for easy access on a hike. Ready for your next camping trip?</span></p>",
       "images": [
         {
-          "url": "/assets/lightweight-jacket-0.png",
-          "altText": "Lightweight Jacket",
+          "url": "/commercelayer_assets/EMUG12OZFFFFFF000000_FLAT.png",
+          "altText": "White Enamel Mug",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/lightweight-jacket-1.png",
-          "altText": "Lightweight Jacket",
+          "url": "/commercelayer_assets/EMUG12OZFFFFFF000000_01.png",
+          "altText": "White Enamel Mug",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/lightweight-jacket-2.png",
-          "altText": "Lightweight Jacket",
+          "url": "/commercelayer_assets/EMUG12OZFFFFFF000000_02.png",
+          "altText": "White Enamel Mug",
           "width": 1000,
           "height": 1000
         }
       ],
       "variants": [
         {
-          "id": "Z2lkOid8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjAss=",
+          "id": "EMUG12OZFFFFFF000000",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
-              "id": "asd",
+              "id": "EMUG12OZFFFFFF000000XXXX",
               "displayName": "Size",
               "values": [
                 {
-                  "label": "XL"
+                  "label": "Size One"
                 }
               ]
             }
@@ -124,8 +157,8 @@
           "displayName": "Color",
           "values": [
             {
-              "label": "color",
-              "hexColors": ["#222"]
+              "label": "White color",
+              "hexColors": ["#fff"]
             }
           ]
         },
@@ -133,6 +166,222 @@
           "id": "option-size",
           "displayName": "Size",
           "values": [
+            {
+              "label": "Size One"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "VFLEXFIT000000FFFFFF",
+      "name": "Black Visor Flexfit",
+      "vendor": "Commerce Layer",
+      "path": "/black-visor-flexfit",
+      "slug": "black-visor-flexfit",
+      "price": { "value": 39.5, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>A visor is perfect for the days when you’re not in the mood for a cap, but you still want to protect your peepers from the blinding sun. Made of a quick-drying fabric, it’ll be right for sports activities or just a casual stroll around.</span></p>",
+      "images": [
+        {
+          "url": "/commercelayer_assets/VFLEXFIT000000FFFFFF_FLAT.png",
+          "altText": "Black Visor Flexfit",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/commercelayer_assets/VFLEXFIT000000FFFFFF_01.png",
+          "altText": "Black Visor Flexfit",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/commercelayer_assets/VFLEXFIT000000FFFFFF_02.png",
+          "altText": "Black Visor Flexfit",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/commercelayer_assets/VFLEXFIT000000FFFFFF_03.png",
+          "altText": "Black Visor Flexfit",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "VFLEXFIT000000FFFFFF",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "VFLEXFIT000000FFFFFFXXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "Size One"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "Black color",
+              "hexColors": ["#000"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "Size One"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FACEMASK000000FFFFFF",
+      "name": "Black Face Mask",
+      "vendor": "Commerce Layer",
+      "path": "/black-face-mask",
+      "slug": "black-face-mask",
+      "price": { "value": 15, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Durable double-layer, washable cloth face mask. The center seam and elastic ear loops give the mask a close fit, and the treated fabric ensures that it will serve you well.</span></p>",
+      "images": [
+        {
+          "url": "/commercelayer_assets/FACEMASK000000FFFFFF_FLAT.png",
+          "altText": "Black Face Mask",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "FACEMASK000000FFFFFF",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "FACEMASK000000FFFFFFXXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "Size One"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "Black color",
+              "hexColors": ["#000"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "Size One"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHIRTWLS9397A0000000",
+      "name": "Gray Women Long Sleeve Shirt",
+      "vendor": "Commerce Layer",
+      "path": "/gray-women-long-sleeve-shirt",
+      "slug": "gray-women-long-sleeve-shirt",
+      "price": { "value": 50, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>This relaxed long sleeve tee combines the best of both worlds, proving that cozy can also be chic. 65/35 polyester/viscose. Drop shoulder. Curved bottom hem.</span></p>",
+      "images": [
+        {
+          "url": "/commercelayer_assets/SHIRTWLS9397A0000000_FLAT.png",
+          "altText": "Gray Women Long Sleeve Shirt",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "SHIRTWLS9397A0000000",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "SHIRTWLS9397A0000000XSXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "XS"
+                }
+              ]
+            },
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "SHIRTWLS9397A0000000SXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "S"
+                }
+              ]
+            },
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "SHIRTWLS9397A0000000MXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "M"
+                }
+              ]
+            },
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "SHIRTWLS9397A0000000LXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "L"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "Gray color",
+              "hexColors": ["#bbbbbb"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "XS"
+            },
             {
               "label": "S"
             },
@@ -147,56 +396,32 @@
       ]
     },
     {
-      "id": "Z2lkOis8vc2hvcGlmsddeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjA=",
-      "name": "Shirt",
-      "vendor": "Next.js",
-      "path": "/shirt",
-      "slug": "shirt",
-      "price": { "value": 25, "currencyCode": "USD" },
-      "descriptionHtml": "<p><span>Show off your love for Next.js and Vercel with this unique,&nbsp;</span><strong>limited edition</strong><span>&nbsp;t-shirt. This design is part of a limited run, numbered drop at the June 2021 Next.js Conf. It features a unique, handcrafted triangle design. Get it while supplies last – only 200 of these shirts will be made!&nbsp;</span><strong>All proceeds will be donated to charity.</strong></p>",
+      "id": "FACEMASKFFFFFF000000",
+      "name": "White Face Mask",
+      "vendor": "Commerce Layer",
+      "path": "/white-face-mask",
+      "slug": "white-face-mask",
+      "price": { "value": 15, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Durable double-layer, washable cloth face mask. The center seam and elastic ear loops give the mask a close fit, and the treated fabric ensures that it will serve you well.</span></p>",
       "images": [
         {
-          "url": "/assets/t-shirt-0.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/t-shirt-1.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/t-shirt-2.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/t-shirt-3.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/t-shirt-4.png",
-          "altText": "Shirt",
+          "url": "/commercelayer_assets/FACEMASKFFFFFF000000_FLAT.png",
+          "altText": "White Face Mask",
           "width": 1000,
           "height": 1000
         }
       ],
       "variants": [
         {
-          "id": "Z2lkOi8vc2hvcGlmeS9Qcms9kdWN0LzU0NDczMjUwMjQ0MjAss=",
+          "id": "FACEMASKFFFFFF000000",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
-              "id": "asd",
+              "id": "FACEMASKFFFFFF000000XXXX",
               "displayName": "Size",
               "values": [
                 {
-                  "label": "XL"
+                  "label": "Size One"
                 }
               ]
             }
@@ -209,8 +434,8 @@
           "displayName": "Color",
           "values": [
             {
-              "label": "color",
-              "hexColors": ["#222"]
+              "label": "White color",
+              "hexColors": ["#fff"]
             }
           ]
         },
@@ -219,13 +444,117 @@
           "displayName": "Size",
           "values": [
             {
-              "label": "S"
-            },
+              "label": "Size One"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BEANIEXXFFFFFF000000",
+      "name": "White Beanie",
+      "vendor": "Commerce Layer",
+      "path": "/white-beanie",
+      "slug": "white-beanie",
+      "price": { "value": 20, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Soft double-layered customizable beanie. 95% polyester, 5% spandex. Regular fit. Accurately printed, cut, and hand-sewn.</span></p>",
+      "images": [
+        {
+          "url": "/commercelayer_assets/BEANIEXXFFFFFF000000_FLAT.png",
+          "altText": "White Beanie",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "BEANIEXXFFFFFF000000",
+          "options": [
             {
-              "label": "M"
-            },
+              "__typename": "MultipleChoiceOption",
+              "id": "BEANIEXXFFFFFF000000XXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "Size One"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
             {
-              "label": "L"
+              "label": "White color",
+              "hexColors": ["#fff"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "Size One"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "DUFFLBAGFFFFFF000000",
+      "name": "White Duffle Bag",
+      "vendor": "Commerce Layer",
+      "path": "/white-duffle-bag",
+      "slug": "white-duffle-bag",
+      "price": { "value": 250, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>The perfect spacious bag no matter the occasion. It’s great for packing exercise gear when heading to the gym, or throwing in necessities and going on an adventure.</span></p>",
+      "images": [
+        {
+          "url": "/commercelayer_assets/DUFFLBAGFFFFFF000000_FLAT.png",
+          "altText": "White Face Mask",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "DUFFLBAGFFFFFF000000",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "DUFFLBAGFFFFFF000000XXXX",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "Size One"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "White color",
+              "hexColors": ["#fff"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "Size One"
             }
           ]
         }

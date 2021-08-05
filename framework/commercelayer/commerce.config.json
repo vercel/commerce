@@ -2,7 +2,7 @@
   "provider": "commercelayer",
   "features": {
     "wishlist": false,
-    "cart": true,
+    "cart": false,
     "search": false,
     "customerAuth": true
   }
