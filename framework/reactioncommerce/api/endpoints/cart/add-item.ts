@@ -95,14 +95,13 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
   }
 
   if (anonymousCartToken && reactionCustomerToken) {
-    console.log('reconciliating carts')(
-      ({ _id: cartId } = await reconcileCarts({
-        config,
-        cartId,
-        anonymousCartToken,
-        reactionCustomerToken,
-      }))
-    )
+    console.log('reconciliating carts')
+    ({ _id: cartId } = await reconcileCarts({
+      config,
+      cartId,
+      anonymousCartToken,
+      reactionCustomerToken,
+    }))
 
     // Clear the anonymous cart token cookie and update cart ID cookie
     res.setHeader('Set-Cookie', [
@@ -135,7 +134,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
       headers: {
         ...authorizationHeaderParam,
       },
-    }
+    },
   )
 
   console.log('updatedCart', updatedCart)

@@ -5,6 +5,7 @@ import {
 
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
+import { handler as useAddShippingAddress } from './cart/use-add-shipping-address'
 import { handler as useUpdateItem } from './cart/use-update-item'
 import { handler as useRemoveItem } from './cart/use-remove-item'
 
@@ -22,7 +23,13 @@ export const reactionCommerceProvider = {
   anonymousCartTokenCookie: REACTION_ANONYMOUS_CART_TOKEN_COOKIE,
   cartIdCookie: REACTION_CART_ID_COOKIE,
   fetcher,
-  cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
+  cart: {
+    useCart,
+    useAddItem,
+    useAddShippingAddress,
+    useUpdateItem,
+    useRemoveItem,
+  },
   customer: { useCustomer },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },

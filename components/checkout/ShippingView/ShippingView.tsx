@@ -1,13 +1,22 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import cn from 'classnames'
 import s from './ShippingView.module.css'
 import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 import countries from '@lib/countries'
+import useAddShippingAddress from '@framework/cart/use-add-shipping-address'
 
 const PaymentMethodView: FC = () => {
-  const { paymentMethodDetails, setShippingAddress, setSidebarView, setUseBillingAddressForShipping, shippingAddress, useBillingAddressForShipping } = useUI()
+  const addShippingAddress = useAddShippingAddress()
+  const {
+    paymentMethodDetails,
+    setShippingAddress,
+    setSidebarView,
+    setUseBillingAddressForShipping,
+    shippingAddress,
+    useBillingAddressForShipping,
+  } = useUI()
 
   const handleUseBillingAddressForShipping = (event) => {
     setUseBillingAddressForShipping(event.target.value === 'true')
@@ -21,7 +30,7 @@ const PaymentMethodView: FC = () => {
         addressLine2: paymentMethodDetails.address?.addressLine2,
         postalCode: paymentMethodDetails.address?.postalCode,
         city: paymentMethodDetails.address?.city,
-        countryOrRegion: paymentMethodDetails.address?.countryOrRegion,
+        country: paymentMethodDetails.address?.country,
       })
     }
   }
@@ -32,7 +41,11 @@ const PaymentMethodView: FC = () => {
   })
 
   return (
-    <SidebarLayout handleBack={() => setSidebarView('CHECKOUT_VIEW')}>
+    <SidebarLayout handleBack={async () => {
+      // add shipping address to cart
+      await addShippingAddress({ address: shippingAddress })
+      setSidebarView('CHECKOUT_VIEW')
+    }}>
       <div className="px-4 sm:px-6 flex-1">
         <h2 className="pt-1 pb-8 text-2xl font-semibold tracking-wide cursor-pointer inline-block">
           Shipping
@@ -88,6 +101,17 @@ const PaymentMethodView: FC = () => {
             </div>
           </div>
           <div className={s.fieldset}>
+            <label className={s.label}>Phone Number</label>
+            <input
+              className={s.input}
+              name='phone'
+              onChange={updateAddressData}
+              value={shippingAddress.phone}
+              disabled={useBillingAddressForShipping}
+              type='tel'
+            />
+          </div>
+          <div className={s.fieldset}>
             <label className={s.label}>Company (Optional)</label>
             <input
               className={s.input}
@@ -140,12 +164,22 @@ const PaymentMethodView: FC = () => {
             </div>
           </div>
           <div className={s.fieldset}>
-            <label className={s.label}>Country/Region</label>
+            <label className={s.label}>Region</label>
+            <input
+              className={s.input}
+              name='region'
+              onChange={updateAddressData}
+              value={shippingAddress.region}
+              disabled={useBillingAddressForShipping}
+            />
+          </div>
+          <div className={s.fieldset}>
+            <label className={s.label}>Country</label>
             <select
               className={s.select}
-              name="countryOrRegion"
+              name="country"
               onChange={updateAddressData}
-              value={shippingAddress.countryOrRegion}
+              value={shippingAddress.country}
               disabled={useBillingAddressForShipping}
 
             >

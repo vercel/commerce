@@ -144,12 +144,21 @@ const PaymentMethodView: FC = () => {
             </div>
           </div>
           <div className={s.fieldset}>
-            <label className={s.label}>Country/Region</label>
+            <label className={s.label}>Region</label>
+            <input
+              className={s.input}
+              name='region'
+              onChange={updateAddressData}
+              value={address.region}
+            />
+          </div>
+          <div className={s.fieldset}>
+            <label className={s.label}>Country</label>
             <select
               className={s.select}
-              name='countryOrRegion'
+              name='country'
               onChange={updateAddressData}
-              value={address.countryOrRegion}
+              value={address.country}
             >
               {countries.map((country) => (
                 <option

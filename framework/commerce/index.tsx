@@ -26,6 +26,7 @@ export type Provider = CommerceConfig & {
   cart?: {
     useCart?: SWRHook<Cart.GetCartHook>
     useAddItem?: MutationHook<Cart.AddItemHook>
+    useAddShippingAddress?: MutationHook<Cart.AddShippingAddressHook>
     useUpdateItem?: MutationHook<Cart.UpdateItemHook>
     useRemoveItem?: MutationHook<Cart.RemoveItemHook>
   }

@@ -96,6 +96,20 @@ export type CartItemBody = {
   }
 }
 
+export type Address = {
+  cardholderName: string
+  firstName: string
+  lastName: string
+  company: string
+  addressLine1: string
+  addressLine2: string
+  postalCode: string
+  city: string
+  region: string
+  country: string
+  phone: string
+}
+
 /**
  * Hooks schema
  */
@@ -104,6 +118,7 @@ export type CartTypes = {
   cart?: Cart
   item: LineItem
   itemBody: CartItemBody
+  address: Address
 }
 
 export type CartHooks<T extends CartTypes = CartTypes> = {
@@ -140,6 +155,14 @@ export type RemoveItemHook<T extends CartTypes = CartTypes> = {
   data: T['cart'] | null
   input: { item?: T['item'] }
   fetcherInput: { itemId: string }
+  body: { itemId: string }
+  actionInput: { id: string }
+}
+
+export type AddShippingAddressHook<T extends CartTypes = CartTypes> = {
+  data: T['cart'] | null
+  input: { address?: T['address'] }
+  fetcherInput: { address: Address }
   body: { itemId: string }
   actionInput: { id: string }
 }
