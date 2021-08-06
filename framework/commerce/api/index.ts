@@ -146,6 +146,7 @@ export const createEndpoint =
       options?: API['schema']['endpoint']['options']
     }
   ): NextApiHandler => {
+    debugger
     return getEndpoint(commerce, { ...endpoint, ...context })
   }
 

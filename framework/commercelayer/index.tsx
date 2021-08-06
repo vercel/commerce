@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { commerceLayerProvider } from './provider'
+import { localProvider } from './provider'
 import {
   CommerceConfig,
   CommerceProvider as CoreCommerceProvider,
   useCommerce as useCoreCommerce,
 } from '@commerce'
 
-export const commerceLayerConfig: CommerceConfig = {
+export const localConfig: CommerceConfig = {
   locale: 'en-us',
   cartCookie: 'session',
 }
@@ -21,8 +21,8 @@ export function CommerceProvider({
 } & Partial<CommerceConfig>) {
   return (
     <CoreCommerceProvider
-      provider={commerceLayerProvider}
-      config={{ ...commerceLayerConfig, ...config }}
+      provider={localProvider}
+      config={{ ...localConfig, ...config }}
     >
       {children}
     </CoreCommerceProvider>

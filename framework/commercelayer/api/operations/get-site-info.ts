@@ -1,6 +1,6 @@
 import { OperationContext } from '@commerce/api/operations'
 import { Category } from '@commerce/types/site'
-import { CommercelayerConfig } from '../index'
+import { LocalConfig } from '../index'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
@@ -17,7 +17,7 @@ export default function getSiteInfoOperation({}: OperationContext<any>) {
   }: {
     query?: string
     variables?: any
-    config?: Partial<CommercelayerConfig>
+    config?: Partial<LocalConfig>
     preview?: boolean
   } = {}): Promise<GetSiteInfoResult> {
     return Promise.resolve({

@@ -2,6 +2,7 @@ import { Fetcher } from '@commerce/utils/types'
 
 export const fetcher: Fetcher = async () => {
   console.log('FETCHER')
+  debugger
   const res = await fetch('./data.json')
   if (res.ok) {
     const { data } = await res.json()

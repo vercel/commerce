@@ -1,6 +1,6 @@
 export type Page = { url: string }
 export type GetAllPagesResult = { pages: Page[] }
-import type { CommercelayerConfig } from '../index'
+import type { LocalConfig } from '../index'
 
 export default function getAllPagesOperation() {
   function getAllPages({
@@ -8,7 +8,7 @@ export default function getAllPagesOperation() {
     preview,
   }: {
     url?: string
-    config?: Partial<CommercelayerConfig>
+    config?: Partial<LocalConfig>
     preview?: boolean
   }): Promise<GetAllPagesResult> {
     return Promise.resolve({
