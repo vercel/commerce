@@ -1,0 +1,6 @@
+// export { default as getProductQuery } from './get-product-query'
+// export { default as getAllProductsQuery } from './get-all-products-query'
+// export { default as getAllPagesQuery } from './get-all-pages-query'
+// export { default as getPostsQuery } from './get-posts-query'
+// export { default as getPageQuery } from './get-page-query'
+export { default as getSiteInfoQuery } from './get-site-info-query'

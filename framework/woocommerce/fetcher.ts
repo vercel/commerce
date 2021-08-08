@@ -1,5 +1,5 @@
 import { Fetcher } from '@commerce/utils/types'
-import { API_TOKEN, API_URL } from './const'
+import { API_URL } from './const'
 import { handleFetchResponse } from './utils'
 
 const fetcher: Fetcher = async ({
@@ -13,13 +13,7 @@ const fetcher: Fetcher = async ({
     await fetch(url, {
       method,
       body: JSON.stringify({ query, variables: vars }),
-      headers: {
-        'X-Shopify-Storefront-Access-Token': API_TOKEN!,
-        'Content-Type': 'application/json',
-        ...(locale && {
-          'Accept-Language': locale,
-        }),
-      },
+      headers: { 'Content-Type': 'application/json' },
     })
   )
 }

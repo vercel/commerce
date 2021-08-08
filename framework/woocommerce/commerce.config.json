@@ -1,6 +1,10 @@
 {
-  "provider": "shopify",
+  "provider": "woocommerce",
   "features": {
-    "wishlist": false
+    "cart": false,
+    "search": false,
+    "wishlist": false,
+    "customerAuth": false,
+    "customCheckout": false
   }
 }

@@ -1,20 +1,16 @@
 {
   "schema": {
-    "https://${NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2021-07/graphql.json": {
-      "headers": {
-        "X-Shopify-Storefront-Access-Token": "${NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN}"
-      }
-    }
+    "${NEXT_PUBLIC_WOOCOMMERCE_SHOP_API_URL}": {}
   },
   "documents": [
     {
-      "./framework/shopify/**/*.{ts,tsx}": {
+      "./framework/woocommerce/wp/**/*.{ts,tsx}": {
         "noRequire": true
       }
     }
   ],
   "generates": {
-    "./framework/shopify/schema.d.ts": {
+    "./framework/woocommerce/schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"],
       "config": {
         "scalars": {
@@ -22,7 +18,7 @@
         }
       }
     },
-    "./framework/shopify/schema.graphql": {
+    "./framework/woocommerce/schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },

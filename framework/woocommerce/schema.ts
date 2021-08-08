@@ -8172,10 +8172,14 @@ export enum PostStatusEnum {
   AutoDraft = 'AUTO_DRAFT',
   /** Objects with the draft status */
   Draft = 'DRAFT',
+  /** Objects with the failed status */
+  Failed = 'FAILED',
   /** Objects with the future status */
   Future = 'FUTURE',
   /** Objects with the inherit status */
   Inherit = 'INHERIT',
+  /** Objects with the in-progress status */
+  InProgress = 'IN_PROGRESS',
   /** Objects with the pending status */
   Pending = 'PENDING',
   /** Objects with the private status */
