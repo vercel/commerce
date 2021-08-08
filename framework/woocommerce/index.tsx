@@ -7,34 +7,33 @@ import {
   useCommerce as useCoreCommerce,
 } from '@commerce'
 
-import { shopifyProvider } from './provider'
-import type { ShopifyProvider } from './provider'
-import { SHOPIFY_CHECKOUT_ID_COOKIE } from './const'
+import { wooCommerceProvider } from './provider'
+import type { WooCommerceProvider } from './provider'
+import { WOOCOMMERCE_CHECKOUT_ID_COOKIE } from './const'
 
-export { shopifyProvider }
-export type { ShopifyProvider }
+export { wooCommerceProvider }
+export type { WooCommerceProvider }
 
-export const shopifyConfig: CommerceConfig = {
+export const wooCommerceConfig: CommerceConfig = {
   locale: 'en-us',
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  cartCookie: WOOCOMMERCE_CHECKOUT_ID_COOKIE,
 }
 
-export type ShopifyConfig = Partial<CommerceConfig>
+export type WooCommerceConfig = Partial<CommerceConfig>
 
 export type ShopifyProps = {
   children?: ReactNode
-  locale: string
-} & ShopifyConfig
+} & WooCommerceConfig
 
 export function CommerceProvider({ children, ...config }: ShopifyProps) {
   return (
     <CoreCommerceProvider
-      provider={shopifyProvider}
-      config={{ ...shopifyConfig, ...config }}
+      provider={wooCommerceProvider}
+      config={{ ...wooCommerceConfig, ...config }}
     >
       {children}
     </CoreCommerceProvider>
   )
 }
 
-export const useCommerce = () => useCoreCommerce<ShopifyProvider>()
+export const useCommerce = () => useCoreCommerce<WooCommerceProvider>()
