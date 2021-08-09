@@ -17,28 +17,11 @@ export interface RawProduct {
   Inventory: null
   DefaultSupplierID: null
   AllSuppliersCanSell: boolean
-  xp: null
-}
-
-export interface RawProductWithPrice extends RawProduct {
-  priceSchedule: PriceSchedule
-}
-
-export interface PriceSchedule {
-  OwnerID: string
-  ID: string
-  Name: string
-  ApplyTax: boolean
-  ApplyShipping: boolean
-  MinQuantity: number
-  MaxQuantity: number
-  UseCumulativeQuantity: boolean
-  RestrictedQuantity: boolean
-  PriceBreaks: [
-    {
-      Quantity: number
-      Price: number
-    }
-  ]
-  xp: null
+  xp: {
+    Price: number
+    PriceCurrency: string
+    Images: {
+      url: string
+    }[]
+  }
 }

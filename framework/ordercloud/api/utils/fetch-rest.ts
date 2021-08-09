@@ -18,26 +18,62 @@ const fetchRestApi: (
     fetchOptions?: Record<string, any>
   ) => {
     const { commerceUrl } = getConfig()
-    const res = await fetch(`${commerceUrl}${resource}`, {
+    // Check if we have a token stored
+    if (!global.token) {
+      // If not, get a new one and store it
+      const authResponse = await fetch(`${commerceUrl}/oauth/token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json',
+        },
+        body: `client_id=${process.env.NEXT_PUBLIC_ORDERCLOUD_CLIENT_ID}&grant_type=client_credentials&client_secret=${process.env.NEXT_PUBLIC_ORDERCLOUD_CLIENT_SECRET}`,
+      })
+
+      // If something failed getting the auth response
+      if (!authResponse.ok) {
+        // Get the body of it
+        const error = await authResponse.json()
+
+        // And return an error
+        throw new FetcherError({
+          errors: [{ message: error.error_description.Code }],
+          status: error.error_description.HttpStatus,
+        })
+      }
+
+      // If everything is fine, store the access token in global.token
+      global.token = await authResponse
+        .json()
+        .then((response) => response.access_token)
+    }
+
+    // Do the request with the correct headers
+    const dataResponse = await fetch(`${commerceUrl}/v1${resource}`, {
       ...fetchOptions,
       method,
       headers: {
         ...fetchOptions?.headers,
         accept: 'application/json, text/plain, */*',
-        'accept-language': 'es,en;q=0.9,es-ES;q=0.8,fr;q=0.7',
-        authorization: 'Bearer <your token>',
+        authorization: `Bearer ${global.token}`,
       },
       body: body ? JSON.stringify(body) : undefined,
     })
 
-    if (!res.ok) {
+    // If something failed getting the data response
+    if (!dataResponse.ok) {
+      // Get the body of it
+      const error = await dataResponse.json()
+
+      // And return an error
       throw new FetcherError({
-        errors: [{ message: res.statusText }],
-        status: res.status,
+        errors: [{ message: error.error_description.Code }],
+        status: error.error_description.HttpStatus,
       })
     }
 
-    return (await res.json()) as T
+    // Return the data and specify the expected type
+    return (await dataResponse.json()) as T
   }
 
 export default fetchRestApi

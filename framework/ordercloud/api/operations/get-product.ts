@@ -1,24 +1,32 @@
-import type { OrdercloudConfig } from '../index'
-import { Product } from '@commerce/types/product'
-import { GetProductOperation } from '@commerce/types/product'
-import data from '../../data.json'
 import type { OperationContext } from '@commerce/api/operations'
+import type { RawProduct } from '@framework/types/product'
+import type { Product } from '@commerce/types/product'
+import type { GetProductOperation } from '@commerce/types/product'
+import type { OrdercloudConfig, Provider } from '../index'
+
+import { normalize as normalizeProduct } from '@framework/utils/product'
 
 export default function getProductOperation({
   commerce,
-}: OperationContext<any>) {
+}: OperationContext<Provider>) {
   async function getProduct<T extends GetProductOperation>({
-    query = '',
-    variables,
     config,
+    variables,
   }: {
     query?: string
     variables?: T['variables']
     config?: Partial<OrdercloudConfig>
     preview?: boolean
-  } = {}): Promise<Product | {} | any> {
+  } = {}): Promise<{ product: Product }> {
+    const { fetch } = commerce.getConfig(config)
+
+    const rawProduct: RawProduct = await fetch<RawProduct>(
+      'GET',
+      `/products/${variables?.slug}`
+    )
+
     return {
-      product: null // data.products.find(({ slug }) => slug === variables!.slug),
+      product: normalizeProduct(rawProduct),
     }
   }
 

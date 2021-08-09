@@ -1,12 +1,9 @@
-import { Product } from '@commerce/types/product'
-import { GetAllProductsOperation } from '@commerce/types/product'
+import type { Product } from '@commerce/types/product'
+import type { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
+import type { RawProduct } from '@framework/types/product'
 import type { OrdercloudConfig, Provider } from '../index'
-import {
-  PriceSchedule,
-  RawProduct,
-  RawProductWithPrice,
-} from '@framework/types/product'
+
 import { normalize as normalizeProduct } from '@framework/utils/product'
 
 export default function getAllProductsOperation({
@@ -26,19 +23,11 @@ export default function getAllProductsOperation({
       'GET',
       '/products'
     ).then((response) => response.Items)
-    const rawProductsWithPrice: RawProductWithPrice[] = await Promise.all(
-      rawProducts.map(async (product) => ({
-        ...product,
-        priceSchedule: await fetch<PriceSchedule>(
-          'GET',
-          `/priceschedules/${product.ID}`
-        ),
-      }))
-    )
 
     return {
-      products: rawProductsWithPrice.map(normalizeProduct),
+      products: rawProducts.map(normalizeProduct),
     }
   }
+
   return getAllProducts
 }

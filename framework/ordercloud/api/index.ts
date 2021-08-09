@@ -20,7 +20,7 @@ export interface OrdercloudConfig extends Omit<CommerceAPIConfig, 'fetch'> {
 }
 
 const config: OrdercloudConfig = {
-  commerceUrl: 'https://sandboxapi.ordercloud.io/v1',
+  commerceUrl: 'https://sandboxapi.ordercloud.io',
   apiToken: '',
   cartCookie: '',
   customerCookie: '',
