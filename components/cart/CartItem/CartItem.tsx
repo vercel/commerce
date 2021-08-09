@@ -22,16 +22,21 @@ const CartItem = ({
   item,
   variant = 'default',
   currencyCode,
+  refreshCart,
   ...rest
 }: {
   variant?: 'default' | 'display'
   item: LineItem
   currencyCode: string
+  refreshCart: () => void
 }) => {
   const { closeSidebarIfPresent } = useUI()
   const [removing, setRemoving] = useState(false)
   const [quantity, setQuantity] = useState<number>(item.quantity)
-  const removeItem = useRemoveItem()
+  const removeItem = () => {
+    useRemoveItem()
+    refreshCart()
+  }
   const updateItem = useUpdateItem({ item })
 
   const { price } = usePrice({

@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useState, useCallback } from 'react'
 import s from './CartSidebarView.module.css'
 import CartItem from '../CartItem'
 import { Button, Text } from '@components/ui'
@@ -13,6 +13,11 @@ import SidebarLayout from '@components/common/SidebarLayout'
 const CartSidebarView: FC = () => {
   const { closeSidebar, setSidebarView } = useUI()
   const { data, isLoading, isEmpty } = useCart()
+  const [lastChanged, setLastChanged] = useState(0)
+
+  const refreshCart = useCallback(() => setLastChanged(performance.now()), [
+    setLastChanged,
+  ])
 
   const { price: subTotal } = usePrice(
     data && {
@@ -38,6 +43,7 @@ const CartSidebarView: FC = () => {
         [s.empty]: error || success || isLoading || isEmpty,
       })}
       handleClose={handleClose}
+      key={lastChanged}
     >
       {isLoading || isEmpty ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
@@ -84,6 +90,7 @@ const CartSidebarView: FC = () => {
                   key={item.id}
                   item={item}
                   currencyCode={data!.currency.code}
+                  refreshCart={refreshCart}
                 />
               ))}
             </ul>
