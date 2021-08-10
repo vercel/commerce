@@ -37,8 +37,6 @@ const ProductCard: FC<Props> = ({
     className
   )
 
-  console.log(process.env.COMMERCE_PROVIDER)
-
   return (
     <Link href={`/product/${product.slug}`}>
       <a className={rootClassName}>
