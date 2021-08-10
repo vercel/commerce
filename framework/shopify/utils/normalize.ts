@@ -204,6 +204,7 @@ export function normalizeWishlist(
                 variant?.image?.originalSrc || '/product-img-placeholder.svg',
             },
           ],
+          id,
           variants: variant?.id ? [{ id: variant?.id }] : [],
           amount: +variant?.priceV2?.amount,
           baseAmount: +variant?.compareAtPriceV2?.amount,

@@ -7,9 +7,6 @@ export function getError(errors: any[] | null, status: number) {
 
 export async function getAsyncError(res: Response) {
   const data = await res.json()
-
-  console.log(data)
-
   return getError(data.errors, res.status)
 }
 

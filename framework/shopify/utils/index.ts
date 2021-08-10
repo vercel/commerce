@@ -10,6 +10,7 @@ export { default as handleLogin, handleAutomaticLogin } from './handle-login'
 export { default as handleAccountActivation } from './handle-account-activation'
 export { default as throwUserErrors } from './throw-user-errors'
 export { default as getWishlistId } from './get-wisthlist-id'
+export { default as setCheckoutUrlCookie } from './set-checkout-url-cookie'
 
 export * from './queries'
 export * from './mutations'

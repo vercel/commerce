@@ -41,7 +41,7 @@ const WishlistButton: FC<Props> = ({
     if (loading) return
 
     // A login is required before adding an item to the wishlist
-    if (!customer && process.env.COMMERCE_PROVIDER !== 'shopify') {
+    if (!customer && !process.env.COMMERCE_WISHLISTFORGUESTS_ENABLED) {
       setModalView('LOGIN_VIEW')
       return openModal()
     }
@@ -57,7 +57,6 @@ const WishlistButton: FC<Props> = ({
           variantId: variant?.id!,
         })
       }
-
       setLoading(false)
     } catch (err) {
       setLoading(false)

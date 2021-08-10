@@ -36,7 +36,6 @@ const WishlistCard: FC<Props> = ({ product }) => {
 
   const handleRemove = async () => {
     setRemoving(true)
-
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view

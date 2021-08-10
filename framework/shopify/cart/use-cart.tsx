@@ -2,15 +2,9 @@ import { useMemo } from 'react'
 import useCommerceCart, { UseCart } from '@commerce/cart/use-cart'
 
 import { SWRHook } from '@commerce/utils/types'
-import getCartQuery from '../utils/queries/get-cart-query'
 import { GetCartHook } from '../types/cart'
-import {
-  GetCartQuery,
-  GetCartQueryVariables,
-  QueryRoot,
-} from '@framework/schema'
-import { normalizeCart } from '@framework/utils'
-import setCheckoutUrlCookie from '@framework/utils/set-checkout-url-cookie'
+import { GetCartQueryVariables, QueryRoot } from '../schema'
+import { normalizeCart, getCartQuery, setCheckoutUrlCookie } from '../utils'
 
 export default useCommerceCart as UseCart<typeof handler>
 

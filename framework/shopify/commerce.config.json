@@ -2,6 +2,7 @@
   "provider": "shopify",
   "features": {
     "wishlist": true,
+    "wishlistForGuests": true,
     "customerAuth": true,
     "search": true
   }
