@@ -203,8 +203,8 @@ export function normalizeProduct(productNode: CatalogItemProduct): Product {
 export function normalizeCart(cart: ReactionCart): Cart {
   return {
     id: cart._id,
-    customerId: '',
-    email: '',
+    customerId: cart.account?._id ?? '',
+    email: cart.account?.emailRecords[0].address ?? '',
     createdAt: cart.createdAt,
     currency: {
       code: cart.checkout?.summary?.total?.currency.code ?? '',
@@ -218,6 +218,7 @@ export function normalizeCart(cart: ReactionCart): Cart {
     subtotalPrice: +(cart.checkout?.summary?.itemTotal?.amount ?? 0),
     totalPrice: cart.checkout?.summary?.total?.amount ?? 0,
     discounts: [],
+    taxes: cart.checkout?.summary?.taxTotal?.amount,
   }
 }
 

@@ -26,6 +26,12 @@ const CheckoutSidebarView: FC = () => {
       currencyCode: data.currency.code,
     }
   )
+  const { price: taxes } = usePrice(
+    data && {
+      amount: Number(data.taxes),
+      currencyCode: data.currency.code,
+    }
+  )
 
   return (
     <SidebarLayout
@@ -68,7 +74,7 @@ const CheckoutSidebarView: FC = () => {
           </li>
           <li className="flex justify-between py-1">
             <span>Taxes</span>
-            <span>Calculated at checkout</span>
+            <span>{data.taxes ? taxes : 'Calculated at checkout'}</span>
           </li>
           <li className="flex justify-between py-1">
             <span>Shipping</span>
