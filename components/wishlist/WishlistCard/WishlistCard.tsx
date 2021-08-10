@@ -56,6 +56,7 @@ const WishlistCard: FC<Props> = ({ product }) => {
       setLoading(false)
     } catch (err) {
       setLoading(false)
+      console.error(err)
     }
   }
 

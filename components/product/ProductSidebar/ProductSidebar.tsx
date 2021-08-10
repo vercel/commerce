@@ -37,6 +37,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
       setLoading(false)
     } catch (err) {
       setLoading(false)
+      console.error(err)
     }
   }
 

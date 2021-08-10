@@ -1,6 +1,6 @@
 import { cartDetailsFragment } from '../queries/get-cart-query'
 
-const cartLinesAddMutation = /* GraphQL */ `
+const cartLinesRemoveMutation = /* GraphQL */ `
   mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
@@ -15,4 +15,4 @@ const cartLinesAddMutation = /* GraphQL */ `
   }
   ${cartDetailsFragment}
 `
-export default cartLinesAddMutation
+export default cartLinesRemoveMutation

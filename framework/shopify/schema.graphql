@@ -1806,7 +1806,7 @@ type CheckoutCreatePayload {
   checkoutUserErrors: [CheckoutUserError!]!
 
   """
-  The checkout queue token.
+  The checkout queue token. Available only to selected stores.
   """
   queueToken: String
 
@@ -7496,7 +7496,7 @@ type Mutation {
     input: CheckoutCreateInput!
 
     """
-    The checkout queue token.
+    The checkout queue token. Available only to selected stores.
     """
     queueToken: String
   ): CheckoutCreatePayload

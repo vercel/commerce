@@ -5,6 +5,7 @@ export { default as getAllProductsPathtsQuery } from './get-all-products-paths-q
 export { default as getAllProductVendors } from './get-all-product-vendors-query'
 export { default as getCollectionProductsQuery } from './get-collection-products-query'
 export { default as getCartQuery } from './get-cart-query'
+export { default as getWishlistQuery } from './get-wishlist-query'
 export { default as getAllPagesQuery } from './get-all-pages-query'
 export { default as getPageQuery } from './get-page-query'
 export { default as getCustomerQuery } from './get-customer-query'

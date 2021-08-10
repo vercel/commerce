@@ -1,8 +1,8 @@
 import { wishlistDetailsFragment } from '../queries/get-wishlist-query'
 
-const cartCreateMutation = /* GraphQL */ `
-  mutation cartCreate($input: CartInput = {}) {
-    cartCreate(input: $input) {
+const wishlistLinesRemoveMutation = /* GraphQL */ `
+  mutation wishlistLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
         ...wishlistDetails
       }
@@ -15,4 +15,4 @@ const cartCreateMutation = /* GraphQL */ `
   }
   ${wishlistDetailsFragment}
 `
-export default cartCreateMutation
+export default wishlistLinesRemoveMutation

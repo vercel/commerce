@@ -40,7 +40,7 @@ export const handler = {
       CartLinesRemoveMutationVariables
     >({
       ...options,
-      variables: { cartId: getCartId(), lineItemIds: [itemId] },
+      variables: { cartId: getCartId(), lineIds: [itemId] },
     })
 
     throwUserErrors(data.cartLinesRemove?.userErrors)

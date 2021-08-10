@@ -15,8 +15,11 @@ import {
   CartDetailsFragment,
   ProductVariantConnection,
 } from '../schema'
+
 import { colorMap } from '@lib/colors'
+
 import { CommerceError } from '@commerce/utils/errors'
+import type { Wishlist } from '@commerce/types/wishlist'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -134,7 +137,6 @@ export function normalizeCart(
   if (!cart) {
     throw new CommerceError({ message: 'Missing cart details' })
   }
-
   return {
     id: cart.id,
     customerId: cart.buyerIdentity?.customer?.id,
@@ -143,11 +145,11 @@ export function normalizeCart(
     currency: {
       code: cart.estimatedCost?.totalAmount?.currencyCode,
     },
-    taxesIncluded: !!cart.estimatedCost?.totalTaxAmount,
+    taxesIncluded: !!cart.estimatedCost?.totalTaxAmount?.amount,
     lineItems: cart.lines?.edges?.map(normalizeLineItem) ?? [],
-    lineItemsSubtotalPrice: +cart.estimatedCost?.totalAmount,
-    subtotalPrice: +cart.estimatedCost?.subtotalAmount,
-    totalPrice: +cart.estimatedCost?.totalAmount,
+    lineItemsSubtotalPrice: +cart.estimatedCost?.subtotalAmount?.amount,
+    subtotalPrice: +cart.estimatedCost?.subtotalAmount?.amount,
+    totalPrice: +cart.estimatedCost?.totalAmount?.amount,
     discounts: [],
   }
 }
@@ -159,24 +161,55 @@ function normalizeLineItem({
 }): LineItem {
   return {
     id,
-    variantId: String(variant?.id),
-    productId: String(variant?.id),
-    name: `${variant?.title}`,
+    variantId: variant?.id,
+    productId: variant?.id,
+    name: variant?.product?.title || variant?.title,
     quantity: quantity ?? 0,
     variant: {
-      id: String(variant?.id),
+      id: variant?.id,
       sku: variant?.sku ?? '',
       name: variant?.title!,
       image: {
         url: variant?.image?.originalSrc || '/product-img-placeholder.svg',
       },
       requiresShipping: variant?.requiresShipping ?? false,
-      price: variant?.priceV2?.amount,
+      price: +variant?.priceV2?.amount,
       listPrice: variant?.compareAtPriceV2?.amount,
     },
-    path: String(variant?.product?.handle),
+    path: variant?.product?.handle,
     discounts: [],
     options: variant?.title == 'Default Title' ? [] : variant?.selectedOptions,
+  }
+}
+
+export function normalizeWishlist(
+  cart: CartDetailsFragment | undefined | null
+): Wishlist {
+  if (!cart) {
+    throw new CommerceError({ message: 'Missing cart details' })
+  }
+  return {
+    items:
+      cart.lines?.edges?.map(({ node: { id, merchandise: variant } }: any) => ({
+        id,
+        product_id: variant?.product?.id,
+        variant_id: variant?.id,
+        product: {
+          name: variant?.product?.title,
+          path: '/' + variant?.product?.handle,
+          description: variant?.product?.description,
+          images: [
+            {
+              url:
+                variant?.image?.originalSrc || '/product-img-placeholder.svg',
+            },
+          ],
+          variants: variant?.id ? [{ id: variant?.id }] : [],
+          amount: +variant?.priceV2?.amount,
+          baseAmount: +variant?.compareAtPriceV2?.amount,
+          currencyCode: variant?.priceV2?.currencyCode,
+        },
+      })) ?? [],
   }
 }
 

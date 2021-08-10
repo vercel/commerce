@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
-import { SHOPIFY_CART_ID_COOKIE, SHOPIFY_COOKIE_EXPIRE } from '../const'
-import cartCreateMutation from './mutations/cart-create'
+import { SHOPIFY_COOKIE_EXPIRE, SHOPIFY_WHISLIST_ID_COOKIE } from '../const'
+import wishlistCreateMutation from './mutations/wishlist-create'
+import { FetcherOptions } from '@commerce/utils/types'
 
 import {
   CartCreateMutation,
@@ -9,11 +10,9 @@ import {
   CartLineInput,
 } from '../schema'
 
-import { FetcherOptions } from '@commerce/utils/types'
 import throwUserErrors from './throw-user-errors'
-import setCheckoutUrlCookie from './set-checkout-url-cookie'
 
-export const cartCreate = async (
+export const wishlistCreate = async (
   fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
   lines?: Array<CartLineInput> | CartLineInput
 ): Promise<CartDetailsFragment | null | undefined> => {
@@ -21,7 +20,7 @@ export const cartCreate = async (
     CartCreateMutation,
     CartCreateMutationVariables
   >({
-    query: cartCreateMutation,
+    query: wishlistCreateMutation,
     variables: {
       input: {
         lines,
@@ -29,20 +28,18 @@ export const cartCreate = async (
     },
   })
 
-  const cart = cartCreate?.cart
+  const wishlist = cartCreate?.cart
 
   throwUserErrors(cartCreate?.userErrors)
 
-  if (cart?.id) {
+  if (wishlist?.id) {
     const options = {
       expires: SHOPIFY_COOKIE_EXPIRE,
     }
-    Cookies.set(SHOPIFY_CART_ID_COOKIE, cart.id, options)
+    Cookies.set(SHOPIFY_WHISLIST_ID_COOKIE, wishlist.id, options)
   }
 
-  setCheckoutUrlCookie(cart?.checkoutUrl)
-
-  return cart
+  return wishlist
 }
 
-export default cartCreate
+export default wishlistCreate

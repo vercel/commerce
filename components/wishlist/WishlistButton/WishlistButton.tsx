@@ -31,8 +31,8 @@ const WishlistButton: FC<Props> = ({
   const itemInWishlist = data?.items?.find(
     // @ts-ignore Wishlist is not always enabled
     (item) =>
-      item.product_id === Number(productId) &&
-      (item.variant_id as any) === Number(variant.id)
+      String(item.product_id) === String(productId) &&
+      String(item.variant_id) === String(variant?.id)
   )
 
   const handleWishlistChange = async (e: any) => {
@@ -41,7 +41,7 @@ const WishlistButton: FC<Props> = ({
     if (loading) return
 
     // A login is required before adding an item to the wishlist
-    if (!customer) {
+    if (!customer && process.env.COMMERCE_PROVIDER !== 'shopify') {
       setModalView('LOGIN_VIEW')
       return openModal()
     }

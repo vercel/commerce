@@ -29,32 +29,34 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
+    const lines = [
+      {
+        merchandiseId: item.variantId,
+        quantity: item.quantity ?? 1,
+      },
+    ]
+
     let cartId = getCartId()
 
     if (!cartId) {
-      const { id } = await cartCreate(fetch)
-      cartId = id
+      const cart = await cartCreate(fetch, lines)
+      return normalizeCart(cart)
+    } else {
+      const { cartLinesAdd } = await fetch<
+        CartLinesAddMutation,
+        CartLinesAddMutationVariables
+      >({
+        ...options,
+        variables: {
+          cartId,
+          lines,
+        },
+      })
+
+      throwUserErrors(cartLinesAdd?.userErrors)
+
+      return normalizeCart(cartLinesAdd?.cart)
     }
-
-    const { cartLinesAdd } = await fetch<
-      CartLinesAddMutation,
-      CartLinesAddMutationVariables
-    >({
-      ...options,
-      variables: {
-        cartId,
-        lineItems: [
-          {
-            variantId: item.variantId,
-            quantity: item.quantity ?? 1,
-          },
-        ],
-      },
-    })
-
-    throwUserErrors(cartLinesAdd?.userErrors)
-
-    return normalizeCart(cartLinesAdd?.cart)
   },
   useHook:
     ({ fetch }) =>

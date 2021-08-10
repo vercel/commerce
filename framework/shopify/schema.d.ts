@@ -974,7 +974,7 @@ export type CheckoutCreatePayload = {
   checkout?: Maybe<Checkout>
   /** The list of errors that occurred from executing the mutation. */
   checkoutUserErrors: Array<CheckoutUserError>
-  /** The checkout queue token. */
+  /** The checkout queue token. Available only to selected stores. */
   queueToken?: Maybe<Scalars['String']>
   /**
    * The list of errors that occurred from executing the mutation.
@@ -6036,7 +6036,9 @@ export type AssociateCustomerWithCheckoutMutation = {
   >
 }
 
-export type CartCreateMutationVariables = Exact<{ [key: string]: never }>
+export type CartCreateMutationVariables = Exact<{
+  input?: Maybe<CartInput>
+}>
 
 export type CartCreateMutation = { __typename?: 'Mutation' } & {
   cartCreate?: Maybe<
@@ -6217,6 +6219,62 @@ export type CustomerCreateMutation = { __typename?: 'Mutation' } & {
   >
 }
 
+export type WishlistCreateMutationVariables = Exact<{
+  input?: Maybe<CartInput>
+}>
+
+export type WishlistCreateMutation = { __typename?: 'Mutation' } & {
+  cartCreate?: Maybe<
+    { __typename?: 'CartCreatePayload' } & {
+      cart?: Maybe<{ __typename?: 'Cart' } & WishlistDetailsFragment>
+      userErrors: Array<
+        { __typename?: 'CartUserError' } & Pick<
+          CartUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+    }
+  >
+}
+
+export type WishlistLinesAddMutationVariables = Exact<{
+  lines: Array<CartLineInput> | CartLineInput
+  cartId: Scalars['ID']
+}>
+
+export type WishlistLinesAddMutation = { __typename?: 'Mutation' } & {
+  cartLinesAdd?: Maybe<
+    { __typename?: 'CartLinesAddPayload' } & {
+      cart?: Maybe<{ __typename?: 'Cart' } & CartDetailsFragment>
+      userErrors: Array<
+        { __typename?: 'CartUserError' } & Pick<
+          CartUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+    }
+  >
+}
+
+export type WishlistLinesRemoveMutationVariables = Exact<{
+  cartId: Scalars['ID']
+  lineIds: Array<Scalars['ID']> | Scalars['ID']
+}>
+
+export type WishlistLinesRemoveMutation = { __typename?: 'Mutation' } & {
+  cartLinesRemove?: Maybe<
+    { __typename?: 'CartLinesRemovePayload' } & {
+      cart?: Maybe<{ __typename?: 'Cart' } & CartDetailsFragment>
+      userErrors: Array<
+        { __typename?: 'CartUserError' } & Pick<
+          CartUserError,
+          'code' | 'field' | 'message'
+        >
+      >
+    }
+  >
+}
+
 export type GetSiteCollectionsQueryVariables = Exact<{
   first: Scalars['Int']
 }>
@@ -6335,16 +6393,46 @@ export type GetAllProductsQuery = { __typename?: 'QueryRoot' } & {
 
 export type CartDetailsFragment = { __typename?: 'Cart' } & Pick<
   Cart,
-  'id' | 'createdAt' | 'updatedAt'
+  'id' | 'checkoutUrl' | 'createdAt' | 'updatedAt'
 > & {
     lines: { __typename?: 'CartLineConnection' } & {
       edges: Array<
         { __typename?: 'CartLineEdge' } & {
-          node: { __typename?: 'CartLine' } & Pick<CartLine, 'id'> & {
+          node: { __typename?: 'CartLine' } & Pick<
+            CartLine,
+            'id' | 'quantity'
+          > & {
               merchandise: { __typename?: 'ProductVariant' } & Pick<
                 ProductVariant,
-                'id'
-              >
+                'id' | 'sku' | 'title'
+              > & {
+                  selectedOptions: Array<
+                    { __typename?: 'SelectedOption' } & Pick<
+                      SelectedOption,
+                      'name' | 'value'
+                    >
+                  >
+                  image?: Maybe<
+                    { __typename?: 'Image' } & Pick<
+                      Image,
+                      'originalSrc' | 'altText' | 'width' | 'height'
+                    >
+                  >
+                  priceV2: { __typename?: 'MoneyV2' } & Pick<
+                    MoneyV2,
+                    'amount' | 'currencyCode'
+                  >
+                  compareAtPriceV2?: Maybe<
+                    { __typename?: 'MoneyV2' } & Pick<
+                      MoneyV2,
+                      'amount' | 'currencyCode'
+                    >
+                  >
+                  product: { __typename?: 'Product' } & Pick<
+                    Product,
+                    'title' | 'handle'
+                  >
+                }
             }
         }
       >
@@ -6379,31 +6467,7 @@ export type GetCartQueryVariables = Exact<{
 }>
 
 export type GetCartQuery = { __typename?: 'QueryRoot' } & {
-  node?: Maybe<
-    | { __typename?: 'AppliedGiftCard' }
-    | { __typename?: 'Article' }
-    | { __typename?: 'Blog' }
-    | ({ __typename?: 'Cart' } & CartDetailsFragment)
-    | { __typename?: 'CartLine' }
-    | { __typename?: 'Checkout' }
-    | { __typename?: 'CheckoutLineItem' }
-    | { __typename?: 'Collection' }
-    | { __typename?: 'Comment' }
-    | { __typename?: 'ExternalVideo' }
-    | { __typename?: 'Location' }
-    | { __typename?: 'MailingAddress' }
-    | { __typename?: 'MediaImage' }
-    | { __typename?: 'Metafield' }
-    | { __typename?: 'Model3d' }
-    | { __typename?: 'Order' }
-    | { __typename?: 'Page' }
-    | { __typename?: 'Payment' }
-    | { __typename?: 'Product' }
-    | { __typename?: 'ProductOption' }
-    | { __typename?: 'ProductVariant' }
-    | { __typename?: 'ShopPolicy' }
-    | { __typename?: 'Video' }
-  >
+  cart?: Maybe<{ __typename?: 'Cart' } & CartDetailsFragment>
 }
 
 export type GetProductsFromCollectionQueryVariables = Exact<{
@@ -6595,4 +6659,51 @@ export type GetSiteInfoQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSiteInfoQuery = { __typename?: 'QueryRoot' } & {
   shop: { __typename?: 'Shop' } & Pick<Shop, 'name'>
+}
+
+export type WishlistDetailsFragment = { __typename?: 'Cart' } & Pick<
+  Cart,
+  'id' | 'createdAt' | 'updatedAt'
+> & {
+    lines: { __typename?: 'CartLineConnection' } & {
+      edges: Array<
+        { __typename?: 'CartLineEdge' } & {
+          node: { __typename?: 'CartLine' } & Pick<
+            CartLine,
+            'id' | 'quantity'
+          > & {
+              merchandise: { __typename?: 'ProductVariant' } & Pick<
+                ProductVariant,
+                'id' | 'sku' | 'title'
+              > & {
+                  image?: Maybe<
+                    { __typename?: 'Image' } & Pick<
+                      Image,
+                      'originalSrc' | 'altText' | 'width' | 'height'
+                    >
+                  >
+                  product: { __typename?: 'Product' } & Pick<
+                    Product,
+                    'title' | 'handle'
+                  >
+                }
+            }
+        }
+      >
+    }
+    attributes: Array<
+      { __typename?: 'Attribute' } & Pick<Attribute, 'key' | 'value'>
+    >
+    buyerIdentity: { __typename?: 'CartBuyerIdentity' } & Pick<
+      CartBuyerIdentity,
+      'email'
+    > & { customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>> }
+  }
+
+export type GetWishlistQueryVariables = Exact<{
+  cartId: Scalars['ID']
+}>
+
+export type GetWishlistQuery = { __typename?: 'QueryRoot' } & {
+  cart?: Maybe<{ __typename?: 'Cart' } & WishlistDetailsFragment>
 }

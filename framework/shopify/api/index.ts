@@ -8,7 +8,7 @@ import {
   API_URL,
   API_TOKEN,
   SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-  SHOPIFY_CHECKOUT_ID_COOKIE,
+  SHOPIFY_CART_ID_COOKIE,
 } from '../const'
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
@@ -34,7 +34,7 @@ const config: ShopifyConfig = {
   commerceUrl: API_URL,
   apiToken: API_TOKEN,
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  cartCookie: SHOPIFY_CART_ID_COOKIE,
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: fetchGraphqlApi,
 }
