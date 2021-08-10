@@ -1,7 +1,8 @@
-import type { OrdercloudConfig, Provider } from '../index'
 import type { OperationContext } from '@commerce/api/operations'
 import type { GetAllProductPathsOperation } from '@commerce/types/product'
-import { RawProduct } from '@framework/types/product'
+
+import type { RawProduct } from '../../types/product'
+import type { OrdercloudConfig, Provider } from '../index'
 
 export type GetAllProductPathsResult = {
   products: Array<{ path: string }>

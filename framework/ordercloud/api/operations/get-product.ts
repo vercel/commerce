@@ -1,9 +1,10 @@
 import type { OperationContext } from '@commerce/api/operations'
-import type { RawProduct } from '@framework/types/product'
 import type { GetProductOperation } from '@commerce/types/product'
+
+import type { RawProduct } from '../../types/product'
 import type { OrdercloudConfig, Provider } from '../index'
 
-import { normalize as normalizeProduct } from '@framework/utils/product'
+import { normalize as normalizeProduct } from '../../utils/product'
 
 export default function getProductOperation({
   commerce,

@@ -1,5 +1,6 @@
-import type { RawProduct } from '@framework/types/product'
 import type { Product } from '@commerce/types/product'
+
+import type { RawProduct } from '../types/product'
 
 export function normalize(product: RawProduct): Product {
   return {
