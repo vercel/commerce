@@ -4,6 +4,8 @@ import useWishlist, { UseWishlist } from '@commerce/wishlist/use-wishlist'
 import type { GetWishlistHook } from '../types/wishlist'
 import { getWishlistId, normalizeWishlist, getWishlistQuery } from '../utils'
 import { GetCartQueryVariables, QueryRoot } from '../schema'
+import Cookies from 'js-cookie'
+import { SHOPIFY_WHISLIST_ID_COOKIE } from '../const'
 
 export default useWishlist as UseWishlist<typeof handler>
 
@@ -13,16 +15,17 @@ export const handler: SWRHook<GetWishlistHook> = {
   },
   async fetcher({ input: _input, options, fetch }) {
     const wishListId = getWishlistId()
-
     if (wishListId) {
-      const { cart } = await fetch<QueryRoot, GetCartQueryVariables>({
+      const { cart: wishlist } = await fetch<QueryRoot, GetCartQueryVariables>({
         ...options,
         variables: { cartId: wishListId },
       })
-
-      return normalizeWishlist(cart)
+      if (wishlist) {
+        return normalizeWishlist(wishlist)
+      } else {
+        Cookies.remove(SHOPIFY_WHISLIST_ID_COOKIE)
+      }
     }
-
     return null
   },
   useHook:

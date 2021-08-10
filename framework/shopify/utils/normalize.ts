@@ -21,11 +21,14 @@ import { colorMap } from '@lib/colors'
 import { CommerceError } from '@commerce/utils/errors'
 import type { Wishlist } from '@commerce/types/wishlist'
 
-const money = ({ amount, currencyCode }: MoneyV2) => {
-  return {
-    value: +amount,
-    currencyCode,
+const money = (money?: MoneyV2) => {
+  if (money) {
+    return {
+      value: +money.amount,
+      currencyCode: money.currencyCode,
+    }
   }
+  return null
 }
 
 const normalizeProductOption = ({
@@ -206,9 +209,13 @@ export function normalizeWishlist(
           ],
           id,
           variants: variant?.id ? [{ id: variant?.id }] : [],
-          amount: +variant?.priceV2?.amount,
-          baseAmount: +variant?.compareAtPriceV2?.amount,
-          currencyCode: variant?.priceV2?.currencyCode,
+          price: {
+            value: +variant?.priceV2?.amount,
+            currencyCode: variant?.priceV2?.currencyCode,
+            retailPrice: variant?.compareAtPriceV2
+              ? +variant?.compareAtPriceV2.amount
+              : null,
+          },
         },
       })) ?? [],
   }

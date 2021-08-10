@@ -6,7 +6,6 @@ import type { AddItemHook } from '../types/wishlist'
 
 import {
   getWishlistId,
-  normalizeCart,
   normalizeWishlist,
   throwUserErrors,
   wishlistCreate,
@@ -34,7 +33,7 @@ export const handler: MutationHook<AddItemHook> = {
 
     if (!wishlistId) {
       const cart = await wishlistCreate(fetch, lines)
-      return normalizeCart(cart)
+      return normalizeWishlist(cart)
     } else {
       const { cartLinesAdd } = await fetch<
         CartLinesAddMutation,
@@ -46,9 +45,7 @@ export const handler: MutationHook<AddItemHook> = {
           lines,
         },
       })
-
       throwUserErrors(cartLinesAdd?.userErrors)
-
       return normalizeWishlist(cartLinesAdd?.cart)
     }
   },

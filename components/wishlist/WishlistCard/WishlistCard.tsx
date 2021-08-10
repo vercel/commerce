@@ -24,6 +24,7 @@ const WishlistCard: FC<Props> = ({ product }) => {
     baseAmount: product.price?.retailPrice,
     currencyCode: product.price?.currencyCode!,
   })
+
   // @ts-ignore Wishlist is not always enabled
   const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
   const [loading, setLoading] = useState(false)
@@ -36,6 +37,7 @@ const WishlistCard: FC<Props> = ({ product }) => {
 
   const handleRemove = async () => {
     setRemoving(true)
+
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view

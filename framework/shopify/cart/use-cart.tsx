@@ -5,7 +5,7 @@ import { GetCartHook } from '../types/cart'
 import { GetCartQueryVariables, QueryRoot } from '../schema'
 import { normalizeCart, getCartQuery, setCheckoutUrlCookie } from '../utils'
 import Cookies from 'js-cookie'
-import { SHOPIFY_CART_ID_COOKIE } from '@framework/const'
+import { SHOPIFY_CART_ID_COOKIE } from '../const'
 
 export default useCommerceCart as UseCart<typeof handler>
 
