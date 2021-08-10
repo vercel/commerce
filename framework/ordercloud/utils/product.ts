@@ -12,49 +12,32 @@ export function normalize(product: RawProduct): Product {
       value: product.xp.Price,
       currencyCode: product.xp.PriceCurrency,
     },
-    // TODO: Implement this
-    variants: [
-      {
-        id: 'unique',
-        options: [
-          {
-            id: 'unique',
-            displayName: 'Model',
-            values: [
-              {
-                label: 'Unique',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-    options: [
-      {
-        id: 'option-color',
-        displayName: 'Color',
-        values: [
-          {
-            label: 'color',
-            hexColors: ['#222'],
-          },
-        ],
-      },
-      {
-        id: 'option-size',
-        displayName: 'Size',
-        values: [
-          {
-            label: 'S',
-          },
-          {
-            label: 'M',
-          },
-          {
-            label: 'L',
-          },
-        ],
-      },
-    ],
+    // Variants are not always present, in case they are not, return a single unique variant
+    variants:
+      product.VariantCount === 0
+        ? [
+            {
+              id: 'unique',
+              options: [
+                {
+                  id: 'unique',
+                  displayName: 'Unique',
+                  values: [{ label: 'Unique' }],
+                },
+              ],
+            },
+          ]
+        : [],
+    // Facets are not always present, just iterate them if they are
+    options: product.xp.Facets
+      ? Object.entries(product.xp.Facets).map(([key, values]) => ({
+          id: key,
+          displayName: key,
+          __typename: 'MultipleChoiceOption',
+          values: values.map((value) => ({
+            label: value,
+          })),
+        }))
+      : [],
   }
 }

@@ -1,5 +1,6 @@
-import { FetcherError } from '@commerce/utils/errors'
 import type { OrdercloudConfig } from '../index'
+
+import { FetcherError } from '@commerce/utils/errors'
 import fetch from './fetch'
 
 const fetchRestApi: (
@@ -18,8 +19,8 @@ const fetchRestApi: (
     fetchOptions?: Record<string, any>
   ) => {
     const { commerceUrl } = getConfig()
-    // Check if we have a token stored
-    if (!global.token) {
+
+    async function getToken() {
       // If not, get a new one and store it
       const authResponse = await fetch(`${commerceUrl}/oauth/token`, {
         method: 'POST',
@@ -48,32 +49,58 @@ const fetchRestApi: (
         .then((response) => response.access_token)
     }
 
-    // Do the request with the correct headers
-    const dataResponse = await fetch(`${commerceUrl}/v1${resource}`, {
-      ...fetchOptions,
-      method,
-      headers: {
-        ...fetchOptions?.headers,
-        accept: 'application/json, text/plain, */*',
-        authorization: `Bearer ${global.token}`,
-      },
-      body: body ? JSON.stringify(body) : undefined,
-    })
-
-    // If something failed getting the data response
-    if (!dataResponse.ok) {
-      // Get the body of it
-      const error = await dataResponse.json()
-
-      // And return an error
-      throw new FetcherError({
-        errors: [{ message: error.error_description.Code }],
-        status: error.error_description.HttpStatus,
+    async function fetchData(retries = 0): Promise<T> {
+      // Do the request with the correct headers
+      const dataResponse = await fetch(`${commerceUrl}/v1${resource}`, {
+        ...fetchOptions,
+        method,
+        headers: {
+          ...fetchOptions?.headers,
+          accept: 'application/json, text/plain, */*',
+          authorization: `Bearer ${global.token}`,
+        },
+        body: body ? JSON.stringify(body) : undefined,
       })
+
+      // If something failed getting the data response
+      if (!dataResponse.ok) {
+        // If token is expired
+        if (dataResponse.status === 401) {
+          // Reset it
+          global.token = null
+
+          // Get a new one
+          await getToken()
+
+          // And if retries left
+          if (retries < 2) {
+            // Refetch
+            return fetchData(retries + 1)
+          }
+        }
+
+        // Get the body of it
+        const error = await dataResponse.json()
+
+        // And return an error
+        throw new FetcherError({
+          errors: [{ message: error.error_description.Code }],
+          status: error.error_description.HttpStatus,
+        })
+      }
+
+      // Return data response
+      return dataResponse.json() as Promise<T>
+    }
+
+    // Check if we have a token stored
+    if (!global.token) {
+      // If not, get a new one and store it
+      await getToken()
     }
 
     // Return the data and specify the expected type
-    return (await dataResponse.json()) as T
+    return fetchData()
   }
 
 export default fetchRestApi

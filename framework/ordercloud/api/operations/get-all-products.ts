@@ -1,4 +1,3 @@
-import type { Product } from '@commerce/types/product'
 import type { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
 import type { RawProduct } from '@framework/types/product'
@@ -16,15 +15,18 @@ export default function getAllProductsOperation({
     variables?: T['variables']
     config?: Partial<OrdercloudConfig>
     preview?: boolean
-  } = {}): Promise<{ products: Product[] }> {
+  } = {}): Promise<T['data']> {
+    // Get fetch from the config
     const { fetch } = commerce.getConfig(config)
 
+    // Get all products
     const rawProducts: RawProduct[] = await fetch<{ Items: RawProduct[] }>(
       'GET',
       '/products'
     ).then((response) => response.Items)
 
     return {
+      // Normalize products to commerce schema
       products: rawProducts.map(normalizeProduct),
     }
   }

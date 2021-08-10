@@ -23,5 +23,6 @@ export interface RawProduct {
     Images: {
       url: string
     }[]
+    Facets: Record<string, string[]>
   }
 }
