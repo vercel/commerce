@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
 import useCommerceCart, { UseCart } from '@commerce/cart/use-cart'
-
 import { SWRHook } from '@commerce/utils/types'
 import { GetCartHook } from '../types/cart'
 import { GetCartQueryVariables, QueryRoot } from '../schema'
 import { normalizeCart, getCartQuery, setCheckoutUrlCookie } from '../utils'
+import Cookies from 'js-cookie'
+import { SHOPIFY_CART_ID_COOKIE } from '@framework/const'
 
 export default useCommerceCart as UseCart<typeof handler>
 
@@ -14,12 +15,16 @@ export const handler: SWRHook<GetCartHook> = {
   },
   async fetcher({ input: { cartId }, options, fetch }) {
     if (cartId) {
-      const { cart } = await fetch<QueryRoot, GetCartQueryVariables>({
+      let { cart } = await fetch<QueryRoot, GetCartQueryVariables>({
         ...options,
         variables: { cartId },
       })
-      setCheckoutUrlCookie(cart?.checkoutUrl)
-      return normalizeCart(cart)
+      if (cart) {
+        setCheckoutUrlCookie(cart.checkoutUrl)
+        return normalizeCart(cart)
+      } else {
+        Cookies.remove(SHOPIFY_CART_ID_COOKIE)
+      }
     }
     return null
   },
