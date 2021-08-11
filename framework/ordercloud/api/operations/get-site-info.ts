@@ -25,14 +25,14 @@ export default function getSiteInfoOperation({
     // Get fetch from the config
     const { fetch } = commerce.getConfig(config)
 
-    // Get a single product
+    // Get list of categories
     const rawCategories: RawCategory[] = await fetch<{ Items: RawCategory[] }>(
       'GET',
       `/me/categories`
     ).then((response) => response.Items)
 
     return {
-      // Normalize product to commerce schema
+      // Normalize categories
       categories: rawCategories.map((category) => ({
         id: category.ID,
         name: category.Name,
