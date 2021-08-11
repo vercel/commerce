@@ -23,7 +23,7 @@ export default function getAllProductsOperation({
     // Get all products
     const rawProducts: RawProduct[] = await fetch<{ Items: RawProduct[] }>(
       'GET',
-      '/products'
+      '/me/products'
     ).then((response) => response.Items)
 
     return {

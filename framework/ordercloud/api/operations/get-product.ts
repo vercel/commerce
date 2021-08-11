@@ -24,7 +24,7 @@ export default function getProductOperation({
     // Get a single product
     const rawProduct: RawProduct = await fetch<RawProduct>(
       'GET',
-      `/products/${variables?.slug}`
+      `/me/products/${variables?.slug}`
     )
 
     return {
