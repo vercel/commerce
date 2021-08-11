@@ -6,6 +6,7 @@ import {
   CommerceProvider as CoreCommerceProvider,
   useCommerce as useCoreCommerce,
 } from '@commerce'
+import useToken from './auth/use-token'
 
 export const localConfig: CommerceConfig = {
   locale: 'en-us',
@@ -19,6 +20,8 @@ export function CommerceProvider({
   children?: ReactNode
   locale: string
 } & Partial<CommerceConfig>) {
+  const token = useToken()
+  if (token) config.cartCookie = token
   return (
     <CoreCommerceProvider
       provider={localProvider}

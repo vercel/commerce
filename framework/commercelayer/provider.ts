@@ -14,6 +14,7 @@ export const localProvider = {
   locale: 'en-us',
   cartCookie: 'session',
   fetcher: fetcher,
+  token: '',
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
   products: { useSearch },
