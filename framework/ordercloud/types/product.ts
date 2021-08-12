@@ -1,3 +1,27 @@
+interface RawVariantSpec {
+  SpecID: string
+  Name: string
+  OptionID: string
+  Value: string
+}
+
+export interface RawSpec {
+  ID: string
+  Name: string
+  Options: {
+    ID: string
+    Value: string
+    xp: {
+      hexColor?: string
+    }
+  }[]
+}
+
+export interface RawVariant {
+  ID: string
+  Specs: RawVariantSpec[]
+}
+
 export interface RawProduct {
   OwnerID: string
   DefaultPriceScheduleID: string | null
@@ -23,6 +47,7 @@ export interface RawProduct {
     Images: {
       url: string
     }[]
-    Facets: Record<string, string[]>
+    Variants?: RawVariant[]
+    Specs?: RawSpec[]
   }
 }
