@@ -28,21 +28,37 @@ const normalizeProduct = async(products) => {
 	}
 
 	const normalizeProductVariants = (productVariants) => {
-		return '';
+		return [
+			{
+			  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjAss=",
+			  "options": [
+				{
+				  "__typename": "MultipleChoiceOption",
+				  "id": "asd",
+				  "displayName": "Size",
+				  "values": [
+					{
+					  "label": "XL"
+					}
+				  ]
+				}
+			  ]
+			}
+		  ];
 	}
 
 	for (let index in products) {
 		let product = products[index];
 
 		normalizeProducts.push({
-			"id": product.hasOwnProperty("id") ? product.id : null,
-			"name": product.hasOwnProperty("name") ? product.name : null,
+			"id": product.hasOwnProperty("id") ? product.id : '',
+			"name": product.hasOwnProperty("name") ? product.name : '',
 			"vendor": "trika",
-			"path": product.hasOwnProperty("name") ? "/" + product.name : null,
-			"slug": `${product.hasOwnProperty("slug") ? product.slug:null}`,
+			"path": product.hasOwnProperty("slug") ? "/" + product.slug : '',
+			"slug": `${product.hasOwnProperty("slug") ? product.slug:''}`,
 			"price": {
-				"value": product.hasOwnProperty("price") ? product.price[0].hasOwnProperty("amount") ? product.price[0].amount : null : null,
-				"currencyCode": product.hasOwnProperty("price") ? product.price[0].hasOwnProperty("currency") ? product.price[0].currency : null : null
+				"value": product.hasOwnProperty("price") ? product.price[0].hasOwnProperty("amount") ? product.price[0].amount : '' : '',
+				"currencyCode": product.hasOwnProperty("price") ? product.price[0].hasOwnProperty("currency") ? product.price[0].currency : '' : ''
 			},
 			"descriptionHtml": product.hasOwnProperty("description") ? product.description : null,
 			"images": [{

@@ -27,6 +27,7 @@ export default function getAllProductsOperation({
     let normalizeProducts = await normalizeProduct(products.data)
     return {
       products: normalizeProducts,
+      // products: data.products,
     }
   }
   return getAllProducts
