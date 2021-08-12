@@ -3,10 +3,7 @@ import { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
 import type { ElasticpathConfig, Provider } from '../index'
 import { gateway as MoltinGateway } from '@moltin/sdk'
-import data from '../../data.json'
 import normalizeProduct from '../../utils/normalize'
-import { debug } from 'console'
-import { connect } from 'http2'
 
 const Moltin = MoltinGateway({
   client_id: process.env.NEXT_PUBLIC_ELASTICPATH_CLIENTID

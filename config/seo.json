@@ -1,26 +1,26 @@
 {
-  "title": "ACME Storefront | Powered by Next.js Commerce",
-  "titleTemplate": "%s - ACME Storefront",
-  "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+  "title": "CKUBE Storefront",
+  "titleTemplate": "%s - CKUBE Storefront",
+  "description": "",
   "openGraph": {
-    "title": "ACME Storefront | Powered by Next.js Commerce",
-    "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+    "title": "CKUBE Storefront",
+    "description": "",
     "type": "website",
     "locale": "en_IE",
-    "url": "https://nextjs.org/commerce",
-    "site_name": "Next.js Commerce",
+    "url": "",
+    "site_name": "CKUBE Storefront",
     "images": [
       {
-        "url": "/card.png",
+        "url": "/ckube_small.svg",
         "width": 800,
         "height": 600,
-        "alt": "Next.js Commerce"
+        "alt": "CKUBE Storefront"
       }
     ]
   },
   "twitter": {
-    "handle": "@nextjs",
-    "site": "@nextjs",
+    "handle": "@ckube",
+    "site": "@ckube",
     "cardType": "summary_large_image"
   }
 }

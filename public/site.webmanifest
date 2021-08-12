@@ -1,7 +1,7 @@
 {
-  "name": "Next.js Commerce",
-  "short_name": "Next.js Commerce",
-  "description": "Next.js Commerce -> https://www.nextjs.org/commerce",
+  "name": "CKUBE",
+  "short_name": "CKUBE",
+  "description": "CKUBE",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#fff",
@@ -9,13 +9,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192x192.png",
-      "type": "image/png",
+      "src": "/ckube_small.svg",
+      "type": "image/svg",
       "sizes": "192x192"
     },
     {
-      "src": "/icon-512x512.png",
-      "type": "image/png",
+      "src": "/ckube_small.svg",
+      "type": "image/svg",
       "sizes": "512x512"
     }
   ]
