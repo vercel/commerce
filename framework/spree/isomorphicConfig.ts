@@ -1,16 +1,20 @@
 import forceIsomorphicConfigValues from './utils/forceIsomorphicConfigValues'
 import requireConfig from './utils/requireConfig'
+import validateCookieExpire from './utils/validateCookieExpire'
 
 const isomorphicConfig = {
   spreeApiHost: process.env.NEXT_PUBLIC_SPREE_API_HOST,
   defaultLocale: process.env.NEXT_PUBLIC_SPREE_DEFAULT_LOCALE,
   cartCookieName: process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_NAME,
+  cartCookieExpire: validateCookieExpire(
+    process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_EXPIRE
+  ),
   spreeImageHost: process.env.NEXT_PUBLIC_SPREE_IMAGE_HOST,
   spreeCategoriesTaxonomyId:
     process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_ID,
   spreeBrandsTaxonomyId: process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_ID,
   showSingleVariantOptions:
-    process.env.NEXT_PUBLIC_SHOW_SINGLE_VARIANT_OPTIONS === 'true',
+    process.env.NEXT_PUBLIC_SPREE_SHOW_SINGLE_VARIANT_OPTIONS === 'true',
 }
 
 export default forceIsomorphicConfigValues(
@@ -20,6 +24,7 @@ export default forceIsomorphicConfigValues(
     'spreeApiHost',
     'defaultLocale',
     'cartCookieName',
+    'cartCookieExpire',
     'spreeImageHost',
     'spreeCategoriesTaxonomyId',
     'spreeBrandsTaxonomyId',

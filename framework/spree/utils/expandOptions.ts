@@ -10,8 +10,9 @@ import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces
 import SpreeResponseContentError from '../errors/SpreeResponseContentError'
 import { findIncluded } from './jsonApi'
 
-const isColorProductOption = (productOption: ProductOption) =>
-  productOption.displayName === 'Color'
+const isColorProductOption = (productOption: ProductOption) => {
+  return productOption.displayName === 'Color'
+}
 
 const expandOptions = (
   spreeSuccessResponse: JsonApiResponse,

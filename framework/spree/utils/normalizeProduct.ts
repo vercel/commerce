@@ -1,4 +1,5 @@
 import type {
+  Product,
   ProductOption,
   ProductPrice,
   ProductVariant,
@@ -18,7 +19,7 @@ import { findIncludedOfType } from './jsonApi'
 const normalizeProduct = (
   spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
   spreeProduct: ProductAttr
-) => {
+): Product => {
   const spreeImageRecords = findIncludedOfType(
     spreeSuccessResponse,
     spreeProduct,

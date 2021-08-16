@@ -2,8 +2,8 @@
   "provider": "spree",
   "features": {
     "wishlist": false,
-    "cart": false,
-    "search": false,
+    "cart": true,
+    "search": true,
     "customerAuth": false
   }
 }
