@@ -1,11 +1,10 @@
 import * as qs from 'qs'
 import { errors } from '@spree/storefront-api-v2-sdk'
 import type { CreateFetcher } from '@spree/storefront-api-v2-sdk/types/interfaces/ClientConfig'
-import { Request } from 'node-fetch'
 
-// TODO: Fix rawFetch any type.
 const createCreateFetchFetcher =
   ({ fetch: rawFetch }): CreateFetcher =>
+  // TODO: Fix rawFetch any type.
   (fetcherOptions) => {
     const { FetchError } = errors
     const sharedHeaders = {
@@ -38,7 +37,7 @@ const createCreateFetchFetcher =
 
           try {
             const response = await rawFetch(absoluteUrl.toString(), {
-              method,
+              method: method.toUpperCase(),
               headers: { ...sharedHeaders, ...headers },
               ...payload,
             })
