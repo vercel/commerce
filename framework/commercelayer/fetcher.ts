@@ -1,12 +1,29 @@
 import { Fetcher } from '@commerce/utils/types'
+import handleFetchResponse from './utils/handle-fetch-response'
+import { ENDPOINT, CLIENTID, SCOPE } from './const'
+import { getSalesChannelToken } from '@commercelayer/js-auth'
 
-export const fetcher: Fetcher = async () => {
-  console.log('FETCHER')
-  debugger
-  const res = await fetch('./data.json')
-  if (res.ok) {
-    const { data } = await res.json()
-    return data
-  }
-  throw res
+export const fetcher: Fetcher = async ({ url, method, variables, query }) => {
+  const token = await getSalesChannelToken({
+    endpoint: ENDPOINT,
+    clientId: CLIENTID,
+    scope: SCOPE,
+  })
+
+  return handleFetchResponse(
+    await fetch(url!, {
+      method,
+      headers: {
+        Accept: 'application/vnd.api+json',
+        Authorization: `Bearer ${token.accessToken}`,
+        'Content-Type': 'application/vnd.api+json',
+      },
+      body: JSON.stringify({
+        data: {
+          type: query,
+          attributes: variables,
+        },
+      }),
+    })
+  )
 }
