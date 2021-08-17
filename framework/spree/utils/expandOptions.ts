@@ -42,6 +42,7 @@ const expandOptions = (
     }
 
     option = {
+      __typename: 'MultipleChoiceOption',
       id: spreeOptionType.id,
       displayName: spreeOptionType.attributes.presentation,
       values: [],
