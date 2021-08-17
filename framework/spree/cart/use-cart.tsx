@@ -70,10 +70,10 @@ export const handler: SWRHook<GetCartHook> = {
         },
       })
 
-      setCartToken(spreeCartCreateSuccessResponse.data.attributes.token)
-
       spreeCartResponse = spreeCartCreateSuccessResponse
     }
+
+    setCartToken(spreeCartResponse.data.attributes.token)
 
     return normalizeCart(spreeCartResponse, spreeCartResponse.data)
   },
