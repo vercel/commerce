@@ -1,5 +1,7 @@
 import Cookies, { CookieAttributes } from 'js-cookie'
 
+export const getCookie = (name: string): string | undefined => Cookies.get(name)
+
 const setCookie = (
   name: string,
   token?: string,

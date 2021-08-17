@@ -1,4 +1,4 @@
-import type { Product } from '@commerce/types/product'
+import type { Product, ProductVariant } from '@commerce/types/product'
 export type SelectedOptions = Record<string, string | null>
 import { Dispatch, SetStateAction } from 'react'
 
@@ -29,4 +29,23 @@ export function selectDefaultOptionFromProduct(
       [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
     }))
   })
+}
+
+export function getSelectedOptionsIds(
+  variant: ProductVariant,
+  opts: SelectedOptions
+) {
+  const [selected] = variant.options.filter((option) => {
+    const type = option.displayName.toLowerCase()
+    const typeSelected = option.values.filter(
+      ({ label }) => label.toLowerCase() === opts[type]
+    )
+    if (typeSelected.length > 0) return true
+    return false
+  })
+  return selected
+    ? {
+        [`${selected.displayName?.toLowerCase()}Id`]: selected.id,
+      }
+    : {}
 }

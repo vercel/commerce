@@ -1,5 +1,7 @@
 import { MutationHook } from '@commerce/utils/types'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
+import getCredentials from '@framework/api/utils/getCredentials'
+import { LineItem } from '@commercelayer/js-sdk'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
@@ -7,12 +9,19 @@ export const handler: MutationHook<any> = {
   fetchOptions: {
     query: '',
   },
-  async fetcher({ input, options, fetch }) {},
+  async fetcher({ input: { id } }) {
+    const credentials = getCredentials()
+    const orderId = localStorage.getItem('CL_ORDER')
+    if (orderId && id) {
+      await LineItem.build({ id }).withCredentials(credentials).destroy()
+      return {}
+    }
+  },
   useHook:
     ({ fetch }) =>
     () => {
       return async function removeItem(input) {
-        return {}
+        return await fetch({ input })
       }
     },
 }
