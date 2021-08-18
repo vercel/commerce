@@ -1,7 +1,6 @@
 import type { Provider } from '@commerce'
 import fetcher from './fetcher'
 
-// TODO: Using dummy hooks to fetch static content. Based on the local framework.
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
 import { handler as useUpdateItem } from './cart/use-update-item'
@@ -16,7 +15,6 @@ const provider = {
   locale: '', // Not an optional key in TypeScript, but already set in config. So, just make it an empty string.
   cartCookie: '', // Not an optional key in TypeScript, but already set in config. So, just make it an empty string.
   fetcher,
-  // FIXME: Add dummy hooks for below based on framework/local EXCEPT use-product
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
   products: { useSearch },
