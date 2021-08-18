@@ -11,7 +11,7 @@ import getSpreeSdkMethodFromEndpointPath from 'framework/spree/utils/getSpreeSdk
 import { SpreeSdkVariables } from 'framework/spree/types'
 import SpreeSdkMethodFromEndpointPathError from 'framework/spree/errors/SpreeSdkMethodFromEndpointPathError'
 import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
-import createCreateFetchFetcher from '../../utils/createCreateFetchFetcher'
+import createCustomizedFetchFetcher from '../../utils/createCustomizedFetchFetcher'
 import fetch, { Request } from 'node-fetch'
 
 const createApiFetch: (
@@ -22,10 +22,13 @@ const createApiFetch: (
   const client = makeClient({
     host: requireConfigValue('spreeApiHost') as string,
     fetcherType: 'custom',
-    createFetcher: createCreateFetchFetcher({
-      fetch,
-      requestClass: Request,
-    }),
+    createFetcher: (fetcherOptions) => {
+      return createCustomizedFetchFetcher({
+        fetch,
+        requestConstructor: Request,
+        ...fetcherOptions,
+      })
+    },
   })
 
   return async (url, queryData = {}, fetchOptions = {}) => {
