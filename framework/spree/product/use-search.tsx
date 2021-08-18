@@ -2,12 +2,12 @@ import type { Fetcher, SWRHook } from '@commerce/utils/types'
 import useSearch from '@commerce/product/use-search'
 import type { Product, SearchProductsHook } from '@commerce/types/product'
 import type { UseSearch } from '@commerce/product/use-search'
-import normalizeProduct from '../utils/normalizeProduct'
+import normalizeProduct from '../utils/normalize-product'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 
 const nextToSpreeSortMap: { [key: string]: string } = {
-  'trending-desc': 'updated_at', // Spree has no "trending" filter. Use updated_at.
+  'trending-desc': 'updated_at', // FIXME: Spree has no "trending" filter. Using updated_at.
   'latest-desc': 'updated_at',
   'price-asc': 'price',
   'price-desc': '-price',

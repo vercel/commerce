@@ -1,4 +1,4 @@
-import { requireConfigValue } from '@framework/isomorphicConfig'
+import { requireConfigValue } from '@framework/isomorphic-config'
 import Cookies from 'js-cookie'
 
 const setCartToken = (cartToken: string) => {

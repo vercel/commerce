@@ -4,12 +4,12 @@ import type { MutationHook } from '@commerce/utils/types'
 import { useCallback } from 'react'
 import useCart from './use-cart'
 import type { AddItemHook } from '@commerce/types/cart'
-import normalizeCart from '@framework/utils/normalizeCart'
+import normalizeCart from '@framework/utils/normalize-cart'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import type { AddItem } from '@spree/storefront-api-v2-sdk/types/interfaces/endpoints/CartClass'
-import getCartToken from '@framework/utils/getCartToken'
+import getCartToken from '@framework/utils/get-cart-token'
 
 export default useAddItem as UseAddItem<typeof handler>
 

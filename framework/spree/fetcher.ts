@@ -1,5 +1,5 @@
 import type { Fetcher } from '@commerce/utils/types'
-import convertSpreeErrorToGraphQlError from './utils/convertSpreeErrorToGraphQlError'
+import convertSpreeErrorToGraphQlError from './utils/convert-spree-error-to-graph-ql-error'
 import { makeClient } from '@spree/storefront-api-v2-sdk'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type {
@@ -7,12 +7,12 @@ import type {
   JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import { errors } from '@spree/storefront-api-v2-sdk'
-import { requireConfigValue } from './isomorphicConfig'
-import getSpreeSdkMethodFromEndpointPath from './utils/getSpreeSdkMethodFromEndpointPath'
+import { requireConfigValue } from './isomorphic-config'
+import getSpreeSdkMethodFromEndpointPath from './utils/get-spree-sdk-method-from-endpoint-path'
 import SpreeSdkMethodFromEndpointPathError from './errors/SpreeSdkMethodFromEndpointPathError'
 import type { SpreeSdkVariables } from './types'
 import type { GraphQLFetcherResult } from '@commerce/api'
-import createCustomizedFetchFetcher from './utils/createCustomizedFetchFetcher'
+import createCustomizedFetchFetcher from './utils/create-customized-fetch-fetcher'
 
 const client = makeClient({
   host: requireConfigValue('spreeApiHost') as string,

@@ -1,6 +1,6 @@
 import type { NonUndefined, UnknownObjectValues } from '../types'
 import MisconfigurationError from '../errors/MisconfigurationError'
-import isServer from './isServer'
+import isServer from './is-server'
 
 const generateMisconfigurationErrorMessage = (
   keys: Array<string | number | symbol>

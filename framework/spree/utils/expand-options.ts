@@ -8,7 +8,7 @@ import type {
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import SpreeResponseContentError from '../errors/SpreeResponseContentError'
-import { findIncluded } from './jsonApi'
+import { findIncluded } from './find-json-api-documents'
 
 const isColorProductOption = (productOption: ProductOption) => {
   return productOption.displayName === 'Color'

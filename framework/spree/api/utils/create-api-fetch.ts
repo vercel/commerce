@@ -1,17 +1,17 @@
 import { SpreeApiConfig } from '..'
 import { errors, makeClient } from '@spree/storefront-api-v2-sdk'
-import { requireConfigValue } from 'framework/spree/isomorphicConfig'
-import convertSpreeErrorToGraphQlError from 'framework/spree/utils/convertSpreeErrorToGraphQlError'
+import { requireConfigValue } from '@framework/isomorphic-config'
+import convertSpreeErrorToGraphQlError from '@framework/utils/convert-spree-error-to-graph-ql-error'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type {
   JsonApiListResponse,
   JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
-import getSpreeSdkMethodFromEndpointPath from 'framework/spree/utils/getSpreeSdkMethodFromEndpointPath'
+import getSpreeSdkMethodFromEndpointPath from '@framework/utils/get-spree-sdk-method-from-endpoint-path'
 import { SpreeSdkVariables } from 'framework/spree/types'
 import SpreeSdkMethodFromEndpointPathError from 'framework/spree/errors/SpreeSdkMethodFromEndpointPathError'
 import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
-import createCustomizedFetchFetcher from '../../utils/createCustomizedFetchFetcher'
+import createCustomizedFetchFetcher from '@framework/utils/create-customized-fetch-fetcher'
 import fetch, { Request } from 'node-fetch'
 
 const createApiFetch: (

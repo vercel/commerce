@@ -7,7 +7,7 @@ import type {
 import type { IProduct } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { SpreeSdkVariables } from 'framework/spree/types'
 import MissingSlugVariableError from 'framework/spree/errors/MissingSlugVariableError'
-import normalizeProduct from 'framework/spree/utils/normalizeProduct'
+import normalizeProduct from '@framework/utils/normalize-product'
 
 export default function getProductOperation({
   commerce,

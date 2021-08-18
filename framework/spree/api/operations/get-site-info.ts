@@ -7,7 +7,7 @@ import type {
   ITaxons,
   TaxonAttr,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/Taxon'
-import { requireConfigValue } from 'framework/spree/isomorphicConfig'
+import { requireConfigValue } from '@framework/isomorphic-config'
 import type { SpreeSdkVariables } from 'framework/spree/types'
 import type { SpreeApiConfig, SpreeApiProvider } from '..'
 

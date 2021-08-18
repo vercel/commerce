@@ -9,7 +9,7 @@ import {
 
 import { provider } from './provider'
 import type { Provider } from './provider'
-import { requireConfigValue } from './isomorphicConfig'
+import { requireConfigValue } from './isomorphic-config'
 
 export type SpreeProps = {
   children: ReactNode

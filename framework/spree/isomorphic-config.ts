@@ -1,6 +1,6 @@
-import forceIsomorphicConfigValues from './utils/forceIsomorphicConfigValues'
-import requireConfig from './utils/requireConfig'
-import validateCookieExpire from './utils/validateCookieExpire'
+import forceIsomorphicConfigValues from './utils/force-isomorphic-config-values'
+import requireConfig from './utils/require-config'
+import validateCookieExpire from './utils/validate-cookie-expire'
 
 const isomorphicConfig = {
   spreeApiHost: process.env.NEXT_PUBLIC_SPREE_API_HOST,

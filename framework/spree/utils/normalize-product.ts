@@ -10,11 +10,11 @@ import type {
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
-import { requireConfigValue } from '../isomorphicConfig'
-import createGetAbsoluteImageUrl from './createGetAbsoluteImageUrl'
-import expandOptions from './expandOptions'
-import getMediaGallery from './getMediaGallery'
-import { findIncludedOfType } from './jsonApi'
+import { requireConfigValue } from '@framework/isomorphic-config'
+import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
+import expandOptions from './expand-options'
+import getMediaGallery from './get-media-gallery'
+import { findIncludedOfType } from './find-json-api-documents'
 
 const normalizeProduct = (
   spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,

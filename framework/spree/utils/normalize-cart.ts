@@ -5,7 +5,7 @@ import type {
   SelectedOption,
 } from '@commerce/types/cart'
 import MissingLineItemVariantError from '@framework/errors/MissingLineItemVariantError'
-import { requireConfigValue } from '@framework/isomorphicConfig'
+import { requireConfigValue } from '@framework/isomorphic-config'
 import type {
   JsonApiDocument,
   JsonApiListResponse,
@@ -14,9 +14,9 @@ import type {
 import type { OrderAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
-import createGetAbsoluteImageUrl from './createGetAbsoluteImageUrl'
-import getMediaGallery from './getMediaGallery'
-import { findIncluded, findIncludedOfType } from './jsonApi'
+import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
+import getMediaGallery from './get-media-gallery'
+import { findIncluded, findIncludedOfType } from './find-json-api-documents'
 
 const isColorProductOption = (productOptionType: any) => {
   // TODO: Fix type and merge with isColorProductOption in framework/spree/utils/expandOptions.ts

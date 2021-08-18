@@ -1,5 +1,5 @@
 import { SpreeProductImage } from '../types'
-import getImageUrl from './getImageUrl'
+import getImageUrl from './get-image-url'
 
 const createGetAbsoluteImageUrl =
   (host: string) =>
