@@ -57,7 +57,9 @@ export default function getAllProductsOperation({
 
     const {
       data: { data: spreeSuccessResponse },
-    } = await apiFetch<{ data: IProducts }>('__UNUSED__', { variables })
+    } = await apiFetch<{ data: IProducts }, SpreeSdkVariables>('__UNUSED__', {
+      variables,
+    })
 
     const normalizedProducts: Product[] = spreeSuccessResponse.data.map(
       (spreeProduct) => normalizeProduct(spreeSuccessResponse, spreeProduct)

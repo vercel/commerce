@@ -86,9 +86,12 @@ export default function getSiteInfoOperation({
 
     const {
       data: { data: spreeCategoriesSuccessResponse },
-    } = await apiFetch<{
-      data: ITaxons
-    }>('__UNUSED__', {
+    } = await apiFetch<
+      {
+        data: ITaxons
+      },
+      SpreeSdkVariables
+    >('__UNUSED__', {
       variables: createVariables(
         requireConfigValue('spreeCategoriesTaxonomyId') as string
       ),
@@ -96,9 +99,12 @@ export default function getSiteInfoOperation({
 
     const {
       data: { data: spreeBrandsSuccessResponse },
-    } = await apiFetch<{
-      data: ITaxons
-    }>('__UNUSED__', {
+    } = await apiFetch<
+      {
+        data: ITaxons
+      },
+      SpreeSdkVariables
+    >('__UNUSED__', {
       variables: createVariables(
         requireConfigValue('spreeBrandsTaxonomyId') as string
       ),

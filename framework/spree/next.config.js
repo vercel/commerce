@@ -5,4 +5,12 @@ module.exports = {
   images: {
     domains: [process.env.NEXT_PUBLIC_SPREE_ALLOWED_IMAGE_DOMAIN],
   },
+  rewrites() {
+    return [
+      {
+        source: '/checkout',
+        destination: '/api/checkout',
+      },
+    ]
+  },
 }

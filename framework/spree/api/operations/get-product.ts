@@ -63,7 +63,9 @@ export default function getProductOperation({
 
     const {
       data: { data: spreeSuccessResponse },
-    } = await apiFetch<{ data: IProduct }>('__UNUSED__', { variables })
+    } = await apiFetch<{ data: IProduct }, SpreeSdkVariables>('__UNUSED__', {
+      variables,
+    })
 
     return {
       product: normalizeProduct(

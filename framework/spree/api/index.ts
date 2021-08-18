@@ -10,7 +10,9 @@ import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
-export interface SpreeApiConfig extends CommerceAPIConfig {}
+export interface SpreeApiConfig extends CommerceAPIConfig {
+  fetch: any // Using any type, because CommerceAPIConfig['fetch'] cannot be extended from Variables = any to SpreeSdkVariables
+}
 
 const config: SpreeApiConfig = {
   commerceUrl: '',
