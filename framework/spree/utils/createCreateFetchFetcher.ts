@@ -3,7 +3,7 @@ import { errors } from '@spree/storefront-api-v2-sdk'
 import type { CreateFetcher } from '@spree/storefront-api-v2-sdk/types/interfaces/ClientConfig'
 
 const createCreateFetchFetcher =
-  ({ fetch: rawFetch }): CreateFetcher =>
+  ({ fetch: rawFetch, requestClass }): CreateFetcher =>
   // TODO: Fix rawFetch any type.
   (fetcherOptions) => {
     const { FetchError } = errors
@@ -35,18 +35,20 @@ const createCreateFetchFetcher =
               })
           }
 
+          const request: Request = new requestClass(absoluteUrl.toString(), {
+            method: method.toUpperCase(),
+            headers: { ...sharedHeaders, ...headers },
+            ...payload,
+          })
+
           try {
-            const response = await rawFetch(absoluteUrl.toString(), {
-              method: method.toUpperCase(),
-              headers: { ...sharedHeaders, ...headers },
-              ...payload,
-            })
+            const response: Response = await rawFetch(request)
 
             const data = await response.json()
 
             if (!response.ok) {
               // Use the "traditional" approach and reject non 2xx responses.
-              throw new FetchError(response, null, data)
+              throw new FetchError(response, request, data)
             }
 
             return {
@@ -56,12 +58,16 @@ const createCreateFetchFetcher =
             }
           } catch (error) {
             if (error instanceof TypeError) {
-              throw new FetchError(null, null, null)
+              throw new FetchError(null, request, null)
             }
 
             throw error
           }
         } catch (error) {
+          if (error instanceof FetchError) {
+            throw error
+          }
+
           throw new FetchError(null, null, null, error.message)
         }
       },

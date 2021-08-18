@@ -12,7 +12,7 @@ import { SpreeSdkVariables } from 'framework/spree/types'
 import SpreeSdkMethodFromEndpointPathError from 'framework/spree/errors/SpreeSdkMethodFromEndpointPathError'
 import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
 import createCreateFetchFetcher from '../../utils/createCreateFetchFetcher'
-import createVercelFetch from '@vercel/fetch'
+import fetch, { Request } from 'node-fetch'
 
 const createApiFetch: (
   getConfig: () => SpreeApiConfig
@@ -22,7 +22,10 @@ const createApiFetch: (
   const client = makeClient({
     host: requireConfigValue('spreeApiHost') as string,
     fetcherType: 'custom',
-    createFetcher: createCreateFetchFetcher({ fetch: createVercelFetch() }),
+    createFetcher: createCreateFetchFetcher({
+      fetch,
+      requestClass: Request,
+    }),
   })
 
   return async (url, queryData = {}, fetchOptions = {}) => {

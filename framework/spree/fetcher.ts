@@ -17,18 +17,16 @@ import createCreateFetchFetcher from './utils/createCreateFetchFetcher'
 const client = makeClient({
   host: requireConfigValue('spreeApiHost') as string,
   fetcherType: 'custom',
-  createFetcher: createCreateFetchFetcher({ fetch: globalThis.fetch }),
+  createFetcher: createCreateFetchFetcher({
+    fetch: globalThis.fetch,
+    requestClass: globalThis.Request,
+  }),
 })
 
 const fetcher: Fetcher<
   GraphQLFetcherResult<JsonApiSingleResponse | JsonApiListResponse>,
   SpreeSdkVariables
 > = async (requestOptions) => {
-  // url?: string
-  // query?: string
-  // method?: string
-  // variables?: any
-  // body?: Body
   const { url, method, variables, query } = requestOptions
   const { locale, ...vars } = variables ?? {}
 
