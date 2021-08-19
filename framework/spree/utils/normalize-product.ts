@@ -36,9 +36,6 @@ const normalizeProduct = (
     currencyCode: spreeProduct.attributes.currency,
   }
 
-  // TODO: Add sku to product object equal to master SKU from Spree.
-  // Currently, the Spree API doesn't return it.
-
   const hasNonMasterVariants =
     (spreeProduct.relationships.variants.data as RelationType[]).length > 1
 
