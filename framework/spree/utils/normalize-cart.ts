@@ -7,7 +7,6 @@ import type {
 import MissingLineItemVariantError from '@framework/errors/MissingLineItemVariantError'
 import { requireConfigValue } from '@framework/isomorphic-config'
 import type {
-  JsonApiDocument,
   JsonApiListResponse,
   JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
@@ -17,7 +16,11 @@ import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import getMediaGallery from './get-media-gallery'
 import { findIncluded, findIncludedOfType } from './find-json-api-documents'
-import type { OptionTypeAttr } from '@framework/types'
+import type {
+  LineItemAttr,
+  OptionTypeAttr,
+  VariantAttr,
+} from '@framework/types'
 
 const isColorProductOption = (productOptionType: OptionTypeAttr) => {
   return productOptionType.attributes.presentation === 'Color'
@@ -25,7 +28,7 @@ const isColorProductOption = (productOptionType: OptionTypeAttr) => {
 
 const normalizeVariant = (
   spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
-  spreeVariant: JsonApiDocument
+  spreeVariant: VariantAttr
 ): ProductVariant => {
   const productIdentifier = spreeVariant.relationships.product
     .data as RelationType
@@ -81,18 +84,22 @@ const normalizeVariant = (
     image: lineItemImage,
     isInStock: spreeVariant.attributes.in_stock,
     availableForSale: spreeVariant.attributes.purchasable,
-    weight: spreeVariant.attributes.weight,
-    height: spreeVariant.attributes.height,
-    width: spreeVariant.attributes.width,
-    depth: spreeVariant.attributes.depth,
+    ...(spreeVariant.attributes.weight === '0.0'
+      ? {}
+      : {
+          weight: {
+            value: parseFloat(spreeVariant.attributes.weight),
+            unit: 'KILOGRAMS',
+          },
+        }),
+    // TODO: Add height, width and depth when Measurement type allows distance measurements.
   }
 }
 
 const normalizeLineItem = (
   spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
-  spreeLineItem: JsonApiDocument
+  spreeLineItem: LineItemAttr
 ): LineItem => {
-  //TODO: Replace JsonApiDocument type in spreeLineItem with more specific, new Spree line item item
   const variantIdentifier = spreeLineItem.relationships.variant
     .data as RelationType
   const variant = findIncluded(
