@@ -15,6 +15,7 @@ import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import expandOptions from './expand-options'
 import getMediaGallery from './get-media-gallery'
 import { findIncludedOfType } from './find-json-api-documents'
+import getProductPath from './get-product-path'
 
 const normalizeProduct = (
   spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
@@ -82,7 +83,7 @@ const normalizeProduct = (
   })
 
   const slug = spreeProduct.attributes.slug
-  const path = `/${spreeProduct.attributes.slug}`
+  const path = getProductPath(spreeProduct)
 
   return {
     id: spreeProduct.id,

@@ -88,3 +88,12 @@ export interface VariantAttr extends JsonApiDocument {
     backorderable: boolean
   }
 }
+
+export interface ProductSlugAttr extends JsonApiDocument {
+  attributes: {
+    slug: string
+  }
+}
+export interface IProductsSlugs extends JsonApiListResponse {
+  data: ProductSlugAttr[]
+}
