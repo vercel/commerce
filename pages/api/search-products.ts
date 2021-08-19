@@ -47,11 +47,11 @@ const getProducts = async ({ search, config }: any) => {
 
 	const commerceConfig = commerce.provider.config
 
-	const { data } = await commerceConfig.storeApiFetch<{ data: { id: number }[] }>(
+	const { data } = await commerceConfig.storeApiFetch(
 		url.pathname + url.search
 	)
 
-	const ids = data.map((p) => String(p.id))
+	const ids = data.map((p: any) => String(p.id))
 	const found = ids.length > 0
 
 	// We want the GraphQL version of each product
@@ -61,9 +61,7 @@ const getProducts = async ({ search, config }: any) => {
 	})
 
 	// Put the products in an object that we can use to get them by id
-	const productsById = graphqlData.products.reduce<{
-		[k: string]: Product
-	}>((prods, p) => {
+	const productsById = graphqlData.products.reduce((prods: any, p: any) => {
 		prods[Number(p.id)] = p
 		return prods
 	}, {})
@@ -72,7 +70,7 @@ const getProducts = async ({ search, config }: any) => {
 
 	// Populate the products array with the graphql products, in the order
 	// assigned by the list of entity ids
-	ids.forEach((id) => {
+	ids.forEach((id: any) => {
 		const product = productsById[id]
 		if (product) products.push(product)
 	})

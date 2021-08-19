@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "predev": "agility-next sync",
-    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "next dev",
     "prebuild": "agility-next prebuild",
     "build": "next build",
     "export": "next export",
