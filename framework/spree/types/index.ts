@@ -33,3 +33,14 @@ export interface SpreeProductImage extends JsonApiDocument {
     styles: ImageStyle[]
   }
 }
+
+export interface OptionTypeAttr extends JsonApiDocument {
+  attributes: {
+    name: string
+    presentation: string
+    position: number
+    created_at: string
+    updated_at: string
+    filterable: boolean
+  }
+}

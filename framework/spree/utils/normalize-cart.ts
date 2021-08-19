@@ -12,14 +12,14 @@ import type {
   JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { OrderAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
-import { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
+import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import getMediaGallery from './get-media-gallery'
 import { findIncluded, findIncludedOfType } from './find-json-api-documents'
+import type { OptionTypeAttr } from '@framework/types'
 
-const isColorProductOption = (productOptionType: any) => {
-  // TODO: Fix type and merge with isColorProductOption in framework/spree/utils/expandOptions.ts
+const isColorProductOption = (productOptionType: OptionTypeAttr) => {
   return productOptionType.attributes.presentation === 'Color'
 }
 
