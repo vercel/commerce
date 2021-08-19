@@ -54,7 +54,7 @@ const normalizeVariant = (
 
   const variantImage = getMediaGallery(
     spreeVariantImageRecords,
-    createGetAbsoluteImageUrl(requireConfigValue('spreeImageHost') as string)
+    createGetAbsoluteImageUrl(requireConfigValue('imageHost') as string)
   )[0]
 
   if (variantImage) {
@@ -68,7 +68,7 @@ const normalizeVariant = (
 
     const productImage = getMediaGallery(
       spreeProductImageRecords,
-      createGetAbsoluteImageUrl(requireConfigValue('spreeImageHost') as string)
+      createGetAbsoluteImageUrl(requireConfigValue('imageHost') as string)
     )[0]
 
     lineItemImage = productImage

@@ -28,7 +28,7 @@ const normalizeProduct = (
 
   const images = getMediaGallery(
     spreeImageRecords,
-    createGetAbsoluteImageUrl(requireConfigValue('spreeImageHost') as string)
+    createGetAbsoluteImageUrl(requireConfigValue('imageHost') as string)
   )
 
   const price: ProductPrice = {

@@ -1,8 +1,8 @@
-const validateCookieExpire = (expire: unknown) => {
+const validateCookieExpire = (expire: unknown): number => {
   let expireInteger: number
 
   if (typeof expire === 'string') {
-    expireInteger = parseFloat(expire || '')
+    expireInteger = parseFloat(expire)
   } else if (typeof expire === 'number') {
     expireInteger = expire
   } else {

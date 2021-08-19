@@ -93,7 +93,7 @@ export default function getSiteInfoOperation({
       SpreeSdkVariables
     >('__UNUSED__', {
       variables: createVariables(
-        requireConfigValue('spreeCategoriesTaxonomyId') as string
+        requireConfigValue('categoriesTaxonomyId') as string
       ),
     })
 
@@ -106,7 +106,7 @@ export default function getSiteInfoOperation({
       SpreeSdkVariables
     >('__UNUSED__', {
       variables: createVariables(
-        requireConfigValue('spreeBrandsTaxonomyId') as string
+        requireConfigValue('brandsTaxonomyId') as string
       ),
     })
 

@@ -20,7 +20,7 @@ const createApiFetch: (
   _getConfig
 ) => {
   const client = makeClient({
-    host: requireConfigValue('spreeApiHost') as string,
+    host: requireConfigValue('apiHost') as string,
     fetcherType: 'custom',
     createFetcher: (fetcherOptions) => {
       return createCustomizedFetchFetcher({

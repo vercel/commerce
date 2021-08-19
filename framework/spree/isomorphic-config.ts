@@ -1,34 +1,38 @@
 import forceIsomorphicConfigValues from './utils/force-isomorphic-config-values'
 import requireConfig from './utils/require-config'
 import validateCookieExpire from './utils/validate-cookie-expire'
+import validateProductsPrerenderCount from './utils/validate-products-prerender-count'
 
 const isomorphicConfig = {
-  spreeApiHost: process.env.NEXT_PUBLIC_SPREE_API_HOST,
+  apiHost: process.env.NEXT_PUBLIC_SPREE_API_HOST,
   defaultLocale: process.env.NEXT_PUBLIC_SPREE_DEFAULT_LOCALE,
   cartCookieName: process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_NAME,
   cartCookieExpire: validateCookieExpire(
     process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_EXPIRE
   ),
-  spreeImageHost: process.env.NEXT_PUBLIC_SPREE_IMAGE_HOST,
-  spreeCategoriesTaxonomyId:
-    process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_ID,
-  spreeBrandsTaxonomyId: process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_ID,
+  imageHost: process.env.NEXT_PUBLIC_SPREE_IMAGE_HOST,
+  categoriesTaxonomyId: process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_ID,
+  brandsTaxonomyId: process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_ID,
   showSingleVariantOptions:
     process.env.NEXT_PUBLIC_SPREE_SHOW_SINGLE_VARIANT_OPTIONS === 'true',
+  lastUpdatedProductsPrerenderCount: validateProductsPrerenderCount(
+    process.env.NEXT_PUBLIC_SPREE_LAST_UPDATED_PRODUCTS_PRERENDER_COUNT
+  ),
 }
 
 export default forceIsomorphicConfigValues(
   isomorphicConfig,
   [],
   [
-    'spreeApiHost',
+    'apiHost',
     'defaultLocale',
     'cartCookieName',
     'cartCookieExpire',
-    'spreeImageHost',
-    'spreeCategoriesTaxonomyId',
-    'spreeBrandsTaxonomyId',
+    'imageHost',
+    'categoriesTaxonomyId',
+    'brandsTaxonomyId',
     'showSingleVariantOptions',
+    'lastUpdatedProductsPrerenderCount',
   ]
 )
 

@@ -15,7 +15,7 @@ import type { GraphQLFetcherResult } from '@commerce/api'
 import createCustomizedFetchFetcher from './utils/create-customized-fetch-fetcher'
 
 const client = makeClient({
-  host: requireConfigValue('spreeApiHost') as string,
+  host: requireConfigValue('apiHost') as string,
   fetcherType: 'custom',
   createFetcher: (fetcherOptions) => {
     return createCustomizedFetchFetcher({
