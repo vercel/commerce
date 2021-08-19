@@ -187,7 +187,6 @@ const normalizeCart = (
     taxesIncluded: true,
     lineItems,
     lineItemsSubtotalPrice: parseFloat(spreeCart.attributes.item_total),
-    // TODO: We need a value from Spree which includes item total and discounts in one value for subtotalPrice.
     subtotalPrice: parseFloat(spreeCart.attributes.item_total),
     totalPrice: parseFloat(spreeCart.attributes.total),
     customerId: spreeCart.attributes.token,
