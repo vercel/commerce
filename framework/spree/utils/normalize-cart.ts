@@ -170,7 +170,7 @@ const normalizeLineItem = (
     productId: productIdentifier.id,
     name: spreeLineItem.attributes.name,
     quantity: spreeLineItem.attributes.quantity,
-    discounts: [], // TODO: Retrieve from Spree
+    discounts: [], // TODO: Implement when the template starts displaying them.
     path,
     variant: normalizeVariant(spreeSuccessResponse, variant),
     options,
@@ -198,8 +198,7 @@ const normalizeCart = (
     totalPrice: parseFloat(spreeCart.attributes.total),
     customerId: spreeCart.attributes.token,
     email: spreeCart.attributes.email,
-    discounts: [],
-    // discounts: [{value: number}] // TODO: Retrieve from Spree
+    discounts: [], // TODO: Implement when the template starts displaying them.
   }
 }
 
