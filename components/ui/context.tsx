@@ -15,7 +15,7 @@ const initialState = {
   displayDropdown: false,
   displayModal: false,
   modalView: 'LOGIN_VIEW',
-  sidebarView: 'CART_VIEW',
+  sidebarView: 'CHECKOUT_VIEW',
   userAvatar: '',
 }
 

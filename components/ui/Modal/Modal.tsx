@@ -27,15 +27,13 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
   )
 
   useEffect(() => {
-    const modal = ref.current
-
-    if (modal) {
-      disableBodyScroll(modal, { reserveScrollBarGap: true })
+    if (ref.current) {
+      disableBodyScroll(ref.current, { reserveScrollBarGap: true })
       window.addEventListener('keydown', handleKey)
     }
     return () => {
-      if (modal) {
-        enableBodyScroll(modal)
+      if (ref && ref.current) {
+        enableBodyScroll(ref.current)
       }
       clearAllBodyScrollLocks()
       window.removeEventListener('keydown', handleKey)

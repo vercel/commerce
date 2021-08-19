@@ -1,30 +1,31 @@
-import { FC, MouseEventHandler, memo } from 'react'
 import cn from 'classnames'
+import React from 'react'
 import s from './ProductSliderControl.module.css'
 import { ArrowLeft, ArrowRight } from '@components/icons'
 
 interface ProductSliderControl {
-  onPrev: MouseEventHandler<HTMLButtonElement>
-  onNext: MouseEventHandler<HTMLButtonElement>
+  onPrev: React.MouseEventHandler<HTMLButtonElement>
+  onNext: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const ProductSliderControl: FC<ProductSliderControl> = ({ onPrev, onNext }) => (
-  <div className={s.control}>
-    <button
-      className={cn(s.leftControl)}
-      onClick={onPrev}
-      aria-label="Previous Product Image"
-    >
-      <ArrowLeft />
-    </button>
-    <button
-      className={cn(s.rightControl)}
-      onClick={onNext}
-      aria-label="Next Product Image"
-    >
-      <ArrowRight />
-    </button>
-  </div>
+const ProductSliderControl: React.FC<ProductSliderControl> = React.memo(
+  ({ onPrev, onNext }) => (
+    <div className={s.control}>
+      <button
+        className={cn(s.leftControl)}
+        onClick={onPrev}
+        aria-label="Previous Product Image"
+      >
+        <ArrowLeft />
+      </button>
+      <button
+        className={cn(s.rightControl)}
+        onClick={onNext}
+        aria-label="Next Product Image"
+      >
+        <ArrowRight />
+      </button>
+    </div>
+  )
 )
-
-export default memo(ProductSliderControl)
+export default ProductSliderControl

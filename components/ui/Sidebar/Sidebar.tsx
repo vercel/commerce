@@ -16,14 +16,13 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>
 
   useEffect(() => {
-    const sidebar = ref.current
-
-    if (sidebar) {
-      disableBodyScroll(sidebar, { reserveScrollBarGap: true })
+    if (ref.current) {
+      disableBodyScroll(ref.current, { reserveScrollBarGap: true })
     }
-
     return () => {
-      if (sidebar) enableBodyScroll(sidebar)
+      if (ref && ref.current) {
+        enableBodyScroll(ref.current)
+      }
       clearAllBodyScrollLocks()
     }
   }, [])

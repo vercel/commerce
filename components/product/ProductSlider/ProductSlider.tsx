@@ -66,13 +66,17 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
         event.preventDefault()
     }
 
-    const slider = sliderContainerRef.current!
-
-    slider.addEventListener('touchstart', preventNavigation)
+    sliderContainerRef.current!.addEventListener(
+      'touchstart',
+      preventNavigation
+    )
 
     return () => {
-      if (slider) {
-        slider.removeEventListener('touchstart', preventNavigation)
+      if (sliderContainerRef.current) {
+        sliderContainerRef.current!.removeEventListener(
+          'touchstart',
+          preventNavigation
+        )
       }
     }
   }, [])

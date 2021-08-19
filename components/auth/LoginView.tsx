@@ -38,7 +38,6 @@ const LoginView: FC<Props> = () => {
     } catch ({ errors }) {
       setMessage(errors[0].message)
       setLoading(false)
-      setDisabled(false)
     }
   }
 
