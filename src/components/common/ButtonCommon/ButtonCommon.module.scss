@@ -1,7 +1,14 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 
 .buttonCommon {
-  @apply custom-border-radius bg-primary hover:bg-hover-primary transition-all duration-200;
+  @apply custom-border-radius bg-primary hover:bg-hover-primary transition-all duration-200 text-white;
   padding: 1.6rem 3.6rem;
-  
+  &.light {
+    @apply text-base;
+    background-color: #fff !important;
+    border: 1px solid theme("textColor.active") !important;
+    
+  }
+  &.large {
+  }
 }
