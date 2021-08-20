@@ -1,10 +1,10 @@
 {
-  "title": "ACME Storefront | Powered by Next.js Commerce",
-  "titleTemplate": "%s - ACME Storefront",
-  "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+  "title": "Online Grocery | By Kie.io",
+  "titleTemplate": "%s - Online Grocery",
+  "description": "Online Grocery | By Kie.io",
   "openGraph": {
-    "title": "ACME Storefront | Powered by Next.js Commerce",
-    "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+    "title": "Online Grocery | By Kie.io",
+    "description": "Online Grocery | By Kie.io",
     "type": "website",
     "locale": "en_IE",
     "url": "https://nextjs.org/commerce",
