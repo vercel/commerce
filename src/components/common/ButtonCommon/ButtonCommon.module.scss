@@ -1,0 +1,7 @@
+@import '../../../styles/utilities';
+
+.buttonCommon {
+  @apply custom-border-radius bg-primary hover:bg-hover-primary transition-all duration-200;
+  padding: 1.6rem 3.6rem;
+  
+}

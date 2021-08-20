@@ -22,6 +22,7 @@ module.exports = {
       },
       colors: {
         primary: 'var(--primary)',
+        'hover-primary': 'var(--hover-primary)',
         'primary-light': 'var(--primary-light)',
         'primary-lightest': 'var(--primary-lightest)',
 
