@@ -1,10 +1,10 @@
-import '../src/styles/main.scss'
-import 'keen-slider/keen-slider.min.css'
+import { ThemeProvider } from 'next-themes';
+import type { AppProps } from 'next/app';
+import React, { FC, useEffect } from 'react';
+import { Head } from 'src/components/common';
+import 'keen-slider/keen-slider.min.css'; 
+import '../src/styles/main.scss';
 
-import { FC, useEffect } from 'react'
-import type { AppProps } from 'next/app'
-import { Head } from '@components/common'
-import { ManagedUIContext } from '@components/ui/context'
 
 const Noop: FC = ({ children }) => <>{children}</>
 
@@ -18,11 +18,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head />
-      <ManagedUIContext>
+      <ThemeProvider>
         <Layout pageProps={pageProps}>
           <Component {...pageProps} />
         </Layout>
-      </ManagedUIContext>
+      </ThemeProvider>
     </>
   )
 }
