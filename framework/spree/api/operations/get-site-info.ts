@@ -111,25 +111,29 @@ export default function getSiteInfoOperation({
     })
 
     const normalizedCategories: GetSiteInfoOperation['data']['categories'] =
-      spreeCategoriesSuccessResponse.data.sort(taxonsSort).map((spreeTaxon) => {
-        return {
-          id: spreeTaxon.id,
-          name: spreeTaxon.attributes.name,
-          slug: spreeTaxon.id,
-          path: spreeTaxon.id,
-        }
-      })
+      spreeCategoriesSuccessResponse.data
+        .sort(taxonsSort)
+        .map((spreeTaxon: TaxonAttr) => {
+          return {
+            id: spreeTaxon.id,
+            name: spreeTaxon.attributes.name,
+            slug: spreeTaxon.id,
+            path: spreeTaxon.id,
+          }
+        })
 
     const normalizedBrands: GetSiteInfoOperation['data']['brands'] =
-      spreeBrandsSuccessResponse.data.sort(taxonsSort).map((spreeTaxon) => {
-        return {
-          node: {
-            entityId: spreeTaxon.id,
-            path: `brands/${spreeTaxon.id}`,
-            name: spreeTaxon.attributes.name,
-          },
-        }
-      })
+      spreeBrandsSuccessResponse.data
+        .sort(taxonsSort)
+        .map((spreeTaxon: TaxonAttr) => {
+          return {
+            node: {
+              entityId: spreeTaxon.id,
+              path: `brands/${spreeTaxon.id}`,
+              name: spreeTaxon.attributes.name,
+            },
+          }
+        })
 
     return {
       categories: normalizedCategories,
