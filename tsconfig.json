@@ -15,6 +15,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "noUnusedLocals": true,
     "paths": {
       "@lib/*": ["lib/*"],
       "@utils/*": ["utils/*"],
