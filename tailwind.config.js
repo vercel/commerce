@@ -64,6 +64,10 @@ module.exports = {
       scale: {
         120: '1.2',
       },
+      borderRadius: {
+        custom: '50% 20% / 10% 40%;',
+      }
     },
   },
+  plugins: [ require('postcss-import'), require('tailwindcss'), require('autoprefixer') ]
 }
