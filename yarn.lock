@@ -1012,14 +1012,16 @@
   resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-0.14.0.tgz"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@spree/storefront-api-v2-sdk@^4.5.4":
-  version "4.5.4"
-  resolved "https://registry.yarnpkg.com/@spree/storefront-api-v2-sdk/-/storefront-api-v2-sdk-4.5.4.tgz#ad0a414139064df3c5ec7c85147597c8fa716f35"
-  integrity sha512-GlpCvOhOmM0X1Of8rQaBU/HuX9FKX0ZkO+EmTfucC//MDgwuxkUt9vHpv+JRPLdR8+88AA+CwwSVtLIGcLo9yQ==
+"@spree/storefront-api-v2-sdk@^4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@spree/storefront-api-v2-sdk/-/storefront-api-v2-sdk-4.7.0.tgz#d6f3c4757de630ed75ce1b94f1919fc76d7a8a0b"
+  integrity sha512-n7GD1Bku/il7Hk9wviy7nngLeRMIDHAvyK3ZNWmNoCKWEQMt/1Y1lYeY1DQrnyWcbMTT5pf2MeZoVi7SVTd5uQ==
   dependencies:
     axios "^0.21.1"
     lodash "^4.17.21"
     qs "^6.10.1"
+  optionalDependencies:
+    node-fetch "^2.6.1"
 
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
