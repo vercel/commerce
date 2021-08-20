@@ -46,6 +46,7 @@ export const handler: SWRHook<SearchProductsHook> = {
       variables: {
         methodPath: 'products.list',
         arguments: [
+          {},
           {
             include: 'variants,images,option_types,variants.option_values',
             per_page: 50,

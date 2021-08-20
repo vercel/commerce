@@ -47,7 +47,6 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
 
         try {
           const response: Response = await fetch(request)
-
           const data = await response.json()
 
           if (!response.ok) {
@@ -61,11 +60,7 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
             data: Object.setPrototypeOf({ data }, { response }),
           }
         } catch (error) {
-          if (error instanceof TypeError) {
-            throw new FetchError(null, request, null)
-          }
-
-          throw error
+          throw new FetchError(null, request, null, error.message)
         }
       } catch (error) {
         if (error instanceof FetchError) {

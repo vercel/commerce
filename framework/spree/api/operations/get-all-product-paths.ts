@@ -58,6 +58,7 @@ export default function getAllProductPathsOperation({
     const variables: SpreeSdkVariables = {
       methodPath: 'products.list',
       arguments: [
+        {},
         {
           fields: {
             product: 'slug',

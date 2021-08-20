@@ -45,6 +45,7 @@ export default function getAllProductsOperation({
     const variables: SpreeSdkVariables = {
       methodPath: 'products.list',
       arguments: [
+        {},
         {
           include: 'variants,images,option_types,variants.option_values',
           per_page: first,

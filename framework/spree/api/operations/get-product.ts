@@ -52,6 +52,7 @@ export default function getProductOperation({
       methodPath: 'products.show',
       arguments: [
         getProductVariables.slug,
+        {},
         {
           include: 'variants,images,option_types,variants.option_values',
         },
