@@ -1,0 +1,93 @@
+@layer utilities {
+    .heading-1 {
+        font-size: 4.8rem;
+        line-height: 5.6rem;
+        letter-spacing: -0.03em;
+        @screen md {
+            font-size: 6.4rem;
+            line-height: 8rem;
+            letter-spacing: -0.03em;
+        }
+    }
+    .heading-2 {
+        font-size: 4rem;
+        line-height: 4.8rem;
+        letter-spacing: -0.02em;
+        @screen md {
+            font-size: 4.8rem;
+            line-height: 5.6rem;
+            letter-spacing: -0.02em;
+        }
+    }
+    .heading-3 {
+        font-size: 2.4rem;
+        line-height: 3.2rem;
+        letter-spacing: -0.01em;
+        @screen md {
+            font-size: 3.2rem;
+            line-height: 4rem;
+            letter-spacing: -0.01em;
+        }
+    }
+
+    .sm-headline {
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+        letter-spacing: -0.01em;
+        @screen md {
+            font-size: 2rem;
+            line-height: 2.8rem;
+            letter-spacing: -0.01em;
+        }
+    }
+
+    .sub-headline {
+        font-size: 2rem;
+        line-height: 2.8rem;
+        letter-spacing: -0.01em;
+        @screen md {
+            font-size: 2.4rem;
+            line-height: 3.2rem;
+            letter-spacing: -0.01em;
+        }
+    }
+
+    .topline {
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+        letter-spacing: 0.01em;
+        @screen md {
+            font-size: 2rem;
+            line-height: 2.8rem;
+            letter-spacing: 0.01em;
+        }
+    }
+
+    .caption {
+        font-size: 1.2rem;
+        line-height: 2rem;
+        letter-spacing: 0.01em;
+    }
+
+    .sm-label {
+        font-size: 1rem;
+        line-height: 1.6rem;
+    }
+    .spacing-horizontal {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        @screen md {
+            padding-left: 11.2rem;
+            padding-right: 11.2rem;
+        }
+    }
+    .spacing-horizontal-left {
+        padding-left: 2rem;
+        @screen md {
+            padding-left: 11.2rem;
+        }
+    }
+    .custom-border-radius {
+        border-radius: 50% 20% / 10% 40%;
+    }
+}

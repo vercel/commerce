@@ -1,12 +1,11 @@
+import { Layout } from '@components/common'
+import commerce from '@lib/api/commerce'
 import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
-  InferGetStaticPropsType,
+  InferGetStaticPropsType
 } from 'next'
 import { useRouter } from 'next/router'
-import commerce from '@lib/api/commerce'
-import { Layout } from '@components/common'
-import { ProductView } from '@components/product'
 
 export async function getStaticProps({
   params,
@@ -71,11 +70,7 @@ export default function Slug({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
-  return router.isFallback ? (
-    <h1>Loading...</h1>
-  ) : (
-    <ProductView product={product} relatedProducts={relatedProducts} />
-  )
+  return <div>This is product page</div>
 }
 
 Slug.Layout = Layout

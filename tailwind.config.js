@@ -22,6 +22,34 @@ module.exports = {
       },
       colors: {
         primary: 'var(--primary)',
+        'primary-light': 'var(--primary-light)',
+        'primary-lightest': 'var(--primary-lightest)',
+
+        'info-dark': 'var(--info-dark)',
+        'info': 'var(--info)',
+        'info-border-line': 'var(--info-border-line)',
+        'info-light': 'var(--info-light)',
+
+        'positive-dark': 'var(--positive-dark)',
+        'positive': 'var(--positive)',
+        'positive-border-line': 'var(--positive-border-line)',
+        'positive-light': 'var(--positive-light)',
+
+        'warning-dark': 'var(--warning-dark)',
+        'warning': 'var(--warning)',
+        'warning-border-line': 'var(--warning-border-line)',
+        'warning-light': 'var(--warning-light)',
+
+        'negative-dark': 'var(--negative-dark)',
+        'negative': 'var(--negative)',
+        'negative-border-line': 'var(--negative-border-line)',
+        'negative-light': 'var(--negative-light)',
+
+        'line': 'var(--border-line)',
+        'background': 'var(--background)',
+        'white': 'var(--white)',
+
+        // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',
         'secondary-2': 'var(--secondary-2)',
@@ -50,6 +78,11 @@ module.exports = {
       },
       textColor: {
         base: 'var(--text-base)',
+        active: 'var(--text-active)',
+        label: 'var(--text-label)',
+        placeholder: 'var(--text-placeholder)',
+        
+        // @deprecated (NOT use these variables)
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
       },
@@ -58,16 +91,29 @@ module.exports = {
         magical:
           'rgba(0, 0, 0, 0.02) 0px 30px 30px, rgba(0, 0, 0, 0.03) 0px 0px 8px, rgba(0, 0, 0, 0.05) 0px 1px 0px',
       },
-      lineHeight: {
-        'extra-loose': '2.2',
-      },
-      scale: {
-        120: '1.2',
+      fontSize: {
+        base: ['1.6rem', '2.4rem'],
       },
       borderRadius: {
-        custom: '50% 20% / 10% 40%;',
+        rounded: '.8rem',
+      },
+      screens: {
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+
+        'xl': '1280px',
+        // => @media (min-width: 1280px) { ... }
+
+        '2xl': '1536px',
+        // => @media (min-width: 1536px) { ... }
       }
     },
   },
-  plugins: [ require('postcss-import'), require('tailwindcss'), require('autoprefixer') ]
+  plugins: [require('postcss-import'), require('tailwindcss'), require('autoprefixer')]
 }
