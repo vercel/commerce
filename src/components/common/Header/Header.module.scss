@@ -6,9 +6,10 @@
   }
   .btnBlue {
     @apply bg-primary hover:bg-warning text-label font-bold py-2 px-4 custom-border-radius;
+    
   }
   .link {
-    color: theme("colors.pink");
+    color: theme("colors.warning");
   }
   .heading {
     @apply text-base;
