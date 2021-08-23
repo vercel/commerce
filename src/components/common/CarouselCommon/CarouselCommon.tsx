@@ -8,10 +8,10 @@ interface CarouselCommonProps {
   data?: any[]
   Component: React.ComponentType
   isArrow?:Boolean
-  key:String
+  itemKey:String
 }
 
-const CarouselCommon = ({ data, Component,key }: CarouselCommonProps) => {
+const CarouselCommon = ({ data, Component,itemKey }: CarouselCommonProps) => {
   const [currentSlide, setCurrentSlide] = React.useState(0)
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     slidesPerView: 1,
@@ -31,7 +31,7 @@ const CarouselCommon = ({ data, Component,key }: CarouselCommonProps) => {
     <div className={s.navigation_wrapper}>
       <div ref={sliderRef} className="keen-slider">
         {data?.map((props,index) => (
-          <div className="keen-slider__slide" key={`${key}-${index}`}>
+          <div className="keen-slider__slide" key={`${itemKey}-${index}`}>
             <Component {...props} />
           </div>
         ))}

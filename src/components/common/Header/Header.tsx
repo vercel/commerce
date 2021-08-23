@@ -9,7 +9,7 @@ interface Props {
 const Header: FC<Props> = ({ }: Props) => {
     return (
         <div className={s.header}>
-            This is Header
+            {/* This is Header
             <button className={s.btnBlue}>
                 Button
             </button>
@@ -30,7 +30,7 @@ const Header: FC<Props> = ({ }: Props) => {
             </p>
             <p className={s.paragraph}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, natus?
-            </p>
+            </p> */}
         </div>
     )
 }

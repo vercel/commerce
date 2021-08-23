@@ -1,0 +1,13 @@
+// .quanittyInput::-webkit-outer-spin-button,
+// .quanittyInput::-webkit-inner-spin-button {
+//   -webkit-appearance: none;
+//   margin: 0;
+// }
+.quanittyInput{
+    @apply bg-background;
+    color: theme("textColor.active");
+    &::-webkit-inner-spin-button, &::-webkit-inner-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
