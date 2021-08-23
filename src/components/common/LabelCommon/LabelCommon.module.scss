@@ -1,0 +1,38 @@
+.labelCommonWarper{
+    display: inline-flex;
+    font-weight: bold;
+    &.defaultSize{
+        max-height: 2rem;
+        line-height: 2rem;
+        font-size: 1.2rem;
+    }
+    &.largeSize{
+        max-height: 2.4rem;
+        line-height: 2.4rem;
+        font-size: 1.6rem;
+    }
+    &.defaultType{
+        @apply bg-positive-dark;
+    }
+    &.discountType{
+        @apply bg-negative;
+    }
+    &.waitingType{
+        @apply bg-warning;
+    }
+    &.deliveringType{
+        @apply bg-info;
+    }
+    &.deliveredType{
+        @apply bg-positive;
+    }
+    &.defaultShape{
+        border-radius: 0.4rem;
+    }
+    &.halfShape{
+        border-radius: 0px 1.4rem 1.4rem 0px;
+    }
+    &.roundShape{
+        border-radius: 1.4rem;
+    }
+}

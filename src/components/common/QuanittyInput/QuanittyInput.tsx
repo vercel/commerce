@@ -5,9 +5,9 @@ import { Minus, Plus } from '@components/icons'
 interface QuanittyInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    'onChange' | 'min' | 'max' | 'step'
+    'onChange' | 'min' | 'max' | 'step' | "type" | "size"
   > {
-  type?: 'default' | 'small'
+  size?: 'default' | 'small'
   onChange?: (value: number) => void
   initValue?: number
   min?: number
@@ -16,7 +16,7 @@ interface QuanittyInputProps
 }
 
 const QuanittyInput = ({
-  type = 'default',
+  size = 'default',
   onChange,
   initValue = 0,
   min,
@@ -62,7 +62,7 @@ const QuanittyInput = ({
   }
 
   return (
-    <div className={classNames(s.quanittyInputWarper, { [s[type]]: type })}>
+    <div className={classNames(s.quanittyInputWarper, { [s[size]]: size })}>
       <div className={s.minusIcon} onClick={onMinusClick}>
         <Minus />
       </div>
