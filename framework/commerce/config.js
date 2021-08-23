@@ -11,10 +11,10 @@ const PROVIDERS = [
   'bigcommerce',
   'saleor',
   'shopify',
+  'spree',
   'swell',
   'vendure',
-  'local',
-  'spree',
+  'local'
 ]
 
 function getProviderName() {
