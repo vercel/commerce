@@ -1,5 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 16 10">
-<rect width="16" height="10" fill="#006aa7"/>
-<rect width="2" height="10" x="5" fill="#fecc00"/>
-<rect width="16" height="2" y="4" fill="#fecc00"/>
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Lager_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 800 800" style="enable-background:new 0 0 800 800;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#006AA7;}
+	.st1{fill:#FECC00;}
+</style>
+<g>
+	<path class="st0" d="M344,754.3c19.5,3.3,39.5,5,59.9,5c173.4,0,318-123.2,351.1-286.9H344V754.3z"/>
+	<path class="st0" d="M52.8,472.4c18.6,91.9,72.3,171.1,146.6,222.8V472.4H52.8z"/>
+	<path class="st0" d="M199.4,107c-74.3,51.7-128,130.9-146.6,222.8h146.6V107z"/>
+	<path class="st0" d="M755,329.8C721.9,166.1,577.3,42.9,403.9,42.9c-20.4,0-40.4,1.7-59.9,5v281.9H755z"/>
+	<path class="st1" d="M199.4,329.8H52.8c-4.7,23-7.1,46.9-7.1,71.3c0,24.4,2.4,48.3,7.1,71.3h146.6V329.8z"/>
+	<path class="st1" d="M755,329.8H344v142.6h411c4.7-23,7.1-46.9,7.1-71.3C762.1,376.7,759.7,352.8,755,329.8z"/>
+	<path class="st1" d="M344,329.8V47.9c-53.1,8.9-102.2,29.5-144.6,59.1v222.8H344z"/>
+	<path class="st1" d="M199.4,472.4v222.8c42.4,29.5,91.5,50.1,144.6,59.1V472.4H199.4z"/>
+	<rect x="199.4" y="329.8" class="st1" width="144.6" height="142.6"/>
+</g>
 </svg>
