@@ -117,7 +117,7 @@ module.exports = {
       },
       caroucel:{
         "arrow-height":"64px"
-      }
+      },
     },
   },
   plugins: [require('postcss-import'), require('tailwindcss'), require('autoprefixer')]

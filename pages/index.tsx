@@ -1,4 +1,5 @@
 
+import { useState } from 'react'
 import {CarouselCommon, Layout, QuanittyInput } from 'src/components/common'
 const dataTest = [{
   text:1
@@ -18,9 +19,8 @@ export default function Home() {
   return (
     <>
       <CarouselCommon data={dataTest} Component={test} itemKey="test"/>
-      <QuanittyInput/>
-      <input type="number" />
-      <input type="text" />
+      <QuanittyInput type ="default" min={5} max={10} initValue={3}/>
+      <QuanittyInput type ="small" min={3} step={10}/>
     </>
   )
 }
