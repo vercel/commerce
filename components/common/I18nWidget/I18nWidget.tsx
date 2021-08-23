@@ -15,7 +15,7 @@ interface LOCALE_DATA {
 
 const LOCALES_MAP: Record<string, LOCALE_DATA> = {
   se: {
-    name: 'Swedish',
+    name: 'Svenska',
     img: {
       filename: 'flag-se.svg',
       alt: 'svensk flagga',
