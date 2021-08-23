@@ -14,6 +14,13 @@ interface LOCALE_DATA {
 }
 
 const LOCALES_MAP: Record<string, LOCALE_DATA> = {
+  dk: {
+    name: 'Dansk',
+    img: {
+      filename: 'flag-dk.png',
+      alt: 'dansk flag',
+    },
+  },
   se: {
     name: 'Svenska',
     img: {

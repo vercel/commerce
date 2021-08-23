@@ -14,7 +14,7 @@ const isVendure = provider === 'vendure'
 module.exports = withCommerceConfig({
   commerce,
   i18n: {
-    locales: ['en-US', 'se'],
+    locales: ['en-US', 'se', 'dk'],
     defaultLocale: 'en-US',
   },
   rewrites() {
