@@ -32,8 +32,8 @@
   --background: #f8f8f8;
   --white: #fbfbfb;
 
-  --font-size: 1.6rem;
-  --line-height: 2.4rem;
+  --font-size: 16px;
+  --line-height: 24px;
 
   --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
 }
@@ -62,8 +62,11 @@ body {
 
 html {
   /* default font-size: 16px -> 62.5% * 16px = 10px */
-  /* => 1rem = 10px*/
-  font-size: 62.5% !important;
+  font-size: 50% !important; // => 1rem = 8px
+
+  @screen md {
+    font-size: 62.5% !important; // => 1rem = 10px*/
+  }
   scroll-behavior: smooth;
   touch-action: manipulation;
   font-feature-settings: "case" 1, "rlig" 1, "calt" 0;
