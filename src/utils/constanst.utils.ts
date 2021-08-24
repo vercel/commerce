@@ -1,12 +1,3 @@
-
-
-export enum ButonType {
-    primary = 'primary',
-    light = 'light',
+export const KEY = {
+    ENTER: 'Enter',
 }
-
-export enum ButtonSize {
-    default = 'default',
-    large = 'large',
-}
-

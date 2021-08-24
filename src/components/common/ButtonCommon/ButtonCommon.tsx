@@ -1,26 +1,28 @@
 import classNames from 'classnames'
-import React from 'react'
-import { ButonType, ButtonSize } from 'src/utils/constanst.utils'
+import React, { memo } from 'react'
 import s from './ButtonCommon.module.scss'
 
 interface Props {
-    children?: any,
-    type?: ButonType,
-    size?: ButtonSize,
-    icon?: any,
+    children?: React.ReactNode,
+    type?: 'primary' | 'light' | 'ghost',
+    size?: 'default' | 'large',
+    icon?: React.ReactNode,
+    isIconSuffix?: boolean,
     loading?: boolean,
     disabled?: boolean,
     onClick?: () => void,
 }
 
-const ButtonCommon = ({ type = ButonType.primary, size = ButtonSize.default,
-    icon, loading, disabled, children, onClick }: Props) => {
+const ButtonCommon = memo(({ type = 'primary', size = 'default', loading = false, isIconSuffix = false,
+    icon, disabled, children, onClick }: Props) => {
     return (
         <button className={classNames({
             [s.buttonCommon]: true,
             [s[type]]: !!type,
             [s[size]]: !!size,
             [s.loading]: loading,
+            [s.preserve]: isIconSuffix,
+            [s.onlyIcon]: icon && !children,
         })}
             disabled={disabled}
             onClick={onClick}
@@ -31,6 +33,6 @@ const ButtonCommon = ({ type = ButonType.primary, size = ButtonSize.default,
             <span className={s.label}>{children}</span>
         </button>
     )
-}
+})
 
 export default ButtonCommon

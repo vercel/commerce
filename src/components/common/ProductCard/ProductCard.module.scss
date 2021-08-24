@@ -1,0 +1,52 @@
+.productCardWarpper{
+    max-width: 20.8rem;
+    max-height: 31.8rem;
+    padding: 1.2rem 1.2rem 0 1.2rem;
+    @apply border border-solid border-black;
+    .cardTop{
+        @apply border border-solid border-yellow-300 relative;
+        max-height: 13.8rem;
+        .productImage{
+            @apply flex justify-center items-center;
+            img{
+                @apply inline;
+            }
+            .productLabel{
+                @apply absolute left-0 bottom-0;
+            }
+        }
+    }
+    .cardMid{
+        padding: 1.6rem 0;
+        .cardMid{
+            .productname{
+                font-weight: bold;
+                line-height: 2.4rem;
+                font-size: 1.6rem;
+                color: var(--text-active);
+            }
+            .productWeight{
+                font-size: 1.2rem;
+                line-height: 2rem;
+                letter-spacing: 0.01em;
+                color: var(--text-base);
+            }
+        }
+        .cardMidBot{
+            margin-top: 2.8rem;
+            @apply flex justify-between items-center border-t border-solid border-line;
+            .productPrice{
+                @apply font-bold;
+                font-size: 2rem;
+                line-height: 2.8rem;
+                letter-spacing: -0.01em;
+            }
+        }
+    }
+    .cardBot{
+        @apply flex justify-between items-center; 
+        .cardButton{
+            width: 13.6rem;
+        }
+    }
+}
