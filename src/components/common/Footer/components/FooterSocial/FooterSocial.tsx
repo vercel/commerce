@@ -10,8 +10,6 @@ import IconGooglePlay from '../../../../../assets/imgs/gpay.png';
 import IconApplePay from '../../../../../assets/imgs/apple_pay.png';
 import s from './FooterSocial.module.scss';
 
-
-
 const SOCIAL_MENU = [
     {
         icon: <IconFacebook />,
