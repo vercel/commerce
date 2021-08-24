@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@500&family=Righteous&display=swap");
+
 :root {
-  --primary: #5B9A74;
+  --primary: #5b9a74;
   --primary-light: #e0f6e8;
   --primary-lightest: #effaf4;
 
@@ -27,7 +29,7 @@
   --text-base: #3d3d3d;
   --text-label: #8f8f8f;
   --text-placeholder: #cccccc;
-  
+
   --disabled: #cccccc;
   --border-line: #ebebeb;
   --background: #f8f8f8;
@@ -36,7 +38,10 @@
   --font-size: 16px;
   --line-height: 24px;
 
-  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
+  --font-sans: "Nunito", cursive, -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica",
+    sans-serif;
+  --font-heading: "Righteous", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
+  --font-logo: "Poppins", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
 }
 
 *,
