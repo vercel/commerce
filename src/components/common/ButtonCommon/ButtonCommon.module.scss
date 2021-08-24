@@ -58,8 +58,15 @@
     }
   }
 
+  &.preserve {
+    flex-direction: row-reverse;
+    .icon {
+      margin: 0 0 0 1.6rem;
+    }
+  }
+
   .icon {
-    margin-right: 0.8rem;
+    margin: 0 1.6rem 0 0;
     svg path {
       fill: currentColor;
     }

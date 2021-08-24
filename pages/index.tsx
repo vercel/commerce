@@ -10,8 +10,8 @@ export default function Home() {
       <ButtonCommon type={ButonType.light} >{ButonType.light} -  Button light</ButtonCommon>
       <ButtonCommon type={ButonType.light} disabled>{ButonType.light} -  Button light</ButtonCommon>
       <ButtonCommon type={ButonType.light} loading = {true}>{ButonType.light} -  Button light</ButtonCommon>
-      <ButtonCommon size={ButtonSize.large} loading={true}>{ButtonSize.large} - Button default large</ButtonCommon>
-      <ButtonCommon icon={<IconBuy/>} disabled>Button with icon disabled</ButtonCommon>
+      <ButtonCommon size={ButtonSize.large} icon={<IconBuy/>}>{ButtonSize.large} - Button default large</ButtonCommon>
+      <ButtonCommon icon={<IconBuy/>} disabled isIconSuffix={true}>Button with icon disabled</ButtonCommon>
       <ButtonCommon icon={<IconBuy/>} type={ButonType.light}>Button with icon</ButtonCommon>
       <p>Go to <code>pages/index.tsx</code> to get your hand dirty!</p>
       <p>Go to <code>src/components</code> to make your awesome component!</p>
