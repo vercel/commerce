@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import React, { memo } from 'react'
-import { ButonType, ButtonSize } from 'src/utils/constanst.utils'
 import s from './ButtonCommon.module.scss'
 
 interface Props {
