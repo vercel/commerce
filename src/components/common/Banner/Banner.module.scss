@@ -1,0 +1,38 @@
+@import "../../../styles/utilities";
+
+.banner {
+  @apply bg-primary-light custom-border-radius-lg overflow-hidden;
+  border: 1px solid var(--primary);
+
+  .inner {
+    @apply bg-no-repeat;
+    background-size: 90%;
+    background-position: right -500% bottom 0%;
+    @screen md {
+      @apply bg-right-bottom;
+      background-size: unset;
+    }
+    .content {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.4) 90%, rgba(255, 255, 255, 0));
+      padding: 1.6rem;
+      max-width: 70%;
+      @screen md {
+        max-width: 50%;
+        padding: 4.8rem;
+      }
+      .top {
+        .heading {
+          @apply heading-1;
+          margin-bottom: 1.6rem;
+        }
+        .subHeading {
+          @apply sub-headline;
+        }
+      }
+
+      .bottom {
+        margin-top: 4rem;
+      }
+    }
+  }
+}

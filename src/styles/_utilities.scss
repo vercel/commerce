@@ -3,6 +3,8 @@
         font-size: 4.8rem;
         line-height: 5.6rem;
         letter-spacing: -0.03em;
+        font-weight: bold;
+        text-transform: uppercase;
         @screen md {
             font-size: 6.4rem;
             line-height: 8rem;
@@ -13,6 +15,8 @@
         font-size: 4rem;
         line-height: 4.8rem;
         letter-spacing: -0.02em;
+        font-weight: bold;
+        text-transform: uppercase;
         @screen md {
             font-size: 4.8rem;
             line-height: 5.6rem;
@@ -23,6 +27,8 @@
         font-size: 2.4rem;
         line-height: 3.2rem;
         letter-spacing: -0.01em;
+        font-weight: bold;
+        text-transform: uppercase;
         @screen md {
             font-size: 3.2rem;
             line-height: 4rem;
@@ -90,6 +96,10 @@
     }
     .custom-border-radius {
         border-radius: 60% 10% 60% 2%/ 10% 20% 10% 50%;
+    }
+
+    .custom-border-radius-lg {
+        border-radius: 60% 2% 2% 2%/ 6% 50% 50% 50%;
     }
 
     .font-heading {
