@@ -1,13 +1,12 @@
 import classNames from 'classnames'
 import React, { memo } from 'react'
-import { ButonType, ButtonSize } from 'src/utils/constanst.utils'
 import s from './ButtonCommon.module.scss'
 
 interface Props {
     children?: React.ReactNode,
     type?: 'primary' | 'light' | 'ghost',
     size?: 'default' | 'large',
-    icon?: any,
+    icon?: React.ReactNode,
     isIconSuffix?: boolean,
     loading?: boolean,
     disabled?: boolean,

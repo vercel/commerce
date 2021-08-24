@@ -1,6 +1,6 @@
 
 import { ButtonCommon, Inputcommon, Layout } from 'src/components/common';
-import { IconBuy } from 'src/components/icons';
+import { IconBuy, IconSearch } from 'src/components/icons';
 export default function Home() {
   return (
     <>
@@ -9,11 +9,14 @@ export default function Home() {
       <p>Go to <code>src/components</code> to make your awesome component!</p>
       <p>Go to <code>src/styles</code> to find global styles!</p>
 
-      <Inputcommon placeholder="Enter here" />
-      <Inputcommon placeholder="Enter here" type='number' />
-      <Inputcommon placeholder="Enter here" value="23434" />
 
-      <ButtonCommon type='ghost' icon={<IconBuy/>}>Button</ButtonCommon>
+      {/* demo  */}
+      <div style={{ display: 'flex' }}>
+        <Inputcommon placeholder="Enter here" />
+        <Inputcommon placeholder="Enter here" styleType='custom' icon={<IconSearch />}/>
+      </div>
+
+      <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
     </>
   )
 }
