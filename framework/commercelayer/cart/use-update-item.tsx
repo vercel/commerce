@@ -1,7 +1,6 @@
 import { MutationHook } from '@commerce/utils/types'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
-import useCart from '@commerce/cart/use-cart'
-import { useCallback } from 'react'
+import useCart from '@framework/cart/use-cart'
 import getCredentials from '@framework/api/utils/getCredentials'
 import { LineItem } from '@commercelayer/js-sdk'
 
@@ -47,8 +46,11 @@ export const handler: MutationHook<any> = {
   useHook:
     ({ fetch }) =>
     ({ item }) => {
+      const { mutate } = useCart()
       return async function updateItem(input) {
-        return await fetch({ input: { item, ...input } })
+        const data = await fetch({ input: { item, ...input } })
+        await mutate()
+        return data
       }
     },
 }

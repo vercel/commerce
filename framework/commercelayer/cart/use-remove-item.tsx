@@ -2,6 +2,7 @@ import { MutationHook } from '@commerce/utils/types'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
 import getCredentials from '@framework/api/utils/getCredentials'
 import { LineItem } from '@commercelayer/js-sdk'
+import useCart from '@framework/cart/use-cart'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
@@ -20,8 +21,11 @@ export const handler: MutationHook<any> = {
   useHook:
     ({ fetch }) =>
     () => {
+      const { mutate } = useCart()
       return async function removeItem(input) {
-        return await fetch({ input })
+        const data = await fetch({ input })
+        await mutate()
+        return data
       }
     },
 }
