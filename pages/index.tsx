@@ -1,6 +1,6 @@
 
-import { ButtonCommon, Inputcommon, Layout } from 'src/components/common';
-import { IconBuy, IconSearch } from 'src/components/icons';
+import { ButtonCommon, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import { IconBuy } from 'src/components/icons';
 export default function Home() {
   return (
     <>
@@ -13,7 +13,7 @@ export default function Home() {
       {/* demo  */}
       <div style={{ display: 'flex' }}>
         <Inputcommon placeholder="Enter here" />
-        <Inputcommon placeholder="Enter here" styleType='custom' icon={<IconSearch />}/>
+        <InputSearch/>
       </div>
 
       <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
