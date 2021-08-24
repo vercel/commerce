@@ -10,3 +10,11 @@ export enum ButtonSize {
     large = 'large',
 }
 
+export enum InputType {
+    text = 'text',
+    number = 'number',
+}
+
+export const KEY = {
+    ENTER: 'Enter',
+}
