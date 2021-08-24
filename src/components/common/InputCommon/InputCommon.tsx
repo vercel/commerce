@@ -1,6 +1,6 @@
-import React, { forwardRef, RefObject, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { InputType, KEY } from 'src/utils/constanst.utils';
-import s from './InputCommon.module.scss'
+import s from './InputCommon.module.scss';
 
 type Ref = {
     focus: () => void
