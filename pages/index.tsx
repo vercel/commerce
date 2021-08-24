@@ -17,6 +17,9 @@ export default function Home() {
       </div>
 
       <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
+      <ButtonCommon type='light'><IconBuy /></ButtonCommon>
+      <ButtonCommon type='light' icon={<IconBuy />}/>
+      <ButtonCommon type='ghost' icon={<IconBuy />} size='large'/>
     </>
   )
 }

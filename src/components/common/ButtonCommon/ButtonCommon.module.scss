@@ -11,6 +11,20 @@
     cursor: not-allowed;
     color: var(--disabled);
   }
+  &:hover {
+    @apply shadow-md;
+    &:not(:disabled) {
+      filter: brightness(1.05);
+    }
+  }
+  &:focus {
+    outline: none;
+    filter: brightness(1.05);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--text-active);
+  }
+
   &.loading {
     &::before {
       content: "";
@@ -23,20 +37,6 @@
       animation: spin 2s linear infinite;
       margin-right: 0.8rem;
     }
-  }
-  &:hover {
-    @apply shadow-md;
-    &:not(:disabled) {
-      filter: brightness(1.05);
-    }
-  }
-
-  &:focus {
-    outline: none;
-    filter: brightness(1.05);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--text-active);
   }
 
   &.light {
@@ -60,8 +60,18 @@
     }
   }
 
+  &.onlyIcon {
+    padding: 0.8rem;
+    .icon {
+      margin: 0;
+    }
+  }
+
   &.large {
     padding: 3.2rem 4.8rem;
+    &.onlyIcon {
+      padding: 1.6rem;
+    }
     &.loading {
       &::before {
         width: 2.4rem;
@@ -69,6 +79,8 @@
       }
     }
   }
+
+
 
   &.preserve {
     flex-direction: row-reverse;
@@ -79,6 +91,10 @@
 
   .icon {
     margin: 0 1.6rem 0 0;
+  }
+
+  .label,
+  .icon {
     svg path {
       fill: currentColor;
     }
