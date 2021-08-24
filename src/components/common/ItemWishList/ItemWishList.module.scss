@@ -8,11 +8,11 @@
     justify-content: center;
     align-items: center;
     path{
-        fill: theme("colors.negative");
+        stroke: theme("colors.primary");
     }
 }
 .isToggleOn{
-    path{
-        fill: theme("colors.primary");
+    svg path{
+        stroke: theme("colors.primary");
     }
 }
