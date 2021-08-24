@@ -1,8 +1,8 @@
 export const SOCIAL_LINKS = {
-    FB: '',
-    TWITTER: '',
-    YOUTUBE: '',
-    IG: '',
+    FB: 'FB',
+    TWITTER: 'TWITTER',
+    YOUTUBE: 'YOUTUBE',
+    IG: 'IG',
 }
 
 export const ROUTE = {
