@@ -15,38 +15,39 @@ interface NavbarProps {
 
 const Navbar: FC<NavbarProps> = ({ links }) => (
   <NavbarRoot>
-    <Container>
-      <div className={s.nav}>
-        <div className="flex items-center flex-1">
-          <Link href="/">
-            <a className={s.logo} aria-label="Logo">
-              <Logo />
-            </a>
-          </Link>
-          <nav className={s.navMenu}>
-            <Link href="/search">
-              <a className={s.link}>All</a>
+    <div className={s.navContainer}>
+      <Container>
+        <div className={s.nav}>
+          <div className="flex items-center flex-1">
+            <Link href="/">
+              <a className={s.logo} aria-label="Logo">
+                <Logo />
+              </a>
             </Link>
-            {links?.map((l) => (
-              <Link href={l.href} key={l.href}>
-                <a className={s.link}>{l.label}</a>
+            <nav className={s.navMenu}>
+              <Link href="/search">
+                <a className={s.link}>All</a>
               </Link>
-            ))}
-          </nav>
-        </div>
-        {process.env.COMMERCE_SEARCH_ENABLED && (
-          <div className="justify-center flex-1 hidden lg:flex">
-            <Searchbar />
+              {links?.map((l) => (
+                <Link href={l.href} key={l.href}>
+                  <a className={s.link}>{l.label}</a>
+                </Link>
+              ))}
+            </nav>
           </div>
-        )}
-        <div className="flex items-center justify-end flex-1 space-x-8">
-          <UserNav />
+          <div className="flex items-center justify-end flex-1 space-x-8">
+            <UserNav />
+          </div>
         </div>
+      </Container>
+    </div>
+    {process.env.COMMERCE_SEARCH_ENABLED && (
+      <div className={s.searchContainer}>
+        <Container>
+          <Searchbar />
+        </Container>
       </div>
-      <div className="flex pb-4 lg:px-6 lg:hidden">
-        <Searchbar id="mobile-search" />
-      </div>
-    </Container>
+    )}
   </NavbarRoot>
 )
 

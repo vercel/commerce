@@ -45,12 +45,9 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
         onKeyUp={handleKeyUp}
       />
       <div className={s.iconContainer}>
-        <svg className={s.icon} fill="currentColor" viewBox="0 0 20 20">
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-          />
+        <svg className={s.icon} width="21" height="21" viewBox="0 0 21 21" fill="currentColor">
+          <path fillRule="evenodd" clipRule="evenodd" d="M16.75 8.5C16.75 13.0563 13.0563 16.75 8.5 16.75C3.94365 16.75 0.25 13.0563 0.25 8.5C0.25 3.94365 3.94365 0.25 8.5 0.25C13.0563 0.25 16.75 3.94365 16.75 8.5ZM15.25 8.5C15.25 12.2279 12.2279 15.25 8.5 15.25C4.77208 15.25 1.75 12.2279 1.75 8.5C1.75 4.77208 4.77208 1.75 8.5 1.75C12.2279 1.75 15.25 4.77208 15.25 8.5Z" fill="black"></path>
+          <path d="M16.5303 15.4697C16.2374 15.1768 15.7626 15.1768 15.4697 15.4697C15.1768 15.7626 15.1768 16.2374 15.4697 16.5303L19.2197 20.2803C19.5126 20.5732 19.9874 20.5732 20.2803 20.2803C20.5732 19.9874 20.5732 19.5126 20.2803 19.2197L16.5303 15.4697Z" fill="black"></path>
         </svg>
       </div>
     </div>
