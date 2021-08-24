@@ -4,7 +4,7 @@ import { ButonType, ButtonSize } from 'src/utils/constanst.utils'
 import s from './ButtonCommon.module.scss'
 
 interface Props {
-    children?: any,
+    children?: React.ReactNode,
     type?: ButonType,
     size?: ButtonSize,
     icon?: any,
