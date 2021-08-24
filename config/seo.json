@@ -1,26 +1,26 @@
 {
-  "title": "ACME Storefront | Powered by Next.js Commerce",
-  "titleTemplate": "%s - ACME Storefront",
-  "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+  "title": "Sesamy: Ljudböcker och e-böcker utan dyra abonnemang",
+  "titleTemplate": "%s - Sesamy",
+  "description": "Sesamy befriar dig från abonnemangsfällan. Betala bara för ljudböcker och e-böcker du vill ha. Läs och lyssna i valfri app på mobil, dator eller läsplatta.",
   "openGraph": {
-    "title": "ACME Storefront | Powered by Next.js Commerce",
-    "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+    "title": "Sesamy",
+    "description": "Sesamy befriar dig från abonnemangsfällan. Betala bara för ljudböcker och e-böcker du vill ha. Läs och lyssna i valfri app på mobil, dator eller läsplatta.",
     "type": "website",
-    "locale": "en_IE",
-    "url": "https://nextjs.org/commerce",
-    "site_name": "Next.js Commerce",
+    "locale": "sv_SE",
+    "url": "https://sesamy.com/",
+    "site_name": "Sesamy",
     "images": [
       {
         "url": "/card.png",
         "width": 800,
         "height": 600,
-        "alt": "Next.js Commerce"
+        "alt": "Sesamy"
       }
     ]
   },
   "twitter": {
-    "handle": "@nextjs",
-    "site": "@nextjs",
+    "handle": "@SesamyOpen",
+    "site": "@SesamyOpen",
     "cardType": "summary_large_image"
   }
 }
