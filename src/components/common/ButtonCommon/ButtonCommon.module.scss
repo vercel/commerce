@@ -44,7 +44,7 @@
     border: 1px solid var(--text-active);
     &.loading {
       &::before {
-        border-color: var(--primary);
+        border-top-color: var(--primary);
       }
     }
   }
