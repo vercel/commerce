@@ -1,5 +1,5 @@
 
-import { Banner, ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import { ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
 import { IconBuy } from 'src/components/icons';
 export default function Home() {
   return (
@@ -15,12 +15,6 @@ export default function Home() {
         <Inputcommon placeholder="Enter here" />
         <InputSearch />
       </div>
-
-      <Banner
-        imgLink="https://user-images.githubusercontent.com/76729908/130574371-3b75fa72-9552-4605-aba9-a4b31cd9dce7.png"
-        title="Save 15% on your first order"
-        subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
-      />
       <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
       <ButtonIconBuy />
     </>
