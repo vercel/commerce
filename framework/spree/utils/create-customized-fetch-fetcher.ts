@@ -60,6 +60,10 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
             data: Object.setPrototypeOf({ data }, { response }),
           }
         } catch (error) {
+          if (error instanceof FetchError) {
+            throw error
+          }
+
           throw new FetchError(null, request, null, error.message)
         }
       } catch (error) {

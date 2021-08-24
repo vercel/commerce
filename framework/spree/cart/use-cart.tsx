@@ -8,6 +8,7 @@ import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import setCartToken from '@framework/utils/set-cart-token'
+import { FetcherError } from '@commerce/utils/errors'
 
 export default useCart as UseCart<typeof handler>
 
@@ -35,29 +36,41 @@ export const handler: SWRHook<GetCartHook> = {
       spreeCartResponse = null
     } else {
       const spreeToken: IToken = { orderToken: cartToken }
-      const {
-        data: { data: spreeCartShowSuccessResponse },
-      } = await fetch<GraphQLFetcherResult<{ data: IOrder }>>({
-        variables: {
-          methodPath: 'cart.show',
-          arguments: [
-            spreeToken,
-            {
-              include: [
-                'line_items',
-                'line_items.variant',
-                'line_items.variant.product',
-                'line_items.variant.product.images',
-                'line_items.variant.images',
-                'line_items.variant.option_values',
-                'line_items.variant.product.option_types',
-              ].join(','),
-            },
-          ],
-        },
-      })
 
-      spreeCartResponse = spreeCartShowSuccessResponse
+      try {
+        const {
+          data: { data: spreeCartShowSuccessResponse },
+        } = await fetch<GraphQLFetcherResult<{ data: IOrder }>>({
+          variables: {
+            methodPath: 'cart.show',
+            arguments: [
+              spreeToken,
+              {
+                include: [
+                  'line_items',
+                  'line_items.variant',
+                  'line_items.variant.product',
+                  'line_items.variant.product.images',
+                  'line_items.variant.images',
+                  'line_items.variant.option_values',
+                  'line_items.variant.product.option_types',
+                ].join(','),
+              },
+            ],
+          },
+        })
+
+        spreeCartResponse = spreeCartShowSuccessResponse
+      } catch (fetchCartError) {
+        if (
+          !(fetchCartError instanceof FetcherError) ||
+          fetchCartError.status !== 404
+        ) {
+          throw fetchCartError
+        }
+
+        spreeCartResponse = null
+      }
     }
 
     if (!spreeCartResponse || spreeCartResponse?.data.attributes.completed_at) {
