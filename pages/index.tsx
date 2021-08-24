@@ -1,7 +1,5 @@
 
-import { ButtonCommon, CarouselCommon, LabelCommon, Layout, QuanittyInput } from 'src/components/common'
-import { IconBuy } from 'src/components/icons'
-import { ButonType, ButtonSize } from 'src/utils/constanst.utils'
+import { CarouselCommon, LabelCommon, Layout, QuanittyInput } from 'src/components/common'
 
 const dataTest = [{
   text: 1
