@@ -27,8 +27,8 @@ const UserNav: FC<Props> = ({ className }) => {
       <ul className={s.list}>
         {process.env.COMMERCE_CART_ENABLED && (
           <li className={s.item} onClick={toggleSidebar}>
-            <Bag />
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+            Cart&nbsp;
+            {itemsCount > 0 && <span>({itemsCount})</span>}
           </li>
         )}
         {process.env.COMMERCE_WISHLIST_ENABLED && (
