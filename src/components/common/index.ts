@@ -1,4 +1,6 @@
 export { default as ButtonCommon } from './ButtonCommon/ButtonCommon'
 export { default as Layout } from './Layout/Layout'
 export { default as Head } from './Head/Head'
-
+export { default as ViewAllItem} from './ViewAllItem/ViewAllItem'
+export { default as ItemWishList} from './ItemWishList/ItemWishList'
+export { default as Logo} from './Logo/Logo'
