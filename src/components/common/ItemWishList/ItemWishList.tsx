@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Heart } from '@components/icons'
+import IconHeart from 'src/components/icons/IconHeart'
 import React, { memo } from 'react'
 import s from './ItemWishList.module.scss'
 
@@ -18,7 +18,7 @@ const ItemWishList = memo(({isActive, onClick}:Props) => {
             [s.isToggleOn]:isActive
         })}
         onClick={handleClick}>
-            <Heart />
+            <IconHeart />
         </div>
     )
 })

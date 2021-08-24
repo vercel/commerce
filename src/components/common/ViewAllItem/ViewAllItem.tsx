@@ -1,4 +1,4 @@
-import Vector from 'src/components/icons/Vector'
+import IconVector from 'src/components/icons/IconVector'
 import s from './ViewAllItem.module.scss'
 import Link from 'next/link'
 
@@ -17,7 +17,7 @@ const ViewAllItem = ({ link }: Props) => {
                 </a>
             </Link>
             <div className={s.vecTor}>
-                <Vector />
+                <IconVector />
             </div>
         </div>
     )

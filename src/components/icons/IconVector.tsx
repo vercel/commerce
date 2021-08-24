@@ -1,5 +1,5 @@
 
-const Vector = ({ ...props }) => {
+const IconVector = ({ ...props }) => {
     return (
       <svg
         width="24"
@@ -16,4 +16,4 @@ const Vector = ({ ...props }) => {
     )
   }
   
-  export default Vector
+  export default IconVector
