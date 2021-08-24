@@ -6,9 +6,10 @@ import s from './ItemWishList.module.scss'
 interface Props {
     isActive?: boolean,
     onClick?: () => void
+    onChange?: () => void
 }
 
-const ItemWishList = memo(({isActive, onClick}:Props) => {
+const ItemWishList = memo(({isActive, onClick, onChange}:Props) => {
     const handleClick = () => {
         isActive = !isActive
     }
