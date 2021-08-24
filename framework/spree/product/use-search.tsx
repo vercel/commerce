@@ -7,7 +7,7 @@ import type { GraphQLFetcherResult } from '@commerce/api'
 import { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 
 const nextToSpreeSortMap: { [key: string]: string } = {
-  'trending-desc': 'updated_at', // FIXME: Spree has no "trending" filter. Using updated_at.
+  'trending-desc': 'available_on',
   'latest-desc': 'updated_at',
   'price-asc': 'price',
   'price-desc': '-price',
