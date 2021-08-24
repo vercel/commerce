@@ -14,13 +14,30 @@ import { requireConfigValue } from '@framework/isomorphic-config'
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import expandOptions from './expand-options'
 import getMediaGallery from './get-media-gallery'
-import { findIncludedOfType } from './find-json-api-documents'
+import { findIncluded, findIncludedOfType } from './find-json-api-documents'
 import getProductPath from './get-product-path'
+import MissingPrimaryVariantError from '@framework/errors/MissingPrimaryVariantError'
 
 const normalizeProduct = (
   spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
   spreeProduct: ProductAttr
 ): Product => {
+  const primaryVariantIdentifier = spreeProduct.relationships.primary_variant
+    .data as RelationType
+  const primaryVariant = findIncluded(
+    spreeSuccessResponse,
+    primaryVariantIdentifier.type,
+    primaryVariantIdentifier.id
+  )
+
+  if (primaryVariant === null) {
+    throw new MissingPrimaryVariantError(
+      `Couldn't find primary variant with id ${primaryVariantIdentifier.id}.`
+    )
+  }
+
+  const sku = primaryVariant.attributes.sku
+
   const spreeImageRecords = findIncludedOfType(
     spreeSuccessResponse,
     spreeProduct,
@@ -95,6 +112,7 @@ const normalizeProduct = (
     price,
     slug,
     path,
+    sku,
   }
 }
 

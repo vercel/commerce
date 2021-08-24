@@ -48,7 +48,8 @@ export const handler: SWRHook<SearchProductsHook> = {
         arguments: [
           {},
           {
-            include: 'variants,images,option_types,variants.option_values',
+            include:
+              'primary_variant,variants,images,option_types,variants.option_values',
             per_page: 50,
             ...filter,
             ...sort,
