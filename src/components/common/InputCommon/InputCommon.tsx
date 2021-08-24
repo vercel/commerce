@@ -15,7 +15,6 @@ interface Props {
     onEnter?: (value: string | number) => void,
 }
 
-
 const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, onChange, onEnter }: Props, ref) => {
     const inputElementRef = useRef<HTMLInputElement>(null);
 
