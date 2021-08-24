@@ -7,18 +7,26 @@ interface Props {
     children?: any,
     type?: ButonType,
     size?: ButtonSize,
-    icon?: HTMLElement,
+    icon?: any,
+    loading?: boolean,
+    disabled?: boolean,
+    onClick?: () => void,
 }
 
-const ButtonCommon = ({ type, size, icon, children }: Props) => {
+const ButtonCommon = ({ type = ButonType.primary, size = ButtonSize.default,
+    icon, loading, disabled, children, onClick }: Props) => {
     return (
         <button className={classNames({
             [s.buttonCommon]: true,
-            [s.type]: type,
-            [s.size]: size,
-        })}>
+            [s[type]]: !!type,
+            [s[size]]: !!size,
+            [s.loading]: loading,
+        })}
+            disabled={disabled}
+            onClick={onClick}
+        >
             {
-                icon && { icon }
+                icon && <span className={s.icon}>{icon}</span>
             }
             <span className={s.label}>{children}</span>
         </button>

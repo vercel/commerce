@@ -22,7 +22,6 @@ module.exports = {
       },
       colors: {
         primary: 'var(--primary)',
-        'hover-primary': 'var(--hover-primary)',
         'primary-light': 'var(--primary-light)',
         'primary-lightest': 'var(--primary-lightest)',
 
@@ -49,7 +48,8 @@ module.exports = {
         'line': 'var(--border-line)',
         'background': 'var(--background)',
         'white': 'var(--white)',
-
+        'disabled': 'var(--text-disabled)',
+        
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',

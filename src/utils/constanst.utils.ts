@@ -1,12 +1,12 @@
 
 
 export enum ButonType {
-    primary,
-    light,
+    primary = 'primary',
+    light = 'light',
 }
 
 export enum ButtonSize {
-    default,
-    large,
+    default = 'default',
+    large = 'large',
 }
 
