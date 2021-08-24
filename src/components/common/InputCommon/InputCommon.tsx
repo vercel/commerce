@@ -5,7 +5,6 @@ import s from './InputCommon.module.scss';
 type Ref = {
     focus: () => void
 } | null;
-
 interface Props {
     children?: React.ReactNode,
     value?: string | number,
