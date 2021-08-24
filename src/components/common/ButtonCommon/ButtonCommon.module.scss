@@ -48,6 +48,18 @@
       }
     }
   }
+
+  &.ghost {
+    @apply bg-white;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    &.loading {
+      &::before {
+        border-top-color: var(--primary);
+      }
+    }
+  }
+
   &.large {
     padding: 3.2rem 4.8rem;
     &.loading {

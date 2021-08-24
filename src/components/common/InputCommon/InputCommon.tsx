@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import { InputType, KEY } from 'src/utils/constanst.utils';
+import { KEY } from 'src/utils/constanst.utils';
 import s from './InputCommon.module.scss';
 
 type Ref = {
@@ -10,7 +10,7 @@ interface Props {
     children?: React.ReactNode,
     value?: string | number,
     placeholder?: string,
-    type?: InputType,
+    type?: 'text' | 'number',
     onChange?: (value: string | number) => void,
     onEnter?: (value: string | number) => void,
 }

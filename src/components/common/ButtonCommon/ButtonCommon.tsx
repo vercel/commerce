@@ -5,8 +5,8 @@ import s from './ButtonCommon.module.scss'
 
 interface Props {
     children?: React.ReactNode,
-    type?: ButonType,
-    size?: ButtonSize,
+    type?: 'primary' | 'light' | 'ghost',
+    size?: 'default' | 'large',
     icon?: any,
     isIconSuffix?: boolean,
     loading?: boolean,
@@ -14,7 +14,7 @@ interface Props {
     onClick?: () => void,
 }
 
-const ButtonCommon = memo(({ type = ButonType.primary, size = ButtonSize.default,
+const ButtonCommon = memo(({ type = 'primary', size = 'default',
     icon, loading, disabled, isIconSuffix, children, onClick }: Props) => {
     return (
         <button className={classNames({
