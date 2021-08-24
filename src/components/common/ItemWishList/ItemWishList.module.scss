@@ -1,0 +1,10 @@
+@import '../../../styles/utilities';
+
+.heartToggle{
+    cursor: pointer;
+    width: 4.8rem;
+    height: 4.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
