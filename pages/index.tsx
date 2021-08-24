@@ -1,5 +1,5 @@
 
-import { ButtonCommon, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import { ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
 import { IconBuy } from 'src/components/icons';
 export default function Home() {
   return (
@@ -17,9 +17,7 @@ export default function Home() {
       </div>
 
       <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
-      <ButtonCommon type='light'><IconBuy /></ButtonCommon>
-      <ButtonCommon type='light' icon={<IconBuy />}/>
-      <ButtonCommon type='ghost' icon={<IconBuy />} size='large'/>
+      <ButtonIconBuy/>
     </>
   )
 }
