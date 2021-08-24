@@ -1,8 +1,7 @@
 import s from './Logo.module.scss'
 
 interface Props {
-    className?: string
-    children?: any
+    
 }
 
 const Logo = ({}: Props) => {

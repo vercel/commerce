@@ -3,8 +3,6 @@ import s from './ViewAllItem.module.scss'
 import Link from 'next/link'
 
 interface Props {
-    className?: string
-    children?: any
     link?: string
 }
 
