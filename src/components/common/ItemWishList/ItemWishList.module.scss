@@ -7,4 +7,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    path{
+        stroke: theme("colors.negative");
+    }
+}
+.isToggleOn{
+    path{
+        stroke: theme("colors.primary");
+    }
 }
