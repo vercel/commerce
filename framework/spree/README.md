@@ -27,6 +27,8 @@ Also, add the following line inside `config/environments/development.rb` to allo
 config.hosts << 'localhost'
 ```
 
+---
+
 Finally, run `yarn dev` :tada:
 
 [1]: https://spreecommerce.org/
