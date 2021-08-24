@@ -1,15 +1,20 @@
 .labelCommonWarper{
     display: inline-flex;
+    align-items: flex-start;
     font-weight: bold;
+    letter-spacing: 0.01em;
+    @apply text-white text-right;
     &.defaultSize{
-        max-height: 2rem;
+        min-height: 2rem;
         line-height: 2rem;
         font-size: 1.2rem;
+        padding: 0 0.8rem;
     }
     &.largeSize{
         max-height: 2.4rem;
         line-height: 2.4rem;
         font-size: 1.6rem;
+        padding: 0 1.8rem;
     }
     &.defaultType{
         @apply bg-positive-dark;

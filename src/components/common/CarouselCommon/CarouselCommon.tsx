@@ -6,7 +6,7 @@ import s from "./CaroucelCommon.module.scss"
 interface CarouselCommonProps {
   children?: React.ReactNode
   data?: any[]
-  Component: React.ComponentType
+  Component: React.ComponentType<any>
   isArrow?:Boolean
   itemKey:String
 }
