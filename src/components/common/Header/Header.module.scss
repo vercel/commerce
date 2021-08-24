@@ -1,21 +1,22 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 
 .header {
   .btn {
-    @apply font-bold py-2 px-4 rounded;
+    // @apply font-bold py-2 px-4 rounded;
   }
   .btnBlue {
     @apply bg-primary hover:bg-warning text-label font-bold py-2 px-4 custom-border-radius;
-    
   }
   .link {
     color: theme("colors.warning");
   }
   .heading {
-    @apply text-base;
+    @apply text-base font-heading;
   }
-
   .paragraph {
     @apply topline;
+  }
+  .logo {
+    @apply font-logo;
   }
 }

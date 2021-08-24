@@ -89,6 +89,14 @@
         }
     }
     .custom-border-radius {
-        border-radius: 50% 20% / 10% 40%;
+        border-radius: 60% 10% 60% 2%/ 10% 40% 10% 50%;
+    }
+
+    .font-heading {
+        font-family: var(--font-heading);
+    }
+
+    .font-logo {
+        font-family: var(--font-logo);
     }
 }

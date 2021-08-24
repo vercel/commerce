@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@500&family=Righteous&display=swap");
+
 :root {
-  --primary: #36bf6d;
+  --primary: #5b9a74;
   --primary-light: #e0f6e8;
   --primary-lightest: #effaf4;
 
@@ -28,6 +30,7 @@
   --text-label: #8f8f8f;
   --text-placeholder: #cccccc;
 
+  --disabled: #cccccc;
   --border-line: #ebebeb;
   --background: #f8f8f8;
   --white: #fbfbfb;
@@ -35,7 +38,13 @@
   --font-size: 1.6rem;
   --line-height: 2.4rem;
 
-  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
+  // --font-size: 16px;
+  // --line-height: 24px;
+
+  --font-sans: "Nunito", cursive, -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica",
+    sans-serif;
+  --font-heading: "Righteous", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
+  --font-logo: "Poppins", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
 }
 
 *,
@@ -62,8 +71,11 @@ body {
 
 html {
   /* default font-size: 16px -> 62.5% * 16px = 10px */
-  /* => 1rem = 10px*/
-  font-size: 62.5% !important;
+  font-size: 50% !important; // => 1rem = 8px
+
+  @screen md {
+    font-size: 62.5% !important; // => 1rem = 10px*/
+  }
   scroll-behavior: smooth;
   touch-action: manipulation;
   font-feature-settings: "case" 1, "rlig" 1, "calt" 0;

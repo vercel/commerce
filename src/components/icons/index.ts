@@ -1,1 +1,1 @@
-// index here
+export { default as IconBuy } from './IconBuy'

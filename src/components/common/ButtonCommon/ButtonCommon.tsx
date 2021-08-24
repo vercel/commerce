@@ -1,14 +1,35 @@
-import { FC, useRef, useEffect } from 'react'
-import s from './ButtonCommon.module.css'
+import classNames from 'classnames'
+import React from 'react'
+import { ButonType, ButtonSize } from 'src/utils/constanst.utils'
+import s from './ButtonCommon.module.scss'
 
 interface Props {
-    className?: string
-    children?: any
+    children?: any,
+    type?: ButonType,
+    size?: ButtonSize,
+    icon?: any,
+    loading?: boolean,
+    disabled?: boolean,
+    onClick?: () => void,
 }
 
-const ButtonCommon: FC<Props> = ({ }) => {
+const ButtonCommon = ({ type = ButonType.primary, size = ButtonSize.default,
+    icon, loading, disabled, children, onClick }: Props) => {
     return (
-        <div className={s.buttonCommon}>This is button common</div>
+        <button className={classNames({
+            [s.buttonCommon]: true,
+            [s[type]]: !!type,
+            [s[size]]: !!size,
+            [s.loading]: loading,
+        })}
+            disabled={disabled}
+            onClick={onClick}
+        >
+            {
+                icon && <span className={s.icon}>{icon}</span>
+            }
+            <span className={s.label}>{children}</span>
+        </button>
     )
 }
 

@@ -51,6 +51,8 @@ module.exports = {
 
         'background-arrow':'var(--background-arrow)',
 
+        'disabled': 'var(--text-disabled)',
+        
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',
@@ -94,7 +96,7 @@ module.exports = {
           'rgba(0, 0, 0, 0.02) 0px 30px 30px, rgba(0, 0, 0, 0.03) 0px 0px 8px, rgba(0, 0, 0, 0.05) 0px 1px 0px',
       },
       fontSize: {
-        base: ['1.6rem', '2.4rem'],
+        base: ['16px', '24px'],
       },
       borderRadius: {
         rounded: '.8rem',
