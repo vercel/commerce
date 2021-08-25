@@ -6,10 +6,11 @@ import {
   CommerceProvider as CoreCommerceProvider,
   useCommerce as useCoreCommerce,
 } from '@commerce'
+import { CART_COOKIE, LOCALE } from './constants'
 
 export const ordercloudConfig: CommerceConfig = {
-  locale: 'en-us',
-  cartCookie: 'session',
+  locale: LOCALE,
+  cartCookie: CART_COOKIE,
 }
 
 export function CommerceProvider({
