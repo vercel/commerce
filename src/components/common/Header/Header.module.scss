@@ -6,6 +6,7 @@
   z-index: 9999;
   &.full {
     @apply shadow-none;
+    border: 1px solid var(--border-line);
   }
   .menu {
     padding-left: 3.2rem;
