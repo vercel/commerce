@@ -1,0 +1,66 @@
+@import '../../../styles/utilities';
+.checkboxCommonWarper{
+    @apply flex flex-col;
+    margin-left:2rem;
+    .checkboxItem{
+        display: block;
+        position: relative;
+        cursor: pointer;
+        margin-top:2rem;
+        border-radius: 0.4rem;
+        width:50%;
+        &:hover .checkboxInput ~ .checkMark {
+            background-color: #ccc;
+        }
+
+        .checkboxInput{
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            &:checked ~ .checkMark:after {
+                display: block;
+            }
+        }
+        .checkMark {
+            border-radius: 0.4rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 2rem;
+            width: 2rem;
+            background-color:var(--positive);
+            &:after {
+                left: 25%;
+                top: 27%;
+                width: 1rem;
+                height: 1rem;
+                color:white;
+                content: "";
+                background-image:url('/assets/svg/checkmark.svg');
+                background-repeat: no-repeat;
+                position: absolute;
+                display: none;
+            }
+        }
+        &~ .checkMark{
+            background-color: #ccc;
+            
+        }
+        &:checked ~ .checkMark {
+            background-color: #2196F3;
+        }
+        &:checked ~ .checkMark:after {
+            display: block;
+        }          
+        &:hover .checkboxInput ~ .checkMark {
+            background-color: #ccc;
+        }
+  
+
+    }
+    .checkboxText{
+        margin-left:3rem;
+    }
+}

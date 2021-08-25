@@ -1,0 +1,96 @@
+@import "../../../styles/utilities";
+
+.buttonCommon {
+  @apply custom-border-radius bg-primary transition-all duration-200 text-white font-bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.6rem 3.2rem;
+  &:disabled {
+    filter: brightness(0.9);
+    cursor: not-allowed;
+    color: var(--disabled);
+  }
+  &.loading {
+    &::before {
+      content: "";
+      border-radius: 50%;
+      width: 1.6rem;
+      height: 1.6rem;
+      border: 3px solid rgba(170, 170, 170, 0.5);
+      border-top: 3px solid var(--white);
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+      margin-right: 0.8rem;
+    }
+  }
+  &:hover {
+    @apply shadow-md;
+    &:not(:disabled) {
+      filter: brightness(1.05);
+    }
+  }
+
+  &:focus {
+    outline: none;
+    filter: brightness(1.05);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--text-active);
+  }
+
+  &.light {
+    @apply text-base bg-white;
+    border: 1px solid var(--text-active);
+    &.loading {
+      &::before {
+        border-top-color: var(--primary);
+      }
+    }
+  }
+
+  &.ghost {
+    @apply bg-white;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    &.loading {
+      &::before {
+        border-top-color: var(--primary);
+      }
+    }
+  }
+
+  &.large {
+    padding: 3.2rem 4.8rem;
+    &.loading {
+      &::before {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+    }
+  }
+
+  &.preserve {
+    flex-direction: row-reverse;
+    .icon {
+      margin: 0 0 0 1.6rem;
+    }
+  }
+
+  .icon {
+    margin: 0 1.6rem 0 0;
+    svg path {
+      fill: currentColor;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,15 +1,37 @@
-import { FC, useRef, useEffect } from 'react'
-import s from './ButtonCommon.module.css'
+import classNames from 'classnames'
+import React, { memo } from 'react'
+import s from './ButtonCommon.module.scss'
 
 interface Props {
-    className?: string
-    children?: any
+    children?: React.ReactNode,
+    type?: 'primary' | 'light' | 'ghost',
+    size?: 'default' | 'large',
+    icon?: any,
+    isIconSuffix?: boolean,
+    loading?: boolean,
+    disabled?: boolean,
+    onClick?: () => void,
 }
 
-const ButtonCommon: FC<Props> = ({ }) => {
+const ButtonCommon = memo(({ type = 'primary', size = 'default',
+    icon, loading, disabled, isIconSuffix, children, onClick }: Props) => {
     return (
-        <div className={s.buttonCommon}>This is button common</div>
+        <button className={classNames({
+            [s.buttonCommon]: true,
+            [s[type]]: !!type,
+            [s[size]]: !!size,
+            [s.loading]: loading,
+            [s.preserve]: isIconSuffix,
+        })}
+            disabled={disabled}
+            onClick={onClick}
+        >
+            {
+                icon && <span className={s.icon}>{icon}</span>
+            }
+            <span className={s.label}>{children}</span>
+        </button>
     )
-}
+})
 
 export default ButtonCommon

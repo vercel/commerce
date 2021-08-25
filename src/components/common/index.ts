@@ -1,4 +1,11 @@
 export { default as ButtonCommon } from './ButtonCommon/ButtonCommon'
 export { default as Layout } from './Layout/Layout'
+export { default as CarouselCommon } from './CarouselCommon/CarouselCommon'
+export { default as QuanittyInput } from './QuanittyInput/QuanittyInput'
+export { default as LabelCommon } from './LabelCommon/LabelCommon'
 export { default as Head } from './Head/Head'
-
+export { default as ViewAllItem} from './ViewAllItem/ViewAllItem'
+export { default as ItemWishList} from './ItemWishList/ItemWishList'
+export { default as Logo} from './Logo/Logo'
+export { default as Inputcommon} from './InputCommon/InputCommon'
+export { default as CheckboxCommon} from './CheckboxCommon/CheckboxCommon'

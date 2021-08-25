@@ -49,6 +49,10 @@ module.exports = {
         'background': 'var(--background)',
         'white': 'var(--white)',
 
+        'background-arrow':'var(--background-arrow)',
+
+        'disabled': 'var(--text-disabled)',
+        
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',
@@ -112,7 +116,10 @@ module.exports = {
 
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
-      }
+      },
+      caroucel:{
+        "arrow-height":"64px"
+      },
     },
   },
   plugins: [require('postcss-import'), require('tailwindcss'), require('autoprefixer')]

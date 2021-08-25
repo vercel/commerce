@@ -1,1 +1,3 @@
-// constanst here
+export const KEY = {
+    ENTER: 'Enter',
+}
