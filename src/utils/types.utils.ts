@@ -5,3 +5,11 @@ export interface ProductProps {
     price: string
     imageSrc: string
 }
+
+export interface FeaturedProductProps {
+    title: string
+    subTitle: string
+    originPrice: string
+    price: string
+    imageSrc: string
+}
