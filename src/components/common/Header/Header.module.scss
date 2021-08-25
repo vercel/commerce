@@ -4,6 +4,7 @@
   @apply sticky bg-white shadow-md;
   top: 0;
   z-index: 9999;
+  margin-bottom: 3.2rem;  
   &.full {
     @apply shadow-none;
     border: 1px solid var(--border-line);

@@ -5,7 +5,7 @@
     padding-bottom: 0.8rem;
     @screen md {
         @apply flex justify-between items-center;
-        adding-top: 0.8rem;
+        padding-top: 0.8rem;
         padding-bottom: 0.8rem;
         &.full {
             padding-top: 2.4rem;
