@@ -10,7 +10,6 @@ import getProduct from './operations/get-product'
 import { API_URL, CART_COOKIE, CUSTOMER_COOKIE } from '../constants'
 
 export interface OrdercloudConfig extends CommerceAPIConfig {
-  fetch: any
   storeRestFetch: <T>(
     method: string,
     resource: string,
