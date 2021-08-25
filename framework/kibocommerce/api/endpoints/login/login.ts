@@ -1,8 +1,9 @@
+import Cookies from 'js-cookie'
 import { FetcherError } from '@commerce/utils/errors'
 import type { LoginEndpoint } from '.'
-import { loginMutation } from '../../../utils/mutations/login-mutation'
-import {prepareSetCookie} from '../../utils/prepareSetCookie';
-import {setCookies} from '../../utils/setCookie'
+import { loginMutation } from '../../mutations/login-mutation'
+import {prepareSetCookie} from '../../../lib/prepareSetCookie';
+import {setCookies} from '../../../lib/setCookie'
 
 const invalidCredentials = /invalid credentials/i
 
@@ -25,15 +26,15 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   try {
 
     response = await  config.fetch(loginMutation, { variables: { loginInput : { username: email, password }}})
-    const { account }  = response.data;
+    const { account: token }  = response.data;
 
     const authCookie = prepareSetCookie(
       config.customerCookie,
-      JSON.stringify(account),
-      account.accessTokenExpiration ? { expires: new Date(account.accessTokenExpiration) }: {},
+      JSON.stringify(token),
+      token.accessTokenExpiration ? { expires: new Date(token.accessTokenExpiration) }: {},
     )
     setCookies(res, [authCookie])   
-    
+  
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (
