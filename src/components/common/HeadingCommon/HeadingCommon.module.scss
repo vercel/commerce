@@ -10,7 +10,7 @@
     color: var(--disabled);
   }
   &.center {
-    @apply text-center
+    @apply text-center;
   }
 
   @screen md {
