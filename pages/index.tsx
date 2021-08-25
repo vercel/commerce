@@ -13,7 +13,7 @@ export default function Home() {
       <ButtonCommon size={ButtonSize.large} icon={<IconBuy/>}>{ButtonSize.large} - Button default large</ButtonCommon>
       <ButtonCommon icon={<IconBuy/>} disabled isIconSuffix={true}>Button with icon disabled</ButtonCommon>
       <ButtonCommon icon={<IconBuy/>} type={ButonType.light}>Button with icon</ButtonCommon>
-      <ViewAllItem />
+      <ViewAllItem link="/all"/>
       <ItemWishList isActive={false} />
       <Logo />
       <p>Go to <code>pages/index.tsx</code> to get your hand dirty!</p>

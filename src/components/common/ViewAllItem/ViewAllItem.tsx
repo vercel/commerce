@@ -3,13 +3,13 @@ import s from './ViewAllItem.module.scss'
 import Link from 'next/link'
 
 interface Props {
-    link?: string
+    link: string
 }
 
 const ViewAllItem = ({ link }: Props) => {
     return(
         <div className={s.viewAll}>
-            <Link href={"/all"}>
+            <Link href={link}>
                 <a className={s.conTent}>
                     View All
                 </a>
