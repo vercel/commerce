@@ -10,7 +10,7 @@ export const ROUTE = {
     PRODUCTS: '/products',
     ABOUT: '/about',
     ACCOUNT: '/account',
-    
+
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
     FAQ: '/faq',
@@ -27,7 +27,18 @@ export const ACCOUNT_TAB = {
 }
 
 export const QUERY_KEY = {
-    TAB: 'tab'
+    TAB: 'tab',
+    CATEGORY: 'category',
+    BRAND: 'brand',
+    FEATURED: 'feature'
+}
+
+export enum ProductFeature {
+    BestSellers = 'Best Sellers',
+    Sales = 'Sales',
+    NewItem = 'New Item',
+    Viewed = 'Viewed',
+
 }
 
 export const KEY = {

@@ -7,9 +7,10 @@ interface Props {
     children?: React.ReactNode,
     options: { link: string, name: string }[],
     isHasArrow?: boolean,
+    align?: 'left'
 }
 
-const MenuDropdown = ({ options, children, isHasArrow = true }: Props) => {
+const MenuDropdown = ({ options, children, isHasArrow = true, align }: Props) => {
     return (
         <div className={classNames({
             [s.menuDropdown]: true,
@@ -18,7 +19,10 @@ const MenuDropdown = ({ options, children, isHasArrow = true }: Props) => {
             <span className={s.label}>
                 {children}
             </span>
-            <section className={s.menu}>
+            <section className={classNames({
+                [s.menu]: true,
+                [s.left]: align === 'left',
+            })} >
                 <ul className={s.menuIner}>
                     {
                         options.map(item => <li key={item.name}>

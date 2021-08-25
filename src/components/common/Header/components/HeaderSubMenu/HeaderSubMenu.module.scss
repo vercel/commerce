@@ -1,5 +1,20 @@
 @import "../../../../../styles/utilities";
 
-.headerHighLight {
-  
+.headerSubMenu {
+    @apply flex justify-between items-center;
+    padding-bottom: 0.8rem;
+    .menu {
+        @apply flex items-center list-none;
+        li {
+            &:not(:last-child) {
+                margin-right: 4rem;
+            }
+            a {
+                @appy no-underline;
+            }
+            &:hover {
+                @apply text-primary;
+            }
+        }
+    }
 }

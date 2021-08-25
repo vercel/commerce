@@ -1,0 +1,8 @@
+@import "../../../styles/utilities";
+
+.notiMessage {
+    @apply caption bg-info-light;
+    color: var(--info-dark);
+    padding: 0.4rem 1.6rem;
+    border-radius: 3rem;
+}

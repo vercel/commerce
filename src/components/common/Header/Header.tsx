@@ -13,8 +13,10 @@ const Header = memo(({ }: Props) => {
     return (
         <header className={s.header}>
             <HeaderHighLight />
-            <HeaderMenu />
-            <HeaderSubMenu />
+            <div className={s.menu}>
+                <HeaderMenu />
+                <HeaderSubMenu />
+            </div>
         </header>
     )
 })

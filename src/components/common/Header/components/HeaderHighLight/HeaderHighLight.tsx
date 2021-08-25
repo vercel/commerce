@@ -19,7 +19,6 @@ const MENU = [
 ]
 
 interface Props {
-    className?: string
     children?: any
 }
 

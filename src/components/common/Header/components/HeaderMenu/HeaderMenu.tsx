@@ -19,7 +19,6 @@ const OPTION_MENU = [
 ]
 
 interface Props {
-    className?: string
     children?: any
 }
 

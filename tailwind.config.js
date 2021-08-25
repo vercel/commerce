@@ -83,9 +83,9 @@ module.exports = {
         active: 'var(--text-active)',
         label: 'var(--text-label)',
         placeholder: 'var(--text-placeholder)',
+        primary: 'var(--primary)',
         
         // @deprecated (NOT use these variables)
-        primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
       },
       boxShadow: {

@@ -52,6 +52,10 @@
         top: 2rem;
         height: max-content;
         min-width: 19.2rem;
+        z-index: 100;
+        &.left {
+            left: 0;
+        }
         &:hover {
             @apply block shadow-md;
         }
@@ -60,7 +64,7 @@
             border: 1px solid var(--text-active);
             margin-top: .4rem;
             li {
-                @apply block transition-all duration-200 cursor-pointer text-active;
+                @apply block w-full transition-all duration-200 cursor-pointer text-active;
                 padding: 0.8rem 1.6rem;
                 &:hover {
                     @apply bg-primary-lightest;
