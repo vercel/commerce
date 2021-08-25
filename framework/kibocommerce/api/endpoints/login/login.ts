@@ -29,7 +29,7 @@ const login: LoginEndpoint['handlers']['login'] = async ({
 
     const authCookie = prepareSetCookie(
       config.customerCookie,
-      JSON.stringify(response.data.account),
+      JSON.stringify(account),
       account.accessTokenExpiration ? { expires: new Date(account.accessTokenExpiration) }: {},
     )
     setCookies(res, [authCookie])   
