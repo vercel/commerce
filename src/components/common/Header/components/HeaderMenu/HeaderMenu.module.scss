@@ -5,8 +5,12 @@
     padding-bottom: 0.8rem;
     @screen md {
         @apply flex justify-between items-center;
-        padding-top: 2.4rem;
-        padding-bottom: 2.4rem;
+        adding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        &.full {
+            padding-top: 2.4rem;
+            padding-bottom: 2.4rem;
+        }
     }
     .left {
         .top {
@@ -15,8 +19,6 @@
             }
         }
         .inputSearch {
-            //todo: remove
-            border: 1px solid red;
             margin-top: 2.4rem;
             @screen lg {
                 min-width: 51.2rem;
@@ -50,7 +52,13 @@
                 }
                 a {
                     @appy no-underline;
+                    &.iconFovourite {
+                        svg path {
+                            fill: var(--negative);
+                        }
+                    }
                 }
+
             }
         }
     }

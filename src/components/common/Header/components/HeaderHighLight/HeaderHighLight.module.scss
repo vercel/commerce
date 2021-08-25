@@ -3,21 +3,37 @@
 .headerHighLight {
     @apply hidden;
     @screen md {
-        @apply flex justify-between items-center spacing-horizontal bg-primary caption;
-        padding-top: 0.8rem;
-        padding-bottom: 0.8rem;
-        color: var(--white);
-        .menu {
-            @apply flex items-center list-none;
-            padding: .8rem 0;
-            li {
-                &:not(:last-child) {
-                    margin-right: 3.2rem;
-                }
-                a {
-                    @appy no-underline;
+        transform: translateY(-10rem);
+        height: 0;
+        &.show {
+            @apply flex justify-between items-center spacing-horizontal bg-primary caption;
+            animation: showHeaderHightlight 0.2s;
+            height: unset;
+            transform: none;
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+            color: var(--white);
+            .menu {
+                @apply flex items-center list-none;
+                padding: 0.8rem 0;
+                li {
+                    &:not(:last-child) {
+                        margin-right: 3.2rem;
+                    }
+                    a {
+                        @appy no-underline;
+                    }
                 }
             }
         }
+    }
+}
+
+@keyframes showHeaderHightlight {
+    0% {
+        transform: translateY(-4rem);
+    }
+    100% {
+        transform: none;
     }
 }

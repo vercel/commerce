@@ -54,14 +54,15 @@ const CATEGORY = [
     },
 ]
 interface Props {
-    children?: any
+    children?: any,
+    isShow: boolean,
 }
 
-const HeaderSubMenu = memo(({ }: Props) => {
+const HeaderSubMenu = memo(({ isShow }: Props) => {
     const router = useRouter()
 
     return (
-        <section className={s.headerSubMenu}>
+        <section className={classNames({ [s.headerSubMenu]: true, [s.show]: isShow })}>
             <ul className={s.menu}>
                 {/* todo: handle active item */}
                 <li>

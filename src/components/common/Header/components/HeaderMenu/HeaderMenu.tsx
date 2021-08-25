@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import Link from 'next/link'
 import { memo } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
@@ -19,12 +20,13 @@ const OPTION_MENU = [
 ]
 
 interface Props {
-    children?: any
+    children?: any,
+    isFull: boolean,
 }
 
-const HeaderMenu = memo(({ }: Props) => {
+const HeaderMenu = memo(({ isFull }: Props) => {
     return (
-        <section className={s.headerMenu}>
+        <section className={classNames({ [s.headerMenu]: true, [s.full]: isFull })}>
             <div className={s.left}>
                 <div className={s.top}>
                     <div>Online Grocery</div>
@@ -46,7 +48,7 @@ const HeaderMenu = memo(({ }: Props) => {
                 </li>
                 <li>
                     <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`}>
-                        <a >
+                        <a className={s.iconFovourite}>
                             <IconHeart />
                         </a>
                     </Link>
