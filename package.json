@@ -17,7 +17,7 @@
   "sideEffects": false,
   "license": "MIT",
   "engines": {
-    "node": ">=14.x"
+    "node": "14.x"
   },
   "dependencies": {
     "@react-spring/web": "^9.2.1",
