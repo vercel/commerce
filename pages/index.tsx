@@ -1,5 +1,5 @@
 
-import {  FeaturedProductCard, Layout, ProductCaroucel } from 'src/components/common'
+import {  FeaturedProductCard, Layout, ProductCaroucel, RecipeCard } from 'src/components/common'
 import image5 from "../public/assets/images/image5.png"
 import image6 from "../public/assets/images/image6.png"
 import image7 from "../public/assets/images/image7.png"
@@ -7,6 +7,9 @@ import image8 from "../public/assets/images/image8.png"
 import image9 from "../public/assets/images/image9.png"
 import image10 from "../public/assets/images/image10.png"
 import image11 from "../public/assets/images/image11.png"
+import image12 from "../public/assets/images/image12.png"
+import image13 from "../public/assets/images/image13.png"
+import image14 from "../public/assets/images/image14.png"
 const dataTest = [{
   name:"Tomato",
   weight:"250g",
@@ -84,9 +87,6 @@ export default function Home() {
   return (
     <>
       <ProductCaroucel data={dataTest} itemKey="product-1" />
-      <FeaturedProductCard imageSrc={image9.src} title="Sale 25% Coffee Bean" subTitle="50 first Orders within a day" price="$15.00" originPrice="$20.00" />
-      <FeaturedProductCard imageSrc={image10.src} title="Sale 25% Coffee Bean" subTitle="50 first Orders within a day" price="$15.00" originPrice="$20.00" />
-      <FeaturedProductCard imageSrc={image11.src} title="Sale 25% Coffee Bean" subTitle="50 first Orders within a day" price="$15.00" originPrice="$20.00" />
     </>
   )
 }
