@@ -1,9 +1,6 @@
 @import "../../../styles/utilities";
 
 .menuDropdown {
-    // todo: remove
-    margin-left: 20rem;
-
     @apply relative cursor-pointer;
     width: fit-content;
     min-width: 4.8rem;

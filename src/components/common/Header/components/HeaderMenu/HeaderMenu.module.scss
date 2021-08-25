@@ -1,5 +1,19 @@
 @import "../../../../../styles/utilities";
 
-.headerHighLight {
-  
+.headerMenu {
+    @apply flex justify-between items-center bg-white;
+    .left {
+        @apply flex items-center;
+    }
+    .menu {
+        @apply flex items-center list-none;
+        li {
+            &:not(:last-child) {
+                margin-right: 4.8rem;
+            }
+            a {
+                @appy no-underline;
+            }
+        }
+    }
 }

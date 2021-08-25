@@ -9,14 +9,25 @@ export const ROUTE = {
     HOME: '/',
     PRODUCTS: '/products',
     ABOUT: '/about',
+    ACCOUNT: '/account',
+    
     BUSSINESS: '/bussiness',
-
     CONTACT: '/contact',
     FAQ: '/faq',
     CUSTOMER_SERVICE: '/customer-service',
     TERM_CONDITION: '/term-condition',
     PRIVACY_POLICY: '/privacy-policy',
     BLOGS: '/blogs',
+}
+
+export const ACCOUNT_TAB = {
+    CUSTOMER_INFO: '',
+    ORDER: 'orders',
+    FAVOURITE: 'wishlist',
+}
+
+export const QUERY_KEY = {
+    TAB: 'tab'
 }
 
 export const KEY = {
