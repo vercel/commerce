@@ -1,6 +1,12 @@
 @import "../../../styles/utilities";
 
 .header {
+  @apply sticky bg-white;
+  top: 0;
+  z-index: 9999;
+  @screen md {
+    padding-bottom: 1.6rem;
+  }
   .menu {
     padding-left: 3.2rem;
     padding-right: 3.2rem;

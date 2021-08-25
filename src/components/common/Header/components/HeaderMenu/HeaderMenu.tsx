@@ -26,7 +26,12 @@ const HeaderMenu = memo(({ }: Props) => {
     return (
         <section className={s.headerMenu}>
             <div className={s.left}>
-                <div>Online Grocery</div>
+                <div className={s.top}>
+                    <div>Online Grocery</div>
+                    <button className={s.iconCart}>
+                        <IconBuy />
+                    </button>
+                </div>
                 <div className={s.inputSearch}>
                     <InputSearch />
                 </div>

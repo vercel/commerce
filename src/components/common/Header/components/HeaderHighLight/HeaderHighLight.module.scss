@@ -1,19 +1,22 @@
 @import "../../../../../styles/utilities";
 
 .headerHighLight {
-    @apply flex justify-between items-center spacing-horizontal bg-primary caption;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-    color: var(--white);
-    .menu {
-        @apply flex items-center list-none;
-        padding: .8rem 0;
-        li {
-            &:not(:last-child) {
-                margin-right: 3.2rem;
-            }
-            a {
-                @appy no-underline;
+    @apply hidden;
+    @screen md {
+        @apply flex justify-between items-center spacing-horizontal bg-primary caption;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        color: var(--white);
+        .menu {
+            @apply flex items-center list-none;
+            padding: .8rem 0;
+            li {
+                &:not(:last-child) {
+                    margin-right: 3.2rem;
+                }
+                a {
+                    @appy no-underline;
+                }
             }
         }
     }
