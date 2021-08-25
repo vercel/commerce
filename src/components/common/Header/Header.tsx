@@ -1,19 +1,38 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
+import { IconUser } from 'src/components/icons'
+import MenuDropdown from '../MenuDropdown/MenuDropdown'
+import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
+import HeaderMenu from './components/HeaderMenu/HeaderMenu'
+import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
 import s from './Header.module.scss'
+
+const OPTION_MENU = [
+    {
+        link: '/',
+        name: 'Account',
+    },
+    {
+        link: '/',
+        name: 'Logout',
+    },
+
+]
+
+// {/* <MenuDropdown options={OPTION_MENU} isHasArrow={false}><IconUser /></MenuDropdown> */}
 
 interface Props {
     className?: string
     children?: any
 }
 
-const Header: FC<Props> = ({ }: Props) => {
+const Header = memo(({ }: Props) => {
     return (
-        <div className={s.header}>
-            This is Header
-            <h1 className={s.heading}>This is heading</h1>
-            <div className={s.logo}>This is logo text</div>
-        </div>
+        <header className={s.header}>
+            <HeaderHighLight />
+            <HeaderMenu />
+            <HeaderSubMenu />
+        </header>
     )
-}
+})
 
 export default Header

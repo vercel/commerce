@@ -1,18 +1,8 @@
 
-import { ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout, MenuDropdown } from 'src/components/common';
-import { IconBuy, IconUser } from 'src/components/icons';
+import { ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import { IconBuy } from 'src/components/icons';
 
-const optionMenu = [
-  {
-    link: '/',
-    name: 'Account',
-  },
-  {
-    link: '/',
-    name: 'Logout',
-  },
 
-]
 export default function Home() {
   return (
     <>
@@ -29,8 +19,6 @@ export default function Home() {
       </div>
       <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
       <ButtonIconBuy />
-
-      <MenuDropdown options={optionMenu}><IconUser /></MenuDropdown>
     </>
   )
 }
