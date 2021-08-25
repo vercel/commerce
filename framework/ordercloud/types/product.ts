@@ -3,6 +3,8 @@ interface RawVariantSpec {
   Name: string
   OptionID: string
   Value: string
+  PriceMarkupType: string
+  PriceMarkup: string | null
 }
 
 export interface RawSpec {

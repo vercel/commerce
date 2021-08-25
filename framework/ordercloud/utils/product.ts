@@ -29,7 +29,7 @@ export function normalize(product: RawProduct): Product {
         }))
       : [
           {
-            id: product.ID,
+            id: '',
             options: [],
           },
         ],
