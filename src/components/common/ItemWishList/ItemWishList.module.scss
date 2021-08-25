@@ -5,11 +5,12 @@
     width: 2.4rem;
     height: 2.4rem;
     path{
-        stroke: theme("colors.primary");
+        stroke: var(--primary);
     }
 }
 .isToggleOn{
     svg path{
-        stroke: theme("colors.primary");
+        stroke: var(--negative);
+        fill: var(--negative);
     }
 }

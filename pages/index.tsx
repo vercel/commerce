@@ -14,7 +14,7 @@ export default function Home() {
       <ButtonCommon icon={<IconBuy/>} disabled isIconSuffix={true}>Button with icon disabled</ButtonCommon>
       <ButtonCommon icon={<IconBuy/>} type={ButonType.light}>Button with icon</ButtonCommon>
       <ViewAllItem link="/all"/>
-      <ItemWishList isActive={false} />
+      <ItemWishList isActive={true} />
       <Logo />
       <p>Go to <code>pages/index.tsx</code> to get your hand dirty!</p>
       <p>Go to <code>src/components</code> to make your awesome component!</p>
