@@ -1,24 +1,30 @@
 .productCardWarpper{
-    max-width: 20.8rem;
-    max-height: 31.8rem;
+    width: 20.8rem;
+    height: 31.8rem;
     padding: 1.2rem 1.2rem 0 1.2rem;
-    @apply border border-solid border-black;
+    margin-bottom: 1px;
+    @apply inline-flex flex-col justify-between;
     .cardTop{
-        @apply border border-solid border-yellow-300 relative;
-        max-height: 13.8rem;
+        @apply relative;
+        height: 13.8rem;
+        width: 100%;
         .productImage{
+            height: 100%;
+            width: 100%;
             @apply flex justify-center items-center;
             img{
                 @apply inline;
             }
-            .productLabel{
-                @apply absolute left-0 bottom-0;
-            }
+        }
+        .productLabel{
+            @apply absolute left-0 bottom-0;
         }
     }
     .cardMid{
-        padding: 1.6rem 0;
-        .cardMid{
+        // padding: 1.6rem 0;
+        min-height: 10.4rem;
+        @apply flex flex-col justify-between;
+        .cardMidTop{
             .productname{
                 font-weight: bold;
                 line-height: 2.4rem;
@@ -33,7 +39,6 @@
             }
         }
         .cardMidBot{
-            margin-top: 2.8rem;
             @apply flex justify-between items-center border-t border-solid border-line;
             .productPrice{
                 @apply font-bold;
@@ -44,6 +49,7 @@
         }
     }
     .cardBot{
+        max-height: 4rem;
         @apply flex justify-between items-center; 
         .cardButton{
             width: 13.6rem;

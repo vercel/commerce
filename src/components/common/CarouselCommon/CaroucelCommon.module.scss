@@ -1,5 +1,25 @@
-.navigation_wrapper{
+@import '../../../styles/utilities';
+.navigationWrapper{
     @apply relative;
     min-height: theme("caroucel.arrow-height") ;
-    
+    .isPadding{
+        @apply spacing-horizontal;
+    }
+    :global(.customArrow) {
+        width: 64px;
+        height:  64px;
+        &:focus{
+            outline: none;
+        }
+        @apply absolute top-1/2 bg-background-arrow transform -translate-y-1/2 flex justify-center items-center transition duration-100;
+        &:global(.leftArrow){
+            @apply left-0;
+        }
+        &:global(.rightArrow){
+            @apply right-0;
+        }
+        &:global(.isDisabledArrow){
+            @apply hidden ;
+        }
+    }
 }

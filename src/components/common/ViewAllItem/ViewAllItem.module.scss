@@ -1,16 +1,18 @@
 @import '../../../styles/utilities';
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 .viewAll{
     display: flex;
     color: theme("colors.primary");
     .conTent{
         margin: 0.8rem 0.8rem 0.8rem 1.6rem;
-        font-family: 'Nunito', sans-serif;
+        font-family: var(--font-sans);
         font-weight: bold;
     }
     .vecTor{
         margin: 0.8rem 0rem 0.8rem 0rem;
+        svg path{
+            fill: theme("colors.primary");
+        }
     }
 }
 

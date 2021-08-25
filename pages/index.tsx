@@ -1,27 +1,88 @@
 
 import {  Layout, ProductCard } from 'src/components/common'
 import {CarouselCommon } from 'src/components/common'
-import image1 from "../public/assets/images/image5.png"
+import ProductCaroucel from 'src/components/common/ProductCaroucel/ProductCaroucel'
+import image5 from "../public/assets/images/image5.png"
+import image6 from "../public/assets/images/image6.png"
+import image7 from "../public/assets/images/image7.png"
+import image8 from "../public/assets/images/image8.png"
 const dataTest = [{
-  text:1
+  name:"Tomato",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image5.src
 },{
-  text:2
+  name:"Cucumber",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image6.src
 },{
-  text:3
+  name:"Carrot",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image7.src
 },{
-  text:4
+  name:"Salad",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image8.src
 },{
-  text:5
+  name:"Tomato",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image5.src
 },{
-  text:6
+  name:"Cucumber",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image6.src
+},{
+  name:"Tomato",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image5.src
+},{
+  name:"Cucumber",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image6.src
+},{
+  name:"Carrot",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image7.src
+},{
+  name:"Salad",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image8.src
+},{
+  name:"Tomato",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image5.src
+},{
+  name:"Cucumber",
+  weight:"250g",
+  category:"VEGGIE",
+  price:"Rp 27.500",
+  imageSrc:image6.src
 }]
-const test = (props:{text:string})=><div className="h-64 bg-yellow-300">{props.text}</div>
 export default function Home() {
   return (
     <>
-      <CarouselCommon data={dataTest} Component={test} itemKey="test"/>
-      
-      <ProductCard name="tomato" weight = "250g" category ="VEGGIE" price="Rp 27.500" imageSrc={image1.src}/>
+      <ProductCaroucel data={dataTest} itemKey="product-1" />
     </>
   )
 }

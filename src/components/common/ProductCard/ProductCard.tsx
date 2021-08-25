@@ -1,17 +1,13 @@
 import React from 'react'
+import { ProductProps } from 'src/utils/types.utils'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import ItemWishList from '../ItemWishList/ItemWishList'
 import LabelCommon from '../LabelCommon/LabelCommon'
 import s from './ProductCard.module.scss'
 
-interface ProductCardProps {
-  category: string
-  name: string
-  weight: string
-  price: string
+export interface ProductCardProps extends ProductProps {
   buttonText?: string
-  imageSrc: string
 }
 
 const ProductCard = ({
@@ -23,16 +19,16 @@ const ProductCard = ({
   imageSrc,
 }: ProductCardProps) => {
   return (
-    <section className={s.productCardWarpper}>
-      <section className={s.cardTop}>
+    <div className={s.productCardWarpper}>
+      <div className={s.cardTop}>
         <div className={s.productImage}>
           <img src={imageSrc} alt="image" />
+        </div>
           <div className={s.productLabel}>
             <LabelCommon shape="half">{category}</LabelCommon>
           </div>
-        </div>
-      </section>
-      <section className={s.cardMid}>
+      </div>
+      <div className={s.cardMid}>
         <div className={s.cardMidTop}>
           <div className={s.productname}>{name} </div>
           <div className={s.productWeight}>{weight}</div>
@@ -43,16 +39,16 @@ const ProductCard = ({
             <ItemWishList />
           </div>
         </div>
-      </section>
-      <section className={s.cardBot}>
+      </div>
+      <div className={s.cardBot}>
         <div className={s.cardIcon}>
           <ButtonIconBuy/>
         </div>
         <div className={s.cardButton}>
           <ButtonCommon type="ghost">{buttonText}</ButtonCommon>
         </div>
-      </section>
-    </section>
+      </div>
+    </div>
   )
 }
 

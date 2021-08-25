@@ -1,0 +1,12 @@
+@import "../../../styles/utilities";
+.productCardWarpper{
+    @apply spacing-horizontal;
+    :global(.customArrow) {
+        &:global(.leftArrow){
+            left: calc(-6.4rem - 2rem);
+        }
+        &:global(.rightArrow){
+            right: calc(-6.4rem - 2rem);
+        }
+    }
+}

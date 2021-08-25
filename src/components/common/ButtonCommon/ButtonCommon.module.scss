@@ -53,11 +53,11 @@
 
   &.ghost {
     @apply bg-white;
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    color: var(--text-active);
+    border: 1px solid var(--text-active);
     &.loading {
       &::before {
-        border-top-color: var(--primary);
+        border-top-color: var(--text-active);
       }
     }
   }

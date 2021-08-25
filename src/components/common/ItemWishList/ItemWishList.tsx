@@ -1,19 +1,27 @@
-import { Heart } from '@components/icons'
-import React, { useState } from 'react'
+import classNames from 'classnames'
+import IconHeart from 'src/components/icons/IconHeart'
+import React, { memo } from 'react'
 import s from './ItemWishList.module.scss'
 
 interface Props {
-    className?: string
-    children?: any
+    isActive?: boolean,
+    onClick?: () => void
+    onChange?: () => void
 }
 
-const ItemWishList = ({}:Props) => {
-    const [isClick,setClick] = useState(false)
+const ItemWishList = memo(({isActive, onClick, onChange}:Props) => {
+    const handleClick = () => {
+        isActive = !isActive
+    }
     return(
-        <div className={s.heartToggle} onClick={() => setClick(!isClick)}>
-            <Heart color={isClick ? "#D1644D" : "#5B9A74"}/>
+        <div className={classNames({
+            [s.heartToggle]:true, 
+            [s.isToggleOn]:isActive
+        })}
+        onClick={handleClick}>
+            <IconHeart />
         </div>
     )
-}
+})
 
 export default ItemWishList
