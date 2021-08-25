@@ -11,8 +11,8 @@ interface Props {
 const ItemWishList = memo(({isActive, onChange}:Props) => {
     return(
         <div className={classNames({
-            [s.heartToggle]:true, 
-            [s.isToggleOn]:isActive
+            [s.heartToggle]: true, 
+            [s.isToggleOn]: isActive
         })}
         onChange={onChange}
         >

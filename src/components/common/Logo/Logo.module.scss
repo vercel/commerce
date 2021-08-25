@@ -11,6 +11,6 @@
     }
     .conTent{
         @apply font-logo sub-headline;
-        font-size: 1.6rem;
+        font-size: var(--font-size);
     }
 }
