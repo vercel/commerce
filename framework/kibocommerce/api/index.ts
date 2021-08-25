@@ -1,6 +1,6 @@
 import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
 import { getCommerceApi as commerceApi } from '@commerce/api'
-import createFetcher from './utils/fetch-local'
+import fetchGraphqlApi from './utils/fetch-local'
 
 import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
@@ -17,7 +17,7 @@ const config: KiboCommerceConfig = {
   cartCookie: process.env.KIBO_CART_COOKIE || 'kibo_car',
   customerCookie: process.env.KIBO_CUSTOMER_COOKIE || 'kibo_customer',
   cartCookieMaxAge: 2592000,
-  fetch: createFetcher(() => getCommerceApi().getConfig()),
+  fetch: fetchGraphqlApi(() => getCommerceApi().getConfig()),
 }
 
 const operations = {

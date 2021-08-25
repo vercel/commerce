@@ -8,9 +8,11 @@ const fetchGraphqlApi: (getConfig: () => KiboCommerceConfig) => GraphQLFetcher =
   async (query: string, { variables, preview } = {}, fetchOptions) => {
     const config = getConfig()
     const res = await fetch(config.commerceUrl, {
+    //const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
       ...fetchOptions,
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${config.apiToken}`,
         ...fetchOptions?.headers,
         'Content-Type': 'application/json',
       },
@@ -23,7 +25,7 @@ const fetchGraphqlApi: (getConfig: () => KiboCommerceConfig) => GraphQLFetcher =
     const json = await res.json()
     if (json.errors) {
       throw new FetcherError({
-        errors: json.errors ?? [{ message: 'Failed to fetch for API' }],
+        errors: json.errors ?? [{ message: 'Failed to fetch KiboCommerce API' }],
         status: res.status,
       })
     }
