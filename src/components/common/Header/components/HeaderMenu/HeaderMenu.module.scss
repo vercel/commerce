@@ -2,14 +2,23 @@
 
 .headerMenu {
     @apply flex justify-between items-center bg-white;
+    padding: 2.4rem 3.2rem;
     .left {
         @apply flex items-center;
+        .inputSearch {
+            margin-left: 4.8rem;
+            @screen md {
+                min-width: 51.2rem;
+                max-width: 50%;
+            }
+        }
     }
     .menu {
         @apply flex items-center list-none;
         li {
+            @apply flex justify-center items-center w-full;
             &:not(:last-child) {
-                margin-right: 4.8rem;
+                margin-right: 6.4rem;
             }
             a {
                 @appy no-underline;

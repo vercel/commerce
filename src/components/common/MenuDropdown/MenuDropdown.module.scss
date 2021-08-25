@@ -3,7 +3,6 @@
 .menuDropdown {
     @apply relative cursor-pointer;
     width: fit-content;
-    min-width: 4.8rem;
     &:hover {
         .label {
             color: var(--primary);
@@ -48,10 +47,9 @@
 
     .menu {
         @apply hidden absolute;
-        // @apply absolute rounded list-none bg-white;
         content: "";
         right: 0;
-        top: 0;
+        top: 2rem;
         height: max-content;
         min-width: 19.2rem;
         &:hover {
@@ -60,7 +58,7 @@
         .menuIner {
             @apply rounded list-none bg-white;
             border: 1px solid var(--text-active);
-            margin-top: 2.4rem;
+            margin-top: .4rem;
             li {
                 @apply block transition-all duration-200 cursor-pointer text-active;
                 padding: 0.8rem 1.6rem;

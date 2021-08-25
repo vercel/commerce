@@ -8,7 +8,7 @@ import s from './HeaderMenu.module.scss'
 
 const OPTION_MENU = [
     {
-        link: '/',
+        link: ROUTE.ACCOUNT,
         name: 'Account',
     },
     {
@@ -28,7 +28,9 @@ const HeaderMenu = memo(({ }: Props) => {
         <section className={s.headerMenu}>
             <div className={s.left}>
                 <div>Online Grocery</div>
-                <InputSearch />
+                <div className={s.inputSearch}>
+                    <InputSearch />
+                </div>
             </div>
             <ul className={s.menu}>
                 <li>
