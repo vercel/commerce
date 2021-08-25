@@ -1,7 +1,7 @@
 import type { OperationContext } from '@commerce/api/operations'
 import type { Category, GetSiteInfoOperation } from '@commerce/types/site'
-import { RawCategory } from '@framework/types/category'
 
+import type { RawCategory } from '../../types/category'
 import type { OrdercloudConfig, Provider } from '../index'
 
 export type GetSiteInfoResult<
