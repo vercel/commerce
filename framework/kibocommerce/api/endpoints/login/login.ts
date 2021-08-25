@@ -9,6 +9,7 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   config,
   commerce,
 }) => {
+    console.log('login hit', email, password)
   // TODO: Add proper validations with something like Ajv
   if (!(email && password)) {
     return res.status(400).json({
@@ -16,12 +17,13 @@ const login: LoginEndpoint['handlers']['login'] = async ({
       errors: [{ message: 'Invalid request' }],
     })
   }
-  // TODO: validate the password and email
-  // Passwords must be at least 7 characters and contain both alphabetic
-  // and numeric characters.
-
   try {
-    await commerce.login({ variables: { email, password }, config, res })
+/*
+const loginMutation = ` mutation loginAccount($input) { login($input) { } } `
+const variables = { input: { email, password } }
+const loginResponse = await config.fetch(loginMutation, { variables })
+setCookie(res)
+*/
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (
