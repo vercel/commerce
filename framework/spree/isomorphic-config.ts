@@ -1,6 +1,7 @@
 import forceIsomorphicConfigValues from './utils/force-isomorphic-config-values'
 import requireConfig from './utils/require-config'
 import validateCookieExpire from './utils/validate-cookie-expire'
+import validatePlaceholderImageUrl from './utils/validate-placeholder-image-url'
 import validateProductsPrerenderCount from './utils/validate-products-prerender-count'
 
 const isomorphicConfig = {
@@ -18,6 +19,12 @@ const isomorphicConfig = {
   lastUpdatedProductsPrerenderCount: validateProductsPrerenderCount(
     process.env.NEXT_PUBLIC_SPREE_LAST_UPDATED_PRODUCTS_PRERENDER_COUNT
   ),
+  productPlaceholderImageUrl: validatePlaceholderImageUrl(
+    process.env.NEXT_PUBLIC_SPREE_PRODUCT_PLACEHOLDER_IMAGE_URL
+  ),
+  lineItemPlaceholderImageUrl: validatePlaceholderImageUrl(
+    process.env.NEXT_PUBLIC_SPREE_LINE_ITEM_PLACEHOLDER_IMAGE_URL
+  ),
 }
 
 export default forceIsomorphicConfigValues(
@@ -33,6 +40,8 @@ export default forceIsomorphicConfigValues(
     'brandsTaxonomyId',
     'showSingleVariantOptions',
     'lastUpdatedProductsPrerenderCount',
+    'productPlaceholderImageUrl',
+    'lineItemPlaceholderImageUrl',
   ]
 )
 

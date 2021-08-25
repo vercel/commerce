@@ -1,5 +1,6 @@
 import type {
   Product,
+  ProductImage,
   ProductOption,
   ProductPrice,
   ProductVariant,
@@ -17,6 +18,10 @@ import getMediaGallery from './get-media-gallery'
 import { findIncluded, findIncludedOfType } from './find-json-api-documents'
 import getProductPath from './get-product-path'
 import MissingPrimaryVariantError from '@framework/errors/MissingPrimaryVariantError'
+
+const placeholderImage = requireConfigValue('productPlaceholderImageUrl') as
+  | string
+  | false
 
 const normalizeProduct = (
   spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
@@ -44,10 +49,17 @@ const normalizeProduct = (
     'images'
   )
 
-  const images = getMediaGallery(
+  const productImages = getMediaGallery(
     spreeImageRecords,
     createGetAbsoluteImageUrl(requireConfigValue('imageHost') as string)
   )
+
+  const images: ProductImage[] =
+    productImages.length === 0
+      ? placeholderImage === false
+        ? []
+        : [{ url: placeholderImage }]
+      : productImages
 
   const price: ProductPrice = {
     value: parseFloat(spreeProduct.attributes.price),

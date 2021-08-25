@@ -21,6 +21,11 @@ import type {
   OptionTypeAttr,
   VariantAttr,
 } from '@framework/types'
+import type { Image } from '@commerce/types/common'
+
+const placeholderImage = requireConfigValue('lineItemPlaceholderImageUrl') as
+  | string
+  | false
 
 const isColorProductOption = (productOptionType: OptionTypeAttr) => {
   return productOptionType.attributes.presentation === 'Color'
@@ -74,6 +79,10 @@ const normalizeVariant = (
     lineItemImage = productImage
   }
 
+  const image: Image =
+    lineItemImage ??
+    (placeholderImage === false ? undefined : { url: placeholderImage })
+
   return {
     id: spreeVariant.id,
     sku: spreeVariant.attributes.sku,
@@ -81,7 +90,7 @@ const normalizeVariant = (
     requiresShipping: true,
     price: parseFloat(spreeVariant.attributes.price),
     listPrice: parseFloat(spreeVariant.attributes.price),
-    image: lineItemImage,
+    image,
     isInStock: spreeVariant.attributes.in_stock,
     availableForSale: spreeVariant.attributes.purchasable,
     ...(spreeVariant.attributes.weight === '0.0'
