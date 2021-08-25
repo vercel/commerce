@@ -7,7 +7,7 @@ import { formatCart } from '../../utils/cart'
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   res,
   body: { cartId, itemId, item },
-  config: { fetch },
+  config: { storeRestFetch },
 }) => {
   if (!cartId || !itemId || !item) {
     return res.status(400).json({
@@ -21,23 +21,27 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
 
   // If a variant is present, fetch its specs
   if (item.variantId) {
-    specs = await fetch(
+    specs = await storeRestFetch(
       'GET',
       `/me/products/${item.productId}/variants/${item.variantId}`
     ).then((res: RawVariant) => res.Specs)
   }
 
   // Add the item to the order
-  await fetch('PATCH', `/orders/Outgoing/${cartId}/lineitems/${itemId}`, {
-    ProductID: item.productId,
-    Quantity: item.quantity,
-    Specs: specs,
-  })
+  await storeRestFetch(
+    'PATCH',
+    `/orders/Outgoing/${cartId}/lineitems/${itemId}`,
+    {
+      ProductID: item.productId,
+      Quantity: item.quantity,
+      Specs: specs,
+    }
+  )
 
   // Get cart
   const [cart, lineItems] = await Promise.all([
-    fetch('GET', `/orders/Outgoing/${cartId}`),
-    fetch('GET', `/orders/Outgoing/${cartId}/lineitems`).then(
+    storeRestFetch('GET', `/orders/Outgoing/${cartId}`),
+    storeRestFetch('GET', `/orders/Outgoing/${cartId}/lineitems`).then(
       (response: { Items: OrdercloudLineItem[] }) => response.Items
     ),
   ])

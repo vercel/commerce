@@ -2,7 +2,7 @@ import type { OperationContext } from '@commerce/api/operations'
 import type { GetAllProductPathsOperation } from '@commerce/types/product'
 
 import type { RawProduct } from '../../types/product'
-import type { OrdercloudConfig, Provider } from '../index'
+import type { OrdercloudConfig, Provider } from '../'
 
 export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
@@ -17,13 +17,12 @@ export default function getAllProductPathsOperation({
     config?: Partial<OrdercloudConfig>
   } = {}): Promise<T['data']> {
     // Get fetch from the config
-    const { fetch } = commerce.getConfig(config)
+    const { storeRestFetch } = commerce.getConfig(config)
 
     // Get all products
-    const rawProducts: RawProduct[] = await fetch<{ Items: RawProduct[] }>(
-      'GET',
-      '/me/products'
-    ).then((response) => response.Items)
+    const rawProducts: RawProduct[] = await storeRestFetch<{
+      Items: RawProduct[]
+    }>('GET', '/me/products').then((response) => response.Items)
 
     return {
       // Match a path for every product retrieved

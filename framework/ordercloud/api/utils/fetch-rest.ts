@@ -64,7 +64,7 @@ export async function fetchData<T>(
   }
 
   // Do the request with the correct headers
-  const dataResponse = await fetch(`${baseUrl}/v1${path}`, {
+  const dataResponse = await fetch(`${baseUrl}${path}`, {
     ...fetchOptions,
     method,
     headers: {

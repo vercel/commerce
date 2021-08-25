@@ -6,7 +6,7 @@ import { OrdercloudLineItem } from '../../../types/cart'
 const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
   res,
   body: { cartId, itemId },
-  config: { fetch },
+  config: { storeRestFetch },
 }) => {
   if (!cartId || !itemId) {
     return res.status(400).json({
@@ -16,12 +16,15 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
   }
 
   // Remove the item to the order
-  await fetch('DELETE', `/orders/Outgoing/${cartId}/lineitems/${itemId}`)
+  await storeRestFetch(
+    'DELETE',
+    `/orders/Outgoing/${cartId}/lineitems/${itemId}`
+  )
 
   // Get cart
   const [cart, lineItems] = await Promise.all([
-    fetch('GET', `/orders/Outgoing/${cartId}`),
-    fetch('GET', `/orders/Outgoing/${cartId}/lineitems`).then(
+    storeRestFetch('GET', `/orders/Outgoing/${cartId}`),
+    storeRestFetch('GET', `/orders/Outgoing/${cartId}/lineitems`).then(
       (response: { Items: OrdercloudLineItem[] }) => response.Items
     ),
   ])
