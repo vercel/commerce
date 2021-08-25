@@ -10,7 +10,8 @@
         margin-right: 1.2rem;
     }
     .conTent{
-        @apply font-logo sub-headline;
-        font-size: var(--font-size);
+        @apply font-logo;
+        line-height: 3.2rem;
+        letter-spacing: -0.02rem;
     }
 }
