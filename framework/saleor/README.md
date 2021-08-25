@@ -1,19 +1,22 @@
 ## Saleor Provider
 
-**Demo:** TBD
+**Demo:** https://saleor.vercel.store/
 
-Before getting starter, a [Saleor](https://saleor.io/) account and store is required before using the provider.
+You need a [Saleor](https://saleor.io/) instance, either in the cloud or self-hosted.
 
-Next, copy the `.env.template` file in this directory to `.env.local` in the main directory (which will be ignored by Git):
+This provider requires Saleor **3.x** or higher.
+
+Copy the `.env.template` file in this directory to `.env.local` in the main directory (which will be ignored by Git):
 
 ```bash
 cp framework/saleor/.env.template .env.local
 ```
 
-Then, set the environment variables in `.env.local` to match the ones from your store.
+Then, set the environment following variables in your `.env.local`. Both, `NEXT_PUBLIC_SALEOR_API_URL` and `COMMERCE_IMAGE_HOST` must point to your own Saleor instance.  
 
-## Contribute
-
-Our commitment to Open Source can be found [here](https://vercel.com/oss).
-
-If you find an issue with the provider or want a new feature, feel free to open a PR or [create a new issue](https://github.com/vercel/commerce/issues).
+```
+COMMERCE_PROVIDER=saleor
+NEXT_PUBLIC_SALEOR_API_URL=https://vercel.saleor.cloud/graphql/
+NEXT_PUBLIC_SALEOR_CHANNEL=default-channel
+COMMERCE_IMAGE_HOST=vercel.saleor.cloud
+```
