@@ -5,14 +5,12 @@ import { useCallback } from 'react'
 import { CommerceError } from '@commerce/utils/errors'
 import type { LoginHook } from '../types/login'
 import useCustomer from '../customer/use-customer'
-import { loginMutation } from '../utils/mutations/login-mutation'
 export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
     url: '/api/login',
-    method: 'POST',
-    query: loginMutation
+    method: 'POST'
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {

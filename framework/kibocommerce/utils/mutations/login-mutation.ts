@@ -6,6 +6,7 @@ mutation login($loginInput:CustomerUserAuthInfoInput!) {
       userId
       refreshToken
       refreshTokenExpiration
+      accessTokenExpiration
       customerAccount {
         id
         firstName

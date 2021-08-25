@@ -1,16 +1,21 @@
 import { FetcherError } from '@commerce/utils/errors'
 import type { LoginEndpoint } from '.'
+import { loginMutation } from '../../../utils/mutations/login-mutation'
+import {prepareSetCookie} from '../../utils/prepareSetCookie';
+import {setCookies} from '../../utils/setCookie'
 
 const invalidCredentials = /invalid credentials/i
 
+let response;
+
 const login: LoginEndpoint['handlers']['login'] = async ({
+  req,
   res,
   body: { email, password },
   config,
   commerce,
 }) => {
-    console.log('login hit', email, password)
-  // TODO: Add proper validations with something like Ajv
+  
   if (!(email && password)) {
     return res.status(400).json({
       data: null,
@@ -18,12 +23,17 @@ const login: LoginEndpoint['handlers']['login'] = async ({
     })
   }
   try {
-/*
-const loginMutation = ` mutation loginAccount($input) { login($input) { } } `
-const variables = { input: { email, password } }
-const loginResponse = await config.fetch(loginMutation, { variables })
-setCookie(res)
-*/
+
+    response = await  config.fetch(loginMutation, { variables: { loginInput : { username: email, password }}})
+    const { account }  = response.data;
+
+    const authCookie = prepareSetCookie(
+      config.customerCookie,
+      JSON.stringify(response.data.account),
+      account.accessTokenExpiration ? { expires: new Date(account.accessTokenExpiration) }: {},
+    )
+    setCookies(res, [authCookie])   
+    
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (
@@ -45,7 +55,7 @@ setCookie(res)
     throw error
   }
 
-  res.status(200).json({ data: null })
+  res.status(200).json({ data: response })
 }
 
 export default login
