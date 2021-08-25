@@ -29,7 +29,7 @@ const HeaderHighLight = memo(({ }: Props) => {
             <div>
                 Free Shipping on order $49+ / Express $99+
             </div>
-            <div className="menu">
+            <ul className={s.menu}>
                 {
                     MENU.map(item => <li key={item.name}>
                         <Link href={item.link}>
@@ -40,7 +40,7 @@ const HeaderHighLight = memo(({ }: Props) => {
 
                     </li>)
                 }
-            </div>
+            </ul>
         </section>
     )
 })
