@@ -86,7 +86,7 @@ const dataTest = [{
 export default function Home() {
   return (
     <>
-      <ProductCaroucel data={dataTest} itemKey="product-1" />
+      <ProductCaroucel data={dataTest} itemKey="product-1" isDot={true}/>
     </>
   )
 }
