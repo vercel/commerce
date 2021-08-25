@@ -1,0 +1,21 @@
+.recipeCardWarpper{
+    width: 39.2rem;
+    height: 34rem;
+    .image{
+        width: 100%;
+        height: 22rem;
+        border-radius: 2.4rem;
+    }
+    .title{
+        font-size: 2rem;
+        line-height: 2.8rem;
+        letter-spacing: -0.01em;
+        color: var(--text-active);
+    }
+    .description{
+        @apply overflow-hidden over overflow-ellipsis 
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
+}

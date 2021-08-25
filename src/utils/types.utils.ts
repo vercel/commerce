@@ -13,3 +13,9 @@ export interface FeaturedProductProps {
     price: string
     imageSrc: string
 }
+
+export interface RecipeProps {
+    title: string
+    description:string
+    imageSrc: string
+}
