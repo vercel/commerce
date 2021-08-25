@@ -8,7 +8,7 @@ interface Props {
     onChange?: () => void
 }
 
-const ItemWishList = memo(({isActive, onChange}:Props) => {
+const ItemWishList = memo(({isActive=false, onChange}:Props) => {
     return(
         <div className={classNames({
             [s.heartToggle]: true, 

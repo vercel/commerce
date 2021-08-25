@@ -1,12 +1,9 @@
-@import '../../../styles/utilities';
 
 .heartToggle{
     cursor: pointer;
     width: 2.4rem;
     height: 2.4rem;
-    path{
-        stroke: var(--primary);
-    }
+
 }
 .isToggleOn{
     svg path{
