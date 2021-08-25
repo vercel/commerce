@@ -1,13 +1,22 @@
 @import "../../../../../styles/utilities";
 
 .headerSubMenu {
-    @apply flex justify-between items-center;
     padding-bottom: 0.8rem;
+    @screen lg {
+        @apply flex justify-between items-center;
+    }
     .menu {
         @apply flex items-center list-none;
+        margin-bottom: 2.4rem;
+        @screen lg {
+            margin-bottom: 0;
+        }
         li {
             &:not(:last-child) {
-                margin-right: 4rem;
+                margin-right: 2.4rem;
+                @screen lg {
+                    margin-right: 4rem;
+                }
             }
             a {
                 @appy no-underline;

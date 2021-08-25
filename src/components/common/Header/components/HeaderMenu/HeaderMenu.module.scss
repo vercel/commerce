@@ -8,7 +8,9 @@
         @apply flex items-center;
         .inputSearch {
             margin-left: 4.8rem;
-            @screen md {
+            //todo: remove
+            border: 1px solid red;
+            @screen lg {
                 min-width: 51.2rem;
                 max-width: 50%;
             }
@@ -19,7 +21,10 @@
         li {
             @apply flex justify-center items-center w-full;
             &:not(:last-child) {
-                margin-right: 6.4rem;
+                margin-right: 4.8rem;
+                @screen lg {
+                    margin-right: 6.4rem;
+                }
             }
             a {
                 @appy no-underline;

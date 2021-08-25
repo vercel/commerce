@@ -1,5 +1,5 @@
 
-import { ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import { Banner, ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
 import { IconBuy } from 'src/components/icons';
 
 
@@ -11,7 +11,7 @@ export default function Home() {
       <p>Go to <code>src/components</code> to make your awesome component!</p>
       <p>Go to <code>src/styles</code> to find global styles!</p>
 
-
+      {/* <Banner title="test" sub imgLink="https://user-images.githubusercontent.com/76729908/130574371-3b75fa72-9552-4605-aba9-a4b31cd9dce7.png"/> */}
       {/* demo  */}
       <div style={{ display: 'flex' }}>
         <Inputcommon placeholder="Enter here" />
