@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { memo } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
-import { IconBuy, IconHistory, IconUser } from 'src/components/icons'
+import { IconBuy, IconHeart, IconHistory, IconUser } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import s from './HeaderMenu.module.scss'
 
@@ -47,7 +47,7 @@ const HeaderMenu = memo(({ }: Props) => {
                 <li>
                     <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`}>
                         <a >
-                            <IconHistory />
+                            <IconHeart />
                         </a>
                     </Link>
                 </li>

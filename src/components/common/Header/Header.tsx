@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
 import HeaderMenu from './components/HeaderMenu/HeaderMenu'
 import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
+import HeaderSubMenuMobile from './components/HeaderSubMenuMobile/HeaderSubMenuMobile'
 import s from './Header.module.scss'
 
 interface Props {
@@ -11,13 +12,16 @@ interface Props {
 
 const Header = memo(({ }: Props) => {
     return (
-        <header className={s.header}>
-            <HeaderHighLight />
-            <div className={s.menu}>
-                <HeaderMenu />
-                <HeaderSubMenu />
-            </div>
-        </header>
+        <>
+            <header className={s.header}>
+                <HeaderHighLight />
+                <div className={s.menu}>
+                    <HeaderMenu />
+                    <HeaderSubMenu />
+                </div>
+            </header>
+            <HeaderSubMenuMobile />
+        </>
     )
 })
 

@@ -23,8 +23,7 @@
                 margin-bottom: 1.6rem;
             }
             a {
-                text-decoration: none;
-                @apply transition-all duration-200;
+                @apply transition-all duration-200 no-underline;
                 &:hover {
                     color: var(--primary);
                 }
