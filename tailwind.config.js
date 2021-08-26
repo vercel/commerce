@@ -44,14 +44,14 @@ module.exports = {
         'negative': 'var(--negative)',
         'negative-border-line': 'var(--negative-border-line)',
         'negative-light': 'var(--negative-light)',
-        
-        'disabled': 'var(--text-disabled)',
+
         line: 'var(--border-line)',
         background: 'var(--background)',
         white: 'var(--white)',
-        'background-arrow':'var(--background-arrow)',
         gray: 'var(--gray)',
         disabled: 'var(--text-disabled)',
+        'background-arrow':'var(--background-arrow)',
+
         
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',

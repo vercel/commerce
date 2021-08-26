@@ -1,0 +1,27 @@
+@import "../../../../styles/utilities";
+
+.homeCTA {
+  @apply spacing-horizontal;
+  .inner {
+    @apply flex justify-between items-center bg-primary-light;
+    background-image: url('./assets/bg_home_cta.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    border-radius: 2.4rem;
+    padding: 2rem;
+    @screen md {
+      padding-left: 9rem;
+      padding-right: 4.8rem;
+      min-height: 18rem;
+    }
+    .text {
+      .heading {
+        @apply heading-1 font-heading text-primary;
+      }
+      .sub {
+        @apply font-bold sm-headline;
+      }
+    }
+  }
+}
