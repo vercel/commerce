@@ -45,7 +45,6 @@ module.exports = {
         'negative-border-line': 'var(--negative-border-line)',
         'negative-light': 'var(--negative-light)',
 
-<<<<<<< HEAD
         'line': 'var(--border-line)',
         'background': 'var(--background)',
         'white': 'var(--white)',
@@ -54,8 +53,6 @@ module.exports = {
 
         
         'disabled': 'var(--text-disabled)',
-=======
->>>>>>> 499221a7b8217276dbba438808a6ad3ece216a4d
         line: 'var(--border-line)',
         background: 'var(--background)',
         white: 'var(--white)',

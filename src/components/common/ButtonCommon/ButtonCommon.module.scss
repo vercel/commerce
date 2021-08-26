@@ -65,14 +65,8 @@
   }
 
   &.ghost {
-<<<<<<< HEAD
-    @apply bg-white;
-    color: var(--text-active);
-    border: 1px solid var(--text-active);
-=======
     @apply bg-white text-primary;
     border: 1px solid var(--primary);
->>>>>>> 499221a7b8217276dbba438808a6ad3ece216a4d
     &.loading {
       &::before {
         border-top-color: var(--text-active);
