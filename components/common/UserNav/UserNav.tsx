@@ -40,8 +40,8 @@ const UserNav: FC<Props> = ({ className }) => {
             </Link>
           </li>
         )}
-
-          <li className={s.item}>
+          {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
+            <li className={s.item}>
             {customer ? (
               <DropdownMenu />
             ) : (
@@ -54,6 +54,8 @@ const UserNav: FC<Props> = ({ className }) => {
               </button>
             )}
           </li>
+          )}
+          
 
       </ul>
     </nav>
