@@ -14,7 +14,7 @@ const ViewAllItem = ({ link }: Props) => {
                     View All
                 </a>
             </Link>
-            <div className={s.vecTor}>
+            <div className={s.vector}>
                 <IconVector />
             </div>
         </div>

@@ -2,15 +2,15 @@
 
 .viewAll{
     display: flex;
-    color: theme("colors.primary");
+    color: var(--primary);
     .conTent{
         margin: 0.8rem 0.8rem 0.8rem 1.6rem;
         font-weight: bold;
     }
-    .vecTor{
+    .vector{
         margin: 0.8rem 0rem 0.8rem 0rem;
         svg path{
-            fill: theme("colors.primary");
+            fill: var(--primary);
         }
     }
 }
