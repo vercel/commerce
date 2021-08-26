@@ -32,14 +32,17 @@
 
   --disabled: #cccccc;
   --border-line: #ebebeb;
-  --background: #f8f8f8;
+  --background: #fff;
+  --gray: #f8f8f8;
   --white: #fbfbfb;
+  --background-arrow:rgba(20, 20, 20, 0.05);
+  --font-size: 1.6rem;
+  --line-height: 2.4rem;
 
-  --font-size: 16px;
-  --line-height: 24px;
+  // --font-size: 16px;
+  // --line-height: 24px;
 
-  --font-sans: "Nunito", cursive, -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica",
-    sans-serif;
+  --font-sans: "Nunito", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
   --font-heading: "Righteous", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
   --font-logo: "Poppins", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
 }
