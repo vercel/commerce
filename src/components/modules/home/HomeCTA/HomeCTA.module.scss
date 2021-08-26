@@ -2,6 +2,8 @@
 
 .homeCTA {
   @apply spacing-horizontal;
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
   .inner {
     @apply flex justify-between items-center bg-primary-light;
     background-image: url('./assets/bg_home_cta.png');
