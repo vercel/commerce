@@ -1,19 +1,18 @@
 import React from 'react'
-// import classNames from 'classnames'
 import s from './CollectionHeading.module.scss'
 import HeadingCommon from '../HeadingCommon/HeadingCommon'
 
 interface CollectionHeadingProps {
-    headingType?: 'default' | 'highlight' | 'light'
-    headingText: string;
-    subtitle: string
+    type?: 'default' | 'highlight' | 'light';
+    children: string;
+    subtitle: string;
 }
 
-const CollectionHeading = ({ headingType='default', headingText, subtitle }: CollectionHeadingProps) => {
+const CollectionHeading = ({ type='default', children, subtitle }: CollectionHeadingProps) => {
 
     return (
         <section className="collectionHeading">
-            <HeadingCommon headingType={headingType} headingText={headingText}/>
+            <HeadingCommon type={type} children={children}/>
             <div className={s.subtitle}>{subtitle}</div>
         </section>
     )
