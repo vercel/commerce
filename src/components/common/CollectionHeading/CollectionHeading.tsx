@@ -11,7 +11,7 @@ interface CollectionHeadingProps {
 const CollectionHeading = ({ type='default', children, subtitle }: CollectionHeadingProps) => {
 
     return (
-        <section className="collectionHeading">
+        <section>
             <HeadingCommon type={type} children={children}/>
             <div className={s.subtitle}>{subtitle}</div>
         </section>
