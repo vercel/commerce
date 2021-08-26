@@ -5,17 +5,19 @@ import s from './InputCommon.module.scss';
 type Ref = {
     focus: () => void
 } | null;
-
 interface Props {
     children?: React.ReactNode,
     value?: string | number,
     placeholder?: string,
     type?: 'text' | 'number',
+    styleType?: 'default' | 'custom',
+    icon?: React.ReactNode,
     onChange?: (value: string | number) => void,
     onEnter?: (value: string | number) => void,
 }
 
-const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, onChange, onEnter }: Props, ref) => {
+const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, styleType = 'default', icon,
+    onChange, onEnter }: Props, ref) => {
     const inputElementRef = useRef<HTMLInputElement>(null);
 
     useImperativeHandle(ref, () => ({
@@ -36,15 +38,20 @@ const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, onChange
     }
 
     return (
-        <input
-            ref={inputElementRef}
-            value={value}
-            type={type}
-            placeholder={placeholder}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            className={s.inputCommon}
-        />
+        <div className={s.inputWrap}>
+            {
+                icon && <span className={s.icon}>{icon}</span>
+            }
+            <input
+                ref={inputElementRef}
+                value={value}
+                type={type}
+                placeholder={placeholder}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                className={`${s.inputCommon} ${s[styleType]}`}
+            />
+        </div>
     )
 
 })

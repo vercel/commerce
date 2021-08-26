@@ -1,0 +1,33 @@
+@import "../../../../../styles/utilities";
+
+.footerColumn {
+    width: 50%;
+    margin-bottom: 4rem;
+    @screen md {
+        padding-right: 6.4rem;
+        width: unset;
+        margin-bottom: 0;
+    }
+
+    @screen lg {
+        padding-right: 12.8rem;
+    }
+    .title {
+        @apply sm-headline text-active;
+        margin-bottom: 2.4rem;
+    }
+    ul {
+        list-style: none;
+        li {
+            &:not(:last-child) {
+                margin-bottom: 1.6rem;
+            }
+            a {
+                @apply transition-all duration-200 no-underline;
+                &:hover {
+                    color: var(--primary);
+                }
+            }
+        }
+    }
+}

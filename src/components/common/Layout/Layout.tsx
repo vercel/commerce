@@ -1,7 +1,9 @@
-import { FC, useRef, useEffect } from 'react'
-import Header from '../Header/Header'
 import { CommerceProvider } from '@framework'
 import { useRouter } from 'next/router'
+import { FC } from 'react'
+import Footer from '../Footer/Footer'
+import Header from '../Header/Header'
+import s from './Layout.module.scss'
 
 interface Props {
     className?: string
@@ -14,8 +16,11 @@ const Layout: FC<Props> = ({ children }) => {
 
     return (
         <CommerceProvider locale={locale}>
-            <Header />
-            <main>{children}</main>
+            <div className={s.mainLayout}>
+                <Header />
+                <main >{children}</main>
+                <Footer />
+            </div>
         </CommerceProvider>
 
     )

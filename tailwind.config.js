@@ -44,14 +44,14 @@ module.exports = {
         'negative': 'var(--negative)',
         'negative-border-line': 'var(--negative-border-line)',
         'negative-light': 'var(--negative-light)',
-
-        'line': 'var(--border-line)',
-        'background': 'var(--background)',
-        'white': 'var(--white)',
-
-        'background-arrow':'var(--background-arrow)',
-
+        
         'disabled': 'var(--text-disabled)',
+        line: 'var(--border-line)',
+        background: 'var(--background)',
+        white: 'var(--white)',
+        'background-arrow':'var(--background-arrow)',
+        gray: 'var(--gray)',
+        disabled: 'var(--text-disabled)',
         
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
@@ -85,9 +85,9 @@ module.exports = {
         active: 'var(--text-active)',
         label: 'var(--text-label)',
         placeholder: 'var(--text-placeholder)',
+        primary: 'var(--primary)',
         
         // @deprecated (NOT use these variables)
-        primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
       },
       boxShadow: {

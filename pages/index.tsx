@@ -1,31 +1,31 @@
 
-import { CarouselCommon, LabelCommon, Layout, QuanittyInput } from 'src/components/common'
+import { Banner, ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import { IconBuy } from 'src/components/icons';
+import { HomeBanner } from 'src/components/modules/home';
 
-const dataTest = [{
-  text: 1
-}, {
-  text: 2
-}, {
-  text: 3
-}, {
-  text: 4
-}, {
-  text: 5
-}, {
-  text: 6
-}]
-const test = (props: { text: string }) => <div className="h-64 bg-yellow-300">{props.text}</div>
+
 export default function Home() {
   return (
     <>
-      <CarouselCommon data={dataTest} Component={test} itemKey="test" />
-      <QuanittyInput size="default" min={5} max={10} initValue={3} />
-      <QuanittyInput size="small" min={3} step={10} />
-      <LabelCommon type="default" shape="half" >SEEFOOT</LabelCommon>
-      <LabelCommon type="discount" shape="round">-15%</LabelCommon>
-      <LabelCommon type="waiting">Waitting</LabelCommon>
-      <LabelCommon type="delivering" >Delivering</LabelCommon>
-      <LabelCommon type="delivered">Delivered</LabelCommon>
+      <HomeBanner />
+      <div>This is home page</div>
+      <p>Go to <code>pages/index.tsx</code> to get your hand dirty!</p>
+      <p>Go to <code>src/components</code> to make your awesome component!</p>
+      <p>Go to <code>src/styles</code> to find global styles!</p>
+
+      {/* demo  */}
+      <div style={{ display: 'flex' }}>
+        <Inputcommon placeholder="Enter here" />
+        <InputSearch />
+      </div>
+      <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
+      <ButtonIconBuy />
+
+      <Banner
+        title="Save 15% on your first order"
+        subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        imgLink="https://user-images.githubusercontent.com/76729908/130574371-3b75fa72-9552-4605-aba9-a4b31cd9dce7.png"
+      />
     </>
   )
 }
