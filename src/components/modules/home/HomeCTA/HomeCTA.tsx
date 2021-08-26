@@ -5,12 +5,8 @@ import { ROUTE } from 'src/utils/constanst.utils'
 import { LANGUAGE } from 'src/utils/language.utils'
 import s from './HomeCTA.module.scss'
 
-interface Props {
-    className?: string
-    children?: any
-}
 
-const HomeCTA = ({ }: Props) => {
+const HomeCTA = () => {
     return (
         <section className={s.homeCTA}>
             <div className={s.inner}>
