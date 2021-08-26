@@ -1,0 +1,43 @@
+@import "../../../../../styles/utilities";
+
+.footerSocial {
+    .title {
+        @apply sm-headline text-active;
+        margin-bottom: 2.4rem;
+    }
+    .socialMedia,
+    .payment {
+        @apply list-none flex items-center;
+    }
+    .socialMedia {
+        li {
+            @apply transition-all duration-200;
+            margin-right: 1.6rem;
+            &:last-child {
+                margin-right: 0;
+            }
+            a {
+                @apply no-underline;
+            }
+            &:hover {
+                svg path {
+                    fill: var(--primary);
+                }
+            }
+        }
+    }
+    .payment {
+        margin-top: 3.2rem;
+        li {
+            margin-right: 1.6rem;
+            width: 4rem;
+            img {
+                width: 100%;
+                object-fit: contain;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

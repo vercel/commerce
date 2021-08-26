@@ -1,0 +1,51 @@
+@import "../../../styles/utilities";
+
+.banner {
+  @apply bg-primary-light custom-border-radius-lg overflow-hidden;
+  @screen md {
+    border: 1px solid var(--primary);
+  }
+  &.large {
+    .inner {
+      @screen xl {
+        @apply bg-right-bottom;
+        background-size: unset;
+      }
+    }
+  }
+  .inner {
+    @apply bg-no-repeat;
+    background-size: 90%;
+    background-position: right -500% bottom 0%;
+    .content {
+      background-image: linear-gradient(
+        to right,
+        rgb(227, 242, 233, 0.9),
+        rgb(227, 242, 233, 0.5) 80%,
+        rgb(227, 242, 233, 0)
+      );
+      padding: 1.6rem;
+      max-width: 37rem;
+      @screen md {
+        max-width: 49.6rem;
+        padding: 4.8rem;
+      }
+      .top {
+        .heading {
+          @apply heading-1 font-heading;
+          margin-bottom: 1.6rem;
+        }
+        .subHeading {
+          @apply sub-headline;
+          @screen md {
+            @apply caption;
+          }
+        }
+      }
+
+      .bottom {
+        margin-top: 4rem;
+      }
+    }
+  }
+}

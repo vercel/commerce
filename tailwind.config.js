@@ -51,10 +51,12 @@ module.exports = {
 
         'background-arrow':'var(--background-arrow)',
 
+        
         'disabled': 'var(--text-disabled)',
         line: 'var(--border-line)',
         background: 'var(--background)',
         white: 'var(--white)',
+        'background-arrow':'var(--background-arrow)',
         gray: 'var(--gray)',
         disabled: 'var(--text-disabled)',
         
@@ -90,9 +92,9 @@ module.exports = {
         active: 'var(--text-active)',
         label: 'var(--text-label)',
         placeholder: 'var(--text-placeholder)',
+        primary: 'var(--primary)',
         
         // @deprecated (NOT use these variables)
-        primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
       },
       boxShadow: {

@@ -3,19 +3,19 @@ import classNames from 'classnames'
 import s from './HeadingCommon.module.scss'
 
 interface HeadingCommonProps {
-    headingType?: 'highlight' | 'light' | 'default';
-    textAlign?: 'center' | 'left';
-    headingText?: string;
+    type?: 'highlight' | 'light' | 'default';
+    align?: 'center' | 'left';
+    children: string;
 }
 
-const HeadingCommon = ({ headingType='default', textAlign='left', headingText='categories' }: HeadingCommonProps) => {
+const HeadingCommon = ({ type='default', align='left', children }: HeadingCommonProps) => {
 
     return (
-        <div className={classNames(s.headingCommon, {
-            [s[`${headingType}`]]: headingType,
-            [s[`${textAlign}`]]: textAlign
+        <h1 className={classNames(s.headingCommon, {
+            [s[type]]: type,
+            [s[align]]: align
           })}
-        >{headingText}</div>
+        >{children}</h1>
     )
 
 }

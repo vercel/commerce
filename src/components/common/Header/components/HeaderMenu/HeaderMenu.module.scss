@@ -1,0 +1,65 @@
+@import "../../../../../styles/utilities";
+
+.headerMenu {
+    padding-top: 1.6rem;
+    padding-bottom: 0.8rem;
+    @screen md {
+        @apply flex justify-between items-center;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        &.full {
+            padding-top: 2.4rem;
+            padding-bottom: 2.4rem;
+        }
+    }
+    .left {
+        .top {
+            @apply flex justify-between items-center;
+            .iconCart {
+            }
+        }
+        .inputSearch {
+            margin-top: 2.4rem;
+            @screen lg {
+                min-width: 51.2rem;
+                max-width: 50%;
+            }
+        }
+        @screen md {
+            @apply flex items-center;
+            .top {
+                .iconCart {
+                    @apply hidden;
+                }
+            }
+            .inputSearch {
+                margin-left: 4.8rem;
+                margin-top: 0;
+            }
+        }
+    }
+    .menu {
+        @apply hidden;
+        @screen md {
+            @apply flex items-center list-none;
+            li {
+                @apply flex justify-center items-center w-full;
+                &:not(:last-child) {
+                    margin-right: 4.8rem;
+                    @screen lg {
+                        margin-right: 6.4rem;
+                    }
+                }
+                a {
+                    @appy no-underline;
+                    &.iconFovourite {
+                        svg path {
+                            fill: var(--negative);
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

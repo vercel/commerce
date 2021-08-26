@@ -1,13 +1,13 @@
 @import '../../../styles/utilities';
 
 .headingCommon {
-  @apply heading-1 font-heading uppercase text-left;
+  @apply heading-1 font-heading text-left;
 
   &.highlight {
     color: var(--negative);
   }
   &.light {
-    color: var(--disabled);
+    color: var(--white);
   }
   &.center {
     @apply text-center;

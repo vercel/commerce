@@ -16,7 +16,7 @@
   }
   .inputCommon {
     @apply block w-full transition-all duration-200 rounded;
-    padding: 1.6rem;
+    padding: 1.2rem 1.6rem;
     border: 1px solid var(--border-line);
     &:hover,
     &:focus,
@@ -31,7 +31,8 @@
     }
 
     &.custom {
-      @apply custom-border-radius border-none;
+      @apply custom-border-radius;
+      border: 1px solid transparent;
       background: var(--gray);
       &:hover,
       &:focus,
