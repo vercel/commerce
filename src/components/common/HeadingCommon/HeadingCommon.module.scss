@@ -1,7 +1,9 @@
 @import '../../../styles/utilities';
 
 .headingCommon {
-  @apply heading-1 font-heading uppercase text-left spacing-horizontal-left;
+  @apply font-heading uppercase text-left spacing-horizontal-left;
+  font-size: 48px;
+  line-height: 56px;
 
   &.highlight {
     color: var(--negative);
@@ -15,5 +17,7 @@
 
   @screen md {
     @apply spacing-horizontal;
+    font-size: 32px;
+    line-height: 40px;
   }
 }
