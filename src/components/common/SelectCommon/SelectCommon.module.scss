@@ -1,32 +1,81 @@
 @import "../../../styles/utilities";
 
 .select{
-    @apply rounded-lg border-solid;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 1.2rem 1.6rem;
+    background-color: var(--white);
+    margin-left: 2rem;
     &.base{
-        width: 18.6rem;
-        height: 4.8rem;
+        width: 20.6rem;
+        .selectTrigger{
+            width: 20.6rem;
+            padding: 1.2rem 1.6rem;
+        }
     }
     &.large{
         width: 34.25rem;
-        height: 5.6rem;
+        .selectTrigger{
+            width: 34.25rem;
+            padding: 1.6rem 1.6rem;
+        }
     }
     &.default{
-        @apply border;
+        .selectTrigger{
+            @apply border-solid border border-current;
+        }   
+    }
+    &.custom{
+        .selectTrigger{
+            @apply border-2;
+            border-color: var(--border-line);
+            color: var(--text-label);
+        }
+    }
+    &.isActive{
+        .selectOptionWrapper{
+            @apply block;
+        }
+    }
+}
+.selectTrigger{
+    @apply outline-none flex justify-between;
+    color: var(--text-active);
+    border-radius: 0.8rem;
+
+}
+.selectOptionWrapper{
+    @apply outline-none hidden z-10 absolute;
+    border-radius: 0.8rem;
+    background-color: var(--white);
+    padding: 0.4rem 0rem 0.4rem 0rem;
+    margin-top: 0.6rem;
+    &.base{
+        width: 20.6rem;
+        .selectOption{
+            padding: 1.2rem 1.6rem;
+        }
+    }
+    &.large{
+        width: 34.25rem;
+        .selectOption{
+            padding: 1.6rem 1.6rem;
+        }
+    }
+    &.default{
+        @apply border-solid border border-current; 
     }
     &.custom{
         @apply border-2;
         border-color: var(--border-line);
         color: var(--text-label);
     }
-    .option{
+    &.active{
+        @apply hidden;
+    }
+    .selectOption{
         &:hover{
-            background-color: black;
+            background-color: var(--background);
         }
     }
 }
+
+
 
