@@ -87,6 +87,10 @@ export default function Home() {
   return (
     <>
       <ProductCaroucel data={dataTest} itemKey="product-1" isDot={true}/>
+      <div>
+        <FeaturedProductCard title="Sale 25% Coffee Bean" subTitle="50 first Orders within a day" price="$15.00" originPrice="$20.00" imageSrc={image9.src} />
+        <RecipeCard title="Sale 25% Coffee Bean" imageSrc={image12.src} description="Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:" />
+      </div>
     </>
   )
 }

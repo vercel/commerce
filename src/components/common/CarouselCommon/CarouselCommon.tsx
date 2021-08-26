@@ -35,27 +35,39 @@ const CarouselCommon = <T,>({
     slidesPerView,
     slideChanged(s) {
       setCurrentSlide(s.details().relativeSlide)
+      let dot = 0 
+      dotArr.forEach((index)=>{
+        if(s.details().relativeSlide >= Math.floor(index)){
+          dot = index
+        }
+      })
+      setDotActive(dot)
     },
   })
+  
+  useEffect(() => {
+    if(isDot && slider){
+      // console.log('f',Math.ceil(data.length/(Number(slider.details().slidesPerView)||1)))
+      let array:number[]
+      array =  [...Array(Math.ceil(data.length/(Number(slider.details().slidesPerView)||1))).keys()].map((i)=>{
+        return (Number(slider.details().slidesPerView)||1)*i
+      })
+      
+      setDotArr(array)
+    }
+  }, [isDot,slider])
+
   const handleRightArrowClick = () => {
     slider.next()
   }
-
-  useEffect(() => {
-    if(isDot && slider){
-      console.log('f',Math.ceil(data.length/(Number(slider.details().slidesPerView)||1)))
-      setDotArr([...Array(Math.ceil(data.length/(Number(slider.details().slidesPerView)||1))).keys()])
-    }
-  }, [isDot,slider])
 
   const handleLeftArrowClick = () => {
     slider.prev()
   }
 
   const onDotClick = (index:number) => {
-    slider.moveToSlide(((Number(slider.details().slidesPerView)||1)*index))
-    setDotActive(index)
-
+    slider.moveToSlideRelative(Math.floor(index))
+    // setDotActive(index)
   }
   return (
     <div className={s.navigationWrapper}>
