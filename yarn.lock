@@ -1066,7 +1066,7 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@spree/storefront-api-v2-sdk@^4.7.0":
+"@spree/storefront-api-v2-sdk@^4.7.1":
   version "4.7.1"
   resolved "https://registry.yarnpkg.com/@spree/storefront-api-v2-sdk/-/storefront-api-v2-sdk-4.7.1.tgz#af83c0d0de9ed9d3dade89ef96b251161c789b64"
   integrity sha512-Z4vt1UwTf7rYfo6UIpfnsidyOsiw043FTwLfyVHDqFnXKXaTG4E6uV75gKrM7+d5SScTWj5qlq6YRAfwL/WacA==
