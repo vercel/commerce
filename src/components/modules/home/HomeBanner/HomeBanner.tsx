@@ -20,7 +20,7 @@ const HomeBanner = ({ }: Props) => {
                 title="Save 15% on your first order"
                 subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
                 imgLink={BannerImgRight.src}
-                type="small"
+                size="small"
             />
         </div >
     )

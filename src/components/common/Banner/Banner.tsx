@@ -20,7 +20,7 @@ const Banner = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_L
     return (
         <div className={classNames({
             [s.banner]: true,
-            [s.size]: true,
+            [s[size]]: true,
         })}>
             <div className={s.inner} style={{ backgroundImage: `url(${imgLink})` }}>
                 <div className={s.content}>
