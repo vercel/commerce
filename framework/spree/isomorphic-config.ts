@@ -12,8 +12,10 @@ const isomorphicConfig = {
     process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_EXPIRE
   ),
   imageHost: process.env.NEXT_PUBLIC_SPREE_IMAGE_HOST,
-  categoriesTaxonomyId: process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_ID,
-  brandsTaxonomyId: process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_ID,
+  categoriesTaxonomyPermalink:
+    process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK,
+  brandsTaxonomyPermalink:
+    process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_PERMALINK,
   showSingleVariantOptions:
     process.env.NEXT_PUBLIC_SPREE_SHOW_SINGLE_VARIANT_OPTIONS === 'true',
   lastUpdatedProductsPrerenderCount: validateProductsPrerenderCount(
@@ -36,8 +38,8 @@ export default forceIsomorphicConfigValues(
     'cartCookieName',
     'cartCookieExpire',
     'imageHost',
-    'categoriesTaxonomyId',
-    'brandsTaxonomyId',
+    'categoriesTaxonomyPermalink',
+    'brandsTaxonomyPermalink',
     'showSingleVariantOptions',
     'lastUpdatedProductsPrerenderCount',
     'productPlaceholderImageUrl',

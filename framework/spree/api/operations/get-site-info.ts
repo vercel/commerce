@@ -68,14 +68,12 @@ export default function getSiteInfoOperation({
       userConfig
     )
 
-    // Fetch first and level taxons
-
-    const createVariables = (parentId: string): SpreeSdkVariables => ({
+    const createVariables = (parentPermalink: string): SpreeSdkVariables => ({
       methodPath: 'taxons.list',
       arguments: [
         {
           filter: {
-            parent_id: parentId,
+            parent_permalink: parentPermalink,
           },
         },
       ],
@@ -93,7 +91,7 @@ export default function getSiteInfoOperation({
       SpreeSdkVariables
     >('__UNUSED__', {
       variables: createVariables(
-        requireConfigValue('categoriesTaxonomyId') as string
+        requireConfigValue('categoriesTaxonomyPermalink') as string
       ),
     })
 
@@ -106,7 +104,7 @@ export default function getSiteInfoOperation({
       SpreeSdkVariables
     >('__UNUSED__', {
       variables: createVariables(
-        requireConfigValue('brandsTaxonomyId') as string
+        requireConfigValue('brandsTaxonomyPermalink') as string
       ),
     })
 
