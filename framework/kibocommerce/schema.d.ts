@@ -11402,3 +11402,25 @@ export type LoginMutationVariables = Exact<{
   email: Scalars['String']
   password: Scalars['String']
 }>
+
+export type GetLoggedInCustomerQuery = { __typename?: 'Query' } & {
+  customer?: Maybe<
+    { __typename?: 'Customer' } & Pick<
+      Customer,
+      | 'entityId'
+      | 'firstName'
+      | 'lastName'
+      | 'email'
+      | 'company'
+      | 'customerGroupId'
+      | 'notes'
+      | 'phone'
+      | 'addressCount'
+      | 'attributeCount'
+    > & {
+        storeCredit: Array<
+          { __typename?: 'Money' } & Pick<Money, 'value' | 'currencyCode'>
+        >
+      }
+  >
+}

@@ -35,7 +35,7 @@ export const handler: MutationHook<SignupHook> = {
     return useCallback(
       async function signup(input) {
         const data = await fetch({ input })
-        // await revalidate()
+        await revalidate()
         return data
       },
       [fetch, revalidate]
