@@ -6,6 +6,7 @@
     border: 1px solid var(--primary);
   }
   &.large {
+    margin-bottom: 2.8rem;
     .inner {
       @screen xl {
         @apply bg-right-bottom;

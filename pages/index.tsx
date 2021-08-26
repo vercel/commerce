@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 import {  FeaturedProductCard, Layout, ProductCaroucel, RecipeCard } from 'src/components/common'
 import image5 from "../public/assets/images/image5.png"
 import image6 from "../public/assets/images/image6.png"
@@ -112,12 +113,23 @@ const recipe:RecipeCardProps[] = [{
   description:"The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
   imageSrc: image14.src
 }]
+=======
+import { Layout } from 'src/components/common';
+import { HomeBanner, HomeCTA, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
+>>>>>>> 499221a7b8217276dbba438808a6ad3ece216a4d
 
 export default function Home() {
   return (
     <>
+<<<<<<< HEAD
       <CollectionCarcoucel data={dataTest} itemKey="product-1" title="VEGGIE" subTitle= "Last call! Shop deep deals on 100+ bulk picks while you can." />
       <HomeRecipe data={recipe}  itemKey="product-2" title="Special Recipes"/>
+=======
+      <HomeBanner />
+      <HomeVideo />
+      <HomeCTA />
+      <HomeSubscribe />
+>>>>>>> 499221a7b8217276dbba438808a6ad3ece216a4d
     </>
   )
 }

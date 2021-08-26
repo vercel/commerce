@@ -5,20 +5,17 @@ import s from './ItemWishList.module.scss'
 
 interface Props {
     isActive?: boolean,
-    onClick?: () => void
     onChange?: () => void
 }
 
-const ItemWishList = memo(({isActive, onClick, onChange}:Props) => {
-    const handleClick = () => {
-        isActive = !isActive
-    }
+const ItemWishList = memo(({isActive=false, onChange}:Props) => {
     return(
         <div className={classNames({
-            [s.heartToggle]:true, 
-            [s.isToggleOn]:isActive
+            [s.heartToggle]: true, 
+            [s.isToggleOn]: isActive
         })}
-        onClick={handleClick}>
+        onChange={onChange}
+        >
             <IconHeart />
         </div>
     )

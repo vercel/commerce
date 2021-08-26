@@ -1,0 +1,14 @@
+.formSubscribe {
+  @apply flex flex-col justify-center items-center;
+  margin-top: 3.2rem;
+  button {
+    margin-top: 2rem;
+  }
+  @screen md {
+    @apply flex-row;
+    button {
+      margin-left: 2.4rem;
+      margin-top: 0;
+    }
+  }
+}

@@ -1,19 +1,16 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 
-.viewAll{
+.viewAll {
     display: flex;
-    color: theme("colors.primary");
-    .conTent{
+    .content {
+        color: var(--primary);
         margin: 0.8rem 0.8rem 0.8rem 1.6rem;
-        font-family: var(--font-sans);
         font-weight: bold;
     }
-    .vecTor{
+    .vector {
         margin: 0.8rem 0rem 0.8rem 0rem;
-        svg path{
-            fill: theme("colors.primary");
+        svg path {
+            fill: var(--primary);
         }
     }
 }
-
-

@@ -3,18 +3,18 @@ import s from './ViewAllItem.module.scss'
 import Link from 'next/link'
 
 interface Props {
-    link?: string
+    link: string
 }
 
 const ViewAllItem = ({ link }: Props) => {
     return(
         <div className={s.viewAll}>
-            <Link href={"/all"}>
-                <a className={s.conTent}>
+            <Link href={link}>
+                <a className={s.content}>
                     View All
                 </a>
             </Link>
-            <div className={s.vecTor}>
+            <div className={s.vector}>
                 <IconVector />
             </div>
         </div>

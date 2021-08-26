@@ -40,5 +40,12 @@
         border: 1px solid var(--primary);
       }
     }
+    &.bgTransparent {
+      background: rgb(227, 242, 233, 0.3);
+      color: var(--white);
+      &::placeholder {
+        color: var(--white);
+      }
+    }
   }
 }
