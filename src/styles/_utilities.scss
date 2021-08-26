@@ -85,6 +85,10 @@
         padding-left: 2rem;
         padding-right: 2rem;
         @screen md {
+            padding-left: 6.4rem;
+            padding-right: 6.4rem;
+        }
+        @screen md {
             padding-left: 11.2rem;
             padding-right: 11.2rem;
         }
@@ -92,6 +96,10 @@
     .spacing-horizontal-left {
         padding-left: 2rem;
         @screen md {
+            padding-left: 6.4rem;
+            padding-right: 6.4rem;
+        }
+        @screen lg {
             padding-left: 11.2rem;
             padding-right: 11.2rem;
         }
