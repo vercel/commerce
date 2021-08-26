@@ -1,7 +1,6 @@
 @import '../../../styles/utilities';
 
 .subtitle {
-    @apply spacing-horizontal-left;
     font-size: var(--font-size);
     line-height: var(--line-height);   
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { RecipeProps } from 'src/utils/types.utils'
 import s from './RecipeCard.module.scss'
-interface RecipeCardProps extends RecipeProps {}
+export interface RecipeCardProps extends RecipeProps {}
 
 const RecipeCard = ({ imageSrc, title, description }: RecipeCardProps) => {
   return (
