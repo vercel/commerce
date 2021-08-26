@@ -11,6 +11,8 @@
     }
     .content{
         @apply font-logo;
-        font-size: var(--font-size);
+        font-size: 16px;
+        line-height: 32px;
+        letter-spacing: -0.02em;
     }
 }
