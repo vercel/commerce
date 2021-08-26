@@ -25,16 +25,17 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   }
   try {
 
-    response = await  config.fetch(loginMutation, { variables: { loginInput : { username: email, password }}})
+    const variables = { loginInput : { username: email, password }};
+    response = await  config.fetch(loginMutation, { variables: variables})
     const { account: token }  = response.data;
-
+    
     const authCookie = prepareSetCookie(
       config.customerCookie,
       JSON.stringify(token),
       token.accessTokenExpiration ? { expires: new Date(token.accessTokenExpiration) }: {},
     )
     setCookies(res, [authCookie])   
-  
+   
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (
