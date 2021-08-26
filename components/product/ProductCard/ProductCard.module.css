@@ -1,15 +1,10 @@
 .root {
   @apply relative max-h-full w-full box-border overflow-hidden
-  bg-no-repeat bg-center bg-cover transition-transform
-  ease-linear cursor-pointer inline-block bg-accent-1;
+  transition-transform ease-linear cursor-pointer inline-block;
   height: 100% !important;
 }
 
 .root:hover {
-  & .productImage {
-    transform: scale(1.2625);
-  }
-
   & .header .name span,
   & .header .price,
   & .wishlistButton {
@@ -69,20 +64,21 @@
 }
 
 .imageContainer {
-  @apply flex items-center justify-center overflow-hidden;
+  @apply relative flex items-center justify-center bg-primary-2 mb-4;
+  padding: 12% 15%;
 }
-
-.imageContainer > div {
-  min-width: 100%;
-}
-
-.imageContainer .productImage {
-  @apply transform transition-transform duration-500
-  object-cover scale-120;
+.imageContainerInner {
+  @apply relative w-full;
+  padding-bottom: 100%;
 }
 
 .root .wishlistButton {
   @apply top-0 right-0 z-30 absolute;
+}
+
+.typeIcon {
+  @apply absolute bg-accent-2 rounded-full p-1.5 -bottom-2 right-2.5;
+  font-size: 0;
 }
 
 /* Variant Simple */

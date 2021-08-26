@@ -97,31 +97,35 @@ const ProductCard: FC<Props> = ({
 
         {variant === 'default' && (
           <>
-            {process.env.COMMERCE_WISHLIST_ENABLED && (
-              <WishlistButton
-                className={s.wishlistButton}
-                productId={product.id}
-                variant={product.variants[0] as any}
-              />
-            )}
-            <ProductTag
-              name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
-            />
             <div className={s.imageContainer}>
-              {product?.images && (
+              <div className={s.imageContainerInner}>
+                {product?.images && (
+                  <Image
+                    alt={product.name || 'Product Image'}
+                    className={s.productImage}
+                    src={product.images[0]?.url || placeholderImg}
+                    quality="85"
+                    layout="fill"
+                    objectFit="contain"
+                    {...imgProps}
+                  />
+                )}
+              </div>
+              <div className={s.typeIcon}>
                 <Image
-                  alt={product.name || 'Product Image'}
-                  className={s.productImage}
-                  src={product.images[0]?.url || placeholderImg}
-                  height={540}
-                  width={540}
-                  quality="85"
-                  layout="responsive"
-                  {...imgProps}
+                  src="/icon-audiobook.svg"
+                  width={22}
+                  height={23}
                 />
-              )}
+              </div>
             </div>
+            <div className="font-bold line-clamp-3">
+              {product.name}
+            </div>
+            <div className="italic">
+              Author (missing data)
+            </div>
+            <div>{price}</div>
           </>
         )}
       </a>

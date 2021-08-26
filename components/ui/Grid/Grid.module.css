@@ -1,8 +1,8 @@
 .root {
-  @apply grid grid-cols-1 gap-0;
+  @apply grid grid-cols-2 gap-0;
 
   @screen lg {
-    @apply grid-cols-3 grid-rows-2;
+    @apply grid-cols-6;
   }
 
   & > * {
@@ -24,7 +24,7 @@
 }
 
 .layoutNormal {
-  @apply gap-3;
+  @apply gap-6;
 }
 
 @screen md {
