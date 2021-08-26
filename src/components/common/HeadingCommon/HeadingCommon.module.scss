@@ -2,8 +2,8 @@
 
 .headingCommon {
   @apply font-heading uppercase text-left spacing-horizontal-left;
-  font-size: 48px;
-  line-height: 56px;
+  font-size: 3.2rem;
+  line-height: 4rem;
 
   &.highlight {
     color: var(--negative);
@@ -17,7 +17,7 @@
 
   @screen md {
     @apply spacing-horizontal;
-    font-size: 32px;
-    line-height: 40px;
-  }
+    font-size: 4.8rem;
+    line-height: 5.6rem;
+  } 
 }
