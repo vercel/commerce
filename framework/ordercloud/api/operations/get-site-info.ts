@@ -23,10 +23,10 @@ export default function getSiteInfoOperation({
     preview?: boolean
   } = {}): Promise<T['data']> {
     // Get fetch from the config
-    const { storeRestFetch } = commerce.getConfig(config)
+    const { restFetch } = commerce.getConfig(config)
 
     // Get list of categories
-    const rawCategories: RawCategory[] = await storeRestFetch<{
+    const rawCategories: RawCategory[] = await restFetch<{
       Items: RawCategory[]
     }>('GET', `/me/categories`).then((response) => response.Items)
 

@@ -19,22 +19,22 @@ export default function getProductOperation({
     preview?: boolean
   } = {}): Promise<T['data']> {
     // Get fetch from the config
-    const { storeRestFetch } = commerce.getConfig(config)
+    const { restFetch } = commerce.getConfig(config)
 
     // Get a single product
-    const productPromise = storeRestFetch<RawProduct>(
+    const productPromise = restFetch<RawProduct>(
       'GET',
       `/me/products/${variables?.slug}`
     )
 
     // Get product specs
-    const specsPromise = storeRestFetch<{ Items: RawSpec[] }>(
+    const specsPromise = restFetch<{ Items: RawSpec[] }>(
       'GET',
       `/me/products/${variables?.slug}/specs`
     ).then((res) => res.Items)
 
     // Get product variants
-    const variantsPromise = storeRestFetch<{ Items: RawVariant[] }>(
+    const variantsPromise = restFetch<{ Items: RawVariant[] }>(
       'GET',
       `/me/products/${variables?.slug}/variants`
     ).then((res) => res.Items)

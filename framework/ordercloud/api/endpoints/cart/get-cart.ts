@@ -9,7 +9,7 @@ import { formatCart } from '../../utils/cart'
 const getCart: CartEndpoint['handlers']['getCart'] = async ({
   res,
   body: { cartId },
-  config: { storeRestFetch, cartCookie },
+  config: { restFetch, cartCookie },
 }) => {
   if (!cartId) {
     return res.status(400).json({
@@ -20,10 +20,10 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
 
   try {
     // Get cart
-    const cart = await storeRestFetch('GET', `/orders/Outgoing/${cartId}`)
+    const cart = await restFetch('GET', `/orders/Outgoing/${cartId}`)
 
     // Get line items
-    const lineItems = await storeRestFetch(
+    const lineItems = await restFetch(
       'GET',
       `/orders/Outgoing/${cartId}/lineitems`
     ).then((response: { Items: OrdercloudLineItem[] }) => response.Items)

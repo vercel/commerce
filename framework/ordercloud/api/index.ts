@@ -10,7 +10,7 @@ import getProduct from './operations/get-product'
 import { API_URL, CART_COOKIE, CUSTOMER_COOKIE } from '../constants'
 
 export interface OrdercloudConfig extends CommerceAPIConfig {
-  storeRestFetch: <T>(
+  restFetch: <T>(
     method: string,
     resource: string,
     body?: Record<string, unknown>,
@@ -24,7 +24,7 @@ const config: OrdercloudConfig = {
   cartCookie: CART_COOKIE,
   customerCookie: CUSTOMER_COOKIE,
   cartCookieMaxAge: 2592000,
-  storeRestFetch: createRestFetcher(() => getCommerceApi().getConfig()),
+  restFetch: createRestFetcher(() => getCommerceApi().getConfig()),
   fetch: createGraphqlFetcher(() => getCommerceApi().getConfig()),
 }
 

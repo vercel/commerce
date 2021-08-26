@@ -9,7 +9,7 @@ import { formatCart } from '../../utils/cart'
 const addItem: CartEndpoint['handlers']['addItem'] = async ({
   res,
   body: { cartId, item },
-  config: { storeRestFetch, cartCookie },
+  config: { restFetch, cartCookie },
 }) => {
   // Return an error if no item is present
   if (!item) {
@@ -24,7 +24,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
 
   // Create an order if it doesn't exist
   if (!cartId) {
-    cartId = await storeRestFetch('POST', `/orders/Outgoing`).then(
+    cartId = await restFetch('POST', `/orders/Outgoing`).then(
       (response: { ID: string }) => response.ID
     )
   }
@@ -46,14 +46,14 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
 
   // If a variant is present, fetch its specs
   if (item.variantId) {
-    specs = await storeRestFetch(
+    specs = await restFetch(
       'GET',
       `/me/products/${item.productId}/variants/${item.variantId}`
     ).then((res: RawVariant) => res.Specs)
   }
 
   // Add the item to the order
-  await storeRestFetch('POST', `/orders/Outgoing/${cartId}/lineitems`, {
+  await restFetch('POST', `/orders/Outgoing/${cartId}/lineitems`, {
     ProductID: item.productId,
     Quantity: item.quantity,
     Specs: specs,
@@ -61,8 +61,8 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
 
   // Get cart
   const [cart, lineItems] = await Promise.all([
-    storeRestFetch('GET', `/orders/Outgoing/${cartId}`),
-    storeRestFetch('GET', `/orders/Outgoing/${cartId}/lineitems`).then(
+    restFetch('GET', `/orders/Outgoing/${cartId}`),
+    restFetch('GET', `/orders/Outgoing/${cartId}/lineitems`).then(
       (response: { Items: OrdercloudLineItem[] }) => response.Items
     ),
   ])
