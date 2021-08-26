@@ -1,12 +1,11 @@
 @import '../../../styles/utilities';
 .checkboxCommonWarper{
     @apply flex flex-col;
-    margin-left:2rem;
+
     .checkboxItem{
         display: block;
         position: relative;
         cursor: pointer;
-        margin-top:2rem;
         border-radius: 0.4rem;
         width:50%;
         &:hover .checkboxInput ~ .checkMark {
@@ -62,5 +61,10 @@
     }
     .checkboxText{
         margin-left:3rem;
+        font-size:1.2rem;
+        line-height: 2rem;
+        font-family: var(--font-sans);
+        color:var(--text-base);
+        letter-spacing: 0.01em;
     }
 }

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{ChangeEvent,useState,useEffect} from 'react';
 import s from './CheckboxCommon.module.scss';
 import classNames from 'classnames';
 
@@ -12,7 +12,7 @@ interface CheckboxProps extends Omit<
 
 const CheckboxCommon = ({onChange,defaultChecked = true,...props}: CheckboxProps) =>{
     
-    const [value, setValue] = useState<boolean>();
+    const [value, setValue] = useState<boolean>(true);
 
     useEffect(()=>{
         onChange && onChange(value)
@@ -31,7 +31,7 @@ const CheckboxCommon = ({onChange,defaultChecked = true,...props}: CheckboxProps
                 <span className={s.checkMark}></span>
              </label>
              <div className={classNames(s.checkboxText)}>
-                <label for="check"> Billing address is same as shipping </label>
+                <label htmlFor="check"> Billing address is same as shipping </label>
              </div>
         </div>
     )
