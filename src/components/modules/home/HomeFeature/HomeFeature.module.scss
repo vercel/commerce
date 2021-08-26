@@ -1,0 +1,43 @@
+@import '../../../../styles/utilities';
+
+.homeFeature {
+    @apply spacing-horizontal-left; 
+    overflow-x: hidden;
+
+    @screen md {
+        @apply spacing-horizontal grid grid-cols-3;
+    
+    }
+}
+
+.homeFeatureItem {
+    @apply inline-block align-middle;
+    
+    .itemImg {
+        @apply float-left clear-both;
+        width: 5.6rem;
+        height: 5.6rem;
+
+        @screen md {
+            @apply float-left clear-both;
+            width: 11.2rem;
+            height: 11.2rem;
+        }
+    }
+
+    .itemText {
+        @apply collection-subtitle;
+        width: 28rem;
+        height: 9.6rem;
+        margin-left: 2.4rem;
+
+        @screen md {
+            @apply collection-subtitle text-justify;
+            width: 36rem;
+            height: 9.6rem;
+            margin-left: 2.4rem;
+            color: red;
+        }
+    }
+
+}
