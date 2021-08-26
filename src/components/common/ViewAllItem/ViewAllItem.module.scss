@@ -1,18 +1,16 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 
-.viewAll{
+.viewAll {
     display: flex;
-    color: var(--primary);
-    .conTent{
+    .content {
+        color: var(--primary);
         margin: 0.8rem 0.8rem 0.8rem 1.6rem;
         font-weight: bold;
     }
-    .vector{
+    .vector {
         margin: 0.8rem 0rem 0.8rem 0rem;
-        svg path{
+        svg path {
             fill: var(--primary);
         }
     }
 }
-
-
