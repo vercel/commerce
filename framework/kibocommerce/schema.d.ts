@@ -11397,3 +11397,8 @@ export type WorkflowStateInput = {
   shipmentState?: Maybe<Scalars['String']>
   taskList?: Maybe<Array<Maybe<FulfillmentTaskInput>>>
 }
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String']
+  password: Scalars['String']
+}>
