@@ -2,7 +2,6 @@
 import { Layout } from 'src/components/common';
 import { HomeBanner, HomeCTA, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 
-
 export default function Home() {
   return (
     <>
