@@ -1,15 +1,18 @@
-
-import { Banner, ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import React, { MutableRefObject, useRef } from 'react';
+import { Banner, ButtonCommon, ButtonIconBuy, CollectionHeading, HeadingCommon, Inputcommon, InputSearch, Layout, ScrollTarget } from 'src/components/common';
 import { IconBuy } from 'src/components/icons';
-import { HomeBanner } from 'src/components/modules/home';
-
 
 export default function Home() {
+  const refScrollUp = useRef() as MutableRefObject<HTMLDivElement>;
+
   return (
     <>
-      <HomeBanner />
-      <div>This is home page</div>
-      <p>Go to <code>pages/index.tsx</code> to get your hand dirty!</p>
+      <ScrollTarget refScrollUp={refScrollUp} />
+      <HeadingCommon align="center">categories</HeadingCommon>
+      <HeadingCommon type='light'>categories</HeadingCommon>
+      <CollectionHeading subtitle='Lorem' title='Heading here'/>
+      <HeadingCommon align="center" type='light'>categories</HeadingCommon>
+
       <p>Go to <code>src/components</code> to make your awesome component!</p>
       <p>Go to <code>src/styles</code> to find global styles!</p>
 
