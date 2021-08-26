@@ -1,5 +1,9 @@
 import React from 'react'
-import { CollectionHeading, ProductCaroucel, ViewAllItem } from 'src/components/common'
+import {
+  CollectionHeading,
+  ProductCaroucel,
+  ViewAllItem,
+} from 'src/components/common'
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
 import s from './CollectionCarcoucel.module.scss'
 interface ColectionCarcoucelProps {
@@ -20,10 +24,13 @@ const ColectionCarcoucel = ({
     <div className={s.colectionCarcoucelWarpper}>
       <div className={s.top}>
         <div className={s.left}>
-          <CollectionHeading headingText={title} subtitle={subTitle} />
+          <CollectionHeading
+            subtitle={subTitle}
+            title={title}
+          ></CollectionHeading>
         </div>
         <div className={s.right}>
-          <ViewAllItem/>
+          <ViewAllItem />
         </div>
       </div>
       <div className={s.bot}>

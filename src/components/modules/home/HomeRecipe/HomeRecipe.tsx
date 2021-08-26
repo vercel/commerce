@@ -16,7 +16,7 @@ const HomeRecipe = ({ data, itemKey, title }: HomeRecipeProps) => {
     <div className={s.homeRecipeWarpper}>
       <div className={s.top}>
         <div className={s.left}>
-          <HeadingCommon headingText={title} />
+          <HeadingCommon>{title}</HeadingCommon>
         </div>
         <div className={s.right}>
           <ViewAllItem />
