@@ -1,0 +1,42 @@
+@import "../../../../styles/utilities";
+
+.homeBanner {
+  @apply spacing-horizontal;
+  .left {
+    @apply hidden;
+  }
+  @screen xl {
+    @apply grid;
+    grid-template-columns: 1fr 1.8fr;
+    .left {
+      @apply flex items-end justify-center custom-border-radius-lg;
+      margin-right: 1.6rem;
+      background-image: url('./assets/home_banner.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      .text {
+        @apply relative font-heading text-center;
+        padding: 2.4rem 2.4rem 4.8rem;
+        width: min-content;
+
+        color: var(--white);
+        font-size: 8.8rem;
+        line-height: 8rem;
+        letter-spacing: -0.03em;
+        font-weight: bold;
+        text-transform: uppercase;
+        &::after {
+          @apply absolute;
+          content: "";
+          top: -2.4rem;
+          right: 0.8rem;
+          width: 5.7rem;
+          height: 4.7rem;
+          background-image: url("./assets/text-decorative.svg");
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+}

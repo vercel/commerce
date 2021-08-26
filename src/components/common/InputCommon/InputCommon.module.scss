@@ -1,5 +1,44 @@
 @import "../../../styles/utilities";
 
-.inputCommon {
-  @apply custom-border-radius transition-all duration-200;
+.inputWrap {
+  @apply flex items-center relative;
+  .icon {
+    @apply absolute;
+    content: "";
+    left: 1.6rem;
+    margin-right: 1.6rem;
+    svg path {
+      fill: currentColor;
+    }
+  }
+  .icon + .inputCommon {
+    padding-left: 4.8rem;
+  }
+  .inputCommon {
+    @apply block w-full transition-all duration-200 rounded;
+    padding: 1.2rem 1.6rem;
+    border: 1px solid var(--border-line);
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+      border: 1px solid var(--primary);
+      @apply shadow-md;
+    }
+
+    &::placeholder {
+      @apply text-label;
+    }
+
+    &.custom {
+      @apply custom-border-radius;
+      border: 1px solid transparent;
+      background: var(--gray);
+      &:hover,
+      &:focus,
+      &:active {
+        border: 1px solid var(--primary);
+      }
+    }
+  }
 }

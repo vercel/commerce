@@ -4,15 +4,15 @@ import HeadingCommon from '../HeadingCommon/HeadingCommon'
 
 interface CollectionHeadingProps {
     type?: 'default' | 'highlight' | 'light';
-    children: string;
+    title: string;
     subtitle: string;
 }
 
-const CollectionHeading = ({ type='default', children, subtitle }: CollectionHeadingProps) => {
+const CollectionHeading = ({ type = 'default', title, subtitle }: CollectionHeadingProps) => {
 
     return (
         <section>
-            <HeadingCommon type={type} children={children}/>
+            <HeadingCommon type={type}>{title}</HeadingCommon>
             <div className={s.subtitle}>{subtitle}</div>
         </section>
     )

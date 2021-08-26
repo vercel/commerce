@@ -6,15 +6,15 @@ interface Props {
     children?: React.ReactNode,
     type?: 'primary' | 'light' | 'ghost',
     size?: 'default' | 'large',
-    icon?: any,
+    icon?: React.ReactNode,
     isIconSuffix?: boolean,
     loading?: boolean,
     disabled?: boolean,
     onClick?: () => void,
 }
 
-const ButtonCommon = memo(({ type = 'primary', size = 'default',
-    icon, loading, disabled, isIconSuffix, children, onClick }: Props) => {
+const ButtonCommon = memo(({ type = 'primary', size = 'default', loading = false, isIconSuffix = false,
+    icon, disabled, children, onClick }: Props) => {
     return (
         <button className={classNames({
             [s.buttonCommon]: true,
@@ -22,6 +22,7 @@ const ButtonCommon = memo(({ type = 'primary', size = 'default',
             [s[size]]: !!size,
             [s.loading]: loading,
             [s.preserve]: isIconSuffix,
+            [s.onlyIcon]: icon && !children,
         })}
             disabled={disabled}
             onClick={onClick}

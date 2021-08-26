@@ -1,78 +1,86 @@
 @layer utilities {
     .heading-1 {
-        font-size: 4.8rem;
-        line-height: 5.6rem;
-        letter-spacing: -0.03em;
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: -0.01em;
+        font-weight: bold;
+        text-transform: uppercase;
         @screen md {
-            font-size: 6.4rem;
-            line-height: 8rem;
+            font-size: 64px;
+            line-height: 80px;
             letter-spacing: -0.03em;
         }
     }
     .heading-2 {
-        font-size: 4rem;
-        line-height: 4.8rem;
+        font-size: 32px;
+        line-height: 40px;
         letter-spacing: -0.02em;
+        font-weight: bold;
+        text-transform: uppercase;
         @screen md {
-            font-size: 4.8rem;
-            line-height: 5.6rem;
+            font-size: 48px;
+            line-height: 56px;
             letter-spacing: -0.02em;
         }
     }
     .heading-3 {
-        font-size: 2.4rem;
-        line-height: 3.2rem;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -0.01em;
+        font-weight: bold;
+        text-transform: uppercase;
         @screen md {
-            font-size: 3.2rem;
-            line-height: 4rem;
+            font-size: 32px;
+            line-height: 40px;
             letter-spacing: -0.01em;
         }
     }
 
     .sm-headline {
-        font-size: 1.8rem;
-        line-height: 2.8rem;
+        font-size: 18px;
+        line-height: 28px;
         letter-spacing: -0.01em;
+        font-weight: bold;
         @screen md {
-            font-size: 2rem;
-            line-height: 2.8rem;
+            font-size: 20px;
+            line-height: 28px;
             letter-spacing: -0.01em;
         }
     }
 
     .sub-headline {
-        font-size: 2rem;
-        line-height: 2.8rem;
+        font-size: 20px;
+        line-height: 28px;
         letter-spacing: -0.01em;
         @screen md {
-            font-size: 2.4rem;
-            line-height: 3.2rem;
+            font-size: 24px;
+            line-height: 32px;
             letter-spacing: -0.01em;
         }
     }
 
     .topline {
-        font-size: 1.8rem;
-        line-height: 2.8rem;
+        font-size: 18px;
+        line-height: 28px;
         letter-spacing: 0.01em;
         @screen md {
-            font-size: 2rem;
-            line-height: 2.8rem;
+            font-size: 20px;
+            line-height: 28px;
             letter-spacing: 0.01em;
         }
     }
 
     .caption {
-        font-size: 1.2rem;
-        line-height: 2rem;
+        font-size: 12px;
+        line-height: 20px;
         letter-spacing: 0.01em;
     }
 
     .sm-label {
-        font-size: 1rem;
-        line-height: 1.6rem;
+        font-size: 10px;
+        line-height: 16px;
     }
+    
     .spacing-horizontal {
         padding-left: 2rem;
         padding-right: 2rem;
@@ -89,7 +97,11 @@
         }
     }
     .custom-border-radius {
-        border-radius: 60% 10% 60% 2%/ 10% 40% 10% 50%;
+        border-radius: 60% 10% 60% 2%/ 10% 20% 10% 50%;
+    }
+
+    .custom-border-radius-lg {
+        border-radius: 60% 2% 2% 2%/ 6% 50% 50% 50%;
     }
 
     .font-heading {

@@ -1,0 +1,31 @@
+@import "../../../styles/utilities";
+
+.footer {
+    @apply spacing-horizontal;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    margin-bottom: 10rem;
+    .footerMenu {
+        padding-bottom: 4rem;
+    }
+    .menu {
+        @apply flex flex-wrap;
+    }
+
+    @screen md {
+        margin-bottom: 0;
+        padding-bottom: 4rem;
+        padding-left: 3.2rem;
+        padding-right: 3.2rem;
+        .footerMenu {
+            @apply flex;
+            padding-bottom: 8rem;
+            .menu {
+                @apply flex-nowrap justify-between;
+            }
+        }
+    }
+    @screen lg {
+        @apply spacing-horizontal;
+    }
+}
