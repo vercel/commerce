@@ -1,6 +1,7 @@
 import React from 'react'
 import { Banner } from 'src/components/common'
 import s from './HomeBanner.module.scss'
+import BannerImgRight from './assets/banner_full.png'
 
 interface Props {
     className?: string
@@ -18,7 +19,8 @@ const HomeBanner = ({ }: Props) => {
             <Banner
                 title="Save 15% on your first order"
                 subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
-                imgLink="https://user-images.githubusercontent.com/76729908/130574371-3b75fa72-9552-4605-aba9-a4b31cd9dce7.png"
+                imgLink={BannerImgRight.src}
+                type="small"
             />
         </div >
     )

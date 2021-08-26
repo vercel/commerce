@@ -1,5 +1,5 @@
 
-import { ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
+import { Banner, ButtonCommon, ButtonIconBuy, Inputcommon, InputSearch, Layout } from 'src/components/common';
 import { IconBuy } from 'src/components/icons';
 import { HomeBanner } from 'src/components/modules/home';
 
@@ -20,6 +20,12 @@ export default function Home() {
       </div>
       <ButtonCommon type='ghost' icon={<IconBuy />}>Button</ButtonCommon>
       <ButtonIconBuy />
+
+      <Banner
+        title="Save 15% on your first order"
+        subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        imgLink="https://user-images.githubusercontent.com/76729908/130574371-3b75fa72-9552-4605-aba9-a4b31cd9dce7.png"
+      />
     </>
   )
 }

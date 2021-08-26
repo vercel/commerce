@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import Link from 'next/link'
 import React, { memo } from 'react'
 import { IconArrowRight } from 'src/components/icons'
@@ -12,12 +13,15 @@ interface Props {
     subtitle: string,
     buttonLabel?: string,
     linkButton?: string,
-    onClick?: () => void,
+    size?: 'small' | 'large',
 }
 
-const Banner = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_LABEL.SHOP_NOW, linkButton = ROUTE.HOME }: Props) => {
+const Banner = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_LABEL.SHOP_NOW, linkButton = ROUTE.HOME, size = 'large' }: Props) => {
     return (
-        <div className={s.banner}>
+        <div className={classNames({
+            [s.banner]: true,
+            [s.size]: true,
+        })}>
             <div className={s.inner} style={{ backgroundImage: `url(${imgLink})` }}>
                 <div className={s.content}>
                     <div className={s.top}>
