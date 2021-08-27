@@ -1,6 +1,5 @@
 import { getCommerceProvider, useCommerce as useCoreCommerce } from '@commerce'
-import { shopifyProvider } from './provider'
-import type { ShopifyProvider } from './provider'
+import { shopifyProvider, ShopifyProvider } from './provider'
 
 export { shopifyProvider }
 export type { ShopifyProvider }
