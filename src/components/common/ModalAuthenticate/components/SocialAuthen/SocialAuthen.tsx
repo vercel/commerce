@@ -12,19 +12,21 @@ const SocialAuthen = () => {
                 </span>
             </div>
             <div className={s.btns}>
-                <ButtonCommon type='light'>
+                <ButtonCommon type='light' size='large'>
                     <span className={s.buttonWithIcon}>
-                        <IconFacebookColor />&nbsp;Facebook
+                        <IconFacebookColor /><span className={s.label}>Facebook</span>
                     </span>
                 </ButtonCommon>
-                <ButtonCommon type='light'>
+                <ButtonCommon type='light' size='large'>
                     <span className={s.buttonWithIcon}>
-                        <IconApple />&nbsp;Apple
+                        <IconApple />
+                        <span className={s.label}>Apple</span>
                     </span>
                 </ButtonCommon>
-                <ButtonCommon type='light'>
+                <ButtonCommon type='light' size='large'>
                     <span className={s.buttonWithIcon}>
-                        <IconGoogleColor />&nbsp;Google
+                        <IconGoogleColor />
+                        <span className={s.label}>Google</span>
                     </span>
                 </ButtonCommon>
             </div>
