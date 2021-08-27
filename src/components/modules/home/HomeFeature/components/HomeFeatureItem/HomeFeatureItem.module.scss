@@ -1,0 +1,56 @@
+@import '../../../../../../styles/utilities';
+
+.homeFeatureItem {
+    @apply flex;
+    align-items: center;
+    vertical-align: middle;
+    height: fit-content;
+
+    .itemImg {
+        @apply float-left clear-both;
+        min-width: 9.6rem;
+        max-width: 11.2rem;
+        margin-right: 2.4rem;
+        &.firstImg {
+            content:url("../../assets/10h30-11h-mobile.png");
+        }
+        &.secondImg {
+            content:url("../../assets/8h-mobile.png");
+        }
+        @screen md {
+            @apply float-left clear-both;
+            min-width: 9.6rem;
+            max-width: 11.2rem;
+            margin-right: 2.4rem;
+            &.firstImg {
+                content:url("../../assets/10h30-11h-desktop.png");
+            }
+            &.secondImg {
+                content:url("../../assets/8h-desktop.png");
+            }
+            &.thirdImg {
+                content:url("../../assets/green-desktop.png");
+            }
+        }
+    }
+
+    .itemText {
+        display: flex;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        width: 28rem;
+        height: 9.6rem;
+        color: #000;
+        margin-right: 2.4rem;
+        align-items: center;
+        @screen md {
+            display: flex;
+            width: 28rem;
+            height: 9.6rem;
+            color: #000;
+            margin-right: 2.4rem;
+            align-items: center;
+        }
+    }
+
+}
