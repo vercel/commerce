@@ -38,7 +38,6 @@ const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, styleTyp
 
     const handleKeyDown = (e: any) => {
         if (e.key === KEY.ENTER && onEnter) {
-            console.log("on enter***")
             const value = inputElementRef.current?.value || ''
             onEnter(value)
         }

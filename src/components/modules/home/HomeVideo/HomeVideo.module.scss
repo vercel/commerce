@@ -39,9 +39,6 @@
         object-fit: cover;
       }
     }
-    .heading {
-      @apply heading-2 font-heading;
-    }
   }
   .videoWrap {
     @apply relative flex justify-center;
