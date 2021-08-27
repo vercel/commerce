@@ -1,7 +1,7 @@
 @import '../../../styles/utilities';
 
 .headingCommon {
-  @apply heading-1 font-heading text-left;
+  @apply heading-2 font-heading text-left;
 
   &.highlight {
     color: var(--negative);
