@@ -1,7 +1,7 @@
 @import "../../../../styles/_utilities";
 .homeCategoriesWrapper {
     @apply flex flex-col items-center justify-center;
-    margin-bottom: 3rem;
+    margin: 3rem auto;
 
     .inner {
         @apply relative spacing-horizontal;
@@ -15,11 +15,11 @@
     }
     @screen md {
         @apply relative;
-        margin-bottom: 5.6rem;
+        margin: 5.6rem auto;
 
         &::before,
         &::after {
-            @apply absolute bg-primary w-full;
+            @apply absolute w-full;
             content: "";
             height: 6rem;
             z-index: 0;
