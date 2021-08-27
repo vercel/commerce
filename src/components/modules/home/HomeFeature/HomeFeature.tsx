@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './HomeFeature.module.scss'
 
-import HomeFeatureItem from '../HomeFeatureItem/HomeFeatureItem'
+import HomeFeatureItem from './components/HomeFeatureItem/HomeFeatureItem'
 
 const HomeFeature = () => {
     return (
