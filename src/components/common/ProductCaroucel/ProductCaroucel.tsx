@@ -15,11 +15,16 @@ const OPTION_DEFAULT: TOptionsEvents = {
   slidesPerView: 2,
   mode: 'free',
   breakpoints: {
+    '(min-width: 640px)': {
+      slidesPerView: 3,
+    },
     '(min-width: 768px)': {
       slidesPerView: 3,
     },
     '(min-width: 1024px)': {
-      slidesPerView: 5.5,
+      slidesPerView: 4.5,
+    },'(min-width: 1280px)': {
+      slidesPerView: 6,
     },
   },
 }

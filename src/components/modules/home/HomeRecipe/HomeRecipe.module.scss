@@ -6,8 +6,10 @@
   @apply flex flex-col;
   .top {
     @apply spacing-horizontal flex w-full justify-between;
-    .right {
-      margin-right: 14.76;
+    @screen xl {
+      .right {
+        margin-right: 2.476rem;
+      }
     }
   }
   .mid{
@@ -16,8 +18,12 @@
       @apply flex justify-start spacing-horizontal;
       .tab{
           padding: 1.6rem 1.6rem 0.8rem 1.6rem;
-          font-size: 3.2rem;
-          line-height: 4rem;
+          font-size: 2.4rem;
+          line-height: 2.8rem;
+          @screen md{   
+            font-size: 3.2rem;
+            line-height: 4rem;
+          }
 					outline: none;
           &.active{
             @apply text-background custom-border-radius bg-primary;

@@ -19,7 +19,7 @@ const HomeRecipe = ({ data, itemKey, title }: HomeRecipeProps) => {
           <HeadingCommon>{title}</HeadingCommon>
         </div>
         <div className={s.right}>
-          <ViewAllItem />
+          <ViewAllItem link="#"/>
         </div>
       </div>
 			<div className={s.mid}>

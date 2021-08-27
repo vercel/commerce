@@ -12,15 +12,21 @@ interface RecipeCaroucelProps
 	}
 
 const OPTION_DEFAULT: TOptionsEvents = {
-  slidesPerView: 1,
+  slidesPerView: 1.25,
   mode: 'free',
   spacing:24,
   breakpoints: {
-    '(min-width: 768px)': {
+    '(min-width: 640px)': {
       slidesPerView: 2,
     },
     '(min-width: 1024px)': {
+      slidesPerView: 2.5,
+    },
+    '(min-width: 1440px)': {
       slidesPerView: 3,
+    },
+    '(min-width: 1536px)': {
+      slidesPerView: 3.5,
     },
   },
 }

@@ -3,3 +3,4 @@ export { default as CollectionCarcoucel } from './CollectionCarcoucel/Collection
 export { default as HomeCTA } from './HomeCTA/HomeCTA'
 export { default as HomeSubscribe } from './HomeSubscribe/HomeSubscribe'
 export { default as HomeVideo } from './HomeVideo/HomeVideo'
+export { default as HomeCollection } from './HomeCollection/HomeCollection'

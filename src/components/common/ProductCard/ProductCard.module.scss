@@ -1,9 +1,9 @@
 .productCardWarpper{
-    width: 20.8rem;
-    height: 31.8rem;
+    max-width: 20.8rem;
+    min-height: 31.8rem;
     padding: 1.2rem 1.2rem 0 1.2rem;
     margin-bottom: 1px;
-    @apply inline-flex flex-col justify-between;
+    @apply flex flex-col justify-between;
     .cardTop{
         @apply relative;
         height: 13.8rem;
@@ -49,10 +49,10 @@
         }
     }
     .cardBot{
-        max-height: 4rem;
+        min-height: 4rem;
         @apply flex justify-between items-center; 
         .cardButton{
-            width: 13.6rem;
+            // width: 13.6rem;
         }
     }
 }

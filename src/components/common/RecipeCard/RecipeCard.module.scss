@@ -1,14 +1,14 @@
 .recipeCardWarpper{
-    width: 39.2rem;
-    height: 34rem;
-    @apply inline-flex flex-col justify-between;
+    max-width: 39.2rem;
+    min-height: 34rem;
+    @apply inline-flex flex-col justify-start;
     .image{
         width: 100%;
-        height: 22rem;
+        max-height: 22rem;
         border-radius: 2.4rem;
     }
     .title{
-        padding: 1.6rem 8rem 0.4rem 0.8rem;
+        padding: 1.6rem 0.8rem 0.4rem 0.8rem;
         // padding: 0 0.8rem;
         @apply font-bold;
         font-size: 2rem;

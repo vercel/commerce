@@ -4,13 +4,12 @@ import {
   ProductCaroucel,
   ViewAllItem,
 } from 'src/components/common'
+import { CollectionHeadingProps } from 'src/components/common/CollectionHeading/CollectionHeading'
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
 import s from './CollectionCarcoucel.module.scss'
-interface ColectionCarcoucelProps {
+interface ColectionCarcoucelProps extends CollectionHeadingProps {
   data: ProductCardProps[]
   itemKey: string
-  title: string
-  subTitle: string
   viewAllLink?: string
 }
 
@@ -18,19 +17,21 @@ const ColectionCarcoucel = ({
   data,
   itemKey,
   title,
-  subTitle,
+  subtitle,
+  type
 }: ColectionCarcoucelProps) => {
   return (
     <div className={s.colectionCarcoucelWarpper}>
       <div className={s.top}>
         <div className={s.left}>
           <CollectionHeading
-            subtitle={subTitle}
+            type={type}
+            subtitle={subtitle}
             title={title}
           ></CollectionHeading>
         </div>
         <div className={s.right}>
-          <ViewAllItem />
+          <ViewAllItem link="#"/>
         </div>
       </div>
       <div className={s.bot}>
