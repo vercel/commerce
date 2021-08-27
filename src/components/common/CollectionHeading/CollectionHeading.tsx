@@ -2,7 +2,7 @@ import React from 'react'
 import s from './CollectionHeading.module.scss'
 import HeadingCommon from '../HeadingCommon/HeadingCommon'
 
-interface CollectionHeadingProps {
+export interface CollectionHeadingProps {
     type?: 'default' | 'highlight' | 'light';
     title: string;
     subtitle: string;

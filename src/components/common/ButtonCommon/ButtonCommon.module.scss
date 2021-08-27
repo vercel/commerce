@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.2rem 3.2rem;
+  padding: 0.8rem 3.2rem;
   &:disabled {
     filter: brightness(0.9);
     cursor: not-allowed;
@@ -63,7 +63,7 @@
     border: 1px solid var(--primary);
     &.loading {
       &::before {
-        border-top-color: var(--primary);
+        border-top-color: var(--text-active);
       }
     }
   }
