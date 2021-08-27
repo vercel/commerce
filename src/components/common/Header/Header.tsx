@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import React, { memo, useEffect, useState } from 'react'
 import { isMobile } from 'src/utils/funtion.utils'
+import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
 import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
 import HeaderMenu from './components/HeaderMenu/HeaderMenu'
 import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
@@ -41,6 +42,7 @@ const Header = memo(({ }: Props) => {
                 </div>
             </header>
             <HeaderSubMenuMobile />
+            <ModalAuthenticate/>
         </>
     )
 })

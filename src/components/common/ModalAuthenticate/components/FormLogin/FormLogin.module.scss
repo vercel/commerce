@@ -1,0 +1,35 @@
+.login {
+    @screen md {
+        max-width: 52rem;
+    }
+    .inner {
+        .body {
+            > div {
+                &:not(:last-child) {
+                    margin-bottom: 1.6rem;
+                }
+            }
+        }
+        .bottom {
+            @apply flex justify-between items-center;
+            margin-top: 4rem;
+            .forgotPassword {
+                @apply font-bold;
+                color: var(--primary);
+            }
+        }
+        .others {
+            @apply font-bold text-center;
+            margin-top: 4rem;
+
+            span {
+                @apply text-active;
+                margin-right: 0.8rem;
+            }
+            button {
+                all: unset;
+                @apply text-primary;
+            }
+        }
+    }
+}

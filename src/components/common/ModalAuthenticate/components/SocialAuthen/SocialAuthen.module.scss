@@ -1,0 +1,27 @@
+@import "../../../../../styles/utilities";
+
+.socialAuthen {
+    .captionText {
+        @apply relative text-center;
+        margin-bottom: 4rem;
+        span {
+            @apply bg-white uppercase text-label caption;
+            padding: 0 0.8rem;
+        }
+        &::after {
+            @apply absolute bg-line;
+            content: "";
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    .btns {
+        @apply grid grid-cols-3;
+        grid-gap: 1.6rem;
+        .buttonWithIcon {
+            @apply flex items-center;
+        }
+    }
+}

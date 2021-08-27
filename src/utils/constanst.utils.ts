@@ -18,6 +18,7 @@ export const ROUTE = {
     TERM_CONDITION: '/term-condition',
     PRIVACY_POLICY: '/privacy-policy',
     BLOGS: '/blogs',
+    FORGOT_PASSWORD: '/forgot-password'
 }
 
 export const ACCOUNT_TAB = {
