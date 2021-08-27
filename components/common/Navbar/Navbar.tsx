@@ -4,6 +4,7 @@ import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
 import MenuButton from './MenuButton'
 import DesktopNavMenu from './DesktopNavMenu'
+import MobileNavMenu from './MobileNavMenu'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 
@@ -28,6 +29,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
                   <Logo />
                 </a>
               </Link>
+              <MobileNavMenu links={links} isOpen={isMenuOpen} />
               <DesktopNavMenu links={links} />
             </div>
             <MenuButton

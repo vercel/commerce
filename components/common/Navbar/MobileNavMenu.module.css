@@ -1,0 +1,32 @@
+.navMenu {
+  @apply lg:hidden;
+
+  background-color: #000;
+  bottom: 0;
+  color: #fff;
+  font-size: 2.333rem;
+  left: 0;
+  letter-spacing: -0.25px;
+  padding: 60px 1rem 40px;
+  position: fixed;
+  right: 0;
+  top: 50px;
+  transform: translateY(-100%);
+  transition: transform 0.2s ease 0.1s, visibility 0.3s;
+  visibility: hidden;
+  z-index: 2;
+}
+
+.navMenu.isOpen {
+  transform: translateY(0);
+  transition-delay: 0s;
+  visibility: visible;
+}
+
+.link {
+  /* @apply items-center transition ease-in-out duration-75 cursor-pointer text-accent-0 border-b-2 border-opacity-0; */
+}
+
+.link:hover {
+  /* @apply border-b-2 border-opacity-40; */
+}
