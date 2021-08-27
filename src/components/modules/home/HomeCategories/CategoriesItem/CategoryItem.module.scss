@@ -1,80 +1,24 @@
-@import '../../../../../styles/_utilities';
+@import "../../../../../styles/_utilities";
 
-.categoryItem{
-
-    @screen md{
-        font-size:1.6rem;
-    }
-    .categoryItemImage{
+.categoryItem {
+    .categoryItemImage {
         width: 10.6rem;
         margin: 0 auto;
         max-height: 14rem;
         object-fit: cover;
         cursor: pointer;
-        @screen md{
+        @screen md {
             width: 100%;
         }
-        img{
-            width:100%;
+        img {
+            width: 100%;
             height: 100%;
         }
     }
-    .categoryItemText{
-        
-        font-size: 1.6rem;
-        line-height: 2.4rem;
+    .categoryItemText {
+        @apply sub-headline;
         text-align: center;
-        color: #000000;
-        font-feature-settings: 'salt' on;
+        font-feature-settings: "salt" on;
         cursor: pointer;
-        @screen md{
-            font-family: var(--font-sans);
-            font-size:2.4rem;
-            line-height: 3.2rem;
-        }
     }
-    // @screen md {
-    //     width:33%;
-        
-    // }
 }
-
-
-
-// @import '../../../../styles/utilities';
-// .homeFeature {
-//     @apply spacing-horizontal-left;
-//     vertical-align: middle;
-//     @screen md {
-//         @apply spacing-horizontal grid grid-cols-3;
-   
-//     }
-// }
-// .homeFeatureItem {
-//     @apply inline-block;
-   
-//     .itemImg {
-//         @apply float-left clear-both;
-//         width: 5.6rem;
-//         height: 5.6rem;
-//         @screen md {
-//             @apply float-left clear-both;
-//             width: 11.2rem;
-//             height: 11.2rem;
-//             vertical-align: middle;
-//         }
-//     }
-//     .itemText {
-//         @apply collection-subtitle;
-//         width: 28rem;
-//         height: 9.6rem;
-//         margin-left: 2.4rem;
-//         @screen md {
-//             @apply collection-subtitle text-justify;
-//             width: 28rem;
-//             height: 9.6rem;
-//             margin-left: 2.4rem;
-//             color: red;
-//         }
-//     }
-// }
