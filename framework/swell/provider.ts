@@ -1,10 +1,5 @@
-import swell from 'swell-js'
 import { Provider } from '@commerce'
-import {
-  SWELL_CHECKOUT_ID_COOKIE,
-  SWELL_STORE_ID,
-  SWELL_PUBLIC_KEY,
-} from './const'
+import { SWELL_CHECKOUT_ID_COOKIE } from './const'
 
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
@@ -19,8 +14,7 @@ import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
 import fetcher from './fetcher'
-
-swell.init(SWELL_STORE_ID, SWELL_PUBLIC_KEY)
+import swell from './swell'
 
 export const swellProvider: Provider & { swell: any } = {
   locale: 'en-us',
