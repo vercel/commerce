@@ -8,21 +8,21 @@ import { CollectionHeadingProps } from 'src/components/common/CollectionHeading/
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import s from './CollectionCarcousel.module.scss'
-interface ColectionCarcoucelProps extends CollectionHeadingProps {
+interface ColectionCarcouselProps extends CollectionHeadingProps {
   data: ProductCardProps[]
   itemKey: string
   viewAllLink?: string,
   category:string
 }
 
-const ColectionCarcoucel = ({
+const ColectionCarcousel = ({
   data,
   itemKey,
   title,
   subtitle,
   type,
   category
-}: ColectionCarcoucelProps) => {
+}: ColectionCarcouselProps) => {
   return (
     <div className={s.colectionCarcoucelWarpper}>
       <div className={s.top}>
@@ -44,4 +44,4 @@ const ColectionCarcoucel = ({
   )
 }
 
-export default ColectionCarcoucel
+export default ColectionCarcousel

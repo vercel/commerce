@@ -55,7 +55,7 @@ const CarouselCommon = <T,>({
       array =  [...Array(Math.ceil(data.length/(Number(slider.details().slidesPerView)||1))).keys()].map((i)=>{
         return (Number(slider.details().slidesPerView)||1)*i
       })
-      
+      console.log(array)
       setDotArr(array)
     }
   }, [isDot,slider])
