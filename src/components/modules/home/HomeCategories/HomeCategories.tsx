@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import HeadingCommon from "../../../common/HeadingCommon/HeadingCommon";
 import CategoryItem from './CategoriesItem/CategoryItem';
 import s from './HomeCategories.module.scss';
@@ -15,30 +16,30 @@ const categories = [
         id: 1,
         image: veggle,
         name: "Veggie",
-        link: "veggie.html"
+        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=veggie`
     }, {
         id: 2,
         image: seafood,
         name: "Seafood",
-        link: "seafood.html"
+        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=seafood`
     }
     , {
         id: 3,
         image: frozen,
         name: "Frozen",
-        link: "frozen.html"
+        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=frozen`
     }
     , {
         id: 4,
         image: coffeebean,
         name: "Coffe Bean",
-        link: "frozen.html"
+        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=coffee-bean`
     }
     , {
         id: 5,
         image: sauce,
         name: "Sauce",
-        link: "frozen.html"
+        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=sauce`,
     }
 ]
 
@@ -56,7 +57,6 @@ const HomeCategories = () => {
                             name={item.name}
                             image={item.image}
                             link={item.link}
-
                         />
                     </div>
                 ))}
