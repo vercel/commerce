@@ -1,7 +1,10 @@
 .formAuthenticate {
     @apply overflow-hidden;
     .inner {
-        @apply grid grid-cols-2 overflow-hidden;
+        @apply grid grid-cols-2 overflow-hidden transition-all duration-200;
         width: 200%;
+        &.register {
+            transform: translateX(-50%);
+        }
     }
 }

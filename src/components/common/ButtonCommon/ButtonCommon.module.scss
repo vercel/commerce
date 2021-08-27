@@ -5,7 +5,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.8rem 3.2rem;
+  padding: 1rem 2rem;
+  @screen md {
+    padding: 0.8rem 3.2rem;
+  }
   &:disabled {
     filter: brightness(0.9);
     cursor: not-allowed;
@@ -76,9 +79,15 @@
   }
 
   &.large {
-    padding: 1.6rem 4.8rem;
+    padding: 1rem 1.5rem;
     &.onlyIcon {
-      padding: 1.6rem;
+      padding: 1rem;
+    }
+    @screen md {
+      padding: 1.6rem 4.8rem;
+      &.onlyIcon {
+        padding: 1.6rem;
+      }
     }
     &.loading {
       &::before {

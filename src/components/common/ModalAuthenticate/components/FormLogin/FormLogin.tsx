@@ -25,7 +25,7 @@ const FormLogin = ({ onSwitch, isHide }: Props) => {
     return (
         <section className={classNames({
             [s.formAuthen]: true,
-            [styles.hide]: isHide
+            // [styles.hide]: isHide
         })}>
             <div className={s.inner}>
                 <div className={s.body}>

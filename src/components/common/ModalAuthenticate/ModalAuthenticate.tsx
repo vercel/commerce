@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React, { useState } from 'react'
 import ModalCommon from '../ModalCommon/ModalCommon'
 import FormLogin from './components/FormLogin/FormLogin'
@@ -19,7 +20,10 @@ const ModalAuthenticate = ({ visible, closeModal }: Props) => {
     return (
         <ModalCommon visible={visible} onClose={closeModal} title={isLogin ? 'Sign In' : 'Create Account'}>
             <section className={s.formAuthenticate}>
-                <div className={s.inner}>
+                <div className={classNames({
+                    [s.inner]: true,
+                    [s.register]: !isLogin,
+                })}>
                     <FormLogin isHide={!isLogin} onSwitch={onSwitch} />
                     <FormRegister isHide={isLogin} onSwitch={onSwitch} />
                 </div>

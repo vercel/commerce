@@ -1,12 +1,8 @@
-@import '../../../../../styles/utilities';
+@import "../../../../../styles/utilities";
 
 .formRegister {
-    transform: translateX(-100%);
-    &.hide {
-        transform: none;
-    }
     .passwordNote {
-    @apply text-center caption text-label;
+        @apply text-center caption text-label;
         margin-top: 0.8rem;
     }
     .bottom {
@@ -17,4 +13,3 @@
         }
     }
 }
-
