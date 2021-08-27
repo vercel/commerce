@@ -6,10 +6,15 @@
         @apply flex justify-center items-center  min-h-screen;
         .modal{
             @apply inline-block align-bottom bg-white relative;
-            max-width: 50%;
+            max-width: 60rem;
             padding: 3.2rem;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
             border-radius: 1.2rem;
+            .title{
+                padding: 0 0.8rem 0 0.8rem;
+                font-size: 3.2rem;
+                line-height: 4rem;
+            }
             .close{
                 @apply absolute;
                 &:hover{

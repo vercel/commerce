@@ -13,7 +13,7 @@ export default function Test() {
     <>
       <ButtonCommon onClick={onOpen}>open</ButtonCommon>
       <ModalCommon visible={visible} onClose={onClose} >
-				<div className="p-10">
+				<div className="">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur officiis dolorum ea incidunt. Sint, cum ullam. Labore vero quod itaque, officia magni molestias! Architecto deserunt soluta laborum commodi nesciunt delectus similique temporibus distinctio? Facere eaque minima enim modi magni, laudantium, animi mollitia beatae repudiandae maxime labore error nesciunt, nisi est?
 				</div>
 			</ModalCommon>

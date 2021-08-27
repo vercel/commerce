@@ -1,14 +1,16 @@
 import React, { useRef } from 'react'
 import { Close } from 'src/components/icons'
 import { useOnClickOutside } from 'src/utils/useClickOutSide'
-import s from "./ModalCommon.module.scss"
+import s from './ModalCommon.module.scss'
 interface Props {
   onClose: () => void
   visible: boolean
-	children:React.ReactNode
+  children: React.ReactNode
+  title?: string
+  maxWidth?:string
 }
 
-const ModalCommon = ({ onClose, visible,children }: Props) => {
+const ModalCommon = ({ onClose, visible, children, title="Modal",maxWidth }: Props) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const clickOutSide = () => {
     onClose && onClose()
@@ -17,19 +19,17 @@ const ModalCommon = ({ onClose, visible,children }: Props) => {
   return (
     <>
       {visible && (
-        <div
-          className={s.background}
-        >
+        <div className={s.background}>
           <div className={s.warpper}>
-            <div
-              className={s.modal}
-              ref={modalRef}
-            >
-							<div className={s.close} onClick={clickOutSide}>
-								<Close/>
-							</div>
-							{children}
-						</div>
+            <div className={s.modal} ref={modalRef} style={{maxWidth}}>
+              <div className={s.top}>
+                <div className={s.title}>{title}</div>
+                <div className={s.close} onClick={clickOutSide}>
+                  <Close />
+                </div>
+              </div>
+              {children}
+            </div>
           </div>
         </div>
       )}
