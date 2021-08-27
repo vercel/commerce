@@ -12,7 +12,7 @@ import s from './Header.module.scss'
 
 const Header = memo(() => {
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
-    const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: true })
+    const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
