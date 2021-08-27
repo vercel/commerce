@@ -1,4 +1,5 @@
 module.exports = {
+  plugins: [require('@tailwindcss/line-clamp')],
   future: {
     purgeLayersByDefault: true,
     applyComplexClasses: true,
@@ -58,15 +59,25 @@ module.exports = {
         magical:
           'rgba(0, 0, 0, 0.02) 0px 30px 30px, rgba(0, 0, 0, 0.03) 0px 0px 8px, rgba(0, 0, 0, 0.05) 0px 1px 0px',
       },
+      fontFamily: {
+        sans: '"Inter","Helvetica Neue",HelveticaNeue,"TeX Gyre Heros",TeXGyreHeros,FreeSans,"Nimbus Sans L","Liberation Sans",Arimo,Helvetica,sans-serif',
+      },
       fontSize: {
         html: '15px',
         'html-lg': '18px',
+        '4xl': '2rem',
       },
       lineHeight: {
         'extra-loose': '2.2',
       },
       scale: {
         120: '1.2',
+      },
+      width: {
+        '9/12': '75%',
+      },
+      height: {
+        '9/12': '75%',
       },
     },
   },

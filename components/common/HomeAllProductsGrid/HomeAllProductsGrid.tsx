@@ -57,11 +57,6 @@ const HomeAllProductsGrid: FC<Props> = ({
             <ProductCard
               key={product.path}
               product={product}
-              variant="simple"
-              imgProps={{
-                width: 480,
-                height: 480,
-              }}
             />
           ))}
         </Grid>
