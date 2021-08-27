@@ -3,6 +3,7 @@ import React from 'react'
 import s from './HomeVideo.module.scss'
 import LogoBrand from './assets/logo_maggi.png'
 import { VideoPlayer } from 'src/components/common'
+import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 
 interface Props {
     className?: string
@@ -16,9 +17,9 @@ const HomeVideo = ({ }: Props) => {
                 <div className={s.logo}>
                     <Image src={LogoBrand} />
                 </div>
-                <h2 className={s.heading}>
+                <HeadingCommon>
                     Maggi Sauce Is The Secret Weapon For Making All Your Food
-                </h2>
+                </HeadingCommon>
             </div>
             <div className={s.videoWrap}>
                 {/* todo: change url video */}
