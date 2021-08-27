@@ -24,7 +24,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
 
   // Create an order if it doesn't exist
   if (!cartId) {
-    cartId = await restFetch('POST', `/orders/Outgoing`).then(
+    cartId = await restFetch('POST', `/orders/Outgoing`, {}).then(
       (response: { ID: string }) => response.ID
     )
   }
