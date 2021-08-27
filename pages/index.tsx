@@ -1,14 +1,14 @@
 
 import { Layout } from 'src/components/common'
-import { HomeBanner, HomeCollection, HomeCTA, HomeSubscribe, HomeVideo, HomeCategories } from 'src/components/modules/home';
-import HomeRecipe from 'src/components/modules/home/HomeRecipe/HomeRecipe';
+import { HomeBanner, HomeCollection, HomeCTA, HomeSubscribe, HomeVideo, HomeCategories, HomeFeature, HomeRecipe } from 'src/components/modules/home';
 
 export default function Home() {
   return (
     <>
       <HomeBanner />
-      <HomeCollection/>
-      <HomeCategories/>
+      <HomeFeature />
+      <HomeCategories />
+      <HomeCollection />
       <HomeVideo />
       <HomeCTA />
       <HomeRecipe />

@@ -1,0 +1,9 @@
+.bottom {
+    @apply flex justify-between items-center;
+    margin: 4rem auto;
+    .forgotPassword {
+        @apply font-bold;
+        color: var(--primary);
+    }
+}
+

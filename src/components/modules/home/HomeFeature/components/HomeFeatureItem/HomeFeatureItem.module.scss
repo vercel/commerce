@@ -1,18 +1,16 @@
-@import '../../../../../../styles/utilities';
+@import "../../../../../../styles/utilities";
 
 .homeFeatureItem {
-    @apply flex;
-    align-items: center;
-    vertical-align: middle;
-    height: fit-content;
+    @apply flex items-center;
     width: fit-content;
+    margin: auto;
 
     @screen md {
-        @apply block;
+        @apply flex flex-col items-center justify-between;
     }
 
     @screen lg {
-        @apply flex;
+        @apply flex flex-row;
     }
 
     .itemImg {
@@ -21,39 +19,38 @@
         align-items: center;
         &.firstImg {
             margin-top: 1rem;
-            content:url("../../assets/10h30-11h-desktop.png");
+            content: url("../../assets/10h30-11h-desktop.png");
         }
         &.secondImg {
             margin-top: 1rem;
-            content:url("../../assets/8h-desktop.png");
+            content: url("../../assets/8h-desktop.png");
         }
         &.thirdImg {
             margin-top: 1rem;
-            content:url("../../assets/green-desktop.png");
+            content: url("../../assets/green-desktop.png");
         }
-        
+
         @screen md {
-            @apply flex justify-center items-center;
+            @apply flex flex-col justify-center items-center;
             margin: auto;
+            margin-top: 0.8rem;
         }
 
         @screen lg {
             @apply flex float-left clear-both;
             margin-right: 2.4rem;
+            margin-top: 0;
         }
     }
 
     .itemText {
-        @apply inline-block;
         max-width: 28rem;
         min-width: 12rem;
-        color: #000;
-        margin-right: 2.4rem;
-        align-items: center;
-
         @screen md {
-            @apply flex;
+            @apply text-center;
+        }
+        @screen lg {
+            @apply text-left;
         }
     }
-
 }

@@ -10,7 +10,7 @@ interface Props {
     children?: React.ReactNode,
     value?: string | number,
     placeholder?: string,
-    type?: 'text' | 'number' | 'email',
+    type?: 'text' | 'number' | 'email' | 'password',
     styleType?: 'default' | 'custom',
     backgroundTransparent?: boolean,
     icon?: React.ReactNode,

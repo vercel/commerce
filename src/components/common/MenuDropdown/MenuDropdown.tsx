@@ -5,7 +5,7 @@ import s from './MenuDropdown.module.scss';
 
 interface Props {
     children?: React.ReactNode,
-    options: { link: string, name: string }[],
+    options: { link?: string, name: string, onClick?: () => void }[],
     isHasArrow?: boolean,
     align?: 'left'
 }
@@ -26,11 +26,16 @@ const MenuDropdown = ({ options, children, isHasArrow = true, align }: Props) =>
                 <ul className={s.menuIner}>
                     {
                         options.map(item => <li key={item.name}>
-                            <Link href={item.link}>
-                                <a >
+                            {item.onClick ?
+                                <button onClick={item.onClick}>
                                     {item.name}
-                                </a>
-                            </Link>
+                                </button>
+                                :
+                                <Link href={item.link || ''}>
+                                    <a >
+                                        {item.name}
+                                    </a>
+                                </Link>}
                         </li>)
                     }
                 </ul>
