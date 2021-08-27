@@ -3,11 +3,14 @@ import { getCommerceApi as commerceApi } from '@commerce/api'
 import createRestFetcher from './utils/fetch-rest'
 import createGraphqlFetcher from './utils/fetch-graphql'
 
+import getAllPages from './operations/get-all-pages'
+import getPage from './operations/get-page'
 import getSiteInfo from './operations/get-site-info'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
-import { API_URL, CART_COOKIE, CUSTOMER_COOKIE } from '../constants'
+
+import { API_URL, API_VERSION, CART_COOKIE, CUSTOMER_COOKIE } from '../constants'
 
 export interface OrdercloudConfig extends CommerceAPIConfig {
   restFetch: <T>(
@@ -15,12 +18,14 @@ export interface OrdercloudConfig extends CommerceAPIConfig {
     resource: string,
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
-  ) => Promise<T>
+  ) => Promise<T>,
+  apiVersion: string;
 }
 
 const config: OrdercloudConfig = {
   commerceUrl: API_URL,
   apiToken: '',
+  apiVersion: API_VERSION,
   cartCookie: CART_COOKIE,
   customerCookie: CUSTOMER_COOKIE,
   cartCookieMaxAge: 2592000,
@@ -29,6 +34,8 @@ const config: OrdercloudConfig = {
 }
 
 const operations = {
+  getAllPages,
+  getPage,
   getSiteInfo,
   getAllProductPaths,
   getAllProducts,

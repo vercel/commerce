@@ -40,13 +40,14 @@ export async function fetchData<T>(
     path: string
     method: string
     baseUrl: string
+    apiVersion: string
     fetchOptions?: Record<string, any>
     body?: Record<string, unknown>
   },
   retries = 0
 ): Promise<T> {
   // Destructure opts
-  const { path, body, fetchOptions, baseUrl, method = 'GET' } = opts
+  const { path, body, fetchOptions, baseUrl, apiVersion, method = 'GET' } = opts
 
   // Decode token
   const decoded = jwt.decode(global.token as string) as jwt.JwtPayload | null
@@ -64,7 +65,7 @@ export async function fetchData<T>(
   }
 
   // Do the request with the correct headers
-  const dataResponse = await fetch(`${baseUrl}${path}`, {
+  const dataResponse = await fetch(`${baseUrl}/${apiVersion}${path}`, {
     ...fetchOptions,
     method,
     headers: {
@@ -78,9 +79,6 @@ export async function fetchData<T>(
 
   // If something failed getting the data response
   if (!dataResponse.ok) {
-    // Log error
-    console.log(await dataResponse.textConverted())
-
     // If token is expired
     if (dataResponse.status === 401) {
       // Get a new one
@@ -131,13 +129,14 @@ const serverFetcher: (
     fetchOptions?: Record<string, any>
   ) => {
     // Get provider config
-    const { commerceUrl } = getConfig()
+    const { commerceUrl, apiVersion } = getConfig()
 
     // Return the data and specify the expected type
     return fetchData<T>({
       fetchOptions,
       method,
       baseUrl: commerceUrl,
+      apiVersion,
       path,
       body,
     })
