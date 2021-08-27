@@ -70,7 +70,7 @@ export type CommerceProviderProps = {
   children?: ReactNode
 } & Partial<CommerceConfig>
 
-export function CommerceProvider<P extends Provider>({
+export function CoreCommerceProvider<P extends Provider>({
   provider,
   children,
 }: CommerceProps<P>) {
@@ -86,6 +86,19 @@ export function CommerceProvider<P extends Provider>({
   )
 
   return <Commerce.Provider value={cfg}>{children}</Commerce.Provider>
+}
+
+export function getCommerceProvider<P extends Provider>(provider: P) {
+  return function CommerceProvider({
+    children,
+    ...props
+  }: CommerceProviderProps) {
+    return (
+      <CoreCommerceProvider provider={{ ...provider, ...props }}>
+        {children}
+      </CoreCommerceProvider>
+    )
+  }
 }
 
 export function useCommerce<P extends Provider>() {
