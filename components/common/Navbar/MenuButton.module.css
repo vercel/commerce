@@ -3,6 +3,7 @@
   height: 30px;
   margin: 0 auto;
   width: 30px;
+  @apply lg:hidden;
 }
 
 .menuButton::after,

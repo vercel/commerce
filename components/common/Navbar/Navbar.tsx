@@ -3,6 +3,7 @@ import Link from 'next/link'
 import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
 import MenuButton from './MenuButton'
+import DesktopNavMenu from './DesktopNavMenu'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 
@@ -27,16 +28,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
                   <Logo />
                 </a>
               </Link>
-              <nav className={s.navMenu}>
-                <Link href="/search">
-                  <a className={s.link}>All</a>
-                </Link>
-                {links?.map((l) => (
-                  <Link href={l.href} key={l.href}>
-                    <a className={s.link}>{l.label}</a>
-                  </Link>
-                ))}
-              </nav>
+              <DesktopNavMenu links={links} />
             </div>
             <MenuButton
               isOpen={isMenuOpen}
