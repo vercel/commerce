@@ -15,8 +15,7 @@ const HomeFeatureItem = ({ image, children }: HomeFeatureItemProps) => {
             <img className={classNames(s.itemImg, {
                 [s[image]]: image,
             })}
-            alt="home feature item img" 
-            /> 
+            alt="home feature item img" /> 
             <div className={s.itemText}>{children}</div>
         </div> 
     )
