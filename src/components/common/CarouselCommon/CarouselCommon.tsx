@@ -28,37 +28,27 @@ const CarouselCommon = <T,>({
   option: { slideChanged,slidesPerView, ...sliderOption },
 }: CarouselCommonProps<T>) => {
   const [currentSlide, setCurrentSlide] = React.useState(0)
-  const [dotActive, setDotActive] = React.useState<number>(0)
+  // const [dotActive, setDotActive] = React.useState<number>(0)
   const [dotArr, setDotArr] = React.useState<number[]>([])
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     ...sliderOption,
     slidesPerView,
     slideChanged(s) {
       setCurrentSlide(s.details().relativeSlide)
-
     },
-    afterChange(s) {
-      let dot = 0 
-      dotArr.forEach((index)=>{
-        if(s.details().relativeSlide >= index){
-          dot = index
-        }
-      })
-      console.log(dot)
-      setDotActive(dot)
-    }
   })
   
   useEffect(() => {
-    if(isDot && slider){
+    if(isDot && slider && data){
       let array:number[]
-      array =  [...Array(Math.ceil(data.length/(Number(slider.details().slidesPerView)||1))).keys()].map((i)=>{
-        return (Number(slider.details().slidesPerView)||1)*i
-      })
-      console.log(array)
+      let number = data.length - Math.floor(slider.details().slidesPerView - 1)
+      if(number<1){
+        number = 1
+      }
+      array =  [...Array(number).keys()]
       setDotArr(array)
     }
-  }, [isDot,slider])
+  }, [isDot,slider,data])
 
   const handleRightArrowClick = () => {
     slider.next()
@@ -70,7 +60,6 @@ const CarouselCommon = <T,>({
 
   const onDotClick = (index:number) => {
     slider.moveToSlideRelative(index)
-    setDotActive(index)
   }
   return (
     <div className={s.navigationWrapper}>
@@ -102,7 +91,7 @@ const CarouselCommon = <T,>({
         <div className="dots">
           {dotArr.map((index) => {
             return (
-              <CustomDot key={`dot-${index}`} index={index} dotActive={dotActive} onClick={onDotClick}/>
+              <CustomDot key={`dot-${index}`} index={index} dotActive={currentSlide} onClick={onDotClick}/>
             )
           })}
         </div>
