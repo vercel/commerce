@@ -1,17 +1,11 @@
 import s from './Logo.module.scss'
 
-interface Props {
-    className?: string
-    children?: any
-}
-
-const Logo = ({}: Props) => {
+const Logo = () => {
     return(
         <div className={s.logo}>
             <div className={s.eclipse}>
-
             </div>
-            <div className={s.conTent}>
+            <div className={s.content}>
                 ONLINE GROCERY
             </div>
         </div>

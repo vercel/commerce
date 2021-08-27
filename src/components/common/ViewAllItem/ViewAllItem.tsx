@@ -1,23 +1,21 @@
-import Vector from 'src/components/icons/Vector'
+import IconVector from 'src/components/icons/IconVector'
 import s from './ViewAllItem.module.scss'
 import Link from 'next/link'
 
 interface Props {
-    className?: string
-    children?: any
-    link?: string
+    link: string
 }
 
 const ViewAllItem = ({ link }: Props) => {
     return(
         <div className={s.viewAll}>
-            <Link href={"/all"}>
-                <a className={s.conTent}>
+            <Link href={link}>
+                <a className={s.content}>
                     View All
                 </a>
             </Link>
-            <div className={s.vecTor}>
-                <Vector />
+            <div className={s.vector}>
+                <IconVector />
             </div>
         </div>
     )

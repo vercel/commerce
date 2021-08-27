@@ -1,0 +1,32 @@
+@import "../../../styles/utilities";
+
+.select{
+    @apply rounded-lg border-solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1.2rem 1.6rem;
+    &.base{
+        width: 18.6rem;
+        height: 4.8rem;
+    }
+    &.large{
+        width: 34.25rem;
+        height: 5.6rem;
+    }
+    &.default{
+        @apply border;
+    }
+    &.custom{
+        @apply border-2;
+        border-color: var(--border-line);
+        color: var(--text-label);
+    }
+    .option{
+        &:hover{
+            background-color: black;
+        }
+    }
+}
+

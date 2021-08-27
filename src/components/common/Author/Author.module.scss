@@ -1,0 +1,17 @@
+.authorWarper{
+    @apply flex flex-row items-center;
+    
+    .authorImage{
+        width:3.2rem;
+        height:3.2rem;
+        border-radius:3.2rem;
+    }
+    .authorName{
+        margin-left:1rem;
+        color:var(--text-label);
+        font-family: var(--font-sans);
+        font-size: 1.2rem;
+        line-height: 2rem;
+        font-feature-settings: 'salt' on;
+    }
+}

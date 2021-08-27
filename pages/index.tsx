@@ -1,36 +1,17 @@
-import React, { MutableRefObject, useRef } from 'react';
-import { HeadingCommon, CollectionHeading, ScrollToTop, ScrollTarget } from 'src/components/common'
+
+import { Layout } from 'src/components/common';
+import { HomeBanner, HomeCategories, HomeCTA, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 
 export default function Home() {
-  const refScrollUp = useRef() as MutableRefObject<HTMLDivElement>;
-
   return (
     <>
-      <ScrollTarget refScrollUp={refScrollUp} />
-      <HeadingCommon align="center" children="categories" />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading type="highlight" children="fresh product todays" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <CollectionHeading children="coffee bean" subtitle="Last call! Shop deep deals on 100+ bulk picks while you can." />
-      <ScrollToTop target={refScrollUp} />
+      <HomeBanner />
+      <HomeCategories/>
+      <HomeVideo />
+      <HomeCTA />
+      <HomeSubscribe />
     </>
   )
 }
 
-// Home.Layout = Layout
+Home.Layout = Layout

@@ -11,11 +11,11 @@ interface HeadingCommonProps {
 const HeadingCommon = ({ type='default', align='left', children }: HeadingCommonProps) => {
 
     return (
-        <div className={classNames(s.headingCommon, {
+        <h2 className={classNames(s.headingCommon, {
             [s[type]]: type,
             [s[align]]: align
           })}
-        >{children}</div>
+        >{children}</h2>
     )
 
 }
