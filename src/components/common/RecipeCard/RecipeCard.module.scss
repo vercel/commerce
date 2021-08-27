@@ -1,0 +1,31 @@
+.recipeCardWarpper{
+    max-width: 39.2rem;
+    min-height: 34rem;
+    @apply inline-flex flex-col justify-start;
+    .image{
+        width: 100%;
+        max-height: 22rem;
+        border-radius: 2.4rem;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .title{
+        padding: 1.6rem 0.8rem 0.4rem 0.8rem;
+        @apply font-bold;
+        font-size: 2rem;
+        line-height: 2.8rem;
+        letter-spacing: -0.01em;
+        color: var(--text-active);
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .description{
+        padding: 0 0.8rem;
+        @apply overflow-hidden overflow-ellipsis ;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
+}

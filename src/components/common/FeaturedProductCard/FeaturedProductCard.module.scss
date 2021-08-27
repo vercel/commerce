@@ -1,0 +1,61 @@
+@import '../../../styles/utilities';
+.featuredProductCardWarpper{
+    width: 59.8rem;
+    height: 28.8rem;
+    padding: 2.4rem;
+    @apply bg-primary-light inline-flex justify-start items-center custom-border-radius ;
+    .left{
+        width: 24rem;
+        height: 24rem;
+    }
+    .right{
+        padding-left: 2.4rem;
+        min-width: 27rem;
+        max-width: 28.6rem;
+        min-height: 16.8rem;
+        @apply flex justify-between flex-col;
+        .rightTop{
+            min-height: 9.6rem;
+            @apply flex justify-between flex-col;
+            .title{
+                @apply font-bold;
+                font-size: 2rem;
+                line-height: 2.8rem;
+                letter-spacing: -0.01em;
+                color: var(--text-active);
+            }
+            .subTitle{
+                color: var(--text-base);
+                font-size: 1.6rem;
+                line-height: 2.4rem;
+            }
+            .priceWrapper{
+                @apply flex justify-start;
+                .price{
+                    @apply font-bold;
+                    font-size: 2rem;
+                    line-height: 2.8rem;
+                    letter-spacing: -0.01em;
+                    color: var(--text-active);
+                }
+                .originPrice{
+                    margin-left: 0.8rem;
+                    font-size: 2rem;
+                    line-height: 2.8rem;
+                    color: var(--text-label);
+                    text-decoration-line: line-through;
+                }
+            }
+        }
+        .buttonWarpper{
+            @apply flex;
+            .icon{
+                width: 5.6rem;
+            }
+            .button{
+                margin-left: 0.8rem;
+                width: 20.6rem;
+            }
+        }
+    }
+}
