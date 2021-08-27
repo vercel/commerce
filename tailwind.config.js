@@ -51,7 +51,6 @@ module.exports = {
         gray: 'var(--gray)',
         disabled: 'var(--text-disabled)',
         'background-arrow':'var(--background-arrow)',
-
         
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
