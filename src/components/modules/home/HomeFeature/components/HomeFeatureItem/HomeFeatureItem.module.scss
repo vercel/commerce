@@ -36,17 +36,15 @@
 
     .itemText {
         display: flex;
-        font-size: 1.6rem;
-        line-height: 2.4rem;
-        width: 28rem;
-        height: 9.6rem;
+        max-width: 28rem;
+        min-width: 28rem;
         color: #000;
         margin-right: 2.4rem;
         align-items: center;
         @screen md {
             display: flex;
-            width: 28rem;
-            height: 9.6rem;
+            max-width: 28rem;
+            min-width: 28rem;
             color: #000;
             margin-right: 2.4rem;
             align-items: center;
