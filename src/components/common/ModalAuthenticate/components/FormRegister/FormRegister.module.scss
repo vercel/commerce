@@ -1,0 +1,21 @@
+@import '../../../../../styles/utilities';
+
+.formRegister {
+    transform: translateX(-100%);
+    &.hide {
+        transform: none;
+    }
+    .passwordNote {
+        @apply text-center caption;
+        margin-top: 0.8rem;
+    }
+    
+    .bottom {
+        @apply flex justify-between items-center w-full;
+        margin: 4rem auto;
+        button {
+            @apply w-full;
+        }
+    }
+}
+

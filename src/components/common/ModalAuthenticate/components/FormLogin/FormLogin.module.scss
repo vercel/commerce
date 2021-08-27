@@ -1,38 +1,13 @@
-.login {
-    margin: auto;
-    @screen md {
-        max-width: 52rem;
-    }
-    .inner {
-        max-width: 100%;
-        overflow: hidden;
-        .body {
-            > div {
-                &:not(:last-child) {
-                    margin-bottom: 1.6rem;
-                }
-            }
-        }
-        .bottom {
-            @apply flex justify-between items-center;
-            margin: 4rem auto;
-            .forgotPassword {
-                @apply font-bold;
-                color: var(--primary);
-            }
-        }
-        .others {
-            @apply font-bold text-center;
-            margin-top: 4rem;
+.hide {
+    transform: translateX(-200%);
+}
 
-            span {
-                @apply text-active;
-                margin-right: 0.8rem;
-            }
-            button {
-                all: unset;
-                @apply text-primary;
-            }
-        }
+.bottom {
+    @apply flex justify-between items-center;
+    margin: 4rem auto;
+    .forgotPassword {
+        @apply font-bold;
+        color: var(--primary);
     }
 }
+

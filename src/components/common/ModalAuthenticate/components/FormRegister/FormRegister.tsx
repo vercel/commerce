@@ -1,10 +1,8 @@
-import Link from 'next/link'
 import React from 'react'
-import { Inputcommon, ButtonCommon } from 'src/components/common'
-import { ROUTE } from 'src/utils/constanst.utils'
-import SocialAuthen from '../SocialAuthen/SocialAuthen'
+import { ButtonCommon, Inputcommon } from 'src/components/common'
 import s from '../FormAuthen.module.scss'
-import styles from './FormLogin.module.scss'
+import styles from './FormRegister.module.scss'
+import SocialAuthen from '../SocialAuthen/SocialAuthen'
 import classNames from 'classnames'
 
 interface Props {
@@ -12,33 +10,32 @@ interface Props {
     onSwitch: () => void
 }
 
-const FormLogin = ({ onSwitch, isHide }: Props) => {
+const FormRegister = ({ onSwitch, isHide }: Props) => {
     return (
         <section className={classNames({
             [s.formAuthen]: true,
+            [styles.formRegister]: true,
             [styles.hide]: isHide
         })}>
             <div className={s.inner}>
                 <div className={s.body}>
                     <Inputcommon placeholder='Email Address' type='email' />
                     <Inputcommon placeholder='Password' type='password' />
+                    <div className={styles.passwordNote}>
+                        Must contain 8 characters with at least 1 uppercase and 1 lowercase letter and either 1 number or 1 special character.
+                    </div>
                 </div>
                 <div className={styles.bottom}>
-                    <Link href={ROUTE.FORGOT_PASSWORD}>
-                        <a href="" className={styles.forgotPassword}>
-                            Forgot Password?
-                        </a>
-                    </Link>
-                    <ButtonCommon size='large'>Sign in</ButtonCommon>
+                    <ButtonCommon size='large'>Create Account</ButtonCommon>
                 </div>
                 <SocialAuthen />
                 <div className={s.others}>
-                    <span>Don't have an account?</span>
-                    <button onClick={onSwitch}>Create Account</button>
+                    <span>Already an account?</span>
+                    <button onClick={onSwitch}>Sign In</button>
                 </div>
             </div>
         </section>
     )
 }
 
-export default FormLogin
+export default FormRegister
