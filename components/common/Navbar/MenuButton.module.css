@@ -23,3 +23,11 @@
 .menuButton::before {
   transform: translateY(-5px);
 }
+
+.menuButton.isOpen::before {
+  transform: rotate(45deg);
+}
+
+.menuButton.isOpen::after {
+  transform: rotate(-45deg);
+}
