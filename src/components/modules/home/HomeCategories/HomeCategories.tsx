@@ -46,20 +46,20 @@ const categories = [
 const HomeCategories = () => {
     return (
         <div className={classNames(s.homeCategoriesWrapper)}>
-            <div className={classNames(s.homeCategoriesHeading)}>
-                <HeadingCommon align='center' children="CATEGORIES"></HeadingCommon>
-            </div>
+            <div className={s.inner}>
+                <HeadingCommon align='center'>CATEGORIES</HeadingCommon>
 
-            <div className={classNames(s.homeCategoryList)}>
-                {categories?.map(item => (
-                    <div key={item.name} className={classNames(s.homeCategoriesItem)}>
-                        <CategoryItem
-                            name={item.name}
-                            image={item.image}
-                            link={item.link}
-                        />
-                    </div>
-                ))}
+                <div className={classNames(s.homeCategoryList)}>
+                    {categories?.map(item => (
+                        <div key={item.name} className={classNames(s.homeCategoriesItem)}>
+                            <CategoryItem
+                                name={item.name}
+                                image={item.image}
+                                link={item.link}
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
