@@ -2,6 +2,7 @@ import { FC } from 'react'
 import Link from 'next/link'
 import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
+import MenuButton from './MenuButton'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 
@@ -35,6 +36,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
               ))}
             </nav>
           </div>
+          <MenuButton isOpen onClick={() => {}} />
           <div className="flex items-center justify-end flex-1 space-x-8">
             <UserNav />
           </div>

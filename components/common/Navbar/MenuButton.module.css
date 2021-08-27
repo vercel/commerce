@@ -1,0 +1,25 @@
+.menuButton {
+  cursor: pointer;
+  height: 30px;
+  margin: 0 auto;
+  width: 30px;
+}
+
+.menuButton::after,
+.menuButton::before {
+  background-color: #f4f4f4;
+  content: '';
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  transition: transform 0.2s ease;
+  width: 30px;
+}
+
+.menuButton::after {
+  transform: translateY(5px);
+}
+
+.menuButton::before {
+  transform: translateY(-5px);
+}
