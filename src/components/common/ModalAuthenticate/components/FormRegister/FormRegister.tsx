@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ButtonCommon, Inputcommon } from 'src/components/common'
 import s from '../FormAuthen.module.scss'
 import styles from './FormRegister.module.scss'
 import SocialAuthen from '../SocialAuthen/SocialAuthen'
 import classNames from 'classnames'
+import { CustomInputCommon } from 'src/utils/type.utils'
 
 interface Props {
     isHide: boolean,
@@ -11,6 +12,14 @@ interface Props {
 }
 
 const FormRegister = ({ onSwitch, isHide }: Props) => {
+    const emailRef = useRef<CustomInputCommon>(null)
+
+    useEffect(() => {
+        if (!isHide) {
+            emailRef.current?.focus()
+        }
+    }, [isHide])
+
     return (
         <section className={classNames({
             [s.formAuthen]: true,

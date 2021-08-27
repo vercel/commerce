@@ -40,7 +40,6 @@ const Header = memo(() => {
                 </div>
             </header>
             <HeaderSubMenuMobile />
-            visible = {visibleModalAuthen.toString()}
             <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />
         </>
     )
