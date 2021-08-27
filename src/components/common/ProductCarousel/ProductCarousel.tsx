@@ -4,9 +4,9 @@ import CarouselCommon, {
   CarouselCommonProps,
 } from '../CarouselCommon/CarouselCommon'
 import ProductCard, { ProductCardProps } from '../ProductCard/ProductCard'
-import s from "./ProductCaroucel.module.scss"
+import s from "./ProductCarousel.module.scss"
 
-interface ProductCaroucelProps
+interface ProductCarouselProps
   extends Omit<CarouselCommonProps<ProductCardProps>, 'Component'|"option"> {
 		option?:TOptionsEvents
 	}
@@ -19,16 +19,16 @@ const OPTION_DEFAULT: TOptionsEvents = {
       slidesPerView: 3,
     },
     '(min-width: 768px)': {
-      slidesPerView: 3,
+      slidesPerView: 4,
     },
     '(min-width: 1024px)': {
       slidesPerView: 4.5,
     },'(min-width: 1280px)': {
-      slidesPerView: 6,
+      slidesPerView: 5.5,
     },
   },
 }
-const ProductCaroucel = ({ option, data, ...props }: ProductCaroucelProps) => {
+const ProductCarousel = ({ option, data, ...props }: ProductCarouselProps) => {
   return (
     <div className={s.productCardWarpper}>
       <CarouselCommon<ProductCardProps>
@@ -41,4 +41,4 @@ const ProductCaroucel = ({ option, data, ...props }: ProductCaroucelProps) => {
   )
 }
 
-export default ProductCaroucel
+export default ProductCarousel

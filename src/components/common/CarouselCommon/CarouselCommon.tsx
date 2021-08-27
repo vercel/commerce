@@ -2,7 +2,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import React, { useEffect } from 'react'
 import 'keen-slider/keen-slider.min.css'
 import { CustomCarouselArrow } from './CustomArrow/CustomCarouselArrow'
-import s from './CaroucelCommon.module.scss'
+import s from './CarouselCommon.module.scss'
 import { TOptionsEvents } from 'keen-slider'
 import classNames from 'classnames'
 import CustomDot from './CustomDot/CustomDot'
@@ -47,7 +47,6 @@ const CarouselCommon = <T,>({
   
   useEffect(() => {
     if(isDot && slider){
-      // console.log('f',Math.ceil(data.length/(Number(slider.details().slidesPerView)||1)))
       let array:number[]
       array =  [...Array(Math.ceil(data.length/(Number(slider.details().slidesPerView)||1))).keys()].map((i)=>{
         return (Number(slider.details().slidesPerView)||1)*i
@@ -67,7 +66,6 @@ const CarouselCommon = <T,>({
 
   const onDotClick = (index:number) => {
     slider.moveToSlideRelative(Math.floor(index))
-    // setDotActive(index)
   }
   return (
     <div className={s.navigationWrapper}>
@@ -88,12 +86,10 @@ const CarouselCommon = <T,>({
           <CustomCarouselArrow
             side="right"
             onClick={handleRightArrowClick}
-            // isDisabled={currentSlide === slider.details().size - 1}
           />
           <CustomCarouselArrow
             side="left"
             onClick={handleLeftArrowClick}
-            // isDisabled={currentSlide === 0}
           />
         </>
       )}

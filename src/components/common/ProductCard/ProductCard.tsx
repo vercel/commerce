@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { ProductProps } from 'src/utils/types.utils'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
@@ -21,16 +22,20 @@ const ProductCard = ({
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>
-        <div className={s.productImage}>
-          <img src={imageSrc} alt="image" />
-        </div>
-          <div className={s.productLabel}>
-            <LabelCommon shape="half">{category}</LabelCommon>
+        <Link href="#">
+          <div className={s.productImage}>
+            <img src={imageSrc} alt="image" />
           </div>
+        </Link>
+        <div className={s.productLabel}>
+          <LabelCommon shape="half">{category}</LabelCommon>
+        </div>
       </div>
       <div className={s.cardMid}>
         <div className={s.cardMidTop}>
-          <div className={s.productname}>{name} </div>
+          <Link href="#">
+            <div className={s.productname}>{name} </div>
+          </Link>
           <div className={s.productWeight}>{weight}</div>
         </div>
         <div className={s.cardMidBot}>
@@ -42,10 +47,10 @@ const ProductCard = ({
       </div>
       <div className={s.cardBot}>
         <div className={s.cardIcon}>
-          <ButtonIconBuy/>
+          <ButtonIconBuy />
         </div>
         <div className={s.cardButton}>
-          <ButtonCommon type="ghost">{buttonText}</ButtonCommon>
+          <ButtonCommon type="light">{buttonText}</ButtonCommon>
         </div>
       </div>
     </div>

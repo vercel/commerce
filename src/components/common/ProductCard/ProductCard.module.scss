@@ -15,13 +15,15 @@
             img{
                 @apply inline;
             }
+            &:hover{
+                cursor: pointer;
+            }
         }
         .productLabel{
             @apply absolute left-0 bottom-0;
         }
     }
     .cardMid{
-        // padding: 1.6rem 0;
         min-height: 10.4rem;
         @apply flex flex-col justify-between;
         .cardMidTop{
@@ -30,6 +32,9 @@
                 line-height: 2.4rem;
                 font-size: 1.6rem;
                 color: var(--text-active);
+                &:hover{
+                    cursor: pointer;
+                }
             }
             .productWeight{
                 font-size: 1.2rem;
@@ -39,6 +44,7 @@
             }
         }
         .cardMidBot{
+            padding-top: 0.8rem;
             @apply flex justify-between items-center border-t border-solid border-line;
             .productPrice{
                 @apply font-bold;
@@ -52,7 +58,6 @@
         min-height: 4rem;
         @apply flex justify-between items-center; 
         .cardButton{
-            // width: 13.6rem;
         }
     }
 }

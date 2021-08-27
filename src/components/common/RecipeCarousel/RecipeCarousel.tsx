@@ -4,9 +4,9 @@ import CarouselCommon, {
   CarouselCommonProps,
 } from '../CarouselCommon/CarouselCommon'
 import RecipeCard, { RecipeCardProps } from '../RecipeCard/RecipeCard'
-import s from "./RecipeCaroucel.module.scss"
+import s from "./RecipeCarousel.module.scss"
 
-interface RecipeCaroucelProps
+interface RecipeCarouselProps
   extends Omit<CarouselCommonProps<RecipeCardProps>, 'Component'|"option"> {
 		option?:TOptionsEvents
 	}
@@ -30,7 +30,7 @@ const OPTION_DEFAULT: TOptionsEvents = {
     },
   },
 }
-const RecipeCaroucel = ({ option, data, ...props }: RecipeCaroucelProps) => {
+const RecipeCarousel = ({ option, data, ...props }: RecipeCarouselProps) => {
   return (
     <div className={s.recipeCardWarpper}>
       <CarouselCommon<RecipeCardProps>
@@ -43,4 +43,4 @@ const RecipeCaroucel = ({ option, data, ...props }: RecipeCaroucelProps) => {
   )
 }
 
-export default RecipeCaroucel
+export default RecipeCarousel

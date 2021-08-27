@@ -1,16 +1,18 @@
 import React from 'react'
 import {
   CollectionHeading,
-  ProductCaroucel,
+  ProductCarousel,
   ViewAllItem,
 } from 'src/components/common'
 import { CollectionHeadingProps } from 'src/components/common/CollectionHeading/CollectionHeading'
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
+import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import s from './CollectionCarcoucel.module.scss'
 interface ColectionCarcoucelProps extends CollectionHeadingProps {
   data: ProductCardProps[]
   itemKey: string
-  viewAllLink?: string
+  viewAllLink?: string,
+  category:string
 }
 
 const ColectionCarcoucel = ({
@@ -18,7 +20,8 @@ const ColectionCarcoucel = ({
   itemKey,
   title,
   subtitle,
-  type
+  type,
+  category
 }: ColectionCarcoucelProps) => {
   return (
     <div className={s.colectionCarcoucelWarpper}>
@@ -31,11 +34,11 @@ const ColectionCarcoucel = ({
           ></CollectionHeading>
         </div>
         <div className={s.right}>
-          <ViewAllItem link="#"/>
+          <ViewAllItem link={`${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${category}`}/>
         </div>
       </div>
       <div className={s.bot}>
-        <ProductCaroucel data={data} itemKey={itemKey} />
+        <ProductCarousel data={data} itemKey={itemKey} />
       </div>
     </div>
   )

@@ -96,40 +96,47 @@ const HomeCollection = (props: HomeCollectionProps) => {
   return (
     <div className="w-full">
       <CollectionCarcoucel
+        type="highlight"
         data={dataTest}
         itemKey="product-1"
-        title="VEGGIE"
+        title="Fresh Products Today"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        category={"veggie"}
       />
       <CollectionCarcoucel
         data={dataTest}
         itemKey="product-2"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        category={"veggie"}
       />
       <CollectionCarcoucel
         data={dataTest}
         itemKey="product-3"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        category={"veggie"}
       />
       <CollectionCarcoucel
         data={dataTest}
         itemKey="product-4"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        category={"veggie"}
       />
       <CollectionCarcoucel
         data={dataTest}
         itemKey="product-5"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        category={"veggie"}
       />
       <CollectionCarcoucel
         data={dataTest}
         itemKey="product-6"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
+        category={"veggie"}
       />
     </div>
   )
