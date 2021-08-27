@@ -35,14 +35,18 @@ const CarouselCommon = <T,>({
     slidesPerView,
     slideChanged(s) {
       setCurrentSlide(s.details().relativeSlide)
+
+    },
+    afterChange(s) {
       let dot = 0 
       dotArr.forEach((index)=>{
-        if(s.details().relativeSlide >= Math.floor(index)){
+        if(s.details().relativeSlide >= index){
           dot = index
         }
       })
+      console.log(dot)
       setDotActive(dot)
-    },
+    }
   })
   
   useEffect(() => {
@@ -65,7 +69,8 @@ const CarouselCommon = <T,>({
   }
 
   const onDotClick = (index:number) => {
-    slider.moveToSlideRelative(Math.floor(index))
+    slider.moveToSlideRelative(index)
+    setDotActive(index)
   }
   return (
     <div className={s.navigationWrapper}>

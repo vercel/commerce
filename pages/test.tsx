@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ButtonCommon, Layout, ModalCommon } from 'src/components/common'
+import { ButtonCommon, Layout, ModalCommon, ProductCarousel } from 'src/components/common'
 import { CollectionCarcousel } from 'src/components/modules/home'
 import image5 from '../public/assets/images/image5.png'
 import image6 from '../public/assets/images/image6.png'
@@ -107,12 +107,10 @@ export default function Test() {
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur officiis dolorum ea incidunt. Sint, cum ullam. Labore vero quod itaque, officia magni molestias! Architecto deserunt soluta laborum commodi nesciunt delectus similique temporibus distinctio? Facere eaque minima enim modi magni, laudantium, animi mollitia beatae repudiandae maxime labore error nesciunt, nisi est?
 				</div>
 			</ModalCommon>
-      <CollectionCarcousel
+      <ProductCarousel
         data={dataTest}
         itemKey="product-2"
-        title="VEGGIE"
-        subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
-        category={"veggie"}
+        isDot
       />
     </>
   )
