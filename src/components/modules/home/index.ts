@@ -1,5 +1,5 @@
 export { default as HomeBanner } from './HomeBanner/HomeBanner'
-export { default as CollectionCarcoucel } from './CollectionCarcoucel/CollectionCarcoucel'
+export { default as CollectionCarcousel } from './CollectionCarcousel/CollectionCarcousel'
 export { default as HomeCategories } from './HomeCategories/HomeCategories'
 export { default as HomeCTA } from './HomeCTA/HomeCTA'
 export { default as HomeSubscribe } from './HomeSubscribe/HomeSubscribe'

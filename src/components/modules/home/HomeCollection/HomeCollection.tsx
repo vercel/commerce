@@ -1,5 +1,5 @@
 import React from 'react'
-import { CollectionCarcoucel } from '..'
+import { CollectionCarcousel } from '..'
 import image5 from '../../../../../public/assets/images/image5.png'
 import image6 from '../../../../../public/assets/images/image6.png'
 import image7 from '../../../../../public/assets/images/image7.png'
@@ -95,7 +95,7 @@ const dataTest = [
 const HomeCollection = (props: HomeCollectionProps) => {
   return (
     <div className="w-full">
-      <CollectionCarcoucel
+      <CollectionCarcousel
         type="highlight"
         data={dataTest}
         itemKey="product-1"
@@ -103,35 +103,35 @@ const HomeCollection = (props: HomeCollectionProps) => {
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
-      <CollectionCarcoucel
+      <CollectionCarcousel
         data={dataTest}
         itemKey="product-2"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
-      <CollectionCarcoucel
+      <CollectionCarcousel
         data={dataTest}
         itemKey="product-3"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
-      <CollectionCarcoucel
+      <CollectionCarcousel
         data={dataTest}
         itemKey="product-4"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
-      <CollectionCarcoucel
+      <CollectionCarcousel
         data={dataTest}
         itemKey="product-5"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
-      <CollectionCarcoucel
+      <CollectionCarcousel
         data={dataTest}
         itemKey="product-6"
         title="VEGGIE"

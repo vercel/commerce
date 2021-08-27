@@ -7,7 +7,7 @@ import {
 import { CollectionHeadingProps } from 'src/components/common/CollectionHeading/CollectionHeading'
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
-import s from './CollectionCarcoucel.module.scss'
+import s from './CollectionCarcousel.module.scss'
 interface ColectionCarcoucelProps extends CollectionHeadingProps {
   data: ProductCardProps[]
   itemKey: string
