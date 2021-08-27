@@ -29,7 +29,6 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
                   <Logo />
                 </a>
               </Link>
-              <MobileNavMenu links={links} isOpen={isMenuOpen} />
               <DesktopNavMenu links={links} />
             </div>
             <MenuButton
@@ -49,6 +48,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
           </Container>
         </div>
       )}
+      <MobileNavMenu links={links} isOpen={isMenuOpen} />
     </NavbarRoot>
   )
 }

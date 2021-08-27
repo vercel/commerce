@@ -3,7 +3,7 @@
 }
 
 .navContainer {
-  @apply bg-secondary;
+  @apply bg-secondary relative z-40;
   height: 50px;
 }
 .searchContainer {
@@ -11,7 +11,7 @@
 }
 
 .nav {
-  @apply relative flex flex-row justify-between;
+  @apply relative flex flex-row justify-between z-40;
   padding: 10px 0;
 }
 

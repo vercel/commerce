@@ -14,7 +14,6 @@
   transform: translateY(-100%);
   transition: transform 0.2s ease 0.1s, visibility 0.3s;
   visibility: hidden;
-  z-index: 2;
 }
 
 .navMenu.isOpen {
