@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import React, { memo, useEffect, useState } from 'react'
+import { useModalCommon } from 'src/components/hooks/useModalCommon'
 import { isMobile } from 'src/utils/funtion.utils'
 import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
 import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
@@ -8,13 +9,10 @@ import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
 import HeaderSubMenuMobile from './components/HeaderSubMenuMobile/HeaderSubMenuMobile'
 import s from './Header.module.scss'
 
-interface Props {
-    className?: string
-    children?: any
-}
 
-const Header = memo(({ }: Props) => {
+const Header = memo(() => {
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
+    const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: true })
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
@@ -37,12 +35,13 @@ const Header = memo(({ }: Props) => {
             <header className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
                 <HeaderHighLight isShow={isFullHeader} />
                 <div className={s.menu}>
-                    <HeaderMenu isFull={isFullHeader} />
+                    <HeaderMenu isFull={isFullHeader} openModalAuthen={openModalAuthen} />
                     <HeaderSubMenu isShow={isFullHeader} />
                 </div>
             </header>
             <HeaderSubMenuMobile />
-            <ModalAuthenticate/>
+            visible = {visibleModalAuthen.toString()}
+            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />
         </>
     )
 })

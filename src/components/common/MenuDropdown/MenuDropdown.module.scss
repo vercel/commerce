@@ -62,16 +62,24 @@
         .menuIner {
             @apply rounded list-none bg-white;
             border: 1px solid var(--text-active);
-            margin-top: .4rem;
+            margin-top: 0.4rem;
             li {
                 @apply block w-full transition-all duration-200 cursor-pointer text-active;
-                padding: 0.8rem 1.6rem;
-                &:hover {
-                    @apply bg-primary-lightest;
-                    color: var(--primary);
+                button {
+                    all: unset;
+                    color: currentColor;
+                    @apply text-left w-full;
+                }
+                button,
+                a {
+                    padding: 0.8rem 1.6rem;
                 }
                 a {
                     @apply block;
+                }
+                &:hover {
+                    @apply bg-primary-lightest;
+                    color: var(--primary);
                 }
             }
         }

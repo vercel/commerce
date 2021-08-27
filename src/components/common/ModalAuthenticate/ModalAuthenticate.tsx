@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
+import ModalCommon from '../ModalCommon/ModalCommon'
 import FormLogin from './components/FormLogin/FormLogin'
 import FormRegister from './components/FormRegister/FormRegister'
 import s from './ModalAuthenticate.module.scss'
 
-const ModalAuthenticate = () => {
+interface Props {
+    visible: boolean,
+    closeModal: () => void,
+}
+
+const ModalAuthenticate = ({ visible, closeModal }: Props) => {
     const [isLogin, setIsLogin] = useState<boolean>(true)
 
     const onSwitch = () => {
@@ -11,10 +17,15 @@ const ModalAuthenticate = () => {
     }
 
     return (
-        <section className={s.formAuthenticate}>
-            <FormLogin isHide={!isLogin} onSwitch={onSwitch} />
-            <FormRegister isHide={isLogin} onSwitch={onSwitch} />
-        </section>
+        <ModalCommon visible={visible} onClose={closeModal} title={isLogin ? 'Sign In' : 'Create Account'}>
+            <section className={s.formAuthenticate}>
+                <div className={s.inner}>
+                    <FormLogin isHide={!isLogin} onSwitch={onSwitch} />
+                    <FormRegister isHide={isLogin} onSwitch={onSwitch} />
+                </div>
+            </section>
+        </ModalCommon>
+
     )
 }
 
