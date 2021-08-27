@@ -19,3 +19,5 @@ export interface RecipeProps {
     description:string
     imageSrc: string
 }
+
+export type MouseAndTouchEvent = MouseEvent | TouchEvent
