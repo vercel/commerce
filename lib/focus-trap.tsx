@@ -55,10 +55,13 @@ export default function FocusTrap({ children, focusFirst = false }: Props) {
     }
   }, [root, children])
 
-  return React.createElement('div', {
-    ref: root,
-    children,
-    className: 'outline-none focus-trap',
-    tabIndex: -1,
-  })
+  return React.createElement(
+    'div',
+    {
+      ref: root,
+      className: 'outline-none focus-trap',
+      tabIndex: -1,
+    },
+    children
+  )
 }

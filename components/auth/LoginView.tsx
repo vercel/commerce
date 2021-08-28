@@ -38,6 +38,7 @@ const LoginView: FC<Props> = () => {
     } catch ({ errors }) {
       setMessage(errors[0].message)
       setLoading(false)
+      setDisabled(false)
     }
   }
 
@@ -87,7 +88,7 @@ const LoginView: FC<Props> = () => {
           Log In
         </Button>
         <div className="pt-1 text-center text-sm">
-          <span className="text-accents-7">Don't have an account?</span>
+          <span className="text-accent-7">Don't have an account?</span>
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"

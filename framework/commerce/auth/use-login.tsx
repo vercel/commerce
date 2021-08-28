@@ -1,13 +1,14 @@
 import { useHook, useMutationHook } from '../utils/use-hook'
 import { mutationFetcher } from '../utils/default-fetcher'
 import type { MutationHook, HookFetcherFn } from '../utils/types'
+import type { LoginHook } from '../types/login'
 import type { Provider } from '..'
 
 export type UseLogin<
-  H extends MutationHook<any, any, any> = MutationHook<null, {}, {}>
+  H extends MutationHook<LoginHook<any>> = MutationHook<LoginHook>
 > = ReturnType<H['useHook']>
 
-export const fetcher: HookFetcherFn<null, {}> = mutationFetcher
+export const fetcher: HookFetcherFn<LoginHook> = mutationFetcher
 
 const fn = (provider: Provider) => provider.auth?.useLogin!
 

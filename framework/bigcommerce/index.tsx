@@ -4,7 +4,8 @@ import {
   CommerceProvider as CoreCommerceProvider,
   useCommerce as useCoreCommerce,
 } from '@commerce'
-import { bigcommerceProvider, BigcommerceProvider } from './provider'
+import { bigcommerceProvider } from './provider'
+import type { BigcommerceProvider } from './provider'
 
 export { bigcommerceProvider }
 export type { BigcommerceProvider }

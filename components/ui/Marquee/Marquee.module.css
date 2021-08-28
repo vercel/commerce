@@ -1,22 +1,22 @@
 .root {
-  @apply w-full relative;
-  height: 320px;
-  min-width: 100%;
+  @apply w-full min-w-full relative flex flex-row items-center overflow-hidden py-0;
+  max-height: 320px;
 }
 
-.container {
-  @apply flex flex-row items-center;
+.root > div {
+  max-height: 320px;
+  padding: 0;
+  margin: 0;
 }
 
-.container > * {
-  @apply relative flex-1 px-16 py-4 h-full;
-  min-height: 320px;
+.root > div > * > *:nth-child(2) * {
+  max-height: 100%;
 }
 
 .primary {
-  @apply bg-white;
+  @apply bg-accent-0;
 }
 
 .secondary {
-  @apply bg-black;
+  @apply bg-accent-9;
 }
