@@ -50,11 +50,6 @@ COMMERCE_PROVIDER=shopify
 NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
 ```
-Add your provider to the list of supported providers in `framework/commerce/with-config.js`:
-
-```
-const PROVIDERS = ['bigcommerce', 'shopify', 'your-provider']
-```
 
 And check that the `tsconfig.json` resolves to the chosen provider:
 
@@ -84,7 +79,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 > NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
 
-- Open `commerce.config.json` 
+- Open `commerce.config.json`
 - You'll see a config file like this:
   ```json
   {
