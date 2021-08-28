@@ -1,10 +1,6 @@
 import type { OperationContext } from '@commerce/api/operations'
-import {
-  GetAllProductPathsQuery,
-  GetAllProductPathsQueryVariables,
-  ProductCountableEdge,
-} from '../../schema'
-import type { ShopifyConfig, Provider, SaleorConfig } from '..'
+import { ProductCountableEdge } from '../../schema'
+import type { Provider, SaleorConfig } from '..'
 
 import { getAllProductsPathsQuery } from '../../utils/queries'
 import fetchAllProducts from '../utils/fetch-all-products'
@@ -13,10 +9,7 @@ export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
 }
 
-export default function getAllProductPathsOperation({
-  commerce,
-}: OperationContext<Provider>) {
-
+export default function getAllProductPathsOperation({ commerce }: OperationContext<Provider>) {
   async function getAllProductPaths({
     query,
     config,
@@ -24,7 +17,7 @@ export default function getAllProductPathsOperation({
   }: {
     query?: string
     config?: SaleorConfig
-    variables?: any 
+    variables?: any
   } = {}): Promise<GetAllProductPathsResult> {
     config = commerce.getConfig(config)
 
@@ -39,7 +32,6 @@ export default function getAllProductPathsOperation({
         path: `/${slug}`,
       })),
     }
-
   }
 
   return getAllProductPaths
