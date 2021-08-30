@@ -5,6 +5,7 @@
   margin-bottom: 2.8rem;
   .left {
     @apply hidden;
+    margin-bottom: 3rem;
   }
   @screen xl {
     @apply grid;
