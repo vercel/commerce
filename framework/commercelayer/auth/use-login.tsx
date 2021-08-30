@@ -31,8 +31,6 @@ export const handler: MutationHook<any> = {
       alert(`User "${email}" has successfully been logged in.`)
       return token
     } catch (error) {
-      console.error(error)
-
       throw new CommerceError({
         message: `${error}`,
       })

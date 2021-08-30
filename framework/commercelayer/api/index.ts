@@ -10,8 +10,8 @@ import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
-export interface LocalConfig extends CommerceAPIConfig {}
-const config: LocalConfig = {
+export interface CommercelayerConfig extends CommerceAPIConfig {}
+const config: CommercelayerConfig = {
   commerceUrl: '',
   apiToken: '',
   cartCookie: '',
@@ -33,10 +33,10 @@ const operations = {
 export const provider = { config, operations }
 
 export type Provider = typeof provider
-export type LocalAPI<P extends Provider = Provider> = CommerceAPI<P | any>
+export type CommercelayerAPI<P extends Provider = Provider> = CommerceAPI<P | any>
 
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
-): LocalAPI<P> {
+): CommercelayerAPI<P> {
   return commerceApi(customProvider as any)
 }

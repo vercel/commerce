@@ -16,6 +16,12 @@ cp framework/commercelayer/.env.template .env.local
 
 Next, add the application credentials from your organization application dashboard in `.env.local`.
 
+## Checkout
+
+Demo checkout in this provider is powered by the open-sourced [Commmerce Layer Checkout](https://github.com/commercelayer/commercelayer-checkout) application that provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow that lets you easily place orders through the Commerce Layer API. You can setup your own checkout app and deploy to Vercel with one click:
+
+[![Deploy to Vercel](https://vercel.co/button)](https://vercel.co/new/project?template=https://github.com/commercelayer/commercelayer-checkout)
+
 ## Contribute
 
 Our commitment to Open Source can be found [here](https://vercel.com/oss).

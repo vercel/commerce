@@ -15,7 +15,7 @@ export const fetcher: Fetcher = async ({ url, method, variables, query }) => {
       method,
       headers: {
         Accept: 'application/vnd.api+json',
-        Authorization: `Bearer ${token.accessToken}`,
+        Authorization: `Bearer ${token.accessToken}`, 
         'Content-Type': 'application/vnd.api+json',
       },
       body: JSON.stringify({

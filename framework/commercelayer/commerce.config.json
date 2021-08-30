@@ -1,9 +1,7 @@
 {
   "provider": "commercelayer",
   "features": {
-    "wishlist": false,
-    "cart": true,
-    "search": false,
-    "customerAuth": true
+    "customerAuth": true,
+    "cart": true
   }
 }
