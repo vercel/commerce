@@ -2,6 +2,7 @@ import s from './SelectCommon.module.scss'
 import classNames from 'classnames'
 import { useState, useRef, useEffect } from 'react'
 import { IconVectorDown } from 'src/components/icons'
+import SelectOption from './SelectOption/SelectOption'
 
 interface Props {
     children? : React.ReactNode,
@@ -35,6 +36,9 @@ const SelectCommon = ({ type = 'default', size = 'base', option, children }: Pro
         setActive(!isActive)
     }
 
+    const changeSelectedName = (item:string) => {
+        setSelectedName(item)
+    }
     return(
         <>
             <div className={classNames({
@@ -60,12 +64,7 @@ const SelectCommon = ({ type = 'default', size = 'base', option, children }: Pro
                 >   
                     {
                         option.map(item => 
-                            <div className={classNames({
-                                [s.selectOption] : true,
-                                [s[size]] : !!size,
-                            })}
-                                onClick = { () => setSelectedName(item.name) }
-                            >{item.name}</div>
+                            <SelectOption itemName={item.name} onClick={changeSelectedName} size={size} />
                         )
                     }
                 </div>

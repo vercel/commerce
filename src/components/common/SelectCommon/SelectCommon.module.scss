@@ -48,15 +48,9 @@
     margin-top: 0.6rem;
     &.base{
         width: 20.6rem;
-        .selectOption{
-            padding: 1.2rem 1.6rem;
-        }
     }
     &.large{
         width: 34.25rem;
-        .selectOption{
-            padding: 1.6rem 1.6rem;
-        }
     }
     &.default{
         @apply border-solid border border-current; 
@@ -68,11 +62,6 @@
     }
     &.active{
         @apply hidden;
-    }
-    .selectOption{
-        &:hover{
-            background-color: var(--background);
-        }
     }
 }
 
