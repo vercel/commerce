@@ -1,0 +1,29 @@
+@import "../../../styles/utilities";
+.menuNavigationWrapper{
+    .menuNavigationHeading{
+        @screen md {
+            @apply sub-headline font-bold ;
+            color: var(--text-active);
+            font-feature-settings: 'salt' on;
+            margin: 1.6rem 0;
+        }
+    }
+    .menuNavigationList{
+        @screen md {
+            li{
+                margin: 0.8rem 0;
+                a{
+                 font-size: var(--font-size);
+                 line-height: var(--line-height);
+                 color:var(--text-base);
+                 &:hover {
+                    @apply text-primary;
+                 }
+                 &.active {
+                    @apply text-primary;
+                 }
+                }
+            }
+        }
+     }
+}

@@ -1,0 +1,46 @@
+@import "../../../styles/utilities";
+.menuFilterWrapper{
+    @apply spacing-horizontal ;
+    @screen md {
+        @apply hidden;
+    }
+    .menuFilterHeading{
+        @apply sub-headline font-bold ;
+        color: var(--text-active);
+        font-feature-settings: 'salt' on;
+        margin: 0.8rem 0;
+    }
+    .menuFilterList{
+        @apply flex flex-wrap justify-start relative;
+        margin-bottom: 3rem;
+        box-sizing: border-box;
+        li{
+            margin: 1rem 0;
+            padding:0;
+            a{
+             padding: 0.8rem 1.6rem;
+             margin-right: 0.8rem;
+             font-size: var(--font-size);
+             line-height: var(--line-height);
+             color:var(--text-base);
+             background-color: var(--gray);
+             border-radius: 0.8rem;
+             &:hover {
+                color:white;
+                background-color: var(--primary);
+             }
+             &.active {
+                color:white;
+                background-color: var(--primary);
+             }
+            }
+        }
+        &::after{
+            @apply absolute;
+            bottom: -20%;
+            content: "";
+            width: 100%;
+            border-bottom: 1px solid #EBEBEB;
+        } 
+    }
+}

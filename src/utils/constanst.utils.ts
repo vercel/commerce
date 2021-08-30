@@ -38,10 +38,10 @@ export enum ProductFeature {
     Sales = 'Sales',
     NewItem = 'New Item',
     Viewed = 'Viewed',
-
 }
 
 export const KEY = {
     ENTER: 'Enter',
 }
 
+export const OPTION_ALL = 'all';
