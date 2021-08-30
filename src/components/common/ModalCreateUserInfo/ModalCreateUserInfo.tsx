@@ -8,9 +8,15 @@ import ButtonCommon from '../ButtonCommon/ButtonCommon';
 import ModalCommon from '../ModalCommon/ModalCommon';
 import s from './ModalCreateUserInfo.module.scss';
 
+// todo: remove
+interface Props {
+    demoVisible: boolean,
+    demoCloseModal: () => void,
+}
 
-const ModalCreateUserInfo = () => {
-    const { visible, closeModal } = useModalCommon({ initialValue: true })
+
+const ModalCreateUserInfo = ({ demoVisible: visible, demoCloseModal: closeModal }: Props) => {
+    // const { visible, closeModal } = useModalCommon({ initialValue: false})
     const firstInputRef = useRef<CustomInputCommon>(null)
 
     return (
@@ -21,6 +27,7 @@ const ModalCreateUserInfo = () => {
                         <Inputcommon placeholder='Street Address' ref={firstInputRef} />
                         <Inputcommon placeholder='City' />
                         <div className={s.line}>
+                            {/* todo: select, not input */}
                             <Inputcommon placeholder='State' />
                             <Inputcommon placeholder='Zip code' />
                         </div>
@@ -29,7 +36,6 @@ const ModalCreateUserInfo = () => {
                     <div className={s.bottom}>
                         <ButtonCommon size='large' onClick={closeModal} type='light'>Skip</ButtonCommon>
                         <ButtonCommon size='large'>Submit</ButtonCommon>
-
                     </div>
                 </div>
             </div>
