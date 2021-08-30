@@ -3,8 +3,8 @@ import type { CommerceAPI } from '@commerce/api'
 import type { GetAPISchema } from '@commerce/api'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
 import type { CheckoutSchema } from '@commerce/types/checkout'
-import type { SpreeApiProvider } from '@framework/api'
 import checkout from './checkout'
+import { SpreeApiProvider } from '../..'
 
 export type CheckoutAPI = GetAPISchema<
   CommerceAPI<SpreeApiProvider>,

@@ -6,10 +6,10 @@ import { useCallback } from 'react'
 import { ValidationError } from '@commerce/utils/errors'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import type { SetQuantity } from '@spree/storefront-api-v2-sdk/types/interfaces/endpoints/CartClass'
-import getCartToken from '@framework/utils/get-cart-token'
+import getCartToken from '../utils/get-cart-token'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
-import normalizeCart from '@framework/utils/normalize-cart'
+import normalizeCart from '../utils/normalize-cart'
 import debounce from 'lodash.debounce'
 
 export default useUpdateItem as UseUpdateItem<any>

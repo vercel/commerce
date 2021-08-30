@@ -3,11 +3,11 @@ import type { SWRHook } from '@commerce/utils/types'
 import useCart from '@commerce/cart/use-cart'
 import type { UseCart } from '@commerce/cart/use-cart'
 import type { GetCartHook } from '@commerce/types/cart'
-import normalizeCart from '@framework/utils/normalize-cart'
+import normalizeCart from '../utils/normalize-cart'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
-import setCartToken from '@framework/utils/set-cart-token'
+import setCartToken from '../utils/set-cart-token'
 import { FetcherError } from '@commerce/utils/errors'
 
 export default useCart as UseCart<typeof handler>

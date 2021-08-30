@@ -11,13 +11,13 @@ import type {
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
-import { requireConfigValue } from '@framework/isomorphic-config'
+import { requireConfigValue } from '../isomorphic-config'
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import expandOptions from './expand-options'
 import getMediaGallery from './get-media-gallery'
 import { findIncluded, findIncludedOfType } from './find-json-api-documents'
 import getProductPath from './get-product-path'
-import MissingPrimaryVariantError from '@framework/errors/MissingPrimaryVariantError'
+import MissingPrimaryVariantError from '../errors/MissingPrimaryVariantError'
 
 const placeholderImage = requireConfigValue('productPlaceholderImageUrl') as
   | string

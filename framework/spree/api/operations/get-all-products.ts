@@ -7,7 +7,7 @@ import type {
 import type { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { SpreeApiConfig, SpreeApiProvider } from '../index'
 import type { SpreeSdkVariables } from 'framework/spree/types'
-import normalizeProduct from '@framework/utils/normalize-product'
+import normalizeProduct from '../../utils/normalize-product'
 
 export default function getAllProductsOperation({
   commerce,

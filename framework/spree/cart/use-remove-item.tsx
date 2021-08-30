@@ -4,11 +4,11 @@ import type { UseRemoveItem } from '@commerce/cart/use-remove-item'
 import type { RemoveItemHook } from '@commerce/types/cart'
 import useCart from './use-cart'
 import { useCallback } from 'react'
-import normalizeCart from '@framework/utils/normalize-cart'
+import normalizeCart from '../utils/normalize-cart'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IQuery } from '@spree/storefront-api-v2-sdk/types/interfaces/Query'
-import getCartToken from '@framework/utils/get-cart-token'
+import getCartToken from '../utils/get-cart-token'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>

@@ -4,9 +4,9 @@ import type {
 } from '@commerce/api/operations'
 import type { Product } from '@commerce/types/product'
 import type { GetAllProductPathsOperation } from '@commerce/types/product'
-import { requireConfigValue } from '@framework/isomorphic-config'
-import type { IProductsSlugs, SpreeSdkVariables } from '@framework/types'
-import getProductPath from '@framework/utils/get-product-path'
+import { requireConfigValue } from '../../isomorphic-config'
+import type { IProductsSlugs, SpreeSdkVariables } from '../../types'
+import getProductPath from '../../utils/get-product-path'
 import type { SpreeApiConfig, SpreeApiProvider } from '..'
 
 export default function getAllProductPathsOperation({

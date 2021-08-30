@@ -4,8 +4,8 @@ import type {
   ProductVariant,
   SelectedOption,
 } from '@commerce/types/cart'
-import MissingLineItemVariantError from '@framework/errors/MissingLineItemVariantError'
-import { requireConfigValue } from '@framework/isomorphic-config'
+import MissingLineItemVariantError from '../errors/MissingLineItemVariantError'
+import { requireConfigValue } from '../isomorphic-config'
 import type {
   JsonApiListResponse,
   JsonApiSingleResponse,
@@ -16,11 +16,7 @@ import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import getMediaGallery from './get-media-gallery'
 import { findIncluded, findIncludedOfType } from './find-json-api-documents'
-import type {
-  LineItemAttr,
-  OptionTypeAttr,
-  VariantAttr,
-} from '@framework/types'
+import type { LineItemAttr, OptionTypeAttr, VariantAttr } from '../types'
 import type { Image } from '@commerce/types/common'
 
 const placeholderImage = requireConfigValue('lineItemPlaceholderImageUrl') as
