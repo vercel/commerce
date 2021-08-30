@@ -35,10 +35,6 @@ const SelectCommon = ({ type = 'default', size = 'base', option, children }: Pro
         setActive(!isActive)
     }
 
-    const changeSelectedName = (props:string) => {
-        setSelectedName(props)
-    }
-
     return(
         <>
             <div className={classNames({
@@ -68,7 +64,7 @@ const SelectCommon = ({ type = 'default', size = 'base', option, children }: Pro
                                 [s.selectOption] : true,
                                 [s[size]] : !!size,
                             })}
-                                onClick = { changeSelectedName!.(item.name) }
+                                onClick = { () => setSelectedName(item.name) }
                             >{item.name}</div>
                         )
                     }
