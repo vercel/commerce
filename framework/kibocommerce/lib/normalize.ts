@@ -5,10 +5,15 @@
 // import { definitions } from '../api/definitions/store-content'
 import update from './immutability'
 import getSlug from './get-slug'
+import {PrCategory} from '../schema'
 
 function normalizeProductOption(productOption: any) {
   const {
-    node: { entityId, values: { edges = [] } = {}, ...rest },
+    node: {
+      entityId,
+      values: { edges = [] } = {},
+      ...rest
+    },
   } = productOption
 
   return {
@@ -127,11 +132,11 @@ function normalizeLineItem(item: any): any {
   }
 }
 
-export function normalizeCategory(category: any): any {
+export function normalizeCategory(category: PrCategory): any {
   return {
-    id: `${category.entityId}`,
-    name: category.name,
-    slug: getSlug(category.path),
-    path: category.path,
+    id: category?.categoryCode,
+    name: category?.content?.name,
+    slug: category?.content?.slug,
+    path: `/${category?.content?.slug}`
   }
 }
