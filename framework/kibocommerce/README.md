@@ -1,1 +1,1 @@
-# Next.js Local Provider
+# Next.js Kibo Provider
