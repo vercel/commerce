@@ -68,7 +68,7 @@ const SelectCommon = ({ type = 'default', size = 'base', option, children }: Pro
                                 [s.selectOption] : true,
                                 [s[size]] : !!size,
                             })}
-                                onClick = { changeSelectedName(item.name) }
+                                onClick = { changeSelectedName!.(item.name) }
                             >{item.name}</div>
                         )
                     }
