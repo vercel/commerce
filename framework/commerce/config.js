@@ -2,12 +2,12 @@
  * This file is expected to be used in next.config.js only
  */
 
-const path = require('path')
-const fs = require('fs')
-const merge = require('deepmerge')
-const prettier = require('prettier')
+ path = require('path')
+ fs = require('fs')
+ merge = require('deepmerge')
+ prettier = require('prettier')
 
-const PROVIDERS = [
+ PROVIDERS = [
   'bigcommerce',
   'saleor',
   'shopify',
