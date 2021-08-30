@@ -10,6 +10,8 @@ const Head: FC = () => {
       <NextHead>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
+        <meta key="robots" name="robots" content="noindex,nofollow" />
+        <meta key="googlebot" name="googlebot" content="noindex,nofollow" />
       </NextHead>
     </>
   )
