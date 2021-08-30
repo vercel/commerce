@@ -11,7 +11,7 @@ import { handler as useSignup } from './auth/use-signup'
 
 export const kiboCommerceProvider = {
   locale: 'en-us',
-  cartCookie: 'bc_cartId',
+  cartCookie: 'kibo_cart',
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
