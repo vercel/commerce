@@ -23,10 +23,7 @@ const FormLogin = ({ onSwitch, isHide }: Props) => {
     }, [isHide])
 
     return (
-        <section className={classNames({
-            [s.formAuthen]: true,
-            // [styles.hide]: isHide
-        })}>
+        <section className={s.formAuthen}>
             <div className={s.inner}>
                 <div className={s.body}>
                     <Inputcommon placeholder='Email Address' type='email' ref={emailRef} />

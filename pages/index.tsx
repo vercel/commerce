@@ -1,5 +1,5 @@
 
-import { Layout } from 'src/components/common'
+import { Layout, ModalCreateUserInfo } from 'src/components/common'
 import { HomeBanner, HomeCollection, HomeCTA, HomeSubscribe, HomeVideo, HomeCategories, HomeFeature, HomeRecipe } from 'src/components/modules/home';
 
 export default function Home() {
@@ -13,6 +13,8 @@ export default function Home() {
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
+
+      <ModalCreateUserInfo/>
     </>
   )
 }
