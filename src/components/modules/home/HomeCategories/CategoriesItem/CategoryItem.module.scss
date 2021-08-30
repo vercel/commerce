@@ -1,0 +1,31 @@
+@import "../../../../../styles/_utilities";
+
+.categoryItem {
+    .categoryItemImage {
+        @apply transition-all duration-200;
+        width: 10.6rem;
+        margin: 0 auto;
+        max-height: 14rem;
+        object-fit: cover;
+        cursor: pointer;
+        @screen md {
+            width: 100%;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+    .categoryItemText {
+        @apply sub-headline;
+        text-align: center;
+        font-feature-settings: "salt" on;
+        cursor: pointer;
+        &:hover {
+            color: var(--primary);
+        }
+    }
+}

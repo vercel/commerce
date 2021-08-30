@@ -1,21 +1,20 @@
 import classNames from 'classnames'
 import React, { memo } from 'react'
-import { ButonType, ButtonSize } from 'src/utils/constanst.utils'
 import s from './ButtonCommon.module.scss'
 
 interface Props {
     children?: React.ReactNode,
-    type?: ButonType,
-    size?: ButtonSize,
-    icon?: any,
+    type?: 'primary' | 'light' | 'ghost' | 'lightBorderNone',
+    size?: 'default' | 'large',
+    icon?: React.ReactNode,
     isIconSuffix?: boolean,
     loading?: boolean,
     disabled?: boolean,
     onClick?: () => void,
 }
 
-const ButtonCommon = memo(({ type = ButonType.primary, size = ButtonSize.default,
-    icon, loading, disabled, isIconSuffix, children, onClick }: Props) => {
+const ButtonCommon = memo(({ type = 'primary', size = 'default', loading = false, isIconSuffix = false,
+    icon, disabled, children, onClick }: Props) => {
     return (
         <button className={classNames({
             [s.buttonCommon]: true,
@@ -23,6 +22,7 @@ const ButtonCommon = memo(({ type = ButonType.primary, size = ButtonSize.default
             [s[size]]: !!size,
             [s.loading]: loading,
             [s.preserve]: isIconSuffix,
+            [s.onlyIcon]: icon && !children,
         })}
             disabled={disabled}
             onClick={onClick}

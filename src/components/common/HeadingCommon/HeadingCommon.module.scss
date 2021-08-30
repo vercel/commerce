@@ -1,0 +1,17 @@
+@import '../../../styles/utilities';
+
+.headingCommon {
+  @apply heading-2 font-heading text-left;
+
+  &.highlight {
+    color: var(--negative);
+  }
+  &.light {
+    color: var(--white);
+  }
+  &.center {
+    @apply text-center;
+  }
+
+ 
+}

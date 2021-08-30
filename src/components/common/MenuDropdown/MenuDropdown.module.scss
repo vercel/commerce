@@ -1,0 +1,98 @@
+@import "../../../styles/utilities";
+
+.menuDropdown {
+    @apply relative cursor-pointer;
+    width: fit-content;
+    &:hover {
+        .label {
+            color: var(--primary);
+            svg path {
+                fill: currentColor;
+            }
+        }
+        .menu {
+            @apply block;
+            animation: menuDropdownAnimation 0.2s ease-out;
+        }
+    }
+
+    .label {
+        @apply flex justify-end items-center transition-all duration-200;
+        svg path {
+            width: fit-content;
+        }
+    }
+
+    &.arrow {
+        .label {
+            margin-right: 1.6rem;
+        }
+        &::after {
+            @apply inline-block absolute transition-all duration-100;
+            content: "";
+            top: 35%;
+            right: 0;
+            border: solid currentColor;
+            border-width: 0 2px 2px 0;
+            padding: 2px;
+            transform: rotate(45deg);
+        }
+        &:hover {
+            &::after {
+                @apply border-primary;
+                transform: rotate(-135deg);
+            }
+        }
+    }
+
+    .menu {
+        @apply hidden absolute;
+        content: "";
+        right: 0;
+        top: 2rem;
+        height: max-content;
+        min-width: 19.2rem;
+        z-index: 100;
+        &.left {
+            left: 0;
+        }
+        &:hover {
+            @apply block shadow-md;
+        }
+        .menuIner {
+            @apply rounded list-none bg-white;
+            border: 1px solid var(--text-active);
+            margin-top: 0.4rem;
+            li {
+                @apply block w-full transition-all duration-200 cursor-pointer text-active;
+                button {
+                    all: unset;
+                    color: currentColor;
+                    @apply text-left w-full;
+                }
+                button,
+                a {
+                    padding: 0.8rem 1.6rem;
+                }
+                a {
+                    @apply block;
+                }
+                &:hover {
+                    @apply bg-primary-lightest;
+                    color: var(--primary);
+                }
+            }
+        }
+    }
+}
+
+@keyframes menuDropdownAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(1.6rem);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}

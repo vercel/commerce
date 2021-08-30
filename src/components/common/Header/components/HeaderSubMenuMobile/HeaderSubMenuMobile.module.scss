@@ -1,0 +1,51 @@
+@import "../../../../../styles/utilities";
+
+.headerSubMenuMobile {
+    @apply fixed w-full bg-white;
+    bottom: 0;
+    left: 0;
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--border-line);
+    box-shadow: -5px 6px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    .menu {
+        @apply grid grid-cols-4;
+        li {
+            a {
+                @apply transition-all duration-200 no-underline;
+                &:hover {
+                    color: var(--primary);
+                }
+            }
+            .menuItem {
+                @apply flex flex-col justify-center items-center sm-label;
+                .icon {
+                    position: relative;
+                    margin-bottom: 0.5rem;
+                    svg path {
+                        fill: currentColor;
+                    }
+                }
+                &.active {
+                    @apply text-primary;
+                }
+                &.dot {
+                    .icon {
+                        &::after {
+                            @apply absolute bg-negative rounded-full;
+                            content: "";
+                            top: 0;
+                            right: 0;
+                            $size: 1rem;
+                            width: $size;
+                            height: $size;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @screen md {
+        @apply hidden;
+    }
+}

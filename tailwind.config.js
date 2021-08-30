@@ -48,7 +48,17 @@ module.exports = {
         'line': 'var(--border-line)',
         'background': 'var(--background)',
         'white': 'var(--white)',
+
+        'background-arrow':'var(--background-arrow)',
+
+        
         'disabled': 'var(--text-disabled)',
+        line: 'var(--border-line)',
+        background: 'var(--background)',
+        white: 'var(--white)',
+        gray: 'var(--gray)',
+        disabled: 'var(--text-disabled)',
+        'background-arrow':'var(--background-arrow)',
         
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
@@ -82,9 +92,9 @@ module.exports = {
         active: 'var(--text-active)',
         label: 'var(--text-label)',
         placeholder: 'var(--text-placeholder)',
+        primary: 'var(--primary)',
         
         // @deprecated (NOT use these variables)
-        primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
       },
       boxShadow: {
@@ -113,7 +123,10 @@ module.exports = {
 
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
-      }
+      },
+      caroucel:{
+        "arrow-height":"64px"
+      },
     },
   },
   plugins: [require('postcss-import'), require('tailwindcss'), require('autoprefixer')]

@@ -1,0 +1,15 @@
+@import "../../../../../styles/utilities";
+
+.formRegister {
+    .passwordNote {
+        @apply text-center caption text-label;
+        margin-top: 0.8rem;
+    }
+    .bottom {
+        @apply flex justify-between items-center w-full;
+        margin: 4rem auto;
+        button {
+            @apply w-full;
+        }
+    }
+}

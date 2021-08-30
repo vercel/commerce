@@ -1,0 +1,35 @@
+.formAuthen {
+    @apply bg-white w-full;
+    .inner {
+        @screen md {
+            max-width: 52rem;
+            margin: auto;
+        }
+        .body {
+            > div {
+                &:not(:last-child) {
+                    margin-bottom: 1.6rem;
+                }
+            }
+        }
+        .others {
+            @apply font-bold text-center;
+            margin-top: 4rem;
+
+            span {
+                @apply text-active;
+                margin-right: 0.8rem;
+            }
+            button {
+                all: unset;
+                @apply text-primary cursor-pointer;
+                &:focus-visible {
+                    outline: 2px solid #000;
+                }
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}

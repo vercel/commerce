@@ -3,4 +3,7 @@ export const LANGUAGE = {
         BUY_NOW: 'Buy now',
         SHOP_NOW: 'Shop now',
     },
+    PLACE_HOLDER: {
+        SEARCH: 'Search',
+    }
 }

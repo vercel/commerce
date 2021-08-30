@@ -1,0 +1,14 @@
+@import "../../../../styles/utilities";
+
+.homeSubscribe {
+  @apply flex flex-col justify-center items-center bg-primary text-center;
+  padding: 4rem 2rem;
+  @screen md {
+    padding-top: 5.6rem;
+    padding-bottom: 5.6rem;
+  }
+  .sub {
+    margin-top: 2.4rem;
+    color: var(--white);
+  }
+}

@@ -1,0 +1,32 @@
+@import '../../../styles/utilities';
+
+.background{
+    @apply fixed inset-0 overflow-y-auto;
+    background: rgba(20, 20, 20, 0.65);
+    z-index: 10000;
+    .warpper{
+        @apply flex justify-center items-center  min-h-screen;
+        .modal{
+            @apply inline-block align-bottom bg-white relative;
+            max-width: 60rem;
+            padding: 3.2rem;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
+            border-radius: 1.2rem;
+            .top {
+                margin-bottom: 4rem;
+            }
+            .title{
+                @apply font-heading heading-3;
+                padding: 0 0.8rem 0 0.8rem;
+            }
+            .close{
+                @apply absolute;
+                &:hover{
+                    cursor: pointer;
+                }
+                top:4.4rem;
+                right: 4.4rem;
+            }
+        }
+    }
+}

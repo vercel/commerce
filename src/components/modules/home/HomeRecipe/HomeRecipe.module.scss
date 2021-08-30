@@ -1,0 +1,35 @@
+@import '../../../../styles/utilities';
+
+.homeRecipeWarpper {
+  padding-top: 5.6rem;
+  padding-bottom: 6.5rem;
+  @apply flex flex-col;
+  .top {
+    @apply spacing-horizontal flex w-full justify-between;
+    @screen xl {
+      .right {
+        margin-right: 2.476rem;
+      }
+    }
+  }
+  .mid{
+			padding-top: 3.2rem; 
+			padding-bottom: 3.2rem; 
+      @apply flex justify-start spacing-horizontal;
+      .tab{
+          font-family: var(--font-heading);
+          padding: 1.6rem 1.6rem 0.8rem 1.6rem;
+          font-size: 2.4rem;
+          line-height: 2.8rem;
+          @screen md{   
+            font-size: 3.2rem;
+            line-height: 4rem;
+          }
+					outline: none;
+          &.active{
+            @apply text-background custom-border-radius bg-primary;
+          }
+					
+      }
+  }
+}

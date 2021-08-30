@@ -1,0 +1,65 @@
+@import "../../../../styles/utilities";
+
+.homeVideo {
+  margin: 2rem auto 3rem;
+  .top,
+  .videoWrap > div {
+    @apply spacing-horizontal;
+  }
+  @screen md {
+    margin: 6.4rem auto 5.6rem;
+    .top,
+    .videoWrap > div {
+      max-width: 60rem;
+      margin: auto;
+      padding: 0;
+    }
+  }
+
+  @screen lg {
+    .top,
+    .videoWrap > div {
+      max-width: 80rem;
+    }
+  }
+  .top {
+    margin-bottom: 2rem;
+    @screen md {
+      @apply flex items-center;
+      margin-bottom: 4rem;
+      .logo {
+        margin-right: 2.4rem;
+        margin-bottom: 0;
+      }
+    }
+    .logo {
+      max-width: 10rem;
+      margin-bottom: 1rem;
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+  .videoWrap {
+    @apply relative flex justify-center;
+    > div {
+      @apply relative;
+      width: 100% !important;
+      z-index: 10;
+    }
+    &::before {
+      @apply absolute bg-primary;
+      content: "";
+      width: 100%;
+      height: 18rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 0;
+      @screen md {
+        background-image: url("./assets/bg_left.svg"), url("./assets/bg_right.svg");
+        background-repeat: no-repeat;
+        background-position: 5% 0, 95% 0;
+      }
+    }
+  }
+}

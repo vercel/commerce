@@ -1,0 +1,39 @@
+@import '../../../styles/utilities';
+.quanittyInputWarper{
+    border-color: theme("textColor.active");
+    @apply border border-solid inline-flex justify-between items-center custom-border-radius;
+    .plusIcon, .minusIcon{
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    &.default{
+        max-width: 18.4rem;
+        min-height: 4rem;
+        .plusIcon, .minusIcon{
+            margin: 0.8rem;
+            width: 2.4rem;
+            height: 2.4rem;
+        }
+    }
+    &.small{
+        max-width: 10rem;
+        min-height: 2.8rem;
+        .plusIcon, .minusIcon{
+            margin: 0 0.6rem;
+            // width: 1rem;
+            // height: 1rem;
+        }
+    }
+    .quanittyInput{
+        @apply bg-background  outline-none w-1/2 text-center h-full font-bold;
+        font-size: 20px;
+        line-height: 28px;
+        color: theme("textColor.active");
+        &::-webkit-inner-spin-button, &::-webkit-inner-spin-button{
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+    
+}

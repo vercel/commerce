@@ -1,0 +1,24 @@
+@import '../../../styles/utilities';
+
+.scrollToTop {
+    @apply hidden;
+
+    @screen md {
+        &.show {
+            @apply block rounded-lg fixed cursor-pointer;
+            right: 11.2rem;
+            bottom: 21.6rem; 
+            width: 6.4rem;
+            height: 6.4rem;
+            background-color: var(--border-line);
+        }
+        
+        &.hide {
+            @apply hidden;
+        }
+    }
+
+    .scrollToTopBtn {
+        @apply outline-none w-full h-full;
+    }
+}
