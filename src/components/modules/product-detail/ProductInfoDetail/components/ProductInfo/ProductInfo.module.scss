@@ -1,0 +1,40 @@
+@import "../../../../../../styles/utilities";
+
+.productInfo {
+    .info {
+        margin-bottom: 3.2rem;
+        .heading {
+            @apply heading-2 font-heading;
+            margin-top: 0.8rem;
+        }
+        .price {
+            margin-top: 0.8rem;
+            .old {
+                margin-bottom: 0.8rem;
+                .number {
+                    margin-right: 0.8rem;
+                    color: var(--text-label);
+                    text-decoration: line-through;
+                }
+            }
+            .current {
+                @apply text-active;
+            }
+        }
+        .description {
+            margin-top: 0.8rem;
+        }
+    }
+    .bottom {
+        @screen md {
+            margin-top: 2.4rem;
+            max-width: 39rem;
+            button {
+                @apply w-full;
+                &:first-child {
+                    margin-bottom: 0.8rem;
+                }
+            }
+        }
+    }
+}

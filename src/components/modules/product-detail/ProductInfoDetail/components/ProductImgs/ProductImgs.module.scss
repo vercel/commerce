@@ -1,0 +1,6 @@
+.productImgs {
+    .img {
+        @apply w-full h-full;
+        object-fit: cover;
+    }
+}
