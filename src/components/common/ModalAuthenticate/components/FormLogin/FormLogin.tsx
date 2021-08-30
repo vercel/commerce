@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import React, { useRef, useEffect } from 'react'
-import { Inputcommon, ButtonCommon } from 'src/components/common'
+import React, { useEffect, useRef } from 'react'
+import { ButtonCommon, Inputcommon } from 'src/components/common'
+import InputPassword from 'src/components/common/InputPassword/InputPassword'
 import { ROUTE } from 'src/utils/constanst.utils'
-import SocialAuthen from '../SocialAuthen/SocialAuthen'
-import s from '../FormAuthen.module.scss'
-import styles from './FormLogin.module.scss'
-import classNames from 'classnames'
 import { CustomInputCommon } from 'src/utils/type.utils'
+import s from '../FormAuthen.module.scss'
+import SocialAuthen from '../SocialAuthen/SocialAuthen'
+import styles from './FormLogin.module.scss'
 
 interface Props {
     isHide: boolean,
@@ -23,14 +23,12 @@ const FormLogin = ({ onSwitch, isHide }: Props) => {
     }, [isHide])
 
     return (
-        <section className={classNames({
-            [s.formAuthen]: true,
-            // [styles.hide]: isHide
-        })}>
+        <section className={s.formAuthen}>
             <div className={s.inner}>
                 <div className={s.body}>
-                    <Inputcommon placeholder='Email Address' type='email' ref={emailRef} />
-                    <Inputcommon placeholder='Password' type='password' />
+                    <Inputcommon placeholder='Email Address' type='email' ref={emailRef}
+                        isShowIconSuccess={true} isIconSuffix={true} />
+                    <InputPassword placeholder='Password'/>
                 </div>
                 <div className={styles.bottom}>
                     <Link href={ROUTE.FORGOT_PASSWORD}>

@@ -24,7 +24,6 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
         <section className={classNames({
             [s.formAuthen]: true,
             [styles.formRegister]: true,
-            // [styles.hide]: isHide
         })}>
             <div className={s.inner}>
                 <div className={s.body}>

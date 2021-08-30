@@ -1,6 +1,6 @@
 
-import { Layout } from 'src/components/common'
-import { HomeBanner, HomeCollection, HomeCTA, HomeSubscribe, HomeVideo, HomeCategories, HomeFeature, HomeRecipe } from 'src/components/modules/home';
+import { Layout } from 'src/components/common';
+import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 
 export default function Home() {
   return (
@@ -13,6 +13,9 @@ export default function Home() {
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
+
+      // todo: uncomment
+      {/* <ModalCreateUserInfo/> */}
     </>
   )
 }
