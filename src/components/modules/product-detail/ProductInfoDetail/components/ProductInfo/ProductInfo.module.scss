@@ -1,6 +1,13 @@
 @import "../../../../../../styles/utilities";
 
 .productInfo {
+    @screen md {
+        max-width: 39rem;
+        margin-left: 4.8rem;
+    }
+    @screen lg {
+        margin-left: 11.2rem;
+    }
     .info {
         margin-bottom: 3.2rem;
         .heading {
@@ -25,12 +32,46 @@
             margin-top: 0.8rem;
         }
     }
+    .actions {
+        @screen sm-only {
+            @apply fixed flex justify-between items-center bg-white w-full;
+            z-index: 10000;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+        }
+    }
     .bottom {
+        @screen sm-only {
+            @apply flex justify-between items-center flex-row-reverse;
+            margin-left: 1rem;
+            flex: 1;
+            button {
+                &:first-child {
+                    min-width: 13rem;
+                }
+                &:nth-child(n + 1) {
+                    margin-left: 0.8rem;
+                }
+            }
+        }
+        .buttonWithIcon {
+            @apply flex items-center;
+            .label {
+                @apply hidden;
+                @screen md {
+                    @apply inline-block;
+                    margin-left: 0.8rem;
+                }
+            }
+        }
+        button {
+            @apply w-full;
+        }
+
         @screen md {
             margin-top: 2.4rem;
-            max-width: 39rem;
             button {
-                @apply w-full;
                 &:first-child {
                     margin-bottom: 0.8rem;
                 }

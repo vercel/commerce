@@ -1,4 +1,11 @@
 .productImgs {
+    @apply w-full;
+    @screen sm-only {
+        margin-bottom: 2rem;
+    }
+    @screen lg {
+        max-width: 60rem;
+    }
     .img {
         @apply w-full h-full;
         object-fit: cover;

@@ -1,0 +1,9 @@
+@import '../../../../styles/utilities';
+
+.productInfoDetail {
+    @apply spacing-horizontal;
+    margin: 0 auto 4rem;
+    @screen md {
+        @apply flex;
+    }
+}

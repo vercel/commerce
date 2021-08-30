@@ -1,5 +1,6 @@
 import React from 'react'
 import { ButtonCommon, LabelCommon, QuanittyInput } from 'src/components/common'
+import { IconBuy } from 'src/components/icons'
 import { LANGUAGE } from 'src/utils/language.utils'
 import s from './ProductInfo.module.scss'
 
@@ -25,10 +26,17 @@ const ProductInfo = ({ }: Props) => {
                     In a large non-reactive dish, mix together the orange juice, soy sauce, olive oil, lemon juice, parsley
                 </div>
             </div>
-            <QuanittyInput />
-            <div className={s.bottom}>
-                <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>
-                <ButtonCommon size='large' type='light'>{LANGUAGE.BUTTON_LABEL.ADD_TO_CARD}</ButtonCommon>
+            <div className={s.actions}>
+                <QuanittyInput />
+                <div className={s.bottom}>
+                    <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>
+
+                    <ButtonCommon size='large' type='light'>
+                        <span className={s.buttonWithIcon}>
+                            <IconBuy /><span className={s.label}>{LANGUAGE.BUTTON_LABEL.ADD_TO_CARD}</span>
+                        </span>
+                    </ButtonCommon>
+                </div>
             </div>
         </section >
     )
