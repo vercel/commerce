@@ -3,7 +3,7 @@
 }
 
 .navContainer {
-  @apply bg-secondary;
+  @apply bg-secondary relative z-40;
   height: 50px;
 }
 .searchContainer {
@@ -11,20 +11,8 @@
 }
 
 .nav {
-  @apply relative flex flex-row justify-between;
+  @apply relative flex flex-row justify-between z-40;
   padding: 10px 0;
-}
-
-.navMenu {
-  @apply hidden ml-6 space-x-4 lg:block;
-}
-
-.link {
-  @apply items-center transition ease-in-out duration-75 cursor-pointer text-accent-0 border-b-2 border-opacity-0;
-}
-
-.link:hover {
-  @apply border-b-2 border-opacity-40;
 }
 
 .logo {
