@@ -1,6 +1,6 @@
 import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
 import { getCommerceApi as commerceApi } from '@commerce/api'
-import createFetcher from './utils/fetch-local'
+import createFetchGraphqlApi from "../api/utils/fetch-graphql-api"
 
 import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
@@ -10,14 +10,14 @@ import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
-export interface KiboCommerceConfig extends CommerceAPIConfig {}
+export interface KiboCommerceConfig extends CommerceAPIConfig { }
 const config: KiboCommerceConfig = {
   commerceUrl: process.env.KIBO_API_URL || '',
   apiToken: process.env.KIBO_API_TOKEN || '',
   cartCookie: process.env.KIBO_CART_COOKIE || '',
   customerCookie: process.env.KIBO_CUSTOMER_COOKIE || '',
   cartCookieMaxAge: 2592000,
-  fetch: createFetcher(() => getCommerceApi().getConfig()),
+  fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
 }
 
 const operations = {
@@ -35,7 +35,7 @@ export const provider = { config, operations }
 export type KiboCommerceProvider = typeof provider
 export type KiboCommerceAPI<
   P extends KiboCommerceProvider = KiboCommerceProvider
-> = CommerceAPI<P | any>
+  > = CommerceAPI<P | any>
 
 export function getCommerceApi<P extends KiboCommerceProvider>(
   customProvider: P = provider as any
