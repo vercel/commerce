@@ -13,8 +13,8 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
-  const innerRef = useRef() as React.MutableRefObject<HTMLDivElement>
-  const ref = useRef() as React.MutableRefObject<HTMLDivElement>
+  const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  const contentRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const onKeyDownSidebar = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.code === 'Escape') {
@@ -23,18 +23,18 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
   }
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.focus()
+    if (sidebarRef.current) {
+      sidebarRef.current.focus()
     }
 
-    if (innerRef.current) {
-      disableBodyScroll(innerRef.current, { reserveScrollBarGap: true })
+    const contentElement = contentRef.current
+  
+    if (contentElement) {
+      disableBodyScroll(contentElement, { reserveScrollBarGap: true })
     }
 
     return () => {
-      if (innerRef && innerRef.current) {
-        enableBodyScroll(innerRef.current)
-      }
+      if (contentElement) enableBodyScroll(contentElement)
       clearAllBodyScrollLocks()
     }
   }, [])
@@ -42,7 +42,7 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
   return (
     <div
       className={cn(s.root)}
-      ref={ref}
+      ref={sidebarRef}
       onKeyDown={onKeyDownSidebar}
       tabIndex={1}
     >
@@ -50,7 +50,7 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
         <div className={s.backdrop} onClick={onClose} />
         <section className="absolute inset-y-0 right-0 max-w-full flex outline-none pl-10">
           <div className="h-full w-full md:w-screen md:max-w-md">
-            <div className={s.sidebar} ref={innerRef}>
+            <div className={s.sidebar} ref={contentRef}>
               {children}
             </div>
           </div>

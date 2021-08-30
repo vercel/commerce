@@ -6,6 +6,7 @@
     "build": "next build",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
+    "lint": "next lint",
     "prettier-fix": "prettier --write .",
     "find:unused": "npx next-unused",
     "generate": "graphql-codegen",
@@ -63,6 +64,9 @@
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.8",
     "deepmerge": "^4.2.2",
+    "eslint": "^7.31.0",
+    "eslint-config-next": "^11.0.1",
+    "eslint-config-prettier": "^8.3.0",
     "graphql": "^15.5.1",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
@@ -78,6 +82,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
+      "eslint",
       "prettier --write",
       "git add"
     ],

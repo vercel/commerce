@@ -18,10 +18,10 @@ export function useSearchMeta(asPath: string) {
       c = parts[4]
     }
 
-    setPathname(path)
+    if (path !== pathname) setPathname(path)
     if (c !== category) setCategory(c)
     if (b !== brand) setBrand(b)
-  }, [asPath])
+  }, [asPath, pathname, category, brand])
 
   return { pathname, category, brand }
 }
