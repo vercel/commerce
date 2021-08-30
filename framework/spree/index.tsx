@@ -13,9 +13,8 @@ import { requireConfigValue } from './isomorphic-config'
 
 export type SpreeProps = {
   children: ReactNode
-  provider: Provider
-  config: SpreeConfig
-} & SpreeConfig
+  locale: string
+}
 
 export const spreeCommerceConfigDefaults: CommerceConfig = {
   locale: requireConfigValue('defaultLocale') as string,
@@ -26,7 +25,7 @@ export type SpreeConfig = CommerceConfig
 
 export function CommerceProvider({ children, ...restProps }: SpreeProps) {
   return (
-    <CoreCommerceProvider
+    <CoreCommerceProvider<Provider>
       provider={provider}
       config={{ ...spreeCommerceConfigDefaults, ...restProps }}
     >

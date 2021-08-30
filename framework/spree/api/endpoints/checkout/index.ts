@@ -1,10 +1,9 @@
 import { createEndpoint } from '@commerce/api'
-import type { CommerceAPI } from '@commerce/api'
-import type { GetAPISchema } from '@commerce/api'
+import type { GetAPISchema, CommerceAPI } from '@commerce/api'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
 import type { CheckoutSchema } from '@commerce/types/checkout'
 import checkout from './checkout'
-import { SpreeApiProvider } from '../..'
+import type { SpreeApiProvider } from '../..'
 
 export type CheckoutAPI = GetAPISchema<
   CommerceAPI<SpreeApiProvider>,

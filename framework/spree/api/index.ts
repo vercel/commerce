@@ -1,4 +1,4 @@
-import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
+import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
 import { getCommerceApi as commerceApi } from '@commerce/api'
 import createApiFetch from './utils/create-api-fetch'
 
@@ -10,9 +10,7 @@ import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
-export interface SpreeApiConfig extends CommerceAPIConfig {
-  fetch: any // Using any type, because CommerceAPIConfig['fetch'] cannot be extended from Variables = any to SpreeSdkVariables
-}
+export interface SpreeApiConfig extends CommerceAPIConfig {}
 
 const config: SpreeApiConfig = {
   commerceUrl: '',
@@ -33,9 +31,15 @@ const operations = {
   getProduct,
 }
 
-export const provider: APIProvider = { config, operations }
+export const provider = { config, operations }
 
-export type SpreeApiProvider = APIProvider
+export type SpreeApiProvider = typeof provider
 
-export const getCommerceApi = (customProvider: APIProvider = provider) =>
-  commerceApi(customProvider)
+export type SpreeApi<P extends SpreeApiProvider = SpreeApiProvider> =
+  CommerceAPI<P>
+
+export function getCommerceApi<P extends SpreeApiProvider>(
+  customProvider: P = provider as any
+): SpreeApi<P> {
+  return commerceApi(customProvider)
+}

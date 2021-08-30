@@ -8,17 +8,19 @@ import type {
   JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import getSpreeSdkMethodFromEndpointPath from '../../utils/get-spree-sdk-method-from-endpoint-path'
-import { SpreeSdkVariables } from 'framework/spree/types'
 import SpreeSdkMethodFromEndpointPathError from 'framework/spree/errors/SpreeSdkMethodFromEndpointPathError'
 import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
 import createCustomizedFetchFetcher from '../../utils/create-customized-fetch-fetcher'
 import fetch, { Request } from 'node-fetch'
 
-const createApiFetch: (
+export type CreateApiFetch = (
   getConfig: () => SpreeApiConfig
-) => GraphQLFetcher<GraphQLFetcherResult<any>, SpreeSdkVariables> = (
-  _getConfig
-) => {
+) => GraphQLFetcher<GraphQLFetcherResult<any>, any>
+
+// TODO: GraphQLFetcher<GraphQLFetcherResult<any>, any> should be GraphQLFetcher<GraphQLFetcherResult<any>, SpreeSdkVariables>.
+// But CommerceAPIConfig['fetch'] cannot be extended from Variables = any to SpreeSdkVariables.
+
+const createApiFetch: CreateApiFetch = (_getConfig) => {
   const client = makeClient({
     host: requireConfigValue('apiHost') as string,
     fetcherType: 'custom',
