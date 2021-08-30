@@ -25,7 +25,7 @@
                 }
             }
             .current {
-                @apply text-active;
+                @apply text-active font-bold sm-headline;
             }
         }
         .description {
