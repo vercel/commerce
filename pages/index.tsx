@@ -19,6 +19,7 @@ export default function Home() {
   return (
     <>
       {/* <HomeBanner />
+      <HomeBanner/>
       <HomeFeature />
       <HomeCategories />
       <HomeCollection />

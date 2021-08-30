@@ -26,8 +26,9 @@ const FormLogin = ({ onSwitch, isHide }: Props) => {
         <section className={s.formAuthen}>
             <div className={s.inner}>
                 <div className={s.body}>
-                    <Inputcommon placeholder='Email Address' type='email' ref={emailRef}
-                        isShowIconSuccess={true} isIconSuffix={true} />
+                <Inputcommon placeholder='Email Address' type='email' ref={emailRef} />
+                    {/* <Inputcommon placeholder='Email Address' type='email' ref={emailRef}
+                        isShowIconSuccess={true} isIconSuffix={true} /> */}
                     <InputPassword placeholder='Password'/>
                 </div>
                 <div className={styles.bottom}>
