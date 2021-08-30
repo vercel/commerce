@@ -1,1 +1,3 @@
-// funtion utils here
+export function isMobile() {
+    return window.innerWidth <= 768
+}

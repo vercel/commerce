@@ -1,19 +1,48 @@
-import { FC } from 'react'
+import classNames from 'classnames'
+import React, { memo, useEffect, useState } from 'react'
+import { useModalCommon } from 'src/components/hooks/useModalCommon'
+import { isMobile } from 'src/utils/funtion.utils'
+import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
+import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
+import HeaderMenu from './components/HeaderMenu/HeaderMenu'
+import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
+import HeaderSubMenuMobile from './components/HeaderSubMenuMobile/HeaderSubMenuMobile'
 import s from './Header.module.scss'
 
-interface Props {
-    className?: string
-    children?: any
-}
 
-const Header: FC<Props> = ({ }: Props) => {
+const Header = memo(() => {
+    const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
+    const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
+
+    const handleScroll = () => {
+        if (!isMobile()) {
+            if (window.scrollY === 0) {
+                setIsFullHeader(true)
+            } else {
+                setIsFullHeader(false)
+            }
+        }
+    }
     return (
-        <div className={s.header}>
-            This is Header
-            <h1 className={s.heading}>This is heading</h1>
-            <div className={s.logo}>This is logo text</div>
-        </div>
+        <>
+            <header className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
+                <HeaderHighLight isShow={isFullHeader} />
+                <div className={s.menu}>
+                    <HeaderMenu isFull={isFullHeader} openModalAuthen={openModalAuthen} />
+                    <HeaderSubMenu isShow={isFullHeader} />
+                </div>
+            </header>
+            <HeaderSubMenuMobile />
+            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />
+        </>
     )
-}
+})
 
 export default Header

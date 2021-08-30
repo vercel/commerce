@@ -1,0 +1,54 @@
+@import "../../../../styles/_utilities";
+.homeCategoriesWrapper {
+    @apply flex flex-col items-center justify-center;
+    margin: 3rem auto;
+
+    .inner {
+        @apply relative spacing-horizontal;
+
+        padding-top: 1.6rem;
+        padding-bottom: 1.6rem;
+        z-index: 10;
+        @screen md {
+            @apply bg-gray;
+        }
+    }
+    @screen md {
+        @apply relative;
+        margin: 5.6rem auto;
+
+        &::before,
+        &::after {
+            @apply absolute w-full;
+            content: "";
+            height: 6rem;
+            z-index: 0;
+            background-repeat: no-repeat;
+            background-size: 115%;
+        }
+        &::before {
+            top: -4rem;
+            background-image: url("./img/bg_top.svg");
+            background-position: top center;
+        }
+        &::after {
+            bottom: -4rem;
+            background-image: url("./img/bg_bottom.svg");
+            background-position: bottom center;
+        }
+    }
+    .homeCategoryList {
+        @apply flex justify-start items-center flex-wrap;
+        margin: 1rem 0;
+        @screen md {
+            @apply flex-nowrap;
+        }
+        .homeCategoriesItem {
+            width: calc(100% / 3);
+            @screen md {
+                margin-top: 2rem;
+                width: 100%;
+            }
+        }
+    }
+}
