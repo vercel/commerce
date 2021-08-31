@@ -8,8 +8,8 @@ interface BreadcrumbItemProps {
 
 const BreadcrumbItem = ({ text, href }: BreadcrumbItemProps) => {
     return (
-        <Link href={`${href}`}>
-            {text}
+        <Link href={href}>
+            <a>{text}</a>
         </Link>
     )
 }
