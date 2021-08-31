@@ -1,7 +1,7 @@
 import { Product } from '@commerce/types/product'
 import { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
-import type { LocalConfig } from '../index'
+import type { CommercelayerConfig } from '../index'
 import data from '../../data.json'
 import { Price } from '@commercelayer/js-sdk'
 import { getSalesChannelToken } from '@commercelayer/js-auth'
@@ -16,7 +16,7 @@ export default function getAllProductsOperation({
   }: {
     query?: string
     variables?: T['variables']
-    config?: Partial<LocalConfig>
+    config?: Partial<CommercelayerConfig>
     preview?: boolean
   } = {}): Promise<{ products: Product[] | any[] }> {
     const endpoint = process.env.NEXT_PUBLIC_COMMERCELAYER_ENDPOINT as string
