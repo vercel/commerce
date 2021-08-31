@@ -12,6 +12,7 @@ export { default as ViewAllItem} from './ViewAllItem/ViewAllItem'
 export { default as ItemWishList} from './ItemWishList/ItemWishList'
 export { default as Logo} from './Logo/Logo'
 export { default as Inputcommon} from './InputCommon/InputCommon'
+export { default as InputPassword} from './InputPassword/InputPassword'
 export { default as CheckboxCommon} from './CheckboxCommon/CheckboxCommon'
 export { default as Author} from './Author/Author'
 export { default as DateTime} from './DateTime/DateTime'
@@ -31,3 +32,4 @@ export { default as ModalCommon} from './ModalCommon/ModalCommon'
 export { default as ModalConfirm} from "./ModalConfirm/ModalConfirm"
 export { default as ModalInfo} from "./ModalInfo/ModalInfo"
 export { default as ProductList} from "./ProductList/ProductList"
+export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreateUserInfo'
