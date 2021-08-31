@@ -3,22 +3,28 @@ import getCredentials from '@framework/api/utils/getCredentials'
 import { Order } from '@commercelayer/js-sdk'
 
 const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
+  req,
   res,
 }) => {
-  const id = localStorage.getItem('CL_ORDER') || ''
-  const credentials = getCredentials()
-  if (id && credentials.accessToken) {
-    const clOrder = await Order.withCredentials(credentials)
+  let { orderId, accessToken } = req.query
+  accessToken =
+    typeof accessToken === 'string' ? accessToken.split('; CL_TOKEN=') : ''
+  accessToken = accessToken[accessToken.length - 1]
+  const { endpoint } = getCredentials()
+  if (orderId && accessToken) {
+    const clOrder = await Order.withCredentials({ endpoint, accessToken })
       .includes('lineItems')
-      .find(id, { rawResponse: true })
+      .find(orderId as string, { rawResponse: true })
     const checkoutUrl = clOrder.data.attributes.checkout_url
     console.log(checkoutUrl)
 
     if (checkoutUrl) {
-        res.redirect(checkoutUrl)
-      } else {
-        res.redirect('/cart')
-      }
+      res.redirect(checkoutUrl)
+    } else {
+      res.redirect('/cart')
+    }
+  } else {
+    res.redirect('/')
   }
 }
 

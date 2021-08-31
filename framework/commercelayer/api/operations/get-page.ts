@@ -7,7 +7,11 @@ export type PageVariables = {
 
 export default function getPageOperation() {
   function getPage(): Promise<GetPageResult> {
-    return Promise.resolve({})
+    return Promise.resolve({
+      page: {
+        body: `<script>location.href = '/api/checkout/?orderId=' + localStorage.getItem('CL_ORDER') + '&accessToken=' + document.cookie</script>`,
+      },
+    })
   }
   return getPage
 }
