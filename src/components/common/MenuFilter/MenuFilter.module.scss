@@ -20,9 +20,6 @@
             a{
              padding: 0.8rem 1.6rem;
              margin-right: 0.8rem;
-             font-size: var(--font-size);
-             line-height: var(--line-height);
-             color:var(--text-base);
              background-color: var(--gray);
              border-radius: 0.8rem;
              &:hover {
@@ -40,7 +37,7 @@
             bottom: -20%;
             content: "";
             width: 100%;
-            border-bottom: 1px solid #EBEBEB;
+            border-bottom: 1px solid var(--border-line);
         } 
     }
 }
