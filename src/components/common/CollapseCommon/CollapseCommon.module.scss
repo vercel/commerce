@@ -1,0 +1,25 @@
+@import "../../../styles/utilities";
+
+.collapseWrapper{
+    @apply border-t border-b;
+    border-color: var(--border-line);
+    max-width: 80.4rem;
+    min-height: 4rem;
+    &.isActive{
+        .contentContainer{
+            @apply block;
+        }
+    }
+    svg:hover{
+        cursor: pointer;
+    }
+}
+.title{
+    @apply outline-none flex justify-between font-heading items-center pt-16;
+    font-size: 3.2rem;
+    line-height: 4rem;
+    letter-spacing: -0.01em;
+}
+.contentContainer{
+    @apply hidden pb-16;
+}

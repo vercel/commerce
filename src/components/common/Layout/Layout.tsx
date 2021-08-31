@@ -17,9 +17,9 @@ const Layout: FC<Props> = ({ children }) => {
     return (
         <CommerceProvider locale={locale}>
             <div className={s.mainLayout}>
-                <Header />
+                {/* <Header /> */}
                 <main >{children}</main>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </CommerceProvider>
 
