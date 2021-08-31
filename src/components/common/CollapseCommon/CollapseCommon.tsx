@@ -1,7 +1,6 @@
 import s from './CollapseCommon.module.scss'
 import { useState } from 'react'
 import classNames from 'classnames'
-import { IconPlus, IconMinus } from 'src/components/icons'
 import CollapseContent from './CollapseContent/CollapseContent'
 
 interface CollapseProps{
@@ -23,7 +22,8 @@ const CollapseCommon = ({title, content, isToggle}: CollapseProps) => {
             onClick = { handleToggle }
         >    
             <div className={s.title}>
-                {title}{isActive ? <IconMinus /> : <IconPlus />}
+                <a>{title}</a>
+                <div className={s.toggle}></div>
             </div>
             <div className={s.contentContainer}>
                 {
