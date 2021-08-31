@@ -1,0 +1,1 @@
+export { default as FeaturedCardBlog } from './FeaturedCardBlog/FeaturedCardBlog'

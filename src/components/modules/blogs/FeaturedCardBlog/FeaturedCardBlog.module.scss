@@ -1,0 +1,27 @@
+@import "../../../../styles/utilities";
+
+.featuredCard{
+    @apply flex flex-row justify-between;
+    padding-left: 11.2rem;
+    padding-right: 11.2rem;
+}
+.left{
+    max-width: 59.8rem;
+    min-height: 33.6rem;
+}
+.right{
+    max-width: 55.4rem;
+    min-height: 16.8rem;
+}
+.titleWrapper{
+    @apply flex flex-col items-start font-heading;
+    font-size: 3.2rem;
+    line-height: 4rem;
+    margin-bottom: 1.6rem;
+    .title{
+        margin-top: 0.4rem;
+    }
+}
+.content{
+    margin-top: 1.6rem
+}
