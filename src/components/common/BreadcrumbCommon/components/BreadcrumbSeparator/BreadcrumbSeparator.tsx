@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface BreadcrumbSeparatorProps {
-    children: any;
+    children?: React.ReactNode
 }
 
 const BreadcrumbSeparator = ({ children }: BreadcrumbSeparatorProps) => {

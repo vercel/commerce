@@ -1,54 +1,43 @@
 import React from 'react'
 import s from './BreadcrumbCommon.module.scss'
 
-import { useRouter } from 'next/router'
-
 import BreadcrumbItem from './components/BreadcrumbItem/BreadcrumbItem'
 import BreadcrumbSeparator from './components/BreadcrumbSeparator/BreadcrumbSeparator'
 
-const BreadcrumbCommon = () => {
+interface BreadcrumbCommonProps {
+    crumbs: { link:string, name:string }[];
+    showHomePage?: boolean;
+}
 
-    const paths: string | any = {
-        "/": "Home",
-        "fresh-product-today" : "Fresh Product Today",
-        "product-list": "Product List",
-        "recipes-list": "Recipes List",
-        "blogs": "Blog",
-        "account": "Account",
-        "delivery&policy": "Delivery & Policy",
-        "product-detail": "Product Detail",
-        "recipes-detail": "Recipes Detail",
-        "blog-detail": "Blog Detail"
+const BreadcrumbCommon = ({ crumbs, showHomePage=true } : BreadcrumbCommonProps) => {
+    if (showHomePage) {
+        crumbs.unshift({link: "/", name: "Home"});
     }
-
-    const router = useRouter();
-    let crumbs = router.route.split('/');
-
     return (
         <section className={s.breadcrumbCommon}>
-            <BreadcrumbItem text="Home" href="/" />
             {
                 crumbs.map((crumb, i) => {
-                    if (crumb === "") {
-                        return
+                    if (i === 0) {
+                        return (
+                            <BreadcrumbItem key={i} text={crumb.name} href={crumb.link} />
+                        )
                     }
                     if (i === crumbs.length-1) {
                         return (
                             <BreadcrumbSeparator key={i}>
-                                <BreadcrumbItem text={`${paths[crumb]}`} href="#" />
+                                <BreadcrumbItem key={i} text={crumb.name} href="#" />
                             </BreadcrumbSeparator>
                         )
                     }
                     return (
                         <BreadcrumbSeparator key={i}>
-                            <BreadcrumbItem text={`${paths[crumb]}`} href={`/${paths[crumb]}`} />
+                            <BreadcrumbItem key={i} text={crumb.name} href={crumb.link} />
                         </BreadcrumbSeparator>
                     )
                 })
             }
         </section>
     )
-
 }
 
 export default BreadcrumbCommon
