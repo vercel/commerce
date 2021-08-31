@@ -30,3 +30,4 @@ export { default as SelectCommon} from './SelectCommon/SelectCommon'
 export { default as ModalCommon} from './ModalCommon/ModalCommon'
 export { default as ModalConfirm} from "./ModalConfirm/ModalConfirm"
 export { default as ModalInfo} from "./ModalInfo/ModalInfo"
+export { default as ProductList} from "./ProductList/ProductList"
