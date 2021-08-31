@@ -47,6 +47,12 @@ The app imports from the provider directly instead of the core commerce folder (
 
 The provider folder should only depend on `framework/commerce` and dependencies in the main `package.json`. In the future we'll move the `framework` folder to a package that can be shared easily for multiple apps.
 
+## Updating the list of known providers
+
+Open [./config.js](./config.js) and add the provider name to the list in `PROVIDERS`.
+
+Then, open [/.env.template](/.env.template) and add the provider name in the first line.
+
 ## Adding the provider hooks
 
 Using BigCommerce as an example. The first thing to do is export a `CommerceProvider` component that includes a `provider` object with all the handlers that can be used for hooks:
