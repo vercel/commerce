@@ -3,6 +3,7 @@ import { CardBlog, CollapseCommon, Layout, RelevantBlogPosts } from 'src/compone
 import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import {SelectCommon} from 'src/components/common'
 import card from "../public/assets/images/card.png"
+import { DeliveryAndPolicyContent } from 'src/components/modules/delivery-policy';
 
 const CONTENT = [
   "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
@@ -24,12 +25,7 @@ export default function Home() {
       {/* <HomeRecipe /> */}
       {/* <SelectCommon option={OPTION_SORT}>Sort By</SelectCommon>
       <SelectCommon option={OPTION_SORT} size="large" type="custom">Sort By</SelectCommon> */}
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
+      <DeliveryAndPolicyContent title="DELIVERY AND POLICY" content={CONTENT} date="APRIL 30, 2021" />
       <RelevantBlogPosts />
       {/* todo: uncomment */}
       {/* <ModalCreateUserInfo/> */}

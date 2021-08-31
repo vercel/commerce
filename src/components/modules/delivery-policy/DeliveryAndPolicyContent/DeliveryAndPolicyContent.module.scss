@@ -1,0 +1,26 @@
+.deliveryAndPolicyContentWrapper{
+    max-width: 80.4rem;
+    min-height: 4rem;
+    margin-left: 31.8rem;
+    margin-right: 31.8rem;
+}
+
+.titleWrapper{
+    @apply flex flex-col items-start;
+}
+
+.date{
+    @apply inline flex flex-row;
+    margin-bottom: 0.4rem;
+}
+
+.update{
+    @apply uppercase leading-8;
+    color:var(--text-label);
+    font-size: 1.2rem;
+    letter-spacing: 0.01em;
+}
+
+.contentContainer{
+    @apply pb-16;
+}
