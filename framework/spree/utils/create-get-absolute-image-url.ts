@@ -2,13 +2,19 @@ import { SpreeProductImage } from '../types'
 import getImageUrl from './get-image-url'
 
 const createGetAbsoluteImageUrl =
-  (host: string) =>
+  (host: string, useOriginalImageSize: boolean = true) =>
   (
     image: SpreeProductImage,
     minWidth: number,
     minHeight: number
   ): string | null => {
-    const url = getImageUrl(image, minWidth, minHeight)
+    let url
+
+    if (useOriginalImageSize) {
+      url = image.attributes.original_url || null
+    } else {
+      url = getImageUrl(image, minWidth, minHeight)
+    }
 
     if (url === null) {
       return null

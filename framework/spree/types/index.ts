@@ -26,10 +26,14 @@ export interface ImageStyle {
   url: string
   width: string
   height: string
+  size: string
 }
 
 export interface SpreeProductImage extends JsonApiDocument {
   attributes: {
+    position: number
+    alt: string
+    original_url: string
     styles: ImageStyle[]
   }
 }
