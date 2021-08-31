@@ -28,7 +28,6 @@ const CarouselCommon = <T,>({
   option: { slideChanged,slidesPerView, ...sliderOption },
 }: CarouselCommonProps<T>) => {
   const [currentSlide, setCurrentSlide] = React.useState(0)
-  // const [dotActive, setDotActive] = React.useState<number>(0)
   const [dotArr, setDotArr] = React.useState<number[]>([])
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     ...sliderOption,
