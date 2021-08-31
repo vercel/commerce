@@ -6,6 +6,9 @@
     max-width: 80.4rem;
     min-height: 4rem;
     &.isActive{
+        .title{
+            @apply pb-0;
+        }
         .contentContainer{
             @apply block;
         }
@@ -15,7 +18,7 @@
     }
 }
 .title{
-    @apply outline-none flex justify-between font-heading items-center pt-16;
+    @apply outline-none flex justify-between font-heading items-center pt-16 pb-16;
     font-size: 3.2rem;
     line-height: 4rem;
     letter-spacing: -0.01em;
