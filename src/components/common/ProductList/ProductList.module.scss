@@ -1,11 +1,11 @@
 .wrapper{
     .list{        
-        max-width: 109.4rem;
-        @apply flex flex-wrap;
+        // max-width: 109.4rem;
+        @apply flex flex-wrap justify-around;
     }
     .pagination{
         padding-top: 4.8rem;
-        max-width: 109.4rem;
+        // max-width: 109.4rem;
         @apply flex justify-center items-center ;
     }
 }

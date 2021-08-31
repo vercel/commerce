@@ -15,8 +15,8 @@ const ProductList = ({data}: ProductListProps) => {
         <div className={s.wrapper}>
             <div className={s.list}>
                 {
-                    data.slice(currentPage*20,(currentPage+1)*20).map((product)=>{
-                        return <ProductCard {...product}/>
+                    data.slice(currentPage*20,(currentPage+1)*20).map((product,index)=>{
+                        return <ProductCard {...product} key={index}/>
                     })
                 }
             </div>
