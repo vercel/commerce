@@ -1,6 +1,5 @@
 import { Provider } from '@commerce'
-
-import { SWELL_CHECKOUT_URL_COOKIE, STORE_DOMAIN } from './const'
+import { SWELL_CHECKOUT_ID_COOKIE } from './const'
 
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
@@ -15,11 +14,12 @@ import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
 import fetcher from './fetcher'
+import swell from './swell'
 
-export const swellProvider: Provider = {
+export const swellProvider: Provider & { swell: any } = {
   locale: 'en-us',
-  cartCookie: SWELL_CHECKOUT_URL_COOKIE,
-  // storeDomain: STORE_DOMAIN,
+  cartCookie: SWELL_CHECKOUT_ID_COOKIE,
+  swell,
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
