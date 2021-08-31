@@ -23,4 +23,4 @@ export const ordercloudProvider = {
   auth: { useLogin, useLogout, useSignup },
 }
 
-export type Provider = typeof ordercloudProvider
+export type OrdercloudProvider = typeof ordercloudProvider
