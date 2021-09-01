@@ -7,9 +7,8 @@ const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
   config,
 }) => {
   const token = req.cookies[config.customerCookie]
- 
-  const { accessToken } = JSON.parse(token);
-
+  const accessToken = token ? JSON.parse(token).accessToken : null;
+  
   if (accessToken) {
     const { data } = await config.fetch(
       getCustomerAccountQuery,

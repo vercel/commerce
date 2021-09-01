@@ -23,55 +23,42 @@ function normalizeProductOption(productOption: any) {
   }
 }
 
-export function normalizeProduct(productNode: any): any {
-  const {
-    entityId: id,
-    productOptions,
-    prices,
-    path,
-    id: _,
-    options: _0,
-  } = productNode
+export function normalizeProduct(productNode: any, config: any): any {
+  const product = {
+   id: productNode.productCode,
+   name: productNode.content.productName,
+   vendor: "",
+   path: productNode.productCode,
+   slug: productNode.productCode,
+   price: { value: productNode.price.price, currencyCode: config.currencyCode },
+   descriptionHtml: productNode.content.productShortDescription, 
 
-  return update(productNode, {
-    id: { $set: String(id) },
-    images: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
-          url: urlOriginal,
-          alt: altText,
-          ...rest,
-        })),
-    },
-    variants: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
-          id: entityId,
-          options: productOptions?.edges
-            ? productOptions.edges.map(normalizeProductOption)
-            : [],
-          ...rest,
-        })),
-    },
-    options: {
-      $set: productOptions.edges
-        ? productOptions?.edges.map(normalizeProductOption)
-        : [],
-    },
-    brand: {
-      $apply: (brand: any) => (brand?.entityId ? brand?.entityId : null),
-    },
-    slug: {
-      $set: path?.replace(/^\/+|\/+$/g, ''),
-    },
-    price: {
-      $set: {
-        value: prices?.price.value,
-        currencyCode: prices?.price.currencyCode,
-      },
-    },
-    $unset: ['entityId'],
-  })
+   images: productNode.content.productImages.map((p: any)=> ({
+       url: `http:${p.imageUrl}`,
+       altText: p.imageLabel,
+   })),
+
+   variants: productNode.variations?.map((v:any) => ({
+       id: v.productCode,
+       options: v.options.map((o:any) => ({
+           ["__typename"]: o["__typename"],
+           id: o.attributeFQN,
+           displayName: o.attributeFQN.split('~')[1][0].toUpperCase() + o.attributeFQN.split('~')[1].slice(1).toLowerCase(),
+           values: [{label: o.value}]
+       }))
+   })) || [],
+
+   options:productNode.options?.map((o:any)=> ({
+       id: o.attributeFQN,
+       displayName: o.attributeDetail.name,
+       values: o.values.map( (v:any)=> ({
+           label: v.value,
+           hexColors: ""
+       }))
+   })) || []   
+}
+
+return product;
 }
 
 export function normalizePage(page: any): any {
