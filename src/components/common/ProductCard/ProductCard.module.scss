@@ -4,6 +4,9 @@
     padding: 1.2rem 1.2rem 0 1.2rem;
     margin-bottom: 1px;
     @apply flex flex-col justify-between;
+    &.notSell {
+        @apply justify-center;
+    }
     .cardTop{
         @apply relative;
         height: 13.8rem;
@@ -29,8 +32,6 @@
         .cardMidTop{
             .productname{
                 font-weight: bold;
-                line-height: 2.4rem;
-                font-size: 1.6rem;
                 color: var(--text-active);
                 &:hover{
                     cursor: pointer;

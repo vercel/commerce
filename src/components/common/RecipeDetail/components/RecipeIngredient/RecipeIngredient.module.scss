@@ -1,0 +1,18 @@
+@import "../../../../../styles/utilities";
+
+.recipeIngredient {
+    margin: 5.6rem auto;
+    .top {
+        @apply flex justify-between items-center spacing-horizontal;
+    }
+    .bottom {
+        @apply flex justify-center items-center spacing-horizontal;
+        margin-top: 4rem;
+        button {
+            width: 100%;
+            @screen md {
+                width: 39rem;
+            }
+        }
+    }
+}
