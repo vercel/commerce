@@ -8,11 +8,7 @@ import getSlug from './get-slug'
 
 function normalizeProductOption(productOption: any) {
   const {
-    node: {
-      entityId,
-      values: { edges = [] } = {},
-      ...rest
-    },
+    node: { entityId, values: { edges = [] } = {}, ...rest },
   } = productOption
 
   return {

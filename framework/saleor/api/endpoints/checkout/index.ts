@@ -6,11 +6,7 @@ export type CheckoutAPI = GetAPISchema<CommerceAPI, CheckoutSchema>
 
 export type CheckoutEndpoint = CheckoutAPI['endpoint']
 
-const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
-  req,
-  res,
-  config,
-}) => {
+const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({ req, res, config }) => {
   try {
     const html = `
       <!DOCTYPE html>
