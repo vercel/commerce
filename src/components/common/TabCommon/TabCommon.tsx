@@ -8,35 +8,39 @@ interface TabCommonProps {
 }
 
 const TabCommon = ({ } : TabCommonProps) => {
-    const [item1Active, setItem1Active] = useState(true);
-    const [item2Active, setItem2Active] = useState(false);
-    const [item3Active, setItem3Active] = useState(false);
+    const active = "active", unActive = "";
 
-    const toggleItem1 = () => {
-        setItem1Active(true)
+    const [item1Active, setItem1Active] = useState(active);
+    const [item2Active, setItem2Active] = useState(unActive);
+    const [item3Active, setItem3Active] = useState(unActive);
 
-        setItem2Active(false)
-        setItem3Active(false)
+    function toggleItem1():void {
+        setItem1Active(active)
+
+        setItem2Active(unActive)
+        setItem3Active(unActive)
     }
-    const toggleItem2 = () => {
-        setItem2Active(true)
+    function toggleItem2():void {
+        setItem2Active(active)
 
-        setItem1Active(false)
-        setItem3Active(false)
+        setItem1Active(unActive)
+        setItem3Active(unActive)
     }
-    const toggleItem3 = () => {
-        setItem3Active(true)
+    function toggleItem3():void {
+        setItem3Active(active)
 
-        setItem1Active(false)
-        setItem2Active(false)
+        setItem1Active(unActive)
+        setItem2Active(unActive)
     }
 
     return (
-        <div className={s.tabCommon}>
-            <span onClick={toggleItem1}><TabItem active={item1Active}>Wait for Comfirmation</TabItem></span>
-            <span onClick={toggleItem2}><TabItem active={item2Active}>Delivering</TabItem></span>
-            <span onClick={toggleItem3}><TabItem active={item3Active}>Delivered</TabItem></span>
-        </div>
+        <section className={s.tabCommonOutSide}>
+            <div className={s.tabCommon}>
+                <span onClick={toggleItem1}><TabItem active={item1Active}>Wait for Comfirmation</TabItem></span>
+                <span onClick={toggleItem2}><TabItem active={item2Active}>Delivering</TabItem></span>
+                <span onClick={toggleItem3}><TabItem active={item3Active}>Delivered</TabItem></span>
+            </div>
+        </section>
     )
 }
 

@@ -1,26 +1,14 @@
 @import '../../../../styles/utilities';
 
 .tabItem {
-    @apply font-bold;
-    margin-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-
-    &:hover {
-        @apply cursor-pointer;
-    }
+    margin-right: 4.8rem;
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
 
     &.active {
-        border-bottom: 2px solid #2DC86E;
+        @apply font-bold;
+        border-bottom: 2px solid var(--primary);
     }
-}
-
-.tabItemActive {
-    @apply font-bold;
-    margin-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #2DC86E;
 
     &:hover {
         @apply cursor-pointer;

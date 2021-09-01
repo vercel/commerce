@@ -1,15 +1,18 @@
-import React, { useState } from "react"
+import classNames from "classnames";
+import React from "react"
 import s from './TabItem.module.scss'
 
 interface TabItemProps {
-    active?: boolean;
-    target?: any;
+    active: string;
+    target?: string;
     children?: string;
 }
 
-const TabItem = ({ active, children } : TabItemProps) => {
+const TabItem = ({ active = "", children } : TabItemProps) => {
     return (
-        <span className={active ? s.tabItemActive : s.tabItem}>
+        <span className={classNames(s.tabItem, {
+            [s[active]]: active
+        })}>
             {children}
         </span>
     )
