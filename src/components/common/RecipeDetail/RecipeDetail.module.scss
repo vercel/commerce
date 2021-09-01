@@ -1,0 +1,62 @@
+@import "../../../styles/utilities";
+
+.recipeDetail {
+    @apply spacing-horizontal;
+    margin: 5.6rem auto;
+    @screen md {
+        @apply flex;
+    }
+    .img {
+        width: fit-content;
+        margin: auto;
+        margin-top: 0;
+
+        @screen sm-only {
+            margin-bottom: 2rem;
+        }
+        @screen lg {
+            max-width: 60rem;
+        }
+        img {
+            @apply w-full;
+            object-fit: contain;
+            max-height: 64rem;
+            border-radius: 2.4rem;
+            @screen md {
+                max-height: 90rem;
+            }
+        }
+    }
+
+    .recipeInfo {
+        @screen md {
+            max-width: 39rem;
+            margin-left: 4.8rem;
+        }
+        @screen lg {
+            margin-left: 11.2rem;
+        }
+        .top {
+            margin-bottom: 4.8rem;
+            .name {
+                @apply heading-1 font-heading;
+                margin-bottom: 1.6rem;
+            }
+        }
+        .detail {
+            .item {
+                &:not(:last-child) {
+                    margin-bottom: 2.4rem;
+                }
+                .heading {
+                    @apply heading-3 font-heading;
+                    margin-bottom: 0.8rem;
+                }
+                .content {
+                    list-style: disc;
+                    margin-left: 2rem;
+                }
+            }
+        }
+    }
+}

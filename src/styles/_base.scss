@@ -79,5 +79,6 @@ html {
 }
 
 a {
-  -webkit-tap-highlight-color: var(--text-active);
+  -webkit-tap-highlight-color: var(--primary);
+  color: var(--primary);
 }
