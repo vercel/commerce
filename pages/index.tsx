@@ -1,38 +1,24 @@
 
-import { CardBlog, CollapseCommon, Layout, RelevantBlogPosts } from 'src/components/common';
+import { Author, CardBlog, CollapseCommon, Layout, RelevantBlogPosts } from 'src/components/common';
 import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import {SelectCommon} from 'src/components/common'
 import card from "../public/assets/images/card.png"
+import image20 from '../public/assets/images/image20.png'
+import author from '../public/assets/images/author.png'
+import { FeaturedCardBlog } from 'src/components/modules/blogs';
 
-const CONTENT = [
-  "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
-  "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
-  "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
-]
+const data = {
+  title: "Flammekueche with green asparagus",
+  content: "Traditionally, the Flammekueche is made with rapeseed oil, which, contrary to popular belief, is indeed an oil that can be cooked hot and is not limited to seasoning. It is important to vary the oils in the kitchen to take advantage of the benefits of each. Rapeseed oil is an oil rich in omega 3 which participate in the proper functioning of the cardiovascular system as well as in vitamins E which contributes to the protection of cells against oxidative stress. In short, oils are your friends 😉",
+  imgSrc: image20,
+  imgAuthor: author,
+  date: "APRIL 30, 2021",
+  author: "Alessandro Del Piero"
+}
 export default function Home() {
   return (
     <>
-      {/* <HomeBanner />
-      <HomeBanner/>
-      <HomeFeature />
-      <HomeCategories />
-      <HomeCollection />
-      <HomeVideo />
-      <HomeCTA /> */}
-      {/* <HomeRecipe />
-      <HomeSubscribe /> */}
-      {/* <HomeRecipe /> */}
-      {/* <SelectCommon option={OPTION_SORT}>Sort By</SelectCommon>
-      <SelectCommon option={OPTION_SORT} size="large" type="custom">Sort By</SelectCommon> */}
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <CollapseCommon title="This is a subtitle" content={CONTENT} />
-      <RelevantBlogPosts />
-      {/* todo: uncomment */}
-      {/* <ModalCreateUserInfo/> */}
+      <FeaturedCardBlog title={data.title} content={data.content} imgSrc={data.imgSrc} imgAuthor={data.imgAuthor} date={data.date} authorName={data.author} />
     </>
   )
 }

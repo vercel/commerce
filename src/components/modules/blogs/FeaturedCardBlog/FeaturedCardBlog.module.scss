@@ -1,15 +1,14 @@
 @import "../../../../styles/utilities";
 
 .featuredCard{
-    @apply flex flex-row justify-between;
-    padding-left: 11.2rem;
-    padding-right: 11.2rem;
+    @apply flex flex-row justify-center;
 }
 .left{
     max-width: 59.8rem;
     min-height: 33.6rem;
 }
 .right{
+    padding-left: 6.4rem;
     max-width: 55.4rem;
     min-height: 16.8rem;
 }
