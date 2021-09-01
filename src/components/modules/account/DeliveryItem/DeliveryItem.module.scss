@@ -1,0 +1,15 @@
+@import '../../../../styles/utilities';
+
+.deliveryItem {
+    @apply flex bg-gray items-center;
+    border-radius: 50% 20% 60% 2%/ 10% 20% 10% 50%;
+    margin-bottom: 1.6rem;
+}
+
+.separator {
+    border-left: 2px dashed #EBEBEB;
+    margin-left: 2.4rem;
+    margin-right: 2.4rem;
+    max-height: 9.2rem;
+    min-height: 8.6rem;
+}

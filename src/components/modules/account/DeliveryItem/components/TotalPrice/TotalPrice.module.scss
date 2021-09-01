@@ -1,0 +1,10 @@
+@import '../../../../../../styles/utilities';
+
+.totalPrice {
+    margin-left: auto; 
+    margin-right: 2.4rem;
+
+    .price {
+        @apply font-bold sub-headline;
+    }
+}

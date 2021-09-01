@@ -1,0 +1,17 @@
+@import '../../../../../../styles/utilities';
+
+.reOrder {
+    @apply text-white custom-border-radius hidden;
+    padding: .8rem 1.2rem;
+    margin-right: 2.4rem;
+    background-color: var(--positive);
+
+    &.show {
+        @apply block;
+    }
+
+    &:hover {
+        @apply cursor-pointer;
+    }
+
+}
