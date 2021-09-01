@@ -1,6 +1,7 @@
 import classNames from "classnames"
 import React from "react"
 import s from './ReOrder.module.scss'
+import Link from 'next/link'
 
 
 interface ReOrderProps {
@@ -8,12 +9,14 @@ interface ReOrderProps {
     href?: string;
 }
 
-const ReOrder = ({ show="" ,href } : ReOrderProps) => {
+const ReOrder = ({ show="", href="#" } : ReOrderProps) => {
     return (
         <div className={classNames(s.reOrder, {
             [s[show]]: show
         })}>
-            Re-Order
+            <Link href={href}>
+                <a>Re-Order</a>
+            </Link>
         </div>
     )
 }
