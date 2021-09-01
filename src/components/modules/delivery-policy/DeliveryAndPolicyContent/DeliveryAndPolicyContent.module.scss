@@ -1,8 +1,10 @@
+.wrapper{
+    @apply flex justify-center;
+}
+
 .deliveryAndPolicyContentWrapper{
     max-width: 80.4rem;
     min-height: 4rem;
-    margin-left: 31.8rem;
-    margin-right: 31.8rem;
 }
 
 .titleWrapper{

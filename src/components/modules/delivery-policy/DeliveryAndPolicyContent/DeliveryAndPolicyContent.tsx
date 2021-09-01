@@ -16,25 +16,27 @@ const CONTENT = [
 
 const DeliveryAndPolicyContent = ( { title, date, content } : DeliveryAndPolicyContentProps) => {
     return (
-        <section className={s.deliveryAndPolicyContentWrapper}>
+        <section className={s.wrapper}>
 
-            <div className={s.titleWrapper}>
-                <div className={s.date}>
-                    <div className={s.update}>LASTEST UPDATED:&nbsp;</div>
-                    <DateTime date={date} />
+            <div className={s.deliveryAndPolicyContentWrapper}>
+                <div className={s.titleWrapper}>
+                    <div className={s.date}>
+                        <div className={s.update}>LASTEST UPDATED:&nbsp;</div>
+                        <DateTime date={date} />
+                    </div>
+                    <HeadingCommon>{title}</HeadingCommon>
                 </div>
-                <HeadingCommon>{title}</HeadingCommon>
+                <div className={s.contentContainer}>
+                    {
+                        content.map(item => <CollapseContent content={item} />)
+                    }
+                </div>
+                <CollapseCommon title="This is a subtitle" content={CONTENT} />
+                <CollapseCommon title="This is a subtitle" content={CONTENT} />
+                <CollapseCommon title="This is a subtitle" content={CONTENT} />
+                <CollapseCommon title="This is a subtitle" content={CONTENT} />
+                <CollapseCommon title="This is a subtitle" content={CONTENT} />
             </div>
-            <div className={s.contentContainer}>
-                {
-                    content.map(item => <CollapseContent content={item} />)
-                }
-            </div>
-            <CollapseCommon title="This is a subtitle" content={CONTENT} />
-            <CollapseCommon title="This is a subtitle" content={CONTENT} />
-            <CollapseCommon title="This is a subtitle" content={CONTENT} />
-            <CollapseCommon title="This is a subtitle" content={CONTENT} />
-            <CollapseCommon title="This is a subtitle" content={CONTENT} />
 
         </section>
     )
