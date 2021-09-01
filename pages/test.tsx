@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
   ButtonCommon,
+  CardItemCheckout,
   Layout,
   ModalCommon,
   ModalConfirm,
@@ -19,7 +20,7 @@ const dataTest = [
     weight: '250g',
     category: 'VEGGIE',
     price: 'Rp 27.500',
-    imageSrc: image5.src,
+    imageSrc: image7.src,
   },
   {
     name: 'Tomato',
@@ -410,12 +411,12 @@ export default function Test() {
   }
   return (
     <>
-      <ButtonCommon onClick={onOpen}>open</ButtonCommon>
-      <ModalInfo visible={visible} onClose={onClose}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi qui, esse eos nobis soluta suscipit aliquid nostrum corporis. Nihil eligendi similique recusandae minus mollitia aliquam, molestias fugit tenetur voluptatibus maiores et. Quaerat labore corporis inventore nostrum, amet autem exercitationem eligendi?
-      </ModalInfo>
-      <PaginationCommon total={40} pageSize={10}/>
-      <ProductList data={dataTest}/>
+      <CardItemCheckout {...dataTest[0]} quantity={2}/>
+      <div className="w-full" >
+        <ButtonCommon>
+          test
+        </ButtonCommon>
+      </div>
     </>
   )
 }

@@ -33,3 +33,4 @@ export { default as ModalConfirm} from "./ModalConfirm/ModalConfirm"
 export { default as ModalInfo} from "./ModalInfo/ModalInfo"
 export { default as ProductList} from "./ProductList/ProductList"
 export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreateUserInfo'
+export { default as CardItemCheckout} from './CardItemCheckout/CardItemCheckout'
