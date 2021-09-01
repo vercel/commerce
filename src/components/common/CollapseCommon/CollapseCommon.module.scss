@@ -1,0 +1,55 @@
+@import "../../../styles/utilities";
+
+.collapseWrapper{
+    @apply border-t border-b;
+    border-color: var(--border-line);
+    max-width: 80.4rem;
+    min-height: 4rem;
+    &.isActive{
+        .title{
+            @apply pb-0;
+        }
+        .contentContainer{
+            @apply block;
+        }
+        .toggle{
+            &:before {
+                transform: rotate(180deg);
+            }
+            &:after {
+                transform: rotate(180deg);
+            }
+        }
+    }
+    svg:hover{
+        cursor: pointer;
+    }
+}
+.title{
+    @apply outline-none flex justify-between font-heading items-center pt-16 pb-16;
+    font-size: 3.2rem;
+    line-height: 4rem;
+    letter-spacing: -0.01em;
+    .toggle{
+        height: 2.2rem;
+        width: 2.2rem;
+        position: relative;
+        &:before,
+        &:after{
+            @apply absolute h-2;
+            content: "";
+            border-radius: 0.8rem;
+            background: var(--text-active);
+            top: 40%;
+            width: 2.2rem;
+            transition: transform 500ms ease;
+        }
+        &:before{
+            transform-origin: center;
+            transform: rotate(90deg);
+        }
+    }
+}
+.contentContainer{
+    @apply hidden pb-16;
+}

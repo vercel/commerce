@@ -34,3 +34,6 @@ export { default as ModalInfo} from "./ModalInfo/ModalInfo"
 export { default as ProductList} from "./ProductList/ProductList"
 export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreateUserInfo'
 export { default as CardItemCheckout} from './CardItemCheckout/CardItemCheckout'
+export { default as CardBlog} from './CardBlog/CardBlog'
+export { default as RelevantBlogPosts} from './RelevantBlogPosts/RelevantBlogPosts'
+export { default as CollapseCommon} from './CollapseCommon/CollapseCommon'
