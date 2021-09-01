@@ -2,7 +2,7 @@
 
 ![Screenshots of Spree Commerce and NextJS Commerce][5]
 
-A preview integration of Spree Commerce within NextJS Commerce. It supports browsing and searching Spree products and adding products to the cart as a guest user.
+A preview integration of Spree Commerce within NextJS Commerce. It supports browsing and searching Spree products and adding products to the cart as a guest user. [You can see it in action online.][6]
 
 ## Installation
 
@@ -38,3 +38,4 @@ Finally, run `yarn dev` :tada:
 [3]: https://github.com/spree/spree_starter
 [4]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 [5]: ./README-assets/screenshots.png
+[6]: https://spree-x-nextjscommerce-demo.vercel.app/
