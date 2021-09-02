@@ -11,14 +11,14 @@ export const handler: MutationHook<any> = {
     query: '',
   },
   async fetcher({ input, options, fetch }) {
-    const localOrderId = localStorage.getItem('CL_ORDER')
+    const localOrderId = localStorage.getItem('CL_ORDER_ID')
     const credentials = getCredentials()
     const orderId =
       localOrderId ||
       (credentials.accessToken &&
         (await Order.withCredentials(credentials).create({})).id)
     if (orderId && input.sizeId) {
-      !localOrderId && localStorage.setItem('CL_ORDER', orderId)
+      !localOrderId && localStorage.setItem('CL_ORDER_ID', orderId)
       const lineItem = await LineItem.withCredentials(credentials).create(
         {
           skuCode: input.sizeId,

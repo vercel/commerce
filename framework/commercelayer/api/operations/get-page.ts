@@ -9,7 +9,7 @@ export default function getPageOperation() {
   function getPage(): Promise<GetPageResult> {
     return Promise.resolve({
       page: {
-        body: `<script>location.href = '/api/checkout/?orderId=' + localStorage.getItem('CL_ORDER') + '&accessToken=' + document.cookie</script>`,
+        body: `<script>location.href = '/api/checkout/?orderId=' + localStorage.getItem('CL_ORDER_ID') + '&accessToken=' + document.cookie</script>`,
       },
     })
   }

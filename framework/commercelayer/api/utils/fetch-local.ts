@@ -1,9 +1,9 @@
 import { FetcherError } from '@commerce/utils/errors'
 import type { GraphQLFetcher } from '@commerce/api'
-import type { LocalConfig } from '../index'
+import type { CommercelayerConfig } from '../index'
 import fetch from './fetch'
 
-const fetchGraphqlApi: (getConfig: () => LocalConfig) => GraphQLFetcher =
+const fetchGraphqlApi: (getConfig: () => CommercelayerConfig) => GraphQLFetcher =
   (getConfig) =>
   async (query: string, { variables, preview } = {}, fetchOptions) => {
     debugger

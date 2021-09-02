@@ -7,16 +7,20 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
   res,
 }) => {
   let { orderId, accessToken } = req.query
-  accessToken =
-    typeof accessToken === 'string' ? accessToken.split('; CL_TOKEN=') : ''
-  accessToken = accessToken[accessToken.length - 1]
+
+    const name = 'CL_TOKEN' + "=";
+    const cookiesArr = decodeURIComponent(accessToken = typeof accessToken === 'string' ? accessToken : '').split('; ');
+    accessToken = typeof accessToken
+    cookiesArr.forEach(val => {
+      if (val.indexOf(name) === 0) accessToken = val.substring(name.length)
+    })
+
   const { endpoint } = getCredentials()
   if (orderId && accessToken) {
     const clOrder = await Order.withCredentials({ endpoint, accessToken })
       .includes('lineItems')
       .find(orderId as string, { rawResponse: true })
     const checkoutUrl = clOrder.data.attributes.checkout_url
-    console.log(checkoutUrl)
 
     if (checkoutUrl) {
       res.redirect(checkoutUrl)

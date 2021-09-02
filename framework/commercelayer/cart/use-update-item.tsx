@@ -12,7 +12,7 @@ export const handler: MutationHook<any> = {
   },
   async fetcher({ input: { item, quantity } }) {
     const credentials = getCredentials()
-    const orderId = localStorage.getItem('CL_ORDER')
+    const orderId = localStorage.getItem('CL_ORDER_ID')
     if (orderId && item.id) {
       const lineItem = (await LineItem.build({
         id: item.id,

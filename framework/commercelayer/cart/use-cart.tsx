@@ -12,7 +12,7 @@ export const handler: SWRHook<any> = {
     query: '',
   },
   async fetcher() {
-    const id = localStorage.getItem('CL_ORDER') || ''
+    const id = localStorage.getItem('CL_ORDER_ID') || ''
     const credentials = getCredentials()
     if (id && credentials.accessToken) {
       const clOrder = await Order.withCredentials(credentials)
