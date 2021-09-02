@@ -18,7 +18,8 @@ export interface KiboCommerceConfig extends CommerceAPIConfig {
   sharedSecret?: string
   storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
   customerCookieMaxAgeInDays: number,
-  currencyCode: string
+  currencyCode: string,
+  documentListName: string
 }
 
 const config: KiboCommerceConfig = {
@@ -27,6 +28,7 @@ const config: KiboCommerceConfig = {
   cartCookie: process.env.KIBO_CART_COOKIE || '',
   customerCookie: process.env.KIBO_CUSTOMER_COOKIE || '',
   cartCookieMaxAge: 2592000,
+  documentListName: 'siteSnippets@mozu',
   fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
   // REST API
   apiHost: process.env.KIBO_API_HOST || '',
@@ -52,7 +54,7 @@ export const provider = { config, operations }
 export type KiboCommerceProvider = typeof provider
 export type KiboCommerceAPI<
   P extends KiboCommerceProvider = KiboCommerceProvider
-> = CommerceAPI<P | any>
+  > = CommerceAPI<P | any>
 
 export function getCommerceApi<P extends KiboCommerceProvider>(
   customProvider: P = provider as any
