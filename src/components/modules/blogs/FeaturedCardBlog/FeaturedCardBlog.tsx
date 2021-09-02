@@ -15,19 +15,19 @@ interface FeaturedCardBlogProps{
 const FeaturedCardBlog = ({ title, content, imgSrc, imgAuthor, date, authorName }: FeaturedCardBlogProps) => {
     return (
         <section className={s.featuredCard}>
-
-            <div className={s.left}>
-                <Image src={imgSrc} alt="image feature card"/>
-            </div>
-            <div className={s.right}>
-                <div className={s.titleWrapper}>
-                    <DateTime date={date}/>
-                    <a className={s.title}>{title}</a>
+            <div className={s.featuredCardWrapper}>
+                <div className={s.left}>
+                    <Image src={imgSrc} alt="image feature card"/>
                 </div>
-                <Author name={authorName} image={imgAuthor}/>
-                <div className={s.content}>{content}</div>
+                <div className={s.right}>
+                    <div className={s.titleWrapper}>
+                        <DateTime date={date}/>
+                        <a className={s.title}>{title}</a>
+                    </div>
+                    <Author name={authorName} image={imgAuthor}/>
+                    <div className={s.content}>{content}</div>
+                </div>
             </div>
-
         </section>
     )
 }

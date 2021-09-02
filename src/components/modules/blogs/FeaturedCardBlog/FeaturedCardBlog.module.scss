@@ -2,14 +2,18 @@
 
 .featuredCard{
     @apply flex flex-row justify-center spacing-horizontal;
+    .featuredCardWrapper{
+        @apply flex flex-row justify-between;
+        max-width: 121.6rem;
+    }
 }
 .left{
     max-width: 59.8rem;
     min-height: 33.6rem;
 }
 .right{
-    padding-left: 6.4rem;
-    max-width: 61.8rem;
+    margin-left: 6.4rem;
+    max-width: 55.4rem;
     min-height: 16.8rem;
 }
 .titleWrapper{
