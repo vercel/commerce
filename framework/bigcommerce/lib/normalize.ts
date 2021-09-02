@@ -91,7 +91,10 @@ export function normalizeCart(data: BigcommerceCart): Cart {
     createdAt: data.created_time,
     currency: data.currency,
     taxesIncluded: data.tax_included,
-    lineItems: data.line_items.physical_items.map(normalizeLineItem),
+    lineItems: [
+      ...data.line_items.physical_items.map(normalizeLineItem),
+      ...data.line_items.digital_items.map(normalizeLineItem),
+    ],
     lineItemsSubtotalPrice: data.base_amount,
     subtotalPrice: data.base_amount + data.discount_amount,
     totalPrice: data.cart_amount,
