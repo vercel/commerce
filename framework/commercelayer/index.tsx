@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { localProvider } from './provider'
+import { CommercelayerProvider } from './provider'
 import {
   CommerceConfig,
   CommerceProvider as CoreCommerceProvider,
@@ -8,7 +8,7 @@ import {
 } from '@commerce'
 import useToken from './auth/use-token'
 
-export const localConfig: CommerceConfig = {
+export const commercelayerConfig: CommerceConfig = {
   locale: 'en-us',
   cartCookie: 'session',
 }
@@ -24,8 +24,8 @@ export function CommerceProvider({
   if (token) config.cartCookie = token
   return (
     <CoreCommerceProvider
-      provider={localProvider}
-      config={{ ...localConfig, ...config }}
+      provider={CommercelayerProvider}
+      config={{ ...commercelayerConfig, ...config }}
     >
       {children}
     </CoreCommerceProvider>
