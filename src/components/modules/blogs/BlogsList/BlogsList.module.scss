@@ -1,9 +1,10 @@
 @import "../../../../styles/utilities";
 
 .wrapper{
-    @apply flex flex-col spacing-horizontal;
+    @apply flex flex-col spacing-horizontal items-center;
     .list{
-        @apply flex flex-wrap flex justify-around;
+        @apply flex flex-wrap justify-between;
+        max-width: 121.6rem;
     }
     .card{
         padding-bottom: 4rem;
