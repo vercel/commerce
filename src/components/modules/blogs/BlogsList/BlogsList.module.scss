@@ -1,0 +1,15 @@
+@import "../../../../styles/utilities";
+
+.wrapper{
+    @apply flex flex-col spacing-horizontal;
+    .list{
+        @apply flex flex-wrap flex justify-around;
+    }
+    .card{
+        padding-bottom: 4rem;
+    }
+    .pagination{
+        padding-top: 0.8rem;
+        @apply flex justify-center items-center ;
+    }
+}
