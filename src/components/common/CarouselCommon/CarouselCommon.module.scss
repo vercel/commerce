@@ -13,10 +13,16 @@
     }
     @apply absolute top-1/2 bg-background-arrow transform -translate-y-1/2 flex justify-center items-center transition duration-100;
     &:global(.leftArrow) {
-      @apply left-0;
+		@apply  hidden left-0;
+		@screen md {
+			@apply flex
+		}
     }
     &:global(.rightArrow) {
-      @apply right-0;
+		@apply  hidden right-0;
+		@screen md {
+			@apply flex;
+		}
     }
     &:global(.isDisabledArrow) {
       @apply hidden;
