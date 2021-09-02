@@ -1,7 +1,7 @@
 @import "../../../../styles/utilities";
 
 .featuredCard{
-    @apply flex flex-row justify-center;
+    @apply flex flex-row justify-center spacing-horizontal;
 }
 .left{
     max-width: 59.8rem;
