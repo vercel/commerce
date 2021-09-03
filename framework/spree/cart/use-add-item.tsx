@@ -46,9 +46,9 @@ export const handler: MutationHook<AddItemHook> = {
       ].join(','),
     }
 
-    const {
-      data: { data: spreeSuccessResponse },
-    } = await fetch<GraphQLFetcherResult<{ data: IOrder }>>({
+    const { data: spreeSuccessResponse } = await fetch<
+      GraphQLFetcherResult<IOrder>
+    >({
       variables: {
         methodPath: 'cart.addItem',
         arguments: [token, addItemParameters],

@@ -1,9 +1,11 @@
+import type { fetchResponseKey } from '@framework/utils/create-customized-fetch-fetcher'
 import type {
   JsonApiDocument,
   JsonApiListResponse,
   JsonApiSingleResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
+import type { Response } from '@vercel/fetch'
 
 export type UnknownObjectValues = Record<string, unknown>
 
@@ -11,8 +13,14 @@ export type NonUndefined<T> = T extends undefined ? never : T
 
 export type ValueOf<T> = T[keyof T]
 
+export type SpreeSdkResponse = JsonApiSingleResponse | JsonApiListResponse
+
+export type SpreeSdkResponseWithRawResponse = SpreeSdkResponse & {
+  [fetchResponseKey]: Response
+}
+
 export type SpreeSdkMethodReturnType = Promise<
-  ResultResponse<JsonApiSingleResponse | JsonApiListResponse>
+  ResultResponse<SpreeSdkResponseWithRawResponse>
 >
 
 export type SpreeSdkMethod = (...args: any[]) => SpreeSdkMethodReturnType

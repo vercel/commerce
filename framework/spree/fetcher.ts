@@ -2,17 +2,19 @@ import type { Fetcher } from '@commerce/utils/types'
 import convertSpreeErrorToGraphQlError from './utils/convert-spree-error-to-graph-ql-error'
 import { makeClient } from '@spree/storefront-api-v2-sdk'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
-import type {
-  JsonApiListResponse,
-  JsonApiSingleResponse,
-} from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import { errors } from '@spree/storefront-api-v2-sdk'
 import { requireConfigValue } from './isomorphic-config'
 import getSpreeSdkMethodFromEndpointPath from './utils/get-spree-sdk-method-from-endpoint-path'
 import SpreeSdkMethodFromEndpointPathError from './errors/SpreeSdkMethodFromEndpointPathError'
-import type { SpreeSdkVariables } from './types'
+import type {
+  SpreeSdkResponse,
+  SpreeSdkResponseWithRawResponse,
+  SpreeSdkVariables,
+} from './types'
 import type { GraphQLFetcherResult } from '@commerce/api'
-import createCustomizedFetchFetcher from './utils/create-customized-fetch-fetcher'
+import createCustomizedFetchFetcher, {
+  fetchResponseKey,
+} from './utils/create-customized-fetch-fetcher'
 
 const client = makeClient({
   host: requireConfigValue('apiHost') as string,
@@ -27,7 +29,7 @@ const client = makeClient({
 })
 
 const fetcher: Fetcher<
-  GraphQLFetcherResult<JsonApiSingleResponse | JsonApiListResponse>,
+  GraphQLFetcherResult<SpreeSdkResponse>,
   SpreeSdkVariables
 > = async (requestOptions) => {
   const { url, method, variables, query } = requestOptions
@@ -47,20 +49,19 @@ const fetcher: Fetcher<
     )
   }
 
-  const storeResponse: ResultResponse<
-    JsonApiSingleResponse | JsonApiListResponse
-  > = await getSpreeSdkMethodFromEndpointPath(
-    client,
-    variables.methodPath
-  )(...variables.arguments)
+  const storeResponse: ResultResponse<SpreeSdkResponseWithRawResponse> =
+    await getSpreeSdkMethodFromEndpointPath(
+      client,
+      variables.methodPath
+    )(...variables.arguments)
 
   if (storeResponse.isSuccess()) {
     const data = storeResponse.success()
-    const rawFetchRespone = Object.getPrototypeOf(data).response
+    const rawFetchResponse = data[fetchResponseKey]
 
     return {
       data,
-      res: rawFetchRespone,
+      res: rawFetchResponse,
     }
   }
 

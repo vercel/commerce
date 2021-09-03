@@ -38,9 +38,9 @@ export const handler: SWRHook<GetCartHook> = {
       const spreeToken: IToken = { orderToken: cartToken }
 
       try {
-        const {
-          data: { data: spreeCartShowSuccessResponse },
-        } = await fetch<GraphQLFetcherResult<{ data: IOrder }>>({
+        const { data: spreeCartShowSuccessResponse } = await fetch<
+          GraphQLFetcherResult<IOrder>
+        >({
           variables: {
             methodPath: 'cart.show',
             arguments: [
@@ -74,9 +74,9 @@ export const handler: SWRHook<GetCartHook> = {
     }
 
     if (!spreeCartResponse || spreeCartResponse?.data.attributes.completed_at) {
-      const {
-        data: { data: spreeCartCreateSuccessResponse },
-      } = await fetch<GraphQLFetcherResult<{ data: IOrder }>>({
+      const { data: spreeCartCreateSuccessResponse } = await fetch<
+        GraphQLFetcherResult<IOrder>
+      >({
         variables: {
           methodPath: 'cart.create',
           arguments: [],

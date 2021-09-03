@@ -18,13 +18,14 @@ import getMediaGallery from './get-media-gallery'
 import { findIncluded, findIncludedOfType } from './find-json-api-documents'
 import getProductPath from './get-product-path'
 import MissingPrimaryVariantError from '../errors/MissingPrimaryVariantError'
+import type { SpreeSdkResponse } from '@framework/types'
 
 const placeholderImage = requireConfigValue('productPlaceholderImageUrl') as
   | string
   | false
 
 const normalizeProduct = (
-  spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
+  spreeSuccessResponse: SpreeSdkResponse,
   spreeProduct: ProductAttr
 ): Product => {
   const primaryVariantIdentifier = spreeProduct.relationships.primary_variant

@@ -82,12 +82,8 @@ export default function getSiteInfoOperation({
     const config = commerce.getConfig(userConfig)
     const { fetch: apiFetch } = config // TODO: Send config.locale to Spree.
 
-    const {
-      data: { data: spreeCategoriesSuccessResponse },
-    } = await apiFetch<
-      {
-        data: ITaxons
-      },
+    const { data: spreeCategoriesSuccessResponse } = await apiFetch<
+      ITaxons,
       SpreeSdkVariables
     >('__UNUSED__', {
       variables: createVariables(
@@ -95,12 +91,8 @@ export default function getSiteInfoOperation({
       ),
     })
 
-    const {
-      data: { data: spreeBrandsSuccessResponse },
-    } = await apiFetch<
-      {
-        data: ITaxons
-      },
+    const { data: spreeBrandsSuccessResponse } = await apiFetch<
+      ITaxons,
       SpreeSdkVariables
     >('__UNUSED__', {
       variables: createVariables(

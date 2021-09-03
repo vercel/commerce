@@ -71,14 +71,12 @@ export default function getAllProductPathsOperation({
     const config = commerce.getConfig(userConfig)
     const { fetch: apiFetch } = config // TODO: Send config.locale to Spree.
 
-    const {
-      data: { data: spreeSuccessResponse },
-    } = await apiFetch<{ data: IProductsSlugs }, SpreeSdkVariables>(
-      '__UNUSED__',
-      {
-        variables,
-      }
-    )
+    const { data: spreeSuccessResponse } = await apiFetch<
+      IProductsSlugs,
+      SpreeSdkVariables
+    >('__UNUSED__', {
+      variables,
+    })
 
     const normalizedProductsPaths: Pick<Product, 'path'>[] =
       spreeSuccessResponse.data.map((spreeProduct) => ({

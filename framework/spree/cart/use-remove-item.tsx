@@ -42,9 +42,9 @@ export const handler: MutationHook<RemoveItemHook> = {
       ].join(','),
     }
 
-    const {
-      data: { data: spreeSuccessResponse },
-    } = await fetch<GraphQLFetcherResult<{ data: IOrder }>>({
+    const { data: spreeSuccessResponse } = await fetch<
+      GraphQLFetcherResult<IOrder>
+    >({
       variables: {
         methodPath: 'cart.removeItem',
         arguments: [token, lineItemId, removeItemParameters],

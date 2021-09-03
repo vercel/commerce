@@ -57,9 +57,10 @@ export default function getAllProductsOperation({
     const config = commerce.getConfig(userConfig)
     const { fetch: apiFetch } = config // TODO: Send config.locale to Spree.
 
-    const {
-      data: { data: spreeSuccessResponse },
-    } = await apiFetch<{ data: IProducts }, SpreeSdkVariables>('__UNUSED__', {
+    const { data: spreeSuccessResponse } = await apiFetch<
+      IProducts,
+      SpreeSdkVariables
+    >('__UNUSED__', {
       variables,
     })
 

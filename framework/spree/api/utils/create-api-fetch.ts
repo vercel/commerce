@@ -3,15 +3,14 @@ import { errors, makeClient } from '@spree/storefront-api-v2-sdk'
 import { requireConfigValue } from '../../isomorphic-config'
 import convertSpreeErrorToGraphQlError from '../../utils/convert-spree-error-to-graph-ql-error'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
-import type {
-  JsonApiListResponse,
-  JsonApiSingleResponse,
-} from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import getSpreeSdkMethodFromEndpointPath from '../../utils/get-spree-sdk-method-from-endpoint-path'
 import SpreeSdkMethodFromEndpointPathError from 'framework/spree/errors/SpreeSdkMethodFromEndpointPathError'
 import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
-import createCustomizedFetchFetcher from '../../utils/create-customized-fetch-fetcher'
+import createCustomizedFetchFetcher, {
+  fetchResponseKey,
+} from '../../utils/create-customized-fetch-fetcher'
 import fetch, { Request } from 'node-fetch'
+import type { SpreeSdkResponseWithRawResponse } from '@framework/types'
 
 export type CreateApiFetch = (
   getConfig: () => SpreeApiConfig
@@ -52,20 +51,19 @@ const createApiFetch: CreateApiFetch = (_getConfig) => {
       )
     }
 
-    const storeResponse: ResultResponse<
-      JsonApiSingleResponse | JsonApiListResponse
-    > = await getSpreeSdkMethodFromEndpointPath(
-      client,
-      variables.methodPath
-    )(...variables.arguments)
+    const storeResponse: ResultResponse<SpreeSdkResponseWithRawResponse> =
+      await getSpreeSdkMethodFromEndpointPath(
+        client,
+        variables.methodPath
+      )(...variables.arguments)
 
     if (storeResponse.isSuccess()) {
       const data = storeResponse.success()
-      const rawFetchRespone = Object.getPrototypeOf(data).response
+      const rawFetchResponse = data[fetchResponseKey]
 
       return {
         data,
-        res: rawFetchRespone,
+        res: rawFetchResponse,
       }
     }
 

@@ -2,6 +2,8 @@ import * as qs from 'qs'
 import { errors } from '@spree/storefront-api-v2-sdk'
 import type { CreateCustomizedFetchFetcher } from '@spree/storefront-api-v2-sdk/types/interfaces/CreateCustomizedFetchFetcher'
 
+export const fetchResponseKey = Symbol('fetch-response-key')
+
 const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
   fetcherOptions
 ) => {
@@ -65,11 +67,9 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
             throw new FetchError(response, request, data)
           }
 
-          return {
-            // Add response key to the prototype so it can be passed inside the GraphQLFetcherResult type.
-            // TODO: Search for a better solution than adding response to the prototype.
-            data: Object.setPrototypeOf({ data }, { response }),
-          }
+          data[fetchResponseKey] = response
+
+          return { data }
         } catch (error) {
           if (error instanceof FetchError) {
             throw error

@@ -16,7 +16,12 @@ import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import getMediaGallery from './get-media-gallery'
 import { findIncluded, findIncludedOfType } from './find-json-api-documents'
-import type { LineItemAttr, OptionTypeAttr, VariantAttr } from '../types'
+import type {
+  LineItemAttr,
+  OptionTypeAttr,
+  SpreeSdkResponse,
+  VariantAttr,
+} from '../types'
 import type { Image } from '@commerce/types/common'
 
 const placeholderImage = requireConfigValue('lineItemPlaceholderImageUrl') as
@@ -28,7 +33,7 @@ const isColorProductOption = (productOptionType: OptionTypeAttr) => {
 }
 
 const normalizeVariant = (
-  spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
+  spreeSuccessResponse: SpreeSdkResponse,
   spreeVariant: VariantAttr
 ): ProductVariant => {
   const productIdentifier = spreeVariant.relationships.product
@@ -102,7 +107,7 @@ const normalizeVariant = (
 }
 
 const normalizeLineItem = (
-  spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
+  spreeSuccessResponse: SpreeSdkResponse,
   spreeLineItem: LineItemAttr
 ): LineItem => {
   const variantIdentifier = spreeLineItem.relationships.variant
@@ -183,7 +188,7 @@ const normalizeLineItem = (
 }
 
 const normalizeCart = (
-  spreeSuccessResponse: JsonApiSingleResponse | JsonApiListResponse,
+  spreeSuccessResponse: SpreeSdkResponse,
   spreeCart: OrderAttr
 ): Cart => {
   const lineItems = findIncludedOfType(

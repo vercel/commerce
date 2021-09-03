@@ -51,9 +51,9 @@ export const handler: MutationHook<UpdateItemHook> = {
       ].join(','),
     }
 
-    const {
-      data: { data: spreeSuccessResponse },
-    } = await fetch<GraphQLFetcherResult<{ data: IOrder }>>({
+    const { data: spreeSuccessResponse } = await fetch<
+      GraphQLFetcherResult<IOrder>
+    >({
       variables: {
         methodPath: 'cart.setQuantity',
         arguments: [token, setQuantityParameters],
