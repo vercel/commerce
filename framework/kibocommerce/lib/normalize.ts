@@ -5,15 +5,11 @@
 // import { definitions } from '../api/definitions/store-content'
 import update from './immutability'
 import getSlug from './get-slug'
-import {PrCategory} from '../schema'
+import { PrCategory } from '../schema'
 
 function normalizeProductOption(productOption: any) {
   const {
-    node: {
-      entityId,
-      values: { edges = [] } = {},
-      ...rest
-    },
+    node: { entityId, values: { edges = [] } = {}, ...rest },
   } = productOption
 
   return {
@@ -25,40 +21,50 @@ function normalizeProductOption(productOption: any) {
 
 export function normalizeProduct(productNode: any, config: any): any {
   const product = {
-   id: productNode.productCode,
-   name: productNode.content.productName,
-   vendor: "",
-   path: productNode.productCode,
-   slug: productNode.productCode,
-   price: { value: productNode.price.price, currencyCode: config.currencyCode },
-   descriptionHtml: productNode.content.productShortDescription, 
+    id: productNode.productCode,
+    name: productNode.content.productName,
+    vendor: '',
+    path: productNode.productCode,
+    slug: productNode.productCode,
+    price: {
+      value: productNode.price.price,
+      currencyCode: config.currencyCode,
+    },
+    descriptionHtml: productNode.content.productShortDescription,
 
-   images: productNode.content.productImages.map((p: any)=> ({
-       url: `http:${p.imageUrl}`,
-       altText: p.imageLabel,
-   })),
+    images: productNode.content.productImages.map((p: any) => ({
+      url: `http:${p.imageUrl}`,
+      altText: p.imageLabel,
+    })),
 
-   variants: productNode.variations?.map((v:any) => ({
-       id: v.productCode,
-       options: v.options.map((o:any) => ({
-           ["__typename"]: o["__typename"],
-           id: o.attributeFQN,
-           displayName: o.attributeFQN.split('~')[1][0].toUpperCase() + o.attributeFQN.split('~')[1].slice(1).toLowerCase(),
-           values: [{label: o.value}]
-       }))
-   })) || [],
+    variants: productNode.variations?.map((v: any) => ({
+      id: v.productCode,
+      options: v.options.map((o: any) => ({
+        ['__typename']: 'MultipleChoiceOption',
+        id: o.attributeFQN,
+        displayName:
+          o.attributeFQN.split('~')[1][0].toUpperCase() +
+          o.attributeFQN.split('~')[1].slice(1).toLowerCase(),
+        values: [{ label: o.value }],
+      })),
+    })) || [
+      {
+        id: '',
+      },
+    ],
 
-   options:productNode.options?.map((o:any)=> ({
-       id: o.attributeFQN,
-       displayName: o.attributeDetail.name,
-       values: o.values.map( (v:any)=> ({
-           label: v.value,
-           hexColors: ""
-       }))
-   })) || []   
-}
+    options:
+      productNode.options?.map((o: any) => ({
+        id: o.attributeFQN,
+        displayName: o.attributeDetail.name,
+        values: o.values.map((v: any) => ({
+          label: v.value,
+          hexColors: '',
+        })),
+      })) || [],
+  }
 
-return product;
+  return product
 }
 
 export function normalizePage(page: any): any {
@@ -112,6 +118,7 @@ function normalizeLineItem(item: any): any {
       price: item?.unitPrice.extendedAmount,
       listPrice: 0,
     },
+    options: item.product.options,
     path: `${item.product.productCode}/na`,
     discounts: item?.discounts?.map((discount: any) => ({
       value: discount.discounted_amount,
@@ -124,6 +131,6 @@ export function normalizeCategory(category: PrCategory): any {
     id: category?.categoryCode,
     name: category?.content?.name,
     slug: category?.content?.slug,
-    path: `/${category?.content?.slug}`
+    path: `/${category?.content?.slug}`,
   }
 }

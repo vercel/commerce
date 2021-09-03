@@ -1,9 +1,9 @@
 import { GetAPISchema, createEndpoint } from '@commerce/api'
 import cartEndpoint from '@commerce/api/endpoints/cart'
-// import type { CartSchema } from '../../../types/cart'
 import type { KiboCommerceAPI } from '../..'
-import getCart from './get-cart'
-// import addItem from './add-item'
+import getCart from './get-cart';
+import addItem from './add-item';
+
 // import updateItem from './update-item'
 // import removeItem from './remove-item'
 
@@ -13,7 +13,7 @@ export type CartEndpoint = CartAPI['endpoint']
 
 export const handlers: CartEndpoint['handlers'] = {
   getCart,
-//   addItem,
+  addItem,
 //   updateItem,
 //   removeItem,
 }

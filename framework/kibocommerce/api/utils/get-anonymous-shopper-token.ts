@@ -7,7 +7,7 @@ async function getAnonymousShopperToken({
   config: KiboCommerceConfig
 }): Promise<string | undefined> {
   const { data } = await config.fetch(getAnonymousShopperTokenQuery)
-  return String(data?.getAnonymousShopperToken?.accessToken)
+  return data?.getAnonymousShopperToken
 }
 
 export default getAnonymousShopperToken
