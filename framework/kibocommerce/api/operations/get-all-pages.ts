@@ -1,15 +1,15 @@
 import type { OperationContext } from '@commerce/api/operations'
-import type { Page } from "../../types/page";
-import type { KiboCommerceConfig, KiboCommerceProvider } from '../index'
+import type { KiboCommerceConfig } from '../index'
 import { getAllPagesQuery } from '../queries/get-all-pages-query'
+import { GetPagesQueryParams } from "../../types/page";
 
 export type GetAllPagesResult<
-  T extends { pages: Page[] } = { pages: Page[] }
+  T extends { pages: any[] } = { pages: any[] }
   > = T
 
 export default function getAllPagesOperation({
   commerce,
-}: OperationContext<KiboCommerceProvider>) {
+}: OperationContext<any>) {
 
   async function getAllPages({
     query = getAllPagesQuery,
@@ -18,7 +18,7 @@ export default function getAllPagesOperation({
   }: {
     url?: string
     config?: Partial<KiboCommerceConfig>
-    variables?: any
+    variables?: GetPagesQueryParams
     preview?: boolean
     query?: string
   } = {}): Promise<GetAllPagesResult> {

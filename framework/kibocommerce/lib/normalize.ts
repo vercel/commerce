@@ -6,6 +6,7 @@
 import update from './immutability'
 import getSlug from './get-slug'
 import { PrCategory } from '../schema'
+import { Page } from "@framework/types/page";
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -67,7 +68,7 @@ export function normalizeProduct(productNode: any, config: any): any {
   return product
 }
 
-export function normalizePage(page: any): any {
+export function normalizePage(page: Page): Page {
   return {
     id: String(page.id),
     name: page.name,

@@ -57,7 +57,9 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   
   const paths = pages
     .map((page) => {
-      return { params: { slug : page?.url?.split('/'), pages : [page?.url?.split('/')[1]] } }
+      const arr = page?.url?.toString().split('/');
+      arr?.shift();
+      return { params: { pages : [arr?.join('/')] } }
     })
 
   return {
