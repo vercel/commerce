@@ -1,5 +1,5 @@
-import type { CommerceAPIConfig } from '@commerce/api'
-
+import { CommerceAPI, CommerceAPIConfig, getCommerceApi as commerceApi } from '@commerce/api'
+import * as operations from './operations'
 import * as Const from '../const'
 
 if (!Const.API_URL) {
@@ -27,23 +27,12 @@ const config: SaleorConfig = {
   storeChannel: Const.API_CHANNEL,
 }
 
-import {
-  CommerceAPI,
-  getCommerceApi as commerceApi,
-} from '@commerce/api'
-
-import * as operations from './operations'
-
-export interface ShopifyConfig extends CommerceAPIConfig {}
-
 export const provider = { config, operations }
 
 export type Provider = typeof provider
 
 export type SaleorAPI<P extends Provider = Provider> = CommerceAPI<P>
 
-export function getCommerceApi<P extends Provider>(
-  customProvider: P = provider as any
-): SaleorAPI<P> {
+export function getCommerceApi<P extends Provider>(customProvider: P = provider as any): SaleorAPI<P> {
   return commerceApi(customProvider)
 }
