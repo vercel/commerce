@@ -9,12 +9,11 @@
 }
 .left{
     max-width: 59.8rem;
-    min-height: 33.6rem;
 }
 .right{
+    flex-shrink: 3;
     margin-left: 6.4rem;
     max-width: 55.4rem;
-    min-height: 16.8rem;
 }
 .titleWrapper{
     @apply flex flex-col items-start font-heading;
