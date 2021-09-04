@@ -3,7 +3,7 @@ import type {
   OperationOptions,
 } from '@commerce/api/operations'
 import { GetSiteInfoQueryVariables } from '../../schema'
-import type { ShopifyConfig, Provider } from '..'
+import type { WooCommerceConfig, Provider } from '..'
 import { GetSiteInfoOperation } from '../../types/site'
 
 import { getCategories, getBrands, getSiteInfoQuery } from '../../utils'
@@ -12,13 +12,13 @@ export default function getSiteInfoOperation({
   commerce,
 }: OperationContext<Provider>) {
   async function getSiteInfo<T extends GetSiteInfoOperation>(opts?: {
-    config?: Partial<ShopifyConfig>
+    config?: Partial<WooCommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getSiteInfo<T extends GetSiteInfoOperation>(
     opts: {
-      config?: Partial<ShopifyConfig>
+      config?: Partial<WooCommerceConfig>
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
@@ -29,14 +29,14 @@ export default function getSiteInfoOperation({
     variables,
   }: {
     query?: string
-    config?: Partial<ShopifyConfig>
+    config?: Partial<WooCommerceConfig>
     preview?: boolean
     variables?: GetSiteInfoQueryVariables
   } = {}): Promise<T['data']> {
     const cfg = commerce.getConfig(config)
-
-    const categoriesPromise = getCategories(cfg)
-    const brandsPromise = getBrands(cfg)
+    console.log(cfg)
+    // const categoriesPromise = getCategories(cfg)
+    // const brandsPromise = getBrands(cfg)
     /*
     const { fetch, locale } = cfg
     const { data } = await fetch<GetSiteInfoQuery, GetSiteInfoQueryVariables>(
@@ -53,8 +53,8 @@ export default function getSiteInfoOperation({
     */
 
     return {
-      categories: await categoriesPromise,
-      brands: await brandsPromise,
+      // categories: await categoriesPromise,
+      // brands: await brandsPromise,
     }
   }
 

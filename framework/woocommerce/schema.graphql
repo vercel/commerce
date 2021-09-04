@@ -5602,9 +5602,19 @@ input CreateUserInput {
   password: String
 
   """
+  If true, this will refresh the users JWT secret.
+  """
+  refreshJwtUserSecret: Boolean
+
+  """
   The date the user registered. Format is Y-m-d H:i:s.
   """
   registered: String
+
+  """
+  If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets.
+  """
+  revokeJwtUserSecret: Boolean
 
   """
   A string for whether to enable the rich editor or not. False if not empty.
@@ -5772,6 +5782,11 @@ type Customer implements Node {
   id: ID!
 
   """
+  Whether the JWT User secret has been revoked. If the secret has been revoked, auth tokens will not be issued until an admin, or user with proper capabilities re-issues a secret for the user.
+  """
+  isJwtAuthSecretRevoked: Boolean!
+
+  """
   Return the date customer was last updated
   """
   isPayingCustomer: Boolean
@@ -5780,6 +5795,26 @@ type Customer implements Node {
   Is customer VAT exempt?
   """
   isVatExempt: Boolean
+
+  """
+  The expiration for the JWT Token for the user. If not set custom for the user, it will use the default sitewide expiration setting
+  """
+  jwtAuthExpiration: String
+
+  """
+  A JWT token that can be used in future requests for authentication/authorization
+  """
+  jwtAuthToken: String
+
+  """
+  A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers.
+  """
+  jwtRefreshToken: String
+
+  """
+  A unique secret tied to the users JWT token that can be revoked or refreshed. Revoking the secret prevents JWT tokens from being issued to the user. Refreshing the token invalidates previously issued tokens, but allows new tokens to be issued.
+  """
+  jwtUserSecret: String
 
   """
   Return the customer&#039;s last name.
@@ -10270,6 +10305,61 @@ type LocalProductAttribute implements ProductAttribute {
   Is attribute visible
   """
   visible: Boolean!
+}
+
+"""
+Input for the login mutation
+"""
+input LoginInput {
+  """
+  This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  The plain-text password for the user logging in.
+  """
+  password: String!
+
+  """
+  The username used for login. Typically a unique or email address depending on specific configuration
+  """
+  username: String!
+}
+
+"""
+The payload for the login mutation
+"""
+type LoginPayload {
+  """
+  JWT Token that can be used in future requests for Authentication
+  """
+  authToken: String
+
+  """
+  If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  Customer object of authenticated user.
+  """
+  customer: Customer
+
+  """
+  A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers.
+  """
+  refreshToken: String
+
+  """
+  A JWT token that can be used in future requests to for WooCommerce session identification
+  """
+  sessionToken: String
+
+  """
+  The user that was logged in
+  """
+  user: User
 }
 
 """
@@ -24022,6 +24112,36 @@ type ReadingSettings {
 }
 
 """
+Input for the refreshJwtAuthToken mutation
+"""
+input RefreshJwtAuthTokenInput {
+  """
+  This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  A valid, previously issued JWT refresh token. If valid a new Auth token will be provided. If invalid, expired, revoked or otherwise invalid, a new AuthToken will not be provided.
+  """
+  jwtRefreshToken: String!
+}
+
+"""
+The payload for the refreshJwtAuthToken mutation
+"""
+type RefreshJwtAuthTokenPayload {
+  """
+  JWT Token that can be used in future requests for Authentication
+  """
+  authToken: String
+
+  """
+  If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+}
+
+"""
 A refund object
 """
 type Refund implements Node {
@@ -24271,10 +24391,20 @@ The payload for the registerCustomer mutation
 """
 type RegisterCustomerPayload {
   """
+  JWT Token that can be used in future requests for Authentication
+  """
+  authToken: String
+
+  """
   If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
   """
   clientMutationId: String
   customer: Customer
+
+  """
+  A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers.
+  """
+  refreshToken: String
   viewer: User
 }
 
@@ -24343,9 +24473,19 @@ input RegisterUserInput {
   password: String
 
   """
+  If true, this will refresh the users JWT secret.
+  """
+  refreshJwtUserSecret: Boolean
+
+  """
   The date the user registered. Format is Y-m-d H:i:s.
   """
   registered: String
+
+  """
+  If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets.
+  """
+  revokeJwtUserSecret: Boolean
 
   """
   A string for whether to enable the rich editor or not. False if not empty.
@@ -25044,6 +25184,26 @@ type RootMutation {
     """
     count: Int
   ): Int
+
+  """
+  The payload for the login mutation
+  """
+  login(
+    """
+    Input for the login mutation
+    """
+    input: LoginInput!
+  ): LoginPayload
+
+  """
+  The payload for the refreshJwtAuthToken mutation
+  """
+  refreshJwtAuthToken(
+    """
+    Input for the refreshJwtAuthToken mutation
+    """
+    input: RefreshJwtAuthTokenInput!
+  ): RefreshJwtAuthTokenPayload
 
   """
   The payload for the registerCustomer mutation
@@ -34241,10 +34401,20 @@ The payload for the updateCustomer mutation
 """
 type UpdateCustomerPayload {
   """
+  JWT Token that can be used in future requests for Authentication
+  """
+  authToken: String
+
+  """
   If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
   """
   clientMutationId: String
   customer: Customer
+
+  """
+  A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers.
+  """
+  refreshToken: String
 }
 
 """
@@ -35376,9 +35546,19 @@ input UpdateUserInput {
   password: String
 
   """
+  If true, this will refresh the users JWT secret.
+  """
+  refreshJwtUserSecret: Boolean
+
+  """
   The date the user registered. Format is Y-m-d H:i:s.
   """
   registered: String
+
+  """
+  If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets.
+  """
+  revokeJwtUserSecret: Boolean
 
   """
   A string for whether to enable the rich editor or not. False if not empty.
@@ -35616,6 +35796,11 @@ type User implements Node & UniformResourceIdentifiable & Commenter & DatabaseId
   isContentNode: Boolean!
 
   """
+  Whether the JWT User secret has been revoked. If the secret has been revoked, auth tokens will not be issued until an admin, or user with proper capabilities re-issues a secret for the user.
+  """
+  isJwtAuthSecretRevoked: Boolean!
+
+  """
   Whether the object is restricted from the current viewer
   """
   isRestricted: Boolean
@@ -35624,6 +35809,26 @@ type User implements Node & UniformResourceIdentifiable & Commenter & DatabaseId
   Whether the node is a Term
   """
   isTermNode: Boolean!
+
+  """
+  The expiration for the JWT Token for the user. If not set custom for the user, it will use the default sitewide expiration setting
+  """
+  jwtAuthExpiration: String
+
+  """
+  A JWT token that can be used in future requests for authentication/authorization
+  """
+  jwtAuthToken: String
+
+  """
+  A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers.
+  """
+  jwtRefreshToken: String
+
+  """
+  A unique secret tied to the users JWT token that can be revoked or refreshed. Revoking the secret prevents JWT tokens from being issued to the user. Refreshing the token invalidates previously issued tokens, but allows new tokens to be issued.
+  """
+  jwtUserSecret: String
 
   """
   Last name of the user. This is equivalent to the WP_User-&gt;user_last_name property.

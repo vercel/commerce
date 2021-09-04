@@ -18,19 +18,19 @@ export async function getStaticProps({
     // Saleor provider only
     ...({ featured: true } as any),
   })
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { products } = await productsPromise
-  const { pages } = await pagesPromise
-  const { categories, brands } = await siteInfoPromise
+  // const pagesPromise = commerce.getAllPages({ config, preview })
+  // const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  // const { products } = await productsPromise
+  // const { pages } = await pagesPromise
+  // const { categories, brands } = await siteInfoPromise
 
   return {
-    props: {
-      products,
-      categories,
-      brands,
-      pages,
-    },
+    // props: {
+    //   products,
+    //   categories,
+    //   brands,
+    //   pages,
+    // },
     revalidate: 60,
   }
 }
@@ -40,7 +40,7 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Grid variant="filled">
+      {/* <Grid variant="filled">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
@@ -77,7 +77,7 @@ export default function Home({
         {products.slice(3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
-      </Marquee>
+      </Marquee> */}
       {/* <HomeAllProductsGrid
         newestProducts={products}
         categories={categories}

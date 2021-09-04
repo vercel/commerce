@@ -1,7 +1,7 @@
 import type { GraphQLFetcher } from '@commerce/api'
 import fetch from './fetch'
 
-import { API_URL, API_TOKEN } from '../../const'
+import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
@@ -14,7 +14,6 @@ const fetchGraphqlApi: GraphQLFetcher = async (
       ...fetchOptions,
       method: 'POST',
       headers: {
-        'X-Shopify-Storefront-Access-Token': API_TOKEN!,
         ...fetchOptions?.headers,
         'Content-Type': 'application/json',
       },
