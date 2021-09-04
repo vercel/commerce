@@ -6,9 +6,9 @@ import { GetAllProductsOperation } from '../../types/product'
 import {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
-  Product as ShopifyProduct,
+  Product as WooCommerceProduct,
 } from '../../schema'
-import type { ShopifyConfig, Provider } from '..'
+import type { WooCommerceConfig, Provider } from '..'
 import getAllProductsQuery from '../../utils/queries/get-all-products-query'
 import { normalizeProduct } from '../../utils'
 
@@ -17,14 +17,14 @@ export default function getAllProductsOperation({
 }: OperationContext<Provider>) {
   async function getAllProducts<T extends GetAllProductsOperation>(opts?: {
     variables?: T['variables']
-    config?: Partial<ShopifyConfig>
+    config?: Partial<WooCommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getAllProducts<T extends GetAllProductsOperation>(
     opts: {
       variables?: T['variables']
-      config?: Partial<ShopifyConfig>
+      config?: Partial<WooCommerceConfig>
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
@@ -36,7 +36,7 @@ export default function getAllProductsOperation({
   }: {
     query?: string
     variables?: T['variables']
-    config?: Partial<ShopifyConfig>
+    config?: Partial<WooCommerceConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
     const { fetch, locale } = commerce.getConfig(config)
@@ -58,7 +58,7 @@ export default function getAllProductsOperation({
 
     return {
       products: data.products.edges.map(({ node }) =>
-        normalizeProduct(node as ShopifyProduct)
+        normalizeProduct(node as WooCommerceProduct)
       ),
     }
   }

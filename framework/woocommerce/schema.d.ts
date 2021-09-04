@@ -2775,8 +2775,12 @@ export type CreateUserInput = {
   nickname?: Maybe<Scalars['String']>
   /** A string that contains the plain text password for the user. */
   password?: Maybe<Scalars['String']>
+  /** If true, this will refresh the users JWT secret. */
+  refreshJwtUserSecret?: Maybe<Scalars['Boolean']>
   /** The date the user registered. Format is Y-m-d H:i:s. */
   registered?: Maybe<Scalars['String']>
+  /** If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets. */
+  revokeJwtUserSecret?: Maybe<Scalars['Boolean']>
   /** A string for whether to enable the rich editor or not. False if not empty. */
   richEditing?: Maybe<Scalars['String']>
   /** An array of roles to be assigned to the user. */
@@ -2844,10 +2848,20 @@ export type Customer = Node & {
   hasCalculatedShipping?: Maybe<Scalars['Boolean']>
   /** The globally unique identifier for the customer */
   id: Scalars['ID']
+  /** Whether the JWT User secret has been revoked. If the secret has been revoked, auth tokens will not be issued until an admin, or user with proper capabilities re-issues a secret for the user. */
+  isJwtAuthSecretRevoked: Scalars['Boolean']
   /** Return the date customer was last updated */
   isPayingCustomer?: Maybe<Scalars['Boolean']>
   /** Is customer VAT exempt? */
   isVatExempt?: Maybe<Scalars['Boolean']>
+  /** The expiration for the JWT Token for the user. If not set custom for the user, it will use the default sitewide expiration setting */
+  jwtAuthExpiration?: Maybe<Scalars['String']>
+  /** A JWT token that can be used in future requests for authentication/authorization */
+  jwtAuthToken?: Maybe<Scalars['String']>
+  /** A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers. */
+  jwtRefreshToken?: Maybe<Scalars['String']>
+  /** A unique secret tied to the users JWT token that can be revoked or refreshed. Revoking the secret prevents JWT tokens from being issued to the user. Refreshing the token invalidates previously issued tokens, but allows new tokens to be issued. */
+  jwtUserSecret?: Maybe<Scalars['String']>
   /** Return the customer&#039;s last name. */
   lastName?: Maybe<Scalars['String']>
   /** Gets the customers last order. */
@@ -4914,6 +4928,33 @@ export type LocalProductAttribute = ProductAttribute & {
   variation: Scalars['Boolean']
   /** Is attribute visible */
   visible: Scalars['Boolean']
+}
+
+/** Input for the login mutation */
+export type LoginInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>
+  /** The plain-text password for the user logging in. */
+  password: Scalars['String']
+  /** The username used for login. Typically a unique or email address depending on specific configuration */
+  username: Scalars['String']
+}
+
+/** The payload for the login mutation */
+export type LoginPayload = {
+  __typename?: 'LoginPayload'
+  /** JWT Token that can be used in future requests for Authentication */
+  authToken?: Maybe<Scalars['String']>
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>
+  /** Customer object of authenticated user. */
+  customer?: Maybe<Customer>
+  /** A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers. */
+  refreshToken?: Maybe<Scalars['String']>
+  /** A JWT token that can be used in future requests to for WooCommerce session identification */
+  sessionToken?: Maybe<Scalars['String']>
+  /** The user that was logged in */
+  user?: Maybe<User>
 }
 
 /** Product manage stock enumeration */
@@ -11200,6 +11241,23 @@ export type ReadingSettings = {
   postsPerPage?: Maybe<Scalars['Int']>
 }
 
+/** Input for the refreshJwtAuthToken mutation */
+export type RefreshJwtAuthTokenInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>
+  /** A valid, previously issued JWT refresh token. If valid a new Auth token will be provided. If invalid, expired, revoked or otherwise invalid, a new AuthToken will not be provided. */
+  jwtRefreshToken: Scalars['String']
+}
+
+/** The payload for the refreshJwtAuthToken mutation */
+export type RefreshJwtAuthTokenPayload = {
+  __typename?: 'RefreshJwtAuthTokenPayload'
+  /** JWT Token that can be used in future requests for Authentication */
+  authToken?: Maybe<Scalars['String']>
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>
+}
+
 /** A refund object */
 export type Refund = Node & {
   __typename?: 'Refund'
@@ -11315,9 +11373,13 @@ export type RegisterCustomerInput = {
 /** The payload for the registerCustomer mutation */
 export type RegisterCustomerPayload = {
   __typename?: 'RegisterCustomerPayload'
+  /** JWT Token that can be used in future requests for Authentication */
+  authToken?: Maybe<Scalars['String']>
   /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: Maybe<Scalars['String']>
   customer?: Maybe<Customer>
+  /** A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers. */
+  refreshToken?: Maybe<Scalars['String']>
   viewer?: Maybe<User>
 }
 
@@ -11347,8 +11409,12 @@ export type RegisterUserInput = {
   nickname?: Maybe<Scalars['String']>
   /** A string that contains the plain text password for the user. */
   password?: Maybe<Scalars['String']>
+  /** If true, this will refresh the users JWT secret. */
+  refreshJwtUserSecret?: Maybe<Scalars['Boolean']>
   /** The date the user registered. Format is Y-m-d H:i:s. */
   registered?: Maybe<Scalars['String']>
+  /** If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets. */
+  revokeJwtUserSecret?: Maybe<Scalars['Boolean']>
   /** A string for whether to enable the rich editor or not. False if not empty. */
   richEditing?: Maybe<Scalars['String']>
   /** A string that contains the user's username. */
@@ -11580,6 +11646,10 @@ export type RootMutation = {
   fillCart?: Maybe<FillCartPayload>
   /** Increase the count. */
   increaseCount?: Maybe<Scalars['Int']>
+  /** The payload for the login mutation */
+  login?: Maybe<LoginPayload>
+  /** The payload for the refreshJwtAuthToken mutation */
+  refreshJwtAuthToken?: Maybe<RefreshJwtAuthTokenPayload>
   /** The payload for the registerCustomer mutation */
   registerCustomer?: Maybe<RegisterCustomerPayload>
   /** The payload for the registerUser mutation */
@@ -11864,6 +11934,16 @@ export type RootMutationFillCartArgs = {
 /** The root mutation */
 export type RootMutationIncreaseCountArgs = {
   count?: Maybe<Scalars['Int']>
+}
+
+/** The root mutation */
+export type RootMutationLoginArgs = {
+  input: LoginInput
+}
+
+/** The root mutation */
+export type RootMutationRefreshJwtAuthTokenArgs = {
+  input: RefreshJwtAuthTokenInput
 }
 
 /** The root mutation */
@@ -16095,9 +16175,13 @@ export type UpdateCustomerInput = {
 /** The payload for the updateCustomer mutation */
 export type UpdateCustomerPayload = {
   __typename?: 'UpdateCustomerPayload'
+  /** JWT Token that can be used in future requests for Authentication */
+  authToken?: Maybe<Scalars['String']>
   /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: Maybe<Scalars['String']>
   customer?: Maybe<Customer>
+  /** A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers. */
+  refreshToken?: Maybe<Scalars['String']>
 }
 
 /** Input for the updateItemQuantities mutation */
@@ -16635,8 +16719,12 @@ export type UpdateUserInput = {
   nickname?: Maybe<Scalars['String']>
   /** A string that contains the plain text password for the user. */
   password?: Maybe<Scalars['String']>
+  /** If true, this will refresh the users JWT secret. */
+  refreshJwtUserSecret?: Maybe<Scalars['Boolean']>
   /** The date the user registered. Format is Y-m-d H:i:s. */
   registered?: Maybe<Scalars['String']>
+  /** If true, this will revoke the users JWT secret. If false, this will unrevoke the JWT secret AND issue a new one. To revoke, the user must have proper capabilities to edit users JWT secrets. */
+  revokeJwtUserSecret?: Maybe<Scalars['Boolean']>
   /** A string for whether to enable the rich editor or not. False if not empty. */
   richEditing?: Maybe<Scalars['String']>
   /** An array of roles to be assigned to the user. */
@@ -16713,10 +16801,20 @@ export type User = Node &
     id: Scalars['ID']
     /** Whether the node is a Content Node */
     isContentNode: Scalars['Boolean']
+    /** Whether the JWT User secret has been revoked. If the secret has been revoked, auth tokens will not be issued until an admin, or user with proper capabilities re-issues a secret for the user. */
+    isJwtAuthSecretRevoked: Scalars['Boolean']
     /** Whether the object is restricted from the current viewer */
     isRestricted?: Maybe<Scalars['Boolean']>
     /** Whether the node is a Term */
     isTermNode: Scalars['Boolean']
+    /** The expiration for the JWT Token for the user. If not set custom for the user, it will use the default sitewide expiration setting */
+    jwtAuthExpiration?: Maybe<Scalars['String']>
+    /** A JWT token that can be used in future requests for authentication/authorization */
+    jwtAuthToken?: Maybe<Scalars['String']>
+    /** A JWT token that can be used in future requests to get a refreshed jwtAuthToken. If the refresh token used in a request is revoked or otherwise invalid, a valid Auth token will NOT be issued in the response headers. */
+    jwtRefreshToken?: Maybe<Scalars['String']>
+    /** A unique secret tied to the users JWT token that can be revoked or refreshed. Revoking the secret prevents JWT tokens from being issued to the user. Refreshing the token invalidates previously issued tokens, but allows new tokens to be issued. */
+    jwtUserSecret?: Maybe<Scalars['String']>
     /** Last name of the user. This is equivalent to the WP_User-&gt;user_last_name property. */
     lastName?: Maybe<Scalars['String']>
     /** The preferred language locale set for the user. Value derived from get_user_locale(). */
@@ -18171,6 +18269,23 @@ export type WritingSettings = {
   defaultPostFormat?: Maybe<Scalars['String']>
   /** Convert emoticons like :-) and :-P to graphics on display. */
   useSmilies?: Maybe<Scalars['Boolean']>
+}
+
+export type GetCustomerIdQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetCustomerIdQuery = { __typename?: 'RootQuery' } & {
+  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+}
+
+export type GetCustomerQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetCustomerQuery = { __typename?: 'RootQuery' } & {
+  customer?: Maybe<
+    { __typename?: 'Customer' } & Pick<
+      Customer,
+      'id' | 'firstName' | 'lastName' | 'displayName' | 'email'
+    >
+  >
 }
 
 export type SettingQueryVariables = Exact<{ [key: string]: never }>

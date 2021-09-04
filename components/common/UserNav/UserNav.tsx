@@ -18,19 +18,24 @@ interface Props {
 const countItem = (count: number, item: LineItem) => count + item.quantity
 
 const UserNav: FC<Props> = ({ className }) => {
-  const { data } = useCart()
+  // const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
-  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  // const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return (
     <nav className={cn(s.root, className)}>
       <ul className={s.list}>
         {process.env.COMMERCE_CART_ENABLED && (
           <li className={s.item}>
-            <Button className={s.item} variant="naked" onClick={toggleSidebar} aria-label="Cart">
+            <Button
+              className={s.item}
+              variant="naked"
+              onClick={toggleSidebar}
+              aria-label="Cart"
+            >
               <Bag />
-              {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+              {/* {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>} */}
             </Button>
           </li>
         )}
