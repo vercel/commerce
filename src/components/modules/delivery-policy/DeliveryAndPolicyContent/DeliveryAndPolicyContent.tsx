@@ -10,7 +10,6 @@ interface DeliveryAndPolicyContentProps{
 const DeliveryAndPolicyContent = ( { title, date, content } : DeliveryAndPolicyContentProps) => {
     return (
         <section>
-
             <div className={s.titleWrapper}>
                 <div>LASTEST UPDATED: 
                     <DateTime date={date} />

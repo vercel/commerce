@@ -2,6 +2,7 @@
 
 .wrapper{
     @apply flex flex-col spacing-horizontal items-center;
+    padding-bottom: 16.8rem;
     .list{
         @apply flex flex-wrap justify-between;
         max-width: 121.6rem;
