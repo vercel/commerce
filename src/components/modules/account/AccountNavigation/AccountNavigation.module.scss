@@ -1,5 +1,17 @@
 @import '../../../../styles/utilities';
 
 .accountNavigation {
-    @apply spacing-horizontal;
+    border-left: 2px solid #FBFBFB;
+
+
+    .slider {
+        @apply inline-block;
+        width: 0.2rem;
+        height: 4.8rem;
+        border-radius: 3px;
+        background-color: var(--primary);
+        position: absolute;
+        left: 11.2rem;
+        transition: all .4s linear;
+    }
 }
