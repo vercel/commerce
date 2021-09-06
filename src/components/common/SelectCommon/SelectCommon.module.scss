@@ -1,32 +1,81 @@
 @import "../../../styles/utilities";
 
 .select{
-    @apply rounded-lg border-solid;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 1.2rem 1.6rem;
+    background-color: var(--white);
     &.base{
-        width: 18.6rem;
-        height: 4.8rem;
+        width: 20.6rem;
+        .selectTrigger{
+            width: 20.6rem;
+            padding: 1.2rem 1.6rem;
+        }
     }
     &.large{
         width: 34.25rem;
-        height: 5.6rem;
+        .selectTrigger{
+            width: 34.25rem;
+            padding: 1.6rem 1.6rem;
+        }
     }
     &.default{
-        @apply border;
+        .selectTrigger{
+            @apply border-solid border border-current;
+        }   
+    }
+    &.custom{
+        .selectTrigger{
+            @apply border-2;
+            border-color: var(--border-line);
+            color: var(--text-label);
+        }
+    }
+    &:hover{
+        .hoverWrapper{
+            @apply block;
+            animation: SelectAnimation 0.2s ease-out;
+        }
+    }
+}
+.selectTrigger{
+    @apply outline-none flex justify-between;
+    color: var(--text-active);
+    border-radius: 0.8rem;
+
+}
+.hoverWrapper{
+    @apply hidden;
+    padding-top: 0.6rem;
+    &:hover{
+        @apply block;
+    }
+}
+.selectOptionWrapper{
+    @apply outline-none z-10 absolute;
+    border-radius: 0.8rem;
+    background-color: var(--white);
+    padding: 0.4rem 0rem 0.4rem 0rem;
+    &.base{
+        width: 20.6rem;
+    }
+    &.large{
+        width: 34.25rem;
+    }
+    &.default{
+        @apply border-solid border border-current; 
     }
     &.custom{
         @apply border-2;
         border-color: var(--border-line);
         color: var(--text-label);
     }
-    .option{
-        &:hover{
-            background-color: black;
-        }
-    }
 }
 
+@keyframes SelectAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(1.6rem);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
