@@ -2,6 +2,7 @@ import { BreadcrumbCommon } from "src/components/common"
 import s from './BlogBreadCrumb.module.scss'
 
 const BLOG_DATA = [
+    {link: "/", name: "Home"},
     {link: "/blogs", name: "Blog"},
 ];
 
