@@ -36,3 +36,4 @@ export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreate
 export { default as CardBlog} from './CardBlog/CardBlog'
 export { default as RelevantBlogPosts} from './RelevantBlogPosts/RelevantBlogPosts'
 export { default as CollapseCommon} from './CollapseCommon/CollapseCommon'
+export { default as BreadcrumbCommon } from './BreadcrumbCommon/BreadcrumbCommon'
