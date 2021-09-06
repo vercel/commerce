@@ -32,3 +32,5 @@ export { default as ModalCommon} from './ModalCommon/ModalCommon'
 export { default as ModalConfirm} from "./ModalConfirm/ModalConfirm"
 export { default as ModalInfo} from "./ModalInfo/ModalInfo"
 export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreateUserInfo'
+export { default as ImgWithLink} from './ImgWithLink/ImgWithLink'
+export { default as RecipeDetail} from './RecipeDetail/RecipeDetail'

@@ -1,0 +1,27 @@
+@import "../../../../styles/utilities";
+
+.imgWrap {
+    img {
+        opacity: 0.5;
+    }
+}
+
+.name {
+    @apply text-label cursor-default font-bold;
+}
+
+.info {
+    @apply flex justify-center items-center custom-border-radius bg-info-light text-center;
+    padding: .8rem 1.6rem;
+    margin-top: 1.6rem;
+    color: var(--info);
+    svg {
+        @apply u-icon;
+        path {
+            fill: currentColor;
+        }
+    }
+    .text {
+        margin-left: 0.8rem;
+    }
+}

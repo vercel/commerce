@@ -30,7 +30,7 @@ export default function Home() {
       <SelectCommon option={OPTION_SORT}>Sort By</SelectCommon>
       <SelectCommon option={OPTION_SORT} size="large" type="custom">Sort By</SelectCommon>
 
-      // todo: uncomment
+      {/* // todo: uncomment */}
       {/* <ModalCreateUserInfo/> */}
     </>
   )
