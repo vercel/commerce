@@ -1,8 +1,9 @@
 @import '../../../../styles/utilities';
 
 .deliveryItem {
-    @apply flex bg-gray items-center;
-    border-radius: 50% 20% 60% 2%/ 10% 20% 10% 50%;
+    @apply flex bg-white items-center;
+    // border-radius: 50% 20% 60% 2%/ 10% 20% 10% 50%;
+    border-radius: 3rem;
     margin-bottom: 1.6rem;
 }
 
