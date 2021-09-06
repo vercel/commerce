@@ -1,9 +1,9 @@
 @import "../../../../../styles/utilities";
 
 .recipeIngredient {
-    margin: 6rem auto;
+    padding: 6rem 0;
     @screen md {
-        margin: 5.6rem auto;
+        padding: 5.6rem 0;
     }
     .top {
         @apply flex justify-between items-center spacing-horizontal;

@@ -29,13 +29,14 @@ const ProductInfo = ({ }: Props) => {
             <div className={s.actions}>
                 <QuanittyInput />
                 <div className={s.bottom}>
-                    <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>
+                    <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.PREORDER}</ButtonCommon>
+                    {/* <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>
 
                     <ButtonCommon size='large' type='light'>
                         <span className={s.buttonWithIcon}>
                             <IconBuy /><span className={s.label}>{LANGUAGE.BUTTON_LABEL.ADD_TO_CARD}</span>
                         </span>
-                    </ButtonCommon>
+                    </ButtonCommon> */}
                 </div>
             </div>
         </section >

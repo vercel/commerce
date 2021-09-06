@@ -2,8 +2,9 @@
 
 .productInfoDetail {
     @apply spacing-horizontal;
-    margin: 0 auto 4rem;
+    padding-bottom: 4rem;
     @screen md {
         @apply flex;
+        padding-bottom: 5.6rem;
     }
 }
