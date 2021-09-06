@@ -1,0 +1,11 @@
+@import '../../../styles/utilities';
+
+.listProductWithInfo {
+    background-color: #F5F4F2;
+    @screen md {
+        @apply flex;
+    }
+    .productsWrap {
+        @apply custom-border-radius-lg;
+    }
+}
