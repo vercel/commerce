@@ -1,0 +1,44 @@
+@import "../../../styles/utilities";
+
+.drawerCommon {
+    @apply fixed flex justify-end transition-all duration-200;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 90%;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 20000;
+    @screen md {
+        width: unset;
+    }
+
+    .inner {
+        @apply bg-white;
+        width: fit-content;
+        height: 100vh;
+        min-width: 48rem;
+        width: 100%;
+        margin-right: 0;
+        .top {
+            @apply flex justify-between items-center;
+            padding: 1.6rem;
+            .heading {
+                @apply sm-headline;
+            }
+            .iconClose {
+                @apply cursor-pointer transition-all duration-200;
+                &:hover {
+                    svg path {
+                        fill: var(--primary);
+                    }
+                }
+            }
+        }
+    }
+    .content {
+        overflow-y: auto;
+    }
+    &.hide {
+        transform: translateX(110%);
+    }
+}
