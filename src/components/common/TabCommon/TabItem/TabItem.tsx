@@ -4,13 +4,14 @@ import s from './TabItem.module.scss'
 
 interface TabItemProps {
     active: string;
-    target?: string;
-    children?: string;
+    children: string;
+    onClick: () => void;
 }
 
-const TabItem = ({ active = "", children } : TabItemProps) => {
+const TabItem = ({ active = "", children, onClick } : TabItemProps) => {
+
     return (
-        <span className={classNames(s.tabItem, {
+        <span onClick={onClick} className={classNames(s.tabItem, {
             [s[active]]: active
         })}>
             {children}
