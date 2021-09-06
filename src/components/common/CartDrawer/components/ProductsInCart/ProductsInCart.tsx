@@ -8,20 +8,22 @@ interface Props {
 
 const ProductsInCart = ({ data }: Props) => {
   return (
-    <div className={s.productsInCart}>
+    <ul className={s.productsInCart}>
       {
-        data.map(item => <ProductCartItem
-          key={item.name}
-          name={item.name}
-          weight={item.weight}
-          price={item.price}
-          oldPrice={item.oldPrice}
-          discount={item.discount}
-          imageSrc={item.imageSrc}
-          quantity={item.quantity}
-        />)
+        data.map(item => <li key={item.name}>
+          <ProductCartItem
+            name={item.name}
+            slug={item.slug}
+            weight={item.weight}
+            price={item.price}
+            oldPrice={item.oldPrice}
+            discount={item.discount}
+            imageSrc={item.imageSrc}
+            quantity={item.quantity}
+          />
+        </li>)
       }
-    </div>
+    </ul>
   )
 }
 
