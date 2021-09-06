@@ -1,6 +1,5 @@
 import s from './SelectOption.module.scss'
 import classNames from 'classnames'
-import { useState } from 'react'
 
 interface Props{
     onClick: (name: string, value: string) => void,

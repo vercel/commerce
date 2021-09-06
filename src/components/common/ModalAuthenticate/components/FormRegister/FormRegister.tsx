@@ -24,12 +24,11 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
         <section className={classNames({
             [s.formAuthen]: true,
             [styles.formRegister]: true,
-            // [styles.hide]: isHide
         })}>
             <div className={s.inner}>
                 <div className={s.body}>
                     <Inputcommon placeholder='Email Address' type='email' ref={emailRef}/>
-                    <Inputcommon placeholder='Password' type='password' />
+                    <InputPassword placeholder='Password'/>
                     <div className={styles.passwordNote}>
                         Must contain 8 characters with at least 1 uppercase and 1 lowercase letter and either 1 number or 1 special character.
                     </div>

@@ -11,13 +11,18 @@ interface Props {
     children?: any,
     isFull: boolean,
     openModalAuthen: () => void,
+    openModalInfo: () => void,
 }
 
-const HeaderMenu = memo(({ isFull, openModalAuthen }: Props) => {
+const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo }: Props) => {
     const optionMenu = useMemo(() => [
         {
             onClick: openModalAuthen,
             name: 'Login (Demo)',
+        },
+        {
+            onClick: openModalInfo,
+            name: 'Create User Info (Demo)',
         },
         {
             link: ROUTE.ACCOUNT,

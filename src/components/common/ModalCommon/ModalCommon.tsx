@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Close } from 'src/components/icons'
 import { useOnClickOutside } from 'src/utils/useClickOutSide'
 import s from './ModalCommon.module.scss'
-interface Props {
+export interface ModalCommonProps {
   onClose: () => void
   visible: boolean
   children: React.ReactNode
@@ -10,7 +10,7 @@ interface Props {
   maxWidth?:string
 }
 
-const ModalCommon = ({ onClose, visible, children, title="Modal",maxWidth }: Props) => {
+const ModalCommon = ({ onClose, visible, children, title="Modal",maxWidth }: ModalCommonProps) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const clickOutSide = () => {
     onClose && onClose()
