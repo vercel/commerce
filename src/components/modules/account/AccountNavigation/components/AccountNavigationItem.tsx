@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 import classNames from "classnames";
 import s from './AccountNavigationItem.module.scss'
 
@@ -6,11 +6,12 @@ interface AccountNavigationItemProps {
     children?: string;
     active?: string;
     target?: string;
+    onClick: () => void;
 }
 
-const AccountNavigationItem = ({ children, active="" } : AccountNavigationItemProps) => {
+const AccountNavigationItem = ({ children, active="", onClick } : AccountNavigationItemProps) => {
     return (
-        <div className={classNames(s.accountNavigationItem, {
+        <div onClick={onClick} className={classNames(s.accountNavigationItem, {
             [s[active]]:active
         })}>
             {children}
