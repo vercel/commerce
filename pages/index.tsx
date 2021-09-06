@@ -1,18 +1,32 @@
 
-import { Layout } from 'src/components/common'
-import { HomeBanner, HomeCollection, HomeCTA, HomeSubscribe, HomeVideo, HomeCategories, HomeFeature, HomeRecipe } from 'src/components/modules/home';
+import { Layout, BreadcrumbCommon, TabCommon } from 'src/components/common'
+import { AccountNavigation, DeliveryItem, AccountPage } from 'src/components/modules/account';
+
 
 export default function Home() {
+
+  const crumbs = [
+    {link: "/", name: "Home"},
+    {link: "/blogs", name: "Blog"},
+    {link: "/product-list", name: "Product List"},
+    {link: "/product-detail", name: "Product Detail"},
+  ];
+
   return (
     <>
-      <HomeBanner />
+      <BreadcrumbCommon crumbs={crumbs} showHomePage={true} />
+      <AccountPage />
+
+      
+
+      {/* <HomeBanner />
       <HomeFeature />
       <HomeCategories />
       <HomeCollection />
       <HomeVideo />
       <HomeCTA />
       <HomeRecipe />
-      <HomeSubscribe />
+      <HomeSubscribe /> */}
     </>
   )
 }
