@@ -18,13 +18,13 @@ const OPTION_DEFAULT: TOptionsEvents = {
             slidesPerView: 3,
         },
         '(min-width: 768px)': {
-            slidesPerView: 3,
+            slidesPerView: 4,
         },
         '(min-width: 1024px)': {
-            slidesPerView: 4,
+            slidesPerView: 3,
         },
         '(min-width: 1280px)': {
-            slidesPerView: 4,
+            slidesPerView: 4.5,
         },
     },
 }

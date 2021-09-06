@@ -1,5 +1,23 @@
+@import "../../../../styles/utilities";
+
 .infoProducts {
+    @apply flex justify-between items-center spacing-horizontal;
+
     .top {
-        
+        .sub {
+            display: none;
+        }
+    }
+    @screen lg {
+        @apply block;
+        margin-right: 4rem;
+        padding: 0;
+        .top {
+            margin-bottom: 3.2rem;
+            .sub {
+                display: block;
+                margin-top: 0.4rem;
+            }
+        }
     }
 }
