@@ -7,7 +7,6 @@
 
     &.active {
         @apply font-bold;
-        border-bottom: 2px solid var(--primary);
     }
 
     &:hover {
