@@ -9,19 +9,15 @@
     width: 90%;
     box-shadow: -3px 0 10px rgba(0, 0, 0, 0.15);
     z-index: 20000;
-    @screen md {
-        width: unset;
-    }
 
     .inner {
         @apply flex flex-col bg-white;
         width: fit-content;
         height: 100vh;
-        min-width: 48rem;
         width: 100%;
         margin-right: 0;
         @screen md {
-            max-width: 50rem;
+            max-width: 55rem;
         }
         .top {
             @apply flex justify-between items-center;
@@ -45,5 +41,12 @@
     }
     &.hide {
         transform: translateX(110%);
+    }
+
+    @screen md {
+        width: unset;
+        .inner {
+            min-width: 48rem;
+        }
     }
 }

@@ -10,7 +10,7 @@ const ProductsInCart = ({ data }: Props) => {
   return (
     <ul className={s.productsInCart}>
       {
-        data.map(item => <li key={item.name}>
+        data.slice(0,1).map(item => <li key={item.name}>
           <ProductCartItem
             name={item.name}
             slug={item.slug}
