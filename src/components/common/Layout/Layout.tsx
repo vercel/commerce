@@ -2,7 +2,7 @@ import { CommerceProvider } from '@framework'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useModalCommon } from 'src/components/hooks'
-import { DrawerCommon, ScrollToTop } from '..'
+import { CartDrawer } from '..'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import s from './Layout.module.scss'
@@ -30,8 +30,7 @@ const Layout: FC<Props> = ({ children }) => {
                 <button onClick={toggle}>toggle card: {visibleCartDrawer.toString()}</button>
                 <Header />
                 <main >{children}</main>
-                <DrawerCommon
-                    title="Cart"
+                <CartDrawer
                     visible={visibleCartDrawer}
                     onClose={closeCartDrawer} />
                 <Footer />

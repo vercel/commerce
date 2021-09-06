@@ -2,6 +2,7 @@
 
 .drawerCommon {
     @apply fixed flex justify-end transition-all duration-200;
+    overflow: hidden;
     top: 0;
     right: 0;
     height: 100vh;
@@ -13,12 +14,15 @@
     }
 
     .inner {
-        @apply bg-white;
+        @apply flex flex-col bg-white;
         width: fit-content;
         height: 100vh;
         min-width: 48rem;
         width: 100%;
         margin-right: 0;
+        @screen md {
+            max-width: 50rem;
+        }
         .top {
             @apply flex justify-between items-center;
             padding: 1.6rem;
@@ -37,6 +41,7 @@
     }
     .content {
         overflow-y: auto;
+        height: 100%;
     }
     &.hide {
         transform: translateX(110%);
