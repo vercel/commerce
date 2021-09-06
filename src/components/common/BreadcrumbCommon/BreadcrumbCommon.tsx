@@ -9,7 +9,7 @@ interface BreadcrumbCommonProps {
     showHomePage?: boolean;
 }
 
-const BreadcrumbCommon = ({ crumbs, showHomePage=false } : BreadcrumbCommonProps) => {
+const BreadcrumbCommon = ({ crumbs, showHomePage=true } : BreadcrumbCommonProps) => {
     if (showHomePage) {
         crumbs.unshift({link: "/", name: "Home"});
     }
