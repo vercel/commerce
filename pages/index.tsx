@@ -1,17 +1,23 @@
 import React, { MutableRefObject, useRef } from 'react';
-import { Banner, ButtonCommon, ButtonIconBuy, CollectionHeading, HeadingCommon, Inputcommon, InputSearch, Layout, ScrollTarget } from 'src/components/common';
+import { Banner, ButtonCommon, ButtonIconBuy, CollectionHeading, HeadingCommon, Inputcommon, InputSearch, Layout, ScrollToTop } from 'src/components/common';
 import { IconBuy } from 'src/components/icons';
 
 export default function Home() {
-  const refScrollUp = useRef() as MutableRefObject<HTMLDivElement>;
 
   return (
     <>
-      <ScrollTarget refScrollUp={refScrollUp} />
+      {/* <ScrollTarget refScrollUp={refScrollUp} /> */}
+      
       <HeadingCommon align="center">categories</HeadingCommon>
       <HeadingCommon type='light'>categories</HeadingCommon>
       <CollectionHeading subtitle='Lorem' title='Heading here'/>
+      <CollectionHeading subtitle='Lorem' title='Heading here'/>
+      <CollectionHeading subtitle='Lorem' title='Heading here'/>
+      <CollectionHeading subtitle='Lorem' title='Heading here'/>
+      <CollectionHeading subtitle='Lorem' title='Heading here'/>
       <HeadingCommon align="center" type='light'>categories</HeadingCommon>
+      
+      <ScrollToTop />
 
       <p>Go to <code>src/components</code> to make your awesome component!</p>
       <p>Go to <code>src/styles</code> to find global styles!</p>
