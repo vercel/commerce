@@ -10,6 +10,7 @@ export const ROUTE = {
     PRODUCTS: '/products',
     ABOUT: '/about',
     ACCOUNT: '/account',
+    RECIPES: '/recipes',
 
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',

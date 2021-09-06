@@ -1,7 +1,10 @@
 @import "../../../../../styles/utilities";
 
 .recipeIngredient {
-    margin: 5.6rem auto;
+    margin: 6rem auto;
+    @screen md {
+        margin: 5.6rem auto;
+    }
     .top {
         @apply flex justify-between items-center spacing-horizontal;
     }
