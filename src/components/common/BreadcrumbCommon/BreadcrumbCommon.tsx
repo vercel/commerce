@@ -19,19 +19,19 @@ const BreadcrumbCommon = ({ crumbs, showHomePage=true } : BreadcrumbCommonProps)
                 crumbs.map((crumb, i) => {
                     if (i === 0) {
                         return (
-                            <BreadcrumbItem key={i} text={crumb.name} href={crumb.link} />
+                            <BreadcrumbItem key={crumb.name} text={crumb.name} href={crumb.link} />
                         )
                     }
                     if (i === crumbs.length-1) {
                         return (
-                            <BreadcrumbSeparator key={i}>
-                                <BreadcrumbItem key={i} text={crumb.name} href="#" />
+                            <BreadcrumbSeparator key={crumb.name}>
+                                <span>{crumb.name}</span>
                             </BreadcrumbSeparator>
                         )
                     }
                     return (
-                        <BreadcrumbSeparator key={i}>
-                            <BreadcrumbItem key={i} text={crumb.name} href={crumb.link} />
+                        <BreadcrumbSeparator key={crumb.name}>
+                            <BreadcrumbItem text={crumb.name} href={crumb.link} />
                         </BreadcrumbSeparator>
                     )
                 })
