@@ -4,14 +4,12 @@ import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeR
 import {SelectCommon} from 'src/components/common'
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import card from "../public/assets/images/card.png"
-import { BlogsList, FeaturedCardBlog, BlogHeading } from 'src/components/modules/blogs';
+import { BlogsList, FeaturedCardBlog, BlogHeading, BlogBreadCrumb, BlogsPage } from 'src/components/modules/blogs';
 
 export default function Home() {
   return (
     <>
-      <BlogHeading />
-      <FeaturedCardBlog />
-      <BlogsList />
+      <BlogsPage />
     </>
   )
 }
