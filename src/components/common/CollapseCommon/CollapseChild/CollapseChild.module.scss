@@ -1,18 +1,19 @@
-@import "../../../styles/utilities";
+@import "../../../../styles/utilities";
 
-.collapseWrapper{
+.collapseWrapper {
     @apply border-t border-b;
     border-color: var(--border-line);
     max-width: 80.4rem;
     min-height: 4rem;
-    &.isActive{
-        .title{
+    &.isActive {
+        .title {
             @apply pb-0;
         }
-        .contentContainer{
+        .contentContainer {
             @apply block;
+            animation: ContentAnimationIn 0.5s ease-out;
         }
-        .toggle{
+        .toggle {
             &:before {
                 transform: rotate(180deg);
             }
@@ -21,21 +22,21 @@
             }
         }
     }
-    svg:hover{
+    &:hover {
         cursor: pointer;
     }
 }
-.title{
+.title {
     @apply outline-none flex justify-between font-heading items-center pt-16 pb-16;
     font-size: 3.2rem;
     line-height: 4rem;
     letter-spacing: -0.01em;
-    .toggle{
+    .toggle {
         height: 2.2rem;
         width: 2.2rem;
         position: relative;
         &:before,
-        &:after{
+        &:after {
             @apply absolute h-2;
             content: "";
             border-radius: 0.8rem;
@@ -44,12 +45,22 @@
             width: 2.2rem;
             transition: transform 500ms ease;
         }
-        &:before{
+        &:before {
             transform-origin: center;
             transform: rotate(90deg);
         }
     }
 }
-.contentContainer{
+.contentContainer {
     @apply hidden pb-16;
+}
+@keyframes ContentAnimationIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-1.6rem);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
 }

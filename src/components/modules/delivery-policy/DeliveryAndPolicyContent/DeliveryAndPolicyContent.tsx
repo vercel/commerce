@@ -31,11 +31,7 @@ const DeliveryAndPolicyContent = ( { title, date, content } : DeliveryAndPolicyC
                         content.map(item => <CollapseContent content={item} />)
                     }
                 </div>
-                <CollapseCommon title="This is a subtitle" content={CONTENT} />
-                <CollapseCommon title="This is a subtitle" content={CONTENT} />
-                <CollapseCommon title="This is a subtitle" content={CONTENT} />
-                <CollapseCommon title="This is a subtitle" content={CONTENT} />
-                <CollapseCommon title="This is a subtitle" content={CONTENT} />
+                <CollapseCommon data={CONTENT} />\
             </div>
 
         </section>

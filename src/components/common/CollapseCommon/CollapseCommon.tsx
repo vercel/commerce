@@ -1,36 +1,18 @@
-import s from './CollapseCommon.module.scss'
-import { useState } from 'react'
-import classNames from 'classnames'
-import CollapseContent from './CollapseContent/CollapseContent'
+import CollapseChild from './CollapseChild/CollapseChild'
 
-interface CollapseProps{
-    title?: string,
-    content: Array<string>,
-    isToggle?: boolean,
+interface CollapseCommonProps{
+    data: {title: string, content: Array<string>, link: string}[],
 }
-const CollapseCommon = ({title, content, isToggle}: CollapseProps) => {
-    const [isActive, changeActive] = useState(isToggle)
 
-    const handleToggle = () => {
-        changeActive(!isActive)
-    }
-    return(
-        <div className={classNames({
-            [s.collapseWrapper] : true,
-            [s.isActive] : isActive 
-        })}
-            onClick = { handleToggle }
-        >    
-            <div className={s.title}>
-                <a>{title}</a>
-                <div className={s.toggle}></div>
-            </div>
-            <div className={s.contentContainer}>
-                {
-                    content.map(item => <CollapseContent content={item} />)
-                }
-            </div>
-        </div>
+const CollapseCommon = ({data}: CollapseCommonProps) => {
+    return (
+        <section>
+            {
+                data.map(item =>
+                    <CollapseChild key={item.title} title={item.title} content={item.content} link={item.link} />
+                )
+            }
+        </section>
     )
 }
 

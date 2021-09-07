@@ -23,7 +23,10 @@ export { default as IconCheck } from './IconCheck'
 export { default as IconTime } from './IconTime'
 export { default as IconPeople } from './IconPeople'
 export { default as IconLocation } from './IconLocation'
+<<<<<<< HEAD
 export { default as IconClose } from './IconClose'
 export { default as IconDelete } from './IconDelete'
 export { default as IconPlus } from './IconPlus'
 export { default as IconMinus } from './IconMinus'
+=======
+>>>>>>> 0f6cdc9f66ceaf2b0aec38d0d6444de902b69bfe

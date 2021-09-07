@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import s from './CollapseContent.module.scss'
 
 interface CollapseContentProps{
