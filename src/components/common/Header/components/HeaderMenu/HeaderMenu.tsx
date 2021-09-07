@@ -5,6 +5,7 @@ import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { IconBuy, IconHeart, IconHistory, IconUser } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
 
 interface Props {
@@ -39,7 +40,7 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo }: Props) => {
         <section className={classNames({ [s.headerMenu]: true, [s.full]: isFull })}>
             <div className={s.left}>
                 <div className={s.top}>
-                    <div>Online Grocery</div>
+                    <Logo/>
                     <button className={s.iconCart}>
                         <IconBuy />
                     </button>
