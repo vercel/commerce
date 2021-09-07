@@ -5,7 +5,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.2rem 3.2rem;
+  padding: 1rem 2rem;
+  @screen md {
+    padding: 0.8rem 1.6rem;
+  }
+  @screen lg {
+    padding: 0.8rem 3.2rem;
+  }
   &:disabled {
     filter: brightness(0.9);
     cursor: not-allowed;
@@ -63,7 +69,7 @@
     border: 1px solid var(--primary);
     &.loading {
       &::before {
-        border-top-color: var(--primary);
+        border-top-color: var(--text-active);
       }
     }
   }
@@ -76,9 +82,18 @@
   }
 
   &.large {
-    padding: 1.6rem 4.8rem;
+    padding: 1rem 1.5rem;
     &.onlyIcon {
-      padding: 1.6rem;
+      padding: 1rem;
+    }
+    @screen md {
+      padding: 1.6rem 3.2rem;
+      &.onlyIcon {
+        padding: 1.6rem;
+      }
+    }
+    @screen lg {
+      padding: 1.6rem 4.8rem;
     }
     &.loading {
       &::before {
@@ -97,10 +112,6 @@
 
   .icon {
     margin: 0 1.6rem 0 0;
-  }
-
-  .label,
-  .icon {
     svg path {
       fill: currentColor;
     }

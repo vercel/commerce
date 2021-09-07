@@ -10,6 +10,7 @@ export const ROUTE = {
     PRODUCTS: '/products',
     ABOUT: '/about',
     ACCOUNT: '/account',
+    RECIPES: '/recipes',
 
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
@@ -18,6 +19,7 @@ export const ROUTE = {
     TERM_CONDITION: '/term-condition',
     PRIVACY_POLICY: '/privacy-policy',
     BLOGS: '/blogs',
+    FORGOT_PASSWORD: '/forgot-password'
 }
 
 export const ACCOUNT_TAB = {

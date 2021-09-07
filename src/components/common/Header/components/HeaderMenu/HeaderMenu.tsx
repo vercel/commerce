@@ -1,30 +1,40 @@
 import classNames from 'classnames'
 import Link from 'next/link'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { IconBuy, IconHeart, IconHistory, IconUser } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import s from './HeaderMenu.module.scss'
 
-const OPTION_MENU = [
-    {
-        link: ROUTE.ACCOUNT,
-        name: 'Account',
-    },
-    {
-        link: '/',
-        name: 'Logout',
-    },
-
-]
-
 interface Props {
     children?: any,
     isFull: boolean,
+    openModalAuthen: () => void,
+    openModalInfo: () => void,
 }
 
-const HeaderMenu = memo(({ isFull }: Props) => {
+const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo }: Props) => {
+    const optionMenu = useMemo(() => [
+        {
+            onClick: openModalAuthen,
+            name: 'Login (Demo)',
+        },
+        {
+            onClick: openModalInfo,
+            name: 'Create User Info (Demo)',
+        },
+        {
+            link: ROUTE.ACCOUNT,
+            name: 'Account',
+        },
+        {
+            link: '/',
+            name: 'Logout',
+        },
+
+    ], [openModalAuthen])
+
     return (
         <section className={classNames({ [s.headerMenu]: true, [s.full]: isFull })}>
             <div className={s.left}>
@@ -54,7 +64,7 @@ const HeaderMenu = memo(({ isFull }: Props) => {
                     </Link>
                 </li>
                 <li>
-                    <MenuDropdown options={OPTION_MENU} isHasArrow={false}><IconUser /></MenuDropdown>
+                    <MenuDropdown options={optionMenu} isHasArrow={false}><IconUser /></MenuDropdown>
                 </li>
                 <li>
                     <button>

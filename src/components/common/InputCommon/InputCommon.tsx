@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { IconCheck, IconError, IconPassword, IconPasswordCross } from 'src/components/icons';
 import { KEY } from 'src/utils/constanst.utils';
 import s from './InputCommon.module.scss';
 
@@ -10,17 +11,32 @@ interface Props {
     children?: React.ReactNode,
     value?: string | number,
     placeholder?: string,
-    type?: 'text' | 'number' | 'email',
+    type?: 'text' | 'number' | 'email' | 'password',
     styleType?: 'default' | 'custom',
     backgroundTransparent?: boolean,
     icon?: React.ReactNode,
+    isIconSuffix?: boolean,
+    isShowIconSuccess?: boolean,
+    error?: string,
     onChange?: (value: string | number) => void,
     onEnter?: (value: string | number) => void,
 }
 
 const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, styleType = 'default', icon, backgroundTransparent = false,
+    isIconSuffix, isShowIconSuccess, error,
     onChange, onEnter }: Props, ref) => {
     const inputElementRef = useRef<HTMLInputElement>(null);
+
+    const iconElement = useMemo(() => {
+        if (error) {
+            return <span className={s.icon}><IconError /> </span>
+        } else if (isShowIconSuccess) {
+            return <span className={s.icon}><IconCheck /> </span>
+        } else if (icon) {
+            return <span className={s.icon}>{icon} </span>
+        }
+        return <></>
+    }, [icon, error, isShowIconSuccess])
 
     useImperativeHandle(ref, () => ({
         focus: () => {
@@ -44,23 +60,33 @@ const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, styleTyp
     }
 
     return (
-        <div className={s.inputWrap}>
+        <div className={classNames({
+            [s.inputWrap]: true,
+        })}>
+            <div className={classNames({
+                [s.inputInner]: true,
+                [s.preserve]: isIconSuffix,
+                [s.success]: isShowIconSuccess,
+                [s.error]: !!error,
+            })}>
+                {iconElement}
+                <input
+                    ref={inputElementRef}
+                    value={value}
+                    type={type}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                    className={classNames({
+                        [s.inputCommon]: true,
+                        [s[styleType]]: true,
+                        [s.bgTransparent]: backgroundTransparent
+                    })}
+                />
+            </div>
             {
-                icon && <span className={s.icon}>{icon}</span>
+                error && <div className={s.errorMessage}>{error}</div>
             }
-            <input
-                ref={inputElementRef}
-                value={value}
-                type={type}
-                placeholder={placeholder}
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-                className={classNames({
-                    [s.inputCommon]: true,
-                    [s[styleType]]: true,
-                    [s.bgTransparent]: backgroundTransparent
-                })}
-            />
         </div>
     )
 

@@ -1,17 +1,2 @@
-.custom_arrow{
-    width: 64px;
-    height:  64px;
-    &:focus{
-        outline: none;
-    }
-    @apply absolute top-1/2 bg-background-arrow transform -translate-y-1/2 flex justify-center items-center transition duration-100;
-    &.left{
-        @apply left-0;
-    }
-    &.right{
-        @apply right-0;
-    }
-    &.isDisabled{
-        @apply hidden ;
-    }
-}
+
+

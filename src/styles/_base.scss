@@ -21,7 +21,7 @@
   --warning-light: #fef8eb;
 
   --negative-dark: #741a06;
-  --negative: #f34f2b;
+  --negative: #D1644D;
   --negative-border-line: #fddfd8;
   --negative-light: #feefec;
 
@@ -34,13 +34,10 @@
   --border-line: #ebebeb;
   --background: #fff;
   --gray: #f8f8f8;
-  --white: #fbfbfb;
+  --white: #fff;
   --background-arrow:rgba(20, 20, 20, 0.05);
   --font-size: 1.6rem;
   --line-height: 2.4rem;
-
-  // --font-size: 16px;
-  // --line-height: 24px;
 
   --font-sans: "Nunito", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
   --font-heading: "Righteous", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
@@ -82,5 +79,5 @@ html {
 }
 
 a {
-  -webkit-tap-highlight-color: var(--text-active);
+  -webkit-tap-highlight-color: var(--primary);
 }

@@ -1,41 +1,36 @@
-
 import { Layout } from 'src/components/common';
-import { HomeBanner, HomeCategories, HomeCTA, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
-import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
-const CATEGORY = [
+import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
+import {SelectCommon} from 'src/components/common'
+
+const OPTION_SORT = [
   {
-      name: 'All',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
+    name: "By Name"
   },
   {
-      name: 'Veggie',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+    name: "Price (High to Low)"
   },
   {
-      name: 'Seafood',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
-  },
-  {
-      name: 'Frozen',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
-  },
-  {
-      name: 'Coffee Bean',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
-  },
-  {
-      name: 'Sauce',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
-  },
+    name: "On Sale"
+  }
 ]
+
 export default function Home() {
   return (
     <>
-      <HomeBanner />
-      <HomeCategories/>
+      {/* <HomeBanner />
+      <HomeBanner/>
+      <HomeFeature />
+      <HomeCategories />
+      <HomeCollection />
       <HomeVideo />
       <HomeCTA />
-      <HomeSubscribe />
+      <HomeRecipe />
+      <HomeSubscribe /> */}
+      <SelectCommon option={OPTION_SORT}>Sort By</SelectCommon>
+      <SelectCommon option={OPTION_SORT} size="large" type="custom">Sort By</SelectCommon>
+
+      {/* // todo: uncomment */}
+      {/* <ModalCreateUserInfo/> */}
     </>
   )
 }

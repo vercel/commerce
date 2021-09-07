@@ -1,0 +1,30 @@
+@import '../../../../styles/utilities';
+
+.formAuthen {
+    @apply bg-white w-full u-form;
+    .inner {
+        @screen md {
+            width: 60rem;
+            margin: auto;
+        }
+        .others {
+            @apply font-bold text-center;
+            margin-top: 4rem;
+
+            span {
+                @apply text-active;
+                margin-right: 0.8rem;
+            }
+            button {
+                all: unset;
+                @apply text-primary cursor-pointer;
+                &:focus-visible {
+                    outline: 2px solid #000;
+                }
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}
