@@ -13,6 +13,8 @@ const CardBlog = ({ imageSrc, title, description, link }: BlogCardProps) => {
         <div className={s.image}>
           <img src={imageSrc} alt="image cardblog" />
         </div>
+      </Link>
+      <Link href={link}>
         <div className={s.title}>{title}</div>
       </Link>
       <div className={s.description}>{description}</div>
