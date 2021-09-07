@@ -1,70 +1,70 @@
 @import "../../../styles/utilities";
 
-.select{
+.select {
     background-color: var(--white);
-    &.base{
+    &.base {
         width: 20.6rem;
-        .selectTrigger{
+        .selectTrigger {
             width: 20.6rem;
             padding: 1.2rem 1.6rem;
         }
     }
-    &.large{
+    &.large {
         width: 34.25rem;
-        .selectTrigger{
+        .selectTrigger {
             width: 34.25rem;
             padding: 1.6rem 1.6rem;
         }
     }
-    &.default{
-        .selectTrigger{
+    &.default {
+        .selectTrigger {
             @apply border-solid border border-current;
         }   
     }
-    &.custom{
-        .selectTrigger{
+    &.custom {
+        .selectTrigger {
             @apply border-2;
             border-color: var(--border-line);
             color: var(--text-label);
         }
     }
-    &:hover{
+    &:hover {
         cursor: pointer;
-        .hoverWrapper{
+        .hoverWrapper {
             @apply block;
             animation: SelectAnimation 0.2s ease-out;
         }
     }
 }
-.selectTrigger{
+.selectTrigger {
     @apply outline-none flex justify-between;
     color: var(--text-active);
     border-radius: 0.8rem;
 
 }
-.hoverWrapper{
+.hoverWrapper {
     @apply hidden outline-none absolute z-10;
     padding-top: 0.6rem;
-    .selectOptionWrapper{
+    .selectOptionWrapper {
         border-radius: 0.8rem;
         background-color: var(--white);
         padding: 0.4rem 0rem 0.4rem 0rem;
-        &.base{
+        &.base {
             width: 20.6rem;
         }
-        &.large{
+        &.large {
             width: 34.25rem;
         }
-        &.default{
+        &.default {
             @apply border-solid border border-current; 
         }
-        &.custom{
+        &.custom {
             @apply border-2;
             border-color: var(--border-line);
             color: var(--text-label);
         }
     }
-    &:hover{
+    &:hover {
         @apply block;
     }
 }

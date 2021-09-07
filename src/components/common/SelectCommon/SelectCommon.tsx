@@ -44,7 +44,7 @@ const SelectCommon = ({ type = 'default', size = 'base', option, placeholder, on
                     >   
                         {
                             option.map(item => 
-                                <SelectOption itemName={item.name} value={item.value} onClick={changeSelectedName} size={size} selected={(selectedValue === item.value) ? true : false} />
+                                <SelectOption itemName={item.name} value={item.value} onClick={changeSelectedName} size={size} selected={(selectedValue === item.value)} />
                             )
                         }
                     </div>
