@@ -1,0 +1,48 @@
+@import "../../../styles/utilities";
+
+.listProductWithInfo {
+    background-color: var(--background);
+    border-top: 1rem solid var(--gray);
+    border-bottom: 1rem solid var(--gray);
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    @screen lg {
+        @apply flex spacing-horizontal-left;
+        padding-top: 5.6rem;
+        padding-bottom: 5.6rem;
+        border: none;
+        background-color: #f5f4f2;
+    }
+    .productsWrap {
+        @apply spacing-horizontal-left;
+        @screen lg {
+            max-width: 75%;
+            @apply custom-border-radius-lg bg-white;
+            padding: 4rem .8rem;
+            :global(.customArrow) {
+                @screen lg {
+                    &:global(.leftArrow) {
+                        left: calc(-6.4rem + 3rem);
+                    }
+                    &:global(.rightArrow) {
+                        right: calc(-6.4rem + 3rem);
+                    }
+                }
+            }
+        }
+        @screen xl {
+            padding: 4rem 2.4rem;
+            max-width: 80%;
+            :global(.customArrow) {
+                @screen lg {
+                    &:global(.leftArrow) {
+                        left: calc(-6.4rem + 1rem);
+                    }
+                    &:global(.rightArrow) {
+                        right: calc(-6.4rem + 1rem);
+                    }
+                }
+            }
+        }
+    }
+}

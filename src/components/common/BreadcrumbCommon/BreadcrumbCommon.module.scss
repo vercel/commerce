@@ -1,0 +1,8 @@
+@import '../../../styles/utilities';
+
+.breadcrumbCommon {
+    color: var(--text-base);
+    .currentItem {
+        cursor: default;
+    }
+}

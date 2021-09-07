@@ -49,17 +49,17 @@ module.exports = {
         'background': 'var(--background)',
         'white': 'var(--white)',
 
-        'background-arrow':'var(--background-arrow)',
+        'background-arrow': 'var(--background-arrow)',
 
-        
+
         'disabled': 'var(--text-disabled)',
         line: 'var(--border-line)',
         background: 'var(--background)',
         white: 'var(--white)',
         gray: 'var(--gray)',
         disabled: 'var(--text-disabled)',
-        'background-arrow':'var(--background-arrow)',
-        
+        'background-arrow': 'var(--background-arrow)',
+
         // @deprecated (NOT use these variables)
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',
@@ -93,7 +93,7 @@ module.exports = {
         label: 'var(--text-label)',
         placeholder: 'var(--text-placeholder)',
         primary: 'var(--primary)',
-        
+
         // @deprecated (NOT use these variables)
         secondary: 'var(--text-secondary)',
       },
@@ -109,12 +109,15 @@ module.exports = {
         rounded: '.8rem',
       },
       screens: {
+        'sm-only': {'min': '0', 'max': '767px'},
         'sm': '640px',
         // => @media (min-width: 640px) { ... }
 
+        'md-only': {'min': '768px', 'max': '1023px'},
         'md': '768px',
         // => @media (min-width: 768px) { ... }
 
+        'lg-only': {'min': '1024px', 'max': '1279px'},
         'lg': '1024px',
         // => @media (min-width: 1024px) { ... }
 
@@ -124,8 +127,8 @@ module.exports = {
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
       },
-      caroucel:{
-        "arrow-height":"64px"
+      caroucel: {
+        "arrow-height": "64px"
       },
     },
   },
