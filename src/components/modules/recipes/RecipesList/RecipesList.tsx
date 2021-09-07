@@ -3,8 +3,7 @@ import React from 'react';
 
 import s from './RecipesList.module.scss';
 import RecipesItem from './RecipesItem/RecipesItem';
-
-import { PaginationCommon } from 'src/components/common';
+import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon';
 
 interface Props{
     recipes:{

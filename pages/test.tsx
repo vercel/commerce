@@ -6,6 +6,7 @@ import {
 import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
 
 import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList'
+import { RecipesListPage } from 'src/components/modules/recipes';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 const CATEGORY = [
   {
@@ -63,6 +64,7 @@ export default function Test() {
 
   return (
     <>
+      {/* <RecipesListPage/> */}
       <MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>
       <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={BRAND}/>
     </>

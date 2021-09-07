@@ -1,14 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
-import s from './RecipesListPage.module.scss';
-import RecipesList from '../RecipesList/RecipesList';
-import { Banner, MenuFilter } from 'src/components/common';
-import {MenuNavigation} from 'src/components/common';
-import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { Banner, SelectCommon } from 'src/components/common';
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon';
+import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
+import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import HeadingCommon from "../../../common/HeadingCommon/HeadingCommon";
-import { SelectCommon } from 'src/components/common';
-import {RECIPE_DATA_TEST} from '../../../../utils/demo-data';
+import RecipesList from '../RecipesList/RecipesList';
 
 import blog1 from './img/blog1.png';
 import blog2 from './img/blog2.png';
@@ -16,7 +13,7 @@ import blog3 from './img/blog3.png';
 import blog4 from './img/blog4.png';
 import blog5 from './img/blog5.png';
 import blog6 from './img/blog6.png';
-
+import s from './RecipesListPage.module.scss';
 const BREADCRUMB = [
     {
         name: 'Home',
@@ -125,12 +122,19 @@ const OPTIONSLECT=[
         name:"SORT BY 3"
     },
 ]
+const BANNER =[
+    {
+        imgLink:'assets/bannerrecipes.png',
+        title:'SPECIAL RECIPE OF THE WEEK',
+        subtitle:'Last call! Shop deep deals on 100+ bulk picks while you can.',
+    }
+]
 
 const RecipesListPage = () => {
     return (
        <div className={classNames(s.recipesListPageWrapper)}>
            
-            <Banner title={'SPECIAL RECIPE OF THE WEEK'} subtitle={'Last call! Shop deep deals on 100+ bulk picks while you can.'} imgLink={'assets/bannerrecipes.png'} size="large"/>
+            <Banner data={BANNER}/>
             
             <div className={classNames(s.recipesListPageBreadcrumbDesktop)}>
                 <BreadcrumbCommon crumbs={BREADCRUMB} />
@@ -152,16 +156,16 @@ const RecipesListPage = () => {
                 <div className={classNames(s.recipesList)}>
                     <div className={classNames(s.sortByDesktop)}>
                         <HeadingCommon align='left'>SPECIAL RECIPES</HeadingCommon>
-                        <SelectCommon option={OPTIONSLECT} placeHolder="SORT BY"/>
+                        <SelectCommon option={OPTIONSLECT} />
                     </div>
                     <div className={classNames(s.selectMobile)}>
                         <div>
                             <label htmlFor="">Categories</label>
-                            <SelectCommon option={CATEGORY} placeHolder="Categories"/>
+                            <SelectCommon option={CATEGORY}/>
                         </div>
                         <div>
                             <label htmlFor="">Sort By</label>
-                            <SelectCommon option={OPTIONSLECT} placeHolder="Sort by"/>
+                            <SelectCommon option={OPTIONSLECT} />
                         </div>
                     </div>
                     <RecipesList recipes={RECIPES}/>
