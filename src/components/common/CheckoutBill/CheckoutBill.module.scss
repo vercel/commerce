@@ -1,0 +1,9 @@
+.warpper{
+    max-width: 56.3rem;
+    @apply flex justify-between flex-col;
+    .bot{
+        .promo{
+            padding: 3.2rem;
+        }
+    }
+}

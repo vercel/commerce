@@ -1,7 +1,7 @@
 import React from 'react'
 import s from "./CardItemCheckout.module.scss"
 import { ProductProps } from 'src/utils/types.utils'
-interface CardItemCheckoutProps extends ProductProps {
+export interface CardItemCheckoutProps extends ProductProps {
     quantity:number
 }
 
