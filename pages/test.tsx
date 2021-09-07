@@ -3,20 +3,68 @@ import {
   ButtonCommon,
   Layout, ModalInfo
 } from 'src/components/common'
+import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
+
+import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList'
+import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
+const CATEGORY = [
+  {
+      name: 'All',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
+  },
+  {
+      name: 'Veggie',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+  },
+  {
+      name: 'Seafood',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+  },
+  {
+      name: 'Frozen',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+  },
+  {
+      name: 'Coffee Bean',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
+  },
+  {
+      name: 'Sauce',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
+  },
+]
+const BRAND = [
+  {
+      name: 'All',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
+  },
+  {
+      name: 'Veggie',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+  },
+  {
+      name: 'Seafood',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+  },
+  {
+      name: 'Frozen',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+  },
+  {
+      name: 'Coffee Bean',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
+  },
+  {
+      name: 'Sauce',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
+  },
+]
 export default function Test() {
-  const [visible, setVisible] = useState(false)
-  const onClose = () => {
-    setVisible(false)
-  }
-  const onOpen = () => {
-    setVisible(true)
-  }
+
   return (
     <>
-      <ButtonCommon onClick={onOpen}>open</ButtonCommon>
-      <ModalInfo visible={visible} onClose={onClose}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi qui, esse eos nobis soluta suscipit aliquid nostrum corporis. Nihil eligendi similique recusandae minus mollitia aliquam, molestias fugit tenetur voluptatibus maiores et. Quaerat labore corporis inventore nostrum, amet autem exercitationem eligendi?
-      </ModalInfo>
+      <MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>
+      <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={BRAND}/>
     </>
   )
 }
