@@ -47,6 +47,7 @@ module.exports = {
 
         'line': 'var(--border-line)',
         'background': 'var(--background)',
+        'background-gray': 'var(--background-gray)',
         'white': 'var(--white)',
 
         'background-arrow': 'var(--background-arrow)',

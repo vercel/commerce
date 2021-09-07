@@ -47,6 +47,7 @@ import { RecipeCardProps } from "src/components/common/RecipeCard/RecipeCard"
 export const PRODUCT_DATA_TEST = [
     {
         name: 'Tomato',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -54,6 +55,7 @@ export const PRODUCT_DATA_TEST = [
     },
     {
         name: 'Cucumber',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -61,6 +63,7 @@ export const PRODUCT_DATA_TEST = [
     },
     {
         name: 'Carrot',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -68,6 +71,7 @@ export const PRODUCT_DATA_TEST = [
     },
     {
         name: 'Salad',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -75,6 +79,7 @@ export const PRODUCT_DATA_TEST = [
     },
     {
         name: 'Tomato',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -82,6 +87,7 @@ export const PRODUCT_DATA_TEST = [
     },
     {
         name: 'Cucumber',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -89,6 +95,7 @@ export const PRODUCT_DATA_TEST = [
     },
     {
         name: 'Tomato',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -96,6 +103,7 @@ export const PRODUCT_DATA_TEST = [
     },
     {
         name: 'Cucumber',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -103,9 +111,55 @@ export const PRODUCT_DATA_TEST = [
     },
 ]
 
+export const PRODUCT_CART_DATA_TEST = [
+    {
+        name: 'Tomato',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/76729908/131646211-d56b77ac-83f1-4dd2-b55c-e3f1e0ba4e49.png",
+        oldPrice: 'Rp 32.000',
+        discount: '15%',
+        quantity: 1,
+    },
+    {
+        name: 'Cucumber',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/76729908/131646211-d56b77ac-83f1-4dd2-b55c-e3f1e0ba4e49.png",
+        oldPrice: 'Rp 32.000',
+        discount: '15%',
+        quantity: 2,
+    },
+    {
+        name: 'Carrot',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/76729908/131646217-23b86160-45c9-4845-8dcc-b3e1a4483edd.png",
+        oldPrice: 'Rp 32.000',
+        discount: '20%',
+        quantity: 3,
+    },
+    {
+        name: 'Salad',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/76729908/131646221-aaa1d48d-bb80-470f-9400-ae2aa47285b6.png",
+        quantity: 1,
+    },
+]
+
 export const INGREDIENT_DATA_TEST = [
     {
         name: 'Tomato',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -113,6 +167,7 @@ export const INGREDIENT_DATA_TEST = [
     },
     {
         name: 'Cucumber',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -121,6 +176,7 @@ export const INGREDIENT_DATA_TEST = [
     },
     {
         name: 'Carrot',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -128,6 +184,7 @@ export const INGREDIENT_DATA_TEST = [
     },
     {
         name: 'Salad',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -136,6 +193,7 @@ export const INGREDIENT_DATA_TEST = [
     },
     {
         name: 'Tomato',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -143,6 +201,7 @@ export const INGREDIENT_DATA_TEST = [
     },
     {
         name: 'Cucumber',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -150,6 +209,7 @@ export const INGREDIENT_DATA_TEST = [
     },
     {
         name: 'Tomato',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',
@@ -157,6 +217,7 @@ export const INGREDIENT_DATA_TEST = [
     },
     {
         name: 'Cucumber',
+        slug: 'tomato',
         weight: '250g',
         category: 'VEGGIE',
         price: 'Rp 27.500',

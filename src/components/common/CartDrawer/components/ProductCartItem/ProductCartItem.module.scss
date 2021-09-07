@@ -1,0 +1,54 @@
+@import "../../../../../styles/utilities";
+
+.productCartItem {
+    @apply grid;
+    grid-template-columns: 2fr 1fr;
+    padding-bottom: 1.6rem;
+    padding-top: 1.6rem;
+    .info {
+        @apply flex;
+        .imgWrap {
+            width: 11rem;
+            height: 7.5rem;
+            margin-right: 1.6rem;
+            img {
+                object-fit: contain;
+            }
+        }
+        .detail {
+            min-height: 9rem;
+            .name {
+                &:hover {
+                    color: var(--primary);
+                }
+            }
+            .price {
+                margin-top: 0.8rem;
+                .old {
+                    margin-bottom: 0.8rem;
+                    .number {
+                        margin-right: 0.8rem;
+                        color: var(--text-label);
+                        text-decoration: line-through;
+                    }
+                }
+                .current {
+                    @apply text-active font-bold sm-headline;
+                }
+            }
+        }
+    }
+
+    .actions {
+        @apply flex flex-col justify-between items-end;
+        margin-left: 1.6rem;
+        .iconDelete {
+            @apply cursor-pointer;
+            &:hover {
+                svg path {
+                    fill: var(--negative);
+                }
+            }
+        }
+    }
+}
