@@ -4,10 +4,10 @@ import s from './TabCommon.module.scss'
 import TabItem from './TabItem/TabItem'
 
 interface TabCommonProps {
-    changeTab: (target:string) => void;
+    changeTabPane: (target:string) => void;
 }
 
-const TabCommon = ({ changeTab } : TabCommonProps) => {
+const TabCommon = ({ changeTabPane } : TabCommonProps) => {
     const active = "active", unActive = "";
     const [item1Active, setItem1Active] = useState(active);
     const [item2Active, setItem2Active] = useState(unActive);
@@ -28,7 +28,7 @@ const TabCommon = ({ changeTab } : TabCommonProps) => {
 
     function toggleItem1():void {
         setItem1Active(active)
-        changeTab("waiting")
+        changeTabPane("waiting")
 
         setItem2Active(unActive)
         setItem3Active(unActive)
@@ -37,7 +37,7 @@ const TabCommon = ({ changeTab } : TabCommonProps) => {
 
     function toggleItem2():void {
         setItem2Active(active)
-        changeTab("delivering")
+        changeTabPane("delivering")
 
         setItem1Active(unActive)
         setItem3Active(unActive)
@@ -45,7 +45,7 @@ const TabCommon = ({ changeTab } : TabCommonProps) => {
     }
     function toggleItem3():void {
         setItem3Active(active)
-        changeTab("delivered")
+        changeTabPane("delivered")
 
         setItem1Active(unActive)
         setItem2Active(unActive)
