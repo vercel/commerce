@@ -20,4 +20,17 @@ export interface RecipeProps {
     imageSrc: string
 }
 
+export interface CheckOutForm {
+    name: string
+    email:string
+    address: string
+    city:string
+    state:string
+    code:number
+    phone:number
+    method:string
+    shipping_fee:number
+}
+
+
 export type MouseAndTouchEvent = MouseEvent | TouchEvent

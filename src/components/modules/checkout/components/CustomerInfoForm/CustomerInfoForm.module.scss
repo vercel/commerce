@@ -1,0 +1,13 @@
+@import "../../../../../styles/utilities";
+.warpper{
+    @apply u-form;
+    padding: 0 5.6rem;
+    .bottom{
+        margin-top: 2.4rem;
+        @apply flex justify-between items-center;
+        .note{
+            font-size: 1.2rem;
+            line-height: 2rem;
+        }
+    }
+}

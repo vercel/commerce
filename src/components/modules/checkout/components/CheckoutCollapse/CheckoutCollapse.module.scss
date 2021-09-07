@@ -1,0 +1,39 @@
+.warpper{
+    .header{
+        @apply flex justify-between;
+        padding-bottom: 3.2rem;
+        .left{
+            @apply flex items-center;
+            .number{
+                width: 3.2rem;
+                height: 3.2rem;
+                border-radius: 100%;
+                border: 1px solid var(--text-active);
+                color: var(--text-active);
+                @apply flex justify-center items-center font-bold;
+                &.visible{
+                    background-color: var(--text-active);
+                    border: none;
+                    color: var(--white);
+                }
+            }
+            .title{
+                padding-left: 2.4rem;
+                @apply font-bold select-none cursor-pointer;
+                color: var(--text-active);
+            }
+        }
+        .edit{
+            @apply font-bold cursor-pointer;
+            text-decoration-line: underline;
+            margin-right: 5.6rem;
+        }
+    }
+    .body{
+        height: 0;
+        @apply overflow-hidden;
+        &.show{
+            height: initial;
+        }
+    }
+}

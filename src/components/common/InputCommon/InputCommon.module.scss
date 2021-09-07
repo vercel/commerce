@@ -15,9 +15,9 @@
     .icon + .inputCommon {
       padding-left: 4.8rem;
     }
-
+    
     .inputCommon {
-      @apply block w-full transition-all duration-200 rounded;
+      @apply block w-full transition-all duration-200 rounded bg-white;
       padding: 1.2rem 1.6rem;
       border: 1px solid var(--border-line);
       &:hover,
