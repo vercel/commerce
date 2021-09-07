@@ -11,7 +11,7 @@
         }
         .contentContainer {
             @apply block;
-            animation: ContentAnimation 0.5s ease-out;
+            animation: ContentAnimationIn 0.5s ease-out;
         }
         .toggle {
             &:before {
@@ -54,7 +54,7 @@
 .contentContainer {
     @apply hidden pb-16;
 }
-@keyframes ContentAnimation {
+@keyframes ContentAnimationIn {
     0% {
         opacity: 0;
         transform: translateY(-1.6rem);
