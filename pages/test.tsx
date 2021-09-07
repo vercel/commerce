@@ -4,6 +4,8 @@ import {
   Layout,
   ModalCommon,
   ProductCarousel,
+  RelevantBlogPosts,
+  CollapseCommon,
 } from 'src/components/common'
 import { CollectionCarcousel } from 'src/components/modules/home'
 import image5 from '../public/assets/images/image5.png'
@@ -96,49 +98,49 @@ const dataTest = [
     imageSrc: image6.src,
   },
 ]
+const COLLAPSE_DATA = [
+  {
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
+    link: "/title"
+  },
+  {
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
+    link: "/title"
+  },
+  {
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
+    link: "/title"
+  },
+  {
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
+    link: "/title"
+  },
+]
 export default function Test() {
-  const [visible, setVisible] = useState(false)
-  const onClose = () => {
-    setVisible(false)
-  }
-  const onOpen = () => {
-    setVisible(true)
-  }
   return (
     <>
-      <ButtonCommon onClick={onOpen}>open</ButtonCommon>
-      <ModalCommon visible={visible} onClose={onClose}>
-        <div className="">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-          officiis dolorum ea incidunt. Sint, cum ullam. Labore vero quod
-          itaque, officia magni molestias! Architecto deserunt soluta laborum
-          commodi nesciunt delectus similique temporibus distinctio? Facere
-          eaque minima enim modi magni, laudantium, animi mollitia beatae
-          repudiandae maxime labore error nesciunt, nisi est?
-        </div>
-      </ModalCommon>
-      <ProductCarousel
-        data={dataTest}
-        itemKey="product-2"
-        isDot
-        option={{
-          slidesPerView: 1,
-          breakpoints: {
-            '(min-width: 640px)': {
-              slidesPerView: 3,
-            },
-            '(min-width: 768px)': {
-              slidesPerView: 4,
-            },
-            '(min-width: 1024px)': {
-              slidesPerView: 4.5,
-            },
-            '(min-width: 1280px)': {
-              slidesPerView: 5.5,
-            },
-          },
-        }}
-      />
+      <CollapseCommon data={COLLAPSE_DATA} />
+      <RelevantBlogPosts />
     </>
   )
 }
