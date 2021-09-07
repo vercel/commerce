@@ -1,0 +1,22 @@
+@import '../../../../styles/utilities';
+
+.accountPage {
+    @apply flex spacing-horizontal;
+    background-color: #F5F4F2;
+    margin-top: -3.2rem;
+    padding-bottom: 3.2rem;
+
+    .pageLeft {
+        padding-top: 5.6rem;
+        margin-right: 12.4rem;
+
+        .accNavi{
+            margin-top: 3.8rem;
+        }
+    }
+
+    .pageRight {
+        padding-top: 5.6rem;
+        width: 100%;
+    }
+}

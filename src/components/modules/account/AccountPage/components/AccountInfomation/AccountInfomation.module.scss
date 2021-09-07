@@ -1,0 +1,49 @@
+@import '../../../../../../styles/utilities';
+
+.accountInfomation {
+    transition: opacity 6s;
+    
+    .avatar {
+        height: 22rem;
+        width: 22rem;
+        border-radius: 50%;
+        margin-bottom: 4rem;
+    }
+
+    .accountName {
+        @apply heading-3 font-heading;
+    }
+
+    .horizontalSeparator{
+        border: 1px solid var(--disabled);
+        max-width: 39.2rem;
+        min-width: 30rem;
+        margin-top: 2.4rem;
+        margin-bottom: 2.4rem;
+    }
+
+    .shippingInfo {
+        @apply heading-3 font-heading;
+    }
+
+    .accountAddress {
+        max-width: 31rem;
+        min-width: none;
+    }
+
+    .editInfoBtn {
+        @apply text-center font-bold;
+        margin-top: 2.4rem;
+        margin-bottom: 2.4rem;
+        padding: .8rem 1.6rem;
+        color: #141414;
+        border: 1px solid #141414;
+        max-width: 8.8rem;
+        border-radius: 25%;
+
+        &:hover {
+            @apply cursor-pointer;
+            background-color: #FBFBFB;
+        }
+    }
+}
