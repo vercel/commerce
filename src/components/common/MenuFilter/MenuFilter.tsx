@@ -30,8 +30,8 @@ const MenuFilter = ({heading,categories,type,onChangeValue}:Props)=> {
     },[active]) 
   
     return (
-        <section className={classNames(s.menuFilterWrapper)}>
-            <h2 className={classNames(s.menuFilterHeading)}>{heading}</h2>
+        <section className={s.menuFilterWrapper}>
+            <h2 className={s.menuFilterHeading}>{heading}</h2>
             <ul className={s.menuFilterList}>
                 {
                     categories.map(item => <li key={item.name}>

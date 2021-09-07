@@ -30,7 +30,9 @@ export const QUERY_KEY = {
     TAB: 'tab',
     CATEGORY: 'category',
     BRAND: 'brand',
-    FEATURED: 'feature'
+    FEATURED: 'feature',
+    SORTBY:'sortby',
+    RECIPES:'recipes'
 }
 
 export enum ProductFeature {

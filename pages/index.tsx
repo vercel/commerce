@@ -1,6 +1,5 @@
 
 import { Layout } from 'src/components/common';
-import { MenuNavigation,MenuFilter} from 'src/components/common';
 import { HomeBanner, HomeCategories, HomeCTA, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 const CATEGORY = [
@@ -32,13 +31,11 @@ const CATEGORY = [
 export default function Home() {
   return (
     <>
-      {/* <HomeBanner />
+      <HomeBanner />
       <HomeCategories/>
       <HomeVideo />
       <HomeCTA />
-      <HomeSubscribe /> */}
-      <MenuFilter categories={CATEGORY} heading="Categories"/> 
-      <MenuNavigation categories={CATEGORY} heading="Categories"/>
+      <HomeSubscribe />
     </>
   )
 }

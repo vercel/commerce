@@ -1,0 +1,79 @@
+@import "../../../../styles/_utilities";
+.recipesListPageWrapper{
+    @apply spacing-horizontal;
+
+    @screen md {
+        padding:0 3.2rem;
+    }
+
+    .recipesListPageBreadcrumbDesktop{
+        @apply hidden;
+        @screen md {
+            @apply block;
+        }
+    }
+    .recipesListPageHeadMobile{
+        margin-top: 2rem;
+        h2{
+            margin-bottom: 0.7rem;
+        }
+        @screen md {
+            @apply hidden;
+            padding: 3rem 0;
+        }
+    }
+    .recipesListPageMain{
+        @screen md {
+            @apply flex;
+        }
+        .categoriesDesktop{
+            @apply hidden;
+            @screen md {
+                @apply block;
+                width:25%;
+            }
+        }
+        .sortByMobile{
+            @apply flex justify-end;
+        }
+        .categoriesMobile{
+            ul{
+                @apply flex-nowrap ;
+                overflow: auto;
+            }
+        }
+        .recipesList{
+            @screen md {
+                width:75%;
+            }
+            .sortByDesktop{
+                @apply hidden;
+                @screen md {
+                    @apply flex justify-between;
+                    margin-top:1.5rem;
+                    h2{
+                        @apply heading-3;
+                    }
+                }
+                @screen xl{
+                    @apply flex justify-between;
+                     h2{
+                        @apply heading-2;
+                    }
+                }
+            }
+            .selectMobile{
+                @apply flex justify-between;
+                margin: 2rem 0;
+                label{
+                    @apply topline;
+                    font-weight: bold;
+                }
+                @screen md {
+                    @apply hidden;
+                }
+            }
+        }
+    }
+   
+}

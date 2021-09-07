@@ -13,6 +13,8 @@
             li{
                 margin: 0.8rem 0;
                 a{
+                 display:block;
+                 width:100%;     
                  color:var(--text-base);
                  &:hover {
                     @apply text-primary;

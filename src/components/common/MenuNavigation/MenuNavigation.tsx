@@ -13,8 +13,8 @@ const MenuNavigation = ({heading,categories}:Props)=> {
     const router = useRouter()
 
     return (
-        <section className={classNames(s.menuNavigationWrapper)}>
-            <h2 className={classNames(s.menuNavigationHeading)}>{heading}({categories.length})</h2>
+        <section className={s.menuNavigationWrapper}>
+            <h2 className={s.menuNavigationHeading}>{heading}({categories.length})</h2>
             <ul className={s.menuNavigationList}>
                 {
                     categories.map(item => <li key={item.name}
