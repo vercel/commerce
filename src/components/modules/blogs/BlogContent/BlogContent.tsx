@@ -1,14 +1,23 @@
 import React from 'react';
-import { DateTime } from "src/components/common";
-
-interface Props{
-    image:StaticImageData,
+import { Author, DateTime } from "src/components/common";
+import s from './BlogContent.module.scss';
+interface BlogContentProps {
+    date: string,
+    title: string,
+    imageAuthor:StaticImageData,
+    nameAuthor:string,
+    content:string
 }
-
-const BlogContent = ({}:Props) => {
+const BlogContent = ({date,title,imageAuthor,nameAuthor,content}:BlogContentProps) => {
     return (
         <>
-            <DateTime date="APRIL 30, 2021"/>
+             <div className={s.blogContentWrapper}>
+                <DateTime date={date}/>
+                <h1 >{title}</h1>
+                <Author image={imageAuthor} name={nameAuthor} />
+                <p>{content}</p>
+             </div>
+          
         </>
     )
 }

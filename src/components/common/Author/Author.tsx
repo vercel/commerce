@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import Image from "next/image";
 interface Props {
-    image:any,
+    image:StaticImageData,
     name: string
 }
 

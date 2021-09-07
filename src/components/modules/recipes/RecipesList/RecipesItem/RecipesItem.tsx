@@ -1,9 +1,8 @@
-import React from 'react';
-
-import s from './RecipesItem.module.scss'
-import classNames from 'classnames';
 import Image from "next/image";
 import Link from 'next/link';
+import React from 'react';
+import s from './RecipesItem.module.scss';
+
 
 interface RecipesItem {
     image:StaticImageData,
@@ -14,8 +13,8 @@ interface RecipesItem {
 
 const RecipesItem = ({ image, name,description, link }: RecipesItem) => {
     return (
-        <div className={classNames(s.recipesItem)}>
-            <div className={classNames(s.recipesItemImage)}>
+        <div className={s.recipesItem}>
+            <div className={s.recipesItemImage}>
                 <Link href={link}>
                     <a>
                         <Image src={image} />
@@ -23,9 +22,9 @@ const RecipesItem = ({ image, name,description, link }: RecipesItem) => {
                 </Link>
             </div>
             <Link href={link}>
-                <a className={classNames(s.recipesItemText)}>
-                    <div className={classNames(s.recipesItemName)}>{name}</div>
-                    <div className={classNames(s.recipesItemDescription)}>{description}</div>
+                <a className={s.recipesItemText}>
+                    <div className={s.recipesItemName}>{name}</div>
+                    <div className={s.recipesItemDescription}>{description}</div>
                 </a>
             </Link>
         </div >

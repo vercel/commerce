@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 import { Banner, SelectCommon } from 'src/components/common';
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon';
@@ -21,7 +20,7 @@ const BREADCRUMB = [
     },
     {
         name: 'Special Recipes',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=malaysia`,
+        link: `#`,
     },
 ];
 
@@ -132,33 +131,33 @@ const BANNER =[
 
 const RecipesListPage = () => {
     return (
-       <div className={classNames(s.recipesListPageWrapper)}>
+       <div className={s.recipesListPageWrapper}>
            
             <Banner data={BANNER}/>
             
-            <div className={classNames(s.recipesListPageBreadcrumbDesktop)}>
+            <div className={s.recipesListPageBreadcrumbDesktop}>
                 <BreadcrumbCommon crumbs={BREADCRUMB} />
             </div>
 
-            <div className={classNames(s.recipesListPageHeadMobile)}>
-                <div className={classNames(s.heading)}>
+            <div className={s.recipesListPageHeadMobile}>
+                <div className={s.heading}>
                     <HeadingCommon align='left'>SPECIAL RECIPES</HeadingCommon>
                     <BreadcrumbCommon crumbs={BREADCRUMB} />
                 </div>
             </div>
 
-            <div className={classNames(s.recipesListPageMain)}>
+            <div className={s.recipesListPageMain}>
 
-                <div className={classNames(s.categoriesDesktop)}>
+                <div className={s.categoriesDesktop}>
                     <MenuNavigation categories={CATEGORY} heading="Categories"/>
                 </div>
 
-                <div className={classNames(s.recipesList)}>
-                    <div className={classNames(s.sortByDesktop)}>
+                <div className={s.recipesList}>
+                    <div className={s.sortByDesktop}>
                         <HeadingCommon align='left'>SPECIAL RECIPES</HeadingCommon>
                         <SelectCommon option={OPTIONSLECT} />
                     </div>
-                    <div className={classNames(s.selectMobile)}>
+                    <div className={s.selectMobile}>
                         <div>
                             <label htmlFor="">Categories</label>
                             <SelectCommon option={CATEGORY}/>

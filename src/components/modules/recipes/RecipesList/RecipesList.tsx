@@ -1,9 +1,8 @@
-import classNames from 'classnames';
 import React from 'react';
-
-import s from './RecipesList.module.scss';
-import RecipesItem from './RecipesItem/RecipesItem';
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon';
+import RecipesItem from './RecipesItem/RecipesItem';
+import s from './RecipesList.module.scss';
+
 
 interface Props{
     recipes:{
@@ -20,15 +19,15 @@ interface Props{
 const RecipesList = ({recipes}:Props) => {
     return (
         <>
-        <div className={classNames(s.recipesListWrapper)}>
-            <div  className={classNames(s.recipesHead)}>
+        <div className={s.recipesListWrapper}>
+            <div  className={s.recipesHead}>
                 
             </div>
 
-            <div className={classNames(s.recipesListBlogs)}>
-                <div className={classNames(s.recipesList)}>
+            <div className={s.recipesListBlogs}>
+                <div className={s.recipesList}>
                     {recipes?.map(item => (
-                        <div key={item.id} className={classNames(s.recipesItem)}>
+                        <div key={item.id} className={s.recipesItem}>
                           <RecipesItem
                                 name={item.title}
                                 image={item.image}
@@ -39,7 +38,7 @@ const RecipesList = ({recipes}:Props) => {
                     ))}
                 </div>
             </div>
-            <div  className={classNames(s.recipesPagination)}>
+            <div  className={s.recipesPagination}>
                 <PaginationCommon pageSize={6} total={9}/>
             </div>
         </div>
