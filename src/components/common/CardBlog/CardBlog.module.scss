@@ -1,10 +1,10 @@
 @import "../../../styles/utilities";
 
-.cardBlogWarpper{
+.cardBlogWarpper {
+    @apply inline-flex flex-col justify-start;
     max-width: 39.2rem;
     min-height: 34.4rem;
-    @apply inline-flex flex-col justify-start;
-    .image{
+    .image {
         width: 100%;
         max-height: 22rem;
         border-radius: 2.4rem;
@@ -12,7 +12,7 @@
             cursor: pointer;
         }
     }
-    .title{
+    .title {
         padding: 1.6rem 0.8rem 0.4rem 0.8rem;
         @apply font-bold;
         font-size: 2rem;
@@ -23,7 +23,7 @@
             cursor: pointer;
         }
     }
-    .description{
+    .description {
         padding: 0 0.8rem;
         @apply overflow-hidden overflow-ellipsis ;
         color: var(--text-label);

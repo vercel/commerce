@@ -2,13 +2,15 @@ import s from './CollapseChild.module.scss'
 import { useState } from 'react'
 import classNames from 'classnames'
 import CollapseContent from './CollapseContent/CollapseContent'
+import Link from 'next/link'
 
 interface CollapseProps{
     title?: string,
     content: Array<string>,
     isToggle?: boolean,
+    link?: string,
 }
-const CollapseChild = ({title, content, isToggle=false}: CollapseProps) => {
+const CollapseChild = ({title, content, isToggle=false, link="/"}: CollapseProps) => {
     const [isActive, changeActive] = useState(isToggle)
 
     const handleToggle = () => {
@@ -22,7 +24,9 @@ const CollapseChild = ({title, content, isToggle=false}: CollapseProps) => {
             onClick = { handleToggle }
         >    
             <div className={s.title}>
-                <a>{title}</a>
+                <Link href={link}>
+                    <a>{title}</a>
+                </Link>
                 <div className={s.toggle}></div>
             </div>
             <div className={s.contentContainer}>

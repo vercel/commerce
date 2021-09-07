@@ -9,7 +9,7 @@ export const ROUTE = {
     HOME: '/',
     PRODUCTS: '/products',
     ABOUT: '/about',
-    BLOG_DETAIL: '/blogdetail',
+    BLOG_DETAIL: '/blog',
     ACCOUNT: '/account',
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
