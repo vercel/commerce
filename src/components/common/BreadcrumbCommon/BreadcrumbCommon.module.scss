@@ -2,4 +2,7 @@
 
 .breadcrumbCommon {
     color: var(--text-base);
+    .currentItem {
+        cursor: default;
+    }
 }

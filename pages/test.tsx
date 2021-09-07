@@ -5,6 +5,7 @@ import {
   ModalCommon,
   ProductCarousel,
 } from 'src/components/common'
+import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon'
 import { CollectionCarcousel } from 'src/components/modules/home'
 import image5 from '../public/assets/images/image5.png'
 import image6 from '../public/assets/images/image6.png'
@@ -96,6 +97,21 @@ const dataTest = [
     imageSrc: image6.src,
   },
 ]
+
+const crumbs = [
+  {
+    name: 'Product',
+    link: '/product',
+  },
+  {
+    name: 'Detail',
+    link: '/detail',
+  },
+  {
+    name: 'more',
+    link: '/more',
+  }
+]
 export default function Test() {
   const [visible, setVisible] = useState(false)
   const onClose = () => {
@@ -106,6 +122,10 @@ export default function Test() {
   }
   return (
     <>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus tenetur repudiandae assumenda iste enim! Hic voluptas minus quos ipsa reprehenderit.
+
+    <BreadcrumbCommon crumbs={crumbs} showHomePage={true}/>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus tenetur repudiandae assumenda iste enim! Hic voluptas minus quos ipsa reprehenderit.
       <ButtonCommon onClick={onOpen}>open</ButtonCommon>
       <ModalCommon visible={visible} onClose={onClose}>
         <div className="">
