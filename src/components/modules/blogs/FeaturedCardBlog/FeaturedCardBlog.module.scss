@@ -1,9 +1,15 @@
 @import "../../../../styles/utilities";
 
 .featuredCard{
-    @apply flex flex-row justify-center spacing-horizontal pb-16;
+    @apply flex flex-row justify-start spacing-horizontal pb-16;
+    @screen lg{
+        @apply justify-center;
+    }
     .featuredCardWrapper{
-        @apply flex flex-row justify-between;
+        @apply flex flex-col;
+        @screen lg{
+            @apply flex-row justify-between;
+        }
         max-width: 121.6rem;
     }
 }
@@ -15,8 +21,10 @@
 }
 .right{
     flex-shrink: 3;
-    margin-left: 6.4rem;
     max-width: 55.4rem;
+    @screen lg{
+        margin-left: 6.4rem;
+    }
 }
 .titleWrapper{
     @apply flex flex-col items-start font-heading;
