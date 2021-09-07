@@ -1,13 +1,11 @@
-import { useState } from 'react'
 import {
-  ButtonCommon,
-  Layout, ModalInfo
-} from 'src/components/common'
+  Layout
+} from 'src/components/common';
 import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
-
-import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList'
+import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList';
 import { RecipesListPage } from 'src/components/modules/recipes';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
+
 const CATEGORY = [
   {
       name: 'All',
@@ -64,7 +62,7 @@ export default function Test() {
 
   return (
     <>
-      {/* <RecipesListPage/> */}
+      <RecipesListPage/>
       <MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>
       <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={BRAND}/>
     </>

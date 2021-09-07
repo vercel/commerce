@@ -112,11 +112,9 @@ module.exports = {
         'sm-only': {'min': '0', 'max': '767px'},
         'sm': '640px',
         // => @media (min-width: 640px) { ... }
-
         'md-only': {'min': '768px', 'max': '1023px'},
         'md': '768px',
         // => @media (min-width: 768px) { ... }
-
         'lg-only': {'min': '1024px', 'max': '1279px'},
         'lg': '1024px',
         // => @media (min-width: 1024px) { ... }
