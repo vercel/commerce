@@ -4,7 +4,7 @@ import s from './TabItem.module.scss'
 interface TabItemProps {
     active: boolean;
     children: string;
-    onClick: (tabIndex: number, tabPane: string) => void;
+    onClick: (tabIndex: number, tabPane?: string) => void;
 }
 
 const TabItem = ({ active = false, children, onClick } : TabItemProps) => {

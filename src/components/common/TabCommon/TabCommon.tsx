@@ -4,7 +4,7 @@ import s from './TabCommon.module.scss'
 import TabItem from './TabItem/TabItem'
 
 interface TabCommonProps {
-    tabs: {ref:RefObject<HTMLLIElement>, tabName: string, active: boolean, onClick: (tabIndex: number, tabPane: string) => void}[];
+    tabs: {ref:RefObject<HTMLLIElement>, tabName: string, active: boolean, onClick: (tabIndex: number, tabPane?: string) => void}[];
     defaultActiveTab: number;
     sliderRef : RefObject<HTMLDivElement>;
     slideToTab: (ref: any) => void;
