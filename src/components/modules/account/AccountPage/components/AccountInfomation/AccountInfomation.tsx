@@ -5,12 +5,15 @@ import Image from "next/image"
 import avatar from '../../assets/avatar.png';
 
 interface AccountInfomationProps {
-    account: {name: string, email: string, address: string, postalCode: string, phoneNumber: string};
+    account: {name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string};
     active: boolean;
-    clickShowEditForm: ()=>void;
+    showEditForm: () => void;
 }
 
-const AccountInfomation = ({ account, active=false, clickShowEditForm } : AccountInfomationProps) => {
+const AccountInfomation = ({ account, active=false, showEditForm } : AccountInfomationProps) => {
+
+    // need to handle call back when edit account information 
+
     return (
         <section className={s.accountInfomation}>
             {
@@ -31,14 +34,14 @@ const AccountInfomation = ({ account, active=false, clickShowEditForm } : Accoun
                     <div className={s.shippingInfo}>Shipping Infomation</div>
 
                     <div className={s.accountAddress}>
-                        {account.address + `, ${account.postalCode}`}  
+                        {account.address + `, ${account.state}, ${account.city}, ${account.postalCode}`}  
                     </div>
 
                     <div className={s.accountPhoneNumber}>
                         {account.phoneNumber}  
                     </div>
 
-                    <div onClick={clickShowEditForm} className={s.editInfoBtn}>Edit</div>
+                    <div onClick={showEditForm} className={s.editInfoBtn}>Edit</div>
                 </div>
             }
 

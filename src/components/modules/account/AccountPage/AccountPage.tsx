@@ -17,30 +17,10 @@ const AccountPage = ({} : AccountPageProps) => {
             id: "NO 123456",
             products: ["Tomato", "Fish", "Pork", "Onion"],
             totalPrice : 1000
-        },
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
-        },
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
         }
     ]
 
     const delivering = [
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
-        },
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
-        },
         {
             id: "NO 123456",
             products: ["Tomato", "Fish", "Pork", "Onion"],
@@ -53,23 +33,15 @@ const AccountPage = ({} : AccountPageProps) => {
             id: "NO 123456",
             products: ["Tomato", "Fish", "Pork", "Onion"],
             totalPrice : 1000
-        },
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
-        },
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
         }
     ]
 
-    const account = {
+    let account = {
         name: "vu duong",
         email: "vuduong@gmail.com",
-        address: "234 Dien Bien Phu Bis, Dakao ward, District 1, HCMC",
+        address: "234 Dien Bien Phu Bis, Dakao ward",
+        state: "District 1",
+        city: "HCMC",
         postalCode: "700000",
         phoneNumber: "(+84) 937 937 195"
     }
@@ -117,7 +89,7 @@ const AccountPage = ({} : AccountPageProps) => {
                 </div>
                 
                 <div className={s.pageRight}>
-                    <AccountInfomation active={accountInfoActive} account={account} clickShowEditForm={showEditForm}  />
+                    <AccountInfomation active={accountInfoActive} account={account} showEditForm={showEditForm}  />
                     <OrderInfomation active={orderInfoActive} waiting={waiting} delivering={delivering} delivered={delivered} />
 
                     {/* Thieu cai favorite */}
@@ -126,7 +98,7 @@ const AccountPage = ({} : AccountPageProps) => {
 
                 
             </section>
-            <EditInfoModal closeModal={closeModal} visible={modalVisible} />
+            <EditInfoModal accountInfo={account} closeModal={closeModal} visible={modalVisible} />
         </>
     )
 }
