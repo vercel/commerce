@@ -5,11 +5,10 @@ import s from './ScrollToTop.module.scss'
 import ArrowUp from '../../icons/IconArrowUp'
 
 interface ScrollToTopProps {
-    target: MutableRefObject<HTMLDivElement>;
     visibilityHeight?: number;
 }
 
-const ScrollToTop = ({ target, visibilityHeight=450 }: ScrollToTopProps) => {
+const ScrollToTop = ({ visibilityHeight=450 }: ScrollToTopProps) => {
 
     const [scrollPosition, setSrollPosition] = useState(0);
     const [showScrollToTop, setShowScrollToTop] = useState("hide");
@@ -26,7 +25,7 @@ const ScrollToTop = ({ target, visibilityHeight=450 }: ScrollToTopProps) => {
     };
 
     function handleScrollUp() {
-        target.current.scrollIntoView({ behavior: "smooth" });
+        window.scrollTo(0, 0);
     }
 
     function addEventScroll() {
@@ -34,7 +33,7 @@ const ScrollToTop = ({ target, visibilityHeight=450 }: ScrollToTopProps) => {
     }
 
     useEffect(() => {
-        addEventScroll()
+        addEventScroll();
     });    
 
     return (
