@@ -29,6 +29,7 @@
         }
     }
     &:hover{
+        cursor: pointer;
         .hoverWrapper{
             @apply block;
             animation: SelectAnimation 0.2s ease-out;
@@ -42,32 +43,32 @@
 
 }
 .hoverWrapper{
-    @apply hidden;
+    @apply hidden outline-none absolute z-10;
     padding-top: 0.6rem;
+    .selectOptionWrapper{
+        border-radius: 0.8rem;
+        background-color: var(--white);
+        padding: 0.4rem 0rem 0.4rem 0rem;
+        &.base{
+            width: 20.6rem;
+        }
+        &.large{
+            width: 34.25rem;
+        }
+        &.default{
+            @apply border-solid border border-current; 
+        }
+        &.custom{
+            @apply border-2;
+            border-color: var(--border-line);
+            color: var(--text-label);
+        }
+    }
     &:hover{
         @apply block;
     }
 }
-.selectOptionWrapper{
-    @apply outline-none z-10 absolute;
-    border-radius: 0.8rem;
-    background-color: var(--white);
-    padding: 0.4rem 0rem 0.4rem 0rem;
-    &.base{
-        width: 20.6rem;
-    }
-    &.large{
-        width: 34.25rem;
-    }
-    &.default{
-        @apply border-solid border border-current; 
-    }
-    &.custom{
-        @apply border-2;
-        border-color: var(--border-line);
-        color: var(--text-label);
-    }
-}
+
 
 @keyframes SelectAnimation {
     0% {

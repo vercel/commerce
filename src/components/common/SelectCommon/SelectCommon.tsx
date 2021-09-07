@@ -32,6 +32,7 @@ const SelectCommon = ({ type = 'default', size = 'base', option, placeholder, on
                     
                 })}
                 >{selectedName}<IconVectorDown /></div>
+                
                 <div className={s.hoverWrapper}>
                     <div className={classNames({
                         [s.selectOptionWrapper] : true,
