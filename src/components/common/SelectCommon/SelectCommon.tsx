@@ -12,10 +12,12 @@ interface Props {
     onChange?: (value: string) => void,
 }
 
-const SelectCommon = ({ type = 'default', size = 'base', option, placeholder, onChange }: Props) => {
+const SelectCommon = ({ type = 'default', size = 'base', option, placeholder, onChange}: Props) => {
     const [selectedName, setSelectedName] = useState(placeholder)
+    const [selectedValue, setSelectedValue] = useState('')
 
     const changeSelectedName = (item:string, value: string) => {
+        setSelectedValue(value)
         setSelectedName(item)
         onChange && onChange(value)
     }
@@ -42,7 +44,7 @@ const SelectCommon = ({ type = 'default', size = 'base', option, placeholder, on
                     >   
                         {
                             option.map(item => 
-                                <SelectOption itemName={item.name} value={item.value} onClick={changeSelectedName} size={size} selected={(selectedName === item.name) ? true : false} />
+                                <SelectOption itemName={item.name} value={item.value} onClick={changeSelectedName} size={size} selected={(selectedValue === item.value) ? true : false} />
                             )
                         }
                     </div>
