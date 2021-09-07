@@ -1,73 +1,34 @@
-import React, { useState, RefObject, useEffect, useRef } from "react"
+import React, { RefObject, useEffect } from "react"
 import s from './TabCommon.module.scss'
 
 import TabItem from './TabItem/TabItem'
 
 interface TabCommonProps {
-    changeTabPane: (target:string) => void;
+    tabs: {ref:RefObject<HTMLLIElement>, tabName: string, active: boolean, onClick: (tabIndex: number, tabPane: string) => void}[];
+    defaultActiveTab: number;
+    sliderRef : RefObject<HTMLDivElement>;
+    slideToTab: (ref: any) => void;
 }
 
-const TabCommon = ({ changeTabPane } : TabCommonProps) => {
-    const active = "active", unActive = "";
-    const [item1Active, setItem1Active] = useState(active);
-    const [item2Active, setItem2Active] = useState(unActive);
-    const [item3Active, setItem3Active] = useState(unActive);
-
-    const item1 = useRef<HTMLLIElement>(null);
-    const item2 = useRef<HTMLLIElement>(null);
-    const item3 = useRef<HTMLLIElement>(null);
-    const slider = useRef<HTMLDivElement>(null);
-
-    function slide(ref: RefObject<HTMLLIElement>) {
-        const width = ref.current.offsetWidth;
-        const left = ref.current.offsetLeft; 
-               
-        slider.current.style.width = (width-48).toString()+"px";
-        slider.current.style.left = left.toString()+"px";
-    }
-
-    function toggleItem1():void {
-        setItem1Active(active)
-        changeTabPane("waiting")
-
-        setItem2Active(unActive)
-        setItem3Active(unActive)
-        slide(item1)
-    }
-
-    function toggleItem2():void {
-        setItem2Active(active)
-        changeTabPane("delivering")
-
-        setItem1Active(unActive)
-        setItem3Active(unActive)
-        slide(item2)
-    }
-    function toggleItem3():void {
-        setItem3Active(active)
-        changeTabPane("delivered")
-
-        setItem1Active(unActive)
-        setItem2Active(unActive)
-        slide(item3)
-    }
+const TabCommon = ({ tabs, defaultActiveTab, sliderRef, slideToTab } : TabCommonProps) => {
 
     useEffect(() => {
-        slide(item1);
+        slideToTab(tabs[defaultActiveTab].ref);
     }, [])
 
     return (
         <ul className={s.tabCommon}>
-            <li ref={item1}>
-                <TabItem onClick={toggleItem1} active={item1Active}>Wait for Comfirmation</TabItem>
-            </li>
-            <li ref={item2}>
-                <TabItem onClick={toggleItem2} active={item2Active}>Delivering</TabItem>
-            </li>
-            <li ref={item3}>
-                <TabItem onClick={toggleItem3} active={item3Active}>Delivered</TabItem>
-            </li>
-            <div ref={slider} className={s.slider}></div>
+            {
+                tabs.map((tab) => {
+                    return (
+                        <li key={tab.tabName} ref={tab.ref}>
+                            <TabItem onClick={tab.onClick} active={tab.active}>{tab.tabName}</TabItem>
+                        </li>
+                    )
+                })
+            }
+    
+            <div ref={sliderRef} className={s.slider}></div>
         </ul>
     )
 }

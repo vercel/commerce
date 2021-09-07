@@ -1,19 +1,16 @@
-import classNames from "classnames";
 import React from "react"
 import s from './TabItem.module.scss'
 
 interface TabItemProps {
-    active: string;
+    active: boolean;
     children: string;
-    onClick: () => void;
+    onClick: (tabIndex: number, tabPane: string) => void;
 }
 
-const TabItem = ({ active = "", children, onClick } : TabItemProps) => {
+const TabItem = ({ active = false, children, onClick } : TabItemProps) => {
 
     return (
-        <span onClick={onClick} className={classNames(s.tabItem, {
-            [s[active]]: active
-        })}>
+        <span onClick={onClick} className={active ? s.tabItemActive : s.tabItem} >
             {children}
         </span>
     )
