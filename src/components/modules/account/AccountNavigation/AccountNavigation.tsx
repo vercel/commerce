@@ -4,10 +4,12 @@ import s from './AccountNavigation.module.scss'
 import AccountNavigationItem from './components/AccountNavigationItem' 
 
 interface AccountNavigationProps {
-    
+    setAccountActive: ()=>void;
+    setOrderActive: ()=>void;
+    setFavActive: ()=>void;
 }
 
-const AccountNavigation = ({  } : AccountNavigationProps) => {
+const AccountNavigation = ({ setAccountActive, setOrderActive, setFavActive } : AccountNavigationProps) => {
     const active = "active", unActive = "";
 
     const [item1Active, setItem1Active] = useState(unActive);
@@ -25,24 +27,27 @@ const AccountNavigation = ({  } : AccountNavigationProps) => {
     }
 
     function toggleItem1():void {
-        setItem1Active(active)
+        setItem1Active(active);
+        setAccountActive();
 
-        setItem2Active(unActive)
-        setItem3Active(unActive)
+        setItem2Active(unActive);
+        setItem3Active(unActive);
         slide(item1);
     }
     function toggleItem2():void {
-        setItem2Active(active)
+        setItem2Active(active);
+        setOrderActive();
 
-        setItem1Active(unActive)
-        setItem3Active(unActive)
+        setItem1Active(unActive);
+        setItem3Active(unActive);
         slide(item2);
     }
     function toggleItem3():void {
-        setItem3Active(active)
+        setItem3Active(active);
+        setFavActive();
 
-        setItem1Active(unActive)
-        setItem2Active(unActive)
+        setItem1Active(unActive);
+        setItem2Active(unActive);
         slide(item3);
     }
 
