@@ -1,15 +1,21 @@
 @import '../../../styles/utilities';
 
-.tabCommonOutSide {
-    @apply spacing-horizontal;
-    
-    .tabCommon {
-        @apply flex;
-        position: relative;
-        border-bottom: 2px solid #FBFBFB;
-        padding-top: 1.6rem;
-        padding-bottom: 1.6rem;
-        width: 100%;
+.tabCommon {
+    @apply flex;
+    position: relative;
+    border-bottom: 2px solid #FBFBFB;
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+    width: 100%;
+
+    .slider {
+        @apply inline-block;
+        height: .2rem;
+        border-radius: 3px;
+        background-color: var(--primary);
+        position: absolute;
+        z-index: 1200;
+        bottom: 0;
+        transition: all .4s linear;
     }
 }
-
