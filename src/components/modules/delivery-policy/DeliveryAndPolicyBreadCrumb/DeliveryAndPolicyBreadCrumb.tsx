@@ -15,7 +15,7 @@ const DeliveryAndPolicyBreadCrumb = () => {
     return (
         <section className={s.breadCrumb}>
             <BreadcrumbCommon crumbs={CRUMB_DATA}/>
-        </section>
+        </section>  
     )
 }
 export default DeliveryAndPolicyBreadCrumb

@@ -1,7 +1,6 @@
 import DeliveryAndPolicyBreadCrumb from "../DeliveryAndPolicyBreadCrumb/DeliveryAndPolicyBreadCrumb"
 import DeliveryAndPolicyContent from "../DeliveryAndPolicyContent/DeliveryAndPolicyContent"
 
-
 const DeliveryAndPolicyPage = () => {
     return (
         <>

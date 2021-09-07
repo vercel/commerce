@@ -36,9 +36,4 @@ export { default as RelevantBlogPosts} from './RelevantBlogPosts/RelevantBlogPos
 export { default as CollapseCommon} from './CollapseCommon/CollapseCommon'
 export { default as ImgWithLink} from './ImgWithLink/ImgWithLink'
 export { default as RecipeDetail} from './RecipeDetail/RecipeDetail'
-<<<<<<< HEAD
-export { default as DrawerCommon} from './DrawerCommon/DrawerCommon'
-export { default as CartDrawer} from './CartDrawer/CartDrawer'
 export { default as BreadcrumbCommon} from './BreadcrumbCommon/BreadcrumbCommon'
-=======
->>>>>>> 0f6cdc9f66ceaf2b0aec38d0d6444de902b69bfe
