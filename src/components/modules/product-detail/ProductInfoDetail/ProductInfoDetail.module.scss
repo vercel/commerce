@@ -1,0 +1,10 @@
+@import '../../../../styles/utilities';
+
+.productInfoDetail {
+    @apply spacing-horizontal;
+    padding-bottom: 4rem;
+    @screen md {
+        @apply flex;
+        padding-bottom: 5.6rem;
+    }
+}

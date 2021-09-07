@@ -1,51 +1,94 @@
 @import "../../../styles/utilities";
 
 .inputWrap {
-  @apply flex items-center relative;
-  .icon {
-    @apply absolute;
-    content: "";
-    left: 1.6rem;
-    margin-right: 1.6rem;
-    svg path {
-      fill: currentColor;
+  .inputInner {
+    @apply flex items-center relative;
+    .icon {
+      @apply absolute flex justify-center items-center;
+      content: "";
+      left: 1.6rem;
+      margin-right: 1.6rem;
+      svg path {
+        fill: currentColor;
+      }
     }
-  }
-  .icon + .inputCommon {
-    padding-left: 4.8rem;
-  }
-  .inputCommon {
-    @apply block w-full transition-all duration-200 rounded;
-    padding: 1.2rem 1.6rem;
-    border: 1px solid var(--border-line);
-    &:hover,
-    &:focus,
-    &:active {
-      outline: none;
-      border: 1px solid var(--primary);
-      @apply shadow-md;
+    .icon + .inputCommon {
+      padding-left: 4.8rem;
     }
 
-    &::placeholder {
-      @apply text-label;
-    }
-
-    &.custom {
-      @apply custom-border-radius;
-      border: 1px solid transparent;
-      background: var(--gray);
+    .inputCommon {
+      @apply block w-full transition-all duration-200 rounded;
+      padding: 1.2rem 1.6rem;
+      border: 1px solid var(--border-line);
       &:hover,
       &:focus,
       &:active {
+        outline: none;
         border: 1px solid var(--primary);
+        @apply shadow-md;
       }
-    }
-    &.bgTransparent {
-      background: rgb(227, 242, 233, 0.3);
-      color: var(--white);
+
       &::placeholder {
+        @apply text-label;
+      }
+
+      &.custom {
+        @apply custom-border-radius;
+        border: 1px solid transparent;
+        background: var(--gray);
+        &:hover,
+        &:focus,
+        &:active {
+          border: 1px solid var(--primary);
+        }
+      }
+      &.bgTransparent {
+        background: rgb(227, 242, 233, 0.3);
         color: var(--white);
+        &::placeholder {
+          color: var(--white);
+        }
       }
     }
+
+    &.preserve {
+      @apply flex-row-reverse;
+      .icon {
+        left: unset;
+        right: 1.6rem;
+        margin-left: 1.6rem;
+        margin-right: 0;
+        svg path {
+          fill: var(--text-label);
+        }
+      }
+      .icon + .inputCommon {
+        padding-left: 1.6rem;
+        padding-right: 4.8rem;
+      }
+    }
+    &.success {
+      .icon {
+        svg path {
+          fill: var(--primary);
+        }
+      }
+    }
+
+    &.error {
+      .icon {
+        svg path {
+          fill: var(--negative);
+        }
+      }
+      input {
+        border-color: var(--negative) !important;
+      }
+    }
+  }
+  .errorMessage {
+    @apply caption;
+    color: var(--negative);
+    margin-top: 0.4rem;
   }
 }

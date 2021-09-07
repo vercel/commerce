@@ -1,0 +1,27 @@
+@import "../../../../styles/utilities";
+
+.recommendedRecipes {
+    margin: 6rem auto;
+    @screen md {
+        margin: 5.6rem auto;
+    }
+    .infoProducts {
+        @apply flex justify-between items-center spacing-horizontal;
+        margin-bottom: 3.2rem;
+    }
+    .productsWrap {
+        @apply spacing-horizontal-left;
+        @screen xl {
+            :global(.customArrow) {
+                @screen lg {
+                    &:global(.leftArrow) {
+                        left: calc(-6.4rem - 2rem);
+                    }
+                    &:global(.rightArrow) {
+                        right: calc(-6.4rem - 2rem);
+                    }
+                }
+            }
+        }
+    }
+}

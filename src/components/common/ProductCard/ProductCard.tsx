@@ -6,6 +6,7 @@ import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import ItemWishList from '../ItemWishList/ItemWishList'
 import LabelCommon from '../LabelCommon/LabelCommon'
 import s from './ProductCard.module.scss'
+import ProductNotSell from './ProductNotSell/ProductNotSell'
 
 export interface ProductCardProps extends ProductProps {
   buttonText?: string
@@ -18,7 +19,15 @@ const ProductCard = ({
   price,
   buttonText = 'Buy Now',
   imageSrc,
+  isNotSell,
 }: ProductCardProps) => {
+  if (isNotSell) {
+    return <div className={`${s.productCardWarpper} ${s.notSell}`}>
+      <ProductNotSell name={name} imageSrc={imageSrc} />
+    </div>
+
+  }
+
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>

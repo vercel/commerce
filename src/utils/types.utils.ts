@@ -4,6 +4,7 @@ export interface ProductProps {
     weight: string
     price: string
     imageSrc: string
+    isNotSell?: boolean
 }
 
 export interface FeaturedProductProps {

@@ -1,0 +1,19 @@
+.recipeBriefInfo {
+    @apply flex;
+    .item {
+        @apply flex;
+        &:not(:last-child) {
+            margin-right: 2.4rem;
+        }
+        svg {
+            width: 2rem;
+            height: 2rem;
+            path {
+                fill: var(--text-label);
+            }
+        }
+        .content {
+            margin-left: 0.8rem;
+        }
+    }
+}
