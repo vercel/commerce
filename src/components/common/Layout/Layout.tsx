@@ -15,7 +15,7 @@ interface Props {
 // note: demo code
 const Layout: FC<Props> = ({ children }) => {
     const { locale = 'en-US' } = useRouter()
-    const { visible: visibleCartDrawer, openModal, closeModal: closeCartDrawer } = useModalCommon({ initialValue: true })
+    const { visible: visibleCartDrawer, openModal, closeModal: closeCartDrawer } = useModalCommon({ initialValue: false })
 
     const toggle = () => {
         if (visibleCartDrawer) {

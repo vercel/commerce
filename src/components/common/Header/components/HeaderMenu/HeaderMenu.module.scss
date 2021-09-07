@@ -52,7 +52,10 @@
                 }
                 a {
                     @appy no-underline;
-                    &.iconFovourite {
+                    &:hover {
+                        opacity: .8;
+                    }
+                    &.iconFavourite {
                         svg path {
                             fill: var(--negative);
                         }

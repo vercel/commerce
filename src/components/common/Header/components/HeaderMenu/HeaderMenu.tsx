@@ -52,14 +52,14 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo }: Props) => {
             <ul className={s.menu}>
                 <li>
                     <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}>
-                        <a >
+                        <a>
                             <IconHistory />
                         </a>
                     </Link>
                 </li>
                 <li>
                     <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`}>
-                        <a className={s.iconFovourite}>
+                        <a className={s.iconFavourite}>
                             <IconHeart />
                         </a>
                     </Link>
