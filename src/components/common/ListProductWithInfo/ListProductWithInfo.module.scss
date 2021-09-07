@@ -11,7 +11,7 @@
         padding-top: 5.6rem;
         padding-bottom: 5.6rem;
         border: none;
-        background-color: #f5f4f2;
+        background-color: var(--background-gray);
     }
     .productsWrap {
         @apply spacing-horizontal-left;

@@ -3,6 +3,9 @@
 .menuDropdown {
     @apply relative cursor-pointer;
     width: fit-content;
+    .label {
+        all: unset;
+    }
     &:hover {
         .label {
             color: var(--primary);
@@ -65,6 +68,16 @@
             margin-top: 0.4rem;
             li {
                 @apply block w-full transition-all duration-200 cursor-pointer text-active;
+                word-wrap: break-word;
+                -webkit-hyphens: auto;
+                -ms-hyphens: auto;
+                -moz-hyphens: auto;
+                hyphens: auto;
+                overflow-x: hidden;
+                position: relative;
+                max-width: 15rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 button {
                     all: unset;
                     color: currentColor;
