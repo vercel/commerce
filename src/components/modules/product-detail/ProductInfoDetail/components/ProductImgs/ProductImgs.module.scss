@@ -1,0 +1,9 @@
+.productImgs {
+    @apply w-full flex justify-between items-center;
+    @screen sm-only {
+        margin-bottom: 2rem;
+    }
+    @screen lg {
+        max-width: 60rem;
+    }
+}

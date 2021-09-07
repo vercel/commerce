@@ -80,7 +80,7 @@
         font-size: 10px;
         line-height: 16px;
     }
-    
+
     .spacing-horizontal {
         padding-left: 2rem;
         padding-right: 2rem;
@@ -118,5 +118,28 @@
 
     .font-logo {
         font-family: var(--font-logo);
+    }
+
+    .u-form {
+        .body {
+            > div {
+                &:not(:last-child) {
+                    margin-bottom: 1.6rem;
+                }
+            }
+            .line {
+                @apply flex justify-between items-center;
+                > div {
+                    &:not(:last-child) {
+                        margin-right: 1.6rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .u-icon {
+        width: 2rem;
+        height: 2rem;
     }
 }
