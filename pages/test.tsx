@@ -3,6 +3,7 @@ import {
   ButtonCommon,
   Layout, ModalInfo
 } from 'src/components/common'
+
 export default function Test() {
   const [visible, setVisible] = useState(false)
   const onClose = () => {
