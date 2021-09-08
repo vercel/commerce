@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import s from './CheckoutSuccess.module.scss';
 
 import Image from "next/image";
@@ -7,8 +7,15 @@ import Link from "next/link";
 import checkIcon from './assets/checkIcon.png';
 
 const CheckoutSuccess = () => {
-    
-    return (
+    const [isShown, setIsShown] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+          setIsShown(true);
+        }, 3000);
+      }, [3000]);
+
+    return isShown ? (
         <div className={s.checkoutSuccessWrapper}>
             <div className={s.checkoutSuccess}>
                 <div className={s.checkoutContent}>
@@ -32,15 +39,9 @@ const CheckoutSuccess = () => {
                         
                     </div>
                 </div>
-
-                <div className={s.cornerImgs}>
-                    
-                    
-                </div>
-
             </div>
         </div>
-    )
+    ) : null
 }
 
 export default CheckoutSuccess
