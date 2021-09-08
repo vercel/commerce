@@ -1,36 +1,85 @@
-import React, { RefObject, useEffect } from "react"
+import React, {
+  Children,
+  PropsWithChildren,
+  ReactElement,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+	cloneElement,
+} from 'react'
 import s from './TabCommon.module.scss'
 
 import TabItem from './components/TabItem/TabItem'
+import { TabPaneProps } from './components/TabPane/TabPane'
+import classNames from 'classnames'
 
 interface TabCommonProps {
-    tabs: {ref:RefObject<HTMLLIElement>, tabName: string, active: boolean, onClick: (tabIndex: number, tabPane?: string) => void}[];
-    defaultActiveTab: number;
-    sliderRef : RefObject<HTMLDivElement>;
-    slideToTab: (ref: any) => void;
+  defaultActiveTab?: number
+  children: React.ReactNode
+	center?:boolean
 }
 
-const TabCommon = ({ tabs, defaultActiveTab, sliderRef, slideToTab } : TabCommonProps) => {
+const TabCommon = ({
+  defaultActiveTab = 0,
+  children,
+	center
+}: TabCommonProps) => {
+  const [active, setActive] = useState(0)
+  const slider = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLUListElement>(null)
+  useEffect(() => {
+    setActive(defaultActiveTab)
+  }, [])
 
-    useEffect(() => {
-        slideToTab(tabs[defaultActiveTab].ref);
-    }, [])
+  useEffect(() => {
+    slide(active)
+  }, [active])
 
-    return (
-        <ul className={s.tabCommon}>
-            {
-                tabs.map((tab) => {
-                    return (
-                        <li key={tab.tabName} ref={tab.ref}>
-                            <TabItem onClick={tab.onClick} active={tab.active}>{tab.tabName}</TabItem>
-                        </li>
-                    )
-                })
-            }
-    
-            <div ref={sliderRef} className={s.slider}></div>
+  function slide(index: number) {
+    const active = headerRef.current?.children
+      .item(index)
+      ?.getBoundingClientRect()
+    const current = slider.current
+    if (current && active) {
+      let width = active.width - 24 <= 0 ? 24 : active.width - 24
+      let left = active.left 
+      current.style.width = width.toString() + 'px'
+      current.style.left = left.toString() + 'px'
+    }
+  }
+  const onTabClick = (index: number) => {
+    setActive(index)
+  }
+  return (
+    <section className={s.tabWapper}>
+      <div className={s.tabHeader}>
+        <ul className={classNames(s.tabList,{[s.center]:center})} ref={headerRef}>
+          {Children.map(children, (tab, index) => {
+            let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+            return (
+              <li key={item.props.tabName}>
+                <TabItem
+                  active={active === index}
+                  onClick={onTabClick}
+                  tabIndex={index}
+                >
+                  {item.props.tabName}
+                </TabItem>
+              </li>
+            )
+          })}
         </ul>
-    )
+        <div ref={slider} className={s.slider}></div>
+      </div>
+      <div className={s.tabBody}>
+				{Children.map(children, (tab, index) => {
+					let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+					return cloneElement(item, { active:index===active });
+				})
+			}</div>
+    </section>
+  )
 }
 
-export default TabCommon;
+export default TabCommon

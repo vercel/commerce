@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { CustomerInfoForm, Logo, ShippingInfoForm } from 'src/components/common'
+import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
 import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CheckoutInfo.module.scss'
+import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
+import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
 interface CheckoutInfoProps {}
 
 const CheckoutInfo = ({}: CheckoutInfoProps) => {

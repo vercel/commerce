@@ -1,0 +1,9 @@
+.warpper{
+    .title{
+        min-width: 19.4rem;
+        @apply text-label;
+    }
+    .hightlight{
+        @apply text-active;
+    }
+}

@@ -1,17 +1,12 @@
 import { useState } from 'react'
 import {
-  CardItemCheckout,
   CheckoutBill,
-  CustomerInfoForm,
   Layout,
-  ShippingInfoForm,
 } from 'src/components/common'
 import { CardItemCheckoutProps } from 'src/components/common/CardItemCheckout/CardItemCheckout'
-import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
-import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
+import TabPane from 'src/components/common/TabCommon/components/TabPane/TabPane'
+import TabCommon from 'src/components/common/TabCommon/TabCommon'
 import { CheckoutInfo } from 'src/components/modules/checkout'
-import image5 from '../public/assets/images/image5.png'
-import image6 from '../public/assets/images/image6.png'
 import image7 from '../public/assets/images/image7.png'
 import image8 from '../public/assets/images/image8.png'
 const dataTest:CardItemCheckoutProps[] = [
@@ -43,27 +38,34 @@ const dataTest:CardItemCheckoutProps[] = [
     quantity:2
   },
 ]
+
 export default function Test() {
-  const [visible, setVisible] = useState(false)
-  const onClose = () => {
-    setVisible(false)
-  }
-  const onOpen = () => {
-    setVisible(true)
-  }
-  const [visible2, setVisible2] = useState(false)
-  const onClose2 = () => {
-    setVisible2(false)
-  }
-  const onOpen2 = () => {
-    setVisible2(true)
-  }
   return (
     <>
       <div className="w-full flex justify-between" style={{padding: "0 3.2rem"}} >
         <CheckoutInfo/>
         <CheckoutBill data={dataTest}/>
       </div>
+      <TabCommon center={true}>
+        <TabPane
+          active={true}
+          tabName={'dat datdat datdatdatdatdatdat'}
+        >
+          <div className="w-full">
+          datdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdat
+          </div>
+        </TabPane>
+        <TabPane active={true} tabName={'1234567890'}>
+        <div className="w-full">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit harum sint maiores optio? Perspiciatis, necessitatibus pariatur, ut sed aperiam minus reiciendis alias deleniti eligendi obcaecati illum id maxime accusantium beatae.
+          </div>
+        </TabPane>
+        <TabPane active={true} tabName={'1'}>
+        <div className="w-full">
+          11111111111111111111111111111111111111111111111111111111111
+          </div>
+        </TabPane>
+      </TabCommon>
     </>
   )
 }
