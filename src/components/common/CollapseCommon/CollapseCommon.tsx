@@ -1,7 +1,7 @@
 import CollapseChild from './CollapseChild/CollapseChild'
 
 interface CollapseCommonProps{
-    data: {title: string, content: Array<string>, link: string}[],
+    data: {title: string, content: Array<string>}[],
 }
 
 const CollapseCommon = ({data}: CollapseCommonProps) => {
@@ -9,7 +9,7 @@ const CollapseCommon = ({data}: CollapseCommonProps) => {
         <section>
             {
                 data.map(item =>
-                    <CollapseChild key={item.title} title={item.title} content={item.content} link={item.link} />
+                    <CollapseChild key={item.title} title={item.title} content={item.content}/>
                 )
             }
         </section>
