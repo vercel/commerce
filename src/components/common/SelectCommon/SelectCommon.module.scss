@@ -2,6 +2,11 @@
 
 .select {
     background-color: var(--white);
+    .selectTrigger {
+        svg {
+            @apply transition-all duration-200;
+        }
+    }
     &.base {
         width: 20.6rem;
         .selectTrigger {
@@ -19,7 +24,7 @@
     &.default {
         .selectTrigger {
             @apply border-solid border border-current;
-        }   
+        }
     }
     &.custom {
         .selectTrigger {
@@ -34,13 +39,17 @@
             @apply block;
             animation: SelectAnimation 0.2s ease-out;
         }
+        .selectTrigger {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
     }
 }
 .selectTrigger {
     @apply outline-none flex justify-between;
     color: var(--text-active);
     border-radius: 0.8rem;
-
 }
 .hoverWrapper {
     @apply hidden outline-none absolute z-10;
@@ -56,7 +65,7 @@
             width: 34.25rem;
         }
         &.default {
-            @apply border-solid border border-current; 
+            @apply border-solid border border-current;
         }
         &.custom {
             @apply border-2;
@@ -68,7 +77,6 @@
         @apply block;
     }
 }
-
 
 @keyframes SelectAnimation {
     0% {

@@ -23,6 +23,7 @@ export default function Home() {
   return (
     <>
       <SelectCommon option={OPTION_TEST} placeholder="Sort By" onChange={handleChange} />
+      <SelectCommon option={OPTION_TEST} placeholder="Sort By" onChange={handleChange} type='custom'/>
     </>
   )
 }
