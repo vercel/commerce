@@ -1,10 +1,7 @@
 @import "../../../../styles/utilities";
 
 .featuredCard{
-    @apply flex flex-row justify-start spacing-horizontal pb-16;
-    @screen lg{
-        @apply justify-center;
-    }
+    @apply flex flex-row justify-center spacing-horizontal pb-16;
     .featuredCardWrapper{
         @apply flex flex-col;
         @screen lg{

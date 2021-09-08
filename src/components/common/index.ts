@@ -35,7 +35,7 @@ export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreate
 export { default as CardBlog} from './CardBlog/CardBlog'
 export { default as RelevantBlogPosts} from './RelevantBlogPosts/RelevantBlogPosts'
 export { default as CollapseCommon} from './CollapseCommon/CollapseCommon'
-export { default as BreadCrumbCommon } from './BreadcrumbCommon/BreadcrumbCommon'
+export { default as BreadcrumbCommon } from './BreadcrumbCommon/BreadcrumbCommon'
 export { default as ImgWithLink} from './ImgWithLink/ImgWithLink'
 export { default as RecipeDetail} from './RecipeDetail/RecipeDetail'
 export { default as DrawerCommon} from './DrawerCommon/DrawerCommon'
