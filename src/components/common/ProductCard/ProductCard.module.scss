@@ -59,7 +59,8 @@
     .cardBot{
         min-height: 4rem;
         @apply flex justify-between items-center; 
-        .cardButton{
+        .cardIcon{
+            margin-right: 0.8rem;
         }
     }
 }

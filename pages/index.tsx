@@ -4,7 +4,7 @@ import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeR
 export default function Home() {
   return (
     <>
-      <HomeBanner/>
+      <HomeBanner />
       <HomeFeature />
       <HomeCategories />
       <HomeCollection />
@@ -12,6 +12,9 @@ export default function Home() {
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
+
+      {/* // todo: uncomment */}
+      {/* <ModalCreateUserInfo/> */}
     </>
   )
 }

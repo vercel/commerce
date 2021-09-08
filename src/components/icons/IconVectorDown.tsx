@@ -1,5 +1,3 @@
-
-
 const IconVectorDown = ({ ...props }) => {
     return (
       <svg

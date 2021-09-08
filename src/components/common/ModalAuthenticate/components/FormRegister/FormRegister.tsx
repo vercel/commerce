@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { ButtonCommon, Inputcommon } from 'src/components/common'
+import { ButtonCommon, Inputcommon, InputPassword } from 'src/components/common'
 import s from '../FormAuthen.module.scss'
 import styles from './FormRegister.module.scss'
 import SocialAuthen from '../SocialAuthen/SocialAuthen'

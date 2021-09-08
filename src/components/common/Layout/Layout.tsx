@@ -29,6 +29,10 @@ const Layout: FC<Props> = ({ children }) => {
             <div className={s.mainLayout}>
                 <Header />
                 <main >{children}</main>
+                <button onClick={toggle}>toggle card: {visibleCartDrawer.toString()}</button>
+                <CartDrawer
+                    visible={visibleCartDrawer}
+                    onClose={closeCartDrawer} />
                 <Footer />
             </div>
         </CommerceProvider>
