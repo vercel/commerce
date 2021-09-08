@@ -22,15 +22,24 @@ const buildAddToCartVariables = ({
 }) => {
   const { product } = productResponse.data
 
-  const selectedValue = product.variations?.find(
+  const selectedOptions = product.variations?.find(
     (v: any) => v.productCode === variantId
-  ).options[0].value
+  ).options
 
-  const options = product.options?.map((po: any) => ({
-    attributeFQN: po.attributeFQN,
-    name: po.attributeDetail.name,
-    value: po.values.find((v: any) => v.value == selectedValue).value,
-  }))
+  let options: any[] = []
+  selectedOptions.forEach((each: any) => {
+    product.options
+      .filter((option: any) => {
+        return option.attributeFQN == each.attributeFQN
+      })
+      .forEach((po: any) => {
+        options.push({
+          attributeFQN: po.attributeFQN,
+          name: po.attributeDetail.name,
+          value: po.values?.find((v: any) => v.value == each.value).value,
+        })
+      })
+  })
 
   return {
     productToAdd: {

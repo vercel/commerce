@@ -17,7 +17,7 @@ const fetchStoreApi = <T>(getConfig: () => KiboCommerceConfig) => async (
         Authorization: `Bearer ${config.apiToken}`,
       },
     })
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(`Fetch to Kibocommerce failed: ${error.message}`)
   }
 
@@ -33,15 +33,7 @@ const fetchStoreApi = <T>(getConfig: () => KiboCommerceConfig) => async (
       typeof data === 'string' ? data : JSON.stringify(data, null, 2)
     }`
 
-    // throw new BigcommerceApiError(msg, res, data)
   }
-
-  // if (res.status !== 204 && !isJSON) {
-  //   throw new BigcommerceApiError(
-  //     `Fetch to Bigcommerce API failed, expected JSON content but found: ${contentType}`,
-  //     res
-  //   )
-  // }
 
   // If something was removed, the response will be empty
   return res.status === 200 && (await res.json())
