@@ -14,7 +14,7 @@ interface RelevantProps {
     itemKey?: string,
     title?: string,
     viewAllLink?: string,
-    bgcolor: "default" | "cream"
+    bgcolor?: "default" | "cream"
 }
 
 const recipe:BlogCardProps[] = [
