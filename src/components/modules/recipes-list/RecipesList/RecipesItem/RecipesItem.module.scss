@@ -34,7 +34,7 @@
             @apply topline;
 
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 1;
              overflow: hidden;
             -webkit-box-orient: vertical;
 
@@ -42,7 +42,7 @@
             cursor: pointer;
             font-weight:bold;
             color:var(--text-active);
-            margin-bottom: 1rem;
+            margin-top: 1.6rem;
 
             &:hover {
                 color: var(--primary);
