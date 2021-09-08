@@ -5,12 +5,6 @@ import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation'
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import HeadingCommon from "../../../common/HeadingCommon/HeadingCommon";
 import RecipesList from '../RecipesList/RecipesList';
-import blog1 from './img/blog1.png';
-import blog2 from './img/blog2.png';
-import blog3 from './img/blog3.png';
-import blog4 from './img/blog4.png';
-import blog5 from './img/blog5.png';
-import blog6 from './img/blog6.png';
 import s from './RecipeListPage.module.scss';
 
 const BREADCRUMB = [
@@ -114,44 +108,84 @@ const CATEGORYSELECT = [
 const RECIPES = [
     {
         id: '1',
-        image: blog1.src,
+        image: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
         title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
         description: 'The DEBM diet stands for "Delicious Happy Fun Diet". This diet was popularized by Robert...',
         link: `${ROUTE.RECIPES}`
     }, {
         id: '2',
-        image: blog2.src,
+        image: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
         title: "9 Ways to Make an Aloe Vera Mask at Home",
         description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
         link: `${ROUTE.RECIPES}`
     }
     , {
         id: '3',
-        image: blog3.src,
+        image: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
         title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
         description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
         link: `${ROUTE.RECIPES}`
     }
     , {
         id: '4',
-        image: blog4.src,
+        image: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
         title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
         description: 'The DEBM diet stands for "Delicious Happy Fun Diet". This diet was popularized by Robert...',
         link: `${ROUTE.RECIPES}`,
     }, {
         id: '5',
-        image: blog5.src,
+        image: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
         title: "9 Ways to Make an Aloe Vera Mask at Home",
         description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
         link: `${ROUTE.RECIPES}`,
     }
     , {
         id: '6',
-        image: blog6.src,
+        image: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
         title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
         description: 'Dragon fruit is a type of fruit that is a favorite for many people because of its delicious and fresh...',
         link: `${ROUTE.RECIPES}`,
+    },
+    {
+        id: '1',
+        image: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+        title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
+        description: 'The DEBM diet stands for "Delicious Happy Fun Diet". This diet was popularized by Robert...',
+        link: `${ROUTE.RECIPES}`
+    }, {
+        id: '2',
+        image: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+        title: "9 Ways to Make an Aloe Vera Mask at Home",
+        description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
+        link: `${ROUTE.RECIPES}`
     }
+    , {
+        id: '3',
+        image: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+        title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
+        description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
+        link: `${ROUTE.RECIPES}`
+    }
+    , {
+        id: '4',
+        image: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+        title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
+        description: 'The DEBM diet stands for "Delicious Happy Fun Diet". This diet was popularized by Robert...',
+        link: `${ROUTE.RECIPES}`,
+    }, {
+        id: '5',
+        image: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+        title: "9 Ways to Make an Aloe Vera Mask at Home",
+        description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
+        link: `${ROUTE.RECIPES}`,
+    }
+    , {
+        id: '6',
+        image: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+        title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
+        description: 'Dragon fruit is a type of fruit that is a favorite for many people because of its delicious and fresh...',
+        link: `${ROUTE.RECIPES}`,
+    },
 ];
 
 const OPTIONSLECT=[
