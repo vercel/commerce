@@ -19,7 +19,7 @@
             }
         }
         .content {
-            @apply pb-16;
+            @apply pb-16 whitespace-pre-line;
             padding-top: 1.6rem;
         }
     }
