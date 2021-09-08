@@ -1,6 +1,7 @@
+import { Layout } from 'src/components/common';
 import { BlogsList, FeaturedCardBlog, BlogHeading, BlogBreadCrumb } from 'src/components/modules/blogs';
 
-const BlogsPage = () => {
+export default function BlogsPage() {
     return(
         <>
             <BlogBreadCrumb />
@@ -10,4 +11,4 @@ const BlogsPage = () => {
         </>
     )
 }
-export default BlogsPage
+BlogsPage.Layout = Layout

@@ -1,37 +1,37 @@
 @import "../../../../styles/utilities";
 
-.featuredCard{
+.featuredCard {
     @apply flex flex-row justify-center spacing-horizontal pb-16;
-    .featuredCardWrapper{
+    .featuredCardWrapper {
         @apply flex flex-col;
-        @screen lg{
+        @screen lg {
             @apply flex-row justify-between;
         }
         max-width: 121.6rem;
     }
 }
-.left{
+.left {
     max-width: 59.8rem;
-    img{
+    img {
         border-radius: 2.4rem;
     }
 }
-.right{
+.right {
     flex-shrink: 3;
     max-width: 55.4rem;
-    @screen lg{
+    @screen lg {
         margin-left: 6.4rem;
     }
 }
-.titleWrapper{
+.titleWrapper {
     @apply flex flex-col items-start font-heading;
     font-size: 3.2rem;
     line-height: 4rem;
     margin-bottom: 1.6rem;
-    .title{
+    .title {
         margin-top: 0.4rem;
     }
 }
-.content{
+.content {
     margin-top: 1.6rem
 }

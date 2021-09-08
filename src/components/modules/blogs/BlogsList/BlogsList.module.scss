@@ -1,17 +1,17 @@
 @import "../../../../styles/utilities";
 
-.wrapper{
+.wrapper {
     @apply flex flex-col spacing-horizontal items-center;
     padding-bottom: 16.8rem;
-    .list{
-        @apply flex flex-wrap justify-between;
+    .list {
+        @apply grid grid-cols-3;
         max-width: 121.6rem;
     }
-    .card{
-        padding-bottom: 4rem;
+    .card {
+        @apply pr-8 pb-16;
     }
-    .pagination{
-        padding-top: 0.8rem;
+    .pagination {
         @apply flex justify-center items-center ;
+        padding-top: 0.8rem;
     }
 }
