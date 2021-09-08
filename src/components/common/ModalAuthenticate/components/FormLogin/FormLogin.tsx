@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
-import { ButtonCommon, Inputcommon } from 'src/components/common'
-import InputPassword from 'src/components/common/InputPassword/InputPassword'
+import { ButtonCommon, Inputcommon, InputPassword } from 'src/components/common'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import s from '../FormAuthen.module.scss'

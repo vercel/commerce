@@ -68,7 +68,7 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo }: Props) => {
                     <MenuDropdown options={optionMenu} isHasArrow={false}><IconUser /></MenuDropdown>
                 </li>
                 <li>
-                    <button>
+                    <button className={s.btnCart}>
                         <IconBuy />
                     </button>
                 </li>
