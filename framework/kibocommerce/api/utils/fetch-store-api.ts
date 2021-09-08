@@ -26,7 +26,6 @@ const fetchStoreApi = <T>(getConfig: () => KiboCommerceConfig) => async (
 
   if (!res.ok) {
     const data = isJSON ? await res.json() : await getTextOrNull(res)
-    console.log('-----------anon-----------', data)
     const headers = getRawHeaders(res)
     const msg = `Kibo Commerce API error (${
       res.status

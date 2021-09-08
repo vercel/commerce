@@ -5,7 +5,7 @@ import getCart from './get-cart';
 import addItem from './add-item';
 
 // import updateItem from './update-item'
-// import removeItem from './remove-item'
+import removeItem from './remove-item'
 
 export type CartAPI = GetAPISchema<KiboCommerceAPI, any>
 
@@ -15,7 +15,7 @@ export const handlers: CartEndpoint['handlers'] = {
   getCart,
   addItem,
 //   updateItem,
-//   removeItem,
+  removeItem,
 }
 
 const cartApi = createEndpoint<CartAPI>({
