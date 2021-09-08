@@ -7,6 +7,9 @@
   align-items: center;
   padding: 1rem 2rem;
   @screen md {
+    padding: 0.8rem 1.6rem;
+  }
+  @screen lg {
     padding: 0.8rem 3.2rem;
   }
   &:disabled {
@@ -84,10 +87,13 @@
       padding: 1rem;
     }
     @screen md {
-      padding: 1.6rem 4.8rem;
+      padding: 1.6rem 3.2rem;
       &.onlyIcon {
         padding: 1.6rem;
       }
+    }
+    @screen lg {
+      padding: 1.6rem 4.8rem;
     }
     &.loading {
       &::before {

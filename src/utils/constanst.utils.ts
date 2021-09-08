@@ -8,9 +8,12 @@ export const SOCIAL_LINKS = {
 export const ROUTE = {
     HOME: '/',
     PRODUCTS: '/products',
+    PRODUCT_DETAIL: '/product',
     ABOUT: '/about',
     BLOG_DETAIL: '/blogdetail',
     ACCOUNT: '/account',
+    RECIPES: '/recipes',
+
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
     FAQ: '/faq',

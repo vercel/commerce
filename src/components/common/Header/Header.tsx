@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React, { memo, useEffect, useState } from 'react'
-import { useModalCommon } from 'src/components/hooks/useModalCommon'
+import { useModalCommon } from 'src/components/hooks'
 import { isMobile } from 'src/utils/funtion.utils'
 import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
 import ModalCreateUserInfo from '../ModalCreateUserInfo/ModalCreateUserInfo'

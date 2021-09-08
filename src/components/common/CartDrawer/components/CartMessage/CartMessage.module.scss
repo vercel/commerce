@@ -1,0 +1,16 @@
+@import "../../../../../styles/utilities";
+
+.cartMessage {
+    @apply flex bg-info;
+    padding: 1.2rem 1.6rem;
+    .text {
+        color: var(--white);
+        font-weight: bold;
+        margin-right: 0.8rem;
+    }
+    .icon {
+        svg path {
+            fill: var(--text-placeholder);
+        }
+    }
+}

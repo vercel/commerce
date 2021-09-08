@@ -4,8 +4,12 @@ import s from './ShippingInfoForm.module.scss'
 import Link from 'next/link'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import { Shipping } from 'src/components/icons'
+import { CheckOutForm } from 'src/utils/types.utils'
 
-interface ShippingInfoFormProps {}
+interface ShippingInfoFormProps {
+  onConfirm?: (id:number,formInfo:CheckOutForm)=>void
+  id:number
+}
 
 const option = [
   {
@@ -16,20 +20,20 @@ const option = [
   },
 ]
 
-const ShippingInfoForm = ({}: ShippingInfoFormProps) => {
+const ShippingInfoForm = ({onConfirm,id}: ShippingInfoFormProps) => {
   const addressRef = useRef<CustomInputCommon>(null)
   const cityRef = useRef<CustomInputCommon>(null)
   const stateRef = useRef<CustomInputCommon>(null)
   const codeRef = useRef<CustomInputCommon>(null)
   const phoneRef = useRef<CustomInputCommon>(null)
   const handleConfirmClick = () => {
-    return {
-      address: addressRef?.current?.getValue(),
-      city: cityRef.current?.getValue(),
-      state: stateRef?.current?.getValue(),
-      code: codeRef.current?.getValue(),
-      phone: phoneRef?.current?.getValue(),
-    }
+    onConfirm && onConfirm(id,{
+      address: addressRef?.current?.getValue().toString(),
+      city: cityRef.current?.getValue().toString(),
+      state: stateRef?.current?.getValue().toString(),
+      code: Number(codeRef.current?.getValue()),
+      phone: Number(phoneRef?.current?.getValue()),
+    })
   }
 
   return (

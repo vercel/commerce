@@ -7,8 +7,9 @@ interface CheckoutCollapseProps {
   children: React.ReactNode
   title: string
   isEdit: boolean
-  onClose: () => void
-  onOpen: () => void
+  onClose?: (id:number) => void
+  onOpen?: (id:number) => void
+  onEditClick?:(id:number) => void
 }
 
 const CheckoutCollapse = ({
@@ -19,13 +20,17 @@ const CheckoutCollapse = ({
   visible,
   onOpen,
 	onClose,
+  onEditClick
 }: CheckoutCollapseProps) => {
 	const handleTitleClick = () => {
 		if(visible){
-			onClose && onClose()
+			onClose && onClose(id)
 		}else{
-			onOpen && onOpen()
+			onOpen && onOpen(id)
 		}
+	}
+  const handleEdit = () => {
+		onEditClick && onEditClick(id)
 	}
   return (
     <div className={s.warpper}>
@@ -38,7 +43,7 @@ const CheckoutCollapse = ({
             {title}
           </div>
         </div>
-        {isEdit && <div className={s.edit}>{'Edit'}</div>}
+        {isEdit && <div className={s.edit} onClick={handleEdit}>{'Edit'}</div>}
       </div>
       <div className={classNames(s.body, { [`${s.show}`]: visible })}>{children}</div>
     </div>

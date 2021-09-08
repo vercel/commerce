@@ -1,0 +1,7 @@
+.warpper{
+    @apply w-full;
+    .title{
+        padding: 3.2rem 0;
+        @apply flex justify-start items-center
+    }
+}
