@@ -61,7 +61,7 @@ const PaginationCommon = ({
       })}
       <div
         className={classNames(s.item, {
-          [`${s.disable}`]: currentPage >= pageNum - 1,
+          [s.disable]: currentPage >= pageNum - 1,
         })}
         onClick={onNextClick}
       >
