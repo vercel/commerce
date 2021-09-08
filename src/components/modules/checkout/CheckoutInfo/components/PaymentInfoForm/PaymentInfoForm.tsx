@@ -1,19 +1,26 @@
 import React from 'react'
-import TabPane from 'src/components/common/TabCommon/components/TabPane/TabPane'
-import TabCommon from 'src/components/common/TabCommon/TabCommon'
+import { TabCommon, TabPane } from 'src/components/common'
+import { CheckOutForm } from 'src/utils/types.utils'
+import BankTransfer from '../BankTransfer/BankTransfer'
+
 import s from "./PaymentInfoForm.module.scss"
 interface PaymentInfoFormProps {
-    
+    onConfirm?: (id:number,formInfo:CheckOutForm)=>void
+    id:number
 }
 
 const PaymentInfoForm = ({}: PaymentInfoFormProps) => {
     return (
-        <div className={s.warpper}>
+        <div className="">
             <TabCommon>
-                {/* <TabPane tabName="Bank Transfer">
-
-                </TabPane> */}
+                <TabPane tabName = "Bank Transfer">
+                    <BankTransfer/>
+                </TabPane>
+                <TabPane tabName = "Bank Transfer 2">
+                    <BankTransfer/>
+                </TabPane>
             </TabCommon>
+            
         </div>
     )
 }

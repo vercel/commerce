@@ -3,7 +3,7 @@ import React from "react"
 import s from './TabPane.module.scss'
 
 export interface TabPaneProps {
-    active: boolean;
+    active?: boolean;
     children?: React.ReactNode;
     tabName: string
 }

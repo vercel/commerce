@@ -4,6 +4,7 @@ import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCol
 import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
+import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
 import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
 interface CheckoutInfoProps {}
 
@@ -43,6 +44,11 @@ const CheckoutInfo = ({}: CheckoutInfoProps) => {
       id: 2,
       title: 'Shipping Information',
       form: <ShippingInfoForm onConfirm={onConfirm} id={2}/>,
+    },
+    {
+      id: 3,
+      title: 'Payment Information',
+      form: <PaymentInfoForm onConfirm={onConfirm} id={3}/>,
     },
   ]
   return (
