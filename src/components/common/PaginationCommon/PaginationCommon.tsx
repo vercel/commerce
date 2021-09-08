@@ -54,7 +54,7 @@ const PaginationCommon = ({
           <PaginationItem
             page={index}
             onClick={onPageClick}
-            key={`${index}-item`}
+            key={index}
             active={index === currentPage}
           />
         )
