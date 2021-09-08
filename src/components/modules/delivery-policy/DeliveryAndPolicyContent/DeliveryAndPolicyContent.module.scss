@@ -1,5 +1,7 @@
+@import "../../../../styles/utilities";
+
 .wrapper {
-    @apply flex justify-center pt-20 pb-28;
+    @apply flex justify-center pt-20 pb-28 spacing-horizontal;
     .deliveryAndPolicyContentWrapper {
         max-width: 80.4rem;
         min-height: 4rem;
