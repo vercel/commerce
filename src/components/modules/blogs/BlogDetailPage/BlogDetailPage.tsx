@@ -1,18 +1,15 @@
 import React from 'react';
-
-import  avt  from '../BlogDetailImg/img/blogdetail.png';
-import imageAuthor from '../../../common/Author/img/author.png';
-
-import s from './BlogDetailPage.module.scss';
-import BlogContent from '../BlogContent/BlogContent';
-import { BlogDetailImg } from '..';
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon';
 import RelevantBlogPosts from 'src/components/common/RelevantBlogPosts/RelevantBlogPosts';
 import { ROUTE } from 'src/utils/constanst.utils';
-
 import image15 from '../../../../../public/assets/images/image15.png';
-import image16 from '../../../../../public/assets/images/image16.png'
-import image17 from '../../../../../public/assets/images/image17.png'
+import image16 from '../../../../../public/assets/images/image16.png';
+import image17 from '../../../../../public/assets/images/image17.png';
+import imageAuthor from '../../../common/Author/img/author.png';
+import BlogContent from '../BlogContent/BlogContent';
+import BlogDetailImg from '../BlogDetailImg/BlogDetailImg';
+import avt from '../BlogDetailImg/img/blogdetail.png';
+import s from './BlogDetailPage.module.scss';
 
 const BLOGDETAIL=
   {
@@ -20,7 +17,7 @@ const BLOGDETAIL=
     title:'The Best Sesame Soy Broccoli Salad',
     imageAuthor:imageAuthor.src,
     nameAuthor:'Alessandro Del Piero',
-  };
+};
 
 const CRUMBS =[
     {
@@ -89,7 +86,6 @@ const BlogDetailPage = () => {
         <div className={s.relevantBlogPosts}>
             <RelevantBlogPosts data={BLOGS} title="You will like also" bgcolor="cream"/>
         </div>
-            
         </>
     )
 }
