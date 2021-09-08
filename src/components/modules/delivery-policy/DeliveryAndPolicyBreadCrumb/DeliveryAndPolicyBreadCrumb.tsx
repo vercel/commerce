@@ -7,8 +7,8 @@ const CRUMB_DATA = [
         name: "Home"
     },
     {
-        link: "/blog",
-        name: "Blog"
+        link: "/delivery-policy",
+        name: "Delivery And Policy"
     }
 ]
 const DeliveryAndPolicyBreadCrumb = () => {
