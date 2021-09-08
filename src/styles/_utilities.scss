@@ -149,6 +149,7 @@
             .line {
                 @apply flex justify-between items-center;
                 > div {
+                    flex: 1;
                     &:not(:last-child) {
                         margin-right: 1.6rem;
                     }
