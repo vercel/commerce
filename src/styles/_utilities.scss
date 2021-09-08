@@ -120,6 +120,25 @@
         font-family: var(--font-logo);
     }
 
+    .custom-scroll {
+        overflow-y: auto;
+        &::-webkit-scrollbar-track {
+            background-color: var(--background-gray);
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar {
+            border-radius: 10px;
+            width: 6px;
+            background-color: var(--background-gray);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: var(--primary)
+        }
+    }
+
     .u-form {
         .body {
             > div {
@@ -130,11 +149,17 @@
             .line {
                 @apply flex justify-between items-center;
                 > div {
+                    flex: 1;
                     &:not(:last-child) {
                         margin-right: 1.6rem;
                     }
                 }
             }
         }
+    }
+
+    .u-icon {
+        width: 2rem;
+        height: 2rem;
     }
 }

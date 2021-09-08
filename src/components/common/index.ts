@@ -19,7 +19,6 @@ export { default as DateTime} from './DateTime/DateTime'
 export { default as HeadingCommon } from './HeadingCommon/HeadingCommon'
 export { default as CollectionHeading } from './CollectionHeading/CollectionHeading'
 export { default as ScrollToTop } from './ScrollToTop/ScrollToTop'
-export { default as ScrollTarget } from './ScrollToTop/ScrollTarget'
 export { default as InputSearch} from './InputSearch/InputSearch'
 export { default as ButtonIconBuy} from './ButtonIconBuy/ButtonIconBuy'
 export { default as Banner} from './Banner/Banner'
@@ -33,3 +32,10 @@ export { default as ModalConfirm} from "./ModalConfirm/ModalConfirm"
 export { default as ModalInfo} from "./ModalInfo/ModalInfo"
 export { default as ProductList} from "./ProductList/ProductList"
 export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreateUserInfo'
+export { default as CardBlog} from './CardBlog/CardBlog'
+export { default as RelevantBlogPosts} from './RelevantBlogPosts/RelevantBlogPosts'
+export { default as CollapseCommon} from './CollapseCommon/CollapseCommon'
+export { default as ImgWithLink} from './ImgWithLink/ImgWithLink'
+export { default as RecipeDetail} from './RecipeDetail/RecipeDetail'
+export { default as DrawerCommon} from './DrawerCommon/DrawerCommon'
+export { default as CartDrawer} from './CartDrawer/CartDrawer'

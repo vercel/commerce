@@ -1,18 +1,19 @@
 import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { ArrowLeftSmall, ArrowRightSmall } from 'src/components/icons'
+import { DEFAULT_PAGE_SIZE } from 'src/utils/constanst.utils'
 import PaginationItem from './components/PaginationItem'
 import s from './PaginationCommon.module.scss'
 interface PaginationCommonProps {
   defaultCurrent?: number
-  pageSize: number
+  pageSize?: number
   total: number
   onChange?: (page: number, pageSize: number) => void
 }
 
 const PaginationCommon = ({
   total,
-  pageSize,
+  pageSize=DEFAULT_PAGE_SIZE,
   defaultCurrent,
   onChange,
 }: PaginationCommonProps) => {

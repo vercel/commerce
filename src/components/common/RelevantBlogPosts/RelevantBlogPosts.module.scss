@@ -1,0 +1,19 @@
+@import '../../../styles/utilities';
+
+.blogPostWarpper {
+  &.cream{
+    background-color: #F5F4F2;
+  }
+  padding-top: 5.6rem;
+  padding-bottom: 5.2rem;
+  @apply flex flex-col;
+  .top {
+    @apply spacing-horizontal flex w-full justify-between;
+    padding-bottom: 3.2rem;
+    @screen xl {
+      .right {
+        margin-right: 2.476rem;
+      }
+    }
+  }
+}

@@ -16,9 +16,9 @@ const MenuDropdown = ({ options, children, isHasArrow = true, align }: Props) =>
             [s.menuDropdown]: true,
             [s.arrow]: isHasArrow,
         })}>
-            <span className={s.label}>
+            <button className={s.label}>
                 {children}
-            </span>
+            </button>
             <section className={classNames({
                 [s.menu]: true,
                 [s.left]: align === 'left',

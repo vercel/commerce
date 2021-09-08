@@ -6,6 +6,9 @@
         width: 100%;
         max-height: 22rem;
         border-radius: 2.4rem;
+        img {
+            border-radius: 2.4rem;
+        }
         &:hover{
             cursor: pointer;
         }

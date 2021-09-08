@@ -4,7 +4,7 @@ interface Props {
     initialValue?: boolean,
 }
 
-export const useModalCommon = ({ initialValue = false }: Props) => {
+const useModalCommon = ({ initialValue = false }: Props) => {
     const [visible, setVisible] = useState<boolean>(initialValue)
 
     const openModal = (e?: any) => {
@@ -21,3 +21,5 @@ export const useModalCommon = ({ initialValue = false }: Props) => {
         visible, openModal, closeModal
     }
 };
+
+export default useModalCommon
