@@ -1,7 +1,7 @@
 import React, { RefObject, useEffect } from "react"
 import s from './TabCommon.module.scss'
 
-import TabItem from './TabItem/TabItem'
+import TabItem from './components/TabItem/TabItem'
 
 interface TabCommonProps {
     tabs: {ref:RefObject<HTMLLIElement>, tabName: string, active: boolean, onClick: (tabIndex: number, tabPane?: string) => void}[];
