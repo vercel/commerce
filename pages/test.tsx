@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ButtonCommon, Layout, ModalInfo } from 'src/components/common'
+import { ButtonCommon, Layout } from 'src/components/common'
 
 import CheckoutSuccess from 'src/components/modules/checkout/CheckoutSuccess/CheckoutSuccess'
 
