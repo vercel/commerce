@@ -216,7 +216,6 @@ const RecipesListPage = () => {
                     </div>
                     <RecipesList recipes={RECIPES}/>
                 </div>
-
             </div>
        </div>
     )

@@ -1,1 +1,1 @@
-export { default as BlogDetailImg } from './BlogDetailImg/BlogDetailImg'
+export { default as BlogDetailPage } from './BlogDetailPage/BlogDetailPage'
