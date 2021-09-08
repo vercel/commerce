@@ -17,9 +17,20 @@
     }
 
     .label {
+        all: unset;
         @apply flex justify-end items-center transition-all duration-200;
         svg path {
             width: fit-content;
+        }
+        &:focus,
+        &:active {
+            color: var(--primary);
+            svg path {
+                fill: currentColor;
+            }
+        }
+        &:focus-visible {
+            outline: 2px solid #000;
         }
     }
 
@@ -63,8 +74,9 @@
             @apply rounded list-none bg-white;
             border: 1px solid var(--text-active);
             margin-top: 0.4rem;
-            li {
+            > li {
                 @apply block w-full transition-all duration-200 cursor-pointer text-active;
+                white-space: nowrap;
                 button {
                     all: unset;
                     color: currentColor;

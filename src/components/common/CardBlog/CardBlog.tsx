@@ -1,21 +1,27 @@
 import Link from 'next/link'
 import React from 'react'
-import { RecipeProps } from 'src/utils/types.utils'
+import { ROUTE } from 'src/utils/constanst.utils'
+import { BlogProps } from 'src/utils/types.utils'
 import s from './CardBlog.module.scss'
-export interface BlogCardProps extends RecipeProps {
-    link: string,
+export interface BlogCardProps extends BlogProps {
+  // todo: edit when intergrate API
+
 }
 
-const CardBlog = ({ imageSrc, title, description, link }: BlogCardProps) => {
+const CardBlog = ({ imageSrc, title, description, slug }: BlogCardProps) => {
   return (
     <div className={s.cardBlogWarpper}>
-      <Link href={link}>
-        <div className={s.image}>
-          <img src={imageSrc} alt="image cardblog" />
-        </div>
+      <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
+        <a>
+          <div className={s.image}>
+            <img src={imageSrc} alt="image cardblog" />
+          </div>
+        </a>
       </Link>
-      <Link href={link}>
-        <div className={s.title}>{title}</div>
+      <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
+        <a>
+          <div className={s.title}>{title}</div>
+        </a>
       </Link>
       <div className={s.description}>{description}</div>
     </div>

@@ -1,11 +1,10 @@
 import React from 'react'
 import s from './BreadcrumbCommon.module.scss'
-
 import BreadcrumbItem from './components/BreadcrumbItem/BreadcrumbItem'
 import BreadcrumbSeparator from './components/BreadcrumbSeparator/BreadcrumbSeparator'
 
 interface BreadcrumbCommonProps {
-    crumbs: { link:string, name:string }[];
+    crumbs: { link: string, name: string }[];
     showHomePage?: boolean;
 }
 

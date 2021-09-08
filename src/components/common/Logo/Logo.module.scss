@@ -1,7 +1,7 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 
 .logo {
-    display: flex;
+    @apply flex justify-center items-center;
     .eclipse {
         width: 3.2rem;
         height: 3.2rem;
@@ -10,7 +10,7 @@
         margin-right: 1.2rem;
     }
     .content {
-        @apply font-logo;
+        @apply font-logo font-bold;
         font-size: 16px;
         line-height: 32px;
         letter-spacing: -0.02em;
