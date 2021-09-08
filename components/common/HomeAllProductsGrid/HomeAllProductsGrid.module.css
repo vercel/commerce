@@ -1,7 +1,0 @@
-.root {
-  @apply flex flex-col w-full;
-
-  @screen md {
-    @apply flex-row;
-  }
-}

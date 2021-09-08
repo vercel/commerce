@@ -1,13 +1,8 @@
 import { useState } from 'react'
 import {
   ButtonCommon,
-  Layout,
-  ModalCommon,
-  ModalConfirm,
-  ModalInfo,
-  ProductCarousel,
+  Layout, ModalInfo
 } from 'src/components/common'
-
 export default function Test() {
   const [visible, setVisible] = useState(false)
   const onClose = () => {
