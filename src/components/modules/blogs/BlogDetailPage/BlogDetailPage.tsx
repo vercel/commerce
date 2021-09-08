@@ -33,7 +33,7 @@ const CRUMBS =[
     }
 ]
 
-const recipe = [
+const BLOGS = [
     {
         title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
         description:"The DEBM diet stands for "+'"Delicious Happy Fun Diet"'+". This diet was popularized by Robert...",
@@ -87,7 +87,7 @@ const BlogDetailPage = () => {
                 nameAuthor={BLOGDETAIL.nameAuthor}/>
         </div>
         <div className={s.relevantBlogPosts}>
-            <RelevantBlogPosts title="You will like also" />
+            <RelevantBlogPosts data={BLOGS} title="You will like also" bgcolor="cream"/>
         </div>
             
         </>

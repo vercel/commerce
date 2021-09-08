@@ -1,69 +1,82 @@
 @import "../../../styles/utilities";
 
-.select{
+.select {
     background-color: var(--white);
-    &.base{
+    &.base {
         width: 20.6rem;
-        .selectTrigger{
+        .selectTrigger {
             width: 20.6rem;
             padding: 1.2rem 1.6rem;
         }
     }
-    &.large{
+    &.large {
         width: 34.25rem;
-        .selectTrigger{
+        .selectTrigger {
             width: 34.25rem;
             padding: 1.6rem 1.6rem;
         }
     }
-    &.default{
-        .selectTrigger{
+    &.default {
+        .selectTrigger {
             @apply border-solid border border-current;
         }   
     }
-    &.custom{
-        .selectTrigger{
+    &.custom {
+        .selectTrigger {
             @apply border-2;
             border-color: var(--border-line);
             color: var(--text-label);
         }
     }
-    &.isActive{
-        .selectOptionWrapper{
+    &:hover {
+        cursor: pointer;
+        .hoverWrapper {
             @apply block;
+            animation: SelectAnimation 0.2s ease-out;
         }
     }
 }
-.selectTrigger{
+.selectTrigger {
     @apply outline-none flex justify-between;
     color: var(--text-active);
     border-radius: 0.8rem;
 
 }
-.selectOptionWrapper{
-    @apply outline-none hidden z-10 absolute;
-    border-radius: 0.8rem;
-    background-color: var(--white);
-    padding: 0.4rem 0rem 0.4rem 0rem;
-    margin-top: 0.6rem;
-    &.base{
-        width: 20.6rem;
+.hoverWrapper {
+    @apply hidden outline-none absolute z-10;
+    padding-top: 0.6rem;
+    .selectOptionWrapper {
+        border-radius: 0.8rem;
+        background-color: var(--white);
+        padding: 0.4rem 0rem 0.4rem 0rem;
+        &.base {
+            width: 20.6rem;
+        }
+        &.large {
+            width: 34.25rem;
+        }
+        &.default {
+            @apply border-solid border border-current; 
+        }
+        &.custom {
+            @apply border-2;
+            border-color: var(--border-line);
+            color: var(--text-label);
+        }
     }
-    &.large{
-        width: 34.25rem;
-    }
-    &.default{
-        @apply border-solid border border-current; 
-    }
-    &.custom{
-        @apply border-2;
-        border-color: var(--border-line);
-        color: var(--text-label);
-    }
-    &.active{
-        @apply hidden;
+    &:hover {
+        @apply block;
     }
 }
 
 
-
+@keyframes SelectAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(1.6rem);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}

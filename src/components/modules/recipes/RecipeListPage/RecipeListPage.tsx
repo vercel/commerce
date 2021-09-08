@@ -25,45 +25,89 @@ const BREADCRUMB = [
 ];
 
 const CATEGORY = [
+    {
+        name: 'All',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=${OPTION_ALL}`,
+    },
+    {
+        name: 'Malaysian',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=malaysia`,
+    },
+    {
+        name: 'Vietnamese',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=vietnamese`,
+    },
+    {
+        name: 'Thailand',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=thailand`,
+    },
+    {
+        name: 'Indian',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=indian`,
+    },
+    {
+        name: 'Lao',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=lao`,
+    },
+    {
+      name: 'Chinese',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=chinese`,
+    },
+    {
+      name: 'Korean',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=korean`,
+    },
+    {
+      name: 'Japanese',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=japanese`,
+    }, 
+    {
+      name: 'Western',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=western`,
+    },
+  ];
+
+
+const CATEGORYSELECT = [
       {
           name: 'All',
-          link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=${OPTION_ALL}`,
+          value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=${OPTION_ALL}`,
       },
       {
           name: 'Malaysian',
-          link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=malaysia`,
+          value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=malaysia`,
       },
       {
           name: 'Vietnamese',
-          link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=vietnamese`,
+          value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=vietnamese`,
       },
       {
           name: 'Thailand',
-          link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=thailand`,
+          value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=thailand`,
       },
       {
           name: 'Indian',
-          link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=indian`,
+          value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=indian`,
       },
       {
           name: 'Lao',
-          link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=lao`,
+          value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=lao`,
       },
       {
         name: 'Chinese',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=chinese`,
+        value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=chinese`,
       },
       {
         name: 'Korean',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=korean`,
+        value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=korean`,
       },
       {
         name: 'Japanese',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=japanese`,
+        value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=japanese`,
       }, 
       {
         name: 'Western',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=western`,
+        value: `${ROUTE.PRODUCTS}/?${QUERY_KEY.RECIPES}=western`,
       },
     ];
 
@@ -112,13 +156,16 @@ const RECIPES = [
 
 const OPTIONSLECT=[
     {
-        name:"SORT BY 1"
+        name:"SORT BY 1",
+        value:"1"
     },
     {
-        name:"SORT BY 2"
+        name:"SORT BY 2",
+        value:"2"
     },
     {
-        name:"SORT BY 3"
+        name:"SORT BY 3",
+        value:"3"
     },
 ]
 const BANNER =[
@@ -155,16 +202,16 @@ const RecipesListPage = () => {
                 <div className={s.recipesList}>
                     <div className={s.sortByDesktop}>
                         <HeadingCommon align='left'>SPECIAL RECIPES</HeadingCommon>
-                        <SelectCommon option={OPTIONSLECT} />
+                        <SelectCommon option={OPTIONSLECT} placeholder="Sort By" />
                     </div>
                     <div className={s.selectMobile}>
                         <div>
                             <label htmlFor="">Categories</label>
-                            <SelectCommon option={CATEGORY}/>
+                            <SelectCommon option={CATEGORYSELECT} placeholder="Categories"/>
                         </div>
                         <div>
                             <label htmlFor="">Sort By</label>
-                            <SelectCommon option={OPTIONSLECT} />
+                            <SelectCommon option={OPTIONSLECT} placeholder="Sort By" />
                         </div>
                     </div>
                     <RecipesList recipes={RECIPES}/>

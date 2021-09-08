@@ -3,9 +3,14 @@
     padding: 0 0 3.2rem  3.2rem;
 }
 .blogDetailPageWrapper{
+   padding: 0 2rem;
     @screen md {
+        width: 90%;
+        margin:0 auto;
+    }
+    @screen xl{
         width: 60%;
-        margin: 0 auto;
+        margin:0 auto;
     }
     .avt{
         margin-bottom: 4rem;

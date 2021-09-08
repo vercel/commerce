@@ -14,4 +14,7 @@
     &:hover{
         background-color: var(--gray);
     }
+    &.isChoose{
+        background-color: var(--gray);
+    }
 }

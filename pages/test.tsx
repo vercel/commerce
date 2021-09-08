@@ -65,6 +65,7 @@ export default function Test() {
 
   return (
     <>
+      {/* <RecipeDetail /> */}
       <BlogDetailPage />
       
       {/* <RecipeListPage/> */}

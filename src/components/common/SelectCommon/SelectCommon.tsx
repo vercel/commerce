@@ -1,43 +1,25 @@
 import s from './SelectCommon.module.scss'
 import classNames from 'classnames'
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { IconVectorDown } from 'src/components/icons'
 import SelectOption from './SelectOption/SelectOption'
 
 interface Props {
-    children? : React.ReactNode,
+    placeholder? : string,
     size?: 'base' | 'large',
     type?: 'default' | 'custom',
-    option: {name: string}[],
+    option: {name: string, value: string}[],
+    onChange?: (value: string) => void,
 }
 
-const SelectCommon = ({ type = 'default', size = 'base', option, children }: Props) => {
-    const [isActive, setActive] = useState(false)
-    const [selectedName, setSelectedName] = useState(children)
-    const ref = useRef<HTMLDivElement>(null)
-    
-    useEffect(() => {
-        const handleClick = (event: MouseEvent) => {
-            const { target } = event;
-            if (!ref?.current || ref?.current.contains(target as Node)) {
-                return 
-            }
-            else{
-                setActive(false)
-            }
-        }
-        document.addEventListener('click', handleClick)
-        return () => {
-            document.removeEventListener('click', handleClick)
-        }
-    }, [ref])
+const SelectCommon = ({ type = 'default', size = 'base', option, placeholder, onChange}: Props) => {
+    const [selectedName, setSelectedName] = useState(placeholder)
+    const [selectedValue, setSelectedValue] = useState('')
 
-    const changeActiveStatus = () => {
-        setActive(!isActive)
-    }
-
-    const changeSelectedName = (item:string) => {
+    const changeSelectedName = (item:string, value: string) => {
+        setSelectedValue(value)
         setSelectedName(item)
+        onChange && onChange(value)
     }
     return(
         <>
@@ -45,29 +27,29 @@ const SelectCommon = ({ type = 'default', size = 'base', option, children }: Pro
                 [s.select] : true,
                 [s[size]] : !!size,
                 [s[type]] : !!type,
-                [s.isActive] : isActive,
             })}
-                onClick = { changeActiveStatus }
-                ref = {ref}
             >
                 <div className={classNames({
                     [s.selectTrigger] : true,
                     
                 })}
                 >{selectedName}<IconVectorDown /></div>
-
-                <div className={classNames({
-                    [s.selectOptionWrapper] : true,
-                    [s[type]] : !!type,
-                    [s[size]] : !!size,
-                })}
-                >   
-                    {
-                        option.map(item => 
-                            <SelectOption itemName={item.name} onClick={changeSelectedName} size={size} />
-                        )
-                    }
+                
+                <div className={s.hoverWrapper}>
+                    <div className={classNames({
+                        [s.selectOptionWrapper] : true,
+                        [s[type]] : !!type,
+                        [s[size]] : !!size,
+                    })}
+                    >   
+                        {
+                            option.map(item => 
+                                <SelectOption itemName={item.name} value={item.value} onClick={changeSelectedName} size={size} selected={(selectedValue === item.value)} />
+                            )
+                        }
+                    </div>
                 </div>
+
             </div>
         </>
     )
