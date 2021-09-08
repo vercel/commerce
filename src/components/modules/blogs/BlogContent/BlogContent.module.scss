@@ -1,0 +1,32 @@
+@import "../../../../styles/_utilities";
+
+.blogContentWrapper{
+  
+    h1{
+        @apply heading-2;
+    }
+    .author{
+        padding: 2rem 0;
+    }
+    .content{
+        .heading2{
+            @apply heading-3 ;
+        }
+        img{
+            width: 100%;
+        }
+    }
+    .boxShare{
+        @apply flex font-bold;
+        margin: 4rem 0;
+        color: var(--text-active);
+        .listIcon{
+            ul{
+                @apply flex;
+                li{
+                    margin: 0px 1.6rem;
+                }
+            }
+        }
+    }
+}

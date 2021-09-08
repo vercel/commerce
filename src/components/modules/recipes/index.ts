@@ -1,1 +1,1 @@
-export { default as RecipesListPage } from './RecipesListPage/RecipesListPage'
+export { default as RecipeListPage } from './RecipeListPage/RecipeListPage'

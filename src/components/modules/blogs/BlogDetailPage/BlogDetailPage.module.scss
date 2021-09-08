@@ -1,0 +1,13 @@
+@import "../../../../styles/_utilities";
+.beadcrumb{
+    padding: 0 0 3.2rem  3.2rem;
+}
+.blogDetailPageWrapper{
+    @screen md {
+        width: 60%;
+        margin: 0 auto;
+    }
+    .avt{
+        margin-bottom: 4rem;
+    }
+}

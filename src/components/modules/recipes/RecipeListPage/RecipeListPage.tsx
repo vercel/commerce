@@ -12,7 +12,7 @@ import blog3 from './img/blog3.png';
 import blog4 from './img/blog4.png';
 import blog5 from './img/blog5.png';
 import blog6 from './img/blog6.png';
-import s from './RecipesListPage.module.scss';
+import s from './RecipeListPage.module.scss';
 const BREADCRUMB = [
     {
         name: 'Home',
