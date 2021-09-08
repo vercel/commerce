@@ -33,7 +33,9 @@ export const QUERY_KEY = {
     TAB: 'tab',
     CATEGORY: 'category',
     BRAND: 'brand',
-    FEATURED: 'feature'
+    FEATURED: 'feature',
+    SORTBY:'sortby',
+    RECIPES:'recipes'
 }
 
 export enum ProductFeature {
@@ -47,3 +49,4 @@ export const KEY = {
     ENTER: 'Enter',
 }
 
+export const OPTION_ALL = 'all';
