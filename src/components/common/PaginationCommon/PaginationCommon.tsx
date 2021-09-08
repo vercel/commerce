@@ -55,14 +55,14 @@ const PaginationCommon = ({
           <PaginationItem
             page={index}
             onClick={onPageClick}
-            key={`${index}-item`}
+            key={index}
             active={index === currentPage}
           />
         )
       })}
       <div
         className={classNames(s.item, {
-          [`${s.disable}`]: currentPage >= pageNum - 1,
+          [s.disable]: currentPage >= pageNum - 1,
         })}
         onClick={onNextClick}
       >
