@@ -65,10 +65,9 @@ export default function Test() {
 
   return (
     <>
-      {/* <RecipeDetail /> */}
-      <BlogDetailPage />
+      {/* <BlogDetailPage /> */}
       
-      {/* <RecipeListPage/> */}
+      <RecipeListPage/>
 
       {/* <MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>
       <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={BRAND}/> */}

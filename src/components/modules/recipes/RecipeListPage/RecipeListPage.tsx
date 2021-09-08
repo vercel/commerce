@@ -114,40 +114,40 @@ const CATEGORYSELECT = [
 const RECIPES = [
     {
         id: '1',
-        image: blog1,
+        image: blog1.src,
         title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
         description: 'The DEBM diet stands for "Delicious Happy Fun Diet". This diet was popularized by Robert...',
         link: `${ROUTE.PRODUCTS}?${QUERY_KEY.RECIPES}=veggie`
     }, {
         id: '2',
-        image: blog2,
+        image: blog2.src,
         title: "9 Ways to Make an Aloe Vera Mask at Home",
         description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
         link: `${ROUTE.PRODUCTS}?${QUERY_KEY.RECIPES}=seafood`
     }
     , {
         id: '3',
-        image: blog3,
+        image: blog3.src,
         title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
         description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
         link: `${ROUTE.PRODUCTS}?${QUERY_KEY.RECIPES}=coffee-bean`
     }
     , {
         id: '4',
-        image: blog4,
+        image: blog4.src,
         title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
         description: 'The DEBM diet stands for "Delicious Happy Fun Diet". This diet was popularized by Robert...',
         link: `${ROUTE.PRODUCTS}?${QUERY_KEY.RECIPES}=sauce`,
     }, {
         id: '5',
-        image: blog5,
+        image: blog5.src,
         title: "9 Ways to Make an Aloe Vera Mask at Home",
         description: 'Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...',
         link: `${ROUTE.PRODUCTS}?${QUERY_KEY.RECIPES}=sauce`,
     }
     , {
         id: '6',
-        image: blog6,
+        image: blog6.src,
         title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
         description: 'Dragon fruit is a type of fruit that is a favorite for many people because of its delicious and fresh...',
         link: `${ROUTE.PRODUCTS}?${QUERY_KEY.RECIPES}=sauce`,

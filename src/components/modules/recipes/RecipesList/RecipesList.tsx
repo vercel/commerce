@@ -8,7 +8,7 @@ interface Props{
     recipes:{
         id:string,
         title:string,
-        image:StaticImageData,
+        image:string,
         description:string,
         link:string
     }[],

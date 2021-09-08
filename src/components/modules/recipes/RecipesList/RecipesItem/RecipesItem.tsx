@@ -1,11 +1,10 @@
-import Image from "next/image";
 import Link from 'next/link';
 import React from 'react';
 import s from './RecipesItem.module.scss';
 
 
 interface RecipesItem {
-    image:StaticImageData,
+    image:string,
     name: string,
     description:string,
     link: string
@@ -17,7 +16,7 @@ const RecipesItem = ({ image, name,description, link }: RecipesItem) => {
             <div className={s.recipesItemImage}>
                 <Link href={link}>
                     <a>
-                        <Image src={image} />
+                        <img src={image} />
                     </a>
                 </Link>
             </div>
