@@ -75,9 +75,9 @@ fragment productInfo on Product {
             attributeFQN
             value 
           }
-         }
-                
-         categories {
+        }
+        
+        categories {
           categoryCode
           categoryId
           content { 
@@ -85,7 +85,7 @@ fragment productInfo on Product {
             slug
           }
         }
-      
+        
         ...productPrices
         ...productAttributes
         ...productContent
