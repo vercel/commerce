@@ -7,7 +7,12 @@ import s from './BlogDetailPage.module.scss';
 import BlogContent from '../BlogContent/BlogContent';
 import { BlogDetailImg } from '..';
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon';
+import RelevantBlogPosts from 'src/components/common/RelevantBlogPosts/RelevantBlogPosts';
+import { ROUTE } from 'src/utils/constanst.utils';
 
+import image15 from '../../../../../public/assets/images/image15.png';
+import image16 from '../../../../../public/assets/images/image16.png'
+import image17 from '../../../../../public/assets/images/image17.png'
 
 const BLOGDETAIL=
   {
@@ -27,6 +32,39 @@ const CRUMBS =[
         link:"/blog"
     }
 ]
+
+const recipe = [
+    {
+        title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
+        description:"The DEBM diet stands for "+'"Delicious Happy Fun Diet"'+". This diet was popularized by Robert...",
+        imageSrc: image15.src,
+        link: `${ROUTE.BLOG_DETAIL}`
+    },{
+        title: "9 Ways to Make an Aloe Vera Mask at Home",
+        description:"Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...",
+        imageSrc: image16.src,
+        link: `${ROUTE.BLOG_DETAIL}`
+    },{
+        title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
+        description:"Dragon fruit is a type of fruit that is a favorite for many people because of its delicious and fresh...",
+        imageSrc: image17.src,
+        link: `${ROUTE.BLOG_DETAIL}`
+    },{
+        title: "Want to Lose Weight? Here are 10 DEBM Diet Guidelines for Beginners",
+        description:"The DEBM diet stands for "+'"Delicious Happy Fun Diet"'+". This diet was popularized by Robert...",
+        imageSrc: image15.src,
+        link: `${ROUTE.BLOG_DETAIL}`
+    },{
+        title: "9 Ways to Make an Aloe Vera Mask at Home",
+        description:"Aloe vera or  aloe vera  is a green plant, has thorns on the side of the skin with yellowish patches and...",
+        imageSrc: image16.src,
+        link: `${ROUTE.BLOG_DETAIL}`
+    },{
+        title: "Don't Buy Wrong, Here Are 7 Ways to Choose a Ripe Dragon Fruit",
+        description:"Dragon fruit is a type of fruit that is a favorite for many people because of its delicious and fresh...",
+        imageSrc: image17.src,
+        link: `${ROUTE.BLOG_DETAIL}`
+    }];
 
 const BlogDetailPage = () => {
     return (
@@ -48,7 +86,9 @@ const BlogDetailPage = () => {
                 imageAuthor={BLOGDETAIL.imageAuthor}
                 nameAuthor={BLOGDETAIL.nameAuthor}/>
         </div>
-        
+        <div className={s.relevantBlogPosts}>
+            <RelevantBlogPosts title="You will like also" />
+        </div>
             
         </>
     )
