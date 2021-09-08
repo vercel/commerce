@@ -2,27 +2,26 @@
 .tabWapper{
     @apply flex flex-col w-full;
     .tabHeader{
-        @apply relative;
+        @apply flex;
         .tabList {
             @apply flex;
             position: relative;
             border-bottom: 2px solid #FBFBFB;
             padding: 0.8rem 0;
-            width: 100%;
             &.center{
-                @apply justify-center;
+                margin: auto;
             }
         
-        }
-        .slider {
-            @apply inline-block;
-            height: .2rem;
-            border-radius: 3px;
-            background-color: var(--primary);
-            position: absolute;
-            z-index: 1200;
-            bottom: 0;
-            transition: all .25s linear;
+            .slider {
+                @apply inline-block;
+                height: .2rem;
+                border-radius: 3px;
+                background-color: var(--primary);
+                position: absolute;
+                z-index: 1200;
+                bottom: 0;
+                transition: all .25s linear;
+            }
         }
     }
 }

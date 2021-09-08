@@ -40,10 +40,11 @@ const TabCommon = ({
     const active = headerRef.current?.children
       .item(index)
       ?.getBoundingClientRect()
+		const header = headerRef.current?.getBoundingClientRect()
     const current = slider.current
-    if (current && active) {
+    if (current && active && header) {
       let width = active.width - 24 <= 0 ? 24 : active.width - 24
-      let left = active.left 
+      let left = active.left - header.left
       current.style.width = width.toString() + 'px'
       current.style.left = left.toString() + 'px'
     }
@@ -69,8 +70,8 @@ const TabCommon = ({
               </li>
             )
           })}
-        </ul>
         <div ref={slider} className={s.slider}></div>
+        </ul>
       </div>
       <div className={s.tabBody}>
 				{Children.map(children, (tab, index) => {
