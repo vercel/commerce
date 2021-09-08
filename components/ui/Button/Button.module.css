@@ -35,6 +35,15 @@
   @apply border-accent-9 bg-accent-9 text-accent-0;
 }
 
+.naked {
+  @apply bg-transparent font-semibold border-none shadow-none outline-none py-0 px-0;
+}
+
+.naked:hover,
+.naked:focus {
+  @apply bg-transparent border-none;
+}
+
 .disabled,
 .disabled:hover {
   @apply text-accent-4 border-accent-2 bg-accent-1 cursor-not-allowed;
