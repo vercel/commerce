@@ -31,7 +31,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
         options
       )
     : await config.storeApiFetch(
-        '/v3/carts?include=line_items.physical_items.options',
+        '/v3/carts?include=line_items.physical_items.options,line_items.digital_items.options',
         options
       )
 
