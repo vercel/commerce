@@ -131,15 +131,16 @@ const BlogsList = ({ data = BLOGSLIST_DATA }:BlogsListProps) => {
     const onPageChange = (page:number) => {
         setCurrentPage(page)
     }
+    
     return (
         <section>
             <div className={s.wrapper}>
                 <div className={s.list}>
                     {
-                        data.slice(currentPage*defaultBlogPageSize,(currentPage+1)*defaultBlogPageSize).map((product,index)=>{
+                        data.slice(currentPage*defaultBlogPageSize,(currentPage+1)*defaultBlogPageSize).map((product,index)=> {
                             return(
-                                <div className={s.card}>
-                                    <CardBlog {...product} key={index}/>
+                                <div className={s.card} key={`${product.title}-${index}`}>
+                                    <CardBlog {...product} />
                                 </div>
                             )
                         })
