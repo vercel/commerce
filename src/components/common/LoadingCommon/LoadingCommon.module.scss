@@ -1,0 +1,31 @@
+@import '../../../styles/utilities';
+
+.loadingCommon:empty {
+    @apply bg-white;
+    border-radius: 50%;
+    border: .7rem solid var(--primary-lightest);
+    border-top: .7rem solid var(--primary);
+    animation: spin 2s linear infinite;
+    margin: auto;
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+
+    &.small {
+        height: 5rem;
+        width: 5rem;
+    }
+
+    &.default {
+        height: 7rem;
+        width: 7rem;
+    }
+
+    &.large {
+        height: 10rem;
+        width: 10rem;
+    }
+}
