@@ -1,6 +1,7 @@
 import image15 from '../../../../public/assets/images/image15.png'
 import image16 from '../../../../public/assets/images/image16.png'
 import image17 from '../../../../public/assets/images/image17.png'
+import classNames from 'classnames'
 import React from 'react'
 import {  HeadingCommon, ViewAllItem } from 'src/components/common'
 import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
@@ -9,10 +10,11 @@ import s from './RelevantBlogPosts.module.scss'
 import { ROUTE } from 'src/utils/constanst.utils';
 
 interface RelevantProps {
-    data?: BlogCardProps[]
-    itemKey?: string
-    title?: string
-    viewAllLink?: string
+    data?: BlogCardProps[],
+    itemKey?: string,
+    title?: string,
+    viewAllLink?: string,
+    bgcolor?: "default" | "cream"
 }
 
 const recipe:BlogCardProps[] = [
@@ -48,9 +50,13 @@ const recipe:BlogCardProps[] = [
     link: `${ROUTE.BLOG_DETAIL}`
 }]
 
-  const RelevantBlogPosts = ({ data = recipe, itemKey="detail-relevant", title="Relevant Blog Posts" }: RelevantProps) => {
+  const RelevantBlogPosts = ({ data = recipe, itemKey="detail-relevant", title="Relevant Blog Posts", bgcolor = "default" }: RelevantProps) => {
     return (
-      <div className={s.blogPostWarpper}>
+      <div className={classNames({
+        [s.blogPostWarpper] : true,
+        [s[bgcolor]] : bgcolor,
+      })}
+      >
         <div className={s.top}>
           <div className={s.left}>
             <HeadingCommon>{title}</HeadingCommon>
