@@ -1,5 +1,6 @@
 import { CollapseCommon, DateTime, HeadingCommon } from 'src/components/common'
 import s from './DeliveryAndPolicyContent.module.scss'
+import { ROUTE } from 'src/utils/constanst.utils'
 
 interface DeliveryAndPolicyContentProps{
     title?: string,
@@ -21,7 +22,7 @@ const DELIVERYANDPOLICY_DATA = [
         Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.
         
         This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.`,
-        link: "/title"
+        link: `${ROUTE.PRIVACY_POLICY}/title`
     },
     {
         title: "This is a subtitle",
@@ -30,7 +31,7 @@ const DELIVERYANDPOLICY_DATA = [
         Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.
         
         This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.`,
-        link: "/title"
+        link: `${ROUTE.PRIVACY_POLICY}/title`
     },
     {
         title: "This is a subtitle",
@@ -39,7 +40,7 @@ const DELIVERYANDPOLICY_DATA = [
         Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.
         
         This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.`,
-        link: "/title"
+        link: `${ROUTE.PRIVACY_POLICY}/title`
     },
     {
         title: "This is a subtitle",
@@ -48,7 +49,7 @@ const DELIVERYANDPOLICY_DATA = [
         Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.
         
         This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.`,
-        link: "/title"
+        link: `${ROUTE.PRIVACY_POLICY}/title`
     },
     {
         title: "This is a subtitle",
@@ -57,7 +58,7 @@ const DELIVERYANDPOLICY_DATA = [
         Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.
         
         This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.`,
-        link: "/title"
+        link: `${ROUTE.PRIVACY_POLICY}/title`
     },
 ]
 
