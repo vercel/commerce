@@ -1,0 +1,48 @@
+@import '../../../../styles/utilities';
+
+.checkoutSuccessWrapper {
+    @apply flex items-center justify-center;
+    margin-top: -3.2rem;
+    
+    .checkoutSuccess {
+        border-radius: 80% 90% 18% 10% / 20% 10% 27% 20%;
+        max-width: 77.6rem;
+        height: fit-content;
+        background: 
+            url('./assets/veget.png') left 0 top 0 no-repeat,
+            url('./assets/fish.png') right 0 top 0 no-repeat,
+            url('./assets/freezeShrimp.png') right 0 bottom 0 no-repeat,
+            url('./assets/coffeeBean.png') left 0 bottom 0 no-repeat;
+        background-color: #E3F2E9;
+    
+        .checkoutContent {
+            @apply text-center;
+            margin: 7.2rem 4.8rem 6.4rem 4.8rem;
+
+            .checkoutMsg {
+                @apply heading-1 font-heading;
+                margin-top: 3.2rem;
+                margin-bottom: 1.6rem;
+            }
+        
+            .checkoutSubMsg {
+                @apply sub-headline;
+                margin-bottom: 4rem;
+            }
+        
+            .backToHomeBtn {
+                @apply flex cursor-pointer font-bold items-center justify-center;
+                color: white;
+                background-color: var(--primary);
+                margin: auto;
+                // border-radius: 80% 90% 18% 10% / 20% 10% 27% 20%; // to do
+                width: fit-content;
+                padding: 1.6rem 3.2rem 1.6rem 3.2rem;
+        
+                .arrowRight {
+                    margin-left: 1.4rem;
+                }
+            }
+        }
+    }
+}

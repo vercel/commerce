@@ -15,24 +15,24 @@ interface Props {
 // note: demo code
 const Layout: FC<Props> = ({ children }) => {
     const { locale = 'en-US' } = useRouter()
-    const { visible: visibleCartDrawer, openModal, closeModal: closeCartDrawer } = useModalCommon({ initialValue: false })
+    // const { visible: visibleCartDrawer, openModal, closeModal: closeCartDrawer } = useModalCommon({ initialValue: false })
 
-    const toggle = () => {
-        if (visibleCartDrawer) {
-            closeCartDrawer()
-        } else {
-            openModal()
-        }
-    }
+    // const toggle = () => {
+    //     if (visibleCartDrawer) {
+    //         closeCartDrawer()
+    //     } else {
+    //         openModal()
+    //     }
+    // }
     return (
         <CommerceProvider locale={locale}>
             <div className={s.mainLayout}>
                 <Header />
                 <main >{children}</main>
-                <button onClick={toggle}>toggle card: {visibleCartDrawer.toString()}</button>
-                <CartDrawer
+                {/* <button onClick={toggle}>toggle card: {visibleCartDrawer.toString()}</button> */}
+                {/* <CartDrawer
                     visible={visibleCartDrawer}
-                    onClose={closeCartDrawer} />
+                    onClose={closeCartDrawer} /> */}
                 <Footer />
             </div>
         </CommerceProvider>
