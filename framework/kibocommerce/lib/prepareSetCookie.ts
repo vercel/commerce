@@ -1,5 +1,6 @@
 export function prepareSetCookie(name: string, value: string, options: any = {}): string {
-  const cookieValue = [`${name}=${value}`];
+  const encodedValue = Buffer.from(value).toString('base64')
+  const cookieValue = [`${name}=${encodedValue}`];
  
   if (options.maxAge) {
     cookieValue.push(`Max-Age=${options.maxAge}`);
@@ -8,6 +9,7 @@ export function prepareSetCookie(name: string, value: string, options: any = {})
   if (options.expires && !options.maxAge) {
     cookieValue.push(`Expires=${options.expires.toUTCString()}`);
   }
- 
-  return cookieValue.join('; ');
+   
+  const cookie = cookieValue.join('; ')
+  return cookie
 }

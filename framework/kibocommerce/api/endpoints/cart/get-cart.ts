@@ -12,7 +12,8 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
 }) => {
   let currentCart: Cart = {}
   try {
-    const token = req.cookies[config.customerCookie]
+    const encodedToken = req.cookies[config.customerCookie];
+    const token = encodedToken ? Buffer.from(encodedToken, 'base64').toString('ascii'): null;
     let accessToken = token ? JSON.parse(token).accessToken : null
 
     if (!accessToken) {

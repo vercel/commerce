@@ -5,10 +5,12 @@ ${productInfo}
 
 query products(
   $filter: String
+  $startIndex: Int
   $pageSize: Int
 ) {
   products(
     filter: $filter
+    startIndex: $startIndex
     pageSize: $pageSize
   ) {
     items {

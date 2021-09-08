@@ -25,7 +25,7 @@ export function normalizeProduct(productNode: any, config: any): any {
     id: productNode.productCode,
     name: productNode.content.productName,
     vendor: '',
-    path: productNode.productCode,
+    path: `/${productNode.productCode}`,
     slug: productNode.productCode,
     price: {
       value: productNode.price.price,
@@ -46,7 +46,7 @@ export function normalizeProduct(productNode: any, config: any): any {
         displayName:
           o.attributeFQN.split('~')[1][0].toUpperCase() +
           o.attributeFQN.split('~')[1].slice(1).toLowerCase(),
-        values: [{ label: o.value }],
+        values: [{ label: o.value.toString() }],
       })),
     })) || [
       {
@@ -59,7 +59,7 @@ export function normalizeProduct(productNode: any, config: any): any {
         id: o.attributeFQN,
         displayName: o.attributeDetail.name,
         values: o.values.map((v: any) => ({
-          label: v.value,
+          label: v.value.toString(),
           hexColors: '',
         })),
       })) || [],
