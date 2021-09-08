@@ -62,7 +62,7 @@ const recipe:BlogCardProps[] = [
             <HeadingCommon>{title}</HeadingCommon>
           </div>
           <div className={s.right}>
-            <ViewAllItem link="#"/>
+            <ViewAllItem link={ROUTE.BLOGS}/>
           </div>
         </div>
         <div className={s.bot}>
