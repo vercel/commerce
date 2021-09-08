@@ -1,70 +1,46 @@
-import { useState } from 'react'
 import {
-  ButtonCommon,
-  Layout, ModalInfo
+  CollapseCommon, Layout, RelevantBlogPosts
 } from 'src/components/common'
-import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
 
-import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList'
-import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
-const CATEGORY = [
+const COLLAPSE_DATA = [
   {
-      name: 'All',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
   },
   {
-      name: 'Veggie',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
   },
   {
-      name: 'Seafood',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
   },
   {
-      name: 'Frozen',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
-  },
-  {
-      name: 'Coffee Bean',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
-  },
-  {
-      name: 'Sauce',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
-  },
-]
-const BRAND = [
-  {
-      name: 'All',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
-  },
-  {
-      name: 'Veggie',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
-  },
-  {
-      name: 'Seafood',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
-  },
-  {
-      name: 'Frozen',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
-  },
-  {
-      name: 'Coffee Bean',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
-  },
-  {
-      name: 'Sauce',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
+    title: "This is a subtitle",
+    content: [
+      "When you’re trying to eat healthier but want something more substantial than a leafy green salad, broccoli salad is there for you. I love the crunch and heft of broccoli, especially when it’s cut up into bite size spoonable pieces.",
+      "Some people aren’t into raw broccoli, but I love it! I always go for the raw broccoli on those vegetable platters that seem to be at every potluck/party you go to.",
+      "This is a simple broccoli salad: you have the bulk of it, raw broccoli; crunchy red onions for a bit of acidity and raw crunch, craisins for sweetness, almonds for a nutty counter point; and a sweet and tangy soy-rice vinegar-sesame dressing.",
+    ],
   },
 ]
 export default function Test() {
-
   return (
     <>
-      <MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>
-      <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={BRAND}/>
+      <CollapseCommon data={COLLAPSE_DATA} />
+      <RelevantBlogPosts />
     </>
   )
 }

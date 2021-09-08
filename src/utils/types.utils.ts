@@ -1,8 +1,11 @@
 export interface ProductProps {
-    category: string
+    category?: string
     name: string
+    slug: string
     weight: string
     price: string
+    oldPrice?: string
+    discount?: string
     imageSrc: string
     isNotSell?: boolean
 }
@@ -17,7 +20,14 @@ export interface FeaturedProductProps {
 
 export interface RecipeProps {
     title: string
-    description:string
+    description: string
+    imageSrc: string
+}
+
+export interface BlogProps {
+    title: string
+    slug: string
+    description: string
     imageSrc: string
 }
 

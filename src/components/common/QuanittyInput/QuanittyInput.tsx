@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import s from './QuanittyInput.module.scss'
 import classNames from 'classnames'
-import { Minus, Plus } from '@components/icons'
+import { IconMinus, IconPlus } from '../../icons'
 interface QuanittyInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -64,7 +64,7 @@ const QuanittyInput = ({
   return (
     <div className={classNames(s.quanittyInputWarper, { [s[size]]: size })}>
       <div className={s.minusIcon} onClick={onMinusClick}>
-        <Minus />
+        <IconMinus />
       </div>
       <input
         {...props}
@@ -74,7 +74,7 @@ const QuanittyInput = ({
         className={s.quanittyInput}
       />
       <div className={s.plusIcon} onClick={onPlusClick}>
-        <Plus />
+        <IconPlus />
       </div>
     </div>
   )
