@@ -1,6 +1,8 @@
 @import "../../../styles/utilities";
 .menuNavigationProductListDesktop{
-    @apply hidden;
+    @screen sm-only {
+        @apply hidden;
+    }
 }
 .menuNavigationProductListMobile{
     @apply hidden;
