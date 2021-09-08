@@ -1,7 +1,9 @@
 import React from 'react'
 import { Banner } from 'src/components/common'
 import BannerImgRight from './assets/banner_full.png'
+import HomeBannerImg from './assets/home_banner.png'
 import s from './HomeBanner.module.scss'
+import Image from 'next/image'
 
 interface Props {
     className?: string
@@ -12,6 +14,9 @@ const HomeBanner = ({ }: Props) => {
     return (
         <div className={s.homeBanner}>
             <section className={s.left}>
+                <div className={s.imgWrap}>
+                    <Image src={HomeBannerImg} placeholder='blur' />
+                </div>
                 <div className={s.text}>
                     Freshness<br />guaranteed
                 </div>
@@ -30,7 +35,7 @@ const HomeBanner = ({ }: Props) => {
                         imgLink: BannerImgRight.src,
                         size: "small",
                     }
-                ]
+                    ]
                 }
             />
         </div >
