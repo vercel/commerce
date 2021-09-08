@@ -49,8 +49,8 @@ const MenuSort = ({heading,type,onChangeValue}:Props)=> {
     },[active]) 
   
     return (
-        <section className={classNames(s.menuSortWrapper)}>
-            <h2 className={classNames(s.menuSortHeading)}>{heading}</h2>
+        <section className={s.menuSortWrapper}>
+            <h2 className={s.menuSortHeading}>{heading}</h2>
             <ul className={s.menuSortList}>
                 {
                     SORT.map(item => <li key={item.name}>

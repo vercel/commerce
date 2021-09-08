@@ -5,10 +5,11 @@
         @apply hidden;
     }
     .menuSortHeading{
-        @apply sub-headline font-bold ;
+        @apply sub-headline font-bold heading-3;
         color: var(--text-active);
         font-feature-settings: 'salt' on;
         margin: 0.8rem 0;
+
     }
     .menuSortList{
         box-sizing: border-box;
