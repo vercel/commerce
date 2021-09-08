@@ -2,8 +2,6 @@ import React from 'react';
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon';
 import RecipesItem from './RecipesItem/RecipesItem';
 import s from './RecipesList.module.scss';
-
-
 interface Props{
     recipes:{
         id:string,
@@ -13,8 +11,6 @@ interface Props{
         link:string
     }[],
 }
-
-
 
 const RecipesList = ({recipes}:Props) => {
     return (

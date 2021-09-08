@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
 import s from './RecipesItem.module.scss';
-
-
 interface RecipesItem {
     image:string,
     name: string,
