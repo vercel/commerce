@@ -10,9 +10,9 @@ export const ROUTE = {
     PRODUCTS: '/products',
     PRODUCT_DETAIL: '/product',
     ABOUT: '/about',
+    BLOG_DETAIL: '/blog',
     ACCOUNT: '/account',
     RECIPES: '/recipes',
-
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
     FAQ: '/faq',
@@ -41,7 +41,6 @@ export enum ProductFeature {
     Sales = 'Sales',
     NewItem = 'New Item',
     Viewed = 'Viewed',
-
 }
 
 export const KEY = {

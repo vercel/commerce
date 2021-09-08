@@ -24,4 +24,11 @@ export interface RecipeProps {
     imageSrc: string
 }
 
+export interface BlogProps {
+    title: string
+    slug: string
+    description: string
+    imageSrc: string
+}
+
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
