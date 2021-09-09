@@ -1,5 +1,5 @@
 import {
-  CollapseCommon, Layout, RelevantBlogPosts
+  CollapseCommon, EmptyCommon, Layout, RelevantBlogPosts
 } from 'src/components/common'
 
 const COLLAPSE_DATA = [
@@ -39,8 +39,12 @@ const COLLAPSE_DATA = [
 export default function Test() {
   return (
     <>
+      <EmptyCommon />
       <CollapseCommon data={COLLAPSE_DATA} />
       <RelevantBlogPosts />
+      <EmptyCommon description="" />
+      <EmptyCommon description="No product" />
+
     </>
   )
 }
