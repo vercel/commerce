@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import s from './AccountInfomation.module.scss'
 
 import Image from "next/image"
@@ -7,12 +7,14 @@ import avatar from '../../assets/avatar.png';
 interface AccountInfomationProps {
     account: {name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string};
     active: boolean;
-    showEditForm: () => void;
+    onClick: () => void;
 }
 
-const AccountInfomation = ({ account, active=false, showEditForm } : AccountInfomationProps) => {
+const AccountInfomation = ({ account, active=false, onClick } : AccountInfomationProps) => {
 
     // need to handle call back when edit account information 
+
+    const showEditForm = () => onClick()
 
     return (
         <section className={s.accountInfomation}>

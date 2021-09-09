@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useRef, useState } from "react"
 import s from './AccountPage.module.scss'
 
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
@@ -7,70 +7,50 @@ import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
 import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 
-interface AccountPageProps {
+const waiting = [
+    {
+        id: "NO 123456",
+        products: ["Tomato", "Fish", "Pork", "Onion"],
+        totalPrice : 1000
+    }
+]
 
+const delivering = [
+    {
+        id: "NO 123456",
+        products: ["Tomato", "Fish", "Pork", "Onion"],
+        totalPrice : 1000
+    }
+]
+
+const delivered = [
+    {
+        id: "NO 123456",
+        products: ["Tomato", "Fish", "Pork", "Onion"],
+        totalPrice : 1000
+    }
+]
+
+let account = {
+    name: "vu duong",
+    email: "vuduong@gmail.com",
+    address: "234 Dien Bien Phu Bis, Dakao ward",
+    state: "District 1",
+    city: "HCMC",
+    postalCode: "700000",
+    phoneNumber: "(+84) 937 937 195"
 }
 
-const AccountPage = ({} : AccountPageProps) => {
-    const waiting = [
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
-        }
-    ]
+interface AccountPageProps {
+    defaultActiveContent?: "info" | "orders" | "favorites"
+}
 
-    const delivering = [
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
-        }
-    ]
-
-    const delivered = [
-        {
-            id: "NO 123456",
-            products: ["Tomato", "Fish", "Pork", "Onion"],
-            totalPrice : 1000
-        }
-    ]
-
-    let account = {
-        name: "vu duong",
-        email: "vuduong@gmail.com",
-        address: "234 Dien Bien Phu Bis, Dakao ward",
-        state: "District 1",
-        city: "HCMC",
-        postalCode: "700000",
-        phoneNumber: "(+84) 937 937 195"
-    }
-
-    const [accountInfoActive, setAccountInfoActive] = useState(false);
-    const [orderInfoActive, setOrderInfoActive] = useState(true);
-    const [favoritesActive, setFavoritesActive] = useState(false);
-
-    function accountActive() {
-        setAccountInfoActive(true);
-        setOrderInfoActive(false);
-        setFavoritesActive(false);
-    }
-
-    function orderActive() {
-        setAccountInfoActive(false);
-        setOrderInfoActive(true);
-        setFavoritesActive(false);
-    }
-
-    function favActive() {
-        setAccountInfoActive(false);
-        setOrderInfoActive(false);
-        setFavoritesActive(true);
-    }
-
+const AccountPage = ({defaultActiveContent="orders"} : AccountPageProps) => {
+    
+    const [activeTab, setActiveTab] = useState(defaultActiveContent==="info"? 0 : defaultActiveContent==="orders"? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
 
-    function showEditForm() {
+    function showModal() {
         setModalVisible(true);
     }
 
@@ -78,19 +58,29 @@ const AccountPage = ({} : AccountPageProps) => {
         setModalVisible(false);
     }
 
+    const changeTab = (tabIndex: number) => {
+        setActiveTab(tabIndex);
+    }
+
+    const accNavItems = [
+        {ref: useRef<HTMLDivElement>(null), active: activeTab===0, itemName: "Customer Information", onClick: changeTab},
+        {ref: useRef<HTMLDivElement>(null), active: activeTab===1, itemName: "Your Orders", onClick: changeTab},
+        {ref: useRef<HTMLDivElement>(null), active: activeTab===2, itemName: "Favorites", onClick: changeTab}
+    ]
+
     return (
         <>
             <section className={s.accountPage}>
                 <div className={s.pageLeft}>
                     <HeadingCommon>Account</HeadingCommon>
                     <div className={s.accNavi}>
-                        <AccountNavigation setAccountActive={accountActive} setOrderActive={orderActive} setFavActive={favActive} />
+                        <AccountNavigation items={accNavItems} defaultActiveIndex={activeTab} />
                     </div>
                 </div>
                 
                 <div className={s.pageRight}>
-                    <AccountInfomation active={accountInfoActive} account={account} showEditForm={showEditForm}  />
-                    <OrderInfomation active={orderInfoActive} waiting={waiting} delivering={delivering} delivered={delivered} />
+                    <AccountInfomation active={activeTab === 0} account={account} onClick={showModal}  />
+                    <OrderInfomation active={activeTab === 1} waiting={waiting} delivering={delivering} delivered={delivered} />
 
                     {/* Thieu cai favorite */}
                     {/* <FavoriteProduct active={favoritesActive} favProducts={favProducts} /> */}
