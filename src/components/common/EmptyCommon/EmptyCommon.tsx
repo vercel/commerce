@@ -10,7 +10,7 @@ interface Props {
 const EmptyCommon = ({ description = "No data to display" }: Props) => {
     return (
         <div className={s.empty}>
-            <div className="imgWrap">
+            <div className={s.imgWrap}>
                 <StaticImage src={EmptyImg} alt="empty" />
             </div>
             {
