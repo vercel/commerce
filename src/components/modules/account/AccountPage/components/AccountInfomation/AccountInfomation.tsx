@@ -4,13 +4,16 @@ import s from './AccountInfomation.module.scss'
 import Image from "next/image"
 import avatar from '../../assets/avatar.png';
 
+interface AccountProps {
+    name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string
+}
+
 interface AccountInfomationProps {
-    account: {name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string};
-    active: boolean;
+    account: AccountProps;
     onClick: () => void;
 }
 
-const AccountInfomation = ({ account, active=false, onClick } : AccountInfomationProps) => {
+const AccountInfomation = ({ account, onClick } : AccountInfomationProps) => {
 
     // need to handle call back when edit account information 
 
@@ -19,7 +22,7 @@ const AccountInfomation = ({ account, active=false, onClick } : AccountInfomatio
     return (
         <section className={s.accountInfomation}>
             {
-                active && <div>
+                <div>
                     <div className={s.avatar}>
                         <Image src={avatar} alt="avatar" />
                     </div>
@@ -46,8 +49,6 @@ const AccountInfomation = ({ account, active=false, onClick } : AccountInfomatio
                     <div onClick={showEditForm} className={s.editInfoBtn}>Edit</div>
                 </div>
             }
-
-            
         </section>
     )
 }

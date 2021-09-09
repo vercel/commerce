@@ -10,15 +10,14 @@ interface OrderInformationProps {
     waiting: {id: string, products: string[], totalPrice: number}[],
     delivering: {id: string, products: string[], totalPrice: number}[],
     delivered: {id: string, products: string[], totalPrice: number}[],
-    active: boolean
 }
 
-const OrderInformation = ({ waiting, delivering, delivered, active } : OrderInformationProps) => {
+const OrderInformation = ({ waiting, delivering, delivered} : OrderInformationProps) => {
 
     return (
         <section className={s.orderInformation}>
             {
-                active && <div>
+                <div>
                     <div className={s.title}>Order Information</div>
 
                     <div className={s.tabs}>

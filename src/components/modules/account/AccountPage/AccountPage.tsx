@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import s from './AccountPage.module.scss'
 
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
@@ -6,18 +6,9 @@ import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
 import EditInfoModal from './components/EditInfoModal/EditInfoModal'
+import TabPane from "src/components/common/TabCommon/components/TabPane/TabPane"
 
 const waiting = [
-    {
-        id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    },
-    {
-        id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    },
     {
         id: "NO 123456",
         products: ["Tomato", "Fish", "Pork", "Onion"],
@@ -57,7 +48,7 @@ interface AccountPageProps {
 
 const AccountPage = ({defaultActiveContent="orders"} : AccountPageProps) => {
     
-    const [activeTab, setActiveTab] = useState(defaultActiveContent==="info"? 0 : defaultActiveContent==="orders"? 1 : 2)
+    const [activeTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
 
     function showModal() {
@@ -68,33 +59,22 @@ const AccountPage = ({defaultActiveContent="orders"} : AccountPageProps) => {
         setModalVisible(false);
     }
 
-    const changeTab = (tabIndex: number) => {
-        setActiveTab(tabIndex);
-    }
-
-    const accNavItems = [
-        {ref: useRef<HTMLDivElement>(null), active: activeTab===0, itemName: "Customer Information", onClick: changeTab},
-        {ref: useRef<HTMLDivElement>(null), active: activeTab===1, itemName: "Your Orders", onClick: changeTab},
-        {ref: useRef<HTMLDivElement>(null), active: activeTab===2, itemName: "Favorites", onClick: changeTab}
-    ]
-
     return (
         <>
             <section className={s.accountPage}>
-                <div className={s.pageLeft}>
-                    <HeadingCommon>Account</HeadingCommon>
-                    <div className={s.accNavi}>
-                        <AccountNavigation items={accNavItems} defaultActiveIndex={activeTab} />
-                    </div>
-                </div>
-                
-                <div className={s.pageRight}>
-                    <AccountInfomation active={activeTab === 0} account={account} onClick={showModal}  />
-                    <OrderInfomation active={activeTab === 1} waiting={waiting} delivering={delivering} delivered={delivered} />
+                <HeadingCommon>Account</HeadingCommon>
 
-                    {/* Thieu cai favorite */}
-                    {/* <FavoriteProduct active={favoritesActive} favProducts={favProducts} /> */}
-                </div>
+                <AccountNavigation defaultActiveIndex={activeTab}>
+                    <TabPane tabName="Customer Information"> 
+                        <AccountInfomation account={account} onClick={showModal}  />
+                    </TabPane>
+                    <TabPane tabName="Your Orders"> 
+                        <OrderInfomation waiting={waiting} delivering={delivering} delivered={delivered} />
+                    </TabPane>
+                    <TabPane tabName="Favourite"> 
+                        {/* <FavoriteProduct active={activeTab === 2} favProducts={favProducts} /> */}
+                    </TabPane>
+                </AccountNavigation>
             </section>
             <EditInfoModal accountInfo={account} closeModal={closeModal} visible={modalVisible} />
         </>
