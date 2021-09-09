@@ -55,10 +55,10 @@
         @apply flex;
 
         .buttonCancel {
-            @apply bg-white text-center font-bold;
+            @apply bg-white text-center font-bold custom-border-radius-lg;
             color: #141414;
             border: 1px solid #141414;
-            border-radius: 40% 30% 35% 20%/ 65% 55% 45% 50%;
+            // border-radius: 40% 30% 35% 20%/ 65% 55% 45% 50%;
             padding: 1.6rem;
             margin-right: 1.6rem;
             width: 100%;
@@ -69,10 +69,10 @@
         }
 
         .buttonSave {
-            @apply text-center font-bold;
+            @apply text-center font-bold custom-border-radius-lg;
             background-color: var(--primary);
             color: white;
-            border-radius: 40% 30% 35% 20%/ 65% 55% 45% 50%;
+            // border-radius: 40% 30% 35% 20%/ 65% 55% 45% 50%;
             padding: 1.6rem;
             width: 100%;
             &:hover {

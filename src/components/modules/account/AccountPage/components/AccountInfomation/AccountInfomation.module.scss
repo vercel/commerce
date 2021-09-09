@@ -32,14 +32,13 @@
     }
 
     .editInfoBtn {
-        @apply text-center font-bold;
+        @apply text-center font-bold custom-border-radius;
         margin-top: 2.4rem;
         margin-bottom: 2.4rem;
         padding: .8rem 1.6rem;
         color: #141414;
         border: 1px solid #141414;
         max-width: 8.8rem;
-        border-radius: 25%;
 
         &:hover {
             @apply cursor-pointer;

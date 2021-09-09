@@ -4,6 +4,8 @@ import s from './EditInfoModal.module.scss'
 
 import {ModalCommon, MenuDropdown} from '../../../../../common'
 
+import {ButtonCommon} from '../../../../../common'
+
 interface EditInfoModalProps {
     accountInfo: {name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string};
     visible: boolean;

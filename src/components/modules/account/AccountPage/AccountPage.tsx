@@ -12,6 +12,16 @@ const waiting = [
         id: "NO 123456",
         products: ["Tomato", "Fish", "Pork", "Onion"],
         totalPrice : 1000
+    },
+    {
+        id: "NO 123456",
+        products: ["Tomato", "Fish", "Pork", "Onion"],
+        totalPrice : 1000
+    },
+    {
+        id: "NO 123456",
+        products: ["Tomato", "Fish", "Pork", "Onion"],
+        totalPrice : 1000
     }
 ]
 
@@ -85,8 +95,6 @@ const AccountPage = ({defaultActiveContent="orders"} : AccountPageProps) => {
                     {/* Thieu cai favorite */}
                     {/* <FavoriteProduct active={favoritesActive} favProducts={favProducts} /> */}
                 </div>
-
-                
             </section>
             <EditInfoModal accountInfo={account} closeModal={closeModal} visible={modalVisible} />
         </>
