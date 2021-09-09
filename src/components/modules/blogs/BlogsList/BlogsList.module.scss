@@ -4,11 +4,17 @@
     @apply flex flex-col spacing-horizontal items-center;
     padding-bottom: 16.8rem;
     .list {
-        @apply grid grid-cols-3;
+        @apply grid grid-cols-1 gap-8;
         max-width: 121.6rem;
+        @screen md {
+            @apply grid-cols-2;
+        }
+        @screen lg {
+            @apply grid-cols-3;
+        }
     }
     .card {
-        @apply pr-8 pb-16;
+        @apply pb-16;
     }
     .pagination {
         @apply flex justify-center items-center ;
