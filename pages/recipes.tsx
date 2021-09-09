@@ -3,7 +3,7 @@ import RecipeListBanner from 'src/components/modules/recipes-list/RecipeListBann
 import RecipesList from 'src/components/modules/recipes-list/RecipesList/RecipesList';
 
 
-export default function Recipes() {
+export default function RecipeListPage() {
   return (
     <>
       <RecipeListBanner />
@@ -12,4 +12,4 @@ export default function Recipes() {
   )
 }
 
-Recipes.Layout = Layout
+RecipeListPage.Layout = Layout

@@ -4,21 +4,20 @@ import IconFacebook from 'src/components/icons/IconFacebook';
 import IconInstagram from 'src/components/icons/IconInstagram';
 import IconTwitter from 'src/components/icons/IconTwitter';
 import s from './BlogContent.module.scss';
+import imageAuthor from '../../../common/Author/img/author.png';
 import Link from 'next/link';
 interface BlogContentProps {
-    date: string,
-    title: string,
-    imageAuthor:string,
-    nameAuthor:string,
+    className?: string
+    children?: any,
 }
-const BlogContent = ({date,title,imageAuthor,nameAuthor}:BlogContentProps) => {
+const BlogContent = ({}:BlogContentProps) => {
     return (
         <>
              <div className={s.blogContentWrapper}>
-                <DateTime date={date}/>
-                <h1 className={s.title}>{title}</h1>
+                <DateTime date="APRIL 30, 2021"/>
+                <h1>The Best Sesame Soy Broccoli Salad</h1>
                 <div className={s.author}>
-                    <Author image={imageAuthor} name={nameAuthor} />
+                    <Author image={imageAuthor.src} name="Alessandro Del Piero" />
                 </div>
                 <section className={s.content}>
                
@@ -56,7 +55,7 @@ const BlogContent = ({date,title,imageAuthor,nameAuthor}:BlogContentProps) => {
                     You can eat broccoli stems. In fact, they are delicious. Just use a peeler to peel off the outsides and then trim the stalks into small 1/4”-1/2” cubes.
                     </p>
                     <br/>
-                    <img  src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="blog-detail" />
+                    <img  src="https://i.pinimg.com/236x/f0/bd/a6/f0bda6a9ed04a6c4ac9453be80c95f75.jpg" alt="blog-detail" />
                   
                 </section>
                   
