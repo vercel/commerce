@@ -1,10 +1,10 @@
 @import '../../../../../../styles/utilities';
 
 .reOrder {
-    @apply text-white custom-border-radius hidden;
+    @apply text-white custom-border-radius hidden font-bold;
     padding: .8rem 1.2rem;
     margin-right: 2.4rem;
-    background-color: var(--positive);
+    background-color: var(--primary);
 
     &.show {
         @apply block;

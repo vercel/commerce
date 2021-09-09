@@ -22,7 +22,7 @@ const DeliveryItem = ({ id, status, products, totalPrice, reOrderLink } : Delive
             <div className={s.separator}></div>
             <Products products={products} />
             <TotalPrice totalPrice={totalPrice} />
-            <ReOrder show={status==="delivered" ? "show" : ""} href={reOrderLink} />
+            <ReOrder show={status==="delivered" ? true : false} href={reOrderLink} />
         </section>
     )
 }
