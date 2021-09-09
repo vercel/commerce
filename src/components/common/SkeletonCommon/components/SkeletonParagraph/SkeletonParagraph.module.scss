@@ -1,0 +1,41 @@
+@import '../../../../../styles/utilities';
+
+$base-color: #DDD;
+$shine-color: #ebebeb;
+$animation-duration: 2s;
+
+@mixin background-gradient {
+    background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px) ;
+    background-size: 100%;
+}
+
+.skeletonParagraph {
+    @apply bg-white;
+    height: fit-content;
+    width: 100%;
+
+    .row {
+        height: 2rem;
+        margin: 1rem;
+        animation: shine-lines $animation-duration infinite linear;
+        @include background-gradient;
+    }
+    
+    .lastRow {
+        height: 2rem;
+        margin: 1rem;
+        width: 85%;
+        animation: shine-lines $animation-duration infinite linear;
+        @include background-gradient;
+    }
+}
+
+@keyframes shine-lines {
+    0% {
+      background-position: -100px;
+    }
+    40%, 100% {
+        background-position: 100%;
+    }    
+}
+
