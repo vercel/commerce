@@ -1,0 +1,10 @@
+.warrper{
+    @apply flex;
+    .right{
+        min-width: 56.3rem;
+    }
+    .left{
+        @apply w-full;
+
+    }
+}

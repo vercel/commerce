@@ -8,9 +8,10 @@ interface CheckboxProps extends Omit<
     >{
     onChange?: (value: boolean) => void,
     defaultChecked?: boolean
+    text?:string
 }
 
-const CheckboxCommon = ({onChange,defaultChecked = true,...props}: CheckboxProps) =>{
+const CheckboxCommon = ({onChange,defaultChecked = true,text="Billing address is same as shipping", ...props}: CheckboxProps) =>{
     
     const [value, setValue] = useState<boolean>(true);
 
@@ -31,7 +32,7 @@ const CheckboxCommon = ({onChange,defaultChecked = true,...props}: CheckboxProps
                 <span className={s.checkMark}></span>
              </label>
              <div className={classNames(s.checkboxText)}>
-                <label htmlFor="check"> Billing address is same as shipping </label>
+                <label htmlFor="check"> {text} </label>
              </div>
         </div>
     )

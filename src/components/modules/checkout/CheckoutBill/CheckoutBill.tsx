@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './CheckoutBill.module.scss'
-import { CardItemCheckout } from '..'
-import { CardItemCheckoutProps } from '../CardItemCheckout/CardItemCheckout'
+import { CardItemCheckout } from '../../../common'
+import { CardItemCheckoutProps } from '../../../common/CardItemCheckout/CardItemCheckout'
 import { IconCirclePlus } from 'src/components/icons'
 
 interface CheckoutBillProps {

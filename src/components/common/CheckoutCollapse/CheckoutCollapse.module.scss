@@ -1,7 +1,15 @@
 .warpper{
+    padding: 2.4rem 0;
+    @apply border-b border-solid border-line;
+    .note{
+        font-size: 1.2rem;
+        line-height: 2rem;
+        letter-spacing: 0.01em;
+        color: var(--text-label);
+        padding: 0 5.6rem;
+    }
     .header{
         @apply flex justify-between;
-        padding-bottom: 3.2rem;
         .left{
             @apply flex items-center;
             .number{
@@ -15,6 +23,9 @@
                     background-color: var(--text-active);
                     border: none;
                     color: var(--white);
+                }
+                &.done{
+                    @apply border-2 border-solid border-primary;
                 }
             }
             .title{
@@ -33,6 +44,7 @@
         height: 0;
         @apply overflow-hidden;
         &.show{
+            margin-top: 3.2rem;
             height: initial;
         }
     }

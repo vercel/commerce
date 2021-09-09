@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
+import { removeItem } from 'src/utils/funtion.utils'
 import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
@@ -12,28 +13,41 @@ const CheckoutInfo = ({}: CheckoutInfoProps) => {
   const [active, setActive] = useState(1)
   const [done, setDone] = useState<number[]>([])
   const [info, setInfo] = useState<CheckOutForm>({})
-  const onOpen = (id:number) => {
-		setActive(id)
-	}
 
   const onEdit = (id:number) => {
 		setActive(id)
-	}
-
-  const onClose = (id:number) => {
-		setActive(id)
+    setDone(removeItem<number>(done,id))
 	}
 
   const onConfirm = (id:number,formInfo:CheckOutForm) => {
 		if(id+1>formList.length){
 			console.log({...info,...formInfo})
 		}else{
-
-			setActive(id+1)
+      if(done.length>0){
+        for (let i = id+1; i <= formList.length; i++) {
+          if(!done.includes(i)){
+            setActive(i)
+          }
+        }
+      }else{
+        setActive(id+1)
+      }
+      setDone([...done,id])
 		}
-		setDone([...done,id])
 		setInfo({...info,...formInfo})
 	}
+
+  const getNote = (id:number) => {
+    switch (id) {
+      case 1:
+        return `${info.name}, ${info.email}`
+        case 2:
+          return `${info.address}, ${info.state}, ${info.city}, ${info.code}, ${info.phone}, `
+      default:
+        return ""
+    }
+  }
+
   const formList = [
     {
       id: 1,
@@ -57,6 +71,7 @@ const CheckoutInfo = ({}: CheckoutInfoProps) => {
         <Logo />
       </div>
       {formList.map((item) => {
+        let note = getNote(item.id)
         return <CheckoutCollapse
 					key={item.title}
           id={item.id}
@@ -64,30 +79,11 @@ const CheckoutInfo = ({}: CheckoutInfoProps) => {
           title={item.title}
           onEditClick={onEdit}
           isEdit={done.includes(item.id)}
+          note={note}
         >
           {item.form}
         </CheckoutCollapse>
       })}
-      {/* <CheckoutCollapse
-        id={1}
-        visible={active === 1}
-        // onOpen={onOpen}
-        // onClose={onClose}
-        title="Customer Information"
-        isEdit={true}
-      >
-        <CustomerInfoForm />
-      </CheckoutCollapse>
-      <CheckoutCollapse
-        id={2}
-        visible={active === 2}
-        // onOpen={onOpen2}
-        // onClose={onClose2}
-        title="Shipping Information"
-        isEdit={true}
-      >
-        <ShippingInfoForm />
-      </CheckoutCollapse> */}
     </div>
   )
 }

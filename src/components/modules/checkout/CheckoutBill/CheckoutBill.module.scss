@@ -17,6 +17,7 @@
       min-height: 6.4rem;
     }
     .price {
+      margin-top: 3.2rem;
       .line {
         @apply flex justify-between items-center text-label;
         .total {
