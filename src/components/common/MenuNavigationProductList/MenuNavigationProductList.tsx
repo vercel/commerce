@@ -12,24 +12,19 @@ interface Props{
     categories:{name:string,link:string}[],
     brands:{name:string,link:string}[],
     featured:{name:string,link:string}[],
+    visible: boolean,
+    onClose: () => void
 }
 
-const MenuNavigationProductList = ({categories,brands,featured}:Props)=>{
+const MenuNavigationProductList = ({categories,brands,featured,visible,onClose}:Props)=>{
     
     const [dataSort,setDataSort] = useState({});
-    const [isShow,setIsShow] = useState(true);
     
     function handleValue(value:Object){
         setDataSort({...dataSort,...value});
     }
     function filter(){
         console.log(dataSort)
-    }
-
-    function hideMenu(){
-        if(isShow === true){
-            setIsShow(false);
-        }
     }
     return(
         <>
@@ -38,18 +33,20 @@ const MenuNavigationProductList = ({categories,brands,featured}:Props)=>{
                 <MenuNavigation categories={brands} heading="Brands"/>
                 <MenuNavigation categories={featured} heading="Featured"/>
             </div>
-            <div className={classNames({ [s.menuNavigationProductListMobile] :true,[s.isShow]: isShow})}>
-                <div className={s.menuNavigationProductModal}>
-                    <div className={s.content}>
+            <div className={s.menuNavigationProductListMobile} >
+                <div className={classNames({ [s.menuNavigationProductModal] :true,[s.isShow]: visible})}>
+                    <div className={classNames({ [s.content] :true,[s.animation]: visible})}>
                         <div className={s.head}>
                             <h3>FILTER</h3>
-                            <div onClick={hideMenu}><IconHide/></div>
+                            <div onClick={onClose}><IconHide/></div>
                         </div>
                         <MenuFilter categories={categories} heading="Categories" type="category" onChangeValue={handleValue}/>
                         <MenuFilter categories={brands} heading="Brand" type="brand" onChangeValue={handleValue}/>
                         <MenuFilter categories={featured} heading="Featured" type="featured" onChangeValue={handleValue}/>
                         <MenuSort heading="SORT BY" type="sort" onChangeValue={handleValue}/>
-                        <ButtonCommon size="large" onClick={filter}>{LANGUAGE.BUTTON_LABEL.CONFIRM}</ButtonCommon>
+                        <div className={s.foot}>
+                             <ButtonCommon size="large" onClick={filter}>{LANGUAGE.BUTTON_LABEL.CONFIRM}</ButtonCommon>
+                        </div>
                     </div>
                 </div>
             </div>

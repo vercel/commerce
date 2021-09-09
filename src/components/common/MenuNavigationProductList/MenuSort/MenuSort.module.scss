@@ -1,6 +1,6 @@
 @import "../../../../styles/utilities";
 .menuSortWrapper{
-  
+    @apply spacing-horizontal;
     @screen md {
         @apply hidden;
     }

@@ -1,6 +1,6 @@
 @import "../../../styles/utilities";
 .menuFilterWrapper{
-  
+    @apply spacing-horizontal;
     @screen md {
         @apply hidden;
     }
