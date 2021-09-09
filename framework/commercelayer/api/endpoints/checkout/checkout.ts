@@ -10,7 +10,6 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
 
     const name = 'CL_TOKEN' + "=";
     const cookiesArr = decodeURIComponent(accessToken = typeof accessToken === 'string' ? accessToken : '').split('; ');
-    accessToken = typeof accessToken
     cookiesArr.forEach(val => {
       if (val.indexOf(name) === 0) accessToken = val.substring(name.length)
     })

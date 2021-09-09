@@ -13,7 +13,7 @@ export const handler: SWRHook<CustomerHook> = {
     url: `${ENDPOINT}/api/customers/${customerId}`,
     method: 'GET',
   },
-  async fetcher({ input, options, fetch }) {
+  async fetcher({ options, fetch }) {
     const data = await fetch({...options})
     
     return data ? ({
