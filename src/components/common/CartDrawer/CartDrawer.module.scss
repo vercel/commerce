@@ -1,0 +1,12 @@
+@import '../../../styles/utilities';
+
+
+.cartDrawer {
+    @apply flex flex-col h-full;
+    .body {
+        @apply overflow-y-auto overflow-x-hidden h-full custom-scroll;
+    }
+    .bottom {
+        padding-top: 1.6rem;
+    }
+}

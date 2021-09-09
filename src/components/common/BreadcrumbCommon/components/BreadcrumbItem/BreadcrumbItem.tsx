@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import s from './BreadcrumbItem.module.scss'
 
 interface BreadcrumbItemProps {
     text: string;
@@ -9,7 +10,7 @@ interface BreadcrumbItemProps {
 const BreadcrumbItem = ({ text, href }: BreadcrumbItemProps) => {
     return (
         <Link href={href}>
-            <a>{text}</a>
+            <a className={s.breadcrumbItem}>{text}</a>
         </Link>
     )
 }

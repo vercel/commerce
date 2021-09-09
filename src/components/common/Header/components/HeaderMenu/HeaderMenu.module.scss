@@ -42,7 +42,7 @@
         @apply hidden;
         @screen md {
             @apply flex items-center list-none;
-            li {
+            > li {
                 @apply flex justify-center items-center w-full;
                 &:not(:last-child) {
                     margin-right: 4.8rem;
@@ -52,13 +52,23 @@
                 }
                 a {
                     @appy no-underline;
-                    &.iconFovourite {
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                    &.iconFavourite {
                         svg path {
                             fill: var(--negative);
                         }
                     }
                 }
-
+                .btnCart {
+                    &:hover {
+                        svg path {
+                            fill: var(--primary);
+                            opacity: 0.8;
+                        }
+                    }
+                }
             }
         }
     }

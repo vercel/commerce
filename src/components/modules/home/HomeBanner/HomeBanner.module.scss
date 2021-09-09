@@ -5,16 +5,25 @@
   margin-bottom: 2.8rem;
   .left {
     @apply hidden;
+    margin-bottom: 3rem;
   }
   @screen xl {
     @apply grid;
     grid-template-columns: 1fr 1.8fr;
     .left {
-      @apply flex items-end justify-center custom-border-radius-lg;
+      @apply relative flex items-end justify-center custom-border-radius-lg;
       margin-right: 1.6rem;
-      background-image: url('./assets/home_banner.png');
-      background-repeat: no-repeat;
-      background-size: cover;
+      .imgWrap {
+        @apply absolute w-full h-full;
+        top: 0;
+        left: 0;
+        > div {
+          @apply w-full h-full custom-border-radius-lg;
+        }
+        img {
+          object-fit: cover;
+        }
+      }
 
       .text {
         @apply relative font-heading text-center;

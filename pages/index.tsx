@@ -1,7 +1,5 @@
-
-import { Layout, BreadcrumbCommon, TabCommon } from 'src/components/common'
-import { AccountNavigation, DeliveryItem, AccountPage } from 'src/components/modules/account';
-
+import { Layout } from 'src/components/common';
+import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 
 export default function Home() {
   return (
@@ -17,7 +15,10 @@ export default function Home() {
       <HomeVideo />
       <HomeCTA />
       <HomeRecipe />
-      <HomeSubscribe /> */}
+      <HomeSubscribe />
+
+      {/* // todo: uncomment */}
+      {/* <ModalCreateUserInfo/> */}
     </>
   )
 }

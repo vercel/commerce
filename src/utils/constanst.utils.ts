@@ -8,9 +8,11 @@ export const SOCIAL_LINKS = {
 export const ROUTE = {
     HOME: '/',
     PRODUCTS: '/products',
+    PRODUCT_DETAIL: '/product',
     ABOUT: '/about',
+    BLOG_DETAIL: '/blog',
     ACCOUNT: '/account',
-
+    RECIPES: '/recipes',
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
     FAQ: '/faq',
@@ -31,7 +33,9 @@ export const QUERY_KEY = {
     TAB: 'tab',
     CATEGORY: 'category',
     BRAND: 'brand',
-    FEATURED: 'feature'
+    FEATURED: 'feature',
+    SORTBY:'sortby',
+    RECIPES:'recipes'
 }
 
 export enum ProductFeature {
@@ -39,10 +43,11 @@ export enum ProductFeature {
     Sales = 'Sales',
     NewItem = 'New Item',
     Viewed = 'Viewed',
-
 }
 
 export const KEY = {
     ENTER: 'Enter',
 }
 
+export const OPTION_ALL = 'all';
+export const DEFAULT_PAGE_SIZE=20

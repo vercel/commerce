@@ -1,0 +1,21 @@
+@import "../../../../styles/utilities";
+
+.selectOption {
+    @apply outline-none;
+    background-color: var(--white);
+    &.base{
+        width: 20.4rem;
+        padding: 0.8rem 1.6rem;
+    }
+    &.large{
+        width: 33.75rem;
+        padding: 0.8rem 1.6rem;
+    }
+    &:hover{
+        background-color: var(--gray);
+        color: var(--primary);
+    }
+    &.isChoose{
+        background-color: var(--gray);
+    }
+}
