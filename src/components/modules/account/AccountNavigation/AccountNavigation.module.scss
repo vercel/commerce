@@ -1,8 +1,8 @@
 @import '../../../../styles/utilities';
 
 .accountNavigation {
-    border-left: 2px solid #FBFBFB;
-    max-width: 28.9rem;
+    @apply flex;
+    width: 100%;
 
     .slider {
         @apply inline-block;
@@ -13,5 +13,15 @@
         position: absolute;
         left: 11.2rem;
         transition: all .2s linear;
+    }
+    
+    .tabList {
+        margin-top: 3.8rem;
+        margin-right: 12.4rem;
+    }
+
+    .tabBody {
+        margin-top: -4.7rem;
+        width: 100%;
     }
 }
