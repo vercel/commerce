@@ -20,6 +20,7 @@ export interface FeaturedProductProps {
 
 export interface RecipeProps {
     title: string
+    slug: string
     description: string
     imageSrc: string
 }
