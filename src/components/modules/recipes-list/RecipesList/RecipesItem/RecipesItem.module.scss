@@ -31,19 +31,15 @@
     .recipesItemText {
         width: 65%;
         .recipesItemName{
-            @apply topline;
+            @apply topline font-bold cursor-pointer;
 
             display: -webkit-box;
             -webkit-line-clamp: 1;
              overflow: hidden;
             -webkit-box-orient: vertical;
-
             font-feature-settings: "salt" on;
-            cursor: pointer;
-            font-weight:bold;
             color:var(--text-active);
             margin-top: 1.6rem;
-
             &:hover {
                 color: var(--primary);
             }

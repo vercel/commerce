@@ -43,11 +43,11 @@
                     .item {
                         @screen md {
                             width: calc(97% / 2);
-                            margin-top:4rem;
+                            margin-top:1rem;
                         }
                         @screen lg{
                             width: calc(97% / 3);
-                            margin-top:4rem;
+                            margin-top:1rem;
                         }
                     }
                 }
@@ -60,7 +60,7 @@
                     margin:2rem 0;
                 }
             }
-            .select{
+            .boxSelect{
                 @apply flex justify-between w-full;
                 padding: 2.5rem 0;
            
@@ -69,13 +69,21 @@
                     width: auto;
                     padding:0;
                 }
-                .categorySelect{
-                   
+                .categorySelectCate{
                     @screen xl {
                         @apply hidden;
                     }
                 }
-                
+                label{
+                    @apply font-bold topline ;
+                    color:var(--text-active);
+                    @screen xl {
+                        @apply hidden;
+                    }
+                }
+                .select{
+                    margin-top: 1rem;
+                }
             }
            
         }

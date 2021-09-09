@@ -39,10 +39,6 @@ const recipe:RecipeCardProps[] = [{
 }];
 const BREADCRUMB = [
     {
-        name: 'Home',
-        link: "/",
-    },
-    {
         name: 'Special Recipes',
         link: `#`,
     },
@@ -177,15 +173,21 @@ const RecipesList = ({ data =recipe}:Props) => {
                 <div className={s.recipesList}>
                     <HeadingCommon align='left'>SPECIAL RECIPES</HeadingCommon>
                     
-                    <div className={s.select}>
-                        <div className={s.categorySelect}>
-                             <SelectCommon  option={CATEGORYSELECT} placeholder="Categories"/>
+                    <div className={s.boxSelect}>
+                        <div className={s.categorySelectCate}>
+                            <label htmlFor="">Categories</label>
+                            <div className={s.select}>
+                                <SelectCommon  option={CATEGORYSELECT} placeholder="Categories"/>
+                            </div>
                         </div>
-
-                        <SelectCommon option={OPTIONSLECT} placeholder="Sort By" />
+                        <div className={s.categorySelectSort}>
+                            <label htmlFor="" >Sort By</label>
+                            <div className={s.select}>
+                                 <SelectCommon option={OPTIONSLECT} placeholder="Sort By" />
+                            </div>
+                        </div>
                     </div>
                   
-                    
                     <div className={s.inner}>
                         <div className={s.boxItem}>
                             {data?.map((item,index) => (
