@@ -4,11 +4,7 @@ import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeR
 export default function Home() {
   return (
     <>
-      <AccountPage />
-
-      
-
-      {/* <HomeBanner />
+      <HomeBanner />
       <HomeFeature />
       <HomeCategories />
       <HomeCollection />
@@ -17,7 +13,7 @@ export default function Home() {
       <HomeRecipe />
       <HomeSubscribe />
 
-      {/* // todo: uncomment */}
+      {/* // todo: uncomment
       {/* <ModalCreateUserInfo/> */}
     </>
   )
