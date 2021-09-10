@@ -13,5 +13,9 @@
     }
     &:hover{
         background-color: var(--gray);
+        color: var(--primary);
+    }
+    &.isChoose{
+        background-color: var(--gray);
     }
 }

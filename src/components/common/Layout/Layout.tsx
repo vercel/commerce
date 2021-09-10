@@ -27,7 +27,7 @@ const Layout: FC<Props> = ({ children }) => {
     return (
         <CommerceProvider locale={locale}>
             <div className={s.mainLayout}>
-                {/* <Header /> */}
+                <Header />
                 <main >{children}</main>
                 <button onClick={toggle}>toggle card: {visibleCartDrawer.toString()}</button>
                 <CartDrawer

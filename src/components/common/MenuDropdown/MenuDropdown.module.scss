@@ -3,9 +3,6 @@
 .menuDropdown {
     @apply relative cursor-pointer;
     width: fit-content;
-    .label {
-        all: unset;
-    }
     &:hover {
         .label {
             color: var(--primary);
@@ -20,9 +17,20 @@
     }
 
     .label {
+        all: unset;
         @apply flex justify-end items-center transition-all duration-200;
         svg path {
             width: fit-content;
+        }
+        &:focus,
+        &:active {
+            color: var(--primary);
+            svg path {
+                fill: currentColor;
+            }
+        }
+        &:focus-visible {
+            outline: 2px solid #000;
         }
     }
 
@@ -66,18 +74,9 @@
             @apply rounded list-none bg-white;
             border: 1px solid var(--text-active);
             margin-top: 0.4rem;
-            li {
+            > li {
                 @apply block w-full transition-all duration-200 cursor-pointer text-active;
-                word-wrap: break-word;
-                -webkit-hyphens: auto;
-                -ms-hyphens: auto;
-                -moz-hyphens: auto;
-                hyphens: auto;
-                overflow-x: hidden;
-                position: relative;
-                max-width: 15rem;
                 white-space: nowrap;
-                text-overflow: ellipsis;
                 button {
                     all: unset;
                     color: currentColor;

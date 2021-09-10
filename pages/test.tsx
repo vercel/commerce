@@ -1,39 +1,81 @@
-import { useState } from 'react'
 import {
-  Layout,
-} from 'src/components/common'
-import { CardItemCheckoutProps } from 'src/components/common/CardItemCheckout/CardItemCheckout'
-import TabPane from 'src/components/common/TabCommon/components/TabPane/TabPane'
-import TabCommon from 'src/components/common/TabCommon/TabCommon'
-import { CheckoutInfo } from 'src/components/modules/checkout'
-import image7 from '../public/assets/images/image7.png'
-import image8 from '../public/assets/images/image8.png'
+  Layout, RecipeDetail
+} from 'src/components/common';
+import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
+import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList';
+// import { RecipeListPage } from 'src/components/modules/recipes';
+import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 
+const CATEGORY = [
+  {
+      name: 'All',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
+  },
+  {
+      name: 'Veggie',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+  },
+  {
+      name: 'Seafood',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+  },
+  {
+      name: 'Frozen',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+  },
+  {
+      name: 'Coffee Bean',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
+  },
+  {
+      name: 'Sauce',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
+  },
+]
+const BRAND = [
 
+  {
+      name: 'Maggi',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+  },
+  {
+      name: 'Cholimes',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+  },
+  {
+      name: 'Chinsu',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+  }
+];
+
+const FEATURED = [
+
+    {
+        name: 'Best Sellers',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+    },
+    {
+        name: 'Sales',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+    },
+    {
+        name: 'New Item',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+    },
+    {
+        name: 'Viewed',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=viewed`,
+    }
+  ];
 export default function Test() {
+
   return (
     <>
+      {/* <BlogDetailPage /> */}
       
-      <TabCommon center={true}>
-        <TabPane
-          active={true}
-          tabName={'dat datdat datdatdatdatdatdat'}
-        >
-          <div className="w-full">
-          datdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdatdat
-          </div>
-        </TabPane>
-        <TabPane active={true} tabName={'1234567890'}>
-        <div className="w-full">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit harum sint maiores optio? Perspiciatis, necessitatibus pariatur, ut sed aperiam minus reiciendis alias deleniti eligendi obcaecati illum id maxime accusantium beatae.
-          </div>
-        </TabPane>
-        <TabPane active={true} tabName={'1'}>
-        <div className="w-full">
-          11111111111111111111111111111111111111111111111111111111111
-          </div>
-        </TabPane>
-      </TabCommon>
+      {/* <RecipeListPage/> */}
+        {/*<MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>*/}
+           <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED}/> 
     </>
   )
 }
