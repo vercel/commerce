@@ -1,6 +1,5 @@
-import classNames from 'classnames'
 import Link from 'next/link'
-import { memo, useEffect, useRef } from 'react'
+import { memo } from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
 import s from './HeaderHighLight.module.scss'
 
@@ -19,14 +18,9 @@ const MENU = [
     },
 ]
 
-interface Props {
-    children?: any,
-    isShow: boolean,
-}
-
-const HeaderHighLight = memo(({ isShow }: Props) => {
+const HeaderHighLight = memo(() => {
     return (
-        <section className={classNames({ [s.headerHighLight]: true, [s.show]: isShow })}>
+        <section className={s.headerHighLight}>
             <div>
                 Free Shipping on order $49+ / Express $99+
             </div>

@@ -1,0 +1,16 @@
+@import "../../../styles/utilities";
+
+.viewAll {
+    display: flex;
+    .content {
+        color: var(--primary);
+        margin: 0.8rem 0.8rem 0.8rem 0;
+        font-weight: bold;
+    }
+    .vector {
+        margin: 0.8rem 0rem 0.8rem 0rem;
+        svg path {
+            fill: var(--primary);
+        }
+    }
+}
