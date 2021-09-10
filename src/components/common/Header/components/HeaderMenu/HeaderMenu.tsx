@@ -14,11 +14,12 @@ interface Props {
     openModalAuthen: () => void,
     openModalInfo: () => void,
     toggleFilter:() => void,
+    toggleCart:() => void,
 }
 
 const FILTER_PAGE = [ROUTE.HOME,ROUTE.PRODUCTS]
 
-const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter }: Props) => {
+const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
     const router = useRouter()
     const optionMenu = useMemo(() => [
         {
@@ -81,7 +82,7 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter 
                     <MenuDropdown options={optionMenu} isHasArrow={false}><IconUser /></MenuDropdown>
                 </li>
                 <li>
-                    <button className={s.btnCart}>
+                    <button className={s.btnCart} onClick={toggleCart}>
                         <IconBuy />
                     </button>
                 </li>
