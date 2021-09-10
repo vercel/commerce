@@ -1,4 +1,5 @@
 import React from 'react'
+import { ROUTE } from 'src/utils/constanst.utils'
 import s from './BreadcrumbCommon.module.scss'
 import BreadcrumbItem from './components/BreadcrumbItem/BreadcrumbItem'
 import BreadcrumbSeparator from './components/BreadcrumbSeparator/BreadcrumbSeparator'
@@ -8,55 +9,28 @@ interface BreadcrumbCommonProps {
     showHomePage?: boolean;
 }
 
-const BreadcrumbCommon = ({ crumbs, showHomePage=true } : BreadcrumbCommonProps) => {
+const BreadcrumbCommon = ({ crumbs, showHomePage = true }: BreadcrumbCommonProps) => {
     return (
         <section className={s.breadcrumbCommon}>
             {
-                showHomePage && crumbs[0].link==="/" && crumbs.map((crumb, i) => {
-                    if (i === 0) {
-                        return (
-                            <BreadcrumbItem key={crumb.name} text={crumb.name} href={crumb.link} />
-                        )
-                    }
-                    if (i === crumbs.length-1) {
-                        return (
-                            <BreadcrumbSeparator key={crumb.name}>
-                                <span>{crumb.name}</span>
-                            </BreadcrumbSeparator>
-                        )
-                    }
-                    return (
-                        <BreadcrumbSeparator key={crumb.name}>
-                            <BreadcrumbItem text={crumb.name} href={crumb.link} />
-                        </BreadcrumbSeparator>
-                    )
-                })
+
+                showHomePage && <BreadcrumbItem key='Home' text='Home' href={ROUTE.HOME} />
             }
             {
-                !showHomePage && crumbs.map((crumb, i) => {
-                    if (i === 0) {
-                        return
-                    }
-                    if (i === 1) {
-                        return (
-                            <BreadcrumbItem key={crumb.name} text={crumb.name} href={crumb.link} />
-                        )
-                    }
-                    if (i === crumbs.length-1) {
-                        return (
-                            <BreadcrumbSeparator key={crumb.name}>
-                                <span>{crumb.name}</span>
+                crumbs.length > 0 && <>
+
+                    {
+                        crumbs.slice(0, crumbs.length - 1).map((crumb) => (
+                            < BreadcrumbSeparator key={crumb.name}>
+                                <BreadcrumbItem text={crumb.name} href={crumb.link} />
                             </BreadcrumbSeparator>
-                        )
-                    }
-                    return (
-                        <BreadcrumbSeparator key={crumb.name}>
-                            <BreadcrumbItem text={crumb.name} href={crumb.link} />
-                        </BreadcrumbSeparator>
-                    )
-                })
+                        ))}
+                    < BreadcrumbSeparator>
+                        <span className={s.currentItem}>{crumbs[crumbs.length - 1].name}</span>
+                    </BreadcrumbSeparator>
+                </>
             }
-        </section>
+        </section >
     )
 }
 
