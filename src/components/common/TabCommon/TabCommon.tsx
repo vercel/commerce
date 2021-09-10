@@ -1,47 +1,85 @@
-import React, { useState } from "react"
-import s from './TabCommon.module.scss'
-
-import TabItem from './TabItem/TabItem'
-
-interface TabCommonProps {
-
-}
-
-const TabCommon = ({ } : TabCommonProps) => {
-    const active = "active", unActive = "";
-
-    const [item1Active, setItem1Active] = useState(active);
-    const [item2Active, setItem2Active] = useState(unActive);
-    const [item3Active, setItem3Active] = useState(unActive);
-
-    function toggleItem1():void {
-        setItem1Active(active)
-
-        setItem2Active(unActive)
-        setItem3Active(unActive)
+import React, {
+    Children,
+    PropsWithChildren,
+    ReactElement,
+    useEffect,
+    useRef,
+    useState,
+      cloneElement,
+  } from 'react'
+  import s from './TabCommon.module.scss'
+  
+  import TabItem from  './components/TabItem/TabItem'
+  import { TabPaneProps } from './components/TabPane/TabPane'
+  import classNames from 'classnames'
+  
+  interface TabCommonProps {
+    defaultActiveTab?: number
+    children: React.ReactNode
+    center?:boolean
+  }
+  
+  const TabCommon = ({
+    defaultActiveTab = 0,
+    children,
+    center
+  }: TabCommonProps) => {
+    const [active, setActive] = useState(0)
+    const slider = useRef<HTMLDivElement>(null)
+    const headerRef = useRef<HTMLUListElement>(null)
+    useEffect(() => {
+      setActive(defaultActiveTab)
+    }, [])
+  
+    useEffect(() => {
+      slide(active)
+    }, [active])
+  
+    function slide(index: number) {
+      const active = headerRef.current?.children
+        .item(index)
+        ?.getBoundingClientRect()
+          const header = headerRef.current?.getBoundingClientRect()
+      const current = slider.current
+      if (current && active && header) {
+        let width = active.width - 24 <= 0 ? 24 : active.width - 24
+        let left = active.left - header.left
+        current.style.width = width.toString() + 'px'
+        current.style.left = left.toString() + 'px'
+      }
     }
-    function toggleItem2():void {
-        setItem2Active(active)
-
-        setItem1Active(unActive)
-        setItem3Active(unActive)
+    const onTabClick = (index: number) => {
+      setActive(index)
     }
-    function toggleItem3():void {
-        setItem3Active(active)
-
-        setItem1Active(unActive)
-        setItem2Active(unActive)
-    }
-
     return (
-        <section className={s.tabCommonOutSide}>
-            <div className={s.tabCommon}>
-                <span onClick={toggleItem1}><TabItem active={item1Active}>Wait for Comfirmation</TabItem></span>
-                <span onClick={toggleItem2}><TabItem active={item2Active}>Delivering</TabItem></span>
-                <span onClick={toggleItem3}><TabItem active={item3Active}>Delivered</TabItem></span>
-            </div>
-        </section>
+      <section className={s.tabWapper}>
+        <div className={s.tabHeader}>
+          <ul className={classNames(s.tabList,{[s.center]:center})} ref={headerRef}>
+            {Children.map(children, (tab, index) => {
+              let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+              return (
+                <li key={item.props.tabName}>
+                  <TabItem
+                    active={active === index}
+                    onClick={onTabClick}
+                    tabIndex={index}
+                  >
+                    {item.props.tabName}
+                  </TabItem>
+                </li>
+              )
+            })}
+          <div ref={slider} className={s.slider}></div>
+          </ul>
+        </div>
+        <div className={s.tabBody}>
+                  {Children.map(children, (tab, index) => {
+                      let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+                      return cloneElement(item, { active:index===active });
+                  })
+              }</div>
+      </section>
     )
-}
-
-export default TabCommon;
+  }
+  
+  export default TabCommon

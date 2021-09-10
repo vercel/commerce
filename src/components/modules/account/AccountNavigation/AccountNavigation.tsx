@@ -1,48 +1,69 @@
-import React, { useState } from "react"
+import React, { useRef, useEffect, Children, ReactElement, PropsWithChildren, useState, cloneElement } from "react"
 import s from './AccountNavigation.module.scss'
 
-import AccountNavigationItem from './components/AccountNavigationItem' 
+import AccountNavigationItem from './components/AccountNavigationItem/AccountNavigationItem'
+import {TabPaneProps} from '../../../common/TabCommon/components/TabPane/TabPane'
 
 interface AccountNavigationProps {
-    
+    defaultActiveIndex: number;
+    children: React.ReactNode
 }
 
-const AccountNavigation = ({  } : AccountNavigationProps) => {
-    const active = "active", unActive = "";
+const AccountNavigation = ({ defaultActiveIndex, children } : AccountNavigationProps) => {
+    const [active, setActive] = useState(defaultActiveIndex)
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLUListElement>(null)
 
-    const [item1Active, setItem1Active] = useState(active);
-    const [item2Active, setItem2Active] = useState(unActive);
-    const [item3Active, setItem3Active] = useState(unActive);
-
-    function toggleItem1():void {
-        setItem1Active(active)
-
-        setItem2Active(unActive)
-        setItem3Active(unActive)
+    const onTabClick = (index: number) => {
+        setActive(index)
     }
-    function toggleItem2():void {
-        setItem2Active(active)
 
-        setItem1Active(unActive)
-        setItem3Active(unActive)
-    }
-    function toggleItem3():void {
-        setItem3Active(active)
+    function slide(index: number) {       
+        const active = headerRef.current?.children.item(index)?.getBoundingClientRect()
+        const header = headerRef.current?.getBoundingClientRect()
+        const current = sliderRef.current
 
-        setItem1Active(unActive)
-        setItem2Active(unActive)
+        if (current && active && header) {
+            const top = active.top;
+            current.style.top = top.toString()+"px";
+        }
     }
+
+    useEffect(() => {
+        slide(active);
+    }, [active])
+
     return (
         <section className={s.accountNavigation}>
-            <div onClick={toggleItem1}>
-                <AccountNavigationItem active={item1Active}>Customer Information</AccountNavigationItem>
-                </div>
-            <div onClick={toggleItem2}>
-                <AccountNavigationItem active={item2Active}>Your Orders</AccountNavigationItem>
+            <ul className={s.tabList} ref={headerRef}>
+                {
+                    Children.map(children, (tab, index) => {
+                        let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+                        return (
+                            <li key={item.props.tabName}>
+                            <AccountNavigationItem
+                                active={active === index}
+                                onClick={onTabClick}
+                                tabIndex={index}
+                            >
+                                {item.props.tabName}
+                            </AccountNavigationItem>
+                            </li>
+                        )
+                    })
+                }
+                <div ref={sliderRef} className={s.slider}></div>
+            </ul>
+
+            <div className={s.tabBody}>
+                {
+                    Children.map(children, (tab, index) => {
+                        let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+                        return cloneElement(item, { active: index === active });
+                    })
+               }
             </div>
-            <div onClick={toggleItem3}>
-                <AccountNavigationItem active={item3Active}>Favourites</AccountNavigationItem>
-            </div>
+            <div ref={slider} className={s.slider}></div>
         </section>
     )
 }
