@@ -19,7 +19,7 @@ const waiting = [
 const delivering = [
     {
         id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
+        products: ["Tomato", "Fish", "Pork", "Onion", "Tomato", "Fish", "Pork", "Onion"],
         totalPrice : 1000
     }
 ]
@@ -27,7 +27,7 @@ const delivering = [
 const delivered = [
     {
         id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
+        products: ["Tomato", "Fish", "Pork", "Onion", "Tomato", "Fish", "Pork", "Onion"],
         totalPrice : 1000
     }
 ]
@@ -62,7 +62,9 @@ const AccountPage = ({defaultActiveContent="orders"} : AccountPageProps) => {
     return (
         <>
             <section className={s.accountPage}>
-                <HeadingCommon>Account</HeadingCommon>
+                <div className={s.header}>
+                    <HeadingCommon>Account</HeadingCommon>
+                </div>
 
                 <AccountNavigation defaultActiveIndex={activeTab}>
                     <TabPane tabName="Customer Information"> 

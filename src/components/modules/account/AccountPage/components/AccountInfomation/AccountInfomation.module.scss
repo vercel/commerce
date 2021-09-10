@@ -1,13 +1,27 @@
 @import '../../../../../../styles/utilities';
 
 .accountInfomation {
-    transition: opacity 6s;
+    @apply flex justify-center items-center;
+    text-align: center;
+    margin-top: 1.6rem;
     
+    @screen md {
+        @apply block;
+        text-align: left;
+        margin-top: 0;
+    }
+
     .avatar {
         height: 22rem;
         width: 22rem;
         border-radius: 50%;
+        margin: auto;
         margin-bottom: 4rem;
+        
+
+        @screen md {
+            margin-left: 0
+        }
     }
 
     .accountName {
@@ -33,6 +47,7 @@
 
     .editInfoBtn {
         @apply text-center font-bold custom-border-radius;
+        margin: auto;
         margin-top: 2.4rem;
         margin-bottom: 2.4rem;
         padding: .8rem 1.6rem;
@@ -43,6 +58,10 @@
         &:hover {
             @apply cursor-pointer;
             background-color: #FBFBFB;
+        }
+
+        @screen md {
+            margin-left: 0;
         }
     }
 }

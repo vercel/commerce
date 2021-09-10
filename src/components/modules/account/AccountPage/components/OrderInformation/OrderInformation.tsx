@@ -10,6 +10,7 @@ interface OrderInformationProps {
     waiting: {id: string, products: string[], totalPrice: number}[],
     delivering: {id: string, products: string[], totalPrice: number}[],
     delivered: {id: string, products: string[], totalPrice: number}[],
+    // active?: boolean
 }
 
 const OrderInformation = ({ waiting, delivering, delivered} : OrderInformationProps) => {
