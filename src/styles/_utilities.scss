@@ -113,26 +113,19 @@
     }
 
     .shape-common {
-        all: unset;
         position: relative;
         $border: 2px;
         margin: $border;
-        color: white;
-        background: palevioletred;
-        background-size: cover;
         clip-path: url(#svg-custom-shape);
     }
 
     .shape-common-border {
-        all: unset;
         position: relative;
         $border: 2px;
         margin: $border;
 
         .inner {
-            color: red;
-            background: papayawhip;
-            background-size: cover;
+            background: var(--white);
             clip-path: url(#svg-custom-shape);
         }
         &::before {
@@ -144,24 +137,21 @@
             top: calc(#{$border} * -1);
             left: calc(#{$border} * -1);
             clip-path: url(#svg-custom-shape);
-            z-index: -1;
         }
     }
 
     .shape-common-lg {
-        background-size: cover;
-        clip-path: url(#svgClip3);
+        clip-path: url(#svg-custom-shape-lg);
         padding: 2rem;
     }
-    
+
     .shape-common-lg-border {
         position: relative;
         $border: 2px;
         margin: $border;
-    
+
         .inner {
             padding: 2rem;
-            background-size: cover;
             clip-path: url(#svg-custom-shape-lg);
         }
         &::before {
@@ -169,11 +159,10 @@
             content: "";
             width: calc(100% + #{$border} * 2);
             height: calc(100% + #{$border} * 2);
-            background-color: wheat;
+            background-color: var(--primary);
             top: calc(#{$border} * -1);
             left: calc(#{$border} * -1);
             clip-path: url(#svg-custom-shape-lg);
-            z-index: -1;
         }
     }
 
