@@ -5,7 +5,7 @@
     "dev": "NODE_OPTIONS='--inspect' PORT=3005 next dev",
     "dev-windows": "set NODE_OPTIONS='--inspect' && set PORT=3005 && next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "PORT=3005 next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
     "prettier-fix": "prettier --write .",
     "find:unused": "npx next-unused",
