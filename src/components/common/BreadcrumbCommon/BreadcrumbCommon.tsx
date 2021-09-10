@@ -1,7 +1,6 @@
 import React from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
 import s from './BreadcrumbCommon.module.scss'
-
 import BreadcrumbItem from './components/BreadcrumbItem/BreadcrumbItem'
 import BreadcrumbSeparator from './components/BreadcrumbSeparator/BreadcrumbSeparator'
 

@@ -17,6 +17,7 @@ module.exports = withCommerceConfig({
     // todo: replace domains for images
     domains: ['user-images.githubusercontent.com'],
   },
+  disablelintbuild: false,
   i18n: {
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
@@ -42,6 +43,9 @@ module.exports = withCommerceConfig({
         },
     ].filter(Boolean)
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  }
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments

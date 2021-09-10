@@ -5,5 +5,8 @@
     height: 100%;
     img {
         object-fit: cover;
+        background-size: contain !important;
+        background-position: center !important;
+        background-repeat: no-repeat;
     }
 }

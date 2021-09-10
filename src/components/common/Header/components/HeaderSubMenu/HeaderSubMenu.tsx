@@ -53,16 +53,12 @@ const CATEGORY = [
         link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
     },
 ]
-interface Props {
-    children?: any,
-    isShow: boolean,
-}
 
-const HeaderSubMenu = memo(({ isShow }: Props) => {
+const HeaderSubMenu = memo(() => {
     const router = useRouter()
 
     return (
-        <section className={classNames({ [s.headerSubMenu]: true, [s.show]: isShow })}>
+        <section className={s.headerSubMenu}>
             <ul className={s.menu}>
                 {/* todo: handle active item */}
                 <li>
