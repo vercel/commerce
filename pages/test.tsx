@@ -1,13 +1,11 @@
 import {
-  Layout, RecipeDetail
+  CartDrawer,
+  Layout
 } from 'src/components/common';
-import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
 import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList';
-import BlogContent from 'src/components/modules/blogs/BlogContent/BlogContent';
 // import { RecipeListPage } from 'src/components/modules/recipes';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
-import BlogDetailPage from 'src/components/modules/blogs/BlogDetailPage/BlogDetailPage';
-
+import { useModalCommon } from 'src/components/hooks';
 const CATEGORY = [
   {
       name: 'All',
@@ -70,14 +68,23 @@ const FEATURED = [
     }
   ];
 export default function Test() {
-
+  const { visible: visibleMenuFilter, openModal, closeModal: closeMenuFilter } = useModalCommon({ initialValue: false })
+  const toggle = () => {
+    if (visibleMenuFilter) {
+        closeMenuFilter()
+    } else {
+        openModal()
+    }
+}
   return (
     <>
       {/* <BlogDetailPage /> */}
       
       {/* <RecipeListPage/> */}
         {/*<MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>*/}
-           <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED}/> 
+        <button onClick={toggle}>toggle menu : {visibleMenuFilter.toString()}</button>
+           <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED} visible={visibleMenuFilter} onClose={closeMenuFilter}/> 
+           {/* <CartDrawer  /> */}
     </>
   )
 }
