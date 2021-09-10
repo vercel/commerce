@@ -22,7 +22,7 @@
   "dependencies": {
     "@react-spring/web": "^9.2.4",
     "@vercel/fetch": "^6.1.0",
-    "autoprefixer": "^10.3.1",
+    "autoprefixer": "^10.3.4",
     "body-scroll-lock": "^3.1.5",
     "classnames": "^2.3.1",
     "cookie": "^0.4.1",
