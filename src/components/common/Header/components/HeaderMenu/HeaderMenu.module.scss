@@ -62,6 +62,11 @@
                     }
                 }
                 .btnCart {
+                    all: unset;
+                    cursor: pointer;
+                    &:focus-visible {
+                        outline: 2px solid #000;
+                    }
                     &:hover {
                         svg path {
                             fill: var(--primary);

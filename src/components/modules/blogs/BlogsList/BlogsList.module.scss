@@ -1,0 +1,23 @@
+@import "../../../../styles/utilities";
+
+.wrapper {
+    @apply flex flex-col spacing-horizontal items-center;
+    padding-bottom: 16.8rem;
+    .list {
+        @apply grid grid-cols-1 gap-8;
+        max-width: 121.6rem;
+        @screen md {
+            @apply grid-cols-2;
+        }
+        @screen lg {
+            @apply grid-cols-3;
+        }
+    }
+    .card {
+        @apply pb-16;
+    }
+    .pagination {
+        @apply flex justify-center items-center ;
+        padding-top: 0.8rem;
+    }
+}
