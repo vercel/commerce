@@ -1,6 +1,7 @@
 import {
-  CollapseCommon, EmptyCommon, Layout, RelevantBlogPosts
+  CollapseCommon, EmptyCommon, ImgWithLink, Layout, RelevantBlogPosts, StaticImage
 } from 'src/components/common'
+import TestImg from '../public/assets/bannerrecipes.png'
 
 const COLLAPSE_DATA = [
   {
@@ -64,6 +65,11 @@ export default function Test() {
           Lorem ipsum dolor sit
         </div>
       </div>
+
+
+      <ImgWithLink src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="test" />
+      <StaticImage src={TestImg} />
+
 
     </>
   )
