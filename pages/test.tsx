@@ -1,33 +1,90 @@
-import { ImgWithLink, Layout, StaticImage } from 'src/components/common'
-import TestImg from '../public/assets/images/image5.png'
+import {
+  CartDrawer,
+  Layout
+} from 'src/components/common';
+import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList';
+// import { RecipeListPage } from 'src/components/modules/recipes';
+import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
+import { useModalCommon } from 'src/components/hooks';
+const CATEGORY = [
+  {
+      name: 'All',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
+  },
+  {
+      name: 'Veggie',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+  },
+  {
+      name: 'Seafood',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+  },
+  {
+      name: 'Frozen',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+  },
+  {
+      name: 'Coffee Bean',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
+  },
+  {
+      name: 'Sauce',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
+  },
+]
+const BRAND = [
 
+  {
+      name: 'Maggi',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+  },
+  {
+      name: 'Cholimes',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+  },
+  {
+      name: 'Chinsu',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+  }
+];
+
+const FEATURED = [
+
+    {
+        name: 'Best Sellers',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
+    },
+    {
+        name: 'Sales',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
+    },
+    {
+        name: 'New Item',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
+    },
+    {
+        name: 'Viewed',
+        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=viewed`,
+    }
+  ];
 export default function Test() {
+  const { visible: visibleMenuFilter, openModal, closeModal: closeMenuFilter } = useModalCommon({ initialValue: false })
+  const toggle = () => {
+    if (visibleMenuFilter) {
+        closeMenuFilter()
+    } else {
+        openModal()
+    }
+}
   return (
     <>
-      <ImgWithLink src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="test" />
-      <StaticImage src={TestImg} />
-      <button className="shape-common" style={{padding: '2rem', background: 'pink'}}>
-        Lorem ipsum dolor
-      </button>
-
-      <button className="shape-common-border" style={{padding: '2rem'}}>
-        <div className="inner">
-          Lorem ipsum dolor sit
-        </div>
-      </button>
-
-      <div className="shape-common-lg" style={{ background: "blue" }}>
-        <div className="inner">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam vel optio fuga nobis nostrum! Magnam tenetur, et doloremque unde enim dolorem aspernatur nobis vitae impedit iste iure distinctio labore, quidem illo itaque necessitatibus eligendi magni architecto illum cumque corrupti esse a. Eius tenetur voluptas autem corrupti, amet porro beatae ratione maiores! Dolorum earum placeat totam corporis sint quae quam at vero eos magni amet, nisi eum qui natus exercitationem ea eveniet esse aut in. Ipsa hic saepe veritatis quas dignissimos corrupti sapiente quis, mollitia ducimus, ipsum ratione quos doloribus quidem, dolor neque! Eligendi quibusdam aspernatur, maxime vitae incidunt ipsam itaque ab distinctio? Architecto ratione deserunt saepe sequi alias accusantium harum quae itaque aut odit voluptates, hic beatae similique expedita! Modi, sunt exercitationem! Mollitia, eius! Molestiae nostrum, quas, ratione deleniti, adipisci pariatur omnis veniam blanditiis iste quia laboriosam est labore doloribus officiis repellendus consequatur. Ducimus impedit voluptate doloribus repellendus exercitationem mollitia labore ab totam reiciendis distinctio. Nesciunt dolor officiis reiciendis esse nostrum modi inventore, cum, veritatis placeat doloribus iure perspiciatis tempora a mollitia soluta fugit! Aspernatur necessitatibus provident, reiciendis sapiente temporibus labore. Optio tempora ipsam blanditiis fugiat sint reiciendis, deleniti itaque fuga omnis aut architecto animi, aliquam quis aliquid ipsum necessitatibus dolorem sequi aperiam magni non! Atque deserunt autem nihil, in voluptatem, natus quibusdam fugiat velit aspernatur ullam quam quo consequuntur eius. Pariatur dolor obcaecati quam reprehenderit, est corporis ea beatae quia numquam nemo in eum voluptatem ullam sequi atque? Quos neque voluptatem maxime, repellat cupiditate accusantium, maiores in aperiam, eveniet asperiores eligendi velit iusto voluptates dolores. Nostrum officia commodi dolore asperiores sequi, molestiae quasi. Deserunt, molestiae voluptate. Perferendis earum consectetur adipisci ratione nisi nihil minus. Ipsum voluptas dolorum voluptates dolores reprehenderit nemo, exercitationem labore, quas voluptatibus officiis fuga ullam ab, eius quae. Quibusdam perferendis iusto nobis, cupiditate officiis sapiente molestiae distinctio magnam dolore voluptatum quos ratione fugiat autem corporis rerum esse possimus perspiciatis ex officia eos numquam blanditiis assumenda natus. At nihil excepturi et consectetur nobis dicta tempora dolorum neque, saepe minima mollitia, officiis ex atque reprehenderit blanditiis animi dolore ratione quam. Id animi facere repudiandae eos facilis? Dolorum quae illo nam tempora, quasi ut placeat beatae minus consequatur libero maiores repudiandae, voluptates sed natus animi a. Cum numquam atque explicabo temporibus consequatur odit voluptates tenetur pariatur optio nihil eligendi ab veniam nisi velit quaerat natus, ea facere eveniet corrupti! Iste temporibus placeat tenetur incidunt obcaecati quam nulla nemo cum accusantium quo velit, maiores, esse illum ipsam dolore enim sunt, aspernatur illo provident delectus officia sit officiis qui! Ullam quam numquam mollitia reprehenderit? Facere, quos amet praesentium officia nostrum veritatis, autem laborum quidem architecto eveniet voluptatum, nisi voluptate totam saepe. Obcaecati non vitae accusantium voluptates iure voluptatem nulla, quaerat culpa officia quasi mollitia doloremque. Deserunt officia aliquid totam quibusdam, doloribus quos porro sit alias, perspiciatis facilis exercitationem inventore adipisci aliquam saepe ipsam dignissimos. Minima iste dolorem esse optio necessitatibus voluptas deserunt sint quam, veniam nulla vitae eaque omnis alias! Natus ut, doloribus quia laboriosam id voluptates? Quibusdam aliquid ea nemo.
-        </div>
-      </div>
-      <div className="shape-common-lg-border" >
-        <div className="inner" style={{ background: "blue" }}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate, maiores cum quam odit quia est magni aut reiciendis deleniti, ea quae, dolorem vero fuga veritatis culpa? Eum sunt quia et consequatur tenetur, atque eius illo quibusdam laudantium iusto quo cumque, ad dolor dicta eos inventore ipsa fugit voluptates similique incidunt doloribus? Dicta, ipsa? Suscipit porro dicta dolorum rem. Placeat provident quisquam excepturi obcaecati tempora, eaque incidunt accusantium suscipit velit ex quo, voluptatem eum inventore illum exercitationem beatae sint temporibus aliquid, unde expedita recusandae. Repudiandae, nesciunt natus adipisci, error consectetur, fugit magni ducimus est delectus voluptates cupiditate explicabo dolorem maxime hic. Natus, quidem beatae rem aliquam nobis illo reprehenderit, distinctio qui adipisci quaerat sapiente hic nisi ad. Voluptatem dolore eius eos doloribus quam repudiandae cum, culpa expedita error fugiat. Labore eius voluptatum reiciendis repellendus. Enim sapiente dolore tenetur totam esse laboriosam labore aperiam aspernatur! Magnam voluptas iure recusandae delectus, in impedit nobis aliquam debitis laudantium, explicabo quas molestiae quos rem quibusdam nemo placeat nam, dolore doloribus quaerat eum! Quam nesciunt architecto debitis consequuntur sint culpa exercitationem dicta numquam dolorum eius illum similique fuga magni veritatis sequi, et excepturi distinctio laborum quidem. Tempore debitis natus iure, enim molestiae provident? Sed dignissimos velit dolores quia recusandae quam? Beatae, officia dolor. Repellendus dicta provident veniam itaque beatae, eius labore sapiente aspernatur exercitationem ducimus quam est quas quaerat officia consequatur temporibus tempore! Iusto, voluptatum maxime provident, voluptatem ullam recusandae facere error, animi sequi quidem modi illo accusamus non consequuntur deserunt fuga sit labore cum dolorem delectus unde architecto! Mollitia consequuntur veniam sit nihil itaque praesentium temporibus inventore nemo odio necessitatibus eum corporis at et consequatur alias deserunt eligendi aliquid voluptatem quasi exercitationem, voluptatum quos aut voluptate ipsum? Error provident repellat fuga temporibus delectus rem, exercitationem doloremque voluptatem dignissimos, quod amet neque sed quidem nostrum deserunt est debitis obcaecati. Aspernatur veniam vel soluta labore expedita cum quo debitis ab exercitationem, saepe aliquam officia praesentium optio voluptatem atque. Voluptatem ullam et voluptas eligendi omnis fugiat? Ipsam laudantium beatae perspiciatis quis! Nemo optio, quia esse perspiciatis iste et veniam illum qui praesentium, expedita assumenda? Quae distinctio repellendus excepturi ut eos enim optio earum, laborum aperiam, sed sit alias incidunt voluptatibus? Officia, quos. Labore porro repellendus, suscipit praesentium possimus adipisci, quidem illum consequuntur ut id quae quas cum corrupti laboriosam nesciunt nisi dolorum ullam dolor nobis debitis, ipsam inventore? Doloribus dignissimos ipsa aliquid? Dolores nemo ab hic ipsum expedita maxime corporis recusandae inventore, aliquam voluptate voluptatibus dolor dignissimos suscipit explicabo, officia consequuntur officiis ipsam cumque debitis odio qui? Earum minus quaerat possimus ea laudantium laboriosam enim omnis molestias quod nesciunt vel vero officia, ad inventore voluptatem dicta dolorem rem voluptates ab quasi nisi, esse quis. Fuga ad animi reiciendis nulla officiis possimus adipisci ducimus eum, molestias neque enim doloremque nam recusandae labore commodi, quia sed illo fugit molestiae qui hic voluptate facere dignissimos. Dolor porro ab modi nam vitae architecto delectus quo et velit pariatur omnis quae in ullam ex quis rerum, corporis alias, nobis veritatis aperiam commodi hic!
-        </div>
-      </div>
-
-
+      {/* <BlogDetailPage /> */}
+      
+      {/* <RecipeListPage/> */}
+        {/*<MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>*/}
+        <button onClick={toggle}>toggle menu : {visibleMenuFilter.toString()}</button>
+           <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED} visible={visibleMenuFilter} onClose={closeMenuFilter}/> 
+           {/* <CartDrawer  /> */}
     </>
   )
 }

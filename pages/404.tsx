@@ -1,3 +1,4 @@
+import { Layout } from 'src/components/common'
 import { NotFoundPage } from "src/components/modules/404"
 
 export default function NotFound() {
@@ -7,4 +8,4 @@ export default function NotFound() {
     </div>
   )
 }
-
+NotFound.Layout = Layout
