@@ -2,9 +2,25 @@
 
 .totalPrice {
     margin-left: auto; 
-    margin-right: 2.4rem;
+    margin-right: 1rem;
+
+    @screen md {
+        margin-right: 1.2rem;
+    }
+
+    @screen lg {
+        margin-right: 2.4rem;
+    }
 
     .price {
-        @apply font-bold sub-headline;
+        @apply font-bold ;
+
+        @screen md {
+            @apply topline
+        }
+    
+        @screen lg {
+            @apply sub-headline;
+        }
     }
 }

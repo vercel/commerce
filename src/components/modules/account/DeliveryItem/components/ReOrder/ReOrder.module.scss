@@ -2,9 +2,19 @@
 
 .reOrder {
     @apply text-white custom-border-radius hidden font-bold;
-    padding: .8rem 1.2rem;
-    margin-right: 2.4rem;
+    padding: .4rem .6rem;
+    margin-right: 1rem;
     background-color: var(--primary);
+
+    @screen md {
+        padding: .4rem .6rem;
+        margin-right: 1.2rem;
+    }
+
+    @screen lg {
+        padding: .8rem 1.2rem;
+        margin-right: 2.4rem;
+    }
 
     &.show {
         @apply block;

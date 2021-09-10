@@ -2,7 +2,52 @@
 
 .idAndStatus {
     @apply items-center;
-    padding: 2.4rem 0 2.4rem 2.4rem;
+    padding: 2.4rem 0 2.4rem 1rem;
+
+    @screen md {
+        padding: 2.4rem 0 2.4rem 1.2rem;
+    }
+
+    @screen lg {
+        padding: 2.4rem 0 2.4rem 2.4rem;
+    }
+
+    .id {
+        @apply font-bold;
+        margin-bottom: .8rem;
+    }
+
+    .deliveryStatus {
+        @apply font-bold text-white;
+        font-size: 1.2rem;
+        line-height: 2rem;
+        padding: 0 .8rem;
+        border-radius: 0.5rem;
+        width: fit-content;
+
+        &.waiting {
+            background-color: #D9A645;
+        }
+        &.delivering {
+            background-color: var(--info-dark);
+        }
+        &.delivered {
+            background-color: var(--primary);
+        }
+    }
+}@import '../../../../../../styles/utilities';
+
+.idAndStatus {
+    @apply items-center;
+    padding: 2.4rem 0 2.4rem 1rem;
+
+    @screen md {
+        padding: 2.4rem 0 2.4rem 1.2rem;
+    }
+
+    @screen lg {
+        padding: 2.4rem 0 2.4rem 2.4rem;
+    }
 
     .id {
         @apply font-bold;

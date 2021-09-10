@@ -1,0 +1,12 @@
+@import '../../../../../../styles/utilities';
+
+.products {
+    margin-top: .8rem;    
+    max-width: 32%;
+    min-width: none;
+
+    @screen lg {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}

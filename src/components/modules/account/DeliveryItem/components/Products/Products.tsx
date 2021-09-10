@@ -1,4 +1,5 @@
 import React from "react"
+import s from './Products.module.scss'
 
 interface ProductsProps {
     products: string[];
@@ -19,7 +20,7 @@ const Products = ({ products } : ProductsProps) => {
     }
 
     return (
-        <div className="products">
+        <div className={s.products}>
             {toString(products)}
         </div>
     )
