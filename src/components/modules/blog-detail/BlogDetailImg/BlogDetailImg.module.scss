@@ -1,0 +1,21 @@
+.beadcrumb{
+    padding-left: 3.2rem;
+    padding-bottom: 3.2rem;
+}
+.image{
+    width: 100%;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+    border-radius: 2.4rem;
+    @screen md {
+        width: 90%;
+        margin:0 auto;
+        margin-bottom: 4rem;
+    }
+    @screen xl{
+        width: 63%;
+        margin:0 auto;
+        margin-bottom: 4rem;
+    }
+  
+}
