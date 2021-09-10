@@ -1,10 +1,7 @@
-import {
-  CollapseCommon, EmptyCommon, ImgWithLink, Layout, RelevantBlogPosts, StaticImage
-} from 'src/components/common'
+import { ImgWithLink, Layout, StaticImage } from 'src/components/common'
 import TestImg from '../public/assets/images/image5.png'
 
 export default function Test() {
-
   return (
     <>
       <ImgWithLink src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="test" />

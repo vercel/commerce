@@ -55,7 +55,7 @@ const BlogContent = ({}:BlogContentProps) => {
                     You can eat broccoli stems. In fact, they are delicious. Just use a peeler to peel off the outsides and then trim the stalks into small 1/4”-1/2” cubes.
                     </p>
                     <br/>
-                    <img  src="https://i.pinimg.com/236x/f0/bd/a6/f0bda6a9ed04a6c4ac9453be80c95f75.jpg" alt="blog-detail" />
+                    <img  src="https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/An-%C4%91%E1%BA%B7c%20s%E1%BA%A3n%20v%C3%B9ng%20mi%E1%BB%81n/An-2-21%20%C4%91%E1%BA%B7c%20s%E1%BA%A3n%20SG%20ngon%20n%E1%BB%95i%20ti%E1%BA%BFng/tong-hop-21-dac-san-sai-gon-ngon-noi-tieng-khong-an-that-co-loi-2.jpg" alt="blog-detail" />
                   
                 </section>
                   
