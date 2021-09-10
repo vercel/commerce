@@ -3,10 +3,6 @@ import s from './DeliveryAndPolicyBreadCrumb.module.scss'
 
 const CRUMB_DATA = [
     {
-        link: "/",
-        name: "Home"
-    },
-    {
         link: "/delivery-policy",
         name: "Delivery And Policy"
     }
