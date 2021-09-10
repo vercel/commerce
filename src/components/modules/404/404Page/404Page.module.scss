@@ -1,0 +1,28 @@
+.wrapper{
+    @apply flex justify-center;
+    text-align: center;
+    height:100%;
+  
+    background-color: white;
+    .inner{
+        height: 100vh;
+        .logo{
+            margin-top: 2rem;
+        }
+        .text{
+            @apply flex justify-center;
+            align-items: center;   
+            width: 100%;
+            height:80%;
+           
+            h1{
+                font-weight: bold;
+                font-size: 17rem;
+                color: var(--primary);
+                font-family: var(--font-heading);
+                text-shadow: 2px 4px 5px var(--primary);
+            }
+        }
+    }
+   
+}
