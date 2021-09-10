@@ -1,5 +1,7 @@
 .wrapper{
-    padding: 0 5.6rem;
+    @screen md {
+        padding: 0 5.6rem;
+    }
     .inner{
         padding: 4rem 0;
     }

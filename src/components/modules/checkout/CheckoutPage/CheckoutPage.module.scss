@@ -1,10 +1,56 @@
+@import "../../../../styles/utilities";
 .warrper{
     @apply flex;
     .right{
-        min-width: 56.3rem;
+        display: none;
+        @screen lg {
+            display: block;
+            min-width: 45rem;
+        }
+        @screen xl {
+            min-width: 56.3rem;
+        }
     }
-    .left{
+    .left{  
         @apply w-full;
-
+    }
+    .mobile{
+        @apply hidden;
+        &.isShow{
+            @apply block;
+            @screen lg {
+                @apply hidden;
+            }
+        }
+        .modal{
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            .content{
+                @apply spacing-horizontal;
+                margin-top: 3rem;
+                padding-top: 6.4rem ;
+                padding-bottom: 5rem;
+                background-color: white;
+                overflow: auto;
+                height: 100%;
+                border-radius: 2.4rem 2.4rem 0 0;
+                .head{
+                    @apply flex justify-between;
+                    h3{
+                        @apply heading-3 font-bold;
+                        color:var(--text-base);
+                    }
+                }
+                button{
+                    margin-top: 2rem;
+                    width: 100%;
+                }
+            }
+        }
     }
 }

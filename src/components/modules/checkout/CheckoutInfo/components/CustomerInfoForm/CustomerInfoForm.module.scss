@@ -1,7 +1,9 @@
 @import "../../../../../../styles/utilities";
 .warpper{
     @apply u-form;
-    padding: 0 5.6rem;
+    @screen md {
+        padding: 0 5.6rem;
+    }
     .bottom{
         margin-top: 2.4rem;
         @apply flex justify-between items-center;

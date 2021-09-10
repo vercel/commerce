@@ -7,9 +7,11 @@ import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
 import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
-interface CheckoutInfoProps {}
+interface CheckoutInfoProps {
+  onViewCart:()=>void
+}
 
-const CheckoutInfo = ({}: CheckoutInfoProps) => {
+const CheckoutInfo = ({onViewCart}: CheckoutInfoProps) => {
   const [active, setActive] = useState(1)
   const [done, setDone] = useState<number[]>([])
   const [info, setInfo] = useState<CheckOutForm>({})
@@ -69,6 +71,7 @@ const CheckoutInfo = ({}: CheckoutInfoProps) => {
     <div className={s.warpper}>
       <div className={s.title}>
         <Logo />
+        <div className={s.viewCart} onClick={onViewCart}>View cart</div>
       </div>
       {formList.map((item) => {
         let note = getNote(item.id)

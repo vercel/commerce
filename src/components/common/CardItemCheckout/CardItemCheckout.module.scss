@@ -1,8 +1,10 @@
 .warpper{
-    max-width: 49.9rem;
     max-height: 12rem;
     padding:1.6rem 0;
     @apply flex items-center;
+    @screen lg {
+        max-width: 49.9rem;
+    }
     .image{
         width: 13.3rem;
         height: 8.8rem;
