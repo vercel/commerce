@@ -2,6 +2,7 @@ import { CommerceProvider } from '@framework'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useModalCommon } from 'src/components/hooks'
+import { CartDrawer, CustomShapeSvg } from '..'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import s from './Layout.module.scss'
@@ -29,6 +30,10 @@ const Layout: FC<Props> = ({ children }) => {
                 <Header />
                 <main >{children}</main>
                 <button onClick={toggle}>toggle card: {visibleCartDrawer.toString()}</button>
+                <CustomShapeSvg/>
+                <CartDrawer
+                    visible={visibleCartDrawer}
+                    onClose={closeCartDrawer} />
                 <Footer />
             </div>
         </CommerceProvider>
