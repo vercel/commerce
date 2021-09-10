@@ -6,3 +6,8 @@
         flex: 1;
     }
 }
+.filter{
+    @screen md {
+        display: none;
+    }
+}

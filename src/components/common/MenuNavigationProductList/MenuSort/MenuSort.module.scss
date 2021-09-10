@@ -1,9 +1,7 @@
 @import "../../../../styles/utilities";
 .menuSortWrapper{
-  
-    @screen md {
-        @apply hidden;
-    }
+    @apply spacing-horizontal;
+
     .menuSortHeading{
         @apply sub-headline font-bold ;
         color: var(--text-active);
@@ -11,14 +9,9 @@
         margin: 0.8rem 0;
     }
     .menuSortList{
+        margin-bottom: 2rem;
         box-sizing: border-box;
-        &::after{
-            @apply absolute;
-            top: 110%;
-            content: "";
-            width: 100%;
-            border-bottom: 1px solid var(--border-line);
-        } 
+        
         li{
             div{
              height: 4.8rem;

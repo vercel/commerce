@@ -1,9 +1,7 @@
 @import "../../../styles/utilities";
 .menuFilterWrapper{
-  
-    @screen md {
-        @apply hidden;
-    }
+    @apply spacing-horizontal;
+
     .menuFilterHeading{
         @apply sub-headline font-bold ;
         color: var(--text-active);
@@ -16,12 +14,12 @@
         box-sizing: border-box;
         &::after{
             @apply absolute;
-            top: 110%;
+            bottom: -1rem;
             content: "";
             width: 100%;
             border-bottom: 1px solid var(--border-line);
         } 
-
+       
         li{
             margin: 1rem 0;
             padding:0;

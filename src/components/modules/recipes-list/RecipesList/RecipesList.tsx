@@ -1,42 +1,53 @@
 import React from 'react';
+import { SelectCommon } from 'src/components/common';
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon';
 import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation';
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon';
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
-import image12 from "../../../../../public/assets/images/image12.png";
-import image13 from "../../../../../public/assets/images/image13.png";
-import image14 from "../../../../../public/assets/images/image14.png";
-import RecipesItem from './RecipesItem/RecipesItem';
-import HeadingCommon from "../../../common/HeadingCommon/HeadingCommon";
-import s from './RecipesList.module.scss';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
-import { SelectCommon } from 'src/components/common';
+import HeadingCommon from "../../../common/HeadingCommon/HeadingCommon";
+import RecipesItem from './RecipesItem/RecipesItem';
+import s from './RecipesList.module.scss';
 
-const recipe:RecipeCardProps[] = [{
+const recipe:RecipeCardProps[] = [
+{
     title: "Special Recipe of Vietnamese Phở",
-    description:"Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
-    imageSrc: image12.src
-  },{
+    description: "Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
+    imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+    slug: "special-recipe-of-vietnamese-pho"
+},
+{
     title: "Original Recipe of Curry",
-    description:"Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
-    imageSrc: image13.src
-  },{
+    description: "Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
+    imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+    slug:"original-recipe-of-curry"
+},
+{
     title: "The Best Recipe of Beef Noodle Soup",
-    description:"The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
-    imageSrc: image14.src
-  },{
+    description: "The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
+    imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+    slug:"the-best-recipe-of-beef-noodle-soup"
+},
+{
     title: "Special Recipe of Vietnamese Phở",
-    description:"Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
-    imageSrc: image12.src
-  },{
+    description: "Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
+    imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+    slug: "special-recipe-of-vietnamese-pho"
+},
+{
     title: "Original Recipe of Curry",
-    description:"Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
-    imageSrc: image13.src
-  },{
+    description: "Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
+    imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+    slug:"original-recipe-of-curry"
+},
+{
     title: "The Best Recipe of Beef Noodle Soup",
-    description:"The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
-    imageSrc: image14.src
-}];
+    description: "The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
+    imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+    slug:"the-best-recipe-of-beef-noodle-soup"
+},];
+const DEFAULT_PAGESIZE_RECIPELIST = 6;
+
 const BREADCRUMB = [
     {
         name: 'Special Recipes',
@@ -203,7 +214,7 @@ const RecipesList = ({ data =recipe}:Props) => {
                         </div>
                     </div>
                     <div  className={s.recipesPagination}>
-                        <PaginationCommon pageSize={6} total={9}/>
+                        <PaginationCommon pageSize={DEFAULT_PAGESIZE_RECIPELIST} total={data?.length}/>
                     </div>
                 </div>
                 

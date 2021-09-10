@@ -44,5 +44,10 @@ export interface CheckOutForm {
     shipping_fee?:number
 }
 
-
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
+
+export type filterContextType = {
+    visible: boolean;
+    open: () => void;
+    close: () => void;
+};

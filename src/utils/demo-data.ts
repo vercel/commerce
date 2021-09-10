@@ -250,3 +250,4 @@ export const CHECKOUT_BILL_DATA:CardItemCheckoutProps[] = [
       quantity:2
     },
   ]
+export const PRODUCT_DATA_TEST_PAGE = [...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST]
