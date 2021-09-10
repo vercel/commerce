@@ -1,5 +1,5 @@
 import { StaticImage } from '..';
-import EmptyImg from './empty.svg';
+import EmptyImg from './empty.png';
 import s from './EmptyCommon.module.scss';
 
 
