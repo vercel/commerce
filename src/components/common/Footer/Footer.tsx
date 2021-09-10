@@ -48,7 +48,7 @@ const FOOTER_COLUMNS = [
             },
             {
                 name: 'Privacy Policy',
-                link: ROUTE.TERM_CONDITION,
+                link: ROUTE.PRIVACY_POLICY,
             },
             {
                 name: 'Blog',
