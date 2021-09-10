@@ -9,7 +9,7 @@ export default function Test() {
     <>
       <ImgWithLink src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="test" />
       <StaticImage src={TestImg} />
-      <button className="shape-common" style={{padding: '2rem'}}>
+      <button className="shape-common" style={{padding: '2rem', background: 'pink'}}>
         Lorem ipsum dolor
       </button>
 
