@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 import classNames from "classnames";
 import s from './AccountNavigationItem.module.scss'
 

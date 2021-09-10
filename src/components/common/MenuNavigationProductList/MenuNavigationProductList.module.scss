@@ -1,18 +1,17 @@
 @import "../../../styles/utilities";
 .menuNavigationProductListDesktop{
-    @screen sm-only {
+    @screen sm {
         @apply hidden;
+    }
+
+    @screen xl {
+        @apply block;
     }
 }
 .menuNavigationProductListMobile{
     @apply relative transition-all duration-100;
     
-    @screen md{
-        @apply hidden;
-    }
-    @screen xl{
-        @apply hidden;
-    }
+
     &.isShow{
         &::after{
             content: "";

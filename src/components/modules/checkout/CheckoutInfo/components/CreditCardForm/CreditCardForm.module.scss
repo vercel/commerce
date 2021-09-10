@@ -1,0 +1,12 @@
+@import "../../../../../../styles/utilities";
+.warpper{
+    @apply u-form;
+    .line{
+        >div{
+            width: 50%;
+        }
+    }
+    .checkbox{
+        margin-top: 1.6rem;
+    }
+}

@@ -15,7 +15,16 @@
     .left {
         .top {
             @apply flex justify-between items-center;
+            .iconGroup{
+                @apply flex justify-between items-center;
+            }
             .iconCart {
+                margin-left: 1.6rem;
+            }
+            .iconFilter{
+                @screen md {
+                    display: none;
+                }
             }
         }
         .inputSearch {
@@ -74,6 +83,11 @@
                         }
                     }
                 }
+            }
+        }
+        @screen xl {
+            .iconFilterDesk {
+                display:none;
             }
         }
     }

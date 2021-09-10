@@ -1,5 +1,5 @@
 import { RefObject, useEffect } from 'react'
-import { MouseAndTouchEvent } from './types.utils'
+import { MouseAndTouchEvent } from '../../utils/types.utils'
 
 export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
 	ref: RefObject<T>,

@@ -63,6 +63,7 @@ const AccountNavigation = ({ defaultActiveIndex, children } : AccountNavigationP
                     })
                }
             </div>
+            <div ref={slider} className={s.slider}></div>
         </section>
     )
 }

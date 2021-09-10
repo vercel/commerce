@@ -32,6 +32,7 @@ export { default as ModalConfirm} from "./ModalConfirm/ModalConfirm"
 export { default as ModalInfo} from "./ModalInfo/ModalInfo"
 export { default as ProductList} from "./ProductList/ProductList"
 export { default as ModalCreateUserInfo} from './ModalCreateUserInfo/ModalCreateUserInfo'
+export { default as CardItemCheckout} from './CardItemCheckout/CardItemCheckout'
 export { default as CardBlog} from './CardBlog/CardBlog'
 export { default as RelevantBlogPosts} from './RelevantBlogPosts/RelevantBlogPosts'
 export { default as CollapseCommon} from './CollapseCommon/CollapseCommon'
@@ -40,6 +41,8 @@ export { default as ImgWithLink} from './ImgWithLink/ImgWithLink'
 export { default as RecipeDetail} from './RecipeDetail/RecipeDetail'
 export { default as DrawerCommon} from './DrawerCommon/DrawerCommon'
 export { default as CartDrawer} from './CartDrawer/CartDrawer'
+export { default as TabPane} from './TabCommon/components/TabPane/TabPane'
+export { default as TabCommon} from './TabCommon/TabCommon'
 export { default as StaticImage} from './StaticImage/StaticImage'
 export { default as EmptyCommon} from './EmptyCommon/EmptyCommon'
 export { default as CustomShapeSvg} from './CustomShapeSvg/CustomShapeSvg'

@@ -1,3 +1,4 @@
+import { CardItemCheckoutProps } from "src/components/common/CardItemCheckout/CardItemCheckout"
 import { RecipeCardProps } from "src/components/common/RecipeCard/RecipeCard"
 
 export const PRODUCT_DATA_TEST = [
@@ -219,3 +220,34 @@ export const RECIPE_DATA_TEST: RecipeCardProps[] = [
         slug:"the-best-recipe-of-beef-noodle-soup"
     },
 ]
+
+export const CHECKOUT_BILL_DATA:CardItemCheckoutProps[] = [
+    {
+      name: 'Tomato',
+      slug: "tomato",
+      weight: '250g',
+      category: 'VEGGIE',
+      price: 'Rp 27.500',
+      imageSrc: "https://user-images.githubusercontent.com/76729908/131646227-b5705e64-3b45-47a3-9433-9f4b5ee8d40c.png",
+      quantity:10
+    },
+    {
+      name: 'Carrot',
+      slug: "carrot",
+      weight: '250g',
+      category: 'VEGGIE',
+      price: 'Rp 27.500',
+      imageSrc: "https://user-images.githubusercontent.com/76729908/131646217-23b86160-45c9-4845-8dcc-b3e1a4483edd.png",
+      quantity:1
+    },
+    {
+      name: 'Salad',
+      slug:"salad",
+      weight: '250g',
+      category: 'VEGGIE',
+      price: 'Rp 27.500',
+      imageSrc: "https://user-images.githubusercontent.com/76729908/131646221-aaa1d48d-bb80-470f-9400-ae2aa47285b6.png",
+      quantity:2
+    },
+  ]
+export const PRODUCT_DATA_TEST_PAGE = [...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST]

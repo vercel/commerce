@@ -53,4 +53,67 @@ export const KEY = {
 
 export const OPTION_ALL = 'all';
 export const DEFAULT_PAGE_SIZE=20;
+
+
+export const CATEGORY = [
+    {
+      name: 'All',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=${OPTION_ALL}`,
+    },
+    {
+      name: 'Veggie',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=veggie`,
+    },
+    {
+      name: 'Seafood',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=seafood`,
+    },
+    {
+      name: 'Frozen',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=frozen`,
+    },
+    {
+      name: 'Coffee Bean',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=coffee_bean`,
+    },
+    {
+      name: 'Sauce',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=sauce`,
+    },
+  ]
+  
+  export  const BRAND = [
+    {
+      name: 'Maggi',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=maggi`,
+    },
+    {
+      name: 'Chomilex',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=chomilex`,
+    },
+    {
+      name: 'Chinsu',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=chinsu`,
+    },
+  ]
+  
+export const FEATURED = [
+    {
+      name: 'Best Sellers',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.FEATURED}=best_sellers`,
+    },
+    {
+      name: 'Sales',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.FEATURED}=sales`,
+    },
+    {
+      name: 'New Item',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.FEATURED}=new_item`,
+    },
+    {
+      name: 'Viewed',
+      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.FEATURED}=viewed`,
+    },
+  ]
+  
 export const DEFAULT_BLOG_PAGE_SIZE=6;
