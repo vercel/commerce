@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './ImgWithLink.module.scss'
+import s from './StaticImage.module.scss'
 import Image from 'next/image'
 
 export interface Props {

@@ -44,6 +44,26 @@ export default function Test() {
       <RelevantBlogPosts />
       <EmptyCommon description="" />
       <EmptyCommon description="No product" />
+      <div className="shape-common-lg" style={{ background: "blue" }}>
+        <div className="inner">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium delectus incidunt et cupiditate soluta, deleniti dolorem tempora officia atque earum recusandae vitae libero molestiae quas officiis ducimus voluptas exercitationem. Dolor non illo distinctio, nemo numquam quo nihil debitis magni ullam quasi optio, commodi at! Error, asperiores sint. Labore, at ipsum.
+        </div>
+      </div>
+      <div className="shape-common-lg-border">
+        <div className="inner">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium delectus incidunt et cupiditate soluta, deleniti dolorem tempora officia atque earum recusandae vitae libero molestiae quas officiis ducimus voluptas exercitationem. Dolor non illo distinctio, nemo numquam quo nihil debitis magni ullam quasi optio, commodi at! Error, asperiores sint. Labore, at ipsum.
+        </div>
+      </div>
+
+      <div className="shape-common">
+        Lorem ipsum dolor
+      </div>
+
+      <div className="shape-common-border">
+        <div className="inner">
+          Lorem ipsum dolor sit
+        </div>
+      </div>
 
     </>
   )
