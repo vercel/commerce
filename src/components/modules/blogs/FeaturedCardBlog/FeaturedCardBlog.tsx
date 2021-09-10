@@ -17,7 +17,7 @@ const FEATURED_DATA = {
     title: "Flammekueche with green asparagus",
     content: "Traditionally, the Flammekueche is made with rapeseed oil, which, contrary to popular belief, is indeed an oil that can be cooked hot and is not limited to seasoning. It is important to vary the oils in the kitchen to take advantage of the benefits of each. Rapeseed oil is an oil rich in omega 3 which participate in the proper functioning of the cardiovascular system as well as in vitamins E which contributes to the protection of cells against oxidative stress. In short, oils are your friends 😉",
     imgSrc: image20,
-    imgAuthor: author,
+    imgAuthor: author.src,
     date: "APRIL 30, 2021",
     author: "Alessandro Del Piero"
 }
