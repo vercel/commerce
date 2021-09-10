@@ -116,3 +116,4 @@ export const FEATURED = [
     },
   ]
   
+export const DEFAULT_BLOG_PAGE_SIZE=6;

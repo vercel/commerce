@@ -1,0 +1,16 @@
+@import '../../../../../../styles/utilities';
+
+.orderInformation {
+    .title {
+        @apply heading-3 font-heading;
+        margin-top: 1.6rem;
+    }
+
+    .tabs {
+        margin-top: 3.2rem;
+    
+        .blank {
+            margin-bottom: 2.4rem;
+        }
+    }
+}

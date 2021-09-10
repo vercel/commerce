@@ -4,15 +4,19 @@ import s from './AccountNavigationItem.module.scss'
 
 interface AccountNavigationItemProps {
     children?: string;
-    active?: string;
-    target?: string;
-    onClick: () => void;
+    active?: boolean;
+    tabIndex: number
+    onClick: (index: number) => void;
 }
 
-const AccountNavigationItem = ({ children, active="", onClick } : AccountNavigationItemProps) => {
+const AccountNavigationItem = ({ children, active, tabIndex, onClick } : AccountNavigationItemProps) => {
+    
+    const handleClick = () => {
+        onClick(tabIndex)
+    }
     return (
-        <div onClick={onClick} className={classNames(s.accountNavigationItem, {
-            [s[active]]:active
+        <div onClick={handleClick} className={classNames(s.accountNavigationItem, {
+            [s.active]:active
         })}>
             {children}
         </div>

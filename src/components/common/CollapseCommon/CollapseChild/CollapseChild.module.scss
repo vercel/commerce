@@ -52,7 +52,8 @@
     }
 }
 .contentContainer {
-    @apply hidden pb-16;
+    @apply hidden pb-16 whitespace-pre-line;
+    padding-top: 1.6rem;
 }
 @keyframes ContentAnimationIn {
     0% {

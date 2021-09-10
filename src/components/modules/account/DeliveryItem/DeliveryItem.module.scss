@@ -1,0 +1,26 @@
+@import '../../../../styles/utilities';
+
+.deliveryItem {
+    @apply flex bg-white items-center custom-border-radius;
+    margin-bottom: 1.6rem;
+    border: 1px solid var(--primary)
+}
+
+.separator {
+    border-left: 2px dashed #EBEBEB;
+    max-height: 9.2rem;
+    min-height: 8.6rem;
+
+    margin-left: .6rem;
+    margin-right: .6rem;
+
+    @screen md {
+        margin-left: .8rem;
+        margin-right: .8rem;
+    }
+
+    @screen lg {
+        margin-left: 2.4rem;
+        margin-right: 2.4rem;
+    }
+}

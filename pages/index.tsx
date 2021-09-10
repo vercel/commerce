@@ -13,7 +13,7 @@ export default function Home() {
       <HomeRecipe />
       <HomeSubscribe />
 
-      {/* // todo: uncomment */}
+      {/* // todo: uncomment
       {/* <ModalCreateUserInfo/> */}
     </>
   )

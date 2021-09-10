@@ -1,65 +1,67 @@
-import React, { useState, useRef, RefObject, useEffect } from "react"
+import React, { useRef, useEffect, Children, ReactElement, PropsWithChildren, useState, cloneElement } from "react"
 import s from './AccountNavigation.module.scss'
 
-import AccountNavigationItem from './components/AccountNavigationItem' 
+import AccountNavigationItem from './components/AccountNavigationItem/AccountNavigationItem'
+import {TabPaneProps} from '../../../common/TabCommon/components/TabPane/TabPane'
 
 interface AccountNavigationProps {
-    
+    defaultActiveIndex: number;
+    children: React.ReactNode
 }
 
-const AccountNavigation = ({  } : AccountNavigationProps) => {
-    const active = "active", unActive = "";
+const AccountNavigation = ({ defaultActiveIndex, children } : AccountNavigationProps) => {
+    const [active, setActive] = useState(defaultActiveIndex)
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLUListElement>(null)
 
-    const [item1Active, setItem1Active] = useState(unActive);
-    const [item2Active, setItem2Active] = useState(active);
-    const [item3Active, setItem3Active] = useState(unActive);
-
-    const item1 = useRef<HTMLDivElement>(null);
-    const item2 = useRef<HTMLDivElement>(null);
-    const item3 = useRef<HTMLDivElement>(null);
-    const slider = useRef<HTMLDivElement>(null);
-
-    function slide(ref: RefObject<HTMLDivElement>) {        
-        const top = ref.current.offsetTop;
-        slider.current.style.top = top.toString()+"px";      
+    const onTabClick = (index: number) => {
+        setActive(index)
     }
 
-    function toggleItem1():void {
-        setItem1Active(active)
+    function slide(index: number) {       
+        const active = headerRef.current?.children.item(index)?.getBoundingClientRect()
+        const header = headerRef.current?.getBoundingClientRect()
+        const current = sliderRef.current
 
-        setItem2Active(unActive)
-        setItem3Active(unActive)
-        slide(item1);
-    }
-    function toggleItem2():void {
-        setItem2Active(active)
-
-        setItem1Active(unActive)
-        setItem3Active(unActive)
-        slide(item2);
-    }
-    function toggleItem3():void {
-        setItem3Active(active)
-
-        setItem1Active(unActive)
-        setItem2Active(unActive)
-        slide(item3);
+        if (current && active && header) {
+            const top = active.top;
+            current.style.top = top.toString()+"px";
+        }
     }
 
     useEffect(() => {
-        slide(item2);
-    }, [])
+        slide(active);
+    }, [active])
 
     return (
         <section className={s.accountNavigation}>
-            <div ref={item1}>
-                <AccountNavigationItem onClick={toggleItem1} active={item1Active}>Customer Information</AccountNavigationItem>
-            </div>
-            <div ref={item2}>
-                <AccountNavigationItem onClick={toggleItem2} active={item2Active}>Your Orders</AccountNavigationItem>
-            </div>
-            <div ref={item3}>
-                <AccountNavigationItem onClick={toggleItem3} active={item3Active}>Favourites</AccountNavigationItem>
+            <ul className={s.tabList} ref={headerRef}>
+                {
+                    Children.map(children, (tab, index) => {
+                        let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+                        return (
+                            <li key={item.props.tabName}>
+                            <AccountNavigationItem
+                                active={active === index}
+                                onClick={onTabClick}
+                                tabIndex={index}
+                            >
+                                {item.props.tabName}
+                            </AccountNavigationItem>
+                            </li>
+                        )
+                    })
+                }
+                <div ref={sliderRef} className={s.slider}></div>
+            </ul>
+
+            <div className={s.tabBody}>
+                {
+                    Children.map(children, (tab, index) => {
+                        let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
+                        return cloneElement(item, { active: index === active });
+                    })
+               }
             </div>
             <div ref={slider} className={s.slider}></div>
         </section>
