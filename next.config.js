@@ -17,6 +17,7 @@ module.exports = withCommerceConfig({
     // todo: replace domains for images
     domains: ['user-images.githubusercontent.com'],
   },
+  disablelintbuild: false,
   i18n: {
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
