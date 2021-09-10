@@ -13,6 +13,9 @@ const isVendure = provider === 'vendure'
 
 module.exports = withCommerceConfig({
   commerce,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     // todo: replace domains for images
     domains: ['user-images.githubusercontent.com'],
@@ -42,10 +45,6 @@ module.exports = withCommerceConfig({
         },
     ].filter(Boolean)
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-    disablelintbuild: false,
-  }
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
