@@ -34,18 +34,20 @@ const MenuNavigationProductList = ({categories,brands,featured,visible,onClose}:
                 <MenuNavigation categories={featured} heading="Featured"/>
             </div>
             <div className={s.menuNavigationProductListMobile} >
-                <div className={classNames({ [s.menuNavigationProductModal] :true,[s.isShow]: visible})}>
-                    <div className={classNames({ [s.content] :true,[s.animation]: visible})}>
-                        <div className={s.head}>
-                            <h3>FILTER</h3>
-                            <div onClick={onClose}><IconHide/></div>
-                        </div>
-                        <MenuFilter categories={categories} heading="Categories" type="category" onChangeValue={handleValue}/>
-                        <MenuFilter categories={brands} heading="Brand" type="brand" onChangeValue={handleValue}/>
-                        <MenuFilter categories={featured} heading="Featured" type="featured" onChangeValue={handleValue}/>
-                        <MenuSort heading="SORT BY" type="sort" onChangeValue={handleValue}/>
-                        <div className={s.foot}>
-                             <ButtonCommon size="large" onClick={filter}>{LANGUAGE.BUTTON_LABEL.CONFIRM}</ButtonCommon>
+                <div className={classNames({ [s.menuNavigationProductModal] :true,[s.isShow]: visible})} onClick={onClose}>
+                    <div className={classNames({[s.hideAnimation]:true,[s.animation]: visible})}>
+                        <div className={s.content}>
+                            <div className={s.head}>
+                                <h3>FILTER</h3>
+                                <div onClick={onClose}><IconHide/></div>
+                            </div>
+                            <MenuFilter categories={categories} heading="Categories" type="category" onChangeValue={handleValue}/>
+                            <MenuFilter categories={brands} heading="Brand" type="brand" onChangeValue={handleValue}/>
+                            <MenuFilter categories={featured} heading="Featured" type="featured" onChangeValue={handleValue}/>
+                            <MenuSort heading="SORT BY" type="sort" onChangeValue={handleValue}/>
+                            <div className={s.foot}>
+                                <ButtonCommon size="large" onClick={filter}>{LANGUAGE.BUTTON_LABEL.CONFIRM}</ButtonCommon>
+                            </div>
                         </div>
                     </div>
                 </div>
