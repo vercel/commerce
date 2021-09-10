@@ -52,7 +52,7 @@ const FOOTER_COLUMNS = [
             },
             {
                 name: 'Blog',
-                link: ROUTE.TERM_CONDITION,
+                link: ROUTE.BLOGS,
             },
         ]
     }

@@ -3,13 +3,15 @@
 .cardBlogWarpper {
     @apply inline-flex flex-col justify-start;
     max-width: 39.2rem;
-    min-height: 34.4rem;
     .image {
         width: 100%;
         max-height: 22rem;
         border-radius: 2.4rem;
         &:hover {
             cursor: pointer;
+        }
+        img{
+            border-radius: 2.4rem;
         }
     }
     .title {

@@ -1,0 +1,16 @@
+@import '../../../../styles/utilities';
+
+.tabItem {
+    margin-right: 4.8rem;
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+
+    &.active {
+        @apply font-bold;
+        border-bottom: 2px solid var(--primary);
+    }
+
+    &:hover {
+        @apply cursor-pointer;
+    }
+}

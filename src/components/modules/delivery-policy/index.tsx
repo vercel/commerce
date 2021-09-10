@@ -1,0 +1,1 @@
+export { default as DeliveryAndPolicyContent} from './DeliveryAndPolicyContent/DeliveryAndPolicyContent'
