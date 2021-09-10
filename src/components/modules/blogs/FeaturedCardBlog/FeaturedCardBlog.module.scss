@@ -1,27 +1,34 @@
 @import "../../../../styles/utilities";
 
-.featuredCard{
-    @apply flex flex-row justify-between;
-    padding-left: 11.2rem;
-    padding-right: 11.2rem;
+.featuredCard {
+    @apply flex flex-row justify-center spacing-horizontal pb-16;
+    .featuredCardWrapper {
+        @apply flex flex-col;
+        @screen lg {
+            @apply flex-row justify-between;
+        }
+        max-width: 121.6rem;
+    }
 }
-.left{
+.left {
     max-width: 59.8rem;
-    min-height: 33.6rem;
+    img {
+        border-radius: 2.4rem;
+    }
 }
-.right{
-    max-width: 55.4rem;
-    min-height: 16.8rem;
+.right {
+    flex-shrink: 3;
+    @screen lg {
+        margin-left: 6.4rem;
+    }
 }
-.titleWrapper{
-    @apply flex flex-col items-start font-heading;
-    font-size: 3.2rem;
-    line-height: 4rem;
+.titleWrapper {
+    @apply flex flex-col items-start font-heading heading-3;
     margin-bottom: 1.6rem;
-    .title{
+    .title {
         margin-top: 0.4rem;
     }
 }
-.content{
+.content {
     margin-top: 1.6rem
 }

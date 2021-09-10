@@ -42,6 +42,9 @@ module.exports = withCommerceConfig({
         },
     ].filter(Boolean)
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  }
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments

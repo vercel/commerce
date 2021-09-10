@@ -53,3 +53,4 @@ export const KEY = {
 
 export const OPTION_ALL = 'all';
 export const DEFAULT_PAGE_SIZE=20;
+export const DEFAULT_BLOG_PAGE_SIZE=6;
