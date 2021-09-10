@@ -50,7 +50,7 @@
     "uuidv4": "^6.2.12"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.1.0",
+    "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/schema-ast": "^2.1.0",
     "@graphql-codegen/typescript": "^2.1.2",
     "@graphql-codegen/typescript-operations": "^2.1.3",
