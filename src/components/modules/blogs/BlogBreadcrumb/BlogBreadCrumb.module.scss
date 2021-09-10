@@ -1,4 +1,7 @@
+@import "../../../../styles/utilities";
 .breadCrumbWrapper {
-    @apply py-12;
-    padding-left: 3.2rem;
+    @apply py-12 spacing-horizontal;
+    @screen lg {
+        padding-left: 3.2rem;
+    }
 }
