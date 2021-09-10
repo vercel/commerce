@@ -1,7 +1,11 @@
 @import "../../../styles/utilities";
 .menuNavigationProductListDesktop{
-    @screen sm-only {
+    @screen sm {
         @apply hidden;
+    }
+
+    @screen xl {
+        @apply block;
     }
 }
 .menuNavigationProductListMobile{
