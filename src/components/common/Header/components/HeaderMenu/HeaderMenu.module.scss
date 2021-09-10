@@ -63,6 +63,7 @@
                 }
                 .btnCart {
                     all: unset;
+                    cursor: pointer;
                     &:focus-visible {
                         outline: 2px solid #000;
                     }
