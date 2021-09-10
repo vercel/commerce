@@ -1,10 +1,14 @@
 @import "../../../styles/utilities";
 
 .header {
-  @apply sticky bg-white shadow-md;
+  @apply sticky bg-white;
   top: 0;
+  left: 0;
   z-index: 9999;
   margin-bottom: 3.2rem;
+  @screen md {
+    @apply relative;
+  }
   &.full {
     @apply shadow-none;
     border: 1px solid var(--border-line);
@@ -19,20 +23,25 @@
 }
 
 .headerSticky {
-  position: sticky;
-  top: 0;
+  @apply sticky bg-white shadow-md;
   display: none;
+  padding-left: 3.2rem;
+  padding-right: 3.2rem;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  transition: all 0.2s;
   &.show {
     display: block;
+    animation: showHeaderSticky 0.2s;
   }
 }
 
-// @keyframes showHeaderHightlight {
-//   0% {
-//       transform: translateY(-4rem);
-//   }
-//   100% {
-//       transform: none;
-//   }
-// }
-
+@keyframes showHeaderSticky {
+  0% {
+    transform: translateY(-7rem);
+  }
+  100% {
+    transform: none;
+  }
+}

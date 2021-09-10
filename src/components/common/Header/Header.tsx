@@ -19,7 +19,7 @@ const Header = memo(() => {
 
     const headerHeight = useMemo(() => {
         return headeFullRef.current?.offsetHeight
-    }, [headeFullRef])
+    }, [headeFullRef.current])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,15 +42,18 @@ const Header = memo(() => {
             <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
                 <HeaderHighLight />
                 <div className={s.menu}>
-                    <HeaderMenu isFull={isFullHeader}
+                    <HeaderMenu
+                        isFull={isFullHeader}
                         openModalAuthen={openModalAuthen}
                         openModalInfo={openModalInfo} />
-                    <HeaderSubMenu/>
+                    <HeaderSubMenu />
                 </div>
             </header>
+
+
             <div className={classNames({
-                headerSticky: true,
-                show: !isFullHeader
+                [s.headerSticky]: true,
+                [s.show]: !isFullHeader
             })}>
                 <HeaderMenu isFull={isFullHeader}
                     openModalAuthen={openModalAuthen}
