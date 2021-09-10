@@ -1,0 +1,55 @@
+@import "../../../../styles/_utilities";
+
+.blogContentWrapper{
+    width: 100%;
+    padding: 0 2rem;
+    @screen md {
+        width: 90%;
+        margin:0 auto;
+    }
+    @screen xl{
+        width: 63%;
+        margin:0 auto;
+    }
+
+    h1{
+        @apply heading-2;
+    }
+    h2{
+        @apply heading-3;
+    }
+    h3{
+        @apply heading-3;
+    }
+
+    h1,h2,h3,h4{
+        color:var(--text-base);
+        font-family: var(--font-heading);
+    }
+   
+    .author{
+        padding: 2rem 0;
+    }
+    .content{
+        
+
+       
+        img{
+            width: 100%;
+            border-radius: 2.4rem;
+        }
+    }
+    .boxShare{
+        @apply flex font-bold;
+        margin: 4rem 0;
+        color: var(--text-active);
+        .listIcon{
+            ul{
+                @apply flex;
+                li{
+                    margin: 0px 1.6rem;
+                }
+            }
+        }
+    }
+}

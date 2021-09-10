@@ -1,0 +1,8 @@
+@import "../../../../styles/_utilities";
+
+.recipeListBanner{
+    @apply spacing-horizontal;
+    @screen md {
+        padding:0 3.2rem;
+    }
+}
