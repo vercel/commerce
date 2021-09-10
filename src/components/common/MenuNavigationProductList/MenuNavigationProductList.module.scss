@@ -5,34 +5,49 @@
     }
 }
 .menuNavigationProductListMobile{
-   
-    // transform: translateY(-20%);
+    @apply relative transition-all duration-100;
     
+    @screen md{
+        @apply hidden;
+    }
+    @screen xl{
+        @apply hidden;
+    }
+    &.isShow{
+        &::after{
+            content: "";
+            background: rgba(0, 0, 0, 0.5);
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            z-index: 9999;
+        }
+    }
     .menuNavigationProductModal{
-        @apply transition-all duration-100 hidden;
-        background: rgba(0, 0, 0, 0.5);
+        @apply transition-all duration-200;
         position: fixed;
         left: 0;
         top: 0;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         z-index: 10000;
+        transform: translateY(100%);
 
-        &.isShow{
-            @apply block;
+        &.animation{
+            transform: translateY(0%)
         }
-    
         .content{
-            @apply  relative w-full hidden;
+            @apply  relative w-full h-full;
             margin-top: 3rem;
             padding-top: 8rem ;
-            padding-bottom: 5rem;
+            padding-bottom: 10rem;
             background-color: white;
-            overflow-x: hidden;
             overflow-y: auto;
-            height: 100%;
+            height: 100vh;
             border-radius: 2.4rem 2.4rem 0 0;
-            // transform: translateY();
             .head{
                 @apply flex justify-between fixed;
                 top:0;
