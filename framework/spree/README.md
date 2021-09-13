@@ -2,32 +2,26 @@
 
 ![Screenshots of Spree Commerce and NextJS Commerce][5]
 
-A preview integration of Spree Commerce within NextJS Commerce. It supports browsing and searching Spree products and adding products to the cart as a guest user. [You can see it in action online.][6]
+An integration of [Spree Commerce](https://spreecommerce.org/) within NextJS Commerce. It supports browsing and searching Spree products and adding products to the cart. 
+
+**Demo**: [https://spree-x-nextjscommerce-demo.vercel.app/][6]
 
 ## Installation
 
-Start by following the [instructions for setting up NextJS Commerce][2].
+1. Setup Spree [following Getting Started guide](https://dev-docs.spreecommerce.org/getting-started/installation)
 
-Afterwards, configure NextJS Commerce to use the Spree Provider. Create a `.env.local` file in the root of the project. Its contents must be based on `framework/spree/.env.template`.
+1. Setup Nextjs Commerce - [instructions for setting up NextJS Commerce][2].
 
-`NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK` and `NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_PERMALINK` rely on taxonomies' permalinks in Spree. Go to the Spree admin panel and create Categories and Brands taxonomies if they don't exist and copy their permalinks into `.env.local` in NextJS Commerce. The values of the other environment variables can be copied from `framework/spree/.env.template` as is.
+2. Copy the `.env.template` file in this directory to `.env.local` in the main directory
 
----
+   ```bash
+   cp framework/spree/.env.template .env.local
+   ```
 
-Setup Spree next. The easiest way to run Spree locally is to follow the installation tutorial available at [the Spree Starter GitHub repository][3].
-
-You have to adjust Spree Starter to allow local [CORS][4] requests and have Spree run on port `4000` instead of the default port (NextJS Commerce and Spree both use port `3000` by default). To do this, add two environment variables inside `.env` in the Spree Starter project:
-
-```shell
-DOCKER_HOST_WEB_PORT=4000
-ALLOWED_ORIGIN_HOSTS=*
-```
-
-Also, add the following line inside `config/environments/development.rb` to allow HTTP requests to Spree from NextJS:
-
-```
-config.hosts << 'localhost'
-```
+3. Set `NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK` and `NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_PERMALINK` Env variables
+    
+    * They rely on [taxonomies'](https://dev-docs.spreecommerce.org/internals/products#taxons-and-taxonomies) permalinks in Spree. 
+    * Go to the Spree admin panel and  create `Categories` and `Brands` taxonomies if they don't exist and copy their permalinks into `.env.local` in NextJS Commerce. 
 
 ---
 
