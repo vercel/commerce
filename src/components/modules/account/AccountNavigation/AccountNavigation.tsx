@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, Children, ReactElement, PropsWithChildren, useState, cloneElement } from "react"
 import s from './AccountNavigation.module.scss'
 
-import AccountNavigationItem from './components/AccountNavigationItem/AccountNavigationItem'
+import AccountNavigationItem from './components/AccountNavigationItem'
 import {TabPaneProps} from '../../../common/TabCommon/components/TabPane/TabPane'
 
 interface AccountNavigationProps {
