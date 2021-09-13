@@ -8,12 +8,16 @@ import { handler as useSearch } from './product/use-search'
 import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
+import { handler as useWishlist } from './wishlist/use-wishlist'
 
 export const kiboCommerceProvider = {
   locale: 'en-us',
   cartCookie: 'kibo_cart',
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
+  wishlist: {
+    useWishlist
+  },
   customer: { useCustomer },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },

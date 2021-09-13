@@ -19,7 +19,8 @@ export interface KiboCommerceConfig extends CommerceAPIConfig {
   storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
   customerCookieMaxAgeInDays: number,
   currencyCode: string,
-  documentListName: string
+  documentListName: string,
+  defaultWishlistName: string
 }
 
 const config: KiboCommerceConfig = {
@@ -36,7 +37,8 @@ const config: KiboCommerceConfig = {
   sharedSecret: process.env.KIBO_SHARED_SECRET || '',
   storeApiFetch: createFetchStoreApi(() => getCommerceApi().getConfig()),
   customerCookieMaxAgeInDays: 30,
-  currencyCode: 'USD'
+  currencyCode: 'USD',
+  defaultWishlistName: 'My Wishlist'
 }
 
 const operations = {

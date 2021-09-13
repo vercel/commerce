@@ -6,7 +6,7 @@
 import update from './immutability'
 import getSlug from './get-slug'
 import { PrCategory } from '../schema'
-import { Page } from "@framework/types/page";
+import { Page } from '@framework/types/page';
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -113,7 +113,7 @@ function normalizeLineItem(item: any): any {
       sku: item.product?.sku,
       name: item.product.name,
       image: {
-        url: item?.product.imageUrl,
+        url: item?.product?.imageUrl,
       },
       requiresShipping: item?.is_require_shipping,
       price: item?.unitPrice.extendedAmount,
@@ -133,5 +133,54 @@ export function normalizeCategory(category: PrCategory): any {
     name: category?.content?.name,
     slug: category?.content?.slug,
     path: `/${category?.content?.slug}`,
+  }
+}
+
+export function normalizeWishlistItem(
+  item: any,
+  config: any,
+  includeProducts: any
+): any {
+  if (includeProducts) {
+    return {
+      id: item.id,
+      product: getProuducts(item, config),
+    }
+  } else {
+    return getProuducts(item, config)
+  }
+}
+
+function getProuducts(item: any, config: any): any {
+  return {
+    variant_id: item.product.variationProductCode || '',
+    id: String(item.product.productCode),
+    product_id: String(item.product.productCode),
+    name: item.product.name,
+    quantity: item.quantity,
+    images: [
+      {
+        url: `http:${item.product.imageUrl}`,
+        alt: item.product.imageAlternateText,
+      },
+    ],
+    price: {
+      value: item.product.price.price,
+      retailPrice: item.product.price.retailPrice || 0,
+      currencyCode: config.currencyCode,
+    },
+    variants: [
+      {
+        id: item.product.variationProductCode || '',
+        sku: item.product?.sku,
+        name: item.product.name,
+        image: {
+          url: item?.product.imageUrl,
+        },
+      },
+    ],
+    options: item.product.options,
+    path: `/${item.product.productCode}`,
+    description: item.product.description,
   }
 }

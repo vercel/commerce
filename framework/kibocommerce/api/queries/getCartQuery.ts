@@ -1,3 +1,4 @@
+import { productDetails } from '../fragments/productDetails'
 export const getCartQuery = /* GraphQL */`
 query cart {
     currentCart {
@@ -21,34 +22,11 @@ query cart {
           extendedAmount
         }
           product {
-            productCode
-            variationProductCode
-            name
-            description
-            imageUrl
-            options {
-              attributeFQN
-              name
-              value
-            }
-            properties {
-              attributeFQN
-              name
-              values {
-                value
-              }
-            }
-            sku
-            price {
-              price
-              salePrice
-            }
-            categories {
-              id
-            }
+            ...productDetails
           }
           quantity
         }
       }
     }
+${productDetails}
 `
