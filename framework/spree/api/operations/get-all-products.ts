@@ -8,6 +8,7 @@ import type { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Pr
 import type { SpreeApiConfig, SpreeApiProvider } from '../index'
 import type { SpreeSdkVariables } from 'framework/spree/types'
 import normalizeProduct from '../../utils/normalize-product'
+import { requireConfigValue } from '@framework/isomorphic-config'
 
 export default function getAllProductsOperation({
   commerce,
@@ -41,7 +42,15 @@ export default function getAllProductsOperation({
       userConfig
     )
 
+    const defaultProductsTaxonomyId = requireConfigValue(
+      'allProductsTaxonomyId'
+    ) as string | false
+
     const first = getAllProductsVariables.first
+    const filter = !defaultProductsTaxonomyId
+      ? {}
+      : { filter: { taxons: defaultProductsTaxonomyId } }
+
     const variables: SpreeSdkVariables = {
       methodPath: 'products.list',
       arguments: [
@@ -50,6 +59,7 @@ export default function getAllProductsOperation({
           include:
             'primary_variant,variants,images,option_types,variants.option_values',
           per_page: first,
+          ...filter,
         },
       ],
     }

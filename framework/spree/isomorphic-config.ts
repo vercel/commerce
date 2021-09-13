@@ -1,5 +1,6 @@
 import forceIsomorphicConfigValues from './utils/force-isomorphic-config-values'
 import requireConfig from './utils/require-config'
+import validateAllProductsTaxonomyId from './utils/validate-all-products-taxonomy-id'
 import validateCookieExpire from './utils/validate-cookie-expire'
 import validatePlaceholderImageUrl from './utils/validate-placeholder-image-url'
 import validateProductsPrerenderCount from './utils/validate-products-prerender-count'
@@ -16,6 +17,9 @@ const isomorphicConfig = {
     process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK,
   brandsTaxonomyPermalink:
     process.env.NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_PERMALINK,
+  allProductsTaxonomyId: validateAllProductsTaxonomyId(
+    process.env.NEXT_PUBLIC_SPREE_ALL_PRODUCTS_TAXONOMY_ID
+  ),
   showSingleVariantOptions:
     process.env.NEXT_PUBLIC_SPREE_SHOW_SINGLE_VARIANT_OPTIONS === 'true',
   lastUpdatedProductsPrerenderCount: validateProductsPrerenderCount(
@@ -40,6 +44,7 @@ export default forceIsomorphicConfigValues(
     'imageHost',
     'categoriesTaxonomyPermalink',
     'brandsTaxonomyPermalink',
+    'allProductsTaxonomyId',
     'showSingleVariantOptions',
     'lastUpdatedProductsPrerenderCount',
     'productPlaceholderImageUrl',
