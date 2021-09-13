@@ -6,7 +6,7 @@ import s from './InputCommon.module.scss';
 
 type Ref = {
     focus: () => void
-    getValue: () =>  string | number
+    getValue: () => string | number
 } | null;
 interface Props {
     children?: React.ReactNode,
@@ -63,6 +63,9 @@ const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, styleTyp
     return (
         <div className={classNames({
             [s.inputWrap]: true,
+            [s[styleType]]: true,
+            [s.bgTransparent]: backgroundTransparent
+
         })}>
             <div className={classNames({
                 [s.inputInner]: true,
@@ -80,8 +83,6 @@ const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, styleTyp
                     onKeyDown={handleKeyDown}
                     className={classNames({
                         [s.inputCommon]: true,
-                        [s[styleType]]: true,
-                        [s.bgTransparent]: backgroundTransparent
                     })}
                 />
             </div>

@@ -15,10 +15,10 @@
     .icon + .inputCommon {
       padding-left: 4.8rem;
     }
-    
+
     .inputCommon {
       @apply block w-full transition-all duration-200 rounded bg-white;
-      padding: 1.2rem 1.6rem;
+      padding: 1.6rem;
       border: 1px solid var(--border-line);
       &:hover,
       &:focus,
@@ -30,24 +30,6 @@
 
       &::placeholder {
         @apply text-label;
-      }
-
-      &.custom {
-        @apply custom-border-radius;
-        border: 1px solid transparent;
-        background: var(--gray);
-        &:hover,
-        &:focus,
-        &:active {
-          border: 1px solid var(--primary);
-        }
-      }
-      &.bgTransparent {
-        background: rgb(227, 242, 233, 0.3);
-        color: var(--white);
-        &::placeholder {
-          color: var(--white);
-        }
       }
     }
 
@@ -90,5 +72,28 @@
     @apply caption;
     color: var(--negative);
     margin-top: 0.4rem;
+  }
+
+  &.custom {
+    @apply shape-common;
+    .inputCommon {
+      border: none;
+      background: var(--background-gray);
+      &:hover,
+      &:focus,
+      &:active {
+        @apply shadow-md;
+        border: none;
+      }
+    }
+  }
+  &.bgTransparent {
+    .inputCommon {
+      background: rgb(227, 242, 233, 0.3);
+      color: var(--white);
+      &::placeholder {
+        color: var(--white);
+      }
+    }
   }
 }
