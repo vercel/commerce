@@ -6,9 +6,10 @@ import type {
   JsonApiDocument,
   JsonApiResponse,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
+import { jsonApi } from '@spree/storefront-api-v2-sdk'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import SpreeResponseContentError from '../errors/SpreeResponseContentError'
-import { findIncluded } from './find-json-api-documents'
+import type { OptionTypeAttr } from '@framework/types'
 
 const isColorProductOption = (productOption: ProductOption) => {
   return productOption.displayName === 'Color'
@@ -29,10 +30,9 @@ const expandOptions = (
   let option: ProductOption
 
   if (existingOptionIndex === -1) {
-    const spreeOptionType = findIncluded(
+    const spreeOptionType = jsonApi.findDocument<OptionTypeAttr>(
       spreeSuccessResponse,
-      spreeOptionTypeIdentifier.type,
-      spreeOptionTypeIdentifier.id
+      spreeOptionTypeIdentifier
     )
 
     if (!spreeOptionType) {

@@ -6,23 +6,19 @@ import type {
 } from '@commerce/types/cart'
 import MissingLineItemVariantError from '../errors/MissingLineItemVariantError'
 import { requireConfigValue } from '../isomorphic-config'
-import type {
-  JsonApiListResponse,
-  JsonApiSingleResponse,
-} from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { OrderAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
-import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import getMediaGallery from './get-media-gallery'
-import { findIncluded, findIncludedOfType } from './find-json-api-documents'
 import type {
   LineItemAttr,
   OptionTypeAttr,
+  SpreeProductImage,
   SpreeSdkResponse,
   VariantAttr,
 } from '../types'
 import type { Image } from '@commerce/types/common'
+import { jsonApi } from '@spree/storefront-api-v2-sdk'
 
 const placeholderImage = requireConfigValue('lineItemPlaceholderImageUrl') as
   | string
@@ -36,25 +32,24 @@ const normalizeVariant = (
   spreeSuccessResponse: SpreeSdkResponse,
   spreeVariant: VariantAttr
 ): ProductVariant => {
-  const productIdentifier = spreeVariant.relationships.product
-    .data as RelationType
-  const spreeProduct = findIncluded<ProductAttr>(
+  const spreeProduct = jsonApi.findSingleRelationshipDocument<ProductAttr>(
     spreeSuccessResponse,
-    productIdentifier.type,
-    productIdentifier.id
+    spreeVariant,
+    'product'
   )
 
   if (spreeProduct === null) {
     throw new MissingLineItemVariantError(
-      `Couldn't find product with id ${productIdentifier.id}.`
+      `Couldn't find product for variant with id ${spreeVariant.id}.`
     )
   }
 
-  const spreeVariantImageRecords = findIncludedOfType(
-    spreeSuccessResponse,
-    spreeVariant,
-    'images'
-  )
+  const spreeVariantImageRecords =
+    jsonApi.findRelationshipDocuments<SpreeProductImage>(
+      spreeSuccessResponse,
+      spreeVariant,
+      'images'
+    )
 
   let lineItemImage
 
@@ -66,11 +61,12 @@ const normalizeVariant = (
   if (variantImage) {
     lineItemImage = variantImage
   } else {
-    const spreeProductImageRecords = findIncludedOfType(
-      spreeSuccessResponse,
-      spreeProduct,
-      'images'
-    )
+    const spreeProductImageRecords =
+      jsonApi.findRelationshipDocuments<SpreeProductImage>(
+        spreeSuccessResponse,
+        spreeProduct,
+        'images'
+      )
 
     const productImage = getMediaGallery(
       spreeProductImageRecords,
@@ -110,36 +106,33 @@ const normalizeLineItem = (
   spreeSuccessResponse: SpreeSdkResponse,
   spreeLineItem: LineItemAttr
 ): LineItem => {
-  const variantIdentifier = spreeLineItem.relationships.variant
-    .data as RelationType
-  const variant = findIncluded(
+  const variant = jsonApi.findSingleRelationshipDocument<VariantAttr>(
     spreeSuccessResponse,
-    variantIdentifier.type,
-    variantIdentifier.id
+    spreeLineItem,
+    'variant'
   )
 
   if (variant === null) {
     throw new MissingLineItemVariantError(
-      `Couldn't find variant with id ${variantIdentifier.id}.`
+      `Couldn't find variant for line item with id ${spreeLineItem.id}.`
     )
   }
 
-  const productIdentifier = variant.relationships.product.data as RelationType
-  const product = findIncluded<ProductAttr>(
+  const product = jsonApi.findSingleRelationshipDocument<ProductAttr>(
     spreeSuccessResponse,
-    productIdentifier.type,
-    productIdentifier.id
+    variant,
+    'product'
   )
 
   if (product === null) {
     throw new MissingLineItemVariantError(
-      `Couldn't find product with id ${productIdentifier.id}.`
+      `Couldn't find product for variant with id ${variant.id}.`
     )
   }
 
   const path = `/${product.attributes.slug}`
 
-  const spreeOptionValues = findIncludedOfType(
+  const spreeOptionValues = jsonApi.findRelationshipDocuments(
     spreeSuccessResponse,
     variant,
     'option_values'
@@ -147,18 +140,16 @@ const normalizeLineItem = (
 
   const options: SelectedOption[] = spreeOptionValues.map(
     (spreeOptionValue) => {
-      const spreeOptionTypeIdentifier = spreeOptionValue.relationships
-        .option_type.data as RelationType
-
-      const spreeOptionType = findIncluded(
-        spreeSuccessResponse,
-        spreeOptionTypeIdentifier.type,
-        spreeOptionTypeIdentifier.id
-      )
+      const spreeOptionType =
+        jsonApi.findSingleRelationshipDocument<OptionTypeAttr>(
+          spreeSuccessResponse,
+          spreeOptionValue,
+          'option_type'
+        )
 
       if (spreeOptionType === null) {
         throw new MissingLineItemVariantError(
-          `Couldn't find option type with id ${spreeOptionTypeIdentifier.id}.`
+          `Couldn't find option type of option value with id ${spreeOptionValue.id}.`
         )
       }
 
@@ -177,7 +168,7 @@ const normalizeLineItem = (
   return {
     id: spreeLineItem.id,
     variantId: variant.id,
-    productId: productIdentifier.id,
+    productId: product.id,
     name: spreeLineItem.attributes.name,
     quantity: spreeLineItem.attributes.quantity,
     discounts: [], // TODO: Implement when the template starts displaying them.
@@ -191,11 +182,13 @@ const normalizeCart = (
   spreeSuccessResponse: SpreeSdkResponse,
   spreeCart: OrderAttr
 ): Cart => {
-  const lineItems = findIncludedOfType(
-    spreeSuccessResponse,
-    spreeCart,
-    'line_items'
-  ).map((lineItem) => normalizeLineItem(spreeSuccessResponse, lineItem))
+  const lineItems = jsonApi
+    .findRelationshipDocuments<LineItemAttr>(
+      spreeSuccessResponse,
+      spreeCart,
+      'line_items'
+    )
+    .map((lineItem) => normalizeLineItem(spreeSuccessResponse, lineItem))
 
   return {
     id: spreeCart.id,

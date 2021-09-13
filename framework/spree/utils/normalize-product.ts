@@ -5,20 +5,16 @@ import type {
   ProductPrice,
   ProductVariant,
 } from '@commerce/types/product'
-import type {
-  JsonApiListResponse,
-  JsonApiSingleResponse,
-} from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import { requireConfigValue } from '../isomorphic-config'
 import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
 import expandOptions from './expand-options'
 import getMediaGallery from './get-media-gallery'
-import { findIncluded, findIncludedOfType } from './find-json-api-documents'
 import getProductPath from './get-product-path'
 import MissingPrimaryVariantError from '../errors/MissingPrimaryVariantError'
-import type { SpreeSdkResponse } from '@framework/types'
+import type { SpreeSdkResponse, VariantAttr } from '@framework/types'
+import { jsonApi } from '@spree/storefront-api-v2-sdk'
 
 const placeholderImage = requireConfigValue('productPlaceholderImageUrl') as
   | string
@@ -28,23 +24,21 @@ const normalizeProduct = (
   spreeSuccessResponse: SpreeSdkResponse,
   spreeProduct: ProductAttr
 ): Product => {
-  const primaryVariantIdentifier = spreeProduct.relationships.primary_variant
-    .data as RelationType
-  const primaryVariant = findIncluded(
+  const primaryVariant = jsonApi.findSingleRelationshipDocument<VariantAttr>(
     spreeSuccessResponse,
-    primaryVariantIdentifier.type,
-    primaryVariantIdentifier.id
+    spreeProduct,
+    'primary_variant'
   )
 
   if (primaryVariant === null) {
     throw new MissingPrimaryVariantError(
-      `Couldn't find primary variant with id ${primaryVariantIdentifier.id}.`
+      `Couldn't find primary variant for product with id ${spreeProduct.id}.`
     )
   }
 
   const sku = primaryVariant.attributes.sku
 
-  const spreeImageRecords = findIncludedOfType(
+  const spreeImageRecords = jsonApi.findRelationshipDocuments(
     spreeSuccessResponse,
     spreeProduct,
     'images'
@@ -77,7 +71,7 @@ const normalizeProduct = (
   let variants: ProductVariant[]
   let options: ProductOption[] = []
 
-  const spreeVariantRecords = findIncludedOfType(
+  const spreeVariantRecords = jsonApi.findRelationshipDocuments(
     spreeSuccessResponse,
     spreeProduct,
     'variants'
@@ -87,7 +81,7 @@ const normalizeProduct = (
     let variantOptions: ProductOption[] = []
 
     if (showOptions) {
-      const spreeOptionValues = findIncludedOfType(
+      const spreeOptionValues = jsonApi.findRelationshipDocuments(
         spreeSuccessResponse,
         spreeVariantRecord,
         'option_values'
