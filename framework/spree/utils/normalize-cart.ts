@@ -130,7 +130,8 @@ const normalizeLineItem = (
     )
   }
 
-  const path = `/${product.attributes.slug}`
+  // CartItem.tsx expects path without a '/' prefix unlike pages/product/[slug].tsx and others.
+  const path = `${product.attributes.slug}`
 
   const spreeOptionValues = jsonApi.findRelationshipDocuments(
     spreeSuccessResponse,
