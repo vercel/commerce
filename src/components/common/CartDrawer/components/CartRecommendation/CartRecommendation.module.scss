@@ -2,6 +2,7 @@
 
 .cartRecommendation {
     @apply w-full bg-background-gray;
+    padding-bottom: 1.6rem;
     .top {
         @apply flex justify-between items-center;
         padding: 1.6rem;
@@ -12,7 +13,8 @@
     .productCardWarpper {
         padding-left: 1.6rem;
         :global(.customArrow) {
-            @apply bg-line;
+            @apply bg-line shadow-md;
+            opacity: .8;
             @screen lg {
                 &:global(.leftArrow) {
                     left: calc(-6.4rem - 2rem);
