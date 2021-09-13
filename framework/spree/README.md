@@ -2,30 +2,28 @@
 
 ![Screenshots of Spree Commerce and NextJS Commerce][5]
 
-An integration of [Spree Commerce](https://spreecommerce.org/) within NextJS Commerce. It supports browsing and searching Spree products and adding products to the cart. 
+An integration of [Spree Commerce](https://spreecommerce.org/) within NextJS Commerce. It supports browsing and searching Spree products and adding products to the cart.
 
 **Demo**: [https://spree-x-nextjscommerce-demo.vercel.app/][6]
 
 ## Installation
 
-1. Setup Spree [following Getting Started guide](https://dev-docs.spreecommerce.org/getting-started/installation)
+1. Setup Spree - [follow the Getting Started guide](https://dev-docs.spreecommerce.org/getting-started/installation).
 
 1. Setup Nextjs Commerce - [instructions for setting up NextJS Commerce][2].
 
-2. Copy the `.env.template` file in this directory to `.env.local` in the main directory
+1. Copy the `.env.template` file in this directory (`/framework/spree`) to `.env.local` in the main directory
 
    ```bash
    cp framework/spree/.env.template .env.local
    ```
 
-3. Set `NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK` and `NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_PERMALINK` Env variables
-    
-    * They rely on [taxonomies'](https://dev-docs.spreecommerce.org/internals/products#taxons-and-taxonomies) permalinks in Spree. 
-    * Go to the Spree admin panel and  create `Categories` and `Brands` taxonomies if they don't exist and copy their permalinks into `.env.local` in NextJS Commerce. 
+1. Set `NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK` and `NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_PERMALINK` environment variables:
 
----
+   - They rely on [taxonomies'](https://dev-docs.spreecommerce.org/internals/products#taxons-and-taxonomies) permalinks in Spree.
+   - Go to the Spree admin panel and create `Categories` and `Brands` taxonomies if they don't exist and copy their permalinks into `.env.local` in NextJS Commerce.
 
-Finally, run `yarn dev` :tada:
+1. Finally, run `yarn dev` :tada:
 
 [1]: https://spreecommerce.org/
 [2]: https://github.com/vercel/commerce
