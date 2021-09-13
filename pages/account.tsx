@@ -4,7 +4,7 @@ import { AccountPage } from 'src/components/modules/account';
 
 const Account = () => {
     return (
-        <AccountPage/>
+        // <AccountPage/>
     );
 };
 
