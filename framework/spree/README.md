@@ -4,7 +4,7 @@
 
 An integration of [Spree Commerce](https://spreecommerce.org/) within NextJS Commerce. It supports browsing and searching Spree products and adding products to the cart.
 
-**Demo**: [https://spree-x-nextjscommerce-demo.vercel.app/][6]
+**Demo**: [https://spree.vercel.app/][6]
 
 ## Installation
 
@@ -30,4 +30,4 @@ An integration of [Spree Commerce](https://spreecommerce.org/) within NextJS Com
 [3]: https://github.com/spree/spree_starter
 [4]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 [5]: ./README-assets/screenshots.png
-[6]: https://spree-x-nextjscommerce-demo.vercel.app/
+[6]: https://spree.vercel.app/
