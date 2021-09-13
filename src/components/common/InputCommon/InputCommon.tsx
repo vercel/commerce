@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import React, { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { IconCheck, IconError, IconPassword, IconPasswordCross } from 'src/components/icons';
+import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
+import { IconCheck, IconError } from 'src/components/icons';
 import { KEY } from 'src/utils/constanst.utils';
 import s from './InputCommon.module.scss';
 
@@ -81,9 +81,7 @@ const InputCommon = forwardRef<Ref, Props>(({ value, placeholder, type, styleTyp
                     placeholder={placeholder}
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
-                    className={classNames({
-                        [s.inputCommon]: true,
-                    })}
+                    className={s.inputCommon}
                 />
             </div>
             {
