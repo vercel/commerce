@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, Children, ReactElement, PropsWithChildren, useState, cloneElement } from "react"
 import s from './AccountNavigation.module.scss'
 
-import AccountNavigationItem from './components/AccountNavigationItem'
+import AccountNavigationItem from './components/AccountNavigationItem/AccountNavigationItem'
 import {TabPaneProps} from '../../../common/TabCommon/components/TabPane/TabPane'
 
 interface AccountNavigationProps {
@@ -21,10 +21,12 @@ const AccountNavigation = ({ defaultActiveIndex, children } : AccountNavigationP
     function slide(index: number) {       
         const active = headerRef.current?.children.item(index)?.getBoundingClientRect()
         const header = headerRef.current?.getBoundingClientRect()
+        const firstEl = headerRef.current?.children.item(0)?.getBoundingClientRect()
         const current = sliderRef.current
 
-        if (current && active && header) {
-            const top = active.top;
+        if (current && active && header && firstEl) {
+            const firstElTop = firstEl.top
+            const top = active.top - firstElTop;
             current.style.top = top.toString()+"px";
         }
     }
@@ -63,7 +65,6 @@ const AccountNavigation = ({ defaultActiveIndex, children } : AccountNavigationP
                     })
                }
             </div>
-            <div ref={slider} className={s.slider}></div>
         </section>
     )
 }

@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import s from './AccountPage.module.scss'
 
+import { HeadingCommon, TabPane } from "src/components/common"
+
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
-import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
 import EditInfoModal from './components/EditInfoModal/EditInfoModal'
-import TabPane from "src/components/common/TabCommon/components/TabPane/TabPane"
 
 const waiting = [
     {
@@ -46,7 +46,7 @@ interface AccountPageProps {
     defaultActiveContent?: "info" | "orders" | "favorites"
 }
 
-const AccountPage = ({defaultActiveContent="orders"} : AccountPageProps) => {
+const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     
     const [activeTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);

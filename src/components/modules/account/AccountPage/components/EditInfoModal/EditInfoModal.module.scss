@@ -5,50 +5,30 @@
         @apply bg-white;
         margin-bottom: 1.6rem;
         width: 100%;
-        border: 2px solid #EBEBEB;
-        border-radius: .8rem;
-        padding: 1.6rem;
     }
 
     .inputDisable {
         margin-bottom: 1.6rem;
         width: 100%;
-        border: 2px solid #EBEBEB;
-        border-radius: .8rem;
-        padding: 1.6rem;
-        background-color: #EBEBEB;
         color: #CCCCCC;
     }
 
-    .inputStateWrapper {
-        @apply bg-white;
-        margin-bottom: 1.6rem;
-        margin-right: 1.6rem;
-        border: 2px solid #EBEBEB;
-        border-radius: .8rem;
-        padding: 1.6rem;
-
-        .inputState {
-            @apply bg-white cursor-pointer;
-            border: white;
-        }
+    .inputState {
+        @apply bg-white cursor-pointer;
+        border: white;
+        margin-right: 0.8rem;
     }
 
     .inputPostalCode {
         @apply bg-white;
-        margin-bottom: 1.6rem;
-        border: 2px solid #EBEBEB;
-        border-radius: .8rem;
-        padding: 1.6rem;
+        margin-left: 0.8rem;
     }
 
     .inputPhoneNumber {
         @apply bg-white;
         margin-bottom: 4rem;
         width: 100%;
-        border: 2px solid #EBEBEB;
-        border-radius: .8rem;
-        padding: 1.6rem;
+        margin-top: 1.6rem;
     }
 
     .buttons {
