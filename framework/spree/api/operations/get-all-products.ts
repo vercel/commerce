@@ -49,7 +49,7 @@ export default function getAllProductsOperation({
     const first = getAllProductsVariables.first
     const filter = !defaultProductsTaxonomyId
       ? {}
-      : { filter: { taxons: defaultProductsTaxonomyId } }
+      : { filter: { taxons: defaultProductsTaxonomyId }, sort: '-updated_at' }
 
     const variables: SpreeSdkVariables = {
       methodPath: 'products.list',
