@@ -2,11 +2,13 @@
 
 .loadingCommon:empty {
     @apply bg-white;
+    height: 7rem;
+    width: 7rem;
     border-radius: 50%;
-    border: .7rem solid var(--primary-lightest);
-    border-top: .7rem solid var(--primary);
     animation: spin 2s linear infinite;
     margin: auto;
+
+    background: url('./assets/carrot.png') top 50% left 50% no-repeat;
 
     @keyframes spin {
         0% { transform: rotate(0deg); }
@@ -19,8 +21,7 @@
     }
 
     &.default {
-        height: 7rem;
-        width: 7rem;
+        
     }
 
     &.large {
