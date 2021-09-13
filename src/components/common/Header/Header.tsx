@@ -41,6 +41,8 @@ const Header = memo(({ toggleFilter }: props) => {
                 } else {
                     setIsFullHeader(true)
                 }
+            } else {
+                setIsFullHeader(true)
             }
         }
         window.addEventListener('scroll', handleScroll)

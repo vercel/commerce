@@ -7,20 +7,19 @@
     margin-bottom: 2.8rem;
     .inner {
       background-size: cover;
-      background-position: right bottom;  
+      background-position: center bottom;
+      @screen xl {
+        background-position: right bottom;
+      }
     }
   }
   .inner {
     @apply bg-no-repeat;
     background-size: 90%;
-    background-position: right -500%   bottom 0%;
+    background-position: right -500% bottom 0%;
     .content {
-      background-image: linear-gradient(
-        to right,
-        rgb(227, 242, 233) 63%,
-        rgb(227, 242, 233, 0)
-      );
-      
+      background-image: linear-gradient(to right, rgb(227, 242, 233) 63%, rgb(227, 242, 233, 0));
+
       padding: 2rem;
       padding-bottom: 4rem;
       max-width: 37rem;
