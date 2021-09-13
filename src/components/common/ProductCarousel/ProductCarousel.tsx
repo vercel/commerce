@@ -7,9 +7,9 @@ import ProductCard, { ProductCardProps } from '../ProductCard/ProductCard'
 import s from "./ProductCarousel.module.scss"
 
 interface ProductCarouselProps
-  extends Omit<CarouselCommonProps<ProductCardProps>, 'Component'|"option"> {
-		option?:TOptionsEvents
-	}
+  extends Omit<CarouselCommonProps<ProductCardProps>, 'Component' | "option"> {
+  option?: TOptionsEvents
+}
 
 const OPTION_DEFAULT: TOptionsEvents = {
   slidesPerView: 2,
@@ -23,6 +23,9 @@ const OPTION_DEFAULT: TOptionsEvents = {
     },
     '(min-width: 1008px)': {
       slidesPerView: 3.5,
+    },
+    '(min-width: 1280px)': {
+      slidesPerView: 4.5,
     },
     '(min-width: 1440px)': {
       slidesPerView: 5.5,
