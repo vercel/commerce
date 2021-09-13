@@ -12,7 +12,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
     "noUnusedLocals": true,
@@ -26,7 +25,8 @@
       "@commerce/*": ["framework/commerce/*"],
       "@framework": ["framework/vendure"],
       "@framework/*": ["framework/vendure/*"]
-    }
+    },
+    "isolatedModules": true
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": [

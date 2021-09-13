@@ -1,0 +1,38 @@
+.warpper {
+  padding: 3.2rem;
+  min-width: 100%;
+  @screen lg {
+    max-width: 56.3rem;
+    @apply flex justify-between flex-col border-l-2 border-solid border-line;
+  }
+  .title {
+    display: none;
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 2.8rem;
+    @screen md {
+      display: block;
+    }
+  }
+  .list {
+    min-height: 52.8rem;
+  }
+  .bot {
+    .promo {
+      // padding: 3.2rem;
+      @apply bg-gray flex justify-between items-center;
+      min-height: 6.4rem;
+    }
+    .price {
+      margin-top: 3.2rem;
+      .line {
+        @apply flex justify-between items-center text-label;
+        .total {
+          font-weight: bold;
+          font-size: 2rem;
+          line-height: 2.8rem;
+        }
+      }
+    }
+  }
+}

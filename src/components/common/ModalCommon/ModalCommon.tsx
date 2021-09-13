@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Close } from 'src/components/icons'
-import { useOnClickOutside } from 'src/utils/useClickOutSide'
+import { useOnClickOutside } from 'src/components/hooks/useClickOutSide'
 import s from './ModalCommon.module.scss'
 export interface ModalCommonProps {
   onClose: () => void

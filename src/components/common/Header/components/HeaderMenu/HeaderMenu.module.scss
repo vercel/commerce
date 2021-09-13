@@ -15,7 +15,16 @@
     .left {
         .top {
             @apply flex justify-between items-center;
+            .iconGroup{
+                @apply flex justify-between items-center;
+            }
             .iconCart {
+                margin-left: 1.6rem;
+            }
+            .iconFilter{
+                @screen md {
+                    display: none;
+                }
             }
         }
         .inputSearch {
@@ -42,7 +51,7 @@
         @apply hidden;
         @screen md {
             @apply flex items-center list-none;
-            li {
+            > li {
                 @apply flex justify-center items-center w-full;
                 &:not(:last-child) {
                     margin-right: 4.8rem;
@@ -53,7 +62,7 @@
                 a {
                     @appy no-underline;
                     &:hover {
-                        opacity: .8;
+                        opacity: 0.8;
                     }
                     &.iconFavourite {
                         svg path {
@@ -61,7 +70,24 @@
                         }
                     }
                 }
-
+                .btnCart {
+                    all: unset;
+                    cursor: pointer;
+                    &:focus-visible {
+                        outline: 2px solid #000;
+                    }
+                    &:hover {
+                        svg path {
+                            fill: var(--primary);
+                            opacity: 0.8;
+                        }
+                    }
+                }
+            }
+        }
+        @screen xl {
+            .iconFilterDesk {
+                display:none;
             }
         }
     }

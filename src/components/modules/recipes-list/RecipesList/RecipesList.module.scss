@@ -1,0 +1,94 @@
+@import "../../../../styles/_utilities";
+
+.recipesListWrapper {
+    @apply spacing-horizontal;
+    @screen md{
+        padding:0 3.2rem;
+        padding-bottom:5.6rem;
+    }
+    .breadcrumb{
+        padding:1rem 0;
+    }
+    .recipesListPageMain{
+        @screen md {
+            @apply flex;
+        }
+        .categories{
+            @apply hidden;
+            @screen md {
+                @apply hidden;
+            }
+            @screen xl{
+                @apply block;
+                width:25%;
+            }
+        }
+        .recipesList{
+            @screen md {
+                @apply flex justify-between flex-wrap w-full;
+                margin: 1rem 0;
+            }
+            @screen xl {
+                width:75%;
+            }
+            .inner{
+                @screen md {
+                    @apply flex flex-col items-center justify-center;
+                }
+                .boxItem {
+                    @screen md {
+                        @apply flex justify-between flex-wrap;
+                        margin: 1rem 0;
+                    }
+                    .item {
+                        @screen md {
+                            width: calc(97% / 2);
+                            margin-top:1rem;
+                        }
+                        @screen lg{
+                            width: calc(97% / 3);
+                            margin-top:1rem;
+                        }
+                    }
+                }
+            }
+            .recipesPagination{
+                @apply flex justify-center w-full;
+                margin: 3rem 0;
+                @screen md {
+                    @apply flex justify-center ;
+                    margin:2rem 0;
+                }
+            }
+            .boxSelect{
+                @apply flex justify-between w-full;
+                padding: 2.5rem 0;
+           
+                @screen xl {
+                    @apply block;
+                    width: auto;
+                    padding:0;
+                }
+                .categorySelectCate{
+                    @screen xl {
+                        @apply hidden;
+                    }
+                }
+                label{
+                    @apply font-bold topline ;
+                    color:var(--text-active);
+                    @screen xl {
+                        @apply hidden;
+                    }
+                }
+                .select{
+                    margin-top: 1rem;
+                }
+            }
+           
+        }
+      
+    }
+
+   
+}

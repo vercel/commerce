@@ -112,6 +112,60 @@
         border-radius: 60% 2% 2% 2%/ 6% 50% 50% 50%;
     }
 
+    .shape-common {
+        position: relative;
+        $border: 2px;
+        margin: $border;
+        clip-path: url(#svg-custom-shape);
+    }
+
+    .shape-common-border {
+        position: relative;
+        $border: 2px;
+        margin: $border;
+
+        .inner {
+            background: var(--white);
+            clip-path: url(#svg-custom-shape);
+        }
+        &::before {
+            position: absolute;
+            content: "";
+            width: calc(100% + #{$border} * 2);
+            height: calc(100% + #{$border} * 2);
+            background-color: var(--primary);
+            top: calc(#{$border} * -1);
+            left: calc(#{$border} * -1);
+            clip-path: url(#svg-custom-shape);
+        }
+    }
+
+    .shape-common-lg {
+        clip-path: url(#svg-custom-shape-lg);
+        padding: 2rem;
+    }
+
+    .shape-common-lg-border {
+        position: relative;
+        $border: 2px;
+        margin: $border;
+
+        .inner {
+            padding: 2rem;
+            clip-path: url(#svg-custom-shape-lg);
+        }
+        &::before {
+            position: absolute;
+            content: "";
+            width: calc(100% + #{$border} * 2);
+            height: calc(100% + #{$border} * 2);
+            background-color: var(--primary);
+            top: calc(#{$border} * -1);
+            left: calc(#{$border} * -1);
+            clip-path: url(#svg-custom-shape-lg);
+        }
+    }
+
     .font-heading {
         font-family: var(--font-heading);
     }
@@ -135,7 +189,7 @@
 
         &::-webkit-scrollbar-thumb {
             border-radius: 10px;
-            background-color: var(--primary)
+            background-color: var(--primary);
         }
     }
 
@@ -149,6 +203,7 @@
             .line {
                 @apply flex justify-between items-center;
                 > div {
+                    flex: 1;
                     &:not(:last-child) {
                         margin-right: 1.6rem;
                     }
