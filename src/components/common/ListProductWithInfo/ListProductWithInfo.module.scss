@@ -3,9 +3,11 @@
 .listProductWithInfo {
     background-color: var(--background);
     border-top: 1rem solid var(--gray);
-    border-bottom: 1rem solid var(--gray);
     padding-top: 6rem;
     padding-bottom: 6rem;
+    &.borderBottom {
+        border-bottom: 1rem solid var(--gray);
+    }
     @screen lg {
         @apply flex spacing-horizontal-left;
         padding-top: 5.6rem;
@@ -17,7 +19,7 @@
         @apply spacing-horizontal-left;
         @screen lg {
             max-width: 75%;
-            padding: 0 .8rem;
+            padding: 0 0.8rem;
             > div > div {
                 @apply shape-common-lg bg-white;
                 padding: 4rem 0;

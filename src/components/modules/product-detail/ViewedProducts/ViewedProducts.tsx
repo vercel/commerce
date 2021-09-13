@@ -8,6 +8,7 @@ const ViewedProducts = () => {
             title="viewed Products"
             subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
             data={PRODUCT_DATA_TEST}
+            hasBorderBottomMobile={true}
         />
     );
 };
