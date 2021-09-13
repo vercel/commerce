@@ -94,7 +94,10 @@
 
   &.onlyIcon {
     .inner {
-      padding: 1.6rem;
+      padding: 1rem;
+      @screen md {
+        padding: 1.6rem;
+      }
       .icon {
         margin: 0;
       }
