@@ -121,12 +121,13 @@
 
     .shape-common-border {
         position: relative;
-        $border: 2px;
+        $border: 1px;
         margin: $border;
 
         .inner {
             background: var(--white);
             clip-path: url(#svg-custom-shape);
+            margin: 1px;
         }
         &::before {
             position: absolute;
@@ -152,6 +153,7 @@
 
         .inner {
             padding: 2rem;
+            margin: 1px;
             clip-path: url(#svg-custom-shape-lg);
         }
         &::before {

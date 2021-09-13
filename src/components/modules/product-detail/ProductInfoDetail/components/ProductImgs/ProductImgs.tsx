@@ -25,9 +25,6 @@ const DATA = [
 
 const option = {
     slidesPerView: 1,
-    // mode: "free",
-
-
 }
 
 const ProductImgs = ({ }: Props) => {

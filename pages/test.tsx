@@ -78,6 +78,11 @@ export default function Test() {
 }
   return (
     <>
+    <div className="shape-common-border">
+      <div className="inner">
+        Lorem ipsum dolor sit amet.
+      </div>
+    </div>
       {/* <BlogDetailPage /> */}
       
       {/* <RecipeListPage/> */}

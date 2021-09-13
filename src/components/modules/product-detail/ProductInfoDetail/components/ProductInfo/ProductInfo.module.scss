@@ -64,6 +64,9 @@
                     margin-left: 0.8rem;
                 }
             }
+            svg path {
+                fill: currentColor;
+            }
         }
         button {
             @apply w-full;
