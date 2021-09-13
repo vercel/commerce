@@ -31,12 +31,13 @@
         padding: 2rem 0;
     }
     .content{
-        
-
-       
-        img{
-            width: 100%;
-            border-radius: 2.4rem;
+        figure{
+            div{
+                width: 100%;
+                border-radius: 2.4rem;
+                min-height: 45.2rem;
+                object-fit: cover;
+            }
         }
     }
     .boxShare{

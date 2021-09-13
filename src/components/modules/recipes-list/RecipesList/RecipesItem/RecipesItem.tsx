@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { ImgWithLink } from 'src/components/common';
 import s from './RecipesItem.module.scss';
 interface RecipesItem {
     image:string,
@@ -14,7 +15,7 @@ const RecipesItem = ({ image, name,description, link }: RecipesItem) => {
             <div className={s.recipesItemImage}>
                 <Link href={link}>
                     <a>
-                        <img src={image} />
+                        <ImgWithLink src={image} alt="author" />
                     </a>
                 </Link>
             </div>

@@ -11,11 +11,12 @@
     .recipesItemImage {
         @apply transition-all duration-200;
         width: 31%;
-        img {
-            @apply block object-cover;
-            width: 100%;
-            min-height: 12.5rem;
-            border-radius: 1.5rem;
+        a{
+            div{
+                @apply object-cover;
+                min-height: 19.6rem;
+                border-radius: 1.5rem;
+            }
         }
 
         @screen md {

@@ -2,11 +2,15 @@
 .authorWarper{
     @apply flex flex-row items-center;
     
-    .authorImage{
+    .authorImage {
         width:3.2rem;
         height:3.2rem;
         border-radius:3.2rem;
+        div{
+            min-width:3.2rem !important; 
+        }
     }
+    
     .authorName{
         margin-left:1rem;
         color:var(--text-label);
