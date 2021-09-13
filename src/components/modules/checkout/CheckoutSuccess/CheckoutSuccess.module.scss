@@ -31,11 +31,10 @@
             }
         
             .backToHomeBtn {
-                @apply flex cursor-pointer font-bold items-center justify-center;
+                @apply flex cursor-pointer font-bold items-center justify-center custom-border-radius;
                 color: white;
                 background-color: var(--primary);
                 margin: auto;
-                border-radius: 76% 80% 17% 30% / 40% 35% 80% 30%;
                 width: fit-content;
                 padding: 1.6rem 3.2rem 1.6rem 3.2rem;
         
