@@ -7,6 +7,9 @@
     padding-bottom: 6rem;
     &.borderBottom {
         border-bottom: 1rem solid var(--gray);
+        @screen lg {
+            border-bottom: none;
+        }
     }
     @screen lg {
         @apply flex spacing-horizontal-left;

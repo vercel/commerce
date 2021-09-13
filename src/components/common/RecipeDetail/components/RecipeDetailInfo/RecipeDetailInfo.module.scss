@@ -7,7 +7,7 @@
         @apply flex;
         margin: 5.6rem auto;
     }
-    
+
     .img {
         width: 100%;
         margin-top: 0;
@@ -60,6 +60,9 @@
                 .content {
                     list-style: disc;
                     margin-left: 2rem;
+                }
+                a {
+                    color: var(--info);
                 }
             }
         }

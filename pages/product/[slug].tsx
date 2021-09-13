@@ -10,7 +10,7 @@ export default function Slug() {
     <RecommendedRecipes data={RECIPE_DATA_TEST} />
     <ReleventProducts />
     <ViewedProducts />
-    <RelevantBlogPosts data={BLOGS_DATA_TEST} title="You will like also"/>
+    <RelevantBlogPosts data={BLOGS_DATA_TEST} title="relevent blog posts"/>
   </>
 }
 

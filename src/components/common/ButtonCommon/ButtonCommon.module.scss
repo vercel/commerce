@@ -106,7 +106,7 @@
 
   &.large {
     .inner {
-      padding: 1rem 1.5rem;
+      padding: 1rem 1.6rem;
       &.onlyIcon {
         padding: 1rem;
       }
@@ -139,8 +139,11 @@
 
   .icon {
     margin: 0 1.6rem 0 0;
-    svg path {
-      fill: currentColor;
+    svg {
+      height: 2rem;
+      path {
+        fill: currentColor;
+      }
     }
   }
 }

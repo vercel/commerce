@@ -64,8 +64,11 @@
                     margin-left: 0.8rem;
                 }
             }
-            svg path {
-                fill: currentColor;
+            svg {
+                height: 2rem;
+                path {
+                    fill: currentColor;
+                }
             }
         }
         button {
