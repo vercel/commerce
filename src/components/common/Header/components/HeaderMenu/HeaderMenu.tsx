@@ -30,7 +30,8 @@ const HeaderMenu = memo(({ visibleFilter,isFull, openModalAuthen, openModalInfo,
             name: 'Login (Demo)',
         },
         {
-            onClick: openModalInfo,
+            // onClick: openModalInfo,
+            link: '/account-not-login',
             name: 'Create User Info (Demo)',
         },
         {

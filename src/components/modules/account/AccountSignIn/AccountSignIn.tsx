@@ -1,22 +1,25 @@
-import React from "react"
+import React,{memo} from "react"
 import { ButtonCommon, StaticImage } from "src/components/common";
 import s from './AccountSignIn.module.scss';
 import {LANGUAGE} from 'src/utils/language.utils';
 import AccountSignInImg from '../../../../../public/assets/images/accountsignin.png'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
 interface AccountSignIn {
 
 }
 
-const AccountSignIn = ({ } : AccountSignIn) => {
+const AccountSignIn = memo(({ } : AccountSignIn) => {
     const router = useRouter();
+
     function openLogin(){
         router.push({
-            pathname: '/account/query',
+            pathname: `${router.pathname}/query`,
             search: '?openLogin=true'
           });
     }
+
     return (
        <>
             <div className={s.accountSignInWrapper}>
@@ -35,6 +38,6 @@ const AccountSignIn = ({ } : AccountSignIn) => {
             </div>
        </>
     )
-}
+});
 
 export default AccountSignIn

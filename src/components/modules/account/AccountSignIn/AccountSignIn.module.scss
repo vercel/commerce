@@ -1,11 +1,8 @@
 @import "../../../../styles/utilities";
 .accountSignInWrapper{
-
-    @screen sm-only{
         @apply w-full;
         .imgError{
-            width: 30%;
-            margin: 0 auto;
+            @apply w-full flex justify-center;
         }
         .text{
             @apply sub-headline;
@@ -29,9 +26,5 @@
                 color:var(--positive);
             }
         }
-    }
-    @screen md{
-        @apply hidden;
-    }
   
 }
