@@ -6,9 +6,7 @@
         padding-bottom: 2.6rem;
     }
     .emptyContent {
-        font-size: 2.4rem;
-        line-height: 3.2rem;
-        letter-spacing: -0.01em;
+        @apply sub-headline;
         align-content: center;
         color: var(--disabled);
     }
