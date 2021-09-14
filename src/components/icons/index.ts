@@ -33,9 +33,6 @@ export { default as IconMinus } from './IconMinus'
 export { default as IconCirclePlus } from './IconCirclePlus'
 export { default as IconDoneCheckout } from './IconDoneCheckout'
 export { default as IconFilter } from './IconFilter'
-<<<<<<< HEAD
 export { default as IconBell } from './IconBell'
 export { default as IconBill } from './IconBill'
-=======
 export { default as IconNoti } from './IconNoti'
->>>>>>> 83b5f9048687e555a978ae71e26a1d19aac2247c
