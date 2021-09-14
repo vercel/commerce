@@ -22,11 +22,13 @@
         }
         .dontHaveAccount{
             @apply flex justify-center font-bold;
-            div{
-                color:var(--text-active);
-            }
-            span{
+            button {
+                all: unset;
                 color:var(--primary);
+                cursor: pointer;
+                &:focus-visible {
+                    outline: 2px solid var(--text-active);
+                }
             }
         }
   

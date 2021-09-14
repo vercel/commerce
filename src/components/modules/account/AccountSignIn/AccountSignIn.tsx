@@ -1,10 +1,11 @@
-import React,{memo} from "react"
+import React,{memo, useState} from "react"
 import { ButtonCommon, StaticImage } from "src/components/common";
 import s from './AccountSignIn.module.scss';
 import {LANGUAGE} from 'src/utils/language.utils';
 import AccountSignInImg from '../../../../../public/assets/images/accountsignin.png'
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import ModalAuthenticate from "src/components/common/ModalAuthenticate/ModalAuthenticate";
+import { useModalCommon } from "src/components/hooks";
 
 interface AccountSignIn {
 
@@ -12,12 +13,12 @@ interface AccountSignIn {
 
 const AccountSignIn = memo(({ } : AccountSignIn) => {
     const router = useRouter();
+    const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
+    const [isModeAuthenSignup, setIsModeAuthenSignup] = useState<boolean>(false)
 
-    function openLogin(){
-        router.push({
-            pathname: `${router.pathname}/query`,
-            search: '?openLogin=true'
-          });
+    const openModalSignup = () => {
+        setIsModeAuthenSignup(true)
+        openModalAuthen()
     }
 
     return (
@@ -31,13 +32,14 @@ const AccountSignIn = memo(({ } : AccountSignIn) => {
                         Sign in to get more interesting <br/> features
                     </div>
                     <div className={s.btn}>
-                        <ButtonCommon size="default" type = 'primary' onClick={openLogin}>{LANGUAGE.BUTTON_LABEL.SIGNIN}</ButtonCommon>
+                        <ButtonCommon size="default" type = 'primary' onClick={openModalAuthen}>{LANGUAGE.BUTTON_LABEL.SIGNIN}</ButtonCommon>
                     </div>
                     <div className={s.dontHaveAccount}>
-                        <div>Don't have an account? &nbsp;</div> <span><a><Link href="/"> Create Account</Link></a></span>
+                        <div>Don't have an account? &nbsp;</div> <span><button onClick={openModalSignup}>Create Account</button></span>
                     </div>
                 </div>
             </div>
+            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} mode={isModeAuthenSignup ? 'register' : ''} />
        </>
     )
 });

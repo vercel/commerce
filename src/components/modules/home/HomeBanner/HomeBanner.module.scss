@@ -31,11 +31,15 @@
         width: min-content;
 
         color: var(--white);
-        font-size: 8.8rem;
+        font-size: 7rem;
         line-height: 8rem;
         letter-spacing: -0.03em;
         font-weight: bold;
         text-transform: uppercase;
+
+        @screen 2xl {
+          line-height: 8rem;
+        }
         &::after {
           @apply absolute;
           content: "";
