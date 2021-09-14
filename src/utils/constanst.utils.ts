@@ -30,6 +30,7 @@ export const ACCOUNT_TAB = {
     CUSTOMER_INFO: '',
     ORDER: 'orders',
     FAVOURITE: 'wishlist',
+    NOTIFICATION: 'notification',
 }
 
 export const QUERY_KEY = {
