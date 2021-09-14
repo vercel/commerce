@@ -1,10 +1,10 @@
 import {
-  Image as MedusaImage,
-  MoneyAmount as MedusaMoneyAmount,
-  Product as MedusaProduct,
-  ProductOption as MedusaProductOption,
-  ProductVariant as MedusaProductVariant,
-} from '@medusajs/medusa-js/lib/types'
+  MedusaImage,
+  MedusaMoneyAmount,
+  MedusaProduct,
+  MedusaProductOption,
+  MedusaProductVariant,
+} from '@framework/types'
 
 import type {
   Product,

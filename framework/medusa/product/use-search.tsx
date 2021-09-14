@@ -1,7 +1,6 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import { Product } from '@commerce/types/product'
-import { Product as MedusaProduct } from '@medusajs/medusa-js/lib/types'
+import { MedusaProduct } from '@framework/types'
 import { normalizeProduct } from '@framework/utils/normalizers/normalize-products'
 export default useSearch as UseSearch<typeof handler>
 

@@ -1,7 +1,7 @@
 import { Product } from '@commerce/types/product'
 import { GetProductOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
-import { Product as MedusaProduct } from '@medusajs/medusa-js/lib/types'
+import { MedusaProduct } from '@framework/types'
 import { normalizeProduct } from '@framework/utils/normalizers/normalize-products'
 import { MedusaConfig } from '..'
 

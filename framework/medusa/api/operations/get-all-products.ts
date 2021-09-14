@@ -2,7 +2,7 @@ import { Product } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
 import type { MedusaConfig } from '../'
 import { normalizeProduct } from '@framework/utils/normalizers/normalize-products'
-import { Product as MedusaProduct } from '@medusajs/medusa-js/lib/types'
+import { MedusaProduct } from '@framework/types'
 
 export type ProductVariables = { first?: number }
 
