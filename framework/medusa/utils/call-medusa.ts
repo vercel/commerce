@@ -1,7 +1,5 @@
 import { CommerceError } from '@commerce/utils/errors'
 import { MEDUSA_PUBLIC_STORE_URL } from '@framework/const'
-import { Product } from '@medusajs/medusa-js/lib/types'
-import Cookies from 'js-cookie'
 import medusa from '../medusa'
 
 export const callMedusa = async (
