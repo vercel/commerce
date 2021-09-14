@@ -34,7 +34,7 @@ const ScrollToTop = ({ visibilityHeight=450 }: ScrollToTopProps) => {
 
     useEffect(() => {
         addEventScroll();
-    });    
+    }, []);    
 
     return (
         <div className={classNames(s.scrollToTop, {
