@@ -1,5 +1,5 @@
 import { Customer } from '@commerce/types/customer'
-import { Customer as MedusaCustomer } from '@medusajs/medusa-js/lib/types'
+import { MedusaCustomer } from '@framework/types'
 
 export function normalizeCustomer(customer: MedusaCustomer): Customer {
   return {

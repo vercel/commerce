@@ -1,6 +1,6 @@
 import { OperationContext } from '@commerce/api/operations'
 import { Product } from '@commerce/types/product'
-import { Product as MedusaProduct } from '@medusajs/medusa-js/lib/types'
+import { MedusaProduct } from '@framework/types'
 import { MedusaConfig } from '..'
 
 export type GetAllProductPathsResult = {

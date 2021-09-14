@@ -1,10 +1,10 @@
 import { Cart, LineItem, ProductVariant } from '../../types/cart'
 import {
-  Cart as MedusaCart,
-  Discount as MedusaDiscount,
-  LineItem as MedusaLineItem,
-  ProductVariant as MedusaProductVariant,
-} from '@medusajs/medusa-js/lib/types'
+  MedusaCart,
+  MedusaDiscount,
+  MedusaLineItem,
+  MedusaProductVariant,
+} from '@framework/types'
 import { Discount } from '@commerce/types/common'
 
 export function normalizeProductVariant(
