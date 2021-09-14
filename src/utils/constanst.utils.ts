@@ -21,6 +21,7 @@ export const ROUTE = {
     RECIPES: '/recipes',
     RECIPE_DETAIL: '/recipe',
 
+    NOTIFICATION: '/notification',
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
     CHECKOUT: '/checkout',
@@ -35,7 +36,6 @@ export const ACCOUNT_TAB = {
     CUSTOMER_INFO: '',
     ORDER: 'orders',
     FAVOURITE: 'wishlist',
-    NOTIFICATION: 'notification',
 }
 
 export const QUERY_KEY = {
