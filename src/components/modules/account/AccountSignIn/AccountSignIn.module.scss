@@ -15,7 +15,9 @@
            @apply flex justify-center;
             margin: 2.6rem auto;
             button{
-                 padding: 1.6rem 7rem;
+                div{
+                    padding: 1.6rem 7rem;
+                }
             }
         }
         .dontHaveAccount{
@@ -24,7 +26,7 @@
                 color:var(--text-active);
             }
             span{
-                color:var(--positive);
+                color:var(--primary);
             }
         }
   

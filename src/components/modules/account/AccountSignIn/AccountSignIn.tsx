@@ -31,7 +31,7 @@ const AccountSignIn = memo(({ } : AccountSignIn) => {
                         Sign in to get more interesting <br/> features
                     </div>
                     <div className={s.btn}>
-                        <ButtonCommon size="default" onClick={openLogin}>{LANGUAGE.BUTTON_LABEL.SIGNIN}</ButtonCommon>
+                        <ButtonCommon size="default" type = 'primary' onClick={openLogin}>{LANGUAGE.BUTTON_LABEL.SIGNIN}</ButtonCommon>
                     </div>
                     <div className={s.dontHaveAccount}>
                         <div>Don't have an account? &nbsp;</div> <span><a><Link href="/"> Create Account</Link></a></span>
