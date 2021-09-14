@@ -1,7 +1,7 @@
 @import '../../../../../../styles/utilities';
 
 .accountNavigationItem {
-    @apply custom-border-radius;
+    @apply shape-common;
     width: fit-content;
     padding: 1.2rem 1.6rem 1.2rem 0rem;
     
@@ -12,7 +12,7 @@
     }
 
     &.active {
-        @apply custom-border-radius font-bold;
+        @apply shape-common font-bold;
         background-color: var(--primary);
         color: white;
         padding: 1.2rem 1.6rem 1.2rem 1.6rem;
