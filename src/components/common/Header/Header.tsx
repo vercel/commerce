@@ -11,10 +11,11 @@ import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
 import HeaderSubMenuMobile from './components/HeaderSubMenuMobile/HeaderSubMenuMobile'
 import s from './Header.module.scss'
 interface props {
-    toggleFilter: () => void
+    toggleFilter: () => void,
+    visibleFilter:boolean
 }
 
-const Header = memo(({ toggleFilter }: props) => {
+const Header = memo(({ toggleFilter,visibleFilter }: props) => {
     const headeFullRef = useRef<HTMLDivElement>(null)
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
@@ -55,6 +56,7 @@ const Header = memo(({ toggleFilter }: props) => {
                 <HeaderHighLight />
                 <div className={s.menu}>
                     <HeaderMenu
+                        visibleFilter={visibleFilter}
                         toggleFilter={toggleFilter}
                         toggleCart={toggleCart}
                         isFull={isFullHeader}

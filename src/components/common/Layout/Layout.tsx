@@ -29,7 +29,7 @@ const Layout: FC<Props> = ({ children }) => {
     return (
         <CommerceProvider locale={locale}>
                 <div className={s.mainLayout}>
-                    <Header toggleFilter={toggleFilter}/>
+                    <Header toggleFilter={toggleFilter} visibleFilter={visibleFilter}/>
                     <main >{children}</main>
                     
                     <CustomShapeSvg/>

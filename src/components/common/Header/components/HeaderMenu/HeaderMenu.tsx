@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import Link from 'next/link'
-import { memo, useMemo } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { IconBuy, IconFilter, IconHeart, IconHistory, IconUser } from 'src/components/icons'
@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 interface Props {
     children?: any,
     isFull: boolean,
+    visibleFilter?:boolean,
     openModalAuthen: () => void,
     openModalInfo: () => void,
     toggleFilter:() => void,
@@ -19,8 +20,10 @@ interface Props {
 
 const FILTER_PAGE = [ROUTE.HOME,ROUTE.PRODUCTS]
 
-const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
+const HeaderMenu = memo(({ visibleFilter,isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
     const router = useRouter()
+
+
     const optionMenu = useMemo(() => [
         {
             onClick: openModalAuthen,
@@ -50,6 +53,7 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
                             FILTER_PAGE.includes(router.pathname) && (
                                 <button className={s.iconFilter} onClick={toggleFilter}>
                                     <IconFilter/>
+                                    <div className={classNames({[s.dot]:true,[s.isShow]:visibleFilter})}></div>
                                 </button>
                             )
                         }

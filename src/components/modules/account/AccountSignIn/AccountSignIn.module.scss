@@ -1,0 +1,37 @@
+@import "../../../../styles/utilities";
+.accountSignInWrapper{
+
+    @screen sm-only{
+        @apply w-full;
+        .imgError{
+            width: 30%;
+            margin: 0 auto;
+        }
+        .text{
+            @apply sub-headline;
+             color:var(--text-placeholder);
+             text-align: center;
+             margin-top: 3.6rem;
+        }
+        .btn{
+           @apply flex justify-center;
+            margin: 2.6rem auto;
+            button{
+                 padding: 1.6rem 7rem;
+            }
+        }
+        .dontHaveAccount{
+            @apply flex justify-center font-bold;
+            div{
+                color:var(--text-active);
+            }
+            span{
+                color:var(--positive);
+            }
+        }
+    }
+    @screen md{
+        @apply hidden;
+    }
+  
+}
