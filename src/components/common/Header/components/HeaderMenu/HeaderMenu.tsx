@@ -30,6 +30,10 @@ const HeaderMenu = memo(({ openModalAuthen, openModalInfo, toggleFilter, toggleC
             name: 'Create User Info (Demo)',
         },
         {
+            link: ROUTE.NOTIFICATION,
+            name: 'Notifications',
+        },
+        {
             link: ROUTE.ACCOUNT,
             name: 'Account',
         },
