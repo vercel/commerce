@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { IconBuy } from 'src/components/icons'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { ProductProps } from 'src/utils/types.utils'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
@@ -11,6 +12,7 @@ import ProductNotSell from './ProductNotSell/ProductNotSell'
 
 export interface ProductCardProps extends ProductProps {
   buttonText?: string
+  isSingleButton?: boolean,
 }
 
 const ProductCard = ({
@@ -21,6 +23,7 @@ const ProductCard = ({
   buttonText = 'Buy Now',
   imageSrc,
   isNotSell,
+  isSingleButton,
 }: ProductCardProps) => {
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
@@ -56,12 +59,22 @@ const ProductCard = ({
         </div>
       </div>
       <div className={s.cardBot}>
-        <div className={s.cardIcon}>
-          <ButtonIconBuy />
-        </div>
-        <div className={s.cardButton}>
-          <ButtonCommon type="light">{buttonText}</ButtonCommon>
-        </div>
+        {
+          isSingleButton ?
+            <div className={s.cardButton}>
+              <ButtonCommon type="light" icon={<IconBuy />}>Add to cart</ButtonCommon>
+            </div>
+            :
+            <>
+              <div className={s.cardIcon}>
+                <ButtonIconBuy />
+              </div>
+              <div className={s.cardButton}>
+                <ButtonCommon type="light">{buttonText}</ButtonCommon>
+              </div>
+            </>
+        }
+
       </div>
     </div>
   )

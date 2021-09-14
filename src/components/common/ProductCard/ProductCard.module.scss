@@ -57,13 +57,16 @@
         }
     }
     .cardBot {
-        min-height: 4rem;
         @apply flex justify-between items-center;
+        min-height: 4rem;
+        margin-top: 1.6rem;
         .cardIcon {
             margin-right: 0.8rem;
         }
         .cardButton {
+            width: 100%;
             button {
+                width: 100%;
                 > div {
                     span {
                         display: -webkit-box;
