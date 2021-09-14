@@ -1,10 +1,9 @@
 import React from 'react'
 import { Banner, StaticImage } from 'src/components/common'
+import { ROUTE } from 'src/utils/constanst.utils'
 import BannerImgRight from './assets/banner_full.png'
 import HomeBannerImg from './assets/home_banner.png'
 import s from './HomeBanner.module.scss'
-import Image from 'next/image'
-import { ROUTE } from 'src/utils/constanst.utils'
 
 interface Props {
     className?: string
