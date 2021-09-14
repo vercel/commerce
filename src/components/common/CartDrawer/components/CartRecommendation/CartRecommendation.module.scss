@@ -1,7 +1,8 @@
-@import '../../../../../styles/utilities';
+@import "../../../../../styles/utilities";
 
 .cartRecommendation {
     @apply w-full bg-background-gray;
+    padding-bottom: 5.4rem;
     .top {
         @apply flex justify-between items-center;
         padding: 1.6rem;
@@ -12,14 +13,10 @@
     .productCardWarpper {
         padding-left: 1.6rem;
         :global(.customArrow) {
-            @apply bg-line;
-            @screen lg {
-                &:global(.leftArrow) {
-                    left: calc(-6.4rem - 2rem);
-                }
-                &:global(.rightArrow) {
-                    right: calc(-6.4rem - 2rem);
-                }
+            @apply bg-line shadow-md;
+            opacity: 0.8;
+            &:global(.rightArrow) {
+                right: 1rem;
             }
         }
     }

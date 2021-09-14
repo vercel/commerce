@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { TOptionsEvents } from 'keen-slider';
 import React from 'react';
 import CarouselCommon from '../CarouselCommon/CarouselCommon';
@@ -9,6 +10,7 @@ interface Props {
     data: ProductCardProps[],
     title: string,
     subtitle?: string,
+    hasBorderBottomMobile?: boolean,
 }
 const OPTION_DEFAULT: TOptionsEvents = {
     slidesPerView: 2,
@@ -18,20 +20,29 @@ const OPTION_DEFAULT: TOptionsEvents = {
             slidesPerView: 3,
         },
         '(min-width: 768px)': {
-            slidesPerView: 4,
-        },
-        '(min-width: 1024px)': {
             slidesPerView: 3,
         },
+        '(min-width: 1008px)': {
+            slidesPerView: 3.5,
+        },
+        '(min-width: 1024px)': {
+            slidesPerView: 2.5,
+        },
         '(min-width: 1280px)': {
+            slidesPerView: 3.5,
+        },
+        '(min-width: 1440px)': {
             slidesPerView: 4.5,
         },
     },
 }
 
-const ListProductWithInfo = ({ data, title, subtitle }: Props) => {
+const ListProductWithInfo = ({ data, title, subtitle, hasBorderBottomMobile }: Props) => {
     return (
-        <div className={s.listProductWithInfo}>
+        <div className={classNames({
+            [s.listProductWithInfo]: true,
+            [s.borderBottom]: hasBorderBottomMobile,
+        })}>
             <InfoProducts
                 title={title}
                 subtitle={subtitle}

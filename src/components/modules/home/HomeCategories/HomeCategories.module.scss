@@ -4,7 +4,7 @@
     margin: 3rem auto;
 
     .inner {
-        @apply relative spacing-horizontal;
+        @apply relative spacing-horizontal w-full;
 
         padding-top: 1.6rem;
         padding-bottom: 1.6rem;
@@ -15,7 +15,7 @@
     }
     @screen md {
         @apply relative;
-        margin: 5.6rem auto;
+        margin: 12.8rem auto;
 
         &::before,
         &::after {

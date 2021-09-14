@@ -9,19 +9,25 @@ export const SOCIAL_LINKS = {
 
 export const ROUTE = {
     HOME: '/',
+    ABOUT: '/about',
+    ACCOUNT: '/account',
+
     PRODUCTS: '/products',
     PRODUCT_DETAIL: '/product',
-    ABOUT: '/about',
+    
+    BLOGS: '/blogs',
     BLOG_DETAIL: '/blog',
-    ACCOUNT: '/account',
+
     RECIPES: '/recipes',
+    RECIPE_DETAIL: '/recipe',
+
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
+    CHECKOUT: '/checkout',
     FAQ: '/faq',
     CUSTOMER_SERVICE: '/customer-service',
     TERM_CONDITION: '/term-condition',
     PRIVACY_POLICY: '/privacy-policy',
-    BLOGS: '/blogs',
     FORGOT_PASSWORD: '/forgot-password'
 }
 
@@ -29,6 +35,7 @@ export const ACCOUNT_TAB = {
     CUSTOMER_INFO: '',
     ORDER: 'orders',
     FAVOURITE: 'wishlist',
+    NOTIFICATION: 'notification',
 }
 
 export const QUERY_KEY = {
@@ -117,3 +124,14 @@ export const FEATURED = [
   ]
   
 export const DEFAULT_BLOG_PAGE_SIZE=6;
+
+export const STATE_OPTIONS = [
+  {
+    name: 'Hồ Chí Minh',
+    value: 'Hồ Chí Minh',
+  },
+  {
+    name: 'Hà Nội',
+    value: 'Hà Nội',
+  },
+]

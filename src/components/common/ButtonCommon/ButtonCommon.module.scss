@@ -1,102 +1,127 @@
 @import "../../../styles/utilities";
 
 .buttonCommon {
-  @apply custom-border-radius bg-primary transition-all duration-200 text-white font-bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 2rem;
-  @screen md {
-    padding: 0.8rem 1.6rem;
-  }
-  @screen lg {
-    padding: 0.8rem 3.2rem;
-  }
-  &:disabled {
-    filter: brightness(0.9);
-    cursor: not-allowed;
-    color: var(--disabled);
-  }
-  &:hover {
-    @apply shadow-md;
-    &:not(:disabled) {
+  @apply shape-common;
+  .inner {
+    padding: 1rem 2rem;
+    @apply bg-primary transition-all duration-200 text-white font-bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @screen md {
+      padding: 1.6rem 1.6rem;
+    }
+    @screen lg {
+      padding: 1.6rem 3.2rem;
+    }
+    &:disabled {
+      filter: brightness(0.9);
+      cursor: not-allowed;
+      color: var(--disabled);
+    }
+    &:hover {
+      @apply shadow-md;
+      &:not(:disabled) {
+        filter: brightness(1.05);
+      }
+    }
+    &:focus {
+      outline: none;
       filter: brightness(1.05);
     }
+    &:focus-visible {
+      outline: 2px solid var(--text-active);
+    }
   }
-  &:focus {
-    outline: none;
-    filter: brightness(1.05);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--text-active);
-  }
-
   &.loading {
-    &::before {
-      content: "";
-      border-radius: 50%;
-      width: 1.6rem;
-      height: 1.6rem;
-      border: 3px solid rgba(170, 170, 170, 0.5);
-      border-top: 3px solid var(--white);
-      -webkit-animation: spin 2s linear infinite;
-      animation: spin 2s linear infinite;
-      margin-right: 0.8rem;
+    .inner {
+      &::after {
+        content: "";
+        border-radius: 50%;
+        width: 1.6rem;
+        height: 1.6rem;
+        border: 3px solid rgba(170, 170, 170, 0.5);
+        border-top: 3px solid var(--white);
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        margin-right: 0.8rem;
+      }
     }
   }
 
   &.light {
-    @apply text-base bg-white;
-    border: 1px solid var(--text-active);
+    @apply shape-common-border;
+    &::before {
+      background-color: var(--text-active);
+    }
+    .inner {
+      @apply text-base bg-white;
+    }
     &.loading {
-      &::before {
-        border-top-color: var(--primary);
+      .inner {
+        &::after {
+          border-top-color: var(--primary);
+        }
       }
     }
   }
 
   &.lightBorderNone {
-    @apply bg-white text-primary;
+    .inner {
+      @apply bg-white text-primary;
+    }
     &.loading {
-      &::before {
+      .inner::after {
         border-top-color: var(--primary);
       }
     }
   }
 
   &.ghost {
-    @apply bg-white text-primary;
-    border: 1px solid var(--primary);
+    @apply shape-common-border;
+    .inner {
+      @apply bg-white text-primary;
+    }
+    &::before {
+      background-color: var(--primary);
+    }
     &.loading {
-      &::before {
+      .inner::after {
         border-top-color: var(--text-active);
       }
     }
   }
 
   &.onlyIcon {
-    padding: 0.8rem;
-    .icon {
-      margin: 0;
+    .inner {
+      padding: 1rem;
+      @screen md {
+        padding: 1.6rem;
+      }
+      .icon {
+        margin: 0;
+      }
     }
   }
 
   &.large {
-    padding: 1rem 1.5rem;
-    &.onlyIcon {
-      padding: 1rem;
-    }
-    @screen md {
-      padding: 1.6rem 3.2rem;
+    .inner {
+      padding: 1rem 1.6rem;
       &.onlyIcon {
-        padding: 1.6rem;
+        padding: 1rem;
+      }
+      @screen md {
+        padding: 1.6rem 3.2rem;
+        &.onlyIcon {
+          padding: 1.6rem;
+        }
+      }
+      @screen lg {
+        padding: 1.6rem 4.8rem;
       }
     }
-    @screen lg {
-      padding: 1.6rem 4.8rem;
-    }
     &.loading {
-      &::before {
+      .inner::before {
         width: 2.4rem;
         height: 2.4rem;
       }
@@ -104,16 +129,21 @@
   }
 
   &.preserve {
-    flex-direction: row-reverse;
-    .icon {
-      margin: 0 0 0 1.6rem;
+    .inner {
+      flex-direction: row-reverse;
+      .icon {
+        margin: 0 0 0 1.6rem;
+      }
     }
   }
 
   .icon {
     margin: 0 1.6rem 0 0;
-    svg path {
-      fill: currentColor;
+    svg {
+      height: 2rem;
+      path {
+        fill: currentColor;
+      }
     }
   }
 }

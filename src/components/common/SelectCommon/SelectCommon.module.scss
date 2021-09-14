@@ -28,7 +28,7 @@
     }
     &.custom {
         .selectTrigger {
-            @apply border-2;
+            border-width: 1px;
             border-color: var(--border-line);
             color: var(--text-label);
         }
@@ -68,7 +68,7 @@
             @apply border-solid border border-current;
         }
         &.custom {
-            @apply border-2;
+            border-width: 1px;
             border-color: var(--border-line);
             color: var(--text-label);
         }
