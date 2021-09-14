@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { memo, useMemo } from 'react'
@@ -36,6 +35,10 @@ const HeaderMenu = memo(({ visibleFilter,openModalAuthen, openModalInfo, toggleF
         {
             link: '/account-not-login',
             name: 'Account Not Login',
+        },
+        {
+            link: ROUTE.NOTIFICATION,
+            name: 'Notifications',
         },
         {
             link: ROUTE.ACCOUNT,

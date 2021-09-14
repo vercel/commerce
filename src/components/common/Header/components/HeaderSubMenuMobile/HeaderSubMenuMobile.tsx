@@ -25,7 +25,7 @@ const OPTION_MENU = [
         isMarked: false,
     },
     {
-        link: `${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.NOTIFICATION}`,
+        link: ROUTE.NOTIFICATION,
         name: 'Notifications',
         icon: <IconNoti />,
         isMarked: true,

@@ -6,6 +6,7 @@ import MenuNavigationProductList from 'src/components/common/MenuNavigationProdu
 // import { RecipeListPage } from 'src/components/modules/recipes';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import { useModalCommon } from 'src/components/hooks';
+
 const CATEGORY = [
   {
       name: 'All',
@@ -33,7 +34,6 @@ const CATEGORY = [
   },
 ]
 const BRAND = [
-
   {
       name: 'Maggi',
       link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
@@ -67,15 +67,14 @@ const FEATURED = [
         link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=viewed`,
     }
   ];
+
+
+import CheckoutSuccess from 'src/components/modules/checkout/CheckoutSuccess/CheckoutSuccess'
+import LoadingCommon from 'src/components/common/LoadingCommon/LoadingCommon'
+import SkeletonParagraph from 'src/components/common/SkeletonCommon/SkeletonParagraph/SkeletonParagraph'
+import SkeletonImage from 'src/components/common/SkeletonCommon/SkeletonImage/SkeletonImage'
+
 export default function Test() {
-  const { visible: visibleMenuFilter, openModal, closeModal: closeMenuFilter } = useModalCommon({ initialValue: false })
-  const toggle = () => {
-    if (visibleMenuFilter) {
-        closeMenuFilter()
-    } else {
-        openModal()
-    }
-}
   return (
     <>
     <div className="shape-common-border">
