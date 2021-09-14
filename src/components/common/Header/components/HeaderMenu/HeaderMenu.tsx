@@ -1,5 +1,5 @@
-import classNames from 'classnames'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { memo, useMemo } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
@@ -7,7 +7,6 @@ import { IconBuy, IconFilter, IconHeart, IconHistory, IconUser } from 'src/compo
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
-import { useRouter } from 'next/router'
 interface Props {
     children?: any,
     openModalAuthen: () => void,
