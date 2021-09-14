@@ -3,16 +3,39 @@ import s from './AccountNavigation.module.scss'
 
 import AccountNavigationItem from './components/AccountNavigationItem/AccountNavigationItem'
 import {TabPaneProps} from '../../../common/TabCommon/components/TabPane/TabPane'
+import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
+import { useRouter } from "next/router"
 
 interface AccountNavigationProps {
     defaultActiveIndex: number;
     children: React.ReactNode
 }
 
+const getTabIndex = (tab?: string): number => {
+    switch (tab) {
+        case ACCOUNT_TAB.CUSTOMER_INFO:
+            return 0;
+        case ACCOUNT_TAB.ORDER:
+            return 1;
+        case ACCOUNT_TAB.FAVOURITE:
+            return 2;
+        default:
+            return 0
+    }
+}
+
 const AccountNavigation = ({ defaultActiveIndex, children } : AccountNavigationProps) => {
+    const router = useRouter()
+
     const [active, setActive] = useState(defaultActiveIndex)
     const sliderRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLUListElement>(null)
+
+    useEffect(() => {
+        const query = router.query[QUERY_KEY.TAB] as string
+        const index = getTabIndex(query)
+        setActive(index)
+    }, [router.query[QUERY_KEY.TAB]])
 
     const onTabClick = (index: number) => {
         setActive(index)
