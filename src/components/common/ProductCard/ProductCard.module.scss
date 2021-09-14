@@ -16,6 +16,12 @@
             height: 100%;
             width: 100%;
             @apply flex justify-center items-center;
+            > div {
+                min-height: 13rem;
+                img {
+                    object-fit: contain;
+                }
+            }
             img {
                 @apply inline;
             }

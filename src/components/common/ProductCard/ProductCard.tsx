@@ -3,6 +3,7 @@ import React from 'react'
 import { IconBuy } from 'src/components/icons'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { ProductProps } from 'src/utils/types.utils'
+import { ImgWithLink } from '..'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import ItemWishList from '../ItemWishList/ItemWishList'
@@ -37,7 +38,7 @@ const ProductCard = ({
       <div className={s.cardTop}>
         <Link href={`${ROUTE.PRODUCT_DETAIL}/test`}>
           <div className={s.productImage}>
-            <img src={imageSrc} alt="image" />
+            <ImgWithLink src={imageSrc} alt={name}/>
           </div>
         </Link>
         <div className={s.productLabel}>
