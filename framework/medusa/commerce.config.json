@@ -1,0 +1,9 @@
+{
+  "provider": "medusa",
+  "features": {
+    "wishlist": false,
+    "customerAuth": true,
+    "customCheckout": true,
+    "search": false
+  }
+}

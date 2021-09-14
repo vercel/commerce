@@ -14,6 +14,7 @@ const PROVIDERS = [
   'shopify',
   'swell',
   'vendure',
+  'medusa',
 ]
 
 function getProviderName() {
@@ -25,6 +26,8 @@ function getProviderName() {
       ? 'shopify'
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
       ? 'swell'
+      : process.env.NEXT_PUBLIC_MEDUSA_STORE_URL
+      ? 'medusa'
       : 'local')
   )
 }
