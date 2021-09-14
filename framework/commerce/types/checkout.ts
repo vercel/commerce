@@ -1,10 +1,12 @@
+import type { UseSubmitCheckout } from '../checkout/use-submit-checkout'
+
 // Index
 export type CheckoutTypes = {
-  card?: any;
-  address?: any;
-  checkout?: any;
-  hasPayment?: boolean;
-  hasShipping?: boolean;
+  card?: any
+  address?: any
+  checkout?: any
+  hasPayment?: boolean
+  hasShipping?: boolean
 }
 
 export type SubmitCheckoutHook<T extends CheckoutTypes = CheckoutTypes> = {
@@ -20,6 +22,7 @@ export type GetCheckoutHook<T extends CheckoutTypes = CheckoutTypes> = {
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
+  mutations: { submit: UseSubmitCheckout }
 }
 
 export type CheckoutHooks<T extends CheckoutTypes = CheckoutTypes> = {
@@ -27,13 +30,15 @@ export type CheckoutHooks<T extends CheckoutTypes = CheckoutTypes> = {
   getCheckout: GetCheckoutHook<T>
 }
 
-export type GetCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> = GetCheckoutHook<T> & {
-  body: { cartId: string }
-}
+export type GetCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
+  GetCheckoutHook<T> & {
+    body: { cartId: string }
+  }
 
-export type SubmitCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> = SubmitCheckoutHook<T> & {
-  body: { cartId: string }
-}
+export type SubmitCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
+  SubmitCheckoutHook<T> & {
+    body: { cartId: string }
+  }
 
 export type CheckoutHandlers<T extends CheckoutTypes = CheckoutTypes> = {
   getCheckout: GetCheckoutHandler<T>
