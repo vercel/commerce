@@ -28,6 +28,7 @@ export const multipleChoiceOptionFragment = /* GraphQL */ `
       edges {
         node {
           label
+          entityId
           ...swatchOption
         }
       }
