@@ -10,16 +10,17 @@ export const handler: SWRHook<any> = {
     method: 'list',
   },
   async fetcher({ input, options, fetch }) {
-    const { products } = await fetch({
-      ...options,
-      variables: { query: null },
-    })
+    // NOOP
+    // const results = await fetch({
+    //   ...options,
+    //   variables: { query: null },
+    // })
+
+    // console.warn(results)
 
     return {
-      products: products
-        ? products.map((product: MedusaProduct) => normalizeProduct(product))
-        : [],
-      found: products.length,
+      products: [],
+      found: 0,
     }
   },
   useHook:

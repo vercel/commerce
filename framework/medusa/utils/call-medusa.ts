@@ -1,6 +1,8 @@
 import { CommerceError } from '@commerce/utils/errors'
 import { MEDUSA_PUBLIC_STORE_URL } from '@framework/const'
 import medusa from '../medusa'
+import fetch from 'node-fetch'
+import axios from 'axios'
 
 export const callMedusa = async (
   method: string,
@@ -313,13 +315,28 @@ export const callMedusa = async (
         return await medusa.products.variants.retrieve(variant_id)
       } else if (method === 'list') {
         const { query } = variables
+        let path = '/store/products'
 
-        return await medusa.products.list(
-          query && {
-            limit: query.limit || null,
-            offset: query.offset || null,
+        if (query) {
+          const formattedQuery = {
+            offset: query.offset || 0,
+            limit: query.limit || 100,
           }
-        )
+
+          const queryString = Object.entries(formattedQuery).map(
+            ([key, value]) => {
+              return `${key}=${value}`
+            }
+          )
+
+          path = `/store/products?${queryString.join('&')}`
+        }
+
+        const res = await fetch(`${MEDUSA_PUBLIC_STORE_URL}${path}`, {
+          method: 'GET',
+        })
+
+        return await res.json()
       } else if (method === 'retrieve') {
         const { product_id } = variables
 

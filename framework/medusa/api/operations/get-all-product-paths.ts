@@ -20,8 +20,8 @@ export default function getAllProductPathsOperation({
 
     const results = await config.fetch('products', 'list', {})
 
-    const productHandles = results.data?.products
-      ? results.data.products.map(({ handle }: MedusaProduct) => ({
+    const productHandles = results.products
+      ? results.products.map(({ handle }: MedusaProduct) => ({
           path: `/${handle}`,
         }))
       : []

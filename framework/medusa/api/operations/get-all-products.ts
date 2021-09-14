@@ -27,8 +27,8 @@ export default function getAllProductsOperation({
       query ? { query: query } : {}
     )
 
-    const products: Product[] = results.data?.products
-      ? results.data.products.map((product: MedusaProduct) =>
+    const products: Product[] = results.products
+      ? results.products.map((product: MedusaProduct) =>
           normalizeProduct(product)
         )
       : []
