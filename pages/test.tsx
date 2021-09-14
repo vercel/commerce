@@ -82,9 +82,17 @@ export default function Test() {
       
       {/* <RecipeListPage/> */}
         {/*<MenuNavigation heading="CATEGORIES" categories={CATEGORY}/>*/}
-        <button onClick={toggle}>toggle menu : {visibleMenuFilter.toString()}</button>
-           <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED} visible={visibleMenuFilter} onClose={closeMenuFilter}/> 
+        {/* <button onClick={toggle}>toggle menu : {visibleMenuFilter.toString()}</button>
+           <MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED} visible={visibleMenuFilter} onClose={closeMenuFilter}/>  */}
            {/* <CartDrawer  /> */}
+           <div className="shape-common-lg">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit maiores aut, delectus assumenda explicabo, dolore facilis, quasi quae sed obcaecati doloribus dolorum architecto aperiam nisi dignissimos consequuntur amet neque possimus.
+           </div>
+           <div className="shape-common-lg-border">
+              <div className="inner">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, porro aut. Quas, consequuntur! Officiis magni cum placeat magnam ut hic beatae error facere obcaecati. Labore eius explicabo fugit minus veritatis.
+              </div>
+           </div>
     </>
   )
 }
