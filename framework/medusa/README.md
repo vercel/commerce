@@ -26,7 +26,7 @@ Medusa is an open-source headless commerce engine that enables developers to cre
 
 ## Demo
 
-You can view a working demo of the Medusa provider for Next.js Commerce at https://medusa.vercel.store/
+You can view a working demo of the Medusa provider for Next.js Commerce at https://medusa-provider.vercel.app/
 
 ## Quickstart
 
@@ -55,9 +55,5 @@ NEXT_PUBLIC_MEDUSA_IMG_HOST=medusa-public-images.s3.eu-west-1.amazonaws.com
 ## Notes
 
 - The entire customer flow is carried out using the [Storefront API](https://docs.medusa-commerce.com/api/store). This means that there is no existing, pre-built checkout flow. The checkout flow must be built using the `Storefront API`, for an example of how to do this feel free to have a look at our [Next.js](https://github.com/medusajs/gatsby-starter-medusa) starter project.
-
-- `Medusa` does not currently support any wishlist features.
-
-- `Medusa` does not nativly support searches. This can be implemented using plugins such as `MeiliSearch`, see [#381](https://github.com/medusajs/medusa/pull/381).
 
 - `Medusa` does not come with any page/blog building feature. This can be implemented using `Medusa` in conjunction with a CMS such as `Contentful`. For inspiration on how to do this check out our [Contentful starter](https://github.com/medusajs/medusa-starter-contentful)
