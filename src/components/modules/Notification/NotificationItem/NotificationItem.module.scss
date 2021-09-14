@@ -1,0 +1,39 @@
+@import '../../../../styles/utilities';
+
+.notificationItem {
+    @apply flex flex-row;
+    padding-left: 1.6rem;
+    padding-bottom: 1.4rem;
+    &:hover{
+        cursor: pointer;
+    }
+    .contentWrapper {
+        padding-left: 1.6rem;
+        max-width: 26.3rem;
+        .title {
+            font-weight: bold;
+            color: var(--text-active);
+        }
+        .date {
+            font-size: 1.2rem;
+            line-height: 2rem;
+            letter-spacing: 0.01em;
+        }
+    }
+    &.isChecked {
+        .icon {
+            rect {
+                fill: var(--gray)
+            }
+            path {
+                fill: var(--disabled)
+            }
+        }
+        .title {
+            color: var(--label);
+        }
+        .content, .date {
+            color: #828282;
+        }
+    }
+}
