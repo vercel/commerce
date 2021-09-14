@@ -78,7 +78,7 @@ const Header = memo(({ toggleFilter }: props) => {
                     openModalInfo={openModalInfo} />
             </div>
 
-            <HeaderSubMenuMobile />
+            <HeaderSubMenuMobile/>
             <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />
             <ModalCreateUserInfo demoVisible={visibleModalInfo} demoCloseModal={closeModalInfo} />
             <CartDrawer

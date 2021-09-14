@@ -13,11 +13,11 @@ interface Props {
     isFull: boolean,
     openModalAuthen: () => void,
     openModalInfo: () => void,
-    toggleFilter:() => void,
-    toggleCart:() => void,
+    toggleFilter: () => void,
+    toggleCart: () => void,
 }
 
-const FILTER_PAGE = [ROUTE.HOME,ROUTE.PRODUCTS]
+const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
 
 const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
     const router = useRouter()
@@ -44,16 +44,16 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
         <section className={classNames({ [s.headerMenu]: true, [s.full]: isFull })}>
             <div className={s.left}>
                 <div className={s.top}>
-                    <Logo/>
+                    <Logo />
                     <div className={s.iconGroup}>
                         {
                             FILTER_PAGE.includes(router.pathname) && (
                                 <button className={s.iconFilter} onClick={toggleFilter}>
-                                    <IconFilter/>
+                                    <IconFilter />
                                 </button>
                             )
                         }
-                        <button className={s.iconCart}>
+                        <button className={`${s.iconCart} ${s.btnCart}`} onClick={toggleCart}>
                             <IconBuy />
                         </button>
                     </div>
@@ -86,16 +86,16 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
                         <IconBuy />
                     </button>
                 </li>
-                
+
                 {
-                            FILTER_PAGE.includes(router.pathname) && (
-                                <li className={s.iconFilterDesk}>
-                                    <button className={s.iconFilter} onClick={toggleFilter}>
-                                        <IconFilter/>
-                                    </button>
-                                </li>
-                            )
-                        }
+                    FILTER_PAGE.includes(router.pathname) && (
+                        <li className={s.iconFilterDesk}>
+                            <button className={s.iconFilter} onClick={toggleFilter}>
+                                <IconFilter />
+                            </button>
+                        </li>
+                    )
+                }
             </ul>
         </section>
     )
