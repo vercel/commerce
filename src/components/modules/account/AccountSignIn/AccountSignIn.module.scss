@@ -1,5 +1,6 @@
 @import "../../../../styles/utilities";
 .accountSignInWrapper{
+        padding: 5rem;
         @apply w-full;
         .imgError{
             @apply w-full flex justify-center;

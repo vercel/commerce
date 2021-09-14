@@ -23,17 +23,19 @@ const AccountSignIn = memo(({ } : AccountSignIn) => {
     return (
        <>
             <div className={s.accountSignInWrapper}>
-                <div className={s.imgError}>
-                    <StaticImage src={AccountSignInImg} />
-                </div>
-                <div className={s.text}>
-                    Sign in to get more interesting <br/> features
-                </div>
-                <div className={s.btn}>
-                    <ButtonCommon size="default" onClick={openLogin}>{LANGUAGE.BUTTON_LABEL.SIGNIN}</ButtonCommon>
-                </div>
-                <div className={s.dontHaveAccount}>
-                    <div>Don't have an account? &nbsp;</div> <span><a><Link href="/"> Create Account</Link></a></span>
+                <div>
+                    <div className={s.imgError}>
+                        <StaticImage src={AccountSignInImg} />
+                    </div>
+                    <div className={s.text}>
+                        Sign in to get more interesting <br/> features
+                    </div>
+                    <div className={s.btn}>
+                        <ButtonCommon size="default" onClick={openLogin}>{LANGUAGE.BUTTON_LABEL.SIGNIN}</ButtonCommon>
+                    </div>
+                    <div className={s.dontHaveAccount}>
+                        <div>Don't have an account? &nbsp;</div> <span><a><Link href="/"> Create Account</Link></a></span>
+                    </div>
                 </div>
             </div>
        </>

@@ -6,7 +6,8 @@ import PaginationCommon from 'src/components/common/PaginationCommon/PaginationC
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import HeadingCommon from "../../../common/HeadingCommon/HeadingCommon";
-import RecipesItem from './RecipesItem/RecipesItem';
+import { RecipeCard } from 'src/components/common'
+
 import s from './RecipesList.module.scss';
 
 const recipe:RecipeCardProps[] = [
@@ -46,6 +47,7 @@ const recipe:RecipeCardProps[] = [
     imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
     slug:"the-best-recipe-of-beef-noodle-soup"
 },];
+
 const DEFAULT_PAGESIZE_RECIPELIST = 6;
 
 const BREADCRUMB = [
@@ -159,11 +161,10 @@ const OPTIONSLECT=[
 interface Props{
     data?: RecipeCardProps[],
     recipes?:{
-        id:string,
         title:string,
-        image:string,
+        imageSrc:string,
         description:string,
-        link:string
+        slug:string
     }[],
 }
 
@@ -203,12 +204,7 @@ const RecipesList = ({ data =recipe}:Props) => {
                         <div className={s.boxItem}>
                             {data?.map((item,index) => (
                                 <div key={index} className={s.item}>
-                                <RecipesItem
-                                        name={item.title}
-                                        image={item.imageSrc}
-                                        description={item.description}
-                                        link="#"
-                                    />
+                                    <RecipeCard slug={item.slug} imageSrc={item.imageSrc} title={item.title}  description={item.description}/> 
                                 </div>
                             ))}
                         </div>

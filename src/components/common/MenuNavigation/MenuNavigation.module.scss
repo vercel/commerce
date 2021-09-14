@@ -1,6 +1,9 @@
 @import "../../../styles/utilities";
 .menuNavigationWrapper{
     @apply hidden;
+    @screen md {
+        @apply block;
+    }
     .menuNavigationHeading{
         @screen md {
             @apply sub-headline font-bold ;
