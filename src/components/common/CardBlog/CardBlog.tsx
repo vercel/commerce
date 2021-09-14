@@ -2,7 +2,9 @@ import Link from 'next/link'
 import React from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { BlogProps } from 'src/utils/types.utils'
+import { ImgWithLink } from '..'
 import s from './CardBlog.module.scss'
+
 export interface BlogCardProps extends BlogProps {
   // todo: edit when intergrate API
 
@@ -14,7 +16,7 @@ const CardBlog = ({ imageSrc, title, description, slug }: BlogCardProps) => {
       <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
         <a>
           <div className={s.image}>
-            <img src={imageSrc} alt="image cardblog" />
+            <ImgWithLink src={imageSrc} alt="image cardblog" />
           </div>
         </a>
       </Link>
