@@ -1,7 +1,7 @@
-import type { CustomerSchema } from '../../types/customer'
-import { CommerceAPIError } from '../utils/errors'
-import isAllowedOperation from '../utils/is-allowed-operation'
-import type { GetAPISchema } from '..'
+import type { CustomerSchema } from '../../../types/customer'
+import { CommerceAPIError } from '../../utils/errors'
+import isAllowedOperation from '../../utils/is-allowed-operation'
+import type { GetAPISchema } from '../..'
 
 const customerEndpoint: GetAPISchema<
   any,

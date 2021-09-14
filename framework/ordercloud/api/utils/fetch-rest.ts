@@ -94,6 +94,8 @@ export async function fetchData<T>(
       return fetchData(opts, retries + 1)
     }
 
+    console.log('dataResponse.text:', await dataResponse.textConverted());
+
     // Get the body of it
     const error = await dataResponse.json()
 

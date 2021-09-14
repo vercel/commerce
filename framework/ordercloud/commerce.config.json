@@ -5,6 +5,6 @@
     "cart": true,
     "search": false,
     "customerAuth": false,
-    "customCheckout": false
+    "customCheckout": true
   }
 }
