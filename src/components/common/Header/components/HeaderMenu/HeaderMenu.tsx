@@ -1,20 +1,17 @@
 import classNames from 'classnames'
 import Link from 'next/link'
-import { memo, useEffect, useMemo, useState } from 'react'
+import { useRouter } from 'next/router'
+import { memo, useMemo } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { IconBuy, IconFilter, IconHeart, IconHistory, IconUser } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
-import { useRouter } from 'next/router'
 interface Props {
     children?: any,
-<<<<<<< HEAD
     isFull: boolean,
     visibleFilter?:boolean,
-=======
->>>>>>> 2cd36b2d66249e898f8234d210f77f5e2a4c5a2e
     openModalAuthen: () => void,
     openModalInfo: () => void,
     toggleFilter: () => void,
@@ -23,11 +20,7 @@ interface Props {
 
 const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
 
-<<<<<<< HEAD
-const HeaderMenu = memo(({ visibleFilter,isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
-=======
-const HeaderMenu = memo(({ openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
->>>>>>> 2cd36b2d66249e898f8234d210f77f5e2a4c5a2e
+const HeaderMenu = memo(({ visibleFilter,openModalAuthen, openModalInfo, toggleFilter, toggleCart}: Props) => {
     const router = useRouter()
 
 
