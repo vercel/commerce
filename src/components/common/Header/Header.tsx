@@ -59,7 +59,6 @@ const Header = memo(({ toggleFilter }: props) => {
                     <HeaderMenu
                         toggleFilter={toggleFilter}
                         toggleCart={toggleCart}
-                        isFull={isFullHeader}
                         openModalAuthen={openModalAuthen}
                         openModalInfo={openModalInfo} />
                     <HeaderSubMenu />
@@ -71,7 +70,7 @@ const Header = memo(({ toggleFilter }: props) => {
                 [s.headerSticky]: true,
                 [s.show]: !isFullHeader
             })}>
-                <HeaderMenu isFull={isFullHeader}
+                <HeaderMenu
                     toggleFilter={toggleFilter}
                     toggleCart={toggleCart}
                     openModalAuthen={openModalAuthen}

@@ -10,7 +10,6 @@ import s from './HeaderMenu.module.scss'
 import { useRouter } from 'next/router'
 interface Props {
     children?: any,
-    isFull: boolean,
     openModalAuthen: () => void,
     openModalInfo: () => void,
     toggleFilter: () => void,
@@ -19,7 +18,7 @@ interface Props {
 
 const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
 
-const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
+const HeaderMenu = memo(({ openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
     const router = useRouter()
     const optionMenu = useMemo(() => [
         {
@@ -41,7 +40,7 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
 
     ], [openModalAuthen])
     return (
-        <section className={classNames({ [s.headerMenu]: true, [s.full]: isFull })}>
+        <section className={s.headerMenu}>
             <div className={s.left}>
                 <div className={s.top}>
                     <Logo />
