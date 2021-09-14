@@ -929,10 +929,10 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
-"@medusajs/medusa-js@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@medusajs/medusa-js/-/medusa-js-1.0.0.tgz#b8e2231f7d15eebfaf0d5299dc5716ac37171757"
-  integrity sha512-P8l/xI6Q07PHLO65ED1BuS+4BGa2dSLDAkpWGPf3Sc7giKYlgDXo1xXXT8+jnsJklRgWbaJIU9mbcdi79QbFQw==
+"@medusajs/medusa-js@^1.0.1-canary.1":
+  version "1.0.1-canary.1"
+  resolved "https://registry.yarnpkg.com/@medusajs/medusa-js/-/medusa-js-1.0.1-canary.1.tgz#7cf6fc1c618d9c42120d7937f1203d38ed663ad9"
+  integrity sha512-UGiR6hHIf9vqYmLmxYciQLoAep9/EjI2H/a+xbXrHNbVNdZPT8wV1nQ0zrRt3Z69kWf5B6Frxsd6fXwuQTZ4+Q==
   dependencies:
     axios "^0.21.0"
 
