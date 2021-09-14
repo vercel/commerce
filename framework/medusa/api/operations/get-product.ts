@@ -21,8 +21,8 @@ export default function getProductOperation({
 
     const response = await config.fetch('products', 'list', {})
 
-    if (response.data?.products) {
-      const products: MedusaProduct[] = response.data.products
+    if (response.products) {
+      const products: MedusaProduct[] = response.products
       const product = products
         ? products.find(({ handle }) => handle === variables!.slug)
         : null

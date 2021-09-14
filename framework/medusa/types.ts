@@ -90,7 +90,7 @@ export interface MedusaProductVariant {
   title: string
   product_id: string
   product: MedusaProduct
-  prices: MedusaMoneyAmount
+  prices: MedusaMoneyAmount[]
   sku?: string
   barcase?: string
   ean?: string

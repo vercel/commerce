@@ -78,11 +78,11 @@ export function normalizeProduct({
   handle: slug,
   thumbnail,
 }: MedusaProduct): Product {
-  const tmpVariant = medusaVariants.reduce((prev, curr) =>
-    prev.prices.amount < curr.prices.amount ? prev : curr
-  )
+  // const tmpVariant = medusaVariants.reduce((prev, curr) =>
+  //   prev.prices.amount < curr.prices.amount ? prev : curr
+  // )
 
-  const minPrice = normalizePrice(tmpVariant.prices[0]) //need to fix typing in medusa types
+  // const minPrice = normalizePrice(tmpVariant.prices) //need to fix typing in medusa types
 
   return {
     id,
@@ -91,7 +91,7 @@ export function normalizeProduct({
     variants: normalizeProductVariants(medusaVariants),
     images: thumbnail && !images.length ? [{ url: thumbnail }] : images,
     options: normalizeOptions(medusaOptions),
-    price: minPrice,
+    price: normalizePrice(medusaVariants[0].prices[0]),
     path: `/${slug}`,
     slug,
   }
