@@ -265,38 +265,6 @@ export const callMedusa = async (
 
         return await medusa.customers.update(customer_id, payload)
       }
-    case 'orders':
-      if (method === 'lookupOrder') {
-        const { payload } = variables
-
-        if (!payload) {
-          throw new CommerceError({
-            message: 'An argument for payload is required',
-          })
-        }
-
-        return await medusa.orders.lookupOrder(payload)
-      } else if (method === 'retrieve') {
-        const { order_id } = variables
-
-        if (!order_id) {
-          throw new CommerceError({
-            message: 'An argument for order_id is required',
-          })
-        }
-
-        return await medusa.orders.retrieve(order_id)
-      } else if (method === 'retrieveByCartId') {
-        const { cart_id } = variables
-
-        if (!cart_id) {
-          throw new CommerceError({
-            message: 'An argument for cart_id is required',
-          })
-        }
-
-        return await medusa.orders.retrieveByCartId(cart_id)
-      }
     case 'products':
       if (method === 'variantsList') {
         const { params } = variables
@@ -346,81 +314,6 @@ export const callMedusa = async (
         }
 
         return await medusa.products.retrieve(product_id)
-      } else {
-        throw new CommerceError({
-          message: 'No valid method argument was provided',
-        })
-      }
-    case 'returnReasons':
-      if (method === 'list') {
-        return await medusa.returnReasons.list()
-      } else {
-        throw new CommerceError({
-          message: 'No valid method argument was provided',
-        })
-      }
-    case 'returns':
-      if (method === 'create') {
-        const { payload } = variables
-
-        if (!payload) {
-          throw new CommerceError({
-            message: 'An argument for payload is required',
-          })
-        }
-        return await medusa.returns.create(payload)
-      } else {
-        throw new CommerceError({
-          message: 'No valid method argument was provided',
-        })
-      }
-    case 'shippingOptions':
-      if (method === 'list') {
-        const { cart_id } = variables
-
-        if (!cart_id) {
-          throw new CommerceError({
-            message: 'An argument for cart_id is required',
-          })
-        }
-
-        return await medusa.shippingOptions.list(cart_id)
-      } else if (method === 'create') {
-        const { cart_id } = variables
-
-        if (!cart_id) {
-          throw new CommerceError({
-            message: 'An argument for cart_id is required',
-          })
-        }
-
-        return await medusa.shippingOptions.listCartOptions(cart_id)
-      } else {
-        throw new CommerceError({
-          message: 'No valid method argument was provided',
-        })
-      }
-    case 'swaps':
-      if (method === 'create') {
-        const { cart_id } = variables
-
-        if (!cart_id) {
-          throw new CommerceError({
-            message: 'An argument for cart_id is required',
-          })
-        }
-
-        return await medusa.swaps.create({ cart_id })
-      } else if (method === 'retrieve') {
-        const { cart_id } = variables
-
-        if (!cart_id) {
-          throw new CommerceError({
-            message: 'An argument for cart_id is required',
-          })
-        }
-
-        return await medusa.swaps.retrieveByCartId(cart_id)
       } else {
         throw new CommerceError({
           message: 'No valid method argument was provided',
