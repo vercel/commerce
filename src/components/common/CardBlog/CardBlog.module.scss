@@ -4,14 +4,15 @@
     @apply inline-flex flex-col justify-start;
     max-width: 39.2rem;
     .image {
-        width: 100%;
-        max-height: 22rem;
         border-radius: 2.4rem;
         &:hover {
             cursor: pointer;
         }
         img{
             border-radius: 2.4rem;
+        }
+        > div{
+            min-height: 22rem;
         }
     }
     .title {
