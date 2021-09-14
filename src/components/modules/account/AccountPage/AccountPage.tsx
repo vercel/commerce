@@ -5,8 +5,11 @@ import { HeadingCommon, TabPane } from "src/components/common"
 
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
+import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
 import EditInfoModal from './components/EditInfoModal/EditInfoModal'
+
+import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 
 const waiting = [
     {
@@ -74,7 +77,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                         <OrderInfomation waiting={waiting} delivering={delivering} delivered={delivered} />
                     </TabPane>
                     <TabPane tabName="Favourite"> 
-                        {/* <FavoriteProduct active={activeTab === 2} favProducts={favProducts} /> */}
+                        <FavouriteProducts products={PRODUCT_CART_DATA_TEST}  />
                     </TabPane>
                 </AccountNavigation>
             </section>

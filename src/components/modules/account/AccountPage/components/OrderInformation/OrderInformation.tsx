@@ -16,48 +16,44 @@ const OrderInformation = ({ waiting, delivering, delivered} : OrderInformationPr
 
     return (
         <section className={s.orderInformation}>
-            {
-                <div>
-                    <div className={s.title}>Order Information</div>
+            <div className={s.title}>Order Information</div>
 
-                    <div className={s.tabs}>
-                        <TabCommon>
-                            <TabPane tabName={"Wait for Comfirmation"} >
-                                <div className={s.blank}></div>
-                                {
-                                    waiting.map((order, i) => {
-                                        return (
-                                            <DeliveryItem key={order.id} id={order.id} status="waiting" products={order.products} totalPrice={order.totalPrice} />
-                                        )
-                                    }) 
-                                }
-                            </TabPane>
+            <div className={s.tabs}>
+                <TabCommon>
+                    <TabPane tabName={"Wait for Comfirmation"} >
+                        <div className={s.blank}></div>
+                        {
+                            waiting.map((order, i) => {
+                                return (
+                                    <DeliveryItem key={order.id} id={order.id} status="waiting" products={order.products} totalPrice={order.totalPrice} />
+                                )
+                            }) 
+                        }
+                    </TabPane>
 
-                            <TabPane tabName={"Delivering"}>
-                                <div className={s.blank}></div>
-                                {
-                                    delivering.map((order, i) => {
-                                        return (
-                                            <DeliveryItem key={order.id} id={order.id} status="delivering" products={order.products} totalPrice={order.totalPrice} />
-                                        )
-                                    }) 
-                                }
-                            </TabPane>
+                    <TabPane tabName={"Delivering"}>
+                        <div className={s.blank}></div>
+                        {
+                            delivering.map((order, i) => {
+                                return (
+                                    <DeliveryItem key={order.id} id={order.id} status="delivering" products={order.products} totalPrice={order.totalPrice} />
+                                )
+                            }) 
+                        }
+                    </TabPane>
 
-                            <TabPane tabName={"Delivered"}>
-                                <div className={s.blank}></div>
-                                {
-                                    delivered.map((order, i) => {
-                                        return (
-                                            <DeliveryItem key={order.id} id={order.id} status="delivered" products={order.products} totalPrice={order.totalPrice} />
-                                        )
-                                    }) 
-                                }
-                            </TabPane>
-                        </TabCommon>
-                    </div>
-                </div>
-            }
+                    <TabPane tabName={"Delivered"}>
+                        <div className={s.blank}></div>
+                        {
+                            delivered.map((order, i) => {
+                                return (
+                                    <DeliveryItem key={order.id} id={order.id} status="delivered" products={order.products} totalPrice={order.totalPrice} />
+                                )
+                            }) 
+                        }
+                    </TabPane>
+                </TabCommon>
+            </div>
         </section>
     )
 }

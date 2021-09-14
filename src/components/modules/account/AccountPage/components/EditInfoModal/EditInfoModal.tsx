@@ -1,7 +1,7 @@
 import React from "react"
 import s from './EditInfoModal.module.scss'
 
-import { ModalCommon, Inputcommon, SelectCommon } from '../../../../../common'
+import { ModalCommon, Inputcommon, SelectCommon, ButtonCommon } from '../../../../../common'
 
 interface EditInfoModalProps {
     accountInfo: {name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string};
@@ -58,8 +58,8 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
                 </div>
 
                 <div className={s.buttons}>
-                    <div onClick={closeModal} className={s.buttonCancel}>Cancel</div>
-                    <div onClick={saveInfo} className={s.buttonSave}>Save</div>
+                    <ButtonCommon onClick={closeModal} type="light" size="large" >Cancel</ButtonCommon>
+                    <ButtonCommon onClick={saveInfo} size="large" >Save</ButtonCommon>
                 </div>
             </section>
         </ModalCommon>

@@ -21,34 +21,30 @@ const AccountInfomation = ({ account, onClick } : AccountInfomationProps) => {
 
     return (
         <section className={s.accountInfomation}>
-            {
-                <div>
-                    <div className={s.avatar}>
-                        <Image src={avatar} alt="avatar" />
-                    </div>
+            <div className={s.avatar}>
+                <Image src={avatar} alt="avatar" />
+            </div>
 
-                    <div className={s.accountName}>
-                        {account.name}  
-                    </div>
-                    <div className={s.accountEmail}>
-                        {account.email}  
-                    </div>
+            <div className={s.accountName}>
+                {account.name}  
+            </div>
+            <div className={s.accountEmail}>
+                {account.email}  
+            </div>
 
-                    <div className={s.horizontalSeparator}></div>
+            <div className={s.horizontalSeparator}></div>
 
-                    <div className={s.shippingInfo}>Shipping Infomation</div>
+            <div className={s.shippingInfo}>Shipping Infomation</div>
 
-                    <div className={s.accountAddress}>
-                        {account.address + `, ${account.state}, ${account.city}, ${account.postalCode}`}  
-                    </div>
+            <div className={s.accountAddress}>
+                {account.address + `, ${account.state}, ${account.city}, ${account.postalCode}`}  
+            </div>
 
-                    <div className={s.accountPhoneNumber}>
-                        {account.phoneNumber}  
-                    </div>
+            <div className={s.accountPhoneNumber}>
+                {account.phoneNumber}  
+            </div>
 
-                    <div onClick={showEditForm} className={s.editInfoBtn}>Edit</div>
-                </div>
-            }
+            <div onClick={showEditForm} className={s.editInfoBtn}>Edit</div>
         </section>
     )
 }

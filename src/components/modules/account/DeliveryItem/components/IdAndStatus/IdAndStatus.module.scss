@@ -2,11 +2,7 @@
 
 .idAndStatus {
     @apply items-center;
-    padding: 2.4rem 0 2.4rem 1rem;
-
-    @screen md {
-        padding: 2.4rem 0 2.4rem 1.2rem;
-    }
+    padding: 2.4rem 0 2.4rem 1.2rem;
 
     @screen lg {
         padding: 2.4rem 0 2.4rem 2.4rem;
