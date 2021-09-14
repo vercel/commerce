@@ -1,18 +1,15 @@
 import React from "react";
 import s from './LoadingCommon.module.scss'
 
-interface LoadingCommonProps {
-    children? : React.ReactNode;
-}
-
-const LoadingCommon = ({ children }: LoadingCommonProps) => {
+const LoadingCommon = () => {
     
     return (
-        <>
+        <div className={s.wrapper}>
             <div className={s.loadingCommon}>
-                {children}
+            
             </div>
-        </>
+            <p>Loading...</p>
+        </div>
     )
 }
 

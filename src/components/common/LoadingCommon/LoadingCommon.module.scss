@@ -1,31 +1,20 @@
 @import '../../../styles/utilities';
 
-.loadingCommon:empty {
-    @apply bg-white;
-    height: 7rem;
-    width: 7rem;
-    border-radius: 50%;
-    animation: spin 2s linear infinite;
-    margin: auto;
+.wrapper {
+    @apply text-center;
 
-    background: url('./assets/carrot.png') top 50% left 50% no-repeat;
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    .loadingCommon {
+        @apply bg-white;
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+        animation: spin 2s linear infinite;
+        margin: auto;
+        background: url('./assets/carrot.png') top 50% left 50% no-repeat;
     }
+}
 
-    &.small {
-        height: 5rem;
-        width: 5rem;
-    }
-
-    &.default {
-        
-    }
-
-    &.large {
-        height: 10rem;
-        width: 10rem;
-    }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
