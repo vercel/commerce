@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { ROUTE } from 'src/utils/constanst.utils'
 import { ProductProps } from 'src/utils/types.utils'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
@@ -31,7 +32,7 @@ const ProductCard = ({
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>
-        <Link href="#">
+        <Link href={`${ROUTE.PRODUCT_DETAIL}/test`}>
           <div className={s.productImage}>
             <img src={imageSrc} alt="image" />
           </div>
@@ -42,7 +43,7 @@ const ProductCard = ({
       </div>
       <div className={s.cardMid}>
         <div className={s.cardMidTop}>
-          <Link href="#">
+          <Link href={`${ROUTE.PRODUCT_DETAIL}/test`}>
             <div className={s.productname}>{name} </div>
           </Link>
           <div className={s.productWeight}>{weight}</div>

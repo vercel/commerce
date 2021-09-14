@@ -1,3 +1,5 @@
+import { BlogCardProps } from "src/components/common/CardBlog/CardBlog"
+import { CardItemCheckoutProps } from "src/components/common/CardItemCheckout/CardItemCheckout"
 import { RecipeCardProps } from "src/components/common/RecipeCard/RecipeCard"
 
 export const PRODUCT_DATA_TEST = [
@@ -185,31 +187,108 @@ export const RECIPE_DATA_TEST: RecipeCardProps[] = [
     {
         title: "Special Recipe of Vietnamese Phở",
         description: "Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
-        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png'
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+        slug: "special-recipe-of-vietnamese-pho"
     },
     {
         title: "Original Recipe of Curry",
         description: "Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
-        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png'
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+        slug:"original-recipe-of-curry"
     },
     {
         title: "The Best Recipe of Beef Noodle Soup",
         description: "The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
-        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png'
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+        slug:"the-best-recipe-of-beef-noodle-soup"
     },
     {
         title: "Special Recipe of Vietnamese Phở",
         description: "Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
-        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png'
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+        slug: "special-recipe-of-vietnamese-pho"
     },
     {
         title: "Original Recipe of Curry",
         description: "Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
-        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png'
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+        slug:"original-recipe-of-curry"
     },
     {
         title: "The Best Recipe of Beef Noodle Soup",
         description: "The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
-        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png'
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+        slug:"the-best-recipe-of-beef-noodle-soup"
     },
 ]
+
+
+
+export const BLOGS_DATA_TEST: BlogCardProps[] = [
+    {
+        title: "Special Recipe of Vietnamese Phở",
+        description: "Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+        slug: "special-recipe-of-vietnamese-pho"
+    },
+    {
+        title: "Original Recipe of Curry",
+        description: "Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+        slug:"original-recipe-of-curry"
+    },
+    {
+        title: "The Best Recipe of Beef Noodle Soup",
+        description: "The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+        slug:"the-best-recipe-of-beef-noodle-soup"
+    },
+    {
+        title: "Special Recipe of Vietnamese Phở",
+        description: "Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159257-f92574c7-d00d-4142-8ea7-0ca9515fb737.png',
+        slug: "special-recipe-of-vietnamese-pho"
+    },
+    {
+        title: "Original Recipe of Curry",
+        description: "Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159259-ae4c986d-ab53-4758-9137-d06bafdd15d0.png',
+        slug:"original-recipe-of-curry"
+    },
+    {
+        title: "The Best Recipe of Beef Noodle Soup",
+        description: "The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
+        imageSrc: 'https://user-images.githubusercontent.com/76729908/132159262-f28a9fb9-4852-47e6-80b5-d600521b548a.png',
+        slug:"the-best-recipe-of-beef-noodle-soup"
+    },
+];
+export const CHECKOUT_BILL_DATA:CardItemCheckoutProps[] = [
+    {
+      name: 'Tomato',
+      slug: "tomato",
+      weight: '250g',
+      category: 'VEGGIE',
+      price: 'Rp 27.500',
+      imageSrc: "https://user-images.githubusercontent.com/76729908/131646227-b5705e64-3b45-47a3-9433-9f4b5ee8d40c.png",
+      quantity:10
+    },
+    {
+      name: 'Carrot',
+      slug: "carrot",
+      weight: '250g',
+      category: 'VEGGIE',
+      price: 'Rp 27.500',
+      imageSrc: "https://user-images.githubusercontent.com/76729908/131646217-23b86160-45c9-4845-8dcc-b3e1a4483edd.png",
+      quantity:1
+    },
+    {
+      name: 'Salad',
+      slug:"salad",
+      weight: '250g',
+      category: 'VEGGIE',
+      price: 'Rp 27.500',
+      imageSrc: "https://user-images.githubusercontent.com/76729908/131646221-aaa1d48d-bb80-470f-9400-ae2aa47285b6.png",
+      quantity:2
+    },
+  ]
+export const PRODUCT_DATA_TEST_PAGE = [...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST, ...PRODUCT_DATA_TEST]

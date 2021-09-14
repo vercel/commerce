@@ -2,9 +2,11 @@ import { CommerceProvider } from '@framework'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useModalCommon } from 'src/components/hooks'
-import { CartDrawer } from '..'
+import { BRAND, CATEGORY, FEATURED } from 'src/utils/constanst.utils'
+import { CustomShapeSvg } from '..'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
+import MenuNavigationProductList from '../MenuNavigationProductList/MenuNavigationProductList'
 import s from './Layout.module.scss'
 
 interface Props {
@@ -15,26 +17,25 @@ interface Props {
 // note: demo code
 const Layout: FC<Props> = ({ children }) => {
     const { locale = 'en-US' } = useRouter()
-    // const { visible: visibleCartDrawer, openModal, closeModal: closeCartDrawer } = useModalCommon({ initialValue: false })
-
-    // const toggle = () => {
-    //     if (visibleCartDrawer) {
-    //         closeCartDrawer()
-    //     } else {
-    //         openModal()
-    //     }
-    // }
+    const { visible: visibleFilter, openModal: openFilter, closeModal: closeFilter } = useModalCommon({ initialValue: false })
+    
+    const toggleFilter = () => {
+        if (visibleFilter) {
+            closeFilter()
+        } else {
+            openFilter()
+        }
+    }
     return (
         <CommerceProvider locale={locale}>
-            <div className={s.mainLayout}>
-                <Header />
-                <main >{children}</main>
-                {/* <button onClick={toggle}>toggle card: {visibleCartDrawer.toString()}</button> */}
-                {/* <CartDrawer
-                    visible={visibleCartDrawer}
-                    onClose={closeCartDrawer} /> */}
-                <Footer />
-            </div>
+                <div className={s.mainLayout}>
+                    <Header toggleFilter={toggleFilter}/>
+                    <main >{children}</main>
+                    
+                    <CustomShapeSvg/>
+					<div className={s.filter}><MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED} visible={visibleFilter} onClose={closeFilter}/> </div>
+                    <Footer />
+                </div>
         </CommerceProvider>
 
     )

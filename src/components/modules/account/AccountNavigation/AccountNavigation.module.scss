@@ -1,0 +1,27 @@
+@import '../../../../styles/utilities';
+
+.accountNavigation {
+    @apply flex;
+    width: 100%;
+
+    .slider {
+        @apply inline-block;
+        width: 0.2rem;
+        height: 4.8rem;
+        border-radius: 3px;
+        background-color: var(--primary);
+        position: absolute;
+        left: 11.2rem;
+        transition: all .2s linear;
+    }
+    
+    .tabList {
+        margin-top: 3.8rem;
+        margin-right: 12.4rem;
+    }
+
+    .tabBody {
+        margin-top: -4.7rem;
+        width: 100%;
+    }
+}

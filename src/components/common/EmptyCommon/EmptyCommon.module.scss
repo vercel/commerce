@@ -1,0 +1,16 @@
+@import "../../../styles/utilities";
+
+.empty {
+    padding: 1.6rem;
+    margin: auto;
+    .imgWrap {
+        min-width: 10rem;
+        text-align: center;
+    }
+
+    .description {
+        color: var(--disabled);
+        text-align: center;
+        margin-top: .8rem;
+    }
+}

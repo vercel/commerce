@@ -20,8 +20,34 @@ export interface FeaturedProductProps {
 
 export interface RecipeProps {
     title: string
+    slug: string
     description: string
     imageSrc: string
 }
 
+export interface BlogProps {
+    title: string
+    slug: string
+    description: string
+    imageSrc: string
+}
+
+export interface CheckOutForm {
+    name?: string
+    email?:string
+    address?: string
+    city?:string
+    state?:string
+    code?:number
+    phone?:number
+    method?:string
+    shipping_fee?:number
+}
+
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
+
+export type filterContextType = {
+    visible: boolean;
+    open: () => void;
+    close: () => void;
+};

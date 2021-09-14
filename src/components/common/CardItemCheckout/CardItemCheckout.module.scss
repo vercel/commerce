@@ -1,0 +1,31 @@
+.warpper{
+    max-height: 12rem;
+    padding:1.6rem 0;
+    @apply flex items-center;
+    @screen lg {
+        max-width: 49.9rem;
+    }
+    .image{
+        width: 13.3rem;
+        height: 8.8rem;
+        margin: 0.8rem;
+        @apply flex justify-center items-center;
+        img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+    .right{
+        width: 100%;
+        .name{
+            color: var(--text-active);
+            margin-bottom: 0.5erm;
+        }
+        .quantity {
+            @apply flex justify-between text-label;
+            .price{
+                color: var(--text-base);
+            }
+        }
+    }
+}

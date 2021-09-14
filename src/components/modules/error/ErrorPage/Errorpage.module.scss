@@ -1,0 +1,36 @@
+@import '../../../../styles/utilities';
+.wrapper{
+    @apply flex justify-center;
+    text-align: center;
+    height:100%;
+  
+    background-color: white;
+    .inner{
+        height: 100vh;
+        .logo{
+            margin-top: 2rem;
+        }
+        .text{
+            @apply flex justify-center flex-col;
+            align-items: center;   
+            width: 100%;
+            height:80%;
+            margin-top: 2rem;
+            h1{
+                font-weight: bold;
+                font-size: 15rem;
+                color: var(--negative);
+                font-family: var(--font-heading);
+                text-shadow: 3px 5px 4px var(--negative);
+                height: 20%;
+            }
+            .description{
+                @apply topline;
+                margin-top:1rem;
+                margin-bottom: 3rem;
+                color:var(--text-label);
+            }
+        }
+    }
+   
+}

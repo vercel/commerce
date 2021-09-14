@@ -1,0 +1,8 @@
+@import "../../../../styles/_utilities";
+
+.productListBanner{
+    @apply spacing-horizontal;
+    @screen md {
+        padding:0 3.2rem;
+    }
+}

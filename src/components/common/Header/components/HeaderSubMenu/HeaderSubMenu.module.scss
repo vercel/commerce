@@ -3,38 +3,34 @@
 .headerSubMenu {
     @apply hidden;
     @screen md {
-        transform: translateY(-10rem);
-        height: 0;
-        &.show {
-            @apply block;
-            padding-bottom: 2.4rem;
-            transform: none;
-            height: unset;
+        @apply block;
+        padding-bottom: 2.4rem;
+        transform: none;
+        height: unset;
+        @screen lg {
+            @apply flex justify-between items-center;
+        }
+        .menu {
+            @apply flex items-center list-none;
+            margin-bottom: 2.4rem;
             @screen lg {
-                @apply flex justify-between items-center;
+                margin-bottom: 0;
             }
-            .menu {
-                @apply flex items-center list-none;
-                margin-bottom: 2.4rem;
-                @screen lg {
-                    margin-bottom: 0;
+            li {
+                &:not(:last-child) {
+                    margin-right: 2.4rem;
+                    @screen lg {
+                        margin-right: 4rem;
+                    }
                 }
-                li {
-                    &:not(:last-child) {
-                        margin-right: 2.4rem;
-                        @screen lg {
-                            margin-right: 4rem;
-                        }
-                    }
-                    a {
-                        @appy no-underline;
-                    }
-                    &:hover {
-                        @apply text-primary;
-                    }
-                    &.active {
-                        @apply text-primary;
-                    }
+                a {
+                    @appy no-underline;
+                }
+                &:hover {
+                    @apply text-primary;
+                }
+                &.active {
+                    @apply text-primary;
                 }
             }
         }

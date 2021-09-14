@@ -1,0 +1,15 @@
+.warpper{
+    .info{
+        .line{
+            @apply flex justify-start items-center;
+            .title{
+                margin-right: 3.2rem;
+                min-width: 19.4rem;
+                @apply text-label;
+            }
+            .hightlight{
+                @apply text-active;
+            }
+        }
+    }
+}

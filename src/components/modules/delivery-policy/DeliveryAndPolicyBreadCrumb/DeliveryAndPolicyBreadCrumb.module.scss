@@ -1,0 +1,8 @@
+@import "../../../../styles/utilities";
+
+.breadCrumb {
+    @apply absolute z-10 pt-12 spacing-horizontal;
+    @screen lg{
+        padding-left: 3.2rem;
+    }
+}
