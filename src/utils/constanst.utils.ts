@@ -119,3 +119,14 @@ export const FEATURED = [
   ]
   
 export const DEFAULT_BLOG_PAGE_SIZE=6;
+
+export const STATE_OPTIONS = [
+  {
+    name: 'Hồ Chí Minh',
+    value: 'Hồ Chí Minh',
+  },
+  {
+    name: 'Hà Nội',
+    value: 'Hà Nội',
+  },
+]

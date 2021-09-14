@@ -1,9 +1,7 @@
-import classNames from 'classnames';
-import Link from 'next/link';
 import React, { useRef } from 'react';
-import { useModalCommon } from 'src/components/hooks/useModalCommon';
+import { STATE_OPTIONS } from 'src/utils/constanst.utils';
 import { CustomInputCommon } from 'src/utils/type.utils';
-import { Inputcommon } from '..';
+import { Inputcommon, SelectCommon } from '..';
 import ButtonCommon from '../ButtonCommon/ButtonCommon';
 import ModalCommon from '../ModalCommon/ModalCommon';
 import s from './ModalCreateUserInfo.module.scss';
@@ -27,8 +25,7 @@ const ModalCreateUserInfo = ({ demoVisible: visible, demoCloseModal: closeModal 
                         <Inputcommon placeholder='Street Address' ref={firstInputRef} />
                         <Inputcommon placeholder='City' />
                         <div className={s.line}>
-                            {/* todo: select, not input */}
-                            <Inputcommon placeholder='State' />
+                            <SelectCommon option={STATE_OPTIONS} type="custom" size="large" placeholder='State'/>
                             <Inputcommon placeholder='Zip code' />
                         </div>
                         <Inputcommon placeholder='Phone (delivery contact)' />

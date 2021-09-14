@@ -17,7 +17,8 @@
     }
 
     .inputCommon {
-      @apply block w-full transition-all duration-200 rounded bg-white;
+      @apply block w-full transition-all duration-200 bg-white;
+      border-radius: .8rem;
       padding: 1.6rem;
       border: 1px solid var(--border-line);
       &:hover,
