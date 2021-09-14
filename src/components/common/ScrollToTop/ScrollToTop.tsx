@@ -1,47 +1,44 @@
-import React, { useState, useEffect, MutableRefObject } from 'react'
 import classNames from 'classnames'
+import React, { useEffect, useState } from 'react'
+import ArrowUp from '../../icons/IconArrowUp'
 import s from './ScrollToTop.module.scss'
 
-import ArrowUp from '../../icons/IconArrowUp'
 
 interface ScrollToTopProps {
     visibilityHeight?: number;
 }
 
-const ScrollToTop = ({ visibilityHeight=450 }: ScrollToTopProps) => {
-
-    const [scrollPosition, setSrollPosition] = useState(0);
-    const [showScrollToTop, setShowScrollToTop] = useState("hide");
+const ScrollToTop = ({ visibilityHeight = 450 }: ScrollToTopProps) => {
+    const [showScrollToTop, setShowScrollToTop] = useState<boolean>();
 
     function handleVisibleButton() {
-        const position = window.pageYOffset;
-        setSrollPosition(position);
-    
+        const scrollPosition = window.scrollY;
+
         if (scrollPosition > visibilityHeight) {
-          return setShowScrollToTop("show")
-        } else if (scrollPosition < visibilityHeight) {
-          return setShowScrollToTop("hide");
+            setShowScrollToTop(true)
+        } else {
+            setShowScrollToTop(false)
         }
     };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleVisibleButton);
+        return () => {
+            window.removeEventListener("scroll", handleVisibleButton);
+        }
+    }, []);
+
 
     function handleScrollUp() {
         window.scrollTo(0, 0);
     }
 
-    function addEventScroll() {
-        window.addEventListener("scroll", handleVisibleButton);
-    }
-
-    useEffect(() => {
-        addEventScroll();
-    }, []);    
-
     return (
         <div className={classNames(s.scrollToTop, {
-            [s[`${showScrollToTop}`]]: showScrollToTop
-          })}
-          onClick={handleScrollUp}
-          >
+            [s.show]: showScrollToTop
+        })}
+            onClick={handleScrollUp}
+        >
             <button className={s.scrollToTopBtn}>
                 <ArrowUp />
             </button>
