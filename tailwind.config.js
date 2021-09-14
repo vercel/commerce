@@ -106,9 +106,6 @@ module.exports = {
       fontSize: {
         base: ['16px', '24px'],
       },
-      borderRadius: {
-        rounded: '.8rem',
-      },
       screens: {
         'sm-only': {'min': '0', 'max': '767px'},
         'sm': '640px',

@@ -42,6 +42,8 @@ const Header = memo(({ toggleFilter,visibleFilter }: props) => {
                 } else {
                     setIsFullHeader(true)
                 }
+            } else {
+                setIsFullHeader(true)
             }
         }
         window.addEventListener('scroll', handleScroll)
@@ -52,6 +54,17 @@ const Header = memo(({ toggleFilter,visibleFilter }: props) => {
 
     return (
         <>
+            <div className={classNames({
+                [s.headerSticky]: true,
+                [s.show]: !isFullHeader
+            })}>
+                <HeaderMenu
+                    toggleFilter={toggleFilter}
+                    toggleCart={toggleCart}
+                    openModalAuthen={openModalAuthen}
+                    openModalInfo={openModalInfo} />
+            </div>
+            
             <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
                 <HeaderHighLight />
                 <div className={s.menu}>
@@ -59,24 +72,11 @@ const Header = memo(({ toggleFilter,visibleFilter }: props) => {
                         visibleFilter={visibleFilter}
                         toggleFilter={toggleFilter}
                         toggleCart={toggleCart}
-                        isFull={isFullHeader}
                         openModalAuthen={openModalAuthen}
                         openModalInfo={openModalInfo} />
                     <HeaderSubMenu />
                 </div>
             </header>
-
-
-            <div className={classNames({
-                [s.headerSticky]: true,
-                [s.show]: !isFullHeader
-            })}>
-                <HeaderMenu isFull={isFullHeader}
-                    toggleFilter={toggleFilter}
-                    toggleCart={toggleCart}
-                    openModalAuthen={openModalAuthen}
-                    openModalInfo={openModalInfo} />
-            </div>
 
             <HeaderSubMenuMobile />
             <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />

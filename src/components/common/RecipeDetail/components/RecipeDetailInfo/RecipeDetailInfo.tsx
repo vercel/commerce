@@ -1,4 +1,5 @@
 import React from 'react'
+import { ImgWithLink } from 'src/components/common'
 import RecipeBriefInfo from '../RecipeBriefInfo/RecipeBriefInfo'
 import s from './RecipeDetailInfo.module.scss'
 
@@ -12,7 +13,7 @@ const RecipeDetailInfo = ({ }: Props) => {
     return (
         <section className={s.recipeDetailInfo}>
             <div className={s.img}>
-                <img src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="Recipe" />
+                <ImgWithLink src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="Recipe" />
             </div>
             <div className={s.recipeInfo}>
                 <div className={s.top}>

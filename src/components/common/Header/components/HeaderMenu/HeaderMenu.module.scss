@@ -7,10 +7,6 @@
         @apply flex justify-between items-center;
         padding-top: 0.8rem;
         padding-bottom: 0.8rem;
-        &.full {
-            padding-top: 2.4rem;
-            padding-bottom: 2.4rem;
-        }
     }
     .left {
         .top {
@@ -62,6 +58,19 @@
             }
         }
     }
+    .btnCart {
+        all: unset;
+        cursor: pointer;
+        &:focus-visible {
+            outline: 2px solid #000;
+        }
+        &:hover {
+            svg path {
+                fill: var(--primary);
+                opacity: 0.8;
+            }
+        }
+    }
     .menu {
         @apply hidden;
         @screen md {
@@ -82,19 +91,6 @@
                     &.iconFavourite {
                         svg path {
                             fill: var(--negative);
-                        }
-                    }
-                }
-                .btnCart {
-                    all: unset;
-                    cursor: pointer;
-                    &:focus-visible {
-                        outline: 2px solid #000;
-                    }
-                    &:hover {
-                        svg path {
-                            fill: var(--primary);
-                            opacity: 0.8;
                         }
                     }
                 }

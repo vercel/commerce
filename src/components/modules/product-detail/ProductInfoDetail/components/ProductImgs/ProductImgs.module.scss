@@ -6,4 +6,7 @@
     @screen lg {
         max-width: 60rem;
     }
+    > div {
+        width: 100%;
+    }
 }

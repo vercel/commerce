@@ -2,7 +2,7 @@
 
 .categoryItem {
     .categoryItemImage {
-        @apply transition-all duration-200;
+        @apply flex justify-center items-center transition-all duration-200;
         width: 10.6rem;
         margin: 0 auto;
         max-height: 14rem;

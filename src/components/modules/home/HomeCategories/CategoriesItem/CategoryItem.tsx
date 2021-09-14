@@ -4,6 +4,7 @@ import s from './CategoryItem.module.scss'
 import classNames from 'classnames';
 import Image from "next/image";
 import Link from 'next/link';
+import { StaticImage } from 'src/components/common';
 
 interface CategoryItem {
     image: StaticImageData,
@@ -17,7 +18,7 @@ const CategoryItem = ({ image, name, link }: CategoryItem) => {
             <div className={classNames(s.categoryItemImage)}>
                 <Link href={link}>
                     <a>
-                        <Image src={image} />
+                        <StaticImage src={image} />
                     </a>
                 </Link>
             </div>
