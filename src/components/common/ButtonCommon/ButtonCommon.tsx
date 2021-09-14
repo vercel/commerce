@@ -27,10 +27,12 @@ const ButtonCommon = memo(({ type = 'primary', size = 'default', loading = false
             disabled={disabled}
             onClick={onClick}
         >
-            {
-                icon && <span className={s.icon}>{icon}</span>
-            }
-            <span className={s.label}>{children}</span>
+            <div className={s.inner}>
+                {
+                    icon && <span className={s.icon}>{icon}</span>
+                }
+                <span className={s.label}>{children}</span>
+            </div>
         </button>
     )
 })

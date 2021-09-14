@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { memo } from 'react'
-import { IconHeart, IconHome, IconShopping, IconUser } from 'src/components/icons'
+import { IconHeart, IconHome, IconNoti, IconShopping, IconUser } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import s from './HeaderSubMenuMobile.module.scss'
 
@@ -11,7 +11,6 @@ const OPTION_MENU = [
         link: ROUTE.HOME,
         name: 'Home',
         icon: <IconHome />,
-        isMarked: true,
     },
     {
         link: ROUTE.PRODUCTS,
@@ -24,6 +23,12 @@ const OPTION_MENU = [
         name: 'Favourites',
         icon: <IconHeart />,
         isMarked: false,
+    },
+    {
+        link: ROUTE.NOTIFICATION,
+        name: 'Notifications',
+        icon: <IconNoti />,
+        isMarked: true,
     },
     {
         link: ROUTE.ACCOUNT,

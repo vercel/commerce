@@ -1,8 +1,12 @@
 @import "../../../../styles/utilities";
 
 .imgWrap {
-    img {
-        opacity: 0.5;
+    > div {
+        min-height: 13rem;
+        img {
+            opacity: 0.5;
+            object-fit: contain
+        }
     }
 }
 
@@ -11,7 +15,7 @@
 }
 
 .info {
-    @apply flex justify-center items-center custom-border-radius bg-info-light text-center;
+    @apply flex justify-center items-center shape-common bg-info-light text-center;
     padding: .8rem 1.6rem;
     margin-top: 1.6rem;
     color: var(--info);

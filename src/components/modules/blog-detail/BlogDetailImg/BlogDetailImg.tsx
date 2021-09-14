@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { ImgWithLink } from 'src/components/common';
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon';
 import s from './BlogDetailImg.module.scss';
 interface Props {
@@ -19,7 +20,9 @@ const BlogDetailImg = ({}:Props ) => {
             <div className={s.beadcrumb}>
                 <BreadcrumbCommon crumbs={CRUMBS} />
             </div>
-             <img className={s.image} src="https://i.pinimg.com/564x/3d/42/94/3d429429428377070c4f91844a8d8755.jpg" alt="Ảnh đại diện" />
+            <div className={s.image}>
+                <ImgWithLink src="https://user-images.githubusercontent.com/89437339/133044532-8b5f9442-841b-4187-84b4-d6cc66676b52.png" alt="Ảnh đại diện"/>
+            </div>
         </>
     )
 }

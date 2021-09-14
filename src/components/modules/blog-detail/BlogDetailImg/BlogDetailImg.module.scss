@@ -3,10 +3,14 @@
     padding-bottom: 3.2rem;
 }
 .image{
-    width: 100%;
-    padding: 0 2rem;
-    margin-bottom: 2rem;
-    border-radius: 2.4rem;
+    div{
+        width: 100%;
+        padding: 0 2rem;
+        margin-bottom: 2rem;
+        border-radius: 2.4rem;
+        min-height: 45.2rem;
+    }
+   
     @screen md {
         width: 90%;
         margin:0 auto;

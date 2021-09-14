@@ -1,5 +1,5 @@
 export function isMobile() {
-    return window.innerWidth <= 768
+    return window.innerWidth < 768
 }
 
 export function removeItem<T>(arr: Array<T>, value: T): Array<T> { 

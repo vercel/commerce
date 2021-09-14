@@ -7,13 +7,19 @@ import { PRODUCT_DATA_TEST } from 'src/utils/demo-data';
 import s from './CartRecommendation.module.scss';
 
 const option: TOptionsEvents = {
-  slidesPerView: 2,
+  slidesPerView: 1.5,
   mode: 'free',
   breakpoints: {
     '(min-width: 640px)': {
-      slidesPerView: 1,
+      slidesPerView: 1.5,
     },
     '(min-width: 768px)': {
+      slidesPerView: 2.5,
+    },
+    '(min-width: 1008px)': {
+      slidesPerView: 2.2,
+    },
+    '(min-width: 1440px)': {
       slidesPerView: 2.5,
     }
   },
@@ -34,6 +40,7 @@ const CartRecommendation = () => {
           Component={ProductCard}
           itemKey="cart-recommendation"
           option={option}
+          defaultComponentProps={{ isSingleButton: true }}
         />
       </div>
     </div>

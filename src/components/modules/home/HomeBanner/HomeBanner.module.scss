@@ -11,14 +11,14 @@
     @apply grid;
     grid-template-columns: 1fr 1.8fr;
     .left {
-      @apply relative flex items-end justify-center custom-border-radius-lg;
+      @apply relative flex items-end justify-center shape-common-lg;
       margin-right: 1.6rem;
       .imgWrap {
         @apply absolute w-full h-full;
         top: 0;
         left: 0;
         > div {
-          @apply w-full h-full custom-border-radius-lg;
+          @apply w-full h-full shape-common-lg;
         }
         img {
           object-fit: cover;
@@ -31,11 +31,15 @@
         width: min-content;
 
         color: var(--white);
-        font-size: 8.8rem;
+        font-size: 7rem;
         line-height: 8rem;
         letter-spacing: -0.03em;
         font-weight: bold;
         text-transform: uppercase;
+
+        @screen 2xl {
+          line-height: 8rem;
+        }
         &::after {
           @apply absolute;
           content: "";

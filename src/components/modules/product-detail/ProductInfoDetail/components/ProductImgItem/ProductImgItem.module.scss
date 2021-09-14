@@ -1,0 +1,8 @@
+.productImgItem {
+    @apply w-full h-full;
+    min-height: 30rem;
+    img {
+        object-fit: contain;
+    }
+}
+

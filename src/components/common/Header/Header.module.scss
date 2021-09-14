@@ -6,19 +6,27 @@
   left: 0;
   z-index: 9999;
   margin-bottom: 3.2rem;
-  @screen md {
-    @apply relative;
-  }
+
   &.full {
     @apply shadow-none;
-    border: 1px solid var(--border-line);
   }
   .menu {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     padding-left: 3.2rem;
     padding-right: 3.2rem;
   }
   .logo {
     @apply font-logo;
+  }
+
+  @screen md {
+    @apply relative;
+    &.full {
+      border: 1px solid var(--border-line);
+    }
+    .menu {
+      @apply shadow-none;
+    }
   }
 }
 

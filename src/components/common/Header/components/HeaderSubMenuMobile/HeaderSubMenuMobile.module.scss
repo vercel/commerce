@@ -4,30 +4,32 @@
     @apply fixed w-full bg-white;
     bottom: 0;
     left: 0;
-    padding: 2rem 1rem;
+    padding: 0 1rem 1rem;
     border-top: 1px solid var(--border-line);
     box-shadow: -5px 6px 10px rgba(0, 0, 0, 0.2);
     z-index: 9999;
     .menu {
-        @apply grid grid-cols-4;
+        @apply grid grid-cols-5;
         li {
             a {
                 @apply transition-all duration-200 no-underline;
-                &:hover {
-                    color: var(--primary);
-                }
+                -webkit-tap-highlight-color: unset;
             }
             .menuItem {
                 @apply flex flex-col justify-center items-center sm-label;
+                padding-top: 1rem;
+                border-top: 2px solid transparent;
                 .icon {
                     position: relative;
                     margin-bottom: 0.5rem;
+                    height: 3rem;
                     svg path {
                         fill: currentColor;
                     }
                 }
                 &.active {
                     @apply text-primary;
+                    border-top: 2px solid var(--primary);
                 }
                 &.dot {
                     .icon {

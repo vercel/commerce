@@ -1,5 +1,5 @@
-import classNames from 'classnames'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { memo, useMemo } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
@@ -7,19 +7,17 @@ import { IconBuy, IconFilter, IconHeart, IconHistory, IconUser } from 'src/compo
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
-import { useRouter } from 'next/router'
 interface Props {
     children?: any,
-    isFull: boolean,
     openModalAuthen: () => void,
     openModalInfo: () => void,
-    toggleFilter:() => void,
-    toggleCart:() => void,
+    toggleFilter: () => void,
+    toggleCart: () => void,
 }
 
-const FILTER_PAGE = [ROUTE.HOME,ROUTE.PRODUCTS]
+const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
 
-const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
+const HeaderMenu = memo(({ openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
     const router = useRouter()
     const optionMenu = useMemo(() => [
         {
@@ -29,6 +27,10 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
         {
             onClick: openModalInfo,
             name: 'Create User Info (Demo)',
+        },
+        {
+            link: ROUTE.NOTIFICATION,
+            name: 'Notifications',
         },
         {
             link: ROUTE.ACCOUNT,
@@ -41,19 +43,19 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
 
     ], [openModalAuthen])
     return (
-        <section className={classNames({ [s.headerMenu]: true, [s.full]: isFull })}>
+        <section className={s.headerMenu}>
             <div className={s.left}>
                 <div className={s.top}>
-                    <Logo/>
+                    <Logo />
                     <div className={s.iconGroup}>
                         {
                             FILTER_PAGE.includes(router.pathname) && (
                                 <button className={s.iconFilter} onClick={toggleFilter}>
-                                    <IconFilter/>
+                                    <IconFilter />
                                 </button>
                             )
                         }
-                        <button className={s.iconCart}>
+                        <button className={`${s.iconCart} ${s.btnCart}`} onClick={toggleCart}>
                             <IconBuy />
                         </button>
                     </div>
@@ -86,16 +88,16 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
                         <IconBuy />
                     </button>
                 </li>
-                
+
                 {
-                            FILTER_PAGE.includes(router.pathname) && (
-                                <li className={s.iconFilterDesk}>
-                                    <button className={s.iconFilter} onClick={toggleFilter}>
-                                        <IconFilter/>
-                                    </button>
-                                </li>
-                            )
-                        }
+                    FILTER_PAGE.includes(router.pathname) && (
+                        <li className={s.iconFilterDesk}>
+                            <button className={s.iconFilter} onClick={toggleFilter}>
+                                <IconFilter />
+                            </button>
+                        </li>
+                    )
+                }
             </ul>
         </section>
     )
