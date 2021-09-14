@@ -9,12 +9,18 @@ export const SOCIAL_LINKS = {
 
 export const ROUTE = {
     HOME: '/',
-    PRODUCTS: '/products',
-    PRODUCT_DETAIL: '/product',
     ABOUT: '/about',
     ACCOUNT: '/account',
+
+    PRODUCTS: '/products',
+    PRODUCT_DETAIL: '/product',
+    
+    BLOGS: '/blogs',
     BLOG_DETAIL: '/blog',
+
     RECIPES: '/recipes',
+    RECIPE_DETAIL: '/recipe',
+
     BUSSINESS: '/bussiness',
     CONTACT: '/contact',
     CHECKOUT: '/checkout',
@@ -22,7 +28,6 @@ export const ROUTE = {
     CUSTOMER_SERVICE: '/customer-service',
     TERM_CONDITION: '/term-condition',
     PRIVACY_POLICY: '/privacy-policy',
-    BLOGS: '/blogs',
     FORGOT_PASSWORD: '/forgot-password'
 }
 
