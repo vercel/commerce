@@ -31,16 +31,7 @@
             }
         
             .backToHomeBtn {
-                @apply flex cursor-pointer font-bold items-center justify-center custom-border-radius;
-                color: white;
-                background-color: var(--primary);
-                margin: auto;
-                width: fit-content;
-                padding: 1.6rem 3.2rem 1.6rem 3.2rem;
-        
-                .arrowRight {
-                    margin-left: 1.4rem;
-                }
+                @apply flex justify-center;
             }
         }
     }
