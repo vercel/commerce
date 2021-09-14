@@ -18,10 +18,25 @@
                 margin-left: 1.6rem;
             }
             .iconFilter{
+                @apply relative;
+                .dot{
+                    @apply absolute;
+                    top: -0.08rem;
+                    right: -0.2rem;
+                    background-color: var(--negative);
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    border-radius: 1.2rem;
+                    @apply hidden;
+                    &.isShow{
+                        @apply block;
+                    }
+                }
                 @screen md {
                     display: none;
                 }
             }
+            
         }
         .inputSearch {
             margin-top: 2.4rem;

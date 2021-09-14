@@ -1,10 +1,13 @@
 import React from 'react';
 import { Layout } from 'src/components/common';
-import { AccountPage } from 'src/components/modules/account';
+import { AccountPage, AccountSignIn } from 'src/components/modules/account';
 
 const Account = () => {
     return (
-        <AccountPage/>
+        // <AccountPage/>
+        <>
+            <AccountSignIn/>
+        </>
     );
 };
 

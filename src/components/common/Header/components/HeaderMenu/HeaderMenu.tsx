@@ -9,6 +9,8 @@ import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
 interface Props {
     children?: any,
+    isFull: boolean,
+    visibleFilter?:boolean,
     openModalAuthen: () => void,
     openModalInfo: () => void,
     toggleFilter: () => void,
@@ -17,8 +19,10 @@ interface Props {
 
 const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
 
-const HeaderMenu = memo(({ openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
+const HeaderMenu = memo(({ visibleFilter,openModalAuthen, openModalInfo, toggleFilter, toggleCart}: Props) => {
     const router = useRouter()
+
+
     const optionMenu = useMemo(() => [
         {
             onClick: openModalAuthen,
@@ -27,6 +31,10 @@ const HeaderMenu = memo(({ openModalAuthen, openModalInfo, toggleFilter, toggleC
         {
             onClick: openModalInfo,
             name: 'Create User Info (Demo)',
+        },
+        {
+            link: '/account-not-login',
+            name: 'Account Not Login',
         },
         {
             link: ROUTE.NOTIFICATION,
@@ -51,7 +59,8 @@ const HeaderMenu = memo(({ openModalAuthen, openModalInfo, toggleFilter, toggleC
                         {
                             FILTER_PAGE.includes(router.pathname) && (
                                 <button className={s.iconFilter} onClick={toggleFilter}>
-                                    <IconFilter />
+                                    <IconFilter/>
+                                    <div className={classNames({[s.dot]:true,[s.isShow]:visibleFilter})}></div>
                                 </button>
                             )
                         }

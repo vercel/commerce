@@ -28,15 +28,15 @@ const Layout: FC<Props> = ({ children }) => {
     }
     return (
         <CommerceProvider locale={locale}>
-            <div className={s.mainLayout}>
-                <Header toggleFilter={toggleFilter} />
-                <main >{children}</main>
-
-                <CustomShapeSvg />
-                <div className={s.filter}><MenuNavigationProductList categories={CATEGORY} brands={BRAND} featured={FEATURED} visible={visibleFilter} onClose={closeFilter} /> </div>
-                <ScrollToTop visibilityHeight={1500} />
-                <Footer />
-            </div>
+                <div className={s.mainLayout}>
+                    <Header toggleFilter={toggleFilter} visibleFilter={visibleFilter}/>
+                    <main >{children}</main>
+                    
+                    <CustomShapeSvg/>
+					<div className={s.filter}><MenuNavigationProductList categories={CATEGORY}  brands={BRAND} featured={FEATURED} visible={visibleFilter} onClose={closeFilter}/> </div>
+                    <ScrollToTop visibilityHeight={1500} />
+                    <Footer />
+                </div>
         </CommerceProvider>
 
     )

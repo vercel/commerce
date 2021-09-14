@@ -5,10 +5,12 @@ import LogoBrand from './assets/logo_maggi.png'
 import { VideoPlayer } from 'src/components/common'
 import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 
+
 interface Props {
     className?: string
     children?: any
 }
+
 
 const HomeVideo = ({ }: Props) => {
     return (

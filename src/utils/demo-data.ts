@@ -68,7 +68,72 @@ export const PRODUCT_DATA_TEST = [
         imageSrc: "https://user-images.githubusercontent.com/76729908/131646231-2d1c3ad1-4f5b-4a8e-9874-ca731f4ce128.png",
     },
 ]
-
+export const SPICE_DATA_TEST = [
+    {
+        name: 'Tomato',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218370-4145e774-4d99-45f9-9200-9dc1f55b967d.png",
+    },
+    {
+        name: 'Cucumber',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218428-20bd1a2b-b3e2-477a-8cef-2b9f0a5c8899.png",
+    },
+    {
+        name: 'Carrot',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218473-99e96817-40b6-45a4-9fed-daa269ae912f.png",
+    },
+    {
+        name: 'Salad',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218528-9da429bf-11ab-43a2-9700-ed7c7114cd12.png",
+    },
+    {
+        name: 'Tomato',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218535-60015545-fe6d-4af0-9650-3c18f14b4b20.png",
+    },
+    {
+        name: 'Cucumber',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218538-10d41f11-a484-4f42-ae1f-dc95ac9e5773.png",
+    },
+    {
+        name: 'Tomato',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218370-4145e774-4d99-45f9-9200-9dc1f55b967d.png",
+    },
+    {
+        name: 'Cucumber',
+        slug: 'tomato',
+        weight: '250g',
+        category: 'VEGGIE',
+        price: 'Rp 27.500',
+        imageSrc: "https://user-images.githubusercontent.com/89437339/133218428-20bd1a2b-b3e2-477a-8cef-2b9f0a5c8899.png",
+    },
+]
 export const PRODUCT_CART_DATA_TEST = [
     {
         name: 'Tomato',
