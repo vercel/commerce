@@ -2,7 +2,6 @@ import { CommerceError } from '@commerce/utils/errors'
 import { MEDUSA_PUBLIC_STORE_URL } from '@framework/const'
 import medusa from '../medusa'
 import fetch from 'node-fetch'
-import axios from 'axios'
 
 export const callMedusa = async (
   method: string,
