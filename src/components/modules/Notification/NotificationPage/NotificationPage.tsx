@@ -1,7 +1,7 @@
 import React from 'react'
 import NotificationEmptyPage from '../NotificationEmptyPage/NotificationEmptyPage'
 import NotificationItem, { NotificationItemProps } from '../NotificationItem/NotificationItem'
-
+import s from './NotificationPage.module.scss'
 
 interface NotificationPageProps {
     isEmpty?: boolean,
@@ -34,7 +34,7 @@ const NOTIFICATION_DATA = [
 
 const NotificationPage = ({ isEmpty=false, data = NOTIFICATION_DATA }: NotificationPageProps) => {
     return (
-        <>
+        <div className={s.notificationPage}>
         {
         isEmpty ? 
         <NotificationEmptyPage /> 
@@ -49,7 +49,7 @@ const NotificationPage = ({ isEmpty=false, data = NOTIFICATION_DATA }: Notificat
             }
         </>
         }
-        </>
+        </div>
     )
 }
 

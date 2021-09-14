@@ -1,0 +1,9 @@
+@import "../../../../styles/utilities";
+
+.headingWrapper {
+    @apply flex spacing-horizontal-left pb-16;
+    .heading{
+        max-width: 121.6rem;
+        flex-grow: 1;
+    }
+}
