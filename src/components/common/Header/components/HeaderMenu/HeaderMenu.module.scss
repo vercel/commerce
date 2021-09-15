@@ -6,6 +6,10 @@
     padding-bottom: 0.8rem;
     &.full {
         @apply flex;
+        padding-top: 1.6rem;
+        @screen md {
+            padding-top: 0.8rem;
+        }
     }
     &.small {
         @apply flex;
@@ -20,8 +24,6 @@
     }
     @screen md {
         @apply flex justify-between items-center;
-        padding-top: 0.8rem;
-        padding-bottom: 0.8rem;
     }
     .left {
         // margin-bottom: 3.2rem;
