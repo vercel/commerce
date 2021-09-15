@@ -26,7 +26,7 @@ const checkoutEndpoint: GetAPISchema<
     // Create checkout
     if (req.method === 'GET') {
       const body = { ...req.body, cartId }
-      return await handlers['getCheckout']({ ...ctx, body })
+      return await handlers['getCheckout']?.({ ...ctx, body })
     }
 
     // Create checkout

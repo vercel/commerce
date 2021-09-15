@@ -2,7 +2,7 @@ export * as Card from "./card"
 export * as Address from "./address"
 
 // TODO: define this type
-export type Customer = unknown
+export type Customer = any
 
 export type CustomerTypes = {
   customer: Customer
