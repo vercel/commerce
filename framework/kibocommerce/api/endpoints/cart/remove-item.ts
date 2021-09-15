@@ -16,9 +16,12 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
       errors: [{ message: 'Invalid request' }],
     })
   }
-  const token = req.cookies[config.customerCookie]
+  const encodedToken = req.cookies[config.customerCookie]
+  const token = encodedToken
+    ? Buffer.from(encodedToken, 'base64').toString('ascii')
+    : null
 
-  let accessToken = token ? JSON.parse(token).accessToken : null
+  const accessToken = token ? JSON.parse(token).accessToken : null
 
   const removeItemResponse = await config.fetch(
     removeItemFromCartMutation,
