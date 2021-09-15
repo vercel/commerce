@@ -2,6 +2,10 @@
 
 .emptyPage {
     @apply flex justify-center items-center flex-col;
+    margin-bottom: 5.4rem;
+    @screen lg {
+        margin-bottom: 12.8rem;
+    }
     .emptyIcon {
         padding-bottom: 2.6rem;
     }
