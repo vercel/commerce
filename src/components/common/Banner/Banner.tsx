@@ -8,7 +8,6 @@ interface Props {
 
 const option = {
     slidesPerView: 1,
-    mode: 'free',
 }
 const Banner = memo(({ data }: Props) => {
     if (data.length === 1) {
