@@ -4,7 +4,7 @@ import { memo, useMemo } from 'react'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { IconBuy, IconFilter, IconHeart, IconHistory, IconUser } from 'src/components/icons'
-import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { ACCOUNT_TAB, FILTER_PAGE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
 import { useRouter } from 'next/router'
@@ -17,7 +17,7 @@ interface Props {
     toggleCart:() => void,
 }
 
-const FILTER_PAGE = [ROUTE.HOME,ROUTE.PRODUCTS]
+
 
 const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
     const router = useRouter()
@@ -86,16 +86,6 @@ const HeaderMenu = memo(({ isFull, openModalAuthen, openModalInfo, toggleFilter,
                         <IconBuy />
                     </button>
                 </li>
-                
-                {
-                            FILTER_PAGE.includes(router.pathname) && (
-                                <li className={s.iconFilterDesk}>
-                                    <button className={s.iconFilter} onClick={toggleFilter}>
-                                        <IconFilter/>
-                                    </button>
-                                </li>
-                            )
-                        }
             </ul>
         </section>
     )

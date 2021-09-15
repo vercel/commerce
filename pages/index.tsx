@@ -1,5 +1,5 @@
 import { Layout } from 'src/components/common';
-import { HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
+import { FeaturedProductsCarousel, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 
 export default function Home() {
   return (
@@ -9,6 +9,7 @@ export default function Home() {
       <HomeCategories />
       <HomeCollection />
       <HomeVideo />
+      <FeaturedProductsCarousel/>
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />

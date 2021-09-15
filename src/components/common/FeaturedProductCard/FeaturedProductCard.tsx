@@ -4,7 +4,7 @@ import s from './FeaturedProductCard.module.scss'
 import { LANGUAGE } from '../../../utils/language.utils'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
-interface FeaturedProductCardProps extends FeaturedProductProps {
+export interface FeaturedProductCardProps extends FeaturedProductProps {
   buttonText?: string
 }
 

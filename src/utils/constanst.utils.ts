@@ -117,3 +117,4 @@ export const FEATURED = [
   ]
   
 export const DEFAULT_BLOG_PAGE_SIZE=6;
+export const FILTER_PAGE = [ROUTE.HOME,ROUTE.PRODUCTS]
