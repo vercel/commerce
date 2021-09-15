@@ -31,9 +31,8 @@ export type Provider = CommerceConfig & {
     useRemoveItem?: MutationHook<Cart.RemoveItemHook>
   }
   checkout?: {
+    useCheckout?: SWRHook<Checkout.GetCheckoutHook>
     useSubmitCheckout?: MutationHook<Checkout.SubmitCheckoutHook>
-    useGetCheckout?: SWRHook<Checkout.GetCheckoutHook>
-    useCheckout?: any;
   }
   wishlist?: {
     useWishlist?: SWRHook<Wishlist.GetWishlistHook>

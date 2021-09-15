@@ -4,7 +4,7 @@ import cn from 'classnames'
 import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
-import useCheckout from '@framework/checkout/use-checkout'
+import useAddAddress from '@framework/customer/address/use-add-item'
 
 import s from './ShippingView.module.css'
 
@@ -24,7 +24,7 @@ interface Form extends HTMLFormElement {
 
 const PaymentMethodView: FC = () => {
   const { setSidebarView } = useUI()
-  const [, {addAddress}] = useCheckout()
+  const addAddress = useAddAddress()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault();

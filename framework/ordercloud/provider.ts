@@ -12,7 +12,6 @@ import { handler as useSignup } from './auth/use-signup'
 
 import { handler as useCheckout } from './checkout/use-checkout'
 import { handler as useSubmitCheckout } from './checkout/use-submit-checkout'
-import { handler as useGetCheckout } from './checkout/use-get-checkout'
 
 import { handler as useCards } from './customer/card/use-cards'
 import { handler as useAddCardItem } from './customer/card/use-add-item'
@@ -40,7 +39,6 @@ export const ordercloudProvider = {
   checkout: {
     useCheckout,
     useSubmitCheckout,
-    useGetCheckout,
   },
   customer: {
     useCustomer,

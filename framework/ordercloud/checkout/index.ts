@@ -1,2 +1,2 @@
-export { default as useCheckout } from './use-submit-checkout'
-export { default as useGetCheckout } from './use-get-checkout'
+export { default as useSubmitCheckout } from './use-submit-checkout'
+export { default as useCheckout } from './use-checkout'

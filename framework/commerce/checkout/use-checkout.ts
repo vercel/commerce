@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import { useHook, useSWRHook } from '../utils/use-hook'
 import { Provider, useCommerce } from '..'
 
-export type UseGetCheckout<
+export type UseCheckout<
   H extends SWRHook<GetCheckoutHook<any>> = SWRHook<GetCheckoutHook>
 > = ReturnType<H['useHook']>
 
@@ -18,9 +18,9 @@ export const fetcher: HookFetcherFn<GetCheckoutHook> = async ({
   return cartId ? await fetch(options) : null
 }
 
-const fn = (provider: Provider) => provider.checkout?.useGetCheckout!
+const fn = (provider: Provider) => provider.checkout?.useCheckout!
 
-const useGetCheckout: UseGetCheckout = (input) => {
+const useCheckout: UseCheckout = (input) => {
   const hook = useHook(fn)
   const { cartCookie } = useCommerce()
   const fetcherFn = hook.fetcher ?? fetcher
@@ -31,4 +31,4 @@ const useGetCheckout: UseGetCheckout = (input) => {
   return useSWRHook({ ...hook, fetcher: wrapper })(input)
 }
 
-export default useGetCheckout
+export default useCheckout

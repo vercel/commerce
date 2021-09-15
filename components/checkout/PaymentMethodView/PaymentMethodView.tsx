@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cn from 'classnames'
 
-import useCheckout from '@framework/checkout/use-checkout'
+import useAddCard from '@framework/customer/card/use-add-item'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
@@ -24,12 +24,12 @@ interface Form extends HTMLFormElement {
 
 const PaymentMethodView: FC = () => {
   const { setSidebarView } = useUI()
-  const [, {addPayment}] = useCheckout()
+  const addCard = useAddCard()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault();
 
-    await addPayment({
+    await addCard({
       cardHolder: event.target.cardHolder.value,
       cardNumber: event.target.cardNumber.value,
       cardExpireDate: event.target.cardExpireDate.value,
