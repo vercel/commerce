@@ -4,6 +4,7 @@
     min-height: 100vh;
     > main {
         flex: 1;
+        width: 100%;
         max-width: min( 100%, 1536px);
         margin: auto;
     }

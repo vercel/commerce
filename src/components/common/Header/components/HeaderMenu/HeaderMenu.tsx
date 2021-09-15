@@ -35,11 +35,11 @@ const HeaderMenu = memo(({ visibleFilter,openModalAuthen, openModalInfo, toggleF
         },
         {
             link: '/account-not-login',
-            name: 'Account Not Login',
+            name: 'Account Not Login (Demo)',
         },
         {
             link: '/demo',
-            name: 'Notifications (Demo case empty)',
+            name: 'Notifications Empty (Demo)',
         },
         {
             link: ROUTE.NOTIFICATION,
