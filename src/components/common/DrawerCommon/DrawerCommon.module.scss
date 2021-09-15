@@ -1,21 +1,36 @@
 @import "../../../styles/utilities";
 
 .drawerCommon {
-    @apply fixed flex justify-end transition-all duration-200;
+    @apply fixed flex justify-end transition-all duration-500;
     overflow: hidden;
     top: 0;
     right: 0;
     height: 100vh;
-    width: 90%;
-    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.15);
+    width: 100%;
     z-index: 20000;
+    transform: translateX(110%);
 
+    &.show {
+        .innerWrap {
+            background: rgba(0, 0, 0, 0.2);
+            animation: animateBackground 0.8s;
+        }
+        transform: none;
+    }
+
+    .innerWrap {
+        @apply w-full;
+        background: none;
+    }
     .inner {
         @apply flex flex-col bg-white;
         width: fit-content;
         height: 100vh;
         width: 100%;
-        margin-right: 0;
+        margin-left: auto;
+        box-shadow: -3px 0 10px rgba(0, 0, 0, 0.15);
+        // transform: none;
+
         @screen md {
             max-width: 52rem;
         }
@@ -39,14 +54,21 @@
         overflow-y: auto;
         height: 100%;
     }
-    &.hide {
-        transform: translateX(110%);
-    }
 
     @screen md {
-        width: unset;
         .inner {
             min-width: 48rem;
         }
+    }
+}
+
+@keyframes animateBackground {
+    0%,
+    50% {
+        background: none;
+    }
+
+    100% {
+        background: rgba(0, 0, 0, 0.2);
     }
 }
