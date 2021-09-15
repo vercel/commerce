@@ -47,7 +47,7 @@
 
 @keyframes showHeaderSticky {
   0% {
-    transform: translateY(-7rem);
+    transform: scale(.9);
   }
   100% {
     transform: none;
