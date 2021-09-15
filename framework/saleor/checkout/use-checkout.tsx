@@ -8,5 +8,7 @@ export const handler: SWRHook<any> = {
     query: '',
   },
   async fetcher({ input, options, fetch }) {},
-  useHook: ({ useData }) => async (input) => ({})
+  useHook:
+    ({ useData }) =>
+    async (input) => ({}),
 }

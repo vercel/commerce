@@ -5,7 +5,7 @@ import cn from 'classnames'
 
 interface ComponentProps {
   onClick?: () => any
-  isValid?: boolean;
+  isValid?: boolean
 }
 
 const ShippingWidget: FC<ComponentProps> = ({ onClick, isValid }) => {
@@ -24,9 +24,7 @@ const ShippingWidget: FC<ComponentProps> = ({ onClick, isValid }) => {
           San Franssisco, California
         </span> */}
       </div>
-      <div>
-        {isValid ? <Check /> : <ChevronRight />}
-      </div>
+      <div>{isValid ? <Check /> : <ChevronRight />}</div>
     </div>
   )
 }

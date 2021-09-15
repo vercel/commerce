@@ -3,25 +3,25 @@ import { FC } from 'react'
 import CartItem from '@components/cart/CartItem'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
+import SidebarLayout from '@components/common/SidebarLayout'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
-import ShippingWidget from '../ShippingWidget'
 import useCheckout from '@framework/checkout/use-checkout'
+import ShippingWidget from '../ShippingWidget'
 import PaymentWidget from '../PaymentWidget'
-import SidebarLayout from '@components/common/SidebarLayout'
 import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
   const { setSidebarView, closeSidebar } = useUI()
   const { data: cartData } = useCart()
-  const { data: checkoutData, submit: onCheckout } = useCheckout();
+  const { data: checkoutData, submit: onCheckout } = useCheckout()
 
   async function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault()
 
-    await onCheckout();
+    await onCheckout()
 
-    closeSidebar();
+    closeSidebar()
   }
 
   const { price: subTotal } = usePrice(
@@ -47,8 +47,14 @@ const CheckoutSidebarView: FC = () => {
           <Text variant="sectionHeading">Checkout</Text>
         </Link>
 
-        <PaymentWidget isValid={checkoutData?.hasPayment} onClick={() => setSidebarView('PAYMENT_VIEW')} />
-        <ShippingWidget isValid={checkoutData?.hasShipping} onClick={() => setSidebarView('SHIPPING_VIEW')} />
+        <PaymentWidget
+          isValid={checkoutData?.hasPayment}
+          onClick={() => setSidebarView('PAYMENT_VIEW')}
+        />
+        <ShippingWidget
+          isValid={checkoutData?.hasShipping}
+          onClick={() => setSidebarView('SHIPPING_VIEW')}
+        />
 
         <ul className={s.lineItemsList}>
           {cartData!.lineItems.map((item: any) => (
@@ -62,7 +68,10 @@ const CheckoutSidebarView: FC = () => {
         </ul>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
+      <form
+        onSubmit={handleSubmit}
+        className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm"
+      >
         <ul className="pb-2">
           <li className="flex justify-between py-1">
             <span>Subtotal</span>
@@ -83,7 +92,11 @@ const CheckoutSidebarView: FC = () => {
         </div>
         <div>
           {/* Once data is correcly filled */}
-          <Button type="submit" width="100%" disabled={!checkoutData?.hasPayment || !checkoutData?.hasShipping}>
+          <Button
+            type="submit"
+            width="100%"
+            disabled={!checkoutData?.hasPayment || !checkoutData?.hasShipping}
+          >
             Confirm Purchase
           </Button>
         </div>

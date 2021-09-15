@@ -27,7 +27,7 @@ const PaymentMethodView: FC = () => {
   const addAddress = useAddAddress()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
-    event.preventDefault();
+    event.preventDefault()
 
     await addAddress({
       type: event.target.type.value,
@@ -38,8 +38,8 @@ const PaymentMethodView: FC = () => {
       apartments: event.target.streetNumber.value,
       zipCode: event.target.zipCode.value,
       city: event.target.city.value,
-      country: event.target.country.value
-    });
+      country: event.target.country.value,
+    })
 
     setSidebarView('CHECKOUT_VIEW')
   }
@@ -82,7 +82,9 @@ const PaymentMethodView: FC = () => {
               <input name="streetNumber" className={s.input} />
             </div>
             <div className={s.fieldset}>
-              <label className={s.label}>Apartment, Suite, Etc. (Optional)</label>
+              <label className={s.label}>
+                Apartment, Suite, Etc. (Optional)
+              </label>
               <input name="apartments" className={s.input} />
             </div>
             <div className="grid gap-3 grid-flow-row grid-cols-12">

@@ -8,5 +8,8 @@ export const handler: MutationHook<any> = {
     query: '',
   },
   async fetcher({ input, options, fetch }) {},
-  useHook: ({ fetch }) => () => async () => ({})
+  useHook:
+    ({ fetch }) =>
+    () =>
+    async () => ({}),
 }

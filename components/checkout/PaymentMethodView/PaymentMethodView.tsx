@@ -27,7 +27,7 @@ const PaymentMethodView: FC = () => {
   const addCard = useAddCard()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
-    event.preventDefault();
+    event.preventDefault()
 
     await addCard({
       cardHolder: event.target.cardHolder.value,
@@ -40,8 +40,8 @@ const PaymentMethodView: FC = () => {
       streetNumber: event.target.streetNumber.value,
       zipCode: event.target.zipCode.value,
       city: event.target.city.value,
-      country: event.target.country.value
-    });
+      country: event.target.country.value,
+    })
 
     setSidebarView('CHECKOUT_VIEW')
   }
@@ -63,7 +63,11 @@ const PaymentMethodView: FC = () => {
               </div>
               <div className={cn(s.fieldset, 'col-span-3')}>
                 <label className={s.label}>Expires</label>
-                <input name="cardExpireDate" className={s.input} placeholder="MM/YY" />
+                <input
+                  name="cardExpireDate"
+                  className={s.input}
+                  placeholder="MM/YY"
+                />
               </div>
               <div className={cn(s.fieldset, 'col-span-2')}>
                 <label className={s.label}>CVC</label>
@@ -90,7 +94,9 @@ const PaymentMethodView: FC = () => {
               <input name="streetNumber" className={s.input} />
             </div>
             <div className={s.fieldset}>
-              <label className={s.label}>Apartment, Suite, Etc. (Optional)</label>
+              <label className={s.label}>
+                Apartment, Suite, Etc. (Optional)
+              </label>
               <input className={s.input} name="apartment" />
             </div>
             <div className="grid gap-3 grid-flow-row grid-cols-12">
