@@ -1,7 +1,6 @@
 @import '../../../../../../styles/utilities';
 
 .accountNavigationItem {
-    @apply shape-common;
     width: fit-content;
     padding: 1.2rem 1.6rem 1.2rem 0rem;
     
@@ -17,12 +16,13 @@
         color: white;
         padding: 1.2rem 1.6rem 1.2rem 1.6rem;
         margin-right: 1.6rem;
-
+        
         @screen md {
             @apply font-normal;
             background-color: #FBFBFB;
             border-radius: 0 1.6rem 1.6rem 0;
             color: #3D3D3D;
+            clip-path: none;
         }
     }
 
