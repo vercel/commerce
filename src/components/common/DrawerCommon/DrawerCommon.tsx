@@ -22,7 +22,8 @@ const handleClickOut = (e: any) => {
   return (
     <div className={classNames({
       [s.drawerCommon]: true,
-      [s.show]: visible
+      [s.hide]: !visible,
+      [s.show]: visible,
     })}>
       <div className={s.innerWrap} onClick={handleClickOut}>
         <div className={s.inner} ref={refInner}>

@@ -8,19 +8,23 @@
     height: 100vh;
     width: 100%;
     z-index: 20000;
-    transform: translateX(110%);
+    transform: none;
 
+    &.hide {
+        .innerWrap {
+            background: none;
+        }
+        transform: translateX(110%);
+    }
     &.show {
         .innerWrap {
             background: rgba(0, 0, 0, 0.2);
             animation: animateBackground 0.8s;
         }
-        transform: none;
     }
 
     .innerWrap {
         @apply w-full;
-        background: none;
     }
     .inner {
         @apply flex flex-col bg-white;
