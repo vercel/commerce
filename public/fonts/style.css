@@ -1,0 +1,4 @@
+@font-face {
+    font-family: "Norquay-bold";
+    src: url("./Norquay-bold.otf") format("opentype"), url("./Norquay-bold.woff") format("woff");
+}
