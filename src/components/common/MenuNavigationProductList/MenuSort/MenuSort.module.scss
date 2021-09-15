@@ -9,7 +9,7 @@
         margin: 0.8rem 0;
     }
     .menuSortList{
-        margin-bottom: 2rem;
+        padding-bottom: 1rem;
         box-sizing: border-box;
         
         li{
@@ -22,7 +22,7 @@
              &.active {
                 @apply font-bold relative;
                 color:var(--text-active);
-                background-color: var(--primary-lightest);
+                background-color: var(--gray);
                 &::after{
                     @apply absolute;
                     content:"";

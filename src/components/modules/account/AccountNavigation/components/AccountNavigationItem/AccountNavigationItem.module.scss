@@ -1,0 +1,46 @@
+@import '../../../../../../styles/utilities';
+
+.accountNavigationItem {
+    width: fit-content;
+    padding: 1.2rem 1.6rem 1.2rem 0rem;
+    
+    margin-bottom: 1.2rem;
+
+    &:hover {
+        @apply cursor-pointer;
+    }
+
+    &.active {
+        @apply shape-common font-bold;
+        background-color: var(--primary);
+        color: white;
+        padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+        margin-right: 1.6rem;
+        
+        @screen md {
+            @apply font-normal;
+            background-color: #FBFBFB;
+            border-radius: 0 1.6rem 1.6rem 0;
+            color: #3D3D3D;
+            clip-path: none;
+        }
+    }
+
+    @screen md {
+        max-width: 24rem;
+        min-width: 22rem;
+        padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+    }
+
+    @screen lg {
+        max-width: 26rem;
+        min-width: 23rem;
+        padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+    }
+
+    @screen xl {
+        max-width: 28rem;
+        min-width: 24rem;
+        padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+    }
+}

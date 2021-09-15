@@ -2,13 +2,16 @@
 
 .recipeDetailInfo {
     @apply spacing-horizontal;
-    margin: 5.6rem auto;
+    margin: 0 auto 5.6rem;
     @screen md {
         @apply flex;
+        margin: 5.6rem auto;
     }
+
     .img {
-        width: fit-content;
+        width: 100%;
         margin-top: 0;
+        min-height: 50rem;
 
         @screen sm-only {
             margin-bottom: 2rem;
@@ -16,13 +19,16 @@
         @screen lg {
             max-width: 60rem;
         }
-        img {
-            @apply w-full;
-            object-fit: contain;
-            max-height: 64rem;
-            border-radius: 2.4rem;
-            @screen md {
-                max-height: 90rem;
+        > div {
+            min-height: 64rem;
+            img {
+                // object-fit: contain;
+            //     @apply w-full;
+                min-height: 64rem;
+                border-radius: 2.4rem;
+            //     @screen md {
+            //         max-height: 90rem;
+            //     }
             }
         }
     }
@@ -54,6 +60,9 @@
                 .content {
                     list-style: disc;
                     margin-left: 2rem;
+                }
+                a {
+                    color: var(--info);
                 }
             }
         }

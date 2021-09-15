@@ -1,0 +1,35 @@
+@import "../../../../styles/utilities";
+.accountSignInWrapper{
+        padding: 5rem;
+        @apply w-full;
+        .imgError{
+            @apply w-full flex justify-center;
+        }
+        .text{
+            @apply sub-headline;
+             color:var(--text-placeholder);
+             text-align: center;
+             margin-top: 3.6rem;
+        }
+        .btn{
+           @apply flex justify-center;
+            margin: 2.6rem auto;
+            button{
+                div{
+                    padding: 1.6rem 7rem;
+                }
+            }
+        }
+        .dontHaveAccount{
+            @apply flex justify-center font-bold;
+            button {
+                all: unset;
+                color:var(--primary);
+                cursor: pointer;
+                &:focus-visible {
+                    outline: 2px solid var(--text-active);
+                }
+            }
+        }
+  
+}

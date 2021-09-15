@@ -106,9 +106,6 @@ module.exports = {
       fontSize: {
         base: ['16px', '24px'],
       },
-      borderRadius: {
-        rounded: '.8rem',
-      },
       screens: {
         'sm-only': {'min': '0', 'max': '767px'},
         'sm': '640px',
@@ -125,7 +122,7 @@ module.exports = {
         'xl': '1280px',
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1536px',
+        '2xl': '1440px',
         // => @media (min-width: 1536px) { ... }
       },
       caroucel: {

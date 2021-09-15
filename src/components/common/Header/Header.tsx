@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
 import { useModalCommon } from 'src/components/hooks'
-import { isMobile } from 'src/utils/funtion.utils'
 import { CartDrawer } from '..'
 import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
 import ModalCreateUserInfo from '../ModalCreateUserInfo/ModalCreateUserInfo'
@@ -11,10 +10,11 @@ import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
 import HeaderSubMenuMobile from './components/HeaderSubMenuMobile/HeaderSubMenuMobile'
 import s from './Header.module.scss'
 interface props {
-    toggleFilter: () => void
+    toggleFilter: () => void,
+    visibleFilter: boolean
 }
 
-const Header = memo(({ toggleFilter }: props) => {
+const Header = memo(({ toggleFilter, visibleFilter }: props) => {
     const headeFullRef = useRef<HTMLDivElement>(null)
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
@@ -29,52 +29,51 @@ const Header = memo(({ toggleFilter }: props) => {
         }
     }
 
-    const headerHeight = useMemo(() => {
-        return headeFullRef.current?.offsetHeight
-    }, [headeFullRef.current])
-
     useEffect(() => {
         const handleScroll = () => {
-            if (!isMobile()) {
-                if (!headerHeight || window.scrollY > headerHeight) {
-                    setIsFullHeader(false)
-                } else {
-                    setIsFullHeader(true)
-                }
+            if (!headeFullRef.current || window.scrollY > headeFullRef.current?.offsetHeight) {
+                setIsFullHeader(false)
+            } else {
+                setIsFullHeader(true)
             }
+            // if (!isMobile()) {
+            // } else {
+            //     setIsFullHeader(true)
+            // }
         }
         window.addEventListener('scroll', handleScroll)
         return () => {
             window.removeEventListener('scroll', handleScroll)
         }
-    }, [headerHeight])
+    }, [headeFullRef.current])
 
     return (
         <>
-            <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
-                <HeaderHighLight />
-                <div className={s.menu}>
-                    <HeaderMenu
-                        toggleFilter={toggleFilter}
-                        toggleCart={toggleCart}
-                        isFull={isFullHeader}
-                        openModalAuthen={openModalAuthen}
-                        openModalInfo={openModalInfo} />
-                    <HeaderSubMenu />
-                </div>
-            </header>
-
-
             <div className={classNames({
                 [s.headerSticky]: true,
                 [s.show]: !isFullHeader
             })}>
-                <HeaderMenu isFull={isFullHeader}
+                <HeaderMenu
+                    isStickyHeader={true}
                     toggleFilter={toggleFilter}
                     toggleCart={toggleCart}
                     openModalAuthen={openModalAuthen}
                     openModalInfo={openModalInfo} />
             </div>
+
+            <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
+                <HeaderHighLight />
+                <div className={s.menu}>
+                    <HeaderMenu
+                        isFull={isFullHeader}
+                        visibleFilter={visibleFilter}
+                        toggleFilter={toggleFilter}
+                        toggleCart={toggleCart}
+                        openModalAuthen={openModalAuthen}
+                        openModalInfo={openModalInfo} />
+                    <HeaderSubMenu />
+                </div>
+            </header>
 
             <HeaderSubMenuMobile />
             <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />

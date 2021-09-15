@@ -71,7 +71,8 @@
             @apply block shadow-md;
         }
         .menuIner {
-            @apply rounded list-none bg-white;
+            @apply list-none bg-white;
+            border-radius: 0.8rem;
             border: 1px solid var(--text-active);
             margin-top: 0.4rem;
             > li {

@@ -1,20 +1,20 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 
 .scrollToTop {
     @apply hidden;
+    z-index: 9999;
 
     @screen md {
         &.show {
             @apply block rounded-lg fixed cursor-pointer;
-            right: 11.2rem;
-            bottom: 21.6rem; 
+            right: 6.4rem;
+            bottom: 10.6rem;
             width: 6.4rem;
             height: 6.4rem;
             background-color: var(--border-line);
-        }
-        
-        &.hide {
-            @apply hidden;
+            @screen lg {
+                right: 11.2rem;
+            }
         }
     }
 

@@ -1,37 +1,82 @@
 @import "../../../../../styles/utilities";
 
 .headerMenu {
-    padding-top: 1.6rem;
+    @apply hidden;
+    padding-top: 0.8rem;
     padding-bottom: 0.8rem;
-    @screen md {
-        @apply flex justify-between items-center;
-        padding-top: 0.8rem;
-        padding-bottom: 0.8rem;
-        &.full {
-            padding-top: 2.4rem;
-            padding-bottom: 2.4rem;
+    &.full {
+        @apply flex;
+        padding-top: 1.6rem;
+        @screen md {
+            padding-top: 0.8rem;
         }
     }
+    &.small {
+        @apply flex;
+        .left {
+            .top {
+                display: none;
+                @screen md {
+                    display: flex;
+                }
+            }
+        }
+    }
+    @screen md {
+        @apply flex justify-between items-center;
+    }
     .left {
+        // margin-bottom: 3.2rem;
+        flex: 1;
         .top {
             @apply flex justify-between items-center;
-            .iconGroup{
+            margin-bottom: 2rem;
+            @screen md {
+                margin-bottom: 0;
+            }
+            .iconGroup {
                 @apply flex justify-between items-center;
             }
             .iconCart {
                 margin-left: 1.6rem;
             }
-            .iconFilter{
+            .iconFilter {
+                @apply relative;
+                .dot {
+                    @apply absolute;
+                    top: -0.08rem;
+                    right: -0.2rem;
+                    background-color: var(--negative);
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    border-radius: 1.2rem;
+                    @apply hidden;
+                    &.isShow {
+                        @apply block;
+                    }
+                }
                 @screen md {
                     display: none;
                 }
             }
         }
-        .inputSearch {
-            margin-top: 2.4rem;
+        .searchWrap {
+            @apply flex items-center;
+            .inputSearch {
+                flex: 1;
+            }
+            .buttonSearch {
+                margin-left: 1rem;
+            }
+            @screen md {
+                margin: 0 1.6rem 0 4.8rem;
+            }
             @screen lg {
                 min-width: 51.2rem;
                 max-width: 50%;
+                .buttonSearch {
+                    @apply hidden;
+                }
             }
         }
         @screen md {
@@ -41,9 +86,18 @@
                     @apply hidden;
                 }
             }
-            .inputSearch {
-                margin-left: 4.8rem;
-                margin-top: 0;
+        }
+    }
+    .btnCart {
+        all: unset;
+        cursor: pointer;
+        &:focus-visible {
+            outline: 2px solid #000;
+        }
+        &:hover {
+            svg path {
+                fill: var(--primary);
+                opacity: 0.8;
             }
         }
     }
@@ -70,24 +124,11 @@
                         }
                     }
                 }
-                .btnCart {
-                    all: unset;
-                    cursor: pointer;
-                    &:focus-visible {
-                        outline: 2px solid #000;
-                    }
-                    &:hover {
-                        svg path {
-                            fill: var(--primary);
-                            opacity: 0.8;
-                        }
-                    }
-                }
             }
         }
         @screen xl {
             .iconFilterDesk {
-                display:none;
+                display: none;
             }
         }
     }

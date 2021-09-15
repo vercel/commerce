@@ -1,16 +1,18 @@
 @import "../../../../styles/utilities";
 
 .bannerItem {
-  @apply bg-primary-light custom-border-radius-lg overflow-hidden;
-  @screen md {
-    border: 1px solid var(--primary);
-  }
+  @apply bg-primary-light shape-common-lg overflow-hidden;
+  padding: 0;
   &.large {
     margin-bottom: 2.8rem;
+    background-image: url("./pattern.svg");
+    background-repeat: repeat;
+    background-size: auto;
     .inner {
+      background-size: cover;
+      background-position: center bottom;
       @screen xl {
-        @apply bg-right-bottom;
-        background-size: unset;
+        background-position: right bottom;
       }
     }
   }
@@ -19,13 +21,10 @@
     background-size: 90%;
     background-position: right -500% bottom 0%;
     .content {
-      background-image: linear-gradient(
-        to right,
-        rgb(227, 242, 233, 0.9),
-        rgb(227, 242, 233, 0.5) 80%,
-        rgb(227, 242, 233, 0)
-      );
-      padding: 1.6rem;
+      background-image: linear-gradient(to right, rgb(227, 242, 233) 63%, rgb(227, 242, 233, 0));
+
+      padding: 2rem;
+      padding-bottom: 4rem;
       max-width: 37rem;
       @screen md {
         max-width: 49.6rem;
@@ -38,9 +37,6 @@
         }
         .subHeading {
           @apply sub-headline;
-          @screen md {
-            @apply caption;
-          }
         }
       }
 

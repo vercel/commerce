@@ -1,5 +1,5 @@
-.productCardWarpper{
-    max-width: 20.8rem;
+.productCardWarpper {
+    max-width: 22.4rem;
     min-height: 31.8rem;
     padding: 1.2rem 1.2rem 0 1.2rem;
     margin: auto;
@@ -11,47 +11,53 @@
     &.notSell {
         @apply justify-center;
     }
-    .cardTop{
+    .cardTop {
         @apply relative;
         height: 13.8rem;
         width: 100%;
-        .productImage{
+        .productImage {
             height: 100%;
             width: 100%;
             @apply flex justify-center items-center;
-            img{
+            > div {
+                min-height: 13rem;
+                img {
+                    object-fit: contain;
+                }
+            }
+            img {
                 @apply inline;
             }
-            &:hover{
+            &:hover {
                 cursor: pointer;
             }
         }
-        .productLabel{
+        .productLabel {
             @apply absolute left-0 bottom-0;
         }
     }
-    .cardMid{
+    .cardMid {
         min-height: 10.4rem;
         @apply flex flex-col justify-between;
-        .cardMidTop{
-            .productname{
+        .cardMidTop {
+            .productname {
                 font-weight: bold;
                 color: var(--text-active);
-                &:hover{
+                &:hover {
                     cursor: pointer;
                 }
             }
-            .productWeight{
+            .productWeight {
                 font-size: 1.2rem;
                 line-height: 2rem;
                 letter-spacing: 0.01em;
                 color: var(--text-base);
             }
         }
-        .cardMidBot{
+        .cardMidBot {
             padding-top: 0.8rem;
             @apply flex justify-between items-center border-t border-solid border-line;
-            .productPrice{
+            .productPrice {
                 @apply font-bold;
                 font-size: 2rem;
                 line-height: 2.8rem;
@@ -59,11 +65,27 @@
             }
         }
     }
-    .cardBot{
+    .cardBot {
+        @apply flex justify-between items-center;
         min-height: 4rem;
-        @apply flex justify-between items-center; 
-        .cardIcon{
+        margin-top: 1.6rem;
+        .cardIcon {
             margin-right: 0.8rem;
+        }
+        .cardButton {
+            width: 100%;
+            button {
+                width: 100%;
+                > div {
+                    span {
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        overflow-y: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
         }
     }
 }

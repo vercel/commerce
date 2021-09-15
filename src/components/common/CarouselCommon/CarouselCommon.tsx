@@ -15,6 +15,7 @@ export interface CarouselCommonProps<T> {
   option: TOptionsEvents
   keenClassname?: string
   isPadding?: boolean
+  defaultComponentProps?: object
 }
 
 const CarouselCommon = <T,>({
@@ -25,7 +26,8 @@ const CarouselCommon = <T,>({
   isPadding = false,
   isArrow = true,
   isDot = false,
-  option: { slideChanged,slidesPerView=1, ...sliderOption },
+  defaultComponentProps,
+  option: { slideChanged,slidesPerView, ...sliderOption },
 }: CarouselCommonProps<T>) => {
   const [currentSlide, setCurrentSlide] = React.useState(0)
   const [dotArr, setDotArr] = React.useState<number[]>([])
@@ -68,11 +70,14 @@ const CarouselCommon = <T,>({
           [s.isPadding]: isPadding,
         })}
       >
-        {data.map((props, index) => (
-          <div className="keen-slider__slide" key={`${itemKey}-${index}`}>
-            <Component {...props} />
-          </div>
-        ))}
+        {data?.map((props, index) => {
+          const allProps = defaultComponentProps ? { ...props, ...defaultComponentProps } : props
+          return (
+            <div className="keen-slider__slide" key={`${itemKey}-${index}`}>
+              <Component {...allProps} />
+            </div>
+          )
+        })}
       </div>
       {slider && isArrow && (
         <>

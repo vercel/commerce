@@ -23,9 +23,9 @@ const CartDrawer = ({ visible, onClose }: Props) => {
           <ProductsInCart data={PRODUCT_CART_DATA_TEST}/>
           <CartRecommendation />
         </div>
-        <div className={s.bottom}>
+        <div>
           <CartMessage />
-          <CartCheckoutButton />
+          <CartCheckoutButton onClose={onClose}/>
         </div>
       </div>
     </DrawerCommon>

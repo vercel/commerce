@@ -5,6 +5,7 @@ export const LANGUAGE = {
         CONFIRM:'Confirm',
         ADD_TO_CARD: 'Add to Cart',
         PREORDER: 'Pre-Order Now',
+        SIGNIN :'Sign In'
     },
     PLACE_HOLDER: {
         SEARCH: 'Search',

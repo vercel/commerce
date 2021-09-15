@@ -3,9 +3,14 @@
 .listProductWithInfo {
     background-color: var(--background);
     border-top: 1rem solid var(--gray);
-    border-bottom: 1rem solid var(--gray);
     padding-top: 6rem;
     padding-bottom: 6rem;
+    &.borderBottom {
+        border-bottom: 1rem solid var(--gray);
+        @screen lg {
+            border-bottom: none;
+        }
+    }
     @screen lg {
         @apply flex spacing-horizontal-left;
         padding-top: 5.6rem;
@@ -17,8 +22,11 @@
         @apply spacing-horizontal-left;
         @screen lg {
             max-width: 75%;
-            @apply custom-border-radius-lg bg-white;
-            padding: 4rem .8rem;
+            padding: 0 0.8rem;
+            > div > div {
+                @apply shape-common-lg bg-white;
+                padding: 4rem 0;
+            }
             :global(.customArrow) {
                 @screen lg {
                     &:global(.leftArrow) {
@@ -31,18 +39,8 @@
             }
         }
         @screen xl {
-            padding: 4rem 2.4rem;
+            padding: 0 2.4rem;
             max-width: 80%;
-            :global(.customArrow) {
-                @screen lg {
-                    &:global(.leftArrow) {
-                        left: calc(-6.4rem + 1rem);
-                    }
-                    &:global(.rightArrow) {
-                        right: calc(-6.4rem + 1rem);
-                    }
-                }
-            }
         }
     }
 }

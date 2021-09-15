@@ -9,20 +9,19 @@ import ReOrder from './components/ReOrder/ReOrder'
 
 interface DeliveryItemProps {
     id: string;
-    status: "waiting" | "delivering" | "delivered";
+    status: "Waiting" | "Delivering" | "Delivered";
     products: string[];
     totalPrice: number;
-    reOrderLink?: string;
 }
 
-const DeliveryItem = ({ id, status, products, totalPrice, reOrderLink } : DeliveryItemProps) => {
+const DeliveryItem = ({ id, status, products, totalPrice } : DeliveryItemProps) => {
     return (
         <section className={s.deliveryItem}>
             <IdAndStatus id={id} status={status} />
             <div className={s.separator}></div>
             <Products products={products} />
             <TotalPrice totalPrice={totalPrice} />
-            <ReOrder show={status==="delivered" ? true : false} href={reOrderLink} />
+            <ReOrder show={status === "Delivered" ? true : false}/>
         </section>
     )
 }

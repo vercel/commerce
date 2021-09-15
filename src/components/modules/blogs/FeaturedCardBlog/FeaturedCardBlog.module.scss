@@ -11,13 +11,15 @@
     }
 }
 .left {
-    max-width: 59.8rem;
-    img {
-        border-radius: 2.4rem;
+    > div{
+        min-width: 59.8rem;
+        min-height: 33.6rem;
+        img {
+            border-radius: 2.4rem;
+        }
     }
 }
 .right {
-    flex-shrink: 3;
     @screen lg {
         margin-left: 6.4rem;
     }

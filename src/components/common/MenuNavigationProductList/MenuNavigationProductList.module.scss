@@ -10,8 +10,6 @@
 }
 .menuNavigationProductListMobile{
     @apply relative transition-all duration-100;
-    
-
     &.isShow{
         &::after{
             content: "";
@@ -39,13 +37,14 @@
             transform: translateY(0%)
         }
         .content{
-            @apply  relative w-full h-full;
+            @apply  absolute w-full h-full;
             margin-top: 3rem;
-            padding-top: 8rem ;
+            padding-top: 10rem ;
             padding-bottom: 10rem;
             background-color: white;
             overflow-y: auto;
-            height: 100vh;
+            height: 96%;
+            bottom: 0;
             border-radius: 2.4rem 2.4rem 0 0;
             .head{
                 @apply flex justify-between fixed;
@@ -53,7 +52,7 @@
                 left:0;
                 margin-top: 3rem;
                 border-radius: 2.4rem 2.4rem 0 0;
-                padding: 3rem 2rem 1rem 2rem;
+                padding: 4rem 2rem 2rem 2rem;
                 width: 100%;
                 background-color: white;
                 z-index: 10000;
@@ -68,7 +67,8 @@
                 left:0;
                 width: 100%;
                 background-color: white;
-                padding: 0 1rem 2rem 1rem;
+                padding: 0 1rem 3rem 1rem;
+                
             }
             button{
                 margin-top: 2rem;

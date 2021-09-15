@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
 import { ButtonCommon } from 'src/components/common';
-import s from './ErrorPage.module.scss';
+import s from './ErrorContent.module.scss';
 
 interface Props {
 }
 
-const ErrorPage = ({ }: Props) => {
+const ErrorContent = ({ }: Props) => {
     return (
        
         <div className={s.wrapper}>
@@ -26,4 +26,4 @@ const ErrorPage = ({ }: Props) => {
     )
 }
 
-export default ErrorPage
+export default ErrorContent
