@@ -25,7 +25,7 @@ const CartDrawer = ({ visible, onClose }: Props) => {
         </div>
         <div>
           <CartMessage />
-          <CartCheckoutButton />
+          <CartCheckoutButton onClose={onClose}/>
         </div>
       </div>
     </DrawerCommon>
