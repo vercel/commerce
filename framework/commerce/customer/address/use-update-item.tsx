@@ -11,7 +11,7 @@ export type UseUpdateItem<
 
 export const fetcher: HookFetcherFn<UpdateItemHook> = mutationFetcher
 
-const fn = (provider: Provider) => provider?.customer?.address?.useUpdateItem!
+const fn = (provider: Provider) => provider.customer?.address?.useUpdateItem!
 
 const useUpdateItem: UseUpdateItem = (input) => {
   const hook = useHook(fn)

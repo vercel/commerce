@@ -18,7 +18,7 @@ export const fetcher: HookFetcherFn<GetCardsHook> = async ({
   return cartId ? await fetch(options) : null
 }
 
-const fn = (provider: Provider) => provider.customer?.card.useCards!
+const fn = (provider: Provider) => provider.customer?.card?.useCards!
 
 const useCards: UseCards = (input) => {
   const hook = useHook(fn)
