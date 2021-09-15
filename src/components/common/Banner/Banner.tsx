@@ -1,3 +1,4 @@
+import { TOptionsEvents } from 'keen-slider'
 import React, { memo } from 'react'
 import CarouselCommon from '../CarouselCommon/CarouselCommon'
 import BannerItem, { BannerItemProps } from './BannerItem/BannerItem'
@@ -6,7 +7,7 @@ interface Props {
     data: BannerItemProps[],
 }
 
-const option = {
+const option: TOptionsEvents = {
     slidesPerView: 1,
     mode: 'free',
 }
