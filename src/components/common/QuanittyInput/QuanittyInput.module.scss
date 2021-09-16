@@ -1,10 +1,23 @@
 @import '../../../styles/utilities';
-.quanittyInputWarper{
-    border-color: theme("textColor.active");
-    @apply border border-solid inline-flex justify-between items-center custom-border-radius;
+.quanittyInputWarper {
+    @apply shape-common-border;
+    &::before{
+        height: 100%;
+        top: 1px;
+        background-color: var(--text-active);
+    }
+    .inner {
+        @apply inline-flex justify-between items-center;
+        margin: 0;
+    }
     .plusIcon, .minusIcon{
+        @apply flex justify-center items-center;
+        min-height: 2rem;
         &:hover{
             cursor: pointer;
+            svg path {
+                fill: var(--primary);
+            }
         }
     }
     &.default{

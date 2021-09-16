@@ -114,8 +114,6 @@
 
     .shape-common {
         position: relative;
-        $border: 2px;
-        margin: $border;
         clip-path: url(#svg-custom-shape);
     }
 

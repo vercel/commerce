@@ -5,7 +5,7 @@ import s from './ButtonCommon.module.scss'
 interface Props {
     children?: React.ReactNode,
     type?: 'primary' | 'light' | 'ghost' | 'lightBorderNone',
-    size?: 'default' | 'large',
+    size?: 'default' | 'large' | 'small',
     icon?: React.ReactNode,
     isIconSuffix?: boolean,
     loading?: boolean,
