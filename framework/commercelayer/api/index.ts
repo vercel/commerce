@@ -33,7 +33,9 @@ const operations = {
 export const provider = { config, operations }
 
 export type Provider = typeof provider
-export type CommercelayerAPI<P extends Provider = Provider> = CommerceAPI<P | any>
+export type CommercelayerAPI<P extends Provider = Provider> = CommerceAPI<
+  P | any
+>
 
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any

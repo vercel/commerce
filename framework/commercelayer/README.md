@@ -16,9 +16,7 @@ Next, add the application credentials from your organization's application dashb
 
 ## Checkout
 
-Demo checkout in this provider is powered by the open-sourced [Commmerce Layer Checkout](https://github.com/commercelayer/commercelayer-checkout) application that provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow that lets you easily place orders through the Commerce Layer API. In addition, you can set up your checkout app and deploy it to Vercel with one click below:
-
-[![Deploy to Vercel](https://vercel.co/button)](https://vercel.co/new/project?template=https://github.com/commercelayer/commercelayer-checkout)
+Demo checkout in this provider is powered by the open-sourced [Commmerce Layer Checkout](#) application that provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow that lets you easily place orders through the Commerce Layer API.
 
 ## Future upgrades
 

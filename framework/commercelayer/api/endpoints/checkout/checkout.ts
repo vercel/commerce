@@ -22,7 +22,7 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
     const checkoutUrl = clOrder.data.attributes.checkout_url
 
     if (checkoutUrl) {
-      res.redirect(checkoutUrl)
+      res.redirect(`${checkoutUrl}?accessToken=${accessToken}`)
     } else {
       res.redirect('/cart')
     }
