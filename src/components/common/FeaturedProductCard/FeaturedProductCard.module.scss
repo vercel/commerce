@@ -3,7 +3,7 @@
     width: 59.8rem;
     height: 28.8rem;
     padding: 2.4rem;
-    @apply bg-primary-light inline-flex justify-start items-center custom-border-radius ;
+    @apply bg-primary-light inline-flex justify-start items-center shape-common;
     .left{
         width: 24rem;
         height: 24rem;
@@ -30,18 +30,15 @@
                 line-height: 2.4rem;
             }
             .priceWrapper{
-                @apply flex justify-start;
+                @apply flex justify-start sm-headline;
                 .price{
-                    @apply font-bold;
-                    font-size: 2rem;
-                    line-height: 2.8rem;
-                    letter-spacing: -0.01em;
+                    @apply font-bold sm-headline;
                     color: var(--text-active);
                 }
                 .originPrice{
+                    @apply sm-headline;
+                    font-weight: normal;
                     margin-left: 0.8rem;
-                    font-size: 2rem;
-                    line-height: 2.8rem;
                     color: var(--text-label);
                     text-decoration-line: line-through;
                 }
@@ -50,11 +47,18 @@
         .buttonWarpper{
             @apply flex;
             .icon{
-                width: 5.6rem;
+                button {
+                    >div {
+                        @apply bg-primary-light;
+                    }
+                }
             }
             .button{
                 margin-left: 0.8rem;
-                width: 20.6rem;
+                flex: 1;
+                button {
+                    @apply w-full;
+                }
             }
         }
     }

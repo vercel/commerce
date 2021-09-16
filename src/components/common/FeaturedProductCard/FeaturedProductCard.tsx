@@ -4,6 +4,7 @@ import s from './FeaturedProductCard.module.scss'
 import { LANGUAGE } from '../../../utils/language.utils'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
+import { ImgWithLink } from '..'
 interface FeaturedProductCardProps extends FeaturedProductProps {
   buttonText?: string
 }
@@ -19,7 +20,7 @@ const FeaturedProductCard = ({
   return (
     <div className={s.featuredProductCardWarpper}>
       <div className={s.left}>
-        <img src={imageSrc} alt="image" />
+        <ImgWithLink src={imageSrc} alt={title}/>
       </div>
       <div className={s.right}>
         <div className={s.rightTop}>
@@ -32,7 +33,7 @@ const FeaturedProductCard = ({
         </div>
         <div className={s.buttonWarpper}>
           <div className={s.icon}>
-            <ButtonIconBuy />
+            <ButtonIconBuy size='default'/>
           </div>
           <div className={s.button}>
             <ButtonCommon>{buttonText}</ButtonCommon>
