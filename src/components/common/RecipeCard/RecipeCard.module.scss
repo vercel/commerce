@@ -4,7 +4,6 @@
     @apply inline-flex flex-col justify-start;
     .image{
         width: 100%;
-        max-height: 22rem;
         border-radius: 2.4rem;
         img {
             border-radius: 2.4rem;
@@ -12,14 +11,20 @@
         &:hover{
             cursor: pointer;
         }
+        @screen md{
+            max-height: 22rem;
+        }
     }
     .title{
         padding: 1.6rem 0.8rem 0.4rem 0.8rem;
-        @apply font-bold;
+        @apply font-bold overflow-hidden overflow-ellipsis ;
         font-size: 2rem;
         line-height: 2.8rem;
         letter-spacing: -0.01em;
         color: var(--text-active);
+         display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
         &:hover{
             cursor: pointer;
         }
@@ -30,5 +35,9 @@
         display: -webkit-box;
         -webkit-line-clamp: 3; /* number of lines to show */
         -webkit-box-orient: vertical;
+        margin-bottom: 3rem;
+        @screen md{
+            margin-bottom: 0;
+        }
     }
 }
