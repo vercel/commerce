@@ -25,7 +25,7 @@ const OrderInformation = ({ waiting, delivering, delivered} : OrderInformationPr
                         {
                             waiting.map((order, i) => {
                                 return (
-                                    <DeliveryItem key={order.id} id={order.id} status="Waiting" products={order.products} totalPrice={order.totalPrice} />
+                                    <DeliveryItem key={order.id} id={order.id} status="waiting" products={order.products} totalPrice={order.totalPrice} />
                                 )
                             }) 
                         }
@@ -36,7 +36,7 @@ const OrderInformation = ({ waiting, delivering, delivered} : OrderInformationPr
                         {
                             delivering.map((order, i) => {
                                 return (
-                                    <DeliveryItem key={order.id} id={order.id} status="Delivering" products={order.products} totalPrice={order.totalPrice} />
+                                    <DeliveryItem key={order.id} id={order.id} status="delivering" products={order.products} totalPrice={order.totalPrice} />
                                 )
                             }) 
                         }
@@ -47,7 +47,7 @@ const OrderInformation = ({ waiting, delivering, delivered} : OrderInformationPr
                         {
                             delivered.map((order, i) => {
                                 return (
-                                    <DeliveryItem key={order.id} id={order.id} status="Delivered" products={order.products} totalPrice={order.totalPrice} />
+                                    <DeliveryItem key={order.id} id={order.id} status="delivered" products={order.products} totalPrice={order.totalPrice} />
                                 )
                             }) 
                         }
