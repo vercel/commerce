@@ -1,8 +1,8 @@
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import React, { FC, useEffect } from 'react';
-import { Head } from 'src/components/common';
-import 'keen-slider/keen-slider.min.css'; 
+import { CustomShapeSvg, Head } from 'src/components/common';
+import 'keen-slider/keen-slider.min.css';
 import '../src/styles/main.scss';
 
 
@@ -19,6 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head />
       <ThemeProvider>
+        <CustomShapeSvg />
         <Layout pageProps={pageProps}>
           <Component {...pageProps} />
         </Layout>

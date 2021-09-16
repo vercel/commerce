@@ -1,0 +1,35 @@
+@import '../../../../styles/utilities';
+
+.notificationItem {
+    @apply flex flex-row spacing-horizontal;
+    padding-top: 1.2rem;
+    &:hover{
+        cursor: pointer;
+    }
+    .contentWrapper {
+        padding-left: 1.6rem;
+        padding-bottom: 1.4rem;
+        max-width: 26.3rem;
+        .title {
+            font-weight: bold;
+            color: var(--text-active);
+        }
+        .date {
+            @apply caption;
+            color: #828282;
+        }
+    }
+    &.isChecked {
+        .icon {
+            rect {
+                fill: var(--gray)
+            }
+            path {
+                fill: var(--disabled)
+            }
+        }
+        .title, .content {
+            color: var(--text-label);
+        }
+    }
+}

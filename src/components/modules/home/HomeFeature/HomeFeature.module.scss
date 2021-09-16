@@ -1,16 +1,5 @@
 @import "../../../../styles/utilities";
 
 .homeFeature {
-    @apply spacing-horizontal;
-    background-color: #ffffff;
-    height: fit-content;
-    margin: 3.2rem auto;
-    @screen md {
-        @apply grid grid-cols-3;
-        grid-gap: 2.4rem;
-        margin: 6.4rem auto;
-    }
-    @screen md {
-        grid-gap: 4rem;
-    }
+    @apply spacing-horizontal-left bg-white;
 }

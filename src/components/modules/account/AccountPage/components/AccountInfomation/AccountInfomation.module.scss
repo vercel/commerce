@@ -1,13 +1,11 @@
 @import '../../../../../../styles/utilities';
 
 .accountInfomation {
-    @apply flex justify-center items-center;
-    text-align: center;
+    @apply block text-center;
     margin-top: 1.6rem;
     
     @screen md {
-        @apply block;
-        text-align: left;
+        @apply text-left;
         margin-top: 0;
     }
 
@@ -32,17 +30,29 @@
         border: 1px solid var(--disabled);
         max-width: 39.2rem;
         min-width: 30rem;
+        margin: auto;
         margin-top: 2.4rem;
         margin-bottom: 2.4rem;
+
+        @screen md {
+            margin-left: 0;
+        }
     }
 
     .shippingInfo {
         @apply heading-3 font-heading;
+        margin-bottom: .8rem;
     }
 
     .accountAddress {
-        max-width: 31rem;
-        min-width: none;
+        margin: auto;
+        max-width: 28rem;
+
+        @screen md {
+            max-width: 31rem;
+            min-width: none;
+            margin-left: 0;
+        }
     }
 
     .editInfoBtn {

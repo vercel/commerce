@@ -1,9 +1,8 @@
 @import '../../../../styles/utilities';
 
 .deliveryItem {
-    @apply flex bg-white items-center custom-border-radius;
+    @apply flex bg-white items-center shape-common;
     margin-bottom: 1.6rem;
-    border: 1px solid var(--primary)
 }
 
 .separator {

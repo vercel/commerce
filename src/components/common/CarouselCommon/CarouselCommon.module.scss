@@ -9,6 +9,7 @@
     width: 64px;
     height: 64px;
 	border-radius: .8rem;
+	backdrop-filter: saturate(180%) blur(10px);
     &:focus {
       outline: none;
     }
