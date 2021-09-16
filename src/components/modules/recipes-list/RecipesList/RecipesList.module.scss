@@ -6,6 +6,10 @@
         padding:0 3.2rem;
         padding-bottom:5.6rem;
     }
+    div{
+        max-width: 100%;
+        max-height: 100%;
+    }
     .breadcrumb{
         padding:1rem 0;
     }
@@ -39,11 +43,16 @@
                     @screen md {
                         @apply flex justify-between flex-wrap;
                         margin: 1rem 0;
+                      
                     }
                     .item {
+                        img{
+                            width: 100%;
+                        }
                         @screen md {
                             width: calc(97% / 2);
                             margin-top:1rem;
+                            
                         }
                         @screen lg{
                             width: calc(97% / 3);
@@ -63,7 +72,9 @@
             .boxSelect{
                 @apply flex justify-between w-full;
                 padding: 2.5rem 0;
-           
+                div{
+                    max-width: 17.6rem;
+                }
                 @screen xl {
                     @apply block;
                     width: auto;
