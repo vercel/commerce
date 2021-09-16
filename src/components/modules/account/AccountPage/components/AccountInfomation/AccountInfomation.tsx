@@ -47,7 +47,7 @@ const AccountInfomation = ({ account, onClick } : AccountInfomationProps) => {
             </div>
 
             <div className={s.editInfoBtn}>
-                <ButtonCommon onClick={showEditForm} type="light">Edit</ButtonCommon>
+                <ButtonCommon onClick={showEditForm} type="light" size="small">Edit</ButtonCommon>
             </div>
         </section>
     )
