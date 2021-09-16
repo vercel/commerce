@@ -27,8 +27,8 @@ const buildAddToCartVariables = ({
   ).options
 
   let options: any[] = []
-  selectedOptions.forEach((each: any) => {
-    product.options
+  selectedOptions?.forEach((each: any) => {
+    product?.options
       .filter((option: any) => {
         return option.attributeFQN == each.attributeFQN
       })

@@ -139,7 +139,7 @@ export function normalizeCategory(category: PrCategory): any {
 export function normalizeWishlistItem(
   item: any,
   config: any,
-  includeProducts: any
+  includeProducts=false
 ): any {
   if (includeProducts) {
     return {
