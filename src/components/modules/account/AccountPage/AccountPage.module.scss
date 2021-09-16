@@ -1,14 +1,14 @@
 @import '../../../../styles/utilities';
 
 .accountPage {
-    background-color: #F5F4F2;
-    margin-top: -3.2rem;
+    @apply bg-background-gray;
     padding: 3.2rem 2rem;
     min-height: 70rem;
 
     @screen md {
         padding-left: 2.8rem;
         padding-right: 2.8rem;
+        padding: 5.4rem 2rem;
     }
 
     @screen lg {

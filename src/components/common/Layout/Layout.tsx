@@ -33,10 +33,12 @@ const Layout: FC<Props> = ({ children }) => {
         <CommerceProvider locale={locale}>
             <div className={s.mainLayout}>
                 <Header toggleFilter={toggleFilter} visibleFilter={visibleFilter} />
-                {   
+                {
                     router.pathname === ROUTE.ACCOUNT ?
-                    <section>{children}</section> :
-                    <main>{children}</main> 
+                        <section className={s.wrapperWithBg}>
+                            <main>{children}</main>
+                        </section> :
+                        <main>{children}</main>
                 }
                 <div className={s.filter}><MenuNavigationProductList categories={CATEGORY} brands={BRAND} featured={FEATURED} visible={visibleFilter} onClose={closeFilter} /> </div>
                 <ScrollToTop visibilityHeight={1500} />
