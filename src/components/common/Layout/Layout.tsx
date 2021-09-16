@@ -19,6 +19,8 @@ const Layout: FC<Props> = ({ children }) => {
     const { locale = 'en-US' } = useRouter()
     const { visible: visibleFilter, openModal: openFilter, closeModal: closeFilter } = useModalCommon({ initialValue: false })
 
+    const router = useRouter()
+
     const toggleFilter = () => {
         if (visibleFilter) {
             closeFilter()
@@ -26,11 +28,15 @@ const Layout: FC<Props> = ({ children }) => {
             openFilter()
         }
     }
+
     return (
         <CommerceProvider locale={locale}>
             <div className={s.mainLayout}>
                 <Header toggleFilter={toggleFilter} visibleFilter={visibleFilter} />
-                <main >{children}</main>
+                { router.pathname === "/account" ?
+                    <section className={s.bgForAccount}>{children}</section> :
+                    <main>{children}</main> }
+                {/* <main>{children}</main> */}
                 <div className={s.filter}><MenuNavigationProductList categories={CATEGORY} brands={BRAND} featured={FEATURED} visible={visibleFilter} onClose={closeFilter} /> </div>
                 <ScrollToTop visibilityHeight={1500} />
                 <Footer />
