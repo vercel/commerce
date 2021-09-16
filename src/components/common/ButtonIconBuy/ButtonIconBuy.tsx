@@ -3,7 +3,7 @@ import { IconBuy } from 'src/components/icons'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 
 interface Props {
-    type?: 'primary' | 'light' | 'ghost',
+    type?: 'primary' | 'light' | 'ghost' | 'lightBorderNone',
     size?: 'default' | 'large' | 'small',
     loading?: boolean,
     disabled?: boolean,
