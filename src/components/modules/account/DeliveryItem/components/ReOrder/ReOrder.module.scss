@@ -1,9 +1,21 @@
 @import '../../../../../../styles/utilities';
 
 .reOrder {
-    @apply hidden;
+    @apply hidden shape-common text-white font-bold;
+    background-color: var(--primary);
     margin-right: 1.2rem;
-    &.show {
+    padding: .4rem .6rem;
+
+    @screen lg {
+        padding: .8rem 1.2rem;
+        margin-right: 2.4rem;
+    }
+
+    &.visible {
         @apply block;
+    }
+    
+    &:hover {
+        @apply cursor-pointer;
     }
 }

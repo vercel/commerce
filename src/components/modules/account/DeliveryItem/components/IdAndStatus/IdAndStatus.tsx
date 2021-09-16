@@ -5,10 +5,10 @@ import s from './IdAndStatus.module.scss'
 
 interface IdAndStatusProps {
     id?: string;
-    status: "Waiting" | "Delivering" | "Delivered";
+    status: "waiting" | "delivering" | "delivered";
 }
 
-const IdAndStatus = ({ id, status="Waiting" } : IdAndStatusProps) => {
+const IdAndStatus = ({ id, status="waiting" } : IdAndStatusProps) => {
     return (
         <div className={s.idAndStatus}>
             <div className={s.id}>
