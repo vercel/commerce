@@ -9,7 +9,6 @@ import { IconBuy, IconFilter, IconHeart, IconHistory, IconUser } from 'src/compo
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
-import classNames from 'classnames'
 interface Props {
     children?: any,
     isFull?: boolean,
