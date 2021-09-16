@@ -16,14 +16,5 @@
 			padding-top: 3.2rem; 
 			padding-bottom: 3.2rem; 
       @apply flex justify-start spacing-horizontal;
-      .tab{
-          all: unset;
-          @apply heading-3 font-heading cursor-pointer outline-none;
-          padding: 1.6rem;
-          &.active{
-            @apply text-background shape-common bg-primary;
-          }
-					
-      }
   }
 }

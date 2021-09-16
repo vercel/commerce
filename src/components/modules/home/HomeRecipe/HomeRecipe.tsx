@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {  HeadingCommon, ViewAllItem } from 'src/components/common'
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard'
 import RecipeCarousel from 'src/components/common/RecipeCarousel/RecipeCarousel'
@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import image13 from "../../../../../public/assets/images/image13.png"
 import image14 from "../../../../../public/assets/images/image14.png"
 import image12 from "../../../../../public/assets/images/image12.png"
+import HomeRecipeTab from './HomeRecipeTab/HomeRecipeTab'
 
 interface HomeRecipeProps {
   data?: RecipeCardProps[]
@@ -44,7 +45,28 @@ const recipe:RecipeCardProps[] = [{
 }]
 
 
+const TABS = [
+  {
+    name: 'Noodle',
+    value: 'Noodle',
+  },
+  {
+    name: 'Curry',
+    value: 'Curry',
+  },
+  {
+    name: 'Special Recipes',
+    value: 'Special Recipes',
+  }
+]
+
 const HomeRecipe = ({ data =recipe, itemKey="home-recipe", title="Special Recipes" }: HomeRecipeProps) => {
+  const [activeTab, setActiveTab] = useState<string>(TABS[0].value)
+
+  const  onTabChanged = (value: string) => {
+    setActiveTab(value)
+  }
+  
   return (
     <div className={s.homeRecipeWarpper}>
       <div className={s.top}>
@@ -56,9 +78,14 @@ const HomeRecipe = ({ data =recipe, itemKey="home-recipe", title="Special Recipe
         </div>
       </div>
 			<div className={s.mid}>
-        <button className={classNames(s.tab,s.active)}>Noodle</button>
-        <button className={s.tab}>Curry</button>
-        <button className={s.tab}>Special Recipes</button>
+        {
+          TABS.map(item => <HomeRecipeTab
+            key={item.value}
+            activeValue={activeTab}
+            name={item.name}
+            value={item.value}
+            onClick={onTabChanged} />)
+        }
       </div>
       <div className={s.bot}>
         <RecipeCarousel data={data} itemKey={itemKey} />
