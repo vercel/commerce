@@ -9,7 +9,10 @@ import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
+import logo from './assets/logo.svg'
+
 export const localProvider = {
+  logo,
   locale: 'en-us',
   cartCookie: 'session',
   fetcher: fetcher,

@@ -13,8 +13,10 @@ import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
 import fetcher from './fetcher'
+import logo from './assets/logo.svg'
 
 export const shopifyProvider = {
+  logo,
   locale: 'en-us',
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
   fetcher,

@@ -15,8 +15,10 @@ import { handler as useSignup } from './auth/use-signup'
 
 import fetcher from './fetcher'
 import swell from './swell'
+import logo from './assets/logo.svg'
 
 export const swellProvider: Provider & { swell: any } = {
+  logo,
   locale: 'en-us',
   cartCookie: SWELL_CHECKOUT_ID_COOKIE,
   swell,
