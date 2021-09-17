@@ -1,15 +1,20 @@
 @import "../../../../styles/utilities";
 
 .homeBanner {
-  @apply spacing-horizontal;
+  @apply spacing-horizontal overflow-hidden;
   margin-bottom: 2.8rem;
+
   .left {
     @apply hidden;
     margin-bottom: 3rem;
+    max-width: 50rem;
   }
   @screen xl {
     @apply grid;
     grid-template-columns: 1fr 1.8fr;
+    > div {
+      @apply w-full overflow-hidden;
+    }
     .left {
       @apply relative flex items-end justify-center shape-common-lg;
       margin-right: 1.6rem;
@@ -29,7 +34,6 @@
         @apply relative font-heading text-center;
         padding: 2.4rem 2.4rem 4.8rem;
         width: min-content;
-
         color: var(--white);
         font-size: 8.8rem;
         line-height: 8rem;

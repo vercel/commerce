@@ -16,6 +16,12 @@ const ProductListBanner = ({ }: Props) => {
                         subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
                         imgLink: BannerRight.src,
                         size: "large",
+                    },
+                    {
+                        title: "Save 15% on your first order",
+                        subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
+                        imgLink: BannerRight.src,
+                        size: "large",
                     }
                     ]
                 }

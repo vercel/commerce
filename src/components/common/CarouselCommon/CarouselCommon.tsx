@@ -72,6 +72,7 @@ const CarouselCommon = <T,>({
         responsive={responsive}
         arrows={false}
         renderDotsOutside={true}
+        ssr={true}
         // customLeftArrow={<CustomCarouselArrow side="left" />}
         // customRightArrow={<CustomCarouselArrow side="right" />}
       >
