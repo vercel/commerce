@@ -4,8 +4,8 @@ import classNames from 'classnames'
 import { IconMinus, IconPlus } from '../../icons'
 interface QuanittyInputProps
   extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'onChange' | 'min' | 'max' | 'step' | "type" | "size"
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'onChange' | 'min' | 'max' | 'step' | "type" | "size"
   > {
   size?: 'default' | 'small'
   onChange?: (value: number) => void
@@ -63,18 +63,20 @@ const QuanittyInput = ({
 
   return (
     <div className={classNames(s.quanittyInputWarper, { [s[size]]: size })}>
-      <div className={s.minusIcon} onClick={onMinusClick}>
-        <IconMinus />
-      </div>
-      <input
-        {...props}
-        type="number"
-        value={value}
-        onChange={onValueChange}
-        className={s.quanittyInput}
-      />
-      <div className={s.plusIcon} onClick={onPlusClick}>
-        <IconPlus />
+      <div className={s.inner}>
+        <div className={s.minusIcon} onClick={onMinusClick}>
+          <IconMinus />
+        </div>
+        <input
+          {...props}
+          type="number"
+          value={value}
+          onChange={onValueChange}
+          className={s.quanittyInput}
+        />
+        <div className={s.plusIcon} onClick={onPlusClick}>
+          <IconPlus />
+        </div>
       </div>
     </div>
   )

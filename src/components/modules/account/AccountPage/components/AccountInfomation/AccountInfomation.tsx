@@ -4,6 +4,8 @@ import s from './AccountInfomation.module.scss'
 import Image from "next/image"
 import avatar from '../../assets/avatar.png';
 
+import { ButtonCommon } from 'src/components/common'
+
 interface AccountProps {
     name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string
 }
@@ -44,7 +46,9 @@ const AccountInfomation = ({ account, onClick } : AccountInfomationProps) => {
                 {account.phoneNumber}  
             </div>
 
-            <div onClick={showEditForm} className={s.editInfoBtn}>Edit</div>
+            <div className={s.editInfoBtn}>
+                <ButtonCommon onClick={showEditForm} type="light" size="small">Edit</ButtonCommon>
+            </div>
         </section>
     )
 }

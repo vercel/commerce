@@ -1,23 +1,26 @@
 @import '../../../../styles/utilities';
 
 .accountPage {
-    @apply spacing-horizontal;
-    background-color: #F5F4F2;
-    margin-top: -3.2rem;
-    padding-top: 3.2rem;
-    padding-bottom: 3.2rem;
+    @apply bg-background-gray;
+    padding: 3.2rem 2rem;
     min-height: 70rem;
 
-
     @screen md {
-        padding-left: 3.2rem;
-        padding-right: 3.2rem;
+        padding-left: 2.8rem;
+        padding-right: 2.8rem;
+        padding: 5.4rem 2rem;
+    }
+
+    @screen lg {
+        padding-left: 6.4rem;
+        padding-right: 6.4rem;
     }
 
     @screen xl {
-        @apply spacing-horizontal
+        padding-left: 11.2rem;
+        padding-right: 11.2rem;
     }
-
+   
     .header {
         margin-bottom: 1.2rem;
 

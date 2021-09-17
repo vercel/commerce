@@ -1,11 +1,12 @@
+@import "../../../../styles/_utilities";
 .beadcrumb{
     padding-left: 3.2rem;
     padding-bottom: 3.2rem;
 }
 .image{
+    @apply spacing-horizontal;
     div{
         width: 100%;
-        padding: 0 2rem;
         margin-bottom: 2rem;
         border-radius: 2.4rem;
         min-height: 45.2rem;

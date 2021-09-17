@@ -3,14 +3,14 @@ import { IconBuy } from 'src/components/icons'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 
 interface Props {
-    type?: 'primary' | 'light' | 'ghost',
-    size?: 'default' | 'large',
+    type?: 'primary' | 'light' | 'ghost' | 'lightBorderNone',
+    size?: 'default' | 'large' | 'small',
     loading?: boolean,
     disabled?: boolean,
     onClick?: () => void,
 }
 
-const ButtonIconBuy = memo(({ type = 'light', size = 'default', loading = false, disabled, onClick }: Props) => {
+const ButtonIconBuy = memo(({ type = 'light', size = 'small', loading = false, disabled, onClick }: Props) => {
     return (
         <ButtonCommon
             type={type}

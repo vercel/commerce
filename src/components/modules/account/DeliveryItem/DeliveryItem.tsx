@@ -9,7 +9,7 @@ import ReOrder from './components/ReOrder/ReOrder'
 
 interface DeliveryItemProps {
     id: string;
-    status: "Waiting" | "Delivering" | "Delivered";
+    status: "waiting" | "delivering" | "delivered";
     products: string[];
     totalPrice: number;
 }
@@ -21,7 +21,7 @@ const DeliveryItem = ({ id, status, products, totalPrice } : DeliveryItemProps) 
             <div className={s.separator}></div>
             <Products products={products} />
             <TotalPrice totalPrice={totalPrice} />
-            <ReOrder show={status === "Delivered" ? true : false}/>
+            <ReOrder visible={status === "delivered" ? true : false}/>
         </section>
     )
 }

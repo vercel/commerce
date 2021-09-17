@@ -63,15 +63,15 @@ const ProductCard = ({
         {
           isSingleButton ?
             <div className={s.cardButton}>
-              <ButtonCommon type="light" icon={<IconBuy />}>Add to cart</ButtonCommon>
+              <ButtonCommon type="light" icon={<IconBuy />} size='small'>Add to cart</ButtonCommon>
             </div>
             :
             <>
               <div className={s.cardIcon}>
-                <ButtonIconBuy />
+                <ButtonIconBuy/>
               </div>
               <div className={s.cardButton}>
-                <ButtonCommon type="light">{buttonText}</ButtonCommon>
+                <ButtonCommon type="light" size='small'>{buttonText}</ButtonCommon>
               </div>
             </>
         }

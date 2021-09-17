@@ -1,18 +1,22 @@
 import classNames from "classnames"
 import React from "react"
 import { ButtonCommon } from "src/components/common"
+import Link from 'next/link'
 import s from './ReOrder.module.scss'
 
 interface ReOrderProps {
-    show: boolean;
+    visible: boolean;
+    href?: string;
 }
 
-const ReOrder = ({ show=false } : ReOrderProps) => {
+const ReOrder = ({ visible=false, href="#" } : ReOrderProps) => {
     return (
         <div className={classNames(s.reOrder, {
-            [s.show]: show
+            [s.visible]: visible
         })}>
-            <ButtonCommon>Re-Order</ButtonCommon>
+            <Link href={href}>
+                <a>Re-Order</a>
+            </Link>
         </div>
     )
 }

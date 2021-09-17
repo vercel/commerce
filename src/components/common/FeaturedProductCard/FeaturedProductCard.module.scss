@@ -3,7 +3,7 @@
     // min-width: 30.2rem;
     height: 14.4rem;
     padding: 2.4rem;
-    @apply bg-primary-light inline-flex justify-start items-center custom-border-radius ;
+    @apply bg-primary-light inline-flex justify-start items-center shape-common ;
     @screen md {
         // min-width: 598px;
         height: 28.8rem;
@@ -15,18 +15,18 @@
         padding: 2.4rem 4rem 2.4rem 2.4rem;
     }
     .left{
-        max-width: 10rem;
-        max-height: 10rem;
+        width: 10rem;
+        height: 10rem;
         @screen md {
-            max-width: 24rem;
-            max-height: 24rem;
+            width: 24rem;
+            height: 24rem;
         }
     }
     .right{
         margin-left: 1.2rem;
         // min-width: 27rem;
         max-width: 16.6rem;
-        ma-height: 10rem;
+        max-height: 10rem;
         @apply flex justify-between flex-col;
         @screen md {
             margin-left: 2.4rem;
@@ -60,70 +60,34 @@
                 }
             }
             .priceWrapper{
-                @apply flex justify-start;
+                @apply flex justify-start sm-headline;
                 .price{
-                    @apply font-bold;
-                    font-size: 1.2rem;
-                    line-height: 1.6rem;
-                    letter-spacing: -0.01em;
+                    @apply font-bold sm-headline;
                     color: var(--text-active);
-                    @screen md {
-                        font-size: 2rem;
-                        line-height: 2.8rem;
-                    }
                 }
                 .originPrice{
+                    @apply sm-headline;
+                    font-weight: normal;
                     margin-left: 0.8rem;
-                    font-size: 1.2rem;
-                    line-height: 1.6rem;
                     color: var(--text-label);
                     text-decoration-line: line-through;
-                    @screen md {
-                        font-size: 2rem;
-                        line-height: 2.8rem;
-                    }
                 }
             }
         }
         .buttonWarpper{
             @apply flex;
             .icon{
-                max-width: 3.2rem;
-                max-height: 3.2rem;
-                @screen sm-only{
-                    button{
-                        padding: 1rem;
-                        svg{
-                            width: 1.1rem;
-                            height: 1.1rem;
-                        }
+                button {
+                    >div {
+                        @apply bg-primary-light;
                     }
-                }
-                @screen md {
-                    max-width: 5.6rem;
-                    max-height: 5.6rem;
                 }
             }
             .button{
                 margin-left: 0.8rem;
-                min-width: 12.5rem;
-                max-height: 3.2rem;
-                button{
-                    width: 100%;
-                    height: 100%;
-                }
-                @screen sm-only {
-                    button{
-                        padding:0.9rem;
-                    }
-                }
-                @screen md {
-                    min-width: 20.6rem;
-                    button{
-                        height: initial;
-                    }
-                    max-height: 5.6rem;
-
+                flex: 1;
+                button {
+                    @apply w-full;
                 }
             }
         }

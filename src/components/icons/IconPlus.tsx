@@ -1,4 +1,4 @@
-const IconPlus = ({ ...props }) => {
+const IconPlus = () => {
   return (
     <svg
       width="12"

@@ -1,0 +1,17 @@
+@import "../../../../../styles/utilities";
+
+.tab {
+    all: unset;
+    @apply heading-3 font-heading cursor-pointer outline-none;
+    padding: 1.6rem;
+    &:focus {
+        outline: none;
+        filter: brightness(1.05);
+    }
+    &:focus-visible {
+        outline: 2px solid var(--text-active);
+    }
+    &.active {
+        @apply text-background shape-common bg-primary;
+    }
+}

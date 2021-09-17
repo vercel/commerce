@@ -16,7 +16,6 @@
         margin: auto;
         margin-bottom: 4rem;
         
-
         @screen md {
             margin-left: 0
         }
@@ -56,22 +55,16 @@
     }
 
     .editInfoBtn {
-        @apply text-center font-bold custom-border-radius;
-        margin: auto;
+        @apply flex items-center justify-center;
         margin-top: 2.4rem;
         margin-bottom: 2.4rem;
-        padding: .8rem 1.6rem;
-        color: #141414;
-        border: 1px solid #141414;
-        max-width: 8.8rem;
 
-        &:hover {
-            @apply cursor-pointer;
-            background-color: #FBFBFB;
+        button div {
+            background-color: #F5F4F2 !important;
         }
 
         @screen md {
-            margin-left: 0;
+            @apply block;
         }
     }
 }

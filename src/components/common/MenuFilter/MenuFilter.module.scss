@@ -28,6 +28,7 @@
              margin-right: 0.8rem;
              background-color: var(--gray);
              border-radius: 0.8rem;
+             cursor: pointer;
              &.active {
                 color:white;
                 background-color: var(--primary);
