@@ -18876,6 +18876,26 @@ interface Product {
   menuOrder: Int
 
   """
+  Object meta data
+  """
+  metaData(
+    """
+    Retrieve meta by key
+    """
+    key: String
+
+    """
+    Retrieve multiple metas by key
+    """
+    keysIn: [String]
+
+    """
+    Retrieve meta with matching keys
+    """
+    multiple: Boolean
+  ): [MetaData]
+
+  """
   Date product last updated
   """
   modified: String
@@ -24166,31 +24186,6 @@ type Refund implements Node {
   id: ID!
 
   """
-  Connection between the Refund type and the LineItem type
-  """
-  lineItems(
-    """
-    The number of items to return after the referenced "after" cursor
-    """
-    first: Int
-
-    """
-    The number of items to return before the referenced "before" cursor
-    """
-    last: Int
-
-    """
-    Cursor used along with the "first" argument to reference where in the dataset to get data
-    """
-    after: String
-
-    """
-    Cursor used along with the "last" argument to reference where in the dataset to get data
-    """
-    before: String
-  ): RefundToLineItemConnection
-
-  """
   Object meta data
   """
   metaData(
@@ -24239,41 +24234,6 @@ enum RefundIdTypeEnum {
   Identify a resource by the (hashed) Global ID.
   """
   ID
-}
-
-"""
-Connection between the Refund type and the LineItem type
-"""
-type RefundToLineItemConnection {
-  """
-  Edges for the RefundToLineItemConnection connection
-  """
-  edges: [RefundToLineItemConnectionEdge]
-
-  """
-  The nodes of the connection, without the edges
-  """
-  nodes: [LineItem]
-
-  """
-  Information about pagination in a connection.
-  """
-  pageInfo: WPPageInfo
-}
-
-"""
-An edge in a connection
-"""
-type RefundToLineItemConnectionEdge {
-  """
-  A cursor for use in pagination
-  """
-  cursor: String
-
-  """
-  The item at the end of the edge
-  """
-  node: LineItem
 }
 
 """
@@ -25828,9 +25788,39 @@ type RootQuery {
   discussionSettings: DiscussionSettings
 
   """
+  A simple product object
+  """
+  externalProduct(
+    """
+    The ID for identifying the ExternalProduct product
+    """
+    id: ID
+
+    """
+    Type of ID being used identify product
+    """
+    idType: ProductIdTypeEnum
+  ): ExternalProduct
+
+  """
   Fields of the &#039;GeneralSettings&#039; settings group
   """
   generalSettings: GeneralSettings
+
+  """
+  A simple product object
+  """
+  groupedProduct(
+    """
+    The ID for identifying the GroupProduct product
+    """
+    id: ID
+
+    """
+    Type of ID being used identify product
+    """
+    idType: ProductIdTypeEnum
+  ): GroupProduct
 
   """
   An object of the mediaItem Type.
@@ -26827,6 +26817,21 @@ type RootQuery {
   ): RootQueryToShippingMethodConnection
 
   """
+  A simple product object
+  """
+  simpleProduct(
+    """
+    The ID for identifying the SimpleProduct product
+    """
+    id: ID
+
+    """
+    Type of ID being used identify product
+    """
+    idType: ProductIdTypeEnum
+  ): SimpleProduct
+
+  """
   A 0bject
   """
   tag(
@@ -27120,6 +27125,21 @@ type RootQuery {
     """
     where: RootQueryToUserConnectionWhereArgs
   ): RootQueryToUserConnection
+
+  """
+  A simple product object
+  """
+  variableProduct(
+    """
+    The ID for identifying the VariableProduct product
+    """
+    id: ID
+
+    """
+    Type of ID being used identify product
+    """
+    idType: ProductIdTypeEnum
+  ): VariableProduct
 
   """
   Returns the current user

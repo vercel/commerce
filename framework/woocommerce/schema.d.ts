@@ -8821,6 +8821,8 @@ export type Product = {
   localAttributes?: Maybe<ProductToLocalProductAttributeConnection>
   /** Menu order */
   menuOrder?: Maybe<Scalars['Int']>
+  /** Object meta data */
+  metaData?: Maybe<Array<Maybe<MetaData>>>
   /** Date product last updated */
   modified?: Maybe<Scalars['String']>
   /** Product name */
@@ -8910,6 +8912,13 @@ export type ProductLocalAttributesArgs = {
   after?: Maybe<Scalars['String']>
   before?: Maybe<Scalars['String']>
   where?: Maybe<ProductToLocalProductAttributeConnectionWhereArgs>
+}
+
+/** Product object */
+export type ProductMetaDataArgs = {
+  key?: Maybe<Scalars['String']>
+  keysIn?: Maybe<Array<Maybe<Scalars['String']>>>
+  multiple?: Maybe<Scalars['Boolean']>
 }
 
 /** Product object */
@@ -11269,8 +11278,6 @@ export type Refund = Node & {
   date?: Maybe<Scalars['String']>
   /** The globally unique identifier for the refund */
   id: Scalars['ID']
-  /** Connection between the Refund type and the LineItem type */
-  lineItems?: Maybe<RefundToLineItemConnection>
   /** Object meta data */
   metaData?: Maybe<Array<Maybe<MetaData>>>
   /** Reason for refund */
@@ -11279,14 +11286,6 @@ export type Refund = Node & {
   refundedBy?: Maybe<User>
   /** A title for the new post type */
   title?: Maybe<Scalars['String']>
-}
-
-/** A refund object */
-export type RefundLineItemsArgs = {
-  first?: Maybe<Scalars['Int']>
-  last?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
-  before?: Maybe<Scalars['String']>
 }
 
 /** A refund object */
@@ -11302,26 +11301,6 @@ export enum RefundIdTypeEnum {
   DatabaseId = 'DATABASE_ID',
   /** Identify a resource by the (hashed) Global ID. */
   Id = 'ID',
-}
-
-/** Connection between the Refund type and the LineItem type */
-export type RefundToLineItemConnection = {
-  __typename?: 'RefundToLineItemConnection'
-  /** Edges for the RefundToLineItemConnection connection */
-  edges?: Maybe<Array<Maybe<RefundToLineItemConnectionEdge>>>
-  /** The nodes of the connection, without the edges */
-  nodes?: Maybe<Array<Maybe<LineItem>>>
-  /** Information about pagination in a connection. */
-  pageInfo?: Maybe<WpPageInfo>
-}
-
-/** An edge in a connection */
-export type RefundToLineItemConnectionEdge = {
-  __typename?: 'RefundToLineItemConnectionEdge'
-  /** A cursor for use in pagination */
-  cursor?: Maybe<Scalars['String']>
-  /** The item at the end of the edge */
-  node?: Maybe<LineItem>
 }
 
 /** Input for the registerCustomer mutation */
@@ -12143,8 +12122,12 @@ export type RootQuery = {
   customers?: Maybe<RootQueryToCustomerConnection>
   /** Fields of the &#039;DiscussionSettings&#039; settings group */
   discussionSettings?: Maybe<DiscussionSettings>
+  /** A simple product object */
+  externalProduct?: Maybe<ExternalProduct>
   /** Fields of the &#039;GeneralSettings&#039; settings group */
   generalSettings?: Maybe<GeneralSettings>
+  /** A simple product object */
+  groupedProduct?: Maybe<GroupProduct>
   /** An object of the mediaItem Type.  */
   mediaItem?: Maybe<MediaItem>
   /**
@@ -12244,6 +12227,8 @@ export type RootQuery = {
   shippingMethod?: Maybe<ShippingMethod>
   /** Connection between the RootQuery type and the ShippingMethod type */
   shippingMethods?: Maybe<RootQueryToShippingMethodConnection>
+  /** A simple product object */
+  simpleProduct?: Maybe<SimpleProduct>
   /** A 0bject */
   tag?: Maybe<Tag>
   /** Connection between the RootQuery type and the tag type */
@@ -12272,6 +12257,8 @@ export type RootQuery = {
   userRoles?: Maybe<RootQueryToUserRoleConnection>
   /** Connection between the RootQuery type and the User type */
   users?: Maybe<RootQueryToUserConnection>
+  /** A simple product object */
+  variableProduct?: Maybe<VariableProduct>
   /** Returns the current user */
   viewer?: Maybe<User>
   /** A 0bject */
@@ -12385,6 +12372,18 @@ export type RootQueryCustomersArgs = {
   after?: Maybe<Scalars['String']>
   before?: Maybe<Scalars['String']>
   where?: Maybe<RootQueryToCustomerConnectionWhereArgs>
+}
+
+/** The root entry point into the Graph */
+export type RootQueryExternalProductArgs = {
+  id?: Maybe<Scalars['ID']>
+  idType?: Maybe<ProductIdTypeEnum>
+}
+
+/** The root entry point into the Graph */
+export type RootQueryGroupedProductArgs = {
+  id?: Maybe<Scalars['ID']>
+  idType?: Maybe<ProductIdTypeEnum>
 }
 
 /** The root entry point into the Graph */
@@ -12716,6 +12715,12 @@ export type RootQueryShippingMethodsArgs = {
 }
 
 /** The root entry point into the Graph */
+export type RootQuerySimpleProductArgs = {
+  id?: Maybe<Scalars['ID']>
+  idType?: Maybe<ProductIdTypeEnum>
+}
+
+/** The root entry point into the Graph */
 export type RootQueryTagArgs = {
   id: Scalars['ID']
   idType?: Maybe<TagIdType>
@@ -12814,6 +12819,12 @@ export type RootQueryUsersArgs = {
   after?: Maybe<Scalars['String']>
   before?: Maybe<Scalars['String']>
   where?: Maybe<RootQueryToUserConnectionWhereArgs>
+}
+
+/** The root entry point into the Graph */
+export type RootQueryVariableProductArgs = {
+  id?: Maybe<Scalars['ID']>
+  idType?: Maybe<ProductIdTypeEnum>
 }
 
 /** The root entry point into the Graph */
@@ -18269,6 +18280,77 @@ export type WritingSettings = {
   defaultPostFormat?: Maybe<Scalars['String']>
   /** Convert emoticons like :-) and :-P to graphics on display. */
   useSmilies?: Maybe<Scalars['Boolean']>
+}
+
+export type GetAllProductsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>
+}>
+
+export type GetAllProductsQuery = { __typename?: 'RootQuery' } & {
+  products?: Maybe<
+    { __typename?: 'RootQueryToProductConnection' } & {
+      pageInfo?: Maybe<
+        { __typename?: 'WPPageInfo' } & Pick<
+          WpPageInfo,
+          'hasNextPage' | 'hasPreviousPage'
+        >
+      >
+      edges?: Maybe<
+        Array<
+          Maybe<
+            { __typename?: 'RootQueryToProductConnectionEdge' } & {
+              node?: Maybe<
+                | ({ __typename?: 'ExternalProduct' } & Pick<
+                    ExternalProduct,
+                    'id' | 'name'
+                  > & {
+                      image?: Maybe<
+                        { __typename?: 'MediaItem' } & Pick<
+                          MediaItem,
+                          'uri' | 'altText'
+                        >
+                      >
+                    })
+                | ({ __typename?: 'GroupProduct' } & Pick<
+                    GroupProduct,
+                    'id' | 'name'
+                  > & {
+                      image?: Maybe<
+                        { __typename?: 'MediaItem' } & Pick<
+                          MediaItem,
+                          'uri' | 'altText'
+                        >
+                      >
+                    })
+                | ({ __typename?: 'SimpleProduct' } & Pick<
+                    SimpleProduct,
+                    'id' | 'name'
+                  > & {
+                      image?: Maybe<
+                        { __typename?: 'MediaItem' } & Pick<
+                          MediaItem,
+                          'uri' | 'altText'
+                        >
+                      >
+                    })
+                | ({ __typename?: 'VariableProduct' } & Pick<
+                    VariableProduct,
+                    'id' | 'name'
+                  > & {
+                      image?: Maybe<
+                        { __typename?: 'MediaItem' } & Pick<
+                          MediaItem,
+                          'uri' | 'altText'
+                        >
+                      >
+                    })
+              >
+            }
+          >
+        >
+      >
+    }
+  >
 }
 
 export type GetCustomerIdQueryVariables = Exact<{ [key: string]: never }>
