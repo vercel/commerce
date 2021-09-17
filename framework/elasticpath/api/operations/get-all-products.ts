@@ -2,12 +2,8 @@ import { Product } from '@commerce/types/product'
 import { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
 import type { ElasticpathConfig, Provider } from '../index'
-import { gateway as MoltinGateway } from '@moltin/sdk'
 import normalizeProduct from '../../utils/normalize'
-
-const Moltin = MoltinGateway({
-  client_id: process.env.NEXT_PUBLIC_ELASTICPATH_CLIENTID
-})
+import epClient from '../../utils/ep-client'
 
 export default function getAllProductsOperation({
   commerce,
@@ -23,7 +19,7 @@ export default function getAllProductsOperation({
     preview?: boolean
   } = {}): Promise<{ products: Product[] | any[] }> {
     // elastic path get all products
-    let products = await Moltin.Products.Limit(200).All();
+    let products = await epClient.PCM.Limit(200).All();
     let normalizeProducts = await normalizeProduct(products.data)
     return {
       products: normalizeProducts,

@@ -4,13 +4,13 @@ import { CommerceError } from '@commerce/utils/errors'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import type { LoginHook } from '../types/login'
 import useCustomer from '../customer/use-customer'
+import epClient from '../utils/ep-client'
 
 export default useLogin as UseLogin<typeof handler>
 
-export const handler: MutationHook<LoginHook> = {
+export const handler: MutationHook<any> = {
   fetchOptions: {
-    url: '/api/login',
-    method: 'POST',
+    query: ''
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
@@ -20,10 +20,8 @@ export const handler: MutationHook<LoginHook> = {
       })
     }
 
-    return fetch({
-      ...options,
-      variables: { email, password },
-    });
+    let token = await epClient.Customers.TokenViaPassword(email, password);
+    return token || null;
   },
   useHook: ({ fetch }) => () => {
     const { revalidate } = useCustomer()

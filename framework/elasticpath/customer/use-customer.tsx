@@ -1,11 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
-import { gateway as MoltinGateway } from '@moltin/sdk'
 import getCustomerCookie from '../utils/get-customer-creds'
-
-const Moltin = MoltinGateway({
-  client_id: process.env.NEXT_PUBLIC_ELASTICPATH_CLIENTID
-})
+import epClient from '../utils/ep-client'
 
 export default useCustomer as UseCustomer<typeof handler>
 export const handler: SWRHook<any> = {
@@ -19,8 +15,14 @@ export const handler: SWRHook<any> = {
     if(!creds) {
       return null;
     }
-    const data = await Moltin.Customers.Get(creds.customer_id, creds.token);
-    return data || null;
+    console.log('moltin sdk', epClient);
+    const {data:customer} = await epClient.Customers.Get(creds.customer_id, creds.token);
+
+    return {
+      ...customer,
+      firstName: customer.name.split(" ")[0],
+      lastName: customer.name.split(" ")[1]
+    }
   },
   useHook: ({ useData }) => (input) => {
     return useData({

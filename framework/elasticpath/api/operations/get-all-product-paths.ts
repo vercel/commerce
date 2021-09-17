@@ -1,10 +1,7 @@
 import data from '../../data.json'
-import { gateway as MoltinGateway } from '@moltin/sdk'
 import normalizeProduct from '../../utils/normalize'
+import epClient from '../../utils/ep-client'
 
-const Moltin = MoltinGateway({
-  client_id: process.env.NEXT_PUBLIC_ELASTICPATH_CLIENTID
-})
 
 export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
@@ -12,11 +9,13 @@ export type GetAllProductPathsResult = {
 
 export default function getAllProductPathsOperation() {
   async function getAllProductPaths(): Promise<GetAllProductPathsResult> {
-    let products = await Moltin.Products.Limit(200).All();
-    let normalizeProducts = await normalizeProduct(products.data)
-    let productPaths = normalizeProducts.map(({ path }) => ({ path }));
+    let products = await epClient.PCM.Limit(200).All();
+    let paths = [];
+    for (let product of products.data) {
+      paths.push({path: "/"+product.attributes.slug});
+    }
     return await Promise.resolve({
-      products: productPaths
+      products: paths
     })
   }
 

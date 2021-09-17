@@ -3,12 +3,9 @@ import { Product } from '@commerce/types/product'
 import { GetProductOperation } from '@commerce/types/product'
 import data from '../../data.json'
 import type { OperationContext } from '@commerce/api/operations'
-import { gateway as MoltinGateway } from '@moltin/sdk'
 import normalizeProduct from '../../utils/normalize'
+import epClient from '../../utils/ep-client'
 
-const Moltin = MoltinGateway({
-  client_id: process.env.NEXT_PUBLIC_ELASTICPATH_CLIENTID
-})
 
 export default function getProductOperation({
   commerce,
@@ -29,7 +26,7 @@ export default function getProductOperation({
     } else {
       variablesS = variables.slug;
     }
-    let products = await Moltin.Products.Filter({
+    let products = await epClient.PCM.Filter({
       eq: {
         slug: variablesS 
       }
