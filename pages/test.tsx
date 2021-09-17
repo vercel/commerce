@@ -2,6 +2,7 @@ import {
   FeaturedProductCard,
   Layout
 } from 'src/components/common';
+import { HomeBanner } from 'src/components/modules/home';
 // import { RecipeListPage } from 'src/components/modules/recipes';
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import { PRODUCT_DATA_TEST, PRODUCT_DATA_TEST_PAGE } from 'src/utils/demo-data';
@@ -78,6 +79,7 @@ export default function Test() {
         subTitle="50 first orders within a day"
         price={data.price}
         originPrice="$20.00" />
+      <HomeBanner/>
     </>
   )
 }

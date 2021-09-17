@@ -9,7 +9,7 @@
   }
   @screen xl {
     @apply grid;
-    grid-template-columns: 1fr 1.8fr;
+    grid-template-columns: 35.75% 64.25%;
     .left {
       @apply relative flex items-end justify-center shape-common-lg;
       margin-right: 1.6rem;

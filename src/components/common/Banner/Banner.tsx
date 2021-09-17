@@ -12,6 +12,7 @@ const RESPONSIVE:ResponsiveType = {
     desktop: {
       breakpoint: { max: 9999, min: 0 },
       items: 1,
+      slidesToSlide:1
     },
 };
 
