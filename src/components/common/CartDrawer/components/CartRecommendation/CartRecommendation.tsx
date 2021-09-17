@@ -1,29 +1,31 @@
 import { TOptionsEvents } from 'keen-slider';
 import React from 'react';
+import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, ViewAllItem } from 'src/components/common';
 import ProductCard, { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
 import { ROUTE } from 'src/utils/constanst.utils';
 import { PRODUCT_DATA_TEST } from 'src/utils/demo-data';
 import s from './CartRecommendation.module.scss';
 
-const option: TOptionsEvents = {
-  slidesPerView: 1.5,
-  mode: 'free',
-  breakpoints: {
-    '(min-width: 640px)': {
-      slidesPerView: 1.5,
-    },
-    '(min-width: 768px)': {
-      slidesPerView: 2.5,
-    },
-    '(min-width: 1008px)': {
-      slidesPerView: 2.2,
-    },
-    '(min-width: 1440px)': {
-      slidesPerView: 2.5,
-    }
+const RESPONSIVE:ResponsiveType = {
+  desktop: {
+    breakpoint: { max: 99999, min: 1440 },
+    items: 2.5,
+    slidesToSlide: 1 // optional, default to 1.
   },
-}
+  lap: {
+    breakpoint: { max: 1440, min: 1008 },
+    items: 2.2,
+  },
+  tablet: {
+    breakpoint: { max: 1008, min: 768 },
+    items: 2.5,
+  },
+  mobile: {
+    breakpoint: { max: 768, min: 0 },
+    items: 1.5,
+  }
+};
 
 const CartRecommendation = () => {
   return (
@@ -39,7 +41,7 @@ const CartRecommendation = () => {
           data={PRODUCT_DATA_TEST}
           Component={ProductCard}
           itemKey="cart-recommendation"
-          option={option}
+          responsive={RESPONSIVE}
           defaultComponentProps={{ isSingleButton: true }}
         />
       </div>

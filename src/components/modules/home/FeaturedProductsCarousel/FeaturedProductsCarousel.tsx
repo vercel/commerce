@@ -1,5 +1,6 @@
 import { TOptionsEvents } from 'keen-slider'
 import React from 'react'
+import { ResponsiveType } from 'react-multi-carousel'
 import { CarouselCommon, FeaturedProductCard } from 'src/components/common'
 import { FeaturedProductCardProps } from 'src/components/common/FeaturedProductCard/FeaturedProductCard'
 import s from "./FeaturedProductsCarousel.module.scss"
@@ -57,11 +58,57 @@ const OPTION_DEFAULT: TOptionsEvents = {
       },
     },
   }
+  const RESPONSIVE: ResponsiveType = {
+    largeScreen: {
+      breakpoint: { max: 9999, min: 1440 },
+      items: 2.075,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    largeDesktop: {
+      breakpoint: { max: 1440, min: 1280 },
+      items: 1.75,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    desktop: {
+      breakpoint: { max: 1280, min: 1148 },
+      items: 1.5,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    smallDesktop: {
+      breakpoint: { max: 1148, min: 1024 },
+      items: 1.375,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    lap: {
+      breakpoint: { max: 1024, min: 968 },
+      items: 1.75,
+    },
+    tablet: {
+      breakpoint: { max: 968, min: 768 },
+      items: 1.075,
+    },
+    smallTablet: {
+      breakpoint: { max: 768, min: 640 },
+      items: 1.25,
+    },
+    largeMobile: {
+      breakpoint: { max: 640, min: 400 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 400, min: 300 },
+      items: 1.5,
+    },
+    smallMobile: {
+      breakpoint: { max: 300, min: 0 },
+      items: 1,
+    },
+  }
 
 const FeaturedProductsCarousel = ({}: FeaturedProductsCarouselProps) => {
     return (
         <div className={s.warpper}>
-            <CarouselCommon<FeaturedProductCardProps> data={dataDemo} Component={FeaturedProductCard} itemKey="featured-products" option={OPTION_DEFAULT}/>
+            <CarouselCommon<FeaturedProductCardProps> data={dataDemo} Component={FeaturedProductCard} itemKey="featured-products" responsive={RESPONSIVE}/>
         </div>
     )
 }

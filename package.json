@@ -44,6 +44,7 @@
     "react-dom": "^17.0.2",
     "react-fast-marquee": "^1.1.4",
     "react-merge-refs": "^1.1.0",
+    "react-multi-carousel": "^2.6.5",
     "react-player": "^2.9.0",
     "react-use-measure": "^2.0.4",
     "sass": "^1.38.0",

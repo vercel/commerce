@@ -1,74 +1,12 @@
-import { CartDrawer, Layout } from 'src/components/common'
-import MenuNavigationProductList from 'src/components/common/MenuNavigationProductList/MenuNavigationProductList'
+import { CarouselCommon, ProductCard, Layout } from 'src/components/common'
 // import { RecipeListPage } from 'src/components/modules/recipes';
-import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { useModalCommon } from 'src/components/hooks'
-import {
-  CollectionCarcousel,
-  HomeCollection,
-} from 'src/components/modules/home'
 import { PRODUCT_DATA_TEST } from 'src/utils/demo-data'
 import { useKeenSlider } from 'keen-slider/react'
 import { CSSProperties } from 'react'
-const CATEGORY = [
-  {
-    name: 'All',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${OPTION_ALL}`,
-  },
-  {
-    name: 'Veggie',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
-  },
-  {
-    name: 'Seafood',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
-  },
-  {
-    name: 'Frozen',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
-  },
-  {
-    name: 'Coffee Bean',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
-  },
-  {
-    name: 'Sauce',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
-  },
-]
-const BRAND = [
-  {
-    name: 'Maggi',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
-  },
-  {
-    name: 'Cholimes',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
-  },
-  {
-    name: 'Chinsu',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
-  },
-]
-
-const FEATURED = [
-  {
-    name: 'Best Sellers',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
-  },
-  {
-    name: 'Sales',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
-  },
-  {
-    name: 'New Item',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
-  },
-  {
-    name: 'Viewed',
-    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=viewed`,
-  },
-]
+import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
+import ColectionCarcousel from 'src/components/modules/home/CollectionCarcousel/CollectionCarcousel'
+import { HomeCollection } from 'src/components/modules/home'
 export default function Test() {
   const {
     visible: visibleMenuFilter,
@@ -95,51 +33,27 @@ export default function Test() {
     maxHeight: '100vh',
   }
   const [sliderRef] = useKeenSlider<HTMLDivElement>({ slidesPerView: 2 })
-
+  const RESPONSIVE = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5.5,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1 // optional, default to 1.
+    }
+  };
   return (
     <>
-      {/* <HomeCollection /> */}
-      {/* <CollectionCarcousel
-        data={PRODUCT_DATA_TEST}
-        itemKey="tesst"
-        category="test"
-        title="test"
-        subtitle=""
-      /> */}
-      <div ref={sliderRef} className="keen-slider">
-        {/* {[...Array(10).keys()].map(() => {
-          return (
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-          )
-        })} */}
-                    <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            <div className="keen-slider__slide number-slide1" style={style}>
-              1
-            </div>
-            
-      </div>
+      <HomeCollection />
+      {/* <CarouselCommon<ProductCardProps> showDots={true} draggable={true} infinite={true} data={PRODUCT_DATA_TEST} Component={ProductCard} responsive={RESPONSIVE} itemKey="tets"/> */}
     </>
   )
 }

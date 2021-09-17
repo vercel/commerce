@@ -17,6 +17,7 @@ const ImgWithLink = ({ src, alt, blurDataURL = BLUR_DATA_IMG }: ImgWithLinkProps
                 className={s.imgWithLink}
                 placeholder="blur"
                 blurDataURL={blurDataURL}
+                draggable='false'
             />
         </div>
     )

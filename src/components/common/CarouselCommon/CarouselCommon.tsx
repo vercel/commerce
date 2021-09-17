@@ -1,85 +1,88 @@
-import { useKeenSlider } from 'keen-slider/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import 'keen-slider/keen-slider.min.css'
 import { CustomCarouselArrow } from './CustomArrow/CustomCarouselArrow'
 import s from './CarouselCommon.module.scss'
-import { TOptionsEvents } from 'keen-slider'
 import classNames from 'classnames'
-import CustomDot from './CustomDot/CustomDot'
-export interface CarouselCommonProps<T> {
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
+import {
+  ResponsiveType,
+  CarouselProps,
+  ButtonGroupProps,
+} from 'react-multi-carousel/lib/types'
+export interface CarouselCommonProps<T>
+  extends Omit<CarouselProps, 'children' | 'responsive'> {
   data: T[]
   Component: React.ComponentType<T>
-  isArrow?: Boolean
-  isDot?: Boolean
   itemKey: String
-  option: TOptionsEvents
   keenClassname?: string
   isPadding?: boolean
   defaultComponentProps?: object
+  responsive?: ResponsiveType
+}
+const RESPONSIVE = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    slidesToSlide: 3, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 2, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
 }
 
 const CarouselCommon = <T,>({
-  data=[],
+  data = [],
   Component,
   itemKey,
-  keenClassname,
-  isPadding = false,
-  isArrow = true,
-  isDot = false,
   defaultComponentProps,
-  option: { slideChanged,slidesPerView, ...sliderOption },
+  responsive = RESPONSIVE,
+  showDots,
+  isPadding,
+  arrows,
+  ...props
 }: CarouselCommonProps<T>) => {
-  const [currentSlide, setCurrentSlide] = React.useState(0)
-  const [dotArr, setDotArr] = React.useState<number[]>([])
-  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
-    ...sliderOption,
-    slidesPerView,
-    slideChanged(s) {
-      setCurrentSlide(s.details().relativeSlide)
-    },
-  })
-  
-  useEffect(() => {
-    if(isDot && slider && data){
-      let array:number[]
-      let number = data.length - Math.floor(slider.details().slidesPerView - 1)
-      if(number<1){
-        number = 1
-      }
-      array =  [...Array(number).keys()]
-      setDotArr(array)
-    }
-  }, [isDot,slider,data])
-
+  const carousel = useRef<Carousel>(null)
   const handleRightArrowClick = () => {
-    slider.next()
+    carousel.current?.next(carousel.current.props.slidesToSlide||1)
   }
-
   const handleLeftArrowClick = () => {
-    slider.prev()
-  }
-
-  const onDotClick = (index:number) => {
-    slider.moveToSlideRelative(index)
+    carousel.current?.previous(carousel.current.props.slidesToSlide||1)
   }
   return (
     <div className={s.navigationWrapper}>
-      <div
-        ref={sliderRef}
-        className={classNames('keen-slider', keenClassname, {
+      <Carousel
+        {...props}
+        ref={carousel}
+        showDots={showDots}
+        customButtonGroup={<CarouselButtonGroup />}
+        renderButtonGroupOutside
+        sliderClass={''}
+        containerClass={classNames({
+          [s.showDots]: showDots,
           [s.isPadding]: isPadding,
         })}
+        responsive={responsive}
+        arrows={false}
+        renderDotsOutside={true}
+        // customLeftArrow={<CustomCarouselArrow side="left" />}
+        // customRightArrow={<CustomCarouselArrow side="right" />}
       >
         {data?.map((props, index) => {
-          const allProps = defaultComponentProps ? { ...props, ...defaultComponentProps } : props
-          return (
-            <div className="keen-slider__slide" key={`${itemKey}-${index}`}>
-              <Component {...allProps} />
-            </div>
-          )
+          const allProps = defaultComponentProps
+            ? { ...props, ...defaultComponentProps }
+            : props
+          return <Component {...allProps} key={`${itemKey}-${index}`} />
         })}
-      </div>
-      {slider && isArrow && (
+      </Carousel>
+      {carousel && arrows && (
         <>
           <CustomCarouselArrow
             side="right"
@@ -91,7 +94,7 @@ const CarouselCommon = <T,>({
           />
         </>
       )}
-      {slider && isDot && (
+      {/* {slider && isDot && (
         <div className="dots">
           {dotArr.map((index) => {
             return (
@@ -99,9 +102,16 @@ const CarouselCommon = <T,>({
             )
           })}
         </div>
-      )}
+      )}  */}
     </div>
   )
 }
-
+const CarouselButtonGroup = ({ next, previous }: ButtonGroupProps) => {
+  return (
+    <>
+      <CustomCarouselArrow side="left" onClick={previous} />
+      <CustomCarouselArrow side="right" onClick={next} />
+    </>
+  )
+}
 export default CarouselCommon

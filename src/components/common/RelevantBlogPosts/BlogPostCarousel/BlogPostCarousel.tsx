@@ -5,39 +5,44 @@ import CarouselCommon, {
 } from '../../CarouselCommon/CarouselCommon'
 import BlogCard, { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import s from "./BlogPostCarousel.module.scss"
+import { ResponsiveType } from 'react-multi-carousel'
 
 interface BlogPostCarouselProps
   extends Omit<CarouselCommonProps<BlogCardProps>, 'Component'|"option"> {
-		option?:TOptionsEvents
 	}
-
-const OPTION_DEFAULT: TOptionsEvents = {
-  slidesPerView: 1.25,
-  mode: 'free',
-  spacing:24,
-  breakpoints: {
-    '(min-width: 640px)': {
-      slidesPerView: 2,
-    },
-    '(min-width: 1024px)': {
-      slidesPerView: 2.5,
-    },
-    '(min-width: 1440px)': {
-      slidesPerView: 3,
-    },
-    '(min-width: 1536px)': {
-      slidesPerView: 3.5,
-    },
+  
+const RESPONSIVE: ResponsiveType = {
+  largeDesktop: {
+    breakpoint: { max: 9999, min: 1536 },
+    items: 3.5,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+  desktop: {
+    breakpoint: { max: 1536, min: 1440 },
+    items: 3,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+  lap: {
+    breakpoint: { max: 1440, min: 1024 },
+    items: 2.5,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 640 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 640, min: 0 },
+    items: 1.25,
   },
 }
-const BlogPostCarousel = ({ option, data, ...props }: BlogPostCarouselProps) => {
+const BlogPostCarousel = ({ data, ...props }: BlogPostCarouselProps) => {
   return (
     <div className={s.blogCardWarpper}>
       <CarouselCommon<BlogCardProps>
         data={data}
         Component={BlogCard}
         {...props}
-        option={{ ...OPTION_DEFAULT, ...option }}
+        responsive={RESPONSIVE}
       />
     </div>
   )
