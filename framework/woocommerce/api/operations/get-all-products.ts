@@ -41,25 +41,35 @@ export default function getAllProductsOperation({
   } = {}): Promise<T['data']> {
     const { fetch, locale } = commerce.getConfig(config)
 
-    const { data } = await fetch<
-      GetAllProductsQuery,
-      GetAllProductsQueryVariables
-    >(
-      query,
-      { variables },
-      {
-        ...(locale && {
-          headers: {
-            'Accept-Language': locale,
-          },
-        }),
+    try {
+      const { data } = await fetch<
+        GetAllProductsQuery,
+        GetAllProductsQueryVariables
+      >(
+        query,
+        { variables },
+        {
+          ...(locale && {
+            headers: {
+              'Accept-Language': locale,
+            },
+          }),
+        }
+      )
+      console.log({ data })
+      return {
+        products: [],
       }
-    )
 
-    return {
-      products: data.products.edges.map(({ node }) =>
-        normalizeProduct(node as WooCommerceProduct)
-      ),
+      // return {
+      //   products: data?.products?.edges
+      //     ? data.products.edges.map(({ node }) =>
+      //         normalizeProduct(node as WooCommerceProduct)
+      //       )
+      //     : [],
+      // }
+    } catch (e) {
+      throw e
     }
   }
 
