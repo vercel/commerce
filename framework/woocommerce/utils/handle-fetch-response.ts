@@ -1,7 +1,7 @@
 import { FetcherError } from '@commerce/utils/errors'
 
 export function getError(errors: any[] | null, status: number) {
-  errors = errors ?? [{ message: 'Failed to fetch Shopify API' }]
+  errors = errors ?? [{ message: 'Failed to fetch WooCommerce API' }]
   return new FetcherError({ errors, status })
 }
 

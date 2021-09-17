@@ -23,7 +23,7 @@ export async function getStaticProps({
     preview,
   })
 
-  const allProductsPromise = commerce.getAllProducts({
+  const allProductsPromise = await commerce.getAllProducts({
     variables: { first: 4 },
     config,
     preview,
