@@ -5,7 +5,7 @@ import type { Product } from '@commerce/types/product'
 import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
-// import usePrice from '@framework/product/use-price'
+import usePrice from '@framework/product/use-price'
 import ProductTag from '../ProductTag'
 
 interface Props {
@@ -25,11 +25,11 @@ const ProductCard: FC<Props> = ({
   noNameTag = false,
   variant = 'default',
 }) => {
-  // const { price } = usePrice({
-  //   amount: product.price.value,
-  //   baseAmount: product.price.retailPrice,
-  //   currencyCode: product.price.currencyCode!,
-  // })
+  const { price } = usePrice({
+    amount: product.price.value,
+    baseAmount: product.price.retailPrice,
+    currencyCode: product.price.currencyCode!,
+  })
 
   const rootClassName = cn(
     s.root,
@@ -74,7 +74,7 @@ const ProductCard: FC<Props> = ({
                   <span>{product.name}</span>
                 </h3>
                 <div className={s.price}>
-                  {/* {`${price} ${product.price?.currencyCode}`} */}
+                  {`${price} ${product.price?.currencyCode}`}
                 </div>
               </div>
             )}
