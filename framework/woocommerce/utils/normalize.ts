@@ -8,10 +8,10 @@ const normalizeProductImages = ({
   const edges_ =
     edges
       ?.filter((edge) => edge?.node)
-      .map(({ node }) => {
+      .map((edge) => {
         return {
-          url: node.sourceUrl,
-          alt: node.altText ?? node.title,
+          url: edge?.node?.sourceUrl ?? '',
+          alt: edge?.node?.altText ?? edge?.node?.title ?? '',
         }
       }) ?? []
 

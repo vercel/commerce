@@ -1,7 +1,7 @@
 import {
-  SHOPIFY_CHECKOUT_ID_COOKIE,
-  SHOPIFY_CHECKOUT_URL_COOKIE,
-  SHOPIFY_CUSTOMER_TOKEN_COOKIE,
+  WOOCOMMERCE_CHECKOUT_ID_COOKIE,
+  WOOCOMMERCE_CHECKOUT_URL_COOKIE,
+  WOOCOMMERCE_CUSTOMER_TOKEN_COOKIE,
 } from '../../../const'
 import associateCustomerWithCheckoutMutation from '../../../utils/mutations/associate-customer-with-checkout'
 import type { CheckoutEndpoint } from '.'
@@ -12,15 +12,15 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
   config,
 }) => {
   const { cookies } = req
-  const checkoutUrl = cookies[SHOPIFY_CHECKOUT_URL_COOKIE]
-  const customerCookie = cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE]
+  const checkoutUrl = cookies[WOOCOMMERCE_CHECKOUT_URL_COOKIE]
+  const customerCookie = cookies[WOOCOMMERCE_CUSTOMER_TOKEN_COOKIE]
 
   if (customerCookie) {
     try {
       await config.fetch(associateCustomerWithCheckoutMutation, {
         variables: {
-          checkoutId: cookies[SHOPIFY_CHECKOUT_ID_COOKIE],
-          customerAccessToken: cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE],
+          checkoutId: cookies[WOOCOMMERCE_CHECKOUT_ID_COOKIE],
+          customerAccessToken: cookies[WOOCOMMERCE_CUSTOMER_TOKEN_COOKIE],
         },
       })
     } catch (error) {

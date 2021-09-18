@@ -1,33 +1,33 @@
 import type { GetStaticPropsContext } from 'next'
-import useCustomer from '@framework/customer/use-customer'
+// import useCustomer from '@framework/customer/use-customer'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
 
-export async function getStaticProps({
-  preview,
-  locale,
-  locales,
-}: GetStaticPropsContext) {
-  const config = { locale, locales }
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { pages } = await pagesPromise
-  const { categories } = await siteInfoPromise
+// export async function getStaticProps({
+//   preview,
+//   locale,
+//   locales,
+// }: GetStaticPropsContext) {
+//   const config = { locale, locales }
+//   const pagesPromise = commerce.getAllPages({ config, preview })
+//   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+//   const { pages } = await pagesPromise
+//   const { categories } = await siteInfoPromise
 
-  return {
-    props: { pages, categories },
-  }
-}
+//   return {
+//     props: { pages, categories },
+//   }
+// }
 
 export default function Profile() {
-  const { data } = useCustomer()
+  // const { data } = useCustomer()
   return (
     <Container>
       <Text variant="pageHeading">My Profile</Text>
-      {data && (
+      {/* {data && (
         <div className="grid lg:grid-cols-12">
-          <div className="lg:col-span-8 pr-4">
+          <div className="pr-4 lg:col-span-8">
             <div>
               <Text variant="sectionHeading">Full Name</Text>
               <span>
@@ -40,7 +40,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </Container>
   )
 }

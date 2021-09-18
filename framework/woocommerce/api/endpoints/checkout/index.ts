@@ -1,10 +1,10 @@
 import { GetAPISchema, createEndpoint } from '@commerce/api'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
 import type { CheckoutSchema } from '../../../types/checkout'
-import type { ShopifyAPI } from '../..'
+import type { WOOCOMMERCEAPI } from '../..'
 import checkout from './checkout'
 
-export type CheckoutAPI = GetAPISchema<ShopifyAPI, CheckoutSchema>
+export type CheckoutAPI = GetAPISchema<WOOCOMMERCEAPI, CheckoutSchema>
 
 export type CheckoutEndpoint = CheckoutAPI['endpoint']
 

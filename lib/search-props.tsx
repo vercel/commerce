@@ -8,15 +8,15 @@ export async function getSearchStaticProps({
   locales,
 }: GetStaticPropsContext) {
   const config = { locale, locales }
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { pages } = await pagesPromise
-  const { categories, brands } = await siteInfoPromise
+  // const pagesPromise = commerce.getAllPages({ config, preview })
+  // const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  // const { pages } = await pagesPromise
+  // const { categories, brands } = await siteInfoPromise
   return {
     props: {
-      pages,
-      categories,
-      brands,
+      pages: [],
+      categories: [],
+      brands: [],
     },
     revalidate: 200,
   }
