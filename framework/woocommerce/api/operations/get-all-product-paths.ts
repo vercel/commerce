@@ -6,10 +6,9 @@ import { GetAllProductPathsOperation } from '../../types/product'
 import {
   GetAllProductPathsQuery,
   GetAllProductPathsQueryVariables,
-  ProductEdge,
 } from '../../schema'
-import type { ShopifyConfig, Provider } from '..'
-import { getAllProductsQuery } from '../../utils'
+import type { WooCommerceConfig, Provider } from '..'
+import getAllProductsQuery from '../../wp/queries/get-all-products-paths-query'
 
 export default function getAllProductPathsOperation({
   commerce,
@@ -18,13 +17,13 @@ export default function getAllProductPathsOperation({
     T extends GetAllProductPathsOperation
   >(opts?: {
     variables?: T['variables']
-    config?: ShopifyConfig
+    config?: WooCommerceConfig
   }): Promise<T['data']>
 
   async function getAllProductPaths<T extends GetAllProductPathsOperation>(
     opts: {
       variables?: T['variables']
-      config?: ShopifyConfig
+      config?: WooCommerceConfig
     } & OperationOptions
   ): Promise<T['data']>
 
@@ -34,7 +33,7 @@ export default function getAllProductPathsOperation({
     variables,
   }: {
     query?: string
-    config?: ShopifyConfig
+    config?: WooCommerceConfig
     variables?: T['variables']
   } = {}): Promise<T['data']> {
     config = commerce.getConfig(config)
@@ -45,9 +44,11 @@ export default function getAllProductPathsOperation({
     >(query, { variables })
 
     return {
-      products: data.products.edges.map(({ node: { handle } }) => ({
-        path: `/${handle}`,
-      })),
+      products: data?.products?.edges
+        ? data.products.edges.map(({ node: { slug } }) => ({
+            path: `/${slug}`,
+          }))
+        : [],
     }
   }
 

@@ -10,12 +10,16 @@ const isShopify = provider === 'shopify'
 const isSaleor = provider === 'saleor'
 const isSwell = provider === 'swell'
 const isVendure = provider === 'vendure'
+// const isWooCommerce = provider === 'woocommerce'
 
 module.exports = withCommerceConfig({
   commerce,
   i18n: {
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
+  },
+  images: {
+    domains: [process.env.NEXT_PUBLIC_WOOCOMMERCE_IMAGES_DOMAIN],
   },
   rewrites() {
     return [

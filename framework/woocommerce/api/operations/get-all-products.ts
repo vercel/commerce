@@ -6,11 +6,13 @@ import { GetAllProductsOperation } from '../../types/product'
 import {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
-  Product as WooCommerceProduct,
+  SimpleProduct,
 } from '../../schema'
 import type { WooCommerceConfig, Provider } from '..'
-import getAllProductsQuery from '../../utils/queries/get-all-products-query'
+import getAllProductsQuery from '../../wp/queries/get-all-products-query'
 import { normalizeProduct } from '../../utils'
+
+import type { Product } from '../../types/product'
 
 export default function getAllProductsOperation({
   commerce,
@@ -40,7 +42,7 @@ export default function getAllProductsOperation({
     preview?: boolean
   } = {}): Promise<T['data']> {
     const { fetch, locale } = commerce.getConfig(config)
-
+    // console.log({ a: 'reza', query, variables, config, fetch, locale })
     try {
       const { data } = await fetch<
         GetAllProductsQuery,
@@ -56,18 +58,18 @@ export default function getAllProductsOperation({
           }),
         }
       )
-      console.log({ data })
-      return {
-        products: [],
+
+      let products: Product[] = []
+
+      if (data?.products?.edges) {
+        data?.products?.edges?.map(({ node }) =>
+          products.push(normalizeProduct(node as SimpleProduct))
+        )
       }
 
-      // return {
-      //   products: data?.products?.edges
-      //     ? data.products.edges.map(({ node }) =>
-      //         normalizeProduct(node as WooCommerceProduct)
-      //       )
-      //     : [],
-      // }
+      return {
+        products,
+      }
     } catch (e) {
       throw e
     }
