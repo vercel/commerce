@@ -62,8 +62,8 @@ export default function getAllProductsOperation({
       let products: Product[] = []
 
       if (data?.products?.edges) {
-        data?.products?.edges?.map(({ node }) =>
-          products.push(normalizeProduct(node as SimpleProduct))
+        data?.products?.edges?.map((edge) =>
+          products.push(normalizeProduct(edge?.node as SimpleProduct))
         )
       }
 

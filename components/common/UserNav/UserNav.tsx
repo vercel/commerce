@@ -2,8 +2,8 @@ import { FC } from 'react'
 import Link from 'next/link'
 import cn from 'classnames'
 import type { LineItem } from '@commerce/types/cart'
-import useCart from '@framework/cart/use-cart'
-import useCustomer from '@framework/customer/use-customer'
+// import useCart from '@framework/cart/use-cart'
+// import useCustomer from '@framework/customer/use-customer'
 import { Avatar } from '@components/common'
 import { Heart, Bag } from '@components/icons'
 import { useUI } from '@components/ui/context'
@@ -19,7 +19,7 @@ const countItem = (count: number, item: LineItem) => count + item.quantity
 
 const UserNav: FC<Props> = ({ className }) => {
   // const { data } = useCart()
-  const { data: customer } = useCustomer()
+  // const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   // const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
@@ -50,17 +50,17 @@ const UserNav: FC<Props> = ({ className }) => {
         )}
         {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
           <li className={s.item}>
-            {customer ? (
+            {/* {customer ? (
               <DropdownMenu />
-            ) : (
-              <button
-                className={s.avatarButton}
-                aria-label="Menu"
-                onClick={() => openModal()}
-              >
-                <Avatar />
-              </button>
-            )}
+            ) : ( */}
+            <button
+              className={s.avatarButton}
+              aria-label="Menu"
+              onClick={() => openModal()}
+            >
+              <Avatar />
+            </button>
+            {/* )} */}
           </li>
         )}
       </ul>

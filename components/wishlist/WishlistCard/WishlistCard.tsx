@@ -8,9 +8,9 @@ import { Button, Text } from '@components/ui'
 
 import { useUI } from '@components/ui/context'
 import type { Product } from '@commerce/types/product'
-import usePrice from '@framework/product/use-price'
-import useAddItem from '@framework/cart/use-add-item'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
+// import usePrice from '@framework/product/use-price'
+// import useAddItem from '@framework/cart/use-add-item'
+// import useRemoveItem from '@framework/wishlist/use-remove-item'
 
 interface Props {
   product: Product
@@ -19,11 +19,11 @@ interface Props {
 const placeholderImg = '/product-img-placeholder.svg'
 
 const WishlistCard: FC<Props> = ({ product }) => {
-  const { price } = usePrice({
-    amount: product.price?.value,
-    baseAmount: product.price?.retailPrice,
-    currencyCode: product.price?.currencyCode!,
-  })
+  // const { price } = usePrice({
+  //   amount: product.price?.value,
+  //   baseAmount: product.price?.retailPrice,
+  //   currencyCode: product.price?.currencyCode!,
+  // })
   // @ts-ignore Wishlist is not always enabled
   const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
   const [loading, setLoading] = useState(false)
@@ -71,7 +71,7 @@ const WishlistCard: FC<Props> = ({ product }) => {
       </div>
 
       <div className="col-span-7">
-        <h3 className="text-2xl mb-2">
+        <h3 className="mb-2 text-2xl">
           <Link href={`/product${product.path}`}>
             <a>{product.name}</a>
           </Link>
@@ -91,8 +91,8 @@ const WishlistCard: FC<Props> = ({ product }) => {
           Add to Cart
         </Button>
       </div>
-      <div className="col-span-2 flex flex-col justify-between">
-        <div className="flex justify-end font-bold">{price}</div>
+      <div className="flex flex-col justify-between col-span-2">
+        {/* <div className="flex justify-end font-bold">{price}</div> */}
         <div className="flex justify-end">
           <button onClick={handleRemove}>
             <Trash />

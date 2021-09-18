@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'
 import { FC } from 'react'
 import type { Product } from '@commerce/types/product'
-import usePrice from '@framework/product/use-price'
+// import usePrice from '@framework/product/use-price'
 import { WishlistButton } from '@components/wishlist'
 import { ProductSlider, ProductCard } from '@components/product'
 import { Container, Text } from '@components/ui'
@@ -16,22 +16,22 @@ interface ProductViewProps {
 }
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
-  const { price } = usePrice({
-    amount: product.price.value,
-    baseAmount: product.price.retailPrice,
-    currencyCode: product.price.currencyCode!,
-  })
+  // const { price } = usePrice({
+  //   amount: product.price.value,
+  //   baseAmount: product.price.retailPrice,
+  //   currencyCode: product.price.currencyCode!,
+  // })
 
   return (
     <>
-      <Container className="max-w-none w-full" clean>
+      <Container className="w-full max-w-none" clean>
         <div className={cn(s.root, 'fit')}>
           <div className={cn(s.main, 'fit')}>
-            <ProductTag
+            {/* <ProductTag
               name={product.name}
               price={`${price} ${product.price?.currencyCode}`}
               fontSize={32}
-            />
+            /> */}
             <div className={s.sliderContainer}>
               <ProductSlider key={product.id}>
                 {product.images.map((image, i) => (
@@ -61,13 +61,13 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           <ProductSidebar key={product.id} product={product} className={s.sidebar} />
         </div>
         <hr className="mt-7 border-accent-2" />
-        <section className="py-12 px-6 mb-10">
+        <section className="px-6 py-12 mb-10">
           <Text variant="sectionHeading">Related Products</Text>
           <div className={s.relatedProductsGrid}>
             {relatedProducts.map((p) => (
               <div
                 key={p.path}
-                className="animated fadeIn bg-accent-0 border border-accent-2"
+                className="border animated fadeIn bg-accent-0 border-accent-2"
               >
                 <ProductCard
                   noNameTag

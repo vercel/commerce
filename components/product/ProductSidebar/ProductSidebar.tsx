@@ -1,5 +1,5 @@
 import s from './ProductSidebar.module.css'
-import { useAddItem } from '@framework/cart'
+// import { useAddItem } from '@framework/cart'
 import { FC, useEffect, useState } from 'react'
 import { ProductOptions } from '@components/product'
 import type { Product } from '@commerce/types/product'
@@ -16,7 +16,7 @@ interface ProductSidebarProps {
 }
 
 const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
-  const addItem = useAddItem()
+  // const addItem = useAddItem()
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
@@ -29,11 +29,11 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   const addToCart = async () => {
     setLoading(true)
     try {
-      await addItem({
-        productId: String(product.id),
-        variantId: String(variant ? variant.id : product.variants[0].id),
-      })
-      openSidebar()
+      // await addItem({
+      //   productId: String(product.id),
+      //   variantId: String(variant ? variant.id : product.variants[0].id),
+      // })
+      // openSidebar()
       setLoading(false)
     } catch (err) {
       setLoading(false)
@@ -48,12 +48,12 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         setSelectedOptions={setSelectedOptions}
       />
       <Text
-        className="pb-4 break-words w-full max-w-xl"
+        className="w-full max-w-xl pb-4 break-words"
         html={product.descriptionHtml || product.description}
       />
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row items-center justify-between">
         <Rating value={4} />
-        <div className="text-accent-6 pr-1 font-medium text-sm">36 reviews</div>
+        <div className="pr-1 text-sm font-medium text-accent-6">36 reviews</div>
       </div>
       <div>
         {process.env.COMMERCE_CART_ENABLED && (

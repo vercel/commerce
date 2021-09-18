@@ -43,12 +43,14 @@ export default function getAllProductPathsOperation({
       GetAllProductPathsQueryVariables
     >(query, { variables })
 
+    const products = data?.products?.edges
+      ? data.products.edges.map((edge) => ({
+          path: `/${edge?.node?.slug}`,
+        }))
+      : []
+
     return {
-      products: data?.products?.edges
-        ? data.products.edges.map(({ node: { slug } }) => ({
-            path: `/${slug}`,
-          }))
-        : [],
+      products,
     }
   }
 
