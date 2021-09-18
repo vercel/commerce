@@ -3,7 +3,7 @@ import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 export async function getStaticProps({
@@ -13,7 +13,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
   const config = { locale, locales }
   const productsPromise = await commerce.getAllProducts({
-    variables: { first: 6 },
+    variables: { first: 12 },
     config,
     preview,
     //   // Saleor provider only
@@ -21,22 +21,13 @@ export async function getStaticProps({
   })
   // // const pagesPromise = commerce.getAllPages({ config, preview })
   // // const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  // // const { products } = await productsPromise
+  const { products } = await productsPromise
   // // const { pages } = await pagesPromise
   // // const { categories, brands } = await siteInfoPromise
-  console.log({
-    query: {
-      variables: { first: 6 },
-      config,
-      preview,
-      //   // Saleor provider only
-      //   ...({ featured: true } as any),
-    },
-    productsPromise,
-  })
+
   return {
     props: {
-      products: [],
+      products,
       //   categories,
       //   brands,
       //   pages,
@@ -82,17 +73,17 @@ export default function Home({
             }}
           />
         ))}
-      </Grid>
+      </Grid>*/}
       <Marquee>
         {products.slice(3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
-      </Marquee> */}
-      {/* <HomeAllProductsGrid
-        newestProducts={products}
-        categories={categories}
-        brands={brands}
-      /> */}
+      </Marquee>
+      <HomeAllProductsGrid
+        products={products}
+        categories={[]} //{categories}
+        brands={[]} //{brands}
+      />
     </>
   )
 }

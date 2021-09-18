@@ -3,23 +3,24 @@ import type {
   OperationOptions,
 } from '@commerce/api/operations'
 import { GetProductOperation } from '../../types/product'
-import { normalizeProduct, getProductQuery } from '../../utils'
-import type { ShopifyConfig, Provider } from '..'
-import { GetProductBySlugQuery, Product as ShopifyProduct } from '../../schema'
+import { normalizeProduct } from '../../utils'
+import getProductQuery from '../../wp/queries/get-product-query'
+import type { WooCommerceConfig, Provider } from '..'
+import { GetProductBySlugQuery, SimpleProduct } from '../../schema'
 
 export default function getProductOperation({
   commerce,
 }: OperationContext<Provider>) {
   async function getProduct<T extends GetProductOperation>(opts: {
     variables: T['variables']
-    config?: Partial<ShopifyConfig>
+    config?: Partial<WooCommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getProduct<T extends GetProductOperation>(
     opts: {
       variables: T['variables']
-      config?: Partial<ShopifyConfig>
+      config?: Partial<WooCommerceConfig>
       preview?: boolean
     } & OperationOptions
   ): Promise<T['data']>
@@ -31,13 +32,13 @@ export default function getProductOperation({
   }: {
     query?: string
     variables: T['variables']
-    config?: Partial<ShopifyConfig>
+    config?: Partial<WooCommerceConfig>
     preview?: boolean
   }): Promise<T['data']> {
     const { fetch, locale } = commerce.getConfig(cfg)
 
     const {
-      data: { productByHandle },
+      data: { product },
     } = await fetch<GetProductBySlugQuery>(
       query,
       {
@@ -53,8 +54,8 @@ export default function getProductOperation({
     )
 
     return {
-      ...(productByHandle && {
-        product: normalizeProduct(productByHandle as ShopifyProduct),
+      ...(product && {
+        product: normalizeProduct(product as SimpleProduct),
       }),
     }
   }

@@ -9,9 +9,43 @@ const getAllProductsQuery = /* GraphQL */ `
         node {
           id
           name
+          sku
+          galleryImages {
+            edges {
+              node {
+                id
+                srcSet
+                title
+                sourceUrl
+                mediaItemUrl
+                altText
+                sizes
+              }
+            }
+          }
           image {
-            uri
+            id
+            srcSet
+            title
+            sourceUrl
+            mediaItemUrl
             altText
+            sizes
+          }
+          description
+          link
+          shortDescription
+          slug
+          ... on SimpleProduct {
+            id
+            name
+            price
+            content
+            uri
+            slug
+            shortDescription
+            regularPrice
+            salePrice
           }
         }
       }

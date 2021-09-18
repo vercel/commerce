@@ -10,7 +10,7 @@
     }
   ],
   "generates": {
-    "./framework/woocommerce/schema.d.ts": {
+    "./framework/woocommerce/schema.ts": {
       "plugins": ["typescript", "typescript-operations"],
       "config": {
         "scalars": {
