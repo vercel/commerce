@@ -1,0 +1,28 @@
+{
+  "schema": {
+    "${NEXT_PUBLIC_WOOCOMMERCE_SHOP_API_URL}": {}
+  },
+  "documents": [
+    {
+      "./framework/woocommerce/wp/**/*.{ts,tsx}": {
+        "noRequire": true
+      }
+    }
+  ],
+  "generates": {
+    "./framework/woocommerce/schema.ts": {
+      "plugins": ["typescript", "typescript-operations"],
+      "config": {
+        "scalars": {
+          "ID": "string"
+        }
+      }
+    },
+    "./framework/woocommerce/schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  },
+  "hooks": {
+    "afterAllFileWrite": ["prettier --write"]
+  }
+}

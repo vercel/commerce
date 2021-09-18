@@ -1,8 +1,9 @@
+import { useEffect } from 'react'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 export async function getStaticProps({
@@ -11,25 +12,25 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext) {
   const config = { locale, locales }
-  const productsPromise = commerce.getAllProducts({
-    variables: { first: 6 },
+  const productsPromise = await commerce.getAllProducts({
+    variables: { first: 12 },
     config,
     preview,
-    // Saleor provider only
-    ...({ featured: true } as any),
+    //   // Saleor provider only
+    //   ...({ featured: true } as any),
   })
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  // // const pagesPromise = commerce.getAllPages({ config, preview })
+  // // const siteInfoPromise = commerce.getSiteInfo({ config, preview })
   const { products } = await productsPromise
-  const { pages } = await pagesPromise
-  const { categories, brands } = await siteInfoPromise
+  // // const { pages } = await pagesPromise
+  // // const { categories, brands } = await siteInfoPromise
 
   return {
     props: {
       products,
-      categories,
-      brands,
-      pages,
+      //   categories,
+      //   brands,
+      //   pages,
     },
     revalidate: 60,
   }
@@ -40,7 +41,7 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Grid variant="filled">
+      {/* <Grid variant="filled">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
@@ -72,17 +73,17 @@ export default function Home({
             }}
           />
         ))}
-      </Grid>
+      </Grid>*/}
       <Marquee>
         {products.slice(3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
         ))}
       </Marquee>
-      {/* <HomeAllProductsGrid
-        newestProducts={products}
-        categories={categories}
-        brands={brands}
-      /> */}
+      <HomeAllProductsGrid
+        products={products}
+        categories={[]} //{categories}
+        brands={[]} //{brands}
+      />
     </>
   )
 }

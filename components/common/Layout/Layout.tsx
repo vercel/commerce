@@ -18,7 +18,7 @@ import LoginView from '@components/auth/LoginView'
 import s from './Layout.module.css'
 
 const Loading = () => (
-  <div className="w-80 h-80 flex items-center text-center justify-center p-3">
+  <div className="flex items-center justify-center p-3 text-center w-80 h-80">
     <LoadingDots />
   </div>
 )
@@ -104,7 +104,7 @@ const Layout: FC<Props> = ({
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar links={navBarlinks} />
+        {/* <Navbar links={navBarlinks} /> */}
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
         <ModalUI />

@@ -6,9 +6,9 @@ import s from './CartItem.module.css'
 import { Trash, Plus, Minus, Cross } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import type { LineItem } from '@commerce/types/cart'
-import usePrice from '@framework/product/use-price'
-import useUpdateItem from '@framework/cart/use-update-item'
-import useRemoveItem from '@framework/cart/use-remove-item'
+// import usePrice from '@framework/product/use-price'
+// import useUpdateItem from '@framework/cart/use-update-item'
+// import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
 
 type ItemOption = {
@@ -31,36 +31,36 @@ const CartItem = ({
   const { closeSidebarIfPresent } = useUI()
   const [removing, setRemoving] = useState(false)
   const [quantity, setQuantity] = useState<number>(item.quantity)
-  const removeItem = useRemoveItem()
-  const updateItem = useUpdateItem({ item })
+  // const removeItem = useRemoveItem()
+  // const updateItem = useUpdateItem({ item })
 
-  const { price } = usePrice({
-    amount: item.variant.price * item.quantity,
-    baseAmount: item.variant.listPrice * item.quantity,
-    currencyCode,
-  })
+  // const { price } = usePrice({
+  //   amount: item.variant.price * item.quantity,
+  //   baseAmount: item.variant.listPrice * item.quantity,
+  //   currencyCode,
+  // })
 
-  const handleChange = async ({
-    target: { value },
-  }: ChangeEvent<HTMLInputElement>) => {
-    setQuantity(Number(value))
-    await updateItem({ quantity: Number(value) })
-  }
+  // const handleChange = async ({
+  //   target: { value },
+  // }: ChangeEvent<HTMLInputElement>) => {
+  //   setQuantity(Number(value))
+  //   await updateItem({ quantity: Number(value) })
+  // }
 
-  const increaseQuantity = async (n = 1) => {
-    const val = Number(quantity) + n
-    setQuantity(val)
-    await updateItem({ quantity: val })
-  }
+  // const increaseQuantity = async (n = 1) => {
+  //   const val = Number(quantity) + n
+  //   setQuantity(val)
+  //   await updateItem({ quantity: val })
+  // }
 
-  const handleRemove = async () => {
-    setRemoving(true)
-    try {
-      await removeItem(item)
-    } catch (error) {
-      setRemoving(false)
-    }
-  }
+  // const handleRemove = async () => {
+  //   setRemoving(true)
+  //   try {
+  //     await removeItem(item)
+  //   } catch (error) {
+  //     setRemoving(false)
+  //   }
+  // }
 
   // TODO: Add a type for this
   const options = (item as any).options
@@ -82,8 +82,8 @@ const CartItem = ({
       })}
       {...rest}
     >
-      <div className="flex flex-row space-x-4 py-4">
-        <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
+      <div className="flex flex-row py-4 space-x-4">
+        <div className="relative z-0 w-16 h-16 overflow-hidden cursor-pointer bg-violet">
           <Link href={`/product/${item.path}`}>
             <Image
               onClick={() => closeSidebarIfPresent()}
@@ -96,7 +96,7 @@ const CartItem = ({
             />
           </Link>
         </div>
-        <div className="flex-1 flex flex-col text-base">
+        <div className="flex flex-col flex-1 text-base">
           <Link href={`/product/${item.path}`}>
             <span
               className={s.productName}
@@ -110,18 +110,18 @@ const CartItem = ({
               {options.map((option: ItemOption, i: number) => (
                 <div
                   key={`${item.id}-${option.name}`}
-                  className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center"
+                  className="inline-flex items-center justify-center text-sm font-semibold text-accent-7"
                 >
                   {option.name}
                   {option.name === 'Color' ? (
                     <span
-                      className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden"
+                      className="inline-flex items-center justify-center w-5 h-5 p-1 mx-2 overflow-hidden bg-transparent border rounded-full text-accent-9"
                       style={{
                         backgroundColor: `${option.value}`,
                       }}
                     ></span>
                   ) : (
-                    <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden">
+                    <span className="inline-flex items-center justify-center h-5 p-1 mx-2 overflow-hidden bg-transparent border rounded-full text-accent-9">
                       {option.value}
                     </span>
                   )}
@@ -135,10 +135,10 @@ const CartItem = ({
           )}
         </div>
         <div className="flex flex-col justify-between space-y-2 text-sm">
-          <span>{price}</span>
+          {/* <span>{price}</span> */}
         </div>
       </div>
-      {variant === 'default' && (
+      {/* {variant === 'default' && (
         <Quantity
           value={quantity}
           handleRemove={handleRemove}
@@ -146,7 +146,7 @@ const CartItem = ({
           increase={() => increaseQuantity(1)}
           decrease={() => increaseQuantity(-1)}
         />
-      )}
+      )} */}
     </li>
   )
 }

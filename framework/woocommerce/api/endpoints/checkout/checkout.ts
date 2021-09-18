@@ -1,0 +1,38 @@
+import {
+  WOOCOMMERCE_CHECKOUT_ID_COOKIE,
+  WOOCOMMERCE_CHECKOUT_URL_COOKIE,
+  WOOCOMMERCE_CUSTOMER_TOKEN_COOKIE,
+} from '../../../const'
+import associateCustomerWithCheckoutMutation from '../../../utils/mutations/associate-customer-with-checkout'
+import type { CheckoutEndpoint } from '.'
+
+const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
+  req,
+  res,
+  config,
+}) => {
+  const { cookies } = req
+  const checkoutUrl = cookies[WOOCOMMERCE_CHECKOUT_URL_COOKIE]
+  const customerCookie = cookies[WOOCOMMERCE_CUSTOMER_TOKEN_COOKIE]
+
+  if (customerCookie) {
+    try {
+      await config.fetch(associateCustomerWithCheckoutMutation, {
+        variables: {
+          checkoutId: cookies[WOOCOMMERCE_CHECKOUT_ID_COOKIE],
+          customerAccessToken: cookies[WOOCOMMERCE_CUSTOMER_TOKEN_COOKIE],
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  if (checkoutUrl) {
+    res.redirect(checkoutUrl)
+  } else {
+    res.redirect('/cart')
+  }
+}
+
+export default checkout

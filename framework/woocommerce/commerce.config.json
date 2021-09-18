@@ -1,0 +1,10 @@
+{
+  "provider": "woocommerce",
+  "features": {
+    "cart": false,
+    "search": false,
+    "wishlist": false,
+    "customerAuth": false,
+    "customCheckout": false
+  }
+}
