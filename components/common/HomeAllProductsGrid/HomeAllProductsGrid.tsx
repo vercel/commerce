@@ -28,7 +28,7 @@ const HomeAllProductsGrid: FC<Props> = ({
               </Link>
             </li>
             {categories.map((cat: any) => (
-              <li key={cat.path} className="py-1 text-accent-8 text-base">
+              <li key={cat.path} className="py-1 text-base text-accent-8">
                 <Link href={getCategoryPath(cat.path)}>
                   <a>{cat.name}</a>
                 </Link>
@@ -42,7 +42,7 @@ const HomeAllProductsGrid: FC<Props> = ({
               </Link>
             </li>
             {brands.flatMap(({ node }: any) => (
-              <li key={node.path} className="py-1 text-accent-8 text-base">
+              <li key={node.path} className="py-1 text-base text-accent-8">
                 <Link href={getDesignerPath(node.path)}>
                   <a>{node.name}</a>
                 </Link>
