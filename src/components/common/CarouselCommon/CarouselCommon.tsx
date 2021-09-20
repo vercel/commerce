@@ -72,13 +72,14 @@ const CarouselCommon = <T,>({
         responsive={responsive}
         arrows={false}
         renderDotsOutside={true}
+        ssr={true}
         // customLeftArrow={<CustomCarouselArrow side="left" />}
         // customRightArrow={<CustomCarouselArrow side="right" />}
       >
-        {data?.map((props, index) => {
+        {data.map((props, index) => {
           const allProps = defaultComponentProps
-            ? { ...props, ...defaultComponentProps }
-            : props
+          ? { ...props, ...defaultComponentProps }
+          : props
           return <Component {...allProps} key={`${itemKey}-${index}`} />
         })}
       </Carousel>

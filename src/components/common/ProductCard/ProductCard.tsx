@@ -32,7 +32,6 @@ const ProductCard = ({
     </div>
 
   }
-
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>

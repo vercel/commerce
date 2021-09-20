@@ -1,8 +1,11 @@
 @import "../../../../styles/utilities";
 
 .bannerItem {
-  @apply bg-primary-light shape-common-lg overflow-hidden;
+  @apply bg-primary-light shape-common-lg overflow-hidden w-full;
   padding: 0;
+  @screen lg {
+    max-height: 42rem;
+  }
   &.large {
     margin-bottom: 2.8rem;
     background-image: url("./pattern.svg");

@@ -3,6 +3,7 @@ import React, { memo } from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import CarouselCommon from '../CarouselCommon/CarouselCommon'
 import BannerItem, { BannerItemProps } from './BannerItem/BannerItem'
+import s from './Banner.module.scss'
 
 interface Props {
     data: BannerItemProps[],
@@ -29,13 +30,15 @@ const Banner = memo(({ data }: Props) => {
         />
     }
     return (
-        <CarouselCommon<BannerItemProps>
-            data={data}
-            itemKey="banner"
-            Component={BannerItem}
-            responsive={RESPONSIVE}
-            showDots={true}
-        />
+        <div className={s.bannerWrap}>
+            <CarouselCommon<BannerItemProps>
+                data={data}
+                itemKey="banner"
+                Component={BannerItem}
+                responsive={RESPONSIVE}
+                showDots={true}
+            />
+        </div>
     )
 })
 

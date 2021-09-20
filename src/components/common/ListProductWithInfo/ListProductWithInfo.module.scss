@@ -20,12 +20,18 @@
     }
     .productsWrap {
         @apply spacing-horizontal-left;
+        overflow: hidden;
         @screen lg {
-            max-width: 75%;
+            flex: 1;
+            // max-width: 75%;
             padding: 0 0.8rem;
             > div > div {
                 @apply shape-common-lg bg-white;
                 padding: 4rem 0;
+            }
+            > div {
+                margin: 0 2.4;
+                overflow: visible
             }
             :global(.customArrow) {
                 @screen lg {
@@ -40,7 +46,7 @@
         }
         @screen xl {
             padding: 0 2.4rem;
-            max-width: 80%;
+            // max-width: 80%;
         }
     }
 }

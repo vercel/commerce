@@ -26,7 +26,7 @@ const DATA = [
 
 const RESPONSIVE: ResponsiveType = {
     desktop: {
-      breakpoint: { max: 999, min: 0 },
+      breakpoint: { max: 9999, min: 0 },
       items: 1,
       slidesToSlide: 1, // optional, default to 1.
     },

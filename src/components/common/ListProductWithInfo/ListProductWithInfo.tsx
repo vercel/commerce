@@ -80,6 +80,7 @@ const ListProductWithInfo = ({ data, title, subtitle, hasBorderBottomMobile }: P
                 <CarouselCommon<ProductCardProps>
                     data={data}
                     Component={ProductCard}
+                    // draggable={true} infinite={true}
                     itemKey={title}
                     responsive={RESPONSIVE}
                 />
