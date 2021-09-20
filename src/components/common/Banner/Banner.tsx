@@ -1,4 +1,3 @@
-import { TOptionsEvents } from 'keen-slider'
 import React, { memo } from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import CarouselCommon from '../CarouselCommon/CarouselCommon'

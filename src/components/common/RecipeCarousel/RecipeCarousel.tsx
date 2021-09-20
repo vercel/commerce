@@ -1,4 +1,3 @@
-import { TOptionsEvents } from 'keen-slider'
 import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import CarouselCommon, {
@@ -10,25 +9,6 @@ import s from './RecipeCarousel.module.scss'
 interface RecipeCarouselProps
   extends Omit<CarouselCommonProps<RecipeCardProps>, 'Component' | 'option'> {}
 
-const OPTION_DEFAULT: TOptionsEvents = {
-  slidesPerView: 1.25,
-  mode: 'free',
-  spacing: 24,
-  breakpoints: {
-    '(min-width: 640px)': {
-      slidesPerView: 2,
-    },
-    '(min-width: 1024px)': {
-      slidesPerView: 2.5,
-    },
-    '(min-width: 1440px)': {
-      slidesPerView: 3,
-    },
-    '(min-width: 1536px)': {
-      slidesPerView: 3.5,
-    },
-  },
-}
 const RESPONSIVE: ResponsiveType = {
   largeDesktop: {
     breakpoint: { max: 9999, min: 1536 },

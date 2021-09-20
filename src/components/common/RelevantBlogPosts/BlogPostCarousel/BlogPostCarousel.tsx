@@ -1,4 +1,3 @@
-import { TOptionsEvents } from 'keen-slider'
 import React from 'react'
 import CarouselCommon, {
   CarouselCommonProps,

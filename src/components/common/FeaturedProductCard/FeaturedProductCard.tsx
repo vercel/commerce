@@ -5,7 +5,7 @@ import { LANGUAGE } from '../../../utils/language.utils'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 import { ImgWithLink } from '..'
-interface FeaturedProductCardProps extends FeaturedProductProps {
+export interface FeaturedProductCardProps extends FeaturedProductProps {
   buttonText?: string
 }
 

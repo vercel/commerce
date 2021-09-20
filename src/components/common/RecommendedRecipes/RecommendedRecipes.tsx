@@ -1,4 +1,3 @@
-import { TOptionsEvents } from 'keen-slider';
 import React from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, HeadingCommon, RecipeCard, ViewAllItem } from 'src/components/common';

@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { TOptionsEvents } from 'keen-slider';
 import React from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import CarouselCommon from '../CarouselCommon/CarouselCommon';
@@ -13,30 +12,7 @@ interface Props {
     subtitle?: string,
     hasBorderBottomMobile?: boolean,
 }
-const OPTION_DEFAULT: TOptionsEvents = {
-    slidesPerView: 2,
-    mode: 'free',
-    breakpoints: {
-        '(min-width: 640px)': {
-            slidesPerView: 3,
-        },
-        '(min-width: 768px)': {
-            slidesPerView: 3,
-        },
-        '(min-width: 1008px)': {
-            slidesPerView: 3.5,
-        },
-        '(min-width: 1024px)': {
-            slidesPerView: 2.5,
-        },
-        '(min-width: 1280px)': {
-            slidesPerView: 3.5,
-        },
-        '(min-width: 1440px)': {
-            slidesPerView: 4.5,
-        },
-    },
-}
+
 const RESPONSIVE:ResponsiveType = {
     xxl: {
         breakpoint: { max: 9999, min: 1440 },

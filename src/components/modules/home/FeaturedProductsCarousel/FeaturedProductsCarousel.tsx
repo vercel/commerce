@@ -1,4 +1,3 @@
-import { TOptionsEvents } from 'keen-slider'
 import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import { CarouselCommon, FeaturedProductCard } from 'src/components/common'
@@ -27,40 +26,14 @@ const dataDemo:FeaturedProductCardProps[] = [{
     price: "$14.00",
     imageSrc: "https://user-images.githubusercontent.com/76099413/133043633-954c105b-c703-4e5c-8f5f-7943ad633ff0.png"
 }]
-
-const OPTION_DEFAULT: TOptionsEvents = {
-    slidesPerView: 1,
-    mode: 'free',
-    breakpoints: {
-      '(min-width: 300px)': {
-        slidesPerView: 1.5,
-      },
-      '(min-width: 400px)': {
-        slidesPerView: 2,
-      },
-      '(min-width: 640px)': {
-        slidesPerView: 1.25,
-      },
-      '(min-width: 768px)': {
-        slidesPerView: 1.075,
-      },
-      '(min-width: 968px)': {
-        slidesPerView: 1.175,
-      },
-      '(min-width: 1024px)': {
-        slidesPerView: 1.375,
-      },'(min-width: 1148px)': {
-        slidesPerView: 1.5,
-      },'(min-width: 1280px)': {
-        slidesPerView: 1.75,
-      },'(min-width: 1440px)': {
-        slidesPerView: 2.075,
-      },
-    },
-  }
   const RESPONSIVE: ResponsiveType = {
+    hugeScreen: {
+      breakpoint: { max: 9999, min: 1500 },
+      items: 2.25,
+      slidesToSlide: 1, // optional, default to 1.
+    },
     largeScreen: {
-      breakpoint: { max: 9999, min: 1440 },
+      breakpoint: { max: 1500, min: 1440 },
       items: 2.075,
       slidesToSlide: 1, // optional, default to 1.
     },

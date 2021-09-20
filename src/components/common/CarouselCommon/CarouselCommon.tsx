@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import 'keen-slider/keen-slider.min.css'
 import { CustomCarouselArrow } from './CustomArrow/CustomCarouselArrow'
 import s from './CarouselCommon.module.scss'
 import classNames from 'classnames'
@@ -15,7 +14,6 @@ export interface CarouselCommonProps<T>
   data: T[]
   Component: React.ComponentType<T>
   itemKey: String
-  keenClassname?: string
   isPadding?: boolean
   defaultComponentProps?: object
   responsive?: ResponsiveType

@@ -2,7 +2,6 @@ import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import React, { FC, useEffect } from 'react';
 import { CustomShapeSvg, Head } from 'src/components/common';
-import 'keen-slider/keen-slider.min.css';
 import '../src/styles/main.scss';
 
 
