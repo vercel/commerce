@@ -1,4 +1,5 @@
 import React from 'react'
+import { ResponsiveType } from 'react-multi-carousel'
 import { CarouselCommon } from 'src/components/common'
 import ProductImgItem, { ProductImgItemProps } from '../ProductImgItem/ProductImgItem'
 import s from './ProductImgs.module.scss'
@@ -23,10 +24,13 @@ const DATA = [
     }
 ]
 
-const option = {
-    slidesPerView: 1,
-}
-
+const RESPONSIVE: ResponsiveType = {
+    desktop: {
+      breakpoint: { max: 9999, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  }
 const ProductImgs = ({ }: Props) => {
     return (
         <section className={s.productImgs}>
@@ -34,8 +38,8 @@ const ProductImgs = ({ }: Props) => {
                 data={DATA}
                 itemKey="product-detail-img"
                 Component={ProductImgItem}
-                option={option}
-                isDot={true}
+                responsive={RESPONSIVE}
+                showDots={true}
             />
         </section >
     )

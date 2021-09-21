@@ -1,0 +1,16 @@
+@import '../../../../styles/utilities';
+.warpper {
+  @apply spacing-horizontal;
+  @screen xl {
+    :global(.customArrow) {
+      @screen lg {
+        &:global(.leftArrow) {
+          left: calc(-6.4rem - 2rem);
+        }
+        &:global(.rightArrow) {
+          right: calc(-6.4rem - 2rem);
+        }
+      }
+    }
+  }
+}

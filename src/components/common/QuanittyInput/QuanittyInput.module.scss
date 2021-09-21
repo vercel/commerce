@@ -1,9 +1,8 @@
 @import '../../../styles/utilities';
 .quanittyInputWarper {
     @apply shape-common-border;
+    padding: 0.5px 0;
     &::before{
-        height: 100%;
-        top: 1px;
         background-color: var(--text-active);
     }
     .inner {

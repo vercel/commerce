@@ -14,9 +14,10 @@
             @apply flex;
         }
         .categories{
+            padding-right: 2.4rem;
             @apply hidden;
             @screen md {
-                @apply hidden;
+                @apply block;
             }
             @screen xl{
                 @apply block;

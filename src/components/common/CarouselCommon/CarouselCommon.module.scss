@@ -1,59 +1,75 @@
 @import '../../../styles/utilities';
 .navigationWrapper {
   @apply relative;
+  overflow: hidden;
   min-height: theme('caroucel.arrow-height');
   .isPadding {
-    @apply spacing-horizontal;
+    // @apply spacing-horizontal;
+  }
+  .showDots {
+    padding-bottom: 2.4rem;
+  }
+  :global {
+    .react-multi-carousel-dot-list {
+      li {
+				button{
+					outline: none;
+					&:focus {
+						outline: none;
+					}
+				}
+      }
+    }
   }
   :global(.customArrow) {
     width: 64px;
     height: 64px;
-	border-radius: .8rem;
-	backdrop-filter: saturate(180%) blur(10px);
+    border-radius: 0.8rem;
+    backdrop-filter: saturate(180%) blur(10px);
     &:focus {
       outline: none;
     }
     @apply absolute top-1/2 bg-background-arrow transform -translate-y-1/2 flex justify-center items-center transition duration-100;
     &:global(.leftArrow) {
-		@apply  hidden left-0;
-		@screen md {
-			@apply flex
-		}
+      @apply hidden left-0;
+      @screen md {
+        @apply flex;
+      }
     }
     &:global(.rightArrow) {
-		@apply  hidden right-0;
-		@screen md {
-			@apply flex;
-		}
+      @apply hidden right-0;
+      @screen md {
+        @apply flex;
+      }
     }
     &:global(.isDisabledArrow) {
       @apply hidden;
     }
   }
-	:global {
-		.dots {
-			display: flex;
-			padding: 1rem 0;
-			justify-content: center;
-		}
-	
-		.dot {
-			border: none;
-			width: 1rem;
-			height: 1rem;
-			background: #c5c5c5;
-			border-radius: 50%;
-			margin: 0 0.5rem;
-			padding: 0.5rem;
-			cursor: pointer;
-		}
-	
-		.dot:focus {
-			outline: none;
-		}
-	
-		.dot.active {
-			background: #000;
-		}
-	}
+  :global {
+    .dots {
+      display: flex;
+      padding: 1rem 0;
+      justify-content: center;
+    }
+
+    .dot {
+      border: none;
+      width: 1rem;
+      height: 1rem;
+      background: #c5c5c5;
+      border-radius: 50%;
+      margin: 0 0.5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .dot:focus {
+      outline: none;
+    }
+
+    .dot.active {
+      background: #000;
+    }
+  }
 }

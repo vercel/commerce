@@ -1,16 +1,21 @@
-import { TOptionsEvents } from 'keen-slider'
 import React, { memo } from 'react'
+import { ResponsiveType } from 'react-multi-carousel'
 import CarouselCommon from '../CarouselCommon/CarouselCommon'
 import BannerItem, { BannerItemProps } from './BannerItem/BannerItem'
+import s from './Banner.module.scss'
 
 interface Props {
     data: BannerItemProps[],
 }
 
-const option: TOptionsEvents = {
-    slidesPerView: 1,
-    mode: 'free',
-}
+const RESPONSIVE:ResponsiveType = {
+    desktop: {
+      breakpoint: { max: 9999, min: 0 },
+      items: 1,
+      slidesToSlide:1
+    },
+};
+
 const Banner = memo(({ data }: Props) => {
     if (data.length === 1) {
         const item = data[0]
@@ -24,13 +29,15 @@ const Banner = memo(({ data }: Props) => {
         />
     }
     return (
-        <CarouselCommon<BannerItemProps>
-            data={data}
-            itemKey="banner"
-            Component={BannerItem}
-            option={option}
-            isDot={true}
-        />
+        <div className={s.bannerWrap}>
+            <CarouselCommon<BannerItemProps>
+                data={data}
+                itemKey="banner"
+                Component={BannerItem}
+                responsive={RESPONSIVE}
+                showDots={true}
+            />
+        </div>
     )
 })
 

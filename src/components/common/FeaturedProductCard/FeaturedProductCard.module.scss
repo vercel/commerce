@@ -1,33 +1,63 @@
 @import '../../../styles/utilities';
 .featuredProductCardWarpper{
-    width: 59.8rem;
-    height: 28.8rem;
+    // min-width: 30.2rem;
+    height: 14.4rem;
     padding: 2.4rem;
-    @apply bg-primary-light inline-flex justify-start items-center shape-common;
+    @apply bg-primary-light inline-flex justify-start items-center shape-common ;
+    @screen md {
+        // min-width: 598px;
+        height: 28.8rem;
+        padding: 1.6rem 3.2rem 1.6rem 1.6rem;
+    }
+    @screen 2xl {
+        // min-width: 598px;
+        height: 28.8rem;
+        padding: 2.4rem 4rem 2.4rem 2.4rem;
+    }
     .left{
-        width: 24rem;
-        height: 24rem;
+        width: 10rem;
+        height: 10rem;
+        @screen md {
+            width: 24rem;
+            height: 24rem;
+        }
     }
     .right{
-        padding-left: 2.4rem;
-        min-width: 27rem;
-        max-width: 28.6rem;
-        min-height: 16.8rem;
+        margin-left: 1.2rem;
+        // min-width: 27rem;
+        max-width: 16.6rem;
+        max-height: 10rem;
         @apply flex justify-between flex-col;
+        @screen md {
+            margin-left: 2.4rem;
+            max-width: 27.0rem;
+            min-height: 16.8rem;
+        }
         .rightTop{
-            min-height: 9.6rem;
+            min-height: 6rem;
+            @screen md {
+                min-height: 9.6rem;
+            }
             @apply flex justify-between flex-col;
             .title{
                 @apply font-bold;
-                font-size: 2rem;
-                line-height: 2.8rem;
+                font-size: 1.2rem;
+                line-height: 1.6rem;
                 letter-spacing: -0.01em;
                 color: var(--text-active);
+                @screen md {
+                    font-size: 2rem;
+                    line-height: 2.8rem;
+                }
             }
             .subTitle{
                 color: var(--text-base);
-                font-size: 1.6rem;
-                line-height: 2.4rem;
+                font-size: 1.2rem;
+                line-height: 1.6rem;
+                @screen md {
+                    font-size: 1.6rem;
+                    line-height: 2.4rem;
+                }
             }
             .priceWrapper{
                 @apply flex justify-start sm-headline;
