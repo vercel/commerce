@@ -16,7 +16,7 @@ async function getToken(baseUrl: string) {
       'Content-Type': 'application/x-www-form-urlencoded',
       Accept: 'application/json',
     },
-    body: `client_id=${process.env.NEXT_PUBLIC_ORDERCLOUD_CLIENT_ID}&grant_type=client_credentials`,
+    body: `client_id=${process.env.ORDERCLOUD_CLIENT_ID}&client_secret=${process.env.ORDERCLOUD_CLIENT_SECRET}&grant_type=client_credentials`,
   })
 
   // If something failed getting the auth response
@@ -93,8 +93,6 @@ export async function fetchData<T>(
       // Refetch
       return fetchData(opts, retries + 1)
     }
-
-    console.log('dataResponse.text:', await dataResponse.textConverted());
 
     // Get the body of it
     const error = await dataResponse.json()
