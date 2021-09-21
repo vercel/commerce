@@ -54,7 +54,7 @@ const dataDemo:FeaturedProductCardProps[] = [{
     },
     lap: {
       breakpoint: { max: 1024, min: 968 },
-      items: 1.75,
+      items: 1.7,
     },
     tablet: {
       breakpoint: { max: 968, min: 768 },
@@ -66,11 +66,11 @@ const dataDemo:FeaturedProductCardProps[] = [{
     },
     largeMobile: {
       breakpoint: { max: 640, min: 400 },
-      items: 2,
+      items: 1.5,
     },
     mobile: {
       breakpoint: { max: 400, min: 300 },
-      items: 1.5,
+      items: 1.15,
     },
     smallMobile: {
       breakpoint: { max: 300, min: 0 },

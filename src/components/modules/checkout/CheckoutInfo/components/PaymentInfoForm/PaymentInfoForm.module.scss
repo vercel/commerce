@@ -12,5 +12,11 @@
             font-size: 1.2rem;
             line-height: 2rem;
         }
+        @screen sm-only {
+            @apply flex-col items-start;
+            .button {
+                padding-top: 2rem;
+            }
+        }
     }
 }

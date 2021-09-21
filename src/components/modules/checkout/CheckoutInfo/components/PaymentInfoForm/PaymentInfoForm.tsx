@@ -44,9 +44,11 @@ const PaymentInfoForm = ({onConfirm,id}: PaymentInfoFormProps) => {
           }
           .
         </div>
-        <ButtonCommon onClick={handleConfirmClick}>
-          Submit Order
-        </ButtonCommon>
+        <div className={s.button}>
+          <ButtonCommon onClick={handleConfirmClick}>
+            Submit Order
+          </ButtonCommon>
+        </div>
       </div>
     </div>
   )
