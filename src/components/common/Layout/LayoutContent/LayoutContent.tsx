@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { useCartDrawer } from 'src/components/contexts/CartDrawer/CartDrawerContext'
 import { useModalCommon } from 'src/components/hooks'
 import { BRAND, CATEGORY, FEATURED, FILTER_PAGE, ROUTE } from 'src/utils/constanst.utils'
 import { CartDrawer, Footer, ScrollToTop } from '../..'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCartDrawer } from 'src/components/contexts/CartDrawer/CartDrawerContext';
+import { useCartDrawer } from 'src/components/contexts';
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { DrawerCommon } from '..';
 import s from './CartDrawer.module.scss';
