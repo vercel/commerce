@@ -1,9 +1,10 @@
 import forceIsomorphicConfigValues from './utils/force-isomorphic-config-values'
 import requireConfig from './utils/require-config'
-import validateAllProductsTaxonomyId from './utils/validate-all-products-taxonomy-id'
-import validateCookieExpire from './utils/validate-cookie-expire'
-import validatePlaceholderImageUrl from './utils/validate-placeholder-image-url'
-import validateProductsPrerenderCount from './utils/validate-products-prerender-count'
+import validateAllProductsTaxonomyId from './utils/validations/validate-all-products-taxonomy-id'
+import validateCookieExpire from './utils/validations/validate-cookie-expire'
+import validateImagesOptionFilter from './utils/validations/validate-images-option-filter'
+import validatePlaceholderImageUrl from './utils/validations/validate-placeholder-image-url'
+import validateProductsPrerenderCount from './utils/validations/validate-products-prerender-count'
 
 const isomorphicConfig = {
   apiHost: process.env.NEXT_PUBLIC_SPREE_API_HOST,
@@ -31,6 +32,9 @@ const isomorphicConfig = {
   lineItemPlaceholderImageUrl: validatePlaceholderImageUrl(
     process.env.NEXT_PUBLIC_SPREE_LINE_ITEM_PLACEHOLDER_IMAGE_URL
   ),
+  imagesOptionFilter: validateImagesOptionFilter(
+    process.env.NEXT_PUBLIC_SPREE_IMAGES_OPTION_FILTER
+  ),
 }
 
 export default forceIsomorphicConfigValues(
@@ -49,6 +53,7 @@ export default forceIsomorphicConfigValues(
     'lastUpdatedProductsPrerenderCount',
     'productPlaceholderImageUrl',
     'lineItemPlaceholderImageUrl',
+    'imagesOptionFilter',
   ]
 )
 
