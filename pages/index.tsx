@@ -10,8 +10,8 @@ export default function Home() {
       <HomeCategories />
       <HomeCollection />
       <HomeVideo />
-      <FeaturedProductsCarousel/>
       <HomeSpice/>
+      <FeaturedProductsCarousel/>
       <HomeCTA />
       <HomeRecipe />  
       <HomeSubscribe />
