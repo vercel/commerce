@@ -2,8 +2,11 @@
 
 
 .cartDrawer {
-    @apply flex flex-col h-full;
+    @apply flex flex-col custom-scroll;
+    @screen md {
+        @apply h-full;
+    }
     .body {
-        @apply flex flex-col overflow-y-auto overflow-x-hidden h-full custom-scroll;
+        @apply flex flex-col overflow-x-hidden h-full custom-scroll;
     }
 }

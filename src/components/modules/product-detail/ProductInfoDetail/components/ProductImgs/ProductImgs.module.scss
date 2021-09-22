@@ -3,6 +3,9 @@
     @screen sm-only {
         margin-bottom: 2rem;
     }
+@screen md {
+    max-width: 50%;
+}
     @screen lg {
         max-width: 60rem;
     }
