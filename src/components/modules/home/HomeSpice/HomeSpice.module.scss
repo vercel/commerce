@@ -1,3 +1,6 @@
 .homeSpiceWarpper{
-    margin-bottom: 8rem;    
+    margin-bottom: 4rem;
+    @screen md{
+        margin-bottom: 8rem;
+    }
 }

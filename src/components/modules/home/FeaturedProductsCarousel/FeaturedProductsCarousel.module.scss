@@ -1,6 +1,7 @@
 @import '../../../../styles/utilities';
 .warpper {
   @apply spacing-horizontal;
+  margin-bottom: 5.6rem;
   @screen xl {
     :global(.customArrow) {
       @screen lg {
@@ -12,5 +13,8 @@
         }
       }
     }
+  }
+  .heading{
+    padding: 2rem;
   }
 }
