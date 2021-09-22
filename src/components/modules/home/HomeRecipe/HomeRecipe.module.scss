@@ -3,6 +3,7 @@
 .homeRecipeWarpper {
   padding-top: 5.6rem;
   padding-bottom: 6.5rem;
+  
   @apply flex flex-col;
   .top {
     @apply spacing-horizontal flex w-full justify-between;

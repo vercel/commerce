@@ -1,10 +1,10 @@
 import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
-import { CarouselCommon, FeaturedProductCard } from 'src/components/common'
+import { CarouselCommon, FeaturedProductCard,HeadingCommon} from 'src/components/common'
 import { FeaturedProductCardProps } from 'src/components/common/FeaturedProductCard/FeaturedProductCard'
 import s from "./FeaturedProductsCarousel.module.scss"
 interface FeaturedProductsCarouselProps {
-    
+  title?: string
 }
 
 const dataDemo:FeaturedProductCardProps[] = [{
@@ -66,11 +66,11 @@ const dataDemo:FeaturedProductCardProps[] = [{
     },
     largeMobile: {
       breakpoint: { max: 640, min: 400 },
-      items: 1.5,
+      items: 1.275,
     },
     mobile: {
       breakpoint: { max: 400, min: 300 },
-      items: 1.15,
+      items: 1.1,
     },
     smallMobile: {
       breakpoint: { max: 300, min: 0 },
@@ -78,9 +78,12 @@ const dataDemo:FeaturedProductCardProps[] = [{
     },
   }
 
-const FeaturedProductsCarousel = ({}: FeaturedProductsCarouselProps) => {
+const FeaturedProductsCarousel = ({title="Featured Products"}: FeaturedProductsCarouselProps) => {
     return (
         <div className={s.warpper}>
+           <div className={s.heading}>
+            <HeadingCommon>{title}</HeadingCommon>
+          </div>
             <CarouselCommon<FeaturedProductCardProps> data={dataDemo} Component={FeaturedProductCard} itemKey="featured-products" responsive={RESPONSIVE}/>
         </div>
     )
