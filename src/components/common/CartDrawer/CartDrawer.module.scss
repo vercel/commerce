@@ -3,7 +3,10 @@
 
 .cartDrawer {
     @apply flex flex-col custom-scroll;
+    @screen md {
+        @apply h-full;
+    }
     .body {
-        @apply flex flex-col overflow-x-hidden h-full;
+        @apply flex flex-col overflow-x-hidden h-full custom-scroll;
     }
 }

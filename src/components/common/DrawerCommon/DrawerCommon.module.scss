@@ -30,12 +30,12 @@
         @apply flex flex-col bg-white;
         width: fit-content;
         height: 100vh;
-        width: 100%;
+        width: 90%;
         margin-left: auto;
         box-shadow: -3px 0 10px rgba(0, 0, 0, 0.15);
-        // transform: none;
 
         @screen md {
+            width: 100%;
             max-width: 52rem;
         }
         .top {
