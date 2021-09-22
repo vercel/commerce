@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCartDrawer } from 'src/components/contexts/CartDrawer/CartDrawerContext';
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { DrawerCommon } from '..';
 import s from './CartDrawer.module.scss';
@@ -8,24 +9,24 @@ import CartRecommendation from './components/CartRecommendation/CartRecommendati
 import ProductsInCart from './components/ProductsInCart/ProductsInCart';
 
 interface Props {
-  visible: boolean
-  onClose: () => void
+
 }
 
-const CartDrawer = ({ visible, onClose }: Props) => {
+const CartDrawer = ({ }: Props) => {
+  const { cartVisible, closeCartDrawer } = useCartDrawer()
   return (
     <DrawerCommon
       title={`Your cart (${PRODUCT_CART_DATA_TEST.length})`}
-      visible={visible}
-      onClose={onClose}>
+      visible={cartVisible}
+      onClose={closeCartDrawer}>
       <div className={s.cartDrawer}>
         <div className={s.body}>
-          <ProductsInCart data={PRODUCT_CART_DATA_TEST}/>
+          <ProductsInCart data={PRODUCT_CART_DATA_TEST} />
           <CartRecommendation />
         </div>
         <div>
           <CartMessage />
-          <CartCheckoutButton onClose={onClose}/>
+          <CartCheckoutButton onClose={closeCartDrawer} />
         </div>
       </div>
     </DrawerCommon>

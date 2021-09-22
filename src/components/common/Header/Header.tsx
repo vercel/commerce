@@ -19,15 +19,6 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
     const { visible: visibleModalInfo, closeModal: closeModalInfo, openModal: openModalInfo } = useModalCommon({ initialValue: false })
-    const { visible: visibleCartDrawer, openModal: openCartDrawer, closeModal: closeCartDrawer } = useModalCommon({ initialValue: false })
-
-    const toggleCart = () => {
-        if (visibleCartDrawer) {
-            closeCartDrawer()
-        } else {
-            openCartDrawer()
-        }
-    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -36,10 +27,6 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
             } else {
                 setIsFullHeader(true)
             }
-            // if (!isMobile()) {
-            // } else {
-            //     setIsFullHeader(true)
-            // }
         }
         window.addEventListener('scroll', handleScroll)
         return () => {
@@ -56,7 +43,6 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
                 <HeaderMenu
                     isStickyHeader={true}
                     toggleFilter={toggleFilter}
-                    toggleCart={toggleCart}
                     openModalAuthen={openModalAuthen}
                     openModalInfo={openModalInfo} />
             </div>
@@ -68,7 +54,6 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
                         isFull={isFullHeader}
                         visibleFilter={visibleFilter}
                         toggleFilter={toggleFilter}
-                        toggleCart={toggleCart}
                         openModalAuthen={openModalAuthen}
                         openModalInfo={openModalInfo} />
                     <HeaderSubMenu />
@@ -78,9 +63,7 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
             <HeaderSubMenuMobile />
             <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />
             <ModalCreateUserInfo demoVisible={visibleModalInfo} demoCloseModal={closeModalInfo} />
-            <CartDrawer
-                visible={visibleCartDrawer}
-                onClose={closeCartDrawer} />
+            
         </>
     )
 })

@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react'
 import { ButtonCommon } from 'src/components/common'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
+import { useCartDrawer } from 'src/components/contexts/CartDrawer/CartDrawerContext'
 import { IconBuy, IconFilter, IconHeart, IconHistory, IconUser } from 'src/components/icons'
 import { ACCOUNT_TAB, FILTER_PAGE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import Logo from '../../../Logo/Logo'
@@ -17,13 +18,12 @@ interface Props {
     openModalAuthen: () => void,
     openModalInfo: () => void,
     toggleFilter: () => void,
-    toggleCart: () => void,
 }
 
 
-const HeaderMenu = memo(({ isFull, isStickyHeader, visibleFilter, openModalAuthen, openModalInfo, toggleFilter, toggleCart }: Props) => {
+const HeaderMenu = memo(({ isFull, isStickyHeader, visibleFilter, openModalAuthen, openModalInfo, toggleFilter }: Props) => {
     const router = useRouter()
-
+    const { toggleCartDrawer } = useCartDrawer()
 
     const optionMenu = useMemo(() => [
         {
@@ -74,7 +74,7 @@ const HeaderMenu = memo(({ isFull, isStickyHeader, visibleFilter, openModalAuthe
                                 </button>
                             )
                         }
-                        <button className={`${s.iconCart} ${s.btnCart}`} onClick={toggleCart}>
+                        <button className={`${s.iconCart} ${s.btnCart}`} onClick={toggleCartDrawer}>
                             <IconBuy />
                         </button>
                     </div>
@@ -108,7 +108,7 @@ const HeaderMenu = memo(({ isFull, isStickyHeader, visibleFilter, openModalAuthe
                     <MenuDropdown options={optionMenu} isHasArrow={false}><IconUser /></MenuDropdown>
                 </li>
                 <li>
-                    <button className={s.btnCart} onClick={toggleCart}>
+                    <button className={s.btnCart} onClick={toggleCartDrawer}>
                         <IconBuy />
                     </button>
                 </li>
