@@ -4,7 +4,7 @@
     @apply spacing-horizontal;
     margin: 0 auto 5.6rem;
     @screen md {
-        @apply flex;
+        @apply flex justify-center;
         margin: 5.6rem auto;
     }
 
@@ -15,6 +15,9 @@
 
         @screen sm-only {
             margin-bottom: 2rem;
+        }
+        @screen md {
+            max-width: 50%;
         }
         @screen lg {
             max-width: 60rem;

@@ -4,7 +4,7 @@
     @apply spacing-horizontal;
     padding-bottom: 4rem;
     @screen md {
-        @apply flex;
+        @apply flex justify-center;
         padding-bottom: 5.6rem;
     }
 }
