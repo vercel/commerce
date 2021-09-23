@@ -43,6 +43,7 @@
     "react-fast-marquee": "^1.1.4",
     "react-merge-refs": "^1.1.0",
     "react-use-measure": "^2.0.4",
+    "stripe": "^8.176.0",
     "swell-js": "^4.0.0-next.0",
     "swr": "^0.5.6",
     "tabbable": "^5.2.0",
