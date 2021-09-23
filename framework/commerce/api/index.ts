@@ -9,6 +9,8 @@ import type { SignupSchema } from '../types/signup'
 import type { ProductsSchema } from '../types/product'
 import type { WishlistSchema } from '../types/wishlist'
 import type { CheckoutSchema } from '../types/checkout'
+import type { CustomerCardSchema } from '../types/customer/card'
+import type { CustomerAddressSchema } from '../types/customer/address'
 import {
   defaultOperations,
   OPERATIONS,
@@ -25,6 +27,8 @@ export type APISchemas =
   | ProductsSchema
   | WishlistSchema
   | CheckoutSchema
+  | CustomerCardSchema
+  | CustomerAddressSchema
 
 export type GetAPISchema<
   C extends CommerceAPI<any>,
