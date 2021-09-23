@@ -1,7 +1,7 @@
 @import '../../../styles/utilities';
 .navigationWrapper {
   @apply relative;
-  overflow: hidden;
+  // overflow: hidden;
   min-height: theme('caroucel.arrow-height');
   .isPadding {
     // @apply spacing-horizontal;
