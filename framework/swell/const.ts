@@ -4,8 +4,6 @@ export const SWELL_CHECKOUT_URL_COOKIE = 'swell_checkoutUrl'
 
 export const SWELL_CUSTOMER_TOKEN_COOKIE = 'swell_customerToken'
 
-export const STORE_DOMAIN = process.env.NEXT_PUBLIC_SWELL_STORE_DOMAIN
-
 export const SWELL_COOKIE_EXPIRE = 30
 
 export const SWELL_STORE_ID = process.env.NEXT_PUBLIC_SWELL_STORE_ID

@@ -1,25 +1,39 @@
 import type { CheckoutSchema } from '../../types/checkout'
+import type { GetAPISchema } from '..'
+
 import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
-import type { GetAPISchema } from '..'
 
 const checkoutEndpoint: GetAPISchema<
   any,
   CheckoutSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, handlers } = ctx
+  const { req, res, handlers, config } = ctx
 
   if (
     !isAllowedOperation(req, res, {
-      GET: handlers['checkout'],
+      GET: handlers['getCheckout'],
+      POST: handlers['submitCheckout'],
     })
   ) {
     return
   }
 
+  const { cookies } = req
+  const cartId = cookies[config.cartCookie]
+
   try {
-    const body = null
-    return await handlers['checkout']({ ...ctx, body })
+    // Create checkout
+    if (req.method === 'GET') {
+      const body = { ...req.body, cartId }
+      return await handlers['getCheckout']?.({ ...ctx, body })
+    }
+
+    // Create checkout
+    if (req.method === 'POST') {
+      const body = { ...req.body, cartId }
+      return await handlers['submitCheckout']({ ...ctx, body })
+    }
   } catch (error) {
     console.error(error)
 

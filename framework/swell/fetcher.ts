@@ -1,11 +1,9 @@
 import { Fetcher } from '@commerce/utils/types'
-import { handleFetchResponse } from './utils'
-import { swellConfig } from './index'
 import { CommerceError } from '@commerce/utils/errors'
+import { handleFetchResponse } from './utils'
+import swell from './swell'
 
 const fetcher: Fetcher = async ({ method = 'get', variables, query }) => {
-  const { swell } = swellConfig
-
   async function callSwell() {
     if (Array.isArray(variables)) {
       const arg1 = variables[0]
