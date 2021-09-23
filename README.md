@@ -79,7 +79,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 > NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
 
-- Open `commerce.config.json` 
+- Open `commerce.config.json`
 - You'll see a config file like this:
   ```json
   {
@@ -151,5 +151,5 @@ Next, you're free to customize the starter. More updates coming soon. Stay tuned
 After Email confirmation, Checkout should be manually enabled through BigCommerce platform. Look for "Review & test your store" section through BigCommerce's dashboard.
 <br>
 <br>
-BigCommerce team has been notified and they plan to add more detailed about this subject.
+BigCommerce team has been notified and they plan to add more details about this subject.
 </details>

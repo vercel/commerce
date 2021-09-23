@@ -13,6 +13,8 @@ UI hooks and data fetching methods built from the ground up for e-commerce appli
    ```
 3. With the Vendure server running, start this project using `yarn dev` or `npm run dev`.
 
+**Note:** The Vendure server needs to be configured to use the "cookie" tokenMethod rather than "bearer" to work with this provider. For more information see the [Managing Sessions docs](https://www.vendure.io/docs/storefront/managing-sessions/).
+
 ## Known Limitations
 
 1. Vendure does not ship with built-in wishlist functionality.

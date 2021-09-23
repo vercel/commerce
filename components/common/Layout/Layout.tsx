@@ -24,7 +24,7 @@ const Loading = () => (
 )
 
 const dynamicProps = {
-  loading: () => <Loading />,
+  loading: Loading,
 }
 
 const SignUpView = dynamic(
