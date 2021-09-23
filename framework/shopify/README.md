@@ -2,7 +2,7 @@
 
 **Demo:** https://shopify.demo.vercel.store/
 
-Before getting starter, a [Shopify](https://www.shopify.com/) account and store is required before using the provider.
+Before getting started, a [Shopify](https://www.shopify.com/) account and store is required before using the provider.
 
 Next, copy the `.env.template` file in this directory to `.env.local` in the main directory (which will be ignored by Git):
 
