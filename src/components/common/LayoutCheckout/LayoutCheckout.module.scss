@@ -1,0 +1,17 @@
+@import "../../../styles/utilities";
+.layoutCheckout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    > main {
+        flex: 1;
+        position: relative;
+    }
+    .footer {
+        @apply spacing-horizontal;
+        padding-top: 3rem;
+        padding-left: 3.2rem;
+        padding-bottom: 3rem;
+        background-color: var(--gray);
+    }
+}

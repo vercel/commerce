@@ -1,11 +1,13 @@
 .warpper{
     @apply w-full;
     padding: 3.2rem;
+    @screen lg {
+        padding-right: 8.8rem;
+    }
     .title{
         margin-bottom: 3.2rem;
         @apply flex justify-between items-center;
         .viewCart{
-            margin-right: 5.6rem;
             @apply text-primary font-bold;
             display: block;
             cursor: pointer;
