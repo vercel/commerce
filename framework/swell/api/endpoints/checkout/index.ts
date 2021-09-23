@@ -3,7 +3,7 @@ import { CheckoutSchema } from '@commerce/types/checkout'
 import { SWELL_CHECKOUT_URL_COOKIE } from '../../../const'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
 
-const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
+const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
   req,
   res,
   config,
@@ -17,7 +17,7 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
     res.redirect('/cart')
   }
 }
-export const handlers: CheckoutEndpoint['handlers'] = { checkout }
+export const handlers: CheckoutEndpoint['handlers'] = { submitCheckout }
 
 export type CheckoutAPI = GetAPISchema<CommerceAPI, CheckoutSchema>
 export type CheckoutEndpoint = CheckoutAPI['endpoint']

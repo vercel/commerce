@@ -3,7 +3,7 @@ import { CommerceAPI, createEndpoint, GetAPISchema } from '@commerce/api'
 import { CheckoutSchema } from '@commerce/types/checkout'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
 
-const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
+const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
   req,
   res,
   config,
@@ -48,7 +48,7 @@ export type CheckoutAPI = GetAPISchema<CommerceAPI, CheckoutSchema>
 
 export type CheckoutEndpoint = CheckoutAPI['endpoint']
 
-export const handlers: CheckoutEndpoint['handlers'] = { checkout }
+export const handlers: CheckoutEndpoint['handlers'] = { submitCheckout }
 
 const checkoutApi = createEndpoint<CheckoutAPI>({
   handler: checkoutEndpoint,

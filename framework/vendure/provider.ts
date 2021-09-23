@@ -1,4 +1,3 @@
-import { Provider } from '@commerce'
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
 import { handler as useUpdateItem } from './cart/use-update-item'
@@ -10,7 +9,7 @@ import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 import { fetcher } from './fetcher'
 
-export const vendureProvider: Provider = {
+export const vendureProvider = {
   locale: 'en-us',
   cartCookie: 'session',
   fetcher,
@@ -19,3 +18,5 @@ export const vendureProvider: Provider = {
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
 }
+
+export type VendureProvider = typeof vendureProvider

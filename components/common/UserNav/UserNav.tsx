@@ -7,6 +7,7 @@ import useCustomer from '@framework/customer/use-customer'
 import { Avatar } from '@components/common'
 import { Heart, Bag } from '@components/icons'
 import { useUI } from '@components/ui/context'
+import Button from '@components/ui/Button'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
 
@@ -26,9 +27,11 @@ const UserNav: FC<Props> = ({ className }) => {
     <nav className={cn(s.root, className)}>
       <ul className={s.list}>
         {process.env.COMMERCE_CART_ENABLED && (
-          <li className={s.item} onClick={toggleSidebar}>
-            <Bag />
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+          <li className={s.item}>
+            <Button className={s.item} variant="naked" onClick={toggleSidebar} aria-label="Cart">
+              <Bag />
+              {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+            </Button>
           </li>
         )}
         {process.env.COMMERCE_WISHLIST_ENABLED && (

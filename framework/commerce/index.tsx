@@ -15,6 +15,7 @@ import type {
   Signup,
   Login,
   Logout,
+  Checkout,
 } from '@commerce/types'
 
 import type { Fetcher, SWRHook, MutationHook } from './utils/types'
@@ -29,6 +30,10 @@ export type Provider = CommerceConfig & {
     useUpdateItem?: MutationHook<Cart.UpdateItemHook>
     useRemoveItem?: MutationHook<Cart.RemoveItemHook>
   }
+  checkout?: {
+    useCheckout?: SWRHook<Checkout.GetCheckoutHook>
+    useSubmitCheckout?: MutationHook<Checkout.SubmitCheckoutHook>
+  }
   wishlist?: {
     useWishlist?: SWRHook<Wishlist.GetWishlistHook>
     useAddItem?: MutationHook<Wishlist.AddItemHook>
@@ -36,6 +41,18 @@ export type Provider = CommerceConfig & {
   }
   customer?: {
     useCustomer?: SWRHook<Customer.CustomerHook>
+    card?: {
+      useCards?: SWRHook<Customer.Card.GetCardsHook>
+      useAddItem?: MutationHook<Customer.Card.AddItemHook>
+      useUpdateItem?: MutationHook<Customer.Card.UpdateItemHook>
+      useRemoveItem?: MutationHook<Customer.Card.RemoveItemHook>
+    }
+    address?: {
+      useAddresses?: SWRHook<Customer.Address.GetAddressesHook>
+      useAddItem?: MutationHook<Customer.Address.AddItemHook>
+      useUpdateItem?: MutationHook<Customer.Address.UpdateItemHook>
+      useRemoveItem?: MutationHook<Customer.Address.RemoveItemHook>
+    }
   }
   products?: {
     useSearch?: SWRHook<Product.SearchProductsHook>
@@ -47,49 +64,58 @@ export type Provider = CommerceConfig & {
   }
 }
 
-export type CommerceProps<P extends Provider> = {
-  children?: ReactNode
-  provider: P
-  config: CommerceConfig
-}
-
-export type CommerceConfig = Omit<
-  CommerceContextValue<any>,
-  'providerRef' | 'fetcherRef'
->
-
-export type CommerceContextValue<P extends Provider> = {
-  providerRef: MutableRefObject<P>
-  fetcherRef: MutableRefObject<Fetcher>
+export type CommerceConfig = {
   locale: string
   cartCookie: string
 }
 
-export function CommerceProvider<P extends Provider>({
+export type CommerceContextValue<P extends Provider> = {
+  providerRef: MutableRefObject<P>
+  fetcherRef: MutableRefObject<Fetcher>
+} & CommerceConfig
+
+export type CommerceProps<P extends Provider> = {
+  children?: ReactNode
+  provider: P
+}
+
+/**
+ * These are the properties every provider should allow when implementing
+ * the core commerce provider
+ */
+export type CommerceProviderProps = {
+  children?: ReactNode
+} & Partial<CommerceConfig>
+
+export function CoreCommerceProvider<P extends Provider>({
   provider,
   children,
-  config,
 }: CommerceProps<P>) {
-  if (!config) {
-    throw new Error('CommerceProvider requires a valid config object')
-  }
-
   const providerRef = useRef(provider)
   // TODO: Remove the fetcherRef
   const fetcherRef = useRef(provider.fetcher)
-  // Because the config is an object, if the parent re-renders this provider
-  // will re-render every consumer unless we memoize the config
+  // If the parent re-renders this provider will re-render every
+  // consumer unless we memoize the config
+  const { locale, cartCookie } = providerRef.current
   const cfg = useMemo(
-    () => ({
-      providerRef,
-      fetcherRef,
-      locale: config.locale,
-      cartCookie: config.cartCookie,
-    }),
-    [config.locale, config.cartCookie]
+    () => ({ providerRef, fetcherRef, locale, cartCookie }),
+    [locale, cartCookie]
   )
 
   return <Commerce.Provider value={cfg}>{children}</Commerce.Provider>
+}
+
+export function getCommerceProvider<P extends Provider>(provider: P) {
+  return function CommerceProvider({
+    children,
+    ...props
+  }: CommerceProviderProps) {
+    return (
+      <CoreCommerceProvider provider={{ ...provider, ...props }}>
+        {children}
+      </CoreCommerceProvider>
+    )
+  }
 }
 
 export function useCommerce<P extends Provider>() {
