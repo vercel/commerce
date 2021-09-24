@@ -3,7 +3,7 @@ import type { Address } from './customer/address'
 import type { Card } from './customer/card'
 
 // Index
-export type Checkout = unknown;
+export type Checkout = any
 
 export type CheckoutTypes = {
   card?: Card
@@ -45,8 +45,8 @@ export type SubmitCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
   }
 
 export type CheckoutHandlers<T extends CheckoutTypes = CheckoutTypes> = {
-  getCheckout?: GetCheckoutHandler<T>
-  submitCheckout: SubmitCheckoutHandler<T>
+  getCheckout: GetCheckoutHandler<T>
+  submitCheckout?: SubmitCheckoutHandler<T>
 }
 
 export type CheckoutSchema<T extends CheckoutTypes = CheckoutTypes> = {

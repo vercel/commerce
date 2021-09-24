@@ -5,7 +5,7 @@ import { uuid } from 'uuidv4'
 
 const fullCheckout = true
 
-const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
+const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
   res,
   config,
@@ -87,4 +87,4 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
   res.end()
 }
 
-export default submitCheckout
+export default getCheckout
