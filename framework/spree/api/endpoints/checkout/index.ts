@@ -12,10 +12,7 @@ export type CheckoutAPI = GetAPISchema<
 
 export type CheckoutEndpoint = CheckoutAPI['endpoint']
 
-export const handlers: CheckoutEndpoint['handlers'] = {
-  getCheckout,
-  submitCheckout: () => {},
-}
+export const handlers: CheckoutEndpoint['handlers'] = { getCheckout }
 
 const checkoutApi = createEndpoint<CheckoutAPI>({
   handler: checkoutEndpoint,
