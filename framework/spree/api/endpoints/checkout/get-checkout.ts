@@ -1,9 +1,9 @@
 import type { CheckoutEndpoint } from '.'
 
-const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
-  req: request,
+const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
+  req: _request,
   res: response,
-  config,
+  config: _config,
 }) => {
   try {
     const html = `
@@ -41,4 +41,4 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
   }
 }
 
-export default checkout
+export default getCheckout
