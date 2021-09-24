@@ -9,6 +9,7 @@ import {
   checkoutLineItemAddMutation,
   getCheckoutId,
   checkoutToCart,
+  checkoutCreate,
 } from '../utils'
 import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
 
@@ -28,34 +29,42 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
-    const { checkoutLineItemsAdd } = await fetch<
-      Mutation,
-      MutationCheckoutLineItemsAddArgs
-    >({
-      ...options,
-      variables: {
-        checkoutId: getCheckoutId(),
-        lineItems: [
-          {
-            variantId: item.variantId,
-            quantity: item.quantity ?? 1,
-          },
-        ],
+    const lineItems = [
+      {
+        variantId: item.variantId,
+        quantity: item.quantity ?? 1,
       },
-    })
+    ]
 
-    return checkoutToCart(checkoutLineItemsAdd)
-  },
-  useHook: ({ fetch }) => () => {
-    const { mutate } = useCart()
+    let checkoutId = getCheckoutId()
 
-    return useCallback(
-      async function addItem(input) {
-        const data = await fetch({ input })
-        await mutate(data, false)
-        return data
-      },
-      [fetch, mutate]
-    )
+    if (!checkoutId) {
+      return checkoutToCart(await checkoutCreate(fetch, lineItems))
+    } else {
+      const { checkoutLineItemsAdd } = await fetch<
+        Mutation,
+        MutationCheckoutLineItemsAddArgs
+      >({
+        ...options,
+        variables: {
+          checkoutId,
+          lineItems,
+        },
+      })
+      return checkoutToCart(checkoutLineItemsAdd)
+    }
   },
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCart()
+      return useCallback(
+        async function addItem(input) {
+          const data = await fetch({ input })
+          await mutate(data, false)
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }
