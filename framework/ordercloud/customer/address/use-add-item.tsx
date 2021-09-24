@@ -2,7 +2,6 @@ import type { AddItemHook } from '@commerce/types/customer/address'
 import type { MutationHook } from '@commerce/utils/types'
 
 import { useCallback } from 'react'
-import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/customer/address/use-add-item'
 import useAddresses from './use-addresses'
 
@@ -14,15 +13,6 @@ export const handler: MutationHook<AddItemHook> = {
     method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {
-    if (
-      item.quantity &&
-      (!Number.isInteger(item.quantity) || item.quantity! < 1)
-    ) {
-      throw new CommerceError({
-        message: 'The item quantity has to be a valid integer greater than 0',
-      })
-    }
-
     const data = await fetch({
       ...options,
       body: { item },
@@ -38,7 +28,7 @@ export const handler: MutationHook<AddItemHook> = {
         async function addItem(input) {
           const data = await fetch({ input })
 
-          await mutate(data, false)
+          await mutate([data], false)
 
           return data
         },

@@ -2,20 +2,22 @@ import type {
   MutationHookContext,
   HookFetcherContext,
 } from '@commerce/utils/types'
-import type { Cart, LineItem, RemoveItemHook } from '@commerce/types/cart'
+import type { Address, RemoveItemHook } from '@commerce/types/customer/address'
 
 import { useCallback } from 'react'
 
 import { ValidationError } from '@commerce/utils/errors'
-import useRemoveItem, { UseRemoveItem } from '@commerce/customer/address/use-remove-item'
+import useRemoveItem, {
+  UseRemoveItem,
+} from '@commerce/customer/address/use-remove-item'
 
 import useAddresses from './use-addresses'
 
-export type RemoveItemFn<T = any> = T extends LineItem
-  ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
-  : (input: RemoveItemActionInput<T>) => Promise<Cart | null>
+export type RemoveItemFn<T = any> = T extends Address
+  ? (input?: RemoveItemActionInput<T>) => Promise<Address | null | undefined>
+  : (input: RemoveItemActionInput<T>) => Promise<Address | null>
 
-export type RemoveItemActionInput<T = any> = T extends LineItem
+export type RemoveItemActionInput<T = any> = T extends Address
   ? Partial<RemoveItemHook['actionInput']>
   : RemoveItemHook['actionInput']
 
@@ -34,12 +36,12 @@ export const handler = {
     return await fetch({ ...options, body: { itemId } })
   },
   useHook: ({ fetch }: MutationHookContext<RemoveItemHook>) =>
-    function useHook<T extends LineItem | undefined = undefined>(
+    function useHook<T extends Address | undefined = undefined>(
       ctx: { item?: T } = {}
     ) {
       const { item } = ctx
       const { mutate } = useAddresses()
-      const removeItem: RemoveItemFn<LineItem> = async (input) => {
+      const removeItem: RemoveItemFn<Address> = async (input) => {
         const itemId = input?.id ?? item?.id
 
         if (!itemId) {
@@ -50,7 +52,7 @@ export const handler = {
 
         const data = await fetch({ input: { itemId } })
 
-        await mutate(data, false)
+        await mutate([], false)
 
         return data
       }

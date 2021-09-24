@@ -46,7 +46,7 @@ export type SubmitCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
 
 export type CheckoutHandlers<T extends CheckoutTypes = CheckoutTypes> = {
   getCheckout: GetCheckoutHandler<T>
-  submitCheckout?: SubmitCheckoutHandler<T>
+  submitCheckout: SubmitCheckoutHandler<T>
 }
 
 export type CheckoutSchema<T extends CheckoutTypes = CheckoutTypes> = {

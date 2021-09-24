@@ -22,7 +22,7 @@ export const handler: SWRHook<GetCardsHook> = {
           Object.create(response, {
             isEmpty: {
               get() {
-                return (response.data?.lineItems?.length ?? 0) <= 0
+                return (response.data?.length ?? 0) <= 0
               },
               enumerable: true,
             },

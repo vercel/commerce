@@ -2,7 +2,9 @@ import type { GetAddressesHook } from '@commerce/types/customer/address'
 
 import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
-import useAddresses, { UseAddresses } from '@commerce/customer/address/use-addresses'
+import useAddresses, {
+  UseAddresses,
+} from '@commerce/customer/address/use-addresses'
 
 export default useAddresses as UseAddresses<typeof handler>
 
@@ -22,7 +24,7 @@ export const handler: SWRHook<GetAddressesHook> = {
           Object.create(response, {
             isEmpty: {
               get() {
-                return (response.data?.lineItems?.length ?? 0) <= 0
+                return (response.data?.length ?? 0) <= 0
               },
               enumerable: true,
             },
