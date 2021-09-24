@@ -30,7 +30,7 @@ export type GetCheckoutHook<T extends CheckoutTypes = CheckoutTypes> = {
 }
 
 export type CheckoutHooks<T extends CheckoutTypes = CheckoutTypes> = {
-  submitCheckout: SubmitCheckoutHook<T>
+  submitCheckout?: SubmitCheckoutHook<T>
   getCheckout: GetCheckoutHook<T>
 }
 
