@@ -4,6 +4,7 @@
     "wishlist": false,
     "cart": true,
     "search": true,
-    "customerAuth": false
+    "customerAuth": false,
+    "customCheckout": false
   }
 }
