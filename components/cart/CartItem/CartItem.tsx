@@ -85,25 +85,29 @@ const CartItem = ({
       <div className="flex flex-row py-4 space-x-4">
         <div className="relative z-0 w-16 h-16 overflow-hidden cursor-pointer bg-violet">
           <Link href={`/product/${item.path}`}>
-            <Image
-              onClick={() => closeSidebarIfPresent()}
-              className={s.productImage}
-              width={150}
-              height={150}
-              src={item.variant.image!.url}
-              alt={item.variant.image!.altText}
-              unoptimized
-            />
+            <a>
+              <Image
+                onClick={() => closeSidebarIfPresent()}
+                className={s.productImage}
+                width={150}
+                height={150}
+                src={item.variant.image!.url}
+                alt={item.variant.image!.altText}
+                unoptimized
+              />
+            </a>
           </Link>
         </div>
         <div className="flex flex-col flex-1 text-base">
           <Link href={`/product/${item.path}`}>
-            <span
-              className={s.productName}
-              onClick={() => closeSidebarIfPresent()}
-            >
-              {item.name}
-            </span>
+            <a>
+              <span
+                className={s.productName}
+                onClick={() => closeSidebarIfPresent()}
+              >
+                {item.name}
+              </span>
+            </a>
           </Link>
           {options && options.length > 0 && (
             <div className="flex items-center pb-1">

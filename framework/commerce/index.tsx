@@ -15,6 +15,7 @@ import type {
   Signup,
   Login,
   Logout,
+  Checkout,
 } from '@commerce/types'
 
 import type { Fetcher, SWRHook, MutationHook } from './utils/types'
@@ -29,6 +30,10 @@ export type Provider = CommerceConfig & {
     useUpdateItem?: MutationHook<Cart.UpdateItemHook>
     useRemoveItem?: MutationHook<Cart.RemoveItemHook>
   }
+  checkout?: {
+    useCheckout?: SWRHook<Checkout.GetCheckoutHook>
+    useSubmitCheckout?: MutationHook<Checkout.SubmitCheckoutHook>
+  }
   wishlist?: {
     useWishlist?: SWRHook<Wishlist.GetWishlistHook>
     useAddItem?: MutationHook<Wishlist.AddItemHook>
@@ -36,6 +41,18 @@ export type Provider = CommerceConfig & {
   }
   customer?: {
     useCustomer?: SWRHook<Customer.CustomerHook>
+    card?: {
+      useCards?: SWRHook<Customer.Card.GetCardsHook>
+      useAddItem?: MutationHook<Customer.Card.AddItemHook>
+      useUpdateItem?: MutationHook<Customer.Card.UpdateItemHook>
+      useRemoveItem?: MutationHook<Customer.Card.RemoveItemHook>
+    }
+    address?: {
+      useAddresses?: SWRHook<Customer.Address.GetAddressesHook>
+      useAddItem?: MutationHook<Customer.Address.AddItemHook>
+      useUpdateItem?: MutationHook<Customer.Address.UpdateItemHook>
+      useRemoveItem?: MutationHook<Customer.Address.RemoveItemHook>
+    }
   }
   products?: {
     useSearch?: SWRHook<Product.SearchProductsHook>

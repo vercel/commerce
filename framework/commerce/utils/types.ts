@@ -87,6 +87,8 @@ export type HookSchemaBase = {
 export type SWRHookSchemaBase = HookSchemaBase & {
   // Custom state added to the response object of SWR
   swrState?: {}
+  // Instances of MutationSchemaBase that the hook returns for better DX
+  mutations?: Record<string, ReturnType<MutationHook<any>['useHook']>>
 }
 
 export type MutationSchemaBase = HookSchemaBase & {
@@ -102,7 +104,7 @@ export type SWRHook<H extends SWRHookSchemaBase> = {
     context: SWRHookContext<H>
   ): HookFunction<
     H['input'] & { swrOptions?: SwrOptions<H['data'], H['fetcherInput']> },
-    ResponseState<H['data']> & H['swrState']
+    ResponseState<H['data']> & H['swrState'] & H['mutations']
   >
   fetchOptions: HookFetcherOptions
   fetcher?: HookFetcherFn<H>
