@@ -41,11 +41,13 @@ export const fetcher: Fetcher = async ({
     headers,
     credentials: 'include',
   })
-
   if (res.ok) {
-    const { data } = await res.json()
+    const { data, errors } = await res.json()
+    if (errors) {
+      throw await new FetcherError({ status: res.status, errors })
+    }
     return data
   }
-
+  
   throw await getError(res)
 }

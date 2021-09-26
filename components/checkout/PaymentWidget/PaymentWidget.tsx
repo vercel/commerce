@@ -1,14 +1,15 @@
 import { FC } from 'react'
 import s from './PaymentWidget.module.css'
-import { ChevronRight, CreditCard } from '@components/icons'
+import { ChevronRight, CreditCard, Check } from '@components/icons'
 
 interface ComponentProps {
   onClick?: () => any
+  isValid?: boolean
 }
 
-const PaymentWidget: FC<ComponentProps> = ({ onClick }) => {
-  /* Shipping Address 
-  Only available with checkout set to true - 
+const PaymentWidget: FC<ComponentProps> = ({ onClick, isValid }) => {
+  /* Shipping Address
+  Only available with checkout set to true -
   This means that the provider does offer checkout functionality. */
   return (
     <div onClick={onClick} className={s.root}>
@@ -19,9 +20,7 @@ const PaymentWidget: FC<ComponentProps> = ({ onClick }) => {
         </span>
         {/* <span>VISA #### #### #### 2345</span> */}
       </div>
-      <div>
-        <ChevronRight />
-      </div>
+      <div>{isValid ? <Check /> : <ChevronRight />}</div>
     </div>
   )
 }

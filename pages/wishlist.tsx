@@ -2,10 +2,12 @@
 // import commerce from '@lib/api/commerce'
 // import { Heart } from '@components/icons'
 import { Layout } from '@components/common'
-import { Text, Container } from '@components/ui'
+
+import { Text, Container, Skeleton } from '@components/ui'
 // import { useCustomer } from '@framework/customer'
 // import { WishlistCard } from '@components/wishlist'
 // import useWishlist from '@framework/wishlist/use-wishlist'
+import rangeMap from '@lib/range-map'
 
 // export async function getStaticProps({
 //   preview,
@@ -43,7 +45,15 @@ export default function Wishlist() {
       <div className="mt-3 mb-20">
         <Text variant="pageHeading">My Wishlist</Text>
         <div className="flex flex-col group">
-          {/* {isLoading || isEmpty ? (
+          {/* {isLoading ? (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {rangeMap(12, (i) => (
+                <Skeleton key={i}>
+                  <div className="w-60 h-60" />
+                </Skeleton>
+              ))}
+            </div>
+          ) : isEmpty ? (
             <div className="flex flex-col items-center justify-center flex-1 px-12 py-24 ">
               <span className="flex items-center justify-center w-16 h-16 p-12 border border-dashed rounded-lg border-secondary bg-primary text-primary">
                 <Heart className="absolute" />
@@ -56,12 +66,14 @@ export default function Wishlist() {
               </p>
             </div>
           ) : (
-            data &&
-            // @ts-ignore Shopify - Fix this types
-            data.items?.map((item) => (
-              <WishlistCard key={item.id} product={item.product! as any} />
-            ))
-          )} */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {data &&
+                // @ts-ignore Shopify - Fix this types
+                data.items?.map((item) => (
+                  <WishlistCard key={item.id} product={item.product! as any} />
+                ))}
+            </div>
+                )}*/}
         </div>
       </div>
     </Container>

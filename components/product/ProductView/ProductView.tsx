@@ -58,7 +58,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
             )}
           </div>
 
-          <ProductSidebar product={product} className={s.sidebar} />
+          <ProductSidebar key={product.id} product={product} className={s.sidebar} />
         </div>
         <hr className="mt-7 border-accent-2" />
         <section className="px-6 py-12 mb-10">

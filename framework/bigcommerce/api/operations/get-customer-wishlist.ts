@@ -53,7 +53,7 @@ export default function getCustomerWishlistOperation({
 
       if (ids?.length) {
         const graphqlData = await commerce.getAllProducts({
-          variables: { first: 100, ids },
+          variables: { first: 50, ids },
           config,
         })
         // Put the products in an object that we can use to get them by id
