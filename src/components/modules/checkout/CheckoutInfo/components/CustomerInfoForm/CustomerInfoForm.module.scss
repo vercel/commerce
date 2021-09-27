@@ -2,7 +2,10 @@
 .warpper{
     @apply u-form;
     @screen md {
-        padding: 0 5.6rem;
+        padding-left: 5.6rem;
+        .button {
+            min-width: 22rem;
+        }
     }
     .bottom{
         margin-top: 2.4rem;

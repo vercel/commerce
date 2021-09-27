@@ -1,7 +1,7 @@
 @import "../../../../styles/utilities";
 .warrper{
-    @apply flex;
-    .right{
+    @apply flex w-full h-full absolute;
+    .right {
         display: none;
         @screen lg {
             display: block;
@@ -11,10 +11,10 @@
             min-width: 56.3rem;
         }
     }
-    .left{  
-        @apply w-full;
+    .left {  
+        @apply w-full border-r-2 border-solid border-line;
     }
-    .mobile{
+    .mobile {
         @apply hidden;
         &.isShow{
             @apply block;
@@ -22,7 +22,7 @@
                 @apply hidden;
             }
         }
-        .modal{
+        .modal {
             background: rgba(0, 0, 0, 0.5);
             position: fixed;
             left: 0;
