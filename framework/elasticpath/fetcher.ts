@@ -1,6 +1,5 @@
-import { Fetcher } from './utils/types'
+import type { Fetcher } from '@commerce/utils/types'
 import { FetcherError } from '@commerce/utils/errors'
-import { gateway as MoltinGateway, Moltin } from '@moltin/sdk';
 import epClient from './utils/ep-client'
 
 export const fetcher: Fetcher = async ({
