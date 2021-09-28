@@ -1,50 +1,39 @@
-import { Fetcher } from '@commerce/utils/types'
+import { Fetcher } from './utils/types'
 import { FetcherError } from '@commerce/utils/errors'
-
-async function getText(res: Response) {
-  try {
-    return (await res.text()) || res.statusText
-  } catch (error) {
-    return res.statusText
-  }
-}
-
-async function getError(res: Response) {
-  if (res.headers.get('Content-Type')?.includes('application/json')) {
-    const data = await res.json()
-    return new FetcherError({ errors: data.errors, status: res.status })
-  }
-  return new FetcherError({ message: await getText(res), status: res.status })
-}
+import { gateway as MoltinGateway, Moltin } from '@moltin/sdk';
+import epClient from './utils/ep-client'
 
 export const fetcher: Fetcher = async ({
   url,
   method = 'POST',
-  variables,
-  query,
-  body: bodyObj,
+  variables:{params}
 }) => {
-  const shopApiUrl =
-    process.env.NEXT_PUBLIC_ELASTICPATH_BASE
-  if (!shopApiUrl) {
-    throw new Error(
-      'The Vendure Shop API url has not been provided. Please define NEXT_PUBLIC_VENDURE_SHOP_API_URL in .env.local'
-    )
-  }
-  const hasBody = Boolean(variables || query)
-  const body = hasBody ? JSON.stringify(variables) : undefined
-  const headers = hasBody ? { 'Content-Type': 'application/json' } : undefined
-  const res = await fetch(""+url, {
-    method,
-    body,
-    headers,
-    credentials: 'include',
-  })
+  if(url && method) {
+    try {
 
-  if (res.ok) {
-    const { data } = await res.json()
-    return data
-  }
 
-  throw await getError(res)
+      let res = await epClient[url][method](...params);
+      
+      if(res.errors && res.errors > 0) {
+        let error = res.errors[0];
+        throw new FetcherError({ 
+          message: error.detail, 
+          status: error.status 
+        });
+      }
+      return res;
+    } catch(err) {
+
+      console.log(err);
+
+      throw new FetcherError({ 
+        message: "Malformed request", 
+        status: 400
+      });
+    }
+  }
+  throw new FetcherError({ 
+    message: "Malformed request", 
+    status: 400
+  });
 }
