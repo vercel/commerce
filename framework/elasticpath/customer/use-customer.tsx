@@ -1,27 +1,33 @@
 import { SWRHook } from '@commerce/utils/types'
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
 import getCustomerCookie from '../utils/get-customer-creds'
-import epClient from '../utils/ep-client'
 
+const creds = getCustomerCookie();
 export default useCustomer as UseCustomer<typeof handler>
 export const handler: SWRHook<any> = {
   fetchOptions: {
-    query: '',
+    url: 'Customers',
+    method: 'Get',
   },
-  async fetcher() {
+  async fetcher({fetch, options, input}) {
     const creds = getCustomerCookie();
-
-    // if user is not logged-in return null
-    if(!creds) {
+    if(!creds.id || !creds.token) {
       return null;
     }
-    console.log('moltin sdk', epClient);
-    const {data:customer} = await epClient.Customers.Get(creds.customer_id, creds.token);
+
+    const {data} = await fetch({
+      ...options,
+      variables:{
+        params: [creds.id, creds.token]
+      }
+    });
+
+    console.log(data);
 
     return {
-      ...customer,
-      firstName: customer.name.split(" ")[0],
-      lastName: customer.name.split(" ")[1]
+      ...data,
+      firstName: data.name.split(" ")[0],
+      lastName: data.name.split(" ")[1]
     }
   },
   useHook: ({ useData }) => (input) => {

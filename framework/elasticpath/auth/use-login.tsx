@@ -2,15 +2,15 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import type { LoginHook } from '../types/login'
 import useCustomer from '../customer/use-customer'
-import epClient from '../utils/ep-client'
+import Cookies from 'js-cookie'
 
 export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    query: ''
+    url: 'Customers',
+    method: 'TokenViaPassword',
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
@@ -19,8 +19,17 @@ export const handler: MutationHook<any> = {
           'A first name, last name, email and password are required to login',
       })
     }
+    const {data:token} = await fetch({
+      ...options,
+      variables:{
+        params: [email, password]
+      }
+    });
 
-    let token = await epClient.Customers.TokenViaPassword(email, password);
+    let expireTime = Math.round(token.expires/(1000*24*60*60));
+    Cookies.set("user_token", 
+                JSON.stringify(token), 
+                { expires: expireTime });
     return token || null;
   },
   useHook: ({ fetch }) => () => {

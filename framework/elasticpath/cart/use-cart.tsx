@@ -19,7 +19,6 @@ export const handler: SWRHook<any> = {
     const response = useData({
       swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
     })
-    console.log("checking data..", epClient.Cart());
     return useMemo(
       () =>
         Object.create(response, {
