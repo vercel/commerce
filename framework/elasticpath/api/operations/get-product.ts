@@ -1,9 +1,8 @@
 import type { ElasticpathConfig } from '../index'
 import { Product } from '@commerce/types/product'
 import { GetProductOperation } from '@commerce/types/product'
-import data from '../../data.json'
 import type { OperationContext } from '@commerce/api/operations'
-import normalizeProduct from '../../utils/normalize'
+import {normalizeProduct} from '../../utils/normalize'
 import epClient from '../../utils/ep-client'
 
 
@@ -26,16 +25,15 @@ export default function getProductOperation({
     } else {
       variablesS = variables.slug;
     }
-    let products = await epClient.PCM.Filter({
+    let {data:[product]} = await epClient.PCM.Filter({
       eq: {
         slug: variablesS 
       }
     }).All();
-    let normalizeProducts = await normalizeProduct(products.data)
-    let productSlugs = normalizeProducts.find(({ slug }) => slug === variables!.slug);
+    let productData = await normalizeProduct(product, true)
     return {
       // product: data.products.find(({ slug }) => slug === variables!.slug),
-      product: productSlugs
+      product: productData
     }
   }
 
