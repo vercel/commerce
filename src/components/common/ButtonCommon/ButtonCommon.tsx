@@ -24,7 +24,7 @@ const ButtonCommon = memo(({ type = 'primary', size = 'default', loading = false
             [s.preserve]: isIconSuffix,
             [s.onlyIcon]: icon && !children,
         })}
-            disabled={disabled}
+            disabled={disabled || loading}
             onClick={onClick}
         >
             <div className={s.inner}>

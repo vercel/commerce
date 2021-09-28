@@ -28,6 +28,8 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
     const onSignup = () => {
         // TODO: validate fields
         signup({ email, password })
+        // TODO:
+        alert("User created. Please verify your email")
     }
 
 
