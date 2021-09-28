@@ -1,0 +1,16 @@
+@import "../../../../styles/utilities";
+
+.verifyCustomerAccount {
+    @apply spacing-horizontal;
+    min-height: 25rem;
+    margin: 5rem auto 10rem;
+    display: flex;
+    justify-content: center;
+
+    .result {
+        @apply flex flex-col justify-center items-center;
+        .message {
+            margin-bottom: 1.6rem;
+        }
+    }
+}
