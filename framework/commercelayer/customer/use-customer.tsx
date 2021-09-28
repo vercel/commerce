@@ -14,14 +14,15 @@ export const handler: SWRHook<CustomerHook> = {
     method: 'GET',
   },
   async fetcher({ options, fetch }) {
-    const data = await fetch({...options})
-    
-    return data ? ({
-      firstName: '',
-      lastName: '',
-      email: data.attributes.email ?? '',
-    } as any)
-  : null
+    const data: any = customerId ? await fetch({ ...options }) : null
+
+    return data
+      ? ({
+          firstName: '',
+          lastName: '',
+          email: data.attributes.email ?? '',
+        } as any)
+      : null
   },
 
   useHook:
