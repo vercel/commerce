@@ -15,6 +15,9 @@ module.exports = withCommerceConfig({
   future: {
     webpack5: true,
   },
+  images: {
+    domains: ['s3-eu-west-1.amazonaws.com']
+  },
   commerce,
   i18n: {
     locales: ['en-US', 'es'],
