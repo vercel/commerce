@@ -22,8 +22,8 @@ const query = gql`
 
 interface SignupInput {
   email: string
-  firstName: string
-  lastName: string
+  firstName?: string
+  lastName?: string
   password: string
 }
 
