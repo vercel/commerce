@@ -16,7 +16,11 @@ module.exports = withCommerceConfig({
     webpack5: true,
   },
   images: {
-    domains: ['s3-eu-west-1.amazonaws.com']
+    domains: [
+      'localhost',
+      '206.189.135.123',
+      's3-eu-west-1.amazonaws.com'
+    ]
   },
   commerce,
   i18n: {
