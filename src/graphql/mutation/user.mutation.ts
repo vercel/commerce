@@ -2,15 +2,19 @@ import { gql } from 'graphql-request'
 
 
 export const VERIFY_CUSTOMER_ACCOUNT = gql`
-mutation verifyCustomerAccount(token: String!, password: String) {
+mutation verifyCustomerAccount($token: String!, $password: String) {
   verifyCustomerAccount( token: $token, password: $password) {
+      __typename
       ...on CurrentUser {
           id
           identifier
       }
-      ...ErrorResult
+      ... on ErrorResult {
+        errorCode
+        message
+      }
+    }
   }
-}
 `
 
 

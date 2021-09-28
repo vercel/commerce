@@ -1,4 +1,4 @@
-import { LoginMutation } from '@framework/schema'
+import { VerifyCustomerAccountMutation } from '@framework/schema'
 import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
@@ -13,28 +13,40 @@ interface VerifyInput {
 const useVerifyCustomer = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<CommonError | null>(null)
-  // const { mutate } = useActiveCustomer()
+  const { mutate } = useActiveCustomer()
 
-  const verify = (options: VerifyInput) => {
+  const verify = (
+    options: VerifyInput,
+    fCallBack?: (isSuccess: boolean) => void
+  ) => {
     setError(null)
     setLoading(true)
-    rawFetcher<LoginMutation>({
+    rawFetcher<VerifyCustomerAccountMutation>({
       query: VERIFY_CUSTOMER_ACCOUNT,
       variables: options,
     })
       .then(({ data, headers }) => {
-        console.log("data: ", data)
-        // if (data.login.__typename !== 'CurrentUser') {
-        //   throw CommonError.create(data.login.message, data.login.errorCode)
-        // }
-        // const authToken = headers.get('vendure-auth-token')
-        // if (authToken != null) {
-        //   localStorage.setItem('token', authToken)
-        //   return mutate()
-        // }
+        if (data.verifyCustomerAccount.__typename !== 'CurrentUser') {
+          throw CommonError.create(
+            data.verifyCustomerAccount.message,
+            data.verifyCustomerAccount.errorCode
+          )
+        }
+        fCallBack && fCallBack(true)
+
+        const authToken = headers.get('vendure-auth-token')
+        if (authToken != null) {
+          localStorage.setItem('token', authToken)
+          return mutate()
+        }
       })
-      .catch(setError)
-      .finally(() => setLoading(false))
+      .catch((err) => {
+        setError(err)
+        fCallBack && fCallBack(false)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   return { loading, verify, error }

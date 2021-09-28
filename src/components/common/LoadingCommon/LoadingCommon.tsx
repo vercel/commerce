@@ -1,15 +1,17 @@
-import React from "react";
+import React from 'react'
 import s from './LoadingCommon.module.scss'
 
-const LoadingCommon = () => {
-    
-    return (
-        <div className={s.wrapper}>
-            <div className={s.loadingCommon}>
-            </div>
-            <p className={s.text}>Loading...</p>
-        </div>
-    )
+interface Props {
+  description?: string
+}
+
+const LoadingCommon = ({ description = 'Loading...' }: Props) => {
+  return (
+    <div className={s.wrapper}>
+      <div className={s.loadingCommon}></div>
+      <p className={s.text}>{description}</p>
+    </div>
+  )
 }
 
 export default LoadingCommon

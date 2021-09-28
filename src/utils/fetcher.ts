@@ -10,11 +10,11 @@ interface QueryOptions {
 
 const fetcher = async <T>(options: QueryOptions): Promise<T> => {
   const { query, variables } = options
-  console.log('query')
-  console.log(options)
+  // console.log('query')
+  // console.log(options)
   const token = localStorage.getItem('token')
-  console.log('token')
-  console.log(token)
+  // console.log('token')
+  // console.log(token)
   const res = await request<T>(
     process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL as string,
     query,
