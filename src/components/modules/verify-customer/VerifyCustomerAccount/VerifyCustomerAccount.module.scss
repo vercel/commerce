@@ -12,5 +12,16 @@
         .message {
             margin-bottom: 1.6rem;
         }
+        .bottom {
+            @apply flex justify-center items-center flex-col;
+            a {
+                margin-right: 1.6rem;
+                margin-bottom: 1.6rem;
+                width: 100%;
+            }
+            button {
+                @apply w-full;
+            }
+        }
     }
 }
