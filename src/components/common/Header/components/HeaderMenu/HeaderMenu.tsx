@@ -22,12 +22,14 @@ import {
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
 import { useLogout } from '../../../../hooks/auth'
+import useActiveCustomer from 'src/components/hooks/useActiveCustomer'
 interface Props {
   children?: any
   isFull?: boolean
   isStickyHeader?: boolean
   visibleFilter?: boolean
-  openModalAuthen: () => void
+  openModalLogin: () => void
+  openModalRegister: () => void
   openModalInfo: () => void
   toggleFilter: () => void
 }
@@ -37,29 +39,37 @@ const HeaderMenu = memo(
     isFull,
     isStickyHeader,
     visibleFilter,
-    openModalAuthen,
+    openModalLogin,
+    openModalRegister,
     openModalInfo,
     toggleFilter,
   }: Props) => {
     const router = useRouter()
     const { toggleCartDrawer } = useCartDrawer()
+    const { customer } = useActiveCustomer()
 
     const { logout } = useLogout()
 
-    const optionMenu = useMemo(
+    const optionMenuNotAuthen = useMemo(
       () => [
         {
-          onClick: openModalAuthen,
-          name: 'Login (Demo)',
+          onClick: openModalLogin,
+          name: 'Sign in',
         },
         {
-          onClick: openModalInfo,
-          name: 'Create User Info (Demo)',
+          onClick: openModalRegister,
+          name: 'Create account',
         },
-        {
-          link: '/account-not-login',
-          name: 'Account Not Login (Demo)',
-        },
+      ],
+      [openModalLogin, openModalRegister]
+    )
+
+    const optionMenu = useMemo(
+      () => [
+        // {
+        //   onClick: openModalInfo,
+        //   name: 'Create User Info (Demo)',
+        // },
         {
           link: '/demo',
           name: 'Notifications Empty (Demo)',
@@ -78,7 +88,7 @@ const HeaderMenu = memo(
           onClick: logout,
         },
       ],
-      [openModalAuthen, openModalInfo, logout]
+      [logout]
     )
     return (
       <section
@@ -140,7 +150,7 @@ const HeaderMenu = memo(
             </Link>
           </li>
           <li>
-            <MenuDropdown options={optionMenu} isHasArrow={false}>
+            <MenuDropdown options={customer ? optionMenu : optionMenuNotAuthen} isHasArrow={false}>
               <IconUser />
             </MenuDropdown>
           </li>
