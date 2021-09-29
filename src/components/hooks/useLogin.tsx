@@ -4,6 +4,7 @@ import useActiveCustomer from './useActiveCustomer'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
 import { LoginMutation } from '@framework/schema'
+import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
 
 const query = gql`
   mutation login($username: String!, $password: String!) {
@@ -42,9 +43,8 @@ const useLogin = () => {
           throw CommonError.create(data.login.message, data.login.errorCode)
         }
         const authToken = headers.get('vendure-auth-token')
-        console.log("auth token: ", authToken)
         if (authToken != null) {
-          localStorage.setItem('token', authToken)
+          localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, authToken)
           return mutate()
         }
       })

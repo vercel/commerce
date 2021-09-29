@@ -24,7 +24,7 @@ const MenuNavigationProductList = ({categories,brands,featured,visible,onClose}:
         setDataSort({...dataSort,...value});
     }
     function filter(){
-        console.log(dataSort)
+        // console.log(dataSort)
     }
     return(
         <>
