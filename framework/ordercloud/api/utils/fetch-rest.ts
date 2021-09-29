@@ -95,12 +95,12 @@ export async function fetchData<T>(
     }
 
     // Get the body of it
-    const error = await dataResponse.json()
+    const error = await dataResponse.textConverted()
 
     // And return an error
     throw new FetcherError({
-      errors: [{ message: error.error_description.Code }],
-      status: error.error_description.HttpStatus,
+      errors: [{ message: error || dataResponse.statusText }],
+      status: dataResponse.status,
     })
   }
 

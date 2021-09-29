@@ -13,39 +13,24 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
     })
   }
 
-  try {
-    // Register credit card
-    const payments = await restFetch(
-      'GET',
-      `/orders/Outgoing/${cartId}/payments`
-    ).then((response: { Items: unknown[] }) => response.Items)
+  // Register credit card
+  const payments = await restFetch(
+    'GET',
+    `/orders/Outgoing/${cartId}/payments`
+  ).then((response: { Items: unknown[] }) => response.Items)
 
-    const address = await restFetch('GET', `/orders/Outgoing/${cartId}`).then(
-      (response: { ShippingAddressID: string }) => response.ShippingAddressID
-    )
+  const address = await restFetch('GET', `/orders/Outgoing/${cartId}`).then(
+    (response: { ShippingAddressID: string }) => response.ShippingAddressID
+  )
 
-    // Return cart and errors
-    res.status(200).json({
-      data: {
-        hasPayment: payments.length > 0,
-        hasShipping: Boolean(address),
-      },
-      errors: [],
-    })
-  } catch (error: any) {
-    console.log(error, error.toString(), JSON.stringify(error))
-
-    // Return cart and errors
-    res.status(500).json({
-      data: null,
-      errors: [
-        {
-          message: error.message,
-          code: error.statusCode || error.code || error.status,
-        },
-      ],
-    })
-  }
+  // Return cart and errors
+  res.status(200).json({
+    data: {
+      hasPayment: payments.length > 0,
+      hasShipping: Boolean(address),
+    },
+    errors: [],
+  })
 }
 
 export default getCheckout
