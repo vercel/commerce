@@ -38,6 +38,10 @@ export const ACCOUNT_TAB = {
     FAVOURITE: 'wishlist',
 }
 
+export const LOCAL_STORAGE_KEY = {
+  TOKEN: 'token'
+}
+
 export const QUERY_KEY = {
     TAB: 'tab',
     CATEGORY: 'category',

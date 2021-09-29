@@ -22,8 +22,8 @@ const query = gql`
 
 interface SignupInput {
   email: string
-  firstName: string
-  lastName: string
+  firstName?: string
+  lastName?: string
   password: string
 }
 
@@ -32,7 +32,10 @@ const useSignup = () => {
   const [error, setError] = useState<Error | null>(null)
   const { mutate } = useActiveCustomer()
 
-  const signup = ({ firstName, lastName, email, password }: SignupInput) => {
+  const signup = (
+    { firstName, lastName, email, password }: SignupInput,
+    fCallBack: (isSuccess: boolean, message?: string) => void
+  ) => {
     setError(null)
     setLoading(true)
     fetcher<SignupMutation>({
@@ -53,11 +56,15 @@ const useSignup = () => {
             data.registerCustomerAccount.errorCode
           )
         }
-        console.log(data)
+        
         mutate()
+        fCallBack(true)
         return data
       })
-      .catch(setError)
+      .catch((error) => {
+        setError(error)
+        fCallBack(false, error.message)
+      })
       .finally(() => setLoading(false))
   }
 

@@ -12,8 +12,6 @@ interface EditInfoModalProps {
 const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoModalProps) => {
 
     function saveInfo() {
-        console.log("saved !!!");
-
         closeModal();
     }
 

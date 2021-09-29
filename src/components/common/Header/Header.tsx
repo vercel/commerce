@@ -1,7 +1,6 @@
 import classNames from 'classnames'
-import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { useModalCommon } from 'src/components/hooks'
-import { CartDrawer } from '..'
 import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
 import ModalCreateUserInfo from '../ModalCreateUserInfo/ModalCreateUserInfo'
 import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
@@ -17,6 +16,7 @@ interface props {
 const Header = memo(({ toggleFilter, visibleFilter }: props) => {
     const headeFullRef = useRef<HTMLDivElement>(null)
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
+    const [isModeAuthenRegister, setIsModeAuthenRegister] = useState<boolean>(false)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
     const { visible: visibleModalInfo, closeModal: closeModalInfo, openModal: openModalInfo } = useModalCommon({ initialValue: false })
 
@@ -32,7 +32,17 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
         return () => {
             window.removeEventListener('scroll', handleScroll)
         }
-    }, [headeFullRef.current])
+    }, [])
+
+    const openModalRegister = () => {
+        setIsModeAuthenRegister(true)
+        openModalAuthen()
+    }
+
+    const openModalLogin = () => {
+        setIsModeAuthenRegister(false)
+        openModalAuthen()
+    }
 
     return (
         <>
@@ -43,7 +53,8 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
                 <HeaderMenu
                     isStickyHeader={true}
                     toggleFilter={toggleFilter}
-                    openModalAuthen={openModalAuthen}
+                    openModalLogin={openModalLogin}
+                    openModalRegister={openModalRegister}
                     openModalInfo={openModalInfo} />
             </div>
 
@@ -54,16 +65,17 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
                         isFull={isFullHeader}
                         visibleFilter={visibleFilter}
                         toggleFilter={toggleFilter}
-                        openModalAuthen={openModalAuthen}
-                        openModalInfo={openModalInfo} />
+                        openModalLogin={openModalLogin}
+                        openModalRegister = {openModalRegister}
+                        openModalInfo={openModalInfo}
+                         />
                     <HeaderSubMenu />
                 </div>
             </header>
 
             <HeaderSubMenuMobile />
-            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} />
+            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} mode={isModeAuthenRegister? 'register': ''} />
             <ModalCreateUserInfo demoVisible={visibleModalInfo} demoCloseModal={closeModalInfo} />
-            
         </>
     )
 })

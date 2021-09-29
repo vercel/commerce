@@ -87,7 +87,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
         const query = router.query[QUERY_KEY.TAB] as string
         const index = getTabIndex(query)
         setActiveTab(index)
-    }, [router.query[QUERY_KEY.TAB]])
+    }, [router.query])
 
     function showModal() {
         setModalVisible(true);

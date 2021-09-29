@@ -41,4 +41,5 @@ const Banner = memo(({ data }: Props) => {
     )
 })
 
+Banner.displayName = 'Banner'
 export default Banner

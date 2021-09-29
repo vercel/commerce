@@ -1,13 +1,16 @@
-import React from 'react';
-import { Layout } from 'src/components/common';
-import { AccountPage } from 'src/components/modules/account';
+import React from 'react'
+import { Layout } from 'src/components/common'
+import useActiveCustomer from 'src/components/hooks/useActiveCustomer'
+import { AccountPage, AccountSignIn } from 'src/components/modules/account'
 
 const Account = () => {
-    return (
-        <AccountPage/>
-    );
-};
+  const { customer } = useActiveCustomer()
+  if (customer) {
+    return <AccountPage />
+  }
+  return <AccountSignIn />
+}
 
 Account.Layout = Layout
 
-export default Account;
+export default Account
