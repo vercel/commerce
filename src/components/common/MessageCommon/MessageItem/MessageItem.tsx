@@ -40,7 +40,7 @@ const MessageItem = memo(
 
     useEffect(() => {
       if (isHide && !isMouseOver && onRemove) {
-        // onRemove(id || 0)
+        onRemove(id || 0)
       }
     }, [isHide, isMouseOver, onRemove, id])
 

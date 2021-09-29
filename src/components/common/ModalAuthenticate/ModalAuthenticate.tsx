@@ -32,7 +32,7 @@ const ModalAuthenticate = ({ visible, mode, closeModal }: Props) => {
       closeModal()
       router.push(ROUTE.ACCOUNT)
     }
-  }, [customer, visible])
+  }, [customer, visible, closeModal, router])
 
   const onSwitch = () => {
     setIsLogin(!isLogin)
