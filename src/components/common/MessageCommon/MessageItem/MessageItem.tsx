@@ -8,7 +8,7 @@ export interface MessageItemProps {
   content?: React.ReactNode
   type?: 'info' | 'success' | 'error' | 'warning'
   timeout?: number
-  onRemove?: (id?: number) => void
+  onRemove?: (id: number) => void
 }
 
 const MessageItem = memo(
@@ -40,7 +40,7 @@ const MessageItem = memo(
 
     useEffect(() => {
       if (isHide && !isMouseOver && onRemove) {
-        onRemove(id)
+        onRemove(id || 0)
       }
     }, [isHide, isMouseOver, onRemove, id])
 
