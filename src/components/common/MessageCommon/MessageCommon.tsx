@@ -14,6 +14,7 @@ const MessageCommon = memo(({ messages, onRemove }: Props) => {
         <MessageItem
           key={item.id}
           id={item.id}
+          type={item.type}
           content={item.content}
           onRemove={onRemove}
         />

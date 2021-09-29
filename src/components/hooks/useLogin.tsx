@@ -5,6 +5,7 @@ import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
 import { LoginMutation } from '@framework/schema'
 import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
+import { errorMapping } from 'src/utils/errrorMapping'
 
 const query = gql`
   mutation login($username: String!, $password: String!) {
@@ -31,7 +32,9 @@ const useLogin = () => {
   const [error, setError] = useState<CommonError | null>(null)
   const { mutate } = useActiveCustomer()
 
-  const login = (options: LoginInput) => {
+  const login = (options: LoginInput,
+    fCallBack: (isSuccess: boolean, message?: string) => void
+    ) => {
     setError(null)
     setLoading(true)
     rawFetcher<LoginMutation>({
@@ -40,15 +43,19 @@ const useLogin = () => {
     })
       .then(({ data, headers }) => {
         if (data.login.__typename !== 'CurrentUser') {
-          throw CommonError.create(data.login.message, data.login.errorCode)
+          throw CommonError.create(errorMapping(data.login.message), data.login.errorCode)
         }
         const authToken = headers.get('vendure-auth-token')
         if (authToken != null) {
           localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, authToken)
-          return mutate()
+          mutate()
         }
+        fCallBack(true)
       })
-      .catch(setError)
+      .catch((error) => {
+        setError(error)
+        fCallBack(false, error.message)
+      })
       .finally(() => setLoading(false))
   }
 

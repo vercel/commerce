@@ -4,12 +4,11 @@
     @apply shadow-sm flex justify-center items-center cursor-default;
     width: fit-content;
     padding: 0.8rem 2.4rem;
-    margin-bottom: .8rem;
+    margin: 0 auto .8rem;
     border-radius: 0.8rem;
     transition: all .5s;
     animation: showMessage .5s;
     width: max-content;
-    margin: 0 1.6rem;
 
     &.hide {
         display: none;  

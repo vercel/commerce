@@ -33,7 +33,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 const FormRegister = ({ onSwitch, isHide }: Props) => {
   const emailRef = useRef<CustomInputCommon>(null)
-  const { loading, signup, error } = useSignup()
+  const { loading, signup } = useSignup()
   const { showMessageSuccess, showMessageError } = useMessage()
 
   useEffect(() => {
@@ -53,12 +53,6 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
       showMessageError(message || LANGUAGE.MESSAGE.ERROR)
     }
   }
-
-  useEffect(() => {
-    if (error) {
-      alert(error.message)
-    }
-  }, [error])
 
   return (
     <section

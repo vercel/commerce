@@ -2,10 +2,10 @@ import { Layout } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
 
 export default function Test() {
-  const { showMessageSuccess } = useMessage()
+  const { showMessageError } = useMessage()
 
   const handleClick = () => {
-    showMessageSuccess("Create account successfully")
+    showMessageError("Create account successfully")
   }
 
   return (

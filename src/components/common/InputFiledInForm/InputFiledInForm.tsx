@@ -63,10 +63,14 @@ const InputFiledInForm = forwardRef<Ref, Props>(({
     return <></>
   }, [icon, error, isShowIconSuccess])
 
-  const handleKeyDown = (e: any) => {
-    if (e.key === KEY.ENTER && onEnter) {
-      const value = inputElementRef.current?.value || ''
-      onEnter(value)
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === KEY.ENTER) {
+      e.stopPropagation()
+      e.preventDefault()
+      if (onEnter) {
+        const value = inputElementRef.current?.value || ''
+        onEnter(value)
+      }
     }
   }
 
