@@ -30,7 +30,9 @@ export const handler: MutationHook<any> = {
         { username: email, password: password }
       )
       token &&
-        setCookie('CL_CUSTOMER_TOKEN', token.accessToken, { expires: token.expires })
+        setCookie('CL_CUSTOMER_TOKEN', token.accessToken, {
+          expires: token.expires,
+        })
       Cookies.set('CL_CUSTOMER_ID', token.data.owner_id as string)
       alert(`User "${email}" has successfully been logged in.`)
       return token
@@ -41,17 +43,16 @@ export const handler: MutationHook<any> = {
     }
   },
   useHook:
-  ({ fetch }) =>
-  () => {
-    const { revalidate } = useCustomer()
-
-    return useCallback(
-      async function login(input) {
-        const data = await fetch({ input })
-        await revalidate()
-        return data
-      },
-      [fetch, revalidate]
-    )
-  },
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCustomer()
+      return useCallback(
+        async function login(input) {
+          const data = await fetch({ input })
+          await mutate()
+          return data
+        },
+        [fetch]
+      )
+    },
 }

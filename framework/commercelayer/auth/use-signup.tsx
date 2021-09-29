@@ -40,7 +40,9 @@ export const handler: MutationHook<any> = {
         { username: email, password: password }
       )
       token &&
-        setCookie('CL_CUSTOMER_TOKEN', token.accessToken, { expires: token.expires })
+        setCookie('CL_CUSTOMER_TOKEN', token.accessToken, {
+          expires: token.expires,
+        })
       Cookies.set('CL_CUSTOMER_ID', data.id)
       alert(`User "${email}" has successfully been created.`)
       return data
@@ -53,15 +55,15 @@ export const handler: MutationHook<any> = {
   useHook:
     ({ fetch }) =>
     () => {
-      const { revalidate } = useCustomer()
+      const { mutate } = useCustomer()
 
       return useCallback(
         async function signup(input) {
           const data = await fetch({ input })
-          await revalidate()
+          await mutate()
           return data
         },
-        [fetch, revalidate]
+        [fetch]
       )
     },
 }
