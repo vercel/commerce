@@ -1,19 +1,35 @@
-import { useEffect, useState } from 'react'
-import {
-  ButtonCommon, Layout
-} from 'src/components/common'
+import { Layout, MessageCommon } from 'src/components/common'
+import { MessageItemProps } from 'src/components/common/MessageCommon/MessageItem/MessageItem'
+
+const data: MessageItemProps[] = [
+  {
+    id: 1,
+    content: 'Create account successfully',
+    type: 'error',
+  },
+  {
+    id: 2,
+    content: 'Create account successfully',
+    type: 'success',
+  },
+  {
+    id: 3,
+    content: 'Create account successfully',
+    type: 'warning',
+  },
+  {
+    id: 4,
+    content: 'Create account successfully',
+    type: 'info',
+  },
+]
 export default function Test() {
-  const [isLoading, setisLoading] = useState(false)
-  useEffect(() => {
-    setTimeout(() => {
-      setisLoading(true)
-    }, 3000)
-  }, [])
   return (
     <>
-      <ButtonCommon loading={isLoading}>Back to home</ButtonCommon>
-      <ButtonCommon type='light' loading={isLoading}>Back to home</ButtonCommon>
-      <ButtonCommon type='ghost' loading={isLoading}>Back to home</ButtonCommon>
+      <MessageCommon messages={data} />
+      {/* <MessageCommon type='error'>Create account successfully</MessageCommon>
+      <MessageCommon type='info'>Create account successfully</MessageCommon>
+      <MessageCommon type='warning'>Create account successfully</MessageCommon> */}
     </>
   )
 }

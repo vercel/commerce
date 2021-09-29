@@ -1,4 +1,3 @@
-import { InputFiledInForm } from 'src/components/common/InputFiledInForm/InputFiledInForm';
 export { default as ButtonCommon } from './ButtonCommon/ButtonCommon'
 export { default as Layout } from './Layout/Layout'
 export { default as CarouselCommon } from './CarouselCommon/CarouselCommon'
@@ -51,3 +50,6 @@ export { default as RecommendedRecipes} from './RecommendedRecipes/RecommendedRe
 export { default as LayoutCheckout} from './LayoutCheckout/LayoutCheckout'
 export { default as InputPasswordFiledInForm} from './InputPasswordFiledInForm/InputPasswordFiledInForm'
 export { default as InputFiledInForm} from './InputFiledInForm/InputFiledInForm'
+export { default as MessageCommon} from './MessageCommon/MessageCommon'
+
+
