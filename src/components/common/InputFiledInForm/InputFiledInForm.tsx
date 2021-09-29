@@ -1,10 +1,13 @@
 import classNames from 'classnames'
 import { Field } from 'formik'
-import React, { useMemo, useRef } from 'react'
+import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import { IconCheck, IconError } from 'src/components/icons'
 import { KEY } from 'src/utils/constanst.utils'
 import s from './InputFiledInForm.module.scss'
 
+type Ref = {
+  focus: () => void
+} | null
 interface Props {
   placeholder?: string
   type?: 'text' | 'number' | 'email' | 'password'
@@ -21,7 +24,7 @@ interface Props {
   onEnter?: (value: string | number) => void
 }
 
-const InputFiledInForm = ({
+const InputFiledInForm = forwardRef<Ref, Props>(({
   name,
   placeholder,
   type,
@@ -32,8 +35,14 @@ const InputFiledInForm = ({
   isShowIconSuccess,
   error,
   onEnter,
-}: Props) => {
+}: Props, ref) => {
   const inputElementRef = useRef<HTMLInputElement>(null)
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputElementRef.current?.focus()
+    },
+  }))
 
   const iconElement = useMemo(() => {
     if (error) {
@@ -83,12 +92,14 @@ const InputFiledInForm = ({
           placeholder={placeholder}
           onKeyDown={handleKeyDown}
           type={type}
+          innerRef={inputElementRef}
         />
+
       </div>
       {error && <div className={s.errorMessage}>{error}</div>}
     </div>
   )
-}
+})
 
 InputFiledInForm.displayName = 'InputFiledInForm'
 export default InputFiledInForm

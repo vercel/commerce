@@ -83,6 +83,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
                   <InputFiledInForm
                     name="email"
                     placeholder="Email Address"
+                    ref = {emailRef}
                     error={
                       touched.email && errors.email
                         ? errors.email.toString()
