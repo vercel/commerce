@@ -1,0 +1,100 @@
+@import './utilities';
+
+.formInputWrap {
+    .inputInner {
+      @apply flex items-center relative;
+      .icon {
+        @apply absolute flex justify-center items-center;
+        content: "";
+        left: 1.6rem;
+        margin-right: 1.6rem;
+        svg path {
+          fill: currentColor;
+        }
+      }
+      .icon + input {
+        padding-left: 4.8rem;
+      }
+  
+      input {
+        @apply block w-full transition-all duration-200 bg-white;
+        border-radius: .8rem;
+        padding: 1.6rem;
+        border: 1px solid var(--border-line);
+        &:hover,
+        &:focus,
+        &:active {
+          outline: none;
+          border: 1px solid var(--primary);
+          @apply shadow-md;
+        }
+  
+        &::placeholder {
+          @apply text-label;
+        }
+      }
+  
+      &.preserve {
+        @apply flex-row-reverse;
+        .icon {
+          left: unset;
+          right: 1.6rem;
+          margin-left: 1.6rem;
+          margin-right: 0;
+          svg path {
+            fill: var(--text-label);
+          }
+        }
+        .icon + input {
+          padding-left: 1.6rem;
+          padding-right: 4.8rem;
+        }
+      }
+      &.success {
+        .icon {
+          svg path {
+            fill: var(--primary);
+          }
+        }
+      }
+  
+      &.error {
+        .icon {
+          svg path {
+            fill: var(--negative);
+          }
+        }
+        input {
+          border-color: var(--negative) !important;
+        }
+      }
+    }
+    .errorMessage {
+      @apply caption;
+      color: var(--negative);
+      margin-top: 0.4rem;
+    }
+  
+    &.custom {
+      @apply shape-common;
+      input {
+        border: none;
+        background: var(--background-gray);
+        &:hover,
+        &:focus,
+        &:active {
+          @apply shadow-md;
+          border: none;
+        }
+      }
+    }
+    &.bgTransparent {
+      input {
+        background: rgb(227, 242, 233, 0.3);
+        color: var(--white);
+        &::placeholder {
+          color: var(--white);
+        }
+      }
+    }
+  }

@@ -1,83 +1,121 @@
 import classNames from 'classnames'
-import React, { useEffect, useRef, useState } from 'react'
-import { ButtonCommon, Inputcommon, InputPassword } from 'src/components/common'
+import { Form, Formik } from 'formik'
+import React, { useEffect, useRef } from 'react'
+import {
+    ButtonCommon,
+    InputFiledInForm,
+    InputPasswordFiledInForm
+} from 'src/components/common'
 import { CustomInputCommon } from 'src/utils/type.utils'
+import * as Yup from 'yup'
 import { useSignup } from '../../../../hooks'
 import s from '../FormAuthen.module.scss'
 import SocialAuthen from '../SocialAuthen/SocialAuthen'
 import styles from './FormRegister.module.scss'
 
 interface Props {
-    isHide: boolean,
-    onSwitch: () => void
+  isHide: boolean
+  onSwitch: () => void
 }
 
+const DisplayingErrorMessagesSchema = Yup.object().shape({
+  email: Yup.string().email('Your email was wrong').required('Required'),
+  password: Yup.string()
+    .matches(
+      /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])((?=.*[0-9!@#$%^&*()\-_=+{};:,<.>]){1}).*$/,
+      'Must contain 8 characters with at least 1 uppercase and 1 lowercase letter and either 1 number or 1 special character.'
+    )
+    .max(30, 'Password is too long')
+    .required('Required'),
+})
+
 const FormRegister = ({ onSwitch, isHide }: Props) => {
-    const emailRef = useRef<CustomInputCommon>(null)
-    const { loading, signup, error } = useSignup()
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+  const emailRef = useRef<CustomInputCommon>(null)
+  const { loading, signup, error } = useSignup()
 
-
-    useEffect(() => {
-        if (!isHide) {
-            emailRef.current?.focus()
-        }
-    }, [isHide])
-
-    const onSignup = () => {
-        // TODO: validate fields
-        signup({ email, password })
-        // TODO:
-        alert("User created. Please verify your email")
+  useEffect(() => {
+    if (!isHide) {
+      emailRef.current?.focus()
     }
+  }, [isHide])
 
+  const onSignup = (values: { email: string; password: string }) => {
+    signup({ email: values.email, password: values.password })
+    // TODO: flow
+    alert('User created. Please verify your email')
+  }
 
-    useEffect(() => {
-        if (error) {
-            alert(error.message)
-        }
-    }, [error])
+  useEffect(() => {
+    if (error) {
+      alert(error.message)
+    }
+  }, [error])
 
-    return (
-        <section className={classNames({
-            [s.formAuthen]: true,
-            [styles.formRegister]: true,
-        })}>
-            <div className={s.inner}>
-                <div className={s.body}>
-                    <Inputcommon
-                        placeholder='Email Address'
-                        type='email'
-                        ref={emailRef}
-                        value={email}
-                        onChange={(val) => setEmail(val.toString())}
-                    />
-                    <InputPassword
-                        placeholder='Password'
-                        value={password}
-                        onChange={(val) => setPassword(val.toString())}
-                    />
-
-                    <div className={styles.passwordNote}>
-                        Must contain 8 characters with at least 1 uppercase and 1 lowercase letter and either 1 number or 1 special character.
-                    </div>
+  return (
+    <section
+      className={classNames({
+        [s.formAuthen]: true,
+        [styles.formRegister]: true,
+      })}
+    >
+      <div className={s.inner}>
+        <div className={s.body}>
+          <Formik
+            initialValues={{
+              password: '',
+              email: '',
+            }}
+            validationSchema={DisplayingErrorMessagesSchema}
+            onSubmit={onSignup}
+          >
+            {({ errors, touched }) => (
+              <Form className="u-form">
+                <div className="body">
+                  <InputFiledInForm
+                    name="email"
+                    placeholder="Email Address"
+                    error={
+                      touched.email && errors.email
+                        ? errors.email.toString()
+                        : ''
+                    }
+                    isShowIconSuccess={touched.email && !errors.email}
+                  />
+                  <InputPasswordFiledInForm
+                    name="password"
+                    placeholder="Password"
+                    error={
+                      touched.password && errors.password
+                        ? errors.password.toString()
+                        : ''
+                    }
+                  />
+                  <div className={styles.passwordNote}>
+                    Must contain 8 characters with at least 1 uppercase and 1
+                    lowercase letter and either 1 number or 1 special character.
+                  </div>
                 </div>
                 <div className={styles.bottom}>
-                    <ButtonCommon size='large'
-                        loading={loading}
-                        onClick={onSignup}>
-                        Create Account
-                    </ButtonCommon>
+                  <ButtonCommon
+                    HTMLType="submit"
+                    size="large"
+                    loading={loading}
+                  >
+                    Create Account
+                  </ButtonCommon>
                 </div>
-                <SocialAuthen />
-                <div className={s.others}>
-                    <span>Already an account?</span>
-                    <button onClick={onSwitch}>Sign In</button>
-                </div>
-            </div>
-        </section>
-    )
+              </Form>
+            )}
+          </Formik>
+        </div>
+        <SocialAuthen />
+        <div className={s.others}>
+          <span>Already an account?</span>
+          <button onClick={onSwitch}>Sign In</button>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default FormRegister
