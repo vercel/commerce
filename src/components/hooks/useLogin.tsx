@@ -42,6 +42,7 @@ const useLogin = () => {
           throw CommonError.create(data.login.message, data.login.errorCode)
         }
         const authToken = headers.get('vendure-auth-token')
+        console.log("auth token: ", authToken)
         if (authToken != null) {
           localStorage.setItem('token', authToken)
           return mutate()

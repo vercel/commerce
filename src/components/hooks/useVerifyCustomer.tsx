@@ -25,7 +25,7 @@ const useVerifyCustomer = () => {
       query: VERIFY_CUSTOMER_ACCOUNT,
       variables: options,
     })
-      .then(({ data, headers }) => {
+      .then(({ data }) => {
         if (data.verifyCustomerAccount.__typename !== 'CurrentUser') {
           throw CommonError.create(
             data.verifyCustomerAccount.message,
@@ -33,12 +33,8 @@ const useVerifyCustomer = () => {
           )
         }
         fCallBack && fCallBack(true)
-
-        const authToken = headers.get('vendure-auth-token')
-        if (authToken != null) {
-          localStorage.setItem('token', authToken)
-          return mutate()
-        }
+        mutate()
+        return data
       })
       .catch((err) => {
         setError(err)

@@ -9,5 +9,8 @@ export const LANGUAGE = {
     },
     PLACE_HOLDER: {
         SEARCH: 'Search',
+    },
+    MESSAGE: {
+        ERROR: 'Something went wrong! Please try again!'
     }
 }

@@ -7,15 +7,7 @@ interface Props {
   onRemove?: (id: number) => void
 }
 
-const MessageCommon = memo(({ messages, onRemove }: Props) => {
-  useEffect(() => {
-    console.log("this fun change; onRemove")
-  }, [onRemove])
-
-  const handleRemove = (id: number) => {
-    onRemove && onRemove(id)
-  }
-  
+const MessageCommon = memo(({ messages, onRemove }: Props) => {  
   return (
     <div className={s.messageCommon}>
       {messages.reverse().map((item) => (
@@ -23,7 +15,7 @@ const MessageCommon = memo(({ messages, onRemove }: Props) => {
           key={item.id}
           id={item.id}
           content={item.content}
-          onRemove={handleRemove}
+          onRemove={onRemove}
         />
       ))}
     </div>

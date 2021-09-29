@@ -8,6 +8,8 @@
     border-radius: 0.8rem;
     transition: all .5s;
     animation: showMessage .5s;
+    width: max-content;
+    margin: 0 1.6rem;
 
     &.hide {
         display: none;  

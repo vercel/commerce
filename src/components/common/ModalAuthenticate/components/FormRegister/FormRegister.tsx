@@ -2,10 +2,12 @@ import classNames from 'classnames'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useRef } from 'react'
 import {
-    ButtonCommon,
-    InputFiledInForm,
-    InputPasswordFiledInForm
+  ButtonCommon,
+  InputFiledInForm,
+  InputPasswordFiledInForm,
 } from 'src/components/common'
+import { useMessage } from 'src/components/contexts'
+import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
 import { useSignup } from '../../../../hooks'
@@ -32,6 +34,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 const FormRegister = ({ onSwitch, isHide }: Props) => {
   const emailRef = useRef<CustomInputCommon>(null)
   const { loading, signup, error } = useSignup()
+  const { showMessageSuccess, showMessageError } = useMessage()
 
   useEffect(() => {
     if (!isHide) {
@@ -40,9 +43,15 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
   }, [isHide])
 
   const onSignup = (values: { email: string; password: string }) => {
-    signup({ email: values.email, password: values.password })
-    // TODO: flow
-    alert('User created. Please verify your email')
+    signup({ email: values.email, password: values.password }, onSignupCallBack)
+  }
+
+  const onSignupCallBack = (isSuccess: boolean, message?: string) => {
+    if (isSuccess) {
+      showMessageSuccess("Create account successfully. Please verify your email to login.")
+    } else {
+      showMessageError(message || LANGUAGE.MESSAGE.ERROR)
+    }
   }
 
   useEffect(() => {

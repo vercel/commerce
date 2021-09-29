@@ -17,7 +17,7 @@ export function MessageProvider({ children }: Props) {
   ) => {
     const item: MessageItemProps = {
       id: currentId + 1,
-      content: currentId + 1 + content,
+      content,
       type,
       timeout,
     }
