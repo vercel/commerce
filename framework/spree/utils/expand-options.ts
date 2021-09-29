@@ -1,6 +1,5 @@
 import type {
-  ProductOption,
-  ProductOptionValues,
+  ProductOptionValues
 } from '@commerce/types/product'
 import type {
   JsonApiDocument,
@@ -9,17 +8,18 @@ import type {
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import SpreeResponseContentError from '../errors/SpreeResponseContentError'
-import type { OptionTypeAttr } from '@framework/types'
+import type { OptionTypeAttr, ExpandedProductOption } from '@framework/types'
+import sortOptionsByPosition from '@framework/utils/sort-option-types'
 
-const isColorProductOption = (productOption: ProductOption) => {
+const isColorProductOption = (productOption: ExpandedProductOption) => {
   return productOption.displayName === 'Color'
 }
 
 const expandOptions = (
   spreeSuccessResponse: JsonApiResponse,
   spreeOptionValue: JsonApiDocument,
-  accumulatedOptions: ProductOption[]
-): ProductOption[] => {
+  accumulatedOptions: ExpandedProductOption[]
+): ExpandedProductOption[] => {
   const spreeOptionTypeIdentifier = spreeOptionValue.relationships.option_type
     .data as RelationType
 
@@ -27,7 +27,7 @@ const expandOptions = (
     (option) => option.id == spreeOptionTypeIdentifier.id
   )
 
-  let option: ProductOption
+  let option: ExpandedProductOption
 
   if (existingOptionIndex === -1) {
     const spreeOptionType = jsonApi.findDocument<OptionTypeAttr>(
@@ -45,6 +45,7 @@ const expandOptions = (
       __typename: 'MultipleChoiceOption',
       id: spreeOptionType.id,
       displayName: spreeOptionType.attributes.presentation,
+      position: spreeOptionType.attributes.position,
       values: [],
     }
   } else {
@@ -93,7 +94,9 @@ const expandOptions = (
       values: expandedOptionValues,
     }
 
-    return expandedOptions
+    const sortedOptions = sortOptionsByPosition(expandedOptions)
+
+    return sortedOptions
   }
 
   return accumulatedOptions
