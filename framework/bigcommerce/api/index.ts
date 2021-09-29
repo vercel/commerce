@@ -14,6 +14,7 @@ import type { LogoutAPI } from './endpoints/logout'
 import type { SignupAPI } from './endpoints/signup'
 import type { ProductsAPI } from './endpoints/catalog/products'
 import type { WishlistAPI } from './endpoints/wishlist'
+import type { SubscriptionsAPI } from './endpoints/subscriptions'
 
 import login from './operations/login'
 import getAllPages from './operations/get-all-pages'
@@ -34,7 +35,7 @@ export interface BigcommerceConfig extends CommerceAPIConfig {
   storeChannelId?: string
   storeUrl?: string
   storeApiClientSecret?: string
-  storeHash?:string
+  storeHash?: string
   storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
 }
 
@@ -81,8 +82,8 @@ const config: BigcommerceConfig = {
   storeApiToken: STORE_API_TOKEN,
   storeApiClientId: STORE_API_CLIENT_ID,
   storeChannelId: STORE_CHANNEL_ID,
-  storeUrl:STORE_URL,
-  storeApiClientSecret:CLIENT_SECRET,
+  storeUrl: STORE_URL,
+  storeApiClientSecret: CLIENT_SECRET,
   storeHash: STOREFRONT_HASH,
   storeApiFetch: createFetchStoreApi(() => getCommerceApi().getConfig()),
 }
@@ -110,6 +111,7 @@ export type APIs =
   | SignupAPI
   | ProductsAPI
   | WishlistAPI
+  | SubscriptionsAPI
 
 export type BigcommerceAPI<P extends Provider = Provider> = CommerceAPI<P>
 

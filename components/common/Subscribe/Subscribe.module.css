@@ -1,0 +1,3 @@
+.root {
+  @apply relative text-sm bg-accent-0 text-base w-full transition-colors duration-150 border border-accent-2;
+}
