@@ -4,6 +4,8 @@ import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
+import { getSentryRelease } from '@sentry/node'
+import * as Sentry from '@sentry/nextjs'
 
 interface Link {
   href: string
@@ -16,6 +18,45 @@ interface NavbarProps {
 const Navbar: FC<NavbarProps> = ({ links }) => (
   <NavbarRoot>
     <Container>
+      <button
+        type="button"
+        onClick={() => {
+          throw new Error("Sentry Frontend Error");
+        }}
+      >
+        Throw error&nbsp;&nbsp;&nbsp;
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          try {
+            return 1/0
+          }
+          catch (exception) {
+            Sentry.captureException(exception)
+          }
+        }}
+      >
+        Handled error&nbsp;&nbsp;&nbsp;
+      </button>
+      <button
+        type="button"
+        onClick={async () => 
+          { 
+            console.log('Calling api')
+            const response = await fetch('/api/error')
+            console.log(response.status)
+            if(response.status === 500) {
+              console.log('Server error')
+              Sentry.captureException("API Call to /api/error failed")
+            }
+            const data = response.json()
+            console.log(data)
+          }
+        }
+      >
+        Generate Server Error
+      </button>
       <div className={s.nav}>
         <div className="flex items-center flex-1">
           <Link href="/">
