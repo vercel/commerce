@@ -1,0 +1,20 @@
+import { ActiveOrderQuery } from '@framework/schema'
+import { cartFragment } from '@framework/utils/fragments/cart-fragment'
+import { gql } from 'graphql-request'
+import gglFetcher from 'src/utils/gglFetcher'
+import useSWR from 'swr'
+const query = gql`
+  query activeOrder {
+    activeOrder {
+			...Cart
+    }
+  }
+	${ cartFragment }
+`
+
+const useGetActiveOrder = () => {
+  const { data, ...rest } = useSWR<ActiveOrderQuery>([query], gglFetcher)
+  return { order: data?.activeOrder, ...rest }
+}
+
+export default useGetActiveOrder

@@ -1,3 +1,5 @@
+import { SortOrder } from "@framework/schema";
+
 export interface ProductProps {
     category?: string
     name: string
