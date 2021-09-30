@@ -1,9 +1,10 @@
 import type { CheckoutEndpoint } from '.'
 
 const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
+  req,
   res,
   body: { cartId },
-  config: { restBuyerFetch },
+  config: { restBuyerFetch, tokenCookie },
 }) => {
   // Return an error if no item is present
   if (!cartId) {
@@ -13,8 +14,16 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
     })
   }
 
+  // Get token from cookies
+  const token = req.cookies[tokenCookie]
+
   // Submit order
-  await restBuyerFetch('POST', `/orders/Outgoing/${cartId}/submit`, {})
+  await restBuyerFetch(
+    'POST',
+    `/orders/Outgoing/${cartId}/submit`,
+    {},
+    { token }
+  )
 
   // Return cart and errors
   res.status(200).json({ data: null, errors: [] })
