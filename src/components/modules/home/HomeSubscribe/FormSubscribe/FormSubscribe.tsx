@@ -16,7 +16,6 @@ const FormSubscribe = () => {
             e.preventDefault && e.preventDefault()
             value = inputElementRef.current?.getValue()?.toString() || ''
         }
-        console.log("email here: ", value)
     }
 
     return (

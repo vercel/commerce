@@ -2,6 +2,32 @@
 
 .buttonCommon {
   @apply shape-common;
+  &:hover {
+    .inner {
+      @apply shadow-md;
+      &:not(:disabled) {
+        filter: brightness(1.05);
+      }
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    .inner {
+      filter: brightness(0.8) !important;
+      color: var(--disabled);
+    }
+  }
+  
+  &:focus {
+    outline: none;
+    .inner {
+      filter: brightness(1.05);
+    }
+  }
+  &:focus-visible {
+    outline: 2px solid var(--text-active);
+  }
   .inner {
     padding: 1rem 2rem;
     @apply bg-primary transition-all duration-200 text-white font-bold;
@@ -14,37 +40,19 @@
     @screen lg {
       padding: 1.6rem 3.2rem;
     }
-    &:disabled {
-      filter: brightness(0.9);
-      cursor: not-allowed;
-      color: var(--disabled);
-    }
-    &:hover {
-      @apply shadow-md;
-      &:not(:disabled) {
-        filter: brightness(1.05);
-      }
-    }
-    &:focus {
-      outline: none;
-      filter: brightness(1.05);
-    }
-    &:focus-visible {
-      outline: 2px solid var(--text-active);
-    }
   }
   &.loading {
     .inner {
       &::after {
         content: "";
         border-radius: 50%;
-        width: 1.6rem;
-        height: 1.6rem;
+        width: 1.8rem;
+        height: 1.8rem;
         border: 3px solid rgba(170, 170, 170, 0.5);
         border-top: 3px solid var(--white);
         -webkit-animation: spin 2s linear infinite;
         animation: spin 2s linear infinite;
-        margin-right: 0.8rem;
+        margin-left: 0.8rem;
       }
     }
   }
@@ -60,7 +68,7 @@
     &.loading {
       .inner {
         &::after {
-          border-top-color: var(--primary);
+          border-top-color: var(--text-active);
         }
       }
     }
@@ -87,7 +95,7 @@
     }
     &.loading {
       .inner::after {
-        border-top-color: var(--text-active);
+        border-top-color: var(--primary);
       }
     }
   }
@@ -105,14 +113,14 @@
   }
   &.small {
     .inner {
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
       &.onlyIcon {
         padding: 1rem;
       }
       @screen md {
-        padding: .8rem 1.6rem;
+        padding: 0.8rem 1.6rem;
         &.onlyIcon {
-          padding: .8rem;
+          padding: 0.8rem;
         }
       }
     }

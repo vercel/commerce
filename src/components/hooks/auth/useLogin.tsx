@@ -1,24 +1,11 @@
-import { gql } from 'graphql-request'
 import { useState } from 'react'
 import useActiveCustomer from './useActiveCustomer'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
 import { LoginMutation } from '@framework/schema'
-
-const query = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      __typename
-      ... on CurrentUser {
-        id
-      }
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-`
+import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
+import { errorMapping } from 'src/utils/errrorMapping'
+import { loginMutation } from '@framework/utils/mutations/log-in-mutation'
 
 interface LoginInput {
   username: string
@@ -30,24 +17,30 @@ const useLogin = () => {
   const [error, setError] = useState<CommonError | null>(null)
   const { mutate } = useActiveCustomer()
 
-  const login = (options: LoginInput) => {
+  const login = (options: LoginInput,
+    fCallBack: (isSuccess: boolean, message?: string) => void
+    ) => {
     setError(null)
     setLoading(true)
     rawFetcher<LoginMutation>({
-      query,
+      query: loginMutation,
       variables: options,
     })
       .then(({ data, headers }) => {
         if (data.login.__typename !== 'CurrentUser') {
-          throw CommonError.create(data.login.message, data.login.errorCode)
+          throw CommonError.create(errorMapping(data.login.message), data.login.errorCode)
         }
         const authToken = headers.get('vendure-auth-token')
         if (authToken != null) {
-          localStorage.setItem('token', authToken)
-          return mutate()
+          localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, authToken)
+          mutate()
         }
+        fCallBack(true)
       })
-      .catch(setError)
+      .catch((error) => {
+        setError(error)
+        fCallBack(false, error.message)
+      })
       .finally(() => setLoading(false))
   }
 

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import avatar from '../../assets/avatar.png'
 
 import { ButtonCommon } from 'src/components/common'
-import useActiveCustomer from 'src/components/hooks/useActiveCustomer'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 
 interface AccountProps {
   name: string

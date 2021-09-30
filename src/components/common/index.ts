@@ -48,3 +48,8 @@ export { default as EmptyCommon} from './EmptyCommon/EmptyCommon'
 export { default as CustomShapeSvg} from './CustomShapeSvg/CustomShapeSvg'
 export { default as RecommendedRecipes} from './RecommendedRecipes/RecommendedRecipes'
 export { default as LayoutCheckout} from './LayoutCheckout/LayoutCheckout'
+export { default as InputPasswordFiledInForm} from './InputPasswordFiledInForm/InputPasswordFiledInForm'
+export { default as InputFiledInForm} from './InputFiledInForm/InputFiledInForm'
+export { default as MessageCommon} from './MessageCommon/MessageCommon'
+
+

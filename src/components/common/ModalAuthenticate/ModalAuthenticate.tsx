@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import useActiveCustomer from 'src/components/hooks/useActiveCustomer'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import { ROUTE } from 'src/utils/constanst.utils'
 import ModalCommon from '../ModalCommon/ModalCommon'
 import FormLogin from './components/FormLogin/FormLogin'
@@ -32,7 +32,7 @@ const ModalAuthenticate = ({ visible, mode, closeModal }: Props) => {
       closeModal()
       router.push(ROUTE.ACCOUNT)
     }
-  }, [customer, visible])
+  }, [customer, visible, closeModal, router])
 
   const onSwitch = () => {
     setIsLogin(!isLogin)

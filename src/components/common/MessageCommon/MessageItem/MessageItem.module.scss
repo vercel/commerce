@@ -1,0 +1,65 @@
+@import "../../../../styles/utilities";
+
+.messageItem {
+    @apply shadow-sm flex justify-center items-center cursor-default;
+    width: fit-content;
+    padding: 0.8rem 2.4rem;
+    margin: 0 auto .8rem;
+    border-radius: 0.8rem;
+    transition: all .5s;
+    animation: showMessage .5s;
+    width: max-content;
+
+    &.hide {
+        display: none;  
+    }
+    .icon {
+        @apply flex justify-center items-center;
+        margin-right: 0.8rem;
+        svg {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+    &.info {
+        @apply bg-info-light;
+        color: var(--info-dark);
+        .icon svg path {
+            fill: var(--info);
+        }
+    }
+    &.success {
+        @apply bg-positive-light;
+        color: var(--positive-dark);
+        .icon svg path {
+            fill: var(--positive);
+        }
+    }
+    &.error {
+        @apply bg-negative-light;
+        color: var(--negative-dark);
+        .icon svg path {
+            fill: var(--negative);
+        }
+    }
+    &.warning {
+        @apply bg-warning-light;
+        color: var(--warning-dark);
+        .icon svg path {
+            fill: var(--warning);
+        }
+    }
+}
+
+
+@keyframes showMessage {
+    0% {
+        transform: translateY(-2rem);
+        opacity: .5;
+    }
+
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}

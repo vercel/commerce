@@ -3095,6 +3095,36 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+export type VerifyCustomerAccountVariables = Exact<{
+  token: Scalars['String']
+  password?: Maybe<Scalars['String']>
+}>
+
+export type VerifyCustomerAccountMutation = { __typename?: 'Mutation' } & {
+  verifyCustomerAccount:
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | ({ __typename: 'VerificationTokenInvalidError' } & Pick<
+      VerificationTokenInvalidError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'VerificationTokenExpiredError' } & Pick<
+      VerificationTokenExpiredError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'MissingPasswordError' } & Pick<
+      MissingPasswordError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'PasswordAlreadySetError' } & Pick<
+      PasswordAlreadySetError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+      NativeAuthStrategyError,
+      'errorCode' | 'message'
+    >)
+}
+
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>
 
 export type LogoutMutation = { __typename?: 'Mutation' } & {

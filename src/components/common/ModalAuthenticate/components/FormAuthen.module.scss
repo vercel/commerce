@@ -1,7 +1,7 @@
 @import '../../../../styles/utilities';
 
 .formAuthen {
-    @apply bg-white w-full u-form;
+    @apply bg-white w-full;
     .inner {
         @screen md {
             width: 60rem;
