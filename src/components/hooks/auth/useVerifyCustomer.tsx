@@ -2,7 +2,7 @@ import { VerifyCustomerAccountMutation } from '@framework/schema'
 import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
-import { VERIFY_CUSTOMER_ACCOUNT } from '../../graphql/mutation'
+import { VERIFY_CUSTOMER_ACCOUNT } from '../../../graphql/mutation'
 import useActiveCustomer from './useActiveCustomer'
 
 interface VerifyInput {

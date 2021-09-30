@@ -22,7 +22,7 @@ import {
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
 import { useLogout } from '../../../../hooks/auth'
-import useActiveCustomer from 'src/components/hooks/useActiveCustomer'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 interface Props {
   children?: any
   isFull?: boolean
