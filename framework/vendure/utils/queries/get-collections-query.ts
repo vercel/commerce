@@ -19,3 +19,13 @@ export const getCollectionsQuery = /* GraphQL */ `
     }
   }
 `
+export const getCollectionsNameQuery = /* GraphQL */ `
+  query getCollections {
+    collections{
+      items{
+          name
+          link:slug
+      }
+    }
+  }
+`
