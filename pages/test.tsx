@@ -1,16 +1,40 @@
+import { QueryFacetsArgs } from '@framework/schema'
+import { useMemo, useState } from 'react'
 import { Layout } from 'src/components/common'
-import { useMessage } from 'src/components/contexts'
+import { useFacets } from 'src/components/hooks/facets'
 
 export default function Test() {
-  const { showMessageError } = useMessage()
+  const [keyword, setKeyword] = useState('c')
 
-  const handleClick = () => {
-    showMessageError("Create account successfully")
+  const optionsFilter = useMemo(() => {
+    console.log("change options")
+    return {
+      options: {
+        filter: {
+          name: {
+            contains: keyword
+          }
+        }
+      }
+    } as QueryFacetsArgs
+  }, [keyword])
+
+  const { items, totalItems } = useFacets(optionsFilter)
+
+  const changeQuery = () => {
+    setKeyword('ca')
   }
 
   return (
     <>
-    <button onClick={handleClick}>Click me</button>
+      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, praesentium.</div>
+      <div>
+        total: {totalItems}
+      </div>
+      <div>
+        ITEMS: {JSON.stringify(items)}
+      </div>
+      <button onClick={changeQuery}>change</button>
     </>
   )
 }
