@@ -3,7 +3,7 @@ import type { CheckoutEndpoint } from '.'
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   res,
   body: { cartId },
-  config: { restFetch },
+  config: { restBuyerFetch },
 }) => {
   // Return an error if no item is present
   if (!cartId) {
@@ -14,12 +14,15 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   }
 
   // Register credit card
-  const payments = await restFetch(
+  const payments = await restBuyerFetch(
     'GET',
     `/orders/Outgoing/${cartId}/payments`
   ).then((response: { Items: unknown[] }) => response.Items)
 
-  const address = await restFetch('GET', `/orders/Outgoing/${cartId}`).then(
+  const address = await restBuyerFetch(
+    'GET',
+    `/orders/Outgoing/${cartId}`
+  ).then(
     (response: { ShippingAddressID: string }) => response.ShippingAddressID
   )
 

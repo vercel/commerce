@@ -1,6 +1,6 @@
 import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
 import { getCommerceApi as commerceApi } from '@commerce/api'
-import createRestFetcher from './utils/fetch-rest'
+import { createBuyerFetcher, createMiddlewareFetcher } from './utils/fetch-rest'
 import createGraphqlFetcher from './utils/fetch-graphql'
 
 import getAllPages from './operations/get-all-pages'
@@ -10,16 +10,29 @@ import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
-import { API_URL, API_VERSION, CART_COOKIE, CUSTOMER_COOKIE } from '../constants'
+import {
+  API_URL,
+  API_VERSION,
+  CART_COOKIE,
+  CUSTOMER_COOKIE,
+  TOKEN_COOKIE,
+} from '../constants'
 
 export interface OrdercloudConfig extends CommerceAPIConfig {
-  restFetch: <T>(
+  restBuyerFetch: <T>(
     method: string,
     resource: string,
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
-  ) => Promise<T>,
-  apiVersion: string;
+  ) => Promise<T>
+  restMiddlewareFetch: <T>(
+    method: string,
+    resource: string,
+    body?: Record<string, unknown>,
+    fetchOptions?: Record<string, any>
+  ) => Promise<T>
+  apiVersion: string
+  tokenCookie: string
 }
 
 const config: OrdercloudConfig = {
@@ -28,8 +41,12 @@ const config: OrdercloudConfig = {
   apiVersion: API_VERSION,
   cartCookie: CART_COOKIE,
   customerCookie: CUSTOMER_COOKIE,
+  tokenCookie: TOKEN_COOKIE,
   cartCookieMaxAge: 2592000,
-  restFetch: createRestFetcher(() => getCommerceApi().getConfig()),
+  restBuyerFetch: createBuyerFetcher(() => getCommerceApi().getConfig()),
+  restMiddlewareFetch: createMiddlewareFetcher(() =>
+    getCommerceApi().getConfig()
+  ),
   fetch: createGraphqlFetcher(() => getCommerceApi().getConfig()),
 }
 

@@ -10,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET as string, {
 const addItem: CustomerCardEndpoint['handlers']['addItem'] = async ({
   res,
   body: { item, cartId },
-  config: { restFetch },
+  config: { restBuyerFetch, restMiddlewareFetch },
 }) => {
   // Return an error if no item is present
   if (!item) {
@@ -41,7 +41,7 @@ const addItem: CustomerCardEndpoint['handlers']['addItem'] = async ({
     .then((res: { id: string }) => res.id)
 
   // Register credit card
-  const creditCard = await restFetch('POST', `/me/creditcards`, {
+  const creditCard = await restBuyerFetch('POST', `/me/creditcards`, {
     Token: token,
     CardType: 'credit',
     PartialAccountNumber: item.cardNumber.slice(-4),
@@ -50,11 +50,23 @@ const addItem: CustomerCardEndpoint['handlers']['addItem'] = async ({
   }).then((response: OredercloudCreditCard) => response.ID)
 
   // Assign payment to order
-  await restFetch('POST', `/orders/Outgoing/${cartId}/payments`, {
-    Accepted: true,
-    Type: 'CreditCard',
-    CreditCardID: creditCard,
-  })
+  const payment = await restBuyerFetch(
+    'POST',
+    `/orders/All/${cartId}/payments`,
+    {
+      Type: 'CreditCard',
+      CreditCardID: creditCard,
+    }
+  ).then((response: { ID: string }) => response.ID)
+
+  // Accept payment to order
+  await restMiddlewareFetch(
+    'PATCH',
+    `/orders/All/${cartId}/payments/${payment}`,
+    {
+      Accepted: true,
+    }
+  )
 
   return res.status(200).json({ data: null, errors: [] })
 }

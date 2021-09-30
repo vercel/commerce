@@ -18,10 +18,10 @@ export default function getAllProductsOperation({
     preview?: boolean
   } = {}): Promise<T['data']> {
     // Get fetch from the config
-    const { restFetch } = commerce.getConfig(config)
+    const { restBuyerFetch } = commerce.getConfig(config)
 
     // Get all products
-    const rawProducts: RawProduct[] = await restFetch<{
+    const rawProducts: RawProduct[] = await restBuyerFetch<{
       Items: RawProduct[]
     }>('GET', '/me/products').then((response) => response.Items)
 

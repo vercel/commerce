@@ -1,6 +1,6 @@
+import Cookies from 'js-cookie'
 import vercelFetch from '@vercel/fetch'
 import { FetcherError } from '@commerce/utils/errors'
-import jwt from 'jsonwebtoken'
 
 import { OrdercloudConfig } from '../index'
 
@@ -8,7 +8,15 @@ import { OrdercloudConfig } from '../index'
 const fetch = vercelFetch()
 
 // Get token util
-async function getToken(baseUrl: string) {
+async function getToken({
+  baseUrl,
+  clientId,
+  clientSecret,
+}: {
+  baseUrl: string
+  clientId: string
+  clientSecret?: string
+}): Promise<string> {
   // If not, get a new one and store it
   const authResponse = await fetch(`${baseUrl}/oauth/token`, {
     method: 'POST',
@@ -16,7 +24,7 @@ async function getToken(baseUrl: string) {
       'Content-Type': 'application/x-www-form-urlencoded',
       Accept: 'application/json',
     },
-    body: `client_id=${process.env.ORDERCLOUD_CLIENT_ID}&client_secret=${process.env.ORDERCLOUD_CLIENT_SECRET}&grant_type=client_credentials`,
+    body: `client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`,
   })
 
   // If something failed getting the auth response
@@ -32,68 +40,40 @@ async function getToken(baseUrl: string) {
   }
 
   // Return the token
-  return authResponse.json().then((response) => response.access_token)
+  return authResponse
+    .json()
+    .then((response: { access_token: string }) => response.access_token)
 }
 
-export async function fetchData<T>(
-  opts: {
-    path: string
-    method: string
-    baseUrl: string
-    apiVersion: string
-    fetchOptions?: Record<string, any>
-    body?: Record<string, unknown>
-  },
-  retries = 0
-): Promise<T> {
+export async function fetchData<T>(opts: {
+  token: string
+  path: string
+  method: string
+  config: OrdercloudConfig
+  fetchOptions?: Record<string, any>
+  body?: Record<string, unknown>
+}): Promise<T> {
   // Destructure opts
-  const { path, body, fetchOptions, baseUrl, apiVersion, method = 'GET' } = opts
-
-  // Decode token
-  const decoded = jwt.decode(global.token as string) as jwt.JwtPayload | null
-
-  // If token is not present or its expired, get a new one and store it
-  if (
-    !global.token ||
-    (typeof decoded?.exp === 'number' && decoded?.exp * 1000 < +new Date())
-  ) {
-    // Get a new one
-    const token = await getToken(baseUrl)
-
-    // Store it
-    global.token = token
-  }
+  const { path, body, fetchOptions, config, token, method = 'GET' } = opts
 
   // Do the request with the correct headers
-  const dataResponse = await fetch(`${baseUrl}/${apiVersion}${path}`, {
-    ...fetchOptions,
-    method,
-    headers: {
-      ...fetchOptions?.headers,
-      'Content-Type': 'application/json',
-      accept: 'application/json, text/plain, */*',
-      authorization: `Bearer ${global.token}`,
-    },
-    body: body ? JSON.stringify(body) : undefined,
-  })
+  const dataResponse = await fetch(
+    `${config.commerceUrl}/${config.apiVersion}${path}`,
+    {
+      ...fetchOptions,
+      method,
+      headers: {
+        ...fetchOptions?.headers,
+        'Content-Type': 'application/json',
+        accept: 'application/json, text/plain, */*',
+        authorization: `Bearer ${token}`,
+      },
+      body: body ? JSON.stringify(body) : undefined,
+    }
+  )
 
   // If something failed getting the data response
   if (!dataResponse.ok) {
-    // If token is expired
-    if (dataResponse.status === 401) {
-      // Get a new one
-      const token = await getToken(baseUrl)
-
-      // Store it
-      global.token = token
-    }
-
-    // And if retries left
-    if (retries < 2) {
-      // Refetch
-      return fetchData(opts, retries + 1)
-    }
-
     // Get the body of it
     const error = await dataResponse.textConverted()
 
@@ -106,14 +86,20 @@ export async function fetchData<T>(
 
   try {
     // Return data response as json
-    return (await dataResponse.json()) as Promise<T>
+    const data = (await dataResponse.json()) as Promise<T>
+
+    // Return data with meta
+    return {
+      meta: { token },
+      ...data,
+    }
   } catch (error) {
     // If response is empty return it as text
     return null as unknown as Promise<T>
   }
 }
 
-const serverFetcher: (
+export const createMiddlewareFetcher: (
   getConfig: () => OrdercloudConfig
 ) => <T>(
   method: string,
@@ -129,17 +115,64 @@ const serverFetcher: (
     fetchOptions?: Record<string, any>
   ) => {
     // Get provider config
-    const { commerceUrl, apiVersion } = getConfig()
+    const config = getConfig()
+
+    // Get a token
+    const token = await getToken({
+      baseUrl: config.commerceUrl,
+      clientId: process.env.ORDERCLOUD_MIDDLEWARE_CLIENT_ID as string,
+      clientSecret: process.env.ORDERCLOUD_MIDDLEWARE_CLIENT_SECRET,
+    })
 
     // Return the data and specify the expected type
     return fetchData<T>({
+      token,
       fetchOptions,
       method,
-      baseUrl: commerceUrl,
-      apiVersion,
+      config,
       path,
       body,
     })
   }
 
-export default serverFetcher
+export const createBuyerFetcher: (
+  getConfig: () => OrdercloudConfig
+) => <T>(
+  method: string,
+  path: string,
+  body?: Record<string, unknown>,
+  fetchOptions?: Record<string, any>
+) => Promise<T> =
+  (getConfig) =>
+  async <T>(
+    method: string,
+    path: string,
+    body?: Record<string, unknown>,
+    fetchOptions?: Record<string, any>
+  ) => {
+    // Get provider config
+    const config = getConfig()
+
+    // If a token was passed, set it on global
+    if (fetchOptions?.token) {
+      global.token = fetchOptions.token
+    }
+
+    // Get a token
+    if (!global.token) {
+      global.token = await getToken({
+        baseUrl: config.commerceUrl,
+        clientId: process.env.ORDERCLOUD_BUYER_CLIENT_ID as string,
+      })
+    }
+
+    // Return the data and specify the expected type
+    return fetchData<T>({
+      token: global.token as string,
+      fetchOptions,
+      config,
+      method,
+      path,
+      body,
+    })
+  }

@@ -3,7 +3,7 @@ import type { CustomerAddressEndpoint } from '.'
 const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
   res,
   body: { item, cartId },
-  config: { restFetch },
+  config: { restBuyerFetch },
 }) => {
   // Return an error if no item is present
   if (!item) {
@@ -22,25 +22,23 @@ const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
   }
 
   // Register address
-  const address = await restFetch('POST', `/me/addresses`, {
-    "AddressName": "main address",
-    "CompanyName": item.company,
-    "FirstName": item.firstName,
-    "LastName": item.lastName,
-    "Street1": item.streetNumber,
-    "Street2": item.streetNumber,
-    "City": item.city,
-    "State": item.city,
-    "Zip": item.zipCode,
-    "Country": item.country.slice(0, 2).toLowerCase(),
-    "Shipping": true
-  }).then(
-    (response: {ID: string}) => response.ID
-  )
+  const address = await restBuyerFetch('POST', `/me/addresses`, {
+    AddressName: 'main address',
+    CompanyName: item.company,
+    FirstName: item.firstName,
+    LastName: item.lastName,
+    Street1: item.streetNumber,
+    Street2: item.streetNumber,
+    City: item.city,
+    State: item.city,
+    Zip: item.zipCode,
+    Country: item.country.slice(0, 2).toLowerCase(),
+    Shipping: true,
+  }).then((response: { ID: string }) => response.ID)
 
   // Assign address to order
-  await restFetch('PATCH', `/orders/Outgoing/${cartId}`, {
-    ShippingAddressID: address
+  await restBuyerFetch('PATCH', `/orders/Outgoing/${cartId}`, {
+    ShippingAddressID: address,
   })
 
   return res.status(200).json({ data: null, errors: [] })
