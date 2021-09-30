@@ -45,13 +45,11 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
           { 
             console.log('Calling api')
             const response = await fetch('/api/error')
-            console.log(response.status)
-            if(response.status === 500) {
-              console.log('Server error')
+            console.log(response.ok)
+            if(!response.ok) {
               Sentry.captureException("API Call to /api/error failed")
             }
             const data = response.json()
-            console.log(data)
           }
         }
       >
