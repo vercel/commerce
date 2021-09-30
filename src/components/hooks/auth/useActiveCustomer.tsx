@@ -1,21 +1,10 @@
 import { ActiveCustomerQuery } from '@framework/schema'
-import { gql } from 'graphql-request'
+import { activeCustomerQuery } from '@framework/utils/queries/active-customer-query'
 import gglFetcher from 'src/utils/gglFetcher'
 import useSWR from 'swr'
 
-const query = gql`
-  query activeCustomer {
-    activeCustomer {
-      id
-      firstName
-      lastName
-      emailAddress
-    }
-  }
-`
-
 const useActiveCustomer = () => {
-  const { data, ...rest } = useSWR<ActiveCustomerQuery>([query], gglFetcher)
+  const { data, ...rest } = useSWR<ActiveCustomerQuery>([activeCustomerQuery], gglFetcher)
   return { customer: data?.activeCustomer, ...rest }
 }
 

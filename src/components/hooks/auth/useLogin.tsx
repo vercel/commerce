@@ -1,4 +1,3 @@
-import { gql } from 'graphql-request'
 import { useState } from 'react'
 import useActiveCustomer from './useActiveCustomer'
 import { CommonError } from 'src/domains/interfaces/CommonError'
@@ -6,21 +5,7 @@ import rawFetcher from 'src/utils/rawFetcher'
 import { LoginMutation } from '@framework/schema'
 import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
 import { errorMapping } from 'src/utils/errrorMapping'
-
-const query = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      __typename
-      ... on CurrentUser {
-        id
-      }
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-`
+import { loginMutation } from '@framework/utils/mutations/log-in-mutation'
 
 interface LoginInput {
   username: string
@@ -38,7 +23,7 @@ const useLogin = () => {
     setError(null)
     setLoading(true)
     rawFetcher<LoginMutation>({
-      query,
+      query: loginMutation,
       variables: options,
     })
       .then(({ data, headers }) => {

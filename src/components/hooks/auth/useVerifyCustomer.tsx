@@ -2,8 +2,8 @@ import { VerifyCustomerAccountMutation } from '@framework/schema'
 import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
-import { VERIFY_CUSTOMER_ACCOUNT } from '../../../graphql/mutation'
 import useActiveCustomer from './useActiveCustomer'
+import { verifyCustomerAccountMutaton } from '@framework/utils/mutations/verify-customer-account-mutation'
 
 interface VerifyInput {
   token: string
@@ -22,7 +22,7 @@ const useVerifyCustomer = () => {
     setError(null)
     setLoading(true)
     rawFetcher<VerifyCustomerAccountMutation>({
-      query: VERIFY_CUSTOMER_ACCOUNT,
+      query: verifyCustomerAccountMutaton,
       variables: options,
     })
       .then(({ data }) => {

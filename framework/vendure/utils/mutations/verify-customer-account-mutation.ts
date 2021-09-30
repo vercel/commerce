@@ -1,8 +1,5 @@
-import { gql } from 'graphql-request'
-
-
-export const VERIFY_CUSTOMER_ACCOUNT = gql`
-mutation verifyCustomerAccount($token: String!, $password: String) {
+export const verifyCustomerAccountMutaton = /* GraphQL */ `
+  mutation verifyCustomerAccount($token: String!, $password: String) {
   verifyCustomerAccount( token: $token, password: $password) {
       __typename
       ...on CurrentUser {
@@ -16,5 +13,3 @@ mutation verifyCustomerAccount($token: String!, $password: String) {
     }
   }
 `
-
-
