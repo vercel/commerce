@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import vercelFetch from '@vercel/fetch'
 import { FetcherError } from '@commerce/utils/errors'
 
@@ -86,13 +85,7 @@ export async function fetchData<T>(opts: {
 
   try {
     // Return data response as json
-    const data = (await dataResponse.json()) as Promise<T>
-
-    // Return data with meta
-    return {
-      meta: { token },
-      ...data,
-    }
+    return (await dataResponse.json()) as Promise<T>
   } catch (error) {
     // If response is empty return it as text
     return null as unknown as Promise<T>
@@ -167,7 +160,7 @@ export const createBuyerFetcher: (
     }
 
     // Return the data and specify the expected type
-    return fetchData<T>({
+    const data = await fetchData<T>({
       token: global.token as string,
       fetchOptions,
       config,
@@ -175,4 +168,9 @@ export const createBuyerFetcher: (
       path,
       body,
     })
+
+    return {
+      ...data,
+      meta: { token: global.token as string },
+    }
   }
