@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import useActiveCustomer from 'src/components/hooks/useActiveCustomer'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import { ROUTE } from 'src/utils/constanst.utils'
 import ModalCommon from '../ModalCommon/ModalCommon'
 import FormLogin from './components/FormLogin/FormLogin'

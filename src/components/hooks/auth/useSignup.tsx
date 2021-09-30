@@ -1,24 +1,9 @@
-import { gql } from 'graphql-request'
 import { useState } from 'react'
 import useActiveCustomer from './useActiveCustomer'
 import { SignupMutation } from '@framework/schema'
 import fetcher from 'src/utils/fetcher'
 import { CommonError } from 'src/domains/interfaces/CommonError'
-
-const query = gql`
-  mutation signup($input: RegisterCustomerInput!) {
-    registerCustomerAccount(input: $input) {
-      __typename
-      ... on Success {
-        success
-      }
-      ... on ErrorResult {
-        errorCode
-        message
-      }
-    }
-  }
-`
+import { signupMutation } from '@framework/utils/mutations/sign-up-mutation'
 
 interface SignupInput {
   email: string
@@ -39,7 +24,7 @@ const useSignup = () => {
     setError(null)
     setLoading(true)
     fetcher<SignupMutation>({
-      query,
+      query: signupMutation,
       variables: {
         input: {
           firstName,

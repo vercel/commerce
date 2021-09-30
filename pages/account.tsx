@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from 'src/components/common'
-import useActiveCustomer from 'src/components/hooks/useActiveCustomer'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import { AccountPage, AccountSignIn } from 'src/components/modules/account'
 
 const Account = () => {

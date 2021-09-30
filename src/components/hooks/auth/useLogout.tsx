@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
 import rawFetcher from 'src/utils/rawFetcher'
-import useActiveCustomer from '../useActiveCustomer'
+import useActiveCustomer from './useActiveCustomer'
 
 const useLogout = () => {
   const [loading, setLoading] = useState(false)
