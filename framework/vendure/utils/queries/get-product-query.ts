@@ -39,3 +39,19 @@ export const getProductQuery = /* GraphQL */ `
     }
   }
 `
+export const getProductDetailQuery = /* GraphQL */ `
+  query GetProductDetail($slug: String! = "hand-trowel") {
+  product(slug: $slug) {
+    name
+    description
+    variants {
+      price
+      priceWithTax
+    }
+    assets {
+      preview
+      name
+    }
+  }
+}
+`
