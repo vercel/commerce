@@ -2,6 +2,7 @@ import React from 'react'
 import { ButtonCommon, LabelCommon, QuanittyInput } from 'src/components/common'
 import { IconBuy } from 'src/components/icons'
 import { LANGUAGE } from 'src/utils/language.utils'
+import { useProductDetail } from 'src/components/hooks/product'
 import s from './ProductInfo.module.scss'
 
 interface Props {
@@ -10,20 +11,21 @@ interface Props {
 }
 
 const ProductInfo = ({ }: Props) => {
+    const {productDetail} = useProductDetail()
     return (
         <section className={s.productInfo}>
             <div className={s.info}>
                 <LabelCommon shape='half'>SEAFOOD</LabelCommon>
-                <h2 className={s.heading}>SeaPAk</h2>
+                <h2 className={s.heading}>{productDetail?.name}</h2>
                 <div className={s.price}>
                     <div className={s.old}>
-                        <span className={s.number}>Rp 32.000</span>
+                        <span className={s.number}>Rp {productDetail?.variants[0].priceWithTax}</span>
                         <LabelCommon type='discount'>-15%</LabelCommon>
                     </div>
-                    <div className={s.current}>Rp 27.500</div>
+                    <div className={s.current}>Rp {productDetail?.variants[0].price}</div>
                 </div>
                 <div className={s.description}>
-                    In a large non-reactive dish, mix together the orange juice, soy sauce, olive oil, lemon juice, parsley
+                    {productDetail?.description}
                 </div>
             </div>
             <div className={s.actions}>

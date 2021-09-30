@@ -2,6 +2,7 @@ import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import { CarouselCommon } from 'src/components/common'
 import ProductImgItem, { ProductImgItemProps } from '../ProductImgItem/ProductImgItem'
+import { useProductDetail } from 'src/components/hooks/product'
 import s from './ProductImgs.module.scss'
 
 interface Props {
@@ -32,10 +33,11 @@ const RESPONSIVE: ResponsiveType = {
     },
   }
 const ProductImgs = ({ }: Props) => {
+    const { productDetail } = useProductDetail()
     return (
         <section className={s.productImgs}>
             <CarouselCommon<ProductImgItemProps>
-                data={DATA}
+                data={productDetail?.assets ?? []}
                 itemKey="product-detail-img"
                 Component={ProductImgItem}
                 responsive={RESPONSIVE}

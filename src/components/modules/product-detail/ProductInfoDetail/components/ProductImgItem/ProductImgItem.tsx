@@ -3,15 +3,15 @@ import { ImgWithLink } from 'src/components/common'
 import s from './ProductImgItem.module.scss'
 
 export interface ProductImgItemProps {
-    src: string
-    alt?: string
+    preview: string
+    name?: string
 }
 
 
-const ProductImgItem = ({ src, alt }: ProductImgItemProps) => {
+const ProductImgItem = ({ preview, name }: ProductImgItemProps) => {
     return (
         <section className={s.productImgItem}>
-            <ImgWithLink src={src} alt={alt} />
+            <ImgWithLink src={preview} alt={name} />
         </section >
     )
 }
