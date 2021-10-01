@@ -28,7 +28,7 @@ export function normalizeProduct(productNode: any, config: any): any {
     path: `/${productNode.productCode}`,
     slug: productNode.productCode,
     price: {
-      value: productNode.price.price,
+      value: productNode?.price?.price,
       currencyCode: config.currencyCode,
     },
     descriptionHtml: productNode.content.productShortDescription,
