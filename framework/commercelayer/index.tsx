@@ -9,7 +9,7 @@ import {
 import useToken from './auth/use-token'
 
 export const commercelayerConfig: CommerceConfig = {
-  locale: 'en-us',
+  locale: 'en-US',
   cartCookie: 'session',
 }
 

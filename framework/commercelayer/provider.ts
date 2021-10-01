@@ -10,7 +10,7 @@ import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
 export const CommercelayerProvider = {
-  locale: 'en-us',
+  locale: 'en-US',
   cartCookie: 'session',
   fetcher: fetcher,
   token: '',

@@ -14,13 +14,17 @@ cp framework/commercelayer/.env.template .env.local
 
 Next, add the application credentials from your organization's application dashboard in `.env.local`.
 
+## Content management
+
+Commerce Layer does not provide a collaborative environment to create and modify digital content but is CMS agnostic. It manages the transactional part of a sales channel and allows users to integrate with any CMS of their choice. This will enable businesses to utilize any content model, produce a better customer experience, outstand competition, and unleash creativity. For now, in this provider, we manage content locally, and in the future, you would be able to plug in any CMS of your choice instead.
+
 ## Checkout
 
-Demo checkout in this provider is powered by the open-sourced [Commmerce Layer Checkout](#) application that provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow that lets you easily place orders through the Commerce Layer API.
+Demo checkout in this provider is powered by the open-sourced [Commmerce Layer React Checkout](https://github.com/commercelayer/commercelayer-react-checkout) application that provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow that lets you easily place orders through the Commerce Layer API.
 
 ## Future upgrades
 
-For now, this provider supports a single market. In the future, we would add multi-market support by default so you can add more than one market from your organization to your application. Also, note that the demo is configured to serve a European market; hence you need to checkout with an address in Europe to get the available shipping methods. You can learn more about how to create markets in different categorized geographical regions for your organization [here](https://commercelayer.io/docs/data-model/markets-and-business-models).
+For now, this provider supports a single market. In the future, we would add multi-market support by default so you can add more than one market from your organization to your application. Also, note that the demo is configured to serve a US market; hence you need to checkout with an address in the United States to get the available shipping methods. You can learn more about how to create markets in different categorized geographical regions for your organization [here](https://commercelayer.io/docs/data-model/markets-and-business-models).
 
 ## Contribute
 

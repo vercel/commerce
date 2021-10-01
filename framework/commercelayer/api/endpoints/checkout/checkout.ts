@@ -8,11 +8,13 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
 }) => {
   let { orderId, accessToken } = req.query
 
-    const name = 'CL_TOKEN' + "=";
-    const cookiesArr = decodeURIComponent(accessToken = typeof accessToken === 'string' ? accessToken : '').split('; ');
-    cookiesArr.forEach(val => {
-      if (val.indexOf(name) === 0) accessToken = val.substring(name.length)
-    })
+  const name = 'CL_TOKEN' + '='
+  const cookiesArr = decodeURIComponent(
+    (accessToken = typeof accessToken === 'string' ? accessToken : '')
+  ).split('; ')
+  cookiesArr.forEach((val) => {
+    if (val.indexOf(name) === 0) accessToken = val.substring(name.length)
+  })
 
   const { endpoint } = getCredentials()
   if (orderId && accessToken) {
