@@ -1,7 +1,6 @@
 import type {
   Product,
   ProductImage,
-  ProductOption,
   ProductPrice,
   ProductVariant,
 } from '@commerce/types/product'
@@ -18,6 +17,7 @@ import MissingOptionValueError from '../errors/MissingOptionValueError'
 import type { SpreeSdkResponse, VariantAttr } from '@framework/types'
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
 import { JsonApiDocument } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
+import type { ExpandedProductOption } from '@framework/types'
 
 const placeholderImage = requireConfigValue('productPlaceholderImageUrl') as
   | string
@@ -58,7 +58,7 @@ const normalizeProduct = (
     hasNonMasterVariants
 
   let variants: ProductVariant[]
-  let options: ProductOption[] = []
+  let options: ExpandedProductOption[] = []
 
   const spreeVariantRecords = jsonApi.findRelationshipDocuments(
     spreeSuccessResponse,
@@ -67,7 +67,7 @@ const normalizeProduct = (
   )
 
   variants = spreeVariantRecords.map((spreeVariantRecord) => {
-    let variantOptions: ProductOption[] = []
+    let variantOptions: ExpandedProductOption[] = []
 
     if (showOptions) {
       const spreeOptionValues = jsonApi.findRelationshipDocuments(

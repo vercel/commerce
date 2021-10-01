@@ -6,6 +6,7 @@ import type {
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type { Response } from '@vercel/fetch'
+import type { ProductOption } from '@commerce/types/product'
 
 export type UnknownObjectValues = Record<string, unknown>
 
@@ -109,3 +110,5 @@ export interface ProductSlugAttr extends JsonApiDocument {
 export interface IProductsSlugs extends JsonApiListResponse {
   data: ProductSlugAttr[]
 }
+
+export type ExpandedProductOption = ProductOption & { position: number }
