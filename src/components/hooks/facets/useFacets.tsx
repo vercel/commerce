@@ -5,7 +5,6 @@ import useSWR from 'swr'
 
 const useFacets = (options: QueryFacetsArgs) => {
   const { data, isValidating, ...rest } = useSWR<GetAllFacetsQuery>([getAllFacetsQuery, options], gglFetcher)
-  console.log("here", data)
   return { items: data?.facets.items, totalItems: data?.facets.totalItems, loading: isValidating, ...rest }
 }
 
