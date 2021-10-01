@@ -20,7 +20,8 @@ export interface KiboCommerceConfig extends CommerceAPIConfig {
   customerCookieMaxAgeInDays: number,
   currencyCode: string,
   documentListName: string,
-  defaultWishlistName: string
+  defaultWishlistName: string,
+  authUrl?: string
 }
 
 const config: KiboCommerceConfig = {
@@ -31,6 +32,7 @@ const config: KiboCommerceConfig = {
   cartCookieMaxAge: 2592000,
   documentListName: 'siteSnippets@mozu',
   fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
+  authUrl: process.env.KIBO_AUTH_URL || '',
   // REST API
   apiHost: process.env.KIBO_API_HOST || '',
   clientId: process.env.KIBO_CLIENT_ID || '',
