@@ -1,42 +1,51 @@
-import { QueryFacetsArgs } from '@framework/schema'
-import { useMemo, useState } from 'react'
-import { Layout } from 'src/components/common'
-import { useFacets } from 'src/components/hooks/facets'
+import commerce from '@lib/api/commerce';
+import { GetStaticPropsContext } from 'next';
+import { Layout } from 'src/components/common';
 
-export default function Test() {
-  const [keyword, setKeyword] = useState('c')
-
-  const optionsFilter = useMemo(() => {
-    console.log("change options")
-    return {
-      options: {
-        filter: {
-          name: {
-            contains: keyword
-          }
-        }
-      }
-    } as QueryFacetsArgs
-  }, [keyword])
-
-  const { items, totalItems } = useFacets(optionsFilter)
-
-  const changeQuery = () => {
-    setKeyword('ca')
-  }
-
+interface Props {
+  products: any
+}
+export default function Home({ products }: Props) {
   return (
     <>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, praesentium.</div>
-      <div>
-        total: {totalItems}
-      </div>
-      <div>
-        ITEMS: {JSON.stringify(items)}
-      </div>
-      <button onClick={changeQuery}>change</button>
+      <p>
+        TOTAL: {products?.length}
+      </p>
+      {JSON.stringify(products[0])}
     </>
   )
 }
 
-Test.Layout = Layout
+
+export async function getServerSideProps({
+  preview,
+  locale,
+  locales,
+}: GetStaticPropsContext) {
+  const config = { locale, locales }
+  const productsPromise = commerce.getAllProducts({
+    // const productsPromise = commerce.getAllFacets({
+    variables: {
+      first: 70,
+      //  filter: {
+      //   name: {
+      //     contains: 'ca'
+      //   }
+      // }
+    },
+    config,
+    preview,
+    // Saleor provider only
+    ...({ featured: true } as any),
+  })
+
+  const { products } = await productsPromise
+
+
+  return {
+    props: { products },
+  }
+}
+
+
+Home.Layout = Layout
