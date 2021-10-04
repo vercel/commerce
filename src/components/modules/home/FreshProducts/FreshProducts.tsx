@@ -1,11 +1,15 @@
+import { ProductCard } from '@commerce/types/product'
 import { Product } from '@framework/schema'
 import React from 'react'
 import { CollectionCarcousel } from '..'
 interface FreshProductsProps {
-  data: Product[]
+  data: ProductCard[]
 }
 
-const FreshProducts = ({data}: FreshProductsProps) => {
+const FreshProducts = ({ data }: FreshProductsProps) => {
+  if (data.length === 0) {
+    return null
+  }
   return (
     <div className="w-full">
       <CollectionCarcousel

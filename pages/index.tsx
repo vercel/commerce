@@ -1,5 +1,5 @@
+import { ProductCard } from '@commerce/types/product';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
-import { Product } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
@@ -8,8 +8,8 @@ import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { getAllFeaturedFacetId, getFreshProductFacetId } from 'src/utils/funtion.utils';
 
 interface Props {
-  freshProducts: Product[],
-  featuredProducts: Product[],
+  freshProducts: ProductCard[],
+  featuredProducts: ProductCard[],
 
 }
 export default function Home({ freshProducts, featuredProducts }: Props) {
@@ -74,7 +74,7 @@ export async function getStaticProps({
 
     return {
       props: {
-        freshProducts: rs[0].products,
+        freshProducts: freshFacetId ? rs[0].products : [],
         featuredProducts: rs[1].products
       },
       revalidate: 60,
