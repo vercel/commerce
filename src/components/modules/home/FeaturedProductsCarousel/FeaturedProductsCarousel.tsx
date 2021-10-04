@@ -1,31 +1,15 @@
+import { ProductCard } from '@commerce/types/product'
 import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import { CarouselCommon, FeaturedProductCard,HeadingCommon} from 'src/components/common'
 import { FeaturedProductCardProps } from 'src/components/common/FeaturedProductCard/FeaturedProductCard'
 import s from "./FeaturedProductsCarousel.module.scss"
 interface FeaturedProductsCarouselProps {
-  title?: string
+  title?: string,
+  data: ProductCard[]
 }
 
-const dataDemo:FeaturedProductCardProps[] = [{
-    title: "Sale 25% Coffee Bean",
-    subTitle: "50 first Orders within a day",
-    originPrice: "$20.00",
-    price: "$14.00",
-    imageSrc: "https://user-images.githubusercontent.com/76099413/133043628-db7813f9-1bb7-4ee1-b028-dc4295563494.png"
-},{
-    title: "Sale 20% Fruits",
-    subTitle: "50 first Orders within a day",
-    originPrice: "$20.00",
-    price: "$14.00",
-    imageSrc: "https://user-images.githubusercontent.com/76099413/133043630-07a353b9-573d-4c1d-b1de-2c932e3f14f7.png"
-},{
-    title: "Sale 25% Coffee Bean",
-    subTitle: "50 first Orders within a day",
-    originPrice: "$20.00",
-    price: "$14.00",
-    imageSrc: "https://user-images.githubusercontent.com/76099413/133043633-954c105b-c703-4e5c-8f5f-7943ad633ff0.png"
-}]
+
   const RESPONSIVE: ResponsiveType = {
     hugeScreen: {
       breakpoint: { max: 9999, min: 1500 },
@@ -78,13 +62,13 @@ const dataDemo:FeaturedProductCardProps[] = [{
     },
   }
 
-const FeaturedProductsCarousel = ({title="Featured Products"}: FeaturedProductsCarouselProps) => {
+const FeaturedProductsCarousel = ({title="Featured Products", data}: FeaturedProductsCarouselProps) => {
     return (
         <div className={s.warpper}>
            <div className={s.heading}>
             <HeadingCommon>{title}</HeadingCommon>
           </div>
-            <CarouselCommon<FeaturedProductCardProps> data={dataDemo} Component={FeaturedProductCard} itemKey="featured-products" responsive={RESPONSIVE}/>
+            <CarouselCommon<FeaturedProductCardProps> data={data} Component={FeaturedProductCard} itemKey="featured-products" responsive={RESPONSIVE}/>
         </div>
     )
 }

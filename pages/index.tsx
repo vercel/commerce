@@ -5,7 +5,7 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
-import { getAllFeaturedFacetId, getFreshProductFacetId } from 'src/utils/funtion.utils';
+import { getAllFeaturedFacetId, getFreshFacetId } from 'src/utils/funtion.utils';
 
 interface Props {
   freshProducts: ProductCard[],
@@ -18,11 +18,11 @@ export default function Home({ freshProducts, featuredProducts }: Props) {
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
-      <FreshProducts data={freshProducts}/>
+      <FreshProducts data={freshProducts} />
       <HomeCollection />
       <HomeVideo />
       <HomeSpice />
-      <FeaturedProductsCarousel />
+      <FeaturedProductsCarousel data={featuredProducts} />
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
@@ -48,7 +48,7 @@ export async function getStaticProps({
 
 
   const freshProductvariables: ProductVariables = {}
-  const freshFacetId = getFreshProductFacetId(facets)
+  const freshFacetId = getFreshFacetId(facets)
 
   if (freshFacetId) {
     freshProductvariables.facetValueIds = [freshFacetId]
@@ -60,6 +60,7 @@ export async function getStaticProps({
   })
 
   const allFeaturedFacetId = getAllFeaturedFacetId(facets)
+  console.log("featured** ", allFeaturedFacetId)
   const featuredProductsPromise = commerce.getAllProducts({
     variables: {
       facetValueIds: allFeaturedFacetId
@@ -68,12 +69,15 @@ export async function getStaticProps({
     preview,
   })
 
-
   try {
-    const rs = await Promise.all([freshProductsPromise, featuredProductsPromise])
+    const rs = await Promise.all([
+      freshProductsPromise,
+      featuredProductsPromise,
+    ])
 
     return {
       props: {
+        facets,
         freshProducts: freshFacetId ? rs[0].products : [],
         featuredProducts: rs[1].products
       },

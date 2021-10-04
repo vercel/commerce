@@ -1,4 +1,4 @@
-import { CurrencyCode } from './../../vendure/schema.d';
+import { CurrencyCode, FacetValue } from './../../vendure/schema.d';
 import { FacetValueFilterInput, LogicalOperator, SearchResultSortParameter } from "@framework/schema"
 
 export type ProductImage = {
@@ -54,9 +54,11 @@ export type ProductCard = {
   imageSrc: string
   price: number
   currencyCode: CurrencyCode
-  oldPrice?: number,
+  oldPrice?: number
   discount?: number
   weight?: number
+  facetValueIds?: string[],
+  collectionIds?: string[],
   // TODO: collection
   category?: string,
   isNotSell?: boolean

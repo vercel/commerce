@@ -1,3 +1,4 @@
+import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -3038,7 +3039,7 @@ export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
   'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
   | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
-  | 'collectionIds' 
+  | 'collectionIds' | 'facetValueIds' | 'collectionIds'
 > & {
     productAsset?: Maybe<
       { __typename?: 'SearchResultAsset' } & Pick<
