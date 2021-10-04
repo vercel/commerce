@@ -1,15 +1,16 @@
-import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
+import type { CommerceAPIConfig } from '@commerce/api'
 import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
-import fetchGraphqlApi from './utils/fetch-graphql-api'
-
-import login from './operations/login'
+import getAllFacets from './operations/get-all-facets'
 import getAllPages from './operations/get-all-pages'
-import getPage from './operations/get-page'
-import getSiteInfo from './operations/get-site-info'
-import getCustomerWishlist from './operations/get-customer-wishlist'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
+import getCustomerWishlist from './operations/get-customer-wishlist'
+import getPage from './operations/get-page'
 import getProduct from './operations/get-product'
+import getSiteInfo from './operations/get-site-info'
+import login from './operations/login'
+import fetchGraphqlApi from './utils/fetch-graphql-api'
+
 
 export interface VendureConfig extends CommerceAPIConfig {}
 
@@ -40,6 +41,7 @@ const operations = {
   getAllProductPaths,
   getAllProducts,
   getProduct,
+  getAllFacets,
 }
 
 export const provider = { config, operations }

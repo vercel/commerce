@@ -3,18 +3,20 @@ import { Cart } from '@commerce/types/cart'
 import { CartFragment, SearchResultFragment } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): Product {
+  const imageUrl = item.productAsset?.preview ? item.productAsset?.preview + '?w=800&mode=crop' : ''
   return {
     id: item.productId,
     name: item.productName,
     description: item.description,
     slug: item.slug,
     path: item.slug,
-    images: [{ url: item.productAsset?.preview + '?w=800&mode=crop' || '' }],
-    variants: [],
+    images: imageUrl ? [{ url: imageUrl }] : [],
     price: {
+      // TODO: check price
       value: (item.priceWithTax as any).min / 100,
       currencyCode: item.currencyCode,
     },
+    // TODO: check product option
     options: [],
     sku: item.sku,
   }
