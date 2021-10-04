@@ -1,6 +1,6 @@
 import { Facet } from "@commerce/types/facet";
 import { FacetValue } from './../../framework/vendure/schema.d';
-import { CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT } from "./constanst.utils";
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT } from "./constanst.utils";
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -30,16 +30,21 @@ export function getFreshFacetId(facets: Facet[]) {
   return freshFacetValue?.id
 }
 
-export function getAllFeaturedFacetId(facets: Facet[]) {
-  const featuredFacet = facets.find((item: Facet) => item.code === CODE_FACET_FEATURED)
+export function getAllFacetValueIdsByParentCode(facets: Facet[], code: string) {
+  const featuredFacet = facets.find((item: Facet) => item.code === code)
   const rs = featuredFacet?.values.map((item: FacetValue) => item.id)
 
-  return rs
+  return rs || []
 }
 
-export function getAllFeaturedFacetValue(facets: Facet[]) {
-  const featuredFacet = facets.find((item: Facet) => item.code === CODE_FACET_FEATURED)
-  return featuredFacet?.values
+export function getAllFacetValuesForFeatuedProducts(facets: Facet[]) {
+  const facetsRs = facets.filter((item: Facet) => item.code === CODE_FACET_FEATURED || item.code === CODE_FACET_DISCOUNT)
+  let rs = [] as FacetValue[]
+  facetsRs.map((item: Facet) => {
+    rs = rs.concat(item.values)
+    return null
+  })
+  return rs
 }
 
 export function getFacetNamesFromIds(facets: FacetValue[], ids?: string[]): string {

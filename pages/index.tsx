@@ -6,15 +6,16 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
-import { getAllFeaturedFacetId, getAllFeaturedFacetValue, getFreshFacetId } from 'src/utils/funtion.utils';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED } from 'src/utils/constanst.utils';
+import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getFreshFacetId } from 'src/utils/funtion.utils';
 
 interface Props {
-  featuredFacetsValue: FacetValue[],
+  featuredAndDiscountFacetsValue: FacetValue[],
   freshProducts: ProductCard[],
   featuredProducts: ProductCard[],
 
 }
-export default function Home({ featuredFacetsValue, 
+export default function Home({ featuredAndDiscountFacetsValue,
   freshProducts, featuredProducts }: Props) {
   return (
     <>
@@ -25,7 +26,7 @@ export default function Home({ featuredFacetsValue,
       <HomeCollection />
       <HomeVideo />
       <HomeSpice />
-      <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredFacetsValue} />
+      <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
@@ -48,11 +49,12 @@ export async function getStaticProps({
     config,
     preview,
   })
-  const featuredFacetsValue = getAllFeaturedFacetValue(facets)
+  const featuredAndDiscountFacetsValue = getAllFacetValuesForFeatuedProducts(facets)
 
+  
+  // fresh products
   const freshProductvariables: ProductVariables = {}
   const freshFacetId = getFreshFacetId(facets)
-
   if (freshFacetId) {
     freshProductvariables.facetValueIds = [freshFacetId]
   }
@@ -62,14 +64,18 @@ export async function getStaticProps({
     preview,
   })
 
-  const allFeaturedFacetId = getAllFeaturedFacetId(facets)
+  // featured products
+  const allFeaturedFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_FEATURED)
+  const allDiscountFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_DISCOUNT)
+  const facetValueIdsForFeaturedProducts = [...allFeaturedFacetIds, ...allDiscountFacetIds]
   const featuredProductsPromise = commerce.getAllProducts({
     variables: {
-      facetValueIds: allFeaturedFacetId
+      facetValueIds: facetValueIdsForFeaturedProducts
     },
     config,
     preview,
   })
+
 
   try {
     const rs = await Promise.all([
@@ -79,10 +85,9 @@ export async function getStaticProps({
 
     return {
       props: {
-        facets,
-        featuredFacetsValue,
+        featuredAndDiscountFacetsValue,
         freshProducts: freshFacetId ? rs[0].products : [],
-        featuredProducts: rs[1].products
+        featuredProducts: facetValueIdsForFeaturedProducts.length > 0 ? rs[1].products : []
       },
       revalidate: 60,
     }

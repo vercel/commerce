@@ -112,9 +112,9 @@ export const BRAND = [
 ]
 
 export const CODE_FACET_FEATURED = 'featured'
+export const CODE_FACET_DISCOUNT = 'discount'
 export const CODE_FACET_FEATURED_VARIANT = {
   FRESH: 'fresh',
-  BEST_SELLERS: 'best-sellers'
 }
 
 export const FEATURED = [
