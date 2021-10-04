@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { memo } from 'react'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
+import { useGetAllCollection } from 'src/components/hooks/collection'
 import { ProductFeature, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import HeaderNoti from './HeaderNoti/HeaderNoti'
 import s from './HeaderSubMenu.module.scss'
@@ -30,39 +31,18 @@ const MENU = [
     },
 ]
 
-// note: hard code, remove later
-const CATEGORY = [
-    {
-        name: 'Veggie',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=veggie`,
-    },
-    {
-        name: 'Seafood',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=seafood`,
-    },
-    {
-        name: 'Frozen',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=frozen`,
-    },
-    {
-        name: 'Coffee Bean',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=coffee-bean`,
-    },
-    {
-        name: 'Sauce',
-        link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=sauce`,
-    },
-]
+
 
 const HeaderSubMenu = memo(() => {
     const router = useRouter()
+    const {collections} = useGetAllCollection();
 
     return (
         <section className={s.headerSubMenu}>
             <ul className={s.menu}>
                 {/* todo: handle active item */}
                 <li>
-                    <MenuDropdown options={CATEGORY} align="left">Categories</MenuDropdown>
+                    <MenuDropdown options={collections?.items ?? []} align="left">Categories</MenuDropdown>
                 </li>
                 {
                     MENU.map(item => <li key={item.name}
