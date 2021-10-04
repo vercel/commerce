@@ -4,7 +4,7 @@
 }
 
 .slider {
-  @apply relative h-full transition-opacity duration-150;
+  @apply relative transition-opacity duration-150;
   opacity: 0;
 }
 
