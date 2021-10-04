@@ -1,20 +1,22 @@
+import { ProductVariables } from '@framework/api/operations/get-all-products';
+import { Product } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
+import { getAllFeaturedFacetId, getFreshProductFacetId } from 'src/utils/funtion.utils';
 
 interface Props {
-  products: any
+  freshProducts: Product[],
+  featuredProducts: Product[],
+
 }
-export default function Home({ products }: Props) {
+export default function Home({ freshProducts, featuredProducts }: Props) {
+  console.log("total: ", freshProducts.length, featuredProducts.length)
+  console.log("rs: ", freshProducts, featuredProducts)
   return (
     <>
-      <p>
-        TOTAL: {products?.length}
-      </p>
-
-      {JSON.stringify(products[0])}
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
@@ -39,29 +41,51 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext) {
   const config = { locale, locales }
-  const productsPromise = commerce.getAllProducts({
-    // const productsPromise = commerce.getAllFacets({
+  const { facets } = await commerce.getAllFacets({
+    variables: {},
+    config,
+    preview,
+  })
+
+
+  const freshProductvariables: ProductVariables = {}
+  const freshFacetId = getFreshProductFacetId(facets)
+
+  if (freshFacetId) {
+    freshProductvariables.facetValueIds = [freshFacetId]
+  }
+  const freshProductsPromise = commerce.getAllProducts({
+    variables: freshProductvariables,
+    config,
+    preview,
+  })
+
+  const allFeaturedFacetId = getAllFeaturedFacetId(facets)
+  const featuredProductsPromise = commerce.getAllProducts({
     variables: {
-      first: 70,
-      //  filter: {
-      //   name: {
-      //     contains: 'ca'
-      //   }
-      // }
+      facetValueIds: allFeaturedFacetId
     },
     config,
     preview,
-    // Saleor provider only
-    ...({ featured: true } as any),
   })
 
-  const { products } = await productsPromise
 
+  try {
+    const rs = await Promise.all([freshProductsPromise, featuredProductsPromise])
 
-  return {
-    props: { products },
-    revalidate: 60,
+    return {
+      props: {
+        freshProducts: rs[0].products,
+        featuredProducts: rs[1].products
+      },
+      revalidate: 60,
+    }
+  } catch (err) {
+
   }
+
+
+
 }
 
 

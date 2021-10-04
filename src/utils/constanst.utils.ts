@@ -107,7 +107,15 @@ export const CATEGORY = [
       link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=chinsu`,
     },
   ]
-  
+
+export const FACET = {
+  FEATURE: {
+    PARENT_NAME: 'Featured',
+    FRESH: 'Fresh',
+    BEST_SELLERS: 'Best seller'
+  }
+}
+
 export const FEATURED = [
     {
       name: 'Best Sellers',
@@ -141,3 +149,4 @@ export const STATE_OPTIONS = [
     value: 'Hà Nội',
   },
 ]
+

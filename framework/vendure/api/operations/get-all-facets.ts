@@ -1,9 +1,8 @@
+import { OperationContext } from '@commerce/api/operations'
 import { Facet } from '@commerce/types/facet'
 import { Provider, VendureConfig } from '../'
 import { GetAllFacetsQuery } from '../../schema'
-import { normalizeSearchResult } from '../../utils/normalize'
 import { getAllFacetsQuery } from '../../utils/queries/get-all-facets-query'
-import { OperationContext } from '@commerce/api/operations'
 
 export type FacetVariables = { first?: number }
 
@@ -38,7 +37,7 @@ export default function getAllFacetsOperation({
     })
 
     return {
-      facets: data.search.items.map((item) => normalizeSearchResult(item)),
+      facets: data.facets.items,
     }
   }
 

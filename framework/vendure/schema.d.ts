@@ -3036,7 +3036,9 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
 
 export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
-  'productId' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
+  'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
+  | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
+  | 'collectionIds' 
 > & {
     productAsset?: Maybe<
       { __typename?: 'SearchResultAsset' } & Pick<
