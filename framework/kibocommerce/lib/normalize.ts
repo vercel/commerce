@@ -5,8 +5,9 @@
 // import { definitions } from '../api/definitions/store-content'
 import update from './immutability'
 import getSlug from './get-slug'
-import { PrCategory } from '../schema'
+import { PrCategory, CustomerAccountInput } from '../schema'
 import { Page } from '@framework/types/page';
+import { Customer } from '@framework/types/customer'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -98,6 +99,17 @@ export function normalizeCart(data: any): any {
     discounts: data.orderDiscounts?.map((discount: any) => ({
       value: discount.impact,
     })),
+  }
+}
+
+export function normalizeCustomer(customer: CustomerAccountInput): Customer {
+  return {
+    id: customer.id,
+    firstName: customer.firstName,
+    lastName: customer.lastName,
+    email: customer.emailAddress,
+    userName: customer.userName,
+    isAnonymous: customer.isAnonymous
   }
 }
 

@@ -1,6 +1,7 @@
 import CookieHandler from '@framework/api/utils/cookie-handler'
 import type { CustomerEndpoint } from '.'
 import { getCustomerAccountQuery } from '../../queries/get-customer-account-query'
+import { normalizeCustomer } from '../../../lib/normalize'
 
 const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] = async ({
   req,
@@ -17,7 +18,7 @@ const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
       },
     })
 
-    const customer = data?.customerAccount
+    const customer = normalizeCustomer(data?.customerAccount)
     
     if (!customer.id) {
       return res.status(400).json({
