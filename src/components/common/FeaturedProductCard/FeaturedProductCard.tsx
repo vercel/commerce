@@ -1,4 +1,5 @@
 import { ProductCard } from '@commerce/types/product'
+import { Facet, FacetValue } from '@framework/schema'
 import Link from 'next/link'
 import React from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
@@ -8,8 +9,8 @@ import ButtonCommon from '../ButtonCommon/ButtonCommon'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import s from './FeaturedProductCard.module.scss'
 export interface FeaturedProductCardProps extends ProductCard {
-  buttonText?: string
-  featuredFacetId?: string,
+  buttonText?: string,
+  subText?: string,
 }
 
 const FeaturedProductCard = ({
@@ -17,9 +18,12 @@ const FeaturedProductCard = ({
   name,
   slug,
   price,
+  subText,
   currencyCode,
   buttonText = LANGUAGE.BUTTON_LABEL.BUY_NOW,
 }: FeaturedProductCardProps) => {
+  
+  
   return (
     <div className={s.featuredProductCardWarpper}>
       <div className={s.left}>
@@ -36,9 +40,7 @@ const FeaturedProductCard = ({
               <div className={s.title}>{name}</div>
             </a>
           </Link>
-
-          {/* TODO: */}
-          {/* <div className={s.subTitle}>{subTitle}</div> */}
+          <div className={s.subTitle}>{subText}</div>
           <div className={s.priceWrapper}>
             <div className={s.price}>{price} {currencyCode}</div>
             {/* TODO: */}

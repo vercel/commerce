@@ -36,3 +36,18 @@ export function getAllFeaturedFacetId(facets: Facet[]) {
 
   return rs
 }
+
+export function getAllFeaturedFacetValue(facets: Facet[]) {
+  const featuredFacet = facets.find((item: Facet) => item.code === CODE_FACET_FEATURED)
+  return featuredFacet?.values
+}
+
+export function getFacetNamesFromIds(facets: FacetValue[], ids?: string[]): string {
+  if (!ids || ids?.length === 0) {
+    return ''
+  }
+
+  const facetItems = facets.filter((item: FacetValue) => ids.includes(item.id))
+  const names = facetItems.map((item: FacetValue) => item.name)
+  return names.join(", ")
+}
