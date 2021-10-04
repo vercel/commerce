@@ -3,7 +3,7 @@ import { Product } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
-import { FeaturedProductsCarousel, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
+import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { getAllFeaturedFacetId, getFreshProductFacetId } from 'src/utils/funtion.utils';
 
@@ -13,13 +13,12 @@ interface Props {
 
 }
 export default function Home({ freshProducts, featuredProducts }: Props) {
-  console.log("total: ", freshProducts.length, featuredProducts.length)
-  console.log("rs: ", freshProducts, featuredProducts)
   return (
     <>
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
+      <FreshProducts data={freshProducts}/>
       <HomeCollection />
       <HomeVideo />
       <HomeSpice />

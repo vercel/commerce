@@ -1,4 +1,7 @@
+import DefaultImg from '../../public/assets/images/default_img.jpg'
+
 export const BLUR_DATA_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8fBIAApUBruKYvzsAAAAASUVORK5CYII='
+export const DEFAULT_IMG = DefaultImg
 
 export const SOCIAL_LINKS = {
     FB: 'FB',
