@@ -1,20 +1,21 @@
 import { ProductVariables } from '@framework/api/operations/get-all-products';
-import { Product } from '@framework/schema';
+import { Facet, Product } from '@framework/schema';
 import commerce from '@lib/api/commerce';
+import { ifError } from 'assert';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
-import { getAllFeaturedFacetId, getFreshProductFacetId } from 'src/utils/funtion.utils';
+import { FACET } from 'src/utils/constanst.utils';
+import { getAllFeaturedFacetId, getFacetIdByName, getFreshProductFacetId } from 'src/utils/funtion.utils';
 
 interface Props {
-  freshProducts: Product[],
-  featuredProducts: Product[],
-
+  veggie: Product[],
+  facets:Facet[]
 }
-export default function Home({ freshProducts, featuredProducts }: Props) {
-  console.log("total: ", freshProducts.length, featuredProducts.length)
-  console.log("rs: ", freshProducts, featuredProducts)
+export default function Home({ veggie, facets }: Props) {
+  // console.log("total: ", freshProducts.length, featuredProducts.length)
+  console.log("rs: ", veggie)
   return (
     <>
       <HomeBanner />
@@ -46,37 +47,43 @@ export async function getStaticProps({
     config,
     preview,
   })
-
-
+  
   const freshProductvariables: ProductVariables = {}
-  const freshFacetId = getFreshProductFacetId(facets)
-
-  if (freshFacetId) {
-    freshProductvariables.facetValueIds = [freshFacetId]
+  // const freshFacetId = getFreshProductFacetId(facets)
+  const veggieId = getFacetIdByName(facets,FACET.CATEGORY.PARENT_NAME,FACET.CATEGORY.VEGGIE)
+  console.log("veggieId",veggieId)
+  console.log("facets",facets)
+  if (veggieId) {
+    freshProductvariables.facetValueIds = [veggieId]
   }
+  // if (freshFacetId) {
+  //   freshProductvariables.facetValueIds = [freshFacetId]
+  // }
   const freshProductsPromise = commerce.getAllProducts({
     variables: freshProductvariables,
     config,
     preview,
   })
 
-  const allFeaturedFacetId = getAllFeaturedFacetId(facets)
-  const featuredProductsPromise = commerce.getAllProducts({
-    variables: {
-      facetValueIds: allFeaturedFacetId
-    },
-    config,
-    preview,
-  })
+  // const allFeaturedFacetId = getAllFeaturedFacetId(facets)
+  // const featuredProductsPromise = commerce.getAllProducts({
+  //   variables: {
+  //     facetValueIds: allFeaturedFacetId
+  //   },
+  //   config,
+  //   preview,
+  // })
 
 
   try {
-    const rs = await Promise.all([freshProductsPromise, featuredProductsPromise])
+    const rs = await Promise.all([freshProductsPromise])
+    // const rs = await Promise.all([freshProductsPromise, featuredProductsPromise])
 
     return {
       props: {
-        freshProducts: rs[0].products,
-        featuredProducts: rs[1].products
+        veggie: rs[0].products,
+        // featuredProducts: rs[1].products
+        facets
       },
       revalidate: 60,
     }

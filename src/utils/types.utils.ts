@@ -53,3 +53,12 @@ export type filterContextType = {
     open: () => void;
     close: () => void;
 };
+
+export interface StringMap { [key: string]: string; }
+
+export interface FacetMap extends StringMap{
+    PARENT_NAME: string
+}
+export interface FacetConstant{
+    [key: string]: FacetMap;
+}

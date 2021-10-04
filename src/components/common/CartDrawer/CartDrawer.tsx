@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCartDrawer } from 'src/components/contexts';
-import useGetActiveOrder from 'src/components/hooks/useGetActiveOrder';
+import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder';
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { DrawerCommon } from '..';
 import s from './CartDrawer.module.scss';

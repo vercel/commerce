@@ -1,3 +1,5 @@
+import { FacetConstant } from "./types.utils"
+
 export const BLUR_DATA_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8fBIAApUBruKYvzsAAAAASUVORK5CYII='
 
 export const SOCIAL_LINKS = {
@@ -113,6 +115,10 @@ export const FACET = {
     PARENT_NAME: 'Featured',
     FRESH: 'Fresh',
     BEST_SELLERS: 'Best seller'
+  },
+  CATEGORY:  {
+    PARENT_NAME:"category",
+    VEGGIE:"veggie"
   }
 }
 
