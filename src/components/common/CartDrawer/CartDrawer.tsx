@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCartDrawer } from 'src/components/contexts';
+import useGetActiveOrder from 'src/components/hooks/useGetActiveOrder';
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { DrawerCommon } from '..';
 import s from './CartDrawer.module.scss';
@@ -14,9 +15,10 @@ interface Props {
 
 const CartDrawer = ({ }: Props) => {
   const { cartVisible, closeCartDrawer } = useCartDrawer()
+  const {order} = useGetActiveOrder()
   return (
     <DrawerCommon
-      title={`Your cart (${PRODUCT_CART_DATA_TEST.length})`}
+      title={`Your cart (${order?.totalQuantity})`}
       visible={cartVisible}
       onClose={closeCartDrawer}>
       <div className={s.cartDrawer}>
