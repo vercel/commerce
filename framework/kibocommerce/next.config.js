@@ -7,6 +7,6 @@ module.exports = {
     kiboAuthTicket: null
   },
   images: {
-    domains: ['d1slj7rdbjyb5l.cloudfront.net', "cdn-tp1.mozu.com"],
+    domains: ['d1slj7rdbjyb5l.cloudfront.net', 'cdn-tp1.mozu.com'],
   },
 }

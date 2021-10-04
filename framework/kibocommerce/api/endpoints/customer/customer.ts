@@ -1,3 +1,4 @@
+import CookieHandler from '@framework/api/utils/cookie-handler'
 import type { CustomerEndpoint } from '.'
 import { getCustomerAccountQuery } from '../../queries/get-customer-account-query'
 
@@ -6,26 +7,19 @@ const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
   res,
   config,
 }) => {
+  const cookieHandler = new CookieHandler(config, req, res)
+  let accessToken = cookieHandler.getAccessToken();
 
-  const encodedToken = req.cookies[config.customerCookie];
-  const token = encodedToken ? Buffer.from(encodedToken, 'base64').toString('ascii'): null;
-  
-  const accessToken = token ? JSON.parse(token).accessToken : null;
+  if (cookieHandler.getAccessToken()) {
+    const { data } = await config.fetch(getCustomerAccountQuery, undefined, {
+      headers: {
+        'x-vol-user-claims': accessToken,
+      },
+    })
 
-  if (accessToken) {
-    const { data } = await config.fetch(
-      getCustomerAccountQuery,
-      undefined,
-      {
-        headers: {
-          'x-vol-user-claims':  accessToken  
-         },
-      }
-    )
-   
-    const customer  = data?.customerAccount;
-
-    if (!customer) {
+    const customer = data?.customerAccount
+    
+    if (!customer.id) {
       return res.status(400).json({
         data: null,
         errors: [{ message: 'Customer not found', code: 'not_found' }],

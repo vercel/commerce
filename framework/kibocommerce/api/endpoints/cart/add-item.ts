@@ -8,6 +8,7 @@ import { prepareSetCookie } from '@framework/lib/prepareSetCookie'
 import { setCookies } from '@framework/lib/setCookie'
 import { getProductQuery } from '@framework/api/queries/get-product-query'
 import { getCartQuery } from '@framework/api/queries/getCartQuery'
+import CookieHandler from '@framework/api/utils/cookie-handler'
 
 const buildAddToCartVariables = ({
   productId,
@@ -72,24 +73,14 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
     variables: { productCode: item?.productId },
   })
 
-  const encodedToken = req.cookies[config.customerCookie];
-  const token = encodedToken ? Buffer.from(encodedToken, 'base64').toString('ascii'): null;
+  const cookieHandler = new CookieHandler(config, req, res)
+  let accessToken = null
 
-  let accessToken = token ? JSON.parse(token).accessToken : null
-
-  if (!accessToken) {
-    const response: any = await getAnonymousShopperToken({ config })
-    accessToken = response?.accessToken
-    const cookieExpirationDate = getCookieExpirationDate(
-      config.customerCookieMaxAgeInDays
-    )
-
-    const authCookie = prepareSetCookie(
-      config.customerCookie,
-      JSON.stringify(response),
-      response?.accessTokenExpiration ? { expires: cookieExpirationDate } : {}
-    )
-    setCookies(res, [authCookie])
+  if (!cookieHandler.getAccessToken()) {
+    let anonymousShopperTokenResponse = await cookieHandler.getAnonymousToken()
+    accessToken = anonymousShopperTokenResponse.accessToken;
+  } else {
+    accessToken = cookieHandler.getAccessToken()
   }
 
   const addToCartResponse = await config.fetch(

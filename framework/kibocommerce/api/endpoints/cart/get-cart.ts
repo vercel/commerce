@@ -1,4 +1,4 @@
-import getAnonymousShopperToken from '@framework/api/utils/get-anonymous-shopper-token'
+import CookieHandler from '@framework/api/utils/cookie-handler'
 import { normalizeCart } from '@framework/lib/normalize'
 import { Cart } from '@framework/schema'
 import type { CartEndpoint } from '.'
@@ -12,13 +12,16 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
 }) => {
   let currentCart: Cart = {}
   try {
-    const encodedToken = req.cookies[config.customerCookie];
-    const token = encodedToken ? Buffer.from(encodedToken, 'base64').toString('ascii'): null;
-    let accessToken = token ? JSON.parse(token).accessToken : null
+    const cookieHandler = new CookieHandler(config, req, res)
+    let accessToken = null
 
-    if (!accessToken) {
-      const response: any = await getAnonymousShopperToken({config})
-      accessToken = response?.accessToken
+    if (!cookieHandler.getAccessToken()) {
+      let anonymousShopperTokenResponse = await cookieHandler.getAnonymousToken()
+      const response = anonymousShopperTokenResponse.response
+      accessToken = anonymousShopperTokenResponse.accessToken
+      cookieHandler.setAnonymousShopperCookie(response)
+    } else {
+      accessToken = cookieHandler.getAccessToken()
     }
 
     let result = await config.fetch(
