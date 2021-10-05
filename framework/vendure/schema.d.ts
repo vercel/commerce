@@ -3240,6 +3240,23 @@ export type GetAllFacetsQuery = { __typename?: 'Query' } & {
   }
 }
 
+export type GetAllCollectionsQuery = { __typename?: 'Query' } & {
+  collections: { __typename?: 'CollectionList' } & {
+    items: Array<
+      { __typename?: 'Collection' } & Pick<
+        Collection,
+        'id' | 'name' | 'slug'
+      > & {
+          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          children?: Maybe<
+            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          >
+        }
+    >,
+    'totalItems'
+  }
+}
+
 export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = { __typename?: 'Query' } & {
