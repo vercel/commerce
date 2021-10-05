@@ -62,27 +62,34 @@ export async function getStaticProps({
   const freshFacetId = getFreshFacetId(facets)
   if (freshFacetId) {
     freshProductvariables.facetValueIds = [freshFacetId]
+    const freshProductsPromise = commerce.getAllProducts({
+      variables: freshProductvariables,
+      config,
+      preview,
+    })
+    promisesWithKey.push({ key: 'freshProducts', promise: freshProductsPromise, keyResult: 'products' })
+  } else {
+    props.freshProducts = []
   }
-  const freshProductsPromise = commerce.getAllProducts({
-    variables: freshProductvariables,
-    config,
-    preview,
-  })
-  promisesWithKey.push({ key: 'freshProducts', promise: freshProductsPromise, keyResult: 'products' })
 
 
   // featured products
   const allFeaturedFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_FEATURED)
   const allDiscountFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_DISCOUNT)
   const facetValueIdsForFeaturedProducts = [...allFeaturedFacetIds, ...allDiscountFacetIds]
-  const featuredProductsPromise = commerce.getAllProducts({
-    variables: {
-      facetValueIds: facetValueIdsForFeaturedProducts
-    },
-    config,
-    preview,
-  })
-  promisesWithKey.push({ key: 'featuredProducts', promise: featuredProductsPromise, keyResult: 'products'  })
+  
+  if (facetValueIdsForFeaturedProducts.length > 0) {
+    const featuredProductsPromise = commerce.getAllProducts({
+      variables: {
+        facetValueIds: facetValueIdsForFeaturedProducts
+      },
+      config,
+      preview,
+    })
+    promisesWithKey.push({ key: 'featuredProducts', promise: featuredProductsPromise, keyResult: 'products'  })
+  } else {
+    props.featuredProducts = []
+  }
 
   // collection
   const collectionsPromise = commerce.getAllCollections({
