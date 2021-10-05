@@ -1,6 +1,7 @@
 import { Facet } from "@commerce/types/facet";
 import { FacetValue } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT } from "./constanst.utils";
+import { PromiseWithKey } from "./types.utils";
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -55,4 +56,8 @@ export function getFacetNamesFromIds(facets: FacetValue[], ids?: string[]): stri
   const facetItems = facets.filter((item: FacetValue) => ids.includes(item.id))
   const names = facetItems.map((item: FacetValue) => item.name)
   return names.join(", ")
+}
+
+export function getAllPromies (promies: PromiseWithKey[]) {
+  return promies.map(item => item.promise)
 }

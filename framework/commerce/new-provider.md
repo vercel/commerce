@@ -16,6 +16,7 @@ Adding a commerce provider means adding a new folder in `framework` with a folde
   - getProduct
   - getAllProducts
   - getAllFacets
+  - getAllCollections
 - `wishlist`
   - useWishlist
   - useAddItem

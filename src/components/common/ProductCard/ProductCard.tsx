@@ -17,7 +17,7 @@ export interface ProductCardProps extends ProductCard {
 }
 
 const ProductCardComponent = ({
-  category,
+  collection,
   name,
   slug,
   weight,
@@ -45,9 +45,9 @@ const ProductCardComponent = ({
           </a>
         </Link>
         {
-          category &&
+          collection &&
         <div className={s.productLabel}>
-          <LabelCommon shape="half">{category}</LabelCommon>
+          <LabelCommon shape="half">{collection}</LabelCommon>
         </div>
         }
       </div>

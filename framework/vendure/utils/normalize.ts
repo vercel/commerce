@@ -18,7 +18,6 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
     // discount
     // isNotSell
     // weight
-    // category
   }
 }
 
