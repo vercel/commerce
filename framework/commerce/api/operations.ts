@@ -1,3 +1,4 @@
+import { GetAllFacetsOperation } from './../types/facet';
 import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
 import type { GetAllPagesOperation, GetPageOperation } from '../types/page'
@@ -23,6 +24,8 @@ export const OPERATIONS = [
   'getAllProductPaths',
   'getAllProducts',
   'getProduct',
+  'getAllFacets',
+
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -154,7 +157,26 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
+
+  getAllFacets: {
+    <T extends GetAllFacetsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+  
+    <T extends GetAllFacetsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+
 }
+
 
 export type APIOperations<P extends APIProvider> = {
   [K in keyof Operations<P>]?: (ctx: OperationContext<P>) => Operations<P>[K]

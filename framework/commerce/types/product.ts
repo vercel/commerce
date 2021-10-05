@@ -1,3 +1,6 @@
+import { CurrencyCode, FacetValue } from './../../vendure/schema.d';
+import { FacetValueFilterInput, LogicalOperator, SearchResultSortParameter } from "@framework/schema"
+
 export type ProductImage = {
   url: string
   alt?: string
@@ -40,9 +43,25 @@ export type Product = {
   slug?: string
   path?: string
   images: ProductImage[]
-  variants: ProductVariant[]
   price: ProductPrice
   options: ProductOption[]
+}
+
+export type ProductCard = {
+  id: string
+  name: string
+  slug?: string
+  imageSrc: string
+  price: number
+  currencyCode: CurrencyCode
+  oldPrice?: number
+  discount?: number
+  weight?: number
+  facetValueIds?: string[],
+  collectionIds?: string[],
+  // TODO: collection
+  category?: string,
+  isNotSell?: boolean
 }
 
 export type SearchProductsBody = {
@@ -79,17 +98,24 @@ export type ProductsSchema<T extends ProductTypes = ProductTypes> = {
 
 export type GetAllProductPathsOperation<
   T extends ProductTypes = ProductTypes
-> = {
-  data: { products: Pick<T['product'], 'path'>[] }
-  variables: { first?: number }
-}
+  > = {
+    data: { products: Pick<T['product'], 'path'>[] }
+    variables: { first?: number }
+  }
 
 export type GetAllProductsOperation<T extends ProductTypes = ProductTypes> = {
   data: { products: T['product'][] }
   variables: {
-    relevance?: 'featured' | 'best_selling' | 'newest'
-    ids?: string[]
-    first?: number
+    term?: String
+    facetValueIds?: string[]
+    facetValueOperator?: LogicalOperator
+    facetValueFilters?: FacetValueFilterInput[]
+    collectionId?: string
+    collectionSlug?: string
+    groupByProduct?: Boolean
+    take?: number
+    skip?: number
+    sort?: SearchResultSortParameter
   }
 }
 

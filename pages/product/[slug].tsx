@@ -4,6 +4,7 @@ import { ProductInfoDetail, ReleventProducts, ViewedProducts } from 'src/compone
 import { BLOGS_DATA_TEST, INGREDIENT_DATA_TEST, RECIPE_DATA_TEST } from 'src/utils/demo-data'
 
 export default function Slug() {
+
   return <>
     <ProductInfoDetail />
     <RecipeDetail ingredients={INGREDIENT_DATA_TEST} />

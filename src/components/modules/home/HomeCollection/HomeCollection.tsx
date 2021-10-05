@@ -96,14 +96,6 @@ const HomeCollection = (props: HomeCollectionProps) => {
   return (
     <div className="w-full">
       <CollectionCarcousel
-        type="highlight"
-        data={dataTest}
-        itemKey="product-1"
-        title="Fresh Products Today"
-        subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
-        category={"veggie"}
-      />
-      <CollectionCarcousel
         data={dataTest}
         itemKey="product-2"
         title="VEGGIE"
