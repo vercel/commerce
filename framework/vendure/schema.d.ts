@@ -317,6 +317,9 @@ export type Address = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+
+
+
 export type Asset = Node & {
   __typename?: 'Asset'
   id: Scalars['ID']
@@ -3167,7 +3170,7 @@ export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      'id' | 'firstName' | 'lastName' | 'emailAddress'
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses'
     >
   >
 }

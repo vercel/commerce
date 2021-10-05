@@ -12,7 +12,9 @@ import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
 import { useRouter } from "next/router"
-
+import { useActiveCustomer } from 'src/components/hooks/auth'
+import useUserInfo from "src/components/hooks/user/useUserInfo"
+import { AccountProps } from "./components/AccountInfomation/AccountInfomation"
 const waiting = [
     {
         id: "NO 123456",
@@ -53,9 +55,10 @@ const delivered = [
 ]
 
 let account = {
-    name: "vu duong",
+    firstName: "Nhân",
+    lastName: "Trần",
     email: "vuduong@gmail.com",
-    address: "234 Dien Bien Phu Bis, Dakao ward",
+    address: "235 Dien Bien Phu Bis, Dakao ward",
     state: "District 1",
     city: "HCMC",
     postalCode: "700000",
@@ -80,6 +83,20 @@ const getTabIndex = (tab?: string): number => {
 
 const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
+
+    const {userInfo} = useUserInfo();
+
+    // const email = userInfo?.emailAddress;
+    // const [info] = userInfo?.addresses || [];
+    
+    // const accountInfo = {...info,userInfo?.emailAddress};
+   
+    // const clone:AccountProps = Object.create(accountInfo);
+    // Object.assign(clone, accountInfo);
+
+
+    console.log();
+
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
 

@@ -4,7 +4,7 @@ import s from './EditInfoModal.module.scss'
 import { ModalCommon, Inputcommon, SelectCommon, ButtonCommon } from '../../../../../common'
 
 interface EditInfoModalProps {
-    accountInfo: {name: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string};
+    accountInfo: {firstName: string,lastName: string, email: string, address: string, state: string, city: string, postalCode: string, phoneNumber: string};
     visible: boolean;
     closeModal: () => void;
 }
@@ -25,12 +25,11 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
         <ModalCommon onClose={closeModal} visible={visible} title="Edit Infomation">
             <section className={s.editInfoModal}>
                 <div className={s.input}>
-                    <Inputcommon placeholder="Name" value={accountInfo.name} type="text" />
+                    <Inputcommon placeholder="Name" value={accountInfo.firstName} type="text" />
                 </div>
-
-                <div className={s.inputDisable}>
-                    <Inputcommon placeholder="Email" value={accountInfo.email} type="email" />
-                </div>
+                <div className={s.input}>
+                    <Inputcommon placeholder="Name" value={accountInfo.lastName} type="text" />
+                </div>  
 
                 <div className={s.input}>
                     <Inputcommon placeholder="Address" value={accountInfo.address} type="text" />
