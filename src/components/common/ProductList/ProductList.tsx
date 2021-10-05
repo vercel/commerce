@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { DEFAULT_PAGE_SIZE } from 'src/utils/constanst.utils'
 import PaginationCommon from '../PaginationCommon/PaginationCommon'
 import ProductCard, { ProductCardProps } from '../ProductCard/ProductCard'
 import s from "./ProductList.module.scss"
@@ -15,13 +16,13 @@ const ProductList = ({data}: ProductListProps) => {
         <div className={s.wrapper}>
             <div className={s.list}>
                 {
-                    data.slice(currentPage*20,(currentPage+1)*20).map((product,index)=>{
+                    data.slice(currentPage*DEFAULT_PAGE_SIZE,(currentPage+1)* DEFAULT_PAGE_SIZE).map((product,index)=>{
                         return <ProductCard {...product} key={index}/>
                     })
                 }
             </div>
             <div className={s.pagination}>
-                <PaginationCommon total={data.length} pageSize={20} onChange={onPageChange}/>
+                <PaginationCommon total={data.length} pageSize={DEFAULT_PAGE_SIZE} onChange={onPageChange}/>
             </div>
         </div>
     )

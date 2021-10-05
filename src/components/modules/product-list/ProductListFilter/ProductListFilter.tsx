@@ -1,12 +1,19 @@
+import { ProductCard } from '@commerce/types/product'
+import { Collection, Facet } from '@framework/schema'
 import React from 'react'
 import { HeadingCommon, ProductList, SelectCommon } from 'src/components/common'
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon'
 import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation'
-import { BRAND, CATEGORY, FEATURED} from 'src/utils/constanst.utils'
-import {  PRODUCT_DATA_TEST_PAGE } from 'src/utils/demo-data'
+import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { PRODUCT_DATA_TEST_PAGE } from 'src/utils/demo-data'
 import s from './ProductListFilter.module.scss'
 
-interface ProductListFilterProps {}
+interface ProductListFilterProps {
+  facets: Facet[]
+  collections: Collection[]
+  products: ProductCard[]
+
+}
 
 const BREADCRUMB = [
   {
@@ -29,11 +36,7 @@ const OPTIONSLECT = [
 	},
 ]
 
-const onModalClose = () => {
-	
-}
-
-const ProductListFilter = (props: ProductListFilterProps) => {
+const ProductListFilter = ({facets, collections, products}: ProductListFilterProps) => {
   return (
     <div className={s.warpper}>
       <div className={s.breadcrumb}>
@@ -41,9 +44,14 @@ const ProductListFilter = (props: ProductListFilterProps) => {
       </div>
       <div className={s.main}>
         <div className={s.categories}>
-          <MenuNavigation categories={CATEGORY} heading="Categories" />
-          <MenuNavigation categories={BRAND} heading="Brands" />
-          <MenuNavigation categories={FEATURED} heading="featured" />
+          <MenuNavigation categories={collections} heading="Categories" linkPrefix={`${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=`}/>
+          {
+            facets.map(item => <MenuNavigation 
+              key={item.id} 
+              linkPrefix={`${ROUTE.PRODUCTS}/${item.code}=`}
+              categories={item.values} 
+              heading={item.name} />)
+          }
         </div>
 
         <div className={s.list}>
@@ -56,7 +64,7 @@ const ProductListFilter = (props: ProductListFilterProps) => {
               </div>
             </div>
           </div>
-          <ProductList data={PRODUCT_DATA_TEST_PAGE} />
+          <ProductList data={products} />
         </div>
       </div>
     </div>
