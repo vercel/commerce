@@ -19,6 +19,8 @@ export const searchResultFragment = /* GraphQL */ `
         min
         max
       }
-    }
+    },
+    facetValueIds,
+    collectionIds,
   }
 `

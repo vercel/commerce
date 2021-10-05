@@ -1,8 +1,8 @@
+import { ProductCard } from '@commerce/types/product'
 import Link from 'next/link'
 import React from 'react'
 import { IconBuy } from 'src/components/icons'
 import { ROUTE } from 'src/utils/constanst.utils'
-import { ProductProps } from 'src/utils/types.utils'
 import { ImgWithLink } from '..'
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
@@ -11,16 +11,18 @@ import LabelCommon from '../LabelCommon/LabelCommon'
 import s from './ProductCard.module.scss'
 import ProductNotSell from './ProductNotSell/ProductNotSell'
 
-export interface ProductCardProps extends ProductProps {
+export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
 }
 
-const ProductCard = ({
-  category,
+const ProductCardComponent = ({
+  collection,
   name,
+  slug,
   weight,
   price,
+  currencyCode,
   buttonText = 'Buy Now',
   imageSrc,
   isNotSell,
@@ -35,24 +37,31 @@ const ProductCard = ({
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>
-        <Link href={`${ROUTE.PRODUCT_DETAIL}/test`}>
-          <div className={s.productImage}>
-            <ImgWithLink src={imageSrc} alt={name}/>
-          </div>
+        <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
+          <a>
+            <div className={s.productImage}>
+              <ImgWithLink src={imageSrc} alt={name}/>
+            </div>
+          </a>
         </Link>
+        {
+          collection &&
         <div className={s.productLabel}>
-          <LabelCommon shape="half">{category}</LabelCommon>
+          <LabelCommon shape="half">{collection}</LabelCommon>
         </div>
+        }
       </div>
       <div className={s.cardMid}>
         <div className={s.cardMidTop}>
-          <Link href={`${ROUTE.PRODUCT_DETAIL}/test`}>
-            <div className={s.productname}>{name} </div>
+          <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
+            <a>
+              <div className={s.productname}>{name} </div>
+            </a>
           </Link>
           <div className={s.productWeight}>{weight}</div>
         </div>
         <div className={s.cardMidBot}>
-          <div className={s.productPrice}>{price}</div>
+          <div className={s.productPrice}>{price} {currencyCode}</div>
           <div className={s.wishList}>
             <ItemWishList />
           </div>
@@ -80,4 +89,4 @@ const ProductCard = ({
   )
 }
 
-export default ProductCard
+export default ProductCardComponent

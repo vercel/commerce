@@ -51,3 +51,9 @@ export type filterContextType = {
     open: () => void;
     close: () => void;
 };
+
+export type PromiseWithKey = {
+    key: string
+    promise: PromiseLike<any>
+    keyResult?: string,
+}

@@ -21,6 +21,9 @@
             width: 24rem;
             height: 24rem;
         }
+        img {
+            object-fit: contain;
+        }
     }
     .right{
         margin-left: 1.2rem;

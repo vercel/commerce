@@ -1,3 +1,4 @@
+import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -91,6 +92,10 @@ export type QueryProductArgs = {
 
 export type QueryProductsArgs = {
   options?: Maybe<ProductListOptions>
+}
+
+export type QueryFacetsArgs = {
+  options?: Maybe<FacetListOptions>
 }
 
 export type QuerySearchArgs = {
@@ -2730,6 +2735,13 @@ export type ProductListOptions = {
   filter?: Maybe<ProductFilterParameter>
 }
 
+export type FacetListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: Maybe<FacetSortParameter>
+  filter?: Maybe<FacetFilterParameter>
+}
+
 export type UpdateOrderItemsResult =
   | Order
   | OrderModificationError
@@ -2887,6 +2899,23 @@ export type ProductVariantSortParameter = {
   discountPrice?: Maybe<SortOrder>
 }
 
+
+export type FacetFilterParameter = {
+  createdAt?: Maybe<DateOperators>
+  updatedAt?: Maybe<DateOperators>
+  languageCode?: Maybe<StringOperators>
+  name?: Maybe<StringOperators>
+  code?: Maybe<StringOperators>
+}
+
+export type FacetSortParameter = {
+  id?: Maybe<SortOrder>
+  createdAt?: Maybe<SortOrder>
+  updatedAt?: Maybe<SortOrder>
+  name?: Maybe<SortOrder>
+  code?: Maybe<SortOrder>
+}
+
 export type CustomerFilterParameter = {
   createdAt?: Maybe<DateOperators>
   updatedAt?: Maybe<DateOperators>
@@ -3011,7 +3040,9 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
 
 export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
-  'productId' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
+  'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
+  | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
+  | 'collectionIds' | 'facetValueIds' | 'collectionIds'
 > & {
     productAsset?: Maybe<
       { __typename?: 'SearchResultAsset' } & Pick<
@@ -3192,6 +3223,40 @@ export type GetAllProductsQueryVariables = Exact<{
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
   search: { __typename?: 'SearchResponse' } & {
     items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>
+  }
+}
+
+export type GetAllFacetsQuery = { __typename?: 'Query' } & {
+  facets: { __typename?: 'FacetList' } & {
+    items: Array<
+      { __typename?: 'Facet' } & Pick<
+        Facet,
+        'id' | 'name' | 'code'
+      > & {
+          parent?: Maybe<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
+          children?: Maybe<
+            Array<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
+          >
+        }
+    >,
+    'totalItems'
+  }
+}
+
+export type GetAllCollectionsQuery = { __typename?: 'Query' } & {
+  collections: { __typename?: 'CollectionList' } & {
+    items: Array<
+      { __typename?: 'Collection' } & Pick<
+        Collection,
+        'id' | 'name' | 'slug'
+      > & {
+          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          children?: Maybe<
+            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          >
+        }
+    >,
+    'totalItems'
   }
 }
 
