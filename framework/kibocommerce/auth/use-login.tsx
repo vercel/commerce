@@ -5,6 +5,7 @@ import { useCallback } from 'react'
 import { CommerceError } from '@commerce/utils/errors'
 import type { LoginHook } from '../types/login'
 import useCustomer from '../customer/use-customer'
+import useCart from '../cart/use-cart'
 export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<LoginHook> = {
@@ -27,14 +28,15 @@ export const handler: MutationHook<LoginHook> = {
   },
   useHook: ({ fetch }) => () => {
     const { revalidate } = useCustomer()
-
+    const {revalidate: revalidateCart} = useCart()
     return useCallback(
       async function login(input) {
         const data = await fetch({ input })
         await revalidate()
+        await revalidateCart()
         return data
       },
-      [fetch, revalidate]
+      [fetch, revalidate, revalidateCart]
     )
   },
 }
