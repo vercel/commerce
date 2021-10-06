@@ -14,12 +14,12 @@
             @apply flex;
         }
         .list{
-            @screen md {
-                @apply flex justify-between flex-wrap w-full;
-                margin: 1rem 0;
-            }
-            @screen xl {
-                width:75%;
+            @apply w-full;
+            .top {
+                @screen md {
+                    @apply flex justify-between flex-wrap w-full;
+                    margin: 1rem 0;
+                }
             }
             .inner{
                 @screen md {

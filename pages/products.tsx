@@ -13,16 +13,19 @@ import ProductListBanner from '../src/components/modules/product-list/ProductLis
 interface Props {
   facets: Facet[],
   collections: Collection[],
-  products: ProductCard[],
+  productsResult: { products: ProductCard[], totalItems: number },
 
 }
 
-export default function Products({ facets, collections, products }: Props) {
-  // console.log("facets: ", products)
+export default function Products({ facets, collections, productsResult }: Props) {
   return (
     <>
       <ProductListBanner />
-      <ProductListFilter collections={collections} facets={facets} products={products} />
+      <ProductListFilter
+        collections={collections}
+        facets={facets}
+        products={productsResult.products}
+        total={productsResult.totalItems} />
       <ViewedProducts />
     </>
   )
@@ -70,7 +73,7 @@ export async function getStaticProps({
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'products', promise: productsPromise, keyResult: 'products' })
+  promisesWithKey.push({ key: 'productsResult', promise: productsPromise })
 
 
   try {

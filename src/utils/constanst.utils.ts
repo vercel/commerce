@@ -52,7 +52,8 @@ export const QUERY_KEY = {
   BRAND: 'brand',
   FEATURED: 'featured',
   SORTBY: 'sortby',
-  RECIPES: 'recipes'
+  RECIPES: 'recipes',
+  PAGE: 'page',
 }
 
 export const PRODUCT_SORT_OPTION_VALUE = {

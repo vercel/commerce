@@ -14,7 +14,7 @@ export default function getAllProductsOperation({
     variables?: ProductVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<{ products: Product[] }>
+  }): Promise<{ products: Product[], totalItems: number }>
 
   async function getAllProducts({
     query = getAllProductsQuery,
@@ -25,7 +25,7 @@ export default function getAllProductsOperation({
     variables?: ProductVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<{ products: Product[] | any[] }> {
+  } = {}): Promise<{ products: Product[] | any[], totalItems: number }> {
     const config = commerce.getConfig(cfg)
     const variables = {
       input: {
@@ -40,6 +40,7 @@ export default function getAllProductsOperation({
 
     return {
       products: data.search.items.map((item) => normalizeSearchResult(item)),
+      totalItems: data.search.totalItems as number,
     }
   }
 

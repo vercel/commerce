@@ -3219,7 +3219,8 @@ export type GetAllProductsQueryVariables = Exact<{
 
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
   search: { __typename?: 'SearchResponse' } & {
-    items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>
+    items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>,
+    'totalItems'
   }
 }
 

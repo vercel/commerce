@@ -13,7 +13,11 @@ interface Props {
 const ProductsMenuNavigationTablet = ({ facets, collections }: Props) => {
   return (
     <div className={s.productsMenuNavigationTablet}>
-      <MenuNavigation categories={collections} heading="Categories" queryKey={QUERY_KEY.CATEGORY} />
+      <MenuNavigation
+        heading="Categories"
+        categories={collections}
+        queryKey={QUERY_KEY.CATEGORY}
+        isSingleSelect={true} />
       {
         facets.map(item => <MenuNavigation
           key={item.id}

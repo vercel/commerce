@@ -7,6 +7,19 @@ export function isMobile() {
   return window.innerWidth < 768
 }
 
+export function getPageFromQuery(pageQuery: string) {
+  let page = 0
+  try {
+    page = +pageQuery
+    if (isNaN(page)) {
+      page = 0
+    }
+  } catch (err) {
+    page = 0
+  }
+  return page
+}
+
 export function removeItem<T>(arr: Array<T>, value: T): Array<T> {
   const index = arr.indexOf(value);
   if (index > -1) {
@@ -58,6 +71,16 @@ export function getFacetNamesFromIds(facets: FacetValue[], ids?: string[]): stri
   return names.join(", ")
 }
 
-export function getAllPromies (promies: PromiseWithKey[]) {
+export function getFacetIdsFromCodes(facets: FacetValue[], codes?: string[]): string[] {
+  if (!codes || codes?.length === 0) {
+    return []
+  }
+
+  const facetItems = facets.filter((item: FacetValue) => codes.includes(item.code))
+  const ids = facetItems.map((item: FacetValue) => item.id)
+  return ids
+}
+
+export function getAllPromies(promies: PromiseWithKey[]) {
   return promies.map(item => item.promise)
 }

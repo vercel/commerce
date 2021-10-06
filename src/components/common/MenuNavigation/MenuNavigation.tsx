@@ -6,9 +6,10 @@ interface Props {
     heading: string,
     queryKey: string,
     categories: { name: string, slug?: string, code?: string }[]
+    isSingleSelect?: boolean
 }
 
-const MenuNavigation = ({ heading, queryKey, categories }: Props) => {
+const MenuNavigation = ({ heading, queryKey, categories, isSingleSelect }: Props) => {
     return (
         <section className={s.menuNavigationWrapper}>
             <h2 className={s.menuNavigationHeading}>{heading}({categories.length})</h2>
@@ -19,6 +20,7 @@ const MenuNavigation = ({ heading, queryKey, categories }: Props) => {
                         name={item.name}
                         value={item.slug || item.code || ''}
                         queryKey={queryKey}
+                        isSingleSelect={isSingleSelect}
                     />)
                 }
             </ul>

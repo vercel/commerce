@@ -1,16 +1,18 @@
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { QUERY_SPLIT_SEPERATOR, ROUTE } from 'src/utils/constanst.utils'
+import { QUERY_KEY, QUERY_SPLIT_SEPERATOR, ROUTE } from 'src/utils/constanst.utils'
 import s from './MenuNavigationItem.module.scss'
 
 interface Props {
     name: string
     value: string
-    queryKey: string,
+    queryKey: string
+    isSingleSelect?: boolean
+
 }
 
-const MenuNavigationItem = ({ name, value, queryKey }: Props) => {
+const MenuNavigationItem = ({ name, value, queryKey, isSingleSelect }: Props) => {
     const router = useRouter()
     const [isActive, setIsActive] = useState<boolean>()
 
@@ -26,21 +28,30 @@ const MenuNavigationItem = ({ name, value, queryKey }: Props) => {
     const handleClick = () => {
         const queryString = router.query[queryKey] as string || ''
         const prevQuery = queryString.split(QUERY_SPLIT_SEPERATOR)
-
-        let newQuery = [] as string[]
-        if (isActive) {
-            newQuery = prevQuery.filter(item => item !== value)
+        
+        let newQuery = ''
+        if (isSingleSelect) {
+            newQuery = isActive ? '' : value
         } else {
-            newQuery = [...prevQuery, value]
+            if (isActive) {
+                newQuery = prevQuery.filter(item => item !== value).join(QUERY_SPLIT_SEPERATOR)
+            } else {
+                newQuery = [...prevQuery, value].join(QUERY_SPLIT_SEPERATOR)
+            }
         }
-        // setIsActive(!isActive)
+
+        const query =  {
+            ...router.query,
+            [queryKey]: newQuery
+        }
+
+        if (queryKey === QUERY_KEY.CATEGORY) {
+            query[QUERY_KEY.PAGE] = "0"
+        }
 
         router.push({
             pathname: ROUTE.PRODUCTS,
-            query: { 
-                ...router.query,
-                [queryKey]: newQuery.join(QUERY_SPLIT_SEPERATOR)
-             }
+            query
         },
             undefined, { shallow: true }
         )
@@ -50,8 +61,6 @@ const MenuNavigationItem = ({ name, value, queryKey }: Props) => {
         onClick={handleClick}>
         {name}
     </li>)
-
-
 }
 
 export default MenuNavigationItem
