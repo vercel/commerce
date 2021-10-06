@@ -4,7 +4,6 @@ import { SignupMutation } from '@framework/schema'
 import fetcher from 'src/utils/fetcher'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import { signupMutation } from '@framework/utils/mutations/sign-up-mutation'
-
 interface SignupInput {
   email: string
   firstName?: string

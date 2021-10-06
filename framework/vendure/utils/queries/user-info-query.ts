@@ -1,14 +1,15 @@
 export const userInfoQuery = /* GraphQL */ `
     query activeCustomer{
         activeCustomer{
+            lastName
+            firstName
             emailAddress
+            phoneNumber
             addresses{
-                name:fullName
-                address:streetLine1
+                streetLine1
                 city
-                state:province
+                province
                 postalCode
-                phoneNumber
             }
         }
     }

@@ -5,6 +5,13 @@ export const activeCustomerQuery = /* GraphQL */ `
       firstName
       lastName
       emailAddress
+      phoneNumber
+      addresses{
+        streetLine1
+        city
+        province
+        postalCode
+      }
     }
   }
 `

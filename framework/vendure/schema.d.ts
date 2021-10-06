@@ -1,4 +1,4 @@
-import { FacetValue } from './schema.d';
+import { FacetValue, UpdateAddressInput } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -304,6 +304,11 @@ export type MutationResetPasswordArgs = {
 }
 
 export type Address = Node & {
+  updateCustomerAddress:
+  | { 
+    __typename?: 'Address'
+    id: Scalars['ID']
+  }
   __typename?: 'Address'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -1462,6 +1467,11 @@ export type CustomerListOptions = {
 }
 
 export type Customer = Node & {
+  updateCustomer:
+  | { 
+    __typename?: 'Customer'
+    id: Scalars['ID']
+  }
   __typename?: 'Customer'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -1469,7 +1479,7 @@ export type Customer = Node & {
   title?: Maybe<Scalars['String']>
   firstName: Scalars['String']
   lastName: Scalars['String']
-  phoneNumber?: Maybe<Scalars['String']>
+  phoneNumber?:  Maybe<Scalars['String']>
   emailAddress: Scalars['String']
   addresses?: Maybe<Array<Address>>
   orders: OrderList
@@ -3201,7 +3211,7 @@ export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses'
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'
     >
   >
 }

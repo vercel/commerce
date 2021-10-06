@@ -1,10 +1,12 @@
 import s from './SelectCommon.module.scss'
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IconVectorDown } from 'src/components/icons'
 import SelectOption from './SelectOption/SelectOption'
 
 interface Props {
+    selected?:string|null,
+    initValue?:string|null,
     placeholder? : string,
     size?: 'base' | 'large',
     type?: 'default' | 'custom',
@@ -12,10 +14,14 @@ interface Props {
     onChange?: (value: string) => void,
 }
 
-const SelectCommon = ({ type = 'default', size = 'base', option, placeholder, onChange}: Props) => {
+const SelectCommon = ({selected,initValue, type = 'default', size = 'base', option, placeholder, onChange}: Props) => {
     const [selectedName, setSelectedName] = useState(placeholder)
     const [selectedValue, setSelectedValue] = useState('')
 
+    useEffect(()=>{
+        setSelectedValue(selected ?? '');
+        setSelectedValue(initValue ?? '');
+    })
     const changeSelectedName = (item:string, value: string) => {
         setSelectedValue(value)
         setSelectedName(item)
