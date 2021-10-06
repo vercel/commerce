@@ -1,0 +1,8 @@
+#!/bin/sh
+
+yarn build
+
+if [ "$?" != 0 ]; then
+  printf "\n\n\033[31mBuild error found. Please resolve this to move forward\033[0m\n\n"
+  exit 1
+fi
