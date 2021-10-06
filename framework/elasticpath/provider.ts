@@ -14,6 +14,10 @@ import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
+import { handler as useCheckout } from './checkout/use-checkout'
+import { handler as useCards } from './customer/card/use-cards'
+import { handler as useAddresses } from './customer/address/use-addresses'
+
 import {fetcher} from './fetcher'
 
 export const elasticpathProvider = {
@@ -26,7 +30,18 @@ export const elasticpathProvider = {
     useAddItem: useWishlistAddItem,
     useRemoveItem: useWishlistRemoveItem,
   },
-  customer: { useCustomer },
+  checkout: {
+    useCheckout,
+  },
+  customer: { 
+    useCustomer,
+    card: {
+      useCards
+    },
+    address: {
+      useAddresses
+    }
+  },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
 }
