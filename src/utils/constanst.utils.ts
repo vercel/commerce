@@ -45,13 +45,22 @@ export const LOCAL_STORAGE_KEY = {
   TOKEN: 'token'
 }
 
+export const QUERY_SPLIT_SEPERATOR = ','
 export const QUERY_KEY = {
   TAB: 'tab',
   CATEGORY: 'category',
   BRAND: 'brand',
-  FEATURED: 'feature',
+  FEATURED: 'featured',
   SORTBY: 'sortby',
   RECIPES: 'recipes'
+}
+
+export const PRODUCT_SORT_OPTION_VALUE = {
+  NAME_ASC: 'name_asc',
+  NAME_DESC: 'name_desc',
+  PRICE_ASC: 'price_asc',
+  PRICE_DESC: 'price_desc',
+
 }
 
 export enum ProductFeature {
@@ -117,6 +126,26 @@ export const CODE_FACET_BRAND = 'brand'
 export const CODE_FACET_FEATURED_VARIANT = {
   FRESH: 'fresh',
 }
+
+export const OPTIONS_SORT_PRODUCT = [
+  {
+      name: 'By Name (A-Z)',
+      value: PRODUCT_SORT_OPTION_VALUE.NAME_ASC,
+  },
+  {
+      name: 'By Name (Z-A)',
+      value: PRODUCT_SORT_OPTION_VALUE.NAME_DESC,
+  },
+  {
+      name: 'Price (Low to High)',
+      value: PRODUCT_SORT_OPTION_VALUE.PRICE_ASC,
+  },
+  {
+      name: 'Price (High to Low)',
+      value: PRODUCT_SORT_OPTION_VALUE.PRICE_DESC,
+  },
+];
+
 
 export const FEATURED = [
   {

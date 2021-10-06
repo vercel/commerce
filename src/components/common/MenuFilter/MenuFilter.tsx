@@ -1,19 +1,17 @@
-import classNames from 'classnames'
-import { useEffect, useState } from 'react';
-
-import s from './MenuFilter.module.scss'
+import s from './MenuFilter.module.scss';
 import MenuFilterItem from './MenuFilterItem/MenuFilterItem';
+
 interface Props {
     children?: any,
     heading?: string,
     categories: { name: string, slug?: string, code?: string }[],
     type: string,
-    onChangeValue?: (value: Object) => void
+    onChange: (value: string, type: string, isSellect?: boolean) => void
 }
 
-const MenuFilter = ({ heading, categories, type, onChangeValue }: Props) => {
-    function handleClick(value: string) {
-
+const MenuFilter = ({ heading, categories, type, onChange }: Props) => {
+    function handleChange(value: string, isSellect: boolean) {
+        onChange(value, type, isSellect)
     }
 
     return (
@@ -24,8 +22,9 @@ const MenuFilter = ({ heading, categories, type, onChangeValue }: Props) => {
                     categories.map(item => <MenuFilterItem
                         key={item.slug || item.code}
                         name={item.name}
+                        type={type}
                         value={item.slug || item.code || ''}
-                        onClick={handleClick}
+                        onChange={handleChange}
                     />)
                 }
             </ul>

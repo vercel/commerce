@@ -1,0 +1,12 @@
+
+.productsMenuNavigationTablet {
+    @apply hidden;
+    @screen md {
+        @apply block;
+        padding-right: 2.4rem;
+    }
+    @screen xl {
+        @apply block;
+        width: 25%;
+    }
+}

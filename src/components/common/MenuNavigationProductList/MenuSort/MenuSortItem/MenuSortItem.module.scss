@@ -1,0 +1,26 @@
+.menuSortItem {
+    div {
+        height: 4.8rem;
+        line-height: 4.8rem;
+        padding: 0 1.6rem;
+        margin-right: 0.8rem;
+        border-radius: 0.8rem;
+        cursor: pointer;
+        &.active {
+            @apply font-bold relative;
+            color: var(--text-active);
+            background-color: var(--primary-lightest);
+            &::after {
+                @apply absolute;
+                content: "";
+                background-image: url("./check.svg");
+                background-repeat: no-repeat;
+                background-position: center;
+                right: 1.6rem;
+                top: calc(50% - 24px / 2);
+                width: 2.4rem;
+                height: 2.4rem;
+            }
+        }
+    }
+}

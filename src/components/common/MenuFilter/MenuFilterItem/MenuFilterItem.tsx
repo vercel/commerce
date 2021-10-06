@@ -1,18 +1,26 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { route } from 'next/dist/server/router';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import s from './MenuFilterItem.module.scss';
 
 interface Props {
     name: string,
     value: string,
-    onClick: (value: string) => void
+    type: string,
+    onChange: (value: string, isSellect: boolean) => void
 }
 
-const MenuFilterItem = ({ name, value, onClick }: Props) => {
-    const [isSelected, setIsSelected] = useState(false)
+const MenuFilterItem = ({ name, value, type, onChange }: Props) => {
+    const router = useRouter()
+    const [isSelected, setIsSelected] = useState<boolean>()
+    useEffect(() => {
+        const rs = (router.query[type] || []).includes(value)
+        setIsSelected(rs)
+    }, [type, router.query, value])
 
     function handleClick() {
-        // todo
+        onChange(value, !isSelected)
         setIsSelected(!isSelected)
     }
 

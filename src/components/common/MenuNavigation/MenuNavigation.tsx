@@ -1,32 +1,25 @@
-import classNames from 'classnames'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { ROUTE } from 'src/utils/constanst.utils'
 import s from './MenuNavigation.module.scss'
+import MenuNavigationItem from './MenuNavigationItem/MenuNavigationItem'
 
 interface Props {
     children?: any,
     heading: string,
-    linkPrefix: string,
+    queryKey: string,
     categories: { name: string, slug?: string, code?: string }[]
 }
 
-const MenuNavigation = ({ heading, linkPrefix, categories }: Props) => {
-    const router = useRouter()
-
+const MenuNavigation = ({ heading, queryKey, categories }: Props) => {
     return (
         <section className={s.menuNavigationWrapper}>
             <h2 className={s.menuNavigationHeading}>{heading}({categories.length})</h2>
             <ul className={s.menuNavigationList}>
                 {
-                    categories.map(item => <li key={item.name}
-                       >
-                        <Link href={`${linkPrefix}${item.slug || item.code}`}>
-                            <a className={classNames({ [s.active]: router.asPath === `${linkPrefix}${item.slug || item.code}`})}>
-                                {item.name}
-                            </a>
-                        </Link>
-                    </li>)
+                    categories.map(item => <MenuNavigationItem
+                        key={item.name}
+                        name={item.name}
+                        value={item.slug || item.code || ''}
+                        queryKey={queryKey}
+                    />)
                 }
             </ul>
         </section>

@@ -24,7 +24,7 @@ export const getCollectionsNameQuery = /* GraphQL */ `
     collections{
       items{
           name
-          link:slug
+          slug
       }
     }
   }

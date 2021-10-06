@@ -1,11 +1,12 @@
 import { QueryFacetsArgs } from '@framework/schema';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { ButtonCommon } from 'src/components/common';
 import { useGetAllCollection } from 'src/components/hooks/collection';
 import { useFacets } from 'src/components/hooks/facets';
 import IconHide from 'src/components/icons/IconHide';
-import { CODE_FACET_BRAND, CODE_FACET_FEATURED, QUERY_KEY } from 'src/utils/constanst.utils';
+import { CODE_FACET_BRAND, CODE_FACET_FEATURED, OPTIONS_SORT_PRODUCT, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import { LANGUAGE } from 'src/utils/language.utils';
 import { SortOrder } from 'src/utils/types.utils';
 import MenuFilter from '../MenuFilter/MenuFilter';
@@ -32,16 +33,65 @@ const FACET_QUERY = {
 } as QueryFacetsArgs
 
 const MenuNavigationProductList = ({ visible, onClose }: Props) => {
+    const router = useRouter()
     const { facets, loading: facetsLoading } = useFacets(FACET_QUERY)
     const { collections, loading: collectionLoading } = useGetAllCollection()
+    const [brandQuery, setBrandQuery] = useState<string[]>([])
+    const [featuredQuery, setFeaturedQuery] = useState<string[]>([])
+    const [categoryQuery, setCategoryQuery] = useState<string[]>([])
+    const [sortValue, setSortValue] = useState<string>();
 
-    const [dataSort, setDataSort] = useState({});
+    useEffect(() => {
+        const rs = router.query[QUERY_KEY.SORTBY] as string
+        if (rs) {
+            setSortValue(rs)
+        }
+    }, [router.query])
 
-    function handleValue(value: Object) {
-        setDataSort({ ...dataSort, ...value });
+    function onSubmit() {
+        let newURL = `${ROUTE.PRODUCTS}?`
+
+        if (categoryQuery.length > 0) {
+            newURL += `&${QUERY_KEY.CATEGORY}=${categoryQuery.join(",")}`
+        }
+
+        if (brandQuery.length > 0) {
+            newURL += `&${QUERY_KEY.BRAND}=${brandQuery.join(",")}`
+        }
+
+        if (featuredQuery.length > 0) {
+            newURL += `&${QUERY_KEY.FEATURED}=${featuredQuery.join(",")}`
+        }
+
+        if (sortValue) {
+            newURL += `&${QUERY_KEY.SORTBY}=${sortValue}`
+        }
+        router.push(newURL)
+        onClose()
     }
-    function filter() {
-        // console.log(dataSort)
+
+    const onSortChange = (value: string) => {
+        setSortValue(value)
+    }
+
+    const onFilterOptionChange = (value: string, type: string, isSelect: boolean = true) => {
+        let rs = [...categoryQuery]
+        let setDataFunction = setCategoryQuery
+
+        if (type === CODE_FACET_BRAND) {
+            rs = [...brandQuery]
+            setDataFunction = setBrandQuery
+        } else if (type === CODE_FACET_FEATURED) {
+            rs = [...featuredQuery]
+            setDataFunction = setFeaturedQuery
+        }
+
+        if (isSelect) {
+            rs.push(value)
+        } else {
+            rs = rs.filter(item => item !== value)
+        }
+        setDataFunction(rs)
     }
 
 
@@ -54,7 +104,7 @@ const MenuNavigationProductList = ({ visible, onClose }: Props) => {
                         <div onClick={onClose}><IconHide /></div>
                     </div>
                     {collectionLoading && <SkeletonParagraph rows={5} />}
-                    <MenuFilter categories={collections} heading="Categories" type={QUERY_KEY.CATEGORY} onChangeValue={handleValue} />
+                    <MenuFilter categories={collections} heading="Categories" type={QUERY_KEY.CATEGORY} onChange={onFilterOptionChange} />
                     {facetsLoading && <>
                         <SkeletonParagraph rows={5} />
                         <SkeletonParagraph rows={5} />
@@ -64,11 +114,13 @@ const MenuNavigationProductList = ({ visible, onClose }: Props) => {
                             key={item.id}
                             type={item.code}
                             categories={item.values}
-                            heading={item.name} />)
+                            heading={item.name}
+                            onChange={onFilterOptionChange}
+                        />)
                     }
-                    <MenuSort heading="SORT BY" type="sort" onChangeValue={handleValue} />
+                    <MenuSort heading="SORT BY" onChange={onSortChange} value={sortValue} options={OPTIONS_SORT_PRODUCT}/>
                     <div className={s.foot}>
-                        <ButtonCommon size="large" onClick={filter}>{LANGUAGE.BUTTON_LABEL.CONFIRM}</ButtonCommon>
+                        <ButtonCommon size="large" onClick={onSubmit}>{LANGUAGE.BUTTON_LABEL.CONFIRM}</ButtonCommon>
                     </div>
                 </div>
             </div>

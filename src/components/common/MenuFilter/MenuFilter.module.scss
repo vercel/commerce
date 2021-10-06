@@ -1,4 +1,5 @@
 @import "../../../styles/utilities";
+
 .menuFilterWrapper{
     .menuFilterHeading{
         @apply sub-headline font-bold;
@@ -17,21 +18,5 @@
             width: 100%;
             border-bottom: 1px solid var(--border-line);
         } 
-       
-        li{
-            margin: 1rem 0;
-            padding:0;
-            div{
-             padding: 0.8rem 1.6rem;
-             margin-right: 0.8rem;
-             background-color: var(--gray);
-             border-radius: 0.8rem;
-             cursor: pointer;
-             &.active {
-                color:white;
-                background-color: var(--primary);
-             }
-            }
-        }
     }
 }

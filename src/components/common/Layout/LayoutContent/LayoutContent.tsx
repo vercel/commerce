@@ -15,7 +15,7 @@ interface Props {
 
 const LayoutContent: FC<Props> = ({ children }) => {
     const router = useRouter()
-    const { visible: visibleFilter, openModal: openFilter, closeModal: closeFilter } = useModalCommon({ initialValue: true })
+    const { visible: visibleFilter, openModal: openFilter, closeModal: closeFilter } = useModalCommon({ initialValue: false })
     const {messages, removeMessage} = useMessage()
 
     const toggleFilter = () => {
@@ -29,7 +29,6 @@ const LayoutContent: FC<Props> = ({ children }) => {
     return (
         <>
             <div className={s.mainLayout}>
-                {router.pathname}
                 <Header toggleFilter={toggleFilter} visibleFilter={visibleFilter} />
                 {
                     router.pathname === ROUTE.ACCOUNT ?

@@ -13,17 +13,6 @@
         @screen md {
             @apply flex;
         }
-        .categories{
-            padding-right: 2.4rem;
-            @apply hidden;
-            @screen md {
-                @apply block;
-            }
-            @screen xl{
-                @apply block;
-                width:25%;
-            }
-        }
         .list{
             @screen md {
                 @apply flex justify-between flex-wrap w-full;
@@ -56,28 +45,21 @@
             
             .boxSelect{
                 @apply w-auto;
-                // padding: 2.5rem 0;
                 display: none;
                 
-                @screen xl {
+                @screen md {
                     @apply block;
                     width: auto;
                     padding:0;
+                    margin-top: 1rem;
                 }
-                .categorySelectCate{
-                    @screen xl {
-                        @apply hidden;
-                    }
-                }
-                label{
+                
+                label {
                     @apply font-bold topline ;
                     color:var(--text-active);
                     @screen xl {
                         @apply hidden;
                     }
-                }
-                .select{
-                    margin-top: 1rem;
                 }
             }
            
