@@ -6,7 +6,6 @@ import useSWR from 'swr'
 
 const useSearchProducts = (options?: QuerySearchArgs) => {
   const { data, isValidating, ...rest } = useSWR<GetAllProductsQuery>([getAllProductsQuery, options], gglFetcher)
-  console.log("on search ", data?.search.totalItems, options,  data?.search.items)
 
   return { products: data?.search.items.map((item) => normalizeSearchResult(item)), totalItems: data?.search.totalItems, loading: isValidating, ...rest }
 }

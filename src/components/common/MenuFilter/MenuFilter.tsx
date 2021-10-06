@@ -7,9 +7,11 @@ interface Props {
     categories: { name: string, slug?: string, code?: string }[],
     type: string,
     onChange: (value: string, type: string, isSellect?: boolean) => void
+    isSingleSelect?: boolean
+    singleSelectedValue?: string
 }
 
-const MenuFilter = ({ heading, categories, type, onChange }: Props) => {
+const MenuFilter = ({ heading, categories, type, onChange, singleSelectedValue, isSingleSelect }: Props) => {
     function handleChange(value: string, isSellect: boolean) {
         onChange(value, type, isSellect)
     }
@@ -25,6 +27,7 @@ const MenuFilter = ({ heading, categories, type, onChange }: Props) => {
                         type={type}
                         value={item.slug || item.code || ''}
                         onChange={handleChange}
+                        isActive={isSingleSelect && (item.slug || item.code) === singleSelectedValue}
                     />)
                 }
             </ul>

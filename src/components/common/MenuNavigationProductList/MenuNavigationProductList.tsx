@@ -38,7 +38,7 @@ const MenuNavigationProductList = ({ visible, onClose }: Props) => {
     const { collections, loading: collectionLoading } = useGetAllCollection()
     const [brandQuery, setBrandQuery] = useState<string[]>([])
     const [featuredQuery, setFeaturedQuery] = useState<string[]>([])
-    const [categoryQuery, setCategoryQuery] = useState<string[]>([])
+    const [categoryQuery, setCategoryQuery] = useState<string>()
     const [sortValue, setSortValue] = useState<string>();
 
     useEffect(() => {
@@ -48,11 +48,18 @@ const MenuNavigationProductList = ({ visible, onClose }: Props) => {
         }
     }, [router.query])
 
+    useEffect(() => {
+        const rs = router.query[QUERY_KEY.CATEGORY] as string
+        if (rs) {
+            setCategoryQuery(rs)
+        }
+    }, [router.query])
+
     function onSubmit() {
         let newURL = `${ROUTE.PRODUCTS}?`
 
-        if (categoryQuery.length > 0) {
-            newURL += `&${QUERY_KEY.CATEGORY}=${categoryQuery.join(",")}`
+        if (categoryQuery) {
+            newURL += `&${QUERY_KEY.CATEGORY}=${categoryQuery}`
         }
 
         if (brandQuery.length > 0) {
@@ -74,24 +81,33 @@ const MenuNavigationProductList = ({ visible, onClose }: Props) => {
         setSortValue(value)
     }
 
-    const onFilterOptionChange = (value: string, type: string, isSelect: boolean = true) => {
-        let rs = [...categoryQuery]
-        let setDataFunction = setCategoryQuery
-
-        if (type === CODE_FACET_BRAND) {
-            rs = [...brandQuery]
-            setDataFunction = setBrandQuery
-        } else if (type === CODE_FACET_FEATURED) {
-            rs = [...featuredQuery]
-            setDataFunction = setFeaturedQuery
-        }
-
+    const onCategoryChange = (value: string, isSelect: boolean) => {
         if (isSelect) {
-            rs.push(value)
+            setCategoryQuery(value)
         } else {
-            rs = rs.filter(item => item !== value)
+            setCategoryQuery('')
         }
-        setDataFunction(rs)
+    }
+
+    const onFilterOptionChange = (value: string, type: string, isSelect: boolean = true) => {
+        if (type === QUERY_KEY.CATEGORY) {
+            onCategoryChange(value, isSelect)
+        } else {
+            let rs = [...featuredQuery]
+            let setDataFunction = setFeaturedQuery
+
+            if (type === CODE_FACET_BRAND) {
+                rs = [...brandQuery]
+                setDataFunction = setBrandQuery
+            }
+
+            if (isSelect) {
+                rs.push(value)
+            } else {
+                rs = rs.filter(item => item !== value)
+            }
+            setDataFunction(rs)
+        }
     }
 
 
@@ -103,8 +119,16 @@ const MenuNavigationProductList = ({ visible, onClose }: Props) => {
                         <h3>FILTER</h3>
                         <div onClick={onClose}><IconHide /></div>
                     </div>
+
                     {collectionLoading && <SkeletonParagraph rows={5} />}
-                    <MenuFilter categories={collections} heading="Categories" type={QUERY_KEY.CATEGORY} onChange={onFilterOptionChange} />
+                    <MenuFilter categories={collections}
+                        heading="Categories"
+                        type={QUERY_KEY.CATEGORY}
+                        onChange={onFilterOptionChange} 
+                        singleSelectedValue={categoryQuery}
+                        isSingleSelect={true}
+                        />
+
                     {facetsLoading && <>
                         <SkeletonParagraph rows={5} />
                         <SkeletonParagraph rows={5} />
@@ -118,7 +142,7 @@ const MenuNavigationProductList = ({ visible, onClose }: Props) => {
                             onChange={onFilterOptionChange}
                         />)
                     }
-                    <MenuSort heading="SORT BY" onChange={onSortChange} value={sortValue} options={OPTIONS_SORT_PRODUCT}/>
+                    <MenuSort heading="SORT BY" onChange={onSortChange} value={sortValue} options={OPTIONS_SORT_PRODUCT} />
                     <div className={s.foot}>
                         <ButtonCommon size="large" onClick={onSubmit}>{LANGUAGE.BUTTON_LABEL.CONFIRM}</ButtonCommon>
                     </div>

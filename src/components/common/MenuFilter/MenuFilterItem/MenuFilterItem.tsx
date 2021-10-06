@@ -8,12 +8,18 @@ interface Props {
     name: string,
     value: string,
     type: string,
+    isActive?: boolean
     onChange: (value: string, isSellect: boolean) => void
 }
 
-const MenuFilterItem = ({ name, value, type, onChange }: Props) => {
+const MenuFilterItem = ({ name, value, type, isActive, onChange }: Props) => {
     const router = useRouter()
     const [isSelected, setIsSelected] = useState<boolean>()
+
+    useEffect(() => {
+        setIsSelected(isActive)
+    }, [isActive])
+
     useEffect(() => {
         const rs = (router.query[type] || []).includes(value)
         setIsSelected(rs)
