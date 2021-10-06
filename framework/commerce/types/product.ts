@@ -60,6 +60,7 @@ export type ProductCard = {
   // TODO: collection
   category?: string,
   isNotSell?: boolean
+  productVariantId?:string
 }
 
 export type SearchProductsBody = {

@@ -1,3 +1,4 @@
+import { normalizeCart } from '@framework/utils/normalize';
 import React from 'react';
 import { useCartDrawer } from 'src/components/contexts';
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder';
@@ -18,12 +19,12 @@ const CartDrawer = ({ }: Props) => {
   const {order} = useGetActiveOrder()
   return (
     <DrawerCommon
-      title={`Your cart (${order?.totalQuantity})`}
+      title={`Your cart (${order?.lineItems.length})`}
       visible={cartVisible}
       onClose={closeCartDrawer}>
       <div className={s.cartDrawer}>
         <div className={s.body}>
-          <ProductsInCart data={PRODUCT_CART_DATA_TEST} />
+          <ProductsInCart data={order?.lineItems||[]} currency={order?.currency||{code:"USA"}}/>
           <CartRecommendation />
         </div>
         <div>

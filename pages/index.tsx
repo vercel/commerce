@@ -17,6 +17,7 @@ interface Props {
   featuredProducts: ProductCard[],
 }
 export default function Home({ freshProducts, featuredProducts, veggie }: Props) {
+  // console.log("veggie",veggie)
   return (
     <>
       <HomeBanner />

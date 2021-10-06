@@ -10,13 +10,14 @@ import ItemWishList from '../ItemWishList/ItemWishList'
 import LabelCommon from '../LabelCommon/LabelCommon'
 import s from './ProductCard.module.scss'
 import ProductNotSell from './ProductNotSell/ProductNotSell'
-
+import {useAddProductToCart} from "../../hooks/cart"
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
 }
 
 const ProductCardComponent = ({
+  id,
   category,
   name,
   slug,
@@ -27,7 +28,18 @@ const ProductCardComponent = ({
   imageSrc,
   isNotSell,
   isSingleButton,
+  productVariantId,
 }: ProductCardProps) => {
+
+  const {addProduct,loading,error} = useAddProductToCart()
+  const handleAddToCart = () => {
+    if(productVariantId){
+      addProduct({variantId:productVariantId,quantity:1},handleAddToCartCallback)
+    }
+  }
+  const handleAddToCartCallback = () => {
+
+  }
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
       <ProductNotSell name={name} imageSrc={imageSrc} />
@@ -71,12 +83,12 @@ const ProductCardComponent = ({
         {
           isSingleButton ?
             <div className={s.cardButton}>
-              <ButtonCommon type="light" icon={<IconBuy />} size='small'>Add to cart</ButtonCommon>
+              <ButtonCommon type="light" icon={<IconBuy />} size='small' >Add to cart</ButtonCommon>
             </div>
             :
             <>
-              <div className={s.cardIcon}>
-                <ButtonIconBuy/>
+              <div className={s.cardIcon} >
+                <ButtonIconBuy onClick={handleAddToCart} loading={loading}/>
               </div>
               <div className={s.cardButton}>
                 <ButtonCommon type="light" size='small'>{buttonText}</ButtonCommon>

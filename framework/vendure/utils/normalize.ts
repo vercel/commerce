@@ -11,6 +11,7 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
     imageSrc: item.productAsset?.preview ? item.productAsset?.preview + '?w=800&mode=crop' : '',
     price: (item.priceWithTax as any).min / 100,
     currencyCode: item.currencyCode,
+    productVariantId: item.productVariantId?item.productVariantId:"",
     
     // TODO:
     // oldPrice: item.price
@@ -35,7 +36,7 @@ export function normalizeCart(order: CartFragment): Cart {
       id: l.id,
       name: l.productVariant.name,
       quantity: l.quantity,
-      url: l.productVariant.product.slug,
+      slug: l.productVariant.product.slug,
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
