@@ -1,3 +1,4 @@
+import { CurrencyCode } from './../../vendure/schema.d';
 import { FacetValueFilterInput, LogicalOperator, SearchResultSortParameter } from "@framework/schema"
 
 export type ProductImage = {
@@ -44,6 +45,21 @@ export type Product = {
   images: ProductImage[]
   price: ProductPrice
   options: ProductOption[]
+}
+
+export type ProductCard = {
+  id: string
+  name: string
+  slug?: string
+  imageSrc: string
+  price: number
+  currencyCode: CurrencyCode
+  oldPrice?: number,
+  discount?: number
+  weight?: number
+  // TODO: collection
+  category?: string,
+  isNotSell?: boolean
 }
 
 export type SearchProductsBody = {

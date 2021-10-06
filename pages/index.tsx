@@ -1,27 +1,29 @@
+import { ProductCard } from '@commerce/types/product';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
 import { Facet, Product } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { ifError } from 'assert';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
-import { FeaturedProductsCarousel, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
+import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { FACET } from 'src/utils/constanst.utils';
 import { getAllFeaturedFacetId, getFacetIdByName, getFreshProductFacetId } from 'src/utils/funtion.utils';
 
 interface Props {
-  veggie: Product[],
+  veggie: ProductCard[],
   facets:Facet[]
+  freshProducts: ProductCard[],
+  featuredProducts: ProductCard[],
 }
-export default function Home({ veggie, facets }: Props) {
-  // console.log("total: ", freshProducts.length, featuredProducts.length)
-  console.log("rs: ", veggie)
+export default function Home({ freshProducts, featuredProducts, veggie }: Props) {
   return (
     <>
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
-      <HomeCollection />
+      <FreshProducts data={freshProducts}/>
+      <HomeCollection data = {veggie}/>
       <HomeVideo />
       <HomeSpice />
       <FeaturedProductsCarousel />
@@ -49,41 +51,45 @@ export async function getStaticProps({
   })
   
   const freshProductvariables: ProductVariables = {}
-  // const freshFacetId = getFreshProductFacetId(facets)
-  const veggieId = getFacetIdByName(facets,FACET.CATEGORY.PARENT_NAME,FACET.CATEGORY.VEGGIE)
-  console.log("veggieId",veggieId)
-  console.log("facets",facets)
-  if (veggieId) {
-    freshProductvariables.facetValueIds = [veggieId]
+  const freshFacetId = getFreshProductFacetId(facets)
+  if (freshFacetId) {
+    freshProductvariables.facetValueIds = [freshFacetId]
   }
-  // if (freshFacetId) {
-  //   freshProductvariables.facetValueIds = [freshFacetId]
-  // }
   const freshProductsPromise = commerce.getAllProducts({
     variables: freshProductvariables,
     config,
     preview,
   })
 
-  // const allFeaturedFacetId = getAllFeaturedFacetId(facets)
-  // const featuredProductsPromise = commerce.getAllProducts({
-  //   variables: {
-  //     facetValueIds: allFeaturedFacetId
-  //   },
-  //   config,
-  //   preview,
-  // })
+  const veggieProductvariables: ProductVariables = {}
+  const veggieId = getFacetIdByName(facets,FACET.CATEGORY.PARENT_NAME,FACET.CATEGORY.VEGGIE)
+  if (veggieId) {
+    veggieProductvariables.facetValueIds = [veggieId]
+  }
+  const veggieProductsPromise = commerce.getAllProducts({
+    variables: veggieProductvariables,
+    config,
+    preview,
+  })
+
+  const allFeaturedFacetId = getAllFeaturedFacetId(facets)
+  const featuredProductsPromise = commerce.getAllProducts({
+    variables: {
+      facetValueIds: allFeaturedFacetId
+    },
+    config,
+    preview,
+  })
 
 
   try {
-    const rs = await Promise.all([freshProductsPromise])
-    // const rs = await Promise.all([freshProductsPromise, featuredProductsPromise])
+    const rs = await Promise.all([veggieProductsPromise,featuredProductsPromise,freshProductsPromise])
 
     return {
       props: {
-        veggie: rs[0].products,
-        // featuredProducts: rs[1].products
-        facets
+        veggie: veggieId ? rs[0].products : [],
+        featuredProducts: rs[1].products,
+        freshProducts: freshFacetId ? rs[2].products : [],
       },
       revalidate: 60,
     }
