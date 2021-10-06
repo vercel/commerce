@@ -1,0 +1,1 @@
+export {default as useGetAllCollection} from "./useGetAllCollection"

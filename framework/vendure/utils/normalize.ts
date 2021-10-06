@@ -1,22 +1,23 @@
-import { Product } from '@commerce/types/product'
 import { Cart } from '@commerce/types/cart'
+import { ProductCard } from '@commerce/types/product'
 import { CartFragment, SearchResultFragment } from '../schema'
 
-export function normalizeSearchResult(item: SearchResultFragment): Product {
+export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
     id: item.productId,
     name: item.productName,
-    description: item.description,
     slug: item.slug,
-    path: item.slug,
-    images: [{ url: item.productAsset?.preview + '?w=800&mode=crop' || '' }],
-    variants: [],
-    price: {
-      value: (item.priceWithTax as any).min / 100,
-      currencyCode: item.currencyCode,
-    },
-    options: [],
-    sku: item.sku,
+    imageSrc: item.productAsset?.preview ? item.productAsset?.preview + '?w=800&mode=crop' : '',
+    price: (item.priceWithTax as any).min / 100,
+    currencyCode: item.currencyCode,
+    facetValueIds: item.facetValueIds,
+    collectionIds: item.collectionIds,
+    
+    // TODO:
+    // oldPrice: item.price
+    // discount
+    // isNotSell
+    // weight
   }
 }
 
