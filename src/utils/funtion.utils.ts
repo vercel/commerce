@@ -1,7 +1,7 @@
 import { Facet } from "@commerce/types/facet";
-import { FacetValue } from './../../framework/vendure/schema.d';
-import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT } from "./constanst.utils";
-import { PromiseWithKey } from "./types.utils";
+import { FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
+import { PromiseWithKey, SortOrder } from "./types.utils";
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -18,6 +18,41 @@ export function getPageFromQuery(pageQuery: string) {
     page = 0
   }
   return page
+}
+
+
+export function getProductSortParamFromQuery(query: string) {
+  let rs = {} as SearchResultSortParameter
+  switch (query) {
+    case PRODUCT_SORT_OPTION_VALUE.NAME_ASC:
+      rs = {
+        name: SortOrder.Asc
+      }
+      break;
+
+    case PRODUCT_SORT_OPTION_VALUE.NAME_DESC:
+      rs = {
+        name: SortOrder.Desc
+      }
+      break;
+
+    case PRODUCT_SORT_OPTION_VALUE.PRICE_ASC:
+      rs = {
+        price: SortOrder.Asc
+      }
+      break;
+
+    case PRODUCT_SORT_OPTION_VALUE.PRICE_DESC:
+      rs = {
+        price: SortOrder.Desc
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return rs
 }
 
 export function removeItem<T>(arr: Array<T>, value: T): Array<T> {

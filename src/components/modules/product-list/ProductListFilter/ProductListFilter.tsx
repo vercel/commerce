@@ -7,7 +7,7 @@ import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbC
 import SkeletonImage from 'src/components/common/SkeletonCommon/SkeletonImage/SkeletonImage'
 import { useSearchProducts } from 'src/components/hooks/product'
 import { DEFAULT_PAGE_SIZE, QUERY_KEY, QUERY_SPLIT_SEPERATOR, ROUTE } from 'src/utils/constanst.utils'
-import { getFacetIdsFromCodes, getPageFromQuery } from 'src/utils/funtion.utils'
+import { getFacetIdsFromCodes, getPageFromQuery, getProductSortParamFromQuery } from 'src/utils/funtion.utils'
 import s from './ProductListFilter.module.scss'
 import ProductsMenuNavigationTablet from './ProductsMenuNavigationTablet/ProductsMenuNavigationTablet'
 import ProductSort from './ProductSort/ProductSort'
@@ -63,6 +63,12 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
 
     const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string)
     query.input.skip = page * DEFAULT_PAGE_SIZE
+
+
+    const sortQuery = router.query[QUERY_KEY.SORTBY] as string
+    if (sortQuery) {
+      query.input.sort = getProductSortParamFromQuery(sortQuery)
+    }
 
     // collections
     const categoryQuery = router.query[QUERY_KEY.CATEGORY] as string
