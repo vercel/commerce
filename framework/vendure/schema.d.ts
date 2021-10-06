@@ -3228,8 +3228,9 @@ export type GetAllFacetsQuery = { __typename?: 'Query' } & {
     items: Array<
       { __typename?: 'Facet' } & Pick<
         Facet,
-        'id' | 'name' | 'code'
-      > & {
+        'id' | 'name' | 'code' | 'values'
+      > 
+      & {
           parent?: Maybe<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
           children?: Maybe<
             Array<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>

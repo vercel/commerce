@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useMessage } from 'src/components/contexts'
 import { useModalCommon } from 'src/components/hooks'
-import { BRAND, CATEGORY, FEATURED, FILTER_PAGE, ROUTE } from 'src/utils/constanst.utils'
+import { FILTER_PAGE, ROUTE } from 'src/utils/constanst.utils'
 import { CartDrawer, Footer, MessageCommon, ScrollToTop } from '../..'
 import Header from '../../Header/Header'
 import MenuNavigationProductList from '../../MenuNavigationProductList/MenuNavigationProductList'
@@ -14,9 +14,8 @@ interface Props {
 }
 
 const LayoutContent: FC<Props> = ({ children }) => {
-    const { pathname } = useRouter()
-    const { visible: visibleFilter, openModal: openFilter, closeModal: closeFilter } = useModalCommon({ initialValue: false })
     const router = useRouter()
+    const { visible: visibleFilter, openModal: openFilter, closeModal: closeFilter } = useModalCommon({ initialValue: true })
     const {messages, removeMessage} = useMessage()
 
     const toggleFilter = () => {
@@ -30,6 +29,7 @@ const LayoutContent: FC<Props> = ({ children }) => {
     return (
         <>
             <div className={s.mainLayout}>
+                {router.pathname}
                 <Header toggleFilter={toggleFilter} visibleFilter={visibleFilter} />
                 {
                     router.pathname === ROUTE.ACCOUNT ?
@@ -38,10 +38,9 @@ const LayoutContent: FC<Props> = ({ children }) => {
                         </section> :
                         <main>{children}</main>
                 }
-                <div className={s.filter}><MenuNavigationProductList categories={CATEGORY} brands={BRAND} featured={FEATURED} visible={visibleFilter} onClose={closeFilter} /> </div>
                 <ScrollToTop visibilityHeight={1500} />
                 {
-                    FILTER_PAGE.includes(pathname) && (<div className={s.filter}><MenuNavigationProductList categories={CATEGORY} brands={BRAND} featured={FEATURED} visible={visibleFilter} onClose={closeFilter} /> </div>)
+                    FILTER_PAGE.includes(router.pathname) && (<div className={s.filter}><MenuNavigationProductList visible={visibleFilter} onClose={closeFilter} /> </div>)
                 }
                 <Footer />
             </div>

@@ -1,11 +1,8 @@
 @import "../../../../styles/utilities";
-.menuSortWrapper{
-    @apply spacing-horizontal;
 
+.menuSortWrapper{
     .menuSortHeading{
-        @apply sub-headline font-bold ;
-        color: var(--text-active);
-        font-feature-settings: 'salt' on;
+        @apply heading-3 font-heading;
         margin: 0.8rem 0;
     }
     .menuSortList{

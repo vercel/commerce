@@ -1,9 +1,7 @@
 @import "../../../styles/utilities";
 .menuFilterWrapper{
-    @apply spacing-horizontal;
-
     .menuFilterHeading{
-        @apply sub-headline font-bold ;
+        @apply sub-headline font-bold;
         color: var(--text-active);
         font-feature-settings: 'salt' on;
         margin: 0.8rem 0;

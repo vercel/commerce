@@ -1,0 +1,16 @@
+
+.menuFilterItem {
+    margin: 1rem 0;
+    padding: 0;
+    div {
+        padding: 0.8rem 1.6rem;
+        margin-right: 0.8rem;
+        background-color: var(--gray);
+        border-radius: 0.8rem;
+        cursor: pointer;
+        &.active {
+            color: var(--white);
+            background-color: var(--primary);
+        }
+    }
+}
