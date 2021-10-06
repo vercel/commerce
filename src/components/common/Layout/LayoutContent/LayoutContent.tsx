@@ -29,7 +29,7 @@ const LayoutContent: FC<Props> = ({ children }) => {
     return (
         <>
             <div className={s.mainLayout}>
-                <Header toggleFilter={toggleFilter} visibleFilter={visibleFilter} />
+                <Header toggleFilter={toggleFilter}/>
                 {
                     router.pathname === ROUTE.ACCOUNT ?
                         <section className={s.wrapperWithBg}>

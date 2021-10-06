@@ -88,6 +88,7 @@ const HeaderMenu = memo(
       ],
       [logout]
     )
+    
     return (
       <section
         className={classNames({
