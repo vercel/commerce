@@ -64,7 +64,6 @@ const Footer: FC<Props> = ({ className, pages }) => {
             <span>&copy; 2020 CKUBE. All rights reserved.</span>
           </div>
           <div className="flex items-center text-primary text-sm">
-
           </div>
         </div>
       </Container>

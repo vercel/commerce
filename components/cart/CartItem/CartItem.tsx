@@ -70,6 +70,9 @@ const CartItem = ({
     if (item.quantity !== Number(quantity)) {
       setQuantity(item.quantity)
     }
+    // TODO: currently not including quantity in deps is intended, but we should
+    // do this differently as it could break easily
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity])
 
   return (
@@ -82,25 +85,29 @@ const CartItem = ({
       <div className="flex flex-row space-x-4 py-4">
         <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
           <Link href={`/product/${item.path}`}>
-            <Image
-              onClick={() => closeSidebarIfPresent()}
-              className={s.productImage}
-              width={150}
-              height={150}
-              src={item.variant.image!.url}
-              alt={item.variant.image!.altText}
-              unoptimized
-            />
+            <a>
+              <Image
+                onClick={() => closeSidebarIfPresent()}
+                className={s.productImage}
+                width={150}
+                height={150}
+                src={item.variant.image!.url}
+                alt={item.variant.image!.altText}
+                unoptimized
+              />
+            </a>
           </Link>
         </div>
         <div className="flex-1 flex flex-col text-base">
           <Link href={`/product/${item.path}`}>
-            <span
-              className={s.productName}
-              onClick={() => closeSidebarIfPresent()}
-            >
-              {item.name}
-            </span>
+            <a>
+              <span
+                className={s.productName}
+                onClick={() => closeSidebarIfPresent()}
+              >
+                {item.name}
+              </span>
+            </a>
           </Link>
           {options && options.length > 0 && (
             <div className="flex items-center pb-1">

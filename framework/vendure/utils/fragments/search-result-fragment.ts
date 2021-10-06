@@ -3,7 +3,6 @@ export const searchResultFragment = /* GraphQL */ `
     productId
     productName
     description
-    description
     slug
     sku
     currencyCode

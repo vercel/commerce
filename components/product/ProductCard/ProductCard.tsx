@@ -7,11 +7,12 @@ import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
 import ProductTag from '../ProductTag'
+
 interface Props {
   className?: string
   product: Product
   noNameTag?: boolean
-  imgProps?: Omit<ImageProps, 'src'>
+  imgProps?: Omit<ImageProps, 'src' | 'layout' | 'placeholder' | 'blurDataURL'>
   variant?: 'default' | 'slim' | 'simple'
 }
 
@@ -23,7 +24,6 @@ const ProductCard: FC<Props> = ({
   className,
   noNameTag = false,
   variant = 'default',
-  ...props
 }) => {
   const { price } = usePrice({
     amount: product.price.value,
@@ -38,7 +38,7 @@ const ProductCard: FC<Props> = ({
   )
 
   return (
-    <Link href={`/product/${product.slug}`} {...props}>
+    <Link href={`/product/${product.slug}`}>
       <a className={rootClassName}>
         {variant === 'slim' && (
           <>
@@ -83,7 +83,7 @@ const ProductCard: FC<Props> = ({
                 <Image
                   alt={product.name || 'Product Image'}
                   className={s.productImage}
-                  src={product.images[0].url || placeholderImg}
+                  src={product.images[0]?.url || placeholderImg}
                   height={540}
                   width={540}
                   quality="85"
