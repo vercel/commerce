@@ -12,20 +12,10 @@ import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
 import { useRouter } from "next/router"
-import { useActiveCustomer } from 'src/components/hooks/auth'
+import { useActiveCustomer} from 'src/components/hooks/auth'
+import { useGetUserOrder} from 'src/components/hooks/account'
 import { AccountProps } from "./components/AccountInfomation/AccountInfomation"
-const waiting = [
-    {
-        id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    },
-    {
-        id: "NO 123457",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    }
-]
+
 
 const delivering = [
     {
@@ -73,7 +63,9 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
 
     const {userInfo} = useActiveCustomer();
- 
+    
+    const {addingItem,arrangingPayment,cancelled} = useGetUserOrder();
+
 
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
@@ -104,7 +96,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                         <AccountInfomation account={userInfo} onClick={showModal}  />
                     </TabPane>
                     <TabPane tabName="Your Orders"> 
-                        <OrderInfomation waiting={waiting} delivering={delivering} delivered={delivered} />
+                        <OrderInfomation addingItem={addingItem} arrangingPayment={arrangingPayment} cancelled={cancelled} />
                     </TabPane>
                     <TabPane tabName="Favourite"> 
                         <FavouriteProducts products={PRODUCT_CART_DATA_TEST}  />
