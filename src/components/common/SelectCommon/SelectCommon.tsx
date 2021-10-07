@@ -19,9 +19,12 @@ const SelectCommon = ({selected,initValue, type = 'default', size = 'base', opti
     const [selectedValue, setSelectedValue] = useState('')
 
     useEffect(()=>{
-        setSelectedValue(selected ?? '');
+        const nameSelect = option.find((val)=>val.value === selected);
+        setSelectedName(nameSelect?.name);
         setSelectedValue(initValue ?? '');
-    })
+        onChange && onChange(initValue ?? '');
+    },[])
+
     const changeSelectedName = (item:string, value: string) => {
         setSelectedValue(value)
         setSelectedName(item)
