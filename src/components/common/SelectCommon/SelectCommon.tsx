@@ -20,7 +20,7 @@ const SelectCommon = ({selected,initValue, type = 'default', size = 'base', opti
 
     useEffect(()=>{
         const nameSelect = option.find((val)=>val.value === selected);
-        setSelectedName(nameSelect?.name);
+        setSelectedName(nameSelect?.name ?? 'State');
         setSelectedValue(initValue ?? '');
         onChange && onChange(initValue ?? '');
     },[])
