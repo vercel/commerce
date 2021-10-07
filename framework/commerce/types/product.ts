@@ -43,8 +43,10 @@ export type Product = {
   slug?: string
   path?: string
   images: ProductImage[]
-  price: ProductPrice
+  price: number
+  currencyCode: CurrencyCode
   options: ProductOption[]
+  facetValueIds?: string[]
 }
 
 export type ProductCard = {

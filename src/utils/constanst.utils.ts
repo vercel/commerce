@@ -1,6 +1,7 @@
 import DefaultImg from '../../public/assets/images/default_img.jpg'
 
 export const REVALIDATE_TIME = 60
+export const MAX_PRODUCT_CAROUSEL = 20
 export const BLUR_DATA_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8fBIAApUBruKYvzsAAAAASUVORK5CYII='
 export const DEFAULT_IMG = DefaultImg
 
