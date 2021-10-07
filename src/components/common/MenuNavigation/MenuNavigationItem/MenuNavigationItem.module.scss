@@ -1,0 +1,15 @@
+.menuNavigationItem {
+    @screen md {
+        display: block;
+        width: 100%;
+        margin: 0.8rem 0;
+        color: var(--text-base);
+        cursor: pointer;
+        &:hover {
+            @apply text-active;
+        }
+        &.active {
+            @apply text-primary;
+        }
+    }
+}

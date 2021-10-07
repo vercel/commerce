@@ -1,13 +1,34 @@
-import React from 'react';
+import { ProductCard } from '@commerce/types/product';
+import { Collection } from '@framework/schema';
+import React, { useMemo } from 'react';
 import ListProductWithInfo from 'src/components/common/ListProductWithInfo/ListProductWithInfo';
-import { PRODUCT_DATA_TEST } from 'src/utils/demo-data';
+import { getCategoryNameFromCollectionId } from 'src/utils/funtion.utils';
 
-const ReleventProducts = () => {
+interface Props {
+    data: ProductCard[]
+    collections: Collection[]
+
+}
+
+const ReleventProducts = ({ data, collections }: Props) => {
+    const dataWithCategoryName = useMemo(() => {
+        return data.map(item => {
+            return {
+              ...item,
+              collection: getCategoryNameFromCollectionId(collections, item.collectionIds ? item.collectionIds[0] : undefined)
+            }
+          })
+    }, [data, collections])
+
+    if (data.length === 0) {
+        return null
+    }
+
     return (
         <ListProductWithInfo
             title="Relevant Products"
             subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
-            data={PRODUCT_DATA_TEST}
+            data={dataWithCategoryName}
         />
     );
 };

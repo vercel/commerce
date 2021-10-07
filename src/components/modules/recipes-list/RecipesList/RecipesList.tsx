@@ -189,13 +189,13 @@ const RecipesList = ({ data =recipe}:Props) => {
                         <div className={s.categorySelectCate}>
                             <label htmlFor="">Categories</label>
                             <div className={s.select}>
-                                <SelectCommon  option={CATEGORYSELECT} placeholder="Categories"/>
+                                <SelectCommon  options={CATEGORYSELECT} placeholder="Categories"/>
                             </div>
                         </div>
                         <div className={s.categorySelectSort}>
                             <label htmlFor="" >Sort By</label>
                             <div className={s.select}>
-                                 <SelectCommon option={OPTIONSLECT} placeholder="Sort By" />
+                                 <SelectCommon options={OPTIONSLECT} placeholder="Sort By" />
                             </div>
                         </div>
                     </div>
