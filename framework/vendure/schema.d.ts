@@ -3338,6 +3338,18 @@ export type GetProductQuery = { __typename?: 'Query' } & {
               >
             }
         >
+        facetValues: Array<
+          { __typename?: 'FacetValue' } & Pick<
+            FacetValue,
+            'id'
+          >
+        >
+        collections: Array<
+          { __typename?: 'Collection' } & Pick<
+            Collection,
+            'id'
+          >
+        >
       }
   >
 }

@@ -1,5 +1,5 @@
 import { Facet } from "@commerce/types/facet";
-import { FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
+import { Collection, FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SortOrder } from "./types.utils";
 
@@ -114,6 +114,15 @@ export function getFacetIdsFromCodes(facets: FacetValue[], codes?: string[]): st
   const facetItems = facets.filter((item: FacetValue) => codes.includes(item.code))
   const ids = facetItems.map((item: FacetValue) => item.id)
   return ids
+}
+
+export const getCategoryNameFromCollectionId = (colelctions: Collection[], collectionId?: string ) => {
+  if (!collectionId) {
+    return ''
+  }
+
+  const collection = colelctions.find(item => item.id === collectionId)
+  return collection?.name || ''
 }
 
 export function getAllPromies(promies: PromiseWithKey[]) {
