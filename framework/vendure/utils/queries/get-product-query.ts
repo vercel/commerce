@@ -39,6 +39,9 @@ export const getProductQuery = /* GraphQL */ `
       facetValues {
         id
       }
+      collections {
+        id
+      }
     }
   }
 `

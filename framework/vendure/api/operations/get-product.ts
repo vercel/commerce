@@ -53,7 +53,8 @@ export default function getProductOperation({
             displayName: og.name,
             values: og.options.map((o) => ({ label: o.name })),
           })),
-          facetValueIds: product.facetValues.map(item=> item.id)
+          facetValueIds: product.facetValues.map(item=> item.id),
+          collectionIds: product.collections.map(item => item.id)
         } as Product
     }
 
