@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { ButtonCommon } from 'src/components/common';
+import { useProductFilter } from 'src/components/contexts';
 import { useGetAllCollection } from 'src/components/hooks/collection';
 import { useFacets } from 'src/components/hooks/facets';
 import IconHide from 'src/components/icons/IconHide';
@@ -15,8 +16,7 @@ import s from './MenuNavigationProductList.module.scss';
 import MenuSort from './MenuSort/MenuSort';
 
 interface Props {
-    visible: boolean,
-    onClose: () => void
+ 
 }
 
 const FACET_QUERY = {
@@ -32,8 +32,9 @@ const FACET_QUERY = {
     }
 } as QueryFacetsArgs
 
-const MenuNavigationProductList = ({ visible, onClose }: Props) => {
+const MenuNavigationProductList = ({}: Props) => {
     const router = useRouter()
+    const { productFilterVisible: visible, closeProductFilter: onClose } = useProductFilter()
     const { facets, loading: facetsLoading } = useFacets(FACET_QUERY)
     const { collections, loading: collectionLoading } = useGetAllCollection()
     const [brandQuery, setBrandQuery] = useState<string[]>([])

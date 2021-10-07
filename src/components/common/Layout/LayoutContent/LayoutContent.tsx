@@ -15,21 +15,12 @@ interface Props {
 
 const LayoutContent: FC<Props> = ({ children }) => {
     const router = useRouter()
-    const { visible: visibleFilter, openModal: openFilter, closeModal: closeFilter } = useModalCommon({ initialValue: false })
     const {messages, removeMessage} = useMessage()
-
-    const toggleFilter = () => {
-        if (visibleFilter) {
-            closeFilter()
-        } else {
-            openFilter()
-        }
-    }
 
     return (
         <>
             <div className={s.mainLayout}>
-                <Header toggleFilter={toggleFilter}/>
+                <Header/>
                 {
                     router.pathname === ROUTE.ACCOUNT ?
                         <section className={s.wrapperWithBg}>
@@ -39,7 +30,7 @@ const LayoutContent: FC<Props> = ({ children }) => {
                 }
                 <ScrollToTop visibilityHeight={1500} />
                 {
-                    FILTER_PAGE.includes(router.pathname) && (<div className={s.filter}><MenuNavigationProductList visible={visibleFilter} onClose={closeFilter} /> </div>)
+                    FILTER_PAGE.includes(router.pathname) && (<div className={s.filter}><MenuNavigationProductList /> </div>)
                 }
                 <Footer />
             </div>

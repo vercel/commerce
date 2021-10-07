@@ -16,29 +16,34 @@
         .list{
             @apply w-full;
             .top {
+                .left {
+                    @apply flex justify-between items-center;
+                }
+                
+                .iconFilter {
+                    @apply relative;
+                    &:focus {
+                        outline: none;
+                        filter: brightness(1.05);
+                    }
+                    &:focus-visible {
+                        outline: 2px solid var(--text-active);
+                    }
+                    .dot {
+                        @apply absolute;
+                        top: -0.08rem;
+                        right: -0.2rem;
+                        background-color: var(--negative);
+                        width: 1.2rem;
+                        height: 1.2rem;
+                        border-radius: 1.2rem;
+                    }
+                }
                 @screen md {
                     @apply flex justify-between flex-wrap w-full;
                     margin: 1rem 0;
-                }
-            }
-            .inner{
-                @screen md {
-                    @apply flex flex-col items-center justify-center;
-                }
-                .boxItem {
-                    @screen md {
-                        @apply flex justify-between flex-wrap;
-                        margin: 1rem 0;
-                    }
-                    .item {
-                        @screen md {
-                            width: calc(97% / 2);
-                            margin-top:1rem;
-                        }
-                        @screen lg{
-                            width: calc(97% / 3);
-                            margin-top:1rem;
-                        }
+                    .iconFilter {
+                        @apply hidden;
                     }
                 }
             }

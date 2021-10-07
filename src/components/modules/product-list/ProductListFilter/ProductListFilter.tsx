@@ -4,8 +4,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { HeadingCommon, ListProductCardSkeleton, ProductList } from 'src/components/common'
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon'
-import SkeletonImage from 'src/components/common/SkeletonCommon/SkeletonImage/SkeletonImage'
+import { useProductFilter } from 'src/components/contexts'
 import { useSearchProducts } from 'src/components/hooks/product'
+import { IconFilter } from 'src/components/icons'
 import { DEFAULT_PAGE_SIZE, QUERY_KEY, QUERY_SPLIT_SEPERATOR, ROUTE } from 'src/utils/constanst.utils'
 import { getFacetIdsFromCodes, getPageFromQuery, getProductSortParamFromQuery } from 'src/utils/funtion.utils'
 import s from './ProductListFilter.module.scss'
@@ -34,6 +35,7 @@ const DEFAULT_SEARCH_ARGS = {
 
 const ProductListFilter = ({ facets, collections, products, total }: ProductListFilterProps) => {
   const router = useRouter()
+  const { openProductFilter } = useProductFilter()
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryProduct, setOptionQueryProduct] = useState<QuerySearchArgs>({ input: DEFAULT_SEARCH_ARGS })
   const { products: productSearchResult, totalItems, loading } = useSearchProducts(optionQueryProduct)
@@ -101,14 +103,20 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
         <ProductsMenuNavigationTablet facets={facets} collections={collections} />
         <div className={s.list}>
           <div className={s.top}>
-            <HeadingCommon align="left">SPECIAL RECIPES</HeadingCommon>
+            <div className={s.left}>
+              <HeadingCommon align="left">SPECIAL RECIPES</HeadingCommon>
+              <button className={s.iconFilter} onClick={openProductFilter}>
+                <IconFilter />
+                <div className={s.dot}></div>
+              </button>
+            </div>
 
             <div className={s.boxSelect}>
               <ProductSort />
             </div>
           </div>
           {
-            (!initialQueryFlag && loading && !productSearchResult) && <ListProductCardSkeleton count={DEFAULT_PAGE_SIZE} isWrap/>
+            (!initialQueryFlag && loading && !productSearchResult) && <ListProductCardSkeleton count={DEFAULT_PAGE_SIZE} isWrap />
           }
           <ProductList data={initialQueryFlag ? products : (productSearchResult || [])} total={totalItems !== undefined ? totalItems : total} onPageChange={onPageChange} defaultCurrentPage={currentPage} />
         </div>
