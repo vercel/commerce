@@ -5,7 +5,7 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { ViewedProducts } from 'src/components/modules/product-detail';
 import ProductListFilter from 'src/components/modules/product-list/ProductListFilter/ProductListFilter';
-import { CODE_FACET_BRAND, CODE_FACET_FEATURED, DEFAULT_PAGE_SIZE } from 'src/utils/constanst.utils';
+import { CODE_FACET_BRAND, CODE_FACET_FEATURED, DEFAULT_PAGE_SIZE, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { getAllPromies } from 'src/utils/funtion.utils';
 import { PromiseWithKey, SortOrder } from 'src/utils/types.utils';
 import ProductListBanner from '../src/components/modules/product-list/ProductListBanner/ProductListBanner';
@@ -87,7 +87,7 @@ export async function getStaticProps({
 
     return {
       props,
-      revalidate: 60,
+      revalidate: REVALIDATE_TIME,
     }
   } catch (err) {
 
