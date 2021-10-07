@@ -9,13 +9,13 @@ import { BLOGS_DATA_TEST, INGREDIENT_DATA_TEST, RECIPE_DATA_TEST } from 'src/uti
 import { getAllPromies } from 'src/utils/funtion.utils'
 import { PromiseWithKey } from 'src/utils/types.utils'
 
-export default function Slug({ product, relevantProducts }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Slug({ product, relevantProducts, collections }: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return <>
     <ProductInfoDetail />
     <RecipeDetail ingredients={INGREDIENT_DATA_TEST} />
     <RecommendedRecipes data={RECIPE_DATA_TEST} />
-    <ReleventProducts data={relevantProducts}/>
+    <ReleventProducts data={relevantProducts} collections={collections}/>
     <ViewedProducts />
     <RelevantBlogPosts data={BLOGS_DATA_TEST} title="relevent blog posts" />
   </>
@@ -43,7 +43,7 @@ export async function getStaticProps({
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }
 
-  // relevant product
+  // relevant product (filter by product detail's facetIds)
   const relevantFacetIds = product.facetValueIds
   if (relevantFacetIds && relevantFacetIds.length > 0) {
     const relevantProductsPromise = commerce.getAllProducts({
@@ -58,6 +58,15 @@ export async function getStaticProps({
   } else {
     props.relevantProducts = []
   }
+
+
+  // collection
+  const collectionsPromise = commerce.getAllCollections({
+    variables: {},
+    config,
+    preview,
+  })
+  promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections' })
 
 
   try {
