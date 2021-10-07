@@ -1,0 +1,12 @@
+.listProductCardSkeleton {
+    display: flex;
+    overflow: hidden;
+
+    &.wrap {
+        flex-wrap: wrap;
+        overflow: unset;
+        > div {
+            margin-bottom: 1.6rem;
+        }
+    }
+}

@@ -1,7 +1,16 @@
 .wrapper {
     margin: 4rem auto;
     .list {
-        @apply flex flex-wrap justify-around;
+        @apply grid grid-cols-2;
+        @screen md {
+            @apply grid-cols-3;
+        }
+        @screen lg {
+            @apply grid-cols-4;
+        }
+        @screen xl {
+            @apply grid-cols-6;
+        }
         .empty {
             button {
                 margin-top: 1.6rem;

@@ -2,7 +2,7 @@ import { ProductCard } from '@commerce/types/product'
 import { Collection, Facet, FacetValue, QuerySearchArgs } from '@framework/schema'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { HeadingCommon, ProductList } from 'src/components/common'
+import { HeadingCommon, ListProductCardSkeleton, ProductList } from 'src/components/common'
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon'
 import SkeletonImage from 'src/components/common/SkeletonCommon/SkeletonImage/SkeletonImage'
 import { useSearchProducts } from 'src/components/hooks/product'
@@ -108,7 +108,7 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
             </div>
           </div>
           {
-            (!initialQueryFlag && loading && !productSearchResult) && <SkeletonImage />
+            (!initialQueryFlag && loading && !productSearchResult) && <ListProductCardSkeleton count={DEFAULT_PAGE_SIZE} isWrap/>
           }
           <ProductList data={initialQueryFlag ? products : (productSearchResult || [])} total={totalItems !== undefined ? totalItems : total} onPageChange={onPageChange} defaultCurrentPage={currentPage} />
         </div>
