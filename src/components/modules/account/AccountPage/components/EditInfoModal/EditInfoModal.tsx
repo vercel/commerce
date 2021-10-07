@@ -43,7 +43,7 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
 
                 <div className="flex">
                     <div className={s.inputState}>
-                        <SelectCommon type="custom" placeholder="State" option={states} />
+                        <SelectCommon type="custom" placeholder="State" options={states} />
                     </div>
 
                     <div className={s.inputPostalCode}>

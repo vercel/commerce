@@ -2,16 +2,16 @@ import s from './SelectOption.module.scss'
 import classNames from 'classnames'
 
 interface Props{
-    onClick: (name: string, value: string) => void,
+    onChange: (value: string) => void,
     itemName: string,
     size: 'base' | 'large',
     value: string,
     selected?: boolean,
 }
 
-const SelectOption = ({onClick, itemName, size, value, selected} : Props) => {
-    const changeName  = () => {
-        onClick(itemName, value)
+const SelectOption = ({onChange, itemName, size, value, selected} : Props) => {
+    const handleChange = () => {
+        onChange(value)
     }
     return(
         <div className={classNames({
@@ -19,7 +19,7 @@ const SelectOption = ({onClick, itemName, size, value, selected} : Props) => {
             [s[size]] : !!size,
             [s.isChoose] : selected ,
         })}
-            onClick = {changeName}
+            onClick = {handleChange}
         >{itemName}</div>
     )
 }

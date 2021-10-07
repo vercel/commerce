@@ -3,31 +3,13 @@
     @apply hidden;
     @screen md {
         @apply block;
-    }
-    .menuNavigationHeading{
-        @screen md {
-            @apply sub-headline font-bold ;
-            color: var(--text-active);
-            font-feature-settings: 'salt' on;
-            margin: 1.6rem 0;
-        }
-    }
-    .menuNavigationList{
-        @screen md {
-            li{
-                margin: 0.8rem 0;
-                a{
-                 display:block;
-                 width:100%;     
-                 color:var(--text-base);
-                 &:hover {
-                    @apply text-primary;
-                 }
-                 &.active {
-                    @apply text-primary;
-                 }
-                }
+        .menuNavigationHeading{
+            @screen md {
+                @apply sub-headline font-bold ;
+                color: var(--text-active);
+                font-feature-settings: 'salt' on;
+                margin: 1.6rem 0;
             }
         }
-     }
+    }
 }

@@ -42,7 +42,7 @@ const HeaderSubMenu = memo(() => {
             <ul className={s.menu}>
                 {/* todo: handle active item */}
                 <li>
-                    <MenuDropdown options={collections?.items ?? []} align="left">Categories</MenuDropdown>
+                    <MenuDropdown options={collections || []} align="left">Categories</MenuDropdown>
                 </li>
                 {
                     MENU.map(item => <li key={item.name}
