@@ -1,10 +1,10 @@
 import { OperationContext } from '@commerce/api/operations'
 import { Facet } from '@commerce/types/facet'
 import { Provider, VendureConfig } from '../'
-import { GetAllFacetsQuery } from '../../schema'
+import { FacetFilterParameter, FacetSortParameter, GetAllFacetsQuery } from '../../schema'
 import { getAllFacetsQuery } from '../../utils/queries/get-all-facets-query'
 
-export type FacetVariables = { first?: number }
+export type FacetVariables = { first?: number, filter?: FacetFilterParameter, sort?: FacetSortParameter }
 
 export default function getAllFacetsOperation({
   commerce,
@@ -27,9 +27,10 @@ export default function getAllFacetsOperation({
   } = {}): Promise<{ facets: Facet[] | any[] }> {
     const config = commerce.getConfig(cfg)
     const variables = {
-      input: {
+      options: {
         take: vars.first,
-        groupByFacet: true,
+        filter: vars.filter,
+        sort: vars.sort,
       },
     }
     const { data } = await config.fetch<GetAllFacetsQuery>(query, {

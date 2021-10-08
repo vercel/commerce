@@ -12,7 +12,7 @@ interface ColectionCarcouselProps extends CollectionHeadingProps {
   data: ProductCardProps[]
   itemKey: string
   viewAllLink?: string,
-  category:string
+  category?: string
 }
 
 const ColectionCarcousel = ({
@@ -21,7 +21,8 @@ const ColectionCarcousel = ({
   title,
   subtitle,
   type,
-  category
+  category,
+  viewAllLink = ROUTE.PRODUCTS,
 }: ColectionCarcouselProps) => {
   return (
     <div className={s.colectionCarcoucelWarpper}>
@@ -34,7 +35,7 @@ const ColectionCarcousel = ({
           ></CollectionHeading>
         </div>
         <div className={s.right}>
-          <ViewAllItem link={`${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=${category}`}/>
+          <ViewAllItem link={category ? `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=${category}` : viewAllLink} />
         </div>
       </div>
       <div className={s.bot}>

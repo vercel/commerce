@@ -1,4 +1,3 @@
-import { SortOrder } from "@framework/schema";
 
 export interface ProductProps {
     category?: string
@@ -36,17 +35,22 @@ export interface BlogProps {
 
 export interface CheckOutForm {
     name?: string
-    email?:string
+    email?: string
     address?: string
-    city?:string
-    state?:string
-    code?:number
-    phone?:number
-    method?:string
-    shipping_fee?:number
+    city?: string
+    state?: string
+    code?: number
+    phone?: number
+    method?: string
+    shipping_fee?: number
 }
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
+
+export enum SortOrder {
+    Asc = 'ASC',
+    Desc = 'DESC',
+}
 
 export type filterContextType = {
     visible: boolean;
@@ -61,4 +65,9 @@ export interface FacetMap extends StringMap{
 }
 export interface FacetConstant{
     [key: string]: FacetMap;
+}
+export type PromiseWithKey = {
+    key: string
+    promise: PromiseLike<any>
+    keyResult?: string,
 }

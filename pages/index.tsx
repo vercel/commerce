@@ -1,6 +1,7 @@
 import { ProductCard } from '@commerce/types/product';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
 import { Facet, Product } from '@framework/schema';
+import { Collection, FacetValue } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { ifError } from 'assert';
 import { GetStaticPropsContext } from 'next';
@@ -9,25 +10,30 @@ import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, Ho
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { FACET } from 'src/utils/constanst.utils';
 import { getAllFeaturedFacetId, getFacetIdByName, getFreshProductFacetId } from 'src/utils/funtion.utils';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED } from 'src/utils/constanst.utils';
+import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
+import { PromiseWithKey } from 'src/utils/types.utils';
 
 interface Props {
-  veggie: ProductCard[],
-  facets:Facet[]
-  freshProducts: ProductCard[],
-  featuredProducts: ProductCard[],
+    featuredAndDiscountFacetsValue: FacetValue[],
+    freshProducts: ProductCard[],
+    featuredProducts: ProductCard[],
+    collections: Collection[]
+    veggie: ProductCard[],
 }
-export default function Home({ freshProducts, featuredProducts, veggie }: Props) {
-  // console.log("veggie",veggie)
+export default function Home({ featuredAndDiscountFacetsValue,
+  freshProducts, featuredProducts, veggie,
+  collections }: Props) {
   return (
     <>
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
-      <FreshProducts data={freshProducts}/>
       <HomeCollection data = {veggie}/>
+      <FreshProducts data={freshProducts} collections={collections} />
       <HomeVideo />
       <HomeSpice />
-      <FeaturedProductsCarousel />
+      <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
@@ -45,22 +51,32 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext) {
   const config = { locale, locales }
+  let promisesWithKey = [] as PromiseWithKey[]
+  let props = {} as any
+
   const { facets } = await commerce.getAllFacets({
     variables: {},
     config,
     preview,
   })
   
+
+  props.featuredAndDiscountFacetsValue = getAllFacetValuesForFeatuedProducts(facets)
+  
+  // fresh products
   const freshProductvariables: ProductVariables = {}
-  const freshFacetId = getFreshProductFacetId(facets)
+  const freshFacetId = getFreshFacetId(facets)
   if (freshFacetId) {
     freshProductvariables.facetValueIds = [freshFacetId]
+    const freshProductsPromise = commerce.getAllProducts({
+      variables: freshProductvariables,
+      config,
+      preview,
+    })
+    promisesWithKey.push({ key: 'freshProducts', promise: freshProductsPromise, keyResult: 'products' })
+  } else {
+    props.freshProducts = []
   }
-  const freshProductsPromise = commerce.getAllProducts({
-    variables: freshProductvariables,
-    config,
-    preview,
-  })
 
   const veggieProductvariables: ProductVariables = {}
   const veggieId = getFacetIdByName(facets,FACET.CATEGORY.PARENT_NAME,FACET.CATEGORY.VEGGIE)
@@ -72,34 +88,50 @@ export async function getStaticProps({
     config,
     preview,
   })
+  promisesWithKey.push({ key: 'veggie', promise: veggieProductsPromise, keyResult: 'products'  })
+  // featured products
+  const allFeaturedFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_FEATURED)
+  const allDiscountFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_DISCOUNT)
+  const facetValueIdsForFeaturedProducts = [...allFeaturedFacetIds, ...allDiscountFacetIds]
+  
+  if (facetValueIdsForFeaturedProducts.length > 0) {
+    const featuredProductsPromise = commerce.getAllProducts({
+      variables: {
+        facetValueIds: facetValueIdsForFeaturedProducts
+      },
+      config,
+      preview,
+    })
+    promisesWithKey.push({ key: 'featuredProducts', promise: featuredProductsPromise, keyResult: 'products'  })
+  } else {
+    props.featuredProducts = []
+  }
 
-  const allFeaturedFacetId = getAllFeaturedFacetId(facets)
-  const featuredProductsPromise = commerce.getAllProducts({
-    variables: {
-      facetValueIds: allFeaturedFacetId
-    },
+  // collection
+  const collectionsPromise = commerce.getAllCollections({
+    variables: {},
     config,
     preview,
   })
+  promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections'  })
 
 
   try {
-    const rs = await Promise.all([veggieProductsPromise,featuredProductsPromise,freshProductsPromise])
+    const promises = getAllPromies(promisesWithKey)
+    const rs = await Promise.all(promises)
+
+    promisesWithKey.map((item, index) => {
+      props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
+      return null
+    })
 
     return {
-      props: {
-        veggie: veggieId ? rs[0].products : [],
-        featuredProducts: rs[1].products,
-        freshProducts: freshFacetId ? rs[2].products : [],
-      },
+      props,
       revalidate: 60,
     }
   } catch (err) {
 
   }
-
-
-
 }
 
 

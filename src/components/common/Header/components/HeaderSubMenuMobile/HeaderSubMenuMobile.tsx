@@ -68,4 +68,5 @@ const HeaderSubMenuMobile = memo(({ }: Props) => {
     )
 })
 
+HeaderSubMenuMobile.displayName = 'HeaderSubMenuMobile'
 export default HeaderSubMenuMobile

@@ -1,3 +1,4 @@
+import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -3038,7 +3039,7 @@ export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
   'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
   | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
-  | 'collectionIds' | 'productVariantId'
+  | 'collectionIds' | 'productVariantId' | 'facetValueIds'
 > & {
     productAsset?: Maybe<
       { __typename?: 'SearchResultAsset' } & Pick<
@@ -3218,7 +3219,8 @@ export type GetAllProductsQueryVariables = Exact<{
 
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
   search: { __typename?: 'SearchResponse' } & {
-    items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>
+    items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>,
+    'totalItems'
   }
 }
 
@@ -3227,11 +3229,29 @@ export type GetAllFacetsQuery = { __typename?: 'Query' } & {
     items: Array<
       { __typename?: 'Facet' } & Pick<
         Facet,
-        'id' | 'name' | 'code'
-      > & {
+        'id' | 'name' | 'code' | 'values'
+      > 
+      & {
           parent?: Maybe<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
           children?: Maybe<
             Array<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
+          >
+        }
+    >,
+    'totalItems'
+  }
+}
+
+export type GetAllCollectionsQuery = { __typename?: 'Query' } & {
+  collections: { __typename?: 'CollectionList' } & {
+    items: Array<
+      { __typename?: 'Collection' } & Pick<
+        Collection,
+        'id' | 'name' | 'slug'
+      > & {
+          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+          children?: Maybe<
+            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
           >
         }
     >,
@@ -3317,6 +3337,18 @@ export type GetProductQuery = { __typename?: 'Query' } & {
                 >
               >
             }
+        >
+        facetValues: Array<
+          { __typename?: 'FacetValue' } & Pick<
+            FacetValue,
+            'id'
+          >
+        >
+        collections: Array<
+          { __typename?: 'Collection' } & Pick<
+            Collection,
+            'id'
+          >
         >
       }
   >

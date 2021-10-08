@@ -1,24 +1,24 @@
-import { Product, ProductCard } from '@commerce/types/product'
 import { Cart } from '@commerce/types/cart'
+import { ProductCard } from '@commerce/types/product'
 import { CartFragment, SearchResultFragment } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
-
     id: item.productId,
     name: item.productName,
     slug: item.slug,
     imageSrc: item.productAsset?.preview ? item.productAsset?.preview + '?w=800&mode=crop' : '',
     price: (item.priceWithTax as any).min / 100,
     currencyCode: item.currencyCode,
-    productVariantId: item.productVariantId?item.productVariantId:"",
+    productVariantId: item.productVariantId,
+    facetValueIds: item.facetValueIds,
+    collectionIds: item.collectionIds,
     
     // TODO:
     // oldPrice: item.price
     // discount
     // isNotSell
     // weight
-    // category
   }
 }
 

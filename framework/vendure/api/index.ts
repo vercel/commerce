@@ -1,6 +1,7 @@
 import type { CommerceAPIConfig } from '@commerce/api'
 import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
 import getAllFacets from './operations/get-all-facets'
+import getAllCollections from './operations/get-all-collection'
 import getAllPages from './operations/get-all-pages'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
@@ -42,6 +43,7 @@ const operations = {
   getAllProducts,
   getProduct,
   getAllFacets,
+  getAllCollections,
 }
 
 export const provider = { config, operations }
