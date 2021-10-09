@@ -65,8 +65,8 @@ export type EndpointHandlers<
   [H in keyof E['handlers']]: APIHandler<
     C,
     EndpointHandlers<C, E>,
-    E['handlers'][H]['data'],
-    E['handlers'][H]['body'],
+    NonNullable<E['handlers'][H]>['data'],
+    NonNullable<E['handlers'][H]>['body'],
     E['options']
   >
 }
