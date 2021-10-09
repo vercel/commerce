@@ -11,6 +11,8 @@ import type { WishlistSchema } from '../types/wishlist'
 import type { CheckoutSchema } from '../types/checkout'
 import type { CustomerCardSchema } from '../types/customer/card'
 import type { CustomerAddressSchema } from '../types/customer/address'
+import type { SubscriptionsSchema } from '../types/subscriptions'
+
 import {
   defaultOperations,
   OPERATIONS,
@@ -29,22 +31,23 @@ export type APISchemas =
   | CheckoutSchema
   | CustomerCardSchema
   | CustomerAddressSchema
+  | SubscriptionsSchema
 
 export type GetAPISchema<
   C extends CommerceAPI<any>,
   S extends APISchemas = APISchemas
-> = {
-  schema: S
-  endpoint: EndpointContext<C, S['endpoint']>
-}
+  > = {
+    schema: S
+    endpoint: EndpointContext<C, S['endpoint']>
+  }
 
 export type EndpointContext<
   C extends CommerceAPI,
   E extends EndpointSchemaBase
-> = {
-  handler: Endpoint<C, E>
-  handlers: EndpointHandlers<C, E>
-}
+  > = {
+    handler: Endpoint<C, E>
+    handlers: EndpointHandlers<C, E>
+  }
 
 export type EndpointSchemaBase = {
   options: {}
@@ -56,20 +59,20 @@ export type EndpointSchemaBase = {
 export type Endpoint<
   C extends CommerceAPI,
   E extends EndpointSchemaBase
-> = APIEndpoint<C, EndpointHandlers<C, E>, any, E['options']>
+  > = APIEndpoint<C, EndpointHandlers<C, E>, any, E['options']>
 
 export type EndpointHandlers<
   C extends CommerceAPI,
   E extends EndpointSchemaBase
-> = {
-  [H in keyof E['handlers']]: APIHandler<
-    C,
-    EndpointHandlers<C, E>,
-    E['handlers'][H]['data'],
-    E['handlers'][H]['body'],
-    E['options']
-  >
-}
+  > = {
+    [H in keyof E['handlers']]: APIHandler<
+      C,
+      EndpointHandlers<C, E>,
+      E['handlers'][H]['data'],
+      E['handlers'][H]['body'],
+      E['options']
+    >
+  }
 
 export type APIProvider = {
   config: CommerceAPIConfig
@@ -80,7 +83,7 @@ export type CommerceAPI<P extends APIProvider = APIProvider> =
   CommerceAPICore<P> & AllOperations<P>
 
 export class CommerceAPICore<P extends APIProvider = APIProvider> {
-  constructor(readonly provider: P) {}
+  constructor(readonly provider: P) { }
 
   getConfig(userConfig: Partial<P['config']> = {}): P['config'] {
     return Object.entries(userConfig).reduce(
@@ -139,15 +142,15 @@ export function getEndpoint<
 
 export const createEndpoint =
   <API extends GetAPISchema<any, any>>(endpoint: API['endpoint']) =>
-  <P extends APIProvider>(
-    commerce: CommerceAPI<P>,
-    context?: Partial<API['endpoint']> & {
-      config?: P['config']
-      options?: API['schema']['endpoint']['options']
+    <P extends APIProvider>(
+      commerce: CommerceAPI<P>,
+      context?: Partial<API['endpoint']> & {
+        config?: P['config']
+        options?: API['schema']['endpoint']['options']
+      }
+    ): NextApiHandler => {
+      return getEndpoint(commerce, { ...endpoint, ...context })
     }
-  ): NextApiHandler => {
-    return getEndpoint(commerce, { ...endpoint, ...context })
-  }
 
 export interface CommerceAPIConfig {
   locale?: string
@@ -167,11 +170,11 @@ export interface CommerceAPIConfig {
 export type GraphQLFetcher<
   Data extends GraphQLFetcherResult = GraphQLFetcherResult,
   Variables = any
-> = (
-  query: string,
-  queryData?: CommerceAPIFetchOptions<Variables>,
-  fetchOptions?: RequestInit
-) => Promise<Data>
+  > = (
+    query: string,
+    queryData?: CommerceAPIFetchOptions<Variables>,
+    fetchOptions?: RequestInit
+  ) => Promise<Data>
 
 export interface GraphQLFetcherResult<Data = any> {
   data: Data

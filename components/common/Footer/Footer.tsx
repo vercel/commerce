@@ -6,7 +6,7 @@ import type { Page } from '@commerce/types/page'
 import getSlug from '@lib/get-slug'
 import { Github, Vercel } from '@components/icons'
 import { Logo, Container } from '@components/ui'
-import { I18nWidget } from '@components/common'
+import { I18nWidget, Subscribe } from '@components/common'
 import s from './Footer.module.css'
 
 interface Props {
@@ -70,6 +70,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
           <div>
             <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
           </div>
+          <Subscribe />
           <div className="flex items-center text-primary text-sm">
             <span className="text-primary">Created by</span>
             <a

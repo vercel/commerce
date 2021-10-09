@@ -14,6 +14,8 @@ import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
+import { handler as useSubscriptions } from './subscriptions/use-subscribe'
+
 import fetcher from './fetcher'
 
 export const bigcommerceProvider = {
@@ -29,6 +31,7 @@ export const bigcommerceProvider = {
   customer: { useCustomer },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
+  subscriptions: { useSubscriptions },
 }
 
 export type BigcommerceProvider = typeof bigcommerceProvider
