@@ -1,12 +1,13 @@
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import { DEFAULT_PAGE_SIZE, ROUTE } from 'src/utils/constanst.utils'
 import { ButtonCommon, EmptyCommon } from '..'
 import PaginationCommon from '../PaginationCommon/PaginationCommon'
 import ProductCard, { ProductCardProps } from '../ProductCard/ProductCard'
 import s from "./ProductList.module.scss"
-
+import { FavoriteList } from '@framework/schema'
 interface ProductListProps {
     data: ProductCardProps[],
     total?: number,
@@ -16,6 +17,8 @@ interface ProductListProps {
 
 const ProductList = ({ data, total = data.length, defaultCurrentPage, onPageChange }: ProductListProps) => {
     const router = useRouter()
+    const {wishlist:FavoriteList } = useActiveCustomer();
+    
     const handlePageChange = (page: number) => {
         onPageChange && onPageChange(page)
     }
@@ -33,8 +36,7 @@ const ProductList = ({ data, total = data.length, defaultCurrentPage, onPageChan
             <div className={s.list}>
                 {
                     data.map((product, index) => {
-                        console.log(product);
-                        
+                           
                         return <ProductCard {...product} key={index} />
                     })
                 }

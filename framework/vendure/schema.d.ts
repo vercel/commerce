@@ -3198,10 +3198,15 @@ export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      'id' | 'firstName' | 'lastName' | 'emailAddress'
-    >
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'favorites'
+    >,
   >
 }
+export type FavoriteList = {
+  items: [Favorite!]!
+  totalItems: Int!
+}
+
 
 export type GetAllProductPathsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>
