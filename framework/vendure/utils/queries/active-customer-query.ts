@@ -5,6 +5,13 @@ export const activeCustomerQuery = /* GraphQL */ `
       firstName
       lastName
       emailAddress
+      favorites{
+        items{
+          product{
+            id
+          }
+        }
+      }
     }
   }
 `

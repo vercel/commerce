@@ -17,6 +17,7 @@ export interface ProductCardProps extends ProductCard {
 }
 
 const ProductCardComponent = ({
+  id,
   collection,
   name,
   slug,
@@ -34,6 +35,7 @@ const ProductCardComponent = ({
     </div>
 
   }
+ 
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>
@@ -63,7 +65,7 @@ const ProductCardComponent = ({
         <div className={s.cardMidBot}>
           <div className={s.productPrice}>{price} {currencyCode}</div>
           <div className={s.wishList}>
-            <ItemWishList />
+            <ItemWishList id={id}/>
           </div>
         </div>
       </div>

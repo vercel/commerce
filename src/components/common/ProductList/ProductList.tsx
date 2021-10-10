@@ -33,6 +33,8 @@ const ProductList = ({ data, total = data.length, defaultCurrentPage, onPageChan
             <div className={s.list}>
                 {
                     data.map((product, index) => {
+                        console.log(product);
+                        
                         return <ProductCard {...product} key={index} />
                     })
                 }
