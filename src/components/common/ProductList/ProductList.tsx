@@ -7,7 +7,6 @@ import { ButtonCommon, EmptyCommon } from '..'
 import PaginationCommon from '../PaginationCommon/PaginationCommon'
 import ProductCard, { ProductCardProps } from '../ProductCard/ProductCard'
 import s from "./ProductList.module.scss"
-import { FavoriteList } from '@framework/schema'
 interface ProductListProps {
     data: ProductCardProps[],
     total?: number,
@@ -17,8 +16,8 @@ interface ProductListProps {
 
 const ProductList = ({ data, total = data.length, defaultCurrentPage, onPageChange }: ProductListProps) => {
     const router = useRouter()
-    const {wishlist:FavoriteList } = useActiveCustomer();
-    
+    const {wishlist } = useActiveCustomer();
+
     const handlePageChange = (page: number) => {
         onPageChange && onPageChange(page)
     }
@@ -36,8 +35,8 @@ const ProductList = ({ data, total = data.length, defaultCurrentPage, onPageChan
             <div className={s.list}>
                 {
                     data.map((product, index) => {
-                           
-                        return <ProductCard {...product} key={index} />
+                        let activeWishlist = wishlist?.findIndex((val:string) => val == product.id) !== -1;
+                        return <ProductCard activeWishlist={activeWishlist} {...product} key={index} />
                     })
                 }
                 {

@@ -14,6 +14,7 @@ import ProductNotSell from './ProductNotSell/ProductNotSell'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
+  activeWishlist?:boolean
 }
 
 const ProductCardComponent = ({
@@ -28,6 +29,7 @@ const ProductCardComponent = ({
   imageSrc,
   isNotSell,
   isSingleButton,
+  activeWishlist
 }: ProductCardProps) => {
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
@@ -65,7 +67,7 @@ const ProductCardComponent = ({
         <div className={s.cardMidBot}>
           <div className={s.productPrice}>{price} {currencyCode}</div>
           <div className={s.wishList}>
-            <ItemWishList id={id}/>
+            <ItemWishList isActive={activeWishlist}  id={id}/>
           </div>
         </div>
       </div>

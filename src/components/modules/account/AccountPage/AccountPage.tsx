@@ -12,6 +12,7 @@ import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
 import { useRouter } from "next/router"
+import { useActiveCustomer } from 'src/components/hooks/auth'
 
 const waiting = [
     {
@@ -82,6 +83,8 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
+    // const { itemWishlist } = useActiveCustomer();
+    // console.log(itemWishlist)
 
     useEffect(() => {
         const query = router.query[QUERY_KEY.TAB] as string
