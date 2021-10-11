@@ -1,0 +1,10 @@
+{
+  "provider": "ordercloud",
+  "features": {
+    "wishlist": false,
+    "cart": true,
+    "search": false,
+    "customerAuth": false,
+    "customCheckout": true
+  }
+}
