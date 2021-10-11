@@ -11,6 +11,8 @@ import LabelCommon from '../LabelCommon/LabelCommon'
 import s from './ProductCard.module.scss'
 import ProductNotSell from './ProductNotSell/ProductNotSell'
 import {useAddProductToCart} from "../../hooks/cart"
+import { useCartDrawer } from 'src/components/contexts'
+import Router from 'next/router'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
@@ -31,21 +33,36 @@ const ProductCardComponent = ({
   productVariantId,
 }: ProductCardProps) => {
 
-  const {addProduct,loading,error} = useAddProductToCart()
+  const {addProduct,loading} = useAddProductToCart()
+  const { openCartDrawer } = useCartDrawer()
+
   const handleAddToCart = () => {
     if(productVariantId){
       addProduct({variantId:productVariantId,quantity:1},handleAddToCartCallback)
     }
   }
   const handleAddToCartCallback = () => {
-
+    openCartDrawer && openCartDrawer()
   }
+
+  const handleBuyNowCallback = (success:boolean) => {
+    if(success){
+      Router.push(ROUTE.CHECKOUT)
+    }
+  }
+
+  const handleBuyNow = () => {
+    if(productVariantId){
+      addProduct({variantId:productVariantId,quantity:1},handleBuyNowCallback)
+    }
+  }
+
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
       <ProductNotSell name={name} imageSrc={imageSrc} />
     </div>
-
   }
+
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>
@@ -83,7 +100,7 @@ const ProductCardComponent = ({
         {
           isSingleButton ?
             <div className={s.cardButton}>
-              <ButtonCommon type="light" icon={<IconBuy />} size='small' >Add to cart</ButtonCommon>
+              <ButtonCommon type="light" icon={<IconBuy />} size='small' onClick={handleAddToCart}>Add to cart</ButtonCommon>
             </div>
             :
             <>
@@ -91,7 +108,7 @@ const ProductCardComponent = ({
                 <ButtonIconBuy onClick={handleAddToCart} loading={loading}/>
               </div>
               <div className={s.cardButton}>
-                <ButtonCommon type="light" size='small'>{buttonText}</ButtonCommon>
+                <ButtonCommon type="light" size='small' onClick={handleBuyNow}>{buttonText}</ButtonCommon>
               </div>
             </>
         }
