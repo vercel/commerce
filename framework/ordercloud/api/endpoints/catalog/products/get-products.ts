@@ -25,7 +25,7 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   if (search) { 
     url.searchParams.set('search', search) 
   }
-  if (categoryId && Number.isInteger(Number(categoryId))) {
+  if (categoryId) {
     url.searchParams.set('categoryID', String(categoryId)) 
   }
 
