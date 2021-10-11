@@ -1,11 +1,12 @@
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
+import { ProductCard } from '@commerce/types/product';
 import { Layout, ListProductCardSkeleton } from 'src/components/common';
 
 interface Props {
-  products: any
+  productDetail: ProductCard[],
 }
-export default function Home({ products }: Props) {
+export default function Home({ productDetail }: Props) {
   return (
     <>
       {/* <ListProductCardSkeleton /> */}

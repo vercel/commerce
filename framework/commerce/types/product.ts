@@ -47,6 +47,8 @@ export type Product = {
   currencyCode: CurrencyCode
   options: ProductOption[]
   facetValueIds?: string[]
+  collectionIds?: string[]
+  collection?: string,
 }
 
 export type ProductCard = {
