@@ -11,6 +11,7 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
     price: (item.priceWithTax as any).min / 100,
     currencyCode: item.currencyCode,
     productVariantId: item.productVariantId,
+    productVariantName:item.productVariantName,
     facetValueIds: item.facetValueIds,
     collectionIds: item.collectionIds,
     

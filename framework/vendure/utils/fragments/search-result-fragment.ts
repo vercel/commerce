@@ -8,6 +8,7 @@ export const searchResultFragment = /* GraphQL */ `
     sku
     currencyCode
     productVariantId
+    productVariantName
     productAsset {
       id
       preview

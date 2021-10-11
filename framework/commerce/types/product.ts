@@ -64,6 +64,7 @@ export type ProductCard = {
   collection?: string,
   isNotSell?: boolean
   productVariantId?:string
+  productVariantName?:string
 }
 
 export type SearchProductsBody = {

@@ -5,7 +5,7 @@ import { normalizeSearchResult } from '../../utils/normalize'
 import { getAllProductsQuery } from '../../utils/queries/get-all-products-query'
 import { OperationContext } from '@commerce/api/operations'
 
-export type ProductVariables = { first?: number, facetValueIds?: string[], collectionSlug?:string }
+export type ProductVariables = { first?: number, facetValueIds?: string[], collectionSlug?:string, groupByProduct?:boolean }
 
 export default function getAllProductsOperation({
   commerce,
@@ -32,7 +32,7 @@ export default function getAllProductsOperation({
         take: vars.first,
         facetValueIds: vars.facetValueIds,
         collectionSlug : vars.collectionSlug,
-        groupByProduct: true,
+        groupByProduct: vars.groupByProduct??true,
       },
     }
     const { data } = await config.fetch<GetAllProductsQuery>(query, {

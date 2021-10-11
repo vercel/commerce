@@ -31,6 +31,7 @@ const ProductCardComponent = ({
   isNotSell,
   isSingleButton,
   productVariantId,
+  productVariantName
 }: ProductCardProps) => {
 
   const {addProduct,loading} = useAddProductToCart()
@@ -84,7 +85,7 @@ const ProductCardComponent = ({
         <div className={s.cardMidTop}>
           <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
             <a>
-              <div className={s.productname}>{name} </div>
+              <div className={s.productname}>{productVariantName} </div>
             </a>
           </Link>
           <div className={s.productWeight}>{weight}</div>

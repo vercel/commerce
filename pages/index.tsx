@@ -1,15 +1,13 @@
 import { ProductCard } from '@commerce/types/product';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
-import { Facet, Product } from '@framework/schema';
 import { Collection, FacetValue } from '@framework/schema';
 import commerce from '@lib/api/commerce';
-import { ifError } from 'assert';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { FACET } from 'src/utils/constanst.utils';
-import { getAllFeaturedFacetId, getFacetIdByName, getFreshProductFacetId } from 'src/utils/funtion.utils';
+import { FilterOneVatiant, getFacetIdByName } from 'src/utils/funtion.utils';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED } from 'src/utils/constanst.utils';
 import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
@@ -78,7 +76,9 @@ export async function getStaticProps({
     props.freshProducts = []
   }
 
-  const veggieProductvariables: ProductVariables = {}
+  const veggieProductvariables: ProductVariables = {
+    groupByProduct:false
+  }
   const veggieId = getFacetIdByName(facets,FACET.CATEGORY.PARENT_NAME,FACET.CATEGORY.VEGGIE)
   if (veggieId) {
     veggieProductvariables.facetValueIds = [veggieId]
@@ -121,7 +121,7 @@ export async function getStaticProps({
     const rs = await Promise.all(promises)
 
     promisesWithKey.map((item, index) => {
-      props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
+      props[item.key] = item.keyResult ? FilterOneVatiant(rs[index][item.keyResult]) : rs[index]
       return null
     })
 
