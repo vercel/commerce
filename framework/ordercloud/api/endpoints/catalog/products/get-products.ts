@@ -1,16 +1,8 @@
-import { Product } from '@commerce/types/product'
-import { RawProduct } from '@framework/types/product'
+
 import { normalize as normalizeProduct } from '@framework/utils/product'
 import { ProductsEndpoint } from '.'
 
-
-const SORT: { [key: string]: string | undefined } = {
-  latest: 'id',
-  trending: 'total_sold',
-  price: 'price',
-}
-
-// Return current cart info
+// Get products for the product list page. Search and category filter implemented. Sort and brand filter not implemented.
 const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   req,
   res,
