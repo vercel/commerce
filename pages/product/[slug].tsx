@@ -12,7 +12,7 @@ import { PromiseWithKey } from 'src/utils/types.utils'
 export default function Slug({ product, relevantProducts, collections }: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return <>
-    <ProductInfoDetail />
+    <ProductInfoDetail productDetail={product} collections={collections}/>
     <RecipeDetail ingredients={INGREDIENT_DATA_TEST} />
     <RecommendedRecipes data={RECIPE_DATA_TEST} />
     <ReleventProducts data={relevantProducts} collections={collections}/>
