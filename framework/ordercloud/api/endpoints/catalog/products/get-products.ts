@@ -17,8 +17,6 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   body: { search, categoryId, brandId, sort },
   config: { restBuyerFetch, cartCookie, tokenCookie },
 }) => {
-  console.log("categoryId", categoryId)
-
   //Use a dummy base as we only care about the relative path
   const url = new URL('/me/products', 'http://a')
 

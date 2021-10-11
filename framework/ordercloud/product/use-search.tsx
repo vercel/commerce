@@ -10,24 +10,12 @@ export const handler: SWRHook<SearchProductsHook> = {
   },
   fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {
     // Use a dummy base as we only care about the relative path
-    console.log("url:", options.url);
-
     const url = new URL(options.url!, 'http://a')
 
-    if (search) {
-      url.searchParams.set('search', search)
-    } 
-    if (categoryId) {
-      url.searchParams.set('categoryId', String(categoryId))
-    }
-    if (brandId) {
-      url.searchParams.set('brandId', String(brandId))
-    }
-    if (sort) {
-      url.searchParams.set('sort', String(sort))
-    }
-
-    console.log("url:", url.pathname + url.search);
+    url.searchParams.set('search', String(search))
+    url.searchParams.set('categoryId', String(categoryId))
+    url.searchParams.set('brandId', String(brandId))
+    url.searchParams.set('sort', String(sort))
 
     return fetch({
       url: url.pathname + url.search,
