@@ -31,19 +31,20 @@ const normalizeProduct = (
   spreeSuccessResponse: SpreeSdkResponse,
   spreeProduct: ProductAttr
 ): Product => {
-  const primaryVariant = jsonApi.findSingleRelationshipDocument<VariantAttr>(
-    spreeSuccessResponse,
-    spreeProduct,
-    'primary_variant'
-  )
+  const spreePrimaryVariant =
+    jsonApi.findSingleRelationshipDocument<VariantAttr>(
+      spreeSuccessResponse,
+      spreeProduct,
+      'primary_variant'
+    )
 
-  if (primaryVariant === null) {
+  if (spreePrimaryVariant === null) {
     throw new MissingPrimaryVariantError(
       `Couldn't find primary variant for product with id ${spreeProduct.id}.`
     )
   }
 
-  const sku = primaryVariant.attributes.sku
+  const sku = spreePrimaryVariant.attributes.sku
 
   const price: ProductPrice = {
     value: parseFloat(spreeProduct.attributes.price),
@@ -57,7 +58,6 @@ const normalizeProduct = (
     (requireConfigValue('showSingleVariantOptions') as boolean) ||
     hasNonMasterVariants
 
-  let variants: ProductVariant[]
   let options: ExpandedProductOption[] = []
 
   const spreeVariantRecords = jsonApi.findRelationshipDocuments(
@@ -66,38 +66,51 @@ const normalizeProduct = (
     'variants'
   )
 
-  variants = spreeVariantRecords.map((spreeVariantRecord) => {
-    let variantOptions: ExpandedProductOption[] = []
+  // Use variants with option values if available. Fall back to
+  // Spree primary_variant if no explicit variants are present.
+  const spreeOptionsVariantsOrPrimary =
+    spreeVariantRecords.length === 0
+      ? [spreePrimaryVariant]
+      : spreeVariantRecords
 
-    if (showOptions) {
-      const spreeOptionValues = jsonApi.findRelationshipDocuments(
-        spreeSuccessResponse,
-        spreeVariantRecord,
-        'option_values'
-      )
+  const variants: ProductVariant[] = spreeOptionsVariantsOrPrimary.map(
+    (spreeVariantRecord) => {
+      let variantOptions: ExpandedProductOption[] = []
 
-      // Only include options which are used by variants.
-
-      spreeOptionValues.forEach((spreeOptionValue) => {
-        variantOptions = expandOptions(
+      if (showOptions) {
+        const spreeOptionValues = jsonApi.findRelationshipDocuments(
           spreeSuccessResponse,
-          spreeOptionValue,
-          variantOptions
+          spreeVariantRecord,
+          'option_values'
         )
 
-        options = expandOptions(spreeSuccessResponse, spreeOptionValue, options)
-      })
-    }
+        // Only include options which are used by variants.
 
-    return {
-      id: spreeVariantRecord.id,
-      options: variantOptions,
+        spreeOptionValues.forEach((spreeOptionValue) => {
+          variantOptions = expandOptions(
+            spreeSuccessResponse,
+            spreeOptionValue,
+            variantOptions
+          )
+
+          options = expandOptions(
+            spreeSuccessResponse,
+            spreeOptionValue,
+            options
+          )
+        })
+      }
+
+      return {
+        id: spreeVariantRecord.id,
+        options: variantOptions,
+      }
     }
-  })
+  )
 
   const spreePrimaryVariantImageRecords = jsonApi.findRelationshipDocuments(
     spreeSuccessResponse,
-    primaryVariant,
+    spreePrimaryVariant,
     'images'
   )
 
