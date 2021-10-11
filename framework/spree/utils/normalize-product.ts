@@ -12,7 +12,6 @@ import expandOptions from './expand-options'
 import getMediaGallery from './get-media-gallery'
 import getProductPath from './get-product-path'
 import MissingPrimaryVariantError from '../errors/MissingPrimaryVariantError'
-import MissingOptionTypeError from '../errors/MissingOptionTypeError'
 import MissingOptionValueError from '../errors/MissingOptionValueError'
 import type { SpreeSdkResponse, VariantAttr } from '@framework/types'
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
@@ -143,59 +142,62 @@ const normalizeProduct = (
     )
 
     if (!imagesFilterOptionType) {
-      throw new MissingOptionTypeError(
-        `Couldn't find option type having name ${imagesOptionFilter}.`
+      console.warn(
+        `Couldn't find option type having name ${imagesOptionFilter} for product with id ${spreeProduct.id}.` +
+          ' Showing no images for this product.'
       )
-    }
 
-    const imagesOptionTypeFilterId = imagesFilterOptionType.id
-    const includedOptionValuesImagesIds: string[] = []
+      spreeVariantImageRecords = []
+    } else {
+      const imagesOptionTypeFilterId = imagesFilterOptionType.id
+      const includedOptionValuesImagesIds: string[] = []
 
-    spreeVariantImageRecords = spreeVariantRecords.reduce<JsonApiDocument[]>(
-      (accumulatedImageRecords, spreeVariantRecord) => {
-        const spreeVariantOptionValuesIdentifiers: RelationType[] =
-          spreeVariantRecord.relationships.option_values.data
+      spreeVariantImageRecords = spreeVariantRecords.reduce<JsonApiDocument[]>(
+        (accumulatedImageRecords, spreeVariantRecord) => {
+          const spreeVariantOptionValuesIdentifiers: RelationType[] =
+            spreeVariantRecord.relationships.option_values.data
 
-        const spreeOptionValueOfFilterTypeIdentifier =
-          spreeVariantOptionValuesIdentifiers.find(
-            (spreeVariantOptionValuesIdentifier: RelationType) =>
-              imagesFilterOptionType.relationships.option_values.data.some(
-                (filterOptionTypeValueIdentifier: RelationType) =>
-                  filterOptionTypeValueIdentifier.id ===
-                  spreeVariantOptionValuesIdentifier.id
-              )
-          )
+          const spreeOptionValueOfFilterTypeIdentifier =
+            spreeVariantOptionValuesIdentifiers.find(
+              (spreeVariantOptionValuesIdentifier: RelationType) =>
+                imagesFilterOptionType.relationships.option_values.data.some(
+                  (filterOptionTypeValueIdentifier: RelationType) =>
+                    filterOptionTypeValueIdentifier.id ===
+                    spreeVariantOptionValuesIdentifier.id
+                )
+            )
 
-        if (!spreeOptionValueOfFilterTypeIdentifier) {
-          throw new MissingOptionValueError(
-            `Couldn't find option value related to option type with id ${imagesOptionTypeFilterId}.`
-          )
-        }
+          if (!spreeOptionValueOfFilterTypeIdentifier) {
+            throw new MissingOptionValueError(
+              `Couldn't find option value related to option type with id ${imagesOptionTypeFilterId}.`
+            )
+          }
 
-        const optionValueImagesAlreadyIncluded =
-          includedOptionValuesImagesIds.includes(
+          const optionValueImagesAlreadyIncluded =
+            includedOptionValuesImagesIds.includes(
+              spreeOptionValueOfFilterTypeIdentifier.id
+            )
+
+          if (optionValueImagesAlreadyIncluded) {
+            return accumulatedImageRecords
+          }
+
+          includedOptionValuesImagesIds.push(
             spreeOptionValueOfFilterTypeIdentifier.id
           )
 
-        if (optionValueImagesAlreadyIncluded) {
-          return accumulatedImageRecords
-        }
-
-        includedOptionValuesImagesIds.push(
-          spreeOptionValueOfFilterTypeIdentifier.id
-        )
-
-        return [
-          ...accumulatedImageRecords,
-          ...jsonApi.findRelationshipDocuments(
-            spreeSuccessResponse,
-            spreeVariantRecord,
-            'images'
-          ),
-        ]
-      },
-      []
-    )
+          return [
+            ...accumulatedImageRecords,
+            ...jsonApi.findRelationshipDocuments(
+              spreeSuccessResponse,
+              spreeVariantRecord,
+              'images'
+            ),
+          ]
+        },
+        []
+      )
+    }
   }
 
   const spreeImageRecords = [
