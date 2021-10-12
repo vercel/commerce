@@ -8,11 +8,13 @@ import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
 import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
 import EditInfoModal from './components/EditInfoModal/EditInfoModal'
-
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
-import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
+import { ACCOUNT_TAB, QUERY_KEY,DEFAULT_PAGE_SIZE } from "src/utils/constanst.utils"
 import { useRouter } from "next/router"
 import { useActiveCustomer } from 'src/components/hooks/auth'
+import { useGetFavoriteProduct } from 'src/components/hooks/account'
+import { QueryFavorite } from "@framework/schema"
+import {  getPageFromQuery} from 'src/utils/funtion.utils'
 
 const waiting = [
     {
@@ -79,13 +81,30 @@ const getTabIndex = (tab?: string): number => {
     }
 }
 
+
+const DEFAULT_FAVORITE_ARGS = {
+    options:{
+        skip:1, take:DEFAULT_PAGE_SIZE
+    }
+}
+
 const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
-    // const { itemWishlist } = useActiveCustomer();
-    // console.log(itemWishlist)
+    const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
+    const { itemWishlist,totalItems }= useGetFavoriteProduct(optionQueryFavorite);
+    console.log(itemWishlist,totalItems)        
 
+    // skip
+    useEffect(() => {
+        const query = { ...DEFAULT_FAVORITE_ARGS } as QueryFavorite;
+        const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
+        query.options.skip = page * DEFAULT_PAGE_SIZE;
+        setoptionQueryFavorite(query);
+    },[router.query])
+
+       
     useEffect(() => {
         const query = router.query[QUERY_KEY.TAB] as string
         const index = getTabIndex(query)
@@ -115,7 +134,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                         <OrderInfomation waiting={waiting} delivering={delivering} delivered={delivered} />
                     </TabPane>
                     <TabPane tabName="Favourite"> 
-                        <FavouriteProducts products={PRODUCT_CART_DATA_TEST}  />
+                        <FavouriteProducts products={itemWishlist} totalItems={totalItems} />
                     </TabPane>
                 </AccountNavigation>
             </section>

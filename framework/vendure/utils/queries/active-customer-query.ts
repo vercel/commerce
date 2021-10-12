@@ -1,5 +1,3 @@
-import { searchResultFragment } from '../fragments/search-result-fragment'
-
 export const activeCustomerQuery = /* GraphQL */ `
   query activeCustomer {
     activeCustomer {
@@ -11,15 +9,6 @@ export const activeCustomerQuery = /* GraphQL */ `
         items{
           product{
             id
-            name
-            slug
-            assets{
-              source
-              preview
-            }
-            variants{
-              price
-            }
           }
         }
       }
