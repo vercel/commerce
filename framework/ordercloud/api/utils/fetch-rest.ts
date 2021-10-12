@@ -6,6 +6,7 @@ import { OrdercloudConfig } from '../index'
 // Get an instance to vercel fetch
 const fetch = vercelFetch()
 
+
 // Get token util
 async function getToken({
   baseUrl,
@@ -92,6 +93,17 @@ export async function fetchData<T>(opts: {
   }
 }
 
+export async function passwordLogin(email: string, password: string, commerceUrl: string) {
+  return await fetch(`${commerceUrl}/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
+      body: `username=${email}&password=${password}&grant_type=password`,
+  })
+}
+
 export const createMiddlewareFetcher: (
   getConfig: () => OrdercloudConfig
 ) => <T>(
@@ -129,7 +141,7 @@ export const createMiddlewareFetcher: (
   }
 
 export const createBuyerFetcher: (
-  getConfig: () => OrdercloudConfig
+  getConfig: () => OrdercloudConfig,
 ) => <T>(
   method: string,
   path: string,
