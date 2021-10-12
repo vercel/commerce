@@ -2,6 +2,7 @@
   "provider": "commercelayer",
   "features": {
     "customerAuth": true,
-    "cart": true
+    "cart": true,
+    "wishlist": true
   }
 }
