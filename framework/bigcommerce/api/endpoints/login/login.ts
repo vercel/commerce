@@ -1,3 +1,4 @@
+import { FetcherError } from '@commerce/utils/errors'
 import type { LoginEndpoint } from '.'
 
 const invalidCredentials = /invalid credentials/i
@@ -22,6 +23,11 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   try {
     await commerce.login({ variables: { email, password }, config, res })
   } catch (error) {
+    // Check if the email and password didn't match an existing account
+    if (
+      error instanceof FetcherError &&
+      invalidCredentials.test(error.message)
+    ) {
       return res.status(401).json({
         data: null,
         errors: [
@@ -33,6 +39,8 @@ const login: LoginEndpoint['handlers']['login'] = async ({
         ],
       })
     }
+
+    throw error
   }
 
   res.status(200).json({ data: null })
