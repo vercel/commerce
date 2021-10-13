@@ -1,6 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 import data from '../data.json'
+import useCallback from 'react'
 export default useSearch as UseSearch<typeof handler>
 
 const productsFinder = (s: string) => {
@@ -16,17 +17,21 @@ export const handler: SWRHook<any> = {
   fetchOptions: {
     query: '',
   },
-  async fetcher({ input, options, fetch }) {},
+  async fetcher({ input, options, fetch }) {
+    debugger
+  },
   useHook:
     ({ useData }) =>
     ({ search }) => {
-      const { mutate } = useData()
       const products = productsFinder(search)
-      mutate()
       return {
-        data: {
-          products,
-        },
+        data:
+          products.length > 0
+            ? {
+                products,
+                found: true,
+              }
+            : null,
       }
     },
 }
