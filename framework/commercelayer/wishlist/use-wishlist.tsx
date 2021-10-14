@@ -1,5 +1,7 @@
 import { HookFetcher } from '@commerce/utils/types'
 import type { Product } from '@commerce/types/product'
+import { products } from '../data.json'
+import { useCustomer } from '@framework/customer'
 
 const defaultOpts = {}
 
@@ -32,6 +34,22 @@ export function extendHook(
   swrOptions?: any
 ) {
   const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
+    const { data: customer } = useCustomer()
+    const getWishlist =
+      typeof localStorage !== 'undefined' && localStorage.getItem('wishlist')
+    if (getWishlist && customer?.email) {
+      const wishlist = JSON.parse(getWishlist)
+      const items = wishlist.map((wishlist: string) => {
+        const [product] = products.filter((p) => p.id === wishlist) as any
+        return {
+          variant_id: wishlist,
+          product_id: wishlist,
+          id: wishlist,
+          product,
+        }
+      })
+      return { data: { items } }
+    }
     return { data: null }
   }
 
