@@ -4645,8 +4645,8 @@ next-themes@^0.0.14:
   integrity sha512-x09OaM+wg3SIlEjOv8B21aw/E36jxTtfW3Dm/DPwMsSMluGt7twe1LigA6nc+mXP1u0qu9MxBaIrPPH6UTiKnA==
 
 next-tinybird@tinybirdco/next-tinybird#main:
-  version "0.0.1"
-  resolved "https://codeload.github.com/tinybirdco/next-tinybird/tar.gz/6fc91b541315e307ae10cac6301bfabc11bd5042"
+  version "0.0.2"
+  resolved "https://codeload.github.com/tinybirdco/next-tinybird/tar.gz/878ee54c3999b9adbcfc9fe267674b4f914efa7f"
 
 next@^11.0.0:
   version "11.0.1"
