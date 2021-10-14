@@ -1,36 +1,48 @@
 {
   "products": [
     {
-      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjA=",
-      "name": "New Short Sleeve T-Shirt",
+      "id": "product-1",
+      "name": "Informal Suit",
       "vendor": "Next.js",
-      "path": "/new-short-sleeve-t-shirt",
-      "slug": "new-short-sleeve-t-shirt",
-      "price": { "value": 25, "currencyCode": "USD" },
-      "descriptionHtml": "<p><span>Show off your love for Next.js and Vercel with this unique,&nbsp;</span><strong>limited edition</strong><span>&nbsp;t-shirt. This design is part of a limited run, numbered drop at the June 2021 Next.js Conf. It features a unique, handcrafted triangle design. Get it while supplies last – only 200 of these shirts will be made!&nbsp;</span><strong>All proceeds will be donated to charity.</strong></p>",
+      "path": "/informal-suit",
+      "slug": "informal-suit",
+      "price": { "value": 165, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Description.</span></p>",
       "images": [
         {
-          "url": "/assets/drop-shirt-0.png",
-          "altText": "Shirt",
+          "url": "/assets/informal-suit-1.jpg",
+          "altText": "Informal Suit",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/drop-shirt-1.png",
-          "altText": "Shirt",
+          "url": "/assets/informal-suit-2.jpg",
+          "altText": "Informal Suit",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/drop-shirt-2.png",
-          "altText": "Shirt",
+          "url": "/assets/informal-suit-3.jpg",
+          "altText": "Informal Suit",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/informal-suit-4.jpg",
+          "altText": "Informal Suit",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/informal-suit-5.jpg",
+          "altText": "Informal Suit",
           "width": 1000,
           "height": 1000
         }
       ],
       "variants": [
         {
-          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjAss=",
+          "id": "product-1",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -38,6 +50,20 @@
               "displayName": "Size",
               "values": [
                 {
+                  "label": "XS"
+                },
+                {
+                  "label": "S"
+                },
+                {
+                  "label": "M"
+                },
+                {
+                  "label": "L"
+                },
+                {
+                  "label": "XXL"
+                },{
                   "label": "XL"
                 }
               ]
@@ -51,7 +77,118 @@
           "displayName": "Color",
           "values": [
             {
-              "label": "color",
+              "label": "red",
+              "hexColors": ["#c00825"]
+            }, {
+              "label": "dark gray",
+              "hexColors": ["#1f2b36"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "S"
+            },
+            {
+              "label": "M"
+            },
+            {
+              "label": "L"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product-2",
+      "name": "Simple Hoodie",
+      "vendor": "Next.js",
+      "path": "/simple-pull",
+      "slug": "simple-pull",
+      "price": { "value": 165, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Description.</span></p>",
+      "images": [
+        {
+          "url": "/assets/simple-pull-1.jpg",
+          "altText": "Simple Hoodie",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/simple-pull-2.jpg",
+          "altText": "Simple Hoodie",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/simple-pull-3.jpg",
+          "altText": "Simple Hoodie",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/simple-pull-4.jpg",
+          "altText": "Simple Hoodie",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "product-2",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "asd",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "XS"
+                },
+                {
+                  "label": "S"
+                },
+                {
+                  "label": "M"
+                },
+                {
+                  "label": "L"
+                },
+                {
+                  "label": "XXL"
+                },{
+                  "label": "XL"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "marble",
+              "hexColors": ["#ded8d4"]
+            }, {
+              "label": "blue",
+              "hexColors": ["#7e95c0"]
+            }, {
+              "label": "purple",
+              "hexColors": ["#857ea5"]
+            }, {
+              "label": "light gray",
+              "hexColors": ["#a19d97"]
+            }, {
+              "label": "coral",
+              "hexColors": ["#222"]
+            }, {
+              "label": "light-yellow",
               "hexColors": ["#222"]
             }
           ]
@@ -74,36 +211,42 @@
       ]
     },
     {
-      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9ksdWN0LzU0NDczMjUwMjQ0MjA=",
-      "name": "Lightweight Jacket",
+      "id": "product-3",
+      "name": "Simple T-Shirt",
       "vendor": "Next.js",
-      "path": "/lightweight-jacket",
-      "slug": "lightweight-jacket",
-      "price": { "value": 249.99, "currencyCode": "USD" },
-      "descriptionHtml": "<p><span>Show off your love for Next.js and Vercel with this unique,&nbsp;</span><strong>limited edition</strong><span>&nbsp;t-shirt. This design is part of a limited run, numbered drop at the June 2021 Next.js Conf. It features a unique, handcrafted triangle design. Get it while supplies last – only 200 of these shirts will be made!&nbsp;</span><strong>All proceeds will be donated to charity.</strong></p>",
+      "path": "/simple-t-shirt",
+      "slug": "simple-t-shirt",
+      "price": { "value": 165, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Description.</span></p>",
       "images": [
         {
-          "url": "/assets/lightweight-jacket-0.png",
-          "altText": "Lightweight Jacket",
+          "url": "/assets/simple-t-shirt-1.jpg",
+          "altText": "Simple T-Shirt",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/lightweight-jacket-1.png",
-          "altText": "Lightweight Jacket",
+          "url": "/assets/simple-t-shirt-2.jpg",
+          "altText": "Simple T-Shirt",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/lightweight-jacket-2.png",
-          "altText": "Lightweight Jacket",
+          "url": "/assets/simple-t-shirt-3.jpg",
+          "altText": "Simple T-Shirt",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/simple-t-shirt-4.jpg",
+          "altText": "Simple T-Shirt",
           "width": 1000,
           "height": 1000
         }
       ],
       "variants": [
         {
-          "id": "Z2lkOid8vc2hvcGlmeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjAss=",
+          "id": "product-3",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -111,6 +254,20 @@
               "displayName": "Size",
               "values": [
                 {
+                  "label": "XS"
+                },
+                {
+                  "label": "S"
+                },
+                {
+                  "label": "M"
+                },
+                {
+                  "label": "L"
+                },
+                {
+                  "label": "XXL"
+                },{
                   "label": "XL"
                 }
               ]
@@ -124,7 +281,16 @@
           "displayName": "Color",
           "values": [
             {
-              "label": "color",
+              "label": "white",
+              "hexColors": ["#222"]
+            }, {
+              "label": "dark green",
+              "hexColors": ["#222"]
+            }, {
+              "label": "pink",
+              "hexColors": ["#222"]
+            }, {
+              "label": "black",
               "hexColors": ["#222"]
             }
           ]
@@ -147,48 +313,36 @@
       ]
     },
     {
-      "id": "Z2lkOis8vc2hvcGlmsddeS9Qcm9kdWN0LzU0NDczMjUwMjQ0MjA=",
-      "name": "Shirt",
+      "id": "product-4",
+      "name": "Black Glasses",
       "vendor": "Next.js",
-      "path": "/shirt",
-      "slug": "shirt",
-      "price": { "value": 25, "currencyCode": "USD" },
-      "descriptionHtml": "<p><span>Show off your love for Next.js and Vercel with this unique,&nbsp;</span><strong>limited edition</strong><span>&nbsp;t-shirt. This design is part of a limited run, numbered drop at the June 2021 Next.js Conf. It features a unique, handcrafted triangle design. Get it while supplies last – only 200 of these shirts will be made!&nbsp;</span><strong>All proceeds will be donated to charity.</strong></p>",
+      "path": "/black-glasses",
+      "slug": "black-glasses",
+      "price": { "value": 165, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Description.</span></p>",
       "images": [
         {
-          "url": "/assets/t-shirt-0.png",
-          "altText": "Shirt",
+          "url": "/assets/black-glasses-1.jpg",
+          "altText": "Black Glasses",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/t-shirt-1.png",
-          "altText": "Shirt",
+          "url": "/assets/black-glasses-2.jpg",
+          "altText": "Black Glasses",
           "width": 1000,
           "height": 1000
         },
         {
-          "url": "/assets/t-shirt-2.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/t-shirt-3.png",
-          "altText": "Shirt",
-          "width": 1000,
-          "height": 1000
-        },
-        {
-          "url": "/assets/t-shirt-4.png",
-          "altText": "Shirt",
+          "url": "/assets/black-glasses-3.jpg",
+          "altText": "Black Glasses",
           "width": 1000,
           "height": 1000
         }
       ],
       "variants": [
         {
-          "id": "Z2lkOi8vc2hvcGlmeS9Qcms9kdWN0LzU0NDczMjUwMjQ0MjAss=",
+          "id": "product-2",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -196,6 +350,154 @@
               "displayName": "Size",
               "values": [
                 {
+                  "label": "One size"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "black",
+              "hexColors": ["#000"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "One size"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product-5",
+      "name": "Green Glasses",
+      "vendor": "Next.js",
+      "path": "/green-glasses",
+      "slug": "green-glasses",
+      "price": { "value": 165, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Description.</span></p>",
+      "images": [
+        {
+          "url": "/assets/green-glasses-1.jpg",
+          "altText": "Green Glasses",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/green-glasses-2.jpg",
+          "altText": "Green Glasses",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/green-glasses-3.jpg",
+          "altText": "Green Glasses",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "product-2",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "asd",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "One size"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "green",
+              "hexColors": ["#7dc360"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "One size"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product-6",
+      "name": "Premium Coat",
+      "vendor": "Next.js",
+      "path": "/premium-coat",
+      "slug": "premium-coat",
+      "price": { "value": 165, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Description.</span></p>",
+      "images": [
+        {
+          "url": "/assets/premium-coat-1.jpg",
+          "altText": "Premium Coat",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/premium-coat-2.jpg",
+          "altText": "Premium Coat",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/premium-coat-3.jpg",
+          "altText": "Premium Coat",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "product-5",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "asd",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "XS"
+                },
+                {
+                  "label": "S"
+                },
+                {
+                  "label": "M"
+                },
+                {
+                  "label": "L"
+                },
+                {
+                  "label": "XXL"
+                },{
                   "label": "XL"
                 }
               ]
@@ -209,8 +511,95 @@
           "displayName": "Color",
           "values": [
             {
-              "label": "color",
-              "hexColors": ["#222"]
+              "label": "mustard",
+              "hexColors": ["#a47641"]
+            }
+          ]
+        },
+        {
+          "id": "option-size",
+          "displayName": "Size",
+          "values": [
+            {
+              "label": "S"
+            },
+            {
+              "label": "M"
+            },
+            {
+              "label": "L"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product-6",
+      "name": "Premium Parka",
+      "vendor": "Next.js",
+      "path": "/premium-parka",
+      "slug": "premium-parka",
+      "price": { "value": 165, "currencyCode": "USD" },
+      "descriptionHtml": "<p><span>Description.</span></p>",
+      "images": [
+        {
+          "url": "/assets/premium-parka-1.jpg",
+          "altText": "Premium Parka",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/premium-parka-2.jpg",
+          "altText": "Premium Parka",
+          "width": 1000,
+          "height": 1000
+        },
+        {
+          "url": "/assets/premium-parka-3.jpg",
+          "altText": "Premium Parka",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "variants": [
+        {
+          "id": "product-6",
+          "options": [
+            {
+              "__typename": "MultipleChoiceOption",
+              "id": "asd",
+              "displayName": "Size",
+              "values": [
+                {
+                  "label": "XS"
+                },
+                {
+                  "label": "S"
+                },
+                {
+                  "label": "M"
+                },
+                {
+                  "label": "L"
+                },
+                {
+                  "label": "XXL"
+                },{
+                  "label": "XL"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "id": "option-color",
+          "displayName": "Color",
+          "values": [
+            {
+              "label": "mustard",
+              "hexColors": ["#a47641"]
             }
           ]
         },
