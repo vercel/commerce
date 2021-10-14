@@ -16,16 +16,11 @@
 
 .dropdownMenu {
   @apply fixed right-0 top-12 mt-2 origin-top-right outline-none bg-primary z-40 w-full h-full;
-
-  @screen lg {
-    @apply absolute border border-accent-1 shadow-lg w-56 h-auto;
-  }
+  @apply lg:absolute lg:border lg:border-accent-1 lg:shadow-lg lg:w-56 lg:h-auto;
 }
 
 .closeButton {
-  @screen md {
-    @apply hidden;
-  }
+  @apply md:hidden;
 }
 
 .item {
