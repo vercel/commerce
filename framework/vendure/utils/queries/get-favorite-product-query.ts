@@ -16,7 +16,8 @@ query activeCustomer($options: FavoriteListOptions) {
             preview
           }
           variants{
-            price
+            priceWithTax
+            currencyCode
           }
         }
       }

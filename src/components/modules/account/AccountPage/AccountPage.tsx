@@ -1,20 +1,20 @@
+import { QueryFavorite } from "@framework/schema"
+import commerce from '@lib/api/commerce'
+import { GetStaticPropsContext } from 'next'
+import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
-import s from './AccountPage.module.scss'
-
 import { HeadingCommon, TabPane } from "src/components/common"
-
+import { useGetFavoriteProduct } from 'src/components/hooks/account'
+import { ACCOUNT_TAB, DEFAULT_PAGE_SIZE, QUERY_KEY } from "src/utils/constanst.utils"
+import { getPageFromQuery } from 'src/utils/funtion.utils'
+import { PromiseWithKey } from 'src/utils/types.utils'
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
+import s from './AccountPage.module.scss'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
+import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
-import EditInfoModal from './components/EditInfoModal/EditInfoModal'
-import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
-import { ACCOUNT_TAB, QUERY_KEY,DEFAULT_PAGE_SIZE } from "src/utils/constanst.utils"
-import { useRouter } from "next/router"
-import { useActiveCustomer } from 'src/components/hooks/auth'
-import { useGetFavoriteProduct } from 'src/components/hooks/account'
-import { QueryFavorite } from "@framework/schema"
-import {  getPageFromQuery} from 'src/utils/funtion.utils'
+
 
 const waiting = [
     {
@@ -93,8 +93,9 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
     const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
+   
     const { itemWishlist,totalItems }= useGetFavoriteProduct(optionQueryFavorite);
-    console.log(itemWishlist,totalItems)        
+
 
     // skip
     useEffect(() => {
@@ -144,3 +145,4 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
 }
 
 export default AccountPage
+
