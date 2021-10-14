@@ -1,6 +1,6 @@
 import { HookFetcher } from '@commerce/utils/types'
 import type { Product } from '@commerce/types/product'
-import { products } from '../data.json'
+import data from '../data.json'
 import { useCustomer } from '@framework/customer'
 
 const defaultOpts = {}
@@ -40,7 +40,7 @@ export function extendHook(
     if (getWishlist && customer?.email) {
       const wishlist = JSON.parse(getWishlist)
       const items = wishlist.map((wishlist: string) => {
-        const [product] = products.filter((p) => p.id === wishlist) as any
+        const [product] = data.products.filter((p) => p.id === wishlist) as any
         return {
           variant_id: wishlist,
           product_id: wishlist,
