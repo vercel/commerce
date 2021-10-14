@@ -48,7 +48,8 @@ export type Product = {
   options: ProductOption[]
   facetValueIds?: string[]
   collectionIds?: string[]
-  collection?: string,
+  collection?: string[],
+  variants?: ProductVariant[]
 }
 
 export type ProductCard = {

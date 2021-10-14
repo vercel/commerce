@@ -71,3 +71,5 @@ export type PromiseWithKey = {
     promise: PromiseLike<any>
     keyResult?: string,
 }
+
+export type SelectedOptions = Record<string, string | null>

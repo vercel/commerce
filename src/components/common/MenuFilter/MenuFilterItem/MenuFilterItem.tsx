@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { route } from 'next/dist/server/router';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import s from './MenuFilterItem.module.scss';

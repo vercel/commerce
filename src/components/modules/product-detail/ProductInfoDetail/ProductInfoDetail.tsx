@@ -12,16 +12,16 @@ interface Props {
 }
 
 const ProductInfoDetail = ({ productDetail, collections }: Props) => {
-    const dataWithCategoryName = useMemo(() => {
-            return {
-              ...productDetail,
-              collection: getCategoryNameFromCollectionId(collections, productDetail.collectionIds ? productDetail.collectionIds[0] : undefined)
-            }
-    }, [productDetail, collections])
+    // const dataWithCategoryName = useMemo(() => {
+    //         return {
+    //           ...productDetail,
+    //           collection: getCategoryNameFromCollectionId(collections, productDetail.collectionIds ? productDetail.collectionIds[0] : undefined)
+    //         }
+    // }, [productDetail, collections])
     return (
         <section className={s.productInfoDetail}>
             <ProductImgs productImage={productDetail.images}/>
-            <ProductInfo productInfoDetail={dataWithCategoryName}/>
+            <ProductInfo productInfoDetail={productDetail}/>
         </section >
     )
 }

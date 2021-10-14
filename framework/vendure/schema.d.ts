@@ -3347,7 +3347,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         collections: Array<
           { __typename?: 'Collection' } & Pick<
             Collection,
-            'id'
+            'id'|"name"
           >
         >
       }
