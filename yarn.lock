@@ -4644,6 +4644,10 @@ next-themes@^0.0.14:
   resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.0.14.tgz#2b9861990bc453149e23d8e6ef1a25a119e36675"
   integrity sha512-x09OaM+wg3SIlEjOv8B21aw/E36jxTtfW3Dm/DPwMsSMluGt7twe1LigA6nc+mXP1u0qu9MxBaIrPPH6UTiKnA==
 
+next-tinybird@tinybirdco/next-tinybird#main:
+  version "0.0.1"
+  resolved "https://codeload.github.com/tinybirdco/next-tinybird/tar.gz/6fc91b541315e307ae10cac6301bfabc11bd5042"
+
 next@^11.0.0:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/next/-/next-11.0.1.tgz#b8e3914d153aaf7143cb98c09bcd3c8230eeb17a"
