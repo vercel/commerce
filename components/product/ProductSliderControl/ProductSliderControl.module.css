@@ -1,5 +1,5 @@
 .control {
-  @apply bg-violet absolute bottom-10 right-10 flex flex-row
+  @apply bg-black absolute bottom-10 right-10 flex flex-row
   border-accent-0 border text-accent-0 z-30 shadow-xl select-none;
   height: 48px;
 }
@@ -12,7 +12,7 @@
 
 .leftControl:hover,
 .rightControl:hover {
-  background-color: var(--violet-dark);
+  background-color: var(--accent-7);
 }
 
 .leftControl:focus,
