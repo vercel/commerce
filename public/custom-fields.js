@@ -6,8 +6,6 @@
  * THIS FILE IS USED FOR THE AGILITY'S CUSTOM FIELDS
  */
 
-var baseUrl = "https://forzaforni-commerce-agilitycms.vercel.app/"
-
 
 var FriendlyURLFormField = function () {
 	var self = this;
@@ -267,6 +265,8 @@ var ChooseProductCustomField = function () {
 				/// </param>
 				var self = this;
 
+				ContentManager.DataAccess.GetPreviewUrl()
+
 				self.ajaxRequest = null;
 
 				self.selectedValue = options.fieldBinding.extend({ throttle: 500 });
@@ -307,7 +307,7 @@ var ChooseProductCustomField = function () {
 					},
 
 					ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-						url: "https://nextjs-commerce-agility-cms.vercel.app/api/search-products",
+						url: "https://my-bigcommerce-store-oct-14.vercel.app/api/search-products",
 						//url: "http://localhost:3000/api/search-products",
 						dataType: 'json',
 						type: "get",
