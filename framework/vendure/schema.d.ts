@@ -1,3 +1,5 @@
+import { ResetPassword } from './schema.d';
+import { requestPasswordReset } from '@framework/schema';
 import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -3126,6 +3128,36 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword:
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | ({ __typename: 'PasswordResetTokenInvalidError' } & Pick<
+        PasswordResetTokenInvalidError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'PasswordResetTokenExpiredError' } & Pick<
+        PasswordResetTokenExpiredError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
+export type SignupMutation = { __typename?: 'Mutation' } & {
+  registerCustomerAccount:
+    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+    | ({ __typename: 'MissingPasswordError' } & Pick<
+        MissingPasswordError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
 export type VerifyCustomerAccountVariables = Exact<{
   token: Scalars['String']
   password?: Maybe<Scalars['String']>
@@ -3179,8 +3211,9 @@ export type SignupMutationVariables = Exact<{
   input: RegisterCustomerInput
 }>
 
-export type SignupMutation = { __typename?: 'Mutation' } & {
-  registerCustomerAccount:
+
+export type RequestPasswordReset = { __typename?: 'Mutation' } & {
+  requestPasswordReset:
     | ({ __typename: 'Success' } & Pick<Success, 'success'>)
     | ({ __typename: 'MissingPasswordError' } & Pick<
         MissingPasswordError,
@@ -3191,6 +3224,8 @@ export type SignupMutation = { __typename?: 'Mutation' } & {
         'errorCode' | 'message'
       >)
 }
+
+
 
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
 
