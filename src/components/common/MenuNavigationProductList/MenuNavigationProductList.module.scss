@@ -1,13 +1,5 @@
 @import "../../../styles/utilities";
-.menuNavigationProductListDesktop{
-    @screen sm {
-        @apply hidden;
-    }
 
-    @screen xl {
-        @apply block;
-    }
-}
 .menuNavigationProductListMobile{
     @apply relative transition-all duration-100;
     &.isShow{
@@ -37,7 +29,7 @@
             transform: translateY(0%)
         }
         .content{
-            @apply  absolute w-full h-full;
+            @apply  absolute w-full h-full spacing-horizontal custom-scroll;
             margin-top: 3rem;
             padding-top: 10rem ;
             padding-bottom: 10rem;
@@ -46,6 +38,7 @@
             height: 96%;
             bottom: 0;
             border-radius: 2.4rem 2.4rem 0 0;
+
             .head{
                 @apply flex justify-between fixed;
                 top:0;
@@ -57,12 +50,11 @@
                 background-color: white;
                 z-index: 10000;
                 h3{
-                    @apply heading-3 font-bold;
-                    color:var(--text-base);
+                    @apply heading-3 font-heading;
                 }
             }
             .foot{
-                @apply fixed;
+                @apply fixed text-center;
                 bottom: 0;
                 left:0;
                 width: 100%;
@@ -70,7 +62,7 @@
                 padding: 0 1rem 3rem 1rem;
                 
             }
-            button{
+            button {
                 margin-top: 2rem;
                 width: 100%;
             }

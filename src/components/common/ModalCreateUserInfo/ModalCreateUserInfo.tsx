@@ -25,7 +25,7 @@ const ModalCreateUserInfo = ({ demoVisible: visible, demoCloseModal: closeModal 
                         <Inputcommon placeholder='Street Address' ref={firstInputRef} />
                         <Inputcommon placeholder='City' />
                         <div className={s.line}>
-                            <SelectCommon option={STATE_OPTIONS} type="custom" size="large" placeholder='State'/>
+                            <SelectCommon options={STATE_OPTIONS} type="custom" size="large" placeholder='State'/>
                             <Inputcommon placeholder='Zip code' />
                         </div>
                         <Inputcommon placeholder='Phone (delivery contact)' />

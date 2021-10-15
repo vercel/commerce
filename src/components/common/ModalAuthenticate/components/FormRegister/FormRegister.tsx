@@ -48,7 +48,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
 
   const onSignupCallBack = (isSuccess: boolean, message?: string) => {
     if (isSuccess) {
-      showMessageSuccess("Create account successfully. Please verify your email to login.")
+      showMessageSuccess("Create account successfully. Please verify your email to login.", 15000)
     } else {
       showMessageError(message || LANGUAGE.MESSAGE.ERROR)
     }
@@ -71,7 +71,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
             validationSchema={DisplayingErrorMessagesSchema}
             onSubmit={onSignup}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, isValid, submitForm }) => (
               <Form className="u-form">
                 <div className="body">
                   <InputFiledInForm
@@ -93,6 +93,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
                         ? errors.password.toString()
                         : ''
                     }
+                    onEnter={isValid ? submitForm : undefined}
                   />
                   <div className={styles.passwordNote}>
                     Must contain 8 characters with at least 1 uppercase and 1

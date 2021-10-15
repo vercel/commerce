@@ -5,7 +5,7 @@ import { normalizeSearchResult } from '../../utils/normalize'
 import { getAllProductsQuery } from '../../utils/queries/get-all-products-query'
 import { OperationContext } from '@commerce/api/operations'
 
-export type ProductVariables = { first?: number }
+export type ProductVariables = { first?: number, facetValueIds?: string[] }
 
 export default function getAllProductsOperation({
   commerce,
@@ -14,7 +14,7 @@ export default function getAllProductsOperation({
     variables?: ProductVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<{ products: Product[] }>
+  }): Promise<{ products: Product[], totalItems: number }>
 
   async function getAllProducts({
     query = getAllProductsQuery,
@@ -25,11 +25,12 @@ export default function getAllProductsOperation({
     variables?: ProductVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<{ products: Product[] | any[] }> {
+  } = {}): Promise<{ products: Product[] | any[], totalItems: number }> {
     const config = commerce.getConfig(cfg)
     const variables = {
       input: {
         take: vars.first,
+        facetValueIds: vars.facetValueIds,
         groupByProduct: true,
       },
     }
@@ -39,6 +40,7 @@ export default function getAllProductsOperation({
 
     return {
       products: data.search.items.map((item) => normalizeSearchResult(item)),
+      totalItems: data.search.totalItems as number,
     }
   }
 

@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import s from './LabelCommon.module.scss'
 interface LabelCommonProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode
   size?: 'default' | 'large'
   shape?: 'half' | 'round' | 'default'
   type?: 'default' | 'discount' | 'waiting' | 'delivering' | 'delivered'

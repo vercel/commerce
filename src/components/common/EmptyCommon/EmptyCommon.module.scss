@@ -4,13 +4,16 @@
     padding: 1.6rem;
     margin: auto;
     .imgWrap {
-        min-width: 10rem;
+        min-height: 10rem;
         text-align: center;
+        img {
+            min-height: 10rem;
+        }
     }
 
     .description {
         color: var(--disabled);
         text-align: center;
-        margin-top: .8rem;
+        margin-top: 0.8rem;
     }
 }

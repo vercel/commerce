@@ -27,7 +27,6 @@ interface Props {
   children?: any
   isFull?: boolean
   isStickyHeader?: boolean
-  visibleFilter?: boolean
   openModalLogin: () => void
   openModalRegister: () => void
   openModalInfo: () => void
@@ -38,7 +37,6 @@ const HeaderMenu = memo(
   ({
     isFull,
     isStickyHeader,
-    visibleFilter,
     openModalLogin,
     openModalRegister,
     openModalInfo,
@@ -94,6 +92,7 @@ const HeaderMenu = memo(
       ],
       [logout]
     )
+    
     return (
       <section
         className={classNames({
@@ -109,12 +108,7 @@ const HeaderMenu = memo(
               {FILTER_PAGE.includes(router.pathname) && (
                 <button className={s.iconFilter} onClick={toggleFilter}>
                   <IconFilter />
-                  <div
-                    className={classNames({
-                      [s.dot]: true,
-                      [s.isShow]: visibleFilter,
-                    })}
-                  ></div>
+                  <div className={s.dot}></div>
                 </button>
               )}
               <button

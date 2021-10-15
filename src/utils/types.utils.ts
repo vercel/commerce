@@ -34,20 +34,31 @@ export interface BlogProps {
 
 export interface CheckOutForm {
     name?: string
-    email?:string
+    email?: string
     address?: string
-    city?:string
-    state?:string
-    code?:number
-    phone?:number
-    method?:string
-    shipping_fee?:number
+    city?: string
+    state?: string
+    code?: number
+    phone?: number
+    method?: string
+    shipping_fee?: number
 }
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
+
+export enum SortOrder {
+    Asc = 'ASC',
+    Desc = 'DESC',
+}
 
 export type filterContextType = {
     visible: boolean;
     open: () => void;
     close: () => void;
 };
+
+export type PromiseWithKey = {
+    key: string
+    promise: PromiseLike<any>
+    keyResult?: string,
+}

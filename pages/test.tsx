@@ -1,18 +1,34 @@
-import { Layout } from 'src/components/common'
-import { useMessage } from 'src/components/contexts'
+import commerce from '@lib/api/commerce';
+import { GetStaticPropsContext } from 'next';
+import { ProductCard } from '@commerce/types/product';
+import { Layout, ListProductCardSkeleton } from 'src/components/common';
 
-export default function Test() {
-  const { showMessageError } = useMessage()
-
-  const handleClick = () => {
-    showMessageError("Create account successfully")
-  }
-
+interface Props {
+  productDetail: ProductCard[],
+}
+export default function Home({ productDetail }: Props) {
   return (
     <>
-    <button onClick={handleClick}>Click me</button>
+      {/* <ListProductCardSkeleton /> */}
+      {/* <ListProductCardSkeleton count={1} /> */}
+      <ListProductCardSkeleton count={10} />
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab qui magnam debitis ex laborum laboriosam suscipit! Totam excepturi eum libero.
+      <ListProductCardSkeleton count={10} isWrap/>
     </>
   )
 }
 
-Test.Layout = Layout
+
+export async function getServerSideProps({
+  preview,
+  locale,
+  locales,
+}: GetStaticPropsContext) {
+
+  return {
+    props: {},
+  }
+}
+
+
+Home.Layout = Layout

@@ -2,7 +2,7 @@ import { Product } from '@commerce/types/product'
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '../'
 import { GetProductQuery } from '../../schema'
-import { getProductQuery } from '../../utils/queries/get-product-query'
+import { getProductQuery, getProductDetailQuery } from '../../utils/queries/get-product-query'
 
 export default function getProductOperation({
   commerce,
@@ -16,10 +16,8 @@ export default function getProductOperation({
     variables: { slug: string }
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<Product | {} | any> {
+  }): Promise<Product | null> {
     const config = commerce.getConfig(cfg)
-
-    const locale = config.locale
     const { data } = await config.fetch<GetProductQuery>(query, { variables })
     const product = data.product
 
@@ -28,7 +26,6 @@ export default function getProductOperation({
         return product.optionGroups.find((og) => og.id === id)!.name
       }
       return {
-        product: {
           id: product.id,
           name: product.name,
           description: product.description,
@@ -49,20 +46,19 @@ export default function getProductOperation({
               values: [{ label: o.name }],
             })),
           })),
-          price: {
-            value: product.variants[0].priceWithTax / 100,
-            currencyCode: product.variants[0].currencyCode,
-          },
+          price: product.variants[0].priceWithTax / 100,
+          currencyCode: product.variants[0].currencyCode,
           options: product.optionGroups.map((og) => ({
             id: og.id,
             displayName: og.name,
             values: og.options.map((o) => ({ label: o.name })),
           })),
-        } as Product,
-      }
+          facetValueIds: product.facetValues.map(item=> item.id),
+          collectionIds: product.collections.map(item => item.id)
+        } as Product
     }
 
-    return {}
+    return null
   }
 
   return getProduct
