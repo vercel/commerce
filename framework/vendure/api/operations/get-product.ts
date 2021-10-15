@@ -2,7 +2,7 @@ import { Product } from '@commerce/types/product'
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '../'
 import { GetProductQuery } from '../../schema'
-import { getProductQuery } from '../../utils/queries/get-product-query'
+import { getProductQuery, getProductDetailQuery } from '../../utils/queries/get-product-query'
 
 export default function getProductOperation({
   commerce,
@@ -53,7 +53,8 @@ export default function getProductOperation({
             displayName: og.name,
             values: og.options.map((o) => ({ label: o.name })),
           })),
-          facetValueIds: product.facetValues.map(item=> item.id)
+          facetValueIds: product.facetValues.map(item=> item.id),
+          collectionIds: product.collections.map(item => item.id)
         } as Product
     }
 

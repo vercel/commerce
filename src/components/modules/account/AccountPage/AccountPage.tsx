@@ -15,7 +15,6 @@ import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
 
-
 const waiting = [
     {
         id: "NO 123456",
@@ -55,16 +54,6 @@ const delivered = [
     }
 ]
 
-let account = {
-    name: "vu duong",
-    email: "vuduong@gmail.com",
-    address: "234 Dien Bien Phu Bis, Dakao ward",
-    state: "District 1",
-    city: "HCMC",
-    postalCode: "700000",
-    phoneNumber: "(+84) 937 937 195"
-}
-
 interface AccountPageProps {
     defaultActiveContent?: "info" | "orders" | "favorites"
 }
@@ -90,6 +79,10 @@ const DEFAULT_FAVORITE_ARGS = {
 
 const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
+
+    const {userInfo} = useActiveCustomer();
+ 
+
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
     const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
@@ -129,7 +122,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
 
                 <AccountNavigation defaultActiveIndex={activeTab}>
                     <TabPane tabName="Customer Information"> 
-                        <AccountInfomation account={account} onClick={showModal}  />
+                        <AccountInfomation account={userInfo} onClick={showModal}  />
                     </TabPane>
                     <TabPane tabName="Your Orders"> 
                         <OrderInfomation waiting={waiting} delivering={delivering} delivered={delivered} />
@@ -139,7 +132,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                     </TabPane>
                 </AccountNavigation>
             </section>
-            <EditInfoModal accountInfo={account} closeModal={closeModal} visible={modalVisible} />
+            <EditInfoModal accountInfo={userInfo} closeModal={closeModal} visible={modalVisible} />
         </>
     )
 }
