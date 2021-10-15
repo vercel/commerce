@@ -6,6 +6,7 @@
       "vendor": "Commerce Layer",
       "path": "/women-long-sleeve-shirt",
       "slug": "women-long-sleeve-shirt",
+      "categoryId": "clothings",
       "price": { "value": 50, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>This relaxed long sleeve tee combines the best of both worlds, proving that cozy can also be chic. 65/35 polyester/viscose. Drop shoulder. Curved bottom hem.</span></p>",
       "images": [
@@ -112,6 +113,7 @@
       "vendor": "Commerce Layer",
       "path": "/white-enamel-mug",
       "slug": "white-enamel-mug",
+      "categoryId": "household",
       "price": { "value": 100, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>Lightweight and durable, this mug is a must-have for every devoted camper. Use it for your favorite beverage or a hot meal, and attach it to your bag for easy access on a hike. Ready for your next camping trip?</span></p>",
       "images": [
@@ -179,6 +181,7 @@
       "vendor": "Commerce Layer",
       "path": "/black-visor-flexfit",
       "slug": "black-visor-flexfit",
+      "categoryId": "clothings",
       "price": { "value": 39.5, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>A visor is perfect for the days when you’re not in the mood for a cap, but you still want to protect your peepers from the blinding sun. Made of a quick-drying fabric, it’ll be right for sports activities or just a casual stroll around.</span></p>",
       "images": [
@@ -253,6 +256,7 @@
       "path": "/black-face-mask",
       "slug": "black-face-mask",
       "price": { "value": 15, "currencyCode": "USD" },
+      "categoryId": "clothings",
       "descriptionHtml": "<p><span>Durable double-layer, washable cloth face mask. The center seam and elastic ear loops give the mask a close fit, and the treated fabric ensures that it will serve you well.</span></p>",
       "images": [
         {
@@ -307,6 +311,7 @@
       "vendor": "Commerce Layer",
       "path": "/gray-women-long-sleeve-shirt",
       "slug": "gray-women-long-sleeve-shirt",
+      "categoryId": "clothings",
       "price": { "value": 50, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>This relaxed long sleeve tee combines the best of both worlds, proving that cozy can also be chic. 65/35 polyester/viscose. Drop shoulder. Curved bottom hem.</span></p>",
       "images": [
@@ -401,6 +406,7 @@
       "vendor": "Commerce Layer",
       "path": "/white-face-mask",
       "slug": "white-face-mask",
+      "categoryId": "clothings",
       "price": { "value": 15, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>Durable double-layer, washable cloth face mask. The center seam and elastic ear loops give the mask a close fit, and the treated fabric ensures that it will serve you well.</span></p>",
       "images": [
@@ -456,6 +462,7 @@
       "vendor": "Commerce Layer",
       "path": "/white-beanie",
       "slug": "white-beanie",
+      "categoryId": "clothings",
       "price": { "value": 20, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>Soft double-layered customizable beanie. 95% polyester, 5% spandex. Regular fit. Accurately printed, cut, and hand-sewn.</span></p>",
       "images": [
@@ -511,6 +518,7 @@
       "vendor": "Commerce Layer",
       "path": "/white-duffle-bag",
       "slug": "white-duffle-bag",
+      "categoryId": "featured",
       "price": { "value": 250, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>The perfect spacious bag no matter the occasion. It’s great for packing exercise gear when heading to the gym, or throwing in necessities and going on an adventure.</span></p>",
       "images": [
