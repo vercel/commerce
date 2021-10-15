@@ -5,7 +5,7 @@ import useSWR from 'swr'
 
 const useActiveCustomer = () => {
   const { data, ...rest } = useSWR<ActiveCustomerQuery>([activeCustomerQuery], gglFetcher)
-  console.log(data);
+  
   return {
       customer: data?.activeCustomer,
       userInfo:{

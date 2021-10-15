@@ -1,3 +1,6 @@
+import { FacetValue, UpdateAddressInput } from './schema.d';
+import { ResetPassword } from './schema.d';
+import { requestPasswordReset } from '@framework/schema';
 import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -304,6 +307,11 @@ export type MutationResetPasswordArgs = {
 }
 
 export type Address = Node & {
+  updateCustomerAddress:
+  | { 
+    __typename?: 'Address'
+    id: Scalars['ID']
+  }
   __typename?: 'Address'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -321,6 +329,9 @@ export type Address = Node & {
   defaultBillingAddress?: Maybe<Scalars['Boolean']>
   customFields?: Maybe<Scalars['JSON']>
 }
+
+
+
 
 export type Asset = Node & {
   __typename?: 'Asset'
@@ -1459,6 +1470,11 @@ export type CustomerListOptions = {
 }
 
 export type Customer = Node & {
+  updateCustomer:
+  | { 
+    __typename?: 'Customer'
+    id: Scalars['ID']
+  }
   __typename?: 'Customer'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -1466,7 +1482,7 @@ export type Customer = Node & {
   title?: Maybe<Scalars['String']>
   firstName: Scalars['String']
   lastName: Scalars['String']
-  phoneNumber?: Maybe<Scalars['String']>
+  phoneNumber?:  Maybe<Scalars['String']>
   emailAddress: Scalars['String']
   addresses?: Maybe<Array<Address>>
   orders: OrderList
@@ -3126,6 +3142,36 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword:
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | ({ __typename: 'PasswordResetTokenInvalidError' } & Pick<
+        PasswordResetTokenInvalidError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'PasswordResetTokenExpiredError' } & Pick<
+        PasswordResetTokenExpiredError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
+export type SignupMutation = { __typename?: 'Mutation' } & {
+  registerCustomerAccount:
+    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+    | ({ __typename: 'MissingPasswordError' } & Pick<
+        MissingPasswordError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
 export type VerifyCustomerAccountVariables = Exact<{
   token: Scalars['String']
   password?: Maybe<Scalars['String']>
@@ -3179,8 +3225,9 @@ export type SignupMutationVariables = Exact<{
   input: RegisterCustomerInput
 }>
 
-export type SignupMutation = { __typename?: 'Mutation' } & {
-  registerCustomerAccount:
+
+export type RequestPasswordReset = { __typename?: 'Mutation' } & {
+  requestPasswordReset:
     | ({ __typename: 'Success' } & Pick<Success, 'success'>)
     | ({ __typename: 'MissingPasswordError' } & Pick<
         MissingPasswordError,
@@ -3192,15 +3239,16 @@ export type SignupMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+
+
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      FavoriteList,
-      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'favorites'
-    >,
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'| 'favorites'
+    >
   >
 }
 export type FavoriteList = PaginatedList & {
@@ -3316,7 +3364,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         variants: Array<
           { __typename?: 'ProductVariant' } & Pick<
             ProductVariant,
-            'id' | 'priceWithTax' | 'currencyCode'
+            'id' | 'priceWithTax' | 'currencyCode' | 'price'
           > & {
               options: Array<
                 { __typename?: 'ProductOption' } & Pick<
