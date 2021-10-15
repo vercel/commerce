@@ -4,50 +4,50 @@ import s from './OrderInformation.module.scss'
 import { TabCommon } from '../../../../../common'
 import TabPane from 'src/components/common/TabCommon/components/TabPane/TabPane'
 import DeliveryItem from '../../../DeliveryItem/DeliveryItem'
+import { Order } from "@framework/schema"
 
 
 interface OrderInformationProps {
-    waiting: {id: string, products: string[], totalPrice: number}[],
-    delivering: {id: string, products: string[], totalPrice: number}[],
-    delivered: {id: string, products: string[], totalPrice: number}[],
+    addingItem?: Order[],
+    arrangingPayment?: Order[],
+    cancelled?: Order[],
 }
 
-const OrderInformation = ({ waiting, delivering, delivered} : OrderInformationProps) => {
-
+const OrderInformation = ({ addingItem, arrangingPayment, cancelled} : OrderInformationProps) => {
     return (
         <section className={s.orderInformation}>
             <div className={s.title}>Order Information</div>
 
             <div className={s.tabs}>
                 <TabCommon>
-                    <TabPane tabName={"Wait for Comfirmation"} >
+                    <TabPane tabName={"Adding Item"} >
                         <div className={s.blank}></div>
                         {
-                            waiting.map((order, i) => {
+                            addingItem?.map((order, i) => {
                                 return (
-                                    <DeliveryItem key={order.id} id={order.id} status="waiting" products={order.products} totalPrice={order.totalPrice} />
+                                    <DeliveryItem key={order.code} id={order.code} status="waiting" products={order.lines} totalPrice={order.total} />
                                 )
                             }) 
                         }
                     </TabPane>
 
-                    <TabPane tabName={"Delivering"}>
+                    <TabPane tabName={"Arranging Payment"}>
                         <div className={s.blank}></div>
                         {
-                            delivering.map((order, i) => {
+                            arrangingPayment?.map((order, i) => {
                                 return (
-                                    <DeliveryItem key={order.id} id={order.id} status="delivering" products={order.products} totalPrice={order.totalPrice} />
+                                    <DeliveryItem key={order.id} id={order.id} status="delivering" products={order.lines} totalPrice={order.total} />
                                 )
                             }) 
                         }
                     </TabPane>
 
-                    <TabPane tabName={"Delivered"}>
+                    <TabPane tabName={"Cancelled"}>
                         <div className={s.blank}></div>
                         {
-                            delivered.map((order, i) => {
+                            cancelled?.map((order, i) => {
                                 return (
-                                    <DeliveryItem key={order.id} id={order.id} status="delivered" products={order.products} totalPrice={order.totalPrice} />
+                                    <DeliveryItem key={order.id} id={order.id} status="delivered" products={order.lines} totalPrice={order.total} />
                                 )
                             }) 
                         }
