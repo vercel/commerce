@@ -1,10 +1,58 @@
 import { Facet } from "@commerce/types/facet";
-import { FacetValue } from './../../framework/vendure/schema.d';
-import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT } from "./constanst.utils";
-import { PromiseWithKey } from "./types.utils";
+import { Collection, FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
+import { PromiseWithKey, SortOrder } from "./types.utils";
 
 export function isMobile() {
   return window.innerWidth < 768
+}
+
+export function getPageFromQuery(pageQuery: string) {
+  let page = 0
+  try {
+    page = +pageQuery
+    if (isNaN(page)) {
+      page = 0
+    }
+  } catch (err) {
+    page = 0
+  }
+  return page
+}
+
+
+export function getProductSortParamFromQuery(query: string) {
+  let rs = {} as SearchResultSortParameter
+  switch (query) {
+    case PRODUCT_SORT_OPTION_VALUE.NAME_ASC:
+      rs = {
+        name: SortOrder.Asc
+      }
+      break;
+
+    case PRODUCT_SORT_OPTION_VALUE.NAME_DESC:
+      rs = {
+        name: SortOrder.Desc
+      }
+      break;
+
+    case PRODUCT_SORT_OPTION_VALUE.PRICE_ASC:
+      rs = {
+        price: SortOrder.Asc
+      }
+      break;
+
+    case PRODUCT_SORT_OPTION_VALUE.PRICE_DESC:
+      rs = {
+        price: SortOrder.Desc
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return rs
 }
 
 export function removeItem<T>(arr: Array<T>, value: T): Array<T> {
@@ -58,6 +106,25 @@ export function getFacetNamesFromIds(facets: FacetValue[], ids?: string[]): stri
   return names.join(", ")
 }
 
-export function getAllPromies (promies: PromiseWithKey[]) {
+export function getFacetIdsFromCodes(facets: FacetValue[], codes?: string[]): string[] {
+  if (!codes || codes?.length === 0) {
+    return []
+  }
+
+  const facetItems = facets.filter((item: FacetValue) => codes.includes(item.code))
+  const ids = facetItems.map((item: FacetValue) => item.id)
+  return ids
+}
+
+export const getCategoryNameFromCollectionId = (colelctions: Collection[], collectionId?: string ) => {
+  if (!collectionId) {
+    return ''
+  }
+
+  const collection = colelctions.find(item => item.id === collectionId)
+  return collection?.name || ''
+}
+
+export function getAllPromies(promies: PromiseWithKey[]) {
   return promies.map(item => item.promise)
 }

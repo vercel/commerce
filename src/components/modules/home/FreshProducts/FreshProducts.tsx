@@ -2,19 +2,11 @@ import { ProductCard } from '@commerce/types/product'
 import { Collection } from '@framework/schema'
 import React, { useMemo } from 'react'
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { getCategoryNameFromCollectionId } from 'src/utils/funtion.utils'
 import { CollectionCarcousel } from '..'
 interface FreshProductsProps {
   data: ProductCard[]
   collections: Collection[]
-}
-
-const getCategoryNameFromCollectionId = (colelctions: Collection[], collectionId?: string ) => {
-  if (!collectionId) {
-    return ''
-  }
-
-  const collection = colelctions.find(item => item.id === collectionId)
-  return collection?.name || ''
 }
 
 const FreshProducts = ({ data, collections }: FreshProductsProps) => {

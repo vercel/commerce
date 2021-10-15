@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import React, { memo, useEffect, useRef, useState } from 'react'
+import { useProductFilter } from 'src/components/contexts'
 import { useModalCommon } from 'src/components/hooks'
 import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
 import ModalCreateUserInfo from '../ModalCreateUserInfo/ModalCreateUserInfo'
@@ -9,12 +10,12 @@ import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
 import HeaderSubMenuMobile from './components/HeaderSubMenuMobile/HeaderSubMenuMobile'
 import s from './Header.module.scss'
 interface props {
-    toggleFilter: () => void,
-    visibleFilter: boolean
+    
 }
 
-const Header = memo(({ toggleFilter, visibleFilter }: props) => {
+const Header = memo(({ }: props) => {
     const headeFullRef = useRef<HTMLDivElement>(null)
+    const { toggleProductFilter: toggleFilter } = useProductFilter()
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
     const [isModeAuthenRegister, setIsModeAuthenRegister] = useState<boolean>(false)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
@@ -63,7 +64,6 @@ const Header = memo(({ toggleFilter, visibleFilter }: props) => {
                 <div className={s.menu}>
                     <HeaderMenu
                         isFull={isFullHeader}
-                        visibleFilter={visibleFilter}
                         toggleFilter={toggleFilter}
                         openModalLogin={openModalLogin}
                         openModalRegister = {openModalRegister}

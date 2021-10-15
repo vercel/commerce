@@ -1,33 +1,35 @@
-import s from './SelectCommon.module.scss'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { IconVectorDown } from 'src/components/icons'
+import s from './SelectCommon.module.scss'
 import SelectOption from './SelectOption/SelectOption'
 
 interface Props {
     selected?:string|null,
     initValue?:string|null,
     placeholder? : string,
+    value?: string,
     size?: 'base' | 'large',
     type?: 'default' | 'custom',
-    option: {name: string, value: string}[],
+    options: {name: string, value: string}[],
     onChange?: (value: string) => void,
 }
 
-const SelectCommon = ({selected,initValue, type = 'default', size = 'base', option, placeholder, onChange}: Props) => {
+const SelectCommon = ({selected,initValue, type = 'default', size = 'base', options, placeholder, onChange}: Props) => {
     const [selectedName, setSelectedName] = useState(placeholder)
     const [selectedValue, setSelectedValue] = useState('')
 
     useEffect(()=>{
-        const nameSelect = option.find((val)=>val.value === selected);
+        const nameSelect = options.find((val)=>val.value === selected);
         setSelectedName(nameSelect?.name ?? 'State');
         setSelectedValue(initValue ?? '');
         onChange && onChange(initValue ?? '');
     },[])
 
-    const changeSelectedName = (item:string, value: string) => {
+    const changeSelectedName = (value: string) => {
         setSelectedValue(value)
-        setSelectedName(item)
+        const name = options.find(item => item.value === value)?.name
+        setSelectedName(name)
         onChange && onChange(value)
     }
     return(
@@ -42,7 +44,7 @@ const SelectCommon = ({selected,initValue, type = 'default', size = 'base', opti
                     [s.selectTrigger] : true,
                     
                 })}
-                >{selectedName}<IconVectorDown /></div>
+                >{selectedName || placeholder}<IconVectorDown /></div>
                 
                 <div className={s.hoverWrapper}>
                     <div className={classNames({
@@ -52,8 +54,12 @@ const SelectCommon = ({selected,initValue, type = 'default', size = 'base', opti
                     })}
                     >   
                         {
-                            option.map(item => 
-                                <SelectOption key={item.value} itemName={item.name} value={item.value} onClick={changeSelectedName} size={size} selected={(selectedValue === item.value)} />
+                            options.map(item => 
+                                <SelectOption key={item.value}
+                                    itemName={item.name}
+                                    value={item.value}
+                                    onChange={changeSelectedName}
+                                    size={size} selected={(selectedValue === item.value)} />
                             )
                         }
                     </div>

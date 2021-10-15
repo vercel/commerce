@@ -50,10 +50,6 @@
                     width: 1.2rem;
                     height: 1.2rem;
                     border-radius: 1.2rem;
-                    @apply hidden;
-                    &.isShow {
-                        @apply block;
-                    }
                 }
                 @screen md {
                     display: none;

@@ -1,7 +1,7 @@
 @import '../../../../styles/utilities';
 
 .skeletonImage {
-    @apply relative;
+    @apply relative overflow-hidden;
     background: #DDDBDD;
 
     &.small {

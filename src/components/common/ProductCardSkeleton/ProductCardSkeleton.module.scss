@@ -1,0 +1,15 @@
+.productCardSkeleton {
+    max-width: 22.4rem;
+    min-width: 20rem;
+    margin: 0 0.8rem;
+    > div {
+        width: 100% !important;
+    }
+    .content {
+        margin-top: 1.6rem;
+        > div {
+            margin: 0;
+            width: 100% !important;
+        }
+    }
+}
