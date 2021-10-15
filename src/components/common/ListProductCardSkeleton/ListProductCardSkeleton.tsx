@@ -6,7 +6,7 @@ type Props = {
   count?: number
   isWrap?: boolean
 }
-const ListProductCardSkeleton = ({ count = 5, isWrap }: Props) => {
+const ListProductCardSkeleton = ({ count = 3, isWrap }: Props) => {
 
   return (
     <div className={classNames(s.listProductCardSkeleton, { [s.wrap]: isWrap })}>

@@ -10,12 +10,12 @@ import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED } from 'src/utils/constanst.ut
 import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
 
+
 interface Props {
   featuredAndDiscountFacetsValue: FacetValue[],
   freshProducts: ProductCard[],
   featuredProducts: ProductCard[],
   collections: Collection[]
-
 }
 export default function Home({ featuredAndDiscountFacetsValue,
   freshProducts, featuredProducts,
@@ -98,7 +98,6 @@ export async function getStaticProps({
     preview,
   })
   promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections'  })
-
 
   try {
     const promises = getAllPromies(promisesWithKey)
