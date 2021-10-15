@@ -44,7 +44,8 @@ export const ACCOUNT_TAB = {
 }
 
 export const LOCAL_STORAGE_KEY = {
-  TOKEN: 'token'
+  TOKEN: 'token',
+  VIEWEDPRODUCT: "viewed-product"
 }
 
 export const QUERY_SPLIT_SEPERATOR = ','

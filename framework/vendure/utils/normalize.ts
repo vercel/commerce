@@ -1,5 +1,5 @@
 import { Cart } from '@commerce/types/cart'
-import { ProductCard } from '@commerce/types/product'
+import { ProductCard, Product } from '@commerce/types/product'
 import { CartFragment, SearchResultFragment } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
@@ -55,5 +55,20 @@ export function normalizeCart(order: CartFragment): Cart {
         requiresShipping: true,
       },
     })),
+  }
+}
+
+export function normalizeProductCard(product: Product): ProductCard {
+  return {
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    imageSrc: product.images[0].url,
+    price: product.price,
+    currencyCode: product.currencyCode,
+    productVariantId: product.variants?.[0].id.toString(),
+    productVariantName:product.variants?.[0].name,
+    facetValueIds: product.facetValueIds,
+    collectionIds: product.collectionIds,
   }
 }
