@@ -46,7 +46,7 @@ const ShippingInfoForm = ({onConfirm,id}: ShippingInfoFormProps) => {
         />
         <Inputcommon type="text" placeholder="City" ref={cityRef} />
         <div className={s.line}>
-          <SelectCommon option={option} type="custom" size="large">State</SelectCommon>
+          <SelectCommon options={option} type="custom" size="large">State</SelectCommon>
           <Inputcommon type="text" placeholder="Zip Code" ref={codeRef} />
         </div>
         <Inputcommon

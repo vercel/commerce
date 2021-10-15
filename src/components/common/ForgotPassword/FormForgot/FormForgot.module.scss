@@ -1,0 +1,22 @@
+@import '../../../../styles/utilities';
+.formAuthen{
+    width: 50%;
+    margin: 0 auto;
+    padding: 4rem 0 ;    
+    .title{
+        @apply font-heading heading-3;
+        padding: 0 1.6rem 0 0.8rem;
+        margin-bottom: 2rem;
+    }
+    .bottom {
+        @apply flex justify-between items-center;
+        margin: 4rem auto;
+        .remembered {
+            @apply font-bold cursor-pointer;
+            color: var(--primary);
+        }
+    }
+    .socialAuthen{
+        margin-bottom: 3rem;
+    }
+}

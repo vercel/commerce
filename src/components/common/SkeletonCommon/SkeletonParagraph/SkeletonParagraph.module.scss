@@ -1,6 +1,7 @@
 @import '../../../../styles/utilities';
 
 .skeletonParagraph {
+    @apply overflow-hidden;
     margin: 0 1.6rem;
 
     .row {

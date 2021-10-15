@@ -1,4 +1,7 @@
 import { FacetValue, UpdateAddressInput } from './schema.d';
+import { ResetPassword } from './schema.d';
+import { requestPasswordReset } from '@framework/schema';
+import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -3139,6 +3142,36 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword:
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | ({ __typename: 'PasswordResetTokenInvalidError' } & Pick<
+        PasswordResetTokenInvalidError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'PasswordResetTokenExpiredError' } & Pick<
+        PasswordResetTokenExpiredError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
+export type SignupMutation = { __typename?: 'Mutation' } & {
+  registerCustomerAccount:
+    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+    | ({ __typename: 'MissingPasswordError' } & Pick<
+        MissingPasswordError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
 export type VerifyCustomerAccountVariables = Exact<{
   token: Scalars['String']
   password?: Maybe<Scalars['String']>
@@ -3192,8 +3225,9 @@ export type SignupMutationVariables = Exact<{
   input: RegisterCustomerInput
 }>
 
-export type SignupMutation = { __typename?: 'Mutation' } & {
-  registerCustomerAccount:
+
+export type RequestPasswordReset = { __typename?: 'Mutation' } & {
+  requestPasswordReset:
     | ({ __typename: 'Success' } & Pick<Success, 'success'>)
     | ({ __typename: 'MissingPasswordError' } & Pick<
         MissingPasswordError,
@@ -3205,15 +3239,29 @@ export type SignupMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+
+
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber' | 'orders'
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'| 'favorites' | 'orders'
     >
   >
+}
+export type FavoriteList = PaginatedList & {
+  items: [Favorite!]!
+  totalItems: Int!
+}
+
+type Favorite = Node &  {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  product: Product
+  customer: Customer!
 }
 
 export type GetAllProductPathsQueryVariables = Exact<{
@@ -3232,7 +3280,8 @@ export type GetAllProductsQueryVariables = Exact<{
 
 export type GetAllProductsQuery = { __typename?: 'Query' } & {
   search: { __typename?: 'SearchResponse' } & {
-    items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>
+    items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment>,
+    'totalItems'
   }
 }
 
@@ -3241,8 +3290,9 @@ export type GetAllFacetsQuery = { __typename?: 'Query' } & {
     items: Array<
       { __typename?: 'Facet' } & Pick<
         Facet,
-        'id' | 'name' | 'code'
-      > & {
+        'id' | 'name' | 'code' | 'values'
+      > 
+      & {
           parent?: Maybe<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
           children?: Maybe<
             Array<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
@@ -3314,7 +3364,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         variants: Array<
           { __typename?: 'ProductVariant' } & Pick<
             ProductVariant,
-            'id' | 'priceWithTax' | 'currencyCode'
+            'id' | 'priceWithTax' | 'currencyCode' | 'price'
           > & {
               options: Array<
                 { __typename?: 'ProductOption' } & Pick<
@@ -3348,6 +3398,18 @@ export type GetProductQuery = { __typename?: 'Query' } & {
                 >
               >
             }
+        >
+        facetValues: Array<
+          { __typename?: 'FacetValue' } & Pick<
+            FacetValue,
+            'id'
+          >
+        >
+        collections: Array<
+          { __typename?: 'Collection' } & Pick<
+            Collection,
+            'id'
+          >
         >
       }
   >

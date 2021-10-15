@@ -5,8 +5,8 @@ import useSWR from 'swr';
 
 
 const useGetAllCollection =  () => {
-    const { data, ...rest } =  useSWR<GetCollectionsQuery>([getCollectionsNameQuery], gglFetcher)
-    return { collections: data?.collections, ...rest }
+    const { data, isValidating, ...rest } =  useSWR<GetCollectionsQuery>([getCollectionsNameQuery], gglFetcher)
+    return { collections: data?.collections.items || [], loading: isValidating, ...rest }
 }
 
 export default useGetAllCollection;

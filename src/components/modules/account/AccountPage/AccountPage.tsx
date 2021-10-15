@@ -69,6 +69,8 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
 
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
+    // const { itemWishlist } = useActiveCustomer();
+    // console.log(itemWishlist)
 
     useEffect(() => {
         const query = router.query[QUERY_KEY.TAB] as string

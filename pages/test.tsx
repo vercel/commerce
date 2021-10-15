@@ -1,17 +1,19 @@
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
-import { Layout } from 'src/components/common';
+import { ProductCard } from '@commerce/types/product';
+import { Layout, ListProductCardSkeleton } from 'src/components/common';
 
 interface Props {
-  products: any
+  productDetail: ProductCard[],
 }
-export default function Home({ products }: Props) {
+export default function Home({ productDetail }: Props) {
   return (
     <>
-      <p>
-        TOTAL: {products?.length}
-      </p>
-      {JSON.stringify(products[0])}
+      {/* <ListProductCardSkeleton /> */}
+      {/* <ListProductCardSkeleton count={1} /> */}
+      <ListProductCardSkeleton count={10} />
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab qui magnam debitis ex laborum laboriosam suscipit! Totam excepturi eum libero.
+      <ListProductCardSkeleton count={10} isWrap/>
     </>
   )
 }
@@ -22,28 +24,9 @@ export async function getServerSideProps({
   locale,
   locales,
 }: GetStaticPropsContext) {
-  const config = { locale, locales }
-  const productsPromise = commerce.getAllProducts({
-    // const productsPromise = commerce.getAllFacets({
-    variables: {
-      first: 70,
-      //  filter: {
-      //   name: {
-      //     contains: 'ca'
-      //   }
-      // }
-    },
-    config,
-    preview,
-    // Saleor provider only
-    ...({ featured: true } as any),
-  })
-
-  const { products } = await productsPromise
-
 
   return {
-    props: { products },
+    props: {},
   }
 }
 
