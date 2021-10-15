@@ -1,3 +1,4 @@
+import { FacetValue, UpdateAddressInput } from './schema.d';
 import { ResetPassword } from './schema.d';
 import { requestPasswordReset } from '@framework/schema';
 import { FacetValue } from './schema.d';
@@ -306,6 +307,11 @@ export type MutationResetPasswordArgs = {
 }
 
 export type Address = Node & {
+  updateCustomerAddress:
+  | { 
+    __typename?: 'Address'
+    id: Scalars['ID']
+  }
   __typename?: 'Address'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -323,6 +329,9 @@ export type Address = Node & {
   defaultBillingAddress?: Maybe<Scalars['Boolean']>
   customFields?: Maybe<Scalars['JSON']>
 }
+
+
+
 
 export type Asset = Node & {
   __typename?: 'Asset'
@@ -1461,6 +1470,11 @@ export type CustomerListOptions = {
 }
 
 export type Customer = Node & {
+  updateCustomer:
+  | { 
+    __typename?: 'Customer'
+    id: Scalars['ID']
+  }
   __typename?: 'Customer'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -1468,7 +1482,7 @@ export type Customer = Node & {
   title?: Maybe<Scalars['String']>
   firstName: Scalars['String']
   lastName: Scalars['String']
-  phoneNumber?: Maybe<Scalars['String']>
+  phoneNumber?:  Maybe<Scalars['String']>
   emailAddress: Scalars['String']
   addresses?: Maybe<Array<Address>>
   orders: OrderList
@@ -3233,7 +3247,7 @@ export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      'id' | 'firstName' | 'lastName' | 'emailAddress'
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'
     >
   >
 }

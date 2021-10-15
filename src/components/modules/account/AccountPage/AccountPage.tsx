@@ -12,7 +12,8 @@ import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
 import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
 import { useRouter } from "next/router"
-
+import { useActiveCustomer } from 'src/components/hooks/auth'
+import { AccountProps } from "./components/AccountInfomation/AccountInfomation"
 const waiting = [
     {
         id: "NO 123456",
@@ -52,16 +53,6 @@ const delivered = [
     }
 ]
 
-let account = {
-    name: "vu duong",
-    email: "vuduong@gmail.com",
-    address: "234 Dien Bien Phu Bis, Dakao ward",
-    state: "District 1",
-    city: "HCMC",
-    postalCode: "700000",
-    phoneNumber: "(+84) 937 937 195"
-}
-
 interface AccountPageProps {
     defaultActiveContent?: "info" | "orders" | "favorites"
 }
@@ -80,6 +71,10 @@ const getTabIndex = (tab?: string): number => {
 
 const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
+
+    const {userInfo} = useActiveCustomer();
+ 
+
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -106,7 +101,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
 
                 <AccountNavigation defaultActiveIndex={activeTab}>
                     <TabPane tabName="Customer Information"> 
-                        <AccountInfomation account={account} onClick={showModal}  />
+                        <AccountInfomation account={userInfo} onClick={showModal}  />
                     </TabPane>
                     <TabPane tabName="Your Orders"> 
                         <OrderInfomation waiting={waiting} delivering={delivering} delivered={delivered} />
@@ -116,7 +111,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                     </TabPane>
                 </AccountNavigation>
             </section>
-            <EditInfoModal accountInfo={account} closeModal={closeModal} visible={modalVisible} />
+            <EditInfoModal accountInfo={userInfo} closeModal={closeModal} visible={modalVisible} />
         </>
     )
 }
