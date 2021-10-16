@@ -21,8 +21,11 @@ export default function getSiteInfoOperation({
     config?: Partial<CommercejsConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
+    const { fetch } = commerce.getConfig(config)
+    const { data: categories } = await fetch('categories', 'list')
+
     return {
-      categories: [],
+      categories,
       brands: [],
     }
   }

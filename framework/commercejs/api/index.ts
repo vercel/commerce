@@ -7,7 +7,7 @@ import getSiteInfo from './operations/get-site-info'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
-import { fetchApi, FetchApi } from './utils/fetch-commercejs-api'
+import { fetchApi } from './utils/fetch-commercejs-api'
 import { API_URL, CART_COOKIE } from '../constants'
 
 export interface CommercejsConfig extends CommerceAPIConfig {

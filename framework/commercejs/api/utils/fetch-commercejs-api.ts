@@ -9,17 +9,18 @@ export type FetchApi = (
   query: Queries,
   method: Methods,
   variables: Array<any>
-) => Promise<{ data: any; res: Response }>
+) => Promise<any>
 
-export const fetchApi = async (
+export async function fetchApi(
   query: Queries,
   method: Methods,
   variables: Array<any> = []
-) => {
+) {
   const resource = commerce[query]
 
   // TODO
   // @ts-ignore
   const data = await resource[method](...variables)
+  // console.log('data is', data)
   return data
 }

@@ -1,5 +1,6 @@
 import type { OperationContext } from '@commerce/api/operations'
 import type { GetAllProductPathsOperation } from '@commerce/types/product'
+import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
 
 import type { CommercejsConfig, Provider } from '..'
 
@@ -15,9 +16,16 @@ export default function getAllProductPathsOperation({
   }: {
     config?: Partial<CommercejsConfig>
   } = {}): Promise<T['data']> {
+    const { fetch } = commerce.getConfig(config)
+    const { data } = await fetch('products', 'list')
+
+    // Match a path for every product retrieved
+    const productPaths = data.map(({ permalink }: CommercejsProduct) => ({
+      path: `/${permalink}`,
+    }))
+
     return {
-      // Match a path for every product retrieved
-      products: [],
+      products: productPaths,
     }
   }
 

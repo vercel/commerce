@@ -20,11 +20,12 @@ export default function getProductOperation({
     const { fetch } = commerce.getConfig(config)
 
     // Fetch a product by its permalink.
-    const { data } = await fetch('products', 'retrieve', [
+    const product = await fetch('products', 'retrieve', [
       variables?.slug,
       { type: 'permalink' },
     ])
-    const productFormatted = normalizeProduct(data)
+
+    const productFormatted = normalizeProduct(product)
 
     return {
       product: productFormatted,
