@@ -16,8 +16,8 @@ export default function getAllProductPathsOperation({
   }: {
     config?: Partial<CommercejsConfig>
   } = {}): Promise<T['data']> {
-    const { fetch } = commerce.getConfig(config)
-    const { data } = await fetch('products', 'list')
+    const { sdkFetch } = commerce.getConfig(config)
+    const { data } = await sdkFetch('products', 'list')
 
     // Match a path for every product retrieved
     const productPaths = data.map(({ permalink }: CommercejsProduct) => ({

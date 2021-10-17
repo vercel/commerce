@@ -7,11 +7,12 @@ import getSiteInfo from './operations/get-site-info'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
-import { fetchApi } from './utils/fetch-commercejs-api'
+import sdkFetch, { SdkFetch } from './utils/sdk-fetch'
+import createGraphqlFetcher from './utils/graphql-fetch'
 import { API_URL, CART_COOKIE } from '../constants'
 
 export interface CommercejsConfig extends CommerceAPIConfig {
-  fetch: any
+  sdkFetch: SdkFetch
 }
 
 const config: CommercejsConfig = {
@@ -20,7 +21,8 @@ const config: CommercejsConfig = {
   cartCookieMaxAge: 2592000,
   customerCookie: '',
   apiToken: '',
-  fetch: fetchApi,
+  fetch: createGraphqlFetcher(() => getCommerceApi().getConfig()),
+  sdkFetch,
 }
 
 const operations = {

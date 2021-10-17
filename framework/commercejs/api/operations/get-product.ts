@@ -17,10 +17,10 @@ export default function getProductOperation({
     config?: Partial<CommercejsConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
-    const { fetch } = commerce.getConfig(config)
+    const { sdkFetch } = commerce.getConfig(config)
 
     // Fetch a product by its permalink.
-    const product = await fetch('products', 'retrieve', [
+    const product = await sdkFetch('products', 'retrieve', [
       variables?.slug,
       { type: 'permalink' },
     ])
