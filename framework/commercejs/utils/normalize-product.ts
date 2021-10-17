@@ -1,20 +1,24 @@
 import type { Product } from '@commerce/types/product'
 import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
 
+const getOptionColor = (variantName: string, optionName: string) => {
+  const isColorVariant = variantName.toLowerCase() === 'color'
+  if (!isColorVariant) return []
+  return [optionName]
+}
+
 function getOptionsFromVariantGroups(
   variantGroups: CommercejsProduct['variant_groups']
 ): Product['options'] {
   const optionsFromVariantGroups = variantGroups.map(
-    ({ id, name, options }) => {
-      return {
-        id,
-        displayName: name,
-        values: options.map(({ id, name }) => ({
-          id,
-          label: name,
-        })),
-      }
-    }
+    ({ id, name: variantName, options }) => ({
+      id,
+      displayName: variantName,
+      values: options.map(({ name: optionName }) => ({
+        label: optionName,
+        hexColors: getOptionColor(variantName, optionName),
+      })),
+    })
   )
   return optionsFromVariantGroups
 }
