@@ -2,7 +2,7 @@ import type { Product } from '@commerce/types/product'
 import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
 
 const getOptionColor = (variantName: string, optionName: string) => {
-  const isColorVariant = variantName.toLowerCase() === 'color'
+  const isColorVariant = variantName.match(/colou?r/gi)
   if (!isColorVariant) return []
   return [optionName]
 }
@@ -30,22 +30,26 @@ function normalizeVariants(
   const variants = variantGroups.reduce((allVariants, variantGroup) => {
     variantGroup.options.forEach((option) => {
       allVariants.push({
-        // Include variant group and option Id so that specific variants can be added to cart.
+        // Include variant group and option Id so that specific variants can be added with commerce.cart.add()
         id: `${variantGroup.id}-${option.id}`,
-        options: getOptionsFromVariantGroups([variantGroup]),
+        options: [
+          {
+            id: variantGroup.id,
+            displayName: variantGroup.name,
+            __typename: 'MultipleChoiceOption',
+            values: [
+              {
+                label: option.name,
+                hexColors: getOptionColor(variantGroup.name, option.name),
+              },
+            ],
+          },
+        ],
       })
     })
     return allVariants
   }, [] as Product['variants'])
 
-  variantGroups.forEach((variantGroup) => {
-    variantGroup.options.forEach((option) => {
-      variants.push({
-        id: `${variantGroup.id}-${option.id}`,
-        options: getOptionsFromVariantGroups([variantGroup]),
-      })
-    })
-  })
   return variants
 }
 
