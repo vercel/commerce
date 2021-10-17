@@ -1,6 +1,7 @@
 import type { OperationContext } from '@commerce/api/operations'
 import type { Category, GetSiteInfoOperation } from '@commerce/types/site'
 
+import { normalizeCategory } from '../../utils/normalize-category'
 import type { CommercejsConfig, Provider } from '../index'
 
 export type GetSiteInfoResult<
@@ -24,8 +25,10 @@ export default function getSiteInfoOperation({
     const { sdkFetch } = commerce.getConfig(config)
     const { data: categories } = await sdkFetch('categories', 'list')
 
+    const formattedCategories = categories.map(normalizeCategory)
+
     return {
-      categories,
+      categories: formattedCategories,
       brands: [],
     }
   }

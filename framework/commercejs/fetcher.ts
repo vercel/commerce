@@ -1,17 +1,10 @@
+import { commerce } from './lib/commercejs'
 import { Fetcher } from '@commerce/utils/types'
 
-const clientFetcher: Fetcher = async ({ method, url, body }) => {
-  const response = await fetch(url!, {
-    method,
-    body: body ? JSON.stringify(body) : undefined,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((response) => response.data)
-
-  return response
+const sdkFetch: Fetcher = async ({ query, method, variables = {} }) => {
+  // @ts-ignore
+  const data = await commerce[query!]?.[method](variables)
+  return data
 }
 
-export default clientFetcher
+export default sdkFetch

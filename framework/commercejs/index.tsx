@@ -1,9 +1,9 @@
-import { commercjsProvider, CommercejsProvider } from './provider'
+import { commercejsProvider, CommercejsProvider } from './provider'
 import { getCommerceProvider, useCommerce as useCoreCommerce } from '@commerce'
 
-export { commercjsProvider }
+export { commercejsProvider }
 export type { CommercejsProvider }
 
-export const CommerceProvider = getCommerceProvider(commercjsProvider)
+export const CommerceProvider = getCommerceProvider(commercejsProvider)
 
 export const useCommerce = () => useCoreCommerce()

@@ -24,12 +24,12 @@ import { handler as useUpdateAddressItem } from './customer/address/use-update-i
 import { handler as useRemoveAddressItem } from './customer/address/use-remove-item'
 
 import { CART_COOKIE, LOCALE } from './constants'
-import { default as fetcher } from './fetcher'
+import { default as sdkFetcher } from './fetcher'
 
-export const commercjsProvider = {
+export const commercejsProvider = {
   locale: LOCALE,
   cartCookie: CART_COOKIE,
-  fetcher,
+  fetcher: sdkFetcher,
   cart: {
     useCart,
     useAddItem: useAddCartItem,
@@ -59,4 +59,4 @@ export const commercjsProvider = {
   auth: { useLogin, useLogout, useSignup },
 }
 
-export type CommercejsProvider = typeof commercjsProvider
+export type CommercejsProvider = typeof commercejsProvider

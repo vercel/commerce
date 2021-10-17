@@ -1,40 +1,57 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import { SearchProductsHook } from '@commerce/types/product'
+import { SearchProductsBody, SearchProductsHook } from '@commerce/types/product'
+import { normalizeProduct } from '../utils/normalize-product'
+
 export default useSearch as UseSearch<typeof handler>
 
 export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    url: '/api/catalog/products',
-    method: 'GET',
+    query: 'products',
+    method: 'list',
   },
-  fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {
-    // Use a dummy base as we only care about the relative path
-    const url = new URL(options.url!, 'http://a')
+  async fetcher({ input, options, fetch }) {
+    const getSearchVariables = (input: SearchProductsBody) => {
+      const { search, categoryId } = input
+      let variables: { [key: string]: any } = {}
+      if (search) {
+        variables.query = search
+      }
+      if (categoryId) {
+        variables['category_id'] = categoryId
+      }
+      return variables
+    }
 
-
-    if (search) url.searchParams.set('search', String(search))
-    if (categoryId) url.searchParams.set('categoryId', String(categoryId))
-    if (brandId) url.searchParams.set('brandId', String(brandId))
-    if (sort) url.searchParams.set('sort', String(sort))
-
-    return fetch({
-      url: url.pathname + url.search,
+    const { data, meta } = await fetch({
+      query: options.query,
       method: options.method,
+      variables: getSearchVariables(input),
     })
+
+    const formattedProducts = data?.map(normalizeProduct) || []
+
+    // TODO - manually sort products here?
+
+    return {
+      products: formattedProducts,
+      found: meta.pagination.total,
+    }
   },
-  useHook: ({ useData }) => (input = {}) => {
-    return useData({
-      input: [
-        ['search', input.search],
-        ['categoryId', input.categoryId],
-        ['brandId', input.brandId],
-        ['sort', input.sort]
-      ],
-      swrOptions: {
-        revalidateOnFocus: false,
-        ...input.swrOptions,
-      },
-    })
-  },
+  useHook:
+    ({ useData }) =>
+    (input = {}) => {
+      return useData({
+        input: [
+          ['search', input.search],
+          ['categoryId', input.categoryId],
+          ['brandId', input.brandId],
+          ['sort', input.sort],
+        ],
+        swrOptions: {
+          revalidateOnFocus: false,
+          ...input.swrOptions,
+        },
+      })
+    },
 }
