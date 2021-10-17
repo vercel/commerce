@@ -8,7 +8,7 @@ import {
   } from 'src/components/common'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
-import { useEditCustomerAddress, useEditUserInfo } from "src/components/hooks";
+import { useEditCustomerAddress, useEditUserInfo } from "src/components/hooks/account";
 import { LANGUAGE } from 'src/utils/language.utils'
 import { useMessage } from 'src/components/contexts'
 interface EditInfoModalProps {

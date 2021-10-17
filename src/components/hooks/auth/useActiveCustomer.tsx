@@ -5,7 +5,6 @@ import useSWR from 'swr'
 
 const useActiveCustomer = () => {
   const { data, ...rest } = useSWR<ActiveCustomerQuery>([activeCustomerQuery], gglFetcher)
-
   return {
       customer: data?.activeCustomer,
       userInfo:{
@@ -15,7 +14,6 @@ const useActiveCustomer = () => {
         phoneNumber: data?.activeCustomer?.phoneNumber,
         address: data?.activeCustomer?.addresses?.[0]
       },
-      itemWishlist:data?.activeCustomer?.favorites?.items,
       wishlistId: data?.activeCustomer?.favorites?.items.map((val:Favorite)=>val.product.id),
       ...rest 
   }

@@ -3247,9 +3247,9 @@ export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      FavoriteList,
-      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'favorites'
-    >,
+      Favorite,
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'|  'orders'
+    >
   >
 }
 

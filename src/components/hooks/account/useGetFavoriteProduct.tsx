@@ -4,9 +4,8 @@ import { getFavoriteProductQuery } from '@framework/utils/queries/get-favorite-p
 import gglFetcher from 'src/utils/gglFetcher'
 import useSWR from 'swr'
 
-const useGetFavoriteProduct = (options:QueryFavorite) => {
+const useGetFavoriteProduct = (options?:QueryFavorite) => {
   const { data, ...rest } = useSWR<ActiveCustomerQuery>([getFavoriteProductQuery, options], gglFetcher)
-  // console.log( data?.activeCustomer?.favorites?.items);
   return {
       itemWishlist: data?.activeCustomer?.favorites?.items?.map((item:Favorite) => normalizeFavoriteProductResult(item)), 
       totalItems: data?.activeCustomer?.favorites?.totalItems,

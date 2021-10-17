@@ -1,13 +1,11 @@
 import { QueryFavorite } from "@framework/schema"
-import commerce from '@lib/api/commerce'
-import { GetStaticPropsContext } from 'next'
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import { HeadingCommon, TabPane } from "src/components/common"
-import { useGetFavoriteProduct } from 'src/components/hooks/account'
+import { useGetFavoriteProduct, useGetUserOrder } from 'src/components/hooks/account'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import { ACCOUNT_TAB, DEFAULT_PAGE_SIZE, QUERY_KEY } from "src/utils/constanst.utils"
 import { getPageFromQuery } from 'src/utils/funtion.utils'
-import { PromiseWithKey } from 'src/utils/types.utils'
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
 import s from './AccountPage.module.scss'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
@@ -27,6 +25,8 @@ const waiting = [
         totalPrice : 1000
     }
 ]
+
+
 
 const delivering = [
     {
@@ -81,7 +81,9 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
 
     const {userInfo} = useActiveCustomer();
- 
+    
+    const {addingItem,arrangingPayment,cancelled} = useGetUserOrder();
+
 
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
@@ -125,7 +127,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                         <AccountInfomation account={userInfo} onClick={showModal}  />
                     </TabPane>
                     <TabPane tabName="Your Orders"> 
-                        <OrderInfomation waiting={waiting} delivering={delivering} delivered={delivered} />
+                        <OrderInfomation addingItem={addingItem} arrangingPayment={arrangingPayment} cancelled={cancelled} />
                     </TabPane>
                     <TabPane tabName="Favourite"> 
                         <FavouriteProducts products={itemWishlist} totalItems={totalItems} />
