@@ -2,7 +2,6 @@
   "provider": "commercejs",
   "features": {
     "wishlist": false,
-    "cart": false,
     "customerAuth": false,
     "customCheckout": false
   }

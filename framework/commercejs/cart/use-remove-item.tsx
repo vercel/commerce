@@ -1,60 +1,35 @@
-import type {
-  MutationHookContext,
-  HookFetcherContext,
-} from '@commerce/utils/types'
-import type { Cart, LineItem, RemoveItemHook } from '@commerce/types/cart'
-
 import { useCallback } from 'react'
-
-import { ValidationError } from '@commerce/utils/errors'
+import type { MutationHook } from '@commerce/utils/types'
+import type { RemoveItemHook } from '@commerce/types/cart'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
-
+import { normalizeCart } from '../utils/normalize-cart'
 import useCart from './use-cart'
-
-export type RemoveItemFn<T = any> = T extends LineItem
-  ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
-  : (input: RemoveItemActionInput<T>) => Promise<Cart | null>
-
-export type RemoveItemActionInput<T = any> = T extends LineItem
-  ? Partial<RemoveItemHook['actionInput']>
-  : RemoveItemHook['actionInput']
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
-export const handler = {
+export const handler: MutationHook<RemoveItemHook> = {
   fetchOptions: {
-    url: '/api/cart',
-    method: 'DELETE',
+    query: 'cart',
+    method: 'remove',
   },
-  async fetcher({
-    input: { itemId },
-    options,
-    fetch,
-  }: HookFetcherContext<RemoveItemHook>) {
-    return await fetch({ ...options, body: { itemId } })
+  async fetcher({ input, options, fetch }) {
+    const { cart } = await fetch({
+      query: options.query,
+      method: options.method,
+      variables: input.itemId,
+    })
+    return normalizeCart(cart)
   },
-  useHook: ({ fetch }: MutationHookContext<RemoveItemHook>) =>
-    function useHook<T extends LineItem | undefined = undefined>(
-      ctx: { item?: T } = {}
-    ) {
-      const { item } = ctx
+  useHook: ({ fetch }) =>
+    function useHook() {
       const { mutate } = useCart()
-      const removeItem: RemoveItemFn<LineItem> = async (input) => {
-        const itemId = input?.id ?? item?.id
-
-        if (!itemId) {
-          throw new ValidationError({
-            message: 'Invalid input used for this operation',
-          })
-        }
-
-        const data = await fetch({ input: { itemId } })
-
-        await mutate(data, false)
-
-        return data
-      }
-
-      return useCallback(removeItem as RemoveItemFn<T>, [fetch, mutate])
+      return useCallback(
+        async function removeItem(input) {
+          const cart = await fetch({ input: { itemId: input.id } })
+          await mutate(cart, false)
+          return cart
+        },
+        [mutate]
+      )
     },
 }

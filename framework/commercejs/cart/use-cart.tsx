@@ -1,15 +1,22 @@
-import type { GetCartHook } from '@commerce/types/cart'
-
 import { useMemo } from 'react'
+import type { GetCartHook } from '@commerce/types/cart'
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart } from '@commerce/cart/use-cart'
+import { normalizeCart } from '../utils/normalize-cart'
 
 export default useCart as UseCart<typeof handler>
 
 export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
-    url: '/api/cart',
-    method: 'GET',
+    query: 'cart',
+    method: 'retrieve',
+  },
+  async fetcher({ options, fetch }) {
+    const cart = await fetch({
+      query: options.query,
+      method: options.method,
+    })
+    return normalizeCart(cart)
   },
   useHook: ({ useData }) =>
     function useHook(input) {

@@ -23,13 +23,29 @@ function getOptionsFromVariantGroups(
   return optionsFromVariantGroups
 }
 
+// Build a list of all possible variants from variants groups.
 function normalizeVariants(
   variantGroups: CommercejsProduct['variant_groups']
 ): Product['variants'] {
-  const variants = variantGroups.map((variantGroup) => ({
-    id: variantGroup.id,
-    options: getOptionsFromVariantGroups([variantGroup]),
-  }))
+  const variants = variantGroups.reduce((allVariants, variantGroup) => {
+    variantGroup.options.forEach((option) => {
+      allVariants.push({
+        // Include variant group and option Id so that specific variants can be added to cart.
+        id: `${variantGroup.id}-${option.id}`,
+        options: getOptionsFromVariantGroups([variantGroup]),
+      })
+    })
+    return allVariants
+  }, [] as Product['variants'])
+
+  variantGroups.forEach((variantGroup) => {
+    variantGroup.options.forEach((option) => {
+      variants.push({
+        id: `${variantGroup.id}-${option.id}`,
+        options: getOptionsFromVariantGroups([variantGroup]),
+      })
+    })
+  })
   return variants
 }
 
