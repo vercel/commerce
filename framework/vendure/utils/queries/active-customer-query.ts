@@ -1,5 +1,3 @@
-import { searchResultFragment } from '../fragments/search-result-fragment'
-
 export const activeCustomerQuery = /* GraphQL */ `
 query activeCustomer {
   activeCustomer {
@@ -11,15 +9,6 @@ query activeCustomer {
       items{
         product{
           id
-          name
-          slug
-          assets{
-            source
-            preview
-          }
-          variants{
-            price
-          }
         }
       }
     }
@@ -29,7 +18,7 @@ query activeCustomer {
       city
       province
       postalCode
-    }
+    } 
   }
 }
 `

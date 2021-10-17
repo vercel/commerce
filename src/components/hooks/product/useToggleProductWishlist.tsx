@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import useActiveCustomer from '../auth/useActiveCustomer'
+import useGetFavoriteProduct from '../account/useGetFavoriteProduct'
 import { FavoriteList } from '@framework/schema'
 import fetcher from 'src/utils/fetcher'
 import { CommonError } from 'src/domains/interfaces/CommonError'
@@ -12,7 +12,7 @@ interface Props {
 const useToggleProductWishlist = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
-  const { mutate } = useActiveCustomer()
+  const { mutate } = useGetFavoriteProduct();
 
   const onToggleProductWishlist = (
     { productId }:Props ,
@@ -29,7 +29,7 @@ const useToggleProductWishlist = () => {
       .then((data) => {
         mutate()
         fCallBack(true)
-        return data
+        return data 
       })
       .catch((error) => {
         setError(error)

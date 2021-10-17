@@ -3247,10 +3247,21 @@ export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'| 'favorites' | 'orders'
+      Favorite,
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'|  'orders'
     >
   >
 }
+
+export type QueryFavorite = {
+  options: FavoriteListOptions
+}
+
+export type FavoriteListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+}
+
 export type FavoriteList = PaginatedList & {
   items: [Favorite!]!
   totalItems: Int!
@@ -3262,6 +3273,12 @@ type Favorite = Node &  {
   updatedAt: DateTime!
   product: Product
   customer: Customer!
+}
+
+
+
+type FavouriteOption =  Customer & {
+  favorites(options: FavoriteListOptions): FavoriteList!
 }
 
 export type GetAllProductPathsQueryVariables = Exact<{

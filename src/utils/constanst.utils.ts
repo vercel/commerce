@@ -184,3 +184,4 @@ export const STATE_OPTIONS = [
   },
 ]
 
+export const COLLECTION_SLUG_SPICE ="spice";

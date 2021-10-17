@@ -1,20 +1,31 @@
+import { QueryFavorite } from "@framework/schema"
+import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
-import s from './AccountPage.module.scss'
-
 import { HeadingCommon, TabPane } from "src/components/common"
-
+import { useGetFavoriteProduct, useGetUserOrder } from 'src/components/hooks/account'
+import { useActiveCustomer } from 'src/components/hooks/auth'
+import { ACCOUNT_TAB, DEFAULT_PAGE_SIZE, QUERY_KEY } from "src/utils/constanst.utils"
+import { getPageFromQuery } from 'src/utils/funtion.utils'
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
+import s from './AccountPage.module.scss'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
+import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
-import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 
-import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
-import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
-import { useRouter } from "next/router"
-import { useActiveCustomer} from 'src/components/hooks/auth'
-import { useGetUserOrder} from 'src/components/hooks/account'
-import { AccountProps } from "./components/AccountInfomation/AccountInfomation"
+const waiting = [
+    {
+        id: "NO 123456",
+        products: ["Tomato", "Fish", "Pork", "Onion"],
+        totalPrice : 1000
+    },
+    {
+        id: "NO 123457",
+        products: ["Tomato", "Fish", "Pork", "Onion"],
+        totalPrice : 1000
+    }
+]
+
 
 
 const delivering = [
@@ -59,6 +70,13 @@ const getTabIndex = (tab?: string): number => {
     }
 }
 
+
+const DEFAULT_FAVORITE_ARGS = {
+    options:{
+        skip:1, take:DEFAULT_PAGE_SIZE
+    }
+}
+
 const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const router = useRouter()
 
@@ -69,9 +87,20 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
 
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
-    // const { itemWishlist } = useActiveCustomer();
-    // console.log(itemWishlist)
+    const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
+   
+    const { itemWishlist,totalItems }= useGetFavoriteProduct(optionQueryFavorite);
 
+
+    // skip
+    useEffect(() => {
+        const query = { ...DEFAULT_FAVORITE_ARGS } as QueryFavorite;
+        const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
+        query.options.skip = page * DEFAULT_PAGE_SIZE;
+        setoptionQueryFavorite(query);
+    },[router.query])
+
+       
     useEffect(() => {
         const query = router.query[QUERY_KEY.TAB] as string
         const index = getTabIndex(query)
@@ -101,7 +130,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                         <OrderInfomation addingItem={addingItem} arrangingPayment={arrangingPayment} cancelled={cancelled} />
                     </TabPane>
                     <TabPane tabName="Favourite"> 
-                        <FavouriteProducts products={PRODUCT_CART_DATA_TEST}  />
+                        <FavouriteProducts products={itemWishlist} totalItems={totalItems} />
                     </TabPane>
                 </AccountNavigation>
             </section>
@@ -111,3 +140,4 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
 }
 
 export default AccountPage
+
