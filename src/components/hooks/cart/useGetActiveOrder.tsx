@@ -1,4 +1,3 @@
-import { Cart } from '@commerce/types/cart'
 import { ActiveOrderQuery } from '@framework/schema'
 import { cartFragment } from '@framework/utils/fragments/cart-fragment'
 import { normalizeCart } from '@framework/utils/normalize'

@@ -2,6 +2,8 @@ import Link from 'next/link'
 import React, { useRef } from 'react'
 import { ButtonCommon, Inputcommon } from 'src/components/common'
 import InputCommon from 'src/components/common/InputCommon/InputCommon'
+import { useMessage } from 'src/components/contexts'
+import { useSetCustomerForOrder } from 'src/components/hooks/order'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CustomerInfoForm.module.scss'
@@ -13,13 +15,26 @@ interface CustomerInfoFormProps {
 const CustomerInfoForm = ({ id, onConfirm }: CustomerInfoFormProps) => {
   const nameRef = useRef<React.ElementRef<typeof InputCommon>>(null)
   const emailRef = useRef<React.ElementRef<typeof InputCommon>>(null)
+  const { setCustomerForOrder, loading } = useSetCustomerForOrder()
+  const { showMessageError } = useMessage()
 
   const handleConfirmClick = () => {
-    onConfirm &&
-      onConfirm(id, {
-        name: nameRef?.current?.getValue().toString(),
-        email: emailRef.current?.getValue().toString(),
-      })
+    setCustomerForOrder({ firstName: 'Ly', lastName: 'Tran', emailAddress: 'test7@gmail.com' }, onSubmitCalBack)
+    // onConfirm &&
+    //   onConfirm(id, {
+    //     name: nameRef?.current?.getValue().toString(),
+    //     email: emailRef.current?.getValue().toString(),
+    //   })
+  }
+  const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
+    // TODO:
+    if (isSuccess) {
+      
+    } else {
+      console.log("error here")
+      showMessageError(msg)
+    }
+
   }
 
   return (

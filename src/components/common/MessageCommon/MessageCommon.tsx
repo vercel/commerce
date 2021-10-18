@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import s from './MessageCommon.module.scss'
 import MessageItem, { MessageItemProps } from './MessageItem/MessageItem'
 
