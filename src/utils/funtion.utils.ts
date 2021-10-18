@@ -1,8 +1,8 @@
 import { Facet } from "@commerce/types/facet";
-import { ProductCard } from "@commerce/types/product";
+import { Product, ProductCard, ProductOption, ProductOptionValues } from "@commerce/types/product";
 import { Collection, FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
-import { PromiseWithKey, SortOrder } from "./types.utils";
+import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -152,4 +152,24 @@ export const FilterOneVatiant = (products:ProductCard[]) => {
     }
   })
   return filtedProduct
+}
+
+export const convertOption = (values :ProductOptionValues[]) => {
+  return values.map((value)=>{ return {name:value.label,value:value.label}})
+}
+
+export function getProductVariant(product: Product, opts: SelectedOptions) {
+  const variant = product.variants?.find((variant) => {
+    return Object.entries(opts).every(([key, value]) =>
+      variant.options.find((option) => {
+        if (
+          option.__typename === 'MultipleChoiceOption' &&
+          option.displayName.toLowerCase() === key.toLowerCase()
+        ) {
+          return option.values.find((v) => v.label.toLowerCase() === value)
+        }
+      })
+    )
+  })
+  return variant
 }

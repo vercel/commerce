@@ -41,6 +41,7 @@ export const getProductQuery = /* GraphQL */ `
       }
       collections {
         id
+        name
       }
     }
   }
