@@ -6,17 +6,21 @@ import avatar from '../../assets/avatar.png'
 
 import { ButtonCommon } from 'src/components/common'
 import { useActiveCustomer } from 'src/components/hooks/auth'
+import { Address } from '@framework/schema'
 
-interface AccountProps {
-  name: string
-  email: string
-  address: string
-  state: string
-  city: string
-  postalCode: string
-  phoneNumber: string
+export interface AccountProps {
+  firstName?: string
+  lastName?: string
+  email?: string
+  phoneNumber?:string|null
+  address?: Address
 }
 
+const states = [
+  {name: "District 1", value: "D1"},
+  {name: "District 2", value: "D2"},
+  {name: "District 3", value: "D3"}
+]
 interface AccountInfomationProps {
   account: AccountProps
   onClick: () => void
@@ -24,11 +28,10 @@ interface AccountInfomationProps {
 
 const AccountInfomation = ({ account, onClick }: AccountInfomationProps) => {
   const { customer } = useActiveCustomer()
-
   // need to handle call back when edit account information
 
   const showEditForm = () => onClick()
-
+  const state = states.find((val)=>val.value == account.address?.province);
   return (
     <section className={s.accountInfomation}>
       <div className={s.avatar}>
@@ -45,8 +48,8 @@ const AccountInfomation = ({ account, onClick }: AccountInfomationProps) => {
       <div className={s.shippingInfo}>Shipping Infomation</div>
 
       <div className={s.accountAddress}>
-        {account.address +
-          `, ${account.state}, ${account.city}, ${account.postalCode}`}
+        {account.address?.streetLine1 +
+          `, ${state?.name}, ${account.address?.city}, ${account.address?.postalCode}`}
       </div>
 
       <div className={s.accountPhoneNumber}>{account.phoneNumber}</div>

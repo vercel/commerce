@@ -16,6 +16,7 @@ import Router from 'next/router'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
+  activeWishlist?:boolean
 }
 
 const ProductCardComponent = ({
@@ -31,7 +32,8 @@ const ProductCardComponent = ({
   isNotSell,
   isSingleButton,
   productVariantId,
-  productVariantName
+  productVariantName,
+  activeWishlist
 }: ProductCardProps) => {
 
   const {addProduct,loading} = useAddProductToCart()
@@ -64,6 +66,7 @@ const ProductCardComponent = ({
     </div>
   }
 
+ 
   return (
     <div className={s.productCardWarpper}>
       <div className={s.cardTop}>
@@ -93,7 +96,7 @@ const ProductCardComponent = ({
         <div className={s.cardMidBot}>
           <div className={s.productPrice}>{price} {currencyCode}</div>
           <div className={s.wishList}>
-            <ItemWishList />
+            <ItemWishList isActive={activeWishlist}  id={id}/>
           </div>
         </div>
       </div>
