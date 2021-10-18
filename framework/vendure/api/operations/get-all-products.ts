@@ -38,7 +38,6 @@ export default function getAllProductsOperation({
     const { data } = await config.fetch<GetAllProductsQuery>(query, {
       variables,
     })
-
     return {
       products: data.search.items.map((item) => normalizeSearchResult(item)),
       totalItems: data.search.totalItems as number,

@@ -10,6 +10,7 @@ interface FreshProductsProps {
 }
 
 const FreshProducts = ({ data, collections }: FreshProductsProps) => {
+
   const dataWithCategory = useMemo(() => {
     return data.map(item => {
       return {

@@ -1,6 +1,15 @@
 @import '../../../../../../styles/utilities';
 
 .editInfoModal {
+    .u-form{
+        width: 60rem;
+    }
+    .inputName{
+        @apply flex justify-between;
+        .input{
+            width: 48.5%;
+        }
+    }
     .input {
         @apply bg-white;
         margin-bottom: 1.6rem;
@@ -23,6 +32,7 @@
     .inputPostalCode {
         @apply bg-white;
         margin-left: 0.8rem;
+        width: 100%;
     }
 
     .inputPhoneNumber {

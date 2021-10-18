@@ -4,7 +4,17 @@
     @apply bg-background-gray;
     padding: 3.2rem 2rem;
     min-height: 70rem;
-
+    @screen xl {
+        section{
+            div{
+                div{
+                    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+                }
+            }
+        }
+    
+    }
+  
     @screen md {
         padding-left: 2.8rem;
         padding-right: 2.8rem;
@@ -28,4 +38,5 @@
             margin-bottom: 3.8rem;
         }
     }
+
 }

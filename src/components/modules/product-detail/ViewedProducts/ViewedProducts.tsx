@@ -6,16 +6,10 @@ import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
 import { normalizeProductCard } from '@framework/utils/normalize';
 import { useLocalStorage } from 'src/components/hooks/useLocalStorage';
 interface Props {
+    data: ProductCardProps[]
 }
-const ViewedProducts = ({}:Props) => {
-    const [data, setData] = useState<ProductCardProps[]>([])
-    const [viewedProduct] = useLocalStorage<Product[]>(LOCAL_STORAGE_KEY.VIEWEDPRODUCT, []);
-
-    useEffect(() => {
-        setData(viewedProduct.map((p)=>normalizeProductCard(p)))
-    }, [viewedProduct])
-    
-    if (data.length>0){
+const ViewedProducts = ({data}:Props) => {
+    if (data.length===0){
         return <div></div>
     }
     return (
