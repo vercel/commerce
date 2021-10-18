@@ -1,9 +1,8 @@
 import type { AddItemHook } from '@commerce/types/cart'
 import type { MutationHook } from '@commerce/utils/types'
-
 import { useCallback } from 'react'
-import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
+import type { Cart as CommercejsCart } from '@chec/commerce.js/types/cart'
 import { normalizeCart } from '../utils/normalize-cart'
 import useCart from './use-cart'
 
@@ -23,7 +22,7 @@ export const handler: MutationHook<AddItemHook> = {
         [variantGroup]: variantOption,
       },
     ]
-    const { cart } = await fetch({
+    const { cart } = await fetch<{ cart: CommercejsCart }>({
       query: options.query,
       method: options.method,
       variables,

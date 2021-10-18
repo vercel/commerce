@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import type { GetCartHook } from '@commerce/types/cart'
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart } from '@commerce/cart/use-cart'
+import type { Cart as CommercejsCart } from '@chec/commerce.js/types/cart'
 import { normalizeCart } from '../utils/normalize-cart'
 
 export default useCart as UseCart<typeof handler>
@@ -12,7 +13,7 @@ export const handler: SWRHook<GetCartHook> = {
     method: 'retrieve',
   },
   async fetcher({ options, fetch }) {
-    const cart = await fetch({
+    const cart = await fetch<CommercejsCart>({
       query: options.query,
       method: options.method,
     })
