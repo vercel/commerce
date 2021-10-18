@@ -30,6 +30,7 @@ export type ProductOptionValues = {
 
 export type ProductVariant = {
   id: string | number
+  name:string,
   options: ProductOption[]
   availableForSale?: boolean
 }

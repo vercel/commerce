@@ -3,7 +3,6 @@ import ProductImgs from './components/ProductImgs/ProductImgs'
 import ProductInfo from './components/ProductInfo/ProductInfo'
 import s from './ProductInfoDetail.module.scss'
 import { Product } from '@commerce/types/product'
-import { Collection } from '@framework/schema'
 
 interface Props {
     productDetail: Product,
