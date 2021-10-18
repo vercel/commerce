@@ -21,7 +21,7 @@ var FriendlyURLFormField = function () {
 	}
 
 	/// <field name="Template" type="String">The partial HTML template that represents your custom field. Your ViewModel will be automatically bound to this template.</field>
-	self.Template =  'https://agility.github.io/CustomFields/friendly-url/html/friendly-url-template.html';
+	self.Template = 'https://agility.github.io/CustomFields/friendly-url/html/friendly-url-template.html';
 
 	/// <field name="DepenenciesJS"> type="Array">The Javscript dependencies that must be loaded before your ViewModel is bound. They will be loaded in the order you specify.</field>
 	self.DependenciesJS = [];
@@ -251,143 +251,169 @@ var ChooseProductCustomField = function () {
 
 			$pnl = $(".product-picker-field", options.$elem);
 
+			var websiteName = ContentManager.ViewModels.Navigation.currentWebsite()
+			var searchAPIUrl = ""
+			ContentManager.DashboardDataAccess.GetAllDigitalChannelsWithDomains(websiteName,
+				function (channels) {
 
-			//bind our viewmodel to this
-			var viewModel = function () {
+					for (var channel in channels) {
 
-				/// <summary>The KO ViewModel that will be binded to your HTML template.</summary>
-				/// <param name="options" type="Object">
-				///     <field name="$elem" type="jQueryElem">The .field-row jQuery Dom Element.</field>
-				///     <field name="contentItem" type="ContentItem Object">The entire Content Item object including Values and their KO Observable properties of all other fields on the form.</field>
-				///     <field name="fieldBinding" type="KO Observable">The value binding of thie Custom Field Type. Get and set this field's value by using this property.</field>
-				///     <field name="fieldSetting" type="Object">Object representing the field's settings such as 'Hidden', 'Label', and 'Description'</field>
-				///     <field name="readonly" type="boolean">Represents if this field should be readonly or not.</field>
-				/// </param>
-				var self = this;
-
-				ContentManager.DataAccess.GetPreviewUrl()
-
-				self.ajaxRequest = null;
-
-				self.selectedValue = options.fieldBinding.extend({ throttle: 500 });
-
-				self.formatResult = function (item) {
-
-					return $(`<div class="prod-item"><div class='prod-img' style="background-image:url('${item.imageUrl}')"></div><div class='prod-text'>${item.name}</div></div>`);
-					//return item.node.title;
-				};
-
-
-				self.formatSelection = function (item) {
-
-					return $(`<div class="prod-item"><div class='prod-img-small' style="background-image:url('${item.imageUrl}')"></div><div class='prod-text'>${item.name}</div></div>`);
-
-				};
-				self.ajaxRequest = null;
-
-				self.select2 = {
-					label: 'Product',
-					readOnly: false,
-					value: options.fieldBinding,
-					multiple: false,
-					maximumSelectionSize: 1,
-					minimumInputLength: 0,
-					placeholder: 'Find product...',
-					formatResult: self.formatResult,
-					formatSelection: self.formatSelection,
-					templateResult: self.templateResult,
-
-					matcher: function (term, text) {
-						return true;
-					},
-
-					id: function (obj) {
-
-						return JSON.stringify(obj)
-					},
-
-					ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-						url: "https://nextjs-commerce-agility-cms.vercel.app/api/search-products",
-						//url: "http://localhost:3000/api/search-products",
-						dataType: 'json',
-						type: "get",
-						quietMillis: 250,
-
-						originalValue: ko.unwrap(options.fieldBinding),
-						term: "",
-						data: function (term, page, params) {
-							return {
-								search: term, // search term
-							};
-						},
-						results: function (data, page) {
-
-							return {
-								results: data
-							};
-						},
-						current: function (data) {
-							console.log("CURRENT", data)
-						},
-						cache: true
-					},
-					initSelection: function (element, callback) {
-						//use the hidden "product name" field
-						var json = ko.unwrap(options.fieldBinding);
-
-						if (json && json.length > 0) {
-							var node = JSON.parse(json)
-							callback(node)
-						}
-
-
-
-						// console.log(val)
-
-						// var label = ko.unwrap(options.contentItem.Values.ProductName);
-
-						// if (val && label) {
-						// 	var data = {
-						// 		node: {
-						// 			id: val,
-						// 			title: label
-						// 		}
-						// 	};
-
-						// 	callback(data);
-						// }
-					},
-					allowClear: false,
-					dropdownCssClass: "bigdrop",
-					change: function(e) {
-
-						if (e.added) {
-							var obj = e.added
-							//set the title and the description if we have them
-							if (options.contentItem.Values.Title) {
-								options.contentItem.Values.Title(obj.name)
-							}
-							if (options.contentItem.Values.Description) {
-
-								if (obj.description.indexOf("/>") != -1) {
-									obj.description =   $(obj.description).text()
+						var channelObj = channels[channel]
+						for (var i = 0; i < channelObj.length; i++) {
+							var domain = channelObj[i]
+							if (domain.IsPreviewDomain) {
+								//calculate the url to search for products by using the preview url...
+								var searchUrl = domain.DomainUrl
+								if (searchUrl.lastIndexOf("/") == searchUrl.length - 1) {
+									searchUrl = searchUrl.substring(0, searchUrl.length - 1)
 								}
 
-								options.contentItem.Values.Description(obj.description)
+								searchAPIUrl = searchUrl + "/api/search-products"
+								break;
 							}
-
-							if (options.contentItem.Values.CTA) {
-								var productUrl = "~/product" + obj.slug
-								var cta = "<a href=" + productUrl + ">Buy Now</a>"
-								options.contentItem.Values.CTA(cta)
-							}
-
 						}
 					}
-				};
-			}
 
-			ko.applyBindings(viewModel, $pnl.get(0));
+
+
+
+					//bind our viewmodel to this
+					var viewModel = function () {
+
+						/// <summary>The KO ViewModel that will be binded to your HTML template.</summary>
+						/// <param name="options" type="Object">
+						///     <field name="$elem" type="jQueryElem">The .field-row jQuery Dom Element.</field>
+						///     <field name="contentItem" type="ContentItem Object">The entire Content Item object including Values and their KO Observable properties of all other fields on the form.</field>
+						///     <field name="fieldBinding" type="KO Observable">The value binding of thie Custom Field Type. Get and set this field's value by using this property.</field>
+						///     <field name="fieldSetting" type="Object">Object representing the field's settings such as 'Hidden', 'Label', and 'Description'</field>
+						///     <field name="readonly" type="boolean">Represents if this field should be readonly or not.</field>
+						/// </param>
+						var self = this;
+
+
+
+						self.ajaxRequest = null;
+
+						self.selectedValue = options.fieldBinding.extend({ throttle: 500 });
+
+						self.formatResult = function (item) {
+
+							return $(`<div class="prod-item"><div class='prod-img' style="background-image:url('${item.imageUrl}')"></div><div class='prod-text'>${item.name}</div></div>`);
+							//return item.node.title;
+						};
+
+
+						self.formatSelection = function (item) {
+
+							return $(`<div class="prod-item"><div class='prod-img-small' style="background-image:url('${item.imageUrl}')"></div><div class='prod-text'>${item.name}</div></div>`);
+
+						};
+						self.ajaxRequest = null;
+
+
+						self.select2 = {
+							label: 'Product',
+							readOnly: false,
+							value: options.fieldBinding,
+							multiple: false,
+							maximumSelectionSize: 1,
+							minimumInputLength: 0,
+							placeholder: 'Find product...',
+							formatResult: self.formatResult,
+							formatSelection: self.formatSelection,
+							templateResult: self.templateResult,
+
+							matcher: function (term, text) {
+								return true;
+							},
+
+							id: function (obj) {
+
+								return JSON.stringify(obj)
+							},
+
+							ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+								url: searchAPIUrl,
+								dataType: 'json',
+								type: "get",
+								quietMillis: 250,
+
+								originalValue: ko.unwrap(options.fieldBinding),
+								term: "",
+								data: function (term, page, params) {
+									return {
+										search: term, // search term
+									};
+								},
+								results: function (data, page) {
+
+									return {
+										results: data
+									};
+								},
+								current: function (data) {
+									console.log("CURRENT", data)
+								},
+								cache: true
+							},
+							initSelection: function (element, callback) {
+								//use the hidden "product name" field
+								var json = ko.unwrap(options.fieldBinding);
+
+								if (json && json.length > 0) {
+									var node = JSON.parse(json)
+									callback(node)
+								}
+
+
+
+								// console.log(val)
+
+								// var label = ko.unwrap(options.contentItem.Values.ProductName);
+
+								// if (val && label) {
+								// 	var data = {
+								// 		node: {
+								// 			id: val,
+								// 			title: label
+								// 		}
+								// 	};
+
+								// 	callback(data);
+								// }
+							},
+							allowClear: false,
+							dropdownCssClass: "bigdrop",
+							change: function (e) {
+
+								if (e.added) {
+									var obj = e.added
+									//set the title and the description if we have them
+									if (options.contentItem.Values.Title) {
+										options.contentItem.Values.Title(obj.name)
+									}
+									if (options.contentItem.Values.Description) {
+
+										if (obj.description.indexOf("/>") != -1) {
+											obj.description = $(obj.description).text()
+										}
+
+										options.contentItem.Values.Description(obj.description)
+									}
+
+									if (options.contentItem.Values.CTA) {
+										var productUrl = "~/product" + obj.slug
+										var cta = "<a href=" + productUrl + ">Buy Now</a>"
+										options.contentItem.Values.CTA(cta)
+									}
+
+								}
+							}
+						};
+					}
+
+					ko.applyBindings(viewModel, $pnl.get(0));
+				})
 		}
 
 	}
