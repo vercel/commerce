@@ -3055,7 +3055,7 @@ export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
   'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
   | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
-  | 'collectionIds' | 'facetValueIds' | 'collectionIds'
+  | 'collectionIds' | 'productVariantId' | 'facetValueIds' | "productVariantName"
 > & {
     productAsset?: Maybe<
       { __typename?: 'SearchResultAsset' } & Pick<
@@ -3381,7 +3381,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         variants: Array<
           { __typename?: 'ProductVariant' } & Pick<
             ProductVariant,
-            'id' | 'priceWithTax' | 'currencyCode' | 'price'
+            'id' | 'priceWithTax' | 'currencyCode' | 'price' | "name"
           > & {
               options: Array<
                 { __typename?: 'ProductOption' } & Pick<
@@ -3425,7 +3425,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         collections: Array<
           { __typename?: 'Collection' } & Pick<
             Collection,
-            'id'
+            'id'|"name"
           >
         >
       }

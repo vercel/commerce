@@ -7,6 +7,8 @@ export const searchResultFragment = /* GraphQL */ `
     slug
     sku
     currencyCode
+    productVariantId
+    productVariantName
     productAsset {
       id
       preview

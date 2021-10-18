@@ -1,10 +1,13 @@
 import React from 'react'
+import { ProductCard } from '@commerce/types/product'
 import { CollectionCarcousel } from '..'
 import image5 from '../../../../../public/assets/images/image5.png'
 import image6 from '../../../../../public/assets/images/image6.png'
 import image7 from '../../../../../public/assets/images/image7.png'
 import image8 from '../../../../../public/assets/images/image8.png'
-interface HomeCollectionProps {}
+interface HomeCollectionProps {
+  data: ProductCard[]
+}
 const dataTest = [
   {
     name: 'Tomato',
@@ -92,39 +95,39 @@ const dataTest = [
   },
 ]
 
-const HomeCollection = (props: HomeCollectionProps) => {
+const HomeCollection = ({data}: HomeCollectionProps) => {
   return (
     <div className="w-full">
       <CollectionCarcousel
-        data={dataTest}
+        data={data}
         itemKey="product-2"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
       <CollectionCarcousel
-        data={dataTest}
+        data={data}
         itemKey="product-3"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
       <CollectionCarcousel
-        data={dataTest}
+        data={data}
         itemKey="product-4"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
       <CollectionCarcousel
-        data={dataTest}
+        data={data}
         itemKey="product-5"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         category={"veggie"}
       />
       <CollectionCarcousel
-        data={dataTest}
+        data={data}
         itemKey="product-6"
         title="VEGGIE"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."

@@ -1,25 +1,21 @@
+import { LineItem } from '@commerce/types/cart';
 import React from 'react';
 import ProductCartItem, { ProductCartItempProps } from '../ProductCartItem/ProductCartItem';
 import s from './ProductsInCart.module.scss';
 
 interface Props {
-  data: ProductCartItempProps[]
+  data: LineItem[]
+  currency: { code: string }
 }
 
-const ProductsInCart = ({ data }: Props) => {
+const ProductsInCart = ({ data, currency }: Props) => {
   return (
     <ul className={s.productsInCart}>
       {
         data.map(item => <li key={item.name}>
           <ProductCartItem
-            name={item.name}
-            slug={item.slug}
-            weight={item.weight}
-            price={item.price}
-            oldPrice={item.oldPrice}
-            discount={item.discount}
-            imageSrc={item.imageSrc}
-            quantity={item.quantity}
+            currency = {currency}
+            {...item}
           />
         </li>)
       }
