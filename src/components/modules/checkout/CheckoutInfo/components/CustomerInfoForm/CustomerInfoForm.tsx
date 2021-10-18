@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React, { useRef } from 'react'
 import { ButtonCommon, Inputcommon } from 'src/components/common'
 import InputCommon from 'src/components/common/InputCommon/InputCommon'
+import { ROUTE } from 'src/utils/constanst.utils'
 import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CustomerInfoForm.module.scss'
 interface CustomerInfoFormProps {
@@ -31,14 +32,18 @@ const CustomerInfoForm = ({ id, onConfirm }: CustomerInfoFormProps) => {
         <div className={s.note}>
           By clicking continue you agree to Casper's{' '}
           {
-            <Link href="#">
-              <strong>terms and conditions</strong>
+            <Link href={ROUTE.TERM_CONDITION}>
+              <a>
+                <strong>terms and conditions</strong>
+              </a>
             </Link>
           }{' '}
           and{' '}
           {
-            <Link href="#">
-              <strong>privacy policy </strong>
+            <Link href={ROUTE.PRIVACY_POLICY}>
+              <a>
+                <strong>privacy policy </strong>
+              </a>
             </Link>
           }
           .
