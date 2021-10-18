@@ -17,11 +17,11 @@ interface Props {
   onSwitch: () => void
 }
 
-const DisplayingErrorMessagesSchema = Yup.object().shape({
-  email: Yup.string().email('Your email was wrong').required('Required'),
+const displayingErrorMessagesSchema = Yup.object().shape({
+  email: Yup.string().email(LANGUAGE.MESSAGE.INVALID_EMAIL).required(LANGUAGE.MESSAGE.REQUIRED),
   password: Yup.string()
     .max(30, 'Password is too long')
-    .required('Required'),
+    .required(LANGUAGE.MESSAGE.REQUIRED),
 })
 
 const FormLogin = ({ onSwitch, isHide }: Props) => {
@@ -56,7 +56,7 @@ const FormLogin = ({ onSwitch, isHide }: Props) => {
               password: '',
               email: '',
             }}
-            validationSchema={DisplayingErrorMessagesSchema}
+            validationSchema={displayingErrorMessagesSchema}
             onSubmit={onLogin}
             
           >

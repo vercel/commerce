@@ -1,25 +1,34 @@
-import Link from 'next/link'
+import { Form, Formik } from 'formik'
 import React, { useRef } from 'react'
-import { ButtonCommon, Inputcommon } from 'src/components/common'
-import InputCommon from 'src/components/common/InputCommon/InputCommon'
+import { ButtonCommon, InputFiledInForm } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
 import { useSetCustomerForOrder } from 'src/components/hooks/order'
-import { ROUTE } from 'src/utils/constanst.utils'
-import { CheckOutForm } from 'src/utils/types.utils'
+import { LANGUAGE } from 'src/utils/language.utils'
+import { CustomInputCommon } from 'src/utils/type.utils'
+import * as Yup from 'yup'
+import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
 import s from './CustomerInfoForm.module.scss'
-interface CustomerInfoFormProps {
-  onConfirm?: (id: number, formInfo: CheckOutForm) => void
-  id: number
+interface Props {
+  isHide: boolean
+  onSwitch: () => void
 }
 
-const CustomerInfoForm = ({ id, onConfirm }: CustomerInfoFormProps) => {
-  const nameRef = useRef<React.ElementRef<typeof InputCommon>>(null)
-  const emailRef = useRef<React.ElementRef<typeof InputCommon>>(null)
+const displayingErrorMessagesSchema = Yup.object().shape({
+  firstName: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
+  lastName: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
+  emailAddress: Yup.string().email(LANGUAGE.MESSAGE.INVALID_EMAIL).required(LANGUAGE.MESSAGE.REQUIRED),
+})
+
+const CustomerInfoForm = ({ onSwitch, isHide }: Props) => {
+  const firstNameRef = useRef<CustomInputCommon>(null)
+  const emailRef = useRef<CustomInputCommon>(null)
   const { setCustomerForOrder, loading } = useSetCustomerForOrder()
   const { showMessageError } = useMessage()
 
-  const handleConfirmClick = () => {
-    setCustomerForOrder({ firstName: 'Ly', lastName: 'Tran', emailAddress: 'test7@gmail.com' }, onSubmitCalBack)
+  const handleSubmit = (values: { firstName: string, lastName: string, emailAddress: string }) => {
+    console.log('on submit: ', values)
+    const { firstName, lastName, emailAddress } = values
+    setCustomerForOrder({ firstName, lastName, emailAddress }, onSubmitCalBack)
     // onConfirm &&
     //   onConfirm(id, {
     //     name: nameRef?.current?.getValue().toString(),
@@ -28,8 +37,9 @@ const CustomerInfoForm = ({ id, onConfirm }: CustomerInfoFormProps) => {
   }
   const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
     // TODO:
+    console.log("result: ", isSuccess, msg)
     if (isSuccess) {
-      
+
     } else {
       console.log("error here")
       showMessageError(msg)
@@ -38,38 +48,70 @@ const CustomerInfoForm = ({ id, onConfirm }: CustomerInfoFormProps) => {
   }
 
   return (
-    <div className={s.warpper}>
+    <section className={s.warpper}>
       <div className={s.body}>
-        <Inputcommon type="text" placeholder="Full Name" ref={nameRef} />
-        <Inputcommon type="text" placeholder="Email Address" ref={emailRef} />
+        <Formik
+          initialValues={{
+            firstName: '',
+            lastName: '',
+            emailAddress: '',
+          }}
+          validationSchema={displayingErrorMessagesSchema}
+          onSubmit={handleSubmit}
+
+        >
+          {({ errors, touched, isValid, submitForm }) => (
+            <Form className="u-form">
+              <div className="body">
+                <div className="line">
+                  <InputFiledInForm
+                    name="firstName"
+                    placeholder="First name"
+                    ref={firstNameRef}
+                    error={
+                      touched.firstName && errors.firstName
+                        ? errors.firstName.toString()
+                        : ''
+                    }
+                    isShowIconSuccess={touched.firstName && !errors.firstName}
+                  />
+
+                  <InputFiledInForm
+                    name="lastName"
+                    placeholder="Last name"
+                    error={
+                      touched.lastName && errors.lastName
+                        ? errors.lastName.toString()
+                        : ''
+                    }
+                    isShowIconSuccess={touched.lastName && !errors.lastName}
+                  />
+                </div>
+                <InputFiledInForm
+                  name="emailAddress"
+                  placeholder="Email Address"
+                  ref={emailRef}
+                  error={
+                    touched.emailAddress && errors.emailAddress
+                      ? errors.emailAddress.toString()
+                      : ''
+                  }
+                  isShowIconSuccess={touched.emailAddress && !errors.emailAddress}
+                  onEnter={isValid ? submitForm : undefined}
+
+                />
+              </div>
+              <div className={s.bottom}>
+                <ChekoutNotePolicy />
+                <ButtonCommon HTMLType='submit' loading={loading} size="large">
+                  Continue to Shipping
+                </ButtonCommon>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
-      <div className={s.bottom}>
-        <div className={s.note}>
-          By clicking continue you agree to Casper's{' '}
-          {
-            <Link href={ROUTE.TERM_CONDITION}>
-              <a>
-                <strong>terms and conditions</strong>
-              </a>
-            </Link>
-          }{' '}
-          and{' '}
-          {
-            <Link href={ROUTE.PRIVACY_POLICY}>
-              <a>
-                <strong>privacy policy </strong>
-              </a>
-            </Link>
-          }
-          .
-        </div>
-        <div className={s.button}>
-          <ButtonCommon onClick={handleConfirmClick}>
-            Continue to Shipping
-          </ButtonCommon>
-        </div>
-      </div>
-    </div>
+    </section>
   )
 }
 
