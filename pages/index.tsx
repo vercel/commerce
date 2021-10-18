@@ -6,22 +6,24 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
-import { FACET } from 'src/utils/constanst.utils';
+import { COLLECTION_SLUG_SPICE, FACET } from 'src/utils/constanst.utils';
 import { FilterOneVatiant, getFacetIdByName } from 'src/utils/funtion.utils';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED } from 'src/utils/constanst.utils';
 import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
 
 interface Props {
-    featuredAndDiscountFacetsValue: FacetValue[],
-    freshProducts: ProductCard[],
-    featuredProducts: ProductCard[],
-    collections: Collection[]
-    veggie: ProductCard[],
+  featuredAndDiscountFacetsValue: FacetValue[],
+  freshProducts: ProductCard[],
+  featuredProducts: ProductCard[],
+  collections: Collection[]
+  spiceProducts:ProductCard[],
+  veggie: ProductCard[],
 }
 export default function Home({ featuredAndDiscountFacetsValue,
   freshProducts, featuredProducts, veggie,
-  collections }: Props) {
+  collections,spiceProducts }: Props) {
+
   return (
     <>
       <HomeBanner />
@@ -30,7 +32,7 @@ export default function Home({ featuredAndDiscountFacetsValue,
       <HomeCollection data = {veggie}/>
       <FreshProducts data={freshProducts} collections={collections} />
       <HomeVideo />
-      <HomeSpice />
+      {spiceProducts.length>0 && <HomeSpice data={spiceProducts}/>}
       <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       <HomeCTA />
       <HomeRecipe />
@@ -115,16 +117,24 @@ export async function getStaticProps({
   })
   promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections'  })
 
+  // spiceProducts
+  const spiceProducts = commerce.getAllProducts({
+    variables: {
+      collectionSlug: COLLECTION_SLUG_SPICE,
+    },
+    config,
+    preview,
+  })
+  promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
 
   try {
     const promises = getAllPromies(promisesWithKey)
     const rs = await Promise.all(promises)
-
+    
     promisesWithKey.map((item, index) => {
       props[item.key] = item.keyResult ? FilterOneVatiant(rs[index][item.keyResult]) : rs[index]
       return null
     })
-
     return {
       props,
       revalidate: 60,

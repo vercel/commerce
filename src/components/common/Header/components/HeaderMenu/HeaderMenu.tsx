@@ -58,6 +58,10 @@ const HeaderMenu = memo(
           onClick: openModalRegister,
           name: 'Create account',
         },
+        {
+          link: '/forgot-password',
+          name: 'Forgot Password',
+        },
       ],
       [openModalLogin, openModalRegister]
     )

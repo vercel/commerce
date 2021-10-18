@@ -1,3 +1,4 @@
+import { Product } from '@commerce/types/product'
 import React from 'react'
 import { ButtonCommon, LabelCommon, QuanittyInput } from 'src/components/common'
 import { IconBuy } from 'src/components/icons'
@@ -5,25 +6,25 @@ import { LANGUAGE } from 'src/utils/language.utils'
 import s from './ProductInfo.module.scss'
 
 interface Props {
-    className?: string
-    children?: any,
+    productInfoDetail: Product
 }
 
-const ProductInfo = ({ }: Props) => {
+const ProductInfo = ({ productInfoDetail }: Props) => {
+    console.log(productInfoDetail)
     return (
         <section className={s.productInfo}>
             <div className={s.info}>
-                <LabelCommon shape='half'>SEAFOOD</LabelCommon>
-                <h2 className={s.heading}>SeaPAk</h2>
+                <LabelCommon shape='half'>{productInfoDetail.collection}</LabelCommon>
+                <h2 className={s.heading}>{productInfoDetail.name}</h2>
                 <div className={s.price}>
                     <div className={s.old}>
-                        <span className={s.number}>Rp 32.000</span>
+                        <span className={s.number}>Rp {productInfoDetail.price}</span>
                         <LabelCommon type='discount'>-15%</LabelCommon>
                     </div>
-                    <div className={s.current}>Rp 27.500</div>
+                    <div className={s.current}>Rp {productInfoDetail.price}</div>
                 </div>
                 <div className={s.description}>
-                    In a large non-reactive dish, mix together the orange juice, soy sauce, olive oil, lemon juice, parsley
+                    {productInfoDetail.description}
                 </div>
             </div>
             <div className={s.actions}>

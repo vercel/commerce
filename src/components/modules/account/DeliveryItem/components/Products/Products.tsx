@@ -1,19 +1,19 @@
+import { OrderLine } from "@framework/schema";
 import React from "react"
 import s from './Products.module.scss'
 
 interface ProductsProps {
-    products: string[];
+    products?: OrderLine[];
 }
 
 const Products = ({ products } : ProductsProps) => {
-
-    function toString(products:string[]): string {
+    function toString(products?:OrderLine[]): string {
         let strProducts = "";
-        products.map((prod, i) => {
+        products?.map((prod, i) => {
             if (i === 0) {
-                strProducts += prod;
+                strProducts += prod.productVariant?.name;
             } else {
-                strProducts += `, ${prod}`
+                strProducts += `, ${prod.productVariant?.name}`
             }
         });
         return strProducts;

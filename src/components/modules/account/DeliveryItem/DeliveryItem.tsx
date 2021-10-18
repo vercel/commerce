@@ -5,12 +5,13 @@ import IdAndStatus from './components/IdAndStatus/IdAndStatus'
 import Products from './components/Products/Products'
 import TotalPrice from './components/TotalPrice/TotalPrice'
 import ReOrder from './components/ReOrder/ReOrder'
+import { OrderLine } from "@framework/schema"
 
 
 interface DeliveryItemProps {
     id: string;
     status: "waiting" | "delivering" | "delivered";
-    products: string[];
+    products?: OrderLine[];
     totalPrice: number;
 }
 

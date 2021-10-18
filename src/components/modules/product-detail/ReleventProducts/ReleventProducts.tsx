@@ -23,7 +23,6 @@ const ReleventProducts = ({ data, collections }: Props) => {
     if (data.length === 0) {
         return null
     }
-
     return (
         <ListProductWithInfo
             title="Relevant Products"

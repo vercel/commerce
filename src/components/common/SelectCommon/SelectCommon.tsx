@@ -5,6 +5,8 @@ import s from './SelectCommon.module.scss'
 import SelectOption from './SelectOption/SelectOption'
 
 interface Props {
+    selected?:string|null,
+    initValue?:string|null,
     placeholder? : string,
     value?: string,
     size?: 'base' | 'large',
@@ -13,16 +15,16 @@ interface Props {
     onChange?: (value: string) => void,
 }
 
-const SelectCommon = ({ value, type = 'default', size = 'base', options, placeholder, onChange}: Props) => {
-    const [selectedName, setSelectedName] = useState<string>()
-    const [selectedValue, setSelectedValue] = useState<string>('')
+const SelectCommon = ({selected,initValue, type = 'default', size = 'base', options, placeholder, onChange}: Props) => {
+    const [selectedName, setSelectedName] = useState(placeholder)
+    const [selectedValue, setSelectedValue] = useState('')
 
-    useEffect(() => {
-        setSelectedValue(value || '')
-
-        const name = options.find(item => item.value === value)?.name
-        setSelectedName(name)
-    }, [value, options])
+    useEffect(()=>{
+        const nameSelect = options.find((val)=>val.value === selected);
+        setSelectedName(nameSelect?.name ?? 'State');
+        setSelectedValue(initValue ?? '');
+        onChange && onChange(initValue ?? '');
+    },[])
 
     const changeSelectedName = (value: string) => {
         setSelectedValue(value)
