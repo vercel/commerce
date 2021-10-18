@@ -20,19 +20,19 @@ const normalizeLineItem = (
   } = commercejsLineItem
   return {
     id,
-    variantId: '',
+    variantId: variant?.id ?? '',
     productId: product_id,
     name: product_name,
     quantity,
     discounts: [],
     path: permalink,
     variant: {
-      id: variant?.id || id,
-      sku: variant?.sku || sku,
+      id: variant?.id ?? id,
+      sku: variant?.sku ?? sku,
       name: product_name,
       requiresShipping: false,
-      price: variant?.price?.raw || price.raw,
-      listPrice: variant?.price?.raw || price.raw,
+      price: variant?.price?.raw ?? price.raw,
+      listPrice: variant?.price?.raw ?? price.raw,
       image: {
         url: image.url,
       },
@@ -51,17 +51,16 @@ export const normalizeCart = (commercejsCart: CommercejsCart): Cart => {
 
   return {
     id,
-    createdAt: new Date(created * 1000).toString(),
+    createdAt: new Date(created * 1000).toISOString(),
     currency: {
       code: currency.code,
     },
-    taxesIncluded: true,
+    taxesIncluded: false,
     lineItems: line_items.map((item) => {
       return normalizeLineItem(item as CommercejsLineItemType)
     }),
     lineItemsSubtotalPrice: rawPrice,
     subtotalPrice: rawPrice,
     totalPrice: rawPrice,
-    discounts: undefined,
   }
 }
