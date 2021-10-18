@@ -1,6 +1,10 @@
 import type { UpdateItemHook, LineItem } from '@commerce/types/cart'
-import type { MutationHook, MutationHookContext } from '@commerce/utils/types'
-
+import type {
+  HookFetcherContext,
+  MutationHookContext,
+} from '@commerce/utils/types'
+import { ValidationError } from '@commerce/utils/errors'
+import debounce from 'lodash.debounce'
 import { useCallback } from 'react'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
 import { normalizeCart } from '../utils/normalize-cart'
@@ -8,12 +12,16 @@ import useCart from './use-cart'
 
 export default useUpdateItem as UseUpdateItem<typeof handler>
 
-export const handler: MutationHook<UpdateItemHook> = {
+export type UpdateItemActionInput<T = any> = T extends LineItem
+  ? Partial<UpdateItemHook['actionInput']>
+  : UpdateItemHook['actionInput']
+
+export const handler = {
   fetchOptions: {
     query: 'cart',
     method: 'update',
   },
-  async fetcher({ input, options, fetch }) {
+  async fetcher({ input, options, fetch }: HookFetcherContext<UpdateItemHook>) {
     const variables = [input.itemId, { quantity: input.item.quantity }]
     const { cart } = await fetch({
       query: options.query,
@@ -30,30 +38,37 @@ export const handler: MutationHook<UpdateItemHook> = {
         wait?: number
       } = {}
     ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { mutate } = useCart() as any
       const { item } = ctx
 
-      // TODO - debounce this function.
-
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       return useCallback(
-        async function addItem(input) {
+        debounce(async (input: UpdateItemActionInput<T>) => {
           const itemId = input.id ?? item?.id
           const productId = input.productId ?? item?.productId
           const variantId = input.productId ?? item?.variantId
+          const quantity = input?.quantity ?? item?.quantity
+
+          if (!itemId || !productId || !variantId) {
+            throw new ValidationError({
+              message: 'Invalid input for updating cart item',
+            })
+          }
 
           const cart = await fetch({
             input: {
               itemId,
               item: {
+                quantity,
                 productId,
-                variantId: variantId as string,
-                quantity: input?.quantity,
+                variantId,
               },
             },
           })
           await mutate(cart, false)
           return cart
-        },
+        }, ctx.wait ?? 500),
         [mutate, item]
       )
     },
