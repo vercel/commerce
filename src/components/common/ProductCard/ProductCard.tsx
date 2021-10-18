@@ -10,7 +10,9 @@ import ItemWishList from '../ItemWishList/ItemWishList'
 import LabelCommon from '../LabelCommon/LabelCommon'
 import s from './ProductCard.module.scss'
 import ProductNotSell from './ProductNotSell/ProductNotSell'
-
+import {useAddProductToCart} from "../../hooks/cart"
+import { useCartDrawer } from 'src/components/contexts'
+import Router from 'next/router'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
@@ -29,14 +31,41 @@ const ProductCardComponent = ({
   imageSrc,
   isNotSell,
   isSingleButton,
+  productVariantId,
+  productVariantName,
   activeWishlist
 }: ProductCardProps) => {
+
+  const {addProduct,loading} = useAddProductToCart()
+  const { openCartDrawer } = useCartDrawer()
+
+  const handleAddToCart = () => {
+    if(productVariantId){
+      addProduct({variantId:productVariantId,quantity:1},handleAddToCartCallback)
+    }
+  }
+  const handleAddToCartCallback = () => {
+    openCartDrawer && openCartDrawer()
+  }
+
+  const handleBuyNowCallback = (success:boolean) => {
+    if(success){
+      Router.push(ROUTE.CHECKOUT)
+    }
+  }
+
+  const handleBuyNow = () => {
+    if(productVariantId){
+      addProduct({variantId:productVariantId,quantity:1},handleBuyNowCallback)
+    }
+  }
+
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
       <ProductNotSell name={name} imageSrc={imageSrc} />
     </div>
-
   }
+
  
   return (
     <div className={s.productCardWarpper}>
@@ -59,7 +88,7 @@ const ProductCardComponent = ({
         <div className={s.cardMidTop}>
           <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
             <a>
-              <div className={s.productname}>{name} </div>
+              <div className={s.productname}>{productVariantName} </div>
             </a>
           </Link>
           <div className={s.productWeight}>{weight}</div>
@@ -75,15 +104,15 @@ const ProductCardComponent = ({
         {
           isSingleButton ?
             <div className={s.cardButton}>
-              <ButtonCommon type="light" icon={<IconBuy />} size='small'>Add to cart</ButtonCommon>
+              <ButtonCommon type="light" icon={<IconBuy />} size='small' onClick={handleAddToCart}>Add to cart</ButtonCommon>
             </div>
             :
             <>
-              <div className={s.cardIcon}>
-                <ButtonIconBuy/>
+              <div className={s.cardIcon} >
+                <ButtonIconBuy onClick={handleAddToCart} loading={loading}/>
               </div>
               <div className={s.cardButton}>
-                <ButtonCommon type="light" size='small'>{buttonText}</ButtonCommon>
+                <ButtonCommon type="light" size='small' onClick={handleBuyNow}>{buttonText}</ButtonCommon>
               </div>
             </>
         }

@@ -17,6 +17,7 @@ export type LineItem = {
   quantity: number
   discounts: Discount[]
   // A human-friendly unique string automatically generated from the product’s name
+  slug: string
   path: string
   variant: ProductVariant
   options?: SelectedOption[]

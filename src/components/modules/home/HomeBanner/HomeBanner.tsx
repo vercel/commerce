@@ -1,5 +1,7 @@
-import React from 'react'
+import { CollectionListOptions, GetCollectionsQuery } from '@framework/schema'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Banner, StaticImage } from 'src/components/common'
+import useGetProductListByCollection from 'src/components/hooks/useGetProductListByCollection'
 import { ROUTE } from 'src/utils/constanst.utils'
 import BannerImgRight from './assets/banner_full.png'
 import HomeBannerImg from './assets/home_banner.png'
@@ -11,6 +13,10 @@ interface Props {
 }
 
 const HomeBanner = ({ }: Props) => {
+    // const variables = useMemo(() => {
+    //     return {option: {filter: {name: {eq: "Computers" }}}}
+    // }, [])
+	// const {collections} = useGetProductListByCollection(variables)
     return (
         <div className={s.homeBanner}>
             <section className={s.left}>

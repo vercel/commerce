@@ -3055,7 +3055,7 @@ export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
   'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
   | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
-  | 'collectionIds' | 'facetValueIds' | 'collectionIds'
+  | 'collectionIds' | 'productVariantId' | 'facetValueIds' | "productVariantName"
 > & {
     productAsset?: Maybe<
       { __typename?: 'SearchResultAsset' } & Pick<

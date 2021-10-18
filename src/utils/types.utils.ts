@@ -1,3 +1,4 @@
+
 export interface ProductProps {
     category?: string
     name: string
@@ -57,6 +58,14 @@ export type filterContextType = {
     close: () => void;
 };
 
+export interface StringMap { [key: string]: string; }
+
+export interface FacetMap extends StringMap{
+    PARENT_NAME: string
+}
+export interface FacetConstant{
+    [key: string]: FacetMap;
+}
 export type PromiseWithKey = {
     key: string
     promise: PromiseLike<any>

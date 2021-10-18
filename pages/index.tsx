@@ -6,6 +6,8 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
+import { FACET } from 'src/utils/constanst.utils';
+import { FilterOneVatiant, getFacetIdByName } from 'src/utils/funtion.utils';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED,COLLECTION_SLUG_SPICE } from 'src/utils/constanst.utils';
 import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
@@ -16,8 +18,10 @@ interface Props {
   featuredProducts: ProductCard[],
   collections: Collection[]
   spiceProducts:ProductCard[]
+  veggie: ProductCard[],
+
 }
-export default function Home({ featuredAndDiscountFacetsValue,
+export default function Home({ featuredAndDiscountFacetsValue, veggie,
   freshProducts, featuredProducts,
   collections,spiceProducts }: Props) {
 
@@ -26,8 +30,8 @@ export default function Home({ featuredAndDiscountFacetsValue,
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
+      <HomeCollection data = {veggie}/>
       <FreshProducts data={freshProducts} collections={collections} />
-      <HomeCollection />
       <HomeVideo />
       {spiceProducts.length>0 && <HomeSpice data={spiceProducts}/>}
       <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
@@ -56,6 +60,8 @@ export async function getStaticProps({
     config,
     preview,
   })
+  
+
   props.featuredAndDiscountFacetsValue = getAllFacetValuesForFeatuedProducts(facets)
   
   // fresh products
@@ -73,7 +79,20 @@ export async function getStaticProps({
     props.freshProducts = []
   }
 
-
+  //veggie
+  const veggieProductvariables: ProductVariables = {
+    groupByProduct:false
+  }
+  const veggieId = getFacetIdByName(facets,FACET.CATEGORY.PARENT_NAME,FACET.CATEGORY.VEGGIE)
+  if (veggieId) {
+    veggieProductvariables.facetValueIds = [veggieId]
+  }
+  const veggieProductsPromise = commerce.getAllProducts({
+    variables: veggieProductvariables,
+    config,
+    preview,
+  })
+  promisesWithKey.push({ key: 'veggie', promise: veggieProductsPromise, keyResult: 'products'  })
   // featured products
   const allFeaturedFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_FEATURED)
   const allDiscountFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_DISCOUNT)
@@ -115,7 +134,7 @@ export async function getStaticProps({
     const rs = await Promise.all(promises)
     
     promisesWithKey.map((item, index) => {
-      props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
+      props[item.key] = item.keyResult ? FilterOneVatiant(rs[index][item.keyResult]) : rs[index]
       return null
     })
     return {

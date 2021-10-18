@@ -1,6 +1,7 @@
 import { Facet } from "@commerce/types/facet";
+import { ProductCard } from "@commerce/types/product";
 import { Collection, FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
-import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SortOrder } from "./types.utils";
 
 export function isMobile() {
@@ -79,6 +80,18 @@ export function getFreshFacetId(facets: Facet[]) {
   return freshFacetValue?.id
 }
 
+export function getFacetIdByName(facets: Facet[], facetName: string, valueName:string) {
+  const featuredFacet = facets.find((item: Facet) => item.name === facetName)
+  const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.name === valueName)
+  return freshFacetValue?.id
+}
+
+
+export function getAllFeaturedFacetId(facets: Facet[]) {
+  const featuredFacet = facets.find((item: Facet) => item.name === FACET.FEATURE.PARENT_NAME)
+  const rs = featuredFacet?.values.map((item: FacetValue) => item.id)
+  return rs || []
+}
 export function getAllFacetValueIdsByParentCode(facets: Facet[], code: string) {
   const featuredFacet = facets.find((item: Facet) => item.code === code)
   const rs = featuredFacet?.values.map((item: FacetValue) => item.id)
@@ -127,4 +140,16 @@ export const getCategoryNameFromCollectionId = (colelctions: Collection[], colle
 
 export function getAllPromies(promies: PromiseWithKey[]) {
   return promies.map(item => item.promise)
+}
+
+export const FilterOneVatiant = (products:ProductCard[]) => {
+  let idList:string[] = []
+  let filtedProduct: ProductCard[]=[]
+  products.map((product:ProductCard)=>{
+    if(!idList.includes(product.id)){
+      filtedProduct.push(product)
+      idList.push(product.id)
+    }
+  })
+  return filtedProduct
 }
