@@ -1,6 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 import { SearchProductsBody, SearchProductsHook } from '@commerce/types/product'
+import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
 import { normalizeProduct } from '../utils/normalize-product'
 
 export default useSearch as UseSearch<typeof handler>
@@ -23,19 +24,41 @@ export const handler: SWRHook<SearchProductsHook> = {
       return variables
     }
 
-    const { data, meta } = await fetch({
+    const { data, meta } = await fetch<{
+      data: CommercejsProduct[]
+      meta: {
+        pagination: {
+          total: number
+        }
+      }
+    }>({
       query: options.query,
       method: options.method,
       variables: getSearchVariables(input),
     })
 
-    const formattedProducts = data?.map(normalizeProduct) || []
+    // Manually sort the products because the Commerce.js SDK doesn't support this yet.
+    let sortedProducts = data
+    switch (input.sort) {
+      case 'trending-desc':
+        sortedProducts = data.sort((a, b) => b.updated - a.updated)
+        break
+      case 'latest-desc':
+        sortedProducts = data.sort((a, b) => b.updated - a.updated)
+        break
+      case 'price-asc':
+        sortedProducts = data.sort((a, b) => a.price.raw - b.price.raw)
+        break
+      case 'price-desc':
+        sortedProducts = data.sort((a, b) => b.price.raw - a.price.raw)
+        break
+    }
 
-    // TODO - manually sort products here?
+    const formattedProducts = sortedProducts?.map(normalizeProduct) || []
 
     return {
       products: formattedProducts,
-      found: meta.pagination.total,
+      found: meta.pagination.total > 0,
     }
   },
   useHook:
