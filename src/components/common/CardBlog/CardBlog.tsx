@@ -6,8 +6,11 @@ import { ImgWithLink } from '..'
 import s from './CardBlog.module.scss'
 
 export interface BlogCardProps extends BlogProps {
-  // todo: edit when intergrate API
-  isHidden:Boolean
+  isPublish?:Boolean,
+  isFeatured?:Boolean,
+  authorAvatarAsset?:string,
+  authorName?:string,
+  createdAt?:string
 }
 
 const CardBlog = ({ imageSrc, title, description, slug }: BlogCardProps) => {

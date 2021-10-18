@@ -2317,11 +2317,12 @@ export type BlogList = Node &{
   createdAt: DateTime!
   updatedAt: DateTime!
   featuredAsset?: Maybe<Asset>
-  isHidden:Boolean
+  isPublish:Boolean
   translations: Array<BlogTranslation>
   authorName: Scalars['String']
-  authorAvatarAsset:Array<Asset>
+  authorAvatarAsset:Asset
   relevantProducts: Product
+  isFeatured: Boolean
 }
 
 export type BlogTranslation = {
@@ -2342,8 +2343,15 @@ export type GetAllBlogsQuery = PaginatedList & {
     'totalItems'
   }
 }
+export type GetFeaturedBlogQuery = PaginatedList & {
+  featuredBlogs: { __typename?: 'BlogList' } & {
+    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    'totalItems'
+  }
+}
 
 export type QueryBlogs = {
+  excludeBlogIds:Array,
   options: BlogListOptions
 }
 

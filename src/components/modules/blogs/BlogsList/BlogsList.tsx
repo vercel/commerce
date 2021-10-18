@@ -15,19 +15,20 @@ interface BlogsListProps {
 }
 
 const DEFAULT_BLOGS_ARGS = {
+    excludeBlogIds: ["28"],
     options:{
         skip: 1, take: DEFAULT_BLOG_PAGE_SIZE
     }
 }
 
 const BlogsList = ({ blogList,total }:BlogsListProps) => {
+    
     const router = useRouter();
     const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
 
     const [optionQueryBlog, setOptionQueryBlog] = useState<QueryBlogs>(DEFAULT_BLOGS_ARGS)
     const { blogs, totalItems, loading } = useGetBlogList(optionQueryBlog);
 
-    // console.log(blogs);
 
 
     const onPageChange = (page:number) => {
@@ -49,7 +50,7 @@ const BlogsList = ({ blogList,total }:BlogsListProps) => {
         query.options.skip = page * DEFAULT_BLOG_PAGE_SIZE;
         setOptionQueryBlog(query);
         setInitialQueryFlag(false);
-        console.log(query)
+
     },[router.query])
 
        
@@ -59,18 +60,19 @@ const BlogsList = ({ blogList,total }:BlogsListProps) => {
     }else{
         data = blogs
     }
+    console.log(blogList);
 
     return (
         <section>
             <div className={s.wrapper}>
-                {(!initialQueryFlag && loading && !blogs) && <ListProductCardSkeleton count={DEFAULT_BLOG_PAGE_SIZE} isWrap />}
+                {(!initialQueryFlag && loading && !blogs) && <ListProductCardSkeleton count={DEFAULT_BLOG_PAGE_SIZE} isWrap isBlog={true} />}
                 <div className={s.list}>
                     
                     {
                         data?.map((product,index)=> {
                         return(
                                 <div className={s.card} key={`${product.title}-${index}`}>
-                                    {!product.isHidden && <CardBlog {...product} /> }
+                                    {product.isPublish && <CardBlog {...product} /> }
                                 </div>
                             )
                         })

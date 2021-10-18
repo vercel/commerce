@@ -19,8 +19,14 @@ export type GetAllBlogsOperation<T extends BlogsType = BlogsType> = {
     variables: {
         take?: number
         skip?: number
-        sort?: SearchResultSortParameter
     }
-  }
+}
 
   
+export type GetFeaturedOperation<T extends BlogsType = BlogsType> = {
+    data: { items: T['items'][] }
+    variables: {
+        take?: number
+        skip?: number
+    }
+}

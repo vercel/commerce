@@ -56,7 +56,7 @@ export async function getStaticProps({
     preview,
   })
   props.featuredAndDiscountFacetsValue = getAllFacetValuesForFeatuedProducts(facets)
-  
+
   // fresh products
   const freshProductvariables: ProductVariables = {}
   const freshFacetId = getFreshFacetId(facets)

@@ -1,25 +1,24 @@
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
-import { GetAllBlogsQuery,BlogList } from '../../schema'
-import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query'
+import { GetFeaturedBlogQuery,BlogList } from '../../schema'
+import { getFeatuedBlogQuery } from '../../utils/queries/get-featued-query'
 
 export type BlogVariables = {
-  excludeBlogIds?: string[],
   take?: number,
   skip?:number
 }
 
-export default function getAllBlogsOperation({
+export default function getFeaturedBlogOperation({
   commerce,
 }: OperationContext<Provider>) {
-  async function getAllBlogs(opts?: {
+  async function getFeaturedBlog(opts?: {
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<{ blogs: GetAllBlogsQuery,totalItems:number }>
+  }): Promise<{ featuredBlogs: GetFeaturedBlogQuery,totalItems:number }>
 
-  async function getAllBlogs({
-    query = getAllBlogsQuery,
+  async function getFeaturedBlog({
+    query = getFeatuedBlogQuery,
     variables: { ...vars } = {},
     config: cfg,
   }: {
@@ -27,21 +26,18 @@ export default function getAllBlogsOperation({
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<{ blogs: GetAllBlogsQuery | any[] ,totalItems?:number }> {
-    console.log(vars.excludeBlogIds)
+  } = {}): Promise<{ featuredBlogs: GetFeaturedBlogQuery | any[] ,totalItems?:number }> {
     const config = commerce.getConfig(cfg)
     const variables = {
-      excludeBlogIds: vars.excludeBlogIds,
       options: {
         take: vars.take,
-        skip: vars.skip,
       },
     }
-    const { data } = await config.fetch<GetAllBlogsQuery>(query, {
+    const { data } = await config.fetch<GetFeaturedBlogQuery>(query, {
       variables,
     })
     return {
-        blogs: data?.blogs?.items?.map((val:BlogList)=>({
+      featuredBlogs: data?.featuredBlogs?.items?.map((val:BlogList)=>({
             id: val.id,
             title: val.translations[0]?.title,
             imageSrc: val.featuredAsset?.preview ?? null,
@@ -52,10 +48,9 @@ export default function getAllBlogsOperation({
             authorName: val.authorName,
             authorAvatarAsset : val.authorAvatarAsset?.preview,
             createdAt: val.createdAt
-        })),
-        totalItems: data?.blogs?.totalItems || null
+        }))
     }
   }
 
-  return getAllBlogs
+  return getFeaturedBlog
 }

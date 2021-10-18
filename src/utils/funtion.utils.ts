@@ -1,3 +1,4 @@
+import { BlogList } from '@framework/schema';
 import { Facet } from "@commerce/types/facet";
 import { Collection, FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
@@ -128,3 +129,8 @@ export const getCategoryNameFromCollectionId = (colelctions: Collection[], colle
 export function getAllPromies(promies: PromiseWithKey[]) {
   return promies.map(item => item.promise)
 }
+
+export function getIdFeaturedBlog(blog: BlogList) {
+  return blog?.id
+}
+

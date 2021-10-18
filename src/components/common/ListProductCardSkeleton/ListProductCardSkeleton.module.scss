@@ -9,4 +9,11 @@
             margin-bottom: 1.6rem;
         }
     }
+    &.isBlog{
+        width: 90%;
+        justify-content: space-between;
+        div{
+            min-width: 32rem;
+        }
+    }
 }
