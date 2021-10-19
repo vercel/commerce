@@ -76,12 +76,11 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
     addProduct({ variantId: "63", quantity: 1 }, handleAddToCartCallback)
   }
   const handleAddToCartCallback = (isSuccess: boolean, message?: string) => {
-    console.log("after create order: ", isSuccess, message)
+    // console.log("after create order: ", isSuccess, message)
 
   }
 
   const {order} = useGetActiveOrder()
-  console.log("active order: ", order)
 
   return (
     <div className={s.warpper}>
