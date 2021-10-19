@@ -1,23 +1,18 @@
 import { commerce } from '../../lib/commercejs'
+import Commerce from '@chec/commerce.js'
 
-type Queries = keyof typeof commerce
+type MethodKeys<T> = {
+  [K in keyof T]: T[K] extends (...args: any) => infer R ? K : never
+}[keyof T]
 
-// TODO - generate this type dynamically from the Commerce type.
-type Methods = 'list' | 'retrieve'
-
-export type SdkFetch = (
-  query: Queries,
-  method: Methods,
-  variables?: Array<any>
-) => Promise<any>
-
-const sdkFetch: SdkFetch = async (query, method, variables = []) => {
-  const resource = commerce[query]
-
-  // TODO
-  // @ts-ignore
-  const data = await resource[method](...variables)
+export default async function sdkFetch<
+  Resource extends keyof Commerce,
+  Method extends MethodKeys<Commerce[Resource]>
+>(
+  resource: Resource,
+  method: Method,
+  ...variables: Parameters<Commerce[Resource][Method]>
+): Promise<ReturnType<Commerce[Resource][Method]>> {
+  const data = await commerce[resource][method](...variables)
   return data
 }
-
-export default sdkFetch

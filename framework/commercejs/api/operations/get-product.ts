@@ -1,8 +1,6 @@
 import type { OperationContext } from '@commerce/api/operations'
 import type { GetProductOperation } from '@commerce/types/product'
-
 import type { CommercejsConfig, Provider } from '../index'
-
 import { normalizeProduct } from '../../utils/normalize-product'
 
 export default function getProductOperation({
@@ -20,10 +18,14 @@ export default function getProductOperation({
     const { sdkFetch } = commerce.getConfig(config)
 
     // Fetch a product by its permalink.
-    const product = await sdkFetch('products', 'retrieve', [
-      variables?.slug,
-      { type: 'permalink' },
-    ])
+    const product = await sdkFetch(
+      'products',
+      'retrieve',
+      variables?.slug || '',
+      {
+        type: 'permalink',
+      }
+    )
 
     const productFormatted = normalizeProduct(product)
 

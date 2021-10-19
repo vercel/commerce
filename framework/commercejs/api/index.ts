@@ -7,12 +7,12 @@ import getSiteInfo from './operations/get-site-info'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
-import sdkFetch, { SdkFetch } from './utils/sdk-fetch'
+import sdkFetch from './utils/sdk-fetch'
 import createGraphqlFetcher from './utils/graphql-fetch'
 import { API_URL, CART_COOKIE } from '../constants'
 
 export interface CommercejsConfig extends CommerceAPIConfig {
-  sdkFetch: SdkFetch
+  sdkFetch: typeof sdkFetch
 }
 
 const config: CommercejsConfig = {
