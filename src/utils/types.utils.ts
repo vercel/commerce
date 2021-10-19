@@ -34,8 +34,9 @@ export interface BlogProps {
 }
 
 export interface CheckOutForm {
-    name?: string
-    email?: string
+    firstName?: string
+    lastName?: string
+    emailAddress?: string
     address?: string
     city?: string
     state?: string

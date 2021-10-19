@@ -50,6 +50,7 @@ export { default as RecommendedRecipes} from './RecommendedRecipes/RecommendedRe
 export { default as LayoutCheckout} from './LayoutCheckout/LayoutCheckout'
 export { default as InputPasswordFiledInForm} from './InputPasswordFiledInForm/InputPasswordFiledInForm'
 export { default as InputFiledInForm} from './InputFiledInForm/InputFiledInForm'
+export { default as SelectFieldInForm} from './SelectFieldInForm/SelectFieldInForm'
 export { default as MessageCommon} from './MessageCommon/MessageCommon'
 export { default as FormForgot} from './ForgotPassword/FormForgot/FormForgot'
 export { default as FormResetPassword} from './ForgotPassword/FormResetPassword/FormResetPassword'

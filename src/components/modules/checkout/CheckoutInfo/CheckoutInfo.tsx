@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ButtonCommon, Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import { useAddProductToCart, useGetActiveOrder } from 'src/components/hooks/cart'
 import { removeItem } from 'src/utils/funtion.utils'
 import { CheckOutForm } from 'src/utils/types.utils'
@@ -12,39 +13,79 @@ interface CheckoutInfoProps {
   onViewCart: () => void
 }
 
+enum CheckoutStep {
+  CustomerInfo = 1,
+  ShippingInfo = 2,
+  PaymentInfo = 3,
+}
+
 const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
-  const [active, setActive] = useState(1)
-  const [done, setDone] = useState<number[]>([])
+  const [activeStep, setActiveStep] = useState(1)
+  const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
   const [info, setInfo] = useState<CheckOutForm>({})
+  const { order } = useGetActiveOrder()
+  const { customer } = useActiveCustomer()
 
-  const onEdit = (id: number) => {
-    setActive(id)
-    setDone(removeItem<number>(done, id))
-  }
+  useEffect(() => {
+    if (customer) {
+      if (!doneSteps.includes(CheckoutStep.CustomerInfo)) {
 
-  const onConfirm = (id: number, formInfo: CheckOutForm) => {
-    if (id + 1 > formList.length) {
-      console.log({ ...info, ...formInfo })
-    } else {
-      if (done.length > 0) {
-        for (let i = id + 1; i <= formList.length; i++) {
-          if (!done.includes(i)) {
-            setActive(i)
+        if (doneSteps.length > 0) {
+          for (let i = CheckoutStep.CustomerInfo + 1; i <= Object.keys(CheckoutStep).length; i++) {
+            if (!doneSteps.includes(i)) {
+              setActiveStep(i)
+            }
           }
+        } else {
+          setActiveStep(CheckoutStep.CustomerInfo + 1)
         }
-      } else {
-        setActive(id + 1)
+
+        setDoneSteps([...doneSteps, CheckoutStep.CustomerInfo])
       }
-      setDone([...done, id])
     }
-    setInfo({ ...info, ...formInfo })
+  }, [customer, doneSteps])
+
+
+  const onEdit = (id: CheckoutStep) => {
+    setActiveStep(id)
+    setDoneSteps(removeItem<number>(doneSteps, id))
   }
 
-  const getNote = (id: number) => {
+  const updateActiveStep = (step: CheckoutStep) => {
+    if (doneSteps.length > 0) {
+      for (let i = step + 1; i <= Object.keys(CheckoutStep).length; i++) {
+        if (!doneSteps.includes(i)) {
+          setActiveStep(i)
+        }
+      }
+    } else {
+      setActiveStep(step + 1)
+    }
+  }
+
+  const onConfirm = (step: CheckoutStep) => {
+    if (step + 1 > formList.length) {
+      // TODO: checkout
+      console.log("finish: ", order)
+    } else {
+      updateActiveStep(step)
+      setDoneSteps([...doneSteps, step])
+    }
+  }
+
+
+  const getNote = (id: CheckoutStep) => {
     switch (id) {
-      case 1:
-        return `${info.name}, ${info.email}`
-      case 2:
+      case CheckoutStep.CustomerInfo:
+        // console.log("order info; ", order?.customer)
+        if (order?.customer) {
+          return `${order?.customer?.firstName} ${order?.customer?.lastName}, ${order?.customer?.emailAddress}`
+        } else if (customer) {
+          return `${customer.firstName} ${customer.lastName}, ${customer.emailAddress}`
+        } else {
+          return ''
+        }
+      case CheckoutStep.ShippingInfo:
         return `${info.address}, ${info.state}, ${info.city}, ${info.code}, ${info.phone}, `
       default:
         return ""
@@ -53,19 +94,19 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
 
   const formList = [
     {
-      id: 1,
+      id: CheckoutStep.CustomerInfo,
       title: 'Customer Information',
-      form: <CustomerInfoForm onConfirm={onConfirm} id={1} />,
+      form: <CustomerInfoForm onConfirm={onConfirm} id={CheckoutStep.CustomerInfo}/>,
     },
     {
-      id: 2,
+      id: CheckoutStep.ShippingInfo,
       title: 'Shipping Information',
-      form: <ShippingInfoForm onConfirm={onConfirm} id={2} />,
+      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingInfo} activeStep={activeStep}/>,
     },
     {
-      id: 3,
+      id: CheckoutStep.PaymentInfo,
       title: 'Payment Information',
-      form: <PaymentInfoForm onConfirm={onConfirm} id={3} />,
+      form: <PaymentInfoForm onConfirm={onConfirm} id={CheckoutStep.PaymentInfo} />,
     },
   ]
 
@@ -77,15 +118,16 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
   }
   const handleAddToCartCallback = (isSuccess: boolean, message?: string) => {
     // console.log("after create order: ", isSuccess, message)
-
   }
 
-  const {order} = useGetActiveOrder()
 
   return (
     <div className={s.warpper}>
+      {/* TODO: remove */}
       <ButtonCommon onClick={createOrder}>test create order</ButtonCommon>
-      <ButtonCommon onClick={createOrder}>test get active order</ButtonCommon>
+      <ButtonCommon onClick={createOrder}>test get activeStep order</ButtonCommon>
+
+
       <div className={s.title}>
         <Logo />
         <div className={s.viewCart} onClick={onViewCart}>View cart</div>
@@ -95,11 +137,12 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
         return <CheckoutCollapse
           key={item.title}
           id={item.id}
-          visible={item.id === active}
+          visible={item.id === activeStep}
           title={item.title}
           onEditClick={onEdit}
-          isEdit={done.includes(item.id)}
+          isEdit={doneSteps.includes(item.id)}
           note={note}
+          disableEdit={customer && item.id === CheckoutStep.CustomerInfo}
         >
           {item.form}
         </CheckoutCollapse>

@@ -12,7 +12,7 @@ const useSetCustomerForOrder = () => {
   const { mutate } = useGetActiveOrder()
 
   const setCustomerForOrder = (input: CreateCustomerInput,
-    fCallBack: (isSuccess: boolean, message?: string) => void
+    fCallBack: (isSuccess: boolean, message?: CommonError) => void
   ) => {
     setError(null)
     setLoading(true)
@@ -21,17 +21,17 @@ const useSetCustomerForOrder = () => {
       variables: { input },
     })
       .then(({ data }) => {
-        if (data.setCustomerForOrder.__typename === 'ActiveOrderCustomerFragment') {
+        if (data.setCustomerForOrder.__typename === 'Order') {
           fCallBack(true)
           mutate()
         } else {
-          fCallBack(false, data.setCustomerForOrder.message)
+          fCallBack(false, data.setCustomerForOrder)
         }
 
       })
       .catch((error) => {
         setError(error)
-        fCallBack(false, error.message)
+        fCallBack(false, error)
       })
       .finally(() => setLoading(false))
   }

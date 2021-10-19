@@ -1,6 +1,6 @@
 @import "../../../../styles/utilities";
 .warrper{
-    @apply flex w-full h-full absolute;
+    @apply flex w-full;
     .right {
         display: none;
         @screen lg {

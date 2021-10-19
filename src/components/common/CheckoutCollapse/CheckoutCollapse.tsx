@@ -1,8 +1,6 @@
 import classNames from 'classnames'
-import { divide } from 'lodash'
 import React from 'react'
 import { IconDoneCheckout } from 'src/components/icons'
-import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CheckoutCollapse.module.scss'
 interface CheckoutCollapseProps {
   visible: boolean
@@ -14,6 +12,7 @@ interface CheckoutCollapseProps {
   onOpen?: (id:number) => void
   onEditClick?:(id:number) => void
   note?:string
+  disableEdit?: boolean
 }
 
 const CheckoutCollapse = ({
@@ -25,14 +24,15 @@ const CheckoutCollapse = ({
   note,
   onOpen,
 	onClose,
-  onEditClick
+  onEditClick,
+  disableEdit,
 }: CheckoutCollapseProps) => {
 	const handleTitleClick = () => {
 		if(visible){
 			onClose && onClose(id)
-		}else{
-			onOpen && onOpen(id)
-		}
+    } else if (!disableEdit) {
+      onOpen && onOpen(id)
+    }
 	}
   const handleEdit = () => {
 		onEditClick && onEditClick(id)
@@ -48,7 +48,7 @@ const CheckoutCollapse = ({
             {title}
           </div>
         </div>
-        {isEdit && <div className={s.edit} onClick={handleEdit}>{'Edit'}</div>}
+        {!disableEdit && isEdit && <div className={s.edit} onClick={handleEdit}>{'Edit'}</div>}
       </div>
       {(!visible && isEdit) && (<div className={s.note}>{note}</div>) }
       <div className={classNames(s.body, { [`${s.show}`]: visible })}>{children}</div>

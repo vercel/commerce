@@ -11,6 +11,9 @@ export const cartFragment = /* GraphQL */ `
     currencyCode
     customer {
       id
+      firstName
+      lastName
+      emailAddress
     }
     lines {
       id

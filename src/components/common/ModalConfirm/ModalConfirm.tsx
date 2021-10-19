@@ -18,14 +18,15 @@ const ModalConfirm = ({
   children,
   title = 'Confirm',
   loading,
+  onClose,
   ...props
 }: ModalConfirmProps) => {
   return (
-    <ModalCommon {...props} title={title}>
+    <ModalCommon onClose={onClose} title={title} {...props}>
       {children}
       <div className={s.footer}>
         <div className="mr-4">
-          <ButtonCommon onClick={onCancel} type="light"> {cancelText}</ButtonCommon>
+          <ButtonCommon onClick={onCancel || onClose} type="light"> {cancelText}</ButtonCommon>
         </div>
           <ButtonCommon onClick={onOk} loading={loading}>{okText}</ButtonCommon>
       </div>

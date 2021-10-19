@@ -15,8 +15,7 @@ const query = gql`
 
 const useGetActiveOrder = () => {
   const { data, ...rest } = useSWR<ActiveOrderQuery>([query], gglFetcher)
-  return { order: data?.activeOrder ? normalizeCart(data!.activeOrder) : null, ...rest }
-  
+  return { order: data?.activeOrder ? normalizeCart(data!.activeOrder) : null, ...rest }  
 }
 
 export default useGetActiveOrder

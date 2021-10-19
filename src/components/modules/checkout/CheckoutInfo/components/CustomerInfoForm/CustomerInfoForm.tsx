@@ -1,16 +1,22 @@
 import { Form, Formik } from 'formik'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { ButtonCommon, InputFiledInForm } from 'src/components/common'
+import ModalAuthenticate from 'src/components/common/ModalAuthenticate/ModalAuthenticate'
 import { useMessage } from 'src/components/contexts'
+import { useModalCommon } from 'src/components/hooks'
 import { useSetCustomerForOrder } from 'src/components/hooks/order'
+import { ErrorCode } from 'src/domains/enums/ErrorCode'
+import { CommonError } from 'src/domains/interfaces/CommonError'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
+import { CheckOutForm } from 'src/utils/types.utils'
 import * as Yup from 'yup'
 import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
 import s from './CustomerInfoForm.module.scss'
+import ModalConfirmLogin from './ModalConfirmLogin/ModalConfirmLogin'
 interface Props {
-  isHide: boolean
-  onSwitch: () => void
+  id: number
+  onConfirm: (id: number) => void
 }
 
 const displayingErrorMessagesSchema = Yup.object().shape({
@@ -19,32 +25,36 @@ const displayingErrorMessagesSchema = Yup.object().shape({
   emailAddress: Yup.string().email(LANGUAGE.MESSAGE.INVALID_EMAIL).required(LANGUAGE.MESSAGE.REQUIRED),
 })
 
-const CustomerInfoForm = ({ onSwitch, isHide }: Props) => {
+const CustomerInfoForm = ({ id, onConfirm }: Props) => {
   const firstNameRef = useRef<CustomInputCommon>(null)
-  const emailRef = useRef<CustomInputCommon>(null)
   const { setCustomerForOrder, loading } = useSetCustomerForOrder()
   const { showMessageError } = useMessage()
+  const [emailAddress, setEmailAddress] = useState<string>('')
+  const { visible: visibleModalConfirmLogin, closeModal: closeModalConfirmLogin, openModal: openModalConfirmLogin } = useModalCommon({ initialValue: false })
+  const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
+
 
   const handleSubmit = (values: { firstName: string, lastName: string, emailAddress: string }) => {
-    console.log('on submit: ', values)
     const { firstName, lastName, emailAddress } = values
+    setEmailAddress(emailAddress)
     setCustomerForOrder({ firstName, lastName, emailAddress }, onSubmitCalBack)
-    // onConfirm &&
-    //   onConfirm(id, {
-    //     name: nameRef?.current?.getValue().toString(),
-    //     email: emailRef.current?.getValue().toString(),
-    //   })
   }
-  const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
+  const onSubmitCalBack = (isSuccess: boolean, error?: CommonError) => {
     // TODO:
-    console.log("result: ", isSuccess, msg)
     if (isSuccess) {
-
+      onConfirm(id)
     } else {
-      console.log("error here")
-      showMessageError(msg)
+      if (error?.errorCode === ErrorCode.EmailAddressConflictError) {
+        // show modal common
+        openModalConfirmLogin()
+      } else {
+        showMessageError(error?.message)
+      }
     }
-
+  }
+  const handleCloseModalConfirmLogin = () => {
+    closeModalConfirmLogin()
+    openModalAuthen()
   }
 
   return (
@@ -58,7 +68,6 @@ const CustomerInfoForm = ({ onSwitch, isHide }: Props) => {
           }}
           validationSchema={displayingErrorMessagesSchema}
           onSubmit={handleSubmit}
-
         >
           {({ errors, touched, isValid, submitForm }) => (
             <Form className="u-form">
@@ -90,7 +99,6 @@ const CustomerInfoForm = ({ onSwitch, isHide }: Props) => {
                 <InputFiledInForm
                   name="emailAddress"
                   placeholder="Email Address"
-                  ref={emailRef}
                   error={
                     touched.emailAddress && errors.emailAddress
                       ? errors.emailAddress.toString()
@@ -111,6 +119,8 @@ const CustomerInfoForm = ({ onSwitch, isHide }: Props) => {
           )}
         </Formik>
       </div>
+      <ModalConfirmLogin visible={visibleModalConfirmLogin} closeModal={closeModalConfirmLogin} handleOk={handleCloseModalConfirmLogin} email={emailAddress} />
+      <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} initialEmail={emailAddress} disableRedirect={true} />
     </section>
   )
 }

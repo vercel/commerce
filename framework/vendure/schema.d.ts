@@ -332,17 +332,9 @@ export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
   >)
 }
 
-export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
-  setCustomerForOrder:
-  | ({ __typename: 'ActiveOrderCustomerFragment' } & Pick<ActiveOrderCustomerFragment, 'customer', 'lines'>)
-  | ({ __typename: 'AlreadyLoggedInError' } & Pick<
-    AlreadyLoggedInError,
-    'errorCode' | 'message'
-  >)
-  | ({ __typename: 'EmailAddressConflictError' } & Pick<
-    EmailAddressConflictError,
-    'errorCode' | 'message'
-  >)
+export type SetOrderShippingAddressMutation = { __typename?: 'Mutation' } & {
+  setOrderShippingAddress:
+  | ({ __typename: 'Order' } & Pick<Order, 'id' | 'total' | 'totalQuantity' | 'code' | 'shippingAddress'>)
   | ({ __typename: 'NoActiveOrderError' } & Pick<
     NoActiveOrderError,
     'errorCode' | 'message'
@@ -3060,7 +3052,7 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   | 'totalWithTax'
   | 'currencyCode'
 > & {
-  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
       OrderLine,

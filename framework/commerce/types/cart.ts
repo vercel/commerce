@@ -62,6 +62,11 @@ export type Cart = {
   id: string
   // ID of the customer to which the cart belongs.
   customerId?: string
+  customer?: {
+    firstName: string,
+    lastName: string,
+    emailAddress: string,
+  }
   // The email assigned to this cart
   email?: string
   // The date and time when the cart was created.
