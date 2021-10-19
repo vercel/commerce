@@ -36,10 +36,12 @@ export function normalizeFavoriteProductResult(item: Favorite) {
 
 
 export function normalizeCart(order: CartFragment): Cart {
+  console.log("raw rs: ", order)
   return {
     id: order.id.toString(),
     createdAt: order.createdAt,
     taxesIncluded: true,
+    totalQuantity: order.totalQuantity,
     lineItemsSubtotalPrice: order.subTotalWithTax / 100,
     currency: { code: order.currencyCode },
     subtotalPrice: order.subTotalWithTax / 100,
@@ -58,6 +60,10 @@ export function normalizeCart(order: CartFragment): Cart {
       countryCode: order.shippingAddress?.countryCode || '',
       phoneNumber: order.shippingAddress?.phoneNumber || '',
     },
+    totalDiscount: order.discounts?.reduce((total, item) => total + item.amountWithTax, 0) / 100 || 0,
+    discounts: order.discounts.map(item => {
+      return { value: item.amountWithTax, description: item.description }
+    }),
     lineItems: order.lines?.map((l) => ({
       id: l.id,
       name: l.productVariant.name,

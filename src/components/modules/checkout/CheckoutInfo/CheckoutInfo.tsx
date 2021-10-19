@@ -102,7 +102,7 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.CustomerInfo,
       title: 'Customer Information',
-      form: <CustomerInfoForm onConfirm={onConfirm} id={CheckoutStep.CustomerInfo} />,
+      form: <CustomerInfoForm onConfirm={onConfirm} id={CheckoutStep.CustomerInfo} activeStep={activeStep} />,
     },
     {
       id: CheckoutStep.ShippingInfo,
@@ -120,7 +120,7 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
   const { addProduct } = useAddProductToCart()
 
   const createOrder = () => {
-    addProduct({ variantId: "63", quantity: 1 }, handleAddToCartCallback)
+    addProduct({ variantId: "92", quantity: 2 }, handleAddToCartCallback)
   }
   const handleAddToCartCallback = (isSuccess: boolean, message?: string) => {
     // console.log("after create order: ", isSuccess, message)

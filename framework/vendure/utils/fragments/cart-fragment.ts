@@ -9,6 +9,12 @@ export const cartFragment = /* GraphQL */ `
     total
     totalWithTax
     currencyCode
+    discounts {
+      type
+      description
+      amount
+      amountWithTax
+    }
     customer {
       id
       firstName

@@ -93,8 +93,10 @@ export type Cart = {
   // The sum of all the prices of all the items in the cart.
   // Duties, taxes and discounts included.
   totalPrice: number
+  totalQuantity: number
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
+  totalDiscount: number
 }
 
 /**

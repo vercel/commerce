@@ -3053,7 +3053,9 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   | 'currencyCode'
 > & {
   shippingAddress?: Maybe<{ __typename?: 'OrderAddress' } & Pick<OrderAddress, 'streetLine1' | 'fullName' | 'city' | 'province' | 'postalCode' |'countryCode' | 'phoneNumber'>>
-  discounts?: Maybe<{ __typename?: 'Discount' } & Pick<Discount, 'type' | 'amount' | 'amountWithTax'>>
+  discounts: Array<
+        { __typename?: 'Discount' } & Pick<Discount, 'type' | 'description' | 'amount' | 'amountWithTax'>
+      >
   customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
