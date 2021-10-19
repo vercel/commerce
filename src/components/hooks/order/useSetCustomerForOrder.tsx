@@ -18,18 +18,13 @@ const useSetCustomerForOrder = () => {
     setLoading(true)
     rawFetcher<SetCustomerForOrderMutation>({
       query: setCustomerForOrderMutation,
-      variables: {input},
+      variables: { input },
     })
-      .then(({ data, headers }) => {
-        console.log("data here: ", data)
+      .then(({ data }) => {
         if (data.setCustomerForOrder.__typename === 'ActiveOrderCustomerFragment') {
-          console.log("success: ")
-
           fCallBack(true)
           mutate()
         } else {
-          console.log("fail ")
-
           fCallBack(false, data.setCustomerForOrder.message)
         }
 
