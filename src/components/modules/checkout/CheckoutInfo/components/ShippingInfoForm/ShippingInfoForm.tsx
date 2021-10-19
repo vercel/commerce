@@ -14,9 +14,11 @@ interface ShippingInfoFormProps {
 const option = [
   {
     name: 'Hồ Chí Minh',
+    value: 'Hồ Chí Minh',
   },
   {
     name: 'Hà Nội',
+    value: 'Hà Nội',
   },
 ]
 

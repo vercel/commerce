@@ -1,7 +1,6 @@
-import { rawRequest } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
 import { RequestDocument, Variables } from 'graphql-request/dist/types'
 import { LOCAL_STORAGE_KEY } from './constanst.utils'
-
 interface QueryOptions {
   query: RequestDocument
   variables?: Variables
@@ -16,15 +15,20 @@ const rawFetcher = <T>({
 }: QueryOptions): Promise<{ data: T; headers: any }> => {
   onLoad(true)
   const token = localStorage.getItem(LOCAL_STORAGE_KEY.TOKEN)
-  return rawRequest<T>(
-    process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL as string,
+
+  const graphQLClient = new GraphQLClient(process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL as string, {
+    credentials: 'include',
+    mode: 'cors',
+    headers: token ? { Authorization: 'Bearer ' + token } : {},
+  })
+
+  return graphQLClient.rawRequest<T>(
     query as string,
     variables,
-    token ? { Authorization: 'Bearer ' + token } : {}
-  )
-    .then(({ data, headers }) => {
-      return { data, headers }
-    })
+      )
+  .then(({ data, headers }) => {
+    return { data, headers }
+  })
     .finally(() => onLoad(false))
 }
 

@@ -4,7 +4,8 @@ import { CheckoutPage } from 'src/components/modules/checkout';
 export default function Checkout() {
   return (
     <>
-        <CheckoutPage/>
+      <CheckoutPage />
+
     </>
   )
 }

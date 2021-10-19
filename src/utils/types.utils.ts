@@ -72,4 +72,18 @@ export type PromiseWithKey = {
     keyResult?: string,
 }
 
+// ref https://www.vendure.io/docs/typescript-api/orders/order-state/
+export type OrderState = | 'Created'
+    | 'AddingItems'
+    | 'ArrangingPayment'
+    | 'PaymentAuthorized'
+    | 'PaymentSettled'
+    | 'PartiallyShipped'
+    | 'Shipped'
+    | 'PartiallyDelivered'
+    | 'Delivered'
+    | 'Modifying'
+    | 'ArrangingAdditionalPayment'
+    | 'Cancelled'
+
 export type SelectedOptions = Record<string, string | null>

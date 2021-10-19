@@ -1,5 +1,6 @@
-import { ReactNode, useCallback, useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { MessageItemProps } from 'src/components/common/MessageCommon/MessageItem/MessageItem'
+import { LANGUAGE } from 'src/utils/language.utils'
 import { MessageContext } from './MessageContext'
 
 type Props = {
@@ -33,8 +34,8 @@ export function MessageProvider({ children }: Props) {
     createNewMessage(content, timeout, 'info')
   }
 
-  const showMessageError = (content: string, timeout?: number) => {
-    createNewMessage(content, timeout, 'error')
+  const showMessageError = (content?: string, timeout?: number) => {
+    createNewMessage(content || LANGUAGE.MESSAGE.ERROR, timeout, 'error')
   }
 
   const showMessageWarning = (content: string, timeout?: number) => {
