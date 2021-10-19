@@ -12,6 +12,7 @@ export const getProductQuery = /* GraphQL */ `
       }
       variants {
         id
+        name
         priceWithTax
         currencyCode
         options {
@@ -41,6 +42,7 @@ export const getProductQuery = /* GraphQL */ `
       }
       collections {
         id
+        name
       }
     }
   }

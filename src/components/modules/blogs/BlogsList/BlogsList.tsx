@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import CardBlog, { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
 import { DEFAULT_BLOG_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
@@ -11,18 +11,21 @@ import { ListProductCardSkeleton  } from 'src/components/common'
 
 interface BlogsListProps {
     blogList?: BlogCardProps[],
-    total?: number
+    total?: number,
+    idFeatured?:string
 }
 
-const DEFAULT_BLOGS_ARGS = {
-    excludeBlogIds: ["28"],
-    options:{
-        skip: 1, take: DEFAULT_BLOG_PAGE_SIZE
+
+
+const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
+
+    const DEFAULT_BLOGS_ARGS = {
+        excludeBlogIds: [idFeatured],
+        options:{
+            skip: 1, take: DEFAULT_BLOG_PAGE_SIZE
+        }
     }
-}
 
-const BlogsList = ({ blogList,total }:BlogsListProps) => {
-    
     const router = useRouter();
     const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
 
@@ -44,13 +47,14 @@ const BlogsList = ({ blogList,total }:BlogsListProps) => {
     }
 
       // skip
+      const firstRender = useRef(true);
       useEffect(() => {
+        firstRender.current = false;
         const query = { ...DEFAULT_BLOGS_ARGS } as QueryBlogs;
         const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
         query.options.skip = page * DEFAULT_BLOG_PAGE_SIZE;
         setOptionQueryBlog(query);
         setInitialQueryFlag(false);
-
     },[router.query])
 
        
@@ -60,7 +64,7 @@ const BlogsList = ({ blogList,total }:BlogsListProps) => {
     }else{
         data = blogs
     }
-    console.log(blogList);
+    
 
     return (
         <section>

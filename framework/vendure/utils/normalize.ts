@@ -1,6 +1,6 @@
 import { Cart } from '@commerce/types/cart'
-import { ProductCard } from '@commerce/types/product'
-import { CartFragment, SearchResultFragment } from '../schema'
+import { ProductCard, Product } from '@commerce/types/product'
+import { CartFragment, SearchResultFragment,Favorite } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -10,6 +10,8 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
     imageSrc: item.productAsset?.preview ? item.productAsset?.preview + '?w=800&mode=crop' : '',
     price: (item.priceWithTax as any).min / 100,
     currencyCode: item.currencyCode,
+    productVariantId: item.productVariantId,
+    productVariantName:item.productVariantName,
     facetValueIds: item.facetValueIds,
     collectionIds: item.collectionIds,
     
@@ -20,6 +22,18 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
     // weight
   }
 }
+
+export function normalizeFavoriteProductResult(item: Favorite) {
+  return {
+    id: item.product.id,
+    name: item.product.name,
+    slug: item.product.slug,
+    imageSrc: item.product.assets[0].preview ? item.product.assets[0].preview + '?w=800&mode=crop' : '',
+    price: item.product.variants[0].priceWithTax as number / 100,
+    currencyCode: item.product.variants[0].currencyCode,
+  }
+}
+
 
 export function normalizeCart(order: CartFragment): Cart {
   return {
@@ -35,7 +49,7 @@ export function normalizeCart(order: CartFragment): Cart {
       id: l.id,
       name: l.productVariant.name,
       quantity: l.quantity,
-      url: l.productVariant.product.slug,
+      slug: l.productVariant.product.slug,
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
@@ -53,5 +67,20 @@ export function normalizeCart(order: CartFragment): Cart {
         requiresShipping: true,
       },
     })),
+  }
+}
+
+export function normalizeProductCard(product: Product): ProductCard {
+  return {
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    imageSrc: product.images[0].url,
+    price: product.price,
+    currencyCode: product.currencyCode,
+    productVariantId: product.variants?.[0].id.toString(),
+    productVariantName:product.variants?.[0].name,
+    facetValueIds: product.facetValueIds,
+    collectionIds: product.collectionIds,
   }
 }

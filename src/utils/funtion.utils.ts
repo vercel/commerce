@@ -1,8 +1,9 @@
-import { BlogList } from '@framework/schema';
+import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
-import { Collection, FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
-import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
-import { PromiseWithKey, SortOrder } from "./types.utils";
+import { Product, ProductCard, ProductOption, ProductOptionValues } from "@commerce/types/product";
+import { FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
+import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -80,6 +81,18 @@ export function getFreshFacetId(facets: Facet[]) {
   return freshFacetValue?.id
 }
 
+export function getFacetIdByName(facets: Facet[], facetName: string, valueName:string) {
+  const featuredFacet = facets.find((item: Facet) => item.name === facetName)
+  const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.name === valueName)
+  return freshFacetValue?.id
+}
+
+
+export function getAllFeaturedFacetId(facets: Facet[]) {
+  const featuredFacet = facets.find((item: Facet) => item.name === FACET.FEATURE.PARENT_NAME)
+  const rs = featuredFacet?.values.map((item: FacetValue) => item.id)
+  return rs || []
+}
 export function getAllFacetValueIdsByParentCode(facets: Facet[], code: string) {
   const featuredFacet = facets.find((item: Facet) => item.code === code)
   const rs = featuredFacet?.values.map((item: FacetValue) => item.id)
@@ -134,3 +147,34 @@ export function getIdFeaturedBlog(blog: BlogList) {
   return blog?.id
 }
 
+export const FilterOneVatiant = (products:ProductCard[]) => {
+  let idList:string[] = []
+  let filtedProduct: ProductCard[]=[]
+  products.map((product:ProductCard)=>{
+    if(!idList.includes(product.id)){
+      filtedProduct.push(product)
+      idList.push(product.id)
+    }
+  })
+  return filtedProduct
+}
+
+export const convertOption = (values :ProductOptionValues[]) => {
+  return values.map((value)=>{ return {name:value.label,value:value.label}})
+}
+
+export function getProductVariant(product: Product, opts: SelectedOptions) {
+  const variant = product.variants?.find((variant) => {
+    return Object.entries(opts).every(([key, value]) =>
+      variant.options.find((option) => {
+        if (
+          option.__typename === 'MultipleChoiceOption' &&
+          option.displayName.toLowerCase() === key.toLowerCase()
+        ) {
+          return option.values.find((v) => v.label.toLowerCase() === value)
+        }
+      })
+    )
+  })
+  return variant
+}

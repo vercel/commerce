@@ -30,6 +30,7 @@ export type ProductOptionValues = {
 
 export type ProductVariant = {
   id: string | number
+  name:string,
   options: ProductOption[]
   availableForSale?: boolean
 }
@@ -48,7 +49,8 @@ export type Product = {
   options: ProductOption[]
   facetValueIds?: string[]
   collectionIds?: string[]
-  collection?: string,
+  collection?: string[],
+  variants?: ProductVariant[]
 }
 
 export type ProductCard = {
@@ -65,6 +67,8 @@ export type ProductCard = {
   collectionIds?: string[],
   collection?: string,
   isNotSell?: boolean
+  productVariantId?:string
+  productVariantName?:string
 }
 
 export type SearchProductsBody = {

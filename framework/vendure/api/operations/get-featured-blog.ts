@@ -15,7 +15,7 @@ export default function getFeaturedBlogOperation({
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<{ featuredBlogs: GetFeaturedBlogQuery,totalItems:number }>
+  }): Promise<{ featuredBlogs: GetFeaturedBlogQuery[],totalItems:number }>
 
   async function getFeaturedBlog({
     query = getFeatuedBlogQuery,
@@ -26,7 +26,7 @@ export default function getFeaturedBlogOperation({
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<{ featuredBlogs: GetFeaturedBlogQuery | any[] ,totalItems?:number }> {
+  } = {}): Promise<{ featuredBlogs: GetFeaturedBlogQuery[] | any[] ,totalItems?:number }> {
     const config = commerce.getConfig(cfg)
     const variables = {
       options: {

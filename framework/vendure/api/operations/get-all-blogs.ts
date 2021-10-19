@@ -16,7 +16,7 @@ export default function getAllBlogsOperation({
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<{ blogs: GetAllBlogsQuery,totalItems:number }>
+  }): Promise<{ blogs: GetAllBlogsQuery[],totalItems:number }>
 
   async function getAllBlogs({
     query = getAllBlogsQuery,
@@ -27,8 +27,8 @@ export default function getAllBlogsOperation({
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<{ blogs: GetAllBlogsQuery | any[] ,totalItems?:number }> {
-    console.log(vars.excludeBlogIds)
+  } = {}): Promise<{ blogs: GetAllBlogsQuery[] | any[] ,totalItems?:number }> {
+    
     const config = commerce.getConfig(cfg)
     const variables = {
       excludeBlogIds: vars.excludeBlogIds,

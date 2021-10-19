@@ -1,0 +1,37 @@
+.warpper{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    .name{
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+        font-size: 2rem;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+    .option{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        // > button {
+        //     margin-right: 1rem;
+        // }
+    }
+    .button {
+        margin: 1rem 0;
+        padding: 0;
+        div {
+            padding: 0.8rem 1.6rem;
+            margin-right: 0.8rem;
+            background-color: var(--gray);
+            border-radius: 0.8rem;
+            cursor: pointer;
+            &.active {
+                color: var(--white);
+                background-color: var(--primary);
+            }
+        }
+    }
+    
+}

@@ -1,3 +1,6 @@
+import { FacetValue, UpdateAddressInput } from './schema.d';
+import { ResetPassword } from './schema.d';
+import { requestPasswordReset } from '@framework/schema';
 import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -304,6 +307,11 @@ export type MutationResetPasswordArgs = {
 }
 
 export type Address = Node & {
+  updateCustomerAddress:
+  | { 
+    __typename?: 'Address'
+    id: Scalars['ID']
+  }
   __typename?: 'Address'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -321,6 +329,9 @@ export type Address = Node & {
   defaultBillingAddress?: Maybe<Scalars['Boolean']>
   customFields?: Maybe<Scalars['JSON']>
 }
+
+
+
 
 export type Asset = Node & {
   __typename?: 'Asset'
@@ -1459,6 +1470,11 @@ export type CustomerListOptions = {
 }
 
 export type Customer = Node & {
+  updateCustomer:
+  | { 
+    __typename?: 'Customer'
+    id: Scalars['ID']
+  }
   __typename?: 'Customer'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -1466,7 +1482,7 @@ export type Customer = Node & {
   title?: Maybe<Scalars['String']>
   firstName: Scalars['String']
   lastName: Scalars['String']
-  phoneNumber?: Maybe<Scalars['String']>
+  phoneNumber?:  Maybe<Scalars['String']>
   emailAddress: Scalars['String']
   addresses?: Maybe<Array<Address>>
   orders: OrderList
@@ -2344,6 +2360,7 @@ export type GetAllBlogsQuery = PaginatedList & {
   }
 }
 export type GetFeaturedBlogQuery = PaginatedList & {
+  id:string,
   featuredBlogs: { __typename?: 'BlogList' } & {
     items:  Array<{ __typename?: 'Blog' } & BlogList!>,
     'totalItems'
@@ -3087,7 +3104,7 @@ export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
   'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
   | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
-  | 'collectionIds' | 'facetValueIds' | 'collectionIds'
+  | 'collectionIds' | 'productVariantId' | 'facetValueIds' | "productVariantName"
 > & {
     productAsset?: Maybe<
       { __typename?: 'SearchResultAsset' } & Pick<
@@ -3174,6 +3191,36 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword:
+    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+    | ({ __typename: 'PasswordResetTokenInvalidError' } & Pick<
+        PasswordResetTokenInvalidError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'PasswordResetTokenExpiredError' } & Pick<
+        PasswordResetTokenExpiredError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
+export type SignupMutation = { __typename?: 'Mutation' } & {
+  registerCustomerAccount:
+    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+    | ({ __typename: 'MissingPasswordError' } & Pick<
+        MissingPasswordError,
+        'errorCode' | 'message'
+      >)
+    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+        NativeAuthStrategyError,
+        'errorCode' | 'message'
+      >)
+}
+
 export type VerifyCustomerAccountVariables = Exact<{
   token: Scalars['String']
   password?: Maybe<Scalars['String']>
@@ -3227,8 +3274,9 @@ export type SignupMutationVariables = Exact<{
   input: RegisterCustomerInput
 }>
 
-export type SignupMutation = { __typename?: 'Mutation' } & {
-  registerCustomerAccount:
+
+export type RequestPasswordReset = { __typename?: 'Mutation' } & {
+  requestPasswordReset:
     | ({ __typename: 'Success' } & Pick<Success, 'success'>)
     | ({ __typename: 'MissingPasswordError' } & Pick<
         MissingPasswordError,
@@ -3240,15 +3288,46 @@ export type SignupMutation = { __typename?: 'Mutation' } & {
       >)
 }
 
+
+
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveCustomerQuery = { __typename?: 'Query' } & {
   activeCustomer?: Maybe<
     { __typename?: 'Customer' } & Pick<
       Customer,
-      'id' | 'firstName' | 'lastName' | 'emailAddress'
+      Favorite,
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'|  'orders'
     >
   >
+}
+
+export type QueryFavorite = {
+  options: FavoriteListOptions
+}
+
+export type FavoriteListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+}
+
+export type FavoriteList = PaginatedList & {
+  items: [Favorite!]!
+  totalItems: Int!
+}
+
+type Favorite = Node &  {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  product: Product
+  customer: Customer!
+}
+
+
+
+type FavouriteOption =  Customer & {
+  favorites(options: FavoriteListOptions): FavoriteList!
 }
 
 export type GetAllProductPathsQueryVariables = Exact<{
@@ -3351,7 +3430,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         variants: Array<
           { __typename?: 'ProductVariant' } & Pick<
             ProductVariant,
-            'id' | 'priceWithTax' | 'currencyCode' | 'price'
+            'id' | 'priceWithTax' | 'currencyCode' | 'price' | "name"
           > & {
               options: Array<
                 { __typename?: 'ProductOption' } & Pick<
@@ -3395,7 +3474,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
         collections: Array<
           { __typename?: 'Collection' } & Pick<
             Collection,
-            'id'
+            'id'|"name"
           >
         >
       }
