@@ -33,19 +33,6 @@ export interface BlogProps {
     imageSrc: string
 }
 
-export interface CheckOutForm {
-    firstName?: string
-    lastName?: string
-    emailAddress?: string
-    address?: string
-    city?: string
-    state?: string
-    code?: number
-    phone?: number
-    method?: string
-    shipping_fee?: number
-}
-
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
 
 export enum SortOrder {

@@ -1,6 +1,6 @@
 import { Cart } from '@commerce/types/cart'
 import { ProductCard, Product } from '@commerce/types/product'
-import { CartFragment, SearchResultFragment,Favorite } from '../schema'
+import { CartFragment, SearchResultFragment, Favorite } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -11,10 +11,10 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
     price: (item.priceWithTax as any).min / 100,
     currencyCode: item.currencyCode,
     productVariantId: item.productVariantId,
-    productVariantName:item.productVariantName,
+    productVariantName: item.productVariantName,
     facetValueIds: item.facetValueIds,
     collectionIds: item.collectionIds,
-    
+
     // TODO:
     // oldPrice: item.price
     // discount
@@ -50,6 +50,14 @@ export function normalizeCart(order: CartFragment): Cart {
       lastName: order.customer?.lastName || '',
       emailAddress: order.customer?.emailAddress || '',
     },
+    shippingAddress: {
+      streetLine1: order.shippingAddress?.streetLine1 || '',
+      city: order.shippingAddress?.city || '',
+      province: order.shippingAddress?.province || '',
+      postalCode: order.shippingAddress?.postalCode || '',
+      countryCode: order.shippingAddress?.countryCode || '',
+      phoneNumber: order.shippingAddress?.phoneNumber || '',
+    },
     lineItems: order.lines?.map((l) => ({
       id: l.id,
       name: l.productVariant.name,
@@ -84,7 +92,7 @@ export function normalizeProductCard(product: Product): ProductCard {
     price: product.price,
     currencyCode: product.currencyCode,
     productVariantId: product.variants?.[0].id.toString(),
-    productVariantName:product.variants?.[0].name,
+    productVariantName: product.variants?.[0].name,
     facetValueIds: product.facetValueIds,
     collectionIds: product.collectionIds,
   }

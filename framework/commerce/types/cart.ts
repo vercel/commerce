@@ -1,3 +1,4 @@
+import { Shipping } from 'src/components/icons';
 import type { Discount, Measurement, Image } from './common'
 
 export type SelectedOption = {
@@ -66,6 +67,14 @@ export type Cart = {
     firstName: string,
     lastName: string,
     emailAddress: string,
+  }
+  shippingAddress?: {
+    streetLine1: string,
+    city: string,
+    province: string,
+    postalCode: string,
+    countryCode: string,
+    phoneNumber: string,
   }
   // The email assigned to this cart
   email?: string

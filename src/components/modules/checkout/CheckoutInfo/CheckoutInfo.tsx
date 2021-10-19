@@ -4,7 +4,6 @@ import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCol
 import { useActiveCustomer } from 'src/components/hooks/auth'
 import { useAddProductToCart, useGetActiveOrder } from 'src/components/hooks/cart'
 import { removeItem } from 'src/utils/funtion.utils'
-import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
@@ -22,7 +21,6 @@ enum CheckoutStep {
 const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
   const [activeStep, setActiveStep] = useState(1)
   const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
-  const [info, setInfo] = useState<CheckOutForm>({})
   const { order } = useGetActiveOrder()
   const { customer } = useActiveCustomer()
 
@@ -53,12 +51,16 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
 
   const updateActiveStep = (step: CheckoutStep) => {
     if (doneSteps.length > 0) {
-      for (let i = step + 1; i <= Object.keys(CheckoutStep).length; i++) {
+      for (let i = step + 1; i < Object.keys(CheckoutStep).length; i++) {
         if (!doneSteps.includes(i)) {
+          // console.log("here: ", doneSteps, i)
           setActiveStep(i)
+          return
         }
       }
     } else {
+      // console.log("here 2: ", doneSteps, step)
+
       setActiveStep(step + 1)
     }
   }
@@ -86,7 +88,11 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
           return ''
         }
       case CheckoutStep.ShippingInfo:
-        return `${info.address}, ${info.state}, ${info.city}, ${info.code}, ${info.phone}, `
+        if (order?.shippingAddress) {
+          const { streetLine1, city, province, postalCode, countryCode, phoneNumber } = order.shippingAddress
+          return `${streetLine1}, ${city}, ${province}, ${postalCode}, ${countryCode}, ${phoneNumber}`
+        }
+        return ''
       default:
         return ""
     }
@@ -96,12 +102,12 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.CustomerInfo,
       title: 'Customer Information',
-      form: <CustomerInfoForm onConfirm={onConfirm} id={CheckoutStep.CustomerInfo}/>,
+      form: <CustomerInfoForm onConfirm={onConfirm} id={CheckoutStep.CustomerInfo} />,
     },
     {
       id: CheckoutStep.ShippingInfo,
       title: 'Shipping Information',
-      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingInfo} activeStep={activeStep}/>,
+      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingInfo} activeStep={activeStep} />,
     },
     {
       id: CheckoutStep.PaymentInfo,

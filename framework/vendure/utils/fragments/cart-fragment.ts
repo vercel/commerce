@@ -15,6 +15,14 @@ export const cartFragment = /* GraphQL */ `
       lastName
       emailAddress
     }
+    shippingAddress {
+      streetLine1
+      city
+      province
+      postalCode
+      countryCode
+      phoneNumber
+    }
     lines {
       id
       quantity
