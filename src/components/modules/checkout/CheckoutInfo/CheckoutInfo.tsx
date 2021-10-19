@@ -132,7 +132,7 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
       {/* TODO: remove */}
       <ButtonCommon onClick={createOrder}>test create order</ButtonCommon>
       <ButtonCommon onClick={createOrder}>test get activeStep order</ButtonCommon>
-
+      TOTAL: {order?.totalPrice}
 
       <div className={s.title}>
         <Logo />

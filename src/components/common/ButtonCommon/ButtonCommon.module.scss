@@ -1,7 +1,7 @@
 @import "../../../styles/utilities";
 
 .buttonCommon {
-  @apply shape-common;
+  @apply shape-common h-full;
   &:hover {
     .inner {
       @apply shadow-md;

@@ -41,7 +41,7 @@ const provinceOptions = [
 
 const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) => {
   const addressRef = useRef<CustomInputCommon>(null)
-  const { setOrderShippingAddress } = useSetOrderShippingAddress()
+  const { setOrderShippingAddress, loading } = useSetOrderShippingAddress()
   const { showMessageError } = useMessage()
 
   useEffect(() => {
@@ -171,8 +171,7 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
                 </div>
                 <div className={s.bottom}>
                   <ChekoutNotePolicy />
-                  {/* <ButtonCommon HTMLType='submit' loading={loading} size="large"> */}
-                  <ButtonCommon HTMLType='submit' size="large">
+                  <ButtonCommon HTMLType='submit' loading={loading} size="large">
                     Continue to Payment
                   </ButtonCommon>
                 </div>

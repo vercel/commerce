@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ButtonCommon, InputFiledInForm } from 'src/components/common'
 import ModalAuthenticate from 'src/components/common/ModalAuthenticate/ModalAuthenticate'
 import { useMessage } from 'src/components/contexts'
@@ -16,6 +16,8 @@ import ModalConfirmLogin from './ModalConfirmLogin/ModalConfirmLogin'
 interface Props {
   id: number
   onConfirm: (id: number) => void
+  activeStep: number
+
 }
 
 const displayingErrorMessagesSchema = Yup.object().shape({
@@ -24,7 +26,7 @@ const displayingErrorMessagesSchema = Yup.object().shape({
   emailAddress: Yup.string().email(LANGUAGE.MESSAGE.INVALID_EMAIL).required(LANGUAGE.MESSAGE.REQUIRED),
 })
 
-const CustomerInfoForm = ({ id, onConfirm }: Props) => {
+const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
   const firstNameRef = useRef<CustomInputCommon>(null)
   const { setCustomerForOrder, loading } = useSetCustomerForOrder()
   const { showMessageError } = useMessage()
@@ -32,6 +34,11 @@ const CustomerInfoForm = ({ id, onConfirm }: Props) => {
   const { visible: visibleModalConfirmLogin, closeModal: closeModalConfirmLogin, openModal: openModalConfirmLogin } = useModalCommon({ initialValue: false })
   const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
 
+  useEffect(() => {
+    setTimeout(() => {
+      firstNameRef.current?.focus()
+    }, 500);
+  }, [activeStep])
 
   const handleSubmit = (values: { firstName: string, lastName: string, emailAddress: string }) => {
     const { firstName, lastName, emailAddress } = values

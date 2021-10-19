@@ -1,8 +1,8 @@
 import React from 'react'
-import s from './CheckoutBill.module.scss'
 import { CardItemCheckout } from '../../../common'
 import { CardItemCheckoutProps } from '../../../common/CardItemCheckout/CardItemCheckout'
-import { IconCirclePlus } from 'src/components/icons'
+import s from './CheckoutBill.module.scss'
+import FormPromotionCode from './FormPromotionCode/FormPromotionCode'
 
 interface CheckoutBillProps {
   data: CardItemCheckoutProps[]
@@ -20,10 +20,7 @@ const CheckoutBill = ({ data }: CheckoutBillProps) => {
         })}
       </div>
       <div className={s.bot}>
-        <div className={s.promo}>
-          Apply Promotion Code
-          <IconCirclePlus />
-        </div>
+        <FormPromotionCode/>
         <div className={s.price}>
           <div className={s.line}>
             Subtotal

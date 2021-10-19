@@ -3053,6 +3053,7 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   | 'currencyCode'
 > & {
   shippingAddress?: Maybe<{ __typename?: 'OrderAddress' } & Pick<OrderAddress, 'streetLine1' | 'fullName' | 'city' | 'province' | 'postalCode' |'countryCode' | 'phoneNumber'>>
+  discounts?: Maybe<{ __typename?: 'Discount' } & Pick<Discount, 'type' | 'amount' | 'amountWithTax'>>
   customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
@@ -3152,6 +3153,36 @@ export type AdjustOrderLineMutation = { __typename?: 'Mutation' } & {
   >)
   | ({ __typename: 'InsufficientStockError' } & Pick<
     InsufficientStockError,
+    'errorCode' | 'message'
+  >)
+}
+
+
+export type ApplyCouponCodeMutationVariables = Exact<{
+  couponCode: Scalars['String'];
+}>;
+
+export type ApplyCouponCodeMutation = {
+  applyCouponCode:
+      | TestOrderFragmentFragment
+      | Pick<CouponCodeExpiredError, 'errorCode' | 'message'>
+      | Pick<CouponCodeInvalidError, 'errorCode' | 'message'>
+      | Pick<CouponCodeLimitError, 'errorCode' | 'message'>;
+};
+
+export type ApplyCouponCodeMutation = { __typename?: 'Mutation' } & {
+  applyCouponCode:
+  | ({ __typename: 'Order' } & CartFragment)
+  | ({ __typename: 'CouponCodeExpiredError' } & Pick<
+    CouponCodeExpiredError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'CouponCodeInvalidError' } & Pick<
+    CouponCodeInvalidError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'CouponCodeLimitError' } & Pick<
+    CouponCodeLimitError,
     'errorCode' | 'message'
   >)
 }
