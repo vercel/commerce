@@ -42,6 +42,11 @@ const FeatureBar = dynamic(
   dynamicProps
 )
 
+const Modal = dynamic(
+  () => import('@components/interface/Modal'), 
+  {...dynamicProps, ssr: false}
+)
+
 interface Props {
   pageProps: {
     pages?: Page[]
