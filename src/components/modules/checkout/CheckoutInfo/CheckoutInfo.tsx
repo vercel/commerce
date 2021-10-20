@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { ButtonCommon, Logo } from 'src/components/common'
+import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
 import { useActiveCustomer } from 'src/components/hooks/auth'
-import { useAddProductToCart, useGetActiveOrder } from 'src/components/hooks/cart'
-import { removeItem } from 'src/utils/funtion.utils'
+import { useGetActiveOrder } from 'src/components/hooks/cart'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
@@ -46,21 +45,17 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
 
   const onEdit = (id: CheckoutStep) => {
     setActiveStep(id)
-    setDoneSteps(removeItem<number>(doneSteps, id))
   }
 
   const updateActiveStep = (step: CheckoutStep) => {
     if (doneSteps.length > 0) {
       for (let i = step + 1; i < Object.keys(CheckoutStep).length; i++) {
         if (!doneSteps.includes(i)) {
-          // console.log("here: ", doneSteps, i)
           setActiveStep(i)
           return
         }
       }
     } else {
-      // console.log("here 2: ", doneSteps, step)
-
       setActiveStep(step + 1)
     }
   }
@@ -129,7 +124,7 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
     <div className={s.warpper}>
       {/* TODO: remove */}
       {/* <ButtonCommon onClick={createOrder}>test create order</ButtonCommon> */}
-
+      doneSteps = {JSON.stringify(doneSteps)}
       <div className={s.title}>
         <Logo />
         <div className={s.viewCart} onClick={onViewCart}>View cart</div>
@@ -143,6 +138,7 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
           title={item.title}
           onEditClick={onEdit}
           isEdit={doneSteps.includes(item.id)}
+          onClose={onConfirm}
           note={note}
           disableEdit={customer && item.id === CheckoutStep.CustomerInfo}
         >
