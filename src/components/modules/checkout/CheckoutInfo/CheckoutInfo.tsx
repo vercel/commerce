@@ -79,8 +79,7 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
   const getNote = (id: CheckoutStep) => {
     switch (id) {
       case CheckoutStep.CustomerInfo:
-        // console.log("order info; ", order?.customer)
-        if (order?.customer) {
+        if (order?.customer?.emailAddress) {
           return `${order?.customer?.firstName} ${order?.customer?.lastName}, ${order?.customer?.emailAddress}`
         } else if (customer) {
           return `${customer.firstName} ${customer.lastName}, ${customer.emailAddress}`

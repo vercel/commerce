@@ -5,7 +5,7 @@ import s from './ModalConfirm.module.scss'
 interface ModalConfirmProps extends ModalCommonProps {
   okText?: String
   cancelText?: String
-  loading?:boolean
+  loading?: boolean
   onOk?: () => void
   onCancel?: () => void
 }
@@ -26,9 +26,9 @@ const ModalConfirm = ({
       {children}
       <div className={s.footer}>
         <div className="mr-4">
-          <ButtonCommon onClick={onCancel || onClose} type="light"> {cancelText}</ButtonCommon>
+          <ButtonCommon onClick={onCancel || onClose} type="light" size="small"> {cancelText}</ButtonCommon>
         </div>
-          <ButtonCommon onClick={onOk} loading={loading}>{okText}</ButtonCommon>
+        <ButtonCommon onClick={onOk} loading={loading} size="small">{okText}</ButtonCommon>
       </div>
     </ModalCommon>
   )

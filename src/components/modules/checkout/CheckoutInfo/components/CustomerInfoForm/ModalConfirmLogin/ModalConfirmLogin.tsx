@@ -1,6 +1,7 @@
 import React from 'react';
 import { ModalConfirm } from 'src/components/common';
 import { LANGUAGE } from 'src/utils/language.utils';
+import s from './ModalConfirmLogin.module.scss'
 
 interface Props {
     visible: boolean
@@ -19,7 +20,7 @@ const ModalConfirmLogin = ({ visible, closeModal, handleOk, email }: Props) => {
                 okText={LANGUAGE.BUTTON_LABEL.SIGNIN}
                 cancelText="Change email address"
             >
-                <div>
+                <div className={s.modalConfirmLogin}>
                     <p> Account already exists for email {email} </p>
                     <p>Please signin to continue or use another email</p>
                 </div>

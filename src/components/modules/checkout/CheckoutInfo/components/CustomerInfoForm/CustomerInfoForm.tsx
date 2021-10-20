@@ -28,6 +28,7 @@ const displayingErrorMessagesSchema = Yup.object().shape({
 
 const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
   const firstNameRef = useRef<CustomInputCommon>(null)
+  const emailRef = useRef<CustomInputCommon>(null)
   const { setCustomerForOrder, loading } = useSetCustomerForOrder()
   const { showMessageError } = useMessage()
   const [emailAddress, setEmailAddress] = useState<string>('')
@@ -58,9 +59,14 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
       }
     }
   }
-  const handleCloseModalConfirmLogin = () => {
+  const handleOpenModalLogin = () => {
     closeModalConfirmLogin()
     openModalAuthen()
+  }
+
+  const handleCloseModalConfirmLogin = () => {
+    closeModalConfirmLogin()
+    emailRef.current?.focus()
   }
 
   return (
@@ -110,6 +116,7 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
                       ? errors.emailAddress.toString()
                       : ''
                   }
+                  ref={emailRef}
                   isShowIconSuccess={touched.emailAddress && !errors.emailAddress}
                   onEnter={isValid ? submitForm : undefined}
 
@@ -125,7 +132,7 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
           )}
         </Formik>
       </div>
-      <ModalConfirmLogin visible={visibleModalConfirmLogin} closeModal={closeModalConfirmLogin} handleOk={handleCloseModalConfirmLogin} email={emailAddress} />
+      <ModalConfirmLogin visible={visibleModalConfirmLogin} closeModal={handleCloseModalConfirmLogin} handleOk={handleOpenModalLogin} email={emailAddress} />
       <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} initialEmail={emailAddress} disableRedirect={true} />
     </section>
   )
