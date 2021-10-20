@@ -24,22 +24,5 @@
             width: 50%;
         }
     }
-    .method{
-        width: 100%;
-        height: 5.6rem;
-        padding: 1.6rem;
-        border-radius: 0.8rem;
-        @apply flex justify-between items-center border border-solid border-line bg-gray;
-        .left{
-            @apply flex;
-            .name{
-                margin-left: 1.6rem;
-                color: var(--text-active);
-            }
-        }
-        .price{
-            font-weight: bold;
-            color: var(--text-active);
-        }
-    }
+
 }

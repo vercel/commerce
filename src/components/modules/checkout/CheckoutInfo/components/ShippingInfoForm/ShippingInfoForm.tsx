@@ -3,17 +3,19 @@ import React, { useEffect, useRef } from 'react'
 import { ButtonCommon, InputFiledInForm, SelectFieldInForm } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
 import { useAvailableCountries, useSetOrderShippingAddress } from 'src/components/hooks/order'
-import { Shipping } from 'src/components/icons'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
 import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
+import ShippingMethod from '../ShippingMethod/ShippingMethod'
 import s from './ShippingInfoForm.module.scss'
 
 interface ShippingInfoFormProps {
   id: number
   activeStep: number
   onConfirm: (id: number) => void
+  currency: string
+
 
 }
 
@@ -31,6 +33,7 @@ const displayingErrorMessagesSchema = Yup.object().shape({
 const DEFAULT_COUNTRY_CODE = 'MY'
 const DEFAULT_PROVINCE = 'Sabah'
 
+// TODO: update data
 const provinceOptions = [
   {
     name: 'Hồ Chí Minh',
@@ -46,7 +49,7 @@ const provinceOptions = [
   },
 ]
 
-const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) => {
+const ShippingInfoForm = ({ onConfirm, id, activeStep , currency}: ShippingInfoFormProps) => {
   const addressRef = useRef<CustomInputCommon>(null)
   const { setOrderShippingAddress, loading } = useSetOrderShippingAddress()
   const { showMessageError } = useMessage()
@@ -59,10 +62,7 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
   }, [activeStep])
 
   const handleSubmit = (values: any) => {
-    console.log("values: ", values)
     setOrderShippingAddress(values, onSubmitCalBack)
-
-    // onConfirm && onConfirm(id)
   }
 
   const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
@@ -176,21 +176,7 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
                     onEnter={isValid ? submitForm : undefined}
                   />
                 </div>
-                <div className={s.method}>
-                  <div className={s.left}>
-                    <div className={s.icon}>
-                      <Shipping />
-                    </div>
-                    <div className={s.name}>
-                      Standard Delivery Method
-                    </div>
-                  </div>
-                  <div className={s.right}>
-                    <div className={s.price}>
-                      Free
-                    </div>
-                  </div>
-                </div>
+                <ShippingMethod currency={currency}/>
                 <div className={s.bottom}>
                   <ChekoutNotePolicy />
                   <ButtonCommon HTMLType='submit' loading={loading} size="large">

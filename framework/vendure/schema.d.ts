@@ -365,8 +365,17 @@ export type Address = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+export type SetShippingMethodMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
 
-
+export type SetShippingMethodMutation = {
+  setOrderShippingMethod:
+      | TestOrderFragmentFragment
+      | Pick<OrderModificationError, 'errorCode' | 'message'>
+      | Pick<IneligibleShippingMethodError, 'errorCode' | 'message'>
+      | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
+};
 
 export type Asset = Node & {
   __typename?: 'Asset'

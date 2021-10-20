@@ -24,7 +24,7 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
     return (
         <div className={s.warrper}>
             <MessageCommon messages={messages} onRemove={removeMessage} />
-            <div className={s.left}><CheckoutInfo onViewCart={onViewCart} /></div>
+            <div className={s.left}><CheckoutInfo onViewCart={onViewCart} currency={order?.currency.code}/></div>
             <div className={s.right}><CheckoutBill data={order} /></div>
             <div className={classNames({ [s.mobile]: true, [s.isShow]: isShow })}>
                 <div className={s.modal}>

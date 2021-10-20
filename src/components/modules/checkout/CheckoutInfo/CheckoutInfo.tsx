@@ -9,6 +9,7 @@ import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
 import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
 interface CheckoutInfoProps {
   onViewCart: () => void
+  currency?: string
 }
 
 enum CheckoutStep {
@@ -17,7 +18,7 @@ enum CheckoutStep {
   PaymentInfo = 3,
 }
 
-const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
+const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
   const [activeStep, setActiveStep] = useState(1)
   const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
   const { order } = useGetActiveOrder()
@@ -101,7 +102,7 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.ShippingInfo,
       title: 'Shipping Information',
-      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingInfo} activeStep={activeStep} />,
+      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingInfo} activeStep={activeStep} currency={currency} />,
     },
     {
       id: CheckoutStep.PaymentInfo,

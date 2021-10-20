@@ -18,7 +18,7 @@ const ChekoutNotePolicy = memo(() => {
       {
         <Link href={ROUTE.PRIVACY_POLICY}>
           <a>
-            <strong>privacy policy </strong>
+            <strong>privacy policy</strong>
           </a>
         </Link>
       }

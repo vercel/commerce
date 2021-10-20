@@ -1,0 +1,19 @@
+.shippingMethodItem {
+    @apply flex justify-between items-center cursor-pointer transition-all duration-200;
+    width: 100%;
+    padding: 1.6rem;
+    &:hover {
+        @apply bg-gray;
+    }
+    .left {
+        @apply flex;
+        .name {
+            margin-left: 1.6rem;
+            color: var(--text-active);
+        }
+    }
+    .price {
+        font-weight: bold;
+        color: var(--text-active);
+    }
+}
