@@ -43,6 +43,7 @@ export interface SpreeProductImage extends JsonApiDocument {
     position: number
     alt: string
     original_url: string
+    transformed_url: string | null
     styles: ImageStyle[]
   }
 }

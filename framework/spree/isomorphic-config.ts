@@ -5,6 +5,8 @@ import validateCookieExpire from './utils/validations/validate-cookie-expire'
 import validateImagesOptionFilter from './utils/validations/validate-images-option-filter'
 import validatePlaceholderImageUrl from './utils/validations/validate-placeholder-image-url'
 import validateProductsPrerenderCount from './utils/validations/validate-products-prerender-count'
+import validateImagesSize from './utils/validations/validate-images-size'
+import validateImagesQuality from './utils/validations/validate-images-quality'
 
 const isomorphicConfig = {
   apiHost: process.env.NEXT_PUBLIC_SPREE_API_HOST,
@@ -35,6 +37,12 @@ const isomorphicConfig = {
   imagesOptionFilter: validateImagesOptionFilter(
     process.env.NEXT_PUBLIC_SPREE_IMAGES_OPTION_FILTER
   ),
+  imagesSize: validateImagesSize(
+    process.env.NEXT_PUBLIC_SPREE_IMAGES_SIZE
+  ),
+  imagesQuality: validateImagesQuality(
+    process.env.NEXT_PUBLIC_SPREE_IMAGES_QUALITY
+  ),
 }
 
 export default forceIsomorphicConfigValues(
@@ -54,6 +62,8 @@ export default forceIsomorphicConfigValues(
     'productPlaceholderImageUrl',
     'lineItemPlaceholderImageUrl',
     'imagesOptionFilter',
+    'imagesSize',
+    'imagesQuality'
   ]
 )
 

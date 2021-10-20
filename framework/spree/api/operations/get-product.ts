@@ -8,6 +8,10 @@ import type { IProduct } from '@spree/storefront-api-v2-sdk/types/interfaces/Pro
 import type { SpreeSdkVariables } from 'framework/spree/types'
 import MissingSlugVariableError from 'framework/spree/errors/MissingSlugVariableError'
 import normalizeProduct from '../../utils/normalize-product'
+import { requireConfigValue } from '../../isomorphic-config'
+
+const imagesSize = requireConfigValue('imagesSize') as string
+const imagesQuality = requireConfigValue('imagesQuality') as number
 
 export default function getProductOperation({
   commerce,
@@ -56,6 +60,10 @@ export default function getProductOperation({
         {
           include:
             'primary_variant,variants,images,option_types,variants.option_values',
+          image_transformation: {
+            quality: imagesQuality,
+            size: imagesSize
+          }
         },
       ],
     }

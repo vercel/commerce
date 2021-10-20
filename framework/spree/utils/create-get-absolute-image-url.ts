@@ -11,7 +11,7 @@ const createGetAbsoluteImageUrl =
     let url
 
     if (useOriginalImageSize) {
-      url = image.attributes.original_url || null
+      url = image.attributes.transformed_url || null
     } else {
       url = getImageUrl(image, minWidth, minHeight)
     }

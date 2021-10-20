@@ -9,6 +9,9 @@ import type { IProductsSlugs, SpreeSdkVariables } from '../../types'
 import getProductPath from '../../utils/get-product-path'
 import type { SpreeApiConfig, SpreeApiProvider } from '..'
 
+const imagesSize = requireConfigValue('imagesSize') as string
+const imagesQuality = requireConfigValue('imagesQuality') as number
+
 export default function getAllProductPathsOperation({
   commerce,
 }: OperationContext<SpreeApiProvider>) {
@@ -64,6 +67,10 @@ export default function getAllProductPathsOperation({
             product: 'slug',
           },
           per_page: productsCount,
+          image_transformation: {
+            quality: imagesQuality,
+            size: imagesSize
+          }
         },
       ],
     }
