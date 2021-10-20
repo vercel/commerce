@@ -46,7 +46,12 @@ export async function getStaticProps({
 
   const {featuredBlogs} = await commerce.getFeaturedBlog({
     variables: {
-      take: DEFAULT_BLOG_PAGE_SIZE
+      take: DEFAULT_BLOG_PAGE_SIZE,
+      filter: {
+        isFeatured: {
+            eq:true
+        }
+      }
     },
     config,
     preview,
@@ -57,7 +62,12 @@ export async function getStaticProps({
   const blogsPromise = commerce.getAllBlogs({
     variables: {
       excludeBlogIds: [idFeaturedBlog],
-      take: DEFAULT_BLOG_PAGE_SIZE
+      take: DEFAULT_BLOG_PAGE_SIZE,
+      filter: {
+        isFeatured: {
+            eq:false
+        }
+      }
     },
     config,
     preview,

@@ -22,7 +22,12 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
     const DEFAULT_BLOGS_ARGS = {
         excludeBlogIds: [idFeatured],
         options:{
-            skip: 1, take: DEFAULT_BLOG_PAGE_SIZE
+            take: DEFAULT_BLOG_PAGE_SIZE,
+            filter: {
+                isFeatured: {
+                    eq:false
+                }
+            }
         }
     }
 
@@ -31,6 +36,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
 
     const [optionQueryBlog, setOptionQueryBlog] = useState<QueryBlogs>(DEFAULT_BLOGS_ARGS)
     const { blogs, totalItems, loading } = useGetBlogList(optionQueryBlog);
+
 
 
 
@@ -65,7 +71,6 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
         data = blogs
     }
     
-
     return (
         <section>
             <div className={s.wrapper}>
@@ -73,10 +78,10 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
                 <div className={s.list}>
                     
                     {
-                        data?.map((product,index)=> {
+                        data?.map((blog,index)=> {
                         return(
-                                <div className={s.card} key={`${product.title}-${index}`}>
-                                    {product.isPublish && <CardBlog {...product} /> }
+                                <div className={s.card} key={`${blog.title}-${index}`}>
+                                    {blog.isPublish && !blog.isFeatured && <CardBlog {...blog} /> }
                                 </div>
                             )
                         })

@@ -10,9 +10,9 @@ import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog';
 import {  REVALIDATE_TIME } from 'src/utils/constanst.utils'
 interface Props {
   blog:{blogDetail?: BlogCardProps},
-  relevantBlogs:{blogDetail?:BlogCardProps[]}
+  relevant:{relevantBlogs?:BlogCardProps[]}
 }
-export default function BlogDetailPage({blog,relevantBlogs}:Props) {
+export default function BlogDetailPage({blog,relevant}:Props) {
 
   let date = new Date(blog?.blogDetail?.createdAt ?? '' );
   let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
@@ -27,7 +27,7 @@ export default function BlogDetailPage({blog,relevantBlogs}:Props) {
           authorName={blog?.blogDetail?.authorName}
           date={fullDate}
         />
-        {relevantBlogs.relevantBlogs?.length> 0 && <RelevantBlogPosts data={relevantBlogs.relevantBlogs} title="You will like also" bgcolor="cream"/>}
+        {relevant.relevantBlogs?.length> 0 && <RelevantBlogPosts data={relevant.relevantBlogs} title="You will like also" bgcolor="cream"/>}
     </>
   )
 }
@@ -64,7 +64,7 @@ export async function getStaticProps({
       config,
       preview,
     })
-    promisesWithKey.push({ key: 'relevantBlogs', promise: relevantBlogs})
+    promisesWithKey.push({ key: 'relevant', promise: relevantBlogs})
 
   }else {
     props.relevantBlogs = [];

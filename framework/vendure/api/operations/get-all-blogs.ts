@@ -6,7 +6,8 @@ import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query'
 export type BlogVariables = {
   excludeBlogIds?: string[],
   take?: number,
-  skip?:number
+  skip?:number,
+  isFeatured?:{eq?:Boolean},
 }
 
 export default function getAllBlogsOperation({
@@ -35,6 +36,9 @@ export default function getAllBlogsOperation({
       options: {
         take: vars.take,
         skip: vars.skip,
+        filter: {
+          isFeatured: vars.isFeatured
+        }
       },
     }
     const { data } = await config.fetch<GetAllBlogsQuery>(query, {
