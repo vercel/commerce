@@ -11,8 +11,12 @@ import type {
 } from '../types/product'
 import type {
   GetAllBlogsOperation,
-  GetFeaturedOperation
+  GetFeaturedOperation,
+  GetAllBlogPathsOperation,
+  GetBlogDetailOperation,
+  GetRelevantBlogsOperation
 } from '../types/blogs'
+
 import type { APIProvider, CommerceAPI } from '.'
 import { GetAllCollectionsOperation } from '@commerce/types/collection';
 
@@ -32,7 +36,10 @@ export const OPERATIONS = [
   'getAllFacets',
   'getAllCollections',
   'getAllBlogs',
-  'getFeaturedBlog'
+  'getFeaturedBlog',
+  'getAllBlogPaths',
+  'getBlogDetail',
+  'getRelevantBlogs'
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -133,6 +140,21 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
+  
+  getAllBlogPaths: {
+    <T extends GetAllBlogPathsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+    }): Promise<T['data']>
+
+    <T extends GetAllBlogPathsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
   getAllProducts: {
     <T extends GetAllProductsOperation>(opts: {
       variables?: T['variables']
@@ -166,6 +188,22 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
+  getRelevantBlogs: {
+    <T extends GetRelevantBlogsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetRelevantBlogsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
   getFeaturedBlog: {
     <T extends GetAllBlogsOperation>(opts: {
       variables?: T['variables']
@@ -182,6 +220,21 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
+  getBlogDetail: {
+    <T extends GetBlogDetailOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetBlogDetailOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
 
 
   getProduct: {

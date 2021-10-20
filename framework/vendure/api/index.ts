@@ -1,18 +1,21 @@
 import type { CommerceAPIConfig } from '@commerce/api'
 import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
-import getAllFacets from './operations/get-all-facets'
+import getAllBlogs from './operations/get-all-blogs'
 import getAllCollections from './operations/get-all-collection'
+import getAllFacets from './operations/get-all-facets'
 import getAllPages from './operations/get-all-pages'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
+import getBlogDetail from './operations/get-blog-detail'
 import getCustomerWishlist from './operations/get-customer-wishlist'
+import getFeaturedBlog from './operations/get-featured-blog'
 import getPage from './operations/get-page'
 import getProduct from './operations/get-product'
 import getSiteInfo from './operations/get-site-info'
+import getAllBlogPaths from './operations/get-all-blog-paths'
+import getRelevantBlogs from './operations/get-relevant-blogs'
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
-import getAllBlogs from './operations/get-all-blogs'
-import getFeaturedBlog from './operations/get-featured-blog'
 
 export interface VendureConfig extends CommerceAPIConfig {}
 
@@ -46,7 +49,10 @@ const operations = {
   getAllFacets,
   getAllCollections,
   getAllBlogs,
-  getFeaturedBlog
+  getFeaturedBlog,
+  getBlogDetail,
+  getAllBlogPaths,
+  getRelevantBlogs
 }
 
 export const provider = { config, operations }
