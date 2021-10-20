@@ -54,6 +54,8 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
       if (error?.errorCode === ErrorCode.EmailAddressConflictError) {
         // show modal common
         openModalConfirmLogin()
+      } else if (error?.errorCode === ErrorCode.NoActiveOrderError) {
+        showMessageError("Your cart is empty! Please add items to the cart!")
       } else {
         showMessageError(error?.message)
       }

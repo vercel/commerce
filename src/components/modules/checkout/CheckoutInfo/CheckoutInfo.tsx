@@ -116,22 +116,19 @@ const CheckoutInfo = ({ onViewCart }: CheckoutInfoProps) => {
   ]
 
   // TODO: remove
-  const { addProduct } = useAddProductToCart()
+  // const { addProduct } = useAddProductToCart()
 
-  const createOrder = () => {
-    addProduct({ variantId: "92", quantity: 2 }, handleAddToCartCallback)
-  }
-  const handleAddToCartCallback = (isSuccess: boolean, message?: string) => {
-    // console.log("after create order: ", isSuccess, message)
-  }
-
+  // const createOrder = () => {
+  //   addProduct({ variantId: "92", quantity: 2 }, handleAddToCartCallback)
+  // }
+  // const handleAddToCartCallback = (isSuccess: boolean, message?: string) => {
+  //   // console.log("after create order: ", isSuccess, message)
+  // }
 
   return (
     <div className={s.warpper}>
       {/* TODO: remove */}
-      <ButtonCommon onClick={createOrder}>test create order</ButtonCommon>
-      <ButtonCommon onClick={createOrder}>test get activeStep order</ButtonCommon>
-      TOTAL: {order?.totalPrice}
+      {/* <ButtonCommon onClick={createOrder}>test create order</ButtonCommon> */}
 
       <div className={s.title}>
         <Logo />
