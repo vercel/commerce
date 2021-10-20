@@ -6,6 +6,7 @@ import { LoginMutation } from '@framework/schema'
 import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
 import { errorMapping } from 'src/utils/errrorMapping'
 import { loginMutation } from '@framework/utils/mutations/log-in-mutation'
+import { useGetActiveOrder } from '../cart'
 
 interface LoginInput {
   username: string
@@ -16,6 +17,7 @@ const useLogin = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<CommonError | null>(null)
   const { mutate } = useActiveCustomer()
+  const { mutate: mutateOrder } = useGetActiveOrder()
 
   const login = (options: LoginInput,
     fCallBack: (isSuccess: boolean, message?: string) => void
@@ -34,6 +36,7 @@ const useLogin = () => {
         if (authToken != null) {
           localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, authToken)
           mutate()
+          mutateOrder()
         }
         fCallBack(true)
       })
