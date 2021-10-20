@@ -33,7 +33,10 @@ const UserNav: FC<Props> = ({ className }) => {
             <Button
               className={s.item}
               variant="naked"
-              onClick={toggleSidebar}
+              onClick={() => {
+                setSidebarView('CART_VIEW')
+                toggleSidebar()
+              }}
               aria-label="Cart"
             >
               <Bag />
@@ -67,7 +70,7 @@ const UserNav: FC<Props> = ({ className }) => {
             )}
           </li>
         )}
-        <li className="block lg:hidden">
+        <li className={s.mobileMenu}>
           <Button
             className={s.item}
             variant="naked"

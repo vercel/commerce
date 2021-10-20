@@ -1,5 +1,5 @@
-import cn from 'classnames'
 import Link from 'next/link'
+import s from './MenuSidebarView.module.css'
 import { FC } from 'react'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
@@ -20,16 +20,23 @@ const MenuSidebarView: FC<MenuProps> = (props) => {
   console.log(props.links)
   return (
     <SidebarLayout handleClose={handleClose}>
-      <div className="px-4 sm:px-6 flex-1">
-        <ul>
-          {props.links?.map((l: any) => (
-            <li key={l.href}>
-              <Link href={l.href}>
-                <a>{l.label}</a>
+      <div className={s.root}>
+        <nav>
+          <ul>
+            <li className={s.item}>
+              <Link href="/search">
+                <a>All</a>
               </Link>
             </li>
-          ))}
-        </ul>
+            {props.links?.map((l: any) => (
+              <li key={l.href} className={s.item}>
+                <Link href={l.href}>
+                  <a>{l.label}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </SidebarLayout>
   )
