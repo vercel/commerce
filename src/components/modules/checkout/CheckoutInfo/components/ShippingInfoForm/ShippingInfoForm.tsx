@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { ButtonCommon, InputFiledInForm, SelectFieldInForm } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
 import { useAvailableCountries, useSetOrderShippingAddress } from 'src/components/hooks/order'
+import { Shipping } from 'src/components/icons'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
@@ -174,6 +175,21 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
                     isShowIconSuccess={touched.phoneNumber && !errors.phoneNumber}
                     onEnter={isValid ? submitForm : undefined}
                   />
+                </div>
+                <div className={s.method}>
+                  <div className={s.left}>
+                    <div className={s.icon}>
+                      <Shipping />
+                    </div>
+                    <div className={s.name}>
+                      Standard Delivery Method
+                    </div>
+                  </div>
+                  <div className={s.right}>
+                    <div className={s.price}>
+                      Free
+                    </div>
+                  </div>
                 </div>
                 <div className={s.bottom}>
                   <ChekoutNotePolicy />
