@@ -36,7 +36,6 @@ export function normalizeFavoriteProductResult(item: Favorite) {
 
 
 export function normalizeCart(order: CartFragment): Cart {
-  console.log("raw rs: ", order)
   return {
     id: order.id.toString(),
     createdAt: order.createdAt,

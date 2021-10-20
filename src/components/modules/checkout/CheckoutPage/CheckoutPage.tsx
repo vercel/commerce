@@ -33,7 +33,7 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
                             <h3>Your Cart({CHECKOUT_BILL_DATA.length})</h3>
                             <div onClick={onClose}><IconHide /></div>
                         </div>
-                        <CheckoutBill data={CHECKOUT_BILL_DATA} />
+                        <CheckoutBill data={order} />
                     </div>
                 </div>
             </div>

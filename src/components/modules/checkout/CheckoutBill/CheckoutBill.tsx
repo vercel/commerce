@@ -1,5 +1,5 @@
 import { Cart } from '@commerce/types/cart'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { CardItemCheckout } from '../../../common'
 import s from './CheckoutBill.module.scss'
 import FormPromotionCode from './FormPromotionCode/FormPromotionCode'
@@ -10,8 +10,7 @@ interface CheckoutBillProps {
 }
 
 const CheckoutBill = ({ data }: CheckoutBillProps) => {
-  console.log("data here***: ", data)
-
+  // console.log("data here***: ", data)
   return (
     <div className={s.warpper}>
       <div className={s.title}>
@@ -25,7 +24,6 @@ const CheckoutBill = ({ data }: CheckoutBillProps) => {
       <div className={s.bot}>
         <FormPromotionCode />
         <div className={s.price}>
-          TODO: here
           <div className={s.line}>
             Discount {(data?.discounts?.length || 0) > 0 && `(${data?.discounts?.map(item => item.description).join(",")})`}
             <div className={s.shipping}>{data?.totalDiscount} {data?.currency?.code}</div>
