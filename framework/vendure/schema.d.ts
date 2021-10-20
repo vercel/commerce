@@ -3052,10 +3052,10 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   | 'totalWithTax'
   | 'currencyCode'
 > & {
-  shippingAddress?: Maybe<{ __typename?: 'OrderAddress' } & Pick<OrderAddress, 'streetLine1' | 'fullName' | 'city' | 'province' | 'postalCode' |'countryCode' | 'phoneNumber'>>
+  shippingAddress?: Maybe<{ __typename?: 'OrderAddress' } & Pick<OrderAddress, 'streetLine1' | 'fullName' | 'city' | 'province' | 'postalCode' | 'countryCode' | 'phoneNumber'>>
   discounts: Array<
-        { __typename?: 'Discount' } & Pick<Discount, 'type' | 'description' | 'amount' | 'amountWithTax'>
-      >
+    { __typename?: 'Discount' } & Pick<Discount, 'type' | 'description' | 'amount' | 'amountWithTax'>
+  >
   customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
@@ -3166,10 +3166,10 @@ export type ApplyCouponCodeMutationVariables = Exact<{
 
 export type ApplyCouponCodeMutation = {
   applyCouponCode:
-      | TestOrderFragmentFragment
-      | Pick<CouponCodeExpiredError, 'errorCode' | 'message'>
-      | Pick<CouponCodeInvalidError, 'errorCode' | 'message'>
-      | Pick<CouponCodeLimitError, 'errorCode' | 'message'>;
+  | TestOrderFragmentFragment
+  | Pick<CouponCodeExpiredError, 'errorCode' | 'message'>
+  | Pick<CouponCodeInvalidError, 'errorCode' | 'message'>
+  | Pick<CouponCodeLimitError, 'errorCode' | 'message'>;
 };
 
 export type ApplyCouponCodeMutation = { __typename?: 'Mutation' } & {
@@ -3344,6 +3344,25 @@ type Favorite = Node & {
   customer: Customer!
 }
 
+export type GetAvailableCountriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+// export type GetAvailableCountriesQuery = { countries: (
+//   { __typename?: 'CountryList' }
+//   & { items: Array<(
+//     { __typename?: 'Country' }
+//     & Pick<Country, 'id' | 'code' | 'name' | 'enabled'>
+//   )> }
+// ) };
+
+export type GetAvailableCountriesQuery = {
+  availableCountries:
+  { __typename?: 'CountryList' }
+  & Array<(
+    { __typename?: 'Country' }
+    & Pick<Country, 'id' | 'code' | 'name' | 'enabled'>
+  )>
+};
 
 
 type FavouriteOption = Customer & {

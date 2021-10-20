@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik'
 import React, { useEffect, useRef } from 'react'
 import { ButtonCommon, InputFiledInForm, SelectFieldInForm } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
-import { useSetOrderShippingAddress } from 'src/components/hooks/order'
+import { useAvailableCountries, useSetOrderShippingAddress } from 'src/components/hooks/order'
 import { COUNTRY_CODE } from 'src/domains/data/countryCode'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
@@ -28,6 +28,9 @@ const displayingErrorMessagesSchema = Yup.object().shape({
 
 })
 
+const DEFAULT_COUNTRY_CODE = 'MY'
+const DEFAULT_PROVINCE = 'Sabah'
+
 const provinceOptions = [
   {
     name: 'Hồ Chí Minh',
@@ -37,12 +40,17 @@ const provinceOptions = [
     name: 'Hà Nội',
     value: 'Hà Nội',
   },
+  {
+    name: 'Sabah',
+    value: 'Sabah',
+  },
 ]
 
 const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) => {
   const addressRef = useRef<CustomInputCommon>(null)
   const { setOrderShippingAddress, loading } = useSetOrderShippingAddress()
   const { showMessageError } = useMessage()
+  const { countries } = useAvailableCountries()
 
   useEffect(() => {
     setTimeout(() => {
@@ -74,9 +82,9 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
             {
               streetLine1: '',
               city: '',
-              province: '',
+              province: DEFAULT_PROVINCE,
               postalCode: '',
-              countryCode: '',
+              countryCode: DEFAULT_COUNTRY_CODE,
               phoneNumber: '',
             }}
           validationSchema={displayingErrorMessagesSchema}
@@ -141,12 +149,11 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
                   </div>
                   <div className={s.input}>
                     <SelectFieldInForm
-                      options={COUNTRY_CODE}
-                      keyNameOption={['name', 'alpha-2']}
-                      keyValueOption="alpha-2"
+                      options={countries || []}
+                      keyNameOption={['name']}
+                      keyValueOption="code"
                       name="countryCode"
                       placeholder="Country"
-                      nameSeperator=" - "
                       error={
                         touched.countryCode && errors.countryCode
                           ? errors.countryCode.toString()
@@ -179,6 +186,7 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
             </Form>
           )}
         </Formik>
+
       </div>
     </div>
   )
