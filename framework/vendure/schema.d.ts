@@ -2384,13 +2384,42 @@ export type BlogList = Node &{
   isFeatured: Boolean
 }
 
+export type RecipeList = Node &{
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  featuredAsset?: Maybe<Asset>
+  isPublish:Boolean
+  translations: Array<RecipeTranslation>
+  authorName: Scalars['String']
+  authorAvatarAsset:Asset
+  relevantProducts: Product[]
+  link:String
+  minutes:Number
+  people:Number
+}
+
+
+export type RecipeTranslation = {
+  __typename?: 'BlogTranslation'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  languageCode: LanguageCode
+  title: Scalars['String']
+  slug: Scalars['String']
+  description: Scalars['String']
+  content: Scalars['String']
+  Ingredients:Scalars['String']
+  Preparation:Scalars['String']
+}
+
+
 export type GetBlogQuery = { __typename?: 'Query' } & {
   blog?: Maybe<
     { __typename?: 'Blog' } & BlogList
   >
 }
-
-
 
 
 export type BlogTranslation = {
@@ -2411,6 +2440,14 @@ export type GetAllBlogsQuery = PaginatedList & {
     'totalItems'
   }
 }
+
+export type GetAllRecipesQuery = PaginatedList & {
+  recipes: { __typename?: 'RecipeList' } & {
+    items:  Array<{ __typename?: 'Recipe' } & RecipeList!>,
+    'totalItems'
+  }
+}
+
 
 export type GetRelevantBlogsQuery = PaginatedList & {
   relevantBlogs: { __typename?: 'BlogList' } & {

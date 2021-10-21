@@ -16,6 +16,9 @@ import type {
   GetBlogDetailOperation,
   GetRelevantBlogsOperation
 } from '../types/blogs'
+import type {
+  GetAllRecipesOperation
+} from '../types/recipes'
 
 import type { APIProvider, CommerceAPI } from '.'
 import { GetAllCollectionsOperation } from '@commerce/types/collection';
@@ -39,7 +42,8 @@ export const OPERATIONS = [
   'getFeaturedBlog',
   'getAllBlogPaths',
   'getBlogDetail',
-  'getRelevantBlogs'
+  'getRelevantBlogs',
+  'getAllRecipes'
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -180,6 +184,22 @@ export type Operations<P extends APIProvider> = {
     }): Promise<T['data']>
 
     <T extends GetFeaturedOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllRecipes: {
+    <T extends GetAllRecipesOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetAllRecipesOperation>(
       opts: {
         variables?: T['variables']
         config?: P['config']
