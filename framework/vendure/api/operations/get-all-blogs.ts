@@ -7,7 +7,11 @@ export type BlogVariables = {
   excludeBlogIds?: string[],
   take?: number,
   skip?:number,
-  isFeatured?:{eq?:Boolean},
+  filter?:{
+    isFeatured?:{
+      eq?:Boolean
+    }
+  },
 }
 
 export default function getAllBlogsOperation({
@@ -35,9 +39,8 @@ export default function getAllBlogsOperation({
       excludeBlogIds: vars.excludeBlogIds,
       options: {
         take: vars.take,
-        skip: vars.skip,
         filter: {
-          isFeatured: vars.isFeatured
+          isFeatured: vars.filter?.isFeatured
         }
       },
     }

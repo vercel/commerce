@@ -5,7 +5,12 @@ import { getFeatuedBlogQuery } from '../../utils/queries/get-featued-query'
 
 export type BlogVariables = {
   take?: number,
-  skip?:number
+  skip?:number,
+  filter?:{
+    isFeatured?:{
+      eq?:Boolean
+    }
+  },
 }
 
 export default function getFeaturedBlogOperation({
@@ -31,6 +36,9 @@ export default function getFeaturedBlogOperation({
     const variables = {
       options: {
         take: vars.take,
+        filter: {
+          isFeatured: vars.filter?.isFeatured
+        }
       },
     }
     const { data } = await config.fetch<GetFeaturedBlogQuery>(query, {

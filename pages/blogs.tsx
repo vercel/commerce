@@ -11,23 +11,26 @@ interface Props {
     blogsResult: { blogs?: BlogCardProps[],featuredBlog?: BlogCardProps[] },
     totalItems: number
 }
-export default function BlogsPage({blogsResult,totalItems}:Props) {
+export default function BlogsPage( { blogsResult, totalItems }:Props ) {
+
     let date = new Date(blogsResult.featuredBlog?.[0]?.createdAt ?? '' );
     let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
-  
+
     return(
         <>
             <BlogBreadCrumb />
             <BlogHeading />
+            { (blogsResult.featuredBlog?.length !=0 ) &&
             <FeaturedCardBlog 
             title={blogsResult.featuredBlog?.[0]?.title} 
             slug={blogsResult.featuredBlog?.[0]?.slug} 
             imgSrc={blogsResult.featuredBlog?.[0]?.imageSrc ?? ''}
             content={blogsResult.featuredBlog?.[0]?.description}
-            imgAuthor={blogsResult.featuredBlog?.[0]?.authorAvatarAsset}
+            imgAuthor={blogsResult.featuredBlog?.[0]?.authorAvatarAsset ?? ''}
             authorName={blogsResult.featuredBlog?.[0]?.authorName}
             date={fullDate}
             />
+            }
             <BlogsList blogList={blogsResult.blogs} total={totalItems} idFeatured={blogsResult.featuredBlog?.[0]?.id} />
         </>
     )
@@ -58,7 +61,7 @@ export async function getStaticProps({
   })
   
  // Blogs
-  const idFeaturedBlog = featuredBlogs[0].id;
+  const idFeaturedBlog = featuredBlogs?.[0]?.id;
   const blogsPromise = commerce.getAllBlogs({
     variables: {
       excludeBlogIds: [idFeaturedBlog],
