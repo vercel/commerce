@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React, { useState } from 'react'
 import { MessageCommon } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
-import useGetActiveOrderForCheckout from 'src/components/hooks/order/useGetActiveOrderForCheckout'
+import { useGetActiveOrderForCheckout } from 'src/components/hooks/order'
 import IconHide from 'src/components/icons/IconHide'
 import { CHECKOUT_BILL_DATA } from 'src/utils/demo-data'
 import { CheckoutBill, CheckoutInfo } from '..'
@@ -24,7 +24,7 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
     return (
         <div className={s.warrper}>
             <MessageCommon messages={messages} onRemove={removeMessage} />
-            <div className={s.left}><CheckoutInfo onViewCart={onViewCart} currency={order?.currency.code}/></div>
+            <div className={s.left}><CheckoutInfo onViewCart={onViewCart} currency={order?.currency.code} /></div>
             <div className={s.right}><CheckoutBill data={order} /></div>
             <div className={classNames({ [s.mobile]: true, [s.isShow]: isShow })}>
                 <div className={s.modal}>

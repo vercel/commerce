@@ -3,13 +3,13 @@ import { applyCouponCodeMutation } from '@framework/utils/mutations/apply-coupon
 import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
-import { useGetActiveOrder } from '../cart'
+import { useGetActiveOrderForCheckout } from '.'
 
 
 const useApplyCouponCode = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<CommonError | null>(null)
-  const { mutate } = useGetActiveOrder()
+  const { mutate } = useGetActiveOrderForCheckout()
   
   const applyCouponCode = (couponCode: string,
     fCallBack: (isSuccess: boolean, message?: string) => void

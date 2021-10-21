@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
 import { useActiveCustomer } from 'src/components/hooks/auth'
-import useGetActiveOrderForCheckout from 'src/components/hooks/order/useGetActiveOrderForCheckout'
+import { useGetActiveOrderForCheckout } from 'src/components/hooks/order'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
@@ -25,7 +25,6 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
   const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
   const { order } = useGetActiveOrderForCheckout()
   const { customer } = useActiveCustomer()
-  console.log("active order checkout: ", order)
 
   useEffect(() => {
     if (customer) {
@@ -91,6 +90,9 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
           return `${streetLine1}, ${city}, ${province}, ${postalCode}, ${countryCode}, ${phoneNumber}`
         }
         return ''
+      case CheckoutStep.ShippingMethodInfo:
+        console.log('oder here: ', order?.shippingLine)
+        return `${order?.shippingLine.shippingMethod.name}, ${order?.shippingLine.priceWithTax ? `${order?.shippingLine.priceWithTax} ${currency}`: 'Free'}` || ''
       default:
         return ""
     }
@@ -105,7 +107,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.ShippingAddressInfo,
       title: 'Shipping Address Information',
-      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingAddressInfo} activeStep={activeStep}/>,
+      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingAddressInfo} activeStep={activeStep} />,
     },
     {
       id: CheckoutStep.ShippingMethodInfo,

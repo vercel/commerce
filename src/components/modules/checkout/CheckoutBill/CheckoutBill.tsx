@@ -8,7 +8,6 @@ import s from './CheckoutBill.module.scss'
 import FormPromotionCode from './FormPromotionCode/FormPromotionCode'
 
 interface CheckoutBillProps {
-  // data: CardItemCheckoutProps[]
   data: CartCheckout | null
 }
 

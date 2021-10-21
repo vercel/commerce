@@ -377,6 +377,13 @@ export type SetShippingMethodMutation = {
       | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
 };
 
+
+export type GetEligibleMethodsQuery = {
+  eligibleShippingMethods: Array<
+      Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
+  >;
+};
+
 export type Asset = Node & {
   __typename?: 'Asset'
   id: Scalars['ID']

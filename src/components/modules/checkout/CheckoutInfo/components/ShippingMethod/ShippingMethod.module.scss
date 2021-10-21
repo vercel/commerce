@@ -19,21 +19,10 @@
     }
 
     .options {
-        @apply absolute transition-all duration-200 overflow-hidden;
-        transform: translateX(-100%);
-        opacity: 0;
         margin-top: 0.8rem;
-        top: 6rem;
-        left: 0;
         width: 100%;
         background: var(--white);
         border: 1px solid var(--border-line);
         border-radius: 0.8rem;
-        &.show {
-            z-index: 10;
-            opacity: 1;
-            transform: none;
-            position: initial;
-        }
     }
 }

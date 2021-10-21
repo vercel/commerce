@@ -3,13 +3,13 @@ import { setOrderShippingAddressMutation } from '@framework/utils/mutations/set-
 import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
-import { useGetActiveOrder } from '../cart'
+import { useGetActiveOrderForCheckout } from '.'
 
 
 const useSetOrderShippingAddress = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<CommonError | null>(null)
-  const { mutate } = useGetActiveOrder()
+  const { mutate } = useGetActiveOrderForCheckout()
   
   const setOrderShippingAddress = (input: CreateAddressInput,
     fCallBack: (isSuccess: boolean, message?: string) => void
@@ -21,7 +21,6 @@ const useSetOrderShippingAddress = () => {
       variables: { input },
     })
       .then(({ data }) => {
-        console.log("data: ", data)
         if (data.setOrderShippingAddress.__typename === 'Order') {
           fCallBack(true)
           mutate()
