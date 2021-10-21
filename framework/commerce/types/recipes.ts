@@ -21,6 +21,7 @@ export enum SortOrder {
     ASC = 'ASC',
     DESC = 'DESC',
 }
+
 export type GetAllRecipesOperation<T extends RecipesType = RecipesType> = {
     data: { items: T['items'][], totalItems: number }
     variables: {
