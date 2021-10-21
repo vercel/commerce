@@ -88,6 +88,13 @@ export function getFacetIdByName(facets: Facet[], facetName: string, valueName:s
 }
 
 
+export function getFacetIdByCode(facets: Facet[], parentCode: string, valueCode:string) {
+  const featuredFacet = facets.find((item: Facet) => item.code === parentCode)
+  const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.code === valueCode)
+  return freshFacetValue?.id
+}
+
+
 export function getAllFeaturedFacetId(facets: Facet[]) {
   const featuredFacet = facets.find((item: Facet) => item.name === FACET.FEATURE.PARENT_NAME)
   const rs = featuredFacet?.values.map((item: FacetValue) => item.id)

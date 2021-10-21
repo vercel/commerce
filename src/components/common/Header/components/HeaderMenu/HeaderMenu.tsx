@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { memo, useMemo } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { ButtonCommon } from 'src/components/common'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
@@ -31,6 +31,8 @@ interface Props {
   openModalRegister: () => void
   openModalInfo: () => void
   toggleFilter: () => void
+  searchValue:string|number
+  setSearchValue: (value: string | number) => void
 }
 
 const HeaderMenu = memo(
@@ -41,11 +43,13 @@ const HeaderMenu = memo(
     openModalRegister,
     openModalInfo,
     toggleFilter,
+    searchValue,
+    setSearchValue
   }: Props) => {
     const router = useRouter()
     const { toggleCartDrawer } = useCartDrawer()
     const { customer } = useActiveCustomer()
-
+    
     const { logout } = useLogout()
 
     const optionMenuNotAuthen = useMemo(
@@ -92,6 +96,15 @@ const HeaderMenu = memo(
       ],
       [logout]
     )
+
+    const onEnter = () => {
+      console.log("enter")
+        router.push(`${ROUTE.PRODUCTS}?${QUERY_KEY.SEARCH}=${searchValue}`)
+    }
+
+    const onChange = (value:string|number) => {
+        setSearchValue(value)
+    }
     
     return (
       <section
@@ -121,10 +134,10 @@ const HeaderMenu = memo(
           </div>
           <div className={s.searchWrap}>
             <div className={s.inputSearch}>
-              <InputSearch />
+              <InputSearch onChange={onChange} onEnter={onEnter} value={searchValue}/>
             </div>
             <div className={s.buttonSearch}>
-              <ButtonCommon>Search</ButtonCommon>
+              <ButtonCommon onClick={onEnter}>Search</ButtonCommon>
             </div>
           </div>
         </div>

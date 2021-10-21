@@ -7,10 +7,10 @@ import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { FACET } from 'src/utils/constanst.utils';
-import { FilterOneVatiant, getFacetIdByName } from 'src/utils/funtion.utils';
+import { FilterOneVatiant, getFacetIdByCode, getFacetIdByName } from 'src/utils/funtion.utils';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED,COLLECTION_SLUG_SPICE } from 'src/utils/constanst.utils';
 import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
-import { PromiseWithKey } from 'src/utils/types.utils';
+import { CollectionsWithData, PromiseWithKey } from 'src/utils/types.utils';
 
 interface Props {
   featuredAndDiscountFacetsValue: FacetValue[],
@@ -19,18 +19,17 @@ interface Props {
   collections: Collection[]
   spiceProducts:ProductCard[]
   veggie: ProductCard[],
-
+  collectionProps:CollectionsWithData[]
 }
-export default function Home({ featuredAndDiscountFacetsValue, veggie,
+export default function Home({ featuredAndDiscountFacetsValue, veggie,collectionProps,
   freshProducts, featuredProducts,
   collections,spiceProducts }: Props) {
-
   return (
     <>
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
-      <HomeCollection data = {veggie}/>
+      <HomeCollection data = {collectionProps}/>
       <FreshProducts data={freshProducts} collections={collections} />
       <HomeVideo />
       {spiceProducts.length>0 && <HomeSpice data={spiceProducts}/>}
@@ -60,10 +59,26 @@ export async function getStaticProps({
     config,
     preview,
   })
-  
 
   props.featuredAndDiscountFacetsValue = getAllFacetValuesForFeatuedProducts(facets)
-  
+
+    // collection
+  const { collections } = await commerce.getAllCollections({
+    variables: {},
+    config,
+    preview,
+  })
+    
+  props.collections= collections
+  let collectionsPromisesWithKey = [] as PromiseWithKey[]
+  collections.map((collection)=>{
+    const promise = commerce.getAllProducts({
+      variables: {collectionSlug:collection.slug},
+      config,
+      preview,
+    })
+    collectionsPromisesWithKey.push({ key: `${collection.slug}`, promise: promise, keyResult: 'products' })
+  })
   // fresh products
   const freshProductvariables: ProductVariables = {}
   const freshFacetId = getFreshFacetId(facets)
@@ -83,7 +98,7 @@ export async function getStaticProps({
   const veggieProductvariables: ProductVariables = {
     groupByProduct:false
   }
-  const veggieId = getFacetIdByName(facets,FACET.CATEGORY.PARENT_NAME,FACET.CATEGORY.VEGGIE)
+  const veggieId = getFacetIdByCode(facets,FACET.CATEGORY.PARENT_CODE,FACET.CATEGORY.VEGGIE)
   if (veggieId) {
     veggieProductvariables.facetValueIds = [veggieId]
   }
@@ -111,13 +126,7 @@ export async function getStaticProps({
     props.featuredProducts = []
   }
 
-  // collection
-  const collectionsPromise = commerce.getAllCollections({
-    variables: {},
-    config,
-    preview,
-  })
-  promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections'  })
+
 
   // spiceProducts
   const spiceProducts = commerce.getAllProducts({
@@ -130,6 +139,17 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
 
   try {
+    const collectionPromises = getAllPromies(collectionsPromisesWithKey)
+    const collectionResult = await Promise.all(collectionPromises)
+    let collectionProps:CollectionsWithData[] = [] 
+    collectionsPromisesWithKey.map((item, index) => {
+      collectionProps.push({
+        ...collections[index],
+        items:item.keyResult ? FilterOneVatiant(collectionResult[index][item.keyResult]) : collectionResult[index]
+      })
+      return null
+    })
+    props.collectionProps=collectionProps
     const promises = getAllPromies(promisesWithKey)
     const rs = await Promise.all(promises)
     

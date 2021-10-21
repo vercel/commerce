@@ -1,3 +1,5 @@
+import { ProductCard } from './../../framework/commerce/types/product';
+import { Collection } from './../../framework/commerce/types/collection';
 
 export interface ProductProps {
     category?: string
@@ -73,3 +75,6 @@ export type PromiseWithKey = {
 }
 
 export type SelectedOptions = Record<string, string | null>
+export interface CollectionsWithData extends Collection  {
+    items: ProductCard[]
+}

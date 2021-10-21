@@ -66,7 +66,11 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
     const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string)
     query.input.skip = page * DEFAULT_PAGE_SIZE
 
-
+    const searchQuery = router.query[QUERY_KEY.SEARCH] as string
+    if (searchQuery) {
+      query.input.term = searchQuery
+    }
+    
     const sortQuery = router.query[QUERY_KEY.SORTBY] as string
     if (sortQuery) {
       query.input.sort = getProductSortParamFromQuery(sortQuery)

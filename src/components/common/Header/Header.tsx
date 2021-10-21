@@ -20,6 +20,7 @@ const Header = memo(({ }: props) => {
     const [isModeAuthenRegister, setIsModeAuthenRegister] = useState<boolean>(false)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
     const { visible: visibleModalInfo, closeModal: closeModalInfo, openModal: openModalInfo } = useModalCommon({ initialValue: false })
+    const [searchValue, setSearchValue] = useState<string|number>("")
 
     useEffect(() => {
         const handleScroll = () => {
@@ -56,7 +57,9 @@ const Header = memo(({ }: props) => {
                     toggleFilter={toggleFilter}
                     openModalLogin={openModalLogin}
                     openModalRegister={openModalRegister}
-                    openModalInfo={openModalInfo} />
+                    openModalInfo={openModalInfo} 
+                    setSearchValue={setSearchValue}
+                    searchValue={searchValue}/>
             </div>
 
             <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
@@ -68,6 +71,8 @@ const Header = memo(({ }: props) => {
                         openModalLogin={openModalLogin}
                         openModalRegister = {openModalRegister}
                         openModalInfo={openModalInfo}
+                        setSearchValue={setSearchValue}
+                        searchValue={searchValue}
                          />
                     <HeaderSubMenu />
                 </div>
