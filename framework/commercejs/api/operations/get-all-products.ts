@@ -1,7 +1,5 @@
-import type { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
-
-import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
+import type { GetAllProductsOperation } from '../../types/product'
 import type { CommercejsConfig, Provider } from '../index'
 
 import { normalizeProduct } from '../../utils/normalize-product'

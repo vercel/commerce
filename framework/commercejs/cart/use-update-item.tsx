@@ -7,7 +7,7 @@ import { ValidationError } from '@commerce/utils/errors'
 import debounce from 'lodash.debounce'
 import { useCallback } from 'react'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
-import type { Cart as CommercejsCart } from '@chec/commerce.js/types/cart'
+import type { CommercejsCart } from '../types/cart'
 import { normalizeCart } from '../utils/normalize-cart'
 import useCart from './use-cart'
 

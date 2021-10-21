@@ -1,6 +1,5 @@
 import type { CommercejsConfig } from '..'
-
-import { GetAllPagesOperation } from '@commerce/types/page'
+import { GetAllPagesOperation } from '../../types/page'
 
 export type Page = { url: string }
 export type GetAllPagesResult = { pages: Page[] }

@@ -60,7 +60,7 @@
     "@graphql-codegen/typescript-operations": "^1.18.1",
     "@next/bundle-analyzer": "^10.2.3",
     "@types/body-scroll-lock": "^2.6.1",
-    "@types/chec__commerce.js": "^2.7.5",
+    "@types/chec__commerce.js": "^2.8.0",
     "@types/cookie": "^0.4.0",
     "@types/js-cookie": "^2.2.6",
     "@types/lodash.debounce": "^4.0.6",

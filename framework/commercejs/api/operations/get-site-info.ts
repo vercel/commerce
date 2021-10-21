@@ -1,6 +1,5 @@
 import type { OperationContext } from '@commerce/api/operations'
-import type { Category, GetSiteInfoOperation } from '@commerce/types/site'
-
+import type { Category, GetSiteInfoOperation } from '../../types/site'
 import { normalizeCategory } from '../../utils/normalize-category'
 import type { CommercejsConfig, Provider } from '../index'
 

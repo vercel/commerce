@@ -1,6 +1,9 @@
-import type { Cart as CommercejsCart } from '@chec/commerce.js/types/cart'
-import type { LineItem as CommercejsLineItem } from '@chec/commerce.js/types/line-item'
-import type { Cart, LineItem } from '@commerce/types/cart'
+import type {
+  Cart,
+  LineItem,
+  CommercejsCart,
+  CommercejsLineItem,
+} from '../types/cart'
 
 type CommercejsLineItemType = CommercejsLineItem & { image: { url: string } }
 

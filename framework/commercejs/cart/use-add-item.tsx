@@ -2,7 +2,7 @@ import type { AddItemHook } from '@commerce/types/cart'
 import type { MutationHook } from '@commerce/utils/types'
 import { useCallback } from 'react'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
-import type { Cart as CommercejsCart } from '@chec/commerce.js/types/cart'
+import type { CommercejsCart } from '../types/cart'
 import { normalizeCart } from '../utils/normalize-cart'
 import useCart from './use-cart'
 

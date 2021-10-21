@@ -1,7 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import { SearchProductsBody, SearchProductsHook } from '@commerce/types/product'
-import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
+import { SearchProductsHook } from '@commerce/types/product'
+import type { CommercejsProduct } from '../types/product'
 import { getProductSearchVariables } from '../utils/product-search'
 import { normalizeProduct } from '../utils/normalize-product'
 

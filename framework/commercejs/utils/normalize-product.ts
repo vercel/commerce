@@ -1,5 +1,4 @@
-import type { Product } from '@commerce/types/product'
-import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
+import type { Product, CommercejsProduct } from '@commerce/types/product'
 
 const getOptionColor = (variantName: string, optionName: string) => {
   const isColorVariant = variantName.match(/colou?r/gi)

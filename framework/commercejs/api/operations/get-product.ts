@@ -1,5 +1,5 @@
 import type { OperationContext } from '@commerce/api/operations'
-import type { GetProductOperation } from '@commerce/types/product'
+import type { GetProductOperation } from '../../types/product'
 import type { CommercejsConfig, Provider } from '../index'
 import { normalizeProduct } from '../../utils/normalize-product'
 

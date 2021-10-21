@@ -1,6 +1,8 @@
 import type { OperationContext } from '@commerce/api/operations'
-import type { GetAllProductPathsOperation } from '@commerce/types/product'
-import type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
+import type {
+  GetAllProductPathsOperation,
+  CommercejsProduct,
+} from '../../types/product'
 
 import type { CommercejsConfig, Provider } from '..'
 

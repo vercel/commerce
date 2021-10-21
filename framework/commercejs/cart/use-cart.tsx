@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import type { GetCartHook } from '@commerce/types/cart'
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart } from '@commerce/cart/use-cart'
-import type { Cart as CommercejsCart } from '@chec/commerce.js/types/cart'
+import type { CommercejsCart } from '../types/cart'
 import { normalizeCart } from '../utils/normalize-cart'
 
 export default useCart as UseCart<typeof handler>
