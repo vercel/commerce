@@ -49,7 +49,7 @@ const CheckoutBill = ({ data }: CheckoutBillProps) => {
           </div>
           <div className={s.line}>
             Shipping
-            <div className={s.shipping}>{data?.shippingLine.priceWithTax || 0}  {data?.currency?.code}</div>
+            <div className={s.shipping}>{data?.shippingLine?.priceWithTax || 0}  {data?.currency?.code}</div>
           </div>
           <div className={s.line}>
             Estimated Total

@@ -91,8 +91,10 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
         }
         return ''
       case CheckoutStep.ShippingMethodInfo:
-        console.log('oder here: ', order?.shippingLine)
-        return `${order?.shippingLine.shippingMethod.name}, ${order?.shippingLine.priceWithTax ? `${order?.shippingLine.priceWithTax} ${currency}`: 'Free'}` || ''
+        if (order?.shippingLine) {
+          return `${order?.shippingLine.shippingMethod.name}, ${order?.shippingLine.priceWithTax ? `${order?.shippingLine.priceWithTax} ${currency}` : 'Free'}` || ''
+        }
+        return ''
       default:
         return ""
     }

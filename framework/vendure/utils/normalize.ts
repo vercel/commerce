@@ -94,10 +94,10 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
       countryCode: order.shippingAddress?.countryCode || '',
       phoneNumber: order.shippingAddress?.phoneNumber || '',
     },
-    shippingLine: {
-      priceWithTax: order.shippingLines[0].priceWithTax / 100,
-      shippingMethod: order.shippingLines[0].shippingMethod as ShippingMethod
-    },
+    shippingLine: order.shippingLines[0] ? {
+      priceWithTax: order.shippingLines[0]?.priceWithTax / 100,
+      shippingMethod: order.shippingLines[0]?.shippingMethod as ShippingMethod
+    }: undefined,
     totalDiscount: order.discounts?.reduce((total, item) => total + item.amountWithTax, 0) / 100 || 0,
     discounts: order.discounts.map(item => {
       return { value: item.amountWithTax, description: item.description }
