@@ -62,6 +62,7 @@ const ShippingMethod = memo(({ currency, onConfirm }: Props) => {
             name={item.name}
             price={item.price}
             currency={currency}
+            isActive={selectedValue?.id === item.id}
             onSelect={onChange}
           />)}
         </ul>

@@ -8,7 +8,7 @@ interface CheckoutCollapseProps {
   children: React.ReactNode
   title: string
   isEdit: boolean
-  onClose?: (id: number) => void
+  onClose: (id: number) => void
   onOpen?: (id: number) => void
   onEditClick?: (id: number) => void
   note?: string
@@ -29,7 +29,7 @@ const CheckoutCollapse = ({
 }: CheckoutCollapseProps) => {
   const handleToggle = () => {
     if (visible) {
-      onClose && onClose(id)
+      isEdit && onClose(id)
     } else if (!disableEdit) {
       isEdit && onEditClick && onEditClick(id)
     }

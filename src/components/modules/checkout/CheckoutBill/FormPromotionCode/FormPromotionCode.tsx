@@ -66,7 +66,7 @@ const FormPromotionCode = () => {
 
                                     <InputFiledInForm
                                         name="couponCode"
-                                        placeholder="Coupon code"
+                                        placeholder="Promotion code"
                                         error={
                                             touched.couponCode && errors.couponCode
                                                 ? errors.couponCode.toString()
