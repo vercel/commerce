@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useMessage } from 'src/components/contexts'
-import { useModalCommon } from 'src/components/hooks'
 import { FILTER_PAGE, ROUTE } from 'src/utils/constanst.utils'
 import { CartDrawer, Footer, MessageCommon, ScrollToTop } from '../..'
 import Header from '../../Header/Header'

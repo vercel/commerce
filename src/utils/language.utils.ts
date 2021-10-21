@@ -11,6 +11,9 @@ export const LANGUAGE = {
         SEARCH: 'Search',
     },
     MESSAGE: {
-        ERROR: 'Something went wrong! Please try again!'
+        ERROR: 'Something went wrong! Please try again!',
+        INVALID_EMAIL: 'Your email was wrong',
+        REQUIRED: 'Required',
+
     }
 }

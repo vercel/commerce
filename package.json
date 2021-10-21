@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "set NODE_OPTIONS='--inspect' && set PORT=3005 && next dev",
     "dev-windows": "set NODE_OPTIONS='--inspect' && set PORT=3005 && next dev",
+    "dev-macos": "set NODE_OPTIONS='--inspect' && set PORT=3005 && next dev",
     "build": "next build",
     "start": "PORT=3005 next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
