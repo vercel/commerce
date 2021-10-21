@@ -143,6 +143,10 @@ export function getAllPromies(promies: PromiseWithKey[]) {
   return promies.map(item => item.promise)
 }
 
+export function getIdFeaturedBlog(blog: BlogList) {
+  return blog?.id
+}
+
 export const FilterOneVatiant = (products:ProductCard[]) => {
   let idList:string[] = []
   let filtedProduct: ProductCard[]=[]

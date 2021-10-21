@@ -11,7 +11,8 @@ import getProduct from './operations/get-product'
 import getSiteInfo from './operations/get-site-info'
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
-
+import getAllBlogs from './operations/get-all-blogs'
+import getFeaturedBlog from './operations/get-featured-blog'
 
 export interface VendureConfig extends CommerceAPIConfig {}
 
@@ -44,6 +45,8 @@ const operations = {
   getProduct,
   getAllFacets,
   getAllCollections,
+  getAllBlogs,
+  getFeaturedBlog
 }
 
 export const provider = { config, operations }

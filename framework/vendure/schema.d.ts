@@ -2371,6 +2371,55 @@ export type Product = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+export type BlogList = Node &{
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  featuredAsset?: Maybe<Asset>
+  isPublish:Boolean
+  translations: Array<BlogTranslation>
+  authorName: Scalars['String']
+  authorAvatarAsset:Asset
+  relevantProducts: Product
+  isFeatured: Boolean
+}
+
+export type BlogTranslation = {
+  __typename?: 'BlogTranslation'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  languageCode: LanguageCode
+  title: Scalars['String']
+  slug: Scalars['String']
+  description: Scalars['String']
+  content: Scalars['String']
+}
+
+export type GetAllBlogsQuery = PaginatedList & {
+  blogs: { __typename?: 'BlogList' } & {
+    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    'totalItems'
+  }
+}
+export type GetFeaturedBlogQuery = PaginatedList & {
+  id:string,
+  featuredBlogs: { __typename?: 'BlogList' } & {
+    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    'totalItems'
+  }
+}
+
+export type QueryBlogs = {
+  excludeBlogIds:Array,
+  options: BlogListOptions
+}
+
+export type BlogListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+}
+
 export type ProductTranslation = {
   __typename?: 'ProductTranslation'
   id: Scalars['ID']
@@ -3485,3 +3534,4 @@ export type SearchQuery = { __typename?: 'Query' } & {
     'totalItems'
   > & { items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment> }
 }
+

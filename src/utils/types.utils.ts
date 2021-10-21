@@ -30,7 +30,7 @@ export interface BlogProps {
     title: string
     slug: string
     description: string
-    imageSrc: string
+    imageSrc: string | null,
 }
 
 export interface CheckOutForm {

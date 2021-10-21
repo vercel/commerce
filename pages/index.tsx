@@ -12,6 +12,7 @@ import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED,COLLECTION_SLUG_SPICE } from '
 import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
 
+
 interface Props {
   featuredAndDiscountFacetsValue: FacetValue[],
   freshProducts: ProductCard[],
@@ -63,7 +64,7 @@ export async function getStaticProps({
   
 
   props.featuredAndDiscountFacetsValue = getAllFacetValuesForFeatuedProducts(facets)
-  
+
   // fresh products
   const freshProductvariables: ProductVariables = {}
   const freshFacetId = getFreshFacetId(facets)
