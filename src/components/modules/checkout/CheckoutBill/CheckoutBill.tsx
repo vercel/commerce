@@ -13,7 +13,6 @@ interface CheckoutBillProps {
 }
 
 const CheckoutBill = ({ data }: CheckoutBillProps) => {
-  // console.log("data here***: ", data)
   return (
     <div className={s.warpper}>
       <div className={s.title}>
@@ -40,22 +39,22 @@ const CheckoutBill = ({ data }: CheckoutBillProps) => {
           <div className={s.line}>
             Discount {(data?.discounts?.length || 0) > 0 && `(${data?.discounts?.map(item => item.description).join(",")})`}
             <div className={s.shipping}>
-              {data?.totalDiscount ? `${data?.totalDiscount} ${data?.currency?.code}` : "0"}
+              {data?.totalDiscount || 0} {data?.currency?.code}
             </div>
           </div>
           <div className={s.line}>
             Subtotal
             <div className={s.subTotal}>
-              {data?.subtotalPrice ? `${data?.subtotalPrice} ${data?.currency?.code}` : "0"}
+              {data?.subtotalPrice || 0} {data?.currency?.code}
             </div>
           </div>
           <div className={s.line}>
             Shipping
-            <div className={s.shipping}>Free</div>
+            <div className={s.shipping}>{data?.shippingLine.priceWithTax || 0}  {data?.currency?.code}</div>
           </div>
           <div className={s.line}>
             Estimated Total
-            <div className={s.total}>{data?.totalPrice ? `${data?.totalPrice} ${data?.currency?.code}` : "0"}</div>
+            <div className={s.total}>{data?.totalPrice || 0} {data?.currency?.code}</div>
           </div>
         </div>
       </div>

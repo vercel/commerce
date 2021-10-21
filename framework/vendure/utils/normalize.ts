@@ -95,7 +95,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
       phoneNumber: order.shippingAddress?.phoneNumber || '',
     },
     shippingLine: {
-      priceWithTax: order.shippingLines[0].priceWithTax,
+      priceWithTax: order.shippingLines[0].priceWithTax / 100,
       shippingMethod: order.shippingLines[0].shippingMethod as ShippingMethod
     },
     totalDiscount: order.discounts?.reduce((total, item) => total + item.amountWithTax, 0) / 100 || 0,

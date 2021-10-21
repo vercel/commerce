@@ -119,21 +119,8 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     },
   ]
 
-  // TODO: remove
-  // const { addProduct } = useAddProductToCart()
-
-  // const createOrder = () => {
-  //   addProduct({ variantId: "92", quantity: 2 }, handleAddToCartCallback)
-  // }
-  // const handleAddToCartCallback = (isSuccess: boolean, message?: string) => {
-  //   // console.log("after create order: ", isSuccess, message)
-  // }
-
   return (
     <div className={s.warpper}>
-      {/* TODO: remove */}
-      {/* <ButtonCommon onClick={createOrder}>test create order</ButtonCommon> */}
-      doneSteps = {JSON.stringify(doneSteps)}
       <div className={s.title}>
         <Logo />
         <div className={s.viewCart} onClick={onViewCart}>View cart</div>
