@@ -151,13 +151,13 @@ export type Operations<P extends APIProvider> = {
 
 
   getAllBlogs: {
-    <T extends GetFeaturedOperation>(opts: {
+    <T extends GetAllBlogsOperation>(opts: {
       variables?: T['variables']
       config?: P['config']
       preview?: boolean
     }): Promise<T['data']>
 
-    <T extends GetFeaturedOperation>(
+    <T extends GetAllBlogsOperation>(
       opts: {
         variables?: T['variables']
         config?: P['config']
@@ -167,13 +167,13 @@ export type Operations<P extends APIProvider> = {
   }
 
   getFeaturedBlog: {
-    <T extends GetAllBlogsOperation>(opts: {
+    <T extends GetFeaturedOperation>(opts: {
       variables?: T['variables']
       config?: P['config']
       preview?: boolean
     }): Promise<T['data']>
 
-    <T extends GetAllBlogsOperation>(
+    <T extends GetFeaturedOperation>(
       opts: {
         variables?: T['variables']
         config?: P['config']

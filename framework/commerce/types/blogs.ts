@@ -4,7 +4,7 @@ import { Asset, BlogTranslation, Maybe, Product } from './../../vendure/schema.d
 export type BlogList = Node &{
     id: string
     featuredAsset?: Maybe<Asset>
-    isHidden:Boolean
+    isPublic:Boolean
     translations: Array<BlogTranslation>
     authorName: string
     authorAvatarAsset:Array<Asset>
