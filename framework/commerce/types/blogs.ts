@@ -1,13 +1,12 @@
-import { SearchResultSortParameter } from "@framework/schema";
 import { Asset, BlogTranslation, Maybe, Product } from './../../vendure/schema.d';
 
 export type BlogList = Node &{
     id: string
     featuredAsset?: Maybe<Asset>
     isPublic:Boolean
-    translations: Array<BlogTranslation>
+    translations: BlogTranslation[]
     authorName: string
-    authorAvatarAsset:Array<Asset>
+    authorAvatarAsset:Asset[]
     relevantProducts: Product
 }
 export type BlogsType = {
@@ -23,7 +22,7 @@ export type GetAllBlogsOperation<T extends BlogsType = BlogsType> = {
 }
 
   
-export type GetFeaturedOperation<T extends BlogsType = BlogsType> = {
+export type GetFeaturedBlogsOperation<T extends BlogsType = BlogsType> = {
     data: { items: T['items'][] }
     variables: {
         take?: number

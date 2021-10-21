@@ -5,15 +5,13 @@ import s from './ListProductCardSkeleton.module.scss'
 type Props = {
   count?: number
   isWrap?: boolean,
-  isBlog?:boolean
 }
-const ListProductCardSkeleton = ({ count = 3, isWrap,isBlog=false }: Props) => {
+const ListProductCardSkeleton = ({ count = 3, isWrap }: Props) => {
 
   return (
-    <div className={classNames(s.listProductCardSkeleton, { [s.wrap]: isWrap }, { [s.isBlog]: isBlog })}>
+    <div className={classNames(s.listProductCardSkeleton, { [s.wrap]: isWrap })}>
       {
-        Array.from(Array(count).keys()).map(item => <ProductCardSkeleton key={item} isBlog={isBlog} />)
-
+        Array.from(Array(count).keys()).map(item => <ProductCardSkeleton key={item} />)
       }
     </div>
   )

@@ -11,7 +11,7 @@ import type {
 } from '../types/product'
 import type {
   GetAllBlogsOperation,
-  GetFeaturedOperation
+  GetFeaturedBlogsOperation
 } from '../types/blogs'
 import type { APIProvider, CommerceAPI } from '.'
 import { GetAllCollectionsOperation } from '@commerce/types/collection';
@@ -167,13 +167,13 @@ export type Operations<P extends APIProvider> = {
   }
 
   getFeaturedBlog: {
-    <T extends GetFeaturedOperation>(opts: {
+    <T extends GetFeaturedBlogsOperation>(opts: {
       variables?: T['variables']
       config?: P['config']
       preview?: boolean
     }): Promise<T['data']>
 
-    <T extends GetFeaturedOperation>(
+    <T extends GetFeaturedBlogsOperation>(
       opts: {
         variables?: T['variables']
         config?: P['config']
