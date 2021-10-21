@@ -176,7 +176,7 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
                 <div className={s.bottom}>
                   <ChekoutNotePolicy />
                   <ButtonCommon HTMLType='submit' loading={loading} size="large">
-                    Continue to Payment
+                    Continue to Shipping method
                   </ButtonCommon>
                 </div>
               </div>

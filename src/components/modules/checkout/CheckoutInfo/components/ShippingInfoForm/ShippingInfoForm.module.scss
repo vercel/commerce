@@ -1,28 +1,20 @@
 @import "../../../../../../styles/utilities";
 
-.warpper{
+.warpper {
     @apply u-form;
     @screen md {
         padding: 0 5.6rem;
     }
-    .bottom{
+    .bottom {
+        @apply flex flex-col items-start;
         margin-top: 2.4rem;
-        @apply flex justify-between items-center;
-        .note{
-            font-size: 1.2rem;
-            line-height: 2rem;
-        }
-        @screen sm-only {
-            @apply flex-col items-start;
-            .button {
-                padding-top: 2rem;
-            }
+        button {
+            margin-left: auto;
         }
     }
-    .line{
-        >div{
+    .line {
+        > div {
             width: 50%;
         }
     }
-
 }

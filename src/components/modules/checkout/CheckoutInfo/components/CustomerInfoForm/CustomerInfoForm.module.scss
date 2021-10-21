@@ -8,11 +8,10 @@
         }
     }
     .bottom{
+        @apply flex flex-col items-start;
         margin-top: 2.4rem;
-        @apply flex justify-between items-center;
-        @screen sm-only {
-            @apply flex-col items-start;
+        button {
+            margin-left: auto;
         }
-
     }
 }
