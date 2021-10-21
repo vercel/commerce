@@ -9,25 +9,8 @@ export const cartFragment = /* GraphQL */ `
     total
     totalWithTax
     currencyCode
-    discounts {
-      type
-      description
-      amount
-      amountWithTax
-    }
     customer {
       id
-      firstName
-      lastName
-      emailAddress
-    }
-    shippingAddress {
-      streetLine1
-      city
-      province
-      postalCode
-      countryCode
-      phoneNumber
     }
     lines {
       id

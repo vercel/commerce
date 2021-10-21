@@ -1,5 +1,5 @@
-import { Shipping } from 'src/components/icons';
-import type { Discount, Measurement, Image } from './common'
+import { ShippingMethod } from '@framework/schema';
+import type { Discount, Image, Measurement } from './common';
 
 export type SelectedOption = {
   // The option's id.
@@ -63,6 +63,31 @@ export type Cart = {
   id: string
   // ID of the customer to which the cart belongs.
   customerId?: string
+  // The email assigned to this cart
+  email?: string
+  // The date and time when the cart was created.
+  createdAt: string
+  // The currency used for this cart
+  currency: { code: string }
+  // Specifies if taxes are included in the line items.
+  taxesIncluded: boolean
+  lineItems: LineItem[]
+  // The sum of all the prices of all the items in the cart.
+  // Duties, taxes, shipping and discounts excluded.
+  lineItemsSubtotalPrice: number
+  // Price of the cart before duties, shipping and taxes.
+  subtotalPrice: number
+  // The sum of all the prices of all the items in the cart.
+  // Duties, taxes and discounts included.
+  totalPrice: number
+  // Discounts that have been applied on the cart.
+  discounts?: Discount[]
+}
+
+export type CartCheckout = {
+  id: string
+  // ID of the customer to which the cart belongs.
+  customerId?: string
   customer?: {
     firstName: string,
     lastName: string,
@@ -97,6 +122,10 @@ export type Cart = {
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
   totalDiscount: number
+  shippingLine: {
+    priceWithTax: number
+    shippingMethod: ShippingMethod
+  }
 }
 
 /**

@@ -2,27 +2,30 @@ import React, { useEffect, useState } from 'react'
 import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
 import { useActiveCustomer } from 'src/components/hooks/auth'
-import { useGetActiveOrder } from 'src/components/hooks/cart'
+import useGetActiveOrderForCheckout from 'src/components/hooks/order/useGetActiveOrderForCheckout'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
 import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
+import ShippingMethod from './components/ShippingMethod/ShippingMethod'
 interface CheckoutInfoProps {
   onViewCart: () => void
   currency?: string
 }
 
-enum CheckoutStep {
+export enum CheckoutStep {
   CustomerInfo = 1,
-  ShippingInfo = 2,
-  PaymentInfo = 3,
+  ShippingAddressInfo = 2,
+  ShippingMethodInfo = 3,
+  PaymentInfo = 4,
 }
 
 const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
   const [activeStep, setActiveStep] = useState(1)
   const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
-  const { order } = useGetActiveOrder()
+  const { order } = useGetActiveOrderForCheckout()
   const { customer } = useActiveCustomer()
+  console.log("active order checkout: ", order)
 
   useEffect(() => {
     if (customer) {
@@ -82,7 +85,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
         } else {
           return ''
         }
-      case CheckoutStep.ShippingInfo:
+      case CheckoutStep.ShippingAddressInfo:
         if (order?.shippingAddress) {
           const { streetLine1, city, province, postalCode, countryCode, phoneNumber } = order.shippingAddress
           return `${streetLine1}, ${city}, ${province}, ${postalCode}, ${countryCode}, ${phoneNumber}`
@@ -100,9 +103,14 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
       form: <CustomerInfoForm onConfirm={onConfirm} id={CheckoutStep.CustomerInfo} activeStep={activeStep} />,
     },
     {
-      id: CheckoutStep.ShippingInfo,
-      title: 'Shipping Information',
-      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingInfo} activeStep={activeStep} currency={currency} />,
+      id: CheckoutStep.ShippingAddressInfo,
+      title: 'Shipping Address Information',
+      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingAddressInfo} activeStep={activeStep}/>,
+    },
+    {
+      id: CheckoutStep.ShippingMethodInfo,
+      title: 'Shipping Method Information',
+      form: <ShippingMethod onConfirm={onConfirm} currency={currency} />,
     },
     {
       id: CheckoutStep.PaymentInfo,

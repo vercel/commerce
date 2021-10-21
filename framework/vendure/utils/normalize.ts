@@ -1,6 +1,6 @@
-import { Cart } from '@commerce/types/cart'
-import { ProductCard, Product } from '@commerce/types/product'
-import { CartFragment, SearchResultFragment, Favorite } from '../schema'
+import { Cart, CartCheckout } from '@commerce/types/cart'
+import { Product, ProductCard } from '@commerce/types/product'
+import { CartFragment, Favorite, SearchResultFragment, ShippingMethod } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -40,6 +40,41 @@ export function normalizeCart(order: CartFragment): Cart {
     id: order.id.toString(),
     createdAt: order.createdAt,
     taxesIncluded: true,
+    lineItemsSubtotalPrice: order.subTotalWithTax / 100,
+    currency: { code: order.currencyCode },
+    subtotalPrice: order.subTotalWithTax / 100,
+    totalPrice: order.totalWithTax / 100,
+    customerId: order.customer?.id,
+    lineItems: order.lines?.map((l) => ({
+      id: l.id,
+      name: l.productVariant.name,
+      quantity: l.quantity,
+      slug: l.productVariant.product.slug,
+      variantId: l.productVariant.id,
+      productId: l.productVariant.productId,
+      images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
+      discounts: l.discounts.map((d) => ({ value: d.amount / 100 })),
+      path: '',
+      variant: {
+        id: l.productVariant.id,
+        name: l.productVariant.name,
+        sku: l.productVariant.sku,
+        price: l.discountedUnitPriceWithTax / 100,
+        listPrice: l.unitPriceWithTax / 100,
+        image: {
+          url: l.featuredAsset?.preview + '?preset=thumb' || '',
+        },
+        requiresShipping: true,
+      },
+    })),
+  }
+}
+
+export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
+  return {
+    id: order.id.toString(),
+    createdAt: order.createdAt,
+    taxesIncluded: true,
     totalQuantity: order.totalQuantity,
     lineItemsSubtotalPrice: order.subTotalWithTax / 100,
     currency: { code: order.currencyCode },
@@ -58,6 +93,10 @@ export function normalizeCart(order: CartFragment): Cart {
       postalCode: order.shippingAddress?.postalCode || '',
       countryCode: order.shippingAddress?.countryCode || '',
       phoneNumber: order.shippingAddress?.phoneNumber || '',
+    },
+    shippingLine: {
+      priceWithTax: order.shippingLines[0].priceWithTax,
+      shippingMethod: order.shippingLines[0].shippingMethod as ShippingMethod
     },
     totalDiscount: order.discounts?.reduce((total, item) => total + item.amountWithTax, 0) / 100 || 0,
     discounts: order.discounts.map(item => {

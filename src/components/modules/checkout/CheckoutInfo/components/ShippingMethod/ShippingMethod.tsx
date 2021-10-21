@@ -4,6 +4,7 @@ import React, { memo, useState } from 'react'
 import { useMessage } from 'src/components/contexts'
 import { useSetOrderShippingMethod } from 'src/components/hooks/order'
 import { Shipping } from 'src/components/icons'
+import { CheckoutStep } from '../../CheckoutInfo'
 import s from './ShippingMethod.module.scss'
 import ShippingMethodItem from './ShippingMethodItem/ShippingMethodItem'
 
@@ -27,13 +28,15 @@ const MOCKUP_DATA = [
 ]
 interface Props {
   currency: string
+  onConfirm: (id: number) => void
+
 }
 
-const ShippingMethod = memo(({ currency }: Props) => {
+const ShippingMethod = memo(({ currency, onConfirm }: Props) => {
   const { setOrderShippingMethod } = useSetOrderShippingMethod()
   const [selectedValue, setSelectedValue] = useState<ShippingMethodQuote>(MOCKUP_DATA[0])
   const { showMessageError } = useMessage()
-  const [isShowOptions, setIsShowOptions] = useState<boolean>(false)
+  const [isShowOptions, setIsShowOptions] = useState<boolean>(true)
 
   const onChange = (id: string) => {
     const newValue = MOCKUP_DATA.find(item => item.id === id)
@@ -47,7 +50,9 @@ const ShippingMethod = memo(({ currency }: Props) => {
   }
 
   const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
-    if (!isSuccess) {
+    if (isSuccess) {
+      onConfirm(CheckoutStep.ShippingMethodInfo)
+    } else {
       showMessageError(msg)
     }
   }

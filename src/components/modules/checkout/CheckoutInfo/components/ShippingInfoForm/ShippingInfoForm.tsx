@@ -7,15 +7,12 @@ import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
 import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
-import ShippingMethod from '../ShippingMethod/ShippingMethod'
 import s from './ShippingInfoForm.module.scss'
 
 interface ShippingInfoFormProps {
   id: number
   activeStep: number
   onConfirm: (id: number) => void
-  currency: string
-
 
 }
 
@@ -49,7 +46,7 @@ const provinceOptions = [
   },
 ]
 
-const ShippingInfoForm = ({ onConfirm, id, activeStep , currency}: ShippingInfoFormProps) => {
+const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) => {
   const addressRef = useRef<CustomInputCommon>(null)
   const { setOrderShippingAddress, loading } = useSetOrderShippingAddress()
   const { showMessageError } = useMessage()
@@ -176,7 +173,6 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep , currency}: ShippingInfoF
                     onEnter={isValid ? submitForm : undefined}
                   />
                 </div>
-                <ShippingMethod currency={currency}/>
                 <div className={s.bottom}>
                   <ChekoutNotePolicy />
                   <ButtonCommon HTMLType='submit' loading={loading} size="large">

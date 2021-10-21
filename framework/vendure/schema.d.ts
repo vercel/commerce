@@ -3066,6 +3066,11 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
     { __typename?: 'Discount' } & Pick<Discount, 'type' | 'description' | 'amount' | 'amountWithTax'>
   >
   customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
+  shippingLines: Array<
+        Pick<ShippingLine, 'priceWithTax'> & {
+            shippingMethod: Pick<ShippingMethod, 'id' | 'code' | 'name' | 'description'>;
+        }
+    >
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
       OrderLine,

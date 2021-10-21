@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React, { useState } from 'react'
 import { MessageCommon } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
-import { useGetActiveOrder } from 'src/components/hooks/cart'
+import useGetActiveOrderForCheckout from 'src/components/hooks/order/useGetActiveOrderForCheckout'
 import IconHide from 'src/components/icons/IconHide'
 import { CHECKOUT_BILL_DATA } from 'src/utils/demo-data'
 import { CheckoutBill, CheckoutInfo } from '..'
@@ -13,7 +13,7 @@ interface CheckoutPageProps {
 const CheckoutPage = ({ }: CheckoutPageProps) => {
     const { messages, removeMessage } = useMessage()
     const [isShow, setIsShow] = useState(false)
-    const { order } = useGetActiveOrder()
+    const { order } = useGetActiveOrderForCheckout()
 
     const onClose = () => {
         setIsShow(false)

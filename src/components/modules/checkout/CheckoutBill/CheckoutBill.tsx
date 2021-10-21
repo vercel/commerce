@@ -1,15 +1,15 @@
-import { Cart } from '@commerce/types/cart'
+import { CartCheckout } from '@commerce/types/cart'
+import Link from 'next/link'
 import React from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { ButtonCommon, CardItemCheckout, EmptyCommon } from '../../../common'
 import s from './CheckoutBill.module.scss'
 import FormPromotionCode from './FormPromotionCode/FormPromotionCode'
-import Link from 'next/link'
 
 interface CheckoutBillProps {
   // data: CardItemCheckoutProps[]
-  data: Cart | null
+  data: CartCheckout | null
 }
 
 const CheckoutBill = ({ data }: CheckoutBillProps) => {
