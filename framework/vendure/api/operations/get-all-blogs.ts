@@ -57,7 +57,7 @@ export default function getAllBlogsOperation({
             isPublish: val.isPublish,
             isFeatured: val.isFeatured,
             authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview,
+            authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
             createdAt: val.createdAt
         })),
         totalItems: data?.blogs?.totalItems || null

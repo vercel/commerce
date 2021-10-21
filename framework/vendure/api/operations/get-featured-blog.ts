@@ -54,7 +54,7 @@ export default function getFeaturedBlogOperation({
             isPublish: val.isPublish,
             isFeatured: val.isFeatured,
             authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview,
+            authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
             createdAt: val.createdAt
         }))
     }
