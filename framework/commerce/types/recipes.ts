@@ -17,16 +17,15 @@ export type RecipesType = {
     totalItems: number
 }
 
-export enum SortType {
+export enum SortOrder {
     ASC = 'ASC',
     DESC = 'DESC',
 }
 export type GetAllRecipesOperation<T extends RecipesType = RecipesType> = {
     data: { items: T['items'][], totalItems: number }
     variables: {
+        excludeBlogIds:Array<Number>,
         take?: number
-        sort?: {
-            id: SortType
-        }
+        id?: SortOrder
     }
 }
