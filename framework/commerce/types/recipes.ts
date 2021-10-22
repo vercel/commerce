@@ -17,7 +17,7 @@ export type RecipesType = {
     totalItems: number
 }
 
-export enum SortOrder {
+export enum SortRecipes {
     ASC = 'ASC',
     DESC = 'DESC',
 }
@@ -27,6 +27,6 @@ export type GetAllRecipesOperation<T extends RecipesType = RecipesType> = {
     variables: {
         excludeBlogIds:Array<Number>,
         take?: number
-        id?: SortOrder
+        id?: SortRecipes
     }
 }

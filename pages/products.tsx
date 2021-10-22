@@ -18,6 +18,7 @@ interface Props {
 }
 
 export default function Products({ facets, collections, productsResult }: Props) {
+
   return (
     <>
       <ProductListBanner />

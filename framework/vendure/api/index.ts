@@ -14,6 +14,7 @@ import getProduct from './operations/get-product'
 import getSiteInfo from './operations/get-site-info'
 import getAllBlogPaths from './operations/get-all-blog-paths'
 import getRelevantBlogs from './operations/get-relevant-blogs'
+import getAllRecipes from './operations/get-all-recipes'
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
@@ -52,7 +53,8 @@ const operations = {
   getFeaturedBlog,
   getBlogDetail,
   getAllBlogPaths,
-  getRelevantBlogs
+  getRelevantBlogs,
+  getAllRecipes
 }
 
 export const provider = { config, operations }

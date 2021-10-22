@@ -19,7 +19,7 @@ const CardBlog = ({ imageSrc, title, description, slug }: BlogCardProps) => {
       <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
         <a> 
           <div className={s.image}>
-            <ImgWithLink src={imageSrc ?? ''} alt="image cardblog" />
+            <ImgWithLink src={imageSrc ?? ''} alt={title} />
           </div>
         </a>
       </Link>

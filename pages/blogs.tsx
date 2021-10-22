@@ -8,30 +8,31 @@ import { getAllPromies } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
 
 interface Props {
-    blogsResult: { blogs?: BlogCardProps[],featuredBlog?: BlogCardProps[] },
+    blogs?: BlogCardProps[],
+    featuredBlog?: BlogCardProps[],
     totalItems: number
 }
-export default function BlogsPage( { blogsResult, totalItems }:Props ) {
-
-    let date = new Date(blogsResult.featuredBlog?.[0]?.createdAt ?? '' );
+export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
+    console.log(blogs)
+    let date = new Date(featuredBlog?.[0]?.createdAt ?? '' );
     let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
-
+ 
     return(
         <>
             <BlogBreadCrumb />
             <BlogHeading />
-            { (blogsResult.featuredBlog?.length !=0 ) &&
-            <FeaturedCardBlog 
-            title={blogsResult.featuredBlog?.[0]?.title} 
-            slug={blogsResult.featuredBlog?.[0]?.slug} 
-            imgSrc={blogsResult.featuredBlog?.[0]?.imageSrc ?? ''}
-            content={blogsResult.featuredBlog?.[0]?.description}
-            imgAuthor={blogsResult.featuredBlog?.[0]?.authorAvatarAsset ?? ''}
-            authorName={blogsResult.featuredBlog?.[0]?.authorName}
-            date={fullDate}
-            />
+            { (featuredBlog?.length !=0 ) &&
+              <FeaturedCardBlog 
+              title={featuredBlog?.[0]?.title} 
+              slug={featuredBlog?.[0]?.slug} 
+              imgSrc={featuredBlog?.[0]?.imageSrc ?? ''}
+              content={featuredBlog?.[0]?.description}
+              imgAuthor={featuredBlog?.[0]?.authorAvatarAsset}
+              authorName={featuredBlog?.[0]?.authorName}
+              date={fullDate}
+              />
             }
-            <BlogsList blogList={blogsResult.blogs} total={totalItems} idFeatured={blogsResult.featuredBlog?.[0]?.id} />
+            <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id ?? ''} />
         </>
     )
 }
@@ -46,10 +47,9 @@ export async function getStaticProps({
   let promisesWithKey = [] as PromiseWithKey[]
   let props = {} as any;
 
-
   const {featuredBlogs} = await commerce.getFeaturedBlog({
     variables: {
-      take: DEFAULT_BLOG_PAGE_SIZE,
+      take: 1,
       filter: {
         isFeatured: {
             eq:true
@@ -87,8 +87,9 @@ export async function getStaticProps({
       return null
     })
 
-    props['blogsResult']['featuredBlog'] = featuredBlogs;
+    props.featuredBlog = featuredBlogs;
     
+    // console.log(props);
     return {
       props,
       revalidate: 60

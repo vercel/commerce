@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState,useRef, useMemo } from 'react'
 import CardBlog, { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
 import { DEFAULT_BLOG_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
@@ -7,7 +7,7 @@ import s from "./BlogsList.module.scss"
 import { QueryBlogs } from '@framework/schema'
 import { useGetBlogList } from 'src/components/hooks/blog'
 import { getPageFromQuery } from 'src/utils/funtion.utils'
-import { ListProductCardSkeleton  } from 'src/components/common'
+import { ListBlogCardSkeleton  } from 'src/components/common'
 
 interface BlogsListProps {
     blogList?: BlogCardProps[],
@@ -18,13 +18,14 @@ interface BlogsListProps {
 
 
 const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
-
-    const DEFAULT_BLOGS_ARGS = {
+    console.log(blogList)
+    const DEFAULT_BLOGS_ARGS = useMemo(()=> ({
         excludeBlogIds: [idFeatured],
         options:{
             skip: 1, take: DEFAULT_BLOG_PAGE_SIZE
         }
-    }
+    }),[idFeatured]);
+
 
     const router = useRouter();
     const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
@@ -69,7 +70,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
     return (
         <section>
             <div className={s.wrapper}>
-                {(!initialQueryFlag && loading && !blogs) && <ListProductCardSkeleton count={DEFAULT_BLOG_PAGE_SIZE} isWrap isBlog={true} />}
+                {(!initialQueryFlag && loading && !blogs) && <ListBlogCardSkeleton count={DEFAULT_BLOG_PAGE_SIZE} isWrap  />}
                 <div className={s.list}>
                     
                     {

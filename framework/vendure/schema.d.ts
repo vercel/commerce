@@ -2399,9 +2399,13 @@ export type RecipeList = Node &{
   people:Number
 }
 
+export enum SortRecipes {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
 
 export type RecipeTranslation = {
-  __typename?: 'BlogTranslation'
+  __typename?: 'RecipeTranslation'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']
   updatedAt: Scalars['DateTime']
@@ -2412,6 +2416,14 @@ export type RecipeTranslation = {
   content: Scalars['String']
   Ingredients:Scalars['String']
   Preparation:Scalars['String']
+}
+
+export type IngredientProducts = {
+  __typename?: 'IngredientProduct'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  product: Product[]
 }
 
 

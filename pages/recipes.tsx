@@ -6,11 +6,17 @@ import { PromiseWithKey } from 'src/utils/types.utils';
 import { DEFAULT_BLOG_PAGE_SIZE } from "src/utils/constanst.utils";
 import commerce from '@lib/api/commerce';
 import { getAllPromies } from 'src/utils/funtion.utils';
-export default function RecipeListPage() {
+import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
+
+interface Props {
+  recipesResult ?: {recipes: RecipeCardProps[],totalItems?: number} , // it will chang when have recipes Props
+  
+}
+export default function RecipeListPage({recipesResult}:Props) {
   return (
     <>
       <RecipeListBanner />
-      <RecipesList/>
+      <RecipesList recipes={recipesResult?.recipes} total={recipesResult?.totalItems || 0}/>
     </>
   )
 }
@@ -25,21 +31,19 @@ export async function getStaticProps({
   let promisesWithKey = [] as PromiseWithKey[]
   let props = {} as any;
 
-  
-  const blogsPromise = commerce.getAllBlogs({
+
+  const recipesPromise = commerce.getAllRecipes({
     variables: {
       excludeBlogIds: [],
       take: DEFAULT_BLOG_PAGE_SIZE,
-      filter: {
-        isFeatured: {
-            eq:false
-        }
+      sort: {
+        id: "DESC"
       }
     },
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'blogsResult', promise: blogsPromise })
+  promisesWithKey.push({ key: 'recipesResult', promise: recipesPromise})
 
 
   try {
@@ -50,7 +54,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
-    console.log(props);
+ 
     return {
       props,
       revalidate: 60

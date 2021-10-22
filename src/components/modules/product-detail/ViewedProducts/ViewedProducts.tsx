@@ -8,7 +8,7 @@ import { useLocalStorage } from 'src/components/hooks/useLocalStorage';
 interface Props {
     data: ProductCardProps[]
 }
-const ViewedProducts = ({data}:Props) => {
+const ViewedProducts = ({data = []}:Props) => {
     if (data.length===0){
         return <div></div>
     }

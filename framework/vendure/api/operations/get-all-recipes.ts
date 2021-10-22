@@ -1,24 +1,21 @@
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
-import { GetAllRecipesQuery,BlogList } from '../../schema'
+import { GetAllRecipesQuery,BlogList,SortRecipes } from '../../schema'
 import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query'
 
-export type BlogVariables = {
+export type RecipesVariables = {
   excludeBlogIds?: string[],
   take?: number,
-  skip?:number,
-  filter?:{
-    isFeatured?:{
-      eq?:Boolean
-    }
-  },
+  sort?: {
+    id?: string
+  }
 }
 
 export default function getAllRecipesOperation({
   commerce,
 }: OperationContext<Provider>) {
   async function getAllRecipes(opts?: {
-    variables?: BlogVariables
+    variables?: RecipesVariables
     config?: Partial<VendureConfig>
     preview?: boolean
   }): Promise<{ recipes: GetAllRecipesQuery[],totalItems:number }>
@@ -29,7 +26,7 @@ export default function getAllRecipesOperation({
     config: cfg,
   }: {
     query?: string
-    variables?: BlogVariables
+    variables?: RecipesVariables
     config?: Partial<VendureConfig>
     preview?: boolean
   } = {}): Promise<{ recipes: GetAllRecipesQuery[] | any[] ,totalItems?:number }> {
@@ -39,8 +36,8 @@ export default function getAllRecipesOperation({
       excludeBlogIds: vars.excludeBlogIds,
       options: {
         take: vars.take,
-        filter: {
-          isFeatured: vars.filter?.isFeatured
+        sort: {
+          id: vars.sort?.id
         }
       },
     }

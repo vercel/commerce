@@ -159,17 +159,13 @@ const OPTIONSLECT=[
 ];
 
 interface Props{
-    data?: RecipeCardProps[],
-    recipes?:{
-        title:string,
-        imageSrc:string,
-        description:string,
-        slug:string
-    }[],
+    recipes?: RecipeCardProps[],
+    total:number
 }
 
 
-const RecipesList = ({ data =recipe}:Props) => {
+const RecipesList = ({ recipes,total }:Props) => {
+    console.log(recipes)
     return (
         <>
         <div className={s.recipesListWrapper}>
@@ -202,7 +198,7 @@ const RecipesList = ({ data =recipe}:Props) => {
                   
                     <div className={s.inner}>
                         <div className={s.boxItem}>
-                            {data?.map((item,index) => (
+                            {recipes?.map((item,index) => (
                                 <div key={index} className={s.item}>
                                     <RecipeCard slug={item.slug} imageSrc={item.imageSrc} title={item.title}  description={item.description}/> 
                                 </div>
@@ -210,7 +206,7 @@ const RecipesList = ({ data =recipe}:Props) => {
                         </div>
                     </div>
                     <div  className={s.recipesPagination}>
-                        <PaginationCommon pageSize={DEFAULT_PAGESIZE_RECIPELIST} total={data?.length}/>
+                        <PaginationCommon pageSize={DEFAULT_PAGESIZE_RECIPELIST} total={total}/>
                     </div>
                 </div>
                 
