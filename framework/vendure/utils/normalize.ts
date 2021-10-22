@@ -1,6 +1,6 @@
 import { Cart, CartCheckout } from '@commerce/types/cart'
 import { Product, ProductCard } from '@commerce/types/product'
-import { CartFragment, Favorite, SearchResultFragment, ShippingMethod } from '../schema'
+import { CartFragment, Favorite, SearchResultFragment, ShippingMethod, BlogList } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -139,5 +139,20 @@ export function normalizeProductCard(product: Product): ProductCard {
     productVariantName: product.variants?.[0].name,
     facetValueIds: product.facetValueIds,
     collectionIds: product.collectionIds,
+  }
+}
+
+export function normalizeBlogList(blog: BlogList) {
+  return {
+      id: blog.id,
+      title: blog.translations[0]?.title,
+      imageSrc: blog.featuredAsset?.preview ?? null,
+      slug: blog.translations[0]?.slug,
+      description: blog.translations[0]?.description,
+      isPublish: blog.isPublish,
+      isFeatured:blog.isFeatured,
+      authorName: blog.authorName,
+      authorAvatarAsset : blog.authorAvatarAsset?.preview,
+      createdAt: blog.createdAt
   }
 }

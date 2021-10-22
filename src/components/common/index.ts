@@ -56,4 +56,5 @@ export { default as FormForgot} from './ForgotPassword/FormForgot/FormForgot'
 export { default as FormResetPassword} from './ForgotPassword/FormResetPassword/FormResetPassword'
 export { default as ProductCardSkeleton} from './ProductCardSkeleton/ProductCardSkeleton'
 export { default as ListProductCardSkeleton} from './ListProductCardSkeleton/ListProductCardSkeleton'
+export { default as ListBlogCardSkeleton} from './ListBlogCardSkeleton/ListBlogCardSkeleton'
 
