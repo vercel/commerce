@@ -16,7 +16,8 @@ export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
  
     let date = new Date(featuredBlog?.[0]?.createdAt ?? '' );
     let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
- 
+  
+
     return(
         <>
             <BlogBreadCrumb />
@@ -63,7 +64,7 @@ export async function getStaticProps({
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'blogsResult', promise: blogsPromise })
+  promisesWithKey.push({ key: 'blogs', promise: blogsPromise , keyResult: 'blogs'  })
 
 
   try {
@@ -77,7 +78,6 @@ export async function getStaticProps({
 
     props.featuredBlog = featuredBlogs;
     
-    console.log(props)
     return {
       props,
       revalidate: 60
