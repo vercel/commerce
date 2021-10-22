@@ -1,54 +1,46 @@
 import React from 'react'
+import LoadingCommon from 'src/components/common/LoadingCommon/LoadingCommon'
+import { useNotifications } from 'src/components/hooks/notification'
 import NotificationEmptyPage from '../NotificationEmptyPage/NotificationEmptyPage'
-import NotificationItem, { NotificationItemProps } from '../NotificationItem/NotificationItem'
+import NotificationItem from '../NotificationItem/NotificationItem'
 import s from './NotificationPage.module.scss'
 
 interface NotificationPageProps {
-    isEmpty?: boolean,
-    data?: NotificationItemProps[],
+
 }
-const NOTIFICATION_DATA = [
-    {
-        ID: "ID33455",
-        title: "Your order ID33455",
-        content: "The order has been deliveried successfully!",
-        date: "2 days ago",
-        checked: false,
-    },
-    {
-        ID: "ID33456",
-        title: "Your order ID33456",
-        content: "The order has been deliveried successfully!",
-        date: "2 days ago",
-        checked: false,
-    },
-    {
-        ID: "ID33457",
-        title: "Your order ID33457",
-        content: "The order has been deliveried successfully!",
-        date: "2 days ago",
-        checked: true,
+
+
+const NotificationPage = ({ }: NotificationPageProps) => {
+    const { notifications, loading } = useNotifications()
+    if (loading) {
+        return <div className={s.notificationPage}>
+            <LoadingCommon />
+        </div>
     }
-]
-
-
-const NotificationPage = ({ isEmpty=false, data = NOTIFICATION_DATA }: NotificationPageProps) => {
     return (
         <div className={s.notificationPage}>
-        {
-        isEmpty ? 
-        <NotificationEmptyPage /> 
-        :
-        <>
             {
-                data.map(item => {
-                    return (
-                        <NotificationItem key={`${item.ID}-${item.title}`} title={item.title} content={item.content} date={item.date} checked={item.checked}/>
-                    )
-                })
+                !notifications || notifications.length === 0 ?
+                    <NotificationEmptyPage />
+                    :
+                    <>
+                        {
+                            notifications.map(item => {
+                                return (
+                                    <NotificationItem
+                                        key={item.id}
+                                        id={item.id}
+                                        description={item.description}
+                                        createdAt={item.createdAt}
+                                        updatedAt={item.updatedAt}
+                                        isNew={item.isNew}
+                                        order={item.order}
+                                    />
+                                )
+                            })
+                        }
+                    </>
             }
-        </>
-        }
         </div>
     )
 }

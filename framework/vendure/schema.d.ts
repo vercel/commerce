@@ -105,6 +105,16 @@ export type QuerySearchArgs = {
   input: SearchInput
 }
 
+export type QueryNewNotificationsArgs = {
+  customOption?: Maybe<CustomNotificationListOptions>;
+  options?: Maybe<NotificationListOptions>;
+};
+
+export type QueryNotificationsArgs = {
+  customOption?: Maybe<CustomNotificationListOptions>;
+  options?: Maybe<NotificationListOptions>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation'
   /** Adds an item to the order. If custom fields are defined on the OrderLine entity, a third argument 'customFields' will be available. */
@@ -2855,6 +2865,51 @@ export type FacetListOptions = {
   filter?: Maybe<FacetFilterParameter>
 }
 
+export type CustomNotificationListOptions = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type Notification = Node & {
+  __typename?: 'Notification';
+  createdAt: Scalars['DateTime'];
+  data: Scalars['JSON'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  isNew: Scalars['Boolean'];
+  order?: Maybe<Order>;
+  type: HistoryEntryType;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type NotificationFilterParameter = {
+  createdAt?: Maybe<DateOperators>;
+  description?: Maybe<StringOperators>;
+  isNew?: Maybe<BooleanOperators>;
+  type?: Maybe<StringOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type NotificationList = PaginatedList & {
+  __typename?: 'NotificationList';
+  items: Array<Notification>;
+  totalItems: Scalars['Int'];
+};
+
+export type NotificationListOptions = {
+  filter?: Maybe<NotificationFilterParameter>;
+  skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<NotificationSortParameter>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type NotificationSortParameter = {
+  createdAt?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type UpdateOrderItemsResult =
   | Order
   | OrderModificationError
@@ -3499,6 +3554,30 @@ export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = { __typename?: 'Query' } & {
   activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
+}
+
+export type NewNotificationsQuery = { __typename?: 'Query' } & {
+  newNotifications?: { __typename?: 'NotificationList' } & {
+    items: Array<
+      { __typename?: 'Notification' } & Pick<
+      Notification,
+        'id' | 'createdAt' | 'createdAt' | 'type' | 'data' | 'order'
+      > 
+    >,
+    'totalItems'
+  }
+}
+
+export type NotificationsQuery = { __typename?: 'Query' } & {
+  notifications?: { __typename?: 'NotificationList' } & {
+    items: Array<
+      { __typename?: 'Notification' } & Pick<
+      Notification,
+        'id' | 'createdAt' | 'updatedAt' | 'type' | 'data' | 'description' |'order' |'isNew'
+      > 
+    >,
+    'totalItems'
+  }
 }
 
 export type GetCollectionsQueryVariables = Exact<{ [key: string]: never }>

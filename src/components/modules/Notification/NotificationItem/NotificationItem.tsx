@@ -1,29 +1,21 @@
-import React, {useState} from 'react'
-import s from '../NotificationItem/NotificationItem.module.scss'
+import { Notification } from '@framework/schema'
 import ClassNames from 'classnames'
-import { IconBill } from 'src/components/icons'
 import Link from 'next/link'
-import {ROUTE , QUERY_KEY, ACCOUNT_TAB } from 'src/utils/constanst.utils'
+import React from 'react'
+import { IconBill } from 'src/components/icons'
+import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import s from '../NotificationItem/NotificationItem.module.scss'
 
-export interface NotificationItemProps {
-    ID?: string,
-    title?: string,
-    content?: string,
-    date?: string,
-    checked?: boolean,
+export interface NotificationItemProps extends Omit<Notification, "type" | "data"> {
+
 }
 
-const NotificationItem = ({ ID, title, content, date, checked}: NotificationItemProps) => {
-    const [isChecked, setChecked] = useState(checked)
-    const Check = () => {
-        setChecked(true)
-    }
+const NotificationItem = ({ description, createdAt, order, isNew }: NotificationItemProps) => {
     return (
         <section className={ClassNames({
-            [s.notificationItem] : true,
-            [s.isChecked] : isChecked,
-        })} 
-            onClick = {Check}
+            [s.notificationItem]: true,
+            [s.isChecked]: !isNew,
+        })}
         >
             <div className={s.icon}>
                 <IconBill />
@@ -32,13 +24,13 @@ const NotificationItem = ({ ID, title, content, date, checked}: NotificationItem
                 <a>
                     <div className={s.contentWrapper}>
                         <div className={s.title}>
-                            {title}
+                            Order {order?.code}
                         </div>
                         <div className={s.content}>
-                            {content}
+                            {description}
                         </div>
                         <div className={s.date}>
-                            {date}
+                            {createdAt}
                         </div>
                     </div>
                 </a>
