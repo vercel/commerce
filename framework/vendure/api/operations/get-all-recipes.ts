@@ -1,14 +1,13 @@
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
-import { GetAllRecipesQuery,BlogList,SortRecipes } from '../../schema'
+import { BlogList, GetAllRecipesQuery } from '../../schema'
 import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query'
 
 export type RecipesVariables = {
   excludeBlogIds?: string[],
-  take?: number,
-  sort?: {
-    id?: string
-  }
+  take?:number,
+  id?: string,
+  isPublish?:Boolean
 }
 
 export default function getAllRecipesOperation({
@@ -19,7 +18,7 @@ export default function getAllRecipesOperation({
     config?: Partial<VendureConfig>
     preview?: boolean
   }): Promise<{ recipes: GetAllRecipesQuery[],totalItems:number }>
-
+ 
   async function getAllRecipes({
     query = getAllBlogsQuery,
     variables: { ...vars } = {},
@@ -30,20 +29,27 @@ export default function getAllRecipesOperation({
     config?: Partial<VendureConfig>
     preview?: boolean
   } = {}): Promise<{ recipes: GetAllRecipesQuery[] | any[] ,totalItems?:number }> {
-    
+   
     const config = commerce.getConfig(cfg)
     const variables = {
       excludeBlogIds: vars.excludeBlogIds,
       options: {
         take: vars.take,
         sort: {
-          id: vars.sort?.id
+          id: vars?.id
+        },
+        filter:{
+          isPublish: {
+            eq:vars.isPublish
+          } 
         }
       },
     }
+
     const { data } = await config.fetch<GetAllRecipesQuery>(query, {
       variables,
     })
+    
     return {
         recipes: data?.blogs?.items?.map((val:BlogList)=>({
             id: val.id,
@@ -52,7 +58,6 @@ export default function getAllRecipesOperation({
             slug: val.translations[0]?.slug,
             description: val.translations[0]?.description,
             isPublish: val.isPublish,
-            isFeatured: val.isFeatured,
             authorName: val.authorName,
             authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
             createdAt: val.createdAt

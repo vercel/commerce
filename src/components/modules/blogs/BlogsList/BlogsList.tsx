@@ -18,7 +18,7 @@ interface BlogsListProps {
 
 
 const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
-    console.log(blogList)
+
     const DEFAULT_BLOGS_ARGS = useMemo(()=> ({
         excludeBlogIds: [idFeatured],
         options:{

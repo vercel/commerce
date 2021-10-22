@@ -30,3 +30,16 @@ export type GetAllRecipesOperation<T extends RecipesType = RecipesType> = {
         id?: SortRecipes
     }
 }
+export type GetAllRecipePathsOperation<
+T extends RecipesType = RecipesType
+> = {
+  data: { recipes: Pick<T['items'], 'translations'>[] }
+  variables: { first?: number }
+}
+
+export type GetRecipeDetailOperation<T extends RecipesType = RecipesType> = {
+    data: T['items'],
+    variables: {
+        slug?: string
+    }
+}

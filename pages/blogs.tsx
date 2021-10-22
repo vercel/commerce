@@ -13,7 +13,7 @@ interface Props {
     totalItems: number
 }
 export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
-    console.log(blogs)
+
     let date = new Date(featuredBlog?.[0]?.createdAt ?? '' );
     let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
  

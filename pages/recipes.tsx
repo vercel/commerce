@@ -9,14 +9,14 @@ import { getAllPromies } from 'src/utils/funtion.utils';
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 
 interface Props {
-  recipesResult ?: {recipes: RecipeCardProps[],totalItems?: number} , // it will chang when have recipes Props
+  recipesResult: {recipes: RecipeCardProps[] ,totalItems?: number},
   
 }
 export default function RecipeListPage({recipesResult}:Props) {
   return (
     <>
       <RecipeListBanner />
-      <RecipesList recipes={recipesResult?.recipes} total={recipesResult?.totalItems || 0}/>
+      <RecipesList recipeList={recipesResult.recipes} total={recipesResult.totalItems ?? 0}/>
     </>
   )
 }
@@ -32,13 +32,12 @@ export async function getStaticProps({
   let props = {} as any;
 
 
-  const recipesPromise = commerce.getAllRecipes({
+  const recipesPromise =  commerce.getAllRecipes({
     variables: {
       excludeBlogIds: [],
       take: DEFAULT_BLOG_PAGE_SIZE,
-      sort: {
-        id: "DESC"
-      }
+      id: 'DESC',
+      isPublish:true
     },
     config,
     preview,
@@ -46,6 +45,7 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'recipesResult', promise: recipesPromise})
 
 
+  
   try {
     const promises = getAllPromies(promisesWithKey)
     const rs = await Promise.all(promises)
@@ -54,7 +54,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
- 
+
     return {
       props,
       revalidate: 60
