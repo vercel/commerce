@@ -1,13 +1,12 @@
-
 import { Asset, BlogTranslation, Maybe, Product } from './../../vendure/schema.d';
 
 export type BlogList = Node &{
     id: string
     featuredAsset?: Maybe<Asset>
-    isHidden:Boolean
-    translations: Array<BlogTranslation>
+    isPublic:Boolean
+    translations: BlogTranslation[]
     authorName: string
-    authorAvatarAsset:Array<Asset>
+    authorAvatarAsset:Asset[]
     relevantProducts: Product
 }
 export type BlogsType = {
@@ -37,7 +36,7 @@ export type GetBlogDetailOperation<T extends BlogsType = BlogsType> = {
     }
 }
   
-export type GetFeaturedOperation<T extends BlogsType = BlogsType> = {
+export type GetFeaturedBlogsOperation<T extends BlogsType = BlogsType> = {
     data: { items: T['items'][] }
     variables: {
         take?: number

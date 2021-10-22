@@ -1,5 +1,5 @@
-export const getFeatuedBlogQuery = /* GraphQL */ `
-    query GetFeaturedBlog($options: BlogListOptions) {
+export const getFeatuedBlogsQuery = /* GraphQL */ `
+    query GetFeaturedBlogs($options: BlogListOptions) {
         featuredBlogs( options: $options){
         items {
             id

@@ -1,7 +1,7 @@
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
 import { GetFeaturedBlogQuery,BlogList } from '../../schema'
-import { getFeatuedBlogQuery } from '../../utils/queries/get-featued-query'
+import { getFeatuedBlogsQuery } from '../../utils/queries/get-featued-query'
 
 export type BlogVariables = {
   take?: number,
@@ -23,7 +23,7 @@ export default function getFeaturedBlogOperation({
   }): Promise<{ featuredBlogs: GetFeaturedBlogQuery[],totalItems:number }>
 
   async function getFeaturedBlog({
-    query = getFeatuedBlogQuery,
+    query = getFeatuedBlogsQuery,
     variables: { ...vars } = {},
     config: cfg,
   }: {
