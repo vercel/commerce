@@ -1,12 +1,17 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
-import { FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
+import { BlogList, FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
+import moment from 'moment'
 
 export function isMobile() {
   return window.innerWidth < 768
+}
+
+export function formatTimeAgo (time: string) {
+  return moment(time).fromNow()
 }
 
 export function getPageFromQuery(pageQuery: string) {

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { IconBill } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { formatTimeAgo } from 'src/utils/funtion.utils'
 import s from '../NotificationItem/NotificationItem.module.scss'
 
 export interface NotificationItemProps extends Omit<Notification, "type" | "data"> {
@@ -30,7 +31,7 @@ const NotificationItem = ({ description, createdAt, order, isNew }: Notification
                             {description}
                         </div>
                         <div className={s.date}>
-                            {createdAt}
+                            {formatTimeAgo(createdAt)}
                         </div>
                     </div>
                 </a>
