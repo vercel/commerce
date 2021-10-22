@@ -1,6 +1,7 @@
 .warpper {
   padding: 3.2rem;
   min-width: 100%;
+  min-height: 100%;
   @screen lg {
     max-width: 56.3rem;
     @apply flex justify-between flex-col;
@@ -14,15 +15,14 @@
       display: block;
     }
   }
+  .empty {
+    @apply flex flex-col justify-center items-center;
+  }
   .list {
-    min-height: 52.8rem;
+    // min-height: 52.8rem;
   }
   .bot {
-    .promo {
-      // padding: 3.2rem;
-      @apply bg-gray flex justify-between items-center;
-      min-height: 6.4rem;
-    }
+    margin-top: auto;
     .price {
       margin-top: 3.2rem;
       .line {
