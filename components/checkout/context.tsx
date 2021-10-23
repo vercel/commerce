@@ -17,6 +17,7 @@ export type State = {
 type CheckoutContextType = State & {
   setCardFields: (cardFields: CardFields) => void
   setAddressFields: (addressFields: AddressFields) => void
+  clearCheckoutFields: () => void
 }
 
 type Action =
@@ -27,6 +28,9 @@ type Action =
   | {
       type: 'SET_ADDRESS_FIELDS'
       address: AddressFields
+    }
+  | {
+      type: 'CLEAR_CHECKOUT_FIELDS'
     }
 
 const initialState: State = {
@@ -50,6 +54,12 @@ const checkoutReducer = (state: State, action: Action) => {
         ...state,
         addressFields: action.address,
       }
+    case 'CLEAR_CHECKOUT_FIELDS':
+      return {
+        ...state,
+        cardsFields: initialState.cardFields,
+        addressFields: initialState.addressFields,
+      }
     default:
       return state
   }
@@ -69,13 +79,19 @@ export const CheckoutProvider: FC = (props) => {
     [dispatch]
   )
 
+  const clearCheckoutFields = useCallback(
+    () => dispatch({ type: 'CLEAR_CHECKOUT_FIELDS' }),
+    [dispatch]
+  )
+
   const value = useMemo(
     () => ({
       ...state,
       setCardFields,
       setAddressFields,
+      clearCheckoutFields,
     }),
-    [state, setCardFields, setAddressFields]
+    [state, setCardFields, setAddressFields, clearCheckoutFields]
   )
 
   return <CheckoutContext.Provider value={value} {...props} />
