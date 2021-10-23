@@ -6,7 +6,7 @@ const sdkFetch: Fetcher = async ({ query, method, variables }) => {
   const resource = commerce[query as keyof typeof commerce]
 
   // @ts-ignore
-  const data = await resource[method!](...variablesArgument)
+  const data = await resource?.[method!](...variablesArgument)
   return data
 }
 

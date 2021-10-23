@@ -10,26 +10,25 @@ export default useAddresses as UseAddresses<typeof handler>
 
 export const handler: SWRHook<GetAddressesHook> = {
   fetchOptions: {
-    url: '/api/customer/address',
-    method: 'GET',
+    url: '_',
+    method: '_',
   },
-  useHook: ({ useData }) =>
-    function useHook(input) {
-      const response = useData({
-        swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
-      })
-
+  useHook: () =>
+    function useHook() {
       return useMemo(
         () =>
-          Object.create(response, {
-            isEmpty: {
-              get() {
-                return (response.data?.length ?? 0) <= 0
+          Object.create(
+            {},
+            {
+              isEmpty: {
+                get() {
+                  return true
+                },
+                enumerable: true,
               },
-              enumerable: true,
-            },
-          }),
-        [response]
+            }
+          ),
+        []
       )
     },
 }

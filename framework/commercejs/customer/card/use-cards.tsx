@@ -1,5 +1,4 @@
 import type { GetCardsHook } from '@commerce/types/customer/card'
-
 import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
 import useCard, { UseCards } from '@commerce/customer/card/use-cards'
@@ -8,26 +7,25 @@ export default useCard as UseCards<typeof handler>
 
 export const handler: SWRHook<GetCardsHook> = {
   fetchOptions: {
-    url: '/api/customer/card',
-    method: 'GET',
+    query: '_',
+    method: '_',
   },
-  useHook: ({ useData }) =>
-    function useHook(input) {
-      const response = useData({
-        swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
-      })
-
+  useHook: () =>
+    function useHook() {
       return useMemo(
         () =>
-          Object.create(response, {
-            isEmpty: {
-              get() {
-                return (response.data?.length ?? 0) <= 0
+          Object.create(
+            {},
+            {
+              isEmpty: {
+                get() {
+                  return true
+                },
+                enumerable: true,
               },
-              enumerable: true,
-            },
-          }),
-        [response]
+            }
+          ),
+        []
       )
     },
 }

@@ -15,13 +15,9 @@ import { handler as useSubmitCheckout } from './checkout/use-submit-checkout'
 
 import { handler as useCards } from './customer/card/use-cards'
 import { handler as useAddCardItem } from './customer/card/use-add-item'
-import { handler as useUpdateCardItem } from './customer/card/use-update-item'
-import { handler as useRemoveCardItem } from './customer/card/use-remove-item'
 
 import { handler as useAddresses } from './customer/address/use-addresses'
 import { handler as useAddAddressItem } from './customer/address/use-add-item'
-import { handler as useUpdateAddressItem } from './customer/address/use-update-item'
-import { handler as useRemoveAddressItem } from './customer/address/use-remove-item'
 
 import { CART_COOKIE, LOCALE } from './constants'
 import { default as sdkFetcher } from './fetcher'
@@ -45,14 +41,10 @@ export const commercejsProvider = {
     card: {
       useCards,
       useAddItem: useAddCardItem,
-      useUpdateItem: useUpdateCardItem,
-      useRemoveItem: useRemoveCardItem,
     },
     address: {
       useAddresses,
       useAddItem: useAddAddressItem,
-      useUpdateItem: useUpdateAddressItem,
-      useRemoveItem: useRemoveAddressItem,
     },
   },
   products: { useSearch },
