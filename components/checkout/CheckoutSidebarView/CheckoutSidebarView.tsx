@@ -15,9 +15,15 @@ import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
   const { setSidebarView, closeSidebar } = useUI()
-  const { addressFields, clearCheckoutFields } = useCheckoutContext()
+  const { cardFields, addressFields, clearCheckoutFields } =
+    useCheckoutContext()
   const { data: cartData } = useCart()
-  const { data: checkoutData } = useCheckout()
+  const { data: checkoutData } = useCheckout({
+    checkout: {
+      cardFields,
+      addressFields,
+    },
+  })
   const onSubmitCheckout = useSubmitCheckout()
 
   async function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
