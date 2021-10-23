@@ -4,6 +4,7 @@ import cn from 'classnames'
 import useAddCard from '@framework/customer/card/use-add-item'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
+import { useCheckoutContext } from '@components/checkout/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 
 import s from './PaymentMethodView.module.css'
@@ -24,24 +25,29 @@ interface Form extends HTMLFormElement {
 
 const PaymentMethodView: FC = () => {
   const { setSidebarView } = useUI()
+  const { setCardFields } = useCheckoutContext()
   const addCard = useAddCard()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
+    const { target } = event
 
-    await addCard({
-      cardHolder: event.target.cardHolder.value,
-      cardNumber: event.target.cardNumber.value,
-      cardExpireDate: event.target.cardExpireDate.value,
-      cardCvc: event.target.cardCvc.value,
-      firstName: event.target.firstName.value,
-      lastName: event.target.lastName.value,
-      company: event.target.company.value,
-      streetNumber: event.target.streetNumber.value,
-      zipCode: event.target.zipCode.value,
-      city: event.target.city.value,
-      country: event.target.country.value,
-    })
+    const cardFields = {
+      cardHolder: target.cardHolder.value,
+      cardNumber: target.cardNumber.value,
+      cardExpireDate: target.cardExpireDate.value,
+      cardCvc: target.cardCvc.value,
+      firstName: target.firstName.value,
+      lastName: target.lastName.value,
+      company: target.company.value,
+      streetNumber: target.streetNumber.value,
+      zipCode: target.zipCode.value,
+      city: target.city.value,
+      country: target.country.value,
+    }
+
+    setCardFields(cardFields)
+    await addCard(cardFields)
 
     setSidebarView('CHECKOUT_VIEW')
   }

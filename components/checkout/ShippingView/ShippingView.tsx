@@ -3,6 +3,7 @@ import cn from 'classnames'
 
 import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
+import { useCheckoutContext } from '@components/checkout/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 import useAddAddress from '@framework/customer/address/use-add-item'
 
@@ -24,22 +25,27 @@ interface Form extends HTMLFormElement {
 
 const PaymentMethodView: FC = () => {
   const { setSidebarView } = useUI()
+  const { setAddressFields } = useCheckoutContext()
   const addAddress = useAddAddress()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
+    const { target } = event
 
-    await addAddress({
-      type: event.target.type.value,
-      firstName: event.target.firstName.value,
-      lastName: event.target.lastName.value,
-      company: event.target.company.value,
-      streetNumber: event.target.streetNumber.value,
-      apartments: event.target.streetNumber.value,
-      zipCode: event.target.zipCode.value,
-      city: event.target.city.value,
-      country: event.target.country.value,
-    })
+    const addressFields = {
+      type: target.type.value,
+      firstName: target.firstName.value,
+      lastName: target.lastName.value,
+      company: target.company.value,
+      streetNumber: target.streetNumber.value,
+      apartments: target.streetNumber.value,
+      zipCode: target.zipCode.value,
+      city: target.city.value,
+      country: target.country.value,
+    }
+
+    setAddressFields(addressFields)
+    await addAddress(addressFields)
 
     setSidebarView('CHECKOUT_VIEW')
   }
