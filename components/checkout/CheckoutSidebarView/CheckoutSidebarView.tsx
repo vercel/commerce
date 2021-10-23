@@ -15,7 +15,7 @@ import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
   const { setSidebarView, closeSidebar } = useUI()
-  const { addressFields } = useCheckoutContext()
+  const { addressFields, clearCheckoutFields } = useCheckoutContext()
   const { data: cartData } = useCart()
   const { data: checkoutData } = useCheckout()
   const onSubmitCheckout = useSubmitCheckout()
@@ -29,6 +29,7 @@ const CheckoutSidebarView: FC = () => {
       },
     })
 
+    clearCheckoutFields()
     closeSidebar()
   }
 
