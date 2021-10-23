@@ -3,23 +3,31 @@ import { FC } from 'react'
 import CartItem from '@components/cart/CartItem'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
+import { useCheckoutContext } from '@components/checkout/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import useCheckout from '@framework/checkout/use-checkout'
+import useSubmitCheckout from '@framework/checkout/use-submit-checkout'
 import ShippingWidget from '../ShippingWidget'
 import PaymentWidget from '../PaymentWidget'
 import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
   const { setSidebarView, closeSidebar } = useUI()
+  const { addressFields } = useCheckoutContext()
   const { data: cartData } = useCart()
-  const { data: checkoutData, submit: onCheckout } = useCheckout()
+  const { data: checkoutData } = useCheckout()
+  const onSubmitCheckout = useSubmitCheckout()
 
   async function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    await onCheckout()
+    await onSubmitCheckout({
+      checkout: {
+        addressFields,
+      },
+    })
 
     closeSidebar()
   }
