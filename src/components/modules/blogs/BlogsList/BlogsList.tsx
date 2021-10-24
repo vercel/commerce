@@ -92,5 +92,3 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
 }
 
 export default BlogsList
-
-

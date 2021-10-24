@@ -1,24 +1,26 @@
 import React from 'react'
 import { ImgWithLink } from 'src/components/common'
+import { RecipeProps } from 'src/utils/types.utils'
 import RecipeBriefInfo from '../RecipeBriefInfo/RecipeBriefInfo'
 import s from './RecipeDetailInfo.module.scss'
 
 
-interface Props {
+interface Prop extends RecipeProps {
     className?: string
     children?: any
 }
 
-const RecipeDetailInfo = ({ }: Props) => {
+const RecipeDetailInfo = ({ ...rest}: Prop) => {
+    
     return (
         <section className={s.recipeDetailInfo}>
             <div className={s.img}>
-                <ImgWithLink src="https://user-images.githubusercontent.com/76729908/131634880-8ae1437b-d3f8-421e-a546-d5a4f9a28e5f.png" alt="Recipe" />
+                <ImgWithLink src= {rest.imageSrc ?? ''} alt={rest.title} />
             </div>
             <div className={s.recipeInfo}>
                 <div className={s.top}>
                     <h1 className={s.name}>
-                        Crispy Fried  Calamari
+                        {rest.title}
                     </h1>
                     <RecipeBriefInfo />
                 </div>
