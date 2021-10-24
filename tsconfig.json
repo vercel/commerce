@@ -34,6 +34,7 @@
     "./framework/shopify",
     "./framework/swell",
     "./framework/vendure",
-    "./framework/saleor"
+    "./framework/saleor",
+    "./framework/commercejs"
   ]
 }
