@@ -17,14 +17,17 @@ export const handler: SWRHook<GetCheckoutHook> = {
       const submit = useSubmitCheckout()
 
       // Could perform some validation here, currently just checking that some fields exist.
+      const hasEnteredCard = Object.keys(input?.checkout?.cardFields).length > 0
+      const hasEnteredAddress = Object.keys(input?.checkout?.addressFields).length > 0
+
       const response = useMemo(
         () => ({
           data: {
-            hasPayment: Object.keys(input?.checkout?.cardFields).length > 0,
-            hasShipping: Object.keys(input?.checkout?.addressFields).length > 0,
+            hasPayment: hasEnteredCard,
+            hasShipping: hasEnteredAddress,
           },
         }),
-        [input]
+        [hasEnteredCard, hasEnteredAddress]
       )
 
       return useMemo(
