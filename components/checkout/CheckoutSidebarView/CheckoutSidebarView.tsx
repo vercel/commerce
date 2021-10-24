@@ -17,7 +17,7 @@ const CheckoutSidebarView: FC = () => {
   const { setSidebarView, closeSidebar } = useUI()
   const { cardFields, addressFields, clearCheckoutFields } =
     useCheckoutContext()
-  const { data: cartData } = useCart()
+  const { data: cartData, revalidate: refreshCart } = useCart()
   const { data: checkoutData } = useCheckout({
     checkout: {
       cardFields,
@@ -35,6 +35,7 @@ const CheckoutSidebarView: FC = () => {
       },
     })
 
+    refreshCart()
     clearCheckoutFields()
     closeSidebar()
   }
