@@ -40,7 +40,8 @@ export default function getAllBlogsOperation({
     const { data } = await config.fetch<GetAllBlogsQuery>(query, {
       variables,
     })
-    return {
+    if(data){
+      return {
         blogs: data?.blogs?.items?.map((val:BlogList)=>({
             id: val.id,
             title: val.translations[0]?.title,
@@ -54,7 +55,11 @@ export default function getAllBlogsOperation({
             createdAt: val.createdAt
         })),
         totalItems: data?.blogs?.totalItems || null
+      }
+    }else{
+      return {blogs:[]};
     }
+  
   }
 
   return getAllBlogs
