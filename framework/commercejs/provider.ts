@@ -8,6 +8,7 @@ import { handler as useSearch } from './product/use-search'
 
 import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
+import { handler as useSignup } from './auth/use-signup'
 
 import { handler as useCheckout } from './checkout/use-checkout'
 import { handler as useSubmitCheckout } from './checkout/use-submit-checkout'
@@ -47,7 +48,7 @@ export const commercejsProvider = {
     },
   },
   products: { useSearch },
-  auth: { useLogin, useLogout },
+  auth: { useLogin, useLogout, useSignup },
 }
 
 export type CommercejsProvider = typeof commercejsProvider
