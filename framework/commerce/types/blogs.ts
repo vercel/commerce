@@ -14,13 +14,27 @@ export type BlogsType = {
     totalItems: number
 }
 export type GetAllBlogsOperation<T extends BlogsType = BlogsType> = {
-    data: { items: T['items'][] }
+    data: { items: T['items'][], totalItems: number }
+    variables: {
+        productId: number,
+        take?: number
+        skip?: number
+    }
+}
+export type GetRelevantBlogsOperation<T extends BlogsType = BlogsType> = {
+    data: { items: T['items'][], totalItems: number }
     variables: {
         take?: number
         skip?: number
     }
 }
 
+export type GetBlogDetailOperation<T extends BlogsType = BlogsType> = {
+    data: T['items'],
+    variables: {
+        slug?: string
+    }
+}
   
 export type GetFeaturedBlogsOperation<T extends BlogsType = BlogsType> = {
     data: { items: T['items'][] }
@@ -28,4 +42,10 @@ export type GetFeaturedBlogsOperation<T extends BlogsType = BlogsType> = {
         take?: number
         skip?: number
     }
+}
+export type GetAllBlogPathsOperation<
+T extends BlogsType = BlogsType
+> = {
+  data: { blogs: Pick<T['items'], 'translations'>[] }
+  variables: { first?: number }
 }

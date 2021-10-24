@@ -1,3 +1,4 @@
+import { BlogsType } from './blogs';
 import { CurrencyCode } from './../../vendure/schema.d';
 import { FacetValueFilterInput, LogicalOperator, SearchResultSortParameter } from "@framework/schema"
 
@@ -109,6 +110,8 @@ export type GetAllProductPathsOperation<
     data: { products: Pick<T['product'], 'path'>[] }
     variables: { first?: number }
   }
+
+
 
 export type GetAllProductsOperation<T extends ProductTypes = ProductTypes> = {
   data: { products: T['product'][] }

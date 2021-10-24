@@ -2388,9 +2388,18 @@ export type BlogList = Node &{
   translations: Array<BlogTranslation>
   authorName: Scalars['String']
   authorAvatarAsset:Asset
-  relevantProducts: Product
+  relevantProducts: Product[]
   isFeatured: Boolean
 }
+
+export type GetBlogQuery = { __typename?: 'Query' } & {
+  blog?: Maybe<
+    { __typename?: 'Blog' } & BlogList
+  >
+}
+
+
+
 
 export type BlogTranslation = {
   __typename?: 'BlogTranslation'
@@ -2410,6 +2419,13 @@ export type GetAllBlogsQuery = PaginatedList & {
     'totalItems'
   }
 }
+
+export type GetRelevantBlogsQuery = PaginatedList & {
+  relevantBlogs: { __typename?: 'BlogList' } & {
+    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+  }
+}
+
 export type GetFeaturedBlogQuery = PaginatedList & {
   id:string,
   featuredBlogs: { __typename?: 'BlogList' } & {
@@ -2417,6 +2433,7 @@ export type GetFeaturedBlogQuery = PaginatedList & {
     'totalItems'
   }
 }
+
 
 export type QueryBlogs = {
   excludeBlogIds:Array,
@@ -3446,6 +3463,12 @@ export type GetAllProductPathsQueryVariables = Exact<{
 export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
   products: { __typename?: 'ProductList' } & {
     items: Array<{ __typename?: 'Product' } & Pick<Product, 'slug'>>
+  }
+}
+  
+export type GetAllBlogPathsQuery = { __typename?: 'Query' } & {
+  blogs: { __typename?: 'BlogList' } & {
+    items: Array<{ __typename?: 'Blog' } & Pick<BlogList,'slug','translations'>>
   }
 }
 
