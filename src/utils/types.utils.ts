@@ -33,18 +33,6 @@ export interface BlogProps {
     imageSrc: string | null,
 }
 
-export interface CheckOutForm {
-    name?: string
-    email?: string
-    address?: string
-    city?: string
-    state?: string
-    code?: number
-    phone?: number
-    method?: string
-    shipping_fee?: number
-}
-
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
 
 export enum SortOrder {
@@ -71,5 +59,19 @@ export type PromiseWithKey = {
     promise: PromiseLike<any>
     keyResult?: string,
 }
+
+// ref https://www.vendure.io/docs/typescript-api/orders/order-state/
+export type OrderState = | 'Created'
+    | 'AddingItems'
+    | 'ArrangingPayment'
+    | 'PaymentAuthorized'
+    | 'PaymentSettled'
+    | 'PartiallyShipped'
+    | 'Shipped'
+    | 'PartiallyDelivered'
+    | 'Delivered'
+    | 'Modifying'
+    | 'ArrangingAdditionalPayment'
+    | 'Cancelled'
 
 export type SelectedOptions = Record<string, string | null>

@@ -201,7 +201,7 @@
                 }
             }
             .line {
-                @apply flex justify-between items-center;
+                @apply flex justify-between items-start;
                 > div {
                     flex: 1;
                     &:not(:last-child) {

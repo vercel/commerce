@@ -1,19 +1,18 @@
 import React from 'react'
 import { ButtonCommon, TabCommon, TabPane } from 'src/components/common'
-import { CheckOutForm } from 'src/utils/types.utils'
 import BankTransfer from '../BankTransfer/BankTransfer'
-import Link from 'next/link'
-
-import s from './PaymentInfoForm.module.scss'
+import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
 import CreditCardForm from '../CreditCardForm/CreditCardForm'
+import s from './PaymentInfoForm.module.scss'
+
 interface PaymentInfoFormProps {
-  onConfirm?: (id: number, formInfo: CheckOutForm) => void
+  onConfirm?: (id: number) => void
   id: number
 }
 
 const PaymentInfoForm = ({onConfirm,id}: PaymentInfoFormProps) => {
   const handleConfirmClick = () => {
-    onConfirm && onConfirm(id,{})
+    onConfirm && onConfirm(id)
   }
   return (
     <div className={s.wrapper}>
@@ -29,21 +28,7 @@ const PaymentInfoForm = ({onConfirm,id}: PaymentInfoFormProps) => {
         </TabPane>
       </TabCommon>
       <div className={s.bottom}>
-        <div className={s.note}>
-          By clicking continue you agree to Casper's{' '}
-          {
-            <Link href="#">
-              <strong>terms and conditions</strong>
-            </Link>
-          }{' '}
-          and{' '}
-          {
-            <Link href="#">
-              <strong>privacy policy </strong>
-            </Link>
-          }
-          .
-        </div>
+        <ChekoutNotePolicy/>
         <div className={s.button}>
           <ButtonCommon onClick={handleConfirmClick}>
             Submit Order

@@ -31,8 +31,8 @@ export default function Home({ featuredAndDiscountFacetsValue, veggie,
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
-      <HomeCollection data = {veggie}/>
       <FreshProducts data={freshProducts} collections={collections} />
+      <HomeCollection data = {veggie}/>
       <HomeVideo />
       {spiceProducts.length>0 && <HomeSpice data={spiceProducts}/>}
       <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />

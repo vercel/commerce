@@ -1,0 +1,19 @@
+@import "../../../styles/form";
+
+.inputWrap {
+  @extend .formInputWrap;
+  .inputInner {
+    select {
+      @apply w-full;
+      background-color: var(--white);
+      padding: 1.6rem 1.6rem;
+      border: 1px solid var(--border-line);
+      border-radius: 0.8rem;
+      &:focus {
+        outline: none;
+        border: 1px solid var(--primary);
+        @apply shadow-md;
+      }
+    }
+  }
+}

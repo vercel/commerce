@@ -1,0 +1,19 @@
+.promo {
+  @apply bg-gray flex justify-between items-center;
+  min-height: 6.4rem;
+  .modalPromotion {
+    min-width: 40rem;
+    .bottom {
+      @apply flex justify-end items-center;
+      margin-top: 3.2rem;
+      button {
+        &:first-child {
+          margin-right: 0.8rem;
+          @screen md {
+            margin-right: 3.2rem;
+          }
+        }
+      }
+    }
+  }
+}
