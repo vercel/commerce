@@ -1,49 +1,50 @@
-.warpper{
+.warpper {
     padding: 2.4rem 0;
     @apply border-b border-solid border-line;
-    .note{
+    .note {
+        @apply cursor-pointer;
         font-size: 1.2rem;
         line-height: 2rem;
         letter-spacing: 0.01em;
         color: var(--text-label);
         padding: 0 5.6rem;
     }
-    .header{
-        @apply flex justify-between;
-        .left{
+    .header {
+        @apply flex justify-between cursor-pointer;
+        .left {
             @apply flex items-center;
-            .number{
+            .number {
                 width: 3.2rem;
                 height: 3.2rem;
                 border-radius: 100%;
                 border: 1px solid var(--text-active);
                 color: var(--text-active);
                 @apply flex justify-center items-center font-bold;
-                &.visible{
+                &.visible {
                     background-color: var(--text-active);
                     border: none;
                     color: var(--white);
                 }
-                &.done{
+                &.done {
                     @apply border-2 border-solid border-primary;
                 }
             }
-            .title{
+            .title {
                 padding-left: 2.4rem;
-                @apply font-bold select-none cursor-pointer;
+                @apply font-bold select-none;
                 color: var(--text-active);
             }
         }
-        .edit{
+        .edit {
             @apply font-bold cursor-pointer;
             text-decoration-line: underline;
             margin-right: 5.6rem;
         }
     }
-    .body{
+    .body {
         height: 0;
         @apply overflow-hidden;
-        &.show{
+        &.show {
             margin-top: 3.2rem;
             height: initial;
         }

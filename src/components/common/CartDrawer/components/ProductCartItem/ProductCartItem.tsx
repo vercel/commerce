@@ -74,7 +74,8 @@ const ProductCartItem = ({
             {discounts.length > 0 && (
                 <div className={s.old}>
                   {/* <span className={s.number}>{oldPrice}</span> */}
-                  <LabelCommon type="discount">{discounts[0]}</LabelCommon>
+                  {/* TODO: edit the value */}
+                  <LabelCommon type="discount">{discounts[0]?.value}</LabelCommon>
                 </div>
             )}
             <div className={s.current}>{variant?.price} {currency?.code}</div>

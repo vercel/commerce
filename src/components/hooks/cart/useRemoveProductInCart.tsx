@@ -1,11 +1,10 @@
+import { RemoveOrderLineMutation, RemoveOrderLineMutationVariables } from '@framework/schema'
+import { removeOrderLineMutation } from '@framework/utils/mutations/remove-order-line-mutation'
 import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
-import rawFetcher from 'src/utils/rawFetcher'
-import { AdjustOrderLineMutationVariables,AdjustOrderLineMutation, RemoveOrderLineMutation, RemoveOrderLineMutationVariables  } from '@framework/schema'
 import { errorMapping } from 'src/utils/errrorMapping'
+import rawFetcher from 'src/utils/rawFetcher'
 import { useGetActiveOrder } from '.'
-import { adjustOrderLineMutation } from '@framework/utils/mutations/adjust-order-line-mutation'
-import { removeOrderLineMutation } from '@framework/utils/mutations/remove-order-line-mutation'
 
 const useRemoveProductInCart = () => {
   const [loading, setLoading] = useState(false)

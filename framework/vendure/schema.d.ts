@@ -332,17 +332,9 @@ export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
   >)
 }
 
-export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
-  setCustomerForOrder:
-  | ({ __typename: 'ActiveOrderCustomerFragment' } & Pick<ActiveOrderCustomerFragment, 'customer', 'lines'>)
-  | ({ __typename: 'AlreadyLoggedInError' } & Pick<
-    AlreadyLoggedInError,
-    'errorCode' | 'message'
-  >)
-  | ({ __typename: 'EmailAddressConflictError' } & Pick<
-    EmailAddressConflictError,
-    'errorCode' | 'message'
-  >)
+export type SetOrderShippingAddressMutation = { __typename?: 'Mutation' } & {
+  setOrderShippingAddress:
+  | ({ __typename: 'Order' } & Pick<Order, 'id' | 'total' | 'totalQuantity' | 'code' | 'shippingAddress'>)
   | ({ __typename: 'NoActiveOrderError' } & Pick<
     NoActiveOrderError,
     'errorCode' | 'message'
@@ -373,8 +365,24 @@ export type Address = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+export type SetShippingMethodMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type SetShippingMethodMutation = {
+  setOrderShippingMethod:
+      | TestOrderFragmentFragment
+      | Pick<OrderModificationError, 'errorCode' | 'message'>
+      | Pick<IneligibleShippingMethodError, 'errorCode' | 'message'>
+      | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
+};
 
 
+export type GetEligibleMethodsQuery = {
+  eligibleShippingMethods: Array<
+      Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
+  >;
+};
 
 export type Asset = Node & {
   __typename?: 'Asset'
@@ -3126,7 +3134,16 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   | 'totalWithTax'
   | 'currencyCode'
 > & {
-  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
+  shippingAddress?: Maybe<{ __typename?: 'OrderAddress' } & Pick<OrderAddress, 'streetLine1' | 'fullName' | 'city' | 'province' | 'postalCode' | 'countryCode' | 'phoneNumber'>>
+  discounts: Array<
+    { __typename?: 'Discount' } & Pick<Discount, 'type' | 'description' | 'amount' | 'amountWithTax'>
+  >
+  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
+  shippingLines: Array<
+        Pick<ShippingLine, 'priceWithTax'> & {
+            shippingMethod: Pick<ShippingMethod, 'id' | 'code' | 'name' | 'description'>;
+        }
+    >
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
       OrderLine,
@@ -3225,6 +3242,36 @@ export type AdjustOrderLineMutation = { __typename?: 'Mutation' } & {
   >)
   | ({ __typename: 'InsufficientStockError' } & Pick<
     InsufficientStockError,
+    'errorCode' | 'message'
+  >)
+}
+
+
+export type ApplyCouponCodeMutationVariables = Exact<{
+  couponCode: Scalars['String'];
+}>;
+
+export type ApplyCouponCodeMutation = {
+  applyCouponCode:
+  | TestOrderFragmentFragment
+  | Pick<CouponCodeExpiredError, 'errorCode' | 'message'>
+  | Pick<CouponCodeInvalidError, 'errorCode' | 'message'>
+  | Pick<CouponCodeLimitError, 'errorCode' | 'message'>;
+};
+
+export type ApplyCouponCodeMutation = { __typename?: 'Mutation' } & {
+  applyCouponCode:
+  | ({ __typename: 'Order' } & CartFragment)
+  | ({ __typename: 'CouponCodeExpiredError' } & Pick<
+    CouponCodeExpiredError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'CouponCodeInvalidError' } & Pick<
+    CouponCodeInvalidError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'CouponCodeLimitError' } & Pick<
+    CouponCodeLimitError,
     'errorCode' | 'message'
   >)
 }
@@ -3384,6 +3431,25 @@ type Favorite = Node & {
   customer: Customer!
 }
 
+export type GetAvailableCountriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+// export type GetAvailableCountriesQuery = { countries: (
+//   { __typename?: 'CountryList' }
+//   & { items: Array<(
+//     { __typename?: 'Country' }
+//     & Pick<Country, 'id' | 'code' | 'name' | 'enabled'>
+//   )> }
+// ) };
+
+export type GetAvailableCountriesQuery = {
+  availableCountries:
+  { __typename?: 'CountryList' }
+  & Array<(
+    { __typename?: 'Country' }
+    & Pick<Country, 'id' | 'code' | 'name' | 'enabled'>
+  )>
+};
 
 
 type FavouriteOption = Customer & {
