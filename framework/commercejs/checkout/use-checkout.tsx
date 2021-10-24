@@ -9,25 +9,27 @@ export default useCheckout as UseCheckout<typeof handler>
 
 export const handler: SWRHook<GetCheckoutHook> = {
   fetchOptions: {
-    url: '/api/checkout',
-    method: 'GET',
+    query: '_',
+    method: '_',
   },
-  useHook: ({ useData }) =>
+  useHook: () =>
     function useHook(input) {
-      const submit = useSubmitCheckout();
-      const response = useData({
-        swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
-      })
+      const submit = useSubmitCheckout()
+
+      // Could perform some validation here, currently just checking that some fields exist.
+      const response = useMemo(
+        () => ({
+          data: {
+            hasPayment: Object.keys(input?.checkout?.cardFields).length > 0,
+            hasShipping: Object.keys(input?.checkout?.addressFields).length > 0,
+          },
+        }),
+        [input]
+      )
 
       return useMemo(
         () =>
           Object.create(response, {
-            isEmpty: {
-              get() {
-                return (response.data?.lineItems?.length ?? 0) <= 0
-              },
-              enumerable: true,
-            },
             submit: {
               get() {
                 return submit
@@ -35,7 +37,7 @@ export const handler: SWRHook<GetCheckoutHook> = {
               enumerable: true,
             },
           }),
-        [response, submit]
+        [submit, response]
       )
     },
 }
