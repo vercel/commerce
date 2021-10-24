@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import CartItem from '@components/cart/CartItem'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
@@ -14,6 +14,8 @@ import PaymentWidget from '../PaymentWidget'
 import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
+  const [loadingSubmit, setLoadingSubmit] = useState(false)
+
   const { setSidebarView, closeSidebar } = useUI()
   const { cardFields, addressFields, clearCheckoutFields } =
     useCheckoutContext()
@@ -27,18 +29,23 @@ const CheckoutSidebarView: FC = () => {
   const onSubmitCheckout = useSubmitCheckout()
 
   async function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
-    event.preventDefault()
+    try {
+      event.preventDefault()
+      setLoadingSubmit(true)
 
-    await onSubmitCheckout({
-      checkout: {
-        addressFields,
-      },
-    })
-
-    // Assuming successful checkout, clear and close sidebar.
-    refreshCart()
-    clearCheckoutFields()
-    closeSidebar()
+      await onSubmitCheckout({
+        checkout: {
+          addressFields,
+        },
+      })
+      refreshCart()
+      clearCheckoutFields()
+      closeSidebar()
+    } catch {
+      // TODO - handle error UI here.
+    } finally {
+      setLoadingSubmit(false)
+    }
   }
 
   const { price: subTotal } = usePrice(
@@ -115,6 +122,7 @@ const CheckoutSidebarView: FC = () => {
             type="submit"
             width="100%"
             disabled={!checkoutData?.hasPayment || !checkoutData?.hasShipping}
+            loading={loadingSubmit}
           >
             Confirm Purchase
           </Button>
