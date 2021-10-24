@@ -35,6 +35,7 @@ const CheckoutSidebarView: FC = () => {
       },
     })
 
+    // Assuming successful checkout, clear and close sidebar.
     refreshCart()
     clearCheckoutFields()
     closeSidebar()
