@@ -42,7 +42,7 @@ export const CheckoutContext = createContext<State | any>(initialState)
 
 CheckoutContext.displayName = 'CheckoutContext'
 
-const checkoutReducer = (state: State, action: Action) => {
+const checkoutReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_CARD_FIELDS':
       return {
@@ -57,7 +57,7 @@ const checkoutReducer = (state: State, action: Action) => {
     case 'CLEAR_CHECKOUT_FIELDS':
       return {
         ...state,
-        cardsFields: initialState.cardFields,
+        cardFields: initialState.cardFields,
         addressFields: initialState.addressFields,
       }
     default:
