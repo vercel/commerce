@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React, { useState } from 'react'
 import { MessageCommon } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
+import { useGetActiveOrderForCheckout } from 'src/components/hooks/order'
 import IconHide from 'src/components/icons/IconHide'
 import { CHECKOUT_BILL_DATA } from 'src/utils/demo-data'
 import { CheckoutBill, CheckoutInfo } from '..'
@@ -9,29 +10,30 @@ import s from "./CheckoutPage.module.scss"
 interface CheckoutPageProps {
 }
 
-const CheckoutPage = ({}: CheckoutPageProps) => {
+const CheckoutPage = ({ }: CheckoutPageProps) => {
     const { messages, removeMessage } = useMessage()
     const [isShow, setIsShow] = useState(false)
+    const { order } = useGetActiveOrderForCheckout()
 
     const onClose = () => {
         setIsShow(false)
     }
-    const onViewCart =() => {
+    const onViewCart = () => {
         setIsShow(true)
     }
     return (
         <div className={s.warrper}>
             <MessageCommon messages={messages} onRemove={removeMessage} />
-            <div className={s.left}><CheckoutInfo onViewCart = {onViewCart}/></div>
-            <div className={s.right}><CheckoutBill data={CHECKOUT_BILL_DATA}/></div>
-            <div className={classNames({ [s.mobile] :true,[s.isShow]: isShow})}>
+            <div className={s.left}><CheckoutInfo onViewCart={onViewCart} currency={order?.currency.code} /></div>
+            <div className={s.right}><CheckoutBill data={order} /></div>
+            <div className={classNames({ [s.mobile]: true, [s.isShow]: isShow })}>
                 <div className={s.modal}>
                     <div className={s.content}>
                         <div className={s.head}>
                             <h3>Your Cart({CHECKOUT_BILL_DATA.length})</h3>
-                            <div onClick={onClose}><IconHide/></div>
+                            <div onClick={onClose}><IconHide /></div>
                         </div>
-                        <CheckoutBill data={CHECKOUT_BILL_DATA}/>
+                        <CheckoutBill data={order} />
                     </div>
                 </div>
             </div>

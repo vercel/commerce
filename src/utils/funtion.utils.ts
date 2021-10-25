@@ -1,6 +1,6 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
-import { Product, ProductCard, ProductOption, ProductOptionValues } from "@commerce/types/product";
+import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
 import { FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
@@ -177,4 +177,9 @@ export function getProductVariant(product: Product, opts: SelectedOptions) {
     )
   })
   return variant
+}
+ 
+export function formatDate(dateTime:string){
+  let date = new Date(dateTime);
+  return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
 }

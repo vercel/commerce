@@ -34,7 +34,6 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
     const { blogs, totalItems, loading } = useGetBlogList(optionQueryBlog);
 
 
-
     const onPageChange = (page:number) => {
         router.push({
             pathname: ROUTE.BLOGS,

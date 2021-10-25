@@ -1,22 +1,17 @@
+import commerce from '@lib/api/commerce';
+import { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 import { Layout, RelevantBlogPosts } from 'src/components/common';
+import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog';
 import BlogContent from 'src/components/modules/blog-detail/BlogContent/BlogContent';
 import BlogDetailImg from 'src/components/modules/blog-detail/BlogDetailImg/BlogDetailImg';
-import { BLOGS_DATA_TEST } from 'src/utils/demo-data'
-import { GetStaticPropsContext,GetStaticPathsContext } from 'next';
+import { REVALIDATE_TIME } from 'src/utils/constanst.utils';
+import { formatDate, getAllPromies } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
-import { getAllPromies } from 'src/utils/funtion.utils';
-import commerce from '@lib/api/commerce';
-import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog';
-import {  REVALIDATE_TIME } from 'src/utils/constanst.utils'
 interface Props {
   blog:{blogDetail?: BlogCardProps},
   relevant:{relevantBlogs?:BlogCardProps[]}
 }
 export default function BlogDetailPage({blog,relevant}:Props) {
-
-  let date = new Date(blog?.blogDetail?.createdAt ?? '' );
-  let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
-  
   return (
     <>
         <BlogDetailImg imgSrc={blog?.blogDetail?.imageSrc ?? ''} />
@@ -25,9 +20,9 @@ export default function BlogDetailPage({blog,relevant}:Props) {
           content={blog?.blogDetail?.description}
           imgAuthor={blog?.blogDetail?.authorAvatarAsset}
           authorName={blog?.blogDetail?.authorName}
-          date={fullDate}
+          date={formatDate(blog?.blogDetail?.createdAt ?? '')}
         />
-        {relevant.relevantBlogs?.length> 0 && <RelevantBlogPosts data={relevant.relevantBlogs} title="You will like also" bgcolor="cream"/>}
+        {(relevant?.relevantBlogs && relevant?.relevantBlogs?.length > 0) && <RelevantBlogPosts data={relevant.relevantBlogs} title="You will like also" bgcolor="cream"/>}
     </>
   )
 }
@@ -49,27 +44,26 @@ export async function getStaticProps({
     config,
     preview,
   })
+
+  if (blogDetailPromise.blogDetail === null) {
+    return { notFound: true };
+  }
   props.blog = blogDetailPromise;
   
-  if (!blogDetailPromise) {
-    throw new Error(`Blog with slug '${params!.slug}' not found`)
-  }
 
   // Relevant Blogs
-  const relevantProductId = blogDetailPromise.blogDetail.relevantProducts?.[0];
-  if (relevantProductId && blogDetailPromise.blogDetail.relevantProducts.length > 0) {
+  const relevantProductId = blogDetailPromise?.blogDetail?.relevantProducts?.[0];
+  if (relevantProductId && blogDetailPromise?.blogDetail?.relevantProducts?.length > 0) {
 
     const relevantBlogs = commerce.getRelevantBlogs({
-      variables: { productId: relevantProductId },
+      variables: { productId: Number(relevantProductId) },
       config,
       preview,
     })
     promisesWithKey.push({ key: 'relevant', promise: relevantBlogs})
-
   }else {
     props.relevantBlogs = [];
   }
-  
 
   try {
     const promises = getAllPromies(promisesWithKey)
@@ -80,7 +74,6 @@ export async function getStaticProps({
       return null
     })
     
-    console.log(props.relevantBlogs);
     return {
       props,
       revalidate: REVALIDATE_TIME,

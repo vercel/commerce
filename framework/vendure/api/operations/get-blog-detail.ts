@@ -34,7 +34,9 @@ export default function getBlogDetailOperation({
     const { data } = await config.fetch<GetBlogQuery>(query, {
       variables,
     })
-    return {
+    if(data.blog){
+
+      return {
         blogDetail: {
           id:data?.blog?.id,
           title: data?.blog?.translations[0].title,
@@ -48,7 +50,12 @@ export default function getBlogDetailOperation({
           createdAt: data?.blog?.createdAt,
           relevantProducts: data?.blog?.relevantProducts.map(val=>val.id)
         }
+      }
+
+    }else{
+      return {blogDetail:null}
     }
+   
   }
 
   return getBlogDetail

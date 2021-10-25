@@ -22,17 +22,17 @@ export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
             <BlogBreadCrumb />
             <BlogHeading />
             { (featuredBlog?.length !=0 ) &&
-              <FeaturedCardBlog 
-              title={featuredBlog?.[0]?.title} 
-              slug={featuredBlog?.[0]?.slug} 
-              imgSrc={featuredBlog?.[0]?.imageSrc ?? ''}
-              content={featuredBlog?.[0]?.description}
-              imgAuthor={featuredBlog?.[0]?.authorAvatarAsset}
-              authorName={featuredBlog?.[0]?.authorName}
-              date={fullDate}
-              />
-            }
-            <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id ?? ''} />
+            <FeaturedCardBlog 
+            title={featuredBlog?.[0]?.title} 
+            slug={featuredBlog?.[0]?.slug} 
+            imgSrc={featuredBlog?.[0]?.imageSrc ?? ''}
+            content={featuredBlog?.[0]?.description}
+            imgAuthor={featuredBlog?.[0]?.authorAvatarAsset}
+            authorName={featuredBlog?.[0]?.authorName}
+            date={fullDate}
+            />
+          }
+            <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id} />
         </>
     )
 }
@@ -75,7 +75,7 @@ export async function getStaticProps({
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'blogsResult', promise: blogsPromise })
+  promisesWithKey.push({ key: 'blogs', promise: blogsPromise , keyResult: 'blogs'  })
 
 
   try {
@@ -89,7 +89,6 @@ export async function getStaticProps({
 
     props.featuredBlog = featuredBlogs;
     
-    // console.log(props);
     return {
       props,
       revalidate: 60

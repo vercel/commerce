@@ -34,6 +34,8 @@ export default function getRelevantBlogsOperation({
     const { data } = await config.fetch<GetRelevantBlogsQuery>(query, {
       variables,
     })
+    if(data){
+   
     return {
         relevantBlogs: data?.relevantBlogs?.items?.map((val:BlogList)=>({
             id: val.id,
@@ -47,6 +49,9 @@ export default function getRelevantBlogsOperation({
             authorAvatarAsset : val.authorAvatarAsset?.preview,
             createdAt: val.createdAt
         })),
+    }
+    }else{
+      return {relevantBlogs:[]}
     }
   }
 

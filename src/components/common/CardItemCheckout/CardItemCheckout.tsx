@@ -1,24 +1,29 @@
+import { LineItem } from '@commerce/types/cart'
 import React from 'react'
+import { ImgWithLink } from '..'
 import s from "./CardItemCheckout.module.scss"
-import { ProductProps } from 'src/utils/types.utils'
-export interface CardItemCheckoutProps extends ProductProps {
-    quantity:number
+export interface CardItemCheckoutProps extends LineItem {
+    currency: { code: string }
 }
 
-const CardItemCheckout = ({imageSrc,name,price,weight,quantity,category}: CardItemCheckoutProps) => {
+const CardItemCheckout = ({
+    quantity,
+    variant,
+    name,
+    currency }: CardItemCheckoutProps) => {
     return (
         <div className={s.warpper}>
             <div className={s.image}>
-                <img src={imageSrc} alt="image" />
+                <ImgWithLink src={variant?.image?.url ?? ''} alt={name} />
             </div>
             <div className={s.right}>
                 <div className={s.name}>
-                    {`${name} (${weight})`}
+                    {name} {variant?.weight ? `(${variant.weight})` : ''}
                 </div>
                 <div className={s.quantity}>
-                    Quantity: 
+                    Quantity:
                     <div className={s.price}>
-                        {`${quantity} x ${price}`}
+                        {`${quantity} x ${variant?.price} ${currency?.code}`}
                     </div>
                 </div>
             </div>

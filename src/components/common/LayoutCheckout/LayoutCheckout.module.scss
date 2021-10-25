@@ -4,8 +4,11 @@
     flex-direction: column;
     min-height: 100vh;
     > main {
+        display: flex;
         flex: 1;
         position: relative;
+        max-width: min(100%, 1536px);
+        margin: auto;
     }
     .footer {
         @apply spacing-horizontal;
