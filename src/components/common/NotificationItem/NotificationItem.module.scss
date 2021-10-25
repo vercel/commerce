@@ -1,8 +1,8 @@
-@import '../../../../styles/utilities';
+@import '../../../styles/utilities';
 
 .notificationItem {
-    @apply flex flex-row spacing-horizontal;
-    padding-top: 1.2rem;
+    @apply flex flex-row;
+    padding: 1.6rem .8rem;
     &:hover{
         cursor: pointer;
     }

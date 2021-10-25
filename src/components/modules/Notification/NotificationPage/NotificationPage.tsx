@@ -2,7 +2,7 @@ import React from 'react'
 import LoadingCommon from 'src/components/common/LoadingCommon/LoadingCommon'
 import { useNotifications } from 'src/components/hooks/notification'
 import NotificationEmptyPage from '../NotificationEmptyPage/NotificationEmptyPage'
-import NotificationItem from '../NotificationItem/NotificationItem'
+import NotificationItem from '../../../common/NotificationItem/NotificationItem'
 import s from './NotificationPage.module.scss'
 
 interface NotificationPageProps {

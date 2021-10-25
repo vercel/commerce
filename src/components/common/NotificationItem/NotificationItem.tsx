@@ -1,19 +1,19 @@
+
 import { Notification } from '@framework/schema'
-import ClassNames from 'classnames'
+import classNames from 'classnames'
 import Link from 'next/link'
-import React from 'react'
 import { IconBill } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { formatTimeAgo } from 'src/utils/funtion.utils'
 import s from '../NotificationItem/NotificationItem.module.scss'
 
 export interface NotificationItemProps extends Omit<Notification, "type" | "data"> {
-
 }
 
 const NotificationItem = ({ description, createdAt, order, isNew }: NotificationItemProps) => {
+    
     return (
-        <section className={ClassNames({
+        <li className={classNames({
             [s.notificationItem]: true,
             [s.isChecked]: !isNew,
         })}
@@ -37,7 +37,7 @@ const NotificationItem = ({ description, createdAt, order, isNew }: Notification
                 </a>
             </Link>
 
-        </section>
+        </li>
     )
 }
 

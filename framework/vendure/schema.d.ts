@@ -259,6 +259,10 @@ export type MutationLoginArgs = {
   rememberMe?: Maybe<Scalars['Boolean']>
 }
 
+export type MutationMarkNotificationsAsReadArgs = {
+  input: UpdateNotificationInput;
+};
+
 export type MutationAuthenticateArgs = {
   input: AuthenticationInput
   rememberMe?: Maybe<Scalars['Boolean']>
@@ -314,6 +318,15 @@ export type MutationRequestPasswordResetArgs = {
 export type MutationResetPasswordArgs = {
   token: Scalars['String']
   password: Scalars['String']
+}
+
+
+export type MarkNotificationsAsReadMutation = { __typename?: 'Mutation' } & {
+  markNotificationsAsRead:
+  | ({ __typename: 'MarkNotificationsAsReadResult' } & Pick<
+    MarkNotificationsAsReadResult,
+    'updatedNotificationOrderIds'
+  >)
 }
 
 export type ActiveOrderCustomerFragment = Pick<Order, 'id'> & {
@@ -381,16 +394,16 @@ export type SetShippingMethodMutationVariables = Exact<{
 
 export type SetShippingMethodMutation = {
   setOrderShippingMethod:
-      | TestOrderFragmentFragment
-      | Pick<OrderModificationError, 'errorCode' | 'message'>
-      | Pick<IneligibleShippingMethodError, 'errorCode' | 'message'>
-      | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
+  | TestOrderFragmentFragment
+  | Pick<OrderModificationError, 'errorCode' | 'message'>
+  | Pick<IneligibleShippingMethodError, 'errorCode' | 'message'>
+  | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
 };
 
 
 export type GetEligibleMethodsQuery = {
   eligibleShippingMethods: Array<
-      Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
+    Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
   >;
 };
 
@@ -2389,15 +2402,15 @@ export type Product = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
-export type BlogList = Node &{
+export type BlogList = Node & {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   featuredAsset?: Maybe<Asset>
-  isPublish:Boolean
+  isPublish: Boolean
   translations: Array<BlogTranslation>
   authorName: Scalars['String']
-  authorAvatarAsset:Asset
+  authorAvatarAsset: Asset
   relevantProducts: Product
   isFeatured: Boolean
 }
@@ -2416,20 +2429,20 @@ export type BlogTranslation = {
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {
-    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & BlogList!>,
     'totalItems'
   }
 }
 export type GetFeaturedBlogQuery = PaginatedList & {
-  id:string,
+  id: string,
   featuredBlogs: { __typename?: 'BlogList' } & {
-    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & BlogList!>,
     'totalItems'
   }
 }
 
 export type QueryBlogs = {
-  excludeBlogIds:Array,
+  excludeBlogIds: Array,
   options: BlogListOptions
 }
 
@@ -2982,6 +2995,10 @@ export type UpdateCustomerEmailAddressResult =
   | IdentifierChangeTokenExpiredError
   | NativeAuthStrategyError
 
+export type UpdateNotificationInput = {
+  orderIds: Array<Scalars['ID']>;
+};
+
 export type RequestPasswordResetResult = Success | NativeAuthStrategyError
 
 export type ResetPasswordResult =
@@ -3178,10 +3195,10 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   >
   customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
   shippingLines: Array<
-        Pick<ShippingLine, 'priceWithTax'> & {
-            shippingMethod: Pick<ShippingMethod, 'id' | 'code' | 'name' | 'description'>;
-        }
-    >
+    Pick<ShippingLine, 'priceWithTax'> & {
+      shippingMethod: Pick<ShippingMethod, 'id' | 'code' | 'name' | 'description'>;
+    }
+  >
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
       OrderLine,
@@ -3560,9 +3577,9 @@ export type NewNotificationsQuery = { __typename?: 'Query' } & {
   newNotifications?: { __typename?: 'NotificationList' } & {
     items: Array<
       { __typename?: 'Notification' } & Pick<
-      Notification,
-        'id' | 'createdAt' | 'createdAt' | 'type' | 'data' | 'order'
-      > 
+        Notification,
+        'id' | 'createdAt' | 'createdAt' | 'type' | 'data' | 'order' | 'isNew' | 'description' | 'updatedAt'
+      >
     >,
     'totalItems'
   }
@@ -3572,9 +3589,9 @@ export type NotificationsQuery = { __typename?: 'Query' } & {
   notifications?: { __typename?: 'NotificationList' } & {
     items: Array<
       { __typename?: 'Notification' } & Pick<
-      Notification,
-        'id' | 'createdAt' | 'updatedAt' | 'type' | 'data' | 'description' |'order' |'isNew'
-      > 
+        Notification,
+        'id' | 'createdAt' | 'updatedAt' | 'type' | 'data' | 'description' | 'order' | 'isNew'
+      >
     >,
     'totalItems'
   }
