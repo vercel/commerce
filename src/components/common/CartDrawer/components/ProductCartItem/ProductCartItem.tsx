@@ -1,25 +1,64 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react'
 import Link from 'next/link'
-import { QuanittyInput } from 'src/components/common';
-import { IconDelete } from 'src/components/icons';
-import { ROUTE } from 'src/utils/constanst.utils';
-import { ProductProps } from 'src/utils/types.utils';
-import ImgWithLink from '../../../ImgWithLink/ImgWithLink';
-import LabelCommon from '../../../LabelCommon/LabelCommon';
-import s from './ProductCartItem.module.scss';
+import { ModalConfirm, QuanittyInput } from 'src/components/common'
+import { IconDelete } from 'src/components/icons'
+import { ROUTE } from 'src/utils/constanst.utils'
+import ImgWithLink from '../../../ImgWithLink/ImgWithLink'
+import LabelCommon from '../../../LabelCommon/LabelCommon'
+import s from './ProductCartItem.module.scss'
+import { LineItem } from '@commerce/types/cart'
+import { useUpdateProductInCart } from 'src/components/hooks/cart'
+import { debounce } from 'lodash'
+import useRemoveProductInCart from 'src/components/hooks/cart/useRemoveProductInCart'
 
-export interface ProductCartItempProps extends ProductProps {
-  quantity: number,
+export interface ProductCartItempProps extends LineItem {
+  currency: { code: string }
 }
 
-const ProductCartItem = ({ name, slug, weight, price, oldPrice, discount, imageSrc, quantity }: ProductCartItempProps) => {
+const ProductCartItem = ({
+  slug,
+  discounts,
+  quantity,
+  variant,
+  name,
+  currency,
+  id
+}: ProductCartItempProps) => {
+  const [visible, setVisible] = useState(false)
+  const {updateProduct} = useUpdateProductInCart()
+  const {removeProduct, loading} = useRemoveProductInCart()
+  const handleQuantityChangeCallback = (isSuccess:boolean,mess?:string) => {
+    if(!isSuccess){
+      console.log(mess)
+    }
+  }
+  const handleRemoveCallback = (isSuccess:boolean,mess?:string) => {
+    if(!isSuccess){
+      console.log(mess)
+    }else{
+      setVisible(false)
+    }
+  }
+  const handleQuantityChange = (value:number) => {
+    updateProduct({orderLineId:id,quantity:value},handleQuantityChangeCallback)
+  }
+  const debounceFn = useCallback(debounce(handleQuantityChange, 500), []);
+  const handleCancel = () => {
+    setVisible(false)
+  }
+  const handleOpen = () => {
+    setVisible(true)
+  }
+  const handleConfirm = () => {
+    removeProduct({orderLineId:id},handleRemoveCallback)
+  }
   return (
     <div className={s.productCartItem}>
       <div className={s.info}>
         <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
           <a href="">
             <div className={s.imgWrap}>
-              <ImgWithLink src={imageSrc} alt={name} />
+              <ImgWithLink src={variant?.image?.url ?? ''} alt={name} />
             </div>
           </a>
         </Link>
@@ -27,30 +66,33 @@ const ProductCartItem = ({ name, slug, weight, price, oldPrice, discount, imageS
           <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
             <a>
               <div className={s.name}>
-                {name} {weight ? `(${weight})` : ''}
+                {name} {variant?.weight ? `(${variant.weight})` : ''}
               </div>
             </a>
           </Link>
           <div className={s.price}>
-            {
-              oldPrice &&
-              <div className={s.old}>
-                <span className={s.number}>{oldPrice}</span>
-                <LabelCommon type='discount'>{discount}</LabelCommon>
-              </div>
-            }
-            <div className={s.current}>{price}</div>
+            {discounts.length > 0 && (
+                <div className={s.old}>
+                  {/* <span className={s.number}>{oldPrice}</span> */}
+                  {/* TODO: edit the value */}
+                  <LabelCommon type="discount">{discounts[0]?.value}</LabelCommon>
+                </div>
+            )}
+            <div className={s.current}>{variant?.price} {currency?.code}</div>
           </div>
         </div>
       </div>
       <div className={s.actions}>
-        <div className={s.iconDelete}>
+        <div className={s.iconDelete} onClick={handleOpen}>
           <IconDelete />
         </div>
-        <QuanittyInput size='small' initValue={quantity} />
+        <QuanittyInput size="small" initValue={quantity} onChange={debounceFn}/>
       </div>
+      <ModalConfirm visible={visible} onClose={handleCancel} onCancel={handleCancel} onOk={handleConfirm} loading={loading}>
+        Are you sure want to remove {name} form your cart
+      </ModalConfirm>
     </div>
   )
 }
 
-export default ProductCartItem;
+export default ProductCartItem

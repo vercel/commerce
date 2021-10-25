@@ -27,26 +27,26 @@ const QuanittyInput = ({
   const [value, setValue] = useState<number>(0)
 
   useEffect(() => {
-    onChange && onChange(value)
-  }, [value])
-
-  useEffect(() => {
     initValue && setValue(initValue)
   }, [initValue])
 
   const onPlusClick = () => {
     if (max && value + step > max) {
       setValue(max)
+      onChange && onChange(max)
     } else {
       setValue(value + step)
+      onChange && onChange(value + step)
     }
   }
 
   const onMinusClick = () => {
     if (min && value - step < min) {
       setValue(min)
+      onChange && onChange(min)
     } else {
       setValue(value - step)
+      onChange && onChange(value - step)
     }
   }
 
@@ -54,10 +54,13 @@ const QuanittyInput = ({
     let value = Number(e.target.value) || 0
     if (min && value < min) {
       setValue(min)
+      onChange && onChange(min)
     } else if (max && value > max) {
       setValue(max)
+      onChange && onChange(max)
     } else {
       setValue(value)
+      onChange && onChange(value)
     }
   }
 

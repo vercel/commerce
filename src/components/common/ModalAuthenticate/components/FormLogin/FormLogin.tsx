@@ -15,16 +15,18 @@ import styles from './FormLogin.module.scss'
 interface Props {
   isHide: boolean
   onSwitch: () => void
+  initialEmail?: string
+
 }
 
-const DisplayingErrorMessagesSchema = Yup.object().shape({
-  email: Yup.string().email('Your email was wrong').required('Required'),
+const displayingErrorMessagesSchema = Yup.object().shape({
+  email: Yup.string().email(LANGUAGE.MESSAGE.INVALID_EMAIL).required(LANGUAGE.MESSAGE.REQUIRED),
   password: Yup.string()
     .max(30, 'Password is too long')
-    .required('Required'),
+    .required(LANGUAGE.MESSAGE.REQUIRED),
 })
 
-const FormLogin = ({ onSwitch, isHide }: Props) => {
+const FormLogin = ({ onSwitch, isHide, initialEmail = ''}: Props) => {
   const emailRef = useRef<CustomInputCommon>(null)
   const { loading, login } = useLogin()
   const { showMessageSuccess, showMessageError } = useMessage()
@@ -54,9 +56,9 @@ const FormLogin = ({ onSwitch, isHide }: Props) => {
           <Formik
             initialValues={{
               password: '',
-              email: '',
+              email: initialEmail,
             }}
-            validationSchema={DisplayingErrorMessagesSchema}
+            validationSchema={displayingErrorMessagesSchema}
             onSubmit={onLogin}
             
           >

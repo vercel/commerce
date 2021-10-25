@@ -6,17 +6,20 @@ import { ImgWithLink } from '..'
 import s from './CardBlog.module.scss'
 
 export interface BlogCardProps extends BlogProps {
-  // todo: edit when intergrate API
-
+  isPublish?:Boolean,
+  isFeatured?:Boolean,
+  authorAvatarAsset?:string,
+  authorName?:string,
+  createdAt?:string
 }
 
 const CardBlog = ({ imageSrc, title, description, slug }: BlogCardProps) => {
   return (
     <div className={s.cardBlogWarpper}>
       <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
-        <a>
+        <a> 
           <div className={s.image}>
-            <ImgWithLink src={imageSrc} alt="image cardblog" />
+            <ImgWithLink src={imageSrc ?? ''} alt={title} />
           </div>
         </a>
       </Link>

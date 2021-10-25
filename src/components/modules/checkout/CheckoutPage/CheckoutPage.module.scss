@@ -1,6 +1,7 @@
 @import "../../../../styles/utilities";
 .warrper{
-    @apply flex w-full h-full absolute;
+    @apply flex w-full;
+    min-height: 100%;
     .right {
         display: none;
         @screen lg {
@@ -46,10 +47,7 @@
                         color:var(--text-base);
                     }
                 }
-                button{
-                    margin-top: 2rem;
-                    width: 100%;
-                }
+                
             }
         }
     }

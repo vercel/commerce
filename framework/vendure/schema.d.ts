@@ -306,9 +306,44 @@ export type MutationResetPasswordArgs = {
   password: Scalars['String']
 }
 
+export type ActiveOrderCustomerFragment = Pick<Order, 'id'> & {
+  customer?: Maybe<Pick<Customer, 'id' | 'emailAddress' | 'firstName' | 'lastName'>>;
+  lines: Array<Pick<OrderLine, 'id'>>;
+};
+
+export type SetCustomerForOrderMutationVariables = Exact<{
+  input: CreateCustomerInput;
+}>;
+
+export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
+  setCustomerForOrder:
+  | ({ __typename: 'ActiveOrderCustomerFragment' } & Pick<ActiveOrderCustomerFragment, 'customer', 'lines'>)
+  | ({ __typename: 'AlreadyLoggedInError' } & Pick<
+    AlreadyLoggedInError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'EmailAddressConflictError' } & Pick<
+    EmailAddressConflictError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NoActiveOrderError' } & Pick<
+    NoActiveOrderError,
+    'errorCode' | 'message'
+  >)
+}
+
+export type SetOrderShippingAddressMutation = { __typename?: 'Mutation' } & {
+  setOrderShippingAddress:
+  | ({ __typename: 'Order' } & Pick<Order, 'id' | 'total' | 'totalQuantity' | 'code' | 'shippingAddress'>)
+  | ({ __typename: 'NoActiveOrderError' } & Pick<
+    NoActiveOrderError,
+    'errorCode' | 'message'
+  >)
+}
+
 export type Address = Node & {
   updateCustomerAddress:
-  | { 
+  | {
     __typename?: 'Address'
     id: Scalars['ID']
   }
@@ -330,8 +365,24 @@ export type Address = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+export type SetShippingMethodMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type SetShippingMethodMutation = {
+  setOrderShippingMethod:
+      | TestOrderFragmentFragment
+      | Pick<OrderModificationError, 'errorCode' | 'message'>
+      | Pick<IneligibleShippingMethodError, 'errorCode' | 'message'>
+      | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
+};
 
 
+export type GetEligibleMethodsQuery = {
+  eligibleShippingMethods: Array<
+      Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
+  >;
+};
 
 export type Asset = Node & {
   __typename?: 'Asset'
@@ -1471,7 +1522,7 @@ export type CustomerListOptions = {
 
 export type Customer = Node & {
   updateCustomer:
-  | { 
+  | {
     __typename?: 'Customer'
     id: Scalars['ID']
   }
@@ -1482,7 +1533,7 @@ export type Customer = Node & {
   title?: Maybe<Scalars['String']>
   firstName: Scalars['String']
   lastName: Scalars['String']
-  phoneNumber?:  Maybe<Scalars['String']>
+  phoneNumber?: Maybe<Scalars['String']>
   emailAddress: Scalars['String']
   addresses?: Maybe<Array<Address>>
   orders: OrderList
@@ -2328,6 +2379,72 @@ export type Product = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+export type BlogList = Node &{
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  featuredAsset?: Maybe<Asset>
+  isPublish:Boolean
+  translations: Array<BlogTranslation>
+  authorName: Scalars['String']
+  authorAvatarAsset:Asset
+  relevantProducts: Product[]
+  isFeatured: Boolean
+}
+
+export type GetBlogQuery = { __typename?: 'Query' } & {
+  blog?: Maybe<
+    { __typename?: 'Blog' } & BlogList
+  >
+}
+
+
+
+
+export type BlogTranslation = {
+  __typename?: 'BlogTranslation'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  languageCode: LanguageCode
+  title: Scalars['String']
+  slug: Scalars['String']
+  description: Scalars['String']
+  content: Scalars['String']
+}
+
+export type GetAllBlogsQuery = PaginatedList & {
+  blogs: { __typename?: 'BlogList' } & {
+    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    'totalItems'
+  }
+}
+
+export type GetRelevantBlogsQuery = PaginatedList & {
+  relevantBlogs: { __typename?: 'BlogList' } & {
+    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+  }
+}
+
+export type GetFeaturedBlogQuery = PaginatedList & {
+  id:string,
+  featuredBlogs: { __typename?: 'BlogList' } & {
+    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    'totalItems'
+  }
+}
+
+
+export type QueryBlogs = {
+  excludeBlogIds:Array,
+  options: BlogListOptions
+}
+
+export type BlogListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+}
+
 export type ProductTranslation = {
   __typename?: 'ProductTranslation'
   id: Scalars['ID']
@@ -3017,56 +3134,65 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   | 'totalWithTax'
   | 'currencyCode'
 > & {
-    customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>
-    lines: Array<
-      { __typename?: 'OrderLine' } & Pick<
-        OrderLine,
-        | 'id'
-        | 'quantity'
-        | 'linePriceWithTax'
-        | 'discountedLinePriceWithTax'
-        | 'unitPriceWithTax'
-        | 'discountedUnitPriceWithTax'
-      > & {
-          featuredAsset?: Maybe<
-            { __typename?: 'Asset' } & Pick<Asset, 'id' | 'preview'>
-          >
-          discounts: Array<
-            { __typename?: 'Discount' } & Pick<
-              Discount,
-              'description' | 'amount'
-            >
-          >
-          productVariant: { __typename?: 'ProductVariant' } & Pick<
-            ProductVariant,
-            | 'id'
-            | 'name'
-            | 'sku'
-            | 'price'
-            | 'priceWithTax'
-            | 'stockLevel'
-            | 'productId'
-          > & { product: { __typename?: 'Product' } & Pick<Product, 'slug'> }
+  shippingAddress?: Maybe<{ __typename?: 'OrderAddress' } & Pick<OrderAddress, 'streetLine1' | 'fullName' | 'city' | 'province' | 'postalCode' | 'countryCode' | 'phoneNumber'>>
+  discounts: Array<
+    { __typename?: 'Discount' } & Pick<Discount, 'type' | 'description' | 'amount' | 'amountWithTax'>
+  >
+  customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
+  shippingLines: Array<
+        Pick<ShippingLine, 'priceWithTax'> & {
+            shippingMethod: Pick<ShippingMethod, 'id' | 'code' | 'name' | 'description'>;
         }
     >
-  }
+  lines: Array<
+    { __typename?: 'OrderLine' } & Pick<
+      OrderLine,
+      | 'id'
+      | 'quantity'
+      | 'linePriceWithTax'
+      | 'discountedLinePriceWithTax'
+      | 'unitPriceWithTax'
+      | 'discountedUnitPriceWithTax'
+    > & {
+      featuredAsset?: Maybe<
+        { __typename?: 'Asset' } & Pick<Asset, 'id' | 'preview'>
+      >
+      discounts: Array<
+        { __typename?: 'Discount' } & Pick<
+          Discount,
+          'description' | 'amount'
+        >
+      >
+      productVariant: { __typename?: 'ProductVariant' } & Pick<
+        ProductVariant,
+        | 'id'
+        | 'name'
+        | 'sku'
+        | 'price'
+        | 'priceWithTax'
+        | 'stockLevel'
+        | 'productId'
+      > & { product: { __typename?: 'Product' } & Pick<Product, 'slug'> }
+    }
+  >
+}
 
 export type SearchResultFragment = { __typename?: 'SearchResult' } & Pick<
   SearchResult,
   'productId' | 'sku' | 'productName' | 'description' | 'slug' | 'sku' | 'currencyCode'
-  | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode' 
-  | 'collectionIds' | 'facetValueIds' | 'collectionIds'
+  | 'productAsset' | 'price' | 'priceWithTax' | 'currencyCode'
+  | 'collectionIds' | 'productVariantId' | 'facetValueIds' | "productVariantName"
 > & {
-    productAsset?: Maybe<
-      { __typename?: 'SearchResultAsset' } & Pick<
-        SearchResultAsset,
-        'id' | 'preview'
-      >
+  productAsset?: Maybe<
+    { __typename?: 'SearchResultAsset' } & Pick<
+      SearchResultAsset,
+      'id' | 'preview'
     >
-    priceWithTax:
-      | ({ __typename?: 'PriceRange' } & Pick<PriceRange, 'min' | 'max'>)
-      | ({ __typename?: 'SinglePrice' } & Pick<SinglePrice, 'value'>)
-  }
+  >
+  priceWithTax:
+  | ({ __typename?: 'PriceRange' } & Pick<PriceRange, 'min' | 'max'>)
+  | ({ __typename?: 'SinglePrice' } & Pick<SinglePrice, 'value'>)
+}
 
 export type AddItemToOrderMutationVariables = Exact<{
   variantId: Scalars['ID']
@@ -3075,23 +3201,23 @@ export type AddItemToOrderMutationVariables = Exact<{
 
 export type AddItemToOrderMutation = { __typename?: 'Mutation' } & {
   addItemToOrder:
-    | ({ __typename: 'Order' } & CartFragment)
-    | ({ __typename: 'OrderModificationError' } & Pick<
-        OrderModificationError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'OrderLimitError' } & Pick<
-        OrderLimitError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NegativeQuantityError' } & Pick<
-        NegativeQuantityError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'InsufficientStockError' } & Pick<
-        InsufficientStockError,
-        'errorCode' | 'message'
-      >)
+  | ({ __typename: 'Order' } & CartFragment)
+  | ({ __typename: 'OrderModificationError' } & Pick<
+    OrderModificationError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'OrderLimitError' } & Pick<
+    OrderLimitError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NegativeQuantityError' } & Pick<
+    NegativeQuantityError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'InsufficientStockError' } & Pick<
+    InsufficientStockError,
+    'errorCode' | 'message'
+  >)
 }
 
 export type AdjustOrderLineMutationVariables = Exact<{
@@ -3101,23 +3227,53 @@ export type AdjustOrderLineMutationVariables = Exact<{
 
 export type AdjustOrderLineMutation = { __typename?: 'Mutation' } & {
   adjustOrderLine:
-    | ({ __typename: 'Order' } & CartFragment)
-    | ({ __typename: 'OrderModificationError' } & Pick<
-        OrderModificationError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'OrderLimitError' } & Pick<
-        OrderLimitError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NegativeQuantityError' } & Pick<
-        NegativeQuantityError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'InsufficientStockError' } & Pick<
-        InsufficientStockError,
-        'errorCode' | 'message'
-      >)
+  | ({ __typename: 'Order' } & CartFragment)
+  | ({ __typename: 'OrderModificationError' } & Pick<
+    OrderModificationError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'OrderLimitError' } & Pick<
+    OrderLimitError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NegativeQuantityError' } & Pick<
+    NegativeQuantityError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'InsufficientStockError' } & Pick<
+    InsufficientStockError,
+    'errorCode' | 'message'
+  >)
+}
+
+
+export type ApplyCouponCodeMutationVariables = Exact<{
+  couponCode: Scalars['String'];
+}>;
+
+export type ApplyCouponCodeMutation = {
+  applyCouponCode:
+  | TestOrderFragmentFragment
+  | Pick<CouponCodeExpiredError, 'errorCode' | 'message'>
+  | Pick<CouponCodeInvalidError, 'errorCode' | 'message'>
+  | Pick<CouponCodeLimitError, 'errorCode' | 'message'>;
+};
+
+export type ApplyCouponCodeMutation = { __typename?: 'Mutation' } & {
+  applyCouponCode:
+  | ({ __typename: 'Order' } & CartFragment)
+  | ({ __typename: 'CouponCodeExpiredError' } & Pick<
+    CouponCodeExpiredError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'CouponCodeInvalidError' } & Pick<
+    CouponCodeInvalidError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'CouponCodeLimitError' } & Pick<
+    CouponCodeLimitError,
+    'errorCode' | 'message'
+  >)
 }
 
 export type LoginMutationVariables = Exact<{
@@ -3127,49 +3283,49 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
   login:
-    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
-    | ({ __typename: 'InvalidCredentialsError' } & Pick<
-        InvalidCredentialsError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NotVerifiedError' } & Pick<
-        NotVerifiedError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
-        NativeAuthStrategyError,
-        'errorCode' | 'message'
-      >)
+  | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+  | ({ __typename: 'InvalidCredentialsError' } & Pick<
+    InvalidCredentialsError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NotVerifiedError' } & Pick<
+    NotVerifiedError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+    NativeAuthStrategyError,
+    'errorCode' | 'message'
+  >)
 }
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword:
-    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
-    | ({ __typename: 'PasswordResetTokenInvalidError' } & Pick<
-        PasswordResetTokenInvalidError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'PasswordResetTokenExpiredError' } & Pick<
-        PasswordResetTokenExpiredError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
-        NativeAuthStrategyError,
-        'errorCode' | 'message'
-      >)
+  | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+  | ({ __typename: 'PasswordResetTokenInvalidError' } & Pick<
+    PasswordResetTokenInvalidError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'PasswordResetTokenExpiredError' } & Pick<
+    PasswordResetTokenExpiredError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+    NativeAuthStrategyError,
+    'errorCode' | 'message'
+  >)
 }
 
 export type SignupMutation = { __typename?: 'Mutation' } & {
   registerCustomerAccount:
-    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
-    | ({ __typename: 'MissingPasswordError' } & Pick<
-        MissingPasswordError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
-        NativeAuthStrategyError,
-        'errorCode' | 'message'
-      >)
+  | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+  | ({ __typename: 'MissingPasswordError' } & Pick<
+    MissingPasswordError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+    NativeAuthStrategyError,
+    'errorCode' | 'message'
+  >)
 }
 
 export type VerifyCustomerAccountVariables = Exact<{
@@ -3179,27 +3335,27 @@ export type VerifyCustomerAccountVariables = Exact<{
 
 export type VerifyCustomerAccountMutation = { __typename?: 'Mutation' } & {
   verifyCustomerAccount:
-    | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
-    | ({ __typename: 'VerificationTokenInvalidError' } & Pick<
-      VerificationTokenInvalidError,
-      'errorCode' | 'message'
-    >)
-    | ({ __typename: 'VerificationTokenExpiredError' } & Pick<
-      VerificationTokenExpiredError,
-      'errorCode' | 'message'
-    >)
-    | ({ __typename: 'MissingPasswordError' } & Pick<
-      MissingPasswordError,
-      'errorCode' | 'message'
-    >)
-    | ({ __typename: 'PasswordAlreadySetError' } & Pick<
-      PasswordAlreadySetError,
-      'errorCode' | 'message'
-    >)
-    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
-      NativeAuthStrategyError,
-      'errorCode' | 'message'
-    >)
+  | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+  | ({ __typename: 'VerificationTokenInvalidError' } & Pick<
+    VerificationTokenInvalidError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'VerificationTokenExpiredError' } & Pick<
+    VerificationTokenExpiredError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'MissingPasswordError' } & Pick<
+    MissingPasswordError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'PasswordAlreadySetError' } & Pick<
+    PasswordAlreadySetError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+    NativeAuthStrategyError,
+    'errorCode' | 'message'
+  >)
 }
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>
@@ -3214,11 +3370,11 @@ export type RemoveOrderLineMutationVariables = Exact<{
 
 export type RemoveOrderLineMutation = { __typename?: 'Mutation' } & {
   removeOrderLine:
-    | ({ __typename: 'Order' } & CartFragment)
-    | ({ __typename: 'OrderModificationError' } & Pick<
-        OrderModificationError,
-        'errorCode' | 'message'
-      >)
+  | ({ __typename: 'Order' } & CartFragment)
+  | ({ __typename: 'OrderModificationError' } & Pick<
+    OrderModificationError,
+    'errorCode' | 'message'
+  >)
 }
 
 export type SignupMutationVariables = Exact<{
@@ -3228,15 +3384,15 @@ export type SignupMutationVariables = Exact<{
 
 export type RequestPasswordReset = { __typename?: 'Mutation' } & {
   requestPasswordReset:
-    | ({ __typename: 'Success' } & Pick<Success, 'success'>)
-    | ({ __typename: 'MissingPasswordError' } & Pick<
-        MissingPasswordError,
-        'errorCode' | 'message'
-      >)
-    | ({ __typename: 'NativeAuthStrategyError' } & Pick<
-        NativeAuthStrategyError,
-        'errorCode' | 'message'
-      >)
+  | ({ __typename: 'Success' } & Pick<Success, 'success'>)
+  | ({ __typename: 'MissingPasswordError' } & Pick<
+    MissingPasswordError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+    NativeAuthStrategyError,
+    'errorCode' | 'message'
+  >)
 }
 
 
@@ -3248,7 +3404,7 @@ export type ActiveCustomerQuery = { __typename?: 'Query' } & {
     { __typename?: 'Customer' } & Pick<
       Customer,
       Favorite,
-      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber'|  'orders'
+      'id' | 'firstName' | 'lastName' | 'emailAddress' | 'addresses' | 'phoneNumber' | 'orders'
     >
   >
 }
@@ -3267,7 +3423,7 @@ export type FavoriteList = PaginatedList & {
   totalItems: Int!
 }
 
-type Favorite = Node &  {
+type Favorite = Node & {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -3275,9 +3431,28 @@ type Favorite = Node &  {
   customer: Customer!
 }
 
+export type GetAvailableCountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type FavouriteOption =  Customer & {
+// export type GetAvailableCountriesQuery = { countries: (
+//   { __typename?: 'CountryList' }
+//   & { items: Array<(
+//     { __typename?: 'Country' }
+//     & Pick<Country, 'id' | 'code' | 'name' | 'enabled'>
+//   )> }
+// ) };
+
+export type GetAvailableCountriesQuery = {
+  availableCountries:
+  { __typename?: 'CountryList' }
+  & Array<(
+    { __typename?: 'Country' }
+    & Pick<Country, 'id' | 'code' | 'name' | 'enabled'>
+  )>
+};
+
+
+type FavouriteOption = Customer & {
   favorites(options: FavoriteListOptions): FavoriteList!
 }
 
@@ -3288,6 +3463,12 @@ export type GetAllProductPathsQueryVariables = Exact<{
 export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
   products: { __typename?: 'ProductList' } & {
     items: Array<{ __typename?: 'Product' } & Pick<Product, 'slug'>>
+  }
+}
+  
+export type GetAllBlogPathsQuery = { __typename?: 'Query' } & {
+  blogs: { __typename?: 'BlogList' } & {
+    items: Array<{ __typename?: 'Blog' } & Pick<BlogList,'slug','translations'>>
   }
 }
 
@@ -3308,13 +3489,13 @@ export type GetAllFacetsQuery = { __typename?: 'Query' } & {
       { __typename?: 'Facet' } & Pick<
         Facet,
         'id' | 'name' | 'code' | 'values'
-      > 
+      >
       & {
-          parent?: Maybe<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
-          children?: Maybe<
-            Array<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
-          >
-        }
+        parent?: Maybe<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
+        children?: Maybe<
+          Array<{ __typename?: 'Facet' } & Pick<Facet, 'id'>>
+        >
+      }
     >,
     'totalItems'
   }
@@ -3327,11 +3508,11 @@ export type GetAllCollectionsQuery = { __typename?: 'Query' } & {
         Collection,
         'id' | 'name' | 'slug'
       > & {
-          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
-          children?: Maybe<
-            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
-          >
-        }
+        parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+        children?: Maybe<
+          Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+        >
+      }
     >,
     'totalItems'
   }
@@ -3352,15 +3533,15 @@ export type GetCollectionsQuery = { __typename?: 'Query' } & {
         Collection,
         'id' | 'name' | 'description' | 'slug'
       > & {
-          productVariants: { __typename?: 'ProductVariantList' } & Pick<
-            ProductVariantList,
-            'totalItems'
-          >
-          parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
-          children?: Maybe<
-            Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
-          >
-        }
+        productVariants: { __typename?: 'ProductVariantList' } & Pick<
+          ProductVariantList,
+          'totalItems'
+        >
+        parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+        children?: Maybe<
+          Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+        >
+      }
     >
   }
 }
@@ -3375,60 +3556,60 @@ export type GetProductQuery = { __typename?: 'Query' } & {
       Product,
       'id' | 'name' | 'slug' | 'description'
     > & {
-        assets: Array<
-          { __typename?: 'Asset' } & Pick<Asset, 'id' | 'preview' | 'name'>
-        >
-        variants: Array<
-          { __typename?: 'ProductVariant' } & Pick<
-            ProductVariant,
-            'id' | 'priceWithTax' | 'currencyCode' | 'price'
-          > & {
-              options: Array<
-                { __typename?: 'ProductOption' } & Pick<
-                  ProductOption,
-                  'id' | 'name' | 'code' | 'groupId'
-                > & {
-                    group: { __typename?: 'ProductOptionGroup' } & Pick<
-                      ProductOptionGroup,
-                      'id'
-                    > & {
-                        options: Array<
-                          { __typename?: 'ProductOption' } & Pick<
-                            ProductOption,
-                            'name'
-                          >
-                        >
-                      }
-                  }
-              >
-            }
-        >
-        optionGroups: Array<
-          { __typename?: 'ProductOptionGroup' } & Pick<
-            ProductOptionGroup,
-            'id' | 'code' | 'name'
-          > & {
-              options: Array<
-                { __typename?: 'ProductOption' } & Pick<
-                  ProductOption,
-                  'id' | 'name'
+      assets: Array<
+        { __typename?: 'Asset' } & Pick<Asset, 'id' | 'preview' | 'name'>
+      >
+      variants: Array<
+        { __typename?: 'ProductVariant' } & Pick<
+          ProductVariant,
+          'id' | 'priceWithTax' | 'currencyCode' | 'price' | "name"
+        > & {
+          options: Array<
+            { __typename?: 'ProductOption' } & Pick<
+              ProductOption,
+              'id' | 'name' | 'code' | 'groupId'
+            > & {
+              group: { __typename?: 'ProductOptionGroup' } & Pick<
+                ProductOptionGroup,
+                'id'
+              > & {
+                options: Array<
+                  { __typename?: 'ProductOption' } & Pick<
+                    ProductOption,
+                    'name'
+                  >
                 >
-              >
+              }
             }
-        >
-        facetValues: Array<
-          { __typename?: 'FacetValue' } & Pick<
-            FacetValue,
-            'id'
           >
-        >
-        collections: Array<
-          { __typename?: 'Collection' } & Pick<
-            Collection,
-            'id'
+        }
+      >
+      optionGroups: Array<
+        { __typename?: 'ProductOptionGroup' } & Pick<
+          ProductOptionGroup,
+          'id' | 'code' | 'name'
+        > & {
+          options: Array<
+            { __typename?: 'ProductOption' } & Pick<
+              ProductOption,
+              'id' | 'name'
+            >
           >
+        }
+      >
+      facetValues: Array<
+        { __typename?: 'FacetValue' } & Pick<
+          FacetValue,
+          'id'
         >
-      }
+      >
+      collections: Array<
+        { __typename?: 'Collection' } & Pick<
+          Collection,
+          'id' | "name"
+        >
+      >
+    }
   >
 }
 
@@ -3442,3 +3623,4 @@ export type SearchQuery = { __typename?: 'Query' } & {
     'totalItems'
   > & { items: Array<{ __typename?: 'SearchResult' } & SearchResultFragment> }
 }
+

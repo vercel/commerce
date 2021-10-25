@@ -5,7 +5,8 @@ import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbC
 import s from './BlogDetailImg.module.scss';
 interface Props {
     className?: string
-    children?: any
+    children?: any,
+    imgSrc?:string
 }
 
 const CRUMBS =[
@@ -14,14 +15,14 @@ const CRUMBS =[
         link:"/blog"
     }
 ]
-const BlogDetailImg = ({}:Props ) => {
+const BlogDetailImg = ({imgSrc = ''}:Props ) => {
     return (
         <>
             <div className={s.beadcrumb}>
                 <BreadcrumbCommon crumbs={CRUMBS} />
             </div>
             <div className={s.image}>
-                <ImgWithLink src="https://user-images.githubusercontent.com/89437339/133044532-8b5f9442-841b-4187-84b4-d6cc66676b52.png" alt="Ảnh đại diện"/>
+                <ImgWithLink src={imgSrc} alt="avatar"/>
             </div>
         </>
     )
