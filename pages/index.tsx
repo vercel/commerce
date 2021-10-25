@@ -39,9 +39,6 @@ export default function Home({ featuredAndDiscountFacetsValue, veggie,
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
-
-      {/* // todo: uncomment
-      {/* <ModalCreateUserInfo/> */}
     </>
   )
 }

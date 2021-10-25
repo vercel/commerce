@@ -29,7 +29,6 @@ interface Props {
   isStickyHeader?: boolean
   openModalLogin: () => void
   openModalRegister: () => void
-  openModalInfo: () => void
   toggleFilter: () => void
 }
 
@@ -39,7 +38,6 @@ const HeaderMenu = memo(
     isStickyHeader,
     openModalLogin,
     openModalRegister,
-    openModalInfo,
     toggleFilter,
   }: Props) => {
     const router = useRouter()
@@ -68,10 +66,6 @@ const HeaderMenu = memo(
 
     const optionMenu = useMemo(
       () => [
-        // {
-        //   onClick: openModalInfo,
-        //   name: 'Create User Info (Demo)',
-        // },
         {
           link: '/demo',
           name: 'Notifications Empty (Demo)',
@@ -92,6 +86,10 @@ const HeaderMenu = memo(
       ],
       [logout]
     )
+
+    const onCartIconClick = () => {
+      toggleCartDrawer()
+    }
     
     return (
       <section
@@ -113,7 +111,7 @@ const HeaderMenu = memo(
               )}
               <button
                 className={`${s.iconCart} ${s.btnCart}`}
-                onClick={toggleCartDrawer}
+                onClick={onCartIconClick}
               >
                 <IconBuy />
               </button>
@@ -153,7 +151,7 @@ const HeaderMenu = memo(
             </MenuDropdown>
           </li>
           <li>
-            <button className={s.btnCart} onClick={toggleCartDrawer}>
+            <button className={s.btnCart} onClick={onCartIconClick}>
               <IconBuy />
             </button>
           </li>

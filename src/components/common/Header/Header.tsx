@@ -3,7 +3,6 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 import { useProductFilter } from 'src/components/contexts'
 import { useModalCommon } from 'src/components/hooks'
 import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
-import ModalCreateUserInfo from '../ModalCreateUserInfo/ModalCreateUserInfo'
 import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
 import HeaderMenu from './components/HeaderMenu/HeaderMenu'
 import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
@@ -19,7 +18,6 @@ const Header = memo(({ }: props) => {
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
     const [isModeAuthenRegister, setIsModeAuthenRegister] = useState<boolean>(false)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
-    const { visible: visibleModalInfo, closeModal: closeModalInfo, openModal: openModalInfo } = useModalCommon({ initialValue: false })
 
     useEffect(() => {
         const handleScroll = () => {
@@ -55,8 +53,7 @@ const Header = memo(({ }: props) => {
                     isStickyHeader={true}
                     toggleFilter={toggleFilter}
                     openModalLogin={openModalLogin}
-                    openModalRegister={openModalRegister}
-                    openModalInfo={openModalInfo} />
+                    openModalRegister={openModalRegister} />
             </div>
 
             <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
@@ -67,7 +64,6 @@ const Header = memo(({ }: props) => {
                         toggleFilter={toggleFilter}
                         openModalLogin={openModalLogin}
                         openModalRegister = {openModalRegister}
-                        openModalInfo={openModalInfo}
                          />
                     <HeaderSubMenu />
                 </div>
@@ -75,7 +71,6 @@ const Header = memo(({ }: props) => {
 
             <HeaderSubMenuMobile />
             <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} mode={isModeAuthenRegister? 'register': ''} />
-            <ModalCreateUserInfo demoVisible={visibleModalInfo} demoCloseModal={closeModalInfo} />
         </>
     )
 })
