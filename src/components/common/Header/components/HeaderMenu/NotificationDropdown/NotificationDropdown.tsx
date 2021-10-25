@@ -18,8 +18,8 @@ const NotificationDropdown = memo(
   }: Props) => {
     const { newNotifications } = useNewNotifications(CUSTOM_OPTION)
     const { notifications } = useNotifications(CUSTOM_OPTION)
-
     const { markNotificationsAsRead } = useMarkNotificationsAsRead()
+    
     const handleMouseOver = () => {
       setTimeout(() => {
         if (newNotifications && newNotifications.length > 0) {

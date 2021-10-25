@@ -1,9 +1,9 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 
 .notificationItem {
     @apply flex flex-row;
-    padding: 1.6rem .8rem;
-    &:hover{
+    padding: 1.6rem 0.8rem;
+    &:hover {
         cursor: pointer;
     }
     .contentWrapper {
@@ -13,6 +13,9 @@
             font-weight: bold;
             color: var(--text-active);
         }
+        .content {
+            color: var(--text-label);
+        }
         .date {
             @apply caption;
             color: #828282;
@@ -21,14 +24,11 @@
     &.isChecked {
         .icon {
             rect {
-                fill: var(--gray)
+                fill: var(--gray);
             }
             path {
-                fill: var(--disabled)
+                fill: var(--disabled);
             }
-        }
-        .title, .content {
-            color: var(--text-label);
         }
     }
 }
