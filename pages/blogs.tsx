@@ -16,23 +16,24 @@ export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
 
     let date = new Date(featuredBlog?.[0]?.createdAt ?? '' );
     let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
+  
 
     return(
         <>
             <BlogBreadCrumb />
             <BlogHeading />
             { (featuredBlog?.length !=0 ) &&
-              <FeaturedCardBlog 
-              title={featuredBlog?.[0]?.title} 
-              slug={featuredBlog?.[0]?.slug} 
-              imgSrc={featuredBlog?.[0]?.imageSrc ?? ''}
-              content={featuredBlog?.[0]?.description}
-              imgAuthor={featuredBlog?.[0]?.authorAvatarAsset}
-              authorName={featuredBlog?.[0]?.authorName}
-              date={fullDate}
-              />
-            }
-            <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id ?? ''} />
+            <FeaturedCardBlog 
+            title={featuredBlog?.[0]?.title} 
+            slug={featuredBlog?.[0]?.slug} 
+            imgSrc={featuredBlog?.[0]?.imageSrc ?? ''}
+            content={featuredBlog?.[0]?.description}
+            imgAuthor={featuredBlog?.[0]?.authorAvatarAsset}
+            authorName={featuredBlog?.[0]?.authorName}
+            date={fullDate}
+            />
+          }
+            <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id} />
         </>
     )
 }
@@ -50,6 +51,9 @@ export async function getStaticProps({
   const {featuredBlogs} = await commerce.getFeaturedBlog({
     variables: {
       take: 1,
+      sort:{
+        updateAt:"DESC"
+      },
       filter: {
         isFeatured: {
             eq:true
@@ -66,11 +70,6 @@ export async function getStaticProps({
     variables: {
       excludeBlogIds: [idFeaturedBlog],
       take: DEFAULT_BLOG_PAGE_SIZE,
-      filter: {
-        isFeatured: {
-            eq:false
-        }
-      }
     },
     config,
     preview,
@@ -89,6 +88,7 @@ export async function getStaticProps({
 
     props.featuredBlog = featuredBlogs;
     
+   
     return {
       props,
       revalidate: 60

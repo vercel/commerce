@@ -2504,7 +2504,7 @@ export type GetFeaturedBlogQuery = PaginatedList & {
 
 export type QueryBlogs = {
   excludeBlogIds:Array,
-  options: BlogListOptions
+  customOptions: BlogListOptions
 }
 
 export type QueryRecipes = {

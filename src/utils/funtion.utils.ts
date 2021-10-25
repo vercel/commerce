@@ -178,3 +178,8 @@ export function getProductVariant(product: Product, opts: SelectedOptions) {
   })
   return variant
 }
+ 
+export function formatDate(dateTime:string){
+  let date = new Date(dateTime);
+  return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
+}

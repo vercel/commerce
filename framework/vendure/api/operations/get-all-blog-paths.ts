@@ -1,7 +1,6 @@
-import { BlogList } from './../../schema.d';
-import { OperationContext,OperationOptions } from '@commerce/api/operations';
+import { OperationContext, OperationOptions } from '@commerce/api/operations';
 import { BigcommerceConfig } from '../../../bigcommerce/api';
-import type { GetAllBlogPathsQuery,BlogTranslation } from '../../schema';
+import type { BlogTranslation, GetAllBlogPathsQuery } from '../../schema';
 import { getAllBlogPathsQuery } from '../../utils/queries/get-all-blog-paths-query';
 import { Provider } from '../index';
 import { GetAllBlogPathsOperation } from './../../../commerce/types/blogs';

@@ -21,8 +21,9 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
 
     const DEFAULT_BLOGS_ARGS = useMemo(()=> ({
         excludeBlogIds: [idFeatured],
-        options:{
-            skip: 1, take: DEFAULT_BLOG_PAGE_SIZE
+        customOptions:{
+            skip:0,
+            take: DEFAULT_BLOG_PAGE_SIZE
         }
     }),[idFeatured]);
 
@@ -32,7 +33,6 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
 
     const [optionQueryBlog, setOptionQueryBlog] = useState<QueryBlogs>(DEFAULT_BLOGS_ARGS)
     const { blogs, totalItems, loading } = useGetBlogList(optionQueryBlog);
-
 
 
     const onPageChange = (page:number) => {
@@ -53,7 +53,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
         firstRender.current = false;
         const query = { ...DEFAULT_BLOGS_ARGS } as QueryBlogs;
         const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
-        query.options.skip = page * DEFAULT_BLOG_PAGE_SIZE;
+        query.customOptions.skip = page * DEFAULT_BLOG_PAGE_SIZE;
         setOptionQueryBlog(query);
         setInitialQueryFlag(false);
     },[router.query])
