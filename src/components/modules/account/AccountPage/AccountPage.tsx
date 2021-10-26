@@ -50,7 +50,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
    
-    const { itemWishlist,totalItems,mutate }= useGetFavoriteProduct(optionQueryFavorite);
+    const { itemWishlist,totalItems }= useGetFavoriteProduct(optionQueryFavorite);
 
     // skip
     useEffect(() => {

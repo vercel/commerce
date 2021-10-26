@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import s from './EditInfoModal.module.scss'
 
-import { ModalCommon, SelectCommon, ButtonCommon } from '../../../../../common'
+import { ModalCommon, SelectFieldInForm,SelectCommon, ButtonCommon } from '../../../../../common'
 import { Address } from "@framework/schema";
 import {
     InputFiledInForm,
@@ -11,6 +11,7 @@ import { Form, Formik } from 'formik'
 import { useEditCustomerAddress, useEditUserInfo } from "src/components/hooks/account";
 import { LANGUAGE } from 'src/utils/language.utils'
 import { useMessage } from 'src/components/contexts'
+import {  useAvailableCountries } from 'src/components/hooks'
 interface EditInfoModalProps {
     accountInfo: { 
         firstName?: string
@@ -29,6 +30,7 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
     const {editCustomerAddress} = useEditCustomerAddress();
     const { showMessageSuccess, showMessageError } = useMessage()
 
+    const { countries } = useAvailableCountries()
 
     const states = [
         {name: "District 1", value: "D1"},
@@ -43,6 +45,7 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
         city: Yup.string().required('Required'),
         postalCode: Yup.string(),
         phoneNumber: Yup.string(),
+        states:Yup.string(),
     })
 
     function onEditUserInfo (
@@ -52,7 +55,8 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
         address:string|undefined,
         city?:string|null,
         postalCode?:string|null,
-        phoneNumber?:string|null
+        phoneNumber?:string|null,
+        states?:string|null
         })  {
         
         editUserInfo(
@@ -94,7 +98,7 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
                     address:accountInfo.address?.streetLine1,
                     city: accountInfo.address?.city,
                     postalCode: accountInfo.address?.postalCode,
-                    phoneNumber:accountInfo.phoneNumber
+                    phoneNumber:accountInfo.phoneNumber,
                 }}
                 validationSchema={DisplayingErrorMessagesSchema}
                 onSubmit={onEditUserInfo}
@@ -157,7 +161,18 @@ const EditInfoModal = ({ accountInfo, visible = false, closeModal }: EditInfoMod
 
                     <div className="flex">
                         <div className={s.inputState}>
-                            <SelectCommon initValue={accountInfo.address?.province} selected={accountInfo.address?.province} type="custom" onChange={state} placeholder="State" options={states} size="large"/>
+                            {/* <SelectCommon initValue={accountInfo.address?.province} selected={accountInfo.address?.province} type="custom" onChange={state} placeholder="State" options={states} size="large"/> */}
+                            <SelectFieldInForm
+                                options={states || []}
+                                name="states"
+                                placeholder="states"
+                                styleType="default"
+                                error={
+                                    touched.states && errors.states
+                                        ? errors.states.toString()
+                                        : ''
+                                    }
+                            />
                         </div>
 
                         <div className={s.inputPostalCode}>
