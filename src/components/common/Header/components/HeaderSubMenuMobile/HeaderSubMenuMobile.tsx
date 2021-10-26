@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { memo } from 'react'
+import { useNewNotifications } from 'src/components/hooks/notification'
 import { IconHeart, IconHome, IconNoti, IconShopping, IconUser } from 'src/components/icons'
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import s from './HeaderSubMenuMobile.module.scss'
@@ -28,7 +29,7 @@ const OPTION_MENU = [
         link: ROUTE.NOTIFICATION,
         name: 'Notifications',
         icon: <IconNoti />,
-        isMarked: true,
+        isMarked: false,
     },
     {
         link: ROUTE.ACCOUNT,
@@ -43,7 +44,9 @@ interface Props {
 }
 
 const HeaderSubMenuMobile = memo(({ }: Props) => {
+    const { newNotifications } = useNewNotifications()
     const router = useRouter()
+    
     return (
         <header className={s.headerSubMenuMobile}>
             <ul className={s.menu}>
@@ -53,7 +56,7 @@ const HeaderSubMenuMobile = memo(({ }: Props) => {
                             <a >
                                 <div className={classNames({
                                     [s.menuItem]: true,
-                                    [s.dot]: item.isMarked,
+                                    [s.dot]: item.isMarked || (item.link === ROUTE.NOTIFICATION && newNotifications && newNotifications.length > 0),
                                     [s.active]: router.pathname === item.link, // todo: handle active item
                                 })}>
                                     <span className={s.icon}>{item.icon}</span>
