@@ -20,7 +20,6 @@
     "node": ">=14.x"
   },
   "dependencies": {
-    "@medusajs/medusa-js": "^1.0.1-canary.1",
     "@react-spring/web": "^9.2.1",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.6",

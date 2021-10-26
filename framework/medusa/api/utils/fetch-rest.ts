@@ -1,6 +1,6 @@
 import { FetcherError } from '@commerce/utils/errors'
 import vercelFetch from '@vercel/fetch'
-import { MedusaConfig } from '..'
+import { MedusaConfig } from '../'
 
 const fetch = vercelFetch()
 
@@ -33,7 +33,9 @@ export async function fetchData<T>(opts: {
   }
 
   try {
-    return (await response.json()) as Promise<T>
+    const res = await response.json()
+    console.log(res)
+    return res as Promise<T>
   } catch (error) {
     return null as unknown as Promise<T>
   }

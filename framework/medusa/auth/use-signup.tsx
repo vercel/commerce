@@ -24,7 +24,7 @@ export const handler: MutationHook<any> = {
     }
     return await fetch({
       ...options,
-      variables: {
+      body: {
         payload: {
           first_name: firstName,
           last_name: lastName,

@@ -1,5 +1,5 @@
 import type { CartSchema } from '../../../types/cart'
-import type { OrdercloudAPI } from '../..'
+import type { MedusaAPI } from '../..'
 
 import { GetAPISchema, createEndpoint } from '@commerce/api'
 import cartEndpoint from '@commerce/api/endpoints/cart'
@@ -9,7 +9,7 @@ import addItem from './add-item'
 import updateItem from './update-item'
 import removeItem from './remove-item'
 
-export type CartAPI = GetAPISchema<OrdercloudAPI, CartSchema>
+export type CartAPI = GetAPISchema<MedusaAPI, CartSchema>
 
 export type CartEndpoint = CartAPI['endpoint']
 
