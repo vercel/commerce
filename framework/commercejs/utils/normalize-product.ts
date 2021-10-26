@@ -1,4 +1,8 @@
-import type { Product, CommercejsProduct } from '../types/product'
+import type {
+  Product,
+  CommercejsProduct,
+  CommercejsVariant,
+} from '../types/product'
 
 function getOptionsFromVariantGroups(
   variantGroups: CommercejsProduct['variant_groups']
@@ -15,37 +19,41 @@ function getOptionsFromVariantGroups(
   return optionsFromVariantGroups
 }
 
-// Build a list of all possible variants from variants groups.
 function normalizeVariants(
+  variants: Array<CommercejsVariant> = [],
   variantGroups: CommercejsProduct['variant_groups']
-): Product['variants'] {
-  const variants = variantGroups.reduce((allVariants, variantGroup) => {
-    variantGroup.options.forEach((option) => {
-      allVariants.push({
-        // Include variant group and option Id so that specific variants can be added with commerce.cart.add()
-        id: `${variantGroup.id}-${option.id}`,
-        options: [
-          {
-            id: variantGroup.id,
-            displayName: variantGroup.name,
-            __typename: 'MultipleChoiceOption',
-            values: [
-              {
-                label: option.name,
-              },
-            ],
-          },
-        ],
-      })
-    })
-    return allVariants
-  }, [] as Product['variants'])
+) {
+  if (!Array.isArray(variants)) return []
+  return variants?.map((variant) => ({
+    id: variant.id,
+    // @ts-ignore
+    options: Object.entries(variant.options).map(
+      ([variantGroupId, variantOptionId]) => {
+        const variantGroupFromId = variantGroups.find(
+          (group) => group.id === variantGroupId
+        )
+        const valueLabel = variantGroupFromId?.options.find(
+          (option) => option.id === variantOptionId
+        )?.name
 
-  return variants
+        return {
+          id: variantOptionId,
+          displayName: variantGroupFromId?.name || '',
+          __typename: 'MultipleChoiceOption' as 'MultipleChoiceOption',
+          values: [
+            {
+              label: valueLabel || '',
+            },
+          ],
+        }
+      }
+    ),
+  }))
 }
 
 export function normalizeProduct(
-  commercejsProduct: CommercejsProduct
+  commercejsProduct: CommercejsProduct,
+  commercejsProductVariants: Array<CommercejsVariant> = []
 ): Product {
   const { id, name, description, permalink, assets, price, variant_groups } =
     commercejsProduct
@@ -64,7 +72,7 @@ export function normalizeProduct(
       value: price.raw,
       currencyCode: 'USD',
     },
-    variants: normalizeVariants(variant_groups),
+    variants: normalizeVariants(commercejsProductVariants, variant_groups),
     options: getOptionsFromVariantGroups(variant_groups),
   }
 }

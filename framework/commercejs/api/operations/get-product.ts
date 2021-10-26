@@ -27,7 +27,13 @@ export default function getProductOperation({
       }
     )
 
-    const productFormatted = normalizeProduct(product)
+    const { data: variants } = await sdkFetch(
+      'products',
+      'getVariants',
+      product.id
+    )
+
+    const productFormatted = normalizeProduct(product, variants)
 
     return {
       product: productFormatted,
