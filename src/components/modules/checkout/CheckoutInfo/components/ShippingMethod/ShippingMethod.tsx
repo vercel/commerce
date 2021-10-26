@@ -1,7 +1,7 @@
 import { ShippingMethodQuote } from '@framework/schema'
 import React, { memo, useState } from 'react'
 import { useMessage } from 'src/components/contexts'
-import { useEligibleShippingMethods, useSetOrderShippingMethod } from 'src/components/hooks/order'
+import { useEligibleShippingMethods, useSetOrderShippingMethod, useTransitionToArrangingPayment } from 'src/components/hooks/order'
 import { Shipping } from 'src/components/icons'
 import { CheckoutStep } from '../../CheckoutInfo'
 import s from './ShippingMethod.module.scss'
@@ -14,10 +14,11 @@ interface Props {
 }
 
 const ShippingMethod = memo(({ currency, onConfirm }: Props) => {
+  const { showMessageError } = useMessage()
   const { eligibleShippingMethods } = useEligibleShippingMethods()
   const { setOrderShippingMethod } = useSetOrderShippingMethod()
   const [selectedValue, setSelectedValue] = useState<ShippingMethodQuote | undefined>(eligibleShippingMethods ? eligibleShippingMethods[0] : undefined)
-  const { showMessageError } = useMessage()
+  const { transitionToArrangingPayment } = useTransitionToArrangingPayment()
 
   const onChange = (id: string) => {
     const newValue = eligibleShippingMethods?.find(item => item.id === id)
@@ -30,6 +31,14 @@ const ShippingMethod = memo(({ currency, onConfirm }: Props) => {
   }
 
   const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
+    if (isSuccess) {
+      transitionToArrangingPayment(onTransitionCallBack)
+    } else {
+      showMessageError(msg)
+    }
+  }
+
+  const onTransitionCallBack = (isSuccess: boolean, msg?: string) => {
     if (isSuccess) {
       onConfirm(CheckoutStep.ShippingMethodInfo)
     } else {

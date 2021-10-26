@@ -1,5 +1,6 @@
 import { Cart, CartCheckout } from '@commerce/types/cart'
 import { Product, ProductCard } from '@commerce/types/product'
+import { OrderState } from 'src/utils/types.utils'
 import { CartFragment, Favorite, SearchResultFragment, ShippingMethod, BlogList } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
@@ -73,6 +74,8 @@ export function normalizeCart(order: CartFragment): Cart {
 export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
   return {
     id: order.id.toString(),
+    state: order.state as OrderState,
+    code: order.code,
     createdAt: order.createdAt,
     taxesIncluded: true,
     totalQuantity: order.totalQuantity,

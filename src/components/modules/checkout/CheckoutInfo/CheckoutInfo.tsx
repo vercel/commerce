@@ -8,6 +8,7 @@ import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
 import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
 import ShippingMethod from './components/ShippingMethod/ShippingMethod'
+import { OrderState } from '../../../../utils/types.utils'
 interface CheckoutInfoProps {
   onViewCart: () => void
   currency?: string
@@ -44,6 +45,12 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
       }
     }
   }, [customer, doneSteps])
+
+  useEffect(() => {
+    if (order?.state as OrderState === 'ArrangingPayment') {
+     setActiveStep(CheckoutStep.PaymentInfo)
+    }
+  }, [order])
 
 
   const onEdit = (id: CheckoutStep) => {
@@ -119,7 +126,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.PaymentInfo,
       title: 'Payment Information',
-      form: <PaymentInfoForm onConfirm={onConfirm} id={CheckoutStep.PaymentInfo} />,
+      form: <PaymentInfoForm onConfirm={onConfirm} id={CheckoutStep.PaymentInfo} orderId={order?.id} />,
     },
   ]
 
@@ -140,7 +147,8 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
           isEdit={doneSteps.includes(item.id)}
           onClose={onConfirm}
           note={note}
-          disableEdit={customer && item.id === CheckoutStep.CustomerInfo}
+          disableEdit={(customer && item.id === CheckoutStep.CustomerInfo)
+            || (order?.state as OrderState === 'ArrangingPayment' && item.id !== CheckoutStep.PaymentInfo)}
         >
           {item.form}
         </CheckoutCollapse>

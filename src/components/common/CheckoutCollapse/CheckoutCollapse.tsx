@@ -30,12 +30,14 @@ const CheckoutCollapse = ({
   const handleToggle = () => {
     if (visible) {
       isEdit && onClose(id)
-    } else if (!disableEdit) {
-      isEdit && onEditClick && onEditClick(id)
+    } else {
+      handleEdit()
     }
   }
   const handleEdit = () => {
-    onEditClick && onEditClick(id)
+    if (!disableEdit && isEdit && onEditClick) {
+      onEditClick(id)
+    }
   }
   return (
     <div className={s.warpper}>
