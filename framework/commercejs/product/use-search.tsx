@@ -26,7 +26,8 @@ export const handler: SWRHook<SearchProductsHook> = {
       variables: getProductSearchVariables(input),
     })
 
-    const formattedProducts = data?.map(normalizeProduct) || []
+    const formattedProducts =
+      data?.map((product) => normalizeProduct(product)) || []
 
     return {
       products: formattedProducts,

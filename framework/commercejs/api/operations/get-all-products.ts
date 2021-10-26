@@ -16,7 +16,9 @@ export default function getAllProductsOperation({
     const { data } = await sdkFetch('products', 'list', {
       sortBy: 'sort_order',
     })
-    const productsFormatted = data?.map(normalizeProduct) || []
+
+    const productsFormatted =
+      data?.map((product) => normalizeProduct(product)) || []
 
     return {
       products: productsFormatted,
