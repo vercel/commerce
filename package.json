@@ -27,7 +27,6 @@
     "body-scroll-lock": "^3.1.5",
     "classnames": "^2.3.1",
     "cookie": "^0.4.1",
-    "dns": "^0.2.2",
     "email-validator": "^2.0.4",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.2",
