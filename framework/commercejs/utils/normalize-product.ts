@@ -1,11 +1,5 @@
 import type { Product, CommercejsProduct } from '../types/product'
 
-const getOptionColor = (variantName: string, optionName: string) => {
-  const isColorVariant = variantName.match(/colou?r/gi)
-  if (!isColorVariant) return []
-  return [optionName]
-}
-
 function getOptionsFromVariantGroups(
   variantGroups: CommercejsProduct['variant_groups']
 ): Product['options'] {
@@ -15,7 +9,6 @@ function getOptionsFromVariantGroups(
       displayName: variantName,
       values: options.map(({ name: optionName }) => ({
         label: optionName,
-        hexColors: getOptionColor(variantName, optionName),
       })),
     })
   )
@@ -39,7 +32,6 @@ function normalizeVariants(
             values: [
               {
                 label: option.name,
-                hexColors: getOptionColor(variantGroup.name, option.name),
               },
             ],
           },
