@@ -36,6 +36,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.random": "^3.2.0",
     "lodash.throttle": "^4.1.1",
+    "moment": "^2.29.1",
     "net": "^1.0.2",
     "next": "^11.0.0",
     "next-seo": "^4.26.0",
