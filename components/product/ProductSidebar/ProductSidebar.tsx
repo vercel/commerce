@@ -31,7 +31,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
     try {
       await addItem({
         productId: String(product.id),
-        variantId: String(variant ? variant.id : product.variants[0].id),
+        variantId: String(variant ? variant.id : product.variants[0]?.id),
       })
       openSidebar()
       setLoading(false)
