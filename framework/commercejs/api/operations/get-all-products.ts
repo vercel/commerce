@@ -13,7 +13,9 @@ export default function getAllProductsOperation({
     config?: Partial<CommercejsConfig>
   } = {}): Promise<T['data']> {
     const { sdkFetch } = commerce.getConfig(config)
-    const { data } = await sdkFetch('products', 'list')
+    const { data } = await sdkFetch('products', 'list', {
+      sortBy: 'sort_order',
+    })
     const productsFormatted = data?.map(normalizeProduct) || []
 
     return {
