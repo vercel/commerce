@@ -6,7 +6,12 @@ import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query'
 export type BlogVariables = {
   excludeBlogIds?: string[],
   take?: number,
-  skip?:number
+  skip?:number,
+  filter?:{
+    isFeatured?:{
+      eq?:Boolean
+    }
+  },
 }
 
 export default function getAllBlogsOperation({
@@ -34,7 +39,9 @@ export default function getAllBlogsOperation({
       excludeBlogIds: vars.excludeBlogIds,
       options: {
         take: vars.take,
-        skip: vars.skip,
+        filter: {
+          isFeatured: vars.filter?.isFeatured
+        }
       },
     }
     const { data } = await config.fetch<GetAllBlogsQuery>(query, {
@@ -50,7 +57,7 @@ export default function getAllBlogsOperation({
             isPublish: val.isPublish,
             isFeatured: val.isFeatured,
             authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview,
+            authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
             createdAt: val.createdAt
         })),
         totalItems: data?.blogs?.totalItems || null

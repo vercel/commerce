@@ -5,7 +5,9 @@
     .authorImage {
         width:3.2rem;
         height:3.2rem;
-        border-radius:3.2rem;
+        img{
+            border-radius:3.2rem !important;
+        }
         div{
             min-width:3.2rem !important; 
         }

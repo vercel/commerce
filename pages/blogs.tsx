@@ -16,11 +16,13 @@ export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
  
     let date = new Date(featuredBlog?.[0]?.createdAt ?? '' );
     let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
- 
+  
+
     return(
         <>
             <BlogBreadCrumb />
             <BlogHeading />
+            { (featuredBlog?.length !=0 ) &&
             <FeaturedCardBlog 
             title={featuredBlog?.[0]?.title} 
             slug={featuredBlog?.[0]?.slug} 
@@ -30,6 +32,7 @@ export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
             authorName={featuredBlog?.[0]?.authorName}
             date={fullDate}
             />
+          }
             <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id} />
         </>
     )
@@ -47,7 +50,12 @@ export async function getStaticProps({
 
   const {featuredBlogs} = await commerce.getFeaturedBlog({
     variables: {
-      take: 1
+      take: 1,
+      filter: {
+        isFeatured: {
+            eq:true
+        }
+      }
     },
     config,
     preview,
@@ -58,12 +66,17 @@ export async function getStaticProps({
   const blogsPromise = commerce.getAllBlogs({
     variables: {
       excludeBlogIds: [idFeaturedBlog],
-      take: DEFAULT_BLOG_PAGE_SIZE
+      take: DEFAULT_BLOG_PAGE_SIZE,
+      filter: {
+        isFeatured: {
+            eq:false
+        }
+      }
     },
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'blogsResult', promise: blogsPromise })
+  promisesWithKey.push({ key: 'blogs', promise: blogsPromise , keyResult: 'blogs'  })
 
 
   try {
@@ -77,7 +90,6 @@ export async function getStaticProps({
 
     props.featuredBlog = featuredBlogs;
     
-    console.log(props)
     return {
       props,
       revalidate: 60

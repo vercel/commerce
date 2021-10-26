@@ -191,3 +191,8 @@ export const getOrderIdsFromNewNotification = (noti: Notification[]) => {
   const orderIds = noti.map(item => item.order?.id || "")
   return unique(orderIds)
 }
+ 
+export function formatDate(dateTime:string){
+  let date = new Date(dateTime);
+  return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
+}
