@@ -11,11 +11,6 @@ export function normalizeTestCheckout({
 }: {
   customer: Partial<CommercejsCheckoutCapture['customer']>
 }): CommercejsCheckoutCapture {
-  const customerFields = {
-    email: 'nextcommerce@test.com',
-    firstName: customer.firstname || 'Nextjs',
-    lastName: customer.lastname || 'Commerce',
-  }
   return {
     payment: {
       gateway: 'test_gateway',
