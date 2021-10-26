@@ -14,13 +14,22 @@ export const handler: MutationHook<AddItemHook> = {
     method: 'add',
   },
   async fetcher({ input: item, options, fetch }) {
-    const [variantGroup, variantOption] = item.variantId.split('-')
+    // Frontend stringifies variantId even if undefined.
+    const hasVariant = !item.variantId || item.variantId !== 'undefined'
+
+    const getVariantVariable = () => {
+      if (!hasVariant) return {}
+      // Variant group and option gets sent as one Id with parts separated by a dash -
+      const [variantGroup, variantOption] = item.variantId.split('-')
+      return {
+        [variantGroup]: variantOption,
+      }
+    }
+
     const variables = [
       item.productId,
       item?.quantity || 1,
-      {
-        [variantGroup]: variantOption,
-      },
+      getVariantVariable(),
     ]
     const { cart } = await fetch<{ cart: CommercejsCart }>({
       query: options.query,
