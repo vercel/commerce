@@ -20,6 +20,7 @@ const normalizeLineItem = (
     permalink,
     variant,
     image,
+    selected_options,
   } = commercejsLineItem
   return {
     id,
@@ -29,6 +30,10 @@ const normalizeLineItem = (
     quantity,
     discounts: [],
     path: permalink,
+    options: selected_options?.map(({ group_name, option_name }) => ({
+      name: group_name,
+      value: option_name,
+    })),
     variant: {
       id: variant?.id ?? id,
       sku: variant?.sku ?? sku,
