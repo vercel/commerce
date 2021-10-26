@@ -59,12 +59,12 @@ const Header = memo(({ }: props) => {
             <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
                 <HeaderHighLight />
                 <div className={s.menu}>
-                    <HeaderMenu
+                    {/* <HeaderMenu
                         isFull={isFullHeader}
                         toggleFilter={toggleFilter}
                         openModalLogin={openModalLogin}
                         openModalRegister = {openModalRegister}
-                         />
+                         /> */}
                     <HeaderSubMenu />
                 </div>
             </header>
