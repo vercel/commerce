@@ -105,6 +105,16 @@ export type QuerySearchArgs = {
   input: SearchInput
 }
 
+export type QueryNewNotificationsArgs = {
+  customOption?: Maybe<CustomNotificationListOptions>;
+  options?: Maybe<NotificationListOptions>;
+};
+
+export type QueryNotificationsArgs = {
+  customOption?: Maybe<CustomNotificationListOptions>;
+  options?: Maybe<NotificationListOptions>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation'
   /** Adds an item to the order. If custom fields are defined on the OrderLine entity, a third argument 'customFields' will be available. */
@@ -249,6 +259,10 @@ export type MutationLoginArgs = {
   rememberMe?: Maybe<Scalars['Boolean']>
 }
 
+export type MutationMarkNotificationsAsReadArgs = {
+  input: UpdateNotificationInput;
+};
+
 export type MutationAuthenticateArgs = {
   input: AuthenticationInput
   rememberMe?: Maybe<Scalars['Boolean']>
@@ -304,6 +318,15 @@ export type MutationRequestPasswordResetArgs = {
 export type MutationResetPasswordArgs = {
   token: Scalars['String']
   password: Scalars['String']
+}
+
+
+export type MarkNotificationsAsReadMutation = { __typename?: 'Mutation' } & {
+  markNotificationsAsRead:
+  | ({ __typename: 'MarkNotificationsAsReadResult' } & Pick<
+    MarkNotificationsAsReadResult,
+    'updatedNotificationOrderIds'
+  >)
 }
 
 export type ActiveOrderCustomerFragment = Pick<Order, 'id'> & {
@@ -371,16 +394,16 @@ export type SetShippingMethodMutationVariables = Exact<{
 
 export type SetShippingMethodMutation = {
   setOrderShippingMethod:
-      | TestOrderFragmentFragment
-      | Pick<OrderModificationError, 'errorCode' | 'message'>
-      | Pick<IneligibleShippingMethodError, 'errorCode' | 'message'>
-      | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
+  | TestOrderFragmentFragment
+  | Pick<OrderModificationError, 'errorCode' | 'message'>
+  | Pick<IneligibleShippingMethodError, 'errorCode' | 'message'>
+  | Pick<NoActiveOrderError, 'errorCode' | 'message'>;
 };
 
 
 export type GetEligibleMethodsQuery = {
   eligibleShippingMethods: Array<
-      Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
+    Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
   >;
 };
 
@@ -2379,12 +2402,12 @@ export type Product = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
-export type BlogList = Node &{
+export type BlogList = Node & {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   featuredAsset?: Maybe<Asset>
-  isPublish:Boolean
+  isPublish: Boolean
   translations: Array<BlogTranslation>
   authorName: Scalars['String']
   authorAvatarAsset:Asset
@@ -2474,7 +2497,7 @@ export type RecipeTranslation = {
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {
-    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & BlogList!>,
     'totalItems'
   }
 }
@@ -2494,9 +2517,9 @@ export type GetRelevantBlogsQuery = PaginatedList & {
 }
 
 export type GetFeaturedBlogQuery = PaginatedList & {
-  id:string,
+  id: string,
   featuredBlogs: { __typename?: 'BlogList' } & {
-    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & BlogList!>,
     'totalItems'
   }
 }
@@ -2519,6 +2542,8 @@ export type RecipeListOptions = {
 }
 export type RecipesSort = {
   id?: Maybe<Scalars['String']>
+  excludeBlogIds: Array,
+  options: BlogListOptions
 }
 
 export type BlogListOptions = {
@@ -2953,6 +2978,51 @@ export type FacetListOptions = {
   filter?: Maybe<FacetFilterParameter>
 }
 
+export type CustomNotificationListOptions = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type Notification = Node & {
+  __typename?: 'Notification';
+  createdAt: Scalars['DateTime'];
+  data: Scalars['JSON'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  isNew: Scalars['Boolean'];
+  order?: Maybe<Order>;
+  type: HistoryEntryType;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type NotificationFilterParameter = {
+  createdAt?: Maybe<DateOperators>;
+  description?: Maybe<StringOperators>;
+  isNew?: Maybe<BooleanOperators>;
+  type?: Maybe<StringOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type NotificationList = PaginatedList & {
+  __typename?: 'NotificationList';
+  items: Array<Notification>;
+  totalItems: Scalars['Int'];
+};
+
+export type NotificationListOptions = {
+  filter?: Maybe<NotificationFilterParameter>;
+  skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<NotificationSortParameter>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type NotificationSortParameter = {
+  createdAt?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type UpdateOrderItemsResult =
   | Order
   | OrderModificationError
@@ -3024,6 +3094,10 @@ export type UpdateCustomerEmailAddressResult =
   | IdentifierChangeTokenInvalidError
   | IdentifierChangeTokenExpiredError
   | NativeAuthStrategyError
+
+export type UpdateNotificationInput = {
+  orderIds: Array<Scalars['ID']>;
+};
 
 export type RequestPasswordResetResult = Success | NativeAuthStrategyError
 
@@ -3221,10 +3295,10 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   >
   customer?: Maybe<{ __typename?: 'Customer' } & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress'>>
   shippingLines: Array<
-        Pick<ShippingLine, 'priceWithTax'> & {
-            shippingMethod: Pick<ShippingMethod, 'id' | 'code' | 'name' | 'description'>;
-        }
-    >
+    Pick<ShippingLine, 'priceWithTax'> & {
+      shippingMethod: Pick<ShippingMethod, 'id' | 'code' | 'name' | 'description'>;
+    }
+  >
   lines: Array<
     { __typename?: 'OrderLine' } & Pick<
       OrderLine,
@@ -3541,6 +3615,14 @@ export type GetAllProductPathsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>
 }>
 
+export type ToggleFavoriteMutation = { __typename?: 'Mutation' } & {
+  toggleFavorite: { __typename?: 'FavoriteList' } & {
+    items: Array<{ __typename?: 'Favorite' } & Favorite>,
+    'totalItems'
+  }
+}
+
+
 export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
   products: { __typename?: 'ProductList' } & {
     items: Array<{ __typename?: 'Product' } & Pick<Product, 'slug'>>
@@ -3610,6 +3692,30 @@ export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = { __typename?: 'Query' } & {
   activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
+}
+
+export type NewNotificationsQuery = { __typename?: 'Query' } & {
+  newNotifications?: { __typename?: 'NotificationList' } & {
+    items: Array<
+      { __typename?: 'Notification' } & Pick<
+        Notification,
+        'id' | 'createdAt' | 'createdAt' | 'type' | 'data' | 'order' | 'isNew' | 'description' | 'updatedAt'
+      >
+    >,
+    'totalItems'
+  }
+}
+
+export type NotificationsQuery = { __typename?: 'Query' } & {
+  notifications?: { __typename?: 'NotificationList' } & {
+    items: Array<
+      { __typename?: 'Notification' } & Pick<
+        Notification,
+        'id' | 'createdAt' | 'updatedAt' | 'type' | 'data' | 'description' | 'order' | 'isNew'
+      >
+    >,
+    'totalItems'
+  }
 }
 
 export type GetCollectionsQueryVariables = Exact<{ [key: string]: never }>

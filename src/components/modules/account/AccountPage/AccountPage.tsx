@@ -13,46 +13,7 @@ import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
 
-const waiting = [
-    {
-        id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    },
-    {
-        id: "NO 123457",
-        products: ["Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    }
-]
 
-
-
-const delivering = [
-    {
-        id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion", "Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    },
-    {
-        id: "NO 123457",
-        products: ["Tomato", "Fish", "Pork", "Onion", "Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    }
-]
-
-const delivered = [
-    {
-        id: "NO 123456",
-        products: ["Tomato", "Fish", "Pork", "Onion", "Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    },
-    {
-        id: "NO 123457",
-        products: ["Tomato", "Fish", "Pork", "Onion", "Tomato", "Fish", "Pork", "Onion"],
-        totalPrice : 1000
-    }
-]
 
 interface AccountPageProps {
     defaultActiveContent?: "info" | "orders" | "favorites"
@@ -73,7 +34,7 @@ const getTabIndex = (tab?: string): number => {
 
 const DEFAULT_FAVORITE_ARGS = {
     options:{
-        skip:1, take:DEFAULT_PAGE_SIZE
+        skip:0, take:DEFAULT_PAGE_SIZE
     }
 }
 
@@ -89,8 +50,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
    
-    const { itemWishlist,totalItems }= useGetFavoriteProduct(optionQueryFavorite);
-
+    const { itemWishlist,totalItems,mutate }= useGetFavoriteProduct(optionQueryFavorite);
 
     // skip
     useEffect(() => {

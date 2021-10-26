@@ -4,11 +4,11 @@ import { NotificationBreadcrumb, NotificationHeading, NotificationPage } from 's
 
 const Notification = () => {
     return (
-        <>
+        <div className="spacing-horizontal">
             <NotificationBreadcrumb />
             <NotificationHeading />
             <NotificationPage />
-        </>
+        </div>
     )
 }
 

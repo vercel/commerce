@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useGetFavoriteProduct from '../account/useGetFavoriteProduct'
-import { FavoriteList } from '@framework/schema'
+import { ToggleFavoriteMutation } from '@framework/schema'
 import fetcher from 'src/utils/fetcher'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import { toggleWishlistMutation } from '@framework/utils/mutations/toggle-wishlist-mutation'
@@ -16,19 +16,19 @@ const useToggleProductWishlist = () => {
 
   const onToggleProductWishlist = (
     { productId }:Props ,
-    fCallBack: (isSuccess: boolean, message?: string) => void
+    fCallBack: (isSuccess: boolean, message?: string,idToggleResult?:string[]) => void
   ) => {
     setError(null)
     setLoading(true)
-    fetcher<FavoriteList>({
+    fetcher<ToggleFavoriteMutation>({
       query: toggleWishlistMutation,
       variables: {
         productId
       },
     })
       .then((data) => {
-        mutate()
         fCallBack(true)
+        mutate()
         return data 
       })
       .catch((error) => {
