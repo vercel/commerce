@@ -1,6 +1,6 @@
 import { Provider } from '@commerce'
 
-import { fetcher } from './fetcher'
+import { default as fetcher } from './fetcher'
 
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
@@ -20,7 +20,7 @@ import { MEDUSA_CART_ID_COOKIE } from './const'
 export const medusaProvider: Provider = {
   locale: 'en-us',
   cartCookie: MEDUSA_CART_ID_COOKIE,
-  fetcher: fetcher,
+  fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
   products: { useSearch },

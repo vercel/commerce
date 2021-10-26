@@ -1,6 +1,6 @@
-import { Product } from '@commerce/types/product'
+import { GetAllProductsOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
-import type { MedusaConfig } from '../'
+import type { MedusaConfig, Provider } from '../'
 import { normalizeProduct } from '@framework/utils/normalizers/normalize-products'
 import { MedusaProduct } from '@framework/types'
 
@@ -8,34 +8,25 @@ export type ProductVariables = { first?: number }
 
 export default function getAllProductsOperation({
   commerce,
-}: OperationContext<any>) {
-  async function getAllProducts({
-    config: cfg,
-    variables,
+}: OperationContext<Provider>) {
+  async function getAllProducts<T extends GetAllProductsOperation>({
+    config,
   }: {
     query?: string
-    variables?: ProductVariables
+    variables?: T['variables']
     config?: Partial<MedusaConfig>
     preview?: boolean
-  } = {}): Promise<{ products: Product[] | any[] }> {
-    const config = commerce.getConfig(cfg)
-    const query = variables?.first && { limit: variables.first }
+  } = {}): Promise<T['data']> {
+    const { restFetch } = commerce.getConfig(config)
 
-    const results = await config.fetch(
-      'products',
-      'list',
-      query ? { query: query } : {}
-    )
-
-    const products: Product[] = results.products
-      ? results.products.map((product: MedusaProduct) =>
-          normalizeProduct(product)
-        )
-      : []
+    const rawProducts: MedusaProduct[] = await restFetch<{
+      products: MedusaProduct[]
+    }>('GET', '/store/products').then((response) => response.products)
 
     return {
-      products,
+      products: rawProducts.map(normalizeProduct),
     }
   }
+
   return getAllProducts
 }

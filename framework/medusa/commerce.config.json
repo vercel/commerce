@@ -2,7 +2,7 @@
   "provider": "medusa",
   "features": {
     "wishlist": false,
-    "customerAuth": true,
+    "customerAuth": false,
     "customCheckout": true,
     "search": false
   }

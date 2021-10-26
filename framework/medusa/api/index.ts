@@ -1,21 +1,28 @@
 import type { CommerceAPIConfig } from '@commerce/api'
 import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
-import fetchApi from './utils/fetch-medusa-api'
-import { MEDUSA_CART_ID_COOKIE } from '../const'
+import fetchApi, { createFetcher } from './utils/fetch-rest'
+import { MEDUSA_CART_ID_COOKIE, MEDUSA_PUBLIC_STORE_URL } from '../const'
 
 import * as operations from './operations'
 
 export interface MedusaConfig extends CommerceAPIConfig {
   fetch: any
+  restFetch: <T>(
+    method: string,
+    resource: string,
+    body?: Record<string, unknown>,
+    fetchOptions?: Record<string, any>
+  ) => Promise<T>
 }
 
 const config: MedusaConfig = {
-  commerceUrl: '',
+  commerceUrl: MEDUSA_PUBLIC_STORE_URL!,
   apiToken: '',
   cartCookie: MEDUSA_CART_ID_COOKIE,
   customerCookie: '',
   cartCookieMaxAge: 60 * 60 * 24 * 30,
-  fetch: fetchApi,
+  fetch: createFetcher(() => getCommerceApi().getConfig()),
+  restFetch: createFetcher(() => getCommerceApi().getConfig()),
 }
 
 export const provider = { config, operations }

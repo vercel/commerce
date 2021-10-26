@@ -20,9 +20,9 @@ export default function getSiteInfoOperation({}: OperationContext<any>) {
     config?: Partial<MedusaConfig>
     preview?: boolean
   } = {}): Promise<GetSiteInfoResult> {
-    /** We should add collections to our Storefront API,
-     * so we can populate the site with collections here
-     */
+    // Categories (or collections) are not currently exposed
+    // in the Medusa Storefront API. Once this is implemented
+    // this method will be updated.
     return Promise.resolve({
       categories: [],
       brands: [],

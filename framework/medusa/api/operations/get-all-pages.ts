@@ -1,16 +1,19 @@
-export type Page = { url: string }
-export type GetAllPagesResult = { pages: Page[] }
 import type { MedusaConfig } from '..'
 
+import { GetAllPagesOperation } from '@commerce/types/page'
+
+export type Page = { url: string }
+export type GetAllPagesResult = { pages: Page[] }
+
 export default function getAllPagesOperation() {
-  function getAllPages({
+  async function getAllPages<T extends GetAllPagesOperation>({
     config,
     preview,
   }: {
     url?: string
     config?: Partial<MedusaConfig>
     preview?: boolean
-  }): Promise<GetAllPagesResult> {
+  } = {}): Promise<T['data']> {
     return Promise.resolve({
       pages: [],
     })

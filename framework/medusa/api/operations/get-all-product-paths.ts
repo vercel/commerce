@@ -1,7 +1,7 @@
 import { OperationContext } from '@commerce/api/operations'
-import { Product } from '@commerce/types/product'
+import { GetAllProductPathsOperation, Product } from '@commerce/types/product'
 import { MedusaProduct } from '@framework/types'
-import { MedusaConfig } from '..'
+import { MedusaConfig, Provider } from '..'
 
 export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
@@ -9,25 +9,22 @@ export type GetAllProductPathsResult = {
 
 export default function getAllProductPathsOperation({
   commerce,
-}: OperationContext<any>) {
-  async function getAllProductsPaths({
-    config: cfg,
+}: OperationContext<Provider>) {
+  async function getAllProductsPaths<T extends GetAllProductPathsOperation>({
+    config,
   }: {
     config?: Partial<MedusaConfig>
-    preview?: boolean
-  } = {}): Promise<{ products: Product[] | any[] }> {
-    const config = commerce.getConfig(cfg)
+  } = {}): Promise<T['data']> {
+    const { restFetch } = commerce.getConfig(config)
 
-    const results = await config.fetch('products', 'list', {})
+    console.log('here paths')
 
-    const productHandles = results.products
-      ? results.products.map(({ handle }: MedusaProduct) => ({
-          path: `/${handle}`,
-        }))
-      : []
+    const rawProducts: MedusaProduct[] = await restFetch<{
+      products: MedusaProduct[]
+    }>('GET', 'store/products').then((response) => response.products)
 
     return {
-      products: productHandles,
+      products: rawProducts.map((product) => ({ path: `/${product.handle}` })),
     }
   }
 

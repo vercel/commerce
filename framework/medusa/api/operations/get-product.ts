@@ -3,42 +3,34 @@ import { GetProductOperation } from '@commerce/types/product'
 import type { OperationContext } from '@commerce/api/operations'
 import { MedusaProduct } from '@framework/types'
 import { normalizeProduct } from '@framework/utils/normalizers/normalize-products'
-import { MedusaConfig } from '..'
+import { MedusaConfig, Provider } from '..'
 
 export default function getProductOperation({
   commerce,
-}: OperationContext<any>) {
+}: OperationContext<Provider>) {
   async function getProduct<T extends GetProductOperation>({
+    config,
     variables,
-    config: cfg,
   }: {
     query?: string
     variables?: T['variables']
     config?: Partial<MedusaConfig>
     preview?: boolean
-  } = {}): Promise<Product | {} | any> {
-    const config = commerce.getConfig(cfg)
+  } = {}): Promise<T['data']> {
+    const { restFetch } = commerce.getConfig(config)
 
-    const response = await config.fetch('products', 'list', {})
+    console.log('here')
 
-    if (response.products) {
-      const products: MedusaProduct[] = response.products
-      const product = products
-        ? products.find(({ handle }) => handle === variables!.slug)
-        : null
+    const rawProducts: MedusaProduct[] = await restFetch<{
+      products: MedusaProduct[]
+    }>('GET', '/store/products').then((response) => response.products)
 
-      /**
-       * Commerce only provides us with the slug/path for finding
-       * the specified product. We do not have a endpoint for retrieving
-       * products using handles. Perhaps we should ask Vercel if we can
-       * change this so the variables also expose the product_id, which
-       * we can use for retrieving products.
-       */
-      if (product) {
-        return {
-          product: normalizeProduct(product),
-        }
-      }
+    console.log(rawProducts)
+
+    const product = rawProducts.find(({ handle }) => handle === variables!.slug)
+
+    return {
+      product: normalizeProduct(product!),
     }
   }
 

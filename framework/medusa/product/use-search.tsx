@@ -1,31 +1,29 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
-import { MedusaProduct } from '@framework/types'
-import { normalizeProduct } from '@framework/utils/normalizers/normalize-products'
+import { SearchProductsHook } from '@commerce/types/product'
 export default useSearch as UseSearch<typeof handler>
 
-export const handler: SWRHook<any> = {
+export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    query: 'products',
-    method: 'list',
+    url: '/api/catalog',
+    method: 'GET',
   },
-  async fetcher({ input, options, fetch }) {
-    // NOOP
-    // const results = await fetch({
-    //   ...options,
-    //   variables: { query: null },
-    // })
+  fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {
+    // Use a dummy base as we only care about the relative path
+    const url = new URL(options.url!, 'http://a')
 
-    // console.warn(results)
+    if (search) url.searchParams.set('search', String(search))
+    if (categoryId) url.searchParams.set('categoryId', String(categoryId))
+    if (brandId) url.searchParams.set('brandId', String(brandId))
+    if (sort) url.searchParams.set('sort', String(sort))
 
-    return {
-      products: [],
-      found: 0,
-    }
+    return fetch({
+      url: url.pathname + url.search,
+      method: options.method,
+    })
   },
-  useHook:
-    ({ useData }) =>
-    ({ input = {} }) => {
+  useHook: ({ useData }) =>
+    function useHook(input = {}) {
       return useData({
         input: [
           ['search', input.search],

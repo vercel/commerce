@@ -7,49 +7,55 @@ import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
 import { MEDUSA_CART_ID_COOKIE } from '@framework/const'
 import Cookies from 'js-cookie'
 import { normalizeCart } from '@framework/utils/normalizers/normalize-cart'
-import { CommerceError } from '@commerce/utils/errors'
-import { RemoveItemHook } from '@commerce/types/cart'
+import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import { Cart, LineItem, RemoveItemHook } from '@commerce/types/cart'
 import { useCallback } from 'react'
 import useCart from './use-cart'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
+export type RemoveItemFn<T = any> = T extends LineItem
+  ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
+  : (input: RemoveItemActionInput<T>) => Promise<Cart | null>
+
+export type RemoveItemActionInput<T = any> = T extends LineItem
+  ? Partial<RemoveItemHook['actionInput']>
+  : RemoveItemHook['actionInput']
+
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    query: 'carts',
-    method: 'deleteItem',
+    query: '/api/cart',
+    method: 'DELETE',
   },
   async fetcher({
     input: { itemId },
     options,
     fetch,
   }: HookFetcherContext<RemoveItemHook>) {
-    const cart_id = Cookies.get(MEDUSA_CART_ID_COOKIE)
-
-    if (cart_id) {
-      const data = await fetch({
-        ...options,
-        variables: { cart_id: cart_id, line_id: itemId },
-      })
-
-      return normalizeCart(data.cart)
-    } else {
-      throw new CommerceError({ message: 'No cart was found' })
-    }
+    return await fetch({ ...options, body: { itemId } })
   },
-  useHook:
-    ({ fetch }: MutationHookContext<RemoveItemHook>) =>
-    () => {
+  useHook: ({ fetch }: MutationHookContext<RemoveItemHook>) =>
+    function useHook<T extends LineItem | undefined = undefined>(
+      ctx: { item?: T } = {}
+    ) {
+      const { item } = ctx
       const { mutate } = useCart()
+      const removeItem: RemoveItemFn<LineItem> = async (input) => {
+        const itemId = input?.id ?? item?.id
 
-      return useCallback(
-        async function removeItem(input) {
-          const data = await fetch({ input: { itemId: input.id } })
-          await mutate(data, false)
+        if (!itemId) {
+          throw new ValidationError({
+            message: 'Invalid input used for this operation',
+          })
+        }
 
-          return data
-        },
-        [fetch, mutate]
-      )
+        const data = await fetch({ input: { itemId } })
+
+        await mutate(data, false)
+
+        return data
+      }
+
+      return useCallback(removeItem as RemoveItemFn<T>, [fetch, mutate])
     },
 }

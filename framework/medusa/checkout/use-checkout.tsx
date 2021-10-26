@@ -1,17 +1,20 @@
+import type { GetCheckoutHook } from '@commerce/types/checkout'
+
 import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
-import useCart, { UseCart } from '@commerce/cart/use-cart'
-import { GetCartHook } from '@commerce/types/cart'
+import useCheckout, { UseCheckout } from '@commerce/checkout/use-checkout'
+import useSubmitCheckout from './use-submit-checkout'
 
-export default useCart as UseCart<typeof handler>
+export default useCheckout as UseCheckout<typeof handler>
 
-export const handler: SWRHook<GetCartHook> = {
+export const handler: SWRHook<GetCheckoutHook> = {
   fetchOptions: {
-    url: '/api/cart',
+    url: '/api/checkout',
     method: 'GET',
   },
   useHook: ({ useData }) =>
     function useHook(input) {
+      const submit = useSubmitCheckout()
       const response = useData({
         swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
       })
@@ -25,8 +28,14 @@ export const handler: SWRHook<GetCartHook> = {
               },
               enumerable: true,
             },
+            submit: {
+              get() {
+                return submit
+              },
+              enumerable: true,
+            },
           }),
-        [response]
+        [response, submit]
       )
     },
 }
