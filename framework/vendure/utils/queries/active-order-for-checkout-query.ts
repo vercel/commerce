@@ -108,7 +108,7 @@ fragment OrderAddress on OrderAddress {
   city
   province
   postalCode
-  country
+  countryCode
   phoneNumber
   __typename
 }

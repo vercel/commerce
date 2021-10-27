@@ -52,7 +52,8 @@ const CheckoutCollapse = ({
         </div>
         {!disableEdit && isEdit && <div className={s.edit} onClick={handleEdit}>{'Edit'}</div>}
       </div>
-      {(!visible && isEdit) && (<div className={s.note} onClick={handleToggle}>{note}</div>)}
+      {/* {(!visible && isEdit) &&  */}
+      <div className={s.note} onClick={handleToggle}>{note}</div>
       <div className={classNames(s.body, { [`${s.show}`]: visible })}>{children}</div>
     </div>
   )

@@ -1,6 +1,6 @@
 import { LineItem } from '@commerce/types/cart';
 import React from 'react';
-import ProductCartItem, { ProductCartItempProps } from '../ProductCartItem/ProductCartItem';
+import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import s from './ProductsInCart.module.scss';
 
 interface Props {

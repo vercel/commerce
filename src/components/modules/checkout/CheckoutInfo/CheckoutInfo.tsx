@@ -88,13 +88,13 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
           return ''
         }
       case CheckoutStep.ShippingAddressInfo:
-        if (order?.shippingAddress) {
+        if (order?.shippingAddress?.streetLine1) {
           const { streetLine1, city, province, postalCode, countryCode, phoneNumber } = order.shippingAddress
           return `${streetLine1}, ${city}, ${province}, ${postalCode}, ${countryCode}, ${phoneNumber}`
         }
         return ''
       case CheckoutStep.ShippingMethodInfo:
-        if (order?.shippingLine) {
+        if (order?.shippingLine?.shippingMethod) {
           return `${order?.shippingLine.shippingMethod.name}, ${order?.shippingLine.priceWithTax ? `${order?.shippingLine.priceWithTax} ${currency}` : 'Free'}` || ''
         }
         return ''
@@ -122,7 +122,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.PaymentInfo,
       title: 'Payment Information',
-      form: <PaymentInfoForm onConfirm={onConfirm} id={CheckoutStep.PaymentInfo} orderId={order?.id} />,
+      form: <PaymentInfoForm orderId={order?.id} />,
     },
   ]
 
