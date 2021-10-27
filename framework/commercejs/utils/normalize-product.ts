@@ -26,7 +26,6 @@ function normalizeVariants(
   if (!Array.isArray(variants)) return []
   return variants?.map((variant) => ({
     id: variant.id,
-    // @ts-ignore
     options: Object.entries(variant.options).map(
       ([variantGroupId, variantOptionId]) => {
         const variantGroupFromId = variantGroups.find(
