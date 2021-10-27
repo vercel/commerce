@@ -1,9 +1,11 @@
 import { ShippingMethodQuote } from '@framework/schema'
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
+import { ButtonCommon } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
 import { useEligibleShippingMethods, useSetOrderShippingMethod, useTransitionToArrangingPayment } from 'src/components/hooks/order'
 import { Shipping } from 'src/components/icons'
 import { CheckoutStep } from '../../CheckoutInfo'
+import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
 import s from './ShippingMethod.module.scss'
 import ShippingMethodItem from './ShippingMethodItem/ShippingMethodItem'
 
@@ -20,13 +22,24 @@ const ShippingMethod = memo(({ currency, onConfirm }: Props) => {
   const [selectedValue, setSelectedValue] = useState<ShippingMethodQuote | undefined>(eligibleShippingMethods ? eligibleShippingMethods[0] : undefined)
   const { transitionToArrangingPayment } = useTransitionToArrangingPayment()
 
+  useEffect(() => {
+    if (eligibleShippingMethods?.length > 0 && !selectedValue) {
+      setSelectedValue(eligibleShippingMethods[0])
+    }
+  }, [eligibleShippingMethods, selectedValue])
+
   const onChange = (id: string) => {
     const newValue = eligibleShippingMethods?.find(item => item.id === id)
     if (newValue) {
       setSelectedValue(newValue)
-      if (newValue?.id) {
-        setOrderShippingMethod(newValue?.id, onSubmitCalBack)
-      }
+    }
+  }
+
+  const handleSubmit = () => {
+    if (selectedValue) {
+      setOrderShippingMethod(selectedValue?.id, onSubmitCalBack)
+    } else {
+      showMessageError('Please choose a Shipping Method')
     }
   }
 
@@ -46,6 +59,7 @@ const ShippingMethod = memo(({ currency, onConfirm }: Props) => {
     }
   }
 
+  
   return (
     <div className={s.shippingMethod}>
       <div className={s.method}>
@@ -75,6 +89,14 @@ const ShippingMethod = memo(({ currency, onConfirm }: Props) => {
             onSelect={onChange}
           />)}
         </ul>
+      </div>
+      <div className={s.bottom}>
+        <ChekoutNotePolicy />
+        <div className={s.button}>
+          <ButtonCommon onClick={handleSubmit}>
+            Continue to Payment
+          </ButtonCommon>
+        </div>
       </div>
     </div>
   )

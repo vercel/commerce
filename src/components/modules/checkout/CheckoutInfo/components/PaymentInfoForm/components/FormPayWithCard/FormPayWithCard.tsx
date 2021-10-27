@@ -73,7 +73,6 @@ const FormPayWithCard = ({ orderId  = ''}: Props) => {
 
     return (
         <div>
-            orderId = {orderId}
             <div id="dropin-container"></div>
             <div className={s.bottom}>
                 <ChekoutNotePolicy />
