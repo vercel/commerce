@@ -34,6 +34,7 @@ export const ROUTE = {
   BUSSINESS: '/bussiness',
   CONTACT: '/contact',
   CHECKOUT: '/checkout',
+  CHECKOUT_SUCCESS: '/checkout-success',
   FAQ: '/faq',
   CUSTOMER_SERVICE: '/customer-service',
   TERM_CONDITION: '/term-condition',

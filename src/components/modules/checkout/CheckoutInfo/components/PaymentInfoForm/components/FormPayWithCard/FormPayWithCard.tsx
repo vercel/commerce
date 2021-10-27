@@ -1,7 +1,8 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useMessage } from 'src/components/contexts';
 import { useAddPaymentToOrder, useGenerateBraintreeClientToken } from 'src/components/hooks/order';
-import { PaymentMethod } from 'src/utils/constanst.utils';
+import { PaymentMethod, ROUTE } from 'src/utils/constanst.utils';
 
 const BRAINTREE_SCRIPT_URL = "https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.js"
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const FormPayWithCard = ({ orderId }: Props) => {
+    const router = useRouter()
     const [braintreeInstance, setBraintreeInstance] = useState<any>(null)
     const options = useMemo(() => {
         return { orderId }
@@ -63,7 +65,7 @@ const FormPayWithCard = ({ orderId }: Props) => {
     const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
         // TODO: change timeout
         if (isSuccess) {
-            showMessageSuccess("Your payment was settled successfully!", 10000)
+            router.push(ROUTE.CHECKOUT_SUCCESS)
         } else {
             showMessageError(msg, 10000)
         }
