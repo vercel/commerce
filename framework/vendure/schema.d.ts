@@ -412,6 +412,63 @@ export type GetEligibleMethodsQuery = {
   >;
 };
 
+export type TransitionOrderToStateMutation = {
+  transitionOrderToState?: Maybe<(
+    { __typename?: 'Order' }
+    & Pick<Order, '__typename' | 'id' | 'state'>
+  ) | (
+      { __typename?: 'OrderStateTransitionError' }
+      & Pick<OrderStateTransitionError, 'transitionError'>
+      & ErrorResult_OrderStateTransitionError_Fragment
+    )>
+};
+
+export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
+  setCustomerForOrder:
+  | ({ __typename: 'ActiveOrderCustomerFragment' } & Pick<ActiveOrderCustomerFragment, 'customer', 'lines'>)
+  | ({ __typename: 'AlreadyLoggedInError' } & Pick<
+    AlreadyLoggedInError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'EmailAddressConflictError' } & Pick<
+    EmailAddressConflictError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NoActiveOrderError' } & Pick<
+    NoActiveOrderError,
+    'errorCode' | 'message'
+  >)
+}
+
+export type AddPaymentToOrderMutation = {
+  addPaymentToOrder:
+  | ({ __typename: 'Order' } & Pick<Order, '__typename' | 'id' | 'state'>)
+  | ({ __typename: 'OrderPaymentStateError' } & Pick<
+    OrderPaymentStateError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'IneligiblePaymentMethodError' } & Pick<
+    IneligiblePaymentMethodError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'PaymentFailedError' } & Pick<
+    PaymentFailedError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'PaymentDeclinedError' } & Pick<
+    PaymentDeclinedError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'OrderStateTransitionError' } & Pick<
+    OrderStateTransitionError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NoActiveOrderError' } & Pick<
+    NoActiveOrderError,
+    'errorCode' | 'message'
+  >)
+};
+
 export type Asset = Node & {
   __typename?: 'Asset'
   id: Scalars['ID']
@@ -2415,7 +2472,7 @@ export type BlogList = Node & {
   isPublish: Boolean
   translations: Array<BlogTranslation>
   authorName: Scalars['String']
-  authorAvatarAsset:Asset
+  authorAvatarAsset: Asset
   relevantProducts: Product[]
   isFeatured: Boolean
 }
@@ -2517,7 +2574,7 @@ export type GetAllRecipesQuery = PaginatedList & {
 
 export type GetRelevantBlogsQuery = PaginatedList & {
   relevantBlogs: { __typename?: 'BlogList' } & {
-    items:  Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & BlogList!>,
   }
 }
 
@@ -3286,6 +3343,7 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   Order,
   | 'id'
   | 'code'
+  | 'state'
   | 'createdAt'
   | 'totalQuantity'
   | 'subTotal'
@@ -3633,10 +3691,10 @@ export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
     items: Array<{ __typename?: 'Product' } & Pick<Product, 'slug'>>
   }
 }
-  
+
 export type GetAllBlogPathsQuery = { __typename?: 'Query' } & {
   blogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & Pick<BlogList,'slug','translations'>>
+    items: Array<{ __typename?: 'Blog' } & Pick<BlogList, 'slug', 'translations'>>
   }
 }
 
@@ -3697,6 +3755,10 @@ export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = { __typename?: 'Query' } & {
   activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
+}
+
+export type GenerateBraintreeClientTokenQuery = { __typename?: 'Query' } & {
+  generateBraintreeClientToken?: Maybe<string>
 }
 
 export type NewNotificationsQuery = { __typename?: 'Query' } & {

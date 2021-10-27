@@ -1,4 +1,5 @@
 import { ShippingMethod } from '@framework/schema';
+import { OrderState } from 'src/utils/types.utils';
 import type { Discount, Image, Measurement } from './common';
 
 export type SelectedOption = {
@@ -86,6 +87,8 @@ export type Cart = {
 
 export type CartCheckout = {
   id: string
+  code: string
+  state: OrderState
   // ID of the customer to which the cart belongs.
   customerId?: string
   customer?: {

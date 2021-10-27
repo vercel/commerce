@@ -5,6 +5,10 @@ export const MAX_PRODUCT_CAROUSEL = 20
 export const BLUR_DATA_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8fBIAApUBruKYvzsAAAAASUVORK5CYII='
 export const DEFAULT_IMG = DefaultImg
 
+export enum PaymentMethod {
+  Braintree = 'braintree'
+}
+
 export const SOCIAL_LINKS = {
   FB: 'FB',
   TWITTER: 'TWITTER',
@@ -30,6 +34,7 @@ export const ROUTE = {
   BUSSINESS: '/bussiness',
   CONTACT: '/contact',
   CHECKOUT: '/checkout',
+  CHECKOUT_SUCCESS: '/checkout-success',
   FAQ: '/faq',
   CUSTOMER_SERVICE: '/customer-service',
   TERM_CONDITION: '/term-condition',
@@ -57,6 +62,7 @@ export const QUERY_KEY = {
   SORTBY: 'sortby',
   RECIPES: 'recipes',
   PAGE: 'page',
+  ORDER_ID: 'o'
 }
 
 export const PRODUCT_SORT_OPTION_VALUE = {
@@ -83,46 +89,46 @@ export const DEFAULT_PAGE_SIZE = 20;
 
 
 export const CATEGORY = [
-    {
-      name: 'All',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=${OPTION_ALL}`,
-    },
-    {
-      name: 'Veggie',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=veggie`,
-    },
-    {
-      name: 'Seafood',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=seafood`,
-    },
-    {
-      name: 'Frozen',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=frozen`,
-    },
-    {
-      name: 'Coffee Bean',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=coffee_bean`,
-    },
-    {
-      name: 'Sauce',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=sauce`,
-    },
-  ]
-  
-  export  const BRAND = [
-    {
-      name: 'Maggi',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=maggi`,
-    },
-    {
-      name: 'Chomilex',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=chomilex`,
-    },
-    {
-      name: 'Chinsu',
-      link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=chinsu`,
-    },
-  ]
+  {
+    name: 'All',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=${OPTION_ALL}`,
+  },
+  {
+    name: 'Veggie',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=veggie`,
+  },
+  {
+    name: 'Seafood',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=seafood`,
+  },
+  {
+    name: 'Frozen',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=frozen`,
+  },
+  {
+    name: 'Coffee Bean',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=coffee_bean`,
+  },
+  {
+    name: 'Sauce',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=sauce`,
+  },
+]
+
+export const BRAND = [
+  {
+    name: 'Maggi',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=maggi`,
+  },
+  {
+    name: 'Chomilex',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=chomilex`,
+  },
+  {
+    name: 'Chinsu',
+    link: `${ROUTE.PRODUCTS}/?${QUERY_KEY.BRAND}=chinsu`,
+  },
+]
 
 export const FACET = {
   FEATURE: {
@@ -130,9 +136,9 @@ export const FACET = {
     FRESH: 'Fresh',
     BEST_SELLERS: 'Best seller'
   },
-  CATEGORY:  {
-    PARENT_NAME:"category",
-    VEGGIE:"veggie"
+  CATEGORY: {
+    PARENT_NAME: "category",
+    VEGGIE: "veggie"
   }
 }
 
@@ -145,20 +151,20 @@ export const CODE_FACET_FEATURED_VARIANT = {
 
 export const OPTIONS_SORT_PRODUCT = [
   {
-      name: 'By Name (A-Z)',
-      value: PRODUCT_SORT_OPTION_VALUE.NAME_ASC,
+    name: 'By Name (A-Z)',
+    value: PRODUCT_SORT_OPTION_VALUE.NAME_ASC,
   },
   {
-      name: 'By Name (Z-A)',
-      value: PRODUCT_SORT_OPTION_VALUE.NAME_DESC,
+    name: 'By Name (Z-A)',
+    value: PRODUCT_SORT_OPTION_VALUE.NAME_DESC,
   },
   {
-      name: 'Price (Low to High)',
-      value: PRODUCT_SORT_OPTION_VALUE.PRICE_ASC,
+    name: 'Price (Low to High)',
+    value: PRODUCT_SORT_OPTION_VALUE.PRICE_ASC,
   },
   {
-      name: 'Price (High to Low)',
-      value: PRODUCT_SORT_OPTION_VALUE.PRICE_DESC,
+    name: 'Price (High to Low)',
+    value: PRODUCT_SORT_OPTION_VALUE.PRICE_DESC,
   },
 ];
 
@@ -199,4 +205,4 @@ export const STATE_OPTIONS = [
   },
 ]
 
-export const COLLECTION_SLUG_SPICE ="spice";
+export const COLLECTION_SLUG_SPICE = "spice";
