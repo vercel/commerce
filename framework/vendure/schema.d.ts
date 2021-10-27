@@ -370,6 +370,11 @@ export type Address = Node & {
     __typename?: 'Address'
     id: Scalars['ID']
   }
+  createCustomerAddress:
+  | {
+    __typename?: 'Address'
+    id: Scalars['ID']
+  }
   __typename?: 'Address'
   id: Scalars['ID']
   createdAt: Scalars['DateTime']

@@ -7,7 +7,7 @@
     .inputName{
         @apply flex justify-between;
         .input{
-            width: 48.5%;
+            width: 49.5%;
         }
     }
     .input {
@@ -21,11 +21,20 @@
         width: 100%;
         color: #CCCCCC;
     }
-
+    .boxSelect{
+        @apply justify-between;
+    }
     .inputState {
         @apply bg-white cursor-pointer;
         border: white;
         margin-right: 0.8rem;
+        height: fit-content;
+        width:50%;
+
+    }
+    .inputCountry{
+        @apply bg-white cursor-pointer;
+        width: 50%;
         height: fit-content;
     }
 
