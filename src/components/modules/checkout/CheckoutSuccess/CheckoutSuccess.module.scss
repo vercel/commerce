@@ -2,7 +2,7 @@
 
 .checkoutSuccessWrapper {
     @apply flex items-center justify-center spacing-horizontal;
-    
+    margin-bottom: 2.4rem;
     .checkoutSuccess {
        @apply shape-common-lg;
         max-width: 77.6rem;

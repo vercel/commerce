@@ -33,7 +33,6 @@ const FormPromotionCode = () => {
     }
 
     const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
-        // TODO:
         if (isSuccess) {
             showMessageSuccess("Applied coupon code successfully.", 5000)
             closeModal()
