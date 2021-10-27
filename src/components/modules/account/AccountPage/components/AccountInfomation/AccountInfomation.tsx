@@ -48,10 +48,12 @@ const AccountInfomation = ({ account, onClick }: AccountInfomationProps) => {
       <div className={s.shippingInfo}>Shipping Infomation</div>
 
       <div className={s.accountAddress}>
-        {(account.address?.streetLine1) ? account.address?.streetLine1+ ', ' : '' +
-          `${state?.name ? state?.name + ',' : '' } 
+        { `${account.address?.streetLine1 ? account.address?.streetLine1+ ', ' : ''} 
+          ${state?.name ? state?.name + ',' : '' } 
           ${account.address?.city ? account.address?.city + ', ' : '' }
-          ${account.address?.postalCode ? account.address?.postalCode + ', ':''}`}
+          ${account.address?.postalCode ? account.address?.postalCode + ', ':''}
+          ${account.address?.country.name ? account.address?.country.name : ''}
+          `}
       </div>
 
       <div className={s.accountPhoneNumber}>{account.phoneNumber ?? ''}</div>
