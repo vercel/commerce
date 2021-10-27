@@ -56,8 +56,6 @@ const FormPayWithCard = ({ orderId  = ''}: Props) => {
         braintreeInstance?.requestPaymentMethod(function (err: any, payload: any) {
             if (err) {
                 // An appropriate error will be shown in the UI
-                console.log("error: ", err)
-
                 return;
             }
             // Submit payload.nonce to your server
@@ -72,7 +70,6 @@ const FormPayWithCard = ({ orderId  = ''}: Props) => {
             showMessageError(rs, 6000)
         }
     }
-
 
     return (
         <div>
