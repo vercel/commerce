@@ -38,3 +38,4 @@ report.*.json
 .vercel
 
 .eslintrc
+report.*.json
