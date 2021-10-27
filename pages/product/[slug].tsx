@@ -21,13 +21,10 @@ interface Props {
 }
 export default function Slug({ product, relevantProducts, collections,relevant }: Props) {
   const [local,setLocal] = useLocalStorage<Product[]>(LOCAL_STORAGE_KEY.VIEWEDPRODUCT, []);
-  const [viewed, setViewed] = useState<ProductCard[]>([])
   useEffect(() => {
     if(local){
       if(!local.find(p => p.id === product.id)){
         setLocal([...local, product])
-      }else{
-        setViewed(local.filter((p)=>p.id !== product.id).map((p)=>normalizeProductCard(p)))
       }
     }else{
       setLocal([product])
@@ -39,7 +36,7 @@ export default function Slug({ product, relevantProducts, collections,relevant }
     <RecipeDetail ingredients={INGREDIENT_DATA_TEST} />
     <RecommendedRecipes data={RECIPE_DATA_TEST} />
     <ReleventProducts data={relevantProducts} collections={collections}/>
-    <ViewedProducts data={viewed}/>
+    <ViewedProducts product={product}/>
     <RelevantBlogPosts data={relevant} title="relevent blog posts" />
   </>
 }
