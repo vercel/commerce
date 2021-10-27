@@ -8,10 +8,6 @@
     .bottom{
         margin-top: 2.4rem;
         @apply flex justify-between items-center;
-        .note{
-            font-size: 1.2rem;
-            line-height: 2rem;
-        }
         @screen sm-only {
             @apply flex-col items-start;
             .button {

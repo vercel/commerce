@@ -6,30 +6,29 @@ import { ButtonCommon } from 'src/components/common'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { useCartDrawer } from 'src/components/contexts'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import {
   IconBuy,
   IconFilter,
   IconHeart,
-  IconHistory,
-  IconUser,
+  IconHistory, IconUser
 } from 'src/components/icons'
 import {
   ACCOUNT_TAB,
   FILTER_PAGE,
   QUERY_KEY,
-  ROUTE,
+  ROUTE
 } from 'src/utils/constanst.utils'
+import { useLogout } from '../../../../hooks/auth'
 import Logo from '../../../Logo/Logo'
 import s from './HeaderMenu.module.scss'
-import { useLogout } from '../../../../hooks/auth'
-import { useActiveCustomer } from 'src/components/hooks/auth'
+import NotificationDropdown from './NotificationDropdown/NotificationDropdown'
 interface Props {
   children?: any
   isFull?: boolean
   isStickyHeader?: boolean
   openModalLogin: () => void
   openModalRegister: () => void
-  openModalInfo: () => void
   toggleFilter: () => void
   searchValue:string|number
   setSearchValue: (value: string | number) => void
@@ -41,7 +40,6 @@ const HeaderMenu = memo(
     isStickyHeader,
     openModalLogin,
     openModalRegister,
-    openModalInfo,
     toggleFilter,
     searchValue,
     setSearchValue
@@ -63,7 +61,7 @@ const HeaderMenu = memo(
           name: 'Create account',
         },
         {
-          link: '/forgot-password',
+          link: ROUTE.FORGOT_PASSWORD,
           name: 'Forgot Password',
         },
       ],
@@ -72,10 +70,6 @@ const HeaderMenu = memo(
 
     const optionMenu = useMemo(
       () => [
-        // {
-        //   onClick: openModalInfo,
-        //   name: 'Create User Info (Demo)',
-        // },
         {
           link: '/demo',
           name: 'Notifications Empty (Demo)',
@@ -106,6 +100,10 @@ const HeaderMenu = memo(
         setSearchValue(value)
     }
     
+    const onCartIconClick = () => {
+      toggleCartDrawer()
+    }
+
     return (
       <section
         className={classNames({
@@ -126,7 +124,7 @@ const HeaderMenu = memo(
               )}
               <button
                 className={`${s.iconCart} ${s.btnCart}`}
-                onClick={toggleCartDrawer}
+                onClick={onCartIconClick}
               >
                 <IconBuy />
               </button>
@@ -142,31 +140,38 @@ const HeaderMenu = memo(
           </div>
         </div>
         <ul className={s.menu}>
-          <li>
-            <Link
-              href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}
-            >
-              <a>
-                <IconHistory />
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`}
-            >
-              <a className={s.iconFavourite}>
-                <IconHeart />
-              </a>
-            </Link>
-          </li>
+          {
+            customer && <>
+              <li>
+                <Link
+                  href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}
+                >
+                  <a>
+                    <IconHistory />
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`}
+                >
+                  <a className={s.iconFavourite}>
+                    <IconHeart />
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <NotificationDropdown/>
+              </li>
+            </>
+          }
           <li>
             <MenuDropdown options={customer ? optionMenu : optionMenuNotAuthen} isHasArrow={false}>
               <IconUser />
             </MenuDropdown>
           </li>
           <li>
-            <button className={s.btnCart} onClick={toggleCartDrawer}>
+            <button className={s.btnCart} onClick={onCartIconClick}>
               <IconBuy />
             </button>
           </li>

@@ -12,9 +12,11 @@ interface Props {
   visible: boolean
   closeModal: () => void
   mode?: '' | 'register'
+  initialEmail?: string
+  disableRedirect ?: boolean
 }
 
-const ModalAuthenticate = ({ visible, mode, closeModal }: Props) => {
+const ModalAuthenticate = ({ visible, mode, closeModal, initialEmail, disableRedirect }: Props) => {
   const [isLogin, setIsLogin] = useState<boolean>(true)
   const { customer } = useActiveCustomer()
   const router = useRouter()
@@ -30,9 +32,11 @@ const ModalAuthenticate = ({ visible, mode, closeModal }: Props) => {
   useEffect(() => {
     if (visible && customer) {
       closeModal()
-      router.push(ROUTE.ACCOUNT)
+      if (!disableRedirect) {
+        router.push(ROUTE.ACCOUNT)
+      }
     }
-  }, [customer, visible, closeModal, router])
+  }, [customer, visible, closeModal, router, disableRedirect])
 
   const onSwitch = () => {
     setIsLogin(!isLogin)
@@ -51,7 +55,7 @@ const ModalAuthenticate = ({ visible, mode, closeModal }: Props) => {
             [s.register]: !isLogin,
           })}
         >
-          <FormLogin isHide={!isLogin} onSwitch={onSwitch} />
+          <FormLogin isHide={!isLogin} onSwitch={onSwitch} initialEmail={initialEmail} />
           <FormRegister isHide={isLogin} onSwitch={onSwitch} />
         </div>
       </section>

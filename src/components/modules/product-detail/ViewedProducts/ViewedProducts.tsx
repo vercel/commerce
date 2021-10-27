@@ -1,15 +1,16 @@
-import { Product } from '@commerce/types/product';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ListProductWithInfo from 'src/components/common/ListProductWithInfo/ListProductWithInfo';
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
-import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
-import { normalizeProductCard } from '@framework/utils/normalize';
-import { useLocalStorage } from 'src/components/hooks/useLocalStorage';
 interface Props {
     data: ProductCardProps[]
 }
-const ViewedProducts = ({data}:Props) => {
+<<<<<<< HEAD
+const ViewedProducts = ({data = []}:Props) => {
     if (data.length===0){
+=======
+const ViewedProducts = ({data}:Props) => {
+    if (data && data.length===0){
+>>>>>>> a98fd093a0c4e3b68f23d0fcc90e15a765df0fc7
         return <div></div>
     }
     return (

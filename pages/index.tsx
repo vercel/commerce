@@ -12,6 +12,7 @@ import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED,COLLECTION_SLUG_SPICE } from '
 import { getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { CollectionsWithData, PromiseWithKey } from 'src/utils/types.utils';
 
+
 interface Props {
   featuredAndDiscountFacetsValue: FacetValue[],
   freshProducts: ProductCard[],
@@ -29,17 +30,14 @@ export default function Home({ featuredAndDiscountFacetsValue, veggie,collection
       <HomeBanner />
       <HomeFeature />
       <HomeCategories />
-      <HomeCollection data = {collectionProps}/>
       <FreshProducts data={freshProducts} collections={collections} />
+      <HomeCollection data = {collectionProps}/>
       <HomeVideo />
       {spiceProducts.length>0 && <HomeSpice data={spiceProducts}/>}
       <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       <HomeCTA />
       <HomeRecipe />
       <HomeSubscribe />
-
-      {/* // todo: uncomment
-      {/* <ModalCreateUserInfo/> */}
     </>
   )
 }

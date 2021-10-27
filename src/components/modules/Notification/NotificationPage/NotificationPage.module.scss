@@ -1,6 +1,14 @@
 .notificationPage {
+    min-height: 30rem;
     padding-bottom: 5.4rem;
     @screen md {
         padding-bottom: 12.8rem;
+    }
+    .paginationWrap {
+        margin-top: 4rem;
+        text-align: center;
+        @screen md {
+            text-align: left;
+        }
     }
 }

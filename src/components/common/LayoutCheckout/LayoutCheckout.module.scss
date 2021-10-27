@@ -3,14 +3,20 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    .logoWrap {
+        @apply spacing-horizontal;
+        margin: 2.4rem 0;
+    }
     > main {
+        display: flex;
         flex: 1;
         position: relative;
+        max-width: min(100%, 1536px);
+        margin: auto;
     }
     .footer {
         @apply spacing-horizontal;
         padding-top: 3rem;
-        padding-left: 3.2rem;
         padding-bottom: 3rem;
         background-color: var(--gray);
     }

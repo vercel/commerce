@@ -1,8 +1,6 @@
 import classNames from 'classnames'
-import { divide } from 'lodash'
 import React from 'react'
 import { IconDoneCheckout } from 'src/components/icons'
-import { CheckOutForm } from 'src/utils/types.utils'
 import s from './CheckoutCollapse.module.scss'
 interface CheckoutCollapseProps {
   visible: boolean
@@ -10,10 +8,11 @@ interface CheckoutCollapseProps {
   children: React.ReactNode
   title: string
   isEdit: boolean
-  onClose?: (id:number) => void
-  onOpen?: (id:number) => void
-  onEditClick?:(id:number) => void
-  note?:string
+  onClose: (id: number) => void
+  onOpen?: (id: number) => void
+  onEditClick?: (id: number) => void
+  note?: string
+  disableEdit?: boolean
 }
 
 const CheckoutCollapse = ({
@@ -24,33 +23,37 @@ const CheckoutCollapse = ({
   visible,
   note,
   onOpen,
-	onClose,
-  onEditClick
+  onClose,
+  onEditClick,
+  disableEdit,
 }: CheckoutCollapseProps) => {
-	const handleTitleClick = () => {
-		if(visible){
-			onClose && onClose(id)
-		}else{
-			onOpen && onOpen(id)
-		}
-	}
+  const handleToggle = () => {
+    if (visible) {
+      isEdit && onClose(id)
+    } else {
+      handleEdit()
+    }
+  }
   const handleEdit = () => {
-		onEditClick && onEditClick(id)
-	}
+    if (!disableEdit && isEdit && onEditClick) {
+      onEditClick(id)
+    }
+  }
   return (
     <div className={s.warpper}>
-      <div className={s.header}>
+      <div className={s.header} onClick={handleToggle}>
         <div className={s.left}>
-          <div className={classNames(s.number, { [s.visible]: visible, [s.done]:isEdit })}>
-            {isEdit?<IconDoneCheckout/>:id}
+          <div className={classNames(s.number, { [s.visible]: visible, [s.done]: isEdit })}>
+            {isEdit ? <IconDoneCheckout /> : id}
           </div>
-          <div className={s.title} onClick={handleTitleClick}>
+          <div className={s.title}>
             {title}
           </div>
         </div>
-        {isEdit && <div className={s.edit} onClick={handleEdit}>{'Edit'}</div>}
+        {!disableEdit && isEdit && <div className={s.edit} onClick={handleEdit}>{'Edit'}</div>}
       </div>
-      {(!visible && isEdit) && (<div className={s.note}>{note}</div>) }
+      {/* {(!visible && isEdit) &&  */}
+      <div className={s.note} onClick={handleToggle}>{note}</div>
       <div className={classNames(s.body, { [`${s.show}`]: visible })}>{children}</div>
     </div>
   )

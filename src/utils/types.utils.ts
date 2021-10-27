@@ -26,25 +26,18 @@ export interface RecipeProps {
     slug: string
     description: string
     imageSrc: string
+    content?: string,
+    imgAuthor?: string,
+    date?: string,
+    authorName?: string,
 }
 
 export interface BlogProps {
+    id:string,
     title: string
     slug: string
     description: string
-    imageSrc: string
-}
-
-export interface CheckOutForm {
-    name?: string
-    email?: string
-    address?: string
-    city?: string
-    state?: string
-    code?: number
-    phone?: number
-    method?: string
-    shipping_fee?: number
+    imageSrc: string | null,
 }
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
@@ -73,8 +66,21 @@ export type PromiseWithKey = {
     promise: PromiseLike<any>
     keyResult?: string,
 }
-
-export type SelectedOptions = Record<string, string | null>
 export interface CollectionsWithData extends Collection  {
     items: ProductCard[]
 }
+// ref https://www.vendure.io/docs/typescript-api/orders/order-state/
+export type OrderState = | 'Created'
+    | 'AddingItems'
+    | 'ArrangingPayment'
+    | 'PaymentAuthorized'
+    | 'PaymentSettled'
+    | 'PartiallyShipped'
+    | 'Shipped'
+    | 'PartiallyDelivered'
+    | 'Delivered'
+    | 'Modifying'
+    | 'ArrangingAdditionalPayment'
+    | 'Cancelled'
+
+export type SelectedOptions = Record<string, string | null>

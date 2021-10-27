@@ -1,50 +1,103 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
-import { removeItem } from 'src/utils/funtion.utils'
-import { CheckOutForm } from 'src/utils/types.utils'
+import { useActiveCustomer } from 'src/components/hooks/auth'
+import { useGetActiveOrderForCheckout } from 'src/components/hooks/order'
+import { OrderState } from '../../../../utils/types.utils'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
 import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
+import ShippingMethod from './components/ShippingMethod/ShippingMethod'
 interface CheckoutInfoProps {
-  onViewCart:()=>void
+  onViewCart: () => void
+  currency?: string
 }
 
-const CheckoutInfo = ({onViewCart}: CheckoutInfoProps) => {
-  const [active, setActive] = useState(1)
-  const [done, setDone] = useState<number[]>([])
-  const [info, setInfo] = useState<CheckOutForm>({})
+export enum CheckoutStep {
+  CustomerInfo = 1,
+  ShippingAddressInfo = 2,
+  ShippingMethodInfo = 3,
+  PaymentInfo = 4,
+}
 
-  const onEdit = (id:number) => {
-		setActive(id)
-    setDone(removeItem<number>(done,id))
-	}
+const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
+  const [activeStep, setActiveStep] = useState(1)
+  const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
+  const { order } = useGetActiveOrderForCheckout()
+  const { customer } = useActiveCustomer()
 
-  const onConfirm = (id:number,formInfo:CheckOutForm) => {
-		if(id+1>formList.length){
-			console.log({...info,...formInfo})
-		}else{
-      if(done.length>0){
-        for (let i = id+1; i <= formList.length; i++) {
-          if(!done.includes(i)){
-            setActive(i)
+  useEffect(() => {
+    if (customer) {
+      if (!doneSteps.includes(CheckoutStep.CustomerInfo)) {
+
+        if (doneSteps.length > 0) {
+          for (let i = CheckoutStep.CustomerInfo + 1; i <= Object.keys(CheckoutStep).length; i++) {
+            if (!doneSteps.includes(i)) {
+              setActiveStep(i)
+            }
           }
+        } else {
+          setActiveStep(CheckoutStep.CustomerInfo + 1)
         }
-      }else{
-        setActive(id+1)
-      }
-      setDone([...done,id])
-		}
-		setInfo({...info,...formInfo})
-	}
 
-  const getNote = (id:number) => {
+        setDoneSteps([...doneSteps, CheckoutStep.CustomerInfo])
+      }
+    }
+  }, [customer, doneSteps])
+
+  useEffect(() => {
+    if (order?.state as OrderState === 'ArrangingPayment') {
+      setActiveStep(CheckoutStep.PaymentInfo)
+    }
+  }, [order])
+
+
+  const onEdit = (id: CheckoutStep) => {
+    setActiveStep(id)
+  }
+
+  const updateActiveStep = (step: CheckoutStep) => {
+    if (doneSteps.length > 0) {
+      for (let i = step + 1; i < Object.keys(CheckoutStep).length; i++) {
+        if (!doneSteps.includes(i)) {
+          setActiveStep(i)
+          return
+        }
+      }
+    } else {
+      setActiveStep(step + 1)
+    }
+  }
+
+  const onConfirm = (step: CheckoutStep) => {
+    if (step + 1 <= formList.length) {
+      updateActiveStep(step)
+      setDoneSteps([...doneSteps, step])
+    }
+  }
+
+  const getNote = (id: CheckoutStep) => {
     switch (id) {
-      case 1:
-        return `${info.name}, ${info.email}`
-        case 2:
-          return `${info.address}, ${info.state}, ${info.city}, ${info.code}, ${info.phone}, `
+      case CheckoutStep.CustomerInfo:
+        if (order?.customer?.emailAddress) {
+          return `${order?.customer?.firstName} ${order?.customer?.lastName}, ${order?.customer?.emailAddress}`
+        } else if (customer) {
+          return `${customer.firstName} ${customer.lastName}, ${customer.emailAddress}`
+        } else {
+          return ''
+        }
+      case CheckoutStep.ShippingAddressInfo:
+        if (order?.shippingAddress?.streetLine1) {
+          const { streetLine1, city, province, postalCode, countryCode, phoneNumber } = order.shippingAddress
+          return `${streetLine1}, ${city}, ${province}, ${postalCode}, ${countryCode}, ${phoneNumber}`
+        }
+        return ''
+      case CheckoutStep.ShippingMethodInfo:
+        if (order?.shippingLine?.shippingMethod) {
+          return `${order?.shippingLine.shippingMethod.name}, ${order?.shippingLine.priceWithTax ? `${order?.shippingLine.priceWithTax} ${currency}` : 'Free'}` || ''
+        }
+        return ''
       default:
         return ""
     }
@@ -52,21 +105,27 @@ const CheckoutInfo = ({onViewCart}: CheckoutInfoProps) => {
 
   const formList = [
     {
-      id: 1,
+      id: CheckoutStep.CustomerInfo,
       title: 'Customer Information',
-      form: <CustomerInfoForm onConfirm={onConfirm} id={1}/>,
+      form: <CustomerInfoForm onConfirm={onConfirm} id={CheckoutStep.CustomerInfo} activeStep={activeStep} />,
     },
     {
-      id: 2,
-      title: 'Shipping Information',
-      form: <ShippingInfoForm onConfirm={onConfirm} id={2}/>,
+      id: CheckoutStep.ShippingAddressInfo,
+      title: 'Shipping Address Information',
+      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingAddressInfo} activeStep={activeStep} />,
     },
     {
-      id: 3,
+      id: CheckoutStep.ShippingMethodInfo,
+      title: 'Shipping Method Information',
+      form: <ShippingMethod onConfirm={onConfirm} currency={currency} />,
+    },
+    {
+      id: CheckoutStep.PaymentInfo,
       title: 'Payment Information',
-      form: <PaymentInfoForm onConfirm={onConfirm} id={3}/>,
+      form: <PaymentInfoForm orderId={order?.id} />,
     },
   ]
+
   return (
     <div className={s.warpper}>
       <div className={s.title}>
@@ -76,13 +135,16 @@ const CheckoutInfo = ({onViewCart}: CheckoutInfoProps) => {
       {formList.map((item) => {
         let note = getNote(item.id)
         return <CheckoutCollapse
-					key={item.title}
+          key={item.title}
           id={item.id}
-          visible={item.id === active}
+          visible={item.id === activeStep}
           title={item.title}
           onEditClick={onEdit}
-          isEdit={done.includes(item.id)}
+          isEdit={doneSteps.includes(item.id)}
+          onClose={onConfirm}
           note={note}
+          disableEdit={(customer && item.id === CheckoutStep.CustomerInfo)
+            || (order?.state as OrderState === 'ArrangingPayment' && item.id !== CheckoutStep.PaymentInfo)}
         >
           {item.form}
         </CheckoutCollapse>

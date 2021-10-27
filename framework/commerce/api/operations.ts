@@ -1,7 +1,8 @@
+import { GetAllRecipePathsOperation, GetRecipeDetailOperation,GetAllRecipesOperation } from './../types/recipes';
 import { GetAllFacetsOperation } from './../types/facet';
 import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
-import type { GetAllPagesOperation, GetPageOperation } from '../types/page'
+import type { GetAllPagesOperation } from '../types/page'
 import type { GetSiteInfoOperation } from '../types/site'
 import type { GetCustomerWishlistOperation } from '../types/wishlist'
 import type {
@@ -9,6 +10,15 @@ import type {
   GetAllProductsOperation,
   GetProductOperation,
 } from '../types/product'
+import type {
+  GetAllBlogsOperation,
+  GetFeaturedBlogsOperation,
+  GetAllBlogPathsOperation,
+  GetBlogDetailOperation,
+  GetRelevantBlogsOperation
+} from '../types/blogs'
+
+
 import type { APIProvider, CommerceAPI } from '.'
 import { GetAllCollectionsOperation } from '@commerce/types/collection';
 
@@ -27,7 +37,14 @@ export const OPERATIONS = [
   'getProduct',
   'getAllFacets',
   'getAllCollections',
-
+  'getAllBlogs',
+  'getFeaturedBlog',
+  'getAllBlogPaths',
+  'getBlogDetail',
+  'getRelevantBlogs',
+  'getAllRecipes',
+  'getAllRecipePaths',
+  'getRecipeDetail'
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -68,14 +85,14 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
-  getPage: {
-    <T extends GetPageOperation>(opts: {
+  getRecipeDetail: {
+    <T extends GetRecipeDetailOperation>(opts: {
       variables: T['variables']
       config?: P['config']
       preview?: boolean
     }): Promise<T['data']>
 
-    <T extends GetPageOperation>(
+    <T extends GetRecipeDetailOperation>(
       opts: {
         variables: T['variables']
         config?: P['config']
@@ -128,6 +145,50 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
+  
+  getAllBlogPaths: {
+    <T extends GetAllBlogPathsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+    }): Promise<T['data']>
+
+    <T extends GetAllBlogPathsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllRecipePaths: {
+    <T extends GetAllRecipePathsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+    }): Promise<T['data']>
+
+    <T extends GetAllRecipePathsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllRecipe: {
+    <T extends GetAllRecipePathsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+    }): Promise<T['data']>
+
+    <T extends GetAllRecipePathsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+
   getAllProducts: {
     <T extends GetAllProductsOperation>(opts: {
       variables?: T['variables']
@@ -143,6 +204,88 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
+
+
+  getAllBlogs: {
+    <T extends GetAllBlogsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetAllBlogsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllRecipes: {
+    <T extends GetAllRecipesOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetAllRecipesOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getRelevantBlogs: {
+    <T extends GetRelevantBlogsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetRelevantBlogsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getFeaturedBlog: {
+    <T extends GetFeaturedBlogsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetFeaturedBlogsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getBlogDetail: {
+    <T extends GetBlogDetailOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+
+    <T extends GetBlogDetailOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
 
   getProduct: {
     <T extends GetProductOperation>(opts: {

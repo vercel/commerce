@@ -3,7 +3,6 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 import { useProductFilter } from 'src/components/contexts'
 import { useModalCommon } from 'src/components/hooks'
 import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
-import ModalCreateUserInfo from '../ModalCreateUserInfo/ModalCreateUserInfo'
 import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
 import HeaderMenu from './components/HeaderMenu/HeaderMenu'
 import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
@@ -57,9 +56,10 @@ const Header = memo(({ }: props) => {
                     toggleFilter={toggleFilter}
                     openModalLogin={openModalLogin}
                     openModalRegister={openModalRegister}
-                    openModalInfo={openModalInfo} 
+                    // openModalInfo={openModalInfo} 
                     setSearchValue={setSearchValue}
-                    searchValue={searchValue}/>
+                    searchValue={searchValue}
+                    />
             </div>
 
             <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
@@ -70,7 +70,7 @@ const Header = memo(({ }: props) => {
                         toggleFilter={toggleFilter}
                         openModalLogin={openModalLogin}
                         openModalRegister = {openModalRegister}
-                        openModalInfo={openModalInfo}
+                        // openModalInfo={openModalInfo}
                         setSearchValue={setSearchValue}
                         searchValue={searchValue}
                          />
@@ -80,7 +80,6 @@ const Header = memo(({ }: props) => {
 
             <HeaderSubMenuMobile />
             <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} mode={isModeAuthenRegister? 'register': ''} />
-            <ModalCreateUserInfo demoVisible={visibleModalInfo} demoCloseModal={closeModalInfo} />
         </>
     )
 })

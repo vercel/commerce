@@ -6,7 +6,7 @@ export type MessageContextType = {
   removeMessage: (id: number) => void
   showMessageSuccess: (content: string, timeout?: number) => void
   showMessageInfo: (content: string, timeout?: number) => void
-  showMessageError: (content: string, timeout?: number) => void
+  showMessageError: (content?: string, timeout?: number) => void
   showMessageWarning: (content: string, timeout?: number) => void
 }
 export const DEFAULT_MESSAGE_CONTEXT: MessageContextType = {
