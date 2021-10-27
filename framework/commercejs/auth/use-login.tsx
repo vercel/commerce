@@ -5,6 +5,16 @@ import type { LoginHook } from '@commerce/types/login'
 
 export default useLogin as UseLogin<typeof handler>
 
+// Gets the URL that will be sent in the login email.
+// If deployed on Vercel we have the VERCEL_URL env vars, otherwise assume localhost.
+const getLoginCallbackUrl = () => {
+  const API_ROUTE_PATH = 'api/login'
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}/${API_ROUTE_PATH}`
+  }
+  return `http://localhost:3000/${API_ROUTE_PATH}`
+}
+
 export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
     query: 'customer',
@@ -14,7 +24,7 @@ export const handler: MutationHook<LoginHook> = {
     await fetch({
       query,
       method,
-      variables: input.email,
+      variables: [input.email, getLoginCallbackUrl()],
     })
     return null
   },
