@@ -1,12 +1,11 @@
-import React from "react";
-import s from './CheckoutSuccess.module.scss';
-
 import Link from "next/link";
-
-import checkIcon from './assets/checkIcon.png';
-
+import React from "react";
 import { ButtonCommon, StaticImage } from "src/components/common";
 import { IconArrowRight } from "src/components/icons";
+import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from "src/utils/constanst.utils";
+import checkIcon from './assets/checkIcon.png';
+import s from './CheckoutSuccess.module.scss';
+
 
 const CheckoutSuccess = () => {
     return (
@@ -17,11 +16,16 @@ const CheckoutSuccess = () => {
 
                     <div className={s.checkoutMsg}>Your purchase has been successed!</div>
                     <div className={s.checkoutSubMsg}>Last call! Shop deep deals on 100+ bulk picks while you can.</div>
-                    
-                    <div className={s.backToHomeBtn}>
-                        <Link href="/">
+
+                    <div className={s.btns}>
+                        <Link href={ROUTE.HOME}>
                             <a>
                                 <ButtonCommon size="large" icon={<IconArrowRight />} isIconSuffix={true}>Back to home</ButtonCommon>
+                            </a>
+                        </Link>
+                        <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}>
+                            <a>
+                                <ButtonCommon size="large" type='ghost'>View my order</ButtonCommon>
                             </a>
                         </Link>
                     </div>

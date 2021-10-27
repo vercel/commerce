@@ -29,8 +29,11 @@
                 margin-bottom: 4rem;
             }
         
-            .backToHomeBtn {
-                @apply flex justify-center;
+            .btns {
+                @apply flex flex-col justify-center;
+                a {
+                    margin-bottom: 1.6rem;
+                }
             }
         }
     }

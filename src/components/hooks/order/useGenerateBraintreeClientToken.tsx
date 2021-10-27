@@ -6,6 +6,7 @@ import useSWR from 'swr'
 
 const useGenerateBraintreeClientToken = (options: { orderId: string }) => {
   const { data, ...rest } = useSWR<GenerateBraintreeClientTokenQuery>([generateBraintreeClientTokenQuery, options], gglFetcher)
+
   return { clientToken: data?.generateBraintreeClientToken, ...rest }
 }
 

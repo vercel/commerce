@@ -22,7 +22,7 @@ const useAddPaymentToOrder = () => {
     })
       .then(({ data }) => {
         if (data.addPaymentToOrder.__typename === 'Order') {
-          fCallBack(true)
+          fCallBack(true, data.addPaymentToOrder.id)
           mutate()
         } else {
           fCallBack(false, data.addPaymentToOrder.message)

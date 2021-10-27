@@ -1,16 +1,20 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
+import { ButtonCommon } from 'src/components/common';
 import { useMessage } from 'src/components/contexts';
 import { useAddPaymentToOrder, useGenerateBraintreeClientToken } from 'src/components/hooks/order';
-import { PaymentMethod, ROUTE } from 'src/utils/constanst.utils';
+import { PaymentMethod, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
+import ChekoutNotePolicy from '../../../ChekoutNotePolicy/ChekoutNotePolicy';
+import s from '../../PaymentInfoForm.module.scss'
+
 
 const BRAINTREE_SCRIPT_URL = "https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.js"
 interface Props {
-    orderId: string
+    orderId?: string
 
 }
 
-const FormPayWithCard = ({ orderId }: Props) => {
+const FormPayWithCard = ({ orderId  = ''}: Props) => {
     const router = useRouter()
     const [braintreeInstance, setBraintreeInstance] = useState<any>(null)
     const options = useMemo(() => {
@@ -18,7 +22,7 @@ const FormPayWithCard = ({ orderId }: Props) => {
     }, [orderId])
     const { clientToken } = useGenerateBraintreeClientToken(options)
     const { addPaymentToOrder } = useAddPaymentToOrder()
-    const { showMessageSuccess, showMessageError } = useMessage()
+    const { showMessageError } = useMessage()
 
 
     useEffect(() => {
@@ -57,17 +61,15 @@ const FormPayWithCard = ({ orderId }: Props) => {
                 return;
             }
             // Submit payload.nonce to your server
-            console.log("payload: ", payload)
             addPaymentToOrder({ method: PaymentMethod.Braintree, metadata: payload }, onSubmitCalBack)
         });
     }
 
-    const onSubmitCalBack = (isSuccess: boolean, msg?: string) => {
-        // TODO: change timeout
+    const onSubmitCalBack = (isSuccess: boolean, rs?: string) => {
         if (isSuccess) {
-            router.push(ROUTE.CHECKOUT_SUCCESS)
+            router.push(`${ROUTE.CHECKOUT_SUCCESS}?${QUERY_KEY.ORDER_ID}=${rs}`)
         } else {
-            showMessageError(msg, 10000)
+            showMessageError(rs, 6000)
         }
     }
 
@@ -76,7 +78,14 @@ const FormPayWithCard = ({ orderId }: Props) => {
         <div>
             orderId = {orderId}
             <div id="dropin-container"></div>
-            <button id="submit-button" onClick={handleSubmit}>Purchase</button>
+            <div className={s.bottom}>
+                <ChekoutNotePolicy />
+                <div className={s.button}>
+                    <ButtonCommon onClick={handleSubmit}>
+                        Submit Order
+                    </ButtonCommon>
+                </div>
+            </div>
         </div>
     );
 };

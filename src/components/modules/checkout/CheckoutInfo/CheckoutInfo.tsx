@@ -3,12 +3,12 @@ import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
 import { useActiveCustomer } from 'src/components/hooks/auth'
 import { useGetActiveOrderForCheckout } from 'src/components/hooks/order'
+import { OrderState } from '../../../../utils/types.utils'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
 import PaymentInfoForm from './components/PaymentInfoForm/PaymentInfoForm'
 import ShippingInfoForm from './components/ShippingInfoForm/ShippingInfoForm'
 import ShippingMethod from './components/ShippingMethod/ShippingMethod'
-import { OrderState } from '../../../../utils/types.utils'
 interface CheckoutInfoProps {
   onViewCart: () => void
   currency?: string
@@ -48,7 +48,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
 
   useEffect(() => {
     if (order?.state as OrderState === 'ArrangingPayment') {
-     setActiveStep(CheckoutStep.PaymentInfo)
+      setActiveStep(CheckoutStep.PaymentInfo)
     }
   }, [order])
 
@@ -71,15 +71,11 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
   }
 
   const onConfirm = (step: CheckoutStep) => {
-    if (step + 1 > formList.length) {
-      // TODO: checkout
-      console.log("finish: ", order)
-    } else {
+    if (step + 1 <= formList.length) {
       updateActiveStep(step)
       setDoneSteps([...doneSteps, step])
     }
   }
-
 
   const getNote = (id: CheckoutStep) => {
     switch (id) {
