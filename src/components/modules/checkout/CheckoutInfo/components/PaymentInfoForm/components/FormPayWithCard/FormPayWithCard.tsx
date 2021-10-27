@@ -5,8 +5,8 @@ import { useMessage } from 'src/components/contexts';
 import { useAddPaymentToOrder, useGenerateBraintreeClientToken } from 'src/components/hooks/order';
 import { PaymentMethod, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import ChekoutNotePolicy from '../../../ChekoutNotePolicy/ChekoutNotePolicy';
-import s from '../../PaymentInfoForm.module.scss'
-
+import s from '../../PaymentInfoForm.module.scss';
+import styles from './FormPayWithCard.module.scss';
 
 const BRAINTREE_SCRIPT_URL = "https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.js"
 interface Props {
@@ -72,7 +72,7 @@ const FormPayWithCard = ({ orderId  = ''}: Props) => {
     }
 
     return (
-        <div>
+        <div className={styles.formPayWithCard}>
             <div id="dropin-container"></div>
             <div className={s.bottom}>
                 <ChekoutNotePolicy />
