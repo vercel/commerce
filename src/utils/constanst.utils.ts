@@ -62,6 +62,7 @@ export const QUERY_KEY = {
   SORTBY: 'sortby',
   RECIPES: 'recipes',
   PAGE: 'page',
+  SEARCH:"search",
   ORDER_ID: 'o'
 }
 
@@ -136,9 +137,12 @@ export const FACET = {
     FRESH: 'Fresh',
     BEST_SELLERS: 'Best seller'
   },
-  CATEGORY: {
-    PARENT_NAME: "category",
-    VEGGIE: "veggie"
+  CATEGORY:  {
+    PARENT_CODE:"category",
+    VEGGIE:"veggie",
+    FROZEN:"frozen",
+    SEAFOOD:"seafood",
+    COFFEE_BEAN:"coffee-bean"
   }
 }
 

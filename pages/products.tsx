@@ -26,6 +26,7 @@ export default function Products({ facets, collections, productsResult }: Props)
         facets={facets}
         products={productsResult.products}
         total={productsResult.totalItems} />
+      <ViewedProducts data={[]}/>
       {/* <ViewedProducts /> */}
     </>
   )

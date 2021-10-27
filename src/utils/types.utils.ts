@@ -1,3 +1,5 @@
+import { ProductCard } from './../../framework/commerce/types/product';
+import { Collection } from './../../framework/commerce/types/collection';
 
 export interface ProductProps {
     category?: string
@@ -64,7 +66,9 @@ export type PromiseWithKey = {
     promise: PromiseLike<any>
     keyResult?: string,
 }
-
+export interface CollectionsWithData extends Collection  {
+    items: ProductCard[]
+}
 // ref https://www.vendure.io/docs/typescript-api/orders/order-state/
 export type OrderState = | 'Created'
     | 'AddingItems'
