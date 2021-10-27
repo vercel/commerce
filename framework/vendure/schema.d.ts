@@ -2415,13 +2415,60 @@ export type BlogList = Node & {
   isFeatured: Boolean
 }
 
+export type RecipeList = Node &{
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  featuredAsset?: Maybe<Asset>
+  isPublish:Boolean
+  translations: Array<RecipeTranslation>
+  authorName: Scalars['String']
+  authorAvatarAsset:Asset
+  relevantProducts: Product[]
+  link:String
+  minutes:Number
+  people:Number
+}
+
+export enum SortRecipes {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export type RecipeTranslation = {
+  __typename?: 'RecipeTranslation'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  languageCode: LanguageCode
+  title: Scalars['String']
+  slug: Scalars['String']
+  description: Scalars['String']
+  content: Scalars['String']
+  Ingredients:Scalars['String']
+  Preparation:Scalars['String']
+}
+
+export type IngredientProducts = {
+  __typename?: 'IngredientProduct'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  product: Product[]
+}
+
+
 export type GetBlogQuery = { __typename?: 'Query' } & {
   blog?: Maybe<
     { __typename?: 'Blog' } & BlogList
   >
 }
 
-
+export type GetRecipeQuery = { __typename?: 'Query' } & {
+  recipeDetail?: Maybe<
+    { __typename?: 'Recipe' } & RecipeList
+  >
+}
 
 
 export type BlogTranslation = {
@@ -2435,6 +2482,18 @@ export type BlogTranslation = {
   description: Scalars['String']
   content: Scalars['String']
 }
+export type RecipeTranslation = {
+  __typename?: 'BlogTranslation'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  languageCode: LanguageCode
+  title: Scalars['String']
+  slug: Scalars['String']
+  description: Scalars['String']
+  content: Scalars['String']
+}
+
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {
@@ -2442,6 +2501,14 @@ export type GetAllBlogsQuery = PaginatedList & {
     'totalItems'
   }
 }
+
+export type GetAllRecipesQuery = PaginatedList & {
+  recipes: { __typename?: 'RecipeList' } & {
+    items:  Array<{ __typename?: 'Recipe' } & RecipeList!>,
+    'totalItems'
+  }
+}
+
 
 export type GetRelevantBlogsQuery = PaginatedList & {
   relevantBlogs: { __typename?: 'BlogList' } & {
@@ -2459,6 +2526,22 @@ export type GetFeaturedBlogQuery = PaginatedList & {
 
 
 export type QueryBlogs = {
+  excludeBlogIds:Array,
+  customOptions: BlogListOptions
+}
+
+export type QueryRecipes = {
+  excludeBlogIds?:Maybe<Array>,
+  options: RecipeListOptions
+}
+
+export type RecipeListOptions = {
+  skip?: Maybe<Scalars['Int']>
+  take?: Maybe<Scalars['Int']>
+  sort?: RecipesSort
+}
+export type RecipesSort = {
+  id?: Maybe<Scalars['String']>
   excludeBlogIds: Array,
   options: BlogListOptions
 }
@@ -3532,6 +3615,14 @@ export type GetAllProductPathsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>
 }>
 
+export type ToggleFavoriteMutation = { __typename?: 'Mutation' } & {
+  toggleFavorite: { __typename?: 'FavoriteList' } & {
+    items: Array<{ __typename?: 'Favorite' } & Favorite>,
+    'totalItems'
+  }
+}
+
+
 export type GetAllProductPathsQuery = { __typename?: 'Query' } & {
   products: { __typename?: 'ProductList' } & {
     items: Array<{ __typename?: 'Product' } & Pick<Product, 'slug'>>
@@ -3543,6 +3634,13 @@ export type GetAllBlogPathsQuery = { __typename?: 'Query' } & {
     items: Array<{ __typename?: 'Blog' } & Pick<BlogList,'slug','translations'>>
   }
 }
+
+export type GetAllRecipePathsQuery = { __typename?: 'Query' } & {
+  recipes: { __typename?: 'Recipes' } & {
+    items: Array<{ __typename?: 'Recipe' } & Pick<RecipeList,'slug','translations'>>
+  }
+}
+
 
 export type GetAllProductsQueryVariables = Exact<{
   input: SearchInput

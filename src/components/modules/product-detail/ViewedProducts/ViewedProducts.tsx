@@ -4,8 +4,13 @@ import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
 interface Props {
     data: ProductCardProps[]
 }
+<<<<<<< HEAD
+const ViewedProducts = ({data = []}:Props) => {
+    if (data.length===0){
+=======
 const ViewedProducts = ({data}:Props) => {
     if (data && data.length===0){
+>>>>>>> a98fd093a0c4e3b68f23d0fcc90e15a765df0fc7
         return <div></div>
     }
     return (

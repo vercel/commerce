@@ -24,9 +24,14 @@ export interface RecipeProps {
     slug: string
     description: string
     imageSrc: string
+    content?: string,
+    imgAuthor?: string,
+    date?: string,
+    authorName?: string,
 }
 
 export interface BlogProps {
+    id:string,
     title: string
     slug: string
     description: string

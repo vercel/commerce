@@ -14,10 +14,10 @@ interface Props {
   facets: Facet[],
   collections: Collection[],
   productsResult: { products: ProductCard[], totalItems: number },
-
 }
 
 export default function Products({ facets, collections, productsResult }: Props) {
+
   return (
     <>
       <ProductListBanner />

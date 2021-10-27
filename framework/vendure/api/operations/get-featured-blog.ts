@@ -6,6 +6,9 @@ import { getFeatuedBlogsQuery } from '../../utils/queries/get-featued-query'
 export type BlogVariables = {
   take?: number,
   skip?:number,
+  sort?:{
+    updateAt: String
+  },
   filter?:{
     isFeatured?:{
       eq?:Boolean
@@ -36,6 +39,9 @@ export default function getFeaturedBlogOperation({
     const variables = {
       options: {
         take: vars.take,
+        sort:{
+          updatedAt: vars.sort?.updateAt
+        },
         filter: {
           isFeatured: vars.filter?.isFeatured
         }
