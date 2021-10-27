@@ -1,6 +1,15 @@
 .promo {
   @apply bg-gray flex justify-between items-center;
   min-height: 6.4rem;
+  padding: 1.6rem 2.4rem;
+  .buttonAdd {
+    svg path {
+      @apply transition-all duration-200;
+      &:hover {
+        fill: var(--primary);
+      }
+    }
+  }
   .modalPromotion {
     min-width: 40rem;
     .bottom {
