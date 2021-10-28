@@ -406,9 +406,15 @@ export type SetShippingMethodMutation = {
 };
 
 
-export type GetEligibleMethodsQuery = {
+export type GetEligibleShippingMethodsQuery = {
   eligibleShippingMethods: Array<
     Pick<ShippingMethodQuote, 'id' | 'name' | 'description' | 'price' | 'priceWithTax' | 'metadata'>
+  >;
+};
+
+export type GetEligiblePaymentMethodsQuery = {
+  eligiblePaymentMethods: Array<
+    Pick<PaymentMethodQuote, 'id' | '__typename' | 'code' | 'name' | 'description' | 'isEligible' | 'eligibilityMessage'>
   >;
 };
 
