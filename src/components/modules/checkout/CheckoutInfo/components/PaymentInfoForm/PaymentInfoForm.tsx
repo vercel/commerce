@@ -1,5 +1,5 @@
 import { PaymentMethodQuote } from '@framework/schema'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { TabCommon, TabPane } from 'src/components/common'
 import { useEligiblePaymentMethods } from 'src/components/hooks/order'
 import { PaymentMethod } from 'src/utils/constanst.utils'
@@ -17,18 +17,31 @@ const isPaymentMethodEligible = (eligiblePaymentMethods: PaymentMethodQuote[], c
 
 const PaymentInfoForm = ({ orderId }: PaymentInfoFormProps) => {
   const { eligiblePaymentMethods } = useEligiblePaymentMethods()
+
+  const tabPanes = useMemo(() => {
+    const rs = []
+
+    if (isPaymentMethodEligible(eligiblePaymentMethods || [], PaymentMethod.Braintree)) {
+      rs.push(<TabPane key="Credit Card" tabName="Credit Card">
+        <div className={s.inner}><FormPayWithCard orderId={orderId} /></div>
+      </TabPane>)
+    }
+
+    rs.push(<TabPane key="Ewallet" tabName="Ewallet">
+      <div className={s.inner}>(In development)
+      </div>
+    </TabPane>)
+    return rs
+
+
+  }, [eligiblePaymentMethods, orderId])
   return (
     <div className={s.wrapper}>
       <TabCommon>
         {
-          isPaymentMethodEligible(eligiblePaymentMethods || [], PaymentMethod.Braintree) &&
-          <TabPane tabName="Credit Card">
-            <div className={s.inner}><FormPayWithCard orderId={orderId} /></div>
-          </TabPane>
+          tabPanes.map(item => item)
         }
-        <TabPane tabName="Ewallet">
-          <div className={s.inner}>(In development)</div>
-        </TabPane>
+        
         {/* <TabPane tabName="Bank Transfer">
           <div className={s.inner}><BankTransfer /></div>
         </TabPane>
