@@ -16,8 +16,8 @@ interface ProductListProps {
 
 const ProductList = ({ data, total = data?.length, defaultCurrentPage, onPageChange }: ProductListProps) => {
     const router = useRouter()
-    const {wishlistId } = useActiveCustomer();
-   
+    const { wishlistId } = useActiveCustomer();
+
     const handlePageChange = (page: number) => {
         onPageChange && onPageChange(page)
     }
@@ -35,20 +35,21 @@ const ProductList = ({ data, total = data?.length, defaultCurrentPage, onPageCha
             <div className={s.list}>
                 {
                     data?.map((product, index) => {
-                        let activeWishlist = wishlistId?.findIndex((val:string) => val == product.id) !== -1;
+                        let activeWishlist = wishlistId?.findIndex((val: string) => val == product.id) !== -1;
                         return <ProductCard activeWishlist={activeWishlist} {...product} key={index} />
                     })
                 }
-                {
-                    data?.length === 0 && <div className={s.empty}>
-                        <EmptyCommon />
-                        <ButtonCommon onClick={handleShowAllProduct}>Show all products</ButtonCommon>
-                    </div>
-                }
             </div>
+            {
+                data?.length === 0 && <div className={s.empty}>
+                    <EmptyCommon />
+                    <ButtonCommon onClick={handleShowAllProduct} type='primary'>Show all products</ButtonCommon>
+                </div>
+            }
             <div className={classNames(s.pagination, { [s.hide]: data?.length === 0 })}>
                 <PaginationCommon defaultCurrent={defaultCurrentPage} total={total ?? 0} pageSize={DEFAULT_PAGE_SIZE} onChange={handlePageChange} />
             </div>
+
         </div>
     )
 }
