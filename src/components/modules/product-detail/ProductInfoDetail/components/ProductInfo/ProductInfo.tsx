@@ -17,10 +17,10 @@ interface Props {
 }
 
 const ProductInfo = ({ productInfoDetail }: Props) => {
-  const [option, setOption] = useState({})
-  const [quanitty, setQuanitty] = useState(0)
-  const [addToCartLoading, setAddToCartLoading] = useState(false)
-  const [buyNowLoading, setBuyNowLoading] = useState(false)
+    const [option, setOption] = useState({})
+    const [quanitty, setQuanitty] = useState(0)
+    const [addToCartLoading, setAddToCartLoading] = useState(false)
+    const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const { showMessageSuccess, showMessageError } = useMessage()
 	useEffect(() => {
 		let defaultOption:SelectedOptions = {}
@@ -50,7 +50,6 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
 		}else{
 			showMessageError(message||"Error")
 		}
-
   }
 
   const handleBuyNowCallback = (success:boolean,message?:string) => {

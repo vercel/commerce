@@ -83,6 +83,8 @@ export type Cart = {
   totalPrice: number
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
+
+  state:OrderState
 }
 
 export type CartCheckout = {

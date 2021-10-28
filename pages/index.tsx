@@ -19,10 +19,9 @@ interface Props {
   featuredProducts: ProductCard[],
   collections: Collection[]
   spiceProducts:ProductCard[]
-  veggie: ProductCard[],
   collectionProps:CollectionsWithData[]
 }
-export default function Home({ featuredAndDiscountFacetsValue, veggie,collectionProps,
+export default function Home({ featuredAndDiscountFacetsValue,collectionProps,
   freshProducts, featuredProducts,
   collections,spiceProducts }: Props) {
   return (

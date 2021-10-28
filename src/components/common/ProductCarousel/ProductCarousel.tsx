@@ -1,4 +1,6 @@
 import React from 'react'
+import { useModalCommon } from 'src/components/hooks';
+import { ModalConfirm } from '..';
 import CarouselCommon, {
   CarouselCommonProps,
 } from '../CarouselCommon/CarouselCommon'
@@ -7,6 +9,7 @@ import s from "./ProductCarousel.module.scss"
 
 interface ProductCarouselProps
   extends Omit<CarouselCommonProps<ProductCardProps>, 'Component' | "option"> {
+    collection?:string
 }
 const RESPONSIVE = {
   lgScreen: {
@@ -33,18 +36,25 @@ const RESPONSIVE = {
     items: 2,
   }
 };
-const ProductCarousel = ({ data, responsive= RESPONSIVE, ...props }: ProductCarouselProps) => {
+const ProductCarousel = ({ data, responsive= RESPONSIVE, collection,  ...props }: ProductCarouselProps) => {
+
   return (
-    <div className={s.productCardWarpper}>
-      <CarouselCommon<ProductCardProps>
-        data={data}
-        Component={ProductCard}
-        draggable={true} infinite={true}
-        responsive={responsive}
-        isPadding
-        {...props}
-      />
-    </div>
+    <>
+      <div className={s.productCardWarpper}>
+        <CarouselCommon<ProductCardProps>
+          data={data}
+          Component={ProductCard}
+          draggable={true} infinite={true}
+          responsive={responsive}
+          isPadding
+          defaultComponentProps={{
+            collection,
+            }
+          }
+          {...props}
+        />
+      </div>
+    </>
   )
 }
 
