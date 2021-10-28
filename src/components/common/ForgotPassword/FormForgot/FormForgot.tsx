@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ButtonCommon, InputFiledInForm } from 'src/components/common';
 import { useModalCommon } from 'src/components/hooks';
 import useRequestPasswordReset from 'src/components/hooks/auth/useRequestPasswordReset';
@@ -18,12 +18,14 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 })
 
 const FormForgot = ({  }: Props) => {
+    const { visible: visibleModalAuthen,closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false });
+  
+
     const {requestPassword} = useRequestPasswordReset();
     const { showMessageSuccess, showMessageError } = useMessage();
 
     const emailRef = useRef<CustomInputCommon>(null);
     
-    const { visible: visibleModalAuthen,closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false });
 
     const onForgot = (values: { email: string }) => {
       requestPassword({email: values.email},onForgotPasswordCallBack);

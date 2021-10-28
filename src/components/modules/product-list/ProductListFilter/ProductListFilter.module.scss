@@ -41,7 +41,7 @@
                 }
                 @screen md {
                     @apply flex justify-between flex-wrap w-full;
-                    margin: 1rem 0;
+                    margin-bottom: 1rem;
                     .iconFilter {
                         @apply hidden;
                     }

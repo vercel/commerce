@@ -1,21 +1,22 @@
 import classNames from 'classnames'
 import React, { memo, useState } from 'react'
 import { useMessage } from 'src/components/contexts'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import IconHeart from 'src/components/icons/IconHeart'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
 import s from './ItemWishList.module.scss'
 interface Props {
     id:string,
-    isActive?: boolean,
     onChange?: () => string
 }
 
-const ItemWishList = memo(({id,isActive=false, onChange}:Props) => {
-  
+const ItemWishList = memo(({id, onChange}:Props) => {
+    const {wishlistId} = useActiveCustomer();
+
     const {onToggleProductWishlist} = useToggleProductWishlist();
 
-    const [idToggleResult,setIdToggleResult] = useState(isActive);
+    const [idToggleResult,setIdToggleResult] = useState(wishlistId?.findIndex((val:string) => val == id) !== -1);
     
     const { showMessageSuccess, showMessageError } = useMessage();
 

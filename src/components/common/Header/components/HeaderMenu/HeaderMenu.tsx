@@ -67,13 +67,9 @@ const HeaderMenu = memo(
       ],
       [openModalLogin, openModalRegister]
     )
-
+    
     const optionMenu = useMemo(
       () => [
-        {
-          link: '/demo',
-          name: 'Notifications Empty (Demo)',
-        },
         {
           link: ROUTE.NOTIFICATION,
           name: 'Notifications',

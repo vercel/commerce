@@ -87,6 +87,8 @@ export const KEY = {
 
 export const OPTION_ALL = 'all';
 export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_FACET_FEATURED_SIZE = 3;
+export const DEFAULT_PAGE_SIZE_PRODUCT_LIST = 24;
 
 
 export const CATEGORY = [

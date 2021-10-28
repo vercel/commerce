@@ -6,33 +6,12 @@ import { memo } from 'react'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { useGetAllCollection } from 'src/components/hooks/collection'
 import { useFacets } from 'src/components/hooks/facets'
-import { CODE_FACET_FEATURED, ProductFeature, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { CODE_FACET_FEATURED, DEFAULT_FACET_FEATURED_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { convertLinkCollections } from 'src/utils/funtion.utils'
 import { SortOrder } from 'src/utils/types.utils'
 import HeaderNoti from './HeaderNoti/HeaderNoti'
 import s from './HeaderSubMenu.module.scss'
 
-const MENU = [
-    {
-        name: 'New Items',
-        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${ProductFeature.NewItem}`,
-    },
-    {
-        name: 'Sales',
-        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${ProductFeature.Sales}`,
-    },
-    {
-        name: 'Best Sellers',
-        link: `${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${ProductFeature.BestSellers}`,
-    },
-    {
-        name: 'About Us',
-        link: ROUTE.ABOUT,
-    },
-    {
-        name: 'Blog',
-        link: ROUTE.BLOGS,
-    },
-]
 
 const FACET_QUERY = {
     options: {
@@ -57,19 +36,34 @@ const HeaderSubMenu = memo(() => {
             <ul className={s.menu}>
                 {/* todo: handle active item */}
                 <li>
-                    <MenuDropdown options={collections || []} align="left">Categories</MenuDropdown>
+                    <MenuDropdown options={convertLinkCollections(collections) || []} align="left">Categories</MenuDropdown>
                 </li>
                 {
-                    facets?.[0]?.values.map(item => <li key={item.name}
+                    facets?.[0]?.values.slice(0,DEFAULT_FACET_FEATURED_SIZE).map(item => <li key={item.name}
                         className={classNames({ [s.active]: router.asPath === item.code })}>
                         <Link href={`${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${item.code}`}>
                             <a >
                                 {item.name}
                             </a>
                         </Link>
-
                     </li>)
                 }
+                <li  className={classNames({ [s.active]: router.pathname === '/about-us' })}>
+                    <Link href={ROUTE.ABOUT}>
+                        <a >
+                             About Us
+                        </a>
+                    </Link>
+
+                </li>
+                <li className={classNames({ [s.active]: router.pathname === '/blogs' })}>
+                    <Link href={ROUTE.BLOGS}>
+                        <a >
+                            Blogs
+                        </a>
+                    </Link>
+
+                </li>
             </ul>
             <HeaderNoti />
         </section>
