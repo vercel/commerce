@@ -71,10 +71,6 @@ const HeaderMenu = memo(
     const optionMenu = useMemo(
       () => [
         {
-          link: '/demo',
-          name: 'Notifications Empty (Demo)',
-        },
-        {
           link: ROUTE.NOTIFICATION,
           name: 'Notifications',
         },

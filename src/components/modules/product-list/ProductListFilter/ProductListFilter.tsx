@@ -2,12 +2,12 @@ import { ProductCard } from '@commerce/types/product'
 import { Collection, Facet, FacetValue, QuerySearchArgs } from '@framework/schema'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { HeadingCommon, ListProductCardSkeleton, ProductList } from 'src/components/common'
+import { HeadingCommon, ProductList } from 'src/components/common'
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon'
 import { useProductFilter } from 'src/components/contexts'
 import { useSearchProducts } from 'src/components/hooks/product'
 import { IconFilter } from 'src/components/icons'
-import { DEFAULT_PAGE_SIZE, QUERY_KEY, QUERY_SPLIT_SEPERATOR, ROUTE } from 'src/utils/constanst.utils'
+import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_PRODUCT_LIST, QUERY_KEY, QUERY_SPLIT_SEPERATOR, ROUTE } from 'src/utils/constanst.utils'
 import { getFacetIdsFromCodes, getPageFromQuery, getProductSortParamFromQuery } from 'src/utils/funtion.utils'
 import s from './ProductListFilter.module.scss'
 import ProductsMenuNavigationTablet from './ProductsMenuNavigationTablet/ProductsMenuNavigationTablet'
@@ -30,7 +30,7 @@ const BREADCRUMB = [
 
 
 const DEFAULT_SEARCH_ARGS = {
-  groupByProduct: true, take: DEFAULT_PAGE_SIZE
+  groupByProduct: true, take: DEFAULT_PAGE_SIZE_PRODUCT_LIST
 }
 
 const ProductListFilter = ({ facets, collections, products, total }: ProductListFilterProps) => {
@@ -38,7 +38,7 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
   const { openProductFilter } = useProductFilter()
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryProduct, setOptionQueryProduct] = useState<QuerySearchArgs>({ input: DEFAULT_SEARCH_ARGS })
-  const { products: productSearchResult, totalItems, loading } = useSearchProducts(optionQueryProduct)
+  const { products: productSearchResult, totalItems } = useSearchProducts(optionQueryProduct)
   const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
@@ -108,7 +108,7 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
         <div className={s.list}>
           <div className={s.top}>
             <div className={s.left}>
-              <HeadingCommon align="left">SPECIAL RECIPES</HeadingCommon>
+              <HeadingCommon align="left">Products</HeadingCommon>
               <button className={s.iconFilter} onClick={openProductFilter}>
                 <IconFilter />
                 <div className={s.dot}></div>
@@ -119,9 +119,6 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
               <ProductSort />
             </div>
           </div>
-          {
-            (!initialQueryFlag && loading && !productSearchResult) && <ListProductCardSkeleton count={DEFAULT_PAGE_SIZE} isWrap />
-          }
           <ProductList data={initialQueryFlag ? products : (productSearchResult || [])} total={totalItems !== undefined ? totalItems : total} onPageChange={onPageChange} defaultCurrentPage={currentPage} />
         </div>
       </div>

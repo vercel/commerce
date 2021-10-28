@@ -1,4 +1,3 @@
-import { BlogsType } from './blogs';
 import { CurrencyCode } from './../../vendure/schema.d';
 import { FacetValueFilterInput, LogicalOperator, SearchResultSortParameter } from "@framework/schema"
 
