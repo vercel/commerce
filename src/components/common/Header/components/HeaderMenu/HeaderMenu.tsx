@@ -67,7 +67,7 @@ const HeaderMenu = memo(
       ],
       [openModalLogin, openModalRegister]
     )
-
+    
     const optionMenu = useMemo(
       () => [
         {

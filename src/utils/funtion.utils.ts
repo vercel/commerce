@@ -1,9 +1,12 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
+import moment from 'moment';
+import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import { BlogList, FacetValue, Notification, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
+import { CollectionItems} from '@framework/schema'
 import moment from 'moment'
 import { APIResponse } from '@commerce/api/utils/types';
 import { CommonError } from 'src/domains/interfaces/CommonError';
@@ -207,6 +210,17 @@ export function formatDate(dateTime: string) {
   return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate() + "," + date.getFullYear();
 }
 
+<<<<<<< HEAD
+export function convertLinkCollections(collections:CollectionItems[]){
+
+  return collections.map(val=>(
+    {
+      name:val.name,
+      link: `${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${val.slug}`
+    }
+    ));
+}
+=======
 export function convertErrorFromApiResponse(response: APIResponse): CommonError {
   if (response.errors && response.errors?.length > 0) {
     return {
@@ -217,3 +231,4 @@ export function convertErrorFromApiResponse(response: APIResponse): CommonError 
     message: LANGUAGE.MESSAGE.ERROR
   } as CommonError
 }
+>>>>>>> 4260605634c3cc7f9119ce8b27c1504155c9b079

@@ -534,6 +534,11 @@ export type Channel = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+export type CollectionItems = Node & {
+  name: Scalars['String']
+  slug: Scalars['String']
+}
+
 export type Collection = Node & {
   __typename?: 'Collection'
   id: Scalars['ID']

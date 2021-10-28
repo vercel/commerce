@@ -33,8 +33,7 @@ const ProductCardComponent = ({
   isNotSell,
   isSingleButton,
   productVariantId,
-  productVariantName,
-  activeWishlist
+  productVariantName
 }: ProductCardProps) => {
 
   const {addProduct,loading} = useAddProductToCart()
@@ -98,7 +97,7 @@ const ProductCardComponent = ({
         <div className={s.cardMidBot}>
           <div className={s.productPrice}>{price} {currencyCode}</div>
           <div className={s.wishList}>
-            {customer && <ItemWishList isActive={activeWishlist}  id={id}/>}
+            {customer && <ItemWishList id={id}/>}
           </div>
         </div>
       </div>
