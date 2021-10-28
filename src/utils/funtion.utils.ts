@@ -5,6 +5,9 @@ import { BlogList, FacetValue, Notification, SearchResultSortParameter } from '.
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
 import moment from 'moment'
+import { APIResponse } from '@commerce/api/utils/types';
+import { CommonError } from 'src/domains/interfaces/CommonError';
+import { LANGUAGE } from './language.utils';
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -96,7 +99,7 @@ export function getFacetIdByName(facets: Facet[], facetName: string, valueName: 
 }
 
 
-export function getFacetIdByCode(facets: Facet[], parentCode: string, valueCode:string) {
+export function getFacetIdByCode(facets: Facet[], parentCode: string, valueCode: string) {
   const featuredFacet = facets.find((item: Facet) => item.code === parentCode)
   const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.code === valueCode)
   return freshFacetValue?.id
@@ -198,8 +201,19 @@ export const getOrderIdsFromNewNotification = (noti: Notification[]) => {
   const orderIds = noti.map(item => item.order?.id || "")
   return unique(orderIds)
 }
- 
-export function formatDate(dateTime:string){
+
+export function formatDate(dateTime: string) {
   let date = new Date(dateTime);
-  return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
+  return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate() + "," + date.getFullYear();
+}
+
+export function convertErrorFromApiResponse(response: APIResponse): CommonError {
+  if (response.errors && response.errors?.length > 0) {
+    return {
+      message: response.errors[0].message,
+    } as CommonError
+  }
+  return {
+    message: LANGUAGE.MESSAGE.ERROR
+  } as CommonError
 }
