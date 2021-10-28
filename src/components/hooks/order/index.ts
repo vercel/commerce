@@ -7,5 +7,6 @@ export { default as useEligibleShippingMethods } from './useEligibleShippingMeth
 export { default as useTransitionToArrangingPayment } from './useTransitionToArrangingPayment'
 export { default as useGenerateBraintreeClientToken } from './useGenerateBraintreeClientToken'
 export { default as useAddPaymentToOrder } from './useAddPaymentToOrder'
+export { default as useEligiblePaymentMethods } from './useEligiblePaymentMethods'
 
 
