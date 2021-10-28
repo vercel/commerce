@@ -11,11 +11,14 @@
         @screen xl {
             @apply grid-cols-6;
         }
-        .empty {
-            button {
-                margin-top: 1.6rem;
-                width: 100%;
-            }
+    }
+    .empty {
+        @apply flex flex-col justify-center items-center;
+        width: fit-content;
+        margin: auto;
+        button {
+            margin-top: 1.6rem;
+            width: 100%;
         }
     }
     .pagination {
