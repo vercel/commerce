@@ -38,7 +38,7 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
   const { openProductFilter } = useProductFilter()
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryProduct, setOptionQueryProduct] = useState<QuerySearchArgs>({ input: DEFAULT_SEARCH_ARGS })
-  const { products: productSearchResult, totalItems, loading } = useSearchProducts(optionQueryProduct)
+  const { products: productSearchResult, totalItems } = useSearchProducts(optionQueryProduct)
   const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
@@ -108,7 +108,7 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
         <div className={s.list}>
           <div className={s.top}>
             <div className={s.left}>
-              <HeadingCommon align="left">SPECIAL RECIPES</HeadingCommon>
+              <HeadingCommon align="left">Products</HeadingCommon>
               <button className={s.iconFilter} onClick={openProductFilter}>
                 <IconFilter />
                 <div className={s.dot}></div>
@@ -119,9 +119,6 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
               <ProductSort />
             </div>
           </div>
-          {
-            (!initialQueryFlag && loading && !productSearchResult) && <ListProductCardSkeleton count={DEFAULT_PAGE_SIZE} isWrap />
-          }
           <ProductList data={initialQueryFlag ? products : (productSearchResult || [])} total={totalItems !== undefined ? totalItems : total} onPageChange={onPageChange} defaultCurrentPage={currentPage} />
         </div>
       </div>
