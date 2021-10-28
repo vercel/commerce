@@ -2,10 +2,9 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 import s from './MenuDropdown.module.scss';
-import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 interface Props {
     children?: React.ReactNode,
-    options: { slug?: string, name: string, onClick?: () => void }[],
+    options: { link?: string, name: string, onClick?: () => void }[],
     isHasArrow?: boolean,
     align?: 'left'
 }
@@ -31,7 +30,7 @@ const MenuDropdown = ({ options, children, isHasArrow = true, align }: Props) =>
                                     {item.name}
                                 </button>
                                 :
-                                <Link href={`${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=${item.slug}` || ''}>
+                                <Link href={item.link || ''}>
                                     <a >
                                         {item.name}
                                     </a>

@@ -15,6 +15,7 @@ import styles from './FormLogin.module.scss'
 interface Props {
   isHide: boolean
   onSwitch: () => void
+  onClose :()=> void
   initialEmail?: string
 
 }
@@ -26,7 +27,7 @@ const displayingErrorMessagesSchema = Yup.object().shape({
     .required(LANGUAGE.MESSAGE.REQUIRED),
 })
 
-const FormLogin = ({ onSwitch, isHide, initialEmail = ''}: Props) => {
+const FormLogin = ({ onSwitch,onClose, isHide, initialEmail = ''}: Props) => {
   const emailRef = useRef<CustomInputCommon>(null)
   const { loading, login } = useLogin()
   const { showMessageSuccess, showMessageError } = useMessage()
@@ -89,7 +90,7 @@ const FormLogin = ({ onSwitch, isHide, initialEmail = ''}: Props) => {
                 </div>
                 <div className={styles.bottom}>
                   <Link href={ROUTE.FORGOT_PASSWORD}>
-                    <a href="" className={styles.forgotPassword}>
+                    <a onClick={onClose} className={styles.forgotPassword}>
                       Forgot Password?
                     </a>
                   </Link>

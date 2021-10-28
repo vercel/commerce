@@ -1,10 +1,12 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
+import moment from 'moment';
+import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import { BlogList, FacetValue, Notification, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
-import moment from 'moment'
+import { CollectionItems} from '@framework/schema'
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -202,4 +204,14 @@ export const getOrderIdsFromNewNotification = (noti: Notification[]) => {
 export function formatDate(dateTime:string){
   let date = new Date(dateTime);
   return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
+}
+
+export function convertLinkCollections(collections:CollectionItems[]){
+
+  return collections.map(val=>(
+    {
+      name:val.name,
+      link: `${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${val.slug}`
+    }
+    ));
 }
