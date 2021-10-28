@@ -2477,19 +2477,19 @@ export type BlogList = Node & {
   isFeatured: Boolean
 }
 
-export type RecipeList = Node &{
+export type RecipeList = Node & {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   featuredAsset?: Maybe<Asset>
-  isPublish:Boolean
+  isPublish: Boolean
   translations: Array<RecipeTranslation>
   authorName: Scalars['String']
-  authorAvatarAsset:Asset
+  authorAvatarAsset: Asset
   relevantProducts: Product[]
-  link:String
-  minutes:Number
-  people:Number
+  link: String
+  minutes: Number
+  people: Number
 }
 
 export enum SortRecipes {
@@ -2507,8 +2507,8 @@ export type RecipeTranslation = {
   slug: Scalars['String']
   description: Scalars['String']
   content: Scalars['String']
-  Ingredients:Scalars['String']
-  Preparation:Scalars['String']
+  Ingredients: Scalars['String']
+  Preparation: Scalars['String']
 }
 
 export type IngredientProducts = {
@@ -2566,7 +2566,7 @@ export type GetAllBlogsQuery = PaginatedList & {
 
 export type GetAllRecipesQuery = PaginatedList & {
   recipes: { __typename?: 'RecipeList' } & {
-    items:  Array<{ __typename?: 'Recipe' } & RecipeList!>,
+    items: Array<{ __typename?: 'Recipe' } & RecipeList!>,
     'totalItems'
   }
 }
@@ -2588,12 +2588,12 @@ export type GetFeaturedBlogQuery = PaginatedList & {
 
 
 export type QueryBlogs = {
-  excludeBlogIds:Array,
+  excludeBlogIds: Array,
   customOptions: BlogListOptions
 }
 
 export type QueryRecipes = {
-  excludeBlogIds?:Maybe<Array>,
+  excludeBlogIds?: Maybe<Array>,
   options: RecipeListOptions
 }
 
@@ -3613,6 +3613,22 @@ export type RequestPasswordReset = { __typename?: 'Mutation' } & {
   >)
 }
 
+export type ClientToken = {
+  __typename?: 'ClientToken';
+  token?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationGenerateBraintreeClientTokenArgs = {
+  orderId: Scalars['ID'];
+};
+
+export type GenerateBraintreeClientToken = { __typename?: 'Mutation' } & {
+  generateBraintreeClientToken?: Maybe<
+    { __typename?: 'ClientToken' } & Pick<
+      ClientToken,
+      '__typename' | 'token'>>;
+}
 
 
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
@@ -3700,7 +3716,7 @@ export type GetAllBlogPathsQuery = { __typename?: 'Query' } & {
 
 export type GetAllRecipePathsQuery = { __typename?: 'Query' } & {
   recipes: { __typename?: 'Recipes' } & {
-    items: Array<{ __typename?: 'Recipe' } & Pick<RecipeList,'slug','translations'>>
+    items: Array<{ __typename?: 'Recipe' } & Pick<RecipeList, 'slug', 'translations'>>
   }
 }
 
@@ -3755,10 +3771,6 @@ export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = { __typename?: 'Query' } & {
   activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
-}
-
-export type GenerateBraintreeClientTokenQuery = { __typename?: 'Query' } & {
-  generateBraintreeClientToken?: Maybe<string>
 }
 
 export type NewNotificationsQuery = { __typename?: 'Query' } & {
