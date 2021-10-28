@@ -13,7 +13,7 @@ const PaymentInfoForm = ({ orderId }: PaymentInfoFormProps) => {
   return (
     <div className={s.wrapper}>
       <TabCommon>
-        <TabPane tabName="Pay With Card">
+        <TabPane tabName="Credit Card">
           <div className={s.inner}><FormPayWithCard  orderId={orderId}/></div>
         </TabPane>
         <TabPane tabName="Bank Transfer">
@@ -22,7 +22,7 @@ const PaymentInfoForm = ({ orderId }: PaymentInfoFormProps) => {
         <TabPane tabName="Ewallet">
           <div className={s.inner}></div>
         </TabPane>
-        <TabPane tabName="Credit Card">
+        <TabPane tabName="Credit Card (Demo)">
           <div className={s.inner}><CreditCardForm /></div>
         </TabPane>
       </TabCommon>

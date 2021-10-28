@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ButtonCommon } from 'src/components/common';
+import SkeletonParagraph from 'src/components/common/SkeletonCommon/SkeletonParagraph/SkeletonParagraph';
 import { useMessage } from 'src/components/contexts';
 import { useAddPaymentToOrder, useGenerateBraintreeClientToken } from 'src/components/hooks/order';
 import { PaymentMethod, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
@@ -73,7 +74,9 @@ const FormPayWithCard = ({ orderId  = ''}: Props) => {
 
     return (
         <div className={styles.formPayWithCard}>
-            <div id="dropin-container"></div>
+            <div id="dropin-container">
+                <SkeletonParagraph rows={5}/>
+            </div>
             <div className={s.bottom}>
                 <ChekoutNotePolicy />
                 <div className={s.button}>
