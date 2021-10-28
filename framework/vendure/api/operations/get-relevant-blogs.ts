@@ -1,3 +1,4 @@
+import { normalizeBlogList } from '@framework/utils/normalize';
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
 import { BlogList,GetRelevantBlogsQuery } from '../../schema'
@@ -34,22 +35,11 @@ export default function getRelevantBlogsOperation({
     const { data } = await config.fetch<GetRelevantBlogsQuery>(query, {
       variables,
     })
-    if(data){
+    if(data?.relevantBlogs){
    
-    return {
-        relevantBlogs: data?.relevantBlogs?.items?.map((val:BlogList)=>({
-            id: val.id,
-            title: val.translations[0]?.title,
-            imageSrc: val.featuredAsset?.preview ?? null,
-            slug: val.translations[0]?.slug,
-            description: val.translations[0]?.description,
-            isPublish: val.isPublish,
-            isFeatured: val.isFeatured,
-            authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview,
-            createdAt: val.createdAt
-        })),
-    }
+      return {
+        relevantBlogs:data?.relevantBlogs?.items?.map((val:BlogList)=>normalizeBlogList(val))
+      }
     }else{
       return {relevantBlogs:[]}
     }

@@ -19,7 +19,7 @@ const CartDrawer = ({ }: Props) => {
   const {order} = useGetActiveOrder()
   return (
     <DrawerCommon
-      title={`Your cart (${order?.lineItems.length})`}
+      title={`Your cart (${order?.lineItems.length || 0})`}
       visible={cartVisible}
       onClose={closeCartDrawer}>
       <div className={s.cartDrawer}>

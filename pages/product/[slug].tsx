@@ -1,31 +1,30 @@
 
 import { Collection } from '@commerce/types/collection'
 import { Product, ProductCard } from '@commerce/types/product'
+import { normalizeProductCard } from '@framework/utils/normalize'
 import commerce from '@lib/api/commerce'
-import { GetStaticPathsContext, GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
 import { useEffect, useState } from 'react'
 import { Layout, RecipeDetail, RecommendedRecipes, RelevantBlogPosts } from 'src/components/common'
+import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import { useLocalStorage } from 'src/components/hooks/useLocalStorage'
 import { ProductInfoDetail, ReleventProducts, ViewedProducts } from 'src/components/modules/product-detail'
 import { LOCAL_STORAGE_KEY, MAX_PRODUCT_CAROUSEL, REVALIDATE_TIME } from 'src/utils/constanst.utils'
-import { BLOGS_DATA_TEST, INGREDIENT_DATA_TEST, RECIPE_DATA_TEST } from 'src/utils/demo-data'
+import { INGREDIENT_DATA_TEST, RECIPE_DATA_TEST } from 'src/utils/demo-data'
 import { getAllPromies } from 'src/utils/funtion.utils'
-import { normalizeProductCard } from '@framework/utils/normalize';
 import { PromiseWithKey } from 'src/utils/types.utils'
 interface Props {
   relevantProducts: ProductCard[],
   product: Product,
-  collections: Collection[]
+  collections: Collection[],
+  relevant: BlogCardProps[]
 }
-export default function Slug({ product, relevantProducts, collections }: Props) {
+export default function Slug({ product, relevantProducts, collections,relevant }: Props) {
   const [local,setLocal] = useLocalStorage<Product[]>(LOCAL_STORAGE_KEY.VIEWEDPRODUCT, []);
-  const [viewed, setViewed] = useState<ProductCard[]>([])
   useEffect(() => {
     if(local){
       if(!local.find(p => p.id === product.id)){
         setLocal([...local, product])
-      }else{
-        setViewed(local.filter((p)=>p.id !== product.id).map((p)=>normalizeProductCard(p)))
       }
     }else{
       setLocal([product])
@@ -37,8 +36,8 @@ export default function Slug({ product, relevantProducts, collections }: Props) 
     <RecipeDetail ingredients={INGREDIENT_DATA_TEST} />
     <RecommendedRecipes data={RECIPE_DATA_TEST} />
     <ReleventProducts data={relevantProducts} collections={collections}/>
-    <ViewedProducts data={viewed}/>
-    <RelevantBlogPosts data={BLOGS_DATA_TEST} title="relevent blog posts" />
+    <ViewedProducts product={product}/>
+    <RelevantBlogPosts data={relevant} title="relevent blog posts" />
   </>
 }
 
@@ -59,9 +58,8 @@ export async function getStaticProps({
   })
   props.product = product
 
-
-  if (!product) {
-    throw new Error(`Product with slug '${params!.slug}' not found`)
+  if (product === null) {
+    return { notFound: true };
   }
 
   // relevant product (filter by product detail's facetIds)
@@ -88,6 +86,21 @@ export async function getStaticProps({
     preview,
   })
   promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections' })
+
+
+  // Relevant Blogs
+  if (product.id) {
+
+    const relevantBlogs = commerce.getRelevantBlogs({
+      variables: { productId: Number(product.id) },
+      config,
+      preview,
+    })
+    promisesWithKey.push({ key: 'relevant', promise: relevantBlogs,keyResult: 'relevantBlogs'})
+  }else {
+    props.relevantBlogs = [];
+  }
+
 
   try {
     const promises = getAllPromies(promisesWithKey)

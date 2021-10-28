@@ -6,11 +6,15 @@ import { Inputcommon } from '..';
 interface Props {
     onChange?: (value: string | number) => void,
     onEnter?: (value: string | number) => void,
+    value: string | number
 }
 
-const InputSearch = ({ onChange, onEnter }: Props) => {
+const InputSearch = ({ onChange, onEnter, value }: Props) => {
+
+
     return (
         <Inputcommon placeholder={LANGUAGE.PLACE_HOLDER.SEARCH}
+            value={value}
             styleType='custom'
             icon={<IconSearch />}
             onChange={onChange}

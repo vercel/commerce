@@ -1,7 +1,7 @@
-import commerce from '@lib/api/commerce';
-import { GetStaticPropsContext } from 'next';
 import { ProductCard } from '@commerce/types/product';
-import { Layout, ListProductCardSkeleton } from 'src/components/common';
+import { GetStaticPropsContext } from 'next';
+import { Layout } from 'src/components/common';
+import PaymentInfoForm from 'src/components/modules/checkout/CheckoutInfo/components/PaymentInfoForm/PaymentInfoForm';
 
 interface Props {
   productDetail: ProductCard[],
@@ -9,11 +9,7 @@ interface Props {
 export default function Home({ productDetail }: Props) {
   return (
     <>
-      {/* <ListProductCardSkeleton /> */}
-      {/* <ListProductCardSkeleton count={1} /> */}
-      <ListProductCardSkeleton count={10} />
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab qui magnam debitis ex laborum laboriosam suscipit! Totam excepturi eum libero.
-      <ListProductCardSkeleton count={10} isWrap/>
+      <PaymentInfoForm id={4} />
     </>
   )
 }

@@ -1,10 +1,10 @@
 import classNames from 'classnames'
-import IconHeart from 'src/components/icons/IconHeart'
-import React, { memo } from 'react'
-import s from './ItemWishList.module.scss'
-import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
+import React, { memo, useState } from 'react'
 import { useMessage } from 'src/components/contexts'
+import IconHeart from 'src/components/icons/IconHeart'
 import { LANGUAGE } from 'src/utils/language.utils'
+import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
+import s from './ItemWishList.module.scss'
 interface Props {
     id:string,
     isActive?: boolean,
@@ -12,25 +12,35 @@ interface Props {
 }
 
 const ItemWishList = memo(({id,isActive=false, onChange}:Props) => {
+  
     const {onToggleProductWishlist} = useToggleProductWishlist();
+
+    const [idToggleResult,setIdToggleResult] = useState(isActive);
+    
     const { showMessageSuccess, showMessageError } = useMessage();
 
     function toggleWishlist(){
-        onToggleProductWishlist({productId:id},onSignupCallBack)
+        setIdToggleResult(!idToggleResult);
+        onToggleProductWishlist({productId:id},onToggleCallBack)
     }
   
-      const onSignupCallBack = (isSuccess: boolean, message?: string) => {
+      const onToggleCallBack = (isSuccess: boolean, message?: string) => {
         if (isSuccess) {
-        //   showMessageSuccess("Create account successfully. Please verify your email to login.", 15000)
+          if(!idToggleResult){
+            showMessageSuccess("Product added to wishlist", 15000)
+          }else{
+            showMessageError("Product removed from wishlist", 15000)
+          }
         } else {
-          showMessageError(message || LANGUAGE.MESSAGE.ERROR)
+          showMessageError(LANGUAGE.MESSAGE.ERROR)
+          setIdToggleResult(false);
         }
       }
-    
+
     return(
         <div className={classNames({
             [s.heartToggle]: true, 
-            [s.isToggleOn]: isActive
+            [s.isToggleOn]: idToggleResult
         })}
         onChange={onChange}
         onClick={toggleWishlist}

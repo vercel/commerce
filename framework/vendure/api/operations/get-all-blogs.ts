@@ -1,3 +1,4 @@
+import { normalizeBlogList } from '@framework/utils/normalize';
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
 import { GetAllBlogsQuery,BlogList } from '../../schema'
@@ -37,31 +38,22 @@ export default function getAllBlogsOperation({
     const config = commerce.getConfig(cfg)
     const variables = {
       excludeBlogIds: vars.excludeBlogIds,
-      options: {
-        take: vars.take,
-        filter: {
-          isFeatured: vars.filter?.isFeatured
-        }
+      customOptions: {
+        take: vars.take
       },
     }
     const { data } = await config.fetch<GetAllBlogsQuery>(query, {
       variables,
     })
-    return {
-        blogs: data?.blogs?.items?.map((val:BlogList)=>({
-            id: val.id,
-            title: val.translations[0]?.title,
-            imageSrc: val.featuredAsset?.preview ?? null,
-            slug: val.translations[0]?.slug,
-            description: val.translations[0]?.description,
-            isPublish: val.isPublish,
-            isFeatured: val.isFeatured,
-            authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
-            createdAt: val.createdAt
-        })),
+    if(data){
+      return {
+        blogs: data?.blogs?.items?.map((val:BlogList)=>normalizeBlogList(val)),
         totalItems: data?.blogs?.totalItems || null
+      }
+    }else{
+      return {blogs:[]};
     }
+  
   }
 
   return getAllBlogs

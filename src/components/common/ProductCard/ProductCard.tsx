@@ -13,6 +13,7 @@ import ProductNotSell from './ProductNotSell/ProductNotSell'
 import {useAddProductToCart} from "../../hooks/cart"
 import { useCartDrawer } from 'src/components/contexts'
 import Router from 'next/router'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
@@ -38,6 +39,7 @@ const ProductCardComponent = ({
 
   const {addProduct,loading} = useAddProductToCart()
   const { openCartDrawer } = useCartDrawer()
+  const { customer } = useActiveCustomer()
 
   const handleAddToCart = () => {
     if(productVariantId){
@@ -96,7 +98,7 @@ const ProductCardComponent = ({
         <div className={s.cardMidBot}>
           <div className={s.productPrice}>{price} {currencyCode}</div>
           <div className={s.wishList}>
-            <ItemWishList isActive={activeWishlist}  id={id}/>
+            {customer && <ItemWishList isActive={activeWishlist}  id={id}/>}
           </div>
         </div>
       </div>

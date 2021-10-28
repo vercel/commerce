@@ -1,12 +1,20 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
-import { FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
+import { BlogList, FacetValue, Notification, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
+import moment from 'moment'
 
 export function isMobile() {
   return window.innerWidth < 768
+}
+
+export function formatTimeAgo(time: string) {
+  return moment(time).fromNow()
+}
+export function unique<T>(data: Array<T>): Array<T> {
+  return [...new Set(data)];
 }
 
 export function getPageFromQuery(pageQuery: string) {
@@ -81,9 +89,16 @@ export function getFreshFacetId(facets: Facet[]) {
   return freshFacetValue?.id
 }
 
-export function getFacetIdByName(facets: Facet[], facetName: string, valueName:string) {
+export function getFacetIdByName(facets: Facet[], facetName: string, valueName: string) {
   const featuredFacet = facets.find((item: Facet) => item.name === facetName)
   const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.name === valueName)
+  return freshFacetValue?.id
+}
+
+
+export function getFacetIdByCode(facets: Facet[], parentCode: string, valueCode:string) {
+  const featuredFacet = facets.find((item: Facet) => item.code === parentCode)
+  const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.code === valueCode)
   return freshFacetValue?.id
 }
 
@@ -130,7 +145,7 @@ export function getFacetIdsFromCodes(facets: FacetValue[], codes?: string[]): st
   return ids
 }
 
-export const getCategoryNameFromCollectionId = (colelctions: Collection[], collectionId?: string ) => {
+export const getCategoryNameFromCollectionId = (colelctions: Collection[], collectionId?: string) => {
   if (!collectionId) {
     return ''
   }
@@ -147,11 +162,11 @@ export function getIdFeaturedBlog(blog: BlogList) {
   return blog?.id
 }
 
-export const FilterOneVatiant = (products:ProductCard[]) => {
-  let idList:string[] = []
-  let filtedProduct: ProductCard[]=[]
-  products.map((product:ProductCard)=>{
-    if(!idList.includes(product.id)){
+export const FilterOneVatiant = (products: ProductCard[]) => {
+  let idList: string[] = []
+  let filtedProduct: ProductCard[] = []
+  products.map((product: ProductCard) => {
+    if (!idList.includes(product.id)) {
       filtedProduct.push(product)
       idList.push(product.id)
     }
@@ -159,8 +174,8 @@ export const FilterOneVatiant = (products:ProductCard[]) => {
   return filtedProduct
 }
 
-export const convertOption = (values :ProductOptionValues[]) => {
-  return values.map((value)=>{ return {name:value.label,value:value.label}})
+export const convertOption = (values: ProductOptionValues[]) => {
+  return values.map((value) => { return { name: value.label, value: value.label } })
 }
 
 export function getProductVariant(product: Product, opts: SelectedOptions) {
@@ -177,6 +192,11 @@ export function getProductVariant(product: Product, opts: SelectedOptions) {
     )
   })
   return variant
+}
+
+export const getOrderIdsFromNewNotification = (noti: Notification[]) => {
+  const orderIds = noti.map(item => item.order?.id || "")
+  return unique(orderIds)
 }
  
 export function formatDate(dateTime:string){

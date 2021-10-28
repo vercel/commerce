@@ -1,4 +1,5 @@
 import { CartCheckout } from '@commerce/types/cart'
+import classNames from 'classnames'
 import Link from 'next/link'
 import React from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
@@ -51,7 +52,7 @@ const CheckoutBill = ({ data }: CheckoutBillProps) => {
             Shipping
             <div className={s.shipping}>{data?.shippingLine?.priceWithTax || 0}  {data?.currency?.code}</div>
           </div>
-          <div className={s.line}>
+          <div className={classNames(s.line, s.totalLine)}>
             Estimated Total
             <div className={s.total}>{data?.totalPrice || 0} {data?.currency?.code}</div>
           </div>

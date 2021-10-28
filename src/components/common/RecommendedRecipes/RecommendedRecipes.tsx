@@ -30,10 +30,10 @@ const RESPONSIVE: ResponsiveType = {
     },
   }
 interface Props {
-    data: RecipeCardProps[],
+    data?: RecipeCardProps[],
 }
 
-const RecommendedRecipes = ({ data }: Props) => {
+const RecommendedRecipes = ({ data=[] }: Props) => {
     return (
         <div className={s.recommendedRecipes}>
             <div className={s.infoProducts}>
