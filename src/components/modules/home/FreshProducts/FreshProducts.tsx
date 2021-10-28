@@ -1,5 +1,5 @@
+import { Collection } from '@commerce/types/collection'
 import { ProductCard } from '@commerce/types/product'
-import { Collection } from '@framework/schema'
 import React, { useMemo } from 'react'
 import { OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { getCategoryNameFromCollectionId } from 'src/utils/funtion.utils'
