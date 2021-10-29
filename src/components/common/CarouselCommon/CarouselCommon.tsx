@@ -76,7 +76,7 @@ const CarouselCommon = <T,>({
       >
         {data.map((props, index) => {
           const allProps = defaultComponentProps
-          ? { ...props, ...defaultComponentProps }
+          ? { ...defaultComponentProps, ...props }
           : props
           return <Component {...allProps} key={`${itemKey}-${index}`} />
         })}

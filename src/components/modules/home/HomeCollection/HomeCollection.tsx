@@ -1,11 +1,6 @@
 import React from 'react'
-import { ProductCard } from '@commerce/types/product'
-import { CollectionCarcousel } from '..'
-import image5 from '../../../../../public/assets/images/image5.png'
-import image6 from '../../../../../public/assets/images/image6.png'
-import image7 from '../../../../../public/assets/images/image7.png'
-import image8 from '../../../../../public/assets/images/image8.png'
 import { CollectionsWithData } from 'src/utils/types.utils'
+import { CollectionCarcousel } from '..'
 interface HomeCollectionProps {
   data: CollectionsWithData[]
 }
