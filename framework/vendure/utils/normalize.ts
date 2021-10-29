@@ -1,4 +1,4 @@
-import { Cart, CartCheckout } from '@commerce/types/cart'
+import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart'
 import { Product, ProductCard } from '@commerce/types/product'
 import { OrderState } from 'src/utils/types.utils'
 import { CartFragment, SearchResultFragment,Favorite, BlogList, RecipeList ,ShippingMethod } from '../schema'
@@ -97,7 +97,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
       postalCode: order.shippingAddress?.postalCode || '',
       countryCode: order.shippingAddress?.countryCode || '',
       phoneNumber: order.shippingAddress?.phoneNumber || '',
-    },
+    } as ShippingAddress,
     shippingLine: order.shippingLines[0] ? {
       priceWithTax: order.shippingLines[0]?.priceWithTax / 100,
       shippingMethod: order.shippingLines[0]?.shippingMethod as ShippingMethod

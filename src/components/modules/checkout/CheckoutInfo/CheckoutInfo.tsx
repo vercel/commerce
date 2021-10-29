@@ -59,7 +59,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
 
 
   const onEdit = (id: CheckoutStep) => {
-    if (activeStep === CheckoutStep.PaymentInfo) {
+    if (activeStep === CheckoutStep.PaymentInfo && order?.state !== 'AddingItems') {
       changeOrderState('AddingItems', onChanegOrderStateToAddingItemsCallBack)
       setActiveStep(id)
     } else {
@@ -71,6 +71,12 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     if (!isSuccess) {
       showMessageError(message)
       setActiveStep(CheckoutStep.PaymentInfo)
+    }
+  }
+
+  const onChanegOrderStateToArrangingPaymentCallBack = (isSuccess: boolean, message?: string) => {
+    if (!isSuccess) {
+      showMessageError(message)
     }
   }
 
@@ -89,7 +95,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     }
 
     if (nextStep === CheckoutStep.PaymentInfo) {
-      changeOrderState('ArrangingPayment')
+      changeOrderState('ArrangingPayment', onChanegOrderStateToArrangingPaymentCallBack)
     } else {
       setActiveStep(nextStep)
     }
@@ -137,12 +143,12 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.ShippingAddressInfo,
       title: 'Shipping Address Information',
-      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingAddressInfo} activeStep={activeStep} />,
+      form: <ShippingInfoForm onConfirm={onConfirm} id={CheckoutStep.ShippingAddressInfo} activeStep={activeStep} initialValues={order?.shippingAddress} />,
     },
     {
       id: CheckoutStep.ShippingMethodInfo,
       title: 'Shipping Method Information',
-      form: <ShippingMethod onConfirm={onConfirm} currency={currency} />,
+      form: <ShippingMethod onConfirm={onConfirm} currency={currency} initialValueId={order?.shippingLine?.shippingMethod?.id} />,
     },
     {
       id: CheckoutStep.PaymentInfo,

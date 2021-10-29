@@ -84,7 +84,16 @@ export type Cart = {
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
 
-  state:OrderState
+  state: OrderState
+}
+
+export type ShippingAddress = {
+  streetLine1: string,
+  city: string,
+  province: string,
+  postalCode: string,
+  countryCode: string,
+  phoneNumber: string,
 }
 
 export type CartCheckout = {
@@ -98,14 +107,7 @@ export type CartCheckout = {
     lastName: string,
     emailAddress: string,
   }
-  shippingAddress?: {
-    streetLine1: string,
-    city: string,
-    province: string,
-    postalCode: string,
-    countryCode: string,
-    phoneNumber: string,
-  }
+  shippingAddress?: ShippingAddress
   // The email assigned to this cart
   email?: string
   // The date and time when the cart was created.
