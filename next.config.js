@@ -25,7 +25,7 @@ module.exports = withCommerceConfig({
   },
   images: {
     // todo: replace domains for images
-    domains: ['user-images.githubusercontent.com'],
+    domains: ['user-images.githubusercontent.com', '46.137.194.235'],
     minimumCacheTTL: 60,
   },
   i18n: {
