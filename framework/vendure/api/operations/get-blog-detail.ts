@@ -38,17 +38,17 @@ export default function getBlogDetailOperation({
 
       return {
         blogDetail: {
-          id:data?.blog?.id,
-          title: data?.blog?.translations[0].title,
+          id:data?.blog?.id ?? null,
+          title: data?.blog?.translations[0].title ?? null,
           imageSrc: data?.blog?.featuredAsset?.preview ?? null,
-          slug: data?.blog?.translations[0]?.slug,
-          description: data?.blog?.translations[0]?.description,
-          isPublish: data?.blog?.isPublish,
-          isFeatured: data?.blog?.isFeatured,
-          authorName: data?.blog?.authorName,
-          authorAvatarAsset : data?.blog?.authorAvatarAsset?.preview,
-          createdAt: data?.blog?.createdAt,
-          relevantProducts: data?.blog?.relevantProducts.map(val=>val.id)
+          slug: data?.blog?.translations[0]?.slug ?? null,
+          description: data?.blog?.translations[0]?.description ?? null,
+          isPublish: data?.blog?.isPublish ?? null,
+          isFeatured: data?.blog?.isFeatured ?? null,
+          authorName: data?.blog?.authorName ?? null,
+          authorAvatarAsset : data?.blog?.authorAvatarAsset?.preview ?? null,
+          createdAt: data?.blog?.createdAt ?? null,
+          relevantProducts: data?.blog?.relevantProducts.map(val=>val.id) ?? null
         }
       }
 

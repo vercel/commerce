@@ -148,16 +148,16 @@ export function normalizeProductCard(product: Product): ProductCard {
 
 export function normalizeBlogList(blog: BlogList) {
   return {
-      id: blog.id,
-      title: blog.translations[0]?.title,
+      id: blog.id ?? null,
+      title: blog.translations[0]?.title ?? null,
       imageSrc: blog.featuredAsset?.preview ?? null,
-      slug: blog.translations[0]?.slug,
-      description: blog.translations[0]?.description,
-      isPublish: blog.isPublish,
-      isFeatured:blog.isFeatured,
-      authorName: blog.authorName,
-      authorAvatarAsset : blog.authorAvatarAsset?.preview,
-      createdAt: blog.createdAt
+      slug: blog.translations[0]?.slug ?? null,
+      description: blog.translations[0]?.description ?? null,
+      isPublish: blog.isPublish ?? null,
+      isFeatured:blog.isFeatured ?? null,
+      authorName: blog.authorName ?? null,
+      authorAvatarAsset: blog.authorAvatarAsset?.preview ?? null,
+      createdAt: blog.createdAt ?? null
   }
 }
 

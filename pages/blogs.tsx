@@ -1,11 +1,11 @@
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
-import { Layout } from 'src/components/common';
+import { BlogEmpty, Layout } from 'src/components/common';
 import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog';
 import { BlogBreadCrumb, BlogHeading, BlogsList, FeaturedCardBlog } from 'src/components/modules/blogs';
-import { DEFAULT_BLOG_PAGE_SIZE, REVALIDATE_TIME} from "src/utils/constanst.utils";
-import { getAllPromies } from 'src/utils/funtion.utils';
-import { PromiseWithKey, SortOrder} from 'src/utils/types.utils';
+import { DEFAULT_BLOG_PAGE_SIZE, REVALIDATE_TIME } from "src/utils/constanst.utils";
+import { formatDate, getAllPromies } from 'src/utils/funtion.utils';
+import { PromiseWithKey, SortOrder } from 'src/utils/types.utils';
 
 interface Props {
     blogs?: BlogCardProps[],
@@ -14,26 +14,29 @@ interface Props {
 }
 export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
 
-    let date = new Date(featuredBlog?.[0]?.createdAt ?? '' );
-    let fullDate = date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
-  
-
     return(
         <>
             <BlogBreadCrumb />
             <BlogHeading />
-            { (featuredBlog?.length !=0 ) &&
-            <FeaturedCardBlog 
-            title={featuredBlog?.[0]?.title} 
-            slug={featuredBlog?.[0]?.slug} 
-            imgSrc={featuredBlog?.[0]?.imageSrc ?? ''}
-            content={featuredBlog?.[0]?.description}
-            imgAuthor={featuredBlog?.[0]?.authorAvatarAsset}
-            authorName={featuredBlog?.[0]?.authorName}
-            date={fullDate}
-            />
-          }
-            <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id} />
+            { (featuredBlog?.length !==0 ) &&
+              <FeaturedCardBlog 
+              title={featuredBlog?.[0]?.title} 
+              slug={featuredBlog?.[0]?.slug} 
+              imgSrc={featuredBlog?.[0]?.imageSrc ?? null}
+              content={featuredBlog?.[0]?.description}
+              imgAuthor={featuredBlog?.[0]?.authorAvatarAsset ?? null}
+              authorName={featuredBlog?.[0]?.authorName}
+              date={formatDate(featuredBlog?.[0]?.createdAt ?? '')}
+              />
+            }
+           
+            {
+              (blogs?.length !== 0) && 
+              <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id} />
+            }
+            {
+              (blogs?.length === 0 && featuredBlog?.length === 0 ) &&  <BlogEmpty />
+            }
         </>
     )
 }

@@ -3,13 +3,13 @@ import { Author, DateTime, ImgWithLink } from 'src/components/common'
 import Link from 'next/link'
 import { ROUTE } from 'src/utils/constanst.utils'
 interface FeaturedCardBlogProps{
-    title?: string,
-    slug?:string,
-    content?: string,
-    imgSrc?: string,
-    imgAuthor?: string,
-    date?: string,
-    authorName?: string,
+    title?: string | null,
+    slug?:string | null,
+    content?: string | null,
+    imgSrc?: string | null,
+    imgAuthor?: string | null,
+    date?: string | null,
+    authorName?: string | null,
 }
 
 const FeaturedCardBlog = ({ 
@@ -27,18 +27,18 @@ const FeaturedCardBlog = ({
                 <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
                     <a> 
                         <div className={s.left}>
-                            <ImgWithLink src={imgSrc} alt="image feature card"/>
+                            <ImgWithLink src={imgSrc ?? ''} alt="image feature card"/>
                         </div>
                     </a>
                 </Link>
                 <div className={s.right}>
                     <div className={s.titleWrapper}>
-                        <DateTime date={date }/>
+                        <DateTime date={date ?? ''}/>
                         <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
                             <a className={s.title}>{title}</a>
                         </Link>
                     </div>
-                    <Author name={authorName} image={imgAuthor}/>
+                    <Author name={authorName ?? ''} image={imgAuthor ?? ''}/>
                     <div className={s.content}>{content}</div>
                 </div>
             </div>

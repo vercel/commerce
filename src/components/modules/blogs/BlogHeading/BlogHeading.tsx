@@ -6,7 +6,7 @@ interface BlogHeadingProps {
     heading?: string,
 }
 
-const BlogHeading = ({heading = "BLOG"}: BlogHeadingProps) => {
+const BlogHeading = ({heading = "BLOGS"}: BlogHeadingProps) => {
     return (
         <section className={s.headingWrapper}>
             <div className={s.heading}>

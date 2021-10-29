@@ -1,3 +1,4 @@
+import { normalizeBlogList } from '@framework/utils/normalize';
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
 import { GetFeaturedBlogQuery,BlogList } from '../../schema'
@@ -41,28 +42,24 @@ export default function getFeaturedBlogOperation({
         take: vars.take,
         sort:{
           updatedAt: vars.sort?.updateAt
-        },
-        filter: {
-          isFeatured: vars.filter?.isFeatured
         }
       },
     }
     const { data } = await config.fetch<GetFeaturedBlogQuery>(query, {
       variables,
     })
-    return {
-      featuredBlogs: data?.featuredBlogs?.items?.map((val:BlogList)=>({
-            id: val.id,
-            title: val.translations[0]?.title,
-            imageSrc: val.featuredAsset?.preview ?? null,
-            slug: val.translations[0]?.slug,
-            description: val.translations[0]?.description,
-            isPublish: val.isPublish,
-            isFeatured: val.isFeatured,
-            authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
-            createdAt: val.createdAt
-        }))
+    if(data?.featuredBlogs != null){
+
+      return {
+        featuredBlogs: data?.featuredBlogs?.items?.map((val:BlogList)=>normalizeBlogList(val))
+      }
+
+    }else{
+      
+      return {
+        featuredBlogs: []
+      }
+      
     }
   }
 
