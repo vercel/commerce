@@ -29,6 +29,8 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
 
 
     const router = useRouter();
+
+
     const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
 
     const [optionQueryBlog, setOptionQueryBlog] = useState<QueryBlogs>(DEFAULT_BLOGS_ARGS)
@@ -54,6 +56,11 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
         const query = { ...DEFAULT_BLOGS_ARGS } as QueryBlogs;
         const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
         query.customOptions.skip = page * DEFAULT_BLOG_PAGE_SIZE;
+        window.scrollTo({
+            top: 600,
+            behavior: "smooth"
+          });
+          
         setOptionQueryBlog(query);
         setInitialQueryFlag(false);
     },[router.query,DEFAULT_BLOGS_ARGS])
@@ -70,9 +77,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
     return (
         <section>
             <div className={s.wrapper}>
-                {(!initialQueryFlag && loading && !blogs) && <ListBlogCardSkeleton count={DEFAULT_BLOG_PAGE_SIZE} isWrap  />}
                 <div className={s.list}>
-                    
                     {
                         data?.map((product,index)=> {
                         return(

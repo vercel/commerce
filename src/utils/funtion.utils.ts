@@ -1,7 +1,7 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
-import moment from 'moment';
+import moment, { now } from 'moment';
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import { BlogList, FacetValue, Notification, SearchResultSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
