@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Logo } from 'src/components/common'
 import CheckoutCollapse from 'src/components/common/CheckoutCollapse/CheckoutCollapse'
+import { useMessage } from 'src/components/contexts'
 import { useActiveCustomer } from 'src/components/hooks/auth'
 import { useGetActiveOrderForCheckout } from 'src/components/hooks/order'
+import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
 import { OrderState } from '../../../../utils/types.utils'
 import s from './CheckoutInfo.module.scss'
 import CustomerInfoForm from './components/CustomerInfoForm/CustomerInfoForm'
@@ -26,6 +28,8 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
   const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
   const { order } = useGetActiveOrderForCheckout()
   const { customer } = useActiveCustomer()
+  const { changeOrderState } = useChangeOrderState()
+  const { showMessageError } = useMessage()
 
   useEffect(() => {
     if (customer) {
@@ -49,24 +53,45 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
   useEffect(() => {
     if (order?.state as OrderState === 'ArrangingPayment') {
       setActiveStep(CheckoutStep.PaymentInfo)
+      setDoneSteps([CheckoutStep.CustomerInfo, CheckoutStep.ShippingAddressInfo, CheckoutStep.ShippingMethodInfo])
     }
-  }, [order])
+  }, [order?.state])
 
 
   const onEdit = (id: CheckoutStep) => {
-    setActiveStep(id)
+    if (activeStep === CheckoutStep.PaymentInfo) {
+      changeOrderState('AddingItems', onChanegOrderStateToAddingItemsCallBack)
+      setActiveStep(id)
+    } else {
+      setActiveStep(id)
+    }
+  }
+
+  const onChanegOrderStateToAddingItemsCallBack = (isSuccess: boolean, message?: string) => {
+    if (!isSuccess) {
+      showMessageError(message)
+      setActiveStep(CheckoutStep.PaymentInfo)
+    }
   }
 
   const updateActiveStep = (step: CheckoutStep) => {
+    let nextStep = CheckoutStep.ShippingAddressInfo
+
     if (doneSteps.length > 0) {
       for (let i = step + 1; i < Object.keys(CheckoutStep).length; i++) {
         if (!doneSteps.includes(i)) {
-          setActiveStep(i)
-          return
+          nextStep = i
+          break;
         }
       }
     } else {
-      setActiveStep(step + 1)
+      nextStep = step + 1
+    }
+
+    if (nextStep === CheckoutStep.PaymentInfo) {
+      changeOrderState('ArrangingPayment')
+    } else {
+      setActiveStep(nextStep)
     }
   }
 
@@ -143,8 +168,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
           isEdit={doneSteps.includes(item.id)}
           onClose={onConfirm}
           note={note}
-          disableEdit={(customer && item.id === CheckoutStep.CustomerInfo)
-            || (order?.state as OrderState === 'ArrangingPayment' && item.id !== CheckoutStep.PaymentInfo)}
+          disableEdit={(customer && item.id === CheckoutStep.CustomerInfo)}
         >
           {item.form}
         </CheckoutCollapse>
