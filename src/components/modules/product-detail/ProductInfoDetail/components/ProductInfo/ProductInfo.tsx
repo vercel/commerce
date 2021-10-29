@@ -34,13 +34,17 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
 	const { openCartDrawer } = useCartDrawer()
 
 	function handleAddToCart() {
-    setAddToCartLoading(true)
-		const variant = getProductVariant(productInfoDetail, option)
-		if (variant) {
-			addProduct({ variantId: variant.id.toString(), quantity: quanitty }, handleAddToCartCallback)
-		}else{
-      setAddToCartLoading(false)
-    }
+        if(quanitty>0){
+            setAddToCartLoading(true)
+            const variant = getProductVariant(productInfoDetail, option)
+            if (variant) {
+                addProduct({ variantId: variant.id.toString(), quantity: quanitty }, handleAddToCartCallback)
+            }else{
+            setAddToCartLoading(false)
+        }
+        }else{
+            showMessageError("Quantity Must Be Greater Than 0")
+        }
 	}
   const handleAddToCartCallback = (isSuccess:boolean,message?:string) => {
 		setAddToCartLoading(false)
@@ -62,6 +66,7 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
   }
 
   const handleBuyNow = () => {
+    if(quanitty>0){
 		setBuyNowLoading(true)
 		const variant = getProductVariant(productInfoDetail, option)
 		if (variant) {
@@ -69,6 +74,9 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
 		}else{
 			setBuyNowLoading(false)
 		}
+    }else{
+        showMessageError("Quantity Must Be Greater Than 0")
+    }
   }
 
     const handleQuanittyChange = (value:number) => {
@@ -85,11 +93,11 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                 <LabelCommon shape='half'>{productInfoDetail.collection?.[0]}</LabelCommon>
                 <h2 className={s.heading}>{productInfoDetail.name}</h2>
                 <div className={s.price}>
-                    <div className={s.old}>
+                    {/* <div className={s.old}>
                         <span className={s.number}>Rp {productInfoDetail.price}</span>
                         <LabelCommon type='discount'>-15%</LabelCommon>
-                    </div>
-                    <div className={s.current}>Rp {productInfoDetail.price}</div>
+                    </div> */}
+                    <div className={s.current}>{productInfoDetail.price} {productInfoDetail.currencyCode}</div>
                 </div>
                 <div className={s.description}>
                     {productInfoDetail.description}
