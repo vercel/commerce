@@ -23,7 +23,7 @@ const FormPayWithCard = ({ orderId = '' }: Props) => {
     const [isInitialCardLoading, setIsInitialCardLoading] = useState(true)
     const [clientToken, setClientToken] = useState<string | null>()
     const { generateBraintreeClientToken, loading: generateTokenLoading } = useGenerateBraintreeClientToken()
-    const { addPaymentToOrder } = useAddPaymentToOrder()
+    const { addPaymentToOrder, loading } = useAddPaymentToOrder()
     const { showMessageError } = useMessage()
 
     useEffect(() => {
@@ -97,7 +97,7 @@ const FormPayWithCard = ({ orderId = '' }: Props) => {
             <div className={s.bottom}>
                 <ChekoutNotePolicy />
                 <div className={s.button}>
-                    <ButtonCommon onClick={handleSubmit}>
+                    <ButtonCommon onClick={handleSubmit} loading={loading}>
                         Submit Order
                     </ButtonCommon>
                 </div>
