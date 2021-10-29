@@ -1,22 +1,21 @@
 import { ProductCard } from '@commerce/types/product'
 import Link from 'next/link'
+import Router from 'next/router'
 import React, { useState } from 'react'
+import { useCartDrawer, useMessage } from 'src/components/contexts'
+import { useActiveCustomer } from 'src/components/hooks/auth'
+import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder'
+import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
 import { IconBuy } from 'src/components/icons'
 import { ROUTE } from 'src/utils/constanst.utils'
-import { ImgWithLink, ModalConfirm } from '..'
+import { ImgWithLink } from '..'
+import { useAddProductToCart } from "../../hooks/cart"
 import ButtonCommon from '../ButtonCommon/ButtonCommon'
 import ButtonIconBuy from '../ButtonIconBuy/ButtonIconBuy'
 import ItemWishList from '../ItemWishList/ItemWishList'
 import LabelCommon from '../LabelCommon/LabelCommon'
 import s from './ProductCard.module.scss'
 import ProductNotSell from './ProductNotSell/ProductNotSell'
-import {useAddProductToCart} from "../../hooks/cart"
-import { useCartDrawer, useMessage } from 'src/components/contexts'
-import Router from 'next/router'
-import { useActiveCustomer } from 'src/components/hooks/auth'
-import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder'
-import { useModalCommon } from 'src/components/hooks'
-import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,

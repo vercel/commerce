@@ -1,10 +1,9 @@
 
 import { Collection } from '@commerce/types/collection'
 import { Product, ProductCard } from '@commerce/types/product'
-import { normalizeProductCard } from '@framework/utils/normalize'
 import commerce from '@lib/api/commerce'
 import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Layout, RecipeDetail, RecommendedRecipes, RelevantBlogPosts } from 'src/components/common'
 import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import { useLocalStorage } from 'src/components/hooks/useLocalStorage'
