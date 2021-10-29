@@ -20,9 +20,10 @@ const useMarkNotificationsAsRead = () => {
       query: markNotificationsAsReadMutation,
       variables: { input },
     })
-      .then(({ data }) => {
+    .then(({ data }) => {
+        // console.log("on mark as rs: ", mutateNewNotifications)
         if (data.markNotificationsAsRead.updatedNotificationOrderIds) {
-          mutateNewNotifications()
+          mutateNewNotifications([])
           mutateNotifications()
         } 
       })

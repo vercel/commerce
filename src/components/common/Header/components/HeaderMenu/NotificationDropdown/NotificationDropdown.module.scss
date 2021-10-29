@@ -22,7 +22,7 @@
             opacity: 0.8;
         }
     }
-    &:hover {
+    &.show {
         .label {
             color: var(--primary);
             svg path {

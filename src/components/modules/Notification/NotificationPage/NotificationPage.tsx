@@ -1,11 +1,11 @@
-import { QueryNotificationsArgs } from '@framework/schema'
+import { Notification, QueryNotificationsArgs } from '@framework/schema'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useState } from 'react'
 import LoadingCommon from 'src/components/common/LoadingCommon/LoadingCommon'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
-import { useMarkNotificationsAsRead, useNewNotifications, useNotifications } from 'src/components/hooks/notification'
+import { useNotifications } from 'src/components/hooks/notification'
 import { DEFAULT_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
-import { getOrderIdsFromNewNotification, getPageFromQuery } from 'src/utils/funtion.utils'
+import { getPageFromQuery } from 'src/utils/funtion.utils'
 import NotificationItem from '../../../common/NotificationItem/NotificationItem'
 import NotificationEmptyPage from '../NotificationEmptyPage/NotificationEmptyPage'
 import s from './NotificationPage.module.scss'
@@ -24,23 +24,23 @@ const NotificationPage = ({ }: NotificationPageProps) => {
     }, [router.query])
 
     const { notifications, total, loading } = useNotifications(optionQuery)
-    const { newNotifications } = useNewNotifications()
-    const { markNotificationsAsRead } = useMarkNotificationsAsRead()
+    // const { newNotifications } = useNewNotifications()
+    // const { markNotificationsAsRead } = useMarkNotificationsAsRead()
 
     useEffect(() => {
         const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string)
         setCurrentPage(page)
     }, [router.query])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        return () => {
-            if (newNotifications && newNotifications.length > 0) {
-                const orderIds = getOrderIdsFromNewNotification(newNotifications)
-                markNotificationsAsRead({ orderIds })
-            }
-        }
-    }, [newNotifications, markNotificationsAsRead])
+    //     return () => {
+    //         if (newNotifications && newNotifications.length > 0) {
+    //             const orderIds = getOrderIdsFromNewNotification(newNotifications)
+    //             markNotificationsAsRead({ orderIds })
+    //         }
+    //     }
+    // }, [newNotifications, markNotificationsAsRead])
 
 
     const onPageChange = (page: number) => {
@@ -69,7 +69,7 @@ const NotificationPage = ({ }: NotificationPageProps) => {
                     :
                     <>
                         {
-                            notifications.map(item => {
+                            notifications.map((item: Notification) => {
                                 return (
                                     <NotificationItem
                                         key={item.id}
