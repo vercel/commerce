@@ -5,6 +5,10 @@ import type { UseSearch } from '@commerce/product/use-search'
 import normalizeProduct from '../utils/normalize-product'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
+import { requireConfigValue } from '../isomorphic-config'
+
+const imagesSize = requireConfigValue('imagesSize') as string
+const imagesQuality = requireConfigValue('imagesQuality') as number
 
 const nextToSpreeSortMap: { [key: string]: string } = {
   'trending-desc': 'available_on',
@@ -53,6 +57,10 @@ export const handler: SWRHook<SearchProductsHook> = {
             per_page: 50,
             ...filter,
             ...sort,
+            image_transformation: {
+              quality: imagesQuality,
+              size: imagesSize
+            }
           },
         ],
       },

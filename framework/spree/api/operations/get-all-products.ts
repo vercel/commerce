@@ -10,6 +10,9 @@ import type { SpreeSdkVariables } from 'framework/spree/types'
 import normalizeProduct from '../../utils/normalize-product'
 import { requireConfigValue } from '@framework/isomorphic-config'
 
+const imagesSize = requireConfigValue('imagesSize') as string
+const imagesQuality = requireConfigValue('imagesQuality') as number
+
 export default function getAllProductsOperation({
   commerce,
 }: OperationContext<SpreeApiProvider>) {
@@ -60,6 +63,10 @@ export default function getAllProductsOperation({
             'primary_variant,variants,images,option_types,variants.option_values',
           per_page: first,
           ...filter,
+          image_transformation: {
+            quality: imagesQuality,
+            size: imagesSize
+          }
         },
       ],
     }
