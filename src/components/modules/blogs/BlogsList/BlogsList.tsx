@@ -56,7 +56,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
         query.customOptions.skip = page * DEFAULT_BLOG_PAGE_SIZE;
         setOptionQueryBlog(query);
         setInitialQueryFlag(false);
-    },[router.query])
+    },[router.query,DEFAULT_BLOGS_ARGS])
 
        
     let data;

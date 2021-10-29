@@ -3,9 +3,9 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog';
 import { BlogBreadCrumb, BlogHeading, BlogsList, FeaturedCardBlog } from 'src/components/modules/blogs';
-import { DEFAULT_BLOG_PAGE_SIZE } from "src/utils/constanst.utils";
+import { DEFAULT_BLOG_PAGE_SIZE, REVALIDATE_TIME} from "src/utils/constanst.utils";
 import { getAllPromies } from 'src/utils/funtion.utils';
-import { PromiseWithKey } from 'src/utils/types.utils';
+import { PromiseWithKey, SortOrder} from 'src/utils/types.utils';
 
 interface Props {
     blogs?: BlogCardProps[],
@@ -52,12 +52,7 @@ export async function getStaticProps({
     variables: {
       take: 1,
       sort:{
-        updateAt:"DESC"
-      },
-      filter: {
-        isFeatured: {
-            eq:true
-        }
+        updateAt: SortOrder.Desc
       }
     },
     config,
@@ -91,7 +86,7 @@ export async function getStaticProps({
    
     return {
       props,
-      revalidate: 60
+      revalidate: REVALIDATE_TIME
     }
   } catch (err) {
 
