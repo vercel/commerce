@@ -156,7 +156,7 @@ export function normalizeBlogList(blog: BlogList) {
       isPublish: blog.isPublish,
       isFeatured:blog.isFeatured,
       authorName: blog.authorName,
-      authorAvatarAsset : blog.authorAvatarAsset?.preview,
+      authorAvatarAsset : blog.authorAvatarAsset?.preview ?? null,
       createdAt: blog.createdAt
   }
 }
