@@ -19,12 +19,13 @@ import { handler as useAddCardItem } from './customer/card/use-add-item'
 import { handler as useAddresses } from './customer/address/use-addresses'
 import { handler as useAddAddressItem } from './customer/address/use-add-item'
 
-import { CART_COOKIE, LOCALE } from './constants'
+import { CART_COOKIE, CUSTOMER_COOKIE, LOCALE } from './constants'
 import { default as sdkFetcher } from './fetcher'
 
 export const commercejsProvider = {
   locale: LOCALE,
   cartCookie: CART_COOKIE,
+  customerCookie: CUSTOMER_COOKIE,
   fetcher: sdkFetcher,
   cart: {
     useCart,

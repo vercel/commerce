@@ -9,7 +9,7 @@ import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 import sdkFetch from './utils/sdk-fetch'
 import createGraphqlFetcher from './utils/graphql-fetch'
-import { API_URL, CART_COOKIE } from '../constants'
+import { API_URL, CART_COOKIE, CUSTOMER_COOKIE } from '../constants'
 
 export interface CommercejsConfig extends CommerceAPIConfig {
   sdkFetch: typeof sdkFetch
@@ -19,7 +19,7 @@ const config: CommercejsConfig = {
   commerceUrl: API_URL,
   cartCookie: CART_COOKIE,
   cartCookieMaxAge: 2592000,
-  customerCookie: '',
+  customerCookie: CUSTOMER_COOKIE,
   apiToken: '',
   fetch: createGraphqlFetcher(() => getCommerceApi().getConfig()),
   sdkFetch,
