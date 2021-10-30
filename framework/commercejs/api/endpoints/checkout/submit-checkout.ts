@@ -3,7 +3,6 @@ import sdkFetcherFunction from '../../utils/sdk-fetch'
 import { normalizeTestCheckout } from '../../../utils/normalize-checkout'
 
 const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
-  req,
   res,
   body: {
     cartId,
