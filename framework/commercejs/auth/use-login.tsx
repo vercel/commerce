@@ -9,8 +9,8 @@ export default useLogin as UseLogin<typeof handler>
 // If deployed on Vercel we have the VERCEL_URL env vars, otherwise assume localhost.
 const getLoginCallbackUrl = () => {
   const API_ROUTE_PATH = 'api/login'
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}/${API_ROUTE_PATH}`
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/${API_ROUTE_PATH}`
   }
   return `http://localhost:3000/${API_ROUTE_PATH}`
 }
