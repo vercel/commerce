@@ -1,13 +1,7 @@
 import { serialize } from 'cookie'
 import sdkFetcherFunction from '../../utils/sdk-fetch'
+import { getDeploymentUrl } from '../../../utils/get-deployment-url'
 import type { LoginEndpoint } from '.'
-
-const getRedirectUrl = () => {
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
-  return 'http://localhost:3000'
-}
 
 const login: LoginEndpoint['handlers']['login'] = async ({
   req,
@@ -15,7 +9,7 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   config: { sdkFetch, customerCookie },
 }) => {
   const sdkFetcher: typeof sdkFetcherFunction = sdkFetch
-  const redirectUrl = getRedirectUrl()
+  const redirectUrl = getDeploymentUrl()
   try {
     const loginToken = req.query?.param?.[0]
     const { jwt } = await sdkFetcher('customer', 'getToken', loginToken, false)
