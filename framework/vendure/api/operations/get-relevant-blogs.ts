@@ -6,6 +6,7 @@ import { getRelevantBlogsQuery } from '../../utils/queries/get-relevant-blogs'
 
 export type BlogVariables = {
     productId?: number,
+    excludeBlogIds?: string[],
 }
 
 export default function getRelevantBlogsOperation({
@@ -30,7 +31,8 @@ export default function getRelevantBlogsOperation({
     
     const config = commerce.getConfig(cfg)
     const variables = {
-        productId: vars.productId,
+      productId: vars.productId,
+      excludeBlogIds: vars.excludeBlogIds,
     }
     const { data } = await config.fetch<GetRelevantBlogsQuery>(query, {
       variables,

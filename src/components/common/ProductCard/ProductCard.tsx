@@ -36,7 +36,6 @@ const ProductCardComponent = ({
   isSingleButton,
   productVariantId,
   productVariantName,
-  activeWishlist
 }: ProductCardProps) => {
 
   const {addProduct} = useAddProductToCart()
@@ -105,7 +104,7 @@ const ProductCardComponent = ({
     </div>
   }
 
- 
+
   return (
     <>
       <div className={s.productCardWarpper}>
@@ -127,9 +126,9 @@ const ProductCardComponent = ({
         </div>
         <div className={s.cardMidBot}>
           <div className={s.productPrice}>{price} {currencyCode}</div>
-          <div className={s.wishList}>
+          {/* <div className={s.wishList}>
             {customer && <ItemWishList id={id}/>}
-          </div>
+          </div> */}
         </div>
         <div className={s.cardMid}>
           <div className={s.cardMidTop}>
@@ -143,7 +142,7 @@ const ProductCardComponent = ({
           <div className={s.cardMidBot}>
             <div className={s.productPrice}>{price} {currencyCode}</div>
             <div className={s.wishList}>
-              {customer && <ItemWishList isActive={activeWishlist}  id={id}/>}
+              <ItemWishList id={id}/>
             </div>
           </div>
         </div>

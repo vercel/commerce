@@ -196,7 +196,7 @@ export const FEATURED = [
 
 export const DEFAULT_BLOG_PAGE_SIZE = 6;
 
-export const DEFAULT_FEATURED_BLOG_PAGE_SIZE = 1;
+export const DEFAULT_YOU_WILL_LIKE_ALSO_SIZE = 6;
 
 export const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
 

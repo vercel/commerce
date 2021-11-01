@@ -4,14 +4,15 @@ import { Layout, RelevantBlogPosts } from 'src/components/common';
 import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog';
 import BlogContent from 'src/components/modules/blog-detail/BlogContent/BlogContent';
 import BlogDetailImg from 'src/components/modules/blog-detail/BlogDetailImg/BlogDetailImg';
-import { REVALIDATE_TIME } from 'src/utils/constanst.utils';
+import { REVALIDATE_TIME,DEFAULT_YOU_WILL_LIKE_ALSO_SIZE } from 'src/utils/constanst.utils';
 import { formatDate, getAllPromies } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
 interface Props {
   blog:{blogDetail?: BlogCardProps},
-  relevant:{relevantBlogs?:BlogCardProps[]}
+  readmoreBlogs:{blogs?:BlogCardProps[]}
 }
-export default function BlogDetailPage({blog,relevant}:Props) {
+export default function BlogDetailPage({blog,readmoreBlogs}:Props) {
+
   return (
     <>
         <BlogDetailImg imgSrc={blog?.blogDetail?.imageSrc ?? ''} title={blog?.blogDetail?.title} />
@@ -22,8 +23,8 @@ export default function BlogDetailPage({blog,relevant}:Props) {
           authorName={blog?.blogDetail?.authorName}
           date={formatDate(blog?.blogDetail?.createdAt ?? '')}
         />
-        {(relevant?.relevantBlogs && relevant?.relevantBlogs?.length > 0) &&
-        <RelevantBlogPosts data={relevant.relevantBlogs} title="You will like also" bgcolor="cream"/>}
+        {(readmoreBlogs?.blogs && readmoreBlogs?.blogs?.length > 0) &&
+        <RelevantBlogPosts data={readmoreBlogs.blogs} title="You will like also" bgcolor="cream"/>}
     </>
   )
 }
@@ -50,21 +51,22 @@ export async function getStaticProps({
     return { notFound: true };
   }
   props.blog = blogDetailPromise;
-  
 
-  // Relevant Blogs
-  const relevantProductId = blogDetailPromise?.blogDetail?.relevantProducts?.[0];
-  if (relevantProductId && blogDetailPromise?.blogDetail?.relevantProducts?.length > 0) {
-
-    const relevantBlogs = commerce.getRelevantBlogs({
-      variables: { productId: Number(relevantProductId) },
+  const idCurrentBlog = blogDetailPromise?.blogDetail?.id;
+  if(idCurrentBlog){
+    const blogsPromise = commerce.getAllBlogs({
+      variables: {
+        excludeBlogIds: [idCurrentBlog],
+        take: DEFAULT_YOU_WILL_LIKE_ALSO_SIZE,
+      },
       config,
       preview,
     })
-    promisesWithKey.push({ key: 'relevant', promise: relevantBlogs})
-  }else {
-    props.relevantBlogs = [];
+    promisesWithKey.push({ key: 'readmoreBlogs', promise: blogsPromise   })
+  }else{
+    props.readmoreBlogs = [];
   }
+  
 
   try {
     const promises = getAllPromies(promisesWithKey)

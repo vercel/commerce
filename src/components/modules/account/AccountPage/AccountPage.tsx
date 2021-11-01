@@ -52,6 +52,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
    
     const { itemWishlist,totalItems }= useGetFavoriteProduct(optionQueryFavorite);
 
+
     // skip
     useEffect(() => {
         const query = { ...DEFAULT_FAVORITE_ARGS } as QueryFavorite;
