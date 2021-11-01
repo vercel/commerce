@@ -1,31 +1,42 @@
 import { Notification } from '@framework/schema'
 import classNames from 'classnames'
 import Link from 'next/link'
-import { memo, useState } from 'react'
+import { memo, useRef } from 'react'
 import { NotificationItem } from 'src/components/common'
 import { useMarkNotificationsAsRead, useNewNotifications, useNotifications } from 'src/components/hooks/notification'
+import { useOnClickOutside } from 'src/components/hooks/useClickOutSide'
 import { IconBell, IconNoti } from 'src/components/icons'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { getOrderIdsFromNewNotification } from 'src/utils/funtion.utils'
 import s from './NotificationDropdown.module.scss'
 
 interface Props {
+  isOpen: boolean
+  toggle: () => void
 }
 
 const MAX_NOTIFICATION_IN_DROPDOWN = 10
 const CUSTOM_OPTION = { customOption: { take: MAX_NOTIFICATION_IN_DROPDOWN } }
 
-const NotificationDropdown = memo(({ }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>()
+const NotificationDropdown = memo(({isOpen, toggle}: Props) => {
+  const notificationRef = useRef<HTMLDivElement>(null)
   const { newNotifications } = useNewNotifications()
   const { notifications, mutate: mutateNoti } = useNotifications(CUSTOM_OPTION)
   const { markNotificationsAsRead, loading } = useMarkNotificationsAsRead()
 
+  const clickOutSide = () => {
+    if (isOpen) {
+      toggle()
+    }
+  }
+  
+  useOnClickOutside(notificationRef, clickOutSide)
+
+
   const onToggleMenu = () => {
     const value = !isOpen
-    setIsOpen(!isOpen)
+    toggle()
     if (value) {
-
       if (newNotifications && newNotifications.length > 0 && !loading) {
         const orderIds = getOrderIdsFromNewNotification(newNotifications)
         markNotificationsAsRead({ orderIds }, onMarkNotiAsReadCallBack)
@@ -42,7 +53,7 @@ const NotificationDropdown = memo(({ }: Props) => {
   }
 
   return (
-    <div className={classNames(s.notificationDropdown, { [s.show]: isOpen })}>
+    <div className={classNames(s.notificationDropdown, { [s.show]: isOpen })} ref={notificationRef}>
       <button className={s.icon} onClick={onToggleMenu}>
         <IconNoti />
         {

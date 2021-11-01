@@ -17,8 +17,13 @@ const useModalCommon = ({ initialValue = false }: Props) => {
         setVisible(false)
     }
 
+    const toggleModal = (e?: any) => {
+        e && e.stopPropagation()
+        setVisible(!visible)
+    }
+
     return {
-        visible, openModal, closeModal
+        visible, openModal, closeModal, toggleModal,
     }
 };
 
