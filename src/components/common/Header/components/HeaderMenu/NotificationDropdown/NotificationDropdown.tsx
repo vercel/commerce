@@ -17,23 +17,34 @@ const CUSTOM_OPTION = { customOption: { take: MAX_NOTIFICATION_IN_DROPDOWN } }
 
 const NotificationDropdown = memo(({ }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>()
-  const { newNotifications } = useNewNotifications(CUSTOM_OPTION)
-  const { notifications } = useNotifications(CUSTOM_OPTION)
+  const { newNotifications, mutate: mutateNewNoti } = useNewNotifications(CUSTOM_OPTION)
+  const { notifications, mutate: mutateNoti } = useNotifications(CUSTOM_OPTION)
   const { markNotificationsAsRead, loading } = useMarkNotificationsAsRead()
 
   const onToggleMenu = () => {
     const value = !isOpen
     setIsOpen(!isOpen)
     if (value) {
+
       if (newNotifications && newNotifications.length > 0 && !loading) {
         const orderIds = getOrderIdsFromNewNotification(newNotifications)
-        markNotificationsAsRead({ orderIds })
+        markNotificationsAsRead({ orderIds }, onMarkNotiAsReadCallBack)
       }
     }
   }
 
+  const onMarkNotiAsReadCallBack = (isSuccess: boolean) => {
+    if (isSuccess) {
+      setTimeout(() => {
+        mutateNewNoti()
+        mutateNoti()
+      }, 1000)
+    }
+
+  }
+
   return (
-    <div className={classNames(s.notificationDropdown, { [s.show]: isOpen } )}>
+    <div className={classNames(s.notificationDropdown, { [s.show]: isOpen })}>
       <button className={s.icon} onClick={onToggleMenu}>
         <IconNoti />
         {
