@@ -4,14 +4,14 @@ import IconFacebook from 'src/components/icons/IconFacebook';
 import IconInstagram from 'src/components/icons/IconInstagram';
 import IconTwitter from 'src/components/icons/IconTwitter';
 import s from './BlogContent.module.scss';
-import imageAuthor from '../../../common/Author/img/author.png';
 import Link from 'next/link';
+
 interface BlogContentProps {
     className?: string
     children?: any,
     title?: string,
     content?: string,
-    imgAuthor?: string,
+    imgAuthor?: string ,
     date?: string,
     authorName?: string,
 }
@@ -35,9 +35,9 @@ const BlogContent = ({title,date='',content,imgAuthor='',authorName='' }:BlogCon
                    </div>
                     <div className={s.listIcon}>
                         <ul>
-                            <li><Link href="/"><a> <IconFacebook/></a></Link></li>
-                            <li><Link href="/"><a> <IconTwitter/></a></Link></li>
-                            <li><Link href="/"><a> <IconInstagram/></a></Link></li>
+                            <li><Link href={`https://www.facebook.com/sharer.php?u=${(typeof window !== 'undefined') ? window.location.href : ""}`}><a> <IconFacebook/></a></Link></li>
+                            <li><Link href={`https://twitter.com/intent/tweet?text=${(typeof window !== 'undefined') ? window.location.href : "" }`}><a> <IconTwitter/></a></Link></li>
+                            {/* <li><Link href="/"><a> <IconInstagram/></a></Link></li> */}
                         </ul>
                     </div>
                 </div> 

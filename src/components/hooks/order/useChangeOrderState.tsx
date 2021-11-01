@@ -11,13 +11,13 @@ const useChangeOrderState = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<CommonError | null>(null)
   const { mutate } = useGetActiveOrderForCheckout()
-  
-  const changeOrderState = ( state:OrderState, fCallBack?: (isSuccess: boolean, message?: string) => void) => {
+
+  const changeOrderState = (state: OrderState, fCallBack?: (isSuccess: boolean, message?: string) => void) => {
     setError(null)
     setLoading(true)
     rawFetcher<TransitionOrderToStateMutation>({
       query: changeOrderStatetMutation,
-      variables:{state}
+      variables: { state }
     })
       .then(({ data }) => {
         if (data.transitionOrderToState.__typename === 'Order') {

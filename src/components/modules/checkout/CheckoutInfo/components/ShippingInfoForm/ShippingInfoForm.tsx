@@ -1,9 +1,10 @@
+import { ShippingAddress } from '@commerce/types/cart'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useRef } from 'react'
 import { ButtonCommon, InputFiledInForm, SelectFieldInForm } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
-import {  useSetOrderShippingAddress } from 'src/components/hooks/order'
-import {  useAvailableCountries } from 'src/components/hooks'
+import { useAvailableCountries } from 'src/components/hooks'
+import { useSetOrderShippingAddress } from 'src/components/hooks/order'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
@@ -14,6 +15,7 @@ interface ShippingInfoFormProps {
   id: number
   activeStep: number
   onConfirm: (id: number) => void
+  initialValues?: ShippingAddress
 
 }
 
@@ -31,6 +33,15 @@ const displayingErrorMessagesSchema = Yup.object().shape({
 const DEFAULT_COUNTRY_CODE = 'MY'
 const DEFAULT_PROVINCE = 'Sabah'
 
+const INITIAL_VALUES = {
+  streetLine1: '',
+  city: '',
+  province: DEFAULT_PROVINCE,
+  postalCode: '',
+  countryCode: DEFAULT_COUNTRY_CODE,
+  phoneNumber: '',
+}
+
 // TODO: update data
 const provinceOptions = [
   {
@@ -47,7 +58,7 @@ const provinceOptions = [
   },
 ]
 
-const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) => {
+const ShippingInfoForm = ({ onConfirm, id, activeStep, initialValues = INITIAL_VALUES}: ShippingInfoFormProps) => {
   const addressRef = useRef<CustomInputCommon>(null)
   const { setOrderShippingAddress, loading } = useSetOrderShippingAddress()
   const { showMessageError } = useMessage()
@@ -76,15 +87,7 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep }: ShippingInfoFormProps) 
     <div className={s.warpper}>
       <div className={s.body}>
         <Formik
-          initialValues={
-            {
-              streetLine1: '',
-              city: '',
-              province: DEFAULT_PROVINCE,
-              postalCode: '',
-              countryCode: DEFAULT_COUNTRY_CODE,
-              phoneNumber: '',
-            }}
+          initialValues={initialValues}
           validationSchema={displayingErrorMessagesSchema}
           onSubmit={handleSubmit}
         >

@@ -14,15 +14,16 @@ interface Props {
 export default function BlogDetailPage({blog,relevant}:Props) {
   return (
     <>
-        <BlogDetailImg imgSrc={blog?.blogDetail?.imageSrc ?? ''} />
+        <BlogDetailImg imgSrc={blog?.blogDetail?.imageSrc ?? ''} title={blog?.blogDetail?.title} />
         <BlogContent 
           title={blog?.blogDetail?.title} 
           content={blog?.blogDetail?.description}
-          imgAuthor={blog?.blogDetail?.authorAvatarAsset}
+          imgAuthor={blog?.blogDetail?.authorAvatarAsset ?? ''}
           authorName={blog?.blogDetail?.authorName}
           date={formatDate(blog?.blogDetail?.createdAt ?? '')}
         />
-        {(relevant?.relevantBlogs && relevant?.relevantBlogs?.length > 0) && <RelevantBlogPosts data={relevant.relevantBlogs} title="You will like also" bgcolor="cream"/>}
+        {(relevant?.relevantBlogs && relevant?.relevantBlogs?.length > 0) &&
+        <RelevantBlogPosts data={relevant.relevantBlogs} title="You will like also" bgcolor="cream"/>}
     </>
   )
 }
