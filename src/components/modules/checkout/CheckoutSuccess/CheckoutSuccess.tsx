@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { ButtonCommon, StaticImage } from "src/components/common";
+import { useActiveCustomer } from "src/components/hooks/auth";
 import { IconArrowRight } from "src/components/icons";
 import { ACCOUNT_TAB, QUERY_KEY, ROUTE } from "src/utils/constanst.utils";
 import checkIcon from './assets/checkIcon.png';
@@ -8,6 +9,7 @@ import s from './CheckoutSuccess.module.scss';
 
 
 const CheckoutSuccess = () => {
+    const { customer } = useActiveCustomer()
     return (
         <div className={s.checkoutSuccessWrapper}>
             <div className={s.checkoutSuccess}>
@@ -23,11 +25,14 @@ const CheckoutSuccess = () => {
                                 <ButtonCommon size="large" icon={<IconArrowRight />} isIconSuffix={true}>Back to home</ButtonCommon>
                             </a>
                         </Link>
-                        <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}>
-                            <a>
-                                <ButtonCommon size="large" type='ghost'>View my order</ButtonCommon>
-                            </a>
-                        </Link>
+                        {
+                            customer &&
+                            <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}>
+                                <a>
+                                    <ButtonCommon size="large" type='ghost'>View my order</ButtonCommon>
+                                </a>
+                            </Link>
+                        }
                     </div>
                 </div>
             </div>

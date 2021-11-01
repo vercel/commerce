@@ -1,14 +1,14 @@
 import { Collection } from '@commerce/types/collection';
 import { ProductCard } from '@commerce/types/product';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
-import {  FacetValue } from '@framework/schema';
+import { FacetValue } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
-import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, FACET, REVALIDATE_TIME } from 'src/utils/constanst.utils';
-import { FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFacetIdByCode, getFreshFacetId } from 'src/utils/funtion.utils';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, REVALIDATE_TIME } from 'src/utils/constanst.utils';
+import { FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { CollectionsWithData, PromiseWithKey } from 'src/utils/types.utils';
 
 

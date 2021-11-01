@@ -2072,6 +2072,11 @@ export enum LanguageCode {
   Zu = 'zu',
 }
 
+export type OrderCustomFields = {
+  __typename?: 'OrderCustomFields';
+  lastedNotificationAt?: Maybe<Scalars['DateTime']>;
+};
+
 export type Order = Node & {
   __typename?: 'Order'
   id: Scalars['ID']
@@ -2126,7 +2131,7 @@ export type Order = Node & {
   /** A summary of the taxes being applied to this Order */
   taxSummary: Array<OrderTaxSummary>
   history: HistoryEntryList
-  customFields?: Maybe<Scalars['JSON']>
+  customFields?: Maybe<OrderCustomFields>;
 }
 
 export type OrderHistoryArgs = {
@@ -3790,7 +3795,17 @@ export type NewNotificationsQuery = { __typename?: 'Query' } & {
       { __typename?: 'Notification' } & Pick<
         Notification,
         'id' | 'createdAt' | 'createdAt' | 'type' | 'data' | 'order' | 'isNew' | 'description' | 'updatedAt'
-      >
+      > & {
+        order: { __typename?: 'Order' } & Pick<
+          Order,
+          'id' | 'code' | 'customFields'
+        > & {
+          customFields: { __typename?: 'OrderCustomFields' } & Pick<
+            OrderCustomFields,
+            'lastedNotificationAt'
+          >
+        }
+      }
     >,
     'totalItems'
   }
@@ -3801,7 +3816,7 @@ export type NotificationsQuery = { __typename?: 'Query' } & {
     items: Array<
       { __typename?: 'Notification' } & Pick<
         Notification,
-        'id' | 'createdAt' | 'updatedAt' | 'type' | 'data' | 'description' | 'order' | 'isNew'
+        'id' | 'createdAt' | 'updatedAt' | 'type' | 'data' | 'description' | 'order' | 'isNew' | 'order'
       >
     >,
     'totalItems'
