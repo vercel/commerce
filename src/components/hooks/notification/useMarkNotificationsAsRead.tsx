@@ -3,13 +3,15 @@ import { markNotificationsAsReadMutation } from '@framework/utils/mutations/mark
 import { useState } from 'react'
 import { CommonError } from 'src/domains/interfaces/CommonError'
 import rawFetcher from 'src/utils/rawFetcher'
+import { useNewNotifications } from '.'
 
 
 const useMarkNotificationsAsRead = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<CommonError | null>(null)
+  const { mutate } = useNewNotifications()
 
-  const markNotificationsAsRead = (input: UpdateNotificationInput, 
+  const markNotificationsAsRead = (input: UpdateNotificationInput,
     fCallBack?: (isSuccess: boolean, message?: string) => void) => {
     setError(null)
     setLoading(true)
@@ -18,8 +20,10 @@ const useMarkNotificationsAsRead = () => {
       variables: { input },
     })
       .then(({ data }) => {
+        console.log("on mark ")
         if (data.markNotificationsAsRead.updatedNotificationOrderIds) {
           fCallBack && fCallBack(true)
+          mutate()
         }
       })
       .catch((error) => {

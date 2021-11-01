@@ -17,7 +17,7 @@ const CUSTOM_OPTION = { customOption: { take: MAX_NOTIFICATION_IN_DROPDOWN } }
 
 const NotificationDropdown = memo(({ }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>()
-  const { newNotifications, mutate: mutateNewNoti } = useNewNotifications(CUSTOM_OPTION)
+  const { newNotifications } = useNewNotifications()
   const { notifications, mutate: mutateNoti } = useNotifications(CUSTOM_OPTION)
   const { markNotificationsAsRead, loading } = useMarkNotificationsAsRead()
 
@@ -36,11 +36,9 @@ const NotificationDropdown = memo(({ }: Props) => {
   const onMarkNotiAsReadCallBack = (isSuccess: boolean) => {
     if (isSuccess) {
       setTimeout(() => {
-        mutateNewNoti()
         mutateNoti()
       }, 1000)
     }
-
   }
 
   return (
