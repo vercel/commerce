@@ -58,9 +58,6 @@
             max-height: 50rem;
             > li {
                 @apply transition-all duration-200 cursor-pointer;
-                &:hover {
-                    @apply bg-gray;
-                }
             }
         }
     }
