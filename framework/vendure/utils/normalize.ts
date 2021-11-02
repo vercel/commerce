@@ -1,7 +1,7 @@
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart'
 import { Product, ProductCard } from '@commerce/types/product'
-import { OrderState } from 'src/utils/types.utils'
-import { CartFragment, SearchResultFragment,Favorite, BlogList, RecipeList ,ShippingMethod } from '../schema'
+import { BlogProps, OrderState } from 'src/utils/types.utils'
+import { CartFragment, SearchResultFragment,Favorite, BlogList, RecipeList ,ShippingMethod, Blog } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -146,18 +146,18 @@ export function normalizeProductCard(product: Product): ProductCard {
   }
 }
 
-export function normalizeBlogList(blog: BlogList) {
+export function normalizeBlog(blog: Blog): BlogProps {
   return {
-      id: blog.id ?? null,
-      title: blog.translations[0]?.title ?? null,
-      imageSrc: blog.featuredAsset?.preview ?? null,
-      slug: blog.translations[0]?.slug ?? null,
-      description: blog.translations[0]?.description ?? null,
-      isPublish: blog.isPublish ?? null,
+      id: blog.id,
+      title: blog.title,
+      imageSrc: blog.featuredAsset?.preview || null,
+      slug: blog.slug,
+      description: blog.description || '',
+      isPublish: blog.isPublish,
       isFeatured:blog.isFeatured ?? null,
-      authorName: blog.authorName ?? null,
-      authorAvatarAsset: blog.authorAvatarAsset?.preview ?? null,
-      createdAt: blog.createdAt ?? null
+      authorName: blog.authorName || '',
+      authorAvatarAsset: blog.authorAvatarAsset?.preview || null,
+      createdAt: blog.createdAt
   }
 }
 

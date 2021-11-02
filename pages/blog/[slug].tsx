@@ -12,7 +12,6 @@ interface Props {
   readmoreBlogs:{blogs?:BlogCardProps[]}
 }
 export default function BlogDetailPage({blog,readmoreBlogs}:Props) {
-
   return (
     <>
         <BlogDetailImg imgSrc={blog?.blogDetail?.imageSrc ?? ''} title={blog?.blogDetail?.title} />

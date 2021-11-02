@@ -8,37 +8,36 @@ import { formatDate, getAllPromies } from 'src/utils/funtion.utils';
 import { PromiseWithKey, SortOrder } from 'src/utils/types.utils';
 
 interface Props {
-    blogs?: BlogCardProps[],
-    featuredBlog?: BlogCardProps[],
-    totalItems: number
+  blogs?: BlogCardProps[],
+  featuredBlog?: BlogCardProps,
+  totalItems: number
 }
-export default function BlogsPage({ blogs, featuredBlog, totalItems }:Props) {
+export default function BlogsPage({ blogs, featuredBlog, totalItems }: Props) {
+  return (
+    <>
+      <BlogBreadCrumb />
+      <BlogHeading />
+      {featuredBlog &&
+        <FeaturedCardBlog
+          title={featuredBlog.title}
+          slug={featuredBlog.slug}
+          imgSrc={featuredBlog.imageSrc}
+          content={featuredBlog.description}
+          imgAuthor={featuredBlog.authorAvatarAsset}
+          authorName={featuredBlog.authorName}
+          date={formatDate(featuredBlog.createdAt)}
+        />
+      }
 
-    return(
-        <>
-            <BlogBreadCrumb />
-            <BlogHeading />
-            { (featuredBlog?.length !==0 ) &&
-              <FeaturedCardBlog 
-              title={featuredBlog?.[0]?.title} 
-              slug={featuredBlog?.[0]?.slug} 
-              imgSrc={featuredBlog?.[0]?.imageSrc ?? null}
-              content={featuredBlog?.[0]?.description}
-              imgAuthor={featuredBlog?.[0]?.authorAvatarAsset ?? null}
-              authorName={featuredBlog?.[0]?.authorName}
-              date={formatDate(featuredBlog?.[0]?.createdAt ?? '')}
-              />
-            }
-           
-            {
-              (blogs?.length !== 0) && 
-              <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.[0]?.id} />
-            }
-            {
-              (blogs?.length === 0 && featuredBlog?.length === 0 ) &&  <BlogEmpty />
-            }
-        </>
-    )
+      {
+        (blogs?.length !== 0) &&
+        <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.id} />
+      }
+      {
+        (blogs?.length === 0 && !featuredBlog) && <BlogEmpty />
+      }
+    </>
+  )
 }
 
 
@@ -51,18 +50,19 @@ export async function getStaticProps({
   let promisesWithKey = [] as PromiseWithKey[]
   let props = {} as any;
 
-  const {featuredBlogs} = await commerce.getFeaturedBlog({
+  const { featuredBlogs } = await commerce.getFeaturedBlog({
     variables: {
       take: 1,
-      sort:{
+      sort: {
         updateAt: SortOrder.Desc
       }
     },
     config,
     preview,
   })
-  
- // Blogs
+  props.featuredBlog = featuredBlogs[0] || null
+
+  // Blogs
   const idFeaturedBlog = featuredBlogs?.[0]?.id;
   const blogsPromise = commerce.getAllBlogs({
     variables: {
@@ -72,7 +72,7 @@ export async function getStaticProps({
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'blogs', promise: blogsPromise , keyResult: 'blogs'  })
+  promisesWithKey.push({ key: 'blogs', promise: blogsPromise, keyResult: 'blogs' })
 
 
   try {
@@ -84,9 +84,6 @@ export async function getStaticProps({
       return null
     })
 
-    props.featuredBlog = featuredBlogs;
-    
-   
     return {
       props,
       revalidate: REVALIDATE_TIME

@@ -2480,18 +2480,32 @@ export type Product = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
-export type BlogList = Node & {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  featuredAsset?: Maybe<Asset>
-  isPublish: Boolean
-  translations: Array<BlogTranslation>
-  authorName: Scalars['String']
-  authorAvatarAsset: Asset
-  relevantProducts: Product[]
-  isFeatured: Boolean
-}
+
+export type Blog = Node & {
+  __typename?: 'Blog';
+  authorAvatarAsset?: Maybe<Asset>;
+  authorName?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  featuredAsset?: Maybe<Asset>;
+  id: Scalars['ID'];
+  isFeatured: Scalars['Boolean'];
+  isPublish: Scalars['Boolean'];
+  languageCode: LanguageCode;
+  relevantProducts?: Maybe<Array<Product>>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  translations: Array<BlogTranslation>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type BlogList = PaginatedList & {
+  __typename?: 'BlogList';
+  items: Array<Blog>;
+  totalItems: Scalars['Int'];
+};
+
 
 export type RecipeList = Node & {
   id: ID!
@@ -2538,7 +2552,7 @@ export type IngredientProducts = {
 
 export type GetBlogQuery = { __typename?: 'Query' } & {
   blog?: Maybe<
-    { __typename?: 'Blog' } & BlogList
+    { __typename?: 'Blog' } & Blog
   >
 }
 
@@ -2575,7 +2589,7 @@ export type RecipeTranslation = {
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & Blog!>,
     'totalItems'
   }
 }
@@ -2590,14 +2604,15 @@ export type GetAllRecipesQuery = PaginatedList & {
 
 export type GetRelevantBlogsQuery = PaginatedList & {
   relevantBlogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & Blog!>,
+    'totalItems'
   }
 }
 
 export type GetFeaturedBlogQuery = PaginatedList & {
   id: string,
   featuredBlogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & BlogList!>,
+    items: Array<{ __typename?: 'Blog' } & Blog!>,
     'totalItems'
   }
 }

@@ -1,8 +1,8 @@
-import { normalizeBlogList } from '@framework/utils/normalize';
-import { OperationContext } from '@commerce/api/operations'
-import { Provider, VendureConfig } from '..'
-import { GetAllBlogsQuery,BlogList } from '../../schema'
-import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query'
+import { OperationContext } from '@commerce/api/operations';
+import { normalizeBlog } from '@framework/utils/normalize';
+import { Provider, VendureConfig } from '..';
+import { Blog, GetAllBlogsQuery } from '../../schema';
+import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query';
 
 export type BlogVariables = {
   excludeBlogIds?: string[],
@@ -47,7 +47,7 @@ export default function getAllBlogsOperation({
     })
     if(data){
       return {
-        blogs: data?.blogs?.items?.map((val:BlogList)=>normalizeBlogList(val)),
+        blogs: data?.blogs?.items?.map((val:Blog)=>normalizeBlog(val)),
         totalItems: data?.blogs?.totalItems || null
       }
     }else{

@@ -1,8 +1,8 @@
-import { normalizeBlogList } from '@framework/utils/normalize';
-import { OperationContext } from '@commerce/api/operations'
-import { Provider, VendureConfig } from '..'
-import { GetFeaturedBlogQuery,BlogList } from '../../schema'
-import { getFeatuedBlogsQuery } from '../../utils/queries/get-featued-query'
+import { OperationContext } from '@commerce/api/operations';
+import { normalizeBlog } from '@framework/utils/normalize';
+import { Provider, VendureConfig } from '..';
+import { Blog, GetFeaturedBlogQuery } from '../../schema';
+import { getFeatuedBlogsQuery } from '../../utils/queries/get-featued-query';
 
 export type BlogVariables = {
   take?: number,
@@ -51,7 +51,7 @@ export default function getFeaturedBlogOperation({
     if(data?.featuredBlogs != null){
 
       return {
-        featuredBlogs: data?.featuredBlogs?.items?.map((val:BlogList)=>normalizeBlogList(val))
+        featuredBlogs: data?.featuredBlogs?.items?.map((val: Blog) => normalizeBlog(val))
       }
 
     }else{
