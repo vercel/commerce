@@ -1,7 +1,5 @@
-import { FacetValue, UpdateAddressInput } from './schema.d';
-import { ResetPassword } from './schema.d';
+import { FacetValue, UpdateAddressInput, ResetPassword } from './schema.d';
 import { requestPasswordReset } from '@framework/schema';
-import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -428,23 +426,6 @@ export type TransitionOrderToStateMutation = {
       & ErrorResult_OrderStateTransitionError_Fragment
     )>
 };
-
-export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
-  setCustomerForOrder:
-  | ({ __typename: 'ActiveOrderCustomerFragment' } & Pick<ActiveOrderCustomerFragment, 'customer', 'lines'>)
-  | ({ __typename: 'AlreadyLoggedInError' } & Pick<
-    AlreadyLoggedInError,
-    'errorCode' | 'message'
-  >)
-  | ({ __typename: 'EmailAddressConflictError' } & Pick<
-    EmailAddressConflictError,
-    'errorCode' | 'message'
-  >)
-  | ({ __typename: 'NoActiveOrderError' } & Pick<
-    NoActiveOrderError,
-    'errorCode' | 'message'
-  >)
-}
 
 export type AddPaymentToOrderMutation = {
   addPaymentToOrder:
@@ -2508,9 +2489,9 @@ export type BlogList = PaginatedList & {
 
 
 export type RecipeList = Node & {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
   featuredAsset?: Maybe<Asset>
   isPublish: Boolean
   translations: Array<RecipeTranslation>
@@ -2525,20 +2506,6 @@ export type RecipeList = Node & {
 export enum SortRecipes {
   ASC = 'ASC',
   DESC = 'DESC',
-}
-
-export type RecipeTranslation = {
-  __typename?: 'RecipeTranslation'
-  id: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
-  languageCode: LanguageCode
-  title: Scalars['String']
-  slug: Scalars['String']
-  description: Scalars['String']
-  content: Scalars['String']
-  Ingredients: Scalars['String']
-  Preparation: Scalars['String']
 }
 
 export type IngredientProducts = {
@@ -2589,14 +2556,14 @@ export type RecipeTranslation = {
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & Blog!>,
+    items: Array<{ __typename?: 'Blog' } & Blog>,
     'totalItems'
   }
 }
 
 export type GetAllRecipesQuery = PaginatedList & {
   recipes: { __typename?: 'RecipeList' } & {
-    items: Array<{ __typename?: 'Recipe' } & RecipeList!>,
+    items: Array<{ __typename?: 'Recipe' } & RecipeList>,
     'totalItems'
   }
 }
@@ -2604,7 +2571,7 @@ export type GetAllRecipesQuery = PaginatedList & {
 
 export type GetRelevantBlogsQuery = PaginatedList & {
   relevantBlogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & Blog!>,
+    items: Array<{ __typename?: 'Blog' } & Blog>,
     'totalItems'
   }
 }
@@ -2612,7 +2579,7 @@ export type GetRelevantBlogsQuery = PaginatedList & {
 export type GetFeaturedBlogQuery = PaginatedList & {
   id: string,
   featuredBlogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & Blog!>,
+    items: Array<{ __typename?: 'Blog' } & Blog>,
     'totalItems'
   }
 }
@@ -3500,14 +3467,6 @@ export type ApplyCouponCodeMutationVariables = Exact<{
   couponCode: Scalars['String'];
 }>;
 
-export type ApplyCouponCodeMutation = {
-  applyCouponCode:
-  | TestOrderFragmentFragment
-  | Pick<CouponCodeExpiredError, 'errorCode' | 'message'>
-  | Pick<CouponCodeInvalidError, 'errorCode' | 'message'>
-  | Pick<CouponCodeLimitError, 'errorCode' | 'message'>;
-};
-
 export type ApplyCouponCodeMutation = { __typename?: 'Mutation' } & {
   applyCouponCode:
   | ({ __typename: 'Order' } & CartFragment)
@@ -3684,16 +3643,16 @@ export type FavoriteListOptions = {
 }
 
 export type FavoriteList = PaginatedList & {
-  items: [Favorite!]!
-  totalItems: Int!
+  items: [Favorite]
+  totalItems: Int
 }
 
 type Favorite = Node & {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
   product: Product
-  customer: Customer!
+  customer: Customer
 }
 
 export type GetAvailableCountriesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3718,7 +3677,7 @@ export type GetAvailableCountriesQuery = {
 
 
 type FavouriteOption = Customer & {
-  favorites(options: FavoriteListOptions): FavoriteList!
+  favorites(options: FavoriteListOptions): FavoriteList
 }
 
 export type GetAllProductPathsQueryVariables = Exact<{
