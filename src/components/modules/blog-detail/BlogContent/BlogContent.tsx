@@ -15,7 +15,7 @@ interface BlogContentProps {
     date?: string,
     authorName?: string,
 }
-const BlogContent = ({title,date='',content,imgAuthor='',authorName='' }:BlogContentProps) => {
+function BlogContent({title,date='',content,imgAuthor='',authorName='' }:BlogContentProps)  {
 
     return (
         <>

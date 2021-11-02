@@ -5,43 +5,50 @@ import { useActiveCustomer } from 'src/components/hooks/auth'
 import IconHeart from 'src/components/icons/IconHeart'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
+import { useGetFavoriteProduct } from '../../../../src/components/hooks/account'
 import s from './ItemWishList.module.scss'
+
 interface Props {
-    id:string,
+    id?:string,
     onChange?: () => string
 }
 
 const ItemWishList = memo(({id, onChange}:Props) => {
-    const {wishlistId} = useActiveCustomer();
-
-    const {onToggleProductWishlist} = useToggleProductWishlist();
-
-    const [idToggleResult,setIdToggleResult] = useState(wishlistId?.findIndex((val:string) => val == id) !== -1);
+   
+    const { wishlistId, mutate:mutateIdWishlist } = useActiveCustomer();
+    const { mutate:mutateProductWishlist } = useGetFavoriteProduct();
+  
+    const { onToggleProductWishlist } = useToggleProductWishlist();
     
+    const [isWishlist,setIsWishlist] = useState(wishlistId?.includes(id));
+  
+
     const { showMessageSuccess, showMessageError } = useMessage();
 
     function toggleWishlist(){
-        setIdToggleResult(!idToggleResult);
+        setIsWishlist(!isWishlist);
         onToggleProductWishlist({productId:id},onToggleCallBack)
     }
   
       const onToggleCallBack = (isSuccess: boolean, message?: string) => {
         if (isSuccess) {
-          if(!idToggleResult){
+          mutateIdWishlist();
+          mutateProductWishlist();
+          if(!isWishlist){
             showMessageSuccess("Product added to wishlist", 15000)
           }else{
             showMessageError("Product removed from wishlist", 15000)
           }
         } else {
           showMessageError(LANGUAGE.MESSAGE.ERROR)
-          setIdToggleResult(false);
+          setIsWishlist(false);
         }
       }
 
     return(
         <div className={classNames({
             [s.heartToggle]: true, 
-            [s.isToggleOn]: idToggleResult
+            [s.isToggleOn]: isWishlist
         })}
         onChange={onChange}
         onClick={toggleWishlist}
@@ -50,5 +57,5 @@ const ItemWishList = memo(({id, onChange}:Props) => {
         </div>
     )
 })
-
+ItemWishList.displayName = 'ItemWishList';
 export default ItemWishList
