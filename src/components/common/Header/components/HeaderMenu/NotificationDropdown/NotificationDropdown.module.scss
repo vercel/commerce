@@ -22,7 +22,7 @@
             opacity: 0.8;
         }
     }
-    &:hover {
+    &.show {
         .label {
             color: var(--primary);
             svg path {
@@ -47,6 +47,8 @@
         .viewAll {
             @apply text-right text-primary;
             padding: 1.6rem;
+            width: fit-content;
+            margin-left: auto;
         }
         &:hover {
             @apply block shadow-md;

@@ -9,7 +9,7 @@ import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
 import HeaderSubMenuMobile from './components/HeaderSubMenuMobile/HeaderSubMenuMobile'
 import s from './Header.module.scss'
 interface props {
-    
+
 }
 
 const Header = memo(({ }: props) => {
@@ -18,7 +18,8 @@ const Header = memo(({ }: props) => {
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
     const [isModeAuthenRegister, setIsModeAuthenRegister] = useState<boolean>(false)
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
-    const [searchValue, setSearchValue] = useState<string|number>("")
+    const { visible: isNotificaitonOpen, toggleModal: toggleNotification } = useModalCommon({ initialValue: false })
+    const [searchValue, setSearchValue] = useState<string | number>("")
 
     useEffect(() => {
         const handleScroll = () => {
@@ -57,7 +58,9 @@ const Header = memo(({ }: props) => {
                     openModalRegister={openModalRegister}
                     setSearchValue={setSearchValue}
                     searchValue={searchValue}
-                    />
+                    isNotificationOpen={isNotificaitonOpen}
+                    toggleNotification={toggleNotification}
+                />
             </div>
 
             <header ref={headeFullRef} className={classNames({ [s.header]: true, [s.full]: isFullHeader })}>
@@ -67,16 +70,18 @@ const Header = memo(({ }: props) => {
                         isFull={isFullHeader}
                         toggleFilter={toggleFilter}
                         openModalLogin={openModalLogin}
-                        openModalRegister = {openModalRegister}
+                        openModalRegister={openModalRegister}
                         setSearchValue={setSearchValue}
                         searchValue={searchValue}
-                         />
+                        isNotificationOpen={isNotificaitonOpen}
+                        toggleNotification={toggleNotification}
+                    />
                     <HeaderSubMenu />
                 </div>
             </header>
 
             <HeaderSubMenuMobile />
-            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} mode={isModeAuthenRegister? 'register': ''} />
+            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} mode={isModeAuthenRegister ? 'register' : ''} />
         </>
     )
 })

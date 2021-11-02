@@ -1,7 +1,7 @@
-import React from 'react';
-import s from './Author.module.scss';
 import classNames from 'classnames';
+import React from 'react';
 import ImgWithLink from "../ImgWithLink/ImgWithLink";
+import s from './Author.module.scss';
 
 interface Props {
     image:string,

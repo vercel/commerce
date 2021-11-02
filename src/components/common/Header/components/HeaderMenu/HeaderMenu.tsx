@@ -32,6 +32,8 @@ interface Props {
   toggleFilter: () => void
   searchValue:string|number
   setSearchValue: (value: string | number) => void
+  isNotificationOpen: boolean
+  toggleNotification: () => void
 }
 
 const HeaderMenu = memo(
@@ -42,7 +44,9 @@ const HeaderMenu = memo(
     openModalRegister,
     toggleFilter,
     searchValue,
-    setSearchValue
+    setSearchValue,
+    isNotificationOpen,
+    toggleNotification,
   }: Props) => {
     const router = useRouter()
     const { toggleCartDrawer } = useCartDrawer()
@@ -157,7 +161,7 @@ const HeaderMenu = memo(
                 </Link>
               </li>
               <li>
-                <NotificationDropdown/>
+                <NotificationDropdown isOpen={isNotificationOpen} toggle={toggleNotification} />
               </li>
             </>
           }
