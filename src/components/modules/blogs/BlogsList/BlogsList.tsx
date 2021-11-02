@@ -1,13 +1,12 @@
+import { QueryBlogs } from '@framework/schema'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState,useRef, useMemo } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import CardBlog, { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
-import { DEFAULT_BLOG_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
-import s from "./BlogsList.module.scss"
-import { QueryBlogs } from '@framework/schema'
 import { useGetBlogList } from 'src/components/hooks/blog'
+import { DEFAULT_BLOG_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { getPageFromQuery } from 'src/utils/funtion.utils'
-import { ListBlogCardSkeleton  } from 'src/components/common'
+import s from "./BlogsList.module.scss"
 
 interface BlogsListProps {
     blogList?: BlogCardProps[],
@@ -34,7 +33,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
     const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
 
     const [optionQueryBlog, setOptionQueryBlog] = useState<QueryBlogs>(DEFAULT_BLOGS_ARGS)
-    const { blogs, totalItems, loading } = useGetBlogList(optionQueryBlog);
+    const { blogs, totalItems } = useGetBlogList(optionQueryBlog);
 
 
     const onPageChange = (page:number) => {

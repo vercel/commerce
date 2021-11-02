@@ -37,7 +37,13 @@ export interface BlogProps {
     title: string
     slug: string
     description: string
-    imageSrc: string | null,
+    content: string
+    imageSrc: string | null
+    isPublish: boolean
+    isFeatured: boolean
+    authorName: string
+    authorAvatarAsset: string | null
+    createdAt: string
 }
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent

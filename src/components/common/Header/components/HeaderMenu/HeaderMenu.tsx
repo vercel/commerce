@@ -92,7 +92,6 @@ const HeaderMenu = memo(
     )
 
     const onEnter = () => {
-      console.log("enter")
         router.push(`${ROUTE.PRODUCTS}?${QUERY_KEY.SEARCH}=${searchValue}`)
     }
 

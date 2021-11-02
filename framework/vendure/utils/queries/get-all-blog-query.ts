@@ -14,6 +14,10 @@ query GetBlogs($excludeBlogIds: [ID]!,  $customOptions: CustomBlogListOptions) {
       featuredAsset {
         preview
       }
+      title
+      slug
+      description
+      content
       translations {
         title
         slug
