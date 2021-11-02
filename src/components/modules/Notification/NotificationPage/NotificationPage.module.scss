@@ -1,6 +1,8 @@
 .notificationPage {
     min-height: 30rem;
     padding-bottom: 5.4rem;
+    width: max-content;
+    max-width: 100%;
     @screen md {
         padding-bottom: 12.8rem;
     }
