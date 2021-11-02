@@ -153,6 +153,7 @@ export function normalizeBlog(blog: Blog): BlogProps {
       imageSrc: blog.featuredAsset?.preview || null,
       slug: blog.slug,
       description: blog.description || '',
+      content: blog.content || '',
       isPublish: blog.isPublish,
       isFeatured:blog.isFeatured ?? null,
       authorName: blog.authorName || '',

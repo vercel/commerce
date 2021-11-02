@@ -4,7 +4,7 @@ import { BlogEmpty, Layout } from 'src/components/common';
 import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog';
 import { BlogBreadCrumb, BlogHeading, BlogsList, FeaturedCardBlog } from 'src/components/modules/blogs';
 import { DEFAULT_BLOG_PAGE_SIZE, REVALIDATE_TIME } from "src/utils/constanst.utils";
-import { formatDate, getAllPromies } from 'src/utils/funtion.utils';
+import { getAllPromies } from 'src/utils/funtion.utils';
 import { PromiseWithKey, SortOrder } from 'src/utils/types.utils';
 
 interface Props {
@@ -17,17 +17,7 @@ export default function BlogsPage({ blogs, featuredBlog, totalItems }: Props) {
     <>
       <BlogBreadCrumb />
       <BlogHeading />
-      {featuredBlog &&
-        <FeaturedCardBlog
-          title={featuredBlog.title}
-          slug={featuredBlog.slug}
-          imgSrc={featuredBlog.imageSrc}
-          content={featuredBlog.description}
-          imgAuthor={featuredBlog.authorAvatarAsset}
-          authorName={featuredBlog.authorName}
-          date={formatDate(featuredBlog.createdAt)}
-        />
-      }
+      {featuredBlog && <FeaturedCardBlog blog={featuredBlog} />}
 
       {
         (blogs?.length !== 0) &&

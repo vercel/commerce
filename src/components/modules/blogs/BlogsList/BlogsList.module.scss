@@ -15,6 +15,9 @@
     }
     .card {
         @apply pb-16;
+        > div {
+            width: 100%;
+        }
     }
     .pagination {
         @apply flex justify-center items-center ;

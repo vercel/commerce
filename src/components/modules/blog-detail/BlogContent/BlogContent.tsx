@@ -1,33 +1,26 @@
-import React from 'react';
-import { Author, DateTime, ImgWithLink } from "src/components/common";
-import IconFacebook from 'src/components/icons/IconFacebook';
-import IconInstagram from 'src/components/icons/IconInstagram';
-import IconTwitter from 'src/components/icons/IconTwitter';
-import s from './BlogContent.module.scss';
 import Link from 'next/link';
+import React from 'react';
+import { Author, DateTime } from "src/components/common";
+import IconFacebook from 'src/components/icons/IconFacebook';
+import IconTwitter from 'src/components/icons/IconTwitter';
+import { formatDate } from 'src/utils/funtion.utils';
+import { BlogProps } from 'src/utils/types.utils';
+import s from './BlogContent.module.scss';
 
 interface BlogContentProps {
-    className?: string
-    children?: any,
-    title?: string,
-    content?: string,
-    imgAuthor?: string ,
-    date?: string,
-    authorName?: string,
+    blog: BlogProps
 }
-function BlogContent({title,date='',content,imgAuthor='',authorName='' }:BlogContentProps)  {
+function BlogContent({blog: {title,createdAt,content,authorAvatarAsset,authorName=''} }:BlogContentProps)  {
 
     return (
         <>
              <div className={s.blogContentWrapper}>
-                <DateTime date={date}/>
+                <DateTime date={formatDate(createdAt)}/>
                 <h1>{title}</h1>
                 <div className={s.author}>
-                    <Author image={imgAuthor} name={authorName} />
+                    <Author image={authorAvatarAsset || ''} name={authorName} />
                 </div>
-                <section className={s.content}>
-                    {content}
-                </section>
+                <section className={s.content} dangerouslySetInnerHTML={{__html: content}}></section>
                   
                <div className={s.boxShare}>
                    <div className={s.share}>

@@ -36,13 +36,13 @@ export interface BlogProps {
     id:string,
     title: string
     slug: string
-    description?: string
-    content?: string
-    imageSrc?: string | null
+    description: string
+    content: string
+    imageSrc: string | null
     isPublish: boolean
     isFeatured: boolean
-    authorName?: string
-    authorAvatarAsset?: string | null
+    authorName: string
+    authorAvatarAsset: string | null
     createdAt: string
 }
 

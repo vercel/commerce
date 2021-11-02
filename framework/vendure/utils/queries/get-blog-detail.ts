@@ -12,6 +12,10 @@ query getBlog($slug: String ){
          featuredAsset {
            preview
          }
+         title
+          slug
+          description
+          content
          translations {
            title
            slug
