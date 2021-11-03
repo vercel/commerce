@@ -28,7 +28,7 @@ export default function Slug({ product, relevantProducts, collections,relevant }
     }else{
       setLocal([product])
     }
-  }, [product])
+  }, [product,local,setLocal])
   
   return <>
     <ProductInfoDetail productDetail={product}/>

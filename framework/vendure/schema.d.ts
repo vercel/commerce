@@ -3835,7 +3835,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
       variants: Array<
         { __typename?: 'ProductVariant' } & Pick<
           ProductVariant,
-          'id' | 'priceWithTax' | 'currencyCode' | 'price' | "name"
+          'id' | 'priceWithTax' | 'currencyCode' | 'price' | "name" | 'customFields'
         > & {
           options: Array<
             { __typename?: 'ProductOption' } & Pick<

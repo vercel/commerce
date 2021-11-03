@@ -27,6 +27,10 @@ export const getProductQuery = /* GraphQL */ `
             }
           }
         }
+        customFields{
+          oldPrice
+          discount
+        }
       }
       optionGroups {
         id
