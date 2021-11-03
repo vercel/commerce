@@ -191,7 +191,8 @@ export function getProductVariant(product: Product, opts: SelectedOptions) {
           option.__typename === 'MultipleChoiceOption' &&
           option.displayName.toLowerCase() === key.toLowerCase()
         ) {
-          return option.values.find((v) => v.label.toLowerCase() === value)
+          return option.values.find((v) => {
+            return v.label.toLowerCase() === value?.toLowerCase()})
         }
       })
     )

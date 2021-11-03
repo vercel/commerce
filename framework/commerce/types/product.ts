@@ -33,6 +33,12 @@ export type ProductVariant = {
   name:string,
   options: ProductOption[]
   availableForSale?: boolean
+  price: number
+  currencyCode: CurrencyCode
+  customFields?:{
+    oldPrice:number
+    discount:string
+  }
 }
 
 export type Product = {
@@ -51,6 +57,7 @@ export type Product = {
   collectionIds?: string[]
   collection?: string[],
   variants?: ProductVariant[]
+  
 }
 
 export type ProductCard = {
