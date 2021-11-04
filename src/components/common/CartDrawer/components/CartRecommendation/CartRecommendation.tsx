@@ -1,4 +1,3 @@
-import { QueryRecommendedProductsInCartArgs } from '@framework/schema';
 import React from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, ViewAllItem } from 'src/components/common';
@@ -27,11 +26,9 @@ const RESPONSIVE:ResponsiveType = {
   }
 };
 
-const MAX_RECOMMENDED_PRODUCTS = 10
-const QUERY_RECOMMENDED_PRODUCTS  = { take: MAX_RECOMMENDED_PRODUCTS} as QueryRecommendedProductsInCartArgs
 
 const CartRecommendation = () => {
-  const { products } = useRecommendedProductsInCart(QUERY_RECOMMENDED_PRODUCTS)
+  const { products } = useRecommendedProductsInCart()
   
   return (
     <div className={s.cartRecommendation}>
