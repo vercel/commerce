@@ -1,8 +1,34 @@
-@import '../../../../styles/utilities';
+@import "../../../../styles/utilities";
 .colectionCarcoucelWarpper {
-  padding-top: 5.6rem;
-  padding-bottom: 6.5rem;
-  @apply flex flex-col;
+  padding-top: 4.8rem;
+  padding-bottom: 4.8rem;
+  @apply flex flex-col relative;
+
+  &.line {
+      &::after {
+        @apply absolute w-full;
+        content: "";
+        left: 0;
+        bottom: -.5rem;
+        width: 100%;
+        height: 1rem;
+        background-color: #F5F4F2;
+        @screen md {
+          background-image: url("./line.svg");
+          background-repeat: no-repeat;
+          background-size: contain;
+          bottom: -2.4rem;
+          height: 2.4rem;
+          margin: 0 6.4rem;
+          width: calc(100% - 6.4rem * 2);
+        }
+        @screen lg {
+          margin: 0 11.2rem;
+          width: calc(100% - 11.2rem * 2);
+        }
+      }
+  }
+
   .top {
     @apply spacing-horizontal flex w-full justify-between;
     @screen xl {

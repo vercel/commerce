@@ -17,6 +17,7 @@ const HomeCollection = ({ data }: HomeCollectionProps) => {
             title={collection.name}
             subtitle={collection.description}
             category={collection.name}
+            hasLineBottom
           />
         ) : null
       })}

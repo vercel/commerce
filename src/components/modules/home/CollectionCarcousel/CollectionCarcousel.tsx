@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 import {
   CollectionHeading,
@@ -13,6 +14,7 @@ interface ColectionCarcouselProps extends CollectionHeadingProps {
   itemKey: string
   viewAllLink?: string,
   category?: string
+  hasLineBottom?: boolean
 }
 
 const ColectionCarcousel = ({
@@ -23,9 +25,10 @@ const ColectionCarcousel = ({
   type,
   category,
   viewAllLink = ROUTE.PRODUCTS,
+  hasLineBottom,
 }: ColectionCarcouselProps) => {
   return (
-    <div className={s.colectionCarcoucelWarpper}>
+    <div className={classNames(s.colectionCarcoucelWarpper, {[s.line]: hasLineBottom})}>
       <div className={s.top}>
         <div className={s.left}>
           <CollectionHeading
