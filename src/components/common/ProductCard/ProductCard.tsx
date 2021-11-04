@@ -19,7 +19,8 @@ import ProductNotSell from './ProductNotSell/ProductNotSell'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
-  activeWishlist?:boolean
+  activeWishlist?:boolean,
+  isWishlist?:boolean,
 }
 
 const ProductCardComponent = ({
@@ -40,7 +41,6 @@ const ProductCardComponent = ({
 
   const {addProduct} = useAddProductToCart()
   const { openCartDrawer } = useCartDrawer()
-  const { customer } = useActiveCustomer()
   const { order } = useGetActiveOrder()
   const [addToCartLoading, setAddToCartLoading] = useState(false)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
@@ -142,7 +142,7 @@ const ProductCardComponent = ({
           <div className={s.cardMidBot}>
             <div className={s.productPrice}>{price} {currencyCode}</div>
             <div className={s.wishList}>
-              <ItemWishList id={id}/>
+              <ItemWishList id={id} />
             </div>
           </div>
         </div>

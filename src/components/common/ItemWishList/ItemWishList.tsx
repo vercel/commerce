@@ -1,11 +1,9 @@
 import classNames from 'classnames'
 import React, { memo, useState } from 'react'
-import { useMessage } from 'src/components/contexts'
-import { useActiveCustomer } from 'src/components/hooks/auth'
+import { useMessage, useToggleWishlist } from 'src/components/contexts'
 import IconHeart from 'src/components/icons/IconHeart'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
-import { useGetFavoriteProduct } from '../../../../src/components/hooks/account'
 import s from './ItemWishList.module.scss'
 
 interface Props {
@@ -13,42 +11,40 @@ interface Props {
     onChange?: () => string
 }
 
-const ItemWishList = memo(({id, onChange}:Props) => {
-   
-    const { wishlistId, mutate:mutateIdWishlist } = useActiveCustomer();
-    const { mutate:mutateProductWishlist } = useGetFavoriteProduct();
-  
+const ItemWishList = memo(({  id, onChange}:Props) => {
+
+    const { mutateProductWishlist,itemWishlist } = useToggleWishlist();
+    
     const { onToggleProductWishlist } = useToggleProductWishlist();
     
-    const [isWishlist,setIsWishlist] = useState(wishlistId?.includes(id));
-  
+    const [isWishlistIcon, setIsWishlistIcon ] = useState(()=>itemWishlist?.map(val=>val.id).includes(id));
+   
 
     const { showMessageSuccess, showMessageError } = useMessage();
 
     function toggleWishlist(){
-        setIsWishlist(!isWishlist);
+        setIsWishlistIcon(!isWishlistIcon);
         onToggleProductWishlist({productId:id},onToggleCallBack)
     }
   
-      const onToggleCallBack = (isSuccess: boolean, message?: string) => {
-        if (isSuccess) {
-          mutateIdWishlist();
-          mutateProductWishlist();
-          if(!isWishlist){
-            showMessageSuccess("Product added to wishlist", 15000)
-          }else{
-            showMessageError("Product removed from wishlist", 15000)
-          }
-        } else {
-          showMessageError(LANGUAGE.MESSAGE.ERROR)
-          setIsWishlist(false);
+    const onToggleCallBack = (isSuccess: boolean, message?: string) => {
+      if (isSuccess) {
+        mutateProductWishlist();
+        if(!isWishlistIcon){
+          showMessageSuccess("Product added to wishlist", 15000)
+        }else{
+          showMessageError("Product removed from wishlist", 15000)
         }
+      } else {
+        showMessageError(LANGUAGE.MESSAGE.ERROR)
+        setIsWishlistIcon(false);
       }
+    }
 
     return(
         <div className={classNames({
             [s.heartToggle]: true, 
-            [s.isToggleOn]: isWishlist
+            [s.isToggleOn]: isWishlistIcon
         })}
         onChange={onChange}
         onClick={toggleWishlist}

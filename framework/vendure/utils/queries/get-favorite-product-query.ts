@@ -12,10 +12,11 @@ query activeCustomer($options: FavoriteListOptions) {
           name
           slug
           assets{
-            source
             preview
           }
           variants{
+            id
+            name
             priceWithTax
             currencyCode
           }

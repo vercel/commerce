@@ -1,7 +1,7 @@
 import { CommerceProvider } from '@framework'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { CartDrawerProvider, MessageProvider, ProductFilterProvider } from 'src/components/contexts'
+import { CartDrawerProvider, MessageProvider, ProductFilterProvider,ToggleProductWishlistProvider } from 'src/components/contexts'
 import LayoutContent from './LayoutContent/LayoutContent'
 interface Props {
   className?: string
@@ -12,6 +12,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { locale = 'en-US' } = useRouter()
   return (
     <CommerceProvider locale={locale}>
+      <ToggleProductWishlistProvider>
       <CartDrawerProvider>
         <ProductFilterProvider>
           <MessageProvider>
@@ -19,6 +20,7 @@ const Layout: FC<Props> = ({ children }) => {
           </MessageProvider>
         </ProductFilterProvider>
       </CartDrawerProvider>
+      </ToggleProductWishlistProvider>
     </CommerceProvider>
   )
 }

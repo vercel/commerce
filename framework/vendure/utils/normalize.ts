@@ -24,16 +24,6 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   }
 }
 
-export function normalizeFavoriteProductResult(item: Favorite) {
-  return {
-    id: item.product.id,
-    name: item.product.name,
-    slug: item.product.slug,
-    imageSrc: item.product.assets[0].preview ? item.product.assets[0].preview + '?w=800&mode=crop' : '',
-    price: item.product.variants[0].priceWithTax as number / 100,
-    currencyCode: item.product.variants[0].currencyCode,
-  }
-}
 
 
 export function normalizeCart(order: CartFragment): Cart {
@@ -143,6 +133,18 @@ export function normalizeProductCard(product: Product): ProductCard {
     productVariantName: product.variants?.[0].name,
     facetValueIds: product.facetValueIds,
     collectionIds: product.collectionIds,
+  }
+}
+export function normalizeFavoriteProductResult(item: Favorite) {
+  return {
+    id: item.product.id,
+    name: item.product.name,
+    slug: item.product.slug,
+    imageSrc: item.product.assets[0].preview ? item.product.assets[0].preview + '?w=800&mode=crop' : '',
+    price: item.product.variants[0].priceWithTax as number / 100,
+    currencyCode: item.product.variants[0].currencyCode,
+    productVariantId: item.product.variants?.[0]?.id.toString(),
+    productVariantName: item.product.variants?.[0]?.name,
   }
 }
 

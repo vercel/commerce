@@ -6,6 +6,7 @@ import { ButtonCommon, EmptyCommon } from '..'
 import PaginationCommon from '../PaginationCommon/PaginationCommon'
 import ProductCard, { ProductCardProps } from '../ProductCard/ProductCard'
 import s from "./ProductList.module.scss"
+import { useToggleWishlist } from 'src/components/contexts'
 interface ProductListProps {
     data: ProductCardProps[],
     total?: number,
@@ -15,6 +16,7 @@ interface ProductListProps {
 
 const ProductList = ({ data, total = data?.length, defaultCurrentPage, onPageChange }: ProductListProps) => {
     const router = useRouter()
+    const { itemWishlist } = useToggleWishlist();
 
     const handlePageChange = (page: number) => {
         onPageChange && onPageChange(page)
@@ -33,7 +35,7 @@ const ProductList = ({ data, total = data?.length, defaultCurrentPage, onPageCha
             <div className={s.list}>
                 {
                     data?.map((product, index) => {
-                        return <ProductCard {...product} key={index} />
+                        return <ProductCard  {...product} key={index} />
                     })
                 }
             </div>

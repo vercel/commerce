@@ -1,19 +1,19 @@
 import { QueryFavorite } from "@framework/schema"
-import { useRouter } from "next/router"
+
 import React, { useEffect, useState } from "react"
 import { HeadingCommon, TabPane } from "src/components/common"
 import { useGetFavoriteProduct, useGetUserOrder } from 'src/components/hooks/account'
 import { useActiveCustomer } from 'src/components/hooks/auth'
 import { ACCOUNT_TAB, DEFAULT_PAGE_SIZE, QUERY_KEY } from "src/utils/constanst.utils"
-import { getPageFromQuery } from 'src/utils/funtion.utils'
+
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
 import s from './AccountPage.module.scss'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
 import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
-
-
+import { useRouter } from "next/router"
+import { useToggleWishlist } from 'src/components/contexts'
 
 interface AccountPageProps {
     defaultActiveContent?: "info" | "orders" | "favorites"
@@ -32,13 +32,11 @@ const getTabIndex = (tab?: string): number => {
 }
 
 
-const DEFAULT_FAVORITE_ARGS = {
-    options:{
-        skip:0, take:DEFAULT_PAGE_SIZE
-    }
-}
+
 
 const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
+    const {itemWishlist, totalItems} = useToggleWishlist();
+
     const router = useRouter()
 
     const {userInfo} = useActiveCustomer();
@@ -48,20 +46,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
 
     const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
-    const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
-   
-    const { itemWishlist,totalItems }= useGetFavoriteProduct(optionQueryFavorite);
-
-
-    // skip
-    useEffect(() => {
-        const query = { ...DEFAULT_FAVORITE_ARGS } as QueryFavorite;
-        const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
-        query.options.skip = page * DEFAULT_PAGE_SIZE;
-        setoptionQueryFavorite(query);
-    },[router.query])
-
-       
+    
     useEffect(() => {
         const query = router.query[QUERY_KEY.TAB] as string
         const index = getTabIndex(query)
@@ -75,7 +60,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     function closeModal() {
         setModalVisible(false);
     }
-
+    
     return (
         <>
             <section className={s.accountPage}>
@@ -91,7 +76,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                         <OrderInfomation addingItem={addingItem} arrangingPayment={arrangingPayment} cancelled={cancelled} />
                     </TabPane>
                     <TabPane tabName="Favourite"> 
-                        <FavouriteProducts products={itemWishlist} totalItems={totalItems} />
+                        <FavouriteProducts products={itemWishlist || []} totalItems={totalItems || 0} />
                     </TabPane>
                 </AccountNavigation>
             </section>
