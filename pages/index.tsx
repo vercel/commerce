@@ -39,7 +39,8 @@ export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
         <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       }
       <HomeCTA />
-      <HomeRecipe recipesCollection={recipesCollection}/>
+      {recipesCollection && <HomeRecipe recipesCollection={recipesCollection}/>}
+      
       <HomeSubscribe />
     </>
   )
