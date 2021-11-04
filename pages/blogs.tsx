@@ -73,7 +73,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
-
+    
     return {
       props,
       revalidate: REVALIDATE_TIME

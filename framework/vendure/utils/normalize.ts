@@ -1,14 +1,27 @@
+import { RecipeCardProps } from './../../../src/components/common/RecipeCard/RecipeCard'
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart'
-import { ProductCard } from '@commerce/types/product'
+import { Product as ProductTypes, ProductCard } from '@commerce/types/product'
 import { BlogProps, OrderState } from 'src/utils/types.utils'
-import { Blog, CartFragment, Favorite, Product, RecipeList, SearchResultFragment, ShippingMethod } from '../schema'
+import {
+  CartFragment,
+  SearchResultFragment,
+  Favorite,
+  ShippingMethod,
+  Blog,
+  Product,
+} from '../schema'
+import { Recipe } from '@commerce/types/recipes'
+// import { RecipeList } from '@commerce/types/recipes'
+// import { Blog, CartFragment, Favorite, Product, RecipeList, SearchResultFragment, ShippingMethod } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
     id: item.productId,
     name: item.productName,
     slug: item.slug,
-    imageSrc: item.productAsset?.preview ? item.productAsset?.preview + '?w=800&mode=crop' : '',
+    imageSrc: item.productAsset?.preview
+      ? item.productAsset?.preview + '?w=800&mode=crop'
+      : '',
     price: (item.priceWithTax as any).min / 100,
     currencyCode: item.currencyCode,
     productVariantId: item.productVariantId,
@@ -49,12 +62,13 @@ export function normalizeFavoriteProductResult(item: Favorite) {
     id: item.product.id,
     name: item.product.name,
     slug: item.product.slug,
-    imageSrc: item.product.assets[0].preview ? item.product.assets[0].preview + '?w=800&mode=crop' : '',
-    price: item.product.variants[0].priceWithTax as number / 100,
+    imageSrc: item.product.assets[0].preview
+      ? item.product.assets[0].preview + '?w=800&mode=crop'
+      : '',
+    price: (item.product.variants[0].priceWithTax as number) / 100,
     currencyCode: item.product.variants[0].currencyCode,
   }
 }
-
 
 export function normalizeCart(order: CartFragment): Cart {
   return {
@@ -151,7 +165,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
   }
 }
 
-export function normalizeProductCard(product: Product): ProductCard {
+export function normalizeProductCard(product: ProductTypes): ProductCard {
   return {
     id: product.id,
     name: product.name,
@@ -182,7 +196,7 @@ export function normalizeBlog(blog: Blog): BlogProps {
   }
 }
 
-export function normalizeRecipeList(recipe: RecipeList) {
+export function normalizeRecipeList(recipe: Recipe) {
   return {
     id: recipe.id,
     title: recipe.translations[0]?.title,
@@ -190,8 +204,19 @@ export function normalizeRecipeList(recipe: RecipeList) {
     slug: recipe.translations[0]?.slug,
     description: recipe.translations[0]?.description,
     isPublish: recipe.isPublish,
-    authorName: recipe.authorName,
-    authorAvatarAsset: recipe.authorAvatarAsset?.preview,
-    createdAt: recipe.createdAt
+    // authorName: recipe.authorName,
+    // authorAvatarAsset : recipe.authorAvatarAsset?.preview,
+    // createdAt: recipe.createdAt,
   }
+}
+
+export function normalizeRecipe(recipe: Recipe): RecipeCardProps {
+    return {
+      title:recipe.title,
+      id:recipe.id,
+      slug:recipe.slug,
+      imageSrc:recipe.featuredAsset?.preview||"",
+      description:recipe.description||""
+    }
+  
 }

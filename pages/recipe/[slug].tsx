@@ -9,16 +9,17 @@ import { getAllPromies } from 'src/utils/funtion.utils';
 import {  REVALIDATE_TIME } from 'src/utils/constanst.utils'
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 interface Props {
-  recipe:{recipeDetail?: RecipeCardProps},
-  relevant:{relevantBlogs?:RecipeCardProps[]}
+  recipe:RecipeCardProps,
+  
+  // relevant:{relevantBlogs?:RecipeCardProps[]}
 }
-export default function Slug({recipe,relevant}:Props) {
-
+export default function Slug({recipe}:Props) {
+  
   return <div className="page-recipe-detail">
-    <RecipeDetail ingredients={INGREDIENT_DATA_TEST} 
-      {...recipe.recipeDetail}
+    <RecipeDetail 
+      {...recipe}
     />
-    <RecommendedRecipes data={relevant?.relevantBlogs} />
+    {/* <RecommendedRecipes data={relevant?.relevantBlogs} /> */}
   </div>
 }
 
@@ -33,7 +34,7 @@ export async function getStaticProps({
   let promisesWithKey = [] as PromiseWithKey[]
   let props = {} as any
   
-  //  Blog detail
+  //  recipe detail
   const recipesPromise = await commerce.getRecipeDetail({
     variables: { slug: params!.slug },
     config,
@@ -41,24 +42,24 @@ export async function getStaticProps({
   })
   props.recipe = recipesPromise;
 
-  if (recipesPromise.recipeDetail === null) {
+  if (recipesPromise === null) {
     return { notFound: true };
   }
 
   // // Relevant Blogs
-  const relevantProductId = recipesPromise?.recipeDetail?.relevantProducts?.[0];
-  if (relevantProductId && recipesPromise?.recipeDetail?.relevantProducts?.length > 0) {
+  // const relevantProductId = recipesPromise?.recipeDetail?.relevantProducts?.[0];
+  // if (relevantProductId && recipesPromise?.recipeDetail?.relevantProducts?.length > 0) {
 
-    const relevantBlogs = commerce.getRelevantBlogs({
-      variables: { productId: relevantProductId },
-      config,
-      preview,
-    })
-    promisesWithKey.push({ key: 'relevant', promise: relevantBlogs})
+  //   const relevantBlogs = commerce.getRelevantBlogs({
+  //     variables: { productId: relevantProductId },
+  //     config,
+  //     preview,
+  //   })
+  //   promisesWithKey.push({ key: 'relevant', promise: relevantBlogs})
 
-  }else {
-    props.relevantBlogs = [];
-  }
+  // }else {
+  //   props.relevantBlogs = [];
+  // }
   
 
   try {
@@ -69,6 +70,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
+    console.log(props)
     return {
       props,
       revalidate: REVALIDATE_TIME,

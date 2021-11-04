@@ -1,18 +1,21 @@
+@import "../../../styles/utilities";
 .recipeCardWarpper{
     max-width: 39.2rem;
-    min-height: 34rem;
+    width: 100%;
     @apply inline-flex flex-col justify-start;
-    .image{
-        width: 100%;
+    .image{ 
+        user-select: none;
+        width: 100%;      
         border-radius: 2.4rem;
-        img {
-            border-radius: 2.4rem;
-        }
-        &:hover{
+        &:hover {
             cursor: pointer;
         }
-        @screen md{
-            max-height: 22rem;
+        img{
+            border-radius: 2.4rem;
+            object-fit: contain;
+        }
+        > div{
+            min-height: 22rem;
         }
     }
     .title{

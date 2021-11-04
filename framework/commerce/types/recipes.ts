@@ -1,19 +1,19 @@
+import { ProductCardProps } from './../../../src/components/common/ProductCard/ProductCard';
 import { Asset, BlogTranslation, Maybe, Product } from './../../vendure/schema.d';
 
-export type RecipeList = Node &{
+export type Recipe = Node &{
     id: string
+    slug:string
+    title:string
+    description?:string
     featuredAsset?: Maybe<Asset>
     isPublish:Boolean
     translations: Array<BlogTranslation>
-    authorName: string
-    authorAvatarAsset:Array<Asset>
     relevantProducts: Product
-    link:String
-    minutes:Number
-    people:Number
+    ingredients:ProductCardProps[]
 }
 export type RecipesType = {
-    items: RecipeList
+    items: Recipe
     totalItems: number
 }
 

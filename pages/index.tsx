@@ -1,5 +1,6 @@
 import { Collection } from '@commerce/types/collection';
 import { ProductCard } from '@commerce/types/product';
+import { RecipeCollection } from '@commerce/types/recipe-collection';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
 import { FacetValue } from '@framework/schema';
 import commerce from '@lib/api/commerce';
@@ -19,9 +20,10 @@ interface Props {
   collections: Collection[]
   spiceProducts:ProductCard[]
   collectionProps:CollectionsWithData[]
+  recipesCollection:RecipeCollection[]
 }
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
-  freshProducts, featuredProducts,
+  freshProducts, featuredProducts,recipesCollection,
   collections, spiceProducts }: Props) {
   return (
     <>
@@ -37,7 +39,8 @@ export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
         <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       }
       <HomeCTA />
-      <HomeRecipe />
+      {recipesCollection.length > 0 && <HomeRecipe recipesCollection={recipesCollection}/>}
+      
       <HomeSubscribe />
     </>
   )
@@ -122,7 +125,10 @@ export async function getStaticProps({
     preview,
   })
   promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
-
+  
+  // recipe 
+  const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
+  props.recipesCollection = recipesCollection.collections
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)
