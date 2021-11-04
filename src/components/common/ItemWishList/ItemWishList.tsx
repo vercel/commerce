@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 import React, { memo, useState } from 'react'
 import { useMessage } from 'src/components/contexts'
+import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { useActiveCustomer } from 'src/components/hooks/auth'
 import IconHeart from 'src/components/icons/IconHeart'
-import { LANGUAGE } from 'src/utils/language.utils'
-import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
 import { useGetFavoriteProduct } from '../../../../src/components/hooks/account'
+import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
 import s from './ItemWishList.module.scss'
 
 interface Props {
@@ -14,20 +14,24 @@ interface Props {
 }
 
 const ItemWishList = memo(({id, onChange}:Props) => {
-   
-    const { wishlistId, mutate:mutateIdWishlist } = useActiveCustomer();
+    const { wishlistId, mutate:mutateIdWishlist, customer } = useActiveCustomer();
     const { mutate:mutateProductWishlist } = useGetFavoriteProduct();
-  
     const { onToggleProductWishlist } = useToggleProductWishlist();
+    const { openModalAuthen } = useModalAuthen()
     
     const [isWishlist,setIsWishlist] = useState(wishlistId?.includes(id));
   
 
-    const { showMessageSuccess, showMessageError } = useMessage();
+    const { showMessageSuccess, showMessageError, showMessageWarning } = useMessage();
 
     function toggleWishlist(){
+      if (customer) {
         setIsWishlist(!isWishlist);
         onToggleProductWishlist({productId:id},onToggleCallBack)
+      } else {
+        showMessageWarning("Please login to add the product to your wishlist", 6000)
+        openModalAuthen()
+      }
     }
   
       const onToggleCallBack = (isSuccess: boolean, message?: string) => {
@@ -40,7 +44,7 @@ const ItemWishList = memo(({id, onChange}:Props) => {
             showMessageError("Product removed from wishlist", 15000)
           }
         } else {
-          showMessageError(LANGUAGE.MESSAGE.ERROR)
+          showMessageError(message)
           setIsWishlist(false);
         }
       }

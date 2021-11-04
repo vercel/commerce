@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useMessage } from 'src/components/contexts'
+import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { FILTER_PAGE, ROUTE } from 'src/utils/constanst.utils'
 import { CartDrawer, Footer, MessageCommon, ScrollToTop } from '../..'
 import Header from '../../Header/Header'
 import MenuNavigationProductList from '../../MenuNavigationProductList/MenuNavigationProductList'
+import ModalAuthenticate from '../../ModalAuthenticate/ModalAuthenticate'
 import s from './LayoutContent.module.scss'
 
 interface Props {
@@ -15,6 +17,7 @@ interface Props {
 const LayoutContent: FC<Props> = ({ children }) => {
     const router = useRouter()
     const {messages, removeMessage} = useMessage()
+    const {modalAuthenVisible, modalAuthenMode, initialEmail, disableRedirect, closeModalAuthen } = useModalAuthen()
 
     return (
         <>
@@ -35,6 +38,12 @@ const LayoutContent: FC<Props> = ({ children }) => {
             </div>
             <CartDrawer />
             <MessageCommon messages={messages} onRemove={removeMessage}/>
+            <ModalAuthenticate visible={modalAuthenVisible}
+                closeModal={closeModalAuthen}
+                mode={modalAuthenMode}
+                initialEmail={initialEmail}
+                disableRedirect={disableRedirect}
+            />
         </>
 
     )

@@ -1,7 +1,7 @@
 import { ProductCard } from '@commerce/types/product'
 import Link from 'next/link'
 import Router from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCartDrawer, useMessage } from 'src/components/contexts'
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder'
 import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
@@ -19,6 +19,7 @@ export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
   activeWishlist?:boolean
+  onAddToCartCallBack ?: () => void
 }
 
 const ProductCardComponent = ({
@@ -35,6 +36,7 @@ const ProductCardComponent = ({
   isSingleButton,
   productVariantId,
   productVariantName,
+  onAddToCartCallBack
 }: ProductCardProps) => {
 
   const {addProduct} = useAddProductToCart()
@@ -48,6 +50,7 @@ const ProductCardComponent = ({
   const handleAddToCart = () => {
     setAddToCartLoading(true)
     if(order && order.state !== "AddingItems"){
+      console.log("here before")
       setMode("handleAddToCart")
       changeOrderState("AddingItems",onChangeOrderStateCallback)
     }else if(productVariantId){
@@ -57,12 +60,17 @@ const ProductCardComponent = ({
   const handleAddToCartCallback = (isSuccess:boolean,message?:string) => {
 		setAddToCartLoading(false)
 		if(isSuccess){
-			showMessageSuccess("Add to cart successfully!", 4000)
+      showMessageSuccess("Add to cart successfully!", 4000)
+      onAddToCartCallBack && onAddToCartCallBack()
 			openCartDrawer && openCartDrawer()
 		}else{
 			showMessageError(message||"Error")
 		}
   }
+
+  useEffect(() => {
+    console.log("add loading changed: ", addToCartLoading)
+  }, [addToCartLoading])
 
     const handleBuyNowCallback = (success:boolean,message?:string) => {
       setBuyNowLoading(false)
