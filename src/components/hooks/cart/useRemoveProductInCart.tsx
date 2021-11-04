@@ -24,8 +24,8 @@ const useRemoveProductInCart = () => {
         if (data.removeOrderLine.__typename !== "Order") {
           throw CommonError.create(errorMapping(data.removeOrderLine.message), data.removeOrderLine.errorCode)
         }
-        mutate()
         fCallBack(true)
+        mutate()
       })
       .catch((error) => {
         setError(error)

@@ -14,8 +14,7 @@ const StaticImage = ({ src, alt, priority = true }: Props) => {
         <Image src={src} alt={alt}
             placeholder='blur'
             className={s.staticImage}
-            priority={priority}
-
+            // priority={priority}
         />
     )
 }

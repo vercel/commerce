@@ -2,7 +2,7 @@ import React from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, ViewAllItem } from 'src/components/common';
 import ProductCard, { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
-import { useRecommendedProductsInCart } from 'src/components/hooks/cart';
+import { useGetActiveOrder, useRecommendedProductsInCart } from 'src/components/hooks/cart';
 import { ROUTE } from 'src/utils/constanst.utils';
 import s from './CartRecommendation.module.scss';
 
@@ -28,7 +28,13 @@ const RESPONSIVE:ResponsiveType = {
 
 
 const CartRecommendation = () => {
-  const { products } = useRecommendedProductsInCart()
+  const { products, mutate: mutateRecommendedProductsInCart } = useRecommendedProductsInCart()
+  const { mutate: mutateGetActiveOrder } = useGetActiveOrder()
+
+  const onAddToCartCallBack = () => {
+    mutateGetActiveOrder()
+    mutateRecommendedProductsInCart()
+  }
   
   return (
     <div className={s.cartRecommendation}>
@@ -44,7 +50,7 @@ const CartRecommendation = () => {
           Component={ProductCard}
           itemKey="cart-recommendation"
           responsive={RESPONSIVE}
-          defaultComponentProps={{ isSingleButton: true }}
+          defaultComponentProps={{ isSingleButton: true, onAddToCartCallBack }}
         />
       </div>
     </div>
