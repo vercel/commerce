@@ -14,7 +14,6 @@ const useAddProductToCart = () => {
     ) => {
     setError(null)
     setLoading(true)
-    console.log("initial; ", new Date())
 
     rawFetcher<AddItemToOrderMutation>({
       query: addItemToOrderMutation ,

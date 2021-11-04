@@ -50,8 +50,6 @@ const ProductCardComponent = ({
   const handleAddToCart = () => {
     setAddToCartLoading(true)
     if(order && order.state !== "AddingItems"){
-      console.log("here before")
-      setMode("handleAddToCart")
       changeOrderState("AddingItems",onChangeOrderStateCallback)
     }else if(productVariantId){
       addProduct({variantId:productVariantId,quantity:1},handleAddToCartCallback)
@@ -67,10 +65,6 @@ const ProductCardComponent = ({
 			showMessageError(message||"Error")
 		}
   }
-
-  useEffect(() => {
-    console.log("add loading changed: ", addToCartLoading)
-  }, [addToCartLoading])
 
     const handleBuyNowCallback = (success:boolean,message?:string) => {
       setBuyNowLoading(false)
