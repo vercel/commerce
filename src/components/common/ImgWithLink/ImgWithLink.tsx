@@ -7,7 +7,7 @@ export interface ImgWithLinkProps {
     src: string,
     alt?: string,
     blurDataURL?: string
-    priority: boolean
+    priority?: boolean
 
 }
 

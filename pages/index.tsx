@@ -25,7 +25,6 @@ interface Props {
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts,recipesCollection,
   collections, spiceProducts }: Props) {
-  console.log(recipesCollection)
   return (
     <>
       <HomeBanner />
@@ -128,7 +127,7 @@ export async function getStaticProps({
   
   // recipe 
   const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
-  props.recipesCollection = recipesCollection
+  props.recipesCollection = recipesCollection.collections
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)

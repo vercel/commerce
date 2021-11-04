@@ -1,3 +1,4 @@
+import { Recipe } from '@commerce/types/recipes';
 import { Asset } from '../../vendure/schema.d';
 
 export type RecipeCollection = {
@@ -7,6 +8,10 @@ export type RecipeCollection = {
   description: string
   featuredAsset: Asset
   assets?: Asset[]
+  recipes: {
+    items: Recipe[]
+    totalItems: number
+}
 }
 
 export type SearchRecipeCollectionsBody = {

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useRouter } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { QUERY_KEY, QUERY_SPLIT_SEPERATOR, ROUTE } from 'src/utils/constanst.utils'
 import s from './MenuNavigationItem.module.scss'
@@ -9,10 +9,12 @@ interface Props {
     value: string
     queryKey: string
     isSingleSelect?: boolean
-
+    path?:string
 }
 
-const MenuNavigationItem = ({ name, value, queryKey, isSingleSelect }: Props) => {
+const MenuNavigationItem = ({ name, value, queryKey, isSingleSelect,path = ROUTE.PRODUCTS }: Props) => {
+ 
+
     const router = useRouter()
     const [isActive, setIsActive] = useState<boolean>()
 
@@ -50,7 +52,7 @@ const MenuNavigationItem = ({ name, value, queryKey, isSingleSelect }: Props) =>
         }
 
         router.push({
-            pathname: ROUTE.PRODUCTS,
+            pathname: path,
             query
         },
             undefined, { shallow: true }

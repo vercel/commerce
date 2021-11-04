@@ -6,13 +6,11 @@ import {
   CartFragment,
   SearchResultFragment,
   Favorite,
-  BlogList,
-  RecipeList,
   ShippingMethod,
   Blog,
   Recipe,
-  RecipeCollection,
 } from '../schema'
+import { RecipeList } from '@commerce/types/recipes'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -195,14 +193,13 @@ export function normalizeRecipeList(recipe: Recipe) {
   }
 }
 
-export function normalizeRecipe(recipes: Recipe[]): RecipeCardProps[] {
-  return recipes.map((recipe): RecipeCardProps => {
+export function normalizeRecipe(recipe: RecipeList): RecipeCardProps {
     return {
       title:recipe.title,
-      id:Number(recipe.id),
+      id:recipe.id,
       slug:recipe.slug,
       imageSrc:recipe.featuredAsset?.preview||"",
       description:recipe.description||""
     }
-  })
+  
 }

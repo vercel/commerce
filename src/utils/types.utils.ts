@@ -1,3 +1,5 @@
+import { Product } from './../../framework/vendure/schema.d';
+import { ProductCardProps } from './../components/common/ProductCard/ProductCard';
 import { ProductCard } from './../../framework/commerce/types/product';
 import { Collection } from './../../framework/commerce/types/collection';
 
@@ -22,15 +24,15 @@ export interface FeaturedProductProps {
 }
 
 export interface RecipeProps {
-    id:number
-    title: string
-    slug: string
-    description: string
-    imageSrc: string
-    content?: string,
-    // imgAuthor?: string,
-    // date?: string,
-    // authorName?: string,
+    id?:string | null,
+    title: string | null
+    slug: string | null
+    description: string | null
+    imageSrc: string | null
+    content?: string | null,
+    date?: string | null,
+    createdAt?:string | null,
+    ingredients?: ProductCard[]
 }
 
 export interface BlogProps {

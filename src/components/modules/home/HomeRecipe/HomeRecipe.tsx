@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {  HeadingCommon, ViewAllItem } from 'src/components/common'
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard'
 import RecipeCarousel from 'src/components/common/RecipeCarousel/RecipeCarousel'
@@ -8,7 +8,9 @@ import image13 from "../../../../../public/assets/images/image13.png"
 import image14 from "../../../../../public/assets/images/image14.png"
 import image12 from "../../../../../public/assets/images/image12.png"
 import HomeRecipeTab from './HomeRecipeTab/HomeRecipeTab'
-import { RecipeCollection } from '@framework/schema'
+import { RecipeCollection } from '@commerce/types/recipe-collection';
+import { normalizeRecipe } from '@framework/utils/normalize'
+
 
 interface HomeRecipeProps {
   // data?: RecipeCardProps[]
@@ -64,14 +66,13 @@ const TABS = [
 ]
 
 const HomeRecipe = ({ itemKey="home-recipe", title="Special Recipes", recipesCollection }: HomeRecipeProps) => {
-  const [activeTab, setActiveTab] = useState<string>(TABS[0].value)
-  const [data, setData] = useState()
+  const [activeTab, setActiveTab] = useState<string>(recipesCollection[0].slug)
+  const [data, setData] = useState<RecipeCardProps[]>(recipesCollection[0].recipes.items.map((recipe)=>normalizeRecipe(recipe))||[])
 
   const  onTabChanged = (value: string) => {
     setActiveTab(value)
-    setData(recipesCollection.find(collection => collection.slug === value)?.recipes.items.)
+    setData(recipesCollection.find(collection => collection.slug === value)?.recipes.items.map((recipe)=>normalizeRecipe(recipe))||[])
   }
-  
   return (
     <div className={s.homeRecipeWarpper}>
       <div className={s.top}>
