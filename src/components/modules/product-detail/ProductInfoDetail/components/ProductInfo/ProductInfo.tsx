@@ -108,8 +108,7 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                     }
                     <div className={s.current}>{currentVariant?currentVariant.price:productInfoDetail.price} {currentVariant?currentVariant.currencyCode:productInfoDetail.currencyCode}</div>
                 </div>
-                <div className={s.description}>
-                    {productInfoDetail.description}
+                <div className={s.description} dangerouslySetInnerHTML={{__html: productInfoDetail.description}}>
                 </div>
                 <div className={s.options}>
                     {
