@@ -67,6 +67,7 @@ export type Query = {
   products: ProductList
   /** Search Products based on the criteria set by the `SearchInput` */
   search: SearchResponse
+  recommendedProductsInCart: RecommendedProductsInCartResult;
 }
 
 export type QueryCollectionsArgs = {
@@ -4000,6 +4001,20 @@ export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = { __typename?: 'Query' } & {
   activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
+}
+
+export type RecommendedProductsInCartResult = {
+  __typename?: 'RecommendedProductsInCartResult';
+  items: Array<Product>;
+  totalItems: Scalars['Int'];
+};
+
+export type QueryRecommendedProductsInCartArgs = {
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type RecommendedProductsInCartQuery = { __typename?: 'Query' } & {
+  recommendedProductsInCart?: { __typename?: 'RecommendedProductsInCartResult' } & RecommendedProductsInCartResult
 }
 
 export type NewNotificationsQuery = { __typename?: 'Query' } & {

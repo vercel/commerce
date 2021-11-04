@@ -2,8 +2,8 @@ import React from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, ViewAllItem } from 'src/components/common';
 import ProductCard, { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
+import { useRecommendedProductsInCart } from 'src/components/hooks/cart';
 import { ROUTE } from 'src/utils/constanst.utils';
-import { PRODUCT_DATA_TEST } from 'src/utils/demo-data';
 import s from './CartRecommendation.module.scss';
 
 const RESPONSIVE:ResponsiveType = {
@@ -26,7 +26,10 @@ const RESPONSIVE:ResponsiveType = {
   }
 };
 
+
 const CartRecommendation = () => {
+  const { products } = useRecommendedProductsInCart()
+  
   return (
     <div className={s.cartRecommendation}>
       <div className={s.top}>
@@ -37,7 +40,7 @@ const CartRecommendation = () => {
       </div>
       <div className={s.productCardWarpper}>
         <CarouselCommon<ProductCardProps>
-          data={PRODUCT_DATA_TEST}
+          data={products}
           Component={ProductCard}
           itemKey="cart-recommendation"
           responsive={RESPONSIVE}

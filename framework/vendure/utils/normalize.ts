@@ -1,6 +1,6 @@
 import { RecipeCardProps } from './../../../src/components/common/RecipeCard/RecipeCard'
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart'
-import { Product, ProductCard } from '@commerce/types/product'
+import { Product as ProductTypes, ProductCard } from '@commerce/types/product'
 import { BlogProps, OrderState } from 'src/utils/types.utils'
 import {
   CartFragment,
@@ -8,9 +8,11 @@ import {
   Favorite,
   ShippingMethod,
   Blog,
-  Recipe,
+  Product,
 } from '../schema'
-import { RecipeList } from '@commerce/types/recipes'
+import { Recipe } from '@commerce/types/recipes'
+// import { RecipeList } from '@commerce/types/recipes'
+// import { Blog, CartFragment, Favorite, Product, RecipeList, SearchResultFragment, ShippingMethod } from '../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -33,6 +35,26 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
     // isNotSell
     // weight
   }
+}
+
+export function normalizeProducts(products: Product[]): ProductCard[] {
+  return products.map(item => {
+    const firstVariant = item.variants[0]
+
+    return {
+      id: item.id,
+      name: item.name,
+      slug: item.slug,
+      imageSrc: item.featuredAsset?.preview ? item.featuredAsset?.preview + '?w=800&mode=crop' : '',
+      price: (firstVariant.priceWithTax as any) / 100,
+      currencyCode: firstVariant.currencyCode,
+      productVariantId: firstVariant.id,
+      productVariantName: firstVariant.name,
+      collection: item.collections[0] ? item.collections[0].name : '',
+      collectionIds: item.collections.map(colection => colection.id),
+      facetValueIds: item.facetValues.map(facet => facet.id),
+    }
+  })
 }
 
 export function normalizeFavoriteProductResult(item: Favorite) {
@@ -110,17 +132,12 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
       countryCode: order.shippingAddress?.countryCode || '',
       phoneNumber: order.shippingAddress?.phoneNumber || '',
     } as ShippingAddress,
-    shippingLine: order.shippingLines[0]
-      ? {
-          priceWithTax: order.shippingLines[0]?.priceWithTax / 100,
-          shippingMethod: order.shippingLines[0]
-            ?.shippingMethod as ShippingMethod,
-        }
-      : undefined,
-    totalDiscount:
-      order.discounts?.reduce((total, item) => total + item.amountWithTax, 0) /
-        100 || 0,
-    discounts: order.discounts.map((item) => {
+    shippingLine: order.shippingLines[0] ? {
+      priceWithTax: order.shippingLines[0]?.priceWithTax / 100,
+      shippingMethod: order.shippingLines[0]?.shippingMethod as ShippingMethod
+    } : undefined,
+    totalDiscount: order.discounts?.reduce((total, item) => total + item.amountWithTax, 0) / 100 || 0,
+    discounts: order.discounts.map(item => {
       return { value: item.amountWithTax, description: item.description }
     }),
     lineItems: order.lines?.map((l) => ({
@@ -148,7 +165,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
   }
 }
 
-export function normalizeProductCard(product: Product): ProductCard {
+export function normalizeProductCard(product: ProductTypes): ProductCard {
   return {
     id: product.id,
     name: product.name,
@@ -175,7 +192,7 @@ export function normalizeBlog(blog: Blog): BlogProps {
     isFeatured: blog.isFeatured ?? null,
     authorName: blog.authorName || '',
     authorAvatarAsset: blog.authorAvatarAsset?.preview || null,
-    createdAt: blog.createdAt,
+    createdAt: blog.createdAt
   }
 }
 
@@ -189,11 +206,11 @@ export function normalizeRecipeList(recipe: Recipe) {
     isPublish: recipe.isPublish,
     // authorName: recipe.authorName,
     // authorAvatarAsset : recipe.authorAvatarAsset?.preview,
-    createdAt: recipe.createdAt,
+    // createdAt: recipe.createdAt,
   }
 }
 
-export function normalizeRecipe(recipe: RecipeList): RecipeCardProps {
+export function normalizeRecipe(recipe: Recipe): RecipeCardProps {
     return {
       title:recipe.title,
       id:recipe.id,

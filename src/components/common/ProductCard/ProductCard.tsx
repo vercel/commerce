@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Router from 'next/router'
 import React, { useState } from 'react'
 import { useCartDrawer, useMessage } from 'src/components/contexts'
-import { useActiveCustomer } from 'src/components/hooks/auth'
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder'
 import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
 import { IconBuy } from 'src/components/icons'
@@ -40,12 +39,11 @@ const ProductCardComponent = ({
 
   const {addProduct} = useAddProductToCart()
   const { openCartDrawer } = useCartDrawer()
-  const { customer } = useActiveCustomer()
   const { order } = useGetActiveOrder()
   const [addToCartLoading, setAddToCartLoading] = useState(false)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const { showMessageSuccess, showMessageError } = useMessage()
-  const {changeOrderState, loading:changeStateLoading } = useChangeOrderState()
+  const {changeOrderState } = useChangeOrderState()
   const [mode, setMode] = useState("handleAddToCart")
   const handleAddToCart = () => {
     setAddToCartLoading(true)
