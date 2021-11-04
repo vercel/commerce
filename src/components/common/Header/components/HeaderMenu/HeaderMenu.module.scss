@@ -114,10 +114,10 @@
                     &:hover {
                         opacity: 0.8;
                     }
-                    &.iconFavourite {
-                        svg path {
-                            fill: var(--negative);
-                        }
+                }
+                .iconFavourite {
+                    svg path {
+                        fill: var(--negative);
                     }
                 }
             }
