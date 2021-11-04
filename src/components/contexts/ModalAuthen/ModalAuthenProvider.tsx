@@ -18,7 +18,9 @@ export function ModalAuthenProvider({ children }: Props) {
     const openModalAuthen = (email?: string, mode?: 'register', disableRedirect = false) => {
         setVisible(true);
         setModalAuthenMode(mode)
-        setInitialEmail(email)
+        if (typeof(email) === 'string') { // check is not click event
+            setInitialEmail(email)
+        }
         setDisableRedirect(disableRedirect)
     };
 
