@@ -9,14 +9,15 @@ import s from './RecipeDetail.module.scss'
 interface Props extends RecipeProps  {
     className?: string
     children?: any,
-    ingredients: ProductCardProps[]    
+    ingredients?: ProductCardProps[]    
 }
 
 const RecipeDetail = ({ ingredients,...rest }: Props) => {
+  
     return (
         <section className={s.recipeDetail}>
             <RecipeDetailInfo {...rest} />
-            <RecipeIngredient data={ingredients} />
+            <RecipeIngredient data={ingredients || []} />
         </section >
     )
 }

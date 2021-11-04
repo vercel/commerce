@@ -1,15 +1,15 @@
-import { GetAllRecipesQuery,QueryRecipes, RecipeList } from '@framework/schema'
-import { normalizeRecipeList } from '@framework/utils/normalize'
-import { getAllBlogsQuery } from '@framework/utils/queries/get-all-blog-query'
+import { GetAllRecipesQuery,QueryRecipes, Recipe } from '@framework/schema'
+import { normalizeRecipe } from '@framework/utils/normalize'
+import { getAllRecipesQuery } from '@framework/utils/queries/get-all-recipes-query'
 import gglFetcher from 'src/utils/gglFetcher'
 import useSWR from 'swr'
 
 const useGetRecipeList = (options?: QueryRecipes) => {
-  const { data, isValidating, ...rest } = useSWR<GetAllRecipesQuery>([getAllBlogsQuery, options], gglFetcher)
+  const { data, isValidating, ...rest } = useSWR<GetAllRecipesQuery>([getAllRecipesQuery, options], gglFetcher)
 
   return { 
-          reicpes: data?.blogs?.items?.map((recipe:RecipeList)=>normalizeRecipeList(recipe)),
-          totalItems: data?.blogs?.totalItems || null,
+          reicpes: data?.recipes?.items?.map((recipe:Recipe)=>normalizeRecipe(recipe)),
+          totalItems: data?.recipes?.totalItems || null,
           loading: isValidating,
            ...rest 
         }

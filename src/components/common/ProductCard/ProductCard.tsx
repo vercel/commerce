@@ -32,7 +32,7 @@ const ProductCardComponent = ({
   currencyCode,
   buttonText = 'Buy Now',
   imageSrc,
-  isNotSell,
+  isNotSell = false,
   isSingleButton,
   productVariantId,
   productVariantName,
@@ -106,10 +106,10 @@ const ProductCardComponent = ({
 
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
-      <ProductNotSell name={name} imageSrc={imageSrc} />
+      <ProductNotSell name={name ?? null} imageSrc={imageSrc ?? null} />
     </div>
   }
-
+  
 
   return (
     <>
@@ -118,7 +118,7 @@ const ProductCardComponent = ({
           <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
             <a>
               <div className={s.productImage}>
-                <ImgWithLink src={imageSrc} alt={name}/>
+                <ImgWithLink src={imageSrc ?? ''} alt={name ?? ''}/>
               </div>
             </a>
           </Link>
@@ -148,7 +148,7 @@ const ProductCardComponent = ({
           <div className={s.cardMidBot}>
             <div className={s.productPrice}>{price} {currencyCode}</div>
             <div className={s.wishList}>
-              <ItemWishList id={id}/>
+              <ItemWishList id={id ?? ''}/>
             </div>
           </div>
         </div>

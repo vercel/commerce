@@ -14,6 +14,7 @@ interface Props {
 }
 
 const RecipeIngredient = ({ data }: Props) => {
+    
     return (
         <section className={s.recipeIngredient}>
             <div className={s.top}>
