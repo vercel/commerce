@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useMessage, useToggleWishlist } from 'src/components/contexts'
 import IconHeart from 'src/components/icons/IconHeart'
 import { LANGUAGE } from 'src/utils/language.utils'
@@ -13,12 +13,20 @@ interface Props {
 
 const ItemWishList = memo(({  id, onChange}:Props) => {
 
-    const { mutateProductWishlist,itemWishlist } = useToggleWishlist();
+    const { mutateProductWishlist, wishlistIds } = useToggleWishlist();
     
     const { onToggleProductWishlist } = useToggleProductWishlist();
     
-    const [isWishlistIcon, setIsWishlistIcon ] = useState(()=>itemWishlist?.map(val=>val.id).includes(id));
+    const [isWishlistIcon, setIsWishlistIcon ] = useState<boolean>(false);
    
+
+    useEffect(() => {
+      if (id && wishlistIds) {
+        const value = wishlistIds?.includes(id)
+        setIsWishlistIcon(value)
+
+      } 
+    }, [wishlistIds, id])
 
     const { showMessageSuccess, showMessageError } = useMessage();
 
@@ -27,13 +35,13 @@ const ItemWishList = memo(({  id, onChange}:Props) => {
         onToggleProductWishlist({productId:id},onToggleCallBack)
     }
   
-    const onToggleCallBack = (isSuccess: boolean, message?: string) => {
+    const onToggleCallBack = (isSuccess: boolean) => {
       if (isSuccess) {
         mutateProductWishlist();
         if(!isWishlistIcon){
-          showMessageSuccess("Product added to wishlist", 15000)
+          showMessageSuccess("Product added to wishlist")
         }else{
-          showMessageError("Product removed from wishlist", 15000)
+          showMessageError("Product removed from wishlist")
         }
       } else {
         showMessageError(LANGUAGE.MESSAGE.ERROR)

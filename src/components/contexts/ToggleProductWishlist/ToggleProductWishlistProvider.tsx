@@ -1,10 +1,11 @@
 import { ReactNode, useState,useEffect } from "react";
 import { ToggleProductWishlistContext } from "./ToggleProductWishlistContent";
 import { QueryFavorite } from "@framework/schema"
-import { DEFAULT_PAGE_SIZE,QUERY_KEY } from "src/utils/constanst.utils"
+import { ACCOUNT_TAB, DEFAULT_PAGE_SIZE,QUERY_KEY, ROUTE } from "src/utils/constanst.utils"
 import { useGetFavoriteProduct } from 'src/components/hooks/account'
 import { getPageFromQuery } from 'src/utils/funtion.utils'
 import { useRouter } from "next/router"
+import { ProductCardProps } from "src/components/common/ProductCard/ProductCard";
 
 type Props = {
     children: ReactNode;
@@ -27,15 +28,19 @@ export function ToggleProductWishlistProvider({ children }: Props) {
 
     // skip
     useEffect(() => {
-        const query = { ...DEFAULT_FAVORITE_ARGS } as QueryFavorite;
-        const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
-        query.options.skip = page * DEFAULT_PAGE_SIZE;
-        setoptionQueryFavorite(query);
-    },[router.query])
+        if (router.asPath === `${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`) {
+            const query = { ...DEFAULT_FAVORITE_ARGS } as QueryFavorite;
+            const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
+            query.options.skip = page * DEFAULT_PAGE_SIZE;
+            setoptionQueryFavorite(query);
+        }
+    },[router.query, router.asPath])
 
     
-    const mutateProductWishlist = ()=>{
-        mutate()
+    const mutateProductWishlist = () => {
+        if (router.asPath === `${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`) {
+            mutate()
+        }
     }
 
     return (
@@ -43,6 +48,7 @@ export function ToggleProductWishlistProvider({ children }: Props) {
             <ToggleProductWishlistContext.Provider value={{
                 mutateProductWishlist,
                 itemWishlist,
+                wishlistIds: itemWishlist?.map((item: ProductCardProps) => item.id),
                 totalItems
             }}>
                 {children}
