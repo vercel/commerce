@@ -20,7 +20,7 @@ const ImgWithLink = ({ src, alt, blurDataURL = BLUR_DATA_IMG, priority=true }: I
                 placeholder="blur"
                 blurDataURL={blurDataURL}
                 draggable='false'
-                priority={priority}
+                // priority={priority}
             />
         </div>
     )
