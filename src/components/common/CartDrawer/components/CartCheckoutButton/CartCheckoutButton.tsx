@@ -6,14 +6,16 @@ import { ROUTE } from 'src/utils/constanst.utils';
 
 interface Props {
   onClose: () => void
+  total:number
+  currency: { code: string }
 }
 
 
-const CartCheckoutButton = memo(({ onClose }: Props) => {
+const CartCheckoutButton = memo(({ onClose, total, currency }: Props) => {
   return (
     <Link href={ROUTE.CHECKOUT}>
       <a className={s.cartCheckoutButton}>
-        <ButtonCommon size='large' onClick={onClose}>Check out - Rp 120.500</ButtonCommon>
+        <ButtonCommon size='large' onClick={onClose}>Check out - {total} {currency.code}</ButtonCommon>
       </a>
     </Link>
   )

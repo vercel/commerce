@@ -1,6 +1,7 @@
 import { LineItem } from '@commerce/types/cart';
 import React from 'react';
-import ProductCartItem, { ProductCartItempProps } from '../ProductCartItem/ProductCartItem';
+import { EmptyCommon } from 'src/components/common';
+import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import s from './ProductsInCart.module.scss';
 
 interface Props {
@@ -18,6 +19,9 @@ const ProductsInCart = ({ data, currency }: Props) => {
             {...item}
           />
         </li>)
+      }
+      {
+        data.length === 0 && <EmptyCommon description="No item in cart"/>
       }
     </ul>
   )

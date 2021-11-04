@@ -1,13 +1,14 @@
+import { normalizeRecipes } from '@framework/utils/normalize';
+import { Recipe } from './../../schema.d';
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
-import { BlogList, GetAllRecipesQuery } from '../../schema'
-import { getAllBlogsQuery } from '../../utils/queries/get-all-blog-query'
+import {  GetAllRecipesQuery } from '../../schema'
+import { getAllRecipesQuery } from '../../utils/queries/get-all-recipes-query'
 
 export type RecipesVariables = {
   excludeBlogIds?: string[],
   take?:number,
   id?: string,
-  isPublish?:Boolean
 }
 
 export default function getAllRecipesOperation({
@@ -18,9 +19,9 @@ export default function getAllRecipesOperation({
     config?: Partial<VendureConfig>
     preview?: boolean
   }): Promise<{ recipes: GetAllRecipesQuery[],totalItems:number }>
- 
+
   async function getAllRecipes({
-    query = getAllBlogsQuery,
+    query = getAllRecipesQuery,
     variables: { ...vars } = {},
     config: cfg,
   }: {
@@ -29,41 +30,29 @@ export default function getAllRecipesOperation({
     config?: Partial<VendureConfig>
     preview?: boolean
   } = {}): Promise<{ recipes: GetAllRecipesQuery[] | any[] ,totalItems?:number }> {
-   
+    
     const config = commerce.getConfig(cfg)
     const variables = {
       excludeBlogIds: vars.excludeBlogIds,
       options: {
-        take: vars.take,
-        sort: {
-          id: vars?.id
-        },
-        filter:{
-          isPublish: {
-            eq:vars.isPublish
-          } 
-        }
+        take: vars.take
       },
     }
-
+  
     const { data } = await config.fetch<GetAllRecipesQuery>(query, {
       variables,
     })
+
     
-    return {
-        recipes: data?.blogs?.items?.map((val:BlogList)=>({
-            id: val.id,
-            title: val.translations[0]?.title,
-            imageSrc: val.featuredAsset?.preview ?? null,
-            slug: val.translations[0]?.slug,
-            description: val.translations[0]?.description,
-            isPublish: val.isPublish,
-            authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
-            createdAt: val.createdAt
-        })),
-        totalItems: data?.blogs?.totalItems || null
+    if(data){
+      return {
+        recipes: data?.recipes?.items?.map((val:Recipe)=>normalizeRecipes(val)),
+        totalItems: data?.recipes?.totalItems || null
+      }
+    }else{
+      return {recipes:[]};
     }
+  
   }
 
   return getAllRecipes

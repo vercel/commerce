@@ -5,8 +5,8 @@ export type Collection = {
   name: string
   slug: string
   description: string
-  featuredAsse: Asset
-  asset: Asset[]
+  featuredAsset: Asset
+  assets?: Asset[]
 }
 
 export type SearchCollectionsBody = {

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { RecipeProps } from 'src/utils/types.utils'
+import { ImgWithLink } from '..'
 import s from './RecipeCard.module.scss'
 export interface RecipeCardProps extends RecipeProps { }
 
@@ -11,7 +12,7 @@ const RecipeCard = ({ imageSrc, title, description, slug }: RecipeCardProps) => 
       <Link href={`${ROUTE.RECIPE_DETAIL}/${slug}`}>
         <a>
           <div className={s.image}>
-            <img src={imageSrc} alt="image recipe" />
+            <ImgWithLink src={imageSrc ?? ''} alt={title ?? ''}/>
           </div>
         </a>
       </Link>

@@ -37,9 +37,9 @@ const ColectionCarcousel = ({
         <div className={s.right}>
           <ViewAllItem link={category ? `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=${category}` : viewAllLink} />
         </div>
-      </div>
+      </div> 
       <div className={s.bot}>
-        <ProductCarousel data={data} itemKey={itemKey} />
+        <ProductCarousel data={data} itemKey={itemKey} collection={category}/>
       </div>
     </div>
   )

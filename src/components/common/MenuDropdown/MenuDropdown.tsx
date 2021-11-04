@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 import s from './MenuDropdown.module.scss';
-
 interface Props {
     children?: React.ReactNode,
     options: { link?: string, name: string, onClick?: () => void }[],

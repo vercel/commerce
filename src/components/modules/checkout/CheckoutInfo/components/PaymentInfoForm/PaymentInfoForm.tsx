@@ -1,40 +1,54 @@
-import React from 'react'
-import { ButtonCommon, TabCommon, TabPane } from 'src/components/common'
-import BankTransfer from '../BankTransfer/BankTransfer'
-import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
-import CreditCardForm from '../CreditCardForm/CreditCardForm'
+import { PaymentMethodQuote } from '@framework/schema'
+import React, { useMemo } from 'react'
+import { TabCommon, TabPane } from 'src/components/common'
+import { useEligiblePaymentMethods } from 'src/components/hooks/order'
+import { PaymentMethod } from 'src/utils/constanst.utils'
+import FormPayWithCard from './components/FormPayWithCard/FormPayWithCard'
 import s from './PaymentInfoForm.module.scss'
 
 interface PaymentInfoFormProps {
-  onConfirm?: (id: number) => void
-  id: number
+  orderId?: string
 }
 
-const PaymentInfoForm = ({onConfirm,id}: PaymentInfoFormProps) => {
-  const handleConfirmClick = () => {
-    onConfirm && onConfirm(id)
-  }
+const isPaymentMethodEligible = (eligiblePaymentMethods: PaymentMethodQuote[], code: string) => {
+  const method = eligiblePaymentMethods.find(item => item.code === code)
+  return method?.isEligible
+}
+
+const PaymentInfoForm = ({ orderId }: PaymentInfoFormProps) => {
+  const { eligiblePaymentMethods } = useEligiblePaymentMethods()
+
+  const tabPanes = useMemo(() => {
+    const rs = []
+
+    if (isPaymentMethodEligible(eligiblePaymentMethods || [], PaymentMethod.Braintree)) {
+      rs.push(<TabPane key="Credit Card" tabName="Credit Card">
+        <div className={s.inner}><FormPayWithCard orderId={orderId} /></div>
+      </TabPane>)
+    }
+
+    rs.push(<TabPane key="Ewallet" tabName="Ewallet">
+      <div className={s.inner}>(In development)
+      </div>
+    </TabPane>)
+    return rs
+
+
+  }, [eligiblePaymentMethods, orderId])
   return (
     <div className={s.wrapper}>
       <TabCommon>
-        <TabPane tabName="Bank Transfer">
+        {
+          tabPanes.map(item => item)
+        }
+        
+        {/* <TabPane tabName="Bank Transfer">
           <div className={s.inner}><BankTransfer /></div>
         </TabPane>
-        <TabPane tabName="Ewallet">
-          <div className={s.inner}></div>
-        </TabPane>
-        <TabPane tabName="Credit Card">
+        <TabPane tabName="Credit Card (Demo)">
           <div className={s.inner}><CreditCardForm /></div>
-        </TabPane>
+        </TabPane> */}
       </TabCommon>
-      <div className={s.bottom}>
-        <ChekoutNotePolicy/>
-        <div className={s.button}>
-          <ButtonCommon onClick={handleConfirmClick}>
-            Submit Order
-          </ButtonCommon>
-        </div>
-      </div>
     </div>
   )
 }

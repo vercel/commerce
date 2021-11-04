@@ -1,18 +1,20 @@
-@import '../../../../styles/utilities';
+@import "../../../styles/utilities";
 
 .notificationItem {
-    @apply flex flex-row spacing-horizontal;
-    padding-top: 1.2rem;
-    &:hover{
+    @apply flex flex-row;
+    padding: 1.6rem 0.8rem;
+    &:hover {
         cursor: pointer;
     }
     .contentWrapper {
         padding-left: 1.6rem;
         padding-bottom: 1.4rem;
-        max-width: 26.3rem;
         .title {
             font-weight: bold;
             color: var(--text-active);
+        }
+        .content {
+            color: var(--text-label);
         }
         .date {
             @apply caption;
@@ -22,14 +24,11 @@
     &.isChecked {
         .icon {
             rect {
-                fill: var(--gray)
+                fill: var(--gray);
             }
             path {
-                fill: var(--disabled)
+                fill: var(--disabled);
             }
-        }
-        .title, .content {
-            color: var(--text-label);
         }
     }
 }

@@ -1,0 +1,88 @@
+@import "../../../../../../styles/utilities";
+
+.notificationDropdown {
+    @apply flex relative cursor-pointer;
+    width: fit-content;
+    .icon {
+        @apply relative;
+        .dot {
+            @apply flex justify-center items-center absolute sm-label;
+            top: -1rem;
+            right: -1rem;
+            background-color: var(--negative);
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            color: var(--white);
+        }
+        svg path {
+            fill: var(--text-base);
+        }
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    &.show {
+        .label {
+            color: var(--primary);
+            svg path {
+                fill: currentColor;
+            }
+        }
+        .menu {
+            @apply block;
+            animation: menuDropdownAnimation 0.2s ease-out;
+        }
+    }
+
+    .menu {
+        @apply hidden absolute bg-white shadow-md;
+        content: "";
+        right: 0;
+        top: 2rem;
+        height: max-content;
+        min-width: max-content;
+        z-index: 100;
+        border-radius: 0.8rem;
+        .viewAll {
+            @apply text-right text-primary;
+            padding: 1.6rem;
+            width: fit-content;
+            margin-left: auto;
+        }
+        &:hover {
+            @apply block shadow-md;
+        }
+        .menuInner {
+            @apply list-none bg-white custom-scroll;
+            max-height: 50rem;
+            > li {
+                @apply transition-all duration-200 cursor-pointer;
+                &:hover {
+                    @apply bg-gray;
+                }
+            }
+        }
+    }
+
+    .empty {
+        @apply flex flex-col justify-center items-center;
+        color: var(--disabled);
+        padding: 3.2rem 1.6rem;
+        svg {
+            width: 6.4rem;
+            height: 6.4rem;
+        }
+    }
+}
+
+@keyframes menuDropdownAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(1.6rem);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}

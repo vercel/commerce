@@ -1,6 +1,10 @@
-import { Cart, CartCheckout } from '@commerce/types/cart'
-import { Product, ProductCard } from '@commerce/types/product'
-import { CartFragment, Favorite, SearchResultFragment, ShippingMethod, BlogList,RecipeList } from '../schema'
+import { Product as ProductIngredients } from './../schema.d';
+import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
+import {ProductCard,Product } from '@commerce/types/product';
+import { BlogProps, OrderState } from 'src/utils/types.utils';
+import { Blog, CartFragment, Favorite, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
+import { ProductCardProps } from './../../../src/components/common/ProductCard/ProductCard';
+import { RecipeProps } from './../../../src/utils/types.utils';
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -45,6 +49,7 @@ export function normalizeCart(order: CartFragment): Cart {
     subtotalPrice: order.subTotalWithTax / 100,
     totalPrice: order.totalWithTax / 100,
     customerId: order.customer?.id,
+    state: order.state as OrderState,
     lineItems: order.lines?.map((l) => ({
       id: l.id,
       name: l.productVariant.name,
@@ -73,6 +78,8 @@ export function normalizeCart(order: CartFragment): Cart {
 export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
   return {
     id: order.id.toString(),
+    state: order.state as OrderState,
+    code: order.code,
     createdAt: order.createdAt,
     taxesIncluded: true,
     totalQuantity: order.totalQuantity,
@@ -93,7 +100,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
       postalCode: order.shippingAddress?.postalCode || '',
       countryCode: order.shippingAddress?.countryCode || '',
       phoneNumber: order.shippingAddress?.phoneNumber || '',
-    },
+    } as ShippingAddress,
     shippingLine: order.shippingLines[0] ? {
       priceWithTax: order.shippingLines[0]?.priceWithTax / 100,
       shippingMethod: order.shippingLines[0]?.shippingMethod as ShippingMethod
@@ -142,31 +149,56 @@ export function normalizeProductCard(product: Product): ProductCard {
   }
 }
 
-export function normalizeBlogList(blog: BlogList) {
+export function normalizeRecipe(recipe: Recipe): RecipeProps {
+  return {
+      id: recipe.id || null,
+      title: recipe.translations[0].title || null,
+      imageSrc: recipe.featuredAsset?.preview || null,
+      slug: recipe.translations[0].slug || null,
+      description: recipe.translations[0].description || null,
+      content: recipe.translations[0].content || null,
+      createdAt: recipe.createdAt || null,
+      ingredients : recipe.ingredients?.map((product:ProductIngredients)=>({
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        imageSrc: product.assets?.[0].preview || null,
+        currencyCode: product.variants?.[0]?.currencyCode || null,
+        productVariantId: product.variants?.[0]?.id.toString() || null,
+        productVariantName: product.name || null,
+        price: product.variants?.[0]?.priceWithTax || null,
+      }))
+  }
+}
+
+export function normalizeRecipes(recipes: Recipe): RecipeProps {
+
+  return {
+      id: recipes.id || null,
+      title: recipes.translations[0].title || null,
+      imageSrc: recipes.featuredAsset?.preview || null,
+      slug: recipes.translations[0].slug || null,
+      description: recipes.translations[0].description || null,
+      content: recipes.translations[0].content || null,
+      createdAt: recipes.createdAt || null
+  }
+}
+
+
+export function normalizeBlog(blog: Blog): BlogProps {
   return {
       id: blog.id,
-      title: blog.translations[0]?.title,
-      imageSrc: blog.featuredAsset?.preview ?? null,
-      slug: blog.translations[0]?.slug,
-      description: blog.translations[0]?.description,
+      title: blog.title,
+      imageSrc: blog.featuredAsset?.preview || null,
+      slug: blog.slug,
+      description: blog.description || '',
+      content: blog.content || '',
       isPublish: blog.isPublish,
-      isFeatured:blog.isFeatured,
-      authorName: blog.authorName,
-      authorAvatarAsset : blog.authorAvatarAsset?.preview,
+      isFeatured:blog.isFeatured ?? null,
+      authorName: blog.authorName || '',
+      authorAvatarAsset: blog.authorAvatarAsset?.preview || null,
       createdAt: blog.createdAt
   }
 }
 
-export function normalizeRecipeList(recipe: RecipeList) {
-  return {
-      id: recipe.id,
-      title: recipe.translations[0]?.title,
-      imageSrc: recipe.featuredAsset?.preview ?? null,
-      slug: recipe.translations[0]?.slug,
-      description: recipe.translations[0]?.description,
-      isPublish: recipe.isPublish,
-      authorName: recipe.authorName,
-      authorAvatarAsset : recipe.authorAvatarAsset?.preview,
-      createdAt: recipe.createdAt
-  }
-}
+

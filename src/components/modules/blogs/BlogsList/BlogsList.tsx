@@ -1,13 +1,12 @@
+import { QueryBlogs } from '@framework/schema'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState,useRef, useMemo } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import CardBlog, { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
-import { DEFAULT_BLOG_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
-import s from "./BlogsList.module.scss"
-import { QueryBlogs } from '@framework/schema'
 import { useGetBlogList } from 'src/components/hooks/blog'
+import { DEFAULT_BLOG_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { getPageFromQuery } from 'src/utils/funtion.utils'
-import { ListBlogCardSkeleton  } from 'src/components/common'
+import s from "./BlogsList.module.scss"
 
 interface BlogsListProps {
     blogList?: BlogCardProps[],
@@ -21,17 +20,20 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
 
     const DEFAULT_BLOGS_ARGS = useMemo(()=> ({
         excludeBlogIds: [idFeatured],
-        options:{
-            skip: 1, take: DEFAULT_BLOG_PAGE_SIZE
+        customOptions:{
+            skip:0,
+            take: DEFAULT_BLOG_PAGE_SIZE
         }
     }),[idFeatured]);
 
 
     const router = useRouter();
+
+
     const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
 
     const [optionQueryBlog, setOptionQueryBlog] = useState<QueryBlogs>(DEFAULT_BLOGS_ARGS)
-    const { blogs, totalItems, loading } = useGetBlogList(optionQueryBlog);
+    const { blogs, totalItems } = useGetBlogList(optionQueryBlog);
 
 
     const onPageChange = (page:number) => {
@@ -52,10 +54,15 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
         firstRender.current = false;
         const query = { ...DEFAULT_BLOGS_ARGS } as QueryBlogs;
         const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string);
-        query.options.skip = page * DEFAULT_BLOG_PAGE_SIZE;
+        query.customOptions.skip = page * DEFAULT_BLOG_PAGE_SIZE;
+        window.scrollTo({
+            top: 600,
+            behavior: "smooth"
+          });
+          
         setOptionQueryBlog(query);
         setInitialQueryFlag(false);
-    },[router.query])
+    },[router.query,DEFAULT_BLOGS_ARGS])
 
        
     let data;
@@ -69,9 +76,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
     return (
         <section>
             <div className={s.wrapper}>
-                {(!initialQueryFlag && loading && !blogs) && <ListBlogCardSkeleton count={DEFAULT_BLOG_PAGE_SIZE} isWrap  />}
                 <div className={s.list}>
-                    
                     {
                         data?.map((product,index)=> {
                         return(

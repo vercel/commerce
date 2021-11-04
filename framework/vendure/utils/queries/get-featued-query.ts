@@ -13,6 +13,10 @@ export const getFeatuedBlogsQuery = /* GraphQL */ `
             featuredAsset {
                 preview
             }
+            title
+            slug
+            description
+            content
             translations {
                 title
                 slug

@@ -19,7 +19,7 @@ const CartDrawer = ({ }: Props) => {
   const {order} = useGetActiveOrder()
   return (
     <DrawerCommon
-      title={`Your cart (${order?.lineItems.length})`}
+      title={`Your cart (${order?.lineItems.length || 0})`}
       visible={cartVisible}
       onClose={closeCartDrawer}>
       <div className={s.cartDrawer}>
@@ -29,7 +29,7 @@ const CartDrawer = ({ }: Props) => {
         </div>
         <div>
           <CartMessage />
-          <CartCheckoutButton onClose={closeCartDrawer} />
+          <CartCheckoutButton onClose={closeCartDrawer} total={order?.totalPrice||0} currency={order?.currency||{code:"USA"}}/>
         </div>
       </div>
     </DrawerCommon>

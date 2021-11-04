@@ -1,6 +1,6 @@
 export const getAllBlogsQuery = /* GraphQL */ `
-query GetBlogs($excludeBlogIds: [ID]!,  $options: BlogListOptions) {
-  blogs(excludeBlogIds: $excludeBlogIds, options: $options) {
+query GetBlogs($excludeBlogIds: [ID]!,  $customOptions: CustomBlogListOptions) {
+  blogs(excludeBlogIds: $excludeBlogIds, customOptions: $customOptions) {
     totalItems
     items {
       id
@@ -14,6 +14,10 @@ query GetBlogs($excludeBlogIds: [ID]!,  $options: BlogListOptions) {
       featuredAsset {
         preview
       }
+      title
+      slug
+      description
+      content
       translations {
         title
         slug

@@ -1,4 +1,5 @@
 import { ShippingMethod } from '@framework/schema';
+import { OrderState } from 'src/utils/types.utils';
 import type { Discount, Image, Measurement } from './common';
 
 export type SelectedOption = {
@@ -82,10 +83,23 @@ export type Cart = {
   totalPrice: number
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
+
+  state: OrderState
+}
+
+export type ShippingAddress = {
+  streetLine1: string,
+  city: string,
+  province: string,
+  postalCode: string,
+  countryCode: string,
+  phoneNumber: string,
 }
 
 export type CartCheckout = {
   id: string
+  code: string
+  state: OrderState
   // ID of the customer to which the cart belongs.
   customerId?: string
   customer?: {
@@ -93,14 +107,7 @@ export type CartCheckout = {
     lastName: string,
     emailAddress: string,
   }
-  shippingAddress?: {
-    streetLine1: string,
-    city: string,
-    province: string,
-    postalCode: string,
-    countryCode: string,
-    phoneNumber: string,
-  }
+  shippingAddress?: ShippingAddress
   // The email assigned to this cart
   email?: string
   // The date and time when the cart was created.

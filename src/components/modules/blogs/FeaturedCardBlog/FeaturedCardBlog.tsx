@@ -2,24 +2,22 @@ import s from './FeaturedCardBlog.module.scss'
 import { Author, DateTime, ImgWithLink } from 'src/components/common'
 import Link from 'next/link'
 import { ROUTE } from 'src/utils/constanst.utils'
-interface FeaturedCardBlogProps{
-    title?: string,
-    slug?:string,
-    content?: string,
-    imgSrc?: string,
-    imgAuthor?: string,
-    date?: string,
-    authorName?: string,
+import { BlogProps } from 'src/utils/types.utils'
+import { formatDate } from 'src/utils/funtion.utils'
+interface FeaturedCardBlogProps {
+    blog: BlogProps
 }
 
-const FeaturedCardBlog = ({ 
-    title,
-    slug,
-    content, 
-    imgSrc = '', 
-    imgAuthor = '', 
-    date = '', 
-    authorName = ''
+const FeaturedCardBlog = ({
+    blog: {
+        title,
+        slug,
+        content,
+        imageSrc = '',
+        authorAvatarAsset = '',
+        createdAt = '',
+        authorName = ''
+    }
 }: FeaturedCardBlogProps) => {
     return (
         <section className={s.featuredCard}>
@@ -27,18 +25,18 @@ const FeaturedCardBlog = ({
                 <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
                     <a> 
                         <div className={s.left}>
-                            <ImgWithLink src={imgSrc} alt="image feature card"/>
+                            <ImgWithLink src={imageSrc ?? ''} alt="image feature card"/>
                         </div>
                     </a>
                 </Link>
                 <div className={s.right}>
                     <div className={s.titleWrapper}>
-                        <DateTime date={date }/>
+                        <DateTime date={formatDate(createdAt)}/>
                         <Link href={`${ROUTE.BLOG_DETAIL}/${slug}`}>
                             <a className={s.title}>{title}</a>
                         </Link>
                     </div>
-                    <Author name={authorName} image={imgAuthor}/>
+                    <Author name={authorName ?? ''} image={authorAvatarAsset ?? ''}/>
                     <div className={s.content}>{content}</div>
                 </div>
             </div>

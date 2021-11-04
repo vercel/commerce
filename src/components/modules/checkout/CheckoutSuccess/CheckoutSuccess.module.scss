@@ -1,11 +1,10 @@
 @import '../../../../styles/utilities';
 
 .checkoutSuccessWrapper {
-    @apply flex items-center justify-center;
-    margin-top: -3.2rem;
-    
+    @apply flex items-center justify-center spacing-horizontal;
+    margin-bottom: 2.4rem;
     .checkoutSuccess {
-        border-radius: 80% 90% 18% 10% / 20% 10% 27% 20%;
+       @apply shape-common-lg;
         max-width: 77.6rem;
         height: fit-content;
         background: 
@@ -30,8 +29,11 @@
                 margin-bottom: 4rem;
             }
         
-            .backToHomeBtn {
-                @apply flex justify-center;
+            .btns {
+                @apply flex flex-col justify-center;
+                a {
+                    margin-bottom: 1.6rem;
+                }
             }
         }
     }

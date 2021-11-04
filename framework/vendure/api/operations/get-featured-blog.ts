@@ -1,11 +1,15 @@
-import { OperationContext } from '@commerce/api/operations'
-import { Provider, VendureConfig } from '..'
-import { GetFeaturedBlogQuery,BlogList } from '../../schema'
-import { getFeatuedBlogsQuery } from '../../utils/queries/get-featued-query'
+import { OperationContext } from '@commerce/api/operations';
+import { normalizeBlog } from '@framework/utils/normalize';
+import { Provider, VendureConfig } from '..';
+import { Blog, GetFeaturedBlogQuery } from '../../schema';
+import { getFeatuedBlogsQuery } from '../../utils/queries/get-featued-query';
 
 export type BlogVariables = {
   take?: number,
   skip?:number,
+  sort?:{
+    updateAt: String
+  },
   filter?:{
     isFeatured?:{
       eq?:Boolean
@@ -36,27 +40,26 @@ export default function getFeaturedBlogOperation({
     const variables = {
       options: {
         take: vars.take,
-        filter: {
-          isFeatured: vars.filter?.isFeatured
+        sort:{
+          updatedAt: vars.sort?.updateAt
         }
       },
     }
     const { data } = await config.fetch<GetFeaturedBlogQuery>(query, {
       variables,
     })
-    return {
-      featuredBlogs: data?.featuredBlogs?.items?.map((val:BlogList)=>({
-            id: val.id,
-            title: val.translations[0]?.title,
-            imageSrc: val.featuredAsset?.preview ?? null,
-            slug: val.translations[0]?.slug,
-            description: val.translations[0]?.description,
-            isPublish: val.isPublish,
-            isFeatured: val.isFeatured,
-            authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview ?? null,
-            createdAt: val.createdAt
-        }))
+    if(data?.featuredBlogs != null){
+
+      return {
+        featuredBlogs: data?.featuredBlogs?.items?.map((val: Blog) => normalizeBlog(val))
+      }
+
+    }else{
+      
+      return {
+        featuredBlogs: []
+      }
+      
     }
   }
 

@@ -5,33 +5,35 @@ import fetcher from 'src/utils/fetcher'
 import { useActiveCustomer } from '../auth'
 
 interface Props {
+    id?:string,
     address?:string,
     city?:string|null,
     postalCode?:string|null,
-    state?:string 
+    state?:string,
+    countryCode?:string|null
 }
 
 const useEditCustomerAddress = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
-  const {customer,mutate} = useActiveCustomer();
+  const {mutate} = useActiveCustomer();
 
   const editCustomerAddress = (
-    { address,city,postalCode,state}: Props,
+    {id,address,city,postalCode,state,countryCode}: Props,
     fCallBack: (isSuccess: boolean, message?: string) => void
   ) => {
     setError(null)
     setLoading(true)
-
     fetcher<Address>({
         query: updateCustomerAddress,
         variables: {
           input: {
-            id:customer?.id,
+            id:id,
             streetLine1:address,
             city,
             postalCode,
-            province:state
+            province:state,
+            countryCode:countryCode
           },
         },
       }) .then((data) => {

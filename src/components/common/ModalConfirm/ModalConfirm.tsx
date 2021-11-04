@@ -12,7 +12,7 @@ interface ModalConfirmProps extends ModalCommonProps {
 
 const ModalConfirm = ({
   okText = 'Ok',
-  cancelText = 'cancel',
+  cancelText = 'Cancel',
   onOk,
   onCancel,
   children,
@@ -22,7 +22,7 @@ const ModalConfirm = ({
   ...props
 }: ModalConfirmProps) => {
   return (
-    <ModalCommon onClose={onClose} title={title} {...props}>
+    <ModalCommon onClose={onClose} title={title} {...props} maxWidth={"30%"}>
       {children}
       <div className={s.footer}>
         <div className="mr-4">

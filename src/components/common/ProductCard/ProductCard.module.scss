@@ -34,6 +34,9 @@
         }
         .productLabel {
             @apply absolute left-0 bottom-0;
+            div{
+                text-transform: uppercase;
+            }
         }
     }
     .cardMid {

@@ -9,6 +9,7 @@ export const cartFragment = /* GraphQL */ `
     total
     totalWithTax
     currencyCode
+    state
     customer {
       id
     }

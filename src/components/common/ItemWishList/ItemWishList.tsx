@@ -1,36 +1,54 @@
 import classNames from 'classnames'
-import IconHeart from 'src/components/icons/IconHeart'
-import React, { memo } from 'react'
-import s from './ItemWishList.module.scss'
-import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
+import React, { memo, useState } from 'react'
 import { useMessage } from 'src/components/contexts'
+import { useActiveCustomer } from 'src/components/hooks/auth'
+import IconHeart from 'src/components/icons/IconHeart'
 import { LANGUAGE } from 'src/utils/language.utils'
+import { useToggleProductWishlist } from '../../../../src/components/hooks/product'
+import { useGetFavoriteProduct } from '../../../../src/components/hooks/account'
+import s from './ItemWishList.module.scss'
+
 interface Props {
-    id:string,
-    isActive?: boolean,
+    id?:string,
     onChange?: () => string
 }
 
-const ItemWishList = memo(({id,isActive=false, onChange}:Props) => {
-    const {onToggleProductWishlist} = useToggleProductWishlist();
+const ItemWishList = memo(({id, onChange}:Props) => {
+   
+    const { wishlistId, mutate:mutateIdWishlist } = useActiveCustomer();
+    const { mutate:mutateProductWishlist } = useGetFavoriteProduct();
+  
+    const { onToggleProductWishlist } = useToggleProductWishlist();
+    
+    const [isWishlist,setIsWishlist] = useState(wishlistId?.includes(id));
+  
+
     const { showMessageSuccess, showMessageError } = useMessage();
 
     function toggleWishlist(){
-        onToggleProductWishlist({productId:id},onSignupCallBack)
+        setIsWishlist(!isWishlist);
+        onToggleProductWishlist({productId:id},onToggleCallBack)
     }
   
-      const onSignupCallBack = (isSuccess: boolean, message?: string) => {
+      const onToggleCallBack = (isSuccess: boolean, message?: string) => {
         if (isSuccess) {
-        //   showMessageSuccess("Create account successfully. Please verify your email to login.", 15000)
+          mutateIdWishlist();
+          mutateProductWishlist();
+          if(!isWishlist){
+            showMessageSuccess("Product added to wishlist", 15000)
+          }else{
+            showMessageError("Product removed from wishlist", 15000)
+          }
         } else {
-          showMessageError(message || LANGUAGE.MESSAGE.ERROR)
+          showMessageError(LANGUAGE.MESSAGE.ERROR)
+          setIsWishlist(false);
         }
       }
-    
+
     return(
         <div className={classNames({
             [s.heartToggle]: true, 
-            [s.isToggleOn]: isActive
+            [s.isToggleOn]: isWishlist
         })}
         onChange={onChange}
         onClick={toggleWishlist}
@@ -39,5 +57,5 @@ const ItemWishList = memo(({id,isActive=false, onChange}:Props) => {
         </div>
     )
 })
-
+ItemWishList.displayName = 'ItemWishList';
 export default ItemWishList

@@ -14,10 +14,15 @@ query activeCustomer {
     }
     phoneNumber
     addresses{
+      id
       streetLine1
       city
       province
       postalCode
+      country{
+        code
+        name
+      }
     } 
   }
 }

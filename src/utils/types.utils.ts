@@ -1,3 +1,7 @@
+import { Product } from './../../framework/vendure/schema.d';
+import { ProductCardProps } from './../components/common/ProductCard/ProductCard';
+import { ProductCard } from './../../framework/commerce/types/product';
+import { Collection } from './../../framework/commerce/types/collection';
 
 export interface ProductProps {
     category?: string
@@ -20,14 +24,17 @@ export interface FeaturedProductProps {
 }
 
 export interface RecipeProps {
-    title: string
-    slug: string
-    description: string
-    imageSrc: string
-    content?: string,
-    imgAuthor?: string,
-    date?: string,
-    authorName?: string,
+    id?:string | null,
+    title: string | null
+    slug: string | null
+    description: string | null
+    imageSrc: string | null
+    content?: string | null,
+    imgAuthor?: string | null,
+    date?: string | null,
+    authorName?: string | null,
+    createdAt?:string | null,
+    ingredients?: ProductCard[]
 }
 
 export interface BlogProps {
@@ -35,7 +42,13 @@ export interface BlogProps {
     title: string
     slug: string
     description: string
-    imageSrc: string | null,
+    content: string
+    imageSrc: string | null
+    isPublish: boolean
+    isFeatured: boolean
+    authorName: string
+    authorAvatarAsset: string | null
+    createdAt: string
 }
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
@@ -64,7 +77,9 @@ export type PromiseWithKey = {
     promise: PromiseLike<any>
     keyResult?: string,
 }
-
+export interface CollectionsWithData extends Collection  {
+    items: ProductCard[]
+}
 // ref https://www.vendure.io/docs/typescript-api/orders/order-state/
 export type OrderState = | 'Created'
     | 'AddingItems'

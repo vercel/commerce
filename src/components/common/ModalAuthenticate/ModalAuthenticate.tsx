@@ -55,7 +55,7 @@ const ModalAuthenticate = ({ visible, mode, closeModal, initialEmail, disableRed
             [s.register]: !isLogin,
           })}
         >
-          <FormLogin isHide={!isLogin} onSwitch={onSwitch} initialEmail={initialEmail} />
+          <FormLogin isHide={!isLogin} onSwitch={onSwitch} initialEmail={initialEmail}  onClose={closeModal}/>
           <FormRegister isHide={isLogin} onSwitch={onSwitch} />
         </div>
       </section>

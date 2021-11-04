@@ -1,10 +1,12 @@
-import { OperationContext } from '@commerce/api/operations'
-import { Provider, VendureConfig } from '..'
-import { BlogList,GetRelevantBlogsQuery } from '../../schema'
-import { getRelevantBlogsQuery } from '../../utils/queries/get-relevant-blogs'
+import { OperationContext } from '@commerce/api/operations';
+import { normalizeBlog } from '@framework/utils/normalize';
+import { Provider, VendureConfig } from '..';
+import { Blog, GetRelevantBlogsQuery } from '../../schema';
+import { getRelevantBlogsQuery } from '../../utils/queries/get-relevant-blogs';
 
 export type BlogVariables = {
     productId?: number,
+    excludeBlogIds?: string[],
 }
 
 export default function getRelevantBlogsOperation({
@@ -29,27 +31,16 @@ export default function getRelevantBlogsOperation({
     
     const config = commerce.getConfig(cfg)
     const variables = {
-        productId: vars.productId,
+      productId: vars.productId,
+      excludeBlogIds: vars.excludeBlogIds,
     }
     const { data } = await config.fetch<GetRelevantBlogsQuery>(query, {
       variables,
     })
-    if(data){
-   
-    return {
-        relevantBlogs: data?.relevantBlogs?.items?.map((val:BlogList)=>({
-            id: val.id,
-            title: val.translations[0]?.title,
-            imageSrc: val.featuredAsset?.preview ?? null,
-            slug: val.translations[0]?.slug,
-            description: val.translations[0]?.description,
-            isPublish: val.isPublish,
-            isFeatured: val.isFeatured,
-            authorName: val.authorName,
-            authorAvatarAsset : val.authorAvatarAsset?.preview,
-            createdAt: val.createdAt
-        })),
-    }
+    if(data.relevantBlogs){
+      return {
+        relevantBlogs: data?.relevantBlogs?.items?.map((val: Blog) => normalizeBlog(val))
+      }
     }else{
       return {relevantBlogs:[]}
     }

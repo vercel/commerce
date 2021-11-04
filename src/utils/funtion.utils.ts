@@ -1,12 +1,25 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
-import { FacetValue, SearchResultSortParameter } from './../../framework/vendure/schema.d';
-import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE } from "./constanst.utils";
+import moment, { now } from 'moment';
+import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
+import { BlogList, FacetValue, Notification, SearchResultSortParameter, RecipesSort } from './../../framework/vendure/schema.d';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE,RECIPE_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
+import { CollectionItems} from '@framework/schema'
+import { APIResponse } from '@commerce/api/utils/types';
+import { CommonError } from 'src/domains/interfaces/CommonError';
+import { LANGUAGE } from './language.utils';
 
 export function isMobile() {
   return window.innerWidth < 768
+}
+
+export function formatTimeAgo(time: string) {
+  return moment(time).fromNow()
+}
+export function unique<T>(data: Array<T>): Array<T> {
+  return [...new Set(data)];
 }
 
 export function getPageFromQuery(pageQuery: string) {
@@ -57,6 +70,36 @@ export function getProductSortParamFromQuery(query: string) {
   return rs
 }
 
+
+
+export function getRecipeSortParamFromQuery(query: string) {
+  let rs = {} as RecipesSort
+  switch (query) {
+    case RECIPE_SORT_OPTION_VALUE.MOST_VIEWD:
+      rs = {
+        createdAt: SortOrder.Asc
+      }
+      break;
+
+    case RECIPE_SORT_OPTION_VALUE.LASTED_BLOGS:
+      rs = {
+        createdAt: SortOrder.Desc
+      }
+      break;
+
+    case RECIPE_SORT_OPTION_VALUE.RECENT_BLOGS:
+      rs = {
+        createdAt: SortOrder.Asc
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return rs
+}
+
 export function removeItem<T>(arr: Array<T>, value: T): Array<T> {
   const index = arr.indexOf(value);
   if (index > -1) {
@@ -81,9 +124,16 @@ export function getFreshFacetId(facets: Facet[]) {
   return freshFacetValue?.id
 }
 
-export function getFacetIdByName(facets: Facet[], facetName: string, valueName:string) {
+export function getFacetIdByName(facets: Facet[], facetName: string, valueName: string) {
   const featuredFacet = facets.find((item: Facet) => item.name === facetName)
   const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.name === valueName)
+  return freshFacetValue?.id
+}
+
+
+export function getFacetIdByCode(facets: Facet[], parentCode: string, valueCode: string) {
+  const featuredFacet = facets.find((item: Facet) => item.code === parentCode)
+  const freshFacetValue = featuredFacet?.values.find((item: FacetValue) => item.code === valueCode)
   return freshFacetValue?.id
 }
 
@@ -130,7 +180,7 @@ export function getFacetIdsFromCodes(facets: FacetValue[], codes?: string[]): st
   return ids
 }
 
-export const getCategoryNameFromCollectionId = (colelctions: Collection[], collectionId?: string ) => {
+export const getCategoryNameFromCollectionId = (colelctions: Collection[], collectionId?: string) => {
   if (!collectionId) {
     return ''
   }
@@ -147,11 +197,11 @@ export function getIdFeaturedBlog(blog: BlogList) {
   return blog?.id
 }
 
-export const FilterOneVatiant = (products:ProductCard[]) => {
-  let idList:string[] = []
-  let filtedProduct: ProductCard[]=[]
-  products.map((product:ProductCard)=>{
-    if(!idList.includes(product.id)){
+export const FilterOneVatiant = (products: ProductCard[]) => {
+  let idList: string[] = []
+  let filtedProduct: ProductCard[] = []
+  products.map((product: ProductCard) => {
+    if (!idList.includes(product.id)) {
       filtedProduct.push(product)
       idList.push(product.id)
     }
@@ -159,8 +209,8 @@ export const FilterOneVatiant = (products:ProductCard[]) => {
   return filtedProduct
 }
 
-export const convertOption = (values :ProductOptionValues[]) => {
-  return values.map((value)=>{ return {name:value.label,value:value.label}})
+export const convertOption = (values: ProductOptionValues[]) => {
+  return values.map((value) => { return { name: value.label, value: value.label } })
 }
 
 export function getProductVariant(product: Product, opts: SelectedOptions) {
@@ -178,8 +228,33 @@ export function getProductVariant(product: Product, opts: SelectedOptions) {
   })
   return variant
 }
- 
-export function formatDate(dateTime:string){
+
+export const getOrderIdsFromNewNotification = (noti: Notification[]) => {
+  const orderIds = noti.map(item => item.order?.id || "")
+  return unique(orderIds)
+}
+
+export function formatDate(dateTime: string) {
   let date = new Date(dateTime);
-  return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate()+","+date.getFullYear();
+  return date.toLocaleString('en-us', { month: 'long' }) + " " + date.getDate() + "," + date.getFullYear();
+}
+
+export function convertLinkCollections(collections:CollectionItems[]){
+
+  return collections.map(val=>(
+    {
+      name:val.name,
+      link: `${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${val.slug}`
+    }
+    ));
+}
+export function convertErrorFromApiResponse(response: APIResponse): CommonError {
+  if (response.errors && response.errors?.length > 0) {
+    return {
+      message: response.errors[0].message,
+    } as CommonError
+  }
+  return {
+    message: LANGUAGE.MESSAGE.ERROR
+  } as CommonError
 }
