@@ -1,8 +1,9 @@
-import { OperationContext } from './../../../commerce/api/operations';
-import { RecipeCollection } from './../../../commerce/types/recipe-collection';
+import { OperationContext } from '@commerce/api/operations'
+import { Collection } from '@commerce/types/collection'
+import { Provider, VendureConfig } from '..'
 import { GetAllRecipeCollectionsQuery } from '../../schema'
 import { getAllRecipeCollectionsQuery } from '../../utils/queries/get-all-recipe-collections-query'
-import { Provider, VendureConfig } from '..';
+
 export type CollectionVariables = { first?: number }
 
 export default function getAllRecipeCollectionsOperation({
@@ -12,7 +13,7 @@ export default function getAllRecipeCollectionsOperation({
     variables?: CollectionVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<{ collections: RecipeCollection[] }>
+  }): Promise<{ recipeCollections: Collection[] }>
 
   async function getAllRecipeCollections({
     query = getAllRecipeCollectionsQuery,
@@ -23,7 +24,7 @@ export default function getAllRecipeCollectionsOperation({
     variables?: CollectionVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<{ collections: RecipeCollection[] | any[] }> {
+  } = {}): Promise<{ recipeCollections: Collection[] | any[] }> {
     const config = commerce.getConfig(cfg)
     const variables = {
       input: {
@@ -34,8 +35,9 @@ export default function getAllRecipeCollectionsOperation({
     const { data } = await config.fetch<GetAllRecipeCollectionsQuery>(query, {
       variables,
     })
+
     return {
-      collections: data.recipeCollections.items,
+        recipeCollections: data.recipeCollections.items,
     }
   }
 

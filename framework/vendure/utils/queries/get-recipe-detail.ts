@@ -19,7 +19,19 @@ query getRecipe($slug: String ){
         preview
       }
       variants{
+        id
+        name
         priceWithTax
+        currencyCode
+      }
+    }
+    recommendedRecipes{
+      id
+      title
+      slug
+      description
+      featuredAsset{
+        preview
       }
     }
   }

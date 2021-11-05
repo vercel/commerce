@@ -46,7 +46,7 @@ const MenuNavigationItem = ({ name, value, queryKey, isSingleSelect,path = ROUTE
             ...router.query,
             [queryKey]: newQuery
         }
-
+        
         if (queryKey === QUERY_KEY.CATEGORY) {
             query[QUERY_KEY.PAGE] = "0"
         }

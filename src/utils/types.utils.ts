@@ -1,3 +1,4 @@
+import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 import { Product } from './../../framework/vendure/schema.d';
 import { ProductCardProps } from './../components/common/ProductCard/ProductCard';
 import { ProductCard } from './../../framework/commerce/types/product';
@@ -33,6 +34,7 @@ export interface RecipeProps {
     date?: string | null,
     createdAt?:string | null,
     ingredients?: ProductCard[]
+    recommendedRecipes?: RecipeCardProps[]
 }
 
 export interface BlogProps {

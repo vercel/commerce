@@ -61,12 +61,12 @@ export type Product = {
 }
 
 export type ProductCard = {
-  id: string
-  name: string
-  slug?: string
-  imageSrc: string
-  price: number
-  currencyCode: CurrencyCode
+  id?: string | null
+  name?: string | null
+  slug?: string | null
+  imageSrc: string | null
+  price: number | null
+  currencyCode?: CurrencyCode | null
   oldPrice?: number
   discount?: number
   weight?: number
@@ -74,8 +74,8 @@ export type ProductCard = {
   collectionIds?: string[],
   collection?: string,
   isNotSell?: boolean
-  productVariantId?:string
-  productVariantName?:string
+  productVariantId?:string | null
+  productVariantName?:string | null
 }
 
 export type SearchProductsBody = {

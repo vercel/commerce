@@ -73,8 +73,13 @@ export const PRODUCT_SORT_OPTION_VALUE = {
   NAME_DESC: 'name_desc',
   PRICE_ASC: 'price_asc',
   PRICE_DESC: 'price_desc',
-
 }
+
+export const RECIPE_SORT_OPTION_VALUE = {
+  LASTED_RECIPES: 'lastest_blogs',
+  RECENT_RECIPES: 'recent_blogs',
+}
+
 
 export enum ProductFeature {
   BestSellers = 'Best Sellers',
@@ -197,6 +202,8 @@ export const FEATURED = [
 ]
 
 export const DEFAULT_BLOG_PAGE_SIZE = 6;
+
+export const DEFAULT_RECIPES_PAGE_SIZE = 9;
 
 export const DEFAULT_YOU_WILL_LIKE_ALSO_SIZE = 6;
 

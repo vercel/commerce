@@ -10,14 +10,14 @@ interface Props {
     value?: string,
     size?: 'base' | 'large',
     type?: 'default' | 'custom',
-    options: {name: string, value: string}[],
+    options: {name: string, value?: string , slug?: string }[],
     onChange?: (value: string) => void,
 }
 
 const SelectCommon = ({initValue, type = 'default', size = 'base', options, placeholder, onChange}: Props) => {
     const [selectedName, setSelectedName] = useState(placeholder)
     const [selectedValue, setSelectedValue] = useState('')
-
+  
     useEffect(() => {
         if (initValue) {
             const nameSelect = options.find((val) => val.value === initValue);
@@ -55,11 +55,11 @@ const SelectCommon = ({initValue, type = 'default', size = 'base', options, plac
                     >   
                         {
                             options.map(item => 
-                                <SelectOption key={item.value}
+                                <SelectOption key={item.value || item.slug}
                                     itemName={item.name}
-                                    value={item.value}
+                                    value={item.value || item.slug}
                                     onChange={changeSelectedName}
-                                    size={size} selected={(selectedValue === item.value)} />
+                                    size={size} selected={(selectedValue === item.value ||  selectedValue === item.slug)} />
                             )
                         }
                     </div>

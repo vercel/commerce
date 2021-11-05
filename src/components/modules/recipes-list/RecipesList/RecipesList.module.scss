@@ -43,23 +43,21 @@
                     @apply flex flex-col items-center justify-center;
                 }
                 .boxItem {
+                    @apply grid grid-cols-1 gap-8;
+                    width:100%;
                     @screen md {
-                        @apply flex justify-between flex-wrap;
-                        margin: 1rem 0;
-                        width:100%;
+                        @apply grid-cols-2;
+                    }
+                    @screen lg {
+                        @apply grid-cols-3;
                     }
                     .item {
-                        img{
+                        @apply pb-16;
+                        > div {
                             width: 100%;
                         }
-                        @screen md {
-                            width: calc(97% / 2);
-                            margin-top:1rem;
-                            
-                        }
-                        @screen lg{
-                            width: calc(97% / 3);
-                            margin-top:1rem;
+                        img{
+                            width: 100%;
                         }
                     }
                 }
