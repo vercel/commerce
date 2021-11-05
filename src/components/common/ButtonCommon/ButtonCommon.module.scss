@@ -43,6 +43,9 @@
   }
   &.loading {
     .inner {
+      .icon {
+        margin-right: .8rem;
+      }
       &::after {
         content: "";
         border-radius: 50%;
@@ -163,6 +166,7 @@
     margin: 0 1.6rem 0 0;
     svg {
       height: 2rem;
+      max-width: 100%;
       path {
         fill: currentColor;
       }
