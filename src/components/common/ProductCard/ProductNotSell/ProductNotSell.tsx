@@ -4,8 +4,8 @@ import ImgWithLink from '../../ImgWithLink/ImgWithLink';
 import s from './ProductNotSell.module.scss';
 
 export interface Props {
-    name: string,
-    imageSrc: string,
+    name: string | null ,
+    imageSrc: string | null ,
 }
 
 const ProductNotSell = ({ name, imageSrc }: Props) => {

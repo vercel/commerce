@@ -6,11 +6,6 @@ import { ImgWithLink } from '..'
 import s from './CardBlog.module.scss'
 
 export interface BlogCardProps extends BlogProps {
-  isPublish?:Boolean,
-  isFeatured?:Boolean,
-  authorAvatarAsset?:string,
-  authorName?:string,
-  createdAt?:string
 }
 
 const CardBlog = ({ imageSrc, title, description, slug }: BlogCardProps) => {
@@ -28,7 +23,7 @@ const CardBlog = ({ imageSrc, title, description, slug }: BlogCardProps) => {
           <div className={s.title}>{title}</div>
         </a>
       </Link>
-      <div className={s.description}>{description}</div>
+      <div className={s.description} dangerouslySetInnerHTML={{__html: description}}></div>
     </div>
   )
 }

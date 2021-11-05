@@ -20,7 +20,6 @@ const useMarkNotificationsAsRead = () => {
       variables: { input },
     })
       .then(({ data }) => {
-        console.log("on mark ")
         if (data.markNotificationsAsRead.updatedNotificationOrderIds) {
           fCallBack && fCallBack(true)
           mutate()

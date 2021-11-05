@@ -43,6 +43,9 @@
   }
   &.loading {
     .inner {
+      .icon {
+        margin-right: .8rem;
+      }
       &::after {
         content: "";
         border-radius: 50%;

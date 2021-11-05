@@ -52,3 +52,17 @@ export type GetCollectionOperation<T extends CollectionTypes = CollectionTypes> 
   data: { collection?: T['collection'] }
   variables: { code: string; } | { code?: never; }
 }
+
+
+export type GetAllRecipeCollectionsOperation<T extends CollectionTypes = CollectionTypes> = {
+  data: { collections: T['collection'][] }
+  variables: {
+    ids?: string[]
+    first?: number
+  }
+}
+
+export type GetRecipeCollectionOperation<T extends CollectionTypes = CollectionTypes> = {
+  data: { collection?: T['collection'] }
+  variables: { code: string; } | { code?: never; }
+}

@@ -1,8 +1,7 @@
-import { normalizeCart } from '@framework/utils/normalize';
 import React from 'react';
 import { useCartDrawer } from 'src/components/contexts';
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder';
-import { PRODUCT_CART_DATA_TEST } from 'src/utils/demo-data';
+import { DEFAULT_CURRENCY } from 'src/utils/constanst.utils';
 import { DrawerCommon } from '..';
 import s from './CartDrawer.module.scss';
 import CartCheckoutButton from './components/CartCheckoutButton/CartCheckoutButton';
@@ -24,12 +23,12 @@ const CartDrawer = ({ }: Props) => {
       onClose={closeCartDrawer}>
       <div className={s.cartDrawer}>
         <div className={s.body}>
-          <ProductsInCart data={order?.lineItems||[]} currency={order?.currency||{code:"USA"}}/>
+          <ProductsInCart data={order?.lineItems || []} currency={order?.currency || { code: DEFAULT_CURRENCY }} />
           <CartRecommendation />
         </div>
         <div>
           <CartMessage />
-          <CartCheckoutButton onClose={closeCartDrawer} total={order?.totalPrice||0} currency={order?.currency||{code:"USA"}}/>
+          <CartCheckoutButton onClose={closeCartDrawer} total={order?.totalPrice || 0} currency={order?.currency || { code: DEFAULT_CURRENCY }} />
         </div>
       </div>
     </DrawerCommon>

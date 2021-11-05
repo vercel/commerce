@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Router from 'next/router'
 import React, { useState } from 'react'
 import { useCartDrawer, useMessage } from 'src/components/contexts'
-import { useActiveCustomer } from 'src/components/hooks/auth'
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder'
 import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
 import { IconBuy } from 'src/components/icons'
@@ -19,8 +18,8 @@ import ProductNotSell from './ProductNotSell/ProductNotSell'
 export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
-  activeWishlist?:boolean,
-  isWishlist?:boolean,
+  activeWishlist?:boolean
+  onAddToCartCallBack ?: () => void
 }
 
 const ProductCardComponent = ({
@@ -33,10 +32,11 @@ const ProductCardComponent = ({
   currencyCode,
   buttonText = 'Buy Now',
   imageSrc,
-  isNotSell,
+  isNotSell = false,
   isSingleButton,
   productVariantId,
   productVariantName,
+  onAddToCartCallBack
 }: ProductCardProps) => {
 
   const {addProduct} = useAddProductToCart()
@@ -45,12 +45,11 @@ const ProductCardComponent = ({
   const [addToCartLoading, setAddToCartLoading] = useState(false)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const { showMessageSuccess, showMessageError } = useMessage()
-  const {changeOrderState, loading:changeStateLoading } = useChangeOrderState()
+  const {changeOrderState } = useChangeOrderState()
   const [mode, setMode] = useState("handleAddToCart")
   const handleAddToCart = () => {
     setAddToCartLoading(true)
     if(order && order.state !== "AddingItems"){
-      setMode("handleAddToCart")
       changeOrderState("AddingItems",onChangeOrderStateCallback)
     }else if(productVariantId){
       addProduct({variantId:productVariantId,quantity:1},handleAddToCartCallback)
@@ -59,7 +58,8 @@ const ProductCardComponent = ({
   const handleAddToCartCallback = (isSuccess:boolean,message?:string) => {
 		setAddToCartLoading(false)
 		if(isSuccess){
-			showMessageSuccess("Add to cart successfully!", 4000)
+      showMessageSuccess("Add to cart successfully!", 4000)
+      onAddToCartCallBack && onAddToCartCallBack()
 			openCartDrawer && openCartDrawer()
 		}else{
 			showMessageError(message||"Error")
@@ -94,16 +94,12 @@ const ProductCardComponent = ({
     }
   }
 
-  // const handleOk = () => {
-  //   changeOrderState("AddingItems",onChangeOrderStateCallback)
-  // }
-
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
-      <ProductNotSell name={name} imageSrc={imageSrc} />
+      <ProductNotSell name={name ?? null} imageSrc={imageSrc ?? null} />
     </div>
   }
-
+  
 
   return (
     <>
@@ -112,7 +108,7 @@ const ProductCardComponent = ({
           <Link href={`${ROUTE.PRODUCT_DETAIL}/${slug}`}>
             <a>
               <div className={s.productImage}>
-                <ImgWithLink src={imageSrc} alt={name}/>
+                <ImgWithLink src={imageSrc ?? ''} alt={name ?? ''}/>
               </div>
             </a>
           </Link>
@@ -125,7 +121,6 @@ const ProductCardComponent = ({
           <div className={s.productWeight}>{weight}</div>
         </div>
         <div className={s.cardMidBot}>
-          
         </div>
         <div className={s.cardMid}>
           <div className={s.cardMidTop}>
@@ -139,7 +134,7 @@ const ProductCardComponent = ({
           <div className={s.cardMidBot}>
             <div className={s.productPrice}>{price} {currencyCode}</div>
             <div className={s.wishList}>
-              <ItemWishList id={id} />
+              <ItemWishList id={id ?? ''} />
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Product } from '@commerce/types/product'
+import { Product, ProductVariant } from '@commerce/types/product'
 import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { ButtonCommon, LabelCommon, QuanittyInput } from 'src/components/common'
@@ -21,7 +21,8 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
     const [quanitty, setQuanitty] = useState(0)
     const [addToCartLoading, setAddToCartLoading] = useState(false)
     const [buyNowLoading, setBuyNowLoading] = useState(false)
-	const { showMessageSuccess, showMessageError } = useMessage()
+	const {showMessageSuccess, showMessageError } = useMessage()
+    const [currentVariant, setCurrentVariant] = useState<ProductVariant|undefined>(productInfoDetail.variants?productInfoDetail.variants[0]:undefined)
 	useEffect(() => {
 		let defaultOption:SelectedOptions = {}
 		productInfoDetail.options.map((option)=>{
@@ -84,8 +85,7 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
     }
     const onSelectOption = (value:SelectedOptions) => {
         setOption({...option,...value})
-        // let variant = getProductVariant(productInfoDetail,value)
-        // console.log(variant)
+        setCurrentVariant(getProductVariant(productInfoDetail,{...option,...value}))
     }
     return (
         <section className={s.productInfo}>
@@ -93,14 +93,22 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                 <LabelCommon shape='half'>{productInfoDetail.collection?.[0]}</LabelCommon>
                 <h2 className={s.heading}>{productInfoDetail.name}</h2>
                 <div className={s.price}>
-                    {/* <div className={s.old}>
-                        <span className={s.number}>Rp {productInfoDetail.price}</span>
-                        <LabelCommon type='discount'>-15%</LabelCommon>
-                    </div> */}
-                    <div className={s.current}>{productInfoDetail.price} {productInfoDetail.currencyCode}</div>
+                    {
+                        currentVariant && currentVariant.customFields &&
+                            <div className={s.old}>
+                                {
+                                    currentVariant.customFields.oldPrice &&
+                                        <span className={s.number}>{currentVariant.customFields.oldPrice} {currentVariant.currencyCode}</span>
+                                }
+                                {
+                                    currentVariant.customFields.discount &&
+                                        <LabelCommon type='discount'>{currentVariant.customFields.discount}</LabelCommon>
+                                }
+                            </div>
+                    }
+                    <div className={s.current}>{currentVariant?currentVariant.price:productInfoDetail.price} {currentVariant?currentVariant.currencyCode:productInfoDetail.currencyCode}</div>
                 </div>
-                <div className={s.description}>
-                    {productInfoDetail.description}
+                <div className={s.description} dangerouslySetInnerHTML={{__html: productInfoDetail.description}}>
                 </div>
                 <div className={s.options}>
                     {

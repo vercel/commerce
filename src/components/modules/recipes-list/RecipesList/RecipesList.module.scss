@@ -28,12 +28,15 @@
             }
         }
         .recipesList{
-            @screen md {
-                @apply flex justify-between flex-wrap w-full;
-                margin: 1rem 0;
-            }
-            @screen xl {
-                width:75%;
+            width: 100%;
+            .recipesHead{
+                @screen md {
+                    @apply flex justify-between flex-wrap w-full;
+                    margin: 1rem 0;
+                }
+                @screen xl {
+                    width:100%;
+                }
             }
             .inner{
                 @screen md {
@@ -43,7 +46,7 @@
                     @screen md {
                         @apply flex justify-between flex-wrap;
                         margin: 1rem 0;
-                      
+                        width:100%;
                     }
                     .item {
                         img{

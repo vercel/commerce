@@ -1,11 +1,12 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { memo, useMemo, useState } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { ButtonCommon } from 'src/components/common'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { useCartDrawer } from 'src/components/contexts'
+import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { useActiveCustomer } from 'src/components/hooks/auth'
 import {
   IconBuy,
@@ -27,10 +28,8 @@ interface Props {
   children?: any
   isFull?: boolean
   isStickyHeader?: boolean
-  openModalLogin: () => void
-  openModalRegister: () => void
   toggleFilter: () => void
-  searchValue:string|number
+  searchValue: string | number
   setSearchValue: (value: string | number) => void
   isNotificationOpen: boolean
   toggleNotification: () => void
@@ -40,8 +39,6 @@ const HeaderMenu = memo(
   ({
     isFull,
     isStickyHeader,
-    openModalLogin,
-    openModalRegister,
     toggleFilter,
     searchValue,
     setSearchValue,
@@ -51,13 +48,21 @@ const HeaderMenu = memo(
     const router = useRouter()
     const { toggleCartDrawer } = useCartDrawer()
     const { customer } = useActiveCustomer()
-    
+    const { openModalAuthen } = useModalAuthen()
     const { logout } = useLogout()
+
+    const openModalRegister = useCallback(() => {
+      return openModalAuthen(undefined, 'register')
+    }, [openModalAuthen])
+
+    const onClickOpenModalAuthen = () => {
+      openModalAuthen()
+    }
 
     const optionMenuNotAuthen = useMemo(
       () => [
         {
-          onClick: openModalLogin,
+          onClick: openModalAuthen,
           name: 'Sign in',
         },
         {
@@ -69,9 +74,9 @@ const HeaderMenu = memo(
           name: 'Forgot Password',
         },
       ],
-      [openModalLogin, openModalRegister]
+      [openModalRegister, openModalAuthen]
     )
-    
+
     const optionMenu = useMemo(
       () => [
         {
@@ -92,14 +97,13 @@ const HeaderMenu = memo(
     )
 
     const onEnter = () => {
-      console.log("enter")
-        router.push(`${ROUTE.PRODUCTS}?${QUERY_KEY.SEARCH}=${searchValue}`)
+      router.push(`${ROUTE.PRODUCTS}?${QUERY_KEY.SEARCH}=${searchValue}`)
     }
 
-    const onChange = (value:string|number) => {
-        setSearchValue(value)
+    const onChange = (value: string | number) => {
+      setSearchValue(value)
     }
-    
+
     const onCartIconClick = () => {
       toggleCartDrawer()
     }
@@ -132,7 +136,7 @@ const HeaderMenu = memo(
           </div>
           <div className={s.searchWrap}>
             <div className={s.inputSearch}>
-              <InputSearch onChange={onChange} onEnter={onEnter} value={searchValue}/>
+              <InputSearch onChange={onChange} onEnter={onEnter} value={searchValue} />
             </div>
             <div className={s.buttonSearch}>
               <ButtonCommon onClick={onEnter}>Search</ButtonCommon>
@@ -141,7 +145,7 @@ const HeaderMenu = memo(
         </div>
         <ul className={s.menu}>
           {
-            customer && <>
+            customer ? <>
               <li>
                 <Link
                   href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}
@@ -162,6 +166,16 @@ const HeaderMenu = memo(
               </li>
               <li>
                 <NotificationDropdown isOpen={isNotificationOpen} toggle={toggleNotification} />
+              </li>
+            </> : <>
+              <li>
+                <button onClick={onClickOpenModalAuthen}><IconHistory /></button>
+              </li>
+              <li>
+                <button onClick={onClickOpenModalAuthen} className={s.iconFavourite}><IconHeart /></button>
+              </li>
+              <li>
+                <NotificationDropdown isShowLogin={true} isOpen={isNotificationOpen} toggle={toggleNotification} />
               </li>
             </>
           }

@@ -1,7 +1,7 @@
 @import "../../../styles/utilities";
 
 .cardBlogWarpper {
-    @apply inline-flex flex-col justify-start;
+    @apply inline-flex flex-col justify-start w-full;
     max-width: 39.2rem;
     .image {
         border-radius: 2.4rem;
@@ -10,6 +10,7 @@
         }
         img{
             border-radius: 2.4rem;
+            object-fit: cover;
         }
         > div{
             min-height: 22rem;

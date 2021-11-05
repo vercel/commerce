@@ -1,6 +1,8 @@
 import { OperationContext } from '@commerce/api/operations'
+import { normalizeBlog } from '@framework/utils/normalize'
+import { BlogProps } from 'src/utils/types.utils'
 import { Provider, VendureConfig } from '..'
-import { GetBlogQuery,BlogList } from '../../schema'
+import { GetBlogQuery } from '../../schema'
 import { getBlogDetailQuery } from '../../utils/queries/get-blog-detail'
 
 export type BlogVariables = {
@@ -14,7 +16,7 @@ export default function getBlogDetailOperation({
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<{ blogDetail: BlogList}>
+  }): Promise<BlogProps | null>
 
   async function getBlogDetail({
     query = getBlogDetailQuery,
@@ -25,7 +27,7 @@ export default function getBlogDetailOperation({
     variables?: BlogVariables
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<{ blogDetail: BlogList | any  }> {
+  } = {}): Promise<BlogProps | null> {
     
     const config = commerce.getConfig(cfg)
     const variables = {
@@ -36,24 +38,10 @@ export default function getBlogDetailOperation({
     })
     if(data.blog){
 
-      return {
-        blogDetail: {
-          id:data?.blog?.id ?? null,
-          title: data?.blog?.translations[0].title ?? null,
-          imageSrc: data?.blog?.featuredAsset?.preview ?? null,
-          slug: data?.blog?.translations[0]?.slug ?? null,
-          description: data?.blog?.translations[0]?.description ?? null,
-          isPublish: data?.blog?.isPublish ?? null,
-          isFeatured: data?.blog?.isFeatured ?? null,
-          authorName: data?.blog?.authorName ?? null,
-          authorAvatarAsset : data?.blog?.authorAvatarAsset?.preview ?? null,
-          createdAt: data?.blog?.createdAt ?? null,
-          relevantProducts: data?.blog?.relevantProducts.map(val=>val.id) ?? null
-        }
-      }
+      return normalizeBlog(data.blog)
 
     }else{
-      return {blogDetail:null}
+      return null
     }
    
   }

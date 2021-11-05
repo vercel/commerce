@@ -2,31 +2,45 @@ import React from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, ViewAllItem } from 'src/components/common';
 import ProductCard, { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
+import { useGetActiveOrder, useRecommendedProductsInCart } from 'src/components/hooks/cart';
 import { ROUTE } from 'src/utils/constanst.utils';
-import { PRODUCT_DATA_TEST } from 'src/utils/demo-data';
 import s from './CartRecommendation.module.scss';
 
 const RESPONSIVE:ResponsiveType = {
   desktop: {
     breakpoint: { max: 99999, min: 1440 },
     items: 2.5,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 2.5,
   },
   lap: {
     breakpoint: { max: 1440, min: 1008 },
     items: 2.2,
+    slidesToSlide: 2.2,
   },
   tablet: {
     breakpoint: { max: 1008, min: 768 },
     items: 2.5,
+    slidesToSlide: 2.5,
+
   },
   mobile: {
     breakpoint: { max: 768, min: 0 },
     items: 1.5,
+    slidesToSlide: 1.5,
+
   }
 };
 
+
 const CartRecommendation = () => {
+  const { products, mutate: mutateRecommendedProductsInCart } = useRecommendedProductsInCart()
+  const { mutate: mutateGetActiveOrder } = useGetActiveOrder()
+
+  const onAddToCartCallBack = () => {
+    mutateGetActiveOrder()
+    mutateRecommendedProductsInCart()
+  }
+  
   return (
     <div className={s.cartRecommendation}>
       <div className={s.top}>
@@ -37,11 +51,11 @@ const CartRecommendation = () => {
       </div>
       <div className={s.productCardWarpper}>
         <CarouselCommon<ProductCardProps>
-          data={PRODUCT_DATA_TEST}
+          data={products}
           Component={ProductCard}
           itemKey="cart-recommendation"
           responsive={RESPONSIVE}
-          defaultComponentProps={{ isSingleButton: true }}
+          defaultComponentProps={{ isSingleButton: true, onAddToCartCallBack }}
         />
       </div>
     </div>

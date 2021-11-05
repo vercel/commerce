@@ -13,27 +13,40 @@
     }
     @screen lg {
         @apply flex spacing-horizontal-left;
-        padding-top: 5.6rem;
-        padding-bottom: 5.6rem;
+        padding-top: 4.8rem;
+        padding-bottom: 4.8rem;
         border: none;
         background-color: var(--background-gray);
+    }
+    @screen 2xl {
+        padding-top: 5.6rem;
+        padding-bottom: 5.6rem;
     }
     .productsWrap {
         @apply spacing-horizontal-left;
         overflow: hidden;
         @screen lg {
             flex: 1;
-            // max-width: 75%;
-            padding: 0 0.8rem;
-            > div > div {
-                @apply shape-common-lg bg-white;
-                padding: 4rem 0;
-            }
+            padding: 0 3.2rem;
             > div {
-                margin: 0 2.4;
-                overflow: visible
+                overflow: visible;
+                padding: 4rem;
+                @apply relative;
+                > div {
+                    ul {
+                        z-index: 100;
+                    }
+                }
+                &::after {
+                    @apply shape-common-lg bg-white w-full;
+                    position: absolute;
+                    content: "";
+                    inset: 0;
+                }
+
             }
             :global(.customArrow) {
+                z-index: 100;
                 @screen lg {
                     &:global(.leftArrow) {
                         left: calc(-6.4rem + 3rem);
@@ -45,8 +58,7 @@
             }
         }
         @screen xl {
-            padding: 0 2.4rem;
-            // max-width: 80%;
+            padding: 0 4rem;
         }
     }
 }

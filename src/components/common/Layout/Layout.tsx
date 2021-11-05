@@ -1,7 +1,8 @@
 import { CommerceProvider } from '@framework'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { CartDrawerProvider, MessageProvider, ProductFilterProvider,ToggleProductWishlistProvider } from 'src/components/contexts'
+import { CartDrawerProvider, MessageProvider, ProductFilterProvider, ToggleProductWishlistProvider } from 'src/components/contexts'
+import { ModalAuthenProvider } from 'src/components/contexts/ModalAuthen/ModalAuthenProvider'
 import LayoutContent from './LayoutContent/LayoutContent'
 interface Props {
   className?: string
@@ -13,13 +14,15 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <CommerceProvider locale={locale}>
       <ToggleProductWishlistProvider>
-      <CartDrawerProvider>
-        <ProductFilterProvider>
-          <MessageProvider>
-            <LayoutContent>{children}</LayoutContent>
-          </MessageProvider>
-        </ProductFilterProvider>
-      </CartDrawerProvider>
+        <CartDrawerProvider>
+          <ProductFilterProvider>
+            <ModalAuthenProvider>
+              <MessageProvider>
+                <LayoutContent>{children}</LayoutContent>
+              </MessageProvider>
+            </ModalAuthenProvider>
+          </ProductFilterProvider>
+        </CartDrawerProvider>
       </ToggleProductWishlistProvider>
     </CommerceProvider>
   )

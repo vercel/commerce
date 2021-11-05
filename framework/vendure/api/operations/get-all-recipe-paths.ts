@@ -1,34 +1,33 @@
-import { BlogList } from '../../schema';
-import { OperationContext,OperationOptions } from '@commerce/api/operations';
+import { OperationContext, OperationOptions } from '@commerce/api/operations';
 import { BigcommerceConfig } from '../../../bigcommerce/api';
-import type { GetAllRecipePathsQuery,RecipeTranslation } from '../../schema';
-import { getAllBlogPathsQuery } from '../../utils/queries/get-all-blog-paths-query';
+import { GetAllRecipePathsOperation } from '../../../commerce/types/recipes';
+import type { GetAllRecipePathsQuery, RecipeTranslation } from '../../schema';
+import { getAllRecipePathsQuery } from '../../utils/queries/get-all-recipe-paths-query';
 import { Provider } from '../index';
-import { GetAllRecipesPathsOperation } from '../../../commerce/types/recipes';
 
 export type GetAllBlogPathsResult = {
-  blogs: Array<{ node: { path: string } }>
+  recipes: Array<{ node: { path: string } }>
 }
 
 export default function getAllRecipePathsOperation({
   commerce,
 }: OperationContext<Provider>) {
   async function getAllRecipePaths<
-    T extends GetAllRecipesPathsOperation
+    T extends GetAllRecipePathsOperation
   >(opts?: {
     variables?: T['variables']
     config?: BigcommerceConfig
   }): Promise<T['data']>
 
-  async function getAllRecipePaths<T extends GetAllRecipesPathsOperation>(
+  async function getAllRecipePaths<T extends GetAllRecipePathsOperation>(
     opts: {
       variables?: T['variables']
       config?: BigcommerceConfig
     } & OperationOptions
   ): Promise<T['data']>
 
-  async function getAllRecipePaths<T extends GetAllRecipesPathsOperation>({
-    query = getAllBlogPathsQuery,
+  async function getAllRecipePaths<T extends GetAllRecipePathsOperation>({
+    query = getAllRecipePathsQuery,
     variables,
     config: cfg,
   }: {
@@ -42,10 +41,10 @@ export default function getAllRecipePathsOperation({
       variables,
     })
 
-    const recipes = data.blogs.items;
+    const recipes = data.recipes.items;
  
     return {
-        recipes: recipes?.map(val=>val.translations.map((p:RecipeTranslation) => ({ path: `/${p.slug}` })))
+      recipes: recipes?.map(val=>val.translations.map((p:RecipeTranslation) => ({ path: `/${p.slug}` })))
     }
   }
 

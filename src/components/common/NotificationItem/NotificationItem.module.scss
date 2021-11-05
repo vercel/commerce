@@ -2,8 +2,9 @@
 
 .notificationItem {
     @apply flex flex-row;
-    padding: 1.6rem 0.8rem;
+    padding: 1.6rem;
     &:hover {
+        @apply bg-gray;
         cursor: pointer;
     }
     .contentWrapper {

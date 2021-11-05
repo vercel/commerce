@@ -20,7 +20,7 @@ import type {
 
 
 import type { APIProvider, CommerceAPI } from '.'
-import { GetAllCollectionsOperation } from '@commerce/types/collection';
+import { GetAllCollectionsOperation, GetAllRecipeCollectionsOperation } from '@commerce/types/collection';
 
 const noop = () => {
   throw new Error('Not implemented')
@@ -44,7 +44,8 @@ export const OPERATIONS = [
   'getRelevantBlogs',
   'getAllRecipes',
   'getAllRecipePaths',
-  'getRecipeDetail'
+  'getRecipeDetail',
+  'getAllRecipeCollections',
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -327,6 +328,22 @@ export type Operations<P extends APIProvider> = {
     }): Promise<T['data']>
   
     <T extends GetAllCollectionsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
+  getAllRecipeCollections: {
+    <T extends GetAllRecipeCollectionsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+  
+    <T extends GetAllRecipeCollectionsOperation>(
       opts: {
         variables?: T['variables']
         config?: P['config']
