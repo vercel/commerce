@@ -10,6 +10,7 @@ import { CollectionItems} from '@framework/schema'
 import { APIResponse } from '@commerce/api/utils/types';
 import { CommonError } from 'src/domains/interfaces/CommonError';
 import { LANGUAGE } from './language.utils';
+import { RecipeCollection } from '@commerce/types/recipe-collection';
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -258,4 +259,13 @@ export function convertErrorFromApiResponse(response: APIResponse): CommonError 
   return {
     message: LANGUAGE.MESSAGE.ERROR
   } as CommonError
+}
+
+export function checkIsRecipeInCollectionsEmpty(collections: RecipeCollection[]) {
+  let total = 0
+  collections.map(item => {
+    total += item.recipes.totalItems
+    return null
+  })
+  return total === 0
 }

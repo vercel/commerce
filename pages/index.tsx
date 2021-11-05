@@ -9,7 +9,7 @@ import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, REVALIDATE_TIME } from 'src/utils/constanst.utils';
-import { FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
+import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { CollectionsWithData, PromiseWithKey } from 'src/utils/types.utils';
 
 
@@ -39,7 +39,7 @@ export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
         <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       }
       <HomeCTA />
-      {recipesCollection.length > 0 && <HomeRecipe recipesCollection={recipesCollection}/>}
+      {!checkIsRecipeInCollectionsEmpty(recipesCollection) && <HomeRecipe recipesCollection={recipesCollection} />}
       
       <HomeSubscribe />
     </>
