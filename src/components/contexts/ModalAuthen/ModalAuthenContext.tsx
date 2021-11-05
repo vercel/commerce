@@ -3,11 +3,11 @@ import { createContext, useContext } from 'react';
 export type ModalAuthenContextType = {
     modalAuthenVisible: boolean;
     toggleModalAuthen: (visible?: boolean) => void;
-    openModalAuthen: () => void;
+    openModalAuthen: (email?: string, mode?: 'register', disableRedirect?: boolean) => void;
     closeModalAuthen: () => void;
     modalAuthenMode?: 'register'
     initialEmail?: string
-    disableRedirect ?: boolean
+    disableRedirect?: boolean
 };
 export const DEFAULT_VALUE: ModalAuthenContextType = {
     modalAuthenVisible: false,
