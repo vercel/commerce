@@ -27,16 +27,26 @@
         overflow: hidden;
         @screen lg {
             flex: 1;
-            padding: 0 0.8rem;
-            > div > div {
-                @apply shape-common-lg bg-white;
-                padding: 4rem 0;
-            }
+            padding: 0 3.2rem;
             > div {
-                margin: 0 2.4;
-                overflow: visible
+                overflow: visible;
+                padding: 4rem;
+                @apply relative;
+                > div {
+                    ul {
+                        z-index: 100;
+                    }
+                }
+                &::after {
+                    @apply shape-common-lg bg-white w-full;
+                    position: absolute;
+                    content: "";
+                    inset: 0;
+                }
+
             }
             :global(.customArrow) {
+                z-index: 100;
                 @screen lg {
                     &:global(.leftArrow) {
                         left: calc(-6.4rem + 3rem);
@@ -48,7 +58,7 @@
             }
         }
         @screen xl {
-            padding: 0 3.2rem;
+            padding: 0 4rem;
         }
     }
 }

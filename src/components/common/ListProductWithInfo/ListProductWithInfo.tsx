@@ -56,15 +56,13 @@ const ListProductWithInfo = ({ data, title, subtitle, hasBorderBottomMobile }: P
         subtitle={subtitle}
       />
       <div className={s.productsWrap}>
-        {/* <div className={s.productsInner}> */}
-          <CarouselCommon<ProductCardProps>
-            data={data}
-            Component={ProductCard}
-            // draggable={true} infinite={true}
-            itemKey={title}
-            responsive={RESPONSIVE}
-          />
-        {/* </div> */}
+        <CarouselCommon<ProductCardProps>
+          data={data}
+          Component={ProductCard}
+          draggable={true} infinite={true}
+          itemKey={title}
+          responsive={RESPONSIVE}
+        />
       </div>
     </div>
   );
