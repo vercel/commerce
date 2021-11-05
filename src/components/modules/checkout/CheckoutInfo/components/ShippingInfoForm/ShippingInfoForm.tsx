@@ -58,7 +58,7 @@ const provinceOptions = [
   },
 ]
 
-const ShippingInfoForm = ({ onConfirm, id, activeStep, initialValues = INITIAL_VALUES}: ShippingInfoFormProps) => {
+const ShippingInfoForm = ({ onConfirm, id, activeStep, initialValues = INITIAL_VALUES }: ShippingInfoFormProps) => {
   const addressRef = useRef<CustomInputCommon>(null)
   const { setOrderShippingAddress, loading } = useSetOrderShippingAddress()
   const { showMessageError } = useMessage()
@@ -87,7 +87,7 @@ const ShippingInfoForm = ({ onConfirm, id, activeStep, initialValues = INITIAL_V
     <div className={s.warpper}>
       <div className={s.body}>
         <Formik
-          initialValues={initialValues}
+          initialValues={{ ...initialValues, province: initialValues.province || DEFAULT_PROVINCE }}
           validationSchema={displayingErrorMessagesSchema}
           onSubmit={handleSubmit}
         >
