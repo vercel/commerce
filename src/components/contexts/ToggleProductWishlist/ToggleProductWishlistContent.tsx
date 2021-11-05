@@ -2,13 +2,13 @@ import { createContext, useContext } from 'react';
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
 
 export type ToggleProductWishlistContextType = {
-    itemWishlist?:ProductCardProps[] | null,
+    itemsWishlist?:ProductCardProps[] | null,
     wishlistIds?: string[],
     totalItems?:number
     mutateProductWishlist: () => void;
 };
 export const DEFAULT_TOGGLE_PRODUCT_WISHLIST_CONTEXT: ToggleProductWishlistContextType = {
-    itemWishlist:null,
+    itemsWishlist:null,
     wishlistIds: undefined,
     totalItems:0,
     mutateProductWishlist: () => { },

@@ -18,15 +18,10 @@ const DEFAULT_FAVORITE_ARGS = {
 }
 
 export function ToggleProductWishlistProvider({ children }: Props) {
-
     const router = useRouter()
-
     const [optionQueryFavorite, setoptionQueryFavorite] = useState<QueryFavorite>(DEFAULT_FAVORITE_ARGS)
-   
-    const { itemWishlist, totalItems, mutate }= useGetFavoriteProduct(optionQueryFavorite);
+    const { itemsWishlist, totalItems, mutate }= useGetFavoriteProduct(optionQueryFavorite);
 
-
-    // skip
     useEffect(() => {
         if (router.asPath === `${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`) {
             const query = { ...DEFAULT_FAVORITE_ARGS } as QueryFavorite;
@@ -47,8 +42,8 @@ export function ToggleProductWishlistProvider({ children }: Props) {
         <>
             <ToggleProductWishlistContext.Provider value={{
                 mutateProductWishlist,
-                itemWishlist,
-                wishlistIds: itemWishlist?.map((item: ProductCardProps) => item.id),
+                itemsWishlist,
+                wishlistIds: itemsWishlist?.map((item: ProductCardProps) => item.id),
                 totalItems
             }}>
                 {children}

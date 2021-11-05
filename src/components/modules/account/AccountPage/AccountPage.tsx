@@ -35,7 +35,7 @@ const getTabIndex = (tab?: string): number => {
 
 
 const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
-    const {itemWishlist, totalItems} = useToggleWishlist();
+    const {itemsWishlist, totalItems} = useToggleWishlist();
 
     const router = useRouter()
 
@@ -76,7 +76,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                         <OrderInfomation addingItem={addingItem} arrangingPayment={arrangingPayment} cancelled={cancelled} />
                     </TabPane>
                     <TabPane tabName="Favourite"> 
-                        <FavouriteProducts products={itemWishlist || []} totalItems={totalItems || 0} />
+                        <FavouriteProducts products={itemsWishlist || []} totalItems={totalItems || 0} />
                     </TabPane>
                 </AccountNavigation>
             </section>
