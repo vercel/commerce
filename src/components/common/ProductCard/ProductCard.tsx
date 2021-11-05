@@ -1,7 +1,7 @@
 import { ProductCard } from '@commerce/types/product'
 import Link from 'next/link'
 import Router from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useCartDrawer, useMessage } from 'src/components/contexts'
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder'
 import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
@@ -94,10 +94,6 @@ const ProductCardComponent = ({
     }
   }
 
-  // const handleOk = () => {
-  //   changeOrderState("AddingItems",onChangeOrderStateCallback)
-  // }
-
   if (isNotSell) {
     return <div className={`${s.productCardWarpper} ${s.notSell}`}>
       <ProductNotSell name={name ?? null} imageSrc={imageSrc ?? null} />
@@ -126,9 +122,6 @@ const ProductCardComponent = ({
         </div>
         <div className={s.cardMidBot}>
           <div className={s.productPrice}>{price} {currencyCode}</div>
-          {/* <div className={s.wishList}>
-            {customer && <ItemWishList id={id}/>}
-          </div> */}
         </div>
         <div className={s.cardMid}>
           <div className={s.cardMidTop}>

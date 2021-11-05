@@ -9,7 +9,7 @@ import { getAllPromies } from 'src/utils/funtion.utils';
 import { BlogProps, PromiseWithKey } from 'src/utils/types.utils';
 interface Props {
   blogDetail: BlogProps
-  readmoreBlogs:{blogs?:BlogProps[]}
+  readmoreBlogs:{blogs :BlogProps[]}
   isNotFound: boolean
 }
 export default function BlogDetailPage({blogDetail,readmoreBlogs, isNotFound}:Props) {

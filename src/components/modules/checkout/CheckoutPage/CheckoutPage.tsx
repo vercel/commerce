@@ -1,7 +1,9 @@
 import classNames from 'classnames'
 import React, { useState } from 'react'
 import { MessageCommon } from 'src/components/common'
+import ModalAuthenticate from 'src/components/common/ModalAuthenticate/ModalAuthenticate'
 import { useMessage } from 'src/components/contexts'
+import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { useGetActiveOrderForCheckout } from 'src/components/hooks/order'
 import IconHide from 'src/components/icons/IconHide'
 import { CHECKOUT_BILL_DATA } from 'src/utils/demo-data'
@@ -14,6 +16,7 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
     const { messages, removeMessage } = useMessage()
     const [isShow, setIsShow] = useState(false)
     const { order } = useGetActiveOrderForCheckout()
+    const {modalAuthenVisible, modalAuthenMode, initialEmail, disableRedirect, closeModalAuthen } = useModalAuthen()
 
     const onClose = () => {
         setIsShow(false)
@@ -24,6 +27,12 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
     return (
         <div className={s.warrper}>
             <MessageCommon messages={messages} onRemove={removeMessage} />
+            <ModalAuthenticate visible={modalAuthenVisible}
+                closeModal={closeModalAuthen}
+                mode={modalAuthenMode}
+                initialEmail={initialEmail}
+                disableRedirect={disableRedirect}
+            />
             <div className={s.left}><CheckoutInfo onViewCart={onViewCart} currency={order?.currency.code} /></div>
             <div className={s.right}><CheckoutBill data={order} /></div>
             <div className={classNames({ [s.mobile]: true, [s.isShow]: isShow })}>

@@ -1,15 +1,18 @@
 @import '../../../styles/utilities';
 .navigationWrapper {
   @apply relative;
-  // overflow: hidden;
   min-height: theme('caroucel.arrow-height');
-  .isPadding {
-    // @apply spacing-horizontal;
-  }
+
   .showDots {
     padding-bottom: 2.4rem;
   }
+
   :global {
+    .react-multi-carousel-track  {
+      li > div {
+        padding-right: .8rem;
+      }
+    }
     .react-multi-carousel-dot-list {
       li {
 				button{
@@ -18,6 +21,7 @@
 						outline: none;
 					}
 				}
+        
       }
     }
   }

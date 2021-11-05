@@ -46,7 +46,7 @@
         color: var(--text-active);
         .listIcon{
             ul{
-                @apply flex;
+                @apply flex items-center;
                 li{
                     margin: 0px 1.6rem;
                 }

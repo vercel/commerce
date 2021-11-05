@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { memo, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { ButtonCommon } from 'src/components/common'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
@@ -28,8 +28,6 @@ interface Props {
   children?: any
   isFull?: boolean
   isStickyHeader?: boolean
-  openModalLogin: () => void
-  openModalRegister: () => void
   toggleFilter: () => void
   searchValue: string | number
   setSearchValue: (value: string | number) => void
@@ -41,8 +39,6 @@ const HeaderMenu = memo(
   ({
     isFull,
     isStickyHeader,
-    openModalLogin,
-    openModalRegister,
     toggleFilter,
     searchValue,
     setSearchValue,
@@ -53,14 +49,20 @@ const HeaderMenu = memo(
     const { toggleCartDrawer } = useCartDrawer()
     const { customer } = useActiveCustomer()
     const { openModalAuthen } = useModalAuthen()
-
-
     const { logout } = useLogout()
+
+    const openModalRegister = useCallback(() => {
+      return openModalAuthen(undefined, 'register')
+    }, [openModalAuthen])
+
+    const onClickOpenModalAuthen = () => {
+      openModalAuthen()
+    }
 
     const optionMenuNotAuthen = useMemo(
       () => [
         {
-          onClick: openModalLogin,
+          onClick: openModalAuthen,
           name: 'Sign in',
         },
         {
@@ -72,7 +74,7 @@ const HeaderMenu = memo(
           name: 'Forgot Password',
         },
       ],
-      [openModalLogin, openModalRegister]
+      [openModalRegister, openModalAuthen]
     )
 
     const optionMenu = useMemo(
@@ -167,13 +169,13 @@ const HeaderMenu = memo(
               </li>
             </> : <>
               <li>
-                <button onClick={openModalAuthen}><IconHistory /></button>
+                <button onClick={onClickOpenModalAuthen}><IconHistory /></button>
               </li>
               <li>
-                <button onClick={openModalAuthen} className={s.iconFavourite}><IconHeart /></button>
+                <button onClick={onClickOpenModalAuthen} className={s.iconFavourite}><IconHeart /></button>
               </li>
               <li>
-                <NotificationDropdown isShowLogin = {true} isOpen={isNotificationOpen} toggle={toggleNotification} />
+                <NotificationDropdown isShowLogin={true} isOpen={isNotificationOpen} toggle={toggleNotification} />
               </li>
             </>
           }

@@ -1,7 +1,7 @@
 import { Collection } from '@commerce/types/collection';
 import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
-import moment, { now } from 'moment';
+import moment from 'moment';
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
 import { BlogList, FacetValue, Notification, SearchResultSortParameter, RecipesSort } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE,RECIPE_SORT_OPTION_VALUE } from "./constanst.utils";
@@ -13,7 +13,7 @@ import { LANGUAGE } from './language.utils';
 import { RecipeCollection } from '@commerce/types/recipe-collection';
 
 export function isMobile() {
-  return window.innerWidth < 768
+  return window?.innerWidth < 768
 }
 
 export function formatTimeAgo(time: string) {

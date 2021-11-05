@@ -12,7 +12,7 @@ const FeaturedCardBlog = ({
     blog: {
         title,
         slug,
-        content,
+        description,
         imageSrc = '',
         authorAvatarAsset = '',
         createdAt = '',
@@ -37,7 +37,7 @@ const FeaturedCardBlog = ({
                         </Link>
                     </div>
                     <Author name={authorName ?? ''} image={authorAvatarAsset ?? ''}/>
-                    <div className={s.content}>{content}</div>
+                    <div className={s.content} dangerouslySetInnerHTML={{__html: description}}></div>
                 </div>
             </div>
         </section>

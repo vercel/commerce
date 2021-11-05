@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import React, { memo, useEffect, useRef, useState } from 'react'
 import { useProductFilter } from 'src/components/contexts'
 import { useModalCommon } from 'src/components/hooks'
-import ModalAuthenticate from '../ModalAuthenticate/ModalAuthenticate'
 import HeaderHighLight from './components/HeaderHighLight/HeaderHighLight'
 import HeaderMenu from './components/HeaderMenu/HeaderMenu'
 import HeaderSubMenu from './components/HeaderSubMenu/HeaderSubMenu'
@@ -16,8 +15,6 @@ const Header = memo(({ }: props) => {
     const headeFullRef = useRef<HTMLDivElement>(null)
     const { toggleProductFilter: toggleFilter } = useProductFilter()
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
-    const [isModeAuthenRegister, setIsModeAuthenRegister] = useState<boolean>(false)
-    const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
     const { visible: isNotificaitonOpen, toggleModal: toggleNotification } = useModalCommon({ initialValue: false })
     const [searchValue, setSearchValue] = useState<string | number>("")
 
@@ -35,16 +32,6 @@ const Header = memo(({ }: props) => {
         }
     }, [])
 
-    const openModalRegister = () => {
-        setIsModeAuthenRegister(true)
-        openModalAuthen()
-    }
-
-    const openModalLogin = () => {
-        setIsModeAuthenRegister(false)
-        openModalAuthen()
-    }
-
     return (
         <>
             <div className={classNames({
@@ -54,8 +41,6 @@ const Header = memo(({ }: props) => {
                 <HeaderMenu
                     isStickyHeader={true}
                     toggleFilter={toggleFilter}
-                    openModalLogin={openModalLogin}
-                    openModalRegister={openModalRegister}
                     setSearchValue={setSearchValue}
                     searchValue={searchValue}
                     isNotificationOpen={isNotificaitonOpen}
@@ -69,8 +54,6 @@ const Header = memo(({ }: props) => {
                     <HeaderMenu
                         isFull={isFullHeader}
                         toggleFilter={toggleFilter}
-                        openModalLogin={openModalLogin}
-                        openModalRegister={openModalRegister}
                         setSearchValue={setSearchValue}
                         searchValue={searchValue}
                         isNotificationOpen={isNotificaitonOpen}
@@ -81,7 +64,6 @@ const Header = memo(({ }: props) => {
             </header>
 
             <HeaderSubMenuMobile />
-            <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} mode={isModeAuthenRegister ? 'register' : ''} />
         </>
     )
 })

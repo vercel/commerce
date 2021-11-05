@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 import { ButtonCommon, InputFiledInForm } from 'src/components/common'
-import ModalAuthenticate from 'src/components/common/ModalAuthenticate/ModalAuthenticate'
 import { useMessage } from 'src/components/contexts'
+import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { useModalCommon } from 'src/components/hooks'
 import { useSetCustomerForOrder } from 'src/components/hooks/order'
 import { ErrorCode } from 'src/domains/enums/ErrorCode'
@@ -32,8 +32,8 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
   const { setCustomerForOrder, loading } = useSetCustomerForOrder()
   const { showMessageError } = useMessage()
   const [emailAddress, setEmailAddress] = useState<string>('')
+  const { openModalAuthen } = useModalAuthen()
   const { visible: visibleModalConfirmLogin, closeModal: closeModalConfirmLogin, openModal: openModalConfirmLogin } = useModalCommon({ initialValue: false })
-  const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,7 +47,6 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
     setCustomerForOrder({ firstName, lastName, emailAddress }, onSubmitCalBack)
   }
   const onSubmitCalBack = (isSuccess: boolean, error?: CommonError) => {
-    // TODO:
     if (isSuccess) {
       onConfirm(id)
     } else {
@@ -63,7 +62,7 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
   }
   const handleOpenModalLogin = () => {
     closeModalConfirmLogin()
-    openModalAuthen()
+    openModalAuthen(emailAddress)
   }
 
   const handleCloseModalConfirmLogin = () => {
@@ -135,7 +134,6 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
         </Formik>
       </div>
       <ModalConfirmLogin visible={visibleModalConfirmLogin} closeModal={handleCloseModalConfirmLogin} handleOk={handleOpenModalLogin} email={emailAddress} />
-      <ModalAuthenticate visible={visibleModalAuthen} closeModal={closeModalAuthen} initialEmail={emailAddress} disableRedirect={true} />
     </section>
   )
 }

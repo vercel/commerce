@@ -1,6 +1,7 @@
 import { CurrencyCode } from './../../framework/vendure/schema.d';
 import DefaultImg from '../../public/assets/images/default_img.jpg'
 
+export const STORE_FRONT_URL = process.env.NEXT_PUBLIC_VENDURE_SHOP_URL
 export const REVALIDATE_TIME = 60
 export const MAX_PRODUCT_CAROUSEL = 20
 export const BLUR_DATA_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8fBIAApUBruKYvzsAAAAASUVORK5CYII='

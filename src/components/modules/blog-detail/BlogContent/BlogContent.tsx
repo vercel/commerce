@@ -3,6 +3,7 @@ import React from 'react';
 import { Author, DateTime } from "src/components/common";
 import IconFacebook from 'src/components/icons/IconFacebook';
 import IconTwitter from 'src/components/icons/IconTwitter';
+import { STORE_FRONT_URL } from 'src/utils/constanst.utils';
 import { formatDate } from 'src/utils/funtion.utils';
 import { BlogProps } from 'src/utils/types.utils';
 import s from './BlogContent.module.scss';
@@ -10,7 +11,7 @@ import s from './BlogContent.module.scss';
 interface BlogContentProps {
     blog: BlogProps
 }
-function BlogContent({blog: {title,createdAt,content,authorAvatarAsset,authorName=''} }:BlogContentProps)  {
+function BlogContent({blog: {title,createdAt,content,authorAvatarAsset,authorName='', slug} }:BlogContentProps)  {
 
     return (
         <>
@@ -28,9 +29,8 @@ function BlogContent({blog: {title,createdAt,content,authorAvatarAsset,authorNam
                    </div>
                     <div className={s.listIcon}>
                         <ul>
-                            <li><Link href={`https://www.facebook.com/sharer.php?u=${(typeof window !== 'undefined') ? window.location.href : ""}`}><a> <IconFacebook/></a></Link></li>
-                            <li><Link href={`https://twitter.com/intent/tweet?text=${(typeof window !== 'undefined') ? window.location.href : "" }`}><a> <IconTwitter/></a></Link></li>
-                            {/* <li><Link href="/"><a> <IconInstagram/></a></Link></li> */}
+                            <li><Link href={`https://www.facebook.com/sharer.php?u=${STORE_FRONT_URL}/${slug}`}><a> <IconFacebook/></a></Link></li>
+                            <li><Link href={`https://twitter.com/intent/tweet?text=${STORE_FRONT_URL}/${slug}`}><a> <IconTwitter/></a></Link></li>
                         </ul>
                     </div>
                 </div> 
