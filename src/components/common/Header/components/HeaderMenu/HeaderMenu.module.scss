@@ -65,9 +65,10 @@
                 margin-left: 1rem;
             }
             @screen md {
-                margin: 0 1.6rem 0 4.8rem;
+                margin: 0 1.6rem 0 3.2rem;
             }
             @screen lg {
+                margin-left: 4.8rem;
                 min-width: 51.2rem;
                 max-width: 50%;
                 .buttonSearch {
@@ -105,7 +106,8 @@
                 @apply flex justify-center items-center w-full;
                 &:not(:last-child) {
                     margin-right: 4.8rem;
-                    @screen lg {
+
+                    @screen xl {
                         margin-right: 6.4rem;
                     }
                 }
