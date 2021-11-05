@@ -49,6 +49,15 @@ export interface BlogProps {
     createdAt: string
 }
 
+export interface ShippingMethodQuoteProps {
+    id: string,
+    name: string,
+    code: string,
+    price: number,
+    description: string,
+}
+
+
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
 
 export enum SortOrder {
