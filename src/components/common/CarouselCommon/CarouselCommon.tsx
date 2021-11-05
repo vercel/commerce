@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from 'react'
-import { CustomCarouselArrow } from './CustomArrow/CustomCarouselArrow'
-import s from './CarouselCommon.module.scss'
 import classNames from 'classnames'
+import React, { useRef } from 'react'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import {
-  ResponsiveType,
-  CarouselProps,
-  ButtonGroupProps,
+  ButtonGroupProps, CarouselProps, ResponsiveType
 } from 'react-multi-carousel/lib/types'
+import s from './CarouselCommon.module.scss'
+import { CustomCarouselArrow } from './CustomArrow/CustomCarouselArrow'
 export interface CarouselCommonProps<T>
   extends Omit<CarouselProps, 'children' | 'responsive'> {
   data: T[]
@@ -71,8 +69,6 @@ const CarouselCommon = <T,>({
         arrows={false}
         renderDotsOutside={true}
         ssr={true}
-        // customLeftArrow={<CustomCarouselArrow side="left" />}
-        // customRightArrow={<CustomCarouselArrow side="right" />}
       >
         {data.map((props, index) => {
           const allProps = defaultComponentProps
@@ -93,15 +89,6 @@ const CarouselCommon = <T,>({
           />
         </>
       )}
-      {/* {slider && isDot && (
-        <div className="dots">
-          {dotArr.map((index) => {
-            return (
-              <CustomDot key={`dot-${index}`} index={index} dotActive={currentSlide} onClick={onDotClick}/>
-            )
-          })}
-        </div>
-      )}  */}
     </div>
   )
 }

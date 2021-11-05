@@ -7,7 +7,7 @@ import s from './RelevantBlogPosts.module.scss'
 import { ROUTE } from 'src/utils/constanst.utils';
 
 interface RelevantProps {
-    data?: BlogCardProps[],
+    data: BlogCardProps[],
     itemKey?: string,
     title?: string,
     viewAllLink?: string,
@@ -30,7 +30,7 @@ interface RelevantProps {
           </div>
         </div>
         <div className={s.bot}>
-           <BlogPostCarousel data={data} itemKey={itemKey} />}
+           <BlogPostCarousel data={data} itemKey={itemKey} />
         </div>
       </div>
     )
