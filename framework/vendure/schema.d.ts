@@ -2606,6 +2606,13 @@ export type GetAllRecipesQuery = PaginatedList & {
   }
 }
 
+export type FilterRecipesQuery = PaginatedList & {
+  recipeByCollectionSlug: { __typename?: 'RecipeList' } & {
+    items: Array<{ __typename?: 'Recipe' } & Recipe!>,
+    'totalItems'
+  }
+}
+
 
 export type GetRelevantBlogsQuery = PaginatedList & {
   relevantBlogs: { __typename?: 'BlogList' } & {
