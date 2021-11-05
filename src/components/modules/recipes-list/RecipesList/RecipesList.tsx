@@ -1,4 +1,4 @@
-import { QueryFilterRecipes, QueryRecipes } from '@framework/schema'
+import { QueryRecipes } from '@framework/schema'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ListBlogCardSkeleton, RecipeCard, SelectCommon } from 'src/components/common'
@@ -7,8 +7,7 @@ import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard'
 import { useGetRecipeList } from 'src/components/hooks/recipe'
-import useFilterRecipeList from 'src/components/hooks/recipe/useFilterRecipeList'
-import { DEFAULT_RECIPES_PAGE_SIZE, OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { DEFAULT_RECIPES_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { getPageFromQuery, getRecipeSortParamFromQuery } from 'src/utils/funtion.utils'
 import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 import s from './RecipesList.module.scss'
@@ -42,16 +41,6 @@ interface Props {
 const RecipesList = ({collections, recipeList, total }: Props) => {
   const DEFAULT_RECIPES_ARGS = useMemo(
     () => ({
-      excludeBlogIds: [],
-      options:{
-        take: DEFAULT_RECIPES_PAGE_SIZE,
-      }
-    }),
-    []
-  )
-  const DEFAULT_FILTER_RECIPES_ARGS = useMemo(
-    () => ({
-      slug: "",
       options:{
         take: DEFAULT_RECIPES_PAGE_SIZE,
       }
@@ -61,13 +50,10 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   const router = useRouter()
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryBlog, setOptionQueryBlog] = useState<QueryRecipes>(DEFAULT_RECIPES_ARGS)
-  const [optionFilterRecipes, setOptionFilterRecipes] = useState<QueryRecipes>(DEFAULT_FILTER_RECIPES_ARGS)
-  const { reicpesByFilter, totalItems:totalItemByFilter, loading:loadingByFilter } = useFilterRecipeList(optionFilterRecipes);
-  const { reicpes, totalItems, loading } = useGetRecipeList(optionQueryBlog)
-  
+  const { recipes, totalItems, loading } = useGetRecipeList(optionQueryBlog)
   const [selectMobileValue, setSelectMobileValue] = useState<string>();
   const [sortValue, setSortValue] = useState<string>();
-
+  
   const onPageChange = (page: number) => {
     router.push(
       {
@@ -89,7 +75,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   if(initialQueryFlag == true){
       data = recipeList;
   }else{
-      data = reicpes
+      data = recipes
   }
 
   useEffect(() => {
@@ -114,29 +100,17 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     
     if (categoryQuery) {
      
-      const queryFilter = { ...DEFAULT_FILTER_RECIPES_ARGS } as QueryFilterRecipes
-      queryFilter.slug = categoryQuery
-      if(page){
-        queryFilter.options.skip = page * DEFAULT_RECIPES_PAGE_SIZE
-      }
-      if (sortQuery) {
-        queryFilter.options.sort = getRecipeSortParamFromQuery(sortQuery)
-      }
+      query.slug = categoryQuery
       
       
-      data = reicpesByFilter;
       setSelectMobileValue(categoryQuery);
-      setOptionFilterRecipes(queryFilter);
-      setInitialQueryFlag(false)
     }
 
-
     
-
     setOptionQueryBlog(query)
     setInitialQueryFlag(false)
 
-  }, [router.query,DEFAULT_RECIPES_ARGS,DEFAULT_FILTER_RECIPES_ARGS])
+  }, [router.query,DEFAULT_RECIPES_ARGS])
 
   const onSortChange = (value: string) => {
     setSortValue(value)
@@ -163,7 +137,6 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     )
   }
  
-  
 
   return (
     <>

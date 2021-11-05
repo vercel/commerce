@@ -1,7 +1,6 @@
 export const filterRecipesQuery = /* GraphQL */ `
-query recipeCollection($slug:String,$options:RecipeListOptions){
-  recipeCollection(slug:$slug){
-    recipes(options:$options){
+query recipeByCollectionSlug($options: RecipeListOptions) {
+    recipeByCollectionSlug(options: $options) {
       totalItems
       items {
         id
@@ -17,5 +16,4 @@ query recipeCollection($slug:String,$options:RecipeListOptions){
       }
     }
   }
-}
 `

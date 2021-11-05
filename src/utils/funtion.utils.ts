@@ -3,7 +3,7 @@ import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
 import moment, { now } from 'moment';
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
-import { BlogList, FacetValue, Notification, SearchResultSortParameter, RecipesSort } from './../../framework/vendure/schema.d';
+import { BlogList, FacetValue, Notification, SearchResultSortParameter, RecipesSort, Blog } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE,RECIPE_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
 import { CollectionItems} from '@framework/schema'
@@ -75,19 +75,14 @@ export function getProductSortParamFromQuery(query: string) {
 export function getRecipeSortParamFromQuery(query: string) {
   let rs = {} as RecipesSort
   switch (query) {
-    case RECIPE_SORT_OPTION_VALUE.MOST_VIEWD:
-      rs = {
-        createdAt: SortOrder.Asc
-      }
-      break;
-
-    case RECIPE_SORT_OPTION_VALUE.LASTED_BLOGS:
+ 
+    case RECIPE_SORT_OPTION_VALUE.LASTED_RECIPES:
       rs = {
         createdAt: SortOrder.Desc
       }
       break;
 
-    case RECIPE_SORT_OPTION_VALUE.RECENT_BLOGS:
+    case RECIPE_SORT_OPTION_VALUE.RECENT_RECIPES:
       rs = {
         createdAt: SortOrder.Asc
       }
@@ -193,7 +188,7 @@ export function getAllPromies(promies: PromiseWithKey[]) {
   return promies.map(item => item.promise)
 }
 
-export function getIdFeaturedBlog(blog: BlogList) {
+export function getIdFeaturedBlog(blog: Blog) {
   return blog?.id
 }
 

@@ -74,8 +74,8 @@ export const PRODUCT_SORT_OPTION_VALUE = {
 }
 
 export const RECIPE_SORT_OPTION_VALUE = {
-  LASTED_BLOGS: 'lastest_blogs',
-  RECENT_BLOGS: 'recent_blogs',
+  LASTED_RECIPES: 'lastest_blogs',
+  RECENT_RECIPES: 'recent_blogs',
 }
 
 

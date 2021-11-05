@@ -1,4 +1,3 @@
-import { Collection } from '@commerce/types/collection';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
@@ -15,7 +14,6 @@ interface Props {
   totalItems?: number  
 }
 export default function RecipeListPage({recipeCollections,recipes,totalItems}:Props) {
-  console.log(recipeCollections)
   return (
     <>
       <RecipeListBanner />
@@ -37,7 +35,6 @@ export async function getStaticProps({
 
   const recipesPromise =  commerce.getAllRecipes({
     variables: {
-      excludeBlogIds: [],
       take: DEFAULT_RECIPES_PAGE_SIZE,
     },
     config,

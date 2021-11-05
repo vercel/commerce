@@ -2629,7 +2629,7 @@ export type QueryBlogs = {
 }
 
 export type QueryRecipes = {
-  excludeBlogIds?: Maybe<Array>,
+  slug?: string,
   options: RecipeListOptions
 }
 
