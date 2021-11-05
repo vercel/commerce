@@ -2,7 +2,6 @@ import { ProductCardProps } from './../../src/components/common/ProductCard/Prod
 import { FacetValue, UpdateAddressInput, RecipeTranslation } from './schema.d';
 import { ResetPassword } from './schema.d';
 import { requestPasswordReset } from '@framework/schema';
-import { FacetValue } from './schema.d';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -70,6 +69,7 @@ export type Query = {
   products: ProductList
   /** Search Products based on the criteria set by the `SearchInput` */
   search: SearchResponse
+  recommendedProductsInCart: RecommendedProductsInCartResult;
 }
 
 export type QueryCollectionsArgs = {
@@ -430,23 +430,6 @@ export type TransitionOrderToStateMutation = {
     )>
 };
 
-export type SetCustomerForOrderMutation = { __typename?: 'Mutation' } & {
-  setCustomerForOrder:
-  | ({ __typename: 'ActiveOrderCustomerFragment' } & Pick<ActiveOrderCustomerFragment, 'customer', 'lines'>)
-  | ({ __typename: 'AlreadyLoggedInError' } & Pick<
-    AlreadyLoggedInError,
-    'errorCode' | 'message'
-  >)
-  | ({ __typename: 'EmailAddressConflictError' } & Pick<
-    EmailAddressConflictError,
-    'errorCode' | 'message'
-  >)
-  | ({ __typename: 'NoActiveOrderError' } & Pick<
-    NoActiveOrderError,
-    'errorCode' | 'message'
-  >)
-}
-
 export type AddPaymentToOrderMutation = {
   addPaymentToOrder:
   | ({ __typename: 'Order' } & Pick<Order, '__typename' | 'id' | 'state'>)
@@ -607,6 +590,261 @@ export type ProductVariantListOptions = {
   sort?: Maybe<ProductVariantSortParameter>
   filter?: Maybe<ProductVariantFilterParameter>
 }
+export type Recipe = Node & {
+  __typename?: 'Recipe';
+  assets?: Maybe<Array<Asset>>;
+  collections?: Maybe<Array<RecipeCollection>>;
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  facetValues: Array<RecipeFacetValue>;
+  featuredAsset?: Maybe<Asset>;
+  id: Scalars['ID'];
+  ingredients?: Maybe<Array<Product>>;
+  isFeatured: Scalars['Boolean'];
+  isPublish: Scalars['Boolean'];
+  recommendedRecipes?: Maybe<Array<Recipe>>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  translations: Array<RecipeTranslation>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type RecipeCollection = Node & {
+  __typename?: 'RecipeCollection';
+  assets: Array<Asset>;
+  breadcrumbs: Array<RecipeCollectionBreadcrumb>;
+  children?: Maybe<Array<RecipeCollection>>;
+  createdAt: Scalars['DateTime'];
+  description: Scalars['String'];
+  featuredAsset?: Maybe<Asset>;
+  filters: Array<ConfigurableOperation>;
+  id: Scalars['ID'];
+  isPrivate: Scalars['Boolean'];
+  languageCode?: Maybe<LanguageCode>;
+  name: Scalars['String'];
+  parent?: Maybe<RecipeCollection>;
+  position: Scalars['Int'];
+  recipes: RecipeList;
+  slug: Scalars['String'];
+  translations: Array<RecipeCollectionTranslation>;
+  updatedAt: Scalars['DateTime'];
+};
+
+// export type RecipeCollection = Node & {
+//   __typename?: 'Collection'
+//   id: Scalars['ID']
+//   createdAt: Scalars['DateTime']
+//   updatedAt: Scalars['DateTime']
+//   languageCode?: Maybe<LanguageCode>
+//   name: Scalars['String']
+//   slug: Scalars['String']
+//   breadcrumbs: Array<CollectionBreadcrumb>
+//   position: Scalars['Int']
+//   description: Scalars['String']
+//   featuredAsset?: Maybe<Asset>
+//   assets: Array<Asset>
+//   parent?: Maybe<Collection>
+//   children?: Maybe<Array<Collection>>
+//   filters: Array<ConfigurableOperation>
+//   translations: Array<CollectionTranslation>
+//   recipes:Array<Recipe>
+// }
+
+export type RecipeCollectionRecipesArgs = {
+  options?: Maybe<RecipeListOptions>;
+};
+
+export type RecipeCollectionBreadcrumb = {
+  __typename?: 'RecipeCollectionBreadcrumb';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  slug: Scalars['String'];
+};
+
+export type RecipeCollectionFilterParameter = {
+  createdAt?: Maybe<DateOperators>;
+  description?: Maybe<StringOperators>;
+  isPrivate?: Maybe<BooleanOperators>;
+  languageCode?: Maybe<StringOperators>;
+  name?: Maybe<StringOperators>;
+  position?: Maybe<NumberOperators>;
+  slug?: Maybe<StringOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type RecipeCollectionList = PaginatedList & {
+  __typename?: 'RecipeCollectionList';
+  items: Array<RecipeCollection>;
+  totalItems: Scalars['Int'];
+};
+
+export type RecipeCollectionListOptions = {
+  filter?: Maybe<RecipeCollectionFilterParameter>;
+  skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<RecipeCollectionSortParameter>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type RecipeCollectionSortParameter = {
+  createdAt?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  position?: Maybe<SortOrder>;
+  slug?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type RecipeCollectionTranslation = {
+  __typename?: 'RecipeCollectionTranslation';
+  createdAt: Scalars['DateTime'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  name: Scalars['String'];
+  slug: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type RecipeFacet = Node & {
+  __typename?: 'RecipeFacet';
+  code: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  name: Scalars['String'];
+  translations: Array<RecipeFacetTranslation>;
+  updatedAt: Scalars['DateTime'];
+  values: Array<RecipeFacetValue>;
+};
+
+export type RecipeFacetFilterParameter = {
+  code?: Maybe<StringOperators>;
+  createdAt?: Maybe<DateOperators>;
+  languageCode?: Maybe<StringOperators>;
+  name?: Maybe<StringOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type RecipeFacetList = PaginatedList & {
+  __typename?: 'RecipeFacetList';
+  items: Array<RecipeFacet>;
+  totalItems: Scalars['Int'];
+};
+
+export type RecipeFacetListOptions = {
+  filter?: Maybe<RecipeFacetFilterParameter>;
+  skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<RecipeFacetSortParameter>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type RecipeFacetSortParameter = {
+  code?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type RecipeFacetTranslation = {
+  __typename?: 'RecipeFacetTranslation';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  name: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type RecipeFacetTranslationInput = {
+  id?: Maybe<Scalars['ID']>;
+  languageCode: LanguageCode;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type RecipeFacetValue = Node & {
+  __typename?: 'RecipeFacetValue';
+  code: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  facet: Facet;
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  name: Scalars['String'];
+  translations: Array<RecipeFacetValueTranslation>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type RecipeFacetValueTranslation = {
+  __typename?: 'RecipeFacetValueTranslation';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  name: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type RecipeFacetValueTranslationInput = {
+  id?: Maybe<Scalars['ID']>;
+  languageCode: LanguageCode;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type RecipeFilterParameter = {
+  createdAt?: Maybe<DateOperators>;
+  description?: Maybe<StringOperators>;
+  isFeatured?: Maybe<BooleanOperators>;
+  isPublish?: Maybe<BooleanOperators>;
+  slug?: Maybe<StringOperators>;
+  title?: Maybe<StringOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type RecipeList = PaginatedList & {
+  __typename?: 'RecipeList';
+  items: Array<Recipe>;
+  totalItems: Scalars['Int'];
+};
+
+export type RecipeListOptions = {
+  filter?: Maybe<RecipeFilterParameter>;
+  skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<RecipeSortParameter>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type RecipeSortParameter = {
+  createdAt?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  slug?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type RecipeTranslation = {
+  __typename?: 'RecipeTranslation';
+  content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type RecipeTranslationInput = {
+  content: Scalars['String'];
+  description: Scalars['String'];
+  languageCode: LanguageCode;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type RecommendedRecipesListOptions = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+};
 
 export enum GlobalFlag {
   True = 'TRUE',
@@ -2481,20 +2719,20 @@ export type Product = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
-export type Recipe = Node & {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  content?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  isPublish: Scalars['Boolean'];
-  languageCode: LanguageCode;
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  translations: Array<RecipeTranslation>;
-  ingredients: Product[],
-  featuredAsset?: Maybe<Asset>;
-}
+// export type Recipe = Node & {
+//   id: ID!
+//   createdAt: DateTime!
+//   updatedAt: DateTime!
+//   content?: Maybe<Scalars['String']>;
+//   description?: Maybe<Scalars['String']>;
+//   isPublish: Scalars['Boolean'];
+//   languageCode: LanguageCode;
+//   slug: Scalars['String'];
+//   title: Scalars['String'];
+//   translations: Array<RecipeTranslation>;
+//   ingredients: Product[],
+//   featuredAsset?: Maybe<Asset>;
+// }
 
 export type Blog = Node & {
   __typename?: 'Blog';
@@ -2537,20 +2775,6 @@ export enum SortRecipes {
   DESC = 'DESC',
 }
 
-export type RecipeTranslation = {
-  __typename?: 'RecipeTranslation'
-  id: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
-  languageCode: LanguageCode
-  title: Scalars['String']
-  slug: Scalars['String']
-  description: Scalars['String']
-  content: Scalars['String']
-  Ingredients: Scalars['String']
-  Preparation: Scalars['String']
-}
-
 export type IngredientProducts = {
   __typename?: 'IngredientProduct'
   id: Scalars['ID']
@@ -2580,35 +2804,24 @@ export type BlogTranslation = {
   description: Scalars['String']
   content: Scalars['String']
 }
-export type RecipeTranslation = {
-  __typename?: 'BlogTranslation'
-  id: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
-  languageCode: LanguageCode
-  title: Scalars['String']
-  slug: Scalars['String']
-  description: Scalars['String']
-  content: Scalars['String']
-}
 
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & Blog!>,
+    items: Array<{ __typename?: 'Blog' } & Blog>,
     'totalItems'
   }
 }
 export type GetAllRecipesQuery = PaginatedList & {
   recipes: { __typename?: 'RecipeList' } & {
-    items: Array<{ __typename?: 'Recipe' } & Recipe!>,
+    items: Array<{ __typename?: 'Recipe' } & Recipe>,
     'totalItems'
   }
 }
 
 export type FilterRecipesQuery = PaginatedList & {
   recipeByCollectionSlug: { __typename?: 'RecipeList' } & {
-    items: Array<{ __typename?: 'Recipe' } & Recipe!>,
+    items: Array<{ __typename?: 'Recipe' } & Recipe>,
     'totalItems'
   }
 }
@@ -2616,7 +2829,7 @@ export type FilterRecipesQuery = PaginatedList & {
 
 export type GetRelevantBlogsQuery = PaginatedList & {
   relevantBlogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & Blog!>,
+    items: Array<{ __typename?: 'Blog' } & Blog>,
     'totalItems'
   }
 }
@@ -2624,7 +2837,7 @@ export type GetRelevantBlogsQuery = PaginatedList & {
 export type GetFeaturedBlogQuery = PaginatedList & {
   id: string,
   featuredBlogs: { __typename?: 'BlogList' } & {
-    items: Array<{ __typename?: 'Blog' } & Blog!>,
+    items: Array<{ __typename?: 'Blog' } & Blog>,
     'totalItems'
   }
 }
@@ -2645,11 +2858,6 @@ export type QueryFilterRecipes = {
   options: RecipeListOptions
 }
 
-export type RecipeListOptions = {
-  skip?: Maybe<Scalars['Int']>
-  take?: Maybe<Scalars['Int']>
-  sort?: RecipesSort
-}
 export type RecipesSort = {
   id?: Maybe<Scalars['String']>
   createdAt?:Maybe<Scalars['String']>
@@ -3516,14 +3724,6 @@ export type ApplyCouponCodeMutationVariables = Exact<{
   couponCode: Scalars['String'];
 }>;
 
-export type ApplyCouponCodeMutation = {
-  applyCouponCode:
-  | TestOrderFragmentFragment
-  | Pick<CouponCodeExpiredError, 'errorCode' | 'message'>
-  | Pick<CouponCodeInvalidError, 'errorCode' | 'message'>
-  | Pick<CouponCodeLimitError, 'errorCode' | 'message'>;
-};
-
 export type ApplyCouponCodeMutation = { __typename?: 'Mutation' } & {
   applyCouponCode:
   | ({ __typename: 'Order' } & CartFragment)
@@ -3700,16 +3900,16 @@ export type FavoriteListOptions = {
 }
 
 export type FavoriteList = PaginatedList & {
-  items: [Favorite!]!
-  totalItems: Int!
+  items: [Favorite]
+  totalItems: Int
 }
 
 type Favorite = Node & {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
   product: Product
-  customer: Customer!
+  customer: Customer
 }
 
 export type GetAvailableCountriesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3734,7 +3934,7 @@ export type GetAvailableCountriesQuery = {
 
 
 type FavouriteOption = Customer & {
-  favorites(options: FavoriteListOptions): FavoriteList!
+  favorites(options: FavoriteListOptions): FavoriteList
 }
 
 export type GetAllProductPathsQueryVariables = Exact<{
@@ -3813,47 +4013,45 @@ export type GetAllCollectionsQuery = { __typename?: 'Query' } & {
     'totalItems'
   }
 }
-export type RecipeCollection = Node & {
-  __typename?: 'Collection'
-  id: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
-  languageCode?: Maybe<LanguageCode>
-  name: Scalars['String']
-  slug: Scalars['String']
-  breadcrumbs: Array<CollectionBreadcrumb>
-  position: Scalars['Int']
-  description: Scalars['String']
-  featuredAsset?: Maybe<Asset>
-  assets: Array<Asset>
-  parent?: Maybe<Collection>
-  children?: Maybe<Array<Collection>>
-  filters: Array<ConfigurableOperation>
-  translations: Array<CollectionTranslation>
-  recipes:Array<Recipe>
-}
+
 
 export type GetAllRecipeCollectionsQuery = { __typename?: 'Query' } & {
-  recipeCollections: { __typename?: 'RecipeCollection' } & {
+  recipeCollections: { __typename?: 'RecipeCollectionList' } & {
     items: Array<
       { __typename?: 'RecipeCollection' } & Pick<
-      RecipeCollection,
-        'id' | 'name' | 'slug'
+        RecipeCollection,
+        'id' | 'name' | 'slug' 
       > & {
         parent?: Maybe<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
         children?: Maybe<
           Array<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
         >
+        recipes: Recipe[]
       }
     >,
     'totalItems'
   }
 }
 
+
 export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = { __typename?: 'Query' } & {
   activeOrder?: Maybe<{ __typename?: 'Order' } & CartFragment>
+}
+
+export type RecommendedProductsInCartResult = {
+  __typename?: 'RecommendedProductsInCartResult';
+  items: Array<Product>;
+  totalItems: Scalars['Int'];
+};
+
+export type QueryRecommendedProductsInCartArgs = {
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type RecommendedProductsInCartQuery = { __typename?: 'Query' } & {
+  recommendedProductsInCart?: { __typename?: 'RecommendedProductsInCartResult' } & RecommendedProductsInCartResult
 }
 
 export type NewNotificationsQuery = { __typename?: 'Query' } & {
@@ -3928,7 +4126,7 @@ export type GetProductQuery = { __typename?: 'Query' } & {
       variants: Array<
         { __typename?: 'ProductVariant' } & Pick<
           ProductVariant,
-          'id' | 'priceWithTax' | 'currencyCode' | 'price' | "name"
+          'id' | 'priceWithTax' | 'currencyCode' | 'price' | "name" | 'customFields'
         > & {
           options: Array<
             { __typename?: 'ProductOption' } & Pick<

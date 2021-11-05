@@ -1,9 +1,8 @@
 import { ProductCard } from '@commerce/types/product'
 import Link from 'next/link'
 import Router from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCartDrawer, useMessage } from 'src/components/contexts'
-import { useActiveCustomer } from 'src/components/hooks/auth'
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder'
 import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
 import { IconBuy } from 'src/components/icons'
@@ -20,6 +19,7 @@ export interface ProductCardProps extends ProductCard {
   buttonText?: string
   isSingleButton?: boolean,
   activeWishlist?:boolean
+  onAddToCartCallBack ?: () => void
 }
 
 const ProductCardComponent = ({
@@ -36,21 +36,20 @@ const ProductCardComponent = ({
   isSingleButton,
   productVariantId,
   productVariantName,
+  onAddToCartCallBack
 }: ProductCardProps) => {
 
   const {addProduct} = useAddProductToCart()
   const { openCartDrawer } = useCartDrawer()
-  const { customer } = useActiveCustomer()
   const { order } = useGetActiveOrder()
   const [addToCartLoading, setAddToCartLoading] = useState(false)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const { showMessageSuccess, showMessageError } = useMessage()
-  const {changeOrderState, loading:changeStateLoading } = useChangeOrderState()
+  const {changeOrderState } = useChangeOrderState()
   const [mode, setMode] = useState("handleAddToCart")
   const handleAddToCart = () => {
     setAddToCartLoading(true)
     if(order && order.state !== "AddingItems"){
-      setMode("handleAddToCart")
       changeOrderState("AddingItems",onChangeOrderStateCallback)
     }else if(productVariantId){
       addProduct({variantId:productVariantId,quantity:1},handleAddToCartCallback)
@@ -59,7 +58,8 @@ const ProductCardComponent = ({
   const handleAddToCartCallback = (isSuccess:boolean,message?:string) => {
 		setAddToCartLoading(false)
 		if(isSuccess){
-			showMessageSuccess("Add to cart successfully!", 4000)
+      showMessageSuccess("Add to cart successfully!", 4000)
+      onAddToCartCallBack && onAddToCartCallBack()
 			openCartDrawer && openCartDrawer()
 		}else{
 			showMessageError(message||"Error")

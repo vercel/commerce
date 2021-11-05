@@ -5,7 +5,7 @@ interface Props {
     children?: any,
     heading: string,
     queryKey: string,
-    categories: { name: string, slug?: string, code?: string, value?: string }[]
+    categories: { name: string, slug?: string, code?: string}[]
     isSingleSelect?: boolean,
     path?:string
 }
@@ -19,7 +19,7 @@ const MenuNavigation = ({ heading, queryKey, categories, isSingleSelect,path }: 
                     categories.map(item => <MenuNavigationItem
                         key={item.name}
                         name={item.name}
-                        value={item.slug || item.code || item.value ||  ''}
+                        value={item.slug || item.code || ''}
                         queryKey={queryKey}
                         isSingleSelect={isSingleSelect}
                         path={path}

@@ -1,6 +1,6 @@
 export const getAllRecipePathsQuery = /* GraphQL */ `
-query getAllRecipePaths($excludeBlogIds: [ID]! = [],$options:RecipeListOptions){
-    recipes(excludeBlogIds: $excludeBlogIds,options: $options){
+query getAllRecipePaths($options:RecipeListOptions){
+    recipes(options: $options){
         items{
             translations {
                 slug

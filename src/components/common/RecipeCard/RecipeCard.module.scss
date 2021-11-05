@@ -4,6 +4,7 @@
     width: 100%;
     @apply inline-flex flex-col justify-start;
     .image{ 
+        user-select: none;
         width: 100%;      
         border-radius: 2.4rem;
         &:hover {

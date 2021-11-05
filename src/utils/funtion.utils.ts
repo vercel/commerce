@@ -3,13 +3,14 @@ import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
 import moment, { now } from 'moment';
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
-import { BlogList, FacetValue, Notification, SearchResultSortParameter, RecipesSort, Blog } from './../../framework/vendure/schema.d';
+import { BlogList, FacetValue, Notification, SearchResultSortParameter, RecipesSort, Blog, RecipeSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE,RECIPE_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
 import { CollectionItems} from '@framework/schema'
 import { APIResponse } from '@commerce/api/utils/types';
 import { CommonError } from 'src/domains/interfaces/CommonError';
 import { LANGUAGE } from './language.utils';
+import { RecipeCollection } from '@commerce/types/recipe-collection';
 
 export function isMobile() {
   return window.innerWidth < 768
@@ -73,7 +74,7 @@ export function getProductSortParamFromQuery(query: string) {
 
 
 export function getRecipeSortParamFromQuery(query: string) {
-  let rs = {} as RecipesSort
+  let rs = {} as RecipeSortParameter
   switch (query) {
  
     case RECIPE_SORT_OPTION_VALUE.LASTED_RECIPES:
@@ -216,7 +217,8 @@ export function getProductVariant(product: Product, opts: SelectedOptions) {
           option.__typename === 'MultipleChoiceOption' &&
           option.displayName.toLowerCase() === key.toLowerCase()
         ) {
-          return option.values.find((v) => v.label.toLowerCase() === value)
+          return option.values.find((v) => {
+            return v.label.toLowerCase() === value?.toLowerCase()})
         }
       })
     )
@@ -252,4 +254,13 @@ export function convertErrorFromApiResponse(response: APIResponse): CommonError 
   return {
     message: LANGUAGE.MESSAGE.ERROR
   } as CommonError
+}
+
+export function checkIsRecipeInCollectionsEmpty(collections: RecipeCollection[]) {
+  let total = 0
+  collections.map(item => {
+    total += item.recipes.totalItems
+    return null
+  })
+  return total === 0
 }

@@ -10,7 +10,7 @@ import { PromiseWithKey } from 'src/utils/types.utils';
 
 interface Props {
   recipes?: RecipeCardProps[],
-  recipeCollections?: {name: string, value: string}[],
+  recipeCollections?: {name: string, value: string, slug: string}[],
   totalItems?: number  
 }
 export default function RecipeListPage({recipeCollections,recipes,totalItems}:Props) {

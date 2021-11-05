@@ -44,6 +44,13 @@
         min-width: max-content;
         z-index: 100;
         border-radius: 0.8rem;
+        .messageLogin {
+            @apply flex justify-center items-center flex-col;
+            padding: 2.4rem 1.6rem;
+            .message {
+                margin-bottom: 2.4rem
+            }
+        }
         .viewAll {
             @apply text-right text-primary;
             padding: 1.6rem;
@@ -58,9 +65,6 @@
             max-height: 50rem;
             > li {
                 @apply transition-all duration-200 cursor-pointer;
-                &:hover {
-                    @apply bg-gray;
-                }
             }
         }
     }

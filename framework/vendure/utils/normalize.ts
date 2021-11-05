@@ -1,17 +1,21 @@
 import { Product as ProductIngredients } from './../schema.d';
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
-import {ProductCard,Product } from '@commerce/types/product';
+import {Product as ProductTypes, ProductCard } from '@commerce/types/product';
 import { BlogProps, OrderState } from 'src/utils/types.utils';
-import { Blog, CartFragment, Favorite, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
+import { Blog, CartFragment, Favorite, Recipe, SearchResultFragment, ShippingMethod,Product } from '../schema';
 import { ProductCardProps } from './../../../src/components/common/ProductCard/ProductCard';
 import { RecipeProps } from './../../../src/utils/types.utils';
+import { RecipeCardProps } from './../../../src/components/common/RecipeCard/RecipeCard'
+// import { Recipe } from '@commerce/types/recipes'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
     id: item.productId,
     name: item.productName,
     slug: item.slug,
-    imageSrc: item.productAsset?.preview ? item.productAsset?.preview + '?w=800&mode=crop' : '',
+    imageSrc: item.productAsset?.preview
+      ? item.productAsset?.preview + '?w=800&mode=crop'
+      : '',
     price: (item.priceWithTax as any).min / 100,
     currencyCode: item.currencyCode,
     productVariantId: item.productVariantId,
@@ -27,17 +31,38 @@ export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   }
 }
 
+export function normalizeProducts(products: Product[]): ProductCard[] {
+  return products.map(item => {
+    const firstVariant = item.variants[0]
+
+    return {
+      id: item.id,
+      name: item.name,
+      slug: item.slug,
+      imageSrc: item.featuredAsset?.preview ? item.featuredAsset?.preview + '?w=800&mode=crop' : '',
+      price: (firstVariant.priceWithTax as any) / 100,
+      currencyCode: firstVariant.currencyCode,
+      productVariantId: firstVariant.id,
+      productVariantName: firstVariant.name,
+      collection: item.collections[0] ? item.collections[0].name : '',
+      collectionIds: item.collections.map(colection => colection.id),
+      facetValueIds: item.facetValues.map(facet => facet.id),
+    }
+  })
+}
+
 export function normalizeFavoriteProductResult(item: Favorite) {
   return {
     id: item.product.id,
     name: item.product.name,
     slug: item.product.slug,
-    imageSrc: item.product.assets[0].preview ? item.product.assets[0].preview + '?w=800&mode=crop' : '',
-    price: item.product.variants[0].priceWithTax as number / 100,
+    imageSrc: item.product.assets[0].preview
+      ? item.product.assets[0].preview + '?w=800&mode=crop'
+      : '',
+    price: (item.product.variants[0].priceWithTax as number) / 100,
     currencyCode: item.product.variants[0].currencyCode,
   }
 }
-
 
 export function normalizeCart(order: CartFragment): Cart {
   return {
@@ -104,7 +129,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
     shippingLine: order.shippingLines[0] ? {
       priceWithTax: order.shippingLines[0]?.priceWithTax / 100,
       shippingMethod: order.shippingLines[0]?.shippingMethod as ShippingMethod
-    }: undefined,
+    } : undefined,
     totalDiscount: order.discounts?.reduce((total, item) => total + item.amountWithTax, 0) / 100 || 0,
     discounts: order.discounts.map(item => {
       return { value: item.amountWithTax, description: item.description }
@@ -134,7 +159,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
   }
 }
 
-export function normalizeProductCard(product: Product): ProductCard {
+export function normalizeProductCard(product: ProductTypes): ProductCard {
   return {
     id: product.id,
     name: product.name,
@@ -152,11 +177,11 @@ export function normalizeProductCard(product: Product): ProductCard {
 export function normalizeRecipe(recipe: Recipe): RecipeProps {
   return {
       id: recipe.id || null,
-      title: recipe.translations[0].title || null,
+      title: recipe.translations?.[0]?.title || null,
       imageSrc: recipe.featuredAsset?.preview || null,
-      slug: recipe.translations[0].slug || null,
-      description: recipe.translations[0].description || null,
-      content: recipe.translations[0].content || null,
+      slug: recipe.translations?.[0]?.slug || null,
+      description: recipe.translations?.[0]?.description || null,
+      content: recipe.translations?.[0]?.content || null,
       createdAt: recipe.createdAt || null,
       ingredients : recipe.ingredients?.map((product:ProductIngredients)=>({
         id: product.id,
@@ -171,7 +196,7 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
       recommendedRecipes: recipe.recommendedRecipes?.map((recipe:Recipe)=>({
         id: recipe.id || null,
         title: recipe.title || null,
-        imageSrc: recipe.featuredAsset?.[0]?.preview || null,
+        imageSrc: recipe.featuredAsset?.preview || null,
         slug: recipe.slug || null,
         description: recipe.description || null
       }))
@@ -183,7 +208,7 @@ export function normalizeRecipes(recipe: Recipe): RecipeProps {
   return {
       id: recipe.id || null,
       title: recipe.translations?.[0]?.title || null,
-      imageSrc: recipe.featuredAsset?.[0]?.preview || null,
+      imageSrc: recipe.featuredAsset?.preview || null,
       slug: recipe.translations?.[0].slug || null,
       description: recipe.translations?.[0].description || null,
       content: recipe.translations?.[0].content || null,
@@ -194,18 +219,17 @@ export function normalizeRecipes(recipe: Recipe): RecipeProps {
 
 export function normalizeBlog(blog: Blog): BlogProps {
   return {
-      id: blog.id,
-      title: blog.title,
-      imageSrc: blog.featuredAsset?.preview || null,
-      slug: blog.slug,
-      description: blog.description || '',
-      content: blog.content || '',
-      isPublish: blog.isPublish,
-      isFeatured:blog.isFeatured ?? null,
-      authorName: blog.authorName || '',
-      authorAvatarAsset: blog.authorAvatarAsset?.preview || null,
-      createdAt: blog.createdAt
+    id: blog.id,
+    title: blog.title,
+    imageSrc: blog.featuredAsset?.preview || null,
+    slug: blog.slug,
+    description: blog.description || '',
+    content: blog.content || '',
+    isPublish: blog.isPublish,
+    isFeatured: blog.isFeatured ?? null,
+    authorName: blog.authorName || '',
+    authorAvatarAsset: blog.authorAvatarAsset?.preview || null,
+    createdAt: blog.createdAt
   }
 }
-
 

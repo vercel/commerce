@@ -37,10 +37,7 @@ export default function getAllRecipeCollectionsOperation({
     })
 
     return {
-        recipeCollections: data.recipeCollections.items.map(val=>({
-          name:val.name,
-          value:val.slug
-        })),
+        recipeCollections: data.recipeCollections.items,
     }
   }
 

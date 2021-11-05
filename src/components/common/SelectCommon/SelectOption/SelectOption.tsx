@@ -5,13 +5,13 @@ interface Props{
     onChange: (value: string) => void,
     itemName: string,
     size: 'base' | 'large',
-    value: string,
+    value?: string,
     selected?: boolean,
 }
 
 const SelectOption = ({onChange, itemName, size, value, selected} : Props) => {
     const handleChange = () => {
-        onChange(value)
+        onChange(value ?? "")
     }
     return(
         <div className={classNames({

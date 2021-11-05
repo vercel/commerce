@@ -1,4 +1,5 @@
-import { QueryRecipes } from '@framework/schema'
+import { Collection } from '@commerce/types/collection'
+import { Facet, QueryRecipes } from '@framework/schema'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ListBlogCardSkeleton, RecipeCard, SelectCommon } from 'src/components/common'
@@ -33,7 +34,7 @@ const OPTIONSLECT = [
 ]
 
 interface Props {
-  collections?: {name: string, value: string}[]
+  collections?: {name: string, value: string, slug: string}[]
   recipeList?: RecipeCardProps[]
   total: number
 }
@@ -92,7 +93,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
         setSortValue(sortQuery)
     }
     if (sortQuery) {
-      query.options.sort = getRecipeSortParamFromQuery(sortQuery)
+      query.options.sort = getRecipeSortParamFromQuery(sortQuery) 
     }
     
     // collections

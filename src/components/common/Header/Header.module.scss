@@ -41,13 +41,13 @@
   transition: all 0.2s;
   &.show {
     display: block;
-    animation: showHeaderSticky 0.4s;
+    animation: showHeaderSticky 0.2s;
   }
 }
 
 @keyframes showHeaderSticky {
   0% {
-    transform: scale(.95);
+    transform: translateY(-1.6rem)
   }
   100% {
     transform: none;

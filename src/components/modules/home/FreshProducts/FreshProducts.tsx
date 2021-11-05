@@ -32,6 +32,7 @@ const FreshProducts = ({ data, collections }: FreshProductsProps) => {
         title="Fresh Products Today"
         subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
         viewAllLink={`${ROUTE.PRODUCTS}/?${QUERY_KEY.FEATURED}=${OPTION_ALL}`}
+        hasLineBottom
       />
     </div>
   )

@@ -21,4 +21,5 @@ const CartCheckoutButton = memo(({ onClose, total, currency }: Props) => {
   )
 })
 
+CartCheckoutButton.displayName = 'CartCheckoutButton'
 export default CartCheckoutButton;

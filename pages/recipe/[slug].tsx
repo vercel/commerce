@@ -37,7 +37,6 @@ export async function getStaticProps({
     preview,
   })
   props.recipe = recipesPromise;
-
   if (recipesPromise === null) {
     return { notFound: true };
   }

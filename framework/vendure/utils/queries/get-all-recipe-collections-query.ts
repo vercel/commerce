@@ -1,20 +1,38 @@
 export const getAllRecipeCollectionsQuery = /* GraphQL */ `
-query recipeCollection {
-recipeCollections{
-    __typename
-    items{
-    __typename
-    id
-    name
-    slug
-    recipes{
+query recipeCollections ($options: RecipeCollectionListOptions) {
+  recipeCollections (options: $options){
+    totalItems,
+    items {
+      id
+      name
+      slug
+      recipes{
         items{
-        id
-        slug
+          id
+          slug
+          title
+          description
+          assets{
+            id
+            source
+          }
+          translations{
+            slug
+            title
+          }
+          ingredients{
+            id
+            name
+            slug
+            variants{
+              id
+              name
+            }
+          }
         }
+        totalItems
+      }
     }
-    }
+  }
 }
-}
-
 `

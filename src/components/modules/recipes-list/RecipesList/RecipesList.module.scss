@@ -43,11 +43,6 @@
                     @apply flex flex-col items-center justify-center;
                 }
                 .boxItem {
-                    // @screen md {
-                    //     @apply flex justify-between flex-wrap;
-                    //     margin: 1rem 0;
-                    //     width:100%;
-                    // }
                     @apply grid grid-cols-1 gap-8;
                     width:100%;
                     @screen md {

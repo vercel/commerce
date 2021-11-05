@@ -13,17 +13,20 @@
     }
     @screen lg {
         @apply flex spacing-horizontal-left;
-        padding-top: 5.6rem;
-        padding-bottom: 5.6rem;
+        padding-top: 4.8rem;
+        padding-bottom: 4.8rem;
         border: none;
         background-color: var(--background-gray);
+    }
+    @screen 2xl {
+        padding-top: 5.6rem;
+        padding-bottom: 5.6rem;
     }
     .productsWrap {
         @apply spacing-horizontal-left;
         overflow: hidden;
         @screen lg {
             flex: 1;
-            // max-width: 75%;
             padding: 0 0.8rem;
             > div > div {
                 @apply shape-common-lg bg-white;

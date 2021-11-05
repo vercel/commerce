@@ -45,7 +45,7 @@ export async function getStaticProps({
   })
 
   if (blogDetail === null) {
-    return { isNotFound: true };
+    return { props: { isNotFound: true } };
   }
   props.blogDetail = blogDetail;
 
