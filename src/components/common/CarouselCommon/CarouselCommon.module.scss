@@ -1,17 +1,17 @@
 @import '../../../styles/utilities';
 .navigationWrapper {
   @apply relative;
-  // overflow: hidden;
   min-height: theme('caroucel.arrow-height');
-  .isPadding {
-    // @apply spacing-horizontal;
-  }
+
   .showDots {
     padding-bottom: 2.4rem;
   }
   :global {
     .react-multi-carousel-dot-list {
       li {
+        > div {
+          margin-right: .8rem;
+        }
 				button{
 					outline: none;
 					&:focus {
