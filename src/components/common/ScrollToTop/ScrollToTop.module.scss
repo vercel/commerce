@@ -13,7 +13,10 @@
             height: 6.4rem;
             background-color: var(--border-line);
             @screen lg {
-                right: 11.2rem;
+                right: 8rem;
+            }
+            @screen xl {
+                right: 2.8rem;
             }
         }
     }
