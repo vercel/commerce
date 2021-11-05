@@ -14,7 +14,7 @@ const useActiveCustomer = () => {
         phoneNumber: data?.activeCustomer?.phoneNumber,
         address: data?.activeCustomer?.addresses?.[0]
       },
-      wishlistId: data?.activeCustomer?.favorites?.items.map((val:Favorite)=>val.product.id),
+      wishlistIds: data?.activeCustomer?.favorites?.items.map((val:Favorite)=>val.product.id),
       ...rest 
   }
 }

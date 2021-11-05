@@ -7,7 +7,7 @@ import useSWR from 'swr'
 const useGetFavoriteProduct = (options?:QueryFavorite) => {
   const { data, ...rest } = useSWR<ActiveCustomerQuery>([getFavoriteProductQuery, options], gglFetcher)
   return {
-      itemWishlist: data?.activeCustomer?.favorites?.items?.map((item:Favorite) => normalizeFavoriteProductResult(item)), 
+      itemsWishlist: data?.activeCustomer?.favorites?.items?.map((item:Favorite) => normalizeFavoriteProductResult(item)), 
       totalItems: data?.activeCustomer?.favorites?.totalItems,
       ...rest 
   }

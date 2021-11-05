@@ -6,3 +6,6 @@ export * from './Message/MessageProvider'
 
 export * from './ProductFilter/ProductFilterContext'
 export * from './ProductFilter/ProductFilterProvider'
+
+export * from './ToggleProductWishlist/ToggleProductWishlistContent'
+export * from './ToggleProductWishlist/ToggleProductWishlistProvider'

@@ -121,7 +121,6 @@ const ProductCardComponent = ({
           <div className={s.productWeight}>{weight}</div>
         </div>
         <div className={s.cardMidBot}>
-          <div className={s.productPrice}>{price} {currencyCode}</div>
         </div>
         <div className={s.cardMid}>
           <div className={s.cardMidTop}>
@@ -135,7 +134,7 @@ const ProductCardComponent = ({
           <div className={s.cardMidBot}>
             <div className={s.productPrice}>{price} {currencyCode}</div>
             <div className={s.wishList}>
-              <ItemWishList id={id ?? ''}/>
+              <ItemWishList id={id ?? ''} />
             </div>
           </div>
         </div>

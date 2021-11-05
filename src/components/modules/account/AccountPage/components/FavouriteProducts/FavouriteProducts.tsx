@@ -5,7 +5,7 @@ import { ProductList } from '../../../../../common'
 import { ProductCardProps } from '../../../../../common/ProductCard/ProductCard'
 import s from './FavouriteProducts.module.scss'
 interface FavouriteProductsProps {
-    products: ProductCardProps[],
+    products?: ProductCardProps[],
     totalItems:number
 }
 
@@ -28,7 +28,7 @@ const FavouriteProducts = ({ products,totalItems } : FavouriteProductsProps) => 
 
     return (
         <section className={s.favouriteProducts}>
-            <ProductList data={products} total={totalItems} onPageChange={onPageChange}/>
+            <ProductList data={products || []} total={totalItems} onPageChange={onPageChange}/>
         </section>
     )
 }

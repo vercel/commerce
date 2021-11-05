@@ -33,7 +33,7 @@ const ProductList = ({ data, total = data?.length, defaultCurrentPage, onPageCha
             <div className={s.list}>
                 {
                     data?.map((product, index) => {
-                        return <ProductCard {...product} key={index} />
+                        return <ProductCard  {...product} key={index} />
                     })
                 }
             </div>
