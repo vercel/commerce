@@ -6,18 +6,22 @@
   .showDots {
     padding-bottom: 2.4rem;
   }
+
   :global {
+    .react-multi-carousel-track  {
+      li > div {
+        padding-right: .8rem;
+      }
+    }
     .react-multi-carousel-dot-list {
       li {
-        > div {
-          margin-right: .8rem;
-        }
 				button{
 					outline: none;
 					&:focus {
 						outline: none;
 					}
 				}
+        
       }
     }
   }
