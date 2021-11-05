@@ -34,7 +34,7 @@ export default function Slug({ product, relevantProducts, collections,relevant }
     <ProductInfoDetail productDetail={product}/>
     <RecipeDetail ingredients={INGREDIENT_DATA_TEST} />
     <RecommendedRecipes data={RECIPE_DATA_TEST} />
-    <ReleventProducts data={relevantProducts} collections={collections}/>
+    {relevantProducts.length > 0 && <ReleventProducts data={relevantProducts} collections={collections}/>}
     <ViewedProducts product={product}/>
     {relevant.length >0  && <RelevantBlogPosts data={relevant} title="relevent blog posts" />}
   </>

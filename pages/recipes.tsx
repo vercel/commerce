@@ -1,24 +1,25 @@
+import { Collection } from '@commerce/types/collection';
+import commerce from '@lib/api/commerce';
+import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
+import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 import RecipeListBanner from 'src/components/modules/recipes-list/RecipeListBanner/RecipeListBanner';
 import RecipesList from 'src/components/modules/recipes-list/RecipesList/RecipesList';
-import { GetStaticPropsContext } from 'next';
-import { PromiseWithKey,SortOrder } from 'src/utils/types.utils';
-import { DEFAULT_RECIPES_PAGE_SIZE,REVALIDATE_TIME,CODE_FACET_FEATURED,CODE_FACET_BRAND } from "src/utils/constanst.utils";
-import commerce from '@lib/api/commerce';
+import { DEFAULT_RECIPES_PAGE_SIZE, REVALIDATE_TIME } from "src/utils/constanst.utils";
 import { getAllPromies } from 'src/utils/funtion.utils';
-import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
-import { Collection } from '@commerce/types/collection';
+import { PromiseWithKey } from 'src/utils/types.utils';
 
 interface Props {
   recipes?: RecipeCardProps[],
-  collections: Collection[],
+  recipeCollections?: {name: string, value: string}[],
   totalItems?: number  
 }
-export default function RecipeListPage({collections,recipes,totalItems}:Props) {
+export default function RecipeListPage({recipeCollections,recipes,totalItems}:Props) {
+  console.log(recipeCollections)
   return (
     <>
       <RecipeListBanner />
-      <RecipesList collections={collections} recipeList={recipes} total={totalItems ?? 0}/>
+      <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0}/>
     </>
   )
 }
@@ -42,16 +43,15 @@ export async function getStaticProps({
     config,
     preview,
   })
-  
   promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes'})
   
   // collection
-  const collectionsPromise = commerce.getAllCollections({
+  const collectionsPromise = commerce.getAllRecipeCollections({
     variables: {},
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections' })
+  promisesWithKey.push({ key: 'recipeCollections', promise: collectionsPromise, keyResult: 'recipeCollections' })
   
   try {
     const promises = getAllPromies(promisesWithKey)
@@ -61,6 +61,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
+ 
  
     return {
       props,

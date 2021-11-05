@@ -6,7 +6,6 @@ import useSWR from 'swr'
 
 const useGetRecipeList = (options?: QueryRecipes) => {
   const { data, isValidating, ...rest } = useSWR<GetAllRecipesQuery>([getAllRecipesQuery, options], gglFetcher)
-
   return { 
           reicpes: data?.recipes?.items?.map((recipe:Recipe)=>normalizeRecipe(recipe)),
           totalItems: data?.recipes?.totalItems || null,

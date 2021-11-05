@@ -42,3 +42,24 @@ export type GetRecipeDetailOperation<T extends RecipesType = RecipesType> = {
         slug?: string
     }
 }
+export type RecipeCollection = {
+    id: string
+    name: string
+    slug: string
+    description: string
+    featuredAsset: Asset
+    assets?: Asset[]
+}
+  
+
+export type RecipeCollectionTypes = {
+    collection: RecipeCollection
+}
+
+export type GetAllRecipeCollectionsOperation<T extends RecipeCollectionTypes = RecipeCollectionTypes> = {
+    data: { collections: T['collection'][] }
+    variables: {
+      ids?: string[]
+      first?: number
+    }
+  }

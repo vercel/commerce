@@ -17,7 +17,7 @@ interface Props {
 const SelectCommon = ({initValue, type = 'default', size = 'base', options, placeholder, onChange}: Props) => {
     const [selectedName, setSelectedName] = useState(placeholder)
     const [selectedValue, setSelectedValue] = useState('')
-
+  
     useEffect(() => {
         if (initValue) {
             const nameSelect = options.find((val) => val.value === initValue);

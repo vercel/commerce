@@ -4,8 +4,6 @@ query getRecipes($excludeBlogIds: [ID]!,  $options: RecipeListOptions) {
     totalItems
     items {
       id
-      isFeatured
-      createdAt
       featuredAsset {
         preview
       }

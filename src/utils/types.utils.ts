@@ -1,7 +1,6 @@
-import { Product } from './../../framework/vendure/schema.d';
-import { ProductCardProps } from './../components/common/ProductCard/ProductCard';
-import { ProductCard } from './../../framework/commerce/types/product';
+import { RecipeCardProps } from './../components/common/RecipeCard/RecipeCard';
 import { Collection } from './../../framework/commerce/types/collection';
+import { ProductCard } from './../../framework/commerce/types/product';
 
 export interface ProductProps {
     category?: string
@@ -34,7 +33,8 @@ export interface RecipeProps {
     date?: string | null,
     authorName?: string | null,
     createdAt?:string | null,
-    ingredients?: ProductCard[]
+    ingredients?: ProductCard[],
+    recommendedRecipes?: RecipeCardProps[]
 }
 
 export interface BlogProps {

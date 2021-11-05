@@ -164,23 +164,30 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
         slug: product.slug,
         imageSrc: product.assets?.[0].preview || null,
         currencyCode: product.variants?.[0]?.currencyCode || null,
-        productVariantId: product.variants?.[0]?.id.toString() || null,
+        productVariantId: product.variants?.[0]?.id?.toString() || null,
         productVariantName: product.name || null,
         price: product.variants?.[0]?.priceWithTax || null,
+      })),
+      recommendedRecipes: recipe.recommendedRecipes?.map((recipe:Recipe)=>({
+        id: recipe.id || null,
+        title: recipe.title || null,
+        imageSrc: recipe.featuredAsset?.[0]?.preview || null,
+        slug: recipe.slug || null,
+        description: recipe.description || null
       }))
   }
 }
 
-export function normalizeRecipes(recipes: Recipe): RecipeProps {
+export function normalizeRecipes(recipe: Recipe): RecipeProps {
 
   return {
-      id: recipes.id || null,
-      title: recipes.translations[0].title || null,
-      imageSrc: recipes.featuredAsset?.preview || null,
-      slug: recipes.translations[0].slug || null,
-      description: recipes.translations[0].description || null,
-      content: recipes.translations[0].content || null,
-      createdAt: recipes.createdAt || null
+      id: recipe.id || null,
+      title: recipe.translations?.[0]?.title || null,
+      imageSrc: recipe.featuredAsset?.[0]?.preview || null,
+      slug: recipe.translations?.[0].slug || null,
+      description: recipe.translations?.[0].description || null,
+      content: recipe.translations?.[0].content || null,
+      createdAt: recipe.createdAt || null
   }
 }
 

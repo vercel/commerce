@@ -1,4 +1,4 @@
-import { GetAllRecipePathsOperation, GetRecipeDetailOperation,GetAllRecipesOperation } from './../types/recipes';
+import { GetAllRecipePathsOperation, GetRecipeDetailOperation, GetAllRecipesOperation, GetAllRecipeCollectionsOperation } from './../types/recipes';
 import { GetAllFacetsOperation } from './../types/facet';
 import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
@@ -44,7 +44,8 @@ export const OPERATIONS = [
   'getRelevantBlogs',
   'getAllRecipes',
   'getAllRecipePaths',
-  'getRecipeDetail'
+  'getRecipeDetail',
+  'getAllRecipeCollections'
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -335,6 +336,21 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
+  getAllRecipeCollections: {
+    <T extends GetAllRecipeCollectionsOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+  
+    <T extends GetAllRecipeCollectionsOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
 
 }
 

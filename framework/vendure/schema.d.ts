@@ -2633,6 +2633,11 @@ export type QueryRecipes = {
   options: RecipeListOptions
 }
 
+export type QueryFilterRecipes = {
+  slug?: Maybe<Scalars['String']>,
+  options: RecipeListOptions
+}
+
 export type RecipeListOptions = {
   skip?: Maybe<Scalars['Int']>
   take?: Maybe<Scalars['Int']>
@@ -3795,6 +3800,42 @@ export type GetAllCollectionsQuery = { __typename?: 'Query' } & {
         parent?: Maybe<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
         children?: Maybe<
           Array<{ __typename?: 'Collection' } & Pick<Collection, 'id'>>
+        >
+      }
+    >,
+    'totalItems'
+  }
+}
+export type RecipeCollection = Node & {
+  __typename?: 'Collection'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  languageCode?: Maybe<LanguageCode>
+  name: Scalars['String']
+  slug: Scalars['String']
+  breadcrumbs: Array<CollectionBreadcrumb>
+  position: Scalars['Int']
+  description: Scalars['String']
+  featuredAsset?: Maybe<Asset>
+  assets: Array<Asset>
+  parent?: Maybe<Collection>
+  children?: Maybe<Array<Collection>>
+  filters: Array<ConfigurableOperation>
+  translations: Array<CollectionTranslation>
+  recipes:Array<Recipe>
+}
+
+export type GetAllRecipeCollectionsQuery = { __typename?: 'Query' } & {
+  recipeCollections: { __typename?: 'RecipeCollection' } & {
+    items: Array<
+      { __typename?: 'RecipeCollection' } & Pick<
+      RecipeCollection,
+        'id' | 'name' | 'slug'
+      > & {
+        parent?: Maybe<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
+        children?: Maybe<
+          Array<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
         >
       }
     >,
