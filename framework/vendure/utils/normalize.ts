@@ -1,11 +1,9 @@
-import { Product as ProductIngredients } from './../schema.d';
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
-import {Product as ProductTypes, ProductCard } from '@commerce/types/product';
+import { Product as ProductTypes, ProductCard } from '@commerce/types/product';
 import { BlogProps, OrderState } from 'src/utils/types.utils';
-import { Blog, CartFragment, Favorite, Recipe, SearchResultFragment, ShippingMethod,Product } from '../schema';
-import { ProductCardProps } from './../../../src/components/common/ProductCard/ProductCard';
+import { Blog, CartFragment, Favorite, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
 import { RecipeProps } from './../../../src/utils/types.utils';
-import { RecipeCardProps } from './../../../src/components/common/RecipeCard/RecipeCard'
+import { Product as ProductIngredients } from './../schema.d';
 // import { Recipe } from '@commerce/types/recipes'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
