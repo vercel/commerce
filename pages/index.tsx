@@ -25,7 +25,6 @@ interface Props {
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts,recipesCollection,
   collections, spiceProducts }: Props) {
-    console.log(recipesCollection)
   return (
     <>
       <HomeBanner />
