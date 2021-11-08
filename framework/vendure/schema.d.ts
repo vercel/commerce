@@ -120,6 +120,7 @@ export type Mutation = {
   __typename?: 'Mutation'
   /** Adds an item to the order. If custom fields are defined on the OrderLine entity, a third argument 'customFields' will be available. */
   addItemToOrder: UpdateOrderItemsResult
+  addItemsToOrder: Array<AddItemToOrderResult>;
   /** Remove an OrderLine from the Order */
   removeOrderLine: RemoveOrderItemsResult
   /** Remove all OrderLine from the Order */
@@ -3364,6 +3365,8 @@ export type ApplyCouponCodeResult =
   | CouponCodeInvalidError
   | CouponCodeLimitError
 
+export type AddItemToOrderResult = InsufficientStockError | NegativeQuantityError | Order | OrderLimitError | OrderModificationError;
+
 export type AddPaymentToOrderResult =
   | Order
   | OrderPaymentStateError
@@ -3700,6 +3703,36 @@ export type AddItemToOrderMutation = { __typename?: 'Mutation' } & {
     InsufficientStockError,
     'errorCode' | 'message'
   >)
+}
+
+export type AddItemToOrderInput = {
+  productVariantId: Scalars['ID'];
+  quantity: Scalars['Int'];
+};
+
+export type MutationAddItemsToOrderArgs = {
+  input: Array<AddItemToOrderInput>;
+};
+
+export type AddItemsToOrderMutation = { __typename?: 'Mutation' } & {
+  addItemsToOrder: Array<
+    | ({ __typename: 'Order' } & CartFragment)
+    | ({ __typename: 'OrderModificationError' } & Pick<
+      OrderModificationError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'OrderLimitError' } & Pick<
+      OrderLimitError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'NegativeQuantityError' } & Pick<
+      NegativeQuantityError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'InsufficientStockError' } & Pick<
+      InsufficientStockError,
+      'errorCode' | 'message'
+    >)>
 }
 
 export type AdjustOrderLineMutationVariables = Exact<{
