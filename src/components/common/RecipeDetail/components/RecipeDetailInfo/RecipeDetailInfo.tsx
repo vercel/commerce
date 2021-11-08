@@ -25,7 +25,7 @@ const RecipeDetailInfo = ({ ...rest}: Prop) => {
                     {/* <RecipeBriefInfo /> */}
                 </div>
                 <div className={s.detail}>
-                    {rest.content}
+                    <section className={s.content} dangerouslySetInnerHTML={{__html: rest.content ?? ''}}></section>
                 </div>
             </div>
         </section >

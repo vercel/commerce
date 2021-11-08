@@ -1,4 +1,4 @@
-import { GetAllRecipePathsOperation, GetRecipeDetailOperation,GetAllRecipesOperation } from './../types/recipes';
+import { GetAllRecipePathsOperation, GetRecipeDetailOperation, GetAllRecipesOperation, GetAllRecipeCollectionsOperation } from './../types/recipes';
 import { GetAllFacetsOperation } from './../types/facet';
 import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
@@ -20,7 +20,7 @@ import type {
 
 
 import type { APIProvider, CommerceAPI } from '.'
-import { GetAllCollectionsOperation, GetAllRecipeCollectionsOperation } from '@commerce/types/collection';
+import { GetAllCollectionsOperation } from '@commerce/types/collection';
 
 const noop = () => {
   throw new Error('Not implemented')
@@ -45,7 +45,7 @@ export const OPERATIONS = [
   'getAllRecipes',
   'getAllRecipePaths',
   'getRecipeDetail',
-  'getAllRecipeCollections',
+  'getAllRecipeCollections'
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -351,7 +351,6 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
-
 
 }
 

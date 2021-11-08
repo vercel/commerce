@@ -128,7 +128,7 @@ export async function getStaticProps({
   
   // recipe 
   const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
-  props.recipesCollection = recipesCollection.collections
+  props.recipesCollection = recipesCollection.recipeCollections
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)

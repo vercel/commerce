@@ -51,7 +51,7 @@ const FOOTER_COLUMNS = [
                 link: ROUTE.PRIVACY_POLICY,
             },
             {
-                name: 'Blog',
+                name: 'Blogs',
                 link: ROUTE.BLOGS,
             },
         ]

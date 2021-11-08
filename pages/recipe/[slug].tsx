@@ -1,17 +1,13 @@
 
-import { useRouter } from 'next/router'
-import { Layout, RecipeDetail, RecommendedRecipes } from 'src/components/common'
-import { INGREDIENT_DATA_TEST, RECIPE_DATA_TEST } from 'src/utils/demo-data'
 import commerce from '@lib/api/commerce';
-import { PromiseWithKey } from 'src/utils/types.utils';
-import { GetStaticPropsContext,GetStaticPathsContext } from 'next';
-import { getAllPromies } from 'src/utils/funtion.utils';
-import {  REVALIDATE_TIME } from 'src/utils/constanst.utils'
+import { GetStaticPathsContext, GetStaticPropsContext } from 'next';
+import { Layout, RecipeDetail, RecommendedRecipes } from 'src/components/common';
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
+import { REVALIDATE_TIME } from 'src/utils/constanst.utils';
+import { getAllPromies } from 'src/utils/funtion.utils';
+import { PromiseWithKey } from 'src/utils/types.utils';
 interface Props {
   recipe:RecipeCardProps,
-  
-  // relevant:{relevantBlogs?:RecipeCardProps[]}
 }
 export default function Slug({recipe}:Props) {
   
@@ -19,7 +15,7 @@ export default function Slug({recipe}:Props) {
     <RecipeDetail 
       {...recipe}
     />
-    {/* <RecommendedRecipes data={relevant?.relevantBlogs} /> */}
+   {(recipe?.recommendedRecipes?.length || [].length) > 0 && <RecommendedRecipes data={recipe?.recommendedRecipes} />} 
   </div>
 }
 
@@ -41,26 +37,9 @@ export async function getStaticProps({
     preview,
   })
   props.recipe = recipesPromise;
-
   if (recipesPromise === null) {
     return { notFound: true };
   }
-
-  // // Relevant Blogs
-  // const relevantProductId = recipesPromise?.recipeDetail?.relevantProducts?.[0];
-  // if (relevantProductId && recipesPromise?.recipeDetail?.relevantProducts?.length > 0) {
-
-  //   const relevantBlogs = commerce.getRelevantBlogs({
-  //     variables: { productId: relevantProductId },
-  //     config,
-  //     preview,
-  //   })
-  //   promisesWithKey.push({ key: 'relevant', promise: relevantBlogs})
-
-  // }else {
-  //   props.relevantBlogs = [];
-  // }
-  
 
   try {
     const promises = getAllPromies(promisesWithKey)

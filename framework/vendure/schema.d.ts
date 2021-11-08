@@ -1,4 +1,6 @@
-import { FacetValue, UpdateAddressInput, ResetPassword } from './schema.d';
+import { ProductCardProps } from './../../src/components/common/ProductCard/ProductCard';
+import { FacetValue, UpdateAddressInput, RecipeTranslation } from './schema.d';
+import { ResetPassword } from './schema.d';
 import { requestPasswordReset } from '@framework/schema';
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -628,6 +630,25 @@ export type RecipeCollection = Node & {
   updatedAt: Scalars['DateTime'];
 };
 
+// export type RecipeCollection = Node & {
+//   __typename?: 'Collection'
+//   id: Scalars['ID']
+//   createdAt: Scalars['DateTime']
+//   updatedAt: Scalars['DateTime']
+//   languageCode?: Maybe<LanguageCode>
+//   name: Scalars['String']
+//   slug: Scalars['String']
+//   breadcrumbs: Array<CollectionBreadcrumb>
+//   position: Scalars['Int']
+//   description: Scalars['String']
+//   featuredAsset?: Maybe<Asset>
+//   assets: Array<Asset>
+//   parent?: Maybe<Collection>
+//   children?: Maybe<Array<Collection>>
+//   filters: Array<ConfigurableOperation>
+//   translations: Array<CollectionTranslation>
+//   recipes:Array<Recipe>
+// }
 
 export type RecipeCollectionRecipesArgs = {
   options?: Maybe<RecipeListOptions>;
@@ -2698,6 +2719,20 @@ export type Product = Node & {
   customFields?: Maybe<Scalars['JSON']>
 }
 
+// export type Recipe = Node & {
+//   id: ID!
+//   createdAt: DateTime!
+//   updatedAt: DateTime!
+//   content?: Maybe<Scalars['String']>;
+//   description?: Maybe<Scalars['String']>;
+//   isPublish: Scalars['Boolean'];
+//   languageCode: LanguageCode;
+//   slug: Scalars['String'];
+//   title: Scalars['String'];
+//   translations: Array<RecipeTranslation>;
+//   ingredients: Product[],
+//   featuredAsset?: Maybe<Asset>;
+// }
 
 export type Blog = Node & {
   __typename?: 'Blog';
@@ -2718,27 +2753,22 @@ export type Blog = Node & {
   updatedAt: Scalars['DateTime'];
 };
 
+
+
 export type BlogList = PaginatedList & {
   __typename?: 'BlogList';
   items: Array<Blog>;
   totalItems: Scalars['Int'];
 };
 
+export type GetRecipeQuery = { __typename?: 'Query' } & {
+  recipe?: Maybe<
+    { __typename?: 'Recipe' } & Recipe
+  >
+}
 
-// export type RecipeList = Node & {
-//   id: ID
-//   createdAt: DateTime
-//   updatedAt: DateTime
-//   featuredAsset?: Maybe<Asset>
-//   isPublish: Boolean
-//   translations: Array<RecipeTranslation>
-//   authorName: Scalars['String']
-//   authorAvatarAsset: Asset
-//   relevantProducts: Product[]
-//   link: String
-//   minutes: Number
-//   people: Number
-// }
+
+
 
 export enum SortRecipes {
   ASC = 'ASC',
@@ -2760,11 +2790,7 @@ export type GetBlogQuery = { __typename?: 'Query' } & {
   >
 }
 
-export type GetRecipeQuery = { __typename?: 'Query' } & {
-  recipeDetail?: Maybe<
-    { __typename?: 'Recipe' } & RecipeList
-  >
-}
+
 
 
 export type BlogTranslation = {
@@ -2786,10 +2812,16 @@ export type GetAllBlogsQuery = PaginatedList & {
     'totalItems'
   }
 }
-
 export type GetAllRecipesQuery = PaginatedList & {
   recipes: { __typename?: 'RecipeList' } & {
-    items: Array<{ __typename?: 'Recipe' } & RecipeList>,
+    items: Array<{ __typename?: 'Recipe' } & Recipe>,
+    'totalItems'
+  }
+}
+
+export type FilterRecipesQuery = PaginatedList & {
+  recipeByCollectionSlug: { __typename?: 'RecipeList' } & {
+    items: Array<{ __typename?: 'Recipe' } & Recipe>,
     'totalItems'
   }
 }
@@ -2817,14 +2849,18 @@ export type QueryBlogs = {
 }
 
 export type QueryRecipes = {
-  excludeBlogIds?: Maybe<Array>,
+  slug?: string,
+  options: RecipeListOptions
+}
+
+export type QueryFilterRecipes = {
+  slug?: Maybe<Scalars['String']>,
   options: RecipeListOptions
 }
 
 export type RecipesSort = {
   id?: Maybe<Scalars['String']>
-  excludeBlogIds: Array,
-  options: BlogListOptions
+  createdAt?:Maybe<Scalars['String']>
 }
 
 export type BlogListOptions = {
@@ -3927,7 +3963,7 @@ export type GetAllBlogPathsQuery = { __typename?: 'Query' } & {
 
 export type GetAllRecipePathsQuery = { __typename?: 'Query' } & {
   recipes: { __typename?: 'Recipes' } & {
-    items: Array<{ __typename?: 'Recipe' } & Pick<RecipeList, 'slug', 'translations'>>
+    items: Array<{ __typename?: 'Recipe' } & Pick<Recipe, 'slug', 'translations'>>
   }
 }
 
@@ -3977,6 +4013,7 @@ export type GetAllCollectionsQuery = { __typename?: 'Query' } & {
     'totalItems'
   }
 }
+
 
 export type GetAllRecipeCollectionsQuery = { __typename?: 'Query' } & {
   recipeCollections: { __typename?: 'RecipeCollectionList' } & {

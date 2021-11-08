@@ -6,9 +6,7 @@ import {  GetAllRecipesQuery } from '../../schema'
 import { getAllRecipesQuery } from '../../utils/queries/get-all-recipes-query'
 
 export type RecipesVariables = {
-  excludeBlogIds?: string[],
   take?:number,
-  id?: string,
 }
 
 export default function getAllRecipesOperation({
@@ -33,7 +31,6 @@ export default function getAllRecipesOperation({
     
     const config = commerce.getConfig(cfg)
     const variables = {
-      excludeBlogIds: vars.excludeBlogIds,
       options: {
         take: vars.take
       },

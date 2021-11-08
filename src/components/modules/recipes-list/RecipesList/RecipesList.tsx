@@ -8,7 +8,7 @@ import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard'
 import { useGetRecipeList } from 'src/components/hooks/recipe'
-import { DEFAULT_RECIPES_PAGE_SIZE, OPTION_ALL, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { DEFAULT_RECIPES_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { getPageFromQuery, getRecipeSortParamFromQuery } from 'src/utils/funtion.utils'
 import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 import s from './RecipesList.module.scss'
@@ -22,63 +22,19 @@ const BREADCRUMB = [
   },
 ]
 
-
-const CATEGORYSELECT = [
-  {
-    name: 'All',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=${OPTION_ALL}`,
-  },
-  {
-    name: 'Malaysian',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=malaysia`,
-  },
-  {
-    name: 'Vietnamese',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=vietnamese`,
-  },
-  {
-    name: 'Thailand',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=thailand`,
-  },
-  {
-    name: 'Indian',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=indian`,
-  },
-  {
-    name: 'Lao',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=lao`,
-  },
-  {
-    name: 'Chinese',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=chinese`,
-  },
-  {
-    name: 'Korean',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=korean`,
-  },
-  {
-    name: 'Japanese',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=japanese`,
-  },
-  {
-    name: 'Western',
-    value: `${ROUTE.RECIPES}/?${QUERY_KEY.RECIPES}=western`,
-  },
-]
-
 const OPTIONSLECT = [
   {
     name: 'Lastest Blogs',
-    value: 'lastest-blogs',
+    value: 'lastest_blogs',
   },
   {
     name: 'Recent Blogs',
-    value: 'recent-blogs',
+    value: 'recent_blogs',
   },
 ]
 
 interface Props {
-  collections?:Collection[]
+  collections?: {name: string, value: string, slug: string}[]
   recipeList?: RecipeCardProps[]
   total: number
 }
@@ -86,7 +42,6 @@ interface Props {
 const RecipesList = ({collections, recipeList, total }: Props) => {
   const DEFAULT_RECIPES_ARGS = useMemo(
     () => ({
-      excludeBlogIds: [],
       options:{
         take: DEFAULT_RECIPES_PAGE_SIZE,
       }
@@ -96,10 +51,10 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   const router = useRouter()
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryBlog, setOptionQueryBlog] = useState<QueryRecipes>(DEFAULT_RECIPES_ARGS)
-  const { reicpes, totalItems, loading } = useGetRecipeList(optionQueryBlog)
-  
+  const { recipes, totalItems, loading } = useGetRecipeList(optionQueryBlog)
+  const [selectMobileValue, setSelectMobileValue] = useState<string>();
   const [sortValue, setSortValue] = useState<string>();
-
+  
   const onPageChange = (page: number) => {
     router.push(
       {
@@ -117,6 +72,13 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   // skip
   const firstRender = useRef(true);
 
+  let data;
+  if(initialQueryFlag == true){
+      data = recipeList;
+  }else{
+      data = recipes
+  }
+
   useEffect(() => {
     firstRender.current = false
     const query = { ...DEFAULT_RECIPES_ARGS } as QueryRecipes
@@ -124,21 +86,28 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     query.options.skip = page * DEFAULT_RECIPES_PAGE_SIZE
 
     // sort
-    const rs = router.query[QUERY_KEY.SORTBY] as string
-    if (rs) {
-        setSortValue(rs)
-    }
-    // collections
-    // const categoryQuery = router.query[QUERY_KEY.CATEGORY] as string
-    // if (categoryQuery) {
-    //   query.input.collectionSlug = categoryQuery
-    // }
 
+    // query sort
     const sortQuery = router.query[QUERY_KEY.SORTBY] as string
     if (sortQuery) {
-      query.options.sort = getRecipeSortParamFromQuery(sortQuery)
+        setSortValue(sortQuery)
+    }
+    if (sortQuery) {
+      query.options.sort = getRecipeSortParamFromQuery(sortQuery) 
+    }
+    
+    // collections
+    const categoryQuery = router.query[QUERY_KEY.CATEGORY] as string
+    
+    if (categoryQuery) {
+     
+      query.slug = categoryQuery
+      
+      
+      setSelectMobileValue(categoryQuery);
     }
 
+    
     setOptionQueryBlog(query)
     setInitialQueryFlag(false)
 
@@ -157,12 +126,18 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     )
   }
 
-  let data;
-  if(initialQueryFlag == true){
-      data = recipeList;
-  }else{
-      data = reicpes
+  const onChangeCollectionMobile = (value: string)=>{
+      router.push({
+        pathname: ROUTE.RECIPES,
+        query: {
+            ...router.query,
+            [QUERY_KEY.CATEGORY]: value
+        }
+    },
+        undefined, { shallow: true }
+    )
   }
+ 
 
   return (
     <>
@@ -172,7 +147,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
         </div>
         <div className={s.recipesListPageMain}>
           <div className={s.categories}>
-            <MenuNavigation path={ROUTE.RECIPES} queryKey={QUERY_KEY.CATEGORY} categories={collections || []} heading="Categories" />
+            <MenuNavigation isSingleSelect={true} path={ROUTE.RECIPES} queryKey={QUERY_KEY.CATEGORY} categories={collections || []} heading="Collections" />
           </div>
 
           <div className={s.recipesList}>
@@ -181,11 +156,13 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
 
                 <div className={s.boxSelect}>
                   <div className={s.categorySelectCate}>
-                    <label htmlFor="">Categories</label>
+                    <label htmlFor="">Collections</label>
                     <div className={s.select}>
                       <SelectCommon
-                        options={CATEGORYSELECT}
-                        placeholder="Categories"
+                        options={collections || []}
+                        placeholder="Collections"
+                        onChange={onChangeCollectionMobile}
+                        value={selectMobileValue}
                       />
                     </div>
                   </div>
@@ -202,7 +179,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
             <div className={s.inner}>
               <div className={s.boxItem}>
               {(!initialQueryFlag && loading && !data) && <ListBlogCardSkeleton count={DEFAULT_RECIPES_PAGE_SIZE} isWrap  />}
-                {data?.map((item, index) => (
+                {data?.map((item:RecipeCardProps, index:number) => (
                   <div key={index} className={s.item}>
                     <RecipeCard
                       slug={item.slug}

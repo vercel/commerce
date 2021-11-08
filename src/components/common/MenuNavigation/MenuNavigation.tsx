@@ -5,7 +5,7 @@ interface Props {
     children?: any,
     heading: string,
     queryKey: string,
-    categories: { name: string, slug?: string, code?: string }[]
+    categories: { name: string, slug?: string, code?: string}[]
     isSingleSelect?: boolean,
     path?:string
 }
