@@ -4026,7 +4026,10 @@ export type GetAllRecipeCollectionsQuery = { __typename?: 'Query' } & {
         children?: Maybe<
           Array<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
         >
-        recipes: Recipe[]
+        recipes: {
+          items: Array<Recipe>,
+          'totalItems'
+        }
       }
     >,
     'totalItems'

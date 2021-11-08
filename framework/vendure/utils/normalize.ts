@@ -191,14 +191,14 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
         productVariantId: product.variants?.[0]?.id?.toString() || null,
         productVariantName: product.name || null,
         price: product.variants?.[0]?.priceWithTax || null,
-      })),
+      }))||[],
       recommendedRecipes: recipe.recommendedRecipes?.map((recipe:Recipe)=>({
         id: recipe.id || null,
         title: recipe.title || null,
         imageSrc: recipe.featuredAsset?.preview || null,
         slug: recipe.slug || null,
         description: recipe.description || null
-      }))
+      }))||[]
   }
 }
 

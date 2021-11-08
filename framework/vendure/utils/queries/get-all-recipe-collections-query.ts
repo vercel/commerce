@@ -12,22 +12,14 @@ query recipeCollections ($options: RecipeCollectionListOptions) {
           slug
           title
           description
-          assets{
-            id
-            source
+          featuredAsset{
+            preview
           }
           translations{
             slug
             title
-          }
-          ingredients{
-            id
-            name
-            slug
-            variants{
-              id
-              name
-            }
+            description
+            content
           }
         }
         totalItems

@@ -20,11 +20,12 @@ interface Props {
   collections: Collection[]
   spiceProducts:ProductCard[]
   collectionProps:CollectionsWithData[]
-  recipesCollection:RecipeCollection[]
+  recipesCollection:any[]
 }
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts,recipesCollection,
   collections, spiceProducts }: Props) {
+    console.log(recipesCollection)
   return (
     <>
       <HomeBanner />
@@ -127,8 +128,12 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
   
   // recipe 
-  const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
-  props.recipesCollection = recipesCollection.recipeCollections
+  try {
+    const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
+    props.recipesCollection = recipesCollection.recipeCollections.filter((collection)=>collection.recipes.items.length>0)
+  }catch(err){
+    console.log(err)
+  }
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)

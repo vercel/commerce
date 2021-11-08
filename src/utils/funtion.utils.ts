@@ -197,9 +197,11 @@ export const FilterOneVatiant = (products: ProductCard[]) => {
   let idList: string[] = []
   let filtedProduct: ProductCard[] = []
   products.map((product: ProductCard) => {
-    if (!idList.includes(product.id)) {
-      filtedProduct.push(product)
-      idList.push(product.id)
+    if(product.id){
+      if (!idList.includes(product.id)) {
+        filtedProduct.push(product)
+        idList.push(product.id)
+      }
     }
   })
   return filtedProduct
@@ -257,10 +259,13 @@ export function convertErrorFromApiResponse(response: APIResponse): CommonError 
 }
 
 export function checkIsRecipeInCollectionsEmpty(collections: RecipeCollection[]) {
-  let total = 0
-  collections.map(item => {
-    total += item.recipes.totalItems
+  if(collections){
+    let total = 0
+    collections.map(item => {
+      total += item.recipes.totalItems
+      return null
+    })
+    return total === 0
+  }else{
     return null
-  })
-  return total === 0
-}
+}}
