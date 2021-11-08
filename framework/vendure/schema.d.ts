@@ -148,6 +148,9 @@ export type Mutation = {
   login: NativeAuthenticationResult
   /** Authenticates the user using a named authentication strategy */
   authenticate: AuthenticationResult
+
+  checkIsUserVerifyEmail: UserVerifyEmailResult;
+
   /** End the current authenticated session */
   logout: Success
   /**
@@ -2860,7 +2863,7 @@ export type QueryFilterRecipes = {
 
 export type RecipesSort = {
   id?: Maybe<Scalars['String']>
-  createdAt?:Maybe<Scalars['String']>
+  createdAt?: Maybe<Scalars['String']>
 }
 
 export type BlogListOptions = {
@@ -3435,6 +3438,12 @@ export type AuthenticationResult =
   | InvalidCredentialsError
   | NotVerifiedError
 
+export type UserVerifyEmailResult = {
+  __typename?: 'UserVerifyEmailResult';
+  isUserExisted: Scalars['Boolean'];
+  isVerified: Scalars['Boolean'];
+};
+
 export type ActiveOrderResult = Order | NoActiveOrderError
 
 export type CollectionFilterParameter = {
@@ -3823,6 +3832,15 @@ export type VerifyCustomerAccountMutation = { __typename?: 'Mutation' } & {
   >)
 }
 
+export type MutationCheckIsUserVerifyEmailArgs = {
+  emailAddress: Scalars['String'];
+};
+
+export type CheckIsUserVerifyEmailMutation = { __typename?: 'Mutation' } & {
+  checkIsUserVerifyEmail:
+  | ({ __typename: 'UserVerifyEmailResult' } & Pick<UserVerifyEmailResult, '__typename' | 'isUserExisted' | 'isVerified'>)
+}
+
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>
 
 export type LogoutMutation = { __typename?: 'Mutation' } & {
@@ -4020,7 +4038,7 @@ export type GetAllRecipeCollectionsQuery = { __typename?: 'Query' } & {
     items: Array<
       { __typename?: 'RecipeCollection' } & Pick<
         RecipeCollection,
-        'id' | 'name' | 'slug' 
+        'id' | 'name' | 'slug'
       > & {
         parent?: Maybe<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
         children?: Maybe<

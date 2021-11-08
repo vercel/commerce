@@ -5,4 +5,5 @@ export { default as useVerifyCustomer } from './useVerifyCustomer'
 export { default as useActiveCustomer } from './useActiveCustomer'
 export { default as useRequestPasswordReset } from './useRequestPasswordReset'
 export { default as useResetPassword } from './useResetPassword'
+export { default as useCheckIsUserVerifyEmail } from './useCheckIsUserVerifyEmail'
 
