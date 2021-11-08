@@ -1,11 +1,15 @@
-import { AddItemToOrderInput, AddItemToOrderResult } from '@framework/schema'
-import React from 'react'
+import { AddItemToOrderInput, AddItemToOrderResult, ErrorResult } from '@framework/schema'
+import React, { useState } from 'react'
+import { ModalInfo } from 'src/components/common'
 import ButtonCommon from 'src/components/common/ButtonCommon/ButtonCommon'
 import HeadingCommon from 'src/components/common/HeadingCommon/HeadingCommon'
 import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
 import ProductCarousel from 'src/components/common/ProductCarousel/ProductCarousel'
 import ViewAllItem from 'src/components/common/ViewAllItem/ViewAllItem'
+import { useCartDrawer, useMessage } from 'src/components/contexts'
+import { useModalCommon } from 'src/components/hooks'
 import { useAddMutiProductsToCart } from 'src/components/hooks/cart'
+import { ErrorMessage } from 'src/domains/enums/ErrorCode'
 import { ROUTE } from 'src/utils/constanst.utils'
 import s from './RecipeIngredient.module.scss'
 
@@ -15,33 +19,48 @@ interface Props {
     data: ProductCardProps[],
 }
 
-// function getDetailErrorMessage(input: MutationAddItemsToOrderArgs, data: AddItemsToOrderMutation) {
-//     let content = '' as React.ReactNode
-//     data.addItemsToOrder.map(item => {
-//       if (item.__typename !== 'Order') {
-//         content += `Fail to add product `
-//       }
-//     })
-
-//   }
+function getDetailErrorMessage(input: ProductCardProps[], data: AddItemToOrderResult[]) {
+    return <ul className={s.errorMessage}>
+        {
+            data.map((item: AddItemToOrderResult, index: number) => {
+                if (item.__typename !== 'Order') {
+                    const message = (item as ErrorResult).message === ErrorMessage.NegativeQuantityError ? 'Out of stock' : (item as ErrorResult).message
+                    return <li>Fail to add <b>{input[index].productVariantName}</b> to cart with this error message: <div className={s.error}>{message}</div></li>
+                }
+                return null
+            })
+        }
+    </ul>
+}
 
 const RecipeIngredient = ({ data }: Props) => {
-    const { addProductsToCart } = useAddMutiProductsToCart()
+    const { addProductsToCart, loading } = useAddMutiProductsToCart()
+    const { showMessageSuccess, showMessageError } = useMessage()
+    const { visible: visibleModalErrorDetail, openModal: openModalErrorDetail, closeModal: closeModalErrorDetail } = useModalCommon({ initialValue: false })
+    const [messageError, setMessageError] = useState<React.ReactNode>()
+    const { openCartDrawer } = useCartDrawer()
 
     const handleBuyAll = () => {
-        console.log("RecipeIngredient ", data)
         const input = data.map(item => {
             return {
                 productVariantId: item.productVariantId,
                 quantity: 1, // TODO: quanity get from recipe data
             } as AddItemToOrderInput
         })
-        addProductsToCart({input}, handleBuyAllCallback)
+        addProductsToCart({ input }, handleBuyAllCallback)
     }
 
-    const handleBuyAllCallback = (isSuccess: boolean, message?: AddItemToOrderResult[] | string) => {
-        console.log("RecipeIngredient ", data)
-        
+    const handleBuyAllCallback = (isSuccess: boolean, rs?: AddItemToOrderResult[] | string) => {
+        if (isSuccess) {
+            showMessageSuccess("Add all ingredients to the cart")
+            openCartDrawer()
+
+        } else if (typeof (rs) === 'string') {
+            showMessageError(rs)
+        } else {
+            setMessageError(getDetailErrorMessage(data, rs as AddItemToOrderResult[]))
+            openModalErrorDetail()
+        }
     }
 
     return (
@@ -54,8 +73,9 @@ const RecipeIngredient = ({ data }: Props) => {
             </div>
             <ProductCarousel data={data} itemKey="recipe-ingredient" />
             <div className={s.bottom}>
-                <ButtonCommon type='ghost' size='large' onClick={handleBuyAll}>Buy all</ButtonCommon>
+                <ButtonCommon type='ghost' size='large' onClick={handleBuyAll} loading={loading}>Buy all</ButtonCommon>
             </div>
+            <ModalInfo visible={visibleModalErrorDetail} onClose={closeModalErrorDetail}>{messageError}</ModalInfo>
         </section>
     )
 }

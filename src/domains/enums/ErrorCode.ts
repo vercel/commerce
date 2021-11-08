@@ -28,3 +28,7 @@ export enum ErrorCode {
   NotVerifiedError = 'NOT_VERIFIED_ERROR',
   NoActiveOrderError = 'NO_ACTIVE_ORDER_ERROR',
 }
+
+export enum ErrorMessage {
+  NegativeQuantityError = 'No items were added to the order due to insufficient stock'
+}
