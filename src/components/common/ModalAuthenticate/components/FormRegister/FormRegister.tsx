@@ -1,16 +1,16 @@
+import { UserVerifyEmailResult } from '@framework/schema'
 import classNames from 'classnames'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import React, { useEffect, useRef } from 'react'
 import {
   ButtonCommon,
   InputFiledInForm,
-  InputPasswordFiledInForm,
+  InputPasswordFiledInForm
 } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
-import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
-import { useSignup } from '../../../../hooks/auth'
+import { useCheckIsUserVerifyEmail, useSignup } from '../../../../hooks/auth'
 import s from '../FormAuthen.module.scss'
 import SocialAuthen from '../SocialAuthen/SocialAuthen'
 import styles from './FormRegister.module.scss'
@@ -33,8 +33,10 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 const FormRegister = ({ onSwitch, isHide }: Props) => {
   const emailRef = useRef<CustomInputCommon>(null)
+  const formRef = useRef<FormikProps<{ password: string; email: string; }>>(null);
   const { loading, signup } = useSignup()
-  const { showMessageSuccess, showMessageError } = useMessage()
+  const { showMessageSuccess, showMessageError, showMessageWarning } = useMessage()
+  const { checkIsUserVerifyEmail } = useCheckIsUserVerifyEmail()
 
   useEffect(() => {
     if (!isHide) {
@@ -43,14 +45,32 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
   }, [isHide])
 
   const onSignup = (values: { email: string; password: string }) => {
-    signup({ email: values.email, password: values.password }, onSignupCallBack)
+    checkIsUserVerifyEmail({ emailAddress: values.email }, onCheckIsUserVerifyEmailCallback)
+  }
+
+  const onCheckIsUserVerifyEmailCallback = (isSuccess: boolean, rs: UserVerifyEmailResult | string) => {
+    if (isSuccess) {
+      if ((rs as UserVerifyEmailResult).isVerified) {
+        showMessageWarning("You already have an account with this email address. Please login to continue.", 10000)
+      } else {
+        if (formRef?.current) {
+          const values = formRef.current.values
+          signup({ email: values.email, password: values.password }, onSignupCallBack)
+        } else {
+          showMessageError(rs as string)
+        }
+      }
+    } else {
+      showMessageError(rs as string)
+
+    }
   }
 
   const onSignupCallBack = (isSuccess: boolean, message?: string) => {
     if (isSuccess) {
       showMessageSuccess("Create account successfully. Please verify your email to login.", 15000)
     } else {
-      showMessageError(message || LANGUAGE.MESSAGE.ERROR)
+      showMessageError(message)
     }
   }
 
@@ -64,6 +84,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
       <div className={s.inner}>
         <div className={s.body}>
           <Formik
+            innerRef={formRef}
             initialValues={{
               password: '',
               email: '',
@@ -77,7 +98,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
                   <InputFiledInForm
                     name="email"
                     placeholder="Email Address"
-                    ref = {emailRef}
+                    ref={emailRef}
                     error={
                       touched.email && errors.email
                         ? errors.email.toString()
