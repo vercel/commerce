@@ -4,7 +4,6 @@ import { ButtonCommon } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
 import { useEligibleShippingMethods, useSetOrderShippingMethod } from 'src/components/hooks/order'
 import { Shipping } from 'src/components/icons'
-import { ShippingMethodQuoteProps } from 'src/utils/types.utils'
 import { CheckoutStep } from '../../CheckoutInfo'
 import ChekoutNotePolicy from '../ChekoutNotePolicy/ChekoutNotePolicy'
 import s from './ShippingMethod.module.scss'
@@ -22,7 +21,7 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId, onChangeTemp
   const { showMessageError } = useMessage()
   const { eligibleShippingMethods } = useEligibleShippingMethods()
   const { setOrderShippingMethod } = useSetOrderShippingMethod()
-  const [selectedValue, setSelectedValue] = useState<ShippingMethodQuoteProps | undefined>(eligibleShippingMethods ? eligibleShippingMethods[0] : undefined)
+  const [selectedValue, setSelectedValue] = useState<ShippingMethodQuote | undefined>(eligibleShippingMethods ? eligibleShippingMethods[0] : undefined)
 
   useEffect(() => {
     if (eligibleShippingMethods?.length > 0 && !selectedValue) {
@@ -31,7 +30,11 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId, onChangeTemp
   }, [eligibleShippingMethods, selectedValue])
 
   useEffect(() => {
-    onChangeTemporaryShippingPrice(selectedValue?.price || null)
+    if (selectedValue?.price) {
+      onChangeTemporaryShippingPrice(selectedValue.price / 100)
+    } else {
+      onChangeTemporaryShippingPrice(null)
+    }
   }, [selectedValue, onChangeTemporaryShippingPrice])
 
   useEffect(() => {
@@ -44,7 +47,8 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId, onChangeTemp
   const onChange = (id: string) => {
     const newValue = eligibleShippingMethods?.find(item => item.id === id)
     if (newValue) {
-      setSelectedValue(newValue)    }
+      setSelectedValue(newValue)
+    }
   }
 
   const handleSubmit = () => {
@@ -77,7 +81,7 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId, onChangeTemp
         </div>
         <div className={s.right}>
           <div className={s.price}>
-            {selectedValue?.price ? `${selectedValue?.price} ${currency}` : "Free"}
+            {selectedValue?.price ? `${selectedValue?.priceWithTax / 100} ${currency}` : "Free"}
           </div>
         </div>
       </div>
@@ -87,7 +91,7 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId, onChangeTemp
             key={item.id}
             id={item.id}
             name={item.name}
-            price={item.price}
+            price={item.priceWithTax / 100}
             currency={currency}
             isActive={selectedValue?.id === item.id}
             onSelect={onChange}

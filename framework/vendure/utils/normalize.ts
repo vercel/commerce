@@ -1,17 +1,11 @@
-import { RecipeCardProps } from './../../../src/components/common/RecipeCard/RecipeCard'
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart'
 import { Product as ProductTypes, ProductCard } from '@commerce/types/product'
-import { BlogProps, OrderState, ShippingMethodQuoteProps } from 'src/utils/types.utils'
-import {
-  CartFragment,
-  SearchResultFragment,
-  Favorite,
-  ShippingMethod,
-  Blog,
-  Product,
-  ShippingMethodQuote,
-} from '../schema'
 import { Recipe } from '@commerce/types/recipes'
+import { BlogProps, OrderState } from 'src/utils/types.utils'
+import {
+  Blog, CartFragment, Favorite, Product, SearchResultFragment, ShippingMethod
+} from '../schema'
+import { RecipeCardProps } from './../../../src/components/common/RecipeCard/RecipeCard'
 // import { RecipeList } from '@commerce/types/recipes'
 // import { Blog, CartFragment, Favorite, Product, RecipeList, SearchResultFragment, ShippingMethod } from '../schema'
 
@@ -219,14 +213,4 @@ export function normalizeRecipe(recipe: Recipe): RecipeCardProps {
     description: recipe.description || ""
   }
 
-}
-
-export function normalizeShippingMethodQuote(item: ShippingMethodQuote): ShippingMethodQuoteProps {
-  return {
-    id: item.id,
-    name: item.name,
-    code: item.code,
-    price: item.priceWithTax / 100,
-    description: item.description,
-  }
 }

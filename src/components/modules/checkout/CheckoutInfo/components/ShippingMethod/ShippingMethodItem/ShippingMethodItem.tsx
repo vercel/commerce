@@ -1,10 +1,10 @@
+import { ShippingMethodQuote } from '@framework/schema'
 import classNames from 'classnames'
 import React, { memo } from 'react'
 import { IconCheck } from 'src/components/icons'
-import { ShippingMethodQuoteProps } from 'src/utils/types.utils'
 import s from './ShippingMethodItem.module.scss'
 
-interface Props extends Omit<ShippingMethodQuoteProps, 'description' | 'code'> {
+interface Props extends Omit<ShippingMethodQuote, 'description' | 'code'> {
   currency: string
   onSelect: (id: string) => void
   isActive: boolean

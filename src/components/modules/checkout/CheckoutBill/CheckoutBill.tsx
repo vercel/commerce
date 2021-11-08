@@ -22,12 +22,12 @@ const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {
   }, [data?.shippingLine?.priceWithTax, temporaryShippingPrice])
 
   const total = useMemo(() => {
+    const totalPrice = data?.totalPrice || 0
     if (data?.shippingLine?.priceWithTax === shippingPrice) {
-      return data?.totalPrice
+      return totalPrice
     } else {
-      return data?.totalPrice || 0 + shippingPrice
+      return totalPrice - (data?.shippingLine?.priceWithTax || 0) + shippingPrice
     }
-
   }, [data?.shippingLine?.priceWithTax, data?.totalPrice, shippingPrice])
 
 
