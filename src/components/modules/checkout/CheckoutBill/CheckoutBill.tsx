@@ -23,11 +23,14 @@ const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {
 
   const total = useMemo(() => {
     const totalPrice = data?.totalPrice || 0
-    if (data?.shippingLine?.priceWithTax === shippingPrice) {
-      return totalPrice
-    } else {
-      return totalPrice - (data?.shippingLine?.priceWithTax || 0) + shippingPrice
+    if (totalPrice) {
+      if (data?.shippingLine?.priceWithTax === shippingPrice) {
+        return totalPrice
+      } else {
+        return totalPrice - (data?.shippingLine?.priceWithTax || 0) + shippingPrice
+      }
     }
+    return 0
   }, [data?.shippingLine?.priceWithTax, data?.totalPrice, shippingPrice])
 
 
