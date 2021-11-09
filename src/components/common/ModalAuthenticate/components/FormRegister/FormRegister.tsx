@@ -51,7 +51,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
   const onCheckIsUserVerifyEmailCallback = (isSuccess: boolean, rs: UserVerifyEmailResult | string) => {
     if (isSuccess) {
       if ((rs as UserVerifyEmailResult).isVerified) {
-        showMessageWarning("You already have an account with this email address. Please login to continue.", 10000)
+        showMessageWarning("You already have an account with this email address. Please sign in to continue.", 10000)
       } else {
         if (formRef?.current) {
           const values = formRef.current.values

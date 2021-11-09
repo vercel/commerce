@@ -36,7 +36,7 @@ const ItemWishList = memo(({ id, onChange }: Props) => {
       setIsWishlistIcon(!isWishlistIcon);
       onToggleProductWishlist({ productId: id }, onToggleCallBack)
     } else {
-      showMessageWarning("Please login to add the product to your wishlist", 6000)
+      showMessageWarning("Please sign in to add the product to your wishlist", 6000)
       openModalAuthen()
     }
   }
