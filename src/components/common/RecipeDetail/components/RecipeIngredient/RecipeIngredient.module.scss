@@ -20,13 +20,16 @@
     }
 }
 
-.errorMessage {
+.messageDetail {
     margin-top: 4rem;
-    color: var(--negative);
     @screen md {
         min-width: 38rem;
     }
+    .success {
+        color: var(--positive);
+    }
     li {
+        color: var(--negative);
         padding: 0.8rem 0;
         margin-bottom: 1.6rem;
         .error {

@@ -17,9 +17,11 @@ const ModalInfo = ({
 }: ModalInfoProps) => {
   return (
     <ModalCommon {...props} title={title} onClose={onClose}>
-      {children}
-      <div className={s.footer}>
-        <ButtonCommon onClick={onOk || onClose}>{okText}</ButtonCommon>
+      <div className={s.contentModalInfo}>
+        {children}
+        <div className={s.footer}>
+          <ButtonCommon onClick={onOk || onClose} size='small'>{okText}</ButtonCommon>
+        </div>
       </div>
     </ModalCommon>
   )

@@ -20,12 +20,25 @@ interface Props {
 }
 
 function getDetailErrorMessage(input: ProductCardProps[], data: AddItemToOrderResult[]) {
-    return <ul className={s.errorMessage}>
+    const addedItemNames = [] as string[]
+
+    data.map((item: AddItemToOrderResult, index: number) => {
+        if (item.__typename === 'Order') {
+            addedItemNames.push(input[index].productVariantName || input[index].name || '')
+        }
+        return null
+    })
+
+
+    return <ul className={s.messageDetail}>
+        {
+            addedItemNames.length > 0 && <li className={s.success}>Added <b>{addedItemNames.join(", ")}</b> to cart successfully.</li>
+        }
         {
             data.map((item: AddItemToOrderResult, index: number) => {
                 if (item.__typename !== 'Order') {
                     const message = (item as ErrorResult).message === ErrorMessage.NegativeQuantityError ? 'Out of stock' : (item as ErrorResult).message
-                    return <li>Fail to add <b>{input[index].productVariantName}</b> to cart with this error message: <div className={s.error}>{message}</div></li>
+                    return <li>Add <b>{input[index].productVariantName}</b> to cart failed with this error message: <div className={s.error}>{message}</div></li>
                 }
                 return null
             })
