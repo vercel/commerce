@@ -1,8 +1,4 @@
-import type {
-  GetStaticPathsContext,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next'
+import type { GetStaticPathsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'

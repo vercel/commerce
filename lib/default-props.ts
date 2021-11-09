@@ -1,4 +1,4 @@
-import {
+import type {
   GetStaticProps,
   GetStaticPropsContext,
   GetStaticPropsResult,
@@ -12,40 +12,55 @@ import { ParsedUrlQuery } from 'querystring'
 export interface DefaultPageProps {
   pages: Page[]
   categories: Category[]
-  brand: string
+  brand: any
 }
 
-export function withDefaultStaticProps<T, P extends ParsedUrlQuery = any>(
-  fn?: ({
-    defaultProps,
-    ...context
-  }: GetStaticPropsContext<P> & {
-    defaultProps: DefaultPageProps
-  }) => GetStaticPropsResult<T> | Promise<GetStaticPropsResult<T>>
+interface ContextWithDefaultProps<P extends ParsedUrlQuery = ParsedUrlQuery>
+  extends GetStaticPropsContext<P> {
+  defaultProps: DefaultPageProps
+}
+
+type WrappedGetStaticPropsResult<Q> =
+  | GetStaticPropsResult<Q>
+  | Promise<GetStaticPropsResult<Q>>
+
+export function withDefaultStaticProps<
+  T,
+  P extends ParsedUrlQuery = ParsedUrlQuery
+>(
+  fn?: (context: ContextWithDefaultProps<P>) => WrappedGetStaticPropsResult<T>
 ): GetStaticProps<T & DefaultPageProps> {
   return async function wrapped(context) {
     const config = { locale: context.locale, locales: context.locales }
     const preview = context.preview
 
     const pages = await commerce.getAllPages({ config, preview })
-    const { categories, brand } = await commerce.getSiteInfo({
+    const { categories, brand = null } = await commerce.getSiteInfo({
       config,
       preview,
     })
 
+    const defaultProps = {
+      pages,
+      categories,
+      brand,
+    }
+
     if (!fn) {
       return {
         props: {
-          pages,
+          ...pages,
           categories,
           brand,
         },
       }
     }
 
+    // @ts-ignore
+    // TODO make types compatible
     const pageProps = await fn({
+      defaultProps,
       ...context,
-      defaultprops: { pages, categories, brand },
     })
 
     // narrow GetStaticPropsResult type
@@ -54,7 +69,7 @@ export function withDefaultStaticProps<T, P extends ParsedUrlQuery = any>(
         ...pageProps,
         props: {
           ...pageProps.props,
-          pages,
+          ...pages,
           categories,
           brand,
         },
@@ -64,7 +79,7 @@ export function withDefaultStaticProps<T, P extends ParsedUrlQuery = any>(
     return {
       ...pageProps,
       props: {
-        pages,
+        ...pages,
         categories,
         brand,
       },
