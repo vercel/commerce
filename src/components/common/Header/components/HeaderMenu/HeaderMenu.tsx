@@ -5,7 +5,7 @@ import { memo, useCallback, useMemo } from 'react'
 import { ButtonCommon } from 'src/components/common'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
-import { useCartDrawer } from 'src/components/contexts'
+import { useCartDrawer, useMessage } from 'src/components/contexts'
 import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { useActiveCustomer } from 'src/components/hooks/auth'
 import {
@@ -50,12 +50,19 @@ const HeaderMenu = memo(
     const { customer } = useActiveCustomer()
     const { openModalAuthen } = useModalAuthen()
     const { logout } = useLogout()
+    const { showMessageWarning } = useMessage()
 
     const openModalRegister = useCallback(() => {
       return openModalAuthen(undefined, 'register')
     }, [openModalAuthen])
 
-    const onClickOpenModalAuthen = () => {
+    const showMessageSignInRequireForOrder = () => {
+      showMessageWarning("Please sign in to see information about your orders")
+      openModalAuthen()
+    }
+
+    const showMessageSignInRequireForWishlist = () => {
+      showMessageWarning("Please sign in to see your wishlist")
       openModalAuthen()
     }
 
@@ -169,10 +176,10 @@ const HeaderMenu = memo(
               </li>
             </> : <>
               <li>
-                <button onClick={onClickOpenModalAuthen}><IconHistory /></button>
+                <button onClick={showMessageSignInRequireForOrder}><IconHistory /></button>
               </li>
               <li>
-                <button onClick={onClickOpenModalAuthen} className={s.iconFavourite}><IconHeart /></button>
+                <button onClick={showMessageSignInRequireForWishlist} className={s.iconFavourite}><IconHeart /></button>
               </li>
               <li>
                 <NotificationDropdown isShowLogin={true} isOpen={isNotificationOpen} toggle={toggleNotification} />

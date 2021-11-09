@@ -22,7 +22,7 @@ const ModalConfirm = ({
   ...props
 }: ModalConfirmProps) => {
   return (
-    <ModalCommon onClose={onClose} title={title} {...props} maxWidth={"30%"}>
+    <ModalCommon onClose={onClose} title={title} {...props} maxWidth={"50rem"}>
       {children}
       <div className={s.footer}>
         <div className="mr-4">
