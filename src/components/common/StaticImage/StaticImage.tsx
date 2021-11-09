@@ -6,15 +6,17 @@ export interface Props {
     src: StaticImageData,
     alt?: string,
     priority: boolean
+    lazyBoundary?: string
 
 }
 
-const StaticImage = ({ src, alt, priority = true }: Props) => {
+const StaticImage = ({ src, alt, priority = false, lazyBoundary = "500px" }: Props) => {
     return (
         <Image src={src} alt={alt}
             placeholder='blur'
             className={s.staticImage}
-            // priority={priority}
+            priority={priority}
+            lazyBoundary={lazyBoundary}
         />
     )
 }
