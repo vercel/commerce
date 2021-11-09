@@ -1,10 +1,8 @@
-import { getSearchStaticProps } from '@lib/search-props'
-import type { GetStaticPathsResult, GetStaticPropsContext } from 'next'
+import type { GetStaticPathsResult } from 'next'
 import Search from '@components/search'
+import { withDefaultSearchStaticProps } from '@lib/default-props'
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  return getSearchStaticProps(context)
-}
+export const getStaticProps = withDefaultSearchStaticProps()
 
 export function getStaticPaths(): GetStaticPathsResult {
   return {

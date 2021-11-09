@@ -12,7 +12,7 @@ import type { Page } from '@commerce/types/page'
 import { useRouter } from 'next/router'
 import { withDefaultStaticProps } from '@lib/default-props'
 
-export const getStaticProps = withDefaultStaticProps(
+export const getStaticProps = withDefaultStaticProps<{ page: any }>(
   async function getStaticProps({
     // TODO fix compatibility
     preview,

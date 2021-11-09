@@ -7,16 +7,16 @@ import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
+import { withDefaultStaticProps } from '@lib/default-props'
 
-export async function getStaticProps({
-  params,
-  locale,
-  locales,
-  preview,
-}: GetStaticPropsContext<{ slug: string }>) {
+export const getStaticProps = withDefaultStaticProps<
+  {
+    product: any
+    relatedProducts: any
+  },
+  { slug: string }
+>(async function getStaticProps({ params, locale, locales, preview }) {
   const config = { locale, locales }
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
   const productPromise = commerce.getProduct({
     variables: { slug: params!.slug },
     config,
@@ -28,8 +28,6 @@ export async function getStaticProps({
     config,
     preview,
   })
-  const { pages } = await pagesPromise
-  const { categories } = await siteInfoPromise
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
 
@@ -39,14 +37,12 @@ export async function getStaticProps({
 
   return {
     props: {
-      pages,
       product,
       relatedProducts,
-      categories,
     },
     revalidate: 200,
   }
-}
+})
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const { products } = await commerce.getAllProductPaths()

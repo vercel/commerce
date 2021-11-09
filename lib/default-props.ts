@@ -7,6 +7,7 @@ import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 
 import commerce from '@lib/api/commerce'
+import { ParsedUrlQuery } from 'querystring'
 
 export interface DefaultPageProps {
   pages: Page[]
@@ -14,13 +15,13 @@ export interface DefaultPageProps {
   brand: string
 }
 
-export function withDefaultStaticProps<T = { [key: string | number]: any }>(
+export function withDefaultStaticProps<T, P extends ParsedUrlQuery = any>(
   fn?: ({
     defaultProps,
     ...context
-  }: GetStaticPropsContext & {
+  }: GetStaticPropsContext<P> & {
     defaultProps: DefaultPageProps
-  }) => GetStaticPropsResult<T>
+  }) => GetStaticPropsResult<T> | Promise<GetStaticPropsResult<T>>
 ): GetStaticProps<T & DefaultPageProps> {
   return async function wrapped(context) {
     const config = { locale: context.locale, locales: context.locales }
@@ -69,4 +70,13 @@ export function withDefaultStaticProps<T = { [key: string | number]: any }>(
       },
     }
   }
+}
+
+export function withDefaultSearchStaticProps() {
+  return withDefaultStaticProps(async function () {
+    return {
+      props: {},
+      revalidate: 200,
+    }
+  })
 }
