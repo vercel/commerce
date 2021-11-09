@@ -26,7 +26,6 @@
         &:active {
           outline: none;
           border: 1px solid var(--primary);
-          @apply shadow-md;
         }
   
         &::placeholder {
@@ -83,7 +82,6 @@
         &:hover,
         &:focus,
         &:active {
-          @apply shadow-md;
           border: none;
         }
       }

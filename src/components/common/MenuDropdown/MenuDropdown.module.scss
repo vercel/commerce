@@ -68,10 +68,12 @@
             left: 0;
         }
         &:hover {
-            @apply block shadow-md;
+            @apply block;
+            outline: none;
+            border: none;
         }
         .menuIner {
-            @apply list-none bg-white;
+            @apply list-none bg-white overflow-hidden;
             border-radius: 0.8rem;
             border: 1px solid var(--text-active);
             margin-top: 0.4rem;

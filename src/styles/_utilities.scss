@@ -141,9 +141,10 @@
             width: calc(100% + #{$border} * 2);
             height: calc(100% + #{$border} * 2);
             background-color: var(--primary);
-            top: calc(#{$border} * -1);
-            left: calc(#{$border} * -1);
             clip-path: url(#svg-custom-shape);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 
