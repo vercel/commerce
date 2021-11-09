@@ -1,4 +1,8 @@
-import { GetStaticProps, GetStaticPropsResult } from 'next'
+import {
+  GetStaticProps,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from 'next'
 import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 
@@ -11,7 +15,12 @@ export interface DefaultPageProps {
 }
 
 export function withDefaultStaticProps<T = { [key: string | number]: any }>(
-  fn?: GetStaticProps<T>
+  fn?: ({
+    defaultProps,
+    ...context
+  }: GetStaticPropsContext & {
+    defaultProps: DefaultPageProps
+  }) => GetStaticPropsResult<T>
 ): GetStaticProps<T & DefaultPageProps> {
   return async function wrapped(context) {
     const config = { locale: context.locale, locales: context.locales }
@@ -33,7 +42,10 @@ export function withDefaultStaticProps<T = { [key: string | number]: any }>(
       }
     }
 
-    const pageProps = await fn(context)
+    const pageProps = await fn({
+      ...context,
+      defaultprops: { pages, categories, brand },
+    })
 
     // narrow GetStaticPropsResult type
     if ('props' in pageProps) {

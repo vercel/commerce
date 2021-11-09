@@ -10,43 +10,47 @@ import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import type { Page } from '@commerce/types/page'
 import { useRouter } from 'next/router'
+import { withDefaultStaticProps } from '@lib/default-props'
 
-export async function getStaticProps({
-  preview,
-  params,
-  locale,
-  locales,
-}: GetStaticPropsContext<{ pages: string[] }>) {
-  const config = { locale, locales }
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { pages } = await pagesPromise
-  const { categories } = await siteInfoPromise
-  const path = params?.pages.join('/')
-  const slug = locale ? `${locale}/${path}` : path
-  const pageItem = pages.find((p: Page) =>
-    p.url ? getSlug(p.url) === slug : false
-  )
-  const data =
-    pageItem &&
-    (await commerce.getPage({
-      variables: { id: pageItem.id! },
-      config,
-      preview,
-    }))
+export const getStaticProps = withDefaultStaticProps(
+  async function getStaticProps({
+    // TODO fix compatibility
+    preview,
+    params,
+    locale,
+    locales,
+    defaultProps,
+  }) {
+    const config = { locale, locales }
+    if (!Array.isArray(params?.pages)) {
+      throw new Error(`Wrong param: pages not found`)
+    }
+    const path = params?.pages?.join('/')
+    const slug = locale ? `${locale}/${path}` : path
+    const pageItem = defaultProps.pages.find((p: Page) =>
+      p.url ? getSlug(p.url) === slug : false
+    )
+    const data =
+      pageItem &&
+      (await commerce.getPage({
+        variables: { id: pageItem.id! },
+        config,
+        preview,
+      }))
 
-  const page = data?.page
+    const page = data?.page
 
-  if (!page) {
-    // We throw to make sure this fails at build time as this is never expected to happen
-    throw new Error(`Page with slug '${slug}' not found`)
+    if (!page) {
+      // We throw to make sure this fails at build time as this is never expected to happen
+      throw new Error(`Page with slug '${slug}' not found`)
+    }
+
+    return {
+      props: { page },
+      revalidate: 60 * 60, // Every hour
+    }
   }
-
-  return {
-    props: { pages, page, categories },
-    revalidate: 60 * 60, // Every hour
-  }
-}
+)
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const config = { locales }
