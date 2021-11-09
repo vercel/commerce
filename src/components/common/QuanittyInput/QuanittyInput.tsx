@@ -67,19 +67,20 @@ const QuanittyInput = ({
   return (
     <div className={classNames(s.quanittyInputWarper, { [s[size]]: size })}>
       <div className={s.inner}>
-        <div className={s.minusIcon} onClick={onMinusClick}>
+        {/* <div className={s.minusIcon} onClick={onMinusClick}>
           <IconMinus />
-        </div>
-        <input
+        </div> */}
+        {/* <input
           {...props}
           type="number"
           value={value}
           onChange={onValueChange}
           className={s.quanittyInput}
-        />
-        <div className={s.plusIcon} onClick={onPlusClick}>
+        /> */}
+        <span>here</span>
+        {/* <div className={s.plusIcon} onClick={onPlusClick}>
           <IconPlus />
-        </div>
+        </div> */}
       </div>
     </div>
   )
