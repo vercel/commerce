@@ -1,6 +1,6 @@
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
-import { Layout } from 'src/components/common';
+import { BlogEmpty, Layout } from 'src/components/common';
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 import RecipeListBanner from 'src/components/modules/recipes-list/RecipeListBanner/RecipeListBanner';
 import RecipesList from 'src/components/modules/recipes-list/RecipesList/RecipesList';
@@ -17,7 +17,13 @@ export default function RecipeListPage({recipeCollections,recipes,totalItems}:Pr
   return (
     <>
       <RecipeListBanner />
-      <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0}/>
+      {
+        (recipeCollections?.length !== 0 ) &&
+        <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0}/>
+      }
+      {
+        (recipeCollections?.length === 0 ) && <BlogEmpty />
+      }
     </>
   )
 }

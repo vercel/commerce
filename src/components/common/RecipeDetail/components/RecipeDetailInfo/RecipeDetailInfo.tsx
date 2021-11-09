@@ -1,21 +1,36 @@
 import React from 'react'
-import { ImgWithLink } from 'src/components/common'
+import { ResponsiveType } from 'react-multi-carousel'
+import { CarouselCommon, ImgWithLink } from 'src/components/common'
 import { RecipeProps } from 'src/utils/types.utils'
 import RecipeBriefInfo from '../RecipeBriefInfo/RecipeBriefInfo'
 import s from './RecipeDetailInfo.module.scss'
-
+import RecipeImgItem,{RecipeImgItemProps} from '../RecipeImgItem/RecipeImgItem'
 
 interface Prop extends RecipeProps {
     className?: string
-    children?: any
+    children?: any,
 }
 
+const RESPONSIVE: ResponsiveType = {
+    desktop: {
+      breakpoint: { max: 9999, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  }
 const RecipeDetailInfo = ({ ...rest}: Prop) => {
-    
+
     return (
         <section className={s.recipeDetailInfo}>
             <div className={s.img}>
-                <ImgWithLink src= {rest.imageSrc ?? ''} alt={rest.title ?? ''} />
+                {/* <ImgWithLink src= {rest.imageSrc ?? ''} alt={rest.title ?? ''} /> */}
+                <CarouselCommon<RecipeImgItemProps>
+                    data={rest.images || []}
+                    itemKey="product-detail-img"
+                    Component={RecipeImgItem}
+                    responsive={RESPONSIVE}
+                    showDots={true}
+                />
             </div>
             <div className={s.recipeInfo}>
                 <div className={s.top}>

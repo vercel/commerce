@@ -1,0 +1,44 @@
+export const getRecipeByProductSlugQuery = /* GraphQL */ `
+query recipeByProductSlug($slug:String,$options:RecipeListOptions){
+  recipeByProductSlug(slug:$slug,options:$options){
+   	 items{
+      id
+      assets{
+        preview
+      }
+      featuredAsset {
+        preview
+      }
+      translations{
+        title
+        slug
+        description
+        content
+      }
+      ingredients{
+        id
+        name
+        slug
+        assets{
+          preview
+        }
+        variants{
+          id
+          name
+          priceWithTax
+          currencyCode
+        }
+      }
+      recommendedRecipes{
+        id
+        title
+        slug
+        description
+        featuredAsset{
+          preview
+        }
+      }
+    }
+  }
+}
+`

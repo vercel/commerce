@@ -26,17 +26,20 @@ export interface FeaturedProductProps {
 
 export interface RecipeProps {
     id?:string | null,
-    title: string | null
-    slug: string | null
-    description: string | null
-    imageSrc: string | null
+    title?: string | null
+    slug?: string | null
+    description?: string | null
+    imageSrc?: string | null
     content?: string | null,
     date?: string | null,
     createdAt?:string | null,
     ingredients?: ProductCard[]
-    recommendedRecipes?: RecipeCardProps[]
+    recommendedRecipes?: RecipeCardProps[],
+    images?: BlogImgItem[] | null
 }
-
+export interface BlogImgItem{
+    url:string
+}
 export interface BlogProps {
     id:string,
     title: string

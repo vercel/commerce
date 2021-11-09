@@ -10,7 +10,7 @@ import s from './RecipeIngredient.module.scss'
 interface Props {
     className?: string
     children?: any,
-    data: ProductCardProps[],
+    data?: ProductCardProps[],
 }
 
 const RecipeIngredient = ({ data }: Props) => {

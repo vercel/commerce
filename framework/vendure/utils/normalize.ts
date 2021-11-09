@@ -174,9 +174,13 @@ export function normalizeFavoriteProductResult(item: Favorite) {
 }
 
 export function normalizeRecipe(recipe: Recipe): RecipeProps {
+  console.log(recipe?.assets)
   return {
       id: recipe.id || null,
       title: recipe.translations?.[0]?.title || null,
+      images: recipe?.assets?.map((a) => ({
+        url: recipe.featuredAsset?.preview,
+      })) || null,
       imageSrc: recipe.featuredAsset?.preview || null,
       slug: recipe.translations?.[0]?.slug || null,
       description: recipe.translations?.[0]?.description || null,
@@ -186,7 +190,7 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
         id: product.id,
         name: product.name,
         slug: product.slug,
-        imageSrc: product.assets?.[0].preview || null,
+        imageSrc: recipe.featuredAsset?.preview || null,
         currencyCode: product.variants?.[0]?.currencyCode || null,
         productVariantId: product.variants?.[0]?.id?.toString() || null,
         productVariantName: product.name || null,
@@ -207,7 +211,7 @@ export function normalizeRecipes(recipe: Recipe): RecipeProps {
   return {
       id: recipe.id || null,
       title: recipe.translations?.[0]?.title || null,
-      imageSrc: recipe.featuredAsset?.preview || null,
+      imageSrc: recipe.featuredAsset?.preview ? recipe.featuredAsset?.preview + '?w=800&mode=crop'  : null,
       slug: recipe.translations?.[0].slug || null,
       description: recipe.translations?.[0].description || null,
       content: recipe.translations?.[0].content || null,

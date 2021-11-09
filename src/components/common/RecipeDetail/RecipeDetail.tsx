@@ -5,19 +5,19 @@ import RecipeDetailInfo from './components/RecipeDetailInfo/RecipeDetailInfo'
 import RecipeIngredient from './components/RecipeIngredient/RecipeIngredient'
 import s from './RecipeDetail.module.scss'
 
-
-interface Props extends RecipeProps  {
+interface Props  {
     className?: string
     children?: any,
-    ingredients?: ProductCardProps[]    
+    ingredients?: ProductCardProps[],
+    productRecipe?: RecipeProps[]
 }
 
 const RecipeDetail = ({ ingredients,...rest }: Props) => {
-  
+    
     return (
         <section className={s.recipeDetail}>
             <RecipeDetailInfo {...rest} />
-            <RecipeIngredient data={ingredients || []} />
+            <RecipeIngredient data={ingredients} />
         </section >
     )
 }

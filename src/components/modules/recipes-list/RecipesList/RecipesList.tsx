@@ -17,7 +17,7 @@ import s from './RecipesList.module.scss'
 
 const BREADCRUMB = [
   {
-    name: 'Special Recipes',
+    name: 'Recipes',
     link: `#`,
   },
 ]

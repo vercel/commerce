@@ -58,3 +58,4 @@ export { default as ListProductCardSkeleton} from './ListProductCardSkeleton/Lis
 export { default as ListBlogCardSkeleton} from './ListBlogCardSkeleton/ListBlogCardSkeleton'
 export { default as NotificationItem} from './NotificationItem/NotificationItem'
 export { default as BlogEmpty} from './BlogEmpty/BlogEmpty'
+export { default as RecipeImgItem} from './RecipeDetail/components/RecipeImgItem/RecipeImgItem'

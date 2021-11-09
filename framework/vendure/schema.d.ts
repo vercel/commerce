@@ -2825,6 +2825,12 @@ export type FilterRecipesQuery = PaginatedList & {
     'totalItems'
   }
 }
+export type GetRecipeByProductSlugQuery = PaginatedList & {
+  recipeByProductSlug: { __typename?: 'RecipeList' } & {
+    items: Array<{ __typename?: 'Recipe' } & Recipe>,
+    'totalItems'
+  }
+}
 
 
 export type GetRelevantBlogsQuery = PaginatedList & {
