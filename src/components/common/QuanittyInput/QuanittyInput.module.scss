@@ -1,13 +1,13 @@
 @import "../../../styles/utilities";
 .quanittyInputWarper {
     @apply shape-common-border;
-    // padding: 0.5px 0;
     &::before {
         background-color: var(--text-active);
     }
     .inner {
         @apply inline-flex justify-between items-center;
-        padding: 1rem 2rem;
+        padding: 2px;
+        margin: 0;
     }
     .plusIcon,
     .minusIcon {
