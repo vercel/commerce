@@ -105,11 +105,10 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
 2. Create a new branch `git checkout -b MY_BRANCH_NAME`
-3. Install yarn: `npm install -g yarn`
-4. Install the dependencies: `yarn`
-5. Duplicate `.env.template` and rename it to `.env.local`
-6. Add proper store values to `.env.local`
-7. Run `yarn dev` to build and watch for code changes
+3. Install the dependencies: `npm i`
+4. Duplicate `.env.template` and rename it to `.env.local`
+5. Add proper store values to `.env.local`
+6. Run `npm run dev` to build and watch for code changes
 
 ## Work in progress
 

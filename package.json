@@ -5,7 +5,7 @@
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "analyze": "BUNDLE_ANALYZE=both yarn build",
+    "analyze": "BUNDLE_ANALYZE=both next build",
     "lint": "next lint",
     "prettier-fix": "prettier --write .",
     "find:unused": "npx next-unused",
