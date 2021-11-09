@@ -13,7 +13,10 @@
         }
     }
     .left {  
-        @apply w-full border-r-2 border-solid border-line;
+        @apply w-full;
+        @screen lg { 
+            @apply border-r-2 border-solid border-line;
+        }
     }
     .mobile {
         @apply hidden;
