@@ -4,36 +4,32 @@ import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { withDefaultStaticProps } from '@lib/default-props'
 
-export async function getStaticProps({
-  preview,
-  locale,
-  locales,
-}: GetStaticPropsContext) {
-  const config = { locale, locales }
-  const productsPromise = commerce.getAllProducts({
-    variables: { first: 6 },
-    config,
+export const getStaticProps = withDefaultStaticProps<{ products: any[] }>(
+  async function getStaticProps({
     preview,
-    // Saleor provider only
-    ...({ featured: true } as any),
-  })
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { products } = await productsPromise
-  const { pages } = await pagesPromise
-  const { categories, brands } = await siteInfoPromise
+    locale,
+    locales,
+  }: GetStaticPropsContext) {
+    const config = { locale, locales }
+    const productsPromise = commerce.getAllProducts({
+      variables: { first: 6 },
+      config,
+      preview,
+      // Saleor provider only
+      ...({ featured: true } as any),
+    })
+    const { products } = await productsPromise
 
-  return {
-    props: {
-      products,
-      categories,
-      brands,
-      pages,
-    },
-    revalidate: 60,
+    return {
+      props: {
+        products,
+      },
+      revalidate: 60,
+    }
   }
-}
+)
 
 export default function Home({
   products,
