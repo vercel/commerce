@@ -71,7 +71,7 @@ const NotificationDropdown = memo(({ isOpen, toggle, isShowLogin }: Props) => {
           isShowLogin ?
             <div className={s.messageLogin}>
               <IconBell />
-              <div className={s.message}>Login to see notifications about your orders</div>
+              <div className={s.message}>Sign in to see notifications about your orders</div>
               <ButtonCommon onClick={openModalAuthen} size='small'>{LANGUAGE.BUTTON_LABEL.SIGNIN}</ButtonCommon>
             </div>
             : <>

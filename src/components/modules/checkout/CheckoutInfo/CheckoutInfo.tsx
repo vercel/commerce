@@ -14,6 +14,7 @@ import ShippingMethod from './components/ShippingMethod/ShippingMethod'
 interface CheckoutInfoProps {
   onViewCart: () => void
   currency?: string
+  onChangeTemporaryShippingPrice: (price: number | null) => void
 }
 
 export enum CheckoutStep {
@@ -23,7 +24,7 @@ export enum CheckoutStep {
   PaymentInfo = 4,
 }
 
-const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
+const CheckoutInfo = ({ onViewCart, currency = "", onChangeTemporaryShippingPrice }: CheckoutInfoProps) => {
   const [activeStep, setActiveStep] = useState(1)
   const [doneSteps, setDoneSteps] = useState<CheckoutStep[]>([])
   const { order } = useGetActiveOrderForCheckout()
@@ -148,7 +149,7 @@ const CheckoutInfo = ({ onViewCart, currency = "" }: CheckoutInfoProps) => {
     {
       id: CheckoutStep.ShippingMethodInfo,
       title: 'Shipping Method Information',
-      form: <ShippingMethod onConfirm={onConfirm} currency={currency} initialValueId={order?.shippingLine?.shippingMethod?.id} />,
+      form: <ShippingMethod onConfirm={onConfirm} currency={currency} initialValueId={order?.shippingLine?.shippingMethod?.id} onChangeTemporaryShippingPrice={onChangeTemporaryShippingPrice}/>,
     },
     {
       id: CheckoutStep.PaymentInfo,

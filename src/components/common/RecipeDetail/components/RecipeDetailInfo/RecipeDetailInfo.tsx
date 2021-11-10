@@ -23,14 +23,14 @@ const RecipeDetailInfo = ({ ...rest}: Prop) => {
     return (
         <section className={s.recipeDetailInfo}>
             <div className={s.img}>
-                {/* <ImgWithLink src= {rest.imageSrc ?? ''} alt={rest.title ?? ''} /> */}
-                <CarouselCommon<RecipeImgItemProps>
+                {rest.images === null && <ImgWithLink src= {rest.imageSrc ?? ''} alt={rest.title ?? ''} />}
+                {rest.images !== null && <CarouselCommon<RecipeImgItemProps>
                     data={rest.images || []}
                     itemKey="product-detail-img"
                     Component={RecipeImgItem}
                     responsive={RESPONSIVE}
                     showDots={true}
-                />
+                />}
             </div>
             <div className={s.recipeInfo}>
                 <div className={s.top}>

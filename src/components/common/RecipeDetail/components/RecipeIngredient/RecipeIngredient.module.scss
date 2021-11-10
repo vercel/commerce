@@ -19,3 +19,26 @@
         }
     }
 }
+
+.messageDetail {
+    margin-top: 4rem;
+    @screen md {
+        min-width: 38rem;
+    }
+    .success {
+        color: var(--positive);
+    }
+    li {
+        color: var(--negative);
+        padding: 0.8rem 0;
+        margin-bottom: 1.6rem;
+        .error {
+            padding: .8rem;
+            margin-top: .8rem;
+            
+            text-align: center;
+            background-color: var(--negative-light);
+            border-radius: .8rem;
+        }
+    }
+}

@@ -4,6 +4,7 @@ query recipeByProductSlug($slug:String,$options:RecipeListOptions){
    	 items{
       id
       assets{
+        name
         preview
       }
       featuredAsset {
@@ -27,6 +28,15 @@ query recipeByProductSlug($slug:String,$options:RecipeListOptions){
           name
           priceWithTax
           currencyCode
+        }
+        collections {
+          id
+          name
+        }
+        facetValues {
+          id
+          code
+          name
         }
       }
       recommendedRecipes{

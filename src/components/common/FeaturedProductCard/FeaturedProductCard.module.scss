@@ -2,17 +2,17 @@
 .featuredProductCardWarpper{
     // min-width: 30.2rem;
     height: 14.4rem;
-    padding: 2.4rem;
+    padding: 2.4rem !important;
     @apply bg-primary-light inline-flex justify-start items-center shape-common ;
     @screen md {
         // min-width: 598px;
         height: 28.8rem;
-        padding: 1.6rem 3.2rem 1.6rem 1.6rem;
+        padding: 1.6rem 3.2rem !important;
     }
     @screen 2xl {
         // min-width: 598px;
         height: 28.8rem;
-        padding: 2.4rem 4rem 2.4rem 2.4rem;
+        padding: 2.4rem 4rem !important;
     }
     .left{
         width: 10rem;

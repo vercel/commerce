@@ -9,11 +9,11 @@ interface Props  {
     className?: string
     children?: any,
     ingredients?: ProductCardProps[],
-    productRecipe?: RecipeProps[]
+    productRecipe?: RecipeProps[],
 }
 
 const RecipeDetail = ({ ingredients,...rest }: Props) => {
-    
+
     return (
         <section className={s.recipeDetail}>
             <RecipeDetailInfo {...rest} />

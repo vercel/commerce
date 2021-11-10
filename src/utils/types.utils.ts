@@ -33,9 +33,12 @@ export interface RecipeProps {
     content?: string | null,
     date?: string | null,
     createdAt?:string | null,
-    ingredients?: ProductCard[]
+    ingredients?: ProductCard[] 
     recommendedRecipes?: RecipeCardProps[],
-    images?: BlogImgItem[] | null
+    images?: BlogImgItem[] | null,
+    facetValueIds?: string[] | null,
+    collectionIds?: string[] | null,
+    collection?: string | null,
 }
 export interface BlogImgItem{
     url:string
@@ -53,6 +56,7 @@ export interface BlogProps {
     authorAvatarAsset: string | null
     createdAt: string
 }
+
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
 

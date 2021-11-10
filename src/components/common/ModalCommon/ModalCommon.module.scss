@@ -3,7 +3,7 @@
 .background{
     @apply fixed inset-0 overflow-y-auto;
     background: rgba(20, 20, 20, 0.65);
-    z-index: 10000;
+    z-index: 20001;
     .warpper{
         @apply flex justify-center items-center  min-h-screen;
         .modal{

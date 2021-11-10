@@ -55,7 +55,7 @@ export type Product = {
   options: ProductOption[]
   facetValueIds?: string[]
   collectionIds?: string[]
-  collection?: string[],
+  collection?: string[] | null,
   variants?: ProductVariant[]
   
 }
@@ -70,9 +70,9 @@ export type ProductCard = {
   oldPrice?: number
   discount?: number
   weight?: number
-  facetValueIds?: string[],
-  collectionIds?: string[],
-  collection?: string,
+  facetValueIds?: string[] | null,
+  collectionIds?: string[] | null,
+  collection?: string | null,
   isNotSell?: boolean
   productVariantId?:string | null
   productVariantName?:string | null

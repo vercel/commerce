@@ -8,10 +8,10 @@ export interface ImgWithLinkProps {
     alt?: string,
     blurDataURL?: string
     priority?: boolean
-
+    lazyBoundary?: string
 }
 
-const ImgWithLink = ({ src, alt, blurDataURL = BLUR_DATA_IMG, priority=true }: ImgWithLinkProps) => {
+const ImgWithLink = ({ src, alt, blurDataURL = BLUR_DATA_IMG, priority = false, lazyBoundary = "500px" }: ImgWithLinkProps) => {
     return (
         <div className={s.imgWithLink}>
             <Image src={src || DEFAULT_IMG.src} alt={alt}
@@ -20,7 +20,8 @@ const ImgWithLink = ({ src, alt, blurDataURL = BLUR_DATA_IMG, priority=true }: I
                 placeholder="blur"
                 blurDataURL={blurDataURL}
                 draggable='false'
-                // priority={priority}
+                priority={priority}
+                lazyBoundary={lazyBoundary}
             />
         </div>
     )

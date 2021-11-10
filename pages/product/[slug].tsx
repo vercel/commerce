@@ -30,7 +30,7 @@ export default function Slug({ product, relevantProducts, collections,relevant,r
       setLocal([product])
     }
   }, [product,local,setLocal])
- 
+;
   return <>
     <ProductInfoDetail productDetail={product}/>
 

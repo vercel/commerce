@@ -1,7 +1,8 @@
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
-import { BlogEmpty, Layout } from 'src/components/common';
+import { BlogEmpty, ButtonCommon, Layout } from 'src/components/common';
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
+import RecipeEmpty from 'src/components/modules/recipes-list/RecipeEmpty/RecipeEmpty';
 import RecipeListBanner from 'src/components/modules/recipes-list/RecipeListBanner/RecipeListBanner';
 import RecipesList from 'src/components/modules/recipes-list/RecipesList/RecipesList';
 import { DEFAULT_RECIPES_PAGE_SIZE, REVALIDATE_TIME } from "src/utils/constanst.utils";
@@ -13,17 +14,14 @@ interface Props {
   recipeCollections?: {name: string, value: string, slug: string}[],
   totalItems?: number  
 }
-export default function RecipeListPage({recipeCollections,recipes,totalItems}:Props) {
+export default function RecipeListPage({recipeCollections,recipes=[],totalItems}:Props) {
   return (
     <>
       <RecipeListBanner />
       {
-        (recipeCollections?.length !== 0 ) &&
         <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0}/>
       }
-      {
-        (recipeCollections?.length === 0 ) && <BlogEmpty />
-      }
+     
     </>
   )
 }
@@ -39,14 +37,14 @@ export async function getStaticProps({
   let props = {} as any;
 
 
-  const recipesPromise =  commerce.getAllRecipes({
-    variables: {
-      take: DEFAULT_RECIPES_PAGE_SIZE,
-    },
-    config,
-    preview,
-  })
-  promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes'})
+  // const recipesPromise =  commerce.getAllRecipes({
+  //   variables: {
+  //     take: DEFAULT_RECIPES_PAGE_SIZE,
+  //   },
+  //   config,
+  //   preview,
+  // })
+  // promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes'})
   
   // collection
   const collectionsPromise = commerce.getAllRecipeCollections({
