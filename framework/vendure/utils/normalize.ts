@@ -1,7 +1,8 @@
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
 import { Product as ProductTypes, ProductCard } from '@commerce/types/product';
+import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { BlogProps, OrderState } from 'src/utils/types.utils';
-import { Blog, CartFragment, Favorite, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
+import { Banner, Blog, CartFragment, Favorite, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
 import { RecipeProps } from './../../../src/utils/types.utils';
 import { Product as ProductIngredients } from './../schema.d';
 // import { Recipe } from '@commerce/types/recipes'
@@ -173,43 +174,43 @@ export function normalizeFavoriteProductResult(item: Favorite) {
 
 export function normalizeRecipe(recipe: Recipe): RecipeProps {
   return {
+    id: recipe.id || null,
+    title: recipe.translations?.[0]?.title || null,
+    imageSrc: recipe.featuredAsset?.preview || null,
+    slug: recipe.translations?.[0]?.slug || null,
+    description: recipe.translations?.[0]?.description || null,
+    content: recipe.translations?.[0]?.content || null,
+    createdAt: recipe.createdAt || null,
+    ingredients: recipe.ingredients?.map((product: ProductIngredients) => ({
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      imageSrc: product.assets?.[0].preview || null,
+      currencyCode: product.variants?.[0]?.currencyCode || null,
+      productVariantId: product.variants?.[0]?.id?.toString() || null,
+      productVariantName: product.name || null,
+      price: product.variants?.[0]?.priceWithTax || null,
+    })),
+    recommendedRecipes: recipe.recommendedRecipes?.map((recipe: Recipe) => ({
       id: recipe.id || null,
-      title: recipe.translations?.[0]?.title || null,
+      title: recipe.title || null,
       imageSrc: recipe.featuredAsset?.preview || null,
-      slug: recipe.translations?.[0]?.slug || null,
-      description: recipe.translations?.[0]?.description || null,
-      content: recipe.translations?.[0]?.content || null,
-      createdAt: recipe.createdAt || null,
-      ingredients : recipe.ingredients?.map((product:ProductIngredients)=>({
-        id: product.id,
-        name: product.name,
-        slug: product.slug,
-        imageSrc: product.assets?.[0].preview || null,
-        currencyCode: product.variants?.[0]?.currencyCode || null,
-        productVariantId: product.variants?.[0]?.id?.toString() || null,
-        productVariantName: product.name || null,
-        price: product.variants?.[0]?.priceWithTax || null,
-      })),
-      recommendedRecipes: recipe.recommendedRecipes?.map((recipe:Recipe)=>({
-        id: recipe.id || null,
-        title: recipe.title || null,
-        imageSrc: recipe.featuredAsset?.preview || null,
-        slug: recipe.slug || null,
-        description: recipe.description || null
-      }))
+      slug: recipe.slug || null,
+      description: recipe.description || null
+    }))
   }
 }
 
 export function normalizeRecipes(recipe: Recipe): RecipeProps {
 
   return {
-      id: recipe.id || null,
-      title: recipe.translations?.[0]?.title || null,
-      imageSrc: recipe.featuredAsset?.preview || null,
-      slug: recipe.translations?.[0].slug || null,
-      description: recipe.translations?.[0].description || null,
-      content: recipe.translations?.[0].content || null,
-      createdAt: recipe.createdAt || null
+    id: recipe.id || null,
+    title: recipe.translations?.[0]?.title || null,
+    imageSrc: recipe.featuredAsset?.preview || null,
+    slug: recipe.translations?.[0].slug || null,
+    description: recipe.translations?.[0].description || null,
+    content: recipe.translations?.[0].content || null,
+    createdAt: recipe.createdAt || null
   }
 }
 
@@ -227,6 +228,16 @@ export function normalizeBlog(blog: Blog): BlogProps {
     authorName: blog.authorName || '',
     authorAvatarAsset: blog.authorAvatarAsset?.preview || null,
     createdAt: blog.createdAt
+  }
+}
+
+export function normalizeBanner(banner: Banner): BannerItemProps {
+  return {
+    imgLink: banner.img?.preview || '',
+    title: banner.title,
+    subtitle: banner.subtitle || '',
+    buttonLabel: banner.buttonLabel || '',
+    linkButton: banner.title || '',
   }
 }
 

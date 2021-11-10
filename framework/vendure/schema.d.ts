@@ -2809,6 +2809,85 @@ export type BlogTranslation = {
   content: Scalars['String']
 }
 
+export type QueryBannersByPageArgs = {
+  options?: Maybe<BannerListOptions>;
+  page: PageName;
+};
+
+export type BannerFilterParameter = {
+  backgroundColor?: Maybe<StringOperators>;
+  buttonLabel?: Maybe<StringOperators>;
+  buttonLink?: Maybe<StringOperators>;
+  createdAt?: Maybe<DateOperators>;
+  languageCode?: Maybe<StringOperators>;
+  order?: Maybe<NumberOperators>;
+  page?: Maybe<StringOperators>;
+  subtitle?: Maybe<StringOperators>;
+  title?: Maybe<StringOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type BannerSortParameter = {
+  backgroundColor?: Maybe<SortOrder>;
+  buttonLabel?: Maybe<SortOrder>;
+  buttonLink?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  order?: Maybe<SortOrder>;
+  page?: Maybe<SortOrder>;
+  subtitle?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type BannerListOptions = {
+  filter?: Maybe<BannerFilterParameter>;
+  skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<BannerSortParameter>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type BannerTranslation = {
+  __typename?: 'BannerTranslation';
+  buttonLabel?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  subtitle?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type BannerList = PaginatedList & {
+  __typename?: 'BannerList';
+  items: Array<Banner>;
+  totalItems: Scalars['Int'];
+};
+
+export type Banner = Node & {
+  __typename?: 'Banner';
+  backgroundColor?: Maybe<Scalars['String']>;
+  buttonLabel?: Maybe<Scalars['String']>;
+  buttonLink?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  img?: Maybe<Asset>;
+  languageCode: LanguageCode;
+  order?: Maybe<Scalars['Int']>;
+  page: Scalars['String'];
+  subtitle?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  translations: Array<BannerTranslation>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type GetBannersByPageQuery = { __typename?: 'Query' } & {
+  bannersByPage: { __typename?: 'BannerList' } & {
+    items: Array<{ __typename?: 'SearchResult' } & Banner>,
+    'totalItems'
+  }
+}
+
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {

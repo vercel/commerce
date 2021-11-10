@@ -10,7 +10,7 @@ import s from './BannerItem.module.scss'
 export interface BannerItemProps {
     imgLink: string,
     title: string,
-    subtitle: string,
+    subtitle?: string,
     buttonLabel?: string,
     linkButton?: string,
     size?: 'small' | 'large',
@@ -45,4 +45,5 @@ const BannerItem = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTT
     )
 })
 
+BannerItem.displayName = 'BannerItem'
 export default BannerItem

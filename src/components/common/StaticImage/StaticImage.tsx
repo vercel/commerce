@@ -5,8 +5,8 @@ import Image from 'next/image'
 export interface Props {
     src: StaticImageData,
     alt?: string,
-    priority: boolean
     lazyBoundary?: string
+    priority?: boolean
 
 }
 

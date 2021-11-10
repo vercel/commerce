@@ -18,6 +18,7 @@ import getAllRecipes from './operations/get-all-recipes'
 import getAllRecipePaths from './operations/get-all-recipe-paths'
 import getRecipeDetail from './operations/get-recipe-detail'
 import getAllRecipeCollections from './operations/get-all-recipe-collections'
+import getBannersByPage from './operations/get-banners-by-page'
 
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
@@ -61,7 +62,8 @@ const operations = {
   getAllRecipes,
   getAllRecipePaths,
   getRecipeDetail,
-  getAllRecipeCollections
+  getAllRecipeCollections,
+  getBannersByPage,
 }
 
 export const provider = { config, operations }

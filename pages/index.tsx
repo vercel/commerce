@@ -6,11 +6,13 @@ import { FacetValue } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
+import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
-import { CollectionsWithData, PromiseWithKey } from 'src/utils/types.utils';
+import { CollectionsWithData, PageName, PromiseWithKey } from 'src/utils/types.utils';
+import ErrorPage from './_error';
 
 
 interface Props {
@@ -18,29 +20,34 @@ interface Props {
   freshProducts: ProductCard[],
   featuredProducts: ProductCard[],
   collections: Collection[]
-  spiceProducts:ProductCard[]
-  collectionProps:CollectionsWithData[]
-  recipesCollection:RecipeCollection[]
+  spiceProducts: ProductCard[]
+  collectionProps: CollectionsWithData[]
+  recipesCollection: RecipeCollection[]
+  banners: BannerItemProps[]
+  error ?: string
 }
-export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
-  freshProducts, featuredProducts,recipesCollection,
-  collections, spiceProducts }: Props) {
+export default function Home({ error, featuredAndDiscountFacetsValue, collectionProps,
+  freshProducts, featuredProducts, recipesCollection,
+  collections, spiceProducts, banners }: Props) {
+  if (error) {
+    return <ErrorPage />
+  }
   return (
     <>
-      <HomeBanner />
+      <HomeBanner banners={banners} />
       <HomeFeature />
       <HomeCategories />
       <FreshProducts data={freshProducts} collections={collections} />
       <HomeCollection data={collectionProps} />
       <HomeVideo />
-      {spiceProducts.length > 0 && <HomeSpice data={spiceProducts} />}
+      {spiceProducts?.length > 0 && <HomeSpice data={spiceProducts} />}
       {
         featuredProducts.length > 0 &&
         <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       }
       <HomeCTA />
       {!checkIsRecipeInCollectionsEmpty(recipesCollection) && <HomeRecipe recipesCollection={recipesCollection} />}
-      
+
       <HomeSubscribe />
     </>
   )
@@ -114,8 +121,6 @@ export async function getStaticProps({
     props.featuredProducts = []
   }
 
-
-
   // spiceProducts
   const spiceProducts = commerce.getAllProducts({
     variables: {
@@ -125,10 +130,15 @@ export async function getStaticProps({
     preview,
   })
   promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
-  
+
   // recipe 
-  const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
+  const recipesCollection = await commerce.getAllRecipeCollections({ variables: { first: 3 } })
   props.recipesCollection = recipesCollection.recipeCollections
+
+  // banner
+  const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.HOME } })
+  promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
+
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)
@@ -145,14 +155,18 @@ export async function getStaticProps({
     const rs = await Promise.all(promises)
 
     promisesWithKey.map((item, index) => {
-      props[item.key] = item.keyResult ? FilterOneVatiant(rs[index][item.keyResult]) : rs[index]
+      props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
+
     return {
       props,
       revalidate: REVALIDATE_TIME,
     }
-  } catch (err) {
+  } catch (err: any) {
+    return {
+      props: { error: err.message }
+    }
 
   }
 }
