@@ -27,6 +27,7 @@ interface Props {
 }
 
 const HomeBanner = ({ banners }: Props) => {
+   
     return (
         <div className={s.homeBanner}>
             <section className={s.left}>
