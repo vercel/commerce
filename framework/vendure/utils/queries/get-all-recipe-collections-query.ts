@@ -6,6 +6,10 @@ query recipeCollections ($options: RecipeCollectionListOptions) {
       id
       name
       slug
+      assets{
+        name
+        preview
+      }
       featuredAsset {
         preview
       }

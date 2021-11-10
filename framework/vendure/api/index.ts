@@ -1,3 +1,4 @@
+
 import type { CommerceAPIConfig } from '@commerce/api'
 import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
 import getAllBlogs from './operations/get-all-blogs'
@@ -18,6 +19,7 @@ import getAllRecipes from './operations/get-all-recipes'
 import getAllRecipePaths from './operations/get-all-recipe-paths'
 import getRecipeDetail from './operations/get-recipe-detail'
 import getAllRecipeCollections from './operations/get-all-recipe-collections'
+import getRecipeByProductSlug from './operations/get-recipe-by-product-slug'
 
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
@@ -61,7 +63,8 @@ const operations = {
   getAllRecipes,
   getAllRecipePaths,
   getRecipeDetail,
-  getAllRecipeCollections
+  getAllRecipeCollections,
+  getRecipeByProductSlug
 }
 
 export const provider = { config, operations }

@@ -11,6 +11,9 @@ query activeCustomer($options: FavoriteListOptions) {
           id
           name
           slug
+          featuredAsset{
+            preview
+          }
           assets{
             preview
           }
@@ -19,6 +22,15 @@ query activeCustomer($options: FavoriteListOptions) {
             name
             priceWithTax
             currencyCode
+          }
+          collections {
+            id
+            name
+          }
+          facetValues {
+            id
+            code
+            name
           }
         }
       }

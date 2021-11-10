@@ -37,7 +37,7 @@ const RESPONSIVE = {
   }
 };
 const ProductCarousel = ({ data, responsive= RESPONSIVE, collection,  ...props }: ProductCarouselProps) => {
-
+  
   return (
     <>
       <div className={s.productCardWarpper}>

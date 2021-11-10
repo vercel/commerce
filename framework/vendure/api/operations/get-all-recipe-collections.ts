@@ -36,7 +36,7 @@ export default function getAllRecipeCollectionsOperation({
     const { data } = await config.fetch<GetAllRecipeCollectionsQuery>(query, {
       variables,
     })
-
+   
     return {
         recipeCollections: data.recipeCollections.items.map((collection)=>{
           return {...collection, recipes:{items:collection.recipes.items.map((recipe)=>normalizeRecipe(recipe))}}
