@@ -3,6 +3,7 @@ import commerce from '@lib/api/commerce';
 import { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 import { Layout, RecipeDetail, RecommendedRecipes } from 'src/components/common';
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
+import { RecipeBreadcrumb } from 'src/components/modules/recipe-detail';
 import { REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { getAllPromies } from 'src/utils/funtion.utils';
 import { PromiseWithKey } from 'src/utils/types.utils';
@@ -12,6 +13,7 @@ interface Props {
 export default function Slug({recipe}:Props) {
   
   return <div className="page-recipe-detail">
+    <RecipeBreadcrumb title={recipe.title || ''}/>
     <RecipeDetail 
       {...recipe}
     />
@@ -49,6 +51,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
+  
     return {
       props,
       revalidate: REVALIDATE_TIME,

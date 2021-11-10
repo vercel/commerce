@@ -1,8 +1,7 @@
-import { Collection } from '@commerce/types/collection'
-import { Facet, QueryRecipes } from '@framework/schema'
+import { QueryRecipes } from '@framework/schema'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { ListBlogCardSkeleton, RecipeCard, SelectCommon } from 'src/components/common'
+import { BlogEmpty, ButtonCommon, RecipeCard, SelectCommon } from 'src/components/common'
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon'
 import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
@@ -11,13 +10,12 @@ import { useGetRecipeList } from 'src/components/hooks/recipe'
 import { DEFAULT_RECIPES_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
 import { getPageFromQuery, getRecipeSortParamFromQuery } from 'src/utils/funtion.utils'
 import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
+import RecipeEmpty from '../RecipeEmpty/RecipeEmpty'
 import s from './RecipesList.module.scss'
-
-
 
 const BREADCRUMB = [
   {
-    name: 'Special Recipes',
+    name: 'Recipes',
     link: `#`,
   },
 ]
@@ -48,13 +46,13 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     }),
     []
   )
-  const router = useRouter()
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryBlog, setOptionQueryBlog] = useState<QueryRecipes>(DEFAULT_RECIPES_ARGS)
   const { recipes, totalItems, loading } = useGetRecipeList(optionQueryBlog)
   const [selectMobileValue, setSelectMobileValue] = useState<string>();
   const [sortValue, setSortValue] = useState<string>();
-  
+  const router = useRouter()
+
   const onPageChange = (page: number) => {
     router.push(
       {
@@ -72,11 +70,11 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   // skip
   const firstRender = useRef(true);
 
-  let data;
+  let data:RecipeCardProps[] | undefined = undefined;
   if(initialQueryFlag == true){
       data = recipeList;
   }else{
-      data = recipes
+      data = recipes;
   }
 
   useEffect(() => {
@@ -137,8 +135,9 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
         undefined, { shallow: true }
     )
   }
- 
+  
 
+ 
   return (
     <>
       <div className={s.recipesListWrapper}>
@@ -178,8 +177,10 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
 
             <div className={s.inner}>
               <div className={s.boxItem}>
-              {(!initialQueryFlag && loading && !data) && <ListBlogCardSkeleton count={DEFAULT_RECIPES_PAGE_SIZE} isWrap  />}
-                {data?.map((item:RecipeCardProps, index:number) => (
+                {
+                  (data?.length === 0) && <><RecipeEmpty/> </>
+                }
+                {(data?.length !== 0) && data?.map((item:RecipeCardProps, index:number) => (
                   <div key={index} className={s.item}>
                     <RecipeCard
                       slug={item.slug}
@@ -189,14 +190,17 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
                     />
                   </div>
                 ))}
+               
               </div>
             </div>
             <div className={s.recipesPagination}>
+            {(data?.length !== 0) &&
               <PaginationCommon
                 pageSize={DEFAULT_RECIPES_PAGE_SIZE}
                 total={totalItems !== undefined ? totalItems : total}
                 onChange={onPageChange}
               />
+            }
             </div>
           </div>
         </div>

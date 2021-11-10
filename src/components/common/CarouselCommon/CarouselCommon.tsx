@@ -9,7 +9,7 @@ import s from './CarouselCommon.module.scss'
 import { CustomCarouselArrow } from './CustomArrow/CustomCarouselArrow'
 export interface CarouselCommonProps<T>
   extends Omit<CarouselProps, 'children' | 'responsive'> {
-  data: T[]
+  data?: T[]
   Component: React.ComponentType<T>
   itemKey: String
   isPadding?: boolean

@@ -40,7 +40,7 @@ const CartRecommendation = () => {
     mutateGetActiveOrder()
     mutateRecommendedProductsInCart()
   }
-  
+
   return (
     <div className={s.cartRecommendation}>
       <div className={s.top}>

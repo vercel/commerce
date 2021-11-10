@@ -24,6 +24,15 @@ query getRecipe($slug: String ){
         priceWithTax
         currencyCode
       }
+      collections {
+        id
+        name
+      }
+      facetValues {
+        id
+        code
+        name
+      }
     }
     recommendedRecipes{
       id

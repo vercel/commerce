@@ -2719,24 +2719,10 @@ export type Product = Node & {
   optionGroups: Array<ProductOptionGroup>
   facetValues: Array<FacetValue>
   translations: Array<ProductTranslation>
-  collections: Array<Collection>
+  collections?: Maybe<Array<Collection>>  
   customFields?: Maybe<Scalars['JSON']>
 }
 
-// export type Recipe = Node & {
-//   id: ID!
-//   createdAt: DateTime!
-//   updatedAt: DateTime!
-//   content?: Maybe<Scalars['String']>;
-//   description?: Maybe<Scalars['String']>;
-//   isPublish: Scalars['Boolean'];
-//   languageCode: LanguageCode;
-//   slug: Scalars['String'];
-//   title: Scalars['String'];
-//   translations: Array<RecipeTranslation>;
-//   ingredients: Product[],
-//   featuredAsset?: Maybe<Asset>;
-// }
 
 export type Blog = Node & {
   __typename?: 'Blog';
@@ -2825,6 +2811,12 @@ export type GetAllRecipesQuery = PaginatedList & {
 
 export type FilterRecipesQuery = PaginatedList & {
   recipeByCollectionSlug: { __typename?: 'RecipeList' } & {
+    items: Array<{ __typename?: 'Recipe' } & Recipe>,
+    'totalItems'
+  }
+}
+export type GetRecipeByProductSlugQuery = PaginatedList & {
+  recipeByProductSlug: { __typename?: 'RecipeList' } & {
     items: Array<{ __typename?: 'Recipe' } & Recipe>,
     'totalItems'
   }
