@@ -156,6 +156,7 @@ export function normalizeProductCard(product: ProductTypes): ProductCard {
     productVariantName: product.variants?.[0].name,
     facetValueIds: product.facetValueIds,
     collectionIds: product.collectionIds,
+    collection:product.collection?product.collection[0]:""
   }
 }
 export function normalizeFavoriteProductResult(item: Favorite) {
