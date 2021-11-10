@@ -20,7 +20,7 @@ interface Props {
   collections: Collection[]
   spiceProducts:ProductCard[]
   collectionProps:CollectionsWithData[]
-  recipesCollection:RecipeCollection[]
+  recipesCollection:any[]
 }
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts,recipesCollection,
@@ -127,8 +127,12 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
   
   // recipe 
-  const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
-  props.recipesCollection = recipesCollection.recipeCollections
+  try {
+    const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
+    props.recipesCollection = recipesCollection.recipeCollections.filter((collection)=>collection.recipes.items.length>0)
+  }catch(err){
+    console.log(err)
+  }
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)
@@ -145,7 +149,7 @@ export async function getStaticProps({
     const rs = await Promise.all(promises)
 
     promisesWithKey.map((item, index) => {
-      props[item.key] = item.keyResult ? FilterOneVatiant(rs[index][item.keyResult]) : rs[index]
+      props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
     return {

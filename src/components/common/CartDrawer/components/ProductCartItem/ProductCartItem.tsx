@@ -10,6 +10,7 @@ import { LineItem } from '@commerce/types/cart'
 import { useUpdateProductInCart } from 'src/components/hooks/cart'
 import { debounce } from 'lodash'
 import useRemoveProductInCart from 'src/components/hooks/cart/useRemoveProductInCart'
+import { useMessage } from 'src/components/contexts'
 
 export interface ProductCartItempProps extends LineItem {
   currency: { code: string }
@@ -27,22 +28,33 @@ const ProductCartItem = ({
   const [visible, setVisible] = useState(false)
   const {updateProduct} = useUpdateProductInCart()
   const {removeProduct, loading} = useRemoveProductInCart()
-  const handleQuantityChangeCallback = (isSuccess:boolean,mess?:string) => {
-    if(!isSuccess){
-      console.log(mess)
-    }
-  }
+	const {showMessageSuccess, showMessageError } = useMessage()
+  // const handleQuantityChangeCallback = (isSuccess:boolean,mess?:string) => {
+  //   if(!isSuccess){
+  //     // console.log(mess)
+  //     showMessageError()
+  //   }
+  // }
   const handleRemoveCallback = (isSuccess:boolean,mess?:string) => {
     if(!isSuccess){
-      console.log(mess)
+      showMessageError()
     }else{
+      showMessageSuccess("Remove success")
       setVisible(false)
     }
   }
-  const handleQuantityChange = (value:number) => {
-    updateProduct({orderLineId:id,quantity:value},handleQuantityChangeCallback)
-  }
-  const debounceFn = useCallback(debounce(handleQuantityChange, 500), []);
+  const debounceFn = useCallback(()=>{
+    const handleQuantityChangeCallback = (isSuccess:boolean,mess?:string) => {
+      if(!isSuccess){
+        // console.log(mess)
+        showMessageError()
+      }
+    }
+    const handleQuantityChange = (value:number) => {
+      updateProduct({orderLineId:id,quantity:value},handleQuantityChangeCallback)
+    }
+    return debounce(handleQuantityChange, 500)
+  }, [id,updateProduct,showMessageError]);
   const handleCancel = () => {
     setVisible(false)
   }

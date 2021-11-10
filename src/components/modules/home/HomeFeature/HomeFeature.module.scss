@@ -1,5 +1,15 @@
-@import "../../../../styles/utilities";
+@import '../../../../styles/utilities';
 
 .homeFeature {
-    @apply spacing-horizontal-left bg-white;
+  @apply spacing-horizontal-left bg-white;
+
+  :global(.customArrow) {
+    display: flex !important;
+  }
+
+  @screen xl {
+    :global(.customArrow) {
+      display: none !important;
+    }
+  }
 }

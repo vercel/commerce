@@ -156,6 +156,7 @@ export function normalizeProductCard(product: ProductTypes): ProductCard {
     productVariantName: product.variants?.[0].name,
     facetValueIds: product.facetValueIds,
     collectionIds: product.collectionIds,
+    collection:product.collection?product.collection[0]:""
   }
 }
 export function normalizeFavoriteProductResult(item: Favorite) {
@@ -200,14 +201,14 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
         collection: product.collections?.[0] ? product.collections?.[0]?.name : null,
         collectionIds: product.collections?.map(colection => colection.id) || null,
         facetValueIds: product.facetValues?.map(facet => facet.id) || null,
-      })),
+      }))||[],
       recommendedRecipes: recipe.recommendedRecipes?.map((recipe:Recipe)=>({
         id: recipe.id || null,
         title: recipe.title || null,
         imageSrc: recipe.featuredAsset?.preview || null,
         slug: recipe.slug || null,
         description: recipe.description || null
-      }))
+      }))||[]
   }
 }
 
