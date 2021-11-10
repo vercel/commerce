@@ -149,7 +149,7 @@ export async function getStaticProps({
     const rs = await Promise.all(promises)
 
     promisesWithKey.map((item, index) => {
-      props[item.key] = item.keyResult ? FilterOneVatiant(rs[index][item.keyResult]) : rs[index]
+      props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
     return {
