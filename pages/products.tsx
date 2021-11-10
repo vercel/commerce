@@ -3,24 +3,26 @@ import { Collection, Facet } from '@framework/schema';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
+import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { ViewedProducts } from 'src/components/modules/product-detail';
 import ProductListFilter from 'src/components/modules/product-list/ProductListFilter/ProductListFilter';
 import { CODE_FACET_BRAND, CODE_FACET_FEATURED, DEFAULT_PAGE_SIZE_PRODUCT_LIST, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { getAllPromies } from 'src/utils/funtion.utils';
-import { PromiseWithKey, SortOrder } from 'src/utils/types.utils';
+import { PageName, PromiseWithKey, SortOrder } from 'src/utils/types.utils';
 import ProductListBanner from '../src/components/modules/product-list/ProductListBanner/ProductListBanner';
 
 interface Props {
   facets: Facet[],
   collections: Collection[],
   productsResult: { products: ProductCard[], totalItems: number },
+  banners: BannerItemProps[]
 }
 
-export default function Products({ facets, collections, productsResult }: Props) {
+export default function Products({ facets, collections, productsResult, banners }: Props) {
 
   return (
     <>
-      <ProductListBanner />
+      <ProductListBanner banners={banners}/>
       <ProductListFilter
         collections={collections}
         facets={facets}
@@ -76,6 +78,10 @@ export async function getStaticProps({
   })
   promisesWithKey.push({ key: 'productsResult', promise: productsPromise })
 
+  
+  // banner
+  const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.PRODUCT_LIST } })
+  promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
   try {
     const promises = getAllPromies(promisesWithKey)

@@ -26,6 +26,7 @@ const Banner = memo(({ data }: Props) => {
             buttonLabel={item.buttonLabel}
             linkButton={item.linkButton}
             size={item.size}
+            backgroundColor={item.backgroundColor}
         />
     }
     return (

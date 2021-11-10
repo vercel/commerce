@@ -238,6 +238,7 @@ export function normalizeBanner(banner: Banner): BannerItemProps {
     subtitle: banner.subtitle || '',
     buttonLabel: banner.buttonLabel || '',
     linkButton: banner.title || '',
+    backgroundColor: banner.backgroundColor || ''
   }
 }
 
