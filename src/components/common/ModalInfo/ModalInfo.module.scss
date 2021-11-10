@@ -1,4 +1,11 @@
+.contentModalInfo {
+    margin-top: 2.4rem;
+}
+
 .footer{
-    margin-top: 4rem;
+    margin-top: 2.4rem;
     @apply flex justify-end items-center;
+    button {
+        min-width: 8rem;
+    }
 }

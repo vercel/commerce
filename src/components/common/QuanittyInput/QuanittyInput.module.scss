@@ -1,51 +1,51 @@
-@import '../../../styles/utilities';
+@import "../../../styles/utilities";
 .quanittyInputWarper {
     @apply shape-common-border;
-    padding: 0.5px 0;
-    &::before{
+    &::before {
         background-color: var(--text-active);
     }
     .inner {
         @apply inline-flex justify-between items-center;
+        padding: 2px;
         margin: 0;
     }
-    .plusIcon, .minusIcon{
+    .plusIcon,
+    .minusIcon {
         @apply flex justify-center items-center;
         min-height: 2rem;
-        &:hover{
+        &:hover {
             cursor: pointer;
             svg path {
                 fill: var(--primary);
             }
         }
     }
-    &.default{
+    &.default {
         max-width: 18.4rem;
         min-height: 4rem;
-        .plusIcon, .minusIcon{
+        .plusIcon,
+        .minusIcon {
             margin: 0.8rem;
             width: 2.4rem;
             height: 2.4rem;
         }
     }
-    &.small{
+    &.small {
         max-width: 10rem;
         min-height: 2.8rem;
-        .plusIcon, .minusIcon{
+        .plusIcon,
+        .minusIcon {
             margin: 0 0.6rem;
-            // width: 1rem;
-            // height: 1rem;
         }
     }
-    .quanittyInput{
-        @apply bg-background  outline-none w-1/2 text-center h-full font-bold;
-        font-size: 20px;
-        line-height: 28px;
+    .quanittyInput {
+        @apply w-1/2 text-center h-full font-bold sm-headline;
+        outline: none;
         color: theme("textColor.active");
-        &::-webkit-inner-spin-button, &::-webkit-inner-spin-button{
+        &::-webkit-inner-spin-button,
+        &::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
     }
-    
 }

@@ -36,7 +36,6 @@ export default function getRecipeDetailOperation({
     const { data } = await config.fetch<GetRecipeQuery>(query, {
       variables,
     });
-    console.log(data);
     if(data.recipe){
 
       return normalizeRecipe(data.recipe)

@@ -120,6 +120,7 @@ export type Mutation = {
   __typename?: 'Mutation'
   /** Adds an item to the order. If custom fields are defined on the OrderLine entity, a third argument 'customFields' will be available. */
   addItemToOrder: UpdateOrderItemsResult
+  addItemsToOrder: Array<AddItemToOrderResult>;
   /** Remove an OrderLine from the Order */
   removeOrderLine: RemoveOrderItemsResult
   /** Remove all OrderLine from the Order */
@@ -148,6 +149,9 @@ export type Mutation = {
   login: NativeAuthenticationResult
   /** Authenticates the user using a named authentication strategy */
   authenticate: AuthenticationResult
+
+  checkIsUserVerifyEmail: UserVerifyEmailResult;
+
   /** End the current authenticated session */
   logout: Success
   /**
@@ -2860,7 +2864,7 @@ export type QueryFilterRecipes = {
 
 export type RecipesSort = {
   id?: Maybe<Scalars['String']>
-  createdAt?:Maybe<Scalars['String']>
+  createdAt?: Maybe<Scalars['String']>
 }
 
 export type BlogListOptions = {
@@ -3361,6 +3365,8 @@ export type ApplyCouponCodeResult =
   | CouponCodeInvalidError
   | CouponCodeLimitError
 
+export type AddItemToOrderResult = InsufficientStockError | NegativeQuantityError | Order | OrderLimitError | OrderModificationError;
+
 export type AddPaymentToOrderResult =
   | Order
   | OrderPaymentStateError
@@ -3434,6 +3440,12 @@ export type AuthenticationResult =
   | CurrentUser
   | InvalidCredentialsError
   | NotVerifiedError
+
+export type UserVerifyEmailResult = {
+  __typename?: 'UserVerifyEmailResult';
+  isUserExisted: Scalars['Boolean'];
+  isVerified: Scalars['Boolean'];
+};
 
 export type ActiveOrderResult = Order | NoActiveOrderError
 
@@ -3693,6 +3705,36 @@ export type AddItemToOrderMutation = { __typename?: 'Mutation' } & {
   >)
 }
 
+export type AddItemToOrderInput = {
+  productVariantId: Scalars['ID'];
+  quantity: Scalars['Int'];
+};
+
+export type MutationAddItemsToOrderArgs = {
+  input: Array<AddItemToOrderInput>;
+};
+
+export type AddItemsToOrderMutation = { __typename?: 'Mutation' } & {
+  addItemsToOrder: Array<
+    | ({ __typename: 'Order' } & CartFragment)
+    | ({ __typename: 'OrderModificationError' } & Pick<
+      OrderModificationError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'OrderLimitError' } & Pick<
+      OrderLimitError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'NegativeQuantityError' } & Pick<
+      NegativeQuantityError,
+      'errorCode' | 'message'
+    >)
+    | ({ __typename: 'InsufficientStockError' } & Pick<
+      InsufficientStockError,
+      'errorCode' | 'message'
+    >)>
+}
+
 export type AdjustOrderLineMutationVariables = Exact<{
   orderLineId: Scalars['ID']
   quantity: Scalars['Int']
@@ -3821,6 +3863,15 @@ export type VerifyCustomerAccountMutation = { __typename?: 'Mutation' } & {
     NativeAuthStrategyError,
     'errorCode' | 'message'
   >)
+}
+
+export type MutationCheckIsUserVerifyEmailArgs = {
+  emailAddress: Scalars['String'];
+};
+
+export type CheckIsUserVerifyEmailMutation = { __typename?: 'Mutation' } & {
+  checkIsUserVerifyEmail:
+  | ({ __typename: 'UserVerifyEmailResult' } & Pick<UserVerifyEmailResult, '__typename' | 'isUserExisted' | 'isVerified'>)
 }
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>
@@ -4020,7 +4071,7 @@ export type GetAllRecipeCollectionsQuery = { __typename?: 'Query' } & {
     items: Array<
       { __typename?: 'RecipeCollection' } & Pick<
         RecipeCollection,
-        'id' | 'name' | 'slug' 
+        'id' | 'name' | 'slug'
       > & {
         parent?: Maybe<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
         children?: Maybe<

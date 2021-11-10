@@ -51,6 +51,7 @@ export interface BlogProps {
     createdAt: string
 }
 
+
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
 
 export enum SortOrder {

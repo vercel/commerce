@@ -17,6 +17,7 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
     const [isShow, setIsShow] = useState(false)
     const { order } = useGetActiveOrderForCheckout()
     const {modalAuthenVisible, modalAuthenMode, initialEmail, disableRedirect, closeModalAuthen } = useModalAuthen()
+    const [temporaryShippingPrice, setTemporaryShippingPrice] = useState<number | null>(null)
 
     const onClose = () => {
         setIsShow(false)
@@ -24,6 +25,12 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
     const onViewCart = () => {
         setIsShow(true)
     }
+
+    const onChangeTemporaryShippingPrice = (price: number | null) => {
+        setTemporaryShippingPrice(price)
+    }
+
+
     return (
         <div className={s.warrper}>
             <MessageCommon messages={messages} onRemove={removeMessage} />
@@ -33,8 +40,8 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
                 initialEmail={initialEmail}
                 disableRedirect={disableRedirect}
             />
-            <div className={s.left}><CheckoutInfo onViewCart={onViewCart} currency={order?.currency.code} /></div>
-            <div className={s.right}><CheckoutBill data={order} /></div>
+            <div className={s.left}><CheckoutInfo onViewCart={onViewCart} currency={order?.currency.code} onChangeTemporaryShippingPrice={onChangeTemporaryShippingPrice}/></div>
+            <div className={s.right}><CheckoutBill data={order} temporaryShippingPrice={temporaryShippingPrice}/></div>
             <div className={classNames({ [s.mobile]: true, [s.isShow]: isShow })}>
                 <div className={s.modal}>
                     <div className={s.content}>
@@ -42,7 +49,7 @@ const CheckoutPage = ({ }: CheckoutPageProps) => {
                             <h3>Your Cart({CHECKOUT_BILL_DATA.length})</h3>
                             <div onClick={onClose}><IconHide /></div>
                         </div>
-                        <CheckoutBill data={order} />
+                        <CheckoutBill data={order} temporaryShippingPrice={temporaryShippingPrice}/>
                     </div>
                 </div>
             </div>

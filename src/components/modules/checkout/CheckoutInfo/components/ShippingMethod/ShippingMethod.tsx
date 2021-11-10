@@ -13,10 +13,11 @@ interface Props {
   currency: string
   onConfirm: (id: number) => void
   initialValueId?: string
+  onChangeTemporaryShippingPrice: (price: number | null) => void
 
 }
 
-const ShippingMethod = memo(({ currency, onConfirm, initialValueId }: Props) => {
+const ShippingMethod = memo(({ currency, onConfirm, initialValueId, onChangeTemporaryShippingPrice }: Props) => {
   const { showMessageError } = useMessage()
   const { eligibleShippingMethods } = useEligibleShippingMethods()
   const { setOrderShippingMethod } = useSetOrderShippingMethod()
@@ -27,6 +28,14 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId }: Props) => 
       setSelectedValue(eligibleShippingMethods[0])
     }
   }, [eligibleShippingMethods, selectedValue])
+
+  useEffect(() => {
+    if (selectedValue?.price) {
+      onChangeTemporaryShippingPrice(selectedValue.price / 100)
+    } else {
+      onChangeTemporaryShippingPrice(null)
+    }
+  }, [selectedValue, onChangeTemporaryShippingPrice])
 
   useEffect(() => {
     const newValue = eligibleShippingMethods?.find(item => item.id === initialValueId)
@@ -72,7 +81,7 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId }: Props) => 
         </div>
         <div className={s.right}>
           <div className={s.price}>
-            {selectedValue?.price ? `${selectedValue?.price / 100} ${currency}` : "Free"}
+            {selectedValue?.price ? `${selectedValue?.priceWithTax / 100} ${currency}` : "Free"}
           </div>
         </div>
       </div>
@@ -82,7 +91,7 @@ const ShippingMethod = memo(({ currency, onConfirm, initialValueId }: Props) => 
             key={item.id}
             id={item.id}
             name={item.name}
-            price={item.price}
+            price={item.priceWithTax / 100}
             currency={currency}
             isActive={selectedValue?.id === item.id}
             onSelect={onChange}

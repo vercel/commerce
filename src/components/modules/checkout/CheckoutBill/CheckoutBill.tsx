@@ -1,7 +1,7 @@
 import { CartCheckout } from '@commerce/types/cart'
 import classNames from 'classnames'
 import Link from 'next/link'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ROUTE } from 'src/utils/constanst.utils'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { ButtonCommon, CardItemCheckout, EmptyCommon } from '../../../common'
@@ -10,9 +10,30 @@ import FormPromotionCode from './FormPromotionCode/FormPromotionCode'
 
 interface CheckoutBillProps {
   data: CartCheckout | null
+  temporaryShippingPrice: number | null
 }
 
-const CheckoutBill = ({ data }: CheckoutBillProps) => {
+const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {
+  const shippingPrice = useMemo(() => {
+    if (temporaryShippingPrice !== null) {
+      return temporaryShippingPrice
+    }
+    return data?.shippingLine?.priceWithTax || 0
+  }, [data?.shippingLine?.priceWithTax, temporaryShippingPrice])
+
+  const total = useMemo(() => {
+    const totalPrice = data?.totalPrice || 0
+    if (totalPrice) {
+      if (data?.shippingLine?.priceWithTax === shippingPrice) {
+        return totalPrice
+      } else {
+        return totalPrice - (data?.shippingLine?.priceWithTax || 0) + shippingPrice
+      }
+    }
+    return 0
+  }, [data?.shippingLine?.priceWithTax, data?.totalPrice, shippingPrice])
+
+
   return (
     <div className={s.warpper}>
       <div className={s.title}>
@@ -50,11 +71,11 @@ const CheckoutBill = ({ data }: CheckoutBillProps) => {
           </div>
           <div className={s.line}>
             Shipping
-            <div className={s.shipping}>{data?.shippingLine?.priceWithTax || 0}  {data?.currency?.code}</div>
+            <div className={s.shipping}>{shippingPrice} {data?.currency?.code}</div>
           </div>
           <div className={classNames(s.line, s.totalLine)}>
             Estimated Total
-            <div className={s.total}>{data?.totalPrice || 0} {data?.currency?.code}</div>
+            <div className={s.total}>{total} {data?.currency?.code}</div>
           </div>
         </div>
       </div>

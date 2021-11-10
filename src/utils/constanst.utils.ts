@@ -4,6 +4,7 @@ import DefaultImg from '../../public/assets/images/default_img.jpg'
 export const STORE_FRONT_URL = process.env.NEXT_PUBLIC_VENDURE_SHOP_URL
 export const REVALIDATE_TIME = 60
 export const MAX_PRODUCT_CAROUSEL = 20
+export const MAX_COLLECTIONS_IN_HOME = 4
 export const BLUR_DATA_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8fBIAApUBruKYvzsAAAAASUVORK5CYII='
 export const DEFAULT_IMG = DefaultImg
 export const DEFAULT_CURRENCY = CurrencyCode.Myr

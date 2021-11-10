@@ -31,7 +31,6 @@ const FeaturedProductCard = ({
   
   const {addProduct} = useAddProductToCart()
   const { openCartDrawer } = useCartDrawer()
-  const { customer } = useActiveCustomer()
   const { order } = useGetActiveOrder()
   const [addToCartLoading, setAddToCartLoading] = useState(false)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
@@ -51,7 +50,7 @@ const FeaturedProductCard = ({
 		setAddToCartLoading(false)
 		if(isSuccess){
 			showMessageSuccess("Add to cart successfully!", 4000)
-			openCartDrawer && openCartDrawer()
+			openCartDrawer()
 		}else{
 			showMessageError(message||"Error")
 		}

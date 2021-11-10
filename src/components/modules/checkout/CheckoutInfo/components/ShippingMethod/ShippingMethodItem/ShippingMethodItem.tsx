@@ -1,12 +1,10 @@
+import { ShippingMethodQuote } from '@framework/schema'
 import classNames from 'classnames'
 import React, { memo } from 'react'
 import { IconCheck } from 'src/components/icons'
 import s from './ShippingMethodItem.module.scss'
 
-interface Props {
-  id: string
-  name: string
-  price: number
+interface Props extends Omit<ShippingMethodQuote, 'description' | 'code'> {
   currency: string
   onSelect: (id: string) => void
   isActive: boolean
@@ -28,7 +26,7 @@ const ShippingMethodItem = memo(({ id, name, price, currency, isActive, onSelect
         </div>
       </div>
       <div className={s.price}>
-        {price ? `${price / 100} ${currency}` : "Free"}
+        {price ? `${price} ${currency}` : "Free"}
       </div>
     </li>
   )

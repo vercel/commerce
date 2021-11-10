@@ -8,7 +8,7 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
-import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, REVALIDATE_TIME } from 'src/utils/constanst.utils';
+import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { CollectionsWithData, PromiseWithKey } from 'src/utils/types.utils';
 
@@ -73,7 +73,7 @@ export async function getStaticProps({
 
   props.collections = collections
   let collectionsPromisesWithKey = [] as PromiseWithKey[]
-  collections.map((collection) => {
+  collections.slice(0, MAX_COLLECTIONS_IN_HOME).map((collection) => {
     const promise = commerce.getAllProducts({
       variables: { collectionSlug: collection.slug },
       config,

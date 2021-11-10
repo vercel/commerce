@@ -4,7 +4,6 @@
   @apply shape-common h-full;
   &:hover {
     .inner {
-      @apply shadow-md;
       &:not(:disabled) {
         filter: brightness(1.05);
       }
