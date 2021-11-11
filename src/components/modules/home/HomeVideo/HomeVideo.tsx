@@ -17,7 +17,7 @@ const HomeVideo = ({ }: Props) => {
         <section className={s.homeVideo}>
             <div className={s.top}>
                 <div className={s.logo}>
-                    <Image src={LogoBrand} />
+                    <Image src={LogoBrand} alt="logo"/>
                 </div>
                 <HeadingCommon>
                     Maggi Sauce Is The Secret Weapon For Making All Your Food
