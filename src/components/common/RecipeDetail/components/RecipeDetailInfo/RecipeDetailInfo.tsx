@@ -19,7 +19,7 @@ const RESPONSIVE: ResponsiveType = {
     },
   }
 const RecipeDetailInfo = ({ ...rest}: Prop) => {
-
+   
     return (
         <section className={s.recipeDetailInfo}>
             <div className={s.img}>

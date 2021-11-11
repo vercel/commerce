@@ -11,13 +11,13 @@ interface Props {
   recipe:RecipeCardProps,
 }
 export default function Slug({recipe}:Props) {
-  
+
   return <div className="page-recipe-detail">
     <RecipeBreadcrumb title={recipe.title || ''}/>
     <RecipeDetail 
       {...recipe}
     />
-   {(recipe?.recommendedRecipes?.length || [].length) > 0 && <RecommendedRecipes data={recipe?.recommendedRecipes} />} 
+   {(recipe?.recommendedRecipes?.length !== 0)  && <RecommendedRecipes data={recipe?.recommendedRecipes} />} 
   </div>
 }
 
