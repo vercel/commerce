@@ -120,7 +120,7 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                 </div>
             </div>
             <div className={s.actions}>
-                <QuanittyInput value={quanitty} onChange={handleQuanittyChange}/>
+                <QuanittyInput value={quanitty} onChange={handleQuanittyChange} min={0} max={10}/>
                 <div className={s.bottom}>
                     {/* <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.PREORDER}</ButtonCommon> */}
                     <ButtonCommon size='large' onClick={handleBuyNow} loading={buyNowLoading} disabled={addToCartLoading}>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>

@@ -25,7 +25,8 @@ const ProductImgs = ({ productImage }: Props) => {
                 itemKey="product-detail-img"
                 Component={ProductImgItem}
                 responsive={RESPONSIVE}
-                showDots={true}
+                showDots={productImage.length>1}
+                arrows={false}
             />
         </section >
     )

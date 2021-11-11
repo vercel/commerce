@@ -1,4 +1,5 @@
 import React from 'react'
+import { ResponsiveType } from 'react-multi-carousel';
 import { useModalCommon } from 'src/components/hooks';
 import { ModalConfirm } from '..';
 import CarouselCommon, {
@@ -11,7 +12,7 @@ interface ProductCarouselProps
   extends Omit<CarouselCommonProps<ProductCardProps>, 'Component' | "option"> {
     collection?:string
 }
-const RESPONSIVE = {
+const RESPONSIVE:ResponsiveType = {
   lgScreen: {
     breakpoint: { max:9999, min: 1440 },
     items: 5.5,
