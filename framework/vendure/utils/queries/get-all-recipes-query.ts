@@ -1,5 +1,5 @@
 export const getAllRecipesQuery = /* GraphQL */ `
-query getRecipes( $options: RecipeListOptions) {
+query getRecipes($options: RecipeListOptions) {
   recipes( options: $options) {
     totalItems
     items {

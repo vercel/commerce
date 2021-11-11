@@ -17,7 +17,7 @@ const RecipeDetail = ({ ingredients,...rest }: Props) => {
     return (
         <section className={s.recipeDetail}>
             <RecipeDetailInfo {...rest} />
-            <RecipeIngredient data={ingredients} />
+            {ingredients?.length !== 0 && <RecipeIngredient data={ingredients} />}
         </section >
     )
 }

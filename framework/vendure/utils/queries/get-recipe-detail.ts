@@ -3,8 +3,12 @@ query getRecipe($slug: String ){
   recipe(slug:$slug){
     id
      featuredAsset {
-           preview
-         }
+      preview
+    }
+    assets{
+      name
+      preview
+    }   
     translations{
       title
       slug
@@ -15,7 +19,7 @@ query getRecipe($slug: String ){
       id
       name
       slug
-      assets{
+      featuredAsset{
         preview
       }
       variants{
