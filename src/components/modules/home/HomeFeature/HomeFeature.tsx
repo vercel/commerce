@@ -25,7 +25,7 @@ const CAROUSEL_DATA = [
 const HomeFeature = ()  => {
     return (
         <div className={s.homeFeature}>
-            <HomeFeatureCarousel data={CAROUSEL_DATA} itemKey="Home Feature" isArrow={false} />
+            <HomeFeatureCarousel data={CAROUSEL_DATA} itemKey="Home Feature"  />
         </div>
     )
 

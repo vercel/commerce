@@ -10,6 +10,7 @@ import image12 from "../../../../../public/assets/images/image12.png"
 import HomeRecipeTab from './HomeRecipeTab/HomeRecipeTab'
 import { RecipeCollection } from '@commerce/types/recipe-collection';
 import { normalizeRecipe } from '@framework/utils/normalize'
+import { ROUTE } from 'src/utils/constanst.utils'
 
 
 interface HomeRecipeProps {
@@ -21,57 +22,13 @@ interface HomeRecipeProps {
 
 }
 
-
-
-// const recipe:RecipeCardProps[] = [{
-//   title: "Special Recipe of Vietnamese Phở",
-//   description:"Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
-//   imageSrc: image12.src
-// },{
-//   title: "Original Recipe of Curry",
-//   description:"Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
-//   imageSrc: image13.src
-// },{
-//   title: "The Best Recipe of Beef Noodle Soup",
-//   description:"The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
-//   imageSrc: image14.src
-// },{
-//   title: "Special Recipe of Vietnamese Phở",
-//   description:"Alright, before we get to the actual recipe, let’s chat for a sec about the ingredients.  To make this pho soup recipe, you will need:",
-//   imageSrc: image12.src
-// },{
-//   title: "Original Recipe of Curry",
-//   description:"Chicken curry is common to several countries including India, countries in Asia and the Caribbean. My favorite of them though is this aromatic Indian...",
-//   imageSrc: image13.src
-// },{
-//   title: "The Best Recipe of Beef Noodle Soup",
-//   description:"The broth for Bun Bo Hue is prepared by slowly simmering various types of beef and pork bones (ox tail, beef shank, pork neck bones, pork feet,...",
-//   imageSrc: image14.src
-// }]
-
-
-const TABS = [
-  {
-    name: 'Noodle',
-    value: 'Noodle',
-  },
-  {
-    name: 'Curry',
-    value: 'Curry',
-  },
-  {
-    name: 'Special Recipes',
-    value: 'Special Recipes',
-  }
-]
-
 const HomeRecipe = ({ itemKey="home-recipe", title="Special Recipes", recipesCollection }: HomeRecipeProps) => {
   const [activeTab, setActiveTab] = useState<string>(recipesCollection[0].slug)
-  const [data, setData] = useState<RecipeCardProps[]>(recipesCollection[0].recipes.items.map((recipe)=>normalizeRecipe(recipe))||[])
+  const [data, setData] = useState<RecipeCardProps[]>(recipesCollection[0].recipes.items||[])
 
   const  onTabChanged = (value: string) => {
     setActiveTab(value)
-    setData(recipesCollection.find(collection => collection.slug === value)?.recipes.items.map((recipe)=>normalizeRecipe(recipe))||[])
+    setData(recipesCollection.find(collection => collection.slug === value)?.recipes.items||[])
   }
   return (
     <div className={s.homeRecipeWarpper}>
@@ -80,7 +37,7 @@ const HomeRecipe = ({ itemKey="home-recipe", title="Special Recipes", recipesCol
           <HeadingCommon>{title}</HeadingCommon>
         </div>
         <div className={s.right}>
-          <ViewAllItem link="#"/>
+          <ViewAllItem link={ROUTE.RECIPES}/>
         </div>
       </div>
 			<div className={s.mid}>
@@ -94,7 +51,7 @@ const HomeRecipe = ({ itemKey="home-recipe", title="Special Recipes", recipesCol
         }
       </div>
       <div className={s.bot}>
-        <RecipeCarousel data={data} itemKey={itemKey} />
+        <RecipeCarousel data={data} itemKey={itemKey} infinite={true}/>
       </div>
     </div>
   )

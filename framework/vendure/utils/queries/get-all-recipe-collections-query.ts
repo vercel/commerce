@@ -6,6 +6,10 @@ query recipeCollections ($options: RecipeCollectionListOptions) {
       id
       name
       slug
+      assets{
+        name
+        preview
+      }
       featuredAsset {
         preview
       }
@@ -15,22 +19,14 @@ query recipeCollections ($options: RecipeCollectionListOptions) {
           slug
           title
           description
-          assets{
-            id
-            source
+          featuredAsset{
+            preview
           }
           translations{
             slug
             title
-          }
-          ingredients{
-            id
-            name
-            slug
-            variants{
-              id
-              name
-            }
+            description
+            content
           }
         }
         totalItems

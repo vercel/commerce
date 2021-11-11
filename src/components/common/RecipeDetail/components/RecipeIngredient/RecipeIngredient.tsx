@@ -16,7 +16,7 @@ import s from './RecipeIngredient.module.scss'
 interface Props {
     className?: string
     children?: any,
-    data: ProductCardProps[],
+    data?: ProductCardProps[],
 }
 
 function getDetailErrorMessage(input: ProductCardProps[], data: AddItemToOrderResult[]) {
@@ -47,6 +47,7 @@ function getDetailErrorMessage(input: ProductCardProps[], data: AddItemToOrderRe
 }
 
 const RecipeIngredient = ({ data }: Props) => {
+    
     const { addProductsToCart, loading } = useAddMutiProductsToCart()
     const { showMessageSuccess, showMessageError } = useMessage()
     const { visible: visibleModalErrorDetail, openModal: openModalErrorDetail, closeModal: closeModalErrorDetail } = useModalCommon({ initialValue: false })

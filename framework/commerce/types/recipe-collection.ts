@@ -1,4 +1,4 @@
-import { Recipe } from '@commerce/types/recipes';
+import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 import { Asset } from '../../vendure/schema.d';
 
 export type RecipeCollection = {
@@ -9,7 +9,7 @@ export type RecipeCollection = {
   featuredAsset: Asset
   assets?: Asset[]
   recipes: {
-    items: Recipe[]
+    items: RecipeCardProps[]
     totalItems: number
 }
 }

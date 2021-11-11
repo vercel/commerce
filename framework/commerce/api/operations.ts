@@ -1,5 +1,11 @@
-import { GetAllRecipePathsOperation, GetRecipeDetailOperation, GetAllRecipesOperation, GetAllRecipeCollectionsOperation } from './../types/recipes';
-import { GetAllFacetsOperation } from './../types/facet';
+import {
+  GetAllRecipePathsOperation,
+  GetRecipeDetailOperation,
+  GetAllRecipesOperation,
+  GetAllRecipeCollectionsOperation,
+  GetRecipeByProductSlugOperation
+} from './../types/recipes'
+import { GetAllFacetsOperation } from './../types/facet'
 import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
 import type { GetAllPagesOperation } from '../types/page'
@@ -15,9 +21,8 @@ import type {
   GetFeaturedBlogsOperation,
   GetAllBlogPathsOperation,
   GetBlogDetailOperation,
-  GetRelevantBlogsOperation
+  GetRelevantBlogsOperation,
 } from '../types/blogs'
-
 
 import type { APIProvider, CommerceAPI } from '.'
 import { GetAllCollectionsOperation } from '@commerce/types/collection';
@@ -48,6 +53,7 @@ export const OPERATIONS = [
   'getRecipeDetail',
   'getAllRecipeCollections',
   'getBannersByPage',
+  'getRecipeByProductSlug'
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -148,7 +154,6 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
-  
   getAllBlogPaths: {
     <T extends GetAllBlogPathsOperation>(opts: {
       variables?: T['variables']
@@ -177,6 +182,20 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
+  getRecipeByProductSlug: {
+    <T extends GetRecipeByProductSlugOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+    }): Promise<T['data']>
+
+    <T extends GetRecipeByProductSlugOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
   getAllRecipe: {
     <T extends GetAllRecipePathsOperation>(opts: {
       variables?: T['variables']
@@ -190,7 +209,6 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
-
 
   getAllProducts: {
     <T extends GetAllProductsOperation>(opts: {
@@ -207,7 +225,6 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
-
 
   getAllBlogs: {
     <T extends GetAllBlogsOperation>(opts: {
@@ -289,7 +306,6 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
-
   getProduct: {
     <T extends GetProductOperation>(opts: {
       variables: T['variables']
@@ -312,7 +328,7 @@ export type Operations<P extends APIProvider> = {
       config?: P['config']
       preview?: boolean
     }): Promise<T['data']>
-  
+
     <T extends GetAllFacetsOperation>(
       opts: {
         variables?: T['variables']
@@ -328,7 +344,7 @@ export type Operations<P extends APIProvider> = {
       config?: P['config']
       preview?: boolean
     }): Promise<T['data']>
-  
+
     <T extends GetAllCollectionsOperation>(
       opts: {
         variables?: T['variables']
@@ -344,7 +360,7 @@ export type Operations<P extends APIProvider> = {
       config?: P['config']
       preview?: boolean
     }): Promise<T['data']>
-  
+
     <T extends GetAllRecipeCollectionsOperation>(
       opts: {
         variables?: T['variables']
@@ -371,7 +387,6 @@ export type Operations<P extends APIProvider> = {
   }
 }
 
-
 export type APIOperations<P extends APIProvider> = {
   [K in keyof Operations<P>]?: (ctx: OperationContext<P>) => Operations<P>[K]
 }
@@ -380,8 +395,8 @@ export type AllOperations<P extends APIProvider> = {
   [K in keyof APIOperations<P>]-?: P['operations'][K] extends (
     ...args: any
   ) => any
-    ? ReturnType<P['operations'][K]>
-    : typeof noop
+  ? ReturnType<P['operations'][K]>
+  : typeof noop
 }
 
 export type OperationContext<P extends APIProvider> = {

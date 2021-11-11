@@ -44,6 +44,7 @@ const HomeFeatureCarousel = ({data, ...props} : HomeFeatureCarouselProps)  => {
                 Component={HomeFeatureItem}
                 {...props}
                 responsive={RESPONSIVE}
+                arrows={false}
              />
         </div>
     )
