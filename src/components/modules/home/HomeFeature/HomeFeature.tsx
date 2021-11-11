@@ -6,6 +6,7 @@ import SecondPic from './assets/8h.png'
 import ThirdPic from './assets/green.png'
 
 import HomeFeatureCarousel from './components/HomeFeatureCarousel/HomeFeatureCarousel'
+import { HomeFeatureItemProps } from './components/HomeFeatureItem/HomeFeatureItem'
 
 const CAROUSEL_DATA = [
     {
@@ -21,11 +22,14 @@ const CAROUSEL_DATA = [
         children: <span>Show that food will be shipped in <b>a greengrocery plastic bag</b>.</span>,
     },
 ]
+interface Props {
+    features: HomeFeatureItemProps[]
+}
 
-const HomeFeature = ()  => {
+const HomeFeature = ({ features }: Props) => {
     return (
         <div className={s.homeFeature}>
-            <HomeFeatureCarousel data={CAROUSEL_DATA} itemKey="Home Feature"  />
+            <HomeFeatureCarousel data={features} itemKey="Home Feature" />
         </div>
     )
 

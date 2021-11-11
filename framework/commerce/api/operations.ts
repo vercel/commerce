@@ -27,6 +27,7 @@ import type {
 import type { APIProvider, CommerceAPI } from '.'
 import { GetAllCollectionsOperation } from '@commerce/types/collection';
 import { GetBannersByPageOperation } from '@commerce/types/banner';
+import { GetHomeFeatureOperation } from '@commerce/types/home-feature';
 
 const noop = () => {
   throw new Error('Not implemented')
@@ -53,7 +54,8 @@ export const OPERATIONS = [
   'getRecipeDetail',
   'getAllRecipeCollections',
   'getBannersByPage',
-  'getRecipeByProductSlug'
+  'getRecipeByProductSlug',
+  'getHomeFeature'
 ] as const
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -385,6 +387,22 @@ export type Operations<P extends APIProvider> = {
       } & OperationOptions
     ): Promise<T['data']>
   }
+  getHomeFeature: {
+    <T extends GetHomeFeatureOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+  
+    <T extends GetHomeFeatureOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
+
 }
 
 export type APIOperations<P extends APIProvider> = {

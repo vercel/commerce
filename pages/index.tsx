@@ -8,6 +8,7 @@ import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
 import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
+import { HomeFeatureItemProps } from 'src/components/modules/home/HomeFeature/components/HomeFeatureItem/HomeFeatureItem';
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
@@ -24,18 +25,19 @@ interface Props {
   collectionProps: CollectionsWithData[]
   recipesCollection: RecipeCollection[]
   banners: BannerItemProps[]
+  features: HomeFeatureItemProps[]
   error ?: string
 }
 export default function Home({ error, featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts, recipesCollection,
-  collections, spiceProducts, banners }: Props) {
+  collections, spiceProducts, banners,features }: Props) {
   if (error) {
     return <ErrorPage />
   }
   return (
     <>
       <HomeBanner banners={banners} />
-      <HomeFeature />
+      <HomeFeature features={features}/>
       <HomeCategories />
       <FreshProducts data={freshProducts} collections={collections} />
       <HomeCollection data={collectionProps} />
@@ -138,6 +140,11 @@ export async function getStaticProps({
   // banner
   const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.HOME } })
   promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
+
+  // banner
+  const homeFeaturePromise = await commerce.getHomeFeature({ variables: {} })
+  // promisesWithKey.push({ key: 'features', promise: homeFeaturePromise,keyResult:'features' })
+
 
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
