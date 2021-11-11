@@ -103,5 +103,6 @@ export type SelectedOptions = Record<string, string | null>
 
 export enum PageName {
     HOME = 'HOME',
-    PRODUCT_LIST = 'PRODUCT_LIST'
+    PRODUCT_LIST = 'PRODUCT_LIST',
+    RECIPES = 'RECIPES'
   }
