@@ -17,6 +17,7 @@ const RESPONSIVE:ResponsiveType = {
 };
 
 const Banner = memo(({ data }: Props) => {
+    
     if (data.length === 1) {
         const item = data[0]
         return <BannerItem
