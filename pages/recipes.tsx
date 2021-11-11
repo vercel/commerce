@@ -1,8 +1,7 @@
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
-import { BlogEmpty, ButtonCommon, Layout } from 'src/components/common';
+import { Layout } from 'src/components/common';
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
-import RecipeEmpty from 'src/components/modules/recipes-list/RecipeEmpty/RecipeEmpty';
 import RecipeListBanner from 'src/components/modules/recipes-list/RecipeListBanner/RecipeListBanner';
 import RecipesList from 'src/components/modules/recipes-list/RecipesList/RecipesList';
 import { DEFAULT_RECIPES_PAGE_SIZE, REVALIDATE_TIME } from "src/utils/constanst.utils";
@@ -37,14 +36,15 @@ export async function getStaticProps({
   let props = {} as any;
 
 
-  // const recipesPromise =  commerce.getAllRecipes({
-  //   variables: {
-  //     take: DEFAULT_RECIPES_PAGE_SIZE,
-  //   },
-  //   config,
-  //   preview,
-  // })
-  // promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes'})
+  const recipesPromise =  commerce.getAllRecipes({
+    variables: {
+      take: DEFAULT_RECIPES_PAGE_SIZE,
+      createdAt:"DESC"
+    },
+    config,
+    preview,
+  })
+  promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes'})
   
   // collection
   const collectionsPromise = commerce.getAllRecipeCollections({

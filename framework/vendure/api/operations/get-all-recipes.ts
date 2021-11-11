@@ -7,6 +7,7 @@ import { getAllRecipesQuery } from '../../utils/queries/get-all-recipes-query'
 
 export type RecipesVariables = {
   take?:number,
+  createdAt?:string
 }
 
 export default function getAllRecipesOperation({
@@ -32,7 +33,10 @@ export default function getAllRecipesOperation({
     const config = commerce.getConfig(cfg)
     const variables = {
       options: {
-        take: vars.take
+        take: vars.take,
+        sort: {
+          createdAt:vars.createdAt
+        }
       },
     }
   

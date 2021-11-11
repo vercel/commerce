@@ -151,7 +151,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
 
           <div className={s.recipesList}>
             <div className={s.recipesHead}>
-              <HeadingCommon align="left">SPECIAL RECIPES</HeadingCommon>
+              <HeadingCommon align="left">RECIPES</HeadingCommon>
 
                 <div className={s.boxSelect}>
                   <div className={s.categorySelectCate}>
