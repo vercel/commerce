@@ -35,7 +35,7 @@ export default function getAllRecipesOperation({
       options: {
         take: vars.take,
         sort: {
-          createdAt:vars.createdAt
+          "createdAt":vars.createdAt
         }
       },
     }
@@ -43,7 +43,7 @@ export default function getAllRecipesOperation({
     const { data } = await config.fetch<GetAllRecipesQuery>(query, {
       variables,
     })
-
+  
     
     if(data){
       return {

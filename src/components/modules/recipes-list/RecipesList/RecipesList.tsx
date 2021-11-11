@@ -8,6 +8,7 @@ import PaginationCommon from 'src/components/common/PaginationCommon/PaginationC
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard'
 import { useGetRecipeList } from 'src/components/hooks/recipe'
 import { DEFAULT_RECIPES_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
+import { SortOrder } from 'src/utils/types.utils'
 import { getPageFromQuery, getRecipeSortParamFromQuery } from 'src/utils/funtion.utils'
 import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 import RecipeEmpty from '../RecipeEmpty/RecipeEmpty'
@@ -42,6 +43,9 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     () => ({
       options:{
         take: DEFAULT_RECIPES_PAGE_SIZE,
+        sort:{
+          createdAt: SortOrder.Desc
+        }
       }
     }),
     []

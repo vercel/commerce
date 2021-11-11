@@ -193,7 +193,7 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
         id: product.id,
         name: product.name,
         slug: product.slug,
-        imageSrc: recipe.featuredAsset?.preview || null,
+        imageSrc: product.featuredAsset?.preview ? product.featuredAsset?.preview + '?w=800&mode=crop' : null,
         currencyCode: product.variants?.[0]?.currencyCode || null,
         productVariantId: product.variants?.[0]?.id?.toString() || null,
         productVariantName: product.name || null,

@@ -19,7 +19,7 @@ query getRecipe($slug: String ){
       id
       name
       slug
-      assets{
+      featuredAsset{
         preview
       }
       variants{

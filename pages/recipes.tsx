@@ -36,7 +36,7 @@ export async function getStaticProps({
   let props = {} as any;
 
 
-  const recipesPromise =  commerce.getAllRecipes({
+  const recipesPromise = commerce.getAllRecipes({
     variables: {
       take: DEFAULT_RECIPES_PAGE_SIZE,
       createdAt:"DESC"
