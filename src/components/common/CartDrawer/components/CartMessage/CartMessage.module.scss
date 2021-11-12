@@ -1,7 +1,7 @@
 @import "../../../../../styles/utilities";
 
 .cartMessage {
-    @apply flex bg-info;
+    @apply flex items-center bg-info;
     padding: 1.2rem 1.6rem;
     .text {
         color: var(--white);
