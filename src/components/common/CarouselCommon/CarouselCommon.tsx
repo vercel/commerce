@@ -70,6 +70,7 @@ const CarouselCommon = <T,>({
         arrows={false}
         renderDotsOutside={true}
         ssr={true}
+        deviceType="desktop"
       >
         {data.map((props, index) => {
           const allProps = defaultComponentProps
