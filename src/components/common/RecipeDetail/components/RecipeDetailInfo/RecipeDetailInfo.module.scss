@@ -22,16 +22,16 @@
         @screen lg {
             max-width: 60rem;
         }
-         div {
+        div {
             min-height: 64rem;
             img {
                 // object-fit: contain;
-            //     @apply w-full;
+                //     @apply w-full;
                 min-height: 64rem;
                 border-radius: 2.4rem;
-            //     @screen md {
-            //         max-height: 90rem;
-            //     }
+                //     @screen md {
+                //         max-height: 90rem;
+                //     }
             }
             // ul {
             //     border-radius: 2.4rem;
@@ -55,17 +55,29 @@
             }
         }
         .detail {
-            .item {
-                &:not(:last-child) {
-                    margin-bottom: 2.4rem;
+            .content {
+                h1 {
+                    @apply heading-2;
                 }
-                .heading {
-                    @apply heading-3 font-heading;
+                h2 {
+                    @apply heading-3;
+                }
+                h3 {
+                    @apply heading-3;
+                }
+
+                h1,
+                h2,
+                h3,
+                h4 {
+                    color: var(--text-base);
+                    font-family: var(--font-heading);
                     margin-bottom: 0.8rem;
                 }
-                .content {
+                ul {
                     list-style: disc;
-                    margin-left: 2rem;
+                    margin-left: 2.4rem;
+                    margin-bottom: 1.6rem;
                 }
                 a {
                     color: var(--info);

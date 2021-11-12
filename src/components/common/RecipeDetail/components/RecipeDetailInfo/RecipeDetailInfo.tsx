@@ -2,10 +2,8 @@ import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import { CarouselCommon, ImgWithLink, RecipeImgItem } from 'src/components/common'
 import { RecipeProps } from 'src/utils/types.utils'
-import RecipeBriefInfo from '../RecipeBriefInfo/RecipeBriefInfo'
 import { RecipeImgItemProps } from '../RecipeImgItem/RecipeImgItem'
 import s from './RecipeDetailInfo.module.scss'
-// import RecipeImgItem,{RecipeImgItemProps} from '../RecipeImgItem/RecipeImgItem'
 
 interface Prop extends RecipeProps {
     className?: string
