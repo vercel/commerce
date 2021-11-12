@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, ViewAllItem } from 'src/components/common';
 import ProductCard, { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
@@ -33,7 +33,7 @@ const RESPONSIVE: ResponsiveType = {
 };
 
 
-const CartRecommendation = () => {
+const CartRecommendation = memo(() => {
   const { products, mutate: mutateRecommendedProductsInCart } = useRecommendedProductsInCart()
   const { mutate: mutateGetActiveOrder } = useGetActiveOrder()
   const { mutate: mutateUserOrder } = useGetUserOrder();
@@ -63,6 +63,7 @@ const CartRecommendation = () => {
       </div>
     </div>
   )
-}
+})
 
+CartRecommendation.displayName = 'CartRecommendation'
 export default CartRecommendation;

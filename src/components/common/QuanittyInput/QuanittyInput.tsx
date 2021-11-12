@@ -4,8 +4,8 @@ import classNames from 'classnames'
 import { IconMinus, IconPlus } from '../../icons'
 interface QuanittyInputProps
   extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'onChange' | 'min' | 'max' | 'step' | "type" | "size"
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'onChange' | 'min' | 'max' | 'step' | 'type' | 'size'
   > {
   size?: 'default' | 'small'
   onChange?: (value: number) => void
@@ -31,9 +31,14 @@ const QuanittyInput = ({
   }, [initValue])
 
   const onPlusClick = () => {
-    if (max && value + step > max) {
-      setValue(max)
-      onChange && onChange(max)
+    if (typeof max === 'number') {
+      if (value + step > max) {
+        setValue(max)
+        onChange && onChange(max)
+      } else {
+        setValue(value + step)
+        onChange && onChange(value + step)
+      }
     } else {
       setValue(value + step)
       onChange && onChange(value + step)
@@ -41,9 +46,14 @@ const QuanittyInput = ({
   }
 
   const onMinusClick = () => {
-    if (min && value - step < min) {
-      setValue(min)
-      onChange && onChange(min)
+    if (typeof min === 'number') {
+      if (value - step < min) {
+        setValue(min)
+        onChange && onChange(min)
+      } else {
+        setValue(value - step)
+        onChange && onChange(value - step)
+      }
     } else {
       setValue(value - step)
       onChange && onChange(value - step)
@@ -52,10 +62,10 @@ const QuanittyInput = ({
 
   const onValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = Number(e.target.value) || 0
-    if (min && value < min) {
+    if (typeof min === 'number' && value < min) {
       setValue(min)
       onChange && onChange(min)
-    } else if (max && value > max) {
+    } else if (typeof max === 'number' && value > max) {
       setValue(max)
       onChange && onChange(max)
     } else {

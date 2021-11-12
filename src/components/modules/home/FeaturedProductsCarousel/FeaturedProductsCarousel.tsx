@@ -74,7 +74,7 @@ const FeaturedProductsCarousel = ({ data, featuredFacetsValue }: FeaturedProduct
     return data.map(item => {
       return {
         ...item,
-        subText: getFacetNamesFromIds(featuredFacetsValue, item.facetValueIds)
+        subText: getFacetNamesFromIds(featuredFacetsValue, item.facetValueIds||undefined)
       }
     })
   }, [data, featuredFacetsValue])
@@ -88,6 +88,7 @@ const FeaturedProductsCarousel = ({ data, featuredFacetsValue }: FeaturedProduct
         defaultComponentProps={featuredFacetsValue}
         Component={FeaturedProductCard}
         itemKey="featured-products"
+        infinite={true}
         responsive={RESPONSIVE} />
     </div>
   )

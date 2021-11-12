@@ -1,10 +1,9 @@
 import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
-import { CarouselCommon, ImgWithLink } from 'src/components/common'
+import { CarouselCommon, ImgWithLink, RecipeImgItem } from 'src/components/common'
 import { RecipeProps } from 'src/utils/types.utils'
-import RecipeBriefInfo from '../RecipeBriefInfo/RecipeBriefInfo'
+import { RecipeImgItemProps } from '../RecipeImgItem/RecipeImgItem'
 import s from './RecipeDetailInfo.module.scss'
-import RecipeImgItem,{RecipeImgItemProps} from '../RecipeImgItem/RecipeImgItem'
 
 interface Prop extends RecipeProps {
     className?: string
@@ -18,7 +17,7 @@ const RESPONSIVE: ResponsiveType = {
       slidesToSlide: 1, // optional, default to 1.
     },
   }
-const RecipeDetailInfo = ({ ...rest}: Prop) => {
+const RecipeDetailInfo = ({time, people, country,  ...rest}: Prop) => {
    
     return (
         <section className={s.recipeDetailInfo}>
@@ -30,6 +29,7 @@ const RecipeDetailInfo = ({ ...rest}: Prop) => {
                     Component={RecipeImgItem}
                     responsive={RESPONSIVE}
                     showDots={true}
+                    arrows={false}
                 />}
             </div>
             <div className={s.recipeInfo}>
@@ -37,7 +37,7 @@ const RecipeDetailInfo = ({ ...rest}: Prop) => {
                     <h1 className={s.name}>
                         {rest.title}
                     </h1>
-                    {/* <RecipeBriefInfo /> */}
+                    <RecipeBriefInfo time={time||""} people={people||""} country={country||""}/>
                 </div>
                 <div className={s.detail}>
                     <section className={s.content} dangerouslySetInnerHTML={{__html: rest.content ?? ''}}></section>

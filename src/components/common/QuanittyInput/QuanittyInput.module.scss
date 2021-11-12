@@ -41,6 +41,7 @@
     .quanittyInput {
         @apply w-1/2 text-center h-full font-bold sm-headline;
         outline: none;
+        background-color: white;
         color: theme("textColor.active");
         &::-webkit-inner-spin-button,
         &::-webkit-inner-spin-button {

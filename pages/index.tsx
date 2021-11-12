@@ -1,6 +1,5 @@
 import { Collection } from '@commerce/types/collection';
 import { ProductCard } from '@commerce/types/product';
-import { RecipeCollection } from '@commerce/types/recipe-collection';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
 import { FacetValue } from '@framework/schema';
 import commerce from '@lib/api/commerce';

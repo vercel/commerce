@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useCartDrawer } from 'src/components/contexts';
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder';
 import { DEFAULT_CURRENCY } from 'src/utils/constanst.utils';
@@ -13,7 +13,7 @@ interface Props {
 
 }
 
-const CartDrawer = ({ }: Props) => {
+const CartDrawer = memo(({ }: Props) => {
   const { cartVisible, closeCartDrawer } = useCartDrawer()
   const {order} = useGetActiveOrder()
 
@@ -35,6 +35,7 @@ const CartDrawer = ({ }: Props) => {
       </div>
     </DrawerCommon>
   )
-}
+})
 
+CartDrawer.displayName = 'CartDrawer'
 export default CartDrawer;

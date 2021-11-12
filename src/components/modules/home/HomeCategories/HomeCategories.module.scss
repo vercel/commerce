@@ -15,7 +15,7 @@
     }
     @screen md {
         @apply relative;
-        margin: 12.8rem auto 5.4rem;
+        margin: 10rem auto 5.4rem;
 
         &::before,
         &::after {
@@ -39,7 +39,8 @@
     }
     .homeCategoryList {
         @apply flex justify-start items-center flex-wrap;
-        margin: 1rem 0;
+        margin: 1rem auto;
+        max-width: 1248px;
         @screen md {
             @apply flex-nowrap;
         }

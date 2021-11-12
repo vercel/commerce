@@ -27,7 +27,6 @@ const useAddProductToCart = () => {
       })
       .catch((error) => {
         setError(error)
-        console.log("error")
         fCallBack(false, error.message)
       })
       .finally(() => setLoading(false))
