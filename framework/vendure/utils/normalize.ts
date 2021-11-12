@@ -260,7 +260,6 @@ export function normalizeBanner(banner: Banner): BannerItemProps {
 
 
 export function normalizeHomeFeature(feature: Feature): HomeFeatureItemProps {
-  console.log(feature)
   return {
     imageSrc: feature.asset?.preview || null,
     content: feature.content || null,

@@ -141,7 +141,7 @@ export async function getStaticProps({
   const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.HOME } })
   promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
-  // banner
+  // Feature
   const homeFeaturePromise = await commerce.getHomeFeature({ variables: {} })
   // promisesWithKey.push({ key: 'features', promise: homeFeaturePromise,keyResult:'features' })
 

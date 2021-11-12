@@ -23,6 +23,9 @@ query recipeByProductSlug($slug:String,$options:RecipeListOptions){
         assets{
           preview
         }
+        featuredAsset {
+          preview
+        }
         variants{
           id
           name
