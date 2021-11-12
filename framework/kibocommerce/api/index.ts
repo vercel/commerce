@@ -9,14 +9,12 @@ import getCustomerWishlist from './operations/get-customer-wishlist'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
-import createFetchStoreApi from './utils/fetch-store-api'
 import type { RequestInit } from '@vercel/fetch'
 
 export interface KiboCommerceConfig extends CommerceAPIConfig {
   apiHost?: string
   clientId?: string
   sharedSecret?: string
-  storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
   customerCookieMaxAgeInDays: number,
   currencyCode: string,
   documentListName: string,
@@ -37,7 +35,6 @@ const config: KiboCommerceConfig = {
   apiHost: process.env.KIBO_API_HOST || '',
   clientId: process.env.KIBO_CLIENT_ID || '',
   sharedSecret: process.env.KIBO_SHARED_SECRET || '',
-  storeApiFetch: createFetchStoreApi(() => getCommerceApi().getConfig()),
   customerCookieMaxAgeInDays: 30,
   currencyCode: 'USD',
   defaultWishlistName: 'My Wishlist'

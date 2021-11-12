@@ -1,32 +1,9 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
-import { kiboCommerceProvider } from './provider'
-import {
-  CommerceConfig,
-  CommerceProvider as CoreCommerceProvider,
-  useCommerce as useCoreCommerce,
-} from '@commerce'
+import { getCommerceProvider, useCommerce as useCoreCommerce } from '@commerce'
+import { kiboCommerceProvider, KibocommerceProvider } from './provider'
 
-export const localConfig: CommerceConfig = {
-  locale: 'en-us',
-  cartCookie: 'session',
-}
+export { kiboCommerceProvider }
+export type { KibocommerceProvider }
 
-export function CommerceProvider({
-  children,
-  ...config
-}: {
-  children?: ReactNode
-  locale: string
-} & Partial<CommerceConfig>) {
-  return (
-    <CoreCommerceProvider
-      provider={kiboCommerceProvider}
-      config={{ ...localConfig, ...config }}
-    >
-      {children}
-    </CoreCommerceProvider>
-  )
-}
+export const CommerceProvider = getCommerceProvider(kiboCommerceProvider)
 
 export const useCommerce = () => useCoreCommerce()
