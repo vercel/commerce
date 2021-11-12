@@ -17,7 +17,7 @@ const RESPONSIVE: ResponsiveType = {
       slidesToSlide: 1, // optional, default to 1.
     },
   }
-const RecipeDetailInfo = ({ ...rest}: Prop) => {
+const RecipeDetailInfo = ({time, people, country,  ...rest}: Prop) => {
    
     return (
         <section className={s.recipeDetailInfo}>
@@ -37,7 +37,7 @@ const RecipeDetailInfo = ({ ...rest}: Prop) => {
                     <h1 className={s.name}>
                         {rest.title}
                     </h1>
-                    {/* <RecipeBriefInfo /> */}
+                    <RecipeBriefInfo time={time||""} people={people||""} country={country||""}/>
                 </div>
                 <div className={s.detail}>
                     <section className={s.content} dangerouslySetInnerHTML={{__html: rest.content ?? ''}}></section>

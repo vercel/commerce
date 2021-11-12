@@ -609,6 +609,9 @@ export type Recipe = Node & {
   recommendedRecipes?: Maybe<Array<Recipe>>;
   slug: Scalars['String'];
   title: Scalars['String'];
+  people: Scalars['String'];
+  time: Scalars['String'];
+  country: Scalars['String'];
   translations: Array<RecipeTranslation>;
   updatedAt: Scalars['DateTime'];
 };
@@ -834,6 +837,9 @@ export type RecipeTranslation = {
   languageCode: LanguageCode;
   slug: Scalars['String'];
   title: Scalars['String'];
+  people: Scalars['String'];
+  time: Scalars['String'];
+  country: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -4221,6 +4227,11 @@ export type GetProductQuery = { __typename?: 'Query' } & {
       >
     }
   >
+}
+
+
+export type ProductByMutation = { __typename?: 'Query' } & {
+  productByIds:Array<Product>
 }
 
 export type SearchQueryVariables = Exact<{

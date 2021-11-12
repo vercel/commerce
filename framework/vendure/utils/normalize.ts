@@ -189,6 +189,9 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
       description: recipe.translations?.[0]?.description || null,
       content: recipe.translations?.[0]?.content || null,
       createdAt: recipe.createdAt || null,
+      time: recipe.time || null,
+      people: recipe.people || null,
+      country: recipe.country || null,
       ingredients : recipe.ingredients?.map((product:ProductIngredients)=>({
         id: product.id,
         name: product.name,
@@ -207,7 +210,10 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
         title: recipe.title || null,
         imageSrc: recipe.featuredAsset?.preview || null,
         slug: recipe.slug || null,
-        description: recipe.description || null
+        description: recipe.description || null,
+        people: recipe.people || null,
+        time: recipe.time || null,
+        country: recipe.country || null
       }))||[]
   }
 }
@@ -225,6 +231,9 @@ export function normalizeRecipes(recipe: Recipe): RecipeProps {
       collection: recipe.collections?.[0] ? recipe.collections?.[0]?.name : null,
       collectionIds: recipe.collections?.map(colection => colection.id) || null,
       facetValueIds: recipe.facetValues?.map(facet => facet.id) || null,
+      people: recipe.people || null,
+      time: recipe.time || null,
+      country: recipe.country || null
   }
 }
 
