@@ -16,6 +16,8 @@ interface Props {
 const CartDrawer = ({ }: Props) => {
   const { cartVisible, closeCartDrawer } = useCartDrawer()
   const {order} = useGetActiveOrder()
+
+
   return (
     <DrawerCommon
       title={`Your cart (${order?.lineItems.length || 0})`}

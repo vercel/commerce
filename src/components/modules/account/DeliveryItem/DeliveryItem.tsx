@@ -10,18 +10,19 @@ import { OrderLine } from "@framework/schema"
 
 interface DeliveryItemProps {
     id: string;
-    status: "waiting" | "delivering" | "delivered";
+    status?: string;
     products?: OrderLine[];
-    totalPrice: number;
+    totalPrice?: number;
+    currencyCode?:string;
 }
 
-const DeliveryItem = ({ id, status, products, totalPrice } : DeliveryItemProps) => {
+const DeliveryItem = ({ id, status, products,currencyCode , totalPrice } : DeliveryItemProps) => {
     return (
         <section className={s.deliveryItem}>
             <IdAndStatus id={id} status={status} />
             <div className={s.separator}></div>
             <Products products={products} />
-            <TotalPrice totalPrice={totalPrice} />
+            <TotalPrice currencyCode={currencyCode} totalPrice={totalPrice} />
             <ReOrder visible={status === "delivered" ? true : false}/>
         </section>
     )

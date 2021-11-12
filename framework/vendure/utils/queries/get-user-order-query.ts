@@ -9,9 +9,10 @@ export const getUserOrderQuery = /* GraphQL */ `
                         }
                     quantity
                     }
-                total
+                totalWithTax
                 state
                 code
+                currencyCode
                 }
             }
         }

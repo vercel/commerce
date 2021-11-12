@@ -11,7 +11,7 @@ import { useUpdateProductInCart } from 'src/components/hooks/cart'
 import { debounce } from 'lodash'
 import useRemoveProductInCart from 'src/components/hooks/cart/useRemoveProductInCart'
 import { useMessage } from 'src/components/contexts'
-
+import { useGetUserOrder } from 'src/components/hooks/account'
 export interface ProductCartItempProps extends LineItem {
   currency: { code: string }
 }
@@ -29,6 +29,7 @@ const ProductCartItem = ({
   const {updateProduct} = useUpdateProductInCart()
   const {removeProduct, loading} = useRemoveProductInCart()
 	const {showMessageSuccess, showMessageError } = useMessage()
+  const { mutate: mutateUserOrder } = useGetUserOrder();
   // const handleQuantityChangeCallback = (isSuccess:boolean,mess?:string) => {
   //   if(!isSuccess){
   //     // console.log(mess)
@@ -41,6 +42,7 @@ const ProductCartItem = ({
     }else{
       showMessageSuccess("Remove success")
       setVisible(false)
+      mutateUserOrder()
     }
   }
   const debounceFn = useCallback(()=>{

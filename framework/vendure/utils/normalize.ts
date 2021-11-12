@@ -197,7 +197,7 @@ export function normalizeRecipe(recipe: Recipe): RecipeProps {
         currencyCode: product.variants?.[0]?.currencyCode || null,
         productVariantId: product.variants?.[0]?.id?.toString() || null,
         productVariantName: product.name || null,
-        price: product.variants?.[0]?.priceWithTax || null,
+        price: product.variants?.[0]?.priceWithTax / 100 || null,
         collection: product.collections?.[0] ? product.collections?.[0]?.name : null,
         collectionIds: product.collections?.map(colection => colection.id) || null,
         facetValueIds: product.facetValues?.map(facet => facet.id) || null,
