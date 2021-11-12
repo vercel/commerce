@@ -11,6 +11,7 @@ import { useGetActiveOrder, useUpdateProductInCart } from 'src/components/hooks/
 import { debounce } from 'lodash'
 import useRemoveProductInCart from 'src/components/hooks/cart/useRemoveProductInCart'
 import { useMessage } from 'src/components/contexts'
+import { useGetUserOrder } from 'src/components/hooks/account'
 import useChangeOrderState from 'src/components/hooks/order/useChangeOrderState'
 
 export interface ProductCartItempProps extends LineItem {
@@ -27,9 +28,10 @@ const ProductCartItem = ({
   id,
 }: ProductCartItempProps) => {
   const [visible, setVisible] = useState(false)
-  const { updateProduct } = useUpdateProductInCart()
-  const { removeProduct, loading } = useRemoveProductInCart()
-  const { showMessageSuccess, showMessageError } = useMessage()
+  const {updateProduct} = useUpdateProductInCart()
+  const {removeProduct, loading} = useRemoveProductInCart()
+	const {showMessageSuccess, showMessageError } = useMessage()
+  const { mutate: mutateUserOrder } = useGetUserOrder();
   const { order } = useGetActiveOrder()
   const {changeOrderState } = useChangeOrderState()
   // const handleQuantityChangeCallback = (isSuccess:boolean,mess?:string) => {
@@ -44,6 +46,7 @@ const ProductCartItem = ({
     } else {
       showMessageSuccess('Remove success')
       setVisible(false)
+      mutateUserOrder()
     }
   }
 

@@ -21,14 +21,24 @@
         border-radius: 0.5rem;
         width: fit-content;
 
-        &.waiting {
+        &.AddingItems {
             background-color: #D9A645;
         }
-        &.delivering {
+        &.PaymentAuthorized {
             background-color: var(--info-dark);
         }
-        &.delivered {
+        &.PaymentSettled
+        {
             background-color: var(--primary);
+        }
+        &.PartiallyShipped {
+            background-color: var(--primary);
+        }
+        &.Shipped {
+            background-color: var(--primary);
+        }
+        &.Cancelled {
+            background-color: var(--negative);
         }
     }
 }

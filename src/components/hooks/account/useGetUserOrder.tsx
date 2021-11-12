@@ -5,13 +5,20 @@ import useSWR from 'swr'
 
 const useGetUserOrder = () => {
   const { data, ...rest } = useSWR<ActiveCustomerQuery>([getUserOrderQuery], gglFetcher)
-  
+
   const addingItem = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == 'AddingItems');
-  const arrangingPayment = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == 'ArrangingPayment');
+  const paymentAuthorized = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "PaymentAuthorized");
+  const paymentSettled = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == 'PaymentSettled');
+  const partiallyShipped = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "PartiallyShipped");
+  const shipped = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == 'Shipped');
   const cancelled = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "Cancelled");
+
   return { 
     addingItem: addingItem,
-    arrangingPayment: arrangingPayment,
+    paymentAuthorized: paymentAuthorized,
+    paymentSettled: paymentSettled,
+    partiallyShipped:partiallyShipped,
+    shipped:shipped,
     cancelled: cancelled,
     ...rest 
   }
