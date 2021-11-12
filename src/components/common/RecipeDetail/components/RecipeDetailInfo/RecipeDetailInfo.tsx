@@ -2,6 +2,7 @@ import React from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import { CarouselCommon, ImgWithLink, RecipeImgItem } from 'src/components/common'
 import { RecipeProps } from 'src/utils/types.utils'
+import RecipeBriefInfo from '../RecipeBriefInfo/RecipeBriefInfo'
 import { RecipeImgItemProps } from '../RecipeImgItem/RecipeImgItem'
 import s from './RecipeDetailInfo.module.scss'
 
@@ -14,7 +15,7 @@ const RESPONSIVE: ResponsiveType = {
     desktop: {
       breakpoint: { max: 9999, min: 0 },
       items: 1,
-      slidesToSlide: 1, // optional, default to 1.
+      slidesToSlide: 1
     },
   }
 const RecipeDetailInfo = ({time, people, country,  ...rest}: Prop) => {
