@@ -10,7 +10,6 @@ Then, set the environment variables in `.env.local` to match the ones from your 
 
 ```
 COMMERCE_PROVIDER='kibocommerce'
-KIBO_API_TOKEN=
 KIBO_API_URL= 'https://t1234-s1234.sandbox.mozu.com/graphql'
 KIBO_CART_COOKIE='kibo_cart'
 KIBO_CUSTOMER_COOKIE='kibo_customer'
