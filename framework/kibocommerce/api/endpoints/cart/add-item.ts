@@ -2,12 +2,9 @@ import { Product } from './../../../schema.d'
 import { normalizeCart } from '../../../lib/normalize'
 import type { CartEndpoint } from '.'
 import addToCurrentCartMutation from '@framework/api/mutations/addToCart-mutation'
-import getAnonymousShopperToken from '@framework/api/utils/get-anonymous-shopper-token'
-import { getCookieExpirationDate } from '@framework/lib/getCookieExpirationDate'
-import { prepareSetCookie } from '@framework/lib/prepareSetCookie'
-import { setCookies } from '@framework/lib/setCookie'
+
 import { getProductQuery } from '@framework/api/queries/get-product-query'
-import { getCartQuery } from '@framework/api/queries/getCartQuery'
+import { getCartQuery } from '@framework/api/queries/get-cart-query'
 import CookieHandler from '@framework/api/utils/cookie-handler'
 
 const buildAddToCartVariables = ({

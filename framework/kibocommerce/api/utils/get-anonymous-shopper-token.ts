@@ -1,5 +1,5 @@
 import type { KiboCommerceConfig } from '../'
-import { getAnonymousShopperTokenQuery } from '../queries/getAnonymousShopperTokenQuery'
+import { getAnonymousShopperTokenQuery } from '../queries/get-anonymous-shopper-token-query'
 
 async function getAnonymousShopperToken({
   config,

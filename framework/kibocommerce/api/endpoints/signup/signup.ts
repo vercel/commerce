@@ -1,9 +1,9 @@
 import { FetcherError } from '@commerce/utils/errors'
 import type { SignupEndpoint } from '.'
 import { registerUserMutation, registerUserLoginMutation } from '../../mutations/signup-mutation'
-import { prepareSetCookie } from '../../../lib/prepareSetCookie';
-import { setCookies } from '../../../lib/setCookie'
-import { getCookieExpirationDate } from '../../../lib/getCookieExpirationDate'
+import { prepareSetCookie } from '../../../lib/prepare-set-cookie';
+import { setCookies } from '../../../lib/set-cookie'
+import { getCookieExpirationDate } from '../../../lib/get-cookie-expiration-date'
 
 const invalidCredentials = /invalid credentials/i
 

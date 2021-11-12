@@ -132,7 +132,7 @@ function normalizeLineItem(item: any): any {
       listPrice: 0,
     },
     options: item.product.options,
-    path: `${item.product.productCode}/na`,
+    path: `${item.product.productCode}`,
     discounts: item?.discounts?.map((discount: any) => ({
       value: discount.discounted_amount,
     })),

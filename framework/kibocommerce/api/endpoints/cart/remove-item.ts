@@ -1,8 +1,7 @@
 import { normalizeCart } from '../../../lib/normalize'
-// import getCartCookie from '../../utils/get-cart-cookie'
 import type { CartEndpoint } from '.'
 import removeItemFromCartMutation from '@framework/api/mutations/removeItemFromCart-mutation'
-import { getCartQuery } from '@framework/api/queries/getCartQuery'
+import { getCartQuery } from '@framework/api/queries/get-cart-query'
 
 const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
   req,

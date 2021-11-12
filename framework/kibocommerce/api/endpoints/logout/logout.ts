@@ -1,6 +1,6 @@
 import type { LogoutEndpoint } from '.'
-import {prepareSetCookie} from '../../../lib/prepareSetCookie';
-import {setCookies} from '../../../lib/setCookie'
+import {prepareSetCookie} from '../../../lib/prepare-set-cookie';
+import {setCookies} from '../../../lib/set-cookie'
 
 const logout: LogoutEndpoint['handlers']['logout'] = async ({
   res,
