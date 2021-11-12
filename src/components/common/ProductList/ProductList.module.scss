@@ -1,5 +1,6 @@
 .wrapper {
     margin: 4rem auto;
+    min-height: 30rem;
     .list {
         @apply grid grid-cols-2;
         @screen md {

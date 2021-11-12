@@ -15,16 +15,18 @@
             width: 100%;
             height: 100%;
         }
-        &:hover {
-            transform: scale(1.05);
-        }
     }
     .categoryItemText {
-        @apply sub-headline;
+        @apply sub-headline transition-all duration-200;
         text-align: center;
         font-feature-settings: "salt" on;
         cursor: pointer;
-        &:hover {
+    }
+    &:hover {
+        .categoryItemImage {
+            transform: scale(1.05);
+        }
+        .categoryItemText {
             color: var(--primary);
         }
     }
