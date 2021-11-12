@@ -18,7 +18,7 @@ interface Props {
 
 const ProductInfo = ({ productInfoDetail }: Props) => {
     const [option, setOption] = useState({})
-    const [quanitty, setQuanitty] = useState(0)
+    const [quanitty, setQuanitty] = useState(1)
     const [addToCartLoading, setAddToCartLoading] = useState(false)
     const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const {showMessageSuccess, showMessageError } = useMessage()

@@ -4,7 +4,6 @@ import rawFetcher from 'src/utils/rawFetcher'
 import { ProductByMutation } from '@framework/schema'
 import { productByIdsMutation } from '@framework/utils/mutations/product-by-ids-mutation'
 import { normalizeProducts } from '@framework/utils/normalize'
-import { ProductCard } from '@commerce/types/product'
 import useSWR from 'swr'
 import gglFetcher from 'src/utils/gglFetcher'
 
