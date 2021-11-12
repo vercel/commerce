@@ -24,7 +24,6 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
 
             <div className={s.tabs}>
                 <TabCommon>
-                    
                     <TabPane tabName={"Adding Item"} >
                         <div>
                             <div className={s.blank}></div>
@@ -37,7 +36,6 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             }
                         </div>
                     </TabPane>
-                    
                     
                     <TabPane tabName={"Payment Authorized"}>
                         <div>
@@ -52,7 +50,8 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                          </div>
                     </TabPane>
                     
-
+                    
+                 
                     <TabPane tabName={"Payment Settled"}>
                         <div>
                             <div className={s.blank}></div>
@@ -65,7 +64,8 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             }
                         </div>
                     </TabPane>
-
+                       
+                    
                     <TabPane tabName={"Partially Shipped"}>
                         <div className={s.blank}></div>
                         {
