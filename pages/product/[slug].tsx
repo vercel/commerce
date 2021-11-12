@@ -20,18 +20,18 @@ interface Props {
   recipeByProductSlug: RecipeProps[]
 }
 export default function Slug({ product, relevantProducts, collections,relevant,recipeByProductSlug }: Props) {
-  const [local,setLocal] = useLocalStorage<Product[]>(LOCAL_STORAGE_KEY.VIEWEDPRODUCT, []);
+  const [local,setLocal] = useLocalStorage<string[]>(LOCAL_STORAGE_KEY.VIEWED_PRODUCT_IDS, []);
   useEffect(() => {
     let viewed = local
     if(viewed){
       if(viewed.length>10){
         viewed.slice(1)
       }
-      if(!viewed.find(p => p.id === product.id)){
-        setLocal([...viewed, product])
+      if(!viewed.find(id => id === product.id)){
+        setLocal([...viewed, product.id])
       }
     }else{
-      setLocal([product])
+      setLocal([product.id])
     }
   }, [product,local,setLocal])
 ;

@@ -1,34 +1,36 @@
-import { Product, ProductCard } from '@commerce/types/product';
-import { normalizeProductCard } from '@framework/utils/normalize';
+import { Product } from '@commerce/types/product';
 import React, { useEffect, useState } from 'react';
 import ListProductWithInfo from 'src/components/common/ListProductWithInfo/ListProductWithInfo';
-import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
+import useProductByIds, { ProductByIdsAgs } from 'src/components/hooks/product/useProductByIds';
 import { useLocalStorage } from 'src/components/hooks/useLocalStorage';
 import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils';
 interface Props {
     product?:Product
 }
 const ViewedProducts = ({product}:Props) => {
-    const [local] = useLocalStorage<Product[]>(LOCAL_STORAGE_KEY.VIEWEDPRODUCT, []);
-    const [viewed, setViewed] = useState<ProductCard[]>([])
+    const [local] = useLocalStorage<string[]>(LOCAL_STORAGE_KEY.VIEWED_PRODUCT_IDS, []);
+    // const [viewed, setViewed] = useState<ProductCard[]>([])
+    const [input, setInput] = useState<ProductByIdsAgs>({input:{ids:[]}})
+    const {viewedProducts} = useProductByIds(input)
     useEffect(() => {
-    if(local){
-        if(product){
-            setViewed(local.filter((p)=>p.id !== product.id).map((p)=>normalizeProductCard(p)))
-        }else{
-            setViewed(local.map((p)=>normalizeProductCard(p)))
+        if(local){
+            if(product){
+                let ids = local.filter((id)=>id !== product.id)
+                setInput({input:{ids}})
+            }else{
+                let ids = local
+                setInput({input:{ids}})
+            }
         }
-    }
-
-    }, [])
-    if (viewed && viewed.length===0){
+    }, [local, product])
+    if (viewedProducts && viewedProducts.length===0){
         return <div></div>
     }
     return (
         <ListProductWithInfo
             title="viewed Products"
             subtitle="Last call! Shop deep deals on 100+ bulk picks while you can."
-            data={viewed}
+            data={viewedProducts}
             hasBorderBottomMobile={true}
         />
     );

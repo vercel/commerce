@@ -4223,6 +4223,11 @@ export type GetProductQuery = { __typename?: 'Query' } & {
   >
 }
 
+
+export type ProductByMutation = { __typename?: 'Query' } & {
+  productByIds:Array<Product>
+}
+
 export type SearchQueryVariables = Exact<{
   input: SearchInput
 }>
