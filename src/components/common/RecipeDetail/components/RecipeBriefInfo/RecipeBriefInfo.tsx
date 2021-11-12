@@ -13,18 +13,27 @@ interface Props {
 const RecipeBriefInfo = ({time, people, country }: Props) => {
     return (
         <section className={s.recipeBriefInfo}>
-            <div className={s.item}>
-                <IconTime />
-                <div className={s.content}>{time}</div>
-            </div>
-            <div className={s.item}>
-                <IconPeople />
-                <div className={s.content}>{people}</div>
-            </div>
-            <div className={s.item}>
-                <IconLocation />
-                <div className={s.content}>{country}</div>
-            </div>
+            {
+                time &&
+                    <div className={s.item}>
+                        <IconTime />
+                        <div className={s.content}>{time}</div>
+                    </div>
+            }
+            {
+                people && 
+                    <div className={s.item}>
+                        <IconPeople />
+                        <div className={s.content}>{people}</div>
+                    </div>
+            }
+            {
+                country &&
+                    <div className={s.item}>
+                        <IconLocation />
+                        <div className={s.content}>{country}</div>
+                    </div>
+            }
         </section >
     )
 }
