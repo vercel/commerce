@@ -5,26 +5,32 @@
         @apply flex justify-center items-center transition-all duration-200;
         width: 10.6rem;
         margin: 0 auto;
-        max-height: 14rem;
+        max-height: 10rem;
         object-fit: cover;
         cursor: pointer;
         @screen md {
             width: 100%;
         }
-        img {
-            width: 100%;
-            height: 100%;
-        }
-        &:hover {
-            transform: scale(1.05);
+        a > div {
+            max-height: 10rem;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
         }
     }
     .categoryItemText {
-        @apply sub-headline;
+        @apply sub-headline transition-all duration-200;
         text-align: center;
         font-feature-settings: "salt" on;
         cursor: pointer;
-        &:hover {
+    }
+    &:hover {
+        .categoryItemImage {
+            transform: scale(1.05);
+        }
+        .categoryItemText {
             color: var(--primary);
         }
     }

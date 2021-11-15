@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React, { useRef } from 'react'
-import Carousel from 'react-multi-carousel'
+import Carousel, { CarouselInternalState } from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import {
   ButtonGroupProps, CarouselProps, ResponsiveType
@@ -46,19 +46,20 @@ const CarouselCommon = <T,>({
   ...props
 }: CarouselCommonProps<T>) => {
   const carousel = useRef<Carousel>(null)
-  const handleRightArrowClick = () => {
-    carousel.current?.next(carousel.current.props.slidesToSlide||1)
-  }
-  const handleLeftArrowClick = () => {
-    carousel.current?.previous(carousel.current.props.slidesToSlide||1)
-  }
+  // const handleRightArrowClick = () => {
+  //   carousel.current?.next(carousel.current.props.slidesToSlide||1)
+  // }
+  // const handleLeftArrowClick = () => {
+  //   carousel.current?.previous(carousel.current.props.slidesToSlide||1)
+  // }
+
   return (
     <div className={s.navigationWrapper}>
       <Carousel
         {...props}
         ref={carousel}
         showDots={showDots}
-        customButtonGroup={<CarouselButtonGroup />}
+        customButtonGroup={<CarouselButtonGroup isArrow={arrows}/>}
         renderButtonGroupOutside
         sliderClass={''}
         containerClass={classNames({
@@ -69,6 +70,7 @@ const CarouselCommon = <T,>({
         arrows={false}
         renderDotsOutside={true}
         ssr={true}
+        deviceType="desktop"
       >
         {data.map((props, index) => {
           const allProps = defaultComponentProps
@@ -77,7 +79,7 @@ const CarouselCommon = <T,>({
           return <Component {...allProps} key={`${itemKey}-${index}`} />
         })}
       </Carousel>
-      {carousel && arrows && (
+      {/* {carousel? isArrows && (
         <>
           <CustomCarouselArrow
             side="right"
@@ -88,16 +90,24 @@ const CarouselCommon = <T,>({
             onClick={handleLeftArrowClick}
           />
         </>
-      )}
+      ):null} */}
     </div>
   )
 }
-const CarouselButtonGroup = ({ next, previous }: ButtonGroupProps) => {
-  return (
-    <>
-      <CustomCarouselArrow side="left" onClick={previous} />
-      <CustomCarouselArrow side="right" onClick={next} />
-    </>
-  )
+
+interface CustomButtonGroupProps extends ButtonGroupProps{isArrow?:boolean}
+const CarouselButtonGroup = ({ next, previous,isArrow=true,carouselState }: CustomButtonGroupProps) => {
+  if(carouselState){
+    if(carouselState.totalItems > carouselState.slidesToShow){
+      return isArrow?(
+        <>
+          <CustomCarouselArrow side="left" onClick={previous} />
+          <CustomCarouselArrow side="right" onClick={next} />
+        </>
+      ):null
+    }else{
+      return null
+    }
+  }return null
 }
 export default CarouselCommon

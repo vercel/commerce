@@ -25,7 +25,7 @@ interface Props {
   collectionProps: CollectionsWithData[]
   recipesCollection: RecipeCollection[]
   banners: BannerItemProps[]
-  features: HomeFeatureItemProps[]
+  features: HomeFeatureItemProps[],
   error ?: string
 }
 export default function Home({ error, featuredAndDiscountFacetsValue, collectionProps,
@@ -142,8 +142,8 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
   // Feature
-  const homeFeaturePromise = await commerce.getHomeFeature({ variables: {} })
-  // promisesWithKey.push({ key: 'features', promise: homeFeaturePromise,keyResult:'features' })
+  const homeFeaturePromise =  commerce.getHomeFeature({ variables: {} })
+  promisesWithKey.push({ key: 'features', promise: homeFeaturePromise })
 
 
   try {

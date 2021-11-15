@@ -119,7 +119,7 @@ const ProductListFilter = ({ facets, collections, products, total }: ProductList
               <ProductSort />
             </div>
           </div>
-          <ProductList data={initialQueryFlag ? products : (productSearchResult || [])} total={totalItems !== undefined ? totalItems : total} onPageChange={onPageChange} defaultCurrentPage={currentPage} />
+          <ProductList data={initialQueryFlag ? products : productSearchResult} total={totalItems !== undefined ? totalItems : total} onPageChange={onPageChange} defaultCurrentPage={currentPage} />
         </div>
       </div>
     </div>

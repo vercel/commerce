@@ -38,6 +38,7 @@ const Banner = memo(({ data }: Props) => {
                 Component={BannerItem}
                 responsive={RESPONSIVE}
                 showDots={true}
+                infinite={true}
             />
         </div>
     )

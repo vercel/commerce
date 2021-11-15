@@ -1,15 +1,15 @@
 import { QueryRecipes } from '@framework/schema'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { BlogEmpty, ButtonCommon, RecipeCard, SelectCommon } from 'src/components/common'
+import { RecipeCard, SelectCommon } from 'src/components/common'
 import BreadcrumbCommon from 'src/components/common/BreadcrumbCommon/BreadcrumbCommon'
 import MenuNavigation from 'src/components/common/MenuNavigation/MenuNavigation'
 import PaginationCommon from 'src/components/common/PaginationCommon/PaginationCommon'
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard'
 import { useGetRecipeList } from 'src/components/hooks/recipe'
 import { DEFAULT_RECIPES_PAGE_SIZE, QUERY_KEY, ROUTE } from 'src/utils/constanst.utils'
-import { SortOrder } from 'src/utils/types.utils'
 import { getPageFromQuery, getRecipeSortParamFromQuery } from 'src/utils/funtion.utils'
+import { SortOrder } from 'src/utils/types.utils'
 import HeadingCommon from '../../../common/HeadingCommon/HeadingCommon'
 import RecipeEmpty from '../RecipeEmpty/RecipeEmpty'
 import s from './RecipesList.module.scss'
@@ -52,7 +52,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   )
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryBlog, setOptionQueryBlog] = useState<QueryRecipes>(DEFAULT_RECIPES_ARGS)
-  const { recipes, totalItems, loading } = useGetRecipeList(optionQueryBlog)
+  const { recipes, totalItems } = useGetRecipeList(optionQueryBlog)
   const [selectMobileValue, setSelectMobileValue] = useState<string>();
   const [sortValue, setSortValue] = useState<string>();
   const router = useRouter()

@@ -6,7 +6,7 @@ const CartMessage = memo(() => {
   return (
     <div className={s.cartMessage}>
       <div className={s.text}>
-        You save - Rp 150
+        Welcome to 'beta' FarFromYou
       </div>
       <div className={s.icon}>
         <IconInfo />
@@ -15,4 +15,5 @@ const CartMessage = memo(() => {
   )
 })
 
+CartMessage.displayName = 'CartMessage'
 export default CartMessage;

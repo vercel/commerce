@@ -37,6 +37,7 @@ export default function getHomeFeatureOperation({
     const { data } = await config.fetch<GetHomeFeatureQuery>(query, {
       variables,
     })
+   
     return data.features.items.map((item) => normalizeHomeFeature(item))
   }
 

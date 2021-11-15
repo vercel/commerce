@@ -1,19 +1,18 @@
-import { QueryFavorite } from "@framework/schema"
-
+import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import { HeadingCommon, TabPane } from "src/components/common"
-import { useGetFavoriteProduct, useGetUserOrder } from 'src/components/hooks/account'
+import { useToggleWishlist } from 'src/components/contexts'
+import { useGetUserOrder } from 'src/components/hooks/account'
 import { useActiveCustomer } from 'src/components/hooks/auth'
-import { ACCOUNT_TAB, DEFAULT_PAGE_SIZE, QUERY_KEY } from "src/utils/constanst.utils"
-
+import { ACCOUNT_TAB, QUERY_KEY } from "src/utils/constanst.utils"
 import AccountNavigation from '../AccountNavigation/AccountNavigation'
 import s from './AccountPage.module.scss'
 import AccountInfomation from "./components/AccountInfomation/AccountInfomation"
 import EditInfoModal from './components/EditInfoModal/EditInfoModal'
 import FavouriteProducts from "./components/FavouriteProducts/FavouriteProducts"
 import OrderInfomation from './components/OrderInformation/OrderInformation'
-import { useRouter } from "next/router"
-import { useToggleWishlist } from 'src/components/contexts'
+
+
 
 interface AccountPageProps {
     defaultActiveContent?: "info" | "orders" | "favorites"
@@ -34,19 +33,19 @@ const getTabIndex = (tab?: string): number => {
 
 
 
-const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
-    const {itemsWishlist, totalItems} = useToggleWishlist();
+const AccountPage = ({ defaultActiveContent = "orders" }: AccountPageProps) => {
+    const { itemsWishlist, totalItems } = useToggleWishlist();
 
     const router = useRouter()
 
-    const {userInfo} = useActiveCustomer();
-    
-    const {addingItem,arrangingPayment,cancelled} = useGetUserOrder();
+    const { userInfo } = useActiveCustomer();
+
+    const { addingItem, paymentAuthorized, paymentSettled, partiallyShipped, shipped, cancelled } = useGetUserOrder();
 
 
-    const [activeTab, setActiveTab] = useState(defaultActiveContent==="info" ? 0 : defaultActiveContent==="orders" ? 1 : 2)
+    const [activeTab, setActiveTab] = useState(defaultActiveContent === "info" ? 0 : defaultActiveContent === "orders" ? 1 : 2)
     const [modalVisible, setModalVisible] = useState(false);
-    
+
     useEffect(() => {
         const query = router.query[QUERY_KEY.TAB] as string
         const index = getTabIndex(query)
@@ -60,7 +59,7 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
     function closeModal() {
         setModalVisible(false);
     }
-    
+
     return (
         <>
             <section className={s.accountPage}>
@@ -69,13 +68,18 @@ const AccountPage = ({ defaultActiveContent="orders" } : AccountPageProps) => {
                 </div>
 
                 <AccountNavigation defaultActiveIndex={activeTab}>
-                    <TabPane tabName="Customer Information"> 
-                        <AccountInfomation account={userInfo} onClick={showModal}  />
+                    <TabPane tabName="Customer Information">
+                        <AccountInfomation account={userInfo} onClick={showModal} />
                     </TabPane>
-                    <TabPane tabName="Your Orders"> 
-                        <OrderInfomation addingItem={addingItem} arrangingPayment={arrangingPayment} cancelled={cancelled} />
+                    <TabPane tabName="Your Orders">
+                        <OrderInfomation addingItem={addingItem} 
+                        paymentAuthorized={paymentAuthorized}
+                        paymentSettled={paymentSettled} 
+                        partiallyShipped={partiallyShipped} 
+                        shipped={shipped}  
+                        cancelled={cancelled} />
                     </TabPane>
-                    <TabPane tabName="Favourite"> 
+                    <TabPane tabName="Favourite">
                         <FavouriteProducts products={itemsWishlist || []} totalItems={totalItems || 0} />
                     </TabPane>
                 </AccountNavigation>

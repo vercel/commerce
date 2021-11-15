@@ -37,6 +37,9 @@ export interface RecipeProps {
     facetValueIds?: string[] | null,
     collectionIds?: string[] | null,
     collection?: string | null,
+    people: string | null;
+    time: string | null;
+    country: string | null;
 }
 export interface BlogImgItem{
     url:string
