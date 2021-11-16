@@ -2806,6 +2806,46 @@ export type QueryBannersByPageArgs = {
   page: PageName;
 };
 
+export type QueryHomeFeatureArgs = {
+  term?: String;
+  options?: Maybe<HomeFeatureOptions>;
+};
+
+export type GetHomeFeatureQuery = { __typename?: 'Query' } & {
+  features: { __typename?: 'FeatureList' } & {
+    items: Array<{ __typename?: 'Feature' } & Feature>,
+    'totalItems'
+  }
+}
+
+export type QueryHomeFeature = {
+  options?: Maybe<BannerListOptions>;
+  page: PageName;
+};
+
+export type HomeFeatureOptions = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  sort?: Maybe<FeatureSortParameter>;
+  filter?: Maybe<FeatureFilterParameter>;
+};
+export type FeatureSortParameter = {
+  id?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+  order?: Maybe<SortOrder>;
+  content?: Maybe<SortOrder>;
+  order?: Maybe<SortOrder>;
+};
+export type FeatureFilterParameter = {
+  createdAt?: Maybe<DateOperators>;
+  updatedAt?: Maybe<DateOperators>;
+  languageCode?: Maybe<StringOperators>;
+  content?: Maybe<StringOperators>;
+  order?: Maybe<NumberOperators>;
+};
+
+
 export type BannerFilterParameter = {
   backgroundColor?: Maybe<StringOperators>;
   buttonLabel?: Maybe<StringOperators>;
@@ -2873,9 +2913,31 @@ export type Banner = Node & {
   updatedAt: Scalars['DateTime'];
 };
 
+export type Feature = Node & {
+  __typename?: 'Feature';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  languageCode: LanguageCode;
+  content?:Scalars['String'];
+  order?:Scalars['Int'];
+  asset?: Maybe<Asset>;
+  translations?: Array<FeatureTranslation>;
+};
+
+
+export type FeatureTranslation = {
+  __typename?: 'FeatureTranslation';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  languageCode: LanguageCode;
+  content:Scalars['String'];
+};
+
 export type GetBannersByPageQuery = { __typename?: 'Query' } & {
   bannersByPage: { __typename?: 'BannerList' } & {
-    items: Array<{ __typename?: 'SearchResult' } & Banner>,
+    items: Array<{ __typename?: 'SearchResult' } & Feature>,
     'totalItems'
   }
 }

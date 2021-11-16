@@ -1,22 +1,20 @@
 import React from 'react'
 import s from './HomeFeatureItem.module.scss'
 
-import { StaticImage } from 'src/components/common'
-
 export interface HomeFeatureItemProps {
-    image: StaticImageData;
-    children: React.ReactNode;
+    imageSrc: string  ;
+    content:  string ;
 }
 
-const HomeFeatureItem = ({ image, children }: HomeFeatureItemProps) => {
+const HomeFeatureItem = ({ imageSrc, content }: HomeFeatureItemProps) => {
     
     return (
         <div className={s.homeFeatureItem}>
             <div className={s.itemImg}>
-                <StaticImage src={image} alt="home feature item img" />
+                <img src={imageSrc ?? ''} alt="home feature item img" />
             </div>
             
-            <div className={s.itemText}>{children}</div>
+            <div className={s.itemText} dangerouslySetInnerHTML={{__html: content ?? ''}}></div>
         </div> 
     )
 

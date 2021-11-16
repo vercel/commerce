@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import {  HeadingCommon, ViewAllItem } from 'src/components/common'
+import { RecipeCollection } from '@commerce/types/recipe-collection'
+import React, { useState } from 'react'
+import { HeadingCommon, ViewAllItem } from 'src/components/common'
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard'
 import RecipeCarousel from 'src/components/common/RecipeCarousel/RecipeCarousel'
-import s from './HomeRecipe.module.scss'
-import classNames from 'classnames';
-import image13 from "../../../../../public/assets/images/image13.png"
-import image14 from "../../../../../public/assets/images/image14.png"
-import image12 from "../../../../../public/assets/images/image12.png"
-import HomeRecipeTab from './HomeRecipeTab/HomeRecipeTab'
-import { RecipeCollection } from '@commerce/types/recipe-collection';
-import { normalizeRecipe } from '@framework/utils/normalize'
 import { ROUTE } from 'src/utils/constanst.utils'
+import s from './HomeRecipe.module.scss'
+import HomeRecipeTab from './HomeRecipeTab/HomeRecipeTab'
 
 
 interface HomeRecipeProps {

@@ -21,6 +21,7 @@ import getRecipeDetail from './operations/get-recipe-detail'
 import getAllRecipeCollections from './operations/get-all-recipe-collections'
 import getBannersByPage from './operations/get-banners-by-page'
 import getRecipeByProductSlug from './operations/get-recipe-by-product-slug'
+import getHomeFeature from './operations/get-home-feature'
 
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
@@ -66,7 +67,8 @@ const operations = {
   getRecipeDetail,
   getAllRecipeCollections,
   getBannersByPage,
-  getRecipeByProductSlug
+  getRecipeByProductSlug,
+  getHomeFeature
 }
 
 export const provider = { config, operations }
