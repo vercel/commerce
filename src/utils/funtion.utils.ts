@@ -269,3 +269,7 @@ export function checkIsRecipeInCollectionsEmpty(collections: RecipeCollection[])
   }else{
     return null
 }}
+
+export function transformPrice(price:number){
+  return price/100;
+}

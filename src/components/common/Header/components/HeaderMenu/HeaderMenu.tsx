@@ -12,6 +12,7 @@ import {
   IconBuy,
   IconFilter,
   IconHeart,
+  IconHeartHead,
   IconHistory, IconUser
 } from 'src/components/icons'
 import {
@@ -167,7 +168,7 @@ const HeaderMenu = memo(
                   href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.FAVOURITE}`}
                 >
                   <a className={s.iconFavourite}>
-                    <IconHeart />
+                    <IconHeartHead />
                   </a>
                 </Link>
               </li>

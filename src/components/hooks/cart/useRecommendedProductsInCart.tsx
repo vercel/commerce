@@ -6,7 +6,6 @@ import useSWR from 'swr'
 
 const useRecommendedProductsInCart = () => {
   const { data, ...rest } = useSWR<RecommendedProductsInCartQuery>([recommendedProductsInCartQuery], gglFetcher)
-  
   return { products: data?.recommendedProductsInCart?.items ? normalizeProducts(data.recommendedProductsInCart.items) : [], ...rest }
 }
 

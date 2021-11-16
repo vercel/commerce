@@ -41,12 +41,12 @@ const ProductCardComponent = ({
 
   const {addProduct} = useAddProductToCart()
   const { openCartDrawer } = useCartDrawer()
-  const { order } = useGetActiveOrder()
   const [addToCartLoading, setAddToCartLoading] = useState(false)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const { showMessageSuccess, showMessageError } = useMessage()
+  const { order } = useGetActiveOrder()
   const {changeOrderState } = useChangeOrderState()
-  const [mode, setMode] = useState("handleAddToCart")
+  const [mode, setMode] = useState<"handleBuyNow"|"handleAddToCart">("handleAddToCart")
   const handleAddToCart = () => {
     setAddToCartLoading(true)
     if(order && order.state !== "AddingItems"){
@@ -62,6 +62,7 @@ const ProductCardComponent = ({
       onAddToCartCallBack && onAddToCartCallBack()
 			openCartDrawer && openCartDrawer()
 		}else{
+      console.log(message)
 			showMessageError(message||"Error")
 		}
   }
@@ -88,7 +89,16 @@ const ProductCardComponent = ({
   const onChangeOrderStateCallback = (isSuccess:boolean, message?:string) => {
     if(isSuccess){
       showMessageSuccess("Add to cart successfully!", 4000)
-      mode === "handleBuyNow" ? handleBuyNow() :handleAddToCart()
+      // mode === "handleBuyNow" ? handleBuyNow() :handleAddToCart()
+      if(mode==="handleAddToCart"){
+        if(productVariantId){
+          addProduct({variantId:productVariantId,quantity:1},handleAddToCartCallback)
+        }
+      }else{
+        if(productVariantId){
+          addProduct({variantId:productVariantId,quantity:1},handleBuyNowCallback)
+        }
+      }
     }else{
 			showMessageError(message||"Error")
     }

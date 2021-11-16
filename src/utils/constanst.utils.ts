@@ -53,7 +53,8 @@ export const ACCOUNT_TAB = {
 
 export const LOCAL_STORAGE_KEY = {
   TOKEN: 'token',
-  VIEWEDPRODUCT: "viewed-product"
+  VIEWEDPRODUCT: "viewed-product",
+  VIEWED_PRODUCT_IDS: "viewed-product-ids"
 }
 
 export const QUERY_SPLIT_SEPERATOR = ','

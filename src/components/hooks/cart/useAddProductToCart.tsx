@@ -21,13 +21,12 @@ const useAddProductToCart = () => {
     })
       .then(async({ data }) => {
         if (data.addItemToOrder.__typename !== "Order") {
-          throw CommonError.create(errorMapping(data.addItemToOrder.message), data.addItemToOrder.errorCode)
+          throw CommonError.create(errorMapping(data.addItemToOrder.errorCode), data.addItemToOrder.errorCode)
         }
         fCallBack(true)
       })
       .catch((error) => {
         setError(error)
-        console.log("error")
         fCallBack(false, error.message)
       })
       .finally(() => setLoading(false))
