@@ -13,7 +13,7 @@ interface Props {
     bannerLeftTitle?:string,
 }
 
-const HomeBanner = ({ bannerLeftTitle }: Props) => {
+const HomeBanner = ({ bannerLeftTitle = "FRESHNESS<br> GUARANTEED" }: Props) => {
     // const variables = useMemo(() => {
     //     return {option: {filter: {name: {eq: "Computers" }}}}
     // }, [])
