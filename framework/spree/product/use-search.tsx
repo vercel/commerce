@@ -59,8 +59,8 @@ export const handler: SWRHook<SearchProductsHook> = {
             ...sort,
             image_transformation: {
               quality: imagesQuality,
-              size: imagesSize
-            }
+              size: imagesSize,
+            },
           },
         ],
       },
@@ -76,9 +76,10 @@ export const handler: SWRHook<SearchProductsHook> = {
   },
   // useHook is used for both, SWR and mutation requests to the store.
   // useHook is called in React components. For example, after clicking `Add to cart`.
-  useHook:
-    ({ useData }) =>
-    (input = {}) => {
+  useHook: ({ useData }) => {
+    const useWrappedHook: ReturnType<SWRHook<SearchProductsHook>['useHook']> = (
+      input = {}
+    ) => {
       // useData calls the fetcher method (above).
       // The difference between useHook and calling fetcher directly is
       // useHook accepts swrOptions.
@@ -98,7 +99,10 @@ export const handler: SWRHook<SearchProductsHook> = {
           ...input.swrOptions,
         },
       })
-    },
+    }
+
+    return useWrappedHook
+  },
 }
 
 export default useSearch as UseSearch<typeof handler>

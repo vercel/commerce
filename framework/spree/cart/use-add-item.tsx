@@ -57,19 +57,25 @@ export const handler: MutationHook<AddItemHook> = {
 
     return normalizeCart(spreeSuccessResponse, spreeSuccessResponse.data)
   },
-  useHook:
-    ({ fetch }) =>
-    () => {
-      console.log('useAddItem useHook called.')
+  useHook: ({ fetch }) => {
+    const useWrappedHook: ReturnType<MutationHook<AddItemHook>['useHook']> =
+      () => {
+        console.log('useAddItem useHook called.')
 
-      const { mutate } = useCart()
+        const { mutate } = useCart()
 
-      return useCallback(async (input) => {
-        const data = await fetch({ input })
+        return useCallback(
+          async (input) => {
+            const data = await fetch({ input })
 
-        await mutate(data, false)
+            await mutate(data, false)
 
-        return data
-      }, [])
-    },
+            return data
+          },
+          [fetch, mutate]
+        )
+      }
+
+    return useWrappedHook
+  },
 }

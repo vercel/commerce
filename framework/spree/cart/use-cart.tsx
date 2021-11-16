@@ -90,13 +90,14 @@ export const handler: SWRHook<GetCartHook> = {
 
     return normalizeCart(spreeCartResponse, spreeCartResponse.data)
   },
-  useHook:
-    ({ useData }) =>
-    (input = {}) => {
+  useHook: ({ useData }) => {
+    const useWrappedHook: ReturnType<SWRHook<GetCartHook>['useHook']> = (
+      input
+    ) => {
       console.log('useCart useHook called.')
 
       const response = useData({
-        swrOptions: { revalidateOnFocus: false, ...input.swrOptions },
+        swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
       })
 
       return useMemo<typeof response & { isEmpty: boolean }>(() => {
@@ -109,5 +110,8 @@ export const handler: SWRHook<GetCartHook> = {
           },
         })
       }, [response])
-    },
+    }
+
+    return useWrappedHook
+  },
 }
