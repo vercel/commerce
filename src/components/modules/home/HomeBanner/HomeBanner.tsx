@@ -12,6 +12,7 @@ const DEFAULT_BANNER = [{
     imgLink: BannerImgRight.src,
     size: "small",
     linkButton: ROUTE.PRODUCTS,
+    backgroundColor: '#E3F2E9'
 },
 {
     title: "Save 15% on your first order 2",
@@ -19,6 +20,7 @@ const DEFAULT_BANNER = [{
     imgLink: BannerImgRight.src,
     size: "small",
     linkButton: ROUTE.PRODUCTS,
+    backgroundColor: '#E3F2E9'
 }
 ]
 interface Props {
