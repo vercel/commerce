@@ -6,7 +6,7 @@ import BannerImgRight from './assets/banner_full.png'
 import HomeBannerImg from './assets/home_banner.png'
 import s from './HomeBanner.module.scss'
 
-const DEFAULT_BANNER = [{
+const DEFAULT_BANNER:BannerItemProps[] = [{
     title: "Save 15% on your first order",
     subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
     imgLink: BannerImgRight.src,
@@ -25,11 +25,9 @@ const DEFAULT_BANNER = [{
 ]
 interface Props {
     banners: BannerItemProps[]
-
 }
 
-const HomeBanner = ({ banners }: Props) => {
-   
+const HomeBanner = ({ banners = DEFAULT_BANNER }: Props) => {
     return (
         <div className={s.homeBanner}>
             <section className={s.left}>
@@ -41,7 +39,7 @@ const HomeBanner = ({ banners }: Props) => {
                 </div>
             </section >
             <Banner
-                data={banners || DEFAULT_BANNER}
+                data={(banners.length !== 0) ? banners : DEFAULT_BANNER}
             />
         </div >
     )
