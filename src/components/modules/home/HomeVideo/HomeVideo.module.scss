@@ -30,6 +30,12 @@
       .logo {
         margin-right: 2.4rem;
         margin-bottom: 0;
+        div{
+          min-height: 5rem;
+          img{
+            object-fit:contain;
+          }
+        }
       }
     }
     .logo {

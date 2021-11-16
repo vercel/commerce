@@ -21,6 +21,7 @@ import getRecipeDetail from './operations/get-recipe-detail'
 import getAllRecipeCollections from './operations/get-all-recipe-collections'
 import getBannersByPage from './operations/get-banners-by-page'
 import getRecipeByProductSlug from './operations/get-recipe-by-product-slug'
+import getHome from './operations/get-home'
 import getHomeFeature from './operations/get-home-feature'
 
 import login from './operations/login'
@@ -68,7 +69,8 @@ const operations = {
   getAllRecipeCollections,
   getBannersByPage,
   getRecipeByProductSlug,
-  getHomeFeature
+  getHomeFeature,
+  getHome
 }
 
 export const provider = { config, operations }

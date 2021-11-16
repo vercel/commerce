@@ -58,6 +58,13 @@ export interface BlogProps {
     createdAt: string
 }
 
+export interface DataHomeProps {
+    bannerLeftTitle:string | null,
+    videoTitle:string | null,
+    videoLink:string | null,
+    imageSrcLogo?: string | null,
+    imageSrcBannerLeft?: string | null
+}
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
 

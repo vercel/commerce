@@ -2,8 +2,8 @@ import React from 'react'
 import s from './HomeFeatureItem.module.scss'
 
 export interface HomeFeatureItemProps {
-    imageSrc: string  ;
-    content:  string ;
+    imageSrc: string | null;
+    content:  string | null;
 }
 
 const HomeFeatureItem = ({ imageSrc, content }: HomeFeatureItemProps) => {

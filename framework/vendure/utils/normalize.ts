@@ -2,8 +2,8 @@ import { HomeFeatureItemProps } from './../../../src/components/modules/home/Hom
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
 import { Product as ProductTypes, ProductCard } from '@commerce/types/product';
 import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
-import { BlogProps, OrderState } from 'src/utils/types.utils';
-import { Banner, Blog, CartFragment, Favorite, Feature, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
+import { BlogProps, OrderState ,DataHomeProps} from 'src/utils/types.utils';
+import { Banner, Blog, CartFragment, Favorite, Feature, Product, Recipe, SearchResultFragment, ShippingMethod, DataHome } from '../schema';
 import { RecipeProps } from './../../../src/utils/types.utils';
 import { Product as ProductIngredients } from './../schema.d';
 // import { Recipe } from '@commerce/types/recipes'
@@ -256,6 +256,16 @@ export function normalizeBlog(blog: Blog): BlogProps {
   }
 }
 
+
+export function normalizeHome(dataHome: DataHome): DataHomeProps  {
+  return {
+    bannerLeftTitle: dataHome?.bannerLeftTitle || null,
+    videoTitle: dataHome?.videoTitle || null,
+    videoLink: dataHome?.videoLink || null,
+    imageSrcLogo: dataHome?.videoLogo?.preview ? dataHome.videoLogo?.preview + '?w=800&mode=crop'   : null,
+    imageSrcBannerLeft: dataHome?.bannerLeftImg?.preview ? dataHome.bannerLeftImg?.preview + '?w=800&mode=crop'   : null
+  }
+}
 export function normalizeBanner(banner: Banner): BannerItemProps {
   return {
     imgLink: banner.img?.preview || '',

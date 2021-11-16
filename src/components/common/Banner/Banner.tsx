@@ -5,7 +5,7 @@ import s from './Banner.module.scss'
 import BannerItem, { BannerItemProps } from './BannerItem/BannerItem'
 
 interface Props {
-    data: BannerItemProps[],
+    data?: BannerItemProps[],
 }
 
 const RESPONSIVE:ResponsiveType = {
@@ -18,8 +18,8 @@ const RESPONSIVE:ResponsiveType = {
 
 const Banner = memo(({ data }: Props) => {
     
-    if (data.length === 1) {
-        const item = data[0]
+    if (data?.length === 1) {
+        const item = data?.[0]
         return <BannerItem
             title={item.title}
             imgLink={item.imgLink}

@@ -1,6 +1,5 @@
 import { Collection } from '@commerce/types/collection';
 import { ProductCard } from '@commerce/types/product';
-import { RecipeCollection } from '@commerce/types/recipe-collection';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
 import { FacetValue } from '@framework/schema';
 import commerce from '@lib/api/commerce';
@@ -12,8 +11,7 @@ import { HomeFeatureItemProps } from 'src/components/modules/home/HomeFeature/co
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
-import { CollectionsWithData, PageName, PromiseWithKey } from 'src/utils/types.utils';
-import ErrorPage from './_error';
+import { CollectionsWithData, DataHomeProps, PageName, PromiseWithKey } from 'src/utils/types.utils';
 
 
 interface Props {
@@ -21,30 +19,31 @@ interface Props {
   freshProducts: ProductCard[],
   featuredProducts: ProductCard[],
   collections: Collection[]
-  spiceProducts: ProductCard[]
-  collectionProps: CollectionsWithData[]
-  recipesCollection: RecipeCollection[]
-  banners: BannerItemProps[]
-  features: HomeFeatureItemProps[],
-  error ?: string
+  spiceProducts:ProductCard[]
+  collectionProps:CollectionsWithData[]
+  recipesCollection:any[],
+  dataHome:DataHomeProps,
+  features:HomeFeatureItemProps[],
+  banners:BannerItemProps[]
 }
-export default function Home({ error, featuredAndDiscountFacetsValue, collectionProps,
-  freshProducts, featuredProducts, recipesCollection,
-  collections, spiceProducts, banners,features }: Props) {
-  if (error) {
-    return <ErrorPage />
-  }
+export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
+  freshProducts, featuredProducts,recipesCollection,
+  collections, spiceProducts,dataHome,features,banners }: Props) {
+  
   return (
     <>
-      <HomeBanner banners={banners} />
-      <HomeFeature features={features}/>
+      <HomeBanner banners={banners}
+      bannerLeftTitle={dataHome?.bannerLeftTitle ?? ''} 
+      imageSrcBannerLeft={dataHome?.imageSrcBannerLeft ?? ''} 
+      />
+      <HomeFeature features={features} />
       <HomeCategories />
       <FreshProducts data={freshProducts} collections={collections} />
       <HomeCollection data={collectionProps} />
-      <HomeVideo />
+      <HomeVideo data={dataHome} />
       {spiceProducts?.length > 0 && <HomeSpice data={spiceProducts} />}
       {
-        featuredProducts.length > 0 &&
+        featuredProducts?.length > 0 &&
         <FeaturedProductsCarousel data={featuredProducts} featuredFacetsValue={featuredAndDiscountFacetsValue} />
       }
       <HomeCTA />
@@ -110,7 +109,7 @@ export async function getStaticProps({
   const allDiscountFacetIds = getAllFacetValueIdsByParentCode(facets, CODE_FACET_DISCOUNT)
   const facetValueIdsForFeaturedProducts = [...allFeaturedFacetIds, ...allDiscountFacetIds]
 
-  if (facetValueIdsForFeaturedProducts.length > 0) {
+  if (facetValueIdsForFeaturedProducts?.length > 0) {
     const featuredProductsPromise = commerce.getAllProducts({
       variables: {
         facetValueIds: facetValueIdsForFeaturedProducts
@@ -132,6 +131,17 @@ export async function getStaticProps({
     preview,
   })
   promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
+  
+  //page home
+
+  const dataHome =  commerce.getHome({
+    variables: {
+    },
+    config,
+    preview,
+  })
+  promisesWithKey.push({ key: 'dataHome', promise: dataHome })
+
 
   // recipe 
   const recipesCollection = await commerce.getAllRecipeCollections({ variables: { first: 3 } })
@@ -165,7 +175,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
-
+  
     return {
       props,
       revalidate: REVALIDATE_TIME,

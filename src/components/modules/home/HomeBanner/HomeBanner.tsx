@@ -5,6 +5,7 @@ import { ROUTE } from 'src/utils/constanst.utils'
 import BannerImgRight from './assets/banner_full.png'
 import HomeBannerImg from './assets/home_banner.png'
 import s from './HomeBanner.module.scss'
+import { ImgWithLink } from 'src/components/common';
 
 const DEFAULT_BANNER:BannerItemProps[] = [{
     title: "Save 15% on your first order",
@@ -24,22 +25,26 @@ const DEFAULT_BANNER:BannerItemProps[] = [{
 }
 ]
 interface Props {
-    banners: BannerItemProps[]
+    className?: string
+    children?: any,
+    bannerLeftTitle?:string,
+    imageSrcBannerLeft?:string,
+    banners?: BannerItemProps[]
 }
 
-const HomeBanner = ({ banners = DEFAULT_BANNER }: Props) => {
+const HomeBanner = ({banners, bannerLeftTitle = "FRESHNESS<br> GUARANTEED",imageSrcBannerLeft }: Props) => {
+   
     return (
         <div className={s.homeBanner}>
             <section className={s.left}>
                 <div className={s.imgWrap}>
-                    <StaticImage src={HomeBannerImg} />
+                    <ImgWithLink src={imageSrcBannerLeft || HomeBannerImg.src} />
                 </div>
-                <div className={s.text}>
-                    Freshness<br />guaranteed
+                <div className={s.text}  dangerouslySetInnerHTML={{__html: bannerLeftTitle ?? ''}}>
                 </div>
             </section >
             <Banner
-                data={(banners.length !== 0) ? banners : DEFAULT_BANNER}
+                data={(banners?.length !== 0) ? banners : DEFAULT_BANNER}
             />
         </div >
     )
