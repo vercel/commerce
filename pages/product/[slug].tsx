@@ -9,31 +9,43 @@ import { BlogCardProps } from 'src/components/common/CardBlog/CardBlog'
 import { useLocalStorage } from 'src/components/hooks/useLocalStorage'
 import { ProductInfoDetail, ReleventProducts, ViewedProducts } from 'src/components/modules/product-detail'
 import { LOCAL_STORAGE_KEY, MAX_PRODUCT_CAROUSEL, REVALIDATE_TIME } from 'src/utils/constanst.utils'
-import { INGREDIENT_DATA_TEST, RECIPE_DATA_TEST } from 'src/utils/demo-data'
 import { getAllPromies } from 'src/utils/funtion.utils'
-import { PromiseWithKey } from 'src/utils/types.utils'
+import { PromiseWithKey, RecipeProps } from 'src/utils/types.utils'
+
 interface Props {
   relevantProducts: ProductCard[],
   product: Product,
   collections: Collection[],
-  relevant: BlogCardProps[]
+  relevant: BlogCardProps[],
+  recipeByProductSlug: RecipeProps[]
 }
-export default function Slug({ product, relevantProducts, collections,relevant }: Props) {
-  const [local,setLocal] = useLocalStorage<Product[]>(LOCAL_STORAGE_KEY.VIEWEDPRODUCT, []);
+export default function Slug({ product, relevantProducts, collections,relevant,recipeByProductSlug }: Props) {
+  const [local,setLocal] = useLocalStorage<string[]>(LOCAL_STORAGE_KEY.VIEWED_PRODUCT_IDS, []);
   useEffect(() => {
-    if(local){
-      if(!local.find(p => p.id === product.id)){
-        setLocal([...local, product])
+    let viewed = local
+    if(viewed){
+      if(viewed.length>10){
+        viewed.slice(1)
+      }
+      if(!viewed.find(id => id === product.id)){
+        setLocal([...viewed, product.id])
       }
     }else{
-      setLocal([product])
+      setLocal([product.id])
     }
   }, [product,local,setLocal])
-  
+;
   return <>
     <ProductInfoDetail productDetail={product}/>
-    <RecipeDetail ingredients={INGREDIENT_DATA_TEST} />
-    <RecommendedRecipes data={RECIPE_DATA_TEST} />
+
+    {recipeByProductSlug.length !== 0 && 
+    <RecipeDetail {...recipeByProductSlug?.[0]} 
+    ingredients={recipeByProductSlug?.[0]?.ingredients} 
+    />}
+    
+    {(recipeByProductSlug.length !== 0 && recipeByProductSlug?.[0]?.recommendedRecipes?.length !== 0) && 
+    <RecommendedRecipes data={recipeByProductSlug?.[0]?.recommendedRecipes} />}
+    
     {relevantProducts.length > 0 && <ReleventProducts data={relevantProducts} collections={collections}/>}
     <ViewedProducts product={product}/>
     {relevant.length >0  && <RelevantBlogPosts data={relevant} title="relevent blog posts" />}
@@ -85,6 +97,19 @@ export async function getStaticProps({
     preview,
   })
   promisesWithKey.push({ key: 'collections', promise: collectionsPromise, keyResult: 'collections' })
+
+  // recipes and ingredientsPromise
+  const recipeByProductSlug = commerce.getRecipeByProductSlug({
+    variables: {
+      slug:params!.slug,
+      first:1
+    },
+    config,
+    preview,
+  })
+
+  promisesWithKey.push({ key: 'recipeByProductSlug', promise: recipeByProductSlug, keyResult: 'recipeByProductSlug' })
+
 
 
   // Relevant Blogs

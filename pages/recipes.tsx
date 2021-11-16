@@ -13,11 +13,14 @@ interface Props {
   recipeCollections?: {name: string, value: string, slug: string}[],
   totalItems?: number  
 }
-export default function RecipeListPage({recipeCollections,recipes,totalItems}:Props) {
+export default function RecipeListPage({recipeCollections,recipes=[],totalItems}:Props) {
   return (
     <>
       <RecipeListBanner />
-      <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0}/>
+      {
+        <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0}/>
+      }
+     
     </>
   )
 }
@@ -33,9 +36,10 @@ export async function getStaticProps({
   let props = {} as any;
 
 
-  const recipesPromise =  commerce.getAllRecipes({
+  const recipesPromise = commerce.getAllRecipes({
     variables: {
       take: DEFAULT_RECIPES_PAGE_SIZE,
+      createdAt:"DESC"
     },
     config,
     preview,

@@ -1,23 +1,24 @@
 import React from 'react'
 import { RecipeProps } from 'src/utils/types.utils'
 import { ProductCardProps } from '../ProductCard/ProductCard'
+import { RecipeCardProps } from '../RecipeCard/RecipeCard'
 import RecipeDetailInfo from './components/RecipeDetailInfo/RecipeDetailInfo'
 import RecipeIngredient from './components/RecipeIngredient/RecipeIngredient'
 import s from './RecipeDetail.module.scss'
 
-
-interface Props extends RecipeProps  {
+interface Props extends RecipeCardProps {
     className?: string
     children?: any,
-    ingredients?: ProductCardProps[]    
+    ingredients?: ProductCardProps[],
+    productRecipe?: RecipeProps[],
 }
 
 const RecipeDetail = ({ ingredients,...rest }: Props) => {
-  
+
     return (
         <section className={s.recipeDetail}>
             <RecipeDetailInfo {...rest} />
-            <RecipeIngredient data={ingredients || []} />
+            {ingredients?.length !== 0 && <RecipeIngredient data={ingredients} />}
         </section >
     )
 }

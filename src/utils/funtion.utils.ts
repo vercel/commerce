@@ -3,7 +3,7 @@ import { Facet } from "@commerce/types/facet";
 import { Product, ProductCard, ProductOptionValues } from "@commerce/types/product";
 import moment from 'moment';
 import { QUERY_KEY, ROUTE } from 'src/utils/constanst.utils';
-import { BlogList, FacetValue, Notification, SearchResultSortParameter, RecipesSort, Blog, RecipeSortParameter } from './../../framework/vendure/schema.d';
+import {  FacetValue, Notification, SearchResultSortParameter, Blog, RecipeSortParameter } from './../../framework/vendure/schema.d';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, CODE_FACET_FEATURED_VARIANT, FACET, PRODUCT_SORT_OPTION_VALUE,RECIPE_SORT_OPTION_VALUE } from "./constanst.utils";
 import { PromiseWithKey, SelectedOptions, SortOrder } from "./types.utils";
 import { CollectionItems} from '@framework/schema'
@@ -197,9 +197,11 @@ export const FilterOneVatiant = (products: ProductCard[]) => {
   let idList: string[] = []
   let filtedProduct: ProductCard[] = []
   products.map((product: ProductCard) => {
-    if (!idList.includes(product.id)) {
-      filtedProduct.push(product)
-      idList.push(product.id)
+    if(product.id){
+      if (!idList.includes(product.id)) {
+        filtedProduct.push(product)
+        idList.push(product.id)
+      }
     }
   })
   return filtedProduct
@@ -257,10 +259,17 @@ export function convertErrorFromApiResponse(response: APIResponse): CommonError 
 }
 
 export function checkIsRecipeInCollectionsEmpty(collections: RecipeCollection[]) {
-  let total = 0
-  collections.map(item => {
-    total += item.recipes.totalItems
+  if(collections){
+    let total = 0
+    collections.map(item => {
+      total += item.recipes.totalItems
+      return null
+    })
+    return total === 0
+  }else{
     return null
-  })
-  return total === 0
+}}
+
+export function transformPrice(price:number){
+  return price/100;
 }

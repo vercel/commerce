@@ -18,7 +18,7 @@ interface Props {
 
 const ProductInfo = ({ productInfoDetail }: Props) => {
     const [option, setOption] = useState({})
-    const [quanitty, setQuanitty] = useState(0)
+    const [quanitty, setQuanitty] = useState(1)
     const [addToCartLoading, setAddToCartLoading] = useState(false)
     const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const {showMessageSuccess, showMessageError } = useMessage()
@@ -106,7 +106,7 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                                 }
                             </div>
                     }
-                    <div className={s.current}>{currentVariant?currentVariant.price:productInfoDetail.price} {currentVariant?currentVariant.currencyCode:productInfoDetail.currencyCode}</div>
+                    <div className={s.current}>{currentVariant?(currentVariant.price/100):productInfoDetail.price} {currentVariant?currentVariant.currencyCode:productInfoDetail.currencyCode}</div>
                 </div>
                 <div className={s.description} dangerouslySetInnerHTML={{__html: productInfoDetail.description}}>
                 </div>
@@ -120,7 +120,7 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                 </div>
             </div>
             <div className={s.actions}>
-                <QuanittyInput value={quanitty} onChange={handleQuanittyChange}/>
+                <QuanittyInput value={quanitty} onChange={handleQuanittyChange} min={0} max={10}/>
                 <div className={s.bottom}>
                     {/* <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.PREORDER}</ButtonCommon> */}
                     <ButtonCommon size='large' onClick={handleBuyNow} loading={buyNowLoading} disabled={addToCartLoading}>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>

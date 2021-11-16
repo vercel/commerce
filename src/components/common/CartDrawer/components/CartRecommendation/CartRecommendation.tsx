@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ResponsiveType } from 'react-multi-carousel';
 import { CarouselCommon, ViewAllItem } from 'src/components/common';
 import ProductCard, { ProductCardProps } from 'src/components/common/ProductCard/ProductCard';
 import { useGetActiveOrder, useRecommendedProductsInCart } from 'src/components/hooks/cart';
 import { ROUTE } from 'src/utils/constanst.utils';
 import s from './CartRecommendation.module.scss';
+import { useGetUserOrder } from 'src/components/hooks/account'
 
-const RESPONSIVE:ResponsiveType = {
+const RESPONSIVE: ResponsiveType = {
   desktop: {
     breakpoint: { max: 99999, min: 1440 },
     items: 2.5,
@@ -32,15 +33,17 @@ const RESPONSIVE:ResponsiveType = {
 };
 
 
-const CartRecommendation = () => {
+const CartRecommendation = memo(() => {
   const { products, mutate: mutateRecommendedProductsInCart } = useRecommendedProductsInCart()
   const { mutate: mutateGetActiveOrder } = useGetActiveOrder()
+  const { mutate: mutateUserOrder } = useGetUserOrder();
 
   const onAddToCartCallBack = () => {
     mutateGetActiveOrder()
     mutateRecommendedProductsInCart()
+    mutateUserOrder()
   }
-  
+
   return (
     <div className={s.cartRecommendation}>
       <div className={s.top}>
@@ -60,6 +63,7 @@ const CartRecommendation = () => {
       </div>
     </div>
   )
-}
+})
 
+CartRecommendation.displayName = 'CartRecommendation'
 export default CartRecommendation;

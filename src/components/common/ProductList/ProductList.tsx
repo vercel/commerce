@@ -7,7 +7,7 @@ import PaginationCommon from '../PaginationCommon/PaginationCommon'
 import ProductCard, { ProductCardProps } from '../ProductCard/ProductCard'
 import s from "./ProductList.module.scss"
 interface ProductListProps {
-    data: ProductCardProps[],
+    data?: ProductCardProps[],
     total?: number,
     defaultCurrentPage?: number
     onPageChange?: (page: number) => void
@@ -43,7 +43,7 @@ const ProductList = ({ data, total = data?.length, defaultCurrentPage, onPageCha
                     <ButtonCommon onClick={handleShowAllProduct} type='primary'>Show all products</ButtonCommon>
                 </div>
             }
-            <div className={classNames(s.pagination, { [s.hide]: data?.length === 0 })}>
+            <div className={classNames(s.pagination, { [s.hide]: !data || data.length === 0 })}>
                 <PaginationCommon defaultCurrent={defaultCurrentPage} total={total ?? 0} pageSize={DEFAULT_PAGE_SIZE} onChange={handlePageChange} />
             </div>
 

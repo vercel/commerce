@@ -43,9 +43,9 @@ export function normalizeProducts(products: Product[]): ProductCard[] {
       currencyCode: firstVariant.currencyCode,
       productVariantId: firstVariant.id,
       productVariantName: firstVariant.name,
-      collection: item.collections[0] ? item.collections[0].name : '',
-      collectionIds: item.collections.map(colection => colection.id),
-      facetValueIds: item.facetValues.map(facet => facet.id),
+      collection: item.collections?.[0] ? item.collections?.[0].name : '',
+      collectionIds: item.collections?.map(colection => colection.id),
+      facetValueIds: item.facetValues?.map(facet => facet.id),
     }
   })
 }
@@ -157,60 +157,84 @@ export function normalizeProductCard(product: ProductTypes): ProductCard {
     productVariantName: product.variants?.[0].name,
     facetValueIds: product.facetValueIds,
     collectionIds: product.collectionIds,
+    collection:product.collection?product.collection[0]:""
   }
 }
 export function normalizeFavoriteProductResult(item: Favorite) {
+
   return {
     id: item.product.id,
     name: item.product.name,
     slug: item.product.slug,
-    imageSrc: item.product.assets[0].preview ? item.product.assets[0].preview + '?w=800&mode=crop' : '',
+    imageSrc: item.product?.featuredAsset?.preview ? item.product?.featuredAsset?.preview + '?w=800&mode=crop' : null,
     price: item.product.variants[0].priceWithTax as number / 100,
     currencyCode: item.product.variants[0].currencyCode,
     productVariantId: item.product.variants?.[0]?.id.toString(),
     productVariantName: item.product.variants?.[0]?.name,
+    collection: item.product?.collections?.[0] ? item.product?.collections?.[0].name : null,
+    collectionIds: item.product?.collections?.map(colection => colection.id) || null,
+    facetValueIds: item.product?.facetValues?.map(facet => facet.id) || null,
   }
 }
 
 export function normalizeRecipe(recipe: Recipe): RecipeProps {
   return {
-    id: recipe.id || null,
-    title: recipe.translations?.[0]?.title || null,
-    imageSrc: recipe.featuredAsset?.preview || null,
-    slug: recipe.translations?.[0]?.slug || null,
-    description: recipe.translations?.[0]?.description || null,
-    content: recipe.translations?.[0]?.content || null,
-    createdAt: recipe.createdAt || null,
-    ingredients: recipe.ingredients?.map((product: ProductIngredients) => ({
-      id: product.id,
-      name: product.name,
-      slug: product.slug,
-      imageSrc: product.assets?.[0].preview || null,
-      currencyCode: product.variants?.[0]?.currencyCode || null,
-      productVariantId: product.variants?.[0]?.id?.toString() || null,
-      productVariantName: product.name || null,
-      price: product.variants?.[0]?.priceWithTax || null,
-    })),
-    recommendedRecipes: recipe.recommendedRecipes?.map((recipe: Recipe) => ({
       id: recipe.id || null,
-      title: recipe.title || null,
-      imageSrc: recipe.featuredAsset?.preview || null,
-      slug: recipe.slug || null,
-      description: recipe.description || null
-    }))
+      title: recipe.translations?.[0]?.title || null,
+      images: recipe?.assets?.map((a) => ({
+        name: a.name,
+        url: a.preview ? a.preview + '?w=800&mode=crop' : '',
+      })) || null,
+      imageSrc: recipe.featuredAsset?.preview ? recipe.featuredAsset?.preview + '?w=800&mode=crop' : null,
+      slug: recipe.translations?.[0]?.slug || null,
+      description: recipe.translations?.[0]?.description || null,
+      content: recipe.translations?.[0]?.content || null,
+      createdAt: recipe.createdAt || null,
+      time: recipe.time || null,
+      people: recipe.people || null,
+      country: recipe.country || null,
+      ingredients : recipe.ingredients?.map((product:ProductIngredients)=>({
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        imageSrc: product.featuredAsset?.preview ? product.featuredAsset?.preview + '?w=800&mode=crop' : null,
+        currencyCode: product.variants?.[0]?.currencyCode || null,
+        productVariantId: product.variants?.[0]?.id?.toString() || null,
+        productVariantName: product.name || null,
+        price: product.variants?.[0]?.priceWithTax / 100 || null,
+        collection: product.collections?.[0] ? product.collections?.[0]?.name : null,
+        collectionIds: product.collections?.map(colection => colection.id) || null,
+        facetValueIds: product.facetValues?.map(facet => facet.id) || null,
+      }))||[],
+      recommendedRecipes: recipe.recommendedRecipes?.map((recipe:Recipe)=>({
+        id: recipe.id || null,
+        title: recipe.title || null,
+        imageSrc: recipe.featuredAsset?.preview || null,
+        slug: recipe.slug || null,
+        description: recipe.description || null,
+        people: recipe.people || null,
+        time: recipe.time || null,
+        country: recipe.country || null
+      }))||[]
   }
 }
 
 export function normalizeRecipes(recipe: Recipe): RecipeProps {
 
   return {
-    id: recipe.id || null,
-    title: recipe.translations?.[0]?.title || null,
-    imageSrc: recipe.featuredAsset?.preview || null,
-    slug: recipe.translations?.[0].slug || null,
-    description: recipe.translations?.[0].description || null,
-    content: recipe.translations?.[0].content || null,
-    createdAt: recipe.createdAt || null
+      id: recipe.id || null,
+      title: recipe.translations?.[0]?.title || null,
+      imageSrc: recipe.featuredAsset?.preview ? recipe.featuredAsset?.preview + '?w=800&mode=crop'  : null,
+      slug: recipe.translations?.[0].slug || null,
+      description: recipe.translations?.[0].description || null,
+      content: recipe.translations?.[0].content || null,
+      createdAt: recipe.createdAt || null,
+      collection: recipe.collections?.[0] ? recipe.collections?.[0]?.name : null,
+      collectionIds: recipe.collections?.map(colection => colection.id) || null,
+      facetValueIds: recipe.facetValues?.map(facet => facet.id) || null,
+      people: recipe.people || null,
+      time: recipe.time || null,
+      country: recipe.country || null
   }
 }
 

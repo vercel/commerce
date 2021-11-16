@@ -2,20 +2,33 @@ export const getRecipeDetailQuery = /* GraphQL */ `
 query getRecipe($slug: String ){
   recipe(slug:$slug){
     id
-     featuredAsset {
-           preview
-         }
+    title
+    slug
+    description
+    time
+    people
+    country
+    featuredAsset {
+      preview
+    }
+    assets{
+      name
+      preview
+    }   
     translations{
       title
       slug
       description
       content
+      time
+      people
+      country
     }
     ingredients{
       id
       name
       slug
-      assets{
+      featuredAsset{
         preview
       }
       variants{
@@ -23,6 +36,15 @@ query getRecipe($slug: String ){
         name
         priceWithTax
         currencyCode
+      }
+      collections {
+        id
+        name
+      }
+      facetValues {
+        id
+        code
+        name
       }
     }
     recommendedRecipes{

@@ -30,7 +30,7 @@ const useLogin = () => {
     })
       .then(({ data, headers }) => {
         if (data.login.__typename !== 'CurrentUser') {
-          throw CommonError.create(errorMapping(data.login.message), data.login.errorCode)
+          throw CommonError.create(errorMapping(data.login.errorCode), data.login.errorCode)
         }
         const authToken = headers.get('vendure-auth-token')
         if (authToken != null) {

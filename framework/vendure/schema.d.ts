@@ -609,6 +609,9 @@ export type Recipe = Node & {
   recommendedRecipes?: Maybe<Array<Recipe>>;
   slug: Scalars['String'];
   title: Scalars['String'];
+  people: Scalars['String'];
+  time: Scalars['String'];
+  country: Scalars['String'];
   translations: Array<RecipeTranslation>;
   updatedAt: Scalars['DateTime'];
 };
@@ -834,6 +837,9 @@ export type RecipeTranslation = {
   languageCode: LanguageCode;
   slug: Scalars['String'];
   title: Scalars['String'];
+  people: Scalars['String'];
+  time: Scalars['String'];
+  country: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -2719,24 +2725,10 @@ export type Product = Node & {
   optionGroups: Array<ProductOptionGroup>
   facetValues: Array<FacetValue>
   translations: Array<ProductTranslation>
-  collections: Array<Collection>
+  collections?: Maybe<Array<Collection>>  
   customFields?: Maybe<Scalars['JSON']>
 }
 
-// export type Recipe = Node & {
-//   id: ID!
-//   createdAt: DateTime!
-//   updatedAt: DateTime!
-//   content?: Maybe<Scalars['String']>;
-//   description?: Maybe<Scalars['String']>;
-//   isPublish: Scalars['Boolean'];
-//   languageCode: LanguageCode;
-//   slug: Scalars['String'];
-//   title: Scalars['String'];
-//   translations: Array<RecipeTranslation>;
-//   ingredients: Product[],
-//   featuredAsset?: Maybe<Asset>;
-// }
 
 export type Blog = Node & {
   __typename?: 'Blog';
@@ -2904,6 +2896,12 @@ export type GetAllRecipesQuery = PaginatedList & {
 
 export type FilterRecipesQuery = PaginatedList & {
   recipeByCollectionSlug: { __typename?: 'RecipeList' } & {
+    items: Array<{ __typename?: 'Recipe' } & Recipe>,
+    'totalItems'
+  }
+}
+export type GetRecipeByProductSlugQuery = PaginatedList & {
+  recipeByProductSlug: { __typename?: 'RecipeList' } & {
     items: Array<{ __typename?: 'Recipe' } & Recipe>,
     'totalItems'
   }
@@ -4156,7 +4154,10 @@ export type GetAllRecipeCollectionsQuery = { __typename?: 'Query' } & {
         children?: Maybe<
           Array<{ __typename?: 'RecipeCollection' } & Pick<RecipeCollection, 'id'>>
         >
-        recipes: Recipe[]
+        recipes: {
+          items: Array<Recipe>,
+          'totalItems'
+        }
       }
     >,
     'totalItems'
@@ -4305,6 +4306,11 @@ export type GetProductQuery = { __typename?: 'Query' } & {
       >
     }
   >
+}
+
+
+export type ProductByMutation = { __typename?: 'Query' } & {
+  productByIds:Array<Product>
 }
 
 export type SearchQueryVariables = Exact<{

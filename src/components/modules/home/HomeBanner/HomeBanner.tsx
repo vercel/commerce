@@ -39,8 +39,7 @@ const HomeBanner = ({ banners }: Props) => {
                 </div>
             </section >
             <Banner
-                data={banners || DEFAULT_BANNER}
-            />
+                data={banners || DEFAULT_BANNER}            />
         </div >
     )
 }
