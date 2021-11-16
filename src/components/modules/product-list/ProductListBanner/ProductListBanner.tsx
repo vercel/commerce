@@ -8,7 +8,7 @@ interface Props {
     banners: BannerItemProps[]
 }
 
-const DEFAULT_BANNER = [{
+const DEFAULT_BANNER:BannerItemProps[] = [{
     title: "Save 15% on your first order",
     subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
     imgLink: BannerRight.src,
@@ -25,7 +25,7 @@ const ProductListBanner = ({banners }: Props) => {
     return (
         <div className={s.productListBanner}>
             <Banner
-                data={banners || DEFAULT_BANNER}
+                data={banners.length !== 0 ? banners : DEFAULT_BANNER}
             />
         </div >
     )

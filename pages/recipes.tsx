@@ -53,7 +53,7 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes'})
   
   // banner
-   const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.HOME } })
+   const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.RECIPES } })
    promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
 
