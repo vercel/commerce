@@ -1,8 +1,7 @@
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
-import { Product } from './../../framework/vendure/schema.d';
-import { ProductCardProps } from './../components/common/ProductCard/ProductCard';
-import { ProductCard } from './../../framework/commerce/types/product';
 import { Collection } from './../../framework/commerce/types/collection';
+import { ProductCard } from './../../framework/commerce/types/product';
+import { Asset, Maybe } from './../../framework/vendure/schema.d';
 
 export interface ProductProps {
     category?: string
@@ -60,6 +59,12 @@ export interface BlogProps {
     createdAt: string
 }
 
+export interface DataHomeProps {
+    bannerLeftTitle:string | null,
+    videoTitle:string | null,
+    videoLink:string | null,
+    imageSrcLogo?: string | null
+}
 
 export type MouseAndTouchEvent = MouseEvent | TouchEvent
 

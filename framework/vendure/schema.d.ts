@@ -576,6 +576,29 @@ export type CollectionTranslation = {
   description: Scalars['String']
 }
 
+export type DataHome = {
+  __typename?: 'Home'
+  id?: Scalars['ID'] | null
+  createdAt?: Scalars['DateTime'] | null
+  updatedAt?: Scalars['DateTime'] | null
+  bannerLeftTitle?:Scalars['String'] | null
+  videoTitle?: Scalars['String'] | null
+  videoLink?: Scalars['String'] | null
+  videoLogo?: Maybe<Asset>;
+  languageCode?: LanguageCode | null
+  translations?: HomeTranslation | null
+}
+export type HomeTranslation = {
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  languageCode: LanguageCode
+  bannerLeftTitle:string
+  videoTitle:string
+}
+
+
+
 export type CollectionList = PaginatedList & {
   __typename?: 'CollectionList'
   items: Array<Collection>
@@ -2786,7 +2809,11 @@ export type GetBlogQuery = { __typename?: 'Query' } & {
   >
 }
 
-
+export type GetHomeQuery = { __typename?: 'Query' } & {
+  home: Maybe<
+    { __typename?: 'home' } & DataHome
+  >
+}
 
 
 export type BlogTranslation = {

@@ -9,7 +9,7 @@ import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, Ho
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
-import { CollectionsWithData, PromiseWithKey } from 'src/utils/types.utils';
+import { CollectionsWithData, DataHomeProps, PromiseWithKey } from 'src/utils/types.utils';
 
 
 interface Props {
@@ -19,19 +19,21 @@ interface Props {
   collections: Collection[]
   spiceProducts:ProductCard[]
   collectionProps:CollectionsWithData[]
-  recipesCollection:any[]
+  recipesCollection:any[],
+  dataHome:DataHomeProps
 }
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts,recipesCollection,
-  collections, spiceProducts }: Props) {
+  collections, spiceProducts,dataHome }: Props) {
+  
   return (
     <>
-      <HomeBanner />
+      <HomeBanner bannerLeftTitle={dataHome?.bannerLeftTitle ?? ''} />
       <HomeFeature />
       <HomeCategories />
       <FreshProducts data={freshProducts} collections={collections} />
       <HomeCollection data={collectionProps} />
-      <HomeVideo />
+      <HomeVideo data={dataHome} />
       {spiceProducts.length > 0 && <HomeSpice data={spiceProducts} />}
       {
         featuredProducts.length > 0 &&
@@ -113,8 +115,6 @@ export async function getStaticProps({
     props.featuredProducts = []
   }
 
-
-
   // spiceProducts
   const spiceProducts = commerce.getAllProducts({
     variables: {
@@ -125,6 +125,17 @@ export async function getStaticProps({
   })
   promisesWithKey.push({ key: 'spiceProducts', promise: spiceProducts, keyResult: 'products' })
   
+  //page home
+
+  const dataHome =  commerce.getHome({
+    variables: {
+    },
+    config,
+    preview,
+  })
+  promisesWithKey.push({ key: 'dataHome', promise: dataHome })
+
+
   // recipe 
   try {
     const recipesCollection =await commerce.getAllRecipeCollections({variables:{first:3}})
@@ -151,6 +162,7 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
+  
     return {
       props,
       revalidate: REVALIDATE_TIME,

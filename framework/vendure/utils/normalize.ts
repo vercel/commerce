@@ -1,7 +1,7 @@
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
 import { Product as ProductTypes, ProductCard } from '@commerce/types/product';
-import { BlogProps, OrderState } from 'src/utils/types.utils';
-import { Blog, CartFragment, Favorite, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
+import { BlogProps, DataHomeProps, OrderState } from 'src/utils/types.utils';
+import { Blog, CartFragment, Favorite, DataHome, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
 import { RecipeProps } from './../../../src/utils/types.utils';
 import { Product as ProductIngredients } from './../schema.d';
 // import { Recipe } from '@commerce/types/recipes'
@@ -254,3 +254,12 @@ export function normalizeBlog(blog: Blog): BlogProps {
   }
 }
 
+
+export function normalizeHome(dataHome: DataHome): DataHomeProps  {
+  return {
+    bannerLeftTitle: dataHome?.bannerLeftTitle || null,
+    videoTitle: dataHome?.videoTitle || null,
+    videoLink: dataHome?.videoLink || null,
+    imageSrcLogo: dataHome?.videoLogo?.preview ? dataHome.videoLogo?.preview + '?w=800&mode=crop'   : null
+  }
+}

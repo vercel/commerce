@@ -9,10 +9,11 @@ import s from './HomeBanner.module.scss'
 
 interface Props {
     className?: string
-    children?: any
+    children?: any,
+    bannerLeftTitle?:string,
 }
 
-const HomeBanner = ({ }: Props) => {
+const HomeBanner = ({ bannerLeftTitle }: Props) => {
     // const variables = useMemo(() => {
     //     return {option: {filter: {name: {eq: "Computers" }}}}
     // }, [])
@@ -23,8 +24,7 @@ const HomeBanner = ({ }: Props) => {
                 <div className={s.imgWrap}>
                     <StaticImage src={HomeBannerImg} />
                 </div>
-                <div className={s.text}>
-                    Freshness<br />guaranteed
+                <div className={s.text}  dangerouslySetInnerHTML={{__html: bannerLeftTitle ?? ''}}>
                 </div>
             </section >
             <Banner
