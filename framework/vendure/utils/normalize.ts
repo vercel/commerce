@@ -1,7 +1,8 @@
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
 import { Product as ProductTypes, ProductCard } from '@commerce/types/product';
+import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { BlogProps, OrderState } from 'src/utils/types.utils';
-import { Blog, CartFragment, Favorite, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
+import { Banner, Blog, CartFragment, Favorite, Product, Recipe, SearchResultFragment, ShippingMethod } from '../schema';
 import { RecipeProps } from './../../../src/utils/types.utils';
 import { Product as ProductIngredients } from './../schema.d';
 // import { Recipe } from '@commerce/types/recipes'
@@ -251,6 +252,16 @@ export function normalizeBlog(blog: Blog): BlogProps {
     authorName: blog.authorName || '',
     authorAvatarAsset: blog.authorAvatarAsset?.preview || null,
     createdAt: blog.createdAt
+  }
+}
+
+export function normalizeBanner(banner: Banner): BannerItemProps {
+  return {
+    imgLink: banner.img?.preview || '',
+    title: banner.title,
+    subtitle: banner.subtitle || '',
+    buttonLabel: banner.buttonLabel || '',
+    linkButton: banner.title || '',
   }
 }
 

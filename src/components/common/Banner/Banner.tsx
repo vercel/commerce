@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 import { ResponsiveType } from 'react-multi-carousel'
 import CarouselCommon from '../CarouselCommon/CarouselCommon'
-import BannerItem, { BannerItemProps } from './BannerItem/BannerItem'
 import s from './Banner.module.scss'
+import BannerItem, { BannerItemProps } from './BannerItem/BannerItem'
 
 interface Props {
     data: BannerItemProps[],

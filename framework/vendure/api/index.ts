@@ -19,6 +19,7 @@ import getAllRecipes from './operations/get-all-recipes'
 import getAllRecipePaths from './operations/get-all-recipe-paths'
 import getRecipeDetail from './operations/get-recipe-detail'
 import getAllRecipeCollections from './operations/get-all-recipe-collections'
+import getBannersByPage from './operations/get-banners-by-page'
 import getRecipeByProductSlug from './operations/get-recipe-by-product-slug'
 
 import login from './operations/login'
@@ -64,6 +65,7 @@ const operations = {
   getAllRecipePaths,
   getRecipeDetail,
   getAllRecipeCollections,
+  getBannersByPage,
   getRecipeByProductSlug
 }
 

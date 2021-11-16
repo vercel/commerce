@@ -25,7 +25,8 @@ import type {
 } from '../types/blogs'
 
 import type { APIProvider, CommerceAPI } from '.'
-import { GetAllCollectionsOperation } from '@commerce/types/collection'
+import { GetAllCollectionsOperation } from '@commerce/types/collection';
+import { GetBannersByPageOperation } from '@commerce/types/banner';
 
 const noop = () => {
   throw new Error('Not implemented')
@@ -51,6 +52,7 @@ export const OPERATIONS = [
   'getAllRecipePaths',
   'getRecipeDetail',
   'getAllRecipeCollections',
+  'getBannersByPage',
   'getRecipeByProductSlug'
 ] as const
 
@@ -368,6 +370,21 @@ export type Operations<P extends APIProvider> = {
     ): Promise<T['data']>
   }
 
+  getBannersByPage: {
+    <T extends GetBannersByPageOperation>(opts: {
+      variables?: T['variables']
+      config?: P['config']
+      preview?: boolean
+    }): Promise<T['data']>
+  
+    <T extends GetBannersByPageOperation>(
+      opts: {
+        variables?: T['variables']
+        config?: P['config']
+        preview?: boolean
+      } & OperationOptions
+    ): Promise<T['data']>
+  }
 }
 
 export type APIOperations<P extends APIProvider> = {

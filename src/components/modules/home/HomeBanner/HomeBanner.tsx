@@ -1,22 +1,33 @@
-import { CollectionListOptions, GetCollectionsQuery } from '@framework/schema'
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { Banner, StaticImage } from 'src/components/common'
-import useGetProductListByCollection from 'src/components/hooks/useGetProductListByCollection'
+import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem'
 import { ROUTE } from 'src/utils/constanst.utils'
 import BannerImgRight from './assets/banner_full.png'
 import HomeBannerImg from './assets/home_banner.png'
 import s from './HomeBanner.module.scss'
 
+const DEFAULT_BANNER = [{
+    title: "Save 15% on your first order",
+    subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
+    imgLink: BannerImgRight.src,
+    size: "small",
+    linkButton: ROUTE.PRODUCTS,
+},
+{
+    title: "Save 15% on your first order 2",
+    subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
+    imgLink: BannerImgRight.src,
+    size: "small",
+    linkButton: ROUTE.PRODUCTS,
+}
+]
 interface Props {
-    className?: string
-    children?: any
+    banners: BannerItemProps[]
+
 }
 
-const HomeBanner = ({ }: Props) => {
-    // const variables = useMemo(() => {
-    //     return {option: {filter: {name: {eq: "Computers" }}}}
-    // }, [])
-	// const {collections} = useGetProductListByCollection(variables)
+const HomeBanner = ({ banners }: Props) => {
+   
     return (
         <div className={s.homeBanner}>
             <section className={s.left}>
@@ -28,24 +39,7 @@ const HomeBanner = ({ }: Props) => {
                 </div>
             </section >
             <Banner
-                data={
-                    [{
-                        title: "Save 15% on your first order",
-                        subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
-                        imgLink: BannerImgRight.src,
-                        size: "small",
-                        linkButton: ROUTE.PRODUCTS,
-                    },
-                    {
-                        title: "Save 15% on your first order 2",
-                        subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
-                        imgLink: BannerImgRight.src,
-                        size: "small",
-                        linkButton: ROUTE.PRODUCTS,
-                    }
-                    ]
-                }
-            />
+                data={banners || DEFAULT_BANNER}            />
         </div >
     )
 }

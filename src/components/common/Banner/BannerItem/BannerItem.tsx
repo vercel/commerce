@@ -10,19 +10,20 @@ import s from './BannerItem.module.scss'
 export interface BannerItemProps {
     imgLink: string,
     title: string,
-    subtitle: string,
+    subtitle?: string,
     buttonLabel?: string,
     linkButton?: string,
     size?: 'small' | 'large',
 }
 
 const BannerItem = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_LABEL.SHOP_NOW, linkButton = ROUTE.HOME, size = 'large' }: BannerItemProps) => {
+    console.log(imgLink.split("\\"));
     return (
         <div className={classNames({
             [s.bannerItem]: true,
             [s[size]]: true,
         })}>
-            <div className={s.inner} style={{ backgroundImage: `url(${imgLink})` }}>
+            <div className={s.inner} style={{ backgroundImage: `url(${imgLink.split('\\').join("/")})`}}>
                 <div className={s.content}>
                     <div className={s.top}>
                         <h1 className={s.heading}>
@@ -45,4 +46,5 @@ const BannerItem = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTT
     )
 })
 
+BannerItem.displayName = 'BannerItem'
 export default BannerItem
