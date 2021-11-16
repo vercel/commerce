@@ -22,7 +22,7 @@ const useUpdateProductInCart = () => {
     })
       .then(({ data }) => {
         if (data.adjustOrderLine.__typename !== "Order") {
-          throw CommonError.create(errorMapping(data.adjustOrderLine.message), data.adjustOrderLine.errorCode)
+          throw CommonError.create(errorMapping(data.adjustOrderLine.errorCode), data.adjustOrderLine.errorCode)
         }
         mutate()
         fCallBack(true)
