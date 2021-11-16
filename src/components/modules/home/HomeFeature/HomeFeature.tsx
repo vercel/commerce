@@ -27,7 +27,7 @@ interface Props {
 }
 
 const HomeFeature = ({ features }: Props) => {
-    console.log(CAROUSEL_DATA)
+ 
     return (
         <div className={s.homeFeature}>
             <HomeFeatureCarousel data={features.length !== 0 ? features : CAROUSEL_DATA} itemKey="Home Feature" />
