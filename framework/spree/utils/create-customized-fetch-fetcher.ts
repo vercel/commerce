@@ -20,7 +20,7 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
       // because @vercel/fetch doesn't accept a Request object as argument
       // and it's not used by NJC anyway.
       try {
-        const { url, params, method, headers } = fetchOptions
+        const { url, params, method, headers, responseParsing } = fetchOptions
         const absoluteUrl = new URL(url, host)
         let payload
 
@@ -52,14 +52,22 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
           const responseContentType = response.headers.get('content-type')
           let data
 
-          if (
-            !responseContentType ||
-            (!responseContentType.includes('application/json') &&
-              !responseContentType.includes('application/vnd.api+json'))
-          ) {
+          if (responseParsing === 'automatic') {
+            if (
+              !responseContentType ||
+              (!responseContentType.includes('application/json') &&
+                !responseContentType.includes('application/vnd.api+json'))
+            ) {
+              data = await response.text()
+            } else {
+              data = await response.json()
+            }
+          } else if (responseParsing === 'text') {
             data = await response.text()
-          } else {
+          } else if (responseParsing === 'json') {
             data = await response.json()
+          } else if (responseParsing === 'stream') {
+            data = await response.body
           }
 
           if (!response.ok) {
@@ -75,10 +83,18 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
             throw error
           }
 
+          if (!(error instanceof Error)) {
+            throw error
+          }
+
           throw new FetchError(null, request, null, error.message)
         }
       } catch (error) {
         if (error instanceof FetchError) {
+          throw error
+        }
+
+        if (!(error instanceof Error)) {
           throw error
         }
 

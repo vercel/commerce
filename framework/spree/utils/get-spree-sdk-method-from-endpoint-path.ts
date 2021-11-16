@@ -38,9 +38,11 @@ const getSpreeSdkMethodFromEndpointPath = <
     reachedPath.push(checkedPathPart)
   }
 
+  const foundEndpointMethod = node[pathParts[reachedPath.length]]
+
   if (
     reachedPath.length !== pathParts.length - 1 ||
-    typeof node[pathParts[reachedPath.length]] !== 'function'
+    typeof foundEndpointMethod !== 'function'
   ) {
     throw new SpreeSdkMethodFromEndpointPathError(
       `Couldn't reach ${path}. Farthest path reached was: ${reachedPath.join(
@@ -49,8 +51,7 @@ const getSpreeSdkMethodFromEndpointPath = <
     )
   }
 
-  return (...args: any[]) =>
-    (node[pathParts[reachedPath.length]] as SpreeSdkMethod)(...args)
+  return foundEndpointMethod.bind(node)
 }
 
 export default getSpreeSdkMethodFromEndpointPath
