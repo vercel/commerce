@@ -22,7 +22,7 @@ const useRemoveProductInCart = () => {
     })
       .then(({ data }) => {
         if (data.removeOrderLine.__typename !== "Order") {
-          throw CommonError.create(errorMapping(data.removeOrderLine.message), data.removeOrderLine.errorCode)
+          throw CommonError.create(errorMapping(data.removeOrderLine.errorCode), data.removeOrderLine.errorCode)
         }
         fCallBack(true)
         mutate()
