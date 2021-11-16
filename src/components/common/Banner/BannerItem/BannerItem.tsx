@@ -10,20 +10,22 @@ import s from './BannerItem.module.scss'
 export interface BannerItemProps {
     imgLink: string,
     title: string,
-    subtitle: string,
+    subtitle?: string,
     buttonLabel?: string,
     linkButton?: string,
     size?: 'small' | 'large',
+    backgroundColor?: string,
 }
 
-const BannerItem = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_LABEL.SHOP_NOW, linkButton = ROUTE.HOME, size = 'large' }: BannerItemProps) => {
+const BannerItem = memo(({ backgroundColor, imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_LABEL.SHOP_NOW, linkButton = ROUTE.HOME, size = 'large' }: BannerItemProps) => {
+
     return (
         <div className={classNames({
             [s.bannerItem]: true,
             [s[size]]: true,
         })}>
-            <div className={s.inner} style={{ backgroundImage: `url(${imgLink})` }}>
-                <div className={s.content}>
+            <div className={s.inner} style={{ backgroundImage: `url(${imgLink.split('\\').join("/")})` }}>
+                <div className={s.content} style={{ backgroundImage: `linear-gradient(to right, ${backgroundColor} 63%, rgb(227, 242, 233, 0))` }}>
                     <div className={s.top}>
                         <h1 className={s.heading}>
                             {title}
@@ -45,4 +47,5 @@ const BannerItem = memo(({ imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTT
     )
 })
 
+BannerItem.displayName = 'BannerItem'
 export default BannerItem

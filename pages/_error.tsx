@@ -1,9 +1,9 @@
 import { Layout } from 'src/components/common'
 import { ErrorContent } from 'src/components/modules/error-page'
 
-export default function NotFound() {
+export default function ErrorPage() {
   return (
        <ErrorContent/>
   )
 }
-NotFound.Layout = Layout
+ErrorPage.Layout = Layout

@@ -19,8 +19,10 @@ import getAllRecipes from './operations/get-all-recipes'
 import getAllRecipePaths from './operations/get-all-recipe-paths'
 import getRecipeDetail from './operations/get-recipe-detail'
 import getAllRecipeCollections from './operations/get-all-recipe-collections'
+import getBannersByPage from './operations/get-banners-by-page'
 import getRecipeByProductSlug from './operations/get-recipe-by-product-slug'
 import getHome from './operations/get-home'
+import getHomeFeature from './operations/get-home-feature'
 
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
@@ -65,7 +67,9 @@ const operations = {
   getAllRecipePaths,
   getRecipeDetail,
   getAllRecipeCollections,
+  getBannersByPage,
   getRecipeByProductSlug,
+  getHomeFeature,
   getHome
 }
 

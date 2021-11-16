@@ -1,21 +1,38 @@
-import { CollectionListOptions, GetCollectionsQuery } from '@framework/schema'
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { Banner, StaticImage } from 'src/components/common'
-import useGetProductListByCollection from 'src/components/hooks/useGetProductListByCollection'
+import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem'
 import { ROUTE } from 'src/utils/constanst.utils'
 import BannerImgRight from './assets/banner_full.png'
 import HomeBannerImg from './assets/home_banner.png'
 import s from './HomeBanner.module.scss'
 import { ImgWithLink } from 'src/components/common';
 
+const DEFAULT_BANNER:BannerItemProps[] = [{
+    title: "Save 15% on your first order",
+    subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
+    imgLink: BannerImgRight.src,
+    size: "small",
+    linkButton: ROUTE.PRODUCTS,
+    backgroundColor: '#E3F2E9'
+},
+{
+    title: "Save 15% on your first order 2",
+    subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
+    imgLink: BannerImgRight.src,
+    size: "small",
+    linkButton: ROUTE.PRODUCTS,
+    backgroundColor: '#E3F2E9'
+}
+]
 interface Props {
     className?: string
     children?: any,
     bannerLeftTitle?:string,
-    imageSrcBannerLeft?:string
+    imageSrcBannerLeft?:string,
+    banners?: BannerItemProps[]
 }
 
-const HomeBanner = ({ bannerLeftTitle = "FRESHNESS<br> GUARANTEED",imageSrcBannerLeft }: Props) => {
+const HomeBanner = ({banners, bannerLeftTitle = "FRESHNESS<br> GUARANTEED",imageSrcBannerLeft }: Props) => {
    
     return (
         <div className={s.homeBanner}>
@@ -27,23 +44,7 @@ const HomeBanner = ({ bannerLeftTitle = "FRESHNESS<br> GUARANTEED",imageSrcBanne
                 </div>
             </section >
             <Banner
-                data={
-                    [{
-                        title: "Save 15% on your first order",
-                        subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
-                        imgLink: BannerImgRight.src,
-                        size: "small",
-                        linkButton: ROUTE.PRODUCTS,
-                    },
-                    {
-                        title: "Save 15% on your first order 2",
-                        subtitle: "Last call! Shop deep deals on 100+ bulk picks while you can.",
-                        imgLink: BannerImgRight.src,
-                        size: "small",
-                        linkButton: ROUTE.PRODUCTS,
-                    }
-                    ]
-                }
+                data={(banners?.length !== 0) ? banners : DEFAULT_BANNER}
             />
         </div >
     )

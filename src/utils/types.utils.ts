@@ -1,7 +1,6 @@
 import { RecipeCardProps } from 'src/components/common/RecipeCard/RecipeCard';
 import { Collection } from './../../framework/commerce/types/collection';
 import { ProductCard } from './../../framework/commerce/types/product';
-import { Asset, Maybe } from './../../framework/vendure/schema.d';
 
 export interface ProductProps {
     category?: string
@@ -111,3 +110,9 @@ export type OrderState = | 'Created'
     | 'Cancelled'
 
 export type SelectedOptions = Record<string, string | null>
+
+export enum PageName {
+    HOME = 'HOME',
+    PRODUCT_LIST = 'PRODUCT_LIST',
+    RECIPES = 'RECIPES'
+  }

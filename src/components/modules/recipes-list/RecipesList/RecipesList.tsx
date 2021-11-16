@@ -152,11 +152,11 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
           <div className={s.categories}>
             <MenuNavigation isSingleSelect={true} path={ROUTE.RECIPES} queryKey={QUERY_KEY.CATEGORY} categories={collections || []} heading="Collections" />
           </div>
-
+       
           <div className={s.recipesList}>
             <div className={s.recipesHead}>
               <HeadingCommon align="left">RECIPES</HeadingCommon>
-
+             
                 <div className={s.boxSelect}>
                   <div className={s.categorySelectCate}>
                     <label htmlFor="">Collections</label>
@@ -177,13 +177,13 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
                   </div>
                 </div>
             </div>
-            
+            {
+              (data?.length === 0) && <><RecipeEmpty/> </>
+            }
 
             <div className={s.inner}>
               <div className={s.boxItem}>
-                {
-                  (data?.length === 0) && <><RecipeEmpty/> </>
-                }
+             
                 {(data?.length !== 0) && data?.map((item:RecipeCardProps, index:number) => (
                   <div key={index} className={s.item}>
                     <RecipeCard
