@@ -260,6 +260,7 @@ export function normalizeHome(dataHome: DataHome): DataHomeProps  {
     bannerLeftTitle: dataHome?.bannerLeftTitle || null,
     videoTitle: dataHome?.videoTitle || null,
     videoLink: dataHome?.videoLink || null,
-    imageSrcLogo: dataHome?.videoLogo?.preview ? dataHome.videoLogo?.preview + '?w=800&mode=crop'   : null
+    imageSrcLogo: dataHome?.videoLogo?.preview ? dataHome.videoLogo?.preview + '?w=800&mode=crop'   : null,
+    imageSrcBannerLeft: dataHome?.bannerLeftImg?.preview ? dataHome.bannerLeftImg?.preview + '?w=800&mode=crop'   : null
   }
 }

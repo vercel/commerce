@@ -582,9 +582,10 @@ export type DataHome = {
   createdAt?: Scalars['DateTime'] | null
   updatedAt?: Scalars['DateTime'] | null
   bannerLeftTitle?:Scalars['String'] | null
+  bannerLeftImg?: Maybe<Asset>
   videoTitle?: Scalars['String'] | null
   videoLink?: Scalars['String'] | null
-  videoLogo?: Maybe<Asset>;
+  videoLogo?: Maybe<Asset>
   languageCode?: LanguageCode | null
   translations?: HomeTranslation | null
 }

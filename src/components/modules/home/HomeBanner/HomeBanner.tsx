@@ -6,23 +6,22 @@ import { ROUTE } from 'src/utils/constanst.utils'
 import BannerImgRight from './assets/banner_full.png'
 import HomeBannerImg from './assets/home_banner.png'
 import s from './HomeBanner.module.scss'
+import { ImgWithLink } from 'src/components/common';
 
 interface Props {
     className?: string
     children?: any,
     bannerLeftTitle?:string,
+    imageSrcBannerLeft?:string
 }
 
-const HomeBanner = ({ bannerLeftTitle = "FRESHNESS<br> GUARANTEED" }: Props) => {
-    // const variables = useMemo(() => {
-    //     return {option: {filter: {name: {eq: "Computers" }}}}
-    // }, [])
-	// const {collections} = useGetProductListByCollection(variables)
+const HomeBanner = ({ bannerLeftTitle = "FRESHNESS<br> GUARANTEED",imageSrcBannerLeft }: Props) => {
+   
     return (
         <div className={s.homeBanner}>
             <section className={s.left}>
                 <div className={s.imgWrap}>
-                    <StaticImage src={HomeBannerImg} />
+                    <ImgWithLink src={imageSrcBannerLeft || HomeBannerImg.src} />
                 </div>
                 <div className={s.text}  dangerouslySetInnerHTML={{__html: bannerLeftTitle ?? ''}}>
                 </div>

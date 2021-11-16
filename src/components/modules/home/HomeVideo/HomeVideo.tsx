@@ -25,7 +25,7 @@ const HomeVideo = ({data}: Props) => {
                     <ImgWithLink src={data?.imageSrcLogo || DEAFAULT_DATA_HOME.imageSrcLogo} alt="logo"/>
                 </div>
                 <HeadingCommon>
-                    {data?.videoTitle || DEAFAULT_DATA_HOME.videoTitle}
+                    { DEAFAULT_DATA_HOME.videoTitle}
                 </HeadingCommon>
             </div>
             <div className={s.videoWrap}>

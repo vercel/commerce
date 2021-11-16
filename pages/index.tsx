@@ -28,7 +28,10 @@ export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   
   return (
     <>
-      <HomeBanner bannerLeftTitle={dataHome?.bannerLeftTitle ?? ''} />
+      <HomeBanner 
+      bannerLeftTitle={dataHome?.bannerLeftTitle ?? ''} 
+      imageSrcBannerLeft={dataHome?.imageSrcBannerLeft ?? ''} 
+      />
       <HomeFeature />
       <HomeCategories />
       <FreshProducts data={freshProducts} collections={collections} />
