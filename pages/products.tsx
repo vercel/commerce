@@ -80,7 +80,17 @@ export async function getStaticProps({
 
   
   // banner
-  const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.PRODUCT_LIST } })
+  const homeBannersPromise = commerce.getBannersByPage({ 
+    variables: {
+        page: PageName.PRODUCT_LIST,
+        options:{
+          sort: {
+            order: SortOrder.Asc
+            }
+          }  
+        } 
+    }
+  )
   promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
   try {

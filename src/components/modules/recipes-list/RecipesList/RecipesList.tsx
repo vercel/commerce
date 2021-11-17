@@ -145,9 +145,8 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
         undefined, { shallow: true }
     )
   }
-  
 
- 
+  
   return (
     <>
       <div className={s.recipesListWrapper}>

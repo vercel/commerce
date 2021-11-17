@@ -17,8 +17,8 @@ export interface BannerItemProps {
     backgroundColor?: string,
 }
 
-const BannerItem = memo(({ backgroundColor, imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_LABEL.SHOP_NOW, linkButton = ROUTE.HOME, size = 'large' }: BannerItemProps) => {
-
+const BannerItem = memo(({ backgroundColor, imgLink, title, subtitle, buttonLabel = LANGUAGE.BUTTON_LABEL.SHOP_NOW, linkButton = ROUTE.HOME, size = 'small' }: BannerItemProps) => {
+    
     return (
         <div className={classNames({
             [s.bannerItem]: true,
@@ -34,6 +34,7 @@ const BannerItem = memo(({ backgroundColor, imgLink, title, subtitle, buttonLabe
                             {subtitle}
                         </div>
                     </div>
+                    { linkButton && buttonLabel && 
                     <div className={s.bottom}>
                         <Link href={linkButton}>
                             <a>
@@ -41,6 +42,7 @@ const BannerItem = memo(({ backgroundColor, imgLink, title, subtitle, buttonLabe
                             </a>
                         </Link>
                     </div>
+                    }
                 </div>
             </div>
         </div>

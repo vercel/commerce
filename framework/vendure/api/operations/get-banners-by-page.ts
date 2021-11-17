@@ -33,7 +33,7 @@ export default function getBannersByPageOperation({
     } else if (!vars.options.sort) {
       vars.options.sort = { order: SortOrder.Asc }
     }
-
+  
     const { data } = await config.fetch<GetBannersByPageQuery>(query, {
       variables,
     })

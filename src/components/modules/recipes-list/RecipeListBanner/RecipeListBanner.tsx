@@ -20,6 +20,7 @@ const RecipeListBanner = ({banners }: Props) => {
         <div className={s.recipeListBanner}>
             <Banner
                 data={banners.length !== 0 ? banners : DEFAULT_BANNER}
+                size="large"
             />
         </div >
     )

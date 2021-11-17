@@ -2,6 +2,7 @@ import { Collection } from '@commerce/types/collection';
 import { ProductCard } from '@commerce/types/product';
 import { ProductVariables } from '@framework/api/operations/get-all-products';
 import { FacetValue } from '@framework/schema';
+import { SortOrder } from 'src/utils/types.utils';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
 import { Layout } from 'src/components/common';
@@ -148,7 +149,12 @@ export async function getStaticProps({
   props.recipesCollection = recipesCollection.recipeCollections
 
   // banner
-  const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.HOME } })
+  const homeBannersPromise = commerce.getBannersByPage({ 
+    variables: {
+       page: PageName.HOME, options:{sort: {order: SortOrder.Asc}} 
+      }
+    }
+  )
   promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
   // Feature

@@ -17,7 +17,6 @@ const DEAFAULT_DATA_HOME ={
 
 
 const HomeVideo = ({data}: Props) => {
-    console.log(data?.imageSrcLogo)
     return (
         <section className={s.homeVideo}>
             <div className={s.top}>
@@ -25,11 +24,10 @@ const HomeVideo = ({data}: Props) => {
                     <ImgWithLink src={data?.imageSrcLogo || DEAFAULT_DATA_HOME.imageSrcLogo} alt="logo"/>
                 </div>
                 <HeadingCommon>
-                    { DEAFAULT_DATA_HOME.videoTitle || DEAFAULT_DATA_HOME.videoTitle}
+                    { data?.videoTitle || DEAFAULT_DATA_HOME.videoTitle}
                 </HeadingCommon>
             </div>
             <div className={s.videoWrap}>
-                {/* todo: change url video */}
                 <VideoPlayer url={data?.videoLink || DEAFAULT_DATA_HOME.videoLink} controls={true} />
             </div>
         </section >

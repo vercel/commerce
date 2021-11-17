@@ -45,6 +45,7 @@ const HomeBanner = ({banners, bannerLeftTitle = "FRESHNESS<br> GUARANTEED",image
             </section >
             <Banner
                 data={(banners?.length !== 0) ? banners : DEFAULT_BANNER}
+                size="small"
             />
         </div >
     )
