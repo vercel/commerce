@@ -20,18 +20,19 @@ const SelectCommon = ({initValue, type = 'default', size = 'base', options, plac
   
     useEffect(() => {
         if (initValue) {
-            const nameSelect = options.find((val) => val.value === initValue);
-            setSelectedName(nameSelect?.name);
+            const nameSelect = options.find((val) => val.value === initValue || val.slug === initValue);
+            setSelectedName(nameSelect?.name || nameSelect?.slug);
             setSelectedValue(initValue);
         }
     }, [initValue, onChange, options])
 
     const changeSelectedName = (value: string) => {
         setSelectedValue(value)
-        const name = options.find(item => item.value === value)?.name
+        const name = options.find(item => item.value === value || item.slug === value)?.name
         setSelectedName(name)
         onChange && onChange(value)
     }
+    
     return(
         <>
             <div className={classNames({
