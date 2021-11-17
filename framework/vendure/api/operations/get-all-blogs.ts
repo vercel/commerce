@@ -45,6 +45,7 @@ export default function getAllBlogsOperation({
     const { data } = await config.fetch<GetAllBlogsQuery>(query, {
       variables,
     })
+  
     if(data){
       return {
         blogs: data?.blogs?.items?.map((val:Blog)=>normalizeBlog(val)),

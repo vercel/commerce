@@ -24,10 +24,9 @@ const PaginationCommon = ({
   }, [total, pageSize])
 
   useEffect(() => {
-    if (defaultCurrent) {
-      setCurrentPage(defaultCurrent)
-    }
+      setCurrentPage(defaultCurrent ?? 0)
   }, [defaultCurrent])
+  
 
   const onPageClick = (page: number) => {
     setCurrentPage(page)

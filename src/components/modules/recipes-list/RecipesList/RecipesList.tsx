@@ -55,9 +55,11 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   const { recipes, totalItems } = useGetRecipeList(optionQueryBlog)
   const [selectMobileValue, setSelectMobileValue] = useState<string>();
   const [sortValue, setSortValue] = useState<string>();
-  const router = useRouter()
+  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(0);
 
   const onPageChange = (page: number) => {
+    setCurrentPage(page)
     router.push(
       {
         pathname: ROUTE.RECIPES,
@@ -70,6 +72,10 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
       { shallow: true }
     )
   }
+  useEffect(() => {
+    const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string)
+    setCurrentPage(page)
+  }, [router.query])
 
   // skip
   const firstRender = useRef(true);
@@ -86,9 +92,8 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     const query = { ...DEFAULT_RECIPES_ARGS } as QueryRecipes
     const page = getPageFromQuery(router.query[QUERY_KEY.PAGE] as string)
     query.options.skip = page * DEFAULT_RECIPES_PAGE_SIZE
-
-    // sort
-
+   
+    
     // query sort
     const sortQuery = router.query[QUERY_KEY.SORTBY] as string
     if (sortQuery) {
@@ -104,16 +109,17 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
     if (categoryQuery) {
      
       query.slug = categoryQuery
-      
-      
+    
       setSelectMobileValue(categoryQuery);
     }
 
-    
     setOptionQueryBlog(query)
     setInitialQueryFlag(false)
-
   }, [router.query,DEFAULT_RECIPES_ARGS])
+
+  
+  
+
 
   const onSortChange = (value: string) => {
     setSortValue(value)
@@ -200,6 +206,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
             <div className={s.recipesPagination}>
             {(data?.length !== 0) &&
               <PaginationCommon
+                defaultCurrent={currentPage}
                 pageSize={DEFAULT_RECIPES_PAGE_SIZE}
                 total={totalItems !== undefined ? totalItems : total}
                 onChange={onPageChange}
