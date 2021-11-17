@@ -4,19 +4,24 @@ import type { MutationHook } from '@commerce/utils/types'
 import { useCallback } from 'react'
 import useCart from './use-cart'
 import type { AddItemHook } from '@commerce/types/cart'
-import normalizeCart from '../utils/normalize-cart'
+import normalizeCart from '../utils/normalizations/normalize-cart'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import type { AddItem } from '@spree/storefront-api-v2-sdk/types/interfaces/endpoints/CartClass'
-import getCartToken from '../utils/get-cart-token'
+import { setCartToken } from '../utils/tokens/cart-token'
+import ensureIToken from '@framework/utils/tokens/ensure-itoken'
+import createEmptyCart from '@framework/utils/create-empty-cart'
+import { FetcherError } from '@commerce/utils/errors'
+import isLoggedIn from '@framework/utils/tokens/is-logged-in'
 
 export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
+  // Provide fetchOptions for SWR cache key
   fetchOptions: {
-    url: '__UNUSED__',
-    query: '',
+    url: 'cart',
+    query: 'addItem',
   },
   async fetcher({ input, options, fetch }) {
     console.info(
@@ -31,7 +36,8 @@ export const handler: MutationHook<AddItemHook> = {
 
     const safeQuantity = quantity ?? 1
 
-    const token: IToken = { orderToken: getCartToken() }
+    let token: IToken | undefined = ensureIToken()
+
     const addItemParameters: AddItem = {
       variant_id: variantId,
       quantity: safeQuantity,
@@ -46,16 +52,48 @@ export const handler: MutationHook<AddItemHook> = {
       ].join(','),
     }
 
-    const { data: spreeSuccessResponse } = await fetch<
-      GraphQLFetcherResult<IOrder>
-    >({
-      variables: {
-        methodPath: 'cart.addItem',
-        arguments: [token, addItemParameters],
-      },
-    })
+    if (!token) {
+      const { data: spreeCartCreateSuccessResponse } = await createEmptyCart(
+        fetch
+      )
 
-    return normalizeCart(spreeSuccessResponse, spreeSuccessResponse.data)
+      setCartToken(spreeCartCreateSuccessResponse.data.attributes.token)
+      token = ensureIToken()
+    }
+
+    try {
+      const { data: spreeSuccessResponse } = await fetch<
+        GraphQLFetcherResult<IOrder>
+      >({
+        variables: {
+          methodPath: 'cart.addItem',
+          arguments: [token, addItemParameters],
+        },
+      })
+
+      return normalizeCart(spreeSuccessResponse, spreeSuccessResponse.data)
+    } catch (addItemError) {
+      if (addItemError instanceof FetcherError && addItemError.status === 404) {
+        const { data: spreeRetroactiveCartCreateSuccessResponse } =
+          await createEmptyCart(fetch)
+
+        if (!isLoggedIn()) {
+          setCartToken(
+            spreeRetroactiveCartCreateSuccessResponse.data.attributes.token
+          )
+        }
+
+        // Return an empty cart. The user has to add the item again.
+        // This is going to be a rare situation.
+
+        return normalizeCart(
+          spreeRetroactiveCartCreateSuccessResponse,
+          spreeRetroactiveCartCreateSuccessResponse.data
+        )
+      }
+
+      throw addItemError
+    }
   },
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<MutationHook<AddItemHook>['useHook']> =
@@ -72,7 +110,7 @@ export const handler: MutationHook<AddItemHook> = {
 
             return data
           },
-          [fetch, mutate]
+          [mutate]
         )
       }
 
