@@ -7,25 +7,25 @@ import RecipeListBanner from 'src/components/modules/recipes-list/RecipeListBann
 import RecipesList from 'src/components/modules/recipes-list/RecipesList/RecipesList';
 import { DEFAULT_RECIPES_PAGE_SIZE, REVALIDATE_TIME } from "src/utils/constanst.utils";
 import { getAllPromies } from 'src/utils/funtion.utils';
-import { PageName, PromiseWithKey } from 'src/utils/types.utils';
+import { PageName, PromiseWithKey, SortOrder } from 'src/utils/types.utils';
 import ErrorPage from './_error';
 
 interface Props {
   recipes?: RecipeCardProps[],
-  recipeCollections?: {name: string, value: string, slug: string}[],
+  recipeCollections?: { name: string, value: string, slug: string }[],
   totalItems?: number,
   banners: BannerItemProps[]
-  error ?: string  
+  error?: string
 }
-export default function RecipeListPage({banners,error,recipeCollections,recipes=[],totalItems}:Props) {
+export default function RecipeListPage({ banners, error, recipeCollections, recipes = [], totalItems }: Props) {
   if (error) {
     return <ErrorPage />
   }
   return (
     <>
-      <RecipeListBanner banners={banners}/>
+      <RecipeListBanner banners={banners} />
       {
-        <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0}/>
+        <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0} />
       }
     </>
   )
@@ -45,16 +45,24 @@ export async function getStaticProps({
   const recipesPromise = commerce.getAllRecipes({
     variables: {
       take: DEFAULT_RECIPES_PAGE_SIZE,
-      createdAt:"DESC"
+      createdAt: "DESC"
     },
     config,
     preview,
   })
-  promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes'})
-  
+  promisesWithKey.push({ key: 'recipes', promise: recipesPromise, keyResult: 'recipes' })
+
   // banner
-   const homeBannersPromise = commerce.getBannersByPage({ variables: { page: PageName.RECIPES } })
-   promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
+  const homeBannersPromise = commerce.getBannersByPage({
+    variables: {
+      page: PageName.RECIPES, options: {
+        sort: {
+          order: SortOrder.Asc
+        }
+      }
+    }
+  })
+  promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
 
   // collection
@@ -64,7 +72,7 @@ export async function getStaticProps({
     preview,
   })
   promisesWithKey.push({ key: 'recipeCollections', promise: collectionsPromise, keyResult: 'recipeCollections' })
-  
+
   try {
     const promises = getAllPromies(promisesWithKey)
     const rs = await Promise.all(promises)
@@ -73,8 +81,8 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
- 
- 
+
+
     return {
       props,
       revalidate: REVALIDATE_TIME

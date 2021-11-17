@@ -26,6 +26,7 @@ const ProductListBanner = ({banners }: Props) => {
         <div className={s.productListBanner}>
             <Banner
                 data={banners.length !== 0 ? banners : DEFAULT_BANNER}
+                size="large"
             />
         </div >
     )

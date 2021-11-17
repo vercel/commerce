@@ -6,6 +6,7 @@ import BannerItem, { BannerItemProps } from './BannerItem/BannerItem'
 
 interface Props {
     data?: BannerItemProps[],
+    size?: 'small' | 'large',
 }
 
 const RESPONSIVE:ResponsiveType = {
@@ -16,8 +17,7 @@ const RESPONSIVE:ResponsiveType = {
     },
 };
 
-const Banner = memo(({ data }: Props) => {
-    
+const Banner = memo(({ data,size = "small" }: Props) => {
     if (data?.length === 1) {
         const item = data?.[0]
         return <BannerItem
@@ -26,7 +26,7 @@ const Banner = memo(({ data }: Props) => {
             subtitle={item.subtitle}
             buttonLabel={item.buttonLabel}
             linkButton={item.linkButton}
-            size={item.size}
+            size={size}
             backgroundColor={item.backgroundColor}
         />
     }
