@@ -1,4 +1,4 @@
-const ChevronUp = ({ ...props }) => {
+const ChevronRight = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -17,4 +17,4 @@ const ChevronUp = ({ ...props }) => {
   )
 }
 
-export default ChevronUp
+export default ChevronRight
