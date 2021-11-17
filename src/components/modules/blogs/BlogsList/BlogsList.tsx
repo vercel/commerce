@@ -34,9 +34,10 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
 
     const [optionQueryBlog, setOptionQueryBlog] = useState<QueryBlogs>(DEFAULT_BLOGS_ARGS)
     const { blogs, totalItems } = useGetBlogList(optionQueryBlog);
-
+    const [currentPage, setCurrentPage] = useState(0)
 
     const onPageChange = (page:number) => {
+        setCurrentPage(page)
         router.push({
             pathname: ROUTE.BLOGS,
             query: {
@@ -59,7 +60,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
             top: 600,
             behavior: "smooth"
           });
-          
+        setCurrentPage(page)
         setOptionQueryBlog(query);
         setInitialQueryFlag(false);
     },[router.query,DEFAULT_BLOGS_ARGS])
@@ -88,7 +89,7 @@ const BlogsList = ({ blogList,total,idFeatured }:BlogsListProps) => {
                     }
                 </div>
                 <div className={s.pagination}>
-                    <PaginationCommon total={totalItems !== undefined ? totalItems : total} pageSize={DEFAULT_BLOG_PAGE_SIZE} onChange={onPageChange}/>
+                    <PaginationCommon defaultCurrent={currentPage} total={totalItems !== undefined ? totalItems : total} pageSize={DEFAULT_BLOG_PAGE_SIZE} onChange={onPageChange}/>
                 </div>
             </div>
         </section>

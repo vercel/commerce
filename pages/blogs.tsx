@@ -13,6 +13,7 @@ interface Props {
   totalItems: number
 }
 export default function BlogsPage({ blogs, featuredBlog, totalItems }: Props) {
+
   return (
     <>
       <BlogBreadCrumb />
@@ -21,7 +22,7 @@ export default function BlogsPage({ blogs, featuredBlog, totalItems }: Props) {
 
       {
         (blogs?.length !== 0) &&
-        <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.id} />
+        <BlogsList blogList={blogs} total={totalItems} idFeatured={featuredBlog?.id || ''} />
       }
       {
         (blogs?.length === 0 && !featuredBlog) && <BlogEmpty />
@@ -53,7 +54,7 @@ export async function getStaticProps({
   props.featuredBlog = featuredBlogs[0] || null
 
   // Blogs
-  const idFeaturedBlog = featuredBlogs?.[0]?.id;
+  const idFeaturedBlog = featuredBlogs?.[0]?.id || '';
   const blogsPromise = commerce.getAllBlogs({
     variables: {
       excludeBlogIds: [idFeaturedBlog],
