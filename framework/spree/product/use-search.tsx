@@ -1,8 +1,8 @@
-import type { Fetcher, SWRHook } from '@commerce/utils/types'
+import type { SWRHook } from '@commerce/utils/types'
 import useSearch from '@commerce/product/use-search'
 import type { Product, SearchProductsHook } from '@commerce/types/product'
 import type { UseSearch } from '@commerce/product/use-search'
-import normalizeProduct from '../utils/normalize-product'
+import normalizeProduct from '../utils/normalizations/normalize-product'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import { requireConfigValue } from '../isomorphic-config'
@@ -18,9 +18,10 @@ const nextToSpreeSortMap: { [key: string]: string } = {
 }
 
 export const handler: SWRHook<SearchProductsHook> = {
+  // Provide fetchOptions for SWR cache key
   fetchOptions: {
-    url: '__UNUSED__',
-    query: '',
+    url: 'products',
+    query: 'list',
   },
   async fetcher({ input, options, fetch }) {
     // This method is only needed if the options need to be modified before calling the generic fetcher (created in createFetcher).

@@ -20,15 +20,24 @@ export type SpreeSdkResponseWithRawResponse = SpreeSdkResponse & {
   [fetchResponseKey]: Response
 }
 
-export type SpreeSdkMethodReturnType = Promise<
-  ResultResponse<SpreeSdkResponseWithRawResponse>
->
+export type SpreeSdkResultResponseSuccessType = SpreeSdkResponseWithRawResponse
 
-export type SpreeSdkMethod = (...args: any[]) => SpreeSdkMethodReturnType
+export type SpreeSdkMethodReturnType<
+  ResultResponseSuccessType extends SpreeSdkResultResponseSuccessType = SpreeSdkResultResponseSuccessType
+> = Promise<ResultResponse<ResultResponseSuccessType>>
+
+export type SpreeSdkMethod<
+  ResultResponseSuccessType extends SpreeSdkResultResponseSuccessType = SpreeSdkResultResponseSuccessType
+> = (...args: any[]) => SpreeSdkMethodReturnType<ResultResponseSuccessType>
 
 export type SpreeSdkVariables = {
   methodPath: string
   arguments: any[]
+}
+
+export type FetcherVariables = SpreeSdkVariables & {
+  refreshExpiredAccessToken: boolean
+  replayUnauthorizedRequest: boolean
 }
 
 export interface ImageStyle {
@@ -113,3 +122,8 @@ export interface IProductsSlugs extends JsonApiListResponse {
 }
 
 export type ExpandedProductOption = ProductOption & { position: number }
+
+export type UserOAuthTokens = {
+  refreshToken: string
+  accessToken: string
+}

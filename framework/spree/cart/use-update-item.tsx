@@ -2,22 +2,26 @@ import type { MutationHook } from '@commerce/utils/types'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
 import type { UpdateItemHook } from '@commerce/types/cart'
 import useCart from './use-cart'
-import { useCallback, useMemo } from 'react'
-import { ValidationError } from '@commerce/utils/errors'
+import { useMemo } from 'react'
+import { FetcherError, ValidationError } from '@commerce/utils/errors'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import type { SetQuantity } from '@spree/storefront-api-v2-sdk/types/interfaces/endpoints/CartClass'
-import getCartToken from '../utils/get-cart-token'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
-import normalizeCart from '../utils/normalize-cart'
+import normalizeCart from '../utils/normalizations/normalize-cart'
 import debounce from 'lodash.debounce'
+import ensureIToken from '@framework/utils/tokens/ensure-itoken'
+import createEmptyCart from '@framework/utils/create-empty-cart'
+import { setCartToken } from '@framework/utils/tokens/cart-token'
+import isLoggedIn from '@framework/utils/tokens/is-logged-in'
 
 export default useUpdateItem as UseUpdateItem<any>
 
 export const handler: MutationHook<UpdateItemHook> = {
+  // Provide fetchOptions for SWR cache key
   fetchOptions: {
-    url: '__UNUSED__',
-    query: '',
+    url: 'cart',
+    query: 'setQuantity',
   },
   async fetcher({ input, options, fetch }) {
     console.info(
@@ -36,31 +40,67 @@ export const handler: MutationHook<UpdateItemHook> = {
       })
     }
 
-    const token: IToken = { orderToken: getCartToken() }
-    const setQuantityParameters: SetQuantity = {
-      line_item_id: itemId,
-      quantity: item.quantity,
-      include: [
-        'line_items',
-        'line_items.variant',
-        'line_items.variant.product',
-        'line_items.variant.product.images',
-        'line_items.variant.images',
-        'line_items.variant.option_values',
-        'line_items.variant.product.option_types',
-      ].join(','),
+    let token: IToken | undefined = ensureIToken()
+
+    if (!token) {
+      const { data: spreeCartCreateSuccessResponse } = await createEmptyCart(
+        fetch
+      )
+
+      setCartToken(spreeCartCreateSuccessResponse.data.attributes.token)
+      token = ensureIToken()
     }
 
-    const { data: spreeSuccessResponse } = await fetch<
-      GraphQLFetcherResult<IOrder>
-    >({
-      variables: {
-        methodPath: 'cart.setQuantity',
-        arguments: [token, setQuantityParameters],
-      },
-    })
+    try {
+      const setQuantityParameters: SetQuantity = {
+        line_item_id: itemId,
+        quantity: item.quantity,
+        include: [
+          'line_items',
+          'line_items.variant',
+          'line_items.variant.product',
+          'line_items.variant.product.images',
+          'line_items.variant.images',
+          'line_items.variant.option_values',
+          'line_items.variant.product.option_types',
+        ].join(','),
+      }
 
-    return normalizeCart(spreeSuccessResponse, spreeSuccessResponse.data)
+      const { data: spreeSuccessResponse } = await fetch<
+        GraphQLFetcherResult<IOrder>
+      >({
+        variables: {
+          methodPath: 'cart.setQuantity',
+          arguments: [token, setQuantityParameters],
+        },
+      })
+
+      return normalizeCart(spreeSuccessResponse, spreeSuccessResponse.data)
+    } catch (updateItemError) {
+      if (
+        updateItemError instanceof FetcherError &&
+        updateItemError.status === 404
+      ) {
+        const { data: spreeRetroactiveCartCreateSuccessResponse } =
+          await createEmptyCart(fetch)
+
+        if (!isLoggedIn()) {
+          setCartToken(
+            spreeRetroactiveCartCreateSuccessResponse.data.attributes.token
+          )
+        }
+
+        // Return an empty cart. The user has to update the item again.
+        // This is going to be a rare situation.
+
+        return normalizeCart(
+          spreeRetroactiveCartCreateSuccessResponse,
+          spreeRetroactiveCartCreateSuccessResponse.data
+        )
+      }
+
+      throw updateItemError
+    }
   },
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<MutationHook<UpdateItemHook>['useHook']> =
@@ -98,7 +138,7 @@ export const handler: MutationHook<UpdateItemHook> = {
 
               return data
             }, context?.wait ?? 500),
-          [fetch, mutate]
+          [mutate, context]
         )
       }
 

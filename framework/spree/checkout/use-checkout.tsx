@@ -4,8 +4,11 @@ import useCheckout, { UseCheckout } from '@commerce/checkout/use-checkout'
 export default useCheckout as UseCheckout<typeof handler>
 
 export const handler: SWRHook<any> = {
+  // Provide fetchOptions for SWR cache key
   fetchOptions: {
-    query: '',
+    // TODO: Revise url and query
+    url: 'checkout',
+    query: 'show',
   },
   async fetcher({ input, options, fetch }) {},
   useHook:

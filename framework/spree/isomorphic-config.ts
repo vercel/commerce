@@ -15,6 +15,10 @@ const isomorphicConfig = {
   cartCookieExpire: validateCookieExpire(
     process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_EXPIRE
   ),
+  userCookieName: process.env.NEXT_PUBLIC_SPREE_USER_COOKIE_NAME,
+  userCookieExpire: validateCookieExpire(
+    process.env.NEXT_PUBLIC_SPREE_CART_COOKIE_EXPIRE
+  ),
   imageHost: process.env.NEXT_PUBLIC_SPREE_IMAGE_HOST,
   categoriesTaxonomyPermalink:
     process.env.NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK,
@@ -37,9 +41,7 @@ const isomorphicConfig = {
   imagesOptionFilter: validateImagesOptionFilter(
     process.env.NEXT_PUBLIC_SPREE_IMAGES_OPTION_FILTER
   ),
-  imagesSize: validateImagesSize(
-    process.env.NEXT_PUBLIC_SPREE_IMAGES_SIZE
-  ),
+  imagesSize: validateImagesSize(process.env.NEXT_PUBLIC_SPREE_IMAGES_SIZE),
   imagesQuality: validateImagesQuality(
     process.env.NEXT_PUBLIC_SPREE_IMAGES_QUALITY
   ),
@@ -53,6 +55,8 @@ export default forceIsomorphicConfigValues(
     'defaultLocale',
     'cartCookieName',
     'cartCookieExpire',
+    'userCookieName',
+    'userCookieExpire',
     'imageHost',
     'categoriesTaxonomyPermalink',
     'brandsTaxonomyPermalink',
@@ -63,7 +67,7 @@ export default forceIsomorphicConfigValues(
     'lineItemPlaceholderImageUrl',
     'imagesOptionFilter',
     'imagesSize',
-    'imagesQuality'
+    'imagesQuality',
   ]
 )
 

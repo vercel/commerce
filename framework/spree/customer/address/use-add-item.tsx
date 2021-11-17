@@ -5,8 +5,10 @@ import type { MutationHook } from '@commerce/utils/types'
 export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<any> = {
+  // Provide fetchOptions for SWR cache key
   fetchOptions: {
-    query: '',
+    url: 'account',
+    query: 'createAddress',
   },
   async fetcher({ input, options, fetch }) {},
   useHook:
