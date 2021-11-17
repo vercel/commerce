@@ -30,13 +30,13 @@ export default function Cart() {
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
-      currencyCode: data?.currency?.code,
+      currencyCode: data.currency.code,
     }
   )
   const { price: total } = usePrice(
     data && {
       amount: Number(data.totalPrice),
-      currencyCode: data?.currency?.code,
+      currencyCode: data.currency.code,
     }
   )
 
@@ -83,7 +83,7 @@ export default function Cart() {
                 <CartItem
                   key={item.id}
                   item={item}
-                  currencyCode={data?.currency?.code!}
+                  currencyCode={data?.currency.code!}
                 />
               ))}
             </ul>
