@@ -35,6 +35,7 @@ query notifications($customOption: CustomNotificationListOptions) {
       order {
         id
         code
+        state
         customFields {
           lastedNotificationAt
         }

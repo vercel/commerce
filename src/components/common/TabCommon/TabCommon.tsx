@@ -29,7 +29,7 @@ import React, {
     const headerRef = useRef<HTMLUListElement>(null)
     useEffect(() => {
       setActive(defaultActiveTab)
-    }, [])
+    }, [defaultActiveTab])
   
     useEffect(() => {
       slide(active)

@@ -67,7 +67,8 @@ export const QUERY_KEY = {
   RECIPES: 'recipes',
   PAGE: 'page',
   SEARCH:"search",
-  ORDER_ID: 'o'
+  ORDER_ID: 'o',
+  ORDER_STATE: 'state',
 }
 
 export const PRODUCT_SORT_OPTION_VALUE = {
