@@ -1,13 +1,17 @@
 import type { Client } from '@spree/storefront-api-v2-sdk'
 import SpreeSdkMethodFromEndpointPathError from '../errors/SpreeSdkMethodFromEndpointPathError'
-import { SpreeSdkMethod } from '../types'
+import type {
+  SpreeSdkMethod,
+  SpreeSdkResultResponseSuccessType,
+} from '../types'
 
 const getSpreeSdkMethodFromEndpointPath = <
-  ExactSpreeSdkClientType extends Client
+  ExactSpreeSdkClientType extends Client,
+  ResultResponseSuccessType extends SpreeSdkResultResponseSuccessType = SpreeSdkResultResponseSuccessType
 >(
   client: ExactSpreeSdkClientType,
   path: string
-) => {
+): SpreeSdkMethod<ResultResponseSuccessType> => {
   const pathParts = path.split('.')
   const reachedPath: string[] = []
   let node = <Record<string, unknown>>client

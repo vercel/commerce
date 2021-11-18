@@ -3,12 +3,15 @@ import type { SWRHook } from '@commerce/utils/types'
 import useCart from '@commerce/cart/use-cart'
 import type { UseCart } from '@commerce/cart/use-cart'
 import type { GetCartHook } from '@commerce/types/cart'
-import normalizeCart from '../utils/normalize-cart'
+import normalizeCart from '../utils/normalizations/normalize-cart'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
-import setCartToken from '../utils/set-cart-token'
+import { setCartToken } from '../utils/tokens/cart-token'
 import { FetcherError } from '@commerce/utils/errors'
+import ensureIToken from '@framework/utils/tokens/ensure-itoken'
+import isLoggedIn from '@framework/utils/tokens/is-logged-in'
+import createEmptyCart from '@framework/utils/create-empty-cart'
 
 export default useCart as UseCart<typeof handler>
 
@@ -16,9 +19,10 @@ export default useCart as UseCart<typeof handler>
 // There doesn't seem to be a good reason to call it.
 // So far, only @framework/bigcommerce uses it.
 export const handler: SWRHook<GetCartHook> = {
+  // Provide fetchOptions for SWR cache key
   fetchOptions: {
-    url: '__UNUSED__',
-    query: '',
+    url: 'cart',
+    query: 'show',
   },
   async fetcher({ input, options, fetch }) {
     console.info(
@@ -29,14 +33,13 @@ export const handler: SWRHook<GetCartHook> = {
       options
     )
 
-    const { cartId: cartToken } = input
     let spreeCartResponse: IOrder | null
 
-    if (!cartToken) {
+    const token: IToken | undefined = ensureIToken()
+
+    if (!token) {
       spreeCartResponse = null
     } else {
-      const spreeToken: IToken = { orderToken: cartToken }
-
       try {
         const { data: spreeCartShowSuccessResponse } = await fetch<
           GraphQLFetcherResult<IOrder>
@@ -44,7 +47,7 @@ export const handler: SWRHook<GetCartHook> = {
           variables: {
             methodPath: 'cart.show',
             arguments: [
-              spreeToken,
+              token,
               {
                 include: [
                   'line_items',
@@ -74,19 +77,16 @@ export const handler: SWRHook<GetCartHook> = {
     }
 
     if (!spreeCartResponse || spreeCartResponse?.data.attributes.completed_at) {
-      const { data: spreeCartCreateSuccessResponse } = await fetch<
-        GraphQLFetcherResult<IOrder>
-      >({
-        variables: {
-          methodPath: 'cart.create',
-          arguments: [],
-        },
-      })
+      const { data: spreeCartCreateSuccessResponse } = await createEmptyCart(
+        fetch
+      )
 
       spreeCartResponse = spreeCartCreateSuccessResponse
-    }
 
-    setCartToken(spreeCartResponse.data.attributes.token)
+      if (!isLoggedIn()) {
+        setCartToken(spreeCartResponse.data.attributes.token)
+      }
+    }
 
     return normalizeCart(spreeCartResponse, spreeCartResponse.data)
   },

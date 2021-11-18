@@ -4,19 +4,19 @@ import type {
   ProductVariant,
   SelectedOption,
 } from '@commerce/types/cart'
-import MissingLineItemVariantError from '../errors/MissingLineItemVariantError'
-import { requireConfigValue } from '../isomorphic-config'
+import MissingLineItemVariantError from '../../errors/MissingLineItemVariantError'
+import { requireConfigValue } from '../../isomorphic-config'
 import type { OrderAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
-import createGetAbsoluteImageUrl from './create-get-absolute-image-url'
-import getMediaGallery from './get-media-gallery'
+import createGetAbsoluteImageUrl from '../create-get-absolute-image-url'
+import getMediaGallery from '../get-media-gallery'
 import type {
   LineItemAttr,
   OptionTypeAttr,
   SpreeProductImage,
   SpreeSdkResponse,
   VariantAttr,
-} from '../types'
+} from '../../types'
 import type { Image } from '@commerce/types/common'
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
 

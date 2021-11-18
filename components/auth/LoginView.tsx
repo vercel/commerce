@@ -72,7 +72,7 @@ const LoginView: FC<Props> = () => {
               className="text-accent-9 inline font-bold hover:underline cursor-pointer"
               onClick={() => setModalView('FORGOT_VIEW')}
             >
-              forgot your password?
+              forget your password?
             </a>
           </div>
         )}

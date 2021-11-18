@@ -19,8 +19,14 @@ const convertSpreeErrorToGraphQlError = (
     const fetcherErrors = Object.keys(error.errors).map((sdkErrorKey) => {
       const errors = error.errors[sdkErrorKey] as string[]
 
+      // Naively assume sdkErrorKey is a label. Capitalize it for a better
+      // out-of-the-box experience.
+      const capitalizedSdkErrorKey = sdkErrorKey.replace(/^\w/, (firstChar) =>
+        firstChar.toUpperCase()
+      )
+
       return {
-        message: `${sdkErrorKey} ${errors.join(', ')}`,
+        message: `${capitalizedSdkErrorKey} ${errors.join(', ')}`,
       }
     })
 
