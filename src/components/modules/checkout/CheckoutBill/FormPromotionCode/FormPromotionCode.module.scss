@@ -5,6 +5,9 @@
   .top {
     @apply flex justify-between items-center;
   }
+  .codes {
+    margin-top: 1.6rem;
+  }
   .buttonAdd {
     svg path {
       @apply transition-all duration-200;
