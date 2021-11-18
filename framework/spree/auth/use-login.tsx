@@ -4,6 +4,7 @@ import type { LoginHook } from '@commerce/types/login'
 import { useCallback } from 'react'
 import type { AuthTokenAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Authentication'
 import useCustomer from '../customer/use-customer'
+import useCart from '../cart/use-cart'
 import { FetcherError, ValidationError } from '@commerce/utils/errors'
 import login from '../utils/login'
 
@@ -38,7 +39,7 @@ export const handler: MutationHook<LoginHook> = {
     }
 
     try {
-      await login(fetch, getTokenParameters)
+      await login(fetch, getTokenParameters, false)
 
       return null
     } catch (getTokenError) {
@@ -56,25 +57,25 @@ export const handler: MutationHook<LoginHook> = {
 
       throw getTokenError
     }
-
-    // TODO: Add token refresh after access token expiration.
   },
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<MutationHook<LoginHook>['useHook']> =
       () => {
         console.log('useLogin useHook called.')
 
-        const { revalidate } = useCustomer()
+        const customer = useCustomer()
+        const cart = useCart()
 
         return useCallback(
           async function login(input) {
             const data = await fetch({ input })
 
-            await revalidate()
+            await customer.revalidate()
+            await cart.revalidate()
 
             return data
           },
-          [revalidate]
+          [customer, cart]
         )
       }
 

@@ -14,7 +14,8 @@ const login = async (
   fetch: HookFetcherContext<{
     data: any
   }>['fetch'],
-  getTokenParameters: AuthTokenAttr
+  getTokenParameters: AuthTokenAttr,
+  associateGuestCart: boolean
 ): Promise<void> => {
   const { data: spreeGetTokenSuccessResponse } = await fetch<
     GraphQLFetcherResult<IOAuthToken>
@@ -27,27 +28,29 @@ const login = async (
 
   setUserTokenResponse(spreeGetTokenSuccessResponse)
 
-  const cartToken = getCartToken()
+  if (associateGuestCart) {
+    const cartToken = getCartToken()
 
-  if (cartToken) {
-    // If the user had a cart as guest still use its contents
-    // after logging in.
-    const accessToken = spreeGetTokenSuccessResponse.access_token
-    const token: IToken = { bearerToken: accessToken }
+    if (cartToken) {
+      // If the user had a cart as guest still use its contents
+      // after logging in.
+      const accessToken = spreeGetTokenSuccessResponse.access_token
+      const token: IToken = { bearerToken: accessToken }
 
-    const associateGuestCartParameters: AssociateCart = {
-      guest_order_token: cartToken,
+      const associateGuestCartParameters: AssociateCart = {
+        guest_order_token: cartToken,
+      }
+
+      await fetch<GraphQLFetcherResult<IOrder>>({
+        variables: {
+          methodPath: 'cart.associateGuestCart',
+          arguments: [token, associateGuestCartParameters],
+        },
+      })
+
+      // We no longer need the guest cart token, so let's remove it.
+      removeCartToken()
     }
-
-    await fetch<GraphQLFetcherResult<IOrder>>({
-      variables: {
-        methodPath: 'cart.associateGuestCart',
-        arguments: [token, associateGuestCartParameters],
-      },
-    })
-
-    // We no longer need the guest cart token, so let's remove it.
-    removeCartToken()
   }
 }
 
