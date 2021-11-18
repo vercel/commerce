@@ -6,6 +6,7 @@
     @apply flex justify-between items-center;
   }
   .codes {
+    @apply flex items-center;
     margin-top: 1.6rem;
   }
   .buttonAdd {

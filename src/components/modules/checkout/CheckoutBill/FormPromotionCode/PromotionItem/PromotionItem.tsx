@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PromotionItem = ({ code }: Props) => {
-    const { removeCouponCode, loading } = useRemoveCouponCode()
+    const { removeCouponCode } = useRemoveCouponCode()
     const { showMessageSuccess, showMessageError } = useMessage()
 
     const handleRemoveCouponCode = () => {
