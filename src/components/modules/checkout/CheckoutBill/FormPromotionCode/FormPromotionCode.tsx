@@ -9,12 +9,16 @@ import { LANGUAGE } from 'src/utils/language.utils';
 import { CustomInputCommon } from 'src/utils/type.utils';
 import * as Yup from 'yup';
 import s from './FormPromotionCode.module.scss';
+import PromotionItem from './PromotionItem/PromotionItem';
+interface Props {
+    couponCodes?: string[]
+}
 
 const displayingErrorMessagesSchema = Yup.object().shape({
     couponCode: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
 })
 
-const FormPromotionCode = () => {
+const FormPromotionCode = ({ couponCodes }: Props) => {
     const { visible, openModal, closeModal } = useModalCommon({ initialValue: false })
     const { showMessageError, showMessageSuccess } = useMessage()
     const { applyCouponCode, loading } = useApplyCouponCode()
@@ -43,10 +47,17 @@ const FormPromotionCode = () => {
 
     return (
         <div className={s.promo}>
-            Apply Promotion Code
-            <button className={s.buttonAdd} onClick={openModal}>
-                <IconCirclePlus />
-            </button>
+            <div className={s.top}>
+                Apply Promotion Code
+                <button className={s.buttonAdd} onClick={openModal}>
+                    <IconCirclePlus />
+                </button>
+            </div>
+            <div className={s.codes}>
+                {
+                    couponCodes?.map(item => <PromotionItem key={item} code={item} />)
+                }
+            </div>
             <ModalCommon
                 visible={visible}
                 onClose={closeModal}

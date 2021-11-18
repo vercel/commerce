@@ -1,7 +1,10 @@
 .promo {
-  @apply bg-gray flex justify-between items-center;
+  @apply bg-gray;
   min-height: 6.4rem;
   padding: 1.6rem 2.4rem;
+  .top {
+    @apply flex justify-between items-center;
+  }
   .buttonAdd {
     svg path {
       @apply transition-all duration-200;

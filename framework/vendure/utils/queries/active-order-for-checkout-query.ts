@@ -64,6 +64,7 @@ fragment Cart on Order {
   shipping
   shippingWithTax
   currencyCode
+  couponCodes
   shippingLines {
     priceWithTax
     shippingMethod {

@@ -10,6 +10,7 @@ mutation applyCouponCode($couponCode: String!) {
         type
         amount
         amountWithTax
+        description
       }
     }
     ... on ErrorResult {
