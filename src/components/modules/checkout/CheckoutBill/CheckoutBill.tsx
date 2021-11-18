@@ -58,7 +58,7 @@ const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {
         <FormPromotionCode />
         <div className={s.price}>
           <div className={s.line}>
-            Discount {(data?.discounts?.length || 0) > 0 && `(${data?.discounts?.map(item => item.description).join(",")})`}
+            Discount {(data?.discounts?.length || 0) > 0 && `(${data?.discounts?.map(item => item.description).join(", ")})`}
             <div className={s.shipping}>
               {data?.totalDiscount || 0} {data?.currency?.code}
             </div>
