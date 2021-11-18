@@ -14,6 +14,7 @@ interface ColectionCarcouselProps extends CollectionHeadingProps {
   itemKey: string
   viewAllLink?: string,
   category?: string
+  slug?: string
   hasLineBottom?: boolean
 }
 
@@ -26,6 +27,7 @@ const ColectionCarcousel = ({
   category,
   viewAllLink = ROUTE.PRODUCTS,
   hasLineBottom,
+  slug
 }: ColectionCarcouselProps) => {
   return (
     <div className={classNames(s.colectionCarcoucelWarpper, {[s.line]: hasLineBottom})}>
@@ -38,7 +40,7 @@ const ColectionCarcousel = ({
           ></CollectionHeading>
         </div>
         <div className={s.right}>
-          <ViewAllItem link={category ? `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=${category}` : viewAllLink} />
+          <ViewAllItem link={category ? `${ROUTE.PRODUCTS}/?${QUERY_KEY.CATEGORY}=${slug}` : viewAllLink} />
         </div>
       </div> 
       <div className={s.bot}>
