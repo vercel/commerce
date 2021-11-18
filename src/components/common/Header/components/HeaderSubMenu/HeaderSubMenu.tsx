@@ -69,5 +69,5 @@ const HeaderSubMenu = memo(() => {
         </section>
     )
 })
-
+HeaderSubMenu.displayName = 'HeaderSubMenu'
 export default HeaderSubMenu
