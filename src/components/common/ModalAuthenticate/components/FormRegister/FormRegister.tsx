@@ -92,7 +92,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
             validationSchema={DisplayingErrorMessagesSchema}
             onSubmit={onSignup}
           >
-            {({ errors, touched, isValid, submitForm }) => (
+            {({ errors, touched, dirty, isValid, submitForm }) => (
               <Form className="u-form">
                 <div className="body">
                   <InputFiledInForm
@@ -100,7 +100,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
                     placeholder="Email Address"
                     ref={emailRef}
                     error={
-                      touched.email && errors.email
+                      dirty && errors.email
                         ? errors.email.toString()
                         : ''
                     }
