@@ -6,6 +6,7 @@ import type { SignupHook } from '@commerce/types/signup'
 import { ValidationError } from '@commerce/utils/errors'
 import type { IAccount } from '@spree/storefront-api-v2-sdk/types/interfaces/Account'
 import useCustomer from '../customer/use-customer'
+import useCart from '../cart/use-cart'
 import login from '../utils/login'
 import type { AuthTokenAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Authentication'
 
@@ -60,7 +61,7 @@ export const handler: MutationHook<SignupHook> = {
     }
 
     // Login immediately after the account is created.
-    await login(fetch, getTokenParameters)
+    await login(fetch, getTokenParameters, true)
 
     return null
   },
@@ -69,17 +70,19 @@ export const handler: MutationHook<SignupHook> = {
       () => {
         console.log('useSignup useHook called.')
 
-        const { revalidate } = useCustomer()
+        const customer = useCustomer()
+        const cart = useCart()
 
         return useCallback(
           async (input) => {
             const data = await fetch({ input })
 
-            await revalidate()
+            await customer.revalidate()
+            await cart.revalidate()
 
             return data
           },
-          [revalidate]
+          [customer, cart]
         )
       }
 
