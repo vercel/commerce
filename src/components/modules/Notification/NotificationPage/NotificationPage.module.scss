@@ -1,16 +1,24 @@
 .notificationPage {
     min-height: 30rem;
     padding-bottom: 5.4rem;
-    width: max-content;
-    max-width: 100%;
     @screen md {
         padding-bottom: 12.8rem;
     }
-    .paginationWrap {
-        margin-top: 4rem;
-        text-align: center;
+
+    .notiListWrap {
         @screen md {
-            text-align: left;
+            width: max-content;
+            max-width: 100%;
+        }
+        .notiList {
+
+        }
+        .paginationWrap {
+            margin-top: 4rem;
+            text-align: center;
+            @screen md {
+                text-align: left;
+            }
         }
     }
 }
