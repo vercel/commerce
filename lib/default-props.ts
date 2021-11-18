@@ -7,16 +7,14 @@ import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 
 import commerce from '@lib/api/commerce'
-import { ParsedUrlQuery } from 'querystring'
 
 export interface DefaultPageProps {
   pages: Page[]
   categories: Category[]
-  brand: any
+  brands: any[]
 }
 
-interface ContextWithDefaultProps<P extends ParsedUrlQuery = ParsedUrlQuery>
-  extends GetStaticPropsContext<P> {
+interface ContextWithDefaultProps extends GetStaticPropsContext {
   defaultProps: DefaultPageProps
 }
 
@@ -24,18 +22,15 @@ type WrappedGetStaticPropsResult<Q> =
   | GetStaticPropsResult<Q>
   | Promise<GetStaticPropsResult<Q>>
 
-export function withDefaultStaticProps<
-  T,
-  P extends ParsedUrlQuery = ParsedUrlQuery
->(
-  fn?: (context: ContextWithDefaultProps<P>) => WrappedGetStaticPropsResult<T>
+export function withDefaultStaticProps<T>(
+  fn?: (context: ContextWithDefaultProps) => WrappedGetStaticPropsResult<T>
 ): GetStaticProps<T & DefaultPageProps> {
   return async function wrapped(context) {
     const config = { locale: context.locale, locales: context.locales }
     const preview = context.preview
 
     const pages = await commerce.getAllPages({ config, preview })
-    const { categories, brand = null } = await commerce.getSiteInfo({
+    const { categories, brands = [] } = await commerce.getSiteInfo({
       config,
       preview,
     })
@@ -43,7 +38,7 @@ export function withDefaultStaticProps<
     const defaultProps = {
       pages,
       categories,
-      brand,
+      brands,
     }
 
     if (!fn) {
@@ -51,13 +46,12 @@ export function withDefaultStaticProps<
         props: {
           ...pages,
           categories,
-          brand,
+          brands,
         },
       }
     }
 
-    // @ts-ignore
-    // TODO make types compatible
+    // TODO add QueryParam generic
     const pageProps = await fn({
       defaultProps,
       ...context,
@@ -71,7 +65,7 @@ export function withDefaultStaticProps<
           ...pageProps.props,
           ...pages,
           categories,
-          brand,
+          brands,
         },
       }
     }
@@ -81,7 +75,7 @@ export function withDefaultStaticProps<
       props: {
         ...pages,
         categories,
-        brand,
+        brands,
       },
     }
   }
