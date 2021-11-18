@@ -4,11 +4,12 @@ import Link from 'next/link'
 
 interface Props {
     link: string
+    onClick?: () => void
 }
 
-const ViewAllItem = ({ link }: Props) => {
-    return(
-        <div className={s.viewAll}>
+const ViewAllItem = ({ link, onClick }: Props) => {
+    return (
+        <div className={s.viewAll} onClick={onClick}>
             <Link href={link}>
                 <a className={s.content}>
                     View All

@@ -6,6 +6,7 @@ import { useGetActiveOrder, useRecommendedProductsInCart } from 'src/components/
 import { ROUTE } from 'src/utils/constanst.utils';
 import s from './CartRecommendation.module.scss';
 import { useGetUserOrder } from 'src/components/hooks/account'
+import { useCartDrawer } from 'src/components/contexts';
 
 const RESPONSIVE: ResponsiveType = {
   desktop: {
@@ -34,6 +35,7 @@ const RESPONSIVE: ResponsiveType = {
 
 
 const CartRecommendation = memo(() => {
+  const { closeCartDrawer } = useCartDrawer()
   const { products, mutate: mutateRecommendedProductsInCart } = useRecommendedProductsInCart()
   const { mutate: mutateGetActiveOrder } = useGetActiveOrder()
   const { mutate: mutateUserOrder } = useGetUserOrder();
@@ -50,7 +52,7 @@ const CartRecommendation = memo(() => {
         <div className={s.heading}>
           Recommendation
         </div>
-        <ViewAllItem link={ROUTE.PRODUCTS} />
+        <ViewAllItem link={ROUTE.PRODUCTS} onClick={closeCartDrawer}/>
       </div>
       <div className={s.productCardWarpper}>
         <CarouselCommon<ProductCardProps>

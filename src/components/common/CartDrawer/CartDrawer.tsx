@@ -1,4 +1,6 @@
-import React, { memo } from 'react';
+import { route } from 'next/dist/server/router';
+import { useRouter } from 'next/router';
+import React, { memo, useEffect } from 'react';
 import { useCartDrawer } from 'src/components/contexts';
 import useGetActiveOrder from 'src/components/hooks/cart/useGetActiveOrder';
 import { DEFAULT_CURRENCY } from 'src/utils/constanst.utils';
@@ -15,8 +17,7 @@ interface Props {
 
 const CartDrawer = memo(({ }: Props) => {
   const { cartVisible, closeCartDrawer } = useCartDrawer()
-  const {order} = useGetActiveOrder()
-
+  const { order } = useGetActiveOrder()
 
   return (
     <DrawerCommon
