@@ -45,7 +45,6 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
 
     useEffect(() => {
         const query = router.query[QUERY_KEY.ORDER_STATE] as OrderState
-        console.log("query : ", query)
         const index = getTabIndex(query)
         setDefaultTab(index)
     }, [router.query])
