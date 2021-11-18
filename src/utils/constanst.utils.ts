@@ -8,6 +8,11 @@ export const MAX_COLLECTIONS_IN_HOME = 4
 export const BLUR_DATA_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8fBIAApUBruKYvzsAAAAASUVORK5CYII='
 export const DEFAULT_IMG = DefaultImg
 export const DEFAULT_CURRENCY = CurrencyCode.Myr
+export const PHONE_REGEX = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+
+// Global postal code: https://gist.github.com/jamesbar2/1c677c22df8f21e869cca7e439fc3f5b
+export const POSTAL_CODE_REGEX = /^\d{5}$/ // MY
+
 export enum PaymentMethod {
   Braintree = 'braintree'
 }

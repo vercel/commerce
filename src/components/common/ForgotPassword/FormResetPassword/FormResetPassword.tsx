@@ -1,14 +1,12 @@
 import { Form, Formik } from 'formik';
-import React, { useRef } from 'react';
+import { useRouter } from 'next/router';
+import React from 'react';
 import { ButtonCommon, InputPasswordFiledInForm } from 'src/components/common';
 import { useMessage } from 'src/components/contexts';
-import useRequestPasswordReset from 'src/components/hooks/auth/useRequestPasswordReset';
-import { LANGUAGE } from 'src/utils/language.utils';
-import { CustomInputCommon } from 'src/utils/type.utils';
-import * as Yup from 'yup';
-import { useRouter } from 'next/router'
-import { default as s, default as styles } from './FormResetPassword.module.scss';
 import { useResetPassword } from 'src/components/hooks/auth';
+import { LANGUAGE } from 'src/utils/language.utils';
+import * as Yup from 'yup';
+import { default as s, default as styles } from './FormResetPassword.module.scss';
 
 interface Props {
    

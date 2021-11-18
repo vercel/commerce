@@ -5,6 +5,7 @@ import { ButtonCommon, InputFiledInForm, SelectFieldInForm } from 'src/component
 import { useMessage } from 'src/components/contexts'
 import { useAvailableCountries } from 'src/components/hooks'
 import { useSetOrderShippingAddress } from 'src/components/hooks/order'
+import { PHONE_REGEX, POSTAL_CODE_REGEX } from 'src/utils/constanst.utils'
 import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
@@ -24,9 +25,9 @@ const displayingErrorMessagesSchema = Yup.object().shape({
   streetLine1: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
   city: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
   province: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
-  postalCode: Yup.number().required(LANGUAGE.MESSAGE.REQUIRED),
+  postalCode: Yup.string().matches(POSTAL_CODE_REGEX, 'Postal code is not valid').required(LANGUAGE.MESSAGE.REQUIRED),
   countryCode: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
-  phoneNumber: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
+  phoneNumber: Yup.string().matches(PHONE_REGEX, 'Phone number is not valid').required(LANGUAGE.MESSAGE.REQUIRED)
 
 })
 
