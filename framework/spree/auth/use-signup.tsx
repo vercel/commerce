@@ -5,10 +5,11 @@ import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import type { SignupHook } from '@commerce/types/signup'
 import { ValidationError } from '@commerce/utils/errors'
 import type { IAccount } from '@spree/storefront-api-v2-sdk/types/interfaces/Account'
+import type { AuthTokenAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Authentication'
 import useCustomer from '../customer/use-customer'
 import useCart from '../cart/use-cart'
+import useWishlist from '../wishlist/use-wishlist'
 import login from '../utils/login'
-import type { AuthTokenAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Authentication'
 
 export default useSignup as UseSignup<typeof handler>
 
@@ -72,6 +73,7 @@ export const handler: MutationHook<SignupHook> = {
 
         const customer = useCustomer()
         const cart = useCart()
+        const wishlist = useWishlist()
 
         return useCallback(
           async (input) => {
@@ -79,10 +81,11 @@ export const handler: MutationHook<SignupHook> = {
 
             await customer.revalidate()
             await cart.revalidate()
+            await wishlist.revalidate()
 
             return data
           },
-          [customer, cart]
+          [customer, cart, wishlist]
         )
       }
 

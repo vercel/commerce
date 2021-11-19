@@ -1,7 +1,7 @@
 {
   "provider": "spree",
   "features": {
-    "wishlist": false,
+    "wishlist": true,
     "cart": true,
     "search": true,
     "customerAuth": true,

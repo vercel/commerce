@@ -1,6 +1,6 @@
 import type { Customer } from '@commerce/types/customer'
-import type { SpreeSdkResponse } from '@framework/types'
 import type { AccountAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Account'
+import type { SpreeSdkResponse } from '../../types'
 
 const normalizeUser = (
   _spreeSuccessResponse: SpreeSdkResponse,
