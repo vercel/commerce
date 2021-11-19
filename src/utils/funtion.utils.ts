@@ -83,7 +83,7 @@ export function getRecipeSortParamFromQuery(query: string) {
       }
       break;
 
-    case RECIPE_SORT_OPTION_VALUE.RECENT_RECIPES:
+    case RECIPE_SORT_OPTION_VALUE.OLDEST_RECIPES:
       rs = {
         createdAt: SortOrder.Asc
       }

@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { useRouter } from 'next/router'
 import { default as s, default as styles } from './FormResetPassword.module.scss';
 import { useResetPassword } from 'src/components/hooks/auth';
+import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext';
 
 interface Props {
    
@@ -34,6 +35,8 @@ const FormResetPassword = ({  }: Props) => {
 
     const { showMessageSuccess, showMessageError } = useMessage();
 
+    const { openModalAuthen } = useModalAuthen();
+
     const onReset = (values: {password: string }) => {
         const { token } = router.query;
         resetPassword({token:token,password: values.password},onResetPasswordCallBack);
@@ -41,7 +44,8 @@ const FormResetPassword = ({  }: Props) => {
 
     const onResetPasswordCallBack = (isSuccess: boolean, message?: string) => {
       if (isSuccess) {
-        showMessageSuccess("Reset password successfully. Please to login.")
+        openModalAuthen();
+        showMessageSuccess("Reset password successfully. Please to login.", 6000)
       } else {
         showMessageError(message || LANGUAGE.MESSAGE.ERROR)
       }

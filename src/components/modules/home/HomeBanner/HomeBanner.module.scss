@@ -6,7 +6,7 @@
 
   .left {
     @apply hidden;
-    margin-bottom: 3rem;
+    max-height: 42rem;
     max-width: 50rem;
   }
   @screen xl {

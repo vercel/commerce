@@ -3,7 +3,7 @@
 .recipeDetailInfo {
     @apply spacing-horizontal;
     margin: 0 auto 5.6rem;
-    @screen md {
+    @screen xl {
         @apply flex justify-center;
         margin: 5.6rem auto;
     }
@@ -12,39 +12,46 @@
         width: 100%;
         margin-top: 0;
         min-height: 50rem;
-
+        margin:2rem 0;
         @screen sm-only {
             margin-bottom: 2rem;
         }
         @screen md {
-            max-width: 50%;
+            max-width: 100%;
         }
         @screen lg {
+            max-width:  100%;
+        }
+        @screen xl{
             max-width: 60rem;
         }
         div {
             min-height: 64rem;
             img {
-                // object-fit: contain;
-                //     @apply w-full;
                 min-height: 64rem;
                 border-radius: 2.4rem;
-                //     @screen md {
-                //         max-height: 90rem;
-                //     }
             }
-            // ul {
-            //     border-radius: 2.4rem;
-            // }
+            ul {
+                margin-bottom: 2rem !important;
+            }
+            @screen sm-only{
+                ul {
+                    width: 100%;
+                }
+            }
+         
+            div{
+                padding-bottom: 3.5rem;
+            }
         }
     }
 
     .recipeInfo {
         @screen md {
-            max-width: 39rem;
-            margin-left: 4.8rem;
+            max-width:100%;
+            // margin-left: 4.8rem;
         }
-        @screen lg {
+        @screen xl {
             margin-left: 11.2rem;
         }
         .top {

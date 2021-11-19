@@ -23,12 +23,12 @@ const BREADCRUMB = [
 
 const OPTIONSLECT = [
   {
-    name: 'Lastest Blogs',
-    value: 'lastest_blogs',
+    name: 'Lastest Recipes',
+    value: 'lastest_recipes',
   },
   {
-    name: 'Recent Blogs',
-    value: 'recent_blogs',
+    name: 'Oldest Recipes',
+    value: 'oldest_recipes',
   },
 ]
 
@@ -52,7 +52,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
   )
   const [initialQueryFlag, setInitialQueryFlag] = useState<boolean>(true)
   const [optionQueryBlog, setOptionQueryBlog] = useState<QueryRecipes>(DEFAULT_RECIPES_ARGS)
-  const { recipes, totalItems } = useGetRecipeList(optionQueryBlog)
+  const { recipes, totalItems,loading } = useGetRecipeList(optionQueryBlog)
   const [selectMobileValue, setSelectMobileValue] = useState<string>();
   const [sortValue, setSortValue] = useState<string>();
   const router = useRouter();
@@ -203,7 +203,7 @@ const RecipesList = ({collections, recipeList, total }: Props) => {
               </div>
             </div>
             <div className={s.recipesPagination}>
-            {(data?.length !== 0) &&
+            {(data?.length !== 0) && !loading &&
               <PaginationCommon
                 defaultCurrent={currentPage}
                 pageSize={DEFAULT_RECIPES_PAGE_SIZE}

@@ -180,7 +180,7 @@ const HeaderMenu = memo(
                 <button onClick={showMessageSignInRequireForOrder}><IconHistory /></button>
               </li>
               <li>
-                <button onClick={showMessageSignInRequireForWishlist} className={s.iconFavourite}><IconHeart /></button>
+                <button onClick={showMessageSignInRequireForWishlist} className={s.iconFavourite}><IconHeartHead /></button>
               </li>
               <li>
                 <NotificationDropdown isShowLogin={true} isOpen={isNotificationOpen} toggle={toggleNotification} />
