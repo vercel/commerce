@@ -332,7 +332,7 @@ export type Checkout = {
   terms_policy?: string
   refund_policy?: string
   privacy_policy?: string
-  theme?: stirng
+  theme?: string
   countries: any[]
   currencies: any[]
   payment_methods: any[]
