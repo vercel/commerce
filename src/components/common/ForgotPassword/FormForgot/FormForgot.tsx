@@ -9,7 +9,9 @@ import ModalAuthenticate from '../../ModalAuthenticate/ModalAuthenticate';
 import { default as s, default as styles } from './FormForgot.module.scss';
 import { useMessage } from 'src/components/contexts'
 import { LANGUAGE } from 'src/utils/language.utils'
-
+import { useCheckIsUserVerifyEmail } from 'src/components/hooks/auth'
+import { UserVerifyEmailResult } from '@framework/schema';
+import { useLogout } from 'src/components/hooks/auth'
 interface Props {
    
 }
@@ -18,17 +20,36 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 })
 
 const FormForgot = ({  }: Props) => {
+    const { logout } = useLogout();
     const { visible: visibleModalAuthen,closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false });
   
-
     const {requestPassword} = useRequestPasswordReset();
-    const { showMessageSuccess, showMessageError } = useMessage();
+    const { showMessageSuccess, showMessageError, showMessageWarning } = useMessage();
+    const { checkIsUserVerifyEmail } = useCheckIsUserVerifyEmail()
+  
 
     const emailRef = useRef<CustomInputCommon>(null);
-    
+
+    // logout
+    useEffect(()=>{
+      logout();
+    },[]);
+
 
     const onForgot = (values: { email: string }) => {
-      requestPassword({email: values.email},onForgotPasswordCallBack);
+      // check email
+
+      checkIsUserVerifyEmail({ emailAddress: values.email }, (isSuccess: boolean, rs: UserVerifyEmailResult | string)=>{
+        if (isSuccess) {
+          if ((rs as UserVerifyEmailResult).isVerified) {
+            requestPassword({email: values.email},onForgotPasswordCallBack);
+          } else {
+            showMessageWarning("This account does not exist.", 10000)
+          }
+        } else {
+          showMessageError(rs as string)
+        }
+      })
     }
 
     const onForgotPasswordCallBack = (isSuccess: boolean, message?: string) => {

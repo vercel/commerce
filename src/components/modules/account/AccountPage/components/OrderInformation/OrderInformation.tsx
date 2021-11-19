@@ -5,7 +5,7 @@ import TabPane from 'src/components/common/TabCommon/components/TabPane/TabPane'
 import { QUERY_KEY } from "src/utils/constanst.utils"
 import { transformPrice } from "src/utils/funtion.utils"
 import { OrderState } from "src/utils/types.utils"
-import { TabCommon } from '../../../../../common'
+import { TabCommon, EmptyCommon } from '../../../../../common'
 import DeliveryItem from '../../../DeliveryItem/DeliveryItem'
 import s from './OrderInformation.module.scss'
 
@@ -59,11 +59,11 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                         <div>
                             <div className={s.blank}></div>
                             {
-                                addingItem?.map(order => {
+                                (addingItem && addingItem?.length > 0) ? addingItem?.map(order => {
                                     return (
                                         <DeliveryItem key={order.code} id={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
-                                })
+                                }):<EmptyCommon/> 
                             }
                         </div>
                     </TabPane>
@@ -72,11 +72,11 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                         <div>
                             <div className={s.blank}></div>
                             {
-                                paymentAuthorized?.map(order => {
+                                (paymentAuthorized && paymentAuthorized?.length > 0) ? paymentAuthorized?.map(order => {
                                     return (
                                         <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
-                                })
+                                }): <EmptyCommon/> 
                             }
                         </div>
                     </TabPane>
@@ -87,11 +87,11 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                         <div>
                             <div className={s.blank}></div>
                             {
-                                paymentSettled?.map(order => {
+                                (paymentSettled && paymentSettled?.length > 0) ? paymentSettled?.map(order => {
                                     return (
                                         <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
-                                })
+                                }) : <EmptyCommon/> 
                             }
                         </div>
                     </TabPane>
@@ -100,11 +100,11 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                     <TabPane tabName={"Partially Shipped"}>
                         <div className={s.blank}></div>
                         {
-                            partiallyShipped?.map(order => {
+                            (partiallyShipped && partiallyShipped?.length > 0) ? partiallyShipped?.map(order => {
                                 return (
                                     <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                 )
-                            })
+                            }) : <EmptyCommon/> 
                         }
                     </TabPane>
 
@@ -112,11 +112,11 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                         <div>
                             <div className={s.blank}></div>
                             {
-                                shipped?.map(order => {
+                                (shipped && shipped?.length > 0) ?  shipped?.map(order => {
                                     return (
                                         <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
-                                })
+                                }) : <EmptyCommon/> 
                             }
                         </div>
                     </TabPane>
@@ -125,11 +125,11 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                         <div>
                             <div className={s.blank}></div>
                             {
-                                cancelled?.map(order => {
+                                (cancelled && cancelled?.length > 0) ? cancelled?.map(order => {
                                     return (
                                         <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
-                                })
+                                }) : <EmptyCommon/> 
                             }
                         </div>
                     </TabPane>

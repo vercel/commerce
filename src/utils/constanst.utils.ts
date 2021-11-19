@@ -84,8 +84,8 @@ export const PRODUCT_SORT_OPTION_VALUE = {
 }
 
 export const RECIPE_SORT_OPTION_VALUE = {
-  LASTED_RECIPES: 'lastest_blogs',
-  RECENT_RECIPES: 'recent_blogs',
+  LASTED_RECIPES: 'lastest_recipes',
+  OLDEST_RECIPES: 'oldest_recipes',
 }
 
 
@@ -215,7 +215,7 @@ export const DEFAULT_RECIPES_PAGE_SIZE = 9;
 
 export const DEFAULT_YOU_WILL_LIKE_ALSO_SIZE = 6;
 
-export const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
+export const FILTER_PAGE = [ROUTE.HOME]
 
 export const STATE_OPTIONS = [
   {

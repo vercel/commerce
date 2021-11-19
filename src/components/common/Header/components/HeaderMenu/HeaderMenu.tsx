@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useEffect, useMemo } from 'react'
 import { ButtonCommon } from 'src/components/common'
 import InputSearch from 'src/components/common/InputSearch/InputSearch'
 import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
@@ -104,6 +104,12 @@ const HeaderMenu = memo(
       [logout]
     )
 
+    useEffect(() => {
+      if(!router.query.search){
+        setSearchValue("")
+      }
+    }, [router.query,setSearchValue])
+
     const onEnter = () => {
       router.push(`${ROUTE.PRODUCTS}?${QUERY_KEY.SEARCH}=${searchValue}`)
     }
@@ -180,7 +186,7 @@ const HeaderMenu = memo(
                 <button onClick={showMessageSignInRequireForOrder}><IconHistory /></button>
               </li>
               <li>
-                <button onClick={showMessageSignInRequireForWishlist} className={s.iconFavourite}><IconHeart /></button>
+                <button onClick={showMessageSignInRequireForWishlist} className={s.iconFavourite}><IconHeartHead /></button>
               </li>
               <li>
                 <NotificationDropdown isShowLogin={true} isOpen={isNotificationOpen} toggle={toggleNotification} />

@@ -39,5 +39,5 @@ const HeaderHighLight = memo(() => {
         </section>
     )
 })
-
+HeaderHighLight.displayName = 'HeaderHighLight'
 export default HeaderHighLight
