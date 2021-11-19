@@ -62,12 +62,14 @@ const WishlistCard: FC<Props> = ({ product }) => {
   return (
     <div className={cn(s.root, { 'opacity-75 pointer-events-none': removing })}>
       <div className={`col-span-3 ${s.productBg}`}>
-        <Image
-          src={product.images[0]?.url || placeholderImg}
-          width={400}
-          height={400}
-          alt={product.images[0]?.alt || 'Product Image'}
-        />
+        <div>
+          <Image
+            src={product.images[0]?.url || placeholderImg}
+            width={400}
+            height={400}
+            alt={product.images[0]?.alt || 'Product Image'}
+          />
+        </div>
       </div>
 
       <div className="col-span-7">
