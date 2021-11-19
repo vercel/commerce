@@ -1,4 +1,5 @@
-import { Product, ProductVariant } from '@commerce/types/product'
+import { Product, ProductOption, ProductVariant } from '@commerce/types/product'
+import classNames from 'classnames'
 import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { ButtonCommon, LabelCommon, QuanittyInput } from 'src/components/common'
@@ -17,19 +18,23 @@ interface Props {
 }
 
 const ProductInfo = ({ productInfoDetail }: Props) => {
+    // console.log(productInfoDetail)
     const [option, setOption] = useState({})
     const [quanitty, setQuanitty] = useState(1)
     const [addToCartLoading, setAddToCartLoading] = useState(false)
     const [buyNowLoading, setBuyNowLoading] = useState(false)
 	const {showMessageSuccess, showMessageError } = useMessage()
     const [currentVariant, setCurrentVariant] = useState<ProductVariant|undefined>(productInfoDetail.variants?productInfoDetail.variants[0]:undefined)
-	useEffect(() => {
-		let defaultOption:SelectedOptions = {}
-		productInfoDetail.options.map((option)=>{
-			defaultOption[option.displayName] = option.values[0].label
-			return null
-		})
+	const [disableAllButton, setDisableAllButton] = useState(false)
+	const [defaultOption, setDefaultOption] = useState<SelectedOptions>({})
+    useEffect(() => {
+		let firstVariantOption:SelectedOptions = {}
+
+        productInfoDetail.variants?productInfoDetail.variants[0].options.map((option)=>	firstVariantOption[option.displayName] = option.values[0].label):undefined
+        console.log(firstVariantOption)
+        setDefaultOption(firstVariantOption)
 	}, [productInfoDetail])
+    
     
 	const {addProduct} = useAddProductToCart()
 	const { openCartDrawer } = useCartDrawer()
@@ -85,7 +90,16 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
     }
     const onSelectOption = (value:SelectedOptions) => {
         setOption({...option,...value})
-        setCurrentVariant(getProductVariant(productInfoDetail,{...option,...value}))
+        const variant = getProductVariant(productInfoDetail,{...option,...value})
+        if(variant){
+            if(disableAllButton){
+                setDisableAllButton(false)
+            }
+            setCurrentVariant(variant)
+        }else{
+            setDisableAllButton(true)
+            showMessageError("Variant is not available")
+        }
     }
     return (
         <section className={s.productInfo}>
@@ -102,7 +116,7 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                                 }
                                 {
                                     currentVariant.customFields.discount &&
-                                        <LabelCommon type='discount'>{currentVariant.customFields.discount}</LabelCommon>
+                                        <LabelCommon type='discount'> -{currentVariant.customFields.discount}</LabelCommon>
                                 }
                             </div>
                     }
@@ -113,23 +127,26 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
                 <div className={s.options}>
                     {
                         productInfoDetail.options.map((option)=>{
-                            return <ProductDetailOption option={option} onChane={onSelectOption} key={option.displayName}/>
+                            return <ProductDetailOption option={option} onChane={onSelectOption} key={option.displayName} defaultOption={defaultOption}/>
                         })
                     }
 
                 </div>
             </div>
             <div className={s.actions}>
-                <QuanittyInput value={quanitty} onChange={handleQuanittyChange} min={0} max={10}/>
+                <QuanittyInput value={quanitty} onChange={handleQuanittyChange} initValue={1} min={0} max={10}/>
                 <div className={s.bottom}>
                     {/* <ButtonCommon size='large'>{LANGUAGE.BUTTON_LABEL.PREORDER}</ButtonCommon> */}
-                    <ButtonCommon size='large' onClick={handleBuyNow} loading={buyNowLoading} disabled={addToCartLoading}>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>
+                    <ButtonCommon size='large' onClick={handleBuyNow} loading={buyNowLoading} disabled={addToCartLoading||disableAllButton}>{LANGUAGE.BUTTON_LABEL.BUY_NOW}</ButtonCommon>
 
-                    <ButtonCommon size='large' type='light' onClick={handleAddToCart} loading={addToCartLoading} disabled={buyNowLoading}>
+                    <ButtonCommon size='large' type='light' onClick={handleAddToCart} loading={addToCartLoading} disabled={buyNowLoading||disableAllButton}>
                         <span className={s.buttonWithIcon}>
                             <IconBuy /><span className={s.label}>{LANGUAGE.BUTTON_LABEL.ADD_TO_CARD}</span>
                         </span>
                     </ButtonCommon>
+                </div>
+                <div className={classNames(s.error, {[s.show]:disableAllButton})}>
+                    This variant is not available
                 </div>
             </div>
         </section >

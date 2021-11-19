@@ -27,6 +27,7 @@ export const cartFragment = /* GraphQL */ `
       discounts {
         description
         amount
+        amountWithTax
       }
       productVariant {
         id

@@ -6,15 +6,19 @@ import s from './ProductDetailOption.module.scss'
 interface Props {
   option: ProductOption
   onChane: (values: SelectedOptions) => void
+  defaultOption:SelectedOptions
 }
 
-const ProductDetailOption = React.memo(({ option, onChane }: Props) => {
-  const [selected, setSelected] = useState<string>('')
+const ProductDetailOption = ({ option, onChane, defaultOption }: Props) => {
+  const [selected, setSelected] = useState<string>("")
   useEffect(() => {
     if (option) {
-      setSelected(option.values[0].label)
+      let defaultSelected =defaultOption[option.displayName]
+      if(defaultSelected){
+        setSelected(defaultSelected)
+      }
     }
-  }, [option])
+  }, [option, defaultOption])
   const handleClick = (value:string) => {
 		setSelected(value)
     onChane && onChane({[option.displayName]:value})
@@ -29,7 +33,7 @@ const ProductDetailOption = React.memo(({ option, onChane }: Props) => {
       </div>
     </div>
   )
-})
+}
 interface ProductDetailOptionButtonProps {
   value: ProductOptionValues
   selected: string

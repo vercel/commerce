@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { ModalConfirm, QuanittyInput } from 'src/components/common'
 import { IconDelete } from 'src/components/icons'
@@ -34,6 +34,13 @@ const ProductCartItem = ({
   const { mutate: mutateUserOrder } = useGetUserOrder();
   const { order } = useGetActiveOrder()
   const {changeOrderState } = useChangeOrderState()
+  const [quantityValue] = useState(quantity)
+  // const [discountSum, setDiscountSum] = useState(0)
+
+  // useEffect(() => {
+  //   let sum = discounts.reduce((previousValue, currentValue) => previousValue + currentValue.value,0)
+  //   setDiscountSum((Math.round(sum*100))/100)
+  // }, [discounts])
   // const handleQuantityChangeCallback = (isSuccess:boolean,mess?:string) => {
   //   if(!isSuccess){
   //     // console.log(mess)
@@ -145,11 +152,10 @@ const ProductCartItem = ({
             </a>
           </Link>
           <div className={s.price}>
-            {discounts.length > 0 && (
+            {discounts.length > 0 && (variant.oldPrice!==variant.price) && (
               <div className={s.old}>
-                {/* <span className={s.number}>{oldPrice}</span> */}
-                {/* TODO: edit the value */}
-                <LabelCommon type="discount">{discounts[0]?.value}</LabelCommon>
+                <div className={s.number}>{variant.oldPrice} {currency?.code}</div>
+                {/* <LabelCommon type="discount">{discountSum}</LabelCommon> */}
               </div>
             )}
             <div className={s.current}>
@@ -164,8 +170,9 @@ const ProductCartItem = ({
         </div>
         <QuanittyInput
           size="small"
-          initValue={quantity}
+          initValue={quantityValue}
           onChange={debounceFn}
+          min={0}
         />
       </div>
       <ModalConfirm
