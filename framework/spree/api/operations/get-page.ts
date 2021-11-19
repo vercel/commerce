@@ -1,6 +1,12 @@
-import type { OperationOptions } from '@commerce/api/operations'
+import type {
+  OperationContext,
+  OperationOptions,
+} from '@commerce/api/operations'
 import type { GetPageOperation } from '@commerce/types/page'
-import type { SpreeApiConfig } from '..'
+import type { SpreeSdkVariables } from '../../types'
+import type { SpreeApiConfig, SpreeApiProvider } from '..'
+import type { IPage } from '@spree/storefront-api-v2-sdk/types/interfaces/Page'
+import normalizePage from '@framework/utils/normalizations/normalize-page'
 
 export type Page = any
 export type GetPageResult = { page?: Page }
@@ -9,7 +15,9 @@ export type PageVariables = {
   id: number
 }
 
-export default function getPageOperation() {
+export default function getPageOperation({
+  commerce,
+}: OperationContext<SpreeApiProvider>) {
   async function getPage<T extends GetPageOperation>(opts: {
     variables: T['variables']
     config?: Partial<SpreeApiConfig>
@@ -26,16 +34,47 @@ export default function getPageOperation() {
 
   async function getPage<T extends GetPageOperation>({
     url,
-    variables,
-    config,
+    config: userConfig,
     preview,
+    variables: getPageVariables,
   }: {
     url?: string
     variables: T['variables']
     config?: Partial<SpreeApiConfig>
     preview?: boolean
   }): Promise<T['data']> {
-    return Promise.resolve({})
+    console.info(
+      'getPage called. Configuration: ',
+      'userConfig: ',
+      userConfig,
+      'preview: ',
+      preview,
+      'url: ',
+      url
+    )
+
+    const config = commerce.getConfig(userConfig)
+    const { fetch: apiFetch } = config
+
+    const variables: SpreeSdkVariables = {
+      methodPath: 'pages.show',
+      arguments: [getPageVariables.id],
+    }
+
+    const { data: spreeSuccessResponse } = await apiFetch<
+      IPage,
+      SpreeSdkVariables
+    >('__UNUSED__', {
+      variables,
+    })
+
+    const normalizedPage: Page = normalizePage(
+      spreeSuccessResponse,
+      spreeSuccessResponse.data,
+      config.locales || []
+    )
+
+    return { page: normalizedPage }
   }
 
   return getPage
