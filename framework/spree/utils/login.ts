@@ -49,9 +49,10 @@ const login = async (
       })
 
       // We no longer need the guest cart token, so let's remove it.
-      removeCartToken()
     }
   }
+
+  removeCartToken()
 }
 
 export default login

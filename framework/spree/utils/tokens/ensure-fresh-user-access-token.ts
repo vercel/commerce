@@ -7,6 +7,7 @@ import {
   removeUserTokenResponse,
   setUserTokenResponse,
 } from './user-token-response'
+import AccessTokenError from '@framework/errors/AccessTokenError'
 
 /**
  * If the user has a saved access token, make sure it's not expired
@@ -41,7 +42,7 @@ const ensureFreshUserAccessToken = async (client: Client): Promise<void> => {
   if (spreeRefreshAccessTokenResponse.isFail()) {
     removeUserTokenResponse()
 
-    return
+    throw new AccessTokenError('Could not refresh access token.')
   }
 
   setUserTokenResponse(spreeRefreshAccessTokenResponse.success())

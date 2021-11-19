@@ -56,9 +56,15 @@ export const handler: MutationHook<LogoutHook> = {
       () => {
         console.log('useLogout useHook called.')
 
-        const customer = useCustomer()
-        const cart = useCart()
-        const wishlist = useWishlist()
+        const customer = useCustomer({
+          swrOptions: { isPaused: () => true },
+        })
+        const cart = useCart({
+          swrOptions: { isPaused: () => true },
+        })
+        const wishlist = useWishlist({
+          swrOptions: { isPaused: () => true },
+        })
 
         return useCallback(async () => {
           const data = await fetch()

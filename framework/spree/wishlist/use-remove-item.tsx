@@ -59,7 +59,7 @@ export const handler: MutationHook<ExplicitWishlistRemoveItemHook> = {
 
           const data = await fetch({
             input: {
-              itemId: String(input.id),
+              itemId: `${input.id}`,
               wishlistToken: wishlist.data.token,
             },
           })

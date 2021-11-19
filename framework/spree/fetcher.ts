@@ -16,6 +16,7 @@ import createCustomizedFetchFetcher, {
   fetchResponseKey,
 } from './utils/create-customized-fetch-fetcher'
 import ensureFreshUserAccessToken from './utils/tokens/ensure-fresh-user-access-token'
+import RefreshTokenError from './errors/RefreshTokenError'
 
 const client = makeClient({
   host: requireConfigValue('apiHost') as string,
@@ -101,6 +102,10 @@ const fetcher: Fetcher<GraphQLFetcherResult<SpreeSdkResponse>> = async (
     }
 
     console.warn('Replaying the request failed', replayedStoreResponse.fail())
+
+    throw new RefreshTokenError(
+      'Could not authorize request with current access token.'
+    )
   }
 
   if (storeResponseError instanceof errors.SpreeError) {
