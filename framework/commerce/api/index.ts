@@ -1,5 +1,5 @@
 import type { NextApiHandler } from 'next'
-import type { RequestInit, Response } from '@vercel/fetch'
+import type { FetchOptions, Response } from '@vercel/fetch'
 import type { APIEndpoint, APIHandler } from './utils/types'
 import type { CartSchema } from '../types/cart'
 import type { CustomerSchema } from '../types/customer'
@@ -9,6 +9,8 @@ import type { SignupSchema } from '../types/signup'
 import type { ProductsSchema } from '../types/product'
 import type { WishlistSchema } from '../types/wishlist'
 import type { CheckoutSchema } from '../types/checkout'
+import type { CustomerCardSchema } from '../types/customer/card'
+import type { CustomerAddressSchema } from '../types/customer/address'
 import {
   defaultOperations,
   OPERATIONS,
@@ -25,6 +27,8 @@ export type APISchemas =
   | ProductsSchema
   | WishlistSchema
   | CheckoutSchema
+  | CustomerCardSchema
+  | CustomerAddressSchema
 
 export type GetAPISchema<
   C extends CommerceAPI<any>,
@@ -61,8 +65,8 @@ export type EndpointHandlers<
   [H in keyof E['handlers']]: APIHandler<
     C,
     EndpointHandlers<C, E>,
-    E['handlers'][H]['data'],
-    E['handlers'][H]['body'],
+    NonNullable<E['handlers'][H]>['data'],
+    NonNullable<E['handlers'][H]>['body'],
     E['options']
   >
 }
@@ -156,7 +160,7 @@ export interface CommerceAPIConfig {
   fetch<Data = any, Variables = any>(
     query: string,
     queryData?: CommerceAPIFetchOptions<Variables>,
-    fetchOptions?: RequestInit
+    fetchOptions?: FetchOptions
   ): Promise<GraphQLFetcherResult<Data>>
 }
 
@@ -166,7 +170,7 @@ export type GraphQLFetcher<
 > = (
   query: string,
   queryData?: CommerceAPIFetchOptions<Variables>,
-  fetchOptions?: RequestInit
+  fetchOptions?: FetchOptions
 ) => Promise<Data>
 
 export interface GraphQLFetcherResult<Data = any> {
