@@ -3,7 +3,10 @@
 .tabWapper{
     @apply flex flex-col w-full;
     .tabHeader{
-        @apply flex;
+        @apply flex overflow-auto;
+        @screen md {
+            @apply flex overflow-visible;
+        }
         .tabList {
             @apply flex;
             position: relative;
