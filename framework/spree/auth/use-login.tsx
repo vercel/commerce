@@ -1,11 +1,12 @@
+import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import type { LoginHook } from '@commerce/types/login'
-import { useCallback } from 'react'
 import type { AuthTokenAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Authentication'
+import { FetcherError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import useCart from '../cart/use-cart'
-import { FetcherError, ValidationError } from '@commerce/utils/errors'
+import useWishlist from '../wishlist/use-wishlist'
 import login from '../utils/login'
 
 export default useLogin as UseLogin<typeof handler>
@@ -65,6 +66,7 @@ export const handler: MutationHook<LoginHook> = {
 
         const customer = useCustomer()
         const cart = useCart()
+        const wishlist = useWishlist()
 
         return useCallback(
           async function login(input) {
@@ -72,10 +74,11 @@ export const handler: MutationHook<LoginHook> = {
 
             await customer.revalidate()
             await cart.revalidate()
+            await wishlist.revalidate()
 
             return data
           },
-          [customer, cart]
+          [customer, cart, wishlist]
         )
       }
 

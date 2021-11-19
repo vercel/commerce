@@ -8,6 +8,8 @@ import MissingLineItemVariantError from '../../errors/MissingLineItemVariantErro
 import { requireConfigValue } from '../../isomorphic-config'
 import type { OrderAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
+import type { Image } from '@commerce/types/common'
+import { jsonApi } from '@spree/storefront-api-v2-sdk'
 import createGetAbsoluteImageUrl from '../create-get-absolute-image-url'
 import getMediaGallery from '../get-media-gallery'
 import type {
@@ -17,8 +19,6 @@ import type {
   SpreeSdkResponse,
   VariantAttr,
 } from '../../types'
-import type { Image } from '@commerce/types/common'
-import { jsonApi } from '@spree/storefront-api-v2-sdk'
 
 const placeholderImage = requireConfigValue('lineItemPlaceholderImageUrl') as
   | string

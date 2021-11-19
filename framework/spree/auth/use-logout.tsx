@@ -4,6 +4,7 @@ import type { LogoutHook } from '@commerce/types/logout'
 import { useCallback } from 'react'
 import useCustomer from '../customer/use-customer'
 import useCart from '../cart/use-cart'
+import useWishlist from '../wishlist/use-wishlist'
 import {
   ensureUserTokenResponse,
   removeUserTokenResponse,
@@ -57,15 +58,17 @@ export const handler: MutationHook<LogoutHook> = {
 
         const customer = useCustomer()
         const cart = useCart()
+        const wishlist = useWishlist()
 
         return useCallback(async () => {
           const data = await fetch()
 
           await customer.mutate(null, false)
           await cart.mutate(null, false)
+          await wishlist.mutate(null, false)
 
           return data
-        }, [customer, cart])
+        }, [customer, cart, wishlist])
       }
 
     return useWrappedHook

@@ -6,6 +6,8 @@ import type {
 } from '@commerce/types/product'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
+import { jsonApi } from '@spree/storefront-api-v2-sdk'
+import { JsonApiDocument } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import { requireConfigValue } from '../../isomorphic-config'
 import createGetAbsoluteImageUrl from '../create-get-absolute-image-url'
 import expandOptions from '../expand-options'
@@ -13,10 +15,11 @@ import getMediaGallery from '../get-media-gallery'
 import getProductPath from '../get-product-path'
 import MissingPrimaryVariantError from '../../errors/MissingPrimaryVariantError'
 import MissingOptionValueError from '../../errors/MissingOptionValueError'
-import type { SpreeSdkResponse, VariantAttr } from '@framework/types'
-import { jsonApi } from '@spree/storefront-api-v2-sdk'
-import { JsonApiDocument } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
-import type { ExpandedProductOption } from '@framework/types'
+import type {
+  ExpandedProductOption,
+  SpreeSdkResponse,
+  VariantAttr,
+} from '../../types'
 
 const placeholderImage = requireConfigValue('productPlaceholderImageUrl') as
   | string
