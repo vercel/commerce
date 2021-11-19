@@ -63,7 +63,7 @@ const FormLogin = ({ onSwitch,onClose, isHide, initialEmail = ''}: Props) => {
             onSubmit={onLogin}
             
           >
-            {({ errors, touched, isValid, submitForm }) => (
+            {({ errors, touched, dirty, isValid, submitForm }) => (
               <Form className="u-form">
                 <div className="body">
                   <InputFiledInForm
@@ -71,7 +71,7 @@ const FormLogin = ({ onSwitch,onClose, isHide, initialEmail = ''}: Props) => {
                     placeholder="Email Address"
                     ref={emailRef}
                     error={
-                      touched.email && errors.email
+                      dirty && errors.email
                         ? errors.email.toString()
                         : ''
                     }

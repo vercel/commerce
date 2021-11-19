@@ -69,31 +69,34 @@ const NotificationPage = ({ }: NotificationPageProps) => {
             }
 
             {
-                notifications && <>
-                    {notifications.map((item: Notification) => {
-                        return (
-                            <NotificationItem
-                                key={item.id}
-                                id={item.id}
-                                description={item.description}
-                                createdAt={item.createdAt}
-                                updatedAt={item.updatedAt}
-                                isNew={item.isNew}
-                                order={item.order}
-                            />
-                        )
-                    })
+                notifications && <div className={s.notiListWrap}>
+                    <ul className={s.notiList}>
+                        {notifications.map((item: Notification) => {
+                            return (
+                                <NotificationItem
+                                    key={item.id}
+                                    id={item.id}
+                                    description={item.description}
+                                    createdAt={item.createdAt}
+                                    updatedAt={item.updatedAt}
+                                    isNew={item.isNew}
+                                    order={item.order}
+                                />
+                            )
+                        })
+                        }
+                    </ul>
+                    {
+                        notifications.length > DEFAULT_PAGE_SIZE &&
+                        <div className={s.paginationWrap}>
+                            < PaginationCommon
+                                total={total ?? 0}
+                                pageSize={DEFAULT_PAGE_SIZE}
+                                defaultCurrent={currentPage}
+                                onChange={onPageChange} />
+                        </div>
                     }
-
-
-                    <div className={s.paginationWrap}>
-                        < PaginationCommon
-                            total={total ?? 0}
-                            pageSize={DEFAULT_PAGE_SIZE}
-                            defaultCurrent={currentPage}
-                            onChange={onPageChange} />
-                    </div>
-                </>
+                </div>
             }
         </div>
     )

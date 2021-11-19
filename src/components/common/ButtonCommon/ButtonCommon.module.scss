@@ -17,7 +17,7 @@
       color: var(--disabled);
     }
   }
-  
+
   &:focus {
     outline: none;
     .inner {
@@ -43,7 +43,7 @@
   &.loading {
     .inner {
       .icon {
-        margin-right: .8rem;
+        margin-right: 0.8rem;
       }
       &::after {
         content: "";
@@ -115,14 +115,30 @@
   }
   &.small {
     .inner {
-      padding: 0.5rem 1rem;
+      padding: 1rem 1.5rem;
       &.onlyIcon {
-        padding: 1rem;
+        padding: 1.5rem;
       }
       @screen md {
-        padding: 0.8rem 1.6rem;
+        padding: 1.2rem 2.1rem;
         &.onlyIcon {
-          padding: 0.8rem;
+          padding: 1.2rem;
+        }
+      }
+    }
+
+    &.light,
+    &.ghost {
+      .inner {
+        padding: 0.5rem 1rem !important;
+        &.onlyIcon {
+          padding: 1rem !important;
+        }
+        @screen md {
+          padding: 0.8rem 1.6rem !important;
+          &.onlyIcon {
+            padding: 0.8rem !important;
+          }
         }
       }
     }

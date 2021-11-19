@@ -21,7 +21,7 @@ const NotificationItem = ({ description, createdAt, order, isNew }: Notification
             <div className={s.icon}>
                 <IconBill />
             </div>
-            <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}`}>
+            <Link href={`${ROUTE.ACCOUNT}?${QUERY_KEY.TAB}=${ACCOUNT_TAB.ORDER}&${QUERY_KEY.ORDER_STATE}=${order?.state}`}>
                 <a>
                     <div className={s.contentWrapper}>
                         <div className={s.title}>

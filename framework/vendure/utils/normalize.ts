@@ -122,6 +122,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
     discounts: order.discounts.map(item => {
       return { value: item.amountWithTax, description: item.description }
     }),
+    couponCodes: order.couponCodes,
     lineItems: order.lines?.map((l) => ({
       id: l.id,
       name: l.productVariant.name,

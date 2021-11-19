@@ -1,0 +1,51 @@
+@import "../../../../../../styles/utilities";
+
+.promotionItem {
+    @apply relative caption;
+    width: fit-content;
+    color: var(--white);
+    background-color: var(--primary);
+    border-radius: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    padding-right: 4rem;
+    margin-right: .8rem;
+    clip-path: polygon(85% 0, 100% 50%, 85% 100%, 0 100%, 0 0);
+    font-weight: bold;
+    &::after {
+        position: absolute;
+        content: "";
+        background: var(--white);
+        border-radius: 50%;
+        width: .4rem;
+        height: .4rem;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+
+    }
+    .iconClose {
+        @apply absolute;
+        content: "";
+        cursor: pointer;
+        top: 50%;
+        right: 2.4rem;
+        transform: translateY(-60%);
+        $size: 1rem;
+        width: $size;
+        height: $size;
+        &:hover {
+            svg {
+                transform: scale(1.1);
+            }
+        }
+        svg {
+            @apply transition-all duration-200;
+            width: $size;
+            height: $size;
+            path {
+                fill: var(--gray);
+            }
+        }
+    }
+}

@@ -1,18 +1,16 @@
-import React,{memo, useState} from "react"
+import React, { memo, useState } from "react";
 import { ButtonCommon, StaticImage } from "src/components/common";
-import s from './AccountSignIn.module.scss';
-import {LANGUAGE} from 'src/utils/language.utils';
-import AccountSignInImg from '../../../../../public/assets/images/accountsignin.png'
-import { useRouter } from 'next/router';
 import ModalAuthenticate from "src/components/common/ModalAuthenticate/ModalAuthenticate";
 import { useModalCommon } from "src/components/hooks";
+import { LANGUAGE } from 'src/utils/language.utils';
+import AccountSignInImg from '../../../../../public/assets/images/accountsignin.png';
+import s from './AccountSignIn.module.scss';
 
 interface AccountSignIn {
 
 }
 
 const AccountSignIn = memo(({ } : AccountSignIn) => {
-    const router = useRouter();
     const { visible: visibleModalAuthen, closeModal: closeModalAuthen, openModal: openModalAuthen } = useModalCommon({ initialValue: false })
     const [isModeAuthenSignup, setIsModeAuthenSignup] = useState<boolean>(false)
 

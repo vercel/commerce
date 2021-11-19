@@ -8,6 +8,7 @@ import {
   InputPasswordFiledInForm
 } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
+import { LANGUAGE } from 'src/utils/language.utils'
 import { CustomInputCommon } from 'src/utils/type.utils'
 import * as Yup from 'yup'
 import { useCheckIsUserVerifyEmail, useSignup } from '../../../../hooks/auth'
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
-  email: Yup.string().email('Your email was wrong').required('Required'),
+  email: Yup.string().email(LANGUAGE.MESSAGE.INVALID_EMAIL).required('Required'),
   password: Yup.string()
     .matches(
       /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])((?=.*[0-9!@#$%^&*()\-_=+{};:,<.>]){1}).*$/,
@@ -92,7 +93,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
             validationSchema={DisplayingErrorMessagesSchema}
             onSubmit={onSignup}
           >
-            {({ errors, touched, isValid, submitForm }) => (
+            {({ errors, touched, dirty, isValid, submitForm }) => (
               <Form className="u-form">
                 <div className="body">
                   <InputFiledInForm
@@ -100,7 +101,7 @@ const FormRegister = ({ onSwitch, isHide }: Props) => {
                     placeholder="Email Address"
                     ref={emailRef}
                     error={
-                      touched.email && errors.email
+                      dirty && errors.email
                         ? errors.email.toString()
                         : ''
                     }

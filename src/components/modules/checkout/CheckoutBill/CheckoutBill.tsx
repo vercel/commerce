@@ -13,7 +13,7 @@ interface CheckoutBillProps {
   temporaryShippingPrice: number | null
 }
 
-const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {
+const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {  
   const shippingPrice = useMemo(() => {
     if (temporaryShippingPrice !== null) {
       return temporaryShippingPrice
@@ -27,7 +27,7 @@ const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {
       if (data?.shippingLine?.priceWithTax === shippingPrice) {
         return totalPrice
       } else {
-        return totalPrice - (data?.shippingLine?.priceWithTax || 0) + shippingPrice
+        return Math.round((totalPrice - (data?.shippingLine?.priceWithTax || 0) + shippingPrice) * 100) / 100
       }
     }
     return 0
@@ -55,10 +55,10 @@ const CheckoutBill = ({ data, temporaryShippingPrice }: CheckoutBillProps) => {
         })}
       </div>
       <div className={s.bot}>
-        <FormPromotionCode />
+        <FormPromotionCode couponCodes={data?.couponCodes}/>
         <div className={s.price}>
           <div className={s.line}>
-            Discount {(data?.discounts?.length || 0) > 0 && `(${data?.discounts?.map(item => item.description).join(",")})`}
+            Discount {(data?.discounts?.length || 0) > 0 && `(${data?.discounts?.map(item => item.description).join(", ")})`}
             <div className={s.shipping}>
               {data?.totalDiscount || 0} {data?.currency?.code}
             </div>

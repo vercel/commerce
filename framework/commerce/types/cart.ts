@@ -131,6 +131,7 @@ export type CartCheckout = {
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
   totalDiscount: number
+  couponCodes: string[]
   shippingLine?: {
     priceWithTax: number
     shippingMethod: ShippingMethod

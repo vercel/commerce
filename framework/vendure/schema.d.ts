@@ -3785,6 +3785,7 @@ export type CartFragment = { __typename?: 'Order' } & Pick<
   | 'total'
   | 'totalWithTax'
   | 'currencyCode'
+  | 'couponCodes'
 > & {
   shippingAddress?: Maybe<{ __typename?: 'OrderAddress' } & Pick<OrderAddress, 'streetLine1' | 'fullName' | 'city' | 'province' | 'postalCode' | 'countryCode' | 'phoneNumber'>>
   discounts: Array<
@@ -3948,6 +3949,16 @@ export type ApplyCouponCodeMutation = { __typename?: 'Mutation' } & {
     CouponCodeLimitError,
     'errorCode' | 'message'
   >)
+}
+
+
+export type RemoveCouponCodeMutationVariables = Exact<{
+  couponCode: Scalars['String'];
+}>;
+
+export type RemoveCouponCodeMutation = { __typename?: 'Mutation' } & {
+  removeCouponCode:
+  | ({ __typename: 'Order' } & CartFragment)
 }
 
 export type LoginMutationVariables = Exact<{

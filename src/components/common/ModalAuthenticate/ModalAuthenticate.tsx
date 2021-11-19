@@ -16,7 +16,7 @@ interface Props {
   disableRedirect ?: boolean
 }
 
-const ModalAuthenticate = ({ visible, mode, closeModal, initialEmail, disableRedirect }: Props) => {
+const ModalAuthenticate = ({ visible, mode, closeModal, initialEmail, disableRedirect = true }: Props) => {
   const [isLogin, setIsLogin] = useState<boolean>(true)
   const { customer } = useActiveCustomer()
   const router = useRouter()
