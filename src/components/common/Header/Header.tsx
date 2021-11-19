@@ -17,7 +17,7 @@ const Header = memo(({ }: props) => {
     const [isFullHeader, setIsFullHeader] = useState<boolean>(true)
     const { visible: isNotificaitonOpen, toggleModal: toggleNotification } = useModalCommon({ initialValue: false })
     const [searchValue, setSearchValue] = useState<string | number>("")
-
+    
     useEffect(() => {
         const handleScroll = () => {
             if (!headeFullRef.current || window.scrollY > headeFullRef.current?.offsetHeight) {

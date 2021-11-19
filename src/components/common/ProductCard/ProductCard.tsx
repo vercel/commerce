@@ -62,7 +62,6 @@ const ProductCardComponent = ({
       onAddToCartCallBack && onAddToCartCallBack()
 			openCartDrawer && openCartDrawer()
 		}else{
-      console.log(message)
 			showMessageError(message||"Error")
 		}
   }

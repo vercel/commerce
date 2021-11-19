@@ -40,6 +40,12 @@
             left: 0;
             padding: 2rem;
         }
+        .error{
+            @apply text-negative hidden;
+        }
+        .show{
+            @apply text-negative block;
+        }
     }
     .bottom {
         @screen sm-only {

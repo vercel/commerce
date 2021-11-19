@@ -37,8 +37,8 @@
             .content{
                 @apply spacing-horizontal;
                 margin-top: 3rem;
-                padding-top: 6.4rem ;
-                padding-bottom: 5rem;
+                padding-top: 2rem ;
+                padding-bottom: 2rem;
                 background-color: white;
                 overflow: auto;
                 height: 100%;
@@ -48,6 +48,8 @@
                     h3{
                         @apply heading-3 font-bold;
                         color:var(--text-base);
+                        font-family: var(--font-sans);
+                        text-transform: none;
                     }
                 }
                 

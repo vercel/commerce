@@ -209,7 +209,7 @@ export const DEFAULT_RECIPES_PAGE_SIZE = 9;
 
 export const DEFAULT_YOU_WILL_LIKE_ALSO_SIZE = 6;
 
-export const FILTER_PAGE = [ROUTE.HOME, ROUTE.PRODUCTS]
+export const FILTER_PAGE = [ROUTE.HOME]
 
 export const STATE_OPTIONS = [
   {

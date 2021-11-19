@@ -3,7 +3,7 @@ import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
 import { Product as ProductTypes, ProductCard } from '@commerce/types/product';
 import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { BlogProps, OrderState ,DataHomeProps} from 'src/utils/types.utils';
-import { Banner, Blog, CartFragment, Favorite, Feature, Product, Recipe, SearchResultFragment, ShippingMethod, DataHome } from '../schema';
+import { Banner, Blog, Favorite, Feature, Product, Recipe, SearchResultFragment, ShippingMethod, DataHome, CartFragment } from '../schema';
 import { RecipeProps } from './../../../src/utils/types.utils';
 import { Product as ProductIngredients } from './../schema.d';
 // import { Recipe } from '@commerce/types/recipes'
@@ -70,13 +70,14 @@ export function normalizeCart(order: CartFragment): Cart {
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
-      discounts: l.discounts.map((d) => ({ value: d.amount / 100 })),
+      discounts: l.discounts.map((d) => ({ value: d.amountWithTax / 100 })),
       path: '',
       variant: {
         id: l.productVariant.id,
         name: l.productVariant.name,
         sku: l.productVariant.sku,
         price: l.discountedUnitPriceWithTax / 100,
+        oldPrice:l.productVariant.priceWithTax /100,
         listPrice: l.unitPriceWithTax / 100,
         image: {
           url: l.featuredAsset?.preview + '?preset=thumb' || '',
@@ -140,6 +141,7 @@ export function normalizeCartForCheckout(order: CartFragment): CartCheckout {
         image: {
           url: l.featuredAsset?.preview + '?preset=thumb' || '',
         },
+        oldPrice:l.linePriceWithTax/100,
         requiresShipping: true,
       },
     })),

@@ -51,6 +51,12 @@ const MenuNavigationItem = ({ name, value, queryKey, isSingleSelect,path = ROUTE
             query[QUERY_KEY.PAGE] = "0"
         }
 
+
+        if(query.search){
+            delete query.search
+        }
+
+
         router.push({
             pathname: path,
             query

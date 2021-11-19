@@ -12,7 +12,7 @@ export function errorMapping(errorCode?: string) {
         case ErrorCode.InvalidCredentialsError:
             return 'The email address or password is incorrect!'
         case ErrorCode.InsufficientStockError:
-                return 'Out of stock!'
+                return 'Insufficient stock!'
         default:
             return LANGUAGE.MESSAGE.ERROR
     }
