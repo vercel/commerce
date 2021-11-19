@@ -45,6 +45,7 @@
                 .boxItem {
                     @apply grid grid-cols-1 gap-8;
                     width:100%;
+                    min-height: 37rem;
                     @screen md {
                         @apply grid-cols-2;
                     }

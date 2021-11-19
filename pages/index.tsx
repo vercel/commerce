@@ -158,7 +158,7 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'banners', promise: homeBannersPromise })
 
   // Feature
-  const homeFeaturePromise =  commerce.getHomeFeature({ variables: {} })
+  const homeFeaturePromise =  commerce.getHomeFeature({ variables: {options:{sort: {order: SortOrder.Asc}} } })
   promisesWithKey.push({ key: 'features', promise: homeFeaturePromise })
 
 

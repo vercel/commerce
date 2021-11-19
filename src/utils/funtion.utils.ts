@@ -83,7 +83,7 @@ export function getRecipeSortParamFromQuery(query: string) {
       }
       break;
 
-    case RECIPE_SORT_OPTION_VALUE.RECENT_RECIPES:
+    case RECIPE_SORT_OPTION_VALUE.OLDEST_RECIPES:
       rs = {
         createdAt: SortOrder.Asc
       }
@@ -243,7 +243,7 @@ export function convertLinkCollections(collections:CollectionItems[]){
   return collections.map(val=>(
     {
       name:val.name,
-      link: `${ROUTE.PRODUCTS}?${QUERY_KEY.FEATURED}=${val.slug}`
+      link: `${ROUTE.PRODUCTS}?${QUERY_KEY.CATEGORY}=${val.slug}`
     }
     ));
 }

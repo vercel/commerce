@@ -17,18 +17,25 @@
     }
     h2{
         @apply heading-3;
+        margin-bottom: 2rem;
+        margin-top: 1rem;
     }
     h3{
         @apply heading-3;
+        margin-bottom: 2rem;
+        margin-top: 1rem;
     }
-
+    h4{
+        margin-bottom: 0.7rem;
+        margin-top: 0.5rem;
+    }
     h1,h2,h3,h4{
         color:var(--text-base);
         font-family: var(--font-heading);
     }
    
     .author{
-        padding: 2rem 0;
+        padding: 1rem 0;
     }
     .content{
         figure{

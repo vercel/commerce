@@ -15,7 +15,7 @@ import React, {
   
   interface TabCommonProps {
     defaultActiveTab?: number
-    children: React.ReactNode
+    children?: React.ReactNode
     center?:boolean
   }
   
@@ -58,13 +58,13 @@ import React, {
             {Children.map(children, (tab, index) => {
               let item = tab as ReactElement<PropsWithChildren<TabPaneProps>>
               return (
-                <li key={item.props.tabName}>
+                <li key={item?.props.tabName}>
                   <TabItem
                     active={active === index}
                     onClick={onTabClick}
                     tabIndex={index}
                   >
-                    {item.props.tabName}
+                    {item?.props.tabName}
                   </TabItem>
                 </li>
               )

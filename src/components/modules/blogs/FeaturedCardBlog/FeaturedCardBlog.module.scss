@@ -4,24 +4,39 @@
     @apply flex flex-row justify-center spacing-horizontal pb-16;
     .featuredCardWrapper {
         @apply flex flex-col;
-        @screen lg {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        max-width: 100%;
+        img{
+            max-width: 100%;
+        }
+        @screen md{
+            padding-left: 0;
+            padding-right: 0;
+        }
+        @screen xl {
             @apply flex-row justify-between;
         }
-        max-width: 121.6rem;
+        // max-width: 121.6rem;
     }
 }
 .left {
     > div{
-        min-width: 59.8rem;
+        max-width: 100%;
         min-height: 33.6rem;
+        margin-bottom: 1rem;
+       
         img {
             border-radius: 2.4rem;
             object-fit: cover;
         }
+        @screen md {
+            min-width: 59.8rem;
+        }
     }
 }
 .right {
-    @screen lg {
+    @screen xl {
         margin-left: 6.4rem;
     }
 }
