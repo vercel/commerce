@@ -47,8 +47,6 @@ export const handler: MutationHook<ExplicitWishlistRemoveItemHook> = {
     const useWrappedHook: ReturnType<
       MutationHook<ExplicitWishlistRemoveItemHook>['useHook']
     > = () => {
-      console.log('useRemoveItem (wishlist) useHook called.')
-
       const wishlist = useWishlist()
 
       return useCallback(

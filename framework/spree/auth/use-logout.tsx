@@ -54,8 +54,6 @@ export const handler: MutationHook<LogoutHook> = {
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<MutationHook<LogoutHook>['useHook']> =
       () => {
-        console.log('useLogout useHook called.')
-
         const customer = useCustomer({
           swrOptions: { isPaused: () => true },
         })

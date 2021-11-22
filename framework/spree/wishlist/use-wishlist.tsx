@@ -67,8 +67,6 @@ export const handler: SWRHook<GetWishlistHook> = {
     const useWrappedHook: ReturnType<SWRHook<GetWishlistHook>['useHook']> = (
       input
     ) => {
-      console.log('useWishlist useHook called.')
-
       const response = useData({
         swrOptions: {
           revalidateOnFocus: false,

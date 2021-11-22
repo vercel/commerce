@@ -75,18 +75,10 @@ export const handler: SWRHook<SearchProductsHook> = {
 
     return { products: normalizedProducts, found }
   },
-  // useHook is used for both, SWR and mutation requests to the store.
-  // useHook is called in React components. For example, after clicking `Add to cart`.
   useHook: ({ useData }) => {
     const useWrappedHook: ReturnType<SWRHook<SearchProductsHook>['useHook']> = (
       input = {}
     ) => {
-      // useData calls the fetcher method (above).
-      // The difference between useHook and calling fetcher directly is
-      // useHook accepts swrOptions.
-
-      console.log('useSearch useHook called.')
-
       return useData({
         input: [
           ['search', input.search],

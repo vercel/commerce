@@ -98,8 +98,6 @@ export const handler: MutationHook<AddItemHook> = {
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<MutationHook<AddItemHook>['useHook']> =
       () => {
-        console.log('useAddItem useHook called.')
-
         const { mutate } = useCart()
 
         return useCallback(

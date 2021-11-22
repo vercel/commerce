@@ -69,8 +69,6 @@ export const handler: MutationHook<SignupHook> = {
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<MutationHook<SignupHook>['useHook']> =
       () => {
-        console.log('useSignup useHook called.')
-
         const customer = useCustomer()
         const cart = useCart()
         const wishlist = useWishlist()

@@ -70,8 +70,6 @@ export const handler: SWRHook<CustomerHook> = {
     const useWrappedHook: ReturnType<SWRHook<CustomerHook>['useHook']> = (
       input
     ) => {
-      console.log('useCustomer useHook called.')
-
       return useData({
         swrOptions: {
           revalidateOnFocus: false,

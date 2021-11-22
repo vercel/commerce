@@ -94,8 +94,6 @@ export const handler: SWRHook<GetCartHook> = {
     const useWrappedHook: ReturnType<SWRHook<GetCartHook>['useHook']> = (
       input
     ) => {
-      console.log('useCart useHook called.')
-
       const response = useData({
         swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
       })

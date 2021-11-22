@@ -57,8 +57,6 @@ export const handler: MutationHook<ExplicitWishlistAddItemHook> = {
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<MutationHook<AddItemHook>['useHook']> =
       () => {
-        console.log('useAddItem (wishlist) useHook called.')
-
         const wishlist = useWishlist()
 
         return useCallback(
