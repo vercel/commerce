@@ -35,9 +35,9 @@ const ensureFreshUserAccessToken = async (client: Client): Promise<void> => {
   >(client, 'authentication.refreshToken')
 
   const spreeRefreshAccessTokenResponse =
-    await spreeRefreshAccessTokenSdkMethod([
-      { refresh_token: userTokenResponse.refresh_token },
-    ])
+    await spreeRefreshAccessTokenSdkMethod({
+      refresh_token: userTokenResponse.refresh_token,
+    })
 
   if (spreeRefreshAccessTokenResponse.isFail()) {
     removeUserTokenResponse()
