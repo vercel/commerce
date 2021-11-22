@@ -45,6 +45,7 @@ const isomorphicConfig = {
   imagesQuality: validateImagesQuality(
     process.env.NEXT_PUBLIC_SPREE_IMAGES_QUALITY
   ),
+  loginAfterSignup: process.env.NEXT_PUBLIC_SPREE_LOGIN_AFTER_SIGNUP === 'true',
 }
 
 export default forceIsomorphicConfigValues(
@@ -68,6 +69,7 @@ export default forceIsomorphicConfigValues(
     'imagesOptionFilter',
     'imagesSize',
     'imagesQuality',
+    'loginAfterSignup',
   ]
 )
 

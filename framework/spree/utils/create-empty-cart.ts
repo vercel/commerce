@@ -14,11 +14,7 @@ const createEmptyCart = (
   return fetch<GraphQLFetcherResult<IOrder>>({
     variables: {
       methodPath: 'cart.create',
-      arguments: [
-        {
-          token,
-        },
-      ],
+      arguments: [token],
     },
   })
 }

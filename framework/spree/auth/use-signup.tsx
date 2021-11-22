@@ -10,6 +10,7 @@ import useCustomer from '../customer/use-customer'
 import useCart from '../cart/use-cart'
 import useWishlist from '../wishlist/use-wishlist'
 import login from '../utils/login'
+import { requireConfigValue } from '@framework/isomorphic-config'
 
 export default useSignup as UseSignup<typeof handler>
 
@@ -62,7 +63,9 @@ export const handler: MutationHook<SignupHook> = {
     }
 
     // Login immediately after the account is created.
-    await login(fetch, getTokenParameters, true)
+    if (requireConfigValue('loginAfterSignup')) {
+      await login(fetch, getTokenParameters, true)
+    }
 
     return null
   },
