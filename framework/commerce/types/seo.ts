@@ -1,11 +1,8 @@
-import { BannerFilterParameter, SEOList, BannerSortParameter } from '../../vendure/schema';
+import { Seo } from '../../vendure/schema';
 
-export type GetSEOByPageOperation<T extends SEOList = SEOList> = {
-    data: { items: T['items'][], totalItems: number }
+export type GetSEOByPageOperation = {
+    data: { SEOByPage?: Seo }
     variables: {
-        take?: number
-        skip?: number
-        sort?: BannerSortParameter,
-        filter?: BannerFilterParameter,
+       page:string
     }
 }

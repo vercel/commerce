@@ -4,7 +4,7 @@ import { Provider, VendureConfig } from '..';
 import { normalizeSEO } from '../../utils/normalize';
 import { getSEOByPageQuery } from '../../utils/queries/get-seo-by-page-query';
 import { GetSEOByPageQuery, QuerySeoByPageArgs } from './../../schema.d';
-interface SeoItemProps {
+export interface SeoItemProps {
     imgLink: string,
     title: string,
     description?: string,
@@ -17,7 +17,7 @@ export default function getSEOByPageOperation({
     variables?: QuerySeoByPageArgs
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<SeoItemProps[]>
+  }): Promise<SeoItemProps>
 
   async function getSEOByPage({
     query = getSEOByPageQuery,
@@ -28,15 +28,19 @@ export default function getSEOByPageOperation({
     variables?: QuerySeoByPageArgs
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<SeoItemProps[] | null> {
+  } = {}): Promise<SeoItemProps | null> {
     const config = commerce.getConfig(cfg)
     const variables = { ...vars }
   
     const { data } = await config.fetch<GetSEOByPageQuery>(query, {
       variables,
     })
-    
-    return null;
+  
+    if(data.SEOByPage == null){
+      return null
+    }else{
+      return normalizeSEO(data.SEOByPage);
+    }
   }
 
   return getSEOByPage

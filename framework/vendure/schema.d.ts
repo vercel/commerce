@@ -3012,17 +3012,10 @@ export type GetBannersByPageQuery = { __typename?: 'Query' } & {
 }
 
 export type GetSEOByPageQuery = { __typename?: 'Query' } & {
-  SEOByPage: { __typename?: 'SEOList' } & {
-    items: Array<{ __typename?: 'SEO' } & Seo>,
-    'totalItems'
-  }
+  SEOByPage?: Maybe<
+    { __typename?: 'SEO' } & Seo
+  >
 }
-export type SEOList = PaginatedList & {
-  __typename?: 'SEOList';
-  items: Array<Seo>;
-  totalItems: Scalars['Int'];
-};
-
 
 export type Seo = Node & {
   __typename?: 'SEO';
@@ -3045,6 +3038,12 @@ export type SeoTranslation = {
   languageCode: LanguageCode;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type SeoTranslationInput = {
+  description?: Maybe<Scalars['String']>;
+  languageCode: LanguageCode;
+  title: Scalars['String'];
 };
 
 export type GetAllBlogsQuery = PaginatedList & {

@@ -14,7 +14,7 @@ import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
 import { CollectionsWithData, DataHomeProps, PageName,PageNameSeo, PromiseWithKey } from 'src/utils/types.utils';
-
+import { SeoItemProps } from "framework/vendure/api/operations/get-seo-by-page"
 
 interface Props {
   featuredAndDiscountFacetsValue: FacetValue[],
@@ -26,24 +26,27 @@ interface Props {
   recipesCollection:any[],
   dataHome:DataHomeProps,
   features:HomeFeatureItemProps[],
-  banners:BannerItemProps[]
+  banners:BannerItemProps[],
+  seo: SeoItemProps
 }
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts,recipesCollection,
-  collections, spiceProducts,dataHome,features,banners }: Props) {
-  
+  collections, spiceProducts,dataHome,features,banners,seo }: Props) {
   return (
     <>
        <NextSeo
-        title="WEBSITE TEST SEO"
-        description="WEBSITE TEST SEO"
+        title={seo?.title}
+        description={seo?.description}
         openGraph={{
+          type: 'website',
+          title: seo?.title,
+          description: seo?.description,
           images: [
             {
-              url: 'http://13.213.64.178:3005/_next/image?url=http%3A%2F%2F13.213.64.178%3A3000%2Fassets%2Fpreview%2F9f%2Fbannerrecipes__preview.jpg%3Fw%3D800%26mode%3Dcrop&w=1440&q=75',
+              url: seo?.imgLink,
               width: 800,
               height: 600,
-              alt: "WEBSITE TEST SEO",
+              alt: seo?.title,
             },
           ],
         }}
@@ -178,13 +181,13 @@ export async function getStaticProps({
 
 
   // SEO 
-  // const SEOPromise = await commerce.getSEOByPage({ 
-  //   variables: {
-  //      page: PageNameSeo.HOME 
-  //     }
-  //   }
-  // )
-  // promisesWithKey.push({ key: 'seo', promise: SEOPromise })
+  const SEOPromise = commerce.getSEOByPage({ 
+    variables: {
+       page: PageNameSeo.HOME 
+      }
+    }
+  )
+  promisesWithKey.push({ key: 'seo', promise: SEOPromise })
   
 
   try {
