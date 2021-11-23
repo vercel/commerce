@@ -15,7 +15,7 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
   if (cartId) {
     try {
       result = await config.storeApiFetch(
-        `/v3/carts/${cartId}?include=line_items.physical_items.options`
+        `/v3/carts/${cartId}?include=line_items.physical_items.options,line_items.digital_items.options`
       )
     } catch (error) {
       if (error instanceof BigcommerceApiError && error.status === 404) {
