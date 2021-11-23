@@ -23,6 +23,8 @@ import getBannersByPage from './operations/get-banners-by-page'
 import getRecipeByProductSlug from './operations/get-recipe-by-product-slug'
 import getHome from './operations/get-home'
 import getHomeFeature from './operations/get-home-feature'
+import getSEOByPage from './operations/get-seo-by-page'
+
 
 import login from './operations/login'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
@@ -70,7 +72,8 @@ const operations = {
   getBannersByPage,
   getRecipeByProductSlug,
   getHomeFeature,
-  getHome
+  getHome,
+  getSEOByPage
 }
 
 export const provider = { config, operations }

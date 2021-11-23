@@ -5,6 +5,7 @@ import { FacetValue } from '@framework/schema';
 import { SortOrder } from 'src/utils/types.utils';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
+import { NextSeo } from 'next-seo'
 import { Layout } from 'src/components/common';
 import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
@@ -12,7 +13,7 @@ import { HomeFeatureItemProps } from 'src/components/modules/home/HomeFeature/co
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
-import { CollectionsWithData, DataHomeProps, PageName, PromiseWithKey } from 'src/utils/types.utils';
+import { CollectionsWithData, DataHomeProps, PageName,PageNameSeo, PromiseWithKey } from 'src/utils/types.utils';
 
 
 interface Props {
@@ -33,6 +34,20 @@ export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   
   return (
     <>
+       <NextSeo
+        title="WEBSITE TEST SEO"
+        description="WEBSITE TEST SEO"
+        openGraph={{
+          images: [
+            {
+              url: 'http://13.213.64.178:3005/_next/image?url=http%3A%2F%2F13.213.64.178%3A3000%2Fassets%2Fpreview%2F9f%2Fbannerrecipes__preview.jpg%3Fw%3D800%26mode%3Dcrop&w=1440&q=75',
+              width: 800,
+              height: 600,
+              alt: "WEBSITE TEST SEO",
+            },
+          ],
+        }}
+      />
       <HomeBanner banners={banners}
       bannerLeftTitle={dataHome?.bannerLeftTitle ?? ''} 
       imageSrcBannerLeft={dataHome?.imageSrcBannerLeft ?? ''} 
@@ -82,7 +97,7 @@ export async function getStaticProps({
 
   props.collections = collections
   let collectionsPromisesWithKey = [] as PromiseWithKey[]
-  collections.slice(0, MAX_COLLECTIONS_IN_HOME).map((collection) => {
+  collections?.slice(0, MAX_COLLECTIONS_IN_HOME).map((collection) => {
     const promise = commerce.getAllProducts({
       variables: { collectionSlug: collection.slug },
       config,
@@ -162,6 +177,16 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'features', promise: homeFeaturePromise })
 
 
+  // SEO 
+  // const SEOPromise = await commerce.getSEOByPage({ 
+  //   variables: {
+  //      page: PageNameSeo.HOME 
+  //     }
+  //   }
+  // )
+  // promisesWithKey.push({ key: 'seo', promise: SEOPromise })
+  
+
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)
@@ -181,7 +206,6 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
-  
     return {
       props,
       revalidate: REVALIDATE_TIME,

@@ -116,3 +116,12 @@ export enum PageName {
     PRODUCT_LIST = 'PRODUCT_LIST',
     RECIPES = 'RECIPES'
   }
+
+  
+export enum PageNameSeo {
+    ABOUT = 'ABOUT',
+    CONTACT = 'CONTACT',
+    HOME = 'HOME',
+    PRODUCT_LIST = 'PRODUCT_LIST',
+    RECIPES = 'RECIPES'
+}

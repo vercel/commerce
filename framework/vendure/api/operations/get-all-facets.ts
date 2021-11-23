@@ -38,7 +38,7 @@ export default function getAllFacetsOperation({
     })
 
     return {
-      facets: data.facets.items,
+      facets: data?.facets.items,
     }
   }
 
