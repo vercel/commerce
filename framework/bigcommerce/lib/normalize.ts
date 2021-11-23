@@ -122,11 +122,13 @@ function normalizeLineItem(item: any): LineItem {
       price: item.sale_price,
       listPrice: item.list_price,
     },
+    options: item.options,
     path: item.url.split('/')[3],
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,
     })),
-  }
+    options: item.options
+  }                                                                                      b
 }
 
 export function normalizeCategory(category: BCCategory): Category {
