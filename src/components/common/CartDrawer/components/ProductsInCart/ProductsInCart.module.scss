@@ -1,6 +1,7 @@
 .productsInCart {
     padding: 1.6rem 1.6rem 0 1.6rem;
     list-style: none;
+    flex: 1;
     li {
         &:not(:last-child) {
             border-bottom: 1px solid var(--border-line);
