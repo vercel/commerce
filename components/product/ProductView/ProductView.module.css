@@ -17,16 +17,15 @@
 }
 
 .imageContainer {
-  @apply text-center;
+  @apply text-center h-full relative;
 }
 
-.imageContainer > div,
-.imageContainer > div > div {
-  @apply h-full;
+.imageContainer > span {
+  height: 100% !important;
 }
 
 .sliderContainer .img {
-  @apply w-full h-auto max-h-full object-cover;
+  @apply w-full h-full max-h-full object-cover;
 }
 
 .button {
