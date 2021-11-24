@@ -127,7 +127,8 @@ function normalizeLineItem(item: any): LineItem {
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,
     })),
-  }
+    options: item.options
+  }                                                                                      b
 }
 
 export function normalizeCategory(category: BCCategory): Category {
