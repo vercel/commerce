@@ -10,7 +10,7 @@ import type { Category } from '@commerce/types/site'
 import ShippingView from '@components/checkout/ShippingView'
 import CartSidebarView from '@components/cart/CartSidebarView'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
-import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
+import { Sidebar, Button, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
 
@@ -40,6 +40,11 @@ const ForgotPassword = dynamic(
 const FeatureBar = dynamic(
   () => import('@components/common/FeatureBar'),
   dynamicProps
+)
+
+const Modal = dynamic(
+  () => import('@components/ui/Modal'), 
+  Object.assign(dynamicProps, {ssr: false})
 )
 
 interface Props {
