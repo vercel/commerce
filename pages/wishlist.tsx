@@ -69,7 +69,7 @@ export default function Wishlist() {
               {data &&
                 // @ts-ignore Shopify - Fix this types
                 data.items?.map((item) => (
-                  <WishlistCard key={item.id} product={item.product! as any} />
+                  <WishlistCard key={item.id} item={item!} />
                 ))}
             </div>
           )}
