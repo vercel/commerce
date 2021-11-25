@@ -37,7 +37,7 @@ const UserNav: FC<Props> = ({ className }) => {
                 setSidebarView('CART_VIEW')
                 toggleSidebar()
               }}
-              aria-label="Cart"
+              aria-label={`Cart items: ${itemsCount}`}
             >
               <Bag />
               {itemsCount > 0 && (

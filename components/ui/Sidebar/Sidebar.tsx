@@ -28,7 +28,7 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
     }
 
     const contentElement = contentRef.current
-  
+
     if (contentElement) {
       disableBodyScroll(contentElement, { reserveScrollBarGap: true })
     }

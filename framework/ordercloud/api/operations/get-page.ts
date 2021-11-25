@@ -1,4 +1,4 @@
-import { GetPageOperation } from "@commerce/types/page"
+import { GetPageOperation } from '@commerce/types/page'
 
 export type Page = any
 export type GetPageResult = { page?: Page }
