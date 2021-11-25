@@ -1,61 +1,65 @@
 export const getRecipeDetailQuery = /* GraphQL */ `
-query getRecipe($slug: String ){
-  recipe(slug:$slug){
+query getRecipe($slug: String) {
+  recipe(slug: $slug) {
     id
-    title
-    slug
-    description
-    time
-    people
-    country
     featuredAsset {
       preview
     }
-    assets{
-      name
-      preview
-    }   
-    translations{
-      title
-      slug
-      description
-      content
-      time
-      people
-      country
-    }
-    ingredients{
+    title
+    slug
+    description
+    content
+    time
+    people
+    country
+    createdAt
+    updatedAt
+    collections {
       id
       name
       slug
-      featuredAsset{
+    }
+    facetValues {
+      id
+      name
+    }
+    recommendedRecipes {
+      id
+      title
+      slug
+      description
+      featuredAsset {
         preview
       }
-      variants{
+    }
+    ingredients {
+      quantity
+      productVariant {
         id
         name
         priceWithTax
         currencyCode
-      }
-      collections {
-        id
-        name
-      }
-      facetValues {
-        id
-        code
-        name
-      }
-    }
-    recommendedRecipes{
-      id
-      title
-      slug
-      description
-      featuredAsset{
-        preview
+        featuredAsset {
+          id
+          preview
+        }
+        product {
+          id
+          slug
+          name
+          featuredAsset {
+            id
+            preview
+          }
+          collections {
+            id
+            name
+            slug
+          }
+        }
       }
     }
   }
 }
+
 `
