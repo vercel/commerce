@@ -10,6 +10,7 @@ import { useUI } from '@components/ui/context'
 import Button from '@components/ui/Button'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
+import Menu from '@components/icons/Menu'
 
 interface Props {
   className?: string
@@ -20,7 +21,8 @@ const countItem = (count: number, item: LineItem) => count + item.quantity
 const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
-  const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
+  const { toggleSidebar, closeSidebarIfPresent, openModal, setSidebarView } =
+    useUI()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return (
@@ -31,7 +33,10 @@ const UserNav: FC<Props> = ({ className }) => {
             <Button
               className={s.item}
               variant="naked"
-              onClick={toggleSidebar}
+              onClick={() => {
+                setSidebarView('CART_VIEW')
+                toggleSidebar()
+              }}
               aria-label={`Cart items: ${itemsCount}`}
             >
               <Bag />
@@ -65,6 +70,19 @@ const UserNav: FC<Props> = ({ className }) => {
             )}
           </li>
         )}
+        <li className={s.mobileMenu}>
+          <Button
+            className={s.item}
+            variant="naked"
+            onClick={() => {
+              setSidebarView('MOBILEMENU_VIEW')
+              toggleSidebar()
+            }}
+            aria-label="Menu"
+          >
+            <Menu />
+          </Button>
+        </li>
       </ul>
     </nav>
   )
