@@ -8,11 +8,7 @@ import getSlug from './get-slug'
 
 function normalizeProductOption(productOption: any) {
   const {
-    node: {
-      entityId,
-      values: { edges = [] } = {},
-      ...rest
-    },
+    node: { entityId, values: { edges = [] } = {}, ...rest },
   } = productOption
 
   return {
@@ -122,6 +118,7 @@ function normalizeLineItem(item: any): LineItem {
       price: item.sale_price,
       listPrice: item.list_price,
     },
+    options: item.options,
     path: item.url.split('/')[3],
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,

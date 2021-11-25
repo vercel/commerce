@@ -11,16 +11,18 @@ export const handler: MutationHook<LogoutHook> = {
     url: '/api/logout',
     method: 'GET',
   },
-  useHook: ({ fetch }) => () => {
-    const { mutate } = useCustomer()
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCustomer()
 
-    return useCallback(
-      async function logout() {
-        const data = await fetch()
-        await mutate(null, false)
-        return data
-      },
-      [fetch, mutate]
-    )
-  },
+      return useCallback(
+        async function logout() {
+          const data = await fetch()
+          await mutate(null, false)
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }

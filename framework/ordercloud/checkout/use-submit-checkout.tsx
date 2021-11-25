@@ -2,7 +2,9 @@ import type { SubmitCheckoutHook } from '@commerce/types/checkout'
 import type { MutationHook } from '@commerce/utils/types'
 
 import { useCallback } from 'react'
-import useSubmitCheckout, { UseSubmitCheckout } from '@commerce/checkout/use-submit-checkout'
+import useSubmitCheckout, {
+  UseSubmitCheckout,
+} from '@commerce/checkout/use-submit-checkout'
 
 export default useSubmitCheckout as UseSubmitCheckout<typeof handler>
 
