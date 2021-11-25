@@ -48,6 +48,6 @@ export const fetcher: Fetcher = async ({
     }
     return data
   }
-  
+
   throw await getError(res)
 }

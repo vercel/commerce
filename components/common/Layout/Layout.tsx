@@ -43,8 +43,8 @@ const FeatureBar = dynamic(
 )
 
 const Modal = dynamic(
-  () => import('@components/ui/Modal'), 
-  Object.assign(dynamicProps, {ssr: false})
+  () => import('@components/ui/Modal'),
+  Object.assign(dynamicProps, { ssr: false })
 )
 
 interface Props {

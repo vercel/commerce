@@ -14,7 +14,6 @@
   @apply pt-1 pb-2 text-2xl font-bold tracking-wide cursor-pointer mb-2;
 }
 
-
 /* Apply base font sizes and styles for typography markup (h2, h2, ul, p, etc.).
    A helpful addition for whenn page content is consumed from a source managed through a wysiwyg editor. */
 

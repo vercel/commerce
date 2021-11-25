@@ -28,9 +28,16 @@ const UserNav: FC<Props> = ({ className }) => {
       <ul className={s.list}>
         {process.env.COMMERCE_CART_ENABLED && (
           <li className={s.item}>
-            <Button className={s.item} variant="naked" onClick={toggleSidebar} aria-label={`Cart items: ${itemsCount}`}>
+            <Button
+              className={s.item}
+              variant="naked"
+              onClick={toggleSidebar}
+              aria-label={`Cart items: ${itemsCount}`}
+            >
               <Bag />
-              {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+              {itemsCount > 0 && (
+                <span className={s.bagCount}>{itemsCount}</span>
+              )}
             </Button>
           </li>
         )}

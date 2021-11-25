@@ -21,12 +21,14 @@ export const handler: SWRHook<CustomerHook> = {
     }
     return null
   },
-  useHook: ({ useData }) => (input) => {
-    return useData({
-      swrOptions: {
-        revalidateOnFocus: false,
-        ...input?.swrOptions,
-      },
-    })
-  },
+  useHook:
+    ({ useData }) =>
+    (input) => {
+      return useData({
+        swrOptions: {
+          revalidateOnFocus: false,
+          ...input?.swrOptions,
+        },
+      })
+    },
 }

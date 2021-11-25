@@ -34,7 +34,7 @@ export interface BigcommerceConfig extends CommerceAPIConfig {
   storeChannelId?: string
   storeUrl?: string
   storeApiClientSecret?: string
-  storeHash?:string
+  storeHash?: string
   storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
 }
 
@@ -81,8 +81,8 @@ const config: BigcommerceConfig = {
   storeApiToken: STORE_API_TOKEN,
   storeApiClientId: STORE_API_CLIENT_ID,
   storeChannelId: STORE_CHANNEL_ID,
-  storeUrl:STORE_URL,
-  storeApiClientSecret:CLIENT_SECRET,
+  storeUrl: STORE_URL,
+  storeApiClientSecret: CLIENT_SECRET,
   storeHash: STOREFRONT_HASH,
   storeApiFetch: createFetchStoreApi(() => getCommerceApi().getConfig()),
 }
