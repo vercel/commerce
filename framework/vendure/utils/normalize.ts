@@ -1,12 +1,15 @@
-import { HomeFeatureItemProps } from './../../../src/components/modules/home/HomeFeature/components/HomeFeatureItem/HomeFeatureItem';
 import { Cart, CartCheckout, ShippingAddress } from '@commerce/types/cart';
 import { Product as ProductTypes, ProductCard } from '@commerce/types/product';
 import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
-import { BlogProps, OrderState, DataHomeProps } from 'src/utils/types.utils';
-import { Banner, Blog, Favorite, Feature, Product, Recipe, SearchResultFragment, ShippingMethod, DataHome, CartFragment, RecipeIngredient } from '../schema';
+import { BlogProps, DataHomeProps, OrderState } from 'src/utils/types.utils';
+import {
+  Banner, Blog, CartFragment,
+  DataHome, Favorite, Feature, Product,
+  Recipe, RecipeIngredient,
+  SearchResultFragment, ShippingMethod
+} from '../schema';
+import { HomeFeatureItemProps } from './../../../src/components/modules/home/HomeFeature/components/HomeFeatureItem/HomeFeatureItem';
 import { RecipeProps } from './../../../src/utils/types.utils';
-import { Product as ProductIngredients } from './../schema.d';
-// import { Recipe } from '@commerce/types/recipes'
 
 export function normalizeSearchResult(item: SearchResultFragment): ProductCard {
   return {
@@ -182,7 +185,6 @@ export function normalizeFavoriteProductResult(item: Favorite) {
 }
 
 export function normalizeRecipe(recipe: Recipe): RecipeProps {
-  console.log("raw here: ", recipe)
   return {
     id: recipe.id || '',
     title: recipe.title || '',

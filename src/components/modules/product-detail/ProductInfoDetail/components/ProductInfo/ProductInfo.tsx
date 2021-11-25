@@ -1,4 +1,4 @@
-import { Product, ProductOption, ProductVariant } from '@commerce/types/product'
+import { Product, ProductVariant } from '@commerce/types/product'
 import classNames from 'classnames'
 import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -31,7 +31,6 @@ const ProductInfo = ({ productInfoDetail }: Props) => {
 		let firstVariantOption:SelectedOptions = {}
 
         productInfoDetail.variants?productInfoDetail.variants[0].options.map((option)=>	firstVariantOption[option.displayName] = option.values[0].label):undefined
-        console.log(firstVariantOption)
         setDefaultOption(firstVariantOption)
 	}, [productInfoDetail])
     
