@@ -1,6 +1,8 @@
 import type { ExpandedProductOption } from '@framework/types'
 
-const sortOptionsByPosition = (options: ExpandedProductOption[]): ExpandedProductOption[] => {
+const sortOptionsByPosition = (
+  options: ExpandedProductOption[]
+): ExpandedProductOption[] => {
   return options.sort((firstOption, secondOption) => {
     return firstOption.position - secondOption.position
   })

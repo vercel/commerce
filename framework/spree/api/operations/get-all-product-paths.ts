@@ -69,8 +69,8 @@ export default function getAllProductPathsOperation({
           per_page: productsCount,
           image_transformation: {
             quality: imagesQuality,
-            size: imagesSize
-          }
+            size: imagesSize,
+          },
         },
       ],
     }
