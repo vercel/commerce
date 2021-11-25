@@ -12,7 +12,7 @@ const useGetUserOrder = () => {
   const partiallyShipped = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "PartiallyShipped");
   const shipped = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == 'Shipped');
   const cancelled = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "Cancelled");
-
+ 
   return { 
     addingItem: addingItem,
     paymentAuthorized: paymentAuthorized,
