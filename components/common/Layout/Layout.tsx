@@ -13,7 +13,7 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
-import MenuSidebarView from '../UserNav/MenuSidebarView'
+import MenuSidebarView, { Link } from '../UserNav/MenuSidebarView'
 
 import LoginView from '@components/auth/LoginView'
 import s from './Layout.module.css'
@@ -78,7 +78,7 @@ const ModalUI: FC = () => {
 const SidebarView: FC<{
   sidebarView: string
   closeSidebar(): any
-  links: any
+  links: Link[]
 }> = ({ sidebarView, closeSidebar, links }) => {
   return (
     <Sidebar onClose={closeSidebar}>

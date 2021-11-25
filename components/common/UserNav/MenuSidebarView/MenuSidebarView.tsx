@@ -3,21 +3,17 @@ import s from './MenuSidebarView.module.css'
 import { FC } from 'react'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
+import { Link as LinkProps} from '.'
 
-interface Link {
-  href: string
-  label: string
-}
 
 interface MenuProps {
-  links?: Link[]
+  links?: LinkProps[]
 }
 
 const MenuSidebarView: FC<MenuProps> = (props) => {
   const { closeSidebar } = useUI()
   const handleClose = () => closeSidebar()
 
-  console.log(props.links)
   return (
     <SidebarLayout handleClose={handleClose}>
       <div className={s.root}>
