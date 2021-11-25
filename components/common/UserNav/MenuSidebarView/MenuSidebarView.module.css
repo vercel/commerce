@@ -1,5 +1,5 @@
 .root {
-  @apply px-4 sm:px-6 flex-1 z-20;
+  @apply px-4 sm:px-6 sm:w-full flex-1 z-20;
 }
 
 .item {
