@@ -7,11 +7,15 @@ import normalizeCart from '../utils/normalizations/normalize-cart'
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
-import { setCartToken } from '../utils/tokens/cart-token'
 import { FetcherError } from '@commerce/utils/errors'
-import ensureIToken from '@framework/utils/tokens/ensure-itoken'
-import isLoggedIn from '@framework/utils/tokens/is-logged-in'
-import createEmptyCart from '@framework/utils/create-empty-cart'
+import { setCartToken } from '../utils/tokens/cart-token'
+import ensureIToken from '../utils/tokens/ensure-itoken'
+import isLoggedIn from '../utils/tokens/is-logged-in'
+import createEmptyCart from '../utils/create-empty-cart'
+import { requireConfigValue } from '../isomorphic-config'
+
+const imagesSize = requireConfigValue('imagesSize') as string
+const imagesQuality = requireConfigValue('imagesQuality') as number
 
 export default useCart as UseCart<typeof handler>
 
@@ -58,6 +62,10 @@ export const handler: SWRHook<GetCartHook> = {
                   'line_items.variant.option_values',
                   'line_items.variant.product.option_types',
                 ].join(','),
+                image_transformation: {
+                  quality: imagesQuality,
+                  size: imagesSize,
+                },
               },
             ],
           },
