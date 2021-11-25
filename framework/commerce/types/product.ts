@@ -77,12 +77,11 @@ export type ProductsSchema<T extends ProductTypes = ProductTypes> = {
   }
 }
 
-export type GetAllProductPathsOperation<
-  T extends ProductTypes = ProductTypes
-> = {
-  data: { products: Pick<T['product'], 'path'>[] }
-  variables: { first?: number }
-}
+export type GetAllProductPathsOperation<T extends ProductTypes = ProductTypes> =
+  {
+    data: { products: Pick<T['product'], 'path'>[] }
+    variables: { first?: number }
+  }
 
 export type GetAllProductsOperation<T extends ProductTypes = ProductTypes> = {
   data: { products: T['product'][] }

@@ -9,7 +9,10 @@ import addItem from './add-item'
 import updateItem from './update-item'
 import removeItem from './remove-item'
 
-export type CustomerAddressAPI = GetAPISchema<OrdercloudAPI, CustomerAddressSchema>
+export type CustomerAddressAPI = GetAPISchema<
+  OrdercloudAPI,
+  CustomerAddressSchema
+>
 export type CustomerAddressEndpoint = CustomerAddressAPI['endpoint']
 
 export const handlers: CustomerAddressEndpoint['handlers'] = {

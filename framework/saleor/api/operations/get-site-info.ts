@@ -18,7 +18,7 @@ export default function getSiteInfoOperation({ commerce }: OperationContext<Prov
     query?: string
     config?: Partial<SaleorConfig>
     preview?: boolean
-    variables?: any 
+    variables?: any
   } = {}): Promise<GetSiteInfoResult> {
     const cfg = commerce.getConfig(config)
 
