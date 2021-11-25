@@ -13,9 +13,7 @@
 }
 
 .thumb {
-  @apply transition-transform transition-colors
-  ease-linear duration-75 overflow-hidden inline-block
-  cursor-pointer h-full;
+  @apply overflow-hidden inline-block cursor-pointer h-full;
   width: 125px;
   width: calc(100% / 3);
 }
@@ -48,11 +46,6 @@
 @screen md {
   .thumb:hover {
     transform: scale(1.02);
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-
-  .thumb.selected {
-    @apply bg-white;
   }
 
   .album {
