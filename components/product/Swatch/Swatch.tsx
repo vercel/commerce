@@ -44,7 +44,7 @@ const Swatch: React.FC<Omit<ButtonProps, 'variant'> & SwatchProps> = React.memo(
       <Button
         role="option"
         aria-selected={active}
-        aria-label={(variant && label) ? `${variant} ${label}` : "Variant Swatch"}
+        aria-label={variant && label ? `${variant} ${label}` : 'Variant Swatch'}
         className={swatchClassName}
         {...(label && color && { title: label })}
         style={color ? { backgroundColor: color } : {}}

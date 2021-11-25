@@ -9,6 +9,7 @@ interface Link {
   href: string
   label: string
 }
+
 interface NavbarProps {
   links?: Link[]
 }

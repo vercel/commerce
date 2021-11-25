@@ -33,17 +33,19 @@ export const handler = {
 
     return checkoutToCart(response)
   },
-  useHook: ({ fetch }: MutationHookContext<RemoveItemHook>) => () => {
-    const { mutate } = useCart()
+  useHook:
+    ({ fetch }: MutationHookContext<RemoveItemHook>) =>
+    () => {
+      const { mutate } = useCart()
 
-    return useCallback(
-      async function removeItem(input) {
-        const data = await fetch({ input: { itemId: input.id } })
-        await mutate(data, false)
+      return useCallback(
+        async function removeItem(input) {
+          const data = await fetch({ input: { itemId: input.id } })
+          await mutate(data, false)
 
-        return data
-      },
-      [fetch, mutate]
-    )
-  },
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }
