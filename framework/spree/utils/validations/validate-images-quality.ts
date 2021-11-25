@@ -1,6 +1,4 @@
-const validateImagesQuality = (
-  quality: unknown
-): number => {
+const validateImagesQuality = (quality: unknown): number => {
   let quality_level: number
 
   if (typeof quality === 'string') {

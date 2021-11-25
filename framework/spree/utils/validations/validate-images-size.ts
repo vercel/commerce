@@ -1,6 +1,4 @@
-const validateImagesSize = (
-  size: unknown
-): string => {
+const validateImagesSize = (size: unknown): string => {
   if (typeof size !== 'string') {
     throw new TypeError('size must be a string.')
   }

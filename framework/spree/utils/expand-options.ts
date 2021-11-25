@@ -1,6 +1,4 @@
-import type {
-  ProductOptionValues
-} from '@commerce/types/product'
+import type { ProductOptionValues } from '@commerce/types/product'
 import type {
   JsonApiDocument,
   JsonApiResponse,
