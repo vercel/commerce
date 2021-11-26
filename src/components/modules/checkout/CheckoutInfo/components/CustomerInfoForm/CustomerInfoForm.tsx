@@ -4,6 +4,8 @@ import { ButtonCommon, InputFiledInForm } from 'src/components/common'
 import { useMessage } from 'src/components/contexts'
 import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { useModalCommon } from 'src/components/hooks'
+import { useEditUserInfo } from 'src/components/hooks/account'
+import { useActiveCustomer } from 'src/components/hooks/auth'
 import { useSetCustomerForOrder } from 'src/components/hooks/order'
 import { ErrorCode } from 'src/domains/enums/ErrorCode'
 import { CommonError } from 'src/domains/interfaces/CommonError'
@@ -20,20 +22,29 @@ interface Props {
 
 }
 
-const displayingErrorMessagesSchema = Yup.object().shape({
+const ValidateNameObj = {
   firstName: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
   lastName: Yup.string().required(LANGUAGE.MESSAGE.REQUIRED),
+}
+
+const displayingErrorMessagesWithEmailSchema = Yup.object().shape({
+  ...ValidateNameObj,
   emailAddress: Yup.string().email(LANGUAGE.MESSAGE.INVALID_EMAIL).required(LANGUAGE.MESSAGE.REQUIRED),
 })
+
+const displayingErrorMessagesSchema = Yup.object().shape(ValidateNameObj)
 
 const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
   const firstNameRef = useRef<CustomInputCommon>(null)
   const emailRef = useRef<CustomInputCommon>(null)
+  const { customer } = useActiveCustomer()
   const { setCustomerForOrder, loading } = useSetCustomerForOrder()
+  const { editUserInfo } = useEditUserInfo()
   const { showMessageError } = useMessage()
   const [emailAddress, setEmailAddress] = useState<string>('')
   const { openModalAuthen } = useModalAuthen()
   const { visible: visibleModalConfirmLogin, closeModal: closeModalConfirmLogin, openModal: openModalConfirmLogin } = useModalCommon({ initialValue: false })
+const formik = useRef(null)
 
   useEffect(() => {
     setTimeout(() => {
@@ -43,9 +54,22 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
 
   const handleSubmit = (values: { firstName: string, lastName: string, emailAddress: string }) => {
     const { firstName, lastName, emailAddress } = values
-    setEmailAddress(emailAddress)
-    setCustomerForOrder({ firstName, lastName, emailAddress }, onSubmitCalBack)
+    if (customer) {
+      editUserInfo({ firstName, lastName }, onEditUserInfoCallBack)
+    } else {
+      setEmailAddress(emailAddress)
+      setCustomerForOrder({ firstName, lastName, emailAddress }, onSubmitCalBack)
+    }
   }
+
+  const onEditUserInfoCallBack = (isSuccess: boolean, error?: string) => {
+    if (isSuccess) {
+      onConfirm(id)
+    } else {
+      showMessageError(error)
+    }
+  }
+
   const onSubmitCalBack = (isSuccess: boolean, error?: CommonError) => {
     if (isSuccess) {
       onConfirm(id)
@@ -70,17 +94,19 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
     emailRef.current?.focus()
   }
 
+
   return (
     <section className={s.warpper}>
       <div className={s.body}>
         <Formik
           initialValues={{
-            firstName: '',
-            lastName: '',
+            firstName: 'test',
+            lastName: 'here',
             emailAddress: '',
           }}
-          validationSchema={displayingErrorMessagesSchema}
+          validationSchema={customer ? displayingErrorMessagesSchema : displayingErrorMessagesWithEmailSchema}
           onSubmit={handleSubmit}
+          innerRef={formik}
         >
           {({ errors, touched, isValid, submitForm }) => (
             <Form className="u-form">
@@ -109,18 +135,21 @@ const CustomerInfoForm = ({ id, onConfirm, activeStep }: Props) => {
                     isShowIconSuccess={touched.lastName && !errors.lastName}
                   />
                 </div>
+
                 <InputFiledInForm
                   name="emailAddress"
                   placeholder="Email Address"
+                  readOnly={customer ? true : false}
+                  value={customer?.emailAddress}
                   error={
-                    touched.emailAddress && errors.emailAddress
-                      ? errors.emailAddress.toString()
-                      : ''
+                    customer ? '' :
+                      (touched.emailAddress && errors.emailAddress
+                        ? errors.emailAddress.toString()
+                        : '')
                   }
                   ref={emailRef}
                   isShowIconSuccess={touched.emailAddress && !errors.emailAddress}
                   onEnter={isValid ? submitForm : undefined}
-
                 />
               </div>
               <div className={s.bottom}>
