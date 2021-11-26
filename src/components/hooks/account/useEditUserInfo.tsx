@@ -35,7 +35,10 @@ const useEditUserInfo = () => {
       .then((data) => {
         if (data.updateCustomer.__typename == 'Customer') {
           mutate();
+          fCallBack(true)
           return data 
+        } else {
+          fCallBack(false)
         }
       })
       .catch((error) => {

@@ -33,7 +33,7 @@ const CheckoutInfo = ({ onViewCart, currency = "", onChangeTemporaryShippingPric
   const { showMessageError } = useMessage()
 
   useEffect(() => {
-    if (customer) {
+    if (customer && customer.firstName && customer.lastName) {
       if (!doneSteps.includes(CheckoutStep.CustomerInfo)) {
 
         if (doneSteps.length > 0) {
@@ -113,9 +113,16 @@ const CheckoutInfo = ({ onViewCart, currency = "", onChangeTemporaryShippingPric
     switch (id) {
       case CheckoutStep.CustomerInfo:
         if (order?.customer?.emailAddress) {
-          return `${order?.customer?.firstName} ${order?.customer?.lastName}, ${order?.customer?.emailAddress}`
+          let names = [] as string[]
+          if (customer) {
+            names = [`${customer.firstName} ${customer.lastName}`, customer.emailAddress]
+          } else {
+            names = [`${order?.customer?.firstName} ${order?.customer?.lastName}`, order?.customer?.emailAddress]
+          }
+          return names.join(",")
         } else if (customer) {
-          return `${customer.firstName} ${customer.lastName}, ${customer.emailAddress}`
+          const names = [`${customer.firstName} ${customer.lastName}`, customer.emailAddress]
+          return names.join(",")
         } else {
           return ''
         }
@@ -149,7 +156,7 @@ const CheckoutInfo = ({ onViewCart, currency = "", onChangeTemporaryShippingPric
     {
       id: CheckoutStep.ShippingMethodInfo,
       title: 'Shipping Method Information',
-      form: <ShippingMethod onConfirm={onConfirm} currency={currency} initialValueId={order?.shippingLine?.shippingMethod?.id} onChangeTemporaryShippingPrice={onChangeTemporaryShippingPrice}/>,
+      form: <ShippingMethod onConfirm={onConfirm} currency={currency} initialValueId={order?.shippingLine?.shippingMethod?.id} onChangeTemporaryShippingPrice={onChangeTemporaryShippingPrice} />,
     },
     {
       id: CheckoutStep.PaymentInfo,
