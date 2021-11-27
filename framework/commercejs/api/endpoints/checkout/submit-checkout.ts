@@ -4,10 +4,7 @@ import { normalizeTestCheckout } from '../../../utils/normalize-checkout'
 
 const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
   res,
-  body: {
-    cartId,
-    item: { checkout },
-  },
+  body: { cartId },
   config: { sdkFetch },
 }) => {
   const sdkFetcher: typeof sdkFetcherFunction = sdkFetch
@@ -20,13 +17,7 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
     cartId
   )
 
-  const { addressFields } = checkout
-  const checkoutData = normalizeTestCheckout({
-    customer: {
-      firstname: addressFields?.firstName,
-      lastname: addressFields?.lastName,
-    },
-  })
+  const checkoutData = normalizeTestCheckout({})
 
   // Capture the order
   await sdkFetcher('checkout', 'capture', checkoutToken, checkoutData)

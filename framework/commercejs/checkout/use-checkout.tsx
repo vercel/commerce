@@ -13,12 +13,14 @@ export const handler: SWRHook<GetCheckoutHook> = {
     method: '_',
   },
   useHook: () =>
-    function useHook(input) {
+    function useHook() {
       const submit = useSubmitCheckout()
 
-      // Could perform some validation here, currently just checking that some fields exist.
-      const hasEnteredCard = Object.keys(input?.checkout?.cardFields).length > 0
-      const hasEnteredAddress = Object.keys(input?.checkout?.addressFields).length > 0
+      // TODO - custom checkout currently requires card/address to be sent to backend before checkout submit.
+      // Commerce.js does not work like this (card/address are only sent to the BE as part of the final checkout submit payload).
+      // Force card/address to be true so that "confirm purchase" button is enabled.
+      const hasEnteredCard = true
+      const hasEnteredAddress = true
 
       const response = useMemo(
         () => ({

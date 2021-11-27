@@ -9,7 +9,7 @@ import type { CommercejsCheckoutCapture } from '../types/checkout'
 export function normalizeTestCheckout({
   customer,
 }: {
-  customer: Partial<CommercejsCheckoutCapture['customer']>
+  customer?: Partial<CommercejsCheckoutCapture['customer']>
 }): CommercejsCheckoutCapture {
   return {
     payment: {
@@ -24,8 +24,8 @@ export function normalizeTestCheckout({
     },
     customer: {
       email: 'nextcommerce@test.com',
-      firstname: customer.firstname || 'Nextjs',
-      lastname: customer.lastname || 'Commerce',
+      firstname: customer?.firstname || 'Nextjs',
+      lastname: customer?.lastname || 'Commerce',
     },
   }
 }
