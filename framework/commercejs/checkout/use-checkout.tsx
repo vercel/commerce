@@ -16,8 +16,7 @@ export const handler: SWRHook<GetCheckoutHook> = {
     function useHook() {
       const submit = useSubmitCheckout()
 
-      // TODO - custom checkout currently requires card/address to be sent to backend before checkout submit.
-      // Commerce.js does not work like this (card/address are only sent to the BE as part of the final checkout submit payload).
+      // TODO - see https://github.com/vercel/commerce/issues/583.
       // Force card/address to be true so that "confirm purchase" button is enabled.
       const hasEnteredCard = true
       const hasEnteredAddress = true
