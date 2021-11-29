@@ -10,14 +10,19 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
 }) => {
   // TODO: Add query params once we support filtering on products enpoint
 
-  const response = await restFetch('GET', 'store/products', null)
+  try {
+    const response = await restFetch('GET', 'store/products', null)
 
-  console.log(response)
+    console.log(response)
 
-  const products = response.products.map(normalizeProduct)
-  const found = products.length > 0
+    const products = response.products.map(normalizeProduct)
+    const found = products.length > 0
 
-  res.status(200).json({ data: { products, found } })
+    res.status(200).json({ data: { products, found } })
+  } catch (err) {
+    console.log(err)
+    res.status(500)
+  }
 }
 
 export default getProducts

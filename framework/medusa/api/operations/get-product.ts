@@ -20,54 +20,20 @@ export default function getProductOperation({
   } = {}): Promise<T['data']> {
     const { restFetch } = commerce.getConfig(config)
 
-    // const rawProducts: Promise<MedusaProduct[]> = restFetch<{
-    //   products: MedusaProduct[]
-    // }>('GET', '/store/products').then((response) => response.products)
+    const rawProducts: Promise<MedusaProduct[]> = restFetch<{
+      products: MedusaProduct[]
+    }>('GET', '/store/products').then((response) => response.products)
 
-    // const [products] = await Promise.all([rawProducts])
+    const [products] = await Promise.all([rawProducts])
 
-    // const product = products.find(({ handle }) => handle === variables!.slug)
+    const product = products.find(({ handle }) => handle === variables!.slug)
+
+    console.log(variables)
+    console.log('result is', product?.handle)
 
     return {
-      product: undefined,
+      product: product ? normalizeProduct(product) : undefined,
     }
-
-    // // Get fetch from the config
-    // const { restFetch } = commerce.getConfig(config)
-
-    // // Get a single product
-    // const productPromise = restFetch<RawProduct>(
-    //   'GET',
-    //   `/me/products/${variables?.slug}`
-    // )
-
-    // // Get product specs
-    // const specsPromise = restBuyerFetch<{ Items: RawSpec[] }>(
-    //   'GET',
-    //   `/me/products/${variables?.slug}/specs`
-    // ).then((res) => res.Items)
-
-    // // Get product variants
-    // const variantsPromise = restBuyerFetch<{ Items: RawVariant[] }>(
-    //   'GET',
-    //   `/me/products/${variables?.slug}/variants`
-    // ).then((res) => res.Items)
-
-    // // Execute all promises in parallel
-    // const [product, specs, variants] = await Promise.all([
-    //   productPromise,
-    //   specsPromise,
-    //   variantsPromise,
-    // ])
-
-    // // Hydrate product
-    // product.xp.Specs = specs
-    // product.xp.Variants = variants
-
-    // return {
-    //   // Normalize product to commerce schema
-    //   product: normalizeProduct(product),
-    // }
   }
 
   return getProduct

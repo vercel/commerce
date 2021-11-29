@@ -34,7 +34,6 @@ export async function fetchData<T>(opts: {
 
   try {
     const res = await response.json()
-    console.log(res)
     return res as Promise<T>
   } catch (error) {
     return null as unknown as Promise<T>

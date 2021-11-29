@@ -9,6 +9,8 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
   body: { item },
   config: { restFetch, cartCookie },
 }) => {
+  console.log(item)
+
   // Return an error if no item is present
   if (!item) {
     return res.status(400).json({

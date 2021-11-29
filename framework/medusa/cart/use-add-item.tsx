@@ -23,6 +23,7 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
+    console.log('adding', item)
     const data = await fetch({
       ...options,
       body: { item },

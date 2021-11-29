@@ -17,11 +17,9 @@ export default function getAllProductPathsOperation({
   } = {}): Promise<T['data']> {
     const { restFetch } = commerce.getConfig(config)
 
-    console.log('here paths')
-
     const rawProducts: MedusaProduct[] = await restFetch<{
       products: MedusaProduct[]
-    }>('GET', 'store/products').then((response) => response.products)
+    }>('GET', '/store/products').then((response) => response.products)
 
     return {
       products: rawProducts.map((product) => ({ path: `/${product.handle}` })),
