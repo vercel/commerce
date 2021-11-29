@@ -4,7 +4,7 @@ import useLogin from '@framework/auth/use-login'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 
-interface Props {}
+interface Props { }
 
 const LoginView: FC<Props> = () => {
   // Form State
@@ -22,8 +22,6 @@ const LoginView: FC<Props> = () => {
     e.preventDefault()
 
     if (disabled || dirty) return;
-    setDirty(true)
-    handleValidation()
 
     try {
       setLoading(true)
@@ -44,16 +42,14 @@ const LoginView: FC<Props> = () => {
   const handleValidation = useCallback(() => {
 
     // Unable to send form unless fields are valid.
-    if (dirty) {
-      const valid = validate(email) && password.length > 0 
-      setDisabled(!valid)
-      setDirty(!valid)
-    }
-  }, [email, password, dirty])
+    const valid = validate(email) && password.length > 0
+    setDisabled(!valid)
+    setDirty(!valid)
+  }, [email, password])
 
   useEffect(() => {
     handleValidation()
-  }, [handleValidation])
+  }, [handleValidation, email, password])
 
   return (
     <form

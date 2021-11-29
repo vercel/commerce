@@ -3,7 +3,7 @@ import { validate } from 'email-validator'
 import { useUI } from '@components/ui/context'
 import { Logo, Button, Input } from '@components/ui'
 
-interface Props {}
+interface Props { }
 
 const ForgotPassword: FC<Props> = () => {
   // Form State
@@ -19,22 +19,18 @@ const ForgotPassword: FC<Props> = () => {
     e.preventDefault()
 
     if (disabled || dirty) return;
-    setDirty(true)
-    handleValidation()
   }
 
   const handleValidation = useCallback(() => {
     // Unable to send form unless fields are valid.
-    if (dirty) {
-      const valid = validate(email)
-      setDisabled(!valid)
-      setDirty(!valid)
-    }
-  }, [email, dirty])
+    const valid = validate(email)
+    setDisabled(!valid)
+    setDirty(!valid)
+  }, [email])
 
   useEffect(() => {
     handleValidation()
-  }, [handleValidation])
+  }, [handleValidation, email])
 
   return (
     <form

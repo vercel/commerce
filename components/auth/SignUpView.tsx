@@ -50,17 +50,15 @@ const SignUpView: FC<Props> = () => {
     const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
 
     // Unable to send form unless fields are valid.
-    if (dirty) {
-      const valid = validate(email) && validPassword &&
-        firstName.length > 0 && lastName.length > 0 && password.length > 6
-      setDisabled(!valid)
-      setDirty(!valid)
-    }
-  }, [email, password, dirty, firstName, lastName])
+    const valid = validate(email) && validPassword &&
+      firstName.length > 0 && lastName.length > 0 && password.length > 6
+    setDisabled(!valid)
+    setDirty(!valid)
+  }, [email, password, firstName, lastName])
 
   useEffect(() => {
     handleValidation()
-  }, [handleValidation])
+  }, [handleValidation, email, password, firstName, lastName])
 
   return (
     <form
