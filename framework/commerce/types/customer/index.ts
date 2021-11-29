@@ -1,5 +1,5 @@
-export * as Card from "./card"
-export * as Address from "./address"
+export * as Card from './card'
+export * as Address from './address'
 
 // TODO: define this type
 export type Customer = any

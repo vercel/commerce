@@ -10,9 +10,10 @@ import type { Category } from '@commerce/types/site'
 import ShippingView from '@components/checkout/ShippingView'
 import CartSidebarView from '@components/cart/CartSidebarView'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
-import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
+import { Sidebar, Button, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
+import MenuSidebarView, { Link } from '../UserNav/MenuSidebarView'
 
 import LoginView from '@components/auth/LoginView'
 import s from './Layout.module.css'
@@ -42,6 +43,11 @@ const FeatureBar = dynamic(
   dynamicProps
 )
 
+const Modal = dynamic(
+  () => import('@components/ui/Modal'),
+  Object.assign(dynamicProps, { ssr: false })
+)
+
 interface Props {
   pageProps: {
     pages?: Page[]
@@ -69,12 +75,14 @@ const ModalUI: FC = () => {
   ) : null
 }
 
-const SidebarView: FC<{ sidebarView: string; closeSidebar(): any }> = ({
-  sidebarView,
-  closeSidebar,
-}) => {
+const SidebarView: FC<{
+  sidebarView: string
+  closeSidebar(): any
+  links: Link[]
+}> = ({ sidebarView, closeSidebar, links }) => {
   return (
     <Sidebar onClose={closeSidebar}>
+      {sidebarView === 'MOBILEMENU_VIEW' && <MenuSidebarView links={links} />}
       {sidebarView === 'CART_VIEW' && <CartSidebarView />}
       {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
@@ -83,10 +91,14 @@ const SidebarView: FC<{ sidebarView: string; closeSidebar(): any }> = ({
   )
 }
 
-const SidebarUI: FC = () => {
+const SidebarUI: FC<{ links: any }> = ({ links }) => {
   const { displaySidebar, closeSidebar, sidebarView } = useUI()
   return displaySidebar ? (
-    <SidebarView sidebarView={sidebarView} closeSidebar={closeSidebar} />
+    <SidebarView
+      sidebarView={sidebarView}
+      closeSidebar={closeSidebar}
+      links={links}
+    />
   ) : null
 }
 
@@ -108,7 +120,7 @@ const Layout: FC<Props> = ({
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
         <ModalUI />
-        <SidebarUI />
+        <SidebarUI links={navBarlinks} />
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
