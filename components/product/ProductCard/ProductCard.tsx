@@ -39,22 +39,24 @@ const ProductCard: FC<Props> = ({
 
   return (
     <Link href={`/product/${product.slug}`}>
-      <a className={rootClassName}>
+      <a className={rootClassName} aria-label={product.name}>
         {variant === 'slim' && (
           <>
             <div className={s.header}>
               <span>{product.name}</span>
             </div>
             {product?.images && (
-              <Image
-                quality="85"
-                src={product.images[0]?.url || placeholderImg}
-                alt={product.name || 'Product Image'}
-                height={320}
-                width={320}
-                layout="fixed"
-                {...imgProps}
-              />
+              <div>
+                <Image
+                  quality="85"
+                  src={product.images[0]?.url || placeholderImg}
+                  alt={product.name || 'Product Image'}
+                  height={320}
+                  width={320}
+                  layout="fixed"
+                  {...imgProps}
+                />
+              </div>
             )}
           </>
         )}
@@ -80,16 +82,18 @@ const ProductCard: FC<Props> = ({
             )}
             <div className={s.imageContainer}>
               {product?.images && (
-                <Image
-                  alt={product.name || 'Product Image'}
-                  className={s.productImage}
-                  src={product.images[0]?.url || placeholderImg}
-                  height={540}
-                  width={540}
-                  quality="85"
-                  layout="responsive"
-                  {...imgProps}
-                />
+                <div>
+                  <Image
+                    alt={product.name || 'Product Image'}
+                    className={s.productImage}
+                    src={product.images[0]?.url || placeholderImg}
+                    height={540}
+                    width={540}
+                    quality="85"
+                    layout="responsive"
+                    {...imgProps}
+                  />
+                </div>
               )}
             </div>
           </>
@@ -110,16 +114,18 @@ const ProductCard: FC<Props> = ({
             />
             <div className={s.imageContainer}>
               {product?.images && (
-                <Image
-                  alt={product.name || 'Product Image'}
-                  className={s.productImage}
-                  src={product.images[0]?.url || placeholderImg}
-                  height={540}
-                  width={540}
-                  quality="85"
-                  layout="responsive"
-                  {...imgProps}
-                />
+                <div>
+                  <Image
+                    alt={product.name || 'Product Image'}
+                    className={s.productImage}
+                    src={product.images[0]?.url || placeholderImg}
+                    height={540}
+                    width={540}
+                    quality="85"
+                    layout="responsive"
+                    {...imgProps}
+                  />
+                </div>
               )}
             </div>
           </>

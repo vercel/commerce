@@ -1,15 +1,16 @@
-import { MutationHook } from '@commerce/utils/types'
+import { MutationHook, MutationHookContext } from '@commerce/utils/types'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import { useCustomer } from '../customer'
 import { useCallback } from 'react'
+import { LoginHook } from '@commerce/types/login'
 
 export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    query: 'auth',
-    method: 'authenticate',
+    url: '/api/login',
+    method: 'GET',
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
@@ -20,7 +21,7 @@ export const handler: MutationHook<any> = {
 
     await fetch({
       ...options,
-      variables: { email: email, password: password },
+      body: { email: email, password: password },
     }).catch((_e) => {
       throw new CommerceError({
         errors: [
@@ -32,9 +33,8 @@ export const handler: MutationHook<any> = {
       })
     })
   },
-  useHook:
-    ({ fetch }) =>
-    () => {
+  useHook: ({ fetch }: MutationHookContext<LoginHook>) =>
+    function useHook() {
       const { revalidate } = useCustomer()
 
       return useCallback(

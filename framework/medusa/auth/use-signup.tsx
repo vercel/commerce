@@ -8,8 +8,8 @@ export default useSignup as UseSignup<typeof handler>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    query: 'customers',
-    method: 'create',
+    url: '/api/signup',
+    method: 'POST',
   },
   async fetcher({
     input: { firstName, lastName, email, password },
@@ -24,7 +24,7 @@ export const handler: MutationHook<any> = {
     }
     return await fetch({
       ...options,
-      variables: {
+      body: {
         payload: {
           first_name: firstName,
           last_name: lastName,
@@ -34,9 +34,8 @@ export const handler: MutationHook<any> = {
       },
     })
   },
-  useHook:
-    ({ fetch }) =>
-    () => {
+  useHook: ({ fetch }) =>
+    function useHook() {
       const { revalidate } = useCustomer()
 
       return useCallback(

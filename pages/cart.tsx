@@ -6,6 +6,7 @@ import { Layout } from '@components/common'
 import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
+import { useUI } from '@components/ui/context'
 
 export async function getStaticProps({
   preview,
@@ -26,6 +27,7 @@ export default function Cart() {
   const error = null
   const success = null
   const { data, isLoading, isEmpty } = useCart()
+  const { openSidebar, setSidebarView } = useUI()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -39,6 +41,11 @@ export default function Cart() {
       currencyCode: data.currency.code,
     }
   )
+
+  const goToCheckout = () => {
+    openSidebar()
+    setSidebarView('CHECKOUT_VIEW')
+  }
 
   return (
     <div className="grid lg:grid-cols-12 w-full max-w-7xl mx-auto">
@@ -162,9 +169,17 @@ export default function Cart() {
                   Continue Shopping
                 </Button>
               ) : (
-                <Button href="/checkout" Component="a" width="100%">
-                  Proceed to Checkout
-                </Button>
+                <>
+                  {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (
+                    <Button Component="a" width="100%" onClick={goToCheckout}>
+                      Proceed to Checkout ({total})
+                    </Button>
+                  ) : (
+                    <Button href="/checkout" Component="a" width="100%">
+                      Proceed to Checkout
+                    </Button>
+                  )}
+                </>
               )}
             </div>
           </div>

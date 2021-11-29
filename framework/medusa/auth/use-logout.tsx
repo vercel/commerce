@@ -7,17 +7,16 @@ export default useLogout as UseLogout<typeof handler>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    query: 'auth',
-    method: 'logout',
+    url: '/api/logout',
+    method: 'DELETE',
   },
   async fetcher({ options, fetch }) {
     await fetch({ ...options })
 
     return null
   },
-  useHook:
-    ({ fetch }) =>
-    () => {
+  useHook: ({ fetch }) =>
+    function useHook() {
       return useCallback(
         async function logout(input) {
           const data = await fetch({ input })

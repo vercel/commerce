@@ -28,6 +28,7 @@ export interface MedusaProduct {
   deleted_at: Date | null
   metadata: JSON | null
 }
+
 export interface MedusaImage {
   id: string
   url: string
@@ -36,6 +37,7 @@ export interface MedusaImage {
   deleted_at: Date | null
   metadata: JSON | null
 }
+
 export interface MedusaProductOption {
   id: string
   title: string
@@ -47,6 +49,7 @@ export interface MedusaProductOption {
   deleted_at: Date | null
   metadata: JSON | null
 }
+
 export interface MedusaProductOptionValue {
   id: string
   value: string
@@ -111,6 +114,7 @@ export interface MedusaProductVariant {
   deleted_at?: Date
   metadata?: JSON
 }
+
 export interface MedusaMoneyAmount {
   id: string
   currency_code: string
@@ -125,12 +129,14 @@ export interface MedusaMoneyAmount {
   updated_at: Date
   deleted_at?: Date
 }
+
 export interface MedusaCurrency {
   code: string
   symbol: string
   symbol_native: string
   name: string
 }
+
 export interface MedusaRegion {
   id: string
   name: string

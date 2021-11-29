@@ -13,8 +13,8 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    query: 'carts',
-    method: 'addItem',
+    query: '/api/cart',
+    method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {
     if (item.quantity && !Number.isInteger(item.quantity)) {
@@ -23,38 +23,24 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
-    const variables: {
-      cart_id: string
-      payload: MedusaAddItemProps
-    } = {
-      cart_id: Cookies.get(MEDUSA_CART_ID_COOKIE)!,
-      payload: {
-        variant_id: item.variantId,
-        quantity: item.quantity ?? 1,
-      },
-    }
+    console.log('adding', item)
+    const data = await fetch({
+      ...options,
+      body: { item },
+    })
 
-    try {
-      const data = await fetch({
-        ...options,
-        variables,
-      })
-
-      return normalizeCart(data.cart)
-    } catch (e: any) {
-      console.log(e)
-      throw new CommerceError({ message: e.message })
-    }
+    return data
   },
-  useHook:
-    ({ fetch }) =>
-    () => {
+  useHook: ({ fetch }) =>
+    function useHook() {
       const { mutate } = useCart()
 
       return useCallback(
         async function addItem(input) {
           const data = await fetch({ input })
+
           await mutate(data, false)
+
           return data
         },
         [fetch, mutate]

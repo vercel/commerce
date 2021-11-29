@@ -1,4 +1,8 @@
-import { MutationHook, MutationHookContext } from '@commerce/utils/types'
+import {
+  HookFetcherContext,
+  MutationHook,
+  MutationHookContext,
+} from '@commerce/utils/types'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
 import { handler as removeItem } from './use-remove-item'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
@@ -18,10 +22,14 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    query: 'carts',
-    method: 'updateItem',
+    query: '/api/cart',
+    method: 'PUT',
   },
-  async fetcher({ input: { itemId, item }, options, fetch }) {
+  async fetcher({
+    input: { itemId, item },
+    options,
+    fetch,
+  }: HookFetcherContext<UpdateItemHook>) {
     if (Number.isInteger(item.quantity)) {
       if (item.quantity! < 1) {
         return removeItem.fetcher!({
@@ -36,41 +44,27 @@ export const handler: MutationHook<any> = {
       })
     }
 
-    const cart_id = Cookies.get(MEDUSA_CART_ID_COOKIE)
-
-    const data = await fetch({
+    return await fetch({
       ...options,
-      variables: {
-        cart_id: cart_id,
-        line_id: itemId,
-        payload: { quantity: item.quantity },
-      },
+      body: { itemId, item },
     })
-
-    if (data.cart) {
-      return normalizeCart(data.cart)
-    } else {
-      throw new CommerceError({ message: 'No cart was found' })
-    }
   },
-  useHook:
-    ({ fetch }: MutationHookContext<UpdateItemHook>) =>
-    <T extends LineItem | undefined = undefined>(
+  useHook: ({ fetch }: MutationHookContext<UpdateItemHook>) =>
+    function useHook<T extends LineItem | undefined = undefined>(
       ctx: {
         item?: T
         wait?: number
       } = {}
-    ) => {
+    ) {
       const { item } = ctx
-      const { mutate } = useCart()
+      const { mutate } = useCart() as any
 
       return useCallback(
         debounce(async (input: UpdateItemActionInput<T>) => {
           const itemId = input.id ?? item?.id
-          const productId = input.productId ?? item?.productId
           const variantId = input.productId ?? item?.variantId
 
-          if (!itemId || !productId || !variantId) {
+          if (!itemId) {
             throw new ValidationError({
               message: 'Invalid input used for this operation',
             })
@@ -79,10 +73,15 @@ export const handler: MutationHook<any> = {
           const data = await fetch({
             input: {
               itemId,
-              item: { productId, variantId, quantity: input.quantity },
+              item: {
+                variantId: variantId || '',
+                quantity: input.quantity,
+              },
             },
           })
+
           await mutate(data, false)
+
           return data
         }, ctx.wait ?? 500),
         [fetch, mutate]
