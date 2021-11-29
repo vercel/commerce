@@ -27,7 +27,9 @@ const ForgotPassword: FC<Props> = () => {
   const handleValidation = useCallback(() => {
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email))
+      const valid = validate(email)
+      setDisabled(!valid)
+      setDirty(!valid)
     }
   }, [email, dirty])
 

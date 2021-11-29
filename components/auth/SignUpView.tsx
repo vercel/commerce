@@ -5,7 +5,7 @@ import { useUI } from '@components/ui/context'
 import { Logo, Button, Input } from '@components/ui'
 import useSignup from '@framework/auth/use-signup'
 
-interface Props {}
+interface Props { }
 
 const SignUpView: FC<Props> = () => {
   // Form State
@@ -50,7 +50,10 @@ const SignUpView: FC<Props> = () => {
 
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword)
+      const valid = validate(email) && validPassword &&
+        firstName.length > 0 && lastName.length > 0 && password.length > 6
+      setDisabled(!valid)
+      setDirty(!valid)
     }
   }, [email, password, dirty])
 

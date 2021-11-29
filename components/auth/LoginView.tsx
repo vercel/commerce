@@ -44,7 +44,9 @@ const LoginView: FC<Props> = () => {
 
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email) || password.length === 0)
+      const valid = validate(email) && password.length > 0 
+      setDisabled(!valid)
+      setDirty(!valid)
     }
   }, [email, password, dirty])
 
