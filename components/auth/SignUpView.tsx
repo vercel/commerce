@@ -55,7 +55,7 @@ const SignUpView: FC<Props> = () => {
       setDisabled(!valid)
       setDirty(!valid)
     }
-  }, [email, password, dirty])
+  }, [email, password, dirty, firstName, lastName])
 
   useEffect(() => {
     handleValidation()
