@@ -4,6 +4,9 @@ query($documentListName: String!, $filter: String!) {
             startIndex
             totalCount
             items {
+                id
+                name
+                listFQN
                 properties
             }
         }

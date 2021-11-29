@@ -2,6 +2,7 @@ import type { OperationContext } from '@commerce/api/operations'
 import type { KiboCommerceConfig } from '../index'
 import { getAllPagesQuery } from '../queries/get-all-pages-query'
 import { GetPagesQueryParams } from "../../types/page";
+import { normalizePage } from '../../lib/normalize'
 
 export type GetAllPagesResult<
   T extends { pages: any[] } = { pages: any[] }
@@ -28,17 +29,8 @@ export default function getAllPagesOperation({
     }
     const { data } = await cfg.fetch(query, { variables });
 
-    const pages = data.documentListDocuments.items.map((page: any) => {
-      return {
-        id: page.id,
-        name: page.name.charAt(0).toUpperCase() + page.name.slice(1),
-        url: page.properties.url,
-        body: page.properties.body,
-        is_visible: page.properties.is_visible,
-        sort_order: page.properties.sort_order
-      }
-    });
-
+    const pages = data.documentListDocuments.items.map(normalizePage);
+    
     return { pages }
   }
 

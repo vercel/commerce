@@ -1,11 +1,6 @@
-// import type { Product } from '../types/product'
-// import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
-// import type { Page } from '../types/page'
-// import type { BCCategory, Category } from '../types/site'
-// import { definitions } from '../api/definitions/store-content'
 import update from './immutability'
 import getSlug from './get-slug'
-import { PrCategory, CustomerAccountInput } from '../schema'
+import type { PrCategory, CustomerAccountInput, Document } from '../schema'
 import { Page } from '@framework/types/page';
 import { Customer } from '@framework/types/customer'
 
@@ -69,13 +64,14 @@ export function normalizeProduct(productNode: any, config: any): any {
   return product
 }
 
-export function normalizePage(page: Page): Page {
+export function normalizePage(page: Document): Page {
   return {
     id: String(page.id),
-    name: page.name,
-    is_visible: page.is_visible,
-    sort_order: page.sort_order,
-    body: page.body,
+    name: String(page.name),
+    url: page.properties.url,
+    body: page.properties.body,
+    is_visible: page.properties.is_visible,
+    sort_order: page.properties.sort_order
   }
 }
 
