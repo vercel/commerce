@@ -18,10 +18,9 @@ const ForgotPassword: FC<Props> = () => {
   const handleResetPassword = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
 
-    if (!dirty && !disabled) {
-      setDirty(true)
-      handleValidation()
-    }
+    if (disabled || dirty) return;
+    setDirty(true)
+    handleValidation()
   }
 
   const handleValidation = useCallback(() => {

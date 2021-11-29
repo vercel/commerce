@@ -22,6 +22,7 @@ const LoginView: FC<Props> = () => {
     e.preventDefault()
 
     if (disabled || dirty) return;
+    setDirty(true)
     handleValidation()
 
     try {
