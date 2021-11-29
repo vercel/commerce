@@ -10,8 +10,8 @@ const ForgotPassword: FC<Props> = () => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [dirty, setDirty] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [dirty, setDirty] = useState(true)
+  const [disabled, setDisabled] = useState(true)
 
   const { setModalView, closeModal } = useUI()
 

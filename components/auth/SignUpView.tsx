@@ -15,8 +15,8 @@ const SignUpView: FC<Props> = () => {
   const [lastName, setLastName] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [dirty, setDirty] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [dirty, setDirty] = useState(true)
+  const [disabled, setDisabled] = useState(true)
 
   const signup = useSignup()
   const { setModalView, closeModal } = useUI()
@@ -24,10 +24,8 @@ const SignUpView: FC<Props> = () => {
   const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
 
-    if (!dirty && !disabled) {
-      setDirty(true)
-      handleValidation()
-    }
+    if (disabled || dirty) return;
+    handleValidation()
 
     try {
       setLoading(true)
