@@ -12,7 +12,7 @@ interface FreshProductsProps {
 const FreshProducts = ({ data, collections }: FreshProductsProps) => {
 
   const dataWithCategory = useMemo(() => {
-    return data.map(item => {
+    return data?.map(item => {
       return {
         ...item,
         collection: getCategoryNameFromCollectionId(collections, item.collectionIds ? item.collectionIds[0] : undefined)

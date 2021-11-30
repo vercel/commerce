@@ -109,12 +109,12 @@ function findFacetByCode(code: string, facets?: Facet) {
 }
 
 export function getFeaturedFacetId(facets: Facet[]) {
-  const featuredFacet = facets.find((item: Facet) => item.code === CODE_FACET_FEATURED)
+  const featuredFacet = facets?.find((item: Facet) => item.code === CODE_FACET_FEATURED)
   return featuredFacet?.id
 }
 
 export function getFreshFacetId(facets: Facet[]) {
-  const featuredFacet = facets.find((item: Facet) => item.code === CODE_FACET_FEATURED)
+  const featuredFacet = facets?.find((item: Facet) => item.code === CODE_FACET_FEATURED)
   const freshFacetValue = findFacetByCode(CODE_FACET_FEATURED_VARIANT.FRESH, featuredFacet)
 
   return freshFacetValue?.id
@@ -140,16 +140,16 @@ export function getAllFeaturedFacetId(facets: Facet[]) {
   return rs || []
 }
 export function getAllFacetValueIdsByParentCode(facets: Facet[], code: string) {
-  const featuredFacet = facets.find((item: Facet) => item.code === code)
+  const featuredFacet = facets?.find((item: Facet) => item.code === code)
   const rs = featuredFacet?.values.map((item: FacetValue) => item.id)
 
   return rs || []
 }
 
 export function getAllFacetValuesForFeatuedProducts(facets: Facet[]) {
-  const facetsRs = facets.filter((item: Facet) => item.code === CODE_FACET_FEATURED || item.code === CODE_FACET_DISCOUNT)
+  const facetsRs = facets?.filter((item: Facet) => item.code === CODE_FACET_FEATURED || item.code === CODE_FACET_DISCOUNT)
   let rs = [] as FacetValue[]
-  facetsRs.map((item: Facet) => {
+  facetsRs?.map((item: Facet) => {
     rs = rs.concat(item.values)
     return null
   })

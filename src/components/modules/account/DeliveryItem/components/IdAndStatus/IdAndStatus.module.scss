@@ -37,8 +37,15 @@
         &.Shipped {
             background-color: var(--primary);
         }
+        &.PartialDelivery{
+            background-color: var(--primary);
+        }
+        &.Delivered{
+            background-color: var(--primary);
+        }
         &.Cancelled {
             background-color: var(--negative);
         }
+        
     }
 }

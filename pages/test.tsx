@@ -4,10 +4,9 @@ interface Props {
   productDetail: ProductCard[],
 }
 export default function Home({ productDetail }: Props) {
- 
   return (
     <>
-      test
+      <div></div>
     </>
   )
 }

@@ -23,7 +23,7 @@ export default function RecipeListPage({ banners, error, recipeCollections, reci
   }
   return (
     <>
-      <RecipeListBanner banners={banners} />
+      {/* <RecipeListBanner banners={banners} /> */}
       {
         <RecipesList collections={recipeCollections || []} recipeList={recipes} total={totalItems ?? 0} />
       }

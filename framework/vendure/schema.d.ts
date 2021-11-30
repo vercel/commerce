@@ -2848,6 +2848,46 @@ export type QueryBannersByPageArgs = {
   page: PageName;
 };
 
+
+export type QuerySeoByPageArgs = {
+  options?: Maybe<SeoListOptions>;
+  page: PageNameSeo;
+};
+
+export type SeoListOptions = {
+  filter?: Maybe<SeoFilterParameter>;
+  skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<SeoSortParameter>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type SeoSortParameter = {
+  createdAt?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  page?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+
+export enum PageNameSeo {
+  ABOUT = 'ABOUT',
+  CONTACT = 'CONTACT',
+  HOME = 'HOME',
+  PRODUCT_LIST = 'PRODUCT_LIST',
+  RECIPES = 'RECIPES'
+}
+export type SeoFilterParameter = {
+  createdAt?: Maybe<DateOperators>;
+  description?: Maybe<StringOperators>;
+  languageCode?: Maybe<StringOperators>;
+  page?: Maybe<StringOperators>;
+  title?: Maybe<StringOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+
 export type QueryHomeFeatureArgs = {
   term?: String;
   options?: Maybe<HomeFeatureOptions>;
@@ -2938,6 +2978,7 @@ export type BannerList = PaginatedList & {
   totalItems: Scalars['Int'];
 };
 
+
 export type Banner = Node & {
   __typename?: 'Banner';
   backgroundColor?: Maybe<Scalars['String']>;
@@ -2979,11 +3020,45 @@ export type FeatureTranslation = {
 
 export type GetBannersByPageQuery = { __typename?: 'Query' } & {
   bannersByPage: { __typename?: 'BannerList' } & {
-    items: Array<{ __typename?: 'SearchResult' } & Feature>,
+    items: Array<{ __typename?: 'Banner' } & Banner>,
     'totalItems'
   }
 }
 
+export type GetSEOByPageQuery = { __typename?: 'Query' } & {
+  SEOByPage?: Maybe<
+    { __typename?: 'SEO' } & Seo
+  >
+}
+
+export type Seo = Node & {
+  __typename?: 'SEO';
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  img?: Maybe<Asset>;
+  languageCode: LanguageCode;
+  page: Scalars['String'];
+  title: Scalars['String'];
+  translations: Array<SeoTranslation>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type SeoTranslation = {
+  __typename?: 'SEOTranslation';
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type SeoTranslationInput = {
+  description?: Maybe<Scalars['String']>;
+  languageCode: LanguageCode;
+  title: Scalars['String'];
+};
 
 export type GetAllBlogsQuery = PaginatedList & {
   blogs: { __typename?: 'BlogList' } & {

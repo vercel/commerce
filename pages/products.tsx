@@ -22,7 +22,7 @@ export default function Products({ facets, collections, productsResult, banners 
 
   return (
     <>
-      <ProductListBanner banners={banners}/>
+      {/* <ProductListBanner banners={banners}/> */}
       <ProductListFilter
         collections={collections}
         facets={facets}

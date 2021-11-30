@@ -6,7 +6,7 @@ import {
   Banner, Blog, CartFragment,
   DataHome, Favorite, Feature, Product,
   Recipe, RecipeIngredient,
-  SearchResultFragment, ShippingMethod
+  SearchResultFragment, ShippingMethod,Seo
 } from '../schema';
 import { HomeFeatureItemProps } from './../../../src/components/modules/home/HomeFeature/components/HomeFeatureItem/HomeFeatureItem';
 import { RecipeProps } from './../../../src/utils/types.utils';
@@ -267,6 +267,13 @@ export function normalizeBanner(banner: Banner): BannerItemProps {
     buttonLabel: banner.buttonLabel || '',
     linkButton: banner.buttonLink || '',
     backgroundColor: banner.backgroundColor || ''
+  }
+}
+export function normalizeSEO(seo: Seo) {
+  return {
+    title: seo.title,
+    description: seo.description || '',
+    imgLink: seo.img?.preview || '',
   }
 }
 
