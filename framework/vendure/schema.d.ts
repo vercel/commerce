@@ -618,25 +618,39 @@ export type ProductVariantListOptions = {
   sort?: Maybe<ProductVariantSortParameter>
   filter?: Maybe<ProductVariantFilterParameter>
 }
+
+
 export type Recipe = Node & {
   __typename?: 'Recipe';
   assets?: Maybe<Array<Asset>>;
   collections?: Maybe<Array<RecipeCollection>>;
+  content?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   facetValues: Array<RecipeFacetValue>;
   featuredAsset?: Maybe<Asset>;
   id: Scalars['ID'];
-  ingredients?: Maybe<Array<Product>>;
+  ingredients?: Maybe<Array<RecipeIngredient>>;
   isFeatured: Scalars['Boolean'];
   isPublish: Scalars['Boolean'];
+  languageCode: LanguageCode;
+  people?: Maybe<Scalars['String']>;
   recommendedRecipes?: Maybe<Array<Recipe>>;
   slug: Scalars['String'];
+  time?: Maybe<Scalars['String']>;
   title: Scalars['String'];
-  people: Scalars['String'];
-  time: Scalars['String'];
-  country: Scalars['String'];
   translations: Array<RecipeTranslation>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type RecipeIngredient = {
+  __typename?: 'RecipeIngredient';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  productVariant: ProductVariant;
+  quantity: Scalars['Int'];
+  recipe?: Maybe<Recipe>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -3132,28 +3146,37 @@ export type ProductList = PaginatedList & {
 }
 
 export type ProductVariant = Node & {
-  __typename?: 'ProductVariant'
-  id: Scalars['ID']
-  product: Product
-  productId: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
-  languageCode: LanguageCode
-  sku: Scalars['String']
-  name: Scalars['String']
-  featuredAsset?: Maybe<Asset>
-  assets: Array<Asset>
-  price: Scalars['Int']
-  currencyCode: CurrencyCode
-  priceWithTax: Scalars['Int']
-  stockLevel: Scalars['String']
-  taxRateApplied: TaxRate
-  taxCategory: TaxCategory
-  options: Array<ProductOption>
-  facetValues: Array<FacetValue>
-  translations: Array<ProductVariantTranslation>
-  customFields?: Maybe<ProductVariantCustomFields>
-}
+  __typename?: 'ProductVariant';
+  assets: Array<Asset>;
+  channels: Array<Channel>;
+  createdAt: Scalars['DateTime'];
+  currencyCode: CurrencyCode;
+  customFields?: Maybe<ProductVariantCustomFields>;
+  enabled: Scalars['Boolean'];
+  facetValues: Array<FacetValue>;
+  featuredAsset?: Maybe<Asset>;
+  id: Scalars['ID'];
+  languageCode: LanguageCode;
+  name: Scalars['String'];
+  options: Array<ProductOption>;
+  outOfStockThreshold: Scalars['Int'];
+  price: Scalars['Int'];
+  priceWithTax: Scalars['Int'];
+  product: Product;
+  productId: Scalars['ID'];
+  sku: Scalars['String'];
+  stockAllocated: Scalars['Int'];
+  stockLevel: Scalars['String'];
+  stockMovements: StockMovementList;
+  stockOnHand: Scalars['Int'];
+  taxCategory: TaxCategory;
+  taxRateApplied: TaxRate;
+  trackInventory: GlobalFlag;
+  translations: Array<ProductVariantTranslation>;
+  updatedAt: Scalars['DateTime'];
+  useGlobalOutOfStockThreshold: Scalars['Boolean'];
+};
+
 
 export type ProductVariantTranslation = {
   __typename?: 'ProductVariantTranslation'

@@ -2,4 +2,9 @@
 
 .inputWrap {
   @extend .formInputWrap;
+  input {
+    &:read-only {
+      background-color: var(--background-gray);
+    }
+  }
 }

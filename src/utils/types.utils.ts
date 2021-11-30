@@ -22,24 +22,28 @@ export interface FeaturedProductProps {
     imageSrc: string
 }
 
+export interface RecipeIngredientProps extends ProductCard {
+    quantity: number
+}
+
 export interface RecipeProps {
-    id?:string | null,
-    title?: string | null
-    slug?: string | null
-    description?: string | null
-    imageSrc?: string | null
-    content?: string | null,
-    date?: string | null,
-    createdAt?:string | null,
-    ingredients?: ProductCard[] 
+    id?: string,
+    title?: string
+    slug?: string
+    description?: string
+    imageSrc?: string
+    content?: string,
+    date?: string,
+    createdAt?: string,
+    ingredients?: RecipeIngredientProps[]
     recommendedRecipes?: RecipeCardProps[],
-    images?: BlogImgItem[] | null,
-    facetValueIds?: string[] | null,
-    collectionIds?: string[] | null,
-    collection?: string | null,
-    people: string | null;
-    time: string | null;
-    country: string | null;
+    images?: BlogImgItem[],
+    facetValueIds?: string[],
+    collectionIds?: string[],
+    collection?: string,
+    people: string;
+    time: string;
+    country: string;
 }
 export interface BlogImgItem{
     url:string

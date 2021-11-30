@@ -73,6 +73,12 @@ const InputCommon = forwardRef<Ref, Props>(
         const value = inputElementRef.current?.value || ''
         return value
       },
+      setValue: (value: string) => {
+        if (inputElementRef.current) {
+          inputElementRef.current.value = value
+        }
+        return value
+      },
     }))
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

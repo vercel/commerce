@@ -21,7 +21,7 @@ const RecipeCard = ({ imageSrc, title, description, slug }: RecipeCardProps) => 
           <div className={s.title}>{title}</div>
         </a>
       </Link>
-      <div className={s.description}>{description}</div>
+      <div className={s.description} dangerouslySetInnerHTML={{__html: description}}></div>
     </div>
   )
 }

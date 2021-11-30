@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { ModalInfo } from 'src/components/common'
 import ButtonCommon from 'src/components/common/ButtonCommon/ButtonCommon'
 import HeadingCommon from 'src/components/common/HeadingCommon/HeadingCommon'
-import { ProductCardProps } from 'src/components/common/ProductCard/ProductCard'
 import ProductCarousel from 'src/components/common/ProductCarousel/ProductCarousel'
 import ViewAllItem from 'src/components/common/ViewAllItem/ViewAllItem'
 import { useCartDrawer, useMessage } from 'src/components/contexts'
@@ -11,15 +10,16 @@ import { useModalCommon } from 'src/components/hooks'
 import { useAddMutiProductsToCart } from 'src/components/hooks/cart'
 import { ErrorMessage } from 'src/domains/enums/ErrorCode'
 import { ROUTE } from 'src/utils/constanst.utils'
+import { RecipeIngredientProps } from 'src/utils/types.utils'
 import s from './RecipeIngredient.module.scss'
 
 interface Props {
     className?: string
     children?: any,
-    data?: ProductCardProps[],
+    data: RecipeIngredientProps[],
 }
 
-function getDetailErrorMessage(input: ProductCardProps[], data: AddItemToOrderResult[]) {
+function getDetailErrorMessage(input: RecipeIngredientProps[], data: AddItemToOrderResult[]) {
     const addedItemNames = [] as string[]
 
     data.map((item: AddItemToOrderResult, index: number) => {
@@ -58,7 +58,7 @@ const RecipeIngredient = ({ data }: Props) => {
         const input = data.map(item => {
             return {
                 productVariantId: item.productVariantId,
-                quantity: 1, // TODO: quanity get from recipe data
+                quantity: item.quantity
             } as AddItemToOrderInput
         })
         addProductsToCart({ input }, handleBuyAllCallback)

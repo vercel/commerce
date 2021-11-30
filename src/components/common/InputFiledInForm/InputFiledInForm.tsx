@@ -18,10 +18,13 @@ interface Props {
   isShowIconSuccess?: boolean
   name: string
   error?: string
+  readOnly?: boolean
+  value?: string
   onChange?: (value: string | number) => void
   onChangeEvent?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: any) => void
   onEnter?: (value: string | number) => void
+
 }
 
 const InputFiledInForm = forwardRef<Ref, Props>(({
@@ -34,6 +37,8 @@ const InputFiledInForm = forwardRef<Ref, Props>(({
   isIconSuffix = true,
   isShowIconSuccess,
   error,
+  readOnly,
+  value,
   onEnter,
 }: Props, ref) => {
   const inputElementRef = useRef<HTMLInputElement>(null)
@@ -42,6 +47,15 @@ const InputFiledInForm = forwardRef<Ref, Props>(({
     focus: () => {
       inputElementRef.current?.focus()
     },
+    getValue: () => {
+      const value = inputElementRef.current?.value || ''
+      return value
+    },
+    setValue: (value: string) => {
+      if (inputElementRef.current) {
+        inputElementRef.current.value = value
+      }
+    }
   }))
 
   const iconElement = useMemo(() => {
@@ -97,6 +111,8 @@ const InputFiledInForm = forwardRef<Ref, Props>(({
           onKeyDown={handleKeyDown}
           type={type}
           innerRef={inputElementRef}
+          readOnly={readOnly}
+          value={value}
         />
 
       </div>
