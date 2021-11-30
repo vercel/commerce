@@ -23,6 +23,7 @@ const CheckoutSidebarView: FC = () => {
       event.preventDefault()
 
       await onCheckout()
+      setLoadingSubmit(false)
       refreshCart()
       closeSidebar()
     } catch {
