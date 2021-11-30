@@ -123,5 +123,7 @@ export enum PageNameSeo {
     CONTACT = 'CONTACT',
     HOME = 'HOME',
     PRODUCT_LIST = 'PRODUCT_LIST',
-    RECIPES = 'RECIPES'
+    RECIPES = 'RECIPES',
+    BLOG_LIST = 'BLOG_LIST',
+    PRIVACY_POLICY = 'PRIVACY_POLICY'
 }
