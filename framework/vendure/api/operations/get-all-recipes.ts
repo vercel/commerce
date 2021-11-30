@@ -1,4 +1,4 @@
-import { normalizeRecipes } from '@framework/utils/normalize';
+import { normalizeRecipe, normalizeRecipes } from '@framework/utils/normalize';
 import { Recipe } from './../../schema.d';
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '..'
@@ -46,8 +46,9 @@ export default function getAllRecipesOperation({
   
     
     if(data){
+      // console.log("data here: ", data.recipes.items[0])
       return {
-        recipes: data?.recipes?.items?.map((val:Recipe)=>normalizeRecipes(val)),
+        recipes: data?.recipes?.items?.map((val:Recipe)=>normalizeRecipe(val)),
         totalItems: data?.recipes?.totalItems || null
       }
     }else{

@@ -4,14 +4,12 @@ query recipeByCollectionSlug($slug:String, $options: RecipeListOptions) {
       totalItems
       items {
         id
+        title
+        slug
+        description
+        content
         featuredAsset {
           preview
-        }
-        translations {
-          title
-          slug
-          description
-          content
         }
       }
     }

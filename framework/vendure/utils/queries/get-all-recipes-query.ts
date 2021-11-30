@@ -4,15 +4,13 @@ query getRecipes($options: RecipeListOptions) {
     totalItems
     items {
       id
-      featuredAsset {
-        preview
-      }
-      translations {
         title
         slug
         description
         content
-      }
+        featuredAsset {
+          preview
+        }
     }
   }
 }
