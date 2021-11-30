@@ -42,7 +42,7 @@ const normalizeLineItem = (
       price: variant?.price?.raw ?? price.raw,
       listPrice: variant?.price?.raw ?? price.raw,
       image: {
-        url: image.url,
+        url: image?.url,
       },
     },
   }
