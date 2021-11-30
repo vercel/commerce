@@ -27,7 +27,6 @@ const CheckoutSidebarView: FC = () => {
       closeSidebar()
     } catch {
       // TODO - handle error UI here.
-    } finally {
       setLoadingSubmit(false)
     }
   }
