@@ -40,7 +40,7 @@
 
         @screen xl {
             @apply block;
-            margin-right: 8.4rem;
+            margin-right: 4.8rem;
         }
     }
 
@@ -49,6 +49,7 @@
 
         @screen md {
             margin-top: -8.6rem;
+            width: 70%;
         }
     }
 }

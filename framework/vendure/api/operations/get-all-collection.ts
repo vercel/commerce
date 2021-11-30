@@ -37,7 +37,7 @@ export default function getAllCollectionsOperation({
     })
 
     return {
-      collections: data.collections.items,
+      collections: data?.collections.items,
     }
   }
 

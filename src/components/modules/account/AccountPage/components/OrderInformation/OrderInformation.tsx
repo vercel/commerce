@@ -17,10 +17,13 @@ interface OrderInformationProps {
     paymentSettled?: Order[],
     partiallyShipped?: Order[],
     shipped?: Order[],
+    partiallyDelivered?: Order[],
+    delivered?: Order[],
     cancelled?: Order[],
 }
 
 const getTabIndex = (state?: OrderState): number => {
+    console.log(state);
     switch (state) {
         case 'AddingItems':
             return 0;
@@ -32,14 +35,18 @@ const getTabIndex = (state?: OrderState): number => {
             return 3;
         case 'Shipped':
             return 4;
+        case 'PartiallyDelivered':
+            return 5;   
+        case 'Delivered':
+            return 6;    
         case 'Cancelled':
-            return 5;
+            return 7;
         default:
             return 0
     }
 }
 
-const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, partiallyShipped, shipped, cancelled }: OrderInformationProps) => {
+const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, partiallyShipped, shipped, partiallyDelivered, delivered, cancelled }: OrderInformationProps) => {
     const router = useRouter()
     const [defaultTab, setDefaultTab] = useState(0)
 
@@ -113,6 +120,32 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             <div className={s.blank}></div>
                             {
                                 (shipped && shipped?.length > 0) ?  shipped?.map(order => {
+                                    return (
+                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                    )
+                                }) : <EmptyCommon/> 
+                            }
+                        </div>
+                    </TabPane>
+
+                    <TabPane tabName={"Partially Delivered"}>
+                        <div>
+                            <div className={s.blank}></div>
+                            {
+                                (partiallyDelivered && partiallyDelivered?.length > 0) ?  partiallyDelivered?.map(order => {
+                                    return (
+                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                    )
+                                }) : <EmptyCommon/> 
+                            }
+                        </div>
+                    </TabPane>
+
+                    <TabPane tabName={"Delivered"}>
+                        <div>
+                            <div className={s.blank}></div>
+                            {
+                                (delivered && delivered?.length > 0) ?  delivered?.map(order => {
                                     return (
                                         <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )

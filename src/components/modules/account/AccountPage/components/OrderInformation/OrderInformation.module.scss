@@ -14,5 +14,23 @@
         .blank {
             margin-bottom: 2.4rem;
         }
+        section{
+            div{  
+                ul{
+                    li{
+                     
+                        span{
+                            @screen sm{
+                            margin-right: 4.2rem;
+                                }
+                                @screen xl{
+                                margin-right: 2.4rem;
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+       
     }
 }

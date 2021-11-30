@@ -5,8 +5,10 @@
     .tabHeader{
         @apply flex overflow-auto;
         @screen md {
-            @apply flex overflow-visible;
+            // @apply flex overflow-visible;
+            @apply flex overflow-auto;
         }
+        
         .tabList {
             @apply flex;
             position: relative;

@@ -30,7 +30,7 @@ const HomeFeature = ({ features }: Props) => {
  
     return (
         <div className={s.homeFeature}>
-            <HomeFeatureCarousel data={features.length !== 0 ? features : CAROUSEL_DATA} itemKey="Home Feature" />
+            <HomeFeatureCarousel data={features?.length !== 0 ? features : CAROUSEL_DATA} itemKey="Home Feature" />
         </div>
     )
 

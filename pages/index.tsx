@@ -5,6 +5,7 @@ import { FacetValue } from '@framework/schema';
 import { SortOrder } from 'src/utils/types.utils';
 import commerce from '@lib/api/commerce';
 import { GetStaticPropsContext } from 'next';
+import { NextSeo } from 'next-seo'
 import { Layout } from 'src/components/common';
 import { BannerItemProps } from 'src/components/common/Banner/BannerItem/BannerItem';
 import { FeaturedProductsCarousel, FreshProducts, HomeBanner, HomeCategories, HomeCollection, HomeCTA, HomeFeature, HomeRecipe, HomeSubscribe, HomeVideo } from 'src/components/modules/home';
@@ -12,8 +13,8 @@ import { HomeFeatureItemProps } from 'src/components/modules/home/HomeFeature/co
 import HomeSpice from 'src/components/modules/home/HomeSpice/HomeSpice';
 import { CODE_FACET_DISCOUNT, CODE_FACET_FEATURED, COLLECTION_SLUG_SPICE, MAX_COLLECTIONS_IN_HOME, REVALIDATE_TIME } from 'src/utils/constanst.utils';
 import { checkIsRecipeInCollectionsEmpty, FilterOneVatiant, getAllFacetValueIdsByParentCode, getAllFacetValuesForFeatuedProducts, getAllPromies, getFreshFacetId } from 'src/utils/funtion.utils';
-import { CollectionsWithData, DataHomeProps, PageName, PromiseWithKey } from 'src/utils/types.utils';
-
+import { CollectionsWithData, DataHomeProps, PageName,PageNameSeo, PromiseWithKey } from 'src/utils/types.utils';
+import { SeoItemProps } from "framework/vendure/api/operations/get-seo-by-page"
 
 interface Props {
   featuredAndDiscountFacetsValue: FacetValue[],
@@ -25,14 +26,31 @@ interface Props {
   recipesCollection:any[],
   dataHome:DataHomeProps,
   features:HomeFeatureItemProps[],
-  banners:BannerItemProps[]
+  banners:BannerItemProps[],
+  seo: SeoItemProps
 }
 export default function Home({ featuredAndDiscountFacetsValue, collectionProps,
   freshProducts, featuredProducts,recipesCollection,
-  collections, spiceProducts,dataHome,features,banners }: Props) {
-  
+  collections, spiceProducts,dataHome,features,banners,seo }: Props) {
   return (
     <>
+       <NextSeo
+        title={seo?.title}
+        description={seo?.description}
+        openGraph={{
+          type: 'website',
+          title: seo?.title,
+          description: seo?.description,
+          images: [
+            {
+              url: seo?.imgLink,
+              width: 800,
+              height: 600,
+              alt: seo?.title,
+            },
+          ],
+        }}
+      />
       <HomeBanner banners={banners}
       bannerLeftTitle={dataHome?.bannerLeftTitle ?? ''} 
       imageSrcBannerLeft={dataHome?.imageSrcBannerLeft ?? ''} 
@@ -82,7 +100,7 @@ export async function getStaticProps({
 
   props.collections = collections
   let collectionsPromisesWithKey = [] as PromiseWithKey[]
-  collections.slice(0, MAX_COLLECTIONS_IN_HOME).map((collection) => {
+  collections?.slice(0, MAX_COLLECTIONS_IN_HOME).map((collection) => {
     const promise = commerce.getAllProducts({
       variables: { collectionSlug: collection.slug },
       config,
@@ -162,6 +180,16 @@ export async function getStaticProps({
   promisesWithKey.push({ key: 'features', promise: homeFeaturePromise })
 
 
+  // SEO 
+  const SEOPromise = commerce.getSEOByPage({ 
+    variables: {
+       page: PageNameSeo.HOME 
+      }
+    }
+  )
+  promisesWithKey.push({ key: 'seo', promise: SEOPromise })
+  
+
   try {
     const collectionPromises = getAllPromies(collectionsPromisesWithKey)
     const collectionResult = await Promise.all(collectionPromises)
@@ -181,7 +209,6 @@ export async function getStaticProps({
       props[item.key] = item.keyResult ? rs[index][item.keyResult] : rs[index]
       return null
     })
-  
     return {
       props,
       revalidate: REVALIDATE_TIME,
