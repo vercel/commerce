@@ -19,36 +19,36 @@ interface Props {
   relevant: BlogCardProps[],
   recipeByProductSlug: RecipeProps[]
 }
-export default function Slug({ product, relevantProducts, collections,relevant,recipeByProductSlug }: Props) {
-  const [local,setLocal] = useLocalStorage<string[]>(LOCAL_STORAGE_KEY.VIEWED_PRODUCT_IDS, []);
+export default function Slug({ product, relevantProducts, collections, relevant, recipeByProductSlug }: Props) {
+  const [local, setLocal] = useLocalStorage<string[]>(LOCAL_STORAGE_KEY.VIEWED_PRODUCT_IDS, []);
   useEffect(() => {
     let viewed = local
-    if(viewed){
-      if(viewed.length>10){
+    if (viewed) {
+      if (viewed.length > 10) {
         viewed.slice(1)
       }
-      if(!viewed.find(id => id === product.id)){
+      if (!viewed.find(id => id === product.id)) {
         setLocal([...viewed, product.id])
       }
-    }else{
+    } else {
       setLocal([product.id])
     }
-  }, [product,local,setLocal])
-;
+  }, [product, local, setLocal])
+    ;
   return <>
-    <ProductInfoDetail productDetail={product}/>
+    <ProductInfoDetail productDetail={product} />
 
-    {recipeByProductSlug.length !== 0 && 
-    <RecipeDetail {...recipeByProductSlug?.[0]} 
-    ingredients={recipeByProductSlug?.[0]?.ingredients} 
-    />}
-    
-    {(recipeByProductSlug.length !== 0 && recipeByProductSlug?.[0]?.recommendedRecipes?.length !== 0) && 
-    <RecommendedRecipes data={recipeByProductSlug?.[0]?.recommendedRecipes} />}
-    
-    {relevantProducts.length > 0 && <ReleventProducts data={relevantProducts} collections={collections}/>}
-    <ViewedProducts product={product}/>
-    {relevant.length >0  && <RelevantBlogPosts data={relevant} title="relevent blog posts" />}
+    {recipeByProductSlug.length !== 0 &&
+      <RecipeDetail {...recipeByProductSlug?.[0]}
+        ingredients={recipeByProductSlug?.[0]?.ingredients}
+      />}
+
+    {(recipeByProductSlug.length !== 0 && recipeByProductSlug?.[0]?.recommendedRecipes?.length !== 0) &&
+      <RecommendedRecipes data={recipeByProductSlug?.[0]?.recommendedRecipes} />}
+
+    {relevantProducts.length > 0 && <ReleventProducts data={relevantProducts} collections={collections} />}
+    <ViewedProducts product={product} />
+    {relevant.length > 0 && <RelevantBlogPosts data={relevant} title="relevent blog posts" />}
   </>
 }
 
@@ -70,7 +70,7 @@ export async function getStaticProps({
   props.product = product
 
   if (product === null) {
-    return { notFound: true };
+    return { props: {notFound: true }};
   }
 
   // relevant product (filter by product detail's facetIds)
@@ -101,8 +101,8 @@ export async function getStaticProps({
   // recipes and ingredientsPromise
   const recipeByProductSlug = commerce.getRecipeByProductSlug({
     variables: {
-      slug:params!.slug,
-      first:1
+      slug: params!.slug,
+      first: 1
     },
     config,
     preview,
@@ -114,14 +114,13 @@ export async function getStaticProps({
 
   // Relevant Blogs
   if (product.id) {
-
     const relevantBlogs = commerce.getRelevantBlogs({
       variables: { productId: Number(product.id) },
       config,
       preview,
     })
-    promisesWithKey.push({ key: 'relevant', promise: relevantBlogs,keyResult: 'relevantBlogs'})
-  }else {
+    promisesWithKey.push({ key: 'relevant', promise: relevantBlogs, keyResult: 'relevantBlogs' })
+  } else {
     props.relevantBlogs = [];
   }
 
@@ -145,7 +144,9 @@ export async function getStaticProps({
       revalidate: REVALIDATE_TIME,
     }
   } catch (err) {
-    console.log('err: ', err)
+    // console.log('err: ', err)
+    return { props: { err } };
+
   }
 }
 
