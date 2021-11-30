@@ -11,14 +11,17 @@ const useGetUserOrder = () => {
   const paymentSettled = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == 'PaymentSettled');
   const partiallyShipped = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "PartiallyShipped");
   const shipped = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == 'Shipped');
+  const partiallyDelivered = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "PartiallyDelivered");
+  const delivered = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "Delivered");
   const cancelled = data?.activeCustomer?.orders.items.filter((val:Order) =>val.state == "Cancelled");
- 
   return { 
     addingItem: addingItem,
     paymentAuthorized: paymentAuthorized,
     paymentSettled: paymentSettled,
     partiallyShipped:partiallyShipped,
     shipped:shipped,
+    partiallyDelivered: partiallyDelivered,
+    delivered:delivered,
     cancelled: cancelled,
     ...rest 
   }
