@@ -1,5 +1,7 @@
-import * as qs from 'qs'
-import { errors } from '@spree/storefront-api-v2-sdk'
+import {
+  errors,
+  request as spreeSdkRequestHelpers,
+} from '@spree/storefront-api-v2-sdk'
 import type { CreateCustomizedFetchFetcher } from '@spree/storefront-api-v2-sdk/types/interfaces/CreateCustomizedFetchFetcher'
 
 export const fetchResponseKey = Symbol('fetch-response-key')
@@ -33,9 +35,8 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
             break
           default:
             payload = null
-            absoluteUrl.search = qs.stringify(params, {
-              arrayFormat: 'brackets',
-            })
+            absoluteUrl.search =
+              spreeSdkRequestHelpers.objectToQuerystring(params)
         }
 
         const request: Request = new requestConstructor(
