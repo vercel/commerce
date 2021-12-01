@@ -8,6 +8,7 @@ import MenuDropdown from 'src/components/common/MenuDropdown/MenuDropdown'
 import { useCartDrawer, useMessage } from 'src/components/contexts'
 import { useModalAuthen } from 'src/components/contexts/ModalAuthen/ModalAuthenContext'
 import { useActiveCustomer } from 'src/components/hooks/auth'
+import useLoginGoogle from 'src/components/hooks/auth/useLoginGoogle'
 import {
   IconBuy,
   IconFilter,
@@ -50,7 +51,8 @@ const HeaderMenu = memo(
     const { toggleCartDrawer } = useCartDrawer()
     const { customer } = useActiveCustomer()
     const { openModalAuthen } = useModalAuthen()
-    const { logout } = useLogout()
+    const { logout } = useLogout();
+    const { signOut } =  useLoginGoogle();
     const { showMessageWarning } = useMessage()
 
     const openModalRegister = useCallback(() => {
@@ -98,10 +100,10 @@ const HeaderMenu = memo(
         {
           link: '/',
           name: 'Logout',
-          onClick: logout,
+          onClick: logout,signOut,
         },
       ],
-      [logout]
+      [logout,signOut]
     )
 
     useEffect(() => {

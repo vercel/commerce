@@ -4081,6 +4081,23 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
   >)
 }
 
+export type LoginGoogleMutation = { __typename?: 'Mutation' } & {
+  authenticate:
+  | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
+  | ({ __typename: 'InvalidCredentialsError' } & Pick<
+    InvalidCredentialsError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NotVerifiedError' } & Pick<
+    NotVerifiedError,
+    'errorCode' | 'message'
+  >)
+  | ({ __typename: 'NativeAuthStrategyError' } & Pick<
+    NativeAuthStrategyError,
+    'errorCode' | 'message'
+  >)
+}
+
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword:
   | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
