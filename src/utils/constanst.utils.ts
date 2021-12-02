@@ -11,7 +11,7 @@ export const DEFAULT_CURRENCY = CurrencyCode.Myr
 export const PHONE_REGEX = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
 
 // Global postal code: https://gist.github.com/jamesbar2/1c677c22df8f21e869cca7e439fc3f5b
-export const POSTAL_CODE_REGEX = /^\d{5}$/ // MY
+export const POSTAL_CODE_REGEX = /^\d{4,5}$/
 
 export enum PaymentMethod {
   Braintree = 'braintree'

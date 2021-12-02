@@ -1,5 +1,5 @@
 .promo {
-  @apply bg-gray;
+  @apply bg-gray flex flex-col justify-center;
   min-height: 6.4rem;
   padding: 1.6rem 2.4rem;
   .top {
@@ -7,7 +7,9 @@
   }
   .codes {
     @apply flex items-center;
-    margin-top: 1.6rem;
+    &:not(:empty) {
+      margin-top: 1.6rem;
+    }
   }
   .buttonAdd {
     svg path {
