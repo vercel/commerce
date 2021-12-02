@@ -12,7 +12,7 @@ const SocialAuthen = () => {
     function clickGoogle(){
         signIn().then(value=>{
             if(value?.tokenId ){
-                console.log(value?.tokenId)
+        
                 loginGoogle({token: value?.tokenId} ,callback);
                 function callback(isSuccess: boolean, message?: string){
                     if (isSuccess) {

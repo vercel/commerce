@@ -229,3 +229,5 @@ export const STATE_OPTIONS = [
 ]
 
 export const COLLECTION_SLUG_SPICE = "spice";
+
+export const DEFAULT_CLIENT_ID:string = '752282827765-ph49sm1nqd559ad8vq5ft1hg0l80t42g.apps.googleusercontent.com';

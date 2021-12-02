@@ -23,7 +23,7 @@ interface OrderInformationProps {
 }
 
 const getTabIndex = (state?: OrderState): number => {
-    console.log(state);
+
     switch (state) {
         case 'AddingItems':
             return 0;

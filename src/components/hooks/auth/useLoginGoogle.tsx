@@ -5,7 +5,7 @@ import { CommonError } from 'src/domains/interfaces/CommonError'
 import { LoginGoogleMutation } from '@framework/schema'
 import rawFetcher from 'src/utils/rawFetcher'
 import { errorMapping } from 'src/utils/errrorMapping'
-const DEFAULT_CLIENT_ID:string = '752282827765-ph49sm1nqd559ad8vq5ft1hg0l80t42g.apps.googleusercontent.com';
+import { DEFAULT_CLIENT_ID } from 'src/utils/constanst.utils'
 import { loginGoogleMutation } from '@framework/utils/mutations/log-in-google-mutation'
 import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
 import useActiveCustomer from './useActiveCustomer'
@@ -24,7 +24,7 @@ const useLoginGoogle = () => {
 
     const loginGoogle = (options: LoginGoogleInput,
       fCallBack: (isSuccess: boolean, message?: string) => void
-      ) => {
+      ) => {  
       setError(null)
       setLoading(true)
       rawFetcher<LoginGoogleMutation>({
