@@ -22,7 +22,6 @@ export type CreateApiFetch = (
 const createApiFetch: CreateApiFetch = (_getConfig) => {
   const client = makeClient({
     host: requireConfigValue('apiHost') as string,
-    fetcherType: 'custom',
     createFetcher: (fetcherOptions) => {
       return createCustomizedFetchFetcher({
         fetch,

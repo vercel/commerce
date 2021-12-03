@@ -1,9 +1,8 @@
 import type { Fetcher } from '@commerce/utils/types'
 import convertSpreeErrorToGraphQlError from './utils/convert-spree-error-to-graph-ql-error'
-import { makeClient } from '@spree/storefront-api-v2-sdk'
+import { makeClient, errors } from '@spree/storefront-api-v2-sdk'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type { GraphQLFetcherResult } from '@commerce/api'
-import { errors } from '@spree/storefront-api-v2-sdk'
 import { requireConfigValue } from './isomorphic-config'
 import getSpreeSdkMethodFromEndpointPath from './utils/get-spree-sdk-method-from-endpoint-path'
 import SpreeSdkMethodFromEndpointPathError from './errors/SpreeSdkMethodFromEndpointPathError'
@@ -20,7 +19,6 @@ import RefreshTokenError from './errors/RefreshTokenError'
 
 const client = makeClient({
   host: requireConfigValue('apiHost') as string,
-  fetcherType: 'custom',
   createFetcher: (fetcherOptions) => {
     return createCustomizedFetchFetcher({
       fetch: globalThis.fetch,
