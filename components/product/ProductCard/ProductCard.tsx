@@ -16,7 +16,7 @@ interface Props {
   variant?: 'default' | 'slim' | 'simple'
 }
 
-const placeholderImg = '/product-img-placeholder.svg'
+export const placeholderImg = '/product-img-placeholder.svg'
 
 const ProductCard: FC<Props> = ({
   product,

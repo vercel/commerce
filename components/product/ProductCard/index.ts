@@ -1,1 +1,1 @@
-export { default } from './ProductCard'
+export { default, placeholderImg } from './ProductCard'

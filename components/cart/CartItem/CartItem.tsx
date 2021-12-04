@@ -10,6 +10,7 @@ import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
+import { placeholderImg } from '@components/product/ProductCard'
 
 type ItemOption = {
   name: string
@@ -86,17 +87,15 @@ const CartItem = ({
         <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
           <Link href={`/product/${item.path}`}>
             <a>
-              {item?.variant?.image?.url && (
-                <Image
-                  onClick={() => closeSidebarIfPresent()}
-                  className={s.productImage}
-                  width={150}
-                  height={150}
-                  src={item.variant.image?.url}
-                  alt={item.variant.image!.altText}
-                  unoptimized
-                />
-              )}
+              <Image
+                onClick={() => closeSidebarIfPresent()}
+                className={s.productImage}
+                width={150}
+                height={150}
+                src={item.variant.image?.url || placeholderImg}
+                alt={item.variant.image?.altText || 'Product Image'}
+                unoptimized
+              />
             </a>
           </Link>
         </div>
