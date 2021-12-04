@@ -5,4 +5,12 @@ module.exports = {
   images: {
     domains: ['cdn.chec.io'],
   },
+  rewrites() {
+    return [
+      {
+        source: '/api/login/:token',
+        destination: '/api/login?token=:token',
+      },
+    ]
+  },
 }

@@ -11,7 +11,10 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   const sdkFetcher: typeof sdkFetcherFunction = sdkFetch
   const redirectUrl = getDeploymentUrl()
   try {
-    const loginToken = req.query?.param?.[0]
+    const loginToken = req.query?.token as string
+    if (!loginToken) {
+      res.redirect(redirectUrl)
+    }
     const { jwt } = await sdkFetcher('customer', 'getToken', loginToken, false)
     res.setHeader(
       'Set-Cookie',
