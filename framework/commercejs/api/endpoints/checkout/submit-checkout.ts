@@ -17,7 +17,21 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
     cartId
   )
 
-  const checkoutData = normalizeTestCheckout({})
+  const shippingMethods = await sdkFetcher(
+    'checkout',
+    'getShippingOptions',
+    checkoutToken,
+    {
+      country: 'US',
+    }
+  )
+
+  // @ts-ignore
+  const shippingMethodToUse = shippingMethods?.[0]?.id || ''
+
+  const checkoutData = normalizeTestCheckout({
+    shippingOption: shippingMethodToUse,
+  })
 
   // Capture the order
   await sdkFetcher('checkout', 'capture', checkoutToken, checkoutData)
