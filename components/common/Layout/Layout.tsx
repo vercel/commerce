@@ -13,6 +13,7 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
+import { CheckoutProvider } from '@components/checkout/context'
 import MenuSidebarView, { Link } from '../UserNav/MenuSidebarView'
 
 import LoginView from '@components/auth/LoginView'
@@ -120,7 +121,9 @@ const Layout: FC<Props> = ({
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
         <ModalUI />
-        <SidebarUI links={navBarlinks} />
+        <CheckoutProvider>
+          <SidebarUI links={navBarlinks} />
+        </CheckoutProvider>
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
           hide={acceptedCookies}
