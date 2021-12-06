@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import CartItem from '@components/cart/CartItem'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
@@ -12,7 +12,6 @@ import PaymentWidget from '../PaymentWidget'
 import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
-  const [ loadingSubmit, setLoadingSubmit ] = useState(false)
   const { setSidebarView, closeSidebar } = useUI()
   const { data: cartData } = useCart()
   const { data: checkoutData, submit: onCheckout } = useCheckout()
