@@ -22,7 +22,7 @@ interface Form extends HTMLFormElement {
   country: HTMLSelectElement
 }
 
-const PaymentMethodView: FC = () => {
+const ShippingView: FC = () => {
   const { setSidebarView } = useUI()
   const addAddress = useAddAddress()
 
@@ -115,4 +115,4 @@ const PaymentMethodView: FC = () => {
   )
 }
 
-export default PaymentMethodView
+export default ShippingView
