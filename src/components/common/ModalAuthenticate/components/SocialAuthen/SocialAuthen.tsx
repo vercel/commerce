@@ -6,7 +6,7 @@ import s from './SocialAuthen.module.scss'
 import { useMessage } from 'src/components/contexts'
 import { LANGUAGE } from 'src/utils/language.utils'
 const SocialAuthen = () => {
-    const {signIn,loginGoogle } = useLoginGoogle();
+    const {signIn,loginGoogle,loading } = useLoginGoogle();
     const { showMessageSuccess, showMessageError } = useMessage()
 
     function clickGoogle(){
@@ -44,12 +44,15 @@ const SocialAuthen = () => {
                         <span className={s.label}>Apple</span>
                     </span>
                 </ButtonCommon>
+                {
                 <ButtonCommon type='light' size='large'>
                     <span className={s.buttonWithIcon}>
                         <IconGoogleColor />
                         <span className={s.label} onClick={clickGoogle}>Google</span>
                     </span>
                 </ButtonCommon>
+                }
+                
             </div>
         </section>
     )

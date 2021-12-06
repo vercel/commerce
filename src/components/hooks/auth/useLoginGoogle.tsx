@@ -1,13 +1,11 @@
 
-import { useGoogleLogin } from 'react-use-googlelogin'
-import { useState } from 'react'
-import { CommonError } from 'src/domains/interfaces/CommonError'
 import { LoginGoogleMutation } from '@framework/schema'
-import rawFetcher from 'src/utils/rawFetcher'
-import { errorMapping } from 'src/utils/errrorMapping'
-import { DEFAULT_CLIENT_ID } from 'src/utils/constanst.utils'
 import { loginGoogleMutation } from '@framework/utils/mutations/log-in-google-mutation'
-import { LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
+import { useState } from 'react'
+import { useGoogleLogin } from 'react-use-googlelogin'
+import { CommonError } from 'src/domains/interfaces/CommonError'
+import { DEFAULT_CLIENT_ID, LOCAL_STORAGE_KEY } from 'src/utils/constanst.utils'
+import rawFetcher from 'src/utils/rawFetcher'
 import useActiveCustomer from './useActiveCustomer'
 interface LoginGoogleInput {
   token: string
@@ -18,7 +16,7 @@ const useLoginGoogle = () => {
   const [error, setError] = useState<CommonError | null>(null)
   const { mutate } = useActiveCustomer()
 
-    const { signIn, isSignedIn, googleUser,signOut } = useGoogleLogin({
+    const { signIn, isSignedIn, googleUser, signOut } = useGoogleLogin({
         clientId: process.env.GOOGLE_CLIENT_ID || DEFAULT_CLIENT_ID,
     })
 
