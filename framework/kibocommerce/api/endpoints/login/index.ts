@@ -1,5 +1,3 @@
-// export default function noopApi(...args: any[]): void {}
-
 import { GetAPISchema, createEndpoint } from '@commerce/api'
 import loginEndpoint from '@commerce/api/endpoints/login'
 import type { LoginSchema } from '../../../types/login'

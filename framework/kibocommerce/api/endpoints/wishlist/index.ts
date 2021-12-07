@@ -1,6 +1,5 @@
 import { GetAPISchema, createEndpoint } from '@commerce/api'
 import wishlistEndpoint from '@commerce/api/endpoints/wishlist'
-// import type { WishlistSchema } from '../../../types/wishlist'
 import type { KiboCommerceAPI } from '../..'
 import getWishlist from './get-wishlist'
 import addItem from './add-item'
