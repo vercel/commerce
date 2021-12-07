@@ -2,6 +2,11 @@ import { commerce } from './lib/commercejs'
 import type { Fetcher } from '@commerce/utils/types'
 import { FetcherError } from '@commerce/utils/errors'
 
+function isValidSDKQuery(query?: string): query is keyof typeof commerce {
+  if (!query) return false
+  return query in commerce
+}
+
 // Fetches from an API route within /api/endpoints directory
 const customFetcher: Fetcher = async ({ method, url, body }) => {
   const response = await fetch(url!, {
@@ -26,9 +31,7 @@ const fetcher: Fetcher = async ({ url, query, method, variables, body }) => {
   }
 
   // Fetch using the Commerce.js SDK, but make sure that it's a valid method.
-
-  const resource = commerce[query as keyof typeof commerce]
-  if (!resource) {
+  if (!isValidSDKQuery(query)) {
     throw new FetcherError({
       errors: [
         { message: `Query ${query} does not exist on Commerce.js SDK.` },
@@ -37,9 +40,9 @@ const fetcher: Fetcher = async ({ url, query, method, variables, body }) => {
     })
   }
 
-  // @ts-ignore
-  // TODO - apply types like in framework/commercejs/api/utils/sdk-fetch.ts
-  if (!resource?.[method!]) {
+  const resource: any = commerce[query]
+
+  if (!method || !resource[method]) {
     throw new FetcherError({
       errors: [
         {
@@ -51,10 +54,7 @@ const fetcher: Fetcher = async ({ url, query, method, variables, body }) => {
   }
 
   const variablesArgument = Array.isArray(variables) ? variables : [variables]
-
-  // @ts-ignore
-  // TODO - apply types like in framework/commercejs/api/utils/sdk-fetch.ts
-  const data = await resource?.[method!](...variablesArgument)
+  const data = await resource[method](...variablesArgument)
   return data
 }
 

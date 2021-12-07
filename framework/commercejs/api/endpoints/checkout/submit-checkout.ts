@@ -26,9 +26,7 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
     }
   )
 
-  // @ts-ignore
   const shippingMethodToUse = shippingMethods?.[0]?.id || ''
-
   const checkoutData = normalizeTestCheckout({
     shippingOption: shippingMethodToUse,
   })
