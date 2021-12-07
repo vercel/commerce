@@ -15,8 +15,7 @@ export const handler: SWRHook<GetCheckoutHook> = {
   },
   useHook: () =>
     function useHook() {
-      const { cardFields, addressFields, clearCheckoutFields } =
-        useCheckoutContext()
+      const { cardFields, addressFields } = useCheckoutContext()
       const submit = useSubmitCheckout()
 
       // Basic validation - check that at least one field has a value.
