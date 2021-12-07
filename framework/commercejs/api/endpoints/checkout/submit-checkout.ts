@@ -1,10 +1,12 @@
+import type { CardFields } from '@commerce/types/customer/card'
+import type { AddressFields } from '@commerce/types/customer/address'
 import type { CheckoutEndpoint } from '.'
 import sdkFetcherFunction from '../../utils/sdk-fetch'
 import { normalizeTestCheckout } from '../../../utils/normalize-checkout'
 
 const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
   res,
-  body: { cartId },
+  body: { item, cartId },
   config: { sdkFetch },
 }) => {
   const sdkFetcher: typeof sdkFetcherFunction = sdkFetch
@@ -28,6 +30,8 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
 
   const shippingMethodToUse = shippingMethods?.[0]?.id || ''
   const checkoutData = normalizeTestCheckout({
+    paymentInfo: item?.card as CardFields,
+    shippingInfo: item?.address as AddressFields,
     shippingOption: shippingMethodToUse,
   })
 

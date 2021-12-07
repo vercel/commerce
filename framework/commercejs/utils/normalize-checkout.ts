@@ -1,18 +1,31 @@
+import type { CardFields } from '@commerce/types/customer/card'
+import type { AddressFields } from '@commerce/types/customer/address'
 import type { CommercejsCheckoutCapture } from '../types/checkout'
 
 /**
  * Creates a checkout payload suitable for test checkouts.
  * 1. Hard-codes the payment values for the Commerce.js test gateway.
- * 2. Adds fallback customer names
- * 2. Generates a customer email using first name because email field does not exist on the UI.
+ * 2. Hard-codes the email until an email field exists on the checkout form.
+ * 3. Gets as much as much checkout info as possible from the checkout form, and uses fallback values.
  */
 export function normalizeTestCheckout({
-  customer,
+  paymentInfo,
+  shippingInfo,
   shippingOption,
 }: {
-  customer?: Partial<CommercejsCheckoutCapture['customer']>
+  paymentInfo?: CardFields
+  shippingInfo?: AddressFields
   shippingOption: string
 }): CommercejsCheckoutCapture {
+  const firstName =
+    shippingInfo?.firstName || paymentInfo?.firstName || 'Nextjs'
+  const lastName = shippingInfo?.lastName || paymentInfo?.lastName || 'Commerce'
+  const fullName = `${firstName} ${lastName}`
+  const postalCode = shippingInfo?.zipCode || paymentInfo?.zipCode || '94103'
+  const street =
+    shippingInfo?.streetNumber || paymentInfo?.streetNumber || 'Test Street'
+  const townCity = shippingInfo?.city || paymentInfo?.city || 'Test Town'
+
   return {
     payment: {
       gateway: 'test_gateway',
@@ -21,25 +34,25 @@ export function normalizeTestCheckout({
         expiry_month: '01',
         expiry_year: '2024',
         cvc: '123',
-        postal_zip_code: '94103',
+        postal_zip_code: postalCode,
       },
     },
     customer: {
       email: 'nextcommerce@test.com',
-      firstname: customer?.firstname || 'Nextjs',
-      lastname: customer?.lastname || 'Commerce',
+      firstname: firstName,
+      lastname: lastName,
     },
     shipping: {
-      name: 'Nextjs Commerce',
-      street: 'Test Street',
-      town_city: 'Test Town',
+      name: fullName,
+      street,
+      town_city: townCity,
       country: 'US',
     },
     billing: {
-      name: 'Nextjs Commerce',
-      street: 'Test Street',
-      town_city: 'Test Town',
-      postal_zip_code: '94103',
+      name: fullName,
+      street,
+      town_city: townCity,
+      postal_zip_code: postalCode,
       county_state: 'California',
       country: 'US',
     },
