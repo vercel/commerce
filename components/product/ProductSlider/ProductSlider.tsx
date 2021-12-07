@@ -1,7 +1,6 @@
 import { useKeenSlider } from 'keen-slider/react'
 import React, {
   Children,
-  FC,
   isValidElement,
   useState,
   useRef,
@@ -28,16 +27,14 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
 
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
-    slidesPerView: 1,
-    mounted: () => setIsMounted(true),
+    slides: { perView: 1 },
+    created: () => setIsMounted(true),
     slideChanged(s) {
-      const slideNumber = s.details().relativeSlide
+      const slideNumber = s.track.details.rel
       setCurrentSlide(slideNumber)
 
       if (thumbsContainerRef.current) {
-        const $el = document.getElementById(
-          `thumb-${s.details().relativeSlide}`
-        )
+        const $el = document.getElementById(`thumb-${slideNumber}`)
         if (slideNumber >= 3) {
           thumbsContainerRef.current.scrollLeft = $el!.offsetLeft
         } else {
@@ -77,8 +74,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     }
   }, [])
 
-  const onPrev = React.useCallback(() => slider.prev(), [slider])
-  const onNext = React.useCallback(() => slider.next(), [slider])
+  const onPrev = React.useCallback(() => slider.current?.prev(), [slider])
+  const onNext = React.useCallback(() => slider.current?.next(), [slider])
 
   return (
     <div className={cn(s.root, className)} ref={sliderContainerRef}>
@@ -117,7 +114,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                   }),
                   id: `thumb-${idx}`,
                   onClick: () => {
-                    slider.moveToSlideRelative(idx)
+                    slider.current?.moveToIdx(idx)
                   },
                 },
               }
