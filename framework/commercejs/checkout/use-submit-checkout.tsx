@@ -5,6 +5,7 @@ import { useCallback } from 'react'
 import useSubmitCheckout, {
   UseSubmitCheckout,
 } from '@commerce/checkout/use-submit-checkout'
+import { useCheckoutContext } from '@components/checkout/context'
 
 export default useSubmitCheckout as UseSubmitCheckout<typeof handler>
 
@@ -22,9 +23,16 @@ export const handler: MutationHook<SubmitCheckoutHook> = {
   },
   useHook: ({ fetch }) =>
     function useHook() {
-      return useCallback(async function onSubmitCheckout(input) {
-        const data = await fetch({ input })
-        return data
-      }, [])
+      const { cardFields, addressFields } = useCheckoutContext()
+
+      return useCallback(
+        async function onSubmitCheckout(input) {
+          const data = await fetch({
+            input: { card: cardFields, address: addressFields },
+          })
+          return data
+        },
+        [cardFields, addressFields]
+      )
     },
 }
