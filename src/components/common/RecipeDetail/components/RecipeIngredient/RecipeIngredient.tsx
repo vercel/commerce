@@ -1,4 +1,4 @@
-import { AddItemToOrderInput, AddItemToOrderResult, ErrorResult } from '@framework/schema'
+import { AddItemToOrderInput, AddItemToOrderResult, ErrorResult, OrderLine } from '@framework/schema'
 import React, { useState } from 'react'
 import { ModalInfo } from 'src/components/common'
 import ButtonCommon from 'src/components/common/ButtonCommon/ButtonCommon'
@@ -19,12 +19,12 @@ interface Props {
     data: RecipeIngredientProps[],
 }
 
-function getDetailErrorMessage(input: RecipeIngredientProps[], data: AddItemToOrderResult[]) {
+export function getDetailErrorMessage(input: RecipeIngredientProps[] | OrderLine[] | any, data: AddItemToOrderResult[]) {
     const addedItemNames = [] as string[]
 
     data.map((item: AddItemToOrderResult, index: number) => {
         if (item.__typename === 'Order') {
-            addedItemNames.push(input[index].productVariantName || input[index].name || '')
+            addedItemNames.push(input[index].productVariantName || input[index].name || input[index].productVariant.name || '')
         }
         return null
     })

@@ -2,10 +2,11 @@ import { Order } from "@framework/schema"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import TabPane from 'src/components/common/TabCommon/components/TabPane/TabPane'
+import { useModalCommon } from "src/components/hooks"
 import { QUERY_KEY } from "src/utils/constanst.utils"
 import { transformPrice } from "src/utils/funtion.utils"
 import { OrderState } from "src/utils/types.utils"
-import { TabCommon, EmptyCommon } from '../../../../../common'
+import { TabCommon, EmptyCommon, ModalInfo } from '../../../../../common'
 import DeliveryItem from '../../../DeliveryItem/DeliveryItem'
 import s from './OrderInformation.module.scss'
 
@@ -49,13 +50,20 @@ const getTabIndex = (state?: OrderState): number => {
 const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, partiallyShipped, shipped, partiallyDelivered, delivered, cancelled }: OrderInformationProps) => {
     const router = useRouter()
     const [defaultTab, setDefaultTab] = useState(0)
+    const { visible: visibleModalErrorDetail, openModal: openModalErrorDetail, closeModal: closeModalErrorDetail } = useModalCommon({ initialValue: false })
+    const [messageError, setMessageError] = useState<React.ReactNode>()
 
+    
     useEffect(() => {
         const query = router.query[QUERY_KEY.ORDER_STATE] as OrderState
         const index = getTabIndex(query)
         setDefaultTab(index)
     }, [router.query])
 
+    function showModelError(){
+        openModalErrorDetail();
+    }
+  
     return (
         <section className={s.orderInformation}>
             <div className={s.title}>Order Information</div>
@@ -68,7 +76,7 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             {
                                 (addingItem && addingItem?.length > 0) ? addingItem?.map(order => {
                                     return (
-                                        <DeliveryItem key={order.code} id={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                        <DeliveryItem key={order.code} code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
                                 }):<EmptyCommon/> 
                             }
@@ -81,7 +89,7 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             {
                                 (paymentAuthorized && paymentAuthorized?.length > 0) ? paymentAuthorized?.map(order => {
                                     return (
-                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                        <DeliveryItem key={order.id} code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
                                 }): <EmptyCommon/> 
                             }
@@ -96,7 +104,7 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             {
                                 (paymentSettled && paymentSettled?.length > 0) ? paymentSettled?.map(order => {
                                     return (
-                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                        <DeliveryItem key={order.id} code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
                                 }) : <EmptyCommon/> 
                             }
@@ -109,7 +117,7 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                         {
                             (partiallyShipped && partiallyShipped?.length > 0) ? partiallyShipped?.map(order => {
                                 return (
-                                    <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                    <DeliveryItem key={order.id} code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                 )
                             }) : <EmptyCommon/> 
                         }
@@ -121,7 +129,7 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             {
                                 (shipped && shipped?.length > 0) ?  shipped?.map(order => {
                                     return (
-                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                        <DeliveryItem key={order.id} code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
                                 }) : <EmptyCommon/> 
                             }
@@ -134,7 +142,7 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             {
                                 (partiallyDelivered && partiallyDelivered?.length > 0) ?  partiallyDelivered?.map(order => {
                                     return (
-                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                        <DeliveryItem key={order.id} code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
                                 }) : <EmptyCommon/> 
                             }
@@ -147,7 +155,7 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             {
                                 (delivered && delivered?.length > 0) ?  delivered?.map(order => {
                                     return (
-                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                        <DeliveryItem showModelError={showModelError} messageErr={(value)=>setMessageError(value)} key={order.code}  code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
                                 }) : <EmptyCommon/> 
                             }
@@ -160,13 +168,14 @@ const OrderInformation = ({ addingItem, paymentAuthorized, paymentSettled, parti
                             {
                                 (cancelled && cancelled?.length > 0) ? cancelled?.map(order => {
                                     return (
-                                        <DeliveryItem key={order.id} id={order.id} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
+                                        <DeliveryItem key={order.id} code={order.code} status={order.state} products={order.lines} currencyCode={order.currencyCode} totalPrice={transformPrice(order.totalWithTax)} />
                                     )
                                 }) : <EmptyCommon/> 
                             }
                         </div>
                     </TabPane>
                 </TabCommon>
+                <ModalInfo visible={visibleModalErrorDetail} onClose={closeModalErrorDetail}>{messageError}</ModalInfo>
             </div>
         </section>
     )

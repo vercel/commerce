@@ -40,7 +40,7 @@ const AccountPage = ({ defaultActiveContent = "orders" }: AccountPageProps) => {
 
     const { userInfo } = useActiveCustomer();
 
-    const { addingItem, paymentAuthorized, paymentSettled, partiallyShipped, shipped, partialDelivered, delivered , cancelled } = useGetUserOrder();
+    const { addingItem, paymentAuthorized, paymentSettled, partiallyShipped, shipped, partiallyDelivered, delivered , cancelled } = useGetUserOrder();
 
 
     const [activeTab, setActiveTab] = useState(defaultActiveContent === "info" ? 0 : defaultActiveContent === "orders" ? 1 : 2)
@@ -77,7 +77,7 @@ const AccountPage = ({ defaultActiveContent = "orders" }: AccountPageProps) => {
                         paymentSettled={paymentSettled} 
                         partiallyShipped={partiallyShipped} 
                         shipped={shipped}  
-                        partialDelivered= {partialDelivered}
+                        partiallyDelivered= {partiallyDelivered}
                         delivered={delivered}
                         cancelled={cancelled} />
                     </TabPane>

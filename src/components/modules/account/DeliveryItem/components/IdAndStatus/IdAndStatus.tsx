@@ -4,16 +4,16 @@ import s from './IdAndStatus.module.scss'
 
 
 interface IdAndStatusProps {
-    id?: string;
+    code?: string;
     status?: string;
 }
 
-const IdAndStatus = ({ id, status="waiting" } : IdAndStatusProps) => {
+const IdAndStatus = ({ code, status="waiting" } : IdAndStatusProps) => {
     
     return (
         <div className={s.idAndStatus}>
             <div className={s.id}>
-                {id}
+                {code}
             </div>
             <div className={classNames(s.deliveryStatus, {
                 [s[status]]: status

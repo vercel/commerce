@@ -9,21 +9,25 @@ import { OrderLine } from "@framework/schema"
 
 
 interface DeliveryItemProps {
-    id: string;
+    code?: string;
     status?: string;
     products?: OrderLine[];
     totalPrice?: number;
     currencyCode?:string;
+    showModelError?:()=>void,
+    messageErr?: (value:React.ReactNode)=>void
 }
-
-const DeliveryItem = ({ id, status, products,currencyCode , totalPrice } : DeliveryItemProps) => {
+const DeliveryItem = ({code, status, products,currencyCode , totalPrice, showModelError, messageErr } : DeliveryItemProps) => {
+    
     return (
         <section className={s.deliveryItem}>
-            <IdAndStatus id={id} status={status} />
+            <IdAndStatus code={code} status={status} />
             <div className={s.separator}></div>
             <Products products={products} />
             <TotalPrice currencyCode={currencyCode} totalPrice={totalPrice} />
-            <ReOrder visible={status === "delivered" ? true : false}/>
+    
+            <ReOrder messageErr={messageErr} showModelError={showModelError} products={products} visible={status === "Delivered" ? true : false}/>
+            
         </section>
     )
 }

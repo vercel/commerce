@@ -3,8 +3,10 @@ export const getUserOrderQuery = /* GraphQL */ `
         activeCustomer {
             orders{
                 items{
+                    code
                     lines{
                         productVariant{
+                            id
                             name
                         }
                     quantity
