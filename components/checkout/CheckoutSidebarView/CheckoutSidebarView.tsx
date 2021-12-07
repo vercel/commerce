@@ -10,12 +10,14 @@ import useCheckout from '@framework/checkout/use-checkout'
 import ShippingWidget from '../ShippingWidget'
 import PaymentWidget from '../PaymentWidget'
 import s from './CheckoutSidebarView.module.css'
+import { useCheckoutContext } from '../context'
 
 const CheckoutSidebarView: FC = () => {
   const [loadingSubmit, setLoadingSubmit] = useState(false)
   const { setSidebarView, closeSidebar } = useUI()
   const { data: cartData, revalidate: refreshCart } = useCart()
   const { data: checkoutData, submit: onCheckout } = useCheckout()
+  const { clearCheckoutFields } = useCheckoutContext()
 
   async function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     try {
@@ -23,6 +25,7 @@ const CheckoutSidebarView: FC = () => {
       event.preventDefault()
 
       await onCheckout()
+      clearCheckoutFields()
       setLoadingSubmit(false)
       refreshCart()
       closeSidebar()
