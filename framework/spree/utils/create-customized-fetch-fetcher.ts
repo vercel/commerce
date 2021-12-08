@@ -3,6 +3,7 @@ import {
   request as spreeSdkRequestHelpers,
 } from '@spree/storefront-api-v2-sdk'
 import type { CreateCustomizedFetchFetcher } from '@spree/storefront-api-v2-sdk/types/interfaces/CreateCustomizedFetchFetcher'
+import isJsonContentType from './is-json-content-type'
 
 export const fetchResponseKey = Symbol('fetch-response-key')
 
@@ -54,14 +55,10 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
           let data
 
           if (responseParsing === 'automatic') {
-            if (
-              !responseContentType ||
-              (!responseContentType.includes('application/json') &&
-                !responseContentType.includes('application/vnd.api+json'))
-            ) {
-              data = await response.text()
-            } else {
+            if (responseContentType && isJsonContentType(responseContentType)) {
               data = await response.json()
+            } else {
+              data = await response.text()
             }
           } else if (responseParsing === 'text') {
             data = await response.text()
