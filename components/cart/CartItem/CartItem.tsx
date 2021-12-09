@@ -3,7 +3,6 @@ import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import s from './CartItem.module.css'
-import { Trash, Plus, Minus, Cross } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import type { LineItem } from '@commerce/types/cart'
 import usePrice from '@framework/product/use-price'
@@ -17,6 +16,8 @@ type ItemOption = {
   value: string
   valueId: number
 }
+
+const placeholderImg = '/product-img-placeholder.svg'
 
 const CartItem = ({
   item,
@@ -91,8 +92,8 @@ const CartItem = ({
                 className={s.productImage}
                 width={150}
                 height={150}
-                src={item.variant.image!.url}
-                alt={item.variant.image!.altText}
+                src={item.variant.image?.url || placeholderImg}
+                alt={item.variant.image?.altText || "Product Image"}
                 unoptimized
               />
             </a>
