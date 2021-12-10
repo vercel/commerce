@@ -95,6 +95,8 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 ### How to create a new provider
 
+🔔 New providers are on hold [until we have a new API for commerce](https://github.com/vercel/commerce/pull/252) 🔔
+
 Follow our docs for [Adding a new Commerce Provider](framework/commerce/new-provider.md).
 
 If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
