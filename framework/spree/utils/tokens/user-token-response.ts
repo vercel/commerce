@@ -1,7 +1,7 @@
 import { requireConfigValue } from '../../isomorphic-config'
 import Cookies from 'js-cookie'
 import type { IOAuthToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
-import UserTokenResponseParseError from '@framework/errors/UserTokenResponseParseError'
+import UserTokenResponseParseError from '../../errors/UserTokenResponseParseError'
 
 export const getUserTokenResponse = (): IOAuthToken | undefined => {
   const stringifiedToken = Cookies.get(

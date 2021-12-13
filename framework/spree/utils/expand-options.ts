@@ -6,8 +6,8 @@ import type {
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import SpreeResponseContentError from '../errors/SpreeResponseContentError'
-import type { OptionTypeAttr, ExpandedProductOption } from '@framework/types'
-import sortOptionsByPosition from '@framework/utils/sort-option-types'
+import type { OptionTypeAttr, ExpandedProductOption } from '../types'
+import sortOptionsByPosition from '../utils/sort-option-types'
 
 const isColorProductOption = (productOption: ExpandedProductOption) => {
   return productOption.displayName === 'Color'

@@ -1,4 +1,4 @@
-import type { ExpandedProductOption } from '@framework/types'
+import type { ExpandedProductOption } from '../types'
 
 const sortOptionsByPosition = (
   options: ExpandedProductOption[]

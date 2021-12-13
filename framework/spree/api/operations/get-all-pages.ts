@@ -3,8 +3,8 @@ import type {
   OperationOptions,
 } from '@commerce/api/operations'
 import type { GetAllPagesOperation, Page } from '@commerce/types/page'
-import { requireConfigValue } from '@framework/isomorphic-config'
-import normalizePage from '@framework/utils/normalizations/normalize-page'
+import { requireConfigValue } from '../../isomorphic-config'
+import normalizePage from '../../utils/normalizations/normalize-page'
 import type { IPages } from '@spree/storefront-api-v2-sdk/types/interfaces/Page'
 import type { SpreeSdkVariables } from '../../types'
 import type { SpreeApiConfig, SpreeApiProvider } from '../index'

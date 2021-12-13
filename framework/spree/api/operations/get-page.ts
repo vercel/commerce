@@ -6,7 +6,7 @@ import type { GetPageOperation } from '@commerce/types/page'
 import type { SpreeSdkVariables } from '../../types'
 import type { SpreeApiConfig, SpreeApiProvider } from '..'
 import type { IPage } from '@spree/storefront-api-v2-sdk/types/interfaces/Page'
-import normalizePage from '@framework/utils/normalizations/normalize-page'
+import normalizePage from '../../utils/normalizations/normalize-page'
 
 export type Page = any
 export type GetPageResult = { page?: Page }

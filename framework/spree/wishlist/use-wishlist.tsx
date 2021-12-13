@@ -8,7 +8,7 @@ import type { GraphQLFetcherResult } from '@commerce/api'
 import type { Wishlist } from '@spree/storefront-api-v2-sdk/types/interfaces/Wishlist'
 import ensureIToken from '../utils/tokens/ensure-itoken'
 import normalizeWishlist from '../utils/normalizations/normalize-wishlist'
-import isLoggedIn from '@framework/utils/tokens/is-logged-in'
+import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useWishlist as UseWishlist<typeof handler>
 

@@ -1,5 +1,5 @@
-import MissingProductError from '@framework/errors/MissingProductError'
-import MissingVariantError from '@framework/errors/MissingVariantError'
+import MissingProductError from '../../errors/MissingProductError'
+import MissingVariantError from '../../errors/MissingVariantError'
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { WishedItemAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/WishedItem'
