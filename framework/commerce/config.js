@@ -15,6 +15,7 @@ const PROVIDERS = [
   'swell',
   'vendure',
   'ordercloud',
+  'spree',
 ]
 
 function getProviderName() {
