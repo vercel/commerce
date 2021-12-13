@@ -1,5 +1,7 @@
 # Adding a new Commerce Provider
 
+🔔 New providers are on hold [until we have a new API for commerce](https://github.com/vercel/commerce/pull/252) 🔔
+
 A commerce provider is a headless e-commerce platform that integrates with the [Commerce Framework](./README.md). Right now we have the following providers:
 
 - BigCommerce ([framework/bigcommerce](../bigcommerce))
