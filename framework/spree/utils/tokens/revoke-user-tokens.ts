@@ -1,7 +1,7 @@
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { HookFetcherContext } from '@commerce/utils/types'
-import TokensNotRejectedError from '@framework/errors/TokensNotRejectedError'
-import type { UserOAuthTokens } from '@framework/types'
+import TokensNotRejectedError from '../../errors/TokensNotRejectedError'
+import type { UserOAuthTokens } from '../../types'
 import type { EmptyObjectResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/EmptyObject'
 
 const revokeUserTokens = async (

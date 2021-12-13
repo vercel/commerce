@@ -10,10 +10,10 @@ import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import type { AddItem } from '@spree/storefront-api-v2-sdk/types/interfaces/endpoints/CartClass'
 import { setCartToken } from '../utils/tokens/cart-token'
-import ensureIToken from '@framework/utils/tokens/ensure-itoken'
-import createEmptyCart from '@framework/utils/create-empty-cart'
+import ensureIToken from '../utils/tokens/ensure-itoken'
+import createEmptyCart from '../utils/create-empty-cart'
 import { FetcherError } from '@commerce/utils/errors'
-import isLoggedIn from '@framework/utils/tokens/is-logged-in'
+import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useAddItem as UseAddItem<typeof handler>
 

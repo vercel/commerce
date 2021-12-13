@@ -3,16 +3,16 @@ import type { MutationHook } from '@commerce/utils/types'
 import useAddItem from '@commerce/wishlist/use-add-item'
 import type { UseAddItem } from '@commerce/wishlist/use-add-item'
 import useWishlist from './use-wishlist'
-import type { ExplicitWishlistAddItemHook } from '@framework/types'
+import type { ExplicitWishlistAddItemHook } from '../types'
 import type {
   WishedItem,
   WishlistsAddWishedItem,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/WishedItem'
 import type { GraphQLFetcherResult } from '@commerce/api'
-import ensureIToken from '@framework/utils/tokens/ensure-itoken'
+import ensureIToken from '../utils/tokens/ensure-itoken'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import type { AddItemHook } from '@commerce/types/wishlist'
-import isLoggedIn from '@framework/utils/tokens/is-logged-in'
+import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useAddItem as UseAddItem<typeof handler>
 

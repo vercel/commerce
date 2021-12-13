@@ -10,7 +10,7 @@ import useCustomer from '../customer/use-customer'
 import useCart from '../cart/use-cart'
 import useWishlist from '../wishlist/use-wishlist'
 import login from '../utils/login'
-import { requireConfigValue } from '@framework/isomorphic-config'
+import { requireConfigValue } from '../isomorphic-config'
 
 export default useSignup as UseSignup<typeof handler>
 

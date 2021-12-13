@@ -7,7 +7,7 @@ import {
   removeUserTokenResponse,
   setUserTokenResponse,
 } from './user-token-response'
-import AccessTokenError from '@framework/errors/AccessTokenError'
+import AccessTokenError from '../../errors/AccessTokenError'
 
 /**
  * If the user has a saved access token, make sure it's not expired

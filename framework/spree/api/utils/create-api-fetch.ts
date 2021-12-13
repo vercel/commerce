@@ -4,13 +4,13 @@ import { requireConfigValue } from '../../isomorphic-config'
 import convertSpreeErrorToGraphQlError from '../../utils/convert-spree-error-to-graph-ql-error'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import getSpreeSdkMethodFromEndpointPath from '../../utils/get-spree-sdk-method-from-endpoint-path'
-import SpreeSdkMethodFromEndpointPathError from 'framework/spree/errors/SpreeSdkMethodFromEndpointPathError'
+import SpreeSdkMethodFromEndpointPathError from '../../errors/SpreeSdkMethodFromEndpointPathError'
 import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
 import createCustomizedFetchFetcher, {
   fetchResponseKey,
 } from '../../utils/create-customized-fetch-fetcher'
 import fetch, { Request } from 'node-fetch'
-import type { SpreeSdkResponseWithRawResponse } from '@framework/types'
+import type { SpreeSdkResponseWithRawResponse } from '../../types'
 
 export type CreateApiFetch = (
   getConfig: () => SpreeApiConfig

@@ -1,4 +1,4 @@
-import type { fetchResponseKey } from '@framework/utils/create-customized-fetch-fetcher'
+import type { fetchResponseKey } from '../utils/create-customized-fetch-fetcher'
 import type {
   JsonApiDocument,
   JsonApiListResponse,

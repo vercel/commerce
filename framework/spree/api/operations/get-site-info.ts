@@ -8,7 +8,7 @@ import type {
   TaxonAttr,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/Taxon'
 import { requireConfigValue } from '../../isomorphic-config'
-import type { SpreeSdkVariables } from 'framework/spree/types'
+import type { SpreeSdkVariables } from '../../types'
 import type { SpreeApiConfig, SpreeApiProvider } from '..'
 
 const taxonsSort = (spreeTaxon1: TaxonAttr, spreeTaxon2: TaxonAttr): number => {

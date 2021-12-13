@@ -10,10 +10,10 @@ import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import normalizeCart from '../utils/normalizations/normalize-cart'
 import debounce from 'lodash.debounce'
-import ensureIToken from '@framework/utils/tokens/ensure-itoken'
-import createEmptyCart from '@framework/utils/create-empty-cart'
-import { setCartToken } from '@framework/utils/tokens/cart-token'
-import isLoggedIn from '@framework/utils/tokens/is-logged-in'
+import ensureIToken from '../utils/tokens/ensure-itoken'
+import createEmptyCart from '../utils/create-empty-cart'
+import { setCartToken } from '../utils/tokens/cart-token'
+import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useUpdateItem as UseUpdateItem<any>
 

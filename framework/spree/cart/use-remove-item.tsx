@@ -9,11 +9,11 @@ import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IQuery } from '@spree/storefront-api-v2-sdk/types/interfaces/Query'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
-import ensureIToken from '@framework/utils/tokens/ensure-itoken'
-import createEmptyCart from '@framework/utils/create-empty-cart'
-import { setCartToken } from '@framework/utils/tokens/cart-token'
+import ensureIToken from '../utils/tokens/ensure-itoken'
+import createEmptyCart from '../utils/create-empty-cart'
+import { setCartToken } from '../utils/tokens/cart-token'
 import { FetcherError } from '@commerce/utils/errors'
-import isLoggedIn from '@framework/utils/tokens/is-logged-in'
+import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 

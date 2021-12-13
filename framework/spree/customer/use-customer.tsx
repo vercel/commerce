@@ -6,9 +6,9 @@ import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token
 import type { GraphQLFetcherResult } from '@commerce/api'
 import type { IAccount } from '@spree/storefront-api-v2-sdk/types/interfaces/Account'
 import { FetcherError } from '@commerce/utils/errors'
-import normalizeUser from '@framework/utils/normalizations/normalize-user'
-import isLoggedIn from '@framework/utils/tokens/is-logged-in'
-import ensureIToken from '@framework/utils/tokens/ensure-itoken'
+import normalizeUser from '../utils/normalizations/normalize-user'
+import isLoggedIn from '../utils/tokens/is-logged-in'
+import ensureIToken from '../utils/tokens/ensure-itoken'
 
 export default useCustomer as UseCustomer<typeof handler>
 
