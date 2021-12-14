@@ -1,5 +1,5 @@
 .root {
-  @apply relative;
+  @apply relative flex items-center;
 }
 
 .list {
@@ -7,14 +7,14 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 flex items-center outline-none text-primary;
+  @apply ml-6 cursor-pointer relative transition ease-in-out duration-100 flex items-center outline-none text-primary;
 
   &:hover {
     @apply text-accent-6 transition scale-110 duration-100;
   }
 
-  &:last-child {
-    @apply mr-0;
+  &:first-child {
+    @apply ml-0;
   }
 
   &:focus,
@@ -35,6 +35,11 @@
   @apply inline-flex justify-center rounded-full;
 }
 
-.avatarButton:focus {
+.mobileMenu {
+  @apply flex lg:hidden ml-6
+}
+
+.avatarButton:focus,
+.mobileMenu:focus {
   @apply outline-none;
 }

@@ -93,7 +93,7 @@ const CheckoutSidebarView: FC = () => {
           <span>{total}</span>
         </div>
         <div>
-          {/* Once data is correcly filled */}
+          {/* Once data is correctly filled */}
           <Button
             type="submit"
             width="100%"

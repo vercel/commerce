@@ -29,7 +29,7 @@ export const handler: MutationHook<SignupHook> = {
           email,
           password,
           redirectUrl: 'https://localhost.com',
-          channel: 'default-channel'
+          channel: 'default-channel',
         },
       },
     })
