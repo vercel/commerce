@@ -36,6 +36,7 @@
     "./framework/swell",
     "./framework/vendure",
     "./framework/saleor",
-    "./framework/spree"
+    "./framework/spree",
+    "./framework/ordercloud",
   ]
 }
