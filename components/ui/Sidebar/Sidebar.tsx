@@ -34,7 +34,6 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
     }
 
     return () => {
-      if (contentElement) enableBodyScroll(contentElement)
       clearAllBodyScrollLocks()
     }
   }, [])
