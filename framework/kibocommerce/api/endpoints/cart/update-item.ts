@@ -1,7 +1,7 @@
 import { normalizeCart } from '../../../lib/normalize'
 import type { CartEndpoint } from '.'
-import { getCartQuery } from '@framework/api/queries/get-cart-query'
-import updateCartItemQuantityMutation from '@framework/api/mutations/updateCartItemQuantity-mutation'
+import { getCartQuery } from '../../../api/queries/get-cart-query'
+import updateCartItemQuantityMutation from '../../../api/mutations/updateCartItemQuantity-mutation'
 
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   req,

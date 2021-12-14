@@ -1,6 +1,6 @@
 import type { WishlistEndpoint } from '.'
 import getCustomerId from '../../utils/get-customer-id'
-import { normalizeWishlistItem } from '@framework/lib/normalize'
+import { normalizeWishlistItem } from '../../../lib/normalize'
 
 // Return wishlist info
 const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({

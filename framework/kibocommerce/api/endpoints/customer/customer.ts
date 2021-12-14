@@ -1,4 +1,4 @@
-import CookieHandler from '@framework/api/utils/cookie-handler'
+import CookieHandler from '../../../api/utils/cookie-handler'
 import type { CustomerEndpoint } from '.'
 import { getCustomerAccountQuery } from '../../queries/get-customer-account-query'
 import { normalizeCustomer } from '../../../lib/normalize'

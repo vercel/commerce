@@ -1,11 +1,11 @@
 import { Product } from './../../../schema.d'
 import { normalizeCart } from '../../../lib/normalize'
 import type { CartEndpoint } from '.'
-import addToCurrentCartMutation from '@framework/api/mutations/addToCart-mutation'
+import addToCurrentCartMutation from '../../../api/mutations/addToCart-mutation'
 
-import { getProductQuery } from '@framework/api/queries/get-product-query'
-import { getCartQuery } from '@framework/api/queries/get-cart-query'
-import CookieHandler from '@framework/api/utils/cookie-handler'
+import { getProductQuery } from '../../../api/queries/get-product-query'
+import { getCartQuery } from '../../../api/queries/get-cart-query'
+import CookieHandler from '../../../api/utils/cookie-handler'
 
 const buildAddToCartVariables = ({
   productId,

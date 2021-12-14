@@ -1,6 +1,6 @@
 import getCustomerId from '../../utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
-import { normalizeWishlistItem } from '@framework/lib/normalize'
+import { normalizeWishlistItem } from '../../../lib/normalize'
 import removeItemFromWishlistMutation from '../../mutations/removeItemFromWishlist-mutation'
 
 // Return wishlist info

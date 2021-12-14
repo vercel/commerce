@@ -1,8 +1,8 @@
 import getCustomerWishlist from '../../operations/get-customer-wishlist'
 import getCustomerId from '../../utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
-import { normalizeWishlistItem } from '@framework/lib/normalize'
-import { getProductQuery } from '@framework/api/queries/get-product-query'
+import { normalizeWishlistItem } from '../../../lib/normalize'
+import { getProductQuery } from '../../../api/queries/get-product-query'
 import addItemToWishlistMutation from '../../mutations/addItemToWishlist-mutation'
 import createWishlist from '../../mutations/create-wishlist-mutation'
 

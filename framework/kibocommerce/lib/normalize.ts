@@ -1,8 +1,8 @@
 import update from './immutability'
 import getSlug from './get-slug'
 import type { PrCategory, CustomerAccountInput, Document } from '../schema'
-import { Page } from '@framework/types/page';
-import { Customer } from '@framework/types/customer'
+import { Page } from '../types/page';
+import { Customer } from '../types/customer'
 
 function normalizeProductOption(productOption: any) {
   const {

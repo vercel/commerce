@@ -1,7 +1,7 @@
 import { KiboCommerceConfig } from './../index'
-import { getCookieExpirationDate } from '@framework/lib/get-cookie-expiration-date'
-import { prepareSetCookie } from '@framework/lib/prepare-set-cookie'
-import { setCookies } from '@framework/lib/set-cookie'
+import { getCookieExpirationDate } from '../../lib/get-cookie-expiration-date'
+import { prepareSetCookie } from '../../lib/prepare-set-cookie'
+import { setCookies } from '../../lib/set-cookie'
 import { NextApiRequest } from 'next'
 import getAnonymousShopperToken from './get-anonymous-shopper-token'
 
