@@ -31,7 +31,7 @@
     "email-validator": "^2.0.4",
     "immutability-helper": "^3.1.1",
     "js-cookie": "^2.2.1",
-    "keen-slider": "^5.5.1",
+    "keen-slider": "^6.3.2",
     "lodash.debounce": "^4.0.8",
     "lodash.random": "^3.2.0",
     "lodash.throttle": "^4.1.1",
