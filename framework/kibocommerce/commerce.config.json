@@ -1,0 +1,9 @@
+{
+  "provider": "kibocommerce",
+  "features": {
+    "wishlist": true,
+    "cart": true,
+    "search": true,
+    "customerAuth": true
+  }
+}
