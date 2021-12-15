@@ -12,7 +12,8 @@
     "generate": "graphql-codegen",
     "generate:shopify": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config framework/shopify/codegen.json",
     "generate:vendure": "graphql-codegen --config framework/vendure/codegen.json",
-    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
+    "generate:kibocommerce": "graphql-codegen --config framework/kibocommerce/codegen.json"
   },
   "sideEffects": false,
   "license": "MIT",
@@ -21,6 +22,7 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.2.1",
+    "@spree/storefront-api-v2-sdk": "^5.0.1",
     "@vercel/fetch": "^6.1.1",
     "autoprefixer": "^10.2.6",
     "body-scroll-lock": "^3.1.5",
