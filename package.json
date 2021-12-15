@@ -12,7 +12,8 @@
     "generate": "graphql-codegen",
     "generate:shopify": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config framework/shopify/codegen.json",
     "generate:vendure": "graphql-codegen --config framework/vendure/codegen.json",
-    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js"
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
+    "generate:kibocommerce": "graphql-codegen --config framework/kibocommerce/codegen.json"
   },
   "sideEffects": false,
   "license": "MIT",
