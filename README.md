@@ -14,6 +14,7 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Saleor Demo: https://saleor.vercel.store/
 - Ordercloud Demo: https://ordercloud.vercel.store/
 - Spree Demo: https://spree.vercel.store/
+- Kibo Commerce Demo: https://kibocommerce.vercel.store/
 - Commerce.js Demo: https://commercejs.vercel.store/
 
 ## Features

@@ -4,9 +4,15 @@
 
 A commerce provider is a headless e-commerce platform that integrates with the [Commerce Framework](./README.md). Right now we have the following providers:
 
-- BigCommerce ([framework/bigcommerce](../bigcommerce))
-- Saleor ([framework/saleor](../saleor))
+- Local ([framework/local](../local))
 - Shopify ([framework/shopify](../shopify))
+- Swell ([framework/swell](../swell))
+- BigCommerce ([framework/bigcommerce](../bigcommerce))
+- Vendure ([framework/vendure](../vendure))
+- Saleor ([framework/saleor](../saleor))
+- OrderCloud ([framework/ordercloud](../ordercloud))
+- Spree ([framework/spree](../spree))
+- Kibo Commerce ([framework/kibocommerce](../kibocommerce))
 - Commerce.js ([framework/commercejs](../commercejs))
 
 Adding a commerce provider means adding a new folder in `framework` with a folder structure like the next one:
