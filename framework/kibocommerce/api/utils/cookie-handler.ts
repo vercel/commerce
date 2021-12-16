@@ -5,6 +5,11 @@ import { setCookies } from '../../lib/set-cookie'
 import { NextApiRequest } from 'next'
 import getAnonymousShopperToken from './get-anonymous-shopper-token'
 
+const parseCookie = (cookieValue?: any) => {
+  return cookieValue 
+    ? JSON.parse(Buffer.from(cookieValue, 'base64').toString('ascii')) 
+    : null
+}
 export default class CookieHandler {
   config: KiboCommerceConfig
   request: NextApiRequest
@@ -15,9 +20,7 @@ export default class CookieHandler {
     this.request = req
     this.response = res
     const encodedToken = req.cookies[config.customerCookie]
-    const token = encodedToken
-      ? JSON.parse(Buffer.from(encodedToken, 'base64').toString('ascii'))
-      : null
+    const token = parseCookie(encodedToken)
     this.accessToken = token ? token.accessToken : null
   }
 
@@ -31,7 +34,13 @@ export default class CookieHandler {
       accessToken: anonymousAccessToken,
     }
   }
-
+  isShopperCookieAnonymous() {
+    const customerCookieKey = this.config.customerCookie
+    const shopperCookie = this.request.cookies[customerCookieKey]
+    const shopperSession = parseCookie(shopperCookie);
+    const isAnonymous = shopperSession?.customerAccount ? false : true 
+    return isAnonymous
+  }
   setAnonymousShopperCookie(anonymousShopperTokenResponse: any) {
     const cookieExpirationDate = getCookieExpirationDate(
       this.config.customerCookieMaxAgeInDays
