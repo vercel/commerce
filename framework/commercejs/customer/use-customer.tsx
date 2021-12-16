@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import { decode } from 'jsonwebtoken'
 import { SWRHook } from '@commerce/utils/types'
 import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
-import { CUSTOMER_COOKIE, API_URL } from '@framework/constants'
+import { CUSTOMER_COOKIE, API_URL } from '../constants'
 import type { CustomerHook } from '../types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
