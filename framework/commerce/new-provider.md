@@ -12,6 +12,7 @@ A commerce provider is a headless e-commerce platform that integrates with the [
 - Saleor ([framework/saleor](../saleor))
 - Ordercloud ([framework/ordercloud](../ordercloud))
 - Spree ([framework/spree](../spree))
+- Kibo Commerce ([framework/kibocommerce](../kibocommerce))
 
 Adding a commerce provider means adding a new folder in `framework` with a folder structure like the next one:
 
