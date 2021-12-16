@@ -13,6 +13,7 @@ A commerce provider is a headless e-commerce platform that integrates with the [
 - OrderCloud ([framework/ordercloud](../ordercloud))
 - Spree ([framework/spree](../spree))
 - Kibo Commerce ([framework/kibocommerce](../kibocommerce))
+- Commerce.js ([framework/commercejs](../commercejs))
 
 Adding a commerce provider means adding a new folder in `framework` with a folder structure like the next one:
 

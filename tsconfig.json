@@ -38,6 +38,7 @@
     "./framework/saleor",
     "./framework/spree",
     "./framework/ordercloud",
-    "./framework/kibocommerce"
+    "./framework/kibocommerce",
+     "./framework/commercejs"
   ]
 }
