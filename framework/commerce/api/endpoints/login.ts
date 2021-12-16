@@ -12,6 +12,7 @@ const loginEndpoint: GetAPISchema<
   if (
     !isAllowedOperation(req, res, {
       POST: handlers['login'],
+      GET: handlers['login'],
     })
   ) {
     return

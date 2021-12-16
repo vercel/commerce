@@ -11,7 +11,7 @@ const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
   const cookieHandler = new CookieHandler(config, req, res)
   let accessToken = cookieHandler.getAccessToken();
 
-  if (cookieHandler.getAccessToken()) {
+  if (!cookieHandler.isShopperCookieAnonymous()) {
     const { data } = await config.fetch(getCustomerAccountQuery, undefined, {
       headers: {
         'x-vol-user-claims': accessToken,

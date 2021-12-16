@@ -1,0 +1,10 @@
+{
+  "provider": "commercejs",
+  "features": {
+    "cart": true,
+    "search": true,
+    "customCheckout": true,
+    "customerAuth": true,
+    "wishlist": false
+  }
+}
