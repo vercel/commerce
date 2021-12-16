@@ -10,7 +10,7 @@ A commerce provider is a headless e-commerce platform that integrates with the [
 - BigCommerce ([framework/bigcommerce](../bigcommerce))
 - Vendure ([framework/vendure](../vendure))
 - Saleor ([framework/saleor](../saleor))
-- Ordercloud ([framework/ordercloud](../ordercloud))
+- OrderCloud ([framework/ordercloud](../ordercloud))
 - Spree ([framework/spree](../spree))
 - Kibo Commerce ([framework/kibocommerce](../kibocommerce))
 
