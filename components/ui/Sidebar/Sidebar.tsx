@@ -1,11 +1,7 @@
 import { FC, useEffect, useRef } from 'react'
 import s from './Sidebar.module.css'
 import cn from 'classnames'
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from 'body-scroll-lock'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 
 interface SidebarProps {
   children: any
@@ -34,7 +30,6 @@ const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
     }
 
     return () => {
-      if (contentElement) enableBodyScroll(contentElement)
       clearAllBodyScrollLocks()
     }
   }, [])
