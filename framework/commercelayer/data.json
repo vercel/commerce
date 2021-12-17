@@ -31,7 +31,7 @@
       ],
       "variants": [
         {
-          "id": "SHIRTWLS000000FFFFFF",
+          "id": "SHIRTWLS000000FFFFFFXSXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -42,7 +42,12 @@
                   "label": "XS"
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "SHIRTWLS000000FFFFFFSXXX",
+          "options": [
             {
               "__typename": "MultipleChoiceOption",
               "id": "SHIRTWLS000000FFFFFFSXXX",
@@ -52,7 +57,12 @@
                   "label": "S"
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "SHIRTWLS000000FFFFFFMXXX",
+          "options": [
             {
               "__typename": "MultipleChoiceOption",
               "id": "SHIRTWLS000000FFFFFFMXXX",
@@ -62,7 +72,12 @@
                   "label": "M"
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "SHIRTWLS000000FFFFFFLXXX",
+          "options": [
             {
               "__typename": "MultipleChoiceOption",
               "id": "SHIRTWLS000000FFFFFFLXXX",
@@ -138,7 +153,7 @@
       ],
       "variants": [
         {
-          "id": "EMUG12OZFFFFFF000000",
+          "id": "EMUG12OZFFFFFF000000XXXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -212,7 +227,7 @@
       ],
       "variants": [
         {
-          "id": "VFLEXFIT000000FFFFFF",
+          "id": "VFLEXFIT000000FFFFFFXXXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -268,7 +283,7 @@
       ],
       "variants": [
         {
-          "id": "FACEMASK000000FFFFFF",
+          "id": "FACEMASK000000FFFFFFXXXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -324,7 +339,7 @@
       ],
       "variants": [
         {
-          "id": "SHIRTWLS9397A0000000",
+          "id": "SHIRTWLS9397A0000000XSXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -335,7 +350,12 @@
                   "label": "XS"
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "SHIRTWLS9397A0000000SXXX",
+          "options": [
             {
               "__typename": "MultipleChoiceOption",
               "id": "SHIRTWLS9397A0000000SXXX",
@@ -345,7 +365,12 @@
                   "label": "S"
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "SHIRTWLS9397A0000000MXXX",
+          "options": [
             {
               "__typename": "MultipleChoiceOption",
               "id": "SHIRTWLS9397A0000000MXXX",
@@ -355,7 +380,12 @@
                   "label": "M"
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "SHIRTWLS9397A0000000LXXX",
+          "options": [
             {
               "__typename": "MultipleChoiceOption",
               "id": "SHIRTWLS9397A0000000LXXX",
@@ -419,7 +449,7 @@
       ],
       "variants": [
         {
-          "id": "FACEMASKFFFFFF000000",
+          "id": "FACEMASKFFFFFF000000XXXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -475,7 +505,7 @@
       ],
       "variants": [
         {
-          "id": "BEANIEXXFFFFFF000000",
+          "id": "BEANIEXXFFFFFF000000XXXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",
@@ -531,7 +561,7 @@
       ],
       "variants": [
         {
-          "id": "DUFFLBAGFFFFFF000000",
+          "id": "DUFFLBAGFFFFFF000000XXXX",
           "options": [
             {
               "__typename": "MultipleChoiceOption",

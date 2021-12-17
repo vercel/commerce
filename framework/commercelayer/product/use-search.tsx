@@ -21,9 +21,7 @@ export const handler: SWRHook<any> = {
   fetchOptions: {
     query: '',
   },
-  async fetcher({ input, options, fetch }) {
-    debugger
-  },
+  async fetcher({ input, options, fetch }) {},
   useHook:
     ({ useData }) =>
     ({ search, categoryId, brandId }) => {

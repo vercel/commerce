@@ -48,7 +48,6 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       algorithm: 'HS256',
     })
     let checkouturl = `${config.storeUrl}/login/token/${token}`
-    console.log('checkouturl', checkouturl)
     if (fullCheckout) {
       res.redirect(checkouturl)
       return

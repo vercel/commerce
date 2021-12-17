@@ -3,10 +3,11 @@ import type { GraphQLFetcher } from '@commerce/api'
 import type { CommercelayerConfig } from '../index'
 import fetch from './fetch'
 
-const fetchGraphqlApi: (getConfig: () => CommercelayerConfig) => GraphQLFetcher =
+const fetchGraphqlApi: (
+  getConfig: () => CommercelayerConfig
+) => GraphQLFetcher =
   (getConfig) =>
   async (query: string, { variables, preview } = {}, fetchOptions) => {
-    debugger
     const config = getConfig()
     const res = await fetch(config.commerceUrl, {
       ...fetchOptions,

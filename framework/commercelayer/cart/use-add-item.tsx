@@ -17,14 +17,14 @@ export const handler: MutationHook<any> = {
       localOrderId ||
       (credentials.accessToken &&
         (await Order.withCredentials(credentials).create({})).id)
-    if (orderId && input.sizeId) {
+    if (orderId && input.variantId) {
       !localOrderId && localStorage.setItem('CL_ORDER_ID', orderId)
       const lineItem = await LineItem.withCredentials(credentials).create(
         {
-          skuCode: input.sizeId,
+          skuCode: input.variantId,
           order: Order.build({ id: orderId }),
           quantity: 1,
-          reference: input.variantId,
+          reference: input.productId,
           _update_quantity: 1,
         },
         // @ts-ignore
@@ -41,10 +41,10 @@ export const handler: MutationHook<any> = {
         variant: {
           id: lineItem.data.id,
           name: attributes.name,
-          sku: input.sizeId,
+          sku: input.variantId,
           price: attributes.unit_amount_float,
           image: {
-            url: `/commercelayer_assets/${input.variantId}_FLAT.png`,
+            url: `/commercelayer_assets/${input.productId}_FLAT.png`,
             altText: 'Black Women Long Sleeve Shirt',
             width: 1000,
             height: 1000,

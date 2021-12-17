@@ -8,7 +8,6 @@ const loginEndpoint: GetAPISchema<
   LoginSchema<any>
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers } = ctx
-  debugger
   if (
     !isAllowedOperation(req, res, {
       POST: handlers['login'],
@@ -16,7 +15,6 @@ const loginEndpoint: GetAPISchema<
   ) {
     return
   }
-  debugger
   try {
     const body = req.body ?? {}
     return await handlers['login']({ ...ctx, body })

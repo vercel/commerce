@@ -11,7 +11,6 @@ export default function getAllPagesOperation() {
     config?: Partial<CommercelayerAPI>
     preview?: boolean
   }): Promise<GetAllPagesResult> {
-    console.log(`config`, config, preview)
     return Promise.resolve({
       pages: [
         {
