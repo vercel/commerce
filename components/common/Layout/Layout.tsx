@@ -25,31 +25,35 @@ const Loading = () => (
   </div>
 )
 
+const dynamicProps = {
+  loading: Loading,
+}
+
 const SignUpView = dynamic(
   () => import('@components/auth/SignUpView'),
   {
-    loading: Loading
+    ...dynamicProps
   }
 )
 
 const ForgotPassword = dynamic(
   () => import('@components/auth/ForgotPassword'),
   {
-    loading: Loading
+    ...dynamicProps
   }
 )
 
 const FeatureBar = dynamic(
   () => import('@components/common/FeatureBar'),
   {
-    loading: Loading
+    ...dynamicProps
   }
 )
 
 const Modal = dynamic(
   () => import('@components/ui/Modal'),
   {
-    loading: Loading,
+    ...dynamicProps,
     ssr: false
   }
 )
