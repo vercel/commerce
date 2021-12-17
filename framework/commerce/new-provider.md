@@ -253,6 +253,30 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
 }
 ```
 
+## Showing progress and features
+When creating a PR for a new provider, include this list in the PR description and mark the progress as you push so we can organize the code review. Not all points are required (but advised) so make sure to keep the list up to date.
+
+**Status**
+
+* [ ]  CommerceProvider
+* [ ]  Schema & TS types
+* [ ]  API Operations - Get all collections
+* [ ]  API Operations - Get all pages
+* [ ]  API Operations - Get all products
+* [ ]  API Operations - Get page
+* [ ]  API Operations - Get product
+* [ ]  API Operations - Get Shop Info (categories and vendors working — `vendors` query still a WIP PR on Reaction)
+* [ ]  Hook - Add Item
+* [ ]  Hook - Remove Item
+* [ ]  Hook - Update Item
+* [ ]  Hook - Get Cart (account-tied carts working, anonymous carts working, cart reconciliation working)
+* [ ]  Auth (based on a WIP PR on Reaction - still need to implement refresh tokens)
+* [ ]  Customer information
+* [ ]  Product attributes - Size, Colors
+* [ ]  Custom checkout
+* [ ]  Typing (in progress)
+* [ ]  Tests
+
 ## Adding the Node.js provider API
 
 TODO
