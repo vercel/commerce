@@ -3,7 +3,7 @@
     {
       "id": "SHIRTWLS000000FFFFFF",
       "name": "Black Women Long Sleeve Shirt",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/women-long-sleeve-shirt",
       "slug": "women-long-sleeve-shirt",
       "categoryId": "clothings",
@@ -125,7 +125,7 @@
     {
       "id": "EMUG12OZFFFFFF000000",
       "name": "White Enamel Mug",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/white-enamel-mug",
       "slug": "white-enamel-mug",
       "categoryId": "household",
@@ -193,7 +193,7 @@
     {
       "id": "VFLEXFIT000000FFFFFF",
       "name": "Black Visor Flexfit",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/black-visor-flexfit",
       "slug": "black-visor-flexfit",
       "categoryId": "clothings",
@@ -267,7 +267,7 @@
     {
       "id": "FACEMASK000000FFFFFF",
       "name": "Black Face Mask",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/black-face-mask",
       "slug": "black-face-mask",
       "price": { "value": 15, "currencyCode": "USD" },
@@ -323,7 +323,7 @@
     {
       "id": "SHIRTWLS9397A0000000",
       "name": "Gray Women Long Sleeve Shirt",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/gray-women-long-sleeve-shirt",
       "slug": "gray-women-long-sleeve-shirt",
       "categoryId": "clothings",
@@ -433,7 +433,7 @@
     {
       "id": "FACEMASKFFFFFF000000",
       "name": "White Face Mask",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/white-face-mask",
       "slug": "white-face-mask",
       "categoryId": "clothings",
@@ -489,7 +489,7 @@
     {
       "id": "BEANIEXXFFFFFF000000",
       "name": "White Beanie",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/white-beanie",
       "slug": "white-beanie",
       "categoryId": "clothings",
@@ -545,7 +545,7 @@
     {
       "id": "DUFFLBAGFFFFFF000000",
       "name": "White Duffle Bag",
-      "vendor": "Commerce Layer",
+      "brandId": "Commerce Layer",
       "path": "/white-duffle-bag",
       "slug": "white-duffle-bag",
       "categoryId": "featured",
