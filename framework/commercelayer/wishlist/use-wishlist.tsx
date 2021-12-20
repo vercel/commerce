@@ -8,8 +8,8 @@ const defaultOpts = {}
 export type Wishlist = {
   items: [
     {
-      product_id: number
       variant_id: number
+      product_id: number
       id: number
       product: Product
     }
