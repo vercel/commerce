@@ -6,11 +6,11 @@ export function emptyHook() {
     const localWishlist = localStorage.getItem('wishlist')
     if (localWishlist) {
       wishlist = JSON.parse(localWishlist)
-      if (!wishlist.includes(options.variantId)) {
-        wishlist.push(options.variantId)
+      if (!wishlist.includes(options.productId)) {
+        wishlist.push(options.productId)
       }
     } else {
-      wishlist.push(options.variantId)
+      wishlist.push(options.productId)
     }
     localStorage.setItem('wishlist', JSON.stringify(wishlist))
     return wishlist

@@ -11,7 +11,7 @@ export function emptyHook(options?: Options) {
       wishlist = wishlist.filter((p: string) => p !== id)
     }
     localStorage.setItem('wishlist', JSON.stringify(wishlist))
-    return Promise.resolve()
+    return wishlist
   }
 
   return useEmptyHook

@@ -41,8 +41,9 @@ export function extendHook(
       const wishlist = JSON.parse(getWishlist)
       const items = wishlist.map((wishlist: string) => {
         const [product] = data.products.filter((p) => p.id === wishlist) as any
+        const [variant] = product.variants
         return {
-          variant_id: wishlist,
+          variant_id: variant.id,
           product_id: wishlist,
           id: wishlist,
           product,
