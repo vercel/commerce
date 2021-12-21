@@ -16,7 +16,7 @@ Next, add the application credentials from your organization's application dashb
 
 ## Content management
 
-Commerce Layer does not provide a collaborative environment to create and modify digital content but is CMS agnostic. It manages the transactional part of a sales channel and allows users to integrate with any CMS of their choice. This will enable businesses to utilize any content model, produce a better customer experience, outstand competition, and unleash creativity. For now, in this provider, we manage content locally, and in the future, you would be able to plug in any CMS of your choice instead.
+Commerce Layer does not provide a collaborative environment to create and modify digital content but is CMS agnostic. It manages the transactional part of a sales channel and allows users to integrate with any CMS of their choice. This will enable businesses to utilize any content model, produce a better customer experience, outstand competition, and unleash creativity. For now, in this provider, we manage content locally ([in this file](./data.json)), and in the future, you would be able to plug in any CMS of your choice instead.
 
 ## Checkout
 
