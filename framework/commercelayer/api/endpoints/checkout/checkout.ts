@@ -1,5 +1,5 @@
 import type { CheckoutEndpoint } from '.'
-import getCredentials from '@framework/api/utils/getCredentials'
+import getCredentials from '../../utils/getCredentials'
 import { Order } from '@commercelayer/js-sdk'
 
 const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
