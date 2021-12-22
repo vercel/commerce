@@ -1,8 +1,8 @@
 import { MutationHook } from '@commerce/utils/types'
 import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
-import getCredentials from '@framework/api/utils/getCredentials'
+import getCredentials from '../api/utils/getCredentials'
 import { LineItem } from '@commercelayer/js-sdk'
-import useCart from '@framework/cart/use-cart'
+import useCart from '../cart/use-cart'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 

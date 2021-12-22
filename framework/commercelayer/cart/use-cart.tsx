@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart } from '@commerce/cart/use-cart'
 import { Order } from '@commercelayer/js-sdk'
-import getCredentials from '@framework/api/utils/getCredentials'
+import getCredentials from '../api/utils/getCredentials'
 import normalizeLineItems from '../api/utils/normalizeLineItems'
 
 export default useCart as UseCart<typeof handler>

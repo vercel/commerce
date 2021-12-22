@@ -1,7 +1,7 @@
 import { HookFetcher } from '@commerce/utils/types'
 import type { Product } from '@commerce/types/product'
 import data from '../data.json'
-import { useCustomer } from '@framework/customer'
+import { useCustomer } from '../customer'
 
 const defaultOpts = {}
 

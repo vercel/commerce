@@ -1,7 +1,7 @@
 import { MutationHook } from '@commerce/utils/types'
 import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
-import useCart from '@framework/cart/use-cart'
-import getCredentials from '@framework/api/utils/getCredentials'
+import useCart from '../cart/use-cart'
+import getCredentials from '../api/utils/getCredentials'
 import { LineItem } from '@commercelayer/js-sdk'
 
 export default useUpdateItem as UseUpdateItem<any>

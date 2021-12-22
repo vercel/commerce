@@ -1,8 +1,8 @@
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
 import { MutationHook } from '@commerce/utils/types'
 import { LineItem, Order } from '@commercelayer/js-sdk'
-import getCredentials from '@framework/api/utils/getCredentials'
-import useCart from '@framework/cart/use-cart'
+import getCredentials from '../api/utils/getCredentials'
+import useCart from '../cart/use-cart'
 import { useCallback } from 'react'
 
 export default useAddItem as UseAddItem<typeof handler>

@@ -4,7 +4,7 @@ import { MutationHook } from '@commerce/utils/types'
 import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import { CommerceError } from '@commerce/utils/errors'
 import { getCustomerToken } from '@commercelayer/js-auth'
-import setCookie from '@framework/api/utils/cookies'
+import setCookie from '../api/utils/cookies'
 import Cookies from 'js-cookie'
 import { ENDPOINT, CLIENTID, SCOPE } from '../const'
 
