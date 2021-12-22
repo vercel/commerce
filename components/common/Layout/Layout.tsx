@@ -31,22 +31,31 @@ const dynamicProps = {
 
 const SignUpView = dynamic(
   () => import('@components/auth/SignUpView'),
-  dynamicProps
+  {
+    ...dynamicProps
+  }
 )
 
 const ForgotPassword = dynamic(
   () => import('@components/auth/ForgotPassword'),
-  dynamicProps
+  {
+    ...dynamicProps
+  }
 )
 
 const FeatureBar = dynamic(
   () => import('@components/common/FeatureBar'),
-  dynamicProps
+  {
+    ...dynamicProps
+  }
 )
 
 const Modal = dynamic(
   () => import('@components/ui/Modal'),
-  Object.assign(dynamicProps, { ssr: false })
+  {
+    ...dynamicProps,
+    ssr: false
+  }
 )
 
 interface Props {
