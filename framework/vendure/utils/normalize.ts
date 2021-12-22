@@ -9,7 +9,13 @@ export function normalizeSearchResult(item: SearchResultFragment): Product {
     description: item.description,
     slug: item.slug,
     path: item.slug,
-    images: [{ url: item.productAsset?.preview + '?w=800&mode=crop' || '' }],
+    images: [
+      {
+        url: item.productAsset?.preview
+          ? item.productAsset?.preview + '?w=800&mode=crop'
+          : '',
+      },
+    ],
     variants: [],
     price: {
       value: (item.priceWithTax as any).min / 100,
