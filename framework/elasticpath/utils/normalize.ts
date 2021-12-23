@@ -7,7 +7,7 @@ const Moltin = MoltinGateway({
 import { Product, ProductImage } from '@commerce/types/product'
 
 const getPrices = (prices:any) => {
-
+	
 	if(!prices) {
 		return [{
 			"value": 0,
@@ -28,7 +28,7 @@ const getPrices = (prices:any) => {
 async function normalizeProductImages (product:any, allImages?:boolean): Promise< ProductImage[]> {
 
 	let fileCalls = [],
-			fileData = product.relationships?.files?.data || [];
+			fileData = product?.relationships?.files?.data || [];
 
 
 		for(let {id} of fileData) {
@@ -57,34 +57,120 @@ async function normalizeProductImages (product:any, allImages?:boolean): Promise
 	}
 }
 
-export const normalizeProduct = async(product:any, allImages?: boolean) => {
-	return {
-		"id":  product.id,
-		"name": product.attributes?.name,
-		"path": "/"+product.attributes?.slug,
-		"slug": product.attributes?.slug,
-		"price": getPrices(product.attributes?.price)[0],
-		"description": product.attributes?.description,
-		"images":  await normalizeProductImages(product, allImages),
-		"variants": [
-			{
-				id: '',
-				options: [{
-					id: '',
-					displayName: '',
-					values: [{
-							label: ''
-					}]
-				}]
+const getVariants = (variations: any) => {
+
+	let allVariants: any = [
+		{
+			"id": '',
+			"options": []
+		},
+		{
+			"id": '',
+			"options": []
+		}
+	]
+
+	if(variations){
+		for(let i in variations){
+			if(variations[i] !== 'undefined'){
+				if(variations[i].name === 'Color'){
+					allVariants[i].id = variations[i].id;
+					variations[i].options.map((opt: any) => {
+						allVariants[i].options.push({
+							"id": opt.id,
+							"displayName": opt.name,
+							"values": [{
+								"label": opt.name.toLowerCase(),
+								"hexColors": [opt.name]
+							}]
+						})
+					})
+				}	
+				if(variations[i].name === 'Size'){
+					allVariants[i].id = variations[i].id;
+					variations[i].options.map((opt: any) => {
+						allVariants[i].options.push({
+							"id": opt.id,
+							"displayName": opt.name,
+							"values": [{
+								"label": opt.name.length > 2 ? opt.name.slice(0, 1) : opt.name
+							}]
+						})
+					})
+				}	
 			}
-	],
-		"options": []
+		}
+	}
+	return allVariants
+}
+
+const getOptions = (variations: any) => {
+	let allOptions: any = [
+		{
+			"id": '',
+			"displayName": '',
+			"values": []
+		},
+		{
+			"id": '',
+			"displayName": '',
+			"values": []
+		}
+	]
+
+	if(variations){
+		for(let i in variations){
+			if(variations[i] !== 'undefined'){
+				variations[i].options.map((opt: any) => {
+					if(variations[i].name === 'Color'){
+						allOptions[i].id = variations[i].id;
+						allOptions[i].displayName = variations[i].name;
+						
+						allOptions[i].values.push({
+							"label": opt.name.toLowerCase(),
+							"hexColors": [opt.name]
+						})
+					}
+					if(variations[i].name === 'Size'){
+						allOptions[i].id = variations[i].id;
+						allOptions[i].displayName = variations[i].name;
+						
+						allOptions[i].values.push({
+							"label": opt.name.slice(0, 1)
+						})
+					}
+				})
+			}
+		}
+		return allOptions;
+	}
+}
+
+export const normalizeProduct = async(product:any, allImages?: boolean) => {
+	let emptyVariant: any = [
+		{
+			"id": '',
+			"options": []
+		}
+	]
+	let emptyOption: any = []
+	
+	return {
+		"id":  product?.id,
+		"name": product?.attributes?.name,
+		"path": "/"+product?.attributes?.slug,
+		"slug": product?.attributes?.slug,
+		"price": getPrices(product?.attributes?.price)[0],
+		"description": product?.attributes?.description,
+		"images":  await normalizeProductImages(product, allImages),
+		"variants": (product?.meta?.variations) ? getVariants(product?.meta?.variations) : emptyVariant,
+		"options": (product?.meta?.variations) ? getOptions(product?.meta?.variations) : emptyOption
 	}
 };
 
 const normalizeProducts = async(products:any) => {
 	let allProducts:Product[] = [];
-
+	
 	for (let index in products) {
 		let product = products[index];
 		allProducts.push(await normalizeProduct(product));
