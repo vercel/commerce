@@ -79,6 +79,9 @@ const SidebarView: FC<{ sidebarView: string; closeSidebar(): any }> = ({
       {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
       {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
+      {sidebarView === 'GET_TAXATION_VIEW' && <CartSidebarView />}
+      {sidebarView === 'SHOW_TAXATION_VIEW' && <CartSidebarView />}
+      {sidebarView === 'SHIPPING_RATES_WIDGET' && <CartSidebarView/>}
     </Sidebar>
   )
 }
