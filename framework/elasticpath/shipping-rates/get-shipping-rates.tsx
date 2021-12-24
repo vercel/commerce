@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getShippingrates = () => {
     axios({
-        url: 'http://localhost:3030/store-events/61a071eb6885c0001ef18569/get-shipping-rates',
+        url: 'http://206.189.135.123:3030/store-events/615aa7276b3472001db03258/get-shipping-rates',
         method: 'POST',
         data: {
             payload:{
