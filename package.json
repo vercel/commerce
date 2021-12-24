@@ -20,10 +20,12 @@
     "node": ">=14.x"
   },
   "dependencies": {
+    "@moltin/request": "^2.0.2",
     "@moltin/sdk": "^8.8.1",
     "@react-spring/web": "^9.2.1",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.6",
+    "axios": "^0.24.0",
     "body-scroll-lock": "^3.1.5",
     "classnames": "^2.3.1",
     "cookie": "^0.4.1",
