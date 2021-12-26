@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { CommercelayerProvider } from './provider'
 import {
   CommerceConfig,
-  CommerceProvider as CoreCommerceProvider,
+  CoreCommerceProvider,
   useCommerce as useCoreCommerce,
 } from '@commerce'
 import useToken from './auth/use-token'
@@ -23,10 +23,7 @@ export function CommerceProvider({
   const token = useToken()
   if (token) config.cartCookie = token
   return (
-    <CoreCommerceProvider
-      provider={CommercelayerProvider}
-      config={{ ...commercelayerConfig, ...config }}
-    >
+    <CoreCommerceProvider provider={CommercelayerProvider}>
       {children}
     </CoreCommerceProvider>
   )
