@@ -1,5 +1,3 @@
-declare module NodeJS {
-  interface Global {
-    token: string | null | undefined
-  }
+export interface CustomNodeJsGlobal extends NodeJS.Global {
+  token: string | null | undefined
 }
