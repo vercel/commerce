@@ -1,5 +1,6 @@
 import vercelFetch from '@vercel/fetch'
 import { FetcherError } from '@commerce/utils/errors'
+import { CustomNodeJsGlobal } from '../../types/node';
 
 import { OrdercloudConfig } from '../index'
 
@@ -143,17 +144,20 @@ export const createBuyerFetcher: (
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
   ) => {
+    const customGlobal = global as CustomNodeJsGlobal;
+
     // Get provider config
     const config = getConfig()
 
+
     // If a token was passed, set it on global
     if (fetchOptions?.token) {
-      global.token = fetchOptions.token
+      customGlobal.token = fetchOptions.token
     }
 
     // Get a token
-    if (!global.token) {
-      global.token = await getToken({
+    if (!customGlobal.token) {
+      customGlobal.token = await getToken({
         baseUrl: config.commerceUrl,
         clientId: process.env.ORDERCLOUD_BUYER_CLIENT_ID as string,
       })
@@ -161,7 +165,7 @@ export const createBuyerFetcher: (
 
     // Return the data and specify the expected type
     const data = await fetchData<T>({
-      token: global.token as string,
+      token: customGlobal.token as string,
       fetchOptions,
       config,
       method,
@@ -171,6 +175,6 @@ export const createBuyerFetcher: (
 
     return {
       ...data,
-      meta: { token: global.token as string },
+      meta: { token: customGlobal.token as string },
     }
   }
