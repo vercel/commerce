@@ -16,7 +16,10 @@ const PROVIDERS = [
   'vendure',
   'local',
   'elasticpath',
-  'ordercloud'
+  'ordercloud',
+  'kibocommerce',
+  'spree',
+  'commercejs',
 ]
 
 function getProviderName() {

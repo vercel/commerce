@@ -23,7 +23,7 @@ export function selectDefaultOptionFromProduct(
   updater: Dispatch<SetStateAction<SelectedOptions>>
 ) {
   // Selects the default option
-  product.variants[0].options?.forEach((v) => {
+  product.variants[0]?.options?.forEach((v) => {
     updater((choices) => ({
       ...choices,
       [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),

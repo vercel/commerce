@@ -22,7 +22,7 @@ const SidebarLayout: FC<ComponentProps> = ({
           <button
             onClick={handleClose}
             aria-label="Close"
-            className="hover:text-accent-5 transition ease-in-out duration-150 flex items-center focus:outline-none"
+            className="hover:text-accent-5 transition ease-in-out duration-150 flex items-center focus:outline-none mr-6"
           >
             <Cross className="h-6 w-6 hover:text-accent-3" />
             <span className="ml-2 text-accent-7 text-sm ">Close</span>

@@ -42,7 +42,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       store_hash: config.storeHash,
       customer_id: customerId,
       channel_id: config.storeChannelId,
-      redirect_to: data.checkout_url,
+      redirect_to: data.checkout_url.replace(config.storeUrl, ""),
     }
     let token = jwt.sign(payload, config.storeApiClientSecret!, {
       algorithm: 'HS256',

@@ -34,7 +34,7 @@ export const ordercloudProvider = {
     useCart,
     useAddItem: useAddCartItem,
     useUpdateItem: useUpdateCartItem,
-    useRemoveItem: useRemoveCartItem
+    useRemoveItem: useRemoveCartItem,
   },
   checkout: {
     useCheckout,
@@ -46,14 +46,14 @@ export const ordercloudProvider = {
       useCards,
       useAddItem: useAddCardItem,
       useUpdateItem: useUpdateCardItem,
-      useRemoveItem: useRemoveCardItem
+      useRemoveItem: useRemoveCardItem,
     },
     address: {
       useAddresses,
       useAddItem: useAddAddressItem,
       useUpdateItem: useUpdateAddressItem,
-      useRemoveItem: useRemoveAddressItem
-    }
+      useRemoveItem: useRemoveAddressItem,
+    },
   },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },

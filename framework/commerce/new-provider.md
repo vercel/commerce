@@ -1,10 +1,19 @@
 # Adding a new Commerce Provider
 
+🔔 New providers are on hold [until we have a new API for commerce](https://github.com/vercel/commerce/pull/252) 🔔
+
 A commerce provider is a headless e-commerce platform that integrates with the [Commerce Framework](./README.md). Right now we have the following providers:
 
-- BigCommerce ([framework/bigcommerce](../bigcommerce))
-- Saleor ([framework/saleor](../saleor))
+- Local ([framework/local](../local))
 - Shopify ([framework/shopify](../shopify))
+- Swell ([framework/swell](../swell))
+- BigCommerce ([framework/bigcommerce](../bigcommerce))
+- Vendure ([framework/vendure](../vendure))
+- Saleor ([framework/saleor](../saleor))
+- OrderCloud ([framework/ordercloud](../ordercloud))
+- Spree ([framework/spree](../spree))
+- Kibo Commerce ([framework/kibocommerce](../kibocommerce))
+- Commerce.js ([framework/commercejs](../commercejs))
 
 Adding a commerce provider means adding a new folder in `framework` with a folder structure like the next one:
 
@@ -243,6 +252,30 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
     },
 }
 ```
+
+## Showing progress and features
+When creating a PR for a new provider, include this list in the PR description and mark the progress as you push so we can organize the code review. Not all points are required (but advised) so make sure to keep the list up to date.
+
+**Status**
+
+* [ ]  CommerceProvider
+* [ ]  Schema & TS types
+* [ ]  API Operations - Get all collections
+* [ ]  API Operations - Get all pages
+* [ ]  API Operations - Get all products
+* [ ]  API Operations - Get page
+* [ ]  API Operations - Get product
+* [ ]  API Operations - Get Shop Info (categories and vendors working — `vendors` query still a WIP PR on Reaction)
+* [ ]  Hook - Add Item
+* [ ]  Hook - Remove Item
+* [ ]  Hook - Update Item
+* [ ]  Hook - Get Cart (account-tied carts working, anonymous carts working, cart reconciliation working)
+* [ ]  Auth (based on a WIP PR on Reaction - still need to implement refresh tokens)
+* [ ]  Customer information
+* [ ]  Product attributes - Size, Colors
+* [ ]  Custom checkout
+* [ ]  Typing (in progress)
+* [ ]  Tests
 
 ## Adding the Node.js provider API
 

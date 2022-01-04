@@ -14,7 +14,7 @@ export const handler: SWRHook<GetCheckoutHook> = {
   },
   useHook: ({ useData }) =>
     function useHook(input) {
-      const submit = useSubmitCheckout();
+      const submit = useSubmitCheckout()
       const response = useData({
         swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
       })
