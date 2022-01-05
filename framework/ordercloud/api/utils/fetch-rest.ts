@@ -144,7 +144,7 @@ export const createBuyerFetcher: (
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
   ) => {
-    const customGlobal = global as CustomNodeJsGlobal;
+    const customGlobal = global as unknown as CustomNodeJsGlobal;
 
     // Get provider config
     const config = getConfig()
