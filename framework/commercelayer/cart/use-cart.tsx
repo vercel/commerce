@@ -18,9 +18,9 @@ export const handler: SWRHook<any> = {
       const clOrder = await Order.withCredentials(credentials)
         .includes('lineItems')
         .find(id, { rawResponse: true })
-      const orderStatus = clOrder.status
+      const attributes = clOrder.data.attributes
+      const orderStatus = attributes.status
       if (['pending', 'draft'].includes(orderStatus)) {
-        const attributes = clOrder.data.attributes
         const lineItems = clOrder?.included
           ? normalizeLineItems(clOrder?.included)
           : []
@@ -34,7 +34,7 @@ export const handler: SWRHook<any> = {
           subtotalPrice: attributes.subtotal_amount_float,
           totalPrice: attributes.total_amount_float,
         }
-      } else {
+      } else if (id) {
         localStorage.removeItem('CL_ORDER_ID')
       }
     }
