@@ -1,9 +1,9 @@
 import { GetAPISchema, createEndpoint, CommerceAPI } from '@commerce/api'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
 import type { CheckoutSchema } from '@commerce/types/checkout'
-import checkout from './checkout'
+import getCheckout from './get-checkout'
 
-export const handlers: CheckoutEndpoint['handlers'] = { checkout }
+export const handlers: CheckoutEndpoint['handlers'] = { getCheckout }
 
 export type CheckoutAPI = GetAPISchema<CommerceAPI, CheckoutSchema>
 export type CheckoutEndpoint = CheckoutAPI['endpoint']

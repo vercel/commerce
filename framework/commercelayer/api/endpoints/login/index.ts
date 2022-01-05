@@ -1,33 +1,18 @@
-import { GetAPISchema } from '@commerce/api'
-import { CommerceAPIError } from '@commerce/api/utils/errors'
-import isAllowedOperation from '@commerce/api/utils/is-allowed-operation'
-import { LoginSchema } from '@commerce/types/login'
+import { GetAPISchema, createEndpoint } from '@commerce/api'
+import loginEndpoint from '@commerce/api/endpoints/login'
+import type { LoginSchema } from '@commerce/types/login'
+import type { CommercelayerAPI } from '../..'
+import login from './login'
 
-const loginEndpoint: GetAPISchema<
-  any,
-  LoginSchema<any>
->['endpoint']['handler'] = async (ctx) => {
-  const { req, res, handlers } = ctx
-  if (
-    !isAllowedOperation(req, res, {
-      POST: handlers['login'],
-    })
-  ) {
-    return
-  }
-  try {
-    const body = req.body ?? {}
-    return await handlers['login']({ ...ctx, body })
-  } catch (error) {
-    console.error(error)
+export type LoginAPI = GetAPISchema<CommercelayerAPI, LoginSchema>
 
-    const message =
-      error instanceof CommerceAPIError
-        ? 'An unexpected error ocurred with the Commerce API'
-        : 'An unexpected error ocurred'
+export type LoginEndpoint = LoginAPI['endpoint']
 
-    res.status(500).json({ data: null, errors: [{ message }] })
-  }
-}
+export const handlers: LoginEndpoint['handlers'] = { login }
 
-export default loginEndpoint
+const loginApi = createEndpoint<LoginAPI>({
+  handler: loginEndpoint,
+  handlers,
+})
+
+export default loginApi;

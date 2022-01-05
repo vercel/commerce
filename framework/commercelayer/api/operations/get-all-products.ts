@@ -25,7 +25,7 @@ export default function getAllProductsOperation({
       clientId: process.env.NEXT_PUBLIC_COMMERCELAYER_CLIENT_ID as string,
       scope: process.env.NEXT_PUBLIC_COMMERCELAYER_MARKET_SCOPE as string,
     })
-    if (credentials.accessToken) {
+    if (credentials?.accessToken) {
       const skus: string[] = []
       const config = {
         accessToken: credentials.accessToken,

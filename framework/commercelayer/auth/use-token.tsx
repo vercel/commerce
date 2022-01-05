@@ -3,7 +3,7 @@ import { getSalesChannelToken } from '@commercelayer/js-auth'
 import { useEffect, useState } from 'react'
 
 export default function useToken() {
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState<string | undefined>('')
   useEffect(() => {
     const cookieToken = Cookies.get('CL_TOKEN')
     const getToken = async () => {
@@ -12,10 +12,10 @@ export default function useToken() {
         clientId: process.env.NEXT_PUBLIC_COMMERCELAYER_CLIENT_ID as string,
         scope: process.env.NEXT_PUBLIC_COMMERCELAYER_MARKET_SCOPE as string,
       })
-      Cookies.set('CL_TOKEN', credentials.accessToken, {
-        expires: credentials.expires,
+      Cookies.set('CL_TOKEN', credentials?.accessToken ?? '', {
+        expires: credentials?.expires,
       })
-      setToken(credentials.accessToken)
+      setToken(credentials?.accessToken)
     }
     if (!cookieToken) getToken()
     else setToken(cookieToken)

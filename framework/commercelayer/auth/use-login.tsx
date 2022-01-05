@@ -33,7 +33,7 @@ export const handler: MutationHook<any> = {
         setCookie('CL_CUSTOMER_TOKEN', token.accessToken, {
           expires: token.expires,
         })
-      Cookies.set('CL_CUSTOMER_ID', token.data.owner_id as string)
+      Cookies.set('CL_CUSTOMER_ID', token?.data.owner_id as string)
       alert(`User "${email}" has successfully been logged in.`)
       return token
     } catch (error) {

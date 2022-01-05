@@ -2,7 +2,7 @@ import type { CheckoutEndpoint } from '.'
 import getCredentials from '../../utils/getCredentials'
 import { Order } from '@commercelayer/js-sdk'
 
-const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
+const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
   res,
 }) => {
@@ -33,4 +33,4 @@ const checkout: CheckoutEndpoint['handlers']['checkout'] = async ({
   }
 }
 
-export default checkout
+export default getCheckout
