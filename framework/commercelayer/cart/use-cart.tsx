@@ -18,19 +18,24 @@ export const handler: SWRHook<any> = {
       const clOrder = await Order.withCredentials(credentials)
         .includes('lineItems')
         .find(id, { rawResponse: true })
-      const attributes = clOrder.data.attributes
-      const lineItems = clOrder?.included
-        ? normalizeLineItems(clOrder?.included)
-        : []
-      return {
-        id,
-        createdAt: attributes.created_at,
-        currency: { code: attributes.currency_code },
-        taxesIncluded: '',
-        lineItems,
-        lineItemsSubtotalPrice: '',
-        subtotalPrice: attributes.subtotal_amount_float,
-        totalPrice: attributes.total_amount_float,
+      const orderStatus = clOrder.status
+      if (['pending', 'draft'].includes(orderStatus)) {
+        const attributes = clOrder.data.attributes
+        const lineItems = clOrder?.included
+          ? normalizeLineItems(clOrder?.included)
+          : []
+        return {
+          id,
+          createdAt: attributes.created_at,
+          currency: { code: attributes.currency_code },
+          taxesIncluded: '',
+          lineItems,
+          lineItemsSubtotalPrice: '',
+          subtotalPrice: attributes.subtotal_amount_float,
+          totalPrice: attributes.total_amount_float,
+        }
+      } else {
+        localStorage.removeItem('CL_ORDER_ID')
       }
     }
     return {
