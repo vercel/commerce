@@ -1,0 +1,128 @@
+{
+  "name": "nextjs-commerce",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "BUNDLE_ANALYZE=both next build",
+    "lint": "next lint",
+    "prettier-fix": "prettier --write .",
+    "find:unused": "npx next-unused",
+    "generate": "graphql-codegen",
+    "generate:shopify": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config framework/shopify/codegen.json",
+    "generate:vendure": "graphql-codegen --config framework/vendure/codegen.json",
+    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
+    "generate:kibocommerce": "graphql-codegen --config framework/kibocommerce/codegen.json"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "dependencies": {
+    "@chec/commerce.js": "^2.8.0",
+    "@react-spring/web": "^9.2.1",
+    "@spree/storefront-api-v2-sdk": "^5.0.1",
+    "@vercel/fetch": "^6.1.1",
+    "autoprefixer": "^10.2.6",
+    "body-scroll-lock": "^3.1.5",
+    "classnames": "^2.3.1",
+    "cookie": "^0.4.1",
+    "email-validator": "^2.0.4",
+    "immutability-helper": "^3.1.1",
+    "js-cookie": "^2.2.1",
+    "keen-slider": "^6.3.2",
+    "lodash.debounce": "^4.0.8",
+    "lodash.random": "^3.2.0",
+    "lodash.throttle": "^4.1.1",
+    "next": "^12.0.3",
+    "next-seo": "^4.26.0",
+    "next-themes": "^0.0.14",
+    "postcss": "^8.3.5",
+    "postcss-nesting": "^8.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-fast-marquee": "^1.1.4",
+    "react-merge-refs": "^1.1.0",
+    "react-use-measure": "^2.0.4",
+    "stripe": "^8.176.0",
+    "swell-js": "^4.0.0-next.0",
+    "swr": "^0.5.6",
+    "tabbable": "^5.2.0",
+    "tailwindcss": "^2.2.2",
+    "uuidv4": "^6.2.10"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.5",
+    "@graphql-codegen/schema-ast": "^1.18.3",
+    "@graphql-codegen/typescript": "^1.22.2",
+    "@graphql-codegen/typescript-operations": "^1.18.1",
+    "@next/bundle-analyzer": "^10.2.3",
+    "@types/body-scroll-lock": "^2.6.1",
+    "@types/chec__commerce.js": "^2.8.4",
+    "@types/cookie": "^0.4.0",
+    "@types/js-cookie": "^2.2.6",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/lodash.random": "^3.2.6",
+    "@types/lodash.throttle": "^4.1.6",
+    "@types/node": "^15.12.4",
+    "@types/react": "^17.0.8",
+    "deepmerge": "^4.2.2",
+    "eslint": "^7.31.0",
+    "eslint-config-next": "^11.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "graphql": "^15.5.1",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.3.0",
+    "typescript": "4.3.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint",
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{md,mdx,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "next-unused": {
+    "alias": {
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
+    },
+    "debug": true,
+    "include": [
+      "components",
+      "lib",
+      "pages"
+    ],
+    "exclude": [],
+    "entrypoints": [
+      "pages"
+    ]
+  }
+}
