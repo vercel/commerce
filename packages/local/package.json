@@ -1,0 +1,30 @@
+{
+  "name": "@vercel/commerce-local",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -fr dist/* && tsc -p tsconfig.json",
+    "dev": "npm run build -- --watch"
+  },
+  "sideEffects": false,
+  "main": "index.js",
+  "types": "index.d.ts",
+  "dependencies": {
+    "@vercel/commerce": "^0.0.1",
+    "@vercel/fetch": "^6.1.1",
+    "swr": "^0.5.6"
+  },
+  "peerDependencies": {
+    "next": "^12",
+    "react": "^17",
+    "react-dom": "^17"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.4",
+    "@types/react": "^17.0.8",
+    "next": "^12.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.6.0-dev.20220108"
+  }
+}

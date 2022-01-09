@@ -34,6 +34,7 @@
     }
   },
   "devDependencies": {
+    "prettier": "^2.5.1",
     "turbo": "^1.0.12"
   }
 }
