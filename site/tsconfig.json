@@ -27,18 +27,6 @@
       "@framework/*": ["framework/local/*"]
     }
   },
-  "include": ["site/next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": [
-    "node_modules",
-    "./framework/local",
-    "./framework/bigcommerce",
-    "./framework/shopify",
-    "./framework/swell",
-    "./framework/vendure",
-    "./framework/saleor",
-    "./framework/spree",
-    "./framework/ordercloud",
-    "./framework/kibocommerce",
-     "./framework/commercejs"
-  ]
+  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules"]
 }

@@ -1,8 +1,5 @@
 const commerce = require('./commerce.config.json')
-const {
-  withCommerceConfig,
-  getProviderName,
-} = require('./framework/commerce/config')
+const { withCommerceConfig, getProviderName } = require('./commerce-config')
 
 const provider = commerce.provider || getProviderName()
 const isBC = provider === 'bigcommerce'

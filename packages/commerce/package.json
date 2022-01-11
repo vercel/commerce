@@ -9,13 +9,19 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
-    "*": "./dist/*"
+    "*": "./dist/*",
+    "config": "./config.js"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "src/*",
+        "src/*"
+      ],
+      "api": [
         "src/api/index.ts"
+      ],
+      "config": [
+        "dist/config.d.ts"
       ]
     }
   },
