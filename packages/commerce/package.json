@@ -23,6 +23,22 @@
       ]
     }
   },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "typesVersions": {
+      "*": {
+        "*": [
+          "dist/*.d.ts",
+          "dist/*/index.d.ts"
+        ],
+        "config": [
+          "dist/config.d.cts"
+        ]
+      }
+    }
+  },
   "dependencies": {
     "@vercel/fetch": "^6.1.1",
     "deepmerge": "^4.2.2",
