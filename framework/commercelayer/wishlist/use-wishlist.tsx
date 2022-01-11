@@ -37,15 +37,17 @@ export function extendHook(
     const { data: customer } = useCustomer()
     const getWishlist =
       typeof localStorage !== 'undefined' && localStorage.getItem('wishlist')
-    if (getWishlist && customer?.email) {
+    if (getWishlist && customer?.email && data.products.length > 0) {
       const wishlist = JSON.parse(getWishlist)
-      const items = wishlist.map((wishlist: string) => {
-        const [product] = data.products.filter((p) => p.id === wishlist) as any
-        const [variant] = product.variants
+      const items = wishlist.map((wishlist: string, id: number) => {
+        const [product] = data.products.filter((p) =>
+          wishlist.startsWith(p.id)
+        ) as any
+        const [variant] = product?.variants
         return {
-          variant_id: variant.id,
-          product_id: wishlist,
-          id: wishlist,
+          variant_id: variant?.id,
+          product_id: product?.id,
+          id,
           product,
         }
       })
