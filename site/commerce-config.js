@@ -4,6 +4,7 @@
 
 const path = require('path')
 const fs = require('fs')
+const merge = require('deepmerge')
 const prettier = require('prettier')
 const core = require('@vercel/commerce/config')
 
@@ -34,32 +35,38 @@ function getProviderName() {
 }
 
 function withCommerceConfig(nextConfig = {}) {
-  const commerce = nextConfig.commerce || {}
-  const name = commerce.provider || getProviderName()
+  const config = merge(
+    { commerce: { provider: getProviderName() } },
+    nextConfig
+  )
+  const { commerce } = config
+  const { provider } = commerce
 
-  if (!name) {
+  console.log('CONFIG', config)
+
+  if (!provider) {
     throw new Error(
       `The commerce provider is missing, please add a valid provider name or its environment variables`
     )
   }
-  if (!PROVIDERS.includes(name)) {
+  if (!PROVIDERS.includes(provider)) {
     throw new Error(
-      `The commerce provider "${name}" can't be found, please use one of "${PROVIDERS.join(
+      `The commerce provider "${provider}" can't be found, please use one of "${PROVIDERS.join(
         ', '
       )}"`
     )
   }
 
   // Update paths in `tsconfig.json` to point to the selected provider
-  if (nextConfig.commerce.updateTSConfig !== false) {
+  if (commerce.updateTSConfig !== false) {
     const tsconfigPath = path.join(
       process.cwd(),
       commerce.tsconfigPath || 'tsconfig.json'
     )
     const tsconfig = require(tsconfigPath)
 
-    tsconfig.compilerOptions.paths['@framework'] = [`${name}`]
-    tsconfig.compilerOptions.paths['@framework/*'] = [`${name}/*`]
+    tsconfig.compilerOptions.paths['@framework'] = [`${provider}`]
+    tsconfig.compilerOptions.paths['@framework/*'] = [`${provider}/*`]
 
     fs.writeFileSync(
       tsconfigPath,
@@ -67,7 +74,7 @@ function withCommerceConfig(nextConfig = {}) {
     )
   }
 
-  return core.withCommerceConfig(nextConfig)
+  return core.withCommerceConfig(config)
 }
 
 module.exports = { withCommerceConfig, getProviderName }
