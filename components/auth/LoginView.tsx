@@ -18,6 +18,7 @@ const LoginView: React.FC = () => {
 
   const handleLogin = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
+
     if (!dirty && !disabled) {
       setDirty(true)
       handleValidation()

@@ -17,6 +17,7 @@ const loginEndpoint: GetAPISchema<
   ) {
     return
   }
+
   try {
     const body = req.body ?? {}
     return await handlers['login']({ ...ctx, body })
