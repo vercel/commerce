@@ -4,6 +4,7 @@
 
 const path = require('path')
 const merge = require('deepmerge')
+const importCwd = require('import-cwd')
 
 function withCommerceConfig(nextConfig = {}) {
   const commerce = nextConfig.commerce || {}
@@ -15,7 +16,7 @@ function withCommerceConfig(nextConfig = {}) {
     )
   }
 
-  const commerceNextConfig = require(path.join(provider, 'next.config'))
+  const commerceNextConfig = importCwd(path.join(provider, 'next.config'))
   const config = merge(nextConfig, commerceNextConfig)
 
   config.env = config.env || {}

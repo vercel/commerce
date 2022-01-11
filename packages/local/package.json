@@ -7,8 +7,22 @@
     "dev": "npm run build -- --watch"
   },
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "type": "module",
+  "exports": {
+    "./*": "./dist/*.js",
+    "./next.config": "./dist/next.config.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*",
+        "src/*/index"
+      ],
+      "next.config": [
+        "dist/next.config.d.cts"
+      ]
+    }
+  },
   "dependencies": {
     "@vercel/commerce": "^0.0.1",
     "@vercel/fetch": "^6.1.1",
