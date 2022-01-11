@@ -23,8 +23,8 @@
       "@components/*": ["components/*"],
       "@commerce": ["framework/commerce"],
       "@commerce/*": ["framework/commerce/*"],
-      "@framework": ["framework/local"],
-      "@framework/*": ["framework/local/*"]
+      "@framework": ["@vercel/commerce-local"],
+      "@framework/*": ["@vercel/commerce-local/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

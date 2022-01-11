@@ -8,7 +8,7 @@ const prettier = require('prettier')
 const core = require('@vercel/commerce/config')
 
 const PROVIDERS = [
-  'local',
+  '@vercel/commerce-local',
   'bigcommerce',
   'saleor',
   'shopify',
@@ -29,7 +29,7 @@ function getProviderName() {
       ? 'shopify'
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
       ? 'swell'
-      : 'local')
+      : '@vercel/commerce-local')
   )
 }
 
@@ -58,8 +58,8 @@ function withCommerceConfig(nextConfig = {}) {
     )
     const tsconfig = require(tsconfigPath)
 
-    tsconfig.compilerOptions.paths['@framework'] = [`framework/${name}`]
-    tsconfig.compilerOptions.paths['@framework/*'] = [`framework/${name}/*`]
+    tsconfig.compilerOptions.paths['@framework'] = [`${name}`]
+    tsconfig.compilerOptions.paths['@framework/*'] = [`${name}/*`]
 
     fs.writeFileSync(
       tsconfigPath,
