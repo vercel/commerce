@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist/* && tsc -p tsconfig.json",
+    "build": "rm -fr dist/* && tsc",
     "dev": "npm run build -- --watch"
   },
   "sideEffects": false,
@@ -14,7 +14,8 @@
   "typesVersions": {
     "*": {
       "*": [
-        "src/*"
+        "src/*",
+        "src/api/index.ts"
       ]
     }
   },
