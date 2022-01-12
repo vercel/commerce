@@ -66,10 +66,10 @@ function withCommerceConfig(nextConfig = {}) {
     // -> /node_modules/[name]/dist/index.js
     const absolutePath = require.resolve(provider)
     // but we want references to go to the real path in /packages instead
-    // -> packages/[name]/dist/index.js
-    const relativePath = path.relative(process.cwd(), absolutePath)
+    // -> packages/[name]/dist
+    const distPath = path.join(path.relative(process.cwd(), absolutePath), '..')
     // -> /packages/[name]/src
-    const modulePath = path.join(relativePath, '../../src')
+    const modulePath = path.join(distPath, '../src')
 
     tsconfig.compilerOptions.paths['@framework'] = [`${modulePath}`]
     tsconfig.compilerOptions.paths['@framework/*'] = [`${modulePath}/*`]
@@ -78,6 +78,25 @@ function withCommerceConfig(nextConfig = {}) {
       tsconfigPath,
       prettier.format(JSON.stringify(tsconfig), { parser: 'json' })
     )
+
+    const webpack = config.webpack
+
+    // To improve the DX of using references, we'll switch from `src` to `dist`
+    // only for webpack so imports resolve correctly but typechecking goes to `src`
+    config.webpack = (cfg, options) => {
+      if (Array.isArray(cfg.resolve.plugins)) {
+        const jsconfigPaths = cfg.resolve.plugins.find(
+          (plugin) => plugin.constructor.name === 'JsConfigPathsPlugin'
+        )
+
+        if (jsconfigPaths) {
+          jsconfigPaths.paths['@framework'] = [distPath]
+          jsconfigPaths.paths['@framework/*'] = [`${distPath}/*`]
+        }
+      }
+
+      return webpack ? webpack(cfg, options) : cfg
+    }
   }
 
   return core.withCommerceConfig(config)

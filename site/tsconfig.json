@@ -21,8 +21,8 @@
       "@config/*": ["config/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
-      "@commerce": ["framework/commerce"],
-      "@commerce/*": ["framework/commerce/*"],
+      "@commerce": ["../packages/commerce/src"],
+      "@commerce/*": ["../packages/commerce/src/*"],
       "@framework": ["../packages/local/src"],
       "@framework/*": ["../packages/local/src/*"]
     }
