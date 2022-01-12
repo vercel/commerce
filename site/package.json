@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both next build",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.2.1",
+    "@vercel/commerce": "^0.0.1",
     "@vercel/commerce-local": "^0.0.1",
     "autoprefixer": "^10.2.6",
     "body-scroll-lock": "^3.1.5",
