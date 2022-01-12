@@ -69,9 +69,7 @@ function withCommerceConfig(nextConfig = {}) {
     // -> packages/[name]/dist/index.js
     const relativePath = path.relative(process.cwd(), absolutePath)
     // -> /packages/[name]/src
-    const modulePath = path.join(relativePath, '../../dist')
-
-    console.log('PATH', modulePath)
+    const modulePath = path.join(relativePath, '../../src')
 
     tsconfig.compilerOptions.paths['@framework'] = [`${modulePath}`]
     tsconfig.compilerOptions.paths['@framework/*'] = [`${modulePath}/*`]

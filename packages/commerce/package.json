@@ -10,7 +10,10 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.js",
-    "./*": "./dist/*.js",
+    "./*": [
+      "./dist/*.js",
+      "./dist/*/index.js"
+    ],
     "./config": "./dist/config.cjs"
   },
   "typesVersions": {

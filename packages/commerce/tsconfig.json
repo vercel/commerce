@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "NodeNext",
+    "module": "esnext",
     "outDir": "dist",
     "baseUrl": "src",
     "lib": ["dom", "dom.iterable", "esnext"],

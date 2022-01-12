@@ -10,14 +10,17 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.js",
-    "./*": "./dist/*.js",
+    "./*": [
+      "./dist/*.js",
+      "./dist/*/index.js"
+    ],
     "./next.config": "./dist/next.config.cjs"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "src/*",
-        "src/*/index"
+        "dist/*",
+        "dist/*/index"
       ],
       "next.config": [
         "dist/next.config.d.cts"
@@ -31,8 +34,8 @@
     "typesVersions": {
       "*": {
         "*": [
-          "dist/*.d.ts",
-          "dist/*/index.d.ts"
+          "src/*.d.ts",
+          "src/*/index.d.ts"
         ],
         "next.config": [
           "dist/next.config.d.cts"
