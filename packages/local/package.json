@@ -9,6 +9,7 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
+    ".": "./dist/index.js",
     "./*": "./dist/*.js",
     "./next.config": "./dist/next.config.cjs"
   },

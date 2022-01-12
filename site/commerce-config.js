@@ -42,8 +42,6 @@ function withCommerceConfig(nextConfig = {}) {
   const { commerce } = config
   const { provider } = commerce
 
-  console.log('CONFIG', config)
-
   if (!provider) {
     throw new Error(
       `The commerce provider is missing, please add a valid provider name or its environment variables`
@@ -64,9 +62,19 @@ function withCommerceConfig(nextConfig = {}) {
       commerce.tsconfigPath || 'tsconfig.json'
     )
     const tsconfig = require(tsconfigPath)
+    // The module path is a symlink in node_modules
+    // -> /node_modules/[name]/dist/index.js
+    const absolutePath = require.resolve(provider)
+    // but we want references to go to the real path in /packages instead
+    // -> packages/[name]/dist/index.js
+    const relativePath = path.relative(process.cwd(), absolutePath)
+    // -> /packages/[name]/src
+    const modulePath = path.join(relativePath, '../../dist')
 
-    tsconfig.compilerOptions.paths['@framework'] = [`${provider}`]
-    tsconfig.compilerOptions.paths['@framework/*'] = [`${provider}/*`]
+    console.log('PATH', modulePath)
+
+    tsconfig.compilerOptions.paths['@framework'] = [`${modulePath}`]
+    tsconfig.compilerOptions.paths['@framework/*'] = [`${modulePath}/*`]
 
     fs.writeFileSync(
       tsconfigPath,
