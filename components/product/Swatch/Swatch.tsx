@@ -13,52 +13,50 @@ interface SwatchProps {
   label?: string | null
 }
 
-const Swatch: React.FC<Omit<ButtonProps, 'variant'> & SwatchProps> = React.memo(
-  ({
-    active,
-    className,
-    color = '',
-    label = null,
-    variant = 'size',
-    ...props
-  }) => {
-    variant = variant?.toLowerCase()
+const Swatch: React.FC<Omit<ButtonProps, 'variant'> & SwatchProps> = ({
+  active,
+  className,
+  color = '',
+  label = null,
+  variant = 'size',
+  ...props
+}) => {
+  variant = variant?.toLowerCase()
 
-    if (label) {
-      label = label?.toLowerCase()
-    }
-
-    const swatchClassName = cn(
-      s.swatch,
-      {
-        [s.color]: color,
-        [s.active]: active,
-        [s.size]: variant === 'size',
-        [s.dark]: color ? isDark(color) : false,
-        [s.textLabel]: !color && label && label.length > 3,
-      },
-      className
-    )
-
-    return (
-      <Button
-        role="option"
-        aria-selected={active}
-        aria-label={variant && label ? `${variant} ${label}` : 'Variant Swatch'}
-        className={swatchClassName}
-        {...(label && color && { title: label })}
-        style={color ? { backgroundColor: color } : {}}
-        {...props}
-      >
-        {color && active && (
-          <span>
-            <Check />
-          </span>
-        )}
-        {!color ? label : null}
-      </Button>
-    )
+  if (label) {
+    label = label?.toLowerCase()
   }
-)
 
-export default Swatch
+  const swatchClassName = cn(
+    s.swatch,
+    {
+      [s.color]: color,
+      [s.active]: active,
+      [s.size]: variant === 'size',
+      [s.dark]: color ? isDark(color) : false,
+      [s.textLabel]: !color && label && label.length > 3,
+    },
+    className
+  )
+
+  return (
+    <Button
+      role="option"
+      aria-selected={active}
+      aria-label={variant && label ? `${variant} ${label}` : 'Variant Swatch'}
+      className={swatchClassName}
+      {...(label && color && { title: label })}
+      style={color ? { backgroundColor: color } : {}}
+      {...props}
+    >
+      {color && active && (
+        <span>
+          <Check />
+        </span>
+      )}
+      {!color ? label : null}
+    </Button>
+  )
+}
+
+export default React.memo(Swatch)
