@@ -13,6 +13,7 @@
           "^build"
         ],
         "outputs": [
+          "dist/**",
           ".next/**"
         ]
       },
@@ -34,7 +35,13 @@
     }
   },
   "devDependencies": {
+    "husky": "^7.0.4",
     "prettier": "^2.5.1",
     "turbo": "^1.0.12"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "turbo lint"
+    }
   }
 }
