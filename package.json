@@ -5,6 +5,9 @@
     "site",
     "packages/*"
   ],
+  "scripts": {
+    "prettier-fix": "prettier --write ."
+  },
   "turbo": {
     "baseBranch": "origin/main",
     "pipeline": {
@@ -24,6 +27,9 @@
         "outputs": []
       },
       "lint": {
+        "outputs": []
+      },
+      "prettier-fix": {
         "outputs": []
       },
       "dev": {

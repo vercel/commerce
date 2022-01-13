@@ -54,6 +54,7 @@
     "lint-staged": "^12.1.7",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.5.1",
     "typescript": "4.3.4"
   },
   "lint-staged": {
