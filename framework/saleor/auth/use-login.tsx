@@ -49,15 +49,15 @@ export const handler: MutationHook<LoginHook> = {
   useHook:
     ({ fetch }) =>
     () => {
-      const { revalidate } = useCustomer()
+      const { mutate } = useCustomer()
 
       return useCallback(
         async function login(input) {
           const data = await fetch({ input })
-          await revalidate()
+          await mutate()
           return data
         },
-        [fetch, revalidate]
+        [fetch, mutate]
       )
     },
 }

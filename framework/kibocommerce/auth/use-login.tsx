@@ -11,13 +11,12 @@ export default useLogin as UseLogin<typeof handler>
 export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
     url: '/api/login',
-    method: 'POST'
+    method: 'POST',
   },
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
       throw new CommerceError({
-        message:
-          'An email and password are required to login',
+        message: 'An email and password are required to login',
       })
     }
 
@@ -26,17 +25,19 @@ export const handler: MutationHook<LoginHook> = {
       body: { email, password },
     })
   },
-  useHook: ({ fetch }) => () => {
-    const { revalidate } = useCustomer()
-    const {revalidate: revalidateCart} = useCart()
-    return useCallback(
-      async function login(input) {
-        const data = await fetch({ input })
-        await revalidate()
-        await revalidateCart()
-        return data
-      },
-      [fetch, revalidate, revalidateCart]
-    )
-  },
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCustomer()
+      const { mutate: mutateCart } = useCart()
+      return useCallback(
+        async function login(input) {
+          const data = await fetch({ input })
+          await mutate()
+          await mutateCart()
+          return data
+        },
+        [fetch, mutate, mutateCart]
+      )
+    },
 }

@@ -12,8 +12,10 @@ export default async function sdkFetch<
 >(
   resource: Resource,
   method: Method,
-  ...variables: Parameters<Commerce[Resource][Method]>
-): Promise<ReturnType<Commerce[Resource][Method]>> {
+  ...variables: Parameters<Commerce[Resource][Method] | any>
+): Promise<ReturnType<Commerce[Resource][Method] | any>> {
+  //@ts-ignore
+  // Provider TODO: Fix types here.
   const data = await commerce[resource][method](...variables)
   return data
 }

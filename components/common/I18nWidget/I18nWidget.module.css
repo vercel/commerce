@@ -16,16 +16,6 @@
 
 .dropdownMenu {
   @apply fixed right-0 top-12 mt-2 origin-top-right outline-none bg-primary z-40 w-full h-full;
-
-  @screen lg {
-    @apply absolute border border-accent-1 shadow-lg w-56 h-auto;
-  }
-}
-
-.closeButton {
-  @screen md {
-    @apply hidden;
-  }
 }
 
 .item {
@@ -43,4 +33,16 @@
 
 .icon.active {
   transform: rotate(180deg);
+}
+
+@screen lg {
+  .dropdownMenu {
+    @apply absolute border border-accent-1 shadow-lg w-56 h-auto;
+  }
+}
+
+@screen md {
+  .closeButton {
+    @apply hidden;
+  }
 }

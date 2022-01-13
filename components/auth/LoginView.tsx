@@ -4,9 +4,7 @@ import useLogin from '@framework/auth/use-login'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 
-interface Props {}
-
-const LoginView: FC<Props> = () => {
+const LoginView: React.FC = () => {
   // Form State
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -35,8 +33,8 @@ const LoginView: FC<Props> = () => {
       })
       setLoading(false)
       closeModal()
-    } catch ({ errors }) {
-      setMessage(errors[0].message)
+    } catch (e: any) {
+      setMessage(e.errors[0].message)
       setLoading(false)
       setDisabled(false)
     }
