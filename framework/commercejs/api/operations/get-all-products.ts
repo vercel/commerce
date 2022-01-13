@@ -18,7 +18,7 @@ export default function getAllProductsOperation({
     })
 
     const productsFormatted =
-      data?.map((product) => normalizeProduct(product)) || []
+      data?.map((product: any) => normalizeProduct(product)) || []
 
     return {
       products: productsFormatted,

@@ -17,7 +17,7 @@ export const handler: MutationHook<AddItemHook> = {
     ({ fetch }) =>
     () => {
       const { data: customer } = useCustomer()
-      const { revalidate } = useWishlist()
+      const { mutate } = useWishlist()
 
       return useCallback(
         async function addItem(item) {
@@ -30,10 +30,10 @@ export const handler: MutationHook<AddItemHook> = {
 
           // TODO: add validations before doing the fetch
           const data = await fetch({ input: { item } })
-          await revalidate()
+          await mutate()
           return data
         },
-        [fetch, revalidate, customer]
+        [fetch, mutate, customer]
       )
     },
 }

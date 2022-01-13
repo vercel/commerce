@@ -60,25 +60,26 @@ export const handler: MutationHook<LoginHook> = {
     }
   },
   useHook: ({ fetch }) => {
-    const useWrappedHook: ReturnType<MutationHook<LoginHook>['useHook']> =
-      () => {
-        const customer = useCustomer()
-        const cart = useCart()
-        const wishlist = useWishlist()
+    const useWrappedHook: ReturnType<
+      MutationHook<LoginHook>['useHook']
+    > = () => {
+      const customer = useCustomer()
+      const cart = useCart()
+      const wishlist = useWishlist()
 
-        return useCallback(
-          async function login(input) {
-            const data = await fetch({ input })
+      return useCallback(
+        async function login(input) {
+          const data = await fetch({ input })
 
-            await customer.revalidate()
-            await cart.revalidate()
-            await wishlist.revalidate()
+          await customer.mutate()
+          await cart.mutate()
+          await wishlist.mutate()
 
-            return data
-          },
-          [customer, cart, wishlist]
-        )
-      }
+          return data
+        },
+        [customer, cart, wishlist]
+      )
+    }
 
     return useWrappedHook
   },

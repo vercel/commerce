@@ -15,7 +15,7 @@ import { useCheckoutContext } from '../context'
 const CheckoutSidebarView: FC = () => {
   const [loadingSubmit, setLoadingSubmit] = useState(false)
   const { setSidebarView, closeSidebar } = useUI()
-  const { data: cartData, revalidate: refreshCart } = useCart()
+  const { data: cartData, mutate: refreshCart } = useCart()
   const { data: checkoutData, submit: onCheckout } = useCheckout()
   const { clearCheckoutFields } = useCheckoutContext()
 

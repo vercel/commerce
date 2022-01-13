@@ -55,32 +55,33 @@ export const handler: MutationHook<ExplicitWishlistAddItemHook> = {
     return null
   },
   useHook: ({ fetch }) => {
-    const useWrappedHook: ReturnType<MutationHook<AddItemHook>['useHook']> =
-      () => {
-        const wishlist = useWishlist()
+    const useWrappedHook: ReturnType<
+      MutationHook<AddItemHook>['useHook']
+    > = () => {
+      const wishlist = useWishlist()
 
-        return useCallback(
-          async (item) => {
-            if (!wishlist.data) {
-              return null
-            }
+      return useCallback(
+        async (item) => {
+          if (!wishlist.data) {
+            return null
+          }
 
-            const data = await fetch({
-              input: {
-                item: {
-                  ...item,
-                  wishlistToken: wishlist.data.token,
-                },
+          const data = await fetch({
+            input: {
+              item: {
+                ...item,
+                wishlistToken: wishlist.data.token,
               },
-            })
+            },
+          })
 
-            await wishlist.revalidate()
+          await wishlist.mutate()
 
-            return data
-          },
-          [wishlist]
-        )
-      }
+          return data
+        },
+        [wishlist]
+      )
+    }
 
     return useWrappedHook
   },
