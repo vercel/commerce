@@ -47,7 +47,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "turbo lint"
+      "pre-commit": "turbo run lint"
     }
   }
 }
