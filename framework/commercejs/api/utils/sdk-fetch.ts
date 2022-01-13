@@ -5,8 +5,6 @@ type MethodKeys<T> = {
   [K in keyof T]: T[K] extends (...args: any) => infer R ? K : never
 }[keyof T]
 
-// Provider TODO: Fix types here.
-
 // Calls the relevant Commerce.js SDK method based on resource and method arguments.
 export default async function sdkFetch<
   Resource extends keyof Commerce,
@@ -16,6 +14,8 @@ export default async function sdkFetch<
   method: Method,
   ...variables: Parameters<Commerce[Resource][Method] | any>
 ): Promise<ReturnType<Commerce[Resource][Method] | any>> {
-  const data = await commerce[resource as string][method](...variables)
+  //@ts-ignore
+  // Provider TODO: Fix types here.
+  const data = await commerce[resource][method](...variables)
   return data
 }
