@@ -44,11 +44,11 @@ export default function Home({
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
-            priority
             product={product}
             imgProps={{
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
+              priority: true
             }}
           />
         ))}
