@@ -48,6 +48,7 @@ export default function Home({
             imgProps={{
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
+              priority: true
             }}
           />
         ))}
