@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "https://buybutton.store/graphql": {
+      "headers": {
+        "Authorization": "Bearer xzy"
+      }
+    }
+  },
+  "documents": [
+    {
+      "./framework/bigcommerce/api/**/*.ts": {
+        "noRequire": true
+      }
+    }
+  ],
+  "generates": {
+    "./framework/bigcommerce/schema.d.ts": {
+      "plugins": ["typescript", "typescript-operations"]
+    },
+    "./framework/bigcommerce/schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  },
+  "hooks": {
+    "afterAllFileWrite": ["prettier --write"]
+  }
+}

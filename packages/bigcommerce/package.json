@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rm -fr dist/* && tsc",
     "dev": "npm run build -- --watch",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "generate:definitions": "node scripts/generate-definitions.js"
   },
   "sideEffects": false,
   "type": "module",
