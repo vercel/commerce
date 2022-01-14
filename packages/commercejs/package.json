@@ -46,9 +46,7 @@
   },
   "dependencies": {
     "@chec/commerce.js": "^2.8.0",
-    "@vercel/commerce": "^0.0.1",
-    "@vercel/fetch": "^6.1.1",
-    "swr": "^0.5.6"
+    "@vercel/commerce": "^0.0.1"
   },
   "peerDependencies": {
     "next": "^12",

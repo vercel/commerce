@@ -1,12 +1,11 @@
 {
-  "name": "@vercel/commerce-bigcommerce",
+  "name": "@vercel/commerce-kibocommerce",
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "build": "rm -fr dist/* && tsc",
     "dev": "npm run build -- --watch",
-    "prettier-fix": "prettier --write .",
-    "generate:definitions": "node scripts/generate-definitions.js"
+    "prettier-fix": "prettier --write ."
   },
   "sideEffects": false,
   "type": "module",
@@ -36,22 +35,18 @@
     "typesVersions": {
       "*": {
         "*": [
-          "dist/*.d.ts",
-          "dist/*/index.d.ts"
+          "src/*.d.ts",
+          "src/*/index.d.ts"
         ],
-        "config": [
-          "dist/config.d.cts"
+        "next.config": [
+          "dist/next.config.d.cts"
         ]
       }
     }
   },
   "dependencies": {
-    "@vercel/fetch": "^6.1.1",
-    "cookie": "^0.4.1",
-    "immutability-helper": "^3.1.1",
-    "jsonwebtoken": "^8.5.1",
-    "lodash.debounce": "^4.0.8",
-    "uuidv4": "^6.2.12"
+    "@vercel/commerce": "^0.0.1",
+    "@vercel/fetch": "^6.1.1"
   },
   "peerDependencies": {
     "next": "^12",
@@ -59,9 +54,6 @@
     "react-dom": "^17"
   },
   "devDependencies": {
-    "@types/cookie": "^0.4.1",
-    "@types/jsonwebtoken": "^8.5.7",
-    "@types/lodash.debounce": "^4.0.6",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.8",
     "lint-staged": "^12.1.7",
