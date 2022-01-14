@@ -1,5 +1,5 @@
-import { GetAPISchema, createEndpoint } from '@commerce/api'
-import customerEndpoint from '@commerce/api/endpoints/customer'
+import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import customerEndpoint from '@vercel/commerce/api/endpoints/customer'
 import type { CustomerSchema } from '../../../types/customer'
 import type { BigcommerceAPI } from '../..'
 import getLoggedInCustomer from './get-logged-in-customer'

@@ -1,7 +1,7 @@
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type { GetPageOperation, Page } from '../../types/page'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import type { BigcommerceConfig, Provider } from '..'

@@ -1,6 +1,6 @@
-import * as Core from '@commerce/types/cart'
+import * as Core from '@vercel/commerce/types/cart'
 
-export * from '@commerce/types/cart'
+export * from '@vercel/commerce/types/cart'
 
 // TODO: this type should match:
 // https://developer.bigcommerce.com/api-reference/cart-checkout/server-server-cart-api/cart/getacart#responses

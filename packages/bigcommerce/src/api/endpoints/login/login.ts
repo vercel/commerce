@@ -1,4 +1,4 @@
-import { FetcherError } from '@commerce/utils/errors'
+import { FetcherError } from '@vercel/commerce/utils/errors'
 import type { LoginEndpoint } from '.'
 
 const invalidCredentials = /invalid credentials/i

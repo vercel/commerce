@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import { CommerceError } from '@vercel/commerce/utils/errors'
 import useRemoveItem, {
   UseRemoveItem,
-} from '@commerce/wishlist/use-remove-item'
+} from '@vercel/commerce/wishlist/use-remove-item'
 import type { RemoveItemHook } from '../types/wishlist'
 import useCustomer from '../customer/use-customer'
 import useWishlist from './use-wishlist'

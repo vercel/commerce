@@ -3,7 +3,7 @@ import {
   CommerceAPI,
   CommerceAPIConfig,
   getCommerceApi as commerceApi,
-} from '@commerce/api'
+} from '@vercel/commerce/api'
 import createFetchGraphqlApi from './utils/fetch-graphql-api'
 import createFetchStoreApi from './utils/fetch-store-api'
 

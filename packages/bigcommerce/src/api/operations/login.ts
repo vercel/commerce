@@ -2,7 +2,7 @@ import type { ServerResponse } from 'http'
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type { LoginOperation } from '../../types/login'
 import type { LoginMutation } from '../../schema'
 import type { RecursivePartial } from '../utils/types'

@@ -3,10 +3,10 @@ import debounce from 'lodash.debounce'
 import type {
   MutationHookContext,
   HookFetcherContext,
-} from '@commerce/utils/types'
-import { ValidationError } from '@commerce/utils/errors'
-import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
-import type { LineItem, UpdateItemHook } from '@commerce/types/cart'
+} from '@vercel/commerce/utils/types'
+import { ValidationError } from '@vercel/commerce/utils/errors'
+import useUpdateItem, { UseUpdateItem } from '@vercel/commerce/cart/use-update-item'
+import type { LineItem, UpdateItemHook } from '@vercel/commerce/types/cart'
 import { handler as removeItemHandler } from './use-remove-item'
 import useCart from './use-cart'
 

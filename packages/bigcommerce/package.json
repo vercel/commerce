@@ -46,7 +46,12 @@
   },
   "dependencies": {
     "@vercel/fetch": "^6.1.1",
-    "swr": "^0.5.6"
+    "cookie": "^0.4.1",
+    "immutability-helper": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
+    "swr": "^0.5.6",
+    "uuidv4": "^6.2.12"
   },
   "peerDependencies": {
     "next": "^12",
@@ -54,6 +59,9 @@
     "react-dom": "^17"
   },
   "devDependencies": {
+    "@types/cookie": "^0.4.1",
+    "@types/jsonwebtoken": "^8.5.7",
+    "@types/lodash.debounce": "^4.0.6",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.8",
     "lint-staged": "^12.1.7",

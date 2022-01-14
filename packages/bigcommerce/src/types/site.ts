@@ -1,7 +1,7 @@
-import * as Core from '@commerce/types/site'
+import * as Core from '@vercel/commerce/types/site'
 import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../schema'
 
-export * from '@commerce/types/site'
+export * from '@vercel/commerce/types/site'
 
 export type BCCategory = NonNullable<
   GetSiteInfoQuery['site']['categoryTree']

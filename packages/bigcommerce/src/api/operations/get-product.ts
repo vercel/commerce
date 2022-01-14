@@ -1,7 +1,7 @@
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type { GetProductOperation } from '../../types/product'
 import type { GetProductQuery, GetProductQueryVariables } from '../../schema'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'

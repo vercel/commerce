@@ -1,7 +1,7 @@
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type { GetSiteInfoOperation } from '../../types/site'
 import type { GetSiteInfoQuery } from '../../schema'
 import filterEdges from '../utils/filter-edges'

@@ -1,8 +1,8 @@
-import * as Core from '@commerce/types/wishlist'
+import * as Core from '@vercel/commerce/types/wishlist'
 import { definitions } from '../api/definitions/wishlist'
 import type { ProductEdge } from '../api/operations/get-all-products'
 
-export * from '@commerce/types/wishlist'
+export * from '@vercel/commerce/types/wishlist'
 
 export type WishlistItem = NonNullable<
   definitions['wishlist_Full']['items']

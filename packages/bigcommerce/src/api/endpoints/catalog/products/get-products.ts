@@ -1,4 +1,4 @@
-import { Product } from '@commerce/types/product'
+import { Product } from '@vercel/commerce/types/product'
 import { ProductsEndpoint } from '.'
 
 const SORT: { [key: string]: string | undefined } = {

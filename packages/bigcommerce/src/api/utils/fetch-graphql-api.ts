@@ -1,5 +1,5 @@
-import { FetcherError } from '@commerce/utils/errors'
-import type { GraphQLFetcher } from '@commerce/api'
+import { FetcherError } from '@vercel/commerce/utils/errors'
+import type { GraphQLFetcher } from '@vercel/commerce/api'
 import type { BigcommerceConfig } from '../index'
 import fetch from './fetch'
 

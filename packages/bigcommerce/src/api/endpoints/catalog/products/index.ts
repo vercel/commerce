@@ -1,5 +1,5 @@
-import { GetAPISchema, createEndpoint } from '@commerce/api'
-import productsEndpoint from '@commerce/api/endpoints/catalog/products'
+import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import productsEndpoint from '@vercel/commerce/api/endpoints/catalog/products'
 import type { ProductsSchema } from '../../../../types/product'
 import type { BigcommerceAPI } from '../../..'
 import getProducts from './get-products'
