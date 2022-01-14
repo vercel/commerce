@@ -1,6 +1,6 @@
-import * as Core from '@commerce/types/customer'
+import * as Core from '@vercel/commerce/types/customer'
 export type Maybe<T> = T | null
-export * from '@commerce/types/customer'
+export * from '@vercel/commerce/types/customer'
 export type Scalars = {
     ID: string
     String: string

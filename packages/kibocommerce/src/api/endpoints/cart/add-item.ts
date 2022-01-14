@@ -1,4 +1,3 @@
-import { Product } from './../../../schema.d'
 import { normalizeCart } from '../../../lib/normalize'
 import type { CartEndpoint } from '.'
 import addToCurrentCartMutation from '../../../api/mutations/addToCart-mutation'

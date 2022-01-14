@@ -1,5 +1,5 @@
-import { FetcherError } from '@commerce/utils/errors'
-import type { Fetcher } from '@commerce/utils/types'
+import { FetcherError } from '@vercel/commerce/utils/errors'
+import type { Fetcher } from '@vercel/commerce/utils/types'
 
 async function getText(res: Response) {
   try {

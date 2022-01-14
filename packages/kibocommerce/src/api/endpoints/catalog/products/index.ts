@@ -1,5 +1,5 @@
-import { GetAPISchema, createEndpoint } from '@commerce/api'
-import productsEndpoint from '@commerce/api/endpoints/catalog/products'
+import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import productsEndpoint from '@vercel/commerce/api/endpoints/catalog/products'
 import type { KiboCommerceAPI } from '../../..'
 import getProducts from '../products/products'
 

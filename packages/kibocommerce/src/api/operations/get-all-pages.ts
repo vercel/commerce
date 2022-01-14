@@ -1,4 +1,4 @@
-import type { OperationContext } from '@commerce/api/operations'
+import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { KiboCommerceConfig } from '../index'
 import { getAllPagesQuery } from '../queries/get-all-pages-query'
 import { GetPagesQueryParams } from "../../types/page";
@@ -30,7 +30,7 @@ export default function getAllPagesOperation({
     const { data } = await cfg.fetch(query, { variables });
 
     const pages = data.documentListDocuments.items.map(normalizePage);
-    
+
     return { pages }
   }
 

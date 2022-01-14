@@ -1,11 +1,11 @@
 import type {
   OperationContext,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type { KiboCommerceConfig, KiboCommerceProvider } from '..'
 import { normalizePage } from '../../lib/normalize'
 import { getPageQuery } from '../queries/get-page-query'
 import type { Page, GetPageQueryParams } from "../../types/page";
-import type { Document } from '../../schema'
+import type { Document } from '../../../schema'
 
 export default function getPageOperation({
   commerce,

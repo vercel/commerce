@@ -1,4 +1,4 @@
-import { FetcherError } from '@commerce/utils/errors'
+import { FetcherError } from '@vercel/commerce/utils/errors'
 import type { SignupEndpoint } from '.'
 import { registerUserMutation, registerUserLoginMutation } from '../../mutations/signup-mutation'
 import { prepareSetCookie } from '../../../lib/prepare-set-cookie';
@@ -14,7 +14,7 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
   config,
   commerce,
 }) => {
-  
+
   if (!(email && password)) {
     return res.status(400).json({
       data: null,
@@ -35,7 +35,7 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
           id: 0
         }
     }
-    
+
     const registerUserResponse = await  config.fetch(registerUserMutation, { variables: registerUserVariables})
     const accountId  = registerUserResponse.data?.account?.id;
 
@@ -52,7 +52,7 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
 
     response = await  config.fetch(registerUserLoginMutation, { variables: registerUserLoginVairables})
     const { account: token }  = response.data;
-  
+
     // Set Cookie
     const cookieExpirationDate = getCookieExpirationDate(config.customerCookieMaxAgeInDays)
 
@@ -62,7 +62,7 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
       token.accessTokenExpiration ? { expires: cookieExpirationDate }: {},
     )
 
-    setCookies(res, [authCookie])   
+    setCookies(res, [authCookie])
 
   } catch (error) {
     // Check if the email and password didn't match an existing account

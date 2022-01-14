@@ -29,7 +29,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "schema.d.ts"
   ],
   "publishConfig": {
     "typesVersions": {

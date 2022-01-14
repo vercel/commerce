@@ -1,5 +1,5 @@
-import { OperationContext } from '@commerce/api/operations'
-import { Category } from '@commerce/types/site'
+import { OperationContext } from '@vercel/commerce/api/operations'
+import { Category } from '@vercel/commerce/types/site'
 import { KiboCommerceConfig } from '../index'
 import {categoryTreeQuery} from '../queries/get-categories-tree-query'
 import { normalizeCategory } from '../../lib/normalize'

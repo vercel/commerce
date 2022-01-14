@@ -1,4 +1,4 @@
-import { Product } from '@commerce/types/product'
+import { Product } from '@vercel/commerce/types/product'
 import { ProductsEndpoint } from '.'
 import productSearchQuery from '../../../queries/product-search-query'
 import { buildProductSearchVars } from '../../../../lib/product-search-vars'

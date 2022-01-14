@@ -1,5 +1,5 @@
-import { SWRHook } from '@commerce/utils/types'
-import useCheckout, { UseCheckout } from '@commerce/checkout/use-checkout'
+import { SWRHook } from '@vercel/commerce/utils/types'
+import useCheckout, { UseCheckout } from '@vercel/commerce/checkout/use-checkout'
 
 export default useCheckout as UseCheckout<typeof handler>
 

@@ -1,4 +1,4 @@
-import * as Core from '@commerce/types/page'
+import * as Core from '@vercel/commerce/types/page'
 export type Maybe<T> = T | null
 export type Scalars = {
     ID: string
@@ -14,7 +14,7 @@ export type Scalars = {
     Object: any
 }
 
-export * from '@commerce/types/page'
+export * from '@vercel/commerce/types/page'
 
 export type Page = Core.Page
 

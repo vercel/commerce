@@ -1,11 +1,11 @@
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type {
   GetCustomerWishlistOperation,
   Wishlist,
-} from '@commerce/types/wishlist'
+} from '@vercel/commerce/types/wishlist'
 // import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import { KiboCommerceConfig } from '..'
 // import getAllProducts, { ProductEdge } from './get-all-products'
@@ -42,7 +42,7 @@ export default function getCustomerWishlistOperation({
   }): Promise<T['data']> {
     let customerWishlist ={}
     try {
-      
+
       config = commerce.getConfig(config)
       const result= await config?.fetch(getCustomerWishlistQuery,{variables})
       customerWishlist= result?.data?.customerWishlist;
