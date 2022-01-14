@@ -1,7 +1,7 @@
-import type { AddItemHook } from '@commerce/types/customer/address'
-import type { MutationHook } from '@commerce/utils/types'
+import type { AddItemHook } from '@vercel/commerce/types/customer/address'
+import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
-import useAddItem, { UseAddItem } from '@commerce/customer/address/use-add-item'
+import useAddItem, { UseAddItem } from '@vercel/commerce/customer/address/use-add-item'
 import { useCheckoutContext } from '@components/checkout/context'
 
 export default useAddItem as UseAddItem<typeof handler>

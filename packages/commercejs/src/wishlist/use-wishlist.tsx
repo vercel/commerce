@@ -1,4 +1,4 @@
-import { HookFetcher } from '@commerce/utils/types'
+import { HookFetcher } from '@vercel/commerce/utils/types'
 
 export type Wishlist = {
   items: [

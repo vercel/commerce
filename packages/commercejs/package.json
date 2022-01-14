@@ -45,6 +45,7 @@
     }
   },
   "dependencies": {
+    "@chec/commerce.js": "^2.8.0",
     "@vercel/commerce": "^0.0.1",
     "@vercel/fetch": "^6.1.1",
     "swr": "^0.5.6"
@@ -55,6 +56,7 @@
     "react-dom": "^17"
   },
   "devDependencies": {
+    "@types/chec__commerce.js": "^2.8.4",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.8",
     "lint-staged": "^12.1.7",

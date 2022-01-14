@@ -1,4 +1,4 @@
-import { SearchProductsBody } from '@commerce/types/product'
+import { SearchProductsBody } from '@vercel/commerce/types/product'
 
 const getFilterVariables = ({
   search,

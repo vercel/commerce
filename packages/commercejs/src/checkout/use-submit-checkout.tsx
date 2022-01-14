@@ -1,10 +1,10 @@
-import type { SubmitCheckoutHook } from '@commerce/types/checkout'
-import type { MutationHook } from '@commerce/utils/types'
+import type { SubmitCheckoutHook } from '@vercel/commerce/types/checkout'
+import type { MutationHook } from '@vercel/commerce/utils/types'
 
 import { useCallback } from 'react'
 import useSubmitCheckout, {
   UseSubmitCheckout,
-} from '@commerce/checkout/use-submit-checkout'
+} from '@vercel/commerce/checkout/use-submit-checkout'
 import { useCheckoutContext } from '@components/checkout/context'
 
 export default useSubmitCheckout as UseSubmitCheckout<typeof handler>

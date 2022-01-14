@@ -1,5 +1,5 @@
-import type { CardFields } from '@commerce/types/customer/card'
-import type { AddressFields } from '@commerce/types/customer/address'
+import type { CardFields } from '@vercel/commerce/types/customer/card'
+import type { AddressFields } from '@vercel/commerce/types/customer/address'
 import type { CommercejsCheckoutCapture } from '../types/checkout'
 
 /**

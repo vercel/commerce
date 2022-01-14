@@ -1,6 +1,6 @@
 import { commerce } from './lib/commercejs'
-import type { Fetcher } from '@commerce/utils/types'
-import { FetcherError } from '@commerce/utils/errors'
+import type { Fetcher } from '@vercel/commerce/utils/types'
+import { FetcherError } from '@vercel/commerce/utils/errors'
 
 function isValidSDKQuery(query?: string): query is keyof typeof commerce {
   if (!query) return false

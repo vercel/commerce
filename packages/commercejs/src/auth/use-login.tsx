@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import { MutationHook } from '@commerce/utils/types'
-import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import type { LoginHook } from '@commerce/types/login'
+import { MutationHook } from '@vercel/commerce/utils/types'
+import useLogin, { UseLogin } from '@vercel/commerce/auth/use-login'
+import type { LoginHook } from '@vercel/commerce/types/login'
 import { getDeploymentUrl } from '../utils/get-deployment-url'
 
 export default useLogin as UseLogin<typeof handler>
