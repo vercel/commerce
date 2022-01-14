@@ -1,8 +1,8 @@
-import type { GetCardsHook } from '@commerce/types/customer/card'
+import type { GetCardsHook } from '@vercel/commerce/types/customer/card'
 
 import { useMemo } from 'react'
-import { SWRHook } from '@commerce/utils/types'
-import useCard, { UseCards } from '@commerce/customer/card/use-cards'
+import { SWRHook } from '@vercel/commerce/utils/types'
+import useCard, { UseCards } from '@vercel/commerce/customer/card/use-cards'
 
 export default useCard as UseCards<typeof handler>
 

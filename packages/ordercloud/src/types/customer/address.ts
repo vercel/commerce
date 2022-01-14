@@ -1,4 +1,4 @@
-import * as Core from '@commerce/types/customer/address'
+import * as Core from '@vercel/commerce/types/customer/address'
 
 export type CustomerAddressTypes = Core.CustomerAddressTypes
 export type CustomerAddressSchema =

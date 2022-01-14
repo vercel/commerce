@@ -1,10 +1,10 @@
-import type { GetAddressesHook } from '@commerce/types/customer/address'
+import type { GetAddressesHook } from '@vercel/commerce/types/customer/address'
 
 import { useMemo } from 'react'
-import { SWRHook } from '@commerce/utils/types'
+import { SWRHook } from '@vercel/commerce/utils/types'
 import useAddresses, {
   UseAddresses,
-} from '@commerce/customer/address/use-addresses'
+} from '@vercel/commerce/customer/address/use-addresses'
 
 export default useAddresses as UseAddresses<typeof handler>
 

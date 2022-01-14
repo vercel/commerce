@@ -1,5 +1,5 @@
-import { SWRHook } from '@commerce/utils/types'
-import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
+import { SWRHook } from '@vercel/commerce/utils/types'
+import useCustomer, { UseCustomer } from '@vercel/commerce/customer/use-customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 export const handler: SWRHook<any> = {

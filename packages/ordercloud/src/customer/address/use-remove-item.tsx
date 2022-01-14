@@ -1,15 +1,15 @@
 import type {
   MutationHookContext,
   HookFetcherContext,
-} from '@commerce/utils/types'
-import type { Address, RemoveItemHook } from '@commerce/types/customer/address'
+} from '@vercel/commerce/utils/types'
+import type { Address, RemoveItemHook } from '@vercel/commerce/types/customer/address'
 
 import { useCallback } from 'react'
 
-import { ValidationError } from '@commerce/utils/errors'
+import { ValidationError } from '@vercel/commerce/utils/errors'
 import useRemoveItem, {
   UseRemoveItem,
-} from '@commerce/customer/address/use-remove-item'
+} from '@vercel/commerce/customer/address/use-remove-item'
 
 import useAddresses from './use-addresses'
 

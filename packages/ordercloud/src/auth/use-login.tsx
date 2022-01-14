@@ -1,5 +1,5 @@
-import { MutationHook } from '@commerce/utils/types'
-import useLogin, { UseLogin } from '@commerce/auth/use-login'
+import { MutationHook } from '@vercel/commerce/utils/types'
+import useLogin, { UseLogin } from '@vercel/commerce/auth/use-login'
 
 export default useLogin as UseLogin<typeof handler>
 

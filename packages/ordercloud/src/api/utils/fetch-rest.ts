@@ -1,5 +1,5 @@
 import vercelFetch from '@vercel/fetch'
-import { FetcherError } from '@commerce/utils/errors'
+import { FetcherError } from '@vercel/commerce/utils/errors'
 import { CustomNodeJsGlobal } from '../../types/node';
 
 import { OrdercloudConfig } from '../index'

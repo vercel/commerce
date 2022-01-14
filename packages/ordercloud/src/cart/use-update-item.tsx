@@ -1,15 +1,15 @@
 import type {
   HookFetcherContext,
   MutationHookContext,
-} from '@commerce/utils/types'
-import type { UpdateItemHook, LineItem } from '@commerce/types/cart'
+} from '@vercel/commerce/utils/types'
+import type { UpdateItemHook, LineItem } from '@vercel/commerce/types/cart'
 
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
 
-import { MutationHook } from '@commerce/utils/types'
-import { ValidationError } from '@commerce/utils/errors'
-import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
+import { MutationHook } from '@vercel/commerce/utils/types'
+import { ValidationError } from '@vercel/commerce/utils/errors'
+import useUpdateItem, { UseUpdateItem } from '@vercel/commerce/cart/use-update-item'
 
 import { handler as removeItemHandler } from './use-remove-item'
 import useCart from './use-cart'

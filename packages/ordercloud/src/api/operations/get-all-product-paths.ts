@@ -1,5 +1,5 @@
-import type { OperationContext } from '@commerce/api/operations'
-import type { GetAllProductPathsOperation } from '@commerce/types/product'
+import type { OperationContext } from '@vercel/commerce/api/operations'
+import type { GetAllProductPathsOperation } from '@vercel/commerce/types/product'
 
 import type { RawProduct } from '../../types/product'
 import type { OrdercloudConfig, Provider } from '../'

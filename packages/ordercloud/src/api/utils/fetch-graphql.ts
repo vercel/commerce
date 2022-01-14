@@ -1,7 +1,7 @@
-import type { GraphQLFetcher } from '@commerce/api'
+import type { GraphQLFetcher } from '@vercel/commerce/api'
 import type { OrdercloudConfig } from '../'
 
-import { FetcherError } from '@commerce/utils/errors'
+import { FetcherError } from '@vercel/commerce/utils/errors'
 
 const fetchGraphqlApi: (getConfig: () => OrdercloudConfig) => GraphQLFetcher =
   () => async () => {

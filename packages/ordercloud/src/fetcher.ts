@@ -1,4 +1,4 @@
-import { Fetcher } from '@commerce/utils/types'
+import { Fetcher } from '@vercel/commerce/utils/types'
 
 const clientFetcher: Fetcher = async ({ method, url, body }) => {
   const response = await fetch(url!, {

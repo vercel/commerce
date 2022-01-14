@@ -1,5 +1,5 @@
-import type { CommerceAPI, CommerceAPIConfig } from '@commerce/api'
-import { getCommerceApi as commerceApi } from '@commerce/api'
+import type { CommerceAPI, CommerceAPIConfig } from '@vercel/commerce/api'
+import { getCommerceApi as commerceApi } from '@vercel/commerce/api'
 import { createBuyerFetcher, createMiddlewareFetcher } from './utils/fetch-rest'
 import createGraphqlFetcher from './utils/fetch-graphql'
 

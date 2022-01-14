@@ -1,6 +1,6 @@
 import type { OrdercloudConfig } from '../'
 
-import { GetAllPagesOperation } from '@commerce/types/page'
+import { GetAllPagesOperation } from '@vercel/commerce/types/page'
 
 export type Page = { url: string }
 export type GetAllPagesResult = { pages: Page[] }

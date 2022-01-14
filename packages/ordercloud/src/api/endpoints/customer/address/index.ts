@@ -1,8 +1,8 @@
 import type { CustomerAddressSchema } from '../../../../types/customer/address'
 import type { OrdercloudAPI } from '../../..'
 
-import { GetAPISchema, createEndpoint } from '@commerce/api'
-import customerAddressEndpoint from '@commerce/api/endpoints/customer/address'
+import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import customerAddressEndpoint from '@vercel/commerce/api/endpoints/customer/address'
 
 import getAddresses from './get-addresses'
 import addItem from './add-item'

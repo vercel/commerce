@@ -1,4 +1,4 @@
-import type { Product } from '@commerce/types/product'
+import type { Product } from '@vercel/commerce/types/product'
 
 import type { RawProduct } from '../types/product'
 

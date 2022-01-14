@@ -1,5 +1,5 @@
-import { MutationHook } from '@commerce/utils/types'
-import useLogout, { UseLogout } from '@commerce/auth/use-logout'
+import { MutationHook } from '@vercel/commerce/utils/types'
+import useLogout, { UseLogout } from '@vercel/commerce/auth/use-logout'
 
 export default useLogout as UseLogout<typeof handler>
 

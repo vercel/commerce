@@ -1,8 +1,8 @@
 import type { CartSchema } from '../../../types/cart'
 import type { OrdercloudAPI } from '../..'
 
-import { GetAPISchema, createEndpoint } from '@commerce/api'
-import cartEndpoint from '@commerce/api/endpoints/cart'
+import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import cartEndpoint from '@vercel/commerce/api/endpoints/cart'
 
 import getCart from './get-cart'
 import addItem from './add-item'

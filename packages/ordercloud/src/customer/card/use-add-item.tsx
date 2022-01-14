@@ -1,8 +1,8 @@
-import type { AddItemHook } from '@commerce/types/customer/card'
-import type { MutationHook } from '@commerce/utils/types'
+import type { AddItemHook } from '@vercel/commerce/types/customer/card'
+import type { MutationHook } from '@vercel/commerce/utils/types'
 
 import { useCallback } from 'react'
-import useAddItem, { UseAddItem } from '@commerce/customer/card/use-add-item'
+import useAddItem, { UseAddItem } from '@vercel/commerce/customer/card/use-add-item'
 import useCards from './use-cards'
 
 export default useAddItem as UseAddItem<typeof handler>

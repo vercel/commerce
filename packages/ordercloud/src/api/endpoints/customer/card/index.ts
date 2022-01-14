@@ -1,8 +1,8 @@
 import type { CustomerCardSchema } from '../../../../types/customer/card'
 import type { OrdercloudAPI } from '../../..'
 
-import { GetAPISchema, createEndpoint } from '@commerce/api'
-import customerCardEndpoint from '@commerce/api/endpoints/customer/card'
+import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import customerCardEndpoint from '@vercel/commerce/api/endpoints/customer/card'
 
 import getCards from './get-cards'
 import addItem from './add-item'
