@@ -146,7 +146,7 @@ If your project was started with a "Deploy with Vercel" button, you can use Verc
 2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
 3. Download your environment variables: `vercel env pull .env.local`
 
-Next, you're free to customize the starter. More updates coming soon. Stay tuned.
+Next, you're free to customize the starter. More updates coming soon. Stay tuned..
 
 </details>
 
