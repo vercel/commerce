@@ -1,0 +1,73 @@
+{
+  "name": "@vercel/commerce-commercejs",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -fr dist/* && tsc",
+    "dev": "npm run build -- --watch",
+    "prettier-fix": "prettier --write ."
+  },
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": [
+      "./dist/*.js",
+      "./dist/*/index.js"
+    ],
+    "./next.config": "./dist/next.config.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*",
+        "dist/*/index"
+      ],
+      "next.config": [
+        "dist/next.config.d.cts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "typesVersions": {
+      "*": {
+        "*": [
+          "src/*.d.ts",
+          "src/*/index.d.ts"
+        ],
+        "next.config": [
+          "dist/next.config.d.cts"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "@vercel/commerce": "^0.0.1",
+    "@vercel/fetch": "^6.1.1",
+    "swr": "^0.5.6"
+  },
+  "peerDependencies": {
+    "next": "^12",
+    "react": "^17",
+    "react-dom": "^17"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.4",
+    "@types/react": "^17.0.8",
+    "lint-staged": "^12.1.7",
+    "next": "^12.0.3",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.6.0-dev.20220108"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
