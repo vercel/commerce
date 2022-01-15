@@ -3,7 +3,7 @@ import type {
   OperationOptions,
 } from '@vercel/commerce/api/operations'
 import type { GetProductOperation } from '../../types/product'
-import type { GetProductQuery, GetProductQueryVariables } from '../../schema'
+import type { GetProductQuery, GetProductQueryVariables } from '../../../schema'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productInfoFragment } from '../fragments/product'
 import { BigcommerceConfig, Provider } from '..'

@@ -5,7 +5,7 @@ import {
   CheckoutUserError,
   CustomerErrorCode,
   CustomerUserError,
-} from '../schema'
+} from '../../schema'
 
 export type UserErrors = Array<CheckoutUserError | CustomerUserError>
 

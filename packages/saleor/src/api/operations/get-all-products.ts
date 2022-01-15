@@ -1,12 +1,12 @@
-import type { OperationContext } from '@commerce/api/operations'
-import { Product } from '@commerce/types/product'
+import type { OperationContext } from '@vercel/commerce/api/operations'
+import { Product } from '@vercel/commerce/types/product'
 
-import { ProductCountableEdge } from '../../schema'
+import { ProductCountableEdge } from '../../../schema'
 import type { Provider, SaleorConfig } from '..'
 import { normalizeProduct } from '../../utils'
 
 import * as Query from '../../utils/queries'
-import { GraphQLFetcherResult } from '@commerce/api'
+import { GraphQLFetcherResult } from '@vercel/commerce/api'
 
 type ReturnType = {
   products: Product[]

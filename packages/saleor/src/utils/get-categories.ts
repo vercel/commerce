@@ -1,6 +1,6 @@
-import { Category } from '@commerce/types/site'
+import { Category } from '@vercel/commerce/types/site'
 import { SaleorConfig } from '../api'
-import { CollectionCountableEdge } from '../schema'
+import { CollectionCountableEdge } from '../../schema'
 import * as query from './queries'
 
 const getCategories = async (config: SaleorConfig): Promise<Category[]> => {

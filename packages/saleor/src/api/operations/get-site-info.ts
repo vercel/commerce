@@ -1,5 +1,5 @@
-import type { OperationContext } from '@commerce/api/operations'
-import { Category } from '@commerce/types/site'
+import type { OperationContext } from '@vercel/commerce/api/operations'
+import { Category } from '@vercel/commerce/types/site'
 import type { SaleorConfig, Provider } from '..'
 
 import { getCategories, getVendors } from '../../utils'

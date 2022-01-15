@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
-import type { MutationHookContext, HookFetcherContext, MutationHook } from '@commerce/utils/types'
-import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
+import type { MutationHookContext, HookFetcherContext, MutationHook } from '@vercel/commerce/utils/types'
+import useRemoveItem, { UseRemoveItem } from '@vercel/commerce/cart/use-remove-item'
 import useCart from './use-cart'
 import * as mutation from '../utils/mutations'
 import { getCheckoutId, checkoutToCart } from '../utils'
-import { Mutation, MutationCheckoutLineDeleteArgs } from '../schema'
+import { Mutation, MutationCheckoutLineDeleteArgs } from '../../schema'
 import { LineItem, RemoveItemHook } from '../types/cart'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>

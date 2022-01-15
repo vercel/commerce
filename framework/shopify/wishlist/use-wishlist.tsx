@@ -2,7 +2,7 @@
 // Shopify doesn't have a wishlist
 
 import { HookFetcher } from '@commerce/utils/types'
-import { Product } from '../schema'
+import { Product } from '../../schema'
 
 const defaultOpts = {}
 

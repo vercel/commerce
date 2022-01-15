@@ -1,7 +1,7 @@
 import { Product } from '@commerce/types/product'
 import { OperationContext } from '@commerce/api/operations'
 import { Provider, VendureConfig } from '../'
-import { GetProductQuery } from '../../schema'
+import { GetProductQuery } from '../../../schema'
 import { getProductQuery } from '../../utils/queries/get-product-query'
 
 export default function getProductOperation({

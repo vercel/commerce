@@ -8,7 +8,7 @@ import {
   GetPageQuery,
   GetPageQueryVariables,
   Page as ShopifyPage,
-} from '../../schema'
+} from '../../../schema'
 import { GetPageOperation } from '../../types/page'
 import getPageQuery from '../../utils/queries/get-page-query'
 

@@ -24,7 +24,7 @@ import {
   checkoutToCart,
 } from '../utils'
 
-import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../schema'
+import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../../schema'
 
 export const handler = {
   fetchOptions: {

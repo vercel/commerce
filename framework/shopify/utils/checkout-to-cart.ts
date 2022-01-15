@@ -9,7 +9,7 @@ import {
   CheckoutUserError,
   Checkout,
   Maybe,
-} from '../schema'
+} from '../../schema'
 
 import { normalizeCart } from './normalize'
 import throwUserErrors from './throw-user-errors'

@@ -5,7 +5,7 @@ import type {
 import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
-} from '../../schema'
+} from '../../../schema'
 import type { GetAllProductsOperation } from '../../types/product'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'

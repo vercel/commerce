@@ -1,5 +1,5 @@
 import * as Core from '@vercel/commerce/types/login'
-import type { CustomerUserAuthInfoInput } from '../../schema'
+import type { CustomerUserAuthInfoInput } from '../../../schema'
 
 export * from '@vercel/commerce/types/login'
 

@@ -1,6 +1,6 @@
-import { CommerceAPI, GetAPISchema, createEndpoint } from '@commerce/api'
-import checkoutEndpoint from '@commerce/api/endpoints/checkout'
-import { CheckoutSchema } from '@commerce/types/checkout'
+import { CommerceAPI, GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import checkoutEndpoint from '@vercel/commerce/api/endpoints/checkout'
+import { CheckoutSchema } from '@vercel/commerce/types/checkout'
 
 export type CheckoutAPI = GetAPISchema<CommerceAPI, CheckoutSchema>
 

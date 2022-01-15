@@ -7,7 +7,7 @@ import {
   GetAllProductPathsQuery,
   GetAllProductPathsQueryVariables,
   ProductEdge,
-} from '../../schema'
+} from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
 import { getAllProductsQuery } from '../../utils'
 

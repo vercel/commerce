@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import useCommerceCart, { UseCart } from '@commerce/cart/use-cart'
+import useCommerceCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 
-import { SWRHook } from '@commerce/utils/types'
+import { SWRHook } from '@vercel/commerce/utils/types'
 import { checkoutCreate, checkoutToCart, getCheckoutId } from '../utils'
 import * as query from '../utils/queries'
-import { GetCartHook } from '@commerce/types/cart'
+import { GetCartHook } from '@vercel/commerce/types/cart'
 
 export default useCommerceCart as UseCart<typeof handler>
 

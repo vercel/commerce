@@ -1,7 +1,7 @@
 import { SWRHook } from '@commerce/utils/types'
 import useSearch, { UseSearch } from '@commerce/product/use-search'
 import { Product } from '@commerce/types/product'
-import { SearchQuery, SearchQueryVariables } from '../schema'
+import { SearchQuery, SearchQueryVariables } from '../../schema'
 import { normalizeSearchResult } from '../utils/normalize'
 import { searchQuery } from '../utils/queries/search-query'
 import { SearchProductsHook } from '../types/product'

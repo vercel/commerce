@@ -1,5 +1,5 @@
 import { Cart } from '../types'
-import { CommerceError } from '@commerce/utils/errors'
+import { CommerceError } from '@vercel/commerce/utils/errors'
 
 import {
   CheckoutLinesAdd,
@@ -9,7 +9,7 @@ import {
   Checkout,
   Maybe,
   CheckoutLineDelete,
-} from '../schema'
+} from '../../schema'
 
 import { normalizeCart } from './normalize'
 import throwUserErrors from './throw-user-errors'

@@ -1,4 +1,4 @@
-import { Page } from '../../schema'
+import { Page } from '../../../schema'
 import { SwellConfig, Provider } from '..'
 import { OperationContext, OperationOptions } from '@commerce/api/operations'
 import { GetPageOperation } from '../../types/page'

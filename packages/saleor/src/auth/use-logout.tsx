@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
-import type { MutationHook } from '@commerce/utils/types'
-import useLogout, { UseLogout } from '@commerce/auth/use-logout'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import useLogout, { UseLogout } from '@vercel/commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
 import * as mutation from '../utils/mutations'
 import { setCSRFToken, setToken, setCheckoutToken } from '../utils/customer-token'
-import { LogoutHook } from '@commerce/types/logout'
+import { LogoutHook } from '@vercel/commerce/types/logout'
 
 export default useLogout as UseLogout<typeof handler>
 

@@ -1,6 +1,6 @@
 import { Customer } from '../types/customer'
 import { Product, ProductOption } from '../types/product'
-import { MoneyV2 } from '../schema'
+import { MoneyV2 } from '../../schema'
 
 import type {
   Cart,

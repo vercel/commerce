@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { MutationHook } from '@commerce/utils/types'
 import useLogout, { UseLogout } from '@commerce/auth/use-logout'
 import useCustomer from '../customer/use-customer'
-import { LogoutMutation } from '../schema'
+import { LogoutMutation } from '../../schema'
 import { logoutMutation } from '../utils/mutations/log-out-mutation'
 import { LogoutHook } from '../types/logout'
 

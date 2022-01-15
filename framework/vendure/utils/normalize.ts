@@ -1,6 +1,6 @@
 import { Product } from '@commerce/types/product'
 import { Cart } from '@commerce/types/cart'
-import { CartFragment, SearchResultFragment } from '../schema'
+import { CartFragment, SearchResultFragment } from '../../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): Product {
   return {

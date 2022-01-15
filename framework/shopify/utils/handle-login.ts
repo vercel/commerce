@@ -1,5 +1,5 @@
 import { FetcherOptions } from '@commerce/utils/types'
-import { CustomerAccessTokenCreateInput } from '../schema'
+import { CustomerAccessTokenCreateInput } from '../../schema'
 import { setCustomerToken } from './customer-token'
 import { customerAccessTokenCreateMutation } from './mutations'
 import throwUserErrors from './throw-user-errors'

@@ -12,7 +12,7 @@ import useCart from './use-cart'
 import {
   RemoveOrderLineMutation,
   RemoveOrderLineMutationVariables,
-} from '../schema'
+} from '../../schema'
 import { normalizeCart } from '../utils/normalize'
 import { RemoveItemHook } from '../types/cart'
 import { removeOrderLineMutation } from '../utils/mutations/remove-order-line-mutation'

@@ -1,6 +1,6 @@
-import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
-import { CustomerHook } from '@commerce/types/customer'
-import { SWRHook } from '@commerce/utils/types'
+import useCustomer, { UseCustomer } from '@vercel/commerce/customer/use-customer'
+import { CustomerHook } from '@vercel/commerce/types/customer'
+import { SWRHook } from '@vercel/commerce/utils/types'
 
 import * as query from '../utils/queries'
 

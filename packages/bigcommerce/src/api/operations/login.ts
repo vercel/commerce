@@ -4,7 +4,7 @@ import type {
   OperationOptions,
 } from '@vercel/commerce/api/operations'
 import type { LoginOperation } from '../../types/login'
-import type { LoginMutation } from '../../schema'
+import type { LoginMutation } from '../../../schema'
 import type { RecursivePartial } from '../utils/types'
 import concatHeader from '../utils/concat-cookie'
 import type { BigcommerceConfig, Provider } from '..'

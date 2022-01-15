@@ -1,5 +1,5 @@
-import { FetcherOptions } from '@commerce/utils/types'
-import { CreateToken, Mutation, MutationTokenCreateArgs } from '../schema'
+import { FetcherOptions } from '@vercel/commerce/utils/types'
+import { CreateToken, Mutation, MutationTokenCreateArgs } from '../../schema'
 import { setToken, setCSRFToken } from './customer-token'
 import * as mutation from './mutations'
 import throwUserErrors from './throw-user-errors'

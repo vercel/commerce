@@ -7,7 +7,7 @@ import {
   GetProductsFromCollectionQueryVariables,
   Product as ShopifyProduct,
   ProductEdge,
-} from '../schema'
+} from '../../schema'
 
 import {
   getAllProductsQuery,

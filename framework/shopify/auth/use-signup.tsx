@@ -4,7 +4,7 @@ import { CommerceError } from '@commerce/utils/errors'
 import useSignup, { UseSignup } from '@commerce/auth/use-signup'
 import type { SignupHook } from '../types/signup'
 import useCustomer from '../customer/use-customer'
-import { Mutation, MutationCustomerCreateArgs } from '../schema'
+import { Mutation, MutationCustomerCreateArgs } from '../../schema'
 
 import {
   handleAutomaticLogin,

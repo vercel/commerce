@@ -1,7 +1,7 @@
 import {
   GetAllProductVendorsQuery,
   GetAllProductVendorsQueryVariables,
-} from '../schema'
+} from '../../schema'
 import { ShopifyConfig } from '../api'
 import getAllProductVendors from './queries/get-all-product-vendors-query'
 

@@ -1,5 +1,5 @@
 import { OperationContext, OperationOptions } from '@commerce/api/operations'
-import type { GetAllProductPathsQuery } from '../../schema'
+import type { GetAllProductPathsQuery } from '../../../schema'
 import { Provider } from '../index'
 import { getAllProductPathsQuery } from '../../utils/queries/get-all-product-paths-query'
 import { GetAllProductPathsOperation } from '@commerce/types/product'

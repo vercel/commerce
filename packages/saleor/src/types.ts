@@ -1,5 +1,5 @@
-import type { Cart as CoreCart } from '@commerce/types'
-import { CheckoutLine } from './schema'
+import type { Cart as CoreCart } from '@vercel/commerce/types'
+import { CheckoutLine } from '../schema'
 
 export type SaleorCheckout = {
   id: string

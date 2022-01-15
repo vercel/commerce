@@ -6,7 +6,7 @@ import {
   CheckoutLineItemsRemovePayload,
   CheckoutLineItemsUpdatePayload,
   Maybe,
-} from '../../schema'
+} from '../../../schema'
 import { normalizeCart } from '../../utils'
 
 export type CheckoutPayload =

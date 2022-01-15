@@ -6,7 +6,7 @@ import {
   CustomerUserError,
   Mutation,
   MutationCheckoutCreateArgs,
-} from '../schema'
+} from '../../schema'
 import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import { LoginHook } from '../types/login'
 import { setCustomerToken } from '../utils'

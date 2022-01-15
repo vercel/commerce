@@ -1,6 +1,6 @@
 import CookieHandler from '../../../api/utils/cookie-handler'
 import { normalizeCart } from '../../../lib/normalize'
-import { Cart } from '../../../../schema'
+import { Cart } from '../../../../../schema'
 import type { CartEndpoint } from '.'
 import { getCartQuery } from '../../queries/get-cart-query'
 

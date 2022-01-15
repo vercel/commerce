@@ -1,6 +1,6 @@
 import { Product } from '@commerce/types/product'
 import { Provider, VendureConfig } from '../'
-import { GetAllProductsQuery } from '../../schema'
+import { GetAllProductsQuery } from '../../../schema'
 import { normalizeSearchResult } from '../../utils/normalize'
 import { getAllProductsQuery } from '../../utils/queries/get-all-products-query'
 import { OperationContext } from '@commerce/api/operations'

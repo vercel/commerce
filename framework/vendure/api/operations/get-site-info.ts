@@ -1,5 +1,5 @@
 import { Provider, VendureConfig } from '../'
-import { GetCollectionsQuery } from '../../schema'
+import { GetCollectionsQuery } from '../../../schema'
 import { arrayToTree } from '../../utils/array-to-tree'
 import { getCollectionsQuery } from '../../utils/queries/get-collections-query'
 import { OperationContext } from '@commerce/api/operations'

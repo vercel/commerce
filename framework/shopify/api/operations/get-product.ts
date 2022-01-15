@@ -5,7 +5,10 @@ import type {
 import { GetProductOperation } from '../../types/product'
 import { normalizeProduct, getProductQuery } from '../../utils'
 import type { ShopifyConfig, Provider } from '..'
-import { GetProductBySlugQuery, Product as ShopifyProduct } from '../../schema'
+import {
+  GetProductBySlugQuery,
+  Product as ShopifyProduct,
+} from '../../../schema'
 
 export default function getProductOperation({
   commerce,

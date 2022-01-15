@@ -1,6 +1,6 @@
 import type { Category } from '../types/site'
 import { ShopifyConfig } from '../api'
-import { CollectionEdge } from '../schema'
+import { CollectionEdge } from '../../schema'
 import { normalizeCategory } from './normalize'
 import getSiteCollectionsQuery from './queries/get-all-collections-query'
 

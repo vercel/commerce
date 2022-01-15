@@ -1,4 +1,4 @@
-import { ProductCountableEdge } from '../../schema'
+import { ProductCountableEdge } from '../../../schema'
 import { SaleorConfig } from '..'
 
 const fetchAllProducts = async ({

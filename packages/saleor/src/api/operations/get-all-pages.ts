@@ -1,6 +1,6 @@
-import type { OperationContext } from '@commerce/api/operations'
+import type { OperationContext } from '@vercel/commerce/api/operations'
 
-import { QueryPagesArgs, PageCountableEdge } from '../../schema'
+import { QueryPagesArgs, PageCountableEdge } from '../../../schema'
 import type { SaleorConfig, Provider } from '..'
 import * as Query from '../../utils/queries'
 

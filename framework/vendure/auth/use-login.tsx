@@ -4,7 +4,7 @@ import useLogin, { UseLogin } from '@commerce/auth/use-login'
 import { LoginHook } from '../types/login'
 import { CommerceError, ValidationError } from '@commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
-import { LoginMutation, LoginMutationVariables } from '../schema'
+import { LoginMutation, LoginMutationVariables } from '../../schema'
 import { loginMutation } from '../utils/mutations/log-in-mutation'
 
 export default useLogin as UseLogin<typeof handler>

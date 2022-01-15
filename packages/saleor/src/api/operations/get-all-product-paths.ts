@@ -1,5 +1,5 @@
-import type { OperationContext } from '@commerce/api/operations'
-import { ProductCountableEdge } from '../../schema'
+import type { OperationContext } from '@vercel/commerce/api/operations'
+import { ProductCountableEdge } from '../../../schema'
 import type { Provider, SaleorConfig } from '..'
 
 import { getAllProductsPathsQuery } from '../../utils/queries'

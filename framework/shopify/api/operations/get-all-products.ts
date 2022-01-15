@@ -7,7 +7,7 @@ import {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
   Product as ShopifyProduct,
-} from '../../schema'
+} from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
 import getAllProductsQuery from '../../utils/queries/get-all-products-query'
 import { normalizeProduct } from '../../utils'

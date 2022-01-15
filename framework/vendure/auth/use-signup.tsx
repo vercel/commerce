@@ -7,7 +7,7 @@ import {
   RegisterCustomerInput,
   SignupMutation,
   SignupMutationVariables,
-} from '../schema'
+} from '../../schema'
 import { signupMutation } from '../utils/mutations/sign-up-mutation'
 import { SignupHook } from '../types/signup'
 

@@ -6,7 +6,7 @@ import {
   GetAllPagesQuery,
   GetAllPagesQueryVariables,
   PageEdge,
-} from '../../schema'
+} from '../../../schema'
 import { normalizePages } from '../../utils'
 import type { ShopifyConfig, Provider } from '..'
 import type { GetAllPagesOperation, Page } from '../../types/page'

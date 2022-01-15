@@ -1,6 +1,6 @@
 import { SWRHook } from '@commerce/utils/types'
 import useCart, { UseCart } from '@commerce/cart/use-cart'
-import { ActiveOrderQuery, CartFragment } from '../schema'
+import { ActiveOrderQuery, CartFragment } from '../../schema'
 import { normalizeCart } from '../utils/normalize'
 import { useMemo } from 'react'
 import { getCartQuery } from '../utils/queries/get-cart-query'

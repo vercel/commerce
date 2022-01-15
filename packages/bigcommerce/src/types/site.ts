@@ -1,5 +1,5 @@
 import * as Core from '@vercel/commerce/types/site'
-import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../schema'
+import type { GetSiteInfoQuery, GetSiteInfoQueryVariables } from '../../schema'
 
 export * from '@vercel/commerce/types/site'
 

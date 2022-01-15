@@ -7,7 +7,7 @@ import {
   setCustomerToken,
   throwUserErrors,
 } from '../../utils'
-import { CustomerAccessTokenCreateMutation } from '../../schema'
+import { CustomerAccessTokenCreateMutation } from '../../../schema'
 
 export default function loginOperation({
   commerce,

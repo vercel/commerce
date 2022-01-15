@@ -2,7 +2,7 @@
 // Vendure doesn't have a built-in wishlist
 
 import { HookFetcher } from '@commerce/utils/types'
-import { Product } from '../schema'
+import { Product } from '../../schema'
 
 const defaultOpts = {}
 

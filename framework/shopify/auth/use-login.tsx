@@ -10,7 +10,7 @@ import {
   throwUserErrors,
   customerAccessTokenCreateMutation,
 } from '../utils'
-import { Mutation, MutationCustomerAccessTokenCreateArgs } from '../schema'
+import { Mutation, MutationCustomerAccessTokenCreateArgs } from '../../schema'
 
 export default useLogin as UseLogin<typeof handler>
 

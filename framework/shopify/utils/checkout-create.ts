@@ -12,7 +12,7 @@ import {
   CheckoutLineItemInput,
   Mutation,
   MutationCheckoutCreateArgs,
-} from '../schema'
+} from '../../schema'
 import { FetcherOptions } from '@commerce/utils/types'
 
 export const checkoutCreate = async (

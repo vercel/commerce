@@ -11,7 +11,7 @@ import {
   checkoutToCart,
   checkoutCreate,
 } from '../utils'
-import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
+import { Mutation, MutationCheckoutLineItemsAddArgs } from '../../schema'
 
 export default useAddItem as UseAddItem<typeof handler>
 

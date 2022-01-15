@@ -1,4 +1,4 @@
-import { CommerceAPI, CommerceAPIConfig, getCommerceApi as commerceApi } from '@commerce/api'
+import { CommerceAPI, CommerceAPIConfig, getCommerceApi as commerceApi } from '@vercel/commerce/api'
 import * as operations from './operations'
 import * as Const from '../const'
 

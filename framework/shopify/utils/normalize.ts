@@ -15,7 +15,7 @@ import {
   Page as ShopifyPage,
   PageEdge,
   Collection,
-} from '../schema'
+} from '../../schema'
 import { colorMap } from '@lib/colors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {

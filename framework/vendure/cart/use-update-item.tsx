@@ -11,7 +11,7 @@ import useCart from './use-cart'
 import {
   AdjustOrderLineMutation,
   AdjustOrderLineMutationVariables,
-} from '../schema'
+} from '../../schema'
 import { normalizeCart } from '../utils/normalize'
 import { adjustOrderLineMutation } from '../utils/mutations/adjust-order-line-mutation'
 import { UpdateItemHook } from '../types/cart'

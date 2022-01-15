@@ -15,7 +15,7 @@ import {
   checkoutLineItemUpdateMutation,
   checkoutToCart,
 } from '../utils'
-import { Mutation, MutationCheckoutLineItemsUpdateArgs } from '../schema'
+import { Mutation, MutationCheckoutLineItemsUpdateArgs } from '../../schema'
 
 export type UpdateItemActionInput<T = any> = T extends LineItem
   ? Partial<UpdateItemHook['actionInput']>

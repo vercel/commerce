@@ -2,7 +2,7 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@commerce/api/operations'
-import { GetSiteInfoQueryVariables } from '../../schema'
+import { GetSiteInfoQueryVariables } from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
 import { GetSiteInfoOperation } from '../../types/site'
 
