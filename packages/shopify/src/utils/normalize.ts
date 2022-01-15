@@ -16,7 +16,7 @@ import {
   PageEdge,
   Collection,
 } from '../../schema'
-import { colorMap } from '@lib/colors'
+import { colorMap } from './colors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
