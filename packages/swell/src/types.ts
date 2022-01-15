@@ -1,6 +1,6 @@
 import * as Core from '@vercel/commerce/types/cart'
 import { Customer } from '@vercel/commerce/types'
-import { CheckoutLineItem } from './schema'
+import { CheckoutLineItem } from '../schema'
 
 export type SwellImage = {
   file: {
