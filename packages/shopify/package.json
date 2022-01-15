@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rm -fr dist/* && tsc",
     "dev": "npm run build -- --watch",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "generate": "DOTENV_CONFIG_PATH=./.env graphql-codegen -r dotenv/config"
   },
   "sideEffects": false,
   "type": "module",
@@ -55,8 +56,13 @@
     "react-dom": "^17"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.3.1",
+    "@graphql-codegen/schema-ast": "^2.4.1",
+    "@graphql-codegen/typescript": "^2.4.2",
+    "@graphql-codegen/typescript-operations": "^2.2.2",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.8",
+    "dotenv": "^12.0.3",
     "lint-staged": "^12.1.7",
     "next": "^12.0.3",
     "prettier": "^2.5.1",

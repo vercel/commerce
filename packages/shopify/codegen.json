@@ -8,13 +8,13 @@
   },
   "documents": [
     {
-      "./framework/shopify/**/*.{ts,tsx}": {
+      "./src/**/*.{ts,tsx}": {
         "noRequire": true
       }
     }
   ],
   "generates": {
-    "./framework/shopify/schema.d.ts": {
+    "./schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"],
       "config": {
         "scalars": {
@@ -22,7 +22,7 @@
         }
       }
     },
-    "./framework/shopify/schema.graphql": {
+    "./schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },
