@@ -1,4 +1,4 @@
-import type { Customer } from '@commerce/types/customer'
+import type { Customer } from '@vercel/commerce/types/customer'
 import type { AccountAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Account'
 import type { SpreeSdkResponse } from '../../types'
 

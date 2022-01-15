@@ -1,5 +1,5 @@
 import { VendureConfig } from '../'
-import { OperationContext } from '@commerce/api/operations'
+import { OperationContext } from '@vercel/commerce/api/operations'
 import { Provider } from '../../../bigcommerce/api'
 
 export type Page = any

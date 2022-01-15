@@ -1,5 +1,5 @@
 import { Provider, SwellConfig } from '..'
-import type { OperationContext } from '@commerce/api/operations'
+import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { Page } from '../../types/page'
 
 export type GetAllPagesResult<T extends { pages: any[] } = { pages: Page[] }> =

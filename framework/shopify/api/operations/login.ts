@@ -1,5 +1,5 @@
 import type { ServerResponse } from 'http'
-import type { OperationContext } from '@commerce/api/operations'
+import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { LoginOperation } from '../../types/login'
 import type { ShopifyConfig, Provider } from '..'
 import {

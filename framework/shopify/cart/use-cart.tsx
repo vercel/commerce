@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import useCommerceCart, { UseCart } from '@commerce/cart/use-cart'
+import useCommerceCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 
-import { SWRHook } from '@commerce/utils/types'
+import { SWRHook } from '@vercel/commerce/utils/types'
 import { checkoutToCart } from '../utils'
 import getCheckoutQuery from '../utils/queries/get-checkout-query'
 import { GetCartHook } from '../types/cart'

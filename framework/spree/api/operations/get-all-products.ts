@@ -1,9 +1,9 @@
-import type { Product } from '@commerce/types/product'
-import type { GetAllProductsOperation } from '@commerce/types/product'
+import type { Product } from '@vercel/commerce/types/product'
+import type { GetAllProductsOperation } from '@vercel/commerce/types/product'
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { SpreeApiConfig, SpreeApiProvider } from '../index'
 import type { SpreeSdkVariables } from '../../types'

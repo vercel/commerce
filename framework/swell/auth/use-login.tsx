@@ -1,13 +1,13 @@
 import { useCallback } from 'react'
-import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import { CommerceError, ValidationError } from '@vercel/commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import {
   CustomerUserError,
   Mutation,
   MutationCheckoutCreateArgs,
 } from '../../schema'
-import useLogin, { UseLogin } from '@commerce/auth/use-login'
+import useLogin, { UseLogin } from '@vercel/commerce/auth/use-login'
 import { LoginHook } from '../types/login'
 import { setCustomerToken } from '../utils'
 

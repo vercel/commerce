@@ -1,6 +1,6 @@
-import useAddItem from '@commerce/customer/address/use-add-item'
-import type { UseAddItem } from '@commerce/customer/address/use-add-item'
-import type { MutationHook } from '@commerce/utils/types'
+import useAddItem from '@vercel/commerce/customer/address/use-add-item'
+import type { UseAddItem } from '@vercel/commerce/customer/address/use-add-item'
+import type { MutationHook } from '@vercel/commerce/utils/types'
 
 export default useAddItem as UseAddItem<typeof handler>
 

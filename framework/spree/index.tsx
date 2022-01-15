@@ -4,12 +4,12 @@ import {
   CommerceProviderProps,
   CoreCommerceProvider,
   useCommerce as useCoreCommerce,
-} from '@commerce'
+} from '@vercel/commerce'
 import { spreeProvider } from './provider'
 import type { SpreeProvider } from './provider'
 import { SWRConfig } from 'swr'
 import handleTokenErrors from './utils/handle-token-errors'
-import useLogout from '@commerce/auth/use-logout'
+import useLogout from '@vercel/commerce/auth/use-logout'
 
 export { spreeProvider }
 export type { SpreeProvider }

@@ -1,4 +1,4 @@
-import { FetcherOptions } from '@commerce/utils/types'
+import { FetcherOptions } from '@vercel/commerce/utils/types'
 import throwUserErrors from './throw-user-errors'
 
 import {

@@ -4,10 +4,12 @@ import {
   MutationHook,
   MutationHookContext,
   SWRHook,
-} from '@commerce/utils/types'
-import useRemoveItem, { UseRemoveItem } from '@commerce/cart/use-remove-item'
-import { CommerceError } from '@commerce/utils/errors'
-import { Cart } from '@commerce/types/cart'
+} from '@vercel/commerce/utils/types'
+import useRemoveItem, {
+  UseRemoveItem,
+} from '@vercel/commerce/cart/use-remove-item'
+import { CommerceError } from '@vercel/commerce/utils/errors'
+import { Cart } from '@vercel/commerce/types/cart'
 import useCart from './use-cart'
 import {
   RemoveOrderLineMutation,

@@ -1,6 +1,9 @@
 import { Page } from '../../../schema'
 import { SwellConfig, Provider } from '..'
-import { OperationContext, OperationOptions } from '@commerce/api/operations'
+import {
+  OperationContext,
+  OperationOptions,
+} from '@vercel/commerce/api/operations'
 import { GetPageOperation } from '../../types/page'
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T

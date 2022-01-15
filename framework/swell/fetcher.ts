@@ -1,5 +1,5 @@
-import { Fetcher } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
+import { Fetcher } from '@vercel/commerce/utils/types'
+import { CommerceError } from '@vercel/commerce/utils/errors'
 import { handleFetchResponse } from './utils'
 import swell from './swell'
 

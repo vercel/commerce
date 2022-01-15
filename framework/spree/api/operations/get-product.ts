@@ -1,9 +1,9 @@
 import type { SpreeApiConfig, SpreeApiProvider } from '../index'
-import type { GetProductOperation } from '@commerce/types/product'
+import type { GetProductOperation } from '@vercel/commerce/types/product'
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import type { IProduct } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { SpreeSdkVariables } from '../../types'
 import MissingSlugVariableError from '../../errors/MissingSlugVariableError'

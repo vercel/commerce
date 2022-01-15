@@ -1,1 +1,1 @@
-export * from '@commerce/types/checkout'
+export * from '@vercel/commerce/types/checkout'

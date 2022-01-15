@@ -1,6 +1,6 @@
 // Based on https://github.com/spark-solutions/spree2vuestorefront/blob/d88d85ae1bcd2ec99b13b81cd2e3c25600a0216e/src/utils/index.ts
 
-import type { ProductImage } from '@commerce/types/product'
+import type { ProductImage } from '@vercel/commerce/types/product'
 import type { SpreeProductImage } from '../types'
 
 const getMediaGallery = (

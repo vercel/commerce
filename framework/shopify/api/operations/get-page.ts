@@ -1,7 +1,7 @@
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
+} from '@vercel/commerce/api/operations'
 import { normalizePage } from '../../utils'
 import type { ShopifyConfig, Provider } from '..'
 import {

@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import { MutationHook } from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
-import useSignup, { UseSignup } from '@commerce/auth/use-signup'
+import { MutationHook } from '@vercel/commerce/utils/types'
+import { CommerceError, ValidationError } from '@vercel/commerce/utils/errors'
+import useSignup, { UseSignup } from '@vercel/commerce/auth/use-signup'
 import useCustomer from '../customer/use-customer'
 import {
   RegisterCustomerInput,

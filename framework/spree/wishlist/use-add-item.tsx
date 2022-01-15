@@ -1,17 +1,17 @@
 import { useCallback } from 'react'
-import type { MutationHook } from '@commerce/utils/types'
-import useAddItem from '@commerce/wishlist/use-add-item'
-import type { UseAddItem } from '@commerce/wishlist/use-add-item'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import useAddItem from '@vercel/commerce/wishlist/use-add-item'
+import type { UseAddItem } from '@vercel/commerce/wishlist/use-add-item'
 import useWishlist from './use-wishlist'
 import type { ExplicitWishlistAddItemHook } from '../types'
 import type {
   WishedItem,
   WishlistsAddWishedItem,
 } from '@spree/storefront-api-v2-sdk/types/interfaces/WishedItem'
-import type { GraphQLFetcherResult } from '@commerce/api'
+import type { GraphQLFetcherResult } from '@vercel/commerce/api'
 import ensureIToken from '../utils/tokens/ensure-itoken'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
-import type { AddItemHook } from '@commerce/types/wishlist'
+import type { AddItemHook } from '@vercel/commerce/types/wishlist'
 import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useAddItem as UseAddItem<typeof handler>
@@ -55,32 +55,33 @@ export const handler: MutationHook<ExplicitWishlistAddItemHook> = {
     return null
   },
   useHook: ({ fetch }) => {
-    const useWrappedHook: ReturnType<MutationHook<AddItemHook>['useHook']> =
-      () => {
-        const wishlist = useWishlist()
+    const useWrappedHook: ReturnType<
+      MutationHook<AddItemHook>['useHook']
+    > = () => {
+      const wishlist = useWishlist()
 
-        return useCallback(
-          async (item) => {
-            if (!wishlist.data) {
-              return null
-            }
+      return useCallback(
+        async (item) => {
+          if (!wishlist.data) {
+            return null
+          }
 
-            const data = await fetch({
-              input: {
-                item: {
-                  ...item,
-                  wishlistToken: wishlist.data.token,
-                },
+          const data = await fetch({
+            input: {
+              item: {
+                ...item,
+                wishlistToken: wishlist.data.token,
               },
-            })
+            },
+          })
 
-            await wishlist.revalidate()
+          await wishlist.revalidate()
 
-            return data
-          },
-          [wishlist]
-        )
-      }
+          return data
+        },
+        [wishlist]
+      )
+    }
 
     return useWrappedHook
   },

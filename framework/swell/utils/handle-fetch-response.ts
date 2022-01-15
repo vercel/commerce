@@ -1,4 +1,4 @@
-import { CommerceError } from '@commerce/utils/errors'
+import { CommerceError } from '@vercel/commerce/utils/errors'
 
 type SwellFetchResponse = {
   error: {

@@ -1,9 +1,12 @@
-import type { SWRHook } from '@commerce/utils/types'
-import useSearch from '@commerce/product/use-search'
-import type { Product, SearchProductsHook } from '@commerce/types/product'
-import type { UseSearch } from '@commerce/product/use-search'
+import type { SWRHook } from '@vercel/commerce/utils/types'
+import useSearch from '@vercel/commerce/product/use-search'
+import type {
+  Product,
+  SearchProductsHook,
+} from '@vercel/commerce/types/product'
+import type { UseSearch } from '@vercel/commerce/product/use-search'
 import normalizeProduct from '../utils/normalizations/normalize-product'
-import type { GraphQLFetcherResult } from '@commerce/api'
+import type { GraphQLFetcherResult } from '@vercel/commerce/api'
 import { IProducts } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import { requireConfigValue } from '../isomorphic-config'
 

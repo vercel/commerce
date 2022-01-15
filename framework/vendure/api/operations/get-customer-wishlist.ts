@@ -1,4 +1,4 @@
-import { OperationContext } from '@commerce/api/operations'
+import { OperationContext } from '@vercel/commerce/api/operations'
 import { Provider, VendureConfig } from '../'
 
 export default function getCustomerWishlistOperation({

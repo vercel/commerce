@@ -1,5 +1,5 @@
-import * as Core from '@commerce/types/customer'
+import * as Core from '@vercel/commerce/types/customer'
 
-export * from '@commerce/types/customer'
+export * from '@vercel/commerce/types/customer'
 
 export type CustomerSchema = Core.CustomerSchema

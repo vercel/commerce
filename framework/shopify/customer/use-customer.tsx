@@ -1,6 +1,8 @@
-import useCustomer, { UseCustomer } from '@commerce/customer/use-customer'
+import useCustomer, {
+  UseCustomer,
+} from '@vercel/commerce/customer/use-customer'
 import type { CustomerHook } from '../types/customer'
-import { SWRHook } from '@commerce/utils/types'
+import { SWRHook } from '@vercel/commerce/utils/types'
 import { getCustomerQuery, getCustomerToken } from '../utils'
 import { GetCustomerQuery, GetCustomerQueryVariables } from '../../schema'
 

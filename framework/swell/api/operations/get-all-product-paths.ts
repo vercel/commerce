@@ -1,7 +1,10 @@
 import { SwellProduct } from '../../types'
 import { SwellConfig, Provider } from '..'
-import { OperationContext, OperationOptions } from '@commerce/api/operations'
-import { GetAllProductPathsOperation } from '@commerce/types/product'
+import {
+  OperationContext,
+  OperationOptions,
+} from '@vercel/commerce/api/operations'
+import { GetAllProductPathsOperation } from '@vercel/commerce/types/product'
 
 export default function getAllProductPathsOperation({
   commerce,

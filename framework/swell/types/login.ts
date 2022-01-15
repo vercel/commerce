@@ -1,7 +1,7 @@
-import * as Core from '@commerce/types/login'
-import { LoginBody, LoginTypes } from '@commerce/types/login'
+import * as Core from '@vercel/commerce/types/login'
+import { LoginBody, LoginTypes } from '@vercel/commerce/types/login'
 
-export * from '@commerce/types/login'
+export * from '@vercel/commerce/types/login'
 
 export type LoginHook<T extends LoginTypes = LoginTypes> = {
   data: null

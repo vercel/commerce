@@ -1,8 +1,11 @@
-import { OperationContext, OperationOptions } from '@commerce/api/operations'
+import {
+  OperationContext,
+  OperationOptions,
+} from '@vercel/commerce/api/operations'
 import type { GetAllProductPathsQuery } from '../../../schema'
 import { Provider } from '../index'
 import { getAllProductPathsQuery } from '../../utils/queries/get-all-product-paths-query'
-import { GetAllProductPathsOperation } from '@commerce/types/product'
+import { GetAllProductPathsOperation } from '@vercel/commerce/types/product'
 import { BigcommerceConfig } from '../../../bigcommerce/api'
 
 export type GetAllProductPathsResult = {

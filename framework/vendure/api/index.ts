@@ -1,5 +1,8 @@
-import type { APIProvider, CommerceAPIConfig } from '@commerce/api'
-import { CommerceAPI, getCommerceApi as commerceApi } from '@commerce/api'
+import type { APIProvider, CommerceAPIConfig } from '@vercel/commerce/api'
+import {
+  CommerceAPI,
+  getCommerceApi as commerceApi,
+} from '@vercel/commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
 import login from './operations/login'

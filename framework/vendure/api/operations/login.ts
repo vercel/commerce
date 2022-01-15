@@ -2,8 +2,8 @@ import type { ServerResponse } from 'http'
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
-import { ValidationError } from '@commerce/utils/errors'
+} from '@vercel/commerce/api/operations'
+import { ValidationError } from '@vercel/commerce/utils/errors'
 import type { LoginOperation } from '../../types/login'
 import type { LoginMutation } from '../../../schema'
 import { Provider, VendureConfig } from '..'

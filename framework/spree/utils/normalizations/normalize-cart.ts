@@ -3,12 +3,12 @@ import type {
   LineItem,
   ProductVariant,
   SelectedOption,
-} from '@commerce/types/cart'
+} from '@vercel/commerce/types/cart'
 import MissingLineItemVariantError from '../../errors/MissingLineItemVariantError'
 import { requireConfigValue } from '../../isomorphic-config'
 import type { OrderAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
-import type { Image } from '@commerce/types/common'
+import type { Image } from '@vercel/commerce/types/common'
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
 import createGetAbsoluteImageUrl from '../create-get-absolute-image-url'
 import getMediaGallery from '../get-media-gallery'

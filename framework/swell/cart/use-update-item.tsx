@@ -4,16 +4,18 @@ import type {
   HookFetcherContext,
   MutationHook,
   MutationHookContext,
-} from '@commerce/utils/types'
-import { ValidationError } from '@commerce/utils/errors'
+} from '@vercel/commerce/utils/types'
+import { ValidationError } from '@vercel/commerce/utils/errors'
 // import useUpdateItem, {
 //   UpdateItemInput as UpdateItemInputBase,
 //   UseUpdateItem,
-// } from '@commerce/cart/use-update-item'
-import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
+// } from '@vercel/commerce/cart/use-update-item'
+import useUpdateItem, {
+  UseUpdateItem,
+} from '@vercel/commerce/cart/use-update-item'
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
-import { CartItemBody, LineItem } from '@commerce/types/cart'
+import { CartItemBody, LineItem } from '@vercel/commerce/types/cart'
 import { checkoutToCart } from './utils'
 import { UpdateItemHook } from '../types/cart'
 // export type UpdateItemInput<T = any> = T extends LineItem

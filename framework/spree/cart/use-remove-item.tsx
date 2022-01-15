@@ -1,18 +1,18 @@
-import type { MutationHook } from '@commerce/utils/types'
-import useRemoveItem from '@commerce/cart/use-remove-item'
-import type { UseRemoveItem } from '@commerce/cart/use-remove-item'
-import type { RemoveItemHook } from '@commerce/types/cart'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import useRemoveItem from '@vercel/commerce/cart/use-remove-item'
+import type { UseRemoveItem } from '@vercel/commerce/cart/use-remove-item'
+import type { RemoveItemHook } from '@vercel/commerce/types/cart'
 import useCart from './use-cart'
 import { useCallback } from 'react'
 import normalizeCart from '../utils/normalizations/normalize-cart'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
-import type { GraphQLFetcherResult } from '@commerce/api'
+import type { GraphQLFetcherResult } from '@vercel/commerce/api'
 import type { IQuery } from '@spree/storefront-api-v2-sdk/types/interfaces/Query'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import ensureIToken from '../utils/tokens/ensure-itoken'
 import createEmptyCart from '../utils/create-empty-cart'
 import { setCartToken } from '../utils/tokens/cart-token'
-import { FetcherError } from '@commerce/utils/errors'
+import { FetcherError } from '@vercel/commerce/utils/errors'
 import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
@@ -94,24 +94,25 @@ export const handler: MutationHook<RemoveItemHook> = {
     }
   },
   useHook: ({ fetch }) => {
-    const useWrappedHook: ReturnType<MutationHook<RemoveItemHook>['useHook']> =
-      () => {
-        const { mutate } = useCart()
+    const useWrappedHook: ReturnType<
+      MutationHook<RemoveItemHook>['useHook']
+    > = () => {
+      const { mutate } = useCart()
 
-        return useCallback(
-          async (input) => {
-            const data = await fetch({ input: { itemId: input.id } })
+      return useCallback(
+        async (input) => {
+          const data = await fetch({ input: { itemId: input.id } })
 
-            // Upon calling cart.removeItem, Spree returns the old version of the cart,
-            // with the already removed line item. Invalidate the useCart mutation
-            // to fetch the cart again.
-            await mutate(data, true)
+          // Upon calling cart.removeItem, Spree returns the old version of the cart,
+          // with the already removed line item. Invalidate the useCart mutation
+          // to fetch the cart again.
+          await mutate(data, true)
 
-            return data
-          },
-          [mutate]
-        )
-      }
+          return data
+        },
+        [mutate]
+      )
+    }
 
     return useWrappedHook
   },

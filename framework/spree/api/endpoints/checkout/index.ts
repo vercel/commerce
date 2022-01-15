@@ -1,7 +1,7 @@
-import { createEndpoint } from '@commerce/api'
-import type { GetAPISchema, CommerceAPI } from '@commerce/api'
-import checkoutEndpoint from '@commerce/api/endpoints/checkout'
-import type { CheckoutSchema } from '@commerce/types/checkout'
+import { createEndpoint } from '@vercel/commerce/api'
+import type { GetAPISchema, CommerceAPI } from '@vercel/commerce/api'
+import checkoutEndpoint from '@vercel/commerce/api/endpoints/checkout'
+import type { CheckoutSchema } from '@vercel/commerce/types/checkout'
 import getCheckout from './get-checkout'
 import type { SpreeApiProvider } from '../..'
 

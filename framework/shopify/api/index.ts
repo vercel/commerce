@@ -2,7 +2,7 @@ import {
   CommerceAPI,
   CommerceAPIConfig,
   getCommerceApi as commerceApi,
-} from '@commerce/api'
+} from '@vercel/commerce/api'
 
 import {
   API_URL,

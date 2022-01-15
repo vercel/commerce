@@ -1,8 +1,11 @@
 import type {
   OperationContext,
   OperationOptions,
-} from '@commerce/api/operations'
-import type { Category, GetSiteInfoOperation } from '@commerce/types/site'
+} from '@vercel/commerce/api/operations'
+import type {
+  Category,
+  GetSiteInfoOperation,
+} from '@vercel/commerce/types/site'
 import type {
   ITaxons,
   TaxonAttr,

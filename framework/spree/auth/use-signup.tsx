@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import type { GraphQLFetcherResult } from '@commerce/api'
-import type { MutationHook } from '@commerce/utils/types'
-import useSignup, { UseSignup } from '@commerce/auth/use-signup'
-import type { SignupHook } from '@commerce/types/signup'
-import { ValidationError } from '@commerce/utils/errors'
+import type { GraphQLFetcherResult } from '@vercel/commerce/api'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import useSignup, { UseSignup } from '@vercel/commerce/auth/use-signup'
+import type { SignupHook } from '@vercel/commerce/types/signup'
+import { ValidationError } from '@vercel/commerce/utils/errors'
 import type { IAccount } from '@spree/storefront-api-v2-sdk/types/interfaces/Account'
 import type { AuthTokenAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Authentication'
 import useCustomer from '../customer/use-customer'
@@ -70,25 +70,26 @@ export const handler: MutationHook<SignupHook> = {
     return null
   },
   useHook: ({ fetch }) => {
-    const useWrappedHook: ReturnType<MutationHook<SignupHook>['useHook']> =
-      () => {
-        const customer = useCustomer()
-        const cart = useCart()
-        const wishlist = useWishlist()
+    const useWrappedHook: ReturnType<
+      MutationHook<SignupHook>['useHook']
+    > = () => {
+      const customer = useCustomer()
+      const cart = useCart()
+      const wishlist = useWishlist()
 
-        return useCallback(
-          async (input) => {
-            const data = await fetch({ input })
+      return useCallback(
+        async (input) => {
+          const data = await fetch({ input })
 
-            await customer.revalidate()
-            await cart.revalidate()
-            await wishlist.revalidate()
+          await customer.revalidate()
+          await cart.revalidate()
+          await wishlist.revalidate()
 
-            return data
-          },
-          [customer, cart, wishlist]
-        )
-      }
+          return data
+        },
+        [customer, cart, wishlist]
+      )
+    }
 
     return useWrappedHook
   },

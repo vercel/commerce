@@ -1,5 +1,5 @@
-import { Product } from '@commerce/types/product'
-import { Cart } from '@commerce/types/cart'
+import { Product } from '@vercel/commerce/types/product'
+import { Cart } from '@vercel/commerce/types/cart'
 import { CartFragment, SearchResultFragment } from '../../schema'
 
 export function normalizeSearchResult(item: SearchResultFragment): Product {

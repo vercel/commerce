@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
-import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import { CommerceError } from '@vercel/commerce/utils/errors'
+import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
 import type { AddItemHook } from '../types/cart'
 import useCart from './use-cart'
 

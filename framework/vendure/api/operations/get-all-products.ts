@@ -1,9 +1,9 @@
-import { Product } from '@commerce/types/product'
+import { Product } from '@vercel/commerce/types/product'
 import { Provider, VendureConfig } from '../'
 import { GetAllProductsQuery } from '../../../schema'
 import { normalizeSearchResult } from '../../utils/normalize'
 import { getAllProductsQuery } from '../../utils/queries/get-all-products-query'
-import { OperationContext } from '@commerce/api/operations'
+import { OperationContext } from '@vercel/commerce/api/operations'
 
 export type ProductVariables = { first?: number }
 

@@ -1,5 +1,5 @@
-import { SWRHook } from '@commerce/utils/types'
-import useCart, { UseCart } from '@commerce/cart/use-cart'
+import { SWRHook } from '@vercel/commerce/utils/types'
+import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 import { ActiveOrderQuery, CartFragment } from '../../schema'
 import { normalizeCart } from '../utils/normalize'
 import { useMemo } from 'react'

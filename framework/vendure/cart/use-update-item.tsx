@@ -3,10 +3,12 @@ import {
   HookFetcherContext,
   MutationHook,
   MutationHookContext,
-} from '@commerce/utils/types'
-import { CommerceError, ValidationError } from '@commerce/utils/errors'
-import useUpdateItem, { UseUpdateItem } from '@commerce/cart/use-update-item'
-import { CartItemBody, LineItem } from '@commerce/types/cart'
+} from '@vercel/commerce/utils/types'
+import { CommerceError, ValidationError } from '@vercel/commerce/utils/errors'
+import useUpdateItem, {
+  UseUpdateItem,
+} from '@vercel/commerce/cart/use-update-item'
+import { CartItemBody, LineItem } from '@vercel/commerce/types/cart'
 import useCart from './use-cart'
 import {
   AdjustOrderLineMutation,

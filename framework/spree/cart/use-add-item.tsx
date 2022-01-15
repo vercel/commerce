@@ -1,18 +1,18 @@
-import useAddItem from '@commerce/cart/use-add-item'
-import type { UseAddItem } from '@commerce/cart/use-add-item'
-import type { MutationHook } from '@commerce/utils/types'
+import useAddItem from '@vercel/commerce/cart/use-add-item'
+import type { UseAddItem } from '@vercel/commerce/cart/use-add-item'
+import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
 import useCart from './use-cart'
-import type { AddItemHook } from '@commerce/types/cart'
+import type { AddItemHook } from '@vercel/commerce/types/cart'
 import normalizeCart from '../utils/normalizations/normalize-cart'
-import type { GraphQLFetcherResult } from '@commerce/api'
+import type { GraphQLFetcherResult } from '@vercel/commerce/api'
 import type { IOrder } from '@spree/storefront-api-v2-sdk/types/interfaces/Order'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
 import type { AddItem } from '@spree/storefront-api-v2-sdk/types/interfaces/endpoints/CartClass'
 import { setCartToken } from '../utils/tokens/cart-token'
 import ensureIToken from '../utils/tokens/ensure-itoken'
 import createEmptyCart from '../utils/create-empty-cart'
-import { FetcherError } from '@commerce/utils/errors'
+import { FetcherError } from '@vercel/commerce/utils/errors'
 import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useAddItem as UseAddItem<typeof handler>
@@ -96,21 +96,22 @@ export const handler: MutationHook<AddItemHook> = {
     }
   },
   useHook: ({ fetch }) => {
-    const useWrappedHook: ReturnType<MutationHook<AddItemHook>['useHook']> =
-      () => {
-        const { mutate } = useCart()
+    const useWrappedHook: ReturnType<
+      MutationHook<AddItemHook>['useHook']
+    > = () => {
+      const { mutate } = useCart()
 
-        return useCallback(
-          async (input) => {
-            const data = await fetch({ input })
+      return useCallback(
+        async (input) => {
+          const data = await fetch({ input })
 
-            await mutate(data, false)
+          await mutate(data, false)
 
-            return data
-          },
-          [mutate]
-        )
-      }
+          return data
+        },
+        [mutate]
+      )
+    }
 
     return useWrappedHook
   },

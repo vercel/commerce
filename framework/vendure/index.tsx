@@ -1,4 +1,7 @@
-import { getCommerceProvider, useCommerce as useCoreCommerce } from '@commerce'
+import {
+  getCommerceProvider,
+  useCommerce as useCoreCommerce,
+} from '@vercel/commerce'
 import { vendureProvider, VendureProvider } from './provider'
 
 export { vendureProvider }

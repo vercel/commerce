@@ -5,7 +5,7 @@ import convertSpreeErrorToGraphQlError from '../../utils/convert-spree-error-to-
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import getSpreeSdkMethodFromEndpointPath from '../../utils/get-spree-sdk-method-from-endpoint-path'
 import SpreeSdkMethodFromEndpointPathError from '../../errors/SpreeSdkMethodFromEndpointPathError'
-import { GraphQLFetcher, GraphQLFetcherResult } from '@commerce/api'
+import { GraphQLFetcher, GraphQLFetcherResult } from '@vercel/commerce/api'
 import createCustomizedFetchFetcher, {
   fetchResponseKey,
 } from '../../utils/create-customized-fetch-fetcher'

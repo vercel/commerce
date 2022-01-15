@@ -1,4 +1,4 @@
-import type { GraphQLFetcher } from '@commerce/api'
+import type { GraphQLFetcher } from '@vercel/commerce/api'
 import fetch from './fetch'
 
 import { API_URL, API_TOKEN } from '../../const'

@@ -2,8 +2,8 @@ import { Provider, VendureConfig } from '../'
 import { GetCollectionsQuery } from '../../../schema'
 import { arrayToTree } from '../../utils/array-to-tree'
 import { getCollectionsQuery } from '../../utils/queries/get-collections-query'
-import { OperationContext } from '@commerce/api/operations'
-import { Category } from '@commerce/types/site'
+import { OperationContext } from '@vercel/commerce/api/operations'
+import { Category } from '@vercel/commerce/types/site'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {

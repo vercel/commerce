@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next'
-import { CommerceAPI, createEndpoint, GetAPISchema } from '@commerce/api'
-import { CheckoutSchema } from '@commerce/types/checkout'
-import checkoutEndpoint from '@commerce/api/endpoints/checkout'
+import { CommerceAPI, createEndpoint, GetAPISchema } from '@vercel/commerce/api'
+import { CheckoutSchema } from '@vercel/commerce/types/checkout'
+import checkoutEndpoint from '@vercel/commerce/api/endpoints/checkout'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,

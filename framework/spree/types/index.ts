@@ -6,13 +6,13 @@ import type {
 } from '@spree/storefront-api-v2-sdk/types/interfaces/JsonApi'
 import type { ResultResponse } from '@spree/storefront-api-v2-sdk/types/interfaces/ResultResponse'
 import type { Response } from '@vercel/fetch'
-import type { ProductOption, Product } from '@commerce/types/product'
+import type { ProductOption, Product } from '@vercel/commerce/types/product'
 import type {
   AddItemHook,
   RemoveItemHook,
   WishlistItemBody,
   WishlistTypes,
-} from '@commerce/types/wishlist'
+} from '@vercel/commerce/types/wishlist'
 
 export type UnknownObjectValues = Record<string, unknown>
 
@@ -136,7 +136,7 @@ export type UserOAuthTokens = {
 
 // TODO: ExplicitCommerceWishlist is a temporary type
 // derived from tsx views. It will be removed once
-// Wishlist in @commerce/types/wishlist is updated
+// Wishlist in @vercel/commerce/types/wishlist is updated
 // to a more specific type than `any`.
 export type ExplicitCommerceWishlist = {
   id: string

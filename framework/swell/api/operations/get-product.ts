@@ -1,7 +1,7 @@
 import { normalizeProduct } from '../../utils'
 
-import { Product } from '@commerce/types/product'
-import { OperationContext } from '@commerce/api/operations'
+import { Product } from '@vercel/commerce/types/product'
+import { OperationContext } from '@vercel/commerce/api/operations'
 import { Provider, SwellConfig } from '../'
 
 export default function getProductOperation({

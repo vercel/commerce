@@ -1,4 +1,4 @@
-import { Provider } from '@commerce'
+import { Provider } from '@vercel/commerce'
 import { SWELL_CHECKOUT_ID_COOKIE } from './const'
 
 import { handler as useCart } from './cart/use-cart'

@@ -1,5 +1,5 @@
-import * as Core from '@commerce/types/page'
-export * from '@commerce/types/page'
+import * as Core from '@vercel/commerce/types/page'
+export * from '@vercel/commerce/types/page'
 
 export type Page = Core.Page
 

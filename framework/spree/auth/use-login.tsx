@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import type { MutationHook } from '@commerce/utils/types'
-import useLogin, { UseLogin } from '@commerce/auth/use-login'
-import type { LoginHook } from '@commerce/types/login'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import useLogin, { UseLogin } from '@vercel/commerce/auth/use-login'
+import type { LoginHook } from '@vercel/commerce/types/login'
 import type { AuthTokenAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Authentication'
-import { FetcherError, ValidationError } from '@commerce/utils/errors'
+import { FetcherError, ValidationError } from '@vercel/commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import useCart from '../cart/use-cart'
 import useWishlist from '../wishlist/use-wishlist'
@@ -60,25 +60,26 @@ export const handler: MutationHook<LoginHook> = {
     }
   },
   useHook: ({ fetch }) => {
-    const useWrappedHook: ReturnType<MutationHook<LoginHook>['useHook']> =
-      () => {
-        const customer = useCustomer()
-        const cart = useCart()
-        const wishlist = useWishlist()
+    const useWrappedHook: ReturnType<
+      MutationHook<LoginHook>['useHook']
+    > = () => {
+      const customer = useCustomer()
+      const cart = useCart()
+      const wishlist = useWishlist()
 
-        return useCallback(
-          async function login(input) {
-            const data = await fetch({ input })
+      return useCallback(
+        async function login(input) {
+          const data = await fetch({ input })
 
-            await customer.revalidate()
-            await cart.revalidate()
-            await wishlist.revalidate()
+          await customer.revalidate()
+          await cart.revalidate()
+          await wishlist.revalidate()
 
-            return data
-          },
-          [customer, cart, wishlist]
-        )
-      }
+          return data
+        },
+        [customer, cart, wishlist]
+      )
+    }
 
     return useWrappedHook
   },
