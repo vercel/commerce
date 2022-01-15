@@ -4,26 +4,26 @@
   },
   "documents": [
     {
-      "./framework/saleor/utils/queries/get-all-products-query.ts": {
+      "./src/utils/queries/get-all-products-query.ts": {
         "noRequire": true
       }
     },
     {
-      "./framework/saleor/utils/queries/get-all-products-paths-query.ts": {
+      "./src/utils/queries/get-all-products-paths-query.ts": {
         "noRequire": true
       }
     },
     {
-      "./framework/saleor/utils/queries/get-products.ts": {
+      "./src/utils/queries/get-products.ts": {
         "noRequire": true
       }
     }
   ],
   "generates": {
-    "./framework/saleor/schema.d.ts": {
+    "./schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"]
     },
-    "./framework/saleor/schema.graphql": {
+    "./schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },
