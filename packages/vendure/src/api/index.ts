@@ -1,4 +1,4 @@
-import type { APIProvider, CommerceAPIConfig } from '@vercel/commerce/api'
+import type { CommerceAPIConfig } from '@vercel/commerce/api'
 import {
   CommerceAPI,
   getCommerceApi as commerceApi,
