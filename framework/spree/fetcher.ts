@@ -16,6 +16,7 @@ import createCustomizedFetchFetcher, {
 } from './utils/create-customized-fetch-fetcher'
 import ensureFreshUserAccessToken from './utils/tokens/ensure-fresh-user-access-token'
 import RefreshTokenError from './errors/RefreshTokenError'
+import prettyPrintSpreeSdkErrors from './utils/pretty-print-spree-sdk-errors'
 
 const client = makeClient({
   host: requireConfigValue('apiHost') as string,
@@ -107,6 +108,12 @@ const fetcher: Fetcher<GraphQLFetcherResult<SpreeSdkResponse>> = async (
   }
 
   if (storeResponseError instanceof errors.SpreeError) {
+    console.error(
+      `Request to spree resulted in an error:\n\n${prettyPrintSpreeSdkErrors(
+        storeResponse.fail()
+      )}`
+    )
+
     throw convertSpreeErrorToGraphQlError(storeResponseError)
   }
 
