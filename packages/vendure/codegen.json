@@ -4,13 +4,13 @@
   },
   "documents": [
     {
-      "./framework/vendure/**/*.{ts,tsx}": {
+      "./src/**/*.{ts,tsx}": {
         "noRequire": true
       }
     }
   ],
   "generates": {
-    "./framework/vendure/schema.d.ts": {
+    "./schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"],
       "config": {
         "scalars": {
@@ -18,7 +18,7 @@
         }
       }
     },
-    "./framework/vendure/schema.graphql": {
+    "./schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },
