@@ -8,16 +8,16 @@
   },
   "documents": [
     {
-      "./framework/bigcommerce/api/**/*.ts": {
+      "./src/api/**/*.ts": {
         "noRequire": true
       }
     }
   ],
   "generates": {
-    "./framework/bigcommerce/schema.d.ts": {
+    "./schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"]
     },
-    "./framework/bigcommerce/schema.graphql": {
+    "./schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },
