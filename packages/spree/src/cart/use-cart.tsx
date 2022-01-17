@@ -21,7 +21,7 @@ export default useCart as UseCart<typeof handler>
 
 // This handler avoids calling /api/cart.
 // There doesn't seem to be a good reason to call it.
-// So far, only @framework/bigcommerce uses it.
+// So far, only bigcommerce uses it.
 export const handler: SWRHook<GetCartHook> = {
   // Provide fetchOptions for SWR cache key
   fetchOptions: {
