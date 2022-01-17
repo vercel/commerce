@@ -19,7 +19,7 @@ export const handler: MutationHook<RemoveItemHook> = {
     ({ fetch }) =>
     ({ wishlist } = {}) => {
       const { data: customer } = useCustomer()
-      const { revalidate } = useWishlist(wishlist)
+      const { mutate } = useWishlist(wishlist)
 
       return useCallback(
         async function removeItem(input) {
@@ -31,10 +31,10 @@ export const handler: MutationHook<RemoveItemHook> = {
           }
 
           const data = await fetch({ input: { itemId: String(input.id) } })
-          await revalidate()
+          await mutate()
           return data
         },
-        [fetch, revalidate, customer]
+        [fetch, mutate, customer]
       )
     },
 }

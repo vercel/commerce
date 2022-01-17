@@ -75,7 +75,7 @@ export const handler: MutationHook<ExplicitWishlistAddItemHook> = {
             },
           })
 
-          await wishlist.revalidate()
+          await wishlist.mutate()
 
           return data
         },

@@ -81,9 +81,9 @@ export const handler: MutationHook<SignupHook> = {
         async (input) => {
           const data = await fetch({ input })
 
-          await customer.revalidate()
-          await cart.revalidate()
-          await wishlist.revalidate()
+          await customer.mutate()
+          await cart.mutate()
+          await wishlist.mutate()
 
           return data
         },

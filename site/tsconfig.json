@@ -15,6 +15,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "useUnknownInCatchVariables": false,
     "paths": {
       "@lib/*": ["lib/*"],
       "@utils/*": ["utils/*"],

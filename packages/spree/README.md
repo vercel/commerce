@@ -23,7 +23,7 @@ An integration of [Spree Commerce](https://spreecommerce.org/) within NextJS Com
    - They rely on [taxonomies'](https://dev-docs.spreecommerce.org/internals/products#taxons-and-taxonomies) permalinks in Spree.
    - Go to the Spree admin panel and create `Categories` and `Brands` taxonomies if they don't exist and copy their permalinks into `.env.local` in NextJS Commerce.
 
-1. Finally, run `yarn dev` :tada:
+1. Finally, run `npm run dev` :tada:
 
 [1]: https://spreecommerce.org/
 [2]: https://github.com/vercel/commerce
