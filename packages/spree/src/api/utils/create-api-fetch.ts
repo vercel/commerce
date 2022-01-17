@@ -11,6 +11,7 @@ import createCustomizedFetchFetcher, {
 } from '../../utils/create-customized-fetch-fetcher'
 import fetch, { Request } from 'node-fetch'
 import type { SpreeSdkResponseWithRawResponse } from '../../types'
+import prettyPrintSpreeSdkErrors from '../../utils/pretty-print-spree-sdk-errors'
 
 export type CreateApiFetch = (
   getConfig: () => SpreeApiConfig
@@ -69,6 +70,12 @@ const createApiFetch: CreateApiFetch = (_getConfig) => {
     const storeResponseError = storeResponse.fail()
 
     if (storeResponseError instanceof errors.SpreeError) {
+      console.error(
+        `Request to spree resulted in an error:\n\n${prettyPrintSpreeSdkErrors(
+          storeResponse.fail()
+        )}`
+      )
+
       throw convertSpreeErrorToGraphQlError(storeResponseError)
     }
 

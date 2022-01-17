@@ -50,6 +50,10 @@ const createCustomizedFetchFetcher: CreateCustomizedFetchFetcher = (
         )
 
         try {
+          console.info(
+            `Calling the Spree API: ${request.method} ${request.url}`
+          )
+
           const response: Response = await fetch(request)
           const responseContentType = response.headers.get('content-type')
           let data
