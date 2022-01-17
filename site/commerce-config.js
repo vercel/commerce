@@ -10,26 +10,26 @@ const core = require('@vercel/commerce/config')
 
 const PROVIDERS = [
   '@vercel/commerce-local',
-  'bigcommerce',
-  'saleor',
-  'shopify',
-  'swell',
-  'vendure',
-  'ordercloud',
-  'kibocommerce',
-  'spree',
-  'commercejs',
+  '@vercel/commerce-bigcommerce',
+  '@vercel/commerce-saleor',
+  '@vercel/commerce-shopify',
+  '@vercel/commerce-swell',
+  '@vercel/commerce-vendure',
+  '@vercel/commerce-ordercloud',
+  '@vercel/commerce-kibocommerce',
+  '@vercel/commerce-spree',
+  '@vercel/commerce-commercejs',
 ]
 
 function getProviderName() {
   return (
     process.env.COMMERCE_PROVIDER ||
     (process.env.BIGCOMMERCE_STOREFRONT_API_URL
-      ? 'bigcommerce'
+      ? '@vercel/commerce-bigcommerce'
       : process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
-      ? 'shopify'
+      ? '@vercel/commerce-shopify'
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
-      ? 'swell'
+      ? '@vercel/commerce-swell'
       : '@vercel/commerce-local')
   )
 }
