@@ -48,8 +48,8 @@
     "@vercel/fetch": "^6.1.1",
     "deepmerge": "^4.2.2",
     "import-cwd": "^3.0.0",
-    "js-cookie": "^2.2.1",
-    "swr": "^0.5.6"
+    "js-cookie": "^3.0.1",
+    "swr": "^1.1.2"
   },
   "peerDependencies": {
     "next": "^12",
@@ -57,15 +57,15 @@
     "react-dom": "^17"
   },
   "devDependencies": {
-    "@types/js-cookie": "^2.2.6",
-    "@types/node": "^15.12.4",
-    "@types/react": "^17.0.8",
+    "@types/js-cookie": "^3.0.1",
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38",
     "lint-staged": "^12.1.7",
-    "next": "^12.0.3",
+    "next": "^12.0.8",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "typescript": "^4.6.0-dev.20220108"
+    "typescript": "^4.5.4"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json}": [
