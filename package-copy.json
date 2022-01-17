@@ -8,9 +8,7 @@
     "analyze": "BUNDLE_ANALYZE=both next build",
     "lint": "next lint",
     "prettier-fix": "prettier --write .",
-    "find:unused": "npx next-unused",
-    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
-    "generate:kibocommerce": "graphql-codegen --config framework/kibocommerce/codegen.json"
+    "find:unused": "npx next-unused"
   },
   "sideEffects": false,
   "license": "MIT",

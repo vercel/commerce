@@ -2,9 +2,8 @@
     "schema": {
       "https://t17194-s21127.dev10.kubedev.kibo-dev.com/graphql": {}
     },
-    
     "generates": {
-      "./framework/kibocommerce/schema.d.ts": {
+      "./schema.d.ts": {
         "plugins": ["typescript", "typescript-operations"],
         "config": {
           "scalars": {
@@ -12,7 +11,7 @@
           }
         }
       },
-      "./framework/kibocommerce/schema.graphql": {
+      "./schema.graphql": {
         "plugins": ["schema-ast"]
       }
     },
@@ -20,4 +19,3 @@
       "afterAllFileWrite": ["prettier --write"]
     }
   }
-  
