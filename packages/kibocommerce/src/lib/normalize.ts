@@ -1,6 +1,6 @@
 import update from './immutability'
 import getSlug from './get-slug'
-import type { PrCategory, CustomerAccountInput, Document } from '../../../schema'
+import type { PrCategory, CustomerAccountInput, Document } from '../../schema'
 import { Page } from '../types/page';
 import { Customer } from '../types/customer'
 
