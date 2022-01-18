@@ -1,6 +1,7 @@
 {
   "name": "commerce",
   "license": "MIT",
+  "private": true,
   "workspaces": [
     "site",
     "packages/*"
@@ -49,5 +50,9 @@
     "hooks": {
       "pre-commit": "turbo run lint"
     }
+  },
+  "engines": {
+    "node": ">=14.x",
+    "npm": ">=7.x"
   }
 }

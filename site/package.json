@@ -12,9 +12,6 @@
     "find:unused": "npx next-unused"
   },
   "sideEffects": false,
-  "engines": {
-    "node": ">=14.x"
-  },
   "dependencies": {
     "@react-spring/web": "^9.4.1",
     "@vercel/commerce": "^0.0.1",
