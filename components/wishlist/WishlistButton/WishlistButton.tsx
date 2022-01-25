@@ -34,7 +34,6 @@ const WishlistButton: FC<Props> = ({
       item.product_id === productId &&
       item.variant_id === variant.id
   )
-  
   const handleWishlistChange = async (e: any) => {
     e.preventDefault()
 
