@@ -21,8 +21,8 @@
   "typesVersions": {
     "*": {
       "*": [
-        "dist/*",
-        "dist/*/index"
+        "src/*",
+        "src/*/index"
       ],
       "next.config": [
         "dist/next.config.d.cts"
@@ -37,8 +37,8 @@
     "typesVersions": {
       "*": {
         "*": [
-          "src/*.d.ts",
-          "src/*/index.d.ts"
+          "dist/*.d.ts",
+          "dist/*/index.d.ts"
         ],
         "next.config": [
           "dist/next.config.d.cts"
