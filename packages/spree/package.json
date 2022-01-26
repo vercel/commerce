@@ -48,7 +48,7 @@
     "@spree/storefront-api-v2-sdk": "^5.1.1",
     "@vercel/commerce": "^0.0.1",
     "@vercel/fetch": "^6.1.1",
-    "swr": "^1.1.2"
+    "swr": "^1.2.0"
   },
   "peerDependencies": {
     "next": "^12",
