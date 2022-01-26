@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "esnext",
+    "module": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -9,7 +10,6 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -23,8 +23,8 @@
       "@components/*": ["components/*"],
       "@commerce": ["../packages/commerce/src"],
       "@commerce/*": ["../packages/commerce/src/*"],
-      "@framework": ["../packages/local/src"],
-      "@framework/*": ["../packages/local/src/*"]
+      "@framework": ["../packages/bigcommerce/src"],
+      "@framework/*": ["../packages/bigcommerce/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
