@@ -9,7 +9,7 @@ With the deploy button below you'll be able to have a [BigCommerce](https://www.
 If you already have a BigCommerce account and want to use your current store, then copy the `.env.template` file in this directory to `.env.local` in the main directory (which will be ignored by Git):
 
 ```bash
-cp framework/bigcommerce/.env.template .env.local
+cp packages/bigcommerce/.env.template .env.local
 ```
 
 Then, set the environment variables in `.env.local` to match the ones from your store.

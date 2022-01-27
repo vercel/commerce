@@ -12,10 +12,10 @@ An integration of [Spree Commerce](https://spreecommerce.org/) within NextJS Com
 
 1. Setup Nextjs Commerce - [instructions for setting up NextJS Commerce][2].
 
-1. Copy the `.env.template` file in this directory (`/framework/spree`) to `.env.local` in the main directory
+1. Copy the `.env.template` file in this directory (`/packages/spree`) to `.env.local` in the main directory
 
    ```bash
-   cp framework/spree/.env.template .env.local
+   cp packages/spree/.env.template .env.local
    ```
 
 1. Set `NEXT_PUBLIC_SPREE_CATEGORIES_TAXONOMY_PERMALINK` and `NEXT_PUBLIC_SPREE_BRANDS_TAXONOMY_PERMALINK` environment variables:

@@ -3,7 +3,7 @@
 If you already have a Kibo Commerce account and want to use your current store, then copy the `.env.template` file in this directory to `.env.local` in the main directory (which will be ignored by Git):
 
 ```bash
-cp framework/kibocommerce/.env.template .env.local
+cp packages/kibocommerce/.env.template .env.local
 ```
 
 Then, set the environment variables in `.env.local` to match the ones from your store.
@@ -22,7 +22,7 @@ KIBO_AUTH_URL='https://home.mozu.com'
 - `KIBO_CART_COOKIE` - configurable cookie name for cart.
 - `KIBO_CUSTOMER_COOKIE` - configurable cookie name for shopper identifier/authentication cookie
 - `KIBO_CLIENT_ID` - Unique Application (Client) ID of your Application
-- `KIBO_SHARED_SECRET` - Secret API key used to authenticate application/client id. 
+- `KIBO_SHARED_SECRET` - Secret API key used to authenticate application/client id.
 
 
 Your Kibo Client ID and Shared Secret can be found from your [Kibo eCommerce Dev Center](https://mozu.com/login)

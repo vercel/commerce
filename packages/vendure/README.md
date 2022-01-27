@@ -28,8 +28,10 @@ This provider makes use of GraphQL code generation. The [schema.graphql](./schem
 
 When developing the provider, changes to any GraphQL operations should be followed by re-generation of the types and schema files:
 
-From the project root dir, run
+From the package dir, run
 
 ```sh
-graphql-codegen --config ./framework/vendure/codegen.json
+yarn generate
+# or
+npm run generate
 ```

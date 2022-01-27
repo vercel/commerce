@@ -4,108 +4,82 @@
 
 A commerce provider is a headless e-commerce platform that integrates with the [Commerce Framework](./README.md). Right now we have the following providers:
 
-- Local ([framework/local](../local))
-- Shopify ([framework/shopify](../shopify))
-- Swell ([framework/swell](../swell))
-- BigCommerce ([framework/bigcommerce](../bigcommerce))
-- Vendure ([framework/vendure](../vendure))
-- Saleor ([framework/saleor](../saleor))
-- OrderCloud ([framework/ordercloud](../ordercloud))
-- Spree ([framework/spree](../spree))
-- Kibo Commerce ([framework/kibocommerce](../kibocommerce))
-- Commerce.js ([framework/commercejs](../commercejs))
+- Local ([packages/local](../local))
+- Shopify ([packages/shopify](../shopify))
+- Swell ([packages/swell](../swell))
+- BigCommerce ([packages/bigcommerce](../bigcommerce))
+- Vendure ([packages/vendure](../vendure))
+- Saleor ([packages/saleor](../saleor))
+- OrderCloud ([packages/ordercloud](../ordercloud))
+- Spree ([packages/spree](../spree))
+- Kibo Commerce ([packages/kibocommerce](../kibocommerce))
+- Commerce.js ([packages/commercejs](../commercejs))
 
-Adding a commerce provider means adding a new folder in `framework` with a folder structure like the next one:
+Adding a commerce provider means adding a new folder in `packages` with a folder structure like the next one:
 
-- `api`
-  - index.ts
-- `product`
-  - usePrice
-  - useSearch
-  - getProduct
-  - getAllProducts
-- `wishlist`
-  - useWishlist
-  - useAddItem
-  - useRemoveItem
-- `auth`
-  - useLogin
-  - useLogout
-  - useSignup
-- `customer`
-  - useCustomer
-  - getCustomerId
-  - getCustomerWistlist
-- `cart`
-  - useCart
-  - useAddItem
-  - useRemoveItem
-  - useUpdateItem
+- `src`
+  - `api`
+    - index.ts
+  - `product`
+    - usePrice
+    - useSearch
+    - getProduct
+    - getAllProducts
+  - `wishlist`
+    - useWishlist
+    - useAddItem
+    - useRemoveItem
+  - `auth`
+    - useLogin
+    - useLogout
+    - useSignup
+  - `customer`
+    - useCustomer
+    - getCustomerId
+    - getCustomerWistlist
+  - `cart`
+    - useCart
+    - useAddItem
+    - useRemoveItem
+    - useUpdateItem
+  - `index.ts`
+  - `provider.ts`
+  - `commerce.config.json`
+  - `next.config.cjs`
+- `package.json`
+- `tsconfig.json`
 - `env.template`
-- `index.ts`
-- `provider.ts`
-- `commerce.config.json`
-- `next.config.js`
 - `README.md`
 
 `provider.ts` exports a provider object with handlers for the [Commerce Hooks](./README.md#commerce-hooks) and `api/index.ts` exports a Node.js provider for the [Commerce API](./README.md#commerce-api)
 
 > **Important:** We use TypeScript for every provider and expect its usage for every new one.
 
-The app imports from the provider directly instead of the core commerce folder (`framework/commerce`), but all providers are interchangeable and to achieve it every provider always has to implement the core types and helpers.
-
-The provider folder should only depend on `framework/commerce` and dependencies in the main `package.json`. In the future we'll move the `framework` folder to a package that can be shared easily for multiple apps.
+The app imports from the provider directly instead of the core commerce folder (`packages/commerce`), but all providers are interchangeable and to achieve it every provider always has to implement the core types and helpers.
 
 ## Updating the list of known providers
 
-Open [./config.js](./config.js) and add the provider name to the list in `PROVIDERS`.
+Open [/site/commerce-config.js](/site/commerce-config.js) and add the provider name to the list in `PROVIDERS`.
 
-Then, open [/.env.template](/.env.template) and add the provider name in the first line.
+Then, open [/site/.env.template](/site/.env.template) and add the provider name to the list there too.
 
 ## Adding the provider hooks
 
 Using BigCommerce as an example. The first thing to do is export a `CommerceProvider` component that includes a `provider` object with all the handlers that can be used for hooks:
 
 ```tsx
-import type { ReactNode } from 'react'
-import {
-  CommerceConfig,
-  CommerceProvider as CoreCommerceProvider,
-  useCommerce as useCoreCommerce,
-} from '@commerce'
-import { bigcommerceProvider } from './provider'
-import type { BigcommerceProvider } from './provider'
+import { getCommerceProvider, useCommerce as useCoreCommerce } from '@vercel/commerce'
+import { bigcommerceProvider, BigcommerceProvider } from './provider'
 
 export { bigcommerceProvider }
 export type { BigcommerceProvider }
 
-export const bigcommerceConfig: CommerceConfig = {
-  locale: 'en-us',
-  cartCookie: 'bc_cartId',
-}
-
-export type BigcommerceConfig = Partial<CommerceConfig>
-
-export type BigcommerceProps = {
-  children?: ReactNode
-  locale: string
-} & BigcommerceConfig
-
-export function CommerceProvider({ children, ...config }: BigcommerceProps) {
-  return (
-    <CoreCommerceProvider
-      provider={bigcommerceProvider}
-      config={{ ...bigcommerceConfig, ...config }}
-    >
-      {children}
-    </CoreCommerceProvider>
-  )
-}
+export const CommerceProvider = getCommerceProvider(bigcommerceProvider)
 
 export const useCommerce = () => useCoreCommerce<BigcommerceProvider>()
 ```
 
-The exported types and components extend from the core ones exported by `@commerce`, which refers to `framework/commerce`.
+The exported types and components extend from the core ones exported by `@vercel/commerce`, which refers to `packages/commerce`.
 
 The `bigcommerceProvider` object looks like this:
 
@@ -146,32 +120,22 @@ export const bigcommerceProvider = {
 export type BigcommerceProvider = typeof bigcommerceProvider
 ```
 
-The provider object, in this case `bigcommerceProvider`, has to match the `Provider` type defined in [framework/commerce](./index.ts).
+The provider object, in this case `bigcommerceProvider`, has to match the `Provider` type defined in [packages/commerce](./src/index.tsx).
 
 A hook handler, like `useCart`, looks like this:
 
 ```tsx
 import { useMemo } from 'react'
-import { SWRHook } from '@commerce/utils/types'
-import useCart, { UseCart, FetchCartInput } from '@commerce/cart/use-cart'
-import { normalizeCart } from '../lib/normalize'
-import type { Cart } from '../types'
+import { SWRHook } from '@vercel/commerce/utils/types'
+import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
+import type { GetCartHook } from '@vercel/commerce/types/cart'
 
 export default useCart as UseCart<typeof handler>
 
-export const handler: SWRHook<
-  Cart | null,
-  {},
-  FetchCartInput,
-  { isEmpty?: boolean }
-> = {
+export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     url: '/api/cart',
     method: 'GET',
-  },
-  async fetcher({ input: { cartId }, options, fetch }) {
-    const data = cartId ? await fetch(options) : null
-    return data && normalizeCart(data)
   },
   useHook:
     ({ useData }) =>
@@ -200,21 +164,15 @@ In the case of data fetching hooks like `useCart` each handler has to implement 
 
 ```tsx
 import { useCallback } from 'react'
-import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
-import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
-import { normalizeCart } from '../lib/normalize'
-import type {
-  Cart,
-  BigcommerceCart,
-  CartItemBody,
-  AddCartItemBody,
-} from '../types'
+import type { MutationHook } from '@vercel/commerce/utils/types'
+import { CommerceError } from '@vercel/commerce/utils/errors'
+import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
+import type { AddItemHook } from '@vercel/commerce/types/cart'
 import useCart from './use-cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<Cart, {}, CartItemBody> = {
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
     url: '/api/cart',
     method: 'POST',
@@ -229,12 +187,12 @@ export const handler: MutationHook<Cart, {}, CartItemBody> = {
       })
     }
 
-    const data = await fetch<BigcommerceCart, AddCartItemBody>({
+    const data = await fetch({
       ...options,
       body: { item },
     })
 
-    return normalizeCart(data)
+    return data
   },
   useHook:
     ({ fetch }) =>
@@ -276,9 +234,3 @@ When creating a PR for a new provider, include this list in the PR description a
 * [ ]  Custom checkout
 * [ ]  Typing (in progress)
 * [ ]  Tests
-
-## Adding the Node.js provider API
-
-TODO
-
-> The commerce API is currently going through a refactor in https://github.com/vercel/commerce/pull/252 - We'll update the docs once the API is released.

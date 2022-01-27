@@ -7,7 +7,7 @@ Before getting started, a [Shopify](https://www.shopify.com/) account and store 
 Next, copy the `.env.template` file in this directory to `.env.local` in the main directory (which will be ignored by Git):
 
 ```bash
-cp framework/shopify/.env.template .env.local
+cp packages/shopify/.env.template .env.local
 ```
 
 Then, set the environment variables in `.env.local` to match the ones from your store.
