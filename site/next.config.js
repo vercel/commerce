@@ -8,6 +8,8 @@ const isSaleor = provider === '@vercel/commerce-saleor'
 const isSwell = provider === '@vercel/commerce-swell'
 const isVendure = provider === '@vercel/commerce-vendure'
 
+console.log('COMMERCE_PROVIDER', provider)
+
 module.exports = withCommerceConfig({
   commerce,
   i18n: {
