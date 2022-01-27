@@ -17,7 +17,15 @@
           "^build"
         ],
         "outputs": [
-          "dist/**",
+          "dist/**"
+        ]
+      },
+      "next-commerce#build": {
+        "dependsOn": [
+          "^build",
+          "$COMMERCE_PROVIDER"
+        ],
+        "outputs": [
           ".next/**"
         ]
       },
