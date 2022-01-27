@@ -1,7 +1,9 @@
-import getNextConfig from 'next/config'
 import type { KiboCommerceConfig } from '../index'
 import type { FetchOptions } from '@vercel/fetch'
 import fetch from './fetch'
+
+// This object is persisted during development
+const authCache: { kiboAuthTicket?: AppAuthTicket } = {}
 
 interface AppAuthTicket {
   access_token: string
@@ -12,19 +14,17 @@ interface AppAuthTicket {
 }
 
 interface AuthTicketCache {
-  getAuthTicket: () => Promise<AppAuthTicket>
+  getAuthTicket: () => Promise<AppAuthTicket | undefined>
   setAuthTicket: (kiboAuthTicket: AppAuthTicket) => void
 }
 
 class RuntimeMemCache implements AuthTicketCache {
   constructor() {}
   async getAuthTicket() {
-    const { serverRuntimeConfig } = getNextConfig()
-    return serverRuntimeConfig.kiboAuthTicket
+    return authCache.kiboAuthTicket
   }
   setAuthTicket(kiboAuthTicket: AppAuthTicket) {
-    const { serverRuntimeConfig } = getNextConfig()
-    serverRuntimeConfig.kiboAuthTicket = kiboAuthTicket
+    authCache.kiboAuthTicket = kiboAuthTicket
   }
 }
 
@@ -105,6 +105,6 @@ export class APIAuthenticationHelper {
       authTicket = await this.refreshTicket(authTicket)
     }
 
-    return authTicket.access_token
+    return authTicket!.access_token
   }
 }
