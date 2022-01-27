@@ -9,6 +9,7 @@ const isSwell = provider === '@vercel/commerce-swell'
 const isVendure = provider === '@vercel/commerce-vendure'
 
 console.log('COMMERCE_PROVIDER', provider)
+console.log('COMMERCE_PROVIDER ENV', process.env.COMMERCE_PROVIDER)
 
 module.exports = withCommerceConfig({
   commerce,
