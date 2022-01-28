@@ -19,7 +19,7 @@ export default function normalizeLineItems(lineItems: any[]) {
           sku: attributes.sku_code,
           price: attributes.unit_amount_float,
           image: {
-            url: `/commercelayer_assets/${attributes.reference}_FLAT.png`,
+            url: `https://data.commercelayer.app/vercel-provider/${attributes.reference}_FLAT.png`,
             altText: 'Black Women Long Sleeve Shirt',
             width: 1000,
             height: 1000,
