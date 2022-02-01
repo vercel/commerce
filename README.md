@@ -35,11 +35,10 @@ Next.js Commerce integrates out-of-the-box with BigCommerce, Shopify, Swell, Sal
 
 ## Considerations
 
-- `framework/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
-- **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality (`framework/commerce`).
+- `packages/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
+- **Providers** live under `packages`'s root folder and they will extend Next.js Commerce types and functionality (`packages/commerce`).
 - We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
 - Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
-- **Providers don't depend on anything that's specific to the application they're used in**. They only depend on `framework/commerce`, on their own framework folder and on some dependencies included in `package.json`
 
 ## Configuration
 
@@ -55,18 +54,9 @@ NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
 ```
 
-And check that the `tsconfig.json` resolves to the chosen provider:
-
-```
-  "@framework": ["framework/shopify"],
-  "@framework/*": ["framework/shopify/*"]
-```
-
-That's it!
-
 ### Features
 
-Every provider defines the features that it supports under `framework/{provider}/commerce.config.json`
+Every provider defines the features that it supports under `packages/{provider}/src/commerce.config.json`
 
 #### Features Available
 
@@ -98,9 +88,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 ### How to create a new provider
 
-🔔 New providers are on hold [until we have a new API for commerce](https://github.com/vercel/commerce/pull/252) 🔔
-
-Follow our docs for [Adding a new Commerce Provider](framework/commerce/new-provider.md).
+Follow our docs for [Adding a new Commerce Provider](packages/commerce/new-provider.md).
 
 If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
 
@@ -119,7 +107,7 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
 
-People actively working on this project: @okbel & @lfades.
+People actively working on this project: @okbel, @lfades, @dominiksipowicz, @gbibeaul.
 
 ## Troubleshoot
 

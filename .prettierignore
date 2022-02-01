@@ -1,3 +1,4 @@
+# Every package defines its prettier config
 node_modules
-.next
-public
+packages
+site

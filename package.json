@@ -1,127 +1,62 @@
 {
-  "name": "nextjs-commerce",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
-    "start": "next start",
-    "analyze": "BUNDLE_ANALYZE=both next build",
-    "lint": "next lint",
-    "prettier-fix": "prettier --write .",
-    "find:unused": "npx next-unused",
-    "generate": "graphql-codegen",
-    "generate:shopify": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config framework/shopify/codegen.json",
-    "generate:vendure": "graphql-codegen --config framework/vendure/codegen.json",
-    "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
-    "generate:kibocommerce": "graphql-codegen --config framework/kibocommerce/codegen.json"
-  },
-  "sideEffects": false,
+  "name": "commerce",
   "license": "MIT",
-  "engines": {
-    "node": ">=14.x"
+  "private": true,
+  "workspaces": [
+    "site",
+    "packages/*"
+  ],
+  "scripts": {
+    "prettier-fix": "prettier --write ."
   },
-  "dependencies": {
-    "@chec/commerce.js": "^2.8.0",
-    "@react-spring/web": "^9.4.1",
-    "@spree/storefront-api-v2-sdk": "^5.1.1",
-    "@vercel/fetch": "^6.1.1",
-    "autoprefixer": "^10.4.2",
-    "body-scroll-lock": "^4.0.0-beta.0",
-    "classnames": "^2.3.1",
-    "cookie": "^0.4.1",
-    "email-validator": "^2.0.4",
-    "immutability-helper": "^3.1.1",
-    "js-cookie": "^3.0.1",
-    "keen-slider": "^6.6.3",
-    "lodash.debounce": "^4.0.8",
-    "lodash.random": "^3.2.0",
-    "lodash.throttle": "^4.1.1",
-    "next": "^12.0.8",
-    "next-seo": "^4.28.1",
-    "next-themes": "^0.0.15",
-    "postcss": "^8.4.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-fast-marquee": "^1.3.1",
-    "react-merge-refs": "^1.1.0",
-    "react-use-measure": "^2.1.1",
-    "stripe": "^8.196.0",
-    "swell-js": "^4.0.0-next.0",
-    "swr": "^1.1.2",
-    "tabbable": "^5.2.1",
-    "tailwindcss": "^3.0.13",
-    "uuidv4": "^6.2.12"
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
+      },
+      "next-commerce#build": {
+        "dependsOn": [
+          "^build",
+          "$COMMERCE_PROVIDER"
+        ],
+        "outputs": [
+          ".next/**"
+        ]
+      },
+      "test": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": []
+      },
+      "lint": {
+        "outputs": []
+      },
+      "prettier-fix": {
+        "outputs": []
+      },
+      "dev": {
+        "cache": false
+      },
+      "start": {
+        "cache": false
+      }
+    }
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.21.5",
-    "@graphql-codegen/schema-ast": "^1.18.3",
-    "@graphql-codegen/typescript": "^1.22.2",
-    "@graphql-codegen/typescript-operations": "^1.18.1",
-    "@next/bundle-analyzer": "^12.0.8",
-    "@types/body-scroll-lock": "^3.1.0",
-    "@types/chec__commerce.js": "^2.8.4",
-    "@types/cookie": "^0.4.1",
-    "@types/js-cookie": "^3.0.1",
-    "@types/lodash.debounce": "^4.0.6",
-    "@types/lodash.random": "^3.2.6",
-    "@types/lodash.throttle": "^4.1.6",
-    "@types/node": "^17.0.8",
-    "@types/react": "^17.0.38",
-    "deepmerge": "^4.2.2",
-    "eslint": "^8.6.0",
-    "eslint-config-next": "^12.0.8",
-    "eslint-config-prettier": "^8.3.0",
-    "graphql": "^15.5.1",
     "husky": "^7.0.4",
-    "lint-staged": "^12.1.7",
-    "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-preset-env": "^7.2.3",
     "prettier": "^2.5.1",
-    "typescript": "4.5.4"
+    "turbo": "^1.0.28"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "turbo run lint"
     }
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "eslint",
-      "prettier --write",
-      "git add"
-    ],
-    "**/*.{md,mdx,json}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "next-unused": {
-    "alias": {
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ]
-    },
-    "debug": true,
-    "include": [
-      "components",
-      "lib",
-      "pages"
-    ],
-    "exclude": [],
-    "entrypoints": [
-      "pages"
-    ]
   }
 }
