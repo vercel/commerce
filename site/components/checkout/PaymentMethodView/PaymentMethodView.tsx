@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 
 import useAddCard from '@framework/customer/card/use-add-item'
 import { Button, Text } from '@components/ui'

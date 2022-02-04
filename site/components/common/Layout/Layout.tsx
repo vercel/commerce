@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import React, { FC } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'

@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEventHandler, useEffect, useState } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 import s from './CartItem.module.css'

@@ -1,5 +1,5 @@
 import { FC, memo, useEffect } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 import s from './Searchbar.module.css'
 import { useRouter } from 'next/router'
 

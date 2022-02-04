@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 import Link from 'next/link'
 import type { Product } from '@commerce/types/product'
 import s from './ProductCard.module.css'

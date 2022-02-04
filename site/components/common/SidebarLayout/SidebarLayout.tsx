@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Cross, ChevronLeft } from '@components/icons'
 import { UserNav } from '@components/common'
-import cn from 'classnames'
+import cn from 'clsx'
 import s from './SidebarLayout.module.css'
 
 type ComponentProps = { className?: string } & (

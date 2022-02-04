@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import React from 'react'
 import s from './Swatch.module.css'
 import { Check } from '@components/icons'

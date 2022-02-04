@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import React, { FC, ReactNode, useState } from 'react'
 import s from './Collapse.module.css'
 import { ChevronRight } from '@components/icons'

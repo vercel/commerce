@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 import Link from 'next/link'
 import Image from 'next/image'
 import s from './WishlistCard.module.css'

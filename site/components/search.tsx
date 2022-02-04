@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import type { SearchPropsType } from '@lib/search-props'
 import Link from 'next/link'
 import { useState } from 'react'

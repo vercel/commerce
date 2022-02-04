@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { Page } from '@commerce/types/page'
