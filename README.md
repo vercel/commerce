@@ -44,7 +44,7 @@ Next.js Commerce integrates out-of-the-box with BigCommerce, Shopify, Swell, Sal
 
 ### How to change providers
 
-Open `.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `.env.template` as the base).
+Open `site/.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `site/.env.template` as the base).
 
 The setup for Shopify would look like this for example:
 
@@ -73,7 +73,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 > NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
 
-- Open `commerce.config.json`
+- Open `site/commerce.config.json`
 - You'll see a config file like this:
   ```json
   {
@@ -98,10 +98,11 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
 2. Create a new branch `git checkout -b MY_BRANCH_NAME`
-3. Install the dependencies: `npm i`
-4. Duplicate `.env.template` and rename it to `.env.local`
-5. Add proper store values to `.env.local`
-6. Run `npm run dev` to build and watch for code changes
+3. Install the dependencies: `yarn`
+4. Duplicate `site/.env.template` and rename it to `site/.env.local`
+5. Add proper store values to `site/.env.local`
+6. Run `cd site` and `yarn dev` to build and watch for code changes
+7. Run `yarn turbo run build` to check the build after your changes
 
 ## Work in progress
 
