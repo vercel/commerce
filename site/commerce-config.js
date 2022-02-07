@@ -78,7 +78,7 @@ function withCommerceConfig(nextConfig = {}) {
       tsconfigPath,
       prettier.format(JSON.stringify(tsconfig), { parser: 'json' })
     )
-
+    commerce.modulePath = modulePath; // Save Module Path for Loading Provider
     const webpack = config.webpack
 
     // To improve the DX of using references, we'll switch from `src` to `dist`

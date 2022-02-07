@@ -8,15 +8,15 @@ const importCwd = require('import-cwd')
 
 function withCommerceConfig(nextConfig = {}) {
   const commerce = nextConfig.commerce || {}
-  const { provider } = commerce
+  const { provider, modulePath } = commerce
 
   if (!provider) {
     throw new Error(
       `The commerce provider is missing, please add a valid provider name`
     )
   }
-
-  const commerceNextConfig = importCwd(path.join(provider, 'next.config'))
+  // Use module path to load the provider configuration
+  const commerceNextConfig = importCwd(path.join(modulePath, 'next.config.cjs'))
   const config = merge(nextConfig, commerceNextConfig)
 
   config.env = config.env || {}
