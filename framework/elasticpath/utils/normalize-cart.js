@@ -34,6 +34,7 @@ const normalizeLineItem = ({
 
 const normalizeCart = async (cart, lineItems) => {
   const {with_tax, without_tax} = cart.meta?.display_price;
+  const {amount} = cart.meta?.display_price?.tax;
 
   return {
     id: cart.id,
@@ -44,6 +45,7 @@ const normalizeCart = async (cart, lineItems) => {
     lineItemsSubtotalPrice: cart.meta?.display_price.without_tax || 0,
     subtotalPrice: (without_tax.amount/100) || 0,
     totalPrice: (with_tax.amount/100) || 0,
+    tax: (amount/100) || 0
   };
 }
 

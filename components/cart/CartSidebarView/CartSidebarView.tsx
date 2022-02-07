@@ -2,7 +2,6 @@ import cn from 'classnames'
 import Link from 'next/link'
 import { FC } from 'react'
 import s from './CartSidebarView.module.css'
-import useCheckout from '@framework/checkout/use-checkout'
 import CartItem from '../CartItem'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
@@ -10,33 +9,10 @@ import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import SidebarLayout from '@components/common/SidebarLayout'
-import GetTaxationWidget from '@components/checkout/GetTaxationWidget'
-import ShowTaxationWidget from '@components/checkout/ShowTaxWidget'
-import ShippingRatesWidget from '@components/checkout/ShippingRatesWidget'
-import useGetTax from '@framework/tax/get-tax'
-import useShowTax from '@framework/tax/show-tax'
-import useShippingRates from '@framework/shipping-rates/get-shipping-rates'
 
 const CartSidebarView: FC = () => {
-  const { closeSidebar, setSidebarView, sidebarView } = useUI()
+  const { closeSidebar, setSidebarView } = useUI()
   const { data, isLoading, isEmpty } = useCart()
-  const { data: checkoutData, submit: onCheckout } = useCheckout()
-
-  if(sidebarView == 'GET_TAXATION_VIEW'){
-    const getTax = useGetTax()
-    console.log(getTax)
-  }
-  else if(sidebarView == 'SHOW_TAXATION_VIEW'){
-    const showTax = useShowTax()
-  }
-  else if(sidebarView == 'SHIPPING_RATES_WIDGET'){
-    const shippingRates = useShippingRates()
-  }
-
-  async function handleSubmit(event: any) {
-    event.preventDefault()
-    setSidebarView('CHECKOUT_VIEW')
-  }
 
   const { price: subTotal } = usePrice(
     data && {
@@ -47,6 +23,18 @@ const CartSidebarView: FC = () => {
   const { price: total } = usePrice(
     data && {
       amount: Number(data.totalPrice),
+      currencyCode: data.currency.code,
+    }
+  )
+  const { price: tax_total } = usePrice(
+    data && {
+      amount: Number(data.tax),
+      currencyCode: data.currency.code,
+    }
+  )
+  const { price: shipping_rates } = usePrice(
+    data && {
+      amount: Number(0),
       currencyCode: data.currency.code,
     }
   )
@@ -115,24 +103,6 @@ const CartSidebarView: FC = () => {
             </ul>
           </div>
 
-          <div className="px-4 sm:px-6 flex-1">
-            <GetTaxationWidget
-              isValid={checkoutData?.hasShipping}
-              onClick={() => setSidebarView('GET_TAXATION_VIEW')}
-            />
-          </div>  
-          <div className="px-4 sm:px-6 flex-1">
-            <ShowTaxationWidget
-              isValid={checkoutData?.hasShipping}
-              onClick={() => setSidebarView('SHOW_TAXATION_VIEW')}
-            />
-          </div>  
-          <div className="px-4 sm:px-6 flex-1">
-            <ShippingRatesWidget
-              isValid={checkoutData?.hasShipping}
-              onClick={() => setSidebarView('SHIPPING_RATES_WIDGET')}
-            />
-          </div>
 
           <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
             <ul className="pb-2">
@@ -142,11 +112,11 @@ const CartSidebarView: FC = () => {
               </li>
               <li className="flex justify-between py-1">
                 <span>Taxes</span>
-                <span>Calculated at checkout</span>
+                <span>{tax_total}</span>
               </li>
               <li className="flex justify-between py-1">
                 <span>Shipping</span>
-                <span className="font-bold tracking-wide">FREE</span>
+                <span className="font-bold tracking-wide">{shipping_rates}</span>
               </li>
             </ul>
             <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">

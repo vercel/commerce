@@ -47,6 +47,18 @@ const CheckoutSidebarView: FC = () => {
       currencyCode: cartData.currency.code,
     }
   )
+  const { price: tax_total } = usePrice(
+    cartData && {
+      amount: Number(cartData.tax),
+      currencyCode: cartData.currency.code,
+    }
+  )
+  const { price: shipping_rates } = usePrice(
+    cartData && {
+      amount: Number(0),
+      currencyCode: cartData.currency.code,
+    }
+  )
 
   return (
     <SidebarLayout
@@ -60,14 +72,16 @@ const CheckoutSidebarView: FC = () => {
           </a>
         </Link>
 
-        <PaymentWidget
-          isValid={checkoutData?.hasPayment}
-          onClick={() => setSidebarView('PAYMENT_VIEW')}
-        />
         <ShippingWidget
           isValid={checkoutData?.hasShipping}
           onClick={() => setSidebarView('SHIPPING_VIEW')}
         />
+        
+        <PaymentWidget
+          isValid={checkoutData?.hasPayment}
+          onClick={() => setSidebarView('PAYMENT_VIEW')}
+        />
+       
 
         <ul className={s.lineItemsList}>
           {cartData!.lineItems.map((item: any) => (
@@ -92,11 +106,11 @@ const CheckoutSidebarView: FC = () => {
           </li>
           <li className="flex justify-between py-1">
             <span>Taxes</span>
-            <span>Calculated at checkout</span>
+            <span>{tax_total}</span>
           </li>
           <li className="flex justify-between py-1">
             <span>Shipping</span>
-            <span className="font-bold tracking-wide">FREE</span>
+            <span className="font-bold tracking-wide">{shipping_rates}</span>
           </li>
         </ul>
         <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
