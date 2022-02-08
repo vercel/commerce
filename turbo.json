@@ -1,0 +1,33 @@
+{
+  "baseBranch": "origin/main",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "next-commerce#build": {
+      "dependsOn": ["^build", "$COMMERCE_PROVIDER"],
+      "outputs": [".next/**"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "prettier-fix": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "next-commerce#dev": {
+      "dependsOn": ["^dev"],
+      "cache": false
+    },
+    "start": {
+      "cache": false
+    }
+  }
+}
