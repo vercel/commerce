@@ -1,9 +1,9 @@
 export async function build(task, opts) {
   await task
-    .source('src/**/*.+(ts|tsx|js|cjs)')
+    .source('src/**/*.+(ts|tsx|js)')
     .swc('server', { dev: opts.dev, outDir: 'dist', baseUrl: 'src' })
     .target('dist')
-    .source('src/**/*.json')
+    .source('src/**/*.+(json|cjs)')
     .target('dist')
   task.$.log('Compiled src files')
 }
