@@ -1,4 +1,3 @@
-import { is } from '@react-spring/shared'
 import data from '../../data.json'
 
 export default function normalizeLineItems(lineItems: any[]) {
