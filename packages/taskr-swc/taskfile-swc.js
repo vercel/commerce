@@ -1,3 +1,6 @@
+// Based on
+// https://github.com/vercel/next.js/blob/canary/packages/next/taskfile-swc.js
+
 // taskr babel plugin with Babel 7 support
 // https://github.com/lukeed/taskr/pull/305
 
