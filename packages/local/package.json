@@ -3,9 +3,16 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist/* && tsc",
-    "dev": "npm run build -- --watch",
+    "release": "taskr release",
+    "build": "taskr build",
+    "dev": "taskr",
+    "types": "tsc --declaration --emitDeclarationOnly --declarationDir dist",
     "prettier-fix": "prettier --write ."
+  },
+  "taskr": {
+    "requires": [
+      "./taskfile-swc.cjs"
+    ]
   },
   "sideEffects": false,
   "type": "module",
@@ -54,6 +61,10 @@
     "react-dom": "^17"
   },
   "devDependencies": {
+    "@swc/core": "^1.2.138",
+    "@taskr/clear": "^1.1.0",
+    "@taskr/esnext": "^1.1.0",
+    "@taskr/watch": "^1.1.0",
     "@types/node": "^17.0.8",
     "@types/react": "^17.0.38",
     "lint-staged": "^12.1.7",
@@ -61,6 +72,7 @@
     "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "taskr": "^1.1.0",
     "typescript": "^4.5.4"
   },
   "lint-staged": {
