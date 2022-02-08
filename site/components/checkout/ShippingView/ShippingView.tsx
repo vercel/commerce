@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 
 import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'

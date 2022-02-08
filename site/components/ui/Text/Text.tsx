@@ -3,7 +3,7 @@ import React, {
   JSXElementConstructor,
   CSSProperties,
 } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 import s from './Text.module.css'
 
 interface TextProps {

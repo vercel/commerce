@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import s from './Input.module.css'
 import React, { InputHTMLAttributes } from 'react'
 

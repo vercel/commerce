@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'

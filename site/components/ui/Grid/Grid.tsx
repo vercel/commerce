@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import { FC, ReactNode, Component } from 'react'
 import s from './Grid.module.css'
 

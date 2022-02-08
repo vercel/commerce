@@ -27,7 +27,7 @@
     "@vercel/commerce-vendure": "^0.0.1",
     "autoprefixer": "^10.4.2",
     "body-scroll-lock": "^4.0.0-beta.0",
-    "classnames": "^2.3.1",
+    "clsx": "^1.1.1",
     "email-validator": "^2.0.4",
     "js-cookie": "^3.0.1",
     "keen-slider": "^6.6.3",

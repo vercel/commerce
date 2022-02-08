@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import cn from 'classnames'
+import cn from 'clsx'
 import px from '@lib/to-pixels'
 import s from './Skeleton.module.css'
 

@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import Link from 'next/link'
 import { FC } from 'react'
 import s from './CartSidebarView.module.css'

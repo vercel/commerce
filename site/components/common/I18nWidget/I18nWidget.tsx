@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cn from 'clsx'
 import Link from 'next/link'
 import { FC, useState } from 'react'
 import { useRouter } from 'next/router'

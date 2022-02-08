@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from 'react'
 import s from './Sidebar.module.css'
-import cn from 'classnames'
+import cn from 'clsx'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 
 interface SidebarProps {
