@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist/* && tsc",
-    "dev": "npm run build -- --watch",
-    "prettier-fix": "prettier --write .",
+    "release": "taskr release",
+    "build": "taskr build",
+    "dev": "taskr",
+    "types": "tsc --emitDeclarationOnly",
     "generate:definitions": "node scripts/generate-definitions.js"
   },
   "sideEffects": false,

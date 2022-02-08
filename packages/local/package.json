@@ -6,7 +6,7 @@
     "release": "taskr release",
     "build": "taskr build",
     "dev": "taskr",
-    "types": "tsc --declaration --emitDeclarationOnly --declarationDir dist",
+    "types": "tsc --emitDeclarationOnly",
     "prettier-fix": "prettier --write ."
   },
   "sideEffects": false,

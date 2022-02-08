@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist/* && tsc",
-    "dev": "npm run build -- --watch",
+    "release": "taskr release",
+    "build": "taskr build",
+    "dev": "taskr",
+    "types": "tsc --emitDeclarationOnly",
     "prettier-fix": "prettier --write .",
     "generate": "DOTENV_CONFIG_PATH=./.env graphql-codegen -r dotenv/config"
   },
