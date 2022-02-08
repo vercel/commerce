@@ -7,6 +7,8 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
     "prettier-fix": "prettier --write ."
   },
   "devDependencies": {
