@@ -2,20 +2,18 @@
 // https://github.com/lukeed/taskr/pull/305
 
 const path = require('path')
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 const transform = require('@swc/core').transform
 
 module.exports = function (task) {
-  // eslint-disable-next-line require-yield
   task.plugin(
     'swc',
     {},
-    function* (file, serverOrClient, { stripExtension, dev, outDir = 'dist', baseUrl = '' } = {}) {
+    function* (
+      file,
+      { server = true, stripExtension, dev, outDir = 'dist', baseUrl = '' } = {}
+    ) {
       // Don't compile .d.ts
       if (file.base.endsWith('.d.ts')) return
-
-      const isClient = serverOrClient === 'client'
 
       const swcClientOptions = {
         module: {
@@ -24,7 +22,6 @@ module.exports = function (task) {
         },
         jsc: {
           loose: true,
-
           target: 'es2016',
           parser: {
             syntax: 'typescript',
@@ -42,7 +39,6 @@ module.exports = function (task) {
           },
         },
       }
-
       const swcServerOptions = {
         module: {
           type: 'es6',
@@ -50,12 +46,11 @@ module.exports = function (task) {
         },
         env: {
           targets: {
-            node: '12.0.0',
+            node: '14.0.0',
           },
         },
         jsc: {
           loose: true,
-
           parser: {
             syntax: 'typescript',
             dynamicImport: true,
@@ -73,7 +68,7 @@ module.exports = function (task) {
         },
       }
 
-      const swcOptions = isClient ? swcClientOptions : swcServerOptions
+      const swcOptions = server ? swcServerOptions : swcClientOptions
 
       // Using `outDir` and `baseUrl` build a relative path from `outDir` to
       // the `baseUrl` path for source maps
@@ -81,16 +76,15 @@ module.exports = function (task) {
       const basePath = path.join(__dirname, baseUrl)
       const relativeFilePath = path.relative(basePath, filePath)
       const fullFilePath = path.join(__dirname, filePath)
-      const distFilePath = path.dirname(path.join(__dirname, outDir, relativeFilePath))
-
+      const distFilePath = path.dirname(
+        path.join(__dirname, outDir, relativeFilePath)
+      )
       const options = {
         filename: filePath,
         sourceMaps: true,
         sourceFileName: path.relative(distFilePath, fullFilePath),
-
         ...swcOptions,
       }
-
       const output = yield transform(file.data.toString('utf-8'), options)
       const ext = path.extname(file.base)
 

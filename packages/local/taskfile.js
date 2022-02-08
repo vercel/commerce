@@ -1,7 +1,7 @@
 export async function build(task, opts) {
   await task
     .source('src/**/*.+(ts|tsx|js)')
-    .swc('server', { dev: opts.dev, outDir: 'dist', baseUrl: 'src' })
+    .swc({ dev: opts.dev, outDir: 'dist', baseUrl: 'src' })
     .target('dist')
     .source('src/**/*.+(json|cjs)')
     .target('dist')
