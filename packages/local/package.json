@@ -9,11 +9,6 @@
     "types": "tsc --declaration --emitDeclarationOnly --declarationDir dist",
     "prettier-fix": "prettier --write ."
   },
-  "taskr": {
-    "requires": [
-      "./taskfile-swc.cjs"
-    ]
-  },
   "sideEffects": false,
   "type": "module",
   "exports": {
@@ -73,6 +68,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "taskr": "^1.1.0",
+    "taskr-swc": "^0.0.1",
     "typescript": "^4.5.4"
   },
   "lint-staged": {
