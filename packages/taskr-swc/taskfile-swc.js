@@ -33,6 +33,7 @@ module.exports = function (task) {
           },
           transform: {
             react: {
+              runtime: 'automatic',
               pragma: 'React.createElement',
               pragmaFrag: 'React.Fragment',
               throwIfNamespace: true,
@@ -61,6 +62,7 @@ module.exports = function (task) {
           },
           transform: {
             react: {
+              runtime: 'automatic',
               pragma: 'React.createElement',
               pragmaFrag: 'React.Fragment',
               throwIfNamespace: true,
@@ -72,22 +74,26 @@ module.exports = function (task) {
       }
 
       const swcOptions = server ? swcServerOptions : swcClientOptions
-
-      // Using `outDir` and `baseUrl` build a relative path from `outDir` to
-      // the `baseUrl` path for source maps
       const filePath = path.join(file.dir, file.base)
-      const basePath = path.join(__dirname, baseUrl)
-      const relativeFilePath = path.relative(basePath, filePath)
-      const fullFilePath = path.join(__dirname, filePath)
-      const distFilePath = path.dirname(
-        path.join(__dirname, outDir, relativeFilePath)
-      )
       const options = {
         filename: filePath,
-        sourceMaps: true,
-        sourceFileName: path.relative(distFilePath, fullFilePath),
+        sourceMaps: false,
         ...swcOptions,
       }
+
+      if (options.sourceMaps && !options.sourceFileName) {
+        // Using `outDir` and `baseUrl` build a relative path from `outDir` to
+        // the `baseUrl` path for source maps
+        const basePath = path.join(__dirname, baseUrl)
+        const relativeFilePath = path.relative(basePath, filePath)
+        const fullFilePath = path.join(__dirname, filePath)
+        const distFilePath = path.dirname(
+          path.join(__dirname, outDir, relativeFilePath)
+        )
+
+        options.sourceFileName = path.relative(distFilePath, fullFilePath)
+      }
+
       const output = yield transform(file.data.toString('utf-8'), options)
       const ext = path.extname(file.base)
 
