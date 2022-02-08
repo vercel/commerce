@@ -22,10 +22,6 @@
     "dev": {
       "cache": false
     },
-    "next-commerce#dev": {
-      "dependsOn": ["^dev"],
-      "cache": false
-    },
     "start": {
       "cache": false
     }

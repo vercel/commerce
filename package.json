@@ -9,6 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "start": "turbo run start",
     "prettier-fix": "prettier --write ."
   },
   "devDependencies": {
