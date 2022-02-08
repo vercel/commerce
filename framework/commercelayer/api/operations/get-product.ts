@@ -1,8 +1,8 @@
 import type { CommercelayerConfig } from '../index'
 import { Product } from '@commerce/types/product'
 import { GetProductOperation } from '@commerce/types/product'
-import data from '../../data.json'
 import type { OperationContext } from '@commerce/api/operations'
+import data from '../../data.json'
 
 export default function getProductOperation({
   commerce,

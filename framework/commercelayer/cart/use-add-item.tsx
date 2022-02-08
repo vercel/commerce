@@ -44,8 +44,8 @@ export const handler: MutationHook<any> = {
           sku: input.variantId,
           price: attributes.unit_amount_float,
           image: {
-            url: `/commercelayer_assets/${input.productId}_FLAT.png`,
-            altText: 'Black Women Long Sleeve Shirt',
+            url: `https://data.commercelayer.app/vercel-provider/${input.productId}_FLAT.png`,
+            altText: attributes.name,
             width: 1000,
             height: 1000,
           },

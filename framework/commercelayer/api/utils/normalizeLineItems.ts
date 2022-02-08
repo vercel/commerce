@@ -1,3 +1,6 @@
+import { is } from '@react-spring/shared'
+import data from '../../data.json'
+
 export default function normalizeLineItems(lineItems: any[]) {
   return lineItems
     .filter((l) => {
@@ -6,9 +9,11 @@ export default function normalizeLineItems(lineItems: any[]) {
     .map((lineItem) => {
       const id = lineItem.id
       const attributes = lineItem.attributes
+      const products = data.products
       return {
         id,
         name: attributes.name,
+        path: products.find((p) => p.id === attributes.reference)?.slug,
         productId: attributes.reference,
         variantId: attributes.reference,
         quantity: attributes.quantity,
@@ -20,7 +25,7 @@ export default function normalizeLineItems(lineItems: any[]) {
           price: attributes.unit_amount_float,
           image: {
             url: `https://data.commercelayer.app/vercel-provider/${attributes.reference}_FLAT.png`,
-            altText: 'Black Women Long Sleeve Shirt',
+            altText: attributes.name,
             width: 1000,
             height: 1000,
           },

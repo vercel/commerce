@@ -4,27 +4,27 @@
       "id": "SHIRTWLS000000FFFFFF",
       "name": "Black Women Long Sleeve Shirt",
       "brandId": "Commerce Layer",
-      "path": "/women-long-sleeve-shirt",
-      "slug": "women-long-sleeve-shirt",
+      "path": "/black-women-long-sleeve-shirt",
+      "slug": "black-women-long-sleeve-shirt",
       "categoryId": "clothings",
       "price": { "value": 50, "currencyCode": "USD" },
       "descriptionHtml": "<p><span>This relaxed long sleeve tee combines the best of both worlds, proving that cozy can also be chic. 65/35 polyester/viscose. Drop shoulder. Curved bottom hem.</span></p>",
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/SHIRTWLS000000FFFFFF_FLAT.png",
-          "altText": "Black Women Long Sleeve Shirt",
+          "altText": " A Black Women Long Sleeve Shirt",
           "width": 1000,
           "height": 1000
         },
         {
           "url": "https://data.commercelayer.app/vercel-provider/SHIRTWLS000000FFFFFF_01.png",
-          "altText": "Black Women Long Sleeve Shirt",
+          "altText": " A Black Women Long Sleeve Shirt",
           "width": 1000,
           "height": 1000
         },
         {
           "url": "https://data.commercelayer.app/vercel-provider/SHIRTWLS000000FFFFFF_02.png",
-          "altText": "Black Women Long Sleeve Shirt",
+          "altText": " A Black Women Long Sleeve Shirt",
           "width": 1000,
           "height": 1000
         }
@@ -134,19 +134,19 @@
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/EMUG12OZFFFFFF000000_FLAT.png",
-          "altText": "White Enamel Mug",
+          "altText": " A White Enamel Mug",
           "width": 1000,
           "height": 1000
         },
         {
           "url": "https://data.commercelayer.app/vercel-provider/EMUG12OZFFFFFF000000_01.png",
-          "altText": "White Enamel Mug",
+          "altText": " A White Enamel Mug",
           "width": 1000,
           "height": 1000
         },
         {
           "url": "https://data.commercelayer.app/vercel-provider/EMUG12OZFFFFFF000000_02.png",
-          "altText": "White Enamel Mug",
+          "altText": " A White Enamel Mug",
           "width": 1000,
           "height": 1000
         }
@@ -202,25 +202,25 @@
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/VFLEXFIT000000FFFFFF_FLAT.png",
-          "altText": "Black Visor Flexfit",
+          "altText": " A Black Visor Flexfit",
           "width": 1000,
           "height": 1000
         },
         {
           "url": "https://data.commercelayer.app/vercel-provider/VFLEXFIT000000FFFFFF_01.png",
-          "altText": "Black Visor Flexfit",
+          "altText": " A Black Visor Flexfit",
           "width": 1000,
           "height": 1000
         },
         {
           "url": "https://data.commercelayer.app/vercel-provider/VFLEXFIT000000FFFFFF_02.png",
-          "altText": "Black Visor Flexfit",
+          "altText": " A Black Visor Flexfit",
           "width": 1000,
           "height": 1000
         },
         {
           "url": "https://data.commercelayer.app/vercel-provider/VFLEXFIT000000FFFFFF_03.png",
-          "altText": "Black Visor Flexfit",
+          "altText": " A Black Visor Flexfit",
           "width": 1000,
           "height": 1000
         }
@@ -276,7 +276,7 @@
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/FACEMASK000000FFFFFF_FLAT.png",
-          "altText": "Black Face Mask",
+          "altText": " A Black Face Mask",
           "width": 1000,
           "height": 1000
         }
@@ -332,7 +332,7 @@
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/SHIRTWLS9397A0000000_FLAT.png",
-          "altText": "Gray Women Long Sleeve Shirt",
+          "altText": " A Gray Women Long Sleeve Shirt",
           "width": 1000,
           "height": 1000
         }
@@ -442,7 +442,7 @@
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/FACEMASKFFFFFF000000_FLAT.png",
-          "altText": "White Face Mask",
+          "altText": " A White Face Mask",
           "width": 1000,
           "height": 1000
         }
@@ -498,7 +498,7 @@
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/BEANIEXXFFFFFF000000_FLAT.png",
-          "altText": "White Beanie",
+          "altText": " A White Beanie",
           "width": 1000,
           "height": 1000
         }
@@ -554,7 +554,7 @@
       "images": [
         {
           "url": "https://data.commercelayer.app/vercel-provider/DUFFLBAGFFFFFF000000_FLAT.png",
-          "altText": "White Face Mask",
+          "altText": " A White Face Mask",
           "width": 1000,
           "height": 1000
         }
