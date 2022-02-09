@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist/* && tsc",
-    "dev": "npm run build -- --watch",
-    "prettier-fix": "prettier --write .",
+    "release": "taskr release",
+    "build": "taskr build",
+    "dev": "taskr",
+    "types": "tsc --emitDeclarationOnly",
     "generate:definitions": "node scripts/generate-definitions.js"
   },
   "sideEffects": false,
@@ -59,6 +60,9 @@
     "react-dom": "^17"
   },
   "devDependencies": {
+    "@taskr/clear": "^1.1.0",
+    "@taskr/esnext": "^1.1.0",
+    "@taskr/watch": "^1.1.0",
     "@types/cookie": "^0.4.1",
     "@types/jsonwebtoken": "^8.5.7",
     "@types/lodash.debounce": "^4.0.6",
@@ -69,6 +73,8 @@
     "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "taskr": "^1.1.0",
+    "taskr-swc": "^0.0.1",
     "typescript": "^4.5.4"
   },
   "lint-staged": {
