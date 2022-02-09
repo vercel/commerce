@@ -40,5 +40,5 @@ yarn-error.log*
 .turbo
 
 # Temporal setup to fix Commerce deployments done by the Deploy Button
-.next
-public
+./.next
+./public
