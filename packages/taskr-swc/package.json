@@ -1,0 +1,16 @@
+{
+  "name": "taskr-swc",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "prettier-fix": "prettier --write ."
+  },
+  "main": "taskfile-swc.js",
+  "files": [
+    "taskfile-swc.js"
+  ],
+  "devDependencies": {
+    "@swc/core": "^1.2.138",
+    "prettier": "^2.5.1"
+  }
+}

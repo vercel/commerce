@@ -1,0 +1,106 @@
+{
+  "name": "next-commerce",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "BUNDLE_ANALYZE=both next build",
+    "lint": "next lint",
+    "prettier-fix": "prettier --write .",
+    "find:unused": "npx next-unused"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@react-spring/web": "^9.4.1",
+    "@vercel/commerce": "^0.0.1",
+    "@vercel/commerce-bigcommerce": "^0.0.1",
+    "@vercel/commerce-commercejs": "^0.0.1",
+    "@vercel/commerce-kibocommerce": "^0.0.1",
+    "@vercel/commerce-local": "^0.0.1",
+    "@vercel/commerce-ordercloud": "^0.0.1",
+    "@vercel/commerce-saleor": "^0.0.1",
+    "@vercel/commerce-shopify": "^0.0.1",
+    "@vercel/commerce-spree": "^0.0.1",
+    "@vercel/commerce-swell": "^0.0.1",
+    "@vercel/commerce-vendure": "^0.0.1",
+    "autoprefixer": "^10.4.2",
+    "body-scroll-lock": "^4.0.0-beta.0",
+    "clsx": "^1.1.1",
+    "email-validator": "^2.0.4",
+    "js-cookie": "^3.0.1",
+    "keen-slider": "^6.6.3",
+    "lodash.random": "^3.2.0",
+    "lodash.throttle": "^4.1.1",
+    "next": "^12.0.8",
+    "next-seo": "^4.28.1",
+    "next-themes": "^0.0.15",
+    "postcss": "^8.3.5",
+    "postcss-nesting": "^8.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-fast-marquee": "^1.3.1",
+    "react-merge-refs": "^1.1.0",
+    "react-use-measure": "^2.1.1",
+    "tabbable": "^5.2.1",
+    "tailwindcss": "^3.0.13"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^12.0.8",
+    "@types/body-scroll-lock": "^3.1.0",
+    "@types/js-cookie": "^3.0.1",
+    "@types/lodash.random": "^3.2.6",
+    "@types/lodash.throttle": "^4.1.6",
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38",
+    "eslint": "^8.6.0",
+    "eslint-config-next": "^12.0.8",
+    "eslint-config-prettier": "^8.3.0",
+    "lint-staged": "^12.1.7",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^7.2.3",
+    "prettier": "^2.5.1",
+    "typescript": "4.3.4"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint",
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{md,mdx,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "next-unused": {
+    "alias": {
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
+    },
+    "debug": true,
+    "include": [
+      "components",
+      "lib",
+      "pages"
+    ],
+    "exclude": [],
+    "entrypoints": [
+      "pages"
+    ]
+  }
+}

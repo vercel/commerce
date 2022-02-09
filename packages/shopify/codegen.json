@@ -1,0 +1,32 @@
+{
+  "schema": {
+    "https://${NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2021-07/graphql.json": {
+      "headers": {
+        "X-Shopify-Storefront-Access-Token": "${NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN}"
+      }
+    }
+  },
+  "documents": [
+    {
+      "./src/**/*.{ts,tsx}": {
+        "noRequire": true
+      }
+    }
+  ],
+  "generates": {
+    "./schema.d.ts": {
+      "plugins": ["typescript", "typescript-operations"],
+      "config": {
+        "scalars": {
+          "ID": "string"
+        }
+      }
+    },
+    "./schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  },
+  "hooks": {
+    "afterAllFileWrite": ["prettier --write"]
+  }
+}

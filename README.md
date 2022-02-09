@@ -35,17 +35,16 @@ Next.js Commerce integrates out-of-the-box with BigCommerce, Shopify, Swell, Sal
 
 ## Considerations
 
-- `framework/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
-- **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality (`framework/commerce`).
+- `packages/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
+- **Providers** live under `packages`'s root folder and they will extend Next.js Commerce types and functionality (`packages/commerce`).
 - We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
 - Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
-- **Providers don't depend on anything that's specific to the application they're used in**. They only depend on `framework/commerce`, on their own framework folder and on some dependencies included in `package.json`
 
 ## Configuration
 
 ### How to change providers
 
-Open `.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `.env.template` as the base).
+Open `site/.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `site/.env.template` as the base).
 
 The setup for Shopify would look like this for example:
 
@@ -55,18 +54,9 @@ NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
 ```
 
-And check that the `tsconfig.json` resolves to the chosen provider:
-
-```
-  "@framework": ["framework/shopify"],
-  "@framework/*": ["framework/shopify/*"]
-```
-
-That's it!
-
 ### Features
 
-Every provider defines the features that it supports under `framework/{provider}/commerce.config.json`
+Every provider defines the features that it supports under `packages/{provider}/src/commerce.config.json`
 
 #### Features Available
 
@@ -83,7 +73,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 > NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
 
-- Open `commerce.config.json`
+- Open `site/commerce.config.json`
 - You'll see a config file like this:
   ```json
   {
@@ -98,9 +88,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 ### How to create a new provider
 
-🔔 New providers are on hold [until we have a new API for commerce](https://github.com/vercel/commerce/pull/252) 🔔
-
-Follow our docs for [Adding a new Commerce Provider](framework/commerce/new-provider.md).
+Follow our docs for [Adding a new Commerce Provider](packages/commerce/new-provider.md).
 
 If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
 
@@ -110,16 +98,17 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
 2. Create a new branch `git checkout -b MY_BRANCH_NAME`
-3. Install the dependencies: `npm i`
-4. Duplicate `.env.template` and rename it to `.env.local`
-5. Add proper store values to `.env.local`
-6. Run `npm run dev` to build and watch for code changes
+3. Install the dependencies: `yarn`
+4. Duplicate `site/.env.template` and rename it to `site/.env.local`
+5. Add proper store values to `site/.env.local`
+6. Run `cd site` and `yarn dev` to build and watch for code changes
+7. Run `yarn turbo run build` to check the build after your changes
 
 ## Work in progress
 
 We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
 
-People actively working on this project: @okbel & @lfades.
+People actively working on this project: @okbel, @lfades, @dominiksipowicz, @gbibeaul.
 
 ## Troubleshoot
 
@@ -146,7 +135,7 @@ If your project was started with a "Deploy with Vercel" button, you can use Verc
 2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
 3. Download your environment variables: `vercel env pull .env.local`
 
-Next, you're free to customize the starter. More updates coming soon. Stay tuned.
+Next, you're free to customize the starter. More updates coming soon. Stay tuned..
 
 </details>
 
