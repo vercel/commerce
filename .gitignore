@@ -40,5 +40,12 @@ yarn-error.log*
 .turbo
 
 # Temporal setup to fix Commerce deployments done by the Deploy Button
+# It's a priority to get rid of this ASAP
 /.next
+/public
+/assets
+/components
+/config
+/lib
+/pages
 /public
