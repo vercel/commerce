@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build --scope=next-commerce --include-dependencies --no-deps",
+    "build": "turbo run build --scope=next-commerce --include-dependencies --no-deps && cp -r site/.next .next && cp -r site/public public",
     "dev": "turbo run dev",
     "start": "turbo run start",
     "prettier-fix": "prettier --write ."
