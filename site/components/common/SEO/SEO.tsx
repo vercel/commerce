@@ -2,10 +2,9 @@ import Head from 'next/head'
 import { FC, Fragment, ReactNode } from 'react'
 import config from '@config/seo_meta.json'
 
-const storeBaseUrl =
-  process.env.NEXT_PUBLIC_STORE_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : null
+const storeUrl =
+  process.env.NEXT_PUBLIC_STORE_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+const storeBaseUrl = storeUrl ? `https://${storeUrl}` : null
 
 interface OgImage {
   url?: string
