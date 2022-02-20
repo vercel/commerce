@@ -50,7 +50,8 @@
   },
   "dependencies": {
     "@vercel/commerce": "^0.0.1",
-    "@vercel/fetch": "^6.1.1"
+    "@vercel/fetch": "^6.1.1",
+    "lodash.debounce": "^4.0.8"
   },
   "peerDependencies": {
     "next": "^12",
