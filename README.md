@@ -92,6 +92,12 @@ Follow our docs for [Adding a new Commerce Provider](packages/commerce/new-provi
 
 If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
 
+## Deploying to Vercel
+Once you have forked this repo, you can deploy your own version on Vercel. Create a [new project](https://vercel.com/new) by importing your GitHub repository and configuring some Build and Output Settings:
+1. Choose `Next.js` for the framework preset
+2. Set the build command to `yarn build`
+3. Set the output directory to `site/.next` 
+
 ## Contribute
 
 Our commitment to Open Source can be found [here](https://vercel.com/oss).
