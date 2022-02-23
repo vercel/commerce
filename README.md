@@ -147,3 +147,40 @@ After Email confirmation, Checkout should be manually enabled through BigCommerc
 <br>
 BigCommerce team has been notified and they plan to add more details about this subject.
 </details>
+
+<details>
+<summary>When run locally I get `Error: Cannot find module '...@vercel/commerce/dist/config'`</summary>
+
+```bash
+commerce/site
+❯ yarn dev
+yarn run v1.22.17
+$ next dev
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /commerce/site/.env.local
+error - Failed to load next.config.js, see more info here https://nextjs.org/docs/messages/next-config-error
+Error: Cannot find module '/Users/dom/work/vercel/commerce/node_modules/@vercel/commerce/dist/config.cjs'
+    at createEsmNotFoundErr (node:internal/modules/cjs/loader:960:15)
+    at finalizeEsmResolution (node:internal/modules/cjs/loader:953:15)
+    at resolveExports (node:internal/modules/cjs/loader:482:14)
+    at Function.Module._findPath (node:internal/modules/cjs/loader:522:31)
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:919:27)
+    at Function.mod._resolveFilename (/Users/dom/work/vercel/commerce/node_modules/next/dist/build/webpack/require-hook.js:179:28)
+    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
+    at Module.require (node:internal/modules/cjs/loader:1005:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (/Users/dom/work/vercel/commerce/site/commerce-config.js:9:14) {
+  code: 'MODULE_NOT_FOUND',
+  path: '/Users/dom/work/vercel/commerce/node_modules/@vercel/commerce/package.json'
+}
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+```
+  
+The error usually occurs when running yarn dev inside of the `/site/` folder after installing a fresh repository.
+
+In order to fix this, run `yarn dev` in the monorepo root folder first.
+  
+> Using `yarn dev` from the root is recommended for developing, which will run watch mode on all packages.
+</details>
+  
