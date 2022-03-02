@@ -49,7 +49,7 @@ Open `site/.env.local` and change the value of `COMMERCE_PROVIDER` to the provid
 The setup for Shopify would look like this for example:
 
 ```
-COMMERCE_PROVIDER=shopify
+COMMERCE_PROVIDER=@vercel/commerce-shopify
 NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
 ```
