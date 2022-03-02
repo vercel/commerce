@@ -27,4 +27,5 @@
 .root .price {
   @apply pt-2 px-6 pb-4 text-sm bg-primary text-accent-9
   font-semibold inline-block tracking-wide;
+  margin-top: -1px;
 }
