@@ -1,0 +1,86 @@
+{
+  "name": "@vercel/commerce-bigcommerce",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "release": "taskr release",
+    "build": "taskr build",
+    "dev": "taskr",
+    "types": "tsc --emitDeclarationOnly",
+    "generate:definitions": "node scripts/generate-definitions.js"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": [
+      "./dist/*.js",
+      "./dist/*/index.js"
+    ],
+    "./next.config": "./dist/next.config.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*",
+        "src/*/index"
+      ],
+      "next.config": [
+        "dist/next.config.d.cts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "typesVersions": {
+      "*": {
+        "*": [
+          "dist/*.d.ts",
+          "dist/*/index.d.ts"
+        ],
+        "config": [
+          "dist/next.config.d.cts"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "@vercel/fetch": "^6.1.1",
+    "cookie": "^0.4.1",
+    "immutability-helper": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
+    "uuidv4": "^6.2.12"
+  },
+  "peerDependencies": {
+    "next": "^12",
+    "react": "^17",
+    "react-dom": "^17"
+  },
+  "devDependencies": {
+    "@taskr/clear": "^1.1.0",
+    "@taskr/esnext": "^1.1.0",
+    "@taskr/watch": "^1.1.0",
+    "@types/cookie": "^0.4.1",
+    "@types/jsonwebtoken": "^8.5.7",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38",
+    "lint-staged": "^12.1.7",
+    "next": "^12.0.8",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "taskr": "^1.1.0",
+    "taskr-swc": "^0.0.1",
+    "typescript": "^4.5.4"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

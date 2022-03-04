@@ -1,0 +1,28 @@
+{
+  "schema": {
+    "http://localhost:3001/shop-api": {}
+  },
+  "documents": [
+    {
+      "./src/**/*.{ts,tsx}": {
+        "noRequire": true
+      }
+    }
+  ],
+  "generates": {
+    "./schema.d.ts": {
+      "plugins": ["typescript", "typescript-operations"],
+      "config": {
+        "scalars": {
+          "ID": "string"
+        }
+      }
+    },
+    "./schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  },
+  "hooks": {
+    "afterAllFileWrite": ["prettier --write"]
+  }
+}

@@ -1,0 +1,48 @@
+.root {
+  @apply relative;
+}
+
+.button {
+  @apply h-10 px-2 rounded-md border border-accent-2 flex items-center justify-center transition-colors ease-linear;
+}
+
+.button:hover {
+  @apply border-accent-3 shadow-sm;
+}
+
+.button:focus {
+  @apply outline-none;
+}
+
+.dropdownMenu {
+  @apply fixed right-0 top-12 mt-2 origin-top-right outline-none bg-primary z-40 w-full h-full;
+}
+
+.item {
+  @apply flex cursor-pointer px-6 py-3 transition ease-in-out duration-150 text-primary leading-6 font-medium items-center;
+  text-transform: capitalize;
+}
+
+.item:hover {
+  @apply bg-accent-1;
+}
+
+.icon {
+  transition: transform 0.2s ease;
+}
+
+.icon.active {
+  transform: rotate(180deg);
+}
+
+@screen lg {
+  .dropdownMenu {
+    @apply absolute border border-accent-1 shadow-lg w-56 h-auto;
+  }
+}
+
+@screen md {
+  .closeButton {
+    @apply hidden;
+  }
+}

@@ -2,18 +2,19 @@
 
 # dependencies
 node_modules
-/.pnp
+.pnp
 .pnp.js
 
 # testing
-/coverage
+coverage
 
 # next.js
-.next/
-out/
+.next
+out
 
 # production
-/build
+build
+dist
 
 # misc
 .DS_Store
@@ -34,3 +35,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Turborepo
+.turbo
