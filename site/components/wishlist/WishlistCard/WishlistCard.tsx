@@ -63,41 +63,41 @@ const WishlistCard: FC<Props> = ({ item }) => {
 
   return (
     <div className={cn(s.root, { 'opacity-75 pointer-events-none': removing })}>
-      <div className={`col-span-3 ${s.productBg}`}>
-        <div>
-          <Image
-            src={product.images[0]?.url || placeholderImg}
-            width={400}
-            height={400}
-            alt={product.images[0]?.alt || 'Product Image'}
-          />
-        </div>
+      <div className={s.imageWrapper}>
+        <Image
+          width={230}
+          height={230}
+          src={product.images[0]?.url || placeholderImg}
+          alt={product.images[0]?.alt || 'Product Image'}
+        />
       </div>
 
-      <div className="col-span-7">
-        <h3 className="text-2xl mb-2">
-          <Link href={`/product${product.path}`}>
-            <a>{product.name}</a>
-          </Link>
-        </h3>
-        <div className="mb-4">
-          <Text html={product.description} />
+      <div className={s.description}>
+        <div className="flex-1 mb-6">
+          <h3 className="text-2xl mb-2 -mt-1">
+            <Link href={`/product${product.path}`}>
+              <a>{product.name}</a>
+            </Link>
+          </h3>
+          <div className="mb-4">
+            <Text html={product.description} />
+          </div>
         </div>
-        <Button
-          aria-label="Add to Cart"
-          type="button"
-          className={
-            'py-1 px-3 border border-secondary rounded-md shadow-sm hover:bg-primary-hover'
-          }
-          onClick={addToCart}
-          loading={loading}
-        >
-          Add to Cart
-        </Button>
+        <div>
+          <Button
+            width={260}
+            aria-label="Add to Cart"
+            type="button"
+            onClick={addToCart}
+            loading={loading}
+          >
+            Add to Cart
+          </Button>
+        </div>
       </div>
-      <div className="col-span-2 flex flex-col justify-between">
+      <div className={s.actions}>
         <div className="flex justify-end font-bold">{price}</div>
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4 lg:mt-0">
           <button onClick={handleRemove}>
             <Trash />
           </button>
