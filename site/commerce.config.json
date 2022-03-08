@@ -5,5 +5,11 @@
     "wishlist": false,
     "customerAuth": false,
     "customCheckout": false
+  },
+  "@vercel/commerce-bigcommerce": {
+    "features": {
+      "wishlist": false,
+      "customerAuth": false
+    }
   }
 }

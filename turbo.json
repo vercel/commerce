@@ -30,6 +30,9 @@
     },
     "start": {
       "cache": false
+    },
+    "types": {
+      "outputs": ["dist/**/*.d.ts"]
     }
   }
 }
