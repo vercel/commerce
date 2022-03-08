@@ -15,7 +15,7 @@ export const DropdownContent = React.forwardRef<
     React.RefAttributes<HTMLDivElement>
 >(function DropdownContent({ children, ...props }, forwardedRef) {
   return (
-    <DropdownMenu.Content ref={forwardedRef} side="bottom" {...props}>
+    <DropdownMenu.Content ref={forwardedRef} asChild {...props}>
       <div className={s.root}>{children}</div>
     </DropdownMenu.Content>
   )
