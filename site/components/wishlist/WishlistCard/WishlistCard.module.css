@@ -28,7 +28,7 @@
 }
 
 .actions {
-  @apply absolute bg-white p-6 top-0 right-4;
+  @apply absolute bg-accent-0 p-3 top-0 right-4;
 }
 
 @media screen(lg) {
