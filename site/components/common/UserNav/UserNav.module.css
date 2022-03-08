@@ -7,20 +7,21 @@
 }
 
 .item {
-  @apply ml-6 cursor-pointer relative transition ease-in-out duration-100 flex items-center outline-none text-primary;
+  @apply ml-6 cursor-pointer relative transition ease-in-out
+  duration-100 flex items-center outline-none text-primary;
+}
 
-  &:hover {
-    @apply text-accent-6 transition scale-110 duration-100;
-  }
+.item:hover {
+  @apply text-accent-6 transition scale-110 duration-100;
+}
 
-  &:first-child {
-    @apply ml-0;
-  }
+.item:first-child {
+  @apply ml-0;
+}
 
-  &:focus,
-  &:active {
-    @apply outline-none;
-  }
+.item:focus,
+.item:active {
+  @apply outline-none;
 }
 
 .bagCount {

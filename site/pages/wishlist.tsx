@@ -40,8 +40,8 @@ export default function Wishlist() {
   const { data, isLoading, isEmpty } = useWishlist({ includeProducts: true })
 
   return (
-    <Container>
-      <div className="mt-3 mb-20">
+    <Container className="pt-4">
+      <div className="mb-20">
         <Text variant="pageHeading">My Wishlist</Text>
         <div className="group flex flex-col">
           {isLoading ? (
