@@ -13,13 +13,11 @@ import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
 import type { Wishlist } from '@commerce/types/wishlist'
 
-interface Props {
-  item: Wishlist
-}
-
 const placeholderImg = '/product-img-placeholder.svg'
 
-const WishlistCard: FC<Props> = ({ item }) => {
+const WishlistCard: React.FC<{
+  item: Wishlist
+}> = ({ item }) => {
   const product: Product = item.product
   const { price } = usePrice({
     amount: product.price?.value,
