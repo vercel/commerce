@@ -1,26 +1,23 @@
-import { FC } from 'react'
-import Link from 'next/link'
 import cn from 'clsx'
-import type { LineItem } from '@commerce/types/cart'
-import useCart from '@framework/cart/use-cart'
-import useCustomer from '@framework/customer/use-customer'
-import { Avatar } from '@components/common'
-import { Heart, Bag } from '@components/icons'
-import { useUI } from '@components/ui/context'
-import Button from '@components/ui/Button'
-import DropdownMenu from './DropdownMenu'
+import Link from 'next/link'
 import s from './UserNav.module.css'
-import Menu from '@components/icons/Menu'
+import useCart from '@framework/cart/use-cart'
+import DropdownCustomerAuth from './DropdownCustomerAuth'
+import Button from '@components/ui/Button'
+import { Avatar } from '@components/common'
+import { useUI } from '@components/ui/context'
+import { Heart, Bag } from '@components/icons'
+import useCustomer from '@framework/customer/use-customer'
 
-interface Props {
-  className?: string
-}
+import type { LineItem } from '@commerce/types/cart'
 
 const countItem = (count: number, item: LineItem) => count + item.quantity
 
-const UserNav: FC<Props> = ({ className }) => {
+const UserNav: React.FC<{
+  className?: string
+}> = ({ className }) => {
   const { data } = useCart()
-  const { data: customer } = useCustomer()
+  const { data: isCustomerLoggedIn } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal, setSidebarView } =
     useUI()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
@@ -57,8 +54,8 @@ const UserNav: FC<Props> = ({ className }) => {
         )}
         {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
           <li className={s.item}>
-            {customer ? (
-              <DropdownMenu />
+            {isCustomerLoggedIn ? (
+              <DropdownCustomerAuth />
             ) : (
               <button
                 className={s.avatarButton}
@@ -70,7 +67,7 @@ const UserNav: FC<Props> = ({ className }) => {
             )}
           </li>
         )}
-        <li className={s.mobileMenu}>
+        {/* <li className={s.mobileMenu}>
           <Button
             className={s.item}
             variant="naked"
@@ -82,7 +79,7 @@ const UserNav: FC<Props> = ({ className }) => {
           >
             <Menu />
           </Button>
-        </li>
+        </li> */}
       </ul>
     </nav>
   )

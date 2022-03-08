@@ -1,0 +1,14 @@
+.link {
+  @apply text-primary flex cursor-pointer px-6 py-3
+  transition ease-in-out duration-150 leading-6
+  font-medium items-center capitalize w-full box-border
+  outline-0;
+}
+
+.link:hover {
+  @apply bg-accent-1 outline-none;
+}
+
+.link.active {
+  @apply font-bold bg-accent-2;
+}
