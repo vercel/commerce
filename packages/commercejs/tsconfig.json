@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "outDir": "dist",
+    "baseUrl": "src",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "declaration": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "incremental": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src", "global.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}
