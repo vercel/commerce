@@ -4,10 +4,17 @@ import s from './UserNav.module.css'
 import useCart from '@framework/cart/use-cart'
 import DropdownCustomerAuth from './DropdownCustomerAuth'
 import Button from '@components/ui/Button'
-import { Avatar } from '@components/common'
-import { useUI } from '@components/ui/context'
-import { Heart, Bag } from '@components/icons'
+import { Heart, Bag, Menu } from '@components/icons'
 import useCustomer from '@framework/customer/use-customer'
+import {
+  Dropdown,
+  DropdownContent,
+  DropdownTrigger,
+  DropdownMenuItem,
+} from '@components/ui/Dropdown/Dropdown'
+
+import { useUI } from '@components/ui/context'
+import { Avatar } from '@components/common'
 
 import type { LineItem } from '@commerce/types/cart'
 
@@ -55,7 +62,21 @@ const UserNav: React.FC<{
         {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
           <li className={s.item}>
             {isCustomerLoggedIn ? (
-              <DropdownCustomerAuth />
+              <div className={s.root}>
+                <Dropdown>
+                  <DropdownTrigger asChild>
+                    <button className="inline-flex justify-center rounded-full">
+                      <Avatar />
+                    </button>
+                  </DropdownTrigger>
+                  <DropdownContent
+                    className={s.dropdownContent}
+                    id="DropdownCustomerAuth"
+                  >
+                    <DropdownCustomerAuth />
+                  </DropdownContent>
+                </Dropdown>
+              </div>
             ) : (
               <button
                 className={s.avatarButton}
@@ -67,19 +88,19 @@ const UserNav: React.FC<{
             )}
           </li>
         )}
-        {/* <li className={s.mobileMenu}>
+        <li className={s.mobileMenu}>
           <Button
             className={s.item}
+            aria-label="Menu"
             variant="naked"
             onClick={() => {
-              setSidebarView('MOBILEMENU_VIEW')
+              setSidebarView('MOBILE_MENU_VIEW')
               toggleSidebar()
             }}
-            aria-label="Menu"
           >
             <Menu />
           </Button>
-        </li> */}
+        </li>
       </ul>
     </nav>
   )

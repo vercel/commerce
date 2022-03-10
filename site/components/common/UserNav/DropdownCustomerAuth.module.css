@@ -12,3 +12,13 @@
 .link.active {
   @apply font-bold bg-accent-2;
 }
+
+.root {
+  display: hidden;
+}
+
+@media (min-width: 767px) {
+  .root {
+    display: block;
+  }
+}

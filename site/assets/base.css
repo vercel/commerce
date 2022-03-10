@@ -4,11 +4,9 @@
   --secondary: #000000;
   --secondary-2: #111;
   --selection: var(--cyan);
-
   --text-base: #000000;
   --text-primary: #000000;
   --text-secondary: white;
-
   --hover: rgba(0, 0, 0, 0.075);
   --hover-1: rgba(0, 0, 0, 0.15);
   --hover-2: rgba(0, 0, 0, 0.25);
@@ -17,15 +15,11 @@
   --red: #da3c3c;
   --purple: #f81ce5;
   --blue: #0070f3;
-
   --pink: #ff0080;
   --pink-light: #ff379c;
-
   --magenta: #eb367f;
-
   --violet: #7928ca;
   --violet-dark: #4c2889;
-
   --accent-0: #fff;
   --accent-1: #fafafa;
   --accent-2: #eaeaea;
@@ -36,7 +30,6 @@
   --accent-7: #333333;
   --accent-8: #111111;
   --accent-9: #000;
-
   --font-sans: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
     'Helvetica', sans-serif;
 }
@@ -50,11 +43,9 @@
   --hover-1: rgba(255, 255, 255, 0.15);
   --hover-2: rgba(255, 255, 255, 0.25);
   --selection: var(--purple);
-
   --text-base: white;
   --text-primary: white;
   --text-secondary: black;
-
   --accent-9: #fff;
   --accent-8: #fafafa;
   --accent-7: #eaeaea;
@@ -73,17 +64,11 @@
   box-sizing: inherit;
 }
 
-html {
+html,
+body {
   height: 100%;
   box-sizing: border-box;
   touch-action: manipulation;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-html,
-body {
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -104,15 +89,15 @@ a {
 }
 
 .animated {
-  -webkit-animation-duration: 1s;
   animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
 }
 
 .fadeIn {
-  -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
 }
 
 @-webkit-keyframes fadeIn {

@@ -1,5 +1,5 @@
 import cn from 'clsx'
-import React, { FC } from 'react'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { CommerceProvider } from '@framework'
@@ -14,7 +14,9 @@ import { Sidebar, Button, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
 import { CheckoutProvider } from '@components/checkout/context'
-import MenuSidebarView, { Link } from '../UserNav/MenuSidebarView'
+import MenuSidebarView from '../UserNav/MenuSidebarView'
+
+import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
 
 import LoginView from '@components/auth/LoginView'
 import s from './Layout.module.css'
@@ -29,34 +31,25 @@ const dynamicProps = {
   loading: Loading,
 }
 
-const SignUpView = dynamic(
-  () => import('@components/auth/SignUpView'),
-  {
-    ...dynamicProps
-  }
-)
+const SignUpView = dynamic(() => import('@components/auth/SignUpView'), {
+  ...dynamicProps,
+})
 
 const ForgotPassword = dynamic(
   () => import('@components/auth/ForgotPassword'),
   {
-    ...dynamicProps
-  }
-)
-
-const FeatureBar = dynamic(
-  () => import('@components/common/FeatureBar'),
-  {
-    ...dynamicProps
-  }
-)
-
-const Modal = dynamic(
-  () => import('@components/ui/Modal'),
-  {
     ...dynamicProps,
-    ssr: false
   }
 )
+
+const FeatureBar = dynamic(() => import('@components/common/FeatureBar'), {
+  ...dynamicProps,
+})
+
+const Modal = dynamic(() => import('@components/ui/Modal'), {
+  ...dynamicProps,
+  ssr: false,
+})
 
 interface Props {
   pageProps: {
@@ -65,7 +58,7 @@ interface Props {
   }
 }
 
-const ModalView: FC<{ modalView: string; closeModal(): any }> = ({
+const ModalView: React.FC<{ modalView: string; closeModal(): any }> = ({
   modalView,
   closeModal,
 }) => {
@@ -78,30 +71,31 @@ const ModalView: FC<{ modalView: string; closeModal(): any }> = ({
   )
 }
 
-const ModalUI: FC = () => {
+const ModalUI: React.FC = () => {
   const { displayModal, closeModal, modalView } = useUI()
   return displayModal ? (
     <ModalView modalView={modalView} closeModal={closeModal} />
   ) : null
 }
 
-const SidebarView: FC<{
+const SidebarView: React.FC<{
   sidebarView: string
   closeSidebar(): any
-  links: Link[]
+  links: LinkProps[]
 }> = ({ sidebarView, closeSidebar, links }) => {
   return (
     <Sidebar onClose={closeSidebar}>
-      {sidebarView === 'MOBILEMENU_VIEW' && <MenuSidebarView links={links} />}
       {sidebarView === 'CART_VIEW' && <CartSidebarView />}
       {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
       {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
+      {sidebarView === 'MOBILE_CUSTOMERMENU_VIEW' && <MenuSidebarView />}
+      {sidebarView === 'MOBILE_MENU_VIEW' && <MenuSidebarView links={links} />}
     </Sidebar>
   )
 }
 
-const SidebarUI: FC<{ links: any }> = ({ links }) => {
+const SidebarUI: React.FC<{ links: LinkProps[] }> = ({ links }) => {
   const { displaySidebar, closeSidebar, sidebarView } = useUI()
   return displaySidebar ? (
     <SidebarView
@@ -112,7 +106,7 @@ const SidebarUI: FC<{ links: any }> = ({ links }) => {
   ) : null
 }
 
-const Layout: FC<Props> = ({
+const Layout: React.FC<Props> = ({
   children,
   pageProps: { categories = [], ...pageProps },
 }) => {

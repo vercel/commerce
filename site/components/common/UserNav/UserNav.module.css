@@ -37,7 +37,7 @@
 }
 
 .mobileMenu {
-  @apply flex lg:hidden ml-6;
+  @apply flex lg:hidden ml-6 text-white;
 }
 
 .avatarButton:focus,
