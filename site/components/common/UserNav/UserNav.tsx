@@ -35,7 +35,7 @@ const UserNav: FC<Props> = ({ className }) => {
               variant="naked"
               onClick={() => {
                 setSidebarView('CART_VIEW')
-                toggleSidebar()
+                openSidebar()
               }}
               aria-label={`Cart items: ${itemsCount}`}
             >
@@ -76,7 +76,7 @@ const UserNav: FC<Props> = ({ className }) => {
             variant="naked"
             onClick={() => {
               setSidebarView('MOBILEMENU_VIEW')
-              toggleSidebar()
+              openSidebar()
             }}
             aria-label="Menu"
           >
