@@ -2,8 +2,10 @@ import cn from 'clsx'
 import Link from 'next/link'
 import s from './UserNav.module.css'
 import useCart from '@framework/cart/use-cart'
-import DropdownCustomerAuth from './DropdownCustomerAuth'
+import CustomerMenuContent from './CustomerMenuContent'
 import Button from '@components/ui/Button'
+import { useUI } from '@components/ui/context'
+import { Avatar } from '@components/common'
 import { Heart, Bag, Menu } from '@components/icons'
 import useCustomer from '@framework/customer/use-customer'
 import {
@@ -12,9 +14,6 @@ import {
   DropdownTrigger,
   DropdownMenuItem,
 } from '@components/ui/Dropdown/Dropdown'
-
-import { useUI } from '@components/ui/context'
-import { Avatar } from '@components/common'
 
 import type { LineItem } from '@commerce/types/cart'
 
@@ -25,8 +24,14 @@ const UserNav: React.FC<{
 }> = ({ className }) => {
   const { data } = useCart()
   const { data: isCustomerLoggedIn } = useCustomer()
-  const { toggleSidebar, closeSidebarIfPresent, openModal, setSidebarView } =
-    useUI()
+  const {
+    toggleSidebar,
+    closeSidebarIfPresent,
+    openModal,
+    setSidebarView,
+    openSidebar,
+  } = useUI()
+
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return (
@@ -62,21 +67,29 @@ const UserNav: React.FC<{
         {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
           <li className={s.item}>
             {isCustomerLoggedIn ? (
-              <div className={s.root}>
-                <Dropdown>
-                  <DropdownTrigger asChild>
-                    <button className="inline-flex justify-center rounded-full">
-                      <Avatar />
-                    </button>
-                  </DropdownTrigger>
-                  <DropdownContent
-                    className={s.dropdownContent}
-                    id="DropdownCustomerAuth"
+              <Dropdown>
+                <div className={s.dropdownDesktop}>
+                  <div className={s.dropdownCustomerMenu}>
+                    <DropdownTrigger asChild>
+                      <button className="inline-flex justify-center rounded-full">
+                        <Avatar />
+                      </button>
+                    </DropdownTrigger>
+                    <CustomerMenuContent />
+                  </div>
+                </div>
+                <div className={s.dropdownMobile}>
+                  <button
+                    className="inline-flex justify-center rounded-full"
+                    onClick={() => {
+                      openSidebar()
+                      setSidebarView('MOBILE_CUSTOMERMENU_VIEW')
+                    }}
                   >
-                    <DropdownCustomerAuth />
-                  </DropdownContent>
-                </Dropdown>
-              </div>
+                    <Avatar />
+                  </button>
+                </div>
+              </Dropdown>
             ) : (
               <button
                 className={s.avatarButton}
@@ -94,8 +107,8 @@ const UserNav: React.FC<{
             aria-label="Menu"
             variant="naked"
             onClick={() => {
+              openSidebar()
               setSidebarView('MOBILE_MENU_VIEW')
-              toggleSidebar()
             }}
           >
             <Menu />

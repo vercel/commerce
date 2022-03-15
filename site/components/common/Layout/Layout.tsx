@@ -1,12 +1,11 @@
 import cn from 'clsx'
-import React from 'react'
+import s from './Layout.module.css'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { CommerceProvider } from '@framework'
+import LoginView from '@components/auth/LoginView'
 import { useUI } from '@components/ui/context'
-import type { Page } from '@commerce/types/page'
 import { Navbar, Footer } from '@components/common'
-import type { Category } from '@commerce/types/site'
 import ShippingView from '@components/checkout/ShippingView'
 import CartSidebarView from '@components/cart/CartSidebarView'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
@@ -14,12 +13,13 @@ import { Sidebar, Button, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
 import { CheckoutProvider } from '@components/checkout/context'
-import MenuSidebarView from '../UserNav/MenuSidebarView'
-
+import {
+  AuthMenuSidebarView,
+  MenuSidebarView,
+} from '@components/common/UserNav'
+import type { Page } from '@commerce/types/page'
+import type { Category } from '@commerce/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
-
-import LoginView from '@components/auth/LoginView'
-import s from './Layout.module.css'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -89,7 +89,7 @@ const SidebarView: React.FC<{
       {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
       {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
-      {sidebarView === 'MOBILE_CUSTOMERMENU_VIEW' && <MenuSidebarView />}
+      {sidebarView === 'MOBILE_CUSTOMERMENU_VIEW' && <AuthMenuSidebarView />}
       {sidebarView === 'MOBILE_MENU_VIEW' && <MenuSidebarView links={links} />}
     </Sidebar>
   )

@@ -44,3 +44,16 @@
 .mobileMenu:focus {
   @apply outline-none;
 }
+
+.dropdownDesktop {
+  @apply hidden -z-10;
+}
+
+@media screen(lg) {
+  .dropdownDesktop {
+    @apply block;
+  }
+  .dropdownMobile {
+    @apply hidden;
+  }
+}
