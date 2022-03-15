@@ -38,9 +38,8 @@ const SidebarLayout: FC<ComponentProps> = ({
             <span className="ml-2 text-accent-7 text-xs">Back</span>
           </button>
         )}
-        <span className={s.nav}>
-          <UserNav />
-        </span>
+
+        <UserNav />
       </header>
       <div className={s.container}>{children}</div>
     </div>

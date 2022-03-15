@@ -14,11 +14,22 @@
 }
 
 .root {
-  display: hidden;
+  @apply inset-0 fixed;
+  left: 72px;
+  z-index: 10;
+  height: 100vh;
+  min-width: 100vw;
+  transition: none;
 }
 
-@media (min-width: 767px) {
+.placeholder {
+  height: 68px;
+}
+
+@media screen(lg) {
   .root {
-    display: block;
+    @apply static;
+    min-width: inherit;
+    height: inherit;
   }
 }

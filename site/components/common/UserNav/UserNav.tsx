@@ -1,19 +1,18 @@
 import cn from 'clsx'
 import Link from 'next/link'
 import s from './UserNav.module.css'
-import useCart from '@framework/cart/use-cart'
-import CustomerMenuContent from './CustomerMenuContent'
-import Button from '@components/ui/Button'
-import { useUI } from '@components/ui/context'
 import { Avatar } from '@components/common'
+import useCart from '@framework/cart/use-cart'
+import { useUI } from '@components/ui/context'
 import { Heart, Bag, Menu } from '@components/icons'
+import { CustomerMenuContent, Dropwdown } from './CustomerMenuContent'
 import useCustomer from '@framework/customer/use-customer'
+import React from 'react'
 import {
   Dropdown,
-  DropdownContent,
-  DropdownTrigger,
-  DropdownMenuItem,
-} from '@components/ui/Dropdown/Dropdown'
+  DropdownTrigger as DropdownTriggerInst,
+  Button,
+} from '@components/ui'
 
 import type { LineItem } from '@commerce/types/cart'
 
@@ -33,6 +32,9 @@ const UserNav: React.FC<{
   } = useUI()
 
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  const DropdownTrigger = isCustomerLoggedIn
+    ? DropdownTriggerInst
+    : React.Fragment
 
   return (
     <nav className={cn(s.root, className)}>
@@ -66,39 +68,18 @@ const UserNav: React.FC<{
         )}
         {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
           <li className={s.item}>
-            {isCustomerLoggedIn ? (
-              <Dropdown>
-                <div className={s.dropdownDesktop}>
-                  <div className={s.dropdownCustomerMenu}>
-                    <DropdownTrigger asChild>
-                      <button className="inline-flex justify-center rounded-full">
-                        <Avatar />
-                      </button>
-                    </DropdownTrigger>
-                    <CustomerMenuContent />
-                  </div>
-                </div>
-                <div className={s.dropdownMobile}>
-                  <button
-                    className="inline-flex justify-center rounded-full"
-                    onClick={() => {
-                      openSidebar()
-                      setSidebarView('MOBILE_CUSTOMERMENU_VIEW')
-                    }}
-                  >
-                    <Avatar />
-                  </button>
-                </div>
-              </Dropdown>
-            ) : (
-              <button
-                className={s.avatarButton}
-                aria-label="Menu"
-                onClick={() => openModal()}
-              >
-                <Avatar />
-              </button>
-            )}
+            <Dropdown>
+              <DropdownTrigger asChild>
+                <button
+                  aria-label="Menu"
+                  className={s.avatarButton}
+                  onClick={() => (isCustomerLoggedIn ? null : openModal())}
+                >
+                  <Avatar />
+                </button>
+              </DropdownTrigger>
+              <CustomerMenuContent />
+            </Dropdown>
           </li>
         )}
         <li className={s.mobileMenu}>

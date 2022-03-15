@@ -5,9 +5,9 @@
   min-width: 100%;
 }
 
-@media screen(md) {
+@media screen(lg) {
   .root {
-    @apply shadow-lg bg-accent-0;
+    @apply bg-accent-0;
     box-shadow: hsl(206 22% 7% / 45%) 0px 10px 38px -10px,
       hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
     min-width: 14rem;

@@ -1,12 +1,15 @@
 import cn from 'clsx'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/router'
-import { Moon, Sun } from '@components/icons'
+import { UserNav } from '@components/common'
+import { Moon, Sun, Cross } from '@components/icons'
 import s from './CustomerMenuContent.module.css'
 import useLogout from '@framework/auth/use-logout'
 import {
+  Dropdown as DropdownRoot,
   DropdownMenuItem,
   DropdownContent,
+  DropdownTrigger,
 } from '@components/ui/Dropdown/Dropdown'
 
 const LINKS = [
@@ -24,6 +27,8 @@ const LINKS = [
   },
 ]
 
+export const Dropdown = <DropdownRoot />
+
 export default function CustomerMenuContent() {
   const router = useRouter()
   const logout = useLogout()
@@ -35,14 +40,32 @@ export default function CustomerMenuContent() {
   }
 
   return (
-    <DropdownContent id="CustomerMenuContent">
+    <DropdownContent
+      asChild
+      side="bottom"
+      sideOffset={10}
+      className={s.root}
+      id="CustomerMenuContent"
+    >
+      {/* <div className={s.placeholder}>
+        <button
+          aria-label="Close"
+          className="hover:text-accent-5 transition ease-in-out duration-150 flex items-center focus:outline-none mr-6"
+        >
+          <Cross className="h-6 w-6 hover:text-accent-3" />
+          <span className="ml-2 text-accent-7 text-sm ">Close</span>
+        </button>
+        <div className={s.nav}>
+          <UserNav />
+        </div>
+      </div> */}
       {LINKS.map(({ name, href }) => (
         <DropdownMenuItem key={href}>
           <a
-            onClick={(e) => handleClick(e, href)}
             className={cn(s.link, {
               [s.active]: pathname === href,
             })}
+            onClick={(e) => handleClick(e, href)}
           >
             {name}
           </a>
@@ -52,7 +75,7 @@ export default function CustomerMenuContent() {
         <a
           className={cn(s.link, 'justify-between')}
           onClick={() => {
-            theme === 'dark' ? setTheme('light') : setTheme('dark')
+            setTheme(theme === 'dark' ? 'light' : 'dark')
           }}
         >
           <div>
