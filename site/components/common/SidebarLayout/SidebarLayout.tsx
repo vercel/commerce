@@ -12,8 +12,8 @@ type ComponentProps = { className?: string } & (
 const SidebarLayout: FC<ComponentProps> = ({
   children,
   className,
-  handleClose,
   handleBack,
+  handleClose,
 }) => {
   return (
     <div className={cn(s.root, className)}>

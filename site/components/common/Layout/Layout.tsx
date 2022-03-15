@@ -83,9 +83,9 @@ const SidebarView: React.FC<{
   return (
     <Sidebar onClose={closeSidebar}>
       {sidebarView === 'CART_VIEW' && <CartSidebarView />}
-      {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
-      {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
       {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
+      {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
+      {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'MOBILE_MENU_VIEW' && <MenuSidebarView links={links} />}
     </Sidebar>
   )
@@ -95,9 +95,9 @@ const SidebarUI: React.FC<{ links: LinkProps[] }> = ({ links }) => {
   const { displaySidebar, closeSidebar, sidebarView } = useUI()
   return displaySidebar ? (
     <SidebarView
+      links={links}
       sidebarView={sidebarView}
       closeSidebar={closeSidebar}
-      links={links}
     />
   ) : null
 }

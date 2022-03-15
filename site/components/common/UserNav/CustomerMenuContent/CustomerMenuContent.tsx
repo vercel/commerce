@@ -1,15 +1,12 @@
 import cn from 'clsx'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/router'
-import { UserNav } from '@components/common'
-import { Moon, Sun, Cross } from '@components/icons'
+import { Moon, Sun } from '@components/icons'
 import s from './CustomerMenuContent.module.css'
 import useLogout from '@framework/auth/use-logout'
 import {
-  Dropdown as DropdownRoot,
-  DropdownMenuItem,
   DropdownContent,
-  DropdownTrigger,
+  DropdownMenuItem,
 } from '@components/ui/Dropdown/Dropdown'
 
 const LINKS = [
@@ -26,8 +23,6 @@ const LINKS = [
     href: '/cart',
   },
 ]
-
-export const Dropdown = <DropdownRoot />
 
 export default function CustomerMenuContent() {
   const router = useRouter()
@@ -47,18 +42,6 @@ export default function CustomerMenuContent() {
       className={s.root}
       id="CustomerMenuContent"
     >
-      {/* <div className={s.placeholder}>
-        <button
-          aria-label="Close"
-          className="hover:text-accent-5 transition ease-in-out duration-150 flex items-center focus:outline-none mr-6"
-        >
-          <Cross className="h-6 w-6 hover:text-accent-3" />
-          <span className="ml-2 text-accent-7 text-sm ">Close</span>
-        </button>
-        <div className={s.nav}>
-          <UserNav />
-        </div>
-      </div> */}
       {LINKS.map(({ name, href }) => (
         <DropdownMenuItem key={href}>
           <a
