@@ -1,1 +1,1 @@
-export { default as CustomerMenuContent } from './CustomerMenuContent'
+export { default } from './CustomerMenuContent'
