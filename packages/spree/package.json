@@ -50,7 +50,8 @@
     "@spree/storefront-api-v2-sdk": "^5.1.1",
     "@vercel/commerce": "^0.0.1",
     "@vercel/fetch": "^6.1.1",
-    "swr": "^1.2.0"
+    "swr": "^1.2.0",
+    "lodash.debounce": "^4.0.8"
   },
   "peerDependencies": {
     "next": "^12",
@@ -61,6 +62,7 @@
     "@taskr/clear": "^1.1.0",
     "@taskr/esnext": "^1.1.0",
     "@taskr/watch": "^1.1.0",
+    "@types/lodash.debounce": "^4.0.6",
     "@types/node": "^17.0.8",
     "@types/react": "^17.0.38",
     "lint-staged": "^12.1.7",
