@@ -13,6 +13,7 @@
   },
   "sideEffects": false,
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^0.1.6",
     "@react-spring/web": "^9.4.1",
     "@vercel/commerce": "^0.0.1",
     "@vercel/commerce-bigcommerce": "^0.0.1",

@@ -12,10 +12,10 @@ const Container: FC<ContainerProps> = ({
   children,
   className,
   el = 'div',
-  clean,
+  clean = false, // Full Width Screen
 }) => {
   const rootClassName = cn(className, {
-    'mx-auto max-w-8xl px-6': !clean,
+    'mx-auto max-w-7xl px-6 w-full': !clean,
   })
 
   let Component: React.ComponentType<React.HTMLAttributes<HTMLDivElement>> =
