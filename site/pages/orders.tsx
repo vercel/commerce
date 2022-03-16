@@ -22,7 +22,7 @@ export async function getStaticProps({
 
 export default function Orders() {
   return (
-    <Container>
+    <Container className="pt-4">
       <Text variant="pageHeading">My Orders</Text>
       <div className="flex-1 p-24 flex flex-col justify-center items-center ">
         <span className="border border-dashed border-secondary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-primary text-primary">

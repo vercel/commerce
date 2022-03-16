@@ -44,6 +44,7 @@ export default function getCustomerWishlistOperation({
     const { data = [] } = await config.storeApiFetch<
       RecursivePartial<{ data: Wishlist[] }>
     >(`/v3/wishlists?customer_id=${variables.customerId}`)
+
     const wishlist = data[0]
 
     if (includeProducts && wishlist?.items?.length) {

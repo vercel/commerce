@@ -1,6 +1,5 @@
 import cn from 'clsx'
 import Image from 'next/image'
-import { NextSeo } from 'next-seo'
 import s from './ProductView.module.css'
 import { FC } from 'react'
 import type { Product } from '@commerce/types/product'
@@ -8,6 +7,7 @@ import usePrice from '@framework/product/use-price'
 import { WishlistButton } from '@components/wishlist'
 import { ProductSlider, ProductCard } from '@components/product'
 import { Container, Text } from '@components/ui'
+import { SEO } from '@components/common'
 import ProductSidebar from '../ProductSidebar'
 import ProductTag from '../ProductTag'
 interface ProductViewProps {
@@ -89,7 +89,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           </div>
         </section>
       </Container>
-      <NextSeo
+      <SEO
         title={product.name}
         description={product.description}
         openGraph={{
@@ -99,8 +99,8 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           images: [
             {
               url: product.images[0]?.url!,
-              width: 800,
-              height: 600,
+              width: '800',
+              height: '600',
               alt: product.name,
             },
           ],
