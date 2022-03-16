@@ -69,7 +69,7 @@ const UserNav: React.FC<{
         {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
           <li className={s.item}>
             <Dropdown>
-              <DropdownTrigger asChild>
+              <DropdownTrigger>
                 <button
                   aria-label="Menu"
                   className={s.avatarButton}
