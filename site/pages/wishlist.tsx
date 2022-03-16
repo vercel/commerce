@@ -40,8 +40,8 @@ export default function Wishlist() {
   const { data, isLoading, isEmpty } = useWishlist({ includeProducts: true })
 
   return (
-    <Container>
-      <div className="mt-3 mb-20">
+    <Container className="pt-4">
+      <div className="mb-20">
         <Text variant="pageHeading">My Wishlist</Text>
         <div className="group flex flex-col">
           {isLoading ? (
@@ -65,9 +65,9 @@ export default function Wishlist() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 ">
               {data &&
-                // @ts-ignore Shopify - Fix this types
+                // @ts-ignore - Wishlist Item Type
                 data.items?.map((item) => (
                   <WishlistCard key={item.id} item={item!} />
                 ))}
