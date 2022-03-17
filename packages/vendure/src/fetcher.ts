@@ -1,5 +1,6 @@
 import { Fetcher } from '@vercel/commerce/utils/types'
 import { FetcherError } from '@vercel/commerce/utils/errors'
+import { getToken, setToken } from './utils/token'
 
 async function getText(res: Response) {
   try {
@@ -35,12 +36,21 @@ export const fetcher: Fetcher = async ({
   const hasBody = Boolean(variables || query)
   const body = hasBody ? JSON.stringify({ query, variables }) : undefined
   const headers = hasBody ? { 'Content-Type': 'application/json' } : undefined
+  const token = getToken()
   const res = await fetch(shopApiUrl, {
     method,
     body,
-    headers,
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
     credentials: 'include',
   })
+  // We're using Vendure Bearer token method
+  const authToken = res.headers.get('vendure-auth-token')
+  if (authToken != null) {
+    setToken(authToken)
+  }
   if (res.ok) {
     const { data, errors } = await res.json()
     if (errors) {
