@@ -1,6 +1,7 @@
 import { Product } from '@vercel/commerce/types/product'
 import { Cart } from '@vercel/commerce/types/cart'
 import { CartFragment, SearchResultFragment } from '../../schema'
+import { CustomerAddressTypes } from '@vercel/commerce/types/customer/address'
 
 export function normalizeSearchResult(item: SearchResultFragment): Product {
   return {
@@ -26,7 +27,10 @@ export function normalizeSearchResult(item: SearchResultFragment): Product {
   }
 }
 
-export function normalizeCart(order: CartFragment): Cart {
+export function normalizeCart(order: CartFragment): Cart & {
+  hasShipping: boolean
+  hasPayment: boolean
+} {
   return {
     id: order.id.toString(),
     createdAt: order.createdAt,
@@ -58,5 +62,17 @@ export function normalizeCart(order: CartFragment): Cart {
         requiresShipping: true,
       },
     })),
+    hasShipping: !!order.shippingAddress?.fullName,
+    hasPayment: !!order.billingAddress?.fullName,
+  }
+}
+
+export function normalizeAddress(
+  order: CartFragment
+): CustomerAddressTypes['address'] {
+  return {
+    // TODO: Not sure what should return.
+    id: '',
+    mask: '',
   }
 }
