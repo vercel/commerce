@@ -17,6 +17,15 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Kibo Commerce Demo: https://kibocommerce.vercel.store/
 - Commerce.js Demo: https://commercejs.vercel.store/
 
+## Run minimal version locally 
+
+> deafult local provider `@vercel/commerce-local` has disabled all features (cart, auth) and use static files for the backend
+
+```bash
+yarn # run this comman in root folder of the mono repo
+yarn dev
+```
+
 ## Features
 
 - Performant by default
@@ -92,7 +101,7 @@ Follow our docs for [Adding a new Commerce Provider](packages/commerce/new-provi
 
 If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
 
-## Contribute
+## Contribute / add new provider
 
 Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
