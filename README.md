@@ -19,12 +19,13 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 
 ## Run minimal version locally 
 
-> deafult local provider `@vercel/commerce-local` has disabled all features (cart, auth) and use static files for the backend
+> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has disabled all features (cart, auth) and use static files for the backend
 
 ```bash
 yarn # run this comman in root folder of the mono repo
 yarn dev
 ```
+> If you encounter any problems while installing and running for the first time, please see the Troubleshoot section 
 
 ## Features
 
@@ -101,7 +102,7 @@ Follow our docs for [Adding a new Commerce Provider](packages/commerce/new-provi
 
 If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
 
-## Contribute / add new provider
+## Contribute
 
 Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
