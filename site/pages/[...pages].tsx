@@ -72,7 +72,7 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 
 export default function Pages({
   page,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: {page: Page}) {
   const router = useRouter()
 
   return router.isFallback ? (
