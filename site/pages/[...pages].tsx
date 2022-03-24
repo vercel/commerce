@@ -38,8 +38,9 @@ export async function getStaticProps({
   const page = data?.page
 
   if (!page) {
-    // We throw to make sure this fails at build time as this is never expected to happen
-    throw new Error(`Page with slug '${slug}' not found`)
+    return {
+      notFound: true,
+    }
   }
 
   return {
