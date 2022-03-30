@@ -1,8 +1,9 @@
 {
+  "provider": "appibase",
   "features": {
+    "wishlist": false,
     "cart": true,
     "search": true,
-    "wishlist": false,
     "customerAuth": false,
     "customCheckout": true
   }
