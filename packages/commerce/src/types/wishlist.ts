@@ -27,11 +27,10 @@ export type AddItemHook<T extends WishlistTypes = WishlistTypes> = {
 }
 
 export type RemoveItemHook<T extends WishlistTypes = WishlistTypes> = {
-  data: T['wishlist'] | null
-  body: { itemId: string }
-  fetcherInput: { itemId: string }
-  actionInput: { id: string }
-  input: { wishlist?: { includeProducts?: boolean } }
+  data: T['wishlist']
+  body: { item: T['itemBody'] }
+  fetcherInput: { item: T['itemBody'] }
+  actionInput: T['itemBody']
 }
 
 export type WishlistSchema<T extends WishlistTypes = WishlistTypes> = {

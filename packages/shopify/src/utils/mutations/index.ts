@@ -7,3 +7,4 @@ export { default as customerAccessTokenCreateMutation } from './customer-access-
 export { default as customerAccessTokenDeleteMutation } from './customer-access-token-delete'
 export { default as customerActivateMutation } from './customer-activate'
 export { default as customerActivateByUrlMutation } from './customer-activate-by-url'
+export { default as customerUpdateMutation } from './customer-update'

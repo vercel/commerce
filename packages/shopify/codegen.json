@@ -1,20 +1,14 @@
 {
   "schema": {
-    "https://${NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2021-07/graphql.json": {
+    "https://${NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/admin/api/2022-01/graphql.json": {
       "headers": {
-        "X-Shopify-Storefront-Access-Token": "${NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN}"
+        "X-Shopify-Access-Token": "${NEXT_PUBLIC_SHOPIFY_ADMIN_ACCESS_TOKEN}"
       }
     }
   },
-  "documents": [
-    {
-      "./src/**/*.{ts,tsx}": {
-        "noRequire": true
-      }
-    }
-  ],
+  "documents": [{}],
   "generates": {
-    "./schema.d.ts": {
+    "./admin-schema.d.ts": {
       "plugins": ["typescript", "typescript-operations"],
       "config": {
         "scalars": {
@@ -22,7 +16,7 @@
         }
       }
     },
-    "./schema.graphql": {
+    "./admin-schema.graphql": {
       "plugins": ["schema-ast"]
     }
   },
