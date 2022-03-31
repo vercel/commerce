@@ -1,46 +1,46 @@
-// TODO: replace this hook and other wishlist hooks with a handler, or remove them if
-// Shopify doesn't have a wishlist
+/* eslint-disable react-hooks/rules-of-hooks */
+import useWishlist, {
+  UseWishlist,
+} from '@vercel/commerce/wishlist/use-wishlist'
+import type { GetWishlistHook } from '../types/wishlist'
+import { SWRHook } from '@vercel/commerce/utils/types'
 
-import { HookFetcher } from '@vercel/commerce/utils/types'
-import { Product } from '../../schema'
+import { useMemo } from 'react'
 
-const defaultOpts = {}
+export default useWishlist as UseWishlist<typeof handler>
 
-export type Wishlist = {
-  items: [
-    {
-      product_id: number
-      variant_id: number
-      id: number
-      product: Product
-    }
-  ]
+export const handler: SWRHook<GetWishlistHook> = {
+  fetchOptions: {
+    url: '/api/wishlist',
+    method: 'GET',
+  },
+  async fetcher({ options, fetch }) {
+    const data = await fetch({ ...options })
+
+    return data
+  },
+
+  useHook:
+    ({ useData }) =>
+    (input) => {
+      const response = useData({
+        swrOptions: {
+          revalidateOnFocus: false,
+          ...input?.swrOptions,
+        },
+      })
+
+      return useMemo(
+        () =>
+          Object.create(response, {
+            isEmpty: {
+              get() {
+                return (response.data?.items?.length || 0) <= 0
+              },
+              enumerable: true,
+            },
+          }),
+        [response]
+      )
+    },
 }
-
-export interface UseWishlistOptions {
-  includeProducts?: boolean
-}
-
-export interface UseWishlistInput extends UseWishlistOptions {
-  customerId?: number
-}
-
-export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = () => {
-  return null
-}
-
-export function extendHook(
-  customFetcher: typeof fetcher,
-  // swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
-  swrOptions?: any
-) {
-  const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
-    return { data: null }
-  }
-
-  useWishlist.extend = extendHook
-
-  return useWishlist
-}
-
-export default extendHook(fetcher)

@@ -15,17 +15,19 @@ import type { Wishlist } from '@commerce/types/wishlist'
 
 const placeholderImg = '/product-img-placeholder.svg'
 
-const WishlistCard: React.FC<{
-  item: Wishlist
-}> = ({ item }) => {
-  const product: Product = item.product
+interface Props {
+  item: Product
+  variant: string | number
+}
+
+const WishlistCard: FC<Props> = ({ item, variant }) => {
   const { price } = usePrice({
-    amount: product.price?.value,
-    baseAmount: product.price?.retailPrice,
-    currencyCode: product.price?.currencyCode!,
+    amount: item.price?.value,
+    baseAmount: item.price?.retailPrice,
+    currencyCode: item.price?.currencyCode!,
   })
   // @ts-ignore Wishlist is not always enabled
-  const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
+  const removeItem = useRemoveItem({ item })
   const [loading, setLoading] = useState(false)
   const [removing, setRemoving] = useState(false)
 
@@ -40,7 +42,7 @@ const WishlistCard: React.FC<{
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ id: item.id! })
+      await removeItem({ productId: item.id, variantId: variant })
     } catch (error) {
       setRemoving(false)
     }
@@ -49,8 +51,8 @@ const WishlistCard: React.FC<{
     setLoading(true)
     try {
       await addItem({
-        productId: String(product.id),
-        variantId: String(product.variants[0].id),
+        productId: String(item.id),
+        variantId: String(item.variants[0].id),
       })
       openSidebar()
       setLoading(false)
@@ -65,20 +67,20 @@ const WishlistCard: React.FC<{
         <Image
           width={230}
           height={230}
-          src={product.images[0]?.url || placeholderImg}
-          alt={product.images[0]?.alt || 'Product Image'}
+          src={item.images[0]?.url || placeholderImg}
+          alt={item.images[0]?.alt || 'Product Image'}
         />
       </div>
 
       <div className={s.description}>
         <div className="flex-1 mb-6">
           <h3 className="text-2xl mb-2 -mt-1">
-            <Link href={`/product${product.path}`}>
-              <a>{product.name}</a>
+            <Link href={`/product${item.path}`}>
+              <a>{item.name}</a>
             </Link>
           </h3>
           <div className="mb-4">
-            <Text html={product.description} />
+            <Text html={item.description} />
           </div>
         </div>
         <div>

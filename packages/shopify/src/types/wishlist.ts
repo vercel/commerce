@@ -19,12 +19,6 @@ export type WishlistTypes = {
   customer: Customer
 }
 
-export type RemoveItemHook<T extends WishlistTypes = WishlistTypes> = {
-  body: { item: T['itemBody'] }
-  fetcherInput: { item: T['itemBody'] }
-  actionInput: T['itemBody']
-}
-
 export type WishlistSchema = Core.WishlistSchema<WishlistTypes>
 export type GetCustomerWishlistOperation =
   Core.GetCustomerWishlistOperation<WishlistTypes>

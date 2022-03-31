@@ -12,6 +12,10 @@ import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 
+import { handler as useWishlist } from './wishlist/use-wishlist'
+import { handler as useWishlistAddItem } from './wishlist/use-add-item'
+import { handler as useWishlistRemoveItem } from './wishlist/use-remove-item'
+
 import fetcher from './fetcher'
 
 export const shopifyProvider = {
@@ -22,6 +26,11 @@ export const shopifyProvider = {
   customer: { useCustomer },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
+  wishlist: {
+    useWishlist,
+    useAddItem: useWishlistAddItem,
+    useRemoveItem: useWishlistRemoveItem,
+  },
 }
 
 export type ShopifyProvider = typeof shopifyProvider

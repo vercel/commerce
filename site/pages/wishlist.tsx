@@ -37,7 +37,7 @@ export async function getStaticProps({
 export default function Wishlist() {
   const { data: customer } = useCustomer()
   // @ts-ignore Shopify - Fix this types
-  const { data, isLoading, isEmpty } = useWishlist({ includeProducts: true })
+  const { data: wishlist, isLoading, isEmpty } = useWishlist()
 
   return (
     <Container className="pt-4">
@@ -66,10 +66,14 @@ export default function Wishlist() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 ">
-              {data &&
+              {wishlist &&
                 // @ts-ignore - Wishlist Item Type
-                data.items?.map((item) => (
-                  <WishlistCard key={item.id} item={item!} />
+                wishlist.items?.map((item) => (
+                  <WishlistCard
+                    key={item.productId}
+                    item={item.product!}
+                    variant={item.variantId}
+                  />
                 ))}
             </div>
           )}

@@ -27,6 +27,7 @@ export type FetcherOptions<Body = any> = {
   method?: string
   variables?: any
   body?: Body
+  useAdminApi?: boolean
 }
 
 export type HookFetcher<Data, Input = null, Result = any> = (

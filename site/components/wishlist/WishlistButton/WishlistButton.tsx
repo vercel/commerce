@@ -2,10 +2,10 @@ import React, { FC, useState } from 'react'
 import cn from 'clsx'
 import { useUI } from '@components/ui'
 import { Heart } from '@components/icons'
-import useAddItem from '@framework/wishlist/use-add-item'
+import { useAddItem } from '@framework/wishlist'
 import useCustomer from '@framework/customer/use-customer'
-import useWishlist from '@framework/wishlist/use-wishlist'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
+import { useWishlist } from '@framework/wishlist'
+import { useRemoveItem } from '@framework/wishlist'
 import s from './WishlistButton.module.css'
 import type { Product, ProductVariant } from '@commerce/types/product'
 
@@ -30,9 +30,7 @@ const WishlistButton: FC<Props> = ({
   // @ts-ignore Wishlist is not always enabled
   const itemInWishlist = data?.items?.find(
     // @ts-ignore Wishlist is not always enabled
-    (item) =>
-      item.product_id === Number(productId) &&
-      item.variant_id === Number(variant.id)
+    (item) => item.productId === productId && item.variantId === variant.id
   )
 
   const handleWishlistChange = async (e: any) => {
@@ -50,7 +48,7 @@ const WishlistButton: FC<Props> = ({
 
     try {
       if (itemInWishlist) {
-        await removeItem({ id: itemInWishlist.id! })
+        await removeItem({ productId, variantId: variant?.id! })
       } else {
         await addItem({
           productId,

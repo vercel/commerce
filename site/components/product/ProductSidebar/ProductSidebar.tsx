@@ -9,6 +9,7 @@ import {
   selectDefaultOptionFromProduct,
   SelectedOptions,
 } from '../helpers'
+import { WishlistButton } from '@components/wishlist'
 
 interface ProductSidebarProps {
   product: Product
@@ -69,6 +70,13 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
               ? 'Not Available'
               : 'Add To Cart'}
           </Button>
+        )}
+        {!variant?.availableForSale && (
+          <WishlistButton
+            className={s.button}
+            productId={product.id}
+            variant={variant!}
+          />
         )}
       </div>
       <div className="mt-6">

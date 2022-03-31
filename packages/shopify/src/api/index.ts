@@ -5,7 +5,8 @@ import {
 } from '@vercel/commerce/api'
 
 import {
-  API_URL,
+  STOREFRONT_API_URL,
+  ADMIN_ACCESS_TOKEN,
   API_TOKEN,
   SHOPIFY_CUSTOMER_TOKEN_COOKIE,
   SHOPIFY_CHECKOUT_ID_COOKIE,
@@ -15,7 +16,7 @@ import fetchGraphqlApi from './utils/fetch-graphql-api'
 
 import * as operations from './operations'
 
-if (!API_URL) {
+if (!STOREFRONT_API_URL) {
   throw new Error(
     `The environment variable NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is missing and it's required to access your store`
   )
@@ -31,7 +32,7 @@ export interface ShopifyConfig extends CommerceAPIConfig {}
 const ONE_DAY = 60 * 60 * 24
 
 const config: ShopifyConfig = {
-  commerceUrl: API_URL,
+  commerceUrl: STOREFRONT_API_URL,
   apiToken: API_TOKEN,
   customerCookie: SHOPIFY_CUSTOMER_TOKEN_COOKIE,
   cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,

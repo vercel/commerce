@@ -105,7 +105,7 @@ const ProductCard: FC<Props> = ({
               <WishlistButton
                 className={s.wishlistButton}
                 productId={product.id}
-                variant={product.variants[0] as any}
+                variant={product.variants[0]}
               />
             )}
             <ProductTag
