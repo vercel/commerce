@@ -25,9 +25,8 @@ export default function getProductOperation({
     const product = await shopperProductsClient.getProduct({parameters: {id: variables?.slug as string}});
     const normalizedProduct = normalizeProduct(product)
   
-    const singleProduct = staticData.products.find(({ slug }) => slug === "new-short-sleeve-t-shirt");
-    
     // TODO: add dummy data 
+    const singleProduct = staticData.products.find(({ slug }) => slug === "new-short-sleeve-t-shirt");
     if (singleProduct) {
       console.log(" == API == operations == getProductOperation = singleProduct: ", singleProduct)
       // normalizedProduct['images'] = singleProduct['images']

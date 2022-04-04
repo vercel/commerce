@@ -32,4 +32,12 @@ export async function getGuestUserAuthToken(): Promise<Customer.ShopperLogin.Tok
   });
 }
 
+export const getConfigAuth = async () => {
+  const shopperToken = await getGuestUserAuthToken();
+  const configAuth = {
+    ...clientConfig, 
+    headers: {"authorization":`Bearer ${shopperToken.access_token}`}
+  };
+  return configAuth;
+}
 
