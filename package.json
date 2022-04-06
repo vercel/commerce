@@ -7,6 +7,8 @@
     "packages/*"
   ],
   "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "build": "turbo run build --scope=next-commerce --include-dependencies --no-deps",
     "dev": "turbo run dev",
     "start": "turbo run start",
@@ -14,7 +16,9 @@
     "prettier-fix": "prettier --write ."
   },
   "devDependencies": {
+    "cypress": "^9.5.3",
     "husky": "^7.0.4",
+    "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "turbo": "^1.1.2"
   },
