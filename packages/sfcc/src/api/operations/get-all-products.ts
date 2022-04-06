@@ -2,7 +2,7 @@ import { Product } from '@vercel/commerce/types/product'
 import { GetAllProductsOperation } from '@vercel/commerce/types/product'
 import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { SFCCConfig, Provider } from '../index'
-import data from '../../data.json'
+import { normalizeSearchProducts } from '../utils/normalise-product';
 
 export default function getAllProductsOperation({
   commerce,
@@ -17,9 +17,26 @@ export default function getAllProductsOperation({
     config?: Partial<SFCCConfig>
     preview?: boolean
   } = {}): Promise<{ products: Product[] | any[] }> {
-    console.log(" == API == operations == getAllProductsOperation: ", variables)
+
+    // TODO: support locale
+    const { sdk, locale } = commerce.getConfig(config) as SFCCConfig
+    const searchClient = await sdk.getSearchClient()
+    
+    // use SDK search API for initial products
+    const searchResults = await searchClient.productSearch({
+      parameters: { q: "dress", limit: variables?.first },
+    });
+  
+    let products = [] as Product[];
+
+    if (searchResults.total) {
+      products = normalizeSearchProducts(searchResults.hits)
+    } else {
+      // TODO: handle this better?
+      console.log("No results for search");
+    }
     return {
-      products: data.products,
+      products: products
     }
   }
   return getAllProducts

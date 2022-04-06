@@ -28,8 +28,6 @@ export default function getProductOperation({
     // TODO: add dummy data 
     const singleProduct = staticData.products.find(({ slug }) => slug === "new-short-sleeve-t-shirt");
     if (singleProduct) {
-      console.log(" == API == operations == getProductOperation = singleProduct: ", singleProduct)
-      // normalizedProduct['images'] = singleProduct['images']
       normalizedProduct['variants'] = singleProduct['variants'] as any // TODO: variants
       normalizedProduct['options'] = singleProduct['options'] // TODO: options
     }
