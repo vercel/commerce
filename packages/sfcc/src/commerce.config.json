@@ -3,7 +3,7 @@
   "features": {
     "wishlist": false,
     "cart": false,
-    "search": false,
+    "search": true,
     "customerAuth": false,
     "customCheckout": false
   }
