@@ -1,7 +1,7 @@
 import { Product } from '@vercel/commerce/types/product'
 import { GetAllProductsOperation } from '@vercel/commerce/types/product'
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type { SFCCConfig, Provider } from '../index'
+import type { SFCCConfig } from '../index'
 import { normalizeSearchProducts } from '../utils/normalise-product';
 
 export default function getAllProductsOperation({
