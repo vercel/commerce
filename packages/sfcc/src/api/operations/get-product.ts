@@ -2,7 +2,6 @@
 import { GetProductOperation, Product } from '@vercel/commerce/types/product'
 import type { SFCCConfig } from '../index'
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import staticData from '../../data.json'
 import { normalizeProduct } from '../utils/normalise-product';
 
 export default function getProductOperation({
@@ -25,13 +24,6 @@ export default function getProductOperation({
     const product = await shopperProductsClient.getProduct({parameters: {id: variables?.slug as string}});
     const normalizedProduct = normalizeProduct(product)
   
-    // TODO: add dummy data 
-    const singleProduct = staticData.products.find(({ slug }) => slug === "new-short-sleeve-t-shirt");
-    if (singleProduct) {
-      normalizedProduct['variants'] = singleProduct['variants'] as any // TODO: variants
-      normalizedProduct['options'] = singleProduct['options'] // TODO: options
-    }
-
     return {
       product: normalizedProduct,
     }

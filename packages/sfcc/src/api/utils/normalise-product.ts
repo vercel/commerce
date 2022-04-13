@@ -1,7 +1,44 @@
 import { Product as SFCCProduct, Search } from "commerce-sdk";
-import type { Product, ProductImage } from '@vercel/commerce/types/product'
-// import type { RawProduct } from '../../types/product'
+import type { Product, ProductImage, ProductOption, ProductVariant } from '@vercel/commerce/types/product'
 
+const normaliseOptions = (options: SFCCProduct.ShopperProducts.Product["variationAttributes"]): Product["options"] => {
+    if (!Array.isArray(options)) return []
+
+    return options.map(option => {
+        return {
+            id: option.id,
+            displayName: option.name as string,
+            values: option.values!.map(value => ({label: value.name}))
+        } as ProductOption
+    });
+}
+
+const normaliseVariants = (variants: SFCCProduct.ShopperProducts.Product["variants"]): Product["variants"] => {
+    if (!Array.isArray(variants)) return []
+
+    return variants.map(variant => {
+
+        const options = [] as ProductOption[];
+
+        if (variant.variationValues) {
+            for (const [key, value] of Object.entries(variant.variationValues)) {
+                const variantOptionObject = {
+                    id: `${variant.productId}-${key}`,
+                    displayName: key,
+                    values: [{
+                        label: value,
+                    }]
+                }
+                options.push(variantOptionObject);
+            }
+        }
+
+        return {
+            id: variant.productId,
+            options
+        } as ProductVariant;
+    });
+}
 
 export function normalizeProduct(product: SFCCProduct.ShopperProducts.Product): Product {
     return {
@@ -18,8 +55,8 @@ export function normalizeProduct(product: SFCCProduct.ShopperProducts.Product): 
             url: image.disBaseLink,
             altText: image.title
         })) as ProductImage[],
-        variants: [] as any, // TODO
-        options: [] as any // TODO
+        variants: normaliseVariants(product.variants),
+        options: normaliseOptions(product.variationAttributes),
     };
 }
 
@@ -40,8 +77,8 @@ export function normalizeSearchProducts(products: Search.ShopperSearch.ProductSe
                 altText: product.productName
             } as ProductImage
         ],
-        variants: [] as any, // TODO
-        options: [] as any // TODO
+        variants: normaliseVariants(product.variants),
+        options: normaliseOptions(product.variationAttributes),
     }));
 
 }
