@@ -7,7 +7,8 @@
     "build": "taskr build",
     "dev": "taskr",
     "types": "tsc --emitDeclarationOnly",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "generate": "graphql-codegen --config codegen.json"
   },
   "sideEffects": false,
   "type": "module",
@@ -48,7 +49,8 @@
   },
   "dependencies": {
     "@vercel/commerce": "^0.0.1",
-    "@vercel/fetch": "^6.1.1"
+    "@vercel/fetch": "^6.1.1",
+    "graphql": "^16.3.0"
   },
   "peerDependencies": {
     "next": "^12",
@@ -56,6 +58,10 @@
     "react-dom": "^17"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/schema-ast": "^2.4.1",
+    "@graphql-codegen/typescript": "2.4.8",
+    "@graphql-codegen/typescript-operations": "2.3.5",
     "@taskr/clear": "^1.1.0",
     "@taskr/esnext": "^1.1.0",
     "@taskr/watch": "^1.1.0",
@@ -68,7 +74,9 @@
     "react-dom": "^17.0.2",
     "taskr": "^1.1.0",
     "taskr-swc": "^0.0.1",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "@graphql-codegen/typescript-react-apollo": "3.2.11",
+    "@graphql-codegen/introspection": "2.1.1"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json}": [

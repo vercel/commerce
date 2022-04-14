@@ -2,41 +2,39 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import { GetAllProductsOperation } from '../../types/product'
+import type { GetAllProductsOperation } from '../../types/product'
 import {
-  GetAllProductsQuery,
-  GetAllProductsQueryVariables,
-  Product as ShopifyProduct,
+  CatalogItemProduct,
+  CatalogItemsQuery,
+  CatalogItemsQueryVariables,
+  Product as OpenCommerceProduct,
 } from '../../../schema'
-import type { ShopifyConfig, Provider } from '..'
-import getAllProductsQuery from '../../utils/queries/get-all-products-query'
-import { normalizeProduct } from '../../utils'
+import catalogItemsQuery from '../queries/product'
+import type { OpenCommerceConfig, Provider } from '..'
+import { normalizeProduct } from '../../utils/normalize'
 
 export default function getAllProductsOperation({
   commerce,
 }: OperationContext<Provider>) {
   async function getAllProducts<T extends GetAllProductsOperation>(opts?: {
     variables?: T['variables']
-    config?: Partial<ShopifyConfig>
+    config?: Partial<OpenCommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
 
   async function getAllProducts<T extends GetAllProductsOperation>({
-    query = getAllProductsQuery,
+    query = catalogItemsQuery,
     variables,
     config,
   }: {
     query?: string
-    variables?: T['variables']
-    config?: Partial<ShopifyConfig>
+    variables?: CatalogItemsQueryVariables
+    config?: Partial<OpenCommerceConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
     const { fetch, locale } = commerce.getConfig(config)
 
-    const { data } = await fetch<
-      GetAllProductsQuery,
-      GetAllProductsQueryVariables
-    >(
+    const { data } = await fetch<CatalogItemsQuery, CatalogItemsQueryVariables>(
       query,
       { variables },
       {
@@ -49,9 +47,12 @@ export default function getAllProductsOperation({
     )
 
     return {
-      products: data.products.edges.map(({ node }) =>
-        normalizeProduct(node as ShopifyProduct)
-      ),
+      products:
+        data.catalogItems?.edges?.map((item) =>
+          normalizeProduct(
+            item?.node ? (item.node as CatalogItemProduct) : null
+          )
+        ) ?? [],
     }
   }
 
