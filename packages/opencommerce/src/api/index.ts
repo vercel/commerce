@@ -5,7 +5,10 @@ import {
 } from '@vercel/commerce/api'
 import createFetchGraphqlApi from './utils/fetch-grapql-api'
 
+import * as operations from './operations'
+
 const API_URL = process.env.OPENCOMMERCE_STOREFRONT_API_URL
+const SHOP_ID = process.env.OPENCOMMERCE_PRIMARY_SHOP_ID
 
 if (!API_URL) {
   throw new Error(
@@ -13,20 +16,22 @@ if (!API_URL) {
   )
 }
 
-export interface OpenCommerceConfig extends CommerceAPIConfig {}
+export interface OpenCommerceConfig extends CommerceAPIConfig {
+  shopId: string
+}
 
 const ONE_DAY = 60 * 60 * 24
 
 const config: OpenCommerceConfig = {
   commerceUrl: `${API_URL}/graphql`,
   apiToken: '',
+  shopId: SHOP_ID ?? '',
   customerCookie: 'opencommerce_customerToken',
   cartCookie: 'opencommerce_cartId',
   cartCookieMaxAge: ONE_DAY * 30,
   fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
 }
 
-const operations = {}
 export const provider = { config, operations }
 
 export type Provider = typeof provider

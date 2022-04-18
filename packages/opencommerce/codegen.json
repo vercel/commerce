@@ -10,7 +10,10 @@
   ],
   "generates": {
     "./schema.d.ts": {
-      "plugins": ["typescript", "typescript-operations"]
+      "plugins": ["typescript", "typescript-operations"],
+      "config": {
+        "avoidOptionals": true
+      }
     },
     "./schema.graphql": {
       "plugins": ["schema-ast"]

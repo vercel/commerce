@@ -18,7 +18,7 @@ const normalizeProductImages = (images: ImageInfo[], name: string) =>
   }))
 
 export function normalizeProduct(
-  productNode: CatalogItemProduct | null | undefined
+  productNode: CatalogItemProduct | null
 ): Product {
   const product = productNode?.product
   if (!product) {
