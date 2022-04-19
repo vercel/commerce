@@ -26,11 +26,7 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   if (searchResults.total) {
       found = true;
       products = normalizeSearchProducts(searchResults.hits) as any[];
-  } else {
-      // TODO: handle this better?
-      console.log("No results for search");
   }
-
 
   res.status(200).json({ data: { products, found } })
 }
