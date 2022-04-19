@@ -17,6 +17,16 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Kibo Commerce Demo: https://kibocommerce.vercel.store/
 - Commerce.js Demo: https://commercejs.vercel.store/
 
+## Run minimal version locally 
+
+> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has disabled all features (cart, auth) and use static files for the backend
+
+```bash
+yarn # run this comman in root folder of the mono repo
+yarn dev
+```
+> If you encounter any problems while installing and running for the first time, please see the Troubleshoot section 
+
 ## Features
 
 - Performant by default
