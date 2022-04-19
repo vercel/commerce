@@ -11,7 +11,6 @@ import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
 
-
 export interface SFCCConfig extends CommerceAPIConfig {
   sdk: Sdk
 }
@@ -22,8 +21,7 @@ const config: SFCCConfig = {
   customerCookie: '',
   cartCookieMaxAge: 2592000,
   fetch: createFetcher(() => getCommerceApi().getConfig()),
-  sdk // SalesForce Cloud Commerce API SDK
-  
+  sdk, // SalesForce Cloud Commerce API SDK
 }
 
 const operations = {
@@ -39,7 +37,9 @@ const operations = {
 export const provider = { config, operations }
 
 export type Provider = typeof provider
-export type SFCCProviderAPI<P extends Provider = Provider> = CommerceAPI<P | any>
+export type SFCCProviderAPI<P extends Provider = Provider> = CommerceAPI<
+  P | any
+>
 
 export function getCommerceApi<P extends Provider>(
   customProvider: P = provider as any
