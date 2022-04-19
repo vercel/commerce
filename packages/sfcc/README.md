@@ -21,7 +21,7 @@
 }
 ```
 
-## Refrences:
+## References
  - SDK: https://github.com/SalesforceCommerceCloud/commerce-sdk
  - isomorphic SDK (currently not used atm): https://github.com/SalesforceCommerceCloud/commerce-sdk-isomorphic
  - PWA Kit storefront example: https://pwa-kit.mobify-storefront.com/

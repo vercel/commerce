@@ -10,16 +10,8 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
 }) => {
   const { sdk  } = config;
 
-  let searchTerm = search;
-
-  if (categoryId) {
-    searchTerm = categoryId as string
-  }
-
-  // set default for main category
-  if (!searchTerm) {
-    searchTerm = 'clothing'
-  }
+  // 'clothing' is our main category default, and a manually set category has priority
+  const searchTerm = categoryId ? categoryId as string : search || 'clothing';
 
   const searchClient = await sdk.getSearchClient();
   // use SDK search API for initial products
