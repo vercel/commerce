@@ -32,9 +32,6 @@ export default function getAllProductPathsOperation({
 
     if (searchResults.total) {
       products = normalizeSearchProducts(searchResults.hits)
-    } else {
-      // TODO: handle this better?
-      console.log('No results for search')
     }
 
     return {
