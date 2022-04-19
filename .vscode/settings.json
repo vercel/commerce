@@ -1,18 +1,4 @@
 {
-  "editor.formatOnSave": true,
-  "editor.rulers": [100],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.alwaysShowStatus": true,
-  "eslint.format.enable": true,
-  "prettier.singleQuote": true,
-  "prettier.tabWidth": 2,
-  "prettier.semi": false,
-  "prettier.trailingComma": "es5",
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }
