@@ -2,9 +2,8 @@
 
 ## Installation
 
-1. Copy the `.env.template` file in this directory (`/packages/sfcc`) to `/site/.env.local` in the main directory
-2. `yarn` in root folder
-3. `yarn dev` in root folder
+1. Copy the `.env.template` file in this directory to `/site/.env.local` in the main directory
+2. Run `yarn` and then `yarn dev` in root folder
 
 ## Features:
 
@@ -33,7 +32,6 @@ For a detailed introduction into commerce clouds feature set and data setup plea
 
 - [Salesforce Trailhead for B2C Commerce Cloud](https://trailhead.salesforce.com/en/content/learn/trails/cc-overview)
 - [Salesforce Trailhead for Development on B2C Commerce Cloud](https://trailhead.salesforce.com/en/content/learn/trails/develop-for-commerce-cloud)
-
 - [B2C Commerce Cloud Documentation](https://documentation.b2c.commercecloud.salesforce.com/DOC1/index.jsp)
 - [B2C Commerce Cloud Open Commerce API Doc](https://documentation.b2c.commercecloud.salesforce.com/DOC1/topic/com.demandware.dochelp/OCAPI/current/usage/OpenCommerceAPI.html?cp=0_15)
 - [Developer Center for Commerce Cloud (Commerce APIs specifically)](https://developer.salesforce.com/docs/commerce/commerce-api/overview)
