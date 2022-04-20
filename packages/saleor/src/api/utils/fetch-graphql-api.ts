@@ -6,7 +6,11 @@ import { getError } from '../../utils/handle-fetch-response'
 import { getCommerceApi } from '..'
 import { getToken } from '../../utils/index'
 
-const fetchGraphqlApi: GraphQLFetcher = async (query: string, { variables } = {}, fetchOptions) => {
+const fetchGraphqlApi: GraphQLFetcher = async (
+  query: string,
+  { variables } = {},
+  fetchOptions
+) => {
   const config = getCommerceApi().getConfig()
   const token = getToken()
 

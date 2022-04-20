@@ -1,7 +1,10 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 import type { SignupEndpoint } from '.'
-import { registerUserMutation, registerUserLoginMutation } from '../../mutations/signup-mutation'
-import { prepareSetCookie } from '../../../lib/prepare-set-cookie';
+import {
+  registerUserMutation,
+  registerUserLoginMutation,
+} from '../../mutations/signup-mutation'
+import { prepareSetCookie } from '../../../lib/prepare-set-cookie'
 import { setCookies } from '../../../lib/set-cookie'
 import { getCookieExpirationDate } from '../../../lib/get-cookie-expiration-date'
 
@@ -14,7 +17,6 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
   config,
   commerce,
 }) => {
-
   if (!(email && password)) {
     return res.status(400).json({
       data: null,
@@ -22,48 +24,52 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
     })
   }
 
-  let response;
+  let response
   try {
-
     // Register user
     const registerUserVariables = {
       customerAccountInput: {
-          emailAddress: email,
-          firstName: firstName,
-          lastName: lastName,
-          acceptsMarketing: true,
-          id: 0
-        }
+        emailAddress: email,
+        firstName: firstName,
+        lastName: lastName,
+        acceptsMarketing: true,
+        id: 0,
+      },
     }
 
-    const registerUserResponse = await  config.fetch(registerUserMutation, { variables: registerUserVariables})
-    const accountId  = registerUserResponse.data?.account?.id;
+    const registerUserResponse = await config.fetch(registerUserMutation, {
+      variables: registerUserVariables,
+    })
+    const accountId = registerUserResponse.data?.account?.id
 
     // Login user
     const registerUserLoginVairables = {
       accountId: accountId,
       customerLoginInfoInput: {
-          emailAddress: email,
-          username: email,
-          password: password,
-          isImport: false
-      }
+        emailAddress: email,
+        username: email,
+        password: password,
+        isImport: false,
+      },
     }
 
-    response = await  config.fetch(registerUserLoginMutation, { variables: registerUserLoginVairables})
-    const { account: token }  = response.data;
+    response = await config.fetch(registerUserLoginMutation, {
+      variables: registerUserLoginVairables,
+    })
+    const { account: token } = response.data
 
     // Set Cookie
-    const cookieExpirationDate = getCookieExpirationDate(config.customerCookieMaxAgeInDays)
+    const cookieExpirationDate = getCookieExpirationDate(
+      config.customerCookieMaxAgeInDays
+    )
 
     const authCookie = prepareSetCookie(
       config.customerCookie,
       JSON.stringify(token),
-      token.accessTokenExpiration ? { expires: cookieExpirationDate }: {},
+      token.accessTokenExpiration ? { expires: cookieExpirationDate } : {}
     )
 
     setCookies(res, [authCookie])
-
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (

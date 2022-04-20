@@ -1,40 +1,40 @@
-import { FC, useRef, useEffect, useCallback } from 'react'
-import s from './Modal.module.css'
-import FocusTrap from '@lib/focus-trap'
-import { Cross } from '@components/icons'
-import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { FC, useRef, useEffect, useCallback } from 'react';
+import s from './Modal.module.css';
+import FocusTrap from '@lib/focus-trap';
+import { Cross } from '@components/icons';
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 interface ModalProps {
-  className?: string
-  children?: any
-  onClose: () => void
-  onEnter?: () => void | null
+  className?: string;
+  children?: any;
+  onClose: () => void;
+  onEnter?: () => void | null;
 }
 
 const Modal: FC<ModalProps> = ({ children, onClose }) => {
-  const ref = useRef() as React.MutableRefObject<HTMLDivElement>
+  const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        return onClose()
+        return onClose();
       }
     },
     [onClose]
-  )
+  );
 
   useEffect(() => {
-    const modal = ref.current
+    const modal = ref.current;
 
     if (modal) {
-      disableBodyScroll(modal, { reserveScrollBarGap: true })
-      window.addEventListener('keydown', handleKey)
+      disableBodyScroll(modal, { reserveScrollBarGap: true });
+      window.addEventListener('keydown', handleKey);
     }
     return () => {
-      clearAllBodyScrollLocks()
-      window.removeEventListener('keydown', handleKey)
-    }
-  }, [handleKey])
+      clearAllBodyScrollLocks();
+      window.removeEventListener('keydown', handleKey);
+    };
+  }, [handleKey]);
 
   return (
     <div className={s.root}>
@@ -49,7 +49,7 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
         <FocusTrap focusFirst>{children}</FocusTrap>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

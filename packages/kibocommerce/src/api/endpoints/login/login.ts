@@ -1,7 +1,7 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 import type { LoginEndpoint } from '.'
 import { loginMutation } from '../../mutations/login-mutation'
-import { prepareSetCookie } from '../../../lib/prepare-set-cookie';
+import { prepareSetCookie } from '../../../lib/prepare-set-cookie'
 import { setCookies } from '../../../lib/set-cookie'
 import { getCookieExpirationDate } from '../../../lib/get-cookie-expiration-date'
 
@@ -14,7 +14,6 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   config,
   commerce,
 }) => {
-
   if (!(email && password)) {
     return res.status(400).json({
       data: null,
@@ -22,23 +21,23 @@ const login: LoginEndpoint['handlers']['login'] = async ({
     })
   }
 
-  let response;
+  let response
   try {
-
-    const variables = { loginInput : { username: email, password }};
-    response = await  config.fetch(loginMutation, { variables })
-    const { account: token }  = response.data;
+    const variables = { loginInput: { username: email, password } }
+    response = await config.fetch(loginMutation, { variables })
+    const { account: token } = response.data
 
     // Set Cookie
-    const cookieExpirationDate = getCookieExpirationDate(config.customerCookieMaxAgeInDays)
+    const cookieExpirationDate = getCookieExpirationDate(
+      config.customerCookieMaxAgeInDays
+    )
 
     const authCookie = prepareSetCookie(
       config.customerCookie,
       JSON.stringify(token),
-      token.accessTokenExpiration ? { expires: cookieExpirationDate }: {},
+      token.accessTokenExpiration ? { expires: cookieExpirationDate } : {}
     )
     setCookies(res, [authCookie])
-
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (

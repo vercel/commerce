@@ -12,11 +12,18 @@ export const setCSRFToken = (token?: string, options?: CookieAttributes) => {
 }
 
 export const getCheckoutToken = () => Cookies.get(Const.CHECKOUT_ID_COOKIE)
-export const setCheckoutToken = (token?: string, options?: CookieAttributes) => {
+export const setCheckoutToken = (
+  token?: string,
+  options?: CookieAttributes
+) => {
   setCookie(Const.CHECKOUT_ID_COOKIE, token, options)
 }
 
-const setCookie = (name: string, token?: string, options?: CookieAttributes) => {
+const setCookie = (
+  name: string,
+  token?: string,
+  options?: CookieAttributes
+) => {
   if (!token) {
     Cookies.remove(name)
   } else {

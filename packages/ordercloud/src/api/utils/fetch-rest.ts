@@ -1,6 +1,6 @@
 import vercelFetch from '@vercel/fetch'
 import { FetcherError } from '@vercel/commerce/utils/errors'
-import { CustomNodeJsGlobal } from '../../types/node';
+import { CustomNodeJsGlobal } from '../../types/node'
 
 import { OrdercloudConfig } from '../index'
 
@@ -144,11 +144,10 @@ export const createBuyerFetcher: (
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
   ) => {
-    const customGlobal = global as unknown as CustomNodeJsGlobal;
+    const customGlobal = global as unknown as CustomNodeJsGlobal
 
     // Get provider config
     const config = getConfig()
-
 
     // If a token was passed, set it on global
     if (fetchOptions?.token) {

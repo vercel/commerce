@@ -15,6 +15,4 @@ const loginApi = createEndpoint<LoginAPI>({
   handlers,
 })
 
-export default loginApi;
-
-
+export default loginApi

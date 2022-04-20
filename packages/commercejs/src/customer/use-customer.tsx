@@ -1,7 +1,9 @@
 import Cookies from 'js-cookie'
 import { decode } from 'jsonwebtoken'
 import { SWRHook } from '@vercel/commerce/utils/types'
-import useCustomer, { UseCustomer } from '@vercel/commerce/customer/use-customer'
+import useCustomer, {
+  UseCustomer,
+} from '@vercel/commerce/customer/use-customer'
 import { CUSTOMER_COOKIE, API_URL } from '../constants'
 import type { CustomerHook } from '../types/customer'
 

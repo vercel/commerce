@@ -1,4 +1,4 @@
-const createWishlist = /*GraphQL*/`
+const createWishlist = /*GraphQL*/ `
 mutation createWishlist($wishlistInput:WishlistInput!) {
     createWishlist(wishlistInput:$wishlistInput){
       id
@@ -6,6 +6,6 @@ mutation createWishlist($wishlistInput:WishlistInput!) {
       customerAccountId
     }
   }
-`;
+`
 
-export default createWishlist;
+export default createWishlist

@@ -1,58 +1,58 @@
-import { FC, useEffect, useState, useCallback } from 'react'
-import { Logo, Button, Input } from '@components/ui'
-import useLogin from '@framework/auth/use-login'
-import { useUI } from '@components/ui/context'
-import { validate } from 'email-validator'
+import { FC, useEffect, useState, useCallback } from 'react';
+import { Logo, Button, Input } from '@components/ui';
+import useLogin from '@framework/auth/use-login';
+import { useUI } from '@components/ui/context';
+import { validate } from 'email-validator';
 
 const LoginView: React.FC = () => {
   // Form State
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
-  const [dirty, setDirty] = useState(false)
-  const [disabled, setDisabled] = useState(false)
-  const { setModalView, closeModal } = useUI()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [dirty, setDirty] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const { setModalView, closeModal } = useUI();
 
-  const login = useLogin()
+  const login = useLogin();
 
   const handleLogin = async (e: React.SyntheticEvent<EventTarget>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!dirty && !disabled) {
-      setDirty(true)
-      handleValidation()
+      setDirty(true);
+      handleValidation();
     }
 
     try {
-      setLoading(true)
-      setMessage('')
+      setLoading(true);
+      setMessage('');
       await login({
         email,
         password,
-      })
-      setLoading(false)
-      closeModal()
+      });
+      setLoading(false);
+      closeModal();
     } catch (e: any) {
-      setMessage(e.errors[0].message)
-      setLoading(false)
-      setDisabled(false)
+      setMessage(e.errors[0].message);
+      setLoading(false);
+      setDisabled(false);
     }
-  }
+  };
 
   const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
-    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
+    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password);
 
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword)
+      setDisabled(!validate(email) || password.length < 7 || !validPassword);
     }
-  }, [email, password, dirty])
+  }, [email, password, dirty]);
 
   useEffect(() => {
-    handleValidation()
-  }, [handleValidation])
+    handleValidation();
+  }, [handleValidation]);
 
   return (
     <form
@@ -97,7 +97,7 @@ const LoginView: React.FC = () => {
         </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default LoginView
+export default LoginView;

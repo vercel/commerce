@@ -14,7 +14,7 @@ const ChevronUp = ({ ...props }) => {
     >
       <path d="M18 15l-6-6-6 6" />
     </svg>
-  )
-}
+  );
+};
 
-export default ChevronUp
+export default ChevronUp;

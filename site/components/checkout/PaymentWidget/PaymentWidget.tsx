@@ -1,10 +1,10 @@
-import { FC } from 'react'
-import s from './PaymentWidget.module.css'
-import { ChevronRight, CreditCard, Check } from '@components/icons'
+import { FC } from 'react';
+import s from './PaymentWidget.module.css';
+import { ChevronRight, CreditCard, Check } from '@components/icons';
 
 interface ComponentProps {
-  onClick?: () => any
-  isValid?: boolean
+  onClick?: () => any;
+  isValid?: boolean;
 }
 
 const PaymentWidget: FC<ComponentProps> = ({ onClick, isValid }) => {
@@ -22,7 +22,7 @@ const PaymentWidget: FC<ComponentProps> = ({ onClick, isValid }) => {
       </div>
       <div>{isValid ? <Check /> : <ChevronRight />}</div>
     </div>
-  )
-}
+  );
+};
 
-export default PaymentWidget
+export default PaymentWidget;

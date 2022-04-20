@@ -1,37 +1,37 @@
-import Head from 'next/head'
-import { FC, Fragment, ReactNode } from 'react'
-import config from '@config/seo_meta.json'
+import Head from 'next/head';
+import { FC, Fragment, ReactNode } from 'react';
+import config from '@config/seo_meta.json';
 
 const storeUrl =
-  process.env.NEXT_PUBLIC_STORE_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-const storeBaseUrl = storeUrl ? `https://${storeUrl}` : null
+  process.env.NEXT_PUBLIC_STORE_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
+const storeBaseUrl = storeUrl ? `https://${storeUrl}` : null;
 
 interface OgImage {
-  url?: string
-  width?: string
-  height?: string
-  alt?: string
+  url?: string;
+  width?: string;
+  height?: string;
+  alt?: string;
 }
 
 interface Props {
-  title?: string
-  description?: string
-  robots?: string
+  title?: string;
+  description?: string;
+  robots?: string;
   openGraph?: {
-    title?: string
-    type?: string
-    locale?: string
-    description?: string
-    site_name?: string
-    url?: string
-    images?: OgImage[]
-  }
-  children?: ReactNode
+    title?: string;
+    type?: string;
+    locale?: string;
+    description?: string;
+    site_name?: string;
+    url?: string;
+    images?: OgImage[];
+  };
+  children?: ReactNode;
 }
 
 const ogImage = ({ url, width, height, alt }: OgImage, index: number) => {
   // generate full URL for OG image url with store base URL
-  const imgUrl = storeBaseUrl ? new URL(url!, storeBaseUrl).toString() : url
+  const imgUrl = storeBaseUrl ? new URL(url!, storeBaseUrl).toString() : url;
   return (
     <Fragment key={`og:image:${index}`}>
       <meta
@@ -55,8 +55,8 @@ const ogImage = ({ url, width, height, alt }: OgImage, index: number) => {
         content={alt}
       />
     </Fragment>
-  )
-}
+  );
+};
 
 const SEO: FC<Props> = ({
   title,
@@ -151,7 +151,7 @@ const SEO: FC<Props> = ({
       ></meta>
       {children}
     </Head>
-  )
-}
+  );
+};
 
-export default SEO
+export default SEO;

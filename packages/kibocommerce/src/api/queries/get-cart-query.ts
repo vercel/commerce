@@ -1,6 +1,6 @@
 import { productDetails } from '../fragments/productDetails'
-export const getCartQuery = /* GraphQL */`
-query cart {
+export const getCartQuery = /* GraphQL */ `
+  query cart {
     currentCart {
       id
       userId
@@ -8,7 +8,7 @@ query cart {
         impact
         discount {
           id
-          name        
+          name
         }
         couponCode
       }
@@ -18,15 +18,15 @@ query cart {
       items {
         id
         subtotal
-        unitPrice{
+        unitPrice {
           extendedAmount
         }
-          product {
-            ...productDetails
-          }
-          quantity
+        product {
+          ...productDetails
         }
+        quantity
       }
     }
-${productDetails}
+  }
+  ${productDetails}
 `

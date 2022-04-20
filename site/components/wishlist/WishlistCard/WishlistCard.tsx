@@ -1,63 +1,63 @@
-import { FC, useState } from 'react'
-import cn from 'clsx'
-import Link from 'next/link'
-import Image from 'next/image'
-import s from './WishlistCard.module.css'
-import { Trash } from '@components/icons'
-import { Button, Text } from '@components/ui'
+import { FC, useState } from 'react';
+import cn from 'clsx';
+import Link from 'next/link';
+import Image from 'next/image';
+import s from './WishlistCard.module.css';
+import { Trash } from '@components/icons';
+import { Button, Text } from '@components/ui';
 
-import { useUI } from '@components/ui/context'
-import type { Product } from '@commerce/types/product'
-import usePrice from '@framework/product/use-price'
-import useAddItem from '@framework/cart/use-add-item'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
-import type { Wishlist } from '@commerce/types/wishlist'
+import { useUI } from '@components/ui/context';
+import type { Product } from '@commerce/types/product';
+import usePrice from '@framework/product/use-price';
+import useAddItem from '@framework/cart/use-add-item';
+import useRemoveItem from '@framework/wishlist/use-remove-item';
+import type { Wishlist } from '@commerce/types/wishlist';
 
-const placeholderImg = '/product-img-placeholder.svg'
+const placeholderImg = '/product-img-placeholder.svg';
 
 const WishlistCard: React.FC<{
-  item: Wishlist
+  item: Wishlist;
 }> = ({ item }) => {
-  const product: Product = item.product
+  const product: Product = item.product;
   const { price } = usePrice({
     amount: product.price?.value,
     baseAmount: product.price?.retailPrice,
     currencyCode: product.price?.currencyCode!,
-  })
+  });
   // @ts-ignore Wishlist is not always enabled
-  const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
-  const [loading, setLoading] = useState(false)
-  const [removing, setRemoving] = useState(false)
+  const removeItem = useRemoveItem({ wishlist: { includeProducts: true } });
+  const [loading, setLoading] = useState(false);
+  const [removing, setRemoving] = useState(false);
 
   // TODO: fix this missing argument issue
   /* @ts-ignore */
-  const addItem = useAddItem()
-  const { openSidebar } = useUI()
+  const addItem = useAddItem();
+  const { openSidebar } = useUI();
 
   const handleRemove = async () => {
-    setRemoving(true)
+    setRemoving(true);
 
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ id: item.id! })
+      await removeItem({ id: item.id! });
     } catch (error) {
-      setRemoving(false)
+      setRemoving(false);
     }
-  }
+  };
   const addToCart = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       await addItem({
         productId: String(product.id),
         variantId: String(product.variants[0].id),
-      })
-      openSidebar()
-      setLoading(false)
+      });
+      openSidebar();
+      setLoading(false);
     } catch (err) {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className={cn(s.root, { 'opacity-75 pointer-events-none': removing })}>
@@ -102,7 +102,7 @@ const WishlistCard: React.FC<{
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WishlistCard
+export default WishlistCard;

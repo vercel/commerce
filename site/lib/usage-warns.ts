@@ -3,11 +3,11 @@
  */
 
 export function missingLocaleInPages(): [string[], () => void] {
-  const invalidPaths: string[] = []
+  const invalidPaths: string[] = [];
   const log = () => {
     if (invalidPaths.length) {
-      const single = invalidPaths.length === 1
-      const pages = single ? 'page' : 'pages'
+      const single = invalidPaths.length === 1;
+      const pages = single ? 'page' : 'pages';
 
       console.log(
         `The ${pages} "${invalidPaths.join(', ')}" ${
@@ -18,9 +18,9 @@ Please update the ${pages} to include the default locale or make the ${pages} in
 unchecking the "Navigation Menu" option in the settings of ${
           single ? 'the' : 'each'
         } web page\n`
-      )
+      );
     }
-  }
+  };
 
-  return [invalidPaths, log]
+  return [invalidPaths, log];
 }

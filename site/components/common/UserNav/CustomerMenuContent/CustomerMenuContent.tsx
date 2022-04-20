@@ -1,13 +1,13 @@
-import cn from 'clsx'
-import { useTheme } from 'next-themes'
-import { useRouter } from 'next/router'
-import { Moon, Sun } from '@components/icons'
-import s from './CustomerMenuContent.module.css'
-import useLogout from '@framework/auth/use-logout'
+import cn from 'clsx';
+import { useTheme } from 'next-themes';
+import { useRouter } from 'next/router';
+import { Moon, Sun } from '@components/icons';
+import s from './CustomerMenuContent.module.css';
+import useLogout from '@framework/auth/use-logout';
 import {
   DropdownContent,
   DropdownMenuItem,
-} from '@components/ui/Dropdown/Dropdown'
+} from '@components/ui/Dropdown/Dropdown';
 
 const LINKS = [
   {
@@ -22,16 +22,16 @@ const LINKS = [
     name: 'My Cart',
     href: '/cart',
   },
-]
+];
 
 export default function CustomerMenuContent() {
-  const router = useRouter()
-  const logout = useLogout()
-  const { pathname } = useRouter()
-  const { theme, setTheme } = useTheme()
+  const router = useRouter();
+  const logout = useLogout();
+  const { pathname } = useRouter();
+  const { theme, setTheme } = useTheme();
 
   function handleClick(_: React.MouseEvent<HTMLAnchorElement>, href: string) {
-    router.push(href)
+    router.push(href);
   }
 
   return (
@@ -58,7 +58,7 @@ export default function CustomerMenuContent() {
         <a
           className={cn(s.link, 'justify-between')}
           onClick={() => {
-            setTheme(theme === 'dark' ? 'light' : 'dark')
+            setTheme(theme === 'dark' ? 'light' : 'dark');
           }}
         >
           <div>
@@ -82,5 +82,5 @@ export default function CustomerMenuContent() {
         </a>
       </DropdownMenuItem>
     </DropdownContent>
-  )
+  );
 }

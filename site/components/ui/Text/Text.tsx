@@ -2,20 +2,20 @@ import React, {
   FunctionComponent,
   JSXElementConstructor,
   CSSProperties,
-} from 'react'
-import cn from 'clsx'
-import s from './Text.module.css'
+} from 'react';
+import cn from 'clsx';
+import s from './Text.module.css';
 
 interface TextProps {
-  variant?: Variant
-  className?: string
-  style?: CSSProperties
-  children?: React.ReactNode | any
-  html?: string
-  onClick?: () => any
+  variant?: Variant;
+  className?: string;
+  style?: CSSProperties;
+  children?: React.ReactNode | any;
+  html?: string;
+  onClick?: () => any;
 }
 
-type Variant = 'heading' | 'body' | 'pageHeading' | 'sectionHeading'
+type Variant = 'heading' | 'body' | 'pageHeading' | 'sectionHeading';
 
 const Text: FunctionComponent<TextProps> = ({
   style,
@@ -26,25 +26,25 @@ const Text: FunctionComponent<TextProps> = ({
   onClick,
 }) => {
   const componentsMap: {
-    [P in Variant]: React.ComponentType<any> | string
+    [P in Variant]: React.ComponentType<any> | string;
   } = {
     body: 'div',
     heading: 'h1',
     pageHeading: 'h1',
     sectionHeading: 'h2',
-  }
+  };
 
   const Component:
     | JSXElementConstructor<any>
     | React.ReactElement<any>
     | React.ComponentType<any>
-    | string = componentsMap![variant!]
+    | string = componentsMap![variant!];
 
   const htmlContentProps = html
     ? {
         dangerouslySetInnerHTML: { __html: html },
       }
-    : {}
+    : {};
 
   return (
     <Component
@@ -64,7 +64,7 @@ const Text: FunctionComponent<TextProps> = ({
     >
       {children}
     </Component>
-  )
-}
+  );
+};
 
-export default Text
+export default Text;

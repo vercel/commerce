@@ -14,7 +14,7 @@ const ChevronLeft = ({ ...props }) => {
     >
       <path d="M15 18l-6-6 6-6" />
     </svg>
-  )
-}
+  );
+};
 
-export default ChevronLeft
+export default ChevronLeft;

@@ -9,7 +9,7 @@ const Minus = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Minus
+export default Minus;

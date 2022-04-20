@@ -1,7 +1,6 @@
-
-export const loginMutation = /* GraphQL */`
-mutation login($loginInput:CustomerUserAuthInfoInput!) {
-    account:createCustomerAuthTicket(customerUserAuthInfoInput:$loginInput) {
+export const loginMutation = /* GraphQL */ `
+  mutation login($loginInput: CustomerUserAuthInfoInput!) {
+    account: createCustomerAuthTicket(customerUserAuthInfoInput: $loginInput) {
       accessToken
       userId
       refreshToken
@@ -17,4 +16,3 @@ mutation login($loginInput:CustomerUserAuthInfoInput!) {
     }
   }
 `
-

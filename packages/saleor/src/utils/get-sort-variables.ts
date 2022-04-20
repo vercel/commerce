@@ -1,4 +1,7 @@
-export const getSortVariables = (sort?: string, isCategory: boolean = false) => {
+export const getSortVariables = (
+  sort?: string,
+  isCategory: boolean = false
+) => {
   let output = {}
   switch (sort) {
     case 'price-asc':

@@ -16,7 +16,7 @@ const Heart = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Heart
+export default Heart;

@@ -1,6 +1,6 @@
-export const getAllPagesQuery = /* GraphQL */`
-query($documentListName: String!) {
-    documentListDocuments(documentListName:$documentListName){
+export const getAllPagesQuery = /* GraphQL */ `
+  query ($documentListName: String!) {
+    documentListDocuments(documentListName: $documentListName) {
       items {
         id
         name
@@ -8,4 +8,5 @@ query($documentListName: String!) {
         properties
       }
     }
-  }`;
+  }
+`

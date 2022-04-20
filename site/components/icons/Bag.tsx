@@ -27,7 +27,7 @@ const Bag = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Bag
+export default Bag;

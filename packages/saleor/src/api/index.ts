@@ -1,13 +1,21 @@
-import { CommerceAPI, CommerceAPIConfig, getCommerceApi as commerceApi } from '@vercel/commerce/api'
+import {
+  CommerceAPI,
+  CommerceAPIConfig,
+  getCommerceApi as commerceApi,
+} from '@vercel/commerce/api'
 import * as operations from './operations'
 import * as Const from '../const'
 
 if (!Const.API_URL) {
-  throw new Error(`The environment variable NEXT_SALEOR_API_URL is missing and it's required to access your store`)
+  throw new Error(
+    `The environment variable NEXT_SALEOR_API_URL is missing and it's required to access your store`
+  )
 }
 
 if (!Const.API_CHANNEL) {
-  throw new Error(`The environment variable NEXT_SALEOR_CHANNEL is missing and it's required to access your store`)
+  throw new Error(
+    `The environment variable NEXT_SALEOR_CHANNEL is missing and it's required to access your store`
+  )
 }
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
@@ -33,6 +41,8 @@ export type Provider = typeof provider
 
 export type SaleorAPI<P extends Provider = Provider> = CommerceAPI<P>
 
-export function getCommerceApi<P extends Provider>(customProvider: P = provider as any): SaleorAPI<P> {
+export function getCommerceApi<P extends Provider>(
+  customProvider: P = provider as any
+): SaleorAPI<P> {
   return commerceApi(customProvider)
 }

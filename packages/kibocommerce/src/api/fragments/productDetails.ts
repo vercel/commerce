@@ -25,6 +25,6 @@ export const productDetails = /* GraphQL */ `
     }
     categories {
       id
-    } 
-}
+    }
+  }
 `

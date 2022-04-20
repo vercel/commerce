@@ -1,1 +1,1 @@
-export { default } from './CheckoutSidebarView'
+export { default } from './CheckoutSidebarView';

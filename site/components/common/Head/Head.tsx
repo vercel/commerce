@@ -1,5 +1,5 @@
-import type { VFC } from 'react'
-import { SEO } from '@components/common'
+import type { VFC } from 'react';
+import { SEO } from '@components/common';
 
 const Head: VFC = () => {
   return (
@@ -11,7 +11,7 @@ const Head: VFC = () => {
       />
       <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
     </SEO>
-  )
-}
+  );
+};
 
-export default Head
+export default Head;

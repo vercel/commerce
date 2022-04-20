@@ -11,12 +11,14 @@ const getCategories = async (config: SaleorConfig): Promise<Category[]> => {
   })
 
   return (
-    data.collections?.edges?.map(({ node: { id, name, slug } }: CollectionCountableEdge) => ({
-      id,
-      name,
-      slug,
-      path: `/${slug}`,
-    })) ?? []
+    data.collections?.edges?.map(
+      ({ node: { id, name, slug } }: CollectionCountableEdge) => ({
+        id,
+        name,
+        slug,
+        path: `/${slug}`,
+      })
+    ) ?? []
   )
 }
 

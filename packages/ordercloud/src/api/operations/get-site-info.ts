@@ -1,5 +1,8 @@
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type { Category, GetSiteInfoOperation } from '@vercel/commerce/types/site'
+import type {
+  Category,
+  GetSiteInfoOperation,
+} from '@vercel/commerce/types/site'
 
 import type { RawCategory } from '../../types/category'
 import type { OrdercloudConfig, Provider } from '../index'

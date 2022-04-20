@@ -9,7 +9,9 @@ export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
 }
 
-export default function getAllProductPathsOperation({ commerce }: OperationContext<Provider>) {
+export default function getAllProductPathsOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function getAllProductPaths({
     query,
     config,

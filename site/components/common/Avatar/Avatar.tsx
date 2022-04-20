@@ -1,14 +1,14 @@
-import { FC, useRef, useEffect } from 'react'
-import { useUserAvatar } from '@lib/hooks/useUserAvatar'
+import { FC, useRef, useEffect } from 'react';
+import { useUserAvatar } from '@lib/hooks/useUserAvatar';
 
 interface Props {
-  className?: string
-  children?: any
+  className?: string;
+  children?: any;
 }
 
 const Avatar: FC<Props> = ({}) => {
-  let ref = useRef() as React.MutableRefObject<HTMLInputElement>
-  let { userAvatar } = useUserAvatar()
+  let ref = useRef() as React.MutableRefObject<HTMLInputElement>;
+  let { userAvatar } = useUserAvatar();
 
   return (
     <div
@@ -18,7 +18,7 @@ const Avatar: FC<Props> = ({}) => {
     >
       {/* Add an image - We're generating a gradient as placeholder  <img></img> */}
     </div>
-  )
-}
+  );
+};
 
-export default Avatar
+export default Avatar;

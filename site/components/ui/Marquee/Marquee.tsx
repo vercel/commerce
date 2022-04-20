@@ -1,12 +1,12 @@
-import cn from 'clsx'
-import s from './Marquee.module.css'
-import { FC, ReactNode, Component, Children } from 'react'
-import { default as FastMarquee } from 'react-fast-marquee'
+import cn from 'clsx';
+import s from './Marquee.module.css';
+import { FC, ReactNode, Component, Children } from 'react';
+import { default as FastMarquee } from 'react-fast-marquee';
 
 interface MarqueeProps {
-  className?: string
-  children?: ReactNode[] | Component[] | any[]
-  variant?: 'primary' | 'secondary'
+  className?: string;
+  children?: ReactNode[] | Component[] | any[];
+  variant?: 'primary' | 'secondary';
 }
 
 const Marquee: FC<MarqueeProps> = ({
@@ -21,7 +21,7 @@ const Marquee: FC<MarqueeProps> = ({
       [s.secondary]: variant === 'secondary',
     },
     className
-  )
+  );
 
   return (
     <FastMarquee gradient={false} className={rootClassName}>
@@ -33,7 +33,7 @@ const Marquee: FC<MarqueeProps> = ({
         },
       }))}
     </FastMarquee>
-  )
-}
+  );
+};
 
-export default Marquee
+export default Marquee;

@@ -1,51 +1,51 @@
-import type { GetStaticPropsContext } from 'next'
-import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/product/use-price'
-import commerce from '@lib/api/commerce'
-import { Layout } from '@components/common'
-import { Button, Text, Container } from '@components/ui'
-import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
-import { CartItem } from '@components/cart'
-import { useUI } from '@components/ui/context'
+import type { GetStaticPropsContext } from 'next';
+import useCart from '@framework/cart/use-cart';
+import usePrice from '@framework/product/use-price';
+import commerce from '@lib/api/commerce';
+import { Layout } from '@components/common';
+import { Button, Text, Container } from '@components/ui';
+import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons';
+import { CartItem } from '@components/cart';
+import { useUI } from '@components/ui/context';
 
 export async function getStaticProps({
   preview,
   locale,
   locales,
 }: GetStaticPropsContext) {
-  const config = { locale, locales }
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { pages } = await pagesPromise
-  const { categories } = await siteInfoPromise
+  const config = { locale, locales };
+  const pagesPromise = commerce.getAllPages({ config, preview });
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview });
+  const { pages } = await pagesPromise;
+  const { categories } = await siteInfoPromise;
   return {
     props: { pages, categories },
-  }
+  };
 }
 
 export default function Cart() {
-  const error = null
-  const success = null
-  const { data, isLoading, isEmpty } = useCart()
-  const { openSidebar, setSidebarView } = useUI()
+  const error = null;
+  const success = null;
+  const { data, isLoading, isEmpty } = useCart();
+  const { openSidebar, setSidebarView } = useUI();
 
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
       currencyCode: data.currency.code,
     }
-  )
+  );
   const { price: total } = usePrice(
     data && {
       amount: Number(data.totalPrice),
       currencyCode: data.currency.code,
     }
-  )
+  );
 
   const goToCheckout = () => {
-    openSidebar()
-    setSidebarView('CHECKOUT_VIEW')
-  }
+    openSidebar();
+    setSidebarView('CHECKOUT_VIEW');
+  };
 
   return (
     <Container className="grid lg:grid-cols-12 pt-4 gap-20">
@@ -186,7 +186,7 @@ export default function Cart() {
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
-Cart.Layout = Layout
+Cart.Layout = Layout;

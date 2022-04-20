@@ -1,39 +1,39 @@
-import { FC, useEffect, useState, useCallback } from 'react'
-import { validate } from 'email-validator'
-import { useUI } from '@components/ui/context'
-import { Logo, Button, Input } from '@components/ui'
+import { FC, useEffect, useState, useCallback } from 'react';
+import { validate } from 'email-validator';
+import { useUI } from '@components/ui/context';
+import { Logo, Button, Input } from '@components/ui';
 
 interface Props {}
 
 const ForgotPassword: FC<Props> = () => {
   // Form State
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
-  const [dirty, setDirty] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [dirty, setDirty] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
-  const { setModalView, closeModal } = useUI()
+  const { setModalView, closeModal } = useUI();
 
   const handleResetPassword = async (e: React.SyntheticEvent<EventTarget>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!dirty && !disabled) {
-      setDirty(true)
-      handleValidation()
+      setDirty(true);
+      handleValidation();
     }
-  }
+  };
 
   const handleValidation = useCallback(() => {
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email))
+      setDisabled(!validate(email));
     }
-  }, [email, dirty])
+  }, [email, dirty]);
 
   useEffect(() => {
-    handleValidation()
-  }, [handleValidation])
+    handleValidation();
+  }, [handleValidation]);
 
   return (
     <form
@@ -72,7 +72,7 @@ const ForgotPassword: FC<Props> = () => {
         </span>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

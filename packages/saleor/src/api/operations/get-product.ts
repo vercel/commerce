@@ -12,7 +12,9 @@ type ReturnType = {
   product: any
 }
 
-export default function getProductOperation({ commerce }: OperationContext<Provider>) {
+export default function getProductOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function getProduct({
     query = Query.ProductOneBySlug,
     variables,

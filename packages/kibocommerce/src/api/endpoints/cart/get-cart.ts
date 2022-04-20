@@ -16,7 +16,8 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
     let accessToken = null
 
     if (!cookieHandler.getAccessToken()) {
-      let anonymousShopperTokenResponse = await cookieHandler.getAnonymousToken()
+      let anonymousShopperTokenResponse =
+        await cookieHandler.getAnonymousToken()
       const response = anonymousShopperTokenResponse.response
       accessToken = anonymousShopperTokenResponse.accessToken
       cookieHandler.setAnonymousShopperCookie(response)

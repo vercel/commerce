@@ -1,18 +1,18 @@
-import cn from 'clsx'
-import Image from 'next/image'
-import s from './ProductView.module.css'
-import { FC } from 'react'
-import type { Product } from '@commerce/types/product'
-import usePrice from '@framework/product/use-price'
-import { WishlistButton } from '@components/wishlist'
-import { ProductSlider, ProductCard } from '@components/product'
-import { Container, Text } from '@components/ui'
-import { SEO } from '@components/common'
-import ProductSidebar from '../ProductSidebar'
-import ProductTag from '../ProductTag'
+import cn from 'clsx';
+import Image from 'next/image';
+import s from './ProductView.module.css';
+import { FC } from 'react';
+import type { Product } from '@commerce/types/product';
+import usePrice from '@framework/product/use-price';
+import { WishlistButton } from '@components/wishlist';
+import { ProductSlider, ProductCard } from '@components/product';
+import { Container, Text } from '@components/ui';
+import { SEO } from '@components/common';
+import ProductSidebar from '../ProductSidebar';
+import ProductTag from '../ProductTag';
 interface ProductViewProps {
-  product: Product
-  relatedProducts: Product[]
+  product: Product;
+  relatedProducts: Product[];
 }
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
@@ -20,7 +20,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
-  })
+  });
 
   return (
     <>
@@ -107,7 +107,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
         }}
       />
     </>
-  )
-}
+  );
+};
 
-export default ProductView
+export default ProductView;

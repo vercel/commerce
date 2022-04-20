@@ -51,7 +51,9 @@ export const handler: SWRHook<SearchProductsHook> = {
     }
 
     return {
-      products: edges.map(({ node }: ProductCountableEdge) => normalizeProduct(node)),
+      products: edges.map(({ node }: ProductCountableEdge) =>
+        normalizeProduct(node)
+      ),
       found: !!edges.length,
     }
   },

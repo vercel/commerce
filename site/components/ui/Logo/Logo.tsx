@@ -16,6 +16,6 @@ const Logo = ({ className = '', ...props }) => (
       fill="var(--primary)"
     />
   </svg>
-)
+);
 
-export default Logo
+export default Logo;

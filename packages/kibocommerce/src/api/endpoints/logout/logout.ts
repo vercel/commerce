@@ -1,6 +1,6 @@
 import type { LogoutEndpoint } from '.'
-import {prepareSetCookie} from '../../../lib/prepare-set-cookie';
-import {setCookies} from '../../../lib/set-cookie'
+import { prepareSetCookie } from '../../../lib/prepare-set-cookie'
+import { setCookies } from '../../../lib/set-cookie'
 
 const logout: LogoutEndpoint['handlers']['logout'] = async ({
   res,
@@ -8,8 +8,11 @@ const logout: LogoutEndpoint['handlers']['logout'] = async ({
   config,
 }) => {
   // Remove the cookie
-  const authCookie = prepareSetCookie(config.customerCookie,'',{ maxAge: -1, path: '/'  })
-  setCookies(res, [authCookie])   
+  const authCookie = prepareSetCookie(config.customerCookie, '', {
+    maxAge: -1,
+    path: '/',
+  })
+  setCookies(res, [authCookie])
 
   // Only allow redirects to a relative URL
   if (redirectTo?.startsWith('/')) {

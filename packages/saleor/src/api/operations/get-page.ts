@@ -8,7 +8,9 @@ export type Page = any
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
-export default function getPageOperation({ commerce }: OperationContext<Provider>) {
+export default function getPageOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function getPage({
     query = Query.PageOne,
     variables,

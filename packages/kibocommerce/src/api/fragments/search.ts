@@ -1,32 +1,33 @@
-import { productInfo } from './product';
+import { productInfo } from './product'
 
-export const searchFacets = /* GraphQL */`
-fragment searchFacets on Facet {
+export const searchFacets = /* GraphQL */ `
+  fragment searchFacets on Facet {
     label
     field
     values {
-        label
-        value
-        isApplied
-        filterValue
-        isDisplayed
-        count
+      label
+      value
+      isApplied
+      filterValue
+      isDisplayed
+      count
     }
-}`;
+  }
+`
 
-export const searchResults = /* GraphQL */`
-fragment searchResults on ProductSearchResult {
+export const searchResults = /* GraphQL */ `
+  fragment searchResults on ProductSearchResult {
     totalCount
     pageSize
     pageCount
     startIndex
     items {
-        ...productInfo
+      ...productInfo
     }
     facets {
-        ...searchFacets
+      ...searchFacets
     }
-}
-${searchFacets}
-${productInfo}
-`;
+  }
+  ${searchFacets}
+  ${productInfo}
+`

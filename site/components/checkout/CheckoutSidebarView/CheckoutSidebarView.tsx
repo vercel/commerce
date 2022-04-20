@@ -1,37 +1,37 @@
-import Link from 'next/link'
-import { FC, useState } from 'react'
-import CartItem from '@components/cart/CartItem'
-import { Button, Text } from '@components/ui'
-import { useUI } from '@components/ui/context'
-import SidebarLayout from '@components/common/SidebarLayout'
-import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/product/use-price'
-import useCheckout from '@framework/checkout/use-checkout'
-import ShippingWidget from '../ShippingWidget'
-import PaymentWidget from '../PaymentWidget'
-import s from './CheckoutSidebarView.module.css'
-import { useCheckoutContext } from '../context'
+import Link from 'next/link';
+import { FC, useState } from 'react';
+import CartItem from '@components/cart/CartItem';
+import { Button, Text } from '@components/ui';
+import { useUI } from '@components/ui/context';
+import SidebarLayout from '@components/common/SidebarLayout';
+import useCart from '@framework/cart/use-cart';
+import usePrice from '@framework/product/use-price';
+import useCheckout from '@framework/checkout/use-checkout';
+import ShippingWidget from '../ShippingWidget';
+import PaymentWidget from '../PaymentWidget';
+import s from './CheckoutSidebarView.module.css';
+import { useCheckoutContext } from '../context';
 
 const CheckoutSidebarView: FC = () => {
-  const [loadingSubmit, setLoadingSubmit] = useState(false)
-  const { setSidebarView, closeSidebar } = useUI()
-  const { data: cartData, mutate: refreshCart } = useCart()
-  const { data: checkoutData, submit: onCheckout } = useCheckout()
-  const { clearCheckoutFields } = useCheckoutContext()
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const { setSidebarView, closeSidebar } = useUI();
+  const { data: cartData, mutate: refreshCart } = useCart();
+  const { data: checkoutData, submit: onCheckout } = useCheckout();
+  const { clearCheckoutFields } = useCheckoutContext();
 
   async function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     try {
-      setLoadingSubmit(true)
-      event.preventDefault()
+      setLoadingSubmit(true);
+      event.preventDefault();
 
-      await onCheckout()
-      clearCheckoutFields()
-      setLoadingSubmit(false)
-      refreshCart()
-      closeSidebar()
+      await onCheckout();
+      clearCheckoutFields();
+      setLoadingSubmit(false);
+      refreshCart();
+      closeSidebar();
     } catch {
       // TODO - handle error UI here.
-      setLoadingSubmit(false)
+      setLoadingSubmit(false);
     }
   }
 
@@ -40,13 +40,13 @@ const CheckoutSidebarView: FC = () => {
       amount: Number(cartData.subtotalPrice),
       currencyCode: cartData.currency.code,
     }
-  )
+  );
   const { price: total } = usePrice(
     cartData && {
       amount: Number(cartData.totalPrice),
       currencyCode: cartData.currency.code,
     }
-  )
+  );
 
   return (
     <SidebarLayout
@@ -116,7 +116,7 @@ const CheckoutSidebarView: FC = () => {
         </div>
       </form>
     </SidebarLayout>
-  )
-}
+  );
+};
 
-export default CheckoutSidebarView
+export default CheckoutSidebarView;

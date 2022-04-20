@@ -1,11 +1,12 @@
-export const CategoryInfo = /* GraphQL */`
-fragment categoryInfo on PrCategory {
+export const CategoryInfo = /* GraphQL */ `
+  fragment categoryInfo on PrCategory {
     categoryId
     categoryCode
     isDisplayed
     content {
-        name
-        slug
-        description
+      name
+      slug
+      description
     }
-}`;
+  }
+`

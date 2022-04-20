@@ -24,12 +24,12 @@ KIBO_AUTH_URL='https://home.mozu.com'
 - `KIBO_CLIENT_ID` - Unique Application (Client) ID of your Application
 - `KIBO_SHARED_SECRET` - Secret API key used to authenticate application/client id.
 
-
 Your Kibo Client ID and Shared Secret can be found from your [Kibo eCommerce Dev Center](https://mozu.com/login)
 
 Visit [Kibo documentation](https://apidocs.kibong-perf.com/?spec=graphql#auth) for more details on API authentication
 
 Based on the config, this integration will handle Authenticating your application against the Kibo API using the Kibo Client ID and Kibo Shared Secret.
+
 ## Contribute
 
 Our commitment to Open Source can be found [here](https://vercel.com/oss).

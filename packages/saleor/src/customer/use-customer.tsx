@@ -1,4 +1,6 @@
-import useCustomer, { UseCustomer } from '@vercel/commerce/customer/use-customer'
+import useCustomer, {
+  UseCustomer,
+} from '@vercel/commerce/customer/use-customer'
 import { CustomerHook } from '@vercel/commerce/types/customer'
 import { SWRHook } from '@vercel/commerce/utils/types'
 

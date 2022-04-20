@@ -1,5 +1,5 @@
-export { default } from './MenuSidebarView'
+export { default } from './MenuSidebarView';
 export interface Link {
-  href: string
-  label: string
+  href: string;
+  label: string;
 }

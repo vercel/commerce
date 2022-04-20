@@ -37,7 +37,7 @@ const Trash = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Trash
+export default Trash;

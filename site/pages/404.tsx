@@ -1,16 +1,19 @@
-import type { GetStaticPropsContext } from 'next'
-import commerce from '@lib/api/commerce'
-import { Layout } from '@components/common'
-import { Text } from '@components/ui'
+import type { GetStaticPropsContext } from 'next';
+import commerce from '@lib/api/commerce';
+import { Layout } from '@components/common';
+import { Text } from '@components/ui';
 
 export async function getStaticProps({
   preview,
   locale,
   locales,
 }: GetStaticPropsContext) {
-  const config = { locale, locales }
-  const { pages } = await commerce.getAllPages({ config, preview })
-  const { categories, brands } = await commerce.getSiteInfo({ config, preview })
+  const config = { locale, locales };
+  const { pages } = await commerce.getAllPages({ config, preview });
+  const { categories, brands } = await commerce.getSiteInfo({
+    config,
+    preview,
+  });
   return {
     props: {
       pages,
@@ -18,7 +21,7 @@ export async function getStaticProps({
       brands,
     },
     revalidate: 200,
-  }
+  };
 }
 
 export default function NotFound() {
@@ -29,7 +32,7 @@ export default function NotFound() {
         The requested page doesn't exist or you don't have access to it.
       </Text>
     </div>
-  )
+  );
 }
 
-NotFound.Layout = Layout
+NotFound.Layout = Layout;

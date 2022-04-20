@@ -5,7 +5,9 @@ import { throwUserErrors } from '../../utils'
 
 import * as Mutation from '../../utils/mutations'
 
-export default function loginOperation({ commerce }: OperationContext<Provider>) {
+export default function loginOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function login({
     query = Mutation.SessionCreate,
     variables,

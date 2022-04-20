@@ -1,16 +1,16 @@
-import cn from 'clsx'
-import Link from 'next/link'
-import { FC, useState } from 'react'
-import { useRouter } from 'next/router'
-import s from './I18nWidget.module.css'
-import { Cross, ChevronUp } from '@components/icons'
-import ClickOutside from '@lib/click-outside'
+import cn from 'clsx';
+import Link from 'next/link';
+import { FC, useState } from 'react';
+import { useRouter } from 'next/router';
+import s from './I18nWidget.module.css';
+import { Cross, ChevronUp } from '@components/icons';
+import ClickOutside from '@lib/click-outside';
 interface LOCALE_DATA {
-  name: string
+  name: string;
   img: {
-    filename: string
-    alt: string
-  }
+    filename: string;
+    alt: string;
+  };
 }
 
 const LOCALES_MAP: Record<string, LOCALE_DATA> = {
@@ -28,19 +28,19 @@ const LOCALES_MAP: Record<string, LOCALE_DATA> = {
       alt: 'US Flag',
     },
   },
-}
+};
 
 const I18nWidget: FC = () => {
-  const [display, setDisplay] = useState(false)
+  const [display, setDisplay] = useState(false);
   const {
     locale,
     locales,
     defaultLocale = 'en-US',
     asPath: currentPath,
-  } = useRouter()
+  } = useRouter();
 
-  const options = locales?.filter((val) => val !== locale)
-  const currentLocale = locale || defaultLocale
+  const options = locales?.filter((val) => val !== locale);
+  const currentLocale = locale || defaultLocale;
 
   return (
     <ClickOutside active={display} onClick={() => setDisplay(false)}>
@@ -95,7 +95,7 @@ const I18nWidget: FC = () => {
         </div>
       </nav>
     </ClickOutside>
-  )
-}
+  );
+};
 
-export default I18nWidget
+export default I18nWidget;

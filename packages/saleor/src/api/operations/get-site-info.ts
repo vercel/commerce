@@ -9,7 +9,9 @@ interface GetSiteInfoResult {
   brands: any[]
 }
 
-export default function getSiteInfoOperation({ commerce }: OperationContext<Provider>) {
+export default function getSiteInfoOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function getSiteInfo({
     query,
     config,

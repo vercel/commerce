@@ -1,15 +1,15 @@
-import { FC } from 'react'
-import Link from 'next/link'
-import type { Product } from '@commerce/types/product'
-import { Grid } from '@components/ui'
-import { ProductCard } from '@components/product'
-import s from './HomeAllProductsGrid.module.css'
-import { getCategoryPath, getDesignerPath } from '@lib/search'
+import { FC } from 'react';
+import Link from 'next/link';
+import type { Product } from '@commerce/types/product';
+import { Grid } from '@components/ui';
+import { ProductCard } from '@components/product';
+import s from './HomeAllProductsGrid.module.css';
+import { getCategoryPath, getDesignerPath } from '@lib/search';
 
 interface Props {
-  categories?: any
-  brands?: any
-  products?: Product[]
+  categories?: any;
+  brands?: any;
+  products?: Product[];
 }
 
 const HomeAllProductsGrid: FC<Props> = ({
@@ -67,7 +67,7 @@ const HomeAllProductsGrid: FC<Props> = ({
         </Grid>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomeAllProductsGrid
+export default HomeAllProductsGrid;

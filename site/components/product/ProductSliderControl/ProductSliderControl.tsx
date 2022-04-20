@@ -1,11 +1,11 @@
-import { FC, MouseEventHandler, memo } from 'react'
-import cn from 'clsx'
-import s from './ProductSliderControl.module.css'
-import { ArrowLeft, ArrowRight } from '@components/icons'
+import { FC, MouseEventHandler, memo } from 'react';
+import cn from 'clsx';
+import s from './ProductSliderControl.module.css';
+import { ArrowLeft, ArrowRight } from '@components/icons';
 
 interface ProductSliderControl {
-  onPrev: MouseEventHandler<HTMLButtonElement>
-  onNext: MouseEventHandler<HTMLButtonElement>
+  onPrev: MouseEventHandler<HTMLButtonElement>;
+  onNext: MouseEventHandler<HTMLButtonElement>;
 }
 
 const ProductSliderControl: FC<ProductSliderControl> = ({ onPrev, onNext }) => (
@@ -25,6 +25,6 @@ const ProductSliderControl: FC<ProductSliderControl> = ({ onPrev, onNext }) => (
       <ArrowRight />
     </button>
   </div>
-)
+);
 
-export default memo(ProductSliderControl)
+export default memo(ProductSliderControl);

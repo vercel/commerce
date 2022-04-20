@@ -2,11 +2,11 @@
  * This file is expected to be used in next.config.js only
  */
 
-const path = require('path')
-const fs = require('fs')
-const merge = require('deepmerge')
-const prettier = require('prettier')
-const core = require('@vercel/commerce/config')
+const path = require('path');
+const fs = require('fs');
+const merge = require('deepmerge');
+const prettier = require('prettier');
+const core = require('@vercel/commerce/config');
 
 const PROVIDERS = [
   '@vercel/commerce-local',
@@ -19,7 +19,7 @@ const PROVIDERS = [
   '@vercel/commerce-kibocommerce',
   '@vercel/commerce-spree',
   '@vercel/commerce-commercejs',
-]
+];
 
 function getProviderName() {
   return (
@@ -31,28 +31,28 @@ function getProviderName() {
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
       ? '@vercel/commerce-swell'
       : '@vercel/commerce-local')
-  )
+  );
 }
 
 function withCommerceConfig(nextConfig = {}) {
   const config = merge(
     { commerce: { provider: getProviderName() } },
     nextConfig
-  )
-  const { commerce } = config
-  const { provider } = commerce
+  );
+  const { commerce } = config;
+  const { provider } = commerce;
 
   if (!provider) {
     throw new Error(
       `The commerce provider is missing, please add a valid provider name or its environment variables`
-    )
+    );
   }
   if (!PROVIDERS.includes(provider)) {
     throw new Error(
       `The commerce provider "${provider}" can't be found, please use one of "${PROVIDERS.join(
         ', '
       )}"`
-    )
+    );
   }
 
   // Update paths in `tsconfig.json` to point to the selected provider
@@ -60,26 +60,29 @@ function withCommerceConfig(nextConfig = {}) {
     const tsconfigPath = path.join(
       process.cwd(),
       commerce.tsconfigPath || 'tsconfig.json'
-    )
-    const tsconfig = require(tsconfigPath)
+    );
+    const tsconfig = require(tsconfigPath);
     // The module path is a symlink in node_modules
     // -> /node_modules/[name]/dist/index.js
-    const absolutePath = require.resolve(provider)
+    const absolutePath = require.resolve(provider);
     // but we want references to go to the real path in /packages instead
     // -> packages/[name]/dist
-    const distPath = path.join(path.relative(process.cwd(), absolutePath), '..')
+    const distPath = path.join(
+      path.relative(process.cwd(), absolutePath),
+      '..'
+    );
     // -> /packages/[name]/src
-    const modulePath = path.join(distPath, '../src')
+    const modulePath = path.join(distPath, '../src');
 
-    tsconfig.compilerOptions.paths['@framework'] = [`${modulePath}`]
-    tsconfig.compilerOptions.paths['@framework/*'] = [`${modulePath}/*`]
+    tsconfig.compilerOptions.paths['@framework'] = [`${modulePath}`];
+    tsconfig.compilerOptions.paths['@framework/*'] = [`${modulePath}/*`];
 
     fs.writeFileSync(
       tsconfigPath,
       prettier.format(JSON.stringify(tsconfig), { parser: 'json' })
-    )
+    );
 
-    const webpack = config.webpack
+    const webpack = config.webpack;
 
     // To improve the DX of using references, we'll switch from `src` to `dist`
     // only for webpack so imports resolve correctly but typechecking goes to `src`
@@ -87,19 +90,19 @@ function withCommerceConfig(nextConfig = {}) {
       if (Array.isArray(cfg.resolve.plugins)) {
         const jsconfigPaths = cfg.resolve.plugins.find(
           (plugin) => plugin.constructor.name === 'JsConfigPathsPlugin'
-        )
+        );
 
         if (jsconfigPaths) {
-          jsconfigPaths.paths['@framework'] = [distPath]
-          jsconfigPaths.paths['@framework/*'] = [`${distPath}/*`]
+          jsconfigPaths.paths['@framework'] = [distPath];
+          jsconfigPaths.paths['@framework/*'] = [`${distPath}/*`];
         }
       }
 
-      return webpack ? webpack(cfg, options) : cfg
-    }
+      return webpack ? webpack(cfg, options) : cfg;
+    };
   }
 
-  return core.withCommerceConfig(config)
+  return core.withCommerceConfig(config);
 }
 
-module.exports = { withCommerceConfig, getProviderName }
+module.exports = { withCommerceConfig, getProviderName };

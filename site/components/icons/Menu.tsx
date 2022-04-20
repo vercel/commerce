@@ -15,7 +15,7 @@ const Menu = ({ ...props }) => {
         d="M4 6h16M4 12h16m-7 6h7"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

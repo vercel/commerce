@@ -2,7 +2,10 @@ import type {
   HookFetcherContext,
   MutationHookContext,
 } from '@vercel/commerce/utils/types'
-import type { UpdateItemHook, Address } from '@vercel/commerce/types/customer/address'
+import type {
+  UpdateItemHook,
+  Address,
+} from '@vercel/commerce/types/customer/address'
 
 import { useCallback } from 'react'
 

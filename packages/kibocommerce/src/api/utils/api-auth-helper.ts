@@ -41,8 +41,8 @@ export class APIAuthenticationHelper {
     this._clientId = clientId
     this._sharedSecret = sharedSecret
     this._authUrl = authUrl
-    if(!authTicketCache) {
-      this._authTicketCache = new RuntimeMemCache();
+    if (!authTicketCache) {
+      this._authTicketCache = new RuntimeMemCache()
     }
   }
   private _buildFetchOptions(body: any = {}): FetchOptions {

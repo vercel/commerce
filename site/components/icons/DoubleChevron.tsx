@@ -16,7 +16,7 @@ const DoubleChevron = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default DoubleChevron
+export default DoubleChevron;

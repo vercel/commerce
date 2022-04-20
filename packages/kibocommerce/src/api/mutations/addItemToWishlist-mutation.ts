@@ -1,5 +1,5 @@
-import {productDetails} from '../fragments/productDetails'
-const addItemToWishlistMutation = /* GraphQL */`
+import { productDetails } from '../fragments/productDetails'
+const addItemToWishlistMutation = /* GraphQL */ `
   mutation createWishlistItem(
     $wishlistId: String!
     $wishlistItemInput: WishlistItemInput
@@ -15,7 +15,7 @@ const addItemToWishlistMutation = /* GraphQL */`
       }
     }
   }
-${productDetails}
-`;
+  ${productDetails}
+`
 
-export default addItemToWishlistMutation;
+export default addItemToWishlistMutation

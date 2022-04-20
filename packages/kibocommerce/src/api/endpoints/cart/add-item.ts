@@ -74,7 +74,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
 
   if (!cookieHandler.getAccessToken()) {
     let anonymousShopperTokenResponse = await cookieHandler.getAnonymousToken()
-    accessToken = anonymousShopperTokenResponse.accessToken;
+    accessToken = anonymousShopperTokenResponse.accessToken
   } else {
     accessToken = cookieHandler.getAccessToken()
   }

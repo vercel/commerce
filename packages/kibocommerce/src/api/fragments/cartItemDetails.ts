@@ -1,5 +1,5 @@
 import { productDetails } from '../fragments/productDetails'
-export const cartItemDetails = /*GraphQL*/`
+export const cartItemDetails = /*GraphQL*/ `
 fragment cartItemDetails on CartItem {
   id
   product {
@@ -8,4 +8,4 @@ fragment cartItemDetails on CartItem {
   quantity
 }
 ${productDetails}
-`;
+`

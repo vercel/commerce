@@ -1,13 +1,13 @@
-import React, { FC } from 'react'
-import { Cross, ChevronLeft } from '@components/icons'
-import { UserNav } from '@components/common'
-import cn from 'clsx'
-import s from './SidebarLayout.module.css'
+import React, { FC } from 'react';
+import { Cross, ChevronLeft } from '@components/icons';
+import { UserNav } from '@components/common';
+import cn from 'clsx';
+import s from './SidebarLayout.module.css';
 
 type ComponentProps = { className?: string } & (
   | { handleClose: () => any; handleBack?: never }
   | { handleBack: () => any; handleClose?: never }
-)
+);
 
 const SidebarLayout: FC<ComponentProps> = ({
   children,
@@ -43,7 +43,7 @@ const SidebarLayout: FC<ComponentProps> = ({
       </header>
       <div className={s.container}>{children}</div>
     </div>
-  )
-}
+  );
+};
 
-export default SidebarLayout
+export default SidebarLayout;

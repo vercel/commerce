@@ -1,22 +1,22 @@
-import { FC } from 'react'
-import cn from 'clsx'
-import Link from 'next/link'
-import type { Product } from '@commerce/types/product'
-import s from './ProductCard.module.css'
-import Image, { ImageProps } from 'next/image'
-import WishlistButton from '@components/wishlist/WishlistButton'
-import usePrice from '@framework/product/use-price'
-import ProductTag from '../ProductTag'
+import { FC } from 'react';
+import cn from 'clsx';
+import Link from 'next/link';
+import type { Product } from '@commerce/types/product';
+import s from './ProductCard.module.css';
+import Image, { ImageProps } from 'next/image';
+import WishlistButton from '@components/wishlist/WishlistButton';
+import usePrice from '@framework/product/use-price';
+import ProductTag from '../ProductTag';
 
 interface Props {
-  className?: string
-  product: Product
-  noNameTag?: boolean
-  imgProps?: Omit<ImageProps, 'src' | 'layout' | 'placeholder' | 'blurDataURL'>
-  variant?: 'default' | 'slim' | 'simple'
+  className?: string;
+  product: Product;
+  noNameTag?: boolean;
+  imgProps?: Omit<ImageProps, 'src' | 'layout' | 'placeholder' | 'blurDataURL'>;
+  variant?: 'default' | 'slim' | 'simple';
 }
 
-const placeholderImg = '/product-img-placeholder.svg'
+const placeholderImg = '/product-img-placeholder.svg';
 
 const ProductCard: FC<Props> = ({
   product,
@@ -29,13 +29,13 @@ const ProductCard: FC<Props> = ({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
-  })
+  });
 
   const rootClassName = cn(
     s.root,
     { [s.slim]: variant === 'slim', [s.simple]: variant === 'simple' },
     className
-  )
+  );
 
   return (
     <Link href={`/product/${product.slug}`}>
@@ -132,7 +132,7 @@ const ProductCard: FC<Props> = ({
         )}
       </a>
     </Link>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

@@ -11,8 +11,9 @@ const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
 }) => {
   let result: { data?: any } = {}
   if (customerToken) {
-    const customerId = customerToken && (await getCustomerId({ customerToken, config }))
-    const wishlistName= config.defaultWishlistName
+    const customerId =
+      customerToken && (await getCustomerId({ customerToken, config }))
+    const wishlistName = config.defaultWishlistName
     if (!customerId) {
       // If the customerToken is invalid, then this request is too
       return res.status(404).json({
@@ -26,7 +27,14 @@ const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
       config,
     })
 
-    result = { data: {...wishlist, items: wishlist?.items?.map((item:any) => normalizeWishlistItem(item, config, includeProducts))} }
+    result = {
+      data: {
+        ...wishlist,
+        items: wishlist?.items?.map((item: any) =>
+          normalizeWishlistItem(item, config, includeProducts)
+        ),
+      },
+    }
   }
 
   res.status(200).json({ data: result?.data ?? null })

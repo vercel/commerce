@@ -34,7 +34,7 @@ const Vercel = ({ ...props }) => {
         fill="currentColor"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Vercel
+export default Vercel;

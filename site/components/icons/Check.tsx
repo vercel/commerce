@@ -15,7 +15,7 @@ const Check = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Check
+export default Check;

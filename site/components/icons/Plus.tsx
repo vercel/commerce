@@ -16,7 +16,7 @@ const Plus = ({ ...props }) => {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Plus
+export default Plus;

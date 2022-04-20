@@ -16,7 +16,7 @@ const Info = ({ ...props }) => {
       <path d="M12 8v4" stroke="currentColor" />
       <path d="M12 16h.01" stroke="currentColor" />
     </svg>
-  )
-}
+  );
+};
 
-export default Info
+export default Info;

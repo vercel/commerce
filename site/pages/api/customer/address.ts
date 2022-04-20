@@ -1,4 +1,4 @@
-import customerAddressApi from '@framework/api/endpoints/customer/address'
-import commerce from '@lib/api/commerce'
+import customerAddressApi from '@framework/api/endpoints/customer/address';
+import commerce from '@lib/api/commerce';
 
-export default customerAddressApi(commerce)
+export default customerAddressApi(commerce);

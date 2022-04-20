@@ -6,7 +6,13 @@ import useCustomer from '../customer/use-customer'
 import * as mutation from '../utils/mutations'
 import { Mutation, MutationTokenCreateArgs } from '../../schema'
 import useLogin, { UseLogin } from '@vercel/commerce/auth/use-login'
-import { setCSRFToken, setToken, throwUserErrors, checkoutAttach, getCheckoutId } from '../utils'
+import {
+  setCSRFToken,
+  setToken,
+  throwUserErrors,
+  checkoutAttach,
+  getCheckoutId,
+} from '../utils'
 import { LoginHook } from '@vercel/commerce/types/login'
 
 export default useLogin as UseLogin<typeof handler>
@@ -18,7 +24,8 @@ export const handler: MutationHook<LoginHook> = {
   async fetcher({ input: { email, password }, options, fetch }) {
     if (!(email && password)) {
       throw new CommerceError({
-        message: 'A first name, last name, email and password are required to login',
+        message:
+          'A first name, last name, email and password are required to login',
       })
     }
 

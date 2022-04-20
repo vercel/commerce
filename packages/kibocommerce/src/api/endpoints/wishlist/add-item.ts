@@ -11,7 +11,7 @@ const buildAddToWishlistVariables = ({
   productId,
   variantId,
   productResponse,
-  wishlist
+  wishlist,
 }: {
   productId: string
   variantId: string
@@ -23,7 +23,7 @@ const buildAddToWishlistVariables = ({
   const selectedOptions = product.variations?.find(
     (v: any) => v.productCode === variantId
   ).options
-  const quantity=1
+  const quantity = 1
   let options: any[] = []
   selectedOptions?.forEach((each: any) => {
     product?.options
@@ -47,8 +47,8 @@ const buildAddToWishlistVariables = ({
         productCode: productId,
         variationProductCode: variantId ? variantId : null,
         options,
-      }
       },
+    },
   }
 }
 
@@ -58,8 +58,10 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
   config,
   commerce,
 }) => {
-  const token = customerToken ? Buffer.from(customerToken, 'base64').toString('ascii'): null;
-  const accessToken = token ? JSON.parse(token).accessToken : null;
+  const token = customerToken
+    ? Buffer.from(customerToken, 'base64').toString('ascii')
+    : null
+  const accessToken = token ? JSON.parse(token).accessToken : null
   let result: { data?: any } = {}
   let wishlist: any
 
@@ -70,8 +72,9 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
     })
   }
 
-  const customerId = customerToken && (await getCustomerId({ customerToken, config }))
-  const wishlistName= config.defaultWishlistName
+  const customerId =
+    customerToken && (await getCustomerId({ customerToken, config }))
+  const wishlistName = config.defaultWishlistName
 
   if (!customerId) {
     return res.status(400).json({
@@ -84,16 +87,21 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
     variables: { customerId, wishlistName },
     config,
   })
-  wishlist= wishlistResponse?.wishlist
-  if(Object.keys(wishlist).length === 0) {
-    const createWishlistResponse= await config.fetch(createWishlist, {variables: {
-      wishlistInput: {
-        customerAccountId: customerId,
-        name: wishlistName
-      }
-    }
-  }, {headers: { 'x-vol-user-claims': accessToken } })
-  wishlist= createWishlistResponse?.data?.createWishlist
+  wishlist = wishlistResponse?.wishlist
+  if (Object.keys(wishlist).length === 0) {
+    const createWishlistResponse = await config.fetch(
+      createWishlist,
+      {
+        variables: {
+          wishlistInput: {
+            customerAccountId: customerId,
+            name: wishlistName,
+          },
+        },
+      },
+      { headers: { 'x-vol-user-claims': accessToken } }
+    )
+    wishlist = createWishlistResponse?.data?.createWishlist
   }
 
   const productResponse = await config.fetch(getProductQuery, {
@@ -103,20 +111,31 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
   const addItemToWishlistResponse = await config.fetch(
     addItemToWishlistMutation,
     {
-      variables: buildAddToWishlistVariables({ ...item, productResponse, wishlist }),
+      variables: buildAddToWishlistVariables({
+        ...item,
+        productResponse,
+        wishlist,
+      }),
     },
     { headers: { 'x-vol-user-claims': accessToken } }
   )
 
-  if(addItemToWishlistResponse?.data?.createWishlistItem){
-    const wishlistResponse= await commerce.getCustomerWishlist({
+  if (addItemToWishlistResponse?.data?.createWishlistItem) {
+    const wishlistResponse = await commerce.getCustomerWishlist({
       variables: { customerId, wishlistName },
       config,
     })
-    wishlist= wishlistResponse?.wishlist
+    wishlist = wishlistResponse?.wishlist
   }
-  
-  result = { data: {...wishlist, items: wishlist?.items?.map((item:any) => normalizeWishlistItem(item, config))} }
+
+  result = {
+    data: {
+      ...wishlist,
+      items: wishlist?.items?.map((item: any) =>
+        normalizeWishlistItem(item, config)
+      ),
+    },
+  }
 
   res.status(200).json({ data: result?.data })
 }

@@ -1,10 +1,10 @@
-import { FC } from 'react'
-import s from './ShippingWidget.module.css'
-import { ChevronRight, MapPin, Check } from '@components/icons'
+import { FC } from 'react';
+import s from './ShippingWidget.module.css';
+import { ChevronRight, MapPin, Check } from '@components/icons';
 
 interface ComponentProps {
-  onClick?: () => any
-  isValid?: boolean
+  onClick?: () => any;
+  isValid?: boolean;
 }
 
 const ShippingWidget: FC<ComponentProps> = ({ onClick, isValid }) => {
@@ -25,7 +25,7 @@ const ShippingWidget: FC<ComponentProps> = ({ onClick, isValid }) => {
       </div>
       <div>{isValid ? <Check /> : <ChevronRight />}</div>
     </div>
-  )
-}
+  );
+};
 
-export default ShippingWidget
+export default ShippingWidget;

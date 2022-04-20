@@ -16,13 +16,19 @@ export default useAddItem as UseAddItem<typeof handler>
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: { query: mutation.CheckoutLineAdd },
   async fetcher({ input: item, options, fetch }) {
-    if (item.quantity && (!Number.isInteger(item.quantity) || item.quantity! < 1)) {
+    if (
+      item.quantity &&
+      (!Number.isInteger(item.quantity) || item.quantity! < 1)
+    ) {
       throw new CommerceError({
         message: 'The item quantity has to be a valid integer greater than 0',
       })
     }
 
-    const { checkoutLinesAdd } = await fetch<Mutation, MutationCheckoutLinesAddArgs>({
+    const { checkoutLinesAdd } = await fetch<
+      Mutation,
+      MutationCheckoutLinesAddArgs
+    >({
       ...options,
       variables: {
         checkoutId: getCheckoutId().checkoutId,

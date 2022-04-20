@@ -1,2 +1,2 @@
-export { default } from './Quantity'
-export * from './Quantity'
+export { default } from './Quantity';
+export * from './Quantity';

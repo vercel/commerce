@@ -6,8 +6,8 @@ import { NextApiRequest } from 'next'
 import getAnonymousShopperToken from './get-anonymous-shopper-token'
 
 const parseCookie = (cookieValue?: any) => {
-  return cookieValue 
-    ? JSON.parse(Buffer.from(cookieValue, 'base64').toString('ascii')) 
+  return cookieValue
+    ? JSON.parse(Buffer.from(cookieValue, 'base64').toString('ascii'))
     : null
 }
 export default class CookieHandler {
@@ -37,8 +37,8 @@ export default class CookieHandler {
   isShopperCookieAnonymous() {
     const customerCookieKey = this.config.customerCookie
     const shopperCookie = this.request.cookies[customerCookieKey]
-    const shopperSession = parseCookie(shopperCookie);
-    const isAnonymous = shopperSession?.customerAccount ? false : true 
+    const shopperSession = parseCookie(shopperCookie)
+    const isAnonymous = shopperSession?.customerAccount ? false : true
     return isAnonymous
   }
   setAnonymousShopperCookie(anonymousShopperTokenResponse: any) {

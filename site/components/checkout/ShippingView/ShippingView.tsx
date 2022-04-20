@@ -1,33 +1,33 @@
-import { FC } from 'react'
-import cn from 'clsx'
+import { FC } from 'react';
+import cn from 'clsx';
 
-import Button from '@components/ui/Button'
-import { useUI } from '@components/ui/context'
-import SidebarLayout from '@components/common/SidebarLayout'
-import useAddAddress from '@framework/customer/address/use-add-item'
+import Button from '@components/ui/Button';
+import { useUI } from '@components/ui/context';
+import SidebarLayout from '@components/common/SidebarLayout';
+import useAddAddress from '@framework/customer/address/use-add-item';
 
-import s from './ShippingView.module.css'
+import s from './ShippingView.module.css';
 
 interface Form extends HTMLFormElement {
-  cardHolder: HTMLInputElement
-  cardNumber: HTMLInputElement
-  cardExpireDate: HTMLInputElement
-  cardCvc: HTMLInputElement
-  firstName: HTMLInputElement
-  lastName: HTMLInputElement
-  company: HTMLInputElement
-  streetNumber: HTMLInputElement
-  zipCode: HTMLInputElement
-  city: HTMLInputElement
-  country: HTMLSelectElement
+  cardHolder: HTMLInputElement;
+  cardNumber: HTMLInputElement;
+  cardExpireDate: HTMLInputElement;
+  cardCvc: HTMLInputElement;
+  firstName: HTMLInputElement;
+  lastName: HTMLInputElement;
+  company: HTMLInputElement;
+  streetNumber: HTMLInputElement;
+  zipCode: HTMLInputElement;
+  city: HTMLInputElement;
+  country: HTMLSelectElement;
 }
 
 const ShippingView: FC = () => {
-  const { setSidebarView } = useUI()
-  const addAddress = useAddAddress()
+  const { setSidebarView } = useUI();
+  const addAddress = useAddAddress();
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
-    event.preventDefault()
+    event.preventDefault();
 
     await addAddress({
       type: event.target.type.value,
@@ -39,9 +39,9 @@ const ShippingView: FC = () => {
       zipCode: event.target.zipCode.value,
       city: event.target.city.value,
       country: event.target.country.value,
-    })
+    });
 
-    setSidebarView('CHECKOUT_VIEW')
+    setSidebarView('CHECKOUT_VIEW');
   }
 
   return (
@@ -112,7 +112,7 @@ const ShippingView: FC = () => {
         </div>
       </SidebarLayout>
     </form>
-  )
-}
+  );
+};
 
-export default ShippingView
+export default ShippingView;

@@ -1,33 +1,33 @@
-import { FC } from 'react'
-import cn from 'clsx'
+import { FC } from 'react';
+import cn from 'clsx';
 
-import useAddCard from '@framework/customer/card/use-add-item'
-import { Button, Text } from '@components/ui'
-import { useUI } from '@components/ui/context'
-import SidebarLayout from '@components/common/SidebarLayout'
+import useAddCard from '@framework/customer/card/use-add-item';
+import { Button, Text } from '@components/ui';
+import { useUI } from '@components/ui/context';
+import SidebarLayout from '@components/common/SidebarLayout';
 
-import s from './PaymentMethodView.module.css'
+import s from './PaymentMethodView.module.css';
 
 interface Form extends HTMLFormElement {
-  cardHolder: HTMLInputElement
-  cardNumber: HTMLInputElement
-  cardExpireDate: HTMLInputElement
-  cardCvc: HTMLInputElement
-  firstName: HTMLInputElement
-  lastName: HTMLInputElement
-  company: HTMLInputElement
-  streetNumber: HTMLInputElement
-  zipCode: HTMLInputElement
-  city: HTMLInputElement
-  country: HTMLSelectElement
+  cardHolder: HTMLInputElement;
+  cardNumber: HTMLInputElement;
+  cardExpireDate: HTMLInputElement;
+  cardCvc: HTMLInputElement;
+  firstName: HTMLInputElement;
+  lastName: HTMLInputElement;
+  company: HTMLInputElement;
+  streetNumber: HTMLInputElement;
+  zipCode: HTMLInputElement;
+  city: HTMLInputElement;
+  country: HTMLSelectElement;
 }
 
 const PaymentMethodView: FC = () => {
-  const { setSidebarView } = useUI()
-  const addCard = useAddCard()
+  const { setSidebarView } = useUI();
+  const addCard = useAddCard();
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
-    event.preventDefault()
+    event.preventDefault();
 
     await addCard({
       cardHolder: event.target.cardHolder.value,
@@ -41,9 +41,9 @@ const PaymentMethodView: FC = () => {
       zipCode: event.target.zipCode.value,
       city: event.target.city.value,
       country: event.target.country.value,
-    })
+    });
 
-    setSidebarView('CHECKOUT_VIEW')
+    setSidebarView('CHECKOUT_VIEW');
   }
 
   return (
@@ -124,7 +124,7 @@ const PaymentMethodView: FC = () => {
         </div>
       </SidebarLayout>
     </form>
-  )
-}
+  );
+};
 
-export default PaymentMethodView
+export default PaymentMethodView;
