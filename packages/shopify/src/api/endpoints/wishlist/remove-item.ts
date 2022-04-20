@@ -5,10 +5,11 @@ import type {
   MutationCustomerUpdateArgs,
   Mutation,
 } from '../../../../admin-schema'
+import { debug } from 'util'
 
 const removeWishlistItem: WishlistEndpoint['handlers']['removeItem'] = async ({
   res,
-  body: { item, customerToken },
+  body: { variables: item, customerToken },
   config,
   commerce,
 }) => {
@@ -36,7 +37,15 @@ const removeWishlistItem: WishlistEndpoint['handlers']['removeItem'] = async ({
     })
 
     const WishlistItems: WishlistItemBody[] = wishlist?.items
-      ?.filter((wishlistItem) => wishlistItem.productId !== item.productId)
+      ?.filter((wishlistItem) => {
+        if (
+          wishlistItem.productId === item.itemId &&
+          wishlistItem.variantId === item.itemVariantId
+        ) {
+          return false
+        }
+        return true
+      })
       .map(({ product, ...rest }) => {
         return rest
       })!

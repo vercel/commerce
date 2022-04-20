@@ -34,13 +34,13 @@ const wishlistEndpoint: GetAPISchema<
 
     // Add an item to the wishlist
     if (req.method === 'POST') {
-      const body = { ...req.body.variables, customerToken }
+      const body = { ...req.body, customerToken }
       return await handlers['addItem']({ ...ctx, body })
     }
 
     // Remove an item from the wishlist
     if (req.method === 'DELETE') {
-      const body = { ...req.body.variables, customerToken }
+      const body = { ...req.body, customerToken }
       return await handlers['removeItem']({ ...ctx, body })
     }
   } catch (error) {

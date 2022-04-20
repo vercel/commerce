@@ -15,15 +15,16 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/typescript": "2.4.8",
+    "@graphql-codegen/typescript-document-nodes": "2.2.8",
+    "@graphql-codegen/typescript-graphql-files-modules": "2.1.1",
+    "@graphql-codegen/typescript-operations": "2.3.5",
+    "@types/node": "^17.0.24",
     "husky": "^7.0.4",
     "prettier": "^2.5.1",
-    "turbo": "^1.1.2",
-    "@graphql-codegen/typescript-document-nodes": "2.2.8",
-    "@graphql-codegen/typescript": "2.4.8",
-    "@graphql-codegen/typescript-operations": "2.3.5",
-    "@graphql-codegen/typescript-graphql-files-modules": "2.1.1",
-    "@graphql-codegen/introspection": "2.1.1",
-    "@graphql-codegen/cli": "2.6.2"
+    "turbo": "^1.1.2"
   },
   "husky": {
     "hooks": {

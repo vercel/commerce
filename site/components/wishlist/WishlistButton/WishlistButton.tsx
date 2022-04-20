@@ -48,7 +48,11 @@ const WishlistButton: FC<Props> = ({
 
     try {
       if (itemInWishlist) {
-        await removeItem({ productId, variantId: variant?.id! })
+        await removeItem({
+          id: itemInWishlist.productId,
+          //TODO: enable itemVariantId when using shopify provider
+          itemVariantId: itemInWishlist.variantId,
+        })
       } else {
         await addItem({
           productId,

@@ -16,8 +16,8 @@ export const handler: MutationHook<RemoveItemHook> = {
     url: '/api/wishlist',
     method: 'DELETE',
   },
-  async fetcher({ input: item, options, fetch }) {
-    const data = await fetch({ ...options, variables: item })
+  async fetcher({ input, options, fetch }) {
+    const data = await fetch({ ...options, variables: input })
 
     return data
   },
@@ -28,7 +28,7 @@ export const handler: MutationHook<RemoveItemHook> = {
       const { mutate } = useWishlist()
 
       return useCallback(
-        async function removeItem(item) {
+        async function removeItem(input) {
           if (!customer) {
             // A signed customer is required in order to have a wishlist
             throw new CommerceError({
@@ -38,7 +38,9 @@ export const handler: MutationHook<RemoveItemHook> = {
 
           // TODO: add validations before doing the fetch
 
-          const data = await fetch({ input: { item } })
+          const data = await fetch({
+            input: { itemId: input.id, itemVariantId: input.itemVariantId },
+          })
           await mutate()
           return data
         },

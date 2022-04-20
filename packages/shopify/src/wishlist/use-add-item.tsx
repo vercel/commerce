@@ -14,7 +14,7 @@ export const handler: MutationHook<AddItemHook> = {
     url: '/api/wishlist',
     method: 'POST',
   },
-  async fetcher({ input: item, options, fetch }) {
+  async fetcher({ input: { item }, options, fetch }) {
     const data = await fetch({ ...options, variables: item })
 
     return data

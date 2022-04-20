@@ -2,7 +2,7 @@
   "schema": {
     "https://${NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/admin/api/2022-01/graphql.json": {
       "headers": {
-        "X-Shopify-Access-Token": "${NEXT_PUBLIC_SHOPIFY_ADMIN_ACCESS_TOKEN}"
+        "X-Shopify-Access-Token": "${SHOPIFY_ADMIN_ACCESS_TOKEN}"
       }
     }
   },

@@ -13,4 +13,4 @@ export const ADMIN_API_URL = `https://${STORE_DOMAIN}/admin/api/2022-01/graphql.
 
 export const API_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
 export const ADMIN_ACCESS_TOKEN =
-  process.env.NEXT_PUBLIC_SHOPIFY_ADMIN_ACCESS_TOKEN
+  process.env.SHOPIFY_ADMIN_ACCESS_TOKEN

@@ -9,7 +9,7 @@ import { WishlistItem } from './../../../types/wishlist'
 
 const addWishlistItem: WishlistEndpoint['handlers']['addItem'] = async ({
   res,
-  body: { item, customerToken },
+  body: { variables: item, customerToken },
   config,
   commerce,
 }) => {

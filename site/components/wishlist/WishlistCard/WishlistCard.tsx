@@ -7,7 +7,11 @@ import { Trash } from '@components/icons'
 import { Button, Text } from '@components/ui'
 
 import { useUI } from '@components/ui/context'
-import type { Product } from '@commerce/types/product'
+import type {
+  Product,
+  ProductOption,
+  ProductVariant,
+} from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
 import useAddItem from '@framework/cart/use-add-item'
 import useRemoveItem from '@framework/wishlist/use-remove-item'
@@ -15,21 +19,23 @@ import type { Wishlist } from '@commerce/types/wishlist'
 
 const placeholderImg = '/product-img-placeholder.svg'
 
-interface Props {
-  item: Product
-  variant: string | number
-}
-
-const WishlistCard: FC<Props> = ({ item, variant }) => {
+const WishlistCard: React.FC<{
+  item: Wishlist
+}> = ({ item }) => {
+  const product: Product = item.product
   const { price } = usePrice({
-    amount: item.price?.value,
-    baseAmount: item.price?.retailPrice,
-    currencyCode: item.price?.currencyCode!,
+    amount: product.price?.value,
+    baseAmount: product.price?.retailPrice,
+    currencyCode: product.price?.currencyCode!,
   })
   // @ts-ignore Wishlist is not always enabled
-  const removeItem = useRemoveItem({ item })
+  const removeItem = useRemoveItem({ wishlist: { includeProducts: true } })
   const [loading, setLoading] = useState(false)
   const [removing, setRemoving] = useState(false)
+
+  const { options } = item.product.variants.find(
+    (variant: ProductVariant) => item.variantId === variant.id
+  )
 
   // TODO: fix this missing argument issue
   /* @ts-ignore */
@@ -42,7 +48,11 @@ const WishlistCard: FC<Props> = ({ item, variant }) => {
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ productId: item.id, variantId: variant })
+      await removeItem({
+        id: item.productId,
+        //TODO: enable itemVariantId when using shopify provider
+        itemVariantId: item.variantId,
+      })
     } catch (error) {
       setRemoving(false)
     }
@@ -51,8 +61,11 @@ const WishlistCard: FC<Props> = ({ item, variant }) => {
     setLoading(true)
     try {
       await addItem({
-        productId: String(item.id),
-        variantId: String(item.variants[0].id),
+        //for shopify provider, use the productId and variantId stored in wishlist
+        productId: item.productId,
+        variantId: item.variantId,
+        // productId: String(product.id),
+        // variantId: String(product.variants[0].id),
       })
       openSidebar()
       setLoading(false)
@@ -67,20 +80,46 @@ const WishlistCard: FC<Props> = ({ item, variant }) => {
         <Image
           width={230}
           height={230}
-          src={item.images[0]?.url || placeholderImg}
-          alt={item.images[0]?.alt || 'Product Image'}
+          src={product.images[0]?.url || placeholderImg}
+          alt={product.images[0]?.alt || 'Product Image'}
         />
       </div>
 
       <div className={s.description}>
         <div className="flex-1 mb-6">
           <h3 className="text-2xl mb-2 -mt-1">
-            <Link href={`/product${item.path}`}>
-              <a>{item.name}</a>
+            <Link href={`/product${product.path}`}>
+              <a>{product.name}</a>
             </Link>
           </h3>
+
+          {options && options.length > 0 && (
+            <div className="flex items-center pb-1">
+              {options.map((option: ProductOption, i: number) => (
+                <div
+                  key={`${option.id}`}
+                  className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center"
+                >
+                  {option.displayName}
+                  {option.displayName === 'Color' ? (
+                    <span
+                      className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden"
+                      style={{
+                        backgroundColor: `${option.values[0].label}`,
+                      }}
+                    ></span>
+                  ) : (
+                    <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden">
+                      {option.values[0].label}
+                    </span>
+                  )}
+                  {i === options.length - 1 ? '' : <span className="mr-3" />}
+                </div>
+              ))}
+            </div>
+          )}
           <div className="mb-4">
-            <Text html={item.description} />
+            <Text html={product.description} />
           </div>
         </div>
         <div>

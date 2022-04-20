@@ -57,27 +57,29 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         <div className="text-accent-6 pr-1 font-medium text-sm">36 reviews</div>
       </div>
       <div>
-        {process.env.COMMERCE_CART_ENABLED && (
-          <Button
-            aria-label="Add to Cart"
-            type="button"
-            className={s.button}
-            onClick={addToCart}
-            loading={loading}
-            disabled={variant?.availableForSale === false}
-          >
-            {variant?.availableForSale === false
-              ? 'Not Available'
-              : 'Add To Cart'}
-          </Button>
-        )}
-        {!variant?.availableForSale && (
-          <WishlistButton
-            className={s.button}
-            productId={product.id}
-            variant={variant!}
-          />
-        )}
+        <div className="flex flex-row justify-between items-center">
+          {process.env.COMMERCE_CART_ENABLED && (
+            <Button
+              aria-label="Add to Cart"
+              type="button"
+              className={s.button}
+              onClick={addToCart}
+              loading={loading}
+              disabled={variant?.availableForSale === false}
+            >
+              {variant?.availableForSale === false
+                ? 'Not Available'
+                : 'Add To Cart'}
+            </Button>
+          )}
+          {!variant?.availableForSale && (
+            <WishlistButton
+              className={s.button}
+              productId={product.id}
+              variant={variant!}
+            />
+          )}
+        </div>
       </div>
       <div className="mt-6">
         <Collapse title="Care">
