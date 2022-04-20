@@ -20,6 +20,7 @@ const PROVIDERS = [
   '@vercel/commerce-spree',
   '@vercel/commerce-commercejs',
   '@vercel/commerce-opencommerce',
+  '@vercel/commerce-sfcc',
 ]
 
 function getProviderName() {
