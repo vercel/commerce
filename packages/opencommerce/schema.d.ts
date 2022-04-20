@@ -8195,3 +8195,36 @@ export type GetProductBySlugQuery = {
     } | null
   } | null
 }
+
+export type GetTagsQueryVariables = Exact<{
+  first: Scalars['ConnectionLimitInt']
+  shopId: Scalars['ID']
+}>
+
+export type GetTagsQuery = {
+  __typename?: 'Query'
+  tags: {
+    __typename?: 'TagConnection'
+    edges: Array<{
+      __typename?: 'TagEdge'
+      node: {
+        __typename?: 'Tag'
+        _id: string
+        displayTitle: string | null
+        slug: string | null
+      } | null
+    } | null> | null
+  } | null
+}
+
+export type GetAllProductVendorsQueryVariables = Exact<{
+  shopIds: Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>
+}>
+
+export type GetAllProductVendorsQuery = {
+  __typename?: 'Query'
+  vendors: {
+    __typename?: 'VendorConnection'
+    nodes: Array<{ __typename?: 'Vendor'; name: string | null } | null> | null
+  } | null
+}

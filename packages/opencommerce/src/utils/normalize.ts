@@ -4,6 +4,7 @@ import type {
   ProductOptionValues,
   ProductVariant,
 } from '../types/product'
+import { OCCategory, Category, Vendor, OCVendor } from '../types/site'
 import {
   CatalogItemProduct,
   CatalogProduct,
@@ -204,4 +205,23 @@ function colorizeProductOptionValue(
     value.hexColors = [value.label]
   }
   return value
+}
+
+export function normalizeCategory(category: OCCategory): Category {
+  return {
+    id: category._id,
+    name: category.displayTitle ?? '',
+    slug: category.slug ?? '',
+    path: category.slug ? `/${category.slug}` : '',
+  }
+}
+
+export function normalizeVendors({ name }: OCVendor): Vendor {
+  return {
+    node: {
+      entityId: name ?? '',
+      name: name ?? '',
+      path: `brands/${name}`,
+    },
+  }
 }
