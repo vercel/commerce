@@ -31,7 +31,7 @@ export default function getAllProductsOperation({
     if (searchResults.total) {
       products = normalizeSearchProducts(searchResults.hits)
     }
-    
+
     return {
       products: products,
     }
