@@ -23,7 +23,7 @@ export interface OpenCommerceConfig extends CommerceAPIConfig {
 const ONE_DAY = 60 * 60 * 24
 
 const config: OpenCommerceConfig = {
-  commerceUrl: `${API_URL}/graphql`,
+  commerceUrl: API_URL,
   apiToken: '',
   shopId: SHOP_ID ?? '',
   customerCookie: 'opencommerce_customerToken',
