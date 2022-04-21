@@ -15,7 +15,7 @@ export default function getAllProductsOperation({
   commerce,
 }: OperationContext<Provider>) {
   async function getAllProducts<T extends GetAllProductsOperation>(opts?: {
-    variables?: CatalogItemsQueryVariables
+    variables?: T['variables']
     config?: Partial<OpenCommerceConfig>
     preview?: boolean
   }): Promise<T['data']>
@@ -26,7 +26,7 @@ export default function getAllProductsOperation({
     config,
   }: {
     query?: string
-    variables?: CatalogItemsQueryVariables
+    variables?: T['variables']
     config?: Partial<OpenCommerceConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {

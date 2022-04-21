@@ -2,9 +2,9 @@
   "provider": "opencommerce",
   "features": {
     "wishlist": false,
-    "cart": true,
-    "search": true,
+    "cart": false,
+    "search": false,
     "customerAuth": false,
-    "customCheckout": true
+    "customCheckout": false
   }
 }
