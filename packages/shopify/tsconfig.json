@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "es6",
+    "target": "esnext",
+    "module": "esnext",
     "outDir": "dist",
     "baseUrl": "src",
     "lib": ["dom", "dom.iterable", "esnext"],
