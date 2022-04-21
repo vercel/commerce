@@ -1,5 +1,5 @@
 import { FC, memo, useEffect } from 'react';
-import cn from 'clsx';
+import cn from 'classnames';
 import s from './Searchbar.module.css';
 import { useRouter } from 'next/router';
 
@@ -43,6 +43,7 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
         placeholder="Search for products..."
         defaultValue={router.query.q}
         onKeyUp={handleKeyUp}
+        data-test="search-input"
       />
       <div className={s.iconContainer}>
         <svg className={s.icon} fill="currentColor" viewBox="0 0 20 20">

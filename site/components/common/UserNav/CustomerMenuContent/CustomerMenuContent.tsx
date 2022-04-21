@@ -58,7 +58,7 @@ export default function CustomerMenuContent() {
         <a
           className={cn(s.link, 'justify-between')}
           onClick={() => {
-            setTheme(theme === 'dark' ? 'light' : 'dark');
+            setTheme(theme === 'dark' ? 'light' : 'light');
           }}
         >
           <div>
