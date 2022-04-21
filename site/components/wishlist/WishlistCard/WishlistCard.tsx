@@ -51,7 +51,7 @@ const WishlistCard: React.FC<{
       await removeItem({
         id: item.productId,
         //TODO: enable itemVariantId when using shopify provider
-        itemVariantId: item.variantId,
+        // itemVariantId: item.variantId,
       })
     } catch (error) {
       setRemoving(false)
