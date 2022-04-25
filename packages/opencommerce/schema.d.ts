@@ -7937,6 +7937,8 @@ export type AuthenticateMutation = {
 export type CatalogItemsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['ConnectionLimitInt']>
   sortBy?: InputMaybe<CatalogItemSortByField>
+  sortOrder?: InputMaybe<SortOrder>
+  sortByPriceCurrencyCode?: InputMaybe<Scalars['String']>
   tagIds?: InputMaybe<
     Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>
   >
@@ -8198,6 +8200,18 @@ export type GetProductBySlugQuery = {
         } | null
       } | null> | null
     } | null
+  } | null
+}
+
+export type GetShopCurrencyQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type GetShopCurrencyQuery = {
+  __typename?: 'Query'
+  shop?: {
+    __typename?: 'Shop'
+    currency: { __typename?: 'Currency'; code: string }
   } | null
 }
 

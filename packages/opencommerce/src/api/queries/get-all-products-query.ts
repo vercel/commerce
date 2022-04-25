@@ -2,6 +2,8 @@ const catalogItemsQuery = /* GraphQL */ `
   query catalogItems(
     $first: ConnectionLimitInt = 250
     $sortBy: CatalogItemSortByField = updatedAt
+    $sortOrder: SortOrder = desc
+    $sortByPriceCurrencyCode: String
     $tagIds: [ID]
     $shopIds: [ID]!
     $searchQuery: String
@@ -9,9 +11,11 @@ const catalogItemsQuery = /* GraphQL */ `
     catalogItems(
       first: $first
       sortBy: $sortBy
+      sortOrder: $sortOrder
       tagIds: $tagIds
       shopIds: $shopIds
       searchQuery: $searchQuery
+      sortByPriceCurrencyCode: $sortByPriceCurrencyCode
     ) {
       pageInfo {
         hasNextPage
