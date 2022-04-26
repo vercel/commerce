@@ -48,7 +48,7 @@ export function normalizeProduct(
     images: media?.length
       ? normalizeProductImages(<ImageInfo[]>media, title ?? '')
       : [],
-    vendor: product.vendor ?? undefined,
+    ...(product.vendor ? { vendor: product.vendor } : {}),
     price: {
       value: pricing[0]?.minPrice ?? 0,
       currencyCode: pricing[0]?.currency.code,
@@ -175,7 +175,9 @@ const normalizeProductOption = (variant: CatalogProductVariant) => {
     __typename: 'MultipleChoiceOption',
     id: variant._id,
     displayName: variant.attributeLabel,
-    values: variant.optionTitle ? [{ label: variant.optionTitle }] : [],
+    values: variant.optionTitle
+      ? [{ label: variant.optionTitle }]
+      : [{ label: '' }],
   }
   option.values = option.values.map((value) =>
     colorizeProductOptionValue(value, option.displayName)
