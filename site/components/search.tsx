@@ -54,7 +54,6 @@ export default function Search({ categories, brands }: SearchPropsType) {
     locale,
   })
 
-  console.log({ data })
   const handleClick = (event: any, filter: string) => {
     if (filter !== activeFilter) {
       setToggleFilter(true)
