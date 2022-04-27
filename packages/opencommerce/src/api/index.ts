@@ -18,6 +18,7 @@ if (!API_URL) {
 
 export interface OpenCommerceConfig extends CommerceAPIConfig {
   shopId: string
+  anonymousCartTokenCookie: string
 }
 
 const ONE_DAY = 60 * 60 * 24
@@ -29,6 +30,7 @@ const config: OpenCommerceConfig = {
   customerCookie: 'opencommerce_customerToken',
   cartCookie: 'opencommerce_cartId',
   cartCookieMaxAge: ONE_DAY * 30,
+  anonymousCartTokenCookie: 'opencommerce_anonymousCartToken',
   fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
 }
 

@@ -10,7 +10,11 @@ import {
   CatalogProduct,
   CatalogProductVariant,
   ImageInfo,
+  Cart as OCCart,
+  CartItemEdge,
+  CartItem,
 } from '../../schema'
+import { Cart, LineItem } from '../types/cart'
 
 const normalizeProductImages = (images: ImageInfo[], name: string) =>
   images.map((image) => ({
@@ -225,5 +229,76 @@ export function normalizeVendors({ name }: OCVendor): Vendor {
       name: name ?? '',
       path: `brands/${name}`,
     },
+  }
+}
+
+export function normalizeCart(cart: OCCart): Cart {
+  return {
+    id: cart._id,
+    customerId: cart.account?._id ?? '',
+    email:
+      (cart.account?.emailRecords && cart.account?.emailRecords[0]?.address) ??
+      '',
+
+    createdAt: cart.createdAt,
+    currency: {
+      code: cart.checkout?.summary?.total?.currency.code ?? '',
+    },
+    lineItems:
+      cart.items?.edges?.map((cartItem) =>
+        normalizeLineItem(<CartItemEdge>cartItem)
+      ) ?? [],
+    lineItemsSubtotalPrice: +(cart.checkout?.summary?.itemTotal?.amount ?? 0),
+    subtotalPrice: +(cart.checkout?.summary?.itemTotal?.amount ?? 0),
+    totalPrice: cart.checkout?.summary?.total?.amount ?? 0,
+    discounts: [],
+    taxesIncluded: !!cart.checkout?.summary?.taxTotal?.amount,
+  }
+}
+
+function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
+  const cartItem = cartItemEdge.node
+
+  if (!cartItem) {
+    return <LineItem>{}
+  }
+
+  const {
+    _id,
+    compareAtPrice,
+    imageURLs,
+    title,
+    productConfiguration,
+    priceWhenAdded,
+    optionTitle,
+    variantTitle,
+    quantity,
+  } = <CartItem>cartItem
+
+  return {
+    id: _id,
+    variantId: String(productConfiguration?.productVariantId),
+    productId: String(productConfiguration?.productId),
+    name: `${title}`,
+    quantity,
+    variant: {
+      id: String(productConfiguration?.productVariantId),
+      sku: String(productConfiguration?.productVariantId),
+      name: String(optionTitle || variantTitle),
+      image: {
+        url: imageURLs?.thumbnail ?? '/product-img-placeholder.svg',
+      },
+      requiresShipping: true,
+      price: priceWhenAdded?.amount,
+      listPrice: compareAtPrice?.amount ?? 0,
+    },
+    path: '',
+    discounts: [],
+    options: [
+      {
+        value: String(optionTitle || variantTitle),
+        name: String(optionTitle || variantTitle),
+      },
+    ],
   }
 }
