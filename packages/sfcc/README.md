@@ -1,5 +1,7 @@
 # Next.js SalesForce Cloud Commerce Provider
 
+SalesForce Cloud Commerce Demo: https://salesforce-cloud-commerce.vercel.store/
+
 ## Installation
 
 1. Copy the `.env.template` file in this directory to `/site/.env.local` in the main directory
