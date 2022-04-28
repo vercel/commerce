@@ -1,5 +1,5 @@
-export default function rangeMap(n: number, fn: (i: number) => any) {
-  const arr = new Array(n)
+export default function rangeMap<T>(n: number, fn: (i: number) => T): T[] {
+  const arr: T[] = new Array(n)
   for (let i = 0; i < n; i++) {
     arr[i] = fn(i)
   }
