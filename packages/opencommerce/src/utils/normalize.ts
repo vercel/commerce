@@ -273,6 +273,7 @@ function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
     optionTitle,
     variantTitle,
     quantity,
+    productSlug,
   } = <CartItem>cartItem
 
   return {
@@ -292,7 +293,7 @@ function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
       price: priceWhenAdded?.amount,
       listPrice: compareAtPrice?.amount ?? 0,
     },
-    path: '',
+    path: productSlug ?? '',
     discounts: [],
     options: [
       {

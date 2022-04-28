@@ -45,13 +45,17 @@ const CartItem = ({
     target: { value },
   }: ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(value))
-    await updateItem({ quantity: Number(value) })
+    await updateItem({
+      quantity: Number(value),
+      variantId: item.variantId,
+      id: item.id,
+    })
   }
 
   const increaseQuantity = async (n = 1) => {
     const val = Number(quantity) + n
     setQuantity(val)
-    await updateItem({ quantity: val })
+    await updateItem({ quantity: val, variantId: item.variantId, id: item.id })
   }
 
   const handleRemove = async () => {
@@ -93,7 +97,7 @@ const CartItem = ({
                 width={150}
                 height={150}
                 src={item.variant.image?.url || placeholderImg}
-                alt={item.variant.image?.altText || "Product Image"}
+                alt={item.variant.image?.altText || 'Product Image'}
                 unoptimized
               />
             </a>

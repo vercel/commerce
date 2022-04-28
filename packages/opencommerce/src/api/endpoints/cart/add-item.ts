@@ -4,7 +4,6 @@ import addCartItemsMutation from '../../mutations/add-cart-item'
 import createCartMutation from '../../mutations/create-cart'
 
 import type { CartEndpoint } from '.'
-import { CreateCartPayload } from '../../../../schema'
 
 const addItem: CartEndpoint['handlers']['addItem'] = async ({
   res,
@@ -37,20 +36,28 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
   }
 
   if (!cartId) {
-    const { data } = await config.fetch(createCartMutation, { variables })
+    const {
+      data: { createCart },
+    } = await config.fetch(createCartMutation, { variables })
     res.setHeader('Set-Cookie', [
-      getCartCookie(config.cartCookie, data.cart._id, config.cartCookieMaxAge),
+      getCartCookie(
+        config.cartCookie,
+        createCart.cart._id,
+        config.cartCookieMaxAge
+      ),
       getCartCookie(
         config.anonymousCartTokenCookie,
-        data.token,
+        createCart.token,
         config.cartCookieMaxAge
       ),
     ])
 
-    return res.status(200).json({ data: normalizeCart(data.cart) })
+    return res.status(200).json({ data: normalizeCart(createCart.cart) })
   }
 
-  const { data } = await config.fetch(addCartItemsMutation, {
+  const {
+    data: { addCartItems },
+  } = await config.fetch(addCartItemsMutation, {
     variables: {
       input: {
         items: variables.input.items,
@@ -60,7 +67,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
     },
   })
 
-  return res.status(200).json({ data: normalizeCart(data.cart) })
+  return res.status(200).json({ data: normalizeCart(addCartItems.cart) })
 }
 
 export default addItem

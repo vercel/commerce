@@ -2,6 +2,7 @@ import { normalizeCart } from '../../../utils/normalize'
 import getCartCookie from '../../utils/get-cart-cookie'
 import updateCartItemsQuantityMutation from '../../mutations/update-cart-item-quantity'
 import type { CartEndpoint } from '.'
+import { UpdateCartItemsQuantityPayload } from '../../../../schema'
 
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   res,
@@ -16,9 +17,11 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
     })
   }
 
-  const { data } = await config.fetch(updateCartItemsQuantityMutation, {
+  const {
+    data: { updateCartItemsQuantity },
+  } = await config.fetch(updateCartItemsQuantityMutation, {
     variables: {
-      input: {
+      updateCartItemsQuantityInput: {
         cartId,
         cartToken: cookies[config.anonymousCartTokenCookie],
         items: [{ cartItemId: itemId, quantity: item.quantity }],
@@ -31,7 +34,7 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
     'Set-Cookie',
     getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
   )
-  res.status(200).json({ data: normalizeCart(data.cart) })
+  res.status(200).json({ data: normalizeCart(updateCartItemsQuantity.cart) })
 }
 
 export default updateItem

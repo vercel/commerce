@@ -17,14 +17,14 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler: MutationHook<UpdateItemHook> = {
   fetchOptions: {
-    query: '/api/cart',
+    url: '/api/cart',
     method: 'PUT',
   },
   async fetcher({ input: { itemId, item }, options, fetch }) {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
-        return removeItemHandler.fetcher({
+        return removeItemHandler.fetcher!({
           options: removeItemHandler.fetchOptions,
           input: { itemId },
           fetch,

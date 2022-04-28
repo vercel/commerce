@@ -16,7 +16,9 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
     })
   }
 
-  const { data } = await config.fetch(removeCartItemsMutation, {
+  const {
+    data: { removeCartItems },
+  } = await config.fetch(removeCartItemsMutation, {
     variables: {
       input: {
         cartId,
@@ -31,7 +33,7 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
     getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
   )
 
-  res.status(200).json({ data: normalizeCart(data.cart) })
+  res.status(200).json({ data: normalizeCart(removeCartItems.cart) })
 }
 
 export default removeItem

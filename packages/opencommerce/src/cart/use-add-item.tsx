@@ -3,11 +3,12 @@ import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
 import type { AddItemHook } from '@vercel/commerce/types/cart'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 import { MutationHook } from '@vercel/commerce/utils/types'
+import { CartTypes } from '../types/cart'
 import useCart from './use-cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<AddItemHook> = {
+export const handler: MutationHook<AddItemHook<CartTypes>> = {
   fetchOptions: {
     url: '/api/cart',
     method: 'POST',

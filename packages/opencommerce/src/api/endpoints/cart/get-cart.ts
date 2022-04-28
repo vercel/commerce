@@ -1,6 +1,5 @@
 import { normalizeCart } from '../../../utils/normalize'
-import getCartCookie from '../../utils/get-cart-cookie'
-import getAnonymousCart from '../../queries/get-anonymous-cart'
+import getAnonymousCartQuery from '../../queries/get-anonymous-cart'
 import type { CartEndpoint } from '.'
 
 // Return current cart info
@@ -11,7 +10,9 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
   config,
 }) => {
   if (cartId && cookies[config.anonymousCartTokenCookie]) {
-    const { data } = await config.fetch(getAnonymousCart, {
+    const {
+      data: { cart: rawAnonymousCart },
+    } = await config.fetch(getAnonymousCartQuery, {
       variables: {
         cartId,
         cartToken: cookies[config.anonymousCartTokenCookie],
@@ -19,7 +20,7 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
     })
 
     return res.status(200).json({
-      data: normalizeCart(data),
+      data: normalizeCart(rawAnonymousCart),
     })
   }
 

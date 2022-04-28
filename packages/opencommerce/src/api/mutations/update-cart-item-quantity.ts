@@ -1,6 +1,6 @@
 import { cartPayloadFragment } from '../queries/get-cart-query'
 
-const updateCartItemsQuantityMutation = `
+const updateCartItemsQuantityMutation = /* GraphQL */ `
   mutation updateCartItemsQuantity($updateCartItemsQuantityInput: UpdateCartItemsQuantityInput!) {
     updateCartItemsQuantity(input: $updateCartItemsQuantityInput) {
       cart {

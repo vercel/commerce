@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import {
   HookFetcherContext,
+  MutationHook,
   MutationHookContext,
 } from '@vercel/commerce/utils/types'
 import useRemoveItem, {
@@ -24,16 +25,12 @@ export type RemoveItemFn<T = any> = T extends LineItem
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
-export const handler = {
+export const handler: MutationHook<RemoveItemHook> = {
   fetchOptions: {
     url: '/api/cart',
     method: 'DELETE',
   },
-  async fetcher({
-    input: { itemId },
-    options,
-    fetch,
-  }: HookFetcherContext<RemoveItemHook>) {
+  async fetcher({ input: { itemId }, options, fetch }) {
     return await fetch({ ...options, body: { itemId } })
   },
   useHook:
@@ -54,6 +51,6 @@ export const handler = {
         return data
       }
 
-      return useCallback(removeItem, [fetch, mutate])
+      return useCallback(removeItem as RemoveItemFn<T>, [fetch, mutate])
     },
 }

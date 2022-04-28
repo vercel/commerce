@@ -8,15 +8,13 @@ export type Cart = Core.Cart & {
 }
 
 export type CartItemBody = Core.CartItemBody & {
-  price: {
+  price?: {
     amount: number
-    currency: string
+    currencyCode: string
   }
 }
 
-export type CartTypes = {
-  cart: Cart
-  item: Core.LineItem
+export type CartTypes = Core.CartTypes & {
   itemBody: CartItemBody
 }
 
