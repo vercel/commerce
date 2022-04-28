@@ -1,6 +1,6 @@
 import random from 'lodash.random'
 
-export function getRandomPairOfColors() {
+export function getRandomPairOfColors(): [string, string] {
   const colors = ['#37B679', '#DA3C3C', '#3291FF', '#7928CA', '#79FFE1']
   const getRandomIdx = () => random(0, colors.length - 1)
   let idx = getRandomIdx()
@@ -15,7 +15,7 @@ export function getRandomPairOfColors() {
   return [colors[idx], colors[idx2]]
 }
 
-function hexToRgb(hex: string = '') {
+function hexToRgb(hex: string = ''): [number, number, number] {
   // @ts-ignore
   const match = hex.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i)
 
