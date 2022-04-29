@@ -20,7 +20,7 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
     })
 
     return res.status(200).json({
-      data: normalizeCart(rawAnonymousCart),
+      data: rawAnonymousCart ? normalizeCart(rawAnonymousCart) : null,
     })
   }
 
