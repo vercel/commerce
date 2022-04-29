@@ -7,12 +7,10 @@ import type {
 import { OCCategory, Category, Vendor, OCVendor } from '../types/site'
 import {
   CatalogItemProduct,
-  CatalogProduct,
   CatalogProductVariant,
   ImageInfo,
   Cart as OCCart,
   CartItemEdge,
-  CartItem,
 } from '../../schema'
 import { Cart, LineItem } from '../types/cart'
 
@@ -40,7 +38,7 @@ export function normalizeProduct(
     media,
     pricing,
     variants,
-  } = <CatalogProduct>product
+  } = product
 
   return {
     id: productId ?? _id,
@@ -147,7 +145,7 @@ function mergeWithExistingOptions(
 }
 
 const normalizeProductVariants = (
-  variants: Array<CatalogProductVariant>
+  variants: CatalogProductVariant[]
 ): ProductVariant[] => {
   return variants.reduce(
     (productVariants: ProductVariant[], variant: CatalogProductVariant) => {
@@ -174,7 +172,9 @@ const normalizeProductVariants = (
     []
   )
 }
-const normalizeProductOption = (variant: CatalogProductVariant) => {
+const normalizeProductOption = (
+  variant: CatalogProductVariant
+): ProductOption => {
   const option = <ProductOption>{
     __typename: 'MultipleChoiceOption',
     id: variant._id,
@@ -274,7 +274,7 @@ function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
     variantTitle,
     quantity,
     productSlug,
-  } = <CartItem>cartItem
+  } = cartItem
 
   return {
     id: _id,
