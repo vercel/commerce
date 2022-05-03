@@ -1,4 +1,5 @@
 import * as Core from '@vercel/commerce/types/cart'
+import { ProductVariant } from './product'
 
 export * from '@vercel/commerce/types/cart'
 
@@ -8,10 +9,8 @@ export type Cart = Core.Cart & {
 }
 
 export type CartItemBody = Core.CartItemBody & {
-  price?: {
-    amount: number
-    currencyCode: string
-  }
+  currencyCode?: string
+  variant?: ProductVariant
 }
 
 export type CartTypes = Core.CartTypes & {

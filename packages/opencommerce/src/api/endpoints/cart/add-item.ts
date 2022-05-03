@@ -29,7 +29,10 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
             productVariantId: item.variantId,
           },
           quantity: item.quantity,
-          price: item.price,
+          price: {
+            amount: item.variant?.price,
+            currencyCode: item.currencyCode,
+          },
         },
       ],
     },

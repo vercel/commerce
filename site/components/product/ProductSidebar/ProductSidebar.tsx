@@ -32,10 +32,8 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
       await addItem({
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0]?.id),
-        price: {
-          amount: product.price.value,
-          currencyCode: String(product.price.currencyCode),
-        },
+        variant,
+        currencyCode: String(product.price.currencyCode),
       })
       openSidebar()
       setLoading(false)

@@ -154,16 +154,12 @@ const normalizeProductVariants = (
         return productVariants
       }
 
-      const { sku, title, pricing = [], variantId } = variant ?? {}
+      const { pricing = [], variantId } = variant ?? {}
       const variantPrice = pricing[0]?.price ?? pricing[0]?.minPrice ?? 0
 
-      productVariants.push(<ProductVariant>{
+      productVariants.push({
         id: variantId ?? '',
-        name: title,
-        sku: sku ?? variantId,
         price: variantPrice,
-        listPrice: pricing[0]?.compareAtPrice?.amount ?? variantPrice,
-        requiresShipping: true,
         options: [normalizeProductOption(variant)],
       })
 
