@@ -17,25 +17,32 @@ interface NavbarProps {
 const Navbar: FC<NavbarProps> = ({ links }) => (
   <NavbarRoot>
     <Container clean className="mx-auto max-w-8xl px-6">
-      <div className={s.nav}>
+      <div className={s.nav} data-test="navbar">
         <div className="flex items-center flex-1">
           <Link href="/">
-            <a className={s.logo} aria-label="Logo">
+            <a className={s.logo} aria-label="Logo" data-test="logo">
               <Logo />
             </a>
           </Link>
           <nav className={s.navMenu}>
             <Link href="/search">
-              <a className={s.link}>All</a>
+              <a className={s.link} data-test="nav-link-search">
+                All
+              </a>
             </Link>
             {links?.map((l) => (
               <Link href={l.href} key={l.href}>
-                <a className={s.link}>{l.label}</a>
+                <a
+                  className={s.link}
+                  data-test={`nav-link-home-page-${l.label}`}
+                >
+                  {l.label}
+                </a>
               </Link>
             ))}
           </nav>
         </div>
-        {process.env.COMMERCE_SEARCH_ENABLED && (
+        {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
           <div className="justify-center flex-1 hidden lg:flex">
             <Searchbar />
           </div>
@@ -44,7 +51,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
           <UserNav />
         </div>
       </div>
-      {process.env.COMMERCE_SEARCH_ENABLED && (
+      {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
         <div className="flex pb-4 lg:px-6 lg:hidden">
           <Searchbar id="mobile-search" />
         </div>
