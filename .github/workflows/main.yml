@@ -49,7 +49,7 @@ jobs:
         with:
           name: build
           if-no-files-found: error
-          path: dist
+          path: ./packages/**/dist/**
 
   ui-chrome-tests:
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: dist
+          path: ./packages/**/dist/**
 
       - name: 'Chrome E2E Tests'
         uses: cypress-io/github-action@v2

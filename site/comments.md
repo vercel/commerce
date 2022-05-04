@@ -4,8 +4,7 @@ At Extend, Shopify is one of the merchants we integrate with to sell warranties 
 
 I will capture any feedback here while going through the content, for the purpose of making the content as frictionless as possible, so that adoption is higher for Extend as well as any Cypress users who want to perform self-learning.
 
-TL, DR; the source repo is vastly different and environment variables are not possible to get to work as described. All the below are a consequence of that.
-At the end, these issues can be figured out but it requires a high amount of know-how and willpower. We need to make it so that things work with batteries included, without having to wrestle anything.
+TL, DR; the source repo is vastly different and environment variables are not possible to get to work as described. All the below are a consequence of that. I have included the .env.local file so that one can try to reproduce these issues. At the end, these issues can be figured out but it requires a high amount of know-how and willpower. We need to make it so that things work with batteries included, without having to wrestle anything. One should compare the below comments to the final version of the code while going through it.
 
 ## [Part 1- Creating a Shopify Partners Store](https://learn.cypress.io/tutorials/creating-a-shopify-partners-store)
 
@@ -407,7 +406,7 @@ it('the search bar returns the correct search results', () => {
 
 ## [Part 5 Running Our Tests in Parallel with Cypress Dashboard](https://learn.cypress.io/tutorials/running-our-tests-in-parallel-with-cypress-dashboard)
 
-As of today May 4th, 2022, Cypress Dashboard looks different and those screen shots should be updated.
+As of today May 4th, 2022, Cypress Dashboard looks different and the screen shots should be updated.
 
 ---
 
@@ -417,7 +416,7 @@ Question about `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`. Cypress Dashboard re
 
 Running things in CI and seeing it on the dashboard, I have lost the relevance between a locally served app and what runs in the CI. The two are entirely different! Somehow the app in CI has the Shopify concept. But the local app is the template app.
 
-This is because the environment variables are not working using the `.env.local` file. The users will need help getting these to work in a solid way. For now I am exporting them in the command line.
+This is because the environment variables are not working using the `.env.local` file. The users will need help getting these to work in a solid way. For now I am exporting them in the command line. I have included the .env.local file so that one can try to reproduce these issues.
 
 ________
 
@@ -425,7 +424,7 @@ In the parallelization section, the jobs with `yarn build` and `save build folde
 
 __________
 
-Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as advertised. The build job does not generate a build path and errors out. We should just be able to install and cache to perpetual jobs in an easy way without having to crud the build folder.
+Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as advertised. The build job does not generate a build path and errors out. 
 
 https://github.com/muratkeremozcan/nextjs-cypress/runs/6292547384?check_suite_focus=true
 

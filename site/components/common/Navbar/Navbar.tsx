@@ -14,6 +14,10 @@ interface NavbarProps {
   links?: Link[]
 }
 
+// These do not really work with built-in vercel things..
+// I had to export them in bash
+// export COMMERCE_PROVIDER=@vercel/commerce-shopify NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true  etc.
+
 console.log('COMMERCE_PROVIDER: ', process.env.COMMERCE_PROVIDER)
 console.log(
   'NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ',
@@ -56,7 +60,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
             ))}
           </nav>
         </div>
-        {true && (
+        {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
           <div className="justify-center flex-1 hidden lg:flex">
             <Searchbar />
           </div>
@@ -65,7 +69,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
           <UserNav />
         </div>
       </div>
-      {true && (
+      {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
         <div className="flex pb-4 lg:px-6 lg:hidden">
           <Searchbar id="mobile-search" />
         </div>
