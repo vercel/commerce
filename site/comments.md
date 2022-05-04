@@ -298,6 +298,10 @@ _______
 
 Question here; why do we need to run `npm run build` ? We are just serving the app here. Is it a NextJs requirement to build the app before it can be served? We did not need it locally.
 
+
+
+https://github.com/muratkeremozcan/nextjs-cypress/runs/6289265533?check_suite_focus=true#step:3:60
+
 ______
 
 We need to add `NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true` from the above section, since we did this change in the `.env.local` file. 
@@ -341,4 +345,3 @@ When did we create a `header.spec.js` file? It is possible that one might miss t
     └── index.js
 ```
 
-https://github.com/muratkeremozcan/nextjs-cypress/runs/6289265533?check_suite_focus=true#step:3:60
