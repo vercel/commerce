@@ -424,7 +424,11 @@ In the parallelization section, the jobs with `yarn build` and `save build folde
 
 __________
 
-Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as advertised. The build job does not generate a build path and errors out. 
+Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as advertised. The build job does not generate a build path and errors out. I believe having to create this build folder is a vercel related practice, and does not apply to React, Angular or Vue. That needs to be mentioned saying the build, save build, and restore build steps would not be relevant in React, Angular, or Vue.
 
 https://github.com/muratkeremozcan/nextjs-cypress/runs/6292547384?check_suite_focus=true
+
+Instead of `path: build` in the yml, used `path: ./packages/**/dist/**` . This got things to work. However parallel e2e tests did not start in 18 minutes. This yml cannot be optimal
+
+https://github.com/muratkeremozcan/nextjs-cypress/runs/6292906819?check_suite_focus=true
 
