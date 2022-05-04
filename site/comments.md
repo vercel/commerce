@@ -4,6 +4,9 @@ At Extend, Shopify is one of the merchants we integrate with to sell warranties 
 
 I will capture any feedback here while going through the content, for the purpose of making the content as frictionless as possible, so that adoption is higher for Extend as well as any Cypress users who want to perform self-learning.
 
+TL, DR; the source repo is vastly different and environment variables are not possible to get to work as described. All the below are a consequence of that.
+At the end, these issues can be figured out but it requires a high amount of know-how and willpower. We need to make it so that things work with batteries included, without having to wrestle anything.
+
 ## [Part 1- Creating a Shopify Partners Store](https://learn.cypress.io/tutorials/creating-a-shopify-partners-store)
 
 Shopify must have made updates. One can figure out their way through it, but on Cypress side we need to update the screenshots and also slightly update the instructions.
@@ -307,10 +310,6 @@ Cypress GHA is at `v3.0.4` . Let's at least use v3.
 
 ---
 
-The job does more than install. We should name it in a better way, perhaps call it with the end goal of the job; for example `e2e`.
-
----
-
 Question here; why do we need to run `npm run build` ? We are just serving the app here. Is it a NextJs requirement to build the app before it can be served? We did not need it locally. I have left it out and things kept working.
 
 https://github.com/muratkeremozcan/nextjs-cypress/runs/6289265533?check_suite_focus=true#step:3:60
@@ -419,3 +418,10 @@ Question about `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`. Cypress Dashboard re
 Running things in CI and seeing it on the dashboard, I have lost the relevance between a locally served app and what runs in the CI. The two are entirely different! Somehow the app in CI has the Shopify concept. But the local app is the template app.
 
 This is because the environment variables are not working using the `.env.local` file. The users will need help getting these to work in a solid way. For now I am exporting them in the command line.
+
+________
+
+In the parallelization section, the jobs with `yarn build` and `save build folder` must be Vercel relevant. I did not have to build anything in version 1 of the yml, and the CI was full green. https://github.com/muratkeremozcan/nextjs-cypress/actions/runs/2270642956
+
+__________
+
