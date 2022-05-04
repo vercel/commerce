@@ -27,26 +27,29 @@ jobs:
       #     # pass GitHub token to allow accurately detecting a build vs a re-run build
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      #############################################################################################################################
+
       # Version 2: install in one job, parallelize the e2e jobs
       - name: Cypress install
         uses: cypress-io/github-action@v2
         with:
           runTests: false
 
-      # probably Vercel relevant. No idea why we have to build anything, so far
+      # probably Vercel relevant. No idea why we have to build anything
       # In version 1, I did not have to build anything to get things to work in CI
-      # - run: yarn build
-      #   env:
-      #     COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
-      #     NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
-      #     NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+      # here, without the build job generating an artifact, the test jobs do not really get items related to our store
+      - run: yarn build
+        env:
+          COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
+          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
 
-      # - name: Save build folder
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: build
-      #     if-no-files-found: error
-      #     path: build
+      - name: Save build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          if-no-files-found: error
+          path: dist
 
   ui-chrome-tests:
     runs-on: ubuntu-latest
@@ -60,11 +63,11 @@ jobs:
         uses: actions/checkout@v2
 
       # must be Vercel relevant. No idea why we have to build anything
-      # - name: Download the build folders
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: build
-      #     path: build
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: dist
 
       - name: 'Chrome E2E Tests'
         uses: cypress-io/github-action@v2

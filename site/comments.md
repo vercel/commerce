@@ -425,3 +425,7 @@ In the parallelization section, the jobs with `yarn build` and `save build folde
 
 __________
 
+Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as advertised. The build job does not generate a build path and errors out. We should just be able to install and cache to perpetual jobs in an easy way without having to crud the build folder.
+
+https://github.com/muratkeremozcan/nextjs-cypress/runs/6292547384?check_suite_focus=true
+
