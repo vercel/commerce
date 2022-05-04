@@ -348,10 +348,6 @@ Yes, we are performing these in the guide, but the rule of 3 is key knowledge, c
 
 _____
 
-We could bring up an optional Cypress Dashboard topic here. Not only that would be good for knowledge, but also promote Cypress some. But maybe it could be better to cause an intentional CI failure, then bring it up when there is a need. Something to consider. The distinction that needs to be made is `CYPRESS_RECORD_KEY` is not really needed in the local `.env` file, but it is still needed in Github secrets and the yml file.
-
-____________
-
 When did we create a `header.spec.js` file? It is possible that one might miss this. Perhaps at the end of Part 3 we give a tree structure and the final, ready-to-copy code for the spec files.
 
 ```bash
@@ -395,7 +391,7 @@ jobs:
           browser: chrome
           start: yarn dev
           wait-on: 'http://localhost:3000'
-          wait-on-timeout: 120
+          wait-on-timeout: 120000
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
           NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
@@ -422,7 +418,15 @@ it("the search bar returns the correct search results", () => {
 
 ```
 
+_________
 
+## [Part 5 Running Our Tests in Parallel with Cypress Dashboard](https://learn.cypress.io/tutorials/running-our-tests-in-parallel-with-cypress-dashboard)
 
+As of today May 4th, 2022, Cypress Dashboard looks different and those screen shots should be updated.
 
+____
+
+Question about `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`. Cypress Dashboard requires unique runIds. For example if we re-run a CI action, what happens is the job passes without actually running any tests. How does this setting effect that?
+
+_________
 
