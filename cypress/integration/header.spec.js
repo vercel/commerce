@@ -8,25 +8,19 @@ describe('Header', () => {
     cy.getBySel('nav-link-search').click()
     cy.location('pathname').should('eq', '/search')
 
-    cy.getBySelLike('nav-link-home-page-New', { timeout: 10000 }).click()
-    cy.location('pathname').should('eq', '/search/new-arrivals')
+    cy.getBySelLike('nav-link-home-page-Home').click()
+    cy.location('pathname').should('eq', '/search/frontpage')
   })
 
   it('the search bar returns the correct search results', () => {
-    cy.getBySel('search-input').eq(0).type('New Short Sleeve T-Shirt{enter}')
+    cy.getBySel('search-input').eq(0).type('tshirt-stack-overflow{enter}')
 
-    // nothing gets filtered
-    // cy.getBySel('product-card').should('be.visible')
-
-    // cy.getBySel('product-tag')
-    //   .eq(0)
-    //   .within(() => {
-    //     cy.getBySel('product-name').should(
-    //       'contain',
-    //       'New Short Sleeve T-Shirt'
-    //     )
-    //     cy.getBySel('product-price').should('contain', '$25.00 USD')
-    //   })
+    cy.getBySel('product-card')
+      .should('be.visible')
+      .within(() => {
+        cy.getBySel('product-name').should('contain', 'tshirt-stack-overflow')
+        cy.getBySel('product-price').should('contain', '$25.00 USD')
+      })
   })
 })
 

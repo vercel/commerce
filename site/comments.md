@@ -1,4 +1,4 @@
-# Feedback on  Real World Testing with Cypress course
+# Feedback on Real World Testing with Cypress course
 
 At Extend, Shopify is one of the merchants we integrate with to sell warranties (alongside BigCommerce and Magento), so this course is also domain relevant for learning.
 
@@ -48,7 +48,7 @@ We should have:
 
 We should update the app screenshot as we launch localhost:3000
 
-_________________
+---
 
 ## [Part 3 - Writing e2e tests with Cypress](https://learn.cypress.io/tutorials/writing-end-to-end-tests-with-cypress)
 
@@ -56,11 +56,11 @@ Not that I am a TS fanatic, it's good in places, but the cloned Vercel repo is i
 
 ---
 
-We want to show latest and greatest ways of writing Cypress code. There are certain reasons we might not be able to implement it -the helper  `data-test` command may be difficult later- but we should do the due diligence and let the audience know about some knowledge they can use the the future as side notes.
+We want to show latest and greatest ways of writing Cypress code. There are certain reasons we might not be able to implement it -the helper `data-test` command may be difficult later- but we should do the due diligence and let the audience know about some knowledge they can use the the future as side notes.
 
 One side node we should insert here is below.
 
- Instead of this
+Instead of this
 `cy.get('[data-test="product-tag"]').eq(0)`
 I would use
 `cy.get('[data-test="product-tag"]:nth(0)')`
@@ -90,7 +90,7 @@ describe('Home Page', () => {
       .within(() => {
         cy.get('[data-test="product-name"]').should(
           'contain',
-          'New Short Sleeve T-Shirt'
+          'tshirt-stack-overflow'
         )
         cy.get('[data-test="product-price"]').should('contain', '$25.00 USD')
       })
@@ -143,22 +143,18 @@ The attributes will look like:
 `nav-link-home-page-New Arrivals`
 `nav-link-home-page-Featured`
 
-And here we can also talk about `cy.getBySelLike()`, because if you want to go to *New Arrivals*, the space between the words would require taming the attribute, and we don't really want to do that so much. We can just use `cy.getBySelLike('nav-link-home-page-New').click()`.
+And here we can also talk about `cy.getBySelLike()`, because if you want to go to _New Arrivals_, the space between the words would require taming the attribute, and we don't really want to do that so much. We can just use `cy.getBySelLike('nav-link-home-page-New').click()`.
 
 We have to update the `cy.location` path check as well. Here's the full code.
 
 ```js
 describe('Home Page', () => {
-
   it('displays all 3 products on the home page', () => {
     cy.visit('http://localhost:3000')
     cy.getBySel('product-tag')
       .eq(0)
       .within(() => {
-        cy.getBySel('product-name').should(
-          'contain',
-          'New Short Sleeve T-Shirt'
-        )
+        cy.getBySel('product-name').should('contain', 'tshirt-stack-overflow')
         cy.getBySel('product-price').should('contain', '$25.00 USD')
       })
 
@@ -179,7 +175,6 @@ describe('Home Page', () => {
 })
 
 describe('Header', () => {
-
   it('links to the correct pages', () => {
     cy.visit('http://localhost:3000')
     cy.getBySel('logo').click()
@@ -273,12 +268,12 @@ After:
 
 ```js
 it.only('the search bar returns the correct search results', () => {
-  cy.getBySel('search-input').eq(0).type('New Short Sleeve T-Shirt{enter}')
+  cy.getBySel('search-input').eq(0).type('tshirt-stack-overflow{enter}')
 
   cy.getBySel('product-tag')
     .eq(0)
     .within(() => {
-      cy.getBySel('product-name').should('contain', 'New Short Sleeve T-Shirt')
+      cy.getBySel('product-name').should('contain', 'tshirt-stack-overflow')
       cy.getBySel('product-price').should('contain', '$25.00 USD')
     })
 })
@@ -304,49 +299,43 @@ console.log(
 )
 ```
 
-
-
-________
+---
 
 ## [Part 4 Running Our Tests with GitHub Actions](https://learn.cypress.io/tutorials/running-our-tests-with-github-actions)
 
 Cypress GHA is at `v3.0.4` . Let's at least use v3.
 
-____
+---
 
 The job does more than install. We should name it in a better way, perhaps call it with the end goal of the job; for example `e2e`.
 
-_______
+---
 
-Question here; why do we need to run `npm run build` ? We are just serving the app here. Is it a NextJs requirement to build the app before it can be served? We did not need it locally.
-
-
+Question here; why do we need to run `npm run build` ? We are just serving the app here. Is it a NextJs requirement to build the app before it can be served? We did not need it locally. I have left it out and things kept working.
 
 https://github.com/muratkeremozcan/nextjs-cypress/runs/6289265533?check_suite_focus=true#step:3:60
 
-______
+---
 
-We need to add `NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true` from the above section, since we did this change in the `.env.local` file. 
+We need to add `NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true` from the above section, since we did this change in the `.env.local` file.
 
 ```yml
-
 env:
   COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
   NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
   NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
   NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
-  
 ```
 
-Something we can additionally mention here is that 3 things have to match for CI to work: 
+Something we can additionally mention here is that 3 things have to match for CI to work:
 
-* local environment variables (`.env` , `cypress.env.json`, or our machine), 
-* the yml file above
-* Github secrets
+- local environment variables (`.env` , `cypress.env.json`, or our machine),
+- the yml file above
+- Github secrets
 
 Yes, we are performing these in the guide, but the rule of 3 is key knowledge, concise, and they can take that away.
 
-_____
+---
 
 When did we create a `header.spec.js` file? It is possible that one might miss this. Perhaps at the end of Part 3 we give a tree structure and the final, ready-to-copy code for the spec files.
 
@@ -363,11 +352,11 @@ When did we create a `header.spec.js` file? It is possible that one might miss t
     └── index.js
 ```
 
-___
+---
 
 The new Vercel repo advises yarn to be used as opposed to npm.
 
-At the time of writing, there is a hard-blocker with CI. 
+At the time of writing, there is a hard-blocker with CI.
 
 https://github.com/muratkeremozcan/nextjs-cypress/runs/6289885177?check_suite_focus=true
 
@@ -397,36 +386,36 @@ jobs:
           NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
-
-
 ```
 
-___________
+---
 
 Again, the search feature does not really work.
 
 ```js
-it("the search bar returns the correct search results", () => {
-  cy.getBySel('search-input').eq(0).type('New Short Sleeve T-Shirt{enter}')
+it('the search bar returns the correct search results', () => {
+  cy.getBySel('search-input').eq(0).type('tshirt-stack-overflow{enter}')
 
-	// does not work
+  // does not work
   // cy.get('[data-test="product-card"]').within(() => {
   //  cy.get('[data-test="product-name"]').should("contain", "Linux Shirt")
   //  cy.get('[data-test="product-price"]').should("contain", "$25.00 USD")
   // })
 })
-
 ```
 
-_________
+---
 
 ## [Part 5 Running Our Tests in Parallel with Cypress Dashboard](https://learn.cypress.io/tutorials/running-our-tests-in-parallel-with-cypress-dashboard)
 
 As of today May 4th, 2022, Cypress Dashboard looks different and those screen shots should be updated.
 
-____
+---
 
 Question about `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`. Cypress Dashboard requires unique runIds. For example if we re-run a CI action, what happens is the job passes without actually running any tests. How does this setting effect that?
 
-_________
+---
 
+Running things in CI and seeing it on the dashboard, I have lost the relevance between a locally served app and what runs in the CI. The two are entirely different! Somehow the app in CI has the Shopify concept. But the local app is the template app.
+
+This is because the environment variables are not working using the `.env.local` file. The users will need help getting these to work in a solid way. For now I am exporting them in the command line.
