@@ -428,7 +428,8 @@ Unsure about any of the `build` instructions. The yml at the end of Part 5 does 
 
 https://github.com/muratkeremozcan/nextjs-cypress/runs/6292547384?check_suite_focus=true
 
-Instead of `path: build` in the yml, used `path: ./packages/**/dist/**` . This got things to work. However parallel e2e tests did not start in 18 minutes. This yml cannot be optimal
+Instead of `path: build` in the yml, used `path: ./packages/**/dist/**` . This got things to work. However parallel e2e tests did not start in 18 minutes. https://github.com/muratkeremozcan/nextjs-cypress/runs/6292906819?check_suite_focus=true
 
-https://github.com/muratkeremozcan/nextjs-cypress/runs/6292906819?check_suite_focus=true
+The 2nd attempt seemed natural, but acted as if we left out the build CRUD work altogether https://dashboard.cypress.io/projects/pefcjb/runs/31c1fa51-d767-4b32-bfc6-d7999e6d8bfb/test-results/30a2947c-80ab-477a-adf5-84d420f596eb/screenshots.
 
+I have disabled the parallelization as advertised for the time being. Perhaps there are gotchas with Vercel that need to be figured out.

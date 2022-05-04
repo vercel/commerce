@@ -1,5 +1,14 @@
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites.&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT,oac_9HSKtXld74NG0srzdxSiBGty&skippable-integrations=1&root-directory=site&build-command=cd%20..%20%26%26%20yarn%20build)
 
+![cypress version](https://img.shields.io/badge/cypress-9.6.0-brightgreen)
+
+[![E2E on Chrome](https://github.com/muratkeremozcan/nextjs-cypress/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/muratkeremozcan/nextjs-cypress/actions/workflows/main.yml)
+
+[![Cypress with Next.js and Shopify Store Tutorial](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/pefcjb&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/pefcjb/runs)
+
+[renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
+[renovate-app]: https://renovateapp.com/
+
 # Next.js Commerce
 
 The all-in-one starter kit for high-performance e-commerce sites. With a few clicks, Next.js developers can clone, deploy and fully customize their own store.
