@@ -284,7 +284,7 @@ it.only('the search bar returns the correct search results', () => {
 
 But even then, the search feature does not filter results. If you can make this work in the latest app template, then please let me know. If it is not possible for the app to filter products, we should remove this section from the instructions.
 
-It is painful to work with environment variables in Vercel. In fact. Some troubleshooting reveals not all the env vars defined in the `.env.local` file are undefined. This out this console.log in `Navbar.tsx` file.
+It is painful to work with environment variables in Vercel. In fact. Some troubleshooting reveals the env vars defined in the `.env.local` file are undefined. Try this console.log in `Navbar.tsx` file.
 
 ```js
 console.log('COMMERCE_PROVIDER: ', process.env.COMMERCE_PROVIDER)
