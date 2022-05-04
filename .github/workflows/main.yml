@@ -13,7 +13,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          # build: npm run build
+          build: npm run build
           start: npm run start
           wait-on: 'http://localhost:3000'
         env:
