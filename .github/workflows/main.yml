@@ -10,11 +10,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3.0.4
         with:
           browser: chrome
-          build: npm run build
-          start: npm run start
+          # build: npm run build
+          start: yarn start
           wait-on: 'http://localhost:3000'
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
