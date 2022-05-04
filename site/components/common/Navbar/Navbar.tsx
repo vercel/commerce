@@ -14,6 +14,20 @@ interface NavbarProps {
   links?: Link[]
 }
 
+console.log('COMMERCE_PROVIDER: ', process.env.COMMERCE_PROVIDER)
+console.log(
+  'NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ',
+  process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+)
+console.log(
+  'NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ',
+  process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
+)
+console.log(
+  'NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: ',
+  process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED
+)
+
 const Navbar: FC<NavbarProps> = ({ links }) => (
   <NavbarRoot>
     <Container clean className="mx-auto max-w-8xl px-6">
@@ -42,7 +56,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
             ))}
           </nav>
         </div>
-        {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
+        {true && (
           <div className="justify-center flex-1 hidden lg:flex">
             <Searchbar />
           </div>
@@ -51,7 +65,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
           <UserNav />
         </div>
       </div>
-      {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
+      {true && (
         <div className="flex pb-4 lg:px-6 lg:hidden">
           <Searchbar id="mobile-search" />
         </div>

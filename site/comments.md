@@ -284,6 +284,26 @@ it.only('the search bar returns the correct search results', () => {
 
 But even then, the search feature does not filter results. If you can make this work in the latest app template, then please let me know. If it is not possible for the app to filter products, we should remove this section from the instructions.
 
+It is painful to work with environment variables in Vercel. In fact. Some troubleshooting reveals not all the env vars defined in the `.env.local` file are undefined. This out this console.log in `Navbar.tsx` file.
+
+```js
+console.log('COMMERCE_PROVIDER: ', process.env.COMMERCE_PROVIDER)
+console.log(
+  'NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ',
+  process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+)
+console.log(
+  'NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ',
+  process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
+)
+console.log(
+  'NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: ',
+  process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED
+)
+```
+
+
+
 ________
 
 ## [Part 4 Running Our Tests with GitHub Actions](https://learn.cypress.io/tutorials/running-our-tests-with-github-actions)
@@ -345,4 +365,45 @@ When did we create a `header.spec.js` file? It is possible that one might miss t
     └── index.js
 ```
 
-#
+___
+
+The new Vercel repo advises yarn to be used as opposed to npm.
+
+At the time of writing, there is a hard-blocker with CI. 
+
+https://github.com/muratkeremozcan/nextjs-cypress/runs/6289885177?check_suite_focus=true
+
+Here is an attempt to make it work:
+
+```yml
+name: E2E on Chrome
+
+on: [push]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v3.0.4
+        with:
+          browser: chrome
+          build: yarn build
+          start: yarn dev
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
+        env:
+          COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
+          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
+
+```
+
+
+
+
+
