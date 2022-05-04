@@ -341,3 +341,4 @@ When did we create a `header.spec.js` file? It is possible that one might miss t
     └── index.js
 ```
 
+https://github.com/muratkeremozcan/nextjs-cypress/runs/6289265533?check_suite_focus=true#step:3:60
