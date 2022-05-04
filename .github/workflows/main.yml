@@ -1,6 +1,8 @@
 name: E2E on Chrome
 
-on: [push]
+on:
+  push:
+  workflow_dispatch: # to test out if GITHUB_TOKEN env var can be a solution for rerunning CI and having it re-record on Cypress Dashboard
 
 jobs:
   install:

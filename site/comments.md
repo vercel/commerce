@@ -433,3 +433,7 @@ Instead of `path: build` in the yml, used `path: ./packages/**/dist/**` . This g
 The 2nd attempt seemed natural, but acted as if we left out the build CRUD work altogether https://dashboard.cypress.io/projects/pefcjb/runs/31c1fa51-d767-4b32-bfc6-d7999e6d8bfb/test-results/30a2947c-80ab-477a-adf5-84d420f596eb/screenshots.
 
 I have disabled the parallelization as advertised for the time being. Perhaps there are gotchas with Vercel that need to be figured out.
+
+## [Part 5 Deploying to Vercel](https://learn.cypress.io/tutorials/deploying-to-vercel)
+
+I must have missed the part about changing the build directory. Where was that mentioned? I cannot find it anywhere. The current Vercel app only produces dist folders under packages.
