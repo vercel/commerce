@@ -1,0 +1,23 @@
+name: E2E on Chrome
+
+on: [push]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v3.0.4
+        with:
+          browser: chrome
+          # build: npm run build
+          start: npm run start
+          wait-on: 'http://localhost:3000'
+        env:
+          COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
+          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true

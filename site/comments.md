@@ -288,3 +288,38 @@ ________
 
 ## [Part 4 Running Our Tests with GitHub Actions](https://learn.cypress.io/tutorials/running-our-tests-with-github-actions)
 
+Cypress GHA is at `v3.0.4` . Let's at least use v3.
+
+____
+
+The job does more than install. We should name it in a better way, perhaps call it with the end goal of the job; for example `e2e`.
+
+_______
+
+Question here; why do we need to run `npm run build` ? We are just serving the app here. Is it a NextJs requirement to build the app before it can be served? We did not need it locally.
+
+______
+
+We need to add `NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true` from the above section, since we did this change in the `.env.local` file. 
+
+```yml
+
+env:
+  COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
+  NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+  NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+  NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
+  
+```
+
+Something we can additionally mention here is that 3 things have to match for CI to work: 
+
+* local environment variables (`.env` , `cypress.env.json`, or our machine), 
+* the yml file above
+* Github secrets
+
+Yes, we are performing these in the guide, but the rule of 3 is key knowledge, concise, and they can take that away.
+
+_____
+
+We could bring up an optional Cypress Dashboard topic here. Not only that would be good for knowledge, but also promote Cypress some. But maybe it could be better to cause an intentional CI failure, then bring it up when there is a need. Something to consider. The distinction that needs to be made is `CYPRESS_RECORD_KEY` is not really needed in the local `.env` file, but it is still needed in Github secrets and the yml file.
