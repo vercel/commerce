@@ -8,7 +8,7 @@ describe('Header', () => {
     cy.getBySel('nav-link-search').click()
     cy.location('pathname').should('eq', '/search')
 
-    cy.getBySelLike('nav-link-home-page-New').click()
+    cy.getBySelLike('nav-link-home-page-New', { timeout: 10000 }).click()
     cy.location('pathname').should('eq', '/search/new-arrivals')
   })
 
@@ -16,6 +16,8 @@ describe('Header', () => {
     cy.getBySel('search-input').eq(0).type('New Short Sleeve T-Shirt{enter}')
 
     // nothing gets filtered
+    // cy.getBySel('product-card').should('be.visible')
+
     // cy.getBySel('product-tag')
     //   .eq(0)
     //   .within(() => {
@@ -31,6 +33,6 @@ describe('Header', () => {
 describe('Shopping Cart', () => {
   it('users can add products to the cart', () => {
     cy.visit('/')
-    cy.getBySel('product-tag').eq(0).click()
+    cy.getBySel('product-tag')
   })
 })

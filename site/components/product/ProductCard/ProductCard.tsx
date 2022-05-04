@@ -71,11 +71,11 @@ const ProductCard: FC<Props> = ({
               />
             )}
             {!noNameTag && (
-              <div className={s.header}>
+              <div className={s.header} data-test="product-card">
                 <h3 className={s.name}>
-                  <span>{product.name}</span>
+                  <span data-test="product-name">{product.name}</span>
                 </h3>
-                <div className={s.price}>
+                <div className={s.price} data-test="product-price">
                   {`${price} ${product.price?.currencyCode}`}
                 </div>
               </div>

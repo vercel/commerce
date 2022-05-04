@@ -402,6 +402,24 @@ jobs:
           NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
 
+
+```
+
+___________
+
+Again, the search feature does not really work.
+
+```js
+it("the search bar returns the correct search results", () => {
+  cy.getBySel('search-input').eq(0).type('New Short Sleeve T-Shirt{enter}')
+
+	// does not work
+  // cy.get('[data-test="product-card"]').within(() => {
+  //  cy.get('[data-test="product-name"]').should("contain", "Linux Shirt")
+  //  cy.get('[data-test="product-price"]').should("contain", "$25.00 USD")
+  // })
+})
+
 ```
 
 
