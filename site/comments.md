@@ -323,3 +323,21 @@ Yes, we are performing these in the guide, but the rule of 3 is key knowledge, c
 _____
 
 We could bring up an optional Cypress Dashboard topic here. Not only that would be good for knowledge, but also promote Cypress some. But maybe it could be better to cause an intentional CI failure, then bring it up when there is a need. Something to consider. The distinction that needs to be made is `CYPRESS_RECORD_KEY` is not really needed in the local `.env` file, but it is still needed in Github secrets and the yml file.
+
+____________
+
+When did we create a `header.spec.js` file? It is possible that one might miss this. Perhaps at the end of Part 3 we give a tree structure and the final, ready-to-copy code for the spec files.
+
+```bash
+├── fixtures
+│   └── example.json
+├── integration
+│   ├── header.spec.js
+│   └── home.spec.js
+├── plugins
+│   └── index.js
+└── support
+    ├── commands.js
+    └── index.js
+```
+
