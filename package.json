@@ -2,6 +2,10 @@
   "name": "commerce",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "site",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build --scope=next-commerce --include-dependencies --no-deps",
     "dev": "turbo run dev",
