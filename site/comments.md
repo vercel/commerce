@@ -201,11 +201,13 @@ describe('Header', () => {
 For this to work, first we need a 4th environment variable in `.env.local`:
 
 ```
-COMMERCE_PROVIDER=shopify
+COMMERCE_PROVIDER=@vercel/commerce-shopify
 NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true
 ```
+
+Mind `COMMERCE_PROVIDER=@vercel/commerce-shopify` and not just `shopify`. This is in the readme.
 
 And we have to make the following change at `site/components/common/Navbar/Navbar.tsx`.
 TL, DR; replace `process.env.COMMERCE_SEARCH_ENABLED` with `process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED`
