@@ -391,7 +391,6 @@ jobs:
         uses: cypress-io/github-action@v3.0.4
         with:
           browser: chrome
-          build: yarn build
           start: yarn dev
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
