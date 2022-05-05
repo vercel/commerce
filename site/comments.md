@@ -54,7 +54,7 @@ We should update the app screenshot as we launch localhost:3000
 
 ## [Part 3 - Writing e2e tests with Cypress](https://learn.cypress.io/tutorials/writing-end-to-end-tests-with-cypress)
 
-Not that I am a TS fanatic, it's good in places, but the cloned Vercel repo is in TS. At minimum we can refer to real world app or the docs for a TS setup reference. If the user chooses to, we can make it easier for them.
+Not that I am a TS fanatic, it's good in places, but the cloned Vercel repo is in TS. At minimum we can refer to real world app or the docs for a TS setup reference. If the audience chooses to, we can make it easier for them.
 
 ---
 
@@ -72,16 +72,11 @@ Recently I had to wrestle the CI for our own Shopify app at Extend with this exa
 
 ---
 
-The app has been updated, we should update:
+We can let the audience know if they have not used a duplicate name for their product, they may need to update this code.
+
 `cy.get('[data-test="product-name"]').should("contain", "Code Shirt")`
-to
-`cy.get('[data-test="product-name"]').should('contain', 'Sleeve T-Shirt')`
 
-The audience should be able to copy paste from the instructions and get things to just work. It is important to keep the dopamine going with these kind of resources.
-
----
-
-The app has been updated and the `contains` strings are different. Use this:
+That variance taken may also impact other string checks. Mine was like this:
 
 ```js
 describe('Home Page', () => {
@@ -151,9 +146,11 @@ We have to update the `cy.location` path check as well. Here's the full code.
 
 ```js
 describe('Home Page', () => {
+  beforeEach(() => cy.visit('/'))
+
   it('displays all 3 products on the home page', () => {
-    cy.visit('http://localhost:3000')
     cy.getBySel('product-tag')
+      .should('have.length.gte', 3)
       .eq(0)
       .within(() => {
         cy.getBySel('product-name').should('contain', 'tshirt-stack-overflow')
@@ -163,18 +160,22 @@ describe('Home Page', () => {
     cy.getBySel('product-tag')
       .eq(1)
       .within(() => {
-        cy.getBySel('product-name').should('contain', 'Lightweight Jacket')
-        cy.getBySel('product-price').should('contain', '$249.99 USD')
+        cy.getBySel('product-name').should(
+          'contain',
+          'tshirt-it-works-on-my-machine'
+        )
+        cy.getBySel('product-price').should('contain', '$25.00 USD')
       })
 
     cy.getBySel('product-tag')
       .eq(2)
       .within(() => {
-        cy.getBySel('product-name').should('contain', 'Shirt')
+        cy.getBySel('product-name').should('contain', 'tshirt-github')
         cy.getBySel('product-price').should('contain', '$25.00 USD')
       })
   })
 })
+
 
 describe('Header', () => {
   it('links to the correct pages', () => {
@@ -204,7 +205,7 @@ NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true
 ```
 
-Mind `COMMERCE_PROVIDER=@vercel/commerce-shopify` and not just `shopify`. This is in the readme.
+Mind `COMMERCE_PROVIDER=@vercel/commerce-shopify` and not just `shopify`. This is in the main repo's readme.
 
 And we have to make the following change at `site/components/common/Navbar/Navbar.tsx`.
 TL, DR; replace `process.env.COMMERCE_SEARCH_ENABLED` with `process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED`
@@ -249,41 +250,9 @@ After
 
 ```
 
----
+Even when setting the environment variables correctly, `.env.local` file is very finicky. I could not get the env vars to console.log, and resorted to exporting them in shell. The .env.local file is included, and if anyone can get it to work we should include incontestable instructions that work every time.
 
-We should update the code used in the .only aside section now.
-
-Before:
-
-```js
-it.only('the search bar returns the correct search results', () => {
-  cy.getBySel('search-input').eq(0).type('linux{enter}')
-
-  cy.get('[data-test="product-tag"]').within(() => {
-    cy.get('[data-test="product-name"]').should('contain', 'Linux Shirt')
-    cy.get('[data-test="product-price"]').should('contain', '$25.00 USD')
-  })
-})
-```
-
-After:
-
-```js
-it.only('the search bar returns the correct search results', () => {
-  cy.getBySel('search-input').eq(0).type('tshirt-stack-overflow{enter}')
-
-  cy.getBySel('product-tag')
-    .eq(0)
-    .within(() => {
-      cy.getBySel('product-name').should('contain', 'tshirt-stack-overflow')
-      cy.getBySel('product-price').should('contain', '$25.00 USD')
-    })
-})
-```
-
-But even then, the search feature does not filter results. If you can make this work in the latest app template, then please let me know. If it is not possible for the app to filter products, we should remove this section from the instructions.
-
-It is painful to work with environment variables in Vercel. In fact. Some troubleshooting reveals the env vars defined in the `.env.local` file are undefined. Try this console.log in `Navbar.tsx` file.
+Try this console.log in `Navbar.tsx` file to test things out:
 
 ```js
 console.log('COMMERCE_PROVIDER: ', process.env.COMMERCE_PROVIDER)
@@ -315,7 +284,7 @@ https://github.com/muratkeremozcan/nextjs-cypress/runs/6289265533?check_suite_fo
 
 ---
 
-We need to add `NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true` from the above section, since we did this change in the `.env.local` file.
+In the yml, we need to add `NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true` from the above section, since we did this change in the `.env.local` file.
 
 ```yml
 env:
@@ -331,7 +300,7 @@ Something we can additionally mention here is that 3 things have to match for CI
 - the yml file above
 - Github secrets
 
-Yes, we are performing these in the guide, but the rule of 3 is key knowledge, concise, and they can take that away.
+Yes, we are performing these in the guide, but the rule of 3 is key knowledge, concise, and they can take that away. We can also mention that CYPRESS_RECORD_KEY isn't really needed locally, but it has to be in the yml and CI
 
 ---
 
@@ -388,22 +357,6 @@ jobs:
 
 ---
 
-Again, the search feature does not really work.
-
-```js
-it('the search bar returns the correct search results', () => {
-  cy.getBySel('search-input').eq(0).type('tshirt-stack-overflow{enter}')
-
-  // does not work
-  // cy.get('[data-test="product-card"]').within(() => {
-  //  cy.get('[data-test="product-name"]').should("contain", "Linux Shirt")
-  //  cy.get('[data-test="product-price"]').should("contain", "$25.00 USD")
-  // })
-})
-```
-
----
-
 ## [Part 5 Running Our Tests in Parallel with Cypress Dashboard](https://learn.cypress.io/tutorials/running-our-tests-in-parallel-with-cypress-dashboard)
 
 As of today May 4th, 2022, Cypress Dashboard looks different and the screen shots should be updated.
@@ -412,19 +365,15 @@ As of today May 4th, 2022, Cypress Dashboard looks different and the screen shot
 
 Question about `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`. Cypress Dashboard requires unique runIds. For example if we re-run a CI action, what happens is the job passes without actually running any tests. How does this setting effect that?
 
+I found out later; this setting allows manually triggered & repeated workflow jobs to still show on the Cypress Dashboard, which is fantastic. People always complain about not being able to re-trigger CI, or rerun something that has already been recorded on the dashboard. Let's highlight this knowledge. This is actually a "feature" I have been requesting from Chris Zappala, and it's easy to solve.
+
 ---
-
-Running things in CI and seeing it on the dashboard, I have lost the relevance between a locally served app and what runs in the CI. The two are entirely different! Somehow the app in CI has the Shopify concept. But the local app is the template app.
-
-This is because the environment variables are not working using the `.env.local` file. The users will need help getting these to work in a solid way. For now I am exporting them in the command line. I have included the .env.local file so that one can try to reproduce these issues.
-
-________
 
 In the parallelization section, the jobs with `yarn build` and `save build folder` must be Vercel relevant. I did not have to build anything in version 1 of the yml, and the CI was full green. https://github.com/muratkeremozcan/nextjs-cypress/actions/runs/2270642956
 
-__________
+---
 
-Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as advertised. The build job does not generate a build path and errors out. I believe having to create this build folder is a vercel related practice, and does not apply to React, Angular or Vue. That needs to be mentioned saying the build, save build, and restore build steps would not be relevant in React, Angular, or Vue.
+Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as instructed. The build job does not generate a build path and errors out. I believe having to create this build folder is a vercel related practice, and does not apply to React, Angular or Vue. That needs to be mentioned saying the build, save build, and restore build steps would not be relevant in React, Angular, or Vue.
 
 https://github.com/muratkeremozcan/nextjs-cypress/runs/6292547384?check_suite_focus=true
 
@@ -432,8 +381,8 @@ Instead of `path: build` in the yml, used `path: ./packages/**/dist/**` . This g
 
 The 2nd attempt seemed natural, but acted as if we left out the build CRUD work altogether https://dashboard.cypress.io/projects/pefcjb/runs/31c1fa51-d767-4b32-bfc6-d7999e6d8bfb/test-results/30a2947c-80ab-477a-adf5-84d420f596eb/screenshots.
 
-I have disabled the parallelization as advertised for the time being. Perhaps there are gotchas with Vercel that need to be figured out.
+I have disabled the parallelization as advertised for the time being. Perhaps there are gotchas with Vercel that need to be figured out. If we can make this work in the current version of the repo, we have to be very detailed about how, then compare & contrast to what we would do instead in a client-side-only app (ex: React vs NextJs).
 
 ## [Part 5 Deploying to Vercel](https://learn.cypress.io/tutorials/deploying-to-vercel)
 
-I must have missed the part about changing the build directory. Where was that mentioned? I cannot find it anywhere. The current Vercel app only produces dist folders under packages.
+I must have missed the part about changing the build directory. Where was that mentioned? The current Vercel app only produces dist folders under packages. We need to make it so that this part is unmistakable.
