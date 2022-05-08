@@ -127,7 +127,7 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
     ? options.map((o) => normalizeProductOption(o))
     : []
   const productVariants = variants
-    ? normalizeProductVariants(variants, options)
+    ? normalizeProductVariants(variants.results, options)
     : []
 
   const productImages = normalizeProductImages(images)

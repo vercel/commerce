@@ -3,7 +3,6 @@ import type { MutationHook } from '@vercel/commerce/utils/types'
 import { CommerceError, ValidationError } from '@vercel/commerce/utils/errors'
 import useCustomer from '../customer/use-customer'
 import {
-  CustomerUserError,
   Mutation,
   MutationCheckoutCreateArgs,
 } from '../../schema'
@@ -13,13 +12,12 @@ import { setCustomerToken } from '../utils'
 
 export default useLogin as UseLogin<typeof handler>
 
-const getErrorMessage = ({ code, message }: CustomerUserError) => {
+const getErrorMessage = ( code?: string | null) => {
   switch (code) {
     case 'UNIDENTIFIED_CUSTOMER':
-      message = 'Cannot find an account that matches the provided credentials'
-      break
+      return 'Cannot find an account that matches the provided credentials'
   }
-  return message
+  return undefined;
 }
 
 export const handler: MutationHook<LoginHook> = {
@@ -35,7 +33,7 @@ export const handler: MutationHook<LoginHook> = {
       })
     }
 
-    const { customerAccessTokenCreate } = await fetch<
+    const response = await fetch<
       Mutation,
       MutationCheckoutCreateArgs
     >({
@@ -43,11 +41,17 @@ export const handler: MutationHook<LoginHook> = {
       variables: [email, password],
     })
 
-    const errors = customerAccessTokenCreate?.customerUserErrors
+    if (!response) {
+      throw new ValidationError({
+        message: getErrorMessage('UNIDENTIFIED_CUSTOMER')!
+      })
+    }
 
+    const { customerAccessTokenCreate } = response;
+    const errors = customerAccessTokenCreate?.customerUserErrors
     if (errors && errors.length) {
       throw new ValidationError({
-        message: getErrorMessage(errors[0]),
+        message: getErrorMessage(errors[0].code) ?? errors[0].message,
       })
     }
     const customerAccessToken = customerAccessTokenCreate?.customerAccessToken

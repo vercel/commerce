@@ -1,8 +1,10 @@
 import { SWRHook } from '@vercel/commerce/utils/types'
 import useSearch, { UseSearch } from '@vercel/commerce/product/use-search'
 import { normalizeProduct } from '../utils'
+import { getSubCategories } from '../utils/get-sub-categories'
 import { SwellProduct } from '../types'
 import type { SearchProductsHook } from '../types/product'
+import { SwellCategory } from '../types/site'
 
 export default useSearch as UseSearch<typeof handler>
 
@@ -21,16 +23,36 @@ export const handler: SWRHook<SearchProductsHook> = {
   async fetcher({ input, options, fetch }) {
     const sortMap = new Map([
       ['latest-desc', ''],
-      ['price-asc', 'price_asc'],
-      ['price-desc', 'price_desc'],
+      ['price-asc', 'price asc'],
+      ['price-desc', 'price desc'],
       ['trending-desc', 'popularity'],
     ])
-    const { categoryId, search, sort = 'latest-desc' } = input
+    const { brandId, categoryId, search, sort = 'latest-desc' } = input
     const mappedSort = sortMap.get(sort)
+
+    let subCategories: SwellCategory[] = [];
+    if (categoryId) {
+      const { results: categories } = await fetch({
+        query: 'categories',
+        method: 'list',
+        variables: {
+          expand: 'children',
+          limit: 100 //maximum allowed
+        }
+      })
+
+      subCategories = getSubCategories(categoryId.toString(), categories)
+    }
     const { results, count: found } = await fetch({
-      query: 'products',
-      method: 'list',
-      variables: { category: categoryId, search, sort: mappedSort },
+      ...options,
+      variables: { 
+        search, 
+        sort: mappedSort,
+        $filters: {
+          brand: brandId,
+          category: subCategories.map((c) => c.id)
+        }
+      }
     })
 
     const products = results.map((product: SwellProduct) =>

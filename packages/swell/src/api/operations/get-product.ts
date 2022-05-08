@@ -20,10 +20,6 @@ export default function getProductOperation({
 
     const product = await config.fetch('products', 'get', [variables.slug])
 
-    if (product && product.variants) {
-      product.variants = product.variants?.results
-    }
-
     return {
       product: product ? normalizeProduct(product) : null,
     }

@@ -3,7 +3,6 @@ import { CommerceError } from '@vercel/commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
 import useCart from './use-cart'
 import { checkoutToCart } from './utils'
-import { getCheckoutId } from '../utils'
 import { useCallback } from 'react'
 import { AddItemHook } from '../types/cart'
 
@@ -26,10 +25,8 @@ export const handler: MutationHook<AddItemHook> = {
     const variables: {
       product_id: string | undefined
       variant_id?: string
-      checkoutId?: string
       quantity?: number
     } = {
-      checkoutId: getCheckoutId(),
       product_id: item.productId,
       quantity: item.quantity,
     }

@@ -77,7 +77,7 @@ export interface SwellProduct {
   price: number
   images: any[]
   options: any[]
-  variants: any[]
+  variants: any
 }
 
 export type SwellCustomer = any
