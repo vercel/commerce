@@ -1,4 +1,6 @@
 {
   "provider": "opencommerce",
-  "features": {}
+  "features": {
+    "customCheckout": true
+  }
 }

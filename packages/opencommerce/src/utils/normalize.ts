@@ -249,6 +249,7 @@ export function normalizeCart(cart: OCCart): Cart {
     totalPrice: cart.checkout?.summary?.total?.amount ?? 0,
     discounts: [],
     taxesIncluded: !!cart.checkout?.summary?.taxTotal?.amount,
+    checkout: cart.checkout ? cart.checkout : undefined,
   }
 }
 

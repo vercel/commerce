@@ -42,7 +42,6 @@ const PaymentMethodView: FC = () => {
       city: event.target.city.value,
       country: event.target.country.value,
     })
-
     setSidebarView('CHECKOUT_VIEW')
   }
 

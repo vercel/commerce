@@ -2,7 +2,6 @@ import { normalizeCart } from '../../../utils/normalize'
 import getCartCookie from '../../utils/get-cart-cookie'
 import updateCartItemsQuantityMutation from '../../mutations/update-cart-item-quantity'
 import type { CartEndpoint } from '.'
-import { UpdateCartItemsQuantityPayload } from '../../../../schema'
 
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   res,
