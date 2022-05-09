@@ -20,17 +20,21 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
       <div className={s.nav}>
         <div className="flex items-center flex-1">
           <Link href="/">
-            <a className={s.logo} aria-label="Logo">
+            <a className={s.logo} aria-label="Logo" data-test="logo">
               <Logo />
             </a>
           </Link>
           <nav className={s.navMenu}>
             <Link href="/search">
-              <a className={s.link}>All</a>
+              <a className={s.link} data-test="nav-link-search">
+                All
+              </a>
             </Link>
             {links?.map((l) => (
               <Link href={l.href} key={l.href}>
-                <a className={s.link}>{l.label}</a>
+                <a className={s.link} data-test="nav-link-home-page">
+                  {l.label}
+                </a>
               </Link>
             ))}
           </nav>
