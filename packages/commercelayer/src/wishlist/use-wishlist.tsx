@@ -1,46 +1,24 @@
-import { HookFetcher } from '@vercel/commerce/utils/types'
-import type { Product } from '@vercel/commerce/types/product'
-import data from '../data.json'
-import { useCustomer } from '../customer'
+import { SWRHook } from '@vercel/commerce/utils/types'
+import useWishlist, {
+  UseWishlist,
+} from '@vercel/commerce/wishlist/use-wishlist'
+import useCustomer from '../customer/use-customer'
+import getContentData from '../api/utils/getContentData'
+export default useWishlist as UseWishlist<typeof handler>
 
-const defaultOpts = {}
-
-export type Wishlist = {
-  items: [
-    {
-      variant_id: number
-      product_id: number
-      id: number
-      product: Product
-    }
-  ]
-}
-
-export interface UseWishlistOptions {
-  includeProducts?: boolean
-}
-
-export interface UseWishlistInput extends UseWishlistOptions {
-  customerId?: number
-}
-
-export const fetcher: HookFetcher<Wishlist | null, UseWishlistInput> = () => {
-  return null
-}
-
-export function extendHook(
-  customFetcher: typeof fetcher,
-  // swrOptions?: SwrOptions<Wishlist | null, UseWishlistInput>
-  swrOptions?: any
-) {
-  const useWishlist = ({ includeProducts }: UseWishlistOptions = {}) => {
-    const { data: customer } = useCustomer()
+export const handler: SWRHook<any> = {
+  fetchOptions: {
+    query: '',
+  },
+  async fetcher({ input }) {
+    const { customerEmail } = input
     const getWishlist =
       typeof localStorage !== 'undefined' && localStorage.getItem('wishlist')
-    if (getWishlist && customer?.email && data.products.length > 0) {
+    const products = await getContentData()
+    if (getWishlist && customerEmail && products.length > 0) {
       const wishlist = JSON.parse(getWishlist)
       const items = wishlist.map((wishlist: string, id: number) => {
-        const [product] = data.products.filter((p) =>
+        const [product] = products.filter((p) =>
           wishlist.startsWith(p.id)
         ) as any
         const [variant] = product?.variants
@@ -51,14 +29,20 @@ export function extendHook(
           product,
         }
       })
-      return { data: { items } }
+      return { items }
     }
-    return { data: null }
-  }
-
-  useWishlist.extend = extendHook
-
-  return useWishlist
+    return { items: [] }
+  },
+  useHook:
+    ({ useData }) =>
+    (input = {}) => {
+      const { data: customer } = useCustomer()
+      return useData({
+        input: [['customerEmail', customer?.email]],
+        swrOptions: {
+          revalidateOnFocus: true,
+          ...input.swrOptions,
+        },
+      })
+    },
 }
-
-export default extendHook(fetcher)

@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { SWRHook } from '@vercel/commerce/utils/types'
 import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
-import { Order } from '@commercelayer/js-sdk'
-import getCredentials from '../api/utils/getCredentials'
+import CLSdk from '@commercelayer/sdk'
+import getCredentials, {
+  getOrganizationSlug,
+} from '../api/utils/getCredentials'
 import normalizeLineItems from '../api/utils/normalizeLineItems'
 
 export default useCart as UseCart<typeof handler>
@@ -14,25 +16,27 @@ export const handler: SWRHook<any> = {
   async fetcher() {
     const id = localStorage.getItem('CL_ORDER_ID') || ''
     const credentials = getCredentials()
+    const organization = getOrganizationSlug(credentials.endpoint).organization
+    const sdk = CLSdk({
+      accessToken: credentials.accessToken,
+      organization,
+    })
     if (id && credentials.accessToken) {
-      const clOrder = await Order.withCredentials(credentials)
-        .includes('lineItems')
-        .find(id, { rawResponse: true })
-      const attributes = clOrder.data.attributes
-      const orderStatus = attributes.status
-      if (['pending', 'draft'].includes(orderStatus)) {
-        const lineItems = clOrder?.included
-          ? normalizeLineItems(clOrder?.included)
+      const order = await sdk.orders.retrieve(id, { include: ['line_items'] })
+      const orderStatus = order.status
+      if (orderStatus && ['pending', 'draft'].includes(orderStatus)) {
+        const lineItems = order.line_items
+          ? normalizeLineItems(order.line_items)
           : []
         return {
           id,
-          createdAt: attributes.created_at,
-          currency: { code: attributes.currency_code },
+          createdAt: order.created_at,
+          currency: { code: order.currency_code },
           taxesIncluded: '',
           lineItems,
           lineItemsSubtotalPrice: '',
-          subtotalPrice: attributes.subtotal_amount_float,
-          totalPrice: attributes.total_amount_float,
+          subtotalPrice: order.subtotal_amount_float,
+          totalPrice: order.total_amount_float,
         }
       } else if (id) {
         localStorage.removeItem('CL_ORDER_ID')
@@ -53,6 +57,7 @@ export const handler: SWRHook<any> = {
     ({ useData }) =>
     () => {
       const response = useData()
+      console.log('response', response)
       return useMemo(
         () =>
           Object.create(response, {

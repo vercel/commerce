@@ -1,54 +1,52 @@
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
 import { MutationHook } from '@vercel/commerce/utils/types'
-import { LineItem, Order } from '@commercelayer/js-sdk'
-import getCredentials from '../api/utils/getCredentials'
+import CLSdk from '@commercelayer/sdk'
+import getCredentials, {
+  getOrganizationSlug,
+} from '../api/utils/getCredentials'
 import useCart from '../cart/use-cart'
 import { useCallback } from 'react'
+import getContentData from '../api/utils/getContentData'
 
 export default useAddItem as UseAddItem<typeof handler>
 export const handler: MutationHook<any> = {
   fetchOptions: {
     query: '',
   },
-  async fetcher({ input, options, fetch }) {
+  async fetcher({ input }) {
     const localOrderId = localStorage.getItem('CL_ORDER_ID')
-    const credentials = getCredentials()
+    const { accessToken, endpoint } = getCredentials()
+    const organization = getOrganizationSlug(endpoint).organization
+    const sdk = CLSdk({
+      accessToken,
+      organization,
+    })
     const orderId =
-      localOrderId ||
-      (credentials.accessToken &&
-        (await Order.withCredentials(credentials).create({})).id)
+      localOrderId || (accessToken && (await sdk.orders.create({})).id)
     if (orderId && input.variantId) {
       !localOrderId && localStorage.setItem('CL_ORDER_ID', orderId)
-      const lineItem = await LineItem.withCredentials(credentials).create(
-        {
-          skuCode: input.variantId,
-          order: Order.build({ id: orderId }),
-          quantity: 1,
-          reference: input.productId,
-          _update_quantity: 1,
-        },
-        // @ts-ignore
-        { rawResponse: true }
-      )
-      const attributes = lineItem.data.attributes
+      const [product] = await getContentData(input.productId)
+      const [image] = product.images
+      const lineItem = await sdk.line_items.create({
+        sku_code: input.variantId,
+        order: sdk.orders.relationship(orderId),
+        quantity: 1,
+        reference: input.productId,
+        _update_quantity: true,
+      })
       return {
-        id: lineItem.data.id,
-        name: attributes.name,
+        id: lineItem.id,
+        name: lineItem.name,
         productId: input.productId,
         variantId: input.variantId,
-        quantity: attributes.quantity,
-        price: attributes.unit_amount_float,
+        quantity: lineItem.quantity,
+        price: lineItem.unit_amount_float,
         variant: {
-          id: lineItem.data.id,
-          name: attributes.name,
+          id: lineItem.id,
+          name: lineItem.name,
           sku: input.variantId,
-          price: attributes.unit_amount_float,
-          image: {
-            url: `https://data.commercelayer.app/vercel-provider/${input.productId}_FLAT.png`,
-            altText: attributes.name,
-            width: 1000,
-            height: 1000,
-          },
+          price: lineItem.unit_amount_float,
+          image,
         },
       }
     }
@@ -57,6 +55,7 @@ export const handler: MutationHook<any> = {
     ({ fetch }) =>
     () => {
       const { mutate } = useCart()
+
       return useCallback(
         async function addItem(input) {
           const data = await fetch({ input })
