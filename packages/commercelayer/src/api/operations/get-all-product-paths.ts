@@ -1,13 +1,14 @@
-import data from '../../data.json'
+import getContentData from '../utils/getContentData'
 
 export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
 }
 
 export default function getAllProductPathsOperation() {
-  function getAllProductPaths(): Promise<GetAllProductPathsResult> {
+  async function getAllProductPaths(): Promise<GetAllProductPathsResult> {
+    const products = await getContentData()
     return Promise.resolve({
-      products: data.products.map(({ path }) => ({ path })),
+      products: products.map(({ path }) => ({ path: path || '' })),
     })
   }
 
