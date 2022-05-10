@@ -5,11 +5,25 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-msedge",
+      "type": "chrome",
       "request": "launch",
-      "name": "Launch Edge against localhost",
+      "name": "Next: Chrome",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next: Node",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["run", "dev"],
+      "outputCapture": "std"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next: Full",
+      "configurations": ["Next: Node", "Next: Chrome"]
     }
   ]
 }
