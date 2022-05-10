@@ -1,30 +1,32 @@
+import { LineItem } from '@commercelayer/sdk'
 import data from '../../data.json'
 
-export default function normalizeLineItems(lineItems: any[]) {
+export default function normalizeLineItems(lineItems: LineItem[]) {
   return lineItems
     .filter((l) => {
-      return !['shipment', 'paymentMethod'].includes(l.itemType)
+      return (
+        l.item_type && !['shipment', 'payment_method'].includes(l.item_type)
+      )
     })
     .map((lineItem) => {
       const id = lineItem.id
-      const attributes = lineItem.attributes
       const products = data.products
       return {
         id,
-        name: attributes.name,
-        path: products.find((p) => p.id === attributes.reference)?.slug,
-        productId: attributes.reference,
-        variantId: attributes.reference,
-        quantity: attributes.quantity,
-        price: attributes.unit_amount_float,
+        name: lineItem.name,
+        path: products.find((p) => p.id === lineItem.reference)?.slug,
+        productId: lineItem.reference,
+        variantId: lineItem.reference,
+        quantity: lineItem.quantity,
+        price: lineItem.unit_amount_float,
         variant: {
           id,
-          name: attributes.name,
-          sku: attributes.sku_code,
-          price: attributes.unit_amount_float,
+          name: lineItem.name,
+          sku: lineItem.sku_code,
+          price: lineItem.unit_amount_float,
           image: {
-            url: `https://data.commercelayer.app/vercel-provider/${attributes.reference}_FLAT.png`,
-            altText: attributes.name,
+            url: `https://data.commercelayer.app/vercel-provider/${lineItem.reference}_FLAT.png`,
+            altText: lineItem.name,
             width: 1000,
             height: 1000,
           },
