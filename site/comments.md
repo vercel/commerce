@@ -1,4 +1,4 @@
-## Adding a config files to test the deployment
+## Adding config files to test the deployment
 
 Create a config folder and two json files `cypress/config/local.json`, `cypress/config/dev.json`.
 
@@ -23,8 +23,6 @@ Create a config folder and two json files `cypress/config/local.json`, `cypress/
   "projectId": "pefcjb"
 }
 ```
-
-(How I wish we could _extend_ the base `cypress.json`, because unfortunately Gleb's `cypress-extends` plugin clashes with other plugins like `cypress-grep`)
 
 We slightly modify our `package.json` scripts to use the respective config files:
 
@@ -62,7 +60,7 @@ In contrast, after the feature branch is merged, we want to execute e2e tests ag
 
 For the app being locally served, in Github Actions, we can accomplish this task by using `pull_request` vs `push`. We also need to specify the config file we are using.
 
-> We will also add a group property to make things a bit more clear on the Cypress Dashboard.
+> We will also add a group property to the Cypress GHA in order make things a bit more clear on the Cypress Dashboard.
 
 `main.yml`:
 
@@ -135,4 +133,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-After the feature branch push, we can observe the tests running against the locally served app as usual. And after the merge, we can obj
+After the feature branch push, we can observe the tests running against the locally served app as usual.
+
+And after the merge to main, we can observe the group name and see video recording on the Cypress Dashboard where the app is running against the deployment.
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8tg6nbxiamruwpelsk1d.png)
