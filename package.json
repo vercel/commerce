@@ -18,7 +18,7 @@
     "cy:run-dev": "cypress run --config-file cypress/config/dev.json"
   },
   "devDependencies": {
-    "cypress": "^9.6.0",
+    "cypress": "9.6.1",
     "husky": "^7.0.4",
     "prettier": "^2.5.1",
     "turbo": "^1.1.2"
