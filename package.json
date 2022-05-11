@@ -11,7 +11,9 @@
     "dev": "turbo run dev",
     "start": "turbo run start",
     "types": "turbo run types",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "devDependencies": {
     "husky": "^7.0.4",

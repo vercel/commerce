@@ -29,6 +29,7 @@
     "autoprefixer": "^10.4.2",
     "body-scroll-lock": "^4.0.0-beta.0",
     "clsx": "^1.1.1",
+    "cypress": "^9.6.1",
     "email-validator": "^2.0.4",
     "js-cookie": "^3.0.1",
     "keen-slider": "^6.6.3",
