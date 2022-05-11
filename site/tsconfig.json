@@ -23,8 +23,8 @@
       "@components/*": ["components/*"],
       "@commerce": ["../packages/commerce/src"],
       "@commerce/*": ["../packages/commerce/src/*"],
-      "@framework": ["../packages/local/src"],
-      "@framework/*": ["../packages/local/src/*"]
+      "@framework": ["../packages/shopify/src"],
+      "@framework/*": ["../packages/shopify/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

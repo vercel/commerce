@@ -1,7 +1,8 @@
 name: E2E on Chrome localhost:3000
 
 on:
-  pull_request:
+  push:
+    branches: ['main']
   workflow_dispatch: # to test out if GITHUB_TOKEN env var can be a solution for rerunning CI and having it re-record on Cypress Dashboard
 
 jobs:
@@ -17,8 +18,6 @@ jobs:
         with:
           browser: chrome
           start: yarn dev
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 120000
           record: true
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}

@@ -12,8 +12,10 @@
     "start": "turbo run start",
     "types": "turbo run types",
     "prettier-fix": "prettier --write .",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cy:open-local": "cypress open --config-file cypress/config/local.json",
+    "cy:run-local": "cypress run --config-file cypress/config/local.json",
+    "cy:open-dev": "cypress open --config-file cypress/config/dev.json",
+    "cy:run-dev": "cypress run --config-file cypress/config/dev.json"
   },
   "devDependencies": {
     "cypress": "^9.6.0",
