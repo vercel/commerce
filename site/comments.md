@@ -59,7 +59,7 @@ We want local deployments to execute against the app being locally served.
 
 In contrast, after the feature branch is merged, we want to execute e2e tests against the deployment.
 
-For the app being locally served, in Github Actions, we can accomplish this task by using `pull_request`  vs `push`
+For the app being locally served, in Github Actions, we can accomplish this task by using `pull_request`  vs `push`. We also need to specify the config file we are using.
 
 `main.yml`:
 
@@ -69,7 +69,31 @@ name: E2E on Chrome localhost:3000
 on:
   pull_request:
 
-# the rest of the file is the same as before
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v3.0.4
+        with:
+          browser: chrome
+          start: yarn dev
+          # property to specify the config file we are using
+          config-file: cypress/config/local.json
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120000
+          record: true
+        env:
+          COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
+          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 ```
 
 For the deployment test, we need a new yml file, using `push`, and it will have slightly different settings so that it only runs on the `main` branch.
@@ -96,6 +120,7 @@ jobs:
         with:
           browser: chrome
           record: true
+          config-file: cypress/config/dev.json
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
           NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
