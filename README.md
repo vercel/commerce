@@ -9,6 +9,18 @@
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
 
+```bash
+yarn install
+
+# serve the app locally and test against it
+yarn dev # on first tab
+yarn cy:open-local [#376](https://github.com/vercel/commerce/issues/376)
+
+# execute the tests against the deployment
+yarn cy:open-dev
+
+```
+
 # Next.js Commerce
 
 The all-in-one starter kit for high-performance e-commerce sites. With a few clicks, Next.js developers can clone, deploy and fully customize their own store.
