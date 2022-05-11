@@ -7,6 +7,7 @@ import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 
 import s from './PaymentMethodView.module.css'
+import { useCheckoutContext } from '../context'
 
 interface Form extends HTMLFormElement {
   cardHolder: HTMLInputElement
@@ -25,6 +26,7 @@ interface Form extends HTMLFormElement {
 const PaymentMethodView: FC = () => {
   const { setSidebarView } = useUI()
   const addCard = useAddCard()
+  const { cardFields } = useCheckoutContext()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
@@ -53,12 +55,21 @@ const PaymentMethodView: FC = () => {
           <div>
             <div className={s.fieldset}>
               <label className={s.label}>Cardholder Name</label>
-              <input name="cardHolder" className={s.input} />
+              <input
+                name="cardHolder"
+                className={s.input}
+                defaultValue={cardFields.cardHolder}
+              />
             </div>
             <div className="grid gap-3 grid-flow-row grid-cols-12">
               <div className={cn(s.fieldset, 'col-span-7')}>
                 <label className={s.label}>Card Number</label>
-                <input name="cardNumber" className={s.input} />
+                <input
+                  name="cardNumber"
+                  className={s.input}
+                  defaultValue={cardFields.cardNumber}
+                  required
+                />
               </div>
               <div className={cn(s.fieldset, 'col-span-3')}>
                 <label className={s.label}>Expires</label>
@@ -66,11 +77,18 @@ const PaymentMethodView: FC = () => {
                   name="cardExpireDate"
                   className={s.input}
                   placeholder="MM/YY"
+                  defaultValue={cardFields.cardExpireDate}
+                  required
                 />
               </div>
               <div className={cn(s.fieldset, 'col-span-2')}>
                 <label className={s.label}>CVC</label>
-                <input name="cardCvc" className={s.input} />
+                <input
+                  name="cardCvc"
+                  className={s.input}
+                  defaultValue={cardFields.cardCvc}
+                  required
+                />
               </div>
             </div>
             <hr className="border-accent-2 my-6" />
