@@ -19,7 +19,7 @@ jobs:
           start: yarn dev
           config-file: cypress/config/local.json
           wait-on: 'http://localhost:3000'
-          wait-on-timeout: 120000
+          wait-on-timeout: 60000
           record: true
           group: local
         env:
