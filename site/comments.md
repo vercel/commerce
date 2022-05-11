@@ -24,7 +24,7 @@ Create a config folder and two json files `cypress/config/local.json`, `cypress/
 }
 ```
 
-(How I wish we could *extend* the base `cypress.json`, because unfortunately  Gleb's `cypress-extends` plugin clashes with other plugins like `cypress-grep`)
+(How I wish we could _extend_ the base `cypress.json`, because unfortunately Gleb's `cypress-extends` plugin clashes with other plugins like `cypress-grep`)
 
 We slightly modify our `package.json` scripts to use the respective config files:
 
@@ -43,6 +43,7 @@ We slightly modify our `package.json` scripts to use the respective config files
 ```
 
 We test the new scripts.
+
 ```bash
 # on one tab
 yarn dev
@@ -55,11 +56,13 @@ yarn cy:open-dev
 
 ## Enhancing the CI pipeline architecture
 
-We want local deployments to execute against the app being locally served. 
+We want local deployments to execute against the app being locally served.
 
 In contrast, after the feature branch is merged, we want to execute e2e tests against the deployment.
 
-For the app being locally served, in Github Actions, we can accomplish this task by using `pull_request`  vs `push`. We also need to specify the config file we are using.
+For the app being locally served, in Github Actions, we can accomplish this task by using `pull_request` vs `push`. We also need to specify the config file we are using.
+
+> We will also add a group property to make things a bit more clear on the Cypress Dashboard.
 
 `main.yml`:
 
@@ -70,7 +73,7 @@ on:
   pull_request:
 
 jobs:
-  install:
+  e2e:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -86,6 +89,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120000
           record: true
+          group: local
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
           NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
@@ -93,7 +97,6 @@ jobs:
           NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 ```
 
 For the deployment test, we need a new yml file, using `push`, and it will have slightly different settings so that it only runs on the `main` branch.
@@ -109,7 +112,7 @@ on:
     branches: ['main']
 
 jobs:
-  install:
+  e2e:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -121,6 +124,7 @@ jobs:
           browser: chrome
           record: true
           config-file: cypress/config/dev.json
+          group: deployment
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
           NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
@@ -129,12 +133,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 ```
 
-
-
-
-
-
-
+After the feature branch push, we can observe the tests running against the locally served app as usual. And after the merge, we can obj

@@ -5,7 +5,7 @@ on:
   workflow_dispatch: # to test out if GITHUB_TOKEN env var can be a solution for rerunning CI and having it re-record on Cypress Dashboard
 
 jobs:
-  install:
+  e2e:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,6 +21,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120000
           record: true
+          group: local
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
           NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
