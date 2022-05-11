@@ -14,24 +14,6 @@ interface NavbarProps {
   links?: Link[]
 }
 
-// These do not really work with built-in vercel things..
-// I had to export them in bash
-// export COMMERCE_PROVIDER=@vercel/commerce-shopify NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true  etc.
-
-console.log('COMMERCE_PROVIDER: ', process.env.COMMERCE_PROVIDER)
-console.log(
-  'NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ',
-  process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
-)
-console.log(
-  'NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ',
-  process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
-)
-console.log(
-  'NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: ',
-  process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED
-)
-
 const Navbar: FC<NavbarProps> = ({ links }) => (
   <NavbarRoot>
     <Container clean className="mx-auto max-w-8xl px-6">
@@ -60,7 +42,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
             ))}
           </nav>
         </div>
-        {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
+        {process.env.COMMERCE_SEARCH_ENABLED && (
           <div className="justify-center flex-1 hidden lg:flex">
             <Searchbar />
           </div>
@@ -69,7 +51,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
           <UserNav />
         </div>
       </div>
-      {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
+      {process.env.COMMERCE_SEARCH_ENABLED && (
         <div className="flex pb-4 lg:px-6 lg:hidden">
           <Searchbar id="mobile-search" />
         </div>

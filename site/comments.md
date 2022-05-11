@@ -1,338 +1,73 @@
-# Feedback on Real World Testing with Cypress course
+## Adding a config files to test the deployment
 
-At Extend, Shopify is one of the merchants we integrate with to sell warranties (alongside BigCommerce and Magento), so this course is also domain relevant for learning.
+Create a config folder and two json files `cypress/config/local.json`, `cypress/config/dev.json`.
 
-I will capture any feedback here while going through the content, for the purpose of making the content as frictionless as possible, so that adoption is higher for Extend as well as any Cypress users who want to perform self-learning.
-
-TL, DR; the source repo is vastly different and environment variables are not possible to get to work as described. All the below are a consequence of that. I have included the .env.local file so that one can try to reproduce these issues. At the end, these issues can be figured out but it requires a high amount of know-how and willpower. We need to make it so that things work with batteries included, without having to wrestle anything. One should compare the below comments to the final version of the code while going through it.
-
-## [Part 1- Creating a Shopify Partners Store](https://learn.cypress.io/tutorials/creating-a-shopify-partners-store)
-
-Shopify must have made updates. One can figure out their way through it, but on Cypress side we need to update the screenshots and also slightly update the instructions.
-
-## [Part 2- Creating the Nex.js App](https://learn.cypress.io/tutorials/creating-the-next-js-app)
-
-Vercel must have made updates to their repo. There are many `tsconfig.json` files now, and the one we need is `./site/tsconfig.json`
-
-The `src` suffix is extra now, we are missing that in the current instructions.
-
-We have:
+`local.json` file looks exactly like a copy of our root `cypress.json`.
 
 ```json
-"@framework": ["framework/local"],
-"@framework/*": ["framework/local/*"]
-```
-
-They have:
-
-```json
-"@framework": ["../packages/local/src"],
-"@framework/*": ["../packages/local/src/*"]
-```
-
-We have to aggregate `src` to our update instructions.
-
-We have:
-
-```json
-"@framework": ["framework/shopify"],
-"@framework/*": ["framework/shopify/*"]
-```
-
-We should have:
-
-```json
-"@framework": ["framework/shopify/src"],
-"@framework/*": ["framework/shopify/src/*"]
-```
-
----
-
-We should update the app screenshot as we launch localhost:3000
-
----
-
-## [Part 3 - Writing e2e tests with Cypress](https://learn.cypress.io/tutorials/writing-end-to-end-tests-with-cypress)
-
-Not that I am a TS fanatic, it's good in places, but the cloned Vercel repo is in TS. At minimum we can refer to real world app or the docs for a TS setup reference. If the audience chooses to, we can make it easier for them.
-
----
-
-We want to show latest and greatest ways of writing Cypress code. There are certain reasons we might not be able to implement it -the helper `data-test` command may be difficult later- but we should do the due diligence and let the audience know about some knowledge they can use the the future as side notes.
-
-One side node we should insert here is below.
-
-Instead of this
-`cy.get('[data-test="product-tag"]').eq(0)`
-I would use
-`cy.get('[data-test="product-tag"]:nth(0)')`
-
-It is less pretty, but it can be more stable with element-detached-from-the dom errors.
-Recently I had to wrestle the CI for our own Shopify app at Extend with this exact issue. At minimum we can refer to this video https://www.youtube.com/watch?v=deNl1q1el0E, letting the audience know about these concerns.
-
----
-
-We can let the audience know if they have not used a duplicate name for their product, they may need to update this code.
-
-`cy.get('[data-test="product-name"]').should("contain", "Code Shirt")`
-
-That variance taken may also impact other string checks. Mine was like this:
-
-```js
-describe('Home Page', () => {
-  it('displays all 3 products on the home page', () => {
-    cy.visit('http://localhost:3000')
-    cy.get('[data-test="product-tag"]')
-      .eq(0)
-      .within(() => {
-        cy.get('[data-test="product-name"]').should(
-          'contain',
-          'tshirt-stack-overflow'
-        )
-        cy.get('[data-test="product-price"]').should('contain', '$25.00 USD')
-      })
-
-    cy.get('[data-test="product-tag"]')
-      .eq(1)
-      .within(() => {
-        cy.get('[data-test="product-name"]').should(
-          'contain',
-          'Lightweight Jacket'
-        )
-        cy.get('[data-test="product-price"]').should('contain', '$249.99 USD')
-      })
-
-    cy.get('[data-test="product-tag"]')
-      .eq(2)
-      .within(() => {
-        cy.get('[data-test="product-name"]').should('contain', 'Shirt')
-        cy.get('[data-test="product-price"]').should('contain', '$25.00 USD')
-      })
-  })
-})
-```
-
----
-
-When checking the urls, we should use the opportunity to show off the documentation for `cy.location` when it gets introduced. "If you want to learn more about `cy.location`...".
-
----
-
-When the viewport is modified in `cypress.json`, perhaps it's a good opportunity to have the audience navigate to Settings > Configuration to confirm this change. This is a simple and solid troubleshooting tool. Also, another good excuse to link to the relevant docs.
-
----
-
-The app has changed, and `data-test="nav-link-hom-page">` is under a list. Therefore clicking it with the given code causes en error due to multiple elements. Instead of `eq(0)` or `first()` we can modify the attribute like this:
-
-```js
 {
-  links?.map((l) => (
-    <Link href={l.href} key={l.href}>
-      <a className={s.link} data-test={`nav-link-home-page-${l.label}`}>
-        {l.label}
-      </a>
-    </Link>
-  ))
+  "baseUrl": "http://localhost:3000",
+  "viewportHeight": 1000,
+  "viewportWidth": 1280,
+  "projectId": "pefcjb"
 }
 ```
 
-The attributes will look like:
-`nav-link-home-page-New Arrivals`
-`nav-link-home-page-Featured`
+`dev.json` file has an updated `baseUrl` to represent our deployment.
 
-And here we can also talk about `cy.getBySelLike()`, because if you want to go to _New Arrivals_, the space between the words would require taming the attribute, and we don't really want to do that so much. We can just use `cy.getBySelLike('nav-link-home-page-New').click()`.
-
-We have to update the `cy.location` path check as well. Here's the full code.
-
-```js
-describe('Home Page', () => {
-  beforeEach(() => cy.visit('/'))
-
-  it('displays all 3 products on the home page', () => {
-    cy.getBySel('product-tag')
-      .should('have.length.gte', 3)
-      .eq(0)
-      .within(() => {
-        cy.getBySel('product-name').should('contain', 'tshirt-stack-overflow')
-        cy.getBySel('product-price').should('contain', '$25.00 USD')
-      })
-
-    cy.getBySel('product-tag')
-      .eq(1)
-      .within(() => {
-        cy.getBySel('product-name').should(
-          'contain',
-          'tshirt-it-works-on-my-machine'
-        )
-        cy.getBySel('product-price').should('contain', '$25.00 USD')
-      })
-
-    cy.getBySel('product-tag')
-      .eq(2)
-      .within(() => {
-        cy.getBySel('product-name').should('contain', 'tshirt-github')
-        cy.getBySel('product-price').should('contain', '$25.00 USD')
-      })
-  })
-})
-
-
-describe('Header', () => {
-  it('links to the correct pages', () => {
-    cy.visit('http://localhost:3000')
-    cy.getBySel('logo').click()
-    cy.location('pathname').should('eq', '/')
-
-    cy.getBySel('nav-link-search').click()
-    cy.location('pathname').should('eq', '/search')
-
-    cy.getBySelLike('nav-link-home-page-New').click()
-    cy.location('pathname').should('eq', '/search/new-arrivals')
-  })
-})
+```json
+{
+  "baseUrl": "https://nextjs-cypress-j6ls5tggc-muratkeremozcan.vercel.app/",
+  "viewportHeight": 1000,
+  "viewportWidth": 1280,
+  "projectId": "pefcjb"
+}
 ```
 
----
+(How I wish we could *extend* the base `cypress.json`, because unfortunately  Gleb's `cypress-extends` plugin clashes with other plugins like `cypress-grep`)
 
-`components/common/Searchbar/Searchbar.tsx` is under `site` now. We should update to `site/components/common/Searchbar/Searchbar.tsx`.
+We slightly modify our `package.json` scripts to use the respective config files:
 
-For this to work, first we need a 4th environment variable in `.env.local`:
-
-```
-COMMERCE_PROVIDER=@vercel/commerce-shopify
-NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx
-NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true
-```
-
-Mind `COMMERCE_PROVIDER=@vercel/commerce-shopify` and not just `shopify`. This is in the main repo's readme.
-
-And we have to make the following change at `site/components/common/Navbar/Navbar.tsx`.
-TL, DR; replace `process.env.COMMERCE_SEARCH_ENABLED` with `process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED`
-
-Before:
-
-```js
- {process.env.COMMERCE_SEARCH_ENABLED && (
-    <div className="justify-center flex-1 hidden lg:flex">
-      <Searchbar />
-    </div>
-  )}
-  <div className="flex items-center justify-end flex-1 space-x-8">
-    <UserNav />
-  </div>
-</div>
-{process.env.COMMERCE_SEARCH_ENABLED && (
-  <div className="flex pb-4 lg:px-6 lg:hidden">
-    <Searchbar id="mobile-search" />
-  </div>
-)}
-
+```json
+"scripts": {
+  "build": "turbo run build --scope=next-commerce --include-dependencies --no-deps",
+  "dev": "turbo run dev",
+  "start": "turbo run start",
+  "types": "turbo run types",
+  "prettier-fix": "prettier --write .",
+  "cy:open-local": "cypress open --config-file cypress/config/local.json",
+  "cy:run-local": "cypress run --config-file cypress/config/local.json",
+  "cy:open-dev": "cypress open --config-file cypress/config/dev.json",
+  "cy:run-dev": "cypress run --config-file cypress/config/dev.json"
+},
 ```
 
-After
-
-```js
-  {process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
-    <div className="justify-center flex-1 hidden lg:flex">
-      <Searchbar />
-    </div>
-  )}
-  <div className="flex items-center justify-end flex-1 space-x-8">
-    <UserNav />
-  </div>
-</div>
-{process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED && (
-  <div className="flex pb-4 lg:px-6 lg:hidden">
-    <Searchbar id="mobile-search" />
-  </div>
-)}
-
-```
-
-Even when setting the environment variables correctly, `.env.local` file is very finicky. I could not get the env vars to console.log, and resorted to exporting them in shell. The .env.local file is included, and if anyone can get it to work we should include incontestable instructions that work every time.
-
-Try this console.log in `Navbar.tsx` file to test things out:
-
-```js
-console.log('COMMERCE_PROVIDER: ', process.env.COMMERCE_PROVIDER)
-console.log(
-  'NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ',
-  process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
-)
-console.log(
-  'NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ',
-  process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
-)
-console.log(
-  'NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: ',
-  process.env.NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED
-)
-```
-
----
-
-## [Part 4 Running Our Tests with GitHub Actions](https://learn.cypress.io/tutorials/running-our-tests-with-github-actions)
-
-Cypress GHA is at `v3.0.4` . Let's at least use v3.
-
----
-
-Question here; why do we need to run `npm run build` ? We are just serving the app here. Is it a NextJs requirement to build the app before it can be served? We did not need it locally. I have left it out and things kept working.
-
-https://github.com/muratkeremozcan/nextjs-cypress/runs/6289265533?check_suite_focus=true#step:3:60
-
----
-
-In the yml, we need to add `NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED=true` from the above section, since we did this change in the `.env.local` file.
-
-```yml
-env:
-  COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
-  NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
-  NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
-  NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
-```
-
-Something we can additionally mention here is that 3 things have to match for CI to work:
-
-- local environment variables (`.env` , `cypress.env.json`, or our machine),
-- the yml file above
-- Github secrets
-
-Yes, we are performing these in the guide, but the rule of 3 is key knowledge, concise, and they can take that away. We can also mention that CYPRESS_RECORD_KEY isn't really needed locally, but it has to be in the yml and CI
-
----
-
-When did we create a `header.spec.js` file? It is possible that one might miss this. Perhaps at the end of Part 3 we give a tree structure and the final, ready-to-copy code for the spec files.
-
+We test the new scripts.
 ```bash
-├── fixtures
-│   └── example.json
-├── integration
-│   ├── header.spec.js
-│   └── home.spec.js
-├── plugins
-│   └── index.js
-└── support
-    ├── commands.js
-    └── index.js
+# on one tab
+yarn dev
+# on the second tab
+yarn cy:open-local
+
+# for the deployment, we do not need the app served, we just test the deployment
+yarn cy:open-dev
 ```
 
----
+## Enhancing the CI pipeline architecture
 
-The new Vercel repo advises yarn to be used as opposed to npm.
+We want local deployments to execute against the app being locally served. 
 
-At the time of writing, there is a hard-blocker with CI.
+In contrast, after the feature branch is merged, we want to execute e2e tests against the deployment.
 
-https://github.com/muratkeremozcan/nextjs-cypress/runs/6289885177?check_suite_focus=true
+For the app being locally served, in Github Actions, we can accomplish this task by using `pull_request`  vs `push`. We also need to specify the config file we are using.
 
-Here is an attempt to make it work:
+`main.yml`:
 
 ```yml
-name: E2E on Chrome
+name: E2E on Chrome localhost:3000
 
-on: [push]
+on:
+  pull_request:
 
 jobs:
   install:
@@ -346,43 +81,60 @@ jobs:
         with:
           browser: chrome
           start: yarn dev
+          # property to specify the config file we are using
+          config-file: cypress/config/local.json
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120000
+          record: true
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
           NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 ```
 
----
+For the deployment test, we need a new yml file, using `push`, and it will have slightly different settings so that it only runs on the `main` branch.
+Since we are testing the deployment, we do not need `start` and `wait-on` properties of the Cypress Github Action.
 
-## [Part 5 Running Our Tests in Parallel with Cypress Dashboard](https://learn.cypress.io/tutorials/running-our-tests-in-parallel-with-cypress-dashboard)
+`deployment.yml`:
 
-As of today May 4th, 2022, Cypress Dashboard looks different and the screen shots should be updated.
+```yml
+name: E2E on Chrome deployment
 
----
+on:
+  push:
+    branches: ['main']
 
-Question about `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`. Cypress Dashboard requires unique runIds. For example if we re-run a CI action, what happens is the job passes without actually running any tests. How does this setting effect that?
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-I found out later; this setting allows manually triggered & repeated workflow jobs to still show on the Cypress Dashboard, which is fantastic. People always complain about not being able to re-trigger CI, or rerun something that has already been recorded on the dashboard. Let's highlight this knowledge. This is actually a "feature" I have been requesting from Chris Zappala, and it's easy to solve.
+      - name: Cypress run
+        uses: cypress-io/github-action@v3.0.4
+        with:
+          browser: chrome
+          record: true
+          config-file: cypress/config/dev.json
+        env:
+          COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
+          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          NEXT_PUBLIC_COMMERCE_SEARCH_ENABLED: true
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
----
+```
 
-In the parallelization section, the jobs with `yarn build` and `save build folder` must be Vercel relevant. I did not have to build anything in version 1 of the yml, and the CI was full green. https://github.com/muratkeremozcan/nextjs-cypress/actions/runs/2270642956
 
----
 
-Unsure about any of the `build` instructions. The yml at the end of Part 5 does not work as instructed. The build job does not generate a build path and errors out. I believe having to create this build folder is a vercel related practice, and does not apply to React, Angular or Vue. That needs to be mentioned saying the build, save build, and restore build steps would not be relevant in React, Angular, or Vue.
 
-https://github.com/muratkeremozcan/nextjs-cypress/runs/6292547384?check_suite_focus=true
 
-Instead of `path: build` in the yml, used `path: ./packages/**/dist/**` . This got things to work. However parallel e2e tests did not start in 18 minutes. https://github.com/muratkeremozcan/nextjs-cypress/runs/6292906819?check_suite_focus=true
 
-The 2nd attempt seemed natural, but acted as if we left out the build CRUD work altogether https://dashboard.cypress.io/projects/pefcjb/runs/31c1fa51-d767-4b32-bfc6-d7999e6d8bfb/test-results/30a2947c-80ab-477a-adf5-84d420f596eb/screenshots.
 
-I have disabled the parallelization as advertised for the time being. Perhaps there are gotchas with Vercel that need to be figured out. If we can make this work in the current version of the repo, we have to be very detailed about how, then compare & contrast to what we would do instead in a client-side-only app (ex: React vs NextJs).
-
-## [Part 5 Deploying to Vercel](https://learn.cypress.io/tutorials/deploying-to-vercel)
-
-I must have missed the part about changing the build directory. Where was that mentioned? The current Vercel app only produces dist folders under packages. We need to make it so that this part is unmistakable.
