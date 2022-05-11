@@ -1,4 +1,4 @@
-name: E2E on Chrome localhost:3000
+name: E2E on Chrome deployment
 
 on:
   push:
