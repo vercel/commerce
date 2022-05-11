@@ -18,6 +18,7 @@ jobs:
         with:
           browser: chrome
           start: yarn dev
+          config-file: cypress/config/dev.json
           record: true
         env:
           COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}

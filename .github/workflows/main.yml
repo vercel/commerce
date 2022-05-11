@@ -17,6 +17,7 @@ jobs:
         with:
           browser: chrome
           start: yarn dev
+          config-file: cypress/config/local.json
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120000
           record: true
