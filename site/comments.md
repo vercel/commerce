@@ -135,4 +135,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-After the feature branch push, we can observe the tests running against the locally served app as usual. And after the merge, we can obj
+After the feature branch push, we can observe the tests running against the locally served app as usual.
+
+And after the merge, we can observe the group name and see video recording on the Cypress Dashboard where the app is running against the deployment.
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8tg6nbxiamruwpelsk1d.png)
