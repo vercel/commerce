@@ -16,7 +16,7 @@ export const handler: SWRHook<any> = {
   async fetcher() {
     const id = localStorage.getItem('CL_ORDER_ID') || ''
     const credentials = getCredentials()
-    const organization = getOrganizationSlug(credentials.endpoint).organization
+    const organization = getOrganizationSlug(credentials.ENDPOINT).organization
     const sdk = CLSdk({
       accessToken: credentials.accessToken,
       organization,
@@ -57,7 +57,6 @@ export const handler: SWRHook<any> = {
     ({ useData }) =>
     () => {
       const response = useData()
-      console.log('response', response)
       return useMemo(
         () =>
           Object.create(response, {

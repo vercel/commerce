@@ -17,7 +17,7 @@ export const handler: MutationHook<any> = {
   async fetcher({ input: { id } }) {
     const credentials = getCredentials()
     const orderId = localStorage.getItem('CL_ORDER_ID')
-    const organization = getOrganizationSlug(credentials.endpoint).organization
+    const organization = getOrganizationSlug(credentials.ENDPOINT).organization
     const sdk = CLSdk({
       accessToken: credentials.accessToken,
       organization,

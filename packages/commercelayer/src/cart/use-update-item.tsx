@@ -17,7 +17,7 @@ export const handler: MutationHook<any> = {
   },
   async fetcher({ input: { item, quantity } }) {
     const credentials = getCredentials()
-    const organization = getOrganizationSlug(credentials.endpoint).organization
+    const organization = getOrganizationSlug(credentials.ENDPOINT).organization
     const sdk = CLSdk({
       accessToken: credentials.accessToken,
       organization,
