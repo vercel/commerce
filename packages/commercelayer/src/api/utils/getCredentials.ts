@@ -16,10 +16,10 @@ export function getOrganizationSlug<E extends string>(endpoint: E): ReturnObj {
     organization: '',
     domain: 'commercelayer.io',
   }
-  if (endpoint) {
-    if (endpoint.search('commercelayer.io') === -1)
+  if (ENDPOINT) {
+    if (ENDPOINT.search('commercelayer.io') === -1)
       org.domain = 'commercelayer.co'
-    org.organization = endpoint
+    org.organization = ENDPOINT
       .replace('https://', '')
       .replace(`.${org.domain}`, '')
   }
