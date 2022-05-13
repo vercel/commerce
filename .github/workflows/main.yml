@@ -1,4 +1,4 @@
-name: End to end on Chrome
+name: E2E on Chrome
 on: [push]
 
 jobs:
