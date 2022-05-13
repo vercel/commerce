@@ -23,7 +23,7 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 > To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has disabled all features (cart, auth) and use static files for the backend
 
 ```bash
-yarn # run this comman in root folder of the mono repo
+yarn # run this command in root folder of the mono repo
 yarn dev
 ```
 
