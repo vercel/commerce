@@ -1,6 +1,6 @@
 import type { CheckoutEndpoint } from '.'
 import getCredentials from '../../utils/getCredentials'
-import { Order } from '@commercelayer/js-sdk'
+import Order from '@commercelayer/sdk'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
@@ -16,9 +16,9 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
     if (val.indexOf(name) === 0) accessToken = val.substring(name.length)
   })
 
-  const { endpoint } = getCredentials()
+  const { ENDPOINT } = getCredentials()
   if (orderId && accessToken) {
-    const clOrder = await Order.withCredentials({ endpoint, accessToken })
+    const clOrder = await Order.withCredentials({ ENDPOINT, accessToken })
       .includes('lineItems')
       .find(orderId as string, { rawResponse: true })
     const checkoutUrl = clOrder.data.attributes.checkout_url
