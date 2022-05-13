@@ -1,13 +1,12 @@
 import type { CheckoutEndpoint } from '.'
 import getCredentials, { getOrganizationSlug } from '../../utils/getCredentials'
-import CLSdk from '@commercelayer/sdk'
+import { CommerceLayerStatic } from '@commercelayer/sdk'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
   res,
 }) => {
   let { orderId, accessToken } = req.query
-
   const name = 'CL_TOKEN' + '='
   const cookiesArr = decodeURIComponent(
     (accessToken = typeof accessToken === 'string' ? accessToken : '')
@@ -15,11 +14,10 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   cookiesArr.forEach((val) => {
     if (val.indexOf(name) === 0) accessToken = val.substring(name.length)
   })
-
   const { ENDPOINT } = getCredentials()
   if (orderId && accessToken) {
     const organization = getOrganizationSlug(ENDPOINT).organization
-    const sdk = CLSdk({
+    const sdk = CommerceLayerStatic.init({
       accessToken,
       organization,
     })
