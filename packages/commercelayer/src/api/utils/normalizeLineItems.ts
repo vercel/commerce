@@ -1,7 +1,12 @@
 import { LineItem } from '@commercelayer/sdk'
-import data from '../../data.json'
+import type { Products } from './getContentData'
 
-export default function normalizeLineItems(lineItems: LineItem[]) {
+type Params = {
+  lineItems: LineItem[]
+  products: Products
+}
+
+export default function normalizeLineItems({ lineItems, products }: Params) {
   return lineItems
     .filter((l) => {
       return (
@@ -10,11 +15,13 @@ export default function normalizeLineItems(lineItems: LineItem[]) {
     })
     .map((lineItem) => {
       const id = lineItem.id
-      const products = data.products
+      const [product] = products.filter((p) => p.id === lineItem.reference)
+      const path = product?.slug
+      const [image] = product?.images
       return {
         id,
         name: lineItem.name,
-        path: products.find((p) => p.id === lineItem.reference)?.slug,
+        path,
         productId: lineItem.reference,
         variantId: lineItem.reference,
         quantity: lineItem.quantity,
@@ -24,12 +31,7 @@ export default function normalizeLineItems(lineItems: LineItem[]) {
           name: lineItem.name,
           sku: lineItem.sku_code,
           price: lineItem.unit_amount_float,
-          image: {
-            url: `https://data.commercelayer.app/vercel-provider/${lineItem.reference}_FLAT.png`,
-            altText: lineItem.name,
-            width: 1000,
-            height: 1000,
-          },
+          image,
         },
       }
     })

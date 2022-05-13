@@ -1,9 +1,9 @@
 import { Price, CommerceLayerClient } from '@commercelayer/sdk'
 import { Product } from '@vercel/commerce/types/product'
-import { DeepPartialArray } from './contentfulApi'
+import type { Products } from './getContentData'
 
 type GetPricesArgs = {
-  products?: DeepPartialArray<Product>
+  products?: Products
   sdk: CommerceLayerClient
 }
 

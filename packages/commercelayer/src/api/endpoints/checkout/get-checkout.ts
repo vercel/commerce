@@ -1,6 +1,6 @@
 import type { CheckoutEndpoint } from '.'
-import getCredentials from '../../utils/getCredentials'
-import { Order } from '@commercelayer/sdk'
+import getCredentials, { getOrganizationSlug } from '../../utils/getCredentials'
+import CLSdk from '@commercelayer/sdk'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
@@ -18,11 +18,17 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 
   const { ENDPOINT } = getCredentials()
   if (orderId && accessToken) {
-    const clOrder = await Order.withCredentials({ endpoint, accessToken })
-      .includes('lineItems')
-      .find(orderId as string, { rawResponse: true })
-    const checkoutUrl = clOrder.data.attributes.checkout_url
-
+    const organization = getOrganizationSlug(ENDPOINT).organization
+    const sdk = CLSdk({
+      accessToken,
+      organization,
+    })
+    const order = await sdk.orders.retrieve(orderId as string, {
+      fields: ['checkout_url'],
+    })
+    const checkoutUrl = order?.checkout_url
+      ? order?.checkout_url
+      : `https://${organization}.checkout.commercelayer.app/${order?.id}`
     if (checkoutUrl) {
       res.redirect(`${checkoutUrl}?accessToken=${accessToken}`)
     } else {

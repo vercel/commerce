@@ -6,6 +6,7 @@ import getCredentials, {
   getOrganizationSlug,
 } from '../api/utils/getCredentials'
 import normalizeLineItems from '../api/utils/normalizeLineItems'
+import getContentData from '../api/utils/getContentData'
 
 export default useCart as UseCart<typeof handler>
 
@@ -25,8 +26,12 @@ export const handler: SWRHook<any> = {
       const order = await sdk.orders.retrieve(id, { include: ['line_items'] })
       const orderStatus = order.status
       if (orderStatus && ['pending', 'draft'].includes(orderStatus)) {
+        const contentData = await getContentData()
         const lineItems = order.line_items
-          ? normalizeLineItems(order.line_items)
+          ? normalizeLineItems({
+              lineItems: order.line_items,
+              products: contentData,
+            })
           : []
         return {
           id,
