@@ -7,7 +7,7 @@
   @apply pt-0 max-w-full w-full leading-extra-loose;
   font-size: 2rem;
   letter-spacing: 0.4px;
-  line-height: 2.2em;
+  line-height: 2.1em;
 }
 
 .root .name span {
@@ -27,4 +27,5 @@
 .root .price {
   @apply pt-2 px-6 pb-4 text-sm bg-primary text-accent-9
   font-semibold inline-block tracking-wide;
+  margin-top: -1px;
 }

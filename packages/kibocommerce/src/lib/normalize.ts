@@ -1,20 +1,6 @@
-import update from './immutability'
-import getSlug from './get-slug'
 import type { PrCategory, CustomerAccountInput, Document } from '../../schema'
 import { Page } from '../types/page';
 import { Customer } from '../types/customer'
-
-function normalizeProductOption(productOption: any) {
-  const {
-    node: { entityId, values: { edges = [] } = {}, ...rest },
-  } = productOption
-
-  return {
-    id: entityId,
-    values: edges?.map(({ node }: any) => node),
-    ...rest,
-  }
-}
 
 export function normalizeProduct(productNode: any, config: any): any {
   const product = {

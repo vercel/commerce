@@ -3,7 +3,7 @@ import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
-import { Button, Text } from '@components/ui'
+import { Button, Text, Container } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
 import { useUI } from '@components/ui/context'
@@ -48,8 +48,8 @@ export default function Cart() {
   }
 
   return (
-    <div className="grid lg:grid-cols-12 w-full max-w-7xl mx-auto">
-      <div className="lg:col-span-8">
+    <Container className="grid lg:grid-cols-12 pt-4 gap-20">
+      <div className="lg:col-span-7">
         {isLoading || isEmpty ? (
           <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center ">
             <span className="border border-dashed border-secondary flex items-center justify-center w-16 h-16 bg-primary p-12 rounded-lg text-primary">
@@ -82,7 +82,7 @@ export default function Cart() {
             </h2>
           </div>
         ) : (
-          <div className="px-4 sm:px-6 flex-1">
+          <div className="lg:px-0 sm:px-6 flex-1">
             <Text variant="pageHeading">My Cart</Text>
             <Text variant="sectionHeading">Review your Order</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-b border-accent-2">
@@ -111,7 +111,7 @@ export default function Cart() {
           </div>
         )}
       </div>
-      <div className="lg:col-span-4">
+      <div className="lg:col-span-5">
         <div className="flex-shrink-0 px-4 py-24 sm:px-6">
           {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED && (
             <>
@@ -185,7 +185,7 @@ export default function Cart() {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   )
 }
 

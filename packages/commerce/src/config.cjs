@@ -16,12 +16,16 @@ function withCommerceConfig(nextConfig = {}) {
     )
   }
 
-  const commerceNextConfig = importCwd(path.join(provider, 'next.config'))
+  const commerceNextConfig = importCwd(path.posix.join(provider, 'next.config'))
   const config = merge(nextConfig, commerceNextConfig)
+  const features = merge(
+    config.commerce.features,
+    config.commerce[provider]?.features ?? {}
+  )
 
   config.env = config.env || {}
 
-  Object.entries(config.commerce.features).forEach(([k, v]) => {
+  Object.entries(features).forEach(([k, v]) => {
     if (v) config.env[`COMMERCE_${k.toUpperCase()}_ENABLED`] = true
   })
 

@@ -38,9 +38,9 @@ export interface BigcommerceConfig extends CommerceAPIConfig {
   storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
 }
 
-const API_URL = process.env.BIGCOMMERCE_STOREFRONT_API_URL
+const API_URL = process.env.BIGCOMMERCE_STOREFRONT_API_URL // GraphAPI
 const API_TOKEN = process.env.BIGCOMMERCE_STOREFRONT_API_TOKEN
-const STORE_API_URL = process.env.BIGCOMMERCE_STORE_API_URL
+const STORE_API_URL = process.env.BIGCOMMERCE_STORE_API_URL // REST API
 const STORE_API_TOKEN = process.env.BIGCOMMERCE_STORE_API_TOKEN
 const STORE_API_CLIENT_ID = process.env.BIGCOMMERCE_STORE_API_CLIENT_ID
 const STORE_CHANNEL_ID = process.env.BIGCOMMERCE_CHANNEL_ID
