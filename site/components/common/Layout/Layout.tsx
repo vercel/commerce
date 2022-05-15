@@ -108,7 +108,6 @@ const Layout: React.FC<Props> = ({
   children,
   pageProps: { categories = [], navigation = [], ...pageProps },
 }) => {
-  console.log({ navigation })
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
   const navBarlinks = categories.slice(0, 2).map((c) => ({

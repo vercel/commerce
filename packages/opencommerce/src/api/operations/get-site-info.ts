@@ -67,7 +67,6 @@ export default function getSiteInfoOperation({
     const navigationItems =
       primaryShopResponse.data.primaryShop.defaultNavigationTree.items ?? []
 
-    console.log(normalizeNavigation(navigationItems))
     return {
       categories,
       brands,
