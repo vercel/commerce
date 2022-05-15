@@ -4,13 +4,20 @@ import type {
   ProductOptionValues,
   ProductVariant,
 } from '../types/product'
-import { OCCategory, Category, Vendor, OCVendor } from '../types/site'
+import {
+  OCCategory,
+  Category,
+  Vendor,
+  OCVendor,
+  NavigationItem,
+} from '../types/site'
 import {
   CatalogItemProduct,
   CatalogProductVariant,
   ImageInfo,
   Cart as OCCart,
   CartItemEdge,
+  NavigationTreeItem,
 } from '../../schema'
 import { Cart, LineItem } from '../types/cart'
 
@@ -299,4 +306,18 @@ function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
       },
     ],
   }
+}
+
+export const normalizeNavigation = (
+  navigationTreeItems: NavigationTreeItem[]
+): NavigationItem[] => {
+  return navigationTreeItems.map(({ items, navigationItem: { data } }) => {
+    return {
+      url: data?.url ?? '/',
+      label: data?.contentForLanguage ?? 'N/A',
+      isUrlRelative: !!data?.isUrlRelative,
+      shouldOpenInNewWindow: !!data?.shouldOpenInNewWindow,
+      items: normalizeNavigation((items ?? []) as NavigationTreeItem[]),
+    }
+  })
 }

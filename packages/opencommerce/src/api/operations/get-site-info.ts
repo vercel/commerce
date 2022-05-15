@@ -9,11 +9,16 @@ import {
   GetAllProductVendorsQueryVariables,
 } from '../../../schema'
 import getTagsQuery from '../queries/get-tags-query'
-import { GetSiteInfoOperation, OCCategory } from '../../types/site'
-import { normalizeCategory, normalizeVendors } from '../../utils/normalize'
+import { GetSiteInfoOperation, OCCategory, SiteTypes } from '../../types/site'
+import {
+  normalizeCategory,
+  normalizeNavigation,
+  normalizeVendors,
+} from '../../utils/normalize'
 import type { OpenCommerceConfig, Provider } from '..'
 import filterEdges from '../utils/filter-edges'
 import getAllProductVendors from '../queries/get-vendors-query'
+import getPrimaryShopQuery from '../queries/get-primary-shop-query'
 
 export default function getSiteInfoOperation({
   commerce,
@@ -39,15 +44,17 @@ export default function getSiteInfoOperation({
   } = {}): Promise<T['data']> {
     const { fetch, shopId } = commerce.getConfig(cfg)
 
-    const [categoriesResponse, vendorsResponse] = await Promise.all([
-      await fetch<GetTagsQuery, GetTagsQueryVariables>(getTagsQuery, {
-        variables: { first: 250, shopId },
-      }),
-      await fetch<
-        GetAllProductVendorsQuery,
-        GetAllProductVendorsQueryVariables
-      >(getAllProductVendors, { variables: { shopIds: [shopId] } }),
-    ])
+    const [categoriesResponse, vendorsResponse, primaryShopResponse] =
+      await Promise.all([
+        await fetch<GetTagsQuery, GetTagsQueryVariables>(getTagsQuery, {
+          variables: { first: 250, shopId },
+        }),
+        await fetch<
+          GetAllProductVendorsQuery,
+          GetAllProductVendorsQueryVariables
+        >(getAllProductVendors, { variables: { shopIds: [shopId] } }),
+        await fetch(getPrimaryShopQuery),
+      ])
 
     const categories = filterEdges(categoriesResponse.data.tags?.edges).map(
       (edge) => normalizeCategory(edge.node! as OCCategory)
@@ -57,7 +64,15 @@ export default function getSiteInfoOperation({
       ...new Set(filterEdges(vendorsResponse.data.vendors?.nodes)),
     ].map(normalizeVendors)
 
-    return { categories, brands }
+    const navigationItems =
+      primaryShopResponse.data.primaryShop.defaultNavigationTree.items ?? []
+
+    console.log(normalizeNavigation(navigationItems))
+    return {
+      categories,
+      brands,
+      navigation: normalizeNavigation(navigationItems),
+    }
   }
 
   return getSiteInfo

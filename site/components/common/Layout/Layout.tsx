@@ -17,6 +17,7 @@ import { MenuSidebarView } from '@components/common/UserNav'
 import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
+import { NavigationItem } from '@framework/types/site'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -52,6 +53,7 @@ interface Props {
   pageProps: {
     pages?: Page[]
     categories: Category[]
+    navigation: NavigationItem[]
   }
 }
 
@@ -104,8 +106,9 @@ const SidebarUI: React.FC<{ links: LinkProps[] }> = ({ links }) => {
 
 const Layout: React.FC<Props> = ({
   children,
-  pageProps: { categories = [], ...pageProps },
+  pageProps: { categories = [], navigation = [], ...pageProps },
 }) => {
+  console.log({ navigation })
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
   const navBarlinks = categories.slice(0, 2).map((c) => ({
@@ -116,7 +119,7 @@ const Layout: React.FC<Props> = ({
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar links={navBarlinks} />
+        <Navbar links={navBarlinks} customNavigation={navigation} />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
         <ModalUI />

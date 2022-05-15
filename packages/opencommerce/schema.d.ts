@@ -8001,6 +8001,127 @@ export type CatalogItemsQuery = {
   } | null
 }
 
+export type PrimaryShopQueryVariables = Exact<{
+  language?: Scalars['String']
+}>
+
+export type PrimaryShopQuery = {
+  __typename?: 'Query'
+  primaryShop?: {
+    __typename?: 'Shop'
+    _id: string
+    description?: string | null
+    name: string
+    currency: { __typename?: 'Currency'; code: string }
+    defaultNavigationTree?: {
+      __typename?: 'NavigationTree'
+      _id: string
+      shopId: string
+      name: string
+      items?: Array<{
+        __typename?: 'NavigationTreeItem'
+        navigationItem: {
+          __typename?: 'NavigationItem'
+          data?: {
+            __typename?: 'NavigationItemData'
+            contentForLanguage?: string | null
+            classNames?: string | null
+            url?: string | null
+            isUrlRelative?: boolean | null
+            shouldOpenInNewWindow?: boolean | null
+          } | null
+        }
+        items?: Array<{
+          __typename?: 'NavigationTreeItem'
+          navigationItem: {
+            __typename?: 'NavigationItem'
+            data?: {
+              __typename?: 'NavigationItemData'
+              contentForLanguage?: string | null
+              classNames?: string | null
+              url?: string | null
+              isUrlRelative?: boolean | null
+              shouldOpenInNewWindow?: boolean | null
+            } | null
+          }
+          items?: Array<{
+            __typename?: 'NavigationTreeItem'
+            navigationItem: {
+              __typename?: 'NavigationItem'
+              data?: {
+                __typename?: 'NavigationItemData'
+                contentForLanguage?: string | null
+                classNames?: string | null
+                url?: string | null
+                isUrlRelative?: boolean | null
+                shouldOpenInNewWindow?: boolean | null
+              } | null
+            }
+          } | null> | null
+        } | null> | null
+      } | null> | null
+    } | null
+  } | null
+}
+
+export type NavigationTreeFragmentFragment = {
+  __typename?: 'NavigationTree'
+  _id: string
+  shopId: string
+  name: string
+  items?: Array<{
+    __typename?: 'NavigationTreeItem'
+    navigationItem: {
+      __typename?: 'NavigationItem'
+      data?: {
+        __typename?: 'NavigationItemData'
+        contentForLanguage?: string | null
+        classNames?: string | null
+        url?: string | null
+        isUrlRelative?: boolean | null
+        shouldOpenInNewWindow?: boolean | null
+      } | null
+    }
+    items?: Array<{
+      __typename?: 'NavigationTreeItem'
+      navigationItem: {
+        __typename?: 'NavigationItem'
+        data?: {
+          __typename?: 'NavigationItemData'
+          contentForLanguage?: string | null
+          classNames?: string | null
+          url?: string | null
+          isUrlRelative?: boolean | null
+          shouldOpenInNewWindow?: boolean | null
+        } | null
+      }
+      items?: Array<{
+        __typename?: 'NavigationTreeItem'
+        navigationItem: {
+          __typename?: 'NavigationItem'
+          data?: {
+            __typename?: 'NavigationItemData'
+            contentForLanguage?: string | null
+            classNames?: string | null
+            url?: string | null
+            isUrlRelative?: boolean | null
+            shouldOpenInNewWindow?: boolean | null
+          } | null
+        }
+      } | null> | null
+    } | null> | null
+  } | null> | null
+}
+
+export type NavigationItemFieldsFragment = {
+  __typename?: 'NavigationItemData'
+  contentForLanguage?: string | null
+  classNames?: string | null
+  url?: string | null
+  isUrlRelative?: boolean | null
+  shouldOpenInNewWindow?: boolean | null
+}
+
 export type GetProductBySlugQueryVariables = Exact<{
   slug: Scalars['String']
 }>

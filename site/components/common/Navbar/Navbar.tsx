@@ -1,9 +1,12 @@
 import { FC } from 'react'
+import cn from 'clsx'
 import Link from 'next/link'
 import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
+import { SiteTypes } from '@framework/types/site'
+import CustomNavbar from './CustomNavbar'
 
 interface Link {
   href: string
@@ -12,9 +15,10 @@ interface Link {
 
 interface NavbarProps {
   links?: Link[]
+  customNavigation?: SiteTypes['navigation'][]
 }
 
-const Navbar: FC<NavbarProps> = ({ links }) => (
+const Navbar: FC<NavbarProps> = ({ links, customNavigation }) => (
   <NavbarRoot>
     <Container clean className="mx-auto max-w-8xl px-6">
       <div className={s.nav}>
@@ -33,6 +37,9 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
                 <a className={s.link}>{l.label}</a>
               </Link>
             ))}
+            {process.env.COMMERCE_CUSTOMNAVIGATION_ENABLED && (
+              <CustomNavbar links={customNavigation} />
+            )}
           </nav>
         </div>
         {process.env.COMMERCE_SEARCH_ENABLED && (
