@@ -68,7 +68,6 @@ const PaymentMethodView: FC = () => {
                   name="cardNumber"
                   className={s.input}
                   defaultValue={cardFields.cardNumber}
-                  required
                 />
               </div>
               <div className={cn(s.fieldset, 'col-span-3')}>
@@ -78,7 +77,6 @@ const PaymentMethodView: FC = () => {
                   className={s.input}
                   placeholder="MM/YY"
                   defaultValue={cardFields.cardExpireDate}
-                  required
                 />
               </div>
               <div className={cn(s.fieldset, 'col-span-2')}>
@@ -87,7 +85,6 @@ const PaymentMethodView: FC = () => {
                   name="cardCvc"
                   className={s.input}
                   defaultValue={cardFields.cardCvc}
-                  required
                 />
               </div>
             </div>
