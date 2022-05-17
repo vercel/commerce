@@ -13,6 +13,7 @@ import { handler as useSubmitCheckout } from './checkout/use-submit-checkout'
 import { handler as useAddCardItem } from './customer/card/use-add-item'
 import { handler as useCards } from './customer/card/use-cards'
 import { handler as useAddAddressItem } from './customer/address/use-add-item'
+import { handler as useUpdateAddressItem } from './customer/address/use-update-item'
 
 export const openCommerceProvider = {
   locale: 'en-us',
@@ -24,6 +25,7 @@ export const openCommerceProvider = {
     card: { useCards, useAddItem: useAddCardItem },
     address: {
       useAddItem: useAddAddressItem,
+      useUpdateItem: useUpdateAddressItem,
     },
   },
   products: { useSearch },

@@ -5,9 +5,9 @@ import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 import useAddAddress from '@framework/customer/address/use-add-item'
+import { useCheckoutContext } from '../context'
 
 import s from './ShippingView.module.css'
-import { useCheckoutContext } from '../context'
 
 interface Form extends HTMLFormElement {
   cardHolder: HTMLInputElement
@@ -21,6 +21,7 @@ interface Form extends HTMLFormElement {
   zipCode: HTMLInputElement
   city: HTMLInputElement
   country: HTMLSelectElement
+  shippingMethod?: HTMLInputElement
 }
 
 const ShippingView: FC = () => {
@@ -64,6 +65,7 @@ const ShippingView: FC = () => {
                 Use a different shipping address
               </span>
             </div>
+
             <hr className="border-accent-2 my-6" />
             <div className="grid gap-3 grid-flow-row grid-cols-12">
               <div className={cn(s.fieldset, 'col-span-6')}>

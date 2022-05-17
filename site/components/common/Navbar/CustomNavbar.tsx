@@ -18,7 +18,7 @@ const SubItem = ({ subItem, level = 0 }: SubItemProps) => {
           <a
             className={`block rounded ml-${
               level * 2
-            } py-[10px] px-4 text-sm text-secondary`}
+            } py-[10px] px-4 text-sm text-black`}
           >
             {subItem.label}
           </a>
@@ -28,7 +28,7 @@ const SubItem = ({ subItem, level = 0 }: SubItemProps) => {
           href={subItem.url}
           className={`block rounded ml-${
             level * 2
-          } py-[10px] px-4 text-sm text-secondary`}
+          } py-[10px] px-4 text-sm text-black`}
           target={subItem.shouldOpenInNewWindow ? '_blank' : ''}
           rel="noreferrer"
         >

@@ -7,6 +7,7 @@ import useCheckout, {
 } from '@vercel/commerce/checkout/use-checkout'
 import useSubmitCheckout from './use-submit-checkout'
 import { useCheckoutContext } from '@components/checkout/context'
+import { useCart } from '../cart'
 
 export default useCheckout as UseCheckout<typeof handler>
 
@@ -17,13 +18,23 @@ export const handler: SWRHook<GetCheckoutHook> = {
   },
   useHook: () =>
     function useHook() {
+      const { data: cart } = useCart()
+      const hasShippingMethods = !!(
+        cart?.checkout?.fulfillmentGroups &&
+        cart.checkout.fulfillmentGroups.find(
+          (group) => group?.type === 'shipping'
+        )
+      )
+
       const { cardFields, addressFields } = useCheckoutContext()
+
+      const { shippingMethod, ...restAddressFields } = addressFields
 
       // Basic validation - check that at least one field has a value.
       const hasEnteredCard = Object.values(cardFields).some(
         (fieldValue) => !!fieldValue
       )
-      const hasEnteredAddress = Object.values(addressFields).some(
+      const hasEnteredAddress = Object.values(restAddressFields).some(
         (fieldValue) => !!fieldValue
       )
 
@@ -32,6 +43,8 @@ export const handler: SWRHook<GetCheckoutHook> = {
           data: {
             hasPayment: hasEnteredCard,
             hasShipping: hasEnteredAddress,
+            hasShippingMethods,
+            hasSelectedShippingMethod: !!shippingMethod?.id,
           },
         }),
         [hasEnteredCard, hasEnteredAddress]

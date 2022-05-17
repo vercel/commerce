@@ -61,6 +61,7 @@ const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
           updateFulfillmentOptionsForGroup.cart.checkout.fulfillmentGroups[0]
             ._id,
         fulfillmentMethodId:
+          item.shippingMethodId ||
           updateFulfillmentOptionsForGroup.cart.checkout.fulfillmentGroups[0]
             .availableFulfillmentOptions[0].fulfillmentMethod._id,
       },

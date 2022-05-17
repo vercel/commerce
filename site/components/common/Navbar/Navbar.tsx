@@ -29,16 +29,19 @@ const Navbar: FC<NavbarProps> = ({ links, customNavigation }) => (
             </a>
           </Link>
           <nav className={s.navMenu}>
-            <Link href="/search">
-              <a className={s.link}>All</a>
-            </Link>
-            {links?.map((l) => (
-              <Link href={l.href} key={l.href}>
-                <a className={s.link}>{l.label}</a>
-              </Link>
-            ))}
-            {process.env.COMMERCE_CUSTOMNAVIGATION_ENABLED && (
+            {process.env.COMMERCE_CUSTOMNAVIGATION_ENABLED ? (
               <CustomNavbar links={customNavigation} />
+            ) : (
+              <>
+                <Link href="/search">
+                  <a className={s.link}>All</a>
+                </Link>
+                {links?.map((l) => (
+                  <Link href={l.href} key={l.href}>
+                    <a className={s.link}>{l.label}</a>
+                  </Link>
+                ))}
+              </>
             )}
           </nav>
         </div>

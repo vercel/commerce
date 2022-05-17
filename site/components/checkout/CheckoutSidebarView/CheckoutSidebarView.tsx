@@ -10,8 +10,10 @@ import useCheckout from '@framework/checkout/use-checkout'
 import useSubmitCheckout from '@framework/checkout/use-submit-checkout'
 import ShippingWidget from '../ShippingWidget'
 import PaymentWidget from '../PaymentWidget'
-import s from './CheckoutSidebarView.module.css'
+import ShippingMethodWidget from '../ShippingMethodWidget'
 import { useCheckoutContext } from '../context'
+
+import s from './CheckoutSidebarView.module.css'
 
 const CheckoutSidebarView: FC = () => {
   const [loadingSubmit, setLoadingSubmit] = useState(false)
@@ -76,6 +78,13 @@ const CheckoutSidebarView: FC = () => {
           onClick={() => setSidebarView('SHIPPING_VIEW')}
         />
 
+        {checkoutData?.hasShippingMethods && (
+          <ShippingMethodWidget
+            isValid={checkoutData?.hasSelectedShippingMethod}
+            onClick={() => setSidebarView('SHIPPING_METHOD_VIEW')}
+          />
+        )}
+
         <ul className={s.lineItemsList}>
           {cartData!.lineItems.map((item: any) => (
             <CartItem
@@ -101,10 +110,19 @@ const CheckoutSidebarView: FC = () => {
             <span>Taxes</span>
             <span>Calculated at checkout</span>
           </li>
-          <li className="flex justify-between py-1">
-            <span>Shipping</span>
-            <span className="font-bold tracking-wide">FREE</span>
-          </li>
+          {checkoutData?.hasSelectedShippingMethod ? (
+            <li className="flex justify-between py-1">
+              <span>Shipping</span>
+              <span>
+                {cartData?.checkout?.summary.fulfillmentTotal?.displayAmount}
+              </span>
+            </li>
+          ) : (
+            <li className="flex justify-between py-1">
+              <span>Shipping</span>
+              <span className="font-bold tracking-wide">FREE</span>
+            </li>
+          )}
         </ul>
         <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
           <span>Total</span>

@@ -15,6 +15,7 @@ export type CartItemBody = Core.CartItemBody & {
 
 export type CartTypes = Core.CartTypes & {
   itemBody: CartItemBody
+  cart?: Cart
 }
 
 export type CartSchema = Core.CartSchema<CartTypes>

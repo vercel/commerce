@@ -5,10 +5,11 @@ import useAddItem, {
   UseAddItem,
 } from '@vercel/commerce/customer/address/use-add-item'
 import { useCheckoutContext } from '@components/checkout/context'
+import { CustomerAddressTypes } from '../../types/customer/address'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<AddItemHook> = {
+export const handler: MutationHook<AddItemHook<CustomerAddressTypes>> = {
   fetchOptions: {
     url: '/api/customer/address',
     method: 'POST',
@@ -23,11 +24,11 @@ export const handler: MutationHook<AddItemHook> = {
   },
   useHook: ({ fetch }) =>
     function useHook() {
-      const { setAddressFields } = useCheckoutContext()
+      const { setAddressFields, addressFields } = useCheckoutContext()
       return useCallback(
         async function addItem(input) {
           await fetch({ input })
-          setAddressFields(input)
+          setAddressFields({ ...addressFields, ...input })
           return undefined
         },
         [setAddressFields]

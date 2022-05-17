@@ -1,4 +1,7 @@
-import type { CustomerAddressSchema } from '../../../../types/customer/address'
+import type {
+  CustomerAddressSchema,
+  CustomerAddressTypes,
+} from '../../../../types/customer/address'
 import type { OpenCommerceAPI } from '../../..'
 
 import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
@@ -11,7 +14,7 @@ import removeItem from './remove-item'
 
 export type CustomerAddressAPI = GetAPISchema<
   OpenCommerceAPI,
-  CustomerAddressSchema
+  CustomerAddressSchema<CustomerAddressTypes>
 >
 export type CustomerAddressEndpoint = CustomerAddressAPI['endpoint']
 
