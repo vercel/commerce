@@ -19,21 +19,18 @@ export const handler: SWRHook<GetCheckoutHook> = {
   useHook: () =>
     function useHook() {
       const { data: cart } = useCart()
-      const hasShippingMethods = !!(
+      const shippingTypeMethod =
         cart?.checkout?.fulfillmentGroups &&
         cart.checkout.fulfillmentGroups.find(
           (group) => group?.type === 'shipping'
         )
-      )
+      const hasShippingMethods =
+        !!shippingTypeMethod?.availableFulfillmentOptions.length
 
-      const { cardFields, addressFields } = useCheckoutContext()
+      const { addressFields } = useCheckoutContext()
 
       const { shippingMethod, ...restAddressFields } = addressFields
 
-      // Basic validation - check that at least one field has a value.
-      const hasEnteredCard = Object.values(cardFields).some(
-        (fieldValue) => !!fieldValue
-      )
       const hasEnteredAddress = Object.values(restAddressFields).some(
         (fieldValue) => !!fieldValue
       )
@@ -41,13 +38,14 @@ export const handler: SWRHook<GetCheckoutHook> = {
       const response = useMemo(
         () => ({
           data: {
-            hasPayment: hasEnteredCard,
+            // example payment plugin does not need payment info
+            hasPayment: true,
             hasShipping: hasEnteredAddress,
             hasShippingMethods,
             hasSelectedShippingMethod: !!shippingMethod?.id,
           },
         }),
-        [hasEnteredCard, hasEnteredAddress]
+        [hasEnteredAddress, hasShippingMethods, shippingMethod]
       )
 
       return useMemo(
