@@ -49,9 +49,7 @@
   },
   "dependencies": {
     "@vercel/commerce": "^0.0.1",
-    "@vercel/fetch": "^6.1.1",
-    "graphql": "^16.3.0",
-    "stripe": "^8.220.0"
+    "@vercel/fetch": "^6.1.1"
   },
   "peerDependencies": {
     "next": "^12",
