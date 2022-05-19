@@ -19,7 +19,7 @@ Storefront API URL: https://api.open-commerce.io/graphql
 
 ```
 COMMERCE_PROVIDER=@vercel/commerce-opencommerce
-OPENCOMMERCE_STOREFRONT_API_URL=https://api.open-commerce.io
+OPENCOMMERCE_STOREFRONT_API_URL=https://api.open-commerce.io/graphql
 OPENCOMMERCE_PRIMARY_SHOP_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 OPENCOMMERCE_IMAGE_DOMAIN=api.open-commerce.io
 ```
