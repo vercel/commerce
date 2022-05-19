@@ -7,6 +7,7 @@ import useCheckout, {
 } from '@vercel/commerce/checkout/use-checkout'
 import useSubmitCheckout from './use-submit-checkout'
 import { useCheckoutContext } from '@components/checkout/context'
+import { AddressFields } from '../types/customer/address'
 import { useCart } from '../cart'
 
 export default useCheckout as UseCheckout<typeof handler>
@@ -25,11 +26,12 @@ export const handler: SWRHook<GetCheckoutHook> = {
           (group) => group?.type === 'shipping'
         )
       const hasShippingMethods =
-        !!shippingTypeMethod?.availableFulfillmentOptions.length
+        !!shippingTypeMethod?.availableFulfillmentOptions?.length
 
       const { addressFields } = useCheckoutContext()
 
-      const { shippingMethod, ...restAddressFields } = addressFields
+      const { shippingMethod, ...restAddressFields } =
+        addressFields as AddressFields
 
       const hasEnteredAddress = Object.values(restAddressFields).some(
         (fieldValue) => !!fieldValue

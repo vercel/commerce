@@ -1,8 +1,29 @@
 import * as Core from '@vercel/commerce/types/cart'
-import { Checkout } from '../../schema'
+import {
+  Checkout as CheckoutSchema,
+  FulfillmentOption as FulfillmentOptionSchema,
+  FulfillmentGroup as FulfillmentGroupSchema,
+} from '../../schema'
 import { ProductVariant } from './product'
 
 export * from '@vercel/commerce/types/cart'
+
+type FulfillmentOption = FulfillmentOptionSchema & {
+  fulfillmentMethod?: NonNullable<FulfillmentOptionSchema['fulfillmentMethod']>
+}
+
+export type FulfillmentGroup = {
+  availableFulfillmentOptions: FulfillmentOption[] | null
+  selectedFulfillmentOption: FulfillmentOption | null
+  data: FulfillmentGroupSchema['data']
+  type: string
+  _id: string
+}
+
+export type Checkout = {
+  fulfillmentGroups: FulfillmentGroup[]
+  summary: CheckoutSchema['summary']
+}
 
 export type Cart = Core.Cart & {
   checkout?: Checkout

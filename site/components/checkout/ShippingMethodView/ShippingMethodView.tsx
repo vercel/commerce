@@ -4,14 +4,15 @@ import SidebarLayout from '@components/common/SidebarLayout'
 import { useUI } from '@components/ui/context'
 import { Button } from '@components/ui'
 import { useCheckoutContext } from '../context'
-import { Key, ReactChild, ReactFragment, ReactPortal } from 'react'
 
 type FulfillmentGroup = {
   type: string
+  _id: string
+  availableFulfillmentOptions: FulfillmentOption[] | null
 }
 
 type FulfillmentOption = {
-  fulfillmentMethod: {
+  fulfillmentMethod?: {
     _id: string
     displayName: string
   }
@@ -55,7 +56,7 @@ const ShippingMethod = () => {
             Shipping Methods
           </h2>
           <div>
-            {shippingGroup.availableFulfillmentOptions.map(
+            {shippingGroup.availableFulfillmentOptions?.map(
               (option: FulfillmentOption) => (
                 <div
                   className="flex flex-row my-3 items-center justify-between"
