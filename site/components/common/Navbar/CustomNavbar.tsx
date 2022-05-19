@@ -1,12 +1,18 @@
 import cn from 'clsx'
 import Link from 'next/link'
 
-import { NavigationItem } from '@framework/types/site'
-
 import s from './Navbar.module.css'
 
+type Navigation = {
+  url: string
+  label: string
+  isUrlRelative: boolean
+  shouldOpenInNewWindow: boolean
+  items?: Navigation[]
+}
+
 interface SubItemProps {
-  subItem: NavigationItem
+  subItem: Navigation
   level?: number
 }
 
@@ -46,7 +52,7 @@ const SubItem = ({ subItem, level = 0 }: SubItemProps) => {
 }
 
 interface CustomNavbarProps {
-  links?: NavigationItem[]
+  links?: Navigation[]
 }
 
 const CustomNavbar = ({ links = [] }: CustomNavbarProps) => {

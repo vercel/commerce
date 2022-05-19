@@ -7,7 +7,7 @@ import React, {
   createContext,
 } from 'react'
 import type { CardFields } from '@commerce/types/customer/card'
-import type { AddressFields } from '@framework/types/customer/address'
+import type { AddressFields } from '@commerce/types/customer/address'
 
 export type State = {
   cardFields: CardFields

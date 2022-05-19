@@ -7,6 +7,8 @@ export type Category = {
 
 export type Brand = any
 
+export type Navigation = any
+
 export type SiteTypes = {
   category: Category
   brand: Brand
