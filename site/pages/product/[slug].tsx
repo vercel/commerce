@@ -43,7 +43,7 @@ export async function getStaticProps({
       product,
       relatedProducts,
       categories,
-      navigation,
+      ...(navigation ? { navigation } : {}),
     },
     revalidate: 200,
   }

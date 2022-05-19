@@ -17,7 +17,7 @@ export async function getSearchStaticProps({
       pages,
       categories,
       brands,
-      navigation,
+      ...(navigation ? { navigation } : {}),
     },
     revalidate: 200,
   }
