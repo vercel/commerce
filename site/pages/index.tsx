@@ -30,7 +30,7 @@ export async function getStaticProps({
       categories,
       brands,
       pages,
-      navigation,
+      ...(navigation ? { navigation } : {}),
     },
     revalidate: 60,
   }
