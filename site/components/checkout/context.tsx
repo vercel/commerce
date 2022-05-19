@@ -16,7 +16,9 @@ export type State = {
 
 type CheckoutContextType = State & {
   setCardFields: (cardFields: CardFields) => void
-  setAddressFields: (addressFields: AddressFields) => void
+  setAddressFields: <T extends AddressFields = AddressFields>(
+    addressFields: T
+  ) => void
   clearCheckoutFields: () => void
 }
 

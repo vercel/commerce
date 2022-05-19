@@ -18,8 +18,9 @@ import {
   Cart as OCCart,
   CartItemEdge,
   NavigationTreeItem,
+  Checkout as OCCheckout,
 } from '../../schema'
-import { Cart, LineItem } from '../types/cart'
+import { Cart, Checkout, LineItem, FulfillmentGroup } from '../types/cart'
 
 const normalizeProductImages = (images: ImageInfo[], name: string) =>
   images.map((image) => ({
@@ -256,7 +257,32 @@ export function normalizeCart(cart: OCCart): Cart {
     totalPrice: cart.checkout?.summary?.total?.amount ?? 0,
     discounts: [],
     taxesIncluded: !!cart.checkout?.summary?.taxTotal?.amount,
-    checkout: cart.checkout ? cart.checkout : undefined,
+    checkout: cart.checkout ? normalizeCheckout(cart.checkout) : undefined,
+  }
+}
+
+function filterNullValue<T>(
+  items: (T | null | undefined)[] | null | undefined
+): T[] {
+  return items?.filter((item: T | null | undefined): item is T => !!item) ?? []
+}
+
+function normalizeCheckout(checkout: OCCheckout): Checkout {
+  const fulfillmentGroups = filterNullValue(checkout.fulfillmentGroups).map(
+    (group) => ({
+      selectedFulfillmentOption: group.selectedFulfillmentOption,
+      type: group.type,
+      _id: group._id,
+      data: group.data,
+      availableFulfillmentOptions: filterNullValue(
+        group.availableFulfillmentOptions
+      ),
+    })
+  ) as FulfillmentGroup[]
+
+  return {
+    ...checkout,
+    fulfillmentGroups,
   }
 }
 
