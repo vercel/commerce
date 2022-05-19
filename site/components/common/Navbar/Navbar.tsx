@@ -5,7 +5,7 @@ import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
-import { SiteTypes } from '@framework/types/site'
+import { Navigation } from '@commerce/types/site'
 import CustomNavbar from './CustomNavbar'
 
 interface Link {
@@ -15,7 +15,7 @@ interface Link {
 
 interface NavbarProps {
   links?: Link[]
-  customNavigation?: SiteTypes['navigation'][]
+  customNavigation?: Navigation[]
 }
 
 const Navbar: FC<NavbarProps> = ({ links, customNavigation }) => (

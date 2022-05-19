@@ -3,11 +3,7 @@
     "baseUrl": ".",
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,43 +16,17 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@commerce": [
-        "../packages/commerce/src"
-      ],
-      "@commerce/*": [
-        "../packages/commerce/src/*"
-      ],
-      "@framework": [
-        "../packages/local/src"
-      ],
-      "@framework/*": [
-        "../packages/local/src/*"
-      ]
+      "@lib/*": ["lib/*"],
+      "@utils/*": ["utils/*"],
+      "@config/*": ["config/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@commerce": ["../packages/commerce/src"],
+      "@commerce/*": ["../packages/commerce/src/*"],
+      "@framework": ["../packages/local/src"],
+      "@framework/*": ["../packages/local/src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules"]
 }

@@ -15,16 +15,16 @@ export type Vendor = {
   }
 }
 
-export type NavigationItem = {
+export type Navigation = {
   url: string
   label: string
   isUrlRelative: boolean
   shouldOpenInNewWindow: boolean
-  items?: NavigationItem[]
+  items?: Navigation[]
 }
 
 export type SiteTypes = CoreSiteTypes & {
-  navigation: NavigationItem
+  navigation: Navigation
 }
 
 export type GetSiteInfoOperation<T extends SiteTypes = SiteTypes> = {

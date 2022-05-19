@@ -9,7 +9,7 @@ import {
   Category,
   Vendor,
   OCVendor,
-  NavigationItem,
+  Navigation,
 } from '../types/site'
 import {
   CatalogItemProduct,
@@ -310,7 +310,7 @@ function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
 
 export const normalizeNavigation = (
   navigationTreeItems: NavigationTreeItem[]
-): NavigationItem[] => {
+): Navigation[] => {
   return navigationTreeItems.map(({ items, navigationItem: { data } }) => {
     return {
       url: data?.url ?? '/',
