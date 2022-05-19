@@ -1,0 +1,7 @@
+{
+  "provider": "opencommerce",
+  "features": {
+    "customCheckout": true,
+    "customNavigation": true
+  }
+}

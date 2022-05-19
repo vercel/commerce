@@ -21,7 +21,7 @@ export async function getStaticProps({
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
   const { pages } = await pagesPromise
-  const { categories } = await siteInfoPromise
+  const { categories, navigation } = await siteInfoPromise
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
   const pageItem = pages.find((p: Page) =>
@@ -44,7 +44,7 @@ export async function getStaticProps({
   }
 
   return {
-    props: { pages, page, categories },
+    props: { pages, page, categories, navigation },
     revalidate: 60 * 60, // Every hour
   }
 }
@@ -70,9 +70,7 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   }
 }
 
-export default function Pages({
-  page,
-}: {page: Page}) {
+export default function Pages({ page }: { page: Page }) {
   const router = useRouter()
 
   return router.isFallback ? (

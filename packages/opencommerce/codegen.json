@@ -1,0 +1,22 @@
+{
+  "overwrite": true,
+  "schema": "http://localhost:3000/graphql",
+  "documents": [
+    {
+      "./src/api/**/*.ts": {
+        "noRequire": true
+      }
+    }
+  ],
+  "generates": {
+    "./schema.d.ts": {
+      "plugins": ["typescript", "typescript-operations"]
+    },
+    "./schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  },
+  "hooks": {
+    "afterAllFileWrite": ["prettier --write"]
+  }
+}

@@ -5,6 +5,7 @@ import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 import useAddAddress from '@framework/customer/address/use-add-item'
+import { useCheckoutContext } from '../context'
 
 import s from './ShippingView.module.css'
 
@@ -20,11 +21,13 @@ interface Form extends HTMLFormElement {
   zipCode: HTMLInputElement
   city: HTMLInputElement
   country: HTMLSelectElement
+  shippingMethod?: HTMLInputElement
 }
 
 const ShippingView: FC = () => {
   const { setSidebarView } = useUI()
   const addAddress = useAddAddress()
+  const { addressFields } = useCheckoutContext()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
@@ -62,44 +65,82 @@ const ShippingView: FC = () => {
                 Use a different shipping address
               </span>
             </div>
+
             <hr className="border-accent-2 my-6" />
             <div className="grid gap-3 grid-flow-row grid-cols-12">
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>First Name</label>
-                <input name="firstName" className={s.input} />
+                <input
+                  name="firstName"
+                  className={s.input}
+                  defaultValue={addressFields.firstName}
+                  required
+                />
               </div>
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>Last Name</label>
-                <input name="lastName" className={s.input} />
+                <input
+                  name="lastName"
+                  className={s.input}
+                  defaultValue={addressFields.lastName}
+                  required
+                />
               </div>
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>Company (Optional)</label>
-              <input name="company" className={s.input} />
+              <input
+                name="company"
+                className={s.input}
+                defaultValue={addressFields.company}
+              />
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>Street and House Number</label>
-              <input name="streetNumber" className={s.input} />
+              <input
+                name="streetNumber"
+                className={s.input}
+                defaultValue={addressFields.streetNumber}
+                required
+              />
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>
                 Apartment, Suite, Etc. (Optional)
               </label>
-              <input name="apartments" className={s.input} />
+              <input
+                name="apartments"
+                className={s.input}
+                defaultValue={addressFields.apartments}
+              />
             </div>
             <div className="grid gap-3 grid-flow-row grid-cols-12">
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>Postal Code</label>
-                <input name="zipCode" className={s.input} />
+                <input
+                  name="zipCode"
+                  className={s.input}
+                  defaultValue={addressFields.zipCode}
+                  required
+                />
               </div>
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>City</label>
-                <input name="city" className={s.input} />
+                <input
+                  name="city"
+                  className={s.input}
+                  defaultValue={addressFields.city}
+                  required
+                />
               </div>
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>Country/Region</label>
-              <select name="country" className={s.select}>
+              <select
+                name="country"
+                className={s.select}
+                defaultValue={addressFields.country}
+              >
                 <option>Hong Kong</option>
               </select>
             </div>

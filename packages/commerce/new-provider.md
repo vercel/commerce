@@ -15,7 +15,8 @@ A commerce provider is a headless e-commerce platform that integrates with the [
 - Kibo Commerce ([packages/kibocommerce](../kibocommerce))
 - Commerce.js ([packages/commercejs](../commercejs))
 - SFCC - SalesForce Cloud Commerce ([packages/sfcc](../sfcc))
-
+- Mailchimp Open Commerce ([packages/opencommerce](../opencommerce))
+-
 Adding a commerce provider means adding a new folder in `packages` with a folder structure like the next one:
 
 - `src`

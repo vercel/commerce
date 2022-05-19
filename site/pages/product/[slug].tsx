@@ -29,7 +29,7 @@ export async function getStaticProps({
     preview,
   })
   const { pages } = await pagesPromise
-  const { categories } = await siteInfoPromise
+  const { categories, navigation } = await siteInfoPromise
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
 
@@ -43,6 +43,7 @@ export async function getStaticProps({
       product,
       relatedProducts,
       categories,
+      navigation,
     },
     revalidate: 200,
   }

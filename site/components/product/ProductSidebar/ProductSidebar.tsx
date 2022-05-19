@@ -26,12 +26,15 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   }, [product])
 
   const variant = getProductVariant(product, selectedOptions)
+
   const addToCart = async () => {
     setLoading(true)
     try {
       await addItem({
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0]?.id),
+        variant: variant ?? product.variants[0],
+        currencyCode: String(product.price.currencyCode),
       })
       openSidebar()
       setLoading(false)

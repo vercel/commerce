@@ -12,11 +12,13 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, LoadingDots } from '@components/ui'
 import PaymentMethodView from '@components/checkout/PaymentMethodView'
 import CheckoutSidebarView from '@components/checkout/CheckoutSidebarView'
+import ShippingMethodView from '@components/checkout/ShippingMethodView'
 import { CheckoutProvider } from '@components/checkout/context'
 import { MenuSidebarView } from '@components/common/UserNav'
 import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
+import { NavigationItem } from '@framework/types/site'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -52,6 +54,7 @@ interface Props {
   pageProps: {
     pages?: Page[]
     categories: Category[]
+    navigation: NavigationItem[]
   }
 }
 
@@ -85,6 +88,7 @@ const SidebarView: React.FC<{
       {sidebarView === 'CART_VIEW' && <CartSidebarView />}
       {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
       {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
+      {sidebarView === 'SHIPPING_METHOD_VIEW' && <ShippingMethodView />}
       {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'MOBILE_MENU_VIEW' && <MenuSidebarView links={links} />}
     </Sidebar>
@@ -104,7 +108,7 @@ const SidebarUI: React.FC<{ links: LinkProps[] }> = ({ links }) => {
 
 const Layout: React.FC<Props> = ({
   children,
-  pageProps: { categories = [], ...pageProps },
+  pageProps: { categories = [], navigation = [], ...pageProps },
 }) => {
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
@@ -116,7 +120,7 @@ const Layout: React.FC<Props> = ({
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar links={navBarlinks} />
+        <Navbar links={navBarlinks} customNavigation={navigation} />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
         <ModalUI />
