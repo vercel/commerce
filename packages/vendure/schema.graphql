@@ -1,305 +1,73 @@
-type Query {
-  """
-  The active Channel
-  """
-  activeChannel: Channel!
+union ActiveOrderResult = NoActiveOrderError | Order
 
-  """
-  The active Customer
-  """
-  activeCustomer: Customer
-
-  """
-  The active Order. Will be `null` until an Order is created via `addItemToOrder`. Once an Order reaches the
-  state of `PaymentApproved` or `PaymentSettled`, then that Order is no longer considered "active" and this
-  query will once again return `null`.
-  """
-  activeOrder: Order
-
-  """
-  An array of supported Countries
-  """
-  availableCountries: [Country!]!
-
-  """
-  A list of Collections available to the shop
-  """
-  collections(options: CollectionListOptions): CollectionList!
-
-  """
-  Returns a Collection either by its id or slug. If neither 'id' nor 'slug' is speicified, an error will result.
-  """
-  collection(id: ID, slug: String): Collection
-
-  """
-  Returns a list of eligible shipping methods based on the current active Order
-  """
-  eligibleShippingMethods: [ShippingMethodQuote!]!
-
-  """
-  Returns a list of payment methods and their eligibility based on the current active Order
-  """
-  eligiblePaymentMethods: [PaymentMethodQuote!]!
-
-  """
-  Returns information about the current authenticated User
-  """
-  me: CurrentUser
-
-  """
-  Returns the possible next states that the activeOrder can transition to
-  """
-  nextOrderStates: [String!]!
-
-  """
-  Returns an Order based on the id. Note that in the Shop API, only orders belonging to the
-  currently-authenticated User may be queried.
-  """
-  order(id: ID!): Order
-
-  """
-  Returns an Order based on the order `code`. For guest Orders (i.e. Orders placed by non-authenticated Customers)
-  this query will only return the Order within 2 hours of the Order being placed. This allows an Order confirmation
-  screen to be shown immediately after completion of a guest checkout, yet prevents security risks of allowing
-  general anonymous access to Order data.
-  """
-  orderByCode(code: String!): Order
-
-  """
-  Get a Product either by id or slug. If neither 'id' nor 'slug' is speicified, an error will result.
-  """
-  product(id: ID, slug: String): Product
-
-  """
-  Get a list of Products
-  """
-  products(options: ProductListOptions): ProductList!
-
-  """
-  Search Products based on the criteria set by the `SearchInput`
-  """
-  search(input: SearchInput!): SearchResponse!
-}
-
-type Mutation {
-  """
-  Adds an item to the order. If custom fields are defined on the OrderLine entity, a third argument 'customFields' will be available.
-  """
-  addItemToOrder(productVariantId: ID!, quantity: Int!): UpdateOrderItemsResult!
-
-  """
-  Remove an OrderLine from the Order
-  """
-  removeOrderLine(orderLineId: ID!): RemoveOrderItemsResult!
-
-  """
-  Remove all OrderLine from the Order
-  """
-  removeAllOrderLines: RemoveOrderItemsResult!
-
-  """
-  Adjusts an OrderLine. If custom fields are defined on the OrderLine entity, a third argument 'customFields' of type `OrderLineCustomFieldsInput` will be available.
-  """
-  adjustOrderLine(orderLineId: ID!, quantity: Int!): UpdateOrderItemsResult!
-
-  """
-  Applies the given coupon code to the active Order
-  """
-  applyCouponCode(couponCode: String!): ApplyCouponCodeResult!
-
-  """
-  Removes the given coupon code from the active Order
-  """
-  removeCouponCode(couponCode: String!): Order
-
-  """
-  Transitions an Order to a new state. Valid next states can be found by querying `nextOrderStates`
-  """
-  transitionOrderToState(state: String!): TransitionOrderToStateResult
-
-  """
-  Sets the shipping address for this order
-  """
-  setOrderShippingAddress(input: CreateAddressInput!): ActiveOrderResult!
-
-  """
-  Sets the billing address for this order
-  """
-  setOrderBillingAddress(input: CreateAddressInput!): ActiveOrderResult!
-
-  """
-  Allows any custom fields to be set for the active order
-  """
-  setOrderCustomFields(input: UpdateOrderInput!): ActiveOrderResult!
-
-  """
-  Sets the shipping method by id, which can be obtained with the `eligibleShippingMethods` query
-  """
-  setOrderShippingMethod(shippingMethodId: ID!): SetOrderShippingMethodResult!
-
-  """
-  Add a Payment to the Order
-  """
-  addPaymentToOrder(input: PaymentInput!): AddPaymentToOrderResult!
-
-  """
-  Set the Customer for the Order. Required only if the Customer is not currently logged in
-  """
-  setCustomerForOrder(input: CreateCustomerInput!): SetCustomerForOrderResult!
-
-  """
-  Authenticates the user using the native authentication strategy. This mutation is an alias for `authenticate({ native: { ... }})`
-  """
-  login(
-    username: String!
-    password: String!
-    rememberMe: Boolean
-  ): NativeAuthenticationResult!
-
-  """
-  Authenticates the user using a named authentication strategy
-  """
-  authenticate(
-    input: AuthenticationInput!
-    rememberMe: Boolean
-  ): AuthenticationResult!
-
-  """
-  End the current authenticated session
-  """
-  logout: Success!
-
-  """
-  Register a Customer account with the given credentials. There are three possible registration flows:
-
-  _If `authOptions.requireVerification` is set to `true`:_
-
-  1. **The Customer is registered _with_ a password**. A verificationToken will be created (and typically emailed to the Customer). That
-     verificationToken would then be passed to the `verifyCustomerAccount` mutation _without_ a password. The Customer is then
-     verified and authenticated in one step.
-  2. **The Customer is registered _without_ a password**. A verificationToken will be created (and typically emailed to the Customer). That
-     verificationToken would then be passed to the `verifyCustomerAccount` mutation _with_ the chosed password of the Customer. The Customer is then
-     verified and authenticated in one step.
-
-  _If `authOptions.requireVerification` is set to `false`:_
-
-  3. The Customer _must_ be registered _with_ a password. No further action is needed - the Customer is able to authenticate immediately.
-  """
-  registerCustomerAccount(
-    input: RegisterCustomerInput!
-  ): RegisterCustomerAccountResult!
-
-  """
-  Regenerate and send a verification token for a new Customer registration. Only applicable if `authOptions.requireVerification` is set to true.
-  """
-  refreshCustomerVerification(
-    emailAddress: String!
-  ): RefreshCustomerVerificationResult!
-
-  """
-  Update an existing Customer
-  """
-  updateCustomer(input: UpdateCustomerInput!): Customer!
-
-  """
-  Create a new Customer Address
-  """
-  createCustomerAddress(input: CreateAddressInput!): Address!
-
-  """
-  Update an existing Address
-  """
-  updateCustomerAddress(input: UpdateAddressInput!): Address!
-
-  """
-  Delete an existing Address
-  """
-  deleteCustomerAddress(id: ID!): Success!
-
-  """
-  Verify a Customer email address with the token sent to that address. Only applicable if `authOptions.requireVerification` is set to true.
-
-  If the Customer was not registered with a password in the `registerCustomerAccount` mutation, the a password _must_ be
-  provided here.
-  """
-  verifyCustomerAccount(
-    token: String!
-    password: String
-  ): VerifyCustomerAccountResult!
-
-  """
-  Update the password of the active Customer
-  """
-  updateCustomerPassword(
-    currentPassword: String!
-    newPassword: String!
-  ): UpdateCustomerPasswordResult!
-
-  """
-  Request to update the emailAddress of the active Customer. If `authOptions.requireVerification` is enabled
-  (as is the default), then the `identifierChangeToken` will be assigned to the current User and
-  a IdentifierChangeRequestEvent will be raised. This can then be used e.g. by the EmailPlugin to email
-  that verification token to the Customer, which is then used to verify the change of email address.
-  """
-  requestUpdateCustomerEmailAddress(
-    password: String!
-    newEmailAddress: String!
-  ): RequestUpdateCustomerEmailAddressResult!
-
-  """
-  Confirm the update of the emailAddress with the provided token, which has been generated by the
-  `requestUpdateCustomerEmailAddress` mutation.
-  """
-  updateCustomerEmailAddress(token: String!): UpdateCustomerEmailAddressResult!
-
-  """
-  Requests a password reset email to be sent
-  """
-  requestPasswordReset(emailAddress: String!): RequestPasswordResetResult
-
-  """
-  Resets a Customer's password based on the provided token
-  """
-  resetPassword(token: String!, password: String!): ResetPasswordResult!
-}
+union AddPaymentToOrderResult =
+    IneligiblePaymentMethodError
+  | NoActiveOrderError
+  | Order
+  | OrderPaymentStateError
+  | OrderStateTransitionError
+  | PaymentDeclinedError
+  | PaymentFailedError
 
 type Address implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  fullName: String
+  city: String
   company: String
+  country: Country!
+  createdAt: DateTime!
+  customFields: JSON
+  defaultBillingAddress: Boolean
+  defaultShippingAddress: Boolean
+  fullName: String
+  id: ID!
+  phoneNumber: String
+  postalCode: String
+  province: String
   streetLine1: String!
   streetLine2: String
-  city: String
-  province: String
-  postalCode: String
-  country: Country!
-  phoneNumber: String
-  defaultShippingAddress: Boolean
-  defaultBillingAddress: Boolean
-  customFields: JSON
+  updatedAt: DateTime!
 }
+
+type Adjustment {
+  adjustmentSource: String!
+  amount: Int!
+  description: String!
+  type: AdjustmentType!
+}
+
+enum AdjustmentType {
+  DISTRIBUTED_ORDER_PROMOTION
+  OTHER
+  PROMOTION
+}
+
+"""
+Returned when attempting to set the Customer for an Order when already logged in.
+"""
+type AlreadyLoggedInError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+union ApplyCouponCodeResult =
+    CouponCodeExpiredError
+  | CouponCodeInvalidError
+  | CouponCodeLimitError
+  | Order
 
 type Asset implements Node {
-  id: ID!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  type: AssetType!
-  fileSize: Int!
-  mimeType: String!
-  width: Int!
-  height: Int!
-  source: String!
-  preview: String!
-  focalPoint: Coordinate
   customFields: JSON
-}
-
-type Coordinate {
-  x: Float!
-  y: Float!
+  fileSize: Int!
+  focalPoint: Coordinate
+  height: Int!
+  id: ID!
+  mimeType: String!
+  name: String!
+  preview: String!
+  source: String!
+  type: AssetType!
+  updatedAt: DateTime!
+  width: Int!
 }
 
 type AssetList implements PaginatedList {
@@ -308,56 +76,85 @@ type AssetList implements PaginatedList {
 }
 
 enum AssetType {
+  BINARY
   IMAGE
   VIDEO
-  BINARY
 }
 
-type CurrentUser {
-  id: ID!
-  identifier: String!
-  channels: [CurrentUserChannel!]!
+input AuthenticationInput {
+  native: NativeAuthInput
 }
 
-type CurrentUserChannel {
+type AuthenticationMethod implements Node {
+  createdAt: DateTime!
   id: ID!
-  token: String!
-  code: String!
-  permissions: [Permission!]!
+  strategy: String!
+  updatedAt: DateTime!
+}
+
+union AuthenticationResult =
+    CurrentUser
+  | InvalidCredentialsError
+  | NotVerifiedError
+
+type BooleanCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  internal: Boolean
+  label: [LocalizedString!]
+  list: Boolean!
+  name: String!
+  nullable: Boolean
+  readonly: Boolean
+  type: String!
+  ui: JSON
+}
+
+"""
+Operators for filtering on a list of Boolean fields
+"""
+input BooleanListOperators {
+  inList: Boolean!
+}
+
+"""
+Operators for filtering on a Boolean field
+"""
+input BooleanOperators {
+  eq: Boolean
 }
 
 type Channel implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
   code: String!
-  token: String!
-  defaultTaxZone: Zone
-  defaultShippingZone: Zone
-  defaultLanguageCode: LanguageCode!
+  createdAt: DateTime!
   currencyCode: CurrencyCode!
-  pricesIncludeTax: Boolean!
   customFields: JSON
+  defaultLanguageCode: LanguageCode!
+  defaultShippingZone: Zone
+  defaultTaxZone: Zone
+  id: ID!
+  pricesIncludeTax: Boolean!
+  token: String!
+  updatedAt: DateTime!
 }
 
 type Collection implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode
-  name: String!
-  slug: String!
+  assets: [Asset!]!
   breadcrumbs: [CollectionBreadcrumb!]!
-  position: Int!
+  children: [Collection!]
+  createdAt: DateTime!
+  customFields: JSON
   description: String!
   featuredAsset: Asset
-  assets: [Asset!]!
-  parent: Collection
-  children: [Collection!]
   filters: [ConfigurableOperation!]!
-  translations: [CollectionTranslation!]!
+  id: ID!
+  languageCode: LanguageCode
+  name: String!
+  parent: Collection
+  position: Int!
   productVariants(options: ProductVariantListOptions): ProductVariantList!
-  customFields: JSON
+  slug: String!
+  translations: [CollectionTranslation!]!
+  updatedAt: DateTime!
 }
 
 type CollectionBreadcrumb {
@@ -366,14 +163,15 @@ type CollectionBreadcrumb {
   slug: String!
 }
 
-type CollectionTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
-  slug: String!
-  description: String!
+input CollectionFilterParameter {
+  createdAt: DateOperators
+  description: StringOperators
+  id: IDOperators
+  languageCode: StringOperators
+  name: StringOperators
+  position: NumberOperators
+  slug: StringOperators
+  updatedAt: DateOperators
 }
 
 type CollectionList implements PaginatedList {
@@ -381,620 +179,60 @@ type CollectionList implements PaginatedList {
   totalItems: Int!
 }
 
-type ProductVariantList implements PaginatedList {
-  items: [ProductVariant!]!
-  totalItems: Int!
-}
+input CollectionListOptions {
+  """
+  Allows the results to be filtered
+  """
+  filter: CollectionFilterParameter
 
-input ProductVariantListOptions {
+  """
+  Specifies whether multiple "filter" arguments should be combines with a logical AND or OR operation. Defaults to AND.
+  """
+  filterOperator: LogicalOperator
+
+  """
+  Skips the first n results, for use in pagination
+  """
   skip: Int
+
+  """
+  Specifies which properties to sort the results by
+  """
+  sort: CollectionSortParameter
+
+  """
+  Takes n results, for use in pagination
+  """
   take: Int
-  sort: ProductVariantSortParameter
-  filter: ProductVariantFilterParameter
-}
-
-enum GlobalFlag {
-  TRUE
-  FALSE
-  INHERIT
-}
-
-enum AdjustmentType {
-  PROMOTION
-  DISTRIBUTED_ORDER_PROMOTION
-}
-
-enum DeletionResult {
-  """
-  The entity was successfully deleted
-  """
-  DELETED
-
-  """
-  Deletion did not take place, reason given in message
-  """
-  NOT_DELETED
 }
 
 """
-@description
-Permissions for administrators and customers. Used to control access to
-GraphQL resolvers via the {@link Allow} decorator.
-
-@docsCategory common
+Which Collections are present in the products returned
+by the search, and in what quantity.
 """
-enum Permission {
-  Placeholder
-
-  """
-  Authenticated means simply that the user is logged in
-  """
-  Authenticated
-
-  """
-  SuperAdmin has unrestricted access to all operations
-  """
-  SuperAdmin
-
-  """
-  Owner means the user owns this entity, e.g. a Customer's own Order
-  """
-  Owner
-
-  """
-  Public means any unauthenticated user may perform the operation
-  """
-  Public
-
-  """
-  Grants permission to update GlobalSettings
-  """
-  UpdateGlobalSettings
-
-  """
-  Grants permission to create Products, Facets, Assets, Collections
-  """
-  CreateCatalog
-
-  """
-  Grants permission to read Products, Facets, Assets, Collections
-  """
-  ReadCatalog
-
-  """
-  Grants permission to update Products, Facets, Assets, Collections
-  """
-  UpdateCatalog
-
-  """
-  Grants permission to delete Products, Facets, Assets, Collections
-  """
-  DeleteCatalog
-
-  """
-  Grants permission to create PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
-  """
-  CreateSettings
-
-  """
-  Grants permission to read PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
-  """
-  ReadSettings
-
-  """
-  Grants permission to update PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
-  """
-  UpdateSettings
-
-  """
-  Grants permission to delete PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
-  """
-  DeleteSettings
-
-  """
-  Grants permission to create Administrator
-  """
-  CreateAdministrator
-
-  """
-  Grants permission to read Administrator
-  """
-  ReadAdministrator
-
-  """
-  Grants permission to update Administrator
-  """
-  UpdateAdministrator
-
-  """
-  Grants permission to delete Administrator
-  """
-  DeleteAdministrator
-
-  """
-  Grants permission to create Asset
-  """
-  CreateAsset
-
-  """
-  Grants permission to read Asset
-  """
-  ReadAsset
-
-  """
-  Grants permission to update Asset
-  """
-  UpdateAsset
-
-  """
-  Grants permission to delete Asset
-  """
-  DeleteAsset
-
-  """
-  Grants permission to create Channel
-  """
-  CreateChannel
-
-  """
-  Grants permission to read Channel
-  """
-  ReadChannel
-
-  """
-  Grants permission to update Channel
-  """
-  UpdateChannel
-
-  """
-  Grants permission to delete Channel
-  """
-  DeleteChannel
-
-  """
-  Grants permission to create Collection
-  """
-  CreateCollection
-
-  """
-  Grants permission to read Collection
-  """
-  ReadCollection
-
-  """
-  Grants permission to update Collection
-  """
-  UpdateCollection
-
-  """
-  Grants permission to delete Collection
-  """
-  DeleteCollection
-
-  """
-  Grants permission to create Country
-  """
-  CreateCountry
-
-  """
-  Grants permission to read Country
-  """
-  ReadCountry
-
-  """
-  Grants permission to update Country
-  """
-  UpdateCountry
-
-  """
-  Grants permission to delete Country
-  """
-  DeleteCountry
-
-  """
-  Grants permission to create Customer
-  """
-  CreateCustomer
-
-  """
-  Grants permission to read Customer
-  """
-  ReadCustomer
-
-  """
-  Grants permission to update Customer
-  """
-  UpdateCustomer
-
-  """
-  Grants permission to delete Customer
-  """
-  DeleteCustomer
-
-  """
-  Grants permission to create CustomerGroup
-  """
-  CreateCustomerGroup
-
-  """
-  Grants permission to read CustomerGroup
-  """
-  ReadCustomerGroup
-
-  """
-  Grants permission to update CustomerGroup
-  """
-  UpdateCustomerGroup
-
-  """
-  Grants permission to delete CustomerGroup
-  """
-  DeleteCustomerGroup
-
-  """
-  Grants permission to create Facet
-  """
-  CreateFacet
-
-  """
-  Grants permission to read Facet
-  """
-  ReadFacet
-
-  """
-  Grants permission to update Facet
-  """
-  UpdateFacet
-
-  """
-  Grants permission to delete Facet
-  """
-  DeleteFacet
-
-  """
-  Grants permission to create Order
-  """
-  CreateOrder
-
-  """
-  Grants permission to read Order
-  """
-  ReadOrder
-
-  """
-  Grants permission to update Order
-  """
-  UpdateOrder
-
-  """
-  Grants permission to delete Order
-  """
-  DeleteOrder
-
-  """
-  Grants permission to create PaymentMethod
-  """
-  CreatePaymentMethod
-
-  """
-  Grants permission to read PaymentMethod
-  """
-  ReadPaymentMethod
-
-  """
-  Grants permission to update PaymentMethod
-  """
-  UpdatePaymentMethod
-
-  """
-  Grants permission to delete PaymentMethod
-  """
-  DeletePaymentMethod
-
-  """
-  Grants permission to create Product
-  """
-  CreateProduct
-
-  """
-  Grants permission to read Product
-  """
-  ReadProduct
-
-  """
-  Grants permission to update Product
-  """
-  UpdateProduct
-
-  """
-  Grants permission to delete Product
-  """
-  DeleteProduct
-
-  """
-  Grants permission to create Promotion
-  """
-  CreatePromotion
-
-  """
-  Grants permission to read Promotion
-  """
-  ReadPromotion
-
-  """
-  Grants permission to update Promotion
-  """
-  UpdatePromotion
-
-  """
-  Grants permission to delete Promotion
-  """
-  DeletePromotion
-
-  """
-  Grants permission to create ShippingMethod
-  """
-  CreateShippingMethod
-
-  """
-  Grants permission to read ShippingMethod
-  """
-  ReadShippingMethod
-
-  """
-  Grants permission to update ShippingMethod
-  """
-  UpdateShippingMethod
-
-  """
-  Grants permission to delete ShippingMethod
-  """
-  DeleteShippingMethod
-
-  """
-  Grants permission to create Tag
-  """
-  CreateTag
-
-  """
-  Grants permission to read Tag
-  """
-  ReadTag
-
-  """
-  Grants permission to update Tag
-  """
-  UpdateTag
-
-  """
-  Grants permission to delete Tag
-  """
-  DeleteTag
-
-  """
-  Grants permission to create TaxCategory
-  """
-  CreateTaxCategory
-
-  """
-  Grants permission to read TaxCategory
-  """
-  ReadTaxCategory
-
-  """
-  Grants permission to update TaxCategory
-  """
-  UpdateTaxCategory
-
-  """
-  Grants permission to delete TaxCategory
-  """
-  DeleteTaxCategory
-
-  """
-  Grants permission to create TaxRate
-  """
-  CreateTaxRate
-
-  """
-  Grants permission to read TaxRate
-  """
-  ReadTaxRate
-
-  """
-  Grants permission to update TaxRate
-  """
-  UpdateTaxRate
-
-  """
-  Grants permission to delete TaxRate
-  """
-  DeleteTaxRate
-
-  """
-  Grants permission to create System
-  """
-  CreateSystem
-
-  """
-  Grants permission to read System
-  """
-  ReadSystem
-
-  """
-  Grants permission to update System
-  """
-  UpdateSystem
-
-  """
-  Grants permission to delete System
-  """
-  DeleteSystem
-
-  """
-  Grants permission to create Zone
-  """
-  CreateZone
-
-  """
-  Grants permission to read Zone
-  """
-  ReadZone
-
-  """
-  Grants permission to update Zone
-  """
-  UpdateZone
-
-  """
-  Grants permission to delete Zone
-  """
-  DeleteZone
+type CollectionResult {
+  collection: Collection!
+  count: Int!
 }
 
-enum SortOrder {
-  ASC
-  DESC
+input CollectionSortParameter {
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  name: SortOrder
+  position: SortOrder
+  slug: SortOrder
+  updatedAt: SortOrder
 }
 
-enum ErrorCode {
-  UNKNOWN_ERROR
-  NATIVE_AUTH_STRATEGY_ERROR
-  INVALID_CREDENTIALS_ERROR
-  ORDER_STATE_TRANSITION_ERROR
-  EMAIL_ADDRESS_CONFLICT_ERROR
-  ORDER_LIMIT_ERROR
-  NEGATIVE_QUANTITY_ERROR
-  INSUFFICIENT_STOCK_ERROR
-  ORDER_MODIFICATION_ERROR
-  INELIGIBLE_SHIPPING_METHOD_ERROR
-  ORDER_PAYMENT_STATE_ERROR
-  INELIGIBLE_PAYMENT_METHOD_ERROR
-  PAYMENT_FAILED_ERROR
-  PAYMENT_DECLINED_ERROR
-  COUPON_CODE_INVALID_ERROR
-  COUPON_CODE_EXPIRED_ERROR
-  COUPON_CODE_LIMIT_ERROR
-  ALREADY_LOGGED_IN_ERROR
-  MISSING_PASSWORD_ERROR
-  PASSWORD_ALREADY_SET_ERROR
-  VERIFICATION_TOKEN_INVALID_ERROR
-  VERIFICATION_TOKEN_EXPIRED_ERROR
-  IDENTIFIER_CHANGE_TOKEN_INVALID_ERROR
-  IDENTIFIER_CHANGE_TOKEN_EXPIRED_ERROR
-  PASSWORD_RESET_TOKEN_INVALID_ERROR
-  PASSWORD_RESET_TOKEN_EXPIRED_ERROR
-  NOT_VERIFIED_ERROR
-  NO_ACTIVE_ORDER_ERROR
-}
-
-enum LogicalOperator {
-  AND
-  OR
-}
-
-"""
-Retured when attempting an operation that relies on the NativeAuthStrategy, if that strategy is not configured.
-"""
-type NativeAuthStrategyError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Returned if the user authentication credentials are not valid
-"""
-type InvalidCredentialsError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  authenticationError: String!
-}
-
-"""
-Returned if there is an error in transitioning the Order state
-"""
-type OrderStateTransitionError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  transitionError: String!
-  fromState: String!
-  toState: String!
-}
-
-"""
-Retured when attemting to create a Customer with an email address already registered to an existing User.
-"""
-type EmailAddressConflictError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Retured when the maximum order size limit has been reached.
-"""
-type OrderLimitError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  maxItems: Int!
-}
-
-"""
-Retured when attemting to set a negative OrderLine quantity.
-"""
-type NegativeQuantityError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Returned when attempting to add more items to the Order than are available
-"""
-type InsufficientStockError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  quantityAvailable: Int!
-  order: Order!
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
-"""
-A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-"""
-scalar DateTime
-
-"""
-The `Upload` scalar type represents a file upload.
-"""
-scalar Upload
-
-interface PaginatedList {
-  items: [Node!]!
-  totalItems: Int!
-}
-
-interface Node {
+type CollectionTranslation {
+  createdAt: DateTime!
+  description: String!
   id: ID!
-}
-
-interface ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-type Adjustment {
-  adjustmentSource: String!
-  type: AdjustmentType!
-  description: String!
-  amount: Int!
-}
-
-type TaxLine {
-  description: String!
-  taxRate: Float!
+  languageCode: LanguageCode!
+  name: String!
+  slug: String!
+  updatedAt: DateTime!
 }
 
 type ConfigArg {
@@ -1003,30 +241,14 @@ type ConfigArg {
 }
 
 type ConfigArgDefinition {
-  name: String!
-  type: String!
-  list: Boolean!
-  required: Boolean!
   defaultValue: JSON
-  label: String
   description: String
+  label: String
+  list: Boolean!
+  name: String!
+  required: Boolean!
+  type: String!
   ui: JSON
-}
-
-type ConfigurableOperation {
-  code: String!
-  args: [ConfigArg!]!
-}
-
-type ConfigurableOperationDefinition {
-  code: String!
-  args: [ConfigArgDefinition!]!
-  description: String!
-}
-
-type DeletionResponse {
-  result: DeletionResult!
-  message: String
 }
 
 input ConfigArgInput {
@@ -1038,174 +260,102 @@ input ConfigArgInput {
   value: String!
 }
 
+type ConfigurableOperation {
+  args: [ConfigArg!]!
+  code: String!
+}
+
+type ConfigurableOperationDefinition {
+  args: [ConfigArgDefinition!]!
+  code: String!
+  description: String!
+}
+
 input ConfigurableOperationInput {
-  code: String!
   arguments: [ConfigArgInput!]!
-}
-
-input StringOperators {
-  eq: String
-  notEq: String
-  contains: String
-  notContains: String
-  in: [String!]
-  notIn: [String!]
-  regex: String
-}
-
-input BooleanOperators {
-  eq: Boolean
-}
-
-input NumberRange {
-  start: Float!
-  end: Float!
-}
-
-input NumberOperators {
-  eq: Float
-  lt: Float
-  lte: Float
-  gt: Float
-  gte: Float
-  between: NumberRange
-}
-
-input DateRange {
-  start: DateTime!
-  end: DateTime!
-}
-
-input DateOperators {
-  eq: DateTime
-  before: DateTime
-  after: DateTime
-  between: DateRange
-}
-
-"""
-Used to construct boolean expressions for filtering search results
-by FacetValue ID. Examples:
-
-* ID=1 OR ID=2: `{ facetValueFilters: [{ or: [1,2] }] }`
-* ID=1 AND ID=2: `{ facetValueFilters: [{ and: 1 }, { and: 2 }] }`
-* ID=1 AND (ID=2 OR ID=3): `{ facetValueFilters: [{ and: 1 }, { or: [2,3] }] }`
-"""
-input FacetValueFilterInput {
-  and: ID
-  or: [ID!]
-}
-
-input SearchInput {
-  term: String
-  facetValueIds: [ID!]
-  facetValueOperator: LogicalOperator
-  facetValueFilters: [FacetValueFilterInput!]
-  collectionId: ID
-  collectionSlug: String
-  groupByProduct: Boolean
-  take: Int
-  skip: Int
-  sort: SearchResultSortParameter
-}
-
-input SearchResultSortParameter {
-  name: SortOrder
-  price: SortOrder
-}
-
-input CreateCustomerInput {
-  title: String
-  firstName: String!
-  lastName: String!
-  phoneNumber: String
-  emailAddress: String!
-  customFields: JSON
-}
-
-input CreateAddressInput {
-  fullName: String
-  company: String
-  streetLine1: String!
-  streetLine2: String
-  city: String
-  province: String
-  postalCode: String
-  countryCode: String!
-  phoneNumber: String
-  defaultShippingAddress: Boolean
-  defaultBillingAddress: Boolean
-  customFields: JSON
-}
-
-input UpdateAddressInput {
-  id: ID!
-  fullName: String
-  company: String
-  streetLine1: String
-  streetLine2: String
-  city: String
-  province: String
-  postalCode: String
-  countryCode: String
-  phoneNumber: String
-  defaultShippingAddress: Boolean
-  defaultBillingAddress: Boolean
-  customFields: JSON
-}
-
-"""
-Indicates that an operation succeeded, where we do not want to return any more specific information.
-"""
-type Success {
-  success: Boolean!
-}
-
-type ShippingMethodQuote {
-  id: ID!
-  price: Int!
-  priceWithTax: Int!
   code: String!
-  name: String!
-  description: String!
-
-  """
-  Any optional metadata returned by the ShippingCalculator in the ShippingCalculationResult
-  """
-  metadata: JSON
 }
 
-type PaymentMethodQuote {
-  id: ID!
-  code: String!
-  name: String!
-  description: String!
-  isEligible: Boolean!
-  eligibilityMessage: String
+type Coordinate {
+  x: Float!
+  y: Float!
 }
 
 type Country implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
   code: String!
-  name: String!
-  enabled: Boolean!
-  translations: [CountryTranslation!]!
-}
-
-type CountryTranslation {
-  id: ID!
   createdAt: DateTime!
-  updatedAt: DateTime!
+  customFields: JSON
+  enabled: Boolean!
+  id: ID!
   languageCode: LanguageCode!
   name: String!
+  translations: [CountryTranslation!]!
+  updatedAt: DateTime!
 }
 
 type CountryList implements PaginatedList {
   items: [Country!]!
   totalItems: Int!
+}
+
+type CountryTranslation {
+  createdAt: DateTime!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  updatedAt: DateTime!
+}
+
+"""
+Returned if the provided coupon code is invalid
+"""
+type CouponCodeExpiredError implements ErrorResult {
+  couponCode: String!
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned if the provided coupon code is invalid
+"""
+type CouponCodeInvalidError implements ErrorResult {
+  couponCode: String!
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned if the provided coupon code is invalid
+"""
+type CouponCodeLimitError implements ErrorResult {
+  couponCode: String!
+  errorCode: ErrorCode!
+  limit: Int!
+  message: String!
+}
+
+input CreateAddressInput {
+  city: String
+  company: String
+  countryCode: String!
+  customFields: JSON
+  defaultBillingAddress: Boolean
+  defaultShippingAddress: Boolean
+  fullName: String
+  phoneNumber: String
+  postalCode: String
+  province: String
+  streetLine1: String!
+  streetLine2: String
+}
+
+input CreateCustomerInput {
+  customFields: JSON
+  emailAddress: String!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String
+  title: String
 }
 
 """
@@ -2001,153 +1151,74 @@ enum CurrencyCode {
   ZWL
 }
 
+type CurrentUser {
+  channels: [CurrentUserChannel!]!
+  id: ID!
+  identifier: String!
+}
+
+type CurrentUserChannel {
+  code: String!
+  id: ID!
+  permissions: [Permission!]!
+  token: String!
+}
+
 interface CustomField {
-  name: String!
-  type: String!
-  list: Boolean!
-  label: [LocalizedString!]
   description: [LocalizedString!]
-  readonly: Boolean
   internal: Boolean
-}
-
-type StringCustomFieldConfig implements CustomField {
-  name: String!
-  type: String!
+  label: [LocalizedString!]
   list: Boolean!
-  length: Int
-  label: [LocalizedString!]
-  description: [LocalizedString!]
-  readonly: Boolean
-  internal: Boolean
-  pattern: String
-  options: [StringFieldOption!]
-}
-
-type StringFieldOption {
-  value: String!
-  label: [LocalizedString!]
-}
-
-type LocaleStringCustomFieldConfig implements CustomField {
   name: String!
-  type: String!
-  list: Boolean!
-  length: Int
-  label: [LocalizedString!]
-  description: [LocalizedString!]
+  nullable: Boolean
   readonly: Boolean
-  internal: Boolean
-  pattern: String
-}
-
-type IntCustomFieldConfig implements CustomField {
-  name: String!
   type: String!
-  list: Boolean!
-  label: [LocalizedString!]
-  description: [LocalizedString!]
-  readonly: Boolean
-  internal: Boolean
-  min: Int
-  max: Int
-  step: Int
-}
-
-type FloatCustomFieldConfig implements CustomField {
-  name: String!
-  type: String!
-  list: Boolean!
-  label: [LocalizedString!]
-  description: [LocalizedString!]
-  readonly: Boolean
-  internal: Boolean
-  min: Float
-  max: Float
-  step: Float
-}
-
-type BooleanCustomFieldConfig implements CustomField {
-  name: String!
-  type: String!
-  list: Boolean!
-  label: [LocalizedString!]
-  description: [LocalizedString!]
-  readonly: Boolean
-  internal: Boolean
-}
-
-"""
-Expects the same validation formats as the `<input type="datetime-local">` HTML element.
-See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local#Additional_attributes
-"""
-type DateTimeCustomFieldConfig implements CustomField {
-  name: String!
-  type: String!
-  list: Boolean!
-  label: [LocalizedString!]
-  description: [LocalizedString!]
-  readonly: Boolean
-  internal: Boolean
-  min: String
-  max: String
-  step: Int
-}
-
-type RelationCustomFieldConfig implements CustomField {
-  name: String!
-  type: String!
-  list: Boolean!
-  label: [LocalizedString!]
-  description: [LocalizedString!]
-  readonly: Boolean
-  internal: Boolean
-  entity: String!
-  scalarFields: [String!]!
-}
-
-type LocalizedString {
-  languageCode: LanguageCode!
-  value: String!
+  ui: JSON
 }
 
 union CustomFieldConfig =
-    StringCustomFieldConfig
-  | LocaleStringCustomFieldConfig
-  | IntCustomFieldConfig
-  | FloatCustomFieldConfig
-  | BooleanCustomFieldConfig
+    BooleanCustomFieldConfig
   | DateTimeCustomFieldConfig
+  | FloatCustomFieldConfig
+  | IntCustomFieldConfig
+  | LocaleStringCustomFieldConfig
   | RelationCustomFieldConfig
-
-type CustomerGroup implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  customers(options: CustomerListOptions): CustomerList!
-}
-
-input CustomerListOptions {
-  skip: Int
-  take: Int
-  sort: CustomerSortParameter
-  filter: CustomerFilterParameter
-}
+  | StringCustomFieldConfig
+  | TextCustomFieldConfig
 
 type Customer implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  title: String
-  firstName: String!
-  lastName: String!
-  phoneNumber: String
-  emailAddress: String!
   addresses: [Address!]
-  orders(options: OrderListOptions): OrderList!
-  user: User
+  createdAt: DateTime!
   customFields: JSON
+  emailAddress: String!
+  firstName: String!
+  id: ID!
+  lastName: String!
+  orders(options: OrderListOptions): OrderList!
+  phoneNumber: String
+  title: String
+  updatedAt: DateTime!
+  user: User
+}
+
+input CustomerFilterParameter {
+  createdAt: DateOperators
+  emailAddress: StringOperators
+  firstName: StringOperators
+  id: IDOperators
+  lastName: StringOperators
+  phoneNumber: StringOperators
+  title: StringOperators
+  updatedAt: DateOperators
+}
+
+type CustomerGroup implements Node {
+  createdAt: DateTime!
+  customFields: JSON
+  customers(options: CustomerListOptions): CustomerList!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
 }
 
 type CustomerList implements PaginatedList {
@@ -2155,44 +1226,179 @@ type CustomerList implements PaginatedList {
   totalItems: Int!
 }
 
-type FacetValue implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  facet: Facet!
-  name: String!
-  code: String!
-  translations: [FacetValueTranslation!]!
-  customFields: JSON
+input CustomerListOptions {
+  """
+  Allows the results to be filtered
+  """
+  filter: CustomerFilterParameter
+
+  """
+  Specifies whether multiple "filter" arguments should be combines with a logical AND or OR operation. Defaults to AND.
+  """
+  filterOperator: LogicalOperator
+
+  """
+  Skips the first n results, for use in pagination
+  """
+  skip: Int
+
+  """
+  Specifies which properties to sort the results by
+  """
+  sort: CustomerSortParameter
+
+  """
+  Takes n results, for use in pagination
+  """
+  take: Int
 }
 
-type FacetValueTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
+input CustomerSortParameter {
+  createdAt: SortOrder
+  emailAddress: SortOrder
+  firstName: SortOrder
+  id: SortOrder
+  lastName: SortOrder
+  phoneNumber: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
+"""
+Operators for filtering on a list of Date fields
+"""
+input DateListOperators {
+  inList: DateTime!
+}
+
+"""
+Operators for filtering on a DateTime field
+"""
+input DateOperators {
+  after: DateTime
+  before: DateTime
+  between: DateRange
+  eq: DateTime
+}
+
+input DateRange {
+  end: DateTime!
+  start: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""
+Expects the same validation formats as the `<input type="datetime-local">` HTML element.
+See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local#Additional_attributes
+"""
+type DateTimeCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  internal: Boolean
+  label: [LocalizedString!]
+  list: Boolean!
+  max: String
+  min: String
   name: String!
+  nullable: Boolean
+  readonly: Boolean
+  step: Int
+  type: String!
+  ui: JSON
+}
+
+type DeletionResponse {
+  message: String
+  result: DeletionResult!
+}
+
+enum DeletionResult {
+  """
+  The entity was successfully deleted
+  """
+  DELETED
+
+  """
+  Deletion did not take place, reason given in message
+  """
+  NOT_DELETED
+}
+
+type Discount {
+  adjustmentSource: String!
+  amount: Int!
+  amountWithTax: Int!
+  description: String!
+  type: AdjustmentType!
+}
+
+"""
+Returned when attempting to create a Customer with an email address already registered to an existing User.
+"""
+type EmailAddressConflictError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+enum ErrorCode {
+  ALREADY_LOGGED_IN_ERROR
+  COUPON_CODE_EXPIRED_ERROR
+  COUPON_CODE_INVALID_ERROR
+  COUPON_CODE_LIMIT_ERROR
+  EMAIL_ADDRESS_CONFLICT_ERROR
+  IDENTIFIER_CHANGE_TOKEN_EXPIRED_ERROR
+  IDENTIFIER_CHANGE_TOKEN_INVALID_ERROR
+  INELIGIBLE_PAYMENT_METHOD_ERROR
+  INELIGIBLE_SHIPPING_METHOD_ERROR
+  INSUFFICIENT_STOCK_ERROR
+  INVALID_CREDENTIALS_ERROR
+  MISSING_PASSWORD_ERROR
+  NATIVE_AUTH_STRATEGY_ERROR
+  NEGATIVE_QUANTITY_ERROR
+  NOT_VERIFIED_ERROR
+  NO_ACTIVE_ORDER_ERROR
+  ORDER_LIMIT_ERROR
+  ORDER_MODIFICATION_ERROR
+  ORDER_PAYMENT_STATE_ERROR
+  ORDER_STATE_TRANSITION_ERROR
+  PASSWORD_ALREADY_SET_ERROR
+  PASSWORD_RESET_TOKEN_EXPIRED_ERROR
+  PASSWORD_RESET_TOKEN_INVALID_ERROR
+  PASSWORD_VALIDATION_ERROR
+  PAYMENT_DECLINED_ERROR
+  PAYMENT_FAILED_ERROR
+  UNKNOWN_ERROR
+  VERIFICATION_TOKEN_EXPIRED_ERROR
+  VERIFICATION_TOKEN_INVALID_ERROR
+}
+
+interface ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
 }
 
 type Facet implements Node {
-  id: ID!
+  code: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
+  customFields: JSON
+  id: ID!
   languageCode: LanguageCode!
   name: String!
-  code: String!
-  values: [FacetValue!]!
   translations: [FacetTranslation!]!
-  customFields: JSON
+  updatedAt: DateTime!
+  values: [FacetValue!]!
 }
 
-type FacetTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
+input FacetFilterParameter {
+  code: StringOperators
+  createdAt: DateOperators
+  id: IDOperators
+  languageCode: StringOperators
+  name: StringOperators
+  updatedAt: DateOperators
 }
 
 type FacetList implements PaginatedList {
@@ -2200,39 +1406,136 @@ type FacetList implements PaginatedList {
   totalItems: Int!
 }
 
-type HistoryEntry implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  type: HistoryEntryType!
-  data: JSON!
+input FacetListOptions {
+  """
+  Allows the results to be filtered
+  """
+  filter: FacetFilterParameter
+
+  """
+  Specifies whether multiple "filter" arguments should be combines with a logical AND or OR operation. Defaults to AND.
+  """
+  filterOperator: LogicalOperator
+
+  """
+  Skips the first n results, for use in pagination
+  """
+  skip: Int
+
+  """
+  Specifies which properties to sort the results by
+  """
+  sort: FacetSortParameter
+
+  """
+  Takes n results, for use in pagination
+  """
+  take: Int
 }
 
-enum HistoryEntryType {
-  CUSTOMER_REGISTERED
-  CUSTOMER_VERIFIED
-  CUSTOMER_DETAIL_UPDATED
-  CUSTOMER_ADDED_TO_GROUP
-  CUSTOMER_REMOVED_FROM_GROUP
-  CUSTOMER_ADDRESS_CREATED
-  CUSTOMER_ADDRESS_UPDATED
-  CUSTOMER_ADDRESS_DELETED
-  CUSTOMER_PASSWORD_UPDATED
-  CUSTOMER_PASSWORD_RESET_REQUESTED
-  CUSTOMER_PASSWORD_RESET_VERIFIED
-  CUSTOMER_EMAIL_UPDATE_REQUESTED
-  CUSTOMER_EMAIL_UPDATE_VERIFIED
-  CUSTOMER_NOTE
-  ORDER_STATE_TRANSITION
-  ORDER_PAYMENT_TRANSITION
-  ORDER_FULFILLMENT
-  ORDER_CANCELLATION
-  ORDER_REFUND_TRANSITION
-  ORDER_FULFILLMENT_TRANSITION
-  ORDER_NOTE
-  ORDER_COUPON_APPLIED
-  ORDER_COUPON_REMOVED
-  ORDER_MODIFIED
+input FacetSortParameter {
+  code: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
+}
+
+type FacetTranslation {
+  createdAt: DateTime!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type FacetValue implements Node {
+  code: String!
+  createdAt: DateTime!
+  customFields: JSON
+  facet: Facet!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  translations: [FacetValueTranslation!]!
+  updatedAt: DateTime!
+}
+
+"""
+Used to construct boolean expressions for filtering search results
+by FacetValue ID. Examples:
+
+* ID=1 OR ID=2: `{ facetValueFilters: [{ or: [1,2] }] }`
+* ID=1 AND ID=2: `{ facetValueFilters: [{ and: 1 }, { and: 2 }] }`
+* ID=1 AND (ID=2 OR ID=3): `{ facetValueFilters: [{ and: 1 }, { or: [2,3] }] }`
+"""
+input FacetValueFilterInput {
+  and: ID
+  or: [ID!]
+}
+
+"""
+Which FacetValues are present in the products returned
+by the search, and in what quantity.
+"""
+type FacetValueResult {
+  count: Int!
+  facetValue: FacetValue!
+}
+
+type FacetValueTranslation {
+  createdAt: DateTime!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type FloatCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  internal: Boolean
+  label: [LocalizedString!]
+  list: Boolean!
+  max: Float
+  min: Float
+  name: String!
+  nullable: Boolean
+  readonly: Boolean
+  step: Float
+  type: String!
+  ui: JSON
+}
+
+type Fulfillment implements Node {
+  createdAt: DateTime!
+  customFields: JSON
+  id: ID!
+  method: String!
+  orderItems: [OrderItem!]!
+  state: String!
+  trackingCode: String
+  updatedAt: DateTime!
+}
+
+enum GlobalFlag {
+  FALSE
+  INHERIT
+  TRUE
+}
+
+type HistoryEntry implements Node {
+  createdAt: DateTime!
+  data: JSON!
+  id: ID!
+  type: HistoryEntryType!
+  updatedAt: DateTime!
+}
+
+input HistoryEntryFilterParameter {
+  createdAt: DateOperators
+  id: IDOperators
+  type: StringOperators
+  updatedAt: DateOperators
 }
 
 type HistoryEntryList implements PaginatedList {
@@ -2241,11 +1544,155 @@ type HistoryEntryList implements PaginatedList {
 }
 
 input HistoryEntryListOptions {
-  skip: Int
-  take: Int
-  sort: HistoryEntrySortParameter
+  """
+  Allows the results to be filtered
+  """
   filter: HistoryEntryFilterParameter
+
+  """
+  Specifies whether multiple "filter" arguments should be combines with a logical AND or OR operation. Defaults to AND.
+  """
+  filterOperator: LogicalOperator
+
+  """
+  Skips the first n results, for use in pagination
+  """
+  skip: Int
+
+  """
+  Specifies which properties to sort the results by
+  """
+  sort: HistoryEntrySortParameter
+
+  """
+  Takes n results, for use in pagination
+  """
+  take: Int
 }
+
+input HistoryEntrySortParameter {
+  createdAt: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+enum HistoryEntryType {
+  CUSTOMER_ADDED_TO_GROUP
+  CUSTOMER_ADDRESS_CREATED
+  CUSTOMER_ADDRESS_DELETED
+  CUSTOMER_ADDRESS_UPDATED
+  CUSTOMER_DETAIL_UPDATED
+  CUSTOMER_EMAIL_UPDATE_REQUESTED
+  CUSTOMER_EMAIL_UPDATE_VERIFIED
+  CUSTOMER_NOTE
+  CUSTOMER_PASSWORD_RESET_REQUESTED
+  CUSTOMER_PASSWORD_RESET_VERIFIED
+  CUSTOMER_PASSWORD_UPDATED
+  CUSTOMER_REGISTERED
+  CUSTOMER_REMOVED_FROM_GROUP
+  CUSTOMER_VERIFIED
+  ORDER_CANCELLATION
+  ORDER_COUPON_APPLIED
+  ORDER_COUPON_REMOVED
+  ORDER_FULFILLMENT
+  ORDER_FULFILLMENT_TRANSITION
+  ORDER_MODIFIED
+  ORDER_NOTE
+  ORDER_PAYMENT_TRANSITION
+  ORDER_REFUND_TRANSITION
+  ORDER_STATE_TRANSITION
+}
+
+"""
+Operators for filtering on a list of ID fields
+"""
+input IDListOperators {
+  inList: ID!
+}
+
+"""
+Operators for filtering on an ID field
+"""
+input IDOperators {
+  eq: String
+  in: [String!]
+  notEq: String
+  notIn: [String!]
+}
+
+"""
+Returned if the token used to change a Customer's email address is valid, but has
+expired according to the `verificationTokenDuration` setting in the AuthOptions.
+"""
+type IdentifierChangeTokenExpiredError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned if the token used to change a Customer's email address is either
+invalid or does not match any expected tokens.
+"""
+type IdentifierChangeTokenInvalidError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned when attempting to add a Payment using a PaymentMethod for which the Order is not eligible.
+"""
+type IneligiblePaymentMethodError implements ErrorResult {
+  eligibilityCheckerMessage: String
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned when attempting to set a ShippingMethod for which the Order is not eligible
+"""
+type IneligibleShippingMethodError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned when attempting to add more items to the Order than are available
+"""
+type InsufficientStockError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+  order: Order!
+  quantityAvailable: Int!
+}
+
+type IntCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  internal: Boolean
+  label: [LocalizedString!]
+  list: Boolean!
+  max: Int
+  min: Int
+  name: String!
+  nullable: Boolean
+  readonly: Boolean
+  step: Int
+  type: String!
+  ui: JSON
+}
+
+"""
+Returned if the user authentication credentials are not valid
+"""
+type InvalidCredentialsError implements ErrorResult {
+  authenticationError: String!
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 """
 @description
@@ -2268,11 +1715,6 @@ enum LanguageCode {
   ak
 
   """
-  Albanian
-  """
-  sq
-
-  """
   Amharic
   """
   am
@@ -2281,11 +1723,6 @@ enum LanguageCode {
   Arabic
   """
   ar
-
-  """
-  Armenian
-  """
-  hy
 
   """
   Assamese
@@ -2298,6 +1735,16 @@ enum LanguageCode {
   az
 
   """
+  Belarusian
+  """
+  be
+
+  """
+  Bulgarian
+  """
+  bg
+
+  """
   Bambara
   """
   bm
@@ -2308,19 +1755,9 @@ enum LanguageCode {
   bn
 
   """
-  Basque
+  Tibetan
   """
-  eu
-
-  """
-  Belarusian
-  """
-  be
-
-  """
-  Bosnian
-  """
-  bs
+  bo
 
   """
   Breton
@@ -2328,14 +1765,9 @@ enum LanguageCode {
   br
 
   """
-  Bulgarian
+  Bosnian
   """
-  bg
-
-  """
-  Burmese
-  """
-  my
+  bs
 
   """
   Catalan
@@ -2348,39 +1780,9 @@ enum LanguageCode {
   ce
 
   """
-  Chinese
-  """
-  zh
-
-  """
-  Simplified Chinese
-  """
-  zh_Hans
-
-  """
-  Traditional Chinese
-  """
-  zh_Hant
-
-  """
-  Church Slavic
-  """
-  cu
-
-  """
-  Cornish
-  """
-  kw
-
-  """
   Corsican
   """
   co
-
-  """
-  Croatian
-  """
-  hr
 
   """
   Czech
@@ -2388,24 +1790,49 @@ enum LanguageCode {
   cs
 
   """
+  Church Slavic
+  """
+  cu
+
+  """
+  Welsh
+  """
+  cy
+
+  """
   Danish
   """
   da
 
   """
-  Dutch
+  German
   """
-  nl
+  de
 
   """
-  Flemish
+  Austrian German
   """
-  nl_BE
+  de_AT
+
+  """
+  Swiss High German
+  """
+  de_CH
 
   """
   Dzongkha
   """
   dz
+
+  """
+  Ewe
+  """
+  ee
+
+  """
+  Greek
+  """
+  el
 
   """
   English
@@ -2438,24 +1865,54 @@ enum LanguageCode {
   eo
 
   """
+  Spanish
+  """
+  es
+
+  """
+  European Spanish
+  """
+  es_ES
+
+  """
+  Mexican Spanish
+  """
+  es_MX
+
+  """
   Estonian
   """
   et
 
   """
-  Ewe
+  Basque
   """
-  ee
+  eu
 
   """
-  Faroese
+  Persian
   """
-  fo
+  fa
+
+  """
+  Dari
+  """
+  fa_AF
+
+  """
+  Fulah
+  """
+  ff
 
   """
   Finnish
   """
   fi
+
+  """
+  Faroese
+  """
+  fo
 
   """
   French
@@ -2473,9 +1930,19 @@ enum LanguageCode {
   fr_CH
 
   """
-  Fulah
+  Western Frisian
   """
-  ff
+  fy
+
+  """
+  Irish
+  """
+  ga
+
+  """
+  Scottish Gaelic
+  """
+  gd
 
   """
   Galician
@@ -2483,44 +1950,14 @@ enum LanguageCode {
   gl
 
   """
-  Ganda
-  """
-  lg
-
-  """
-  Georgian
-  """
-  ka
-
-  """
-  German
-  """
-  de
-
-  """
-  Austrian German
-  """
-  de_AT
-
-  """
-  Swiss High German
-  """
-  de_CH
-
-  """
-  Greek
-  """
-  el
-
-  """
   Gujarati
   """
   gu
 
   """
-  Haitian Creole
+  Manx
   """
-  ht
+  gv
 
   """
   Hausa
@@ -2538,24 +1975,24 @@ enum LanguageCode {
   hi
 
   """
+  Croatian
+  """
+  hr
+
+  """
+  Haitian Creole
+  """
+  ht
+
+  """
   Hungarian
   """
   hu
 
   """
-  Icelandic
+  Armenian
   """
-  is
-
-  """
-  Igbo
-  """
-  ig
-
-  """
-  Indonesian
-  """
-  id
+  hy
 
   """
   Interlingua
@@ -2563,9 +2000,24 @@ enum LanguageCode {
   ia
 
   """
-  Irish
+  Indonesian
   """
-  ga
+  id
+
+  """
+  Igbo
+  """
+  ig
+
+  """
+  Sichuan Yi
+  """
+  ii
+
+  """
+  Icelandic
+  """
+  is
 
   """
   Italian
@@ -2583,29 +2035,9 @@ enum LanguageCode {
   jv
 
   """
-  Kalaallisut
+  Georgian
   """
-  kl
-
-  """
-  Kannada
-  """
-  kn
-
-  """
-  Kashmiri
-  """
-  ks
-
-  """
-  Kazakh
-  """
-  kk
-
-  """
-  Khmer
-  """
-  km
+  ka
 
   """
   Kikuyu
@@ -2613,9 +2045,24 @@ enum LanguageCode {
   ki
 
   """
-  Kinyarwanda
+  Kazakh
   """
-  rw
+  kk
+
+  """
+  Kalaallisut
+  """
+  kl
+
+  """
+  Khmer
+  """
+  km
+
+  """
+  Kannada
+  """
+  kn
 
   """
   Korean
@@ -2623,9 +2070,19 @@ enum LanguageCode {
   ko
 
   """
+  Kashmiri
+  """
+  ks
+
+  """
   Kurdish
   """
   ku
+
+  """
+  Cornish
+  """
+  kw
 
   """
   Kyrgyz
@@ -2633,24 +2090,29 @@ enum LanguageCode {
   ky
 
   """
-  Lao
-  """
-  lo
-
-  """
   Latin
   """
   la
 
   """
-  Latvian
+  Luxembourgish
   """
-  lv
+  lb
+
+  """
+  Ganda
+  """
+  lg
 
   """
   Lingala
   """
   ln
+
+  """
+  Lao
+  """
+  lo
 
   """
   Lithuanian
@@ -2663,14 +2125,9 @@ enum LanguageCode {
   lu
 
   """
-  Luxembourgish
+  Latvian
   """
-  lb
-
-  """
-  Macedonian
-  """
-  mk
+  lv
 
   """
   Malagasy
@@ -2678,9 +2135,14 @@ enum LanguageCode {
   mg
 
   """
-  Malay
+  Maori
   """
-  ms
+  mi
+
+  """
+  Macedonian
+  """
+  mk
 
   """
   Malayalam
@@ -2688,19 +2150,9 @@ enum LanguageCode {
   ml
 
   """
-  Maltese
+  Mongolian
   """
-  mt
-
-  """
-  Manx
-  """
-  gv
-
-  """
-  Maori
-  """
-  mi
+  mn
 
   """
   Marathi
@@ -2708,14 +2160,24 @@ enum LanguageCode {
   mr
 
   """
-  Mongolian
+  Malay
   """
-  mn
+  ms
 
   """
-  Nepali
+  Maltese
   """
-  ne
+  mt
+
+  """
+  Burmese
+  """
+  my
+
+  """
+  Norwegian Bokmål
+  """
+  nb
 
   """
   North Ndebele
@@ -2723,14 +2185,19 @@ enum LanguageCode {
   nd
 
   """
-  Northern Sami
+  Nepali
   """
-  se
+  ne
 
   """
-  Norwegian Bokmål
+  Dutch
   """
-  nb
+  nl
+
+  """
+  Flemish
+  """
+  nl_BE
 
   """
   Norwegian Nynorsk
@@ -2743,14 +2210,14 @@ enum LanguageCode {
   ny
 
   """
-  Odia
-  """
-  or
-
-  """
   Oromo
   """
   om
+
+  """
+  Odia
+  """
+  or
 
   """
   Ossetic
@@ -2758,24 +2225,19 @@ enum LanguageCode {
   os
 
   """
-  Pashto
+  Punjabi
   """
-  ps
-
-  """
-  Persian
-  """
-  fa
-
-  """
-  Dari
-  """
-  fa_AF
+  pa
 
   """
   Polish
   """
   pl
+
+  """
+  Pashto
+  """
+  ps
 
   """
   Portuguese
@@ -2793,24 +2255,9 @@ enum LanguageCode {
   pt_PT
 
   """
-  Punjabi
-  """
-  pa
-
-  """
   Quechua
   """
   qu
-
-  """
-  Romanian
-  """
-  ro
-
-  """
-  Moldavian
-  """
-  ro_MD
 
   """
   Romansh
@@ -2823,19 +2270,24 @@ enum LanguageCode {
   rn
 
   """
+  Romanian
+  """
+  ro
+
+  """
+  Moldavian
+  """
+  ro_MD
+
+  """
   Russian
   """
   ru
 
   """
-  Samoan
+  Kinyarwanda
   """
-  sm
-
-  """
-  Sango
-  """
-  sg
+  rw
 
   """
   Sanskrit
@@ -2843,29 +2295,19 @@ enum LanguageCode {
   sa
 
   """
-  Scottish Gaelic
-  """
-  gd
-
-  """
-  Serbian
-  """
-  sr
-
-  """
-  Shona
-  """
-  sn
-
-  """
-  Sichuan Yi
-  """
-  ii
-
-  """
   Sindhi
   """
   sd
+
+  """
+  Northern Sami
+  """
+  se
+
+  """
+  Sango
+  """
+  sg
 
   """
   Sinhala
@@ -2883,9 +2325,29 @@ enum LanguageCode {
   sl
 
   """
+  Samoan
+  """
+  sm
+
+  """
+  Shona
+  """
+  sn
+
+  """
   Somali
   """
   so
+
+  """
+  Albanian
+  """
+  sq
+
+  """
+  Serbian
+  """
+  sr
 
   """
   Southern Sotho
@@ -2893,24 +2355,14 @@ enum LanguageCode {
   st
 
   """
-  Spanish
-  """
-  es
-
-  """
-  European Spanish
-  """
-  es_ES
-
-  """
-  Mexican Spanish
-  """
-  es_MX
-
-  """
   Sundanese
   """
   su
+
+  """
+  Swedish
+  """
+  sv
 
   """
   Swahili
@@ -2923,24 +2375,9 @@ enum LanguageCode {
   sw_CD
 
   """
-  Swedish
-  """
-  sv
-
-  """
-  Tajik
-  """
-  tg
-
-  """
   Tamil
   """
   ta
-
-  """
-  Tatar
-  """
-  tt
 
   """
   Telugu
@@ -2948,19 +2385,24 @@ enum LanguageCode {
   te
 
   """
+  Tajik
+  """
+  tg
+
+  """
   Thai
   """
   th
 
   """
-  Tibetan
-  """
-  bo
-
-  """
   Tigrinya
   """
   ti
+
+  """
+  Turkmen
+  """
+  tk
 
   """
   Tongan
@@ -2973,9 +2415,14 @@ enum LanguageCode {
   tr
 
   """
-  Turkmen
+  Tatar
   """
-  tk
+  tt
+
+  """
+  Uyghur
+  """
+  ug
 
   """
   Ukrainian
@@ -2986,11 +2433,6 @@ enum LanguageCode {
   Urdu
   """
   ur
-
-  """
-  Uyghur
-  """
-  ug
 
   """
   Uzbek
@@ -3006,16 +2448,6 @@ enum LanguageCode {
   Volapük
   """
   vo
-
-  """
-  Welsh
-  """
-  cy
-
-  """
-  Western Frisian
-  """
-  fy
 
   """
   Wolof
@@ -3038,823 +2470,263 @@ enum LanguageCode {
   yo
 
   """
+  Chinese
+  """
+  zh
+
+  """
+  Simplified Chinese
+  """
+  zh_Hans
+
+  """
+  Traditional Chinese
+  """
+  zh_Hant
+
+  """
   Zulu
   """
   zu
 }
 
-type Order implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  """
-  The date & time that the Order was placed, i.e. the Customer
-  completed the checkout and the Order is no longer "active"
-  """
-  orderPlacedAt: DateTime
-
-  """
-  A unique code for the Order
-  """
-  code: String!
-  state: String!
-
-  """
-  An order is active as long as the payment process has not been completed
-  """
-  active: Boolean!
-  customer: Customer
-  shippingAddress: OrderAddress
-  billingAddress: OrderAddress
-  lines: [OrderLine!]!
-
-  """
-  Surcharges are arbitrary modifications to the Order total which are neither
-  ProductVariants nor discounts resulting from applied Promotions. For example,
-  one-off discounts based on customer interaction, or surcharges based on payment
-  methods.
-  """
-  surcharges: [Surcharge!]!
-  discounts: [Discount!]!
-
-  """
-  An array of all coupon codes applied to the Order
-  """
-  couponCodes: [String!]!
-
-  """
-  Promotions applied to the order. Only gets populated after the payment process has completed.
-  """
-  promotions: [Promotion!]!
-  payments: [Payment!]
-  fulfillments: [Fulfillment!]
-  totalQuantity: Int!
-
-  """
-  The subTotal is the total of all OrderLines in the Order. This figure also includes any Order-level
-  discounts which have been prorated (proportionally distributed) amongst the OrderItems.
-  To get a total of all OrderLines which does not account for prorated discounts, use the
-  sum of `OrderLine.discountedLinePrice` values.
-  """
-  subTotal: Int!
-
-  """
-  Same as subTotal, but inclusive of tax
-  """
-  subTotalWithTax: Int!
-  currencyCode: CurrencyCode!
-  shippingLines: [ShippingLine!]!
-  shipping: Int!
-  shippingWithTax: Int!
-
-  """
-  Equal to subTotal plus shipping
-  """
-  total: Int!
-
-  """
-  The final payable amount. Equal to subTotalWithTax plus shippingWithTax
-  """
-  totalWithTax: Int!
-
-  """
-  A summary of the taxes being applied to this Order
-  """
-  taxSummary: [OrderTaxSummary!]!
-  history(options: HistoryEntryListOptions): HistoryEntryList!
-  customFields: JSON
+type LocaleStringCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  internal: Boolean
+  label: [LocalizedString!]
+  length: Int
+  list: Boolean!
+  name: String!
+  nullable: Boolean
+  pattern: String
+  readonly: Boolean
+  type: String!
+  ui: JSON
 }
 
-"""
-A summary of the taxes being applied to this order, grouped
-by taxRate.
-"""
-type OrderTaxSummary {
-  """
-  A description of this tax
-  """
-  description: String!
-
-  """
-  The taxRate as a percentage
-  """
-  taxRate: Float!
-
-  """
-  The total net price or OrderItems to which this taxRate applies
-  """
-  taxBase: Int!
-
-  """
-  The total tax being applied to the Order at this taxRate
-  """
-  taxTotal: Int!
-}
-
-type OrderAddress {
-  fullName: String
-  company: String
-  streetLine1: String
-  streetLine2: String
-  city: String
-  province: String
-  postalCode: String
-  country: String
-  countryCode: String
-  phoneNumber: String
-  customFields: JSON
-}
-
-type OrderList implements PaginatedList {
-  items: [Order!]!
-  totalItems: Int!
-}
-
-type ShippingLine {
-  shippingMethod: ShippingMethod!
-  price: Int!
-  priceWithTax: Int!
-  discountedPrice: Int!
-  discountedPriceWithTax: Int!
-  discounts: [Discount!]!
-}
-
-type Discount {
-  adjustmentSource: String!
-  type: AdjustmentType!
-  description: String!
-  amount: Int!
-  amountWithTax: Int!
-}
-
-type OrderItem implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  cancelled: Boolean!
-
-  """
-  The price of a single unit, excluding tax and discounts
-  """
-  unitPrice: Int!
-
-  """
-  The price of a single unit, including tax but excluding discounts
-  """
-  unitPriceWithTax: Int!
-
-  """
-  The price of a single unit including discounts, excluding tax.
-
-  If Order-level discounts have been applied, this will not be the
-  actual taxable unit price (see `proratedUnitPrice`), but is generally the
-  correct price to display to customers to avoid confusion
-  about the internal handling of distributed Order-level discounts.
-  """
-  discountedUnitPrice: Int!
-
-  """
-  The price of a single unit including discounts and tax
-  """
-  discountedUnitPriceWithTax: Int!
-
-  """
-  The actual unit price, taking into account both item discounts _and_ prorated (proportially-distributed)
-  Order-level discounts. This value is the true economic value of the OrderItem, and is used in tax
-  and refund calculations.
-  """
-  proratedUnitPrice: Int!
-
-  """
-  The proratedUnitPrice including tax
-  """
-  proratedUnitPriceWithTax: Int!
-  unitTax: Int!
-  taxRate: Float!
-  adjustments: [Adjustment!]!
-  taxLines: [TaxLine!]!
-  fulfillment: Fulfillment
-  refundId: ID
-}
-
-type OrderLine implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  productVariant: ProductVariant!
-  featuredAsset: Asset
-
-  """
-  The price of a single unit, excluding tax and discounts
-  """
-  unitPrice: Int!
-
-  """
-  The price of a single unit, including tax but excluding discounts
-  """
-  unitPriceWithTax: Int!
-
-  """
-  Non-zero if the unitPrice has changed since it was initially added to Order
-  """
-  unitPriceChangeSinceAdded: Int!
-
-  """
-  Non-zero if the unitPriceWithTax has changed since it was initially added to Order
-  """
-  unitPriceWithTaxChangeSinceAdded: Int!
-
-  """
-  The price of a single unit including discounts, excluding tax.
-
-  If Order-level discounts have been applied, this will not be the
-  actual taxable unit price (see `proratedUnitPrice`), but is generally the
-  correct price to display to customers to avoid confusion
-  about the internal handling of distributed Order-level discounts.
-  """
-  discountedUnitPrice: Int!
-
-  """
-  The price of a single unit including discounts and tax
-  """
-  discountedUnitPriceWithTax: Int!
-
-  """
-  The actual unit price, taking into account both item discounts _and_ prorated (proportially-distributed)
-  Order-level discounts. This value is the true economic value of the OrderItem, and is used in tax
-  and refund calculations.
-  """
-  proratedUnitPrice: Int!
-
-  """
-  The proratedUnitPrice including tax
-  """
-  proratedUnitPriceWithTax: Int!
-  quantity: Int!
-  items: [OrderItem!]!
-  taxRate: Float!
-
-  """
-  The total price of the line excluding tax and discounts.
-  """
-  linePrice: Int!
-
-  """
-  The total price of the line including tax bit excluding discounts.
-  """
-  linePriceWithTax: Int!
-
-  """
-  The price of the line including discounts, excluding tax
-  """
-  discountedLinePrice: Int!
-
-  """
-  The price of the line including discounts and tax
-  """
-  discountedLinePriceWithTax: Int!
-
-  """
-  The actual line price, taking into account both item discounts _and_ prorated (proportially-distributed)
-  Order-level discounts. This value is the true economic value of the OrderLine, and is used in tax
-  and refund calculations.
-  """
-  proratedLinePrice: Int!
-
-  """
-  The proratedLinePrice including tax
-  """
-  proratedLinePriceWithTax: Int!
-
-  """
-  The total tax on this line
-  """
-  lineTax: Int!
-  discounts: [Discount!]!
-  taxLines: [TaxLine!]!
-  order: Order!
-  customFields: JSON
-}
-
-type Payment implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  method: String!
-  amount: Int!
-  state: String!
-  transactionId: String
-  errorMessage: String
-  refunds: [Refund!]!
-  metadata: JSON
-}
-
-type Refund implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  items: Int!
-  shipping: Int!
-  adjustment: Int!
-  total: Int!
-  method: String
-  state: String!
-  transactionId: String
-  reason: String
-  orderItems: [OrderItem!]!
-  paymentId: ID!
-  metadata: JSON
-}
-
-type Fulfillment implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  orderItems: [OrderItem!]!
-  state: String!
-  method: String!
-  trackingCode: String
-  customFields: JSON
-}
-
-type Surcharge implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  description: String!
-  sku: String
-  taxLines: [TaxLine!]!
-  price: Int!
-  priceWithTax: Int!
-  taxRate: Float!
-}
-
-type ProductOptionGroup implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+type LocalizedString {
   languageCode: LanguageCode!
-  code: String!
-  name: String!
-  options: [ProductOption!]!
-  translations: [ProductOptionGroupTranslation!]!
-  customFields: JSON
-}
-
-type ProductOptionGroupTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
-}
-
-type ProductOption implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  code: String!
-  name: String!
-  groupId: ID!
-  group: ProductOptionGroup!
-  translations: [ProductOptionTranslation!]!
-  customFields: JSON
-}
-
-type ProductOptionTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
-}
-
-type SearchReindexResponse {
-  success: Boolean!
-}
-
-type SearchResponse {
-  items: [SearchResult!]!
-  totalItems: Int!
-  facetValues: [FacetValueResult!]!
-}
-
-"""
-Which FacetValues are present in the products returned
-by the search, and in what quantity.
-"""
-type FacetValueResult {
-  facetValue: FacetValue!
-  count: Int!
-}
-
-type SearchResultAsset {
-  id: ID!
-  preview: String!
-  focalPoint: Coordinate
-}
-
-type SearchResult {
-  sku: String!
-  slug: String!
-  productId: ID!
-  productName: String!
-  productAsset: SearchResultAsset
-  productVariantId: ID!
-  productVariantName: String!
-  productVariantAsset: SearchResultAsset
-  price: SearchResultPrice!
-  priceWithTax: SearchResultPrice!
-  currencyCode: CurrencyCode!
-  description: String!
-  facetIds: [ID!]!
-  facetValueIds: [ID!]!
-
-  """
-  An array of ids of the Collections in which this result appears
-  """
-  collectionIds: [ID!]!
-
-  """
-  A relevence score for the result. Differs between database implementations
-  """
-  score: Float!
-}
-
-"""
-The price of a search result product, either as a range or as a single price
-"""
-union SearchResultPrice = PriceRange | SinglePrice
-
-"""
-The price value where the result has a single price
-"""
-type SinglePrice {
-  value: Int!
-}
-
-"""
-The price range where the result has more than one price
-"""
-type PriceRange {
-  min: Int!
-  max: Int!
-}
-
-type Product implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
-  slug: String!
-  description: String!
-  featuredAsset: Asset
-  assets: [Asset!]!
-  variants: [ProductVariant!]!
-  optionGroups: [ProductOptionGroup!]!
-  facetValues: [FacetValue!]!
-  translations: [ProductTranslation!]!
-  collections: [Collection!]!
-  customFields: JSON
-}
-
-type ProductTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
-  slug: String!
-  description: String!
-}
-
-type ProductList implements PaginatedList {
-  items: [Product!]!
-  totalItems: Int!
-}
-
-type ProductVariant implements Node {
-  id: ID!
-  product: Product!
-  productId: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  sku: String!
-  name: String!
-  featuredAsset: Asset
-  assets: [Asset!]!
-  price: Int!
-  currencyCode: CurrencyCode!
-  priceWithTax: Int!
-  stockLevel: String!
-  taxRateApplied: TaxRate!
-  taxCategory: TaxCategory!
-  options: [ProductOption!]!
-  facetValues: [FacetValue!]!
-  translations: [ProductVariantTranslation!]!
-  customFields: ProductVariantCustomFields
-}
-
-type ProductVariantTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
-}
-
-type Promotion implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  startsAt: DateTime
-  endsAt: DateTime
-  couponCode: String
-  perCustomerUsageLimit: Int
-  name: String!
-  enabled: Boolean!
-  conditions: [ConfigurableOperation!]!
-  actions: [ConfigurableOperation!]!
-}
-
-type PromotionList implements PaginatedList {
-  items: [Promotion!]!
-  totalItems: Int!
-}
-
-type Role implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  code: String!
-  description: String!
-  permissions: [Permission!]!
-  channels: [Channel!]!
-}
-
-type RoleList implements PaginatedList {
-  items: [Role!]!
-  totalItems: Int!
-}
-
-type ShippingMethod implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  code: String!
-  name: String!
-  description: String!
-  fulfillmentHandlerCode: String!
-  checker: ConfigurableOperation!
-  calculator: ConfigurableOperation!
-  translations: [ShippingMethodTranslation!]!
-  customFields: JSON
-}
-
-type ShippingMethodTranslation {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  languageCode: LanguageCode!
-  name: String!
-  description: String!
-}
-
-type ShippingMethodList implements PaginatedList {
-  items: [ShippingMethod!]!
-  totalItems: Int!
-}
-
-type Tag implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
   value: String!
 }
 
-type TagList implements PaginatedList {
-  items: [Tag!]!
-  totalItems: Int!
-}
-
-type TaxCategory implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  isDefault: Boolean!
-}
-
-type TaxRate implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  enabled: Boolean!
-  value: Float!
-  category: TaxCategory!
-  zone: Zone!
-  customerGroup: CustomerGroup
-}
-
-type TaxRateList implements PaginatedList {
-  items: [TaxRate!]!
-  totalItems: Int!
-}
-
-type User implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  identifier: String!
-  verified: Boolean!
-  roles: [Role!]!
-  lastLogin: DateTime
-  authenticationMethods: [AuthenticationMethod!]!
-  customFields: JSON
-}
-
-type AuthenticationMethod implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  strategy: String!
-}
-
-type Zone implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  members: [Country!]!
+enum LogicalOperator {
+  AND
+  OR
 }
 
 """
-Returned when attempting to modify the contents of an Order that is not in the `AddingItems` state.
-"""
-type OrderModificationError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Returned when attempting to set a ShippingMethod for which the Order is not eligible
-"""
-type IneligibleShippingMethodError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Returned when attempting to add a Payment to an Order that is not in the `ArrangingPayment` state.
-"""
-type OrderPaymentStateError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Returned when attempting to add a Payment using a PaymentMethod for which the Order is not eligible.
-"""
-type IneligiblePaymentMethodError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  eligibilityCheckerMessage: String
-}
-
-"""
-Returned when a Payment fails due to an error.
-"""
-type PaymentFailedError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  paymentErrorMessage: String!
-}
-
-"""
-Returned when a Payment is declined by the payment provider.
-"""
-type PaymentDeclinedError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  paymentErrorMessage: String!
-}
-
-"""
-Returned if the provided coupon code is invalid
-"""
-type CouponCodeInvalidError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  couponCode: String!
-}
-
-"""
-Returned if the provided coupon code is invalid
-"""
-type CouponCodeExpiredError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  couponCode: String!
-}
-
-"""
-Returned if the provided coupon code is invalid
-"""
-type CouponCodeLimitError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-  couponCode: String!
-  limit: Int!
-}
-
-"""
-Retured when attemting to set the Customer for an Order when already logged in.
-"""
-type AlreadyLoggedInError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Retured when attemting to register or verify a customer account without a password, when one is required.
+Returned when attempting to register or verify a customer account without a password, when one is required.
 """
 type MissingPasswordError implements ErrorResult {
   errorCode: ErrorCode!
   message: String!
 }
 
+type Mutation {
+  """
+  Adds an item to the order. If custom fields are defined on the OrderLine entity, a third argument 'customFields' will be available.
+  """
+  addItemToOrder(productVariantId: ID!, quantity: Int!): UpdateOrderItemsResult!
+
+  """
+  Add a Payment to the Order
+  """
+  addPaymentToOrder(input: PaymentInput!): AddPaymentToOrderResult!
+
+  """
+  Adjusts an OrderLine. If custom fields are defined on the OrderLine entity, a third argument 'customFields' of type `OrderLineCustomFieldsInput` will be available.
+  """
+  adjustOrderLine(orderLineId: ID!, quantity: Int!): UpdateOrderItemsResult!
+
+  """
+  Applies the given coupon code to the active Order
+  """
+  applyCouponCode(couponCode: String!): ApplyCouponCodeResult!
+
+  """
+  Authenticates the user using a named authentication strategy
+  """
+  authenticate(
+    input: AuthenticationInput!
+    rememberMe: Boolean
+  ): AuthenticationResult!
+
+  """
+  Create a new Customer Address
+  """
+  createCustomerAddress(input: CreateAddressInput!): Address!
+
+  """
+  Delete an existing Address
+  """
+  deleteCustomerAddress(id: ID!): Success!
+
+  """
+  Authenticates the user using the native authentication strategy. This mutation is an alias for `authenticate({ native: { ... }})`
+  """
+  login(
+    password: String!
+    rememberMe: Boolean
+    username: String!
+  ): NativeAuthenticationResult!
+
+  """
+  End the current authenticated session
+  """
+  logout: Success!
+
+  """
+  Regenerate and send a verification token for a new Customer registration. Only applicable if `authOptions.requireVerification` is set to true.
+  """
+  refreshCustomerVerification(
+    emailAddress: String!
+  ): RefreshCustomerVerificationResult!
+
+  """
+  Register a Customer account with the given credentials. There are three possible registration flows:
+
+  _If `authOptions.requireVerification` is set to `true`:_
+
+  1. **The Customer is registered _with_ a password**. A verificationToken will be created (and typically emailed to the Customer). That
+     verificationToken would then be passed to the `verifyCustomerAccount` mutation _without_ a password. The Customer is then
+     verified and authenticated in one step.
+  2. **The Customer is registered _without_ a password**. A verificationToken will be created (and typically emailed to the Customer). That
+     verificationToken would then be passed to the `verifyCustomerAccount` mutation _with_ the chosen password of the Customer. The Customer is then
+     verified and authenticated in one step.
+
+  _If `authOptions.requireVerification` is set to `false`:_
+
+  3. The Customer _must_ be registered _with_ a password. No further action is needed - the Customer is able to authenticate immediately.
+  """
+  registerCustomerAccount(
+    input: RegisterCustomerInput!
+  ): RegisterCustomerAccountResult!
+
+  """
+  Remove all OrderLine from the Order
+  """
+  removeAllOrderLines: RemoveOrderItemsResult!
+
+  """
+  Removes the given coupon code from the active Order
+  """
+  removeCouponCode(couponCode: String!): Order
+
+  """
+  Remove an OrderLine from the Order
+  """
+  removeOrderLine(orderLineId: ID!): RemoveOrderItemsResult!
+
+  """
+  Requests a password reset email to be sent
+  """
+  requestPasswordReset(emailAddress: String!): RequestPasswordResetResult
+
+  """
+  Request to update the emailAddress of the active Customer. If `authOptions.requireVerification` is enabled
+  (as is the default), then the `identifierChangeToken` will be assigned to the current User and
+  a IdentifierChangeRequestEvent will be raised. This can then be used e.g. by the EmailPlugin to email
+  that verification token to the Customer, which is then used to verify the change of email address.
+  """
+  requestUpdateCustomerEmailAddress(
+    newEmailAddress: String!
+    password: String!
+  ): RequestUpdateCustomerEmailAddressResult!
+
+  """
+  Resets a Customer's password based on the provided token
+  """
+  resetPassword(password: String!, token: String!): ResetPasswordResult!
+
+  """
+  Set the Customer for the Order. Required only if the Customer is not currently logged in
+  """
+  setCustomerForOrder(input: CreateCustomerInput!): SetCustomerForOrderResult!
+
+  """
+  Sets the billing address for this order
+  """
+  setOrderBillingAddress(input: CreateAddressInput!): ActiveOrderResult!
+
+  """
+  Allows any custom fields to be set for the active order
+  """
+  setOrderCustomFields(input: UpdateOrderInput!): ActiveOrderResult!
+
+  """
+  Sets the shipping address for this order
+  """
+  setOrderShippingAddress(input: CreateAddressInput!): ActiveOrderResult!
+
+  """
+  Sets the shipping method by id, which can be obtained with the `eligibleShippingMethods` query
+  """
+  setOrderShippingMethod(shippingMethodId: ID!): SetOrderShippingMethodResult!
+
+  """
+  Transitions an Order to a new state. Valid next states can be found by querying `nextOrderStates`
+  """
+  transitionOrderToState(state: String!): TransitionOrderToStateResult
+
+  """
+  Update an existing Customer
+  """
+  updateCustomer(input: UpdateCustomerInput!): Customer!
+
+  """
+  Update an existing Address
+  """
+  updateCustomerAddress(input: UpdateAddressInput!): Address!
+
+  """
+  Confirm the update of the emailAddress with the provided token, which has been generated by the
+  `requestUpdateCustomerEmailAddress` mutation.
+  """
+  updateCustomerEmailAddress(token: String!): UpdateCustomerEmailAddressResult!
+
+  """
+  Update the password of the active Customer
+  """
+  updateCustomerPassword(
+    currentPassword: String!
+    newPassword: String!
+  ): UpdateCustomerPasswordResult!
+
+  """
+  Verify a Customer email address with the token sent to that address. Only applicable if `authOptions.requireVerification` is set to true.
+
+  If the Customer was not registered with a password in the `registerCustomerAccount` mutation, the password _must_ be
+  provided here.
+  """
+  verifyCustomerAccount(
+    password: String
+    token: String!
+  ): VerifyCustomerAccountResult!
+}
+
+input NativeAuthInput {
+  password: String!
+  username: String!
+}
+
 """
-Retured when attemting to verify a customer account with a password, when a password has already been set.
+Returned when attempting an operation that relies on the NativeAuthStrategy, if that strategy is not configured.
 """
-type PasswordAlreadySetError implements ErrorResult {
+type NativeAuthStrategyError implements ErrorResult {
   errorCode: ErrorCode!
   message: String!
 }
 
-"""
-Retured if the verification token (used to verify a Customer's email address) is either
-invalid or does not match any expected tokens.
-"""
-type VerificationTokenInvalidError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
+union NativeAuthenticationResult =
+    CurrentUser
+  | InvalidCredentialsError
+  | NativeAuthStrategyError
+  | NotVerifiedError
 
 """
-Returned if the verification token (used to verify a Customer's email address) is valid, but has
-expired according to the `verificationTokenDuration` setting in the AuthOptions.
+Returned when attempting to set a negative OrderLine quantity.
 """
-type VerificationTokenExpiredError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Retured if the token used to change a Customer's email address is either
-invalid or does not match any expected tokens.
-"""
-type IdentifierChangeTokenInvalidError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Retured if the token used to change a Customer's email address is valid, but has
-expired according to the `verificationTokenDuration` setting in the AuthOptions.
-"""
-type IdentifierChangeTokenExpiredError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Retured if the token used to reset a Customer's password is either
-invalid or does not match any expected tokens.
-"""
-type PasswordResetTokenInvalidError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Retured if the token used to reset a Customer's password is valid, but has
-expired according to the `verificationTokenDuration` setting in the AuthOptions.
-"""
-type PasswordResetTokenExpiredError implements ErrorResult {
-  errorCode: ErrorCode!
-  message: String!
-}
-
-"""
-Returned if `authOptions.requireVerification` is set to `true` (which is the default)
-and an unverified user attempts to authenticate.
-"""
-type NotVerifiedError implements ErrorResult {
+type NegativeQuantityError implements ErrorResult {
   errorCode: ErrorCode!
   message: String!
 }
@@ -3868,29 +2740,485 @@ type NoActiveOrderError implements ErrorResult {
   message: String!
 }
 
-input AuthenticationInput {
-  native: NativeAuthInput
+interface Node {
+  id: ID!
 }
 
-input RegisterCustomerInput {
-  emailAddress: String!
-  title: String
-  firstName: String
-  lastName: String
-  phoneNumber: String
-  password: String
+"""
+Returned if `authOptions.requireVerification` is set to `true` (which is the default)
+and an unverified user attempts to authenticate.
+"""
+type NotVerifiedError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
 }
 
-input UpdateCustomerInput {
-  title: String
-  firstName: String
-  lastName: String
-  phoneNumber: String
+"""
+Operators for filtering on a list of Number fields
+"""
+input NumberListOperators {
+  inList: Float!
+}
+
+"""
+Operators for filtering on a Int or Float field
+"""
+input NumberOperators {
+  between: NumberRange
+  eq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+}
+
+input NumberRange {
+  end: Float!
+  start: Float!
+}
+
+type Order implements Node {
+  """
+  An order is active as long as the payment process has not been completed
+  """
+  active: Boolean!
+  billingAddress: OrderAddress
+
+  """
+  A unique code for the Order
+  """
+  code: String!
+
+  """
+  An array of all coupon codes applied to the Order
+  """
+  couponCodes: [String!]!
+  createdAt: DateTime!
+  currencyCode: CurrencyCode!
   customFields: JSON
+  customer: Customer
+  discounts: [Discount!]!
+  fulfillments: [Fulfillment!]
+  history(options: HistoryEntryListOptions): HistoryEntryList!
+  id: ID!
+  lines: [OrderLine!]!
+
+  """
+  The date & time that the Order was placed, i.e. the Customer
+  completed the checkout and the Order is no longer "active"
+  """
+  orderPlacedAt: DateTime
+  payments: [Payment!]
+
+  """
+  Promotions applied to the order. Only gets populated after the payment process has completed.
+  """
+  promotions: [Promotion!]!
+  shipping: Int!
+  shippingAddress: OrderAddress
+  shippingLines: [ShippingLine!]!
+  shippingWithTax: Int!
+  state: String!
+
+  """
+  The subTotal is the total of all OrderLines in the Order. This figure also includes any Order-level
+  discounts which have been prorated (proportionally distributed) amongst the OrderItems.
+  To get a total of all OrderLines which does not account for prorated discounts, use the
+  sum of `OrderLine.discountedLinePrice` values.
+  """
+  subTotal: Int!
+
+  """
+  Same as subTotal, but inclusive of tax
+  """
+  subTotalWithTax: Int!
+
+  """
+  Surcharges are arbitrary modifications to the Order total which are neither
+  ProductVariants nor discounts resulting from applied Promotions. For example,
+  one-off discounts based on customer interaction, or surcharges based on payment
+  methods.
+  """
+  surcharges: [Surcharge!]!
+
+  """
+  A summary of the taxes being applied to this Order
+  """
+  taxSummary: [OrderTaxSummary!]!
+
+  """
+  Equal to subTotal plus shipping
+  """
+  total: Int!
+  totalQuantity: Int!
+
+  """
+  The final payable amount. Equal to subTotalWithTax plus shippingWithTax
+  """
+  totalWithTax: Int!
+  updatedAt: DateTime!
 }
 
-input UpdateOrderInput {
+type OrderAddress {
+  city: String
+  company: String
+  country: String
+  countryCode: String
   customFields: JSON
+  fullName: String
+  phoneNumber: String
+  postalCode: String
+  province: String
+  streetLine1: String
+  streetLine2: String
+}
+
+input OrderFilterParameter {
+  active: BooleanOperators
+  code: StringOperators
+  createdAt: DateOperators
+  currencyCode: StringOperators
+  id: IDOperators
+  orderPlacedAt: DateOperators
+  shipping: NumberOperators
+  shippingWithTax: NumberOperators
+  state: StringOperators
+  subTotal: NumberOperators
+  subTotalWithTax: NumberOperators
+  total: NumberOperators
+  totalQuantity: NumberOperators
+  totalWithTax: NumberOperators
+  updatedAt: DateOperators
+}
+
+type OrderItem implements Node {
+  adjustments: [Adjustment!]!
+  cancelled: Boolean!
+  createdAt: DateTime!
+
+  """
+  The price of a single unit including discounts, excluding tax.
+
+  If Order-level discounts have been applied, this will not be the
+  actual taxable unit price (see `proratedUnitPrice`), but is generally the
+  correct price to display to customers to avoid confusion
+  about the internal handling of distributed Order-level discounts.
+  """
+  discountedUnitPrice: Int!
+
+  """
+  The price of a single unit including discounts and tax
+  """
+  discountedUnitPriceWithTax: Int!
+  fulfillment: Fulfillment
+  id: ID!
+
+  """
+  The actual unit price, taking into account both item discounts _and_ prorated (proportionally-distributed)
+  Order-level discounts. This value is the true economic value of the OrderItem, and is used in tax
+  and refund calculations.
+  """
+  proratedUnitPrice: Int!
+
+  """
+  The proratedUnitPrice including tax
+  """
+  proratedUnitPriceWithTax: Int!
+  refundId: ID
+  taxLines: [TaxLine!]!
+  taxRate: Float!
+
+  """
+  The price of a single unit, excluding tax and discounts
+  """
+  unitPrice: Int!
+
+  """
+  The price of a single unit, including tax but excluding discounts
+  """
+  unitPriceWithTax: Int!
+  unitTax: Int!
+  updatedAt: DateTime!
+}
+
+"""
+Returned when the maximum order size limit has been reached.
+"""
+type OrderLimitError implements ErrorResult {
+  errorCode: ErrorCode!
+  maxItems: Int!
+  message: String!
+}
+
+type OrderLine implements Node {
+  createdAt: DateTime!
+  customFields: JSON
+
+  """
+  The price of the line including discounts, excluding tax
+  """
+  discountedLinePrice: Int!
+
+  """
+  The price of the line including discounts and tax
+  """
+  discountedLinePriceWithTax: Int!
+
+  """
+  The price of a single unit including discounts, excluding tax.
+
+  If Order-level discounts have been applied, this will not be the
+  actual taxable unit price (see `proratedUnitPrice`), but is generally the
+  correct price to display to customers to avoid confusion
+  about the internal handling of distributed Order-level discounts.
+  """
+  discountedUnitPrice: Int!
+
+  """
+  The price of a single unit including discounts and tax
+  """
+  discountedUnitPriceWithTax: Int!
+  discounts: [Discount!]!
+  featuredAsset: Asset
+  id: ID!
+  items: [OrderItem!]!
+
+  """
+  The total price of the line excluding tax and discounts.
+  """
+  linePrice: Int!
+
+  """
+  The total price of the line including tax but excluding discounts.
+  """
+  linePriceWithTax: Int!
+
+  """
+  The total tax on this line
+  """
+  lineTax: Int!
+  order: Order!
+  productVariant: ProductVariant!
+
+  """
+  The actual line price, taking into account both item discounts _and_ prorated (proportionally-distributed)
+  Order-level discounts. This value is the true economic value of the OrderLine, and is used in tax
+  and refund calculations.
+  """
+  proratedLinePrice: Int!
+
+  """
+  The proratedLinePrice including tax
+  """
+  proratedLinePriceWithTax: Int!
+
+  """
+  The actual unit price, taking into account both item discounts _and_ prorated (proportionally-distributed)
+  Order-level discounts. This value is the true economic value of the OrderItem, and is used in tax
+  and refund calculations.
+  """
+  proratedUnitPrice: Int!
+
+  """
+  The proratedUnitPrice including tax
+  """
+  proratedUnitPriceWithTax: Int!
+  quantity: Int!
+  taxLines: [TaxLine!]!
+  taxRate: Float!
+
+  """
+  The price of a single unit, excluding tax and discounts
+  """
+  unitPrice: Int!
+
+  """
+  Non-zero if the unitPrice has changed since it was initially added to Order
+  """
+  unitPriceChangeSinceAdded: Int!
+
+  """
+  The price of a single unit, including tax but excluding discounts
+  """
+  unitPriceWithTax: Int!
+
+  """
+  Non-zero if the unitPriceWithTax has changed since it was initially added to Order
+  """
+  unitPriceWithTaxChangeSinceAdded: Int!
+  updatedAt: DateTime!
+}
+
+type OrderList implements PaginatedList {
+  items: [Order!]!
+  totalItems: Int!
+}
+
+input OrderListOptions {
+  """
+  Allows the results to be filtered
+  """
+  filter: OrderFilterParameter
+
+  """
+  Specifies whether multiple "filter" arguments should be combines with a logical AND or OR operation. Defaults to AND.
+  """
+  filterOperator: LogicalOperator
+
+  """
+  Skips the first n results, for use in pagination
+  """
+  skip: Int
+
+  """
+  Specifies which properties to sort the results by
+  """
+  sort: OrderSortParameter
+
+  """
+  Takes n results, for use in pagination
+  """
+  take: Int
+}
+
+"""
+Returned when attempting to modify the contents of an Order that is not in the `AddingItems` state.
+"""
+type OrderModificationError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned when attempting to add a Payment to an Order that is not in the `ArrangingPayment` state.
+"""
+type OrderPaymentStateError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+input OrderSortParameter {
+  code: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  orderPlacedAt: SortOrder
+  shipping: SortOrder
+  shippingWithTax: SortOrder
+  state: SortOrder
+  subTotal: SortOrder
+  subTotalWithTax: SortOrder
+  total: SortOrder
+  totalQuantity: SortOrder
+  totalWithTax: SortOrder
+  updatedAt: SortOrder
+}
+
+"""
+Returned if there is an error in transitioning the Order state
+"""
+type OrderStateTransitionError implements ErrorResult {
+  errorCode: ErrorCode!
+  fromState: String!
+  message: String!
+  toState: String!
+  transitionError: String!
+}
+
+"""
+A summary of the taxes being applied to this order, grouped
+by taxRate.
+"""
+type OrderTaxSummary {
+  """
+  A description of this tax
+  """
+  description: String!
+
+  """
+  The total net price or OrderItems to which this taxRate applies
+  """
+  taxBase: Int!
+
+  """
+  The taxRate as a percentage
+  """
+  taxRate: Float!
+
+  """
+  The total tax being applied to the Order at this taxRate
+  """
+  taxTotal: Int!
+}
+
+interface PaginatedList {
+  items: [Node!]!
+  totalItems: Int!
+}
+
+"""
+Returned when attempting to verify a customer account with a password, when a password has already been set.
+"""
+type PasswordAlreadySetError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned if the token used to reset a Customer's password is valid, but has
+expired according to the `verificationTokenDuration` setting in the AuthOptions.
+"""
+type PasswordResetTokenExpiredError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned if the token used to reset a Customer's password is either
+invalid or does not match any expected tokens.
+"""
+type PasswordResetTokenInvalidError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned when attempting to register or verify a customer account where the given password fails password validation.
+"""
+type PasswordValidationError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+  validationErrorMessage: String!
+}
+
+type Payment implements Node {
+  amount: Int!
+  createdAt: DateTime!
+  errorMessage: String
+  id: ID!
+  metadata: JSON
+  method: String!
+  refunds: [Refund!]!
+  state: String!
+  transactionId: String
+  updatedAt: DateTime!
+}
+
+"""
+Returned when a Payment is declined by the payment provider.
+"""
+type PaymentDeclinedError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+  paymentErrorMessage: String!
+}
+
+"""
+Returned when a Payment fails due to an error.
+"""
+type PaymentFailedError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+  paymentErrorMessage: String!
 }
 
 """
@@ -3898,265 +3226,1277 @@ Passed as input to the `addPaymentToOrder` mutation.
 """
 input PaymentInput {
   """
-  This field should correspond to the `code` property of a PaymentMethodHandler.
-  """
-  method: String!
-
-  """
   This field should contain arbitrary data passed to the specified PaymentMethodHandler's `createPayment()` method
   as the "metadata" argument. For example, it could contain an ID for the payment and other
   data generated by the payment provider.
   """
   metadata: JSON!
+
+  """
+  This field should correspond to the `code` property of a PaymentMethod.
+  """
+  method: String!
 }
 
-input CollectionListOptions {
-  skip: Int
-  take: Int
-  sort: CollectionSortParameter
-  filter: CollectionFilterParameter
+type PaymentMethod implements Node {
+  checker: ConfigurableOperation
+  code: String!
+  createdAt: DateTime!
+  customFields: JSON
+  description: String!
+  enabled: Boolean!
+  handler: ConfigurableOperation!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
 }
 
-input OrderListOptions {
-  skip: Int
-  take: Int
-  sort: OrderSortParameter
-  filter: OrderFilterParameter
+type PaymentMethodQuote {
+  code: String!
+  customFields: JSON
+  description: String!
+  eligibilityMessage: String
+  id: ID!
+  isEligible: Boolean!
+  name: String!
 }
 
-input ProductListOptions {
-  skip: Int
-  take: Int
-  sort: ProductSortParameter
-  filter: ProductFilterParameter
+"""
+@description
+Permissions for administrators and customers. Used to control access to
+GraphQL resolvers via the {@link Allow} decorator.
+
+## Understanding Permission.Owner
+
+`Permission.Owner` is a special permission which is used in some of the Vendure resolvers to indicate that that resolver should only
+be accessible to the "owner" of that resource.
+
+For example, the Shop API `activeCustomer` query resolver should only return the Customer object for the "owner" of that Customer, i.e.
+based on the activeUserId of the current session. As a result, the resolver code looks like this:
+
+@example
+```TypeScript
+\@Query()
+\@Allow(Permission.Owner)
+async activeCustomer(\@Ctx() ctx: RequestContext): Promise<Customer | undefined> {
+  const userId = ctx.activeUserId;
+  if (userId) {
+    return this.customerService.findOneByUserId(ctx, userId);
+  }
+}
+```
+
+Here we can see that the "ownership" must be enforced by custom logic inside the resolver. Since "ownership" cannot be defined generally
+nor statically encoded at build-time, any resolvers using `Permission.Owner` **must** include logic to enforce that only the owner
+of the resource has access. If not, then it is the equivalent of using `Permission.Public`.
+
+
+@docsCategory common
+"""
+enum Permission {
+  """
+  Authenticated means simply that the user is logged in
+  """
+  Authenticated
+
+  """
+  Grants permission to create Administrator
+  """
+  CreateAdministrator
+
+  """
+  Grants permission to create Asset
+  """
+  CreateAsset
+
+  """
+  Grants permission to create Products, Facets, Assets, Collections
+  """
+  CreateCatalog
+
+  """
+  Grants permission to create Channel
+  """
+  CreateChannel
+
+  """
+  Grants permission to create Collection
+  """
+  CreateCollection
+
+  """
+  Grants permission to create Country
+  """
+  CreateCountry
+
+  """
+  Grants permission to create Customer
+  """
+  CreateCustomer
+
+  """
+  Grants permission to create CustomerGroup
+  """
+  CreateCustomerGroup
+
+  """
+  Grants permission to create Facet
+  """
+  CreateFacet
+
+  """
+  Grants permission to create Order
+  """
+  CreateOrder
+
+  """
+  Grants permission to create PaymentMethod
+  """
+  CreatePaymentMethod
+
+  """
+  Grants permission to create Product
+  """
+  CreateProduct
+
+  """
+  Grants permission to create Promotion
+  """
+  CreatePromotion
+
+  """
+  Grants permission to create PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
+  """
+  CreateSettings
+
+  """
+  Grants permission to create ShippingMethod
+  """
+  CreateShippingMethod
+
+  """
+  Grants permission to create System
+  """
+  CreateSystem
+
+  """
+  Grants permission to create Tag
+  """
+  CreateTag
+
+  """
+  Grants permission to create TaxCategory
+  """
+  CreateTaxCategory
+
+  """
+  Grants permission to create TaxRate
+  """
+  CreateTaxRate
+
+  """
+  Grants permission to create Zone
+  """
+  CreateZone
+
+  """
+  Grants permission to delete Administrator
+  """
+  DeleteAdministrator
+
+  """
+  Grants permission to delete Asset
+  """
+  DeleteAsset
+
+  """
+  Grants permission to delete Products, Facets, Assets, Collections
+  """
+  DeleteCatalog
+
+  """
+  Grants permission to delete Channel
+  """
+  DeleteChannel
+
+  """
+  Grants permission to delete Collection
+  """
+  DeleteCollection
+
+  """
+  Grants permission to delete Country
+  """
+  DeleteCountry
+
+  """
+  Grants permission to delete Customer
+  """
+  DeleteCustomer
+
+  """
+  Grants permission to delete CustomerGroup
+  """
+  DeleteCustomerGroup
+
+  """
+  Grants permission to delete Facet
+  """
+  DeleteFacet
+
+  """
+  Grants permission to delete Order
+  """
+  DeleteOrder
+
+  """
+  Grants permission to delete PaymentMethod
+  """
+  DeletePaymentMethod
+
+  """
+  Grants permission to delete Product
+  """
+  DeleteProduct
+
+  """
+  Grants permission to delete Promotion
+  """
+  DeletePromotion
+
+  """
+  Grants permission to delete PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
+  """
+  DeleteSettings
+
+  """
+  Grants permission to delete ShippingMethod
+  """
+  DeleteShippingMethod
+
+  """
+  Grants permission to delete System
+  """
+  DeleteSystem
+
+  """
+  Grants permission to delete Tag
+  """
+  DeleteTag
+
+  """
+  Grants permission to delete TaxCategory
+  """
+  DeleteTaxCategory
+
+  """
+  Grants permission to delete TaxRate
+  """
+  DeleteTaxRate
+
+  """
+  Grants permission to delete Zone
+  """
+  DeleteZone
+
+  """
+  Owner means the user owns this entity, e.g. a Customer's own Order
+  """
+  Owner
+
+  """
+  Public means any unauthenticated user may perform the operation
+  """
+  Public
+
+  """
+  Grants permission to read Administrator
+  """
+  ReadAdministrator
+
+  """
+  Grants permission to read Asset
+  """
+  ReadAsset
+
+  """
+  Grants permission to read Products, Facets, Assets, Collections
+  """
+  ReadCatalog
+
+  """
+  Grants permission to read Channel
+  """
+  ReadChannel
+
+  """
+  Grants permission to read Collection
+  """
+  ReadCollection
+
+  """
+  Grants permission to read Country
+  """
+  ReadCountry
+
+  """
+  Grants permission to read Customer
+  """
+  ReadCustomer
+
+  """
+  Grants permission to read CustomerGroup
+  """
+  ReadCustomerGroup
+
+  """
+  Grants permission to read Facet
+  """
+  ReadFacet
+
+  """
+  Grants permission to read Order
+  """
+  ReadOrder
+
+  """
+  Grants permission to read PaymentMethod
+  """
+  ReadPaymentMethod
+
+  """
+  Grants permission to read Product
+  """
+  ReadProduct
+
+  """
+  Grants permission to read Promotion
+  """
+  ReadPromotion
+
+  """
+  Grants permission to read PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
+  """
+  ReadSettings
+
+  """
+  Grants permission to read ShippingMethod
+  """
+  ReadShippingMethod
+
+  """
+  Grants permission to read System
+  """
+  ReadSystem
+
+  """
+  Grants permission to read Tag
+  """
+  ReadTag
+
+  """
+  Grants permission to read TaxCategory
+  """
+  ReadTaxCategory
+
+  """
+  Grants permission to read TaxRate
+  """
+  ReadTaxRate
+
+  """
+  Grants permission to read Zone
+  """
+  ReadZone
+
+  """
+  SuperAdmin has unrestricted access to all operations
+  """
+  SuperAdmin
+
+  """
+  Grants permission to update Administrator
+  """
+  UpdateAdministrator
+
+  """
+  Grants permission to update Asset
+  """
+  UpdateAsset
+
+  """
+  Grants permission to update Products, Facets, Assets, Collections
+  """
+  UpdateCatalog
+
+  """
+  Grants permission to update Channel
+  """
+  UpdateChannel
+
+  """
+  Grants permission to update Collection
+  """
+  UpdateCollection
+
+  """
+  Grants permission to update Country
+  """
+  UpdateCountry
+
+  """
+  Grants permission to update Customer
+  """
+  UpdateCustomer
+
+  """
+  Grants permission to update CustomerGroup
+  """
+  UpdateCustomerGroup
+
+  """
+  Grants permission to update Facet
+  """
+  UpdateFacet
+
+  """
+  Grants permission to update GlobalSettings
+  """
+  UpdateGlobalSettings
+
+  """
+  Grants permission to update Order
+  """
+  UpdateOrder
+
+  """
+  Grants permission to update PaymentMethod
+  """
+  UpdatePaymentMethod
+
+  """
+  Grants permission to update Product
+  """
+  UpdateProduct
+
+  """
+  Grants permission to update Promotion
+  """
+  UpdatePromotion
+
+  """
+  Grants permission to update PaymentMethods, ShippingMethods, TaxCategories, TaxRates, Zones, Countries, System & GlobalSettings
+  """
+  UpdateSettings
+
+  """
+  Grants permission to update ShippingMethod
+  """
+  UpdateShippingMethod
+
+  """
+  Grants permission to update System
+  """
+  UpdateSystem
+
+  """
+  Grants permission to update Tag
+  """
+  UpdateTag
+
+  """
+  Grants permission to update TaxCategory
+  """
+  UpdateTaxCategory
+
+  """
+  Grants permission to update TaxRate
+  """
+  UpdateTaxRate
+
+  """
+  Grants permission to update Zone
+  """
+  UpdateZone
 }
 
-union UpdateOrderItemsResult =
-    Order
-  | OrderModificationError
-  | OrderLimitError
-  | NegativeQuantityError
-  | InsufficientStockError
-
-union RemoveOrderItemsResult = Order | OrderModificationError
-
-union SetOrderShippingMethodResult =
-    Order
-  | OrderModificationError
-  | IneligibleShippingMethodError
-  | NoActiveOrderError
-
-union ApplyCouponCodeResult =
-    Order
-  | CouponCodeExpiredError
-  | CouponCodeInvalidError
-  | CouponCodeLimitError
-
-union AddPaymentToOrderResult =
-    Order
-  | OrderPaymentStateError
-  | IneligiblePaymentMethodError
-  | PaymentFailedError
-  | PaymentDeclinedError
-  | OrderStateTransitionError
-  | NoActiveOrderError
-
-union TransitionOrderToStateResult = Order | OrderStateTransitionError
-
-union SetCustomerForOrderResult =
-    Order
-  | AlreadyLoggedInError
-  | EmailAddressConflictError
-  | NoActiveOrderError
-
-union RegisterCustomerAccountResult =
-    Success
-  | MissingPasswordError
-  | NativeAuthStrategyError
-
-union RefreshCustomerVerificationResult = Success | NativeAuthStrategyError
-
-union VerifyCustomerAccountResult =
-    CurrentUser
-  | VerificationTokenInvalidError
-  | VerificationTokenExpiredError
-  | MissingPasswordError
-  | PasswordAlreadySetError
-  | NativeAuthStrategyError
-
-union UpdateCustomerPasswordResult =
-    Success
-  | InvalidCredentialsError
-  | NativeAuthStrategyError
-
-union RequestUpdateCustomerEmailAddressResult =
-    Success
-  | InvalidCredentialsError
-  | EmailAddressConflictError
-  | NativeAuthStrategyError
-
-union UpdateCustomerEmailAddressResult =
-    Success
-  | IdentifierChangeTokenInvalidError
-  | IdentifierChangeTokenExpiredError
-  | NativeAuthStrategyError
-
-union RequestPasswordResetResult = Success | NativeAuthStrategyError
-
-union ResetPasswordResult =
-    CurrentUser
-  | PasswordResetTokenInvalidError
-  | PasswordResetTokenExpiredError
-  | NativeAuthStrategyError
-
-union NativeAuthenticationResult =
-    CurrentUser
-  | InvalidCredentialsError
-  | NotVerifiedError
-  | NativeAuthStrategyError
-
-union AuthenticationResult =
-    CurrentUser
-  | InvalidCredentialsError
-  | NotVerifiedError
-
-union ActiveOrderResult = Order | NoActiveOrderError
-
-input CollectionFilterParameter {
-  createdAt: DateOperators
-  updatedAt: DateOperators
-  languageCode: StringOperators
-  name: StringOperators
-  slug: StringOperators
-  position: NumberOperators
-  description: StringOperators
+"""
+The price range where the result has more than one price
+"""
+type PriceRange {
+  max: Int!
+  min: Int!
 }
 
-input CollectionSortParameter {
-  id: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  name: SortOrder
-  slug: SortOrder
-  position: SortOrder
-  description: SortOrder
+type Product implements Node {
+  assets: [Asset!]!
+  collections: [Collection!]!
+  createdAt: DateTime!
+  customFields: JSON
+  description: String!
+  facetValues: [FacetValue!]!
+  featuredAsset: Asset
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  optionGroups: [ProductOptionGroup!]!
+  slug: String!
+  translations: [ProductTranslation!]!
+  updatedAt: DateTime!
+
+  """
+  Returns a paginated, sortable, filterable list of ProductVariants
+  """
+  variantList(options: ProductVariantListOptions): ProductVariantList!
+
+  """
+  Returns all ProductVariants
+  """
+  variants: [ProductVariant!]!
 }
 
 input ProductFilterParameter {
   createdAt: DateOperators
-  updatedAt: DateOperators
+  description: StringOperators
+  id: IDOperators
   languageCode: StringOperators
   name: StringOperators
   slug: StringOperators
-  description: StringOperators
+  updatedAt: DateOperators
+}
+
+type ProductList implements PaginatedList {
+  items: [Product!]!
+  totalItems: Int!
+}
+
+input ProductListOptions {
+  """
+  Allows the results to be filtered
+  """
+  filter: ProductFilterParameter
+
+  """
+  Specifies whether multiple "filter" arguments should be combines with a logical AND or OR operation. Defaults to AND.
+  """
+  filterOperator: LogicalOperator
+
+  """
+  Skips the first n results, for use in pagination
+  """
+  skip: Int
+
+  """
+  Specifies which properties to sort the results by
+  """
+  sort: ProductSortParameter
+
+  """
+  Takes n results, for use in pagination
+  """
+  take: Int
+}
+
+type ProductOption implements Node {
+  code: String!
+  createdAt: DateTime!
+  customFields: JSON
+  group: ProductOptionGroup!
+  groupId: ID!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  translations: [ProductOptionTranslation!]!
+  updatedAt: DateTime!
+}
+
+type ProductOptionGroup implements Node {
+  code: String!
+  createdAt: DateTime!
+  customFields: JSON
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  options: [ProductOption!]!
+  translations: [ProductOptionGroupTranslation!]!
+  updatedAt: DateTime!
+}
+
+type ProductOptionGroupTranslation {
+  createdAt: DateTime!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type ProductOptionTranslation {
+  createdAt: DateTime!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  updatedAt: DateTime!
 }
 
 input ProductSortParameter {
-  id: SortOrder
   createdAt: SortOrder
-  updatedAt: SortOrder
+  description: SortOrder
+  id: SortOrder
   name: SortOrder
   slug: SortOrder
-  description: SortOrder
+  updatedAt: SortOrder
+}
+
+type ProductTranslation {
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  slug: String!
+  updatedAt: DateTime!
+}
+
+type ProductVariant implements Node {
+  assets: [Asset!]!
+  createdAt: DateTime!
+  currencyCode: CurrencyCode!
+  customFields: JSON
+  facetValues: [FacetValue!]!
+  featuredAsset: Asset
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  options: [ProductOption!]!
+  price: Int!
+  priceWithTax: Int!
+  product: Product!
+  productId: ID!
+  sku: String!
+  stockLevel: String!
+  taxCategory: TaxCategory!
+  taxRateApplied: TaxRate!
+  translations: [ProductVariantTranslation!]!
+  updatedAt: DateTime!
 }
 
 input ProductVariantFilterParameter {
   createdAt: DateOperators
-  updatedAt: DateOperators
+  currencyCode: StringOperators
+  id: IDOperators
   languageCode: StringOperators
-  sku: StringOperators
   name: StringOperators
   price: NumberOperators
-  currencyCode: StringOperators
   priceWithTax: NumberOperators
+  productId: IDOperators
+  sku: StringOperators
   stockLevel: StringOperators
-  discountPrice: NumberOperators
+  updatedAt: DateOperators
+}
+
+type ProductVariantList implements PaginatedList {
+  items: [ProductVariant!]!
+  totalItems: Int!
+}
+
+input ProductVariantListOptions {
+  """
+  Allows the results to be filtered
+  """
+  filter: ProductVariantFilterParameter
+
+  """
+  Specifies whether multiple "filter" arguments should be combines with a logical AND or OR operation. Defaults to AND.
+  """
+  filterOperator: LogicalOperator
+
+  """
+  Skips the first n results, for use in pagination
+  """
+  skip: Int
+
+  """
+  Specifies which properties to sort the results by
+  """
+  sort: ProductVariantSortParameter
+
+  """
+  Takes n results, for use in pagination
+  """
+  take: Int
 }
 
 input ProductVariantSortParameter {
-  id: SortOrder
-  productId: SortOrder
   createdAt: SortOrder
-  updatedAt: SortOrder
-  sku: SortOrder
+  id: SortOrder
   name: SortOrder
   price: SortOrder
   priceWithTax: SortOrder
+  productId: SortOrder
+  sku: SortOrder
   stockLevel: SortOrder
-  discountPrice: SortOrder
-}
-
-input CustomerFilterParameter {
-  createdAt: DateOperators
-  updatedAt: DateOperators
-  title: StringOperators
-  firstName: StringOperators
-  lastName: StringOperators
-  phoneNumber: StringOperators
-  emailAddress: StringOperators
-}
-
-input CustomerSortParameter {
-  id: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  title: SortOrder
-  firstName: SortOrder
-  lastName: SortOrder
-  phoneNumber: SortOrder
-  emailAddress: SortOrder
-}
-
-input OrderFilterParameter {
-  createdAt: DateOperators
-  updatedAt: DateOperators
-  orderPlacedAt: DateOperators
-  code: StringOperators
-  state: StringOperators
-  active: BooleanOperators
-  totalQuantity: NumberOperators
-  subTotal: NumberOperators
-  subTotalWithTax: NumberOperators
-  currencyCode: StringOperators
-  shipping: NumberOperators
-  shippingWithTax: NumberOperators
-  total: NumberOperators
-  totalWithTax: NumberOperators
-}
-
-input OrderSortParameter {
-  id: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  orderPlacedAt: SortOrder
-  code: SortOrder
-  state: SortOrder
-  totalQuantity: SortOrder
-  subTotal: SortOrder
-  subTotalWithTax: SortOrder
-  shipping: SortOrder
-  shippingWithTax: SortOrder
-  total: SortOrder
-  totalWithTax: SortOrder
-}
-
-input HistoryEntryFilterParameter {
-  createdAt: DateOperators
-  updatedAt: DateOperators
-  type: StringOperators
-}
-
-input HistoryEntrySortParameter {
-  id: SortOrder
-  createdAt: SortOrder
   updatedAt: SortOrder
 }
 
-type ProductVariantCustomFields {
-  discountPrice: Int
+type ProductVariantTranslation {
+  createdAt: DateTime!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  updatedAt: DateTime!
 }
 
-input NativeAuthInput {
-  username: String!
-  password: String!
+type Promotion implements Node {
+  actions: [ConfigurableOperation!]!
+  conditions: [ConfigurableOperation!]!
+  couponCode: String
+  createdAt: DateTime!
+  customFields: JSON
+  enabled: Boolean!
+  endsAt: DateTime
+  id: ID!
+  name: String!
+  perCustomerUsageLimit: Int
+  startsAt: DateTime
+  updatedAt: DateTime!
+}
+
+type PromotionList implements PaginatedList {
+  items: [Promotion!]!
+  totalItems: Int!
+}
+
+type Query {
+  """
+  The active Channel
+  """
+  activeChannel: Channel!
+
+  """
+  The active Customer
+  """
+  activeCustomer: Customer
+
+  """
+  The active Order. Will be `null` until an Order is created via `addItemToOrder`. Once an Order reaches the
+  state of `PaymentAuthorized` or `PaymentSettled`, then that Order is no longer considered "active" and this
+  query will once again return `null`.
+  """
+  activeOrder: Order
+
+  """
+  An array of supported Countries
+  """
+  availableCountries: [Country!]!
+
+  """
+  Returns a Collection either by its id or slug. If neither 'id' nor 'slug' is specified, an error will result.
+  """
+  collection(id: ID, slug: String): Collection
+
+  """
+  A list of Collections available to the shop
+  """
+  collections(options: CollectionListOptions): CollectionList!
+
+  """
+  Returns a list of payment methods and their eligibility based on the current active Order
+  """
+  eligiblePaymentMethods: [PaymentMethodQuote!]!
+
+  """
+  Returns a list of eligible shipping methods based on the current active Order
+  """
+  eligibleShippingMethods: [ShippingMethodQuote!]!
+
+  """
+  Returns a Facet by its id
+  """
+  facet(id: ID!): Facet
+
+  """
+  A list of Facets available to the shop
+  """
+  facets(options: FacetListOptions): FacetList!
+
+  """
+  Returns information about the current authenticated User
+  """
+  me: CurrentUser
+
+  """
+  Returns the possible next states that the activeOrder can transition to
+  """
+  nextOrderStates: [String!]!
+
+  """
+  Returns an Order based on the id. Note that in the Shop API, only orders belonging to the
+  currently-authenticated User may be queried.
+  """
+  order(id: ID!): Order
+
+  """
+  Returns an Order based on the order `code`. For guest Orders (i.e. Orders placed by non-authenticated Customers)
+  this query will only return the Order within 2 hours of the Order being placed. This allows an Order confirmation
+  screen to be shown immediately after completion of a guest checkout, yet prevents security risks of allowing
+  general anonymous access to Order data.
+  """
+  orderByCode(code: String!): Order
+
+  """
+  Get a Product either by id or slug. If neither 'id' nor 'slug' is specified, an error will result.
+  """
+  product(id: ID, slug: String): Product
+
+  """
+  Get a list of Products
+  """
+  products(options: ProductListOptions): ProductList!
+
+  """
+  Search Products based on the criteria set by the `SearchInput`
+  """
+  search(input: SearchInput!): SearchResponse!
+}
+
+union RefreshCustomerVerificationResult = NativeAuthStrategyError | Success
+
+type Refund implements Node {
+  adjustment: Int!
+  createdAt: DateTime!
+  id: ID!
+  items: Int!
+  metadata: JSON
+  method: String
+  orderItems: [OrderItem!]!
+  paymentId: ID!
+  reason: String
+  shipping: Int!
+  state: String!
+  total: Int!
+  transactionId: String
+  updatedAt: DateTime!
+}
+
+union RegisterCustomerAccountResult =
+    MissingPasswordError
+  | NativeAuthStrategyError
+  | PasswordValidationError
+  | Success
+
+input RegisterCustomerInput {
+  emailAddress: String!
+  firstName: String
+  lastName: String
+  password: String
+  phoneNumber: String
+  title: String
+}
+
+type RelationCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  entity: String!
+  internal: Boolean
+  label: [LocalizedString!]
+  list: Boolean!
+  name: String!
+  nullable: Boolean
+  readonly: Boolean
+  scalarFields: [String!]!
+  type: String!
+  ui: JSON
+}
+
+union RemoveOrderItemsResult = Order | OrderModificationError
+
+union RequestPasswordResetResult = NativeAuthStrategyError | Success
+
+union RequestUpdateCustomerEmailAddressResult =
+    EmailAddressConflictError
+  | InvalidCredentialsError
+  | NativeAuthStrategyError
+  | Success
+
+union ResetPasswordResult =
+    CurrentUser
+  | NativeAuthStrategyError
+  | NotVerifiedError
+  | PasswordResetTokenExpiredError
+  | PasswordResetTokenInvalidError
+  | PasswordValidationError
+
+type Role implements Node {
+  channels: [Channel!]!
+  code: String!
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  permissions: [Permission!]!
+  updatedAt: DateTime!
+}
+
+type RoleList implements PaginatedList {
+  items: [Role!]!
+  totalItems: Int!
+}
+
+input SearchInput {
+  collectionId: ID
+  collectionSlug: String
+  facetValueFilters: [FacetValueFilterInput!]
+  facetValueIds: [ID!]
+  facetValueOperator: LogicalOperator
+  groupByProduct: Boolean
+  inStock: Boolean
+  skip: Int
+  sort: SearchResultSortParameter
+  take: Int
+  term: String
+}
+
+type SearchReindexResponse {
+  success: Boolean!
+}
+
+type SearchResponse {
+  collections: [CollectionResult!]!
+  facetValues: [FacetValueResult!]!
+  items: [SearchResult!]!
+  totalItems: Int!
+}
+
+type SearchResult {
+  """
+  An array of ids of the Collections in which this result appears
+  """
+  collectionIds: [ID!]!
+  currencyCode: CurrencyCode!
+  description: String!
+  facetIds: [ID!]!
+  facetValueIds: [ID!]!
+  inStock: Boolean!
+  price: SearchResultPrice!
+  priceWithTax: SearchResultPrice!
+  productAsset: SearchResultAsset
+  productId: ID!
+  productName: String!
+  productVariantAsset: SearchResultAsset
+  productVariantId: ID!
+  productVariantName: String!
+
+  """
+  A relevance score for the result. Differs between database implementations
+  """
+  score: Float!
+  sku: String!
+  slug: String!
+}
+
+type SearchResultAsset {
+  focalPoint: Coordinate
+  id: ID!
+  preview: String!
+}
+
+"""
+The price of a search result product, either as a range or as a single price
+"""
+union SearchResultPrice = PriceRange | SinglePrice
+
+input SearchResultSortParameter {
+  name: SortOrder
+  price: SortOrder
+}
+
+union SetCustomerForOrderResult =
+    AlreadyLoggedInError
+  | EmailAddressConflictError
+  | NoActiveOrderError
+  | Order
+
+union SetOrderShippingMethodResult =
+    IneligibleShippingMethodError
+  | NoActiveOrderError
+  | Order
+  | OrderModificationError
+
+type ShippingLine {
+  discountedPrice: Int!
+  discountedPriceWithTax: Int!
+  discounts: [Discount!]!
+  price: Int!
+  priceWithTax: Int!
+  shippingMethod: ShippingMethod!
+}
+
+type ShippingMethod implements Node {
+  calculator: ConfigurableOperation!
+  checker: ConfigurableOperation!
+  code: String!
+  createdAt: DateTime!
+  customFields: JSON
+  description: String!
+  fulfillmentHandlerCode: String!
+  id: ID!
+  name: String!
+  translations: [ShippingMethodTranslation!]!
+  updatedAt: DateTime!
+}
+
+type ShippingMethodList implements PaginatedList {
+  items: [ShippingMethod!]!
+  totalItems: Int!
+}
+
+type ShippingMethodQuote {
+  code: String!
+  customFields: JSON
+  description: String!
+  id: ID!
+
+  """
+  Any optional metadata returned by the ShippingCalculator in the ShippingCalculationResult
+  """
+  metadata: JSON
+  name: String!
+  price: Int!
+  priceWithTax: Int!
+}
+
+type ShippingMethodTranslation {
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  languageCode: LanguageCode!
+  name: String!
+  updatedAt: DateTime!
+}
+
+"""
+The price value where the result has a single price
+"""
+type SinglePrice {
+  value: Int!
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+type StringCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  internal: Boolean
+  label: [LocalizedString!]
+  length: Int
+  list: Boolean!
+  name: String!
+  nullable: Boolean
+  options: [StringFieldOption!]
+  pattern: String
+  readonly: Boolean
+  type: String!
+  ui: JSON
+}
+
+type StringFieldOption {
+  label: [LocalizedString!]
+  value: String!
+}
+
+"""
+Operators for filtering on a list of String fields
+"""
+input StringListOperators {
+  inList: String!
+}
+
+"""
+Operators for filtering on a String field
+"""
+input StringOperators {
+  contains: String
+  eq: String
+  in: [String!]
+  notContains: String
+  notEq: String
+  notIn: [String!]
+  regex: String
+}
+
+"""
+Indicates that an operation succeeded, where we do not want to return any more specific information.
+"""
+type Success {
+  success: Boolean!
+}
+
+type Surcharge implements Node {
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  price: Int!
+  priceWithTax: Int!
+  sku: String
+  taxLines: [TaxLine!]!
+  taxRate: Float!
+  updatedAt: DateTime!
+}
+
+type Tag implements Node {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+  value: String!
+}
+
+type TagList implements PaginatedList {
+  items: [Tag!]!
+  totalItems: Int!
+}
+
+type TaxCategory implements Node {
+  createdAt: DateTime!
+  customFields: JSON
+  id: ID!
+  isDefault: Boolean!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type TaxLine {
+  description: String!
+  taxRate: Float!
+}
+
+type TaxRate implements Node {
+  category: TaxCategory!
+  createdAt: DateTime!
+  customFields: JSON
+  customerGroup: CustomerGroup
+  enabled: Boolean!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  value: Float!
+  zone: Zone!
+}
+
+type TaxRateList implements PaginatedList {
+  items: [TaxRate!]!
+  totalItems: Int!
+}
+
+type TextCustomFieldConfig implements CustomField {
+  description: [LocalizedString!]
+  internal: Boolean
+  label: [LocalizedString!]
+  list: Boolean!
+  name: String!
+  nullable: Boolean
+  readonly: Boolean
+  type: String!
+  ui: JSON
+}
+
+union TransitionOrderToStateResult = Order | OrderStateTransitionError
+
+input UpdateAddressInput {
+  city: String
+  company: String
+  countryCode: String
+  customFields: JSON
+  defaultBillingAddress: Boolean
+  defaultShippingAddress: Boolean
+  fullName: String
+  id: ID!
+  phoneNumber: String
+  postalCode: String
+  province: String
+  streetLine1: String
+  streetLine2: String
+}
+
+union UpdateCustomerEmailAddressResult =
+    IdentifierChangeTokenExpiredError
+  | IdentifierChangeTokenInvalidError
+  | NativeAuthStrategyError
+  | Success
+
+input UpdateCustomerInput {
+  customFields: JSON
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  title: String
+}
+
+union UpdateCustomerPasswordResult =
+    InvalidCredentialsError
+  | NativeAuthStrategyError
+  | PasswordValidationError
+  | Success
+
+input UpdateOrderInput {
+  customFields: JSON
+}
+
+union UpdateOrderItemsResult =
+    InsufficientStockError
+  | NegativeQuantityError
+  | Order
+  | OrderLimitError
+  | OrderModificationError
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+type User implements Node {
+  authenticationMethods: [AuthenticationMethod!]!
+  createdAt: DateTime!
+  customFields: JSON
+  id: ID!
+  identifier: String!
+  lastLogin: DateTime
+  roles: [Role!]!
+  updatedAt: DateTime!
+  verified: Boolean!
+}
+
+"""
+Returned if the verification token (used to verify a Customer's email address) is valid, but has
+expired according to the `verificationTokenDuration` setting in the AuthOptions.
+"""
+type VerificationTokenExpiredError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+"""
+Returned if the verification token (used to verify a Customer's email address) is either
+invalid or does not match any expected tokens.
+"""
+type VerificationTokenInvalidError implements ErrorResult {
+  errorCode: ErrorCode!
+  message: String!
+}
+
+union VerifyCustomerAccountResult =
+    CurrentUser
+  | MissingPasswordError
+  | NativeAuthStrategyError
+  | PasswordAlreadySetError
+  | PasswordValidationError
+  | VerificationTokenExpiredError
+  | VerificationTokenInvalidError
+
+type Zone implements Node {
+  createdAt: DateTime!
+  customFields: JSON
+  id: ID!
+  members: [Country!]!
+  name: String!
+  updatedAt: DateTime!
 }
