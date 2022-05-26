@@ -15,7 +15,6 @@ export const handler: SWRHook<GetAddressesHook> = {
   },
   useHook: ({ useData }) =>
     function useHook(input) {
-      console.log(input, 'hello')
       const response = useData({
         swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
       })

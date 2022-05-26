@@ -3,6 +3,7 @@ import { cartFragment } from '../fragments/cart-fragment'
 export const addPaymentToOrder = /* GraphQL */ `
   mutation addPaymentToOrder($input: PaymentInput!) {
     addPaymentToOrder(input: $input) {
+      __typename
       ...Cart
       ... on OrderPaymentStateError {
         errorCode

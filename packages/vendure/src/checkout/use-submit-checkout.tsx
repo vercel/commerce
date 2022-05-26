@@ -6,9 +6,9 @@ import { CommerceError } from '@vercel/commerce/utils/errors'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
 import {
+  AddPaymentToOrderMutation,
   EligiblePaymentMethodsQuery,
-  TransitionOrderToStateResult,
-  AddPaymentToOrderResult,
+  TransitionOrderToStateMutation,
 } from '../../schema'
 import { addPaymentToOrder } from '../utils/mutations/add-payment-to-order'
 import { transitionOrderToState } from '../utils/mutations/transition-order-to-state'
@@ -21,17 +21,20 @@ export const handler: MutationHook<SubmitCheckoutHook> = {
     query: addPaymentToOrder,
   },
   async fetcher({ input: item, options, fetch }) {
-    const transitionResponse = await fetch<TransitionOrderToStateResult>({
+    const transitionResponse = await fetch<TransitionOrderToStateMutation>({
       ...options,
       query: transitionOrderToState,
       variables: {
         state: 'ArrangingPayment',
       },
     })
-    if (transitionResponse.__typename === 'OrderStateTransitionError') {
+    if (
+      transitionResponse.transitionOrderToState?.__typename ===
+      'OrderStateTransitionError'
+    ) {
       throw new CommerceError({
-        code: transitionResponse.errorCode,
-        message: transitionResponse.message,
+        code: transitionResponse.transitionOrderToState.errorCode,
+        message: transitionResponse.transitionOrderToState.message,
       })
     } else {
       const paymentMethodsResponse = await fetch<EligiblePaymentMethodsQuery>({
@@ -47,7 +50,7 @@ export const handler: MutationHook<SubmitCheckoutHook> = {
           message: 'No Eligible payment methods',
         })
       }
-      const paymentResponse = await fetch<AddPaymentToOrderResult>({
+      const paymentResponse = await fetch<AddPaymentToOrderMutation>({
         ...options,
         variables: {
           input: {
@@ -58,20 +61,22 @@ export const handler: MutationHook<SubmitCheckoutHook> = {
           },
         },
       })
-      if (paymentResponse.__typename === 'Order') {
+      const addPaymentToOrderResultType =
+        paymentResponse.addPaymentToOrder.__typename
+      if (addPaymentToOrderResultType === 'Order') {
         return {
           hasPayment: true,
           hasShipping: true,
         }
       } else if (
-        paymentResponse.__typename === 'IneligiblePaymentMethodError' ||
-        paymentResponse.__typename === 'NoActiveOrderError' ||
-        paymentResponse.__typename === 'OrderPaymentStateError' ||
-        paymentResponse.__typename === 'OrderStateTransitionError' ||
-        paymentResponse.__typename === 'PaymentDeclinedError' ||
-        paymentResponse.__typename === 'PaymentFailedError'
+        addPaymentToOrderResultType === 'IneligiblePaymentMethodError' ||
+        addPaymentToOrderResultType === 'NoActiveOrderError' ||
+        addPaymentToOrderResultType === 'OrderPaymentStateError' ||
+        addPaymentToOrderResultType === 'OrderStateTransitionError' ||
+        addPaymentToOrderResultType === 'PaymentDeclinedError' ||
+        addPaymentToOrderResultType === 'PaymentFailedError'
       ) {
-        throw new CommerceError(paymentResponse)
+        throw new CommerceError(paymentResponse.addPaymentToOrder)
       } else {
         throw new CommerceError({
           message: 'Something went wrong with Payment request',

@@ -4,6 +4,7 @@ export const cartFragment = /* GraphQL */ `
   fragment Cart on Order {
     id
     code
+    state
     createdAt
     totalQuantity
     subTotal

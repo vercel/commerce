@@ -8,13 +8,16 @@ import { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
 import { setOrderBillingAddress } from '../../utils/mutations/set-order-billing-address'
 import {
-  ActiveOrderResult,
   EligibleShippingMethodsQuery,
   MutationSetOrderBillingAddressArgs,
+  SetCustomerForOrderMutation,
+  SetCustomerForOrderMutationVariables,
+  SetOrderBillingAddressMutation,
   SetOrderShippingMethodResult,
 } from '../../../schema'
 import { eligibleShippingMethods } from '../../utils/queries/eligible-shipping-methods'
 import { setOrderShippingMethod } from '../../utils/mutations/set-order-shipping-method'
+import { setCustomerForOrder } from '../../utils/mutations/set-customer-for-order'
 
 export default useAddItem as UseAddItem<typeof handler>
 
@@ -36,10 +39,30 @@ export const handler: MutationHook<AddItemHook> = {
         countryCode: 'JP',
       },
     }
-    const data = await fetch<ActiveOrderResult>({
+    const data = await fetch<SetOrderBillingAddressMutation>({
       ...options,
       variables,
     })
+    if (
+      data.setOrderBillingAddress.__typename === 'Order' &&
+      !data.setOrderBillingAddress.customer
+    ) {
+      // A Customer must be assigned to the Order before we will be able to
+      // transition to the ArrangingPayment state.
+      await fetch<SetCustomerForOrderMutation>({
+        ...options,
+        query: setCustomerForOrder,
+        variables: {
+          input: {
+            firstName: item.firstName,
+            lastName: item.lastName,
+            // TODO: we need an input for email address
+            // ref: https://github.com/vercel/commerce/issues/616
+            emailAddress: 'guest-customer@test.com',
+          },
+        } as SetCustomerForOrderMutationVariables,
+      })
+    }
     const eligibleMethods = await fetch<EligibleShippingMethodsQuery>({
       ...options,
       query: eligibleShippingMethods,
@@ -56,17 +79,19 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
-    if (data.__typename === 'Order') {
+    if (data.setOrderBillingAddress.__typename === 'Order') {
       // TODO: Not sure what card we should return
       return {
         id: '',
         mask: '',
         provider: '',
       }
-    } else if (data.__typename === 'NoActiveOrderError') {
+    } else if (
+      data.setOrderBillingAddress.__typename === 'NoActiveOrderError'
+    ) {
       throw new CommerceError({
-        code: data.errorCode,
-        message: data.message,
+        code: data.setOrderBillingAddress.errorCode,
+        message: data.setOrderBillingAddress.message,
       })
     }
   },
