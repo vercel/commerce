@@ -118,6 +118,10 @@ export type AppibaseCart = {
   cart_items: AppibaseCartItems
 }
 
+export type AppibaseItemProduct = {
+  data: AppibaseProduct
+}
+
 export type AppibaseCartItem = {
   id: string
   name: string
@@ -130,4 +134,5 @@ export type AppibaseCartItem = {
   price: Amount
   original_price: Amount
   subtotal_amount: Amount
+  item: AppibaseItemProduct
 }
