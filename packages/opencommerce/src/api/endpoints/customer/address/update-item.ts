@@ -15,14 +15,14 @@ const updateItem: CustomerAddressEndpoint['handlers']['updateItem'] = async ({
     })
   }
 
-  if (item.shippingMethod) {
+  if (item.shippingMethodId) {
     await fetch(selectFulfillmentOptions, {
       variables: {
         input: {
           cartId,
           cartToken: cookies[anonymousCartTokenCookie],
-          fulfillmentGroupId: item.shippingMethod.fulfillmentGroupId,
-          fulfillmentMethodId: item.shippingMethod.id,
+          fulfillmentGroupId: item.fulfillmentGroupId,
+          fulfillmentMethodId: item.shippingMethodId,
         },
       },
     })

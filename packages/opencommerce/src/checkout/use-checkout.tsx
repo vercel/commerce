@@ -9,6 +9,7 @@ import useSubmitCheckout from './use-submit-checkout'
 import { useCheckoutContext } from '@components/checkout/context'
 import { AddressFields } from '../types/customer/address'
 import { useCart } from '../cart'
+import { FulfillmentGroup } from '../types/cart'
 
 export default useCheckout as UseCheckout<typeof handler>
 
@@ -30,11 +31,18 @@ export const handler: SWRHook<GetCheckoutHook> = {
 
       const { addressFields } = useCheckoutContext()
 
-      const { shippingMethod, ...restAddressFields } =
+      const { shippingMethodId, ...restAddressFields } =
         addressFields as AddressFields
 
       const hasEnteredAddress = Object.values(restAddressFields).some(
         (fieldValue) => !!fieldValue
+      )
+
+      const totalAmount =
+        cart?.checkout?.summary.fulfillmentTotal?.displayAmount
+
+      const shippingGroup = cart?.checkout?.fulfillmentGroups.find(
+        (group: FulfillmentGroup) => group?.type === 'shipping'
       )
 
       const response = useMemo(
@@ -44,10 +52,18 @@ export const handler: SWRHook<GetCheckoutHook> = {
             hasPayment: true,
             hasShipping: hasEnteredAddress,
             hasShippingMethods,
-            hasSelectedShippingMethod: !!shippingMethod?.id,
+            hasSelectedShippingMethod: !!shippingMethodId,
+            totalAmount,
+            shippingGroup,
           },
         }),
-        [hasEnteredAddress, hasShippingMethods, shippingMethod]
+        [
+          hasEnteredAddress,
+          hasShippingMethods,
+          shippingMethodId,
+          totalAmount,
+          shippingGroup,
+        ]
       )
 
       return useMemo(

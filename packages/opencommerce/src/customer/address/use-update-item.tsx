@@ -6,6 +6,7 @@ import useUpdateItem, {
 } from '@vercel/commerce/customer/address/use-update-item'
 import { useCheckoutContext } from '@components/checkout/context'
 import { CustomerAddressTypes } from '../../types/customer/address'
+import { useCart } from '../../cart'
 
 export default useUpdateItem as UseUpdateItem<typeof handler>
 
@@ -24,14 +25,21 @@ export const handler: MutationHook<UpdateItemHook<CustomerAddressTypes>> = {
   },
   useHook: ({ fetch }) =>
     function useHook() {
+      const { data: cart } = useCart()
+
       const { setAddressFields, addressFields } = useCheckoutContext()
       return useCallback(
         async function updateItem(input) {
           const { id, ...rest } = input
-          await fetch({ input: { item: rest, itemId: id } })
+          const fulfillmentGroupId =
+            cart?.checkout?.fulfillmentGroups[0]._id || 'groupId'
+          await fetch({
+            input: { item: { ...rest, fulfillmentGroupId }, itemId: id },
+          })
           setAddressFields({
             ...addressFields,
-            shippingMethod: rest.shippingMethod,
+            shippingMethodId: rest.shippingMethodId,
+            fulfillmentGroupId,
           })
           return undefined
         },

@@ -113,9 +113,7 @@ const CheckoutSidebarView: FC = () => {
           {checkoutData?.hasSelectedShippingMethod ? (
             <li className="flex justify-between py-1">
               <span>Shipping</span>
-              <span>
-                {cartData?.checkout?.summary.fulfillmentTotal?.displayAmount}
-              </span>
+              <span>{checkoutData?.totalAmount}</span>
             </li>
           ) : (
             <li className="flex justify-between py-1">
