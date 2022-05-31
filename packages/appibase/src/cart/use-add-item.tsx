@@ -14,7 +14,6 @@ export const handler: MutationHook<any> = {
     const fromCookies = Cookies.get('cart_id');
 
     const { data } = await fetch({ query : `/carts/${fromCookies}?include=cart_items` })
-    // const foundItem = data.cart_items.data.find((i: AppibaseCartItem) => String(i.product_id) === String(item.variantId));
     const foundItem = data.cart_items.data.find((i: AppibaseCartItem) => String(i.item.data.id) === String(item.variantId));
 
     if(foundItem) {
