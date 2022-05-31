@@ -334,12 +334,21 @@ function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
   }
 }
 
+const normalizeUrl = (url: string) => {
+  const splittedUrls = url.split('/')
+  return '/search/'.concat(splittedUrls.slice(2).join('/'))
+}
+
 export const normalizeNavigation = (
   navigationTreeItems: NavigationTreeItem[]
 ): Navigation[] => {
   return navigationTreeItems.map(({ items, navigationItem: { data } }) => {
+    const url = data?.url || '/'
+    const normalizedUrl =
+      data?.isUrlRelative && url.startsWith('/tag') ? normalizeUrl(url) : url
+
     return {
-      url: data?.url ?? '/',
+      url: normalizedUrl,
       label: data?.contentForLanguage ?? 'N/A',
       isUrlRelative: !!data?.isUrlRelative,
       shouldOpenInNewWindow: !!data?.shouldOpenInNewWindow,
