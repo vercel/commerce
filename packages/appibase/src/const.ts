@@ -1,4 +1,4 @@
-export const API_URL = `https://appibase.com`
+export const API_URL = `${process.env.NEXT_PUBLIC_APPIBASE_API_URL}`
 
 export const SCOPE = `storefront client`
 
