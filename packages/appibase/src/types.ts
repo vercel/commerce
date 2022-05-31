@@ -127,7 +127,6 @@ export type AppibaseCartItem = {
   name: string
   description: string
   sku: string
-  product_id: string
   image_url: string
   quantity: string
   currency: string
