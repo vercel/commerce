@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build --scope=next-commerce --include-dependencies --no-deps",
+    "build": "turbo run build --filter=next-commerce...",
     "dev": "turbo run dev",
     "start": "turbo run start",
     "types": "turbo run types",
@@ -16,7 +16,7 @@
   "devDependencies": {
     "husky": "^7.0.4",
     "prettier": "^2.5.1",
-    "turbo": "^1.1.2"
+    "turbo": "^1.2.16"
   },
   "husky": {
     "hooks": {
