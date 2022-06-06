@@ -120,7 +120,7 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
 
-People actively working on this project: @okbel, @lfades, @dominiksipowicz, @gbibeaul.
+People actively working on this project: @okbel, @lfades, @dominiksipowicz, @GuiBibeau.
 
 ## Troubleshoot
 
