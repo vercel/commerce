@@ -8,6 +8,7 @@ import {
 } from 'react'
 
 import type {
+  Brand,
   Customer,
   Wishlist,
   Cart,
@@ -24,6 +25,7 @@ const Commerce = createContext<CommerceContextValue<any> | {}>({})
 
 export type Provider = CommerceConfig & {
   fetcher: Fetcher
+  brand: Brand.Config
   cart?: {
     useCart?: SWRHook<Cart.GetCartHook>
     useAddItem?: MutationHook<Cart.AddItemHook>

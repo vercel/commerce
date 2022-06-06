@@ -1,3 +1,4 @@
+import * as Brand from './brand'
 import * as Cart from './cart'
 import * as Checkout from './checkout'
 import * as Common from './common'
@@ -11,6 +12,7 @@ import * as Site from './site'
 import * as Wishlist from './wishlist'
 
 export type {
+  Brand,
   Cart,
   Checkout,
   Common,
