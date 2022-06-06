@@ -1,3 +1,5 @@
+import { brand } from './brand'
+
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
 import { handler as useUpdateItem } from './cart/use-update-item'
@@ -18,6 +20,7 @@ import fetcher from './fetcher'
 
 export const bigcommerceProvider = {
   locale: 'en-us',
+  brand,
   cartCookie: 'bc_cartId',
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
