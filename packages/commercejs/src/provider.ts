@@ -1,3 +1,5 @@
+import { brand } from './brand'
+
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
 import { handler as useUpdateItem } from './cart/use-update-item'
@@ -24,6 +26,7 @@ import { default as sdkFetcher } from './fetcher'
 
 export const commercejsProvider = {
   locale: LOCALE,
+  brand,
   cartCookie: CART_COOKIE,
   customerCookie: CUSTOMER_COOKIE,
   fetcher: sdkFetcher,
