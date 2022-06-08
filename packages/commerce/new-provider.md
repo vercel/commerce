@@ -34,6 +34,9 @@ Adding a commerce provider means adding a new folder in `packages` with a folder
     - useLogin
     - useLogout
     - useSignup
+  - `brand` (optional)
+    - index.ts
+    - logo.tsx
   - `customer`
     - useCustomer
     - getCustomerId
@@ -69,7 +72,10 @@ Then, open [/site/.env.template](/site/.env.template) and add the provider name 
 Using BigCommerce as an example. The first thing to do is export a `CommerceProvider` component that includes a `provider` object with all the handlers that can be used for hooks:
 
 ```tsx
-import { getCommerceProvider, useCommerce as useCoreCommerce } from '@vercel/commerce'
+import {
+  getCommerceProvider,
+  useCommerce as useCoreCommerce,
+} from '@vercel/commerce'
 import { bigcommerceProvider, BigcommerceProvider } from './provider'
 
 export { bigcommerceProvider }
@@ -85,6 +91,9 @@ The exported types and components extend from the core ones exported by `@vercel
 The `bigcommerceProvider` object looks like this:
 
 ```tsx
+// optional brand theme. Uncomment the line below to use it.
+// import { brand } from './brand'
+
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
 import { handler as useUpdateItem } from './cart/use-update-item'
@@ -105,6 +114,8 @@ import fetcher from './fetcher'
 
 export const bigcommerceProvider = {
   locale: 'en-us',
+  // optional brand theme. Uncomment the line below to use it.
+  // brand,
   cartCookie: 'bc_cartId',
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
@@ -212,26 +223,44 @@ export const handler: MutationHook<AddItemHook> = {
 }
 ```
 
+## Brand theming (optional)
+
+In order to customize the app's look and feel, you can create a brand object and add it to your provider object. The brand object has to have the following properties:
+
+- Logo: a SVG logo component
+
+The brand object looks like this:
+
+```tsx
+import type { Brand } from '@vercel/commerce/types'
+import { Logo } from './logo'
+
+export const brand: Brand.Config = {
+  Logo,
+}
+```
+
 ## Showing progress and features
+
 When creating a PR for a new provider, include this list in the PR description and mark the progress as you push so we can organize the code review. Not all points are required (but advised) so make sure to keep the list up to date.
 
 **Status**
 
-* [ ]  CommerceProvider
-* [ ]  Schema & TS types
-* [ ]  API Operations - Get all collections
-* [ ]  API Operations - Get all pages
-* [ ]  API Operations - Get all products
-* [ ]  API Operations - Get page
-* [ ]  API Operations - Get product
-* [ ]  API Operations - Get Shop Info (categories and vendors working — `vendors` query still a WIP PR on Reaction)
-* [ ]  Hook - Add Item
-* [ ]  Hook - Remove Item
-* [ ]  Hook - Update Item
-* [ ]  Hook - Get Cart (account-tied carts working, anonymous carts working, cart reconciliation working)
-* [ ]  Auth (based on a WIP PR on Reaction - still need to implement refresh tokens)
-* [ ]  Customer information
-* [ ]  Product attributes - Size, Colors
-* [ ]  Custom checkout
-* [ ]  Typing (in progress)
-* [ ]  Tests
+- [ ] CommerceProvider
+- [ ] Schema & TS types
+- [ ] API Operations - Get all collections
+- [ ] API Operations - Get all pages
+- [ ] API Operations - Get all products
+- [ ] API Operations - Get page
+- [ ] API Operations - Get product
+- [ ] API Operations - Get Shop Info (categories and vendors working — `vendors` query still a WIP PR on Reaction)
+- [ ] Hook - Add Item
+- [ ] Hook - Remove Item
+- [ ] Hook - Update Item
+- [ ] Hook - Get Cart (account-tied carts working, anonymous carts working, cart reconciliation working)
+- [ ] Auth (based on a WIP PR on Reaction - still need to implement refresh tokens)
+- [ ] Customer information
+- [ ] Product attributes - Size, Colors
+- [ ] Custom checkout
+- [ ] Typing (in progress)
+- [ ] Tests
