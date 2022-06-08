@@ -1,4 +1,4 @@
-const Logo = ({ className = '', ...props }) => (
+const AcmeLogo = ({ className = '', ...props }) => (
   <svg
     width="32"
     height="32"
@@ -18,4 +18,4 @@ const Logo = ({ className = '', ...props }) => (
   </svg>
 )
 
-export default Logo
+export default AcmeLogo

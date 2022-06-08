@@ -2,9 +2,9 @@ import { FC } from 'react'
 import Link from 'next/link'
 import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
-import { Logo, Container } from '@components/ui'
+import { AcmeLogo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
-import { brand } from '@framework/brand'
+import { useCommerce } from '@framework'
 
 interface Link {
   href: string
@@ -14,7 +14,11 @@ interface Link {
 interface NavbarProps {
   links?: Link[]
 }
+
 const Navbar: FC<NavbarProps> = ({ links }) => {
+  // @ts-ignore
+  const { brand = {} } = useCommerce()
+  const { Logo = AcmeLogo } = brand
   return (
     <NavbarRoot>
       <Container clean className="mx-auto max-w-8xl px-6">
@@ -22,7 +26,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
           <div className="flex items-center flex-1">
             <Link href="/">
               <a className={s.logo} aria-label="Logo">
-                {brand.Logo ? <brand.Logo /> : <Logo />}
+                <Logo />
               </a>
             </Link>
             <nav className={s.navMenu}>
