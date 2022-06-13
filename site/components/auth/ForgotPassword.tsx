@@ -1,15 +1,11 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { validate } from 'email-validator'
 import { useUI } from '@components/ui/context'
-import { AcmeLogo, Button, Input } from '@components/ui'
-import { useCommerce } from '@framework'
+import { Logo, Button, Input } from '@components/ui'
 
 interface Props {}
 
 const ForgotPassword: FC<Props> = () => {
-  // @ts-ignore
-  const { brand = {} } = useCommerce()
-  const { Logo = AcmeLogo } = brand
   // Form State
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)

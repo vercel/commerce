@@ -1,14 +1,11 @@
 import { FC, useEffect, useState, useCallback } from 'react'
-import { AcmeLogo, Button, Input } from '@components/ui'
+import { Logo, Button, Input } from '@components/ui'
 import useLogin from '@framework/auth/use-login'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 import { useCommerce } from '@framework'
 
 const LoginView: React.FC = () => {
-  // @ts-ignore
-  const { brand = {} } = useCommerce()
-  const { Logo = AcmeLogo } = brand
   // Form State
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

@@ -2,7 +2,7 @@ import { FC } from 'react'
 import Link from 'next/link'
 import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
-import { AcmeLogo, Container } from '@components/ui'
+import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 import { useCommerce } from '@framework'
 
@@ -16,9 +16,6 @@ interface NavbarProps {
 }
 
 const Navbar: FC<NavbarProps> = ({ links }) => {
-  // @ts-ignore
-  const { brand = {} } = useCommerce()
-  const { Logo = AcmeLogo } = brand
   return (
     <NavbarRoot>
       <Container clean className="mx-auto max-w-8xl px-6">

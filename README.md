@@ -98,6 +98,25 @@ For example: Turning `cart` off will disable Cart capabilities.
 - Turn `wishlist` on by setting `wishlist` to `true`.
 - Run the app and the wishlist functionality should be back on.
 
+#### Customizing the theme
+
+You can customize the theme by providing some configuration in `theme.json`
+
+- open `theme.json`
+- You'll see a config file like this:
+
+```json
+{
+  "features": {
+    "logo": false // => switch to true to enable logo
+  },
+  "theme": {
+    "logoSrc": "replace with the path in `public` your logo ex: /assets/logo.svg",
+    "logoAlt": "Replace with your logo alt text"
+  }
+}
+```
+
 ### How to create a new provider
 
 Follow our docs for [Adding a new Commerce Provider](packages/commerce/new-provider.md).

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import type { Page } from '@commerce/types/page'
 import getSlug from '@lib/get-slug'
 import { Github, Vercel } from '@components/icons'
-import { AcmeLogo, Container } from '@components/ui'
+import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
 import s from './Footer.module.css'
 import { useCommerce } from '@framework'
@@ -26,9 +26,6 @@ const links = [
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages } = usePages(pages)
   const rootClassName = cn(s.root, className)
-  // @ts-ignore
-  const { brand = {} } = useCommerce()
-  const { Logo = AcmeLogo } = brand
 
   return (
     <footer className={rootClassName}>

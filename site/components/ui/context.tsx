@@ -1,6 +1,8 @@
 import React, { FC, useCallback, useMemo } from 'react'
 import { ThemeProvider } from 'next-themes'
 
+import { features, theme } from 'config/theme.json'
+
 export interface State {
   displaySidebar: boolean
   displayDropdown: boolean
@@ -17,6 +19,9 @@ const initialState = {
   modalView: 'LOGIN_VIEW',
   sidebarView: 'CART_VIEW',
   userAvatar: '',
+  theme: {
+    ...(features.logo && { logoSrc: theme.logoSrc, logoAlt: theme.logoAlt }),
+  },
 }
 
 type Action =
@@ -198,6 +203,8 @@ export const UIProvider: FC = (props) => {
     [state]
   )
 
+  console.log(value)
+
   return <UIContext.Provider value={value} {...props} />
 }
 
@@ -207,6 +214,14 @@ export const useUI = () => {
     throw new Error(`useUI must be used within a UIProvider`)
   }
   return context
+}
+
+export const useTheme = () => {
+  const context = React.useContext(UIContext)
+  if (context === undefined) {
+    throw new Error(`useTheme must be used within a UIProvider`)
+  }
+  return context.theme
 }
 
 export const ManagedUIContext: FC = ({ children }) => (

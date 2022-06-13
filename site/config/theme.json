@@ -1,0 +1,9 @@
+{
+  "features": {
+    "logo": false
+  },
+  "theme": {
+    "logoSrc": "replace with the path in `public` your logo ex: /assets/logo.svg",
+    "logoAlt": "Replace with your logo alt text"
+  }
+}

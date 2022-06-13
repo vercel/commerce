@@ -1,4 +1,8 @@
-const AcmeLogo = ({ className = '', ...props }) => (
+import { useCommerce } from '@framework'
+import Image from 'next/image'
+import { useUI } from '../context'
+
+const DefaultLogo = ({ className = '', ...props }) => (
   <svg
     width="32"
     height="32"
@@ -18,4 +22,26 @@ const AcmeLogo = ({ className = '', ...props }) => (
   </svg>
 )
 
-export default AcmeLogo
+const Logo = ({ className = '', ...props }) => {
+  const { theme } = useUI()
+  console.log(theme)
+  // @ts-ignore
+  const { brand = {} } = useCommerce()
+  const { Logo = DefaultLogo } = brand
+
+  if (theme.logoSrc && theme.logoAlt) {
+    return (
+      <Image
+        src={theme.logoSrc}
+        alt={theme.logoAlt}
+        {...props}
+        height={32}
+        width={32}
+      />
+    )
+  }
+
+  return <Logo />
+}
+
+export default Logo
