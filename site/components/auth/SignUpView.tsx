@@ -2,7 +2,7 @@ import { FC, useEffect, useState, useCallback } from 'react'
 import { validate } from 'email-validator'
 import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
-import { Button, Input, Logo } from '@components/ui'
+import { Logo, Button, Input } from '@components/ui'
 import useSignup from '@framework/auth/use-signup'
 
 interface Props {}
