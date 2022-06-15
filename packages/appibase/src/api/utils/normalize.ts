@@ -1,8 +1,8 @@
 import { Product, ProductOption, ProductImage } from '@vercel/commerce/types/product'
 import { Category } from '@vercel/commerce/types/site'
 import { Cart, LineItem } from '@vercel/commerce/types/cart'
-import type { AppibaseProduct, AppibaseCollection, AppibaseCart } from '../../types'
-
+import type { AppibaseProduct, AppibaseCollection, AppibaseCart, AppibasePrice } from '../../types'
+import { CURRENCY } from '../../const'
 
 const NormalizeProduct = (product: AppibaseProduct): Product => {
   const options: ProductOption[] = [];
@@ -10,12 +10,15 @@ const NormalizeProduct = (product: AppibaseProduct): Product => {
   for(const variation of (product.variations?.data || [])) {
     const option : ProductOption | undefined = options.find(o => o.displayName === variation.name);
     if(!option) {
-      options.push({ 
-        id: `option-${variation.name.toLowerCase()}`, 
+      options.push({
+        id: `option-${variation.name.toLowerCase()}`,
         displayName : variation.name, values: variation.options?.map(o => ({ label: o.name  })) || []
       });
-    }  
+    }
   }
+
+  // finding the relevant price based on the store's currency
+  const price = product.prices.data.find(p => p.currency === CURRENCY) as AppibasePrice
 
   return {
     id: product.id,
@@ -24,7 +27,7 @@ const NormalizeProduct = (product: AppibaseProduct): Product => {
     images: product.image_urls.map(i => <ProductImage> { url: i }),
     sku: product.sku,
     slug: product.sku,
-    variants: product.children?.data?.map(p => ({ 
+    variants: product.children?.data?.map(p => ({
       id: p.id,
       options: p.variation_options?.data.map(o => ({
         __typename: "MultipleChoiceOption",
@@ -33,7 +36,7 @@ const NormalizeProduct = (product: AppibaseProduct): Product => {
         values: [{ label: o.name || "" }]
       })) || []
     })) || [],
-    price: { value: product.prices.data[0].amount.float, currencyCode: product.prices.data[0].currency },
+    price: { value: price.amount.float, currencyCode: price.currency },
     options
   }
 }
