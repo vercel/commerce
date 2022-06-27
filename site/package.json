@@ -18,6 +18,7 @@
     "@vercel/commerce": "^0.0.1",
     "@vercel/commerce-bigcommerce": "^0.0.1",
     "@vercel/commerce-commercejs": "^0.0.1",
+    "@vercel/commerce-commercetools": "^0.0.1",
     "@vercel/commerce-kibocommerce": "^0.0.1",
     "@vercel/commerce-local": "^0.0.1",
     "@vercel/commerce-ordercloud": "^0.0.1",
