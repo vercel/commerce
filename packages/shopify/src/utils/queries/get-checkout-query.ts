@@ -35,7 +35,7 @@ export const checkoutDetailsFragment = /* GraphQL */ `
               value
             }
             image {
-              originalSrc
+              url
               altText
               width
               height
@@ -59,7 +59,7 @@ export const checkoutDetailsFragment = /* GraphQL */ `
   }
 `
 
-const getCheckoutQuery = /* GraphQL */ `
+export const getCheckoutQuery = /* GraphQL */ `
   query getCheckout($checkoutId: ID!) {
     node(id: $checkoutId) {
       ...checkoutDetails
@@ -67,4 +67,3 @@ const getCheckoutQuery = /* GraphQL */ `
   }
   ${checkoutDetailsFragment}
 `
-export default getCheckoutQuery

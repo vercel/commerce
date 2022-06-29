@@ -1,35 +1,15 @@
-import {
-  SHOPIFY_CHECKOUT_ID_COOKIE,
-  SHOPIFY_CHECKOUT_URL_COOKIE,
-  SHOPIFY_CUSTOMER_TOKEN_COOKIE,
-} from '../../../const'
-import associateCustomerWithCheckoutMutation from '../../../utils/mutations/associate-customer-with-checkout'
+import { SHOPIFY_CART_URL_COOKIE } from '../../../const'
 import type { CheckoutEndpoint } from '.'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
   res,
-  config,
 }) => {
   const { cookies } = req
-  const checkoutUrl = cookies[SHOPIFY_CHECKOUT_URL_COOKIE]
-  const customerCookie = cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE]
+  const cartUrl = cookies[SHOPIFY_CART_URL_COOKIE]
 
-  if (customerCookie) {
-    try {
-      await config.fetch(associateCustomerWithCheckoutMutation, {
-        variables: {
-          checkoutId: cookies[SHOPIFY_CHECKOUT_ID_COOKIE],
-          customerAccessToken: cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE],
-        },
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  if (checkoutUrl) {
-    res.redirect(checkoutUrl)
+  if (cartUrl) {
+    res.redirect(cartUrl)
   } else {
     res.redirect('/cart')
   }

@@ -1,4 +1,4 @@
-const getAllProductsPathsQuery = /* GraphQL */ `
+export const getAllProductsPathsQuery = /* GraphQL */ `
   query getAllProductPaths($first: Int = 250, $cursor: String) {
     products(first: $first, after: $cursor) {
       pageInfo {
@@ -14,4 +14,3 @@ const getAllProductsPathsQuery = /* GraphQL */ `
     }
   }
 `
-export default getAllProductsPathsQuery

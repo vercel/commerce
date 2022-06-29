@@ -21,27 +21,36 @@ export type RemoveItemActionInput<T = any> = T extends LineItem
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
 import {
-  checkoutLineItemRemoveMutation,
-  getCheckoutId,
-  checkoutToCart,
+  cartLinesRemoveMutation,
+  getCartId,
+  normalizeCart,
+  throwUserErrors,
 } from '../utils'
-
-import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../../schema'
+import {
+  CartLinesRemoveMutation,
+  CartLinesRemoveMutationVariables,
+} from '../../schema'
 
 export const handler = {
   fetchOptions: {
-    query: checkoutLineItemRemoveMutation,
+    query: cartLinesRemoveMutation,
   },
   async fetcher({
     input: { itemId },
     options,
     fetch,
   }: HookFetcherContext<RemoveItemHook>) {
-    const data = await fetch<Mutation, MutationCheckoutLineItemsRemoveArgs>({
+    const data = await fetch<
+      CartLinesRemoveMutation,
+      CartLinesRemoveMutationVariables
+    >({
       ...options,
-      variables: { checkoutId: getCheckoutId(), lineItemIds: [itemId] },
+      variables: { cartId: getCartId(), lineIds: [itemId] },
     })
-    return checkoutToCart(data.checkoutLineItemsRemove)
+
+    throwUserErrors(data.cartLinesRemove?.userErrors)
+
+    return normalizeCart(data.cartLinesRemove?.cart)
   },
   useHook:
     ({ fetch }: MutationHookContext<RemoveItemHook>) =>

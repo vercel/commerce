@@ -1,4 +1,4 @@
-const customerAccessTokenCreateMutation = /* GraphQL */ `
+export const customerAccessTokenCreateMutation = /* GraphQL */ `
   mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
     customerAccessTokenCreate(input: $input) {
       customerAccessToken {
@@ -13,4 +13,3 @@ const customerAccessTokenCreateMutation = /* GraphQL */ `
     }
   }
 `
-export default customerAccessTokenCreateMutation

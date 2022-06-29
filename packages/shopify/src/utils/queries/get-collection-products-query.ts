@@ -1,6 +1,6 @@
 import { productConnectionFragment } from './get-all-products-query'
 
-const getCollectionProductsQuery = /* GraphQL */ `
+export const getCollectionProductsQuery = /* GraphQL */ `
   query getProductsFromCollection(
     $categoryId: ID!
     $first: Int = 250
@@ -18,4 +18,3 @@ const getCollectionProductsQuery = /* GraphQL */ `
   }
   ${productConnectionFragment}
 `
-export default getCollectionProductsQuery

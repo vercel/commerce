@@ -9,8 +9,7 @@ import {
   Product as ShopifyProduct,
 } from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
-import getAllProductsQuery from '../../utils/queries/get-all-products-query'
-import { normalizeProduct } from '../../utils'
+import { normalizeProduct, getAllProductsQuery } from '../../utils'
 
 export default function getAllProductsOperation({
   commerce,

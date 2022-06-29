@@ -1,4 +1,4 @@
-const getSiteCollectionsQuery = /* GraphQL */ `
+export const getSiteCollectionsQuery = /* GraphQL */ `
   query getSiteCollections($first: Int!) {
     collections(first: $first) {
       edges {
@@ -11,4 +11,3 @@ const getSiteCollectionsQuery = /* GraphQL */ `
     }
   }
 `
-export default getSiteCollectionsQuery

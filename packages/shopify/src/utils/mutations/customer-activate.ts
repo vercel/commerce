@@ -1,4 +1,4 @@
-const customerActivateMutation = /* GraphQL */ `
+export const customerActivateMutation = /* GraphQL */ `
   mutation customerActivate($id: ID!, $input: CustomerActivateInput!) {
     customerActivate(id: $id, input: $input) {
       customer {
@@ -16,4 +16,3 @@ const customerActivateMutation = /* GraphQL */ `
     }
   }
 `
-export default customerActivateMutation

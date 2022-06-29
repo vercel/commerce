@@ -2,11 +2,13 @@ import type { ServerResponse } from 'http'
 import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { LoginOperation } from '../../types/login'
 import type { ShopifyConfig, Provider } from '..'
+
 import {
-  customerAccessTokenCreateMutation,
-  setCustomerToken,
   throwUserErrors,
+  setCustomerToken,
+  customerAccessTokenCreateMutation,
 } from '../../utils'
+
 import { CustomerAccessTokenCreateMutation } from '../../../schema'
 
 export default function loginOperation({

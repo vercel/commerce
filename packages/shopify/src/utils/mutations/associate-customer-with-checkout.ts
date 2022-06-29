@@ -1,4 +1,4 @@
-const associateCustomerWithCheckoutMutation = /* GraphQl */ `
+export const associateCustomerWithCheckoutMutation = /* GraphQl */ `
 mutation associateCustomerWithCheckout($checkoutId: ID!, $customerAccessToken: String!) {
     checkoutCustomerAssociateV2(checkoutId: $checkoutId, customerAccessToken: $customerAccessToken) {
       checkout {
@@ -15,4 +15,3 @@ mutation associateCustomerWithCheckout($checkoutId: ID!, $customerAccessToken: S
     }
   }
 `
-export default associateCustomerWithCheckoutMutation

@@ -13,4 +13,3 @@ export const getCustomerQuery = /* GraphQL */ `
     }
   }
 `
-export default getCustomerQuery

@@ -10,7 +10,7 @@ export async function getAsyncError(res: Response) {
   return getError(data.errors, res.status)
 }
 
-const handleFetchResponse = async (res: Response) => {
+export const handleFetchResponse = async (res: Response) => {
   if (res.ok) {
     const { data, errors } = await res.json()
 
@@ -23,5 +23,3 @@ const handleFetchResponse = async (res: Response) => {
 
   throw await getAsyncError(res)
 }
-
-export default handleFetchResponse

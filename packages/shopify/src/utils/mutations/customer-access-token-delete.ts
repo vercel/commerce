@@ -1,4 +1,4 @@
-const customerAccessTokenDeleteMutation = /* GraphQL */ `
+export const customerAccessTokenDeleteMutation = /* GraphQL */ `
   mutation customerAccessTokenDelete($customerAccessToken: String!) {
     customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
       deletedAccessToken
@@ -10,5 +10,3 @@ const customerAccessTokenDeleteMutation = /* GraphQL */ `
     }
   }
 `
-
-export default customerAccessTokenDeleteMutation

@@ -12,12 +12,11 @@ import useUpdateItem, {
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
 import type { UpdateItemHook, LineItem } from '../types/cart'
+import { getCartId, cartLinesUpdateMutation, normalizeCart } from '../utils'
 import {
-  getCheckoutId,
-  checkoutLineItemUpdateMutation,
-  checkoutToCart,
-} from '../utils'
-import { Mutation, MutationCheckoutLineItemsUpdateArgs } from '../../schema'
+  CartLinesUpdateMutation,
+  CartLinesUpdateMutationVariables,
+} from '../../schema'
 
 export type UpdateItemActionInput<T = any> = T extends LineItem
   ? Partial<UpdateItemHook['actionInput']>
@@ -27,7 +26,7 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    query: checkoutLineItemUpdateMutation,
+    query: cartLinesUpdateMutation,
   },
   async fetcher({
     input: { itemId, item },
@@ -48,14 +47,14 @@ export const handler = {
         message: 'The item quantity has to be a valid integer',
       })
     }
-    const { checkoutLineItemsUpdate } = await fetch<
-      Mutation,
-      MutationCheckoutLineItemsUpdateArgs
+    const { cartLinesUpdate } = await fetch<
+      CartLinesUpdateMutation,
+      CartLinesUpdateMutationVariables
     >({
       ...options,
       variables: {
-        checkoutId: getCheckoutId(),
-        lineItems: [
+        cartId: getCartId(),
+        lines: [
           {
             id: itemId,
             quantity: item.quantity,
@@ -64,7 +63,7 @@ export const handler = {
       },
     })
 
-    return checkoutToCart(checkoutLineItemsUpdate)
+    return normalizeCart(cartLinesUpdate?.cart)
   },
   useHook:
     ({ fetch }: MutationHookContext<UpdateItemHook>) =>

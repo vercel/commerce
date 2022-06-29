@@ -1,4 +1,4 @@
-const customerActivateByUrlMutation = /* GraphQL */ `
+export const customerActivateByUrlMutation = /* GraphQL */ `
   mutation customerActivateByUrl($activationUrl: URL!, $password: String!) {
     customerActivateByUrl(activationUrl: $activationUrl, password: $password) {
       customer {
@@ -16,4 +16,3 @@ const customerActivateByUrlMutation = /* GraphQL */ `
     }
   }
 `
-export default customerActivateByUrlMutation

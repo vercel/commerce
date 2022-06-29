@@ -1,4 +1,4 @@
-import getSortVariables from './get-sort-variables'
+import { getSortVariables } from './get-sort-variables'
 import { SearchProductsBody } from '../types/product'
 
 export const getSearchVariables = ({
@@ -27,5 +27,3 @@ export const getSearchVariables = ({
     }),
   }
 }
-
-export default getSearchVariables

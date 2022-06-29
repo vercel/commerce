@@ -7,10 +7,9 @@ import {
   GetAllPagesQueryVariables,
   PageEdge,
 } from '../../../schema'
-import { normalizePages } from '../../utils'
+import { normalizePages, getAllPagesQuery } from '../../utils'
 import type { ShopifyConfig, Provider } from '..'
 import type { GetAllPagesOperation, Page } from '../../types/page'
-import getAllPagesQuery from '../../utils/queries/get-all-pages-query'
 
 export default function getAllPagesOperation({
   commerce,

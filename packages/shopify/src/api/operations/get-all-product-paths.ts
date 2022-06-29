@@ -6,7 +6,6 @@ import { GetAllProductPathsOperation } from '../../types/product'
 import {
   GetAllProductPathsQuery,
   GetAllProductPathsQueryVariables,
-  ProductEdge,
 } from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
 import { getAllProductsQuery } from '../../utils'

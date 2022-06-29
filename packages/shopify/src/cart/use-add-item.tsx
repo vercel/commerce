@@ -6,18 +6,23 @@ import type { AddItemHook } from '../types/cart'
 import useCart from './use-cart'
 
 import {
-  checkoutLineItemAddMutation,
-  getCheckoutId,
-  checkoutToCart,
-  checkoutCreate,
+  cartLinesAddMutation,
+  getCartId,
+  cartCreate,
+  normalizeCart,
+  throwUserErrors,
 } from '../utils'
-import { Mutation, MutationCheckoutLineItemsAddArgs } from '../../schema'
+
+import {
+  CartLinesAddMutation,
+  CartLinesAddMutationVariables,
+} from '../../schema'
 
 export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    query: checkoutLineItemAddMutation,
+    query: cartLinesAddMutation,
   },
   async fetcher({ input: item, options, fetch }) {
     if (
@@ -29,29 +34,33 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
-    const lineItems = [
+    const lines = [
       {
-        variantId: item.variantId,
+        merchandiseId: item.variantId,
         quantity: item.quantity ?? 1,
       },
     ]
 
-    let checkoutId = getCheckoutId()
+    let cartId = getCartId()
 
-    if (!checkoutId) {
-      return checkoutToCart(await checkoutCreate(fetch, lineItems))
+    if (!cartId) {
+      const cart = await cartCreate(fetch, lines)
+      return normalizeCart(cart)
     } else {
-      const { checkoutLineItemsAdd } = await fetch<
-        Mutation,
-        MutationCheckoutLineItemsAddArgs
+      const { cartLinesAdd } = await fetch<
+        CartLinesAddMutation,
+        CartLinesAddMutationVariables
       >({
         ...options,
         variables: {
-          checkoutId,
-          lineItems,
+          cartId,
+          lines,
         },
       })
-      return checkoutToCart(checkoutLineItemsAdd)
+
+      throwUserErrors(cartLinesAdd?.userErrors)
+
+      return normalizeCart(cartLinesAdd?.cart)
     }
   },
   useHook:

@@ -1,4 +1,4 @@
-const getProductQuery = /* GraphQL */ `
+export const getProductQuery = /* GraphQL */ `
   query getProductBySlug($slug: String!) {
     productByHandle(handle: $slug) {
       id
@@ -58,7 +58,7 @@ const getProductQuery = /* GraphQL */ `
         }
         edges {
           node {
-            originalSrc
+            url
             altText
             width
             height
@@ -68,5 +68,3 @@ const getProductQuery = /* GraphQL */ `
     }
   }
 `
-
-export default getProductQuery

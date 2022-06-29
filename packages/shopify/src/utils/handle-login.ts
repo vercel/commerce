@@ -2,9 +2,9 @@ import { FetcherOptions } from '@vercel/commerce/utils/types'
 import { CustomerAccessTokenCreateInput } from '../../schema'
 import { setCustomerToken } from './customer-token'
 import { customerAccessTokenCreateMutation } from './mutations'
-import throwUserErrors from './throw-user-errors'
+import { throwUserErrors } from './throw-user-errors'
 
-const handleLogin = (data: any) => {
+export const handleLogin = (data: any) => {
   const response = data.customerAccessTokenCreate
   throwUserErrors(response?.customerUserErrors)
 
@@ -32,5 +32,3 @@ export const handleAutomaticLogin = async (
     handleLogin(loginData)
   } catch (error) {}
 }
-
-export default handleLogin

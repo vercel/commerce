@@ -1,5 +1,5 @@
 import { FetcherOptions } from '@vercel/commerce/utils/types'
-import throwUserErrors from './throw-user-errors'
+import { throwUserErrors } from './throw-user-errors'
 
 import {
   MutationCustomerActivateArgs,
@@ -8,7 +8,7 @@ import {
 import { Mutation } from '../../schema'
 import { customerActivateByUrlMutation } from './mutations'
 
-const handleAccountActivation = async (
+export const handleAccountActivation = async (
   fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
   input: MutationCustomerActivateByUrlArgs
 ) => {
@@ -26,5 +26,3 @@ const handleAccountActivation = async (
     throwUserErrors(customerActivateByUrl?.customerUserErrors)
   } catch (error) {}
 }
-
-export default handleAccountActivation

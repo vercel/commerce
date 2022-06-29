@@ -23,7 +23,7 @@ export const productConnectionFragment = /* GraphQL */ `
           }
           edges {
             node {
-              originalSrc
+              url
               altText
               width
               height
@@ -35,7 +35,7 @@ export const productConnectionFragment = /* GraphQL */ `
   }
 `
 
-const getAllProductsQuery = /* GraphQL */ `
+export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $first: Int = 250
     $query: String = ""
@@ -54,4 +54,3 @@ const getAllProductsQuery = /* GraphQL */ `
 
   ${productConnectionFragment}
 `
-export default getAllProductsQuery
