@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build --filter=next-commerce...",
+    "build": "turbo run build --filter=next-commerce... --output public",
     "dev": "turbo run dev",
     "start": "turbo run start",
     "types": "turbo run types",
