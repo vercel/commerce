@@ -6,28 +6,27 @@ import { getCartQuery, normalizeCart } from '../utils'
 import { GetCartHook } from '../types/cart'
 import Cookies from 'js-cookie'
 
-import { SHOPIFY_CART_ID_COOKIE, SHOPIFY_CART_URL_COOKIE } from '../const'
+import { GetCartQueryVariables, QueryRoot } from '../../schema'
+
+import { SHOPIFY_CART_ID_COOKIE } from '../const'
+import { setCartUrlCookie } from '../utils/set-cart-url-cookie'
 
 export default useCommerceCart as UseCart<typeof handler>
-
 export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     query: getCartQuery,
   },
   async fetcher({ input: { cartId }, options, fetch }) {
     if (cartId) {
-      const { node: cart } = await fetch({
+      let { cart } = await fetch<QueryRoot, GetCartQueryVariables>({
         ...options,
-        variables: {
-          checkoutId: cartId,
-        },
+        variables: { cartId },
       })
-      if (cart?.completedAt) {
-        Cookies.remove(SHOPIFY_CART_ID_COOKIE)
-        Cookies.remove(SHOPIFY_CART_URL_COOKIE)
-        return null
-      } else {
+      if (cart) {
+        setCartUrlCookie(cart.checkoutUrl)
         return normalizeCart(cart)
+      } else {
+        Cookies.remove(SHOPIFY_CART_ID_COOKIE)
       }
     }
     return null
@@ -43,7 +42,7 @@ export const handler: SWRHook<GetCartHook> = {
           Object.create(response, {
             isEmpty: {
               get() {
-                return (response.data?.lineItems.length ?? 0) <= 0
+                return (response.data?.lineItems?.length ?? 0) <= 0
               },
               enumerable: true,
             },
