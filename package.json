@@ -23,5 +23,5 @@
       "pre-commit": "turbo run lint"
     }
   },
-  "packageManager": "yarn@1.22.17"
+  "packageManager": "pnpm@7.5.0"
 }
