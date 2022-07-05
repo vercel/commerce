@@ -22,6 +22,7 @@ importers:
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^17.0.8
       '@types/react': ^17.0.38
+      '@vercel/commerce': workspace:*
       '@vercel/fetch': ^6.1.1
       cookie: ^0.4.1
       immutability-helper: ^3.1.1
@@ -37,6 +38,7 @@ importers:
       typescript: ^4.5.4
       uuidv4: ^6.2.12
     dependencies:
+      '@vercel/commerce': link:../commerce
       '@vercel/fetch': 6.2.0
       cookie: 0.4.2
       immutability-helper: 3.1.1
@@ -547,17 +549,17 @@ importers:
       '@types/lodash.throttle': ^4.1.6
       '@types/node': ^17.0.8
       '@types/react': ^17.0.38
-      '@vercel/commerce': ^0.0.1
-      '@vercel/commerce-bigcommerce': ^0.0.1
-      '@vercel/commerce-commercejs': ^0.0.1
-      '@vercel/commerce-kibocommerce': ^0.0.1
-      '@vercel/commerce-local': ^0.0.1
-      '@vercel/commerce-ordercloud': ^0.0.1
-      '@vercel/commerce-saleor': ^0.0.1
-      '@vercel/commerce-shopify': ^0.0.1
-      '@vercel/commerce-spree': ^0.0.1
-      '@vercel/commerce-swell': ^0.0.1
-      '@vercel/commerce-vendure': ^0.0.1
+      '@vercel/commerce': workspace:*
+      '@vercel/commerce-bigcommerce': workspace:*
+      '@vercel/commerce-commercejs': workspace:*
+      '@vercel/commerce-kibocommerce': workspace:*
+      '@vercel/commerce-local': workspace:*
+      '@vercel/commerce-ordercloud': workspace:*
+      '@vercel/commerce-saleor': workspace:*
+      '@vercel/commerce-shopify': workspace:*
+      '@vercel/commerce-spree': workspace:*
+      '@vercel/commerce-swell': workspace:*
+      '@vercel/commerce-vendure': workspace:*
       autoprefixer: ^10.4.2
       body-scroll-lock: ^4.0.0-beta.0
       clsx: ^1.1.1

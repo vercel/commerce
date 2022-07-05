@@ -2,10 +2,6 @@
   "name": "commerce",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "site",
-    "packages/*"
-  ],
   "scripts": {
     "build": "turbo run build --filter=next-commerce...",
     "dev": "turbo run dev",
