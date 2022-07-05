@@ -203,8 +203,6 @@ export const UIProvider: FC = (props) => {
     [state]
   )
 
-  console.log(value)
-
   return <UIContext.Provider value={value} {...props} />
 }
 
