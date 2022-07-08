@@ -57,8 +57,8 @@
   },
   "peerDependencies": {
     "next": "^12",
-    "react": "^17",
-    "react-dom": "^17"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.7.0",
@@ -71,7 +71,7 @@
     "@types/js-cookie": "3.0.2",
     "@types/lodash.debounce": "^4.0.7",
     "@types/node": "^18.0.3",
-    "@types/react": "^17.0.38",
+    "@types/react": "^18.0.14",
     "@types/node-fetch": "2.6.2",
     "graphql": "^16.0.0",
     "dotenv": "^16.0.1",
