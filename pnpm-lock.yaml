@@ -1,8 +1,5 @@
 lockfileVersion: 5.4
 
-overrides:
-  '@types/react': ^17.0.38
-
 importers:
 
   .:
