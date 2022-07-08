@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@vercel/commerce": "workspace:*",
-    "@vercel/fetch": "6.2.0",
+    "@vercel/fetch": "^6.2.0",
     "node-fetch": "^2.6.7"
   },
   "peerDependencies": {

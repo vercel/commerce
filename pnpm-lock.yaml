@@ -21,10 +21,10 @@ importers:
       '@types/jsonwebtoken': ^8.5.7
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^17.0.8
-      '@types/node-fetch': ^2.6.1
+      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       cookie: ^0.4.1
       immutability-helper: ^3.1.1
       jsonwebtoken: ^8.5.1
@@ -76,7 +76,7 @@ importers:
       '@types/node': ^17.0.8
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       deepmerge: ^4.2.2
       import-cwd: ^3.0.0
       js-cookie: ^3.0.1
@@ -169,7 +169,7 @@ importers:
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       graphql: ^16.0.0
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
@@ -217,7 +217,7 @@ importers:
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       lint-staged: ^12.1.7
       next: ^12.0.8
       node-fetch: ^2.6.7
@@ -254,10 +254,10 @@ importers:
       '@taskr/watch': ^1.1.0
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^17.0.8
-      '@types/node-fetch': ^2.6.1
+      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
@@ -303,10 +303,10 @@ importers:
       '@taskr/watch': ^1.1.0
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^17.0.8
-      '@types/node-fetch': ^2.6.1
+      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       graphql: ^16.0.0
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
@@ -351,10 +351,10 @@ importers:
       '@taskr/esnext': ^1.1.0
       '@taskr/watch': ^1.1.0
       '@types/node': ^17.0.8
-      '@types/node-fetch': ^2.6.1
+      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       commerce-sdk: ^2.7.0
       lint-staged: ^12.1.7
       next: ^12.0.8
@@ -401,7 +401,7 @@ importers:
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       dotenv: ^16.0.1
       graphql: ^16.0.0
       js-cookie: ^3.0.1
@@ -453,10 +453,10 @@ importers:
       '@taskr/watch': ^1.1.0
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^17.0.8
-      '@types/node-fetch': ^2.6.1
+      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
@@ -499,10 +499,10 @@ importers:
       '@taskr/watch': ^1.1.0
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^17.0.8
-      '@types/node-fetch': ^2.6.1
+      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
@@ -555,10 +555,10 @@ importers:
       '@taskr/esnext': ^1.1.0
       '@taskr/watch': ^1.1.0
       '@types/node': ^17.0.8
-      '@types/node-fetch': ^2.6.1
+      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': 6.2.0
+      '@vercel/fetch': ^6.2.0
       graphql: ^16.0.0
       lint-staged: ^12.1.7
       next: ^12.0.8
@@ -3608,7 +3608,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001363
       electron-to-chromium: 1.4.184
-      node-releases: 2.0.5
+      node-releases: 2.0.6
       update-browserslist-db: 1.0.4_browserslist@4.21.1
 
   /bser/2.1.1:
@@ -6921,8 +6921,8 @@ packages:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
     dev: true
 
-  /node-releases/2.0.5:
-    resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==}
+  /node-releases/2.0.6:
+    resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
 
   /normalize-path/2.1.1:
     resolution: {integrity: sha512-3pKJwH184Xo/lnH6oyP1q2pMd7HcypqqmRs91/6/i2CGtWwIKGCkOOMTm/zXbgTEWHw1uNpNi/igc3ePOYHb6w==}

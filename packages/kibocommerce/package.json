@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@vercel/commerce": "workspace:*",
-    "@vercel/fetch": "6.2.0",
+    "@vercel/fetch": "^6.2.0",
     "lodash.debounce": "^4.0.8",
     "node-fetch": "^2.6.7"
   },
