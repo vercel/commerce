@@ -19,5 +19,8 @@
       "pre-commit": "turbo run lint"
     }
   },
+  "resolutions": {
+    "@types/react": "^17.0.38"
+  },
   "packageManager": "pnpm@7.5.0"
 }

@@ -11,7 +11,7 @@ export const DropdownMenuGroup = DropdownMenu.Group
 
 export const DropdownContent = React.forwardRef<
   HTMLDivElement,
-  { children: React.ReactNode } & DropdownMenu.DropdownMenuContentProps &
+  { children?: React.ReactNode } & DropdownMenu.DropdownMenuContentProps &
     React.RefAttributes<HTMLDivElement>
 >(function DropdownContent({ children, className, ...props }, forwardedRef) {
   return (
