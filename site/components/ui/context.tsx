@@ -195,6 +195,7 @@ export const UIProvider: FC<{ children?: ReactNode }> = (props) => {
       setSidebarView,
       setUserAvatar,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]
   )
 

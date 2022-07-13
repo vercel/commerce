@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import s from './I18nWidget.module.css'
 import { Cross, ChevronUp } from '@components/icons'
 import ClickOutside from '@lib/click-outside'
+import Image from 'next/image'
 interface LOCALE_DATA {
   name: string
   img: {
@@ -50,12 +51,13 @@ const I18nWidget: FC = () => {
           onClick={() => setDisplay(!display)}
         >
           <button className={s.button} aria-label="Language selector">
-            <img
+            <Image
               width="20"
               height="20"
               className="block mr-2 w-5"
               src={`/${LOCALES_MAP[currentLocale].img.filename}`}
               alt={LOCALES_MAP[currentLocale].img.alt}
+              unoptimized
             />
             {options && (
               <span className="cursor-pointer">
