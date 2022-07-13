@@ -1,6 +1,12 @@
 import { useCallback } from 'react'
-import type { MutationHookContext, HookFetcherContext, MutationHook } from '@vercel/commerce/utils/types'
-import useRemoveItem, { UseRemoveItem } from '@vercel/commerce/cart/use-remove-item'
+import type {
+  MutationHookContext,
+  HookFetcherContext,
+  MutationHook,
+} from '@vercel/commerce/utils/types'
+import useRemoveItem, {
+  UseRemoveItem,
+} from '@vercel/commerce/cart/use-remove-item'
 import useCart from './use-cart'
 import * as mutation from '../utils/mutations'
 import { getCheckoutId, checkoutToCart } from '../utils'
@@ -11,7 +17,11 @@ export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
   fetchOptions: { query: mutation.CheckoutLineDelete },
-  async fetcher({ input: { itemId }, options, fetch }: HookFetcherContext<RemoveItemHook>) {
+  async fetcher({
+    input: { itemId },
+    options,
+    fetch,
+  }: HookFetcherContext<RemoveItemHook>) {
     const data = await fetch<Mutation, MutationCheckoutLineDeleteArgs>({
       ...options,
       variables: {
@@ -27,7 +37,7 @@ export const handler = {
       const { mutate } = useCart()
 
       return useCallback(
-        async function removeItem(input) {
+        async function removeItem(input: { id: string }) {
           const data = await fetch({ input: { itemId: input.id } })
           await mutate(data, false)
 
