@@ -1,12 +1,17 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 
-export function getError(errors: any[] | null, status: number) {
-  errors = errors ?? [{ message: 'Failed to fetch Shopify API' }]
+export function getError(err: any[] | string | null, status: number) {
+  console.log(JSON.stringify(err, null, 2))
+
+  const errors = Array.isArray(err)
+    ? err
+    : [{ message: err || 'Failed to fetch Shopify API' }]
   return new FetcherError({ errors, status })
 }
 
 export async function getAsyncError(res: Response) {
   const data = await res.json()
+
   return getError(data.errors, res.status)
 }
 

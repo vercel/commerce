@@ -3,6 +3,7 @@ import fetch from './fetch'
 
 import { API_URL, API_TOKEN } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
+import { CommerceError } from '@vercel/commerce/utils/errors'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
@@ -32,14 +33,20 @@ const fetchGraphqlApi: GraphQLFetcher = async (
 
     return { data, res }
   } catch (err) {
-    throw getError(
-      [
-        {
-          message: `${err} \n Most likely related to an unexpected output. e.g the store might be protected with password or not available.`,
-        },
-      ],
-      500
-    )
+    // if the error is a CommerceError, we can use it as-is
+    if (err instanceof CommerceError) {
+      throw err
+    } else {
+      // otherwise, we'll wrap unknown errors in a CommerceError
+      throw getError(
+        [
+          {
+            message: `${err} \n Most likely related to an unexpected output. e.g the store might be protected with password or not available.`,
+          },
+        ],
+        500
+      )
+    }
   }
 }
 export default fetchGraphqlApi

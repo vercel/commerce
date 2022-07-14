@@ -1,5 +1,5 @@
 import type { Page } from '../types/page'
-import type { Product } from '../types/product'
+import type { Product, ProductPrice } from '../types/product'
 import type { Cart, LineItem } from '../types/cart'
 import type { Category } from '../types/site'
 
@@ -18,10 +18,14 @@ import {
 import { colorMap } from './colors'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 
-const money = ({ amount, currencyCode }: MoneyV2) => {
+type MoneyProps = MoneyV2 & { retailPrice?: string }
+
+const money = (money: MoneyProps): ProductPrice => {
+  const { amount, currencyCode, retailPrice } = money || { currencyCode: 'USD' }
   return {
     value: +amount,
     currencyCode,
+    ...(retailPrice && { retailPrice: +retailPrice }),
   }
 }
 
@@ -52,46 +56,47 @@ const normalizeProductOption = ({
   }
 }
 
-const normalizeProductImages = ({ edges }: ImageConnection) =>
-  edges?.map(({ node: { altText: alt, url, ...rest } }) => ({
+const normalizeProductImages = (images: ImageConnection) =>
+  images?.nodes?.map(({ altText: alt, url, ...rest }) => ({
     ...rest,
     url,
     alt,
-  }))
+  })) ?? []
 
-const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
-  return edges?.map(
-    ({
-      node: {
+const normalizeProductVariants = (variants: ProductVariantConnection) => {
+  return (
+    variants?.nodes?.map(
+      ({
         id,
         selectedOptions,
         sku,
         title,
         priceV2,
+        image,
         compareAtPriceV2,
         requiresShipping,
         availableForSale,
-      },
-    }) => {
-      return {
-        id,
-        name: title,
-        sku: sku ?? id,
-        price: +priceV2.amount,
-        listPrice: +compareAtPriceV2?.amount,
-        requiresShipping,
-        availableForSale,
-        options: selectedOptions.map(({ name, value }: SelectedOption) => {
-          const options = normalizeProductOption({
-            id,
-            name,
-            values: [value],
-          })
+      }) => {
+        return {
+          id,
+          name: title,
+          sku: sku ?? id,
+          image,
+          price: money({ ...priceV2, retailPrice: compareAtPriceV2?.amount }),
+          requiresShipping,
+          availableForSale,
+          options: selectedOptions.map(({ name, value }: SelectedOption) => {
+            const options = normalizeProductOption({
+              id,
+              name,
+              values: [value],
+            })
 
-          return options
-        }),
+            return options
+          }),
+        }
       }
-    }
+    ) ?? []
   )
 }
 
@@ -104,20 +109,24 @@ export function normalizeProduct({
   description,
   descriptionHtml,
   handle,
-  priceRange,
   options,
   metafields,
   ...rest
 }: ShopifyProduct): Product {
+  const variant = variants?.nodes?.[0]
+
   return {
     id,
     name,
     vendor,
     path: `/${handle}`,
     slug: handle?.replace(/^\/+|\/+$/g, ''),
-    price: money(priceRange?.minVariantPrice),
-    images: normalizeProductImages(images),
-    variants: variants ? normalizeProductVariants(variants) : [],
+    price: money({
+      ...variant?.priceV2,
+      retailPrice: variant?.compareAtPriceV2?.amount,
+    }),
+    images: images ? normalizeProductImages(images) : [variant?.image],
+    variants: normalizeProductVariants(variants),
     options: options
       ? options
           .filter((o) => o.name !== 'Title') // By default Shopify adds a 'Title' name when there's only one option. We don't need it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
@@ -148,7 +157,7 @@ function normalizeLineItem({
       },
       requiresShipping: variant?.requiresShipping ?? false,
       price: +variant?.priceV2?.amount,
-      listPrice: variant?.compareAtPriceV2?.amount,
+      listPrice: +variant?.compareAtPriceV2?.amount,
     },
     path: variant?.product?.handle,
     discounts: [],

@@ -11,9 +11,12 @@ import useUpdateItem, {
 
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
+
+import { getCartId, normalizeCart, cartLinesUpdateMutation } from '../utils'
+
 import type { UpdateItemHook, LineItem } from '../types/cart'
-import { getCartId, cartLinesUpdateMutation, normalizeCart } from '../utils'
-import {
+
+import type {
   CartLinesUpdateMutation,
   CartLinesUpdateMutationVariables,
 } from '../../schema'

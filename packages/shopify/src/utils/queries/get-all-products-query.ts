@@ -1,39 +1,4 @@
-export const productConnectionFragment = /* GraphQL */ `
-  fragment productConnection on ProductConnection {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-    }
-    edges {
-      node {
-        id
-        title
-        vendor
-        handle
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-        images(first: 1) {
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
-          edges {
-            node {
-              url
-              altText
-              width
-              height
-            }
-          }
-        }
-      }
-    }
-  }
-`
+import { productCardFragment } from '../fragments/product-card-fragment'
 
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -48,9 +13,16 @@ export const getAllProductsQuery = /* GraphQL */ `
       reverse: $reverse
       query: $query
     ) {
-      ...productConnection
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          ...productCard
+        }
+      }
     }
   }
-
-  ${productConnectionFragment}
+  ${productCardFragment}
 `

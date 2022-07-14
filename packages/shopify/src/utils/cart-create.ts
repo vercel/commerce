@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import { SHOPIFY_CART_ID_COOKIE, SHOPIFY_COOKIE_EXPIRE } from '../const'
-import { cartCreateMutation } from './mutations/cart-create'
+import { cartCreateMutation } from './mutations/cart-mutations'
 
 import {
   CartCreateMutation,
@@ -9,9 +9,9 @@ import {
   CartLineInput,
 } from '../../schema'
 
+import { setCartUrlCookie } from './helpers'
 import { throwUserErrors } from './throw-user-errors'
-import { setCartUrlCookie } from './set-cart-url-cookie'
-import { FetcherOptions } from '@vercel/commerce/utils/types'
+import type { FetcherOptions } from '@vercel/commerce/utils/types'
 
 export const cartCreate = async (
   fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
@@ -44,5 +44,3 @@ export const cartCreate = async (
 
   return cart
 }
-
-export default cartCreate

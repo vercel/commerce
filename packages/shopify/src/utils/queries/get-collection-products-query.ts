@@ -1,4 +1,4 @@
-import { productConnectionFragment } from './get-all-products-query'
+import { productCardFragment } from '../fragments/product-card-fragment'
 
 export const getCollectionProductsQuery = /* GraphQL */ `
   query getProductsFromCollection(
@@ -11,10 +11,20 @@ export const getCollectionProductsQuery = /* GraphQL */ `
       id
       ... on Collection {
         products(first: $first, sortKey: $sortKey, reverse: $reverse) {
-          ...productConnection
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            node {
+              ...productCard
+            }
+          }
         }
       }
     }
   }
-  ${productConnectionFragment}
+  ${productCardFragment}
 `

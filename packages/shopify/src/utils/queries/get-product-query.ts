@@ -14,56 +14,55 @@ export const getProductQuery = /* GraphQL */ `
         name
         values
       }
-      priceRange {
-        maxVariantPrice {
-          amount
-          currencyCode
-        }
-        minVariantPrice {
-          amount
-          currencyCode
-        }
+      seo {
+        description
+        title
       }
-      variants(first: 250) {
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
-        edges {
-          node {
+      variants(first: 100) {
+        nodes {
+          id
+          title
+          sku
+          availableForSale
+          requiresShipping
+          image {
             id
-            title
-            sku
-            availableForSale
-            requiresShipping
-            selectedOptions {
-              name
-              value
-            }
-            priceV2 {
-              amount
-              currencyCode
-            }
-            compareAtPriceV2 {
-              amount
-              currencyCode
-            }
-          }
-        }
-      }
-      images(first: 250) {
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
-        edges {
-          node {
-            url
             altText
+            url
             width
             height
           }
+          selectedOptions {
+            name
+            value
+          }
+          priceV2 {
+            amount
+            currencyCode
+          }
+          compareAtPriceV2 {
+            amount
+            currencyCode
+          }
         }
+      }
+      images(first: 15) {
+        nodes {
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
+    shop {
+      shippingPolicy {
+        body
+        handle
+      }
+      refundPolicy {
+        body
+        handle
       }
     }
   }

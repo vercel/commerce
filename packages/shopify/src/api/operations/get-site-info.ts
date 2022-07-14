@@ -6,7 +6,16 @@ import { GetSiteInfoQueryVariables } from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
 import { GetSiteInfoOperation } from '../../types/site'
 
-import { getCategories, getBrands, getSiteInfoQuery } from '../../utils'
+import { getBrands } from '../utils/get-brands'
+import { getCategories } from '../utils/get-categories'
+
+export const getSiteInfoQuery = /* GraphQL */ `
+  query getSiteInfo {
+    shop {
+      name
+    }
+  }
+`
 
 export default function getSiteInfoOperation({
   commerce,
@@ -37,20 +46,6 @@ export default function getSiteInfoOperation({
 
     const categoriesPromise = getCategories(cfg)
     const brandsPromise = getBrands(cfg)
-    /*
-    const { fetch, locale } = cfg
-    const { data } = await fetch<GetSiteInfoQuery, GetSiteInfoQueryVariables>(
-      query,
-      { variables },
-      {
-        ...(locale && {
-          headers: {
-            'Accept-Language': locale,
-          },
-        }),
-      }
-    )
-    */
 
     return {
       categories: await categoriesPromise,

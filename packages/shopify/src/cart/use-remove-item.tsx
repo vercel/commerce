@@ -10,6 +10,18 @@ import useRemoveItem, {
 import type { Cart, LineItem, RemoveItemHook } from '../types/cart'
 import useCart from './use-cart'
 
+import {
+  getCartId,
+  normalizeCart,
+  throwUserErrors,
+  cartLinesRemoveMutation,
+} from '../utils'
+
+import {
+  CartLinesRemoveMutation,
+  CartLinesRemoveMutationVariables,
+} from '../../schema'
+
 export type RemoveItemFn<T = any> = T extends LineItem
   ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
   : (input: RemoveItemActionInput<T>) => Promise<Cart | null>
@@ -19,17 +31,6 @@ export type RemoveItemActionInput<T = any> = T extends LineItem
   : RemoveItemHook['actionInput']
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
-
-import {
-  cartLinesRemoveMutation,
-  getCartId,
-  normalizeCart,
-  throwUserErrors,
-} from '../utils'
-import {
-  CartLinesRemoveMutation,
-  CartLinesRemoveMutationVariables,
-} from '../../schema'
 
 export const handler = {
   fetchOptions: {
