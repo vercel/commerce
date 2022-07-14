@@ -108,10 +108,7 @@ const ProductCard: FC<Props> = ({
                 variant={product.variants[0] as any}
               />
             )}
-            <ProductTag
-              name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
-            />
+            <ProductTag name={product.name} price={price} />
             <div className={s.imageContainer}>
               {product?.images && (
                 <div>

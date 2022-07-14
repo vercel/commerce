@@ -14,3 +14,8 @@ export type Image = {
   width?: number
   height?: number
 }
+
+export type SEO = {
+  title?: string
+  description?: string
+}

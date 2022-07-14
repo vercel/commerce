@@ -1,3 +1,5 @@
+import { SEO } from './common'
+
 export type ProductImage = {
   url: string
   alt?: string
@@ -29,6 +31,10 @@ export type ProductVariant = {
   id: string | number
   options: ProductOption[]
   availableForSale?: boolean
+  // Product variant price
+  price?: ProductPrice
+  // Product variant image
+  image?: ProductImage
 }
 
 export type Product = {
@@ -44,6 +50,7 @@ export type Product = {
   price: ProductPrice
   options: ProductOption[]
   vendor?: string
+  seo?: SEO
 }
 
 export type SearchProductsBody = {

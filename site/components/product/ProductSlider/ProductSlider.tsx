@@ -10,6 +10,7 @@ import cn from 'clsx'
 import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
 import ProductSliderControl from '../ProductSliderControl'
+import { useProduct } from '../product-context'
 
 interface ProductSliderProps {
   children: React.ReactNode[]
@@ -20,7 +21,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   children,
   className = '',
 }) => {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const { imageIndex, resetImageIndex } = useProduct()
+  const [currentSlide, setCurrentSlide] = useState(imageIndex ?? 0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
   const thumbsContainerRef = useRef<HTMLDivElement>(null)
@@ -29,10 +31,12 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     loop: true,
     slides: { perView: 1 },
     created: () => setIsMounted(true),
+    dragStarted: () => {
+      resetImageIndex()
+    },
     slideChanged(s) {
       const slideNumber = s.track.details.rel
       setCurrentSlide(slideNumber)
-
       if (thumbsContainerRef.current) {
         const $el = document.getElementById(`thumb-${slideNumber}`)
         if (slideNumber >= 3) {
@@ -74,8 +78,23 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     }
   }, [])
 
-  const onPrev = React.useCallback(() => slider.current?.prev(), [slider])
-  const onNext = React.useCallback(() => slider.current?.next(), [slider])
+  useEffect(() => {
+    if (imageIndex && imageIndex !== currentSlide) {
+      slider.current?.moveToIdx(imageIndex, undefined, {
+        duration: 0,
+      })
+    }
+  }, [imageIndex, currentSlide, slider])
+
+  const onPrev = React.useCallback(() => {
+    resetImageIndex()
+    slider.current?.prev()
+  }, [resetImageIndex, slider])
+
+  const onNext = React.useCallback(() => {
+    resetImageIndex()
+    slider.current?.next()
+  }, [resetImageIndex, slider])
 
   return (
     <div className={cn(s.root, className)} ref={sliderContainerRef}>
@@ -114,6 +133,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                   }),
                   id: `thumb-${idx}`,
                   onClick: () => {
+                    resetImageIndex()
                     slider.current?.moveToIdx(idx)
                   },
                 },
