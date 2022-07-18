@@ -1,5 +1,5 @@
 export const customerUserErrorsFragment = /* GraphQL */ `
-  fragment customerUserErrors on CustomerUserErrors {
+  fragment customerUserErrors on CustomerUserError {
     code
     field
     message
@@ -8,8 +8,7 @@ export const customerUserErrorsFragment = /* GraphQL */ `
 
 export const customerAccessTokenFragment = /* GraphQL */ `
   fragment customerAccessToken on CustomerAccessToken {
-    code
-    field
-    message
+    accessToken
+    expiresAt
   }
 `

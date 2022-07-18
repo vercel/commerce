@@ -3,6 +3,8 @@ export { handleFetchResponse } from './handle-fetch-response'
 export { cartCreate } from './cart-create'
 export { handleLogin, handleAutomaticLogin } from './handle-login'
 export { handleAccountActivation } from './handle-account-activation'
+export { getCategories } from './get-categories'
+export { getBrands } from './get-brands'
 
 export * from './helpers'
 export * from './queries'

@@ -5,8 +5,10 @@ import type {
 import { GetProductOperation } from '../../types/product'
 import { normalizeProduct, getProductQuery } from '../../utils'
 import type { ShopifyConfig, Provider } from '..'
+
 import {
   GetProductBySlugQuery,
+  GetProductBySlugQueryVariables,
   Product as ShopifyProduct,
 } from '../../../schema'
 
@@ -38,10 +40,12 @@ export default function getProductOperation({
     preview?: boolean
   }): Promise<T['data']> {
     const { fetch, locale } = commerce.getConfig(cfg)
-
     const {
       data: { productByHandle },
-    } = await fetch<GetProductBySlugQuery>(
+    } = await fetch<
+      GetProductBySlugQuery,
+      Partial<GetProductBySlugQueryVariables>
+    >(
       query,
       {
         variables,

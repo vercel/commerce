@@ -1,8 +1,9 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 
 export function getError(err: any[] | string | null, status: number) {
-  console.log(JSON.stringify(err, null, 2))
-
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(JSON.stringify(err, null, 2))
+  }
   const errors = Array.isArray(err)
     ? err
     : [{ message: err || 'Failed to fetch Shopify API' }]

@@ -4,7 +4,7 @@ import type { Product } from '@commerce/types/product'
 
 import { ProductCard } from '@components/product'
 import { Container, Text } from '@components/ui'
-import { ProductProvider } from '../product-context'
+import { ProductProvider } from '../context'
 import ProductDetails from '../ProductDetails/ProductDetails'
 import { SEO } from '@components/common'
 

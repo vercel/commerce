@@ -5,9 +5,7 @@ import type {
 import { GetSiteInfoQueryVariables } from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
 import { GetSiteInfoOperation } from '../../types/site'
-
-import { getBrands } from '../utils/get-brands'
-import { getCategories } from '../utils/get-categories'
+import { getBrands, getCategories } from '../../utils'
 
 export const getSiteInfoQuery = /* GraphQL */ `
   query getSiteInfo {

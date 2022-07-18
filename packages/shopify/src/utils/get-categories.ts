@@ -1,7 +1,8 @@
-import { ShopifyConfig } from '..'
-import type { Category } from '../../types/site'
-import { CollectionEdge } from '../../../schema'
-import { normalizeCategory, getSiteCollectionsQuery } from '../../utils'
+import { ShopifyConfig } from '../api'
+import type { Category } from '../types/site'
+import { CollectionEdge } from '../../schema'
+import { normalizeCategory } from '../utils/normalize'
+import { getSiteCollectionsQuery } from './queries'
 
 export const getCategories = async ({
   fetch,

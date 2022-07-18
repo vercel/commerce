@@ -2948,7 +2948,7 @@ type Country {
   unitSystem: UnitSystem!
 }
 
-"The code designating a country/region, which generally follows ISO 3166-1 alpha-2 guidelines.\nIf a territory doesn't have a country code value in the `CountryCode` enum, it might be considered a subdivision\nof another country. For example, the territories associated with Spain are represented by the country code `ES`,\nand the territories associated with the United States of America are represented by the country code `US`.\n"
+"The code designating a country/region, which generally follows ISO 3166-1 alpha-2 guidelines.\nIf a territory doesn't have a country code value in the `CountryCode` enum, then it might be considered a subdivision\nof another country. For example, the territories associated with Spain are represented by the country code `ES`,\nand the territories associated with the United States of America are represented by the country code `US`.\n"
 enum CountryCode {
   """
   Ascension Island.
@@ -9638,7 +9638,7 @@ type Payment implements Node {
   nextActionUrl: URL
 
   """
-  Whether or not the payment is still processing asynchronously.
+  Whether the payment is still processing asynchronously.
   """
   ready: Boolean!
 
@@ -11598,7 +11598,7 @@ type ShopPolicyWithDefault {
 "The availability of a product variant at a particular location.\nLocal pick-up must be enabled in the  store's shipping settings, otherwise this will return an empty result.\n"
 type StoreAvailability {
   """
-  Whether or not this product variant is in-stock at this location.
+  Whether the product variant is in-stock at this location.
   """
   available: Boolean!
 

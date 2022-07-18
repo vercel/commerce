@@ -4,7 +4,7 @@ import { WishlistButton } from '@components/wishlist'
 import ProductSidebar from '../ProductSidebar'
 import ProductTag from '../ProductTag'
 
-import { useProduct } from '../product-context'
+import { useProduct } from '../context'
 
 import s from './ProductDetails.module.css'
 import ProductSlider from '../ProductSlider'

@@ -1,11 +1,11 @@
-import { ShopifyConfig } from '..'
+import { ShopifyConfig } from '../api'
 
 import {
   GetAllProductVendorsQuery,
   GetAllProductVendorsQueryVariables,
-} from '../../../schema'
+} from '../../schema'
 
-import { getAllProductVendors } from '../../utils/queries'
+import { getAllProductVendors } from './queries'
 
 export type Brand = {
   entityId: string

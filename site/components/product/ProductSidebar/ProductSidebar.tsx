@@ -4,8 +4,7 @@ import { FC, useState } from 'react'
 import { ProductOptions } from '@components/product'
 import { Button, Text, Rating, Collapse, useUI } from '@components/ui'
 
-import { useProduct } from '../product-context'
-
+import { useProduct } from '../context'
 interface ProductSidebarProps {
   className?: string
 }
@@ -60,6 +59,23 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ className }) => {
         )}
       </div>
       <div className="mt-6">
+        {process.env.COMMERCE_METAFIELDS_ENABLED &&
+          product.metafields &&
+          product.metafields?.length > 0 && (
+            <Collapse title="Metafields">
+              <ul className="flex flex-col space-y-2 divide-y divide-dashed">
+                {product.metafields.map((m) => (
+                  <li
+                    className="flex space-x-2 justify-start items-center text-sm pt-2"
+                    key={m.key}
+                  >
+                    <span className="font-bold capitalize">{m.key}</span>:
+                    <span>{m.value}</span>
+                  </li>
+                ))}
+              </ul>
+            </Collapse>
+          )}
         <Collapse title="Care">
           This is a limited edition production run. Printing starts when the
           drop ends.

@@ -10,6 +10,15 @@ const Head: VFC = () => {
         content="width=device-width, initial-scale=1"
       />
       <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
+      {process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN && (
+        <link
+          rel="preconnect"
+          href={`https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN.replace(
+            /(^\w+:|^)\/\//,
+            ''
+          )}`}
+        />
+      )}
     </SEO>
   )
 }

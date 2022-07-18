@@ -74,7 +74,7 @@ export const cartDetailsFragment = /* GraphQL */ `
 `
 
 export const userErrorsFragment = /* GraphQL */ `
-  fragment userErrors on UserError {
+  fragment userErrors on CartUserError {
     code
     field
     message

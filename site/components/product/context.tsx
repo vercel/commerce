@@ -6,24 +6,18 @@ import {
   SelectedOptions,
 } from './helpers'
 
-import React, {
-  FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import React, { FC, useMemo, useState, ReactNode, useEffect } from 'react'
+
 import usePrice from '@framework/product/use-price'
 
 export interface ProductContextValue {
   product: Product
   imageIndex: number | null
+  setImageIndex: React.Dispatch<React.SetStateAction<number | null>>
   price: string
   variant: ProductVariant
   selectedOptions: SelectedOptions
   setSelectedOptions: React.Dispatch<React.SetStateAction<SelectedOptions>>
-  resetImageIndex: () => void
 }
 
 export const ProductContext = React.createContext<ProductContextValue | null>(
@@ -43,12 +37,16 @@ export const ProductProvider: FC<ProductProviderProps> = ({
 }) => {
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
   const [imageIndex, setImageIndex] = useState<number | null>(null)
-  const resetImageIndex = useCallback(() => setImageIndex(null), [])
 
-  const variant = useMemo(() => {
-    const v = getProductVariant(product, selectedOptions)
-    return v || product.variants[0]
-  }, [product, selectedOptions])
+  useEffect(
+    () => selectDefaultOptionFromProduct(product, setSelectedOptions),
+    [product]
+  )
+
+  const variant = useMemo(
+    () => getProductVariant(product, selectedOptions) || product.variants[0],
+    [product, selectedOptions]
+  )
 
   const { price } = usePrice({
     amount: variant?.price?.value || product.price.value,
@@ -57,32 +55,29 @@ export const ProductProvider: FC<ProductProviderProps> = ({
   })
 
   useEffect(() => {
-    selectDefaultOptionFromProduct(product, setSelectedOptions)
-  }, [product])
-
-  useEffect(() => {
-    const idx = product.images.findIndex(
-      (image: ProductImage) => image.url === variant?.image?.url
-    )
-    if (idx) {
+    const idx = product.images.findIndex((image: ProductImage) => {
+      return image.url === variant?.image?.url
+    })
+    if (idx !== -1) {
       setImageIndex(idx)
     }
   }, [variant, product])
 
+  const value = useMemo(
+    () => ({
+      price,
+      product,
+      variant,
+      imageIndex,
+      setImageIndex,
+      selectedOptions,
+      setSelectedOptions,
+    }),
+    [price, product, variant, imageIndex, selectedOptions]
+  )
+
   return (
-    <ProductContext.Provider
-      value={{
-        price,
-        product,
-        variant,
-        imageIndex,
-        resetImageIndex,
-        selectedOptions,
-        setSelectedOptions,
-      }}
-    >
-      {children}
-    </ProductContext.Provider>
+    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
   )
 }
 

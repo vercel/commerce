@@ -9,8 +9,12 @@ export const customerActivateMutation = /* GraphQL */ `
       customer {
         id
       }
-      ...customerAccessToken
-      ...customerUserErrors
+      customerAccessToken {
+        ...customerAccessToken
+      }
+      customerUserErrors {
+        ...customerUserErrors
+      }
     }
   }
   ${customerUserErrorsFragment}
@@ -22,8 +26,12 @@ export const customerActivateByUrlMutation = /* GraphQL */ `
       customer {
         id
       }
-      ...customerAccessToken
-      ...customerUserErrors
+      customerAccessToken {
+        ...customerAccessToken
+      }
+      customerUserErrors {
+        ...customerUserErrors
+      }
     }
   }
   ${customerUserErrorsFragment}
@@ -33,8 +41,12 @@ export const customerActivateByUrlMutation = /* GraphQL */ `
 export const customerAccessTokenCreateMutation = /* GraphQL */ `
   mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
     customerAccessTokenCreate(input: $input) {
-      ...customerAccessToken
-      ...customerUserErrors
+      customerAccessToken {
+        ...customerAccessToken
+      }
+      customerUserErrors {
+        ...customerUserErrors
+      }
     }
   }
   ${customerUserErrorsFragment}
@@ -46,16 +58,20 @@ export const customerAccessTokenDeleteMutation = /* GraphQL */ `
     customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
       deletedAccessToken
       deletedCustomerAccessTokenId
-      ...customerUserErrors
+      userErrors {
+        field
+        message
+      }
     }
   }
-  ${customerUserErrorsFragment}
 `
 
 export const customerCreateMutation = /* GraphQL */ `
   mutation customerCreate($input: CustomerCreateInput!) {
     customerCreate(input: $input) {
-      ...customerUserErrors
+      customerUserErrors {
+        ...customerUserErrors
+      }
       customer {
         id
       }

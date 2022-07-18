@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Swatch } from '@components/product'
-import { useProduct } from '../product-context'
+import { useProduct } from '../context'
 
 const ProductOptions: React.FC = () => {
   const { product, selectedOptions, setSelectedOptions } = useProduct()

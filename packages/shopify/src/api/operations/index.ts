@@ -6,7 +6,7 @@ import getProduct from './get-product'
 import getSiteInfo from './get-site-info'
 import login from './login'
 
-export default {
+const operations = {
   getAllPages,
   getPage,
   getAllProducts,
@@ -15,3 +15,5 @@ export default {
   getSiteInfo,
   login,
 }
+
+export default operations

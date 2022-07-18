@@ -14,6 +14,7 @@ import {
   PageEdge,
   Collection,
   CartDetailsFragment,
+  MetafieldConnection,
 } from '../../schema'
 import { colorMap } from './colors'
 import { CommerceError } from '@vercel/commerce/utils/errors'
@@ -114,7 +115,6 @@ export function normalizeProduct({
   ...rest
 }: ShopifyProduct): Product {
   const variant = variants?.nodes?.[0]
-
   return {
     id,
     name,
@@ -132,11 +132,13 @@ export function normalizeProduct({
           .filter((o) => o.name !== 'Title') // By default Shopify adds a 'Title' name when there's only one option. We don't need it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
           .map((o) => normalizeProductOption(o))
       : [],
+    metafields: metafields?.nodes?.map((m) => m) || [],
     ...(description && { description }),
     ...(descriptionHtml && { descriptionHtml }),
     ...rest,
   }
 }
+
 function normalizeLineItem({
   node: { id, merchandise: variant, quantity },
 }: {

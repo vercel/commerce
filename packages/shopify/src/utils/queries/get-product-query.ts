@@ -1,5 +1,5 @@
 export const getProductQuery = /* GraphQL */ `
-  query getProductBySlug($slug: String!) {
+  query getProductBySlug($slug: String!, $withMetafields: Boolean = false) {
     productByHandle(handle: $slug) {
       id
       handle
@@ -46,23 +46,22 @@ export const getProductQuery = /* GraphQL */ `
           }
         }
       }
-      images(first: 15) {
+      metafields(first: 25) @include(if: $withMetafields) {
+        nodes {
+          key
+          value
+          namespace
+          description
+          type
+        }
+      }
+      images(first: 25) {
         nodes {
           url
           altText
           width
           height
         }
-      }
-    }
-    shop {
-      shippingPolicy {
-        body
-        handle
-      }
-      refundPolicy {
-        body
-        handle
       }
     }
   }

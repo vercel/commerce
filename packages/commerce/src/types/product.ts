@@ -1,4 +1,4 @@
-import { SEO } from './common'
+import type { SEO } from './common'
 
 export type ProductImage = {
   url: string
@@ -31,10 +31,15 @@ export type ProductVariant = {
   id: string | number
   options: ProductOption[]
   availableForSale?: boolean
-  // Product variant price
   price?: ProductPrice
-  // Product variant image
   image?: ProductImage
+}
+
+export type ProductMetafield = {
+  key: string
+  value: string
+  description?: string
+  type?: string
 }
 
 export type Product = {
@@ -51,6 +56,7 @@ export type Product = {
   options: ProductOption[]
   vendor?: string
   seo?: SEO
+  metafields?: ProductMetafield[]
 }
 
 export type SearchProductsBody = {
@@ -102,5 +108,5 @@ export type GetAllProductsOperation<T extends ProductTypes = ProductTypes> = {
 
 export type GetProductOperation<T extends ProductTypes = ProductTypes> = {
   data: { product?: T['product'] }
-  variables: { path: string; slug?: never } | { path?: never; slug: string }
+  variables: { slug?: string; path?: string; withMetafields?: boolean }
 }
