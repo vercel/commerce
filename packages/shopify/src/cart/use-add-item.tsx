@@ -1,22 +1,20 @@
 import { useCallback } from 'react'
-import type { MutationHook } from '@vercel/commerce/utils/types'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
-import type { AddItemHook } from '../types/cart'
+
 import useCart from './use-cart'
 
-import {
-  cartLinesAddMutation,
-  getCartId,
-  cartCreate,
-  normalizeCart,
-  throwUserErrors,
-} from '../utils'
+import type { AddItemHook } from '../types/cart'
+import type { MutationHook } from '@vercel/commerce/utils/types'
 
-import {
+import type {
   CartLinesAddMutation,
   CartLinesAddMutationVariables,
 } from '../../schema'
+
+import { getCartId, cartCreate, normalizeCart, throwUserErrors } from '../utils'
+
+import { cartLinesAddMutation } from '../utils/mutations/cart-mutations'
 
 export default useAddItem as UseAddItem<typeof handler>
 

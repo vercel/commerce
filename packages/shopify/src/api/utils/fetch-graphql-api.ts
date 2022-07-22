@@ -41,7 +41,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
       throw getError(
         [
           {
-            message: `${err} \n Most likely related to an unexpected output. e.g the store might be protected with password or not available.`,
+            message: `${err} \n Most likely related to an unexpected output. e.g the store might be not available.`,
           },
         ],
         500

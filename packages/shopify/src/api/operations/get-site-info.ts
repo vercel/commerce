@@ -2,9 +2,11 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import { GetSiteInfoQueryVariables } from '../../../schema'
+
 import type { ShopifyConfig, Provider } from '..'
-import { GetSiteInfoOperation } from '../../types/site'
+import type { GetSiteInfoQueryVariables } from '../../../schema'
+import type { GetSiteInfoOperation } from '../../types/site'
+
 import { getBrands, getCategories } from '../../utils'
 
 export const getSiteInfoQuery = /* GraphQL */ `

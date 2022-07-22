@@ -1,8 +1,19 @@
-import { FetcherOptions } from '@vercel/commerce/utils/types'
-import { CustomerAccessTokenCreateInput } from '../../schema'
+import type { FetcherOptions } from '@vercel/commerce/utils/types'
+
+import type {
+  Mutation,
+  MutationCustomerActivateArgs,
+  MutationCustomerActivateByUrlArgs,
+  CustomerAccessTokenCreateInput,
+} from '../../schema'
+
 import { setCustomerToken } from './helpers'
-import { customerAccessTokenCreateMutation } from './mutations'
 import { throwUserErrors } from './throw-user-errors'
+
+import {
+  customerActivateByUrlMutation,
+  customerAccessTokenCreateMutation,
+} from './mutations'
 
 export const handleLogin = (data: any) => {
   const response = data.customerAccessTokenCreate
@@ -30,5 +41,24 @@ export const handleAutomaticLogin = async (
       },
     })
     handleLogin(loginData)
+  } catch (error) {}
+}
+
+export const handleAccountActivation = async (
+  fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
+  input: MutationCustomerActivateByUrlArgs
+) => {
+  try {
+    const { customerActivateByUrl } = await fetch<
+      Mutation,
+      MutationCustomerActivateArgs
+    >({
+      query: customerActivateByUrlMutation,
+      variables: {
+        input,
+      },
+    })
+
+    throwUserErrors(customerActivateByUrl?.customerUserErrors)
   } catch (error) {}
 }

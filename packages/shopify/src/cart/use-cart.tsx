@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
-import useCommerceCart, { UseCart } from '@vercel/commerce/cart/use-cart'
-import { SWRHook } from '@vercel/commerce/utils/types'
 import Cookies from 'js-cookie'
+import useCommerceCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 
-import { getCartQuery, normalizeCart, setCartUrlCookie } from '../utils'
-import { GetCartHook } from '../types/cart'
+import type { SWRHook } from '@vercel/commerce/utils/types'
+import type { GetCartHook } from '../types/cart'
+import type { GetCartQueryVariables, QueryRoot } from '../../schema'
 
-import { GetCartQueryVariables, QueryRoot } from '../../schema'
 import { SHOPIFY_CART_ID_COOKIE } from '../const'
+import { getCartQuery, normalizeCart, setCartUrlCookie } from '../utils'
 
 export default useCommerceCart as UseCart<typeof handler>
 export const handler: SWRHook<GetCartHook> = {
