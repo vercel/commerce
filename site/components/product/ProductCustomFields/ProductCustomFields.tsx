@@ -1,4 +1,4 @@
-import type { ProductCustomField } from '@framework/types/product'
+import type { ProductCustomField } from '@commerce/types/product'
 
 const ProductCustomFields = ({ fields }: { fields: ProductCustomField[] }) => {
   return (
