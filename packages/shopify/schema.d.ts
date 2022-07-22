@@ -1283,6 +1283,8 @@ export enum CheckoutErrorCode {
   GiftCardUnusable = 'GIFT_CARD_UNUSABLE',
   /** The input value should be greater than or equal to the minimum value allowed. */
   GreaterThanOrEqualTo = 'GREATER_THAN_OR_EQUAL_TO',
+  /** Higher value discount applied. */
+  HigherValueDiscountApplied = 'HIGHER_VALUE_DISCOUNT_APPLIED',
   /** The input value is invalid. */
   Invalid = 'INVALID',
   /** Cannot specify country and presentment currency code. */
@@ -6867,47 +6869,6 @@ export type CustomerAccessTokenFragment = {
   expiresAt: any
 }
 
-type Media_ExternalVideo_Fragment = {
-  __typename?: 'ExternalVideo'
-  mediaContentType: MediaContentType
-  alt?: string | null
-  previewImage?: { __typename?: 'Image'; url: any } | null
-}
-
-type Media_MediaImage_Fragment = {
-  __typename?: 'MediaImage'
-  id: string
-  mediaContentType: MediaContentType
-  alt?: string | null
-  image?: {
-    __typename?: 'Image'
-    url: any
-    width?: number | null
-    height?: number | null
-  } | null
-  previewImage?: { __typename?: 'Image'; url: any } | null
-}
-
-type Media_Model3d_Fragment = {
-  __typename?: 'Model3d'
-  mediaContentType: MediaContentType
-  alt?: string | null
-  previewImage?: { __typename?: 'Image'; url: any } | null
-}
-
-type Media_Video_Fragment = {
-  __typename?: 'Video'
-  mediaContentType: MediaContentType
-  alt?: string | null
-  previewImage?: { __typename?: 'Image'; url: any } | null
-}
-
-export type MediaFragment =
-  | Media_ExternalVideo_Fragment
-  | Media_MediaImage_Fragment
-  | Media_Model3d_Fragment
-  | Media_Video_Fragment
-
 export type ProductCardFragment = {
   __typename?: 'Product'
   id: string
@@ -7849,7 +7810,7 @@ export type GetPageQuery = {
 
 export type GetProductBySlugQueryVariables = Exact<{
   slug: Scalars['String']
-  withMetafields?: InputMaybe<Scalars['Boolean']>
+  withCustomFields?: InputMaybe<Scalars['Boolean']>
 }>
 
 export type GetProductBySlugQuery = {

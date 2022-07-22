@@ -2,13 +2,17 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import { GetAllProductsOperation } from '../../types/product'
+
+import type { GetAllProductsOperation } from '../../types/product'
+
 import {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
   Product as ShopifyProduct,
 } from '../../../schema'
+
 import type { ShopifyConfig, Provider } from '..'
+
 import { normalizeProduct, getAllProductsQuery } from '../../utils'
 
 export default function getAllProductsOperation({

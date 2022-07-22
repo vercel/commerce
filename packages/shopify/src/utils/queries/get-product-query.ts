@@ -1,5 +1,5 @@
 export const getProductQuery = /* GraphQL */ `
-  query getProductBySlug($slug: String!, $withMetafields: Boolean = false) {
+  query getProductBySlug($slug: String!, $withCustomFields: Boolean = false) {
     productByHandle(handle: $slug) {
       id
       handle
@@ -46,7 +46,7 @@ export const getProductQuery = /* GraphQL */ `
           }
         }
       }
-      metafields(first: 25) @include(if: $withMetafields) {
+      metafields(first: 25) @include(if: $withCustomFields) {
         nodes {
           key
           value

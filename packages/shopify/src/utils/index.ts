@@ -1,10 +1,11 @@
 export { throwUserErrors } from './throw-user-errors'
 export { handleFetchResponse } from './handle-fetch-response'
-export { cartCreate } from './cart-create'
-export { handleLogin, handleAutomaticLogin } from './handle-login'
-export { handleAccountActivation } from './handle-account-activation'
-export { getCategories } from './get-categories'
-export { getBrands } from './get-brands'
+
+export {
+  handleLogin,
+  handleAutomaticLogin,
+  handleAccountActivation,
+} from './handle-login'
 
 export * from './helpers'
 export * from './queries'

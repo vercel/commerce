@@ -2,6 +2,7 @@
   "provider": "bigcommerce",
   "features": {
     "wishlist": true,
-    "customerAuth": true
+    "customerAuth": true,
+    "customFields": true
   }
 }

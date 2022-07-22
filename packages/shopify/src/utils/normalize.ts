@@ -1,9 +1,9 @@
 import type { Page } from '../types/page'
-import type { Product, ProductPrice } from '../types/product'
+import type { MetafieldType, Product, ProductPrice } from '../types/product'
 import type { Cart, LineItem } from '../types/cart'
 import type { Category } from '../types/site'
 
-import {
+import type {
   Product as ShopifyProduct,
   SelectedOption,
   ImageConnection,
@@ -14,12 +14,15 @@ import {
   PageEdge,
   Collection,
   CartDetailsFragment,
-  MetafieldConnection,
 } from '../../schema'
-import { colorMap } from './colors'
+
+import humanizeString from 'humanize-string'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 
-type MoneyProps = MoneyV2 & { retailPrice?: string }
+import { colorMap } from './colors'
+import { getMetafieldValue, parseJson } from './helpers'
+
+type MoneyProps = MoneyV2 & { retailPrice?: string | number }
 
 const money = (money: MoneyProps): ProductPrice => {
   const { amount, currencyCode, retailPrice } = money || { currencyCode: 'USD' }
@@ -101,20 +104,24 @@ const normalizeProductVariants = (variants: ProductVariantConnection) => {
   )
 }
 
-export function normalizeProduct({
-  id,
-  title: name,
-  vendor,
-  images,
-  variants,
-  description,
-  descriptionHtml,
-  handle,
-  options,
-  metafields,
-  ...rest
-}: ShopifyProduct): Product {
+export function normalizeProduct(
+  {
+    id,
+    title: name,
+    vendor,
+    images,
+    variants,
+    description,
+    descriptionHtml,
+    handle,
+    options,
+    metafields,
+    ...rest
+  }: ShopifyProduct,
+  locale?: string
+): Product {
   const variant = variants?.nodes?.[0]
+
   return {
     id,
     name,
@@ -132,7 +139,14 @@ export function normalizeProduct({
           .filter((o) => o.name !== 'Title') // By default Shopify adds a 'Title' name when there's only one option. We don't need it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
           .map((o) => normalizeProductOption(o))
       : [],
-    metafields: metafields?.nodes?.map((m) => m) || [],
+    customFields:
+      metafields?.nodes?.map(({ key, type, value }) => ({
+        key,
+        name: humanizeString(key),
+        type,
+        value,
+        htmlValue: normalizeMetafieldValue(type, value, locale),
+      })) || [],
     ...(description && { description }),
     ...(descriptionHtml && { descriptionHtml }),
     ...rest,
@@ -212,3 +226,18 @@ export const normalizeCategory = ({
   slug: handle,
   path: `/${handle}`,
 })
+export const normalizeMetafieldValue = (
+  type: MetafieldType,
+  value: string,
+  locale?: string
+) => {
+  if (type.startsWith('list.')) {
+    const arr = parseJson(value)
+    return Array.isArray(arr)
+      ? arr
+          .map((v) => getMetafieldValue(type.split('.')[1], v, locale))
+          .join(' &#8226; ')
+      : value
+  }
+  return getMetafieldValue(type, value, locale)
+}

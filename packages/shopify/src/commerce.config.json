@@ -3,6 +3,6 @@
   "features": {
     "wishlist": false,
     "customerAuth": true,
-    "metafields": true
+    "customFields": true
   }
 }

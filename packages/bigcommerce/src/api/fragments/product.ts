@@ -67,6 +67,9 @@ export const productInfoFragment = /* GraphQL */ `
             altText
             isDefault
           }
+          prices {
+            ...productPrices
+          }
         }
       }
     }
@@ -77,6 +80,15 @@ export const productInfoFragment = /* GraphQL */ `
           entityId
           displayName
           ...multipleChoiceOption
+        }
+      }
+    }
+    customFields @include(if: $withCustomFields) {
+      edges {
+        node {
+          entityId
+          name
+          value
         }
       }
     }

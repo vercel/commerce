@@ -1,4 +1,4 @@
-import type { Product } from '../types/product'
+import type { Product, ProductCustomField } from '../types/product'
 import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
 import type { Page } from '../types/page'
 import type { BCCategory, Category } from '../types/site'
@@ -18,10 +18,23 @@ function normalizeProductOption(productOption: any) {
   }
 }
 
+function normalizeCustomFieldsValue(field: any): ProductCustomField {
+  const {
+    node: { entityId, name, value },
+  } = field
+
+  return {
+    key: String(entityId),
+    name,
+    value,
+  }
+}
+
 export function normalizeProduct(productNode: any): Product {
   const {
     entityId: id,
     productOptions,
+    customFields,
     prices,
     path,
     id: _,
@@ -31,26 +44,61 @@ export function normalizeProduct(productNode: any): Product {
   return update(productNode, {
     id: { $set: String(id) },
     images: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
+      $apply: ({ edges }: any) => [
+        ...edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
           url: urlOriginal,
           alt: altText,
           ...rest,
         })),
+
+        ...productNode.variants?.edges
+          ?.map(({ node: { defaultImage } }: any) =>
+            defaultImage
+              ? { url: defaultImage.urlOriginal, alt: defaultImage.altText }
+              : null
+          )
+          .filter(Boolean),
+      ],
     },
+
     variants: {
       $apply: ({ edges }: any) =>
-        edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
-          id: entityId,
-          options: productOptions?.edges
-            ? productOptions.edges.map(normalizeProductOption)
-            : [],
-          ...rest,
-        })),
+        edges?.map(
+          ({
+            node: { entityId, productOptions, prices, defaultImage, ...rest },
+          }: any) => ({
+            id: entityId,
+            ...(defaultImage && {
+              image: {
+                url: defaultImage.urlOriginal,
+                alt: defaultImage.altText,
+              },
+            }),
+            price: {
+              value: prices?.price.value,
+              currencyCode: prices?.price.currencyCode,
+              ...(prices?.salePrice?.value && {
+                salePrice: prices?.salePrice.value,
+              }),
+              ...(prices?.retailPrice?.value && {
+                retailPrice: prices?.retailPrice.value,
+              }),
+            },
+            options: productOptions?.edges
+              ? productOptions.edges.map(normalizeProductOption)
+              : [],
+            ...rest,
+          })
+        ),
     },
     options: {
-      $set: productOptions.edges
+      $set: productOptions?.edges
         ? productOptions?.edges.map(normalizeProductOption)
+        : [],
+    },
+    customFields: {
+      $set: customFields?.edges
+        ? customFields?.edges.map(normalizeCustomFieldsValue)
         : [],
     },
     brand: {
@@ -63,6 +111,10 @@ export function normalizeProduct(productNode: any): Product {
       $set: {
         value: prices?.price.value,
         currencyCode: prices?.price.currencyCode,
+        ...(prices?.salePrice?.value && { salePrice: prices?.salePrice.value }),
+        ...(prices?.retailPrice?.value && {
+          retailPrice: prices?.retailPrice.value,
+        }),
       },
     },
     $unset: ['entityId'],

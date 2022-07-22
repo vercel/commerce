@@ -2176,6 +2176,11 @@ enum CheckoutErrorCode {
   GREATER_THAN_OR_EQUAL_TO
 
   """
+  Higher value discount applied.
+  """
+  HIGHER_VALUE_DISCOUNT_APPLIED
+
+  """
   The input value is invalid.
   """
   INVALID

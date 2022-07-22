@@ -61,7 +61,7 @@ export default function getProductOperation({
 
     return {
       ...(productByHandle && {
-        product: normalizeProduct(productByHandle as ShopifyProduct),
+        product: normalizeProduct(productByHandle as ShopifyProduct, locale),
       }),
     }
   }

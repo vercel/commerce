@@ -17,6 +17,7 @@ import { normalizeProduct } from '../../lib/normalize'
 export const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
     $hasLocale: Boolean = false
+    $withCustomFields: Boolean = false
     $locale: String = "null"
     $entityIds: [Int!]
     $first: Int = 10

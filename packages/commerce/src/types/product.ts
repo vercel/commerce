@@ -35,11 +35,14 @@ export type ProductVariant = {
   image?: ProductImage
 }
 
-export type ProductMetafield = {
+export type ProductCustomField = {
   key: string
+  name: string
   value: string
-  description?: string
+
   type?: string
+  htmlValue?: string
+  description?: string
 }
 
 export type Product = {
@@ -56,7 +59,7 @@ export type Product = {
   options: ProductOption[]
   vendor?: string
   seo?: SEO
-  metafields?: ProductMetafield[]
+  customFields?: ProductCustomField[]
 }
 
 export type SearchProductsBody = {
@@ -108,5 +111,5 @@ export type GetAllProductsOperation<T extends ProductTypes = ProductTypes> = {
 
 export type GetProductOperation<T extends ProductTypes = ProductTypes> = {
   data: { product?: T['product'] }
-  variables: { slug?: string; path?: string; withMetafields?: boolean }
+  variables: { slug?: string; path?: string; withCustomFields?: boolean }
 }

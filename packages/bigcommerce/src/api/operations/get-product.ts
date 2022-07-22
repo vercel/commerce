@@ -12,6 +12,7 @@ import { normalizeProduct } from '../../lib/normalize'
 export const getProductQuery = /* GraphQL */ `
   query getProduct(
     $hasLocale: Boolean = false
+    $withCustomFields: Boolean = false
     $locale: String = "null"
     $path: String!
   ) {
@@ -98,6 +99,7 @@ export default function getAllProductPathsOperation({
     const config = commerce.getConfig(cfg)
     const { locale } = config
     const variables: GetProductQueryVariables = {
+      ...vars,
       locale,
       hasLocale: !!locale,
       path: slug ? `/${slug}/` : vars.path!,

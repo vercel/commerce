@@ -42,10 +42,10 @@ export type MetaieldTypes =
 
 export type MetafieldType = LiteralUnion<MetaieldTypes>
 
-export type ProductMetafield = Core.ProductMetafield & {
+export type ProductCustomField = Core.ProductCustomField & {
   type?: MetafieldType
 }
 
 export type Product = Core.Product & {
-  metafields?: ProductMetafield[]
+  metafields?: ProductCustomField[]
 }

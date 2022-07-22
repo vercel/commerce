@@ -20,7 +20,7 @@ export async function getStaticProps({
   const productPromise = commerce.getProduct({
     variables: {
       slug: params!.slug,
-      withMetafields: Boolean(process.env.COMMERCE_METAFIELDS_ENABLED),
+      withCustomFields: Boolean(process.env.COMMERCE_CUSTOMFIELDS_ENABLED),
     },
     config,
     preview,
