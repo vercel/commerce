@@ -1,13 +1,14 @@
 import cn from 'clsx'
 import Image from 'next/image'
-import { WishlistButton } from '@components/wishlist'
-import ProductSidebar from '../ProductSidebar'
-import ProductTag from '../ProductTag'
 
 import { useProduct } from '../context'
+import { WishlistButton } from '@components/wishlist'
+
+import ProductTag from '../ProductTag'
+import ProductSlider from '../ProductSlider'
+import ProductSidebar from '../ProductSidebar'
 
 import s from './ProductDetails.module.css'
-import ProductSlider from '../ProductSlider'
 
 const ProductDetails = () => {
   const { product, variant, price } = useProduct()

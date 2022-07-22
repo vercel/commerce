@@ -5,6 +5,6 @@
     "wishlist": false,
     "customerAuth": false,
     "customCheckout": false,
-    "metafields": false
+    "customFields": false
   }
 }

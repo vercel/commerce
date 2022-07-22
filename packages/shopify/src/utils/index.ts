@@ -5,9 +5,12 @@ export {
   handleLogin,
   handleAutomaticLogin,
   handleAccountActivation,
-} from './handle-login'
+} from './auth'
 
-export * from './helpers'
+export * from './auth'
+export * from './cart'
+export * from './metafields'
+export * from './collections'
 export * from './queries'
 export * from './mutations'
 export * from './normalize'

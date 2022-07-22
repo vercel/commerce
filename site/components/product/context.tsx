@@ -1,28 +1,29 @@
-import { Product, ProductImage, ProductVariant } from '@commerce/types/product'
+import { useMemo, useState, useEffect, useContext, createContext } from 'react'
 
-import {
-  getProductVariant,
-  selectDefaultOptionFromProduct,
-  SelectedOptions,
-} from './helpers'
+import type { FC, ReactNode, Dispatch, SetStateAction } from 'react'
 
-import React, { FC, useMemo, useState, ReactNode, useEffect } from 'react'
+import type {
+  Product,
+  ProductImage,
+  ProductVariant,
+} from '@commerce/types/product'
+
+import type { SelectedOptions } from './helpers'
 
 import usePrice from '@framework/product/use-price'
+import { getProductVariant, selectDefaultOptionFromProduct } from './helpers'
 
 export interface ProductContextValue {
   product: Product
   imageIndex: number | null
-  setImageIndex: React.Dispatch<React.SetStateAction<number | null>>
+  setImageIndex: Dispatch<SetStateAction<number | null>>
   price: string
   variant: ProductVariant
   selectedOptions: SelectedOptions
-  setSelectedOptions: React.Dispatch<React.SetStateAction<SelectedOptions>>
+  setSelectedOptions: Dispatch<SetStateAction<SelectedOptions>>
 }
 
-export const ProductContext = React.createContext<ProductContextValue | null>(
-  null
-)
+export const ProductContext = createContext<ProductContextValue | null>(null)
 
 ProductContext.displayName = 'ProductContext'
 
@@ -55,11 +56,11 @@ export const ProductProvider: FC<ProductProviderProps> = ({
   })
 
   useEffect(() => {
-    const idx = product.images.findIndex((image: ProductImage) => {
+    const index = product.images.findIndex((image: ProductImage) => {
       return image.url === variant?.image?.url
     })
-    if (idx !== -1) {
-      setImageIndex(idx)
+    if (index !== -1) {
+      setImageIndex(index)
     }
   }, [variant, product])
 
@@ -82,7 +83,7 @@ export const ProductProvider: FC<ProductProviderProps> = ({
 }
 
 export const useProduct = () => {
-  const context = React.useContext(ProductContext) as ProductContextValue
+  const context = useContext(ProductContext) as ProductContextValue
   if (context === undefined) {
     throw new Error(`useProduct must be used within a ProductProvider`)
   }

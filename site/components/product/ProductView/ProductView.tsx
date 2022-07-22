@@ -1,12 +1,14 @@
 import s from './ProductView.module.css'
-import { FC } from 'react'
+
+import type { FC } from 'react'
 import type { Product } from '@commerce/types/product'
 
-import { ProductCard } from '@components/product'
-import { Container, Text } from '@components/ui'
-import { ProductProvider } from '../context'
-import ProductDetails from '../ProductDetails/ProductDetails'
 import { SEO } from '@components/common'
+import { ProductProvider } from '../context'
+import { Container, Text } from '@components/ui'
+import { ProductCard } from '@components/product'
+
+import ProductDetails from '../ProductDetails/ProductDetails'
 
 interface ProductViewProps {
   product: Product

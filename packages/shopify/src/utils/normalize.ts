@@ -20,7 +20,7 @@ import humanizeString from 'humanize-string'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 
 import { colorMap } from './colors'
-import { getMetafieldValue, parseJson } from './helpers'
+import { getMetafieldValue, parseJson } from './metafields'
 
 type MoneyProps = MoneyV2 & { retailPrice?: string | number }
 
