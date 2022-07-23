@@ -12,13 +12,13 @@
     "start": "turbo run start",
     "types": "turbo run types",
     "prettier-fix": "prettier --write .",
-    "cy:open-local": "cypress open --config-file cypress/config/local.json",
-    "cy:run-local": "cypress run --config-file cypress/config/local.json",
-    "cy:open-dev": "cypress open --config-file cypress/config/dev.json",
-    "cy:run-dev": "cypress run --config-file cypress/config/dev.json"
+    "cy:open-local": "cypress open --config-file cypress/config/local.config.js",
+    "cy:run-local": "cypress run --config-file cypress/config/local.config.js",
+    "cy:open-dev": "cypress open --config-file cypress/config/dev.config.js",
+    "cy:run-dev": "cypress run --config-file cypress/config/dev.config.js"
   },
   "devDependencies": {
-    "cypress": "9.6.1",
+    "cypress": "10.3.1",
     "husky": "7.0.4",
     "prettier": "2.5.1",
     "turbo": "1.1.2"
