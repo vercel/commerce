@@ -13,7 +13,10 @@ const Head: VFC = () => {
       {process.env.COMMERCE_PROVIDER === '@vercel/commerce-shopify' && (
         <link
           rel="preconnect"
-          href={`https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}`}
+          href={`https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN?.replace(
+            /(^\w+:|^)\/\//,
+            ''
+          )}`}
         />
       )}
     </SEO>

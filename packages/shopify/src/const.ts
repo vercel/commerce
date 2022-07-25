@@ -6,7 +6,8 @@ export const SHOPIFY_CART_URL_COOKIE = 'shopify_cartUrl'
 
 export const SHOPIFY_CUSTOMER_TOKEN_COOKIE = 'shopify_customerToken'
 
-export const STORE_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
+export const STORE_DOMAIN =
+  process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN?.replace(/(^\w+:|^)\/\//, '')
 
 export const SHOPIFY_COOKIE_EXPIRE = 30
 

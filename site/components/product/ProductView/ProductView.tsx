@@ -19,11 +19,13 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   return (
     <>
       <Container className="max-w-none w-full" clean>
+        <ProductProvider product={product}>
+          <ProductDetails />
+        </ProductProvider>
+
         <hr className="mt-7 border-accent-2" />
+
         <section className="py-12 px-6 mb-10">
-          <ProductProvider product={product}>
-            <ProductDetails />
-          </ProductProvider>
           <Text variant="sectionHeading">Related Products</Text>
           <div className={s.relatedProductsGrid}>
             {relatedProducts.map((p) => (

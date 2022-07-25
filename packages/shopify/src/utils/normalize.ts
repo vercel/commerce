@@ -16,11 +16,10 @@ import type {
   CartDetailsFragment,
 } from '../../schema'
 
-import humanizeString from 'humanize-string'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 
 import { colorMap } from './colors'
-import { getMetafieldValue, parseJson } from './metafields'
+import { getMetafieldValue, parseJson, humanizeString } from './metafields'
 
 type MoneyProps = MoneyV2 & { retailPrice?: string | number }
 

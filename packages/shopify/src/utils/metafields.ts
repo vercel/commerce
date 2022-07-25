@@ -46,7 +46,7 @@ export const getMetafieldValue = (
 ) => {
   switch (type) {
     case 'boolean':
-      return value === 'true' ? '&#10003;' : 'No'
+      return value === 'true' ? '&#10003;' : '&#10005;'
     case 'number_integer':
       return parseInt(value).toLocaleString(locale)
     case 'number_decimal':
@@ -87,4 +87,16 @@ export const getMetafieldValue = (
     default:
       return value
   }
+}
+
+export const humanizeString = (string: string) => {
+  string = string
+    .toLowerCase()
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+
+  string = string.charAt(0).toUpperCase() + string.slice(1)
+
+  return string
 }
