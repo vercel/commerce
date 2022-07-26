@@ -11,6 +11,7 @@ import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
 import ProductSliderControl from '../ProductSliderControl'
 import { useProduct } from '../context'
+import { ProductImage } from '@commerce/types/product'
 
 interface ProductSliderProps {
   children: React.ReactNode[]
@@ -21,8 +22,9 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   children,
   className = '',
 }) => {
-  const { imageIndex, setImageIndex } = useProduct()
-  const [currentSlide, setCurrentSlide] = useState(imageIndex ?? 0)
+  const { product, variant } = useProduct()
+
+  const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
   const thumbsContainerRef = useRef<HTMLDivElement>(null)
@@ -30,9 +32,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
     slides: { perView: 1 },
-    dragStarted: () => {
-      setImageIndex(null)
-    },
+    dragStarted: () => {},
     created: () => setIsMounted(true),
     slideChanged(s) {
       const slideNumber = s.track.details.rel
@@ -47,6 +47,17 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
       }
     },
   })
+
+  useEffect(() => {
+    const index = product.images.findIndex((image: ProductImage) => {
+      return image.url === variant?.image?.url
+    })
+    if (index !== -1) {
+      slider.current?.moveToIdx(index, false, {
+        duration: 0,
+      })
+    }
+  }, [variant, product, slider])
 
   // Stop the history navigation gesture on touch devices
   useEffect(() => {
@@ -78,23 +89,13 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     }
   }, [])
 
-  useEffect(() => {
-    if (imageIndex !== null) {
-      slider.current?.moveToIdx(imageIndex, false, {
-        duration: 0,
-      })
-    }
-  }, [imageIndex, slider])
-
   const onPrev = React.useCallback(() => {
-    setImageIndex(null)
     slider.current?.prev()
-  }, [setImageIndex, slider])
+  }, [slider])
 
   const onNext = React.useCallback(() => {
-    setImageIndex(null)
     slider.current?.next()
-  }, [setImageIndex, slider])
+  }, [slider])
 
   return (
     <div className={cn(s.root, className)} ref={sliderContainerRef}>
@@ -133,7 +134,6 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                   }),
                   id: `thumb-${idx}`,
                   onClick: () => {
-                    setImageIndex(null)
                     slider.current?.moveToIdx(idx)
                   },
                 },

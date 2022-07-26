@@ -72,7 +72,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ className }) => {
         {process.env.COMMERCE_CUSTOMFIELDS_ENABLED &&
           product.customFields &&
           product.customFields.length > 0 && (
-            <Collapse title="Technical Details">
+            <Collapse title="Specifications">
               <ProductCustomFields fields={product.customFields} />
             </Collapse>
           )}

@@ -13,8 +13,6 @@ import { getProductVariant, selectDefaultOptionFromProduct } from './helpers'
 
 export interface ProductContextValue {
   product: Product
-  imageIndex: number | null
-  setImageIndex: Dispatch<SetStateAction<number | null>>
   price: string
   variant: ProductVariant
   selectedOptions: SelectedOptions
@@ -34,7 +32,6 @@ export const ProductProvider: FC<ProductProviderProps> = ({
   product,
   children,
 }) => {
-  const [imageIndex, setImageIndex] = useState<number | null>(null)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
 
   useEffect(
@@ -53,26 +50,15 @@ export const ProductProvider: FC<ProductProviderProps> = ({
     currencyCode: variant?.price?.currencyCode || product.price.currencyCode!,
   })
 
-  useEffect(() => {
-    const index = product.images.findIndex((image: ProductImage) => {
-      return image.url === variant?.image?.url
-    })
-    if (index !== -1) {
-      setImageIndex(index)
-    }
-  }, [variant, product])
-
   const value = useMemo(
     () => ({
       price,
       product,
       variant,
-      imageIndex,
-      setImageIndex,
       selectedOptions,
       setSelectedOptions,
     }),
-    [price, product, variant, imageIndex, selectedOptions]
+    [price, product, selectedOptions, variant]
   )
 
   return (
