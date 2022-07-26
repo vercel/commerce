@@ -1,14 +1,12 @@
 import { useMemo, useState, useEffect, useContext, createContext } from 'react'
 
 import type { FC, ReactNode, Dispatch, SetStateAction } from 'react'
-
+import type { SelectedOptions } from './helpers'
 import type {
   Product,
   ProductImage,
   ProductVariant,
 } from '@commerce/types/product'
-
-import type { SelectedOptions } from './helpers'
 
 import usePrice from '@framework/product/use-price'
 import { getProductVariant, selectDefaultOptionFromProduct } from './helpers'
@@ -36,8 +34,8 @@ export const ProductProvider: FC<ProductProviderProps> = ({
   product,
   children,
 }) => {
-  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
   const [imageIndex, setImageIndex] = useState<number | null>(null)
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
 
   useEffect(
     () => selectDefaultOptionFromProduct(product, setSelectedOptions),

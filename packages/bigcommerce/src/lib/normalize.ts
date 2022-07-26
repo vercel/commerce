@@ -50,7 +50,7 @@ export function normalizeProduct(productNode: any): Product {
           alt: altText,
           ...rest,
         })),
-
+        // merge variant default image with product images
         ...productNode.variants?.edges
           ?.map(({ node: { defaultImage } }: any) =>
             defaultImage

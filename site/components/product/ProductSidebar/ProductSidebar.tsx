@@ -22,7 +22,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ className }) => {
     try {
       await addItem({
         productId: String(product.id),
-        variantId: String(variant ? variant.id : product.variants[0]?.id),
+        variantId: String(variant.id),
       })
       setSidebarView('CART_VIEW')
       openSidebar()
