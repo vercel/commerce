@@ -1,0 +1,10 @@
+{
+  "provider": "olist",
+  "features": {
+    "wishlist": false,
+    "cart": true,
+    "search": true,
+    "customerAuth": false,
+    "customCheckout": false
+  }
+}

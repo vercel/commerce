@@ -1,0 +1,10 @@
+export const CART_COOKIE = 'olist.vnda.cart'
+export const CART_TOKEN_COOKIE = 'olist.vnda.cart.token'
+export const TOKEN_COOKIE = 'olist.vnda.token'
+export const CUSTOMER_COOKIE = 'olist.vnda.customer'
+export const API_URL = `https://${process.env.NEXT_PUBLIC_OLIST_STOREFRONT_DOMAIN}/api`
+export const API_VERSION = 'v2'
+export const LOCALE = 'en-us'
+export const STORE_DOMAIN = process.env.NEXT_PUBLIC_OLIST_STOREFRONT_DOMAIN
+export const API_TOKEN = process.env.NEXT_PUBLIC_OLIST_STOREFRONT_ACCESS_TOKEN
+export const CUSTOMER_TOKEN_COOKIE = 'olist.vnda.customer.token'

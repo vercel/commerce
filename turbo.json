@@ -3,7 +3,8 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "cache": false
     },
     "next-commerce#build": {
       "dependsOn": [
@@ -11,7 +12,8 @@
         "$COMMERCE_PROVIDER",
         "$BIGCOMMERCE_STOREFRONT_API_URL",
         "$NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN",
-        "$NEXT_PUBLIC_SWELL_STORE_ID"
+        "$NEXT_PUBLIC_SWELL_STORE_ID",
+        "$NEXT_PUBLIC_OLIST_STOREFRONT_DOMAIN"
       ],
       "outputs": [".next/**"]
     },

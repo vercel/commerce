@@ -17,6 +17,7 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Kibo Commerce Demo: https://kibocommerce.vercel.store/
 - Commerce.js Demo: https://commercejs.vercel.store/
 - SalesForce Cloud Commerce Demo: https://salesforce-cloud-commerce.vercel.store/
+- Olist Demo: https://olist.vercel.store/
 
 ## Run minimal version locally
 

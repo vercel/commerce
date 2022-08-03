@@ -20,6 +20,7 @@ const PROVIDERS = [
   '@vercel/commerce-spree',
   '@vercel/commerce-commercejs',
   '@vercel/commerce-sfcc',
+  '@vercel/commerce-olist',
 ]
 
 function getProviderName() {
@@ -31,6 +32,8 @@ function getProviderName() {
       ? '@vercel/commerce-shopify'
       : process.env.NEXT_PUBLIC_SWELL_STORE_ID
       ? '@vercel/commerce-swell'
+      : process.env.NEXT_PUBLIC_OLIST_STOREFRONT_DOMAIN
+      ? '@vercel/commerce-olist'
       : '@vercel/commerce-local')
   )
 }
@@ -40,6 +43,7 @@ function withCommerceConfig(nextConfig = {}) {
     { commerce: { provider: getProviderName() } },
     nextConfig
   )
+
   const { commerce } = config
   const { provider } = commerce
 
