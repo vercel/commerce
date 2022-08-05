@@ -34,8 +34,8 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
     })
   } catch (error) {
     if (error instanceof BigcommerceApiError && error.status === 422) {
-      const hasEmailError = '0.email' in error.data?.errors
-
+      const hasEmailError = '.customer_create' in error.data?.errors
+      const hasPasswordError = '0.password' in error.data?.errors
       // If there's an error with the email, it most likely means it's duplicated
       if (hasEmailError) {
         return res.status(400).json({
@@ -43,6 +43,18 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
           errors: [
             {
               message: 'The email is already in use',
+              code: 'duplicated_email',
+            },
+          ],
+        })
+      }
+
+      if (hasPasswordError) {
+        return res.status(400).json({
+          data: null,
+          errors: [
+            {
+              message: 'Passwords must be longer than 7 chars and include numbers',
               code: 'duplicated_email',
             },
           ],
