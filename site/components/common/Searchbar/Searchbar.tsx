@@ -43,6 +43,7 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
         placeholder="Search for products..."
         defaultValue={router.query.q}
         onKeyUp={handleKeyUp}
+        data-test="search-input"
       />
       <div className={s.iconContainer}>
         <svg className={s.icon} fill="currentColor" viewBox="0 0 20 20">
