@@ -40,11 +40,12 @@ export function normalizeProduct(productNode: any): Product {
     },
     variants: {
       $apply: ({ edges }: any) =>
-        edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
+        edges?.map(({ node: { entityId, productOptions, inventory, ...rest } }: any) => ({
           id: entityId,
           options: productOptions?.edges
             ? productOptions.edges.map(normalizeProductOption)
             : [],
+          availableForSale: inventory?.isInStock || false,
           ...rest,
         })),
     },
