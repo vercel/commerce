@@ -1,6 +1,7 @@
 {
   "provider": "vendure",
   "features": {
-    "wishlist": false
+    "wishlist": false,
+    "relatedProduct": true
   }
 }

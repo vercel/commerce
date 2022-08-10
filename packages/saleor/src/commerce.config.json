@@ -1,6 +1,7 @@
 {
   "provider": "saleor",
   "features": {
-    "wishlist": false
+    "wishlist": false,
+    "relatedProduct": true
   }
 }

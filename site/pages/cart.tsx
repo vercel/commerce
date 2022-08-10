@@ -94,20 +94,22 @@ export default function Cart() {
                 />
               ))}
             </ul>
-            <div className="my-6">
-              <Text>
-                Before you leave, take a look at these items. We picked them
-                just for you
-              </Text>
-              <div className="flex py-6 space-x-6">
-                {[1, 2, 3, 4, 5, 6].map((x) => (
-                  <div
-                    key={x}
-                    className="border border-accent-3 w-full h-24 bg-accent-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75"
-                  />
-                ))}
+            {process.env.COMMERCE_RELATEDPRODUCT_ENABLED && (
+              <div className="my-6">
+                <Text>
+                  Before you leave, take a look at these items. We picked them
+                  just for you
+                </Text>
+                <div className="flex py-6 space-x-6">
+                  {[1, 2, 3, 4, 5, 6].map((x) => (
+                    <div
+                      key={x}
+                      className="border border-accent-3 w-full h-24 bg-accent-2 bg-opacity-50 transform cursor-pointer hover:scale-110 duration-75"
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>

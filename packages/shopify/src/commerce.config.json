@@ -2,6 +2,7 @@
   "provider": "shopify",
   "features": {
     "wishlist": false,
-    "customerAuth": true
+    "customerAuth": true,
+    "relatedProduct": true
   }
 }
