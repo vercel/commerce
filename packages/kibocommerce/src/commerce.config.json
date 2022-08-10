@@ -4,6 +4,7 @@
     "wishlist": true,
     "cart": true,
     "search": true,
-    "customerAuth": true
+    "customerAuth": true,
+    "review": true
   }
 }
