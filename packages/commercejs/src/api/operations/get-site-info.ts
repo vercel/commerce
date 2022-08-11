@@ -24,6 +24,13 @@ export default function getSiteInfoOperation({
     const { sdkFetch } = commerce.getConfig(config)
     const { data: categories } = await sdkFetch('categories', 'list')
 
+    if (!categories) {
+      return {
+        categories: [],
+        brands: [],
+      }
+    }
+
     const formattedCategories = categories.map(normalizeCategory)
 
     return {
