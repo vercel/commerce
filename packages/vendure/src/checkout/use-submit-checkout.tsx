@@ -76,7 +76,7 @@ export const handler: MutationHook<SubmitCheckoutHook> = {
         addPaymentToOrderResultType === 'PaymentDeclinedError' ||
         addPaymentToOrderResultType === 'PaymentFailedError'
       ) {
-        throw new CommerceError(paymentResponse.addPaymentToOrder)
+        throw new CommerceError(paymentResponse.addPaymentToOrder as any)
       } else {
         throw new CommerceError({
           message: 'Something went wrong with Payment request',
