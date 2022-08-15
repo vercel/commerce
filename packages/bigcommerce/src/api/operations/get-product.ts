@@ -21,6 +21,13 @@ export const getProductQuery = /* GraphQL */ `
           __typename
           ... on Product {
             ...productInfo
+            relatedProducts(first: 4) {
+              edges {
+                node {
+                  ...productInfo
+                }
+              }
+            }
             variants(first: 250) {
               edges {
                 node {

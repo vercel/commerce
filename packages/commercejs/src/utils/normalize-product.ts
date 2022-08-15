@@ -54,7 +54,7 @@ export function normalizeProduct(
   commercejsProduct: CommercejsProduct,
   commercejsProductVariants: Array<CommercejsVariant> = []
 ): Product {
-  const { id, name, description, permalink, assets, price, variant_groups } =
+  const { id, name, description, permalink, assets, price, related_products, variant_groups } =
     commercejsProduct
   return {
     id,
@@ -71,6 +71,7 @@ export function normalizeProduct(
       value: price.raw,
       currencyCode: 'USD',
     },
+    relatedProducts: related_products,
     variants: normalizeVariants(commercejsProductVariants, variant_groups),
     options: getOptionsFromVariantGroups(variant_groups),
   }

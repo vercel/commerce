@@ -18,6 +18,48 @@ function normalizeProductOption(productOption: any) {
   }
 }
 
+function normalizeRelatedProducts(relatedProducts: any) {
+  const {
+    node: { entityId, images, path, prices, productOptions, variants, ...rest },
+  } = relatedProducts
+
+  let normalizedImages = images.edges.map(({ node: { urlOriginal, altText, ...rest }}: any) => ({
+    url: urlOriginal,
+    alt: altText,
+    ...rest,
+  }));
+
+  let normalizedVariants = variants.edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
+    id: entityId,
+    options: productOptions?.edges
+      ? productOptions.edges.map(normalizeProductOption)
+      : [],
+    ...rest,
+  }))
+
+  let options = productOptions.edges
+    ? productOptions?.edges.map(normalizeProductOption)
+    : []
+
+  let slug = path?.replace(/^\/+|\/+$/g, '');
+
+  let normalizedPrice = {
+    value: prices?.price.value,
+    currencyCode: prices?.price.currencyCode,
+  }
+
+  return {
+    id: String(entityId),
+    images: normalizedImages,
+    options,
+    price: normalizedPrice,
+    prices,
+    slug,
+    variants: normalizedVariants,
+    ...rest
+  }
+}
+
 export function normalizeProduct(productNode: any): Product {
   const {
     entityId: id,
@@ -26,6 +68,7 @@ export function normalizeProduct(productNode: any): Product {
     path,
     id: _,
     options: _0,
+    relatedProducts,
   } = productNode
 
   return update(productNode, {
@@ -58,6 +101,11 @@ export function normalizeProduct(productNode: any): Product {
     },
     slug: {
       $set: path?.replace(/^\/+|\/+$/g, ''),
+    },
+    relatedProducts: {
+      $set: relatedProducts?.edges
+        ? relatedProducts?.edges.map(normalizeRelatedProducts)
+        : [],
     },
     price: {
       $set: {
