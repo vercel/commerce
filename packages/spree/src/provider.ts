@@ -9,6 +9,7 @@ import { handler as useLogin } from './auth/use-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 import { handler as useCheckout } from './checkout/use-checkout'
+import { handler as useVendors } from './vendors/use-vendors'
 import { handler as useWishlist } from './wishlist/use-wishlist'
 import { handler as useWishlistAddItem } from './wishlist/use-add-item'
 import { handler as useWishlistRemoveItem } from './wishlist/use-remove-item'
@@ -23,6 +24,7 @@ const spreeProvider = {
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },
   checkout: { useCheckout },
+  vendors: { useVendors },
   wishlist: {
     useWishlist,
     useAddItem: useWishlistAddItem,

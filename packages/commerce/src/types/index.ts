@@ -8,6 +8,7 @@ import * as Page from './page'
 import * as Product from './product'
 import * as Signup from './signup'
 import * as Site from './site'
+import * as Vendor from './vendors'
 import * as Wishlist from './wishlist'
 
 export type {
@@ -21,5 +22,6 @@ export type {
   Product,
   Signup,
   Site,
+  Vendor,
   Wishlist,
 }
