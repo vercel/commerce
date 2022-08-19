@@ -12,7 +12,7 @@ const LIMIT = 12
 // Return current cart info
 const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   res,
-  body: { search, categoryId, brandId, sort },
+  body: { search, categoryId, brandId, sort, page },
   config,
   commerce,
 }) => {
@@ -30,6 +30,8 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   if (brandId && Number.isInteger(Number(brandId)))
     url.searchParams.set('brand_id', String(brandId))
 
+  if (page) url.searchParams.set('page', String(page))
+
   if (sort) {
     const [_sort, direction] = sort.split('-')
     const sortValue = SORT[_sort]
@@ -43,9 +45,12 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   // We only want the id of each product
   url.searchParams.set('include_fields', 'id')
 
-  const { data } = await config.storeApiFetch<{ data: { id: number }[] }>(
-    url.pathname + url.search
-  )
+  const { data, meta } = await config.storeApiFetch<{
+    data: { id: number }[]
+    meta: any
+  }>(url.pathname + url.search)
+
+  const pagination = meta.pagination
 
   const ids = data.map((p) => String(p.id))
   const found = ids.length > 0
@@ -73,7 +78,7 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
     if (product) products.push(product)
   })
 
-  res.status(200).json({ data: { products, found } })
+  res.status(200).json({ data: { products, found, pagination } })
 }
 
 export default getProducts

@@ -52,6 +52,7 @@ export type SearchProductsBody = {
   brandId?: string | number
   sort?: string
   locale?: string
+  page?: string | number
 }
 
 export type ProductTypes = {
@@ -63,6 +64,7 @@ export type SearchProductsHook<T extends ProductTypes = ProductTypes> = {
   data: {
     products: T['product'][]
     found: boolean
+    pagination: any
   }
   body: T['searchBody']
   input: T['searchBody']

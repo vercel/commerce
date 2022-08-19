@@ -1,7 +1,7 @@
 import cn from 'clsx'
 import type { SearchPropsType } from '@lib/search-props'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { Layout } from '@components/common'
@@ -31,6 +31,7 @@ import {
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
+  const [page, SetPage] = useState(1)
 
   const router = useRouter()
   const { asPath, locale } = router
@@ -51,8 +52,13 @@ export default function Search({ categories, brands }: SearchPropsType) {
     categoryId: activeCategory?.id,
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
+    page: page,
     locale,
   })
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [page])
 
   const handleClick = (event: any, filter: string) => {
     if (filter !== activeFilter) {
@@ -336,6 +342,28 @@ export default function Search({ categories, brands }: SearchPropsType) {
               ))}
             </div>
           )}{' '}
+          <div className="flex justify-center mt-5">
+            {page !== 1 && (
+              <button
+                type="button"
+                className="mr-3 rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
+                onClick={() => SetPage(page - 1)}
+              >
+                {' '}
+                Previous{' '}
+              </button>
+            )}
+            {data?.pagination.total_pages !== data?.pagination.current_page && (
+              <button
+                type="button"
+                className="rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
+                onClick={() => SetPage(page + 1)}
+              >
+                {' '}
+                Next{' '}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Sort */}
