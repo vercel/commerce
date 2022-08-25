@@ -50,3 +50,8 @@ export const getDesignerPath = (path: string, category?: string) => {
     category ? `/${category}` : ''
   }`
 }
+
+export const getPaginationPath = (path: string, currentPage?: number) => {
+  const category = getSlug(path)
+  return `${category ? `/${category}` : ''}?page=${currentPage}`
+}

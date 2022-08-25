@@ -25,21 +25,21 @@ import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
+  getPaginationPath,
   useSearchMeta,
 } from '@lib/search'
 
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
-  const [page, SetPage] = useState(1)
 
   const router = useRouter()
   const { asPath, locale } = router
-  const { q, sort } = router.query
+  const { q, sort, page } = router.query
   // `q` can be included but because categories and designers can't be searched
   // in the same way of products, it's better to ignore the search input if one
   // of those is selected
-  const query = filterQuery({ sort })
+  const query = filterQuery({ sort, page })
 
   const { pathname, category, brand } = useSearchMeta(asPath)
   const activeCategory = categories.find((cat: any) => cat.slug === category)
@@ -52,7 +52,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
     categoryId: activeCategory?.id,
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
-    page: page,
+    page: typeof page === 'string' ? page : '',
     locale,
   })
 
@@ -343,25 +343,38 @@ export default function Search({ categories, brands }: SearchPropsType) {
             </div>
           )}{' '}
           <div className="flex justify-center mt-5">
-            {page !== 1 && (
-              <button
-                type="button"
-                className="mr-3 rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
-                onClick={() => SetPage(page - 1)}
-              >
-                {' '}
-                Previous{' '}
-              </button>
-            )}
             {data?.pagination.total_pages !== data?.pagination.current_page && (
-              <button
-                type="button"
-                className="rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
-                onClick={() => SetPage(page + 1)}
+              <Link
+                href={getPaginationPath(
+                  pathname,
+                  data?.pagination.current_page + 1
+                )}
               >
-                {' '}
-                Next{' '}
-              </button>
+                <button
+                  type="button"
+                  className="mr-3 rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
+                >
+                  {' '}
+                  Next{' '}
+                </button>
+              </Link>
+            )}
+
+            {data?.pagination.current_page !== 1 && (
+              <Link
+                href={getPaginationPath(
+                  pathname,
+                  data?.pagination.current_page - 1
+                )}
+              >
+                <button
+                  type="button"
+                  className="mr-3 rounded-sm border border-accent-3 px-4 py-3 bg-accent-0 text-sm leading-5 font-medium text-accent-4 hover:text-accent-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-normal active:bg-accent-1 active:text-accent-8 transition ease-in-out duration-150"
+                >
+                  {' '}
+                  Previous{' '}
+                </button>
+              </Link>
             )}
           </div>
         </div>
