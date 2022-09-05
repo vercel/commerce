@@ -13,30 +13,30 @@ import {
 export default function getProductOperation({
   commerce,
 }: OperationContext<Provider>) {
-  async function getProduct<T extends GetProductOperation>(opts: {
-    variables: T['variables']
+  async function getProduct(opts: {
+    variables: GetProductOperation['variables']
     config?: Partial<ShopifyConfig>
     preview?: boolean
-  }): Promise<T['data']>
+  }): Promise<GetProductOperation['data']>
 
-  async function getProduct<T extends GetProductOperation>(
+  async function getProduct(
     opts: {
-      variables: T['variables']
+      variables: GetProductOperation['variables']
       config?: Partial<ShopifyConfig>
       preview?: boolean
     } & OperationOptions
-  ): Promise<T['data']>
+  ): Promise<GetProductOperation['data']>
 
-  async function getProduct<T extends GetProductOperation>({
+  async function getProduct({
     query = getProductQuery,
     variables,
     config: cfg,
   }: {
     query?: string
-    variables: T['variables']
+    variables: GetProductOperation['variables']
     config?: Partial<ShopifyConfig>
     preview?: boolean
-  }): Promise<T['data']> {
+  }): Promise<GetProductOperation['data']> {
     const { fetch, locale } = commerce.getConfig(cfg)
 
     const {
