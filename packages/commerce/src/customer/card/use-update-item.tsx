@@ -6,7 +6,7 @@ import { useHook, useMutationHook } from '../../utils/use-hook'
 import { mutationFetcher } from '../../utils/default-fetcher'
 
 export type UseUpdateItem<
-  H extends MutationHook<UpdateItemHook<any>> = MutationHook<UpdateItemHook>
+  H extends MutationHook<UpdateItemHook> = MutationHook<UpdateItemHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<UpdateItemHook> = mutationFetcher

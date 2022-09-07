@@ -32,6 +32,15 @@ export const defaultOperations = OPERATIONS.reduce((ops, k) => {
 
 export type AllowedOperations = typeof OPERATIONS[number]
 
+export type OperationsData = GetProductOperation['data'] &
+  GetAllProductsOperation['data'] &
+  GetAllProductPathsOperation['data'] &
+  GetCustomerWishlistOperation['data'] &
+  GetSiteInfoOperation['data'] &
+  GetPageOperation['data'] &
+  GetAllPagesOperation['data'] &
+  LoginOperation['data']
+
 export type Operations<P extends APIProvider> = {
   login: {
     <T extends LoginOperation>(opts: {

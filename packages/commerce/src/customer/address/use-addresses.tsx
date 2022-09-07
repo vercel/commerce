@@ -7,7 +7,7 @@ import { useHook, useSWRHook } from '../../utils/use-hook'
 import { Provider, useCommerce } from '../..'
 
 export type UseAddresses<
-  H extends SWRHook<GetAddressesHook<any>> = SWRHook<GetAddressesHook>
+  H extends SWRHook<GetAddressesHook> = SWRHook<GetAddressesHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<GetAddressesHook> = async ({

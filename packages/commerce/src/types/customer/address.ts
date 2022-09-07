@@ -15,97 +15,71 @@ export interface AddressFields {
   country: string
 }
 
-export type CustomerAddressTypes = {
-  address?: Address
-  fields: AddressFields
-}
-
-export type GetAddressesHook<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = {
-  data: T['address'][] | null
+export type GetAddressesHook = {
+  data: Address[] | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export type AddItemHook<T extends CustomerAddressTypes = CustomerAddressTypes> =
-  {
-    data: T['address']
-    input?: T['fields']
-    fetcherInput: T['fields']
-    body: { item: T['fields'] }
-    actionInput: T['fields']
-  }
-
-export type UpdateItemHook<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = {
-  data: T['address'] | null
-  input: { item?: T['fields']; wait?: number }
-  fetcherInput: { itemId: string; item: T['fields'] }
-  body: { itemId: string; item: T['fields'] }
-  actionInput: T['fields'] & { id: string }
+export type AddItemHook = {
+  data: Address
+  input?: AddressFields
+  fetcherInput: AddressFields
+  body: { item: AddressFields }
+  actionInput: AddressFields
 }
 
-export type RemoveItemHook<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = {
-  data: T['address'] | null
-  input: { item?: T['address'] }
+export type UpdateItemHook = {
+  data: Address | null
+  input: { item?: AddressFields; wait?: number }
+  fetcherInput: { itemId: string; item: AddressFields }
+  body: { itemId: string; item: AddressFields }
+  actionInput: AddressFields & { id: string }
+}
+
+export type RemoveItemHook = {
+  data: Address | null
+  input: { item?: Address }
   fetcherInput: { itemId: string }
   body: { itemId: string }
   actionInput: { id: string }
 }
 
-export type CustomerAddressHooks<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = {
-  getAddresses: GetAddressesHook<T>
-  addItem: AddItemHook<T>
-  updateItem: UpdateItemHook<T>
-  removeItem: RemoveItemHook<T>
+export type CustomerAddressHooks = {
+  getAddresses: GetAddressesHook
+  addItem: AddItemHook
+  updateItem: UpdateItemHook
+  removeItem: RemoveItemHook
 }
 
-export type AddressHandler<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = GetAddressesHook<T> & {
+export type AddressHandler = GetAddressesHook & {
   body: { cartId?: string }
 }
 
-export type AddItemHandler<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = AddItemHook<T> & {
+export type AddItemHandler = AddItemHook & {
   body: { cartId: string }
 }
 
-export type UpdateItemHandler<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = UpdateItemHook<T> & {
-  data: T['address']
+export type UpdateItemHandler = UpdateItemHook & {
+  data: Address
   body: { cartId: string }
 }
 
-export type RemoveItemHandler<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = RemoveItemHook<T> & {
+export type RemoveItemHandler = RemoveItemHook & {
   body: { cartId: string }
 }
 
-export type CustomerAddressHandlers<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = {
-  getAddresses: GetAddressesHook<T>
-  addItem: AddItemHandler<T>
-  updateItem: UpdateItemHandler<T>
-  removeItem: RemoveItemHandler<T>
+export type CustomerAddressHandlers = {
+  getAddresses: GetAddressesHook
+  addItem: AddItemHandler
+  updateItem: UpdateItemHandler
+  removeItem: RemoveItemHandler
 }
 
-export type CustomerAddressSchema<
-  T extends CustomerAddressTypes = CustomerAddressTypes
-> = {
+export type CustomerAddressSchema = {
   endpoint: {
     options: {}
-    handlers: CustomerAddressHandlers<T>
+    handlers: CustomerAddressHandlers
   }
 }
