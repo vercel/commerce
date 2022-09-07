@@ -17,16 +17,25 @@ export const withSchemaParser =
       return result
     } catch (error) {
       if (error instanceof z.ZodError) {
-        throw new CommerceError({
-          code: 'SCHEMA_VALIDATION_ERROR',
-          message:
-            `The ${operation} opration returned invalid data: \n` +
-            error.issues
-              .map((e) => `- ${e.path.join('.')}: ${e.message}`)
-              .join('\n'),
-        })
+        return Promise.reject(
+          new CommerceError({
+            code: 'SCHEMA_VALIDATION_ERROR',
+            message:
+              `The ${operation} opration returned invalid data and has ${
+                error.issues.length
+              } parse ${error.issues.length === 1 ? 'error' : 'errors'}: \n` +
+              error.issues
+                .map(
+                  (e, index) =>
+                    `${index + 1}. Property ${e.path.join('.')} (${e.code}): ${
+                      e.message
+                    }`
+                )
+                .join('\n'),
+          })
+        )
       } else {
-        throw error
+        return Promise.reject(error)
       }
     }
   }
