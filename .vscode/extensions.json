@@ -1,8 +1,9 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
-    "csstools.postcss",
+    // Tailwind CSS Intellisense
     "bradlc.vscode-tailwindcss",
-    "ms-vscode.vscode-typescript-next"
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "aaron-bond.better-comments"
   ]
 }
