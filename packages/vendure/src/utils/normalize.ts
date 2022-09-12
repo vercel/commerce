@@ -45,7 +45,7 @@ export function normalizeCart(order: CartFragment): Cart {
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
       discounts: l.discounts.map((d) => ({ value: d.amount / 100 })),
-      path: '',
+      path: `/${l.productVariant.product.slug}`,
       variant: {
         id: l.productVariant.id,
         name: l.productVariant.name,

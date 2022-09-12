@@ -31,10 +31,13 @@ export default function getAllPagesOperation({
     const { locale, fetch } = config
     const data = await fetch('content', 'list', ['pages'])
     const pages =
-      data?.results?.map(({ slug, ...rest }: { slug: string }) => ({
-        url: `/${locale}/${slug}`,
-        ...rest,
-      })) ?? []
+      data?.results?.map(
+        ({ slug, body, ...rest }: { slug: string; body: string }) => ({
+          ...rest,
+          url: `/${locale}/${slug}`,
+          body: body ?? '',
+        })
+      ) ?? []
     return {
       pages,
     }

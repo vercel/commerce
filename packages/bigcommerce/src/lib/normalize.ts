@@ -75,7 +75,7 @@ export function normalizePage(page: definitions['page_Full']): Page {
     name: page.name,
     is_visible: page.is_visible,
     sort_order: page.sort_order,
-    body: page.body,
+    body: page.body ?? '',
   }
 }
 

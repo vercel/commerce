@@ -210,7 +210,7 @@ function normalizeLineItem({
       price: price,
       listPrice: price,
     },
-    path: '',
+    path: `/${product.slug}`,
     discounts: [],
     options: [
       {
