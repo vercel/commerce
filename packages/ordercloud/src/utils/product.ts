@@ -8,6 +8,7 @@ export function normalize(product: RawProduct): Product {
     name: product.Name,
     description: product.Description,
     slug: product.ID,
+    path: `/${product.ID}`,
     images: product.xp.Images,
     price: {
       value: product.xp.Price,
@@ -16,6 +17,8 @@ export function normalize(product: RawProduct): Product {
     variants: product.xp.Variants?.length
       ? product.xp.Variants.map((variant) => ({
           id: variant.ID,
+          sku: variant.ID,
+          name: product.Name,
           options: variant.Specs.map((spec) => ({
             id: spec.SpecID,
             __typename: 'MultipleChoiceOption',
@@ -27,12 +30,7 @@ export function normalize(product: RawProduct): Product {
             ],
           })),
         }))
-      : [
-          {
-            id: '',
-            options: [],
-          },
-        ],
+      : [],
     options: product.xp.Specs?.length
       ? product.xp.Specs.map((spec) => ({
           id: spec.ID,

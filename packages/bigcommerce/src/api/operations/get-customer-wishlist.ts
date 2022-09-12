@@ -49,7 +49,7 @@ export default function getCustomerWishlistOperation({
 
     if (includeProducts && wishlist?.items?.length) {
       const ids = wishlist.items
-        ?.map((item) => (item?.product_id ? String(item?.product_id) : null))
+        ?.map((item) => (item?.productId ? String(item?.productId) : null))
         .filter((id): id is string => !!id)
 
       if (ids?.length) {
@@ -66,7 +66,7 @@ export default function getCustomerWishlistOperation({
         }, {})
         // Populate the wishlist items with the graphql products
         wishlist.items.forEach((item) => {
-          const product = item && productsById[item.product_id!]
+          const product = item && productsById[Number(item.productId)]
           if (item && product) {
             // @ts-ignore Fix this type when the wishlist type is properly defined
             item.product = product

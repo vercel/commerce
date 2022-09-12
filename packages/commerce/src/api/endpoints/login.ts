@@ -1,11 +1,11 @@
 import type { LoginSchema } from '../../types/login'
-import { CommerceAPIError } from '../utils/errors'
+import { CommerceAPIError, getErrorMessage } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
 import type { GetAPISchema } from '..'
 
 const loginEndpoint: GetAPISchema<
   any,
-  LoginSchema<any>
+  LoginSchema
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers } = ctx
 
@@ -24,10 +24,7 @@ const loginEndpoint: GetAPISchema<
   } catch (error) {
     console.error(error)
 
-    const message =
-      error instanceof CommerceAPIError
-        ? 'An unexpected error ocurred with the Commerce API'
-        : 'An unexpected error ocurred'
+    const message = getErrorMessage(error)
 
     res.status(500).json({ data: null, errors: [{ message }] })
   }

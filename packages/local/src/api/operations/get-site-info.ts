@@ -1,5 +1,5 @@
 import { OperationContext } from '@vercel/commerce/api/operations'
-import { Category } from '@vercel/commerce/types/site'
+import { Category, GetSiteInfoOperation } from '@vercel/commerce/types/site'
 import { LocalConfig } from '../index'
 
 export type GetSiteInfoResult<

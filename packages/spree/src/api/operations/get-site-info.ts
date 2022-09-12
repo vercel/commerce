@@ -120,11 +120,10 @@ export default function getSiteInfoOperation({
         .sort(taxonsSort)
         .map((spreeTaxon: TaxonAttr) => {
           return {
-            node: {
-              entityId: spreeTaxon.id,
-              path: `brands/${spreeTaxon.id}`,
-              name: spreeTaxon.attributes.name,
-            },
+            id: spreeTaxon.id,
+            path: `/${spreeTaxon.id}`,
+            slug: spreeTaxon.id,
+            name: spreeTaxon.attributes.name,
           }
         })
 

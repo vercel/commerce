@@ -2,20 +2,9 @@
 // Vendure doesn't have a built-in wishlist
 
 import { HookFetcher } from '@vercel/commerce/utils/types'
-import { Product } from '../../schema'
+import type { Wishlist } from '@vercel/commerce/types/wishlist'
 
 const defaultOpts = {}
-
-export type Wishlist = {
-  items: [
-    {
-      product_id: number
-      variant_id: number
-      id: number
-      product: Product
-    }
-  ]
-}
 
 export interface UseWishlistOptions {
   includeProducts?: boolean

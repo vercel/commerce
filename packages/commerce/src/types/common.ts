@@ -11,7 +11,7 @@ export interface Measurement {
    */
   value: number
   /**
-   * The measurement's unit.
+   * The measurement's unit, such as "KILOGRAMS", "GRAMS", "POUNDS" & "OOUNCES".
    */
   unit: 'KILOGRAMS' | 'GRAMS' | 'POUNDS' | 'OUNCES'
 }

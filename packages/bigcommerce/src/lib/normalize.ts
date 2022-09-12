@@ -1,7 +1,7 @@
 import type { Product } from '../types/product'
 import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
 import type { Page } from '../types/page'
-import type { BCCategory, Category } from '../types/site'
+import type { BCCategory, BCBrand, Category, Brand } from '../types/site'
 import { definitions } from '../api/definitions/store-content'
 import update from './immutability'
 import getSlug from './get-slug'
@@ -54,7 +54,7 @@ export function normalizeProduct(productNode: any): Product {
         : [],
     },
     brand: {
-      $apply: (brand: any) => (brand?.entityId ? brand?.entityId : null),
+      $apply: (brand: any) => (brand?.id ? brand.id : null),
     },
     slug: {
       $set: path?.replace(/^\/+|\/+$/g, ''),
@@ -132,5 +132,14 @@ export function normalizeCategory(category: BCCategory): Category {
     name: category.name,
     slug: getSlug(category.path),
     path: category.path,
+  }
+}
+
+export function normalizeBrand(brand: BCBrand): Brand {
+  return {
+    id: `${brand.node.entityId}`,
+    name: brand.node.name,
+    slug: getSlug(brand.node.path),
+    path: brand.node.path,
   }
 }

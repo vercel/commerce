@@ -6,11 +6,11 @@ export interface ProductPrice {
    */
   value: number
   /**
-   * Currency code of the product price.
+   * The currency code for the price. This is a 3-letter ISO 4217 code.
    */
   currencyCode?: 'USD' | 'EUR' | 'ARS' | 'GBP' | string
   /**
-   *  The retail price of the product. This can be used to mark a product as on sale, when `retailPrice` is higher than the price a.k.a `value`.
+   * The retail price of the product. This can be used to mark a product as on sale, when `retailPrice` is higher than the price a.k.a `value`.
    */
   retailPrice?: number
 }
@@ -18,11 +18,11 @@ export interface ProductPrice {
 export interface ProductOption {
   __typename?: 'MultipleChoiceOption'
   /**
-   * The option's id.
+   * The unique identifier for the option.
    */
   id: string
   /**
-   * The option's name.
+   * The product option’s name.
    */
   displayName: string
   /**
@@ -44,17 +44,17 @@ export interface ProductOptionValues {
 
 export interface ProductVariant {
   /**
-   * The variant's id.
+   *  The unique identifier for the variant.
    */
-  id: string | number
+  id: string
   /**
    * The SKU (stock keeping unit) associated with the product variant.
    */
-  sku: string
+  sku?: string
   /**
    * The product variant’s name, or the product's name.
    */
-  name: string
+  name?: string
   /**
    * List of product options.
    */
@@ -62,11 +62,11 @@ export interface ProductVariant {
   /**
    * The product variant’s price after all discounts are applied.
    */
-  price: ProductPrice
+  price?: ProductPrice
   /**
-   * Product variant’s price, as quoted by the manufacturer/distributor.
+   * The retail price of the product. This can be used to mark a product as on sale, when `retailPrice` is higher than the `price`.
    */
-  listPrice: ProductPrice
+  retailPrice?: ProductPrice
   /**
    * Indicates if the variant is available for sale.
    */
@@ -83,11 +83,11 @@ export interface ProductVariant {
 
 export interface Product {
   /**
-   * The product's id.
+   *  The unique identifier for the product.
    */
   id: string
   /**
-   * The product's name.
+   * The name of the product.
    */
   name: string
   /**
@@ -107,7 +107,7 @@ export interface Product {
    */
   slug?: string
   /**
-   * A human-friendly string for the product, containing U.
+   * Relative URL on the storefront for the product.
    */
   path?: string
   /**
@@ -123,7 +123,7 @@ export interface Product {
    */
   price: ProductPrice
   /**
-   * The product's price.
+   * List of product's options.
    */
   options: ProductOption[]
   /**
@@ -140,13 +140,14 @@ export interface SearchProductsBody {
   /**
    * The category ID to filter the products by.
    */
-  categoryId?: string | number
+  categoryId?: string
   /**
    * The brand ID to filter the products by.
    */
-  brandId?: string | number
+  brandId?: string
   /**
-   * The sort order to sort the products by.
+   * The sort key to sort the products by.
+   * @example 'trending-desc' | 'latest-desc' | 'price-asc' | 'price-desc'
    */
   sort?: string
   /**

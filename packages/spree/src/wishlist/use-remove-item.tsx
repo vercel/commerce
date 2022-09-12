@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import useRemoveItem from '@vercel/commerce/wishlist/use-remove-item'
 import type { UseRemoveItem } from '@vercel/commerce/wishlist/use-remove-item'
+import type { RemoveItemHook } from '@vercel/commerce/types/wishlist'
 import useWishlist from './use-wishlist'
-import type { ExplicitWishlistRemoveItemHook } from '../types'
 import isLoggedIn from '../utils/tokens/is-logged-in'
 import ensureIToken from '../utils/tokens/ensure-itoken'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
@@ -12,7 +12,7 @@ import type { WishedItem } from '@spree/storefront-api-v2-sdk/types/interfaces/W
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
-export const handler: MutationHook<ExplicitWishlistRemoveItemHook> = {
+export const handler: MutationHook<RemoveItemHook> = {
   fetchOptions: {
     url: 'wishlists',
     query: 'removeWishedItem',
@@ -45,7 +45,7 @@ export const handler: MutationHook<ExplicitWishlistRemoveItemHook> = {
   },
   useHook: ({ fetch }) => {
     const useWrappedHook: ReturnType<
-      MutationHook<ExplicitWishlistRemoveItemHook>['useHook']
+      MutationHook<RemoveItemHook>['useHook']
     > = () => {
       const wishlist = useWishlist()
 

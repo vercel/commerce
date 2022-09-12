@@ -30,7 +30,7 @@ const getVendors = async (config: SaleorConfig): Promise<BrandEdge[]> => {
   //     node: {
   //       entityId: id,
   //       name: v,
-  //       path: `brands/${id}`,
+  //       path: `/${id}`,
   //     },
   //   }
   // })

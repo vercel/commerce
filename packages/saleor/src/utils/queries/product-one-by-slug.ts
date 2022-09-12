@@ -19,6 +19,7 @@ export const ProductOneBySlug = /* GraphQL */ `
         name
         attributes {
           attribute {
+            id
             name
           }
           values {

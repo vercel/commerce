@@ -1,102 +1,156 @@
 export interface Card {
+  /**
+   * Unique identifier for the card.
+   */
   id: string
+  /**
+   * Masked card number.
+   * @example "************4242"
+   */
   mask: string
+  /**
+   * The card's brand.
+   * @example "Visa, Mastercard, etc."
+   */
   provider: string
 }
 
+/**
+ * The fields required to create a new card.
+ */
 export interface CardFields {
+  /**
+   *  Name on the card.
+   */
   cardHolder: string
+  /**
+   * The card's number, consisting of 16 digits.
+   */
   cardNumber: string
+  /**
+   * The card's expiry month and year, in the format MM/YY.
+   * @example "01/25"
+   */
   cardExpireDate: string
+  /**
+   * The card's security code, consisting of 3 digits.
+   */
   cardCvc: string
+  /**
+   *  The customer's first name.
+   */
   firstName: string
+  /**
+   * The customer's last name.
+   */
   lastName: string
+  /**
+   * Company name.
+   */
   company: string
+  /**
+   * The customer's billing address street number.
+   */
   streetNumber: string
+  /**
+   * The customer's billing address zip code.
+   */
   zipCode: string
+  /**
+   * The customer's billing address city.
+   */
   city: string
+  /**
+   * The customer's billing address country.
+   */
   country: string
 }
 
-export type CustomerCardTypes = {
-  card?: Card
-  fields: CardFields
-}
-
-export type GetCardsHook<T extends CustomerCardTypes = CustomerCardTypes> = {
-  data: T['card'][] | null
+/**
+ * Hook for getting a customer's cards.
+ */
+export interface GetCardsHook {
+  data: Card[] | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export type AddItemHook<T extends CustomerCardTypes = CustomerCardTypes> = {
-  data: T['card']
-  input?: T['fields']
-  fetcherInput: T['fields']
-  body: { item: T['fields'] }
-  actionInput: T['fields']
+/**
+ * Hook for adding a card to a customer's account.
+ */
+export interface AddItemHook {
+  data: Card
+  input?: CardFields
+  fetcherInput: CardFields
+  body: { item: CardFields }
+  actionInput: CardFields
 }
 
-export type UpdateItemHook<T extends CustomerCardTypes = CustomerCardTypes> = {
-  data: T['card'] | null
-  input: { item?: T['fields']; wait?: number }
-  fetcherInput: { itemId: string; item: T['fields'] }
-  body: { itemId: string; item: T['fields'] }
-  actionInput: T['fields'] & { id: string }
+/**
+ * Hook for updating a card from a customer's account.
+ */
+export interface UpdateItemHook {
+  data: Card | null | undefined
+  input: { item?: CardFields; wait?: number }
+  fetcherInput: { itemId: string; item: CardFields }
+  body: { itemId: string; item: CardFields }
+  actionInput: CardFields & { id: string }
 }
 
-export type RemoveItemHook<T extends CustomerCardTypes = CustomerCardTypes> = {
-  data: T['card'] | null
-  input: { item?: T['card'] }
+/**
+ * Hook for removing a card from a customer's account.
+ */
+export interface RemoveItemHook {
+  data: Card | null | undefined
+  input: { item?: Card }
   fetcherInput: { itemId: string }
   body: { itemId: string }
   actionInput: { id: string }
 }
 
-export type CustomerCardHooks<T extends CustomerCardTypes = CustomerCardTypes> =
-  {
-    getCards: GetCardsHook<T>
-    addItem: AddItemHook<T>
-    updateItem: UpdateItemHook<T>
-    removeItem: RemoveItemHook<T>
-  }
-
-export type CardsHandler<T extends CustomerCardTypes = CustomerCardTypes> =
-  GetCardsHook<T> & {
-    body: { cartId?: string }
-  }
-
-export type AddItemHandler<T extends CustomerCardTypes = CustomerCardTypes> =
-  AddItemHook<T> & {
-    body: { cartId: string }
-  }
-
-export type UpdateItemHandler<T extends CustomerCardTypes = CustomerCardTypes> =
-  UpdateItemHook<T> & {
-    data: T['card']
-    body: { cartId: string }
-  }
-
-export type RemoveItemHandler<T extends CustomerCardTypes = CustomerCardTypes> =
-  RemoveItemHook<T> & {
-    body: { cartId: string }
-  }
-
-export type CustomerCardHandlers<
-  T extends CustomerCardTypes = CustomerCardTypes
-> = {
-  getCards: GetCardsHook<T>
-  addItem: AddItemHandler<T>
-  updateItem: UpdateItemHandler<T>
-  removeItem: RemoveItemHandler<T>
+/**
+ * Hooks for add, update & remove items from the cart.
+ */
+export interface CustomerCardHooks {
+  getCards: GetCardsHook
+  addItem: AddItemHook
+  updateItem: UpdateItemHook
+  removeItem: RemoveItemHook
 }
 
-export type CustomerCardSchema<
-  T extends CustomerCardTypes = CustomerCardTypes
-> = {
+/**
+ * Customer card API handler
+ */
+export type AddItemHandler = AddItemHook & {
+  body: { cartId: string }
+}
+
+export type UpdateItemHandler = UpdateItemHook & {
+  data: Card
+  body: { cartId: string }
+}
+
+export type RemoveItemHandler = RemoveItemHook & {
+  body: { cartId: string }
+}
+
+/**
+ * Customer card API handlers.
+ */
+export type CustomerCardHandlers = {
+  getCards: GetCardsHook
+  addItem: AddItemHandler
+  updateItem: UpdateItemHandler
+  removeItem: RemoveItemHandler
+}
+
+/**
+ * Customer card API endpoints.
+ */
+export type CustomerCardSchema = {
   endpoint: {
     options: {}
-    handlers: CustomerCardHandlers<T>
+    handlers: CustomerCardHandlers
   }
 }

@@ -121,7 +121,6 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
     currency: currencyCode,
   } = swellProduct
   // ProductView accesses variants for each product
-  const emptyVariants = [{ options: [], id, name }]
 
   const productOptions = options
     ? options.map((o) => normalizeProductOption(o))
@@ -138,10 +137,7 @@ export function normalizeProduct(swellProduct: SwellProduct): Product {
     vendor: '',
     path: `/${slug}`,
     images: productImages,
-    variants:
-      productVariants && productVariants.length
-        ? productVariants
-        : emptyVariants,
+    variants: productVariants && productVariants.length ? productVariants : [],
     options: productOptions,
     price: {
       value,

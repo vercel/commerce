@@ -75,7 +75,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
       return {
         id,
         name: title,
-        sku: sku ?? id,
+        sku,
         price: +priceV2.amount,
         listPrice: +compareAtPriceV2?.amount,
         requiresShipping,
@@ -180,6 +180,7 @@ export const normalizePage = (
   ...page,
   url: `/${locale}/${handle}`,
   name,
+  body: page.body ?? '',
 })
 
 export const normalizePages = (edges: PageEdge[], locale?: string): Page[] =>

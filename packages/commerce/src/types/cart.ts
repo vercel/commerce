@@ -3,13 +3,13 @@ import type { Discount, Image } from './common'
 // TODO: This should use the same type as the `ProductVariant` type from `product.ts`
 export interface ProductVariant {
   /**
-   * The variant's id.
+   *  The unique identifier for the variant.
    */
-  id: string | number
+  id: string
   /**
    * The SKU (stock keeping unit) associated with the product variant.
    */
-  sku: string
+  sku?: string
   /**
    * The product variant’s name, or the product's name.
    */
@@ -19,7 +19,7 @@ export interface ProductVariant {
    */
   price: number
   /**
-   * Product variant’s price, as quoted by the manufacturer/distributor.
+   * The product variant’s price before discounts are applied.
    */
   listPrice: number
   /**
@@ -39,38 +39,38 @@ export interface ProductVariant {
 
 export interface SelectedOption {
   /**
-   * The selected option's id
+   * The unique identifier for the option.
    */
   id?: string
   /**
-   *  The product option’s name.
+   *  The product option’s name, such as "Color" or "Size".
    */
   name: string
   /**
-   * The product option’s value.
+   * The product option’s value, such as "Red" or "XL".
    */
   value: string
 }
 
 export interface LineItem {
   /**
-   * The line item's id.
+   * The unique identifier for the line item.
    */
   id: string
   /**
-   * The product variant’s id.
+   * The unique identifier for the product variant.
    */
   variantId: string
   /**
-   * The product's id.
+   * The unique identifier for the product, if the variant is not provided.
    */
   productId: string
   /**
-   * The name of the line item.
+   * This is usually the product's name.
    */
   name: string
   /**
-   * List of discounts applied to the line item.
+   * The quantity of the product variant in the line item.
    */
   quantity: number
   /**
@@ -86,7 +86,7 @@ export interface LineItem {
    */
   variant: ProductVariant
   /**
-   * List of selected options.
+   * List of selected options, to be used when displaying the line item, such as Color: Red, Size: XL.
    */
   options?: SelectedOption[]
 }
@@ -96,7 +96,7 @@ export interface LineItem {
  */
 export interface Cart {
   /**
-   * The cart's id.
+   * The unique identifier for the cart.
    */
   id: string
   /**
@@ -119,7 +119,7 @@ export interface Cart {
    * The currency used for this cart */
   currency: { code: string }
   /**
-   * Specifies if taxes are included in the line items.
+   * Indicates if taxes are included in the line items.
    */
   taxesIncluded: boolean
   /**
@@ -135,12 +135,13 @@ export interface Cart {
    * Price of the cart before duties, shipping and taxes.*/
   subtotalPrice: number
   /**
-   * The sum of all the prices of all the items in the cart.*/
-  /**
-   * Duties, taxes and discounts included.*/
+   * The sum of all the prices of all the items in the cart.
+   * Duties, taxes and discounts included.
+   */
   totalPrice: number
   /**
-   * Discounts that have been applied on the cart.*/
+   * Discounts that have been applied on the cart.
+   */
   discounts?: Discount[]
 }
 
@@ -149,17 +150,22 @@ export interface Cart {
  */
 export interface CartItemBody {
   /**
-   * The product variant's id.
+   *  The unique identifier for the product variant.
    */
   variantId: string
   /**
-   * The product's id.
+   *  The unique identifier for the product, if the variant is not provided.
    */
   productId?: string
   /**
    * The quantity of the product variant.
    */
   quantity?: number
+
+  /**
+   * The product variant's selected options.
+   */
+  optionsSelected?: SelectedOption[]
 }
 
 /**

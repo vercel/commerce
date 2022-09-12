@@ -1,28 +1,62 @@
 export interface Address {
+  /**
+   * The unique identifier for the address.
+   */
   id: string
+  /**
+   * The customer's first name.
+   */
   mask: string
 }
 
 export interface AddressFields {
+  /**
+   * The type of address.
+   * @example "billing, shipping"
+   */
   type: string
+  /**
+   * The customer's first name.
+   */
   firstName: string
+  /**
+   * The customer's last name.
+   */
   lastName: string
+  /**
+   * Company name.
+   */
   company: string
+  /**
+   * The customer's billing address street number.
+   */
   streetNumber: string
+  /**
+   * The customer's billing address apartment number.
+   */
   apartments: string
+  /**
+   * The customer's billing address zip code.
+   */
   zipCode: string
+  /**
+   * The customer's billing address city.
+   */
   city: string
+  /**
+   * The customer's billing address country.
+   */
   country: string
 }
 
-export type GetAddressesHook = {
+export interface GetAddressesHook {
   data: Address[] | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export type AddItemHook = {
+export interface AddItemHook {
   data: Address
   input?: AddressFields
   fetcherInput: AddressFields
@@ -30,7 +64,7 @@ export type AddItemHook = {
   actionInput: AddressFields
 }
 
-export type UpdateItemHook = {
+export interface UpdateItemHook {
   data: Address | null
   input: { item?: AddressFields; wait?: number }
   fetcherInput: { itemId: string; item: AddressFields }
@@ -38,23 +72,19 @@ export type UpdateItemHook = {
   actionInput: AddressFields & { id: string }
 }
 
-export type RemoveItemHook = {
-  data: Address | null
+export interface RemoveItemHook {
+  data: Address | null | undefined
   input: { item?: Address }
   fetcherInput: { itemId: string }
   body: { itemId: string }
   actionInput: { id: string }
 }
 
-export type CustomerAddressHooks = {
+export interface CustomerAddressHooks {
   getAddresses: GetAddressesHook
   addItem: AddItemHook
   updateItem: UpdateItemHook
   removeItem: RemoveItemHook
-}
-
-export type AddressHandler = GetAddressesHook & {
-  body: { cartId?: string }
 }
 
 export type AddItemHandler = AddItemHook & {

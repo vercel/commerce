@@ -5,7 +5,7 @@ import type { AddItemHook } from '../types/wishlist'
 import type { Provider } from '..'
 
 export type UseAddItem<
-  H extends MutationHook<AddItemHook<any>> = MutationHook<AddItemHook>
+  H extends MutationHook<AddItemHook> = MutationHook<AddItemHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher = mutationFetcher

@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const productPriceSchema = z.object({
   value: z.number(),
-  currencyCode: z.string().optional(),
+  currencyCode: z.string().max(3).optional(),
   retailPrice: z.number().optional(),
 })
 
@@ -18,7 +18,7 @@ export const productOptionSchema = z.object({
 })
 
 export const productImageSchema = z.object({
-  url: z.string(),
+  url: z.string().url().or(z.string().startsWith('/')),
   alt: z.string().optional(),
   width: z.number().optional(),
   height: z.number().optional(),
@@ -26,7 +26,7 @@ export const productImageSchema = z.object({
 
 export const productVariantSchema = z.object({
   id: z.string(),
-  sku: z.string(),
+  sku: z.string().optional(),
   name: z.string(),
   options: z.array(productOptionSchema),
   image: productImageSchema.optional(),
@@ -45,4 +45,16 @@ export const productSchema = z.object({
   price: productPriceSchema,
   options: z.array(productOptionSchema),
   vendor: z.string().optional(),
+})
+
+export const productsPathsSchema = z.array(
+  z.object({ path: z.string().startsWith('/') })
+)
+
+export const searchProductBodySchema = z.object({
+  search: z.string(),
+  categoryId: z.string(),
+  brandId: z.string().optional(),
+  sort: z.string().optional(),
+  locale: z.string().optional(),
 })

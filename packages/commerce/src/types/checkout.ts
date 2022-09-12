@@ -5,6 +5,8 @@ import type { Card, CardFields } from './customer/card'
 // Index
 export type Checkout = any
 
+export type CheckoutBody = any
+
 export type CheckoutTypes = {
   card?: Card | CardFields
   address?: Address | AddressFields
@@ -13,45 +15,43 @@ export type CheckoutTypes = {
   hasShipping?: boolean
 }
 
-export type SubmitCheckoutHook<T extends CheckoutTypes = CheckoutTypes> = {
-  data: T
-  input?: T
-  fetcherInput: T
-  body: { item: T }
-  actionInput: T
+export type SubmitCheckoutHook = {
+  data: Checkout
+  input?: CheckoutBody
+  fetcherInput: CheckoutBody
+  body: { item: CheckoutBody }
+  actionInput: CheckoutBody
 }
 
-export type GetCheckoutHook<T extends CheckoutTypes = CheckoutTypes> = {
-  data: T['checkout'] | null
+export type GetCheckoutHook = {
+  data: Checkout | null | undefined
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
   mutations: { submit: UseSubmitCheckout }
 }
 
-export type CheckoutHooks<T extends CheckoutTypes = CheckoutTypes> = {
-  submitCheckout?: SubmitCheckoutHook<T>
-  getCheckout: GetCheckoutHook<T>
+export type CheckoutHooks = {
+  submitCheckout?: SubmitCheckoutHook
+  getCheckout: GetCheckoutHook
 }
 
-export type GetCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
-  GetCheckoutHook<T> & {
-    body: { cartId: string }
-  }
-
-export type SubmitCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
-  SubmitCheckoutHook<T> & {
-    body: { cartId: string }
-  }
-
-export type CheckoutHandlers<T extends CheckoutTypes = CheckoutTypes> = {
-  getCheckout: GetCheckoutHandler<T>
-  submitCheckout?: SubmitCheckoutHandler<T>
+export type GetCheckoutHandler = GetCheckoutHook & {
+  body: { cartId: string }
 }
 
-export type CheckoutSchema<T extends CheckoutTypes = CheckoutTypes> = {
+export type SubmitCheckoutHandler = SubmitCheckoutHook & {
+  body: { cartId: string }
+}
+
+export type CheckoutHandlers = {
+  getCheckout: GetCheckoutHandler
+  submitCheckout?: SubmitCheckoutHandler
+}
+
+export type CheckoutSchema = {
   endpoint: {
     options: {}
-    handlers: CheckoutHandlers<T>
+    handlers: CheckoutHandlers
   }
 }

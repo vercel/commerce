@@ -1130,7 +1130,7 @@ export interface definitions {
      */
     search_keywords?: string
     /**
-     * Image URL used for this category on the storefront. Images can be uploaded via form file post to `/brands/{brandId}/image`, or by providing a publicly accessible URL in this field.
+     * Image URL used for this category on the storefront. Images can be uploaded via form file post to `/{brandId}/image`, or by providing a publicly accessible URL in this field.
      */
     image_url?: string
     custom_url?: definitions['customUrl_Full']

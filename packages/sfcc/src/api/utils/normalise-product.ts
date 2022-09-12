@@ -1,7 +1,6 @@
 import { Product as SFCCProduct, Search } from 'commerce-sdk'
 import type {
   Product,
-  ProductImage,
   ProductOption,
   ProductVariant,
 } from '@vercel/commerce/types/product'
@@ -64,9 +63,9 @@ export function normalizeProduct(
       currencyCode: product.currency,
     },
     images: product.imageGroups![0].images.map((image) => ({
-      url: image.disBaseLink,
-      altText: image.title,
-    })) as ProductImage[],
+      url: image.disBaseLink || image.link,
+      alt: image.title || '',
+    })),
     variants: normaliseVariants(product.variants),
     options: normaliseOptions(product.variationAttributes),
   }
@@ -87,8 +86,8 @@ export function normalizeSearchProducts(
     images: [
       {
         url: product.image!.link,
-        altText: product.productName,
-      } as ProductImage,
+        alt: product.productName,
+      },
     ],
     variants: normaliseVariants(product.variants),
     options: normaliseOptions(product.variationAttributes),
