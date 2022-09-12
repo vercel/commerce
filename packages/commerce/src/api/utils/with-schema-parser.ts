@@ -24,7 +24,7 @@ export const withSchemaParser =
 const parse = (operation: AllowedOperations, data: OperationsData) => {
   switch (operation) {
     case 'getProduct':
-      productSchema.parse(data.product)
+      productSchema.nullable().parse(data.product)
       break
 
     case 'getAllProducts':
@@ -36,7 +36,7 @@ const parse = (operation: AllowedOperations, data: OperationsData) => {
       break
 
     case 'getPage':
-      pageSchema.parse(data.page)
+      pageSchema.nullable().parse(data.page)
       break
 
     case 'getAllPages':

@@ -111,7 +111,7 @@ export default function getSiteInfoOperation({
             id: spreeTaxon.id,
             name: spreeTaxon.attributes.name,
             slug: spreeTaxon.id,
-            path: spreeTaxon.id,
+            path: `/${spreeTaxon.id}`,
           }
         })
 

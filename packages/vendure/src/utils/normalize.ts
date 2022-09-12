@@ -8,7 +8,7 @@ export function normalizeSearchResult(item: SearchResultFragment): Product {
     name: item.productName,
     description: item.description,
     slug: item.slug,
-    path: item.slug,
+    path: `${item.slug}`,
     images: [
       {
         url: item.productAsset?.preview

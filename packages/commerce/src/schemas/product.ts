@@ -26,8 +26,8 @@ export const productImageSchema = z.object({
 
 export const productVariantSchema = z.object({
   id: z.string(),
-  sku: z.string().optional(),
-  name: z.string(),
+  sku: z.string().nullish(),
+  name: z.string().optional(),
   options: z.array(productOptionSchema),
   image: productImageSchema.optional(),
 })
@@ -37,7 +37,7 @@ export const productSchema = z.object({
   name: z.string(),
   description: z.string(),
   descriptionHtml: z.string().optional(),
-  sku: z.string().optional(),
+  sku: z.string().nullish(),
   slug: z.string(),
   path: z.string().startsWith('/'),
   images: z.array(productImageSchema),

@@ -37,15 +37,15 @@ export default function getAllPagesOperation({
       }
     )
 
-    const pages = data?.pages?.edges?.map(
-      ({ node: { title: name, slug, ...node } }: PageCountableEdge) =>
-        ({
+    const pages =
+      data?.pages?.edges?.map(
+        ({ node: { title: name, slug, ...node } }: PageCountableEdge) => ({
           id: node.id,
           url: `/${locale}/${slug}`,
           body: node.content || '',
           name,
-        } ?? [])
-    )
+        })
+      ) ?? []
 
     return { pages }
   }

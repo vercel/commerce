@@ -63,7 +63,7 @@ export function normalizeProduct(
     description,
     descriptionHtml: description,
     slug: permalink,
-    path: permalink,
+    path: `/${permalink}`,
     images: assets.map(({ url, description, filename }) => ({
       url,
       alt: description || filename,
