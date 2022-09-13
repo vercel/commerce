@@ -1,42 +1,51 @@
-import type { PrCategory, CustomerAccountInput, Document } from '../../schema'
-import { Page } from '../types/page'
-import { Customer } from '../types/customer'
-import { WishlistItem } from '@vercel/commerce/types/wishlist'
+import type {
+  PrCategory,
+  CustomerAccountInput,
+  Document,
+  Product as KiboProduct,
+} from '../../schema'
 
-export function normalizeProduct(productNode: any, config: any): any {
+import type { Page } from '@vercel/commerce/types/page'
+import type { Category } from '@vercel/commerce/types/site'
+import type { Product } from '@vercel/commerce/types/product'
+import type { Customer } from '@vercel/commerce/types/customer'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { WishlistItem } from '@vercel/commerce/types/wishlist'
+
+export function normalizeProduct(
+  productNode: KiboProduct,
+  config: any
+): Product {
   const product = {
-    id: productNode.productCode,
-    name: productNode.content.productName,
+    id: productNode.productCode || '',
+    name: productNode.content?.productName || '',
     vendor: '',
     path: `/${productNode.productCode}`,
-    slug: productNode.productCode,
+    slug: productNode.productCode || '',
     price: {
-      value: productNode?.price?.price,
+      value: productNode?.price?.price ?? 0,
       currencyCode: config.currencyCode,
     },
-    descriptionHtml: productNode.content.productShortDescription,
-
-    images: productNode.content.productImages.map((p: any) => ({
-      url: `http:${p.imageUrl}`,
-      altText: p.imageLabel,
-    })),
-
-    variants: productNode.variations?.map((v: any) => ({
-      id: v.productCode,
-      options: v.options.map((o: any) => ({
-        ['__typename']: 'MultipleChoiceOption',
-        id: o.attributeFQN,
-        displayName:
-          o.attributeFQN.split('~')[1][0].toUpperCase() +
-          o.attributeFQN.split('~')[1].slice(1).toLowerCase(),
-        values: [{ label: o.value.toString() }],
-      })),
-    })) || [
-      {
-        id: '',
-      },
-    ],
-
+    description: productNode.content?.productFullDescription || '',
+    descriptionHtml: productNode.content?.productFullDescription || '',
+    images:
+      productNode.content?.productImages?.map((p: any) => ({
+        url: `http:${p.imageUrl}`,
+        altText: p.imageLabel,
+      })) || [],
+    variants:
+      productNode.variations?.map((v: any) => ({
+        id: v.productCode,
+        options:
+          v.options?.map((o: any) => ({
+            ['__typename']: 'MultipleChoiceOption',
+            id: o.attributeFQN,
+            displayName:
+              o.attributeFQN.split('~')[1][0].toUpperCase() +
+              o.attributeFQN.split('~')[1].slice(1).toLowerCase(),
+            values: [{ label: o.value.toString() }],
+          })) ?? [],
+      })) ?? [],
     options:
       productNode.options?.map((o: any) => ({
         id: o.attributeFQN,
@@ -44,7 +53,7 @@ export function normalizeProduct(productNode: any, config: any): any {
         values: o.values.map((v: any) => ({
           label: v.value.toString(),
         })),
-      })) || [],
+      })) ?? [],
   }
 
   return product
@@ -61,7 +70,7 @@ export function normalizePage(page: Document): Page {
   }
 }
 
-export function normalizeCart(data: any): any {
+export function normalizeCart(data: any): Cart {
   return {
     id: data.id,
     customerId: data.userId,
@@ -95,7 +104,7 @@ export function normalizeCustomer(customer: CustomerAccountInput): Customer {
   }
 }
 
-function normalizeLineItem(item: any): any {
+function normalizeLineItem(item: any): LineItem {
   return {
     id: item.id,
     variantId: item.product.variationProductCode,
@@ -113,7 +122,7 @@ function normalizeLineItem(item: any): any {
       price: item?.unitPrice.extendedAmount,
       listPrice: 0,
     },
-    options: item.product.options,
+    options: item.product.options ?? [],
     path: `${item.product.productCode}`,
     discounts: item?.discounts?.map((discount: any) => ({
       value: discount.discounted_amount,
@@ -121,11 +130,11 @@ function normalizeLineItem(item: any): any {
   }
 }
 
-export function normalizeCategory(category: PrCategory): any {
+export function normalizeCategory(category: PrCategory): Category {
   return {
-    id: category?.categoryCode,
-    name: category?.content?.name,
-    slug: category?.content?.slug,
+    id: category?.categoryCode || '',
+    name: category?.content?.name || '',
+    slug: category?.content?.slug || '',
     path: `/${category?.content?.slug}`,
   }
 }
@@ -175,7 +184,7 @@ function getProuducts(item: any, config: any): any {
         },
       },
     ],
-    options: item.product.options,
+    options: item.product.options ?? [],
     path: `/${item.product.productCode}`,
     description: item.product.description,
   }
