@@ -22,6 +22,7 @@ import { handler as useAddAddressItem } from './customer/address/use-add-item'
 
 import getTax from './tax/get-tax'
 import showTax from './tax/show-tax'
+import getShippingrates from './shippingRates/get-shipping-rates';
 
 import {fetcher} from './fetcher'
 
@@ -52,6 +53,9 @@ export const elasticpathProvider = {
   tax: {
     getTax,
     showTax
+  },
+  shippingRates:{
+    getShippingrates
   },
   products: { useSearch },
   auth: { useLogin, useLogout, useSignup },

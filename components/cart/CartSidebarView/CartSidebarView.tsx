@@ -15,23 +15,22 @@ import ShowTaxationWidget from '@components/checkout/ShowTaxWidget'
 import ShippingRatesWidget from '@components/checkout/ShippingRatesWidget'
 import useGetTax from '@framework/tax/get-tax'
 import useShowTax from '@framework/tax/show-tax'
-import useShippingRates from '@framework/shipping-rates/get-shipping-rates'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar, setSidebarView, sidebarView } = useUI()
   const { data, isLoading, isEmpty } = useCart()
   const { data: checkoutData, submit: onCheckout } = useCheckout()
 
-  if(sidebarView == 'GET_TAXATION_VIEW'){
-    const getTax = useGetTax()
-    console.log(getTax)
-  }
-  else if(sidebarView == 'SHOW_TAXATION_VIEW'){
-    const showTax = useShowTax()
-  }
-  else if(sidebarView == 'SHIPPING_RATES_WIDGET'){
-    const shippingRates = useShippingRates()
-  }
+  // if(sidebarView == 'GET_TAXATION_VIEW'){
+  //   const getTax = useGetTax()
+  //   console.log(getTax)
+  // }
+  // else if(sidebarView == 'SHOW_TAXATION_VIEW'){
+  //   const showTax = useShowTax()
+  // }
+  // else if(sidebarView == 'SHIPPING_RATES_WIDGET'){
+  //   const shippingRates = useShippingRates()
+  // }
 
   async function handleSubmit(event: any) {
     event.preventDefault()

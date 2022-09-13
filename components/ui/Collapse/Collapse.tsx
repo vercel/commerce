@@ -9,7 +9,7 @@ export interface CollapseProps {
   title: string
   children: ReactNode
 }
-
+// eslint-disable-next-line react/display-name
 const Collapse: FC<CollapseProps> = React.memo(({ title, children }) => {
   const [isActive, setActive] = useState(false)
   const [ref, { height: viewHeight }] = useMeasure()

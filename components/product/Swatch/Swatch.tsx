@@ -12,7 +12,7 @@ interface SwatchProps {
   color?: string
   label?: string | null
 }
-
+// eslint-disable-next-line react/display-name
 const Swatch: React.FC<Omit<ButtonProps, 'variant'> & SwatchProps> = React.memo(
   ({
     active,

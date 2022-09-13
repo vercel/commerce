@@ -20,7 +20,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
   disabled?: boolean
 }
-
+// eslint-disable-next-line react/display-name
 const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   const {
     className,

@@ -7,6 +7,8 @@ import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
 import { useUI } from '@components/ui/context'
+import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
+
 
 export async function getStaticProps({
   preview,
@@ -24,9 +26,11 @@ export async function getStaticProps({
 }
 
 export default function Cart() {
+
   const error = null
   const success = null
-  const { data, isLoading, isEmpty } = useCart()
+  const { data, isLoading, isEmpty } = useCart();
+  
   const { openSidebar, setSidebarView } = useUI()
 
   const { price: subTotal } = usePrice(

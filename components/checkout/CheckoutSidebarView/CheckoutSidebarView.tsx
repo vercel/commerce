@@ -11,13 +11,49 @@ import ShippingWidget from '../ShippingWidget'
 import PaymentWidget from '../PaymentWidget'
 import s from './CheckoutSidebarView.module.css'
 import { useCheckoutContext } from '../context'
+import GetTaxationWidget from '@components/checkout/GetTaxationWidget'
+import ShowTaxationWidget from '@components/checkout/ShowTaxWidget'
+import ShippingRatesWidget from '@components/checkout/ShippingRatesWidget'
+import useShowTax from '@framework/tax/show-tax'
+import useShowShipping from '@framework/shippingRates/get-shipping-rates'
 
 const CheckoutSidebarView: FC = () => {
   const [loadingSubmit, setLoadingSubmit] = useState(false)
-  const { setSidebarView, closeSidebar } = useUI()
+  const { closeSidebar, setSidebarView, sidebarView } = useUI()
   const { data: cartData, revalidate: refreshCart } = useCart()
   const { data: checkoutData, submit: onCheckout } = useCheckout()
   const { clearCheckoutFields } = useCheckoutContext()
+  const [tax , setTax] = useState<any>();
+  const [shipping , setShipping] = useState<any>();
+ 
+ 
+  
+
+  async function callTax(){
+    console.log(cartData , "in call tax")
+    const res = await  useShowTax(
+       cartData && {
+         amount: Number(cartData.subtotalPrice),
+         cartId : cartData.id
+       }
+     )
+     setTax(res);
+   }
+
+   callTax();
+
+   async function callShipping(){
+    console.log(cartData , "in call tax")
+    const res = await  useShowShipping(
+       cartData && {
+         amount: Number(cartData.subtotalPrice),
+         cartId : cartData.id
+       }
+     )
+     setShipping(res);
+   }
+ 
+  callShipping();
 
   async function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     try {
@@ -68,6 +104,21 @@ const CheckoutSidebarView: FC = () => {
           isValid={checkoutData?.hasShipping}
           onClick={() => setSidebarView('SHIPPING_VIEW')}
         />
+        <div className="px-4 sm:px-6 flex-1">
+           
+          </div>  
+          <div className="px-4 sm:px-6 flex-1">
+            <ShowTaxationWidget
+              isValid={checkoutData?.hasShipping}
+              onClick={() => setSidebarView('SHOW_TAXATION_VIEW')}
+            />
+          </div>  
+          <div className="px-4 sm:px-6 flex-1">
+            <ShippingRatesWidget
+              isValid={checkoutData?.hasShipping}
+              onClick={() => setSidebarView('SHIPPING_RATES_WIDGET')}
+            />
+          </div>
 
         <ul className={s.lineItemsList}>
           {cartData!.lineItems.map((item: any) => (
@@ -92,11 +143,11 @@ const CheckoutSidebarView: FC = () => {
           </li>
           <li className="flex justify-between py-1">
             <span>Taxes</span>
-            <span>Calculated at checkout</span>
+            <span>{tax}</span>
           </li>
           <li className="flex justify-between py-1">
             <span>Shipping</span>
-            <span className="font-bold tracking-wide">FREE</span>
+            <span className="font-bold tracking-wide">{shipping}</span>
           </li>
         </ul>
         <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">

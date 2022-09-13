@@ -1,13 +1,21 @@
 import axios from "axios";
+import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
+import useCart from "@framework/cart/use-cart";
+
+const cartId = getCookie('cartId');
+  console.log("cartId " , cartId );
 
 const getTax = () => {
+
+    const { data, isLoading, isEmpty } = useCart();
+    console.log(data);
     axios({
-        url: 'http://206.189.135.123:3030/store-events/615aa7276b3472001db03258/get-tax',
+        url: 'http://localhost:3000/events/store/get-tax',
         method: 'POST',
         data: {
             payload:{
                 data:{
-                    cart_id:"Cart1",
+                    cartId:cartId?.toString(),
                     shipping_address: {
                         first_name: "Otis",
                         last_name: "Sedmak",

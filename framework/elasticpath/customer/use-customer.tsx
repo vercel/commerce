@@ -11,14 +11,14 @@ export const handler: SWRHook<any> = {
   },
   async fetcher({fetch, options, input}) {
     const creds = getCustomerCookie();
-    if(!creds.id || !creds.token) {
+    if(!creds.customer_id || !creds.token) {
       return null;
     }
 
     const {data} = await fetch({
       ...options,
       variables:{
-        params: [creds.id, creds.token]
+        params: [creds.customer_id, creds.token]
       }
     });
 

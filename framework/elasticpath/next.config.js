@@ -6,12 +6,12 @@ module.exports = {
     domains: [
       'localhost',
       '206.189.135.123',
-      's3-eu-west-1.amazonaws.com'
+      's3-eu-west-1.amazonaws.com',
+      'files-eu.epusercontent.com'
     ]
   },
   commerce,
   i18n: {
-    locales: ['en-US'],
     defaultLocale: 'en-US',
   },
   webpack: (config, { isServer }) => {

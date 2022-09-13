@@ -39,6 +39,6 @@
     "./framework/spree",
     "./framework/ordercloud",
     "./framework/kibocommerce",
-     "./framework/commercejs"
+    "./framework/commercejs"
   ]
 }

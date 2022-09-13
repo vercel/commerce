@@ -13,10 +13,10 @@ const customer_token = getCookie('user_token');
   console.log("customer token " ,customer_token )
 
  
- function getTax (cartId : any){
+ function getShipping (cartId : any){
   console.log(cartId , "in tax calculation") 
  const tax =   axios({
-    url: 'http://localhost:3000/events/store/showTax',
+    url: 'http://localhost:3000/events/store/showShipping',
     method: 'POST',
     data: {
       payload: {
@@ -27,17 +27,12 @@ const customer_token = getCookie('user_token');
     }
   })
   .then((response) =>{
-    let rates = 0;
-  for (const item of response.data.TaxRates.taxdata) {
-    rates += item.rate;
-  }
-  console.log(rates);
- return rates
+    return (response.data.shippingRates[0].shipmentCost)
   })
   return tax
 }
 
-  export default  function useShowTax(
+  export default  function useShowShipping(
     data?: {
       amount: number
       cartId: string 
@@ -45,7 +40,7 @@ const customer_token = getCookie('user_token');
   ) {
     console.log(data , " before function ")
     const value =    useMemo( async () => {
-     const res = await getTax(data?.cartId);
+     const res = await getShipping(data?.cartId);
       return res;
        
     }, [data?.amount , data?.cartId])

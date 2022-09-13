@@ -9,14 +9,12 @@ import useAddAddress from '@framework/customer/address/use-add-item'
 import s from './ShippingView.module.css'
 
 interface Form extends HTMLFormElement {
-  cardHolder: HTMLInputElement
-  cardNumber: HTMLInputElement
-  cardExpireDate: HTMLInputElement
-  cardCvc: HTMLInputElement
+  type: HTMLInputElement,
   firstName: HTMLInputElement
   lastName: HTMLInputElement
   company: HTMLInputElement
   streetNumber: HTMLInputElement
+  apartments: HTMLInputElement,
   zipCode: HTMLInputElement
   city: HTMLInputElement
   country: HTMLSelectElement
@@ -28,8 +26,7 @@ const ShippingView: FC = () => {
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
-
-    await addAddress({
+    const input = {
       type: event.target.type.value,
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,
@@ -39,7 +36,9 @@ const ShippingView: FC = () => {
       zipCode: event.target.zipCode.value,
       city: event.target.city.value,
       country: event.target.country.value,
-    })
+    }
+    console.log(input);
+        await addAddress(input)
 
     setSidebarView('CHECKOUT_VIEW')
   }
@@ -100,7 +99,7 @@ const ShippingView: FC = () => {
             <div className={s.fieldset}>
               <label className={s.label}>Country/Region</label>
               <select name="country" className={s.select}>
-                <option>Hong Kong</option>
+                <option>US</option>
               </select>
             </div>
           </div>

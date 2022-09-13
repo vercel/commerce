@@ -4,12 +4,16 @@ import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { fetchAPI } from '../CMS/api';
+import { ArticleJsonLd } from 'next-seo'
 
 export async function getStaticProps({
   preview,
   locale,
-  locales,
+  locales
 }: GetStaticPropsContext) {
+
+  
   const config = { locale, locales }
   const productsPromise = commerce.getAllProducts({
     variables: { first: 6 },
@@ -23,21 +27,25 @@ export async function getStaticProps({
   const { products } = await productsPromise
   const { pages } = await pagesPromise
   const { categories, brands } = await siteInfoPromise
+  //const [articles] = await Promise.all([fetchAPI("/articles")])
 
   return {
     props: {
       products,
       categories,
       brands,
+     // articles,
       pages,
     },
     revalidate: 60,
   }
 }
 
-export default function Home({
-  products,
+
+export  default  function Home({
+  products //,articles
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+
   return (
     <>
       <Grid variant="filled">
@@ -61,6 +69,10 @@ export default function Home({
         headline=" Dessert dragée halvah croissant."
         description="Cupcake ipsum dolor sit amet lemon drops pastry cotton candy. Sweet carrot cake macaroon bonbon croissant fruitcake jujubes macaroon oat cake. Soufflé bonbon caramels jelly beans. Tiramisu sweet roll cheesecake pie carrot cake. "
       />
+      {/* <Hero
+        headline={articles[4].title}
+        description={articles[0].description}
+      /> */}
       <Grid layout="B" variant="filled">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
