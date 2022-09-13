@@ -12,7 +12,7 @@ function normalizeProductOption(productOption: any) {
   } = productOption
 
   return {
-    id: entityId,
+    id: String(entityId),
     values: edges?.map(({ node }: any) => node),
     ...rest,
   }
@@ -41,7 +41,7 @@ export function normalizeProduct(productNode: any): Product {
     variants: {
       $apply: ({ edges }: any) =>
         edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
-          id: entityId,
+          id: String(entityId),
           options: productOptions?.edges
             ? productOptions.edges.map(normalizeProductOption)
             : [],

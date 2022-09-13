@@ -44,7 +44,7 @@ export const getCategoryPath = (path: string, brand?: string) => {
 }
 
 export const getDesignerPath = (path: string, category?: string) => {
-  return `/search${path ? `/designers/${path}` : ''}${
+  return `/search${path ? `/designers${path}` : ''}${
     category ? `/${category}` : ''
   }`
 }

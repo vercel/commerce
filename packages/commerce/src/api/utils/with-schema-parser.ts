@@ -1,6 +1,7 @@
 import type { AllowedOperations, OperationsData } from '../operations'
 
 import { z } from 'zod'
+
 import { getOperationError } from './errors'
 import { pageSchema } from '../../schemas/page'
 import { siteInfoSchema } from '../../schemas/site'
@@ -12,13 +13,15 @@ export const withSchemaParser =
     fn: (...args: any[]) => Promise<OperationsData>
   ) =>
   async (...args: any[]) => {
+    const result = await fn(...args)
+
     try {
-      const result = await fn(...args)
       parse(operation, result)
-      return result
     } catch (error) {
-      return Promise.reject(getOperationError(operation, error))
+      throw getOperationError(operation, error)
     }
+
+    return result
   }
 
 const parse = (operation: AllowedOperations, data: OperationsData) => {

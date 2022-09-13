@@ -32,7 +32,7 @@ export const getErrorMessage = (error: unknown) => {
 
 export const getOperationError = (operation: string, error: unknown) => {
   if (error instanceof ZodError) {
-    error = new CommerceError({
+    return new CommerceError({
       code: 'SCHEMA_VALIDATION_ERROR',
       message:
         `The ${operation} operation returned invalid data and has ${
@@ -46,13 +46,6 @@ export const getOperationError = (operation: string, error: unknown) => {
               }Code: ${e.code}, Message: ${e.message}`
           )
           .join('\n'),
-    })
-  }
-
-  if (error instanceof Error) {
-    return new CommerceError({
-      code: 'OPERATION_ERROR',
-      message: `An unexpected error ocurred with the ${operation} operation: ${error.message}`,
     })
   }
 

@@ -43,7 +43,6 @@ export function normalizeProduct(productNode: any, config: any): any {
         displayName: o.attributeDetail.name,
         values: o.values.map((v: any) => ({
           label: v.value.toString(),
-          hexColors: '',
         })),
       })) || [],
   }

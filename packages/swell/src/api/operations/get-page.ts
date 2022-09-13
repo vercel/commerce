@@ -48,6 +48,7 @@ export default function getPageOperation({
         ? {
             ...page,
             url: `/${locale}/${page.slug}`,
+            body: page.body ?? '',
           }
         : null,
     }
