@@ -1,0 +1,10 @@
+{
+  "provider": "sylius",
+  "features": {
+    "cart": false,
+    "search": false,
+    "wishlist": false,
+    "customerAuth": false,
+    "customCheckout": false
+  }
+}
