@@ -4,8 +4,8 @@ export interface Card {
    */
   id: string
   /**
-   * Masked card number.
-   * @example "************4242"
+   * Masked card number. Contains only the last 4 digits.
+   * @example "4242"
    */
   mask: string
   /**

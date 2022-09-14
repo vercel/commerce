@@ -95,12 +95,11 @@ export function normalizeCart(data: any): Cart {
 
 export function normalizeCustomer(customer: CustomerAccountInput): Customer {
   return {
-    id: customer.id,
-    firstName: customer.firstName,
-    lastName: customer.lastName,
-    email: customer.emailAddress,
-    userName: customer.userName,
-    isAnonymous: customer.isAnonymous,
+    id: String(customer.id),
+    firstName: customer.firstName || '',
+    lastName: customer.lastName || '',
+    email: customer.emailAddress || '',
+    acceptsMarketing: !!customer.acceptsMarketing,
   }
 }
 

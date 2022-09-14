@@ -32,7 +32,7 @@ export const handler: SWRHook<GetWishlistHook> = {
       const { data: customer } = useCustomer()
       const response = useData({
         input: [
-          ['customerId', customer?.entityId],
+          ['customerId', customer?.id],
           ['includeProducts', input?.includeProducts],
         ],
         swrOptions: {

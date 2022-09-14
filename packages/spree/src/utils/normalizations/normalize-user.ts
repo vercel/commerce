@@ -6,10 +6,11 @@ const normalizeUser = (
   _spreeSuccessResponse: SpreeSdkResponse,
   spreeUser: AccountAttr
 ): Customer => {
-  const email = spreeUser.attributes.email
-
   return {
-    email,
+    id: spreeUser.id,
+    email: spreeUser.attributes.email,
+    firstName: spreeUser.attributes.firstname,
+    lastName: spreeUser.attributes.lastname,
   }
 }
 
