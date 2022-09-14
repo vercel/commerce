@@ -25,6 +25,7 @@
     "@vercel/commerce-shopify": "workspace:*",
     "@vercel/commerce-spree": "workspace:*",
     "@vercel/commerce-swell": "workspace:*",
+    "@vercel/commerce-sfcc": "workspace:*",
     "@vercel/commerce-vendure": "workspace:*",
     "autoprefixer": "^10.4.2",
     "body-scroll-lock": "^4.0.0-beta.0",
@@ -62,7 +63,7 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.2.3",
     "prettier": "^2.5.1",
-    "typescript": "4.8.3"
+    "typescript": "4.7.4"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
