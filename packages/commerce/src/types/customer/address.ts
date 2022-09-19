@@ -50,8 +50,9 @@ export interface AddressFields {
 }
 
 /**
- * Hook for getting a customer's addresses.
+ * Hooks for managing a customer's addresses.
  */
+
 export interface GetAddressesHook {
   data: Address[] | null
   input: {}
@@ -59,9 +60,6 @@ export interface GetAddressesHook {
   swrState: { isEmpty: boolean }
 }
 
-/**
- * Hook for adding an address to a customer's account.
- */
 export interface AddItemHook {
   data: Address
   input?: AddressFields
@@ -70,9 +68,6 @@ export interface AddItemHook {
   actionInput: AddressFields
 }
 
-/**
- * Hook for updating an address to a customer's account.
- */
 export interface UpdateItemHook {
   data: Address | null
   input: { item?: AddressFields; wait?: number }
@@ -81,9 +76,6 @@ export interface UpdateItemHook {
   actionInput: AddressFields & { id: string }
 }
 
-/**
- * Hook for deliting an address to a customer's account.
- */
 export interface RemoveItemHook {
   data: Address | null | undefined
   input: { item?: Address }
@@ -92,9 +84,6 @@ export interface RemoveItemHook {
   actionInput: { id: string }
 }
 
-/**
- * Hooks for managing a customer's addresses.
- */
 export interface CustomerAddressHooks {
   getAddresses: GetAddressesHook
   addItem: AddItemHook

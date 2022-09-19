@@ -169,7 +169,7 @@ export interface CartItemBody {
 }
 
 /**
- * Hooks for add, update & remove items from the cart.
+ * Cart Hooks for add, update and remove items from the cart
  */
 export type CartHooks = {
   getCart: GetCartHook
@@ -178,9 +178,6 @@ export type CartHooks = {
   removeItem: RemoveItemHook
 }
 
-/**
- * Hook for getting the cart.
- */
 export interface GetCartHook {
   data: Cart | null
   input: {}
@@ -188,9 +185,6 @@ export interface GetCartHook {
   swrState: { isEmpty: boolean }
 }
 
-/**
- * Hook for adding an item to the cart.
- */
 export interface AddItemHook {
   data: Cart
   input?: CartItemBody
@@ -199,9 +193,6 @@ export interface AddItemHook {
   actionInput: CartItemBody
 }
 
-/**
- * Hook for updating an item in the cart.
- */
 export interface UpdateItemHook {
   data: Cart | null | undefined
   input: { item?: LineItem; wait?: number }
@@ -210,9 +201,6 @@ export interface UpdateItemHook {
   actionInput: CartItemBody & { id: string }
 }
 
-/**
- * Hook for removing an item from the cart.
- */
 export interface RemoveItemHook {
   data: Cart | null | undefined
   input: { item?: LineItem }
@@ -222,7 +210,7 @@ export interface RemoveItemHook {
 }
 
 /**
- * Cart API Schema.
+ * Cart API endpoitns & handlers for add, update and remove items from the cart
  */
 export type CartSchema = {
   endpoint: {
@@ -231,9 +219,6 @@ export type CartSchema = {
   }
 }
 
-/**
- * API Handlers for adding, updating & removing items from the cart.
- */
 export type CartHandlers = {
   getCart: GetCartHandler
   addItem: AddItemHandler
@@ -241,31 +226,19 @@ export type CartHandlers = {
   removeItem: RemoveItemHandler
 }
 
-/**
- * API Handler for getting the cart.
- */
 export type GetCartHandler = GetCartHook & {
   body: { cartId?: string }
 }
 
-/**
- * API Handler for adding an item to the cart.
- */
 export type AddItemHandler = AddItemHook & {
   body: { cartId: string }
 }
 
-/**
- * API Handler for updating an item in the cart.
- */
 export type UpdateItemHandler = UpdateItemHook & {
   data: Cart
   body: { cartId: string }
 }
 
-/**
- * API Handler for removing an item from the cart.
- */
 export type RemoveItemHandler = RemoveItemHook & {
   body: { cartId: string }
 }

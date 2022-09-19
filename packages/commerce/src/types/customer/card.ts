@@ -67,8 +67,9 @@ export interface CardFields {
 }
 
 /**
- * Hook for getting a customer's cards.
+ * Hooks for managing a customer's cards.
  */
+
 export interface GetCardsHook {
   data: Card[] | null
   input: {}
@@ -76,9 +77,6 @@ export interface GetCardsHook {
   swrState: { isEmpty: boolean }
 }
 
-/**
- * Hook for adding a card to a customer's account.
- */
 export interface AddItemHook {
   data: Card
   input?: CardFields
@@ -87,9 +85,6 @@ export interface AddItemHook {
   actionInput: CardFields
 }
 
-/**
- * Hook for updating a card from a customer's account.
- */
 export interface UpdateItemHook {
   data: Card | null | undefined
   input: { item?: CardFields; wait?: number }
@@ -98,9 +93,6 @@ export interface UpdateItemHook {
   actionInput: CardFields & { id: string }
 }
 
-/**
- * Hook for removing a card from a customer's account.
- */
 export interface RemoveItemHook {
   data: Card | null | undefined
   input: { item?: Card }
@@ -109,9 +101,6 @@ export interface RemoveItemHook {
   actionInput: { id: string }
 }
 
-/**
- * Hooks for add, update & remove items from the cart.
- */
 export interface CustomerCardHooks {
   getCards: GetCardsHook
   addItem: AddItemHook
@@ -120,7 +109,7 @@ export interface CustomerCardHooks {
 }
 
 /**
- * Customer card API handler
+ * Customer card API handlers.
  */
 export type AddItemHandler = AddItemHook & {
   body: { cartId: string }
@@ -135,9 +124,6 @@ export type RemoveItemHandler = RemoveItemHook & {
   body: { cartId: string }
 }
 
-/**
- * Customer card API handlers.
- */
 export type CustomerCardHandlers = {
   getCards: GetCardsHook
   addItem: AddItemHandler
@@ -145,9 +131,6 @@ export type CustomerCardHandlers = {
   removeItem: RemoveItemHandler
 }
 
-/**
- * Customer card API endpoints.
- */
 export type CustomerCardSchema = {
   endpoint: {
     options: {}

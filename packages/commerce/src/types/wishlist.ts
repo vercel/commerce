@@ -30,23 +30,22 @@ export interface Wishlist {
   items: WishlistItem[]
 
   /**
-   * TODO: Spree provider specific
+   * Some providers require a token to add an item to a wishlist
    */
   token?: string
 }
 
 export interface WishlistItemBody {
   /**
-   * The product's variant id.
+   * The unique identifier for the product variant to associate with the wishlist.
    */
   variantId: string
   /**
-   * The product's ID.
+   * The unique identifier for the product to associate with the wishlist.
    */
   productId: string
-
   /**
-   * TODO: Spree provider specific
+   * Some providers require to provide a token to make a request
    */
   wishlistToken?: string
 }

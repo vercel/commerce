@@ -7,6 +7,7 @@ export interface ProductPrice {
   value: number
   /**
    * The currency code for the price. This is a 3-letter ISO 4217 code.
+   * @example USD
    */
   currencyCode?: 'USD' | 'EUR' | 'ARS' | 'GBP' | string
   /**
@@ -23,10 +24,12 @@ export interface ProductOption {
   id: string
   /**
    * The product option’s name.
+   * @example `Color` or `Size`
    */
   displayName: string
   /**
    * List of option values.
+   * @example `["Red", "Green", "Blue"]`
    */
   values: ProductOptionValues[]
 }
@@ -156,6 +159,9 @@ export interface SearchProductsBody {
   locale?: string
 }
 
+/**
+ * Fetches a list of products based on the given search criteria.
+ */
 export interface SearchProductsHook {
   data: {
     /**
@@ -175,6 +181,7 @@ export interface SearchProductsHook {
 /**
  * Product API schema
  */
+
 export interface ProductsSchema {
   endpoint: {
     options: {}
@@ -183,6 +190,10 @@ export interface ProductsSchema {
     }
   }
 }
+
+/**
+ *  Product operations
+ */
 
 export interface GetAllProductPathsOperation {
   data: { products: Pick<Product, 'path'>[] }
@@ -199,11 +210,6 @@ export interface GetAllProductsOperation {
 }
 
 export interface GetProductOperation {
-  /**
-   * Returned data from the operation.
-   */
   data: { product?: Product }
-  /**
-   * The variables to pass to the operation.*/
   variables: { path: string; slug?: never } | { path?: never; slug: string }
 }

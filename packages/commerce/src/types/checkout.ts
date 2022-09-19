@@ -1,13 +1,53 @@
 import type { UseSubmitCheckout } from '../checkout/use-submit-checkout'
 import type { Address, AddressFields } from './customer/address'
 import type { Card, CardFields } from './customer/card'
+import type { LineItem } from './cart'
 
-// Index
-export type Checkout = any
+export type Checkout = {
+  /**
+   * Indicates if the payment has been submitted.
+   */
+  hasPayment: boolean
+  /**
+   * Indicates if the checkout has shipping information collected.
+   */
+  hasShipping: boolean
+  /**
+   * The unique identifier for the address that the customer has selected for shipping.
+   */
+  addressId: string
+  /**
+   * The list of payments that the customer has selected for the checkout.
+   */
+  payments?: Card[]
+  /**
+   * The unique identifier of the card that the customer has selected for payment.
+   */
+  cardId?: string
+  /**
+   * List of items in the checkout.
+   */
+  lineItems?: LineItem[]
+}
 
-export type CheckoutBody = any
+export type CheckoutBody = {
+  /**
+   * The unique identifier for the cart.
+   */
+  cartId?: string
+  /**
+   * The Card information.
+   * @see @vercel/commerce/types/customer/card/CardFields
+   */
+  card: CardFields
+  /**
+   * The Address information.
+   * @see AddressFields
+   */
+  address: AddressFields
+}
 
-export type CheckoutTypes = {
+export interface CheckoutTypes {
   card?: Card | CardFields
   address?: Address | AddressFields
   checkout?: Checkout
@@ -15,7 +55,7 @@ export type CheckoutTypes = {
   hasShipping?: boolean
 }
 
-export type SubmitCheckoutHook = {
+export interface SubmitCheckoutHook {
   data: Checkout
   input?: CheckoutBody
   fetcherInput: CheckoutBody
@@ -23,7 +63,7 @@ export type SubmitCheckoutHook = {
   actionInput: CheckoutBody
 }
 
-export type GetCheckoutHook = {
+export interface GetCheckoutHook {
   data: Checkout | null | undefined
   input: {}
   fetcherInput: { cartId?: string }
@@ -31,7 +71,7 @@ export type GetCheckoutHook = {
   mutations: { submit: UseSubmitCheckout }
 }
 
-export type CheckoutHooks = {
+export interface CheckoutHooks {
   submitCheckout?: SubmitCheckoutHook
   getCheckout: GetCheckoutHook
 }
