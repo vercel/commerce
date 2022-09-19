@@ -1,4 +1,4 @@
-import type { CustomerAddressSchema } from '../../../../types/customer/address'
+import type { CustomerAddressSchema } from '@vercel/commerce/types/customer/address'
 import type { OrdercloudAPI } from '../../..'
 
 import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'

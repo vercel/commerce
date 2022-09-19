@@ -2,7 +2,7 @@ import type { AddItemHook } from '@vercel/commerce/types/cart'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
-import type { CommercejsCart } from '../types/cart'
+import type { CommercejsCart } from '../types'
 import { normalizeCart } from '../utils/normalize-cart'
 import useCart from './use-cart'
 

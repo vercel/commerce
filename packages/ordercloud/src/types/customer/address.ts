@@ -1,5 +1,3 @@
-export * from '@vercel/commerce/types/customer/address'
-
 export interface OrdercloudAddress {
   ID: string
   FromCompanyID: string

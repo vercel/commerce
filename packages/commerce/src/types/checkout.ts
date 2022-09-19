@@ -37,7 +37,7 @@ export type CheckoutBody = {
   cartId?: string
   /**
    * The Card information.
-   * @see @vercel/commerce/types/customer/card/CardFields
+   * @see CardFields
    */
   card: CardFields
   /**

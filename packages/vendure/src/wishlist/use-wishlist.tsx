@@ -1,7 +1,7 @@
 // TODO: replace this hook and other wishlist hooks with a handler, or remove them if
 // Vendure doesn't have a built-in wishlist
 
-import { HookFetcher } from '@vercel/commerce/utils/types'
+import type { HookFetcher } from '@vercel/commerce/utils/types'
 import type { Wishlist } from '@vercel/commerce/types/wishlist'
 
 const defaultOpts = {}

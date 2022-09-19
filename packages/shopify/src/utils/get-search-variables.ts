@@ -1,5 +1,5 @@
 import getSortVariables from './get-sort-variables'
-import { SearchProductsBody } from '../types/product'
+import { SearchProductsBody } from '@vercel/commerce/types/product'
 
 export const getSearchVariables = ({
   brandId,

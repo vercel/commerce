@@ -1,7 +1,7 @@
 import { SWRHook } from '@vercel/commerce/utils/types'
 import useSearch, { UseSearch } from '@vercel/commerce/product/use-search'
 import { SearchProductsHook } from '@vercel/commerce/types/product'
-import type { CommercejsProduct } from '../types/product'
+import type { CommercejsProduct } from '../types'
 import { getProductSearchVariables } from '../utils/product-search'
 import { normalizeProduct } from '../utils/normalize-product'
 

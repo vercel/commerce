@@ -1,7 +1,8 @@
-import type { Product } from '../types/product'
-import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
-import type { Page } from '../types/page'
-import type { BCCategory, BCBrand, Category, Brand } from '../types/site'
+import type { Page } from '@vercel/commerce/types/page'
+import type { Product } from '@vercel/commerce/types/product'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { Category, Brand } from '@vercel/commerce/types/site'
+import type { BigcommerceCart, BCCategory, BCBrand } from '../types'
 
 import { definitions } from '../api/definitions/store-content'
 import update from './immutability'

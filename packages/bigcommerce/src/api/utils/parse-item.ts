@@ -1,5 +1,5 @@
-import type { WishlistItemBody } from '../../types/wishlist'
-import type { CartItemBody, SelectedOption } from '../../types/cart'
+import type { WishlistItemBody } from '@vercel/commerce/types/wishlist'
+import type { CartItemBody, SelectedOption } from '@vercel/commerce/types/cart'
 
 type BCWishlistItemBody = {
   product_id: number

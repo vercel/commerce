@@ -1,5 +1,3 @@
-export * from '@vercel/commerce/types/cart'
-
 export interface OrdercloudCart {
   ID: string
   FromUser: {

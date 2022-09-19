@@ -5,7 +5,7 @@ import type {
 import type {
   GetCustomerWishlistOperation,
   Wishlist,
-} from '../../types/wishlist'
+} from '@vercel/commerce/types/wishlist'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import { BigcommerceConfig, Provider } from '..'
 import getAllProducts, { ProductEdge } from './get-all-products'

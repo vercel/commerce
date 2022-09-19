@@ -5,7 +5,7 @@ import useCustomer, {
   UseCustomer,
 } from '@vercel/commerce/customer/use-customer'
 import { CUSTOMER_COOKIE, API_URL } from '../constants'
-import type { CustomerHook } from '../types/customer'
+import type { CustomerHook } from '@vercel/commerce/types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 export const handler: SWRHook<CustomerHook> = {

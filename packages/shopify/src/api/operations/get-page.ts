@@ -9,7 +9,7 @@ import {
   GetPageQueryVariables,
   Page as ShopifyPage,
 } from '../../../schema'
-import { GetPageOperation } from '../../types/page'
+import { GetPageOperation } from '@vercel/commerce/types/page'
 import getPageQuery from '../../utils/queries/get-page-query'
 
 export default function getPageOperation({

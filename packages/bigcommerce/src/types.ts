@@ -1,4 +1,12 @@
-export * from '@vercel/commerce/types/cart'
+import type { GetSiteInfoQuery } from '../schema'
+
+export type BCCategory = NonNullable<
+  GetSiteInfoQuery['site']['categoryTree']
+>[0]
+
+export type BCBrand = NonNullable<
+  NonNullable<GetSiteInfoQuery['site']['brands']['edges']>[0]
+>
 
 // TODO: this type should match:
 // https://developer.bigcommerce.com/api-reference/cart-checkout/server-server-cart-api/cart/getacart#responses

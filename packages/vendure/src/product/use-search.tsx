@@ -4,7 +4,7 @@ import { Product } from '@vercel/commerce/types/product'
 import { SearchQuery, SearchQueryVariables } from '../../schema'
 import { normalizeSearchResult } from '../utils/normalize'
 import { searchQuery } from '../utils/queries/search-query'
-import { SearchProductsHook } from '../types/product'
+import type { SearchProductsHook } from '@vercel/commerce/types/product'
 
 export default useSearch as UseSearch<typeof handler>
 

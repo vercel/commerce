@@ -1,5 +1,5 @@
 import { SwellConfig } from '../api'
-import { Category } from '../types/site'
+import type { Category } from '@vercel/commerce/types/site'
 
 const getCategories = async (config: SwellConfig): Promise<Category[]> => {
   const data = await config.fetch('categories', 'get')

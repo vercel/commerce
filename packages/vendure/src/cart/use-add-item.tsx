@@ -1,12 +1,12 @@
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
 import { CommerceError } from '@vercel/commerce/utils/errors'
-import { MutationHook } from '@vercel/commerce/utils/types'
+import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
 import useCart from './use-cart'
 import { AddItemToOrderMutation } from '../../schema'
 import { normalizeCart } from '../utils/normalize'
 import { addItemToOrderMutation } from '../utils/mutations/add-item-to-order-mutation'
-import { AddItemHook } from '../types/cart'
+import type { AddItemHook } from '@vercel/commerce/types/cart'
 
 export default useAddItem as UseAddItem<typeof handler>
 

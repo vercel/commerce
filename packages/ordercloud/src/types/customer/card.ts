@@ -1,5 +1,3 @@
-export * from '@vercel/commerce/types/customer/card'
-
 export interface OredercloudCreditCard {
   ID: string
   Editable: boolean

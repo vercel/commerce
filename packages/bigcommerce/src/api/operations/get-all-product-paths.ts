@@ -3,7 +3,7 @@ import type {
   OperationOptions,
 } from '@vercel/commerce/api/operations'
 import type { GetAllProductPathsQuery } from '../../../schema'
-import type { GetAllProductPathsOperation } from '../../types/product'
+import type { GetAllProductPathsOperation } from '@vercel/commerce/types/product'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import { BigcommerceConfig, Provider } from '..'

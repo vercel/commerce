@@ -1,8 +1,5 @@
-import type {
-  Product,
-  CommercejsProduct,
-  CommercejsVariant,
-} from '../types/product'
+import type { Product } from '@vercel/commerce/types/product'
+import type { CommercejsProduct, CommercejsVariant } from '../types'
 
 function getOptionsFromVariantGroups(
   variantGroups: CommercejsProduct['variant_groups']

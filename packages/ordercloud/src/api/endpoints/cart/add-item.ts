@@ -1,6 +1,6 @@
 import type { CartEndpoint } from '.'
 import type { RawVariant } from '../../../types/product'
-import type { OrdercloudLineItem } from '../../../types/cart'
+import type { LineItem } from '@vercel/commerce/types/cart'
 
 import { serialize } from 'cookie'
 
@@ -86,7 +86,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
     restBuyerFetch('GET', `/orders/Outgoing/${cartId}`, null, { token }),
     restBuyerFetch('GET', `/orders/Outgoing/${cartId}/lineitems`, null, {
       token,
-    }).then((response: { Items: OrdercloudLineItem[] }) => response.Items),
+    }).then((response: { Items: LineItem[] }) => response.Items),
   ])
 
   // Format cart

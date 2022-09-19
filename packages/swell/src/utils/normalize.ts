@@ -1,9 +1,9 @@
-import { Customer } from '../types/customer'
-import { Product, ProductOption } from '../types/product'
-import { MoneyV2 } from '../../schema'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { Customer } from '@vercel/commerce/types/customer'
+import type { Product, ProductOption } from '@vercel/commerce/types/product'
+import type { MoneyV2 } from '../../schema'
 
 import type {
-  Cart,
   CartLineItem,
   SwellCustomer,
   SwellProduct,
@@ -12,7 +12,6 @@ import type {
   ProductOptionValue,
   SwellProductOptionValue,
   SwellCart,
-  LineItem,
 } from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
@@ -214,7 +213,8 @@ function normalizeLineItem({
     discounts: [],
     options: [
       {
-        value: variant?.name,
+        name: variant?.name!,
+        value: variant?.name!,
       },
     ],
   }

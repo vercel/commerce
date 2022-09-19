@@ -4,7 +4,7 @@ import type {
 } from '@vercel/commerce/api/operations'
 import { GetSiteInfoQueryVariables } from '../../../schema'
 import type { ShopifyConfig, Provider } from '..'
-import { GetSiteInfoOperation } from '../../types/site'
+import { GetSiteInfoOperation } from '@vercel/commerce/types/site'
 
 import { getCategories, getBrands } from '../../utils'
 

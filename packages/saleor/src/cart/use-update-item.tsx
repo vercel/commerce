@@ -1,19 +1,23 @@
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
-import type { HookFetcherContext, MutationHookContext } from '@vercel/commerce/utils/types'
+import type {
+  HookFetcherContext,
+  MutationHookContext,
+} from '@vercel/commerce/utils/types'
 import { ValidationError } from '@vercel/commerce/utils/errors'
-import useUpdateItem, { UseUpdateItem } from '@vercel/commerce/cart/use-update-item'
+import useUpdateItem, {
+  UseUpdateItem,
+} from '@vercel/commerce/cart/use-update-item'
 
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
-import type { LineItem } from '../types'
 import { checkoutToCart } from '../utils'
 import { getCheckoutId } from '../utils'
-import { Mutation, MutationCheckoutLinesUpdateArgs } from '../../schema'
 
 import * as mutation from '../utils/mutations'
 
-import type { UpdateItemHook } from '../types/cart'
+import type { UpdateItemHook, LineItem } from '@vercel/commerce/types/cart'
+import type { Mutation, MutationCheckoutLinesUpdateArgs } from '../../schema'
 
 export type UpdateItemActionInput<T = any> = T extends LineItem
   ? Partial<UpdateItemHook['actionInput']>
@@ -23,7 +27,11 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: { query: mutation.CheckoutLineUpdate },
-  async fetcher({ input: { itemId, item }, options, fetch }: HookFetcherContext<UpdateItemHook>) {
+  async fetcher({
+    input: { itemId, item },
+    options,
+    fetch,
+  }: HookFetcherContext<UpdateItemHook>) {
     if (Number.isInteger(item.quantity)) {
       // Also allow the update hook to remove an item if the quantity is lower than 1
       if (item.quantity! < 1) {
@@ -40,7 +48,10 @@ export const handler = {
     }
 
     const checkoutId = getCheckoutId().checkoutId
-    const { checkoutLinesUpdate } = await fetch<Mutation, MutationCheckoutLinesUpdateArgs>({
+    const { checkoutLinesUpdate } = await fetch<
+      Mutation,
+      MutationCheckoutLinesUpdateArgs
+    >({
       ...options,
       variables: {
         checkoutId,

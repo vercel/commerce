@@ -1,9 +1,9 @@
-import type { Page } from '../types/page'
-import type { Product } from '../types/product'
-import type { Cart, LineItem } from '../types/cart'
-import type { Category } from '../types/site'
+import type { Page } from '@vercel/commerce/types/page'
+import type { Product } from '@vercel/commerce/types/product'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { Category } from '@vercel/commerce/types/site'
 
-import {
+import type {
   Product as ShopifyProduct,
   Checkout,
   CheckoutLineItemEdge,
@@ -16,6 +16,7 @@ import {
   PageEdge,
   Collection,
 } from '../../schema'
+
 import { colorMap } from './colors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
