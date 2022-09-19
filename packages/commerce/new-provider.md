@@ -37,7 +37,7 @@ Adding a commerce provider means adding a new folder in `packages` with a folder
   - `customer`
     - useCustomer
     - getCustomerId
-    - getCustomerWistlist
+    - getCustomerWishlist
   - `cart`
     - useCart
     - useAddItem
