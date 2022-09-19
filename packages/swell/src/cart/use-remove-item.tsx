@@ -45,7 +45,7 @@ export const handler = {
       const { mutate } = useCart()
 
       return useCallback(
-        async function removeItem(input) {
+        async function removeItem(input: { id: string }) {
           const data = await fetch({ input: { itemId: input.id } })
           await mutate(data, false)
 

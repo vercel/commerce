@@ -12,7 +12,7 @@ import s from './ProductSlider.module.css'
 import ProductSliderControl from '../ProductSliderControl'
 
 interface ProductSliderProps {
-  children: React.ReactNode[]
+  children?: React.ReactNode[]
   className?: string
 }
 

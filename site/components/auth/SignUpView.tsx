@@ -41,7 +41,12 @@ const SignUpView: FC<Props> = () => {
       setLoading(false)
       closeModal()
     } catch ({ errors }) {
-      setMessage(errors[0].message)
+      if (errors instanceof Array) {
+        setMessage(errors[0].message)
+      } else {
+        setMessage('Unexpected error')
+        console.log(errors)
+      }
       setLoading(false)
     }
   }

@@ -11,6 +11,7 @@ interface SkeletonProps {
   width?: string | number
   height?: string | number
   boxHeight?: string | number
+  children?: React.ReactNode
 }
 
 const Skeleton: React.FC<SkeletonProps> = ({

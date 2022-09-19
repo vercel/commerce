@@ -23,8 +23,8 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 > To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has disabled all features (cart, auth) and use static files for the backend
 
 ```bash
-yarn # run this command in root folder of the mono repo
-yarn dev
+pnpm install # run this command in root folder of the mono repo
+pnpm dev
 ```
 
 > If you encounter any problems while installing and running for the first time, please see the Troubleshoot section
@@ -110,11 +110,11 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
 2. Create a new branch `git checkout -b MY_BRANCH_NAME`
-3. Install the dependencies: `yarn`
+3. Install the dependencies: `pnpm install`
 4. Duplicate `site/.env.template` and rename it to `site/.env.local`
 5. Add proper store values to `site/.env.local`
-6. Run `cd site` and `yarn dev` to build and watch for code changes
-7. Run `yarn turbo run build` to check the build after your changes
+6. Run `pnpm dev` to build the packages and watch for code changes
+7. Run `pnpm turbo run build` to check the build after your changes
 
 ## Work in progress
 
@@ -189,10 +189,10 @@ error Command failed with exit code 1.
 info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 ```
 
-The error usually occurs when running yarn dev inside of the `/site/` folder after installing a fresh repository.
+The error usually occurs when running `pnpm dev` inside of the `/site/` folder after installing a fresh repository.
 
-In order to fix this, run `yarn dev` in the monorepo root folder first.
+In order to fix this, run `pnpm dev` in the monorepo root folder first.
 
-> Using `yarn dev` from the root is recommended for developing, which will run watch mode on all packages.
+> Using `pnpm dev` from the root is recommended for developing, which will run watch mode on all packages.
 
 </details>
