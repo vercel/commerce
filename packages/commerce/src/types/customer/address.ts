@@ -53,14 +53,14 @@ export interface AddressFields {
  * Hooks for managing a customer's addresses.
  */
 
-export interface GetAddressesHook {
+export type GetAddressesHook = {
   data: Address[] | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export interface AddItemHook {
+export type AddItemHook = {
   data: Address
   input?: AddressFields
   fetcherInput: AddressFields
@@ -68,7 +68,7 @@ export interface AddItemHook {
   actionInput: AddressFields
 }
 
-export interface UpdateItemHook {
+export type UpdateItemHook = {
   data: Address | null
   input: { item?: AddressFields; wait?: number }
   fetcherInput: { itemId: string; item: AddressFields }
@@ -76,7 +76,7 @@ export interface UpdateItemHook {
   actionInput: AddressFields & { id: string }
 }
 
-export interface RemoveItemHook {
+export type RemoveItemHook = {
   data: Address | null | undefined
   input: { item?: Address }
   fetcherInput: { itemId: string }
@@ -84,7 +84,7 @@ export interface RemoveItemHook {
   actionInput: { id: string }
 }
 
-export interface CustomerAddressHooks {
+export type CustomerAddressHooks = {
   getAddresses: GetAddressesHook
   addItem: AddItemHook
   updateItem: UpdateItemHook

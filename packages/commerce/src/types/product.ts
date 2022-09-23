@@ -162,7 +162,7 @@ export interface SearchProductsBody {
 /**
  * Fetches a list of products based on the given search criteria.
  */
-export interface SearchProductsHook {
+export type SearchProductsHook = {
   data: {
     /**
      * List of products matching the query.
@@ -182,7 +182,7 @@ export interface SearchProductsHook {
  * Product API schema
  */
 
-export interface ProductsSchema {
+export type ProductsSchema = {
   endpoint: {
     options: {}
     handlers: {
@@ -195,12 +195,12 @@ export interface ProductsSchema {
  *  Product operations
  */
 
-export interface GetAllProductPathsOperation {
+export type GetAllProductPathsOperation = {
   data: { products: Pick<Product, 'path'>[] }
   variables: { first?: number }
 }
 
-export interface GetAllProductsOperation {
+export type GetAllProductsOperation = {
   data: { products: Product[] }
   variables: {
     relevance?: 'featured' | 'best_selling' | 'newest'
@@ -209,7 +209,7 @@ export interface GetAllProductsOperation {
   }
 }
 
-export interface GetProductOperation {
+export type GetProductOperation = {
   data: { product?: Product }
   variables: { path: string; slug?: never } | { path?: never; slug: string }
 }

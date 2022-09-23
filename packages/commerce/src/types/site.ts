@@ -1,4 +1,4 @@
-export type Category = {
+export interface Category {
   /**
    * Unique identifier for the category.
    */
@@ -19,7 +19,7 @@ export type Category = {
   path: string
 }
 
-export type Brand = {
+export interface Brand {
   /**
    * Unique identifier for the brand.
    */

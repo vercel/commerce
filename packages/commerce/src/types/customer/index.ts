@@ -37,7 +37,7 @@ export interface Customer {
   acceptsMarketing?: boolean
 }
 
-export interface CustomerHook {
+export type CustomerHook = {
   data: Customer | null | undefined
   fetchData: { customer: Customer } | null
 }

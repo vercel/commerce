@@ -1,11 +1,11 @@
 import type { UseSubmitCheckout } from '../checkout/use-submit-checkout'
-import type { Address, AddressFields } from './customer/address'
+import type { AddressFields } from './customer/address'
 import type { Card, CardFields } from './customer/card'
 import type { LineItem } from './cart'
 
-export type Checkout = {
+export interface Checkout {
   /**
-   * Indicates if the payment has been submitted.
+   * Indicates if the checkout has payment iformation collected.
    */
   hasPayment: boolean
   /**
@@ -17,7 +17,7 @@ export type Checkout = {
    */
   addressId: string
   /**
-   * The list of payments that the customer has selected for the checkout.
+   * The list of payment cards that the customer has available.
    */
   payments?: Card[]
   /**
@@ -30,7 +30,7 @@ export type Checkout = {
   lineItems?: LineItem[]
 }
 
-export type CheckoutBody = {
+export interface CheckoutBody {
   /**
    * The unique identifier for the cart.
    */
@@ -47,15 +47,7 @@ export type CheckoutBody = {
   address: AddressFields
 }
 
-export interface CheckoutTypes {
-  card?: Card | CardFields
-  address?: Address | AddressFields
-  checkout?: Checkout
-  hasPayment?: boolean
-  hasShipping?: boolean
-}
-
-export interface SubmitCheckoutHook {
+export type SubmitCheckoutHook = {
   data: Checkout
   input?: CheckoutBody
   fetcherInput: CheckoutBody
@@ -63,15 +55,15 @@ export interface SubmitCheckoutHook {
   actionInput: CheckoutBody
 }
 
-export interface GetCheckoutHook {
-  data: Checkout | null | undefined
+export type GetCheckoutHook = {
+  data: Checkout | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
   mutations: { submit: UseSubmitCheckout }
 }
 
-export interface CheckoutHooks {
+export type CheckoutHooks = {
   submitCheckout?: SubmitCheckoutHook
   getCheckout: GetCheckoutHook
 }

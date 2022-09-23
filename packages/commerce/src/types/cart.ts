@@ -178,14 +178,14 @@ export type CartHooks = {
   removeItem: RemoveItemHook
 }
 
-export interface GetCartHook {
+export type GetCartHook = {
   data: Cart | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export interface AddItemHook {
+export type AddItemHook = {
   data: Cart
   input?: CartItemBody
   fetcherInput: CartItemBody
@@ -193,7 +193,7 @@ export interface AddItemHook {
   actionInput: CartItemBody
 }
 
-export interface UpdateItemHook {
+export type UpdateItemHook = {
   data: Cart | null | undefined
   input: { item?: LineItem; wait?: number }
   fetcherInput: { itemId: string; item: CartItemBody }
@@ -201,7 +201,7 @@ export interface UpdateItemHook {
   actionInput: CartItemBody & { id: string }
 }
 
-export interface RemoveItemHook {
+export type RemoveItemHook = {
   data: Cart | null | undefined
   input: { item?: LineItem }
   fetcherInput: { itemId: string }

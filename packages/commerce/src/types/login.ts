@@ -9,7 +9,7 @@ export interface LoginBody {
   password: string
 }
 
-export interface LoginHook {
+export type LoginHook = {
   data: null
   actionInput: LoginBody
   fetcherInput: LoginBody

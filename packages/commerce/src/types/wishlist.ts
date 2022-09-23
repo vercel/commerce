@@ -50,7 +50,7 @@ export interface WishlistItemBody {
   wishlistToken?: string
 }
 
-export interface GetWishlistHook {
+export type GetWishlistHook = {
   data: Wishlist | null | undefined
   body: { includeProducts?: boolean }
   input: { includeProducts?: boolean }
@@ -58,14 +58,14 @@ export interface GetWishlistHook {
   swrState: { isEmpty: boolean }
 }
 
-export interface AddItemHook {
+export type AddItemHook = {
   data: Wishlist | null | undefined
   body: { item: WishlistItemBody }
   fetcherInput: { item: WishlistItemBody }
   actionInput: WishlistItemBody
 }
 
-export interface RemoveItemHook {
+export type RemoveItemHook = {
   data: Wishlist | null | undefined
   body: { itemId: string; wishlistToken?: string }
   fetcherInput: { itemId: string; wishlistToken?: string }
@@ -91,7 +91,7 @@ export type WishlistSchema = {
   }
 }
 
-export interface GetCustomerWishlistOperation {
+export type GetCustomerWishlistOperation = {
   data: { wishlist?: Wishlist }
   variables: { customerId: string }
 }

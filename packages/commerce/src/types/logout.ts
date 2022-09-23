@@ -1,4 +1,4 @@
-export interface LogoutHook {
+export type LogoutHook = {
   data: null
   body: {
     redirectTo?: string

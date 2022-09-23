@@ -1,4 +1,4 @@
-export type SignupBody = {
+export interface SignupBody {
   /**
    * The user's first name.
    */
@@ -17,7 +17,7 @@ export type SignupBody = {
   password: string
 }
 
-export interface SignupHook {
+export type SignupHook = {
   data: null
   body: SignupBody
   actionInput: SignupBody

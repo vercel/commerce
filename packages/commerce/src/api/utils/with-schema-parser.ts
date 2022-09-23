@@ -13,15 +13,13 @@ export const withSchemaParser =
     fn: (...args: any[]) => Promise<OperationsData>
   ) =>
   async (...args: any[]) => {
-    const result = await fn(...args)
-
     try {
+      const result = await fn(...args)
       parse(operation, result)
+      return result
     } catch (error) {
       throw getOperationError(operation, error)
     }
-
-    return result
   }
 
 const parse = (operation: AllowedOperations, data: OperationsData) => {

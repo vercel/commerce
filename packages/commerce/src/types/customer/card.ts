@@ -70,14 +70,14 @@ export interface CardFields {
  * Hooks for managing a customer's cards.
  */
 
-export interface GetCardsHook {
+export type GetCardsHook = {
   data: Card[] | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export interface AddItemHook {
+export type AddItemHook = {
   data: Card
   input?: CardFields
   fetcherInput: CardFields
@@ -85,7 +85,7 @@ export interface AddItemHook {
   actionInput: CardFields
 }
 
-export interface UpdateItemHook {
+export type UpdateItemHook = {
   data: Card | null | undefined
   input: { item?: CardFields; wait?: number }
   fetcherInput: { itemId: string; item: CardFields }
@@ -93,7 +93,7 @@ export interface UpdateItemHook {
   actionInput: CardFields & { id: string }
 }
 
-export interface RemoveItemHook {
+export type RemoveItemHook = {
   data: Card | null | undefined
   input: { item?: Card }
   fetcherInput: { itemId: string }
