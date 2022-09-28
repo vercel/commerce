@@ -19,6 +19,7 @@ export const handlers: CartEndpoint['handlers'] = {
 }
 
 const cartApi = createEndpoint<CartAPI>({
+  /* @ts-ignore */
   handler: cartEndpoint,
   handlers,
 })

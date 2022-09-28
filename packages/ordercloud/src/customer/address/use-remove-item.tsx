@@ -2,7 +2,10 @@ import type {
   MutationHookContext,
   HookFetcherContext,
 } from '@vercel/commerce/utils/types'
-import type { Address, RemoveItemHook } from '@vercel/commerce/types/customer/address'
+import type {
+  Address,
+  RemoveItemHook,
+} from '@vercel/commerce/types/customer/address'
 
 import { useCallback } from 'react'
 
@@ -25,7 +28,7 @@ export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    url: '/api/customer/address',
+    url: '/api/commerce/customer/address',
     method: 'DELETE',
   },
   async fetcher({

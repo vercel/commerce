@@ -8,7 +8,7 @@ export default useCard as UseCards<typeof handler>
 
 export const handler: SWRHook<GetCardsHook> = {
   fetchOptions: {
-    url: '/api/customer/card',
+    url: '/api/commerce/customer/card',
     method: 'GET',
   },
   useHook: ({ useData }) =>

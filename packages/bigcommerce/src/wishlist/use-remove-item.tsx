@@ -12,7 +12,7 @@ export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler: MutationHook<RemoveItemHook> = {
   fetchOptions: {
-    url: '/api/wishlist',
+    url: '/api/commerce/wishlist',
     method: 'DELETE',
   },
   useHook:

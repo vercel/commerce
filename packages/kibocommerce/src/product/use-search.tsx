@@ -5,7 +5,7 @@ export default useSearch as UseSearch<typeof handler>
 export const handler: SWRHook<any> = {
   fetchOptions: {
     method: 'GET',
-    url: '/api/catalog/products',
+    url: '/api/commerce/catalog/products',
   },
   fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {
     // Use a dummy base as we only care about the relative path
@@ -23,15 +23,17 @@ export const handler: SWRHook<any> = {
       method: options.method,
     })
   },
-  useHook: ({ useData }) => (input) => {
-    return useData({
-      input: [
-        ['search', input.search],
-        ['categoryId', input.categoryId],
-        ['brandId', input.brandId],
-        ['sort', input.sort],
-      ],
-      swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
-    })
-  },
+  useHook:
+    ({ useData }) =>
+    (input) => {
+      return useData({
+        input: [
+          ['search', input.search],
+          ['categoryId', input.categoryId],
+          ['brandId', input.brandId],
+          ['sort', input.sort],
+        ],
+        swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
+      })
+    },
 }

@@ -1,36 +1,20 @@
 import type { CustomerSchema } from '../../../types/customer'
 import type { GetAPISchema } from '../..'
 
-import { CommerceAPIError } from '../../utils/errors'
-import isAllowedOperation from '../../utils/is-allowed-operation'
+import validateHandlers from '../../utils/validate-handlers'
 
 const customerEndpoint: GetAPISchema<
   any,
-  CustomerSchema<any>
->['endpoint']['handler'] = async (ctx) => {
+  CustomerSchema
+>['endpoint']['handler'] = (ctx) => {
   const { req, res, handlers } = ctx
 
-  if (
-    !isAllowedOperation(req, res, {
-      GET: handlers['getLoggedInCustomer'],
-    })
-  ) {
-    return
-  }
+  validateHandlers(req, res, {
+    GET: handlers['getLoggedInCustomer'],
+  })
 
-  try {
-    const body = null
-    return await handlers['getLoggedInCustomer']({ ...ctx, body })
-  } catch (error) {
-    console.error(error)
-
-    const message =
-      error instanceof CommerceAPIError
-        ? 'An unexpected error ocurred with the Commerce API'
-        : 'An unexpected error ocurred'
-
-    res.status(500).json({ data: null, errors: [{ message }] })
-  }
+  const body = null
+  return handlers['getLoggedInCustomer']({ ...ctx, body })
 }
 
 export default customerEndpoint

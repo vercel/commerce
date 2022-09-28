@@ -1,31 +1,26 @@
-import type { ProductsSchema } from '../../../types/product'
-import { CommerceAPIError } from '../../utils/errors'
-import isAllowedOperation from '../../utils/is-allowed-operation'
+import { searchProductBodySchema } from '../../../schemas/product'
 import type { GetAPISchema } from '../..'
+import type { ProductsSchema } from '../../../types/product'
+
+import validateHandlers from '../../utils/validate-handlers'
 
 const productsEndpoint: GetAPISchema<
   any,
   ProductsSchema
->['endpoint']['handler'] = async (ctx) => {
+>['endpoint']['handler'] = (ctx) => {
   const { req, res, handlers } = ctx
 
-  if (!isAllowedOperation(req, res, { GET: handlers['getProducts'] })) {
-    return
-  }
+  validateHandlers(req, res, { GET: handlers['getProducts'] })
 
-  try {
-    const body = req.query
-    return await handlers['getProducts']({ ...ctx, body })
-  } catch (error) {
-    console.error(error)
+  const body = searchProductBodySchema.parse({
+    search: req.query.search,
+    categoryId: req.query.categoryId,
+    brandId: req.query.brandId,
+    sort: req.query.sort,
+    locale: req.query.locale,
+  })
 
-    const message =
-      error instanceof CommerceAPIError
-        ? 'An unexpected error ocurred with the Commerce API'
-        : 'An unexpected error ocurred'
-
-    res.status(500).json({ data: null, errors: [{ message }] })
-  }
+  return handlers['getProducts']({ ...ctx, body })
 }
 
 export default productsEndpoint

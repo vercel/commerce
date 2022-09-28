@@ -10,7 +10,7 @@ export default useAddresses as UseAddresses<typeof handler>
 
 export const handler: SWRHook<GetAddressesHook> = {
   fetchOptions: {
-    url: '/api/customer/address',
+    url: '/api/commerce/customer/address',
     method: 'GET',
   },
   useHook: ({ useData }) =>

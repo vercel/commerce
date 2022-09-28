@@ -158,11 +158,11 @@ export type CartHandlers<T extends CartTypes = CartTypes> = {
 }
 
 export type GetCartHandler<T extends CartTypes = CartTypes> = GetCartHook<T> & {
-  body: { cartId?: string }
+  body: { cartId: string }
 }
 
 export type AddItemHandler<T extends CartTypes = CartTypes> = AddItemHook<T> & {
-  body: { cartId: string }
+  body: { cartId?: string }
 }
 
 export type UpdateItemHandler<T extends CartTypes = CartTypes> =

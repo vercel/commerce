@@ -10,7 +10,7 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    url: '/api/wishlist',
+    url: '/api/commerce/wishlist',
     method: 'POST',
   },
   useHook:

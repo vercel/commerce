@@ -1,36 +1,21 @@
-import type { SignupSchema } from '../../types/signup'
-import { CommerceAPIError } from '../utils/errors'
-import isAllowedOperation from '../utils/is-allowed-operation'
 import type { GetAPISchema } from '..'
+import type { SignupSchema } from '../../types/signup'
 
-const signupEndpoint: GetAPISchema<any, SignupSchema>['endpoint']['handler'] =
-  async (ctx) => {
-    const { req, res, handlers, config } = ctx
+import validateHandlers from '../utils/validate-handlers'
 
-    if (
-      !isAllowedOperation(req, res, {
-        POST: handlers['signup'],
-      })
-    ) {
-      return
-    }
+const signupEndpoint: GetAPISchema<any, SignupSchema>['endpoint']['handler'] = (
+  ctx
+) => {
+  const { req, res, handlers, config } = ctx
 
-    const { cookies } = req
-    const cartId = cookies[config.cartCookie]
+  validateHandlers(req, res, {
+    POST: handlers['signup'],
+  })
+  const { cookies } = req
+  const cartId = cookies[config.cartCookie]
 
-    try {
-      const body = { ...req.body, cartId }
-      return await handlers['signup']({ ...ctx, body })
-    } catch (error) {
-      console.error(error)
-
-      const message =
-        error instanceof CommerceAPIError
-          ? 'An unexpected error ocurred with the Commerce API'
-          : 'An unexpected error ocurred'
-
-      res.status(500).json({ data: null, errors: [{ message }] })
-    }
-  }
+  const body = { ...req.body, cartId }
+  return handlers['signup']({ ...ctx, body })
+}
 
 export default signupEndpoint

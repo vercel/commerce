@@ -9,12 +9,6 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
   body: { cartId, item },
   config,
 }) => {
-  if (!item) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Missing item' }],
-    })
-  }
   if (!item.quantity) item.quantity = 1
 
   const options = {
@@ -41,7 +35,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
     'Set-Cookie',
     getCartCookie(config.cartCookie, data.id, config.cartCookieMaxAge)
   )
-  res.status(200).json({ data: normalizeCart(data) })
+  res.status(200).json({ data: data ? normalizeCart(data) : null })
 }
 
 export default addItem

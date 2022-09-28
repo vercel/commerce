@@ -11,14 +11,6 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
   body: { cartId, item },
   config: { restBuyerFetch, cartCookie, tokenCookie },
 }) => {
-  // Return an error if no item is present
-  if (!item) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Missing item' }],
-    })
-  }
-
   // Store token
   let token
 
@@ -46,7 +38,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
         path: '/',
         sameSite: 'lax',
       }),
-      serialize(cartCookie, cartId, {
+      serialize(cartCookie, cartId!, {
         maxAge: 60 * 60 * 24 * 30,
         expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
         secure: process.env.NODE_ENV === 'production',

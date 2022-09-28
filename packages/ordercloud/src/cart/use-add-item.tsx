@@ -10,7 +10,7 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    url: '/api/cart',
+    url: '/api/commerce/cart',
     method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {

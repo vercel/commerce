@@ -7,13 +7,6 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
   body: { cartId, itemId },
   config,
 }) => {
-  if (!cartId || !itemId) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
-  }
-
   const result = await config.storeApiFetch<{ data: any } | null>(
     `/v3/carts/${cartId}/items/${itemId}?include=line_items.physical_items.options`,
     { method: 'DELETE' }
@@ -28,7 +21,8 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
       : // Remove the cart cookie if the cart was removed (empty items)
         getCartCookie(config.cartCookie)
   )
-  res.status(200).json({ data: data && normalizeCart(data) })
+
+  res.status(200).json({ data: data ? normalizeCart(data) : null })
 }
 
 export default removeItem
