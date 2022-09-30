@@ -15,7 +15,7 @@ import fetcher from './fetcher'
 
 export const syliusProvider = {
   locale: 'en-us',
-  //cartCookie: CHECKOUT_ID_COOKIE,
+  cartCookie: 'toto',
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },
