@@ -1,4 +1,4 @@
-import type { Discount, Image } from './common'
+import type { Discount, Image, Measurement } from './common'
 
 // TODO: This should use the same type as the `ProductVariant` type from `product.ts`
 export interface ProductVariant {
@@ -35,6 +35,26 @@ export interface ProductVariant {
    * The image associated with the variant.
    */
   image?: Image
+  /**
+   * The variant's weight. If a weight was not explicitly specified on the
+   * variant, this will be the product's weight.
+   */
+  weight?: Measurement
+  /**
+   * The variant's height. If a height was not explicitly specified on the
+   * variant, this will be the product's height.
+   */
+  height?: Measurement
+  /**
+   * The variant's width. If a width was not explicitly specified on the
+   * variant, this will be the product's width.
+   */
+  width?: Measurement
+  /**
+   * The variant's depth. If a depth was not explicitly specified on the
+   * variant, this will be the product's depth.
+   */
+  depth?: Measurement
 }
 
 export interface SelectedOption {

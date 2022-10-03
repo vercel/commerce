@@ -1,5 +1,5 @@
 import type { ProductsSchema } from '../../../types/product'
-import { getErrorMessage } from '../../utils/errors'
+import { CommerceAPIError } from '../../utils/errors'
 import isAllowedOperation from '../../utils/is-allowed-operation'
 import type { GetAPISchema } from '../..'
 
@@ -18,7 +18,12 @@ const productsEndpoint: GetAPISchema<
     return await handlers['getProducts']({ ...ctx, body })
   } catch (error) {
     console.error(error)
-    const message = getErrorMessage(error)
+
+    const message =
+      error instanceof CommerceAPIError
+        ? 'An unexpected error ocurred with the Commerce API'
+        : 'An unexpected error ocurred'
+
     res.status(500).json({ data: null, errors: [{ message }] })
   }
 }

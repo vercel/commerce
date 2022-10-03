@@ -25,21 +25,19 @@ export const OPERATIONS = [
   'getProduct',
 ] as const
 
+export type Operation = {
+  [O in AllowedOperations]: {
+    name: O
+    data: Awaited<ReturnType<Operations<APIProvider>[O]>>
+  }
+}[AllowedOperations]
+
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
   ops[k] = noop
   return ops
 }, {} as { [K in AllowedOperations]: typeof noop })
 
 export type AllowedOperations = typeof OPERATIONS[number]
-
-export type OperationsData = GetProductOperation['data'] &
-  GetAllProductsOperation['data'] &
-  GetAllProductPathsOperation['data'] &
-  GetCustomerWishlistOperation['data'] &
-  GetSiteInfoOperation['data'] &
-  GetPageOperation['data'] &
-  GetAllPagesOperation['data'] &
-  LoginOperation['data']
 
 export type Operations<P extends APIProvider> = {
   login: {

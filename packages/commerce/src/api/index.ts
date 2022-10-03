@@ -12,7 +12,7 @@ import type { CheckoutSchema } from '../types/checkout'
 import type { CustomerCardSchema } from '../types/customer/card'
 import type { CustomerAddressSchema } from '../types/customer/address'
 
-import { withSchemaParser } from './utils/with-schema-parser'
+import { withOperationCallback } from './utils/with-operation-callback'
 
 import {
   OPERATIONS,
@@ -109,7 +109,7 @@ export function getCommerceApi<P extends APIProvider>(
   OPERATIONS.forEach((k) => {
     const op = ops[k]
     if (op) {
-      commerce[k] = withSchemaParser(
+      commerce[k] = withOperationCallback(
         k,
         op({ commerce })
       ) as AllOperations<P>[typeof k]

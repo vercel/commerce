@@ -24,12 +24,6 @@ export class CommerceNetworkError extends Error {
   }
 }
 
-export const getErrorMessage = (error: unknown) => {
-  return error instanceof CommerceAPIError
-    ? 'An unexpected error ocurred with the Commerce API'
-    : 'An unexpected error ocurred'
-}
-
 export const getOperationError = (operation: string, error: unknown) => {
   if (error instanceof ZodError) {
     return new CommerceError({
