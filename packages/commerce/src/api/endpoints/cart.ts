@@ -1,4 +1,4 @@
-import type { CartSchema } from '@vercel/commerce/types/cart'
+import type { CartSchema } from '../../types/cart'
 import { CommerceAPIError } from '../utils/errors'
 import isAllowedOperation from '../utils/is-allowed-operation'
 import type { GetAPISchema } from '..'

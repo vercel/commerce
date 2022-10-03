@@ -1,7 +1,7 @@
 import { useHook, useMutationHook } from '../utils/use-hook'
 import { mutationFetcher } from '../utils/default-fetcher'
 import type { HookFetcherFn, MutationHook } from '../utils/types'
-import type { LogoutHook } from '@vercel/commerce/types/logout'
+import type { LogoutHook } from '../types/logout'
 import type { Provider } from '..'
 
 export type UseLogout<
