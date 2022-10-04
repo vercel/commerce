@@ -1,6 +1,6 @@
 import type { CommercejsAPI } from '..'
 
-import handleEndpoints from '@vercel/commerce/api/endpoints'
+import createEndpoints from '@vercel/commerce/api/endpoints'
 
 import login from './login'
 import checkout from './checkout'
@@ -10,7 +10,6 @@ const endpoints = {
   checkout,
 }
 
-const handler = (commerce: CommercejsAPI) =>
-  handleEndpoints(commerce, endpoints)
-
-export default handler
+export default function commercejsAPI(commerce: CommercejsAPI) {
+  return createEndpoints(commerce, endpoints)
+}

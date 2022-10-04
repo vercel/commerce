@@ -1,6 +1,6 @@
 import type { KiboCommerceAPI } from '..'
 
-import handleEndpoints from '@vercel/commerce/api/endpoints'
+import createEndpoints from '@vercel/commerce/api/endpoints'
 
 import cart from './cart'
 import login from './login'
@@ -20,7 +20,6 @@ const endpoints = {
   'catalog/products': products,
 }
 
-const handler = (commerce: KiboCommerceAPI) =>
-  handleEndpoints(commerce, endpoints)
-
-export default handler
+export default function kiboCommerceAPI(commerce: KiboCommerceAPI) {
+  return createEndpoints(commerce, endpoints)
+}

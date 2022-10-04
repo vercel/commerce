@@ -1,7 +1,7 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import type { APIProvider, CommerceAPI } from '..'
 
-import { getErrorResponse } from '../utils/errors'
+import { normalizeError } from '../utils/errors'
 
 /**
  * Handles the catch-all api endpoint for the Commerce API.
@@ -62,7 +62,7 @@ export default function createEndpoints<P extends APIProvider>(
       }
     } catch (error) {
       console.error(error)
-      const { status, data, errors } = getErrorResponse(error)
+      const { status, data, errors } = normalizeError(error)
       res.status(status).json({
         data,
         errors,

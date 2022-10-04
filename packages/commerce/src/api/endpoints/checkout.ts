@@ -17,7 +17,7 @@ const checkoutEndpoint: GetAPISchema<
   const { cookies } = req
   const cartId = cookies[config.cartCookie]
 
-  // Create checkout
+  // Get checkout
   if (req.method === 'GET') {
     const body = { ...req.body, cartId }
     return handlers['getCheckout']({ ...ctx, body })

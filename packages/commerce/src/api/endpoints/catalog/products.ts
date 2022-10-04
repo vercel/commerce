@@ -17,7 +17,6 @@ const productsEndpoint: GetAPISchema<
     categoryId: req.query.categoryId,
     brandId: req.query.brandId,
     sort: req.query.sort,
-    locale: req.query.locale,
   })
 
   return handlers['getProducts']({ ...ctx, body })

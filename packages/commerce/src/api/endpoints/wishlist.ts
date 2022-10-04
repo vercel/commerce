@@ -3,6 +3,12 @@ import type { WishlistSchema } from '../../types/wishlist'
 
 import validateHandlers from '../utils/validate-handlers'
 
+import {
+  getWishlistBodySchema,
+  addItemBodySchema,
+  removeItemBodySchema,
+} from '../../schemas/whishlist'
+
 const wishlistEndpoint: GetAPISchema<
   any,
   WishlistSchema
@@ -20,22 +26,22 @@ const wishlistEndpoint: GetAPISchema<
 
   // Return current wishlist info
   if (req.method === 'GET') {
-    const body = {
+    const body = getWishlistBodySchema.parse({
       customerToken,
       includeProducts: !!req.query.products,
-    }
+    })
     return handlers['getWishlist']({ ...ctx, body })
   }
 
   // Add an item to the wishlist
   if (req.method === 'POST') {
-    const body = { ...req.body, customerToken }
+    const body = addItemBodySchema.parse({ ...req.body, customerToken })
     return handlers['addItem']({ ...ctx, body })
   }
 
   // Remove an item from the wishlist
   if (req.method === 'DELETE') {
-    const body = { ...req.body, customerToken }
+    const body = removeItemBodySchema.parse({ ...req.body, customerToken })
     return handlers['removeItem']({ ...ctx, body })
   }
 }

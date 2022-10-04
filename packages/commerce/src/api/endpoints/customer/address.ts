@@ -2,6 +2,12 @@ import type { CustomerAddressSchema } from '../../../types/customer/address'
 import type { GetAPISchema } from '../..'
 
 import validateHandlers from '../../utils/validate-handlers'
+import {
+  addAddressBodySchema,
+  deleteAddressBodySchema,
+  updateAddressBodySchema,
+} from '../../../schemas/customer'
+import { getCartBodySchema } from '../../../schemas/cart'
 
 const customerShippingEndpoint: GetAPISchema<
   any,
@@ -15,6 +21,7 @@ const customerShippingEndpoint: GetAPISchema<
     PUT: handlers['updateItem'],
     DELETE: handlers['removeItem'],
   })
+
   const { cookies } = req
 
   // Cart id might be usefull for anonymous shopping
@@ -22,25 +29,25 @@ const customerShippingEndpoint: GetAPISchema<
 
   // Return customer addresses
   if (req.method === 'GET') {
-    const body = { cartId }
+    const body = getCartBodySchema.parse({ cartId })
     return handlers['getAddresses']({ ...ctx, body })
   }
 
   // Create or add an item to customer addresses list
   if (req.method === 'POST') {
-    const body = { ...req.body, cartId }
+    const body = addAddressBodySchema.parse({ ...req.body, cartId })
     return handlers['addItem']({ ...ctx, body })
   }
 
   // Update item in customer addresses list
   if (req.method === 'PUT') {
-    const body = { ...req.body, cartId }
+    const body = updateAddressBodySchema.parse({ ...req.body, cartId })
     return handlers['updateItem']({ ...ctx, body })
   }
 
   // Remove an item from customer addresses list
   if (req.method === 'DELETE') {
-    const body = { ...req.body, cartId }
+    const body = deleteAddressBodySchema.parse({ ...req.body, cartId })
     return handlers['removeItem']({ ...ctx, body })
   }
 }

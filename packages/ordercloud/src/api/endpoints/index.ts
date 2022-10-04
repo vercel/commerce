@@ -1,6 +1,6 @@
 import type { OrdercloudAPI } from '..'
 
-import handleEndpoints from '@vercel/commerce/api/endpoints'
+import createEndpoints from '@vercel/commerce/api/endpoints'
 
 import cart from './cart'
 import checkout from './checkout'
@@ -16,7 +16,6 @@ const endpoints = {
   'catalog/products': products,
 }
 
-const handler = (commerce: OrdercloudAPI) =>
-  handleEndpoints(commerce, endpoints)
-
-export default handler
+export default function ordercloudAPI(commerce: OrdercloudAPI) {
+  return createEndpoints(commerce, endpoints)
+}

@@ -3,7 +3,6 @@ import isAllowedMethod, { HTTP_METHODS } from './is-allowed-method'
 import { APIHandler } from './types'
 
 /**
- * Checks if the request method is allowed
  * @throws Error if the method is not allowed
  */
 export default function validateHandlers(

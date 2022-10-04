@@ -2,6 +2,7 @@ import type { GetAPISchema } from '..'
 import type { LoginSchema } from '../../types/login'
 
 import validateHandlers from '../utils/validate-handlers'
+import { loginBodySchema } from '../../schemas/auth'
 
 const loginEndpoint: GetAPISchema<any, LoginSchema>['endpoint']['handler'] = (
   ctx
@@ -13,7 +14,7 @@ const loginEndpoint: GetAPISchema<any, LoginSchema>['endpoint']['handler'] = (
     GET: handlers['login'],
   })
 
-  const body = req.body ?? {}
+  const body = loginBodySchema.parse(req.body)
   return handlers['login']({ ...ctx, body })
 }
 

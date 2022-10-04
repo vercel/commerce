@@ -1,6 +1,7 @@
 import type { GetAPISchema } from '..'
 import type { LogoutSchema } from '../../types/logout'
 
+import { logoutBodySchema } from '../../schemas/auth'
 import validateHandlers from '../utils/validate-handlers'
 
 const logoutEndpoint: GetAPISchema<any, LogoutSchema>['endpoint']['handler'] = (
@@ -11,8 +12,12 @@ const logoutEndpoint: GetAPISchema<any, LogoutSchema>['endpoint']['handler'] = (
   validateHandlers(req, res, {
     GET: handlers['logout'],
   })
+
   const redirectTo = req.query.redirect_to
-  const body = typeof redirectTo === 'string' ? { redirectTo } : {}
+
+  const body = logoutBodySchema.parse(
+    typeof redirectTo === 'string' ? { redirectTo } : {}
+  )
 
   return handlers['logout']({ ...ctx, body })
 }

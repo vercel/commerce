@@ -3,6 +3,12 @@ import type { GetAPISchema } from '../..'
 
 import validateHandlers from '../../utils/validate-handlers'
 
+import {
+  addCardBodySchema,
+  deleteCardBodySchema,
+  updateCardBodySchema,
+} from '../../../schemas/customer'
+
 const customerCardEndpoint: GetAPISchema<
   any,
   CustomerCardSchema
@@ -28,19 +34,19 @@ const customerCardEndpoint: GetAPISchema<
 
   // Create or add an item to customer cards
   if (req.method === 'POST') {
-    const body = { ...req.body, cartId }
+    const body = addCardBodySchema.parse({ ...req.body, cartId })
     return handlers['addItem']({ ...ctx, body })
   }
 
   // Update item in customer cards
   if (req.method === 'PUT') {
-    const body = { ...req.body, cartId }
+    const body = updateCardBodySchema.parse({ ...req.body, cartId })
     return handlers['updateItem']({ ...ctx, body })
   }
 
   // Remove an item from customer cards
   if (req.method === 'DELETE') {
-    const body = { ...req.body, cartId }
+    const body = deleteCardBodySchema.parse({ ...req.body, cartId })
     return handlers['removeItem']({ ...ctx, body })
   }
 }

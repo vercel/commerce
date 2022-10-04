@@ -27,6 +27,7 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
+import ErrorMessage from './ui/ErrorMessage'
 
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
@@ -46,13 +47,17 @@ export default function Search({ categories, brands }: SearchPropsType) {
     (b: any) => getSlug(b.node.path) === `brands/${brand}`
   )?.node
 
-  const { data } = useSearch({
+  const { data, error } = useSearch({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.id,
     brandId: (activeBrand as any)?.entityId,
     sort: typeof sort === 'string' ? sort : '',
     locale,
   })
+
+  if (error) {
+    return <ErrorMessage error={error} />
+  }
 
   const handleClick = (event: any, filter: string) => {
     if (filter !== activeFilter) {

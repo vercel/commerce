@@ -1,6 +1,8 @@
 import type { GetAPISchema } from '..'
 import type { SignupSchema } from '../../types/signup'
 
+import { signupBodySchema } from '../../schemas/auth'
+
 import validateHandlers from '../utils/validate-handlers'
 
 const signupEndpoint: GetAPISchema<any, SignupSchema>['endpoint']['handler'] = (
@@ -14,7 +16,7 @@ const signupEndpoint: GetAPISchema<any, SignupSchema>['endpoint']['handler'] = (
   const { cookies } = req
   const cartId = cookies[config.cartCookie]
 
-  const body = { ...req.body, cartId }
+  const body = signupBodySchema.parse({ ...req.body, cartId })
   return handlers['signup']({ ...ctx, body })
 }
 

@@ -17,7 +17,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
     res.redirect('/cart')
     return
   }
-  const { data } = await config.storeApiFetch(
+  const { data } = await config.storeApiFetch<any>(
     `/v3/carts/${cartId}/redirect_urls`,
     {
       method: 'POST',
@@ -42,7 +42,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       store_hash: config.storeHash,
       customer_id: customerId,
       channel_id: config.storeChannelId,
-      redirect_to: data.checkout_url.replace(config.storeUrl, ""),
+      redirect_to: data.checkout_url.replace(config.storeUrl, ''),
     }
     let token = jwt.sign(payload, config.storeApiClientSecret!, {
       algorithm: 'HS256',
