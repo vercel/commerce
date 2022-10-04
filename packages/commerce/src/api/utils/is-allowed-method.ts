@@ -14,7 +14,17 @@ export default function isAllowedMethod(
   if (!req.method || !methods.includes(req.method)) {
     res.status(405)
     res.setHeader('Allow', methods.join(', '))
-    res.end()
+    res.json({
+      errors: [
+        {
+          message: `You are not allowed to use the ${
+            req.method
+          } method for this route, please use one of the following methods: ${methods.join(
+            ', '
+          )}`,
+        },
+      ],
+    })
     return false
   }
 

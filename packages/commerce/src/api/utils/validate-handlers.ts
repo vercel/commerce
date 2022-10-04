@@ -3,7 +3,12 @@ import isAllowedMethod, { HTTP_METHODS } from './is-allowed-method'
 import { APIHandler } from './types'
 
 /**
- * @throws Error if the method is not allowed
+ * Validates the request method and throws an error if it's not allowed, or if the handler is not implemented.
+ * and stops the execution of the handler.
+ * @param req The request object.
+ * @param res The response object.
+ * @param allowedOperations An object containing the handlers for each method.
+ * @throws Error when the method is not allowed or the handler is not implemented.
  */
 export default function validateHandlers(
   req: NextApiRequest,

@@ -7,6 +7,7 @@ import { normalizeError } from '../utils/errors'
  * Handles the catch-all api endpoint for the Commerce API.
  * @param {CommerceAPI} commerce The Commerce API instance.
  * @param endpoints An object containing the handlers for each endpoint.
+ * @returns JSON response with the data or error.
  */
 export default function createEndpoints<P extends APIProvider>(
   commerce: CommerceAPI<P>,
@@ -39,9 +40,7 @@ export default function createEndpoints<P extends APIProvider>(
         ? req.query.commerce.join('/')
         : req.query.commerce
 
-      /**
-       * Check if the handler for this path exists and return a 404 if it doesn't
-       */
+      // Check if the handler for this path exists and return a 404 if it doesn't
       if (!paths.includes(path)) {
         throw new Error(
           `Endpoint handler not implemented. Please use one of the available api endpoints: ${paths.join(
@@ -51,22 +50,25 @@ export default function createEndpoints<P extends APIProvider>(
       }
 
       const data = await handlers[path](req, res)
-
-      /**
-       * If the handler returns a value but the response hasn't been sent yet, send it
-       */
+      // If the handler returns a value but the response hasn't been sent yet, send it
       if (!res.headersSent) {
         res.status(200).json({
           data,
         })
       }
     } catch (error) {
-      console.error(error)
-      const { status, data, errors } = normalizeError(error)
-      res.status(status).json({
-        data,
-        errors,
-      })
+      /**
+       * Return the error as a JSON response only if the response hasn't been sent yet
+       * Eg. by the `isAllowedMethod` util returning a 405 status code
+       */
+      if (!res.headersSent) {
+        console.error(error)
+        const { status, data, errors } = normalizeError(error)
+        res.status(status).json({
+          data,
+          errors,
+        })
+      }
     }
   }
 }
