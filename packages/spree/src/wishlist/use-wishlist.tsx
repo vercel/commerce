@@ -9,6 +9,7 @@ import type { Wishlist } from '@spree/storefront-api-v2-sdk/types/interfaces/Wis
 import ensureIToken from '../utils/tokens/ensure-itoken'
 import normalizeWishlist from '../utils/normalizations/normalize-wishlist'
 import isLoggedIn from '../utils/tokens/is-logged-in'
+import { ValidationError } from '@vercel/commerce/utils/errors'
 
 export default useWishlist as UseWishlist<typeof handler>
 
@@ -28,7 +29,9 @@ export const handler: SWRHook<GetWishlistHook> = {
     )
 
     if (!isLoggedIn()) {
-      return null
+      throw new ValidationError({
+        message: 'Not logged in',
+      })
     }
 
     // TODO: Optimize with includeProducts.

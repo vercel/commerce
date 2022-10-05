@@ -1,5 +1,8 @@
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type { Category, GetSiteInfoOperation } from '../../types/site'
+import type {
+  Category,
+  GetSiteInfoOperation,
+} from '@vercel/commerce/types/site'
 import { normalizeCategory } from '../../utils/normalize-category'
 import type { CommercejsConfig, Provider } from '../index'
 

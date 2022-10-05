@@ -1,6 +1,6 @@
 import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
 import cartEndpoint from '@vercel/commerce/api/endpoints/cart'
-import type { CartSchema } from '../../../types/cart'
+import type { CartSchema } from '@vercel/commerce/types/cart'
 import type { BigcommerceAPI } from '../..'
 import getCart from './get-cart'
 import addItem from './add-item'

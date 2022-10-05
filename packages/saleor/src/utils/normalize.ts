@@ -1,6 +1,12 @@
 import { Product } from '@vercel/commerce/types/product'
 
-import { Product as SaleorProduct, Checkout, CheckoutLine, Money, ProductVariant } from '../../schema'
+import {
+  Product as SaleorProduct,
+  Checkout,
+  CheckoutLine,
+  Money,
+  ProductVariant,
+} from '../../schema'
 
 import type { Cart, LineItem } from '../types'
 
@@ -19,11 +25,14 @@ const normalizeProductOptions = (options: ProductVariant[]) => {
     ?.map((option) => option?.attributes)
     .flat(1)
     .reduce<any>((acc, x) => {
-      if (acc.find(({ displayName }: any) => displayName === x.attribute.name)) {
+      if (
+        acc.find(({ displayName }: any) => displayName === x.attribute.name)
+      ) {
         return acc.map((opt: any) => {
           return opt.displayName === x.attribute.name
             ? {
                 ...opt,
+                id: x.attribute.id,
                 values: [
                   ...opt.values,
                   ...x.values.map((value: any) => ({
@@ -37,6 +46,7 @@ const normalizeProductOptions = (options: ProductVariant[]) => {
 
       return acc.concat({
         __typename: 'MultipleChoiceOption',
+        id: x.attribute.id,
         displayName: x.attribute.name,
         variant: 'size',
         values: x.values.map((value: any) => ({
@@ -54,7 +64,7 @@ const normalizeProductVariants = (variants: ProductVariant[]) => {
     return {
       id,
       name,
-      sku: sku ?? id,
+      ...(!!sku && { sku }),
       price,
       listPrice: price,
       requiresShipping: true,
@@ -64,23 +74,41 @@ const normalizeProductVariants = (variants: ProductVariant[]) => {
 }
 
 export function normalizeProduct(productNode: SaleorProduct): Product {
-  const { id, name, media = [], variants, description, slug, pricing, ...rest } = productNode
+  const {
+    id,
+    name,
+    media = [],
+    variants,
+    description,
+    slug,
+    pricing,
+    ...rest
+  } = productNode
 
   const product = {
     id,
     name,
     vendor: '',
-    description: description ? JSON.parse(description)?.blocks[0]?.data.text : '',
+    description: description
+      ? JSON.parse(description)?.blocks[0]?.data.text
+      : '',
     path: `/${slug}`,
     slug: slug?.replace(/^\/+|\/+$/g, ''),
-    price: (pricing?.priceRange?.start?.net && money(pricing.priceRange.start.net)) || {
+    price: (pricing?.priceRange?.start?.net &&
+      money(pricing.priceRange.start.net)) || {
       value: 0,
       currencyCode: 'USD',
     },
     // TODO: Check nextjs-commerce bug if no images are added for a product
     images: media?.length ? media : [{ url: placeholderImg }],
-    variants: variants && variants.length > 0 ? normalizeProductVariants(variants as ProductVariant[]) : [],
-    options: variants && variants.length > 0 ? normalizeProductOptions(variants as ProductVariant[]) : [],
+    variants:
+      variants && variants.length > 0
+        ? normalizeProductVariants(variants as ProductVariant[])
+        : [],
+    options:
+      variants && variants.length > 0
+        ? normalizeProductOptions(variants as ProductVariant[])
+        : [],
     ...rest,
   }
 
@@ -89,7 +117,8 @@ export function normalizeProduct(productNode: SaleorProduct): Product {
 
 export function normalizeCart(checkout: Checkout): Cart {
   const lines = checkout.lines as CheckoutLine[]
-  const lineItems: LineItem[] = lines.length > 0 ? lines?.map<LineItem>(normalizeLineItem) : []
+  const lineItems: LineItem[] =
+    lines.length > 0 ? lines?.map<LineItem>(normalizeLineItem) : []
 
   return {
     id: checkout.id,
@@ -117,7 +146,7 @@ function normalizeLineItem({ id, variant, quantity }: CheckoutLine): LineItem {
     quantity,
     variant: {
       id: String(variant?.id),
-      sku: variant?.sku ?? '',
+      ...(variant?.sku && { sku: variant.sku }),
       name: variant?.name!,
       image: {
         url: variant?.media![0] ? variant?.media![0].url : placeholderImg,

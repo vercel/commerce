@@ -1,4 +1,6 @@
 import type { Response } from '@vercel/fetch'
+import type { CommerceError } from 'utils/errors'
+
 import { ZodError } from 'zod'
 
 export class CommerceAPIError extends Error {
@@ -29,28 +31,19 @@ export const normalizeZodIssues = (issues: ZodError['issues']) =>
     }Code: ${e.code}, Message: ${e.message}`,
   }))
 
-export const normalizeError = (error: unknown) => {
-  if (error instanceof CommerceAPIError) {
-    return {
-      status: error.status || 500,
-      data: error.data || null,
-      errors: [
-        { message: 'An unexpected error ocurred with the Commerce API' },
-      ],
-    }
-  }
-
+export const getOperationError = (operation: string, error: unknown) => {
   if (error instanceof ZodError) {
-    return {
-      status: 400,
-      data: null,
-      errors: normalizeZodIssues(error.issues),
-    }
+    return new CommerceError({
+      code: 'SCHEMA_VALIDATION_ERROR',
+      message:
+        `The ${operation} operation returned invalid data and has ${
+          error.issues.length
+        } parse ${error.issues.length === 1 ? 'error' : 'errors'}: \n` +
+        normalizeZodIssues(error.issues)
+          .map((e) => e.message)
+          .join('\n'),
+    })
   }
 
-  return {
-    status: 500,
-    data: null,
-    errors: [{ message: 'An unexpected error ocurred' }],
-  }
+  return error
 }

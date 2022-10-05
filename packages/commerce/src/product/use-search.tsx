@@ -5,7 +5,7 @@ import type { SearchProductsHook } from '../types/product'
 import type { Provider } from '..'
 
 export type UseSearch<
-  H extends SWRHook<SearchProductsHook<any>> = SWRHook<SearchProductsHook>
+  H extends SWRHook<SearchProductsHook> = SWRHook<SearchProductsHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<SearchProductsHook> = SWRFetcher

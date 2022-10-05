@@ -1,6 +1,6 @@
 import type { CardFields } from '@vercel/commerce/types/customer/card'
 import type { AddressFields } from '@vercel/commerce/types/customer/address'
-import type { CommercejsCheckoutCapture } from '../types/checkout'
+import type { CommercejsCheckoutCapture } from '../types'
 
 /**
  * Creates a checkout payload suitable for test checkouts.

@@ -8,7 +8,6 @@ import { CommerceError, ValidationError } from '@vercel/commerce/utils/errors'
 import useUpdateItem, {
   UseUpdateItem,
 } from '@vercel/commerce/cart/use-update-item'
-import { CartItemBody, LineItem } from '@vercel/commerce/types/cart'
 import useCart from './use-cart'
 import {
   AdjustOrderLineMutation,
@@ -16,7 +15,7 @@ import {
 } from '../../schema'
 import { normalizeCart } from '../utils/normalize'
 import { adjustOrderLineMutation } from '../utils/mutations/adjust-order-line-mutation'
-import { UpdateItemHook } from '../types/cart'
+import type { UpdateItemHook, LineItem } from '@vercel/commerce/types/cart'
 
 export type UpdateItemActionInput<T = any> = T extends LineItem
   ? Partial<UpdateItemHook['actionInput']>

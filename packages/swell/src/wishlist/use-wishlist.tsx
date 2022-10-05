@@ -1,21 +1,10 @@
 // TODO: replace this hook and other wishlist hooks with a handler, or remove them if
 // Swell doesn't have a wishlist
 
+import type { Wishlist } from '@vercel/commerce/types/wishlist'
 import { HookFetcher } from '@vercel/commerce/utils/types'
-import { Product } from '../../schema'
 
 const defaultOpts = {}
-
-export type Wishlist = {
-  items: [
-    {
-      product_id: number
-      variant_id: number
-      id: number
-      product: Product
-    }
-  ]
-}
 
 export interface UseWishlistOptions {
   includeProducts?: boolean

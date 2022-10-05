@@ -1,4 +1,4 @@
-import type { Cart } from '../types/cart'
+import type { Cart } from '@vercel/commerce/types/cart'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 
 import {

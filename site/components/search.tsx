@@ -4,14 +4,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
+import type { Brand } from '@commerce/types/site'
+import type { Product } from '@commerce/types/product'
+
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
-import type { Product } from '@commerce/types/product'
 import { Container, Skeleton } from '@components/ui'
 
 import useSearch from '@framework/product/use-search'
-
-import getSlug from '@lib/get-slug'
 import rangeMap from '@lib/range-map'
 
 const SORT = {
@@ -42,15 +42,14 @@ export default function Search({ categories, brands }: SearchPropsType) {
   const query = filterQuery({ sort })
 
   const { pathname, category, brand } = useSearchMeta(asPath)
+
   const activeCategory = categories.find((cat: any) => cat.slug === category)
-  const activeBrand = brands.find(
-    (b: any) => getSlug(b.node.path) === `brands/${brand}`
-  )?.node
+  const activeBrand = brands.find((b: Brand) => b.slug === brand)
 
   const { data, error } = useSearch({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.id,
-    brandId: (activeBrand as any)?.entityId,
+    brandId: (activeBrand as any)?.id,
     sort: typeof sort === 'string' ? sort : '',
     locale,
   })
@@ -238,20 +237,19 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         </a>
                       </Link>
                     </li>
-                    {brands.flatMap(({ node }: { node: any }) => (
+                    {brands.map(({ path, name, id }: Brand) => (
                       <li
-                        key={node.path}
+                        key={path}
                         className={cn(
                           'block text-sm leading-5 text-accent-4 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                           {
-                            // @ts-ignore Shopify - Fix this types
-                            underline: activeBrand?.entityId === node.entityId,
+                            underline: activeBrand?.id === id,
                           }
                         )}
                       >
                         <Link
                           href={{
-                            pathname: getDesignerPath(node.path, category),
+                            pathname: getDesignerPath(path, category),
                             query,
                           }}
                         >
@@ -261,7 +259,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                               'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                             }
                           >
-                            {node.name}
+                            {name}
                           </a>
                         </Link>
                       </li>

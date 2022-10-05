@@ -1,9 +1,3 @@
-import * as Core from '@vercel/commerce/types/customer/address'
-
-export type CustomerAddressTypes = Core.CustomerAddressTypes
-export type CustomerAddressSchema =
-  Core.CustomerAddressSchema<CustomerAddressTypes>
-
 export interface OrdercloudAddress {
   ID: string
   FromCompanyID: string

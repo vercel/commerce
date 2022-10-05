@@ -1,6 +1,6 @@
 import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
 import loginEndpoint from '@vercel/commerce/api/endpoints/login'
-import type { LoginSchema } from '../../../types/login'
+import type { LoginSchema } from '@vercel/commerce/types/login'
 import type { KiboCommerceAPI } from '../..'
 import login from './login'
 
@@ -15,6 +15,4 @@ const loginApi = createEndpoint<LoginAPI>({
   handlers,
 })
 
-export default loginApi;
-
-
+export default loginApi

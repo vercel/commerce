@@ -6,7 +6,7 @@ import type {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,
 } from '../../../schema'
-import type { GetAllProductsOperation } from '../../types/product'
+import type { GetAllProductsOperation } from '@vercel/commerce/types/product'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'

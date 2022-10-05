@@ -39,6 +39,8 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
     data: {
       hasPayment: payments.length > 0,
       hasShipping: Boolean(address),
+      addressId: address,
+      cardId: payments[0]?.ID,
     },
     errors: [],
   })

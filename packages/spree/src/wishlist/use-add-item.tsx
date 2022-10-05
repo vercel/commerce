@@ -2,8 +2,9 @@ import { useCallback } from 'react'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import useAddItem from '@vercel/commerce/wishlist/use-add-item'
 import type { UseAddItem } from '@vercel/commerce/wishlist/use-add-item'
+import type { AddItemHook } from '@vercel/commerce/types/wishlist'
 import useWishlist from './use-wishlist'
-import type { ExplicitWishlistAddItemHook } from '../types'
+
 import type {
   WishedItem,
   WishlistsAddWishedItem,
@@ -11,12 +12,12 @@ import type {
 import type { GraphQLFetcherResult } from '@vercel/commerce/api'
 import ensureIToken from '../utils/tokens/ensure-itoken'
 import type { IToken } from '@spree/storefront-api-v2-sdk/types/interfaces/Token'
-import type { AddItemHook } from '@vercel/commerce/types/wishlist'
+
 import isLoggedIn from '../utils/tokens/is-logged-in'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<ExplicitWishlistAddItemHook> = {
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
     url: 'wishlists',
     query: 'addWishedItem',
@@ -31,7 +32,7 @@ export const handler: MutationHook<ExplicitWishlistAddItemHook> = {
     )
 
     const {
-      item: { productId, variantId, wishlistToken },
+      item: { variantId, wishlistToken },
     } = input
 
     if (!isLoggedIn() || !wishlistToken) {

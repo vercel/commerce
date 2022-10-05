@@ -1,9 +1,10 @@
+import type { SWRHook } from '@vercel/commerce/utils/types'
+import type { CustomerHook } from '@vercel/commerce/types/customer'
+
 import useCustomer, {
-  UseCustomer,
+  type UseCustomer,
 } from '@vercel/commerce/customer/use-customer'
-import { SWRHook } from '@vercel/commerce/utils/types'
 import { normalizeCustomer } from '../utils/normalize'
-import type { CustomerHook } from '../types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 

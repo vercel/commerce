@@ -1,57 +1,89 @@
 import type { UseSubmitCheckout } from '../checkout/use-submit-checkout'
-import type { Address, AddressFields } from './customer/address'
+import type { AddressFields } from './customer/address'
 import type { Card, CardFields } from './customer/card'
+import type { LineItem } from './cart'
 
-// Index
-export type Checkout = any
-
-export type CheckoutTypes = {
-  card?: Card | CardFields
-  address?: Address | AddressFields
-  checkout?: Checkout
-  hasPayment?: boolean
-  hasShipping?: boolean
+export interface Checkout {
+  /**
+   * Indicates if the checkout has payment iformation collected.
+   */
+  hasPayment: boolean
+  /**
+   * Indicates if the checkout has shipping information collected.
+   */
+  hasShipping: boolean
+  /**
+   * The unique identifier for the address that the customer has selected for shipping.
+   */
+  addressId: string
+  /**
+   * The list of payment cards that the customer has available.
+   */
+  payments?: Card[]
+  /**
+   * The unique identifier of the card that the customer has selected for payment.
+   */
+  cardId?: string
+  /**
+   * List of items in the checkout.
+   */
+  lineItems?: LineItem[]
 }
 
-export type SubmitCheckoutHook<T extends CheckoutTypes = CheckoutTypes> = {
-  data: T
-  input?: T
-  fetcherInput: T
-  body: { item: T }
-  actionInput: T
+export interface CheckoutBody {
+  /**
+   * The unique identifier for the cart.
+   */
+  cartId?: string
+  /**
+   * The Card information.
+   * @see CardFields
+   */
+  card: CardFields
+  /**
+   * The Address information.
+   * @see AddressFields
+   */
+  address: AddressFields
 }
 
-export type GetCheckoutHook<T extends CheckoutTypes = CheckoutTypes> = {
-  data: T['checkout'] | null
+export type SubmitCheckoutHook = {
+  data: Checkout
+  input?: CheckoutBody
+  fetcherInput: CheckoutBody
+  body: { item: CheckoutBody }
+  actionInput: CheckoutBody
+}
+
+export type GetCheckoutHook = {
+  data: Checkout | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
   mutations: { submit: UseSubmitCheckout }
 }
 
-export type CheckoutHooks<T extends CheckoutTypes = CheckoutTypes> = {
-  submitCheckout?: SubmitCheckoutHook<T>
-  getCheckout: GetCheckoutHook<T>
+export type CheckoutHooks = {
+  submitCheckout?: SubmitCheckoutHook
+  getCheckout: GetCheckoutHook
 }
 
-export type GetCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
-  GetCheckoutHook<T> & {
-    body: { cartId: string }
-  }
-
-export type SubmitCheckoutHandler<T extends CheckoutTypes = CheckoutTypes> =
-  SubmitCheckoutHook<T> & {
-    body: { cartId: string }
-  }
-
-export type CheckoutHandlers<T extends CheckoutTypes = CheckoutTypes> = {
-  getCheckout: GetCheckoutHandler<T>
-  submitCheckout?: SubmitCheckoutHandler<T>
+export type GetCheckoutHandler = GetCheckoutHook & {
+  body: { cartId: string }
 }
 
-export type CheckoutSchema<T extends CheckoutTypes = CheckoutTypes> = {
+export type SubmitCheckoutHandler = SubmitCheckoutHook & {
+  body: { cartId: string }
+}
+
+export type CheckoutHandlers = {
+  getCheckout: GetCheckoutHandler
+  submitCheckout?: SubmitCheckoutHandler
+}
+
+export type CheckoutSchema = {
   endpoint: {
     options: {}
-    handlers: CheckoutHandlers<T>
+    handlers: CheckoutHandlers
   }
 }

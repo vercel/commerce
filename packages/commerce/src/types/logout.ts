@@ -1,17 +1,15 @@
-export type LogoutTypes = {
-  body: { redirectTo?: string }
-}
-
-export type LogoutHook<T extends LogoutTypes = LogoutTypes> = {
+export type LogoutHook = {
   data: null
-  body: T['body']
+  body: {
+    redirectTo?: string
+  }
 }
 
-export type LogoutSchema<T extends LogoutTypes = LogoutTypes> = {
+export type LogoutSchema = {
   endpoint: {
     options: {}
     handlers: {
-      logout: LogoutHook<T>
+      logout: LogoutHook
     }
   }
 }

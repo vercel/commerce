@@ -30,9 +30,7 @@ const WishlistButton: FC<Props> = ({
   // @ts-ignore Wishlist is not always enabled
   const itemInWishlist = data?.items?.find(
     // @ts-ignore Wishlist is not always enabled
-    (item) =>
-      item.product_id === Number(productId) &&
-      item.variant_id === Number(variant.id)
+    (item) => item.product_id === productId && item.variant_id === variant.id
   )
 
   const handleWishlistChange = async (e: any) => {
