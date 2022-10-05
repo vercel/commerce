@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const getCartBodySchema = z.object({
-  cartId: z.string(),
+  cartId: z.string().optional(),
 })
 
 export const cartItemBodySchema = z.object({
