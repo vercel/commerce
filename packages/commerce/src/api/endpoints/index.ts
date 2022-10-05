@@ -51,7 +51,7 @@ export default function createEndpoints<P extends APIProvider>(
 
       const data = await handlers[path](req, res)
       // If the handler returns a value but the response hasn't been sent yet, send it
-      if (!res.headersSent) {
+      if (!res.headersSent && data) {
         res.status(200).json({
           data,
         })

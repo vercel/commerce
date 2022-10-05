@@ -1,6 +1,11 @@
 import type { GetAPISchema } from '..'
 import type { CheckoutSchema } from '../../types/checkout'
 
+import {
+  getCheckoutBodySchema,
+  submitCheckoutBodySchema,
+} from '../../schemas/checkout'
+
 import validateHandlers from '../utils/validate-handlers'
 
 const checkoutEndpoint: GetAPISchema<
@@ -19,13 +24,13 @@ const checkoutEndpoint: GetAPISchema<
 
   // Get checkout
   if (req.method === 'GET') {
-    const body = { ...req.body, cartId }
+    const body = getCheckoutBodySchema.parse({ ...req.body, cartId })
     return handlers['getCheckout']({ ...ctx, body })
   }
 
   // Create checkout
   if (req.method === 'POST' && handlers['submitCheckout']) {
-    const body = { ...req.body, cartId }
+    const body = submitCheckoutBodySchema.parse({ ...req.body, cartId })
     return handlers['submitCheckout']({ ...ctx, body })
   }
 }

@@ -25,26 +25,19 @@ export class CommerceNetworkError extends Error {
 }
 
 export const normalizeZodIssues = (issues: ZodError['issues']) =>
-  issues.map((e, index) => ({
-    message: `Error #${index + 1} ${
-      e.path.length > 0 ? `Path: ${e.path.join('.')}, ` : ''
-    }Code: ${e.code}, Message: ${e.message}`,
-  }))
+  issues.map(({ path, message }) => `${message} at "${path.join('.')}"`)
 
 export const getOperationError = (operation: string, error: unknown) => {
   if (error instanceof ZodError) {
     return new CommerceError({
       code: 'SCHEMA_VALIDATION_ERROR',
       message:
-        `The ${operation} operation returned invalid data and has ${
-          error.issues.length
-        } parse ${error.issues.length === 1 ? 'error' : 'errors'}: \n` +
-        normalizeZodIssues(error.issues)
-          .map((e) => e.message)
-          .join('\n'),
+        `Validation ${
+          error.issues.length === 1 ? 'error' : 'errors'
+        } at "${operation}" operation: \n` +
+        normalizeZodIssues(error.issues).join('\n'),
     })
   }
-
   return error
 }
 
@@ -63,7 +56,7 @@ export const normalizeError = (error: unknown) => {
     return {
       status: 400,
       data: null,
-      errors: normalizeZodIssues(error.issues),
+      errors: normalizeZodIssues(error.issues).map((message) => ({ message })),
     }
   }
 

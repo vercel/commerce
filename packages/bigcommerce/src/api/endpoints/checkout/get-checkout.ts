@@ -13,10 +13,12 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   const { cookies } = req
   const cartId = cookies[config.cartCookie]
   const customerToken = cookies[config.customerCookie]
+
   if (!cartId) {
     res.redirect('/cart')
     return
   }
+
   const { data } = await config.storeApiFetch<any>(
     `/v3/carts/${cartId}/redirect_urls`,
     {

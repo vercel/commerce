@@ -69,7 +69,7 @@ export type CheckoutHooks = {
 }
 
 export type GetCheckoutHandler = GetCheckoutHook & {
-  body: { cartId: string }
+  body: { cartId?: string }
 }
 
 export type SubmitCheckoutHandler = SubmitCheckoutHook & {
