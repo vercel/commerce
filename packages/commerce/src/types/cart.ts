@@ -251,7 +251,7 @@ export type GetCartHandler = GetCartHook & {
 }
 
 export type AddItemHandler = AddItemHook & {
-  body: { cartId: string }
+  body: { cartId?: string }
 }
 
 export type UpdateItemHandler = UpdateItemHook & {
