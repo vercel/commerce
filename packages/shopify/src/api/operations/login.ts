@@ -1,6 +1,6 @@
 import type { ServerResponse } from 'http'
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type { LoginOperation } from '../../types/login'
+import type { LoginOperation } from '@vercel/commerce/types/login'
 import type { ShopifyConfig, Provider } from '..'
 import {
   customerAccessTokenCreateMutation,

@@ -47,7 +47,19 @@ const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
         })
       }
 
-      return res.status(200).json({ data: { customer } })
+      return res.status(200).json({
+        data: {
+          customer: {
+            id: String(customer.entityId),
+            firstName: customer.firstName,
+            lastName: customer.lastName,
+            email: customer.email,
+            company: customer.company,
+            phone: customer.phone,
+            notes: customer.notes,
+          },
+        },
+      })
     }
 
     res.status(200).json({ data: null })

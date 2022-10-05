@@ -6,7 +6,7 @@ import isAllowedOperation from '../../utils/is-allowed-operation'
 
 const customerEndpoint: GetAPISchema<
   any,
-  CustomerSchema<any>
+  CustomerSchema
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers } = ctx
 

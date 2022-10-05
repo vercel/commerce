@@ -2,7 +2,7 @@ import { Product } from '@vercel/commerce/types/product'
 import { GetAllProductsOperation } from '@vercel/commerce/types/product'
 import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { KiboCommerceConfig } from '../index'
-import { getAllProductsQuery } from '../queries/get-all-products-query';
+import { getAllProductsQuery } from '../queries/get-all-products-query'
 import { normalizeProduct } from '../../lib/normalize'
 
 export default function getAllProductsOperation({
@@ -18,11 +18,12 @@ export default function getAllProductsOperation({
     config?: Partial<KiboCommerceConfig>
     preview?: boolean
   } = {}): Promise<{ products: Product[] | any[] }> {
-
     const cfg = commerce.getConfig(config)
-    const { data } = await cfg.fetch(query);
+    const { data } = await cfg.fetch(query)
 
-    let normalizedProducts =  data.products.items ? data.products.items.map( (item:any) => normalizeProduct(item, cfg)) : [];
+    let normalizedProducts = data.products.items
+      ? data.products.items.map((item: any) => normalizeProduct(item, cfg))
+      : []
 
     return {
       products: normalizedProducts,

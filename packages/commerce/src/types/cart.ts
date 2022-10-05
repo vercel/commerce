@@ -1,177 +1,264 @@
-import type { Discount, Measurement, Image } from './common'
+import type { Discount, Image, Measurement } from './common'
 
-export type SelectedOption = {
-  // The option's id.
-  id?: string
-  // The product option’s name.
-  name: string
-  /// The product option’s value.
-  value: string
-}
-
-export type LineItem = {
+// TODO: This should use the same type as the `ProductVariant` type from `product.ts`
+export interface ProductVariant {
+  /**
+   *  The unique identifier for the variant.
+   */
   id: string
-  variantId: string
-  productId: string
+  /**
+   * The SKU (stock keeping unit) associated with the product variant.
+   */
+  sku?: string
+  /**
+   * The product variant’s name, or the product's name.
+   */
   name: string
-  quantity: number
-  discounts: Discount[]
-  // A human-friendly unique string automatically generated from the product’s name
-  path: string
-  variant: ProductVariant
-  options?: SelectedOption[]
-}
-
-export type ProductVariant = {
-  id: string
-  // The SKU (stock keeping unit) associated with the product variant.
-  sku: string
-  // The product variant’s title, or the product's name.
-  name: string
-  // Whether a customer needs to provide a shipping address when placing
-  // an order for the product variant.
-  requiresShipping: boolean
-  // The product variant’s price after all discounts are applied.
+  /**
+   * The product variant’s price after all discounts are applied.
+   */
   price: number
-  // Product variant’s price, as quoted by the manufacturer/distributor.
+  /**
+   * The product variant’s price before discounts are applied.
+   */
   listPrice: number
-  // Image associated with the product variant. Falls back to the product image
-  // if no image is available.
-  image?: Image
-  // Indicates whether this product variant is in stock.
-  isInStock?: boolean
-  // Indicates if the product variant is available for sale.
+  /**
+   * Indicates if the variant is available for sale.
+   */
   availableForSale?: boolean
-  // The variant's weight. If a weight was not explicitly specified on the
-  // variant this will be the product's weight.
+  /**
+   * Whether a customer needs to provide a shipping address when placing
+   * an order for the product variant.
+   */
+  requiresShipping?: boolean
+  /**
+   * The image associated with the variant.
+   */
+  image?: Image
+  /**
+   * The variant's weight. If a weight was not explicitly specified on the
+   * variant, this will be the product's weight.
+   */
   weight?: Measurement
-  // The variant's height. If a height was not explicitly specified on the
-  // variant, this will be the product's height.
+  /**
+   * The variant's height. If a height was not explicitly specified on the
+   * variant, this will be the product's height.
+   */
   height?: Measurement
-  // The variant's width. If a width was not explicitly specified on the
-  // variant, this will be the product's width.
+  /**
+   * The variant's width. If a width was not explicitly specified on the
+   * variant, this will be the product's width.
+   */
   width?: Measurement
-  // The variant's depth. If a depth was not explicitly specified on the
-  // variant, this will be the product's depth.
+  /**
+   * The variant's depth. If a depth was not explicitly specified on the
+   * variant, this will be the product's depth.
+   */
   depth?: Measurement
 }
 
-// Shopping cart, a.k.a Checkout
-export type Cart = {
+export interface SelectedOption {
+  /**
+   * The unique identifier for the option.
+   */
+  id?: string
+  /**
+   *  The product option’s name, such as "Color" or "Size".
+   */
+  name: string
+  /**
+   * The product option’s value, such as "Red" or "XL".
+   */
+  value: string
+}
+
+export interface LineItem {
+  /**
+   * The unique identifier for the line item.
+   */
   id: string
-  // ID of the customer to which the cart belongs.
+  /**
+   * The unique identifier for the product variant.
+   */
+  variantId: string
+  /**
+   * The unique identifier for the product, if the variant is not provided.
+   */
+  productId: string
+  /**
+   * This is usually the product's name.
+   */
+  name: string
+  /**
+   * The quantity of the product variant in the line item.
+   */
+  quantity: number
+  /**
+   * List of discounts applied to the line item.
+   */
+  discounts: Discount[]
+  /**
+   * A human-friendly unique string automatically generated from the product’s name.
+   */
+  path: string
+  /**
+   * The product variant.
+   */
+  variant: ProductVariant
+  /**
+   * List of selected options, to be used when displaying the line item, such as Color: Red, Size: XL.
+   */
+  options?: SelectedOption[]
+}
+
+/**
+ * Shopping cart, a.k.a Checkout
+ */
+export interface Cart {
+  /**
+   * The unique identifier for the cart.
+   */
+  id: string
+  /**
+   * ID of the customer to which the cart belongs.
+   */
   customerId?: string
-  // The email assigned to this cart
+  /**
+   * The URL of the cart.
+   */
+  url?: string
+  /**
+   * The email assigned to this cart.
+   */
   email?: string
-  // The date and time when the cart was created.
+  /**
+   *  The date and time when the cart was created.
+   */
   createdAt: string
-  // The currency used for this cart
+  /**
+   * The currency used for this cart */
   currency: { code: string }
-  // Specifies if taxes are included in the line items.
+  /**
+   * Indicates if taxes are included in the line items.
+   */
   taxesIncluded: boolean
+  /**
+   * List of cart line items.
+   */
   lineItems: LineItem[]
-  // The sum of all the prices of all the items in the cart.
-  // Duties, taxes, shipping and discounts excluded.
+  /**
+   * The sum of all the pricexs of all the items in the cart.
+   * Duties, taxes, shipping and discounts excluded.
+   */
   lineItemsSubtotalPrice: number
-  // Price of the cart before duties, shipping and taxes.
+  /**
+   * Price of the cart before duties, shipping and taxes.*/
   subtotalPrice: number
-  // The sum of all the prices of all the items in the cart.
-  // Duties, taxes and discounts included.
+  /**
+   * The sum of all the prices of all the items in the cart.
+   * Duties, taxes and discounts included.
+   */
   totalPrice: number
-  // Discounts that have been applied on the cart.
+  /**
+   * Discounts that have been applied on the cart.
+   */
   discounts?: Discount[]
 }
 
 /**
  * Base cart item body used for cart mutations
  */
-export type CartItemBody = {
+export interface CartItemBody {
+  /**
+   *  The unique identifier for the product variant.
+   */
   variantId: string
+  /**
+   *  The unique identifier for the product, if the variant is not provided.
+   */
   productId?: string
+  /**
+   * The quantity of the product variant.
+   */
   quantity?: number
+
+  /**
+   * The product variant's selected options.
+   */
+  optionsSelected?: SelectedOption[]
 }
 
 /**
- * Hooks schema
+ * Cart Hooks for add, update and remove items from the cart
  */
-
-export type CartTypes = {
-  cart?: Cart
-  item: LineItem
-  itemBody: CartItemBody
+export type CartHooks = {
+  getCart: GetCartHook
+  addItem: AddItemHook
+  updateItem: UpdateItemHook
+  removeItem: RemoveItemHook
 }
 
-export type CartHooks<T extends CartTypes = CartTypes> = {
-  getCart: GetCartHook<T>
-  addItem: AddItemHook<T>
-  updateItem: UpdateItemHook<T>
-  removeItem: RemoveItemHook<T>
-}
-
-export type GetCartHook<T extends CartTypes = CartTypes> = {
-  data: T['cart'] | null
+export type GetCartHook = {
+  data: Cart | null
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
-export type AddItemHook<T extends CartTypes = CartTypes> = {
-  data: T['cart']
-  input?: T['itemBody']
-  fetcherInput: T['itemBody']
-  body: { item: T['itemBody'] }
-  actionInput: T['itemBody']
+export type AddItemHook = {
+  data: Cart
+  input?: CartItemBody
+  fetcherInput: CartItemBody
+  body: { item: CartItemBody }
+  actionInput: CartItemBody
 }
 
-export type UpdateItemHook<T extends CartTypes = CartTypes> = {
-  data: T['cart'] | null
-  input: { item?: T['item']; wait?: number }
-  fetcherInput: { itemId: string; item: T['itemBody'] }
-  body: { itemId: string; item: T['itemBody'] }
-  actionInput: T['itemBody'] & { id: string }
+export type UpdateItemHook = {
+  data: Cart | null | undefined
+  input: { item?: LineItem; wait?: number }
+  fetcherInput: { itemId: string; item: CartItemBody }
+  body: { itemId: string; item: CartItemBody }
+  actionInput: CartItemBody & { id: string }
 }
 
-export type RemoveItemHook<T extends CartTypes = CartTypes> = {
-  data: T['cart'] | null
-  input: { item?: T['item'] }
+export type RemoveItemHook = {
+  data: Cart | null | undefined
+  input: { item?: LineItem }
   fetcherInput: { itemId: string }
   body: { itemId: string }
   actionInput: { id: string }
 }
 
 /**
- * API Schema
+ * Cart API endpoitns & handlers for add, update and remove items from the cart
  */
-
-export type CartSchema<T extends CartTypes = CartTypes> = {
+export type CartSchema = {
   endpoint: {
     options: {}
-    handlers: CartHandlers<T>
+    handlers: CartHandlers
   }
 }
 
-export type CartHandlers<T extends CartTypes = CartTypes> = {
-  getCart: GetCartHandler<T>
-  addItem: AddItemHandler<T>
-  updateItem: UpdateItemHandler<T>
-  removeItem: RemoveItemHandler<T>
+export type CartHandlers = {
+  getCart: GetCartHandler
+  addItem: AddItemHandler
+  updateItem: UpdateItemHandler
+  removeItem: RemoveItemHandler
 }
 
-export type GetCartHandler<T extends CartTypes = CartTypes> = GetCartHook<T> & {
+export type GetCartHandler = GetCartHook & {
   body: { cartId?: string }
 }
 
-export type AddItemHandler<T extends CartTypes = CartTypes> = AddItemHook<T> & {
+export type AddItemHandler = AddItemHook & {
   body: { cartId: string }
 }
 
-export type UpdateItemHandler<T extends CartTypes = CartTypes> =
-  UpdateItemHook<T> & {
-    data: T['cart']
-    body: { cartId: string }
-  }
+export type UpdateItemHandler = UpdateItemHook & {
+  data: Cart
+  body: { cartId: string }
+}
 
-export type RemoveItemHandler<T extends CartTypes = CartTypes> =
-  RemoveItemHook<T> & {
-    body: { cartId: string }
-  }
+export type RemoveItemHandler = RemoveItemHook & {
+  body: { cartId: string }
+}

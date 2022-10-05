@@ -1,7 +1,9 @@
-import type { Product } from '../types/product'
-import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
-import type { Page } from '../types/page'
-import type { BCCategory, Category } from '../types/site'
+import type { Page } from '@vercel/commerce/types/page'
+import type { Product } from '@vercel/commerce/types/product'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { Category, Brand } from '@vercel/commerce/types/site'
+import type { BigcommerceCart, BCCategory, BCBrand } from '../types'
+
 import { definitions } from '../api/definitions/store-content'
 import update from './immutability'
 import getSlug from './get-slug'
@@ -12,7 +14,7 @@ function normalizeProductOption(productOption: any) {
   } = productOption
 
   return {
-    id: entityId,
+    id: String(entityId),
     values: edges?.map(({ node }: any) => node),
     ...rest,
   }
@@ -41,7 +43,7 @@ export function normalizeProduct(productNode: any): Product {
     variants: {
       $apply: ({ edges }: any) =>
         edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
-          id: entityId,
+          id: String(entityId),
           options: productOptions?.edges
             ? productOptions.edges.map(normalizeProductOption)
             : [],
@@ -54,7 +56,7 @@ export function normalizeProduct(productNode: any): Product {
         : [],
     },
     brand: {
-      $apply: (brand: any) => (brand?.entityId ? brand?.entityId : null),
+      $apply: (brand: any) => (brand?.id ? brand.id : null),
     },
     slug: {
       $set: path?.replace(/^\/+|\/+$/g, ''),
@@ -75,7 +77,8 @@ export function normalizePage(page: definitions['page_Full']): Page {
     name: page.name,
     is_visible: page.is_visible,
     sort_order: page.sort_order,
-    body: page.body,
+    body: page.body ?? '',
+    url: page.url,
   }
 }
 
@@ -132,5 +135,14 @@ export function normalizeCategory(category: BCCategory): Category {
     name: category.name,
     slug: getSlug(category.path),
     path: category.path,
+  }
+}
+
+export function normalizeBrand(brand: BCBrand): Brand {
+  return {
+    id: `${brand.node.entityId}`,
+    name: brand.node.name,
+    slug: getSlug(brand.node.path),
+    path: brand.node.path,
   }
 }

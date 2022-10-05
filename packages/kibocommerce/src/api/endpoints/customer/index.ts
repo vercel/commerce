@@ -1,6 +1,6 @@
 import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
 import customerEndpoint from '@vercel/commerce/api/endpoints/customer'
-import type { CustomerSchema } from '../../../types/customer'
+import type { CustomerSchema } from '@vercel/commerce/types/customer'
 import type { KiboCommerceAPI } from '../..'
 import getLoggedInCustomer from './customer'
 

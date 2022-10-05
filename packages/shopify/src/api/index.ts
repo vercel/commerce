@@ -13,7 +13,13 @@ import {
 
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 
-import * as operations from './operations'
+import getAllPages from './operations/get-all-pages'
+import getPage from './operations/get-page'
+import getAllProducts from './operations/get-all-products'
+import getAllProductPaths from './operations/get-all-product-paths'
+import getProduct from './operations/get-product'
+import getSiteInfo from './operations/get-site-info'
+import login from './operations/login'
 
 if (!API_URL) {
   throw new Error(
@@ -41,7 +47,15 @@ const config: ShopifyConfig = {
 
 export const provider = {
   config,
-  operations,
+  operations: {
+    login,
+    getSiteInfo,
+    getAllPages,
+    getPage,
+    getAllProducts,
+    getAllProductPaths,
+    getProduct,
+  },
 }
 
 export type Provider = typeof provider

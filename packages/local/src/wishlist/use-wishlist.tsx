@@ -1,18 +1,7 @@
 import { HookFetcher } from '@vercel/commerce/utils/types'
-import type { Product } from '@vercel/commerce/types/product'
+import { Wishlist } from '@vercel/commerce/types/wishlist'
 
 const defaultOpts = {}
-
-export type Wishlist = {
-  items: [
-    {
-      product_id: number
-      variant_id: number
-      id: number
-      product: Product
-    }
-  ]
-}
 
 export interface UseWishlistOptions {
   includeProducts?: boolean

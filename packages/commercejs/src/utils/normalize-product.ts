@@ -1,8 +1,5 @@
-import type {
-  Product,
-  CommercejsProduct,
-  CommercejsVariant,
-} from '../types/product'
+import type { Product } from '@vercel/commerce/types/product'
+import type { CommercejsProduct, CommercejsVariant } from '../types'
 
 function getOptionsFromVariantGroups(
   variantGroups: CommercejsProduct['variant_groups']
@@ -26,6 +23,7 @@ function normalizeVariants(
   if (!Array.isArray(variants)) return []
   return variants?.map((variant) => ({
     id: variant.id,
+    sku: variant.sku ?? variant.id,
     options: Object.entries(variant.options).map(
       ([variantGroupId, variantOptionId]) => {
         const variantGroupFromId = variantGroups.find(
@@ -62,7 +60,7 @@ export function normalizeProduct(
     description,
     descriptionHtml: description,
     slug: permalink,
-    path: permalink,
+    path: `/${permalink}`,
     images: assets.map(({ url, description, filename }) => ({
       url,
       alt: description || filename,

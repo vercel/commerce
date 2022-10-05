@@ -3,7 +3,7 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import type { LoginOperation } from '../../types/login'
+import type { LoginOperation } from '@vercel/commerce/types/login'
 import type { LoginMutation } from '../../../schema'
 import type { RecursivePartial } from '../utils/types'
 import concatHeader from '../utils/concat-cookie'

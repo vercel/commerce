@@ -1,4 +1,4 @@
-import type { CheckoutSchema } from '../../../types/checkout'
+import type { CheckoutSchema } from '@vercel/commerce/types/checkout'
 import type { OrdercloudAPI } from '../..'
 
 import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'

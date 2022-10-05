@@ -5,7 +5,7 @@ import type { UpdateItemHook } from '../types/cart'
 import type { Provider } from '..'
 
 export type UseUpdateItem<
-  H extends MutationHook<UpdateItemHook<any>> = MutationHook<UpdateItemHook>
+  H extends MutationHook<UpdateItemHook> = MutationHook<UpdateItemHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<UpdateItemHook> = mutationFetcher

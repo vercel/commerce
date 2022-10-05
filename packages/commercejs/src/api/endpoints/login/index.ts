@@ -1,6 +1,6 @@
 import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
 import loginEndpoint from '@vercel/commerce/api/endpoints/login'
-import type { LoginSchema } from '../../../types/login'
+import type { LoginSchema } from '@vercel/commerce/types/login'
 import type { CommercejsAPI } from '../..'
 import login from './login'
 

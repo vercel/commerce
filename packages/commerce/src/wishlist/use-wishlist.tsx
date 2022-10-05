@@ -5,7 +5,7 @@ import type { GetWishlistHook } from '../types/wishlist'
 import type { Provider } from '..'
 
 export type UseWishlist<
-  H extends SWRHook<GetWishlistHook<any>> = SWRHook<GetWishlistHook>
+  H extends SWRHook<GetWishlistHook> = SWRHook<GetWishlistHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<GetWishlistHook> = SWRFetcher

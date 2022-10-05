@@ -4,7 +4,7 @@ import useCustomer, {
 } from '@vercel/commerce/customer/use-customer'
 import { ActiveCustomerQuery } from '../../schema'
 import { activeCustomerQuery } from '../utils/queries/active-customer-query'
-import { CustomerHook } from '../types/customer'
+import { CustomerHook } from '@vercel/commerce/types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 

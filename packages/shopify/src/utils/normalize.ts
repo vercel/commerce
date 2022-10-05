@@ -1,9 +1,9 @@
-import type { Page } from '../types/page'
-import type { Product } from '../types/product'
-import type { Cart, LineItem } from '../types/cart'
-import type { Category } from '../types/site'
+import type { Page } from '@vercel/commerce/types/page'
+import type { Product } from '@vercel/commerce/types/product'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { Category } from '@vercel/commerce/types/site'
 
-import {
+import type {
   Product as ShopifyProduct,
   Checkout,
   CheckoutLineItemEdge,
@@ -16,6 +16,7 @@ import {
   PageEdge,
   Collection,
 } from '../../schema'
+
 import { colorMap } from './colors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
@@ -75,7 +76,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
       return {
         id,
         name: title,
-        sku: sku ?? id,
+        sku,
         price: +priceV2.amount,
         listPrice: +compareAtPriceV2?.amount,
         requiresShipping,
@@ -122,7 +123,7 @@ export function normalizeProduct({
           .filter((o) => o.name !== 'Title') // By default Shopify adds a 'Title' name when there's only one option. We don't need it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
           .map((o) => normalizeProductOption(o))
       : [],
-    ...(description && { description }),
+    description: description || '',
     ...(descriptionHtml && { descriptionHtml }),
     ...rest,
   }
@@ -180,6 +181,7 @@ export const normalizePage = (
   ...page,
   url: `/${locale}/${handle}`,
   name,
+  body: page.body ?? '',
 })
 
 export const normalizePages = (edges: PageEdge[], locale?: string): Page[] =>

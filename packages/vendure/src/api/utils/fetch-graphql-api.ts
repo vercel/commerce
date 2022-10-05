@@ -9,6 +9,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   fetchOptions
 ) => {
   const config = getCommerceApi().getConfig()
+
   const res = await fetch(config.commerceUrl, {
     ...fetchOptions,
     method: 'POST',
@@ -23,6 +24,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   })
 
   const json = await res.json()
+
   if (json.errors) {
     throw new FetcherError({
       errors: json.errors ?? [{ message: 'Failed to fetch Vendure API' }],

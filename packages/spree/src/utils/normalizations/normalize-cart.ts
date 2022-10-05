@@ -88,7 +88,6 @@ const normalizeVariant = (
     price: parseFloat(spreeVariant.attributes.price),
     listPrice: parseFloat(spreeVariant.attributes.price),
     image,
-    isInStock: spreeVariant.attributes.in_stock,
     availableForSale: spreeVariant.attributes.purchasable,
     ...(spreeVariant.attributes.weight === '0.0'
       ? {}

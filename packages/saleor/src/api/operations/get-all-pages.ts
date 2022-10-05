@@ -6,9 +6,12 @@ import * as Query from '../../utils/queries'
 
 export type Page = any
 
-export type GetAllPagesResult<T extends { pages: any[] } = { pages: Page[] }> = T
+export type GetAllPagesResult<T extends { pages: any[] } = { pages: Page[] }> =
+  T
 
-export default function getAllPagesOperation({ commerce }: OperationContext<Provider>) {
+export default function getAllPagesOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function getAllPages({
     query = Query.PageMany,
     config,
@@ -34,11 +37,15 @@ export default function getAllPagesOperation({ commerce }: OperationContext<Prov
       }
     )
 
-    const pages = data.pages?.edges?.map(({ node: { title: name, slug, ...node } }: PageCountableEdge) => ({
-      ...node,
-      url: `/${locale}/${slug}`,
-      name,
-    }))
+    const pages =
+      data?.pages?.edges?.map(
+        ({ node: { title: name, slug, ...node } }: PageCountableEdge) => ({
+          id: node.id,
+          url: `/${locale}/${slug}`,
+          body: node.content || '',
+          name,
+        })
+      ) ?? []
 
     return { pages }
   }

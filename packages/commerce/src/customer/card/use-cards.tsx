@@ -6,9 +6,8 @@ import Cookies from 'js-cookie'
 import { useHook, useSWRHook } from '../../utils/use-hook'
 import { Provider, useCommerce } from '../..'
 
-export type UseCards<
-  H extends SWRHook<GetCardsHook<any>> = SWRHook<GetCardsHook>
-> = ReturnType<H['useHook']>
+export type UseCards<H extends SWRHook<GetCardsHook> = SWRHook<GetCardsHook>> =
+  ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<GetCardsHook> = async ({
   options,

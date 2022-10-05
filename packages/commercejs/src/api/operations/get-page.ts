@@ -1,4 +1,4 @@
-import { GetPageOperation } from '../../types/page'
+import { GetPageOperation } from '@vercel/commerce/types/page'
 
 export type Page = any
 export type GetPageResult = { page?: Page }

@@ -1,13 +1,13 @@
 import getCategories from '../../utils/get-categories'
-import getVendors, { Brands } from '../../utils/get-vendors'
+import getVendors from '../../utils/get-vendors'
 import { Provider, SwellConfig } from '../'
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type { Category } from '@vercel/commerce/types/site'
+import type { Brand, Category } from '@vercel/commerce/types/site'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
     categories: Category[]
-    brands: Brands
+    brands: Brand[]
   }
 > = T
 

@@ -1,9 +1,5 @@
-import type {
-  Cart,
-  LineItem,
-  CommercejsCart,
-  CommercejsLineItem,
-} from '../types/cart'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { CommercejsCart, CommercejsLineItem } from '../types'
 
 type CommercejsLineItemType = CommercejsLineItem & { image: { url: string } }
 

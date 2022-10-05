@@ -1,26 +1,34 @@
-export type SignupBody = {
+export interface SignupBody {
+  /**
+   * The user's first name.
+   */
   firstName: string
+  /**
+   * The user's last name.
+   */
   lastName: string
+  /**
+   * The user's email address.
+   */
   email: string
+  /**
+   * The user's password.
+   */
   password: string
 }
 
-export type SignupTypes = {
-  body: SignupBody
-}
-
-export type SignupHook<T extends SignupTypes = SignupTypes> = {
+export type SignupHook = {
   data: null
-  body: T['body']
-  actionInput: T['body']
-  fetcherInput: T['body']
+  body: SignupBody
+  actionInput: SignupBody
+  fetcherInput: SignupBody
 }
 
-export type SignupSchema<T extends SignupTypes = SignupTypes> = {
+export type SignupSchema = {
   endpoint: {
     options: {}
     handlers: {
-      signup: SignupHook<T>
+      signup: SignupHook
     }
   }
 }

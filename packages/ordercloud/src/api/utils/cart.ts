@@ -1,4 +1,5 @@
-import type { Cart, OrdercloudCart, OrdercloudLineItem } from '../../types/cart'
+import type { Cart } from '@vercel/commerce/types/cart'
+import type { OrdercloudCart, OrdercloudLineItem } from '../../types/cart'
 
 export function formatCart(
   cart: OrdercloudCart,

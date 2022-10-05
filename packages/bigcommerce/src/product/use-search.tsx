@@ -1,6 +1,6 @@
 import { SWRHook } from '@vercel/commerce/utils/types'
 import useSearch, { UseSearch } from '@vercel/commerce/product/use-search'
-import type { SearchProductsHook } from '../types/product'
+import type { SearchProductsHook } from '@vercel/commerce/types/product'
 
 export default useSearch as UseSearch<typeof handler>
 

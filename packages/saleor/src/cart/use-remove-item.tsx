@@ -11,7 +11,7 @@ import useCart from './use-cart'
 import * as mutation from '../utils/mutations'
 import { getCheckoutId, checkoutToCart } from '../utils'
 import { Mutation, MutationCheckoutLineDeleteArgs } from '../../schema'
-import { LineItem, RemoveItemHook } from '../types/cart'
+import type { LineItem, RemoveItemHook } from '@vercel/commerce/types/cart'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
