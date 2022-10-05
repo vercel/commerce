@@ -56,6 +56,7 @@ export const normalizeError = (error: unknown) => {
     return {
       status: 400,
       data: null,
+      message: 'Validation error',
       errors: normalizeZodIssues(error.issues).map((message) => ({ message })),
     }
   }
