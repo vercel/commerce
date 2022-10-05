@@ -11,7 +11,7 @@ export const cartItemBodySchema = z.object({
 })
 
 export const addItemBodySchema = z.object({
-  cartId: z.string().optional(),
+  cartId: z.string(),
   item: cartItemBodySchema,
 })
 
