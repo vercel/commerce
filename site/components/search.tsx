@@ -50,7 +50,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
   const { data, error } = useSearch({
     search: typeof q === 'string' ? q : '',
     categoryId: activeCategory?.id,
-    brandId: (activeBrand as any)?.id,
+    brandId: activeBrand?.id,
     sort: typeof sort === 'string' ? sort : '',
     locale,
   })

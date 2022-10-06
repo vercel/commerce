@@ -139,10 +139,12 @@ export function normalizeCategory(category: BCCategory): Category {
 }
 
 export function normalizeBrand(brand: BCBrand): Brand {
+  const path = brand.node.path.replace('/brands/', '')
+  const slug = getSlug(path)
   return {
     id: `${brand.node.entityId}`,
     name: brand.node.name,
-    slug: getSlug(brand.node.path),
-    path: brand.node.path,
+    slug,
+    path: `/${slug}`,
   }
 }
