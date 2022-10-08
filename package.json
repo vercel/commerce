@@ -1,66 +1,23 @@
 {
-  "name": "ts-nextjs-tailwind-starter",
-  "version": "0.1.0",
+  "name": "commerce",
+  "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "eslint src --fix && yarn format",
-    "lint:strict": "eslint --max-warnings=0 src",
-    "typecheck": "tsc --noEmit --incremental false",
-    "test:watch": "jest --watch",
-    "test": "jest",
-    "format": "prettier -w .",
-    "format:check": "prettier -c .",
-    "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "prepare": "husky install"
-  },
-  "dependencies": {
-    "@headlessui/react": "^1.7.0",
-    "@heroicons/react": "^2.0.10",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "clsx": "^1.2.1",
-    "next": "^12.2.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0",
-    "tailwind-merge": "^1.6.0"
+    "build": "turbo run build --filter=next-commerce...",
+    "dev": "turbo run dev",
+    "start": "turbo run start",
+    "types": "turbo run types",
+    "prettier-fix": "prettier --write ."
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.3.0",
-    "@commitlint/config-conventional": "^16.2.4",
-    "@svgr/webpack": "^6.3.1",
-    "@tailwindcss/forms": "^0.5.3",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@types/react": "^18.0.18",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
-    "autoprefixer": "^10.4.8",
-    "eslint": "^8.23.0",
-    "eslint-config-next": "^12.2.5",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^7.0.4",
-    "jest": "^27.5.1",
-    "lint-staged": "^12.5.0",
-    "next-sitemap": "^2.5.28",
-    "postcss": "^8.4.16",
+    "husky": "^8.0.1",
     "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.1.13",
-    "tailwindcss": "^3.1.8",
-    "typescript": "^4.8.2"
+    "turbo": "^1.4.6"
   },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "eslint --max-warnings=0",
-      "prettier -w"
-    ],
-    "**/*.{json,css,scss,md}": [
-      "prettier -w"
-    ]
-  }
+  "husky": {
+    "hooks": {
+      "pre-commit": "turbo run lint"
+    }
+  },
+  "packageManager": "pnpm@7.5.0"
 }
