@@ -30,7 +30,7 @@ export default function getAllProductsOperation({
     const { fetch, locale } = commerce.getConfig(config)
 
     if (featured) {
-      variables = { ...variables, categoryId: 'Q29sbGVjdGlvbjo0' }
+      variables = { ...variables, categoryId: process.env.NEXT_PUBLIC_SALEOR_FEATURED_COLLECTION || 'Q29sbGVjdGlvbjo0' }
       query = Query.CollectionOne
     }
 
