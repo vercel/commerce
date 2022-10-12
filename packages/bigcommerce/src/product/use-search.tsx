@@ -6,8 +6,8 @@ export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
   search?: string
-  categoryId?: number | string
-  brandId?: number
+  categoryId?: string
+  brandId?: string
   sort?: string
   locale?: string
 }
@@ -24,7 +24,7 @@ export const handler: SWRHook<SearchProductsHook> = {
     if (search) url.searchParams.set('search', search)
     if (Number.isInteger(Number(categoryId)))
       url.searchParams.set('categoryId', String(categoryId))
-    if (Number.isInteger(brandId))
+    if (Number.isInteger(Number(brandId)))
       url.searchParams.set('brandId', String(brandId))
     if (sort) url.searchParams.set('sort', sort)
 
