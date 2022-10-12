@@ -42,6 +42,9 @@ const cartEndpoint: GetAPISchema<
   // Create or add an item to the cart
   if (req.method === 'POST') {
     const body = addItemBodySchema.parse({ ...input, cartId })
+    if (!body.item.quantity) {
+      body.item.quantity = 1
+    }
     output = await handlers['addItem']({ ...ctx, body })
   }
 
