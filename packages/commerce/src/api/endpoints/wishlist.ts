@@ -3,47 +3,57 @@ import type { WishlistSchema } from '../../types/wishlist'
 
 import validateHandlers from '../utils/validate-handlers'
 
+import { getInput } from '../utils'
 import {
-  getWishlistBodySchema,
+  wishlistSchema,
   addItemBodySchema,
   removeItemBodySchema,
+  getWishlistBodySchema,
 } from '../../schemas/whishlist'
+
+import parse from '../utils/parse-output'
 
 const wishlistEndpoint: GetAPISchema<
   any,
   WishlistSchema
->['endpoint']['handler'] = (ctx) => {
-  const { req, res, handlers, config } = ctx
+>['endpoint']['handler'] = async (ctx) => {
+  const { req, handlers, config } = ctx
 
-  validateHandlers(req, res, {
+  validateHandlers(req, {
     GET: handlers['getWishlist'],
     POST: handlers['addItem'],
     DELETE: handlers['removeItem'],
   })
 
+  let output
   const { cookies } = req
-  const customerToken = cookies[config.customerCookie]
+  const input = await getInput(req)
+
+  const customerToken = cookies.get(config.customerCookie)
+  const products = new URL(req.url).searchParams.get('products')
 
   // Return current wishlist info
   if (req.method === 'GET') {
     const body = getWishlistBodySchema.parse({
       customerToken,
-      includeProducts: !!req.query.products,
+      includeProducts: !!products,
     })
-    return handlers['getWishlist']({ ...ctx, body })
+    output = await handlers['getWishlist']({ ...ctx, body })
   }
 
   // Add an item to the wishlist
   if (req.method === 'POST') {
-    const body = addItemBodySchema.parse({ ...req.body, customerToken })
-    return handlers['addItem']({ ...ctx, body })
+    const body = addItemBodySchema.parse({ ...input, customerToken })
+    output = await handlers['addItem']({ ...ctx, body })
   }
 
   // Remove an item from the wishlist
   if (req.method === 'DELETE') {
-    const body = removeItemBodySchema.parse({ ...req.body, customerToken })
-    return handlers['removeItem']({ ...ctx, body })
+    const body = removeItemBodySchema.parse({ ...input, customerToken })
+    output = await handlers['removeItem']({ ...ctx, body })
   }
+
+  return output ? parse(output, wishlistSchema.optional()) : { status: 40 }
 }
 
 export default wishlistEndpoint

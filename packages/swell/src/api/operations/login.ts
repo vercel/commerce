@@ -1,9 +1,9 @@
-import type { ServerResponse } from 'http'
 import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
 import type { LoginOperation } from '@vercel/commerce/types/login'
+import type { NextResponse } from 'next/server'
 import { Provider, SwellConfig } from '..'
 
 export default function loginOperation({
@@ -12,14 +12,14 @@ export default function loginOperation({
   async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: Partial<SwellConfig>
-    res: ServerResponse
+    res: NextResponse
   }): Promise<T['data']>
 
   async function login<T extends LoginOperation>(
     opts: {
       variables: T['variables']
       config?: Partial<SwellConfig>
-      res: ServerResponse
+      res: NextResponse
     } & OperationOptions
   ): Promise<T['data']>
 
@@ -30,7 +30,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: T['variables']
-    res: ServerResponse
+    res: NextResponse
     config?: Partial<SwellConfig>
   }): Promise<T['data']> {
     const config = commerce.getConfig(cfg)

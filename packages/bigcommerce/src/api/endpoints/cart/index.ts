@@ -1,4 +1,4 @@
-import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
+import { type GetAPISchema, createEndpoint } from '@vercel/commerce/api'
 import cartEndpoint from '@vercel/commerce/api/endpoints/cart'
 import type { CartSchema } from '@vercel/commerce/types/cart'
 import type { BigcommerceAPI } from '../..'
@@ -19,7 +19,6 @@ export const handlers: CartEndpoint['handlers'] = {
 }
 
 const cartApi = createEndpoint<CartAPI>({
-  /* @ts-ignore */
   handler: cartEndpoint,
   handlers,
 })

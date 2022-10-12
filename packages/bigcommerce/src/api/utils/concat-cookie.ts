@@ -1,4 +1,4 @@
-type Header = string | number | string[] | undefined
+type Header = string | number | string[] | undefined | null
 
 export default function concatHeader(prev: Header, val: Header) {
   if (!val) return prev

@@ -1,25 +1,38 @@
-import { searchProductBodySchema } from '../../../schemas/product'
 import type { GetAPISchema } from '../..'
 import type { ProductsSchema } from '../../../types/product'
 
 import validateHandlers from '../../utils/validate-handlers'
+import {
+  searchProductBodySchema,
+  searchProductsSchema,
+} from '../../../schemas/product'
+import parse from '../../utils/parse-output'
 
 const productsEndpoint: GetAPISchema<
   any,
   ProductsSchema
->['endpoint']['handler'] = (ctx) => {
-  const { req, res, handlers } = ctx
+>['endpoint']['handler'] = async (ctx) => {
+  const { req, handlers } = ctx
 
-  validateHandlers(req, res, { GET: handlers['getProducts'] })
+  validateHandlers(req, { GET: handlers['getProducts'] })
+  const { searchParams } = new URL(req.url)
 
   const body = searchProductBodySchema.parse({
-    search: req.query.search,
-    categoryId: req.query.categoryId,
-    brandId: req.query.brandId,
-    sort: req.query.sort,
+    search: searchParams.get('search') ?? undefined,
+    categoryId: searchParams.get('categoryId') ?? undefined,
+    brandId: searchParams.get('brandId') ?? undefined,
+    sort: searchParams.get('sort') ?? undefined,
   })
 
-  return handlers['getProducts']({ ...ctx, body })
+  const res = await handlers['getProducts']({ ...ctx, body })
+
+  res.headers = {
+    'Cache-Control':
+      'max-age=0, s-maxage=3600, stale-while-revalidate=60, public',
+    ...res.headers,
+  }
+
+  return parse(res, searchProductsSchema)
 }
 
 export default productsEndpoint

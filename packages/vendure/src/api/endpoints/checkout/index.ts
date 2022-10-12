@@ -1,15 +1,9 @@
-import { NextApiHandler } from 'next'
 import { CommerceAPI, createEndpoint, GetAPISchema } from '@vercel/commerce/api'
 import { CheckoutSchema } from '@vercel/commerce/types/checkout'
 import checkoutEndpoint from '@vercel/commerce/api/endpoints/checkout'
 
-const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
-  req,
-  res,
-  config,
-}) => {
-  try {
-    const html = `
+const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async () => {
+  const html = `
       <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -31,16 +25,11 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       </html>
     `
 
-    res.status(200)
-    res.setHeader('Content-Type', 'text/html')
-    res.write(html)
-    res.end()
-  } catch (error) {
-    console.error(error)
-
-    const message = 'An unexpected error ocurred'
-
-    res.status(500).json({ data: null, errors: [{ message }] })
+  return {
+    html,
+    headers: {
+      'Content-Type': 'text/html',
+    },
   }
 }
 

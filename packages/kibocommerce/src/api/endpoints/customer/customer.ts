@@ -2,35 +2,32 @@ import CookieHandler from '../../../api/utils/cookie-handler'
 import type { CustomerEndpoint } from '.'
 import { getCustomerAccountQuery } from '../../queries/get-customer-account-query'
 import { normalizeCustomer } from '../../../lib/normalize'
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
 
-const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] = async ({
-  req,
-  res,
-  config,
-}) => {
-  const cookieHandler = new CookieHandler(config, req, res)
-  let accessToken = cookieHandler.getAccessToken();
+const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
+  async ({ req, config }) => {
+    const cookieHandler = new CookieHandler(config, req)
+    let accessToken = cookieHandler.getAccessToken()
 
-  if (!cookieHandler.isShopperCookieAnonymous()) {
-    const { data } = await config.fetch(getCustomerAccountQuery, undefined, {
-      headers: {
-        'x-vol-user-claims': accessToken,
-      },
-    })
-
-    const customer = normalizeCustomer(data?.customerAccount)
-    
-    if (!customer.id) {
-      return res.status(400).json({
-        data: null,
-        errors: [{ message: 'Customer not found', code: 'not_found' }],
+    if (!cookieHandler.isShopperCookieAnonymous()) {
+      const { data } = await config.fetch(getCustomerAccountQuery, undefined, {
+        headers: {
+          'x-vol-user-claims': accessToken,
+        },
       })
+
+      const customer = normalizeCustomer(data?.customerAccount)
+
+      if (!customer.id) {
+        throw new CommerceAPIError('Customer not found', {
+          status: 404,
+        })
+      }
+
+      return { data: { customer } }
     }
 
-    return res.status(200).json({ data: { customer } })
+    return { data: null }
   }
-
-  res.status(200).json({ data: null })
-}
 
 export default getLoggedInCustomer

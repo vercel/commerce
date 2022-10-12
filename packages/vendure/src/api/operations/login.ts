@@ -1,4 +1,3 @@
-import type { ServerResponse } from 'http'
 import type {
   OperationContext,
   OperationOptions,
@@ -8,6 +7,7 @@ import type { LoginOperation } from '@vercel/commerce/types/login'
 import type { LoginMutation } from '../../../schema'
 import { Provider, VendureConfig } from '..'
 import { loginMutation } from '../../utils/mutations/log-in-mutation'
+import type { NextResponse } from 'next/server'
 
 export default function loginOperation({
   commerce,
@@ -15,14 +15,14 @@ export default function loginOperation({
   async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: Partial<VendureConfig>
-    res: ServerResponse
+    res: NextResponse
   }): Promise<T['data']>
 
   async function login<T extends LoginOperation>(
     opts: {
       variables: T['variables']
       config?: Partial<VendureConfig>
-      res: ServerResponse
+      res: NextResponse
     } & OperationOptions
   ): Promise<T['data']>
 
@@ -34,7 +34,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: T['variables']
-    res: ServerResponse
+    res: NextResponse
     config?: Partial<VendureConfig>
   }): Promise<T['data']> {
     const config = commerce.getConfig(cfg)

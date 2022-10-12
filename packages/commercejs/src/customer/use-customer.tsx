@@ -1,11 +1,18 @@
 import Cookies from 'js-cookie'
-import { decode } from 'jsonwebtoken'
+import {
+  decode,
+  type JwtData as CoreJwtData,
+} from '@tsndr/cloudflare-worker-jwt'
 import { SWRHook } from '@vercel/commerce/utils/types'
 import useCustomer, {
   UseCustomer,
 } from '@vercel/commerce/customer/use-customer'
 import { CUSTOMER_COOKIE, API_URL } from '../constants'
 import type { CustomerHook } from '@vercel/commerce/types/customer'
+
+type JwtData = CoreJwtData & {
+  cid: string
+}
 
 export default useCustomer as UseCustomer<typeof handler>
 export const handler: SWRHook<CustomerHook> = {
@@ -20,7 +27,8 @@ export const handler: SWRHook<CustomerHook> = {
       return null
     }
 
-    const decodedToken = decode(token) as { cid: string }
+    const decodedToken = decode(token) as JwtData
+
     const customer = await fetch<any>({
       query: options.query,
       method: options.method,

@@ -31,7 +31,7 @@ const UserNav: React.FC<{
     openSidebar,
   } = useUI()
 
-  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  const itemsCount = data?.lineItems?.reduce(countItem, 0) ?? 0
   const DropdownTrigger = isCustomerLoggedIn
     ? DropdownTriggerInst
     : React.Fragment

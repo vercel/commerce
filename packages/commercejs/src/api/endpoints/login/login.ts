@@ -5,28 +5,31 @@ import type { LoginEndpoint } from '.'
 
 const login: LoginEndpoint['handlers']['login'] = async ({
   req,
-  res,
   config: { sdkFetch, customerCookie },
 }) => {
   const sdkFetcher: typeof sdkFetcherFunction = sdkFetch
   const redirectUrl = getDeploymentUrl()
+  const { searchParams } = new URL(req.url)
   try {
-    const loginToken = req.query?.token as string
+    const loginToken = searchParams.get('token')
+
     if (!loginToken) {
-      res.redirect(redirectUrl)
+      return { redirectTo: redirectUrl }
     }
     const { jwt } = await sdkFetcher('customer', 'getToken', loginToken, false)
-    res.setHeader(
-      'Set-Cookie',
-      serialize(customerCookie, jwt, {
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 60 * 60 * 24,
-        path: '/',
-      })
-    )
-    res.redirect(redirectUrl)
+
+    return {
+      redirectTo: redirectUrl,
+      headers: {
+        'Set-Cookie': serialize(customerCookie, jwt, {
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 60 * 60 * 24,
+          path: '/',
+        }),
+      },
+    }
   } catch {
-    res.redirect(redirectUrl)
+    return { redirectTo: redirectUrl }
   }
 }
 

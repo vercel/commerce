@@ -1,22 +1,21 @@
 import type { CheckoutEndpoint } from '.'
 import getCustomerId from '../../utils/get-customer-id'
-import jwt from 'jsonwebtoken'
-import { uuid } from 'uuidv4'
+import jwt from '@tsndr/cloudflare-worker-jwt'
+import { uuid } from '@cfworker/uuid'
+import { NextResponse } from 'next/server'
 
 const fullCheckout = true
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
-  res,
   config,
 }) => {
   const { cookies } = req
-  const cartId = cookies[config.cartCookie]
-  const customerToken = cookies[config.customerCookie]
+  const cartId = cookies.get(config.cartCookie)
+  const customerToken = cookies.get(config.customerCookie)
 
   if (!cartId) {
-    res.redirect('/cart')
-    return
+    return { redirectTo: '/cart' }
   }
 
   const { data } = await config.storeApiFetch<any>(
@@ -31,8 +30,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   //if there is a customer create a jwt token
   if (!customerId) {
     if (fullCheckout) {
-      res.redirect(data.checkout_url)
-      return
+      return { redirectTo: data.checkout_url }
     }
   } else {
     const dateCreated = Math.round(new Date().getTime() / 1000)
@@ -50,10 +48,9 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       algorithm: 'HS256',
     })
     let checkouturl = `${config.storeUrl}/login/token/${token}`
-    console.log('checkouturl', checkouturl)
+
     if (fullCheckout) {
-      res.redirect(checkouturl)
-      return
+      return { redirectTo: checkouturl }
     }
   }
 
@@ -83,10 +80,11 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
        </html>
      `
 
-  res.status(200)
-  res.setHeader('Content-Type', 'text/html')
-  res.write(html)
-  res.end()
+  return new NextResponse(html, {
+    headers: {
+      'Content-Type': 'text/html',
+    },
+  })
 }
 
 export default getCheckout

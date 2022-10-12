@@ -1,5 +1,6 @@
 import type { GetLoggedInCustomerQuery } from '../../../../schema'
 import type { CustomerEndpoint } from '.'
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
 
 export const getLoggedInCustomerQuery = /* GraphQL */ `
   query getLoggedInCustomer {
@@ -25,29 +26,26 @@ export const getLoggedInCustomerQuery = /* GraphQL */ `
 export type Customer = NonNullable<GetLoggedInCustomerQuery['customer']>
 
 const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
-  async ({ req, res, config }) => {
-    const token = req.cookies[config.customerCookie]
+  async ({ req, config }) => {
+    const token = req.cookies.get(config.customerCookie)
 
     if (token) {
       const { data } = await config.fetch<GetLoggedInCustomerQuery>(
         getLoggedInCustomerQuery,
         undefined,
         {
-          headers: {
-            cookie: `${config.customerCookie}=${token}`,
-          },
+          'Set-Cookie': `${config.customerCookie}=${token}`,
         }
       )
       const { customer } = data
 
       if (!customer) {
-        return res.status(400).json({
-          data: null,
-          errors: [{ message: 'Customer not found', code: 'not_found' }],
+        throw new CommerceAPIError('Customer not found', {
+          status: 404,
         })
       }
 
-      return res.status(200).json({
+      return {
         data: {
           customer: {
             id: String(customer.entityId),
@@ -59,10 +57,12 @@ const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
             notes: customer.notes,
           },
         },
-      })
+      }
     }
 
-    res.status(200).json({ data: null })
+    return {
+      data: null,
+    }
   }
 
 export default getLoggedInCustomer

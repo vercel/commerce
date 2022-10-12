@@ -1,5 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import isAllowedMethod, { HTTP_METHODS } from './is-allowed-method'
+import type { NextRequest } from 'next/server'
+
+import validateMethod, { HTTP_METHODS } from './validate-method'
 import { APIHandler } from './types'
 
 /**
@@ -11,8 +12,7 @@ import { APIHandler } from './types'
  * @throws Error when the method is not allowed or the handler is not implemented.
  */
 export default function validateHandlers(
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextRequest,
   allowedOperations: { [k in HTTP_METHODS]?: APIHandler<any, any> }
 ) {
   const methods = Object.keys(allowedOperations) as HTTP_METHODS[]
@@ -23,7 +23,5 @@ export default function validateHandlers(
     return arr
   }, [])
 
-  if (!isAllowedMethod(req, res, allowedMethods)) {
-    throw new Error(`Method ${req.method} Not Allowed for this url: ${req.url}`)
-  }
+  return validateMethod(req, allowedMethods)
 }

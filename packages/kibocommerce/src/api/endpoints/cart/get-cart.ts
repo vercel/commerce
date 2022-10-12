@@ -6,17 +6,17 @@ import { getCartQuery } from '../../queries/get-cart-query'
 
 const getCart: CartEndpoint['handlers']['getCart'] = async ({
   req,
-  res,
-  body: { cartId },
   config,
 }) => {
   let currentCart: Cart = {}
+  let headers
   try {
-    const cookieHandler = new CookieHandler(config, req, res)
+    const cookieHandler = new CookieHandler(config, req)
     let accessToken = null
 
     if (!cookieHandler.getAccessToken()) {
-      let anonymousShopperTokenResponse = await cookieHandler.getAnonymousToken()
+      let anonymousShopperTokenResponse =
+        await cookieHandler.getAnonymousToken()
       const response = anonymousShopperTokenResponse.response
       accessToken = anonymousShopperTokenResponse.accessToken
       cookieHandler.setAnonymousShopperCookie(response)
@@ -30,12 +30,14 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
       { headers: { 'x-vol-user-claims': accessToken } }
     )
     currentCart = result?.data?.currentCart
+    headers = cookieHandler.headers
   } catch (error) {
     throw error
   }
-  res.status(200).json({
+
+  return {
     data: currentCart ? normalizeCart(currentCart) : null,
-  })
+  }
 }
 
 export default getCart

@@ -5,17 +5,10 @@ import updateCartItemQuantityMutation from '../../../api/mutations/updateCartIte
 
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   req,
-  res,
-  body: { cartId, itemId, item },
+  body: { itemId, item },
   config,
 }) => {
-  if (!itemId || !item) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
-  }
-  const encodedToken = req.cookies[config.customerCookie]
+  const encodedToken = req.cookies.get(config.cartCookie)
   const token = encodedToken
     ? Buffer.from(encodedToken, 'base64').toString('ascii')
     : null
@@ -39,7 +32,8 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
     )
     currentCart = result?.data?.currentCart
   }
-  res.status(200).json({ data: normalizeCart(currentCart) })
+
+  return { data: normalizeCart(currentCart) }
 }
 
 export default updateItem

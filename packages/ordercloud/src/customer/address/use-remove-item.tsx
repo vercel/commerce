@@ -17,7 +17,7 @@ import useRemoveItem, {
 import useAddresses from './use-addresses'
 
 export type RemoveItemFn<T = any> = T extends Address
-  ? (input?: RemoveItemActionInput<T>) => Promise<Address | null | undefined>
+  ? (input?: RemoveItemActionInput<T>) => Promise<Address | null>
   : (input: RemoveItemActionInput<T>) => Promise<Address | null>
 
 export type RemoveItemActionInput<T = any> = T extends Address

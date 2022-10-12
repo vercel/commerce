@@ -48,7 +48,7 @@ export interface CheckoutBody {
 }
 
 export type SubmitCheckoutHook = {
-  data: Checkout
+  data: Checkout | null
   input?: CheckoutBody
   fetcherInput: CheckoutBody
   body: { item: CheckoutBody }

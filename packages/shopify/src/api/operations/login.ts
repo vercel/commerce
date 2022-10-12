@@ -1,4 +1,3 @@
-import type { ServerResponse } from 'http'
 import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { LoginOperation } from '@vercel/commerce/types/login'
 import type { ShopifyConfig, Provider } from '..'
@@ -8,6 +7,7 @@ import {
   throwUserErrors,
 } from '../../utils'
 import { CustomerAccessTokenCreateMutation } from '../../../schema'
+import type { NextResponse } from 'next/server'
 
 export default function loginOperation({
   commerce,
@@ -19,7 +19,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: T['variables']
-    res: ServerResponse
+    res: NextResponse
     config?: ShopifyConfig
   }): Promise<T['data']> {
     config = commerce.getConfig(config)

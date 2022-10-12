@@ -1,19 +1,35 @@
-import type { Response } from '@vercel/fetch'
+import { NextRequest, NextResponse } from 'next/server'
 import { CommerceError } from '../../utils/errors'
-
 import { ZodError } from 'zod'
 
-export class CommerceAPIError extends Error {
+export class CommerceAPIResponseError extends Error {
   status: number
-  res: Response
+  res: NextResponse
   data: any
 
-  constructor(msg: string, res: Response, data?: any) {
+  constructor(msg: string, res: NextResponse, data?: any) {
     super(msg)
     this.name = 'CommerceApiError'
     this.status = res.status
     this.res = res
     this.data = data
+  }
+}
+
+export class CommerceAPIError extends Error {
+  status: number
+  code: string
+  constructor(
+    msg: string,
+    options?: {
+      status?: number
+      code?: string
+    }
+  ) {
+    super(msg)
+    this.name = 'CommerceApiError'
+    this.status = options?.status || 500
+    this.code = options?.code || 'api_error'
   }
 }
 
@@ -25,7 +41,7 @@ export class CommerceNetworkError extends Error {
 }
 
 export const normalizeZodIssues = (issues: ZodError['issues']) =>
-  issues.map(({ path, message }) => `${message} at "${path.join('.')}"`)
+  issues.map(({ path, message }) => `${message} at "${path.join('.')}" field`)
 
 export const getOperationError = (operation: string, error: unknown) => {
   if (error instanceof ZodError) {
@@ -41,29 +57,41 @@ export const getOperationError = (operation: string, error: unknown) => {
   return error
 }
 
-export const normalizeError = (error: unknown) => {
-  if (error instanceof CommerceAPIError) {
-    return {
-      status: error.status || 500,
-      data: error.data || null,
-      errors: [
-        { message: 'An unexpected error ocurred with the Commerce API' },
-      ],
-    }
+export const normalizeApiError = (error: unknown, req?: NextRequest) => {
+  if (error instanceof CommerceAPIResponseError && error.res) {
+    return error.res
   }
 
+  req?.url && console.log(req.url)
+
   if (error instanceof ZodError) {
+    const message = 'Validation error, please check the input data!'
+    const errors = normalizeZodIssues(error.issues).map((message) => ({
+      message,
+    }))
+    console.error(`${message}\n${errors.map((e) => e.message).join('\n')}`)
     return {
       status: 400,
       data: null,
-      message:
-        'Validation error, please check the input data check errors property for more info',
-      errors: normalizeZodIssues(error.issues).map((message) => ({ message })),
+      errors,
+    }
+  }
+
+  console.error(error)
+
+  if (error instanceof CommerceAPIError) {
+    return {
+      errors: [
+        {
+          message: error.message,
+          code: error.code,
+        },
+      ],
+      status: error.status,
     }
   }
 
   return {
-    status: 500,
     data: null,
     errors: [{ message: 'An unexpected error ocurred' }],
   }

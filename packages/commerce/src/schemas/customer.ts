@@ -4,6 +4,22 @@ export const getCustomerAddressBodySchema = z.object({
   cartId: z.string(),
 })
 
+export const customerSchema = z.object({
+  id: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  company: z.string().optional(),
+  notes: z.string().optional(),
+  acceptsMarketing: z.boolean().optional(),
+})
+
+export const addressSchema = z.object({
+  id: z.string(),
+  mask: z.string(),
+})
+
 export const addressFieldsSchema = z.object({
   type: z.string(),
   firstName: z.string(),
@@ -44,6 +60,11 @@ export const cardFieldsSchema = z.object({
   zipCode: z.string(),
   city: z.string(),
   country: z.string(),
+})
+
+export const cardSchema = z.object({
+  id: z.string(),
+  mask: z.string(),
 })
 
 export const addCardBodySchema = z.object({

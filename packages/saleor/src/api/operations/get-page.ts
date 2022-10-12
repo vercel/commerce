@@ -28,9 +28,7 @@ export default function getPageOperation({
       { variables },
       {
         ...(locale && {
-          headers: {
-            'Accept-Language': locale,
-          },
+          'Accept-Language': locale,
         }),
       }
     )

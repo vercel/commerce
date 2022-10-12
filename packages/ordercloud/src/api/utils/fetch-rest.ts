@@ -1,11 +1,7 @@
-import vercelFetch from '@vercel/fetch'
 import { FetcherError } from '@vercel/commerce/utils/errors'
-import { CustomNodeJsGlobal } from '../../types/node'
-
 import { OrdercloudConfig } from '../index'
 
-// Get an instance to vercel fetch
-const fetch = vercelFetch()
+export let token: string | null = null
 
 // Get token util
 async function getToken({
@@ -16,7 +12,12 @@ async function getToken({
   baseUrl: string
   clientId: string
   clientSecret?: string
-}): Promise<string> {
+}): Promise<{
+  access_token: string
+  expires_in: number
+  refresh_token: string
+  token_type: string
+}> {
   // If not, get a new one and store it
   const authResponse = await fetch(`${baseUrl}/oauth/token`, {
     method: 'POST',
@@ -42,9 +43,7 @@ async function getToken({
   }
 
   // Return the token
-  return authResponse
-    .json()
-    .then((response: { access_token: string }) => response.access_token)
+  return authResponse.json()
 }
 
 export async function fetchData<T>(opts: {
@@ -77,11 +76,10 @@ export async function fetchData<T>(opts: {
   // If something failed getting the data response
   if (!dataResponse.ok) {
     // Get the body of it
-    const error = await dataResponse.textConverted()
-
+    const error = await dataResponse.json()
     // And return an error
     throw new FetcherError({
-      errors: [{ message: error || dataResponse.statusText }],
+      errors: error.Errors,
       status: dataResponse.status,
     })
   }
@@ -94,42 +92,6 @@ export async function fetchData<T>(opts: {
     return null as unknown as Promise<T>
   }
 }
-
-export const createMiddlewareFetcher: (
-  getConfig: () => OrdercloudConfig
-) => <T>(
-  method: string,
-  path: string,
-  body?: Record<string, unknown>,
-  fetchOptions?: Record<string, any>
-) => Promise<T> =
-  (getConfig) =>
-  async <T>(
-    method: string,
-    path: string,
-    body?: Record<string, unknown>,
-    fetchOptions?: Record<string, any>
-  ) => {
-    // Get provider config
-    const config = getConfig()
-
-    // Get a token
-    const token = await getToken({
-      baseUrl: config.commerceUrl,
-      clientId: process.env.ORDERCLOUD_MIDDLEWARE_CLIENT_ID as string,
-      clientSecret: process.env.ORDERCLOUD_MIDDLEWARE_CLIENT_SECRET,
-    })
-
-    // Return the data and specify the expected type
-    return fetchData<T>({
-      token,
-      fetchOptions,
-      method,
-      config,
-      path,
-      body,
-    })
-  }
 
 export const createBuyerFetcher: (
   getConfig: () => OrdercloudConfig
@@ -146,27 +108,27 @@ export const createBuyerFetcher: (
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
   ) => {
-    const customGlobal = global as unknown as CustomNodeJsGlobal
+    if (fetchOptions?.token) {
+      token = fetchOptions?.token
+    }
 
     // Get provider config
     const config = getConfig()
 
-    // If a token was passed, set it on global
-    if (fetchOptions?.token) {
-      customGlobal.token = fetchOptions.token
-    }
+    let meta: any = {}
 
-    // Get a token
-    if (!customGlobal.token) {
-      customGlobal.token = await getToken({
+    if (!token) {
+      const newToken = await getToken({
         baseUrl: config.commerceUrl,
         clientId: process.env.ORDERCLOUD_BUYER_CLIENT_ID as string,
       })
+      token = newToken.access_token
+      meta.token = newToken
     }
 
     // Return the data and specify the expected type
     const data = await fetchData<T>({
-      token: customGlobal.token as string,
+      token,
       fetchOptions,
       config,
       method,
@@ -176,6 +138,6 @@ export const createBuyerFetcher: (
 
     return {
       ...data,
-      meta: { token: customGlobal.token as string },
+      meta,
     }
   }

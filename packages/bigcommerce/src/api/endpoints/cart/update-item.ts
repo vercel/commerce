@@ -1,14 +1,15 @@
+import type { CartEndpoint } from '.'
+import type { BigcommerceCart } from '../../../types'
+
 import { normalizeCart } from '../../../lib/normalize'
 import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'
-import type { CartEndpoint } from '.'
 
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
-  res,
   body: { cartId, itemId, item },
   config,
 }) => {
-  const { data } = await config.storeApiFetch<{ data?: any }>(
+  const { data } = await config.storeApiFetch<{ data: BigcommerceCart }>(
     `/v3/carts/${cartId}/items/${itemId}?include=line_items.physical_items.options`,
     {
       method: 'PUT',
@@ -18,12 +19,16 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
     }
   )
 
-  // Update the cart cookie
-  res.setHeader(
-    'Set-Cookie',
-    getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
-  )
-  res.status(200).json({ data: normalizeCart(data) })
+  return {
+    data: normalizeCart(data),
+    headers: {
+      'Set-Cookie': getCartCookie(
+        config.cartCookie,
+        cartId,
+        config.cartCookieMaxAge
+      ),
+    },
+  }
 }
 
 export default updateItem

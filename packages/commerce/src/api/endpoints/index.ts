@@ -1,74 +1,80 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import type { APIProvider, CommerceAPI } from '..'
+import type { APIProvider, CommerceAPI, EndpointHandler } from '..'
 
-import { normalizeError } from '../utils/errors'
+import { NextRequest, NextResponse } from 'next/server'
+import { normalizeApiError } from '../utils/errors'
 
 /**
- * Handles the catch-all api endpoint for the Commerce API.
+ * Next.js Commerce API endpoints handler. Based on the path, it will call the corresponding endpoint handler,
+ * exported from the `endpoints` folder of the provider.
  * @param {CommerceAPI} commerce The Commerce API instance.
  * @param endpoints An object containing the handlers for each endpoint.
- * @returns JSON response with the data or error.
  */
 export default function createEndpoints<P extends APIProvider>(
   commerce: CommerceAPI<P>,
-  endpoints: {
-    [key: string]: (commerce: CommerceAPI<P>) => NextApiHandler
-  }
+  endpoints: Record<string, (commerce: CommerceAPI<P>) => EndpointHandler>
 ) {
-  const paths = Object.keys(endpoints)
-
-  const handlers = paths.reduce<Record<string, NextApiHandler>>(
-    (acc, path) =>
+  const endpointsKeys = Object.keys(endpoints)
+  const handlers = endpointsKeys.reduce<Record<string, EndpointHandler>>(
+    (acc, endpoint) =>
       Object.assign(acc, {
-        [path]: endpoints[path](commerce),
+        [endpoint]: endpoints[endpoint](commerce),
       }),
     {}
   )
 
-  return async (req: NextApiRequest, res: NextApiResponse) => {
+  return async (req: NextRequest) => {
     try {
-      if (!req.query.commerce) {
-        throw new Error(
-          'Invalid configuration. Please make sure that the /pages/api/commerce/[[...commerce]].ts route is configured correctly, and it passes the commerce instance.'
-        )
-      }
+      const { pathname } = new URL(req.url)
 
       /**
-       * Get the url path
+       * Get the current endpoint by removing the leading and trailing slash & base path.
+       * Csovers: /api/commerce/cart & /checkout
        */
-      const path = Array.isArray(req.query.commerce)
-        ? req.query.commerce.join('/')
-        : req.query.commerce
+      const endpoint = pathname
+        .replace('/api/commerce/', '')
+        .replace(/^\/|\/$/g, '')
 
       // Check if the handler for this path exists and return a 404 if it doesn't
-      if (!paths.includes(path)) {
+      if (!endpointsKeys.includes(endpoint)) {
         throw new Error(
-          `Endpoint handler not implemented. Please use one of the available api endpoints: ${paths.join(
+          `Endpoint "${endpoint}" not implemented. Please use one of the available api endpoints: ${endpointsKeys.join(
             ', '
           )}`
         )
       }
 
-      const data = await handlers[path](req, res)
-      // If the handler returns a value but the response hasn't been sent yet, send it
-      if (!res.headersSent && data) {
-        res.status(200).json({
-          data,
-        })
-      }
-    } catch (error) {
       /**
-       * Return the error as a JSON response only if the response hasn't been sent yet
-       * Eg. by the `isAllowedMethod` util returning a 405 status code
+       * Executes the handler for this endpoint, provided by the provider,
+       * parses the input body and returns the parsed output
        */
-      if (!res.headersSent) {
-        console.error(error)
-        const { status, data, errors } = normalizeError(error)
-        res.status(status).json({
-          data,
-          errors,
+      const output = await handlers[endpoint](req)
+
+      // If the output is a NextResponse, return it directly (E.g. checkout page & validateMethod util)
+      if (output instanceof NextResponse) {
+        return output
+      }
+
+      // If the output contains a redirectTo property, return a NextResponse with the redirect
+      if (output.redirectTo) {
+        return NextResponse.redirect(output.redirectTo, {
+          headers: output.headers,
         })
       }
+
+      const { data = null, errors, status, headers } = output
+
+      return NextResponse.json(
+        { data, errors },
+        {
+          status,
+          headers,
+        }
+      )
+    } catch (error) {
+      const output = normalizeApiError(error)
+      return output instanceof NextResponse
+        ? output
+        : NextResponse.json(output, { status: output.status ?? 500 })
     }
   }
 }

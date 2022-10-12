@@ -1,54 +1,68 @@
 import type { CustomerCardSchema } from '../../../types/customer/card'
 import type { GetAPISchema } from '../..'
 
+import { z } from 'zod'
+
+import parse from '../../utils/parse-output'
 import validateHandlers from '../../utils/validate-handlers'
 
 import {
+  cardSchema,
   addCardBodySchema,
   deleteCardBodySchema,
   updateCardBodySchema,
 } from '../../../schemas/customer'
+import { getInput } from '../../utils'
 
 const customerCardEndpoint: GetAPISchema<
   any,
   CustomerCardSchema
->['endpoint']['handler'] = (ctx) => {
-  const { req, res, handlers, config } = ctx
+>['endpoint']['handler'] = async (ctx) => {
+  const { req, handlers, config } = ctx
 
-  validateHandlers(req, res, {
+  validateHandlers(req, {
     GET: handlers['getCards'],
     POST: handlers['addItem'],
     PUT: handlers['updateItem'],
     DELETE: handlers['removeItem'],
   })
+
+  let output
+  const input = await getInput(req)
   const { cookies } = req
 
   // Cart id might be usefull for anonymous shopping
-  const cartId = cookies[config.cartCookie]
+  const cartId = cookies.get(config.cartCookie)
 
   // Create or add a card
   if (req.method === 'GET') {
-    const body = { ...req.body }
-    return handlers['getCards']({ ...ctx, body })
+    const body = { ...input }
+    return parse(
+      await handlers['getCards']({ ...ctx, body }),
+      z.array(cardSchema).optional()
+    )
   }
 
   // Create or add an item to customer cards
   if (req.method === 'POST') {
-    const body = addCardBodySchema.parse({ ...req.body, cartId })
-    return handlers['addItem']({ ...ctx, body })
+    const body = addCardBodySchema.parse({ ...input, cartId })
+    output = await handlers['addItem']({ ...ctx, body })
   }
 
   // Update item in customer cards
   if (req.method === 'PUT') {
-    const body = updateCardBodySchema.parse({ ...req.body, cartId })
-    return handlers['updateItem']({ ...ctx, body })
+    const body = updateCardBodySchema.parse({ ...input, cartId })
+    output = await handlers['updateItem']({ ...ctx, body })
   }
 
   // Remove an item from customer cards
   if (req.method === 'DELETE') {
-    const body = deleteCardBodySchema.parse({ ...req.body, cartId })
-    return handlers['removeItem']({ ...ctx, body })
+    const body = deleteCardBodySchema.parse({ ...input, cartId })
+
+    return await handlers['removeItem']({ ...ctx, body })
   }
+
+  return output ? parse(output, cardSchema.nullish()) : { status: 405 }
 }
 
 export default customerCardEndpoint

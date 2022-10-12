@@ -1,13 +1,14 @@
-import { normalize as normalizeProduct } from '../../../../utils/product'
 import { ProductsEndpoint } from '.'
+import { normalize as normalizeProduct } from '../../../../utils/product'
 
 // Get products for the product list page. Search and category filter implemented. Sort and brand filter not implemented.
 const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
   req,
-  res,
-  body: { search, categoryId, brandId, sort },
-  config: { restBuyerFetch, cartCookie, tokenCookie },
+  body: { search, categoryId },
+  config: { restBuyerFetch, tokenCookie },
 }) => {
+  const token = req.cookies.get(tokenCookie)
+
   //Use a dummy base as we only care about the relative path
   const url = new URL('/me/products', 'http://a')
 
@@ -18,20 +19,19 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
     url.searchParams.set('categoryID', String(categoryId))
   }
 
-  // Get token from cookies
-  const token = req.cookies[tokenCookie]
-
   var rawProducts = await restBuyerFetch(
     'GET',
     url.pathname + url.search,
     null,
     { token }
-  )
+  ).then((response: { Items: any[] }) => response.Items)
 
-  const products = rawProducts.Items.map(normalizeProduct)
-  const found = rawProducts?.Items?.length > 0
-
-  res.status(200).json({ data: { products, found } })
+  return {
+    data: {
+      products: rawProducts.map(normalizeProduct),
+      found: rawProducts?.length > 0,
+    },
+  }
 }
 
 export default getProducts

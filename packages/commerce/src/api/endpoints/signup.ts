@@ -1,23 +1,27 @@
 import type { GetAPISchema } from '..'
 import type { SignupSchema } from '../../types/signup'
 
-import { signupBodySchema } from '../../schemas/auth'
-
 import validateHandlers from '../utils/validate-handlers'
 
-const signupEndpoint: GetAPISchema<any, SignupSchema>['endpoint']['handler'] = (
-  ctx
-) => {
-  const { req, res, handlers, config } = ctx
+import { getInput } from '../utils'
+import { signupBodySchema } from '../../schemas/auth'
 
-  validateHandlers(req, res, {
+const signupEndpoint: GetAPISchema<
+  any,
+  SignupSchema
+>['endpoint']['handler'] = async (ctx) => {
+  const { req, handlers, config } = ctx
+
+  validateHandlers(req, {
     POST: handlers['signup'],
   })
-  const { cookies } = req
-  const cartId = cookies[config.cartCookie]
 
-  const body = signupBodySchema.parse({ ...req.body, cartId })
-  return handlers['signup']({ ...ctx, body })
+  const input = await getInput(req)
+  const { cookies } = req
+  const cartId = cookies.get(config.cartCookie)
+
+  const body = signupBodySchema.parse({ ...input, cartId })
+  return await handlers['signup']({ ...ctx, body })
 }
 
 export default signupEndpoint

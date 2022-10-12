@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import cn from 'clsx'
 
 interface ErrorMessageProps {
   error: {
@@ -8,14 +9,20 @@ interface ErrorMessageProps {
       message: string
     }[]
   }
+  className?: string
 }
 
-const ErrorMessages: FC<ErrorMessageProps> = ({ error }) => {
+const ErrorMessages: FC<ErrorMessageProps> = ({ error, className }) => {
   return (
-    <div className="flex flex-col text-red p-5 m-5 border border-solid border-red">
+    <div
+      className={cn(
+        'flex flex-col text-red py-2.5 px-4 border border-solid border-red',
+        className
+      )}
+    >
       <span>{error.message}</span>
       {error.errors && error.errors?.length > 0 && (
-        <ul>
+        <ul className="list-disc list-inside">
           {error.errors.map(({ message }, index) => (
             <li key={index}>{message}</li>
           ))}

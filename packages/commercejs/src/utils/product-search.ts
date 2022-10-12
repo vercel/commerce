@@ -4,8 +4,8 @@ const getFilterVariables = ({
   search,
   categoryId,
 }: {
-  search?: string
-  categoryId?: string | number
+  search?: string | null
+  categoryId?: string | number | null
 }) => {
   let filterVariables: { [key: string]: any } = {}
   if (search) {
@@ -17,7 +17,7 @@ const getFilterVariables = ({
   return filterVariables
 }
 
-const getSortVariables = ({ sort }: { sort?: string }) => {
+const getSortVariables = ({ sort }: { sort?: string | null }) => {
   let sortVariables: { [key: string]: any } = {}
   switch (sort) {
     case 'trending-desc':

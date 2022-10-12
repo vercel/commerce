@@ -17,9 +17,7 @@ const getCategories = async ({
     },
     {
       ...(locale && {
-        headers: {
-          'Accept-Language': locale,
-        },
+        'Accept-Language': locale,
       }),
     }
   )

@@ -2,9 +2,7 @@ import { normalizeSearchProducts } from '../../../utils/normalise-product'
 import { ProductsEndpoint } from '.'
 
 const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
-  req,
-  res,
-  body: { search, categoryId, brandId, sort },
+  body: { search, categoryId },
   config,
 }) => {
   const { sdk } = config
@@ -20,13 +18,15 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
       limit: 20,
     },
   })
+
   let products = []
   let found = false
   if (searchResults.total) {
     found = true
     products = normalizeSearchProducts(searchResults.hits) as any[]
   }
-  res.status(200).json({ data: { products, found } })
+
+  return { data: { products, found } }
 }
 
 export default getProducts

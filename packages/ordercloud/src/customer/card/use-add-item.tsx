@@ -30,7 +30,7 @@ export const handler: MutationHook<AddItemHook> = {
         async function addItem(input) {
           const data = await fetch({ input })
 
-          await mutate([data], false)
+          await mutate(data ? [data] : [], false)
 
           return data
         },
