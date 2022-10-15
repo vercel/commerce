@@ -40,6 +40,10 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
+      <Hero
+        headline=" Silk Beauty Academy"
+        description="Centre de formation Coiffure & Esthétique à Antibes"
+      />
       <Grid variant="filled">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard

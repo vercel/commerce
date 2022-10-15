@@ -17,7 +17,7 @@ import { handler as useSignup } from './auth/use-signup'
 import fetcher from './fetcher'
 
 export const bigcommerceProvider = {
-  locale: 'en-us',
+  locale: 'fr-FR',
   cartCookie: 'bc_cartId',
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
