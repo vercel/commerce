@@ -28,6 +28,7 @@ export async function getStaticProps({
     config,
     preview,
   })
+
   const { pages } = await pagesPromise
   const { categories } = await siteInfoPromise
   const { product } = await productPromise

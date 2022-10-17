@@ -6,17 +6,19 @@ import * as query from './queries'
 const getCategories = async (config: SaleorConfig): Promise<Category[]> => {
   const { data } = await config.fetch(query.CollectionMany, {
     variables: {
-      first: 100,
+      first: 50,
     },
   })
 
   return (
-    data.collections?.edges?.map(({ node: { id, name, slug } }: CollectionCountableEdge) => ({
-      id,
-      name,
-      slug,
-      path: `/${slug}`,
-    })) ?? []
+    data?.collections?.edges?.map(
+      ({ node: { id, name, slug } }: CollectionCountableEdge) => ({
+        id,
+        name,
+        slug,
+        path: `/${slug}`,
+      })
+    ) ?? []
   )
 }
 

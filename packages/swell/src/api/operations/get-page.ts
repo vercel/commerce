@@ -1,10 +1,10 @@
-import { Page } from '../../../schema'
-import { SwellConfig, Provider } from '..'
-import {
+import type { Page } from '../../../schema'
+import type { SwellConfig, Provider } from '..'
+import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import { GetPageOperation } from '../../types/page'
+import type { GetPageOperation } from '@vercel/commerce/types/page'
 
 export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
 
@@ -48,6 +48,7 @@ export default function getPageOperation({
         ? {
             ...page,
             url: `/${locale}/${page.slug}`,
+            body: page.body ?? '',
           }
         : null,
     }

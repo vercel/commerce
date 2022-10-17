@@ -1,4 +1,4 @@
-import type { ComponentType, FunctionComponent } from 'react'
+import type { FC, ReactNode } from 'react'
 import {
   Provider,
   CommerceProviderProps,
@@ -14,7 +14,9 @@ import useLogout from '@vercel/commerce/auth/use-logout'
 export { spreeProvider }
 export type { SpreeProvider }
 
-export const WithTokenErrorsHandling: FunctionComponent = ({ children }) => {
+export const WithTokenErrorsHandling: FC<{ children?: ReactNode }> = ({
+  children,
+}) => {
   const logout = useLogout()
 
   return (

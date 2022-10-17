@@ -1,6 +1,4 @@
-import * as Core from '@vercel/commerce/types/cart'
-import { Customer } from '@vercel/commerce/types'
-import { CheckoutLineItem } from '../schema'
+import type { CheckoutLineItem } from '../schema'
 
 export type SwellImage = {
   file: {
@@ -88,15 +86,6 @@ export type SwellCheckout = {
   lineItems: CheckoutLineItem[]
 }
 
-export interface Cart extends Core.Cart {
-  id: string
-  lineItems: LineItem[]
-}
-
-export interface LineItem extends Core.LineItem {
-  options?: any[]
-}
-
 /**
  * Cart mutations
  */
@@ -104,9 +93,4 @@ export interface LineItem extends Core.LineItem {
 export type OptionSelections = {
   option_id: number
   option_value: number | string
-}
-
-export type CartItemBody = Core.CartItemBody & {
-  productId: string // The product id is always required for BC
-  optionSelections?: OptionSelections
 }

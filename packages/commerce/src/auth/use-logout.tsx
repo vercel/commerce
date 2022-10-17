@@ -5,7 +5,7 @@ import type { LogoutHook } from '../types/logout'
 import type { Provider } from '..'
 
 export type UseLogout<
-  H extends MutationHook<LogoutHook<any>> = MutationHook<LogoutHook>
+  H extends MutationHook<LogoutHook> = MutationHook<LogoutHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<LogoutHook> = mutationFetcher

@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 import { Cross, ChevronLeft } from '@components/icons'
 import { UserNav } from '@components/common'
 import cn from 'clsx'
 import s from './SidebarLayout.module.css'
 
-type ComponentProps = { className?: string } & (
+type ComponentProps = { className?: string; children?: ReactNode } & (
   | { handleClose: () => any; handleBack?: never }
   | { handleBack: () => any; handleClose?: never }
 )
@@ -12,8 +12,8 @@ type ComponentProps = { className?: string } & (
 const SidebarLayout: FC<ComponentProps> = ({
   children,
   className,
-  handleClose,
   handleBack,
+  handleClose,
 }) => {
   return (
     <div className={cn(s.root, className)}>
@@ -38,9 +38,8 @@ const SidebarLayout: FC<ComponentProps> = ({
             <span className="ml-2 text-accent-7 text-xs">Back</span>
           </button>
         )}
-        <span className={s.nav}>
-          <UserNav />
-        </span>
+
+        <UserNav />
       </header>
       <div className={s.container}>{children}</div>
     </div>

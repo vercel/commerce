@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { normalizeCart } from '../../../lib/normalize'
 import { parseCartItem } from '../../utils/parse-item'
 import getCartCookie from '../../utils/get-cart-cookie'

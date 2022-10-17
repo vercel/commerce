@@ -3,7 +3,7 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import type { LoginOperation } from '../../types/login'
+import type { LoginOperation } from '@vercel/commerce/types/login'
 import { Provider, SwellConfig } from '..'
 
 export default function loginOperation({

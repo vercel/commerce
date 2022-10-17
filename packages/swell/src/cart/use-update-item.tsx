@@ -1,23 +1,25 @@
-import { useCallback } from 'react'
-import debounce from 'lodash.debounce'
 import type {
   HookFetcherContext,
-  MutationHook,
   MutationHookContext,
 } from '@vercel/commerce/utils/types'
+
+import type { UpdateItemHook, LineItem } from '@vercel/commerce/types/cart'
+
+import { useCallback } from 'react'
+import debounce from 'lodash.debounce'
+
 import { ValidationError } from '@vercel/commerce/utils/errors'
 // import useUpdateItem, {
 //   UpdateItemInput as UpdateItemInputBase,
 //   UseUpdateItem,
 // } from '@vercel/commerce/cart/use-update-item'
 import useUpdateItem, {
-  UseUpdateItem,
+  type UseUpdateItem,
 } from '@vercel/commerce/cart/use-update-item'
 import useCart from './use-cart'
 import { handler as removeItemHandler } from './use-remove-item'
-import { CartItemBody, LineItem } from '@vercel/commerce/types/cart'
 import { checkoutToCart } from './utils'
-import { UpdateItemHook } from '../types/cart'
+
 // export type UpdateItemInput<T = any> = T extends LineItem
 //   ? Partial<UpdateItemInputBase<LineItem>>
 //   : UpdateItemInputBase<LineItem>

@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect, useCallback } from 'react'
+import { FC, useRef, useEffect, useCallback, ReactNode } from 'react'
 import s from './Modal.module.css'
 import FocusTrap from '@lib/focus-trap'
 import { Cross } from '@components/icons'
@@ -6,9 +6,8 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 
 interface ModalProps {
   className?: string
-  children?: any
+  children?: ReactNode
   onClose: () => void
-  onEnter?: () => void | null
 }
 
 const Modal: FC<ModalProps> = ({ children, onClose }) => {

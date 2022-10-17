@@ -1,5 +1,5 @@
 export const getAllProductVendors = /* GraphQL */ `
-  query getAllProductVendors($first: Int = 250, $cursor: String) {
+  query getAllProductVendors($first: Int = 50, $cursor: String) {
     products(first: $first, after: $cursor) {
       pageInfo {
         hasNextPage

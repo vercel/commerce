@@ -4,9 +4,8 @@ import type { SWRHook, HookFetcherFn } from '../utils/types'
 import type { GetCartHook } from '../types/cart'
 import { Provider, useCommerce } from '..'
 
-export type UseCart<
-  H extends SWRHook<GetCartHook<any>> = SWRHook<GetCartHook>
-> = ReturnType<H['useHook']>
+export type UseCart<H extends SWRHook<GetCartHook> = SWRHook<GetCartHook>> =
+  ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<GetCartHook> = async ({
   options,

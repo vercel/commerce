@@ -1,9 +1,10 @@
-import { useCallback } from 'react'
+import type { SignupHook } from '@vercel/commerce/types/signup'
 import type { MutationHook } from '@vercel/commerce/utils/types'
+
+import { useCallback } from 'react'
 import { CommerceError } from '@vercel/commerce/utils/errors'
-import useSignup, { UseSignup } from '@vercel/commerce/auth/use-signup'
+import useSignup, { type UseSignup } from '@vercel/commerce/auth/use-signup'
 import useCustomer from '../customer/use-customer'
-import { SignupHook } from '../types/signup'
 import handleLogin from '../utils/handle-login'
 
 export default useSignup as UseSignup<typeof handler>

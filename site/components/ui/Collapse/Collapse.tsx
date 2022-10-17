@@ -7,7 +7,7 @@ import useMeasure from 'react-use-measure'
 
 export interface CollapseProps {
   title: string
-  children: ReactNode
+  children?: ReactNode
 }
 
 const Collapse: FC<CollapseProps> = ({ title, children }) => {

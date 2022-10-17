@@ -4,7 +4,7 @@ import s from './Grid.module.css'
 
 interface GridProps {
   className?: string
-  children?: ReactNode[] | Component[] | any[]
+  children?: ReactNode
   layout?: 'A' | 'B' | 'C' | 'D' | 'normal'
   variant?: 'default' | 'filled'
 }

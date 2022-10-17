@@ -44,9 +44,7 @@ export const getCategoryPath = (path: string, brand?: string) => {
 }
 
 export const getDesignerPath = (path: string, category?: string) => {
-  const designer = getSlug(path).replace(/^brands/, 'designers')
-
-  return `/search${designer ? `/${designer}` : ''}${
+  return `/search${path ? `/designers${path}` : ''}${
     category ? `/${category}` : ''
   }`
 }

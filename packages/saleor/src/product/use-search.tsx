@@ -38,7 +38,7 @@ export const handler: SWRHook<SearchProductsHook> = {
     let edges
 
     if (categoryId) {
-      edges = data.collection?.products?.edges ?? []
+      edges = data?.collection?.products?.edges ?? []
       // FIXME @zaiste, no `vendor` in Saleor
       // if (brandId) {
       //   edges = edges.filter(
@@ -47,11 +47,13 @@ export const handler: SWRHook<SearchProductsHook> = {
       //   )
       // }
     } else {
-      edges = data.products?.edges ?? []
+      edges = data?.products?.edges ?? []
     }
 
     return {
-      products: edges.map(({ node }: ProductCountableEdge) => normalizeProduct(node)),
+      products: edges.map(({ node }: ProductCountableEdge) =>
+        normalizeProduct(node)
+      ),
       found: !!edges.length,
     }
   },

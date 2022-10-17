@@ -1,24 +1,26 @@
-export type LoginBody = {
+export interface LoginBody {
+  /**
+   * The user's email address.
+   */
   email: string
+  /**
+   * The user's password.
+   */
   password: string
 }
 
-export type LoginTypes = {
-  body: LoginBody
-}
-
-export type LoginHook<T extends LoginTypes = LoginTypes> = {
+export type LoginHook = {
   data: null
   actionInput: LoginBody
   fetcherInput: LoginBody
-  body: T['body']
+  body: LoginBody
 }
 
-export type LoginSchema<T extends LoginTypes = LoginTypes> = {
+export type LoginSchema = {
   endpoint: {
     options: {}
     handlers: {
-      login: LoginHook<T>
+      login: LoginHook
     }
   }
 }

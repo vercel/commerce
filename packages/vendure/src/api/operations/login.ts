@@ -4,7 +4,7 @@ import type {
   OperationOptions,
 } from '@vercel/commerce/api/operations'
 import { ValidationError } from '@vercel/commerce/utils/errors'
-import type { LoginOperation } from '../../types/login'
+import type { LoginOperation } from '@vercel/commerce/types/login'
 import type { LoginMutation } from '../../../schema'
 import { Provider, VendureConfig } from '..'
 import { loginMutation } from '../../utils/mutations/log-in-mutation'

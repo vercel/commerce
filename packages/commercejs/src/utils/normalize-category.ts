@@ -9,6 +9,6 @@ export function normalizeCategory(
     id,
     name,
     slug,
-    path: slug,
+    path: `/${slug}`,
   }
 }

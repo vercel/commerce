@@ -58,7 +58,7 @@ const getProductQuery = /* GraphQL */ `
         }
         edges {
           node {
-            originalSrc
+            url
             altText
             width
             height

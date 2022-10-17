@@ -1,5 +1,5 @@
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type { GetAllProductsOperation } from '../../types/product'
+import type { GetAllProductsOperation } from '@vercel/commerce/types/product'
 import type { CommercejsConfig, Provider } from '../index'
 
 import { normalizeProduct } from '../../utils/normalize-product'

@@ -1,14 +1,13 @@
-import { FC, useEffect, useRef } from 'react'
-import s from './Sidebar.module.css'
 import cn from 'clsx'
+import s from './Sidebar.module.css'
+import { useEffect, useRef } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-
 interface SidebarProps {
   children: any
   onClose: () => void
 }
 
-const Sidebar: FC<SidebarProps> = ({ children, onClose }) => {
+const Sidebar: React.FC<SidebarProps> = ({ children, onClose }) => {
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const contentRef = useRef() as React.MutableRefObject<HTMLDivElement>
 

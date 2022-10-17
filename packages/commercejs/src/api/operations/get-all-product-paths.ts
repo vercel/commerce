@@ -1,9 +1,5 @@
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type {
-  GetAllProductPathsOperation,
-  CommercejsProduct,
-} from '../../types/product'
-
+import type { GetAllProductPathsOperation } from '@vercel/commerce/types/product'
 import type { CommercejsConfig, Provider } from '..'
 
 export type GetAllProductPathsResult = {
@@ -22,7 +18,7 @@ export default function getAllProductPathsOperation({
     const { data } = await sdkFetch('products', 'list')
 
     // Match a path for every product retrieved
-    const productPaths = data.map(({ permalink }: CommercejsProduct) => ({
+    const productPaths = data.map(({ permalink }: { permalink: string }) => ({
       path: `/${permalink}`,
     }))
 

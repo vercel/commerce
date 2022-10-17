@@ -1,5 +1,5 @@
 import type { CommercejsConfig } from '..'
-import { GetAllPagesOperation } from '../../types/page'
+import { GetAllPagesOperation } from '@vercel/commerce/types/page'
 
 export type Page = { url: string }
 export type GetAllPagesResult = { pages: Page[] }

@@ -1,9 +1,9 @@
 import type {
   Product,
-  ProductImage,
   ProductPrice,
   ProductVariant,
 } from '@vercel/commerce/types/product'
+import type { Image } from '@vercel/commerce/types/common'
 import type { ProductAttr } from '@spree/storefront-api-v2-sdk/types/interfaces/Product'
 import type { RelationType } from '@spree/storefront-api-v2-sdk/types/interfaces/Relationships'
 import { jsonApi } from '@spree/storefront-api-v2-sdk'
@@ -105,6 +105,7 @@ const normalizeProduct = (
 
       return {
         id: spreeVariantRecord.id,
+        sku: spreeVariantRecord.attributes.sku || spreeVariantRecord.id,
         options: variantOptions,
       }
     }
@@ -213,7 +214,7 @@ const normalizeProduct = (
     createGetAbsoluteImageUrl(requireConfigValue('imageHost') as string)
   )
 
-  const images: ProductImage[] =
+  const images: Image[] =
     productImages.length === 0
       ? placeholderImage === false
         ? []

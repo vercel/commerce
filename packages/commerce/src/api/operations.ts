@@ -25,6 +25,13 @@ export const OPERATIONS = [
   'getProduct',
 ] as const
 
+export type Operation = {
+  [O in AllowedOperations]: {
+    name: O
+    data: Awaited<ReturnType<Operations<APIProvider>[O]>>
+  }
+}[AllowedOperations]
+
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
   ops[k] = noop
   return ops

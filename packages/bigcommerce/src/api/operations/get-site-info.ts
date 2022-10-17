@@ -2,12 +2,12 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import type { GetSiteInfoOperation } from '../../types/site'
+import type { GetSiteInfoOperation } from '@vercel/commerce/types/site'
 import type { GetSiteInfoQuery } from '../../../schema'
 import filterEdges from '../utils/filter-edges'
 import type { BigcommerceConfig, Provider } from '..'
 import { categoryTreeItemFragment } from '../fragments/category-tree'
-import { normalizeCategory } from '../../lib/normalize'
+import { normalizeBrand, normalizeCategory } from '../../lib/normalize'
 
 // Get 3 levels of categories
 export const getSiteInfoQuery = /* GraphQL */ `
@@ -79,7 +79,7 @@ export default function getSiteInfoOperation({
 
     return {
       categories: categories ?? [],
-      brands: filterEdges(brands),
+      brands: filterEdges(brands).map(normalizeBrand),
     }
   }
 

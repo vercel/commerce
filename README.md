@@ -1,4 +1,4 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites.&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites.&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT,oac_9HSKtXld74NG0srzdxSiBGty&skippable-integrations=1&root-directory=site&build-command=cd%20..%20%26%26%20yarn%20build)
 
 # Next.js Commerce
 
@@ -16,6 +16,18 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 - Spree Demo: https://spree.vercel.store/
 - Kibo Commerce Demo: https://kibocommerce.vercel.store/
 - Commerce.js Demo: https://commercejs.vercel.store/
+- SalesForce Cloud Commerce Demo: https://salesforce-cloud-commerce.vercel.store/
+
+## Run minimal version locally
+
+> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has disabled all features (cart, auth) and use static files for the backend
+
+```bash
+pnpm install & pnpm build # run this commands in root folder of the mono repo
+pnpm dev # run this commands in the site folder
+```
+
+> If you encounter any problems while installing and running for the first time, please see the Troubleshoot section
 
 ## Features
 
@@ -98,11 +110,12 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
 2. Create a new branch `git checkout -b MY_BRANCH_NAME`
-3. Install the dependencies: `yarn`
-4. Duplicate `site/.env.template` and rename it to `site/.env.local`
-5. Add proper store values to `site/.env.local`
-6. Run `cd site` and `yarn dev` to build and watch for code changes
-7. Run `yarn turbo run build` to check the build after your changes
+3. Install the dependencies: `pnpm install`
+4. Build the packages: `pnpm build`
+5. Duplicate `site/.env.template` and rename it to `site/.env.local`
+6. Add proper store values to `site/.env.local`
+7. Run `cd site` & `pnpm dev` to watch for code changes
+8. Run `pnpm turbo run build` to check the build after your changes
 
 ## Work in progress
 
@@ -176,11 +189,11 @@ Error: Cannot find module '/Users/dom/work/vercel/commerce/node_modules/@vercel/
 error Command failed with exit code 1.
 info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 ```
-  
-The error usually occurs when running yarn dev inside of the `/site/` folder after installing a fresh repository.
 
-In order to fix this, run `yarn dev` in the monorepo root folder first.
-  
-> Using `yarn dev` from the root is recommended for developing, which will run watch mode on all packages.
+The error usually occurs when running `pnpm dev` inside of the `/site/` folder after installing a fresh repository.
+
+In order to fix this, run `pnpm build` in the monorepo root folder first.
+
+> Using `pnpm dev` from the root is recommended for developing, which will run watch mode on all packages.
+
 </details>
-  

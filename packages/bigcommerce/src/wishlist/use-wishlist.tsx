@@ -1,11 +1,13 @@
 import { useMemo } from 'react'
 import { SWRHook } from '@vercel/commerce/utils/types'
-import useWishlist, { UseWishlist } from '@vercel/commerce/wishlist/use-wishlist'
-import type { GetWishlistHook } from '../types/wishlist'
+import useWishlist, {
+  type UseWishlist,
+} from '@vercel/commerce/wishlist/use-wishlist'
 import useCustomer from '../customer/use-customer'
 
-export default useWishlist as UseWishlist<typeof handler>
+import type { GetWishlistHook } from '@vercel/commerce/types/wishlist'
 
+export default useWishlist as UseWishlist<typeof handler>
 export const handler: SWRHook<GetWishlistHook> = {
   fetchOptions: {
     url: '/api/wishlist',
@@ -30,7 +32,7 @@ export const handler: SWRHook<GetWishlistHook> = {
       const { data: customer } = useCustomer()
       const response = useData({
         input: [
-          ['customerId', customer?.entityId],
+          ['customerId', customer?.id],
           ['includeProducts', input?.includeProducts],
         ],
         swrOptions: {

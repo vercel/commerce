@@ -33,6 +33,7 @@ export default function getProductOperation({
           name: product.name,
           description: product.description,
           slug: product.slug,
+          path: `/${product.slug}`,
           images: product.assets.map((a) => ({
             url: a.preview,
             alt: a.name,

@@ -1,5 +1,4 @@
-import type { Wishlist } from '../../../types/wishlist'
-import getCustomerWishlist from '../../operations/get-customer-wishlist'
+import type { Wishlist } from '@vercel/commerce/types/wishlist'
 import getCustomerId from '../../utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
 

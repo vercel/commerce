@@ -17,7 +17,7 @@ export const useUserAvatar = (name = 'userAvatar') => {
       localStorage.setItem(name, value)
       setUserAvatar(value)
     }
-  }, [])
+  }, [name, setUserAvatar, userAvatar])
 
   return {
     userAvatar,

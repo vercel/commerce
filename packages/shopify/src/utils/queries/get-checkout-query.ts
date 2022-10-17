@@ -35,7 +35,7 @@ export const checkoutDetailsFragment = /* GraphQL */ `
               value
             }
             image {
-              originalSrc
+              url
               altText
               width
               height

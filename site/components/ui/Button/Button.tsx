@@ -5,7 +5,7 @@ import React, {
   JSXElementConstructor,
   useRef,
 } from 'react'
-import mergeRefs from 'react-merge-refs'
+import { mergeRefs } from 'react-merge-refs'
 import s from './Button.module.css'
 import { LoadingDots } from '@components/ui'
 

@@ -2,7 +2,7 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import type { GetProductOperation } from '../../types/product'
+import type { GetProductOperation } from '@vercel/commerce/types/product'
 import type { GetProductQuery, GetProductQueryVariables } from '../../../schema'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
 import { productInfoFragment } from '../fragments/product'
@@ -100,7 +100,7 @@ export default function getAllProductPathsOperation({
     const variables: GetProductQueryVariables = {
       locale,
       hasLocale: !!locale,
-      path: slug ? `/${slug}/` : vars.path!,
+      path: slug ? `/${slug}` : vars.path!,
     }
     const { data } = await config.fetch<GetProductQuery>(query, { variables })
     const product = data.site?.route?.node
