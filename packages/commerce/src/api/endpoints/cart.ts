@@ -1,10 +1,8 @@
 import type { GetAPISchema } from '..'
 import type { CartSchema } from '../../types/cart'
 
-import parse from '../utils/parse-output'
+import { parse, getInput } from '../utils'
 import validateHandlers from '../utils/validate-handlers'
-
-import { getInput } from '../utils'
 
 import {
   getCartBodySchema,

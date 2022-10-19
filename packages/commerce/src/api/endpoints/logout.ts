@@ -3,7 +3,6 @@ import type { LogoutSchema } from '../../types/logout'
 
 import { logoutBodySchema } from '../../schemas/auth'
 import validateHandlers from '../utils/validate-handlers'
-import { normalizeApiError } from '../utils/errors'
 
 const logoutEndpoint: GetAPISchema<
   any,
@@ -21,7 +20,7 @@ const logoutEndpoint: GetAPISchema<
     typeof redirectTo === 'string' ? { redirectTo } : {}
   )
 
-  return await handlers['logout']({ ...ctx, body })
+  return handlers['logout']({ ...ctx, body })
 }
 
 export default logoutEndpoint

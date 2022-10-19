@@ -1,7 +1,6 @@
 import type { CustomerAddressSchema } from '../../../types/customer/address'
 import type { GetAPISchema } from '../..'
 
-import parse from '../../utils/parse-output'
 import validateHandlers from '../../utils/validate-handlers'
 
 import {
@@ -11,7 +10,7 @@ import {
   updateAddressBodySchema,
 } from '../../../schemas/customer'
 
-import { getInput } from '../../utils'
+import { parse, getInput } from '../../utils'
 import { getCartBodySchema } from '../../../schemas/cart'
 
 // create a function that returns a function

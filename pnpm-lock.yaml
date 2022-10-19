@@ -20,6 +20,7 @@ importers:
       '@taskr/watch': ^1.1.0
       '@tsndr/cloudflare-worker-jwt': ^2.1.0
       '@types/cookie': ^0.4.1
+      '@types/jsonwebtoken': ^8.5.7
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^17.0.8
       '@types/node-fetch': ^2.6.2
@@ -28,6 +29,7 @@ importers:
       cookie: ^0.4.1
       immutability-helper: ^3.1.1
       js-cookie: ^3.0.1
+      jsonwebtoken: ^8.5.1
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
@@ -37,6 +39,7 @@ importers:
       taskr: ^1.1.0
       taskr-swc: ^0.0.1
       typescript: ^4.7.4
+      uuidv4: ^6.2.13
     dependencies:
       '@cfworker/uuid': 1.12.4
       '@tsndr/cloudflare-worker-jwt': 2.1.0
@@ -44,12 +47,15 @@ importers:
       cookie: 0.4.2
       immutability-helper: 3.1.1
       js-cookie: 3.0.1
+      jsonwebtoken: 8.5.1
       lodash.debounce: 4.0.8
+      uuidv4: 6.2.13
     devDependencies:
       '@taskr/clear': 1.1.0
       '@taskr/esnext': 1.1.0
       '@taskr/watch': 1.1.0
       '@types/cookie': 0.4.1
+      '@types/jsonwebtoken': 8.5.9
       '@types/lodash.debounce': 4.0.7
       '@types/node': 17.0.45
       '@types/node-fetch': 2.6.2
@@ -3192,6 +3198,10 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+    dev: false
 
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
@@ -9471,6 +9481,18 @@ packages:
     dependencies:
       '@babel/runtime': 7.19.0
       lodash.isplainobject: 4.0.6
+    dev: false
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
+
+  /uuidv4/6.2.13:
+    resolution: {integrity: sha512-AXyzMjazYB3ovL3q051VLH06Ixj//Knx7QnUSi1T//Ie3io6CpsPu9nVMOx5MoLWh6xV0B9J0hIaxungxXUbPQ==}
+    dependencies:
+      '@types/uuid': 8.3.4
+      uuid: 8.3.2
     dev: false
 
   /v8-compile-cache-lib/3.0.1:

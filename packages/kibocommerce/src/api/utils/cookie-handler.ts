@@ -1,10 +1,9 @@
 import { KiboCommerceConfig } from './../index'
 import { getCookieExpirationDate } from '../../lib/get-cookie-expiration-date'
 import { prepareSetCookie } from '../../lib/prepare-set-cookie'
-import { setCookies } from '../../lib/set-cookie'
 
 import getAnonymousShopperToken from './get-anonymous-shopper-token'
-import { NextRequest, NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 const parseCookie = (cookieValue?: any) => {
   return cookieValue

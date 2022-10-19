@@ -7,10 +7,8 @@ import {
   submitCheckoutBodySchema,
 } from '../../schemas/checkout'
 
+import { parse, getInput } from '../utils'
 import validateHandlers from '../utils/validate-handlers'
-import parse from '../utils/parse-output'
-import { z } from 'zod'
-import { getInput } from '../utils'
 
 const checkoutEndpoint: GetAPISchema<
   any,
@@ -31,7 +29,7 @@ const checkoutEndpoint: GetAPISchema<
   if (req.method === 'GET') {
     const body = getCheckoutBodySchema.parse({ ...input, cartId })
     const res = await handlers['getCheckout']({ ...ctx, body })
-    return parse(res, checkoutSchema.optional().or(z.string()))
+    return parse(res, checkoutSchema.optional())
   }
 
   // Create checkout

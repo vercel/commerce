@@ -1,6 +1,4 @@
 import type { SignupEndpoint } from '.'
-
-import { NextResponse } from 'next/server'
 import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
 
 import { BigcommerceApiError } from '../../utils/errors'
@@ -39,7 +37,7 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
     }
   }
 
-  const res = new NextResponse()
+  const res = new Response()
 
   // Login the customer right after creating it
   await commerce.login({ variables: { email, password }, res, config })

@@ -8,7 +8,6 @@ import type {
   GetProductOperation,
 } from '../types/product'
 import type { APIProvider, CommerceAPI } from '.'
-import { NextResponse } from 'next/server'
 
 const noop = () => {
   throw new Error('Not implemented')
@@ -44,14 +43,14 @@ export type Operations<P extends APIProvider> = {
     <T extends LoginOperation>(opts: {
       variables: T['variables']
       config?: P['config']
-      res: NextResponse
+      res: Response
     }): Promise<T['data']>
 
     <T extends LoginOperation>(
       opts: {
         variables: T['variables']
         config?: P['config']
-        res: NextResponse
+        res: Response
       } & OperationOptions
     ): Promise<T['data']>
   }

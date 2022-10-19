@@ -3,7 +3,6 @@ import type { Provider, SaleorConfig } from '..'
 import { throwUserErrors } from '../../utils'
 
 import * as Mutation from '../../utils/mutations'
-import type { NextResponse } from 'next/server'
 
 export default function loginOperation({
   commerce,
@@ -15,7 +14,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: any
-    res: NextResponse
+    res: Response
     config?: SaleorConfig
   }): Promise<any> {
     config = commerce.getConfig(config)

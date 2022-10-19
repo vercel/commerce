@@ -1,16 +1,14 @@
-import Cookies from 'js-cookie'
-import {
-  decode,
-  type JwtData as CoreJwtData,
-} from '@tsndr/cloudflare-worker-jwt'
-import { SWRHook } from '@vercel/commerce/utils/types'
-import useCustomer, {
-  UseCustomer,
-} from '@vercel/commerce/customer/use-customer'
-import { CUSTOMER_COOKIE, API_URL } from '../constants'
+import type { SWRHook } from '@vercel/commerce/utils/types'
 import type { CustomerHook } from '@vercel/commerce/types/customer'
 
-type JwtData = CoreJwtData & {
+import Cookies from 'js-cookie'
+import { decode, type JwtPayload } from 'jsonwebtoken'
+import useCustomer, {
+  type UseCustomer,
+} from '@vercel/commerce/customer/use-customer'
+import { CUSTOMER_COOKIE, API_URL } from '../constants'
+
+type JwtData = JwtPayload & {
   cid: string
 }
 

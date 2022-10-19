@@ -1,3 +1,3 @@
-export default function getCheckout(...args: any[]) {
+export default function getCheckout(..._args: any[]) {
   return Promise.resolve({ data: null })
 }

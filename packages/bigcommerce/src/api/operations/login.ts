@@ -7,7 +7,6 @@ import type { LoginMutation } from '../../../schema'
 import type { RecursivePartial } from '../utils/types'
 import concatHeader from '../utils/concat-cookie'
 import type { BigcommerceConfig, Provider } from '..'
-import type { NextResponse } from 'next/server'
 
 export const loginMutation = /* GraphQL */ `
   mutation login($email: String!, $password: String!) {
@@ -23,14 +22,14 @@ export default function loginOperation({
   async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: BigcommerceConfig
-    res: NextResponse
+    res: Response
   }): Promise<T['data']>
 
   async function login<T extends LoginOperation>(
     opts: {
       variables: T['variables']
       config?: BigcommerceConfig
-      res: NextResponse
+      res: Response
     } & OperationOptions
   ): Promise<T['data']>
 
@@ -42,7 +41,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: T['variables']
-    res: NextResponse
+    res: Response
     config?: BigcommerceConfig
   }): Promise<T['data']> {
     config = commerce.getConfig(config)

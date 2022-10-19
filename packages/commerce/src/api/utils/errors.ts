@@ -1,13 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
 import { CommerceError } from '../../utils/errors'
 import { ZodError } from 'zod'
 
 export class CommerceAPIResponseError extends Error {
   status: number
-  res: NextResponse
+  res: Response
   data: any
 
-  constructor(msg: string, res: NextResponse, data?: any) {
+  constructor(msg: string, res: Response, data?: any) {
     super(msg)
     this.name = 'CommerceApiError'
     this.status = res.status

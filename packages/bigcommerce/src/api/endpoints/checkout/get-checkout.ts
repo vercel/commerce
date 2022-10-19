@@ -1,8 +1,5 @@
 import type { CheckoutEndpoint } from '.'
 import getCustomerId from '../../utils/get-customer-id'
-import jwt from '@tsndr/cloudflare-worker-jwt'
-import { uuid } from '@cfworker/uuid'
-import { NextResponse } from 'next/server'
 
 const fullCheckout = true
 
@@ -24,6 +21,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       method: 'POST',
     }
   )
+
   const customerId =
     customerToken && (await getCustomerId({ customerToken, config }))
 
@@ -33,6 +31,17 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       return { redirectTo: data.checkout_url }
     }
   } else {
+    // Dynamically import uuid & jsonwebtoken based on the runtime
+    const { uuid } =
+      process.env.NEXT_RUNTIME === 'edge'
+        ? await import('@cfworker/uuid')
+        : await import('uuidv4')
+
+    const jwt =
+      process.env.NEXT_RUNTIME === 'edge'
+        ? await import('@tsndr/cloudflare-worker-jwt')
+        : await import('jsonwebtoken')
+
     const dateCreated = Math.round(new Date().getTime() / 1000)
     const payload = {
       iss: config.storeApiClientId,
@@ -80,7 +89,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
        </html>
      `
 
-  return new NextResponse(html, {
+  return new Response(html, {
     headers: {
       'Content-Type': 'text/html',
     },

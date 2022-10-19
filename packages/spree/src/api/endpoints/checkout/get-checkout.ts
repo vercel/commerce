@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server'
 import type { CheckoutEndpoint } from '.'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
@@ -27,7 +26,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       </html>
     `
 
-  return new NextResponse(html, {
+  return new Response(html, {
     headers: {
       'content-type': 'text/html',
     },

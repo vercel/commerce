@@ -6,7 +6,7 @@ import {
   searchProductBodySchema,
   searchProductsSchema,
 } from '../../../schemas/product'
-import parse from '../../utils/parse-output'
+import { parse } from '../../utils'
 
 const productsEndpoint: GetAPISchema<
   any,
@@ -27,8 +27,7 @@ const productsEndpoint: GetAPISchema<
   const res = await handlers['getProducts']({ ...ctx, body })
 
   res.headers = {
-    'Cache-Control':
-      'max-age=0, s-maxage=3600, stale-while-revalidate=60, public',
+    'Cache-Control': 'max-age=0, s-maxage=3600, stale-while-revalidate, public',
     ...res.headers,
   }
 

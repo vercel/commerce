@@ -30,7 +30,7 @@ const login: LoginEndpoint['handlers']['login'] = async ({
       token.accessTokenExpiration ? { expires: cookieExpirationDate } : {}
     )
 
-    return { data: response, headers: { 'Set-Cookie': authCookie } }
+    return { data: null, headers: { 'Set-Cookie': authCookie } }
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (

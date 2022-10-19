@@ -1,5 +1,4 @@
 import type { NextRequest } from 'next/server'
-
 import type { APIEndpoint, APIHandler, APIResponse } from './utils/types'
 import type { CartSchema } from '../types/cart'
 import type { CustomerSchema } from '../types/customer'
@@ -12,7 +11,6 @@ import type { CheckoutSchema } from '../types/checkout'
 import type { CustomerCardSchema } from '../types/customer/card'
 import type { CustomerAddressSchema } from '../types/customer/address'
 
-import { geolocation } from '@vercel/edge'
 import { withOperationCallback } from './utils/with-operation-callback'
 
 import {
@@ -140,7 +138,6 @@ export function getEndpoint<
       config: cfg,
       handlers: context.handlers,
       options: context.options ?? {},
-      geolocation: geolocation(req),
     })
   }
 }

@@ -1,6 +1,5 @@
 import type { LoginEndpoint } from '.'
 
-import { NextResponse } from 'next/server'
 import { FetcherError } from '@vercel/commerce/utils/errors'
 import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
 
@@ -12,7 +11,7 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   commerce,
 }) => {
   try {
-    const res = new NextResponse(null)
+    const res = new Response()
     await commerce.login({ variables: { email, password }, config, res })
     return {
       status: res.status,

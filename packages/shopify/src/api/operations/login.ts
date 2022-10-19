@@ -7,7 +7,6 @@ import {
   throwUserErrors,
 } from '../../utils'
 import { CustomerAccessTokenCreateMutation } from '../../../schema'
-import type { NextResponse } from 'next/server'
 
 export default function loginOperation({
   commerce,
@@ -19,7 +18,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: T['variables']
-    res: NextResponse
+    res: Response
     config?: ShopifyConfig
   }): Promise<T['data']> {
     config = commerce.getConfig(config)

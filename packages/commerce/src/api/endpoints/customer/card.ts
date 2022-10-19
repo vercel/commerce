@@ -3,16 +3,15 @@ import type { GetAPISchema } from '../..'
 
 import { z } from 'zod'
 
-import parse from '../../utils/parse-output'
-import validateHandlers from '../../utils/validate-handlers'
-
 import {
   cardSchema,
   addCardBodySchema,
   deleteCardBodySchema,
   updateCardBodySchema,
 } from '../../../schemas/customer'
-import { getInput } from '../../utils'
+import { parse, getInput } from '../../utils'
+
+import validateHandlers from '../../utils/validate-handlers'
 
 const customerCardEndpoint: GetAPISchema<
   any,

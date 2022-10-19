@@ -1,7 +1,7 @@
 import type { CustomerSchema } from '../../../types/customer'
 import type { GetAPISchema } from '../..'
 
-import parse from '../../utils/parse-output'
+import { parse } from '../../utils'
 import validateHandlers from '../../utils/validate-handlers'
 
 import { customerSchema } from '../../../schemas/customer'

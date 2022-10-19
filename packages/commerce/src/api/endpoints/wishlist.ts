@@ -1,9 +1,8 @@
 import type { GetAPISchema } from '..'
 import type { WishlistSchema } from '../../types/wishlist'
 
-import validateHandlers from '../utils/validate-handlers'
+import { parse, getInput } from '../utils'
 
-import { getInput } from '../utils'
 import {
   wishlistSchema,
   addItemBodySchema,
@@ -11,7 +10,7 @@ import {
   getWishlistBodySchema,
 } from '../../schemas/whishlist'
 
-import parse from '../utils/parse-output'
+import validateHandlers from '../utils/validate-handlers'
 
 const wishlistEndpoint: GetAPISchema<
   any,
@@ -53,7 +52,7 @@ const wishlistEndpoint: GetAPISchema<
     output = await handlers['removeItem']({ ...ctx, body })
   }
 
-  return output ? parse(output, wishlistSchema.optional()) : { status: 40 }
+  return output ? parse(output, wishlistSchema.optional()) : { status: 405 }
 }
 
 export default wishlistEndpoint

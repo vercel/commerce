@@ -1,5 +1,4 @@
-import { NextRequest } from 'next/server'
-import type { Geo } from '@vercel/edge'
+import type { NextRequest } from 'next/server'
 import type { CommerceAPI } from '..'
 
 export type ErrorData = { message: string; code?: string }
@@ -27,7 +26,6 @@ export type APIHandlerContext<
   config: C['provider']['config']
   handlers: H
   options: Options
-  geolocation: Geo
 }
 
 export type APIHandler<
