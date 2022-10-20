@@ -45,17 +45,22 @@ export default function nodeHandler<P extends APIProvider>(
       }
 
       const output = await handlers[path](transformRequest(req, path))
-
-      if (output instanceof Response) {
-        return res.end(output.body)
-      }
-
       const { status, errors, data, redirectTo, headers } = output
 
       if (headers) {
-        Object.entries(headers).forEach(([key, value]) => {
-          res.setHeader(key, value)
-        })
+        if (headers instanceof Headers) {
+          headers.forEach((value, key) => {
+            res.setHeader(key, value)
+          })
+        } else {
+          Object.entries(headers).forEach(([key, value]) => {
+            res.setHeader(key, value)
+          })
+        }
+      }
+
+      if (output instanceof Response) {
+        return res.end(output.body)
       }
 
       if (redirectTo) {

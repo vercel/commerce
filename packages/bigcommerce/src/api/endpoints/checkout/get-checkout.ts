@@ -64,36 +64,38 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   }
 
   // TODO: make the embedded checkout work too!
-  const html = `
-       <!DOCTYPE html>
-         <html lang="en">
-         <head>
-           <meta charset="UTF-8">
-           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <title>Checkout</title>
-           <script src="https://checkout-sdk.bigcommerce.com/v1/loader.js"></script>
-           <script>
-             window.onload = function() {
-               checkoutKitLoader.load('checkout-sdk').then(function (service) {
-                 service.embedCheckout({
-                   containerId: 'checkout',
-                   url: '${data.embedded_checkout_url}'
-                 });
-               });
-             }
-           </script>
-         </head>
-         <body>
-           <div id="checkout"></div>
-         </body>
-       </html>
-     `
+  // const html = `
+  //      <!DOCTYPE html>
+  //        <html lang="en">
+  //        <head>
+  //          <meta charset="UTF-8">
+  //          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  //          <title>Checkout</title>
+  //          <script src="https://checkout-sdk.bigcommerce.com/v1/loader.js"></script>
+  //          <script>
+  //            window.onload = function() {
+  //              checkoutKitLoader.load('checkout-sdk').then(function (service) {
+  //                service.embedCheckout({
+  //                  containerId: 'checkout',
+  //                  url: '${data.embedded_checkout_url}'
+  //                });
+  //              });
+  //            }
+  //          </script>
+  //        </head>
+  //        <body>
+  //          <div id="checkout"></div>
+  //        </body>
+  //      </html>
+  //    `
 
-  return new Response(html, {
-    headers: {
-      'Content-Type': 'text/html',
-    },
-  })
+  // return new Response(html, {
+  //   headers: {
+  //     'Content-Type': 'text/html',
+  //   },
+  // })
+
+  return { data: null }
 }
 
 export default getCheckout

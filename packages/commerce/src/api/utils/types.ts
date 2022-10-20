@@ -7,7 +7,7 @@ export type APIResponse<Data = any> = {
   data?: Data
   errors?: ErrorData[]
   status?: number
-  headers?: Record<string, number | string | string[]>
+  headers?: Record<string, number | string | string[]> | Headers
   /**
    *  @type {string}
    *  @example redirectTo: '/cart'

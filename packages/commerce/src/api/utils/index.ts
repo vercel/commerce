@@ -1,4 +1,4 @@
-import type { NextApiRequest } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ZodSchema } from 'zod'
 import type { APIResponse } from './types'
 
@@ -52,15 +52,17 @@ export const transformRequest = (req: NextApiRequest, path: string) => {
 }
 
 export const transformHeaders = (
-  headers?: Record<string, string | number | string[]>
-) =>
-  headers
-    ? Object.entries(headers).reduce((acc, [key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach((v) => acc.append(key, v))
-        } else {
-          acc.append(key, `${value}`)
-        }
-        return acc
-      }, new Headers())
-    : new Headers()
+  headers?: Record<string, string | number | string[]> | Headers
+) => {
+  if (headers instanceof Headers) {
+    return headers
+  }
+
+  const newHeaders = new Headers()
+
+  Object.entries(headers || {}).forEach(([key, value]) => {
+    newHeaders.append(key, value as string)
+  })
+
+  return newHeaders
+}
