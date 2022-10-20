@@ -75,11 +75,18 @@ export async function fetchData<T>(opts: {
 
   // If something failed getting the data response
   if (!dataResponse.ok) {
-    // Get the body of it
-    const error = await dataResponse.json()
-    // And return an error
+    let errors
+
+    try {
+      // Get the body of it
+      const error = await dataResponse.json()
+      errors = error.Errors
+    } catch (e) {
+      const message = await dataResponse.text()
+      errors = [{ message }]
+    }
     throw new FetcherError({
-      errors: error.Errors,
+      errors,
       status: dataResponse.status,
     })
   }

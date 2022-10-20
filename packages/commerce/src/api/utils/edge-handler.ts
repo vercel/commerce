@@ -2,8 +2,9 @@ import type { APIProvider, CommerceAPI, EndpointHandler } from '..'
 import type { NextRequest } from 'next/server'
 
 import { normalizeApiError } from './errors'
+import { transformHeaders } from '.'
 
-export default function edgeApi<P extends APIProvider>(
+export default function edgeHandler<P extends APIProvider>(
   commerce: CommerceAPI<P>,
   endpoints: Record<string, (commerce: CommerceAPI<P>) => EndpointHandler>
 ) {
@@ -49,16 +50,14 @@ export default function edgeApi<P extends APIProvider>(
         return output
       }
 
-      const { headers } = output
+      const headers = transformHeaders(output.headers)
 
       // If the output contains a redirectTo property, return a Response with the redirect
       if (output.redirectTo) {
+        headers.append('Location', output.redirectTo)
         return new Response(null, {
           status: 302,
-          headers: {
-            ...headers,
-            Location: output.redirectTo,
-          },
+          headers,
         })
       }
 

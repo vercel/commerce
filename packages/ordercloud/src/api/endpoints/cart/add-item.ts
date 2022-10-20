@@ -11,7 +11,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
 }) => {
   // Get token
   let token = req.cookies.get(tokenCookie)
-  let headers = new Headers()
+  let headers: any = {}
 
   // Create an order if it doesn't exist
   if (!cartId) {
@@ -24,27 +24,29 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
 
     cartId = ID
 
-    headers.append(
-      'set-cookie',
-      serialize(cartCookie, cartId!, {
-        maxAge: 60 * 60 * 24 * 30,
-        expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
-        secure: process.env.NODE_ENV === 'production',
-        path: '/',
-        sameSite: 'lax',
-      })
-    )
+    headers = {
+      'set-cookie': [
+        serialize(cartCookie, cartId!, {
+          maxAge: 60 * 60 * 24 * 30,
+          expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          sameSite: 'lax',
+        }),
+      ],
+    }
 
-    headers.append(
-      'set-cookie',
-      serialize(tokenCookie, meta.token.access_token, {
-        maxAge: meta.token.expires_in,
-        expires: new Date(Date.now() + meta.token.expires_in * 1000),
-        secure: process.env.NODE_ENV === 'production',
-        path: '/',
-        sameSite: 'lax',
-      })
-    )
+    if (meta?.token) {
+      headers['set-cookie'].push(
+        serialize(tokenCookie, meta.token?.access_token, {
+          maxAge: meta.token.expires_in,
+          expires: new Date(Date.now() + meta.token.expires_in * 1000),
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          sameSite: 'lax',
+        })
+      )
+    }
   }
 
   let specs: RawVariantSpec[] = []

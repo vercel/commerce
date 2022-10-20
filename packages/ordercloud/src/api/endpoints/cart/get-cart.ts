@@ -19,7 +19,7 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
     const token = req.cookies.get(tokenCookie)
 
     // Get cart & line items
-    const [cart, { Items, meta }] = await Promise.all([
+    const [cart, { Items }] = await Promise.all([
       restBuyerFetch('GET', `/orders/Outgoing/${cartId}`, null, { token }),
       restBuyerFetch('GET', `/orders/Outgoing/${cartId}/lineitems`, null, {
         token,
@@ -34,24 +34,18 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
     }
   } catch (error) {
     console.error(error)
-    const headers = new Headers()
-
-    headers.append(
-      'set-cookie',
-      serialize(cartCookie, '', {
-        maxAge: -1,
-        path: '/',
-      })
-    )
-
-    headers.append(
-      'set-cookie',
-      serialize(tokenCookie, '', {
-        maxAge: -1,
-        path: '/',
-      })
-    )
-
+    const headers = {
+      'set-cookie': [
+        serialize(cartCookie, '', {
+          maxAge: -1,
+          path: '/',
+        }),
+        serialize(tokenCookie, '', {
+          maxAge: -1,
+          path: '/',
+        }),
+      ],
+    }
     // Return empty cart
     return {
       data: null,

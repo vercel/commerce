@@ -50,3 +50,17 @@ export const transformRequest = (req: NextApiRequest, path: string) => {
     body,
   })
 }
+
+export const transformHeaders = (
+  headers?: Record<string, string | number | string[]>
+) =>
+  headers
+    ? Object.entries(headers).reduce((acc, [key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((v) => acc.append(key, v))
+        } else {
+          acc.append(key, `${value}`)
+        }
+        return acc
+      }, new Headers())
+    : new Headers()

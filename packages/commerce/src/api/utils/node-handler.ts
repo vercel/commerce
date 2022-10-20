@@ -4,7 +4,7 @@ import type { APIProvider, CommerceAPI, EndpointHandler } from '..'
 import { normalizeApiError } from './errors'
 import { transformRequest } from '.'
 
-export default function nodeApi<P extends APIProvider>(
+export default function nodeHandler<P extends APIProvider>(
   commerce: CommerceAPI<P>,
   endpoints: {
     [key: string]: (commerce: CommerceAPI<P>) => EndpointHandler
@@ -44,8 +44,7 @@ export default function nodeApi<P extends APIProvider>(
         )
       }
 
-      const newReq = transformRequest(req, path)
-      const output = await handlers[path](newReq)
+      const output = await handlers[path](transformRequest(req, path))
 
       if (output instanceof Response) {
         return res.end(output.body)
@@ -54,9 +53,9 @@ export default function nodeApi<P extends APIProvider>(
       const { status, errors, data, redirectTo, headers } = output
 
       if (headers) {
-        for (const [key, value] of Object.entries(headers)) {
+        Object.entries(headers).forEach(([key, value]) => {
           res.setHeader(key, value)
-        }
+        })
       }
 
       if (redirectTo) {
