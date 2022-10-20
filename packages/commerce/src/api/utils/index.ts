@@ -29,8 +29,8 @@ export const getInput = (req: NextRequest) => req.json().catch(() => ({}))
  * @param path string
  */
 export const transformRequest = (req: NextApiRequest, path: string) => {
-  let body
   const headers = new Headers()
+  let body
 
   for (let i = 0; i < req.rawHeaders.length; i += 2) {
     headers.append(req.rawHeaders[i], req.rawHeaders[i + 1])
@@ -51,8 +51,13 @@ export const transformRequest = (req: NextApiRequest, path: string) => {
   })
 }
 
+/**
+ * Sets the custom headers received in the APIResponse in the
+ * @param headers Record<string, string|string[]> | Headers | undefined
+ * @returns Headers
+ */
 export const transformHeaders = (
-  headers?: Record<string, string | number | string[]> | Headers
+  headers: Record<string, string | number | string[]> | Headers = {}
 ) => {
   if (headers instanceof Headers) {
     return headers
@@ -60,9 +65,24 @@ export const transformHeaders = (
 
   const newHeaders = new Headers()
 
-  Object.entries(headers || {}).forEach(([key, value]) => {
+  Object.entries(headers).forEach(([key, value]) => {
     newHeaders.append(key, value as string)
   })
 
   return newHeaders
+}
+
+export const setHeaders = (
+  res: NextApiResponse,
+  headers: Record<string, string | number | string[]> | Headers = {}
+) => {
+  if (headers instanceof Headers) {
+    headers.forEach((value, key) => {
+      res.setHeader(key, value)
+    })
+  } else {
+    Object.entries(headers).forEach(([key, value]) => {
+      res.setHeader(key, value)
+    })
+  }
 }

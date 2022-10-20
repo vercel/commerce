@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import type { APIProvider, CommerceAPI, EndpointHandler } from '..'
 
 import { normalizeApiError } from './errors'
-import { transformRequest } from '.'
+import { transformRequest, setHeaders } from '.'
 
 export default function nodeHandler<P extends APIProvider>(
   commerce: CommerceAPI<P>,
@@ -47,17 +47,7 @@ export default function nodeHandler<P extends APIProvider>(
       const output = await handlers[path](transformRequest(req, path))
       const { status, errors, data, redirectTo, headers } = output
 
-      if (headers) {
-        if (headers instanceof Headers) {
-          headers.forEach((value, key) => {
-            res.setHeader(key, value)
-          })
-        } else {
-          Object.entries(headers).forEach(([key, value]) => {
-            res.setHeader(key, value)
-          })
-        }
-      }
+      setHeaders(res, headers)
 
       if (output instanceof Response) {
         return res.end(output.body)
@@ -78,7 +68,7 @@ export default function nodeHandler<P extends APIProvider>(
         return res.end(output.body)
       }
 
-      const { status = 500, ...rest } = normalizeApiError(error)
+      const { status = 500, ...rest } = output
       res.status(status).json(rest)
     }
   }
