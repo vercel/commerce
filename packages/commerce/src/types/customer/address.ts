@@ -61,7 +61,7 @@ export type GetAddressesHook = {
 }
 
 export type AddItemHook = {
-  data: Address
+  data: Address | null
   input?: AddressFields
   fetcherInput: AddressFields
   body: { item: AddressFields }
@@ -77,7 +77,7 @@ export type UpdateItemHook = {
 }
 
 export type RemoveItemHook = {
-  data: Address | null | undefined
+  data: Address | null
   input: { item?: Address }
   fetcherInput: { itemId: string }
   body: { itemId: string }
@@ -100,7 +100,6 @@ export type AddItemHandler = AddItemHook & {
 }
 
 export type UpdateItemHandler = UpdateItemHook & {
-  data: Address
   body: { cartId: string }
 }
 

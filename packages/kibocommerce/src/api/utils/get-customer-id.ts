@@ -8,17 +8,13 @@ async function getCustomerId({
   customerToken: string
   config: KiboCommerceConfig
 }): Promise<string | undefined> {
-  const token = customerToken ? Buffer.from(customerToken, 'base64').toString('ascii'): null;
-  const accessToken = token ? JSON.parse(token).accessToken : null;
-  const { data } = await config.fetch(
-    getCustomerAccountQuery,
-    undefined,
-    {
-      headers: {
-        'x-vol-user-claims': accessToken,
-      },
-    }
-  )
+  const token = customerToken
+    ? Buffer.from(customerToken, 'base64').toString('ascii')
+    : null
+  const accessToken = token ? JSON.parse(token).accessToken : null
+  const { data } = await config.fetch(getCustomerAccountQuery, undefined, {
+    'x-vol-user-claims': accessToken,
+  })
 
   return data?.customerAccount?.id
 }

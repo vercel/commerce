@@ -1,4 +1,3 @@
-import type { ServerResponse } from 'http'
 import type {
   OperationContext,
   OperationOptions,
@@ -15,14 +14,14 @@ export default function loginOperation({
   async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: Partial<VendureConfig>
-    res: ServerResponse
+    res: Response
   }): Promise<T['data']>
 
   async function login<T extends LoginOperation>(
     opts: {
       variables: T['variables']
       config?: Partial<VendureConfig>
-      res: ServerResponse
+      res: Response
     } & OperationOptions
   ): Promise<T['data']>
 
@@ -34,7 +33,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: T['variables']
-    res: ServerResponse
+    res: Response
     config?: Partial<VendureConfig>
   }): Promise<T['data']> {
     const config = commerce.getConfig(cfg)

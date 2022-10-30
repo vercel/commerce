@@ -53,28 +53,19 @@ const buildAddToCartVariables = ({
 
 const addItem: CartEndpoint['handlers']['addItem'] = async ({
   req,
-  res,
-  body: { cartId, item },
+  body: { item },
   config,
 }) => {
-  if (!item) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Missing item' }],
-    })
-  }
-  if (!item.quantity) item.quantity = 1
-
   const productResponse = await config.fetch(getProductQuery, {
     variables: { productCode: item?.productId },
   })
 
-  const cookieHandler = new CookieHandler(config, req, res)
+  const cookieHandler = new CookieHandler(config, req)
   let accessToken = null
 
   if (!cookieHandler.getAccessToken()) {
     let anonymousShopperTokenResponse = await cookieHandler.getAnonymousToken()
-    accessToken = anonymousShopperTokenResponse.accessToken;
+    accessToken = anonymousShopperTokenResponse.accessToken
   } else {
     accessToken = cookieHandler.getAccessToken()
   }
@@ -95,7 +86,8 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
     )
     currentCart = result?.data?.currentCart
   }
-  res.status(200).json({ data: normalizeCart(currentCart) })
+
+  return { data: normalizeCart(currentCart) }
 }
 
 export default addItem

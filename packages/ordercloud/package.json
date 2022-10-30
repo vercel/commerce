@@ -48,10 +48,7 @@
   },
   "dependencies": {
     "@vercel/commerce": "workspace:*",
-    "@vercel/fetch": "^6.2.0",
-    "stripe": "^8.197.0",
     "lodash.debounce": "^4.0.8",
-    "node-fetch": "^2.6.7",
     "cookie": "^0.4.1"
   },
   "peerDependencies": {

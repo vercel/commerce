@@ -5,17 +5,10 @@ import { getCartQuery } from '../../../api/queries/get-cart-query'
 
 const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
   req,
-  res,
-  body: { cartId, itemId },
+  body: { itemId },
   config,
 }) => {
-  if (!itemId) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
-  }
-  const encodedToken = req.cookies[config.customerCookie]
+  const encodedToken = req.cookies.get(config.customerCookie)
   const token = encodedToken
     ? Buffer.from(encodedToken, 'base64').toString('ascii')
     : null
@@ -39,7 +32,10 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
     )
     currentCart = result?.data?.currentCart
   }
-  res.status(200).json({ data: normalizeCart(currentCart) })
+
+  return {
+    data: normalizeCart(currentCart),
+  }
 }
 
 export default removeItem

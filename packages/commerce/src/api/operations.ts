@@ -1,4 +1,3 @@
-import type { ServerResponse } from 'http'
 import type { LoginOperation } from '../types/login'
 import type { GetAllPagesOperation, GetPageOperation } from '../types/page'
 import type { GetSiteInfoOperation } from '../types/site'
@@ -44,14 +43,14 @@ export type Operations<P extends APIProvider> = {
     <T extends LoginOperation>(opts: {
       variables: T['variables']
       config?: P['config']
-      res: ServerResponse
+      res: Response
     }): Promise<T['data']>
 
     <T extends LoginOperation>(
       opts: {
         variables: T['variables']
         config?: P['config']
-        res: ServerResponse
+        res: Response
       } & OperationOptions
     ): Promise<T['data']>
   }

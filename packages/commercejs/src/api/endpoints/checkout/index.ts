@@ -3,16 +3,15 @@ import checkoutEndpoint from '@vercel/commerce/api/endpoints/checkout'
 import type { CheckoutSchema } from '@vercel/commerce/types/checkout'
 import type { CommercejsAPI } from '../..'
 
-import submitCheckout from './submit-checkout'
 import getCheckout from './get-checkout'
+import submitCheckout from './submit-checkout'
 
 export type CheckoutAPI = GetAPISchema<CommercejsAPI, CheckoutSchema>
-
 export type CheckoutEndpoint = CheckoutAPI['endpoint']
 
 export const handlers: CheckoutEndpoint['handlers'] = {
-  submitCheckout,
   getCheckout,
+  submitCheckout,
 }
 
 const checkoutApi = createEndpoint<CheckoutAPI>({

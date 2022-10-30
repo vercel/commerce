@@ -1,10 +1,10 @@
 import type { Wishlist } from '@vercel/commerce/types/wishlist'
 import getCustomerId from '../../utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
 
 // Return wishlist info
 const removeItem: WishlistEndpoint['handlers']['removeItem'] = async ({
-  res,
   body: { customerToken, itemId },
   config,
   commerce,
@@ -20,10 +20,7 @@ const removeItem: WishlistEndpoint['handlers']['removeItem'] = async ({
     {}
 
   if (!wishlist || !itemId) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
+    throw new CommerceAPIError('Wishlist not found', { status: 400 })
   }
 
   const result = await config.storeApiFetch<{ data: Wishlist } | null>(
@@ -32,7 +29,7 @@ const removeItem: WishlistEndpoint['handlers']['removeItem'] = async ({
   )
   const data = result?.data ?? null
 
-  res.status(200).json({ data })
+  return { data }
 }
 
 export default removeItem

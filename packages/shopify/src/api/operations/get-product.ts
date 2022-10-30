@@ -48,9 +48,7 @@ export default function getProductOperation({
       },
       {
         ...(locale && {
-          headers: {
-            'Accept-Language': locale,
-          },
+          'Accept-Language': locale,
         }),
       }
     )

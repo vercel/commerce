@@ -14,7 +14,7 @@ import useRemoveItem, {
 import useCards from './use-cards'
 
 export type RemoveItemFn<T = any> = T extends Card
-  ? (input?: RemoveItemActionInput<T>) => Promise<Card | null | undefined>
+  ? (input?: RemoveItemActionInput<T>) => Promise<Card | null>
   : (input: RemoveItemActionInput<T>) => Promise<Card | null>
 
 export type RemoveItemActionInput<T = any> = T extends Card
@@ -25,7 +25,7 @@ export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    url: '/api/customer/card',
+    url: '/api/commerce/customer/card',
     method: 'DELETE',
   },
   async fetcher({

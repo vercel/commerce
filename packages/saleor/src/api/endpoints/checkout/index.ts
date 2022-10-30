@@ -6,9 +6,11 @@ export type CheckoutAPI = GetAPISchema<CommerceAPI, CheckoutSchema>
 
 export type CheckoutEndpoint = CheckoutAPI['endpoint']
 
-const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({ req, res, config }) => {
-  try {
-    const html = `
+const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
+  req,
+  config,
+}) => {
+  const html = `
       <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -30,16 +32,11 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({ req, r
       </html>
     `
 
-    res.status(200)
-    res.setHeader('Content-Type', 'text/html')
-    res.write(html)
-    res.end()
-  } catch (error) {
-    console.error(error)
-
-    const message = 'An unexpected error ocurred'
-
-    res.status(500).json({ data: null, errors: [{ message }] })
+  return {
+    html,
+    headers: {
+      'Content-Type': 'text/html',
+    },
   }
 }
 

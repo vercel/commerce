@@ -5,16 +5,14 @@ import checkoutEndpoint from '@vercel/commerce/api/endpoints/checkout'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
-  res,
-  config,
 }) => {
   const { cookies } = req
-  const checkoutUrl = cookies[SWELL_CHECKOUT_URL_COOKIE]
+  const checkoutUrl = cookies.get(SWELL_CHECKOUT_URL_COOKIE)
 
   if (checkoutUrl) {
-    res.redirect(checkoutUrl)
+    return { redirectTo: checkoutUrl }
   } else {
-    res.redirect('/cart')
+    return { redirectTo: '/cart' }
   }
 }
 export const handlers: CheckoutEndpoint['handlers'] = { getCheckout }

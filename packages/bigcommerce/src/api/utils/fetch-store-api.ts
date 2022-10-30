@@ -1,11 +1,16 @@
-import type { FetchOptions, Response } from '@vercel/fetch'
 import type { BigcommerceConfig } from '../index'
 import { BigcommerceApiError, BigcommerceNetworkError } from './errors'
-import fetch from './fetch'
 
 const fetchStoreApi =
   <T>(getConfig: () => BigcommerceConfig) =>
-  async (endpoint: string, options?: FetchOptions): Promise<T> => {
+  async (
+    endpoint: string,
+    options?: {
+      method?: string
+      body?: any
+      headers?: HeadersInit
+    }
+  ): Promise<T> => {
     const config = getConfig()
     let res: Response
 

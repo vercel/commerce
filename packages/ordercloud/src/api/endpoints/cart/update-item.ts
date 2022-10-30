@@ -6,19 +6,10 @@ import { formatCart } from '../../utils/cart'
 
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   req,
-  res,
   body: { cartId, itemId, item },
   config: { restBuyerFetch, tokenCookie },
 }) => {
-  if (!cartId || !itemId || !item) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
-  }
-
-  // Get token from cookies
-  const token = req.cookies[tokenCookie]
+  const token = req.cookies.get(tokenCookie)
 
   // Store specs
   let specs: RawVariant['Specs'] = []
@@ -27,9 +18,7 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   if (item.variantId) {
     specs = await restBuyerFetch(
       'GET',
-      `/me/products/${item.productId}/variants/${item.variantId}`,
-      null,
-      { token }
+      `/me/products/${item.productId}/variants/${item.variantId}`
     ).then((res: RawVariant) => res.Specs)
   }
 
@@ -42,7 +31,9 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
       Quantity: item.quantity,
       Specs: specs,
     },
-    { token }
+    {
+      token,
+    }
   )
 
   // Get cart
@@ -57,7 +48,7 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   const formattedCart = formatCart(cart, lineItems)
 
   // Return cart and errors
-  res.status(200).json({ data: formattedCart, errors: [] })
+  return { data: formattedCart }
 }
 
 export default updateItem

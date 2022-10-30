@@ -1,10 +1,10 @@
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
 import type { Wishlist } from '@vercel/commerce/types/wishlist'
 import type { WishlistEndpoint } from '.'
 import getCustomerId from '../../utils/get-customer-id'
 
 // Return wishlist info
 const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
-  res,
   body: { customerToken, includeProducts },
   config,
   commerce,
@@ -16,11 +16,7 @@ const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
       customerToken && (await getCustomerId({ customerToken, config }))
 
     if (!customerId) {
-      // If the customerToken is invalid, then this request is too
-      return res.status(404).json({
-        data: null,
-        errors: [{ message: 'Wishlist not found' }],
-      })
+      throw new CommerceAPIError('Wishlist not found', { status: 404 })
     }
 
     const { wishlist } = await commerce.getCustomerWishlist({
@@ -32,7 +28,7 @@ const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
     result = { data: wishlist }
   }
 
-  res.status(200).json({ data: result.data ?? null })
+  return { data: result.data ?? null }
 }
 
 export default getWishlist

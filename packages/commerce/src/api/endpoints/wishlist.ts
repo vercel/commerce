@@ -1,58 +1,58 @@
-import type { WishlistSchema } from '../../types/wishlist'
-import { CommerceAPIError } from '../utils/errors'
-import isAllowedOperation from '../utils/is-allowed-operation'
 import type { GetAPISchema } from '..'
+import type { WishlistSchema } from '../../types/wishlist'
+
+import { parse, getInput } from '../utils'
+
+import {
+  wishlistSchema,
+  addItemBodySchema,
+  removeItemBodySchema,
+  getWishlistBodySchema,
+} from '../../schemas/whishlist'
+
+import validateHandlers from '../utils/validate-handlers'
 
 const wishlistEndpoint: GetAPISchema<
   any,
   WishlistSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, handlers, config } = ctx
+  const { req, handlers, config } = ctx
 
-  if (
-    !isAllowedOperation(req, res, {
-      GET: handlers['getWishlist'],
-      POST: handlers['addItem'],
-      DELETE: handlers['removeItem'],
-    })
-  ) {
-    return
-  }
+  validateHandlers(req, {
+    GET: handlers['getWishlist'],
+    POST: handlers['addItem'],
+    DELETE: handlers['removeItem'],
+  })
 
+  let output
   const { cookies } = req
-  const customerToken = cookies[config.customerCookie]
+  const input = await getInput(req)
 
-  try {
-    // Return current wishlist info
-    if (req.method === 'GET') {
-      const body = {
-        customerToken,
-        includeProducts: req.query.products === '1',
-      }
-      return await handlers['getWishlist']({ ...ctx, body })
-    }
+  const customerToken = cookies.get(config.customerCookie)
+  const products = new URL(req.url).searchParams.get('products')
 
-    // Add an item to the wishlist
-    if (req.method === 'POST') {
-      const body = { ...req.body, customerToken }
-      return await handlers['addItem']({ ...ctx, body })
-    }
-
-    // Remove an item from the wishlist
-    if (req.method === 'DELETE') {
-      const body = { ...req.body, customerToken }
-      return await handlers['removeItem']({ ...ctx, body })
-    }
-  } catch (error) {
-    console.error(error)
-
-    const message =
-      error instanceof CommerceAPIError
-        ? 'An unexpected error ocurred with the Commerce API'
-        : 'An unexpected error ocurred'
-
-    res.status(500).json({ data: null, errors: [{ message }] })
+  // Return current wishlist info
+  if (req.method === 'GET') {
+    const body = getWishlistBodySchema.parse({
+      customerToken,
+      includeProducts: !!products,
+    })
+    output = await handlers['getWishlist']({ ...ctx, body })
   }
+
+  // Add an item to the wishlist
+  if (req.method === 'POST') {
+    const body = addItemBodySchema.parse({ ...input, customerToken })
+    output = await handlers['addItem']({ ...ctx, body })
+  }
+
+  // Remove an item from the wishlist
+  if (req.method === 'DELETE') {
+    const body = removeItemBodySchema.parse({ ...input, customerToken })
+    output = await handlers['removeItem']({ ...ctx, body })
+  }
+
+  return output ? parse(output, wishlistSchema.optional()) : { status: 405 }
 }
 
 export default wishlistEndpoint

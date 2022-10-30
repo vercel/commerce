@@ -1,49 +1,45 @@
-import type { CheckoutSchema } from '../../types/checkout'
 import type { GetAPISchema } from '..'
+import type { CheckoutSchema } from '../../types/checkout'
 
-import { CommerceAPIError } from '../utils/errors'
-import isAllowedOperation from '../utils/is-allowed-operation'
+import {
+  checkoutSchema,
+  getCheckoutBodySchema,
+  submitCheckoutBodySchema,
+} from '../../schemas/checkout'
+
+import { parse, getInput } from '../utils'
+import validateHandlers from '../utils/validate-handlers'
 
 const checkoutEndpoint: GetAPISchema<
   any,
   CheckoutSchema
 >['endpoint']['handler'] = async (ctx) => {
-  const { req, res, handlers, config } = ctx
+  const { req, handlers, config } = ctx
 
-  if (
-    !isAllowedOperation(req, res, {
-      GET: handlers['getCheckout'],
-      POST: handlers['submitCheckout'],
-    })
-  ) {
-    return
-  }
+  validateHandlers(req, {
+    GET: handlers['getCheckout'],
+    POST: handlers['submitCheckout'],
+  })
 
   const { cookies } = req
-  const cartId = cookies[config.cartCookie]
+  const cartId = cookies.get(config.cartCookie)!
+  const input = await getInput(req)
 
-  try {
-    // Create checkout
-    if (req.method === 'GET') {
-      const body = { ...req.body, cartId }
-      return await handlers['getCheckout']({ ...ctx, body })
-    }
-
-    // Create checkout
-    if (req.method === 'POST' && handlers['submitCheckout']) {
-      const body = { ...req.body, cartId }
-      return await handlers['submitCheckout']({ ...ctx, body })
-    }
-  } catch (error) {
-    console.error(error)
-
-    const message =
-      error instanceof CommerceAPIError
-        ? 'An unexpected error ocurred with the Commerce API'
-        : 'An unexpected error ocurred'
-
-    res.status(500).json({ data: null, errors: [{ message }] })
+  // Get checkout
+  if (req.method === 'GET') {
+    const body = getCheckoutBodySchema.parse({ ...input, cartId })
+    const res = await handlers['getCheckout']({ ...ctx, body })
+    return parse(res, checkoutSchema.optional())
   }
+
+  // Create checkout
+  if (req.method === 'POST' && handlers['submitCheckout']) {
+    const body = submitCheckoutBodySchema.parse({ ...input, cartId })
+    const res = await handlers['submitCheckout']({ ...ctx, body })
+    return parse(res, checkoutSchema.optional())
+  }
+
+  return { status: 405 }
 }
 
 export default checkoutEndpoint

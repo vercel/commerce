@@ -33,8 +33,12 @@ const LoginView: React.FC = () => {
       })
       setLoading(false)
       closeModal()
-    } catch (e: any) {
-      setMessage(e.errors[0].message)
+    } catch ({ errors }) {
+      if (errors instanceof Array) {
+        setMessage(errors.map((e: any) => e.message).join('<br/>'))
+      } else {
+        setMessage('Unexpected error')
+      }
       setLoading(false)
       setDisabled(false)
     }

@@ -2,27 +2,15 @@ import type { CheckoutEndpoint } from '.'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
-  res,
   body: { cartId },
-  config: { restBuyerFetch, tokenCookie },
+  config: { restBuyerFetch },
 }) => {
-  // Return an error if no item is present
-  if (!cartId) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Missing cookie' }],
-    })
-  }
-
-  // Get token from cookies
-  const token = req.cookies[tokenCookie]
+  const token = req.cookies.get('token')
 
   // Register credit card
   const payments = await restBuyerFetch(
     'GET',
-    `/orders/Outgoing/${cartId}/payments`,
-    null,
-    { token }
+    `/orders/Outgoing/${cartId}/payments`
   ).then((response: { Items: unknown[] }) => response.Items)
 
   const address = await restBuyerFetch(
@@ -35,15 +23,15 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   )
 
   // Return cart and errors
-  res.status(200).json({
+
+  return {
     data: {
       hasPayment: payments.length > 0,
       hasShipping: Boolean(address),
       addressId: address,
       cardId: payments[0]?.ID,
     },
-    errors: [],
-  })
+  }
 }
 
 export default getCheckout

@@ -10,7 +10,7 @@ export default useSubmitCheckout as UseSubmitCheckout<typeof handler>
 
 export const handler: MutationHook<SubmitCheckoutHook> = {
   fetchOptions: {
-    url: '/api/checkout',
+    url: '/api/commerce/checkout',
     method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {

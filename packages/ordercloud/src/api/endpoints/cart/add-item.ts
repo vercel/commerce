@@ -1,72 +1,65 @@
 import type { CartEndpoint } from '.'
-import type { RawVariant } from '../../../types/product'
-import type { LineItem } from '@vercel/commerce/types/cart'
-
-import { serialize } from 'cookie'
+import type { RawVariantSpec } from '../../../types/product'
 
 import { formatCart } from '../../utils/cart'
+import { serialize } from 'cookie'
 
 const addItem: CartEndpoint['handlers']['addItem'] = async ({
-  res,
+  req,
   body: { cartId, item },
   config: { restBuyerFetch, cartCookie, tokenCookie },
 }) => {
-  // Return an error if no item is present
-  if (!item) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Missing item' }],
-    })
-  }
-
-  // Store token
-  let token
-
-  // Set the quantity if not present
-  if (!item.quantity) item.quantity = 1
+  // Get token
+  let token = req.cookies.get(tokenCookie)
+  let headers: any = {}
 
   // Create an order if it doesn't exist
   if (!cartId) {
     const { ID, meta } = await restBuyerFetch(
       'POST',
       `/orders/Outgoing`,
-      {}
-    ).then((response: { ID: string; meta: { token: string } }) => response)
+      {},
+      { token }
+    )
 
-    // Set the cart id and token
     cartId = ID
-    token = meta.token
 
-    // Set the cart and token cookie
-    res.setHeader('Set-Cookie', [
-      serialize(tokenCookie, meta.token, {
-        maxAge: 60 * 60 * 24 * 30,
-        expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
-        secure: process.env.NODE_ENV === 'production',
-        path: '/',
-        sameSite: 'lax',
-      }),
-      serialize(cartCookie, cartId, {
-        maxAge: 60 * 60 * 24 * 30,
-        expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
-        secure: process.env.NODE_ENV === 'production',
-        path: '/',
-        sameSite: 'lax',
-      }),
-    ])
+    headers = {
+      'set-cookie': [
+        serialize(cartCookie, cartId!, {
+          maxAge: 60 * 60 * 24 * 30,
+          expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          sameSite: 'lax',
+        }),
+      ],
+    }
+
+    if (meta?.token) {
+      headers['set-cookie'].push(
+        serialize(tokenCookie, meta.token?.access_token, {
+          maxAge: meta.token.expires_in,
+          expires: new Date(Date.now() + meta.token.expires_in * 1000),
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          sameSite: 'lax',
+        })
+      )
+    }
   }
 
-  // Store specs
-  let specs: RawVariant['Specs'] = []
+  let specs: RawVariantSpec[] = []
 
   // If a variant is present, fetch its specs
-  if (item.variantId) {
-    specs = await restBuyerFetch(
+  if (item.variantId !== 'undefined') {
+    const { Specs } = await restBuyerFetch(
       'GET',
       `/me/products/${item.productId}/variants/${item.variantId}`,
       null,
       { token }
-    ).then((res: RawVariant) => res.Specs)
+    )
+    specs = Specs
   }
 
   // Add the item to the order
@@ -81,19 +74,19 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
     { token }
   )
 
-  // Get cart
-  const [cart, lineItems] = await Promise.all([
+  // Get cart & line items
+  const [cart, { Items }] = await Promise.all([
     restBuyerFetch('GET', `/orders/Outgoing/${cartId}`, null, { token }),
     restBuyerFetch('GET', `/orders/Outgoing/${cartId}/lineitems`, null, {
       token,
-    }).then((response: { Items: LineItem[] }) => response.Items),
+    }),
   ])
 
   // Format cart
-  const formattedCart = formatCart(cart, lineItems)
+  const formattedCart = formatCart(cart, Items)
 
-  // Return cart and errors
-  res.status(200).json({ data: formattedCart, errors: [] })
+  // Return cart and headers
+  return { data: formattedCart, headers }
 }
 
 export default addItem
