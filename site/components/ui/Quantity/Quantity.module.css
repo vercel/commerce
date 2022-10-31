@@ -23,5 +23,5 @@
 }
 
 .input {
-  @apply bg-transparent px-4 w-full h-full focus:outline-none select-none pointer-events-auto;
+  @apply [appearance:textfield] bg-transparent px-4 w-full h-full focus:outline-none select-none pointer-events-auto;
 }
