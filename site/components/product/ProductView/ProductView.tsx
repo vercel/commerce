@@ -1,5 +1,5 @@
 import cn from 'clsx'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import s from './ProductView.module.css'
 import { FC } from 'react'
 import type { Product } from '@commerce/types/product'

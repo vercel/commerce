@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import s from './I18nWidget.module.css'
 import { Cross, ChevronUp } from '@components/icons'
 import ClickOutside from '@lib/click-outside'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 interface LOCALE_DATA {
   name: string
   img: {
