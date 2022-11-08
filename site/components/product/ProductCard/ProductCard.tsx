@@ -3,7 +3,7 @@ import cn from 'clsx'
 import Link from 'next/link'
 import type { Product } from '@commerce/types/product'
 import s from './ProductCard.module.css'
-import Image, { ImageProps } from 'next/legacy/image'
+import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
 import ProductTag from '../ProductTag'
@@ -49,17 +49,14 @@ const ProductCard: FC<Props> = ({
             <span>{product.name}</span>
           </div>
           {product?.images && (
-            <div>
-              <Image
-                quality="85"
-                src={product.images[0]?.url || placeholderImg}
-                alt={product.name || 'Product Image'}
-                height={320}
-                width={320}
-                layout="fixed"
-                {...imgProps}
-              />
-            </div>
+            <Image
+              quality="85"
+              src={product.images[0]?.url || placeholderImg}
+              alt={product.name || 'Product Image'}
+              height={320}
+              width={320}
+              {...imgProps}
+            />
           )}
         </>
       )}
@@ -85,18 +82,15 @@ const ProductCard: FC<Props> = ({
           )}
           <div className={s.imageContainer}>
             {product?.images && (
-              <div>
-                <Image
-                  alt={product.name || 'Product Image'}
-                  className={s.productImage}
-                  src={product.images[0]?.url || placeholderImg}
-                  height={540}
-                  width={540}
-                  quality="85"
-                  layout="responsive"
-                  {...imgProps}
-                />
-              </div>
+              <Image
+                alt={product.name || 'Product Image'}
+                className={s.productImage}
+                src={product.images[0]?.url || placeholderImg}
+                height={540}
+                width={540}
+                quality="85"
+                {...imgProps}
+              />
             )}
           </div>
         </>
@@ -117,18 +111,15 @@ const ProductCard: FC<Props> = ({
           />
           <div className={s.imageContainer}>
             {product?.images && (
-              <div>
-                <Image
-                  alt={product.name || 'Product Image'}
-                  className={s.productImage}
-                  src={product.images[0]?.url || placeholderImg}
-                  height={540}
-                  width={540}
-                  quality="85"
-                  layout="responsive"
-                  {...imgProps}
-                />
-              </div>
+              <Image
+                alt={product.name || 'Product Image'}
+                className={s.productImage}
+                src={product.images[0]?.url || placeholderImg}
+                height={540}
+                width={540}
+                quality="85"
+                {...imgProps}
+              />
             )}
           </div>
         </>

@@ -1,5 +1,5 @@
 import cn from 'clsx'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import s from './ProductView.module.css'
 import { FC } from 'react'
 import type { Product } from '@commerce/types/product'
@@ -80,6 +80,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                   variant="simple"
                   className="animated fadeIn"
                   imgProps={{
+                    alt: p.name,
                     width: 300,
                     height: 300,
                   }}
