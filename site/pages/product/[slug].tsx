@@ -14,37 +14,44 @@ export async function getStaticProps({
   locales,
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
-  const config = { locale, locales }
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const productPromise = commerce.getProduct({
-    variables: { slug: params!.slug },
-    config,
-    preview,
-  })
-  const allProductsPromise = commerce.getAllProducts({
-    variables: { first: 4 },
-    config,
-    preview,
-  })
+  try {
+    const config = { locale, locales }
+    const pagesPromise = commerce.getAllPages({ config, preview })
+    const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+    const productPromise = commerce.getProduct({
+      variables: { slug: params!.slug },
+      config,
+      preview,
+    })
+    const allProductsPromise = commerce.getAllProducts({
+      variables: { first: 4 },
+      config,
+      preview,
+    })
 
-  const { pages } = await pagesPromise
-  const { categories } = await siteInfoPromise
-  const { product } = await productPromise
-  const { products: relatedProducts } = await allProductsPromise
+    const { pages } = await pagesPromise
+    const { categories } = await siteInfoPromise
+    const { product } = await productPromise
+    const { products: relatedProducts } = await allProductsPromise
 
-  if (!product) {
-    throw new Error(`Product with slug '${params!.slug}' not found`)
-  }
+    if (!product) {
+      throw new Error(`Product with slug '${params!.slug}' not found`)
+    }
 
-  return {
-    props: {
-      pages,
-      product,
-      relatedProducts,
-      categories,
-    },
-    revalidate: 200,
+    return {
+      props: {
+        pages,
+        product,
+        relatedProducts,
+        categories,
+      },
+      revalidate: 200,
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      notFound: true,
+    }
   }
 }
 

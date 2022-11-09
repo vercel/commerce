@@ -8,6 +8,17 @@ import type { definitions } from '../api/definitions/store-content'
 
 import getSlug from './get-slug'
 
+const normalizePrice = (prices: ProductNode['prices']) => ({
+  value: prices?.price.value || 0,
+  currencyCode: prices?.price.currencyCode || 'USD',
+  ...(prices?.salePrice?.value && {
+    salePrice: prices.salePrice.value,
+  }),
+  ...(prices?.retailPrice?.value && {
+    retailPrice: prices.retailPrice.value,
+  }),
+})
+
 function normalizeProductOption(productOption: any) {
   const {
     node: { entityId, values: { edges = [] } = {}, ...rest },
@@ -20,43 +31,64 @@ function normalizeProductOption(productOption: any) {
   }
 }
 
+const normalizeImages = (productNode: ProductNode) => {
+  const output =
+    productNode.images.edges?.map(
+      ({ node: { urlOriginal, altText, ...rest } }: any) => ({
+        url: urlOriginal,
+        alt: altText,
+        ...rest,
+      })
+    ) || []
+
+  /**
+   * Add the variants images to the product images, because the variants images are not included in the product images
+   */
+  productNode.variants.edges?.forEach(({ node: variant }: any) => {
+    if (variant.defaultImage?.urlOriginal) {
+      output.push({
+        url: variant.defaultImage.urlOriginal,
+        alt: variant.defaultImage.altText,
+      })
+    }
+  })
+
+  return output
+}
+
+const normalizeVariants = (variants: any) =>
+  variants.edges?.map(
+    ({
+      node: { entityId, productOptions, prices, defaultImage, ...rest },
+    }: any) => ({
+      id: String(entityId),
+      ...(defaultImage && {
+        image: {
+          url: defaultImage.urlOriginal,
+          alt: defaultImage.altText,
+        },
+      }),
+      ...(prices && { price: normalizePrice(prices) }),
+      options: productOptions?.edges
+        ? productOptions.edges.map(normalizeProductOption)
+        : [],
+      ...rest,
+    })
+  ) || []
+
 export function normalizeProduct(productNode: ProductNode): Product {
-  const {
-    entityId: id,
-    productOptions,
-    prices,
-    path,
-    images,
-    variants,
-  } = productNode
+  const { entityId: id, productOptions, prices, path, variants } = productNode
 
   return {
     id: String(id),
     name: productNode.name,
     description: productNode.description,
-    images:
-      images.edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
-        url: urlOriginal,
-        alt: altText,
-        ...rest,
-      })) || [],
+    images: normalizeImages(productNode),
     path: `/${getSlug(path)}`,
-    variants:
-      variants.edges?.map(
-        ({ node: { entityId, productOptions, ...rest } }: any) => ({
-          id: String(entityId),
-          options: productOptions?.edges
-            ? productOptions.edges.map(normalizeProductOption)
-            : [],
-          ...rest,
-        })
-      ) || [],
+    variants: normalizeVariants(variants),
     options: productOptions?.edges?.map(normalizeProductOption) || [],
     slug: path?.replace(/^\/+|\/+$/g, ''),
-    price: {
-      value: prices?.price.value,
-      currencyCode: prices?.price.currencyCode,
-    },
+    price: normalizePrice(prices),
   }
 }
 

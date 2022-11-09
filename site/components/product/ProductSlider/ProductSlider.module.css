@@ -1,29 +1,24 @@
 .root {
-  @apply relative w-full h-full select-none;
+  @apply flex flex-col relative select-none w-full;
   overflow: hidden;
 }
 
 .slider {
-  @apply relative h-full transition-opacity duration-150;
-  opacity: 0;
-}
-
-.slider.show {
-  opacity: 1;
+  @apply flex-1;
 }
 
 .thumb {
-  @apply overflow-hidden inline-block cursor-pointer h-full;
+  @apply overflow-hidden inline-block cursor-pointer h-full transition duration-300 md:hover:scale-105;
   width: 125px;
   width: calc(100% / 3);
 }
 
 .thumb.selected {
-  @apply bg-white;
+  @apply bg-white/30;
 }
 
 .thumb img {
-  height: 85% !important;
+  @apply w-full h-full max-h-full object-cover;
 }
 
 .album {
@@ -44,10 +39,6 @@
 }
 
 @screen md {
-  .thumb:hover {
-    transform: scale(1.02);
-  }
-
   .album {
     height: 182px;
   }

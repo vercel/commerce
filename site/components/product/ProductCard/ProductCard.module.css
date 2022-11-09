@@ -7,7 +7,7 @@
 
 .root:hover {
   & .productImage {
-    transform: scale(1.2625);
+    transform: scale(1.1);
   }
 
   & .header .name span,
@@ -47,23 +47,25 @@
 }
 
 .header .name {
-  @apply pt-0 max-w-full w-full leading-extra-loose
+  @apply pt-1 max-w-full w-full leading-extra-loose
   transition-colors ease-in-out duration-500;
-  font-size: 2rem;
+  font-size: 1rem;
+  line-height: 1;
   letter-spacing: 0.4px;
 }
 
 .header .name span {
-  @apply py-4 px-6 bg-primary text-primary font-bold
+  @apply py-2 px-3 bg-primary text-primary font-bold
   transition-colors ease-in-out duration-500;
   font-size: inherit;
   letter-spacing: inherit;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  line-height: 1 !important;
 }
 
 .header .price {
-  @apply pt-2 px-6 pb-4 text-sm bg-primary text-accent-9
+  @apply pt-1.5 pb-2 px-3 text-sm bg-primary text-accent-9
   font-semibold inline-block tracking-wide
   transition-colors ease-in-out duration-500;
 }
@@ -77,8 +79,7 @@
 }
 
 .imageContainer .productImage {
-  @apply transform transition-transform duration-500
-  object-cover scale-120;
+  @apply transform transition-transform duration-500 object-cover;
 }
 
 .root .wishlistButton {
@@ -87,7 +88,7 @@
 
 /* Variant Simple */
 .simple .header .name {
-  @apply pt-2 text-lg leading-10 -mt-1;
+  @apply pt-1 text-base leading-6;
 }
 
 .simple .header .price {
@@ -101,11 +102,11 @@
 }
 
 .slim .header {
-  @apply absolute inset-0 flex items-center justify-end mr-8 z-20;
+  @apply absolute inset-0 flex text-center items-center justify-end mr-8 z-20;
 }
 
 .slim span {
-  @apply bg-accent-9 text-accent-0 inline-block p-3
+  @apply bg-accent-9 text-accent-0 inline-block px-3 py-2.5
   font-bold text-xl break-words;
 }
 

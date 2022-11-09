@@ -34,6 +34,13 @@ const getProductQuery = /* GraphQL */ `
             id
             title
             sku
+            image {
+              id
+              altText
+              url
+              width
+              height
+            }
             availableForSale
             requiresShipping
             selectedOptions {

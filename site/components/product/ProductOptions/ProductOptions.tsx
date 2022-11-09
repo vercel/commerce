@@ -1,27 +1,18 @@
 import { memo } from 'react'
 import { Swatch } from '@components/product'
-import type { ProductOption } from '@commerce/types/product'
-import { SelectedOptions } from '../helpers'
+import { useProduct } from '../context'
 
-interface ProductOptionsProps {
-  options: ProductOption[]
-  selectedOptions: SelectedOptions
-  setSelectedOptions: React.Dispatch<React.SetStateAction<SelectedOptions>>
-}
+const ProductOptions: React.FC = () => {
+  const { product, selectedOptions, setSelectedOptions } = useProduct()
 
-const ProductOptions: React.FC<ProductOptionsProps> = ({
-  options,
-  selectedOptions,
-  setSelectedOptions,
-}) => {
   return (
     <div>
-      {options.map((opt) => (
+      {product.options.map((opt) => (
         <div className="pb-4" key={opt.displayName}>
           <h2 className="uppercase font-medium text-sm tracking-wide">
             {opt.displayName}
           </h2>
-          <div role="listbox" className="flex flex-row py-4">
+          <div role="listbox" className="flex flex-row flex-wrap gap-3 py-4">
             {opt.values.map((v, i: number) => {
               const active = selectedOptions[opt.displayName.toLowerCase()]
               return (

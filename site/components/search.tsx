@@ -273,7 +273,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
         {/* Products */}
         <div className="col-span-8 order-3 lg:order-none">
           {(q || activeCategory || activeBrand) && (
-            <div className="mb-12 transition ease-in duration-75">
+            <div className="mt-4">
               {data ? (
                 <>
                   <span
@@ -316,7 +316,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
             </div>
           )}
           {data ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-4">
               {data.products.map((product: Product) => (
                 <ProductCard
                   variant="simple"
@@ -331,7 +331,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-4">
               {rangeMap(12, (i) => (
                 <Skeleton key={i}>
                   <div className="w-60 h-60" />

@@ -19,7 +19,9 @@ import type {
 
 import { colorMap } from './colors'
 
-const money = ({ amount, currencyCode }: MoneyV2) => {
+type MoneyProps = MoneyV2 & { retailPrice?: string | number }
+
+const money = ({ amount, currencyCode }: MoneyProps) => {
   return {
     value: +amount,
     currencyCode,
@@ -67,6 +69,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         selectedOptions,
         sku,
         title,
+        image,
         priceV2,
         compareAtPriceV2,
         requiresShipping,
@@ -77,7 +80,8 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         id,
         name: title,
         sku,
-        price: +priceV2.amount,
+        image,
+        price: money({ ...priceV2, retailPrice: compareAtPriceV2?.amount }),
         listPrice: +compareAtPriceV2?.amount,
         requiresShipping,
         availableForSale,

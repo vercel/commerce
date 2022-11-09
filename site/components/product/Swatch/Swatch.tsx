@@ -18,7 +18,7 @@ const Swatch: React.FC<Omit<ButtonProps, 'variant'> & SwatchProps> = ({
   className,
   color = '',
   label = null,
-  variant = 'size',
+  variant,
   ...props
 }) => {
   variant = variant?.toLowerCase()

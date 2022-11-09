@@ -1,4 +1,4 @@
-import type { Product } from '@commerce/types/product'
+import type { Product } from '@vercel/commerce/types/product'
 export type SelectedOptions = Record<string, string | null>
 import { Dispatch, SetStateAction } from 'react'
 
@@ -22,11 +22,19 @@ export function selectDefaultOptionFromProduct(
   product: Product,
   updater: Dispatch<SetStateAction<SelectedOptions>>
 ) {
-  // Selects the default option
-  product.variants[0]?.options?.forEach((v) => {
-    updater((choices) => ({
-      ...choices,
-      [v.displayName.toLowerCase()]: v.values[0].label.toLowerCase(),
-    }))
-  })
+  // Get the first available option or the first option
+  const variant =
+    product.variants.find((variant) => variant.availableForSale) ||
+    product.variants[0]
+
+  // Reset the selectedOptions and set the default option from the available variant
+  const newValue: SelectedOptions = {}
+
+  if (variant) {
+    for (const c of variant.options) {
+      newValue[c.displayName.toLowerCase()] = c.values[0].label.toLowerCase()
+    }
+  }
+
+  updater(newValue)
 }
