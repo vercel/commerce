@@ -1,6 +1,5 @@
 import type { CommerceAPI, CommerceAPIConfig } from '@vercel/commerce/api'
 import { getCommerceApi as commerceApi } from '@vercel/commerce/api'
-import createFetcher from './utils/fetch-local'
 
 import getAllPages from './operations/get-all-pages'
 import getPage from './operations/get-page'
@@ -9,15 +8,18 @@ import getCustomerWishlist from './operations/get-customer-wishlist'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
+import fetchLocal from './utils/fetch-local'
 
-export interface LocalConfig extends CommerceAPIConfig {}
-const config: LocalConfig = {
+export interface SyliusConfig extends CommerceAPIConfig {
+  fetch: any
+}
+const config: SyliusConfig = {
   commerceUrl: '',
   apiToken: '',
   cartCookie: '',
   customerCookie: '',
   cartCookieMaxAge: 2592000,
-  fetch: createFetcher(() => getCommerceApi().getConfig()),
+  fetch: fetchLocal.fetchRestApi,
 }
 
 const operations = {
