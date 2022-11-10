@@ -1,16 +1,11 @@
-export type Page = { url: string }
-export type GetAllPagesResult = { pages: Page[] }
-import type { LocalConfig } from '../index'
+import { Page } from '@vercel/commerce/types/page'
+import type { SyliusConfig } from '../index'
 
 export default function getAllPagesOperation() {
-  function getAllPages({
-    config,
-    preview,
-  }: {
-    url?: string
-    config?: Partial<LocalConfig>
+  async function getAllPages(opts?: {
+    config?: Partial<SyliusConfig>
     preview?: boolean
-  }): Promise<GetAllPagesResult> {
+  }): Promise<{ pages: Page[] }> {
     return Promise.resolve({
       pages: [],
     })

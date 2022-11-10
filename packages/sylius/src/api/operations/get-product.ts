@@ -1,4 +1,4 @@
-import type { LocalConfig } from '../index'
+import type { SyliusConfig } from '../index'
 import { Product } from '@vercel/commerce/types/product'
 import { GetProductOperation } from '@vercel/commerce/types/product'
 import type { OperationContext } from '@vercel/commerce/api/operations'
@@ -13,7 +13,7 @@ export default function getProductOperation({
   }: {
     query?: string
     variables?: T['variables']
-    config?: Partial<LocalConfig>
+    config?: Partial<SyliusConfig>
     preview?: boolean
   } = {}): Promise<Product | {} | any> {
     return {
