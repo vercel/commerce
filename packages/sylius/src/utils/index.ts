@@ -1,4 +1,5 @@
 export { default as handleFetchResponse } from './handle-fetch-response'
+export * from './normalize'
 
 /*
 export { default as getSearchVariables } from './get-search-variables'
@@ -13,6 +14,5 @@ export { default as handleAccountActivation } from './handle-account-activation'
 export { default as throwUserErrors } from './throw-user-errors'
 export * from './queries'
 export * from './mutations'
-export * from './normalize'
 export * from './customer-token'
 */
