@@ -61,10 +61,11 @@ export function normalizeProduct(
     descriptionHtml: description,
     slug: permalink,
     path: `/${permalink}`,
-    images: assets.map(({ url, description, filename }) => ({
-      url,
-      alt: description || filename,
-    })),
+    images:
+      assets?.map(({ url, description, filename }) => ({
+        url,
+        alt: description || filename,
+      })) || [],
     price: {
       value: price.raw,
       currencyCode: 'USD',
