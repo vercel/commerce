@@ -20,11 +20,11 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 
 ## Run minimal version locally
 
-> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has disabled all features (cart, auth) and use static files for the backend
+> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has all features disabled (cart, auth) and uses static files for the backend
 
 ```bash
-pnpm install & pnpm build # run this commands in root folder of the mono repo
-pnpm dev # run this commands in the site folder
+pnpm install & pnpm build # run these commands in the root folder of the mono repo
+pnpm dev # run this command in the site folder
 ```
 
 > If you encounter any problems while installing and running for the first time, please see the Troubleshoot section
@@ -47,10 +47,10 @@ Next.js Commerce integrates out-of-the-box with BigCommerce, Shopify, Swell, Sal
 
 ## Considerations
 
-- `packages/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
+- `packages/commerce` contains all types, helpers and functions to be used as a base to build a new **provider**.
 - **Providers** live under `packages`'s root folder and they will extend Next.js Commerce types and functionality (`packages/commerce`).
-- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
-- Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
+- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programmatically.
+- Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in the case of BigCommerce, the images CDN and additional API routes.
 
 ## Configuration
 
@@ -73,7 +73,7 @@ Every provider defines the features that it supports under `packages/{provider}/
 #### Features Available
 
 The following features can be enabled or disabled. This means that the UI will remove all code related to the feature.
-For example: Turning `cart` off will disable Cart capabilities.
+For example: turning `cart` off will disable Cart capabilities.
 
 - cart
 - search
@@ -83,7 +83,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 #### How to turn Features on and off
 
-> NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
+> NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out of the box)
 
 - Open `site/commerce.config.json`
 - You'll see a config file like this:
