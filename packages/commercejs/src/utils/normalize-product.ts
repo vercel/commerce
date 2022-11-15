@@ -54,6 +54,7 @@ export function normalizeProduct(
 ): Product {
   const { id, name, description, permalink, assets, price, variant_groups } =
     commercejsProduct
+
   return {
     id,
     name,
@@ -70,7 +71,10 @@ export function normalizeProduct(
       value: price.raw,
       currencyCode: 'USD',
     },
-    variants: normalizeVariants(commercejsProductVariants, variant_groups),
-    options: getOptionsFromVariantGroups(variant_groups),
+    variants: normalizeVariants(
+      commercejsProductVariants,
+      variant_groups || []
+    ),
+    options: variant_groups ? getOptionsFromVariantGroups(variant_groups) : [],
   }
 }
