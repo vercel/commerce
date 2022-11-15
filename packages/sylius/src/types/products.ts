@@ -6,7 +6,7 @@ export interface SyliusProduct {
   slug: string
   images: SyliusProductImage[]
   variants: SyliusProductVariant[]
-  options: any[]
+  options: SyliusProductOption[]
 }
 
 export interface SyliusProductImage {
@@ -17,13 +17,26 @@ export interface SyliusProductImage {
 
 export interface SyliusProductVariant {
   id: number
+  code: string
+  optionValues: SyliusProductOptionValues[]
+  name: string
   price: number
   originalPrice: number
   inStock: boolean
 }
 
 export interface SyliusProductOption {
+  id: number
   code: string
   option: string
+  values: SyliusProductOptionValues[]
+  createdAt: Date
+  updatedAt: Date
+  name: string
+}
+
+export interface SyliusProductOptionValues {
+  id: number
+  code: string
   value: string
 }
