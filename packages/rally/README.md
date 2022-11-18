@@ -71,3 +71,5 @@ const { cart } = useContext(Context)
  <CartButton cart={cart} customText="Custom text" customClass="custom-css-class"></CartButton>
 
 ```
+
+To learn more about Rally's checkout button capabilities visit our [Developer's portal](https://developers.rallyon.com/docs/jssdk/checkout-button/integrating-the-checkout-button/).
