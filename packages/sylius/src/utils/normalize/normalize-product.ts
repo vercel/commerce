@@ -12,7 +12,7 @@ import {
   SyliusProductOption,
   SyliusProductOptionValues,
   SyliusProductVariant,
-} from '../types/products'
+} from '../../types/products'
 
 export const normalizeProduct = (product: SyliusProduct): Product => {
   return {

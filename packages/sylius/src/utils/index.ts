@@ -1,6 +1,6 @@
 export { default as handleFetchResponse } from './handle-fetch-response'
-export * from './normalize'
-
+export * from './normalize/normalize-product'
+export * from './normalize/normalize-site'
 /*
 export { default as getSearchVariables } from './get-search-variables'
 export { default as getSortVariables } from './get-sort-variables'

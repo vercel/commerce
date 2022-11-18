@@ -2,7 +2,7 @@ import { Product } from '@vercel/commerce/types/product'
 import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { Provider, SyliusConfig } from '../index'
 import { SyliusProduct } from '../../types/products'
-import { normalizeProduct } from '../../utils/normalize'
+import { normalizeProduct } from '../../utils/normalize/normalize-product'
 
 export default function getAllProductsOperation({
   commerce,
