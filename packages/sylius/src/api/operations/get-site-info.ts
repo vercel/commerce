@@ -30,10 +30,10 @@ export default function getSiteInfoOperation({
       (syliusCategories: SyliusCategorie) =>
         normalizeCategorie(syliusCategories)
     )
-    return Promise.resolve({
+    return {
       categories: categories,
       brands: [],
-    })
+    }
   }
 
   return getSiteInfo

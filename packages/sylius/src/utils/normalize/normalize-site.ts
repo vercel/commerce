@@ -4,7 +4,7 @@ export const normalizeCategorie = (categorie: SyliusCategorie) => {
   return {
     id: categorie.id.toString(),
     name: categorie.name,
-    slug: categorie.slug,
-    path: `/${categorie.slug}`,
+    slug: categorie.code,
+    path: `/${categorie.code}`,
   }
 }
