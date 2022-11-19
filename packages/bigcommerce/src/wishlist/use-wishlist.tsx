@@ -10,7 +10,7 @@ import type { GetWishlistHook } from '@vercel/commerce/types/wishlist'
 export default useWishlist as UseWishlist<typeof handler>
 export const handler: SWRHook<GetWishlistHook> = {
   fetchOptions: {
-    url: '/api/wishlist',
+    url: '/api/commerce/wishlist',
     method: 'GET',
   },
   async fetcher({ input: { customerId, includeProducts }, options, fetch }) {

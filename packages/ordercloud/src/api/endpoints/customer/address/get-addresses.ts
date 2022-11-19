@@ -1,9 +1,8 @@
 import type { CustomerAddressEndpoint } from '.'
 
-const getCards: CustomerAddressEndpoint['handlers']['getAddresses'] = async ({
-  res,
-}) => {
-  return res.status(200).json({ data: null, errors: [] })
-}
+const getAddresses: CustomerAddressEndpoint['handlers']['getAddresses'] =
+  () => {
+    return Promise.resolve({ data: null })
+  }
 
-export default getCards
+export default getAddresses

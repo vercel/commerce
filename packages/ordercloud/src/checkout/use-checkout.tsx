@@ -11,7 +11,7 @@ export default useCheckout as UseCheckout<typeof handler>
 
 export const handler: SWRHook<GetCheckoutHook> = {
   fetchOptions: {
-    url: '/api/checkout',
+    url: '/api/commerce/checkout',
     method: 'GET',
   },
   useHook: ({ useData }) =>

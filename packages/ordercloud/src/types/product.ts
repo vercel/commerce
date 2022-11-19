@@ -1,4 +1,4 @@
-interface RawVariantSpec {
+export interface RawVariantSpec {
   SpecID: string
   Name: string
   OptionID: string

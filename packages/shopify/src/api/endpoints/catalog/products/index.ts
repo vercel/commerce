@@ -1,7 +1,8 @@
-import { GetAPISchema, createEndpoint } from '@vercel/commerce/api'
-import productsEndpoint from '@vercel/commerce/api/endpoints/catalog/products'
+import { type GetAPISchema, createEndpoint } from '@vercel/commerce/api'
 import type { ProductsSchema } from '@vercel/commerce/types/product'
 import type { ShopifyAPI } from '../../..'
+
+import productsEndpoint from '@vercel/commerce/api/endpoints/catalog/products'
 
 import getProducts from './get-products'
 

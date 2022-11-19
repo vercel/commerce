@@ -8,19 +8,18 @@ import type { CheckoutEndpoint } from '.'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
-  res,
   config,
 }) => {
   const { cookies } = req
-  const checkoutUrl = cookies[SHOPIFY_CHECKOUT_URL_COOKIE]
-  const customerCookie = cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE]
+  const checkoutUrl = cookies.get(SHOPIFY_CHECKOUT_URL_COOKIE)
+  const customerCookie = cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE)
 
   if (customerCookie) {
     try {
       await config.fetch(associateCustomerWithCheckoutMutation, {
         variables: {
-          checkoutId: cookies[SHOPIFY_CHECKOUT_ID_COOKIE],
-          customerAccessToken: cookies[SHOPIFY_CUSTOMER_TOKEN_COOKIE],
+          checkoutId: cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE),
+          customerAccessToken: cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE),
         },
       })
     } catch (error) {
@@ -28,11 +27,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
     }
   }
 
-  if (checkoutUrl) {
-    res.redirect(checkoutUrl)
-  } else {
-    res.redirect('/cart')
-  }
+  return { redirectTo: checkoutUrl ?? '/cart' }
 }
 
 export default getCheckout

@@ -1,19 +1,19 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 import type { GraphQLFetcher } from '@vercel/commerce/api'
 import type { KiboCommerceConfig } from '../index'
-import fetch from './fetch'
 
-const fetchGraphqlApi: (getConfig: () => KiboCommerceConfig) => GraphQLFetcher =
+const fetchGraphqlApi: (
+  getConfig: () => KiboCommerceConfig
+) => GraphQLFetcher =
   (getConfig) =>
-  async (query: string, { variables, preview } = {}, fetchOptions) => {
+  async (query: string, { variables, preview } = {}, headers?: HeadersInit) => {
     const config = getConfig()
     const res = await fetch(config.commerceUrl, {
-    //const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
-      ...fetchOptions,
+      //const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${config.apiToken}`,
-        ...fetchOptions?.headers,
+        ...headers,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -25,7 +25,9 @@ const fetchGraphqlApi: (getConfig: () => KiboCommerceConfig) => GraphQLFetcher =
     const json = await res.json()
     if (json.errors) {
       throw new FetcherError({
-        errors: json.errors ?? [{ message: 'Failed to fetch KiboCommerce API' }],
+        errors: json.errors ?? [
+          { message: 'Failed to fetch KiboCommerce API' },
+        ],
         status: res.status,
       })
     }

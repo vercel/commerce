@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { boolean, z } from 'zod'
 
 export const productPriceSchema = z.object({
   value: z.number(),
@@ -52,9 +52,14 @@ export const productsPathsSchema = z.array(
 )
 
 export const searchProductBodySchema = z.object({
-  search: z.string(),
-  categoryId: z.string(),
+  search: z.string().optional(),
+  categoryId: z.string().optional(),
   brandId: z.string().optional(),
   sort: z.string().optional(),
   locale: z.string().optional(),
+})
+
+export const searchProductsSchema = z.object({
+  products: z.array(productSchema),
+  found: z.boolean(),
 })

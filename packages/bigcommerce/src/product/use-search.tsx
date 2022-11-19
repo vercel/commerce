@@ -14,7 +14,7 @@ export type SearchProductsInput = {
 
 export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    url: '/api/catalog/products',
+    url: '/api/commerce/catalog/products',
     method: 'GET',
   },
   fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {

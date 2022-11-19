@@ -9,7 +9,7 @@ export default useLogout as UseLogout<typeof handler>
 
 export const handler: MutationHook<LogoutHook> = {
   fetchOptions: {
-    url: '/api/logout',
+    url: '/api/commerce/logout',
     method: 'GET',
   },
   useHook:

@@ -5,11 +5,10 @@ export default useSearch as UseSearch<typeof handler>
 
 export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    url: '/api/catalog/products',
+    url: '/api/commerce/catalog/products',
     method: 'GET',
   },
   fetcher({ input: { search, categoryId, brandId, sort }, options, fetch }) {
-    console.log('search', search, categoryId, options)
     // Use a dummy base as we only care about the relative path
     const url = new URL(options.url!, 'http://a')
 

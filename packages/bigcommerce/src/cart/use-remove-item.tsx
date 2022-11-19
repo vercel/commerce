@@ -26,7 +26,7 @@ export default useRemoveItem as UseRemoveItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    url: '/api/cart',
+    url: '/api/commerce/cart',
     method: 'DELETE',
   },
   async fetcher({

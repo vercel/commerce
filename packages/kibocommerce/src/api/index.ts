@@ -9,16 +9,15 @@ import getCustomerWishlist from './operations/get-customer-wishlist'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
-import type { RequestInit } from '@vercel/fetch'
 
 export interface KiboCommerceConfig extends CommerceAPIConfig {
   apiHost?: string
   clientId?: string
   sharedSecret?: string
-  customerCookieMaxAgeInDays: number,
-  currencyCode: string,
-  documentListName: string,
-  defaultWishlistName: string,
+  customerCookieMaxAgeInDays: number
+  currencyCode: string
+  documentListName: string
+  defaultWishlistName: string
   authUrl?: string
 }
 
@@ -37,7 +36,7 @@ const config: KiboCommerceConfig = {
   sharedSecret: process.env.KIBO_SHARED_SECRET || '',
   customerCookieMaxAgeInDays: 30,
   currencyCode: 'USD',
-  defaultWishlistName: 'My Wishlist'
+  defaultWishlistName: 'My Wishlist',
 }
 
 const operations = {
@@ -55,7 +54,7 @@ export const provider = { config, operations }
 export type KiboCommerceProvider = typeof provider
 export type KiboCommerceAPI<
   P extends KiboCommerceProvider = KiboCommerceProvider
-  > = CommerceAPI<P | any>
+> = CommerceAPI<P | any>
 
 export function getCommerceApi<P extends KiboCommerceProvider>(
   customProvider: P = provider as any

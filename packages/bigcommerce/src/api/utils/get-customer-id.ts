@@ -20,9 +20,7 @@ async function getCustomerId({
     getCustomerIdQuery,
     undefined,
     {
-      headers: {
-        cookie: `${config.customerCookie}=${customerToken}`,
-      },
+      'Set-Cookie': `${config.customerCookie}=${customerToken}`,
     }
   )
 

@@ -9,7 +9,6 @@ import { GraphQLFetcher, GraphQLFetcherResult } from '@vercel/commerce/api'
 import createCustomizedFetchFetcher, {
   fetchResponseKey,
 } from '../../utils/create-customized-fetch-fetcher'
-import fetch, { Request } from 'node-fetch'
 import type { SpreeSdkResponseWithRawResponse } from '../../types'
 import prettyPrintSpreeSdkErrors from '../../utils/pretty-print-spree-sdk-errors'
 

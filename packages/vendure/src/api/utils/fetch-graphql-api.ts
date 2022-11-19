@@ -1,20 +1,18 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 import type { GraphQLFetcher } from '@vercel/commerce/api'
 import { getCommerceApi } from '../'
-import fetch from './fetch'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
-  { variables, preview } = {},
-  fetchOptions
+  { variables } = {},
+  headers?: HeadersInit
 ) => {
   const config = getCommerceApi().getConfig()
 
   const res = await fetch(config.commerceUrl, {
-    ...fetchOptions,
     method: 'POST',
     headers: {
-      ...fetchOptions?.headers,
+      ...headers,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({

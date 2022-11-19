@@ -21,7 +21,7 @@ export function formatCart(
       name: lineItem.Product.Name,
       quantity: lineItem.Quantity,
       discounts: [],
-      path: lineItem.ProductID,
+      path: `/product/${lineItem.ProductID}`,
       variant: {
         id: lineItem.Variant ? String(lineItem.Variant.ID) : '',
         sku: lineItem.ID,

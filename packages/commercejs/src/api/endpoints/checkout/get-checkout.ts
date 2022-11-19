@@ -1,1 +1,3 @@
-export default function noopApi(...args: any[]): void {}
+export default function getCheckout(..._args: any[]) {
+  return Promise.resolve({ data: null })
+}

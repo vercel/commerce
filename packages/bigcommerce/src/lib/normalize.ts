@@ -3,9 +3,9 @@ import type { Product } from '@vercel/commerce/types/product'
 import type { Cart, LineItem } from '@vercel/commerce/types/cart'
 import type { Category, Brand } from '@vercel/commerce/types/site'
 import type { BigcommerceCart, BCCategory, BCBrand } from '../types'
+import type { ProductNode } from '../api/operations/get-all-products'
+import type { definitions } from '../api/definitions/store-content'
 
-import { definitions } from '../api/definitions/store-content'
-import update from './immutability'
 import getSlug from './get-slug'
 
 function normalizeProductOption(productOption: any) {
@@ -20,55 +20,44 @@ function normalizeProductOption(productOption: any) {
   }
 }
 
-export function normalizeProduct(productNode: any): Product {
+export function normalizeProduct(productNode: ProductNode): Product {
   const {
     entityId: id,
     productOptions,
     prices,
     path,
-    id: _,
-    options: _0,
+    images,
+    variants,
   } = productNode
 
-  return update(productNode, {
-    id: { $set: String(id) },
-    images: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
-          url: urlOriginal,
-          alt: altText,
-          ...rest,
-        })),
-    },
-    variants: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
+  return {
+    id: String(id),
+    name: productNode.name,
+    description: productNode.description,
+    images:
+      images.edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
+        url: urlOriginal,
+        alt: altText,
+        ...rest,
+      })) || [],
+    path: `/${getSlug(path)}`,
+    variants:
+      variants.edges?.map(
+        ({ node: { entityId, productOptions, ...rest } }: any) => ({
           id: String(entityId),
           options: productOptions?.edges
             ? productOptions.edges.map(normalizeProductOption)
             : [],
           ...rest,
-        })),
-    },
-    options: {
-      $set: productOptions.edges
-        ? productOptions?.edges.map(normalizeProductOption)
-        : [],
-    },
-    brand: {
-      $apply: (brand: any) => (brand?.id ? brand.id : null),
-    },
-    slug: {
-      $set: path?.replace(/^\/+|\/+$/g, ''),
-    },
+        })
+      ) || [],
+    options: productOptions?.edges?.map(normalizeProductOption) || [],
+    slug: path?.replace(/^\/+|\/+$/g, ''),
     price: {
-      $set: {
-        value: prices?.price.value,
-        currencyCode: prices?.price.currencyCode,
-      },
+      value: prices?.price.value,
+      currencyCode: prices?.price.currencyCode,
     },
-    $unset: ['entityId'],
-  })
+  }
 }
 
 export function normalizePage(page: definitions['page_Full']): Page {
@@ -122,7 +111,7 @@ function normalizeLineItem(item: any): LineItem {
       listPrice: item.list_price,
     },
     options: item.options,
-    path: item.url.split('/')[3],
+    path: `/${item.url.split('/')[3]}`,
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,
     })),

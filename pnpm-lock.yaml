@@ -14,9 +14,11 @@ importers:
 
   packages/bigcommerce:
     specifiers:
+      '@cfworker/uuid': ^1.12.4
       '@taskr/clear': ^1.1.0
       '@taskr/esnext': ^1.1.0
       '@taskr/watch': ^1.1.0
+      '@tsndr/cloudflare-worker-jwt': ^2.1.0
       '@types/cookie': ^0.4.1
       '@types/jsonwebtoken': ^8.5.7
       '@types/lodash.debounce': ^4.0.6
@@ -24,29 +26,29 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       cookie: ^0.4.1
       immutability-helper: ^3.1.1
+      js-cookie: ^3.0.1
       jsonwebtoken: ^8.5.1
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
       taskr: ^1.1.0
       taskr-swc: ^0.0.1
       typescript: ^4.7.4
-      uuidv4: ^6.2.12
+      uuidv4: ^6.2.13
     dependencies:
+      '@cfworker/uuid': 1.12.4
+      '@tsndr/cloudflare-worker-jwt': 2.1.0
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       cookie: 0.4.2
       immutability-helper: 3.1.1
+      js-cookie: 3.0.1
       jsonwebtoken: 8.5.1
       lodash.debounce: 4.0.8
-      node-fetch: 2.6.7
       uuidv4: 6.2.13
     devDependencies:
       '@taskr/clear': 1.1.0
@@ -76,13 +78,12 @@ importers:
       '@types/node': ^17.0.8
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
-      '@vercel/fetch': ^6.2.0
+      '@vercel/edge': ^0.0.4
       deepmerge: ^4.2.2
       import-cwd: ^3.0.0
       js-cookie: ^3.0.1
       lint-staged: ^12.1.7
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -90,13 +91,12 @@ importers:
       taskr: ^1.1.0
       taskr-swc: ^0.0.1
       typescript: ^4.7.4
-      zod: ^3.19.0
+      zod: ^3.19.1
     dependencies:
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
+      '@vercel/edge': 0.0.4
       deepmerge: 4.2.2
       import-cwd: 3.0.0
       js-cookie: 3.0.1
-      node-fetch: 2.6.7
       swr: 1.3.0_react@18.2.0
       zod: 3.19.1
     devDependencies:
@@ -183,12 +183,10 @@ importers:
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       graphql: ^16.0.0
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -198,9 +196,7 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       lodash.debounce: 4.0.8
-      node-fetch: 2.6.7
     devDependencies:
       '@graphql-codegen/cli': 2.12.0_5nhrphdxro5xxa2f5vmz5votda
       '@graphql-codegen/schema-ast': 2.5.1_graphql@16.6.0
@@ -233,10 +229,8 @@ importers:
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       lint-staged: ^12.1.7
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -245,8 +239,6 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
-      node-fetch: 2.6.7
     devDependencies:
       '@taskr/clear': 1.1.0
       '@taskr/esnext': 1.1.0
@@ -274,26 +266,20 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       cookie: ^0.4.1
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
-      stripe: ^8.197.0
       taskr: ^1.1.0
       taskr-swc: ^0.0.1
       typescript: ^4.7.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       cookie: 0.4.2
       lodash.debounce: 4.0.8
-      node-fetch: 2.6.7
-      stripe: 8.222.0
     devDependencies:
       '@taskr/clear': 1.1.0
       '@taskr/esnext': 1.1.0
@@ -327,13 +313,11 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       graphql: ^16.0.0
       js-cookie: ^3.0.1
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -343,10 +327,8 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       js-cookie: 3.0.1
       lodash.debounce: 4.0.8
-      node-fetch: 2.6.7
     devDependencies:
       '@graphql-codegen/cli': 2.12.0_5nhrphdxro5xxa2f5vmz5votda
       '@graphql-codegen/schema-ast': 2.5.1_graphql@16.6.0
@@ -380,11 +362,9 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       commerce-sdk: ^2.7.0
       lint-staged: ^12.1.7
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -393,9 +373,7 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       commerce-sdk: 2.8.0
-      node-fetch: 2.6.7
     devDependencies:
       '@taskr/clear': 1.1.0
       '@taskr/esnext': 1.1.0
@@ -427,14 +405,12 @@ importers:
       '@types/node-fetch': 2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       dotenv: ^16.0.1
       graphql: ^16.0.0
       js-cookie: ^3.0.1
       lint-staged: ^13.0.3
       lodash.debounce: ^4.0.8
       next: ^12.2.1
-      node-fetch: ^2.6.7
       prettier: ^2.7.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -443,10 +419,8 @@ importers:
       typescript: ^4.3.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       js-cookie: 3.0.1
       lodash.debounce: 4.0.8
-      node-fetch: 2.6.7
     devDependencies:
       '@graphql-codegen/cli': 2.7.0_gholt4t4onvjnzhsre2mzmeyhy
       '@graphql-codegen/schema-ast': 2.5.1_graphql@16.6.0
@@ -483,12 +457,10 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       js-cookie: ^3.0.1
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -497,12 +469,10 @@ importers:
       taskr-swc: ^0.0.1
       typescript: ^4.7.4
     dependencies:
-      '@spree/storefront-api-v2-sdk': 5.1.4_node-fetch@2.6.7
+      '@spree/storefront-api-v2-sdk': 5.1.4
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       js-cookie: 3.0.1
       lodash.debounce: 4.0.8
-      node-fetch: 2.6.7
       swr: 1.3.0_react@18.2.0
     devDependencies:
       '@taskr/clear': 1.1.0
@@ -533,12 +503,10 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       js-cookie: ^3.0.1
       lint-staged: ^12.1.7
       lodash.debounce: ^4.0.8
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -548,10 +516,8 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
       js-cookie: 3.0.1
       lodash.debounce: 4.0.8
-      node-fetch: 2.6.7
       swell-js: 4.0.0-next.0
     devDependencies:
       '@taskr/clear': 1.1.0
@@ -592,11 +558,9 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
-      '@vercel/fetch': ^6.2.0
       graphql: ^16.0.0
       lint-staged: ^12.1.7
       next: ^12.0.8
-      node-fetch: ^2.6.7
       prettier: ^2.5.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -605,8 +569,6 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@vercel/commerce': link:../commerce
-      '@vercel/fetch': 6.2.0_wbqoqouw2iimn65bqgaw3lwmza
-      node-fetch: 2.6.7
     devDependencies:
       '@graphql-codegen/cli': 2.7.0_fte77dov2vin5jxmf6euzzc57i
       '@graphql-codegen/schema-ast': 2.5.1_graphql@16.6.0
@@ -1346,6 +1308,10 @@ packages:
       '@babel/helper-validator-identifier': 7.18.6
       to-fast-properties: 2.0.0
     dev: true
+
+  /@cfworker/uuid/1.12.4:
+    resolution: {integrity: sha512-aw4lxCT4NLbGqlTScWPtPrZrg4TO6HCZCnNUAeC4yTOvkXjJGdJP6S5NCY9vtP2FruLIC+vYCvUP98fHXtF7kg==}
+    dev: false
 
   /@chec/commerce.js/2.8.0:
     resolution: {integrity: sha512-OPBphT/hU33iDp52zzYOqz/oSXLhEuhGVUg2UNvYtmBW4eCNmtsM0dqW0+wu+6K0d6fZojurCBdVQMKb2R7l3g==}
@@ -2888,7 +2854,7 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /@spree/storefront-api-v2-sdk/5.1.4_node-fetch@2.6.7:
+  /@spree/storefront-api-v2-sdk/5.1.4:
     resolution: {integrity: sha512-KvAVQ9wDAy+2EajiEGoFmw3iZRi9xERR/wKS2z+h2BaQsHMEJhe/xh06lFecEu9RKH4/k3m2dqrijyNzWLJ+Gw==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
@@ -2899,8 +2865,6 @@ packages:
         optional: true
       node-fetch:
         optional: true
-    dependencies:
-      node-fetch: 2.6.7
     dev: false
 
   /@swc/core-android-arm-eabi/1.3.0:
@@ -3127,14 +3091,8 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@types/async-retry/1.2.1:
-    resolution: {integrity: sha512-yMQ6CVgICWtyFNBqJT3zqOc+TnqqEPLo4nKJNPFwcialiylil38Ie6q1ENeFTjvaLOkVim9K5LisHgAKJWidGQ==}
-    dev: false
-
-  /@types/async-retry/1.4.5:
-    resolution: {integrity: sha512-YrdjSD+yQv7h6d5Ip+PMxh3H6ZxKyQk0Ts+PvaNRInxneG9PFVZjFg77ILAN+N6qYf7g4giSJ1l+ZjQ1zeegvA==}
-    dependencies:
-      '@types/retry': 0.12.2
+  /@tsndr/cloudflare-worker-jwt/2.1.0:
+    resolution: {integrity: sha512-U8yLexXd7ytstTEp7hEbwQkiMqjxEWz4OfjGju3PhBbNFdi9lH+2kdVB+QQU0g72YjQJZ9UCKzhy0lYzdekLQA==}
     dev: false
 
   /@types/body-scroll-lock/3.1.0:
@@ -3199,22 +3157,16 @@ packages:
     resolution: {integrity: sha512-evMDG1bC4rgQg4ku9tKpuMh5iBNEwNa3tf9zRHdP1qlv+1WUg44xat4IxCE14gIpZRGUUWAx2VhItCZc25NfMA==}
     dev: true
 
-  /@types/lru-cache/4.1.1:
-    resolution: {integrity: sha512-8mNEUG6diOrI6pMqOHrHPDBB1JsrpedeMK9AWGzVCQ7StRRribiT9BRvUmF8aUws9iBbVlgVekOT5Sgzc1MTKw==}
-    dev: false
-
   /@types/node-fetch/2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
       '@types/node': 17.0.45
       form-data: 3.0.1
-
-  /@types/node/10.12.18:
-    resolution: {integrity: sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==}
-    dev: false
+    dev: true
 
   /@types/node/17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: true
 
   /@types/node/18.7.18:
     resolution: {integrity: sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg==}
@@ -3246,10 +3198,6 @@ packages:
       '@types/node': 18.7.18
     dev: true
 
-  /@types/retry/0.12.2:
-    resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
-    dev: false
-
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
@@ -3260,7 +3208,7 @@ packages:
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 18.7.18
     dev: true
 
   /@typescript-eslint/parser/5.37.0_4brgkhw6cq4me3drk3kxrpb2mm:
@@ -3325,43 +3273,8 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vercel/fetch-cached-dns/2.1.0_node-fetch@2.6.7:
-    resolution: {integrity: sha512-dIQWF+bG2EOYeCCCeT3E77qZZa7VgW2quEKw4k8/keeoD8lRMjiNi//Ww7LJ8wXecfv7XXtprwN5uLLLGo/ktg==}
-    peerDependencies:
-      node-fetch: ^2.6.1
-    dependencies:
-      '@types/node-fetch': 2.6.2
-      '@zeit/dns-cached-resolve': 2.1.2
-      node-fetch: 2.6.7
-    dev: false
-
-  /@vercel/fetch-retry/5.1.3_node-fetch@2.6.7:
-    resolution: {integrity: sha512-UIbFc4VsEZHOr6dWuE+kxY4NxnOLXFMCWm0fSKRRHUEtrIzaJLzHpWk2QskCXTSzFgFvhkLAvSrBK2XZg7NSzg==}
-    peerDependencies:
-      node-fetch: ^2.6.7
-    dependencies:
-      async-retry: 1.3.3
-      debug: 4.3.4
-      node-fetch: 2.6.7
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@vercel/fetch/6.2.0_wbqoqouw2iimn65bqgaw3lwmza:
-    resolution: {integrity: sha512-MU+Mzh06NIAXxwdnyHmBFg+/lTKBbzDkCSNhAwWTFJ4rHuBc4pHc8E6XP+qnwqaWugjOBQgFfQCGDLnV820c9A==}
-    peerDependencies:
-      '@types/node-fetch': ^2.6.1
-      node-fetch: ^2.6.7
-    dependencies:
-      '@types/async-retry': 1.4.5
-      '@types/node-fetch': 2.6.2
-      '@vercel/fetch-cached-dns': 2.1.0_node-fetch@2.6.7
-      '@vercel/fetch-retry': 5.1.3_node-fetch@2.6.7
-      agentkeepalive: 4.2.1
-      debug: 4.3.4
-      node-fetch: 2.6.7
-    transitivePeerDependencies:
-      - supports-color
+  /@vercel/edge/0.0.4:
+    resolution: {integrity: sha512-KzZuSib25DsYjLa7UiMhAWfhfE9Oby1T90M0mkYMjCNK71i9vvEKRQXnhs3htmyNyid11KyI4wMEnIr7M9DqAA==}
     dev: false
 
   /@whatwg-node/fetch/0.3.2:
@@ -3395,16 +3308,6 @@ packages:
     transitivePeerDependencies:
       - encoding
     dev: true
-
-  /@zeit/dns-cached-resolve/2.1.2:
-    resolution: {integrity: sha512-A/5gbBskKPETTBqHwvlaW1Ri2orO62yqoFoXdxna1SQ7A/lXjpWgpJ1wdY3IQEcz5LydpS4sJ8SzI2gFyyLEhg==}
-    dependencies:
-      '@types/async-retry': 1.2.1
-      '@types/lru-cache': 4.1.1
-      '@types/node': 10.12.18
-      async-retry: 1.2.3
-      lru-cache: 5.1.1
-    dev: false
 
   /abort-controller/3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -3712,20 +3615,9 @@ packages:
     resolution: {integrity: sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==}
     dev: true
 
-  /async-retry/1.2.3:
-    resolution: {integrity: sha512-tfDb02Th6CE6pJUF2gjW5ZVjsgwlucVXOEQMvEX9JgSJMs9gAX+Nz3xRuJBKuUYjTSYORqvDBORdAQ3LU59g7Q==}
-    dependencies:
-      retry: 0.12.0
-    dev: false
-
-  /async-retry/1.3.3:
-    resolution: {integrity: sha512-wfr/jstw9xNi/0teMHrRW7dsz3Lt5ARhYNZ2ewpadnhaIp5mbALhOAP+EAdsC7t4Z6wqsDVv9+W6gm1Dk9mEyw==}
-    dependencies:
-      retry: 0.13.1
-    dev: false
-
   /asynckit/0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+    dev: true
 
   /atob/2.1.2:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
@@ -4281,6 +4173,7 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
+    dev: true
 
   /commander/6.2.1:
     resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
@@ -4600,6 +4493,7 @@ packages:
   /delayed-stream/1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
+    dev: true
 
   /denque/1.5.1:
     resolution: {integrity: sha512-XwE+iZ4D6ZUB7mfYRMb5wByE8L74HCn30FBN7sWnXksWc1LO1bPDl67pBR9o/kC4z/xSNAwkMYcGgqDV3BE3Hw==}
@@ -5407,6 +5301,7 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    dev: true
 
   /formdata-node/4.4.1:
     resolution: {integrity: sha512-0iirZp3uVDjVGt9p49aTaqjk84TrglENEDuqfdlZQ1roC9CWlPk6Avf8EEnZNcAqPonwkG35x4n3ww/1THYAeQ==}
@@ -6858,12 +6753,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /lru-cache/5.1.1:
-    resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-    dependencies:
-      yallist: 3.1.1
-    dev: false
-
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
@@ -7003,12 +6892,14 @@ packages:
   /mime-db/1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
+    dev: true
 
   /mime-types/2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.52.0
+    dev: true
 
   /mimic-fn/1.2.0:
     resolution: {integrity: sha512-jf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ==}
@@ -8958,14 +8849,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /stripe/8.222.0:
-    resolution: {integrity: sha512-hrA79fjmN2Eb6K3kxkDzU4ODeVGGjXQsuVaAPSUro6I9MM3X+BvIsVqdphm3BXWfimAGFvUqWtPtHy25mICY1w==}
-    engines: {node: ^8.1 || >=10.*}
-    dependencies:
-      '@types/node': 17.0.45
-      qs: 6.11.0
-    dev: false
-
   /styled-jsx/5.0.6_react@18.2.0:
     resolution: {integrity: sha512-xOeROtkK5MGMDimBQ3J6iPId8q0t/BDoG5XN6oKkZClVz9ISF/hihN8OCn2LggMU6N32aXnrXBdn3auSqNS9fA==}
     engines: {node: '>= 12.0.0'}
@@ -9775,10 +9658,6 @@ packages:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
     dev: true
-
-  /yallist/3.1.1:
-    resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
-    dev: false
 
   /yallist/4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}

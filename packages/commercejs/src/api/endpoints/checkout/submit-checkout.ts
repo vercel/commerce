@@ -5,7 +5,6 @@ import sdkFetcherFunction from '../../utils/sdk-fetch'
 import { normalizeTestCheckout } from '../../../utils/normalize-checkout'
 
 const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
-  res,
   body: { item, cartId },
   config: { sdkFetch },
 }) => {
@@ -38,7 +37,7 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
   // Capture the order
   await sdkFetcher('checkout', 'capture', checkoutToken, checkoutData)
 
-  res.status(200).json({ data: null, errors: [] })
+  return { data: null }
 }
 
 export default submitCheckout

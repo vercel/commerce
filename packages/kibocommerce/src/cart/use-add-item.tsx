@@ -9,7 +9,7 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    url: '/api/cart',
+    url: '/api/commerce/cart',
     method: 'POST',
   },
   async fetcher({ input: item, options, fetch }) {
@@ -29,16 +29,18 @@ export const handler: MutationHook<AddItemHook> = {
 
     return data
   },
-  useHook: ({ fetch }) => () => {
-    const { mutate } = useCart()
+  useHook:
+    ({ fetch }) =>
+    () => {
+      const { mutate } = useCart()
 
-    return useCallback(
-      async function addItem(input) {
-        const data = await fetch({ input })
-        await mutate(data, false)
-        return data
-      },
-      [fetch, mutate]
-    )
-  },
+      return useCallback(
+        async function addItem(input) {
+          const data = await fetch({ input })
+          await mutate(data, false)
+          return data
+        },
+        [fetch, mutate]
+      )
+    },
 }

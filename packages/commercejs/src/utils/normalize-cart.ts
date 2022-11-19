@@ -44,14 +44,16 @@ const normalizeLineItem = (
   }
 }
 
-export const normalizeCart = (commercejsCart: CommercejsCart): Cart => {
+export const normalizeCart = (
+  commercejsCart: CommercejsCart | { cart: CommercejsCart }
+): Cart => {
   const {
     id,
     created,
     subtotal: { raw: rawPrice },
     currency,
     line_items,
-  } = commercejsCart
+  } = 'cart' in commercejsCart ? commercejsCart.cart : commercejsCart
 
   return {
     id,

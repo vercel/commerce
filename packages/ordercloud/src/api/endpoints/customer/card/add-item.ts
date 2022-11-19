@@ -1,53 +1,47 @@
 import type { CustomerCardEndpoint } from '.'
 import type { OredercloudCreditCard } from '../../../../types/customer/card'
 
-import Stripe from 'stripe'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET as string, {
-  apiVersion: '2020-08-27',
-})
-
 const addItem: CustomerCardEndpoint['handlers']['addItem'] = async ({
-  res,
+  req,
   body: { item, cartId },
-  config: { restBuyerFetch, restMiddlewareFetch },
+  config: { restBuyerFetch, tokenCookie },
 }) => {
-  // Return an error if no item is present
-  if (!item) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Missing item' }],
-    })
-  }
-
-  // Return an error if no item is present
-  if (!cartId) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Cookie not found' }],
-    })
-  }
-
   // Get token
-  const token = await stripe.tokens
-    .create({
+  const token = req.cookies.get(tokenCookie)
+
+  const [exp_month, exp_year] = item.cardExpireDate.split('/')
+  const stripeToken = await fetch('https://api.stripe.com/v1/tokens', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.STRIPE_SECRET}`,
+    },
+    body: JSON.stringify({
       card: {
         number: item.cardNumber,
-        exp_month: item.cardExpireDate.split('/')[0],
-        exp_year: item.cardExpireDate.split('/')[1],
+        exp_month,
+        exp_year,
         cvc: item.cardCvc,
       },
-    })
-    .then((res: { id: string }) => res.id)
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => res.id)
 
   // Register credit card
-  const creditCard = await restBuyerFetch('POST', `/me/creditcards`, {
-    Token: token,
-    CardType: 'credit',
-    PartialAccountNumber: item.cardNumber.slice(-4),
-    CardholderName: item.cardHolder,
-    ExpirationDate: item.cardExpireDate,
-  }).then((response: OredercloudCreditCard) => response.ID)
+  const creditCard = await restBuyerFetch(
+    'POST',
+    `/me/creditcards`,
+    {
+      Token: stripeToken,
+      CardType: 'credit',
+      PartialAccountNumber: item.cardNumber.slice(-4),
+      CardholderName: item.cardHolder,
+      ExpirationDate: item.cardExpireDate,
+    },
+    {
+      token,
+    }
+  ).then((response: OredercloudCreditCard) => response.ID)
 
   // Assign payment to order
   const payment = await restBuyerFetch(
@@ -56,19 +50,18 @@ const addItem: CustomerCardEndpoint['handlers']['addItem'] = async ({
     {
       Type: 'CreditCard',
       CreditCardID: creditCard,
+    },
+    {
+      token,
     }
   ).then((response: { ID: string }) => response.ID)
 
   // Accept payment to order
-  await restMiddlewareFetch(
-    'PATCH',
-    `/orders/All/${cartId}/payments/${payment}`,
-    {
-      Accepted: true,
-    }
-  )
+  await restBuyerFetch('PATCH', `/orders/All/${cartId}/payments/${payment}`, {
+    Accepted: true,
+  })
 
-  return res.status(200).json({ data: null, errors: [] })
+  return { data: null }
 }
 
 export default addItem

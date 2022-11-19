@@ -1,4 +1,3 @@
-import type { ServerResponse } from 'http'
 import type {
   OperationContext,
   OperationOptions,
@@ -23,14 +22,14 @@ export default function loginOperation({
   async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: BigcommerceConfig
-    res: ServerResponse
+    res: Response
   }): Promise<T['data']>
 
   async function login<T extends LoginOperation>(
     opts: {
       variables: T['variables']
       config?: BigcommerceConfig
-      res: ServerResponse
+      res: Response
     } & OperationOptions
   ): Promise<T['data']>
 
@@ -42,7 +41,7 @@ export default function loginOperation({
   }: {
     query?: string
     variables: T['variables']
-    res: ServerResponse
+    res: Response
     config?: BigcommerceConfig
   }): Promise<T['data']> {
     config = commerce.getConfig(config)
@@ -64,10 +63,15 @@ export default function loginOperation({
         cookie = cookie.replace(/; SameSite=none/gi, '; SameSite=lax')
       }
 
-      response.setHeader(
-        'Set-Cookie',
-        concatHeader(response.getHeader('Set-Cookie'), cookie)!
-      )
+      const prevCookie = response.headers.get('Set-Cookie')
+      const newCookie = concatHeader(prevCookie, cookie)
+
+      if (newCookie) {
+        res.headers.set(
+          'Set-Cookie',
+          String(Array.isArray(newCookie) ? newCookie.join(',') : newCookie)
+        )
+      }
     }
 
     return {

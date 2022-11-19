@@ -48,7 +48,7 @@ export interface CheckoutBody {
 }
 
 export type SubmitCheckoutHook = {
-  data: Checkout
+  data: Checkout | null
   input?: CheckoutBody
   fetcherInput: CheckoutBody
   body: { item: CheckoutBody }
@@ -69,7 +69,7 @@ export type CheckoutHooks = {
 }
 
 export type GetCheckoutHandler = GetCheckoutHook & {
-  body: { cartId: string }
+  body: { cartId?: string }
 }
 
 export type SubmitCheckoutHandler = SubmitCheckoutHook & {

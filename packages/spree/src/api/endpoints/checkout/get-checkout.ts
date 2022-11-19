@@ -2,11 +2,9 @@ import type { CheckoutEndpoint } from '.'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req: _request,
-  res: response,
   config: _config,
 }) => {
-  try {
-    const html = `
+  const html = `
       <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -28,17 +26,11 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       </html>
     `
 
-    response.status(200)
-    response.setHeader('Content-Type', 'text/html')
-    response.write(html)
-    response.end()
-  } catch (error) {
-    console.error(error)
-
-    const message = 'An unexpected error ocurred'
-
-    response.status(500).json({ data: null, errors: [{ message }] })
-  }
+  return new Response(html, {
+    headers: {
+      'content-type': 'text/html',
+    },
+  })
 }
 
 export default getCheckout

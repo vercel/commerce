@@ -1,6 +1,4 @@
 import type { KiboCommerceConfig } from '../index'
-import type { FetchOptions } from '@vercel/fetch'
-import fetch from './fetch'
 
 // This object is persisted during development
 const authCache: { kiboAuthTicket?: AppAuthTicket } = {}
@@ -41,11 +39,11 @@ export class APIAuthenticationHelper {
     this._clientId = clientId
     this._sharedSecret = sharedSecret
     this._authUrl = authUrl
-    if(!authTicketCache) {
-      this._authTicketCache = new RuntimeMemCache();
+    if (!authTicketCache) {
+      this._authTicketCache = new RuntimeMemCache()
     }
   }
-  private _buildFetchOptions(body: any = {}): FetchOptions {
+  private _buildFetchOptions(body: any = {}): any {
     return {
       method: 'POST',
       headers: {

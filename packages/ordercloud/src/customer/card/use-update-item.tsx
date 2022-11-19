@@ -21,7 +21,7 @@ export default useUpdateItem as UseUpdateItem<any>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    url: '/api/customer/card',
+    url: '/api/commerce/customer/card',
     method: 'PUT',
   },
   async fetcher({

@@ -12,8 +12,6 @@ import { ProductCard } from '@components/product'
 import { Container, Skeleton } from '@components/ui'
 
 import useSearch from '@framework/product/use-search'
-
-import getSlug from '@lib/get-slug'
 import rangeMap from '@lib/range-map'
 
 const SORT = {
@@ -29,6 +27,7 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
+import ErrorMessage from './ui/ErrorMessage'
 
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
@@ -56,7 +55,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
   })
 
   if (error) {
-    return <div>Failed to load</div>
+    return <ErrorMessage error={error} />
   }
 
   const handleClick = (event: any, filter: string) => {

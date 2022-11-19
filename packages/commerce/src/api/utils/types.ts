@@ -1,14 +1,19 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextRequest } from 'next/server'
 import type { CommerceAPI } from '..'
 
 export type ErrorData = { message: string; code?: string }
 
-export type APIResponse<Data = any> =
-  | { data: Data; errors?: ErrorData[] }
-  // If `data` doesn't include `null`, then `null` is only allowed on errors
-  | (Data extends null
-      ? { data: null; errors?: ErrorData[] }
-      : { data: null; errors: ErrorData[] })
+export type APIResponse<Data = any> = {
+  data?: Data
+  errors?: ErrorData[]
+  status?: number
+  headers?: Record<string, number | string | string[]> | Headers
+  /**
+   *  @type {string}
+   *  @example redirectTo: '/cart'
+   */
+  redirectTo?: string
+}
 
 export type APIHandlerContext<
   C extends CommerceAPI,
@@ -16,14 +21,10 @@ export type APIHandlerContext<
   Data = any,
   Options extends {} = {}
 > = {
-  req: NextApiRequest
-  res: NextApiResponse<APIResponse<Data>>
+  req: NextRequest
   commerce: C
   config: C['provider']['config']
   handlers: H
-  /**
-   * Custom configs that may be used by a particular handler
-   */
   options: Options
 }
 
@@ -35,7 +36,7 @@ export type APIHandler<
   Options extends {} = {}
 > = (
   context: APIHandlerContext<C, H, Data, Options> & { body: Body }
-) => void | Promise<void>
+) => Promise<APIResponse<Data>>
 
 export type APIHandlers<C extends CommerceAPI> = {
   [k: string]: APIHandler<C, any, any, any, any>
@@ -46,4 +47,6 @@ export type APIEndpoint<
   H extends APIHandlers<C> = {},
   Data = any,
   Options extends {} = {}
-> = (context: APIHandlerContext<C, H, Data, Options>) => void | Promise<void>
+> = (
+  context: APIHandlerContext<C, H, Data, Options>
+) => Promise<APIResponse<Data>>

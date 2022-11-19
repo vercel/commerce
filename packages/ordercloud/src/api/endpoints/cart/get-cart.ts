@@ -1,64 +1,56 @@
-import type { OrdercloudLineItem } from '../../../types/cart'
 import type { CartEndpoint } from '.'
 
 import { serialize } from 'cookie'
-
 import { formatCart } from '../../utils/cart'
 
 // Return current cart info
 const getCart: CartEndpoint['handlers']['getCart'] = async ({
   req,
-  res,
   body: { cartId },
   config: { restBuyerFetch, cartCookie, tokenCookie },
 }) => {
+  // If no cartId is provided, return data null
   if (!cartId) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
+    return { data: null }
   }
 
   try {
-    // Get token from cookies
-    const token = req.cookies[tokenCookie]
+    // Get token
+    const token = req.cookies.get(tokenCookie)
 
-    // Get cart
-    const cart = await restBuyerFetch(
-      'GET',
-      `/orders/Outgoing/${cartId}`,
-      null,
-      { token }
-    )
-
-    // Get line items
-    const lineItems = await restBuyerFetch(
-      'GET',
-      `/orders/Outgoing/${cartId}/lineitems`,
-      null,
-      { token }
-    ).then((response: { Items: OrdercloudLineItem[] }) => response.Items)
-
-    // Format cart
-    const formattedCart = formatCart(cart, lineItems)
-
-    // Return cart and errors
-    res.status(200).json({ data: formattedCart, errors: [] })
-  } catch (error) {
-    // Reset cart and token cookie
-    res.setHeader('Set-Cookie', [
-      serialize(cartCookie, cartId, {
-        maxAge: -1,
-        path: '/',
-      }),
-      serialize(tokenCookie, cartId, {
-        maxAge: -1,
-        path: '/',
+    // Get cart & line items
+    const [cart, { Items }] = await Promise.all([
+      restBuyerFetch('GET', `/orders/Outgoing/${cartId}`, null, { token }),
+      restBuyerFetch('GET', `/orders/Outgoing/${cartId}/lineitems`, null, {
+        token,
       }),
     ])
 
+    // Format cart
+    const formattedCart = formatCart(cart, Items)
+    // Return cart and errors
+    return {
+      data: formattedCart,
+    }
+  } catch (error) {
+    console.error(error)
+    const headers = {
+      'set-cookie': [
+        serialize(cartCookie, '', {
+          maxAge: -1,
+          path: '/',
+        }),
+        serialize(tokenCookie, '', {
+          maxAge: -1,
+          path: '/',
+        }),
+      ],
+    }
     // Return empty cart
-    res.status(200).json({ data: null, errors: [] })
+    return {
+      data: null,
+      headers,
+    }
   }
 }
 

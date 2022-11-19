@@ -1,11 +1,12 @@
-import type { ServerResponse } from 'http'
 import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { Provider, SaleorConfig } from '..'
 import { throwUserErrors } from '../../utils'
 
 import * as Mutation from '../../utils/mutations'
 
-export default function loginOperation({ commerce }: OperationContext<Provider>) {
+export default function loginOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function login({
     query = Mutation.SessionCreate,
     variables,
@@ -13,7 +14,7 @@ export default function loginOperation({ commerce }: OperationContext<Provider>)
   }: {
     query?: string
     variables: any
-    res: ServerResponse
+    res: Response
     config?: SaleorConfig
   }): Promise<any> {
     config = commerce.getConfig(config)

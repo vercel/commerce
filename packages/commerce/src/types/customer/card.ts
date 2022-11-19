@@ -78,7 +78,7 @@ export type GetCardsHook = {
 }
 
 export type AddItemHook = {
-  data: Card
+  data: Card | null
   input?: CardFields
   fetcherInput: CardFields
   body: { item: CardFields }
@@ -86,7 +86,7 @@ export type AddItemHook = {
 }
 
 export type UpdateItemHook = {
-  data: Card | null | undefined
+  data: Card | null
   input: { item?: CardFields; wait?: number }
   fetcherInput: { itemId: string; item: CardFields }
   body: { itemId: string; item: CardFields }
@@ -94,7 +94,7 @@ export type UpdateItemHook = {
 }
 
 export type RemoveItemHook = {
-  data: Card | null | undefined
+  data: Card | null
   input: { item?: Card }
   fetcherInput: { itemId: string }
   body: { itemId: string }
@@ -116,7 +116,6 @@ export type AddItemHandler = AddItemHook & {
 }
 
 export type UpdateItemHandler = UpdateItemHook & {
-  data: Card
   body: { cartId: string }
 }
 

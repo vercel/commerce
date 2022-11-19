@@ -1,25 +1,25 @@
 import { KiboCommerceConfig } from './../index'
 import { getCookieExpirationDate } from '../../lib/get-cookie-expiration-date'
 import { prepareSetCookie } from '../../lib/prepare-set-cookie'
-import { setCookies } from '../../lib/set-cookie'
-import { NextApiRequest } from 'next'
+
 import getAnonymousShopperToken from './get-anonymous-shopper-token'
+import type { NextRequest } from 'next/server'
 
 const parseCookie = (cookieValue?: any) => {
-  return cookieValue 
-    ? JSON.parse(Buffer.from(cookieValue, 'base64').toString('ascii')) 
+  return cookieValue
+    ? JSON.parse(Buffer.from(cookieValue, 'base64').toString('ascii'))
     : null
 }
 export default class CookieHandler {
   config: KiboCommerceConfig
-  request: NextApiRequest
-  response: any
+  request: NextRequest
+  headers: HeadersInit | undefined
   accessToken: any
-  constructor(config: any, req: NextApiRequest, res: any) {
+  constructor(config: any, req: NextRequest) {
     this.config = config
     this.request = req
-    this.response = res
-    const encodedToken = req.cookies[config.customerCookie]
+
+    const encodedToken = req.cookies.get(config.customerCookie)
     const token = parseCookie(encodedToken)
     this.accessToken = token ? token.accessToken : null
   }
@@ -36,9 +36,9 @@ export default class CookieHandler {
   }
   isShopperCookieAnonymous() {
     const customerCookieKey = this.config.customerCookie
-    const shopperCookie = this.request.cookies[customerCookieKey]
-    const shopperSession = parseCookie(shopperCookie);
-    const isAnonymous = shopperSession?.customerAccount ? false : true 
+    const shopperCookie = this.request.cookies.get(customerCookieKey)
+    const shopperSession = parseCookie(shopperCookie)
+    const isAnonymous = shopperSession?.customerAccount ? false : true
     return isAnonymous
   }
   setAnonymousShopperCookie(anonymousShopperTokenResponse: any) {
@@ -53,7 +53,9 @@ export default class CookieHandler {
         ? { expires: cookieExpirationDate }
         : {}
     )
-    setCookies(this.response, [authCookie])
+    this.headers = {
+      'Set-Cookie': authCookie,
+    }
   }
   getAccessToken() {
     return this.accessToken

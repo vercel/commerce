@@ -1,35 +1,26 @@
-import type { LogoutSchema } from '../../types/logout'
-import { CommerceAPIError } from '../utils/errors'
-import isAllowedOperation from '../utils/is-allowed-operation'
 import type { GetAPISchema } from '..'
+import type { LogoutSchema } from '../../types/logout'
 
-const logoutEndpoint: GetAPISchema<any, LogoutSchema>['endpoint']['handler'] =
-  async (ctx) => {
-    const { req, res, handlers } = ctx
+import { logoutBodySchema } from '../../schemas/auth'
+import validateHandlers from '../utils/validate-handlers'
 
-    if (
-      !isAllowedOperation(req, res, {
-        GET: handlers['logout'],
-      })
-    ) {
-      return
-    }
+const logoutEndpoint: GetAPISchema<
+  any,
+  LogoutSchema
+>['endpoint']['handler'] = async (ctx) => {
+  const { req, handlers } = ctx
 
-    try {
-      const redirectTo = req.query.redirect_to
-      const body = typeof redirectTo === 'string' ? { redirectTo } : {}
+  validateHandlers(req, {
+    GET: handlers['logout'],
+  })
 
-      return await handlers['logout']({ ...ctx, body })
-    } catch (error) {
-      console.error(error)
+  const redirectTo = new URL(req.url).searchParams.get('redirectTo')
 
-      const message =
-        error instanceof CommerceAPIError
-          ? 'An unexpected error ocurred with the Commerce API'
-          : 'An unexpected error ocurred'
+  const body = logoutBodySchema.parse(
+    typeof redirectTo === 'string' ? { redirectTo } : {}
+  )
 
-      res.status(500).json({ data: null, errors: [{ message }] })
-    }
-  }
+  return handlers['logout']({ ...ctx, body })
+}
 
 export default logoutEndpoint

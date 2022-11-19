@@ -199,14 +199,14 @@ export type CartHooks = {
 }
 
 export type GetCartHook = {
-  data: Cart | null
+  data: Cart | null | undefined
   input: {}
   fetcherInput: { cartId?: string }
   swrState: { isEmpty: boolean }
 }
 
 export type AddItemHook = {
-  data: Cart
+  data: Cart | null | undefined
   input?: CartItemBody
   fetcherInput: CartItemBody
   body: { item: CartItemBody }
@@ -251,7 +251,8 @@ export type GetCartHandler = GetCartHook & {
 }
 
 export type AddItemHandler = AddItemHook & {
-  body: { cartId: string }
+  data: Cart | null | undefined
+  body: { cartId?: string }
 }
 
 export type UpdateItemHandler = UpdateItemHook & {

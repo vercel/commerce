@@ -1,66 +1,53 @@
-import { FetcherError } from '@vercel/commerce/utils/errors'
 import type { LoginEndpoint } from '.'
+
+import { FetcherError } from '@vercel/commerce/utils/errors'
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
+
 import { loginMutation } from '../../mutations/login-mutation'
-import { prepareSetCookie } from '../../../lib/prepare-set-cookie';
-import { setCookies } from '../../../lib/set-cookie'
+import { prepareSetCookie } from '../../../lib/prepare-set-cookie'
 import { getCookieExpirationDate } from '../../../lib/get-cookie-expiration-date'
 
 const invalidCredentials = /invalid credentials/i
 
 const login: LoginEndpoint['handlers']['login'] = async ({
-  req,
-  res,
   body: { email, password },
   config,
-  commerce,
 }) => {
-
-  if (!(email && password)) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
-  }
-
-  let response;
+  let response
   try {
-
-    const variables = { loginInput : { username: email, password }};
-    response = await  config.fetch(loginMutation, { variables })
-    const { account: token }  = response.data;
+    const variables = { loginInput: { username: email, password } }
+    response = await config.fetch(loginMutation, { variables })
+    const { account: token } = response.data
 
     // Set Cookie
-    const cookieExpirationDate = getCookieExpirationDate(config.customerCookieMaxAgeInDays)
+    const cookieExpirationDate = getCookieExpirationDate(
+      config.customerCookieMaxAgeInDays
+    )
 
     const authCookie = prepareSetCookie(
       config.customerCookie,
       JSON.stringify(token),
-      token.accessTokenExpiration ? { expires: cookieExpirationDate }: {},
+      token.accessTokenExpiration ? { expires: cookieExpirationDate } : {}
     )
-    setCookies(res, [authCookie])
 
+    return { data: null, headers: { 'Set-Cookie': authCookie } }
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (
       error instanceof FetcherError &&
       invalidCredentials.test(error.message)
     ) {
-      return res.status(401).json({
-        data: null,
-        errors: [
-          {
-            message:
-              'Cannot find an account that matches the provided credentials',
-            code: 'invalid_credentials',
-          },
-        ],
-      })
+      throw new CommerceAPIError(
+        'Cannot find an account that matches the provided credentials',
+        {
+          status: 401,
+          code: 'invalid_credentials',
+        }
+      )
+    } else {
+      throw error
     }
-
-    throw error
   }
-
-  res.status(200).json({ data: response })
 }
 
 export default login

@@ -1,6 +1,5 @@
-import type { NextApiHandler } from 'next'
-import type { FetchOptions, Response } from '@vercel/fetch'
-import type { APIEndpoint, APIHandler } from './utils/types'
+import type { NextRequest } from 'next/server'
+import type { APIEndpoint, APIHandler, APIResponse } from './utils/types'
 import type { CartSchema } from '../types/cart'
 import type { CustomerSchema } from '../types/customer'
 import type { LoginSchema } from '../types/login'
@@ -119,6 +118,8 @@ export function getCommerceApi<P extends APIProvider>(
   return commerce
 }
 
+export type EndpointHandler = (req: NextRequest) => Promise<APIResponse>
+
 export function getEndpoint<
   P extends APIProvider,
   T extends GetAPISchema<any, any>
@@ -128,13 +129,11 @@ export function getEndpoint<
     config?: P['config']
     options?: T['schema']['endpoint']['options']
   }
-): NextApiHandler {
+): EndpointHandler {
   const cfg = commerce.getConfig(context.config)
-
-  return function apiHandler(req, res) {
+  return function apiHandler(req) {
     return context.handler({
       req,
-      res,
       commerce,
       config: cfg,
       handlers: context.handlers,
@@ -151,7 +150,7 @@ export const createEndpoint =
       config?: P['config']
       options?: API['schema']['endpoint']['options']
     }
-  ): NextApiHandler => {
+  ): EndpointHandler => {
     return getEndpoint(commerce, { ...endpoint, ...context })
   }
 
@@ -166,7 +165,7 @@ export interface CommerceAPIConfig {
   fetch<Data = any, Variables = any>(
     query: string,
     queryData?: CommerceAPIFetchOptions<Variables>,
-    fetchOptions?: FetchOptions
+    headers?: HeadersInit
   ): Promise<GraphQLFetcherResult<Data>>
 }
 
@@ -175,8 +174,7 @@ export type GraphQLFetcher<
   Variables = any
 > = (
   query: string,
-  queryData?: CommerceAPIFetchOptions<Variables>,
-  fetchOptions?: FetchOptions
+  queryData?: CommerceAPIFetchOptions<Variables>
 ) => Promise<Data>
 
 export interface GraphQLFetcherResult<Data = any> {
