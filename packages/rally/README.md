@@ -1,7 +1,7 @@
 
 ## Rally <sub><sup>♥</sup></sub> Next.js
 
-For successfully integrating the Rally checkout button follow the steps bellow.
+To successfully integrate the Rally checkout button follow the steps below.
 #### **1. Install the Rally checkout button**
 
 ```bash
