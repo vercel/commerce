@@ -28,7 +28,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
 
   const { data, errors, message, type, status } = await res.json()
 
-  if (errors) {
+  if (errors || res.status >= 400) {
     throw getError(
       errors || [
         {
