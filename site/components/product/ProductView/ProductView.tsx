@@ -55,7 +55,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           images: [
             {
               url: product.images[0]?.url!,
-              width: '600',
+              width: '800',
               height: '600',
               alt: product.name,
             },
