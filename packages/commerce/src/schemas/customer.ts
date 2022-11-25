@@ -5,14 +5,16 @@ export const getCustomerAddressBodySchema = z.object({
 })
 
 export const customerSchema = z.object({
-  id: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  notes: z.string().optional(),
-  acceptsMarketing: z.boolean().optional(),
+  customer: z.object({
+    id: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    company: z.string().optional(),
+    notes: z.string().optional(),
+    acceptsMarketing: z.boolean().optional(),
+  })
 })
 
 export const addressSchema = z.object({
