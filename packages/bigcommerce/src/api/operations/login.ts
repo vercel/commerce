@@ -67,7 +67,7 @@ export default function loginOperation({
       const newCookie = concatHeader(prevCookie, cookie)
 
       if (newCookie) {
-        res.headers.set(
+        response.headers.set(
           'Set-Cookie',
           String(Array.isArray(newCookie) ? newCookie.join(',') : newCookie)
         )
