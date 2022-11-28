@@ -83,8 +83,8 @@ export const getMetafieldValue = (
     case 'weight':
       return getMeasurment(value, locale)
     case 'rating':
-      const { scale_max, value: val } = JSON.parse(value)
-      return Array.from({ length: scale_max }, (_, i) =>
+      const { scale_max: length, value: val } = JSON.parse(value)
+      return Array.from({ length }, (_, i) =>
         i <= val - 1 ? '&#9733;' : '&#9734;'
       ).join('')
     case 'color':

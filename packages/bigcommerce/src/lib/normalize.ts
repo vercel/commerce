@@ -1,10 +1,14 @@
 import type { Page } from '@vercel/commerce/types/page'
-import type { Product } from '@vercel/commerce/types/product'
+import type {
+  Product,
+  ProductCustomField,
+} from '@vercel/commerce/types/product'
 import type { Cart, LineItem } from '@vercel/commerce/types/cart'
 import type { Category, Brand } from '@vercel/commerce/types/site'
 import type { BigcommerceCart, BCCategory, BCBrand } from '../types'
 import type { ProductNode } from '../api/operations/get-all-products'
 import type { definitions } from '../api/definitions/store-content'
+import type { CustomFieldEdge } from '../../schema'
 
 import getSlug from './get-slug'
 
@@ -20,10 +24,20 @@ function normalizeProductOption(productOption: any) {
   }
 }
 
-export function normalizeProduct(productNode: ProductNode): Product {
+// TODO: change this after schema definition is updated
+interface ProductNodeWithCustomFields extends ProductNode {
+  customFields: {
+    edges?: CustomFieldEdge[]
+  }
+}
+
+export function normalizeProduct(
+  productNode: ProductNodeWithCustomFields
+): Product {
   const {
     entityId: id,
     productOptions,
+    customFields,
     prices,
     path,
     images,
@@ -52,6 +66,7 @@ export function normalizeProduct(productNode: ProductNode): Product {
         })
       ) || [],
     options: productOptions?.edges?.map(normalizeProductOption) || [],
+    customFields: customFields?.edges?.map(normalizeCustomFieldsValue) || [],
     slug: path?.replace(/^\/+|\/+$/g, ''),
     price: {
       value: prices?.price.value,
@@ -135,5 +150,19 @@ export function normalizeBrand(brand: BCBrand): Brand {
     name: brand.node.name,
     slug,
     path: `/${slug}`,
+  }
+}
+
+function normalizeCustomFieldsValue(
+  field: CustomFieldEdge
+): ProductCustomField {
+  const {
+    node: { entityId, name, value },
+  } = field
+
+  return {
+    id: String(entityId),
+    name,
+    value,
   }
 }

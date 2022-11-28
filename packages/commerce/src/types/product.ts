@@ -152,6 +152,21 @@ export interface ProductMetafields {
   }
 }
 
+export interface ProductCustomField {
+  /**
+   * The unique identifier for the custom field.
+   */
+  id: string
+  /**
+   * The name of the custom field.
+   */
+  name: string
+  /**
+   * The value of the custom field.
+   */
+  value: string
+}
+
 export interface Product {
   /**
    *  The unique identifier for the product.
@@ -186,11 +201,17 @@ export interface Product {
    */
   images: Image[]
   /**
-   * The products custom fields. They are used to store simple key-value additional information about the product.
+   * List of custom fields / properties associated with the product.
+   * @example
+   * customFields: [{
+   *   id: '1',
+   *   name: 'Warehouse Location',
+   *   value: 'Aisle 3, Shelf 5, Bin 6'
+   * }]
    */
-  customFields?: Record<string, string>
+  customFields?: ProductCustomField[]
   /**
-   * The product metafields are advanced custom fields that can be added to a product. They are used to store additional information about the product, usually in a structured format.
+   * Advanced custom fields that can be added to a product. They are used to store additional information about the product, in a structured format, grouped by namespaces.
    * @example
    * {
    *  // Namespace, the container for a set of metadata
@@ -198,8 +219,10 @@ export interface Product {
    *   // Key of the metafield, used to differentiate between metafields of the same namespace
    *   rating: {
    *    key: 'rating',
-   *    value: 5,
-   *   // ... other metafield properties
+   *    value: 4,
+   *    valueHtml: '&#9733;&#9733;&#9733;&#9733;&#9734;',
+   *    type: 'integer',
+   *    name: 'Rating',
    *  }
    * }
    */

@@ -67,7 +67,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         <div className="flex flex-row justify-between items-center">
           <Rating value={product.metafields.reviews.rating.value} />
           <div className="text-accent-6 pr-1 font-medium text-sm">
-            {product.metafields.reviews.count?.value || 2} reviews
+            {product.metafields.reviews.count?.value ?? 0} reviews
           </div>
         </div>
       )}
@@ -90,18 +90,28 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         )}
       </div>
       <div className="mt-6">
-        {product.metafields?.descriptors?.care_guide && (
-          <Collapse title="Care">
-            <Text
-              className="leading-0"
-              html={product.metafields.descriptors.care_guide.valueHtml}
-            />
-          </Collapse>
-        )}
+        <Collapse title="Care">
+          This is a limited edition production run. Printing starts when the
+          drop ends.
+        </Collapse>
+        <Collapse title="Details">
+          This is a limited edition production run. Printing starts when the
+          drop ends. Reminder: Bad Boys For Life. Shipping may take 10+ days due
+          to COVID-19.
+        </Collapse>
+        {(product.customFields || product.metafields) && (
+          <Collapse title="Specifications">
+            {product.customFields?.map((field) => (
+              <div
+                key={field.id}
+                className="flex gap-2 border-b py-3 border-accent-2 border-dashed last:border-b-0"
+              >
+                <strong className="leading-7">{field.name}:</strong>
+                <span>{field.value}</span>
+              </div>
+            ))}
 
-        {product.metafields?.my_fields && (
-          <Collapse title="Details">
-            {Object.values(product.metafields.my_fields).map((field) => (
+            {Object.values(product.metafields?.my_fields ?? {}).map((field) => (
               <div
                 key={field.key}
                 className="flex gap-2 border-b py-3 border-accent-2 border-dashed last:border-b-0"
