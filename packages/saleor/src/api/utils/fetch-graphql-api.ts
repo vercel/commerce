@@ -2,7 +2,6 @@ import type { GraphQLFetcher } from '@vercel/commerce/api'
 
 import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
-import { getCommerceApi } from '..'
 import { getToken } from '../../utils/index'
 
 const fetchGraphqlApi: GraphQLFetcher = async (
@@ -10,7 +9,6 @@ const fetchGraphqlApi: GraphQLFetcher = async (
   { variables } = {},
   headers?: HeadersInit
 ) => {
-  const config = getCommerceApi().getConfig()
   const token = getToken()
 
   const res = await fetch(API_URL!, {
@@ -28,10 +26,17 @@ const fetchGraphqlApi: GraphQLFetcher = async (
     }),
   })
 
-  const { data, errors, status } = await res.json()
+  const { data, errors, message, type, status } = await res.json()
 
-  if (errors) {
-    throw getError(errors, status)
+  if (errors || res.status >= 400) {
+    throw getError(
+      errors || [
+        {
+          message: `${type ? `${type}, ` : ''}${message}`,
+        },
+      ],
+      status || res.status
+    )
   }
 
   return { data, res }
