@@ -21,7 +21,7 @@ export const withOperationCallback =
 const parse = ({ name, data }: Operation) => {
   switch (name) {
     case 'getProduct':
-      productSchema.nullable().parse(data.product)
+      productSchema.optional().parse(data.product)
       break
     case 'getAllProducts':
       z.array(productSchema).parse(data.products)
