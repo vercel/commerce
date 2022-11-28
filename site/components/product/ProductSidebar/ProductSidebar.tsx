@@ -94,20 +94,20 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
           <Collapse title="Care">
             <Text
               className="leading-0"
-              html={product.metafields.descriptors.care_guide.html}
+              html={product.metafields.descriptors.care_guide.valueHtml}
             />
           </Collapse>
         )}
 
         {product.metafields?.my_fields && (
           <Collapse title="Details">
-            {Object.entries(product.metafields.my_fields).map(([_, field]) => (
+            {Object.values(product.metafields.my_fields).map((field) => (
               <div
                 key={field.key}
                 className="flex gap-2 border-b py-3 border-accent-2 border-dashed last:border-b-0"
               >
                 <strong className="leading-7">{field.name}:</strong>
-                <Text html={field.html || field.value} className="!mx-0" />
+                <Text html={field.valueHtml || field.value} className="!mx-0" />
               </div>
             ))}
           </Collapse>

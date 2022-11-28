@@ -100,7 +100,7 @@ export default function getAllProductPathsOperation({
     const variables: GetProductQueryVariables = {
       locale,
       hasLocale: !!locale,
-      path: slug ? `/${slug}` : vars.path!,
+      path: `/${slug}`,
     }
     const { data } = await config.fetch<GetProductQuery>(query, { variables })
     const product = data.site?.route?.node

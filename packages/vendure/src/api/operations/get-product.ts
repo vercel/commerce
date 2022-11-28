@@ -1,22 +1,26 @@
-import { Product } from '@vercel/commerce/types/product'
-import { OperationContext } from '@vercel/commerce/api/operations'
-import { Provider, VendureConfig } from '../'
-import { GetProductQuery } from '../../../schema'
+import type {
+  Product,
+  GetProductOperation,
+} from '@vercel/commerce/types/product'
+import type { OperationContext } from '@vercel/commerce/api/operations'
+import type { Provider, VendureConfig } from '../'
+
+import type { GetProductQuery } from '../../../schema'
 import { getProductQuery } from '../../utils/queries/get-product-query'
 
 export default function getProductOperation({
   commerce,
 }: OperationContext<Provider>) {
-  async function getProduct({
+  async function getProduct<T extends GetProductOperation>({
     query = getProductQuery,
     variables,
     config: cfg,
   }: {
     query?: string
-    variables: { slug: string }
+    variables: T['variables']
     config?: Partial<VendureConfig>
     preview?: boolean
-  }): Promise<Product | {} | any> {
+  }): Promise<T['data']> {
     const config = commerce.getConfig(cfg)
 
     const locale = config.locale

@@ -83,32 +83,38 @@ export interface ProductVariant {
    */
   image?: Image
 }
+
+/**
+ *
+ * The product metafield object, which is a custom field attached to a product. It can be used to store additional information about the product in a structured format.
+ * @example `reviews`
+ */
 export interface ProductMetafield {
   /**
-   * The key name for the metafield.
+   * The unique identifier for the metafield.
    */
   key: string
 
   /**
-   * The namespace for the metafield.
+   * The namespace for the metafield, which is a container for a set of metadata.
    * @example `rating`
    */
   namespace: string
 
   /**
-   * The value of the metafield.
+   * The value of the metafield, usually a string that can be might parsed into JSON.
    * @example `{"value": 5, "scale_max": 5}`
    */
   value: any
 
   /**
-   * Automatically transformed value of the metafield.
+   * The value of the metafield, complete with HTML formatting.
    */
-  html?: string
+  valueHtml?: string
 
   /**
-   * The type of the metafield.
-   * @example `date`
+   * The type of the metafield, used to determine how the value should be interpreted.
+   * For example: `string`, `integer`, `boolean`, `json` ...
    */
   type?: string
 
@@ -119,11 +125,12 @@ export interface ProductMetafield {
 }
 
 /**
- * Product Metafields, grouped by namespace.
- * The namespace is the key of the object, and the value is an object with the metafield key and an object with the metafield data.
+ * The product metafields are custom fields that can be added to a product. They are used to store additional information about the product.
  * @example
  * {
+ *  // Namespace, the container for a set of metadata
  *  reviews: {
+ *   // Key of the metafield, used to differentiate between metafields of the same namespace
  *   rating: {
  *    key: 'rating',
  *    value: 5,
@@ -132,10 +139,19 @@ export interface ProductMetafield {
  * }
  */
 export interface ProductMetafields {
+  /**
+   * The namespace for the metafield, which is a container for a set of metadata.
+   * @example `reviews`, `specifications`
+   */
   [namespace: string]: {
+    /**
+     * The key of the metafield, which is the name of the metafield.
+     * @example `rating`
+     */
     [key: string]: ProductMetafield
   }
 }
+
 export interface Product {
   /**
    *  The unique identifier for the product.
@@ -170,8 +186,22 @@ export interface Product {
    */
   images: Image[]
   /**
-   * The product’s metafields. This is a list of metafields that are attached to the product.
-   *
+   * The products custom fields. They are used to store simple key-value additional information about the product.
+   */
+  customFields?: Record<string, string>
+  /**
+   * The product metafields are advanced custom fields that can be added to a product. They are used to store additional information about the product, usually in a structured format.
+   * @example
+   * {
+   *  // Namespace, the container for a set of metadata
+   *  reviews: {
+   *   // Key of the metafield, used to differentiate between metafields of the same namespace
+   *   rating: {
+   *    key: 'rating',
+   *    value: 5,
+   *   // ... other metafield properties
+   *  }
+   * }
    */
   metafields?: ProductMetafields
   /**
@@ -265,40 +295,24 @@ export type GetAllProductsOperation = {
   }
 }
 
-export type MetafieldsIdentifiers =
-  | Record<string, string[]>
-  | Array<{
-      namespace: string
-      key: string
-    }>
+export type MetafieldsIdentifiers = Array<{
+  namespace: string
+  key: string
+}>
 
 export type GetProductOperation = {
   data: { product?: Product }
-  variables:
-    | {
-        path: string
-        slug?: never
-      }
-    | ({
-        path?: never
-        slug: string
-      } & {
-        /**
-         * Metafields identifiers used to fetch the product metafields.
-         * It can be an array of objects with the namespace and key, or an object with the namespace as the key and an array of keys as the value.
-         *
-         * @example
-         * metafields: {
-         *  reviews: ['rating', 'count']
-         * }
-         *
-         * // or
-         *
-         * metafields: [
-         *  {namespace: 'reviews', key: 'rating'},
-         *  {namespace: 'reviews', key: 'count'},
-         * ]
-         */
-        withMetafields?: MetafieldsIdentifiers
-      })
+  variables: {
+    slug: string
+    /**
+     * Metafields identifiers used to fetch the product metafields, represented as an array of objects with the namespace and key.
+     *
+     * @example
+     * withMetafields: [
+     *  {namespace: 'reviews', key: 'rating'},
+     *  {namespace: 'reviews', key: 'count'},
+     * ]
+     */
+    withMetafields?: MetafieldsIdentifiers
+  }
 }
