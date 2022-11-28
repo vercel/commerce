@@ -83,7 +83,59 @@ export interface ProductVariant {
    */
   image?: Image
 }
+export interface ProductMetafield {
+  /**
+   * The key name for the metafield.
+   */
+  key: string
 
+  /**
+   * The namespace for the metafield.
+   * @example `rating`
+   */
+  namespace: string
+
+  /**
+   * The value of the metafield.
+   * @example `{"value": 5, "scale_max": 5}`
+   */
+  value: any
+
+  /**
+   * Automatically transformed value of the metafield.
+   */
+  html?: string
+
+  /**
+   * The type of the metafield.
+   * @example `date`
+   */
+  type?: string
+
+  /**
+   * The name of the metafield, that can be used as a label.
+   */
+  name?: string
+}
+
+/**
+ * Product Metafields, grouped by namespace.
+ * The namespace is the key of the object, and the value is an object with the metafield key and an object with the metafield data.
+ * @example
+ * {
+ *  reviews: {
+ *   rating: {
+ *    key: 'rating',
+ *    value: 5,
+ *   // ... other metafield properties
+ *  }
+ * }
+ */
+export interface ProductMetafields {
+  [namespace: string]: {
+    [key: string]: ProductMetafield
+  }
+}
 export interface Product {
   /**
    *  The unique identifier for the product.
@@ -117,6 +169,11 @@ export interface Product {
    * List of images associated with the product.
    */
   images: Image[]
+  /**
+   * The product’s metafields. This is a list of metafields that are attached to the product.
+   *
+   */
+  metafields?: ProductMetafields
   /**
    * List of the product’s variants.
    */
@@ -194,7 +251,6 @@ export type ProductsSchema = {
 /**
  *  Product operations
  */
-
 export type GetAllProductPathsOperation = {
   data: { products: Pick<Product, 'path'>[] }
   variables: { first?: number }
@@ -209,7 +265,40 @@ export type GetAllProductsOperation = {
   }
 }
 
+export type MetafieldsIdentifiers =
+  | Record<string, string[]>
+  | Array<{
+      namespace: string
+      key: string
+    }>
+
 export type GetProductOperation = {
   data: { product?: Product }
-  variables: { path: string; slug?: never } | { path?: never; slug: string }
+  variables:
+    | {
+        path: string
+        slug?: never
+      }
+    | ({
+        path?: never
+        slug: string
+      } & {
+        /**
+         * Metafields identifiers used to fetch the product metafields.
+         * It can be an array of objects with the namespace and key, or an object with the namespace as the key and an array of keys as the value.
+         *
+         * @example
+         * metafields: {
+         *  reviews: ['rating', 'count']
+         * }
+         *
+         * // or
+         *
+         * metafields: [
+         *  {namespace: 'reviews', key: 'rating'},
+         *  {namespace: 'reviews', key: 'count'},
+         * ]
+         */
+        withMetafields?: MetafieldsIdentifiers
+      })
 }

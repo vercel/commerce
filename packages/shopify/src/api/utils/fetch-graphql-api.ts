@@ -30,14 +30,7 @@ const fetchGraphqlApi: GraphQLFetcher = async (
 
     return { data, res }
   } catch (err) {
-    throw getError(
-      [
-        {
-          message: `${err} \n Most likely related to an unexpected output. E.g: NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN & NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN might be incorect.`,
-        },
-      ],
-      500
-    )
+    throw getError([err], 500)
   }
 }
 export default fetchGraphqlApi
