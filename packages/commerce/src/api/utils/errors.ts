@@ -42,7 +42,9 @@ export class CommerceNetworkError extends Error {
 }
 
 export const normalizeZodIssues = (issues: ZodError['issues']) =>
-  issues.map(({ path, message }) => `${message} at "${path.join('.')}" field`)
+  issues.map(({ path, message }) =>
+    path.length ? `${message} at "${path.join('.')}" field` : message
+  )
 
 export const getOperationError = (operation: string, error: unknown) => {
   if (error instanceof ZodError) {
