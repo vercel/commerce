@@ -1,21 +1,14 @@
 import { FC } from 'react'
 import cn from 'clsx'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { Page } from '@commerce/types/page'
 import getSlug from '@lib/get-slug'
 import { Github, Vercel } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
+import ThemeSwitcher from '@components/ui/ThemeSwitcher'
 import s from './Footer.module.css'
-
-const ThemeSwitcher = dynamic(() => import('@components/ui/ThemeSwitcher'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-24 h-10 rounded-md bg-accent-2 animate-pulse" />
-  ),
-})
 
 interface Props {
   className?: string

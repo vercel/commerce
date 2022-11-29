@@ -1,18 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import { ChevronUp, Cross } from '@components/icons'
+import { ChevronRight, Cross } from '@components/icons'
 
 import cn from 'clsx'
 import ClickOutside from '@lib/click-outside'
 import ThemeIcon from './ThemeIcon'
 
 const ThemeSwitcher = () => {
+  const [mounted, setMounted] = useState(false)
   const [display, setDisplay] = useState(false)
   const { theme, themes, setTheme } = useTheme()
 
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return null
+
   return (
     <ClickOutside active={display} onClick={() => setDisplay(false)}>
-      <nav className="relative">
+      <div className="relative">
         <div
           className="flex items-center relative"
           onClick={() => setDisplay(!display)}
@@ -26,9 +31,9 @@ const ThemeSwitcher = () => {
             <ThemeIcon width={20} height={20} theme={theme} />
             <span className="capitalize">{theme}</span>
             <span className="cursor-pointer">
-              <ChevronUp
+              <ChevronRight
                 className={cn('transition duration-300', {
-                  ['rotate-180']: display,
+                  ['rotate-90']: display,
                 })}
               />
             </span>
@@ -69,7 +74,7 @@ const ThemeSwitcher = () => {
             </div>
           ) : null}
         </div>
-      </nav>
+      </div>
     </ClickOutside>
   )
 }
