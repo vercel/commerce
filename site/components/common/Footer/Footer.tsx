@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import cn from 'clsx'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { Page } from '@commerce/types/page'
 import getSlug from '@lib/get-slug'
@@ -8,6 +9,13 @@ import { Github, Vercel } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
 import s from './Footer.module.css'
+
+const ThemeSwitcher = dynamic(() => import('@components/ui/ThemeSwitcher'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-24 h-10 rounded-md bg-accent-2 animate-pulse" />
+  ),
+})
 
 interface Props {
   className?: string
@@ -40,7 +48,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               </a>
             </Link>
           </div>
-          <div className="col-span-1 lg:col-span-8">
+          <div className="col-span-1 lg:col-span-7">
             <div className="grid md:grid-rows-4 md:grid-cols-3 md:grid-flow-col">
               {[...links, ...sitePages].map((page) => (
                 <span key={page.url} className="py-3 md:py-0 md:pb-4">
@@ -53,8 +61,10 @@ const Footer: FC<Props> = ({ className, pages }) => {
               ))}
             </div>
           </div>
-          <div className="col-span-1 lg:col-span-2 flex items-start lg:justify-end text-primary">
-            <div className="flex space-x-6 items-center h-10">
+          <div className="col-span-1 lg:col-span-3 flex items-start lg:justify-end text-primary">
+            <div className="flex space-x-4 items-center h-10">
+              <ThemeSwitcher />
+              <I18nWidget />
               <a
                 className={s.link}
                 aria-label="Github Repository"
@@ -62,7 +72,6 @@ const Footer: FC<Props> = ({ className, pages }) => {
               >
                 <Github />
               </a>
-              <I18nWidget />
             </div>
           </div>
         </div>
