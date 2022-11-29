@@ -8,7 +8,7 @@ import getCustomerWishlist from './operations/get-customer-wishlist'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
-import fetchLocal from './utils/fetch-local'
+import fetchRestApi from './utils/fetch-local'
 
 export interface SyliusConfig extends CommerceAPIConfig {
   fetch: any
@@ -19,7 +19,7 @@ const config: SyliusConfig = {
   cartCookie: '',
   customerCookie: '',
   cartCookieMaxAge: 2592000,
-  fetch: fetchLocal.fetchRestApi,
+  fetch: fetchRestApi,
 }
 
 const operations = {
