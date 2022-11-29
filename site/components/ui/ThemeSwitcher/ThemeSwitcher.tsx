@@ -1,19 +1,13 @@
-import { useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
+import { useState } from 'react'
 import { ChevronRight, Cross } from '@components/icons'
-
+import { useToggleTheme } from '@lib/hooks/useToggleTheme'
 import cn from 'clsx'
 import ClickOutside from '@lib/click-outside'
 import ThemeIcon from './ThemeIcon'
 
 const ThemeSwitcher = () => {
-  const [mounted, setMounted] = useState(false)
   const [display, setDisplay] = useState(false)
-  const { theme, themes, setTheme } = useTheme()
-
-  useEffect(() => setMounted(true), [])
-
-  if (!mounted) return null
+  const { theme, themes, setTheme } = useToggleTheme()
 
   return (
     <ClickOutside active={display} onClick={() => setDisplay(false)}>
@@ -24,12 +18,12 @@ const ThemeSwitcher = () => {
         >
           <button
             className={
-              'h-10 px-2 rounded-md border border-accent-2 flex items-center justify-center transition-colors ease-linear space-x-2 hover:border-accent-3 hover:shadow-sm'
+              'h-10 px-2 rounded-md border border-accent-2 flex items-center justify-center transition-colors ease-linear hover:border-accent-3 hover:shadow-sm'
             }
             aria-label="Theme Switcher"
           >
             <ThemeIcon width={20} height={20} theme={theme} />
-            <span className="capitalize">{theme}</span>
+            <span className="capitalize leading-0 ml-2">{theme}</span>
             <span className="cursor-pointer">
               <ChevronRight
                 className={cn('transition duration-300', {

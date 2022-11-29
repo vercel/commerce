@@ -1,7 +1,7 @@
 import { Moon, Sun, System } from '@components/icons'
 
 interface ThemeIconProps {
-  theme: string
+  theme?: string
   width: number
   height: number
 }
