@@ -23,7 +23,7 @@ const ThemeSwitcher = () => {
             aria-label="Theme Switcher"
           >
             <ThemeIcon width={20} height={20} theme={theme} />
-            <span className="capitalize leading-0 ml-2">{theme}</span>
+            <span className="capitalize leading-none ml-2">{theme}</span>
             <span className="cursor-pointer">
               <ChevronRight
                 className={cn('transition duration-300', {
