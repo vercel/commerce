@@ -54,13 +54,13 @@ const I18nWidget: FC = () => {
             <Image
               width="20"
               height="20"
-              className="block mr-2 w-5"
+              className="block w-5"
               src={`/${LOCALES_MAP[currentLocale].img.filename}`}
               alt={LOCALES_MAP[currentLocale].img.alt}
               unoptimized
             />
             {options && (
-              <span className="cursor-pointer">
+              <span className="cursor-pointer ml-1">
                 <ChevronRight className={cn(s.icon, { [s.active]: display })} />
               </span>
             )}
