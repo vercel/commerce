@@ -7,6 +7,7 @@ import getSlug from '@lib/get-slug'
 import { Github, Vercel } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
+import ThemeSwitcher from '@components/ui/ThemeSwitcher'
 import s from './Footer.module.css'
 
 interface Props {
@@ -40,7 +41,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               </a>
             </Link>
           </div>
-          <div className="col-span-1 lg:col-span-8">
+          <div className="col-span-1 lg:col-span-7">
             <div className="grid md:grid-rows-4 md:grid-cols-3 md:grid-flow-col">
               {[...links, ...sitePages].map((page) => (
                 <span key={page.url} className="py-3 md:py-0 md:pb-4">
@@ -53,8 +54,10 @@ const Footer: FC<Props> = ({ className, pages }) => {
               ))}
             </div>
           </div>
-          <div className="col-span-1 lg:col-span-2 flex items-start lg:justify-end text-primary">
-            <div className="flex space-x-6 items-center h-10">
+          <div className="col-span-1 lg:col-span-3 flex items-start lg:justify-end text-primary">
+            <div className="flex space-x-4 items-center h-10">
+              <ThemeSwitcher />
+              <I18nWidget />
               <a
                 className={s.link}
                 aria-label="Github Repository"
@@ -62,7 +65,6 @@ const Footer: FC<Props> = ({ className, pages }) => {
               >
                 <Github />
               </a>
-              <I18nWidget />
             </div>
           </div>
         </div>
