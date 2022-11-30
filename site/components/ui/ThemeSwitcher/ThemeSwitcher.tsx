@@ -22,16 +22,13 @@ const ThemeSwitcher = () => {
             }
             aria-label="Theme Switcher"
           >
-            <span className="flex items-center">
-              <ThemeIcon width={20} height={20} theme={theme} />
-              <span
-                className={cn('capitalize leading-none', {
-                  'text-sm ml-1.5': theme === 'system',
-                  'ml-2': theme !== 'system',
-                })}
-              >
-                {theme}
-              </span>
+            <ThemeIcon width={20} height={20} theme={theme} />
+            <span
+              className={cn('capitalize leading-none ml-2', {
+                'text-sm': theme === 'system',
+              })}
+            >
+              {theme}
             </span>
             <span className="cursor-pointer">
               <ChevronRight
