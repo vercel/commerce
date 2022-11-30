@@ -18,12 +18,21 @@ const ThemeSwitcher = () => {
         >
           <button
             className={
-              'h-10 px-2 rounded-md border border-accent-2 flex items-center justify-center transition-colors ease-linear hover:border-accent-3 hover:shadow-sm'
+              'w-[110px] h-10 pl-2 pr-0.5 rounded-md border border-accent-2 flex items-center justify-between transition-colors ease-linear hover:border-accent-3 hover:shadow-sm'
             }
             aria-label="Theme Switcher"
           >
-            <ThemeIcon width={20} height={20} theme={theme} />
-            <span className="capitalize leading-none ml-2">{theme}</span>
+            <span className="flex items-center">
+              <ThemeIcon width={20} height={20} theme={theme} />
+              <span
+                className={cn('capitalize leading-none', {
+                  'text-sm ml-1.5': theme === 'system',
+                  'ml-2': theme !== 'system',
+                })}
+              >
+                {theme}
+              </span>
+            </span>
             <span className="cursor-pointer">
               <ChevronRight
                 className={cn('transition duration-300', {
