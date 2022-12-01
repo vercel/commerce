@@ -1,5 +1,5 @@
 .root {
-  @apply inset-0 fixed;
+  @apply inset-0;
   left: 72px;
   z-index: 10;
   height: 100vh;

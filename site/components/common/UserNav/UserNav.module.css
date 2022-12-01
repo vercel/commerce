@@ -12,7 +12,7 @@
 }
 
 .item:hover {
-  @apply text-accent-6 transition scale-110 duration-100;
+  @apply text-accent-6 transition;
 }
 
 .item:first-child {
