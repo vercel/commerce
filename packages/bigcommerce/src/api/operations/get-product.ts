@@ -50,15 +50,6 @@ export const getProductQuery = /* GraphQL */ `
                       }
                     }
                   }
-                  customFields {
-                    edges {
-                      node {
-                        entityId
-                        name
-                        value
-                      }
-                    }
-                  }
                 }
               }
             }
