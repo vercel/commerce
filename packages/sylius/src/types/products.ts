@@ -1,3 +1,5 @@
+import { SyliusCategorie } from './site'
+
 export interface SyliusProduct {
   id: number
   name: string
@@ -7,6 +9,7 @@ export interface SyliusProduct {
   images: SyliusProductImage[]
   variants: SyliusProductVariant[]
   options: SyliusProductOption[]
+  productTaxons: SyliusProductTaxon[]
 }
 
 export interface SyliusProductImage {
@@ -39,4 +42,9 @@ export interface SyliusProductOptionValues {
   id: number
   code: string
   value: string
+}
+
+export interface SyliusProductTaxon {
+  id: number
+  taxon: SyliusCategorie
 }

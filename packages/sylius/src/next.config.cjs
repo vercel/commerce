@@ -5,4 +5,7 @@ module.exports = {
   images: {
     domains: [process.env.NEXT_PUBLIC_SYLIUS_ALLOWED_IMAGE_DOMAIN],
   },
+  env: {
+    COMMERCE_SEARCH_ENABLED: process.env.COMMERCE_SEARCH_ENABLED,
+  },
 }
