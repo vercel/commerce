@@ -130,7 +130,7 @@ export interface ProductMetafield {
  * {
  *  // Namespace, the container for a set of metadata
  *  reviews: {
- *   // Key of the metafield, used to differentiate between metafields of the same namespace
+ *   // Key of the metafield
  *   rating: {
  *    key: 'rating',
  *    value: 5,
@@ -216,7 +216,7 @@ export interface Product {
    * {
    *  // Namespace, the container for a set of metadata
    *  reviews: {
-   *   // Key of the metafield, used to differentiate between metafields of the same namespace
+   *   // Key of the metafield
    *   rating: {
    *    key: 'rating',
    *    value: 4,

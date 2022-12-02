@@ -156,7 +156,7 @@ export function normalizeMetafields(
       type,
       namespace,
       value,
-      html: getMetafieldValue(type, value, locale),
+      valueHtml: getMetafieldValue(type, value, locale),
     }
 
     if (!output[namespace]) {

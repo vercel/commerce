@@ -13,11 +13,10 @@ import { ProductView } from '@components/product'
 // Used by the Shopify Example
 const withMetafields = [
   { namespace: 'reviews', key: 'rating' },
-  { namespace: 'descriptors', key: 'care_guide' },
-  { namespace: 'my_fields', key: 'weight' },
+  { namespace: 'reviews', key: 'count' },
   { namespace: 'my_fields', key: 'width' },
+  { namespace: 'my_fields', key: 'weight' },
   { namespace: 'my_fields', key: 'length' },
-  { namespace: 'my_fields', key: 'manufacturer_url' },
 ]
 
 export async function getStaticProps({
