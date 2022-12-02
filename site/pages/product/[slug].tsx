@@ -14,46 +14,39 @@ export async function getStaticProps({
   locales,
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
-  try {
-    const config = { locale, locales }
-    const pagesPromise = commerce.getAllPages({ config, preview })
-    const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-    const productPromise = commerce.getProduct({
-      variables: { slug: params!.slug },
-      config,
-      preview,
-    })
-    const allProductsPromise = commerce.getAllProducts({
-      variables: { first: 4 },
-      config,
-      preview,
-    })
+  const config = { locale, locales }
+  const pagesPromise = commerce.getAllPages({ config, preview })
+  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+  const productPromise = commerce.getProduct({
+    variables: { slug: params!.slug },
+    config,
+    preview,
+  })
+  const allProductsPromise = commerce.getAllProducts({
+    variables: { first: 4 },
+    config,
+    preview,
+  })
 
-    const { pages } = await pagesPromise
-    const { categories } = await siteInfoPromise
-    const { product } = await productPromise
-    const { products: relatedProducts } = await allProductsPromise
+  const { pages } = await pagesPromise
+  const { categories } = await siteInfoPromise
+  const { product } = await productPromise
+  const { products: relatedProducts } = await allProductsPromise
 
-    if (!product) {
-      return {
-        notFound: true,
-      }
-    }
-
-    return {
-      props: {
-        pages,
-        product,
-        relatedProducts,
-        categories,
-      },
-      revalidate: 200,
-    }
-  } catch (error) {
-    console.log(error)
+  if (!product) {
     return {
       notFound: true,
     }
+  }
+
+  return {
+    props: {
+      pages,
+      product,
+      relatedProducts,
+      categories,
+    },
+    revalidate: 200,
   }
 }
 
