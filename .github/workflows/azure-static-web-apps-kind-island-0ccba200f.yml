@@ -18,12 +18,12 @@ jobs:
     #     node-version: [18]
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
-        with:
-          #   version: 7
-          run_install: |
-            - recursive: true
+        # with:
+        #   #   version: 7
+        #   run_install: |
+        #     - recursive: true
       # - name: Use Node.js ${{ matrix.node-version }}
       #   uses: actions/setup-node@v3
       #   with:
