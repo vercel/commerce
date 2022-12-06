@@ -29,7 +29,7 @@ jobs:
         with:
           submodules: true
       - uses: pnpm/action-setup@v2
-      - run: npm install turbo --global
+      - run: npm install --unsafe-perm
       - name: Install dependencies
         run: pnpm update --latest --recursive --prod
       - name: Build And Deploy
