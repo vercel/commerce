@@ -40,6 +40,7 @@ jobs:
           app_location: '/' # App source code path
           api_location: '' # Api source code path - optional
           output_location: '' # Built app content directory - optional
+          app_build_command: 'pnpm build'
         env: # Add environment variables here
           IS_STATIC_EXPORT: true
           ###### End of Repository/Build Configurations ######
