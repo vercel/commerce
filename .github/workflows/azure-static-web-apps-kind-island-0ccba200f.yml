@@ -29,6 +29,7 @@ jobs:
         with:
           submodules: true
       - uses: pnpm/action-setup@v2
+      - run: npm install turbo --global
       - name: Install dependencies
         run: pnpm update --latest --recursive --prod --no-optional
       - name: Build And Deploy
