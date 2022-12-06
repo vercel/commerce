@@ -30,7 +30,7 @@ jobs:
           submodules: true
       - uses: pnpm/action-setup@v2
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm update --latest --recursive --prod --no-optional
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
