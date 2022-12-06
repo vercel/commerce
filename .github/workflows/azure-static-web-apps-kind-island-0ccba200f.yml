@@ -10,27 +10,21 @@ on:
       - main
 
 jobs:
-  build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+  install:
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     node-version: [18]
-    name: Build and Deploy Job
+
     steps:
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
-        # with:
-        #   #   version: 7
-        #   run_install: |
-        #     - recursive: true
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      #     cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
+
+  build_and_deploy_job:
+    needs: install
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
