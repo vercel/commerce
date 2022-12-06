@@ -3,7 +3,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=next-commerce...",
+    "build": "npm install pnpm && turbo run build --filter=next-commerce...",
     "dev": "turbo run dev",
     "start": "turbo run start",
     "types": "turbo run types",
