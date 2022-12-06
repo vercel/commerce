@@ -31,7 +31,7 @@ jobs:
       - uses: pnpm/action-setup@v2
       - run: npm install turbo --global
       - name: Install dependencies
-        run: pnpm update --latest --recursive --prod --no-optional
+        run: pnpm update --latest --recursive --prod
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
