@@ -13,7 +13,9 @@
   "dependencies": {
     "deepmerge": "^4.2.2",
     "husky": "^8.0.1",
+    "pnpm": "^7.18.1",
     "prettier": "^2.7.1",
+    "sharp": "^0.31.2",
     "turbo": "^1.6.3"
   },
   "husky": {
