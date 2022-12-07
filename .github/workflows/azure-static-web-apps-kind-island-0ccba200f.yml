@@ -43,9 +43,6 @@ jobs:
           php-version: '7.4'
       - run: npm install --unsafe-perm
       - uses: pnpm/action-setup@v2
-        with:
-          run_install: |
-            - recursive: true
       - run: pnpm update --latest --prod --recursive
       - name: Build And Deploy
         id: builddeploy
