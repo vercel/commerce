@@ -7,9 +7,7 @@
       "outputs": ["dist/**"]
     },
     "next-commerce#build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "env": [
         "COMMERCE_PROVIDER",
         "BIGCOMMERCE_STOREFRONT_API_URL",

@@ -10,9 +10,12 @@ const isVendure = provider === '@vercel/commerce-vendure'
 
 module.exports = withCommerceConfig({
   commerce,
-  i18n: {
-    locales: ['en-US', 'es'],
-    defaultLocale: 'en-US',
+  // i18n: {
+  //   locales: ['en-US', 'es'],
+  //   defaultLocale: 'en-US',
+  // },
+  images: {
+    unoptimized: true,
   },
   rewrites() {
     return [
@@ -38,7 +41,8 @@ module.exports = withCommerceConfig({
 
   // Avoid Module not found: ESM packages (supports-color) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals
   experimental: {
-    esmExternals: 'loose',
+    esmExternals: true,
+    // esmExternals: 'loose',
   },
 })
 

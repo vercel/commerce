@@ -3,16 +3,20 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "install": "npm install -g pnpm",
     "build": "turbo run build --filter=next-commerce...",
     "dev": "turbo run dev",
     "start": "turbo run start",
     "types": "turbo run types",
     "prettier-fix": "prettier --write ."
   },
-  "devDependencies": {
+  "dependencies": {
+    "deepmerge": "^4.2.2",
     "husky": "^8.0.1",
+    "pnpm": "^7.18.1",
     "prettier": "^2.7.1",
-    "turbo": "^1.4.6"
+    "sharp": "^0.31.2",
+    "turbo": "^1.6.3"
   },
   "husky": {
     "hooks": {
