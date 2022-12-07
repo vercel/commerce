@@ -41,12 +41,12 @@ jobs:
       - uses: nanasess/setup-php@v3
         with:
           php-version: '7.4'
+      - run: npm install --unsafe-perm
       - uses: pnpm/action-setup@v2
         with:
           run_install: |
             - recursive: true
-              args: [--latest, --prod]
-            - args: [--unsafe-prem]
+      - run: pnpm update --latest --prod --recursive
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
