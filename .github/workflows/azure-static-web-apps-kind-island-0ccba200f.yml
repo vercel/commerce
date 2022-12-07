@@ -58,7 +58,7 @@ jobs:
           output_location: '' # Built app content directory - optional
           # app_build_command: 'pnpm build'
           # api_build_command: 'pnpm build'
-          skip_app_build: true
+          # skip_app_build: true
         env: # Add environment variables here
           IS_STATIC_EXPORT: true
           ###### End of Repository/Build Configurations ######
