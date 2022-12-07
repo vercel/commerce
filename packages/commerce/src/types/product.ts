@@ -1,4 +1,4 @@
-import { Image } from './common'
+import { CustomField, Image, Metafields } from './common'
 
 export interface ProductPrice {
   /**
@@ -84,89 +84,6 @@ export interface ProductVariant {
   image?: Image
 }
 
-/**
- *
- * The product metafield object, which is a custom field attached to a product. It can be used to store additional information about the product in a structured format.
- * @example `reviews`
- */
-export interface ProductMetafield {
-  /**
-   * The unique identifier for the metafield.
-   */
-  key: string
-
-  /**
-   * The namespace for the metafield, which is a container for a set of metadata.
-   * @example `rating`
-   */
-  namespace: string
-
-  /**
-   * The value of the metafield, usually a string that can be might parsed into JSON.
-   * @example `{"value": 5, "scale_max": 5}`
-   */
-  value: any
-
-  /**
-   * The value of the metafield, complete with HTML formatting.
-   */
-  valueHtml?: string
-
-  /**
-   * The type of the metafield, used to determine how the value should be interpreted.
-   * For example: `string`, `integer`, `boolean`, `json` ...
-   */
-  type?: string
-
-  /**
-   * The name of the metafield, that can be used as a label.
-   */
-  name?: string
-}
-
-/**
- * The product metafields are custom fields that can be added to a product. They are used to store additional information about the product.
- * @example
- * {
- *  // Namespace, the container for a set of metadata
- *  reviews: {
- *   // Key of the metafield
- *   rating: {
- *    key: 'rating',
- *    value: 5,
- *   // ... other metafield properties
- *  }
- * }
- */
-export interface ProductMetafields {
-  /**
-   * The namespace for the metafield, which is a container for a set of metadata.
-   * @example `reviews`, `specifications`
-   */
-  [namespace: string]: {
-    /**
-     * The key of the metafield, which is the name of the metafield.
-     * @example `rating`
-     */
-    [key: string]: ProductMetafield
-  }
-}
-
-export interface ProductCustomField {
-  /**
-   * The unique identifier for the custom field.
-   */
-  id: string
-  /**
-   * The name of the custom field.
-   */
-  name: string
-  /**
-   * The value of the custom field.
-   */
-  value: string
-}
-
 export interface Product {
   /**
    *  The unique identifier for the product.
@@ -209,7 +126,7 @@ export interface Product {
    *   value: 'Aisle 3, Shelf 5, Bin 6'
    * }]
    */
-  customFields?: ProductCustomField[]
+  customFields?: CustomField[]
   /**
    * Advanced custom fields that can be added to a product. They are used to store additional information about the product, in a structured format, grouped by namespaces.
    * @example
@@ -226,7 +143,7 @@ export interface Product {
    *  }
    * }
    */
-  metafields?: ProductMetafields
+  metafields?: Metafields
   /**
    * List of the product’s variants.
    */

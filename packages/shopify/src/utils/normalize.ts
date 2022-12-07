@@ -1,5 +1,6 @@
 import type { Page } from '@vercel/commerce/types/page'
-import type { Product, ProductMetafield } from '@vercel/commerce/types/product'
+import type { Product } from '@vercel/commerce/types/product'
+import type { Metafield } from '@vercel/commerce/types/common'
 import type { Cart, LineItem } from '@vercel/commerce/types/cart'
 import type { Category } from '@vercel/commerce/types/site'
 import type { MetafieldType } from '../types/metafields'
@@ -17,7 +18,7 @@ import type {
   PageEdge,
   Collection,
   Maybe,
-  Metafield,
+  Metafield as ShopifyMetafield,
 } from '../../schema'
 
 import { colorMap } from './colors'
@@ -137,10 +138,10 @@ export function normalizeProduct(
 }
 
 export function normalizeMetafields(
-  metafields: Maybe<Metafield>[],
+  metafields: Maybe<ShopifyMetafield>[],
   locale?: string
 ) {
-  const output: Record<string, Record<string, ProductMetafield>> = {}
+  const output: Record<string, Record<string, Metafield>> = {}
 
   if (!metafields) return output
 

@@ -1,9 +1,9 @@
 import type { FC } from 'react'
-import type { ProductMetafields as IProductMetafields } from '@commerce/types/product'
+import type { Metafields } from '@commerce/types/common'
 import Text from '@components/ui/Text'
 
 interface Props {
-  metafields: IProductMetafields
+  metafields: Metafields
   /**
    *  The namespace of the metafields to display.
    */

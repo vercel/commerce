@@ -1,7 +1,7 @@
-import { ProductCustomField } from '@commerce/types/product'
+import type { CustomField } from '@commerce/types/common'
 
 interface Props {
-  customFields: ProductCustomField[]
+  customFields: CustomField[]
 }
 
 const ProductCustomFields: React.FC<Props> = ({ customFields }) => {

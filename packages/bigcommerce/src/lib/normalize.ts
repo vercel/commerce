@@ -1,8 +1,6 @@
 import type { Page } from '@vercel/commerce/types/page'
-import type {
-  Product,
-  ProductCustomField,
-} from '@vercel/commerce/types/product'
+import type { Product } from '@vercel/commerce/types/product'
+import type { CustomField } from '@vercel/commerce/types/common'
 import type { Cart, LineItem } from '@vercel/commerce/types/cart'
 import type { Category, Brand } from '@vercel/commerce/types/site'
 import type { BigcommerceCart, BCCategory, BCBrand } from '../types'
@@ -153,9 +151,7 @@ export function normalizeBrand(brand: BCBrand): Brand {
   }
 }
 
-function normalizeCustomFieldsValue(
-  field: CustomFieldEdge
-): ProductCustomField {
+function normalizeCustomFieldsValue(field: CustomFieldEdge): CustomField {
   const {
     node: { entityId, name, value },
   } = field
