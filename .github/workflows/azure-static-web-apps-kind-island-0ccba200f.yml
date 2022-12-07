@@ -42,9 +42,11 @@ jobs:
         with:
           php-version: '7.4'
       - uses: pnpm/action-setup@v2
-      - run: npm install --unsafe-perm
-      - name: Install dependencies
-        run: pnpm update --latest --recursive --prod
+        with:
+          run_install: |
+            - recursive: true
+              args: [--latest, --prod]
+            - args: [--unsafe-prem]
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -59,7 +61,7 @@ jobs:
           output_location: '' # Built app content directory - optional
           # app_build_command: 'pnpm build'
           # api_build_command: 'pnpm build'
-          # skip_app_build: true
+          skip_app_build: true
         env: # Add environment variables here
           IS_STATIC_EXPORT: true
           ###### End of Repository/Build Configurations ######
