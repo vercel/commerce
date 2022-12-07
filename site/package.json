@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "lint": "next lint",
