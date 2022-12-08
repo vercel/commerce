@@ -17,7 +17,7 @@
 }
 
 .productImage {
-  @appy w-full w-full object-cover;
+  @apply w-full h-full object-cover;
 }
 
 .productName {
