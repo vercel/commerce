@@ -1,6 +1,6 @@
 import type { CustomerSchema } from '../../../types/customer'
 import type { GetAPISchema } from '../..'
-
+import { z } from 'zod'
 import { parse } from '../../utils'
 import validateHandlers from '../../utils/validate-handlers'
 
@@ -19,7 +19,14 @@ const customerEndpoint: GetAPISchema<
   const body = null
   const output = await handlers['getLoggedInCustomer']({ ...ctx, body })
 
-  return output ? parse(output, customerSchema) : { status: 204 }
+  return output
+    ? parse(
+        output,
+        z.object({
+          customer: customerSchema,
+        })
+      )
+    : { status: 204 }
 }
 
 export default customerEndpoint

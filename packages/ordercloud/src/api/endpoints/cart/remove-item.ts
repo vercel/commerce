@@ -7,7 +7,7 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
   body: { cartId, itemId },
   config: { restBuyerFetch, tokenCookie },
 }) => {
-  const token = req.cookies.get(tokenCookie)
+  const token = req.cookies.get(tokenCookie)?.value
 
   // Remove the item to the order
   await restBuyerFetch(

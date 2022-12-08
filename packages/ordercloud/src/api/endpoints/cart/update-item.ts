@@ -9,7 +9,7 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   body: { cartId, itemId, item },
   config: { restBuyerFetch, tokenCookie },
 }) => {
-  const token = req.cookies.get(tokenCookie)
+  const token = req.cookies.get(tokenCookie)?.value
 
   // Store specs
   let specs: RawVariant['Specs'] = []

@@ -5,7 +5,7 @@ const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
   body: { item, cartId },
   config: { restBuyerFetch, tokenCookie },
 }) => {
-  const token = req.cookies.get(tokenCookie)
+  const token = req.cookies.get(tokenCookie)?.value
 
   // Register address
   const address = await restBuyerFetch('POST', `/me/addresses`, {

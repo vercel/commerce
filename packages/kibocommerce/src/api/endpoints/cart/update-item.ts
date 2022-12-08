@@ -8,7 +8,7 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
   body: { itemId, item },
   config,
 }) => {
-  const encodedToken = req.cookies.get(config.cartCookie)
+  const encodedToken = req.cookies.get(config.cartCookie)?.value
   const token = encodedToken
     ? Buffer.from(encodedToken, 'base64').toString('ascii')
     : null

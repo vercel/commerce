@@ -8,8 +8,8 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   config,
 }) => {
   const { cookies } = req
-  const cartId = cookies.get(config.cartCookie)
-  const customerToken = cookies.get(config.customerCookie)
+  const cartId = cookies.get(config.cartCookie)?.value
+  const customerToken = cookies.get(config.customerCookie)?.value
 
   if (!cartId) {
     return { redirectTo: '/cart' }

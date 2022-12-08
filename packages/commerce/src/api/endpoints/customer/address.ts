@@ -33,7 +33,7 @@ const customerShippingEndpoint: GetAPISchema<
   const { cookies } = req
 
   // Cart id might be usefull for anonymous shopping
-  const cartId = cookies.get(config.cartCookie)
+  const cartId = cookies.get(config.cartCookie)?.value
 
   // Return customer addresses
   if (req.method === 'GET') {
