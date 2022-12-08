@@ -8,13 +8,13 @@ declare global {
     }
   }
 }
-interface CartButtonProps {
+interface RallyCheckoutButtonProps {
   customText?: string | undefined;
   customClass?: string | undefined;
   cart?: any;
 }
 
-const CartButton = (props: CartButtonProps) => {
+const RallyCheckoutButton = (props: RallyCheckoutButtonProps) => {
   const customClass = props.customClass || "rally-custom-button-class";
   const cart = props?.cart;
 
@@ -32,4 +32,4 @@ const CartButton = (props: CartButtonProps) => {
   </>)
 }
 
-export default CartButton;
+export default RallyCheckoutButton;

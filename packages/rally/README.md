@@ -1,8 +1,8 @@
 
 ## Rally <sub><sup>♥</sup></sub> Next.js
 
-To successfully integrate the Rally checkout button follow the steps below.
-#### **1. Install the Rally checkout button**
+To successfully integrate the Rally Checkout Button follow the steps below.
+#### **1. Install the Rally Checkout Button**
 
 ```bash
 npm install @rallycommerce/checkout-button
@@ -10,9 +10,9 @@ npm install @rallycommerce/checkout-button
 
 <br />
 
-#### **2. Create a Cart Button component**
+#### **2. Create a Rally Checkout Button component**
 
-Create a `CartButton.tsx` component in the project with the following content 👇. Structure example 👉 `lib/rally/CartButton.tsx`
+Create a `RallyCheckoutButton.tsx` component in the project with the following content 👇. Structure example 👉 `lib/rally/RallyCheckoutButton.tsx`
 
 ```javascript
 import React from 'react'
@@ -25,13 +25,13 @@ declare global {
     }
   }
 }
-interface CartButtonProps {
+interface RallyCheckoutButtonProps {
   customText?: string | undefined;
   customClass?: string | undefined;
   cart?: any;
 }
 
-const CartButton = (props: CartButtonProps) => {
+const RallyCheckoutButton = (props: RallyCheckoutButtonProps) => {
   const customClass = props.customClass || "rally-custom-button-class";
   const cart = props?.cart;
 
@@ -49,18 +49,18 @@ const CartButton = (props: CartButtonProps) => {
   </>)
 }
 
-export default CartButton;
+export default RallyCheckoutButton;
 ```
 
 <br />
 
-#### **3. Import the Cart Button component**
+#### **3. Use the Rally Checkout Button component**
 
 The component can now be imported (ex. on the cart page) like this 👇.
 
 ```javascript
 import dynamic from 'next/dynamic';
-const CartButton = dynamic(() => import('@lib/rally/CartButton'), {
+const RallyCheckoutButton = dynamic(() => import('@lib/rally/RallyCheckoutButton'), {
   ssr: false,
 })
 
@@ -68,8 +68,8 @@ import { Context } from '../../lib/xy/storefront-data-hooks/src/Context';
 const { cart } = useContext(Context)
 
 
- <CartButton cart={cart} customText="Custom text" customClass="custom-css-class"></CartButton>
+ <RallyCheckoutButton cart={cart} customText="Custom text" customClass="custom-css-class"></RallyCheckoutButton>
 
 ```
 
-To learn more about Rally's checkout button capabilities visit our [Developer's portal](https://developers.rallyon.com/docs/jssdk/checkout-button/integrating-the-checkout-button/).
+To learn more about Rally's Checkout Button capabilities visit our [Developer's portal](https://developers.rallyon.com/docs/jssdk/checkout-button/integrating-the-checkout-button/).
