@@ -30,7 +30,7 @@ export const handler = {
   },
   async fetcher({ input, options, fetch }: HookFetcherContext<UpdateItemHook>) {
     const variables = [input.itemId, { quantity: input.item.quantity }]
-    const { cart } = await fetch<{ cart: CommercejsCart }>({
+    const cart = await fetch<CommercejsCart>({
       query: options.query,
       method: options.method,
       variables,
@@ -57,7 +57,7 @@ export const handler = {
           const variantId = input.productId ?? item?.variantId
           const quantity = input?.quantity ?? item?.quantity
 
-          if (!itemId || !productId || !variantId) {
+          if (!itemId || !productId) {
             throw new ValidationError({
               message: 'Invalid input for updating cart item',
             })
@@ -69,7 +69,7 @@ export const handler = {
               item: {
                 quantity,
                 productId,
-                variantId,
+                variantId: variantId ?? '',
               },
             },
           })

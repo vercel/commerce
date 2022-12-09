@@ -16,7 +16,7 @@ export const handler: MutationHook<RemoveItemHook> = {
     method: 'remove',
   },
   async fetcher({ input, options, fetch }) {
-    const { cart } = await fetch<{ cart: CommercejsCart }>({
+    const cart = await fetch<CommercejsCart>({
       query: options.query,
       method: options.method,
       variables: input.itemId,

@@ -54,6 +54,7 @@ export function normalizeProduct(
 ): Product {
   const { id, name, description, permalink, assets, price, variant_groups } =
     commercejsProduct
+
   return {
     id,
     name,
@@ -61,15 +62,19 @@ export function normalizeProduct(
     descriptionHtml: description,
     slug: permalink,
     path: `/${permalink}`,
-    images: assets.map(({ url, description, filename }) => ({
-      url,
-      alt: description || filename,
-    })),
+    images:
+      assets?.map(({ url, description, filename }) => ({
+        url,
+        alt: description || filename,
+      })) || [],
     price: {
       value: price.raw,
       currencyCode: 'USD',
     },
-    variants: normalizeVariants(commercejsProductVariants, variant_groups),
-    options: getOptionsFromVariantGroups(variant_groups),
+    variants: normalizeVariants(
+      commercejsProductVariants,
+      variant_groups || []
+    ),
+    options: variant_groups ? getOptionsFromVariantGroups(variant_groups) : [],
   }
 }
