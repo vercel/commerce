@@ -35,6 +35,7 @@ export async function getStaticProps({
 }
 
 export default function Wishlist() {
+  // @ts-ignore Shopify - Fix this types
   const { data, isLoading, isEmpty } = useWishlist({
     includeProducts: true,
   })
