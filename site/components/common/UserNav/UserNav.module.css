@@ -7,12 +7,15 @@
 }
 
 .item {
-  @apply ml-6 cursor-pointer relative transition ease-in-out
-  duration-100 flex items-center outline-none text-primary;
+  @apply ml-6 flex items-center relative;
 }
 
-.item:hover {
-  @apply text-accent-6 transition scale-110 duration-100;
+.item > button {
+  @apply cursor-pointer transition ease-in-out duration-100 outline-none text-primary;
+}
+
+.item > button:hover {
+  @apply text-accent-6 transition scale-110 outline-none;
 }
 
 .item:first-child {

@@ -1,5 +1,4 @@
 import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
-import type { Wishlist } from '@vercel/commerce/types/wishlist'
 import type { WishlistEndpoint } from '.'
 import getCustomerId from '../../utils/get-customer-id'
 
@@ -9,8 +8,6 @@ const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
   config,
   commerce,
 }) => {
-  let result: { data?: Wishlist } = {}
-
   if (customerToken) {
     const customerId =
       customerToken && (await getCustomerId({ customerToken, config }))
@@ -25,10 +22,10 @@ const getWishlist: WishlistEndpoint['handlers']['getWishlist'] = async ({
       config,
     })
 
-    result = { data: wishlist }
+    return { data: wishlist }
   }
 
-  return { data: result.data ?? null }
+  return { data: null }
 }
 
 export default getWishlist

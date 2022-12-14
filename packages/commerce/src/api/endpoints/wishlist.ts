@@ -35,7 +35,7 @@ const wishlistEndpoint: GetAPISchema<
   if (req.method === 'GET') {
     const body = getWishlistBodySchema.parse({
       customerToken,
-      includeProducts: !!products,
+      includeProducts: input.includeProducts ?? !!products,
     })
     output = await handlers['getWishlist']({ ...ctx, body })
   }

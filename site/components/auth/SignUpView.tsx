@@ -38,7 +38,6 @@ const SignUpView: FC<Props> = () => {
         lastName,
         password,
       })
-      setLoading(false)
       closeModal()
     } catch ({ errors }) {
       console.error(errors)
@@ -47,8 +46,9 @@ const SignUpView: FC<Props> = () => {
       } else {
         setMessage('Unexpected error')
       }
-      setLoading(false)
       setDisabled(false)
+    } finally {
+      setLoading(false)
     }
   }
 

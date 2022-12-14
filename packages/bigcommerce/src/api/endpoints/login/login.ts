@@ -11,12 +11,12 @@ const login: LoginEndpoint['handlers']['login'] = async ({
   commerce,
 }) => {
   try {
-    const res = new Response()
-    await commerce.login({ variables: { email, password }, config, res })
-    return {
-      status: res.status,
-      headers: res.headers,
-    }
+    const response = await commerce.login({
+      variables: { email, password },
+      config,
+    })
+
+    return response
   } catch (error) {
     // Check if the email and password didn't match an existing account
     if (error instanceof FetcherError) {
@@ -24,7 +24,7 @@ const login: LoginEndpoint['handlers']['login'] = async ({
         invalidCredentials.test(error.message)
           ? 'Cannot find an account that matches the provided credentials'
           : error.message,
-        { status: error.status || 401 }
+        { status: 401 }
       )
     } else {
       throw error

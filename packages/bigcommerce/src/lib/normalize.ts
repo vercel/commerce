@@ -5,8 +5,10 @@ import type { Category, Brand } from '@vercel/commerce/types/site'
 import type { BigcommerceCart, BCCategory, BCBrand } from '../types'
 import type { ProductNode } from '../api/operations/get-all-products'
 import type { definitions } from '../api/definitions/store-content'
+import type { BCWishlist } from '../api/utils/types'
 
 import getSlug from './get-slug'
+import { Wishlist } from '@vercel/commerce/types/wishlist'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -135,5 +137,18 @@ export function normalizeBrand(brand: BCBrand): Brand {
     name: brand.node.name,
     slug,
     path: `/${slug}`,
+  }
+}
+
+export function normalizeWishlist(wishlist: BCWishlist): Wishlist {
+  return {
+    id: String(wishlist.id),
+    token: wishlist.token,
+    items: wishlist.items.map((item: any) => ({
+      id: String(item.id),
+      productId: String(item.product_id),
+      variantId: String(item.variant_id),
+      product: item.product,
+    })),
   }
 }

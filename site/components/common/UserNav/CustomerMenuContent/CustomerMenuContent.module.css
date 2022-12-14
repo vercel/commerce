@@ -4,7 +4,6 @@
   z-index: 10;
   height: 100vh;
   min-width: 100vw;
-  transition: none;
 }
 
 @media screen(lg) {
@@ -18,8 +17,7 @@
 .link {
   @apply text-primary flex cursor-pointer px-6 py-3
     transition ease-in-out duration-150 leading-6
-    font-medium items-center capitalize w-full box-border
-    outline-0;
+    font-medium items-center capitalize w-full box-border outline-0;
 }
 
 .link:hover {
