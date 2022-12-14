@@ -33,7 +33,7 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
     // Display all validation errors from BigCommerce in a single error message
     if (error instanceof BigcommerceApiError && error.status >= 400) {
       const message = Object.values(error.data.errors).join('<br />')
-      throw new CommerceAPIError(message, {
+      throw new CommerceAPIError(message || error.message, {
         status: 400,
         code: 'invalid_request',
       })
