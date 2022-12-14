@@ -1,13 +1,25 @@
 import { Fetcher } from '@vercel/commerce/utils/types'
+import { getCustomerToken } from './utils/token/customer-token'
 import { API_URL } from './const'
 import { handleFetchResponse } from './utils'
 
-const fetcher: Fetcher = async ({ url = '', method = 'POST', body }) => {
+const fetcher: Fetcher = async ({
+  url = '',
+  method = 'POST',
+  body,
+  variables = {
+    useToken: true,
+  },
+}) => {
+  const token = getCustomerToken()
   const res = await fetch(API_URL + url!, {
     method: method,
     headers: {
       'Content-Type': 'application/json',
       accept: 'application/json, text/plain',
+      ...(token && variables.useToken
+        ? { Authorization: `Bearer ${token}` }
+        : {}),
     },
     body: body ? JSON.stringify(body) : undefined,
   })
