@@ -7,5 +7,6 @@ module.exports = {
   },
   env: {
     COMMERCE_SEARCH_ENABLED: process.env.COMMERCE_SEARCH_ENABLED,
+    COMMERCE_CUSTOMERAUTH_ENABLED: process.env.COMMERCE_CUSTOMERAUTH_ENABLED,
   },
 }
