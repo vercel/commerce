@@ -1,5 +1,4 @@
 export const API_URL = process.env.NEXT_PUBLIC_SYLIUS_API_URL
-//export const API_CHANNEL = process.env.NEXT_PUBLIC_SALEOR_CHANNEL
-//export const CHECKOUT_ID_COOKIE = 'saleor.CheckoutID'
-//export const SALEOR_TOKEN = 'saleor.Token'
-//export const SALEOR_CRSF_TOKEN = 'saleor.CSRFToken'
+
+export const SYLIUS_CUSTOMER_TOKEN = 'sylius_customerToken'
+export const SYLIUS_CUSTOMER_ID = 'sylius_customerId'
