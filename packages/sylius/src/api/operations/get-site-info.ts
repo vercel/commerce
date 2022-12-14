@@ -25,7 +25,7 @@ export default function getSiteInfoOperation({
     preview?: boolean
   } = {}): Promise<GetSiteInfoResult> {
     const config = commerce.getConfig(cfg)
-    const syliusCategories = await config.fetch('GET', '/taxons')
+    const syliusCategories = await config.fetch('GET', '/api/v2/shop/taxons')
     const categories = syliusCategories.map(
       (syliusCategories: SyliusCategorie) =>
         normalizeCategorie(syliusCategories)

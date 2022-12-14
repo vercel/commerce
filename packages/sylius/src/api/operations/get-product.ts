@@ -20,7 +20,7 @@ export default function getProductOperation({
     const config = commerce.getConfig(cfg)
     const syliusProduct = await config.fetch(
       'GET',
-      `/products-by-slug/${variables!.slug}`
+      `/api/v2/shop/products-by-slug/${variables!.slug}`
     )
     const product = normalizeProduct(syliusProduct)
 

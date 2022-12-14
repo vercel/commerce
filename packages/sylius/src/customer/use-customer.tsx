@@ -2,7 +2,7 @@ import { SWRHook } from '@vercel/commerce/utils/types'
 import useCustomer, {
   UseCustomer,
 } from '@vercel/commerce/customer/use-customer'
-import { getCustomerId } from '../utils/token/customer-id'
+import { getCustomerRoute } from '../utils/token/customer-route'
 import { normalizeCustomer } from '../utils/normalize/normalize-customer'
 
 export default useCustomer as UseCustomer<typeof handler>
@@ -14,7 +14,7 @@ export const handler: SWRHook<any> = {
   },
   fetcher: async ({ options, fetch }) => {
     const syliusCustomer = await fetch({
-      url: options.url! + getCustomerId(),
+      url: getCustomerRoute() ?? '',
       method: options.method,
     })
     const customer = normalizeCustomer(syliusCustomer)

@@ -22,7 +22,7 @@ export default function getAllProductPathsOperation({
     preview?: boolean
   } = {}): Promise<GetAllProductPathsResult> {
     const config = commerce.getConfig(cfg)
-    const syliusProducts = await config.fetch('GET', '/products')
+    const syliusProducts = await config.fetch('GET', '/api/v2/shop/products')
     const products = syliusProducts.map((syliusProduct: SyliusProduct) =>
       normalizeProduct(syliusProduct)
     )

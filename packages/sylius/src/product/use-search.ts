@@ -17,7 +17,7 @@ export type SearchProductsInput = {
 
 export const handler: SWRHook<any> = {
   fetchOptions: {
-    url: '/products',
+    url: '/api/v2/shop/products',
     method: 'GET',
   },
   fetcher: async ({ input: { search, categoryId, sort }, options, fetch }) => {

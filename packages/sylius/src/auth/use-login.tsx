@@ -3,13 +3,13 @@ import useLogin, { UseLogin } from '@vercel/commerce/auth/use-login'
 import { useCallback } from 'react'
 import useCustomer from '@vercel/commerce/customer/use-customer'
 import { setCustomerToken } from '../utils/token/customer-token'
-import { setCustomerId } from '../utils/token/customer-id'
+import { setCustomerRoute } from '../utils/token/customer-route'
 
 export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    url: '/authentication-token',
+    url: '/api/v2/shop/authentication-token',
     method: 'POST',
   },
   fetcher: async ({ input: { email, password }, options, fetch }) => {
@@ -26,10 +26,7 @@ export const handler: MutationHook<any> = {
     })
 
     setCustomerToken(authReturn.token)
-    console.log(authReturn)
-    const custumerRouteParts = authReturn.customer.split('/')
-    console.log(custumerRouteParts)
-    setCustomerId(custumerRouteParts[5])
+    setCustomerRoute(authReturn.customer)
     return null
   },
   useHook:
