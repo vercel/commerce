@@ -124,8 +124,6 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                 ...child,
                 props: {
                   ...child.props,
-                  width: 132,
-                  height: 82,
                   className: cn(child.props.className, s.thumb, {
                     [s.selected]: currentSlide === idx,
                   }),

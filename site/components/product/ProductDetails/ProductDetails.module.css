@@ -20,8 +20,8 @@
   @apply text-center h-full relative flex-shrink-0;
 }
 
-.imageContainer > img {
-  @apply mx-auto;
+.imageContainer > span {
+  height: 100% !important;
 }
 
 .sliderContainer .img {

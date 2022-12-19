@@ -8,17 +8,21 @@
 }
 
 .thumb {
-  @apply overflow-hidden inline-block cursor-pointer h-full transition duration-300 md:hover:scale-105;
+  @apply overflow-hidden inline-block cursor-pointer h-full;
   width: 125px;
   width: calc(100% / 3);
 }
 
 .thumb.selected {
-  @apply bg-white/30;
+  @apply bg-white;
 }
 
 .thumb img {
-  @apply w-full h-full max-h-full object-cover;
+  @apply w-full h-full object-cover transition duration-300;
+}
+
+.thumb:hover img {
+  @apply md:hover:scale-105;
 }
 
 .album {
