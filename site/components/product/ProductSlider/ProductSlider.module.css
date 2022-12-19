@@ -22,7 +22,7 @@
 }
 
 .thumb:hover img {
-  @apply md:hover:scale-105;
+  @apply scale-105;
 }
 
 .album {
