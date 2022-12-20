@@ -1,89 +1,85 @@
-import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
-import { ProductCard } from '@components/product'
-import { Grid, Marquee, Hero } from '@components/ui'
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import ImageMapper from 'react-img-mapper'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useDisclosure } from '@chakra-ui/react'
+import PolygonModal from '@components/common/HomePage/PolygonModal/PolygonModal'
 
-export async function getStaticProps({
-  preview,
-  locale,
-  locales,
-}: GetStaticPropsContext) {
-  const config = { locale, locales }
-  const productsPromise = commerce.getAllProducts({
-    variables: { first: 6 },
-    config,
-    preview,
-    // Saleor provider only
-    ...({ featured: true } as any),
-  })
-  const pagesPromise = commerce.getAllPages({ config, preview })
-  const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { products } = await productsPromise
-  const { pages } = await pagesPromise
-  const { categories, brands } = await siteInfoPromise
+export default function Home() {
 
-  return {
-    props: {
-      products,
-      categories,
-      brands,
-      pages,
-    },
-    revalidate: 60,
+  const imagePath = "homepageBackgroundImage.png";
+  const {locale} = useRouter();
+
+  const [mapContainerWidth, setMapContainerWidth] = useState<number | undefined>(600);
+  const [innerWidth, setInnerWidth] = useState<number | undefined>(600);
+  const [decadeClicked, setDecadeClicked] = useState<string>("12")
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const mapDefinition = {
+    name: "my-map",
+    areas: [
+      {
+        id: '12',
+        title: '2000',
+        name: '2000',
+        fillColor: '#eab54d4d',
+        strokeColor: 'black',
+        coords: [4653,1231,5039,1396,5204,1622,5218,2027,5039,2315,4709,2461,4276,2339,4068,2084,4040,1679,4177,1457,4337,1325],
+        shape: "poly",
+        //href: `/${locale}/abruzzo/12`,
+        href: "#",
+      },
+      {
+        id: '11',
+        title: '1990',
+        name: '1990',
+        fillColor: '#eab54d4d',
+        strokeColor: 'black',
+        coords: [3904,974,475],
+        shape: "circle",
+        //href: `/${locale}/abruzzo/12`,
+        href: "#",
+      },
+      {
+        id: '10',
+        title: '1980',
+        name: '1980',
+        fillColor: '#eab54d4d',
+        strokeColor: 'black',
+        coords: [3045,611,387],
+        shape: "circle",
+        //href: `/${locale}/abruzzo/12`,
+        href: "#",
+      }
+    ] 
   }
-}
 
-export default function Home({
-  products,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+  useEffect(() => {
+
+    // Handler to call on window resize
+    function handleResize() {
+      setInnerWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); 
+
+  useEffect(() => {
+    setMapContainerWidth(document.getElementById('mapContainer')?.clientWidth);
+  }, [innerWidth]);
+
   return (
     <>
-      <Grid variant="filled">
-        {products.slice(0, 3).map((product: any, i: number) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
-              priority: true,
-            }}
-          />
-        ))}
-      </Grid>
-      <Marquee variant="secondary">
-        {products.slice(0, 3).map((product: any, i: number) => (
-          <ProductCard key={product.id} product={product} variant="slim" />
-        ))}
-      </Marquee>
-      <Hero
-        headline=" Dessert dragée halvah croissant."
-        description="Cupcake ipsum dolor sit amet lemon drops pastry cotton candy. Sweet carrot cake macaroon bonbon croissant fruitcake jujubes macaroon oat cake. Soufflé bonbon caramels jelly beans. Tiramisu sweet roll cheesecake pie carrot cake. "
-      />
-      <Grid layout="B" variant="filled">
-        {products.slice(0, 3).map((product: any, i: number) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
-            }}
-          />
-        ))}
-      </Grid>
-      <Marquee>
-        {products.slice(3).map((product: any, i: number) => (
-          <ProductCard key={product.id} product={product} variant="slim" />
-        ))}
-      </Marquee>
-      {/* <HomeAllProductsGrid
-        newestProducts={products}
-        categories={categories}
-        brands={brands}
-      /> */}
+      <section id='mapContainer' className='w-full'>
+        <div>
+          <ImageMapper natural stayHighlighted onClick={area => { setDecadeClicked(area.id!); onOpen() }} parentWidth={mapContainerWidth} responsive={true} src={imagePath} map={mapDefinition}></ImageMapper>
+          <PolygonModal key={decadeClicked} decade={decadeClicked} onModalClose={onClose} isOpen={isOpen} /> 
+        </div>
+      </section>
     </>
   )
 }

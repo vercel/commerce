@@ -24,6 +24,14 @@ const getProductQuery = /* GraphQL */ `
           currencyCode
         }
       }
+      metafields(first: 30) {
+        edges {
+          node {
+            key
+            value
+          }
+        }
+      }
       variants(first: 250) {
         pageInfo {
           hasNextPage
@@ -62,6 +70,22 @@ const getProductQuery = /* GraphQL */ `
             altText
             width
             height
+          }
+        }
+      }
+      media(first: 250) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          node {
+            ... on Model3d {
+              sources {
+                url
+                format
+              }
+            }
           }
         }
       }

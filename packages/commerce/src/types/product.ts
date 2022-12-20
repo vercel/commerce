@@ -45,6 +45,15 @@ export interface ProductOptionValues {
   hexColors?: string[]
 }
 
+export type ProductMetafield = {
+  description: string
+  id: string
+  key: string
+  namespace: string
+  value: string
+  valueType: string
+}
+
 export interface ProductVariant {
   /**
    *  The unique identifier for the variant.
@@ -124,6 +133,7 @@ export interface Product {
   /**
    * The product's base price. Could be the minimum value, or default variant price.
    */
+  metafields: ProductMetafield[]
   price: ProductPrice
   /**
    * List of product's options.

@@ -15,6 +15,11 @@ import type {
   Page as ShopifyPage,
   PageEdge,
   Collection,
+  MetafieldConnection,
+  MediaConnection,
+  Model3d,
+  Metafield,
+  Maybe,
 } from '../../schema'
 
 import { colorMap } from './colors'
@@ -93,6 +98,21 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
       }
     }
   )
+}
+
+const normalizeProductMedia = ({ edges }: MediaConnection) => {
+  return edges
+    .filter(({ node }) => Object.keys(node).length !== 0)
+    .map(({ node }) => {
+      return {
+        sources: (node as Model3d).sources.map(({ format, url }) => {
+          return {
+            format: format,
+            url: url,
+          }
+        }),
+      }
+    })
 }
 
 export function normalizeProduct({

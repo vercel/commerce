@@ -17,6 +17,8 @@ import { MenuSidebarView } from '@components/common/UserNav'
 import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
+import navBarLinks from '../../../static_data/navBarLinks.json';
+import Script from 'next/script'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -108,11 +110,8 @@ const Layout: React.FC<Props> = ({
   pageProps: { categories = [], ...pageProps },
 }) => {
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { locale = 'en-US' } = useRouter()
-  const navBarlinks = categories.slice(0, 2).map((c) => ({
-    label: c.name,
-    href: `/search/${c.slug}`,
-  }))
+  const { locale = 'it' } = useRouter()
+  const navBarlinks = navBarLinks.links;
 
   return (
     <CommerceProvider locale={locale}>
@@ -133,6 +132,22 @@ const Layout: React.FC<Props> = ({
             </Button>
           }
         />
+        {/** Sendinblue Chat Script to implement Widget */}
+        <Script id="show-banner" strategy="lazyOnload">
+          {`
+            <!-- Sendinblue Conversations {literal} -->
+                (function(d, w, c) {
+                    w.SibConversationsID = '632dab316c8a1e0b083a91c2';
+                    w[c] = w[c] || function() {
+                        (w[c].q = w[c].q || []).push(arguments);
+                    };
+                    var s = d.createElement('script');
+                    s.async = true;
+                    s.src = 'https://conversations-widget.sendinblue.com/sib-conversations.js';
+                    if (d.head) d.head.appendChild(s);
+                })(document, window, 'SibConversations');
+          `}
+        </Script>
       </div>
     </CommerceProvider>
   )

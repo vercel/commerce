@@ -4,7 +4,12 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <link
+              rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.css"
+          />
+        </Head>
         <body className="loading">
           <Main />
           <NextScript />

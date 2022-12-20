@@ -1,0 +1,64 @@
+{
+  "rooms": [
+    {
+      "id": "0",
+      "name": "Bagno",
+      "filename": "bagno11.jpg",
+      "links": [
+        {
+          "nodeId": "1",
+          "longitude": 2.973125539174058,
+          "latitude": -0.24078673565679543
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "Camera Adulti",
+      "filename": "cameraadu11.jpg",
+      "links": [
+        {
+          "nodeId": "2",
+          "longitude": 2.007173620652426,
+          "latitude": -0.04809744657883419
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Camera Ragazzi",
+      "filename": "camerarag11.jpg",
+      "links": []
+    },
+    {
+      "id": "3",
+      "name": "Corridoio",
+      "filename": "corridoio11.jpg",
+      "links": []
+    },
+    {
+      "id": "4",
+      "name": "Cucina",
+      "filename": "cucina11.jpg",
+      "links": []
+    },
+    {
+      "id": "5",
+      "name": "Garage",
+      "filename": "garage11.jpg",
+      "links": []
+    },
+    {
+      "id": "6",
+      "name": "Giardino",
+      "filename": "giardino11.jpg",
+      "links": []
+    },
+    {
+      "id": "7",
+      "name": "Sala",
+      "filename": "sala11.jpg",
+      "links": []
+    }
+  ]
+}

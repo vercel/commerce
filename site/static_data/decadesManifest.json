@@ -1,0 +1,74 @@
+{
+    "1": {
+        "name": "< 1910",
+        "color": "#2ecc71",
+        "polygon": "circle.svg",
+        "enabled": false
+    },
+    "2": {
+        "name": "1900",
+        "color": "#2ecc71",
+        "polygon": "halfcircle.svg",
+        "enabled": false
+    },
+    "3": {
+        "name": "1910",
+        "color": "#2ecc71",
+        "polygon": "triangle.svg",
+        "enabled": false
+    },
+    "4": {
+        "name": "1920",
+        "color": "#2ecc71",
+        "polygon": "quadrilateral.svg",
+        "enabled": false
+    },
+    "5": {
+        "name": "1930",
+        "color": "#2ecc71",
+        "polygon": "pentagon.svg",
+        "enabled": false
+    },
+    "6": {
+        "name": "1940",
+        "color": "#2ecc71",
+        "polygon": "hexagon.svg",
+        "enabled": false
+    },
+    "7": {
+        "name": "1950",
+        "color": "#2ecc71",
+        "polygon": "heptagon.svg",
+        "enabled": false
+    },
+    "8": {
+        "name": "1960",
+        "color": "#2ecc71",
+        "polygon": "octagon.svg",
+        "enabled": false
+    },
+    "9": {
+        "name": "1970",
+        "color": "#2ecc71",
+        "polygon": "enneagon.svg",
+        "enabled": false
+    },
+    "10": {
+        "name": "1980",
+        "color": "#FFBF00",
+        "polygon": "10.svg",
+        "enabled": true
+    },
+    "11": {
+        "name": "1990",
+        "color": "#FFBF00",
+        "polygon": "11.svg",
+        "enabled": true
+    },
+    "12": {
+        "name": "2000",
+        "color": "#FF0D84",
+        "polygon": "12.svg",
+        "enabled": true
+    }
+}

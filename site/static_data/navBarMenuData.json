@@ -1,0 +1,215 @@
+{
+    "regions": [
+        {
+            "label": "Abruzzo",
+            "children": [
+                {
+                    "label": "Teramo",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Pescara",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Chieti",
+                    "href": "#",
+                    "enabled": true
+                }
+            ],
+            "href": "/abruzzo",
+            "enabled": false
+        }
+    ],
+
+    "categories": [
+        {
+            "label": "Abbigliamento e Accessori",
+            "children": [
+                {
+                    "label": "Abbigliamento Bambino",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Abbigliamento Donna",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Abbigliamento Uomo",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Bigiotteria",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Calzature e Borse",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Orologi e Preziosi",
+                    "href": "#",
+                    "enabled": true
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "label": "Casa",
+            "children": [
+                {
+                    "label": "Elettrodomestici",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Giardino",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Lampade e Lampadari",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Mobili e Arredi",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Oggettistica Casa",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Tessuti",
+                    "href": "#",
+                    "enabled": true
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "label": "Elettronica",
+            "children": [
+                {
+                    "label": "Audio e Video",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Console e Videogiochi",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Fotografia",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Informatica",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Telefonia",
+                    "href": "#",
+                    "enabled": true
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "label": "Lavoro",
+            "children": [
+                {
+                    "label": "Attrezzatura da Lavoro",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Ferramente e Bricolage",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Giardinaggio",
+                    "href": "#",
+                    "enabled": true
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "label": "Sport e Hobby",
+            "children": [
+                {
+                    "label": "Animali",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Articoli Sportivi",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Giochi e Giocattoli",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Libri e Riviste",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Strumenti Musicali",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "CD, DVD, Vinili",
+                    "href": "#",
+                    "enabled": true
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "label": "Veicoli",
+            "children": [
+                {
+                    "label": "Accessori auto, moto, biciclette",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Auto",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Biciclette",
+                    "href": "#",
+                    "enabled": true
+                },
+                {
+                    "label": "Moto e Scooter",
+                    "href": "#",
+                    "enabled": true
+                }
+            ],
+            "enabled": true
+        }
+    ]
+}

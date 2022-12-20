@@ -1,0 +1,22 @@
+{
+
+    "links": [
+        {
+            "label": "Regions",
+            "href": "#"
+        },
+        {
+            "label": "About",
+            "href": "/about"
+        },
+        {
+            "label": "News",
+            "href": "/news"
+        },
+        {
+            "label": "Contact",
+            "href": "/contact"
+        }
+    ]
+
+}

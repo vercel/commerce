@@ -1,0 +1,57 @@
+{
+    "metafields": [
+        {
+            "locale": "it",
+            "names": [
+                {
+                    "name": "Tipo",
+                    "key": "tipo"
+                },
+                {
+                    "name": "Materiale",
+                    "key": "materiale"
+                },
+                {
+                    "name": "Colore",
+                    "key": "colore"
+                },
+                {
+                    "name": "Condizioni Estetiche",
+                    "key": "condizioni_estetiche"
+                },
+                {
+                    "name": "Altezza",
+                    "key": "altezza"
+                },
+                {
+                    "name": "Spessore",
+                    "key": "spessore"
+                },
+                {
+                    "name": "Larghezza",
+                    "key": "larghezza"
+                },
+                {
+                    "name": "Peso",
+                    "key": "peso"
+                },
+                {
+                    "name": "Confezione e Accessori Originali",
+                    "key": "confezione_accessori"
+                },
+                {
+                    "name": "Descrizione",
+                    "key": "descrizione"
+                },
+                {
+                    "name": "Vintage",
+                    "key": "vintage"
+                },
+                {
+                    "name": "Made In",
+                    "key": "made_in"
+                }
+            ]
+        }
+    ]
+}
