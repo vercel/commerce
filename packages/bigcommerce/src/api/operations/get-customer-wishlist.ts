@@ -5,10 +5,12 @@ import type {
 import type {
   GetCustomerWishlistOperation,
   Wishlist,
+  WishlistItem,
 } from '@vercel/commerce/types/wishlist'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import type { RecursivePartial } from '../utils/types'
 import { BigcommerceConfig, Provider } from '..'
-import getAllProducts, { ProductEdge } from './get-all-products'
+
+import type { Product } from '@vercel/commerce/types/product'
 
 export default function getCustomerWishlistOperation({
   commerce,
@@ -47,6 +49,12 @@ export default function getCustomerWishlistOperation({
 
     const wishlist = data[0]
 
+    if (!wishlist) {
+      return {}
+    }
+
+    const items: WishlistItem[] = []
+
     if (includeProducts && wishlist?.items?.length) {
       const ids = wishlist.items
         ?.map((item) => (item?.productId ? String(item?.productId) : null))
@@ -57,25 +65,36 @@ export default function getCustomerWishlistOperation({
           variables: { first: 50, ids },
           config,
         })
+
         // Put the products in an object that we can use to get them by id
         const productsById = graphqlData.products.reduce<{
-          [k: number]: ProductEdge
+          [k: number]: Product
         }>((prods, p) => {
           prods[Number(p.id)] = p as any
           return prods
         }, {})
+
         // Populate the wishlist items with the graphql products
         wishlist.items.forEach((item) => {
           const product = item && productsById[Number(item.productId)]
           if (item && product) {
-            // @ts-ignore Fix this type when the wishlist type is properly defined
-            item.product = product
+            items.push({
+              id: String(item.id),
+              productId: String(item.productId),
+              variantId: String(item.variantId),
+              product,
+            })
           }
         })
       }
     }
 
-    return { wishlist: wishlist as RecursiveRequired<typeof wishlist> }
+    return {
+      wishlist: {
+        id: String(wishlist.id),
+        items,
+      },
+    }
   }
 
   return getCustomerWishlist

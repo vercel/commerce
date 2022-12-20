@@ -1,7 +1,12 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 
 export function getError(errors: any[] | null, status: number) {
-  errors = errors ?? [{ message: 'Failed to fetch Shopify API' }]
+  errors = errors ?? [
+    {
+      message:
+        'Failed to fetch Shopify API, most likely related to an unexpected output. E.g: NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN & NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN might be incorect',
+    },
+  ]
   return new FetcherError({ errors, status })
 }
 

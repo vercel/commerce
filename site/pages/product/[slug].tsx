@@ -3,10 +3,21 @@ import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from 'next'
-import { useRouter } from 'next/router'
+
 import commerce from '@lib/api/commerce'
+
+import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
+
+// Used by the Shopify Example
+const withMetafields = [
+  { namespace: 'reviews', key: 'rating' },
+  { namespace: 'reviews', key: 'count' },
+  { namespace: 'my_fields', key: 'width' },
+  { namespace: 'my_fields', key: 'weight' },
+  { namespace: 'my_fields', key: 'length' },
+]
 
 export async function getStaticProps({
   params,
@@ -18,7 +29,10 @@ export async function getStaticProps({
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
   const productPromise = commerce.getProduct({
-    variables: { slug: params!.slug },
+    variables: {
+      slug: params!.slug,
+      withMetafields,
+    },
     config,
     preview,
   })

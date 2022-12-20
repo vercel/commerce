@@ -10,6 +10,8 @@ import {
   SelectedOptions,
 } from '../helpers'
 import ErrorMessage from '@components/ui/ErrorMessage'
+import { ProductCustomFields } from '../ProductCustomFields'
+import { ProductMetafields } from '../ProductMetafields'
 
 interface ProductSidebarProps {
   product: Product
@@ -62,10 +64,16 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         className="pb-4 break-words w-full max-w-xl"
         html={product.descriptionHtml || product.description}
       />
-      <div className="flex flex-row justify-between items-center">
-        <Rating value={4} />
-        <div className="text-accent-6 pr-1 font-medium text-sm">36 reviews</div>
-      </div>
+
+      {product.metafields?.reviews?.rating && (
+        <div className="flex flex-row justify-between items-center">
+          <Rating value={product.metafields.reviews.rating.value} />
+          <div className="text-accent-6 pr-1 font-medium text-sm">
+            {product.metafields.reviews.count?.value ?? 0} reviews
+          </div>
+        </div>
+      )}
+
       <div>
         {error && <ErrorMessage error={error} className="my-5" />}
         {process.env.COMMERCE_CART_ENABLED && (
@@ -88,11 +96,27 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
           This is a limited edition production run. Printing starts when the
           drop ends.
         </Collapse>
+
         <Collapse title="Details">
           This is a limited edition production run. Printing starts when the
           drop ends. Reminder: Bad Boys For Life. Shipping may take 10+ days due
           to COVID-19.
         </Collapse>
+
+        {product.customFields && product.customFields?.length > 0 && (
+          <Collapse title="Specifications">
+            <ProductCustomFields customFields={product.customFields} />
+          </Collapse>
+        )}
+
+        {product.metafields?.my_fields && (
+          <Collapse title="Specifications">
+            <ProductMetafields
+              metafields={product.metafields}
+              namespace="my_fields"
+            />
+          </Collapse>
+        )}
       </div>
     </div>
   )

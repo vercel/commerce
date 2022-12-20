@@ -1,4 +1,4 @@
-import { Image } from './common'
+import { CustomField, Image, Metafields } from './common'
 
 export interface ProductPrice {
   /**
@@ -127,6 +127,33 @@ export interface Product {
    */
   images: Image[]
   /**
+   * List of custom fields / properties associated with the product.
+   * @example
+   * customFields: [{
+   *   id: '1',
+   *   name: 'Warehouse Location',
+   *   value: 'Aisle 3, Shelf 5, Bin 6'
+   * }]
+   */
+  customFields?: CustomField[]
+  /**
+   * Advanced custom fields that can be added to a product. They are used to store additional information about the product, in a structured format, grouped by namespaces.
+   * @example
+   * {
+   *  // Namespace, the container for a set of metadata
+   *  reviews: {
+   *   // Key of the metafield
+   *   rating: {
+   *    key: 'rating',
+   *    value: 4,
+   *    valueHtml: '&#9733;&#9733;&#9733;&#9733;&#9734;',
+   *    type: 'integer',
+   *    name: 'Rating',
+   *  }
+   * }
+   */
+  metafields?: Metafields
+  /**
    * List of the product’s variants.
    */
   variants: ProductVariant[]
@@ -204,7 +231,6 @@ export type ProductsSchema = {
 /**
  *  Product operations
  */
-
 export type GetAllProductPathsOperation = {
   data: { products: Pick<Product, 'path'>[] }
   variables: { first?: number }
@@ -219,7 +245,24 @@ export type GetAllProductsOperation = {
   }
 }
 
+export type MetafieldsIdentifiers = Array<{
+  namespace: string
+  key: string
+}>
+
 export type GetProductOperation = {
   data: { product?: Product }
-  variables: { path: string; slug?: never } | { path?: never; slug: string }
+  variables: {
+    slug: string
+    /**
+     * Metafields identifiers used to fetch the product metafields, represented as an array of objects with the namespace and key.
+     *
+     * @example
+     * withMetafields: [
+     *  {namespace: 'reviews', key: 'rating'},
+     *  {namespace: 'reviews', key: 'count'},
+     * ]
+     */
+    withMetafields?: MetafieldsIdentifiers
+  }
 }

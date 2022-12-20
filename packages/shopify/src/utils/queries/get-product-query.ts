@@ -1,5 +1,8 @@
 const getProductQuery = /* GraphQL */ `
-  query getProductBySlug($slug: String!) {
+  query getProductBySlug(
+    $slug: String!
+    $withMetafields: [HasMetafieldsIdentifier!] = []
+  ) {
     productByHandle(handle: $slug) {
       id
       handle
@@ -24,15 +27,7 @@ const getProductQuery = /* GraphQL */ `
           currencyCode
         }
       }
-      metafields(first: 30) {
-        edges {
-          node {
-            key
-            value
-          }
-        }
-      }
-      variants(first: 250) {
+      variants(first: 25) {
         pageInfo {
           hasNextPage
           hasPreviousPage
@@ -59,7 +54,7 @@ const getProductQuery = /* GraphQL */ `
           }
         }
       }
-      images(first: 250) {
+      images(first: 25) {
         pageInfo {
           hasNextPage
           hasPreviousPage
@@ -88,6 +83,12 @@ const getProductQuery = /* GraphQL */ `
             }
           }
         }
+      metafields(identifiers: $withMetafields) {
+        key
+        value
+        namespace
+        description
+        type
       }
     }
   }

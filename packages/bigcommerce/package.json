@@ -63,6 +63,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@manifoldco/swagger-to-ts": "^2.1.0",
     "@taskr/clear": "^1.1.0",
     "@taskr/esnext": "^1.1.0",
     "@taskr/watch": "^1.1.0",
@@ -74,6 +75,7 @@
     "@types/react": "^18.0.14",
     "lint-staged": "^12.1.7",
     "next": "^12.0.8",
+    "node-fetch": "^2.6.7",
     "prettier": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

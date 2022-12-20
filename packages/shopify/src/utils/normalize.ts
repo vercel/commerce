@@ -1,7 +1,9 @@
 import type { Page } from '@vercel/commerce/types/page'
 import type { Product } from '@vercel/commerce/types/product'
+import type { Metafield } from '@vercel/commerce/types/common'
 import type { Cart, LineItem } from '@vercel/commerce/types/cart'
 import type { Category } from '@vercel/commerce/types/site'
+import type { MetafieldType } from '../types/metafields'
 
 import type {
   Product as ShopifyProduct,
@@ -15,14 +17,12 @@ import type {
   Page as ShopifyPage,
   PageEdge,
   Collection,
-  MetafieldConnection,
-  MediaConnection,
-  Model3d,
-  Metafield,
   Maybe,
+  Metafield as ShopifyMetafield,
 } from '../../schema'
 
 import { colorMap } from './colors'
+import { getMetafieldValue, toLabel, parseJson } from './metafields'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -92,7 +92,6 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
             name,
             values: [value],
           })
-
           return options
         }),
       }
@@ -100,35 +99,23 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
   )
 }
 
-const normalizeProductMedia = ({ edges }: MediaConnection) => {
-  return edges
-    .filter(({ node }) => Object.keys(node).length !== 0)
-    .map(({ node }) => {
-      return {
-        sources: (node as Model3d).sources.map(({ format, url }) => {
-          return {
-            format: format,
-            url: url,
-          }
-        }),
-      }
-    })
-}
-
-export function normalizeProduct({
-  id,
-  title: name,
-  vendor,
-  images,
-  variants,
-  description,
-  descriptionHtml,
-  handle,
-  priceRange,
-  options,
-  metafields,
-  ...rest
-}: ShopifyProduct): Product {
+export function normalizeProduct(
+  {
+    id,
+    title: name,
+    vendor,
+    images,
+    variants,
+    description,
+    descriptionHtml,
+    handle,
+    priceRange,
+    options,
+    metafields,
+    ...rest
+  }: ShopifyProduct,
+  locale?: string
+): Product {
   return {
     id,
     name,
@@ -143,10 +130,46 @@ export function normalizeProduct({
           .filter((o) => o.name !== 'Title') // By default Shopify adds a 'Title' name when there's only one option. We don't need it. https://community.shopify.com/c/Shopify-APIs-SDKs/Adding-new-product-variant-is-automatically-adding-quot-Default/td-p/358095
           .map((o) => normalizeProductOption(o))
       : [],
+    metafields: normalizeMetafields(metafields, locale),
     description: description || '',
     ...(descriptionHtml && { descriptionHtml }),
     ...rest,
   }
+}
+
+export function normalizeMetafields(
+  metafields: Maybe<ShopifyMetafield>[],
+  locale?: string
+) {
+  const output: Record<string, Record<string, Metafield>> = {}
+
+  if (!metafields) return output
+
+  for (const metafield of metafields) {
+    if (!metafield) continue
+
+    const { key, type, namespace, value, ...rest } = metafield
+
+    const newField = {
+      ...rest,
+      key,
+      name: toLabel(key),
+      type,
+      namespace,
+      value,
+      valueHtml: getMetafieldValue(type, value, locale),
+    }
+
+    if (!output[namespace]) {
+      output[namespace] = {
+        [key]: newField,
+      }
+    } else {
+      output[namespace][key] = newField
+    }
+  }
+
+  return output
 }
 
 export function normalizeCart(checkout: Checkout): Cart {
@@ -217,3 +240,19 @@ export const normalizeCategory = ({
   slug: handle,
   path: `/${handle}`,
 })
+
+export const normalizeMetafieldValue = (
+  type: MetafieldType,
+  value: string,
+  locale?: string
+) => {
+  if (type.startsWith('list.')) {
+    const arr = parseJson(value)
+    return Array.isArray(arr)
+      ? arr
+          .map((v) => getMetafieldValue(type.split('.')[1], v, locale))
+          .join(' &#8226; ')
+      : value
+  }
+  return getMetafieldValue(type, value, locale)
+}

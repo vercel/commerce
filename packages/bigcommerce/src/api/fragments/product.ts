@@ -80,6 +80,15 @@ export const productInfoFragment = /* GraphQL */ `
         }
       }
     }
+    customFields {
+      edges {
+        node {
+          entityId
+          name
+          value
+        }
+      }
+    }
     localeMeta: metafields(namespace: $locale, keys: ["name", "description"])
       @include(if: $hasLocale) {
       edges {
