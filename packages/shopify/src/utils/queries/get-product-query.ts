@@ -83,6 +83,7 @@ const getProductQuery = /* GraphQL */ `
             }
           }
         }
+      }
       metafields(identifiers: $withMetafields) {
         key
         value

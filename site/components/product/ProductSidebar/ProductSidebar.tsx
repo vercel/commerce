@@ -3,15 +3,15 @@ import { useAddItem } from '@framework/cart'
 import { FC, useEffect, useState } from 'react'
 import { ProductOptions } from '@components/product'
 import type { Product } from '@commerce/types/product'
-import { Button, Text, Rating, Collapse, useUI } from '@components/ui'
+import { Button, Rating, Collapse, Text, useUI } from '@components/ui'
 import {
   getProductVariant,
   selectDefaultOptionFromProduct,
   SelectedOptions,
 } from '../helpers'
-import ErrorMessage from '@components/ui/ErrorMessage'
-import { ProductCustomFields } from '../ProductCustomFields'
-import { ProductMetafields } from '../ProductMetafields'
+import { Box, Stack, Text as ChakraText } from '@chakra-ui/react'
+
+import productDetailsMetafields from '../../../static_data/productDetailsMetafields.json'
 
 interface ProductSidebarProps {
   product: Product
@@ -20,9 +20,8 @@ interface ProductSidebarProps {
 
 const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   const addItem = useAddItem()
-  const { openSidebar, setSidebarView } = useUI()
+  const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<null | Error>(null)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
 
   useEffect(() => {
@@ -32,26 +31,19 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   const variant = getProductVariant(product, selectedOptions)
   const addToCart = async () => {
     setLoading(true)
-    setError(null)
     try {
       await addItem({
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0]?.id),
       })
-      setSidebarView('CART_VIEW')
       openSidebar()
       setLoading(false)
     } catch (err) {
       setLoading(false)
-      if (err instanceof Error) {
-        console.error(err)
-        setError({
-          ...err,
-          message: 'Could not add item to cart. Please try again.',
-        })
-      }
     }
   }
+
+  console.log(product.metafields!.custom)
 
   return (
     <div className={className}>
@@ -60,22 +52,31 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
       />
-      <Text
-        className="pb-4 break-words w-full max-w-xl"
-        html={product.descriptionHtml || product.description}
-      />
 
-      {product.metafields?.reviews?.rating && (
-        <div className="flex flex-row justify-between items-center">
-          <Rating value={product.metafields.reviews.rating.value} />
-          <div className="text-accent-6 pr-1 font-medium text-sm">
-            {product.metafields.reviews.count?.value ?? 0} reviews
-          </div>
-        </div>
-      )}
+      {/* Product Description With Metafields */}
 
-      <div>
-        {error && <ErrorMessage error={error} className="my-5" />}
+      <Box>
+        <Stack>
+          {productDetailsMetafields.metafields[0].names.map((meta) => (
+            <Box key={meta.key}>
+              <ChakraText
+                as={'span'}
+                textTransform={'uppercase'}
+                fontWeight={'bold'}
+              >
+                {meta.name}:{' '}
+              </ChakraText>
+              <ChakraText as={'span'}>
+                {product.metafields.custom
+                  .filter((o) => o.key == meta.key)
+                  .map((o) => o.value)}
+              </ChakraText>
+            </Box>
+          ))}
+        </Stack>
+      </Box>
+
+      <div style={{ marginTop: 20 }}>
         {process.env.COMMERCE_CART_ENABLED && (
           <Button
             aria-label="Add to Cart"
@@ -89,33 +90,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
               ? 'Not Available'
               : 'Add To Cart'}
           </Button>
-        )}
-      </div>
-      <div className="mt-6">
-        <Collapse title="Care">
-          This is a limited edition production run. Printing starts when the
-          drop ends.
-        </Collapse>
-
-        <Collapse title="Details">
-          This is a limited edition production run. Printing starts when the
-          drop ends. Reminder: Bad Boys For Life. Shipping may take 10+ days due
-          to COVID-19.
-        </Collapse>
-
-        {product.customFields && product.customFields?.length > 0 && (
-          <Collapse title="Specifications">
-            <ProductCustomFields customFields={product.customFields} />
-          </Collapse>
-        )}
-
-        {product.metafields?.my_fields && (
-          <Collapse title="Specifications">
-            <ProductMetafields
-              metafields={product.metafields}
-              namespace="my_fields"
-            />
-          </Collapse>
         )}
       </div>
     </div>

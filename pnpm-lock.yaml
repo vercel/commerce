@@ -657,6 +657,7 @@ importers:
       tabbable: ^5.2.1
       tailwindcss: ^3.0.13
       typescript: 4.7.4
+      yet-another-react-lightbox: ^2.2.3
     dependencies:
       '@chakra-ui/icons': 2.0.14_react@18.2.0
       '@chakra-ui/react': 2.4.4_4krdlvlqq3ittuocexwl336v2q
@@ -702,6 +703,7 @@ importers:
       screenfull: 6.0.2
       tabbable: 5.3.3
       tailwindcss: 3.1.8_postcss@8.4.16
+      yet-another-react-lightbox: 2.2.3_biqbaboplfbrettd7655fr4n2y
     devDependencies:
       '@next/bundle-analyzer': 12.3.0
       '@types/body-scroll-lock': 3.1.0
@@ -3497,7 +3499,18 @@ packages:
       - supports-color
     dev: false
 
-<<<<<<< HEAD
+  /@manifoldco/swagger-to-ts/2.1.0:
+    resolution: {integrity: sha512-IH0FAHhwWHR3Gs3rnVHNEscZujGn+K6/2Zu5cWfZre3Vz2tx1SvvJKEbSM89MztfDDRjOpb+6pQD/vqdEoTBVg==}
+    engines: {node: '>= 10.0.0'}
+    deprecated: This package has changed to openapi-typescript
+    hasBin: true
+    dependencies:
+      chalk: 4.1.2
+      js-yaml: 3.14.1
+      meow: 7.1.1
+      prettier: 2.7.1
+    dev: true
+
   /@motionone/animation/10.15.1:
     resolution: {integrity: sha512-mZcJxLjHor+bhcPuIFErMDNyrdb2vJur8lSfMCsuCB4UyV8ILZLvK+t+pg56erv8ud9xQGK/1OGPt10agPrCyQ==}
     dependencies:
@@ -3544,19 +3557,6 @@ packages:
       hey-listen: 1.0.8
       tslib: 2.4.0
     dev: false
-=======
-  /@manifoldco/swagger-to-ts/2.1.0:
-    resolution: {integrity: sha512-IH0FAHhwWHR3Gs3rnVHNEscZujGn+K6/2Zu5cWfZre3Vz2tx1SvvJKEbSM89MztfDDRjOpb+6pQD/vqdEoTBVg==}
-    engines: {node: '>= 10.0.0'}
-    deprecated: This package has changed to openapi-typescript
-    hasBin: true
-    dependencies:
-      chalk: 4.1.2
-      js-yaml: 3.14.1
-      meow: 7.1.1
-      prettier: 2.7.1
-    dev: true
->>>>>>> 1ba9d3bd6e79da1f0b05df2f1c0c1ca3632b6c16
 
   /@next/bundle-analyzer/12.3.0:
     resolution: {integrity: sha512-hzRLHIrtwOiGEku9rmG7qZk+OQhnqQOL+ycl2XrjBaztBN/xaqnjoG4+HEf9L7ELN943BR+K/ZlaF2OEgbGm+Q==}
@@ -7117,7 +7117,6 @@ packages:
       tslib: 2.4.0
     dev: true
 
-<<<<<<< HEAD
   /hey-listen/1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
     dev: false
@@ -7127,11 +7126,10 @@ packages:
     dependencies:
       react-is: 16.13.1
     dev: false
-=======
+
   /hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
     dev: true
->>>>>>> 1ba9d3bd6e79da1f0b05df2f1c0c1ca3632b6c16
 
   /http-cache-semantics/4.1.0:
     resolution: {integrity: sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==}
@@ -11414,6 +11412,17 @@ packages:
       y18n: 5.0.8
       yargs-parser: 21.1.1
     dev: true
+
+  /yet-another-react-lightbox/2.2.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-wTjXSqcKZfmudXQqZxe24SqzBAaK5x686CMNMAfNOrbmtyUACCrXTM78899DwtkEYMCBAGvgZc/2GOVu+EAtYA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /yn/3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}

@@ -22,6 +22,7 @@ import MarkerCardModal from '@components/common/Room/MarkerCardModal/MarkerCardM
 import { useDisclosure } from '@chakra-ui/react'
 
 import decadesManifest from '../../../static_data/decadesManifest.json'
+import productDetailsMetafields from '../../../static_data/productDetailsMetafields.json'
 import {
   MarkerData,
   MarkerJson,
@@ -123,7 +124,14 @@ export async function getStaticProps({
         continue
 
       const productPromise = commerce.getProduct({
-        variables: { slug: productMarker.markerSource },
+        variables: {
+          slug: productMarker.markerSource,
+          withMetafields: [
+            { namespace: 'custom', key: 'nazionalit_' },
+            { namespace: 'custom', key: 'descrizione_tecnica' },
+            { namespace: 'custom', key: 'descrizione_storica' },
+          ],
+        },
         config,
         preview,
       })
@@ -131,8 +139,6 @@ export async function getStaticProps({
       products.push(await productPromise)
     }
   }
-
-  console.log(products)
 
   if (!products) {
     throw new Error(`Products associated with markers not found`)

@@ -10,14 +10,16 @@ import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
 
-// Used by the Shopify Example
-const withMetafields = [
-  { namespace: 'reviews', key: 'rating' },
-  { namespace: 'reviews', key: 'count' },
-  { namespace: 'my_fields', key: 'width' },
-  { namespace: 'my_fields', key: 'weight' },
-  { namespace: 'my_fields', key: 'length' },
-]
+import productDetailsMetafields from '../../static_data/productDetailsMetafields.json'
+
+const withMetafields = productDetailsMetafields.metafields[0].names.map(
+  (metafield: any) => {
+    return {
+      namespace: metafield.namespace,
+      key: metafield.key,
+    }
+  }
+)
 
 export async function getStaticProps({
   params,
@@ -28,6 +30,9 @@ export async function getStaticProps({
   const config = { locale, locales }
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
+
+  console.log(withMetafields)
+
   const productPromise = commerce.getProduct({
     variables: {
       slug: params!.slug,
@@ -46,6 +51,8 @@ export async function getStaticProps({
   const { categories } = await siteInfoPromise
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
+
+  console.log(product)
 
   if (!product) {
     return {

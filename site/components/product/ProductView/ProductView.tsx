@@ -1,7 +1,7 @@
 import cn from 'clsx'
 import Image from 'next/image'
 import s from './ProductView.module.css'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import type { Product } from '@commerce/types/product'
 import usePrice from '@framework/product/use-price'
 import { WishlistButton } from '@components/wishlist'
@@ -10,6 +10,10 @@ import { Container, Text } from '@components/ui'
 import { SEO } from '@components/common'
 import ProductSidebar from '../ProductSidebar'
 import ProductTag from '../ProductTag'
+import ProductModel from '../ProductModel/ProductModel'
+import Lightbox from 'yet-another-react-lightbox'
+import 'yet-another-react-lightbox/styles.css'
+
 interface ProductViewProps {
   product: Product
   relatedProducts: Product[]
@@ -21,6 +25,18 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   })
+
+  const model3dPath = product.media
+    .map((media) => {
+      return media.sources
+        .filter((source) => source.format == 'glb')
+        .map((source) => source.url)
+        .slice(0)
+    })
+    .pop()
+    ?.pop()
+
+  const [isLightboxOpen, setLightboxOpen] = useState(false)
 
   return (
     <>
@@ -37,6 +53,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                 {product.images.map((image, i) => (
                   <div key={image.url} className={s.imageContainer}>
                     <Image
+                      id={'product-image-' + i}
                       className={s.img}
                       src={image.url!}
                       alt={image.alt || 'Product Image'}
@@ -44,10 +61,28 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                       height={600}
                       priority={i === 0}
                       quality="85"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => setLightboxOpen(true)}
                     />
                   </div>
                 ))}
+                {model3dPath != undefined ? (
+                  <div key={'model3d'} className={s.imageContainer}>
+                    <ProductModel modelPath={model3dPath}></ProductModel>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </ProductSlider>
+              <Lightbox
+                open={isLightboxOpen}
+                close={() => setLightboxOpen(false)}
+                slides={product.images.map((image) => {
+                  return {
+                    src: image.url,
+                  }
+                })}
+              />
             </div>
             {process.env.COMMERCE_WISHLIST_ENABLED && (
               <WishlistButton

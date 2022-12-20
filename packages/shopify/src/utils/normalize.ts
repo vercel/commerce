@@ -19,6 +19,8 @@ import type {
   Collection,
   Maybe,
   Metafield as ShopifyMetafield,
+  MediaConnection,
+  Model3d,
 } from '../../schema'
 
 import { colorMap } from './colors'
@@ -112,6 +114,7 @@ export function normalizeProduct(
     priceRange,
     options,
     metafields,
+    media,
     ...rest
   }: ShopifyProduct,
   locale?: string
@@ -131,6 +134,7 @@ export function normalizeProduct(
           .map((o) => normalizeProductOption(o))
       : [],
     metafields: normalizeMetafields(metafields, locale),
+    media: media ? normalizeProductMedia(media) : [],
     description: description || '',
     ...(descriptionHtml && { descriptionHtml }),
     ...rest,
@@ -255,4 +259,19 @@ export const normalizeMetafieldValue = (
       : value
   }
   return getMetafieldValue(type, value, locale)
+}
+
+const normalizeProductMedia = ({ edges }: MediaConnection) => {
+  return edges
+    .filter(({ node }) => Object.keys(node).length !== 0)
+    .map(({ node }) => {
+      return {
+        sources: (node as Model3d).sources.map(({ format, url }) => {
+          return {
+            format: format,
+            url: url,
+          }
+        }),
+      }
+    })
 }

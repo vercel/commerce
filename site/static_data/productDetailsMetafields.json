@@ -1,57 +1,69 @@
 {
-    "metafields": [
+  "metafields": [
+    {
+      "locale": "it",
+      "names": [
         {
-            "locale": "it",
-            "names": [
-                {
-                    "name": "Tipo",
-                    "key": "tipo"
-                },
-                {
-                    "name": "Materiale",
-                    "key": "materiale"
-                },
-                {
-                    "name": "Colore",
-                    "key": "colore"
-                },
-                {
-                    "name": "Condizioni Estetiche",
-                    "key": "condizioni_estetiche"
-                },
-                {
-                    "name": "Altezza",
-                    "key": "altezza"
-                },
-                {
-                    "name": "Spessore",
-                    "key": "spessore"
-                },
-                {
-                    "name": "Larghezza",
-                    "key": "larghezza"
-                },
-                {
-                    "name": "Peso",
-                    "key": "peso"
-                },
-                {
-                    "name": "Confezione e Accessori Originali",
-                    "key": "confezione_accessori"
-                },
-                {
-                    "name": "Descrizione",
-                    "key": "descrizione"
-                },
-                {
-                    "name": "Vintage",
-                    "key": "vintage"
-                },
-                {
-                    "name": "Made In",
-                    "key": "made_in"
-                }
-            ]
+          "name": "Tipo",
+          "key": "tipo",
+          "namespace": "custom"
+        },
+        {
+          "name": "Materiale",
+          "key": "materiale",
+          "namespace": "custom"
+        },
+        {
+          "name": "Colore",
+          "key": "colore",
+          "namespace": "custom"
+        },
+        {
+          "name": "Condizioni Estetiche",
+          "key": "condizioni_estetiche",
+          "namespace": "custom"
+        },
+        {
+          "name": "Altezza",
+          "key": "altezza",
+          "namespace": "custom"
+        },
+        {
+          "name": "Spessore",
+          "key": "spessore",
+          "namespace": "custom"
+        },
+        {
+          "name": "Larghezza",
+          "key": "larghezza",
+          "namespace": "custom"
+        },
+        {
+          "name": "Peso",
+          "key": "peso",
+          "namespace": "custom"
+        },
+        {
+          "name": "Confezione e Accessori Originali",
+          "key": "confezione_accessori",
+          "namespace": "custom"
+        },
+        {
+          "name": "Descrizione",
+          "key": "descrizione",
+          "namespace": "custom"
+        },
+        {
+          "name": "Vintage",
+          "key": "vintage",
+          "namespace": "custom"
+        },
+        {
+          "name": "Made In",
+          "key": "made_in",
+          "namespace": "custom"
         }
-    ]
+      ]
+    }
+  ]
 }

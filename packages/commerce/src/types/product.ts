@@ -160,7 +160,6 @@ export interface Product {
   /**
    * The product's base price. Could be the minimum value, or default variant price.
    */
-  metafields: ProductMetafield[]
   price: ProductPrice
   /**
    * List of product's options.
@@ -170,6 +169,10 @@ export interface Product {
    * The product’s vendor name.
    */
   vendor?: string
+  /**
+   * List of product's media
+   */
+  media: ProductMedia[]
 }
 
 export interface SearchProductsBody {
@@ -265,4 +268,26 @@ export type GetProductOperation = {
      */
     withMetafields?: MetafieldsIdentifiers
   }
+}
+
+export type ProductPreviewMediaImage = {
+  altText: string
+  height: string
+  id: string
+  width: string
+}
+
+export type ProductMediaSource = {
+  filesize: number
+  format: string
+  mimeType: string
+  url: string
+}
+
+export type ProductMedia = {
+  alt: string
+  id: string
+  mediaContentType: string
+  previewImage: ProductPreviewMediaImage
+  sources: ProductMediaSource[]
 }
