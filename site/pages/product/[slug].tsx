@@ -31,8 +31,6 @@ export async function getStaticProps({
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
 
-  console.log(withMetafields)
-
   const productPromise = commerce.getProduct({
     variables: {
       slug: params!.slug,
@@ -51,8 +49,6 @@ export async function getStaticProps({
   const { categories } = await siteInfoPromise
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
-
-  console.log(product)
 
   if (!product) {
     return {

@@ -10,6 +10,7 @@ import {
   SelectedOptions,
 } from '../helpers'
 import { Box, Stack, Text as ChakraText } from '@chakra-ui/react'
+import { Metafield } from '@commerce/types/common'
 
 import productDetailsMetafields from '../../../static_data/productDetailsMetafields.json'
 
@@ -43,8 +44,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
     }
   }
 
-  console.log(product.metafields!.custom)
-
   return (
     <div className={className}>
       <ProductOptions
@@ -57,7 +56,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
 
       <Box>
         <Stack>
-          {productDetailsMetafields.metafields[0].names.map((meta) => (
+          {productDetailsMetafields.metafields[0].names.map((meta: any) => (
             <Box key={meta.key}>
               <ChakraText
                 as={'span'}
@@ -67,9 +66,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
                 {meta.name}:{' '}
               </ChakraText>
               <ChakraText as={'span'}>
-                {product.metafields.custom
-                  .filter((o) => o.key == meta.key)
-                  .map((o) => o.value)}
+                {product.metafields!.custom[meta.key as keyof Metafield].value}
               </ChakraText>
             </Box>
           ))}
