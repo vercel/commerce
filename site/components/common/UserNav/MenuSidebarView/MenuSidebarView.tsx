@@ -17,9 +17,7 @@ export default function MenuSidebarView({
         <nav>
           <ul>
             <li className={s.item} onClick={() => closeSidebar()}>
-              <Link href="/search">
-                <a>All</a>
-              </Link>
+              <Link href="/search">All</Link>
             </li>
             {links.map((l: any) => (
               <li
@@ -27,9 +25,7 @@ export default function MenuSidebarView({
                 className={s.item}
                 onClick={() => closeSidebar()}
               >
-                <Link href={l.href}>
-                  <a>{l.label}</a>
-                </Link>
+                <Link href={l.href}>{l.label}</Link>
               </li>
             ))}
           </ul>

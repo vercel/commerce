@@ -5,7 +5,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   body: { cartId },
   config: { restBuyerFetch },
 }) => {
-  const token = req.cookies.get('token')
+  const token = req.cookies.get('token')?.value
 
   // Register credit card
   const payments = await restBuyerFetch(

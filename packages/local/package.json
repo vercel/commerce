@@ -50,7 +50,7 @@
     "@vercel/commerce": "workspace:*"
   },
   "peerDependencies": {
-    "next": "^12",
+    "next": "^13",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -62,7 +62,7 @@
     "@types/react": "^18.0.14",
     "@types/node-fetch": "2.6.2",
     "lint-staged": "^12.1.7",
-    "next": "^12.0.8",
+    "next": "^13.0.6",
     "prettier": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

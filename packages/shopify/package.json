@@ -54,11 +54,12 @@
     "lodash.debounce": "^4.0.8"
   },
   "peerDependencies": {
-    "next": "^12",
+    "next": "^13",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.5",
     "@graphql-codegen/cli": "2.7.0",
     "@graphql-codegen/schema-ast": "^2.4.1",
     "@graphql-codegen/typescript": "^2.6.0",
@@ -69,10 +70,10 @@
     "@types/js-cookie": "3.0.2",
     "@types/lodash.debounce": "^4.0.7",
     "@types/node": "^18.0.3",
-    "@types/react": "^18.0.14",
     "@types/node-fetch": "2.6.2",
-    "graphql": "^16.0.0",
+    "@types/react": "^18.0.14",
     "dotenv": "^16.0.1",
+    "graphql": "^16.0.0",
     "lint-staged": "^13.0.3",
     "next": "^12.2.1",
     "prettier": "^2.7.1",

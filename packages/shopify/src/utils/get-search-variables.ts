@@ -11,7 +11,7 @@ export const getSearchVariables = ({
   let query = ''
 
   if (search) {
-    query += `product_type:"${search}" OR title:"${search}" OR tag:"${search}" `
+    query += `(product_type:${search}) OR (title:${search}) OR (tag:${search}) `
   }
 
   if (brandId) {
