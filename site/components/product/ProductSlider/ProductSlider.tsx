@@ -10,8 +10,6 @@ import cn from 'clsx'
 import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
 import ProductSliderControl from '../ProductSliderControl'
-import { useProduct } from '../context'
-import { Image as ProductImage } from '@commerce/types/common'
 
 interface ProductSliderProps {
   children?: React.ReactNode[]
@@ -22,9 +20,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   children,
   className = '',
 }) => {
-  const { product, variant } = useProduct()
   const [currentSlide, setCurrentSlide] = useState(0)
-
   const sliderContainerRef = useRef<HTMLDivElement>(null)
   const thumbsContainerRef = useRef<HTMLDivElement>(null)
 
@@ -34,6 +30,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     slideChanged(s) {
       const slideNumber = s.track.details.rel
       setCurrentSlide(slideNumber)
+
       if (thumbsContainerRef.current) {
         const $el = document.getElementById(`thumb-${slideNumber}`)
         if (slideNumber >= 3) {
@@ -44,18 +41,6 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
       }
     },
   })
-
-  useEffect(() => {
-    const index = product.images.findIndex((image: ProductImage) => {
-      return image.url === variant?.image?.url
-    })
-
-    if (index !== -1) {
-      slider.current?.moveToIdx(index, false, {
-        duration: 0,
-      })
-    }
-  }, [variant, product, slider])
 
   // Stop the history navigation gesture on touch devices
   useEffect(() => {
@@ -87,13 +72,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     }
   }, [])
 
-  const onPrev = React.useCallback(() => {
-    slider.current?.prev()
-  }, [slider])
-
-  const onNext = React.useCallback(() => {
-    slider.current?.next()
-  }, [slider])
+  const onPrev = React.useCallback(() => slider.current?.prev(), [slider])
+  const onNext = React.useCallback(() => slider.current?.next(), [slider])
 
   return (
     <div className={cn(s.root, className)} ref={sliderContainerRef}>
@@ -124,7 +104,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                 ...child,
                 props: {
                   ...child.props,
-                  className: cn(child.props.className, s.thumb, {
+                  className: cn(s.thumb, {
                     [s.selected]: currentSlide === idx,
                   }),
                   id: `thumb-${idx}`,

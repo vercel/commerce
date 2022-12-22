@@ -18,11 +18,7 @@
 }
 
 .thumb img {
-  @apply w-full h-full object-cover transition duration-300;
-}
-
-.thumb:hover img {
-  @apply scale-105;
+  @apply h-full w-full object-cover transition duration-500;
 }
 
 .album {

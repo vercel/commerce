@@ -17,15 +17,11 @@
 }
 
 .imageContainer {
-  @apply text-center h-full relative flex-shrink-0;
-}
-
-.imageContainer > span {
-  height: 100% !important;
+  @apply flex items-center justify-center w-full h-full relative flex-shrink-0;
 }
 
 .sliderContainer .img {
-  @apply w-full h-full max-h-full object-cover transition duration-500 ease-in-out;
+  @apply object-cover h-full;
 }
 
 .button {
