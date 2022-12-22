@@ -18,7 +18,7 @@ const signupEndpoint: GetAPISchema<
 
   const input = await getInput(req)
   const { cookies } = req
-  const cartId = cookies.get(config.cartCookie)
+  const cartId = cookies.get(config.cartCookie)?.value
 
   const body = signupBodySchema.parse({ ...input, cartId })
   return handlers['signup']({ ...ctx, body })

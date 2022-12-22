@@ -54,11 +54,12 @@
     "lodash.debounce": "^4.0.8"
   },
   "peerDependencies": {
-    "next": "^12",
+    "next": "^13",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.5",
     "@graphql-codegen/cli": "^2.7.0",
     "@graphql-codegen/schema-ast": "^2.4.1",
     "@graphql-codegen/typescript": "^2.4.2",
@@ -73,7 +74,7 @@
     "@types/react": "^18.0.14",
     "graphql": "^16.0.0",
     "lint-staged": "^12.1.7",
-    "next": "^12.0.8",
+    "next": "^13.0.6",
     "prettier": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

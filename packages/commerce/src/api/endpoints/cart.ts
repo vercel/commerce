@@ -29,7 +29,7 @@ const cartEndpoint: GetAPISchema<
 
   let output
   const { cookies } = req
-  const cartId = cookies.get(config.cartCookie)
+  const cartId = cookies.get(config.cartCookie)?.value
 
   // Return current cart info
   if (req.method === 'GET') {

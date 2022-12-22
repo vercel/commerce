@@ -24,29 +24,21 @@ const HomeAllProductsGrid: FC<Props> = ({
         <div className={s.aside}>
           <ul className="mb-10">
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={getCategoryPath('')}>
-                <a>All Categories</a>
-              </Link>
+              <Link href={getCategoryPath('')}>All Categories</Link>
             </li>
             {categories?.map((cat: any) => (
               <li key={cat.path} className="py-1 text-accent-8 text-base">
-                <Link href={getCategoryPath(cat.path)}>
-                  <a>{cat.name}</a>
-                </Link>
+                <Link href={getCategoryPath(cat.path)}>{cat.name}</Link>
               </li>
             ))}
           </ul>
           <ul className="">
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={getDesignerPath('')}>
-                <a>All Designers</a>
-              </Link>
+              <Link href={getDesignerPath('')}>All Designers</Link>
             </li>
             {brands?.map(({ path, name }) => (
               <li key={path} className="py-1 text-accent-8 text-base">
-                <Link href={getDesignerPath(path)}>
-                  <a>{name}</a>
-                </Link>
+                <Link href={getDesignerPath(path)}>{name}</Link>
               </li>
             ))}
           </ul>
@@ -60,6 +52,7 @@ const HomeAllProductsGrid: FC<Props> = ({
               product={product}
               variant="simple"
               imgProps={{
+                alt: product.name,
                 width: 480,
                 height: 480,
               }}

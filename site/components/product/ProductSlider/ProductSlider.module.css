@@ -19,11 +19,11 @@
 }
 
 .thumb.selected {
-  @apply bg-white;
+  @apply bg-white/30;
 }
 
 .thumb img {
-  height: 85% !important;
+  @apply h-full w-full object-cover transition duration-500;
 }
 
 .album {
@@ -44,10 +44,9 @@
 }
 
 @screen md {
-  .thumb:hover {
-    transform: scale(1.02);
+  .thumb:hover img {
+    @apply scale-110;
   }
-
   .album {
     height: 182px;
   }

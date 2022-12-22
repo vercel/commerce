@@ -27,7 +27,7 @@ export type Customer = NonNullable<GetLoggedInCustomerQuery['customer']>
 
 const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
   async ({ req, config }) => {
-    const token = req.cookies.get(config.customerCookie)
+    const token = req.cookies.get(config.customerCookie)?.value
 
     if (token) {
       const { data } = await config.fetch<GetLoggedInCustomerQuery>(

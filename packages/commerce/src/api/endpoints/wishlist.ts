@@ -28,7 +28,7 @@ const wishlistEndpoint: GetAPISchema<
   const { cookies } = req
   const input = await getInput(req)
 
-  const customerToken = cookies.get(config.customerCookie)
+  const customerToken = cookies.get(config.customerCookie)?.value
   const products = new URL(req.url).searchParams.get('products')
 
   // Return current wishlist info
