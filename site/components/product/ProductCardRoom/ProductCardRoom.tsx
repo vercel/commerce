@@ -82,7 +82,7 @@ export default function ProductCardRoom(props: {
 
           <Stack mt={6} align={'center'}>
             <Divider borderColor={'blackAlpha.600'} />
-            {historicDescription.split('\n').map((line, index) => (
+            {historicDescription.split('\n').map((line: any, index: any) => (
               <Text
                 key={index}
                 padding={0}

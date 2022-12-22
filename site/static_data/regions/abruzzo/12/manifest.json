@@ -6,9 +6,9 @@
       "filename": "bagno12.jpg",
       "links": [
         {
-          "nodeId": "1",
-          "longitude": 2.973125539174058,
-          "latitude": -0.24078673565679543
+          "nodeId": "3",
+          "longitude": 3.103209165807442,
+          "latitude": -0.4714562718116655
         }
       ]
     },
@@ -18,9 +18,9 @@
       "filename": "cameraadu12.jpg",
       "links": [
         {
-          "nodeId": "2",
-          "longitude": 2.007173620652426,
-          "latitude": -0.04809744657883419
+          "nodeId": "3",
+          "longitude": 2.0316630909987,
+          "latitude": -0.22344574021327945
         }
       ]
     },
@@ -28,37 +28,103 @@
       "id": "2",
       "name": "Camera Ragazzi",
       "filename": "camerarag12.jpg",
-      "links": []
+      "links": [
+        {
+          "nodeId": "3",
+          "longitude": 2.3803918685405114,
+          "latitude": -0.3054959780768798
+        }
+      ]
     },
     {
       "id": "3",
       "name": "Corridoio",
       "filename": "corridoio12.jpg",
-      "links": []
+      "links": [
+        {
+          "nodeId": "2",
+          "longitude": 4.258008272201295,
+          "latitude": -0.9639290689632962
+        },
+        {
+          "nodeId": "1",
+          "longitude": 5.45201412429776,
+          "latitude": -0.3657106244564585
+        },
+        {
+          "nodeId": "5",
+          "longitude": 5.8013455824203986,
+          "latitude": -0.10623403155388744
+        },
+        {
+          "nodeId": "7",
+          "longitude": 0.38955694054840445,
+          "latitude": -0.05505939022937123
+        },
+        {
+          "nodeId": "4",
+          "longitude": 0.5583412473219801,
+          "latitude": -0.08204750774633829
+        },
+        {
+          "nodeId": "6",
+          "longitude": 2.4386705507254662,
+          "latitude": -0.7355493132666657
+        }
+      ]
     },
     {
       "id": "4",
       "name": "Cucina",
       "filename": "cucina12.jpg",
-      "links": []
+      "links": [
+        {
+          "nodeId": "3",
+          "longitude": 2.5032524181645615,
+          "latitude": -0.29099891268912614
+        }
+      ]
     },
     {
       "id": "5",
       "name": "Garage",
       "filename": "garage12.jpg",
-      "links": []
+      "links": [
+        {
+          "nodeId": "4",
+          "longitude": 3.620327078684408,
+          "latitude": -0.05659906861796027
+        },
+        {
+          "nodeId": "3",
+          "longitude": 4.585430510981183,
+          "latitude": -0.24230113007225973
+        }
+      ]
     },
     {
       "id": "6",
       "name": "Giardino",
       "filename": "giardino12.jpg",
-      "links": []
+      "links": [
+        {
+          "nodeId": "3",
+          "longitude": 6.195229191263486,
+          "latitude": 0.006142395288012414
+        }
+      ]
     },
     {
       "id": "7",
       "name": "Sala",
       "filename": "sala12.jpg",
-      "links": []
+      "links": [
+	{
+          "nodeId": "3",
+          "longitude": 6.195229191263486,
+          "latitude": 0.006142395288012414
+        }
+]
     }
   ]
 }

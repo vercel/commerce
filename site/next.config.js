@@ -11,8 +11,8 @@ const isVendure = provider === '@vercel/commerce-vendure'
 module.exports = withCommerceConfig({
   commerce,
   i18n: {
-    locales: ['en-US', 'es'],
-    defaultLocale: 'en-US',
+    locales: ['en', 'it'],
+    defaultLocale: 'it',
   },
   rewrites() {
     return [

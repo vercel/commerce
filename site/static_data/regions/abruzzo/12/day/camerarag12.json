@@ -1,0 +1,28 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "portafogli-montblanc-uomo",
+      "longitude": 0.8139951231001585,
+      "latitude": -0.23874158128840817
+    },
+    {
+      "markerType": "product",
+      "markerSource": "mattel-action-figure-wwe-sheamus",
+      "longitude": 3.0954264143046184,
+      "latitude": -0.002668110155627401
+    },
+    {
+      "markerType": "product",
+      "markerSource": "sneakers-buscemi-dollaro-rosso-n-41-perfette",
+      "longitude": 3.087341826097701,
+      "latitude": -0.2677163574946222
+    },
+    {
+      "markerType": "product",
+      "markerSource": "ipad-6-silver-32gb-wifi-perfetto",
+      "longitude": 4.130262960796298,
+      "latitude": -0.947129553635603
+    }
+  ]
+}
