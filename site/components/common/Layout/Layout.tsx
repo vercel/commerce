@@ -17,7 +17,7 @@ import { MenuSidebarView } from '@components/common/UserNav'
 import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
-import navBarLinks from '../../../static_data/navBarLinks.json';
+import navBarLinks from '../../../static_data/navBarLinks.json'
 import Script from 'next/script'
 
 const Loading = () => (
@@ -111,13 +111,13 @@ const Layout: React.FC<Props> = ({
 }) => {
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'it' } = useRouter()
-  const navBarlinks = navBarLinks.links;
+  const navBarlinks = navBarLinks[locale as keyof typeof navBarLinks]
 
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
         <Navbar links={navBarlinks} />
-        <main className="fit">{children}</main>
+        <main>{children}</main>
         <Footer pages={pageProps.pages} />
         <ModalUI />
         <CheckoutProvider>

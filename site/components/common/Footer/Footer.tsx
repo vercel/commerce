@@ -9,6 +9,7 @@ import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
 import ThemeSwitcher from '@components/ui/ThemeSwitcher'
 import s from './Footer.module.css'
+import navBarLinks from '../../../static_data/navBarLinks.json'
 
 interface Props {
   className?: string
@@ -16,28 +17,17 @@ interface Props {
   pages?: Page[]
 }
 
-const links = [
-  {
-    name: 'Home',
-    url: '/',
-  },
-  {
-    name: 'About',
-    url: '/about'
-  },
-  {
-    name: 'News',
-    url: '/news'
-  },
-  {
-    name: 'Contact',
-    url: '/contact'
-  }
-]
+interface FooterLink {
+  label: string
+  href: string
+}
 
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages } = usePages(pages)
   const rootClassName = cn(s.root, className)
+
+  const { locale = 'it' } = useRouter()
+  const links = navBarLinks[locale as keyof typeof navBarLinks]
 
   return (
     <footer className={rootClassName}>
@@ -55,7 +45,16 @@ const Footer: FC<Props> = ({ className, pages }) => {
           </div>
           <div className="col-span-1 lg:col-span-7">
             <div className="grid md:grid-rows-4 md:grid-cols-3 md:grid-flow-col">
-              {[...links, ...sitePages].map((page) => (
+              {[...links].map((page: FooterLink) => (
+                <span key={page.href} className="py-3 md:py-0 md:pb-4">
+                  <Link href={page.href!}>
+                    <a className="text-accent-9 hover:text-accent-6 transition ease-in-out duration-150">
+                      {page.label}
+                    </a>
+                  </Link>
+                </span>
+              ))}
+              {[...sitePages].map((page) => (
                 <span key={page.url} className="py-3 md:py-0 md:pb-4">
                   <Link href={page.url!}>
                     <a className="text-accent-9 hover:text-accent-6 transition ease-in-out duration-150">

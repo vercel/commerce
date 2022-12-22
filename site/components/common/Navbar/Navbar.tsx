@@ -17,12 +17,18 @@ interface NavbarProps {
 }
 
 const Navbar: FC<NavbarProps> = ({ links }) => {
-
-  const { isOpen: isOpenDrawer, onOpen: onOpenDrawer, onClose: onCloseDrawer } = useDisclosure()
+  const {
+    isOpen: isOpenDrawer,
+    onOpen: onOpenDrawer,
+    onClose: onCloseDrawer,
+  } = useDisclosure()
 
   return (
     <>
-      <NavBarFiltersDrawer onClose={onCloseDrawer} isOpen={isOpenDrawer} ></NavBarFiltersDrawer>
+      <NavBarFiltersDrawer
+        onClose={onCloseDrawer}
+        isOpen={isOpenDrawer}
+      ></NavBarFiltersDrawer>
       <NavbarRoot>
         <Container clean className="mx-auto max-w-8xl px-6">
           <div className={s.nav}>
@@ -38,10 +44,13 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
                 </Link>
                 {links?.map((l) => (
                   <Link href={l.href} key={l.href}>
-                    {
-                      l.label === 'Regions' ? (<a onClick={onOpenDrawer} className={s.link}>{l.label}</a>)
-                        : <a className={s.link}>{l.label}</a> 
-                    }
+                    {l.label === 'Regions' || l.label === 'Regioni' ? (
+                      <a onClick={onOpenDrawer} className={s.link}>
+                        {l.label}
+                      </a>
+                    ) : (
+                      <a className={s.link}>{l.label}</a>
+                    )}
                   </Link>
                 ))}
               </nav>

@@ -13,6 +13,7 @@ import { Box, Stack, Text as ChakraText } from '@chakra-ui/react'
 import { Metafield } from '@commerce/types/common'
 
 import productDetailsMetafields from '../../../static_data/productDetailsMetafields.json'
+import { useRouter } from 'next/router'
 
 interface ProductSidebarProps {
   product: Product
@@ -24,6 +25,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
+  const { locale = 'it' } = useRouter()
 
   useEffect(() => {
     selectDefaultOptionFromProduct(product, setSelectedOptions)
@@ -56,7 +58,9 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
 
       <Box>
         <Stack>
-          {productDetailsMetafields.metafields[0].names.map((meta: any) => (
+          {productDetailsMetafields.metafields[
+            locale as keyof typeof productDetailsMetafields.metafields
+          ].map((meta: any) => (
             <Box key={meta.key}>
               <ChakraText
                 as={'span'}
@@ -76,16 +80,22 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
       <div style={{ marginTop: 20 }}>
         {process.env.COMMERCE_CART_ENABLED && (
           <Button
-            aria-label="Add to Cart"
+            aria-label={
+              locale === 'en' ? 'Add to Cart' : 'Aggiungi al Carrello'
+            }
             type="button"
             className={s.button}
             onClick={addToCart}
             loading={loading}
             disabled={variant?.availableForSale === false}
           >
-            {variant?.availableForSale === false
-              ? 'Not Available'
-              : 'Add To Cart'}
+            {locale === 'en'
+              ? variant?.availableForSale === false
+                ? 'Not Available'
+                : 'Add To Cart'
+              : variant?.availableForSale === false
+              ? 'Non Disponibile'
+              : 'Aggiungi al Carrello'}
           </Button>
         )}
       </div>

@@ -1,6 +1,24 @@
 {
 
-    "links": [
+    "it": [
+        {
+            "label": "Regioni",
+            "href": "#"
+        },
+        {
+            "label": "Chi Siamo",
+            "href": "/about"
+        },
+        {
+            "label": "News",
+            "href": "/news"
+        },
+        {
+            "label": "Contatti",
+            "href": "/contact"
+        }
+    ],
+	"en": [
         {
             "label": "Regions",
             "href": "#"
@@ -18,5 +36,4 @@
             "href": "/contact"
         }
     ]
-
 }

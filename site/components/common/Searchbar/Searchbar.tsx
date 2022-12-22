@@ -40,7 +40,11 @@ const Searchbar: FC<Props> = ({ className, id = 'search' }) => {
       <input
         id={id}
         className={s.input}
-        placeholder="Search for products..."
+        placeholder={
+          router.locale === 'en'
+            ? 'Search for products...'
+            : 'Cerca Prodotti...'
+        }
         defaultValue={router.query.q}
         onKeyUp={handleKeyUp}
       />

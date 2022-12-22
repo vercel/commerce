@@ -13,6 +13,7 @@ import ProductTag from '../ProductTag'
 import ProductModel from '../ProductModel/ProductModel'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
+import { useRouter } from 'next/router'
 
 interface ProductViewProps {
   product: Product
@@ -37,6 +38,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
     ?.pop()
 
   const [isLightboxOpen, setLightboxOpen] = useState(false)
+  const { locale = 'it' } = useRouter()
 
   return (
     <>
@@ -101,7 +103,9 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
         </div>
         <hr className="mt-7 border-accent-2" />
         <section className="py-12 px-6 mb-10">
-          <Text variant="sectionHeading">Related Products</Text>
+          <Text variant="sectionHeading">
+            {locale === 'en' ? 'Related Products' : 'Prodotti Correlati'}
+          </Text>
           <div className={s.relatedProductsGrid}>
             {relatedProducts.map((p) => (
               <div

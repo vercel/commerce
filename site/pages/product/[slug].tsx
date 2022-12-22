@@ -12,7 +12,7 @@ import { ProductView } from '@components/product'
 
 import productDetailsMetafields from '../../static_data/productDetailsMetafields.json'
 
-const withMetafields = productDetailsMetafields.metafields[0].names.map(
+const withMetafields = productDetailsMetafields.metafields.it.map(
   (metafield: any) => {
     return {
       namespace: metafield.namespace,
