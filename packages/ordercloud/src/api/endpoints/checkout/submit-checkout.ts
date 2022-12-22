@@ -5,7 +5,7 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
   body: { cartId },
   config: { restBuyerFetch, tokenCookie },
 }) => {
-  const token = req.cookies.get(tokenCookie)
+  const token = req.cookies.get(tokenCookie)?.value
 
   // Submit order
   await restBuyerFetch('POST', `/orders/Outgoing/${cartId}/submit`, null, {

@@ -50,7 +50,7 @@
 }
 
 .sliderContainer .img {
-  @apply w-full h-auto max-h-full object-cover;
+  @apply w-auto h-full max-h-full object-cover;
 }
 
 .button {

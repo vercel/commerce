@@ -8,7 +8,8 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
   body: { itemId },
   config,
 }) => {
-  const encodedToken = req.cookies.get(config.customerCookie)
+  const encodedToken = req.cookies.get(config.customerCookie)?.value
+
   const token = encodedToken
     ? Buffer.from(encodedToken, 'base64').toString('ascii')
     : null

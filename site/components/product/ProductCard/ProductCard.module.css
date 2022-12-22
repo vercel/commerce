@@ -7,7 +7,7 @@
 
 .root:hover {
   & .productImage {
-    transform: scale(1.2625);
+    transform: scale(1.1);
   }
 
   & .header .name span,
@@ -69,16 +69,11 @@
 }
 
 .imageContainer {
-  @apply flex items-center justify-center overflow-hidden;
-}
-
-.imageContainer > div {
-  min-width: 100%;
+  @apply flex items-center justify-center overflow-hidden w-full h-full;
 }
 
 .imageContainer .productImage {
-  @apply transform transition-transform duration-500
-  object-cover scale-120;
+  @apply transform transition-transform duration-500 object-cover w-auto h-full;
 }
 
 .root .wishlistButton {

@@ -11,15 +11,16 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   config,
 }) => {
   const { cookies } = req
-  const checkoutUrl = cookies.get(SHOPIFY_CHECKOUT_URL_COOKIE)
-  const customerCookie = cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE)
+  const checkoutUrl = cookies.get(SHOPIFY_CHECKOUT_URL_COOKIE)?.value
+  const customerCookie = cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE)?.value
 
   if (customerCookie) {
     try {
       await config.fetch(associateCustomerWithCheckoutMutation, {
         variables: {
-          checkoutId: cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE),
-          customerAccessToken: cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE),
+          checkoutId: cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE)?.value,
+          customerAccessToken: cookies.get(SHOPIFY_CUSTOMER_TOKEN_COOKIE)
+            ?.value,
         },
       })
     } catch (error) {

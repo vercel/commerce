@@ -19,7 +19,7 @@ export default class CookieHandler {
     this.config = config
     this.request = req
 
-    const encodedToken = req.cookies.get(config.customerCookie)
+    const encodedToken = req.cookies.get(config.customerCookie)?.value
     const token = parseCookie(encodedToken)
     this.accessToken = token ? token.accessToken : null
   }
@@ -36,7 +36,7 @@ export default class CookieHandler {
   }
   isShopperCookieAnonymous() {
     const customerCookieKey = this.config.customerCookie
-    const shopperCookie = this.request.cookies.get(customerCookieKey)
+    const shopperCookie = this.request.cookies.get(customerCookieKey)?.value
     const shopperSession = parseCookie(shopperCookie)
     const isAnonymous = shopperSession?.customerAccount ? false : true
     return isAnonymous

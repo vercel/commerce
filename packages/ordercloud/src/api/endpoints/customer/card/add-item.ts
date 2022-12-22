@@ -7,7 +7,7 @@ const addItem: CustomerCardEndpoint['handlers']['addItem'] = async ({
   config: { restBuyerFetch, tokenCookie },
 }) => {
   // Get token
-  const token = req.cookies.get(tokenCookie)
+  const token = req.cookies.get(tokenCookie)?.value
 
   const [exp_month, exp_year] = item.cardExpireDate.split('/')
   const stripeToken = await fetch('https://api.stripe.com/v1/tokens', {

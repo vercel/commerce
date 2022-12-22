@@ -80,6 +80,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                   variant="simple"
                   className="animated fadeIn"
                   imgProps={{
+                    alt: p.name,
                     width: 300,
                     height: 300,
                   }}

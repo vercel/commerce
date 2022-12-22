@@ -31,7 +31,7 @@ const customerCardEndpoint: GetAPISchema<
   const { cookies } = req
 
   // Cart id might be usefull for anonymous shopping
-  const cartId = cookies.get(config.cartCookie)
+  const cartId = cookies.get(config.cartCookie)?.value
 
   // Create or add a card
   if (req.method === 'GET') {
