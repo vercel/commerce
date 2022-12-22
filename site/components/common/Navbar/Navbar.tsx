@@ -19,18 +19,16 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
     <Container clean className="mx-auto max-w-8xl px-6">
       <div className={s.nav}>
         <div className="flex items-center flex-1">
-          <Link href="/">
-            <a className={s.logo} aria-label="Logo">
-              <Logo />
-            </a>
+          <Link href="/" className={s.logo} aria-label="Logo">
+            <Logo />
           </Link>
           <nav className={s.navMenu}>
-            <Link href="/search">
-              <a className={s.link}>All</a>
+            <Link href="/search" className={s.link}>
+              All
             </Link>
             {links?.map((l) => (
-              <Link href={l.href} key={l.href}>
-                <a className={s.link}>{l.label}</a>
+              <Link href={l.href} key={l.href} className={s.link}>
+                {l.label}
               </Link>
             ))}
           </nav>

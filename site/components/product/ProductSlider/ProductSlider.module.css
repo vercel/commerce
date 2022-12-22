@@ -14,7 +14,7 @@
 }
 
 .thumb.selected {
-  @apply bg-white;
+  @apply bg-white/30;
 }
 
 .thumb img {
@@ -43,6 +43,9 @@
 }
 
 @screen md {
+  .thumb:hover img {
+    @apply scale-110;
+  }
   .album {
     height: 182px;
   }

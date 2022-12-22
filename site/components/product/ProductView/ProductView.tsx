@@ -39,6 +39,11 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                   product={p}
                   key={p.path}
                   variant="simple"
+                  imgProps={{
+                    alt: p.name,
+                    width: 300,
+                    height: 300,
+                  }}
                 />
               </div>
             ))}

@@ -10,7 +10,7 @@ const addItem: CartEndpoint['handlers']['addItem'] = async ({
   config: { restBuyerFetch, cartCookie, tokenCookie },
 }) => {
   // Get token
-  let token = req.cookies.get(tokenCookie)
+  let token = req.cookies.get(tokenCookie)?.value
   let headers: any = {}
 
   // Create an order if it doesn't exist

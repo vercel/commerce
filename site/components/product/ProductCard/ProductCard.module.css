@@ -71,15 +71,11 @@
 }
 
 .imageContainer {
-  @apply flex items-center justify-center overflow-hidden;
-}
-
-.imageContainer > div {
-  min-width: 100%;
+  @apply flex items-center justify-center overflow-hidden w-full h-full;
 }
 
 .imageContainer .productImage {
-  @apply transform transition-transform duration-500 object-cover;
+  @apply transform transition-transform duration-500 object-cover w-auto h-full;
 }
 
 .root .wishlistButton {

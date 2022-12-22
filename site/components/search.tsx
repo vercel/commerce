@@ -125,6 +125,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                     >
                       <Link
                         href={{ pathname: getCategoryPath('', brand), query }}
+                        legacyBehavior
                       >
                         <a
                           onClick={(e) => handleClick(e, 'categories')}
@@ -151,6 +152,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             pathname: getCategoryPath(cat.path, brand),
                             query,
                           }}
+                          legacyBehavior
                         >
                           <a
                             onClick={(e) => handleClick(e, 'categories')}
@@ -226,6 +228,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                           pathname: getDesignerPath('', category),
                           query,
                         }}
+                        legacyBehavior
                       >
                         <a
                           onClick={(e) => handleClick(e, 'brands')}
@@ -252,6 +255,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             pathname: getDesignerPath(path, category),
                             query,
                           }}
+                          legacyBehavior
                         >
                           <a
                             onClick={(e) => handleClick(e, 'brands')}
@@ -326,6 +330,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   imgProps={{
                     width: 480,
                     height: 480,
+                    alt: product.name,
                   }}
                 />
               ))}
@@ -390,7 +395,10 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         }
                       )}
                     >
-                      <Link href={{ pathname, query: filterQuery({ q }) }}>
+                      <Link
+                        href={{ pathname, query: filterQuery({ q }) }}
+                        legacyBehavior
+                      >
                         <a
                           onClick={(e) => handleClick(e, 'sort')}
                           className={
@@ -416,6 +424,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             pathname,
                             query: filterQuery({ q, sort: key }),
                           }}
+                          legacyBehavior
                         >
                           <a
                             onClick={(e) => handleClick(e, 'sort')}

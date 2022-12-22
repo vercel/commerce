@@ -59,7 +59,7 @@ const UserNav: React.FC<{
         )}
         {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
-            <Link href="/wishlist">
+            <Link href="/wishlist" legacyBehavior>
               <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
                 <Heart />
               </a>

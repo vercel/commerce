@@ -22,7 +22,7 @@ const checkoutEndpoint: GetAPISchema<
   })
 
   const { cookies } = req
-  const cartId = cookies.get(config.cartCookie)!
+  const cartId = cookies.get(config.cartCookie)?.value
   const input = await getInput(req)
 
   // Get checkout

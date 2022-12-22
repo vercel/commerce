@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEventHandler, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import cn from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -84,31 +84,26 @@ const CartItem = ({
       {...rest}
     >
       <div className="flex flex-row space-x-4 py-4">
-        <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
+        <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer">
           <Link href={`/product/${item.path}`}>
-            <a>
-              <Image
-                onClick={() => closeSidebarIfPresent()}
-                className={s.productImage}
-                width={150}
-                height={150}
-                src={item.variant.image?.url || placeholderImg}
-                alt={item.variant.image?.alt || 'Product Image'}
-                unoptimized
-              />
-            </a>
+            <Image
+              onClick={() => closeSidebarIfPresent()}
+              className={s.productImage}
+              width={64}
+              height={64}
+              src={item.variant.image?.url || placeholderImg}
+              alt={item.variant.image?.alt || 'Product Image'}
+            />
           </Link>
         </div>
         <div className="flex-1 flex flex-col text-base">
           <Link href={`/product/${item.path}`}>
-            <a>
-              <span
-                className={s.productName}
-                onClick={() => closeSidebarIfPresent()}
-              >
-                {item.name}
-              </span>
-            </a>
+            <span
+              className={s.productName}
+              onClick={() => closeSidebarIfPresent()}
+            >
+              {item.name}
+            </span>
           </Link>
           {options && options.length > 0 && (
             <div className="flex items-center pb-1">

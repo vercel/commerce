@@ -16,7 +16,7 @@ const getCart: CartEndpoint['handlers']['getCart'] = async ({
 
   try {
     // Get token
-    const token = req.cookies.get(tokenCookie)
+    const token = req.cookies.get(tokenCookie)?.value
 
     // Get cart & line items
     const [cart, { Items }] = await Promise.all([
