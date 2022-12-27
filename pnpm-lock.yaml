@@ -631,6 +631,7 @@ importers:
       eslint-config-next: ^12.0.8
       eslint-config-prettier: ^8.3.0
       framer-motion: ^7.10.3
+      image-crossfade-react: ^1.0.0
       js-cookie: ^3.0.1
       keen-slider: ^6.7.0
       lint-staged: ^13.0.3
@@ -645,6 +646,7 @@ importers:
       postcss-preset-env: ^7.2.3
       prettier: ^2.5.1
       react: ^18.2.0
+      react-crossfade-image: ^1.2.0
       react-dom: ^18.2.0
       react-fast-marquee: ^1.3.1
       react-h5-audio-player: ^3.8.6
@@ -682,6 +684,7 @@ importers:
       clsx: 1.2.1
       email-validator: 2.0.4
       framer-motion: 7.10.3_biqbaboplfbrettd7655fr4n2y
+      image-crossfade-react: 1.0.0
       js-cookie: 3.0.1
       keen-slider: 6.8.0
       lodash.random: 3.2.0
@@ -692,6 +695,7 @@ importers:
       postcss: 8.4.16
       postcss-nesting: 10.1.10_postcss@8.4.16
       react: 18.2.0
+      react-crossfade-image: 1.2.0
       react-dom: 18.2.0_react@18.2.0
       react-fast-marquee: 1.3.5_biqbaboplfbrettd7655fr4n2y
       react-h5-audio-player: 3.8.6_biqbaboplfbrettd7655fr4n2y
@@ -7211,6 +7215,12 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
+  /image-crossfade-react/1.0.0:
+    resolution: {integrity: sha512-0TwdAG/APUM7bcj+BTJ2OvIuTMjpbNcQFco+MNcOpSjKK9dCzCxDLtG9t0ZWa5/1W//Z5gc1jVq/hZcpWfW+NQ==}
+    dependencies:
+      react: 16.14.0
+    dev: false
+
   /immutability-helper/3.1.1:
     resolution: {integrity: sha512-Q0QaXjPjwIju/28TsugCHNEASwoCcJSyJV3uO1sOIQGI0jKgm9f41Lvz0DZj3n46cNCyAZTsEYoY4C2bVRUzyQ==}
     dev: false
@@ -9594,6 +9604,26 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-crossfade-image/1.2.0:
+    resolution: {integrity: sha512-y/rYGRc9Wmgw3UPHyfnjTB4bwaIwfr4fHArn6GwwYvuiLiJ2+yJGskN9J+qJJdQXEhwB8Oi+g8wNtD+svxdOkg==}
+    dependencies:
+      prop-types: 15.8.1
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+    dev: false
+
+  /react-dom/16.14.0_react@16.14.0:
+    resolution: {integrity: sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==}
+    peerDependencies:
+      react: ^16.14.0
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
+      react: 16.14.0
+      scheduler: 0.19.1
+    dev: false
+
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -9751,6 +9781,15 @@ packages:
       debounce: 1.2.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react/16.14.0:
+    resolution: {integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
     dev: false
 
   /react/18.2.0:
@@ -10071,6 +10110,13 @@ packages:
 
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+
+  /scheduler/0.19.1:
+    resolution: {integrity: sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
 
   /scheduler/0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}

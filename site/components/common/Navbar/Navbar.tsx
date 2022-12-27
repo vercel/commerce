@@ -6,6 +6,7 @@ import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 import { useDisclosure } from '@chakra-ui/react'
 import NavBarFiltersDrawer from './NavBarFiltersDrawer'
+import { useRouter } from 'next/router'
 
 interface Link {
   href: string
@@ -22,6 +23,8 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
     onOpen: onOpenDrawer,
     onClose: onCloseDrawer,
   } = useDisclosure()
+
+  const { locale } = useRouter()
 
   return (
     <>
@@ -40,7 +43,9 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
               </Link>
               <nav className={s.navMenu}>
                 <Link href="/search">
-                  <a className={s.link}>All</a>
+                  <a className={s.link}>
+                    {locale === 'it' ? 'Prodotti' : 'All'}
+                  </a>
                 </Link>
                 {links?.map((l) => (
                   <Link href={l.href} key={l.href}>
