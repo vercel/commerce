@@ -1,6 +1,6 @@
 {
   "features": {
-    "cart": true,
+    "cart": false,
     "search": true,
     "wishlist": false,
     "customerAuth": false,

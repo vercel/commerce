@@ -70,8 +70,8 @@ export default function MarkerCardModal(props: {
               {!isTransitionCompleted ? (
                 <Image
                   src={'/regions/abruzzo/11/plan/transition.gif'}
-                  height={200}
-                  width={200}
+                  height={577}
+                  width={700}
                   onLoad={() =>
                     setInterval(() => {
                       setIsTransitionComplited(true)

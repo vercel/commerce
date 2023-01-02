@@ -1,13 +1,11 @@
 import { Layout } from '@components/common'
 import ImageMapper from 'react-img-mapper'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useDisclosure } from '@chakra-ui/react'
 import PolygonModal from '@components/common/HomePage/PolygonModal/PolygonModal'
 
 export default function Home() {
   const imagePath = 'homepageBackgroundImage.png'
-  const { locale } = useRouter()
 
   const [mapContainerWidth, setMapContainerWidth] = useState<
     number | undefined
@@ -24,7 +22,7 @@ export default function Home() {
         id: '12',
         title: '2000',
         name: '2000',
-        fillColor: '#eab54d4d',
+        fillColor: '#FF279E',
         strokeColor: 'black',
         coords: [
           4634, 1239, 4945, 1320, 5162, 1541, 5252, 1857, 5176, 2149, 4941,
@@ -38,7 +36,7 @@ export default function Home() {
         id: '11',
         title: '1990',
         name: '1990',
-        fillColor: '#eab54d4d',
+        fillColor: '#A12AFF',
         strokeColor: 'black',
         coords: [
           3909, 467, 4175, 549, 4363, 765, 4408, 1046, 4295, 1315, 4045, 1466,
@@ -51,7 +49,7 @@ export default function Home() {
         id: '10',
         title: '1980',
         name: '1980',
-        fillColor: '#eab54d4d',
+        fillColor: '#2C28FF',
         strokeColor: 'black',
         coords: [
           3046, 207, 3280, 289, 3430, 486, 3430, 740, 3287, 952, 3044, 1032,
