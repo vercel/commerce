@@ -44,7 +44,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
               <nav className={s.navMenu}>
                 <Link href="/search">
                   <a className={s.link}>
-                    {locale === 'it' ? 'Prodotti' : 'All'}
+                    {locale === 'it' ? 'Prodotti' : 'Products'}
                   </a>
                 </Link>
                 {links?.map((l) => (

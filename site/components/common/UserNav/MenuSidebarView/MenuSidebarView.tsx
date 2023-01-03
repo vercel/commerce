@@ -3,6 +3,7 @@ import s from './MenuSidebarView.module.css'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 import type { Link as LinkProps } from './index'
+import { useRouter } from 'next/router'
 
 export default function MenuSidebarView({
   links = [],
@@ -10,7 +11,7 @@ export default function MenuSidebarView({
   links?: LinkProps[]
 }) {
   const { closeSidebar } = useUI()
-
+  const { locale = 'it' } = useRouter()
   return (
     <SidebarLayout handleClose={() => closeSidebar()}>
       <div className={s.root}>
@@ -18,7 +19,7 @@ export default function MenuSidebarView({
           <ul>
             <li className={s.item} onClick={() => closeSidebar()}>
               <Link href="/search">
-                <a>All</a>
+                <a>{locale == 'it' ? 'Prodotti' : 'Products'}</a>
               </Link>
             </li>
             {links.map((l: any) => (

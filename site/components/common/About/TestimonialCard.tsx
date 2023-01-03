@@ -23,7 +23,7 @@ const TestimonialContent = ({ children }: { children: ReactNode }) => {
       alignItems={'center'}
       justifyContent={'center'}
       display={'flex'}
-      w={'lg'}
+      w={'md'}
       height={'130px'}
     >
       {children}
