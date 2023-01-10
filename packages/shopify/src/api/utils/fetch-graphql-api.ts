@@ -1,4 +1,4 @@
-import type { GraphQLFetcher } from '@vercel/commerce/api'
+import type { FetchOptions, GraphQLFetcher } from '@vercel/commerce/api'
 
 import { API_URL, API_TOKEN } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
@@ -6,17 +6,18 @@ import { getError } from '../../utils/handle-fetch-response'
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
   { variables } = {},
-  headers?: HeadersInit
+  options?: FetchOptions
 ) => {
   try {
     const res = await fetch(API_URL, {
-      method: 'POST',
+      method: options?.method || 'POST',
       headers: {
         'X-Shopify-Storefront-Access-Token': API_TOKEN!,
-        ...headers,
+        ...options?.headers,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        ...options?.body,
         query,
         variables,
       }),

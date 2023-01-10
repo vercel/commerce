@@ -1,5 +1,5 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
-import type { GraphQLFetcher } from '@vercel/commerce/api'
+import type { FetchOptions, GraphQLFetcher } from '@vercel/commerce/api'
 import type { KiboCommerceConfig } from '../index'
 
 import { APIAuthenticationHelper } from './api-auth-helper'
@@ -8,18 +8,23 @@ const fetchGraphqlApi: (
   getConfig: () => KiboCommerceConfig
 ) => GraphQLFetcher =
   (getConfig) =>
-  async (query: string, { variables, preview } = {}, headers?: HeadersInit) => {
+  async (
+    query: string,
+    { variables, preview } = {},
+    options?: FetchOptions
+  ) => {
     const config = getConfig()
     const authHelper = new APIAuthenticationHelper(config)
     const apiToken = await authHelper.getAccessToken()
     const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
-      method: 'POST',
+      method: options?.method || 'POST',
       headers: {
-        ...headers,
+        ...options?.headers,
         Authorization: `Bearer ${apiToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        ...options?.body,
         query,
         variables,
       }),

@@ -1,4 +1,4 @@
-import type { GraphQLFetcher } from '@vercel/commerce/api'
+import type { FetchOptions, GraphQLFetcher } from '@vercel/commerce/api'
 
 import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
@@ -7,20 +7,21 @@ import { getToken } from '../../utils/index'
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
   { variables } = {},
-  headers?: HeadersInit
+  options?: FetchOptions
 ) => {
   const token = getToken()
 
   const res = await fetch(API_URL!, {
-    method: 'POST',
+    method: options?.method || 'POST',
     headers: {
       ...(token && {
         Authorization: `Bearer ${token}`,
       }),
-      ...headers,
+      ...options?.headers,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      ...options?.body,
       query,
       variables,
     }),

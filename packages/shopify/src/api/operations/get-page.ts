@@ -50,7 +50,9 @@ export default function getPageOperation({
       },
       {
         ...(locale && {
-          'Accept-Language': locale,
+          headers: {
+            'Accept-Language': locale,
+          },
         }),
       }
     )
