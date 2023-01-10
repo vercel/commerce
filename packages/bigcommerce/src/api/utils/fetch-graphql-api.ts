@@ -7,7 +7,7 @@ const fetchGraphqlApi: (getConfig: () => BigcommerceConfig) => GraphQLFetcher =
   async (
     query: string,
     { variables, preview } = {},
-    headers?: HeadersInit
+    options: { headers?: HeadersInit } = {}
   ): Promise<any> => {
     // log.warn(query)
     const config = getConfig()
@@ -16,7 +16,7 @@ const fetchGraphqlApi: (getConfig: () => BigcommerceConfig) => GraphQLFetcher =
       method: 'POST',
       headers: {
         Authorization: `Bearer ${config.apiToken}`,
-        ...headers,
+        ...options.headers,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

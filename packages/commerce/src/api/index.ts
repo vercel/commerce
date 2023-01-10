@@ -165,7 +165,9 @@ export interface CommerceAPIConfig {
   fetch<Data = any, Variables = any>(
     query: string,
     queryData?: CommerceAPIFetchOptions<Variables>,
-    headers?: HeadersInit
+    options?: {
+      headers: HeadersInit
+    }
   ): Promise<GraphQLFetcherResult<Data>>
 }
 

@@ -48,9 +48,9 @@ export default function getCustomerWishlistOperation({
     if (includeProducts && wishlist?.items?.length) {
       const ids = []
 
-      for (let i = 0; i < wishlist.items.length; i++) {
-        if (wishlist.items[i].product_id) {
-          ids.push(String(wishlist.items[i]?.product_id))
+      for (const wishlistItem of wishlist.items) {
+        if (wishlistItem.product_id) {
+          ids.push(String(wishlistItem.product_id))
         }
       }
 
