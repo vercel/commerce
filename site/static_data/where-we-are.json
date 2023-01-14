@@ -1,0 +1,116 @@
+{
+  "it": [
+    {
+      "day": "Lunedì",
+      "time": "9:00/12:00",
+      "location": "da Pineto a Chieti (Pineto, Silvi, Montesilvano, Pescara, Chieti e zone limitrofe al tragitto)"
+    },
+    {
+      "day": "Lunedì",
+      "time": "15:00/18:00",
+      "location": "da Pineto a Martinsicuro (Pineto, Roseto, Giulianova, Mosciano, Martinsicuro e zone limitrofe)"
+    },
+    {
+      "day": "Martedì",
+      "time": "9:00/12:00",
+      "location": "da Pineto a Martinsicuro"
+    },
+    {
+      "day": "Martedì",
+      "time": "15:00/18:00",
+      "location": "da Pineto a Chieti"
+    },
+    {
+      "day": "Mercoledì",
+      "time": "9:00/12:00",
+      "location": "da Pineto a Chieti"
+    },
+    {
+      "day": "Mercoledì",
+      "time": "15:00/18:00",
+      "location": "da Pineto a Martinsicuro"
+    },
+    {
+      "day": "Giovedì",
+      "time": "9:00/12:00",
+      "location": "da Pineto a Martinsicuro"
+    },
+    {
+      "day": "Giovedì",
+      "time": "15:00/18:00",
+      "location": "da Pineto a Chieti"
+    },
+    {
+      "day": "Venerdì",
+      "time": "9:00/12:00",
+      "location": "da Pineto a Chieti"
+    },
+    {
+      "day": "Venerdì",
+      "time": "15:00/18:00",
+      "location": "da Pineto a Martinsicuro"
+    },
+    {
+      "day": "Sabato",
+      "time": "",
+      "location": "Tragitto coperto in base agli appuntamenti del giorno"
+    }
+  ],
+  "en": [
+    {
+      "day": "Monday",
+      "time": "9:00/12:00",
+      "location": "from Pineto to Chieti (Pineto, Silvi, Montesilvano, Pescara, Chieti and nearby areas)"
+    },
+    {
+      "day": "Monday",
+      "time": "15:00/18:00",
+      "location": "from Pineto to Martinsicuro (Pineto, Roseto, Giulianova, Mosciano, Martinsicuro and nearby areas)"
+    },
+    {
+      "day": "Tuesday",
+      "time": "9:00/12:00",
+      "location": "from Pineto to Martinsicuro"
+    },
+    {
+      "day": "Tuesday",
+      "time": "15:00/18:00",
+      "location": "from Pineto to Chieti"
+    },
+    {
+      "day": "Wednesday",
+      "time": "9:00/12:00",
+      "location": "from Pineto to Chieti"
+    },
+    {
+      "day": "Wednesday",
+      "time": "15:00/18:00",
+      "location": "from Pineto to Martinsicuro"
+    },
+    {
+      "day": "Thursday",
+      "time": "9:00/12:00",
+      "location": "from Pineto to Martinsicuro"
+    },
+    {
+      "day": "Thursday",
+      "time": "15:00/18:00",
+      "location": "from Pineto to Chieti"
+    },
+    {
+      "day": "Friday",
+      "time": "9:00/12:00",
+      "location": "from Pineto to Chieti"
+    },
+    {
+      "day": "Friday",
+      "time": "15:00/18:00",
+      "location": "from Pineto to Martinsicuro"
+    },
+    {
+      "day": "Saturday",
+      "time": "",
+      "location": "Route covered according to the appointments of the day"
+    }
+  ]
+}

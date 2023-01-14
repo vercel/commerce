@@ -1,39 +1,46 @@
 {
-
-    "it": [
-        {
-            "label": "Regioni",
-            "href": "#"
-        },
-        {
-            "label": "Chi Siamo",
-            "href": "/about"
-        },
-        {
-            "label": "News",
-            "href": "/news"
-        },
-        {
-            "label": "Contatti",
-            "href": "/contact"
-        }
-    ],
-	"en": [
-        {
-            "label": "Regions",
-            "href": "#"
-        },
-        {
-            "label": "About",
-            "href": "/about"
-        },
-        {
-            "label": "News",
-            "href": "/news"
-        },
-        {
-            "label": "Contact",
-            "href": "/contact"
-        }
-    ]
+  "it": [
+    {
+      "label": "Regioni",
+      "href": "#"
+    },
+    {
+      "label": "Chi Siamo",
+      "href": "/about"
+    },
+    {
+      "label": "News",
+      "href": "/news"
+    },
+    {
+      "label": "Contatti",
+      "href": "/contact"
+    },
+    {
+      "label": "Dove Siamo",
+      "href": "/where-we-are"
+    }
+  ],
+  "en": [
+    {
+      "label": "Regions",
+      "href": "#"
+    },
+    {
+      "label": "About",
+      "href": "/about"
+    },
+    {
+      "label": "News",
+      "href": "/news"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    },
+    {
+      "label": "Where we are",
+      "href": "/where-we-are"
+    }
+  ]
 }

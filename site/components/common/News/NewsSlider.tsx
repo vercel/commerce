@@ -13,7 +13,7 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 // And react-slick as our Carousel Lib
 import Slider from 'react-slick'
 
-import aboutJson from '../../../static_data/about.json'
+import newsJson from '../../../static_data/news.json'
 import { useRouter } from 'next/router'
 
 // Settings for the slider
@@ -29,7 +29,7 @@ const settings = {
   slidesToScroll: 1,
 }
 
-export default function AboutSlider() {
+export default function NewsSlider() {
   // As we have used custom buttons, we need a reference variable to
   // change the state
   const [slider, setSlider] = React.useState<Slider | null>(null)
@@ -41,7 +41,7 @@ export default function AboutSlider() {
 
   const { locale } = useRouter()
 
-  const cards = aboutJson[locale as keyof typeof aboutJson]
+  const cards = newsJson[locale as keyof typeof newsJson]
 
   return (
     <Box
