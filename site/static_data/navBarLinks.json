@@ -1,7 +1,7 @@
 {
   "it": [
     {
-      "label": "Regioni",
+      "label": "Categorie",
       "href": "#"
     },
     {
@@ -23,7 +23,7 @@
   ],
   "en": [
     {
-      "label": "Regions",
+      "label": "Categories",
       "href": "#"
     },
     {

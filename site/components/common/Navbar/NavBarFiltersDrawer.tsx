@@ -44,14 +44,6 @@ export default function NavBarFiltersDrawer(props: {
           <DrawerBody>
             <Stack mt={5} direction={'column'} spacing={'20'}>
               <Box>
-                <Heading size={'lg'} mb={5}>
-                  {locale === 'it' ? 'Regioni' : 'Regions'}
-                </Heading>
-                {regions.map((region) => (
-                  <NavBarFiltersItem key={region.label} {...region} />
-                ))}
-              </Box>
-              <Box>
                 <Heading mb={5} size={'lg'}>
                   {locale === 'it' ? 'Categorie' : 'Categories'}
                 </Heading>

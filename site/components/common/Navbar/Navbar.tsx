@@ -49,7 +49,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
                 </Link>
                 {links?.map((l) => (
                   <Link href={l.href} key={l.href}>
-                    {l.label === 'Regions' || l.label === 'Regioni' ? (
+                    {l.label === 'Categories' || l.label === 'Categorie' ? (
                       <a onClick={onOpenDrawer} className={s.link}>
                         {l.label}
                       </a>
