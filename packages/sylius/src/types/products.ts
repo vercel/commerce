@@ -21,7 +21,7 @@ export interface SyliusProductImage {
 export interface SyliusProductVariant {
   id: number
   code: string
-  optionValues: SyliusProductOptionValues[]
+  optionValues: SyliusProductOptionValue[]
   name: string
   price: number
   originalPrice: number
@@ -32,13 +32,13 @@ export interface SyliusProductOption {
   id: number
   code: string
   option: string
-  values: SyliusProductOptionValues[]
+  values: SyliusProductOptionValue[]
   createdAt: Date
   updatedAt: Date
   name: string
 }
 
-export interface SyliusProductOptionValues {
+export interface SyliusProductOptionValue {
   id: number
   code: string
   value: string
