@@ -27,7 +27,6 @@ export const handler: MutationHook<any> = {
 
     setCustomerToken(authReturn.token)
     setCustomerRoute(authReturn.customer)
-    return null
   },
   useHook:
     ({ fetch }) =>
