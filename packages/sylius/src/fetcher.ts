@@ -9,13 +9,14 @@ const fetcher: Fetcher = async ({
   body,
   variables = {
     useToken: true,
+    contentType: 'application/json',
   },
 }) => {
   const token = getCustomerToken()
   const res = await fetch(API_URL + url!, {
     method: method,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': variables.contentType,
       accept: 'application/json, text/plain',
       ...(token && variables.useToken
         ? { Authorization: `Bearer ${token}` }
