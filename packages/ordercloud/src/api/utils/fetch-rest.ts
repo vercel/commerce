@@ -57,21 +57,23 @@ export async function fetchData<T>(opts: {
   // Destructure opts
   const { path, body, fetchOptions, config, token, method = 'GET' } = opts
 
+  let url = `${config.commerceUrl}/${config.apiVersion}${path}`
+  if (fetchOptions?.anonToken) {
+    url += `?anonUserToken=${encodeURIComponent(token)}`
+  }
+
   // Do the request with the correct headers
-  const dataResponse = await fetch(
-    `${config.commerceUrl}/${config.apiVersion}${path}`,
-    {
-      ...fetchOptions,
-      method,
-      headers: {
-        ...fetchOptions?.headers,
-        'Content-Type': 'application/json',
-        accept: 'application/json, text/plain, */*',
-        authorization: `Bearer ${token}`,
-      },
-      body: body ? JSON.stringify(body) : undefined,
-    }
-  )
+  const dataResponse = await fetch(url, {
+    ...fetchOptions,
+    method,
+    headers: {
+      ...fetchOptions?.headers,
+      'Content-Type': 'application/json',
+      accept: 'application/json, text/plain, */*',
+      authorization: `Bearer ${token}`,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  })
 
   // If something failed getting the data response
   if (!dataResponse.ok) {
