@@ -32,7 +32,7 @@ export const handler: MutationHook<SignupHook> = {
   useHook:
     ({ fetch }) =>
     () => {
-      //const { mutate } = useCustomer() TODO add mutate back in once useCustomer is implemented
+      const { mutate } = useCustomer()
 
       return useCallback(
         async function signup(input) {
@@ -40,7 +40,7 @@ export const handler: MutationHook<SignupHook> = {
           //  await mutate()
           return data
         },
-        [fetch] //mutate]
+        [fetch, mutate]
       )
     },
 }
