@@ -1,3 +1,6 @@
 .fit {
   min-height: calc(100vh - 88px);
 }
+*{
+  background-color: red;
+}
