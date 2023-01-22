@@ -114,8 +114,8 @@ export default function NewsSlider() {
                   fontSize={{ base: 'md', lg: 'lg' }}
                   color="GrayText"
                 >
-                  {card.text.split('<br/>').map((str) => (
-                    <p>{str}</p>
+                  {card.text.split('<br/>').map((str, index) => (
+                    <p key={index}>{str}</p>
                   ))}
                 </Text>
               </Stack>

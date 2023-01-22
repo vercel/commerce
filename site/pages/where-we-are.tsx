@@ -40,7 +40,7 @@ export default function WhereWeAre() {
               {tableData[locale as keyof typeof tableData].map(
                 (elem, index) => {
                   return (
-                    <Tr>
+                    <Tr key={index}>
                       <Td>{elem.day}</Td>
                       <Td>{elem.time}</Td>
                       <Td>{elem.location}</Td>
