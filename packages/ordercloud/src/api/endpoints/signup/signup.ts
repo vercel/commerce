@@ -2,7 +2,7 @@ import type { SignupEndpoint } from '.'
 
 import { decode, type JwtPayload } from 'jsonwebtoken'
 import { serialize } from 'cookie'
-import { access } from 'fs'
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
 
 const signup: SignupEndpoint['handlers']['signup'] = async ({
   req,
@@ -11,7 +11,6 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
 }) => {
   // Get token
   const token = req.cookies.get(tokenCookie)?.value
-  let headers: any = {}
 
   const accessToken = await restBuyerFetch(
     'PUT',
@@ -32,27 +31,30 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
     return response.access_token
   })
 
-  console.log('got access token: ', accessToken)
-
-  if (accessToken) {
-    const decodedToken = decode(accessToken) as JwtPayload
-
-    console.log('decoded: ', decodedToken)
-
-    return {
-      headers: {
-        'Set-Cookie': serialize(tokenCookie, accessToken, {
-          maxAge: decodedToken.exp,
-          expires: new Date(Date.now() + decodedToken.exp! * 1000),
-          secure: process.env.NODE_ENV === 'production',
-          path: '/',
-          sameSite: 'lax',
-        }),
-      },
-    }
+  if (!accessToken) {
+    throw new CommerceAPIError('Failed to retrieve access token', {
+      status: 401,
+    })
   }
 
-  return { data: undefined, headers }
+  const decodedToken = decode(accessToken) as JwtPayload
+  if (!decodedToken || !decodedToken.exp) {
+    throw new CommerceAPIError('Failed to decode access token', {
+      status: 500,
+    })
+  }
+
+  return {
+    headers: {
+      'Set-Cookie': serialize(tokenCookie, accessToken, {
+        expires: new Date(decodedToken.exp * 1000),
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        sameSite: 'lax',
+      }),
+    },
+    data: null,
+  }
 }
 
 export default signup
