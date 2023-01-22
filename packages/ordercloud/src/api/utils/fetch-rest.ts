@@ -1,31 +1,39 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
 import { OrdercloudConfig } from '../index'
 
-export let token: string | null = null
-
-// Get token util
-async function getToken({
-  baseUrl,
-  clientId,
-  clientSecret,
-}: {
+export type GetTokenParams = (
+  | {
+      grantType: 'password'
+      username: string
+      password: string
+    }
+  | { grantType: 'client_credentials' }
+) & {
   baseUrl: string
   clientId: string
   clientSecret?: string
-}): Promise<{
+}
+
+// Get token util
+export async function getToken(params: GetTokenParams): Promise<{
   access_token: string
   expires_in: number
   refresh_token: string
   token_type: string
 }> {
+  let body = `client_id=${params.clientId}&client_secret=${params.clientSecret}&grant_type=${params.grantType}`
+  if (params.grantType === 'password') {
+    body += `&username=${params.username}&password=${params.password}`
+  }
+
   // If not, get a new one and store it
-  const authResponse = await fetch(`${baseUrl}/oauth/token`, {
+  const authResponse = await fetch(`${params.baseUrl}/oauth/token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       Accept: 'application/json',
     },
-    body: `client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`,
+    body,
   })
 
   // If something failed getting the auth response
@@ -37,8 +45,18 @@ async function getToken({
 
     // And return an error
     throw new FetcherError({
-      errors: [{ message: error.error_description.Code }],
-      status: error.error_description.HttpStatus,
+      errors: [
+        {
+          message:
+            typeof error.error_description === 'object'
+              ? error.error_description.Code
+              : error.error_description,
+        },
+      ],
+      status:
+        typeof error.error_description === 'object'
+          ? error.error_description.HttpStatus
+          : undefined,
     })
   }
 
@@ -102,6 +120,11 @@ export async function fetchData<T>(opts: {
   }
 }
 
+export const getFetchConfig = (config: OrdercloudConfig) => ({
+  baseUrl: config.commerceUrl,
+  clientId: process.env.ORDERCLOUD_BUYER_CLIENT_ID as string,
+})
+
 export const createBuyerFetcher: (
   getConfig: () => OrdercloudConfig
 ) => <T>(
@@ -117,6 +140,8 @@ export const createBuyerFetcher: (
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
   ) => {
+    let token: string | null = null
+
     if (fetchOptions?.token) {
       token = fetchOptions?.token
     }
@@ -128,8 +153,8 @@ export const createBuyerFetcher: (
 
     if (!token) {
       const newToken = await getToken({
-        baseUrl: config.commerceUrl,
-        clientId: process.env.ORDERCLOUD_BUYER_CLIENT_ID as string,
+        grantType: 'client_credentials',
+        ...getFetchConfig(config),
       })
       token = newToken.access_token
       meta.token = newToken

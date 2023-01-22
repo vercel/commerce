@@ -1,17 +1,16 @@
 import { Fetcher } from '@vercel/commerce/utils/types'
+import { handleFetchResponse } from './utils'
 
 const clientFetcher: Fetcher = async ({ method, url, body }) => {
-  const response = await fetch(url!, {
-    method,
-    body: body ? JSON.stringify(body) : undefined,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((response) => response.data)
-
-  return response
+  return handleFetchResponse(
+    await fetch(url!, {
+      method,
+      body: body ? JSON.stringify(body) : undefined,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  )
 }
 
 export default clientFetcher
