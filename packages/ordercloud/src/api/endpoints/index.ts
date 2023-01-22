@@ -9,15 +9,17 @@ import customer from './customer'
 import customerCard from './customer/card'
 import customerAddress from './customer/address'
 import signup from './signup'
+import logout from './logout'
 
 const endpoints = {
   cart,
   checkout,
+  logout: logout,
+  signup: signup,
   customer: customer,
   'customer/card': customerCard,
   'customer/address': customerAddress,
   'catalog/products': products,
-  signup: signup,
 }
 
 export default function ordercloudAPI(commerce: OrdercloudAPI) {
