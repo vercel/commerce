@@ -44,7 +44,7 @@ export default function nodeHandler<P extends APIProvider>(
         )
       }
 
-      const output = await handlers[path](transformRequest(req, path))
+      const output = await handlers[path](transformRequest(req))
       const { status, errors, data, redirectTo, headers } = output
 
       setHeaders(res, headers)

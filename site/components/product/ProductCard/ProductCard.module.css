@@ -73,7 +73,7 @@
 }
 
 .imageContainer .productImage {
-  @apply transform transition-transform duration-500 object-cover w-auto h-full;
+  @apply transform transition-transform duration-500 object-cover;
 }
 
 .root .wishlistButton {
