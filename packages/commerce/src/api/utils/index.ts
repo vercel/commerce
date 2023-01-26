@@ -28,7 +28,7 @@ export const getInput = (req: NextRequest) => req.json().catch(() => ({}))
  * @param req NextApiRequest
  * @param path string
  */
-export const transformRequest = (req: NextApiRequest, path: string) => {
+export const transformRequest = (req: NextApiRequest) => {
   const headers = new Headers()
   let body
 
@@ -44,6 +44,7 @@ export const transformRequest = (req: NextApiRequest, path: string) => {
     body = JSON.stringify(req.body)
   }
 
+  // Get the url path & query string
   const url = new URL(req.url || '/', `https://${req.headers.host}`)
 
   return new NextRequest(url, {
