@@ -81,8 +81,6 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                   className="animated fadeIn"
                   imgProps={{
                     alt: p.name,
-                    width: 300,
-                    height: 300,
                   }}
                 />
               </div>

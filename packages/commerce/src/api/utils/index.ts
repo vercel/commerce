@@ -44,7 +44,10 @@ export const transformRequest = (req: NextApiRequest, path: string) => {
     body = JSON.stringify(req.body)
   }
 
-  return new NextRequest(`https://${req.headers.host}/api/commerce/${path}`, {
+  // Get the url path & query string
+  const url = new URL(req.url || '/', `https://${req.headers.host}`)
+
+  return new NextRequest(url, {
     headers,
     method: req.method,
     body,
