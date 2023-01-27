@@ -22,7 +22,7 @@ import type {
 } from '../../schema'
 
 import { colorMap } from './colors'
-import { getMetafieldValue, toLabel, parseJson } from './metafields'
+import { parseMetafield, toLabel, parseJson } from './metafields'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -157,7 +157,7 @@ export function normalizeMetafields(
       type,
       namespace,
       value,
-      valueHtml: getMetafieldValue(type, value, locale),
+      parsedValue: parseMetafield(type, value, locale),
     }
 
     if (!output[namespace]) {
@@ -250,9 +250,9 @@ export const normalizeMetafieldValue = (
     const arr = parseJson(value)
     return Array.isArray(arr)
       ? arr
-          .map((v) => getMetafieldValue(type.split('.')[1], v, locale))
+          .map((v) => parseMetafield(type.split('.')[1], v, locale))
           .join(' &#8226; ')
       : value
   }
-  return getMetafieldValue(type, value, locale)
+  return parseMetafield(type, value, locale)
 }

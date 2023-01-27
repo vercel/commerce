@@ -19,7 +19,7 @@ const ProductMetafields: FC<Props> = ({ metafields, namespace }) => {
           className="flex gap-2 border-b py-3 border-accent-2 border-dashed last:border-b-0"
         >
           <strong className="leading-7">{field.name}:</strong>
-          <Text html={field.valueHtml || field.value} className="!mx-0" />
+          <Text html={field.parsedValue || field.value} className="!mx-0" />
         </div>
       ))}
     </>

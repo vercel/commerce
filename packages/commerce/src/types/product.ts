@@ -136,10 +136,12 @@ export interface Product {
    *   // Key of the metafield
    *   rating: {
    *    key: 'rating',
-   *    value: 4,
-   *    valueHtml: '&#9733;&#9733;&#9733;&#9733;&#9734;',
-   *    type: 'integer',
-   *    name: 'Rating',
+   *    // Raw value of the metafield
+   *    value: {"unit": "in", "value": "10"},
+   *    // Parsed value of the metafield, based on the type
+   *    parsedValue: '10 in',
+   *    type: 'dimension',
+   *    name: 'Width',
    *  }
    * }
    */

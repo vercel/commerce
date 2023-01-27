@@ -57,7 +57,7 @@ export const getMeasurment = (input: string, locale: string = 'en-US') => {
   }
 }
 
-export const getMetafieldValue = (
+export const parseMetafield = (
   type: MetafieldType,
   value: string,
   locale: string = 'en-US'

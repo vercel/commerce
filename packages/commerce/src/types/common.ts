@@ -69,9 +69,10 @@ export interface Metafield {
   value: any
 
   /**
-   * The value of the metafield, complete with HTML formatting.
+   * The parsed value of the metafield, complete with HTML formatting.
+   * @example {"value": 5, "scale_max": 5} parsed as `&#9733;&#9734;&#9734;&#9734;&#9734;`
    */
-  valueHtml?: string
+  parsedValue?: string
 
   /**
    * The type of the metafield, used to determine how the value should be interpreted.
