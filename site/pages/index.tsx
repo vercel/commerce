@@ -70,8 +70,8 @@ export default function Home({
             product={product}
             imgProps={{
               alt: product.name,
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
+              width: i === 1 ? 1080 : 540,
+              height: i === 1 ? 1080 : 540,
             }}
           />
         ))}

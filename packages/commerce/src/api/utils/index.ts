@@ -28,7 +28,7 @@ export const getInput = (req: NextRequest) => req.json().catch(() => ({}))
  * @param req NextApiRequest
  * @param path string
  */
-export const transformRequest = (req: NextApiRequest, path: string) => {
+export const transformRequest = (req: NextApiRequest) => {
   const headers = new Headers()
   let body
 
