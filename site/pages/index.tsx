@@ -47,9 +47,17 @@ export default function Home({
             product={product}
             imgProps={{
               alt: product.name,
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
               priority: true,
+              ...(i === 0
+                ? {
+                    width: 1080,
+                    height: 1080,
+                    sizes: '(max-width: 480px) 100vw, 1080px',
+                  }
+                : {
+                    width: 540,
+                    height: 540,
+                  }),
             }}
           />
         ))}
@@ -70,8 +78,16 @@ export default function Home({
             product={product}
             imgProps={{
               alt: product.name,
-              width: i === 1 ? 1080 : 540,
-              height: i === 1 ? 1080 : 540,
+              ...(i === 1
+                ? {
+                    width: 1080,
+                    height: 1080,
+                    sizes: '(max-width: 480px) 100vw, 1080px',
+                  }
+                : {
+                    width: 540,
+                    height: 540,
+                  }),
             }}
           />
         ))}

@@ -79,6 +79,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                   imgProps={{
                     alt: p.name,
                     className: 'w-full h-full object-cover',
+                    sizes: '(max-width: 480px) 100vw, 540px',
                   }}
                 />
               </div>
