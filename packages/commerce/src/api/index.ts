@@ -73,6 +73,12 @@ export type EndpointHandlers<
   >
 }
 
+export type FetchOptions<Body = any> = {
+  method?: string
+  body?: Body
+  headers?: HeadersInit
+}
+
 export type APIProvider = {
   config: CommerceAPIConfig
   operations: APIOperations<any>
@@ -165,7 +171,7 @@ export interface CommerceAPIConfig {
   fetch<Data = any, Variables = any>(
     query: string,
     queryData?: CommerceAPIFetchOptions<Variables>,
-    headers?: HeadersInit
+    options?: FetchOptions
   ): Promise<GraphQLFetcherResult<Data>>
 }
 

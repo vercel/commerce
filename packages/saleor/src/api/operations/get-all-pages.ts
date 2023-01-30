@@ -30,7 +30,9 @@ export default function getAllPagesOperation({
       { variables },
       {
         ...(locale && {
-          'Accept-Language': locale,
+          headers: {
+            'Accept-Language': locale,
+          },
         }),
       }
     )

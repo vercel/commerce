@@ -2,13 +2,11 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import type {
-  GetCustomerWishlistOperation,
-  Wishlist,
-} from '@vercel/commerce/types/wishlist'
-import type { RecursivePartial, RecursiveRequired } from '../utils/types'
+import type { GetCustomerWishlistOperation } from '@vercel/commerce/types/wishlist'
+import type { RecursivePartial, BCWishlist } from '../utils/types'
 import { BigcommerceConfig, Provider } from '..'
-import getAllProducts, { ProductEdge } from './get-all-products'
+import { ProductEdge } from './get-all-products'
+import { normalizeWishlist } from '../../lib/normalize'
 
 export default function getCustomerWishlistOperation({
   commerce,
@@ -41,18 +39,22 @@ export default function getCustomerWishlistOperation({
   }): Promise<T['data']> {
     config = commerce.getConfig(config)
 
-    const { data = [] } = await config.storeApiFetch<
-      RecursivePartial<{ data: Wishlist[] }>
-    >(`/v3/wishlists?customer_id=${variables.customerId}`)
+    const { data = [] } = await config.storeApiFetch<{ data: BCWishlist[] }>(
+      `/v3/wishlists?customer_id=${variables.customerId}`
+    )
 
     const wishlist = data[0]
 
     if (includeProducts && wishlist?.items?.length) {
-      const ids = wishlist.items
-        ?.map((item) => (item?.productId ? String(item?.productId) : null))
-        .filter((id): id is string => !!id)
+      const ids = []
 
-      if (ids?.length) {
+      for (const wishlistItem of wishlist.items) {
+        if (wishlistItem.product_id) {
+          ids.push(String(wishlistItem.product_id))
+        }
+      }
+
+      if (ids.length) {
         const graphqlData = await commerce.getAllProducts({
           variables: { first: 50, ids },
           config,
@@ -66,7 +68,7 @@ export default function getCustomerWishlistOperation({
         }, {})
         // Populate the wishlist items with the graphql products
         wishlist.items.forEach((item) => {
-          const product = item && productsById[Number(item.productId)]
+          const product = item && productsById[Number(item.product_id)]
           if (item && product) {
             // @ts-ignore Fix this type when the wishlist type is properly defined
             item.product = product
@@ -75,7 +77,7 @@ export default function getCustomerWishlistOperation({
       }
     }
 
-    return { wishlist: wishlist as RecursiveRequired<typeof wishlist> }
+    return { wishlist: wishlist && normalizeWishlist(wishlist) }
   }
 
   return getCustomerWishlist

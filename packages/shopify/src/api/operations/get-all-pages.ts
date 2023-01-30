@@ -51,7 +51,9 @@ export default function getAllPagesOperation({
       },
       {
         ...(locale && {
-          'Accept-Language': locale,
+          headers: {
+            'Accept-Language': locale,
+          },
         }),
       }
     )

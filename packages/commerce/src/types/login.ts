@@ -26,6 +26,6 @@ export type LoginSchema = {
 }
 
 export type LoginOperation = {
-  data: { result?: string }
+  data: { result?: string; status?: number; headers?: Headers }
   variables: unknown
 }

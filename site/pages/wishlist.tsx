@@ -35,9 +35,10 @@ export async function getStaticProps({
 }
 
 export default function Wishlist() {
-  const { data: customer } = useCustomer()
   // @ts-ignore Shopify - Fix this types
-  const { data, isLoading, isEmpty } = useWishlist({ includeProducts: true })
+  const { data, isLoading, isEmpty } = useWishlist({
+    includeProducts: true,
+  })
 
   return (
     <Container className="pt-4">
@@ -45,10 +46,10 @@ export default function Wishlist() {
         <Text variant="pageHeading">My Wishlist</Text>
         <div className="group flex flex-col">
           {isLoading ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {rangeMap(12, (i) => (
+            <div className="grid grid-cols-1 gap-6">
+              {rangeMap(4, (i) => (
                 <Skeleton key={i}>
-                  <div className="w-60 h-60" />
+                  <div className="w-full h-[279px]" />
                 </Skeleton>
               ))}
             </div>

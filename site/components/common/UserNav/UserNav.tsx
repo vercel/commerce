@@ -23,13 +23,8 @@ const UserNav: React.FC<{
 }> = ({ className }) => {
   const { data } = useCart()
   const { data: isCustomerLoggedIn } = useCustomer()
-  const {
-    toggleSidebar,
-    closeSidebarIfPresent,
-    openModal,
-    setSidebarView,
-    openSidebar,
-  } = useUI()
+  const { closeSidebarIfPresent, openModal, setSidebarView, openSidebar } =
+    useUI()
 
   const itemsCount = data?.lineItems?.reduce(countItem, 0) ?? 0
   const DropdownTrigger = isCustomerLoggedIn
@@ -59,10 +54,10 @@ const UserNav: React.FC<{
         )}
         {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
-            <Link href="/wishlist" legacyBehavior>
-              <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
+            <Link href="/wishlist">
+              <button onClick={closeSidebarIfPresent} aria-label="Wishlist">
                 <Heart />
-              </a>
+              </button>
             </Link>
           </li>
         )}

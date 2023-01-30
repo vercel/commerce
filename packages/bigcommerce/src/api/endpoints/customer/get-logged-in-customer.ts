@@ -34,7 +34,9 @@ const getLoggedInCustomer: CustomerEndpoint['handlers']['getLoggedInCustomer'] =
         getLoggedInCustomerQuery,
         undefined,
         {
-          'Set-Cookie': `${config.customerCookie}=${token}`,
+          headers: {
+            cookie: `${config.customerCookie}=${token}`,
+          },
         }
       )
       const { customer } = data

@@ -1,6 +1,5 @@
 import type { SignupEndpoint } from '.'
 import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
-
 import { BigcommerceApiError } from '../../utils/errors'
 
 const signup: SignupEndpoint['handlers']['signup'] = async ({
@@ -22,28 +21,27 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
         },
       ]),
     })
+
+    // Login the customer right after creating it
+    const response = await commerce.login({
+      variables: { email, password },
+      config,
+    })
+
+    return response
   } catch (error) {
-    if (error instanceof BigcommerceApiError && error.status === 422) {
-      const hasEmailError = '0.email' in error.data?.errors
-      // If there's an error with the email, it most likely means it's duplicated
-      if (hasEmailError) {
-        throw new CommerceAPIError('Email already in use', {
+    // Display all validation errors from BigCommerce in a single error message
+    if (error instanceof BigcommerceApiError && error.status >= 400) {
+      const message = Object.values(error.data.errors).join('<br />')
+      if (message) {
+        throw new CommerceAPIError(message, {
           status: 400,
-          code: 'duplicated_email',
+          code: 'invalid_request',
         })
       }
-    } else {
-      throw error
     }
-  }
 
-  const res = new Response()
-
-  // Login the customer right after creating it
-  await commerce.login({ variables: { email, password }, res, config })
-
-  return {
-    headers: res.headers,
+    throw error
   }
 }
 

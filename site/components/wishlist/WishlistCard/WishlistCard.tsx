@@ -19,6 +19,7 @@ const WishlistCard: React.FC<{
   item: WishlistItem
 }> = ({ item }) => {
   const product: Product = item.product
+
   const { price } = usePrice({
     amount: product.price?.value,
     baseAmount: product.price?.retailPrice,

@@ -1,5 +1,5 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
-import type { GraphQLFetcher } from '@vercel/commerce/api'
+import type { FetchOptions, GraphQLFetcher } from '@vercel/commerce/api'
 import type { BigcommerceConfig } from '../index'
 
 const fetchGraphqlApi: (getConfig: () => BigcommerceConfig) => GraphQLFetcher =
@@ -7,19 +7,20 @@ const fetchGraphqlApi: (getConfig: () => BigcommerceConfig) => GraphQLFetcher =
   async (
     query: string,
     { variables, preview } = {},
-    options: { headers?: HeadersInit } = {}
+    options?: FetchOptions
   ): Promise<any> => {
     // log.warn(query)
     const config = getConfig()
 
     const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
-      method: 'POST',
+      method: options?.method || 'POST',
       headers: {
         Authorization: `Bearer ${config.apiToken}`,
-        ...options.headers,
+        ...options?.headers,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        ...options?.body,
         query,
         variables,
       }),

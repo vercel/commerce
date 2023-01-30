@@ -38,9 +38,11 @@ export default function getAllProductsOperation({
       query,
       { variables },
       {
-        ...(locale && {
-          'Accept-Language': locale,
-        }),
+        headers: {
+          ...(locale && {
+            'Accept-Language': locale,
+          }),
+        },
       }
     )
 

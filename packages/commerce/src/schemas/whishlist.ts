@@ -5,7 +5,7 @@ export const wishlistSchemaItem = z.object({
   id: z.string(),
   productId: z.string(),
   variantId: z.string(),
-  product: productSchema,
+  product: productSchema.optional(),
 })
 
 export const wishlistSchema = z.object({
@@ -15,7 +15,7 @@ export const wishlistSchema = z.object({
 })
 
 export const getWishlistBodySchema = z.object({
-  customerAccessToken: z.string(),
+  customerToken: z.string().optional(),
   includeProducts: z.boolean(),
 })
 
@@ -25,17 +25,17 @@ export const wishlistItemBodySchema = z.object({
 })
 
 export const addItemBodySchema = z.object({
-  cartId: z.string().optional(),
+  customerToken: z.string(),
   item: wishlistItemBodySchema,
 })
 
 export const updateItemBodySchema = z.object({
-  cartId: z.string(),
+  customerToken: z.string(),
   itemId: z.string(),
   item: wishlistItemBodySchema,
 })
 
 export const removeItemBodySchema = z.object({
-  cartId: z.string(),
+  customerToken: z.string(),
   itemId: z.string(),
 })

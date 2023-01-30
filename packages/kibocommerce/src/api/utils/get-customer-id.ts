@@ -13,7 +13,9 @@ async function getCustomerId({
     : null
   const accessToken = token ? JSON.parse(token).accessToken : null
   const { data } = await config.fetch(getCustomerAccountQuery, undefined, {
-    'x-vol-user-claims': accessToken,
+    headers: {
+      'x-vol-user-claims': accessToken,
+    },
   })
 
   return data?.customerAccount?.id

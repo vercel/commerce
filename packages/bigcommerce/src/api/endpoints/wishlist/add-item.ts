@@ -1,6 +1,7 @@
 import { parseWishlistItem } from '../../utils/parse-item'
 import getCustomerId from '../../utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
+import { normalizeWishlist } from '../../../lib/normalize'
 
 const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
   body: { customerToken, item },
@@ -31,7 +32,7 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
       }),
     })
     return {
-      data,
+      data: normalizeWishlist(data),
     }
   }
 
@@ -47,7 +48,9 @@ const addItem: WishlistEndpoint['handlers']['addItem'] = async ({
   )
 
   // Returns Wishlist
-  return { data }
+  return {
+    data: normalizeWishlist(data),
+  }
 }
 
 export default addItem
