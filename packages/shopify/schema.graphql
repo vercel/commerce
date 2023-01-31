@@ -14,7 +14,7 @@ directive @accessRestricted(
 ) on FIELD_DEFINITION | OBJECT
 
 """
-Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to [query a product's price](https://shopify.dev/api/examples/international-pricing#query-product-prices) in a storefront within the context of Canada.
+Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to [query a product's price](https://shopify.dev/custom-storefronts/internationalization/international-pricing) in a storefront within the context of Canada.
 """
 directive @inContext(
   """
@@ -58,22 +58,22 @@ type AppliedGiftCard implements Node {
   """
   The amount that was taken from the gift card by applying it.
   """
-  amountUsed: Money! @deprecated(reason: "Use `amountUsedV2` instead.")
+  amountUsed: MoneyV2!
 
   """
   The amount that was taken from the gift card by applying it.
   """
-  amountUsedV2: MoneyV2!
+  amountUsedV2: MoneyV2! @deprecated(reason: "Use `amountUsed` instead.")
 
   """
   The amount left on the gift card.
   """
-  balance: Money! @deprecated(reason: "Use `balanceV2` instead.")
+  balance: MoneyV2!
 
   """
   The amount left on the gift card.
   """
-  balanceV2: MoneyV2!
+  balanceV2: MoneyV2! @deprecated(reason: "Use `balance` instead.")
 
   """
   A globally-unique identifier.
@@ -560,6 +560,65 @@ enum BlogSortKeys {
   TITLE
 }
 
+"The store's branding configuration.\n"
+type Brand {
+  """
+  The colors of the store's brand.
+  """
+  colors: BrandColors!
+
+  """
+  The store's cover image.
+  """
+  coverImage: MediaImage
+
+  """
+  The store's default logo.
+  """
+  logo: MediaImage
+
+  """
+  The store's short description.
+  """
+  shortDescription: String
+
+  """
+  The store's slogan.
+  """
+  slogan: String
+
+  """
+  The store's preferred logo for square UI elements.
+  """
+  squareLogo: MediaImage
+}
+
+"A group of related colors for the shop's brand.\n"
+type BrandColorGroup {
+  """
+  The background color.
+  """
+  background: Color
+
+  """
+  The foreground color.
+  """
+  foreground: Color
+}
+
+"The colors of the shop's brand.\n"
+type BrandColors {
+  """
+  The shop's primary brand colors.
+  """
+  primary: [BrandColorGroup!]!
+
+  """
+  The shop's secondary brand colors.
+  """
+  secondary: [BrandColorGroup!]!
+}
+
 """
 Card brand, such as Visa or Mastercard, which can be used for payments.
 """
@@ -595,9 +654,7 @@ enum CardBrand {
   VISA
 }
 
-"""
-A cart represents the merchandise that a buyer intends to purchase, and the estimated cost associated with the cart. To learn how to interact with a cart during a customer's session, refer to [Manage a cart with the Storefront API](https://shopify.dev/api/examples/cart).
-"""
+"A cart represents the merchandise that a buyer intends to purchase,\nand the estimated cost associated with the cart. Learn how to\n[interact with a cart](https://shopify.dev/custom-storefronts/internationalization/international-pricing)\nduring a customer's session.\n"
 type Cart implements Node {
   """
   An attribute associated with the cart.
@@ -625,7 +682,7 @@ type Cart implements Node {
   checkoutUrl: URL!
 
   """
-  The estimated costs that the buyer will pay at checkout. The costs are subject to change and changes will be reflected at checkout. The `cost` field uses the `buyerIdentity` field to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).
+  The estimated costs that the buyer will pay at checkout. The costs are subject to change and changes will be reflected at checkout. The `cost` field uses the `buyerIdentity` field to determine [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
   """
   cost: CartCost!
 
@@ -634,9 +691,7 @@ type Cart implements Node {
   """
   createdAt: DateTime!
 
-  """
-  The delivery groups available for the cart, based on the default address of the logged-in customer.
-  """
+  "The delivery groups available for the cart, based on the buyer identity default\ndelivery address preference or the default address of the logged-in customer.\n"
   deliveryGroups(
     """
     Returns the elements that come after the specified cursor.
@@ -672,9 +727,7 @@ type Cart implements Node {
   "The case-insensitive discount codes that the customer added at checkout.\n"
   discountCodes: [CartDiscountCode!]!
 
-  """
-  The estimated costs that the buyer will pay at checkout. The estimated costs are subject to change and changes will be reflected at checkout. The `estimatedCost` field uses the `buyerIdentity` field to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).
-  """
+  "The estimated costs that the buyer will pay at checkout.\nThe estimated costs are subject to change and changes will be reflected at checkout.\nThe `estimatedCost` field uses the `buyerIdentity` field to determine\n[international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).\n"
   estimatedCost: CartEstimatedCost! @deprecated(reason: "Use `cost` instead.")
 
   """
@@ -772,6 +825,9 @@ type CartBuyerIdentity {
   """
   customer: Customer
 
+  "An ordered set of delivery addresses tied to the buyer that is interacting with the cart.\nThe rank of the preferences is determined by the order of the addresses in the array. Preferences\ncan be used to populate relevant fields in the checkout flow.\n"
+  deliveryAddressPreferences: [DeliveryAddress!]!
+
   """
   The email address of the buyer that is interacting with the cart.
   """
@@ -783,7 +839,7 @@ type CartBuyerIdentity {
   phone: String
 }
 
-"Specifies the input fields to update the buyer information associated with a cart.\nBuyer identity is used to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout)\nand should match the customer's shipping address.\n"
+"Specifies the input fields to update the buyer information associated with a cart.\nBuyer identity is used to determine\n[international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing)\nand should match the customer's shipping address.\n"
 input CartBuyerIdentityInput {
   """
   The country where the buyer is located.
@@ -794,6 +850,9 @@ input CartBuyerIdentityInput {
   The access token used to identify the customer associated with the cart.
   """
   customerAccessToken: String
+
+  "An ordered set of delivery addresses tied to the buyer that is interacting with the cart.\nThe rank of the preferences is determined by the order of the addresses in the array. Preferences\ncan be used to populate relevant fields in the checkout flow.\n"
+  deliveryAddressPreferences: [DeliveryAddressInput!]
 
   """
   The email address of the buyer that is interacting with the cart.
@@ -836,7 +895,7 @@ type CartCodeDiscountAllocation implements CartDiscountAllocation {
   discountedAmount: MoneyV2!
 }
 
-"The costs that the buyer will pay at checkout.\nIt uses [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).\n"
+"The costs that the buyer will pay at checkout.\nThe cart cost uses [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) to determine\n[international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).\n"
 type CartCost {
   """
   The estimated amount, before taxes and discounts, for the customer to pay at checkout. The checkout charge amount doesn't include any deferred payments that'll be paid at a later date. If the cart has no deferred payments, then the checkout charge amount is equivalent to `subtotalAmount`.
@@ -962,6 +1021,11 @@ type CartDeliveryGroup {
   The ID for the delivery group.
   """
   id: ID!
+
+  """
+  The selected delivery option for the delivery group.
+  """
+  selectedDeliveryOption: CartDeliveryOption
 }
 
 "An auto-generated type for paginating through multiple CartDeliveryGroups.\n"
@@ -1018,6 +1082,11 @@ type CartDeliveryOption {
   The estimated cost for the delivery option.
   """
   estimatedCost: MoneyV2!
+
+  """
+  The unique identifier of the delivery option.
+  """
+  handle: String!
 
   """
   The title of the delivery option.
@@ -1095,7 +1164,7 @@ enum CartErrorCode {
   MISSING_NOTE
 }
 
-"The estimated costs that the buyer will pay at checkout.\nIt uses [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).\n"
+"The estimated costs that the buyer will pay at checkout.\nThe estimated cost uses\n[`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity)\nto determine\n[international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).\n"
 type CartEstimatedCost {
   """
   The estimated amount, before taxes and discounts, for the customer to pay at checkout. The checkout charge amount doesn't include any deferred payments that'll be paid at a later date. If the cart has no deferred payments, then the checkout charge amount is equivalent to`subtotal_amount`.
@@ -1132,9 +1201,7 @@ input CartInput {
   """
   attributes: [AttributeInput!]
 
-  """
-  The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
-  """
+  "The customer associated with the cart. Used to determine [international pricing]\n(https://shopify.dev/custom-storefronts/internationalization/international-pricing).\nBuyer identity should match the customer's shipping address.\n"
   buyerIdentity: CartBuyerIdentityInput
 
   "The case-insensitive discount codes that the customer added at checkout.\n"
@@ -1403,6 +1470,34 @@ type CartNoteUpdatePayload {
   userErrors: [CartUserError!]!
 }
 
+"The input fields for updating the selected delivery options for a delivery group.\n"
+input CartSelectedDeliveryOptionInput {
+  """
+  The ID of the cart delivery group.
+  """
+  deliveryGroupId: ID!
+
+  """
+  The handle of the selected delivery option.
+  """
+  deliveryOptionHandle: String!
+}
+
+"""
+Return type for `cartSelectedDeliveryOptionsUpdate` mutation.
+"""
+type CartSelectedDeliveryOptionsUpdatePayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
 """
 Represents an error that happens during execution of a cart mutation.
 """
@@ -1551,14 +1646,14 @@ type Checkout implements Node {
   orderStatusUrl: URL
 
   """
-  The amount left to be paid. This is equal to the cost of the line items, taxes and shipping minus discounts and gift cards.
+  The amount left to be paid. This is equal to the cost of the line items, taxes, and shipping, minus discounts and gift cards.
   """
-  paymentDue: Money! @deprecated(reason: "Use `paymentDueV2` instead.")
+  paymentDue: MoneyV2!
 
   """
   The amount left to be paid. This is equal to the cost of the line items, duties, taxes, and shipping, minus discounts and gift cards.
   """
-  paymentDueV2: MoneyV2!
+  paymentDueV2: MoneyV2! @deprecated(reason: "Use `paymentDue` instead.")
 
   "Whether or not the Checkout is ready and can be completed. Checkouts may\nhave asynchronous operations that can take time to finish. If you want\nto complete a checkout or ensure all the fields are populated and up to\ndate, polling is required until the value is true.\n"
   ready: Boolean!
@@ -1582,14 +1677,14 @@ type Checkout implements Node {
   shippingLine: ShippingRate
 
   """
-  Price of the checkout before shipping and taxes.
+  The price at checkout before shipping and taxes.
   """
-  subtotalPrice: Money! @deprecated(reason: "Use `subtotalPriceV2` instead.")
+  subtotalPrice: MoneyV2!
 
   """
   The price at checkout before duties, shipping, and taxes.
   """
-  subtotalPriceV2: MoneyV2!
+  subtotalPriceV2: MoneyV2! @deprecated(reason: "Use `subtotalPrice` instead.")
 
   """
   Whether the checkout is tax exempt.
@@ -1607,24 +1702,24 @@ type Checkout implements Node {
   totalDuties: MoneyV2
 
   """
-  The sum of all the prices of all the items in the checkout, taxes and discounts included.
+  The sum of all the prices of all the items in the checkout, including taxes and duties.
   """
-  totalPrice: Money! @deprecated(reason: "Use `totalPriceV2` instead.")
+  totalPrice: MoneyV2!
 
   """
-  The sum of all the prices of all the items in the checkout, including duties, taxes, and discounts.
+  The sum of all the prices of all the items in the checkout, including taxes and duties.
   """
-  totalPriceV2: MoneyV2!
-
-  """
-  The sum of all the taxes applied to the line items and shipping lines in the checkout.
-  """
-  totalTax: Money! @deprecated(reason: "Use `totalTaxV2` instead.")
+  totalPriceV2: MoneyV2! @deprecated(reason: "Use `totalPrice` instead.")
 
   """
   The sum of all the taxes applied to the line items and shipping lines in the checkout.
   """
-  totalTaxV2: MoneyV2!
+  totalTax: MoneyV2!
+
+  """
+  The sum of all the taxes applied to the line items and shipping lines in the checkout.
+  """
+  totalTaxV2: MoneyV2! @deprecated(reason: "Use `totalTax` instead.")
 
   """
   The date and time when the checkout was last updated.
@@ -1974,6 +2069,11 @@ enum CheckoutErrorCode {
   Discount already applied.
   """
   DISCOUNT_ALREADY_APPLIED
+
+  """
+  Discount code isn't working right now. Please contact us for help.
+  """
+  DISCOUNT_CODE_APPLICATION_FAILED
 
   """
   Discount disabled.
@@ -2633,6 +2733,9 @@ enum CollectionSortKeys {
   """
   UPDATED_AT
 }
+
+"A string containing a hexadecimal representation of a color.\n\nFor example, \"#6A8D48\".\n"
+scalar Color
 
 """
 A comment on an article.
@@ -5011,6 +5114,11 @@ type Customer implements HasMetafields {
   ): [Metafield]!
 
   """
+  The number of orders that the customer has made at the store in their lifetime.
+  """
+  numberOfOrders: UnsignedInt64!
+
+  """
   The orders associated with the customer.
   """
   orders(
@@ -5609,6 +5717,19 @@ scalar DateTime
 scalar Decimal
 
 """
+A delivery address of the buyer that is interacting with the cart.
+"""
+union DeliveryAddress = MailingAddress
+
+"The input fields for delivery address preferences.\n"
+input DeliveryAddressInput {
+  """
+  A delivery address preference of a buyer that is interacting with the cart.
+  """
+  deliveryAddress: MailingAddressInput
+}
+
+"""
 List of different delivery method types.
 """
 enum DeliveryMethodType {
@@ -5924,7 +6045,7 @@ type Filter {
   values: [FilterValue!]!
 }
 
-"The type of data that the filter group represents.\n\nFor more information, refer to [Filter products in a collection with the Storefront API]\n(https://shopify.dev/api/examples/filter-products).\n"
+"The type of data that the filter group represents.\n\nFor more information, refer to [Filter products in a collection with the Storefront API]\n(https://shopify.dev/custom-storefronts/products-collections/filter-products).\n"
 enum FilterType {
   """
   A boolean value.
@@ -6124,7 +6245,7 @@ input GeoCoordinateInput {
   longitude: Float!
 }
 
-"A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a\ncomplete list of HTML elements.\n\nExample value: `\"<p>Grey cotton knit sweater.</p>\"`.\n"
+"A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a\ncomplete list of HTML elements.\n\nExample value: `\"<p>Grey cotton knit sweater.</p>\"`\n"
 scalar HTML
 
 """
@@ -7673,6 +7794,31 @@ type Metafield implements Node {
   """
   reference: MetafieldReference
 
+  """
+  A list of reference objects if the metafield's type is a resource reference list.
+  """
+  references(
+    """
+    Returns the elements that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns up to the first `n` elements from the list.
+    """
+    first: Int
+
+    """
+    Returns up to the last `n` elements from the list.
+    """
+    last: Int
+  ): MetafieldReferenceConnection
+
   "The type name of the metafield.\nSee the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).\n"
   type: String!
 
@@ -7721,12 +7867,177 @@ union MetafieldParentResource =
 
 "Returns the resource which is being referred to by a metafield.\n"
 union MetafieldReference =
-    GenericFile
+    Collection
+  | GenericFile
   | MediaImage
+  | Metaobject
   | Page
   | Product
   | ProductVariant
   | Video
+
+"An auto-generated type for paginating through multiple MetafieldReferences.\n"
+type MetafieldReferenceConnection {
+  """
+  A list of edges.
+  """
+  edges: [MetafieldReferenceEdge!]!
+
+  """
+  A list of the nodes contained in MetafieldReferenceEdge.
+  """
+  nodes: [MetafieldReference!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"An auto-generated type which holds one MetafieldReference and a cursor during pagination.\n"
+type MetafieldReferenceEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of MetafieldReferenceEdge.
+  """
+  node: MetafieldReference!
+}
+
+"""
+An instance of a user-defined model based on a MetaobjectDefinition.
+"""
+type Metaobject implements Node {
+  """
+  Accesses a field of the object by key.
+  """
+  field(
+    """
+    The key of the field.
+    """
+    key: String!
+  ): MetaobjectField
+
+  "All object fields with defined values.\nOmitted object keys can be assumed null, and no guarantees are made about field order.\n"
+  fields: [MetaobjectField!]!
+
+  """
+  The unique handle of the metaobject. Useful as a custom ID.
+  """
+  handle: String!
+
+  """
+  A globally-unique identifier.
+  """
+  id: ID!
+
+  """
+  The type of the metaobject. Defines the namespace of its associated metafields.
+  """
+  type: String!
+
+  """
+  The date and time when the metaobject was last updated.
+  """
+  updatedAt: DateTime!
+}
+
+"An auto-generated type for paginating through multiple Metaobjects.\n"
+type MetaobjectConnection {
+  """
+  A list of edges.
+  """
+  edges: [MetaobjectEdge!]!
+
+  """
+  A list of the nodes contained in MetaobjectEdge.
+  """
+  nodes: [Metaobject!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"An auto-generated type which holds one Metaobject and a cursor during pagination.\n"
+type MetaobjectEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of MetaobjectEdge.
+  """
+  node: Metaobject!
+}
+
+"""
+Provides the value of a Metaobject field.
+"""
+type MetaobjectField {
+  """
+  The field key.
+  """
+  key: String!
+
+  """
+  A referenced object if the field type is a resource reference.
+  """
+  reference: MetafieldReference
+
+  """
+  A list of referenced objects if the field type is a resource reference list.
+  """
+  references(
+    """
+    Returns the elements that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns up to the first `n` elements from the list.
+    """
+    first: Int
+
+    """
+    Returns up to the last `n` elements from the list.
+    """
+    last: Int
+  ): MetafieldReferenceConnection
+
+  "The type name of the field.\nSee the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).\n"
+  type: String!
+
+  """
+  The field value.
+  """
+  value: String
+}
+
+"""
+The input fields used to retrieve a metaobject by handle.
+"""
+input MetaobjectHandleInput {
+  """
+  The handle of the metaobject.
+  """
+  handle: String!
+
+  """
+  The type of the metaobject.
+  """
+  type: String!
+}
 
 """
 Represents a Shopify hosted 3D model.
@@ -7784,11 +8095,6 @@ type Model3dSource {
 }
 
 """
-A monetary value string without a currency symbol or code. Example value: `"100.57"`.
-"""
-scalar Money
-
-"""
 Specifies the fields for a monetary value with currency.
 """
 input MoneyInput {
@@ -7835,11 +8141,9 @@ type Mutation {
     cartId: ID!
   ): CartAttributesUpdatePayload
 
-  "Updates customer information associated with a cart.\nBuyer identity is used to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout)\nand should match the customer's shipping address.\n"
+  "Updates customer information associated with a cart.\nBuyer identity is used to determine\n[international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing)\nand should match the customer's shipping address.\n"
   cartBuyerIdentityUpdate(
-    """
-    The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
-    """
+    "The customer associated with the cart. Used to determine\n[international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).\nBuyer identity should match the customer's shipping address.\n"
     buyerIdentity: CartBuyerIdentityInput!
 
     """
@@ -7930,6 +8234,21 @@ type Mutation {
     """
     note: String
   ): CartNoteUpdatePayload
+
+  """
+  Update the selected delivery options for a delivery group.
+  """
+  cartSelectedDeliveryOptionsUpdate(
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+
+    """
+    The selected delivery options.
+    """
+    selectedDeliveryOptions: [CartSelectedDeliveryOptionInput!]!
+  ): CartSelectedDeliveryOptionsUpdatePayload
 
   """
   Updates the attributes of a checkout if `allowPartialAddresses` is `true`.
@@ -8325,7 +8644,7 @@ type Mutation {
     customerAccessToken: String!
   ): CustomerDefaultAddressUpdatePayload
 
-  "\"Sends a reset password email to the customer. The reset password email contains a reset password URL and token that you can pass to the [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) or [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) mutation to reset the customer password.\"\n"
+  "Sends a reset password email to the customer. The reset password\nemail contains a reset password URL and token that you can pass to\nthe [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) or\n[`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) mutation to reset the\ncustomer password.\n\nThis mutation is throttled by IP. With authenticated access,\nyou can provide a [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) instead of the request IP.\n\nMake sure that the value provided to `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this\nmutation presents a security risk.\n"
   customerRecover(
     """
     The email address of the customer to recover.
@@ -8431,6 +8750,11 @@ type Order implements HasMetafields & Node {
   The total of all taxes applied to the order, excluding taxes for returned line items.
   """
   currentTotalTax: MoneyV2!
+
+  """
+  A list of the custom attributes added to the order.
+  """
+  customAttributes: [Attribute!]!
 
   """
   The locale code in which this specific order happened.
@@ -8592,12 +8916,12 @@ type Order implements HasMetafields & Node {
   """
   Price of the order before shipping and taxes.
   """
-  subtotalPrice: Money @deprecated(reason: "Use `subtotalPriceV2` instead.")
+  subtotalPrice: MoneyV2
 
   """
   Price of the order before duties, shipping and taxes.
   """
-  subtotalPriceV2: MoneyV2
+  subtotalPriceV2: MoneyV2 @deprecated(reason: "Use `subtotalPrice` instead.")
 
   """
   List of the order’s successful fulfillments.
@@ -8610,45 +8934,45 @@ type Order implements HasMetafields & Node {
   ): [Fulfillment!]
 
   """
-  The sum of all the prices of all the items in the order, taxes and discounts included (must be positive).
+  The sum of all the prices of all the items in the order, duties, taxes and discounts included (must be positive).
   """
-  totalPrice: Money! @deprecated(reason: "Use `totalPriceV2` instead.")
+  totalPrice: MoneyV2!
 
   """
   The sum of all the prices of all the items in the order, duties, taxes and discounts included (must be positive).
   """
-  totalPriceV2: MoneyV2!
+  totalPriceV2: MoneyV2! @deprecated(reason: "Use `totalPrice` instead.")
 
   """
   The total amount that has been refunded.
   """
-  totalRefunded: Money! @deprecated(reason: "Use `totalRefundedV2` instead.")
+  totalRefunded: MoneyV2!
 
   """
   The total amount that has been refunded.
   """
-  totalRefundedV2: MoneyV2!
+  totalRefundedV2: MoneyV2! @deprecated(reason: "Use `totalRefunded` instead.")
 
   """
   The total cost of shipping.
   """
-  totalShippingPrice: Money!
-    @deprecated(reason: "Use `totalShippingPriceV2` instead.")
+  totalShippingPrice: MoneyV2!
 
   """
   The total cost of shipping.
   """
   totalShippingPriceV2: MoneyV2!
+    @deprecated(reason: "Use `totalShippingPrice` instead.")
 
   """
   The total cost of taxes.
   """
-  totalTax: Money @deprecated(reason: "Use `totalTaxV2` instead.")
+  totalTax: MoneyV2
 
   """
   The total cost of taxes.
   """
-  totalTaxV2: MoneyV2
+  totalTaxV2: MoneyV2 @deprecated(reason: "Use `totalTax` instead.")
 }
 
 """
@@ -8697,6 +9021,11 @@ type OrderConnection {
   Information to aid in pagination.
   """
   pageInfo: PageInfo!
+
+  """
+  The total count of Orders.
+  """
+  totalCount: UnsignedInt64!
 }
 
 "An auto-generated type which holds one Order and a cursor during pagination.\n"
@@ -9058,12 +9387,12 @@ type Payment implements Node {
   """
   The amount of the payment.
   """
-  amount: Money! @deprecated(reason: "Use `amountV2` instead.")
+  amount: MoneyV2!
 
   """
   The amount of the payment.
   """
-  amountV2: MoneyV2!
+  amountV2: MoneyV2! @deprecated(reason: "Use `amount` instead.")
 
   """
   The billing address for the payment.
@@ -9324,6 +9653,11 @@ type Product implements HasMetafields & Node & OnlineStorePublishable {
     """
     sortKey: ProductImageSortKeys = POSITION
   ): ImageConnection!
+
+  """
+  Whether the product is a gift card.
+  """
+  isGiftCard: Boolean!
 
   """
   The media associated with the product.
@@ -9627,6 +9961,11 @@ input ProductFilter {
   productVendor: String
 
   """
+  A product tag to filter on.
+  """
+  tag: String
+
+  """
   A variant metafield to filter on.
   """
   variantMetafield: MetafieldFilter
@@ -9776,12 +10115,12 @@ type ProductVariant implements HasMetafields & Node {
   """
   The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPrice` is higher than `price`.
   """
-  compareAtPrice: Money @deprecated(reason: "Use `compareAtPriceV2` instead.")
+  compareAtPrice: MoneyV2
 
   """
   The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPriceV2` is higher than `priceV2`.
   """
-  compareAtPriceV2: MoneyV2
+  compareAtPriceV2: MoneyV2 @deprecated(reason: "Use `compareAtPrice` instead.")
 
   """
   Whether a product is out of stock but still available for purchase (used for backorders).
@@ -9822,12 +10161,12 @@ type ProductVariant implements HasMetafields & Node {
   """
   The product variant’s price.
   """
-  price: Money! @deprecated(reason: "Use `priceV2` instead.")
+  price: MoneyV2!
 
   """
   The product variant’s price.
   """
-  priceV2: MoneyV2!
+  priceV2: MoneyV2! @deprecated(reason: "Use `price` instead.")
 
   """
   The product object that the product variant belongs to.
@@ -9907,6 +10246,11 @@ type ProductVariant implements HasMetafields & Node {
     Returns up to the last `n` elements from the list.
     """
     last: Int
+
+    """
+    Used to sort results based on proximity to the provided location.
+    """
+    near: GeoCoordinateInput
 
     """
     Reverse the order of the underlying list.
@@ -10104,9 +10448,7 @@ type QueryRoot {
     sortKey: BlogSortKeys = ID
   ): BlogConnection!
 
-  """
-  Retrieve a cart by its ID. For more information, refer to [Manage a cart with the Storefront API](https://shopify.dev/api/examples/cart).
-  """
+  "Retrieve a cart by its ID. For more information, refer to\n[Manage a cart with the Storefront API](https://shopify.dev/custom-storefronts/cart/manage).\n"
   cart(
     """
     The ID of the cart.
@@ -10239,6 +10581,61 @@ type QueryRoot {
     """
     handle: String!
   ): Menu
+
+  """
+  Fetch a specific Metaobject by one of its unique identifiers.
+  """
+  metaobject(
+    """
+    The handle and type of the metaobject.
+    """
+    handle: MetaobjectHandleInput
+
+    """
+    The ID of the metaobject.
+    """
+    id: ID
+  ): Metaobject
+
+  """
+  All active metaobjects for the shop.
+  """
+  metaobjects(
+    """
+    Returns the elements that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns up to the first `n` elements from the list.
+    """
+    first: Int
+
+    """
+    Returns up to the last `n` elements from the list.
+    """
+    last: Int
+
+    """
+    Reverse the order of the underlying list.
+    """
+    reverse: Boolean = false
+
+    """
+    The key of a field to sort with. Supports "id" and "updated_at".
+    """
+    sortKey: String
+
+    """
+    The type of metaobject to retrieve.
+    """
+    type: String!
+  ): MetaobjectConnection!
 
   """
   Returns a specific node by ID.
@@ -10445,6 +10842,9 @@ type QueryRoot {
     Returns up to the last `n` elements from the list.
     """
     last: Int
+
+    "Supported filter parameters:\n - `created_at`\n - `path`\n - `target`\n\nSee the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)\nfor more information about using filters.\n"
+    query: String
 
     """
     Reverse the order of the underlying list.
@@ -10901,12 +11301,12 @@ type ShippingRate {
   """
   Price of this shipping rate.
   """
-  price: Money! @deprecated(reason: "Use `priceV2` instead.")
+  price: MoneyV2!
 
   """
   Price of this shipping rate.
   """
-  priceV2: MoneyV2!
+  priceV2: MoneyV2! @deprecated(reason: "Use `price` instead.")
 
   """
   Title of this shipping rate.
@@ -10918,6 +11318,11 @@ type ShippingRate {
 Shop represents a collection of the general settings and information about the shop.
 """
 type Shop implements HasMetafields & Node {
+  """
+  The shop's branding configuration.
+  """
+  brand: Brand
+
   """
   A description of the shop.
   """
@@ -11180,12 +11585,12 @@ type Transaction {
   """
   The amount of money that the transaction was for.
   """
-  amount: Money! @deprecated(reason: "Use `amountV2` instead.")
+  amount: MoneyV2!
 
   """
   The amount of money that the transaction was for.
   """
-  amountV2: MoneyV2!
+  amountV2: MoneyV2! @deprecated(reason: "Use `amount` instead.")
 
   """
   The kind of the transaction.
@@ -11391,6 +11796,9 @@ enum UnitSystem {
   """
   METRIC_SYSTEM
 }
+
+"An unsigned 64-bit integer. Represents whole numeric values between 0 and 2^64 - 1 encoded as a string of base-10 digits.\n\nExample value: `\"50\"`.\n"
+scalar UnsignedInt64
 
 """
 A redirect on the online store.

@@ -1,4 +1,4 @@
-import { SHOPIFY_CHECKOUT_ID_COOKIE } from './const'
+import { SHOPIFY_CART_ID_COOKIE } from './const'
 
 import { handler as useCart } from './cart/use-cart'
 import { handler as useAddItem } from './cart/use-add-item'
@@ -16,7 +16,7 @@ import fetcher from './fetcher'
 
 export const shopifyProvider = {
   locale: 'en-us',
-  cartCookie: SHOPIFY_CHECKOUT_ID_COOKIE,
+  cartCookie: SHOPIFY_CART_ID_COOKIE,
   fetcher,
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: { useCustomer },

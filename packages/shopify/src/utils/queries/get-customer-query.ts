@@ -1,4 +1,4 @@
-export const getCustomerQuery = /* GraphQL */ `
+const getCustomerQuery = /* GraphQL */ `
   query getCustomer($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
       id

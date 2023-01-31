@@ -1,4 +1,4 @@
-export const getPageQuery = /* GraphQL */ `
+const getPageQuery = /* GraphQL */ `
   query getPage($id: ID!) {
     node(id: $id) {
       id

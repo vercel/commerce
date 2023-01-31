@@ -1,23 +1,28 @@
-import { useCallback } from 'react'
+import type { AddItemHook } from '@vercel/commerce/types/cart'
 import type { MutationHook } from '@vercel/commerce/utils/types'
+
+import type {
+  CartLinesAddMutation,
+  CartLinesAddMutationVariables,
+} from '../../schema'
+
+import { useCallback } from 'react'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
-import type { AddItemHook } from '@vercel/commerce/types/cart'
+
 import useCart from './use-cart'
 
-import {
-  checkoutLineItemAddMutation,
-  getCheckoutId,
-  checkoutToCart,
-  checkoutCreate,
-} from '../utils'
-import { Mutation, MutationCheckoutLineItemsAddArgs } from '../../schema'
+import { normalizeCart } from '../utils/normalize'
+import { getCartId, cartCreate } from '../utils/cart'
+import throwUserErrors from '../utils/throw-user-errors'
+
+import { cartLinesAddMutation } from '../utils/mutations/cart-mutations'
 
 export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    query: checkoutLineItemAddMutation,
+    query: cartLinesAddMutation,
   },
   async fetcher({ input: item, options, fetch }) {
     if (
@@ -29,29 +34,33 @@ export const handler: MutationHook<AddItemHook> = {
       })
     }
 
-    const lineItems = [
+    const lines = [
       {
-        variantId: item.variantId,
+        merchandiseId: item.variantId,
         quantity: item.quantity ?? 1,
       },
     ]
 
-    let checkoutId = getCheckoutId()
+    let cartId = getCartId()
 
-    if (!checkoutId) {
-      return checkoutToCart(await checkoutCreate(fetch, lineItems))
+    if (!cartId) {
+      const cart = await cartCreate(fetch, lines)
+      return normalizeCart(cart)
     } else {
-      const { checkoutLineItemsAdd } = await fetch<
-        Mutation,
-        MutationCheckoutLineItemsAddArgs
+      const { cartLinesAdd } = await fetch<
+        CartLinesAddMutation,
+        CartLinesAddMutationVariables
       >({
         ...options,
         variables: {
-          checkoutId,
-          lineItems,
+          cartId,
+          lines,
         },
       })
-      return checkoutToCart(checkoutLineItemsAdd)
+
+      throwUserErrors(cartLinesAdd?.userErrors)
+
+      return normalizeCart(cartLinesAdd?.cart)
     }
   },
   useHook:

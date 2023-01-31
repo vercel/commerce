@@ -1,40 +1,33 @@
 import type { SWRHook } from '@vercel/commerce/utils/types'
 import type { GetCartHook } from '@vercel/commerce/types/cart'
+import type { GetCartQueryVariables, QueryRoot } from '../../schema'
 
 import { useMemo } from 'react'
-import useCommerceCart, { type UseCart } from '@vercel/commerce/cart/use-cart'
-
-import { checkoutToCart } from '../utils'
-import getCheckoutQuery from '../utils/queries/get-checkout-query'
 import Cookies from 'js-cookie'
+import useCommerceCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 
-import {
-  SHOPIFY_CHECKOUT_ID_COOKIE,
-  SHOPIFY_CHECKOUT_URL_COOKIE,
-} from '../const'
+import { SHOPIFY_CART_ID_COOKIE } from '../const'
+
+import { setCartUrlCookie } from '../utils/cart'
+import { normalizeCart } from '../utils/normalize'
+import { getCartQuery } from '../utils/queries/get-cart-query'
 
 export default useCommerceCart as UseCart<typeof handler>
-
 export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
-    query: getCheckoutQuery,
+    query: getCartQuery,
   },
   async fetcher({ input: { cartId }, options, fetch }) {
     if (cartId) {
-      const { node: checkout } = await fetch({
+      let { cart } = await fetch<QueryRoot, GetCartQueryVariables>({
         ...options,
-        variables: {
-          checkoutId: cartId,
-        },
+        variables: { cartId },
       })
-      if (checkout?.completedAt) {
-        Cookies.remove(SHOPIFY_CHECKOUT_ID_COOKIE)
-        Cookies.remove(SHOPIFY_CHECKOUT_URL_COOKIE)
-        return null
+      if (cart) {
+        setCartUrlCookie(cart.checkoutUrl)
+        return normalizeCart(cart)
       } else {
-        return checkoutToCart({
-          checkout,
-        })
+        Cookies.remove(SHOPIFY_CART_ID_COOKIE)
       }
     }
     return null
@@ -50,7 +43,7 @@ export const handler: SWRHook<GetCartHook> = {
           Object.create(response, {
             isEmpty: {
               get() {
-                return (response.data?.lineItems.length ?? 0) <= 0
+                return (response.data?.lineItems?.length ?? 0) <= 0
               },
               enumerable: true,
             },

@@ -1,4 +1,4 @@
-export const getAllPagesQuery = /* GraphQL */ `
+const getAllPagesQuery = /* GraphQL */ `
   query getAllPages($first: Int = 250) {
     pages(first: $first) {
       edges {

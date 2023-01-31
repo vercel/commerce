@@ -5,8 +5,6 @@ import type { Category } from '@vercel/commerce/types/site'
 
 import type {
   Product as ShopifyProduct,
-  Checkout,
-  CheckoutLineItemEdge,
   SelectedOption,
   ImageConnection,
   ProductVariantConnection,
@@ -15,9 +13,11 @@ import type {
   Page as ShopifyPage,
   PageEdge,
   Collection,
+  CartDetailsFragment,
 } from '../../schema'
 
 import { colorMap } from './colors'
+import { CommerceError } from '@vercel/commerce/utils/errors'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
@@ -67,8 +67,8 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         selectedOptions,
         sku,
         title,
-        priceV2,
-        compareAtPriceV2,
+        price,
+        compareAtPrice,
         requiresShipping,
         availableForSale,
       },
@@ -77,8 +77,8 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         id,
         name: title,
         sku,
-        price: +priceV2.amount,
-        listPrice: +compareAtPriceV2?.amount,
+        price: +price.amount,
+        listPrice: +compareAtPrice?.amount,
         requiresShipping,
         availableForSale,
         options: selectedOptions.map(({ name, value }: SelectedOption) => {
@@ -129,48 +129,54 @@ export function normalizeProduct({
   }
 }
 
-export function normalizeCart(checkout: Checkout): Cart {
-  return {
-    id: checkout.id,
-    url: checkout.webUrl,
-    customerId: '',
-    email: '',
-    createdAt: checkout.createdAt,
-    currency: {
-      code: checkout.totalPriceV2?.currencyCode,
-    },
-    taxesIncluded: checkout.taxesIncluded,
-    lineItems: checkout.lineItems?.edges.map(normalizeLineItem),
-    lineItemsSubtotalPrice: +checkout.subtotalPriceV2?.amount,
-    subtotalPrice: +checkout.subtotalPriceV2?.amount,
-    totalPrice: checkout.totalPriceV2?.amount,
-    discounts: [],
-  }
-}
-
 function normalizeLineItem({
-  node: { id, title, variant, quantity },
-}: CheckoutLineItemEdge): LineItem {
+  node: { id, merchandise: variant, quantity },
+}: {
+  node: any
+}): LineItem {
   return {
     id,
-    variantId: String(variant?.id),
-    productId: String(variant?.id),
-    name: `${title}`,
-    quantity,
+    variantId: variant?.id,
+    productId: variant?.id,
+    name: variant?.product?.title || variant?.title,
+    quantity: quantity ?? 0,
     variant: {
-      id: String(variant?.id),
+      id: variant?.id,
       sku: variant?.sku ?? '',
       name: variant?.title!,
       image: {
         url: variant?.image?.url || '/product-img-placeholder.svg',
       },
       requiresShipping: variant?.requiresShipping ?? false,
-      price: variant?.priceV2?.amount,
-      listPrice: variant?.compareAtPriceV2?.amount,
+      price: +variant?.price?.amount,
+      listPrice: +variant?.compareAtPrice?.amount,
     },
-    path: String(variant?.product?.handle),
+    path: variant?.product?.handle,
     discounts: [],
     options: variant?.title == 'Default Title' ? [] : variant?.selectedOptions,
+  }
+}
+
+export function normalizeCart(
+  cart: CartDetailsFragment | undefined | null
+): Cart {
+  if (!cart) {
+    throw new CommerceError({ message: 'Missing cart details' })
+  }
+  return {
+    id: cart.id,
+    customerId: cart.buyerIdentity?.customer?.id,
+    email: cart.buyerIdentity?.email ?? '',
+    createdAt: cart.createdAt,
+    currency: {
+      code: cart.estimatedCost?.totalAmount?.currencyCode,
+    },
+    taxesIncluded: !!cart.estimatedCost?.totalTaxAmount?.amount,
+    lineItems: cart.lines?.edges?.map(normalizeLineItem) ?? [],
+    lineItemsSubtotalPrice: +cart.estimatedCost?.subtotalAmount?.amount,
+    subtotalPrice: +cart.estimatedCost?.subtotalAmount?.amount,
+    totalPrice: +cart.estimatedCost?.totalAmount?.amount,
+    discounts: [],
   }
 }
 

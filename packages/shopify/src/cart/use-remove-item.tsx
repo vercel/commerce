@@ -1,18 +1,32 @@
-import { useCallback } from 'react'
 import type {
   MutationHookContext,
   HookFetcherContext,
 } from '@vercel/commerce/utils/types'
-import { ValidationError } from '@vercel/commerce/utils/errors'
-import useRemoveItem, {
-  UseRemoveItem,
-} from '@vercel/commerce/cart/use-remove-item'
+
+import type {
+  CartLinesRemoveMutation,
+  CartLinesRemoveMutationVariables,
+} from '../../schema'
+
 import type {
   Cart,
   LineItem,
   RemoveItemHook,
 } from '@vercel/commerce/types/cart'
+
+import { useCallback } from 'react'
+import { ValidationError } from '@vercel/commerce/utils/errors'
+
+import useRemoveItem, {
+  UseRemoveItem,
+} from '@vercel/commerce/cart/use-remove-item'
+
 import useCart from './use-cart'
+
+import { getCartId } from '../utils/cart'
+import { normalizeCart } from '../utils/normalize'
+import { cartLinesRemoveMutation } from '../utils/mutations/cart-mutations'
+import throwUserErrors from '../utils/throw-user-errors'
 
 export type RemoveItemFn<T = any> = T extends LineItem
   ? (input?: RemoveItemActionInput<T>) => Promise<Cart | null | undefined>
@@ -24,28 +38,26 @@ export type RemoveItemActionInput<T = any> = T extends LineItem
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
-import {
-  checkoutLineItemRemoveMutation,
-  getCheckoutId,
-  checkoutToCart,
-} from '../utils'
-
-import { Mutation, MutationCheckoutLineItemsRemoveArgs } from '../../schema'
-
 export const handler = {
   fetchOptions: {
-    query: checkoutLineItemRemoveMutation,
+    query: cartLinesRemoveMutation,
   },
   async fetcher({
     input: { itemId },
     options,
     fetch,
   }: HookFetcherContext<RemoveItemHook>) {
-    const data = await fetch<Mutation, MutationCheckoutLineItemsRemoveArgs>({
+    const data = await fetch<
+      CartLinesRemoveMutation,
+      CartLinesRemoveMutationVariables
+    >({
       ...options,
-      variables: { checkoutId: getCheckoutId(), lineItemIds: [itemId] },
+      variables: { cartId: getCartId(), lineIds: [itemId] },
     })
-    return checkoutToCart(data.checkoutLineItemsRemove)
+
+    throwUserErrors(data.cartLinesRemove?.userErrors)
+
+    return normalizeCart(data.cartLinesRemove?.cart)
   },
   useHook:
     ({ fetch }: MutationHookContext<RemoveItemHook>) =>

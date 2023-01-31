@@ -5,13 +5,18 @@ import {
   CheckoutUserError,
   CustomerErrorCode,
   CustomerUserError,
+  CartUserError,
+  CartErrorCode,
 } from '../../schema'
 
-export type UserErrors = Array<CheckoutUserError | CustomerUserError>
+export type UserErrors = Array<
+  CheckoutUserError | CustomerUserError | CartUserError
+>
 
 export type UserErrorCode =
   | CustomerErrorCode
   | CheckoutErrorCode
+  | CartErrorCode
   | null
   | undefined
 
@@ -24,7 +29,7 @@ const getCustomMessage = (code: UserErrorCode, message: string) => {
   return message
 }
 
-export const throwUserErrors = (errors?: UserErrors) => {
+const throwUserErrors = (errors?: UserErrors) => {
   if (errors && errors.length) {
     throw new ValidationError({
       errors: errors.map(({ code, message }) => ({

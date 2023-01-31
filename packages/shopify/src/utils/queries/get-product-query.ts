@@ -40,11 +40,11 @@ const getProductQuery = /* GraphQL */ `
               name
               value
             }
-            priceV2 {
+            price {
               amount
               currencyCode
             }
-            compareAtPriceV2 {
+            compareAtPrice {
               amount
               currencyCode
             }

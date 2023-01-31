@@ -1,26 +1,29 @@
-import type { UpdateItemHook, LineItem } from '@vercel/commerce/types/cart'
 import type {
-  Mutation,
-  MutationCheckoutLineItemsUpdateArgs,
+  CartLinesUpdateMutation,
+  CartLinesUpdateMutationVariables,
 } from '../../schema'
+
 import type {
   HookFetcherContext,
   MutationHookContext,
 } from '@vercel/commerce/utils/types'
 
+import type { UpdateItemHook, LineItem } from '@vercel/commerce/types/cart'
+
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
 import { ValidationError } from '@vercel/commerce/utils/errors'
 import useUpdateItem, {
-  type UseUpdateItem,
+  UseUpdateItem,
 } from '@vercel/commerce/cart/use-update-item'
+
 import useCart from './use-cart'
+
 import { handler as removeItemHandler } from './use-remove-item'
-import {
-  getCheckoutId,
-  checkoutLineItemUpdateMutation,
-  checkoutToCart,
-} from '../utils'
+
+import { getCartId } from '../utils/cart'
+import { normalizeCart } from '../utils/normalize'
+import { cartLinesUpdateMutation } from '../utils/mutations/cart-mutations'
 
 export type UpdateItemActionInput<T = any> = T extends LineItem
   ? Partial<UpdateItemHook['actionInput']>
@@ -30,7 +33,7 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler = {
   fetchOptions: {
-    query: checkoutLineItemUpdateMutation,
+    query: cartLinesUpdateMutation,
   },
   async fetcher({
     input: { itemId, item },
@@ -51,14 +54,14 @@ export const handler = {
         message: 'The item quantity has to be a valid integer',
       })
     }
-    const { checkoutLineItemsUpdate } = await fetch<
-      Mutation,
-      MutationCheckoutLineItemsUpdateArgs
+    const { cartLinesUpdate } = await fetch<
+      CartLinesUpdateMutation,
+      CartLinesUpdateMutationVariables
     >({
       ...options,
       variables: {
-        checkoutId: getCheckoutId(),
-        lineItems: [
+        cartId: getCartId(),
+        lines: [
           {
             id: itemId,
             quantity: item.quantity,
@@ -67,7 +70,7 @@ export const handler = {
       },
     })
 
-    return checkoutToCart(checkoutLineItemsUpdate)
+    return normalizeCart(cartLinesUpdate?.cart)
   },
   useHook:
     ({ fetch }: MutationHookContext<UpdateItemHook>) =>
