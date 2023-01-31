@@ -26,11 +26,6 @@ const productsEndpoint: GetAPISchema<
 
   const res = await handlers['getProducts']({ ...ctx, body })
 
-  res.headers = {
-    'Cache-Control': 'max-age=0, s-maxage=3600, stale-while-revalidate, public',
-    ...res.headers,
-  }
-
   return parse(res, searchProductsSchema)
 }
 
