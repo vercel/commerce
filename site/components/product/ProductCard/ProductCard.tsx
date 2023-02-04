@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import cn from 'clsx'
 import Link from 'next/link'
 import type { Product } from '@commerce/types/product'
@@ -7,6 +7,8 @@ import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
 import ProductTag from '../ProductTag'
+import ProductCardExtended from '../ProductCardExtended/ProductCardExtended'
+import { Stack, Text, Heading, Box, useColorModeValue } from '@chakra-ui/react'
 
 interface Props {
   className?: string
@@ -37,10 +39,12 @@ const ProductCard: FC<Props> = ({
     className
   )
 
+  const [isHover, setIsHover] = useState(false)
+
   return (
     <Link href={`/product/${product.slug}`}>
-      <a className={rootClassName} aria-label={product.name}>
-        {variant === 'slim' && (
+      <a className={rootClassName} aria-label={product.name} onMouseLeave={() => setIsHover(false)} onMouseEnter={() => setIsHover(true)}>
+        {variant === 'slim' && !isHover && (
           <>
             <div className={s.header}>
               <span>{product.name}</span>
@@ -61,7 +65,7 @@ const ProductCard: FC<Props> = ({
           </>
         )}
 
-        {variant === 'simple' && (
+        {variant === 'simple' && !isHover && (
           <>
             {process.env.COMMERCE_WISHLIST_ENABLED && (
               <WishlistButton
@@ -69,16 +73,6 @@ const ProductCard: FC<Props> = ({
                 productId={product.id}
                 variant={product.variants[0]}
               />
-            )}
-            {!noNameTag && (
-              <div className={s.header}>
-                <h3 className={s.name}>
-                  <span>{product.name}</span>
-                </h3>
-                <div className={s.price}>
-                  {`${price} ${product.price?.currencyCode}`}
-                </div>
-              </div>
             )}
             <div className={s.imageContainer}>
               {product?.images && (
@@ -99,7 +93,7 @@ const ProductCard: FC<Props> = ({
           </>
         )}
 
-        {variant === 'default' && (
+        {variant === 'default' && !isHover && (
           <>
             {process.env.COMMERCE_WISHLIST_ENABLED && (
               <WishlistButton
@@ -108,10 +102,6 @@ const ProductCard: FC<Props> = ({
                 variant={product.variants[0] as any}
               />
             )}
-            <ProductTag
-              name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
-            />
             <div className={s.imageContainer}>
               {product?.images && (
                 <div>
@@ -130,6 +120,55 @@ const ProductCard: FC<Props> = ({
             </div>
           </>
         )}
+
+        {isHover && (
+          <>
+            <Box
+              role={'group'}
+              p={6}
+              w={'full'}
+              bg={useColorModeValue('white', 'gray.800')}
+              boxShadow={'2xl'}
+              rounded={'lg'}
+              pos={'relative'}
+              zIndex={1}>
+              {process.env.COMMERCE_WISHLIST_ENABLED && (
+                <WishlistButton
+                  className={s.wishlistButton}
+                  productId={product.id}
+                  variant={product.variants[0] as any}
+                />
+              )}
+              <div className={s.imageContainer}>
+                {product?.images && (
+                  <div>
+                    <Image
+                      alt={product.name || 'Product Image'}
+                      className={s.productImage}
+                      src={product.images[0]?.url || placeholderImg}
+                      height={540}
+                      width={540}
+                      quality="85"
+                      layout="responsive"
+                      {...imgProps}
+                    />
+                  </div>
+                )}
+              </div>
+              <Stack backgroundColor={"white"} pt={10} align={'center'}>
+                  <Heading fontSize={'lg'} fontFamily={'body'} fontWeight={500} textAlign={"center"}>
+                    {product.name}
+                  </Heading>
+                  <Stack direction={'row'} align={'center'}>
+                    <Text fontWeight={800} fontSize={'xl'}>
+                    {`${price} ${product.price?.currencyCode}`}
+                    </Text>
+                  </Stack>
+              </Stack>
+            </Box>
+          </>
+        )}
+        
       </a>
     </Link>
   )

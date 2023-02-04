@@ -24,7 +24,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
     onClose: onCloseDrawer,
   } = useDisclosure()
 
-  const { locale } = useRouter()
+  const { locale, pathname } = useRouter()
 
   return (
     <>
@@ -44,7 +44,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
               <nav className={s.navMenu}>
                 <Link href="/search">
                   <a className={s.link}>
-                    {locale === 'it' ? 'Prodotti' : 'Products'}
+                    {locale === 'it' ? 'Vetrina' : 'Shop'}
                   </a>
                 </Link>
                 {links?.map((l) => (
@@ -60,7 +60,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
                 ))}
               </nav>
             </div>
-            {process.env.COMMERCE_SEARCH_ENABLED && (
+            {process.env.COMMERCE_SEARCH_ENABLED && pathname.includes("search") && (
               <div className="justify-center flex-1 hidden lg:flex">
                 <Searchbar />
               </div>
