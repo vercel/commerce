@@ -6,8 +6,6 @@ import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
-import ProductTag from '../ProductTag'
-import ProductCardExtended from '../ProductCardExtended/ProductCardExtended'
 import { Stack, Text, Heading, Box, useColorModeValue } from '@chakra-ui/react'
 
 interface Props {
@@ -40,6 +38,7 @@ const ProductCard: FC<Props> = ({
   )
 
   const [isHover, setIsHover] = useState(false)
+  const hoverCardBgColor = useColorModeValue('white', 'gray.800')
 
   return (
     <Link href={`/product/${product.slug}`}>
@@ -127,7 +126,7 @@ const ProductCard: FC<Props> = ({
               role={'group'}
               p={6}
               w={'full'}
-              bg={useColorModeValue('white', 'gray.800')}
+              bg={hoverCardBgColor}
               zIndex={1}>
               {process.env.COMMERCE_WISHLIST_ENABLED && (
                 <WishlistButton
