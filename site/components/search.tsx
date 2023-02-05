@@ -9,17 +9,10 @@ import type { Product } from '@commerce/types/product'
 
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
-import { Container, Skeleton } from '@components/ui'
+import { Collapse, Container, Skeleton } from '@components/ui'
 
 import useSearch from '@framework/product/use-search'
 import rangeMap from '@lib/range-map'
-
-const SORT = {
-  'trending-desc': 'Trending',
-  'latest-desc': 'Latest arrivals',
-  'price-asc': 'Price: Low to high',
-  'price-desc': 'Price: High to low',
-}
 
 import {
   filterQuery,
@@ -28,6 +21,11 @@ import {
   useSearchMeta,
 } from '@lib/search'
 import ErrorMessage from './ui/ErrorMessage'
+import NavBarFiltersItem from './common/Navbar/NavBarFiltersItem'
+import filtersData from '../static_data/navBarMenuData.json'
+import { Stack } from '@chakra-ui/react'
+import random from 'lodash.random'
+import CategoryListItem from './common/Category/CategoryListItem'
 
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
@@ -53,6 +51,15 @@ export default function Search({ categories, brands }: SearchPropsType) {
     sort: typeof sort === 'string' ? sort : '',
     locale,
   })
+
+  const categoriesItems = filtersData.categories[locale as keyof typeof filtersData.categories]
+
+  const SORT = {
+    'trending-desc': locale === "it" ? "Tendenza" :'Trending',
+    'latest-desc': locale === "it" ? "Ultimi Arrivi" : 'Latest arrivals',
+    'price-asc': locale === "it" ? "Prezzo Crescente" : 'Price: Low to high',
+    'price-desc': locale === "it" ? "Prezzo Decrescente" :'Price: High to low',
+  }
 
   if (error) {
     return <ErrorMessage error={error} />
@@ -132,36 +139,12 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                           }
                         >
-                          All Categories
+                          {locale == "it" ? "Tutte le Categorie" : "All Categories"}
                         </a>
                       </Link>
                     </li>
-                    {categories.map((cat: any) => (
-                      <li
-                        key={cat.path}
-                        className={cn(
-                          'block text-sm leading-5 text-accent-4 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
-                          {
-                            underline: activeCategory?.id === cat.id,
-                          }
-                        )}
-                      >
-                        <Link
-                          href={{
-                            pathname: getCategoryPath(cat.path, brand),
-                            query,
-                          }}
-                        >
-                          <a
-                            onClick={(e) => handleClick(e, 'categories')}
-                            className={
-                              'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
-                            }
-                          >
-                            {cat.name}
-                          </a>
-                        </Link>
-                      </li>
+                    {categoriesItems.map((category: any) => (
+                      <CategoryListItem key={category.label} {...category} />
                     ))}
                   </ul>
                 </div>
@@ -253,7 +236,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   aria-haspopup="true"
                   aria-expanded="true"
                 >
-                  {sort ? SORT[sort as keyof typeof SORT] : 'Relevance'}
+                  {sort ? SORT[sort as keyof typeof SORT] : locale === "it" ? "Rilevanza" : "Relevance"}
                   <svg
                     className="-mr-1 ml-2 h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -296,7 +279,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                           }
                         >
-                          Relevance
+                          {locale === "it" ? "Rilevanza" : "Relevance"}
                         </a>
                       </Link>
                     </li>

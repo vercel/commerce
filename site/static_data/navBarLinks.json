@@ -1,16 +1,8 @@
 {
   "it": [
     {
-      "label": "Categorie",
-      "href": "#"
-    },
-    {
       "label": "Chi Siamo",
       "href": "/about"
-    },
-    {
-      "label": "News",
-      "href": "/news"
     },
     {
       "label": "Contatti",
@@ -19,24 +11,24 @@
     {
       "label": "Dove Siamo",
       "href": "/where-we-are"
+    },
+    {
+      "label": "News",
+      "href": "/news"
     }
   ],
   "en": [
-    {
-      "label": "Categories",
-      "href": "#"
-    },
     {
       "label": "About",
       "href": "/about"
     },
     {
-      "label": "News",
-      "href": "/news"
-    },
-    {
       "label": "Contact",
       "href": "/contact"
+    },
+    {
+      "label": "News",
+      "href": "/news"
     },
     {
       "label": "Where we are",

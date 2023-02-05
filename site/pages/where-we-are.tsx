@@ -28,7 +28,7 @@ export default function WhereWeAre() {
       </Box>
       <Box mt={10}>
         <TableContainer>
-          <Table variant="striped" colorScheme="teal">
+          <Table colorScheme="teal">
             <Thead>
               <Tr>
                 <Th>{locale == 'it' ? 'Giorno' : 'Day of Week'}</Th>

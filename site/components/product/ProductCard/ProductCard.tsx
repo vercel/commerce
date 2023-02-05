@@ -43,7 +43,7 @@ const ProductCard: FC<Props> = ({
 
   return (
     <Link href={`/product/${product.slug}`}>
-      <a className={rootClassName} aria-label={product.name} onMouseLeave={() => setIsHover(false)} onMouseEnter={() => setIsHover(true)}>
+      <a className={rootClassName} aria-label={product.name} onMouseOut={() => setIsHover(false)} onMouseOver={() => setIsHover(true)}>
         {variant === 'slim' && !isHover && (
           <>
             <div className={s.header}>
@@ -128,9 +128,6 @@ const ProductCard: FC<Props> = ({
               p={6}
               w={'full'}
               bg={useColorModeValue('white', 'gray.800')}
-              boxShadow={'2xl'}
-              rounded={'lg'}
-              pos={'relative'}
               zIndex={1}>
               {process.env.COMMERCE_WISHLIST_ENABLED && (
                 <WishlistButton
