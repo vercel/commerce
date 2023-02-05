@@ -132,22 +132,8 @@ const Layout: React.FC<Props> = ({
             </Button>
           }
         />
-        {/** Sendinblue Chat Script to implement Widget */}
-        <Script id="show-banner" strategy="lazyOnload">
-          {`
-            <!-- Sendinblue Conversations {literal} -->
-                (function(d, w, c) {
-                    w.SibConversationsID = '632dab316c8a1e0b083a91c2';
-                    w[c] = w[c] || function() {
-                        (w[c].q = w[c].q || []).push(arguments);
-                    };
-                    var s = d.createElement('script');
-                    s.async = true;
-                    s.src = 'https://conversations-widget.sendinblue.com/sib-conversations.js';
-                    if (d.head) d.head.appendChild(s);
-                })(document, window, 'SibConversations');
-          `}
-        </Script>
+        {/** Tidio Chat Script to implement Widget */}
+        <Script src='//code.tidio.co/nx3mte5iva2dotyph2gt4k2dqei2uwbj.js' async id="show-banner" strategy="lazyOnload"></Script>
       </div>
     </CommerceProvider>
   )
