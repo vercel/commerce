@@ -39,6 +39,7 @@ const ProductCard: FC<Props> = ({
 
   const [isHover, setIsHover] = useState(false)
   const hoverCardBgColor = useColorModeValue('white', 'gray.800')
+  const fontColor = useColorModeValue("black", "black");
 
   return (
     <Link href={`/product/${product.slug}`}>
@@ -152,11 +153,11 @@ const ProductCard: FC<Props> = ({
                 )}
               </div>
               <Stack backgroundColor={"white"} pt={10} align={'center'}>
-                  <Heading fontSize={'lg'} fontFamily={'body'} fontWeight={500} textAlign={"center"}>
+                  <Heading color={fontColor} fontSize={'lg'} fontFamily={'body'} fontWeight={500} textAlign={"center"}>
                     {product.name}
                   </Heading>
                   <Stack direction={'row'} align={'center'}>
-                    <Text fontWeight={800} fontSize={'xl'}>
+                    <Text color={fontColor} fontWeight={800} fontSize={'xl'}>
                     {`${price} ${product.price?.currencyCode}`}
                     </Text>
                   </Stack>

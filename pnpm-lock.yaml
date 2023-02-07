@@ -655,6 +655,7 @@ importers:
       react-merge-refs: ^2.0.1
       react-slick: ^0.29.0
       react-use-measure: ^2.1.1
+      reactjs-img-mapper: ^1.0.3
       screenfull: ^6.0.2
       tabbable: ^5.2.1
       tailwindcss: ^3.0.13
@@ -704,6 +705,7 @@ importers:
       react-merge-refs: 2.0.1
       react-slick: 0.29.0_biqbaboplfbrettd7655fr4n2y
       react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
+      reactjs-img-mapper: 1.0.3_biqbaboplfbrettd7655fr4n2y
       screenfull: 6.0.2
       tabbable: 5.3.3
       tailwindcss: 3.1.8_postcss@8.4.16
@@ -9772,6 +9774,19 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /react-tooltip/4.5.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-Zo+CSFUGXar1uV+bgXFFDe7VeS2iByeIp5rTgTcc2HqtuOS5D76QapejNNfx320MCY91TlhTQat36KGFTqgcvw==}
+    engines: {npm: '>=6.13'}
+    peerDependencies:
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      uuid: 7.0.3
+    dev: false
+
   /react-use-measure/2.1.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-nocZhN26cproIiIduswYpV5y5lQpSQS1y/4KuvUCjSKmw7ZWIS/+g3aFnX3WdBkyuGUtTLif3UTqnLLhbDoQig==}
     peerDependencies:
@@ -9797,6 +9812,18 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+
+  /reactjs-img-mapper/1.0.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-oeYKMH02BjGfoN8x91VeHnYOgrVIpWeNeRh0njHP/1NXl11nTyuHTwVCB9kykrcOUekt+lktUlkIRCKwMYAXRA==}
+    peerDependencies:
+      react: 16.x || 17.x || 18.x
+      react-dom: 16.x || 17.x || 18.x
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-fast-compare: 3.2.0
+      react-tooltip: 4.5.1_biqbaboplfbrettd7655fr4n2y
+    dev: false
 
   /read-cache/1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -11217,6 +11244,11 @@ packages:
     dependencies:
       '@babel/runtime': 7.19.0
       lodash.isplainobject: 4.0.6
+    dev: false
+
+  /uuid/7.0.3:
+    resolution: {integrity: sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==}
+    hasBin: true
     dev: false
 
   /uuid/8.3.2:

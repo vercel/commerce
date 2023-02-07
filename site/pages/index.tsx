@@ -15,9 +15,7 @@ export default function Home() {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const mapDefinition = {
-    name: 'my-map',
-    areas: [
+  const mapAreas = [
       {
         id: '12',
         title: '2000',
@@ -58,8 +56,7 @@ export default function Home() {
         shape: 'poly',
         href: '#',
       },
-    ],
-  }
+    ]
 
   useEffect(() => {
     // Handler to call on window resize
@@ -82,8 +79,6 @@ export default function Home() {
       <section id="mapContainer" className="w-full">
         <div>
           <ImageMapper
-            natural
-            stayHighlighted
             onClick={(area) => {
               setDecadeClicked(area.id!)
               onOpen()
@@ -91,7 +86,7 @@ export default function Home() {
             parentWidth={mapContainerWidth}
             responsive={true}
             src={imagePath}
-            map={mapDefinition}
+            map={{ name: "my-map", areas: mapAreas }}
           ></ImageMapper>
           <PolygonModal
             key={decadeClicked}
