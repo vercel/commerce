@@ -15,7 +15,7 @@
 }
 
 /* Apply base font sizes and styles for typography markup (h2, h2, ul, p, etc.).
-   A helpful addition for whenn page content is consumed from a source managed through a wysiwyg editor. */
+   A helpful addition for when page content is consumed from a source managed through a wysiwyg editor. */
 
 .body :is(h1, h2, h3, h4, h5, h6, p, ul, ol) {
   @apply mb-4;
