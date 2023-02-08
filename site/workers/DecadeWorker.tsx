@@ -1,5 +1,4 @@
 import { MarkerJson } from "@components/common/Room/RoomTypes/RoomTypes"
-import decadesManifest from "../static_data/decadesManifest.json";
 
 export const prepareMarkers = (products: Array<any>, decade: string, roomFilename: string, time: string) => {
 

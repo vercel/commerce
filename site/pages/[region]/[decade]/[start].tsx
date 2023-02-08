@@ -14,7 +14,7 @@ import 'photo-sphere-viewer/dist/plugins/gallery.css'
 import { StereoPlugin } from 'photo-sphere-viewer/dist/plugins/stereo'
 import { VirtualTourPlugin } from 'photo-sphere-viewer/dist/plugins/virtual-tour'
 import { VisibleRangePlugin } from 'photo-sphere-viewer/dist/plugins/visible-range'
-import { RefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import RegionsDataJson from '../../../static_data/navBarMenuData.json'
@@ -22,14 +22,12 @@ import MarkerCardModal from '@components/common/Room/MarkerCardModal/MarkerCardM
 import { useDisclosure } from '@chakra-ui/react'
 
 import decadesManifest from '../../../static_data/decadesManifest.json'
-import productDetailsMetafields from '../../../static_data/productDetailsMetafields.json'
 import {
   MarkerData,
   MarkerJson,
 } from '@components/common/Room/RoomTypes/RoomTypes'
 import { getNodes, getRecursiveMarkers } from 'workers/DecadeWorker'
 import screenfull from 'screenfull'
-import { Stream } from 'stream'
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const decadesPaths = RegionsDataJson.regions

@@ -24,7 +24,6 @@ export default function MarkerCardModal(props: {
     decadesManifest[props.decade as keyof typeof decadesManifest].color
 
   const [width, setWidth] = useState(200)
-  const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false)
 
   const [mapDefinition, setMapDefinition] = useState<any>()
   const [isTransitionCompleted, setIsTransitionComplited] =

@@ -21,10 +21,7 @@ import {
   useSearchMeta,
 } from '@lib/search'
 import ErrorMessage from './ui/ErrorMessage'
-import NavBarFiltersItem from './common/Navbar/NavBarFiltersItem'
 import filtersData from '../static_data/navBarMenuData.json'
-import { Stack } from '@chakra-ui/react'
-import random from 'lodash.random'
 import CategoryListItem from './common/Category/CategoryListItem'
 
 export default function Search({ categories, brands }: SearchPropsType) {
