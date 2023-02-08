@@ -115,7 +115,7 @@ export default function NewsSlider() {
                   color="GrayText"
                 >
                   {card.text.split('<br/>').map((str, index) => (
-                    <p key={index}>{str}</p>
+                    <p className='mb-5' key={index}>{str}</p>
                   ))}
                 </Text>
               </Stack>

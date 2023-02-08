@@ -1,6 +1,5 @@
 import { Layout } from '@components/common'
 import NewsSlider from '@components/common/News/NewsSlider'
-import { Text } from '@components/ui'
 
 export default function News() {
   return (
