@@ -26,8 +26,7 @@ export default function WhereWeAre() {
           {locale == 'it' ? 'Dove Siamo' : 'Where We Are'}
         </Text>
       </Box>
-      <Box mt={10}>
-        <TableContainer>
+      <Box overflow={"auto"} mt={10}>
           <Table colorScheme="teal">
             <Thead>
               <Tr>
@@ -50,7 +49,6 @@ export default function WhereWeAre() {
               )}
             </Tbody>
           </Table>
-        </TableContainer>
       </Box>
     </div>
   )
