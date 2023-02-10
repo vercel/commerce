@@ -19,6 +19,7 @@ import type { Category } from '@commerce/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
 import navBarLinks from '../../../static_data/navBarLinks.json'
 import Script from 'next/script'
+import { useState } from 'react'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -110,14 +111,23 @@ const Layout: React.FC<Props> = ({
   pageProps: { categories = [], ...pageProps },
 }) => {
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { locale = 'it' } = useRouter()
+  const { locale = 'it', pathname } = useRouter()
   const navBarlinks = navBarLinks[locale as keyof typeof navBarLinks]
+
+  console.log(pathname)
 
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
         <Navbar links={navBarlinks} />
-        <main>{children}</main>
+        <style jsx>
+          {
+            `.vintageBackground { 
+              background-color: rgba(240, 226, 123, 0.9)
+             }`
+          }
+        </style>
+        <main className={(pathname.includes("about") || pathname.includes("news")) ? "vintageBackground" : ""}>{children}</main>
         <Footer pages={pageProps.pages} />
         <ModalUI />
         <CheckoutProvider>

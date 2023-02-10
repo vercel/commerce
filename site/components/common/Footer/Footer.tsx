@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import type { Page } from '@commerce/types/page'
 import getSlug from '@lib/get-slug'
 import { Github, Vercel } from '@components/icons'
+import { AtSignIcon, PhoneIcon } from '@chakra-ui/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
 import ThemeSwitcher from '@components/ui/ThemeSwitcher'
@@ -76,12 +77,27 @@ const Footer: FC<Props> = ({ className, pages }) => {
               >
                 <Github />
               </a>
+              <a
+                className={s.link}
+                aria-label="Email"
+                href="mailto:safaraecommerce@protonmail.com"
+              >
+                <AtSignIcon />
+              </a>
+              <a
+                className={s.link}
+                aria-label="Phone"
+                href="tel:+390123456789"
+              >
+                <PhoneIcon />
+              </a>
             </div>
           </div>
         </div>
         <div className="pt-6 pb-10 flex flex-col md:flex-row justify-between items-center space-y-4 text-accent-6 text-sm">
           <div>
             <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
+            <span className='ml-5'>&copy; 2023 Daniele Pancottini All rights reserved.</span>
           </div>
         </div>
       </Container>
