@@ -4,10 +4,11 @@ import useCustomer, {
 } from '@vercel/commerce/customer/use-customer'
 import { getCustomerRoute } from '../utils/token/customer-route'
 import { normalizeCustomer } from '../utils/normalize/normalize-customer'
+import { CustomerHook } from '@vercel/commerce/types/customer'
 
 export default useCustomer as UseCustomer<typeof handler>
 
-export const handler: SWRHook<any> = {
+export const handler: SWRHook<CustomerHook> = {
   fetchOptions: {
     url: `/customers/`,
     method: 'GET',
