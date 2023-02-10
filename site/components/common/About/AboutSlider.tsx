@@ -8,6 +8,7 @@ import {
   Text,
   Container,
 } from '@chakra-ui/react'
+import style from "./AboutSlider.module.css"
 // Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 // And react-slick as our Carousel Lib
@@ -44,85 +45,86 @@ export default function AboutSlider() {
   const cards = aboutJson[locale as keyof typeof aboutJson]
 
   return (
-    <Box
-      position={'relative'}
-      height={'600px'}
-      width={'full'}
-      overflow={'auto'}
-    >
-      {/* CSS files for react-slick */}
-      <link
-        rel="stylesheet"
-        type="text/css"
-        charSet="UTF-8"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-      />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-      />
-      {/* Left Icon */}
-      <IconButton
-        aria-label="left-arrow"
-        variant="ghost"
-        position="absolute"
-        left={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        onClick={() => slider?.slickPrev()}
+      <Box
+        position={'relative'}
+        height={'600px'}
+        width={'full'}
+        overflow={'auto'}
       >
-        <BiLeftArrowAlt size="40px" />
-      </IconButton>
-      {/* Right Icon */}
-      <IconButton
-        aria-label="right-arrow"
-        variant="ghost"
-        position="absolute"
-        right={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        onClick={() => slider?.slickNext()}
-      >
-        <BiRightArrowAlt size="40px" />
-      </IconButton>
-      {/* Slider */}
-      <Slider {...settings} ref={(slider: any) => setSlider(slider)}>
-        {cards.map((card, index) => (
-          <Box
-            key={index}
-            height={'-webkit-fit-content'}
-            position="relative"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-            backgroundSize="cover"
-          >
-            {/* This is the block you need to change, to customize the caption */}
-            <Container
-              maxWidth={'100em'}
-              height="-webkit-fit-content"
+        {/* CSS files for react-slick */}
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charSet="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+        {/* Left Icon */}
+        <IconButton
+          aria-label="left-arrow"
+          variant="ghost"
+          position="absolute"
+          left={side}
+          top={top}
+          transform={'translate(0%, -50%)'}
+          zIndex={2}
+          onClick={() => slider?.slickPrev()}
+        >
+          <BiLeftArrowAlt size="40px" />
+        </IconButton>
+        {/* Right Icon */}
+        <IconButton
+          aria-label="right-arrow"
+          variant="ghost"
+          position="absolute"
+          right={side}
+          top={top}
+          transform={'translate(0%, -50%)'}
+          zIndex={2}
+          onClick={() => slider?.slickNext()}
+        >
+          <BiRightArrowAlt size="40px" />
+        </IconButton>
+        {/* Slider */}
+        <Slider {...settings} ref={(slider: any) => setSlider(slider)}>
+          {cards.map((card, index) => (
+            <Box
+              key={index}
+              height={'-webkit-fit-content'}
               position="relative"
+              backgroundPosition="center"
+              backgroundRepeat="no-repeat"
+              backgroundSize="cover"
             >
-              <Stack spacing={6} w={'full'} maxW={'-webkit-max-content'}>
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-                  {card.title}
-                </Heading>
-                <Text
-                  as={'i'}
-                  fontSize={{ base: 'md', lg: 'lg' }}
-                  color="GrayText"
-                >
-                  {card.text.split('<br/>').map((str, index) => (
-                    <p key={index}>{str}</p>
-                  ))}
-                </Text>
-              </Stack>
-            </Container>
-          </Box>
-        ))}
-      </Slider>
-    </Box>
+              {/* This is the block you need to change, to customize the caption */}
+              <Container
+                maxWidth={'100em'}
+                height="-webkit-fit-content"
+                position="relative"
+              >
+                <Stack spacing={6} w={'full'} maxW={'-webkit-max-content'}>
+                  <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                    {card.title}
+                  </Heading>
+                  <Text
+                    as={"span"}
+                    fontSize={{ base: 'lg', lg: 'xl' }}
+                    color="GrayText"
+                    className={style.aboutSliderText}
+                  >
+                    {card.text.split('<br/>').map((str, index) => (
+                      <p key={index}>{str}</p>
+                    ))}
+                  </Text>
+                </Stack>
+              </Container>
+            </Box>
+          ))}
+        </Slider>
+      </Box>
   )
 }

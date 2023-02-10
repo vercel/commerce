@@ -8,6 +8,7 @@ import {
   Text,
   Container,
 } from '@chakra-ui/react'
+import style from "./NewsSlider.module.css"
 // Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 // And react-slick as our Carousel Lib
@@ -110,9 +111,10 @@ export default function NewsSlider() {
                   {card.title}
                 </Heading>
                 <Text
-                  as={'i'}
-                  fontSize={{ base: 'md', lg: 'lg' }}
+                  as={'span'}
+                  fontSize={{ base: 'xl', lg: '2xl' }}
                   color="GrayText"
+                  className={style.newsSliderText}
                 >
                   {card.text.split('<br/>').map((str, index) => (
                     <p className='mb-5' key={index}>{str}</p>
