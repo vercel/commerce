@@ -6,10 +6,12 @@ import { Text as TextUI } from '@components/ui'
 export default function Contact() {
   return (
     <div className="max-w-2xl mx-8 sm:mx-auto py-20 flex flex-col items-center justify-center fit">
-      <TextUI className='mb-5' variant="heading">Contatti</TextUI>
-      <TextUI className="">
-        Puoi contattarci usando i recapiti che trovi qui sotto...
-      </TextUI>
+      <Box textAlign="center" mb={"10"}>
+        <TextUI className='mb-5' variant="heading">Contatti</TextUI>
+        <TextUI className="">
+          Puoi contattarci usando i recapiti che trovi qui sotto!
+        </TextUI>
+      </Box>
       <Stack direction={['column', 'row']} spacing='24px'>
         <Box textAlign="center" py={10} px={6}>
           <AtSignIcon boxSize={'40px'} color={'orange.300'} />

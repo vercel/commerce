@@ -6,7 +6,7 @@ import s from './ProductCard.module.css'
 import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
-import { Stack, Text, Heading, Box, useColorModeValue } from '@chakra-ui/react'
+import { Stack, Text, Heading, Box, useColorModeValue, Card, CardBody } from '@chakra-ui/react'
 
 interface Props {
   className?: string
@@ -42,132 +42,136 @@ const ProductCard: FC<Props> = ({
   const fontColor = useColorModeValue("black", "black");
 
   return (
-    <Link href={`/product/${product.slug}`}>
-      <a className={rootClassName} aria-label={product.name} onMouseOut={() => setIsHover(false)} onMouseOver={() => setIsHover(true)}>
-        {variant === 'slim' && !isHover && (
-          <>
-            <div className={s.header}>
-              <span>{product.name}</span>
-            </div>
-            {product?.images && (
-              <div>
-                <Image
-                  quality="85"
-                  src={product.images[0]?.url || placeholderImg}
-                  alt={product.name || 'Product Image'}
-                  height={320}
-                  width={320}
-                  layout="fixed"
-                  {...imgProps}
-                />
-              </div>
-            )}
-          </>
-        )}
-
-        {variant === 'simple' && !isHover && (
-          <>
-            {process.env.COMMERCE_WISHLIST_ENABLED && (
-              <WishlistButton
-                className={s.wishlistButton}
-                productId={product.id}
-                variant={product.variants[0]}
-              />
-            )}
-            <div className={s.imageContainer}>
-              {product?.images && (
-                <div>
-                  <Image
-                    alt={product.name || 'Product Image'}
-                    className={s.productImage}
-                    src={product.images[0]?.url || placeholderImg}
-                    height={540}
-                    width={540}
-                    quality="85"
-                    layout="responsive"
-                    {...imgProps}
-                  />
+    <Card>
+      <CardBody>
+        <Link href={`/product/${product.slug}`}>
+          <a className={rootClassName} aria-label={product.name} onMouseOut={() => setIsHover(false)} onMouseOver={() => setIsHover(true)}>
+            {variant === 'slim' && !isHover && (
+              <>
+                <div className={s.header}>
+                  <span>{product.name}</span>
                 </div>
-              )}
-            </div>
-          </>
-        )}
-
-        {variant === 'default' && !isHover && (
-          <>
-            {process.env.COMMERCE_WISHLIST_ENABLED && (
-              <WishlistButton
-                className={s.wishlistButton}
-                productId={product.id}
-                variant={product.variants[0] as any}
-              />
-            )}
-            <div className={s.imageContainer}>
-              {product?.images && (
-                <div>
-                  <Image
-                    alt={product.name || 'Product Image'}
-                    className={s.productImage}
-                    src={product.images[0]?.url || placeholderImg}
-                    height={540}
-                    width={540}
-                    quality="85"
-                    layout="responsive"
-                    {...imgProps}
-                  />
-                </div>
-              )}
-            </div>
-          </>
-        )}
-
-        {isHover && (
-          <>
-            <Box
-              role={'group'}
-              p={6}
-              w={'full'}
-              bg={hoverCardBgColor}
-              zIndex={1}>
-              {process.env.COMMERCE_WISHLIST_ENABLED && (
-                <WishlistButton
-                  className={s.wishlistButton}
-                  productId={product.id}
-                  variant={product.variants[0] as any}
-                />
-              )}
-              <div className={s.imageContainer}>
                 {product?.images && (
                   <div>
                     <Image
-                      alt={product.name || 'Product Image'}
-                      className={s.productImage}
-                      src={product.images[0]?.url || placeholderImg}
-                      height={540}
-                      width={540}
                       quality="85"
-                      layout="responsive"
+                      src={product.images[0]?.url || placeholderImg}
+                      alt={product.name || 'Product Image'}
+                      height={320}
+                      width={320}
+                      layout="fixed"
                       {...imgProps}
                     />
                   </div>
                 )}
-              </div>
-              <Stack backgroundColor={"white"} pt={10} align={'center'}>
-                  <Heading color={fontColor} fontSize={'lg'} fontFamily={'body'} fontWeight={500} textAlign={"center"}>
-                    {product.name}
-                  </Heading>
-                  <Stack direction={'row'} align={'center'}>
-                    <Text color={fontColor} fontWeight={800} fontSize={'xl'}>
-                    {`${price} ${product.price?.currencyCode}`}
-                    </Text>
+              </>
+            )}
+
+            {variant === 'simple' && !isHover && (
+              <>
+                {process.env.COMMERCE_WISHLIST_ENABLED && (
+                  <WishlistButton
+                    className={s.wishlistButton}
+                    productId={product.id}
+                    variant={product.variants[0]}
+                  />
+                )}
+                <div className={s.imageContainer}>
+                  {product?.images && (
+                    <div>
+                      <Image
+                        alt={product.name || 'Product Image'}
+                        className={s.productImage}
+                        src={product.images[0]?.url || placeholderImg}
+                        height={540}
+                        width={540}
+                        quality="85"
+                        layout="responsive"
+                        {...imgProps}
+                      />
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
+            {variant === 'default' && !isHover && (
+              <>
+                {process.env.COMMERCE_WISHLIST_ENABLED && (
+                  <WishlistButton
+                    className={s.wishlistButton}
+                    productId={product.id}
+                    variant={product.variants[0] as any}
+                  />
+                )}
+                <div className={s.imageContainer}>
+                  {product?.images && (
+                    <div>
+                      <Image
+                        alt={product.name || 'Product Image'}
+                        className={s.productImage}
+                        src={product.images[0]?.url || placeholderImg}
+                        height={540}
+                        width={540}
+                        quality="85"
+                        layout="responsive"
+                        {...imgProps}
+                      />
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
+            {isHover && (
+              <>
+                <Box
+                  role={'group'}
+                  p={6}
+                  w={'full'}
+                  bg={hoverCardBgColor}
+                  zIndex={1}>
+                  {process.env.COMMERCE_WISHLIST_ENABLED && (
+                    <WishlistButton
+                      className={s.wishlistButton}
+                      productId={product.id}
+                      variant={product.variants[0] as any}
+                    />
+                  )}
+                  <div className={s.imageContainer}>
+                    {product?.images && (
+                      <div>
+                        <Image
+                          alt={product.name || 'Product Image'}
+                          className={s.productImage}
+                          src={product.images[0]?.url || placeholderImg}
+                          height={540}
+                          width={540}
+                          quality="85"
+                          layout="responsive"
+                          {...imgProps}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <Stack backgroundColor={"white"} pt={10} align={'center'}>
+                      <Heading color={fontColor} fontSize={'lg'} fontFamily={'body'} fontWeight={500} textAlign={"center"}>
+                        {product.name}
+                      </Heading>
+                      <Stack direction={'row'} align={'center'}>
+                        <Text color={fontColor} fontWeight={800} fontSize={'xl'}>
+                        {`${price} ${product.price?.currencyCode}`}
+                        </Text>
+                      </Stack>
                   </Stack>
-              </Stack>
-            </Box>
-          </>
-        )}
-        
-      </a>
-    </Link>
+                </Box>
+              </>
+            )}
+            
+          </a>
+        </Link>
+      </CardBody>
+    </Card>
   )
 }
 
