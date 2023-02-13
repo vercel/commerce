@@ -69,7 +69,11 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           <Text variant="sectionHeading">Related Products</Text>
           <div className={s.relatedProductsGrid}>
             {relatedProducts.map((p) => (
-              <div key={p.path} className="bg-accent-0 border border-accent-2">
+              <div
+                key={p.path}
+                className="bg-accent-0 border border-accent-2"
+                data-test="relatedProducts"
+              >
                 <ProductCard
                   noNameTag
                   product={p}

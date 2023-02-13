@@ -73,7 +73,7 @@ const CartSidebarView: FC = () => {
       ) : (
         <>
           <div className="px-4 sm:px-6 flex-1">
-            <Link href="/cart">
+            <Link href="/cart" data-test="goToCart">
               <Text variant="sectionHeading" onClick={handleClose}>
                 My Cart
               </Text>

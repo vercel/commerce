@@ -14,6 +14,7 @@ const ProductSliderControl: FC<ProductSliderControl> = ({ onPrev, onNext }) => (
       className={cn(s.leftControl)}
       onClick={onPrev}
       aria-label="Previous Product Image"
+      data-test="previousProductImage"
     >
       <ArrowLeft />
     </button>
@@ -21,6 +22,7 @@ const ProductSliderControl: FC<ProductSliderControl> = ({ onPrev, onNext }) => (
       className={cn(s.rightControl)}
       onClick={onNext}
       aria-label="Next Product Image"
+      data-test="nextProductImage"
     >
       <ArrowRight />
     </button>

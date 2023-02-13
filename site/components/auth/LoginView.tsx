@@ -61,6 +61,7 @@ const LoginView: React.FC = () => {
     <form
       onSubmit={handleLogin}
       className="w-80 flex flex-col justify-between p-3"
+      data-test="loginModal"
     >
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
@@ -77,12 +78,23 @@ const LoginView: React.FC = () => {
             </a>
           </div>
         )}
-        <Input type="email" placeholder="Email" onChange={setEmail} />
-        <Input type="password" placeholder="Password" onChange={setPassword} />
+        <Input
+          type="email"
+          placeholder="Email"
+          data-test="signin-email"
+          onChange={setEmail}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          data-test="signin-password"
+          onChange={setPassword}
+        />
 
         <Button
           variant="slim"
           type="submit"
+          data-test="signin-submit"
           loading={loading}
           disabled={disabled}
         >
@@ -93,6 +105,7 @@ const LoginView: React.FC = () => {
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"
+            data-test="signup"
             onClick={() => setModalView('SIGNUP_VIEW')}
           >
             Sign Up

@@ -70,6 +70,7 @@ export default function CustomerMenuContent() {
       <DropdownMenuItem>
         <a
           className={cn(s.link, 'border-t border-accent-2 mt-4')}
+          data-test="logoutButton"
           onClick={() => logout()}
         >
           Logout

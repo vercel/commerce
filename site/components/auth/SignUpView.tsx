@@ -70,6 +70,7 @@ const SignUpView: FC<Props> = () => {
     <form
       onSubmit={handleSignup}
       className="w-80 flex flex-col justify-between p-3"
+      data-test="signupModal"
     >
       <div className="flex justify-center pb-12 ">
         <Logo width="64px" height="64px" />
@@ -83,10 +84,28 @@ const SignUpView: FC<Props> = () => {
             }}
           ></div>
         )}
-        <Input placeholder="First Name" onChange={setFirstName} />
-        <Input placeholder="Last Name" onChange={setLastName} />
-        <Input type="email" placeholder="Email" onChange={setEmail} />
-        <Input type="password" placeholder="Password" onChange={setPassword} />
+        <Input
+          data-test="signup-first-name"
+          placeholder="First Name"
+          onChange={setFirstName}
+        />
+        <Input
+          data-test="signup-last-name"
+          placeholder="Last Name"
+          onChange={setLastName}
+        />
+        <Input
+          type="email"
+          placeholder="Email"
+          data-test="signup-email"
+          onChange={setEmail}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          data-test="signup-password"
+          onChange={setPassword}
+        />
         <span className="text-accent-8">
           <span className="inline-block align-middle ">
             <Info width="15" height="15" />
@@ -100,6 +119,7 @@ const SignUpView: FC<Props> = () => {
           <Button
             variant="slim"
             type="submit"
+            data-test="signup-submit"
             loading={loading}
             disabled={disabled}
           >
@@ -112,6 +132,7 @@ const SignUpView: FC<Props> = () => {
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"
+            data-test="LogIn"
             onClick={() => setModalView('LOGIN_VIEW')}
           >
             Log In

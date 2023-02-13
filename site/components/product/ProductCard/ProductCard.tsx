@@ -46,7 +46,7 @@ const ProductCard: FC<Props> = ({
       {variant === 'slim' && (
         <>
           <div className={s.header}>
-            <span>{product.name}</span>
+            <span>{product.name} </span>
           </div>
           {product?.images && (
             <Image
@@ -72,10 +72,10 @@ const ProductCard: FC<Props> = ({
           )}
           {!noNameTag && (
             <div className={s.header}>
-              <h3 className={s.name}>
+              <h3 className={s.name} data-test="productName">
                 <span>{product.name}</span>
               </h3>
-              <div className={s.price}>
+              <div className={s.price} data-test="productPrice">
                 {`${price} ${product.price?.currencyCode}`}
               </div>
             </div>

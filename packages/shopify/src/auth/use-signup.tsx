@@ -46,7 +46,7 @@ export const handler: MutationHook<SignupHook> = {
     })
 
     throwUserErrors(customerCreate?.customerUserErrors)
-    await handleAutomaticLogin(fetch, { email, password })
+    //await handleAutomaticLogin(fetch, { email, password })
 
     return null
   },

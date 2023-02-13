@@ -38,6 +38,7 @@ const UserNav: React.FC<{
           <li className={s.item}>
             <Button
               className={s.item}
+              data-test="cartItems"
               variant="naked"
               onClick={() => {
                 setSidebarView('CART_VIEW')
@@ -62,12 +63,13 @@ const UserNav: React.FC<{
           </li>
         )}
         {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
-          <li className={s.item}>
+          <li className={s.item} data-test="avatarButton">
             <Dropdown>
               <DropdownTrigger>
                 <button
                   aria-label="Menu"
                   className={s.avatarButton}
+                  data-set="avatarButton"
                   onClick={() => (isCustomerLoggedIn ? null : openModal())}
                 >
                   <Avatar />

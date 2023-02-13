@@ -91,6 +91,7 @@ export default function Cart() {
                   key={item.id}
                   item={item}
                   currencyCode={data?.currency.code!}
+                  data-test="removeItem"
                 />
               ))}
             </ul>
