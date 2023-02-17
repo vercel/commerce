@@ -9,7 +9,7 @@ import {
 import decadesManifest from '../../../../static_data/decadesManifest.json'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
-import ImageMapper from 'reactjs-img-mapper'
+import ImageMapper from 'react-img-mapper'
 import Image from 'next/image'
 
 export default function MarkerCardModal(props: {

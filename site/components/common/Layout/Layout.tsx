@@ -114,8 +114,6 @@ const Layout: React.FC<Props> = ({
   const { locale = 'it', pathname } = useRouter()
   const navBarlinks = navBarLinks[locale as keyof typeof navBarLinks]
 
-  console.log(pathname)
-
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
