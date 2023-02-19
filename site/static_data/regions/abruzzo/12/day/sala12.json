@@ -1,0 +1,18 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "giochi-play-station-4",
+      "longitude": 0.49850512054441715,
+      "latitude": 0.10379960493939633
+    },
+    {
+      "markerType": "image",
+      "markerSource": "mare adriatico.jpg",
+      "resourceName": "Mare Adriatico",
+      "resourceCaption": null,
+      "longitude": 0.16665706371425573,
+      "latitude": -0.03327868548226798
+    }
+  ]
+}

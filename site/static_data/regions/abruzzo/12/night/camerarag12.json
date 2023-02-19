@@ -1,0 +1,36 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "portafogli-montblanc-uomo",
+      "longitude": 0.8076390398719338,
+      "latitude": -0.23343815758553665
+    },
+    {
+      "markerType": "product",
+      "markerSource": "ipad-6-silver-32gb-wifi-perfetto",
+      "longitude": 4.153701699026837,
+      "latitude": -0.93714594613362
+    },
+    {
+      "markerType": "product",
+      "markerSource": "mattel-action-figure-wwe-sheamus",
+      "longitude": 3.092122707088536,
+      "latitude": 0.0011851064060353078
+    },
+    {
+      "markerType": "product",
+      "markerSource": "sneakers-buscemi-dollaro-rosso-n-41-perfette",
+      "longitude": 3.0923703239852918,
+      "latitude": -0.2578794019235435
+    },
+    {
+      "markerType": "image",
+      "markerSource": "torre cerrano notte.jpeg",
+      "resourceName": "Torre di Cerrano (Pineto) di notte",
+      "resourceCaption": null,
+      "longitude": 0.5464046827247488,
+      "latitude": 0.09776959498871163
+    }
+  ]
+}

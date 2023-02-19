@@ -1,0 +1,12 @@
+{
+  "markers": [
+    {
+      "markerType": "image",
+      "markerSource": "trabocco.jpg",
+      "resourceName": "Costa dei Trabocchi",
+      "resourceCaption": null,
+      "longitude": 5.827422076030919,
+      "latitude": 0.25229744692420364
+    }
+  ]
+}

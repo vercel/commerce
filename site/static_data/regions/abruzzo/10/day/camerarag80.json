@@ -1,0 +1,18 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "macchina-fotografica-chinon-cm-4s-perfetta-vintage",
+      "longitude": 0.8874928632836481,
+      "latitude": -0.0879156475475007
+    },
+    {
+      "markerType": "image",
+      "markerSource": "bosco sant antonio.jpeg",
+      "resourceName": "Il bosco di Sant'Antonio",
+      "resourceCaption": null,
+      "longitude": 0.9897251037143722,
+      "latitude": 0.1715588260560197
+    }
+  ]
+}

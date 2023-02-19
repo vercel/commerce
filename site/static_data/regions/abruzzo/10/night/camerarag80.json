@@ -1,0 +1,18 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "macchina-fotografica-chinon-cm-4s-perfetta-vintage",
+      "longitude": 0.8874928632836481,
+      "latitude": -0.0879156475475007
+    },
+    {
+      "markerType": "image",
+      "markerSource": "bosco di sant antonio notte.jpeg",
+      "resourceName": "Il bosco di Sant'Antonio di notte",
+      "resourceCaption": null,
+      "longitude": 0.8856565275445835,
+      "latitude": 0.11933925163210213
+    }
+  ]
+}

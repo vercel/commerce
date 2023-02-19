@@ -1,0 +1,12 @@
+{
+  "markers": [
+    {
+      "markerType": "image",
+      "markerSource": "majella.jpg",
+      "resourceName": "Parco Nazionale della Majella",
+      "resourceCaption": null,
+      "longitude": 5.776880718816546,
+      "latitude": 0.07471682265245305
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "ipad-6-silver-32gb-wifi-perfetto",
+      "longitude": 0.9507451122465999,
+      "latitude": -0.36418841784317335
+    },
+    {
+      "markerType": "product",
+      "markerSource": "apple-watch-serie-5-grigio-siderale-40mm",
+      "longitude": 0.8829177579472857,
+      "latitude": -0.3330558189453512
+    },
+    {
+      "markerType": "image",
+      "markerSource": "rocca calascio.jpg",
+      "resourceName": "Rocca Calascio",
+      "resourceCaption": null,
+      "longitude": 5.8108317426882286,
+      "latitude": 0.3171483721817996
+    }
+  ]
+}

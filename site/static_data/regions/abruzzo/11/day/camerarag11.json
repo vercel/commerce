@@ -1,0 +1,12 @@
+{
+  "markers": [
+    {
+      "markerType": "image",
+      "markerSource": "lanciano.jpg",
+      "resourceName": "Lanciano",
+      "resourceCaption": null,
+      "longitude": 0.6370530252127358,
+      "latitude": 0.13662321880460504
+    }
+  ]
+}

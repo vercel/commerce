@@ -1,0 +1,18 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "giochi-play-station-4",
+      "longitude": 0.49850512054441715,
+      "latitude": 0.10379960493939633
+    },
+    {
+      "markerType": "image",
+      "markerSource": "mare adriatico notte.jpg",
+      "resourceName": "Mare Adriatico di notte",
+      "resourceCaption": null,
+      "longitude": 0.17296533241976647,
+      "latitude": 0.006228719838161201
+    }
+  ]
+}

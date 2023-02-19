@@ -1,0 +1,12 @@
+{
+  "markers": [
+    {
+      "markerType": "image",
+      "markerSource": "gran sasso.jpeg",
+      "resourceName": "Il Gran Sasso",
+      "resourceCaption": null,
+      "longitude": 0.18589811520873642,
+      "latitude": 0.07931682905959381
+    }
+  ]
+}

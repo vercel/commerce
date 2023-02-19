@@ -1,0 +1,18 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "sigaretta-elettronica-blu-fill-classic-nera",
+      "longitude": 2.707255494137014,
+      "latitude": -0.09079985019224002
+    },
+    {
+      "markerType": "image",
+      "markerSource": "eremo san nicola.jpg",
+      "resourceName": "Eremo di San Nicola (Gran Sasso)",
+      "resourceCaption": null,
+      "longitude": 0.38817856280659346,
+      "latitude": 0.1526852675583492
+    }
+  ]
+}

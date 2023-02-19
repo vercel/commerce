@@ -1,0 +1,20 @@
+{
+  "markers": [
+    {
+      "markerType": "image",
+      "markerSource": "gran sasso notte.jpeg",
+      "resourceName": "Il Gran Sasso di notte",
+      "resourceCaption": null,
+      "longitude": 0.1242543597828289,
+      "latitude": -0.03519853645331228
+    },
+    {
+      "markerType": "image",
+      "markerSource": "gran sasso notte.jpeg",
+      "resourceName": "Il Gran Sasso di notte",
+      "resourceCaption": null,
+      "longitude": 4.356934670630273,
+      "latitude": -0.02375990954963947
+    }
+  ]
+}
