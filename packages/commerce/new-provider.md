@@ -215,6 +215,52 @@ export const handler: MutationHook<AddItemHook> = {
 }
 ```
 
+The `fetcher` should be updated as well to hit API endpoints with appropriate methods, body, and headers, or throw errors.
+
+```tsx
+import { FetcherError } from '@vercel/commerce/utils/errors'
+import type { Fetcher } from '@vercel/commerce/utils/types'
+
+async function getText(res: Response) {
+  try {
+    return (await res.text()) || res.statusText
+  } catch (error) {
+    return res.statusText
+  }
+}
+
+async function getError(res: Response) {
+  if (res.headers.get('Content-Type')?.includes('application/json')) {
+    const data = await res.json()
+    return new FetcherError({ errors: data.errors, status: res.status })
+  }
+  return new FetcherError({ message: await getText(res), status: res.status })
+}
+
+const fetcher: Fetcher = async ({
+  url,
+  method = 'GET',
+  variables,
+  body: bodyObj,
+}) => {
+  const hasBody = Boolean(variables || bodyObj)
+  const body = hasBody
+    ? JSON.stringify(variables ? { variables } : bodyObj)
+    : undefined
+  const headers = hasBody ? { 'Content-Type': 'application/json' } : undefined
+  const res = await fetch(url!, { method, body, headers })
+
+  if (res.ok) {
+    const { data } = await res.json()
+    return data
+  }
+
+  throw await getError(res)
+}
+
+export default fetcher
+```
+
 ## Showing progress and features
 
 When creating a PR for a new provider, include this list in the PR description and mark the progress as you push so we can organize the code review. Not all points are required (but advised) so make sure to keep the list up to date.
