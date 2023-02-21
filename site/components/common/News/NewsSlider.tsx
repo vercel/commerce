@@ -113,7 +113,7 @@ export default function NewsSlider() {
                 <Text
                   as={'span'}
                   fontSize={{ base: 'xl', lg: '2xl' }}
-                  color="GrayText"
+                  color="gray.800"
                   className={style.newsSliderText}
                 >
                   {card.text.split('<br/>').map((str, index) => (

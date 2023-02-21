@@ -113,7 +113,7 @@ export default function AboutSlider() {
                   <Text
                     as={"span"}
                     fontSize={{ base: 'xl', lg: '2xl' }}
-                    color="GrayText"
+                    color="gray.800"
                     className={style.aboutSliderText}
                   >
                     {card.text.split('<br/>').map((str, index) => (
