@@ -12,18 +12,22 @@ export default function ImageCardContent(props: {
             <Box
               className={props.style.imageContainer}
               w={'full'}
-              height={'220px'}
               >
-                
-                <Image cursor={'pointer'} onClick={() => openFullScreen('resource-image')} id='resource-image' alt='Resource Image Not Found' src={props.resourcePath} />
-            
+                <Image 
+                  objectFit={"cover"} 
+                  margin={"auto"}
+                  cursor={'pointer'}
+                  onClick={() => openFullScreen('resource-image')} 
+                  id='resource-image' 
+                  alt='' 
+                  src={props.resourcePath} />
             </Box>
             
             <Box 
               p={5}
               className={props.style.captionContainer}>
               
-              <Stack mt={6} align={'center'}>
+              <Stack align={'center'}>
                 <Text padding={0} color={'gray.500'} fontSize={'sm'} align={'center'}>
                   {props.resourceCaption}
                 </Text>
