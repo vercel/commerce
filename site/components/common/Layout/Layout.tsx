@@ -121,7 +121,7 @@ const Layout: React.FC<Props> = ({
         <style jsx>
           {
             `.vintageBackground { 
-              background-color: rgba(240, 226, 123, 0.9)
+              background-color: rgba(240, 226, 123, 0.8)
              }`
           }
         </style>

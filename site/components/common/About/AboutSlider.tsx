@@ -107,12 +107,12 @@ export default function AboutSlider() {
                 position="relative"
               >
                 <Stack spacing={6} w={'full'} maxW={'-webkit-max-content'}>
-                  <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                  <Heading color={card.titleColor} className={style.aboutSliderHeading} fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
                     {card.title}
                   </Heading>
                   <Text
                     as={"span"}
-                    fontSize={{ base: 'lg', lg: 'xl' }}
+                    fontSize={{ base: 'xl', lg: '2xl' }}
                     color="GrayText"
                     className={style.aboutSliderText}
                   >

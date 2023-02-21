@@ -107,7 +107,7 @@ export default function NewsSlider() {
               position="relative"
             >
               <Stack spacing={6} w={'full'} maxW={'-webkit-max-content'}>
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                <Heading color={card.titleColor} className={style.newsSliderHeading} fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
                   {card.title}
                 </Heading>
                 <Text

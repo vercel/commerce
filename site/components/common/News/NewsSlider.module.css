@@ -4,3 +4,7 @@
 .newsSliderText {
     font-family: 'Dancing Script', cursive;
 }
+
+.newsSliderHeading {
+    font-family: 'Dancing Script', cursive !important;
+}
