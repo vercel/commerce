@@ -63,6 +63,7 @@ export default function ProductCardRoom(props: {
                 objectFit={'cover'}
                 margin={'auto'}
                 height={'inherit'}
+                alt={"Product Image"}
               />
             </Link>
           </NextLink>
