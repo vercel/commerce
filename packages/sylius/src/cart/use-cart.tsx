@@ -3,10 +3,11 @@ import { SWRHook } from '@vercel/commerce/utils/types'
 import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 import { getCartToken } from '../utils/token/cart-token'
 import { normalizeCart } from '../utils/normalize/normalize-cart'
+import { GetCartHook } from '@vercel/commerce/types/cart'
 
 export default useCart as UseCart<typeof handler>
 
-export const handler: SWRHook<any> = {
+export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
     url: `/api/v2/shop/orders`,
     method: 'GET',
