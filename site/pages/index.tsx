@@ -70,8 +70,8 @@ export default function Home() {
       },
       {
         id: '8',
-        title: '1970',
-        name: '1970',
+        title: '1960',
+        name: '1960',
         fillColor: '#1ACBFF',
         strokeColor: 'black',
         coords: [
