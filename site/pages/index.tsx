@@ -56,6 +56,30 @@ export default function Home() {
         shape: 'poly',
         href: '#',
       },
+      {
+        id: '9',
+        title: '1970',
+        name: '1970',
+        fillColor: '#1A82FF',
+        strokeColor: 'black',
+        coords: [
+          2279,279,2496,356,2616,562,2579,779,2407,929,2174,929,1995,779,1958,553,2077,360
+        ],
+        shape: 'poly',
+        href: '#',
+      },
+      {
+        id: '8',
+        title: '1970',
+        name: '1970',
+        fillColor: '#1ACBFF',
+        strokeColor: 'black',
+        coords: [
+          1707,535,1896,615,1980,809,1897,996,1710,1071,1515,989,1448,794,1523,614
+        ],
+        shape: 'poly',
+        href: '#',
+      },
     ]
 
   useEffect(() => {

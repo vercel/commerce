@@ -43,15 +43,15 @@
   },
   "8": {
     "name": "1960",
-    "color": "#2ecc71",
-    "polygon": "octagon.svg",
-    "enabled": false
+    "color": "#00B1FF",
+    "polygon": "8.svg",
+    "enabled": true
   },
   "9": {
     "name": "1970",
     "color": "#0068FF",
-    "polygon": "enneagon.svg",
-    "enabled": false
+    "polygon": "9.svg",
+    "enabled": true
   },
   "10": {
     "name": "1980",
