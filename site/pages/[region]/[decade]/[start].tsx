@@ -244,6 +244,11 @@ export default function RoomPage({
             renderMode: VirtualTourPlugin.MODE_MARKERS,
             nodes: virtualTourNodes,
             startNodeId: startNode,
+            markerStyle: {
+              style: {
+                color: decadesManifest[decade as keyof typeof decadesManifest].color
+              }
+            }
           },
         ],
       ],
