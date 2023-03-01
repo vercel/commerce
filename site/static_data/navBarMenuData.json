@@ -138,7 +138,7 @@
             "enabled": true
           },
           {
-            "label": "Ferramente e Bricolage",
+            "label": "Ferramenta e Bricolage",
             "href": "#",
             "enabled": true
           },
@@ -164,6 +164,16 @@
             "enabled": true
           },
           {
+            "label": "CD, DVD, Vinili",
+            "href": "#",
+            "enabled": true
+          },
+          {
+            "label": "Collezionismo",
+            "href": "#",
+            "enabled": true
+          },
+          {
             "label": "Giochi e Giocattoli",
             "href": "#",
             "enabled": true
@@ -175,11 +185,6 @@
           },
           {
             "label": "Strumenti Musicali",
-            "href": "#",
-            "enabled": true
-          },
-          {
-            "label": "CD, DVD, Vinili",
             "href": "#",
             "enabled": true
           }
@@ -206,6 +211,11 @@
           },
           {
             "label": "Moto e Scooter",
+            "href": "#",
+            "enabled": true
+          },
+          {
+            "label": "Veicoli Elettrici",
             "href": "#",
             "enabled": true
           }
@@ -370,6 +380,11 @@
             "label": "CD, DVD, Vinyl",
             "href": "#",
             "enabled": true
+          },
+          {
+            "label": "Collecting",
+            "href": "#",
+            "enabled": true
           }
         ],
         "enabled": true
@@ -394,6 +409,11 @@
           },
           {
             "label": "Motorcycle and Scooter",
+            "href": "#",
+            "enabled": true
+          },
+          {
+            "label": "Electric Vehicles",
             "href": "#",
             "enabled": true
           }
