@@ -10,15 +10,20 @@ import cn from 'clsx'
 import { a } from '@react-spring/web'
 import s from './ProductSlider.module.css'
 import ProductSliderControl from '../ProductSliderControl'
+import random from 'lodash.random'
 
 interface ProductSliderProps {
   children?: React.ReactNode[]
-  className?: string
+  className?: string,
+  lighterColor: string,
+  darkerColor: string
 }
 
 const ProductSlider: React.FC<ProductSliderProps> = ({
   children,
   className = '',
+  lighterColor,
+  darkerColor
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
@@ -81,9 +86,10 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     <div className={cn(s.root, className)} ref={sliderContainerRef}>
       <div
         ref={ref}
+        style={{backgroundColor: lighterColor}}
         className={cn(s.slider, { [s.show]: isMounted }, 'keen-slider')}
       >
-        {slider && <ProductSliderControl onPrev={onPrev} onNext={onNext} />}
+        {slider && <ProductSliderControl lighterColor={lighterColor} darkerColor={darkerColor} onPrev={onPrev} onNext={onNext} />}
         {Children.map(children, (child) => {
           // Add the keen-slider__slide className to children
           if (isValidElement(child)) {
@@ -101,7 +107,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
         })}
       </div>
 
-      <a.div className={s.album} ref={thumbsContainerRef}>
+      <a.div style={{backgroundColor: darkerColor}} className={s.album} ref={thumbsContainerRef}>
         {slider &&
           Children.map(children, (child, idx) => {
             if (isValidElement(child)) {

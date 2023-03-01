@@ -14,6 +14,7 @@ import ProductModel from '../ProductModel/ProductModel'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
 import { useRouter } from 'next/router'
+import random from 'lodash.random'
 
 interface ProductViewProps {
   product: Product
@@ -40,6 +41,10 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   const [isLightboxOpen, setLightboxOpen] = useState(false)
   const { locale = 'it' } = useRouter()
 
+  const colors = [random(255), random(255), random(255)]
+  const darkerColor = "rgba(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ", 1)"
+  const lighterColor = "rgba(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ", 0.8)"
+
   return (
     <>
       <Container className="max-w-none w-full" clean>
@@ -51,7 +56,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               fontSize={28}
             />
             <div className={s.sliderContainer}>
-              <ProductSlider key={product.id}>
+              <ProductSlider darkerColor={darkerColor} lighterColor={lighterColor} key={product.id}>
                 {product.images.map((image, i) => (
                   <div key={image.url} className={s.imageContainer}>
                     <Image

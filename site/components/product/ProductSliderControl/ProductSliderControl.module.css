@@ -10,11 +10,6 @@
   transition: background-color 0.2s ease;
 }
 
-.leftControl:hover,
-.rightControl:hover {
-  background-color: var(--violet-dark);
-}
-
 .leftControl:focus,
 .rightControl:focus {
   @apply outline-none;
