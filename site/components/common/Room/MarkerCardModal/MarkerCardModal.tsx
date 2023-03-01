@@ -37,7 +37,7 @@ export default function MarkerCardModal(props: {
 
     return (
       <>
-        <Modal onClose={props.onModalClose} isOpen={props.isOpen} isCentered>
+        <Modal onClose={props.onModalClose} isOpen={props.isOpen}>
           <ModalOverlay />
           <ModalContent rounded={"lg"}>
             <ModalBody rounded={"lg"} style={{background: 'linear-gradient(120deg, ' + decadeColor + ' 0%, #000000 130%)'}} p={5}>
