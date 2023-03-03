@@ -1,3 +1,4 @@
+import { Stack, Text } from '@chakra-ui/react'
 import cn from 'clsx'
 import s from './ProductTag.module.css'
 
@@ -5,12 +6,14 @@ interface ProductTagProps {
   className?: string
   name: string
   price: string
+  listPrice: string
   fontSize?: number
 }
 
 const ProductTag: React.FC<ProductTagProps> = ({
   name,
   price,
+  listPrice,
   className = '',
   fontSize = 32,
 }) => {
@@ -27,7 +30,16 @@ const ProductTag: React.FC<ProductTagProps> = ({
           {name}
         </span>
       </h3>
-      <div className={s.price}>{price}</div>
+      <div className={s.price}>
+        <Stack direction={'row'} align={'center'}>
+            <Text fontWeight={800} fontSize={'xl'}>
+              {price}
+            </Text>
+            <Text textDecoration={'line-through'} color={'gray.600'}>
+              {listPrice}
+            </Text>
+        </Stack>
+      </div>
     </div>
   )
 }

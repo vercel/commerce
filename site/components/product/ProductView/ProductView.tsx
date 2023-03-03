@@ -28,6 +28,11 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
     currencyCode: product.price.currencyCode!,
   })
 
+  const listPrice = usePrice({
+      amount: (product.variants[0].listPrice) ? product.variants[0].listPrice : -1,
+      currencyCode: product.price.currencyCode!,
+  }).price
+  
   const model3dPath = product.media
     .map((media) => {
       return media.sources
@@ -52,7 +57,8 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           <div className={cn(s.main, 'fit')}>
             <ProductTag
               name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
+              price={`${price}`}
+              listPrice={listPrice.includes("-") ? "" : listPrice}
               fontSize={28}
             />
             <div className={s.sliderContainer}>

@@ -55,6 +55,7 @@ export type ProductMetafield = {
 }
 
 export interface ProductVariant {
+  listPrice: number | undefined
   /**
    *  The unique identifier for the variant.
    */
