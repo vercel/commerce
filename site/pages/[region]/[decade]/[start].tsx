@@ -222,13 +222,6 @@ export default function RoomPage({
     const shperePlayerInstance = new Viewer({
       container: 'roomViewer',
       plugins: [
-        [
-          VisibleRangePlugin,
-          {
-            longitudeRange: [null],
-            latitudeRange: [-Math.PI / 2, Math.PI / 4], //Restrict range so you can't see the top of the pano
-          },
-        ],
         [GyroscopePlugin, StereoPlugin],
         MarkersPlugin,
         [
