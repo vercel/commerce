@@ -12,6 +12,7 @@ import ProductSidebar from '../ProductSidebar'
 import ProductTag from '../ProductTag'
 import ProductModel from '../ProductModel/ProductModel'
 import Lightbox from 'yet-another-react-lightbox'
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import 'yet-another-react-lightbox/styles.css'
 import { useRouter } from 'next/router'
 import random from 'lodash.random'
@@ -89,6 +90,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
               </ProductSlider>
               <Lightbox
                 open={isLightboxOpen}
+                plugins={[Zoom]}
                 close={() => setLightboxOpen(false)}
                 slides={product.images.map((image) => {
                   return {
