@@ -45,7 +45,14 @@ const ProductCard: FC<Props> = ({
     <Card>
       <CardBody>
         <Link href={`/product/${product.slug}`}>
-          <a className={rootClassName} aria-label={product.name} onMouseOut={() => setIsHover(false)} onMouseOver={() => setIsHover(true)}>
+          <a 
+            className={rootClassName}
+            aria-label={product.name} 
+            onTouchStart={() => setIsHover(true)} 
+            onTouchEnd={() => setIsHover(false)} 
+            onMouseOut={() => setIsHover(false)}
+            onMouseOver={() => setIsHover(true)}
+          >
             {variant === 'slim' && !isHover && (
               <>
                 <div className={s.header}>
