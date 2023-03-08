@@ -1,6 +1,6 @@
 import type { CommerceAPI, CommerceAPIConfig } from '@vercel/commerce/api'
 import { getCommerceApi as commerceApi } from '@vercel/commerce/api'
-import { createBuyerFetcher, createMiddlewareFetcher } from './utils/fetch-rest'
+import { createBuyerFetcher } from './utils/fetch-rest'
 import createGraphqlFetcher from './utils/fetch-graphql'
 
 import getAllPages from './operations/get-all-pages'
@@ -25,12 +25,6 @@ export interface OrdercloudConfig extends CommerceAPIConfig {
     body?: Record<string, unknown>,
     fetchOptions?: Record<string, any>
   ) => Promise<T>
-  restMiddlewareFetch: <T>(
-    method: string,
-    resource: string,
-    body?: Record<string, unknown>,
-    fetchOptions?: Record<string, any>
-  ) => Promise<T>
   apiVersion: string
   tokenCookie: string
 }
@@ -44,9 +38,6 @@ const config: OrdercloudConfig = {
   tokenCookie: TOKEN_COOKIE,
   cartCookieMaxAge: 2592000,
   restBuyerFetch: createBuyerFetcher(() => getCommerceApi().getConfig()),
-  restMiddlewareFetch: createMiddlewareFetcher(() =>
-    getCommerceApi().getConfig()
-  ),
   fetch: createGraphqlFetcher(() => getCommerceApi().getConfig()),
 }
 

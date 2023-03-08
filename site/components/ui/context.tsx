@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react'
+import React, { FC, ReactNode, useCallback, useMemo } from 'react'
 import { ThemeProvider } from 'next-themes'
 
 export interface State {
@@ -124,7 +124,7 @@ function uiReducer(state: State, action: Action) {
   }
 }
 
-export const UIProvider: FC = (props) => {
+export const UIProvider: FC<{ children?: ReactNode }> = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState)
 
   const openSidebar = useCallback(
@@ -195,6 +195,7 @@ export const UIProvider: FC = (props) => {
       setSidebarView,
       setUserAvatar,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]
   )
 
@@ -209,7 +210,9 @@ export const useUI = () => {
   return context
 }
 
-export const ManagedUIContext: FC = ({ children }) => (
+export const ManagedUIContext: FC<{ children?: ReactNode }> = ({
+  children,
+}) => (
   <UIProvider>
     <ThemeProvider>{children}</ThemeProvider>
   </UIProvider>

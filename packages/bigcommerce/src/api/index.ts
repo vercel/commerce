@@ -1,4 +1,3 @@
-import type { RequestInit } from '@vercel/fetch'
 import {
   CommerceAPI,
   CommerceAPIConfig,
@@ -35,7 +34,14 @@ export interface BigcommerceConfig extends CommerceAPIConfig {
   storeUrl?: string
   storeApiClientSecret?: string
   storeHash?: string
-  storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
+  storeApiFetch<T>(
+    endpoint: string,
+    options?: {
+      method?: string
+      body?: any
+      headers?: HeadersInit
+    }
+  ): Promise<T>
 }
 
 const API_URL = process.env.BIGCOMMERCE_STOREFRONT_API_URL // GraphAPI

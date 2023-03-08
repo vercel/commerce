@@ -16,7 +16,7 @@ import {
   normalizeProduct,
 } from '../utils'
 
-import type { SearchProductsHook } from '../types/product'
+import type { SearchProductsHook } from '@vercel/commerce/types/product'
 
 export type SearchProductsInput = {
   search?: string

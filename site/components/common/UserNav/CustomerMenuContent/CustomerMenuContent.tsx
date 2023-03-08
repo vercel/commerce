@@ -35,13 +35,7 @@ export default function CustomerMenuContent() {
   }
 
   return (
-    <DropdownContent
-      asChild
-      side="bottom"
-      sideOffset={10}
-      className={s.root}
-      id="CustomerMenuContent"
-    >
+    <DropdownContent sideOffset={10} id="CustomerMenuContent">
       {LINKS.map(({ name, href }) => (
         <DropdownMenuItem key={href}>
           <a

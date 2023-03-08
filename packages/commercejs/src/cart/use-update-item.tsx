@@ -1,4 +1,8 @@
-import type { UpdateItemHook, LineItem } from '@vercel/commerce/types/cart'
+import type {
+  UpdateItemHook,
+  LineItem,
+  Cart,
+} from '@vercel/commerce/types/cart'
 import type {
   HookFetcherContext,
   MutationHookContext,
@@ -6,8 +10,10 @@ import type {
 import { ValidationError } from '@vercel/commerce/utils/errors'
 import debounce from 'lodash.debounce'
 import { useCallback } from 'react'
-import useUpdateItem, { UseUpdateItem } from '@vercel/commerce/cart/use-update-item'
-import type { CommercejsCart } from '../types/cart'
+import useUpdateItem, {
+  UseUpdateItem,
+} from '@vercel/commerce/cart/use-update-item'
+import type { CommercejsCart } from '../types'
 import { normalizeCart } from '../utils/normalize-cart'
 import useCart from './use-cart'
 
@@ -24,7 +30,7 @@ export const handler = {
   },
   async fetcher({ input, options, fetch }: HookFetcherContext<UpdateItemHook>) {
     const variables = [input.itemId, { quantity: input.item.quantity }]
-    const { cart } = await fetch<{ cart: CommercejsCart }>({
+    const cart = await fetch<CommercejsCart>({
       query: options.query,
       method: options.method,
       variables,
@@ -51,7 +57,7 @@ export const handler = {
           const variantId = input.productId ?? item?.variantId
           const quantity = input?.quantity ?? item?.quantity
 
-          if (!itemId || !productId || !variantId) {
+          if (!itemId || !productId) {
             throw new ValidationError({
               message: 'Invalid input for updating cart item',
             })
@@ -63,7 +69,7 @@ export const handler = {
               item: {
                 quantity,
                 productId,
-                variantId,
+                variantId: variantId ?? '',
               },
             },
           })

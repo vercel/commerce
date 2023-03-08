@@ -4,9 +4,7 @@ import { GetProductOperation } from '@vercel/commerce/types/product'
 import data from '../../data.json'
 import type { OperationContext } from '@vercel/commerce/api/operations'
 
-export default function getProductOperation({
-  commerce,
-}: OperationContext<any>) {
+export default function getProductOperation(_p: OperationContext<any>) {
   async function getProduct<T extends GetProductOperation>({
     query = '',
     variables,

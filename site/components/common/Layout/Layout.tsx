@@ -55,6 +55,7 @@ interface Props {
     categories: Category[]
     navigation: Navigation[]
   }
+  children?: React.ReactNode
 }
 
 const ModalView: React.FC<{ modalView: string; closeModal(): any }> = ({

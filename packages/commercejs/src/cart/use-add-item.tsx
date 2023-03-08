@@ -2,7 +2,7 @@ import type { AddItemHook } from '@vercel/commerce/types/cart'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
-import type { CommercejsCart } from '../types/cart'
+import type { CommercejsCart } from '../types'
 import { normalizeCart } from '../utils/normalize-cart'
 import useCart from './use-cart'
 
@@ -22,17 +22,17 @@ export const handler: MutationHook<AddItemHook> = {
       variables.push(item.variantId)
     }
 
-    const { cart } = await fetch<{ cart: CommercejsCart }>({
+    const cart = await fetch<CommercejsCart>({
       query: options.query,
       method: options.method,
       variables,
     })
+
     return normalizeCart(cart)
   },
   useHook: ({ fetch }) =>
     function useHook() {
       const { mutate } = useCart()
-
       return useCallback(
         async function addItem(input) {
           const cart = await fetch({ input })

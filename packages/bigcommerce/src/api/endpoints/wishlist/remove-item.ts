@@ -1,17 +1,19 @@
-import type { Wishlist } from '../../../types/wishlist'
-import getCustomerWishlist from '../../operations/get-customer-wishlist'
-import getCustomerId from '../../utils/get-customer-id'
 import type { WishlistEndpoint } from '.'
+import type { BCWishlist } from '../../utils/types'
+
+import getCustomerId from '../../utils/get-customer-id'
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
+import { normalizeWishlist } from '../../../lib/normalize'
 
 // Return wishlist info
 const removeItem: WishlistEndpoint['handlers']['removeItem'] = async ({
-  res,
   body: { customerToken, itemId },
   config,
   commerce,
 }) => {
   const customerId =
     customerToken && (await getCustomerId({ customerToken, config }))
+
   const { wishlist } =
     (customerId &&
       (await commerce.getCustomerWishlist({
@@ -21,19 +23,15 @@ const removeItem: WishlistEndpoint['handlers']['removeItem'] = async ({
     {}
 
   if (!wishlist || !itemId) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
+    throw new CommerceAPIError('Wishlist not found', { status: 400 })
   }
 
-  const result = await config.storeApiFetch<{ data: Wishlist } | null>(
+  const result = await config.storeApiFetch<{ data: BCWishlist } | null>(
     `/v3/wishlists/${wishlist.id}/items/${itemId}`,
     { method: 'DELETE' }
   )
-  const data = result?.data ?? null
 
-  res.status(200).json({ data })
+  return { data: result?.data ? normalizeWishlist(result.data) : null }
 }
 
 export default removeItem

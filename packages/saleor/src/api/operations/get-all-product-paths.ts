@@ -3,15 +3,16 @@ import { ProductCountableEdge } from '../../../schema'
 import type { Provider, SaleorConfig } from '..'
 
 import { getAllProductsPathsQuery } from '../../utils/queries'
-import fetchAllProducts from '../utils/fetch-all-products'
 
 export type GetAllProductPathsResult = {
   products: Array<{ path: string }>
 }
 
-export default function getAllProductPathsOperation({ commerce }: OperationContext<Provider>) {
+export default function getAllProductPathsOperation({
+  commerce,
+}: OperationContext<Provider>) {
   async function getAllProductPaths({
-    query,
+    query = getAllProductsPathsQuery,
     config,
     variables,
   }: {
@@ -21,16 +22,15 @@ export default function getAllProductPathsOperation({ commerce }: OperationConte
   } = {}): Promise<GetAllProductPathsResult> {
     config = commerce.getConfig(config)
 
-    const products = await fetchAllProducts({
-      config,
-      query: getAllProductsPathsQuery,
-      variables,
-    })
+    const { data }: any = await config.fetch(query, { variables })
 
     return {
-      products: products?.map(({ node: { slug } }: ProductCountableEdge) => ({
-        path: `/${slug}`,
-      })),
+      products: data?.products?.edges?.map(
+        ({ node: { slug } }: ProductCountableEdge) =>
+          ({
+            path: `/${slug}`,
+          } ?? [])
+      ),
     }
   }
 

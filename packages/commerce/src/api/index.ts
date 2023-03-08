@@ -1,6 +1,5 @@
-import type { NextApiHandler } from 'next'
-import type { FetchOptions, Response } from '@vercel/fetch'
-import type { APIEndpoint, APIHandler } from './utils/types'
+import type { NextRequest } from 'next/server'
+import type { APIEndpoint, APIHandler, APIResponse } from './utils/types'
 import type { CartSchema } from '../types/cart'
 import type { CustomerSchema } from '../types/customer'
 import type { LoginSchema } from '../types/login'
@@ -11,11 +10,14 @@ import type { WishlistSchema } from '../types/wishlist'
 import type { CheckoutSchema } from '../types/checkout'
 import type { CustomerCardSchema } from '../types/customer/card'
 import type { CustomerAddressSchema } from '../types/customer/address'
+
+import { withOperationCallback } from './utils/with-operation-callback'
+
 import {
-  defaultOperations,
   OPERATIONS,
   AllOperations,
   APIOperations,
+  defaultOperations,
 } from './operations'
 
 export type APISchemas =
@@ -71,6 +73,12 @@ export type EndpointHandlers<
   >
 }
 
+export type FetchOptions<Body = any> = {
+  method?: string
+  body?: Body
+  headers?: HeadersInit
+}
+
 export type APIProvider = {
   config: CommerceAPIConfig
   operations: APIOperations<any>
@@ -106,12 +114,17 @@ export function getCommerceApi<P extends APIProvider>(
   OPERATIONS.forEach((k) => {
     const op = ops[k]
     if (op) {
-      commerce[k] = op({ commerce }) as AllOperations<P>[typeof k]
+      commerce[k] = withOperationCallback(
+        k,
+        op({ commerce })
+      ) as AllOperations<P>[typeof k]
     }
   })
 
   return commerce
 }
+
+export type EndpointHandler = (req: NextRequest) => Promise<APIResponse>
 
 export function getEndpoint<
   P extends APIProvider,
@@ -122,13 +135,11 @@ export function getEndpoint<
     config?: P['config']
     options?: T['schema']['endpoint']['options']
   }
-): NextApiHandler {
+): EndpointHandler {
   const cfg = commerce.getConfig(context.config)
-
-  return function apiHandler(req, res) {
+  return function apiHandler(req) {
     return context.handler({
       req,
-      res,
       commerce,
       config: cfg,
       handlers: context.handlers,
@@ -145,7 +156,7 @@ export const createEndpoint =
       config?: P['config']
       options?: API['schema']['endpoint']['options']
     }
-  ): NextApiHandler => {
+  ): EndpointHandler => {
     return getEndpoint(commerce, { ...endpoint, ...context })
   }
 
@@ -160,7 +171,7 @@ export interface CommerceAPIConfig {
   fetch<Data = any, Variables = any>(
     query: string,
     queryData?: CommerceAPIFetchOptions<Variables>,
-    fetchOptions?: FetchOptions
+    options?: FetchOptions
   ): Promise<GraphQLFetcherResult<Data>>
 }
 
@@ -169,8 +180,7 @@ export type GraphQLFetcher<
   Variables = any
 > = (
   query: string,
-  queryData?: CommerceAPIFetchOptions<Variables>,
-  fetchOptions?: FetchOptions
+  queryData?: CommerceAPIFetchOptions<Variables>
 ) => Promise<Data>
 
 export interface GraphQLFetcherResult<Data = any> {

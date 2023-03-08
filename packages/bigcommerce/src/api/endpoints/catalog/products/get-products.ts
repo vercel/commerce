@@ -11,7 +11,6 @@ const LIMIT = 12
 
 // Return current cart info
 const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
-  res,
   body: { search, categoryId, brandId, sort },
   config,
   commerce,
@@ -73,7 +72,7 @@ const getProducts: ProductsEndpoint['handlers']['getProducts'] = async ({
     if (product) products.push(product)
   })
 
-  res.status(200).json({ data: { products, found } })
+  return { data: { products, found } }
 }
 
 export default getProducts

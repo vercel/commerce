@@ -7,7 +7,11 @@ import { ValidationError } from '@vercel/commerce/utils/errors'
 import useRemoveItem, {
   UseRemoveItem,
 } from '@vercel/commerce/cart/use-remove-item'
-import type { Cart, LineItem, RemoveItemHook } from '../types/cart'
+import type {
+  Cart,
+  LineItem,
+  RemoveItemHook,
+} from '@vercel/commerce/types/cart'
 import useCart from './use-cart'
 
 export type RemoveItemFn<T = any> = T extends LineItem

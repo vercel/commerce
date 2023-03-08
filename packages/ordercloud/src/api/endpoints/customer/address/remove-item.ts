@@ -1,9 +1,7 @@
 import type { CustomerAddressEndpoint } from '.'
 
-const removeItem: CustomerAddressEndpoint['handlers']['removeItem'] = async ({
-  res,
-}) => {
-  return res.status(200).json({ data: null, errors: [] })
+const removeItem: CustomerAddressEndpoint['handlers']['removeItem'] = () => {
+  return Promise.resolve({ data: null })
 }
 
 export default removeItem

@@ -20,11 +20,11 @@ Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 
 ## Run minimal version locally
 
-> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has disabled all features (cart, auth) and use static files for the backend
+> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has all features disabled (cart, auth) and uses static files for the backend
 
 ```bash
-yarn # run this command in root folder of the mono repo
-yarn dev
+pnpm install & pnpm build # run these commands in the root folder of the mono repo
+pnpm dev # run this command in the site folder
 ```
 
 > If you encounter any problems while installing and running for the first time, please see the Troubleshoot section
@@ -47,10 +47,10 @@ Next.js Commerce integrates out-of-the-box with BigCommerce, Shopify, Swell, Sal
 
 ## Considerations
 
-- `packages/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
+- `packages/commerce` contains all types, helpers and functions to be used as a base to build a new **provider**.
 - **Providers** live under `packages`'s root folder and they will extend Next.js Commerce types and functionality (`packages/commerce`).
-- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
-- Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
+- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programmatically.
+- Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in the case of BigCommerce, the images CDN and additional API routes.
 
 ## Configuration
 
@@ -73,7 +73,7 @@ Every provider defines the features that it supports under `packages/{provider}/
 #### Features Available
 
 The following features can be enabled or disabled. This means that the UI will remove all code related to the feature.
-For example: Turning `cart` off will disable Cart capabilities.
+For example: turning `cart` off will disable Cart capabilities.
 
 - cart
 - search
@@ -83,7 +83,7 @@ For example: Turning `cart` off will disable Cart capabilities.
 
 #### How to turn Features on and off
 
-> NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
+> NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out of the box)
 
 - Open `site/commerce.config.json`
 - You'll see a config file like this:
@@ -110,11 +110,12 @@ Our commitment to Open Source can be found [here](https://vercel.com/oss).
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
 2. Create a new branch `git checkout -b MY_BRANCH_NAME`
-3. Install the dependencies: `yarn`
-4. Duplicate `site/.env.template` and rename it to `site/.env.local`
-5. Add proper store values to `site/.env.local`
-6. Run `cd site` and `yarn dev` to build and watch for code changes
-7. Run `yarn turbo run build` to check the build after your changes
+3. Install the dependencies: `pnpm install`
+4. Build the packages: `pnpm build`
+5. Duplicate `site/.env.template` and rename it to `site/.env.local`
+6. Add proper store values to `site/.env.local`
+7. Run `cd site` & `pnpm dev` to watch for code changes
+8. Run `pnpm turbo run build` to check the build after your changes
 
 ## Work in progress
 
@@ -189,10 +190,10 @@ error Command failed with exit code 1.
 info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 ```
 
-The error usually occurs when running yarn dev inside of the `/site/` folder after installing a fresh repository.
+The error usually occurs when running `pnpm dev` inside of the `/site/` folder after installing a fresh repository.
 
-In order to fix this, run `yarn dev` in the monorepo root folder first.
+In order to fix this, run `pnpm build` in the monorepo root folder first.
 
-> Using `yarn dev` from the root is recommended for developing, which will run watch mode on all packages.
+> Using `pnpm dev` from the root is recommended for developing, which will run watch mode on all packages.
 
 </details>

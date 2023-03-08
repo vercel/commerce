@@ -5,10 +5,11 @@ import { Grid } from '@components/ui'
 import { ProductCard } from '@components/product'
 import s from './HomeAllProductsGrid.module.css'
 import { getCategoryPath, getDesignerPath } from '@lib/search'
+import { Brand, Category } from '@commerce/types/site'
 
 interface Props {
-  categories?: any
-  brands?: any
+  categories?: Category[]
+  brands?: Brand[]
   products?: Product[]
 }
 
@@ -23,29 +24,21 @@ const HomeAllProductsGrid: FC<Props> = ({
         <div className={s.aside}>
           <ul className="mb-10">
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={getCategoryPath('')}>
-                <a>All Categories</a>
-              </Link>
+              <Link href={getCategoryPath('')}>All Categories</Link>
             </li>
-            {categories.map((cat: any) => (
+            {categories?.map((cat: any) => (
               <li key={cat.path} className="py-1 text-accent-8 text-base">
-                <Link href={getCategoryPath(cat.path)}>
-                  <a>{cat.name}</a>
-                </Link>
+                <Link href={getCategoryPath(cat.path)}>{cat.name}</Link>
               </li>
             ))}
           </ul>
           <ul className="">
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={getDesignerPath('')}>
-                <a>All Designers</a>
-              </Link>
+              <Link href={getDesignerPath('')}>All Designers</Link>
             </li>
-            {brands.flatMap(({ node }: any) => (
-              <li key={node.path} className="py-1 text-accent-8 text-base">
-                <Link href={getDesignerPath(node.path)}>
-                  <a>{node.name}</a>
-                </Link>
+            {brands?.map(({ path, name }) => (
+              <li key={path} className="py-1 text-accent-8 text-base">
+                <Link href={getDesignerPath(path)}>{name}</Link>
               </li>
             ))}
           </ul>
@@ -59,6 +52,7 @@ const HomeAllProductsGrid: FC<Props> = ({
               product={product}
               variant="simple"
               imgProps={{
+                alt: product.name,
                 width: 480,
                 height: 480,
               }}

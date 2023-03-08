@@ -2,7 +2,7 @@ import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import { GetAllProductsOperation } from '../../types/product'
+import { GetAllProductsOperation } from '@vercel/commerce/types/product'
 import {
   GetAllProductsQuery,
   GetAllProductsQueryVariables,

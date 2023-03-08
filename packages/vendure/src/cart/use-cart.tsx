@@ -1,10 +1,10 @@
 import { SWRHook } from '@vercel/commerce/utils/types'
-import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
+import useCart, { type UseCart } from '@vercel/commerce/cart/use-cart'
 import { ActiveOrderQuery, CartFragment } from '../../schema'
 import { normalizeCart } from '../utils/normalize'
 import { useMemo } from 'react'
 import { getCartQuery } from '../utils/queries/get-cart-query'
-import { GetCartHook } from '../types/cart'
+import type { GetCartHook } from '@vercel/commerce/types/cart'
 
 export type CartResult = {
   activeOrder?: CartFragment

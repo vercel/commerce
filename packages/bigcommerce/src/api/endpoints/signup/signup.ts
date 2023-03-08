@@ -1,23 +1,12 @@
-import { BigcommerceApiError } from '../../utils/errors'
 import type { SignupEndpoint } from '.'
+import { CommerceAPIError } from '@vercel/commerce/api/utils/errors'
+import { BigcommerceApiError } from '../../utils/errors'
 
 const signup: SignupEndpoint['handlers']['signup'] = async ({
-  res,
   body: { firstName, lastName, email, password },
   config,
   commerce,
 }) => {
-  // TODO: Add proper validations with something like Ajv
-  if (!(firstName && lastName && email && password)) {
-    return res.status(400).json({
-      data: null,
-      errors: [{ message: 'Invalid request' }],
-    })
-  }
-  // TODO: validate the password and email
-  // Passwords must be at least 7 characters and contain both alphabetic
-  // and numeric characters.
-
   try {
     await config.storeApiFetch('/v3/customers', {
       method: 'POST',
@@ -32,31 +21,28 @@ const signup: SignupEndpoint['handlers']['signup'] = async ({
         },
       ]),
     })
-  } catch (error) {
-    if (error instanceof BigcommerceApiError && error.status === 422) {
-      const hasEmailError = '0.email' in error.data?.errors
 
-      // If there's an error with the email, it most likely means it's duplicated
-      if (hasEmailError) {
-        return res.status(400).json({
-          data: null,
-          errors: [
-            {
-              message: 'The email is already in use',
-              code: 'duplicated_email',
-            },
-          ],
+    // Login the customer right after creating it
+    const response = await commerce.login({
+      variables: { email, password },
+      config,
+    })
+
+    return response
+  } catch (error) {
+    // Display all validation errors from BigCommerce in a single error message
+    if (error instanceof BigcommerceApiError && error.status >= 400) {
+      const message = Object.values(error.data.errors).join('<br />')
+      if (message) {
+        throw new CommerceAPIError(message, {
+          status: 400,
+          code: 'invalid_request',
         })
       }
     }
 
     throw error
   }
-
-  // Login the customer right after creating it
-  await commerce.login({ variables: { email, password }, res, config })
-
-  res.status(200).json({ data: null })
 }
 
 export default signup

@@ -23,7 +23,7 @@ export const productConnectionFragment = /* GraphQL */ `
           }
           edges {
             node {
-              originalSrc
+              url
               altText
               width
               height

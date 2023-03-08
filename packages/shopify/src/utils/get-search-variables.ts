@@ -1,5 +1,5 @@
 import getSortVariables from './get-sort-variables'
-import { SearchProductsBody } from '../types/product'
+import { SearchProductsBody } from '@vercel/commerce/types/product'
 
 export const getSearchVariables = ({
   brandId,
@@ -11,7 +11,7 @@ export const getSearchVariables = ({
   let query = ''
 
   if (search) {
-    query += `product_type:${search} OR title:${search} OR tag:${search} `
+    query += `(product_type:${search}) OR (title:${search}) OR (tag:${search}) `
   }
 
   if (brandId) {

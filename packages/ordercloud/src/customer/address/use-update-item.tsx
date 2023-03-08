@@ -2,7 +2,10 @@ import type {
   HookFetcherContext,
   MutationHookContext,
 } from '@vercel/commerce/utils/types'
-import type { UpdateItemHook, Address } from '@vercel/commerce/types/customer/address'
+import type {
+  UpdateItemHook,
+  Address,
+} from '@vercel/commerce/types/customer/address'
 
 import { useCallback } from 'react'
 
@@ -21,7 +24,7 @@ export default useUpdateItem as UseUpdateItem<any>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    url: '/api/customer/address',
+    url: '/api/commerce/customer/address',
     method: 'PUT',
   },
   async fetcher({

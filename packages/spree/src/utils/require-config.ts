@@ -6,7 +6,7 @@ const requireConfig = <T>(isomorphicConfig: T, key: keyof T) => {
 
   if (typeof valueUnderKey === 'undefined') {
     throw new MissingConfigurationValueError(
-      `Value for configuration key ${key} was undefined.`
+      `Value for configuration key ${key.toString()} was undefined.`
     )
   }
 

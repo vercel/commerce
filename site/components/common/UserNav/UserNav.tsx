@@ -23,15 +23,10 @@ const UserNav: React.FC<{
 }> = ({ className }) => {
   const { data } = useCart()
   const { data: isCustomerLoggedIn } = useCustomer()
-  const {
-    toggleSidebar,
-    closeSidebarIfPresent,
-    openModal,
-    setSidebarView,
-    openSidebar,
-  } = useUI()
+  const { closeSidebarIfPresent, openModal, setSidebarView, openSidebar } =
+    useUI()
 
-  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  const itemsCount = data?.lineItems?.reduce(countItem, 0) ?? 0
   const DropdownTrigger = isCustomerLoggedIn
     ? DropdownTriggerInst
     : React.Fragment
@@ -46,7 +41,7 @@ const UserNav: React.FC<{
               variant="naked"
               onClick={() => {
                 setSidebarView('CART_VIEW')
-                toggleSidebar()
+                openSidebar()
               }}
               aria-label={`Cart items: ${itemsCount}`}
             >
@@ -60,9 +55,9 @@ const UserNav: React.FC<{
         {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
             <Link href="/wishlist">
-              <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
+              <button onClick={closeSidebarIfPresent} aria-label="Wishlist">
                 <Heart />
-              </a>
+              </button>
             </Link>
           </li>
         )}
@@ -88,8 +83,8 @@ const UserNav: React.FC<{
             aria-label="Menu"
             variant="naked"
             onClick={() => {
-              openSidebar()
               setSidebarView('MOBILE_MENU_VIEW')
+              openSidebar()
             }}
           >
             <Menu />

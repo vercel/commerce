@@ -9,7 +9,9 @@ import debounce from 'lodash.debounce'
 
 import { MutationHook } from '@vercel/commerce/utils/types'
 import { ValidationError } from '@vercel/commerce/utils/errors'
-import useUpdateItem, { UseUpdateItem } from '@vercel/commerce/cart/use-update-item'
+import useUpdateItem, {
+  UseUpdateItem,
+} from '@vercel/commerce/cart/use-update-item'
 
 import { handler as removeItemHandler } from './use-remove-item'
 import useCart from './use-cart'
@@ -22,7 +24,7 @@ export default useUpdateItem as UseUpdateItem<any>
 
 export const handler: MutationHook<any> = {
   fetchOptions: {
-    url: '/api/cart',
+    url: '/api/commerce/cart',
     method: 'PUT',
   },
   async fetcher({

@@ -1,5 +1,8 @@
 import type { OperationContext } from '@vercel/commerce/api/operations'
-import type { Category, GetSiteInfoOperation } from '../../types/site'
+import type {
+  Category,
+  GetSiteInfoOperation,
+} from '@vercel/commerce/types/site'
 import { normalizeCategory } from '../../utils/normalize-category'
 import type { CommercejsConfig, Provider } from '../index'
 
@@ -24,7 +27,7 @@ export default function getSiteInfoOperation({
     const { sdkFetch } = commerce.getConfig(config)
     const { data: categories } = await sdkFetch('categories', 'list')
 
-    const formattedCategories = categories.map(normalizeCategory)
+    const formattedCategories = categories?.map(normalizeCategory) ?? []
 
     return {
       categories: formattedCategories,

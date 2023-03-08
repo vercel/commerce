@@ -47,17 +47,20 @@
     }
   },
   "dependencies": {
-    "@vercel/fetch": "^6.1.1",
+    "@cfworker/uuid": "^1.12.4",
+    "@tsndr/cloudflare-worker-jwt": "^2.1.0",
+    "@vercel/commerce": "workspace:*",
     "cookie": "^0.4.1",
     "immutability-helper": "^3.1.1",
+    "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "lodash.debounce": "^4.0.8",
-    "uuidv4": "^6.2.12"
+    "uuidv4": "^6.2.13"
   },
   "peerDependencies": {
-    "next": "^12",
-    "react": "^17",
-    "react-dom": "^17"
+    "next": "^13",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@taskr/clear": "^1.1.0",
@@ -67,15 +70,16 @@
     "@types/jsonwebtoken": "^8.5.7",
     "@types/lodash.debounce": "^4.0.6",
     "@types/node": "^17.0.8",
-    "@types/react": "^17.0.38",
+    "@types/node-fetch": "^2.6.2",
+    "@types/react": "^18.0.14",
     "lint-staged": "^12.1.7",
-    "next": "^12.0.8",
+    "next": "^13.0.6",
     "prettier": "^2.5.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "taskr": "^1.1.0",
     "taskr-swc": "^0.0.1",
-    "typescript": "^4.5.4"
+    "typescript": "^4.7.4"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json}": [

@@ -1,25 +1,17 @@
-import type { AddItemHook } from '@vercel/commerce/types/customer/address'
-import type { MutationHook } from '@vercel/commerce/utils/types'
-import { useCallback } from 'react'
-import useAddItem, { UseAddItem } from '@vercel/commerce/customer/address/use-add-item'
-import { useCheckoutContext } from '@components/checkout/context'
+import useAddItem, {
+  UseAddItem,
+} from '@vercel/commerce/customer/address/use-add-item'
+import { MutationHook } from '@vercel/commerce/utils/types'
 
 export default useAddItem as UseAddItem<typeof handler>
 
-export const handler: MutationHook<AddItemHook> = {
+export const handler: MutationHook<any> = {
   fetchOptions: {
-    query: '_',
-    method: '_',
+    query: '',
   },
-  useHook: () =>
-    function useHook() {
-      const { setAddressFields } = useCheckoutContext()
-      return useCallback(
-        async function addItem(input) {
-          setAddressFields(input)
-          return undefined
-        },
-        [setAddressFields]
-      )
-    },
+  async fetcher({ input, options, fetch }) {},
+  useHook:
+    ({ fetch }) =>
+    () =>
+    async () => ({}),
 }

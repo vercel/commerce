@@ -1,4 +1,5 @@
-import type { Cart, OrdercloudCart, OrdercloudLineItem } from '../../types/cart'
+import type { Cart } from '@vercel/commerce/types/cart'
+import type { OrdercloudCart, OrdercloudLineItem } from '../../types/cart'
 
 export function formatCart(
   cart: OrdercloudCart,
@@ -20,7 +21,7 @@ export function formatCart(
       name: lineItem.Product.Name,
       quantity: lineItem.Quantity,
       discounts: [],
-      path: lineItem.ProductID,
+      path: `/product/${lineItem.ProductID}`,
       variant: {
         id: lineItem.Variant ? String(lineItem.Variant.ID) : '',
         sku: lineItem.ID,

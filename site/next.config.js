@@ -18,7 +18,7 @@ module.exports = withCommerceConfig({
     return [
       (isBC || isShopify || isSwell || isVendure || isSaleor) && {
         source: '/checkout',
-        destination: '/api/checkout',
+        destination: '/api/commerce/checkout',
       },
       // The logout is also an action so this route is not required, but it's also another way
       // you can allow a logout!
@@ -34,6 +34,11 @@ module.exports = withCommerceConfig({
           destination: `${process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL}/:path*`,
         },
     ].filter(Boolean)
+  },
+
+  // Avoid Module not found: ESM packages (supports-color) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals
+  experimental: {
+    esmExternals: 'loose',
   },
 })
 

@@ -1,22 +1,26 @@
 import { FetcherError } from '@vercel/commerce/utils/errors'
-import type { GraphQLFetcher } from '@vercel/commerce/api'
+import type { FetchOptions, GraphQLFetcher } from '@vercel/commerce/api'
 import type { BigcommerceConfig } from '../index'
-import fetch from './fetch'
 
 const fetchGraphqlApi: (getConfig: () => BigcommerceConfig) => GraphQLFetcher =
   (getConfig) =>
-  async (query: string, { variables, preview } = {}, fetchOptions) => {
+  async (
+    query: string,
+    { variables, preview } = {},
+    options?: FetchOptions
+  ): Promise<any> => {
     // log.warn(query)
     const config = getConfig()
+
     const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
-      ...fetchOptions,
-      method: 'POST',
+      method: options?.method || 'POST',
       headers: {
         Authorization: `Bearer ${config.apiToken}`,
-        ...fetchOptions?.headers,
+        ...options?.headers,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        ...options?.body,
         query,
         variables,
       }),

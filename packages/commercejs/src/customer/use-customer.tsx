@@ -1,9 +1,16 @@
+import type { SWRHook } from '@vercel/commerce/utils/types'
+import type { CustomerHook } from '@vercel/commerce/types/customer'
+
 import Cookies from 'js-cookie'
-import { decode } from 'jsonwebtoken'
-import { SWRHook } from '@vercel/commerce/utils/types'
-import useCustomer, { UseCustomer } from '@vercel/commerce/customer/use-customer'
+import { decode, type JwtPayload } from 'jsonwebtoken'
+import useCustomer, {
+  type UseCustomer,
+} from '@vercel/commerce/customer/use-customer'
 import { CUSTOMER_COOKIE, API_URL } from '../constants'
-import type { CustomerHook } from '../types/customer'
+
+type JwtData = JwtPayload & {
+  cid: string
+}
 
 export default useCustomer as UseCustomer<typeof handler>
 export const handler: SWRHook<CustomerHook> = {
@@ -13,12 +20,14 @@ export const handler: SWRHook<CustomerHook> = {
   },
   async fetcher({ options, fetch }) {
     const token = Cookies.get(CUSTOMER_COOKIE)
+
     if (!token) {
       return null
     }
 
-    const decodedToken = decode(token) as { cid: string }
-    const customer = await fetch({
+    const decodedToken = decode(token) as JwtData
+
+    const customer = await fetch<any>({
       query: options.query,
       method: options.method,
       variables: [
@@ -29,7 +38,16 @@ export const handler: SWRHook<CustomerHook> = {
         token,
       ],
     })
+
     return customer
+      ? {
+          id: customer.id,
+          firstName: customer.firstname,
+          lastName: customer.lastname,
+          email: customer.email,
+          phone: customer.phone,
+        }
+      : null
   },
   useHook:
     ({ useData }) =>

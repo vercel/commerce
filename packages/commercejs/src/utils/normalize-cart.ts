@@ -1,9 +1,5 @@
-import type {
-  Cart,
-  LineItem,
-  CommercejsCart,
-  CommercejsLineItem,
-} from '../types/cart'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { CommercejsCart, CommercejsLineItem } from '../types'
 
 type CommercejsLineItemType = CommercejsLineItem & { image: { url: string } }
 
@@ -48,14 +44,16 @@ const normalizeLineItem = (
   }
 }
 
-export const normalizeCart = (commercejsCart: CommercejsCart): Cart => {
+export const normalizeCart = (
+  commercejsCart: CommercejsCart | { cart: CommercejsCart }
+): Cart => {
   const {
     id,
     created,
     subtotal: { raw: rawPrice },
     currency,
     line_items,
-  } = commercejsCart
+  } = 'cart' in commercejsCart ? commercejsCart.cart : commercejsCart
 
   return {
     id,

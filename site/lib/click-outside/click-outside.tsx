@@ -6,14 +6,16 @@ import React, {
   ReactElement,
   forwardRef,
   Ref,
+  ReactNode,
 } from 'react'
-import mergeRefs from 'react-merge-refs'
+import { mergeRefs } from 'react-merge-refs'
 import hasParent from './has-parent'
 
 interface ClickOutsideProps {
   active: boolean
   onClick: (e?: MouseEvent) => void
   ref?: Ref<any>
+  children?: ReactNode
 }
 
 /**

@@ -5,7 +5,7 @@ import type { LoginHook } from '../types/login'
 import type { Provider } from '..'
 
 export type UseLogin<
-  H extends MutationHook<LoginHook<any>> = MutationHook<LoginHook>
+  H extends MutationHook<LoginHook> = MutationHook<LoginHook>
 > = ReturnType<H['useHook']>
 
 export const fetcher: HookFetcherFn<LoginHook> = mutationFetcher

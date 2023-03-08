@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Logo, Button, Input } from '@components/ui'
 import useLogin from '@framework/auth/use-login'
 import { useUI } from '@components/ui/context'
@@ -31,19 +31,22 @@ const LoginView: React.FC = () => {
         email,
         password,
       })
-      setLoading(false)
       closeModal()
-    } catch (e: any) {
-      setMessage(e.errors[0].message)
-      setLoading(false)
+    } catch ({ errors }) {
+      if (errors instanceof Array) {
+        setMessage(errors.map((e: any) => e.message).join('<br/>'))
+      } else {
+        setMessage('Unexpected error')
+      }
       setDisabled(false)
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
     const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
-
     // Unable to send form unless fields are valid.
     if (dirty) {
       setDisabled(!validate(email) || password.length < 7 || !validPassword)

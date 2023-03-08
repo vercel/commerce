@@ -1,35 +1,43 @@
-import type { GraphQLFetcher } from '@vercel/commerce/api'
-import fetch from './fetch'
+import type { FetchOptions, GraphQLFetcher } from '@vercel/commerce/api'
 
 import { API_URL } from '../../const'
 import { getError } from '../../utils/handle-fetch-response'
-import { getCommerceApi } from '..'
 import { getToken } from '../../utils/index'
 
-const fetchGraphqlApi: GraphQLFetcher = async (query: string, { variables } = {}, fetchOptions) => {
-  const config = getCommerceApi().getConfig()
+const fetchGraphqlApi: GraphQLFetcher = async (
+  query: string,
+  { variables } = {},
+  options?: FetchOptions
+) => {
   const token = getToken()
 
   const res = await fetch(API_URL!, {
-    ...fetchOptions,
-    method: 'POST',
+    method: options?.method || 'POST',
     headers: {
       ...(token && {
         Authorization: `Bearer ${token}`,
       }),
-      ...fetchOptions?.headers,
+      ...options?.headers,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      ...options?.body,
       query,
       variables,
     }),
   })
 
-  const { data, errors, status } = await res.json()
+  const { data, errors, message, type, status } = await res.json()
 
-  if (errors) {
-    throw getError(errors, status)
+  if (errors || res.status >= 400) {
+    throw getError(
+      errors || [
+        {
+          message: `${type ? `${type}, ` : ''}${message}`,
+        },
+      ],
+      status || res.status
+    )
   }
 
   return { data, res }

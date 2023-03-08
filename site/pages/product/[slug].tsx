@@ -22,19 +22,21 @@ export async function getStaticProps({
     config,
     preview,
   })
-
   const allProductsPromise = commerce.getAllProducts({
     variables: { first: 4 },
     config,
     preview,
   })
+
   const { pages } = await pagesPromise
   const { categories, navigation } = await siteInfoPromise
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
 
   if (!product) {
-    throw new Error(`Product with slug '${params!.slug}' not found`)
+    return {
+      notFound: true,
+    }
   }
 
   return {

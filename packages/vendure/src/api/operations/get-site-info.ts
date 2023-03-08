@@ -33,8 +33,8 @@ export default function getSiteInfoOperation({
     })
     const collections = data.collections?.items.map((i) => ({
       ...i,
-      entityId: i.id,
-      path: i.slug,
+      id: i.id,
+      path: `/${i.id}`,
       productCount: i.productVariants.totalItems,
     }))
     const categories = arrayToTree(collections).children

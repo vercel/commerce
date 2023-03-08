@@ -35,7 +35,7 @@ const normalizePage = (
     id: spreePage.id,
     name: spreePage.attributes.title,
     url: `/${usedCommerceLocale}/${spreePage.attributes.slug}`,
-    body: spreePage.attributes.content,
+    body: spreePage.attributes.content ?? '',
   }
 }
 

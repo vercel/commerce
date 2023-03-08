@@ -1,12 +1,10 @@
-import type { ServerResponse } from 'http'
 import type {
   OperationContext,
   OperationOptions,
 } from '@vercel/commerce/api/operations'
-import type { LoginOperation } from '../../types/login'
+import type { LoginOperation } from '@vercel/commerce/types/login'
 import type { LoginMutation } from '../../../schema'
 import type { RecursivePartial } from '../utils/types'
-import concatHeader from '../utils/concat-cookie'
 import type { BigcommerceConfig, Provider } from '..'
 
 export const loginMutation = /* GraphQL */ `
@@ -23,26 +21,23 @@ export default function loginOperation({
   async function login<T extends LoginOperation>(opts: {
     variables: T['variables']
     config?: BigcommerceConfig
-    res: ServerResponse
   }): Promise<T['data']>
 
   async function login<T extends LoginOperation>(
     opts: {
       variables: T['variables']
       config?: BigcommerceConfig
-      res: ServerResponse
     } & OperationOptions
   ): Promise<T['data']>
 
   async function login<T extends LoginOperation>({
     query = loginMutation,
     variables,
-    res: response,
     config,
   }: {
     query?: string
     variables: T['variables']
-    res: ServerResponse
+
     config?: BigcommerceConfig
   }): Promise<T['data']> {
     config = commerce.getConfig(config)
@@ -51,6 +46,9 @@ export default function loginOperation({
       query,
       { variables }
     )
+
+    const headers = new Headers()
+
     // Bigcommerce returns a Set-Cookie header with the auth cookie
     let cookie = res.headers.get('Set-Cookie')
 
@@ -64,14 +62,13 @@ export default function loginOperation({
         cookie = cookie.replace(/; SameSite=none/gi, '; SameSite=lax')
       }
 
-      response.setHeader(
-        'Set-Cookie',
-        concatHeader(response.getHeader('Set-Cookie'), cookie)!
-      )
+      headers.set('Set-Cookie', cookie)
     }
 
     return {
       result: data.login?.result,
+      headers,
+      status: res.status,
     }
   }
 

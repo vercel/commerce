@@ -1,8 +1,10 @@
 import { useCallback } from 'react'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { CommerceError } from '@vercel/commerce/utils/errors'
-import useAddItem, { UseAddItem } from '@vercel/commerce/wishlist/use-add-item'
-import type { AddItemHook } from '../types/wishlist'
+import useAddItem, {
+  type UseAddItem,
+} from '@vercel/commerce/wishlist/use-add-item'
+import type { AddItemHook } from '@vercel/commerce/types/wishlist'
 import useCustomer from '../customer/use-customer'
 import useWishlist from './use-wishlist'
 
@@ -10,7 +12,7 @@ export default useAddItem as UseAddItem<typeof handler>
 
 export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    url: '/api/wishlist',
+    url: '/api/commerce/wishlist',
     method: 'POST',
   },
   useHook:

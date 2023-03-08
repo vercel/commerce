@@ -8,7 +8,7 @@ export function normalizeSearchResult(item: SearchResultFragment): Product {
     name: item.productName,
     description: item.description,
     slug: item.slug,
-    path: item.slug,
+    path: `/${item.slug}`,
     images: [
       {
         url: item.productAsset?.preview
@@ -45,7 +45,7 @@ export function normalizeCart(order: CartFragment): Cart {
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
       discounts: l.discounts.map((d) => ({ value: d.amount / 100 })),
-      path: '',
+      path: `/${l.productVariant.product.slug}`,
       variant: {
         id: l.productVariant.id,
         name: l.productVariant.name,

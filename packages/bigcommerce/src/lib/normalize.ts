@@ -1,10 +1,14 @@
-import type { Product } from '../types/product'
-import type { Cart, BigcommerceCart, LineItem } from '../types/cart'
-import type { Page } from '../types/page'
-import type { BCCategory, Category } from '../types/site'
-import { definitions } from '../api/definitions/store-content'
-import update from './immutability'
+import type { Page } from '@vercel/commerce/types/page'
+import type { Product } from '@vercel/commerce/types/product'
+import type { Cart, LineItem } from '@vercel/commerce/types/cart'
+import type { Category, Brand } from '@vercel/commerce/types/site'
+import type { BigcommerceCart, BCCategory, BCBrand } from '../types'
+import type { ProductNode } from '../api/operations/get-all-products'
+import type { definitions } from '../api/definitions/store-content'
+import type { BCWishlist } from '../api/utils/types'
+
 import getSlug from './get-slug'
+import { Wishlist } from '@vercel/commerce/types/wishlist'
 
 function normalizeProductOption(productOption: any) {
   const {
@@ -12,61 +16,50 @@ function normalizeProductOption(productOption: any) {
   } = productOption
 
   return {
-    id: entityId,
+    id: String(entityId),
     values: edges?.map(({ node }: any) => node),
     ...rest,
   }
 }
 
-export function normalizeProduct(productNode: any): Product {
+export function normalizeProduct(productNode: ProductNode): Product {
   const {
     entityId: id,
     productOptions,
     prices,
     path,
-    id: _,
-    options: _0,
+    images,
+    variants,
   } = productNode
 
-  return update(productNode, {
-    id: { $set: String(id) },
-    images: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
-          url: urlOriginal,
-          alt: altText,
-          ...rest,
-        })),
-    },
-    variants: {
-      $apply: ({ edges }: any) =>
-        edges?.map(({ node: { entityId, productOptions, ...rest } }: any) => ({
-          id: entityId,
+  return {
+    id: String(id),
+    name: productNode.name,
+    description: productNode.description,
+    images:
+      images.edges?.map(({ node: { urlOriginal, altText, ...rest } }: any) => ({
+        url: urlOriginal,
+        alt: altText,
+        ...rest,
+      })) || [],
+    path: `/${getSlug(path)}`,
+    variants:
+      variants.edges?.map(
+        ({ node: { entityId, productOptions, ...rest } }: any) => ({
+          id: String(entityId),
           options: productOptions?.edges
             ? productOptions.edges.map(normalizeProductOption)
             : [],
           ...rest,
-        })),
-    },
-    options: {
-      $set: productOptions.edges
-        ? productOptions?.edges.map(normalizeProductOption)
-        : [],
-    },
-    brand: {
-      $apply: (brand: any) => (brand?.entityId ? brand?.entityId : null),
-    },
-    slug: {
-      $set: path?.replace(/^\/+|\/+$/g, ''),
-    },
+        })
+      ) || [],
+    options: productOptions?.edges?.map(normalizeProductOption) || [],
+    slug: path?.replace(/^\/+|\/+$/g, ''),
     price: {
-      $set: {
-        value: prices?.price.value,
-        currencyCode: prices?.price.currencyCode,
-      },
+      value: prices?.price.value,
+      currencyCode: prices?.price.currencyCode,
     },
-    $unset: ['entityId'],
-  })
+  }
 }
 
 export function normalizePage(page: definitions['page_Full']): Page {
@@ -75,7 +68,8 @@ export function normalizePage(page: definitions['page_Full']): Page {
     name: page.name,
     is_visible: page.is_visible,
     sort_order: page.sort_order,
-    body: page.body,
+    body: page.body ?? '',
+    url: page.url,
   }
 }
 
@@ -119,7 +113,7 @@ function normalizeLineItem(item: any): LineItem {
       listPrice: item.list_price,
     },
     options: item.options,
-    path: item.url.split('/')[3],
+    path: `/${item.url.split('/')[3]}`,
     discounts: item.discounts.map((discount: any) => ({
       value: discount.discounted_amount,
     })),
@@ -132,5 +126,29 @@ export function normalizeCategory(category: BCCategory): Category {
     name: category.name,
     slug: getSlug(category.path),
     path: category.path,
+  }
+}
+
+export function normalizeBrand(brand: BCBrand): Brand {
+  const path = brand.node.path.replace('/brands/', '')
+  const slug = getSlug(path)
+  return {
+    id: `${brand.node.entityId}`,
+    name: brand.node.name,
+    slug,
+    path: `/${slug}`,
+  }
+}
+
+export function normalizeWishlist(wishlist: BCWishlist): Wishlist {
+  return {
+    id: String(wishlist.id),
+    token: wishlist.token,
+    items: wishlist.items.map((item: any) => ({
+      id: String(item.id),
+      productId: String(item.product_id),
+      variantId: String(item.variant_id),
+      product: item.product,
+    })),
   }
 }
