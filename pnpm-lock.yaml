@@ -267,6 +267,7 @@ importers:
       '@taskr/esnext': ^1.1.0
       '@taskr/watch': ^1.1.0
       '@types/cookie': ^0.4.1
+      '@types/js-cookie': ^3.0.1
       '@types/lodash.debounce': ^4.0.6
       '@types/node': ^18.0.3
       '@types/react': ^18.0.14
@@ -293,6 +294,7 @@ importers:
       '@taskr/esnext': 1.1.0
       '@taskr/watch': 1.1.0
       '@types/cookie': 0.4.1
+      '@types/js-cookie': 3.0.2
       '@types/lodash.debounce': 4.0.7
       '@types/node': 18.7.18
       '@types/react': 18.0.20
