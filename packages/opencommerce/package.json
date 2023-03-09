@@ -48,7 +48,8 @@
     }
   },
   "dependencies": {
-    "@vercel/commerce": "workspace:*"
+    "@vercel/commerce": "workspace:*",
+    "cookie": "^0.4.1"
   },
   "peerDependencies": {
     "next": "^13",
@@ -65,10 +66,8 @@
     "@taskr/watch": "^1.1.0",
     "@types/node": "^18.0.3",
     "@types/react": "^18.0.14",
-    "lint-staged": "^13.0.3",
-    "next": "^13.0.4",
+    "@types/cookie": "^0.4.1",
     "prettier": "^2.7.1",
-    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "taskr": "^1.1.0",
     "taskr-swc": "workspace:*",
