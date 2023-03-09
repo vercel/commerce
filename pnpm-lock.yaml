@@ -267,10 +267,12 @@ importers:
       '@taskr/esnext': ^1.1.0
       '@taskr/watch': ^1.1.0
       '@types/cookie': ^0.4.1
+      '@types/lodash.debounce': ^4.0.6
       '@types/node': ^18.0.3
       '@types/react': ^18.0.14
       '@vercel/commerce': workspace:*
       cookie: ^0.4.1
+      lodash.debounce: ^4.0.8
       prettier: ^2.7.1
       react-dom: ^18.2.0
       taskr: ^1.1.0
@@ -279,6 +281,7 @@ importers:
     dependencies:
       '@vercel/commerce': link:../commerce
       cookie: 0.4.2
+      lodash.debounce: 4.0.8
     devDependencies:
       '@graphql-codegen/cli': 2.7.0_bidgzm5cq2du6gnjtweqqjrrn4
       '@graphql-codegen/schema-ast': 2.5.1
@@ -288,6 +291,7 @@ importers:
       '@taskr/esnext': 1.1.0
       '@taskr/watch': 1.1.0
       '@types/cookie': 0.4.1
+      '@types/lodash.debounce': 4.0.7
       '@types/node': 18.7.18
       '@types/react': 18.0.20
       prettier: 2.7.1
