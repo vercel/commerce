@@ -7,6 +7,18 @@ export type AddressFields = Core.AddressFields & {
   fulfillmentGroupId?: string
 }
 
-export type CustomerAddressTypes = Core.CustomerAddressTypes & {
-  fields: AddressFields
+export type UpdateAddressItemHook = Omit<
+  Core.UpdateItemHook,
+  'input' | 'body' | 'fetcherInput' | 'actionInput'
+> & {
+  input: {
+    item?: AddressFields
+    wait?: number
+  }
+  body: {
+    itemId: string
+    item: AddressFields
+  }
+  fetcherInput: { itemId: string; item: AddressFields }
+  actionInput: AddressFields & { id: string }
 }

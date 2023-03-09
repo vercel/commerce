@@ -16,7 +16,8 @@ import ShippingMethodView from '@components/checkout/ShippingMethodView'
 import { CheckoutProvider } from '@components/checkout/context'
 import { MenuSidebarView } from '@components/common/UserNav'
 import type { Page } from '@commerce/types/page'
-import type { Category, Navigation } from '@commerce/types/site'
+import type { Category } from '@commerce/types/site'
+import type { Navigation } from '@framework/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
 
 const Loading = () => (

@@ -6,7 +6,7 @@ export default useSearch as UseSearch<typeof handler>
 
 export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    url: '/api/catalog/products',
+    url: '/api/commerce/catalog/products',
     method: 'GET',
   },
   async fetcher({

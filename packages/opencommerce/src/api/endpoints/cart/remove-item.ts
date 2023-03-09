@@ -4,16 +4,15 @@ import removeCartItemsMutation from '../../mutations/remove-cart-item'
 import type { CartEndpoint } from '.'
 
 const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
-  res,
   body: { cartId, itemId },
   config,
   req: { cookies },
 }) => {
   if (!cartId || !itemId) {
-    return res.status(400).json({
+    return {
       data: null,
       errors: [{ message: 'Invalid request' }],
-    })
+    }
   }
 
   const {
@@ -23,17 +22,21 @@ const removeItem: CartEndpoint['handlers']['removeItem'] = async ({
       input: {
         cartId,
         cartItemIds: [itemId],
-        cartToken: cookies[config.anonymousCartTokenCookie],
+        cartToken: cookies.get(config.anonymousCartTokenCookie)?.value,
       },
     },
   })
 
-  res.setHeader(
-    'Set-Cookie',
-    getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
-  )
-
-  res.status(200).json({ data: normalizeCart(removeCartItems.cart) })
+  return {
+    data: normalizeCart(removeCartItems.cart),
+    headers: {
+      'Set-Cookie': getCartCookie(
+        config.cartCookie,
+        cartId,
+        config.cartCookieMaxAge
+      ),
+    },
+  }
 }
 
 export default removeItem

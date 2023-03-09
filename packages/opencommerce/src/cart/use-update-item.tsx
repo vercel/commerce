@@ -17,7 +17,7 @@ export default useUpdateItem as UseUpdateItem<typeof handler>
 
 export const handler: MutationHook<UpdateItemHook> = {
   fetchOptions: {
-    url: '/api/cart',
+    url: '/api/commerce/cart',
     method: 'PUT',
   },
   async fetcher({ input: { itemId, item }, options, fetch }) {

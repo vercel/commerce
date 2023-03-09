@@ -4,29 +4,28 @@ import type { CartEndpoint } from '.'
 
 // Return current cart info
 const getCart: CartEndpoint['handlers']['getCart'] = async ({
-  res,
   req: { cookies },
   body: { cartId },
   config,
 }) => {
-  if (cartId && cookies[config.anonymousCartTokenCookie]) {
+  if (cartId && cookies.get(config.anonymousCartTokenCookie)?.value) {
     const {
       data: { cart: rawAnonymousCart },
     } = await config.fetch(getAnonymousCartQuery, {
       variables: {
         cartId,
-        cartToken: cookies[config.anonymousCartTokenCookie],
+        cartToken: cookies.get(config.anonymousCartTokenCookie)?.value,
       },
     })
 
-    return res.status(200).json({
+    return {
       data: rawAnonymousCart ? normalizeCart(rawAnonymousCart) : null,
-    })
+    }
   }
 
-  res.status(200).json({
+  return {
     data: null,
-  })
+  }
 }
 
 export default getCart

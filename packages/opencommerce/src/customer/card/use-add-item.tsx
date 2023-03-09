@@ -19,7 +19,7 @@ export const handler: MutationHook<AddItemHook> = {
       return useCallback(
         async function addItem(input) {
           setCardFields(input)
-          return undefined
+          return null
         },
         [setCardFields]
       )

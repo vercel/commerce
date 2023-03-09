@@ -6,12 +6,14 @@ import type {
   CatalogItemsQuery,
   CatalogItemsQueryVariables,
   CatalogItemProduct,
+  PrimaryShopQuery,
 } from '../../../schema'
 import type { GetAllProductPathsOperation } from '../../types/product'
 import type { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
 import { OpenCommerceConfig, Provider } from '..'
 import getAllProductPathsQuery from '../queries/get-all-product-paths-query'
+import getPrimaryShopQuery from '../queries/get-primary-shop-query'
 
 export default function getAllProductPathsOperation({
   commerce,
@@ -39,14 +41,25 @@ export default function getAllProductPathsOperation({
     variables?: CatalogItemsQueryVariables
     config?: OpenCommerceConfig
   } = {}): Promise<T['data']> {
-    const { fetch, shopId } = commerce.getConfig(config)
+    const { fetch } = commerce.getConfig(config)
+
+    const {
+      data: { primaryShop },
+    } = await fetch<PrimaryShopQuery>(getPrimaryShopQuery)
+
+    if (!primaryShop?._id) {
+      return {
+        products: [],
+      }
+    }
+
     // RecursivePartial forces the method to check for every prop in the data, which is
     // required in case there's a custom `query`
     const { data } = await fetch<
       RecursivePartial<CatalogItemsQuery>,
       CatalogItemsQueryVariables
     >(query, {
-      variables: { ...variables, shopIds: [shopId] },
+      variables: { ...variables, shopIds: [primaryShop._id] },
     })
 
     const products = data.catalogItems?.edges

@@ -10,7 +10,7 @@ import {
   GetProductBySlugQuery,
   GetProductBySlugQueryVariables,
 } from '../../../schema'
-import getProductQuery from '../queries/get-product-query'
+import getProductQuery from '../queries/get-catalog-product-item-query'
 
 export default function getProductOperation({
   commerce,

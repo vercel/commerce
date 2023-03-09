@@ -5,7 +5,7 @@ import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
-import { Navigation } from '@commerce/types/site'
+import type { Navigation } from '@framework/types/site'
 import CustomNavbar from './CustomNavbar'
 
 interface Link {
@@ -32,11 +32,11 @@ const Navbar: FC<NavbarProps> = ({ links, customNavigation }) => (
             ) : (
               <>
                 <Link href="/search" className={s.link}>
-                All
+                  All
                 </Link>
                 {links?.map((l) => (
                   <Link href={l.href} key={l.href} className={s.link}>
-                   {l.label}
+                    {l.label}
                   </Link>
                 ))}
               </>

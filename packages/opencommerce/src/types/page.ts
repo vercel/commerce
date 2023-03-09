@@ -7,5 +7,5 @@ export type PageTypes = {
   page: Page
 }
 
-export type GetAllPagesOperation = Core.GetAllPagesOperation<PageTypes>
-export type GetPageOperation = Core.GetPageOperation<PageTypes>
+export type GetAllPagesOperation = Core.GetAllPagesOperation
+export type GetPageOperation = Core.GetPageOperation

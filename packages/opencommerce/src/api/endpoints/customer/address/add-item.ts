@@ -4,17 +4,16 @@ import updateFulfillmentOptions from '../../../mutations/update-fulfillment-opti
 import selectFulfillmentOptions from '../../../mutations/select-fulfillment-options'
 
 const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
-  res,
   body: { item, cartId },
   config: { fetch, anonymousCartTokenCookie },
   req: { cookies },
 }) => {
   // Return an error if no cart is present
   if (!cartId) {
-    return res.status(400).json({
+    return {
       data: null,
       errors: [{ message: 'Cookie not found' }],
-    })
+    }
   }
 
   // Register address
@@ -35,7 +34,6 @@ const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
           region: item.city || 'LA',
         },
         cartId,
-        cartToken: cookies[anonymousCartTokenCookie],
       },
     },
   })
@@ -56,7 +54,7 @@ const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
     variables: {
       input: {
         cartId,
-        cartToken: cookies[anonymousCartTokenCookie],
+        cartToken: cookies.get(anonymousCartTokenCookie)?.value,
         fulfillmentGroupId:
           updateFulfillmentOptionsForGroup.cart.checkout.fulfillmentGroups[0]
             ._id,
@@ -67,7 +65,7 @@ const addItem: CustomerAddressEndpoint['handlers']['addItem'] = async ({
     },
   })
 
-  return res.status(200).json({ data: null, errors: [] })
+  return { data: null, errors: [] }
 }
 
 export default addItem

@@ -36,11 +36,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
       await addItem({
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0]?.id),
-        // Open Commerce provider only
-        ...({
-          variant: variant ?? product.variants[0],
-          currencyCode: String(product.price.currencyCode),
-        } as any),
       })
       setSidebarView('CART_VIEW')
       openSidebar()

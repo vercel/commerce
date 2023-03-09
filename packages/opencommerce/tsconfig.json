@@ -4,11 +4,7 @@
     "module": "esnext",
     "outDir": "dist",
     "baseUrl": "src",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "declaration": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -20,12 +16,6 @@
     "incremental": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "global.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src", "global.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }

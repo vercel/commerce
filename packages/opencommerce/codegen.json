@@ -1,6 +1,6 @@
 {
   "overwrite": true,
-  "schema": "http://localhost:3000/graphql",
+  "schema": "http://api.open-commerce.io/graphql",
   "documents": [
     {
       "./src/api/**/*.ts": {

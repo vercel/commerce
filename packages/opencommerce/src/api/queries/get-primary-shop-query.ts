@@ -30,6 +30,9 @@ const getPrimaryShopQuery = /* GraphQL */ `
         }
         items {
           navigationItem {
+            _id
+            shopId
+            createdAt
             data {
               ...NavigationItemFields
             }

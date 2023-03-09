@@ -20,14 +20,14 @@ const SubItem = ({ subItem, level = 0 }: SubItemProps) => {
   return (
     <>
       {subItem.isUrlRelative ? (
-        <Link href={subItem.url} key={subItem.url}>
-          <a
-            className={`block rounded ml-${
-              level * 2
-            } py-[10px] px-4 text-sm text-black`}
-          >
-            {subItem.label}
-          </a>
+        <Link
+          href={subItem.url}
+          key={subItem.url}
+          className={`block rounded ml-${
+            level * 2
+          } py-[10px] px-4 text-sm text-black`}
+        >
+          {subItem.label}
         </Link>
       ) : (
         <a
@@ -61,15 +61,14 @@ const CustomNavbar = ({ links = [] }: CustomNavbarProps) => {
       {links.map((item) => (
         <div className="group inline-block relative" key={item.url}>
           {item.isUrlRelative ? (
-            <Link href={item.url}>
-              <a
-                className={cn(
-                  s.link,
-                  Number(item.items?.length) > 0 && s.customLink
-                )}
-              >
-                {item.label}
-              </a>
+            <Link
+              href={item.url}
+              className={cn(
+                s.link,
+                Number(item.items?.length) > 0 && s.customLink
+              )}
+            >
+              {item.label}
             </Link>
           ) : (
             <a

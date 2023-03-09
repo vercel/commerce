@@ -1,5 +1,6 @@
 import type { Fetcher } from '@vercel/commerce/utils/types'
 import { FetcherError } from '@vercel/commerce/utils/errors'
+import { API_URL } from './const'
 
 async function getText(res: Response) {
   try {
@@ -18,20 +19,24 @@ async function getError(res: Response) {
 }
 
 const fetcher: Fetcher = async ({
-  url,
-  method = 'GET',
+  url = API_URL,
+  method = 'POST',
   variables,
+  query,
   body: bodyObj,
 }) => {
   const hasBody = Boolean(variables || bodyObj)
   const body = hasBody
-    ? JSON.stringify(variables ? { variables } : bodyObj)
+    ? JSON.stringify(variables ? { query, variables } : bodyObj)
     : undefined
   const headers = hasBody ? { 'Content-Type': 'application/json' } : undefined
   const res = await fetch(url!, { method, body, headers })
 
   if (res.ok) {
-    const { data } = await res.json()
+    const { data, errors } = await res.json()
+    if (errors && errors.length) {
+      throw getError(res)
+    }
     return data
   }
 

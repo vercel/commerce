@@ -7,7 +7,7 @@ import type {
 import {
   OCCategory,
   Category,
-  Vendor,
+  Brand,
   OCVendor,
   Navigation,
 } from '../types/site'
@@ -49,18 +49,18 @@ export function normalizeProduct(
   } = product
 
   return {
-    id: productId ?? _id,
+    id: productNode._id || productId,
     name: title ?? '',
     description: description ?? '',
     slug: slug?.replace(/^\/+|\/+$/g, '') ?? '',
-    path: slug ?? '',
+    path: `/${slug}` ?? '/',
     sku: sku ?? '',
     images: media?.length
       ? normalizeProductImages(<ImageInfo[]>media, title ?? '')
       : [],
     ...(product.vendor ? { vendor: product.vendor } : {}),
     price: {
-      value: pricing[0]?.minPrice ?? 0,
+      value: pricing[0]?.price || pricing[0]?.minPrice || 0,
       currencyCode: pricing[0]?.currency.code,
     },
     variants: !!variants
@@ -167,7 +167,7 @@ const normalizeProductVariants = (
 
       productVariants.push({
         id: variantId ?? '',
-        price: variantPrice,
+        price: { value: variantPrice },
         options: [normalizeProductOption(variant)],
       })
 
@@ -226,13 +226,12 @@ export function normalizeCategory(category: OCCategory): Category {
   }
 }
 
-export function normalizeVendors({ name }: OCVendor): Vendor {
+export function normalizeVendors({ name }: OCVendor): Brand {
   return {
-    node: {
-      entityId: name ?? '',
-      name: name ?? '',
-      path: `brands/${name}`,
-    },
+    id: name ?? '',
+    name: name ?? '',
+    path: `/${name}`,
+    slug: `/brands/${name}`,
   }
 }
 
@@ -246,7 +245,7 @@ export function normalizeCart(cart: OCCart): Cart {
 
     createdAt: cart.createdAt,
     currency: {
-      code: cart.checkout?.summary?.total?.currency.code ?? '',
+      code: cart.checkout?.summary?.total?.currency.code ?? 'USD',
     },
     lineItems:
       cart.items?.edges?.map((cartItem) =>
@@ -257,7 +256,6 @@ export function normalizeCart(cart: OCCart): Cart {
     totalPrice: cart.checkout?.summary?.total?.amount ?? 0,
     discounts: [],
     taxesIncluded: !!cart.checkout?.summary?.taxTotal?.amount,
-    checkout: cart.checkout ? normalizeCheckout(cart.checkout) : undefined,
   }
 }
 
@@ -267,7 +265,7 @@ function filterNullValue<T>(
   return items?.filter((item: T | null | undefined): item is T => !!item) ?? []
 }
 
-function normalizeCheckout(checkout: OCCheckout): Checkout {
+export function normalizeCheckout(checkout: OCCheckout): Checkout {
   const fulfillmentGroups = filterNullValue(checkout.fulfillmentGroups).map(
     (group) => ({
       selectedFulfillmentOption: group.selectedFulfillmentOption,
@@ -323,7 +321,7 @@ function normalizeLineItem(cartItemEdge: CartItemEdge): LineItem {
       price: priceWhenAdded?.amount,
       listPrice: compareAtPrice?.amount ?? 0,
     },
-    path: productSlug ?? '',
+    path: `/${productSlug}` ?? '',
     discounts: [],
     options: [
       {

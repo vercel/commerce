@@ -1191,6 +1191,71 @@ input AuthenticateParamsInput {
 }
 
 """
+Represents a single user partial account
+"""
+type BasicAccount implements Node {
+  """
+  The account ID
+  """
+  _id: ID!
+
+  """
+  Flag to indicate if the account accepts marketing emails
+  """
+  acceptsMarketing: Boolean
+
+  """
+  List of shop Ids
+  """
+  adminUIShopIds: [String]
+
+  """
+  The date and time at which this account was created
+  """
+  createdAt: DateTime
+
+  """
+  Email record associated with the account
+  """
+  emails: [EmailRecord]
+
+  """
+  List of group Ids to which the account belongs
+  """
+  groups: [String]
+
+  """
+  The full name of the person this account represents, if known
+  """
+  name: String
+
+  """
+  List of shipping/billing addresses
+  """
+  profile: [Profile]
+
+  """
+  ID of shop
+  """
+  shopId: String
+
+  """
+  Account creation state
+  """
+  state: String
+
+  """
+  The date and time at which this account was last updated
+  """
+  updatedAt: DateTime
+
+  """
+  ID of user
+  """
+  userId: String
+}
+
+"""
 A single calculated tax for a cart, order group, cart item, or order item
 """
 type CalculatedTax {
@@ -2642,6 +2707,11 @@ input CreateAccountInput {
   bio: String
 
   """
+  An optional string identifying the mutation call, which will be returned in the response payload
+  """
+  clientMutationId: String
+
+  """
   Email record to create account with
   """
   emails: [EmailRecordInput]!
@@ -2679,7 +2749,7 @@ type CreateAccountPayload {
   """
   The added account
   """
-  account: Account
+  account: BasicAccount
 
   """
   The same string you sent with the mutation params, for matching mutation calls with their responses
@@ -3172,6 +3242,8 @@ type CreateShopPayload {
 Input for the createStripePaymentIntent mutation
 """
 input CreateStripePaymentIntentInput {
+  """
+  """
   cartId: String!
 
   """
@@ -3183,6 +3255,9 @@ input CreateStripePaymentIntentInput {
   An optional string identifying the mutation call, which will be returned in the response payload
   """
   clientMutationId: String
+
+  """
+  """
   shopId: String!
 }
 
@@ -3194,6 +3269,9 @@ type CreateStripePaymentIntentPayload {
   The same string you sent with the mutation params, for matching mutation calls with their responses
   """
   clientMutationId: String
+
+  """
+  """
   paymentIntentClientSecret: String
 }
 
@@ -4192,6 +4270,11 @@ type EmailJob {
   _id: ID!
 
   """
+  The date and time of the creation of the e-mail job
+  """
+  createdAt: DateTime!
+
+  """
   The data of the e-mail
   """
   data: EmailJobData!
@@ -4202,9 +4285,14 @@ type EmailJob {
   status: String!
 
   """
-  The date and time of the last update to the e-mail job
+  To be deprecated. Use updatedAt instead. The date and time of the last update to the e-mail job.
   """
   updated: DateTime!
+
+  """
+  The date and time of the last update to the e-mail job
+  """
+  updatedAt: DateTime!
 }
 
 """
@@ -4827,6 +4915,8 @@ input GlobalSettingsUpdates {
   doNotUse: String
 }
 
+"""
+"""
 input GrantOrRevokeAdminUIAccessInput {
   """
   The account ID to update
@@ -4844,6 +4934,8 @@ input GrantOrRevokeAdminUIAccessInput {
   shopId: String!
 }
 
+"""
+"""
 type GrantOrRevokeAdminUIAccessPayload {
   """
   The up to date account object
@@ -8475,6 +8567,46 @@ type ProductConnection {
 }
 
 """
+Operators for filtering on a DateTime field
+"""
+input ProductDateOperators {
+  """
+  The value must be greater than or equal to the given value
+  """
+  after: DateTime
+
+  """
+  The value must be greater than the given value
+  """
+  before: DateTime
+
+  """
+  The value must be between the given values
+  """
+  between: ProductDateRange
+
+  """
+  The value must be equal to the given value
+  """
+  eq: DateTime
+}
+
+"""
+Range operator for DateTime fields
+"""
+input ProductDateRange {
+  """
+  The end of the date range
+  """
+  end: DateTime!
+
+  """
+  The start of the date range
+  """
+  start: DateTime!
+}
+
+"""
 A connection edge in which each node is a `Product` object
 """
 type ProductEdge {
@@ -9028,6 +9160,14 @@ input ProductVariantPricesInput {
   Variant price
   """
   price: Float
+}
+
+"""
+"""
+type Profile {
+  """
+  """
+  addressBook: [Address]
 }
 
 """
@@ -9962,6 +10102,11 @@ type Query {
     before: ConnectionCursor
 
     """
+    Filter by created timestamp
+    """
+    createdAt: ProductDateOperators
+
+    """
     Return at most this many results. This parameter may be used with either `after` or `offset` parameters.
     """
     first: ConnectionLimitInt
@@ -9970,6 +10115,11 @@ type Query {
     Filter by archived
     """
     isArchived: Boolean
+
+    """
+    Flag to set metafields search method. Default value false, performs a fuzzy search. Explicitly set it to true to perform exact match.
+    """
+    isExactMatch: Boolean = false
 
     """
     Filter by visibility
@@ -9982,12 +10132,12 @@ type Query {
     last: ConnectionLimitInt
 
     """
-    Filter by metafield key
+    Filter by metafield key using `regex` match. To get specific searches send the argument as a regex pattern
     """
     metafieldKey: String
 
     """
-    Filter by metafield value
+    Filter by metafield value using `regex` match. To get specific searches send the argument as a regex pattern
     """
     metafieldValue: String
 
@@ -10035,6 +10185,11 @@ type Query {
     List of tag ids to filter by
     """
     tagIds: [ID]
+
+    """
+    Filter by updated at timestamp
+    """
+    updatedAt: ProductDateOperators
   ): ProductConnection
 
   """
@@ -10202,6 +10357,9 @@ type Query {
     """
     shopId: ID!
   ): ShopSettings!
+
+  """
+  """
   shops(
     """
     Return only results that come after this cursor. Use this with `first` to specify the number of results to return.
@@ -10380,6 +10538,11 @@ type Query {
     before: ConnectionCursor
 
     """
+    Filter by created timestamp
+    """
+    createdAt: TagDateOperators
+
+    """
     Tags to exclude from results
     """
     excludedTagIds: [ID]
@@ -10433,6 +10596,11 @@ type Query {
     Return results sorted in this order
     """
     sortOrder: SortOrder = asc
+
+    """
+    Filter by updated at timestamp
+    """
+    updatedAt: TagDateOperators
   ): TagConnection
 
   """
@@ -12632,6 +12800,46 @@ type TagConnection {
 }
 
 """
+Operators for filtering on a DateTime field
+"""
+input TagDateOperators {
+  """
+  The value must be greater than or equal to the given value
+  """
+  after: DateTime
+
+  """
+  The value must be greater than the given value
+  """
+  before: DateTime
+
+  """
+  The value must be between the given values
+  """
+  between: ProductDateRange
+
+  """
+  The value must be equal to the given value
+  """
+  eq: DateTime
+}
+
+"""
+Range operator for DateTime fields
+"""
+input TagDateRange {
+  """
+  The end of the date range
+  """
+  end: DateTime!
+
+  """
+  The start of the date range
+  """
+  start: DateTime!
+}
+
+"""
 A connection edge in which each node is a `Tag` object
 """
 type TagEdge implements NodeEdge {
@@ -13282,6 +13490,8 @@ type UpdateAddressValidationRulePayload {
   clientMutationId: String
 }
 
+"""
+"""
 input UpdateAdminUIAccessInput {
   """
   The account IDs to update
@@ -13299,6 +13509,8 @@ input UpdateAdminUIAccessInput {
   shopIds: [String]!
 }
 
+"""
+"""
 type UpdateAdminUIAccessPayload {
   """
   The up to date account objects
@@ -13581,6 +13793,8 @@ input UpdateGroupInput {
   slug: String
 }
 
+"""
+"""
 input UpdateGroupsForAccountsInput {
   """
   The account IDs
@@ -13598,6 +13812,8 @@ input UpdateGroupsForAccountsInput {
   groupIds: [ID]!
 }
 
+"""
+"""
 type UpdateGroupsForAccountsPayload {
   """
   The accounts that were modified
@@ -14401,6 +14617,8 @@ input UserInput {
   username: String
 }
 
+"""
+"""
 type Vendor {
   """
   The name of the vendor

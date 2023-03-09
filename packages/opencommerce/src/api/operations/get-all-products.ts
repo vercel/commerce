@@ -4,12 +4,14 @@ import {
   CatalogItemProduct,
   CatalogItemsQuery,
   CatalogItemsQueryVariables,
+  PrimaryShopQuery,
 } from '../../../schema'
 import catalogItemsQuery from '../queries/get-all-products-query'
 import type { OpenCommerceConfig, Provider } from '..'
 import { normalizeProduct } from '../../utils/normalize'
 import { RecursivePartial, RecursiveRequired } from '../utils/types'
 import filterEdges from '../utils/filter-edges'
+import getPrimaryShopQuery from '../queries/get-primary-shop-query'
 
 export default function getAllProductsOperation({
   commerce,
@@ -30,14 +32,23 @@ export default function getAllProductsOperation({
     config?: Partial<OpenCommerceConfig>
     preview?: boolean
   } = {}): Promise<T['data']> {
-    const { fetch, locale, shopId } = commerce.getConfig(config)
+    const { fetch, locale } = commerce.getConfig(config)
+    const {
+      data: { primaryShop },
+    } = await fetch<PrimaryShopQuery>(getPrimaryShopQuery)
+
+    if (!primaryShop?._id) {
+      return {
+       products: []
+      }
+    }
 
     const { data } = await fetch<
       RecursivePartial<CatalogItemsQuery>,
       CatalogItemsQueryVariables
     >(
       query,
-      { variables: { ...variables, shopIds: [shopId] } },
+      { variables: { ...variables, shopIds: [primaryShop._id] } },
       {
         ...(locale && {
           headers: {

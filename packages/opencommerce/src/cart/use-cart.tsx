@@ -2,13 +2,12 @@ import { useMemo } from 'react'
 import { SWRHook } from '@vercel/commerce/utils/types'
 import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 import type { GetCartHook } from '@vercel/commerce/types/cart'
-import { CartTypes } from '../types/cart'
 
 export default useCart as UseCart<typeof handler>
 
-export const handler: SWRHook<GetCartHook<CartTypes>> = {
+export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
-    url: '/api/cart',
+    url: '/api/commerce/cart',
     method: 'GET',
   },
   useHook:

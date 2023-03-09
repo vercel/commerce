@@ -4,16 +4,15 @@ import updateCartItemsQuantityMutation from '../../mutations/update-cart-item-qu
 import type { CartEndpoint } from '.'
 
 const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
-  res,
   body: { cartId, itemId, item },
   config,
   req: { cookies },
 }) => {
   if (!cartId || !itemId || !item) {
-    return res.status(400).json({
-      data: null,
+    return {
+      data: undefined,
       errors: [{ message: 'Invalid request' }],
-    })
+    }
   }
 
   const {
@@ -22,18 +21,24 @@ const updateItem: CartEndpoint['handlers']['updateItem'] = async ({
     variables: {
       updateCartItemsQuantityInput: {
         cartId,
-        cartToken: cookies[config.anonymousCartTokenCookie],
+        cartToken: cookies.get(config.anonymousCartTokenCookie)?.value,
         items: [{ cartItemId: itemId, quantity: item.quantity }],
       },
     },
   })
 
   // Update the cart cookie
-  res.setHeader(
-    'Set-Cookie',
-    getCartCookie(config.cartCookie, cartId, config.cartCookieMaxAge)
-  )
-  res.status(200).json({ data: normalizeCart(updateCartItemsQuantity.cart) })
+
+  return {
+    data: normalizeCart(updateCartItemsQuantity.cart),
+    headers: {
+      'Set-Cookie': getCartCookie(
+        config.cartCookie,
+        cartId,
+        config.cartCookieMaxAge
+      ),
+    },
+  }
 }
 
 export default updateItem

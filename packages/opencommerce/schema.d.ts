@@ -16,27 +16,11 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  /**
-   *
-   * An opaque string that identifies a particular result within a connection,
-   * allowing you to request a subset of results before or after that result.
-   *
-   */
   ConnectionCursor: any
-  /**
-   *
-   * An integer between 1 and 50, inclusive. Values less than 1 become 1 and
-   * values greater than 50 become 50.
-   *
-   */
   ConnectionLimitInt: any
-  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: any
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any
-  /** A string email address */
   Email: any
-  /** An object with any fields */
   JSONObject: any
 }
 
@@ -683,6 +667,35 @@ export type AuthenticateParamsInput = {
   provider?: InputMaybe<Scalars['String']>
   token?: InputMaybe<Scalars['String']>
   user?: InputMaybe<UserInput>
+}
+
+/** Represents a single user partial account */
+export type BasicAccount = Node & {
+  __typename?: 'BasicAccount'
+  /** The account ID */
+  _id: Scalars['ID']
+  /** Flag to indicate if the account accepts marketing emails */
+  acceptsMarketing?: Maybe<Scalars['Boolean']>
+  /** List of shop Ids */
+  adminUIShopIds?: Maybe<Array<Maybe<Scalars['String']>>>
+  /** The date and time at which this account was created */
+  createdAt?: Maybe<Scalars['DateTime']>
+  /** Email record associated with the account */
+  emails?: Maybe<Array<Maybe<EmailRecord>>>
+  /** List of group Ids to which the account belongs */
+  groups?: Maybe<Array<Maybe<Scalars['String']>>>
+  /** The full name of the person this account represents, if known */
+  name?: Maybe<Scalars['String']>
+  /** List of shipping/billing addresses */
+  profile?: Maybe<Array<Maybe<Profile>>>
+  /** ID of shop */
+  shopId?: Maybe<Scalars['String']>
+  /** Account creation state */
+  state?: Maybe<Scalars['String']>
+  /** The date and time at which this account was last updated */
+  updatedAt?: Maybe<Scalars['DateTime']>
+  /** ID of user */
+  userId?: Maybe<Scalars['String']>
 }
 
 /** A single calculated tax for a cart, order group, cart item, or order item */
@@ -1459,6 +1472,8 @@ export type CreateAccountGroupPayload = {
 export type CreateAccountInput = {
   /** Bio to display on profile */
   bio?: InputMaybe<Scalars['String']>
+  /** An optional string identifying the mutation call, which will be returned in the response payload */
+  clientMutationId?: InputMaybe<Scalars['String']>
   /** Email record to create account with */
   emails: Array<InputMaybe<EmailRecordInput>>
   /** Name to display on profile */
@@ -1477,7 +1492,7 @@ export type CreateAccountInput = {
 export type CreateAccountPayload = {
   __typename?: 'CreateAccountPayload'
   /** The added account */
-  account?: Maybe<Account>
+  account?: Maybe<BasicAccount>
   /** The same string you sent with the mutation params, for matching mutation calls with their responses */
   clientMutationId?: Maybe<Scalars['String']>
 }
@@ -2315,12 +2330,16 @@ export type EmailJob = {
   __typename?: 'EmailJob'
   /** The ID of the e-mail job */
   _id: Scalars['ID']
+  /** The date and time of the creation of the e-mail job */
+  createdAt: Scalars['DateTime']
   /** The data of the e-mail */
   data: EmailJobData
   /** The status of the e-mail job */
   status: Scalars['String']
-  /** The date and time of the last update to the e-mail job */
+  /** To be deprecated. Use updatedAt instead. The date and time of the last update to the e-mail job. */
   updated: Scalars['DateTime']
+  /** The date and time of the last update to the e-mail job */
+  updatedAt: Scalars['DateTime']
 }
 
 /**
@@ -4894,6 +4913,26 @@ export type ProductConnection = {
   totalCount: Scalars['Int']
 }
 
+/** Operators for filtering on a DateTime field */
+export type ProductDateOperators = {
+  /** The value must be greater than or equal to the given value */
+  after?: InputMaybe<Scalars['DateTime']>
+  /** The value must be greater than the given value */
+  before?: InputMaybe<Scalars['DateTime']>
+  /** The value must be between the given values */
+  between?: InputMaybe<ProductDateRange>
+  /** The value must be equal to the given value */
+  eq?: InputMaybe<Scalars['DateTime']>
+}
+
+/** Range operator for DateTime fields */
+export type ProductDateRange = {
+  /** The end of the date range */
+  end: Scalars['DateTime']
+  /** The start of the date range */
+  start: Scalars['DateTime']
+}
+
 /** A connection edge in which each node is a `Product` object */
 export type ProductEdge = {
   __typename?: 'ProductEdge'
@@ -5181,6 +5220,11 @@ export type ProductVariantPricesInput = {
   compareAtPrice?: InputMaybe<Scalars['Float']>
   /** Variant price */
   price?: InputMaybe<Scalars['Float']>
+}
+
+export type Profile = {
+  __typename?: 'Profile'
+  addressBook?: Maybe<Array<Maybe<Address>>>
 }
 
 /** Input for the `publishNavigationChanges` mutation */
@@ -5590,8 +5634,10 @@ export type QueryProductArgs = {
 export type QueryProductsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']>
   before?: InputMaybe<Scalars['ConnectionCursor']>
+  createdAt?: InputMaybe<ProductDateOperators>
   first?: InputMaybe<Scalars['ConnectionLimitInt']>
   isArchived?: InputMaybe<Scalars['Boolean']>
+  isExactMatch?: InputMaybe<Scalars['Boolean']>
   isVisible?: InputMaybe<Scalars['Boolean']>
   last?: InputMaybe<Scalars['ConnectionLimitInt']>
   metafieldKey?: InputMaybe<Scalars['String']>
@@ -5605,6 +5651,7 @@ export type QueryProductsArgs = {
   sortBy?: InputMaybe<ProductSortByField>
   sortOrder?: InputMaybe<SortOrder>
   tagIds?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  updatedAt?: InputMaybe<ProductDateOperators>
 }
 
 /** Queries return all requested data, without any side effects */
@@ -5719,6 +5766,7 @@ export type QueryTagArgs = {
 export type QueryTagsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']>
   before?: InputMaybe<Scalars['ConnectionCursor']>
+  createdAt?: InputMaybe<TagDateOperators>
   excludedTagIds?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   filter?: InputMaybe<Scalars['String']>
   first?: InputMaybe<Scalars['ConnectionLimitInt']>
@@ -5730,6 +5778,7 @@ export type QueryTagsArgs = {
   shouldIncludeInvisible?: InputMaybe<Scalars['Boolean']>
   sortBy?: InputMaybe<TagSortByField>
   sortOrder?: InputMaybe<SortOrder>
+  updatedAt?: InputMaybe<TagDateOperators>
 }
 
 /** Queries return all requested data, without any side effects */
@@ -6890,6 +6939,26 @@ export type TagConnection = {
   totalCount: Scalars['Int']
 }
 
+/** Operators for filtering on a DateTime field */
+export type TagDateOperators = {
+  /** The value must be greater than or equal to the given value */
+  after?: InputMaybe<Scalars['DateTime']>
+  /** The value must be greater than the given value */
+  before?: InputMaybe<Scalars['DateTime']>
+  /** The value must be between the given values */
+  between?: InputMaybe<ProductDateRange>
+  /** The value must be equal to the given value */
+  eq?: InputMaybe<Scalars['DateTime']>
+}
+
+/** Range operator for DateTime fields */
+export type TagDateRange = {
+  /** The end of the date range */
+  end: Scalars['DateTime']
+  /** The start of the date range */
+  start: Scalars['DateTime']
+}
+
 /** A connection edge in which each node is a `Tag` object */
 export type TagEdge = NodeEdge & {
   __typename?: 'TagEdge'
@@ -8001,127 +8070,6 @@ export type CatalogItemsQuery = {
   } | null
 }
 
-export type PrimaryShopQueryVariables = Exact<{
-  language?: Scalars['String']
-}>
-
-export type PrimaryShopQuery = {
-  __typename?: 'Query'
-  primaryShop?: {
-    __typename?: 'Shop'
-    _id: string
-    description?: string | null
-    name: string
-    currency: { __typename?: 'Currency'; code: string }
-    defaultNavigationTree?: {
-      __typename?: 'NavigationTree'
-      _id: string
-      shopId: string
-      name: string
-      items?: Array<{
-        __typename?: 'NavigationTreeItem'
-        navigationItem: {
-          __typename?: 'NavigationItem'
-          data?: {
-            __typename?: 'NavigationItemData'
-            contentForLanguage?: string | null
-            classNames?: string | null
-            url?: string | null
-            isUrlRelative?: boolean | null
-            shouldOpenInNewWindow?: boolean | null
-          } | null
-        }
-        items?: Array<{
-          __typename?: 'NavigationTreeItem'
-          navigationItem: {
-            __typename?: 'NavigationItem'
-            data?: {
-              __typename?: 'NavigationItemData'
-              contentForLanguage?: string | null
-              classNames?: string | null
-              url?: string | null
-              isUrlRelative?: boolean | null
-              shouldOpenInNewWindow?: boolean | null
-            } | null
-          }
-          items?: Array<{
-            __typename?: 'NavigationTreeItem'
-            navigationItem: {
-              __typename?: 'NavigationItem'
-              data?: {
-                __typename?: 'NavigationItemData'
-                contentForLanguage?: string | null
-                classNames?: string | null
-                url?: string | null
-                isUrlRelative?: boolean | null
-                shouldOpenInNewWindow?: boolean | null
-              } | null
-            }
-          } | null> | null
-        } | null> | null
-      } | null> | null
-    } | null
-  } | null
-}
-
-export type NavigationTreeFragmentFragment = {
-  __typename?: 'NavigationTree'
-  _id: string
-  shopId: string
-  name: string
-  items?: Array<{
-    __typename?: 'NavigationTreeItem'
-    navigationItem: {
-      __typename?: 'NavigationItem'
-      data?: {
-        __typename?: 'NavigationItemData'
-        contentForLanguage?: string | null
-        classNames?: string | null
-        url?: string | null
-        isUrlRelative?: boolean | null
-        shouldOpenInNewWindow?: boolean | null
-      } | null
-    }
-    items?: Array<{
-      __typename?: 'NavigationTreeItem'
-      navigationItem: {
-        __typename?: 'NavigationItem'
-        data?: {
-          __typename?: 'NavigationItemData'
-          contentForLanguage?: string | null
-          classNames?: string | null
-          url?: string | null
-          isUrlRelative?: boolean | null
-          shouldOpenInNewWindow?: boolean | null
-        } | null
-      }
-      items?: Array<{
-        __typename?: 'NavigationTreeItem'
-        navigationItem: {
-          __typename?: 'NavigationItem'
-          data?: {
-            __typename?: 'NavigationItemData'
-            contentForLanguage?: string | null
-            classNames?: string | null
-            url?: string | null
-            isUrlRelative?: boolean | null
-            shouldOpenInNewWindow?: boolean | null
-          } | null
-        }
-      } | null> | null
-    } | null> | null
-  } | null> | null
-}
-
-export type NavigationItemFieldsFragment = {
-  __typename?: 'NavigationItemData'
-  contentForLanguage?: string | null
-  classNames?: string | null
-  url?: string | null
-  isUrlRelative?: boolean | null
-  shouldOpenInNewWindow?: boolean | null
-}
-
 export type GetProductBySlugQueryVariables = Exact<{
   slug: Scalars['String']
 }>
@@ -8130,6 +8078,7 @@ export type GetProductBySlugQuery = {
   __typename?: 'Query'
   catalogItemProduct?: {
     __typename?: 'CatalogItemProduct'
+    _id: string
     product?: {
       __typename?: 'CatalogProduct'
       _id: string
@@ -8144,7 +8093,6 @@ export type GetProductBySlugQuery = {
       metafields?: Array<{
         __typename?: 'Metafield'
         description?: string | null
-        key?: string | null
         namespace?: string | null
         scope?: string | null
         value?: string | null
@@ -8322,6 +8270,133 @@ export type GetProductBySlugQuery = {
       } | null> | null
     } | null
   } | null
+}
+
+export type PrimaryShopQueryVariables = Exact<{
+  language?: Scalars['String']
+}>
+
+export type PrimaryShopQuery = {
+  __typename?: 'Query'
+  primaryShop?: {
+    __typename?: 'Shop'
+    _id: string
+    description?: string | null
+    name: string
+    currency: { __typename?: 'Currency'; code: string }
+    defaultNavigationTree?: {
+      __typename?: 'NavigationTree'
+      _id: string
+      shopId: string
+      name: string
+      items?: Array<{
+        __typename?: 'NavigationTreeItem'
+        navigationItem: {
+          __typename?: 'NavigationItem'
+          data?: {
+            __typename?: 'NavigationItemData'
+            contentForLanguage?: string | null
+            classNames?: string | null
+            url?: string | null
+            isUrlRelative?: boolean | null
+            shouldOpenInNewWindow?: boolean | null
+          } | null
+        }
+        items?: Array<{
+          __typename?: 'NavigationTreeItem'
+          navigationItem: {
+            __typename?: 'NavigationItem'
+            data?: {
+              __typename?: 'NavigationItemData'
+              contentForLanguage?: string | null
+              classNames?: string | null
+              url?: string | null
+              isUrlRelative?: boolean | null
+              shouldOpenInNewWindow?: boolean | null
+            } | null
+          }
+          items?: Array<{
+            __typename?: 'NavigationTreeItem'
+            navigationItem: {
+              __typename?: 'NavigationItem'
+              _id: string
+              shopId: string
+              createdAt: any
+              data?: {
+                __typename?: 'NavigationItemData'
+                contentForLanguage?: string | null
+                classNames?: string | null
+                url?: string | null
+                isUrlRelative?: boolean | null
+                shouldOpenInNewWindow?: boolean | null
+              } | null
+            }
+          } | null> | null
+        } | null> | null
+      } | null> | null
+    } | null
+  } | null
+}
+
+export type NavigationTreeFragmentFragment = {
+  __typename?: 'NavigationTree'
+  _id: string
+  shopId: string
+  name: string
+  items?: Array<{
+    __typename?: 'NavigationTreeItem'
+    navigationItem: {
+      __typename?: 'NavigationItem'
+      data?: {
+        __typename?: 'NavigationItemData'
+        contentForLanguage?: string | null
+        classNames?: string | null
+        url?: string | null
+        isUrlRelative?: boolean | null
+        shouldOpenInNewWindow?: boolean | null
+      } | null
+    }
+    items?: Array<{
+      __typename?: 'NavigationTreeItem'
+      navigationItem: {
+        __typename?: 'NavigationItem'
+        data?: {
+          __typename?: 'NavigationItemData'
+          contentForLanguage?: string | null
+          classNames?: string | null
+          url?: string | null
+          isUrlRelative?: boolean | null
+          shouldOpenInNewWindow?: boolean | null
+        } | null
+      }
+      items?: Array<{
+        __typename?: 'NavigationTreeItem'
+        navigationItem: {
+          __typename?: 'NavigationItem'
+          _id: string
+          shopId: string
+          createdAt: any
+          data?: {
+            __typename?: 'NavigationItemData'
+            contentForLanguage?: string | null
+            classNames?: string | null
+            url?: string | null
+            isUrlRelative?: boolean | null
+            shouldOpenInNewWindow?: boolean | null
+          } | null
+        }
+      } | null> | null
+    } | null> | null
+  } | null> | null
+}
+
+export type NavigationItemFieldsFragment = {
+  __typename?: 'NavigationItemData'
+  contentForLanguage?: string | null
+  classNames?: string | null
+  url?: string | null
+  isUrlRelative?: boolean | null
+  shouldOpenInNewWindow?: boolean | null
 }
 
 export type GetShopCurrencyQueryVariables = Exact<{

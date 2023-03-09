@@ -1,5 +1,5 @@
 import { Vendor as QueryVender, TagEdge } from '../../schema'
-import { SiteTypes as CoreSiteTypes } from '@vercel/commerce/types/site'
+import { Category, Brand } from '@vercel/commerce/types/site'
 
 export * from '@vercel/commerce/types/site'
 
@@ -23,14 +23,10 @@ export type Navigation = {
   items?: Navigation[]
 }
 
-export type SiteTypes = CoreSiteTypes & {
-  navigation: Navigation
-}
-
-export type GetSiteInfoOperation<T extends SiteTypes = SiteTypes> = {
+export type GetSiteInfoOperation = {
   data: {
-    categories: T['category'][]
-    brands: T['brand'][]
-    navigation: T['navigation'][]
+    categories: Category[]
+    brands: Brand[]
+    navigation: Navigation[]
   }
 }

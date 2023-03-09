@@ -5,10 +5,21 @@ import {
 } from '@vercel/commerce/api'
 import createFetchGraphqlApi from './utils/fetch-grapql-api'
 
-import * as operations from './operations'
+import getAllPages from './operations/get-all-pages'
+import getPage from './operations/get-page'
+import getSiteInfo from './operations/get-site-info'
+import getAllProductPaths from './operations/get-all-product-paths'
+import getAllProducts from './operations/get-all-products'
+import getProduct from './operations/get-product'
+import {
+  OPENCOMMERCE_ANONYMOUS_CART_TOKEN_COOKIE,
+  OPENCOMMERCE_CART_TOKEN,
+  API_URL,
+} from '../const'
 
-const API_URL = process.env.OPENCOMMERCE_STOREFRONT_API_URL
-const SHOP_ID = process.env.OPENCOMMERCE_PRIMARY_SHOP_ID
+export interface OpenCommerceConfig extends CommerceAPIConfig {
+  anonymousCartTokenCookie: string
+}
 
 if (!API_URL) {
   throw new Error(
@@ -16,22 +27,25 @@ if (!API_URL) {
   )
 }
 
-export interface OpenCommerceConfig extends CommerceAPIConfig {
-  shopId: string
-  anonymousCartTokenCookie: string
-}
-
 const ONE_DAY = 60 * 60 * 24
 
 const config: OpenCommerceConfig = {
   commerceUrl: API_URL,
   apiToken: '',
-  shopId: SHOP_ID ?? '',
   customerCookie: 'opencommerce_customerToken',
-  cartCookie: 'opencommerce_cartId',
+  cartCookie: OPENCOMMERCE_CART_TOKEN,
   cartCookieMaxAge: ONE_DAY * 30,
-  anonymousCartTokenCookie: 'opencommerce_anonymousCartToken',
+  anonymousCartTokenCookie: OPENCOMMERCE_ANONYMOUS_CART_TOKEN_COOKIE,
   fetch: createFetchGraphqlApi(() => getCommerceApi().getConfig()),
+}
+
+const operations = {
+  getAllPages,
+  getPage,
+  getSiteInfo,
+  getAllProductPaths,
+  getAllProducts,
+  getProduct,
 }
 
 export const provider = { config, operations }
