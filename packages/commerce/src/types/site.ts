@@ -40,6 +40,8 @@ export interface Brand {
   path: string
 }
 
+export type Navigation = any
+
 /**
  * Operation to get site information. This includes categories and brands.
  */
@@ -47,5 +49,6 @@ export type GetSiteInfoOperation = {
   data: {
     categories: Category[]
     brands: Brand[]
+    navigation?: Navigation[]
   }
 }

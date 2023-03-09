@@ -31,7 +31,7 @@ const ShippingMethod = () => {
     await updateShippingMethod({
       id: cart!.id,
       ...addressFields,
-      shippingMethodId: event.target.shippingMethod.value,
+      ...(event.target.shippingMethod.value ? {shippingMethodId: event.target.shippingMethod.value} : {})
     })
 
     setSidebarView('CHECKOUT_VIEW')
