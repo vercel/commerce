@@ -19,14 +19,11 @@ Storefront API URL: https://api.open-commerce.io/graphql
 
 ```
 COMMERCE_PROVIDER=@vercel/commerce-opencommerce
-OPENCOMMERCE_STOREFRONT_API_URL=https://api.open-commerce.io/graphql
-OPENCOMMERCE_PRIMARY_SHOP_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-OPENCOMMERCE_IMAGE_DOMAIN=api.open-commerce.io
+NEXT_PUBLIC_OPENCOMMERCE_API_URL=http://api.open-commerce.io/graphql
+NEXT_PUBLIC_OPENCOMMERCE_IMAGE_DOMAIN=api.open-commerce.io
 ```
 
-**Note**: We can query the primary shop ID from the graphql api playground
-
-3. Run `yarn` and `yarn dev` in the root folder
+3. Run `pnpm install` and `cd site & pnpm dev` in the root folder
 
 ### Troubleshoot
 
