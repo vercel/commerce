@@ -69,7 +69,6 @@ export const handler: MutationHook<any> = {
               itemId,
             },
           })
-          console.log('update quantity', data)
           await mutate(data, false)
           return data
         },

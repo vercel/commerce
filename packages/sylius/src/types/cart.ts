@@ -10,6 +10,10 @@ export interface SyliusOrder {
   taxTotal: number
   itemsTotal: number
   total: number
+  taxExcludedTotal: number
+  taxIncludedTotal: number
+  shippingTotal: number
+  orderPromotionTotal: number
   items: SyliusOrderItem[]
 }
 
@@ -22,4 +26,12 @@ export interface SyliusOrderItem {
   variant: SyliusProductVariant
   optionValues: SyliusProductOptionValue[]
   product: SyliusProduct
+  adjustments: SyliusAdjustment[]
+}
+
+export interface SyliusAdjustment {
+  id: number
+  type: string
+  label: string
+  amount: number
 }

@@ -34,7 +34,6 @@ export const handler: MutationHook<any> = {
       return useCallback(
         async function removeItem(input) {
           const data = await fetch({ input: { itemId: input.id } })
-          console.log('remove item', data)
           await mutate(data, false)
           return data
         },

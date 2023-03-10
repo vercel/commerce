@@ -4,7 +4,8 @@ import {
   SelectedOption,
 } from '@vercel/commerce/types/cart'
 import { LineItem } from '@vercel/commerce/types/cart'
-import { SyliusOrder, SyliusOrderItem } from 'types/cart'
+import { Discount } from '@vercel/commerce/types/common'
+import { SyliusAdjustment, SyliusOrder, SyliusOrderItem } from 'types/cart'
 import {
   SyliusProduct,
   SyliusProductOption,
@@ -18,7 +19,7 @@ export const normalizeCart = (syliusOrder: SyliusOrder): Cart => {
     id: syliusOrder.id.toString(),
     createdAt: '',
     currency: { code: syliusOrder.currencyCode },
-    taxesIncluded: syliusOrder.taxTotal > 0,
+    taxesIncluded: syliusOrder.total !== syliusOrder.taxExcludedTotal,
     lineItems: syliusOrder.items.map((item) => normalizeOrderItem(item)),
     lineItemsSubtotalPrice: syliusOrder.itemsTotal / 100,
     subtotalPrice: syliusOrder.itemsTotal / 100,
@@ -33,7 +34,6 @@ const normalizeOrderItem = (syliusOrderItem: SyliusOrderItem): LineItem => {
     productId: syliusOrderItem.product.id.toString(),
     name: syliusOrderItem.productName,
     quantity: syliusOrderItem.quantity,
-    discounts: [],
     path: syliusOrderItem.product.slug,
     variant: normalizeOrderItemVariant(
       syliusOrderItem.variant,
@@ -44,6 +44,9 @@ const normalizeOrderItem = (syliusOrderItem: SyliusOrderItem): LineItem => {
         optionValue,
         syliusOrderItem.product.options
       )
+    ),
+    discounts: syliusOrderItem.adjustments.map((adjustment) =>
+      normalizeAdjustment(adjustment)
     ),
   }
 }
@@ -78,5 +81,11 @@ const normalizeOrderItemOptionValue = (
     id: rightOption.id.toString(),
     name: rightOption.name,
     value: optionValue.value,
+  }
+}
+
+const normalizeAdjustment = (adjustment: SyliusAdjustment): Discount => {
+  return {
+    value: adjustment.amount / 100,
   }
 }
