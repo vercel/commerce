@@ -3,16 +3,10 @@ import { GetCollectionsQuery } from '../../../schema'
 import { arrayToTree } from '../../utils/array-to-tree'
 import { getCollectionsQuery } from '../../utils/queries/get-collections-query'
 import { OperationContext } from '@vercel/commerce/api/operations'
-import { Category } from '@vercel/commerce/types/site'
+import { GetSiteInfoOperation } from '@vercel/commerce/types/site'
 
-export type GetSiteInfoResult<
-  T extends { categories: any[]; brands: any[] } = {
-    categories: Category[]
-    brands: any[]
-  }
-> = T
 
-export default function getSiteInfoOperation({
+export default function getSiteInfoOperation<T extends GetSiteInfoOperation>({
   commerce,
 }: OperationContext<Provider>) {
   async function getSiteInfo({
@@ -24,7 +18,7 @@ export default function getSiteInfoOperation({
     variables?: any
     config?: Partial<VendureConfig>
     preview?: boolean
-  } = {}): Promise<GetSiteInfoResult> {
+  } = {}): Promise<T['data']> {
     const config = commerce.getConfig(cfg)
     // RecursivePartial forces the method to check for every prop in the data, which is
     // required in case there's a custom `query`

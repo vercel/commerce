@@ -11,13 +11,11 @@ export async function getSearchStaticProps({
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
   const { pages } = await pagesPromise
-  const { categories, brands, navigation } = await siteInfoPromise
+  const sieInfo = await siteInfoPromise
   return {
     props: {
       pages,
-      categories,
-      brands,
-      ...(navigation ? { navigation } : {}),
+     ...sieInfo
     },
     revalidate: 200,
   }
