@@ -28,7 +28,6 @@ export const handler: MutationHook<UpdateAddressItemHook> = {
         input: {
           cartId,
           cartToken,
-          fulfillmentGroupId: item.fulfillmentGroupId,
           fulfillmentMethodId: item.shippingMethodId,
         },
       },
@@ -44,15 +43,12 @@ export const handler: MutationHook<UpdateAddressItemHook> = {
       return useCallback(
         async function updateItem(input) {
           const { id, ...rest } = input
-          const fulfillmentGroupId =
-            checkoutData?.shippingGroup?._id || 'groupId'
           await fetch({
-            input: { item: { ...rest, fulfillmentGroupId }, itemId: id },
+            input: { item: { ...rest }, itemId: id },
           })
           setAddressFields({
             ...addressFields,
             shippingMethodId: rest.shippingMethodId,
-            fulfillmentGroupId,
           })
           return null
         },

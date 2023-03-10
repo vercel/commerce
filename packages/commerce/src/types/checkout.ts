@@ -28,6 +28,20 @@ export interface Checkout {
    * List of items in the checkout.
    */
   lineItems?: LineItem[]
+
+  /**
+   * List of available shipping methods
+   */
+  shippingMethods?: {
+    id: string
+    fee: string
+    name: string
+  }[]
+
+  /**
+   * The unique identifier of the shipping method that the customer has selected.
+   */
+  selectedShippingMethodId?: string
 }
 
 export interface CheckoutBody {

@@ -7,11 +7,11 @@ import useCheckout, {
 import useSubmitCheckout from './use-submit-checkout'
 import { useCheckoutContext } from '@components/checkout/context'
 import { AddressFields } from '../types/customer/address'
-import { GetCheckoutHook } from '../types/checkout'
 import { FulfillmentGroup } from '../types/cart'
 import { API_URL, OPENCOMMERCE_ANONYMOUS_CART_TOKEN_COOKIE } from '../const'
 import getAnonymousCartQuery from '../api/queries/get-anonymous-cart'
 import { normalizeCheckout } from '../utils/normalize'
+import { GetCheckoutHook } from '@vercel/commerce/types/checkout'
 
 export default useCheckout as UseCheckout<typeof handler>
 
@@ -40,23 +40,26 @@ export const handler: SWRHook<GetCheckoutHook> = {
         (group) => group.type === 'shipping'
       )
 
-      const hasShippingMethods =
-        !!shippingTypeFulfillment?.availableFulfillmentOptions?.length
-
       const shippingGroup = checkout.fulfillmentGroups.find(
         (group: FulfillmentGroup) => group?.type === 'shipping'
       )
 
-      const totalDisplayAmount =
+      const shippingAmount =
         checkout.summary.fulfillmentTotal?.displayAmount || '0'
 
       return {
         hasPayment: true,
-        hasShippingMethods,
-        shippingGroup,
+        selectedShippingMethodId:
+          shippingGroup?.selectedFulfillmentOption?.fulfillmentMethod?._id,
+        shippingMethods: shippingGroup?.availableFulfillmentOptions
+          ?.filter((opt) => !!opt.fulfillmentMethod)
+          .map(({ fulfillmentMethod, price }) => ({
+            name: fulfillmentMethod!.displayName,
+            id: fulfillmentMethod!._id,
+            fee: price.displayAmount,
+          })),
         hasShipping: false,
         addressId: 'addressId',
-        totalDisplayAmount,
       }
     }
 
@@ -85,7 +88,7 @@ export const handler: SWRHook<GetCheckoutHook> = {
             data: {
               ...response.data,
               hasShipping: hasEnteredAddress,
-              hasSelectedShippingMethod: !!shippingMethodId,
+              selectedShippingMethodId: shippingMethodId,
             },
             submit: () => submit,
             isEmpty: response.data.lineItems?.length ?? 0,

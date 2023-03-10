@@ -4,7 +4,6 @@ export * from '@vercel/commerce/types/customer/address'
 
 export type AddressFields = Core.AddressFields & {
   shippingMethodId?: string
-  fulfillmentGroupId?: string
 }
 
 export type UpdateAddressItemHook = Omit<

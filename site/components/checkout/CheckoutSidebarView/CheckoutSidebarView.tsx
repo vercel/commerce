@@ -74,12 +74,12 @@ const CheckoutSidebarView: FC = () => {
           onClick={() => setSidebarView('SHIPPING_VIEW')}
         />
 
-        {checkoutData?.hasShippingMethods && (
+        {checkoutData?.shippingMethods?.length ? (
           <ShippingMethodWidget
-            isValid={checkoutData?.hasSelectedShippingMethod}
+            isValid={!!checkoutData?.selectedShippingMethodId}
             onClick={() => setSidebarView('SHIPPING_METHOD_VIEW')}
           />
-        )}
+        ) : null}
 
         <ul className={s.lineItemsList}>
           {cartData!.lineItems.map((item: any) => (
@@ -106,10 +106,15 @@ const CheckoutSidebarView: FC = () => {
             <span>Taxes</span>
             <span>Calculated at checkout</span>
           </li>
-          {checkoutData?.hasSelectedShippingMethod ? (
+          {checkoutData?.selectedShippingMethodId ? (
             <li className="flex justify-between py-1">
               <span>Shipping</span>
-              <span>{checkoutData?.totalDisplayAmount}</span>
+              <span>
+                {checkoutData?.shippingMethods?.find(
+                  (method) =>
+                    method.id === checkoutData.selectedShippingMethodId
+                )?.fee ?? 0}
+              </span>
             </li>
           ) : (
             <li className="flex justify-between py-1">
