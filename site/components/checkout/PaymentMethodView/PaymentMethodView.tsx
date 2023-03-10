@@ -26,7 +26,6 @@ interface Form extends HTMLFormElement {
 const PaymentMethodView: FC = () => {
   const { setSidebarView } = useUI()
   const addCard = useAddCard()
-  const { cardFields } = useCheckoutContext()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
@@ -58,7 +57,6 @@ const PaymentMethodView: FC = () => {
               <input
                 name="cardHolder"
                 className={s.input}
-                defaultValue={cardFields.cardHolder}
               />
             </div>
             <div className="grid gap-3 grid-flow-row grid-cols-12">
@@ -67,7 +65,6 @@ const PaymentMethodView: FC = () => {
                 <input
                   name="cardNumber"
                   className={s.input}
-                  defaultValue={cardFields.cardNumber}
                 />
               </div>
               <div className={cn(s.fieldset, 'col-span-3')}>
@@ -76,7 +73,6 @@ const PaymentMethodView: FC = () => {
                   name="cardExpireDate"
                   className={s.input}
                   placeholder="MM/YY"
-                  defaultValue={cardFields.cardExpireDate}
                 />
               </div>
               <div className={cn(s.fieldset, 'col-span-2')}>
@@ -84,7 +80,6 @@ const PaymentMethodView: FC = () => {
                 <input
                   name="cardCvc"
                   className={s.input}
-                  defaultValue={cardFields.cardCvc}
                 />
               </div>
             </div>
