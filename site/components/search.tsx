@@ -161,10 +161,10 @@ export default function Search({ categories, brands }: SearchPropsType) {
                       hidden: !data.found,
                     })}
                   >
-                    Showing {data.products.length} results{' '}
+                    {locale === "en" ? `Showing ${data.products.length} results${' '}` : `Trovati ${data.products.length} risultati${' '}`}
                     {q && (
                       <>
-                        for "<strong>{q}</strong>"
+                        {locale === "en" ? `for` : `per`} "<strong>{q}</strong>"
                       </>
                     )}
                   </span>
@@ -176,21 +176,21 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   >
                     {q ? (
                       <>
-                        There are no products that match "<strong>{q}</strong>"
+                        {locale === "en" ? "There are no products that match" : "Nessun prodotto per "} "<strong>{q}</strong>"
                       </>
                     ) : (
                       <>
-                        There are no products that match the selected category.
+                        {locale === "en" ? "There are no products that match the selected category." : "Nessun prodotto per la categoria selezionata."}
                       </>
                     )}
                   </span>
                 </>
               ) : q ? (
                 <>
-                  Searching for: "<strong>{q}</strong>"
+                  {locale === "en" ? "Searching for:" : "Cercando:"} "<strong>{q}</strong>"
                 </>
               ) : (
-                <>Searching...</>
+                <>{locale === "en" ? "Searching..." : "Cercando..."}</>
               )}
             </div>
           )}
