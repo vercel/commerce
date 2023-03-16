@@ -34,17 +34,17 @@ const Footer: FC<Props> = ({ className, pages }) => {
     <footer className={rootClassName}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accent-2 py-12 text-primary bg-primary transition-colors duration-150">
-          <div className="col-span-1 lg:col-span-2">
+          <div className="col-span-1 lg:col-span-3">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
-                <span className="rounded-full border border-accent-6 mr-2">
+                <span className="mr-2">
                   <Logo />
                 </span>
-                <span>ACME</span>
+                <span>SafaraAbruzzo</span>
               </a>
             </Link>
           </div>
-          <div className="col-span-1 lg:col-span-6">
+          <div className="col-span-1 lg:col-span-5">
             <div className="grid md:grid-rows-4 md:grid-cols-3 md:grid-flow-col">
               {[...links].map((page: FooterLink) => (
                 <span key={page.href} className="py-3 md:py-0 md:pb-4">
