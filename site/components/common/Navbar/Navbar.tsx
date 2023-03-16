@@ -54,7 +54,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
               <UserNav />
             </div>
           </div>
-          {process.env.COMMERCE_SEARCH_ENABLED && (
+          {process.env.COMMERCE_SEARCH_ENABLED && pathname.includes("search") && (
             <div className="flex pb-4 lg:px-6 lg:hidden">
               <Searchbar id="mobile-search" />
             </div>

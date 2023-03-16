@@ -52,7 +52,6 @@ export default function Search({ categories, brands }: SearchPropsType) {
   const categoriesItems = filtersData.categories[locale as keyof typeof filtersData.categories]
 
   const SORT = {
-    'trending-desc': locale === "it" ? "Tendenza" :'Trending',
     'latest-desc': locale === "it" ? "Ultimi Arrivi" : 'Latest arrivals',
     'price-asc': locale === "it" ? "Prezzo Crescente" : 'Price: Low to high',
     'price-desc': locale === "it" ? "Prezzo Decrescente" :'Price: High to low',
@@ -233,7 +232,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   aria-haspopup="true"
                   aria-expanded="true"
                 >
-                  {sort ? SORT[sort as keyof typeof SORT] : locale === "it" ? "Rilevanza" : "Relevance"}
+                  {sort ? SORT[sort as keyof typeof SORT] : locale === "it" ? "Filtri" : "Filters"}
                   <svg
                     className="-mr-1 ml-2 h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -276,7 +275,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                           }
                         >
-                          {locale === "it" ? "Rilevanza" : "Relevance"}
+                          {locale === "it" ? "Filtri" : "Filters"}
                         </a>
                       </Link>
                     </li>
