@@ -1,9 +1,9 @@
 {
-  "title": "SafaraEcommerce",
-  "titleTemplate": "%s - SafaraEcommerce",
-  "description": "SafaraEcommerce",
+  "title": "SafaraAbruzzo",
+  "titleTemplate": "%s - SafaraAbruzzo",
+  "description": "SafaraAbruzzo",
   "openGraph": {
-    "title": "SafaraEcommerce",
+    "title": "SafaraAbruzzo",
     "description": "Next.js Commerce - https://www.nextjs.org/commerce",
     "type": "website",
     "url": "https://nextjs.org/commerce",
