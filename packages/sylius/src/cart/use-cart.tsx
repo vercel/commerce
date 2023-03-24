@@ -13,9 +13,10 @@ export const handler: SWRHook<GetCartHook> = {
     method: 'GET',
   },
   fetcher: async ({ options, fetch }) => {
-    if (getCartToken()) {
+    const cartToken = getCartToken()
+    if (cartToken) {
       const syliusCart = await fetch({
-        url: `${options.url}/${getCartToken()}`,
+        url: `${options.url}/${cartToken}`,
         method: options.method,
       })
       return normalizeCart(syliusCart)

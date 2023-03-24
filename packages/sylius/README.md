@@ -36,7 +36,7 @@ NEXT_PUBLIC_SYLIUS_API_URL=127.0.1:8000
 NEXT_PUBLIC_SYLIUS_ALLOWED_IMAGE_DOMAIN=127.0.0.1
 ```
 
-4. With the Sylius server running, start this project using `yarn dev` or `npm run dev`.
+4. With the Sylius server running, start this project using `yarn dev`.
 
 ### Known Limitations
 
