@@ -14,25 +14,23 @@ import {
   SyliusProductVariant,
 } from '../../types/products'
 
-export const normalizeProduct = (product: SyliusProduct): Product => {
-  return {
-    id: product.id.toString(),
-    name: product.name,
-    description: product.shortDescription,
-    descriptionHtml: product.description,
-    slug: product.slug,
-    path: `/${product.slug}`,
-    images: product.images.map((image) => normalizeProductImage(image)),
-    variants: product.variants.map((variant) =>
-      normalizeProductVariant(variant, product.options)
-    ),
-    price: normalizeProductPrice(
-      product.variants[0].price,
-      product.variants[0].originalPrice
-    ),
-    options: product.options.map((option) => normalizeProductOption(option)),
-  }
-}
+export const normalizeProduct = (product: SyliusProduct): Product => ({
+  id: product.id.toString(),
+  name: product.name,
+  description: product.shortDescription,
+  descriptionHtml: product.description,
+  slug: product.slug,
+  path: `/${product.slug}`,
+  images: product.images.map((image) => normalizeProductImage(image)),
+  variants: product.variants.map((variant) =>
+    normalizeProductVariant(variant, product.options)
+  ),
+  price: normalizeProductPrice(
+    product.variants[0].price,
+    product.variants[0].originalPrice
+  ),
+  options: product.options.map((option) => normalizeProductOption(option)),
+})
 
 const normalizeProductVariant = (
   variant: SyliusProductVariant,
@@ -93,16 +91,15 @@ const normalizeProductVariantOption = (
   }
 }
 
-const normalizeProductOption = (option: SyliusProductOption): ProductOption => {
-  return {
-    __typename: 'MultipleChoiceOption',
-    id: option.id.toString(),
-    displayName: option.name,
-    values: option.values.map((optionValue) =>
-      normalizeProductOptionValue(optionValue)
-    ),
-  }
-}
+const normalizeProductOption = (
+  option: SyliusProductOption
+): ProductOption => ({
+  id: option.id.toString(),
+  displayName: option.name,
+  values: option.values.map((optionValue) =>
+    normalizeProductOptionValue(optionValue)
+  ),
+})
 
 const normalizeProductOptionValue = (
   optionValue: SyliusProductOptionValue
@@ -112,21 +109,15 @@ const normalizeProductOptionValue = (
   }
 }
 
-export const normalizeProductImage = (
-  image: SyliusProductImage
-): ProductImage => {
-  return {
-    url: process.env.NEXT_PUBLIC_SYLIUS_API_URL + image.path,
-  }
-}
+const normalizeProductImage = (image: SyliusProductImage): ProductImage => ({
+  url: process.env.NEXT_PUBLIC_SYLIUS_ALLOWED_IMAGE_URL + image.path,
+})
 
 const normalizeProductPrice = (
   price: number,
   originalPrice: number
-): ProductPrice => {
-  return {
-    value: originalPrice / 100,
-    salePrice: price / 100,
-    currencyCode: 'EUR',
-  }
-}
+): ProductPrice => ({
+  value: originalPrice / 100,
+  salePrice: price / 100,
+  currencyCode: 'EUR',
+})
