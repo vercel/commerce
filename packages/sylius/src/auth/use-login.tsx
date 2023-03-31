@@ -5,12 +5,13 @@ import useCustomer from '@vercel/commerce/customer/use-customer'
 import { setCustomerToken } from '../utils/token/customer-token'
 import { setCustomerRoute } from '../utils/token/customer-route'
 import { LoginHook } from '@vercel/commerce/types/login'
+import { LOGIN_ENDPOINT } from '../utils/constant/api-endpoints'
 
 export default useLogin as UseLogin<typeof handler>
 
 export const handler: MutationHook<LoginHook> = {
   fetchOptions: {
-    url: '/api/v2/shop/authentication-token',
+    url: LOGIN_ENDPOINT,
     method: 'POST',
   },
   fetcher: async ({ input, options, fetch }) => {

@@ -12,12 +12,13 @@ import useCart from './use-cart'
 import { LineItem, UpdateItemHook } from '@vercel/commerce/types/cart'
 import { ValidationError } from '@vercel/commerce/utils/errors'
 import { normalizeCart } from '../utils/normalize/normalize-cart'
+import { CUSTOMER_ORDERS_ENDPOINT } from '../utils/constant/api-endpoints'
 
 export default useUpdateItem as UseUpdateItem<any>
 
-export const handler: MutationHook<any> = {
+export const handler: MutationHook<UpdateItemHook> = {
   fetchOptions: {
-    url: '/api/v2/shop/orders',
+    url: CUSTOMER_ORDERS_ENDPOINT,
     method: 'PATCH',
   },
   fetcher: async ({

@@ -1,0 +1,6 @@
+export const PRODUCTS_ENDPOINT = '/api/v2/shop/products'
+export const PRODUCT_BY_SLUG_ENDPOINT = '/api/v2/shop/products-by-slug'
+export const TAXONS_ENDPOINT = '/api/v2/shop/taxons'
+export const LOGIN_ENDPOINT = '/api/v2/shop/authentication-token'
+export const CUSTOMERS_ENDPOINT = '/api/v2/shop/customers'
+export const CUSTOMER_ORDERS_ENDPOINT = '/api/v2/shop/orders'

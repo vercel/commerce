@@ -2,12 +2,13 @@ import { useCallback } from 'react'
 import { MutationHook } from '@vercel/commerce/utils/types'
 import useSignup, { UseSignup } from '@vercel/commerce/auth/use-signup'
 import { SignupHook } from '@vercel/commerce/types/signup'
+import { CUSTOMERS_ENDPOINT } from '../utils/constant/api-endpoints'
 
 export default useSignup as UseSignup<typeof handler>
 
 export const handler: MutationHook<SignupHook> = {
   fetchOptions: {
-    url: '/api/v2/shop/customers',
+    url: CUSTOMERS_ENDPOINT,
     method: 'POST',
   },
   fetcher: async ({

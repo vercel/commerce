@@ -6,21 +6,22 @@ import { getCustomerRoute } from '../utils/token/customer-route'
 import { normalizeCustomer } from '../utils/normalize/normalize-customer'
 import { getCustomerToken } from '../utils/token/customer-token'
 import { CustomerHook } from '@vercel/commerce/types/customer'
+import { CUSTOMERS_ENDPOINT } from '../utils/constant/api-endpoints'
 
 export default useCustomer as UseCustomer<typeof handler>
 
 export const handler: SWRHook<CustomerHook> = {
   fetchOptions: {
-    url: `/api/v2/shop/customers/`,
+    url: CUSTOMERS_ENDPOINT,
     method: 'GET',
   },
   fetcher: async ({ options, fetch }) => {
     if (getCustomerToken()) {
-      const syliusCustomer = await fetch({
+      const customerData = await fetch({
         url: getCustomerRoute() ?? '',
         method: options.method,
       })
-      return normalizeCustomer(syliusCustomer)
+      return normalizeCustomer(customerData?.customer)
     }
     return null
   },

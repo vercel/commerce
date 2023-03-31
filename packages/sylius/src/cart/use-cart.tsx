@@ -4,12 +4,13 @@ import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
 import { getCartToken } from '../utils/token/cart-token'
 import { normalizeCart } from '../utils/normalize/normalize-cart'
 import { GetCartHook } from '@vercel/commerce/types/cart'
+import { CUSTOMER_ORDERS_ENDPOINT } from '../utils/constant/api-endpoints'
 
 export default useCart as UseCart<typeof handler>
 
 export const handler: SWRHook<GetCartHook> = {
   fetchOptions: {
-    url: `/api/v2/shop/orders`,
+    url: CUSTOMER_ORDERS_ENDPOINT,
     method: 'GET',
   },
   fetcher: async ({ options, fetch }) => {

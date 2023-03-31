@@ -1,7 +1,8 @@
 import { OperationContext } from '@vercel/commerce/api/operations'
 import type { Product } from '@vercel/commerce/types/product'
-import { SyliusConfig } from 'api'
+import { SyliusConfig, Provider } from 'api'
 import { SyliusProduct } from 'types/products'
+import { PRODUCTS_ENDPOINT } from '../../utils/constant/api-endpoints'
 import { normalizeProduct } from '../../utils/normalize/normalize-product'
 
 export type GetAllProductPathsResult = {
@@ -10,7 +11,7 @@ export type GetAllProductPathsResult = {
 
 export default function getAllProductPathsOperation({
   commerce,
-}: OperationContext<any>) {
+}: OperationContext<Provider>) {
   async function getAllProductPaths({
     query,
     variables,
@@ -22,7 +23,7 @@ export default function getAllProductPathsOperation({
     preview?: boolean
   } = {}): Promise<GetAllProductPathsResult> {
     const config = commerce.getConfig(cfg)
-    const syliusProducts = await config.fetch('GET', '/api/v2/shop/products')
+    const syliusProducts = await config.fetch('GET', PRODUCTS_ENDPOINT)
     const products = syliusProducts.map((syliusProduct: SyliusProduct) =>
       normalizeProduct(syliusProduct)
     )

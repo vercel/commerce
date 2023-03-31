@@ -1,8 +1,9 @@
 import { OperationContext } from '@vercel/commerce/api/operations'
 import { Category } from '@vercel/commerce/types/site'
 import { SyliusCategorie } from 'types/site'
+import { TAXONS_ENDPOINT } from '../../utils/constant/api-endpoints'
 import { normalizeCategorie } from '../../utils/normalize/normalize-site'
-import { SyliusConfig } from '../index'
+import { SyliusConfig, Provider } from '../index'
 
 export type GetSiteInfoResult<
   T extends { categories: any[]; brands: any[] } = {
@@ -13,7 +14,7 @@ export type GetSiteInfoResult<
 
 export default function getSiteInfoOperation({
   commerce,
-}: OperationContext<any>) {
+}: OperationContext<Provider>) {
   async function getSiteInfo({
     query,
     variables,
@@ -25,7 +26,7 @@ export default function getSiteInfoOperation({
     preview?: boolean
   } = {}): Promise<GetSiteInfoResult> {
     const config = commerce.getConfig(cfg)
-    const syliusCategories = await config.fetch('GET', '/api/v2/shop/taxons')
+    const syliusCategories = await config.fetch('GET', TAXONS_ENDPOINT)
     const categories = syliusCategories.map(
       (syliusCategories: SyliusCategorie) =>
         normalizeCategorie(syliusCategories)

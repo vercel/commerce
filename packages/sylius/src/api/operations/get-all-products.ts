@@ -3,6 +3,7 @@ import type { OperationContext } from '@vercel/commerce/api/operations'
 import type { Provider, SyliusConfig } from '../index'
 import { SyliusProduct } from '../../types/products'
 import { normalizeProduct } from '../../utils/normalize/normalize-product'
+import { PRODUCTS_ENDPOINT } from '../../utils/constant/api-endpoints'
 
 export default function getAllProductsOperation({
   commerce,
@@ -23,7 +24,7 @@ export default function getAllProductsOperation({
     preview?: boolean
   } = {}): Promise<{ products: Product[] }> {
     const config = commerce.getConfig(cfg)
-    const syliusProducts = await config.fetch('GET', '/api/v2/shop/products')
+    const syliusProducts = await config.fetch('GET', PRODUCTS_ENDPOINT)
     const products = syliusProducts.map((syliusProduct: SyliusProduct) =>
       normalizeProduct(syliusProduct)
     )

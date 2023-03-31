@@ -1,13 +1,17 @@
 import useAddItem, { UseAddItem } from '@vercel/commerce/cart/use-add-item'
+import { AddItemHook } from '@vercel/commerce/types/cart'
 import { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
+import { CUSTOMER_ORDERS_ENDPOINT } from '../utils/constant/api-endpoints'
+import { normalizeCart } from '../utils/normalize/normalize-cart'
 import { getCartToken, setCartToken } from '../utils/token/cart-token'
 import useCart from './use-cart'
 
 export default useAddItem as UseAddItem<typeof handler>
-export const handler: MutationHook<any> = {
+
+export const handler: MutationHook<AddItemHook> = {
   fetchOptions: {
-    url: '/api/v2/shop/orders',
+    url: CUSTOMER_ORDERS_ENDPOINT,
     method: 'POST',
   },
   fetcher: async ({ input: { productId, variantId }, options, fetch }) => {
@@ -21,7 +25,8 @@ export const handler: MutationHook<any> = {
       })
       setCartToken(syliusOrder.tokenValue)
     }
-    await fetch({
+
+    const syliusCart = await fetch({
       url: `${options.url}/${getCartToken()}/items`,
       method: options.method,
       body: {
@@ -29,6 +34,8 @@ export const handler: MutationHook<any> = {
         quantity: 1,
       },
     })
+
+    return normalizeCart(syliusCart)
   },
   useHook:
     ({ fetch }) =>

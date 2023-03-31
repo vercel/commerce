@@ -2,9 +2,9 @@ import { SWRHook } from '@vercel/commerce/utils/types'
 import useSearch, { UseSearch } from '@vercel/commerce/product/use-search'
 import { normalizeProduct } from '../utils/normalize/normalize-product'
 import { SyliusProduct } from 'types/products'
-import { url } from 'inspector'
 import { API_URL } from './../const'
-import { Product } from '@vercel/commerce/types/product'
+import { SearchProductsHook } from '@vercel/commerce/types/product'
+import { PRODUCTS_ENDPOINT } from '../utils/constant/api-endpoints'
 export default useSearch as UseSearch<typeof handler>
 
 export type SearchProductsInput = {
@@ -15,15 +15,16 @@ export type SearchProductsInput = {
   locale?: string
 }
 
-export const handler: SWRHook<any> = {
+export const handler: SWRHook<SearchProductsHook> = {
   fetchOptions: {
-    url: '/api/v2/shop/products',
+    url: PRODUCTS_ENDPOINT,
     method: 'GET',
   },
   fetcher: async ({ input: { search, categoryId, sort }, options, fetch }) => {
     const url = new URL(options.url!, API_URL)
 
-    if (categoryId) url.searchParams.set('productTaxons.taxon.code', categoryId)
+    if (categoryId)
+      url.searchParams.set('productTaxons.taxon.code', categoryId as string)
     if (search) url.searchParams.set('translations.name', search)
     if (sort) {
       switch (sort) {

@@ -7,12 +7,13 @@ import useCart from './use-cart'
 import { RemoveItemHook } from '@vercel/commerce/types/cart'
 import { useCallback } from 'react'
 import { normalizeCart } from '../utils/normalize/normalize-cart'
+import { CUSTOMER_ORDERS_ENDPOINT } from '../utils/constant/api-endpoints'
 
 export default useRemoveItem as UseRemoveItem<typeof handler>
 
-export const handler: MutationHook<any> = {
+export const handler: MutationHook<RemoveItemHook> = {
   fetchOptions: {
-    url: '/api/v2/shop/orders',
+    url: CUSTOMER_ORDERS_ENDPOINT,
     method: 'DELETE',
   },
   fetcher: async ({ input: { itemId }, options, fetch }) => {
