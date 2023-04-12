@@ -112,7 +112,7 @@ const normalizeProductOptionValue = (
 export const normalizeProductImage = (
   image: SyliusProductImage
 ): ProductImage => ({
-  url: process.env.NEXT_PUBLIC_SYLIUS_ALLOWED_IMAGE_URL + image.path,
+  url: process.env.NEXT_PUBLIC_SYLIUS_API_URL + image.path,
 })
 
 const normalizeProductPrice = (
