@@ -1,6 +1,0 @@
-{
-  "provider": "vendure",
-  "features": {
-    "wishlist": false
-  }
-}

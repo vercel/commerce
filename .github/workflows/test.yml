@@ -1,0 +1,32 @@
+name: test
+on: pull_request
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel running workflows
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Set node version
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Set pnpm version
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: false
+          version: 7
+      - name: Cache node_modules
+        id: node-modules-cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: node-modules-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: pnpm install
+      - name: Run tests
+        run: pnpm test
