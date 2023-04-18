@@ -22,7 +22,6 @@ Looking for Next.js Commerce v1? [View the release notes](https://github.com/ver
 2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
 3. Download your environment variables: `vercel env pull .env.local`
 
-
 ```bash
 pnpm install
 pnpm dev

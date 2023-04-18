@@ -1,14 +1,20 @@
 import { Dialog } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopify/types';
+import { createUrl } from 'lib/utils';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
+
+type MerchandiseSearchParams = {
+  [key: string]: string;
+};
 
 export default function CartModal({
   isOpen,
@@ -50,7 +56,7 @@ export default function CartModal({
                 closed: { translateX: '100%' }
               }}
               transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
-              className="flex w-full flex-col bg-white p-8 text-black dark:bg-black dark:text-white md:w-1/3 lg:w-[30%] lg:px-6"
+              className="flex w-full flex-col bg-white p-8 text-black dark:bg-black dark:text-white md:w-3/5 lg:w-2/5"
             >
               <div className="flex items-center justify-between">
                 <p className="text-lg font-bold">My Cart</p>
@@ -74,95 +80,102 @@ export default function CartModal({
                 <div className="flex h-full flex-col justify-between overflow-hidden">
                   <ul className="flex-grow overflow-auto p-6">
                     {cart.lines.map((item, i) => {
+                      const merchandiseSearchParams = {} as MerchandiseSearchParams;
+
+                      item.merchandise.selectedOptions.forEach(({ name, value }) => {
+                        if (value !== DEFAULT_OPTION) {
+                          merchandiseSearchParams[name.toLowerCase()] = value;
+                        }
+                      });
+
+                      const merchandiseUrl = createUrl(
+                        `/product/${item.merchandise.product.handle}`,
+                        new URLSearchParams(merchandiseSearchParams)
+                      );
+
                       return (
                         <li key={i} data-testid="cart-item">
-                          <div className="mb-2 flex w-full">
-                            <div className="relative h-20 w-20 flex-none">
-                              {item.merchandise.product.featuredImage.url && (
-                                <Image
-                                  alt={
-                                    item.merchandise.product.featuredImage.altText ||
-                                    item.merchandise.product.title
-                                  }
-                                  className="bg-white"
-                                  fill
-                                  src={item.merchandise.product.featuredImage.url}
-                                />
-                              )}
+                          <Link
+                            className="flex flex-row space-x-4 py-4"
+                            href={merchandiseUrl}
+                            onClick={onClose}
+                          >
+                            <div className="relative h-16 w-16 cursor-pointer overflow-hidden bg-white">
+                              <Image
+                                className="h-full w-full object-cover"
+                                width={64}
+                                height={64}
+                                alt={
+                                  item.merchandise.product.featuredImage.altText ||
+                                  item.merchandise.product.title
+                                }
+                                src={item.merchandise.product.featuredImage.url}
+                              />
                             </div>
-                            <div className="ml-4 flex w-full flex-col justify-between">
-                              <div className="flex w-full justify-between">
-                                <div>
-                                  <p
-                                    className="text-lg font-medium"
-                                    data-testid="cart-product-name"
-                                  >
-                                    {item.merchandise.product.title}
-                                  </p>
-                                  {item.merchandise.title !== DEFAULT_OPTION ? (
-                                    <p className="text-sm" data-testid="cart-product-variant">
-                                      {item.merchandise.title}
-                                    </p>
-                                  ) : null}
-                                </div>
-                                <Price
-                                  className="font-medium"
-                                  amount={item.cost.totalAmount.amount}
-                                  currencyCode={item.cost.totalAmount.currencyCode}
-                                />
-                              </div>
+                            <div className="flex flex-1 flex-col text-base">
+                              <span className="font-semibold">
+                                {item.merchandise.product.title}
+                              </span>
+                              {item.merchandise.title !== DEFAULT_OPTION ? (
+                                <p className="text-sm" data-testid="cart-product-variant">
+                                  {item.merchandise.title}
+                                </p>
+                              ) : null}
                             </div>
-                          </div>
-                          <div className="mb-4 flex w-full">
+                            <Price
+                              className="flex flex-col justify-between space-y-2 text-sm"
+                              amount={item.cost.totalAmount.amount}
+                              currencyCode={item.cost.totalAmount.currencyCode}
+                            />
+                          </Link>
+                          <div className="flex h-9 flex-row">
                             <DeleteItemButton item={item} />
-                            <div className="flex h-8 w-full border border-black/40 dark:border-white/40">
-                              <div className="flex h-full items-center px-2 ">{item.quantity}</div>
-                              <EditItemQuantityButton item={item} type="minus" />
-                              <EditItemQuantityButton item={item} type="plus" />
-                            </div>
+                            <p className="ml-2 flex w-full items-center justify-center border dark:border-gray-700">
+                              <span className="w-full px-2">{item.quantity}</span>
+                            </p>
+                            <EditItemQuantityButton item={item} type="minus" />
+                            <EditItemQuantityButton item={item} type="plus" />
                           </div>
                         </li>
                       );
                     })}
                   </ul>
-                  <div className="border-t border-white/60 p-6">
-                    <div className="text-sm text-white">
-                      <div className="mb-2 flex items-center justify-between">
-                        <p>Subtotal</p>
-                        <Price
-                          className="text-right"
-                          amount={cart.cost.subtotalAmount.amount}
-                          currencyCode={cart.cost.subtotalAmount.currencyCode}
-                        />
-                      </div>
-                      <div className="mb-2 flex items-center justify-between">
-                        <p>Taxes</p>
-                        <Price
-                          className="text-right"
-                          amount={cart.cost.totalTaxAmount.amount}
-                          currencyCode={cart.cost.totalTaxAmount.currencyCode}
-                        />
-                      </div>
-                      <div className="mb-2 flex items-center justify-between border-b border-white/30 pb-2">
-                        <p>Shipping</p>
-                        <p className="text-right uppercase">calculated at checkout</p>
-                      </div>
-                      <div className="mb-2 flex items-center justify-between font-bold">
-                        <p>Total</p>
-                        <Price
-                          className="text-right"
-                          amount={cart.cost.totalAmount.amount}
-                          currencyCode={cart.cost.totalAmount.currencyCode}
-                        />
-                      </div>
+                  <div className="border-t border-gray-200 pt-2 text-sm text-black dark:text-white">
+                    <div className="mb-2 flex items-center justify-between">
+                      <p>Subtotal</p>
+                      <Price
+                        className="text-right"
+                        amount={cart.cost.subtotalAmount.amount}
+                        currencyCode={cart.cost.subtotalAmount.currencyCode}
+                      />
                     </div>
-                    <a
-                      href={cart.checkoutUrl}
-                      className="mt-6 flex w-full items-center justify-center bg-black p-3 text-sm font-medium uppercase text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black"
-                    >
-                      <span>Proceed to Checkout</span>
-                    </a>
+                    <div className="mb-2 flex items-center justify-between">
+                      <p>Taxes</p>
+                      <Price
+                        className="text-right"
+                        amount={cart.cost.totalTaxAmount.amount}
+                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
+                      />
+                    </div>
+                    <div className="mb-2 flex items-center justify-between border-b border-gray-200 pb-2">
+                      <p>Shipping</p>
+                      <p className="text-right">Calculated at checkout</p>
+                    </div>
+                    <div className="mb-2 flex items-center justify-between font-bold">
+                      <p>Total</p>
+                      <Price
+                        className="text-right"
+                        amount={cart.cost.totalAmount.amount}
+                        currencyCode={cart.cost.totalAmount.currencyCode}
+                      />
+                    </div>
                   </div>
+                  <a
+                    href={cart.checkoutUrl}
+                    className="flex w-full items-center justify-center bg-black p-3 text-sm font-medium uppercase text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black"
+                  >
+                    <span>Proceed to Checkout</span>
+                  </a>
                 </div>
               ) : null}
             </Dialog.Panel>

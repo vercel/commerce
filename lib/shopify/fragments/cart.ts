@@ -33,6 +33,10 @@ const cartFragment = /* GraphQL */ `
             ... on ProductVariant {
               id
               title
+              selectedOptions {
+                name
+                value
+              }
               product {
                 ...product
               }

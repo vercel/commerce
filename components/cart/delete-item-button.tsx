@@ -3,6 +3,7 @@ import LoadingDots from 'components/loading-dots';
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
 
+import clsx from 'clsx';
 import type { CartItem } from 'lib/shopify/types';
 
 export default function DeleteItemButton({ item }: { item: CartItem }) {
@@ -36,14 +37,17 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
       aria-label="Remove cart item"
       onClick={handleRemove}
       disabled={removing}
-      className={`${
-        removing ? 'cursor-not-allowed' : ''
-      } mr-2 flex h-8 w-8 items-center justify-center border border-black/40 bg-black/0 hover:bg-black/10 dark:border-white/40 dark:bg-white/0 dark:hover:bg-white/10`}
+      className={clsx(
+        'ease flex min-w-[36px] max-w-[36px] items-center justify-center border px-2 transition-all duration-200 hover:border-gray-800 hover:bg-gray-100 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-900',
+        {
+          'cursor-not-allowed px-0': removing
+        }
+      )}
     >
       {removing ? (
-        <LoadingDots className="bg-white dark:bg-black" />
+        <LoadingDots className="bg-black dark:bg-white" />
       ) : (
-        <CloseIcon className="hover:text-accent-3 h-6" />
+        <CloseIcon className="hover:text-accent-3 mx-[1px] h-4 w-4" />
       )}
     </button>
   );
