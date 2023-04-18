@@ -1,6 +1,0 @@
-export type { Cart as CommercejsCart } from '@chec/commerce.js/types/cart'
-export type { LineItem as CommercejsLineItem } from '@chec/commerce.js/types/line-item'
-export type { CheckoutCapture as CommercejsCheckoutCapture } from '@chec/commerce.js/types/checkout-capture'
-export type { Product as CommercejsProduct } from '@chec/commerce.js/types/product'
-export type { Variant as CommercejsVariant } from '@chec/commerce.js/types/variant'
-export type { Category as CommercejsCategory } from '@chec/commerce.js/types/category'
