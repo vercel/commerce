@@ -4,20 +4,9 @@
 
 Next.js 13 and App Router-ready ecommerce template, built with Shopify and Tailwind CSS.
 
-Demo live at: [demo.vercel.store](https://demo.vercel.store/)
+We will be shortly updating the demo at [demo.vercel.store](https://demo.vercel.store/) with this new version.
 
-## Running Locally
-
-```bash
-pnpm install
-pnpm dev
-```
-
-If your project was started with a "Deploy with Vercel" button, you can use Vercel's CLI to retrieve these credentials.
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
-3. Download your environment variables: `vercel env pull .env.local`
+Looking for Next.js Commerce v1? [View the release notes](https://github.com/vercel/commerce/releases/tag/v1).
 
 ## Features
 
@@ -26,3 +15,17 @@ If your project was started with a "Deploy with Vercel" button, you can use Verc
 - Styling with Tailwind CSS
 - Checkout/Cart with Shopify
 - Themeing with System (Light/Dark Mode) Support
+
+## Running Locally
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
+3. Download your environment variables: `vercel env pull .env.local`
+
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Your app should now be running on [localhost:3000](http://localhost:3000/).
