@@ -19,11 +19,15 @@ A Next.js 13 and App Router-ready ecommerce template, built with Shopify, featur
 
 **_We will be shortly updating the demo at [demo.vercel.store](https://demo.vercel.store/) with this new version._**
 
-## Running Locally
+## Running locally
+
+You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+
+> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify store.
 
 1. Install Vercel CLI: `npm i -g vercel`
 2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull .env.local`
+3. Download your environment variables: `vercel env pull`
 
 ```bash
 pnpm install
@@ -142,3 +146,67 @@ You can use Shopify's admin to customize these pages to match your brand and des
 ### Configure webhooks for on-demand incremental static regeneration (ISR)
 
 Coming soon.
+
+### Using Shopify as a CMS
+
+Next.js Commerce is fully powered by Shopify in a truly headless and data driven way.
+
+#### Products
+
+`https://YOUR_SHOPIFY_SUBDOMAIN.myshopify.com/admin/products`
+
+Only `Active` products are shown. `Draft` products will not be shown until they are marked as `Active`.
+
+`Active` products can still be hidden and not seen by navigating the site, by adding a `nextjs-frontend-hidden` tag on the product. This tag will also tell search engines to not index or crawl the product. The product is still directly accessible via url. This feature is great for "secret" products you only want to people you share the url with.
+
+Product options and option combinations are driven from Shopify options and variants. When selecting options on the product detail page, other option and variant combinations will be visually validated and verified for availability, like Amazon does.
+
+Products that are active and "out of stock" are still shown on the site, but the ability to add the product to the cart is disabled.
+
+### Collections
+
+`https://YOUR_SHOPIFY_SUBDOMAIN.myshopify.com/admin/collections`
+
+Create whatever collections you want and configure them however you want. All available collections will show on the search page as filters on the left, with one exception...
+
+Any collection names that start with the word "hidden" will not show up on the headless front end. The Next.js Commerce theme comes pre-configured to look for two hidden collections. Collections were chosen for this over tags so that order of products could be controlled (collections allow for manual ordering).
+
+Create the following collections:
+
+- `Hidden: Homepage Featured Items` -- Products in this collection are displayed in the three featured blocks on the homepage.
+- `Hidden: Homepage Carousel` -- Products in this collection are displayed in the auto-scrolling carousel section on the homepage.
+
+![Shopify collections](.github/assets/collections-01.jpg)
+
+![Shopify collection detail](.github/assets/collections-02.jpg)
+
+### Pages
+
+`https://YOUR_SHOPIFY_SUBDOMAIN.myshopify.com/admin/pages`
+
+Next.js Commerce contains a dynamic `[page]` route. It will use the value to look for a corresponding page in Shopify. If a page is found, it will display its rich content using Tailwind's prose. If a page is not found, a 404 page is displayed.
+
+![Shopify pages](.github/assets/pages-01.jpg)
+
+![Shopify page detail](.github/assets/pages-02.jpg)
+
+### Navigation menus
+
+`https://YOUR_SHOPIFY_SUBDOMAIN.myshopify.com/admin/menus`
+
+Next.js Commerce's header and footer navigation is pre-configured to be controlled by Shopify navigation menus. This means you have full control over what links go here. They can be to collections, pages, external links, and more.
+
+Create the following navigation menus:
+
+- `Next.js Frontend Header Menu` -- Menu items to be shown in the headless frontend header.
+- `Next.js Frontend Footer Menu` -- Menu items to be shown in the headless frontend footer.
+
+![Shopify navigation menus](.github/assets/navigation-menus-01.jpg)
+
+![Shopify navigation menu detail](.github/assets/navigation-menus-02.jpg)
+
+## SEO
+
+Shopify's products, collections, pages, etc. allow you to create custom SEO titles and descriptions. Next.js Commerce is pre-configured to display these custom values, but also comes with sensible default fallbacks if they are not provided.
+
+![Shopify SEO](.github/assets/seo.jpg)
