@@ -48,7 +48,7 @@ export function GridTileImage({
         />
       ) : null}
       {labels ? (
-        <div className="absolute top-0 left-0 w-3/4 text-black dark:text-white">
+        <div className="absolute left-0 top-0 w-3/4 text-black dark:text-white">
           <h3
             data-testid="product-name"
             className={clsx(

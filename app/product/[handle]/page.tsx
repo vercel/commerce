@@ -108,14 +108,16 @@ async function RelatedProducts({ id }: { id: string }) {
       <Grid className="grid-cols-2 lg:grid-cols-5">
         {relatedProducts.map((product) => {
           return (
-            <Grid.Item key={product.id} className="animate-fadeIn">
-              <Link
-                aria-label={product.title}
-                className="border-gay-300 group relative block aspect-square overflow-hidden border bg-gray-50"
-                href={`/product/${product.handle}`}
-              >
+            <Grid.Item key={product.handle} className="animate-fadeIn">
+              <Link className="h-full w-full" href={`/product/${product.handle}`}>
                 <GridTileImage
                   alt={product.title}
+                  labels={{
+                    isSmall: true,
+                    title: product.title,
+                    amount: product.priceRange.maxVariantPrice.amount,
+                    currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                  }}
                   src={product.featuredImage.url}
                   width={600}
                   height={600}
