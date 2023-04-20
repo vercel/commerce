@@ -1,7 +1,6 @@
 import { Carousel } from 'components/carousel';
 import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
-import { SITE_NAME } from 'lib/constants';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
@@ -11,7 +10,7 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: `/api/og?title=${encodeURIComponent(SITE_NAME)}`,
+        url: `/api/og?title=${encodeURIComponent(process.env.SITE_NAME)}`,
         width: 1200,
         height: 630
       }

@@ -1,5 +1,4 @@
 import { ImageResponse } from '@vercel/og';
-import { SITE_NAME } from 'lib/constants';
 import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
@@ -18,7 +17,9 @@ export async function GET(req: NextRequest): Promise<Response | ImageResponse> {
 
     const { searchParams } = new URL(req.url);
 
-    const title = searchParams.has('title') ? searchParams.get('title')?.slice(0, 100) : SITE_NAME;
+    const title = searchParams.has('title')
+      ? searchParams.get('title')?.slice(0, 100)
+      : process.env.SITE_NAME;
 
     return new ImageResponse(
       (

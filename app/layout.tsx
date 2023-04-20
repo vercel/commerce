@@ -1,9 +1,9 @@
+import Navbar from 'components/layout/navbar';
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
 
-import Navbar from 'components/layout/navbar';
-import { SITE_CREATOR, SITE_CREATOR_URL, SITE_NAME } from 'lib/constants';
+const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 
 export const metadata = {
   title: {
@@ -14,11 +14,14 @@ export const metadata = {
     follow: true,
     index: true
   },
-  twitter: {
-    card: 'summary_large_image',
-    creator: SITE_CREATOR,
-    site: SITE_CREATOR_URL
-  }
+  ...(TWITTER_CREATOR &&
+    TWITTER_SITE && {
+      twitter: {
+        card: 'summary_large_image',
+        creator: TWITTER_CREATOR,
+        site: TWITTER_SITE
+      }
+    })
 };
 
 const inter = Inter({

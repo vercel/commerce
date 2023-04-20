@@ -3,9 +3,10 @@ import Link from 'next/link';
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
 import VercelIcon from 'components/icons/vercel';
-import { SITE_NAME } from 'lib/constants';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
+
+const { SITE_NAME } = process.env;
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
@@ -46,7 +47,7 @@ export default async function Footer() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-between space-y-4 pb-10 pt-6 text-sm md:flex-row">
+        <div className="flex flex-col items-center justify-between space-y-4 pt-6 pb-10 text-sm md:flex-row">
           <p>
             &copy; {copyrightDate} {SITE_NAME}. All rights reserved.
           </p>
