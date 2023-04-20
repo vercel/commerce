@@ -105,7 +105,6 @@ async function RelatedProducts({ id }: { id: string }) {
     <div className="px-4 py-8">
       <div className="mb-4 text-3xl font-bold">Related Products</div>
       <Grid className="grid-cols-2 lg:grid-cols-5">
-        {/* @ts-expect-error Server Component */}
         <ProductGridItems products={relatedProducts} />
       </Grid>
     </div>
