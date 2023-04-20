@@ -33,7 +33,6 @@ export default async function SearchPage({
       ) : null}
       {products.length > 0 ? (
         <Grid className="grid-cols-2 lg:grid-cols-3">
-          {/* @ts-expect-error Server Component */}
           <ProductGridItems products={products} />
         </Grid>
       ) : null}
