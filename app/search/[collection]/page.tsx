@@ -2,7 +2,8 @@ import { getCollection, getCollectionProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import SearchResults from 'components/layout/search/results';
+import Grid from 'components/grid';
+import ProductGridItems from 'components/layout/product-grid-items';
 
 export const runtime = 'edge';
 
@@ -36,11 +37,14 @@ export default async function CategoryPage({ params }: { params: { collection: s
 
   return (
     <section>
-      {/* @ts-expect-error Server Component */}
-      <SearchResults products={products} />
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
-      ) : null}
+      ) : (
+        <Grid className="grid-cols-2 lg:grid-cols-3">
+          {/* @ts-expect-error Server Component */}
+          <ProductGridItems products={products} />
+        </Grid>
+      )}
     </section>
   );
 }

@@ -1,4 +1,5 @@
-import SearchResults from 'components/layout/search/results';
+import Grid from 'components/grid';
+import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
 import { getProducts } from 'lib/shopify';
 
@@ -22,20 +23,20 @@ export default async function SearchPage({
 
   return (
     <>
-      {searchValue &&
-        (products.length > 0 ? (
-          <p>
-            {`Showing ${products.length} ${resultsText} for `}
-            <span className="font-bold">&quot;{searchValue}&quot;</span>
-          </p>
-        ) : (
-          <p>
-            {'There are no products that match '}
-            <span className="font-bold">&quot;{searchValue}&quot;</span>
-          </p>
-        ))}
-      {/* @ts-expect-error Server Component */}
-      <SearchResults products={products} />
+      {searchValue ? (
+        <p>
+          {products.length === 0
+            ? 'There are no products that match '
+            : `Showing ${products.length} ${resultsText} for `}
+          <span className="font-bold">&quot;{searchValue}&quot;</span>
+        </p>
+      ) : null}
+      {products.length > 0 ? (
+        <Grid className="grid-cols-2 lg:grid-cols-3">
+          {/* @ts-expect-error Server Component */}
+          <ProductGridItems products={products} />
+        </Grid>
+      ) : null}
     </>
   );
 }
