@@ -13,11 +13,11 @@ export default async function Footer() {
   const menu = await getMenu('next-js-frontend-footer-menu');
 
   return (
-    <footer className="text-black bg-white border-t border-gray-700 dark:bg-black dark:text-white">
-      <div className="w-full px-6 mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-8 py-12 transition-colors duration-150 border-b border-gray-700 lg:grid-cols-12">
+    <footer className="border-t border-gray-700 bg-white text-black dark:bg-black dark:text-white">
+      <div className="mx-auto w-full max-w-7xl px-6">
+        <div className="grid grid-cols-1 gap-8 border-b border-gray-700 py-12 transition-colors duration-150 lg:grid-cols-12">
           <div className="col-span-1 lg:col-span-3">
-            <a className="flex items-center flex-initial font-bold md:mr-24" href="/">
+            <a className="flex flex-initial items-center font-bold md:mr-24" href="/">
               <span className="mr-2">
                 <LogoIcon className="h-8" />
               </span>
@@ -46,7 +46,7 @@ export default async function Footer() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-between pt-6 pb-10 space-y-4 text-sm md:flex-row">
+        <div className="flex flex-col items-center justify-between space-y-4 pb-10 pt-6 text-sm md:flex-row">
           <p>
             &copy; {copyrightDate} {SITE_NAME}. All rights reserved.
           </p>
@@ -59,7 +59,7 @@ export default async function Footer() {
               target="_blank"
               className="text-black dark:text-white"
             >
-              <VercelIcon className="inline-block h-6 ml-3" />
+              <VercelIcon className="ml-3 inline-block h-6" />
             </a>
           </div>
         </div>
