@@ -3,11 +3,14 @@ import Link from 'next/link';
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
 import VercelIcon from 'components/icons/vercel';
-import { SITE_NAME } from 'lib/constants';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 
+const { SITE_NAME } = process.env;
+
 export default async function Footer() {
+  const currentYear = new Date().getFullYear();
+  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
   const menu = await getMenu('next-js-frontend-footer-menu');
 
   return (
@@ -45,7 +48,9 @@ export default async function Footer() {
           </div>
         </div>
         <div className="flex flex-col items-center justify-between space-y-4 pt-6 pb-10 text-sm md:flex-row">
-          <p>&copy; 2023 {SITE_NAME}. All rights reserved.</p>
+          <p>
+            &copy; {copyrightDate} {SITE_NAME}. All rights reserved.
+          </p>
           <div className="flex items-center text-sm text-white dark:text-black">
             <span className="text-black dark:text-white">Created by</span>
             <a

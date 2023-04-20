@@ -1,10 +1,8 @@
-import { SITE_NAME } from 'lib/constants';
-
 export default function LogoIcon({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      aria-label={`${SITE_NAME} logo`}
+      aria-label={`${process.env.SITE_NAME} logo`}
       viewBox="0 0 32 32"
       strokeWidth="1.5"
       strokeLinecap="round"
