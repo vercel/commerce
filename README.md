@@ -188,7 +188,7 @@ Next.js Commerce contains a dynamic `[page]` route. It will use the value to loo
 
 ![Shopify pages](https://user-images.githubusercontent.com/446260/233221142-4dc3fa56-5256-4d84-b0a3-331ffb7d79b2.jpg)
 
-![Shopify page detail](https://user-images.githubusercontent.com/446260/233221146-6db5286d-78e9-4509-b59a-43f638be9cc9.jpg)
+![Shopify page detail](https://user-images.githubusercontent.com/446260/233247700-cbeaf917-fb67-49e9-b9b9-5ee8cb188639.jpg)
 
 #### Navigation menus
 
@@ -209,4 +209,4 @@ Create the following navigation menus:
 
 Shopify's products, collections, pages, etc. allow you to create custom SEO titles and descriptions. Next.js Commerce is pre-configured to display these custom values, but also comes with sensible default fallbacks if they are not provided.
 
-![Shopify SEO](https://user-images.githubusercontent.com/446260/233220574-a214de9a-cf59-4243-bf34-fa9672d129d2.jpg)
+![Shopify SEO](https://user-images.githubusercontent.com/446260/233247701-0ff2a560-7949-4e6c-b3a8-8168ed6341f8.jpg)
