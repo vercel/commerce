@@ -47,7 +47,7 @@ export default async function Footer() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-between space-y-4 pt-6 pb-10 text-sm md:flex-row">
+        <div className="flex flex-col items-center justify-between space-y-4 pb-10 pt-6 text-sm md:flex-row">
           <p>
             &copy; {copyrightDate} {SITE_NAME}. All rights reserved.
           </p>
