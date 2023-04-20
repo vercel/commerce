@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
 import Grid from 'components/grid';
-import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
+import ProductGridItems from 'components/layout/product-grid-items';
 import { AddToCart } from 'components/product/add-to-cart';
 import { Gallery } from 'components/product/gallery';
 import { VariantSelector } from 'components/product/variant-selector';
@@ -106,24 +105,8 @@ async function RelatedProducts({ id }: { id: string }) {
     <div className="px-4 py-8">
       <div className="mb-4 text-3xl font-bold">Related Products</div>
       <Grid className="grid-cols-2 lg:grid-cols-5">
-        {relatedProducts.map((product) => {
-          return (
-            <Grid.Item key={product.id} className="animate-fadeIn">
-              <Link
-                aria-label={product.title}
-                className="border-gay-300 group relative block aspect-square overflow-hidden border bg-gray-50"
-                href={`/product/${product.handle}`}
-              >
-                <GridTileImage
-                  alt={product.title}
-                  src={product.featuredImage.url}
-                  width={600}
-                  height={600}
-                />
-              </Link>
-            </Grid.Item>
-          );
-        })}
+        {/* @ts-expect-error Server Component */}
+        <ProductGridItems products={relatedProducts} />
       </Grid>
     </div>
   );
