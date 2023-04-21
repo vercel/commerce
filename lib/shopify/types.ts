@@ -199,7 +199,6 @@ export type ShopifyCollectionProductsOperation = {
   };
   variables: {
     handle: string;
-    first?: number;
   };
 };
 
