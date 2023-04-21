@@ -99,7 +99,7 @@ export default async function ProductPage({ params }: { params: { handle: string
 async function RelatedProducts({ id }: { id: string }) {
   const relatedProducts = await getProductRecommendations(id);
 
-  if (!relatedProducts) return null;
+  if (!relatedProducts.length) return null;
 
   return (
     <div className="px-4 py-8">
