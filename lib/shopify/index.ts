@@ -256,12 +256,11 @@ export async function getCollection(handle: string): Promise<Collection | undefi
   return reshapeCollection(res.body.data.collection);
 }
 
-export async function getCollectionProducts(handle: string, limit?: number): Promise<Product[]> {
+export async function getCollectionProducts(handle: string): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     variables: {
-      handle,
-      first: limit
+      handle
     }
   });
 
