@@ -27,7 +27,7 @@
     "clsx": "^1.2.1",
     "framer-motion": "^8.4.0",
     "is-empty-iterable": "^3.0.0",
-    "next": "13.3.1-canary.18",
+    "next": "13.3.1",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "18.2.0"
@@ -41,7 +41,7 @@
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.35.0",
-    "eslint-config-next": "^13.3.0",
+    "eslint-config-next": "^13.3.1",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-unicorn": "^45.0.2",
     "lint-staged": "^13.1.1",
