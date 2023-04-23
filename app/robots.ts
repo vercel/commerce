@@ -6,10 +6,10 @@ export default function robots() {
   return {
     rules: [
       {
-        userAgent: '*',
-      },
+        userAgent: '*'
+      }
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    host: baseUrl
   };
 }
