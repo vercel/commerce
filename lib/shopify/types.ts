@@ -105,6 +105,7 @@ export type ShopifyCollection = {
   title: string;
   description: string;
   seo: SEO;
+  updatedAt: string;
 };
 
 export type ShopifyProduct = {
@@ -124,6 +125,7 @@ export type ShopifyProduct = {
   images: Connection<Image>;
   seo: SEO;
   tags: string[];
+  updatedAt: string;
 };
 
 export type ShopifyCartOperation = {
