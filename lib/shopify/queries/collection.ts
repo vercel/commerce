@@ -9,6 +9,7 @@ const collectionFragment = /* GraphQL */ `
     seo {
       ...seo
     }
+    updatedAt
   }
   ${seoFragment}
 `;
