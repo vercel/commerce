@@ -2,53 +2,28 @@
   "it": [
     {
       "day": "Lunedì",
-      "time": "9:00/12:00",
-      "location": "da Pineto a Chieti"
-    },
-    {
-      "day": "Lunedì",
-      "time": "15:00/18:00",
-      "location": "da Pineto a Martinsicuro"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Provincia di Pescara"
     },
     {
       "day": "Martedì",
-      "time": "9:00/12:00",
-      "location": "da Pineto a Martinsicuro"
-    },
-    {
-      "day": "Martedì",
-      "time": "15:00/18:00",
-      "location": "da Pineto a Chieti"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Provincia di Teramo"
     },
     {
       "day": "Mercoledì",
-      "time": "9:00/12:00",
-      "location": "da Pineto a Chieti"
-    },
-    {
-      "day": "Mercoledì",
-      "time": "15:00/18:00",
-      "location": "da Pineto a Martinsicuro"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Provincia di Pescara"
     },
     {
       "day": "Giovedì",
-      "time": "9:00/12:00",
-      "location": "da Pineto a Martinsicuro"
-    },
-    {
-      "day": "Giovedì",
-      "time": "15:00/18:00",
-      "location": "da Pineto a Chieti"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Provincia di Teramo"
     },
     {
       "day": "Venerdì",
-      "time": "9:00/12:00",
-      "location": "da Pineto a Chieti"
-    },
-    {
-      "day": "Venerdì",
-      "time": "15:00/18:00",
-      "location": "da Pineto a Martinsicuro"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Provincia di Pescara"
     },
     {
       "day": "Sabato",
@@ -59,53 +34,28 @@
   "en": [
     {
       "day": "Monday",
-      "time": "9:00/12:00",
-      "location": "from Pineto to Chieti"
-    },
-    {
-      "day": "Monday",
-      "time": "15:00/18:00",
-      "location": "from Pineto to Martinsicuro"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Province of Pescara"
     },
     {
       "day": "Tuesday",
-      "time": "9:00/12:00",
-      "location": "from Pineto to Martinsicuro"
-    },
-    {
-      "day": "Tuesday",
-      "time": "15:00/18:00",
-      "location": "from Pineto to Chieti"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Province of Teramo"
     },
     {
       "day": "Wednesday",
-      "time": "9:00/12:00",
-      "location": "from Pineto to Chieti"
-    },
-    {
-      "day": "Wednesday",
-      "time": "15:00/18:00",
-      "location": "from Pineto to Martinsicuro"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Province of Pescara"
     },
     {
       "day": "Thursday",
-      "time": "9:00/12:00",
-      "location": "from Pineto to Martinsicuro"
-    },
-    {
-      "day": "Thursday",
-      "time": "15:00/18:00",
-      "location": "from Pineto to Chieti"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Province of Teramo"
     },
     {
       "day": "Friday",
-      "time": "9:00/12:00",
-      "location": "from Pineto to Chieti"
-    },
-    {
-      "day": "Friday",
-      "time": "15:00/18:00",
-      "location": "from Pineto to Martinsicuro"
+      "time": "9:00/12:00 - 15:00/18:00",
+      "location": "Province of Pescara"
     },
     {
       "day": "Saturday",
