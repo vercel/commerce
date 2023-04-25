@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
@@ -62,10 +63,15 @@ export function AddToCart({
   return (
     <button
       aria-label="Add item to cart"
+      disabled={isMutating}
       onClick={handleAdd}
-      className={`${
-        availableForSale ? 'opacity-90 hover:opacity-100' : 'cursor-not-allowed opacity-60'
-      } flex w-full items-center justify-center bg-black p-4 text-sm uppercase tracking-wide text-white dark:bg-white dark:text-black`}
+      className={clsx(
+        'flex w-full items-center justify-center bg-black p-4 text-sm uppercase tracking-wide text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black',
+        {
+          'cursor-not-allowed opacity-60': !availableForSale,
+          'cursor-not-allowed': isMutating
+        }
+      )}
     >
       <span>{availableForSale ? 'Add To Cart' : 'Out Of Stock'}</span>
       {isMutating ? <LoadingDots className="bg-white dark:bg-black" /> : null}
