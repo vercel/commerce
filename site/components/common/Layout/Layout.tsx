@@ -141,7 +141,7 @@ const Layout: React.FC<Props> = ({
           }
         />
         {/** Tidio Chat Script to implement Widget */}
-        <Script src='//code.tidio.co/nx3mte5iva2dotyph2gt4k2dqei2uwbj.js' async id="show-banner" strategy="lazyOnload"></Script>
+        <Script src="//code.tidio.co/mqhzygds3ad04ma8od6ud9ov11fpy4md.js" id="show-banner" strategy="lazyOnload"></Script>
       </div>
     </CommerceProvider>
   )
