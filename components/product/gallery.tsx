@@ -82,7 +82,7 @@ export function Gallery({
                 onClick={() => setCurrentImage(index)}
               >
                 <GridTileImage
-                  alt={image.altText}
+                  alt={image?.altText}
                   src={image.src}
                   width={600}
                   height={600}
