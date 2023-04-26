@@ -265,6 +265,11 @@ export async function getCollectionProducts(handle: string): Promise<Product[]> 
     }
   });
 
+  if (!res.body.data.collection) {
+    console.log('No collection found for handle', handle);
+    return [];
+  }
+
   return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
 }
 

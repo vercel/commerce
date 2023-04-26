@@ -17,7 +17,7 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
                 amount: product.priceRange.maxVariantPrice.amount,
                 currencyCode: product.priceRange.maxVariantPrice.currencyCode
               }}
-              src={product.featuredImage.url}
+              src={product.featuredImage?.url}
               width={600}
               height={600}
             />
