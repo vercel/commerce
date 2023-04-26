@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { track } from '@vercel/analytics';
 import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
 import Price from 'components/price';
@@ -172,6 +173,13 @@ export default function CartModal({
                   </div>
                   <a
                     href={cart.checkoutUrl}
+                    onClick={() => {
+                      track('Checkout', {
+                        cartId: cart.id,
+                        cartTotal: cart.cost.totalAmount.amount,
+                        cartCurrency: cart.cost.totalAmount.currencyCode
+                      });
+                    }}
                     className="flex w-full items-center justify-center bg-black p-3 text-sm font-medium uppercase text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black"
                   >
                     <span>Proceed to Checkout</span>

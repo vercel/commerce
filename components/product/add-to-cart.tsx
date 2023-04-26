@@ -1,5 +1,6 @@
 'use client';
 
+import { track } from '@vercel/analytics';
 import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
@@ -14,7 +15,7 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
+  const [selectedVariant, setSelectedVariant] = useState(variants[0]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -28,9 +29,9 @@ export function AddToCart({
     );
 
     if (variant) {
-      setSelectedVariantId(variant.id);
+      setSelectedVariant(variant);
     }
-  }, [searchParams, variants, setSelectedVariantId]);
+  }, [searchParams, variants, setSelectedVariant]);
 
   const isMutating = adding || isPending;
 
@@ -42,8 +43,16 @@ export function AddToCart({
     const response = await fetch(`/api/cart`, {
       method: 'POST',
       body: JSON.stringify({
-        merchandiseId: selectedVariantId
+        merchandiseId: selectedVariant?.id
       })
+    });
+
+    track('Add To Cart', {
+      merchandiseId: selectedVariant?.id || null,
+      name: selectedVariant?.title || null,
+      price: selectedVariant?.price.amount || null,
+      currency: selectedVariant?.price.currencyCode || null,
+      quantity: 1
     });
 
     const data = await response.json();

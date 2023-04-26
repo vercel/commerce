@@ -1,3 +1,4 @@
+import { track } from '@vercel/analytics';
 import CloseIcon from 'components/icons/close';
 import LoadingDots from 'components/loading-dots';
 import { useRouter } from 'next/navigation';
@@ -20,6 +21,11 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
       })
     });
     const data = await response.json();
+
+    track('Remove From Cart', {
+      merchandiseId: item.id,
+      quantity: item.quantity
+    });
 
     if (data.error) {
       alert(data.error);

@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import CartIcon from 'components/icons/cart';
 import CartModal from './modal';
 
+import { track } from '@vercel/analytics/react';
 import type { Cart } from 'lib/shopify/types';
 
 export default function CartButton({
@@ -53,6 +54,7 @@ export default function CartButton({
         aria-label="Open cart"
         onClick={() => {
           setCartIsOpen(true);
+          track('Open Cart', { quantity: cart.totalQuantity, cartId: cart.id });
         }}
         className="relative right-0 top-0"
         data-testid="open-cart"

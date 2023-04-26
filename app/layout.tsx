@@ -1,8 +1,8 @@
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from 'components/layout/navbar';
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
-
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 
 export const metadata = {
@@ -39,6 +39,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Suspense>
           <main>{children}</main>
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );

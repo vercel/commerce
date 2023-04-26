@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.10",
+    "@vercel/analytics": "^1.0.0",
     "@vercel/og": "^0.1.0",
     "clsx": "^1.2.1",
     "framer-motion": "^8.4.0",

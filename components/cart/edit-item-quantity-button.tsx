@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
 
+import { track } from '@vercel/analytics';
 import clsx from 'clsx';
 import MinusIcon from 'components/icons/minus';
 import PlusIcon from 'components/icons/plus';
@@ -20,16 +21,25 @@ export default function EditItemQuantityButton({
   async function handleEdit() {
     setEditing(true);
 
+    const quantity = type === 'plus' ? item.quantity + 1 : item.quantity - 1;
+
     const response = await fetch(`/api/cart`, {
       method: type === 'minus' && item.quantity - 1 === 0 ? 'DELETE' : 'PUT',
       body: JSON.stringify({
         lineId: item.id,
         variantId: item.merchandise.id,
-        quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
+        quantity
       })
     });
 
     const data = await response.json();
+
+    track('Change Item Quantity', {
+      merchandiseId: item.id,
+      quantity,
+      type: type === 'plus' ? 'increase' : 'decrease',
+      name: item.merchandise.title
+    });
 
     if (data.error) {
       alert(data.error);

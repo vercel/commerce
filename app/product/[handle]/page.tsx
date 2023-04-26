@@ -68,7 +68,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
             images={product.images.map((image: Image) => ({
               src: image.url,
-              altText: image.altText
+              altText: image?.altText
             }))}
           />
         </div>

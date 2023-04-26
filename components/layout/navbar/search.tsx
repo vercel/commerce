@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { track } from '@vercel/analytics';
 import SearchIcon from 'components/icons/search';
 
 export default function Search() {
@@ -16,6 +17,10 @@ export default function Search() {
 
     if (search.value) {
       router.push(`/search?q=${search.value}`);
+
+      track('Search', {
+        query: search.value
+      });
     } else {
       router.push(`/search`);
     }
