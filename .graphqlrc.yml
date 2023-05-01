@@ -1,0 +1,25 @@
+overwrite: true
+schema: '${SALEOR_INSTANCE_URL}'
+documents: 'lib/**/*.graphql'
+generates:
+  lib/saleor/generated/:
+    preset: 'client'
+    config:
+      defaultScalarType: 'unknown'
+      useTypeImports: true
+      dedupeFragments: true
+      skipTypename: true
+      scalars:
+        _Any: 'unknown'
+        Date: 'string'
+        DateTime: 'string'
+        Decimal: 'number'
+        GenericScalar: 'unknown'
+        JSON: 'unknown'
+        JSONString: 'string'
+        Metadata: 'Record<string, string>'
+        PositiveDecimal: 'number'
+        Upload: 'unknown'
+        UUID: 'string'
+        WeightScalar: 'number'
+    plugins: []

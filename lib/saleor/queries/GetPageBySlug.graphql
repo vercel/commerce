@@ -1,0 +1,11 @@
+query GetPageBySlug($slug: String!) {
+  page(slug: $slug) {
+    id
+    title
+    slug
+    content
+    seoTitle
+    seoDescription
+    created
+  }
+}

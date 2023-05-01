@@ -1,5 +1,5 @@
 import { GridTileImage } from 'components/grid/tile';
-import { getCollectionProducts } from 'lib/shopify';
+import { getCollectionProducts } from 'lib/saleor';
 import type { Product } from 'lib/types';
 import Link from 'next/link';
 

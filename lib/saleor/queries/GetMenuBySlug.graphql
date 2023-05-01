@@ -1,0 +1,21 @@
+query GetMenuBySlug($slug: String!) {
+  menu(slug: $slug, channel: "default-channel") {
+    id
+    slug
+    name
+    items {
+      id
+      name
+      url
+      collection {
+        slug
+      }
+      children {
+        id
+        collection {
+          slug
+        }
+      }
+    }
+  }
+}

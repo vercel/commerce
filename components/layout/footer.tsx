@@ -3,7 +3,7 @@ import Link from 'next/link';
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
 import VercelIcon from 'components/icons/vercel';
-import { getMenu } from 'lib/shopify';
+import { getMenu } from 'lib/saleor';
 import { Menu } from 'lib/types';
 
 const { SITE_NAME } = process.env;

@@ -2,8 +2,18 @@ fragment FeaturedProduct on Product {
   id
   slug
   name
+  isAvailableForPurchase
+  description
+  seoTitle
+  seoDescription
   pricing {
     priceRange {
+      start {
+        gross {
+          currency
+          amount
+        }
+      }
       stop {
         gross {
           currency
@@ -16,5 +26,21 @@ fragment FeaturedProduct on Product {
     url(size: 2160)
     type
     alt
+  }
+  collections {
+    name
+  }
+  updatedAt
+  variants {
+    id
+    name
+    pricing {
+      price {
+        gross {
+          currency
+          amount
+        }
+      }
+    }
   }
 }

@@ -10,7 +10,7 @@ import { Gallery } from 'components/product/gallery';
 import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
+import { getProduct, getProductRecommendations } from 'lib/saleor';
 import { Image } from 'lib/types';
 
 export const runtime = 'edge';

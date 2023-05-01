@@ -1,0 +1,48 @@
+query GetProductBySlug($slug: String!) {
+  product(slug: $slug) {
+    id
+    slug
+    name
+    isAvailableForPurchase
+    description
+    seoTitle
+    seoDescription
+    pricing {
+      priceRange {
+        start {
+          gross {
+            currency
+            amount
+          }
+        }
+        stop {
+          gross {
+            currency
+            amount
+          }
+        }
+      }
+    }
+    media {
+      url(size: 2160)
+      type
+      alt
+    }
+    collections {
+      name
+    }
+    updatedAt
+    variants {
+      id
+      name
+      pricing {
+        price {
+          gross {
+            currency
+            amount
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-import Cart from 'components/cart';
 import CartIcon from 'components/icons/cart';
 import LogoIcon from 'components/icons/logo';
-import { getMenu } from 'lib/shopify';
+import { getMenu } from 'lib/saleor';
 import { Menu } from 'lib/types';
 import MobileMenu from './mobile-menu';
 import Search from './search';
@@ -44,8 +43,8 @@ export default async function Navbar() {
 
       <div className="flex w-1/3 justify-end">
         <Suspense fallback={<CartIcon className="h-6" />}>
-          {/* @ts-expect-error Server Component */}
-          <Cart />
+          {/* @ts- expect-error Server Component */}
+          {/* <Cart /> */}
         </Suspense>
       </div>
     </nav>

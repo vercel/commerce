@@ -1,5 +1,0 @@
-query GetMenu($name: String!) {
-  menu(name: $name, channel: "default-channel") {
-    ...Menu
-  }
-}

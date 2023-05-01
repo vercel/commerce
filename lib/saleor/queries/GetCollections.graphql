@@ -5,6 +5,9 @@ query GetCollections {
         id
         name
         slug
+        description
+        seoTitle
+        seoDescription
       }
     }
   }

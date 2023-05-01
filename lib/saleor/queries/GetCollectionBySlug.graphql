@@ -1,0 +1,10 @@
+query GetCollectionBySlug($slug: String!) {
+  collection(channel: "default-channel", slug: $slug) {
+    id
+    name
+    slug
+    description
+    seoTitle
+    seoDescription
+  }
+}
