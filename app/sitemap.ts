@@ -1,4 +1,4 @@
-import { getCollections, getPages, getProducts } from 'lib/shopify';
+import { getCollections, getProducts } from 'lib/shopify';
 import { MetadataRoute } from 'next';
 
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -23,11 +23,5 @@ export default async function sitemap(): Promise<Promise<Promise<MetadataRoute.S
     lastModified: product.updatedAt
   }));
 
-  const pages = await getPages();
-  const pagesMap = pages.map((page) => ({
-    url: `${baseUrl}/${page.handle}`,
-    lastModified: page.updatedAt
-  }));
-
-  return [...routesMap, ...collectionsMap, ...productsMap, ...pagesMap];
+  return [...routesMap, ...collectionsMap, ...productsMap];
 }
