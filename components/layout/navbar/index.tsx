@@ -5,7 +5,7 @@ import Cart from 'components/cart';
 import CartIcon from 'components/icons/cart';
 import LogoIcon from 'components/icons/logo';
 import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
+import { Menu } from 'lib/types';
 import MobileMenu from './mobile-menu';
 import Search from './search';
 

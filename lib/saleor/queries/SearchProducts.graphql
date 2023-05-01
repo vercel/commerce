@@ -1,0 +1,18 @@
+query SearchProducts(
+  $search: String!
+  $sortBy: ProductOrderField!
+  $sortDirection: OrderDirection!
+) {
+  products(
+    first: 100
+    channel: "default-channel"
+    sortBy: { field: $sortBy, direction: $sortDirection }
+    filter: { search: $search }
+  ) {
+    edges {
+      node {
+        ...FeaturedProduct
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+fragment Menu on Menu {
+  id
+  name
+  items {
+    ...MenuItem
+  }
+}
+fragment MenuItem on MenuItem {
+  id
+  name
+  url
+  collection {
+    slug
+  }
+  children {
+    id
+    collection {
+      slug
+    }
+  }
+}

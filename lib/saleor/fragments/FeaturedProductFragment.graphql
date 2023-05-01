@@ -1,0 +1,20 @@
+fragment FeaturedProduct on Product {
+  id
+  slug
+  name
+  pricing {
+    priceRange {
+      stop {
+        gross {
+          currency
+          amount
+        }
+      }
+    }
+  }
+  media {
+    url(size: 2160)
+    type
+    alt
+  }
+}

@@ -1,0 +1,11 @@
+query GetCollections {
+  collections(channel: "default-channel", first: 100) {
+    edges {
+      node {
+        id
+        name
+        slug
+      }
+    }
+  }
+}

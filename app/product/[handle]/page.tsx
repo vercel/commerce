@@ -11,7 +11,7 @@ import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
-import { Image } from 'lib/shopify/types';
+import { Image } from 'lib/types';
 
 export const runtime = 'edge';
 

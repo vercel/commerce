@@ -1,0 +1,9 @@
+query GetFeaturedProducts($first: Int!) {
+  products(first: $first, channel: "default-channel") {
+    edges {
+      node {
+        ...FeaturedProduct
+      }
+    }
+  }
+}
