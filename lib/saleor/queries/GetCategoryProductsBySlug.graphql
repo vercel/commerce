@@ -1,0 +1,54 @@
+query GetCategoryProductsBySlug($slug: String!) {
+  category(slug: $slug) {
+    products(channel: "default-channel", first: 100) {
+      edges {
+        node {
+          id
+          slug
+          name
+          isAvailableForPurchase
+          description
+          seoTitle
+          seoDescription
+          pricing {
+            priceRange {
+              start {
+                gross {
+                  currency
+                  amount
+                }
+              }
+              stop {
+                gross {
+                  currency
+                  amount
+                }
+              }
+            }
+          }
+          media {
+            url(size: 2160)
+            type
+            alt
+          }
+          collections {
+            name
+          }
+          updatedAt
+          variants {
+            id
+            name
+            pricing {
+              price {
+                gross {
+                  currency
+                  amount
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

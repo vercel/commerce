@@ -1,16 +1,20 @@
-import type { TypedDocumentNode } from '@graphql-typed-document-node/core';
-import { print } from 'graphql';
-import { Collection, Menu, Page, Product } from 'lib/types';
+import { Cart, Collection, Menu, Page, Product } from 'lib/types';
+import { parseEditorJsToHtml } from './editorjs';
 import {
+  GetCategoryBySlugDocument,
+  GetCategoryProductsBySlugDocument,
   GetCollectionBySlugDocument,
   GetCollectionProductsBySlugDocument,
   GetCollectionsDocument,
   GetMenuBySlugDocument,
   GetPageBySlugDocument,
+  GetPagesDocument,
   GetProductBySlugDocument,
+  MenuItemFragment,
   OrderDirection,
   ProductOrderField,
-  SearchProductsDocument
+  SearchProductsDocument,
+  TypedDocumentString
 } from './generated/graphql';
 import { invariant } from './utils';
 
@@ -28,7 +32,7 @@ export async function saleorFetch<Result, Variables>({
   headers,
   cache = 'force-cache'
 }: {
-  query: TypedDocumentNode<Result, Variables>;
+  query: TypedDocumentString<Result, Variables>;
   variables: Variables;
   headers?: HeadersInit;
   cache?: RequestCache;
@@ -42,7 +46,7 @@ export async function saleorFetch<Result, Variables>({
       ...headers
     },
     body: JSON.stringify({
-      query: print(query),
+      query: query.toString(),
       ...(variables && { variables })
     }),
     cache,
@@ -138,7 +142,9 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
     availableForSale: saleorProduct.product.isAvailableForPurchase || true,
     title: saleorProduct.product.name,
     description: saleorProduct.product.description || '',
-    descriptionHtml: saleorProduct.product.description || '', // @todo
+    descriptionHtml: saleorProduct.product.description
+      ? parseEditorJsToHtml(saleorProduct.product.description)
+      : '',
     options: [], // @todo
     priceRange: {
       maxVariantPrice: {
@@ -174,50 +180,78 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   };
 }
 
-export async function getCollection(handle: string): Promise<Collection | undefined> {
-  const saleorCollection = await saleorFetch({
-    query: GetCollectionBySlugDocument,
-    variables: {
-      slug: handle
-    }
-  });
+const _getCollection = async (handle: string) =>
+  (
+    await saleorFetch({
+      query: GetCollectionBySlugDocument,
+      variables: {
+        slug: handle
+      }
+    })
+  ).collection;
+const _getCategory = async (handle: string) =>
+  (
+    await saleorFetch({
+      query: GetCategoryBySlugDocument,
+      variables: {
+        slug: handle
+      }
+    })
+  ).category;
 
-  if (!saleorCollection.collection) {
+export async function getCollection(handle: string): Promise<Collection | undefined> {
+  const saleorCollection = (await _getCollection(handle)) || (await _getCategory(handle));
+
+  if (!saleorCollection) {
     throw new Error(`Collection not found: ${handle}`);
   }
 
   return {
-    handle: saleorCollection.collection.slug,
-    title: saleorCollection.collection.name,
-    description: saleorCollection.collection.description as string,
+    handle: saleorCollection.slug,
+    title: saleorCollection.name,
+    description: saleorCollection.description as string,
     seo: {
-      title: saleorCollection.collection.seoTitle || saleorCollection.collection.name,
-      description: saleorCollection.collection.seoDescription || ''
+      title: saleorCollection.seoTitle || saleorCollection.name,
+      description: saleorCollection.seoDescription || ''
     },
     updatedAt: '', // @todo ?
-    path: `/search/${saleorCollection.collection.slug}`
+    path: `/search/${saleorCollection.slug}`
   };
 }
 
+const handleToSlug: Record<string, string> = {
+  'hidden-homepage-featured-items': 'featured',
+  'hidden-homepage-carousel': 'all-products'
+};
+const _getCollectionProducts = async (handle: string) =>
+  (
+    await saleorFetch({
+      query: GetCollectionProductsBySlugDocument,
+      variables: {
+        slug: handleToSlug[handle] || handle
+      }
+    })
+  ).collection;
+const _getCategoryProducts = async (handle: string) =>
+  (
+    await saleorFetch({
+      query: GetCategoryProductsBySlugDocument,
+      variables: {
+        slug: handleToSlug[handle] || handle
+      }
+    })
+  ).category;
+
 export async function getCollectionProducts(handle: string): Promise<Product[]> {
-  const handleToSlug: Record<string, string> = {
-    'hidden-homepage-featured-items': 'featured',
-    'hidden-homepage-carousel': 'all-products'
-  };
+  const saleorCollectionProducts =
+    (await _getCollectionProducts(handle)) || (await _getCategoryProducts(handle));
 
-  const saleorCollectionProducts = await saleorFetch({
-    query: GetCollectionProductsBySlugDocument,
-    variables: {
-      slug: handleToSlug[handle] || handle
-    }
-  });
-
-  if (!saleorCollectionProducts.collection) {
+  if (!saleorCollectionProducts) {
     throw new Error(`Collection not found: ${handle}`);
   }
 
   return (
-    saleorCollectionProducts.collection.products?.edges.map((product) => {
+    saleorCollectionProducts.products?.edges.map((product) => {
       const images =
         product.node.media
           ?.filter((media) => media.type === 'IMAGE')
@@ -236,7 +270,9 @@ export async function getCollectionProducts(handle: string): Promise<Product[]> 
         availableForSale: product.node.isAvailableForPurchase || true,
         title: product.node.name,
         description: product.node.description || '',
-        descriptionHtml: product.node.description || '', // @todo
+        descriptionHtml: product.node.description
+          ? parseEditorJsToHtml(product.node.description)
+          : '',
         options: [], // @todo
         priceRange: {
           maxVariantPrice: {
@@ -291,12 +327,47 @@ export async function getMenu(handle: string): Promise<Menu[]> {
     throw new Error(`Menu not found: ${handle}`);
   }
 
+  const result = flattenMenuItems(saleorMenu.menu.items);
+
   return (
-    saleorMenu.menu.items?.map((item) => {
-      return {
-        path: item.url || '', // @todo handle manus without url
-        title: item.name
-      };
+    result
+      .filter(
+        (menu) =>
+          menu.path &&
+          // manually removing empty categories
+          // @todo ?
+          menu.path !== '/search/paints' &&
+          menu.path !== '/search/juices' &&
+          menu.path !== '/search/alcohol' &&
+          menu.path !== '/search/homewares' &&
+          menu.path !== '/search/groceries'
+      )
+      // unique by path
+      .filter((item1, idx, arr) => arr.findIndex((item2) => item2.path === item1.path) === idx)
+      .slice(0, 3)
+  );
+}
+
+type MenuItemWithChildren = MenuItemFragment & {
+  children?: null | undefined | MenuItemWithChildren[];
+};
+function flattenMenuItems(menuItems: null | undefined | MenuItemWithChildren[]): Menu[] {
+  return (
+    menuItems?.flatMap((item) => {
+      const path =
+        item.url ||
+        (item.collection
+          ? `/search/${item.collection.slug}`
+          : item.category
+          ? `/search/${item.category.slug}`
+          : '');
+      return [
+        {
+          path: path,
+          title: item.name
+        },
+        ...flattenMenuItems(item.children)
+      ];
     }) || []
   );
 }
@@ -339,7 +410,9 @@ export async function getProducts({
         availableForSale: product.node.isAvailableForPurchase || true,
         title: product.node.name,
         description: product.node.description || '',
-        descriptionHtml: product.node.description || '', // @todo
+        descriptionHtml: product.node.description
+          ? parseEditorJsToHtml(product.node.description)
+          : '',
         options: [], // @todo
         priceRange: {
           maxVariantPrice: {
@@ -375,4 +448,42 @@ export async function getProducts({
       };
     }) || []
   );
+}
+
+export async function getPages(): Promise<Page[]> {
+  const saleorPages = await saleorFetch({
+    query: GetPagesDocument,
+    variables: {}
+  });
+
+  return (
+    saleorPages.pages?.edges.map((page) => {
+      return {
+        id: page.node.id,
+        title: page.node.title,
+        handle: page.node.slug,
+        body: page.node.content || '',
+        bodySummary: page.node.seoDescription || '',
+        seo: {
+          title: page.node.seoTitle || page.node.title,
+          description: page.node.seoDescription || ''
+        },
+        createdAt: page.node.created,
+        updatedAt: page.node.created
+      };
+    }) || []
+  );
+}
+
+export async function getCart(cartId: string): Promise<Cart | null> {
+  // @todo
+  return null;
+}
+export async function createCart(): Promise<Cart> {
+  // @todo
+  throw new Error(`Not implemented`);
+}
+export async function getProductRecommendations(productId: string): Promise<Product[]> {
+  // @todo
+  return [];
 }

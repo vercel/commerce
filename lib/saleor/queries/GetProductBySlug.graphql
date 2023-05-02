@@ -1,5 +1,5 @@
 query GetProductBySlug($slug: String!) {
-  product(slug: $slug) {
+  product(channel: "default-channel", slug: $slug) {
     id
     slug
     name

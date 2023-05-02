@@ -1,0 +1,15 @@
+query GetPages {
+  pages(first: 10) {
+    edges {
+      node {
+        id
+        title
+        slug
+        content
+        seoTitle
+        seoDescription
+        created
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -24526,7 +24526,58 @@ export type FeaturedProductFragment = {
     name: string;
     pricing?: { price?: { gross: { currency: string; amount: number } } | null } | null;
   }> | null;
-} & { ' $fragmentName'?: 'FeaturedProductFragment' };
+};
+
+export type GetCategoryBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+export type GetCategoryBySlugQuery = {
+  category?: {
+    id: string;
+    name: string;
+    slug: string;
+    description?: string | null;
+    seoTitle?: string | null;
+    seoDescription?: string | null;
+  } | null;
+};
+
+export type GetCategoryProductsBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+export type GetCategoryProductsBySlugQuery = {
+  category?: {
+    products?: {
+      edges: Array<{
+        node: {
+          id: string;
+          slug: string;
+          name: string;
+          isAvailableForPurchase?: boolean | null;
+          description?: string | null;
+          seoTitle?: string | null;
+          seoDescription?: string | null;
+          updatedAt: string;
+          pricing?: {
+            priceRange?: {
+              start?: { gross: { currency: string; amount: number } } | null;
+              stop?: { gross: { currency: string; amount: number } } | null;
+            } | null;
+          } | null;
+          media?: Array<{ url: string; type: ProductMediaType; alt: string }> | null;
+          collections?: Array<{ name: string }> | null;
+          variants?: Array<{
+            id: string;
+            name: string;
+            pricing?: { price?: { gross: { currency: string; amount: number } } | null } | null;
+          }> | null;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type GetCollectionBySlugQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -24603,9 +24654,40 @@ export type GetFeaturedProductsQueryVariables = Exact<{
 export type GetFeaturedProductsQuery = {
   products?: {
     edges: Array<{
-      node: { ' $fragmentRefs'?: { FeaturedProductFragment: FeaturedProductFragment } };
+      node: {
+        id: string;
+        slug: string;
+        name: string;
+        isAvailableForPurchase?: boolean | null;
+        description?: string | null;
+        seoTitle?: string | null;
+        seoDescription?: string | null;
+        updatedAt: string;
+        pricing?: {
+          priceRange?: {
+            start?: { gross: { currency: string; amount: number } } | null;
+            stop?: { gross: { currency: string; amount: number } } | null;
+          } | null;
+        } | null;
+        media?: Array<{ url: string; type: ProductMediaType; alt: string }> | null;
+        collections?: Array<{ name: string }> | null;
+        variants?: Array<{
+          id: string;
+          name: string;
+          pricing?: { price?: { gross: { currency: string; amount: number } } | null } | null;
+        }> | null;
+      };
     }>;
   } | null;
+};
+
+export type MenuItemFragment = {
+  id: string;
+  name: string;
+  url?: string | null;
+  collection?: { slug: string } | null;
+  category?: { slug: string } | null;
+  page?: { slug: string } | null;
 };
 
 export type GetMenuBySlugQueryVariables = Exact<{
@@ -24621,8 +24703,33 @@ export type GetMenuBySlugQuery = {
       id: string;
       name: string;
       url?: string | null;
+      children?: Array<{
+        id: string;
+        name: string;
+        url?: string | null;
+        children?: Array<{
+          id: string;
+          name: string;
+          url?: string | null;
+          children?: Array<{
+            id: string;
+            name: string;
+            url?: string | null;
+            collection?: { slug: string } | null;
+            category?: { slug: string } | null;
+            page?: { slug: string } | null;
+          }> | null;
+          collection?: { slug: string } | null;
+          category?: { slug: string } | null;
+          page?: { slug: string } | null;
+        }> | null;
+        collection?: { slug: string } | null;
+        category?: { slug: string } | null;
+        page?: { slug: string } | null;
+      }> | null;
       collection?: { slug: string } | null;
-      children?: Array<{ id: string; collection?: { slug: string } | null }> | null;
+      category?: { slug: string } | null;
+      page?: { slug: string } | null;
     }> | null;
   } | null;
 };
@@ -24640,6 +24747,24 @@ export type GetPageBySlugQuery = {
     seoTitle?: string | null;
     seoDescription?: string | null;
     created: string;
+  } | null;
+};
+
+export type GetPagesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetPagesQuery = {
+  pages?: {
+    edges: Array<{
+      node: {
+        id: string;
+        title: string;
+        slug: string;
+        content?: string | null;
+        seoTitle?: string | null;
+        seoDescription?: string | null;
+        created: string;
+      };
+    }>;
   } | null;
 };
 
@@ -24713,1382 +24838,482 @@ export type GetProductsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetProductsQuery = { products?: { edges: Array<{ node: { name: string } }> } | null };
 
-export const FeaturedProductFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'FeaturedProduct' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Product' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'isAvailableForPurchase' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'seoDescription' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'pricing' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'priceRange' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'start' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gross' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'stop' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gross' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'media' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'url' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'size' },
-                      value: { kind: 'IntValue', value: '2160' }
-                    }
-                  ]
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'alt' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collections' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }]
-            }
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'variants' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pricing' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'price' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gross' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
+export class TypedDocumentString<TResult, TVariables>
+  extends String
+  implements DocumentTypeDecoration<TResult, TVariables>
+{
+  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
+
+  constructor(private value: string, public __meta__?: { hash: string }) {
+    super(value);
+  }
+
+  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
+    return this.value;
+  }
+}
+export const FeaturedProductFragmentDoc = new TypedDocumentString(`
+    fragment FeaturedProduct on Product {
+  id
+  slug
+  name
+  isAvailableForPurchase
+  description
+  seoTitle
+  seoDescription
+  pricing {
+    priceRange {
+      start {
+        gross {
+          currency
+          amount
+        }
+      }
+      stop {
+        gross {
+          currency
+          amount
+        }
       }
     }
-  ]
-} as unknown as DocumentNode<FeaturedProductFragment, unknown>;
-export const GetCollectionBySlugDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetCollectionBySlug' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+  }
+  media {
+    url(size: 2160)
+    type
+    alt
+  }
+  collections {
+    name
+  }
+  updatedAt
+  variants {
+    id
+    name
+    pricing {
+      price {
+        gross {
+          currency
+          amount
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<FeaturedProductFragment, unknown>;
+export const MenuItemFragmentDoc = new TypedDocumentString(`
+    fragment MenuItem on MenuItem {
+  id
+  name
+  url
+  collection {
+    slug
+  }
+  category {
+    slug
+  }
+  page {
+    slug
+  }
+}
+    `) as unknown as TypedDocumentString<MenuItemFragment, unknown>;
+export const GetCategoryBySlugDocument = new TypedDocumentString(`
+    query GetCategoryBySlug($slug: String!) {
+  category(slug: $slug) {
+    id
+    name
+    slug
+    description
+    seoTitle
+    seoDescription
+  }
+}
+    `) as unknown as TypedDocumentString<GetCategoryBySlugQuery, GetCategoryBySlugQueryVariables>;
+export const GetCategoryProductsBySlugDocument = new TypedDocumentString(`
+    query GetCategoryProductsBySlug($slug: String!) {
+  category(slug: $slug) {
+    products(channel: "default-channel", first: 100) {
+      edges {
+        node {
+          id
+          slug
+          name
+          isAvailableForPurchase
+          description
+          seoTitle
+          seoDescription
+          pricing {
+            priceRange {
+              start {
+                gross {
+                  currency
+                  amount
+                }
+              }
+              stop {
+                gross {
+                  currency
+                  amount
+                }
+              }
+            }
+          }
+          media {
+            url(size: 2160)
+            type
+            alt
+          }
+          collections {
+            name
+          }
+          updatedAt
+          variants {
+            id
+            name
+            pricing {
+              price {
+                gross {
+                  currency
+                  amount
+                }
+              }
+            }
           }
         }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collection' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'channel' },
-                value: { kind: 'StringValue', value: 'default-channel', block: false }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'slug' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'seoDescription' } }
-              ]
-            }
-          }
-        ]
       }
     }
-  ]
-} as unknown as DocumentNode<GetCollectionBySlugQuery, GetCollectionBySlugQueryVariables>;
-export const GetCollectionProductsBySlugDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetCollectionProductsBySlug' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetCategoryProductsBySlugQuery,
+  GetCategoryProductsBySlugQueryVariables
+>;
+export const GetCollectionBySlugDocument = new TypedDocumentString(`
+    query GetCollectionBySlug($slug: String!) {
+  collection(channel: "default-channel", slug: $slug) {
+    id
+    name
+    slug
+    description
+    seoTitle
+    seoDescription
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetCollectionBySlugQuery,
+  GetCollectionBySlugQueryVariables
+>;
+export const GetCollectionProductsBySlugDocument = new TypedDocumentString(`
+    query GetCollectionProductsBySlug($slug: String!) {
+  collection(channel: "default-channel", slug: $slug) {
+    products(first: 100) {
+      edges {
+        node {
+          id
+          slug
+          name
+          isAvailableForPurchase
+          description
+          seoTitle
+          seoDescription
+          pricing {
+            priceRange {
+              start {
+                gross {
+                  currency
+                  amount
+                }
+              }
+              stop {
+                gross {
+                  currency
+                  amount
+                }
+              }
+            }
+          }
+          media {
+            url(size: 2160)
+            type
+            alt
+          }
+          collections {
+            name
+          }
+          updatedAt
+          variants {
+            id
+            name
+            pricing {
+              price {
+                gross {
+                  currency
+                  amount
+                }
+              }
+            }
           }
         }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collection' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'channel' },
-                value: { kind: 'StringValue', value: 'default-channel', block: false }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'slug' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'products' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'first' },
-                      value: { kind: 'IntValue', value: '100' }
-                    }
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'edges' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'node' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'isAvailableForPurchase' }
-                                  },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'seoDescription' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'pricing' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'priceRange' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'start' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'gross' },
-                                                      selectionSet: {
-                                                        kind: 'SelectionSet',
-                                                        selections: [
-                                                          {
-                                                            kind: 'Field',
-                                                            name: {
-                                                              kind: 'Name',
-                                                              value: 'currency'
-                                                            }
-                                                          },
-                                                          {
-                                                            kind: 'Field',
-                                                            name: { kind: 'Name', value: 'amount' }
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              },
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'stop' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'gross' },
-                                                      selectionSet: {
-                                                        kind: 'SelectionSet',
-                                                        selections: [
-                                                          {
-                                                            kind: 'Field',
-                                                            name: {
-                                                              kind: 'Name',
-                                                              value: 'currency'
-                                                            }
-                                                          },
-                                                          {
-                                                            kind: 'Field',
-                                                            name: { kind: 'Name', value: 'amount' }
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'media' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'url' },
-                                          arguments: [
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'size' },
-                                              value: { kind: 'IntValue', value: '2160' }
-                                            }
-                                          ]
-                                        },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'alt' } }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'collections' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'name' } }
-                                      ]
-                                    }
-                                  },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'variants' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'pricing' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'price' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'gross' },
-                                                      selectionSet: {
-                                                        kind: 'SelectionSet',
-                                                        selections: [
-                                                          {
-                                                            kind: 'Field',
-                                                            name: {
-                                                              kind: 'Name',
-                                                              value: 'currency'
-                                                            }
-                                                          },
-                                                          {
-                                                            kind: 'Field',
-                                                            name: { kind: 'Name', value: 'amount' }
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
       }
     }
-  ]
-} as unknown as DocumentNode<
+  }
+}
+    `) as unknown as TypedDocumentString<
   GetCollectionProductsBySlugQuery,
   GetCollectionProductsBySlugQueryVariables
 >;
-export const GetCollectionsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetCollections' },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collections' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'channel' },
-                value: { kind: 'StringValue', value: 'default-channel', block: false }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'first' },
-                value: { kind: 'IntValue', value: '100' }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'node' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'seoDescription' } }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
+export const GetCollectionsDocument = new TypedDocumentString(`
+    query GetCollections {
+  collections(channel: "default-channel", first: 100) {
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+        seoTitle
+        seoDescription
       }
     }
-  ]
-} as unknown as DocumentNode<GetCollectionsQuery, GetCollectionsQueryVariables>;
-export const GetFeaturedProductsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetFeaturedProducts' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } }
+  }
+}
+    `) as unknown as TypedDocumentString<GetCollectionsQuery, GetCollectionsQueryVariables>;
+export const GetFeaturedProductsDocument = new TypedDocumentString(`
+    query GetFeaturedProducts($first: Int!) {
+  products(first: $first, channel: "default-channel") {
+    edges {
+      node {
+        ...FeaturedProduct
+      }
+    }
+  }
+}
+    fragment FeaturedProduct on Product {
+  id
+  slug
+  name
+  isAvailableForPurchase
+  description
+  seoTitle
+  seoDescription
+  pricing {
+    priceRange {
+      start {
+        gross {
+          currency
+          amount
+        }
+      }
+      stop {
+        gross {
+          currency
+          amount
+        }
+      }
+    }
+  }
+  media {
+    url(size: 2160)
+    type
+    alt
+  }
+  collections {
+    name
+  }
+  updatedAt
+  variants {
+    id
+    name
+    pricing {
+      price {
+        gross {
+          currency
+          amount
+        }
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<GetFeaturedProductsQuery, GetFeaturedProductsQueryVariables>;
+export const GetMenuBySlugDocument = new TypedDocumentString(`
+    query GetMenuBySlug($slug: String!) {
+  menu(slug: $slug, channel: "default-channel") {
+    id
+    slug
+    name
+    items {
+      ...MenuItem
+      children {
+        ...MenuItem
+        children {
+          ...MenuItem
+          children {
+            ...MenuItem
           }
         }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'products' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'first' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'channel' },
-                value: { kind: 'StringValue', value: 'default-channel', block: false }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'node' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'FeaturedProduct' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'FeaturedProduct' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Product' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'isAvailableForPurchase' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'seoDescription' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'pricing' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'priceRange' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'start' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gross' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'stop' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gross' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'media' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'url' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'size' },
-                      value: { kind: 'IntValue', value: '2160' }
-                    }
-                  ]
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'alt' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collections' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }]
-            }
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'variants' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pricing' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'price' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gross' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
       }
     }
-  ]
-} as unknown as DocumentNode<GetFeaturedProductsQuery, GetFeaturedProductsQueryVariables>;
-export const GetMenuBySlugDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetMenuBySlug' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+  }
+}
+    fragment MenuItem on MenuItem {
+  id
+  name
+  url
+  collection {
+    slug
+  }
+  category {
+    slug
+  }
+  page {
+    slug
+  }
+}`) as unknown as TypedDocumentString<GetMenuBySlugQuery, GetMenuBySlugQueryVariables>;
+export const GetPageBySlugDocument = new TypedDocumentString(`
+    query GetPageBySlug($slug: String!) {
+  page(slug: $slug) {
+    id
+    title
+    slug
+    content
+    seoTitle
+    seoDescription
+    created
+  }
+}
+    `) as unknown as TypedDocumentString<GetPageBySlugQuery, GetPageBySlugQueryVariables>;
+export const GetPagesDocument = new TypedDocumentString(`
+    query GetPages {
+  pages(first: 10) {
+    edges {
+      node {
+        id
+        title
+        slug
+        content
+        seoTitle
+        seoDescription
+        created
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetPagesQuery, GetPagesQueryVariables>;
+export const GetProductBySlugDocument = new TypedDocumentString(`
+    query GetProductBySlug($slug: String!) {
+  product(channel: "default-channel", slug: $slug) {
+    id
+    slug
+    name
+    isAvailableForPurchase
+    description
+    seoTitle
+    seoDescription
+    pricing {
+      priceRange {
+        start {
+          gross {
+            currency
+            amount
           }
         }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'menu' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'slug' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'channel' },
-                value: { kind: 'StringValue', value: 'default-channel', block: false }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'collection' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'slug' } }]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'children' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'collection' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'slug' } }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<GetMenuBySlugQuery, GetMenuBySlugQueryVariables>;
-export const GetPageBySlugDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetPageBySlug' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+        stop {
+          gross {
+            currency
+            amount
           }
         }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'page' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'slug' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'content' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'seoDescription' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'created' } }
-              ]
-            }
-          }
-        ]
       }
     }
-  ]
-} as unknown as DocumentNode<GetPageBySlugQuery, GetPageBySlugQueryVariables>;
-export const GetProductBySlugDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetProductBySlug' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+    media {
+      url(size: 2160)
+      type
+      alt
+    }
+    collections {
+      name
+    }
+    updatedAt
+    variants {
+      id
+      name
+      pricing {
+        price {
+          gross {
+            currency
+            amount
           }
         }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'product' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'slug' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'isAvailableForPurchase' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'seoDescription' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pricing' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'priceRange' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'start' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'gross' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'currency' }
-                                        },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'stop' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'gross' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'currency' }
-                                        },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'media' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'url' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'size' },
-                            value: { kind: 'IntValue', value: '2160' }
-                          }
-                        ]
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'alt' } }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'collections' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }]
-                  }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'variants' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'pricing' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'price' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'gross' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'currency' }
-                                        },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'amount' } }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
       }
     }
-  ]
-} as unknown as DocumentNode<GetProductBySlugQuery, GetProductBySlugQueryVariables>;
-export const SearchProductsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'SearchProducts' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'search' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sortBy' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductOrderField' } }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sortDirection' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'OrderDirection' } }
+  }
+}
+    `) as unknown as TypedDocumentString<GetProductBySlugQuery, GetProductBySlugQueryVariables>;
+export const SearchProductsDocument = new TypedDocumentString(`
+    query SearchProducts($search: String!, $sortBy: ProductOrderField!, $sortDirection: OrderDirection!) {
+  products(
+    first: 100
+    channel: "default-channel"
+    sortBy: {field: $sortBy, direction: $sortDirection}
+    filter: {search: $search}
+  ) {
+    edges {
+      node {
+        id
+        slug
+        name
+        isAvailableForPurchase
+        description
+        seoTitle
+        seoDescription
+        pricing {
+          priceRange {
+            start {
+              gross {
+                currency
+                amount
+              }
+            }
+            stop {
+              gross {
+                currency
+                amount
+              }
+            }
           }
         }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'products' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'first' },
-                value: { kind: 'IntValue', value: '100' }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'channel' },
-                value: { kind: 'StringValue', value: 'default-channel', block: false }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'sortBy' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'field' },
-                      value: { kind: 'Variable', name: { kind: 'Name', value: 'sortBy' } }
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'direction' },
-                      value: { kind: 'Variable', name: { kind: 'Name', value: 'sortDirection' } }
-                    }
-                  ]
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'search' },
-                      value: { kind: 'Variable', name: { kind: 'Name', value: 'search' } }
-                    }
-                  ]
-                }
+        media {
+          url(size: 2160)
+          type
+          alt
+        }
+        collections {
+          name
+        }
+        updatedAt
+        variants {
+          id
+          name
+          pricing {
+            price {
+              gross {
+                currency
+                amount
               }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'node' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'isAvailableForPurchase' }
-                            },
-                            { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'seoTitle' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'seoDescription' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'pricing' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'priceRange' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'start' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'gross' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'currency' }
-                                                    },
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'amount' }
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'stop' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'gross' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'currency' }
-                                                    },
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'amount' }
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'media' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'url' },
-                                    arguments: [
-                                      {
-                                        kind: 'Argument',
-                                        name: { kind: 'Name', value: 'size' },
-                                        value: { kind: 'IntValue', value: '2160' }
-                                      }
-                                    ]
-                                  },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'alt' } }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'collections' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } }
-                                ]
-                              }
-                            },
-                            { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'variants' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'pricing' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'price' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'gross' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'currency' }
-                                                    },
-                                                    {
-                                                      kind: 'Field',
-                                                      name: { kind: 'Name', value: 'amount' }
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
             }
           }
-        ]
+        }
       }
     }
-  ]
-} as unknown as DocumentNode<SearchProductsQuery, SearchProductsQueryVariables>;
-export const GetProductsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetProducts' },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'products' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'first' },
-                value: { kind: 'IntValue', value: '10' }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'channel' },
-                value: { kind: 'StringValue', value: 'default-channel', block: false }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'node' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
+  }
+}
+    `) as unknown as TypedDocumentString<SearchProductsQuery, SearchProductsQueryVariables>;
+export const GetProductsDocument = new TypedDocumentString(`
+    query GetProducts {
+  products(first: 10, channel: "default-channel") {
+    edges {
+      node {
+        name
       }
     }
-  ]
-} as unknown as DocumentNode<GetProductsQuery, GetProductsQueryVariables>;
+  }
+}
+    `) as unknown as TypedDocumentString<GetProductsQuery, GetProductsQueryVariables>;

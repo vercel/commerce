@@ -4,11 +4,14 @@ documents: 'lib/**/*.graphql'
 generates:
   lib/saleor/generated/:
     preset: 'client'
+    presetConfig:
+      fragmentMasking: false
     config:
       defaultScalarType: 'unknown'
       useTypeImports: true
       dedupeFragments: true
       skipTypename: true
+      documentMode: 'string'
       scalars:
         _Any: 'unknown'
         Date: 'string'
