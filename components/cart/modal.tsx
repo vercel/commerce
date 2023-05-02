@@ -7,7 +7,7 @@ import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/shopify/types';
+import type { Cart } from 'lib/medusa/types';
 import { createUrl } from 'lib/utils';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
@@ -70,13 +70,13 @@ export default function CartModal({
                 </button>
               </div>
 
-              {cart.lines.length === 0 ? (
+              {cart.lines?.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
                   <ShoppingBagIcon className="h-16" />
                   <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
                 </div>
               ) : null}
-              {cart.lines.length !== 0 ? (
+              {cart.lines?.length !== 0 ? (
                 <div className="flex h-full flex-col justify-between overflow-hidden">
                   <ul className="flex-grow overflow-auto p-6">
                     {cart.lines.map((item, i) => {

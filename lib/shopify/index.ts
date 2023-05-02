@@ -1,5 +1,6 @@
 import { isShopifyError } from 'lib/type-guards';
-import { Cart, Collection, Product } from './types';
+import { ProductCollection } from '../medusa/types';
+import { Cart, Product } from './types';
 
 // const endpoint = `${process.env.MEDUSA_BACKEND_API!}`;
 const endpoint = `http://localhost:9000/store`;
@@ -49,18 +50,19 @@ export default async function medusaRequest(
 
 export async function createCart(): Promise<Cart> {
   const res = await medusaRequest('POST', '/carts', {});
+  console.log('Cart created!');
+  console.log(res);
   return res.body.cart;
 }
 
 export async function addToCart(
   cartId: string,
-  lines: { merchandiseId: string; quantity: number }[]
+  lineItems: { variantId: string; quantity: number }[]
 ): Promise<Cart> {
-  console.log(lines);
+  console.log(lineItems);
   // TODO: transform lines into Medusa line items
   const res = await medusaRequest('POST', `/carts/${cartId}/line-items`, {
-    variant_id: 'something',
-    quantity: 1
+    lineItems
   });
 
   return res.body.data.cart;
@@ -93,8 +95,9 @@ export async function getCart(cartId: string): Promise<Cart | null> {
   return res.body.cart;
 }
 
-export async function getCollection(handle: string): Promise<Collection | undefined> {
+export async function getCollection(handle: string): Promise<ProductCollection | undefined> {
   const res = await medusaRequest('get', `/collections?handle[]=${handle}&limit=1`);
+  console.log({ collection: res.body.collection });
   return res.body.collection;
 }
 
@@ -103,11 +106,11 @@ export async function getCollectionProducts(handle: string): Promise<Product[]> 
   if (!res.body?.collection?.products) {
     return [];
   }
-
+  console.log({ 'collection products': res.body.collection.products });
   return res.body.collection.products;
 }
 
-export async function getCollections(): Promise<Collection[]> {
+export async function getCollections(): Promise<ProductCollection[]> {
   const collections = [
     {
       handle: '',
@@ -122,7 +125,7 @@ export async function getCollections(): Promise<Collection[]> {
     }
   ];
 
-  return collections;
+  return [];
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {

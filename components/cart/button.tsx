@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 import CartIcon from 'components/icons/cart';
 import CartModal from './modal';
 
-import type { Cart } from 'lib/shopify/types';
+import type { Cart } from 'lib/medusa/types';
 
 export default function CartButton({
   cart,

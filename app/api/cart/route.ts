@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { addToCart, removeFromCart, updateCart } from 'lib/shopify';
+import { addToCart, removeFromCart, updateCart } from 'lib/medusa';
 import { isShopifyError } from 'lib/type-guards';
 
 function formatErrorMessage(err: Error): string {
@@ -10,13 +10,13 @@ function formatErrorMessage(err: Error): string {
 
 export async function POST(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
-  const { merchandiseId } = await req.json();
+  const { variantId } = await req.json();
 
-  if (!cartId?.length || !merchandiseId?.length) {
+  if (!cartId?.length || !variantId?.length) {
     return NextResponse.json({ error: 'Missing cartId or variantId' }, { status: 400 });
   }
   try {
-    await addToCart(cartId, [{ merchandiseId, quantity: 1 }]);
+    await addToCart(cartId, [{ variantId, quantity: 1 }]);
     return NextResponse.json({ status: 204 });
   } catch (e) {
     if (isShopifyError(e)) {
