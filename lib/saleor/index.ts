@@ -385,7 +385,7 @@ export async function getProducts({
     query: SearchProductsDocument,
     variables: {
       search: query || '',
-      sortBy: sortKey || ProductOrderField.Rank,
+      sortBy: sortKey || (query ? ProductOrderField.Rank : ProductOrderField.Rating),
       sortDirection: reverse ? OrderDirection.Desc : OrderDirection.Asc
     }
   });
@@ -486,4 +486,22 @@ export async function createCart(): Promise<Cart> {
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
   // @todo
   return [];
+}
+export async function addToCart(
+  cartId: string,
+  lines: { merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
+  // @todo
+  throw new Error(`Not implemented`);
+}
+export async function updateCart(
+  cartId: string,
+  lines: { id: string; merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
+  // @todo
+  throw new Error(`Not implemented`);
+}
+export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
+  // @todo
+  throw new Error(`Not implemented`);
 }

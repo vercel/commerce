@@ -23,6 +23,7 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@graphql-typed-document-node/core": "3.2.0",
     "@headlessui/react": "^1.7.10",
     "@vercel/og": "^0.1.0",
     "clsx": "^1.2.1",

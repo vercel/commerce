@@ -9,9 +9,17 @@ type EditorJsListBlock = {
   type: 'list';
   data: { style: 'unordered' | 'ordered'; items: string[] };
 };
+type EditorJsQuoteBlock = {
+  data: { text: string; caption: string; alignment: string };
+  type: 'quote';
+};
 
 type EditorJsBlockCommon = { id: string };
-type EditorJsBlocks = EditorJsHeaderBlock | EditorJsParagraphBlock | EditorJsListBlock;
+type EditorJsBlocks =
+  | EditorJsHeaderBlock
+  | EditorJsParagraphBlock
+  | EditorJsListBlock
+  | EditorJsQuoteBlock;
 
 type EditorJsBlock = EditorJsBlocks & EditorJsBlockCommon;
 
@@ -53,6 +61,8 @@ export const parseEditorJsToHtml = (content: string) => {
           return list(block.data);
         case 'paragraph':
           return paragraph(block.data);
+        case 'quote':
+          return quote(block.data);
         default:
           console.warn(`Unknown block type: ${JSON.stringify(block)}`);
           return '';
@@ -75,4 +85,8 @@ function paragraph({ text }: EditorJsParagraphBlock['data']): string {
 
 function header({ level, text }: EditorJsHeaderBlock['data']): string {
   return `<h${level}>${text}</h${level}>`;
+}
+
+function quote({ text, caption, alignment }: EditorJsQuoteBlock['data']): string {
+  return `<blockquote><p>${text}</p> - <cite>${caption}</cite></blockquote>`;
 }

@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@graphql-typed-document-node/core':
+    specifier: 3.2.0
+    version: registry.npmjs.org/@graphql-typed-document-node/core@3.2.0(graphql@16.6.0)
   '@headlessui/react':
     specifier: ^1.7.10
     version: 1.7.14(react-dom@18.2.0)(react@18.2.0)
@@ -4917,7 +4920,6 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: registry.npmjs.org/graphql@16.6.0
-    dev: true
 
   registry.npmjs.org/@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.3.tgz}
@@ -6075,7 +6077,6 @@ packages:
     name: graphql
     version: 16.6.0
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-    dev: true
 
   registry.npmjs.org/has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz}
