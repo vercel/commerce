@@ -1,4 +1,4 @@
-import { isShopifyError } from 'lib/type-guards';
+import { isMedusaError } from 'lib/type-guards';
 import { Cart, MedusaCart, MedusaProduct, Product, ProductCollection } from './types';
 
 // const endpoint = `${process.env.MEDUSA_BACKEND_API!}`;
@@ -34,7 +34,7 @@ export default async function medusaRequest(
       body
     };
   } catch (e) {
-    if (isShopifyError(e)) {
+    if (isMedusaError(e)) {
       throw {
         status: e.status || 500,
         message: e.message
