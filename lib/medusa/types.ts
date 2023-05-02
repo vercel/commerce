@@ -1,4 +1,4 @@
-export type ProductCollection = {
+export type MedusaProductCollection = {
   id: string;
   title: string;
   handle: string | null;
@@ -7,6 +7,16 @@ export type ProductCollection = {
   updated_at: string; // format: date-time
   deleted_at?: string | null; // format: date-time
   metadata?: Record<string, unknown> | null;
+};
+
+export type ProductCollection = MedusaProductCollection & {
+  description?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+  };
+  path: string;
+  updatedAt: string;
 };
 
 export type MedusaProduct = {
@@ -51,6 +61,7 @@ export type Product = MedusaProduct & {
       currencyCode: string;
     };
   };
+  updatedAt: Date;
 };
 
 export type Image = {
@@ -246,7 +257,7 @@ export type MedusaCart = {
   items: [];
 };
 
-export type Cart = Omit<MedusaCart, 'items'> & {
+export type Cart = Partial<MedusaCart> & {
   lines: [];
   totalQuantity: number;
 };

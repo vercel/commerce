@@ -1,5 +1,12 @@
 import { isMedusaError } from 'lib/type-guards';
-import { Cart, MedusaCart, MedusaProduct, Product, ProductCollection } from './types';
+import {
+  Cart,
+  MedusaCart,
+  MedusaProduct,
+  MedusaProductCollection,
+  Product,
+  ProductCollection
+} from './types';
 
 // const endpoint = `${process.env.MEDUSA_BACKEND_API!}`;
 const endpoint = `http://localhost:9000/store`;
@@ -68,11 +75,31 @@ const reshapeProduct = (product: MedusaProduct): Product => {
       currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code ?? ''
     }
   };
+  const updatedAt = product.updated_at;
 
   return {
     ...product,
     featuredImage,
-    priceRange
+    priceRange,
+    updatedAt
+  };
+};
+
+const reshapeCollection = (collection: MedusaProductCollection): ProductCollection => {
+  const description = collection.metadata?.description?.toString() ?? '';
+  const seo = {
+    title: collection?.metadata?.seo_title?.toString() ?? '',
+    description: collection?.metadata?.seo_description?.toString() ?? ''
+  };
+  const path = `/${collection.handle}`;
+  const updatedAt = collection.updated_at;
+
+  return {
+    ...collection,
+    description,
+    seo,
+    path,
+    updatedAt
   };
 };
 
@@ -141,26 +168,21 @@ export async function getCollectionProducts(handle: string): Promise<Product[]> 
     return [];
   }
 
-  return res.body.products.map((product: Product) => reshapeProduct(product));
+  const products: Product[] = res.body.products.map((product: MedusaProduct) =>
+    reshapeProduct(product)
+  );
+
+  return products;
 }
 
 export async function getCollections(): Promise<ProductCollection[]> {
-  const collections = [
-    {
-      handle: '',
-      title: 'All',
-      description: 'All products',
-      seo: {
-        title: 'All',
-        description: 'All products'
-      },
-      path: '/search',
-      updatedAt: new Date().toISOString()
-    }
-  ];
+  const res = await medusaRequest('GET', '/collections');
 
-  // return collections;
-  return [];
+  const collections: ProductCollection[] = res.body.collections.map(
+    (collection: MedusaProductCollection) => reshapeCollection(collection)
+  );
+
+  return collections;
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
@@ -176,5 +198,8 @@ export async function getProducts({
   sortKey?: string;
 }): Promise<Product[]> {
   const res = await medusaRequest('get', `/products?q=${query}&limit=20`);
-  return res.body.products;
+  const products: Product[] = res.body.products.map((product: MedusaProduct) =>
+    reshapeProduct(product)
+  );
+  return products;
 }
