@@ -12,7 +12,6 @@ export async function generateMetadata({
 }: {
   params: { page: string };
 }): Promise<Metadata> {
-  console.log(params);
   const page: any = null;
 
   if (!page) return notFound();
@@ -36,7 +35,6 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { page: string } }) {
-  console.log(params);
   const page: any = null;
 
   if (!page) return notFound();

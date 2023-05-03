@@ -9,7 +9,8 @@ import {
   Product,
   ProductCollection,
   ProductOption,
-  ProductVariant
+  ProductVariant,
+  SelectedOption
 } from './types';
 
 // const endpoint = `${process.env.MEDUSA_BACKEND_API!}`;
@@ -84,11 +85,12 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     altText: product.images?.[0]?.id ?? ''
   };
   const availableForSale = true;
-  const variants = product.variants.map((variant) => reshapeProductVariant(variant));
+  const variants = product.variants.map((variant) =>
+    reshapeProductVariant(variant, product.options)
+  );
 
   let options;
   product.options && (options = product.options.map((option) => reshapeProductOption(option)));
-  // console.log({ options });
 
   return {
     ...product,
@@ -117,14 +119,28 @@ const reshapeProductOption = (productOption: MedusaProductOption): ProductOption
   };
 };
 
-const reshapeProductVariant = (productVariant: MedusaProductVariant): ProductVariant => {
-  console.log({ productVariant });
-  const availableForSale = !!productVariant.inventory_quantity;
-  const selectedOptions =
-    productVariant.options?.map((option) => ({
-      name: option.option?.title ?? '',
+const mapOptionIds = (productOptions: MedusaProductOption[]) => {
+  const map: Record<string, string> = {};
+  productOptions.forEach((option) => {
+    map[option.id] = option.title;
+  });
+  return map;
+};
+
+const reshapeProductVariant = (
+  productVariant: MedusaProductVariant,
+  productOptions?: MedusaProductOption[]
+): ProductVariant => {
+  let selectedOptions: SelectedOption[] = [];
+  if (productOptions && productVariant.options) {
+    const optionIdMap = mapOptionIds(productOptions);
+    selectedOptions = productVariant.options.map((option) => ({
+      name: optionIdMap[option.option_id] ?? '',
       value: option.value
-    })) || [];
+    }));
+  }
+  const availableForSale = !!productVariant.inventory_quantity;
+
   const price = {
     amount: productVariant.prices?.[0]?.amount.toString() ?? '',
     currencyCode: productVariant.prices?.[0]?.currency_code ?? ''

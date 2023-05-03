@@ -90,6 +90,7 @@ export function VariantSelector({
         {option.values.map((value) => {
           // Base option params on selected variant params.
           const optionParams = new URLSearchParams(selectedVariantParams);
+
           // Update the params using the current option to reflect how the url would change.
           optionParams.set(option.name.toLowerCase(), value);
 
