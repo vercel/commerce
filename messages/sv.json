@@ -1,0 +1,176 @@
+{
+  "Index": {
+    "title": "Välkommen"
+  },
+  "ui": {
+    "button": {
+      "close": "Stäng",
+      "back": "Tillbaka",
+      "wishList": "Lägg till i favoritlista"
+    },
+    "previewBanner": {
+      "titlePart": "Förhandsvisning av:",
+      "exitPreviewLabel": "Avsluta förhandsvisning"
+    },
+    "copyright": "Alla rättigheter förbehållna."
+  },
+  "search": {
+    "search": "Sök",
+    "placeholder": "Sök efter produkter...",
+    "globalPlaceholder": "Sök produkter och kategorier...",
+    "categories": "Kategorier",
+    "priceRange": "Prisklass",
+    "clearAllFilters": "Rensa alla filter",
+    "submitTitle": "Skicka din sökfråga",
+    "clearTitle": "Rensa din sökfråga",
+    "resetTitle": "Återställ din sökfråga",
+    "seo": {
+      "title": "Sök",
+      "description": "Sök efter produkt eller kategori"
+    }
+  },
+  "product": {
+    "description": "Beskrivning",
+    "specification": "Specifikation",
+    "shippingAndReturns": "Frakt & retur",
+    "reviews": "recensioner",
+    "noReviews": "Inga recensioner",
+    "addToCart": "Lägg i varukorg",
+    "notAvailable": "Ej tillgänglig",
+    "related": "Relaterade produkter",
+    "selectSize": "Välj storlek"
+  },
+  "cart": {
+    "myCarttitle": "Min varukorg",
+    "subTotal": "Delsumma",
+    "taxes": "Moms",
+    "calculatedAtCheckout": "Beräknas i kassan",
+    "free": "Gratis",
+    "shipping": "Frakt",
+    "estimatedShipping": "Beräknad frakt",
+    "total": "Totalt",
+    "proceedToCheckout": "Fortsätt till kassan",
+    "empty": {
+      "title": "Din varukorg är tom",
+      "text": "Lägg till en produkt för att börja handla."
+    },
+    "error": "Vi kunde inte genomföra ditt köp. Var vänlig kontrollera din kort-information och försök igen.",
+    "success": "Tack för din order.",
+    "addShippingAddress": "+ Lägg till leveransadress",
+    "addShippingMethod": "+ Lägg till leveransmetod",
+    "addPaymentMethod": "+ Lägg till betalmetod",
+    "continueShopping": "Fortsätt handla",
+    "seo": {
+      "title": "Min varukorg",
+      "description": "Här visas alla produkter i min varukorg"
+    }
+  },
+  "checkout": {
+    "checkoutTitle": "Kassa",
+    "subTotal": "Delsumma",
+    "taxes": "Moms",
+    "calculatedAtCheckout": "Beräknas i kassan",
+    "free": "Gratis",
+    "shipping": "Frakt",
+    "total": "Totalt",
+    "confirmPurchase": "Bekräfta köp"
+  },
+  "paymentMethod": {
+    "paymentMethodTitle": "Betalmetod",
+    "cardHolderName": "Kortinnehavare",
+    "cardNumber": "Kortnummer",
+    "expires": "Utgångsdatum",
+    "cvc": "CVC",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "company": "Företag (valfritt)",
+    "streetAndHouseNumber": "Gata- och husnummer",
+    "apartment": "Lägenhet, svit, Etc. (valfritt)",
+    "postalCode": "Postnummer",
+    "city": "Stad",
+    "countryAndRegion": "Land/Region",
+    "continue": "Fortsätt"
+  },
+  "shipping": {
+    "shippingTitle": "Frakt",
+    "shippingAdress": {
+      "same": "Samma som faktureringsadress",
+      "different": "Använd en annan leveransadress"
+    },
+    "addShippingAddress": "Lägg till leveransadress",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "company": "Företag (valfritt)",
+    "streetAndHouseNumber": "Gata- och husnummer",
+    "apartment": "Lägenhet, svit, Etc. (valfritt)",
+    "postalCode": "Postnummer",
+    "city": "Stad",
+    "countryAndRegion": "Land/Region",
+    "continue": "Fortsätt"
+  },
+  "orders": {
+    "title": "Mina ordrar",
+    "notFound": "Inga ordrar funna",
+    "seo": {
+      "title": "Mina ordrar",
+      "description": "Här visas mina ordrar"
+    }
+  },
+  "profile": {
+    "title": "Min profil",
+    "fullName": "Namn",
+    "email": "Epost",
+    "seo": {
+      "title": "Min profil",
+      "description": "Se och konfigurera mitt konto"
+    }
+  },
+  "wishlist": {
+    "title": "Min önskelista",
+    "empty": "Din önskelista är tom",
+    "seo": {
+      "title": "Min önskelista",
+      "description": "Här visas min önskelista"
+    }
+  },
+  "auth": {
+    "signUp": {
+      "firstName": "Förnamn",
+      "lastName": "Efternamn",
+      "email": "Epost",
+      "password": "Lösenord",
+      "informationPre": "Info",
+      "information": "Lösenord måste vara längre än 7 bokstäver och innehålla nummer.",
+      "register": "Registrera dig",
+      "existingAccount": "Har du ett konto?",
+      "loginLabel": "Logga in"
+    },
+    "login": {
+      "email": "Epost",
+      "password": "Lösenord",
+      "logIn": "Logga in",
+      "noExistingAccount": "Har du inget konto?",
+      "noExistingAccountLabel": "Registrera dig",
+      "forgotPasswordText": "Epost och lösenord är obligatoriskt för att logga in, har du",
+      "forgotPasswordLinkLabel": "glömt ditt lösenord?"
+    },
+    "forgotPassword": {
+      "email": "Epost",
+      "recover": "Återställ lösenord",
+      "existingAccount": "Har du ett konto?",
+      "loginLabel": "Logga in"
+    }
+  },
+  "customerMenu": {
+    "myOrders": "Mina ordrar",
+    "myProfile": "Min profil",
+    "myCart": "Min varukorg",
+    "logOut": "Logga ut"
+  },
+  "notFound": {
+    "seo": {
+      "title": "Sidan kan inte hittas",
+      "description": "Sidan kan inte hittas"
+    }
+  }
+}

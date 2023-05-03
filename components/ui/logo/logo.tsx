@@ -1,10 +1,10 @@
-export default function LogoIcon({ className }: { className?: string }) {
-  return (
+const Logo = ({ className = 'w-auto h-8', ...props }) => (
+  <div className="flex items-center space-x-4">
     <svg
-      aria-label={`${process.env.SITE_NAME} logo`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 109 80"
       className={className}
+      {...props}
     >
       <path
         fill="currentColor"
@@ -15,5 +15,7 @@ export default function LogoIcon({ className }: { className?: string }) {
         d="M109,63.7V80H75.3c7.2-3.7,13.2-9.4,17.4-16.3H109z"
       />
     </svg>
-  );
-}
+  </div>
+)
+
+export default Logo

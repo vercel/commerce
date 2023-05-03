@@ -1,7 +1,7 @@
-const plugin = require('tailwindcss/plugin');
-const colors = require('tailwindcss/colors');
-
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require('tailwindcss/defaultTheme')
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -9,44 +9,54 @@ module.exports = {
     './icons/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}'
   ],
+  safelist: ['outline-none'],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['var(--font-inter)']
-      },
       colors: {
-        gray: colors.neutral,
-        hotPink: '#FF1966',
-        dark: '#111111',
-        light: '#FAFAFA',
-        violetDark: '#4c2889'
+        app: '#ffffff',
+        subtle: '#f8f8f8',
+        ui: '#f3f3f3',
+        'ui-hover': '#ededed',
+        'ui-active': '#e8e8e8',
+        'ui-separator': '#e2e2e2',
+        'ui-border': '#dbdbdb',
+        'ui-border-hover': '#c7c7c7',
+        solid: '#8f8f8f',
+        'solid-hover': '#858585',
+        'low-contrast': '#585858',
+        'high-contrast': '#333333',
+        blue: '#369eff',
+        green: '#55b467',
+        red: '#ec5d40',
+        yellow: '#ffcb47',
+      },
+      textColor: {
+        base: '#333333',
+        'low-contrast': '#585858',
+        'high-contrast': '#333333',
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', ...fontFamily.sans],
+        display: ['var(--font-inter-tight)', ...fontFamily.sans],
       },
       keyframes: {
-        fadeIn: {
-          from: { opacity: 0 },
-          to: { opacity: 1 }
+        'accordion-down': {
+          from: { height: 0 },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
-        marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' }
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 0 },
         },
-        blink: {
-          '0%': { opacity: 0.2 },
-          '20%': { opacity: 1 },
-          '100% ': { opacity: 0.2 }
-        }
       },
       animation: {
-        fadeIn: 'fadeIn .3s ease-in-out',
-        carousel: 'marquee 60s linear infinite',
-        blink: 'blink 1.4s both infinite'
-      }
-    }
-  },
-  future: {
-    hoverOnlyWhenSupported: true
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+    },
   },
   plugins: [
+    require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(
@@ -62,5 +72,8 @@ module.exports = {
         }
       );
     })
-  ]
-};
+  ],
+  future: {
+    hoverOnlyWhenSupported: true
+  },
+}

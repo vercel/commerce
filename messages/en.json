@@ -1,0 +1,178 @@
+{
+  "Index": {
+    "title": "Welcome"
+  },
+  "ui": {
+    "button": {
+      "close": "Close",
+      "back": "Back",
+      "wishList": "Add to wishlist"
+    },
+    "previewBanner": {
+      "titlePart": "Preview of:",
+      "exitPreviewLabel": "Exit Preview"
+    },
+    "copyright": "All rights reserved."
+  },
+  "search": {
+    "search": "Search",
+    "placeholder": "Search for products...",
+    "globalPlaceholder": "Search products and categories...",
+    "categories": "Categories",
+    "priceRange": "Price range",
+    "clearAllFilters": "Clear all filters",
+    "submitTitle": "Submit your search query",
+    "clearTitle": "Clear your search query",
+    "resetTitle": "Reset your search query",
+    "seo": {
+      "title": "Search",
+      "description": "Search for product or category"
+    }
+  },
+  "product": {
+    "description": "Description",
+    "specification": "Specification",
+    "shippingAndReturns": "Shipping & returns",
+    "reviews": "reviews",
+    "noReviews": "No reviews",
+    "addToCart": "Add to cart",
+    "notAvailable": "Not available",
+    "related": "Related products",
+    "selectSize": "Select size"
+  },
+  "cart": {
+    "myCarttitle": "My cart",
+    "subTotal": "Subtotal",
+    "taxes": "Taxes",
+    "calculatedAtCheckout": "Calculated at checkout",
+    "free": "Free",
+    "shipping": "Shipping",
+    "estimatedShipping": "Estimated Shipping",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to checkout",
+    "empty": {
+      "title": "Your cart is empty",
+      "text": "Add an item to begin shopping."
+    },
+    "error": "We couldn’t process the purchase. Please check your card information and try again.",
+    "success": "Thank you for your order.",
+    "upsell": "Before you leave, take a look at these items. We picked them just for you.",
+    "addShippingAddress": "+ Add Shipping Address",
+    "addShippingMethod": "+ Add shipping method",
+    "addPaymentMethod": "+ Add Payment Method",
+    "continueShopping": "Continue Shopping",
+    "seo": {
+      "title": "My cart",
+      "description": "All products in my shopping cart are displayed here"
+    }
+  },
+  "checkout": {
+    "checkoutTitle": "Checkout",
+    "subTotal": "Subtotal",
+    "taxes": "Taxes",
+    "calculatedAtCheckout": "Calculated at checkout",
+    "free": "Free",
+    "shipping": "Shipping",
+    "total": "Total",
+    "confirmPurchase": "Confirm purchase"
+  },
+  "paymentMethod": {
+    "paymentMethodTitle": "Payment Method",
+    "addPaymentMethod": "Add Payment Method",
+    "cardHolderName": "Cardholder Name",
+    "cardNumber": "Card Number",
+    "expires": "Expires",
+    "cvc": "CVC",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "company": "Company (optional)",
+    "streetAndHouseNumber": "Street and house number",
+    "apartment": "Apartment, Suite, Etc. (Optional)",
+    "postalCode": "Postal Code",
+    "city": "City",
+    "countryAndRegion": "Country/Region",
+    "continue": "Continue"
+  },
+  "shipping": {
+    "shippingTitle": "Shipping",
+    "shippingAdress": {
+      "same": "Same as billing address",
+      "different": "Use a different shipping address"
+    },
+    "addShippingAddress": "Add Shipping Address",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "company": "Company (optional)",
+    "streetAndHouseNumber": "Street and house number",
+    "apartment": "Apartment, Suite, Etc. (Optional)",
+    "postalCode": "Postal Code",
+    "city": "City",
+    "countryAndRegion": "Country/Region",
+    "continue": "Continue"
+  },
+  "orders": {
+    "title": "My Orders",
+    "notFound": "No orders found",
+    "seo": {
+      "title": "My orders",
+      "description": "My orders are displayed here"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "fullName": "Full name",
+    "email": "Email",
+    "seo": {
+      "title": "My profile",
+      "description": "View and configure my account"
+    }
+  },
+  "wishlist": {
+    "title": "My wishlist",
+    "empty": "Your wishlist is empty",
+    "seo": {
+      "title": "My wishlist",
+      "description": "Here is my wish list"
+    }
+  },
+  "auth": {
+    "signUp": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "informationPre": "Info",
+      "information": "Passwords must be longer than 7 chars and include numbers.",
+      "register": "Sign up",
+      "existingAccount": "Do you have an account?",
+      "loginLabel": "Log In"
+    },
+    "login": {
+      "email": "Email",
+      "password": "Password",
+      "logIn": "Log In",
+      "noExistingAccount": "Don't have an account?",
+      "noExistingAccountLabel": "Sign Up",
+      "forgotPasswordText": "An email and password are required to login. Did you",
+      "forgotPasswordLinkLabel": "forgot your password?"
+    },
+    "forgotPassword": {
+      "email": "Email",
+      "recover": "Recover password",
+      "existingAccount": "Do you have an account?",
+      "loginLabel": "Log In"
+    }
+  },
+  "customerMenu": {
+    "myOrders": "My Orders",
+    "myProfile": "My Profile",
+    "myCart": "My Cart",
+    "logOut": "Log Out"
+  },
+  "notFound": {
+    "seo": {
+      "title": "Page not found",
+      "description": "Page not found"
+    }
+  }
+}
