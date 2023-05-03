@@ -27,10 +27,10 @@ export type MedusaProduct = {
   handle?: string | null;
   is_giftcard: boolean;
   status?: 'draft' | 'proposed' | 'published' | 'rejected';
-  images?: Array<Image>;
+  images?: Array<MedusaImage>;
   thumbnail?: string | null;
   options?: Array<ProductOption>;
-  variants?: Array<ProductVariant>;
+  variants: Array<ProductVariant>;
   categories?: Array<ProductCategory>;
   profile_id?: string | null;
   profile?: ShippingProfile | null;
@@ -49,11 +49,14 @@ export type MedusaProduct = {
   deleted_at: Date | null;
   type_id: string;
   material?: string | null;
+  tags?: ProductTag[];
 };
 
-export type Product = MedusaProduct & {
-  featuredImage: {
-    url: string;
+export type Product = Omit<MedusaProduct, 'tags'> & {
+  featuredImage: FeaturedImage;
+  seo?: {
+    title?: string;
+    description?: string;
   };
   priceRange: {
     maxVariantPrice: {
@@ -62,15 +65,38 @@ export type Product = MedusaProduct & {
     };
   };
   updatedAt: Date;
+  descriptionHtml: string;
+  tags: Array<string>;
+  availableForSale: boolean;
 };
 
-export type Image = {
+export type FeaturedImage = {
+  url: string;
+  width?: number;
+  height?: number;
+  altText: string;
+};
+
+export type ProductTag = {
+  id: string;
+  value: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  metadata?: Record<string, unknown> | null;
+};
+
+export type MedusaImage = {
   id: string;
   url: string;
   created_at: string;
   updated_at: string;
   deleted_at?: string | null;
   metadata?: { [key: string]: string } | null;
+};
+
+export type Image = MedusaImage & {
+  altText?: string;
 };
 
 export type ShippingProfile = {

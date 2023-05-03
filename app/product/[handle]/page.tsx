@@ -28,8 +28,8 @@ export async function generateMetadata({
   const hide = !product.tags.includes(HIDDEN_PRODUCT_TAG);
 
   return {
-    title: product.seo.title || product.title,
-    description: product.seo.description || product.description,
+    title: product.seo?.title || product.title,
+    description: product.seo?.description || product.description,
     robots: {
       index: hide,
       follow: hide,
@@ -61,17 +61,19 @@ export default async function ProductPage({ params }: { params: { handle: string
   return (
     <div>
       <div className="lg:grid lg:grid-cols-6">
-        <div className="lg:col-span-4">
-          <Gallery
-            title={product.title}
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-            images={product.images.map((image: Image) => ({
-              src: image.url,
-              altText: image.altText
-            }))}
-          />
-        </div>
+        {product.images && (
+          <div className="lg:col-span-4">
+            <Gallery
+              title={product.title}
+              amount={product.priceRange.maxVariantPrice.amount}
+              currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+              images={product.images.map((image: Image) => ({
+                src: image.url,
+                altText: image.altText ?? ''
+              }))}
+            />
+          </div>
+        )}
 
         <div className="p-6 lg:col-span-2">
           {/* @ts-expect-error Server Component */}

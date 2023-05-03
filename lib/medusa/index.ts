@@ -66,9 +66,6 @@ const reshapeCart = (cart: MedusaCart): Cart => {
 };
 
 const reshapeProduct = (product: MedusaProduct): Product => {
-  const featuredImage = {
-    url: product.images?.[0]?.url ?? ''
-  };
   const priceRange = {
     maxVariantPrice: {
       amount: product.variants?.[0]?.prices?.[0]?.amount.toString() ?? '',
@@ -76,12 +73,22 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     }
   };
   const updatedAt = product.updated_at;
+  const tags = product.tags?.map((tag) => tag.value) || [];
+  const descriptionHtml = product.description ?? '';
+  const featuredImage = {
+    url: product.images?.[0]?.url ?? '',
+    altText: product.images?.[0]?.id ?? ''
+  };
+  const availableForSale = true;
 
   return {
     ...product,
     featuredImage,
     priceRange,
-    updatedAt
+    updatedAt,
+    tags,
+    descriptionHtml,
+    availableForSale
   };
 };
 
