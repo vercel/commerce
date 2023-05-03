@@ -13,12 +13,11 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
   async function handleRemove() {
     setRemoving(true);
 
-    const response = await fetch(`/api/cart`, {
-      method: 'DELETE',
-      body: JSON.stringify({
-        lineId: item.id
-      })
+    console.log(item.id);
+    const response = await fetch(`/api/cart?lineId=${item.id}`, {
+      method: 'DELETE'
     });
+
     const data = await response.json();
 
     if (data.error) {

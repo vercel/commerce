@@ -42,7 +42,7 @@ export function AddToCart({
     const response = await fetch(`/api/cart`, {
       method: 'POST',
       body: JSON.stringify({
-        merchandiseId: selectedVariantId
+        variantId: selectedVariantId
       })
     });
 

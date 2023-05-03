@@ -52,24 +52,21 @@ export type MedusaProduct = {
   tags?: ProductTag[];
 };
 
-export type Product = Omit<MedusaProduct, 'tags' | 'options' | 'variants'> & {
+export type Product = Partial<Omit<MedusaProduct, 'tags' | 'options' | 'variants'>> & {
   featuredImage: FeaturedImage;
   seo?: {
     title?: string;
     description?: string;
   };
   priceRange: {
-    maxVariantPrice: {
-      amount: string;
-      currencyCode: string;
-    };
+    maxVariantPrice: Money;
   };
   updatedAt: Date;
   descriptionHtml: string;
   tags: Array<string>;
   availableForSale: boolean;
   options?: Array<ProductOption>;
-  variants: Array<ProductVariant>;
+  variants: Array<ProductVariant | undefined>;
 };
 
 export type FeaturedImage = {
@@ -204,7 +201,7 @@ export type Money = {
   currencyCode: string;
 };
 
-type MoneyAmount = {
+export type MoneyAmount = {
   id: string;
   currency_code: string;
   currency?: Currency | null;
@@ -304,15 +301,117 @@ export type ShippingOptionRequirement = {
 
 export type MedusaCart = {
   id: string;
-  items: [];
+  email?: string;
+  billing_address_id: string;
+  // billing_address?: Address;
+  // shipping_address_id?: string;
+  // shipping_address?: Address;
+  items?: MedusaLineItem[];
+  region_id: string;
+  region?: Region;
+  // discounts?: Discount[];
+  // gift_cards?: GiftCard[];
+  customer_id?: string;
+  // customer?: Customer;
+  // payment_session?: PaymentSession;
+  // payment_sessions?: PaymentSession[];
+  payment_id?: string;
+  // payment?: Payment;
+  // shipping_methods?: ShippingMethod[];
+  type: 'default' | 'swap' | 'draft_order' | 'payment_link' | 'claim';
+  completed_at?: string;
+  payment_authorized_at?: string;
+  idempotency_key?: string;
+  context?: Record<string, any>;
+  sales_channel_id?: string;
+  // sales_channel?: SalesChannel;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
+  metadata?: Record<string, any>;
+  shipping_total?: number;
+  discount_total?: number;
+  raw_discount_total?: number;
+  item_tax_total?: number;
+  shipping_tax_total?: number;
+  tax_total?: number;
+  refunded_total?: number;
+  total?: number;
 };
 
 export type Cart = Partial<MedusaCart> & {
-  lines: [];
+  lines: CartItem[];
+  checkoutUrl: string;
   totalQuantity: number;
+  cost: {
+    subtotalAmount: Money;
+    totalAmount: Money;
+    totalTaxAmount: Money;
+  };
 };
 
 export type Menu = {
   title: string;
   path: string;
+};
+
+export type MedusaLineItem = {
+  id: string;
+  cart_id?: string;
+  cart?: Cart;
+  order_id?: string;
+  // order?: Order;
+  swap_id?: string | null;
+  // swap?: Swap;
+  claim_order_id?: string | null;
+  // claim_order?: ClaimOrder;
+  // tax_lines?: LineItemTaxLine[];
+  // adjustments?: LineItemAdjustment[];
+  original_item_id?: string | null;
+  order_edit_id?: string | null;
+  // order_edit?: OrderEdit;
+  title: string;
+  description?: string | null;
+  thumbnail?: string | null;
+  is_return: boolean;
+  is_giftcard: boolean;
+  should_merge: boolean;
+  allow_discounts: boolean;
+  has_shipping?: boolean | null;
+  unit_price: number;
+  variant_id?: string | null;
+  variant?: MedusaProductVariant;
+  quantity: number;
+  fulfilled_quantity?: number | null;
+  returned_quantity?: number | null;
+  shipped_quantity?: number | null;
+  refundable: number;
+  subtotal: number;
+  tax_total: number;
+  total: number;
+  original_total: number;
+  original_tax_total: number;
+  discount_total: number;
+  raw_discount_total: number;
+  gift_card_total: number;
+  includes_tax: boolean;
+  created_at: Date;
+  updated_at: Date;
+  metadata?: { [key: string]: string } | null;
+};
+
+export type CartItem = MedusaLineItem & {
+  merchandise: {
+    id: string;
+    selectedOptions: SelectedOption[];
+    product: Product;
+    title: string;
+  };
+  cost: {
+    totalAmount: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  quantity: number;
 };

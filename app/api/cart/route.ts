@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { addToCart, removeFromCart, updateCart } from 'lib/medusa';
-import { isShopifyError } from 'lib/type-guards';
+import { isMedusaError } from 'lib/type-guards';
 
 function formatErrorMessage(err: Error): string {
   return JSON.stringify(err, Object.getOwnPropertyNames(err));
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     await addToCart(cartId, [{ variantId, quantity: 1 }]);
     return NextResponse.json({ status: 204 });
   } catch (e) {
-    if (isShopifyError(e)) {
+    if (isMedusaError(e)) {
       return NextResponse.json({ message: formatErrorMessage(e.message) }, { status: e.status });
     }
 
@@ -47,7 +47,7 @@ export async function PUT(req: NextRequest): Promise<Response> {
     ]);
     return NextResponse.json({ status: 204 });
   } catch (e) {
-    if (isShopifyError(e)) {
+    if (isMedusaError(e)) {
       return NextResponse.json({ message: formatErrorMessage(e.message) }, { status: e.status });
     }
 
@@ -57,7 +57,8 @@ export async function PUT(req: NextRequest): Promise<Response> {
 
 export async function DELETE(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
-  const { lineId } = await req.json();
+  console.log(req.nextUrl);
+  const lineId = req.nextUrl.searchParams.get('lineId');
 
   if (!cartId || !lineId) {
     return NextResponse.json({ error: 'Missing cartId or lineId' }, { status: 400 });
@@ -66,7 +67,7 @@ export async function DELETE(req: NextRequest): Promise<Response> {
     await removeFromCart(cartId, [lineId]);
     return NextResponse.json({ status: 204 });
   } catch (e) {
-    if (isShopifyError(e)) {
+    if (isMedusaError(e)) {
       return NextResponse.json({ message: formatErrorMessage(e.message) }, { status: e.status });
     }
 
