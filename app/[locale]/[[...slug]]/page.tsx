@@ -1,22 +1,67 @@
-'use client';
+// 'use client';
  
-import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher';
-import { useTranslations } from 'next-intl';
+import getQueryFromSlug from 'helpers/getQueryFromSlug';
+import { docQuery } from 'lib/sanity/queries';
+import { client } from 'lib/sanity/sanity.client';
+import { groq } from 'next-sanity';
+import HomePage from './home-page';
+import SinglePage from './single-page';
 
-interface PageProps {
-  params: {
+export async function generateStaticParams() {
+  const paths = await client.fetch(groq`${docQuery}`, {
+    next: { revalidate: 10 },
+  })
+
+  // console.log(paths)
+
+  return paths.map((path: { 
+    slug: string,
     locale: string
-  }
+  }) => ({
+    slug: path.slug.split('/').filter((p) => p),
+    locale: path.locale
+  }))
 }
- 
-export default function Index({params: {locale}} : PageProps) {
 
-  const t = useTranslations('Index');
+/**
+ * Helper function to return the correct version of the document
+ * If we're in "preview mode" and have multiple documents, return the draft
+ */
+function filterDataToSingleItem(data: any, preview = false) {
+  if (!Array.isArray(data)) {
+    return data
+  }
+
+  if (data.length === 1) {
+    return data[0]
+  }
+
+  if (preview) {
+    return data.find((item) => item._id.startsWith(`drafts.`)) || data[0]
+  }
+
+  return data[0]
+}
+
+export default async function Page({
+  params,
+}: {
+  params: { slug: string[], locale: string };
+}) {
+  const { slug, locale } = params;
+  
+  const { query, queryParams, docType } = getQueryFromSlug(slug, locale)
+
+  const pageData = await client.fetch(query, queryParams)
+
+  const data = filterDataToSingleItem(pageData, false)
   
   return (
     <div>
-      <h1>{t('title')}</h1>
-      <LocaleSwitcher currentLocale={locale} />
+      <>
+      {docType === 'home' && <HomePage data={data} />}
+      {docType === 'page' && <SinglePage data={data} />}
+    </>
     </div>
   )
 }

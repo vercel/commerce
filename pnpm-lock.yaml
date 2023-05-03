@@ -40,6 +40,7 @@ specifiers:
   react: 18.2.0
   react-cookie: ^4.1.1
   react-dom: 18.2.0
+  react-glider: ^4.0.2
   sanity: '3'
   styled-components: ^5.2
   tailwind-merge: ^1.12.0
@@ -71,6 +72,7 @@ dependencies:
   react: 18.2.0
   react-cookie: 4.1.1_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-glider: 4.0.2_biqbaboplfbrettd7655fr4n2y
   sanity: 3.9.1_inskn5v7aqlrr54h6fubgcms5y
   styled-components: 5.3.10_7i5myeigehqah43i5u7wbekgba
   tailwind-merge: 1.12.0
@@ -4095,6 +4097,10 @@ packages:
       - supports-color
     dev: false
 
+  /glider-js/1.7.8:
+    resolution: {integrity: sha512-env4+yfoNYaeHJmEBGygjcZDpZ5LRUjGhCB6Ag+XNQfvuLVD5PhCYQShBVCAd5On7XfknM57O+V2Fwfcsii3Dw==}
+    dev: false
+
   /glob-parent/5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -5964,6 +5970,17 @@ packages:
       react-clientside-effect: 1.2.6_react@18.2.0
       use-callback-ref: 1.3.0_3stiutgnnbnfnf3uowm5cip22i
       use-sidecar: 1.1.2_3stiutgnnbnfnf3uowm5cip22i
+    dev: false
+
+  /react-glider/4.0.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-nZnkV4x8mSzfhGgrTkMrlL/g07T6hR0bLHg0q1iRumuORwfX+kqxCYoRy4/WXTRhlmurhcFKTaH007Vz2HjeHA==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      glider-js: 1.7.8
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-is/16.13.1:

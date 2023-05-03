@@ -7,3 +7,228 @@
     clip-path: inset(0.6px);
   }
 }
+
+/* BASE */
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: #ffffff;
+  background: #333333;
+}
+
+::selection {
+  color: #ffffff;
+  background: #333333;
+}
+
+html,
+body {
+  @apply font-sans h-full bg-white text-high-contrast;
+
+  box-sizing: border-box;
+  touch-action: manipulation;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-x: none;
+}
+
+/* COMPONENTS */
+.glider {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.glider::-webkit-scrollbar {
+  display: none;
+}
+
+.glider-dots {
+  @apply flex !space-x-[2px] !mt-8;
+}
+
+.glider-dot {
+  @apply !m-0 !rounded-none !w-12 !h-4 !bg-transparent after:content-[''] after:block after:w-12 after:h-[3px] after:bg-ui-border 2xl:!w-16 2xl:after:w-16;
+}
+
+.glider-dot.active {
+  @apply after:!bg-high-contrast;
+}
+
+/* Glider slider. */
+.glider-prev {
+  @apply text-high-contrast !right-12 !-top-10 !left-auto lg:!right-16 lg:!-top-12 2xl:!-top-16 2xl:!right-[100px] !transition-transform !duration-100 hover:!text-high-contrast hover:scale-110;
+}
+
+.glider-next {
+  @apply text-high-contrast !right-4 !-top-10 lg:!right-8 lg:!-top-12 2xl:!-top-16 2xl:!right-16 !transition-transform !duration-100 hover:!text-high-contrast hover:scale-110;
+}
+
+.pdp .glider-prev {
+  @apply text-high-contrast absolute !left-4 !top-1/2 !transition-transform !duration-100 hover:!text-high-contrast hover:scale-100 lg:hidden;
+}
+
+.pdp .glider-next {
+  @apply text-high-contrast absolute !right-4 !top-1/2 !transition-transform !duration-100 hover:!text-high-contrast hover:scale-100 lg:hidden;
+}
+
+/* Dynamic content */
+.dynamic-content > :not(.hero) {
+  @apply my-16 lg:my-24;
+}
+
+.dynamic-content > :first-child {
+  @apply mt-0 md:mt-0 lg:mt-0;
+}
+
+.dynamic-content > :last-child {
+  @apply mb-16 lg:mb-24;
+}
+
+.dynamic-content .dynamic-content {
+  @apply px-0 md:px-0;
+}
+
+.dynamic-content .dynamic-content > {
+  @apply my-0 md:my-0 lg:my-0;
+}
+
+.dynamic-content .dynamic-content > :last-child {
+  @apply my-0 md:my-0 lg:my-0;
+}
+
+/* ALGOLIA SEARCH */
+.ais-SearchBox-form {
+  @apply w-full relative;
+}
+
+.ais-SearchBox-input {
+  @apply h-[44px] pl-10 bg-ui w-full;
+}
+
+.ais-SearchBox-input::placeholder {
+  @apply text-high-contrast text-opacity-50;
+}
+
+.ais-SearchBox-submit {
+  @apply absolute left-0 flex items-center justify-center w-12 h-12 top-1/2 transform -translate-y-1/2;
+}
+
+.ais-SearchBox-submit svg {
+  @apply w-4 h-4;
+}
+
+.ais-SearchBox-reset:not([hidden]) {
+  @apply absolute right-[3px] bg-ui flex items-center justify-center w-12 h-8 top-1/2 transform -translate-y-1/2;
+}
+
+.ais-SearchBox-reset svg {
+  @apply w-3 h-3;
+}
+
+.ais-RefinementList-item {
+  @apply mt-1 first:mt-0;
+}
+.ais-RefinementList-label {
+  @apply flex items-center cursor-pointer text-sm;
+}
+
+.ais-RefinementList-checkbox {
+  @apply w-4 h-4;
+}
+
+.ais-RefinementList-labelText {
+  @apply ml-2;
+}
+
+.ais-RefinementList-count {
+  @apply ml-2 bg-ui h-5 w-5 flex items-center justify-center text-xs rounded-full;
+}
+
+.ais-CurrentRefinements-label {
+  @apply uppercase;
+}
+
+.ais-Hits-list {
+  @apply grid grid-cols-2 gap-4 lg:grid-cols-4 items-start;
+}
+
+.ais-Pagination-list {
+  @apply flex justify-center -space-x-px mt-8;
+}
+
+.ais-Pagination-link {
+  @apply flex h-12 w-12 items-center justify-center bg-white border border-ui-border;
+}
+
+.ais-Pagination-link--selected {
+  @apply bg-ui font-bold;
+}
+
+.ais-ClearRefinements-button {
+  @apply inline-flex py-3 cursor-pointer px-6 border border-ui-border;
+}
+
+.ais-ClearRefinements-button--disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* ALGOLIA AUTOCOMPLETE */
+.aa-DetachedContainer {
+  @apply !shadow-none;
+}
+
+.aa-DetachedContainer--modal {
+  @apply lg:!top-4 !rounded-none;
+}
+
+.aa-DetachedFormContainer {
+  @apply !border-none !px-4;
+}
+
+.aa-DetachedSearchButton {
+  @apply !w-10 !h-10 !p-0 cursor-pointer items-center justify-center !border-none;
+}
+
+.aa-DetachedSearchButtonIcon,
+.aa-SubmitIcon {
+  @apply pointer-events-none;
+}
+
+.aa-DetachedSearchButtonPlaceholder {
+  @apply sr-only;
+}
+
+.aa-Form {
+  @apply !rounded-none !bg-white !border-ui-border;
+}
+
+.aa-SubmitButton {
+  @apply !flex !items-center !justify-center !p-0 !h-10 !w-10 lg:!w-10;
+}
+
+.aa-SubmitIcon {
+  @apply !text-high-contrast;
+}
+
+.aa-Panel {
+  @apply !rounded-none border border-ui-border !shadow-none !p-0;
+}
+
+.aa-PanelLayout {
+  @apply !p-0;
+}
+
+.aa-Item {
+  @apply !px-4 !py-2 lg:!px-4;
+}
+
+.aa-Item[aria-selected='true'] {
+  @apply !bg-ui;
+}
+

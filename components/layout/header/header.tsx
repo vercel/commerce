@@ -1,5 +1,6 @@
 'use client'
 
+import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher'
 import Logo from 'components/ui/logo/logo'
 import {
   NavigationMenu,
@@ -63,6 +64,9 @@ const Header: FC<HeaderProps> = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
+          </div>
+          <div>
+            <LocaleSwitcher />
           </div>
         </div>
       </div>

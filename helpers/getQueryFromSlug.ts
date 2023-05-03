@@ -4,7 +4,7 @@ import {
   pageQuery,
 } from '../lib/sanity/queries'
 
-const getQueryFromSlug = (slugArray = []) => {
+const getQueryFromSlug = (slugArray: string[], locale: string) => {
   const docQuery = {
     homePage: groq`${homePageQuery}`,
     page: groq`${pageQuery}`,
@@ -12,10 +12,10 @@ const getQueryFromSlug = (slugArray = []) => {
 
   let docType = ''
 
-  if (slugArray.length === 0) {
+  if (!slugArray) {
     return {
       docType: 'home',
-      queryParams: {},
+      queryParams: {locale: locale},
       query: docQuery.homePage,
     }
   }
@@ -25,6 +25,7 @@ const getQueryFromSlug = (slugArray = []) => {
   // We now have to re-combine the slug array to match our slug in Sanity.
   let queryParams = { 
     slug: `/${slugArray.join('/')}`,
+    locale: locale
   }
 
   if (slugStart === 'articles' && slugArray.length === 2) {
