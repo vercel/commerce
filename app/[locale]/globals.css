@@ -56,6 +56,10 @@ body {
   @apply !m-0 !rounded-none !w-12 !h-4 !bg-transparent after:content-[''] after:block after:w-12 after:h-[3px] after:bg-ui-border 2xl:!w-16 2xl:after:w-16;
 }
 
+.glider-slide {
+  @apply max-w-full;
+}
+
 .glider-dot.active {
   @apply after:!bg-high-contrast;
 }

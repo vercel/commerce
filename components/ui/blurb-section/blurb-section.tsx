@@ -1,3 +1,5 @@
+'use client'
+
 import {
   CarouselItemProps as ItemProps,
   CarouselProps as Props,

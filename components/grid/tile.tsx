@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 
-import Price from 'components/price';
+import Price from 'components/product/price';
 
 export function GridTileImage({
   isInteractive = true,

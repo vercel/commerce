@@ -25,8 +25,7 @@ const FilteredProductList = ({ title, products, itemsToShow }: SliderProps) => {
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {products.slice(0, itemsToShow).map((product: any, index: number) => (
-          <span>Product</span>
-          // <ProductCard key={`${product.id}-${index}`} product={product} />
+          <ProductCard key={`${product.id}-${index}`} product={product} />
         ))}
       </div>
     </div>

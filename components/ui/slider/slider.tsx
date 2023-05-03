@@ -1,5 +1,3 @@
-'use client'
-
 import {
   CarouselItemProps as ItemProps,
   CarouselProps as Props,
@@ -32,7 +30,7 @@ const Slider = ({ products, categories, title, sliderType }: SliderProps) => {
   }, [])
 
   return (
-    <div>
+    <div className="flex flex-col">
       {title ? (
         <Text
           className="mb-4 px-4 lg:px-8 lg:mb-6 2xl:px-16 2xl:mb-8"
@@ -53,20 +51,18 @@ const Slider = ({ products, categories, title, sliderType }: SliderProps) => {
         <Carousel
           gliderClasses={'px-4 lg:px-8 2xl:px-16'}
           gliderItemWrapperClasses={'space-x-2 lg:space-x-4'}
-          hasDots={true}
           slidesToShow={2.2}
           responsive={{
             breakpoint: 1024,
             settings: {
-              slidesToShow: 4.5,
+              slidesToShow: 4.5
             },
           }}
         >
           {items.map((item: any, index: number) => (
             <CarouselItem key={`${sliderType}-${index}`}>
-              {item.title}
-              {/* {sliderType === 'products' && <ProductCard product={item} />}
-              {sliderType === 'categories' && <CategoryCard category={item} />} */}
+              {sliderType === 'products' && <ProductCard product={item} />}
+              {sliderType === 'categories' && <CategoryCard category={item} />}
             </CarouselItem>
           ))}
         </Carousel>

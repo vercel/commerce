@@ -12,7 +12,7 @@ export interface CarouselItemProps {
 export const CarouselItem: React.FC<CarouselItemProps> = ({
   children,
 }: CarouselItemProps) => {
-  return <div className="">{children}</div>
+  return <>{children}</>
 }
 
 export interface CarouselProps {
@@ -39,7 +39,7 @@ export const Carousel: React.FC<CarouselProps> = ({
   return (
     <div className="flex flex-col">
       <Glider
-        className={`flex w-full relative ${gliderClasses}`}
+        className={`flex !w-full relative ${gliderClasses}`}
         draggable
         slidesToShow={slidesToShow}
         scrollLock
@@ -51,7 +51,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         responsive={[responsive]}
         skipTrack
       >
-        <div className={`flex w-full ${gliderItemWrapperClasses} `}>
+        <div className={`flex ${gliderItemWrapperClasses} `}>
           {React.Children.map(children, (child) => {
             return React.cloneElement(child)
           })}
