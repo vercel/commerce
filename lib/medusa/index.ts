@@ -4,8 +4,12 @@ import {
   MedusaCart,
   MedusaProduct,
   MedusaProductCollection,
+  MedusaProductOption,
+  MedusaProductVariant,
   Product,
-  ProductCollection
+  ProductCollection,
+  ProductOption,
+  ProductVariant
 } from './types';
 
 // const endpoint = `${process.env.MEDUSA_BACKEND_API!}`;
@@ -80,6 +84,11 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     altText: product.images?.[0]?.id ?? ''
   };
   const availableForSale = true;
+  const variants = product.variants.map((variant) => reshapeProductVariant(variant));
+
+  let options;
+  product.options && (options = product.options.map((option) => reshapeProductOption(option)));
+  // console.log({ options });
 
   return {
     ...product,
@@ -88,7 +97,43 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     updatedAt,
     tags,
     descriptionHtml,
-    availableForSale
+    availableForSale,
+    options,
+    variants
+  };
+};
+
+const reshapeProductOption = (productOption: MedusaProductOption): ProductOption => {
+  const availableForSale = true;
+  const name = productOption.title;
+  let values = productOption.values?.map((option) => option.value) || [];
+  values = [...new Set(values)];
+
+  return {
+    ...productOption,
+    availableForSale,
+    name,
+    values
+  };
+};
+
+const reshapeProductVariant = (productVariant: MedusaProductVariant): ProductVariant => {
+  console.log({ productVariant });
+  const availableForSale = !!productVariant.inventory_quantity;
+  const selectedOptions =
+    productVariant.options?.map((option) => ({
+      name: option.option?.title ?? '',
+      value: option.value
+    })) || [];
+  const price = {
+    amount: productVariant.prices?.[0]?.amount.toString() ?? '',
+    currencyCode: productVariant.prices?.[0]?.currency_code ?? ''
+  };
+  return {
+    ...productVariant,
+    availableForSale,
+    selectedOptions,
+    price
   };
 };
 
@@ -193,8 +238,9 @@ export async function getCollections(): Promise<ProductCollection[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
-  const res = await medusaRequest('get', `/products?handle=${handle}&limit=1`);
-  return res.body.product;
+  const res = await medusaRequest('GET', `/products?handle=${handle}&limit=1`);
+  const product = res.body.products[0];
+  return reshapeProduct(product);
 }
 
 export async function getProducts({

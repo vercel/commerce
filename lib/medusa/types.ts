@@ -29,8 +29,8 @@ export type MedusaProduct = {
   status?: 'draft' | 'proposed' | 'published' | 'rejected';
   images?: Array<MedusaImage>;
   thumbnail?: string | null;
-  options?: Array<ProductOption>;
-  variants: Array<ProductVariant>;
+  options?: Array<MedusaProductOption>;
+  variants: Array<MedusaProductVariant>;
   categories?: Array<ProductCategory>;
   profile_id?: string | null;
   profile?: ShippingProfile | null;
@@ -52,7 +52,7 @@ export type MedusaProduct = {
   tags?: ProductTag[];
 };
 
-export type Product = Omit<MedusaProduct, 'tags'> & {
+export type Product = Omit<MedusaProduct, 'tags' | 'options' | 'variants'> & {
   featuredImage: FeaturedImage;
   seo?: {
     title?: string;
@@ -68,6 +68,8 @@ export type Product = Omit<MedusaProduct, 'tags'> & {
   descriptionHtml: string;
   tags: Array<string>;
   availableForSale: boolean;
+  options?: Array<ProductOption>;
+  variants: Array<ProductVariant>;
 };
 
 export type FeaturedImage = {
@@ -127,7 +129,7 @@ export type ProductCategory = {
   updated_at: string;
 };
 
-export type ProductVariant = {
+export type MedusaProductVariant = {
   id: string;
   title?: string;
   product_id: string;
@@ -153,6 +155,51 @@ export type ProductVariant = {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+};
+
+export type ProductVariant = MedusaProductVariant & {
+  availableForSale: boolean;
+  selectedOptions: {
+    name: string;
+    value: string;
+  }[];
+  price: Money;
+};
+
+export type MedusaProductOption = {
+  id: string;
+  title: string;
+  values?: ProductOptionValue[];
+  product_id: string;
+  product?: Product | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string | null;
+  metadata?: Record<string, any> | null;
+};
+
+export type ProductOption = Omit<MedusaProductOption, 'values'> & {
+  availableForSale: boolean;
+  name: string;
+  values: string[];
+};
+
+export type ProductOptionValue = {
+  id: string;
+  value: string;
+  option_id: string;
+  option?: MedusaProductOption | null;
+  variant_id: string;
+  variant?: MedusaProductVariant | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string | null;
+  metadata?: Record<string, any> | null;
+};
+
+export type Money = {
+  amount: string;
+  currencyCode: string;
 };
 
 type MoneyAmount = {
@@ -200,31 +247,6 @@ export type PriceList = {
 export type CustomerGroup = {
   id: string;
   name: string;
-};
-
-export type ProductOption = {
-  id: string;
-  title: string;
-  values?: ProductOptionValue[];
-  product_id: string;
-  product?: Product | null;
-  created_at: string;
-  updated_at: string;
-  deleted_at?: string | null;
-  metadata?: Record<string, any> | null;
-};
-
-export type ProductOptionValue = {
-  id: string;
-  value: string;
-  option_id: string;
-  option?: ProductOption | null;
-  variant_id: string;
-  variant?: ProductVariant | null;
-  created_at: string;
-  updated_at: string;
-  deleted_at?: string | null;
-  metadata?: Record<string, any> | null;
 };
 
 type ShippingOption = {
@@ -286,4 +308,9 @@ export type MedusaCart = {
 export type Cart = Partial<MedusaCart> & {
   lines: [];
   totalQuantity: number;
+};
+
+export type Menu = {
+  title: string;
+  path: string;
 };
