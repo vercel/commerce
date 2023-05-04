@@ -53,6 +53,7 @@ export type MedusaProduct = {
 };
 
 export type Product = Partial<Omit<MedusaProduct, 'tags' | 'options' | 'variants'>> & {
+  title: string;
   featuredImage: FeaturedImage;
   seo?: {
     title?: string;
@@ -66,7 +67,7 @@ export type Product = Partial<Omit<MedusaProduct, 'tags' | 'options' | 'variants
   tags: Array<string>;
   availableForSale: boolean;
   options?: Array<ProductOption>;
-  variants: Array<ProductVariant | undefined>;
+  variants: Array<ProductVariant>;
 };
 
 export type FeaturedImage = {
@@ -380,7 +381,7 @@ export type MedusaLineItem = {
   has_shipping?: boolean | null;
   unit_price: number;
   variant_id?: string | null;
-  variant?: MedusaProductVariant;
+  variant: MedusaProductVariant;
   quantity: number;
   fulfilled_quantity?: number | null;
   returned_quantity?: number | null;

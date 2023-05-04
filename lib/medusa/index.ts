@@ -97,6 +97,7 @@ const reshapeCart = (cart: MedusaCart): Cart => {
 
 const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
   const product = {
+    title: lineItem.title,
     priceRange: {
       maxVariantPrice: {
         amount: lineItem.variant?.prices?.[0]?.amount.toString() ?? '0',
@@ -318,7 +319,7 @@ export async function getCollections(): Promise<ProductCollection[]> {
   return collections;
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(handle: string): Promise<Product> {
   const res = await medusaRequest('GET', `/products?handle=${handle}&limit=1`);
   const product = res.body.products[0];
   return reshapeProduct(product);
