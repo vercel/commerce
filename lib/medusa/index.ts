@@ -70,15 +70,15 @@ const reshapeCart = (cart: MedusaCart): Cart => {
   const currencyCode = 'EUR';
   const cost = {
     subtotalAmount: {
-      amount: (cart.total && cart.tax_total && cart.total - cart.tax_total)?.toString() || '0',
+      amount: (cart?.total && cart?.tax_total && cart.total - cart.tax_total)?.toString() || '0',
       currencyCode
     },
     totalAmount: {
-      amount: (cart.tax_total && cart.tax_total.toString()) || '0',
+      amount: (cart?.tax_total && cart?.tax_total.toString()) || '0',
       currencyCode
     },
     totalTaxAmount: {
-      amount: (cart.tax_total && cart.tax_total.toString()) || '0',
+      amount: (cart?.tax_total && cart?.tax_total.toString()) || '0',
       currencyCode
     }
   };
