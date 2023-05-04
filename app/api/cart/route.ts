@@ -16,7 +16,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     return NextResponse.json({ error: 'Missing cartId or variantId' }, { status: 400 });
   }
   try {
-    await addToCart(cartId, [{ variantId, quantity: 1 }]);
+    await addToCart(cartId, { variantId, quantity: 1 });
     return NextResponse.json({ status: 204 });
   } catch (e) {
     if (isMedusaError(e)) {
@@ -54,14 +54,13 @@ export async function PUT(req: NextRequest): Promise<Response> {
 
 export async function DELETE(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
-  console.log(req.nextUrl);
   const lineItemId = req.nextUrl.searchParams.get('lineItemId');
 
   if (!cartId || !lineItemId) {
     return NextResponse.json({ error: 'Missing cartId or lineItemId' }, { status: 400 });
   }
   try {
-    await removeFromCart(cartId, [lineItemId]);
+    await removeFromCart(cartId, lineItemId);
     return NextResponse.json({ status: 204 });
   } catch (e) {
     if (isMedusaError(e)) {
