@@ -29,22 +29,19 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 export async function PUT(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
-  const { variantId, quantity, lineId } = await req.json();
+  const { lineItemId, quantity } = await req.json();
 
-  if (!cartId || !variantId || !quantity || !lineId) {
+  if (!cartId || !quantity || !lineItemId) {
     return NextResponse.json(
-      { error: 'Missing cartId, variantId, lineId, or quantity' },
+      { error: 'Missing cartId, variantId, lineItemId, or quantity' },
       { status: 400 }
     );
   }
   try {
-    await updateCart(cartId, [
-      {
-        id: lineId,
-        merchandiseId: variantId,
-        quantity
-      }
-    ]);
+    await updateCart(cartId, {
+      lineItemId,
+      quantity
+    });
     return NextResponse.json({ status: 204 });
   } catch (e) {
     if (isMedusaError(e)) {
@@ -58,13 +55,13 @@ export async function PUT(req: NextRequest): Promise<Response> {
 export async function DELETE(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
   console.log(req.nextUrl);
-  const lineId = req.nextUrl.searchParams.get('lineId');
+  const lineItemId = req.nextUrl.searchParams.get('lineItemId');
 
-  if (!cartId || !lineId) {
-    return NextResponse.json({ error: 'Missing cartId or lineId' }, { status: 400 });
+  if (!cartId || !lineItemId) {
+    return NextResponse.json({ error: 'Missing cartId or lineItemId' }, { status: 400 });
   }
   try {
-    await removeFromCart(cartId, [lineId]);
+    await removeFromCart(cartId, [lineItemId]);
     return NextResponse.json({ status: 204 });
   } catch (e) {
     if (isMedusaError(e)) {

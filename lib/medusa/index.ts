@@ -253,31 +253,31 @@ export async function addToCart(
   return reshapeCart(res.body.cart);
 }
 
-export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
+export async function removeFromCart(cartId: string, lineItemIds: string[]): Promise<Cart> {
   // TODO: We only allow you to pass a single line item to delete
-  const res = await medusaRequest('DELETE', `/carts/${cartId}/line-items/${lineIds[0]}`);
-  console.log(res);
+  const res = await medusaRequest('DELETE', `/carts/${cartId}/line-items/${lineItemIds[0]}`);
   return reshapeCart(res.body.cart);
 }
 
 export async function updateCart(
   cartId: string,
-  lines: { id: string; merchandiseId: string; quantity: number }[]
+  { lineItemId, quantity }: { lineItemId: string; quantity: number }
 ): Promise<Cart> {
-  console.log(lines);
-  // TODO: transform lines into Medusa line items
-  const res = await medusaRequest('POST', `/carts/${cartId}`, {});
+  const res = await medusaRequest('POST', `/carts/${cartId}/line-items/${lineItemId}`, {
+    quantity
+  });
   return reshapeCart(res.body.cart);
 }
 
 export async function getCart(cartId: string): Promise<Cart | null> {
   const res = await medusaRequest('GET', `/carts/${cartId}`);
+  const cart = res.body.cart;
 
-  if (!res.body.cart) {
+  if (!cart) {
     return null;
   }
 
-  return reshapeCart(res.body.cart);
+  return reshapeCart(cart);
 }
 
 export async function getCollection(handle: string): Promise<ProductCollection | undefined> {

@@ -20,13 +20,18 @@ export default function EditItemQuantityButton({
   async function handleEdit() {
     setEditing(true);
 
-    const response = await fetch(`/api/cart`, {
-      method: type === 'minus' && item.quantity - 1 === 0 ? 'DELETE' : 'PUT',
-      body: JSON.stringify({
-        lineId: item.id,
-        variantId: item.merchandise.id,
-        quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
-      })
+    const method = type === 'minus' && item.quantity - 1 === 0 ? 'DELETE' : 'PUT';
+    const url = method === 'PUT' ? '/api/cart' : `/api/cart?lineItemId=${item.id}`;
+
+    const response = await fetch(url, {
+      method,
+      body:
+        method === 'PUT'
+          ? JSON.stringify({
+              lineItemId: item.id,
+              quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
+            })
+          : null
     });
 
     const data = await response.json();
