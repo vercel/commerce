@@ -1,12 +1,16 @@
 import { groq } from 'next-sanity'
 import {
+  categoryQuery,
   homePageQuery,
   pageQuery,
+  productQuery
 } from '../lib/sanity/queries'
 
 const getQueryFromSlug = (slugArray: string[], locale: string) => {
   const docQuery = {
     homePage: groq`${homePageQuery}`,
+    product: groq`${productQuery}`,
+    category: groq`${categoryQuery}`,
     page: groq`${pageQuery}`,
   }
 
@@ -28,10 +32,10 @@ const getQueryFromSlug = (slugArray: string[], locale: string) => {
     locale: locale
   }
 
-  if (slugStart === 'articles' && slugArray.length === 2) {
-    docType = `article`
-  } else if (slugStart === 'work' && slugArray.length === 2) {
-    docType = `work`
+  if (slugStart === `produkt` || slugStart === `product`) {
+    docType = `product`
+  } else if (slugStart === `kategori` || slugStart === `category`) {
+    docType = `category`
   } else {
     docType = `page`
   }

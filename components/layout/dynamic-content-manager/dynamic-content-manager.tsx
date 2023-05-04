@@ -3,11 +3,11 @@
 import { Info } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
-import Hero from 'components/ui/hero'
-const Slider = dynamic(() => import('components/ui/slider'))
-const BlurbSection = dynamic(() => import('components/ui/blurb-section'))
+import Hero from 'components/modules/hero'
+const Slider = dynamic(() => import('components/modules/slider'))
+const BlurbSection = dynamic(() => import('components/modules/blurb-section'))
 const FilteredProductList = dynamic(
-  () => import('components/ui/filtered-product-list')
+  () => import('components/modules/filtered-product-list')
 )
 
 interface getContentComponentProps {

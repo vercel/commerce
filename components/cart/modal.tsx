@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
-import Price from 'components/price';
+import Price from 'components/product/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';

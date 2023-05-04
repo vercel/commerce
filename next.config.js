@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const { i18n } = require('./languages.json')
-
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.BUNDLE_ANALYZE === 'true',
 })
@@ -12,7 +10,8 @@ module.exports = withBundleAnalyzer(
       ignoreDuringBuilds: true
     },
     experimental: {
-      appDir: true
+      appDir: true,
+      scrollRestoration: true,
     },
     images: {
       formats: ['image/avif', 'image/webp'],

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 
 const DynamicContentManager = dynamic(
-  () => import('components/ui/dynamic-content-manager')
+  () => import('components/layout/dynamic-content-manager')
 )
 
 interface SinglePageProps {

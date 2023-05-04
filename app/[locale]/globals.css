@@ -39,25 +39,12 @@ body {
 }
 
 /* COMPONENTS */
-.glider {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.glider::-webkit-scrollbar {
-  display: none;
-}
-
 .glider-dots {
   @apply flex !space-x-[2px] !mt-8;
 }
 
 .glider-dot {
   @apply !m-0 !rounded-none !w-12 !h-4 !bg-transparent after:content-[''] after:block after:w-12 after:h-[3px] after:bg-ui-border 2xl:!w-16 2xl:after:w-16;
-}
-
-.glider-slide {
-  @apply max-w-full;
 }
 
 .glider-dot.active {

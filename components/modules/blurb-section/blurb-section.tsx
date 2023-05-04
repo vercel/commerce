@@ -1,15 +1,13 @@
-'use client'
-
 import {
   CarouselItemProps as ItemProps,
   CarouselProps as Props,
-} from 'components/ui/carousel/carousel'
+} from 'components/modules/carousel/carousel'
 import dynamic from 'next/dynamic'
 const Carousel = dynamic<Props>(() =>
-  import('components/ui/carousel/carousel').then((mod) => mod.Carousel)
+  import('components/modules/carousel/carousel').then((mod) => mod.Carousel)
 )
 const CarouselItem = dynamic<ItemProps>(() =>
-  import('components/ui/carousel/carousel').then((mod) => mod.CarouselItem)
+  import('components/modules/carousel/carousel').then((mod) => mod.CarouselItem)
 )
 const Card = dynamic(() => import('components/ui/card'))
 
@@ -80,12 +78,12 @@ const BlurbSection = ({
       <div
         className={`${
           mobileLayout === 'stacked' ? 'hidden lg:block' : 'block'
-        }`}
+        }`} 
       >
         {blurbs && (
           <Carousel
             gliderClasses={'px-4 lg:px-8 2xl:px-16'}
-            gliderItemWrapperClasses={'space-x-2 lg:space-x-4'}
+            gliderItemWrapperClasses={''}
             hasDots={true}
             slidesToShow={2.2}
             responsive={{

@@ -1,5 +1,3 @@
-'use client'
-
 import 'glider-js/glider.min.css'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import React from 'react'
@@ -7,12 +5,14 @@ import Glider from 'react-glider'
 
 export interface CarouselItemProps {
   children: React.ReactNode
+  className?: string
 }
 
 export const CarouselItem: React.FC<CarouselItemProps> = ({
   children,
+  className = 'ml-2 first:ml-0 lg:ml-4'
 }: CarouselItemProps) => {
-  return <>{children}</>
+  return <div className={className}>{children}</div>
 }
 
 export interface CarouselProps {
@@ -20,7 +20,6 @@ export interface CarouselProps {
   gliderClasses?: string
   hasArrows?: boolean
   hasDots?: boolean
-  gliderItemWrapperClasses?: string
   slidesToShow?: number
   slidesToScroll?: number
   responsive?: any
@@ -31,15 +30,16 @@ export const Carousel: React.FC<CarouselProps> = ({
   gliderClasses,
   hasArrows = true,
   hasDots = true,
-  gliderItemWrapperClasses,
   slidesToShow = 1,
   slidesToScroll = 1,
   responsive,
 }) => {
+
+
   return (
-    <div className="flex flex-col">
+    <>
       <Glider
-        className={`flex !w-full relative ${gliderClasses}`}
+        className={`block relative ${gliderClasses}`}
         draggable
         slidesToShow={slidesToShow}
         scrollLock
@@ -49,14 +49,12 @@ export const Carousel: React.FC<CarouselProps> = ({
         iconLeft={<ArrowLeft className="stroke-current" />}
         iconRight={<ArrowRight className="stroke-current" />}
         responsive={[responsive]}
-        skipTrack
       >
-        <div className={`flex ${gliderItemWrapperClasses} `}>
           {React.Children.map(children, (child) => {
             return React.cloneElement(child)
           })}
-        </div>
+
       </Glider>
-    </div>
+    </>
   )
 }

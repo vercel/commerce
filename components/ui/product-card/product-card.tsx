@@ -27,7 +27,7 @@ const ProductCard: FC<Props> = ({
 }) => {
 
   const rootClassName = cn(
-    'w-full group relative overflow-hidden transition-transform ease-linear',
+    'w-full group relative overflow-hidden',
     className
   )
 
@@ -39,7 +39,7 @@ const ProductCard: FC<Props> = ({
       locale={product.locale}
     >
       {variant === 'default' && (
-        <div className={'flex flex-col justify-center w-full h-full'}>
+        <div className={'flex flex-col relative justify-center w-full h-full'}>
 
           <WishlistButton
             className={'top-4 right-4 z-10 absolute'}
@@ -48,13 +48,11 @@ const ProductCard: FC<Props> = ({
               product?.variants ? (product.variants[0] as any) : null
             }
           />
-          <div className="w-full h-full aspect-square overflow-hidden relative">
+          <div className="w-full h-full overflow-hidden relative">
             {product?.images && (
               <SanityImage
                 image={product?.images[0]}
                 alt={product.title || 'Product Image'}
-                width={400}
-                height={400}
                 sizes="(max-width: 1024px) 50vw, 20vw"
               />
             )}

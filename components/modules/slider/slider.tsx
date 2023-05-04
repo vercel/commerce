@@ -1,15 +1,15 @@
 import {
   CarouselItemProps as ItemProps,
   CarouselProps as Props,
-} from 'components/ui/carousel/carousel'
+} from 'components/modules/carousel/carousel'
 import Text from 'components/ui/text'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 const Carousel = dynamic<Props>(() =>
-  import('components/ui/carousel/carousel').then((mod) => mod.Carousel)
+  import('components/modules/carousel/carousel').then((mod) => mod.Carousel)
 )
 const CarouselItem = dynamic<ItemProps>(() =>
-  import('components/ui/carousel/carousel').then((mod) => mod.CarouselItem)
+  import('components/modules/carousel/carousel').then((mod) => mod.CarouselItem)
 )
 const ProductCard = dynamic(() => import('components/ui/product-card'))
 const CategoryCard = dynamic(() => import('components/ui/category-card'))
@@ -49,8 +49,7 @@ const Slider = ({ products, categories, title, sliderType }: SliderProps) => {
 
       {items && (
         <Carousel
-          gliderClasses={'px-4 lg:px-8 2xl:px-16'}
-          gliderItemWrapperClasses={'space-x-2 lg:space-x-4'}
+          gliderClasses={'flex px-4 lg:px-8 2xl:px-16'}
           slidesToShow={2.2}
           responsive={{
             breakpoint: 1024,

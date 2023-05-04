@@ -4,7 +4,9 @@ import getQueryFromSlug from 'helpers/getQueryFromSlug';
 import { docQuery } from 'lib/sanity/queries';
 import { client } from 'lib/sanity/sanity.client';
 import { groq } from 'next-sanity';
+import CategoryPage from './category-page';
 import HomePage from './home-page';
+import ProductPage from './product-page';
 import SinglePage from './single-page';
 
 export async function generateStaticParams() {
@@ -57,11 +59,11 @@ export default async function Page({
   const data = filterDataToSingleItem(pageData, false)
   
   return (
-    <div>
-      <>
+    <>
       {docType === 'home' && <HomePage data={data} />}
+      {docType === 'product' && <ProductPage data={data} />}
+      {docType === 'category' && <CategoryPage data={data} />}
       {docType === 'page' && <SinglePage data={data} />}
     </>
-    </div>
   )
 }
