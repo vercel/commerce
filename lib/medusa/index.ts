@@ -70,16 +70,19 @@ const reshapeCart = (cart: MedusaCart): Cart => {
   const currencyCode = 'EUR';
   const cost = {
     subtotalAmount: {
-      amount: (cart?.total && cart?.tax_total && cart.total - cart.tax_total)?.toString() || '0',
-      currencyCode
+      amount:
+        (cart?.tax_total && cart?.total && (cart?.total - cart?.tax_total).toString()) ||
+        cart?.total?.toString() ||
+        '0',
+      currencyCode: currencyCode
     },
     totalAmount: {
-      amount: (cart?.tax_total && cart?.tax_total.toString()) || '0',
-      currencyCode
+      amount: (cart?.total && cart?.total.toString()) || '0',
+      currencyCode: currencyCode
     },
     totalTaxAmount: {
       amount: (cart?.tax_total && cart?.tax_total.toString()) || '0',
-      currencyCode
+      currencyCode: currencyCode
     }
   };
 
@@ -142,12 +145,16 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
 };
 
 const reshapeProduct = (product: MedusaProduct): Product => {
+  console.log({
+    amount: product.variants?.[0]?.prices?.[0]?.amount
+  });
   const priceRange = {
     maxVariantPrice: {
       amount: product.variants?.[0]?.prices?.[0]?.amount.toString() ?? '0',
       currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code ?? ''
     }
   };
+  console.log({ priceRange });
   const updatedAt = product.updated_at;
   const tags = product.tags?.map((tag) => tag.value) || [];
   const descriptionHtml = product.description ?? '';
@@ -241,21 +248,17 @@ export async function createCart(): Promise<Cart> {
 
 export async function addToCart(
   cartId: string,
-  lineItems: { variantId: string; quantity: number }[]
+  lineItem: { variantId: string; quantity: number }
 ): Promise<Cart> {
-  console.log(lineItems);
-  // TODO: transform lines into Medusa line items
   const res = await medusaRequest('POST', `/carts/${cartId}/line-items`, {
-    variant_id: lineItems[0]?.variantId,
-    quantity: lineItems[0]?.quantity
+    variant_id: lineItem?.variantId,
+    quantity: lineItem?.quantity
   });
-  console.log(res.body);
   return reshapeCart(res.body.cart);
 }
 
-export async function removeFromCart(cartId: string, lineItemIds: string[]): Promise<Cart> {
-  // TODO: We only allow you to pass a single line item to delete
-  const res = await medusaRequest('DELETE', `/carts/${cartId}/line-items/${lineItemIds[0]}`);
+export async function removeFromCart(cartId: string, lineItemId: string): Promise<Cart> {
+  const res = await medusaRequest('DELETE', `/carts/${cartId}/line-items/${lineItemId}`);
   return reshapeCart(res.body.cart);
 }
 
