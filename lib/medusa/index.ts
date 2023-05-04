@@ -146,16 +146,12 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
 };
 
 const reshapeProduct = (product: MedusaProduct): Product => {
-  console.log({
-    amount: product.variants?.[0]?.prices?.[0]?.amount
-  });
   const priceRange = {
     maxVariantPrice: {
       amount: product.variants?.[0]?.prices?.[0]?.amount.toString() ?? '0',
       currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code ?? ''
     }
   };
-  console.log({ priceRange });
   const updatedAt = product.updated_at;
   const tags = product.tags?.map((tag) => tag.value) || [];
   const descriptionHtml = product.description ?? '';
