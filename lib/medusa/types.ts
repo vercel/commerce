@@ -1,7 +1,7 @@
 export type MedusaProductCollection = {
   id: string;
   title: string;
-  handle: string | null;
+  handle: string;
   products?: Product[];
   created_at: string; // format: date-time
   updated_at: string; // format: date-time

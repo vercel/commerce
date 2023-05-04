@@ -316,7 +316,10 @@ export async function getCollections(): Promise<ProductCollection[]> {
     (collection: MedusaProductCollection) => reshapeCollection(collection)
   );
 
-  return collections;
+  // Hide collections starting with 'hidden'
+  const filtered = collections.filter((collection) => !collection.handle.startsWith('hidden'));
+
+  return filtered;
 }
 
 export async function getProduct(handle: string): Promise<Product> {
