@@ -312,14 +312,12 @@ export async function getCollectionProducts(handle: string): Promise<Product[]> 
 export async function getCollections(): Promise<ProductCollection[]> {
   const res = await medusaRequest('GET', '/collections');
 
-  const collections: ProductCollection[] = res.body.collections.map(
-    (collection: MedusaProductCollection) => reshapeCollection(collection)
-  );
+  // Reshape collections and hide collections starting with 'hidden'
+  const collections = res.body.collections
+    .map((collection: MedusaProductCollection) => reshapeCollection(collection))
+    .filter((collection: MedusaProductCollection) => !collection.handle.startsWith('hidden'));
 
-  // Hide collections starting with 'hidden'
-  const filtered = collections.filter((collection) => !collection.handle.startsWith('hidden'));
-
-  return filtered;
+  return collections;
 }
 
 export async function getProduct(handle: string): Promise<Product> {
