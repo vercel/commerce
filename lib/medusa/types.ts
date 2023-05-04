@@ -338,6 +338,7 @@ export type MedusaCart = {
   tax_total?: number;
   refunded_total?: number;
   total?: number;
+  subtotal?: number;
 };
 
 export type Cart = Partial<MedusaCart> & {

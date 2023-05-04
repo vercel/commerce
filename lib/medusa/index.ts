@@ -70,10 +70,7 @@ const reshapeCart = (cart: MedusaCart): Cart => {
   const currencyCode = 'EUR';
   const cost = {
     subtotalAmount: {
-      amount:
-        (cart?.tax_total && cart?.total && (cart?.total - cart?.tax_total).toString()) ||
-        cart?.total?.toString() ||
-        '0',
+      amount: cart?.subtotal?.toString() || '0',
       currencyCode: currencyCode
     },
     totalAmount: {
