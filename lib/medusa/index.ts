@@ -64,7 +64,7 @@ export default async function medusaRequest(
 }
 
 const reshapeCart = (cart: MedusaCart): Cart => {
-  const lines = cart.items?.map((item) => reshapeLineItem(item)) || [];
+  const lines = cart?.items?.map((item) => reshapeLineItem(item)) || [];
   const totalQuantity = lines.length;
   const checkoutUrl = '/';
   const currencyCode = 'EUR';
