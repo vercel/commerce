@@ -1,5 +1,5 @@
 import CloseIcon from 'components/icons/close';
-import LoadingDots from 'components/loading-dots';
+import LoadingDots from 'components/ui/loading-dots';
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
 

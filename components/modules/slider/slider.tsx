@@ -1,16 +1,9 @@
-import {
-  CarouselItemProps as ItemProps,
-  CarouselProps as Props,
-} from 'components/modules/carousel/carousel'
 import Text from 'components/ui/text'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
-const Carousel = dynamic<Props>(() =>
-  import('components/modules/carousel/carousel').then((mod) => mod.Carousel)
-)
-const CarouselItem = dynamic<ItemProps>(() =>
-  import('components/modules/carousel/carousel').then((mod) => mod.CarouselItem)
-)
+
+import { Carousel, CarouselItem } from 'components/modules/carousel/carousel'
+
 const ProductCard = dynamic(() => import('components/ui/product-card'))
 const CategoryCard = dynamic(() => import('components/ui/category-card'))
 

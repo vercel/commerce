@@ -1,4 +1,5 @@
 import ProductView from "components/product/product-view";
+import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   data: object | any
@@ -8,6 +9,10 @@ interface ProductPageProps {
 // has access to state and effects just like Page components
 // in the `pages` directory.
 export default function ProductPage({data }: ProductPageProps) {
+  if (!data) {
+    return notFound();
+  }
+  
   const { product } = data;
 
   return (

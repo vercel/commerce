@@ -7,7 +7,6 @@ interface CategoryPageProps {
 // has access to state and effects just like Page components
 // in the `pages` directory.
 export default function ProductPage({data }: CategoryPageProps) {
-  console.log(data);
 
   return (
     <>Category page</>

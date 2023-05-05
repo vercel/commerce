@@ -1,14 +1,6 @@
-import {
-  CarouselItemProps as ItemProps,
-  CarouselProps as Props,
-} from 'components/modules/carousel/carousel'
 import dynamic from 'next/dynamic'
-const Carousel = dynamic<Props>(() =>
-  import('components/modules/carousel/carousel').then((mod) => mod.Carousel)
-)
-const CarouselItem = dynamic<ItemProps>(() =>
-  import('components/modules/carousel/carousel').then((mod) => mod.CarouselItem)
-)
+
+import { Carousel, CarouselItem } from 'components/modules/carousel/carousel'
 const Card = dynamic(() => import('components/ui/card'))
 
 import Text from 'components/ui/text'
@@ -83,7 +75,6 @@ const BlurbSection = ({
         {blurbs && (
           <Carousel
             gliderClasses={'px-4 lg:px-8 2xl:px-16'}
-            gliderItemWrapperClasses={''}
             hasDots={true}
             slidesToShow={2.2}
             responsive={{

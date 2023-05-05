@@ -10,7 +10,6 @@ module.exports = withBundleAnalyzer(
       ignoreDuringBuilds: true
     },
     experimental: {
-      appDir: true,
       scrollRestoration: true,
     },
     images: {

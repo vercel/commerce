@@ -20,6 +20,7 @@ type Variant =
   | 'heading'
   | 'body'
   | 'pageHeading'
+  | 'productHeading'
   | 'sectionHeading'
   | 'label'
   | 'paragraph'
@@ -39,6 +40,7 @@ const Text: FunctionComponent<TextProps> = ({
     body: 'div',
     heading: 'h1',
     pageHeading: 'h1',
+    productHeading: 'h1',
     sectionHeading: 'h2',
     listChildHeading: 'h3',
     label: 'div',
@@ -67,8 +69,10 @@ const Text: FunctionComponent<TextProps> = ({
             variant === 'heading',
           ['max-w-prose text-3xl font-display font-bold leading-none md:text-4xl md:leading-none lg:leading-none lg:text-5xl']:
             variant === 'pageHeading',
+          ['max-w-prose text-2xl font-display leading-none md:text-3xl md:leading-none lg:leading-none lg:text-4xl']:
+          variant === 'productHeading',
           ['max-w-prose text-2xl font-display font-bold leading-none md:text-3xl md:leading-none lg:leading-none lg:text-4xl']:
-            variant === 'sectionHeading',
+          variant === 'sectionHeading',
           ['text-sm font-semibold leading-tight lg:text-base']:
             variant === 'listChildHeading',
           ['text-sm max-w-prose lg:text-base 2xl:text-lg']: variant === 'label',

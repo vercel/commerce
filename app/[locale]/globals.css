@@ -39,6 +39,15 @@ body {
 }
 
 /* COMPONENTS */
+.glider {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.glider::-webkit-scrollbar {
+  display: none;
+}
+
 .glider-dots {
   @apply flex !space-x-[2px] !mt-8;
 }

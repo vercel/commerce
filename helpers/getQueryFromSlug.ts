@@ -7,11 +7,11 @@ import {
 } from '../lib/sanity/queries'
 
 const getQueryFromSlug = (slugArray: string[], locale: string) => {
-  const docQuery = {
-    homePage: groq`${homePageQuery}`,
-    product: groq`${productQuery}`,
-    category: groq`${categoryQuery}`,
-    page: groq`${pageQuery}`,
+  const docQuery: { [index: string]: string } = {
+    'homePage': groq`${homePageQuery}`,
+    'product': groq`${productQuery}`,
+    'category': groq`${categoryQuery}`,
+    'page': groq`${pageQuery}`,
   }
 
   let docType = ''

@@ -1,21 +1,12 @@
 'use client'
 
-import {
-  CarouselItemProps as ItemProps,
-  CarouselProps as Props,
-} from 'components/modules/carousel/carousel'
+import { Carousel, CarouselItem } from 'components/modules/carousel/carousel'
 import SanityImage from 'components/ui/sanity-image'
 import { Product } from "lib/storm/types/product"
 import { cn } from 'lib/utils'
 import { useTranslations } from 'next-intl'
 import dynamic from "next/dynamic"
 const ProductCard = dynamic(() => import('components/ui/product-card'))
-const Carousel = dynamic<Props>(() =>
-  import('components/modules/carousel/carousel').then((mod) => mod.Carousel)
-)
-const CarouselItem = dynamic<ItemProps>(() =>
-  import('components/modules/carousel/carousel').then((mod) => mod.CarouselItem)
-)
 const Text = dynamic(() => import('components/ui/text'))
 interface ProductViewProps {
   product: Product
@@ -78,7 +69,9 @@ export default function ProductView({product, relatedProducts }: ProductViewProp
         </div>
 
         <div className="flex flex-col col-span-1 mx-auto px-4 py-6 w-full h-auto lg:col-span-4 lg:py-0 lg:px-8 lg:pr-0 2xl:px-16 2xl:pr-0 lg:sticky lg:top-8 2xl:top-16">
-          {product.name}
+          <Text variant={'productHeading'}>
+            {product.name}
+          </Text>
         </div>
 
       </div>

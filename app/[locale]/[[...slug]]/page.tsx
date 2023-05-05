@@ -14,8 +14,6 @@ export async function generateStaticParams() {
     next: { revalidate: 10 },
   })
 
-  // console.log(paths)
-
   return paths.map((path: { 
     slug: string,
     locale: string
@@ -52,7 +50,7 @@ export default async function Page({
 }) {
   const { slug, locale } = params;
   
-  const { query, queryParams, docType } = getQueryFromSlug(slug, locale)
+  const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale)
 
   const pageData = await client.fetch(query, queryParams)
 
