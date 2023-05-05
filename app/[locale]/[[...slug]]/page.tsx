@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: {params: { slug: string[], lo
 
   const data = filterDataToSingleItem(pageData, false)
 
-  const { seo, title } = data
+  const { seo, title } = data ?? {};
 
   return {
     title: seo?.title ? seo?.title : title,
