@@ -30,7 +30,7 @@ export default function ProductView({product, relatedProducts }: ProductViewProp
                 hasDots={false}
                 gliderClasses={'lg:px-8 2xl:px-16'}
                 slidesToScroll={1}
-                slidesToShow={1.025}
+                slidesToShow={images.length > 1 ? 1.0125 : 1}
                 responsive={{
                   breakpoint: 1024,
                   settings: {

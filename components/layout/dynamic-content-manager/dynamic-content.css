@@ -1,0 +1,23 @@
+.dynamic-content > :not(.hero) {
+  @apply my-16 lg:my-24;
+}
+
+.dynamic-content > :first-child {
+  @apply mt-0 md:mt-0 lg:mt-0;
+}
+
+.dynamic-content > :last-child {
+  @apply mb-16 lg:mb-24;
+}
+
+.dynamic-content .dynamic-content {
+  @apply px-0 md:px-0;
+}
+
+.dynamic-content .dynamic-content > {
+  @apply my-0 md:my-0 lg:my-0;
+}
+
+.dynamic-content .dynamic-content > :last-child {
+  @apply my-0 md:my-0 lg:my-0;
+}

@@ -1,7 +1,8 @@
-import 'glider-js/glider.min.css'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import React from 'react'
-import Glider from 'react-glider'
+import 'glider-js/glider.min.css';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import React from 'react';
+import Glider from 'react-glider';
+import './carousel.css';
 
 export interface CarouselItemProps {
   children: React.ReactNode

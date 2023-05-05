@@ -1,9 +1,10 @@
 'use client'
 
-import { Info } from 'lucide-react'
-import dynamic from 'next/dynamic'
+import { Info } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import './dynamic-content.css';
 
-import Hero from 'components/modules/hero'
+import Hero from 'components/modules/hero';
 const Slider = dynamic(() => import('components/modules/slider'))
 const BlurbSection = dynamic(() => import('components/modules/blurb-section'))
 const FilteredProductList = dynamic(
