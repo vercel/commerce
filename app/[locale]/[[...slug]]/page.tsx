@@ -1,14 +1,16 @@
-// 'use client';
- 
 import getQueryFromSlug from 'helpers/getQueryFromSlug';
 import { docQuery } from 'lib/sanity/queries';
 import { client } from 'lib/sanity/sanity.client';
+import type { Metadata } from 'next';
 import { groq } from 'next-sanity';
 import CategoryPage from './category-page';
 import HomePage from './home-page';
 import ProductPage from './product-page';
 import SinglePage from './single-page';
 
+/**
+ * Get paths for each page.
+ */
 export async function generateStaticParams() {
   const paths = await client.fetch(groq`${docQuery}`, {
     next: { revalidate: 10 },
@@ -43,6 +45,45 @@ function filterDataToSingleItem(data: any, preview = false) {
   return data[0]
 }
 
+/**
+ * Generate metadata for each page.
+ */
+export async function generateMetadata({ params }: {params: { slug: string[], locale: string }}): Promise<Metadata> {
+  const { slug, locale } = params
+
+  const { query = '', queryParams } = getQueryFromSlug(slug, locale)
+
+  const pageData = await client.fetch(query, queryParams)
+
+  const data = filterDataToSingleItem(pageData, false)
+
+  const { seo, title } = data
+
+  return {
+    title: seo?.title ? seo?.title : title,
+    description: seo?.description
+      ? seo.description
+      : 'Webb och digitalbyrå från Göteborg',
+    openGraph: {
+      images: [
+        {
+          url: seo?.image?.asset?.url
+            ? seo.image.asset.url
+            : '/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: seo?.coverImage?.alt
+            ? seo.coverImage.alt
+            : 'Kodamera AB',
+        },
+      ],
+    },
+  }
+}
+
+/**
+ * Render pages depending on type.
+ */
 export default async function Page({
   params,
 }: {
