@@ -9,6 +9,6 @@ interface CategoryPageProps {
 export default function ProductPage({data }: CategoryPageProps) {
 
   return (
-    <>Category page</>
+    <div>Category: {data?.title}</div>
   )
 }
