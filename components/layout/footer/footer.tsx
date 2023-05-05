@@ -3,8 +3,6 @@
 import Logo from 'components/ui/logo/logo';
 import { useTranslations } from 'next-intl';
 
-interface FooterProps {}
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
@@ -20,7 +18,7 @@ const Footer = () => {
             </a>
           </div>
           <p>
-            &copy; {copyrightDate} - {t('copyright')}
+            &copy; {copyrightDate} Kodamera - {t('copyright')}
           </p>
         </div>
       </div>
