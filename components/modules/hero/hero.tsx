@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from 'next/dynamic'
 
 const SanityImage = dynamic(() => import('components/ui/sanity-image'))
