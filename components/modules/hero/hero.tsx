@@ -48,7 +48,7 @@ const Hero = ({ variant, title, text, label, image, link }: HeroProps) => {
           className="absolute inset-0 h-full w-full object-cover z-10"
         />
       )}
-      <div className="flex flex-col items-start text-high-contrast absolute max-w-sm z-40 left-4 bottom-5 lg:max-w-xl lg:bottom-8 lg:left-8 2xl:left-16 2xl:bottom-16">
+      <div className="flex flex-col items-start text-high-contrast absolute max-w-md z-50 left-4 bottom-5 lg:max-w-2xl lg:bottom-8 lg:left-8 2xl:left-16 2xl:bottom-16">
         {label && (
           <Text className="mb-1 lg:mb-2" variant="label">
             {label}

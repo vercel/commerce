@@ -66,7 +66,7 @@ export default function LocaleSwitcher() {
           {locale === "en" && (
             <FlagEn />
           )}
-          <span>{locale}</span>
+          <span className="sr-only">{locale}</span>
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="drop-shadow-xl">
