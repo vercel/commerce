@@ -178,32 +178,32 @@ export const productQuery = `*[_type == "product" && slug.current == $slug && la
     slug,
     "locale": language
   },
-    "product": {
-      id,
-      "name": title,
-      description,
-      "descriptionHtml": "",
-      images[] {
-        ${imageFields}
-      },
-      price {
-        value,
-        currencyCode,
-        retailPrice
-      },
-      options[] {
-        id,
-        displayName,
-        values[] {
-          label,
-          "hexColors": hexColors.hex
-        }
-      },
-      "variants": []
+  "product": {
+    id,
+    "name": title,
+    description,
+    "descriptionHtml": "",
+    images[] {
+      ${imageFields}
     },
-    seo {
-      ${seoFields}
-    }
+    price {
+      value,
+      currencyCode,
+      retailPrice
+    },
+    options[] {
+      id,
+      displayName,
+      values[] {
+        label,
+        "hexColors": hexColors.hex
+      }
+    },
+    "variants": []
+  },
+  seo {
+    ${seoFields}
+  }
 }`
 
 // Category query

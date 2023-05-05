@@ -2,7 +2,6 @@ import getQueryFromSlug from 'helpers/getQueryFromSlug';
 import { docQuery } from 'lib/sanity/queries';
 import { client } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
-import { groq } from 'next-sanity';
 import CategoryPage from './category-page';
 import HomePage from './home-page';
 import ProductPage from './product-page';
@@ -12,7 +11,7 @@ import SinglePage from './single-page';
  * Get paths for each page.
  */
 export async function generateStaticParams() {
-  const paths = await client.fetch(groq`${docQuery}`, {
+  const paths = await client.fetch(docQuery, {
     next: { revalidate: 10 },
   })
 
@@ -30,6 +29,7 @@ export async function generateStaticParams() {
  * If we're in "preview mode" and have multiple documents, return the draft
  */
 function filterDataToSingleItem(data: any, preview = false) {
+  
   if (!Array.isArray(data)) {
     return data
   }
@@ -57,10 +57,10 @@ export async function generateMetadata({ params }: {params: { slug: string[], lo
 
   const data = filterDataToSingleItem(pageData, false)
 
-  const { seo, title } = data ?? {};
+  const { seo } = data ?? {};
 
   return {
-    title: seo?.title ? seo?.title : title,
+    title: seo?.title ? seo?.title : data?.title,
     description: seo?.description
       ? seo.description
       : 'Webb och digitalbyrå från Göteborg',
