@@ -1,5 +1,5 @@
 import { isEmpty } from '../utils';
-import { MedusaProductVariant, RegionInfo } from './types';
+import { MedusaProductVariant, Money, RegionInfo } from './types';
 
 type ComputeAmountParams = {
   amount: number;
@@ -20,7 +20,10 @@ export const computeAmount = ({ amount, region, includeTaxes = true }: ComputeAm
   return amountWithTaxes;
 };
 
-export const calculateVariantAmount = (variant: MedusaProductVariant) => {
+/**
+ * Takes a product variant, and returns the amount as a decimal including or excluding taxes and the currency code
+ */
+export const calculateVariantAmount = (variant: MedusaProductVariant): Money => {
   const currencyCode = variant.prices?.[0]?.currency_code ?? 'USD';
   const amount = convertToDecimal(variant.prices?.[0]?.amount || 0, currencyCode).toString();
   return {

@@ -414,10 +414,7 @@ export type CartItem = MedusaLineItem & {
     title: string;
   };
   cost: {
-    totalAmount: {
-      amount: string;
-      currencyCode: string;
-    };
+    totalAmount: Money;
   };
   quantity: number;
 };
