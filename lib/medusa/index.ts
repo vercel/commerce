@@ -1,6 +1,7 @@
 import { isMedusaError } from 'lib/type-guards';
 
 import { mapOptionIds } from 'lib/utils';
+import { calculateVariantAmount, computeAmount, convertToDecimal } from './helpers';
 import {
   Cart,
   CartItem,
@@ -67,18 +68,34 @@ const reshapeCart = (cart: MedusaCart): Cart => {
   const lines = cart?.items?.map((item) => reshapeLineItem(item)) || [];
   const totalQuantity = lines.length;
   const checkoutUrl = '/';
-  const currencyCode = 'EUR';
+  const currencyCode = cart.region?.currency_code || 'USD';
+
+  let subtotalAmount = '0';
+  if (cart.subtotal && cart.region) {
+    subtotalAmount = computeAmount({ amount: cart.subtotal, region: cart.region }).toString();
+  }
+
+  let totalAmount = '0';
+  if (cart.total && cart.region) {
+    totalAmount = computeAmount({ amount: cart.total, region: cart.region }).toString();
+  }
+
+  let totalTaxAmount = '0';
+  if (cart.tax_total && cart.region) {
+    totalTaxAmount = computeAmount({ amount: cart.tax_total, region: cart.region }).toString();
+  }
+
   const cost = {
     subtotalAmount: {
-      amount: cart?.subtotal?.toString() || '0',
+      amount: subtotalAmount,
       currencyCode: currencyCode
     },
     totalAmount: {
-      amount: (cart?.total && cart?.total.toString()) || '0',
+      amount: totalAmount,
       currencyCode: currencyCode
     },
     totalTaxAmount: {
-      amount: (cart?.tax_total && cart?.tax_total.toString()) || '0',
+      amount: totalTaxAmount,
       currencyCode: currencyCode
     }
   };
@@ -96,10 +113,7 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
   const product = {
     title: lineItem.title,
     priceRange: {
-      maxVariantPrice: {
-        amount: lineItem.variant?.prices?.[0]?.amount.toString() ?? '0',
-        currencyCode: lineItem.variant?.prices?.[0]?.currency_code ?? 'EUR'
-      }
+      maxVariantPrice: calculateVariantAmount(lineItem.variant)
     },
     updatedAt: lineItem.updated_at,
     tags: [],
@@ -128,7 +142,10 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
 
   const cost = {
     totalAmount: {
-      amount: lineItem.total.toString() ?? '0',
+      amount: convertToDecimal(
+        lineItem.total,
+        lineItem.variant.prices?.[0]?.currency_code
+      ).toString(),
       currencyCode: 'EUR'
     }
   };
@@ -143,9 +160,18 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
 };
 
 const reshapeProduct = (product: MedusaProduct): Product => {
+  const variant = product.variants?.[0];
+
+  let amount = '0';
+  let currencyCode = 'USD';
+  if (variant && variant.prices?.[0]?.amount) {
+    currencyCode = variant.prices?.[0]?.currency_code ?? 'USD';
+    amount = convertToDecimal(variant.prices[0].amount, currencyCode).toString();
+  }
+
   const priceRange = {
     maxVariantPrice: {
-      amount: product.variants?.[0]?.prices?.[0]?.amount.toString() ?? '0',
+      amount,
       currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code ?? ''
     }
   };
@@ -156,7 +182,7 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     url: product.images?.[0]?.url ?? '',
     altText: product.images?.[0]?.id ?? ''
   };
-  const availableForSale = true;
+  const availableForSale = product.variants?.[0]?.purchasable || true;
   const variants = product.variants.map((variant) =>
     reshapeProductVariant(variant, product.options)
   );
@@ -178,7 +204,7 @@ const reshapeProduct = (product: MedusaProduct): Product => {
 };
 
 const reshapeProductOption = (productOption: MedusaProductOption): ProductOption => {
-  const availableForSale = true;
+  const availableForSale = productOption.product?.variants?.[0]?.purchasable || true;
   const name = productOption.title;
   let values = productOption.values?.map((option) => option.value) || [];
   values = [...new Set(values)];
@@ -203,12 +229,9 @@ const reshapeProductVariant = (
       value: option.value
     }));
   }
-  const availableForSale = !!productVariant.inventory_quantity;
+  const availableForSale = productVariant.purchasable || true;
+  const price = calculateVariantAmount(productVariant);
 
-  const price = {
-    amount: productVariant.prices?.[0]?.amount.toString() ?? 'ß',
-    currencyCode: productVariant.prices?.[0]?.currency_code ?? ''
-  };
   return {
     ...productVariant,
     availableForSale,

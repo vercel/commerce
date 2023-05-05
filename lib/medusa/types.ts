@@ -153,6 +153,7 @@ export type MedusaProductVariant = {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+  purchasable?: boolean;
 };
 
 export type ProductVariant = MedusaProductVariant & {
@@ -279,6 +280,9 @@ export type Region = {
   updated_at: string;
   deleted_at?: string | null;
   metadata?: Record<string, unknown> | null;
+  currency_code: string;
+  tax_code: string;
+  tax_rate: number;
 };
 
 export type FulfillmentProvider = {
@@ -416,4 +420,12 @@ export type CartItem = MedusaLineItem & {
     };
   };
   quantity: number;
+};
+
+export type RegionInfo = Pick<Region, 'currency_code' | 'tax_code' | 'tax_rate'>;
+export type ProductVariantEntity = ConvertDateToString<Omit<ProductVariant, 'beforeInsert'>>;
+export type ProductVariantInfo = Pick<ProductVariantEntity, 'prices'>;
+
+type ConvertDateToString<T extends {}> = {
+  [P in keyof T]: T[P] extends Date ? Date | string : T[P];
 };
