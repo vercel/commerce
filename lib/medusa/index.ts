@@ -18,8 +18,7 @@ import {
   SelectedOption
 } from './types';
 
-// const endpoint = `${process.env.MEDUSA_BACKEND_API!}`;
-const endpoint = `http://localhost:9000/store`;
+const ENDPOINT = process.env.MEDUSA_BACKEND_API;
 
 export default async function medusaRequest(
   method: string,
@@ -38,7 +37,7 @@ export default async function medusaRequest(
   }
 
   try {
-    const result = await fetch(`${endpoint}/${path}`, options);
+    const result = await fetch(`${ENDPOINT}${path}`, options);
 
     const body = await result.json();
 
@@ -144,9 +143,9 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
     totalAmount: {
       amount: convertToDecimal(
         lineItem.total,
-        lineItem.variant.prices?.[0]?.currency_code
+        lineItem.variant?.prices?.[0]?.currency_code
       ).toString(),
-      currencyCode: 'EUR'
+      currencyCode: lineItem.variant?.prices?.[0]?.currency_code || 'EUR'
     }
   };
   const quantity = lineItem.quantity;
