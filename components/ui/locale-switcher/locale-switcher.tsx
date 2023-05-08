@@ -1,5 +1,3 @@
-'use client'
-
 import FlagEn from 'components/icons/flag-en';
 import FlagSv from 'components/icons/flag-sv';
 import {
@@ -20,6 +18,7 @@ export default function LocaleSwitcher() {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter();
   
+  // Handle redirected pathname.
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/'
     const segments = pathName.split('/')
@@ -27,6 +26,7 @@ export default function LocaleSwitcher() {
     return segments.join('/')
   }
 
+  // Handle click on dropdown menu item (<li>).
   const handleClick = (e: any, locale: string) => {
     e.preventDefault()
 
