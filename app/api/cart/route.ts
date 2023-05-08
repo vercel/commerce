@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { addToCart, removeFromCart, updateCart } from 'lib/shopify';
-import { isShopifyError } from 'lib/type-guards';
+import { addToCart, removeFromCart, updateCart } from 'lib/medusa';
+import { isMedusaError } from 'lib/type-guards';
 
 function formatErrorMessage(err: Error): string {
   return JSON.stringify(err, Object.getOwnPropertyNames(err));
@@ -10,16 +10,16 @@ function formatErrorMessage(err: Error): string {
 
 export async function POST(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
-  const { merchandiseId } = await req.json();
+  const { variantId } = await req.json();
 
-  if (!cartId?.length || !merchandiseId?.length) {
+  if (!cartId?.length || !variantId?.length) {
     return NextResponse.json({ error: 'Missing cartId or variantId' }, { status: 400 });
   }
   try {
-    await addToCart(cartId, [{ merchandiseId, quantity: 1 }]);
+    await addToCart(cartId, { variantId, quantity: 1 });
     return NextResponse.json({ status: 204 });
   } catch (e) {
-    if (isShopifyError(e)) {
+    if (isMedusaError(e)) {
       return NextResponse.json({ message: formatErrorMessage(e.message) }, { status: e.status });
     }
 
@@ -29,25 +29,22 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 export async function PUT(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
-  const { variantId, quantity, lineId } = await req.json();
+  const { lineItemId, quantity } = await req.json();
 
-  if (!cartId || !variantId || !quantity || !lineId) {
+  if (!cartId || !quantity || !lineItemId) {
     return NextResponse.json(
-      { error: 'Missing cartId, variantId, lineId, or quantity' },
+      { error: 'Missing cartId, variantId, lineItemId, or quantity' },
       { status: 400 }
     );
   }
   try {
-    await updateCart(cartId, [
-      {
-        id: lineId,
-        merchandiseId: variantId,
-        quantity
-      }
-    ]);
+    await updateCart(cartId, {
+      lineItemId,
+      quantity
+    });
     return NextResponse.json({ status: 204 });
   } catch (e) {
-    if (isShopifyError(e)) {
+    if (isMedusaError(e)) {
       return NextResponse.json({ message: formatErrorMessage(e.message) }, { status: e.status });
     }
 
@@ -57,16 +54,16 @@ export async function PUT(req: NextRequest): Promise<Response> {
 
 export async function DELETE(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
-  const { lineId } = await req.json();
+  const lineItemId = req.nextUrl.searchParams.get('lineItemId');
 
-  if (!cartId || !lineId) {
-    return NextResponse.json({ error: 'Missing cartId or lineId' }, { status: 400 });
+  if (!cartId || !lineItemId) {
+    return NextResponse.json({ error: 'Missing cartId or lineItemId' }, { status: 400 });
   }
   try {
-    await removeFromCart(cartId, [lineId]);
+    await removeFromCart(cartId, lineItemId);
     return NextResponse.json({ status: 204 });
   } catch (e) {
-    if (isShopifyError(e)) {
+    if (isMedusaError(e)) {
       return NextResponse.json({ message: formatErrorMessage(e.message) }, { status: e.status });
     }
 

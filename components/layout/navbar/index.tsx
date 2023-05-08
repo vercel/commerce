@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { Suspense } from 'react';
 
 import Cart from 'components/cart';
 import CartIcon from 'components/icons/cart';
 import LogoIcon from 'components/icons/logo';
-import { Menu } from 'lib/shopify/types';
+import { Menu } from 'lib/medusa/types';
+import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search from './search';
 
