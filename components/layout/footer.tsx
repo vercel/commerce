@@ -3,15 +3,15 @@ import Link from 'next/link';
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
 import VercelIcon from 'components/icons/vercel';
-import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
+import { Menu } from 'lib/medusa/types';
 
 const { SITE_NAME } = process.env;
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const menu = await getMenu('next-js-frontend-footer-menu');
+  // const menu = await getMenu('next-js-frontend-footer-menu');
+  const menu: any[] = [];
 
   return (
     <footer className="border-t border-gray-700 bg-white text-black dark:bg-black dark:text-white">

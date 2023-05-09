@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
 
 import clsx from 'clsx';
-import type { CartItem } from 'lib/shopify/types';
+import type { CartItem } from 'lib/medusa/types';
 
 export default function DeleteItemButton({ item }: { item: CartItem }) {
   const router = useRouter();
@@ -13,12 +13,10 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
   async function handleRemove() {
     setRemoving(true);
 
-    const response = await fetch(`/api/cart`, {
-      method: 'DELETE',
-      body: JSON.stringify({
-        lineId: item.id
-      })
+    const response = await fetch(`/api/cart?lineItemId=${item.id}`, {
+      method: 'DELETE'
     });
+
     const data = await response.json();
 
     if (data.error) {

@@ -9,8 +9,8 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.shopify.com',
-        pathname: '/s/files/**'
+        hostname: 'medusa-public-images.s3.eu-west-1.amazonaws.com',
+        pathname: '/**'
       }
     ]
   }

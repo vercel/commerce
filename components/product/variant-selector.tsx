@@ -1,10 +1,11 @@
 'use client';
 
 import clsx from 'clsx';
-import { ProductOption, ProductVariant } from 'lib/shopify/types';
+import { ProductOption, ProductVariant } from 'lib/medusa/types';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 type ParamsMap = {
   [key: string]: string; // ie. { color: 'Red', size: 'Large', ... }
@@ -79,9 +80,11 @@ export function VariantSelector({
   const currentUrl = createUrl(pathname, currentParams);
   const selectedVariantUrl = createUrl(pathname, selectedVariantParams);
 
-  if (currentUrl !== selectedVariantUrl) {
-    router.replace(selectedVariantUrl);
-  }
+  useEffect(() => {
+    if (currentUrl !== selectedVariantUrl) {
+      router.replace(selectedVariantUrl);
+    }
+  }, [currentUrl, router, selectedVariantUrl]);
 
   return options.map((option) => (
     <dl className="mb-8" key={option.id}>
@@ -90,6 +93,7 @@ export function VariantSelector({
         {option.values.map((value) => {
           // Base option params on selected variant params.
           const optionParams = new URLSearchParams(selectedVariantParams);
+
           // Update the params using the current option to reflect how the url would change.
           optionParams.set(option.name.toLowerCase(), value);
 

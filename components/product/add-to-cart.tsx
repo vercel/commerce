@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
 import LoadingDots from 'components/loading-dots';
-import { ProductVariant } from 'lib/shopify/types';
+import { ProductVariant } from 'lib/medusa/types';
 
 export function AddToCart({
   variants,
@@ -42,7 +42,7 @@ export function AddToCart({
     const response = await fetch(`/api/cart`, {
       method: 'POST',
       body: JSON.stringify({
-        merchandiseId: selectedVariantId
+        variantId: selectedVariantId
       })
     });
 
