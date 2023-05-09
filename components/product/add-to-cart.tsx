@@ -3,8 +3,10 @@
 import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
+import { useCookies } from 'react-cookie';
 
 import LoadingDots from 'components/loading-dots';
+import { addToCart } from 'lib/medusa';
 import { ProductVariant } from 'lib/medusa/types';
 
 export function AddToCart({
@@ -19,6 +21,7 @@ export function AddToCart({
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [adding, setAdding] = useState(false);
+  const [cookie] = useCookies(['cartId']);
 
   useEffect(() => {
     const variant = variants.find((variant: ProductVariant) =>
@@ -35,23 +38,16 @@ export function AddToCart({
   const isMutating = adding || isPending;
 
   async function handleAdd() {
-    if (!availableForSale) return;
+    if (!availableForSale || !selectedVariantId) return;
 
     setAdding(true);
 
-    const response = await fetch(`/api/cart`, {
-      method: 'POST',
-      body: JSON.stringify({
-        variantId: selectedVariantId
-      })
+    console.log({ cookie });
+
+    addToCart(cookie.cartId, {
+      variantId: selectedVariantId,
+      quantity: 1
     });
-
-    const data = await response.json();
-
-    if (data.error) {
-      alert(data.error);
-      return;
-    }
 
     setAdding(false);
 

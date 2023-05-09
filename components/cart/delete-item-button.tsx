@@ -2,27 +2,25 @@ import CloseIcon from 'components/icons/close';
 import LoadingDots from 'components/loading-dots';
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 import clsx from 'clsx';
+import { removeFromCart } from 'lib/medusa';
 import type { CartItem } from 'lib/medusa/types';
 
 export default function DeleteItemButton({ item }: { item: CartItem }) {
   const router = useRouter();
   const [removing, setRemoving] = useState(false);
+  const [cookie] = useCookies(['cartId']);
 
   async function handleRemove() {
+    const cartId = cookie.cartId;
+
+    if (!cartId) return;
+
     setRemoving(true);
 
-    const response = await fetch(`/api/cart?lineItemId=${item.id}`, {
-      method: 'DELETE'
-    });
-
-    const data = await response.json();
-
-    if (data.error) {
-      alert(data.error);
-      return;
-    }
+    removeFromCart(cartId, item.id);
 
     setRemoving(false);
 
