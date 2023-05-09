@@ -38,14 +38,12 @@ export function AddToCart({
   const isMutating = adding || isPending;
 
   async function handleAdd() {
-    if (!availableForSale || !selectedVariantId) return;
+    if (!availableForSale || !variants[0]) return;
 
     setAdding(true);
 
-    console.log({ cookie });
-
-    addToCart(cookie.cartId, {
-      variantId: selectedVariantId,
+    await addToCart(cookie.cartId, {
+      variantId: selectedVariantId || variants[0].id,
       quantity: 1
     });
 

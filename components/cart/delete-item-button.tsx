@@ -20,7 +20,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
 
     setRemoving(true);
 
-    removeFromCart(cartId, item.id);
+    await removeFromCart(cartId, item.id);
 
     setRemoving(false);
 

@@ -30,12 +30,12 @@ export default function EditItemQuantityButton({
     const method = type === 'minus' && item.quantity - 1 === 0 ? 'remove' : 'update';
 
     method === 'update' &&
-      updateCart(cartId, {
+      (await updateCart(cartId, {
         lineItemId: item.id,
         quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
-      });
+      }));
 
-    method === 'remove' && removeFromCart(cartId, item.id);
+    method === 'remove' && (await removeFromCart(cartId, item.id));
 
     setEditing(false);
 
