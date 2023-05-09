@@ -18,7 +18,7 @@ import {
   SelectedOption
 } from './types';
 
-const ENDPOINT = process.env.MEDUSA_BACKEND_API;
+const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API;
 
 export default async function medusaRequest(
   method: string,
@@ -67,7 +67,7 @@ const reshapeCart = (cart: MedusaCart): Cart => {
   const lines = cart?.items?.map((item) => reshapeLineItem(item)) || [];
   const totalQuantity = lines.length;
   const checkoutUrl = '/';
-  const currencyCode = cart.region?.currency_code || 'USD';
+  const currencyCode = cart.region?.currency_code.toUpperCase() || 'USD';
 
   let subtotalAmount = '0';
   if (cart.subtotal && cart.region) {
@@ -145,7 +145,7 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
         lineItem.total,
         lineItem.variant?.prices?.[0]?.currency_code
       ).toString(),
-      currencyCode: lineItem.variant?.prices?.[0]?.currency_code || 'EUR'
+      currencyCode: lineItem.variant?.prices?.[0]?.currency_code.toUpperCase() || 'EUR'
     }
   };
   const quantity = lineItem.quantity;
@@ -164,14 +164,14 @@ const reshapeProduct = (product: MedusaProduct): Product => {
   let amount = '0';
   let currencyCode = 'USD';
   if (variant && variant.prices?.[0]?.amount) {
-    currencyCode = variant.prices?.[0]?.currency_code ?? 'USD';
+    currencyCode = variant.prices?.[0]?.currency_code.toUpperCase() ?? 'USD';
     amount = convertToDecimal(variant.prices[0].amount, currencyCode).toString();
   }
 
   const priceRange = {
     maxVariantPrice: {
       amount,
-      currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code ?? ''
+      currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code.toUpperCase() ?? ''
     }
   };
   const updatedAt = product.updated_at;
