@@ -1,9 +1,11 @@
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 import clsx from 'clsx';
 import MinusIcon from 'components/icons/minus';
 import PlusIcon from 'components/icons/plus';
+import { removeFromCart, updateCart } from 'lib/medusa';
 import type { CartItem } from 'lib/medusa/types';
 import LoadingDots from '../loading-dots';
 
@@ -16,30 +18,24 @@ export default function EditItemQuantityButton({
 }) {
   const router = useRouter();
   const [editing, setEditing] = useState(false);
+  const [cookie] = useCookies(['cartId']);
 
   async function handleEdit() {
+    const cartId = cookie.cartId;
+
+    if (!cartId) return;
+
     setEditing(true);
 
-    const method = type === 'minus' && item.quantity - 1 === 0 ? 'DELETE' : 'PUT';
-    const url = method === 'PUT' ? '/api/cart' : `/api/cart?lineItemId=${item.id}`;
+    const method = type === 'minus' && item.quantity - 1 === 0 ? 'remove' : 'update';
 
-    const response = await fetch(url, {
-      method,
-      body:
-        method === 'PUT'
-          ? JSON.stringify({
-              lineItemId: item.id,
-              quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
-            })
-          : null
-    });
+    method === 'update' &&
+      updateCart(cartId, {
+        lineItemId: item.id,
+        quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
+      });
 
-    const data = await response.json();
-
-    if (data.error) {
-      alert(data.error);
-      return;
-    }
+    method === 'remove' && removeFromCart(cartId, item.id);
 
     setEditing(false);
 

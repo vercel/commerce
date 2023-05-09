@@ -18,7 +18,7 @@ import {
   SelectedOption
 } from './types';
 
-const ENDPOINT = process.env.MEDUSA_BACKEND_API;
+const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API;
 
 export default async function medusaRequest(
   method: string,
