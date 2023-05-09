@@ -62,6 +62,7 @@ export type Product = Partial<Omit<MedusaProduct, 'tags' | 'options' | 'variants
   priceRange: {
     maxVariantPrice: Money;
   };
+  createdAt: Date;
   updatedAt: Date;
   descriptionHtml: string;
   tags: Array<string>;

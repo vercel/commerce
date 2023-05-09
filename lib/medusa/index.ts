@@ -67,7 +67,7 @@ const reshapeCart = (cart: MedusaCart): Cart => {
   const lines = cart?.items?.map((item) => reshapeLineItem(item)) || [];
   const totalQuantity = lines.length;
   const checkoutUrl = '/';
-  const currencyCode = cart.region?.currency_code || 'USD';
+  const currencyCode = cart.region?.currency_code.toUpperCase() || 'USD';
 
   let subtotalAmount = '0';
   if (cart.subtotal && cart.region) {
@@ -115,6 +115,7 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
       maxVariantPrice: calculateVariantAmount(lineItem.variant)
     },
     updatedAt: lineItem.updated_at,
+    createdAt: lineItem.created_at,
     tags: [],
     descriptionHtml: lineItem.description ?? '',
     featuredImage: {
@@ -145,7 +146,7 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
         lineItem.total,
         lineItem.variant?.prices?.[0]?.currency_code
       ).toString(),
-      currencyCode: lineItem.variant?.prices?.[0]?.currency_code || 'EUR'
+      currencyCode: lineItem.variant?.prices?.[0]?.currency_code.toUpperCase() || 'EUR'
     }
   };
   const quantity = lineItem.quantity;
@@ -164,17 +165,18 @@ const reshapeProduct = (product: MedusaProduct): Product => {
   let amount = '0';
   let currencyCode = 'USD';
   if (variant && variant.prices?.[0]?.amount) {
-    currencyCode = variant.prices?.[0]?.currency_code ?? 'USD';
+    currencyCode = variant.prices?.[0]?.currency_code.toUpperCase() ?? 'USD';
     amount = convertToDecimal(variant.prices[0].amount, currencyCode).toString();
   }
 
   const priceRange = {
     maxVariantPrice: {
       amount,
-      currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code ?? ''
+      currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code.toUpperCase() ?? ''
     }
   };
   const updatedAt = product.updated_at;
+  const createdAt = product.created_at;
   const tags = product.tags?.map((tag) => tag.value) || [];
   const descriptionHtml = product.description ?? '';
   const featuredImage = {
@@ -194,6 +196,7 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     featuredImage,
     priceRange,
     updatedAt,
+    createdAt,
     tags,
     descriptionHtml,
     availableForSale,
@@ -342,15 +345,30 @@ export async function getProduct(handle: string): Promise<Product> {
 }
 
 export async function getProducts({
-  query
+  query = '',
+  reverse,
+  sortKey
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  const res = await medusaRequest('get', `/products?q=${query}&limit=20`);
-  const products: Product[] = res.body.products.map((product: MedusaProduct) =>
+  const res = await medusaRequest('GET', `/products?q=${query}&limit=20`);
+  let products: Product[] = res.body.products.map((product: MedusaProduct) =>
     reshapeProduct(product)
   );
+
+  sortKey === 'PRICE' &&
+    products.sort(
+      (a, b) =>
+        parseFloat(a.priceRange.maxVariantPrice.amount) -
+        parseFloat(b.priceRange.maxVariantPrice.amount)
+    );
+
+  sortKey === 'CREATED_AT' &&
+    products.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+  reverse && products.reverse();
+
   return products;
 }
