@@ -1,4 +1,4 @@
-import { getCollection, getCollectionProducts } from 'lib/medusa';
+import { getCategory, getCategoryProducts } from 'lib/medusa';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -12,7 +12,8 @@ export async function generateMetadata({
 }: {
   params: { collection: string };
 }): Promise<Metadata> {
-  const collection = await getCollection(params.collection);
+  console.log({ params });
+  const collection = await getCategory(params.collection);
 
   if (!collection) return notFound();
 
@@ -33,7 +34,8 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params }: { params: { collection: string } }) {
-  const products = await getCollectionProducts(params.collection);
+  console.log({ collection: params.collection });
+  const products = await getCategoryProducts(params.collection);
 
   return (
     <section>

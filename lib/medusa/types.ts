@@ -1,4 +1,6 @@
 export type MedusaProductCollection = {
+  name: any;
+  description: string | undefined;
   id: string;
   title: string;
   handle: string;
@@ -10,7 +12,6 @@ export type MedusaProductCollection = {
 };
 
 export type ProductCollection = MedusaProductCollection & {
-  description?: string;
   seo?: {
     title?: string;
     description?: string;
@@ -115,6 +116,7 @@ export type ShippingProfile = {
 export type ProductCategory = {
   id: string;
   name: string;
+  description: string;
   handle: string;
   mpath: string | null;
   is_internal?: boolean;
@@ -126,6 +128,7 @@ export type ProductCategory = {
   products?: Product[];
   created_at: string;
   updated_at: string;
+  metadata?: { [key: string]: string } | null;
 };
 
 export type MedusaProductVariant = {

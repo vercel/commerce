@@ -1,4 +1,4 @@
-import { getCollections, getProducts } from 'lib/medusa';
+import { getCategories, getProducts } from 'lib/medusa';
 import { MetadataRoute } from 'next';
 
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<Promise<Promise<MetadataRoute.S
     lastModified: new Date().toISOString()
   }));
 
-  const collections = await getCollections();
+  const collections = await getCategories();
   const collectionsMap = collections.map((collection) => ({
     url: `${baseUrl}${collection.path}`,
     lastModified: collection.updatedAt
