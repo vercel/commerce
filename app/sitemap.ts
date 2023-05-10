@@ -6,28 +6,35 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   : 'http://localhost:3000';
 
 export default async function sitemap(): Promise<Promise<Promise<MetadataRoute.Sitemap>>> {
-  const routesMap = ['', '/search'].map((route) => ({
+  const routesMap = [''].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString()
   }));
 
-  const collections = await getCollections();
-  const collectionsMap = collections.map((collection) => ({
-    url: `${baseUrl}${collection.path}`,
-    lastModified: collection.updatedAt
-  }));
+  const collectionsPromise = getCollections().then((collections) =>
+    collections.map((collection) => ({
+      url: `${baseUrl}${collection.path}`,
+      lastModified: collection.updatedAt
+    }))
+  );
 
-  const products = await getProducts({});
-  const productsMap = products.map((product) => ({
-    url: `${baseUrl}/product/${product.handle}`,
-    lastModified: product.updatedAt
-  }));
+  const productsPromise = getProducts({}).then((products) =>
+    products.map((product) => ({
+      url: `${baseUrl}/product/${product.handle}`,
+      lastModified: product.updatedAt
+    }))
+  );
 
-  const pages = await getPages();
-  const pagesMap = pages.map((page) => ({
-    url: `${baseUrl}/${page.handle}`,
-    lastModified: page.updatedAt
-  }));
+  const pagesPromise = getPages().then((pages) =>
+    pages.map((page) => ({
+      url: `${baseUrl}/${page.handle}`,
+      lastModified: page.updatedAt
+    }))
+  );
 
-  return [...routesMap, ...collectionsMap, ...productsMap, ...pagesMap];
+  const fetchedRoutes = (
+    await Promise.all([collectionsPromise, productsPromise, pagesPromise])
+  ).flat();
+
+  return [...routesMap, ...fetchedRoutes];
 }
