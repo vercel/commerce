@@ -12,7 +12,6 @@ export async function generateMetadata({
 }: {
   params: { collection: string };
 }): Promise<Metadata> {
-  console.log({ params });
   const collection = await getCategory(params.collection);
 
   if (!collection) return notFound();
@@ -34,7 +33,6 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params }: { params: { collection: string } }) {
-  console.log({ collection: params.collection });
   const products = await getCategoryProducts(params.collection);
 
   return (
