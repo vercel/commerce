@@ -17,6 +17,10 @@ A Next.js 13 and App Router-ready ecommerce template, built with Shopify, featur
 - Checkout and payments with Shopify
 - Automatic light/dark mode based on system settings
 
+## Alternate Providers
+
+- [Saleor](https://github.com/saleor/nextjs-commerce) ([Demo](https://saleor-commerce.vercel.app/))
+
 ## Running locally
 
 You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
