@@ -72,4 +72,4 @@ cd my-medusa-store medusa develop
 
 #### 4. Add Medusa backend domain to an environment variable
 
-Create a `MEDUSA_BACKEND_API` environment variable in you Next.js Commerce project and use your Medusa backend domain as the the value (default: `http://localhost:9000`).
+Create a `NEXT_PUBLIC_MEDUSA_BACKEND_API` environment variable in you Next.js Commerce project and use your Medusa backend domain as the the value (default: `http://localhost:9000`).
