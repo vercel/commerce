@@ -20,6 +20,8 @@ import {
 } from './types';
 
 const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API;
+const MEDUSA_API_KEY = process.env.MEDUSA_API_KEY ?? '';
+const REVALIDATE_WINDOW = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 15}`); // 15 minutes
 
 export default async function medusaRequest(
   method: string,
@@ -29,8 +31,10 @@ export default async function medusaRequest(
   const options: RequestInit = {
     method,
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+      'x-publishable-key': MEDUSA_API_KEY
+    },
+    next: { revalidate: REVALIDATE_WINDOW }
   };
 
   if (payload) {
@@ -241,26 +245,6 @@ const reshapeProductVariant = (
     availableForSale,
     selectedOptions,
     price
-  };
-};
-
-const reshapeCollection = (collection: MedusaProductCollection): ProductCollection => {
-  const description = collection.description || collection.metadata?.description?.toString() || '';
-  const seo = {
-    title: collection?.metadata?.seo_title?.toString() || collection.title || '',
-    description: collection?.metadata?.seo_description?.toString() || collection.description || ''
-  };
-  const path = `/${collection.handle}`;
-  const updatedAt = collection.updated_at;
-  const title = collection.name;
-
-  return {
-    ...collection,
-    description,
-    seo,
-    title,
-    path,
-    updatedAt
   };
 };
 
