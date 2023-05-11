@@ -33,9 +33,12 @@ export default async function medusaRequest(
     headers: {
       'Content-Type': 'application/json',
       'x-publishable-key': MEDUSA_API_KEY
-    },
-    next: { revalidate: REVALIDATE_WINDOW }
+    }
   };
+
+  if (!path.includes('/carts')) {
+    options.next = { revalidate: REVALIDATE_WINDOW };
+  }
 
   if (payload) {
     options.body = JSON.stringify(payload);
