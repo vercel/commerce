@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { Suspense } from 'react';
 
-import { getCollections } from 'lib/medusa';
+import { getCategories } from 'lib/medusa';
 import FilterList from './filter';
 
 async function CollectionList() {
-  const collections = await getCollections();
+  const collections = await getCategories();
   return <FilterList list={collections} title="Collections" />;
 }
 

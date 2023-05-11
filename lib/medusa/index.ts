@@ -12,6 +12,7 @@ import {
   MedusaProductOption,
   MedusaProductVariant,
   Product,
+  ProductCategory,
   ProductCollection,
   ProductOption,
   ProductVariant,
@@ -184,6 +185,7 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     altText: product.images?.[0]?.id ?? ''
   };
   const availableForSale = product.variants?.[0]?.purchasable || true;
+
   const variants = product.variants.map((variant) =>
     reshapeProductVariant(variant, product.options)
   );
@@ -243,18 +245,40 @@ const reshapeProductVariant = (
 };
 
 const reshapeCollection = (collection: MedusaProductCollection): ProductCollection => {
-  const description = collection.metadata?.description?.toString() ?? '';
+  const description = collection.description || collection.metadata?.description?.toString() || '';
   const seo = {
-    title: collection?.metadata?.seo_title?.toString() ?? '',
-    description: collection?.metadata?.seo_description?.toString() ?? ''
+    title: collection?.metadata?.seo_title?.toString() || collection.title || '',
+    description: collection?.metadata?.seo_description?.toString() || collection.description || ''
   };
   const path = `/${collection.handle}`;
   const updatedAt = collection.updated_at;
+  const title = collection.name;
 
   return {
     ...collection,
     description,
     seo,
+    title,
+    path,
+    updatedAt
+  };
+};
+
+const reshapeCategory = (category: ProductCategory): ProductCollection => {
+  const description = category.description || category.metadata?.description?.toString() || '';
+  const seo = {
+    title: category?.metadata?.seo_title?.toString() || category.name || '',
+    description: category?.metadata?.seo_description?.toString() || category.description || ''
+  };
+  const path = `/search/${category.handle}`;
+  const updatedAt = category.updated_at;
+  const title = category.name;
+
+  return {
+    ...category,
+    description,
+    seo,
+    title,
     path,
     updatedAt
   };
@@ -302,40 +326,38 @@ export async function getCart(cartId: string): Promise<Cart | null> {
   return reshapeCart(cart);
 }
 
-export async function getCollection(handle: string): Promise<ProductCollection | undefined> {
-  const res = await medusaRequest('GET', `/collections?handle[]=${handle}&limit=1`);
-  return res.body.collections[0];
+export async function getCategories(): Promise<ProductCollection[]> {
+  const res = await medusaRequest('GET', '/product-categories');
+
+  // Reshape categories and hide categories starting with 'hidden'
+  const categories = res.body.product_categories
+    .map((collection: ProductCategory) => reshapeCategory(collection))
+    .filter((collection: MedusaProductCollection) => !collection.handle.startsWith('hidden'));
+
+  return categories;
 }
 
-export async function getCollectionProducts(handle: string): Promise<Product[]> {
-  const collection = await getCollection(handle);
+export async function getCategory(handle: string): Promise<ProductCollection | undefined> {
+  const res = await medusaRequest('GET', `/product-categories?handle=${handle}&expand=products`);
+  return res.body.product_categories[0];
+}
 
-  if (!collection) {
+export async function getCategoryProducts(handle: string): Promise<Product[]> {
+  const res = await medusaRequest('GET', `/product-categories?handle=${handle}`);
+
+  if (!res) {
     return [];
   }
 
-  const res = await medusaRequest('GET', `/products?collection_id[]=${collection.id}`);
+  const category = res.body.product_categories[0];
 
-  if (!res.body?.products) {
-    return [];
-  }
+  const category_products = await medusaRequest('GET', `/products?category_id[]=${category.id}`);
 
-  const products: Product[] = res.body.products.map((product: MedusaProduct) =>
+  const products: Product[] = category_products.body.products.map((product: MedusaProduct) =>
     reshapeProduct(product)
   );
 
   return products;
-}
-
-export async function getCollections(): Promise<ProductCollection[]> {
-  const res = await medusaRequest('GET', '/collections');
-
-  // Reshape collections and hide collections starting with 'hidden'
-  const collections = res.body.collections
-    .map((collection: MedusaProductCollection) => reshapeCollection(collection))
-    .filter((collection: MedusaProductCollection) => !collection.handle.startsWith('hidden'));
-
-  return collections;
 }
 
 export async function getProduct(handle: string): Promise<Product> {
@@ -371,4 +393,24 @@ export async function getProducts({
   reverse && products.reverse();
 
   return products;
+}
+
+export async function getMenu(menu: string): Promise<any[]> {
+  if (menu === 'next-js-frontend-header-menu') {
+    const categories = await getCategories();
+    return categories.map((cat) => ({
+      title: cat.title,
+      path: cat.path
+    }));
+  }
+
+  if (menu === 'next-js-frontend-footer-menu') {
+    return [
+      { title: 'About', path: 'https://medusajs.com/' },
+      { title: 'Docs', path: 'https://docs.medusajs.com/' },
+      { title: 'Blog', path: 'https://medusajs.com/blog' }
+    ];
+  }
+
+  return [];
 }

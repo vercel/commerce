@@ -3,14 +3,14 @@ import Link from 'next/link';
 import Cart from 'components/cart';
 import CartIcon from 'components/icons/cart';
 import LogoIcon from 'components/icons/logo';
+import { getMenu } from 'lib/medusa';
 import { Menu } from 'lib/medusa/types';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search from './search';
 
 export default async function Navbar() {
-  const menu: any[] = [];
-  // const menu = await getMenu('next-js-frontend-header-menu');
+  const menu = await getMenu('next-js-frontend-header-menu');
 
   return (
     <nav className="relative flex items-center justify-between bg-white p-4 dark:bg-black lg:px-6">

@@ -1,5 +1,5 @@
 import { GridTileImage } from 'components/grid/tile';
-import { getCollectionProducts } from 'lib/medusa';
+import { getCategoryProducts } from 'lib/medusa';
 import type { Product } from 'lib/medusa/types';
 import Link from 'next/link';
 
@@ -37,7 +37,7 @@ function ThreeItemGridItem({
 
 export async function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
-  const homepageItems = await getCollectionProducts('hidden-homepage-featured-items');
+  const homepageItems = await getCategoryProducts('hidden-homepage-featured-items');
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
 
