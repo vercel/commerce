@@ -6,6 +6,7 @@ import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 
 export const runtime = 'edge';
+export const revalidate = 30;
 
 export async function generateMetadata({
   params

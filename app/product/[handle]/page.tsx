@@ -14,6 +14,7 @@ import { getProduct } from 'lib/medusa';
 import { Image } from 'lib/medusa/types';
 
 export const runtime = 'edge';
+export const revalidate = 30;
 
 export async function generateMetadata({
   params
