@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog } from '@headlessui/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -42,57 +42,77 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
       >
         <MenuIcon className="h-6" />
       </button>
-      <Dialog
-        open={mobileMenuIsOpen}
-        onClose={() => {
-          setMobileMenuIsOpen(false);
-        }}
-        className="relative z-50"
-      >
-        <div className="fixed inset-0 flex justify-end" data-testid="mobile-menu">
-          <Dialog.Panel
+      <AnimatePresence initial={false}>
+        {mobileMenuIsOpen && (
+          <Dialog
             as={motion.div}
-            variants={{
-              open: { opacity: 1 }
+            initial="closed"
+            animate="open"
+            exit="closed"
+            key="dialog"
+            static
+            open={mobileMenuIsOpen}
+            onClose={() => {
+              setMobileMenuIsOpen(false);
             }}
-            className="flex w-full flex-col bg-white pb-6 dark:bg-black"
+            className="relative z-50"
           >
-            <div className="p-4">
-              <button
-                className="mb-4"
-                onClick={() => {
-                  setMobileMenuIsOpen(false);
+            <motion.div
+              variants={{
+                open: { opacity: 1, backdropFilter: 'blur(0.5px)' },
+                closed: { opacity: 0, backdropFilter: 'blur(0px)' }
+              }}
+              className="fixed inset-0 bg-black/30"
+              aria-hidden="true"
+            />
+            <div className="fixed inset-0 flex justify-end" data-testid="mobile-menu">
+              <Dialog.Panel
+                as={motion.div}
+                variants={{
+                  open: { translateX: 0 },
+                  closed: { translateX: '-100%' }
                 }}
-                aria-label="Close mobile menu"
-                data-testid="close-mobile-menu"
+                transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
+                className="flex w-full flex-col bg-white pb-6 dark:bg-black"
               >
-                <CloseIcon className="h-6" />
-              </button>
+                <div className="p-4">
+                  <button
+                    className="mb-4"
+                    onClick={() => {
+                      setMobileMenuIsOpen(false);
+                    }}
+                    aria-label="Close mobile menu"
+                    data-testid="close-mobile-menu"
+                  >
+                    <CloseIcon className="h-6" />
+                  </button>
 
-              <div className="mb-4 w-full">
-                <Search />
-              </div>
-              {menu.length ? (
-                <ul className="flex flex-col">
-                  {menu.map((item: Menu) => (
-                    <li key={item.title}>
-                      <Link
-                        href={item.path}
-                        className="rounded-lg py-1 text-xl text-black transition-colors hover:text-gray-500 dark:text-white"
-                        onClick={() => {
-                          setMobileMenuIsOpen(false);
-                        }}
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
+                  <div className="mb-4 w-full">
+                    <Search />
+                  </div>
+                  {menu.length ? (
+                    <ul className="flex flex-col">
+                      {menu.map((item: Menu) => (
+                        <li key={item.title}>
+                          <Link
+                            href={item.path}
+                            className="rounded-lg py-1 text-xl text-black transition-colors hover:text-gray-500 dark:text-white"
+                            onClick={() => {
+                              setMobileMenuIsOpen(false);
+                            }}
+                          >
+                            {item.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
+              </Dialog.Panel>
             </div>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
+          </Dialog>
+        )}
+      </AnimatePresence>
     </>
   );
 }
