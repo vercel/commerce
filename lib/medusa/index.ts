@@ -390,9 +390,9 @@ export async function getMenu(menu: string): Promise<any[]> {
 
   if (menu === 'next-js-frontend-footer-menu') {
     return [
-      { title: 'About', path: 'https://medusajs.com/' },
-      { title: 'Docs', path: 'https://docs.medusajs.com/' },
-      { title: 'Blog', path: 'https://medusajs.com/blog' }
+      { title: 'About Medusa', path: 'https://medusajs.com/' },
+      { title: 'Medusa Docs', path: 'https://docs.medusajs.com/' },
+      { title: 'Medusa Blog', path: 'https://medusajs.com/blog' }
     ];
   }
 
