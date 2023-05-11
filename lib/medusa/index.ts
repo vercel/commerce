@@ -180,8 +180,8 @@ const reshapeProduct = (product: MedusaProduct): Product => {
   const tags = product.tags?.map((tag) => tag.value) || [];
   const descriptionHtml = product.description ?? '';
   const featuredImage = {
-    url: product.images?.[0]?.url ?? '',
-    altText: product.images?.[0]?.id ?? ''
+    url: product.thumbnail ?? '',
+    altText: product.title ?? ''
   };
   const availableForSale = product.variants?.[0]?.purchasable || true;
   const variants = product.variants.map((variant) =>
