@@ -19,7 +19,7 @@ import {
   SelectedOption
 } from './types';
 
-const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API;
+const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API ?? 'http://localhost:9000';
 const MEDUSA_API_KEY = process.env.MEDUSA_API_KEY ?? '';
 const REVALIDATE_WINDOW = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 15}`); // 15 minutes
 
@@ -45,7 +45,7 @@ export default async function medusaRequest(
   }
 
   try {
-    const result = await fetch(`${ENDPOINT}${path}`, options);
+    const result = await fetch(`${ENDPOINT}/store${path}`, options);
 
     const body = await result.json();
 
