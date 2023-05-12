@@ -42,7 +42,7 @@ export default async function Footer() {
             </nav>
           ) : null}
           <div className="col-span-1 text-black dark:text-white lg:col-span-2">
-            <a aria-label="Github Repository" href="https://github.com/medusajs/commerce">
+            <a aria-label="Github Repository" href="https://github.com/medusajs/vercel-commerce">
               <GitHubIcon className="h-6" />
             </a>
           </div>
