@@ -1,4 +1,4 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmedusajs%2Fcommerce&env=MEDUSA_API_KEY,SITE_NAME,NEXT_PUBLIC_MEDUSA_BACKEND_API,NEXT_PUBLIC_VERCEL_URL,TWITTER_SITE,TWITTER_CREATOR&project-name=medusa-nextjs-commerce&repository-name=medusa-nextjs-commerce&redirect-url=https%3A%2F%2Fdocs.medusajs.com%2F%3Futm_source%3Dvercel%26utm_medium%3Ddeploy%2Bbutton%26utm_campaign%3Dcommerce&demo-title=Next.js%20Commerce%20by%20Medusa&demo-description=A%20Next.js%2013%20and%20ecommerce%20template%2C%20built%20with%20Medusa.&demo-url=https%3A%2F%2Fmedusa-nextjs-commerce.vercel.app%2F&demo-image=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F62591822%3Fs%3D200%26v%3D4)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmedusajs%2Fvercel-commerce&env=MEDUSA_API_KEY,SITE_NAME,NEXT_PUBLIC_MEDUSA_BACKEND_API,NEXT_PUBLIC_VERCEL_URL,TWITTER_SITE,TWITTER_CREATOR&project-name=medusa-nextjs-commerce&repository-name=medusa-nextjs-commerce&redirect-url=https%3A%2F%2Fdocs.medusajs.com%2F%3Futm_source%3Dvercel%26utm_medium%3Ddeploy%2Bbutton%26utm_campaign%3Dcommerce&demo-title=Next.js%20Commerce%20by%20Medusa&demo-description=A%20Next.js%2013%20and%20ecommerce%20template%2C%20built%20with%20Medusa.&demo-url=https%3A%2F%2Fmedusa-nextjs-commerce.vercel.app%2F&demo-image=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F62591822%3Fs%3D200%26v%3D4)
 
 # Next.js Commerce x Medusa
 
@@ -93,6 +93,8 @@ Medusa comes with a few demo products, but they won't show up in the template by
 1. Install the [Medusa Admin plugin](https://docs.medusajs.com/admin/quickstart)
 2. Enable the [Product Categories feature flag](https://docs.medusajs.com/modules/products/categories)
 3. Log in to the admin dashboard and create the following product categories:
-- hidden-homepage-carousel
-- hidden-homepage-featured-items
+
+  - hidden-homepage-carousel
+  - hidden-homepage-featured-items
+
 4. Assign a few products to both categories and they should now show up on the homepage!

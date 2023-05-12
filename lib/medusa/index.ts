@@ -19,7 +19,7 @@ import {
   SelectedOption
 } from './types';
 
-const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API;
+const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API ?? 'http://localhost:9000';
 const MEDUSA_API_KEY = process.env.MEDUSA_API_KEY ?? '';
 const REVALIDATE_WINDOW = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 15}`); // 15 minutes
 
@@ -45,7 +45,7 @@ export default async function medusaRequest(
   }
 
   try {
-    const result = await fetch(`${ENDPOINT}${path}`, options);
+    const result = await fetch(`${ENDPOINT}/store${path}`, options);
 
     const body = await result.json();
 
@@ -74,7 +74,7 @@ export default async function medusaRequest(
 const reshapeCart = (cart: MedusaCart): Cart => {
   const lines = cart?.items?.map((item) => reshapeLineItem(item)) || [];
   const totalQuantity = lines.reduce((a, b) => a + b.quantity, 0);
-  const checkoutUrl = '/';
+  const checkoutUrl = '/checkout'; // todo: implement medusa checkout flow
   const currencyCode = cart.region?.currency_code.toUpperCase() || 'USD';
 
   let subtotalAmount = '0';
@@ -145,7 +145,7 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
     id: lineItem.variant_id || lineItem.id,
     selectedOptions,
     product,
-    title: lineItem.title
+    title: lineItem.description ?? ''
   };
 
   const cost = {
