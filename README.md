@@ -74,7 +74,7 @@ npm install @medusajs/medusa-cli -g
 2\. Run the following command to create a Medusa backend:
 
 ```bash
-medusa new my-medusa-store 'https://github.com/medusajs/medusa-starter-default/tree/nextjs-commerce'
+medusa new my-medusa-store https://github.com/medusajs/medusa-starter-default/tree/nextjs-commerce --seed
 ```
 
 3\. Start the Medusa backend:
@@ -94,7 +94,7 @@ Medusa comes with a few demo products, but they won't show up in the template by
 2. Enable the [Product Categories feature flag](https://docs.medusajs.com/modules/products/categories)
 3. Log in to the admin dashboard and create the following product categories:
 
-  - hidden-homepage-carousel
-  - hidden-homepage-featured-items
+- hidden-homepage-carousel
+- hidden-homepage-featured-items
 
 4. Assign a few products to both categories and they should now show up on the homepage!
