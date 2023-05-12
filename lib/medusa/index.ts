@@ -74,7 +74,7 @@ export default async function medusaRequest(
 const reshapeCart = (cart: MedusaCart): Cart => {
   const lines = cart?.items?.map((item) => reshapeLineItem(item)) || [];
   const totalQuantity = lines.reduce((a, b) => a + b.quantity, 0);
-  const checkoutUrl = '/';
+  const checkoutUrl = '/checkout'; // todo: implement medusa checkout flow
   const currencyCode = cart.region?.currency_code.toUpperCase() || 'USD';
 
   let subtotalAmount = '0';
