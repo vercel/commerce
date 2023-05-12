@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
-import VercelIcon from 'components/icons/vercel';
+import MedusaIcon from 'components/icons/medusa';
 import { getMenu } from 'lib/medusa';
 import { Menu } from 'lib/medusa/types';
 
@@ -55,12 +55,12 @@ export default async function Footer() {
             <span className="text-black dark:text-white">Created by</span>
             <a
               rel="noopener noreferrer"
-              href="https://vercel.com"
-              aria-label="Vercel.com Link"
+              href="https://medusajs.com"
+              aria-label="Vmedusajs.com Link"
               target="_blank"
               className="text-black dark:text-white"
             >
-              <VercelIcon className="ml-3 inline-block h-6" />
+              <MedusaIcon className="ml-3 inline-block h-6" />
             </a>
           </div>
         </div>
