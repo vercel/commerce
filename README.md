@@ -18,66 +18,45 @@ A Next.js 13 and App Router-ready ecommerce template, built with [Medusa](https:
 
 ## What is Medusa?
 
-[Medusa](https://medusajs.com/) is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any product that needs foundational commerce primitives. All modules are open-source and freely available on npm.
+[Medusa](https://medusajs.com/) is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any system that needs foundational commerce primitives. All modules are open-source and freely available on NPM.
 
-Learn more about [Medusa’s architecture](https://docs.medusajs.com/development/fundamentals/architecture-overview) and [commerce modules](https://docs.medusajs.com/modules/overview) in the Docs.
+Learn more about [Medusa’s architecture](https://docs.medusajs.com/development/fundamentals/architecture-overview) and [commerce modules](https://docs.medusajs.com/modules/overview) in Medusa's documentation.
 
 ## Running locally
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended to use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
 
 > Note: You should not commit your `.env` file or it will expose secrets.
 
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
+1\. Install Vercel CLI:
 
 ```bash
-pnpm install
-pnpm dev
+npm i -g vercel
+```
+
+2\. Link local instance with Vercel and GitHub accounts (which creates a `.vercel` directory):
+
+```bash
+vercel link
+```
+
+3\. Download your environment variables:
+
+```bash
+vercel env pull
+```
+
+4\. Install dependencies and run your app:
+
+```bash
+npm install
+npm run dev
 ```
 
 Your app should now be running on [localhost:3000](http://localhost:3000/).
 
-## How to configure your Medusa server for Next.js Commerce
+## How to configure your Medusa backend for Next.js Commerce
 
-Next.js Commerce x Medusa requires a running [Medusa](https://github.com/medusajs/medusa) server.
+Next.js Commerce x Medusa requires a running [Medusa](https://github.com/medusajs/medusa) backend.
 
-### Create a Medusa Backend[​](https://docs.medusajs.com/development/backend/install#create-a-medusa-backend 'Direct link to Create a Medusa Backend')
-
-It is recommended to use [Yarn](https://yarnpkg.com/getting-started/install) for the installation process as it's much faster than using NPM.
-
-#### 1. Install Medusa CLI[​](https://docs.medusajs.com/development/backend/install#1-install-medusa-cli 'Direct link to 1. Install Medusa CLI')
-
-```
-yarn global add @medusajs/medusa-cli
-```
-
-If you run into any errors while installing the CLI tool, check out the [troubleshooting guide](https://docs.medusajs.com/troubleshooting/cli-installation-errors).
-
-#### 2. Create a new Medusa project[​](https://docs.medusajs.com/development/backend/install#2-create-a-new-medusa-project 'Direct link to 2. Create a new Medusa project')
-
-```
-medusa new my-medusa-store --seed
-```
-
-#### 3. Start your Medusa backend[​](https://docs.medusajs.com/development/backend/install#3-start-your-medusa-backend 'Direct link to 3. Start your Medusa backend')
-
-```
-cd my-medusa-store medusa develop
-```
-
-#### 4. Add Medusa backend domain to an environment variable
-
-Copy the contents of `.env.example` to a `.env` file in the root of your Next.js Commerce project. Make sure the `NEXT_PUBLIC_MEDUSA_BACKEND_API` environment variable points to your Medusa backend domain (default: `http://localhost:9000`).
-
-#### 5. (Optional) Install Medusa Admin plugin and add product categories
-
-Medusa comes with a few demo products, but they won't show up in the template by default. To showcase products in the store, we need to install the Medusa Admin and add a few product categories:
-
-1. Install the [Medusa Admin plugin](https://docs.medusajs.com/admin/quickstart)
-2. Enable the [Product Categories feature flag](https://docs.medusajs.com/modules/products/categories)
-3. Log in to the admin dashboard and create the following product categories:
-  - hidden-homepage-carousel
-  - hidden-homepage-featured-items
-4. Assign a few products to both categories and they should now show up on the homepage!
+Please refer to [this guide in the Medusa documentation](https://docs.medusajs.com/development/backend/install) to learn how to create a Medusa backend.
