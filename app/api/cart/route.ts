@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest): Promise<Response> {
   }
 }
 
-export async function DELETE(req: NextRequest): Promise<Response> {
+export async function PATCH(req: NextRequest): Promise<Response> {
   const cartId = cookies().get('cartId')?.value;
   const { lineId } = await req.json();
 

@@ -14,7 +14,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
     setRemoving(true);
 
     const response = await fetch(`/api/cart`, {
-      method: 'DELETE',
+      method: 'PATCH',
       body: JSON.stringify({
         lineId: item.id
       })

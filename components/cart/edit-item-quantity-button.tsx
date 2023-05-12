@@ -21,7 +21,7 @@ export default function EditItemQuantityButton({
     setEditing(true);
 
     const response = await fetch(`/api/cart`, {
-      method: type === 'minus' && item.quantity - 1 === 0 ? 'DELETE' : 'PUT',
+      method: type === 'minus' && item.quantity - 1 === 0 ? 'PATCH' : 'PUT',
       body: JSON.stringify({
         lineId: item.id,
         variantId: item.merchandise.id,
@@ -58,9 +58,9 @@ export default function EditItemQuantityButton({
       {editing ? (
         <LoadingDots className="bg-black dark:bg-white" />
       ) : type === 'plus' ? (
-        <PlusIcon className="h-4 w-4" />
+        <PlusIcon className="w-4 h-4" />
       ) : (
-        <MinusIcon className="h-4 w-4" />
+        <MinusIcon className="w-4 h-4" />
       )}
     </button>
   );
