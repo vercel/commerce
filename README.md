@@ -49,9 +49,6 @@ It is recommended to use [Yarn](https://yarnpkg.com/getting-started/install) for
 
 #### 1. Install Medusa CLI[​](https://docs.medusajs.com/development/backend/install#1-install-medusa-cli 'Direct link to 1. Install Medusa CLI')
 
-- npm
-- Yarn
-
 ```
 yarn global add @medusajs/medusa-cli
 ```
@@ -72,4 +69,15 @@ cd my-medusa-store medusa develop
 
 #### 4. Add Medusa backend domain to an environment variable
 
-Create a `NEXT_PUBLIC_MEDUSA_BACKEND_API` environment variable in you Next.js Commerce project and use your Medusa backend domain as the the value (default: `http://localhost:9000`).
+Copy the contents of `.env.example` to a `.env` file in the root of your Next.js Commerce project. Make sure the `NEXT_PUBLIC_MEDUSA_BACKEND_API` environment variable points to your Medusa backend domain (default: `http://localhost:9000`).
+
+#### 5. (Optional) Install Medusa Admin plugin and add product categories
+
+Medusa comes with a few demo products, but they won't show up in the template by default. To showcase products in the store, we need to install the Medusa Admin and add a few product categories:
+
+1. Install the [Medusa Admin plugin](https://docs.medusajs.com/admin/quickstart)
+2. Enable the [Product Categories feature flag](https://docs.medusajs.com/modules/products/categories)
+3. Log in to the admin dashboard and create the following product categories:
+  - hidden-homepage-carousel
+  - hidden-homepage-featured-items
+4. Assign a few products to both categories and they should now show up on the homepage!
