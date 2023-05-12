@@ -145,7 +145,7 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
     id: lineItem.variant_id || lineItem.id,
     selectedOptions,
     product,
-    title: lineItem.title
+    title: lineItem.description ?? ''
   };
 
   const cost = {
