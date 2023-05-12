@@ -26,7 +26,7 @@ export const DEFAULT_OPTION = 'Default Title';
 export const CHECKOUT_PAGE_PROPS = {
   title: 'Checkout',
   body: `Checkout is not implemented yet in this template. Check out 
-        <a href="https://docs.medusajs.com/modules/carts-and-checkout/storefront/implement-checkout-flow">our guide on implementing a checkout flow</a> to learn more`,
+        <a href="https://docs.medusajs.com/modules/carts-and-checkout/storefront/implement-checkout-flow">our guide on implementing a checkout flow</a> to learn more.`,
   description: 'Checkout is not implemented yet in this template',
   updatedAt: new Date().toISOString(),
   createdAt: new Date().toISOString()
