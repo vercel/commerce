@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import Prose from 'components/prose';
+import { CHECKOUT_PAGE_PROPS } from 'lib/constants';
 import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';
@@ -12,13 +13,15 @@ export async function generateMetadata({
 }: {
   params: { page: string };
 }): Promise<Metadata> {
-  const page: any = null;
+  let page;
+
+  params.page === 'checkout' && (page = CHECKOUT_PAGE_PROPS);
 
   if (!page) return notFound();
 
   return {
-    title: page.seo?.title || page.title,
-    description: page.seo?.description || page.bodySummary,
+    title: page.title,
+    description: '',
     openGraph: {
       images: [
         {
@@ -35,7 +38,9 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { page: string } }) {
-  const page: any = null;
+  let page;
+
+  params.page === 'checkout' && (page = CHECKOUT_PAGE_PROPS);
 
   if (!page) return notFound();
 

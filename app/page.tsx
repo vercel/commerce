@@ -5,6 +5,8 @@ import { Suspense } from 'react';
 
 export const runtime = 'edge';
 
+export const revalidate = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 60 * 12}`); // 12 hours
+
 export const metadata = {
   description: 'High-performance ecommerce store built with Next.js, Vercel, and Medusa.',
   openGraph: {
