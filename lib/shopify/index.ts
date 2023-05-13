@@ -257,16 +257,26 @@ export async function getCollection(handle: string): Promise<Collection | undefi
   return reshapeCollection(res.body.data.collection);
 }
 
-export async function getCollectionProducts(handle: string): Promise<Product[]> {
+export async function getCollectionProducts({
+  collection,
+  reverse,
+  sortKey
+}: {
+  collection: string;
+  reverse?: boolean;
+  sortKey?: string;
+}): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     variables: {
-      handle
+      handle: collection,
+      reverse,
+      sortKey
     }
   });
 
   if (!res.body.data.collection) {
-    console.log('No collection found for handle', handle);
+    console.log(`No collection found for \`${collection}\``);
     return [];
   }
 
