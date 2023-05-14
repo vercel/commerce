@@ -12,7 +12,7 @@ import ProductSidebar from '../ProductSidebar'
 import ProductTag from '../ProductTag'
 import ProductModel from '../ProductModel/ProductModel'
 import Lightbox from 'yet-another-react-lightbox'
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Zoom from 'yet-another-react-lightbox/plugins/zoom'
 import 'yet-another-react-lightbox/styles.css'
 import { useRouter } from 'next/router'
 import random from 'lodash.random'
@@ -30,10 +30,10 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   })
 
   const listPrice = usePrice({
-      amount: (product.variants[0].listPrice) ? product.variants[0].listPrice : -1,
-      currencyCode: product.price.currencyCode!,
+    amount: product.variants[0].listPrice ? product.variants[0].listPrice : -1,
+    currencyCode: product.price.currencyCode!,
   }).price
-  
+
   const model3dPath = product.media
     .map((media) => {
       return media.sources
@@ -48,8 +48,10 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
   const { locale = 'it' } = useRouter()
 
   const colors = [random(255), random(255), random(255)]
-  const darkerColor = "rgba(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ", 1)"
-  const lighterColor = "rgba(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ", 0.8)"
+  const darkerColor =
+    'rgba(' + colors[0] + ', ' + colors[1] + ', ' + colors[2] + ', 1)'
+  const lighterColor =
+    'rgba(' + colors[0] + ', ' + colors[1] + ', ' + colors[2] + ', 0.8)'
 
   return (
     <>
@@ -59,11 +61,15 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
             <ProductTag
               name={product.name}
               price={`${price}`}
-              listPrice={listPrice.includes("-") ? "" : listPrice}
+              listPrice={listPrice.includes('-') ? '' : listPrice}
               fontSize={28}
             />
             <div className={s.sliderContainer}>
-              <ProductSlider darkerColor={darkerColor} lighterColor={lighterColor} key={product.id}>
+              <ProductSlider
+                darkerColor={darkerColor}
+                lighterColor={lighterColor}
+                key={product.id}
+              >
                 {product.images.map((image, i) => (
                   <div key={image.url} className={s.imageContainer}>
                     <Image
@@ -117,7 +123,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
         <hr className="mt-7 border-accent-2" />
         <section className="py-12 px-6 mb-10">
           <Text variant="sectionHeading">
-            {locale === 'en' ? 'Related Products' : 'Prodotti Correlati'}
+            {locale === 'en' ? 'Latest Products' : 'Prodotti Recenti'}
           </Text>
           <div className={s.relatedProductsGrid}>
             {relatedProducts.map((p) => (
