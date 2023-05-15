@@ -127,6 +127,20 @@ export const modules = `
       },
     },
   },
+  _type == 'uspSection' => {
+    disabled,
+    _type,
+    _key,
+    title,
+    usps[]->{
+      title,
+      text,
+      "locale": language,
+      image {
+        ${imageFields}
+      },
+    },
+  }
 `
 
 // Homepage query
