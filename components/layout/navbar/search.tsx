@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import SearchIcon from 'components/icons/search';
+import { createUrl } from 'lib/utils';
 
 export default function Search() {
   const router = useRouter();
@@ -13,12 +14,15 @@ export default function Search() {
 
     const val = e.target as HTMLFormElement;
     const search = val.search as HTMLInputElement;
+    const newParams = new URLSearchParams(searchParams.toString());
 
     if (search.value) {
-      router.push(`/search?q=${search.value}`);
+      newParams.set('q', search.value);
     } else {
-      router.push(`/search`);
+      newParams.delete('q');
     }
+
+    router.push(createUrl('/search', newParams));
   }
 
   return (
