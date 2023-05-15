@@ -4,22 +4,18 @@ import { Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 import Hero from 'components/modules/hero';
-const USPSection = dynamic(() => import('components/ui/usp-section'));
+const USPSection = dynamic(() => import('components/modules/usp-section'));
 const Slider = dynamic(() => import('components/modules/slider'));
 const BlurbSection = dynamic(() => import('components/modules/blurb-section'));
 const FilteredProductList = dynamic(() => import('components/modules/filtered-product-list'));
-
 interface getContentComponentProps {
   _type: string;
   _key: number;
   disabled: boolean;
 }
 
-
-
 const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentComponentProps) => {
   let Component: any;
-  console.log('type', _type)
   switch (_type) {
     case 'hero':
       Component = Hero;

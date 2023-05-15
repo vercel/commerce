@@ -142,6 +142,14 @@ export const modules = `
     },
   }
 `
+export const reusableSection = `
+  _type == 'reusableSection' => {
+    disabled,
+    _type,
+    _key,
+    title
+  }
+`
 
 // Homepage query
 export const homePageQuery = `*[_type == "home" && slug.current == "/" && language == $locale][0] {
@@ -155,7 +163,8 @@ export const homePageQuery = `*[_type == "home" && slug.current == "/" && langua
     "locale": language
   },
   content[] {
-    ${modules}
+    ${modules},
+    ${reusableSection}
   },
   seo {
     ${seoFields}
