@@ -22,79 +22,49 @@ A Next.js 13 and App Router-ready ecommerce template, built with [Medusa](https:
 
 Learn more about [Medusa’s architecture](https://docs.medusajs.com/development/fundamentals/architecture-overview) and [commerce modules](https://docs.medusajs.com/modules/overview) in Medusa's documentation.
 
-## Running locally
+## Getting started
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended to use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+> Please refer to the [documentation](https://docs.medusajs.com/development/backend/install#prerequisites) to learn about required tools for the Medusa Backend.
+
+1\. Run `create-medusa-app` with the `nextjs-commerce` starter:
+
+```bash
+npx create-medusa-app@nextjs-commerce
+```
+
+This will create a new main folder with two subfolders for Medusa and Next.js Commerce respectively.
+
+2\. Create a Postgres database named `vercel-commerce` and make sure the Postgres server is running locally.
+
+3\. Inside your newly created `nextjs-commerce` project, change to the `medusa` folder and seed the database:
+
+```bash
+cd nextjs-commerce/medusa
+yarn seed
+```
+
+This will provide you with some demo products and the necessary product categories to fill out the homepage.
+
+## Running Medusa
+
+From the `medusa` subfolder, run:
+
+```bash
+yarn start
+```
+
+Your Medusa server should now be running on [localhost:9000](http://localhost:9000/).
+
+## Running Next.js Commerce
+
+1\. You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. Copy the contents of .env.example to a .env file in the root of your Next.js Commerce project, and make sure the NEXT_PUBLIC_MEDUSA_BACKEND_API environment variable points to your Medusa backend domain (default: http://localhost:9000).
 
 > Note: You should not commit your `.env` file or it will expose secrets.
 
-1\. Install Vercel CLI:
+2\. From the `nextjs-commerce` subfolder, run:
 
 ```bash
-npm i -g vercel
-```
-
-2\. Link local instance with Vercel and GitHub accounts (which creates a `.vercel` directory):
-
-```bash
-vercel link
-```
-
-3\. Download your environment variables:
-
-```bash
-vercel env pull
-```
-
-4\. Install dependencies and run your app:
-
-```bash
-npm install
-npm run dev
+yarn dev
 ```
 
 Your app should now be running on [localhost:3000](http://localhost:3000/).
-
-## How to configure your Medusa backend for Next.js Commerce
-
-Next.js Commerce x Medusa requires a running [Medusa](https://github.com/medusajs/medusa) backend.
-
-### Prerequisites
-
-Please refer to the [documentation](https://docs.medusajs.com/development/backend/install#prerequisites) to learn about required tools for the Medusa Backend.
-
-### How to Install the Medusa Backend
-
-1\. Install the Medusa CLI tool:
-
-```bash
-npm install @medusajs/medusa-cli -g
-```
-
-2\. Run the following command to create a Medusa backend:
-
-```bash
-medusa new my-medusa-store https://github.com/medusajs/medusa-starter-default/tree/nextjs-commerce --seed
-```
-
-3\. Start the Medusa backend:
-
-```bash
-cd my-medusa-store
-medusa develop
-```
-
-4\. Copy the contents of .env.example to a .env file in the root of your Next.js Commerce project, and make sure the NEXT_PUBLIC_MEDUSA_BACKEND_API environment variable points to your Medusa backend domain (default: http://localhost:9000).
-
-### (Optional) Install Medusa Admin plugin and add product categories
-
-Medusa comes with a few demo products, but they won't show up in the template by default. To showcase products in the store, you need to install the Medusa Admin and add a few product categories. To do that:
-
-1. Install the [Medusa Admin plugin](https://docs.medusajs.com/admin/quickstart)
-2. Enable the [Product Categories feature flag](https://docs.medusajs.com/modules/products/categories)
-3. Log in to the admin dashboard and create the following product categories:
-
-- hidden-homepage-carousel
-- hidden-homepage-featured-items
-
-4. Assign a few products to both categories and they should now show up on the homepage!
