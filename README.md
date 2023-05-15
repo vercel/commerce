@@ -45,7 +45,7 @@ yarn seed
 
 This will provide you with some demo products and the necessary product categories to fill out the homepage.
 
-## Running Medusa locally
+## Running Medusa
 
 From the `medusa` subfolder, run:
 
@@ -55,7 +55,7 @@ yarn start
 
 Your Medusa server should now be running on [localhost:9000](http://localhost:9000/).
 
-## Running Next.js Commerce locally
+## Running Next.js Commerce
 
 1\. You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. Copy the contents of .env.example to a .env file in the root of your Next.js Commerce project, and make sure the NEXT_PUBLIC_MEDUSA_BACKEND_API environment variable points to your Medusa backend domain (default: http://localhost:9000).
 
