@@ -32,7 +32,7 @@ Learn more about [Medusa’s architecture](https://docs.medusajs.com/development
 npx create-medusa-app@nextjs-commerce
 ```
 
-This will create a new main folder with two subfolders for Medusa and Next.js Commerce rexpectively.
+This will create a new main folder with two subfolders for Medusa and Next.js Commerce respectively.
 
 2\. Create a Postgres database named `vercel-commerce` and make sure the Postgres server is running locally.
 
