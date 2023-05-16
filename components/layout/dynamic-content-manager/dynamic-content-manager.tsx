@@ -4,11 +4,11 @@ import { Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 import Hero from 'components/modules/hero';
+import ReusableSection from 'components/modules/reusable-section/reusable-section';
 const USPSection = dynamic(() => import('components/modules/usp-section'));
 const Slider = dynamic(() => import('components/modules/slider'));
 const BlurbSection = dynamic(() => import('components/modules/blurb-section'));
 const FilteredProductList = dynamic(() => import('components/modules/filtered-product-list'));
-const ReusableSection = dynamic(() => import('components/modules/reusable-section'));
 interface getContentComponentProps {
   _type: string;
   _key: number;
