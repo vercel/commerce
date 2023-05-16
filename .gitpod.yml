@@ -1,0 +1,23 @@
+# This configuration file was manually created by KapadiaNaitik.
+# Please adjust to your needs (see https://www.gitpod.io/docs/introduction/learn-gitpod/gitpod-yaml)
+# and commit this file to your remote git repository to share the goodness with others.
+
+# Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
+tasks:
+  - name: Configure .env & Start the server
+    init: chmod +x setup-env.sh
+    command: ./setup-env.sh && pnpm install && pnpm run dev
+ports:
+  - port: 3000
+    onOpen: open-preview
+    name: Vercel Commerce
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: true
+    addBadge: true
