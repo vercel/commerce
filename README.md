@@ -40,6 +40,11 @@ pnpm dev
 
 Your app should now be running on [localhost:3000](http://localhost:3000/).
 
+## Running/Contributing from a browser IDE 
+Make changes and contribute to this repo in a single click with an **already setup and ready to code developer environment** using Gitpod !
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vercel/commerce)
+
 ## How to configure your Shopify store for Next.js Commerce
 
 Next.js Commerce requires a [paid Shopify plan](https://www.shopify.com/pricing). It will not work with a Shopify Starter plan.
