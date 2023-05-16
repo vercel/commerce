@@ -1,11 +1,13 @@
 'use client'
 
 import { Carousel, CarouselItem } from 'components/modules/carousel/carousel'
+import Price from 'components/product/price'
 import SanityImage from 'components/ui/sanity-image'
 import { Product } from "lib/storm/types/product"
 import { cn } from 'lib/utils'
 import { useTranslations } from 'next-intl'
 import dynamic from "next/dynamic"
+import { AddToCart } from './add-to-cart'
 const ProductCard = dynamic(() => import('components/ui/product-card'))
 const Text = dynamic(() => import('components/ui/text'))
 interface ProductViewProps {
@@ -15,14 +17,13 @@ interface ProductViewProps {
 
 export default function ProductView({product, relatedProducts }: ProductViewProps) {
   const images = product.images
-  const productImage: object | any = product.images[0]
   const t = useTranslations('product')
 
   return (
     <div className="flex flex-col w-full mb-8 lg:my-16">
       <div className={cn('relative grid items-start grid-cols-1 lg:px-8 lg:grid-cols-12 2xl:px-16')}>
         
-        <div className="relative col-span-1 lg:col-span-8">
+        <div className="relative col-span-1 lg:col-span-7">
           <div className={`pdp aspect-square lg:hidden`}>
             {images && (
               <Carousel
@@ -68,10 +69,18 @@ export default function ProductView({product, relatedProducts }: ProductViewProp
           </div>
         </div>
 
-        <div className="flex flex-col col-span-1 mx-auto px-4 py-6 w-full h-auto lg:col-span-4 lg:py-0 lg:px-8 lg:pr-0 2xl:px-16 2xl:pr-0 lg:sticky lg:top-8 2xl:top-16">
+        <div className="flex flex-col col-span-1 mx-auto px-4 py-6 w-full h-auto lg:col-span-5 lg:py-0 lg:px-8 lg:pr-0 2xl:px-16 2xl:pr-0 lg:sticky lg:top-8 2xl:top-16">
           <Text variant={'productHeading'}>
             {product.name}
           </Text>
+
+          <Price
+            className='text-sm font-medium leading-tight lg:text-base' 
+            amount={`${product.price.value}`} 
+            currencyCode={product.price.currencyCode ? product.price.currencyCode : 'SEK'}
+          />
+
+          <AddToCart availableForSale={true} variants={[]} />
         </div>
 
       </div>
@@ -95,7 +104,7 @@ export default function ProductView({product, relatedProducts }: ProductViewProp
               },
             }}
           >
-            {relatedProducts.map((p, index) => (
+            {relatedProducts.map((p) => (
               <CarouselItem key={`product-${p.path}`}>
                 <ProductCard product={p} />
               </CarouselItem>
