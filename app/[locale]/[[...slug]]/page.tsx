@@ -1,19 +1,73 @@
+import PreviewSuspense from 'components/preview-suspense';
 import getQueryFromSlug from 'helpers/getQueryFromSlug';
 import { docQuery } from 'lib/sanity/queries';
 import { client } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import CategoryPage from './category-page';
+import CategoryPagePreview from './category-page-preview';
 import HomePage from './home-page';
+import HomePagePreview from './home-page-preview';
 import ProductPage from './product-page';
+import ProductPagePreview from './product-page-preview';
 import SinglePage from './single-page';
+import SinglePagePreview from './single-page-preview';
+
+/**
+ * Render pages depending on type.
+ */
+export default async function Page({
+  params,
+}: {
+  params: { slug: string[], locale: string };
+}) {
+  const { isEnabled } = draftMode();
+
+  const { slug, locale } = params;
+  
+  const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale)
+
+  const pageData = await client.fetch(query, queryParams)
+
+  const data = filterDataToSingleItem(pageData, isEnabled)
+
+  if (isEnabled) {
+    return (
+      <PreviewSuspense fallback="Loading...">
+        {docType === 'home' && (
+          <HomePagePreview query={query} queryParams={queryParams} />
+        )}
+        {docType === 'page' && (
+          <SinglePagePreview query={query} queryParams={queryParams} />
+        )}
+        {docType === 'product' && (
+          <ProductPagePreview query={query} queryParams={queryParams} />
+        )}
+        {docType === 'category' && (
+          <CategoryPagePreview query={query} queryParams={queryParams} />
+        )}
+      </PreviewSuspense>
+    )
+  }
+  
+  return (
+    <>
+      {docType === 'home' && <HomePage data={data} />}
+      {docType === 'product' && <ProductPage data={data} />}
+      {docType === 'category' && <CategoryPage data={data} />}
+      {docType === 'page' && <SinglePage data={data} />}
+    </>
+  )
+}
+
+// Background revalidate once every day.
+export const revalidate = 86400;
 
 /**
  * Get paths for each page.
  */
 export async function generateStaticParams() {
-  const paths = await client.fetch(docQuery, {
-    next: { revalidate: 10 },
-  })
+  const paths = await client.fetch(docQuery)
 
   return paths.map((path: { 
     slug: string,
@@ -79,30 +133,4 @@ export async function generateMetadata({ params }: {params: { slug: string[], lo
       ],
     },
   }
-}
-
-/**
- * Render pages depending on type.
- */
-export default async function Page({
-  params,
-}: {
-  params: { slug: string[], locale: string };
-}) {
-  const { slug, locale } = params;
-  
-  const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale)
-
-  const pageData = await client.fetch(query, queryParams)
-
-  const data = filterDataToSingleItem(pageData, false)
-  
-  return (
-    <>
-      {docType === 'home' && <HomePage data={data} />}
-      {docType === 'product' && <ProductPage data={data} />}
-      {docType === 'category' && <CategoryPage data={data} />}
-      {docType === 'page' && <SinglePage data={data} />}
-    </>
-  )
 }
