@@ -1,20 +1,27 @@
 'use client'
 
+import DynamicContentManager from 'components/layout/dynamic-content-manager'
+
 interface ReusableSectionProps {
-  section: any
+  section: {
+    existingSection: {
+      section: {
+        sectionType: []
+      }
+    }
+  }
 }
 
-const ReusableSection = ({ section }: ReusableSectionProps) => {
-  console.log(section)
+const ReusableSection = ({ section }:ReusableSectionProps) => {
+const data = section.existingSection.section.sectionType;
+
+if (!data) {
+  return;
+}
 
   return (
-    <div className="px-4 lg:px-8 2xl:px-16">
-      <div>
-        Reusable section
-      </div>
-
-    </div>
+    <DynamicContentManager content={data} />
   )
 }
 
-export default ReusableSection
+export default ReusableSection;

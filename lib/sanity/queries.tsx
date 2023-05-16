@@ -146,8 +146,16 @@ export const reusableSection = `
   _type == 'reusableSection' => {
     disabled,
     _type,
-    _key,
-    title
+    title,
+    section {
+      existingSection-> {
+        section {
+          sectionType[] {
+            ${modules}
+          }
+        }
+      }
+    }
   }
 `
 

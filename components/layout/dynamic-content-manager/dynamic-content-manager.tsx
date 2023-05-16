@@ -8,6 +8,7 @@ const USPSection = dynamic(() => import('components/modules/usp-section'));
 const Slider = dynamic(() => import('components/modules/slider'));
 const BlurbSection = dynamic(() => import('components/modules/blurb-section'));
 const FilteredProductList = dynamic(() => import('components/modules/filtered-product-list'));
+const ReusableSection = dynamic(() => import('components/modules/reusable-section'));
 interface getContentComponentProps {
   _type: string;
   _key: number;
@@ -36,6 +37,13 @@ const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentCompo
     case 'uspSection':
       if (disabled !== true) {
         Component = USPSection;
+      } else {
+        return;
+      }
+      break;
+    case 'reusableSection':
+      if (disabled !== true) {
+        Component = ReusableSection;
       } else {
         return;
       }
