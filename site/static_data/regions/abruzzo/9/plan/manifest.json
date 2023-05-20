@@ -1,5 +1,5 @@
 {
-  "name": "10",
+  "name": "9",
   "areas": [
     {
       "id": "0",
@@ -12,7 +12,7 @@
         1020, 1177, 787, 1175
       ],
       "shape": "poly",
-      "href": "/abruzzo/10/0"
+      "href": "/abruzzo/9/0"
     },
     {
       "id": "1",
@@ -22,7 +22,7 @@
       "strokeColor": "black",
       "coords": [577, 282, 1128, 282, 1130, 905, 439, 905, 435, 504, 576, 504],
       "shape": "poly",
-      "href": "/abruzzo/10/1"
+      "href": "/abruzzo/9/1"
     },
     {
       "id": "2",
@@ -36,7 +36,7 @@
         244, 1235
       ],
       "shape": "poly",
-      "href": "/abruzzo/10/2"
+      "href": "/abruzzo/9/2"
     },
     {
       "id": "3",
@@ -46,7 +46,7 @@
       "strokeColor": "black",
       "coords": [243, 280, 567, 279, 567, 497, 431, 496, 431, 634, 244, 632],
       "shape": "poly",
-      "href": "/abruzzo/10/3"
+      "href": "/abruzzo/9/3"
     },
     {
       "id": "4",
@@ -56,7 +56,7 @@
       "strokeColor": "black",
       "coords": [839, 1234, 1167, 1235, 1166, 1436, 840, 1436],
       "shape": "poly",
-      "href": "/abruzzo/10/4"
+      "href": "/abruzzo/9/4"
     },
     {
       "id": "5",
@@ -66,7 +66,7 @@
       "strokeColor": "black",
       "coords": [243, 640, 430, 640, 430, 978, 243, 977],
       "shape": "poly",
-      "href": "/abruzzo/10/5"
+      "href": "/abruzzo/9/5"
     },
     {
       "id": "6",
@@ -76,7 +76,7 @@
       "strokeColor": "black",
       "coords": [450, 1094, 731, 1094, 732, 1436, 452, 1436],
       "shape": "poly",
-      "href": "/abruzzo/10/6"
+      "href": "/abruzzo/9/6"
     },
     {
       "id": "7",
@@ -86,7 +86,7 @@
       "strokeColor": "black",
       "coords": [44, 1240, 443, 1242, 443, 1437, 44, 1436],
       "shape": "poly",
-      "href": "/abruzzo/10/7"
+      "href": "/abruzzo/9/7"
     }
   ]
 }
