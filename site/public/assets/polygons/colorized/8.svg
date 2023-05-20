@@ -5,7 +5,7 @@
    id="svg"
    version="1.1"
    sodipodi:docname="8.svg"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,16 +23,16 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="5.1666667"
-     inkscape:cx="75"
-     inkscape:cy="75"
+     inkscape:cx="75.096774"
+     inkscape:cy="75.096774"
      inkscape:window-width="1920"
-     inkscape:window-height="991"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg" />
   <polygon
      id="poly"
      points="31.69872981077807,49.99999999999999 31.69872981077806,99.99999999999999 75,125 118.30127018922192,100.00000000000003 118.30127018922192,49.99999999999999 75.00000000000001,25 "
-     style="fill:#00b1ff;fill-opacity:1" />
+     style="fill:#00b1ff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
 </svg>

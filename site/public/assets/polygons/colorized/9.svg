@@ -11,9 +11,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs6" />
+     id="defs12" />
   <sodipodi:namedview
-     id="namedview4"
+     id="namedview10"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
@@ -23,8 +23,8 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="5.5266667"
-     inkscape:cx="74.90953"
-     inkscape:cy="75.09047"
+     inkscape:cx="75.09047"
+     inkscape:cy="75.271411"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -33,6 +33,6 @@
      inkscape:current-layer="svg" />
   <polygon
      id="poly"
-     points="42.86061951567304,36.697777844051096 25.7596123493896,66.31759111665347 31.69872981077806,99.99999999999999 57.898992833716555,121.98463103929541 92.10100716628344,121.98463103929542 118.30127018922192,100.00000000000003 124.24038765061042,66.3175911166535 107.13938048432698,36.69777784405111 75.00000000000001,25 "
-     style="fill:#0068ff;fill-opacity:1" />
+     points="35.90842587659851,43.82550990706332 26.25360439090882,86.12604669781572 53.30581304412209,120.04844339512096 96.6941869558779,120.04844339512096 123.74639560909118,86.12604669781572 114.0915741234015,43.825509907063335 75.00000000000001,25 "
+     style="fill:#0068ff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
 </svg>
