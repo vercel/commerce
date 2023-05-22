@@ -35,8 +35,8 @@ specifiers:
   next-intl: ^2.13.1
   next-sanity: ^4.2.0
   postcss: ^8.4.21
-  prettier: ^2.8.4
-  prettier-plugin-tailwindcss: ^0.2.2
+  prettier: ^2.8.7
+  prettier-plugin-tailwindcss: ^0.2.7
   react: 18.2.0
   react-cookie: ^4.1.1
   react-dom: 18.2.0
