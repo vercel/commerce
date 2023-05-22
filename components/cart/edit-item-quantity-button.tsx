@@ -4,7 +4,7 @@ import { startTransition, useState } from 'react';
 import clsx from 'clsx';
 import MinusIcon from 'components/icons/minus';
 import PlusIcon from 'components/icons/plus';
-import type { CartItem } from 'lib/shopify/types';
+import type { VercelCartItem as CartItem } from 'lib/bigcommerce/types';
 import LoadingDots from '../loading-dots';
 
 export default function EditItemQuantityButton({

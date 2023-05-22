@@ -1,4 +1,4 @@
-import { getCollections, getPages, getProducts } from 'lib/shopify';
+import { getCollections, getPages, getProducts } from 'lib/bigcommerce';
 import { MetadataRoute } from 'next';
 
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL

@@ -1,7 +1,7 @@
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
+import { getProducts } from 'lib/bigcommerce';
 import { defaultSort, sorting } from 'lib/constants';
-import { getProducts } from 'lib/shopify';
 
 export const runtime = 'edge';
 
