@@ -2,9 +2,7 @@
 
 # Next.js Commerce
 
-> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1)
-
-A Next.js 13 and App Router-ready ecommerce template, built with Shopify, featuring:
+A Next.js 13 and App Router-ready ecommerce template featuring:
 
 - Next.js App Router
 - Optimized for SEO using Next.js's Metadata
@@ -17,9 +15,13 @@ A Next.js 13 and App Router-ready ecommerce template, built with Shopify, featur
 - Checkout and payments with Shopify
 - Automatic light/dark mode based on system settings
 
-## Alternate Providers
+> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1)
 
+## Providers
+
+- Shopify (this repository)
 - [Saleor](https://github.com/saleor/nextjs-commerce) ([Demo](https://saleor-commerce.vercel.app/))
+- [Medusa](https://github.com/medusajs/vercel-commerce) ([Demo](https://medusa-nextjs-commerce.vercel.app/))
 
 ## Running locally
 
