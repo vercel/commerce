@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
 import LoadingDots from 'components/loading-dots';
-import { ProductVariant } from 'lib/shopify/types';
+import { VercelProductVariant as ProductVariant } from 'lib/bigcommerce/types';
 
 export function AddToCart({
   variants,
@@ -14,7 +14,8 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
+  const productEntityId = variants[0]?.parentId || variants[0]?.id;
+  const [selectedVariantId, setSelectedVariantId] = useState(productEntityId);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -28,7 +29,7 @@ export function AddToCart({
     );
 
     if (variant) {
-      setSelectedVariantId(variant.id);
+      setSelectedVariantId(variant.parentId || variant.id);
     }
   }, [searchParams, variants, setSelectedVariantId]);
 
@@ -42,7 +43,8 @@ export function AddToCart({
     const response = await fetch(`/api/cart`, {
       method: 'POST',
       body: JSON.stringify({
-        merchandiseId: selectedVariantId
+        merchandiseId: selectedVariantId,
+        isBigCommerceAPI: true
       })
     });
 

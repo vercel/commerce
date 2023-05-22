@@ -7,7 +7,7 @@ import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/shopify/types';
+import type { VercelCart as Cart } from 'lib/bigcommerce/types';
 import { createUrl } from 'lib/utils';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';

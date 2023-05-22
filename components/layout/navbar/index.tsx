@@ -4,18 +4,19 @@ import { Suspense } from 'react';
 import Cart from 'components/cart';
 import CartIcon from 'components/icons/cart';
 import LogoIcon from 'components/icons/logo';
-import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
+import { getMenu } from 'lib/bigcommerce';
+import { VercelMenu as Menu } from 'lib/bigcommerce/types';
 import MobileMenu from './mobile-menu';
 import Search from './search';
 
 export default async function Navbar() {
   const menu = await getMenu('next-js-frontend-header-menu');
+  const demoMenu = menu.slice(0, 4);
 
   return (
     <nav className="relative flex items-center justify-between bg-white p-4 dark:bg-black lg:px-6">
       <div className="block w-1/3 md:hidden">
-        <MobileMenu menu={menu} />
+        <MobileMenu menu={demoMenu} />
       </div>
       <div className="flex justify-self-center md:w-1/3 md:justify-self-start">
         <div className="md:mr-4">
@@ -23,9 +24,9 @@ export default async function Navbar() {
             <LogoIcon className="h-8 transition-transform hover:scale-110" />
           </Link>
         </div>
-        {menu.length ? (
+        {demoMenu.length ? (
           <ul className="hidden md:flex">
-            {menu.map((item: Menu) => (
+            {demoMenu.map((item: Menu) => (
               <li key={item.title}>
                 <Link
                   href={item.path}

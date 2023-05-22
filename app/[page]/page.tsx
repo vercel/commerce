@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import Prose from 'components/prose';
-import { getPage } from 'lib/shopify';
+import { getPage } from 'lib/bigcommerce';
 import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';

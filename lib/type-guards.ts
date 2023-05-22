@@ -1,4 +1,4 @@
-export interface ShopifyErrorLike {
+export interface VercelCommerceErrorLike {
   status: number;
   message: Error;
 }
@@ -7,7 +7,7 @@ export const isObject = (object: unknown): object is Record<string, unknown> => 
   return typeof object === 'object' && object !== null && !Array.isArray(object);
 };
 
-export const isShopifyError = (error: unknown): error is ShopifyErrorLike => {
+export const isVercelCommerceError = (error: unknown): error is VercelCommerceErrorLike => {
   if (!isObject(error)) return false;
 
   if (error instanceof Error) return true;

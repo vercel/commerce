@@ -1,4 +1,4 @@
-import { createCart, getCart } from 'lib/shopify';
+import { createCart, getCart } from 'lib/bigcommerce';
 import { cookies } from 'next/headers';
 import CartButton from './button';
 
