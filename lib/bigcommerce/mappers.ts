@@ -22,8 +22,8 @@ type ProductsList = { productId: number; productData: BigCommerceProduct }[];
 
 const vercelFromBigCommerceLineItems = (lineItems: BigCommerceCart['lineItems']) => {
   const { physicalItems, digitalItems, customItems } = lineItems;
-  const cartItemMapper = ({ entityId, quantity }: DigitalOrPhysicalItem | CartCustomItem) => ({
-    merchandiseId: entityId.toString(),
+  const cartItemMapper = ({ entityId, quantity, productEntityId }: DigitalOrPhysicalItem | CartCustomItem) => ({
+    merchandiseId: productEntityId ? productEntityId.toString() : entityId.toString(),
     quantity
   });
 
@@ -201,17 +201,17 @@ const bigcommerceToVercelCartItems = (
       }
 
       return {
-        id: item.entityId.toString(),
+        id: item.entityId.toString(), // NOTE: used as lineId || lineItemId
         quantity: item.quantity,
         cost: {
           totalAmount: {
             amount:
-              item.extendedListPrice.value.toString() || item.listPrice.value.toString() || '0',
+            item.extendedListPrice.value.toString() || item.listPrice.value.toString() || '0',
             currencyCode: item.extendedListPrice.currencyCode || item.listPrice.currencyCode || ''
           }
         },
         merchandise: {
-          id: item.entityId.toString(),
+          id: isCustomItem ? item.entityId.toString() : (item as DigitalOrPhysicalItem).variantEntityId!.toString(),
           title: `${item.name}`,
           selectedOptions,
           product
@@ -238,9 +238,8 @@ const bigcommerceToVercelCart = (
 ): VercelCart => {
   return {
     id: cart.entityId,
-    checkoutUrl: '', // NOTE: where to get checkoutUrl??
+    checkoutUrl: '', // TODO: add later
     cost: {
-      // NOTE: these props lay down in checkout not cart
       subtotalAmount: {
         amount: checkout.subtotal.value.toString(),
         currencyCode: checkout.subtotal.currencyCode

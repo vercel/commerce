@@ -14,8 +14,10 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const productEntityId = variants[0]?.parentId || variants[0]?.id;
-  const [selectedVariantId, setSelectedVariantId] = useState(productEntityId);
+  const productEntityId = variants[0]?.parentId;
+  const varianEntitytId = variants[0]?.id;
+  const [selectedVariantId, setSelectedVariantId] = useState(varianEntitytId);
+  const [selectedProductId, setSelectedProductId] = useState(productEntityId);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -29,7 +31,8 @@ export function AddToCart({
     );
 
     if (variant) {
-      setSelectedVariantId(variant.parentId || variant.id);
+      setSelectedVariantId(variant.id);
+      setSelectedProductId(variant.parentId);
     }
   }, [searchParams, variants, setSelectedVariantId]);
 
@@ -44,6 +47,7 @@ export function AddToCart({
       method: 'POST',
       body: JSON.stringify({
         merchandiseId: selectedVariantId,
+        productId: selectedProductId,
         isBigCommerceAPI: true
       })
     });

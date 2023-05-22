@@ -14,9 +14,10 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
     setRemoving(true);
 
     const response = await fetch(`/api/cart`, {
-      method: 'DELETE',
+      method: 'POST',
       body: JSON.stringify({
-        lineId: item.id
+        lineId: item.id,
+        isBigCommerceAPI: true,
       })
     });
     const data = await response.json();

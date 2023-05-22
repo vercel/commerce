@@ -167,7 +167,7 @@ const getBigCommerceProductsWithCheckout = async (
 ) => {
   const bigCommerceProducts = await Promise.all(
     lines.map(async ({ merchandiseId }) => {
-      const productId = Number(merchandiseId);
+      const productId = parseInt(merchandiseId, 10);
 
       const resp = await bigcommerceFetch<BigCommerceProductOperation>({
         query: getProductQuery,
@@ -191,10 +191,24 @@ const getBigCommerceProductsWithCheckout = async (
     },
     cache: 'no-store'
   });
+  const checkout = resCheckout.body.data.site.checkout ?? {
+    subtotal: {
+        value: 0,
+        currencyCode: '',
+    },
+    grandTotal: {
+        value: 0,
+        currencyCode: '',
+    },
+    taxTotal: {
+        value: 0,
+        currencyCode: '',
+    },
+  };
 
   return {
     productsByIdList: bigCommerceProducts,
-    checkout: resCheckout.body.data.site.checkout
+    checkout,
   };
 };
 
@@ -225,7 +239,7 @@ export async function createCart(): Promise<VercelCart> {
 
 export async function addToCart(
   cartId: string,
-  lines: { merchandiseId: string; quantity: number }[]
+  lines: { merchandiseId: string; quantity: number, productId?: string }[]
 ): Promise<VercelCart> {
   let bigCommerceCart: BigCommerceCart;
 
@@ -236,8 +250,9 @@ export async function addToCart(
         addCartLineItemsInput: {
           cartEntityId: cartId,
           data: {
-            lineItems: lines.map(({ merchandiseId, quantity }) => ({
-              productEntityId: parseInt(merchandiseId, 10),
+            lineItems: lines.map(({ merchandiseId, quantity, productId }) => ({
+              productEntityId: parseInt(productId!, 10),
+              variantEntityId: parseInt(merchandiseId, 10),
               quantity
             }))
           }
@@ -252,8 +267,9 @@ export async function addToCart(
       query: createCartMutation,
       variables: {
         createCartInput: {
-          lineItems: lines.map(({ merchandiseId, quantity }) => ({
-            productEntityId: parseInt(merchandiseId, 10),
+          lineItems: lines.map(({ merchandiseId, quantity, productId }) => ({
+            productEntityId: parseInt(productId!, 10),
+            variantEntityId: parseInt(merchandiseId, 10),
             quantity
           }))
         }
@@ -303,12 +319,12 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
 // Update on selected options requires variantEntityId, optionEntityId
 export async function updateCart(
   cartId: string,
-  lines: { id: string; merchandiseId: string; quantity: number }[]
+  lines: { id: string; merchandiseId: string; quantity: number, productId?: string}[]
 ): Promise<VercelCart> {
   let cartState: { status: number; body: BigCommerceUpdateCartItemOperation } | undefined;
 
   for (let updates = lines.length; updates > 0; updates--) {
-    const { id, merchandiseId, quantity } = lines[updates - 1]!;
+    const { id, merchandiseId, quantity, productId } = lines[updates - 1]!;
     const res = await bigcommerceFetch<BigCommerceUpdateCartItemOperation>({
       query: updateCartLineItemMutation,
       variables: {
@@ -317,8 +333,9 @@ export async function updateCart(
           lineItemEntityId: id,
           data: {
             lineItem: {
-              quantity,
-              productEntityId: Number(merchandiseId)
+              productEntityId: parseInt(productId!, 10),
+              variantEntityId: parseInt(merchandiseId, 10),
+              quantity
             }
           }
         }
@@ -335,7 +352,6 @@ export async function updateCart(
   return bigcommerceToVercelCart(updatedCart, productsByIdList, checkout);
 }
 
-// NOTE: DONE & review if it works
 export async function getCart(cartId: string): Promise<VercelCart | null> {
   const res = await bigcommerceFetch<BigCommerceCartOperation>({
     query: getCartQuery,
@@ -351,11 +367,11 @@ export async function getCart(cartId: string): Promise<VercelCart | null> {
   const lines = vercelFromBigCommerceLineItems(cart.lineItems);
   const { productsByIdList, checkout } = await getBigCommerceProductsWithCheckout(cartId, lines);
 
-  return bigcommerceToVercelCart(cart, productsByIdList, checkout);
+  return bigcommerceToVercelCart(cart, productsByIdList, checkout);;
 }
 
 export async function getCollection(handle: string): Promise<VercelCollection> {
-  const entityId = await getCategoryEntityIdbyHandle(handle); // NOTE: check if this approach suits us
+  const entityId = await getCategoryEntityIdbyHandle(handle);
   const res = await bigcommerceFetch<BigCommerceCollectionOperation>({
     query: getCategoryQuery,
     variables: {
@@ -481,7 +497,7 @@ export async function getMenu(handle: string): Promise<VercelMenu[]> {
           title: name,
           path: createVercelCollectionPath(verceLTitle!)
         };
-        // NOTE: for NavBar we probably should keep it only high level categories
+        // NOTE: keep only high level categories for NavBar
         // if (hasChildren && children) {
         //   return configureVercelMenu(children, hasChildren);
         // }
@@ -504,7 +520,6 @@ export async function getMenu(handle: string): Promise<VercelMenu[]> {
   return [];
 }
 
-// TODO: replace with BC API  next Page(s) Methods
 export async function getPage(handle: string): Promise<VercelPage> {
   const entityId = await getEntityIdByHandle(handle);
   const res = await bigcommerceFetch<BigCommercePageOperation>({
@@ -528,7 +543,6 @@ export async function getPages(): Promise<VercelPage[]> {
 }
 
 export async function getProduct(handle: string): Promise<VercelProduct | undefined> {
-  // const productId = await getEntityIdByHandle(handle); // NOTE: check of this approach work
   const res = await bigcommerceFetch<BigCommerceProductOperation>({
     query: getProductQuery,
     variables: {

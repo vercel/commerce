@@ -111,7 +111,6 @@ const updateCartLineItemMutation = /* GraphQL */ `
           updatedAt {
             utc
           }
-          totalQuantity
           lineItems {
             totalQuantity
             physicalItems {

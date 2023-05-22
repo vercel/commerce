@@ -6,8 +6,8 @@ import Link from 'next/link';
 import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
 import Price from 'components/price';
-import { DEFAULT_OPTION } from 'lib/constants';
 import type { VercelCart as Cart } from 'lib/bigcommerce/types';
+import { DEFAULT_OPTION } from 'lib/constants';
 import { createUrl } from 'lib/utils';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
@@ -81,8 +81,10 @@ export default function CartModal({
                   <ul className="flex-grow overflow-auto p-6">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
+                      let subTitleWithSelectedOptions = '';
 
                       item.merchandise.selectedOptions.forEach(({ name, value }) => {
+                        subTitleWithSelectedOptions += `${name}: ${value} `;
                         if (value !== DEFAULT_OPTION) {
                           merchandiseSearchParams[name.toLowerCase()] = value;
                         }
@@ -118,14 +120,14 @@ export default function CartModal({
                               </span>
                               {item.merchandise.title !== DEFAULT_OPTION ? (
                                 <p className="text-sm" data-testid="cart-product-variant">
-                                  {item.merchandise.title}
+                                  {item.merchandise.title === item.merchandise.product.title && subTitleWithSelectedOptions ? subTitleWithSelectedOptions : item.merchandise.title}
                                 </p>
                               ) : null}
                             </div>
                             <Price
                               className="flex flex-col justify-between space-y-2 text-sm"
                               amount={item.cost.totalAmount.amount}
-                              currencyCode={item.cost.totalAmount.currencyCode}
+                              currencyCode={item.cost.totalAmount.currencyCode || 'USD'}
                             />
                           </Link>
                           <div className="flex h-9 flex-row">
@@ -146,7 +148,7 @@ export default function CartModal({
                       <Price
                         className="text-right"
                         amount={cart.cost.subtotalAmount.amount}
-                        currencyCode={cart.cost.subtotalAmount.currencyCode}
+                        currencyCode={cart.cost.subtotalAmount.currencyCode || 'USD'}
                       />
                     </div>
                     <div className="mb-2 flex items-center justify-between">
@@ -154,7 +156,7 @@ export default function CartModal({
                       <Price
                         className="text-right"
                         amount={cart.cost.totalTaxAmount.amount}
-                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
+                        currencyCode={cart.cost.totalTaxAmount.currencyCode || 'USD'}
                       />
                     </div>
                     <div className="mb-2 flex items-center justify-between border-b border-gray-200 pb-2">
@@ -166,7 +168,7 @@ export default function CartModal({
                       <Price
                         className="text-right"
                         amount={cart.cost.totalAmount.amount}
-                        currencyCode={cart.cost.totalAmount.currencyCode}
+                        currencyCode={cart.cost.totalAmount.currencyCode || 'USD'}
                       />
                     </div>
                   </div>
