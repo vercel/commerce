@@ -40,7 +40,7 @@
     "framer-motion": "^8.4.0",
     "is-empty-iterable": "^3.0.0",
     "lucide-react": "^0.194.0",
-    "next": "13.4.0",
+    "next": "13.4.3",
     "next-intl": "^2.13.1",
     "next-sanity": "^4.2.0",
     "react": "18.2.0",
