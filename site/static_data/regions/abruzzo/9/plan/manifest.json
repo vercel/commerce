@@ -8,11 +8,10 @@
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
       "coords": [
-        788, 914, 1129, 914, 1129, 1139, 1167, 1142, 1166, 1225, 1021, 1226,
-        1020, 1177, 787, 1175
+        191,202,678,527
       ],
-      "shape": "poly",
-      "href": "/abruzzo/9/0"
+      "shape": "rect",
+      "href": "/abruzzo/9/1"
     },
     {
       "id": "1",
@@ -20,9 +19,9 @@
       "name": "Giardino",
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
-      "coords": [577, 282, 1128, 282, 1130, 905, 439, 905, 435, 504, 576, 504],
+      "coords": [1298,203,1435,203,1514,527,1298,525],
       "shape": "poly",
-      "href": "/abruzzo/9/1"
+      "href": "/abruzzo/9/6"
     },
     {
       "id": "2",
@@ -31,12 +30,10 @@
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
       "coords": [
-        245, 987, 439, 984, 439, 911, 779, 914, 780, 1183, 1012, 1184, 1013,
-        1226, 832, 1226, 831, 1435, 740, 1434, 739, 1088, 444, 1089, 444, 1235,
-        244, 1235
+        697,203,807,205,805,544,1519,546,1531,605,1002,606,1001,1018,945,1018,943,770,568,770,565,727,436,725,436,605,191,606,191,544,695,543
       ],
       "shape": "poly",
-      "href": "/abruzzo/9/2"
+      "href": "/abruzzo/9/3"
     },
     {
       "id": "3",
@@ -44,9 +41,9 @@
       "name": "Garage",
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
-      "coords": [243, 280, 567, 279, 567, 497, 431, 496, 431, 634, 244, 632],
-      "shape": "poly",
-      "href": "/abruzzo/9/3"
+      "coords": [821,203,1280,524],
+      "shape": "rect",
+      "href": "/abruzzo/9/5"
     },
     {
       "id": "4",
@@ -54,9 +51,9 @@
       "name": "Camera Ragazzi",
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
-      "coords": [839, 1234, 1167, 1235, 1166, 1436, 840, 1436],
+      "coords": [193,623,418,622,418,741,550,741,548,1018,193,1018],
       "shape": "poly",
-      "href": "/abruzzo/9/4"
+      "href": "/abruzzo/9/2"
     },
     {
       "id": "5",
@@ -64,9 +61,9 @@
       "name": "Bagno",
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
-      "coords": [243, 640, 430, 640, 430, 978, 243, 977],
-      "shape": "poly",
-      "href": "/abruzzo/9/5"
+      "coords": [567,783,925,1017],
+      "shape": "rect",
+      "href": "/abruzzo/9/0"
     },
     {
       "id": "6",
@@ -74,9 +71,9 @@
       "name": "Sala",
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
-      "coords": [450, 1094, 731, 1094, 732, 1436, 452, 1436],
-      "shape": "poly",
-      "href": "/abruzzo/9/6"
+      "coords": [1022,622,1286,1018],
+      "shape": "rect",
+      "href": "/abruzzo/9/7"
     },
     {
       "id": "7",
@@ -84,9 +81,9 @@
       "name": "Cucina",
       "fillColor": "#eab54d4d",
       "strokeColor": "black",
-      "coords": [44, 1240, 443, 1242, 443, 1437, 44, 1436],
+      "coords": [1303,622,1537,620,1533,753,1602,753,1601,1017,1303,1017],
       "shape": "poly",
-      "href": "/abruzzo/9/7"
+      "href": "/abruzzo/9/4"
     }
   ]
 }
