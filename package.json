@@ -49,6 +49,7 @@
     "react-dom": "18.2.0",
     "react-glider": "^4.0.2",
     "sanity": "^3.11.1",
+    "sharp": "^0.32.1",
     "styled-components": "^5.3.10",
     "tailwind-merge": "^1.12.0",
     "tailwindcss-animate": "^1.0.5"
