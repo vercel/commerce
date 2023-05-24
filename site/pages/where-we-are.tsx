@@ -26,29 +26,42 @@ export default function WhereWeAre() {
           {locale == 'it' ? 'Dove Siamo' : 'Where We Are'}
         </Text>
       </Box>
-      <Box overflow={"auto"} mt={10}>
-          <Table colorScheme="teal">
-            <Thead>
-              <Tr>
-                <Th>{locale == 'it' ? 'Giorno' : 'Day of Week'}</Th>
-                <Th>{locale == 'it' ? 'Orario' : 'Time'}</Th>
-                <Th>{locale == 'it' ? 'Luogo' : 'Location'}</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {tableData[locale as keyof typeof tableData].map(
-                (elem, index) => {
-                  return (
-                    <Tr key={index}>
-                      <Td>{elem.day}</Td>
-                      <Td>{elem.time}</Td>
-                      <Td>{elem.location}</Td>
-                    </Tr>
-                  )
-                }
-              )}
-            </Tbody>
-          </Table>
+      <Box overflow={'auto'} mt={10}>
+        <Table width={'-webkit-fit-content'} colorScheme="teal">
+          <Thead>
+            <Tr>
+              <Th textAlign={'center'}>
+                {locale == 'it' ? 'Giorno' : 'Day of Week'}
+              </Th>
+              <Th textAlign={'center'}>{locale == 'it' ? 'Orario' : 'Time'}</Th>
+              <Th textAlign={'center'}>{locale == 'it' ? 'Luogo' : 'Place'}</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {tableData[locale as keyof typeof tableData].map((elem, index) => {
+              return (
+                <Tr key={index}>
+                  <Td>{elem.day}</Td>
+                  <Td>{elem.time}</Td>
+                  {index === 0 ? (
+                    <Td
+                      textAlign={'center'}
+                      rowSpan={
+                        tableData[locale as keyof typeof tableData].length
+                      }
+                    >
+                      {elem.location!.split('<br/>').map((str, index) => (
+                        <p key={index}>{str}</p>
+                      ))}
+                    </Td>
+                  ) : (
+                    <></>
+                  )}
+                </Tr>
+              )
+            })}
+          </Tbody>
+        </Table>
       </Box>
     </div>
   )

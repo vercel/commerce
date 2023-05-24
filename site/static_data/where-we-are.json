@@ -3,64 +3,54 @@
     {
       "day": "Lunedì",
       "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Provincia di Pescara"
+      "location": "Tragitto coperto in base agli appuntamenti del giorno,<br/> tra Prov. di Teramo (Mosciano, Giulianova, Roseto, Pineto, Silvi)<br/> o Prov. di Pescara (Montesilvano, Città Sant’Angelo, Pescara)."
     },
     {
       "day": "Martedì",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Provincia di Teramo"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Mercoledì",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Provincia di Pescara"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Giovedì",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Provincia di Teramo"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Venerdì",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Provincia di Pescara"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Sabato",
-      "time": "",
-      "location": "Tragitto coperto in base agli appuntamenti del giorno"
+      "time": "9:00/12:00"
     }
   ],
   "en": [
     {
       "day": "Monday",
       "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Province of Pescara"
+      "location": "Route covered based on the appointments of the day,<br/> between the Province of Teramo (Mosciano, Giulianova, Roseto, Pineto, Silvi)<br/> or the Province of Pescara (Montesilvano, Città Sant'Angelo, Pescara)."
     },
     {
       "day": "Tuesday",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Province of Teramo"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Wednesday",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Province of Pescara"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Thursday",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Province of Teramo"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Friday",
-      "time": "9:00/12:00 - 15:00/18:00",
-      "location": "Province of Pescara"
+      "time": "9:00/12:00 - 15:00/18:00"
     },
     {
       "day": "Saturday",
-      "time": "",
-      "location": "Route covered according to the appointments of the day"
+      "time": "9:00/12:00"
     }
   ]
 }
