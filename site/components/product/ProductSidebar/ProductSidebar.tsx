@@ -9,7 +9,15 @@ import {
   selectDefaultOptionFromProduct,
   SelectedOptions,
 } from '../helpers'
-import { Box, Stack, Text as ChakraText } from '@chakra-ui/react'
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  CloseButton,
+  Stack,
+  Text as ChakraText,
+  useDisclosure,
+} from '@chakra-ui/react'
 import { Metafield } from '@commerce/types/common'
 
 import productDetailsMetafields from '../../../static_data/productDetailsMetafields.json'
@@ -26,6 +34,12 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   const [loading, setLoading] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
   const { locale = 'it' } = useRouter()
+
+  const {
+    isOpen: isAlertVisible,
+    onClose,
+    onOpen,
+  } = useDisclosure({ defaultIsOpen: true })
 
   useEffect(() => {
     selectDefaultOptionFromProduct(product, setSelectedOptions)
@@ -74,6 +88,26 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
               </ChakraText>
             </Box>
           ))}
+
+          {isAlertVisible ? (
+            <Box>
+              <Alert marginTop={5} status="info">
+                <AlertIcon />
+                {locale === 'it'
+                  ? "Il modello 3D potrebbe non rappresentare fedelmente l'aspetto del prodotto"
+                  : 'The 3D model may not accurately represent the appearance of the product'}
+                <CloseButton
+                  alignSelf="flex-start"
+                  position="relative"
+                  right={-1}
+                  top={-1}
+                  onClick={onClose}
+                />
+              </Alert>
+            </Box>
+          ) : (
+            <></>
+          )}
         </Stack>
       </Box>
 
