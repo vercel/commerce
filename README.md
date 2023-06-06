@@ -19,7 +19,7 @@ A Next.js 13 and App Router-ready ecommerce template featuring:
 
 ## Providers
 
-Vercel will only be actively maintaining a Shopify version as outlined in our vision and strategy for Next.js Commerce.
+Vercel will only be actively maintaining a Shopify version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
 
 Vercel is more than happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with their own implementation while leaving the rest of the template mostly unchanged.
 
