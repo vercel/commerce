@@ -46,7 +46,9 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 
 ## How to configure your Shopify store for Next.js Commerce
 
-Next.js Commerce requires a [paid Shopify plan](https://www.shopify.com/pricing). It will not work with a Shopify Starter plan.
+Next.js Commerce requires a [paid Shopify plan](https://www.shopify.com/pricing).
+
+> Note: Next.js Commerce will not work with a Shopify Starter plan as it does not allow installation of custom themes, which is required to run as a headless storefront.
 
 ### Add Shopify domain to an environment variable
 
