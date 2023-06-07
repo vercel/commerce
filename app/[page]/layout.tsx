@@ -9,7 +9,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Suspense>{children}</Suspense>
         </div>
       </div>
-      {/* @ts-expect-error Server Component */}
       <Footer />
     </Suspense>
   );

@@ -44,7 +44,6 @@ export default async function Navbar() {
 
       <div className="flex w-1/3 justify-end">
         <Suspense fallback={<CartIcon className="h-6" />}>
-          {/* @ts-expect-error Server Component */}
           <Cart />
         </Suspense>
       </div>

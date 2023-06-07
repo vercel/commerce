@@ -22,13 +22,10 @@ export const metadata = {
 export default async function HomePage() {
   return (
     <>
-      {/* @ts-expect-error Server Component */}
       <ThreeItemGrid />
       <Suspense>
-        {/* @ts-expect-error Server Component */}
         <Carousel />
         <Suspense>
-          {/* @ts-expect-error Server Component */}
           <Footer />
         </Suspense>
       </Suspense>
