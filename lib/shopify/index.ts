@@ -1,4 +1,4 @@
-import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT } from 'lib/constants';
+import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import {
   addToCartMutation,
@@ -52,15 +52,17 @@ const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
 export async function shopifyFetch<T>({
-  query,
-  variables,
+  cache = 'force-cache',
   headers,
-  cache = 'force-cache'
+  query,
+  tags,
+  variables
 }: {
-  query: string;
-  variables?: ExtractVariables<T>;
-  headers?: HeadersInit;
   cache?: RequestCache;
+  headers?: HeadersInit;
+  query: string;
+  tags?: string[];
+  variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
   try {
     const result = await fetch(endpoint, {
@@ -75,7 +77,7 @@ export async function shopifyFetch<T>({
         ...(variables && { variables })
       }),
       cache,
-      next: { revalidate: 900 } // 15 minutes
+      ...(tags && { next: { tags } })
     });
 
     const body = await result.json();
@@ -249,6 +251,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
 export async function getCollection(handle: string): Promise<Collection | undefined> {
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
+    tags: [TAGS.collections],
     variables: {
       handle
     }
@@ -268,6 +271,7 @@ export async function getCollectionProducts({
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
+    tags: [TAGS.collections, TAGS.products],
     variables: {
       handle: collection,
       reverse,
@@ -284,7 +288,10 @@ export async function getCollectionProducts({
 }
 
 export async function getCollections(): Promise<Collection[]> {
-  const res = await shopifyFetch<ShopifyCollectionsOperation>({ query: getCollectionsQuery });
+  const res = await shopifyFetch<ShopifyCollectionsOperation>({
+    query: getCollectionsQuery,
+    tags: [TAGS.collections]
+  });
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
   const collections = [
     {
@@ -311,6 +318,7 @@ export async function getCollections(): Promise<Collection[]> {
 export async function getMenu(handle: string): Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
+    tags: [TAGS.collections],
     variables: {
       handle
     }
@@ -344,6 +352,7 @@ export async function getPages(): Promise<Page[]> {
 export async function getProduct(handle: string): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
+    tags: [TAGS.products],
     variables: {
       handle
     }
@@ -355,6 +364,7 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
+    tags: [TAGS.products],
     variables: {
       productId
     }
@@ -374,6 +384,7 @@ export async function getProducts({
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
+    tags: [TAGS.products],
     variables: {
       query,
       reverse,
