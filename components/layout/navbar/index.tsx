@@ -24,7 +24,7 @@ export default async function Navbar() {
           </Link>
         </div>
         {menu.length ? (
-          <ul className="hidden md:flex">
+          <ul className="hidden md:flex md:items-center">
             {menu.map((item: Menu) => (
               <li key={item.title}>
                 <Link
@@ -44,7 +44,6 @@ export default async function Navbar() {
 
       <div className="flex w-1/3 justify-end">
         <Suspense fallback={<CartIcon className="h-6" />}>
-          {/* @ts-expect-error Server Component */}
           <Cart />
         </Suspense>
       </div>

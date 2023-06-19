@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import Grid from 'components/grid';
 import Footer from 'components/layout/footer';
 import ProductGridItems from 'components/layout/product-grid-items';
-import { AddToCart } from 'components/product/add-to-cart';
+import { AddToCart } from 'components/cart/add-to-cart';
 import { Gallery } from 'components/product/gallery';
 import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
@@ -97,7 +97,6 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
 
         <div className="p-6 lg:col-span-2">
-          {/* @ts-expect-error Server Component */}
           <VariantSelector options={product.options} variants={product.variants} />
 
           {product.descriptionHtml ? (
@@ -108,10 +107,8 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
       </div>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
         <RelatedProducts id={product.id} />
         <Suspense>
-          {/* @ts-expect-error Server Component */}
           <Footer />
         </Suspense>
       </Suspense>
