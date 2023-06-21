@@ -5,6 +5,7 @@
     "pnpm": ">=7"
   },
   "scripts": {
+    "analyze": "cross-env ANALYZE=true next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -23,9 +24,10 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
+    "@next/bundle-analyzer": "^13.4.7",
     "@vercel/og": "^0.5.6",
     "clsx": "^1.2.1",
-    "is-empty-iterable": "^3.0.0",
+    "cross-env": "^7.0.3",
     "next": "13.4.6",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",
