@@ -62,6 +62,16 @@ const productFragment = /* GraphQL */ `
                 title
             }
         }
+        compareAtPriceRange {
+            maxVariantPrice {
+                amount
+                currencyCode
+            }
+            minVariantPrice {
+                amount
+                currencyCode
+            }
+        }
     }
     ${imageFragment}
     ${seoFragment}
