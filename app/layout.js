@@ -1,7 +1,14 @@
+import { TypesNav } from '/components/home.js';
+
 export default function RootLayout({ children }) {
     return (
         <html lang='en'>
-            <body>{children}</body>
+            <body>
+                <nav>
+                    <TypesNav />
+                </nav>
+                <main>{children}</main>
+            </body>
         </html>
     );
 }
