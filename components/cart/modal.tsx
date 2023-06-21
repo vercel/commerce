@@ -22,10 +22,10 @@ type MerchandiseSearchParams = {
 
 export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdUpdated: boolean }) {
   const [, setCookie] = useCookies(['cartId']);
-  const [cartIsOpen, setCartIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart.totalQuantity);
-  const openCart = () => setCartIsOpen(true);
-  const closeCart = () => setCartIsOpen(false);
+  const openCart = () => setIsOpen(true);
+  const closeCart = () => setIsOpen(false);
 
   useEffect(() => {
     if (cartIdUpdated) {
@@ -42,21 +42,21 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
     // Open cart modal when when quantity changes.
     if (cart.totalQuantity !== quantityRef.current) {
       // But only if it's not already open (quantity also changes when editing items in cart).
-      if (!cartIsOpen) {
-        setCartIsOpen(true);
+      if (!isOpen) {
+        setIsOpen(true);
       }
 
       // Always update the quantity reference
       quantityRef.current = cart.totalQuantity;
     }
-  }, [cartIsOpen, cart.totalQuantity, quantityRef]);
+  }, [isOpen, cart.totalQuantity, quantityRef]);
 
   return (
     <>
       <button aria-label="Open cart" onClick={openCart} data-testid="open-cart">
         <CartIcon quantity={cart.totalQuantity} />
       </button>
-      <Transition show={cartIsOpen}>
+      <Transition show={isOpen}>
         <Dialog onClose={closeCart} className="relative z-50" data-testid="cart">
           <Transition.Child
             as={Fragment}
