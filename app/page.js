@@ -22,6 +22,36 @@ const formatPriceRange = ({ maxVariantPrice, minVariantPrice }) => {
     }
 };
 
+const PriceRanges = ({ priceRange, compareAtPriceRange, availableForSale }) => {
+    const onSale =
+        (compareAtPriceRange?.minVariantPrice?.amount ?? 0) >
+            (priceRange?.minVariantPrice?.amount ?? 0) ||
+        (compareAtPriceRange?.maxVariantPrice?.amount ?? 0) >
+            (priceRange?.maxVariantPrice?.amount ?? 0);
+    const isForSale = (priceRange?.maxVariantPrice?.amount ?? 0) > 0;
+
+    return (
+        <p>
+            {availableForSale ? (
+                isForSale && (
+                    <>
+                        <>
+                            {onSale && (
+                                <span className={'original-price'}>
+                                    {formatPriceRange(compareAtPriceRange)}{' '}
+                                </span>
+                            )}
+                        </>
+                        <span>{formatPriceRange(priceRange)}</span>
+                    </>
+                )
+            ) : (
+                <span>Sold Out</span>
+            )}
+        </p>
+    );
+};
+
 export async function HomeProduct({ product }) {
     const featuredImage = product?.images?.[0];
     const collections = product?.collections?.nodes;
@@ -40,13 +70,7 @@ export async function HomeProduct({ product }) {
                     ?.map(collection => collection?.title)
                     .join(', ')})`}</p>
             )}
-            {product?.availableForSale ? (
-                (product?.priceRange?.maxVariantPrice?.amount ?? 0) > 0 && (
-                    <p>{formatPriceRange(product.priceRange)}</p>
-                )
-            ) : (
-                <p>Sold Out</p>
-            )}
+            <PriceRanges {...product} />
         </Link>
     );
 }
@@ -57,8 +81,13 @@ export default async function HomePage() {
         collection,
     });
 
-    console.log({ collection, products });
-    // console.log({ price: products[0].priceRange, tile: products[0].title });
+    // console.log({ collection, products });
+    // const num = 4;
+    // console.log({
+    //     price: products[num].priceRange,
+    //     compareAt: products[num].compareAtPriceRange,
+    //     title: products[num].title,
+    // });
 
     return (
         <>
