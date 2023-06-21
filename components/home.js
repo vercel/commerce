@@ -61,7 +61,7 @@ export async function HomeProduct({ product }) {
     const collections = product?.collections?.nodes;
 
     return (
-        <Link href={`/${product?.handle}`}>
+        <Link href={`/product/${product?.handle}`}>
             <Image
                 src={featuredImage?.url}
                 alt={featuredImage?.altText}
