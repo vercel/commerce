@@ -57,8 +57,6 @@ export async function getStaticProps({
     }
   }
 
-  console.log(relatedProducts)
-
   return {
     props: {
       pages,
