@@ -27,6 +27,7 @@ export const PriceRanges = ({
     compareAtPriceRange,
     availableForSale,
 }) => {
+    //TODO: turn these checks into shared functions
     const onSale =
         (compareAtPriceRange?.minVariantPrice?.amount ?? 0) >
             (priceRange?.minVariantPrice?.amount ?? 0) ||

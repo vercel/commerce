@@ -1,11 +1,6 @@
-export default function ProductLayout({ children }) {
+export default function PageLayout({ children }) {
     return (
         <>
-            {/* <header> */}
-            {/*     <nav> */}
-            {/*         <a>back</a> */}
-            {/*     </nav> */}
-            {/* </header> */}
             <main>{children}</main>
         </>
     );
