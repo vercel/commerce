@@ -3,7 +3,7 @@
     "cart": false,
     "search": true,
     "wishlist": false,
-    "customerAuth": false,
+    "customerAuth": true,
     "customCheckout": false
   }
 }

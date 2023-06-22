@@ -119,13 +119,21 @@ const Layout: React.FC<Props> = ({
       <div className={cn(s.root)}>
         <Navbar links={navBarlinks} />
         <style jsx>
-          {
-            `.vintageBackground { 
-              background-color: rgba(240, 226, 123, 0.8)
-             }`
-          }
+          {`
+            .vintageBackground {
+              background-color: rgba(240, 226, 123, 0.8);
+            }
+          `}
         </style>
-        <main className={(pathname.includes("about") || pathname.includes("news")) ? "vintageBackground" : ""}>{children}</main>
+        <main
+          className={
+            pathname.includes('about') || pathname.includes('news')
+              ? 'vintageBackground'
+              : ''
+          }
+        >
+          {children}
+        </main>
         <Footer pages={pageProps.pages} />
         <ModalUI />
         <CheckoutProvider>
@@ -141,7 +149,11 @@ const Layout: React.FC<Props> = ({
           }
         />
         {/** Tidio Chat Script to implement Widget */}
-        <Script src="//code.tidio.co/mqhzygds3ad04ma8od6ud9ov11fpy4md.js" id="show-banner" strategy="lazyOnload"></Script>
+        <Script
+          src="//code.tidio.co/q0sllyxxrrek7mix7eqt41hsgluycqcn.js"
+          id="show-banner"
+          strategy="lazyOnload"
+        ></Script>
       </div>
     </CommerceProvider>
   )
