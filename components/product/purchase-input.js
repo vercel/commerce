@@ -18,31 +18,15 @@ export const productVariant = ({ product, selectedOptions }) => {
         const optionNames =
             product?.options?.map(option => option?.name ?? '') ?? [];
 
-        console.log({
-            product: product?.handle,
-            optionNames,
-            variants: product?.variants,
-        });
-
         for (const variant of product?.variants ?? []) {
             let matching = true;
-
-            console.log({ variantTitle: variant?.title });
 
             for (const option of variant?.selectedOptions) {
                 const optionName = option?.name ?? '';
                 const optionValue = option?.value ?? '';
 
-                console.log({ optionName, optionValue, optionNames });
-
                 for (let i = 0; i < optionNames?.length; i++) {
                     if (optionName == optionNames[i]) {
-                        console.log({
-                            optionName,
-                            optionValue,
-                            selectedOption: selectedOptions[i],
-                        });
-
                         if (optionValue != selectedOptions[i]) {
                             matching = false;
                         }
@@ -71,8 +55,6 @@ export default function PurchaseInput({ product }) {
     const variant = hasOptions
         ? productVariant({ product, selectedOptions })
         : product?.variants?.[0];
-
-    console.log({ variant });
 
     return availableForSale ? (
         isForSale && (
