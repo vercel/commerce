@@ -9,7 +9,7 @@ export function Select({ id, label, children, ...props }) {
                 {children}
             </select>
             {/* TODO: parentheses around label w/ css */}
-            <label for={id}>{label}</label>
+            <label htmlFor={id}>{label}</label>
         </div>
     );
 }
@@ -18,7 +18,7 @@ export function NumberInput({ id, label, ...props }) {
     return (
         <div>
             <input {...props} type='number' id={id} name={label} />
-            <label for={id}>{label}</label>
+            <label htmlFor={id}>{label}</label>
         </div>
     );
 }

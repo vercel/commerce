@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import xss from 'xss';
 
 import { getProducts, getProduct } from 'lib/shopify';
@@ -18,6 +20,7 @@ export async function generateStaticParams() {
 
 export default async function ProductPage({ params: { handle } }) {
     const product = await getProduct(handle);
+
     return (
         <>
             {product?.handle ? (
@@ -33,6 +36,16 @@ export default async function ProductPage({ params: { handle } }) {
             ) : (
                 <p>Product not found</p>
             )}
+            <p>Scroll to right ( → )</p>
+            {product?.images?.map(image => (
+                <Image
+                    key={image?.url}
+                    src={image?.url}
+                    alt={image?.altText}
+                    width={image?.width}
+                    height={image?.height}
+                />
+            ))}
         </>
     );
 }

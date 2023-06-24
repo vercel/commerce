@@ -1,61 +1,11 @@
+import 'server-only';
+
 import Link from 'next/link';
 import Image from 'next/image';
 
 import { getCollectionProducts, getMenu } from 'lib/shopify';
 
-export const formatPrice = ({ amount, currencyCode }) => {
-    const USDollar = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currencyCode,
-    });
-
-    return USDollar.format(amount);
-};
-
-export const formatPriceRange = ({ maxVariantPrice, minVariantPrice }) => {
-    if (maxVariantPrice.amount == minVariantPrice.amount) {
-        return `${formatPrice(maxVariantPrice)}`;
-    } else {
-        return `${formatPrice(minVariantPrice)} - ${formatPrice(
-            maxVariantPrice
-        )}`;
-    }
-};
-
-export const PriceRanges = ({
-    priceRange,
-    compareAtPriceRange,
-    availableForSale,
-}) => {
-    //TODO: turn these checks into shared functions
-    const onSale =
-        (compareAtPriceRange?.minVariantPrice?.amount ?? 0) >
-            (priceRange?.minVariantPrice?.amount ?? 0) ||
-        (compareAtPriceRange?.maxVariantPrice?.amount ?? 0) >
-            (priceRange?.maxVariantPrice?.amount ?? 0);
-    const isForSale = (priceRange?.maxVariantPrice?.amount ?? 0) > 0;
-
-    return (
-        <p>
-            {availableForSale ? (
-                isForSale && (
-                    <>
-                        <>
-                            {onSale && (
-                                <span className={'original-price'}>
-                                    {formatPriceRange(compareAtPriceRange)}{' '}
-                                </span>
-                            )}
-                        </>
-                        <span>{formatPriceRange(priceRange)}</span>
-                    </>
-                )
-            ) : (
-                <span>Sold Out</span>
-            )}
-        </p>
-    );
-};
+import { PriceRanges } from '/components/price.js';
 
 export async function HomeProduct({ product }) {
     const featuredImage = product?.images?.[0];
@@ -75,7 +25,7 @@ export async function HomeProduct({ product }) {
                     ?.map(collection => collection?.title)
                     .join(', ')})`}</p>
             )}
-            <PriceRanges {...product} />
+            <PriceRanges product={product} />
         </Link>
     );
 }
