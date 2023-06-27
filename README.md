@@ -45,6 +45,16 @@ pnpm dev
 
 Your app should now be running on [localhost:3000](http://localhost:3000/).
 
+<details>
+  <summary>Expand if you work at Vercel and want to run locally and / or contribute</summary>
+
+1. Run `vc link`.
+1. Select the `Vercel Solutions` scope.
+1. Connect to the existing `commerce-shopify` project.
+1. Run `vc env pull` to get environment variables.
+1. Run `pmpm dev` to ensure everything is working correctly.
+</details>
+
 ## How to configure your Shopify store for Next.js Commerce
 
 Next.js Commerce requires a [paid Shopify plan](https://www.shopify.com/pricing).
