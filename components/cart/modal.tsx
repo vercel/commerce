@@ -1,14 +1,18 @@
-import { Dialog } from '@headlessui/react';
-import { AnimatePresence, motion } from 'framer-motion';
+'use client';
+
+import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import CartIcon from 'components/icons/cart';
 import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/medusa/types';
 import { createUrl } from 'lib/utils';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
 
@@ -16,53 +20,70 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-export default function CartModal({
-  isOpen,
-  onClose,
-  cart
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  cart: Cart;
-}) {
-  return (
-    <AnimatePresence initial={false}>
-      {isOpen && (
-        <Dialog
-          as={motion.div}
-          initial="closed"
-          animate="open"
-          exit="closed"
-          key="dialog"
-          static
-          open={isOpen}
-          onClose={onClose}
-          className="relative z-50"
-        >
-          <motion.div
-            variants={{
-              open: { opacity: 1, backdropFilter: 'blur(0.5px)' },
-              closed: { opacity: 0, backdropFilter: 'blur(0px)' }
-            }}
-            className="fixed inset-0 bg-black/30"
-            aria-hidden="true"
-          />
+export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdUpdated: boolean }) {
+  const [, setCookie] = useCookies(['cartId']);
+  const [isOpen, setIsOpen] = useState(false);
+  const quantityRef = useRef(cart.totalQuantity);
+  const openCart = () => setIsOpen(true);
+  const closeCart = () => setIsOpen(false);
 
-          <div className="fixed inset-0 flex justify-end" data-testid="cart">
-            <Dialog.Panel
-              as={motion.div}
-              variants={{
-                open: { translateX: 0 },
-                closed: { translateX: '100%' }
-              }}
-              transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
-              className="flex w-full flex-col bg-white p-8 text-black dark:bg-black dark:text-white md:w-3/5 lg:w-2/5"
-            >
+  useEffect(() => {
+    if (cartIdUpdated) {
+      setCookie('cartId', cart.id, {
+        path: '/',
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production'
+      });
+    }
+    return;
+  }, [setCookie, cartIdUpdated, cart.id]);
+
+  useEffect(() => {
+    // Open cart modal when when quantity changes.
+    if (cart.totalQuantity !== quantityRef.current) {
+      // But only if it's not already open (quantity also changes when editing items in cart).
+      if (!isOpen) {
+        setIsOpen(true);
+      }
+
+      // Always update the quantity reference
+      quantityRef.current = cart.totalQuantity;
+    }
+  }, [isOpen, cart.totalQuantity, quantityRef]);
+
+  return (
+    <>
+      <button aria-label="Open cart" onClick={openCart} data-testid="open-cart">
+        <CartIcon quantity={cart.totalQuantity} />
+      </button>
+      <Transition show={isOpen}>
+        <Dialog onClose={closeCart} className="relative z-50" data-testid="cart">
+          <Transition.Child
+            as={Fragment}
+            enter="transition-all ease-in-out duration-300"
+            enterFrom="opacity-0 backdrop-blur-none"
+            enterTo="opacity-100 backdrop-blur-[.5px]"
+            leave="transition-all ease-in-out duration-200"
+            leaveFrom="opacity-100 backdrop-blur-[.5px]"
+            leaveTo="opacity-0 backdrop-blur-none"
+          >
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+          </Transition.Child>
+          <Transition.Child
+            as={Fragment}
+            enter="transition-all ease-in-out duration-300"
+            enterFrom="translate-x-full"
+            enterTo="translate-x-0"
+            leave="transition-all ease-in-out duration-200"
+            leaveFrom="translate-x-0"
+            leaveTo="translate-x-full"
+          >
+            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col bg-white p-6 text-black dark:bg-black dark:text-white md:w-3/5 lg:w-2/5">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-bold">My Cart</p>
                 <button
                   aria-label="Close cart"
-                  onClick={onClose}
+                  onClick={closeCart}
                   className="text-black transition-colors hover:text-gray-500 dark:text-gray-100"
                   data-testid="close-cart"
                 >
@@ -98,7 +119,7 @@ export default function CartModal({
                           <Link
                             className="flex flex-row space-x-4 py-4"
                             href={merchandiseUrl}
-                            onClick={onClose}
+                            onClick={closeCart}
                           >
                             <div className="relative h-16 w-16 cursor-pointer overflow-hidden bg-white">
                               <Image
@@ -180,9 +201,9 @@ export default function CartModal({
                 </div>
               ) : null}
             </Dialog.Panel>
-          </div>
+          </Transition.Child>
         </Dialog>
-      )}
-    </AnimatePresence>
+      </Transition>
+    </>
   );
 }

@@ -1,13 +1,12 @@
 'use client';
 
 import clsx from 'clsx';
+import { addItem } from 'components/cart/actions';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
-import { useCookies } from 'react-cookie';
 
 import LoadingDots from 'components/loading-dots';
-import { addToCart } from 'lib/medusa';
-import { ProductVariant } from 'lib/medusa/types';
+import { ProductVariant } from 'lib/shopify/types';
 
 export function AddToCart({
   variants,
@@ -20,8 +19,6 @@ export function AddToCart({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [adding, setAdding] = useState(false);
-  const [cookie] = useCookies(['cartId']);
 
   useEffect(() => {
     const variant = variants.find((variant: ProductVariant) =>
@@ -35,40 +32,33 @@ export function AddToCart({
     }
   }, [searchParams, variants, setSelectedVariantId]);
 
-  const isMutating = adding || isPending;
-
-  async function handleAdd() {
-    if (!availableForSale || !variants[0]) return;
-
-    setAdding(true);
-
-    await addToCart(cookie.cartId, {
-      variantId: selectedVariantId || variants[0].id,
-      quantity: 1
-    });
-
-    setAdding(false);
-
-    startTransition(() => {
-      router.refresh();
-    });
-  }
-
   return (
     <button
       aria-label="Add item to cart"
-      disabled={isMutating}
-      onClick={handleAdd}
+      disabled={isPending}
+      onClick={() => {
+        if (!availableForSale) return;
+        startTransition(async () => {
+          const error = await addItem(selectedVariantId);
+
+          if (error) {
+            alert(error);
+            return;
+          }
+
+          router.refresh();
+        });
+      }}
       className={clsx(
         'flex w-full items-center justify-center bg-black p-4 text-sm uppercase tracking-wide text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black',
         {
           'cursor-not-allowed opacity-60': !availableForSale,
-          'cursor-not-allowed': isMutating
+          'cursor-not-allowed': isPending
         }
       )}
     >
       <span>{availableForSale ? 'Add To Cart' : 'Out Of Stock'}</span>
-      {isMutating ? <LoadingDots className="bg-white dark:bg-black" /> : null}
+      {isPending ? <LoadingDots className="bg-white dark:bg-black" /> : null}
     </button>
   );
 }

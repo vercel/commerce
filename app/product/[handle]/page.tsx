@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import Grid from 'components/grid';
 import Footer from 'components/layout/footer';
 import ProductGridItems from 'components/layout/product-grid-items';
-import { AddToCart } from 'components/product/add-to-cart';
+import { AddToCart } from 'components/cart/add-to-cart';
 import { Gallery } from 'components/product/gallery';
 import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
@@ -58,8 +58,31 @@ export default async function ProductPage({ params }: { params: { handle: string
 
   if (!product) return notFound();
 
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    description: product.description,
+    image: product.featuredImage.url,
+    offers: {
+      '@type': 'AggregateOffer',
+      availability: product.availableForSale
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
+      highPrice: product.priceRange.maxVariantPrice.amount,
+      lowPrice: product.priceRange.minVariantPrice.amount
+    }
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd)
+        }}
+      />
       <div className="lg:grid lg:grid-cols-6">
         {product.images && (
           <div className="lg:col-span-4">
@@ -76,7 +99,6 @@ export default async function ProductPage({ params }: { params: { handle: string
         )}
 
         <div className="p-6 lg:col-span-2">
-          {/* @ts-expect-error Server Component */}
           <VariantSelector options={product.options} variants={product.variants} />
 
           {product.descriptionHtml ? (
@@ -87,10 +109,8 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
       </div>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
         <RelatedProducts id={product.id} />
         <Suspense>
-          {/* @ts-expect-error Server Component */}
           <Footer />
         </Suspense>
       </Suspense>
