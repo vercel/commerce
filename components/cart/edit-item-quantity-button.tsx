@@ -1,13 +1,12 @@
 import { useRouter } from 'next/navigation';
-import { startTransition, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useTransition } from 'react';
 
 import clsx from 'clsx';
+import { removeItem, updateItemQuantity } from 'components/cart/actions';
 import MinusIcon from 'components/icons/minus';
 import PlusIcon from 'components/icons/plus';
-import { removeFromCart, updateCart } from 'lib/medusa';
+import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/medusa/types';
-import LoadingDots from '../loading-dots';
 
 export default function EditItemQuantityButton({
   item,
@@ -17,37 +16,31 @@ export default function EditItemQuantityButton({
   type: 'plus' | 'minus';
 }) {
   const router = useRouter();
-  const [editing, setEditing] = useState(false);
-  const [cookie] = useCookies(['cartId']);
+  const [isPending, startTransition] = useTransition();
 
-  async function handleEdit() {
-    const cartId = cookie.cartId;
-
-    if (!cartId) return;
-
-    setEditing(true);
-
-    const method = type === 'minus' && item.quantity - 1 === 0 ? 'remove' : 'update';
-
-    method === 'update' &&
-      (await updateCart(cartId, {
-        lineItemId: item.id,
-        quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
-      }));
-
-    method === 'remove' && (await removeFromCart(cartId, item.id));
-
-    setEditing(false);
-
-    startTransition(() => {
-      router.refresh();
-    });
-  }
   return (
     <button
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
-      onClick={handleEdit}
-      disabled={editing}
+      onClick={() => {
+        startTransition(async () => {
+          const error =
+            type === 'minus' && item.quantity - 1 === 0
+              ? await removeItem(item.id)
+              : await updateItemQuantity({
+                  lineId: item.id,
+                  variantId: item.merchandise.id,
+                  quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
+                });
+
+          if (error) {
+            alert(error);
+            return;
+          }
+
+          router.refresh();
+        });
+      }}
+      disabled={isPending}
       className={clsx(
         'ease flex min-w-[36px] max-w-[36px] items-center justify-center border px-2 transition-all duration-200 hover:border-gray-800 hover:bg-gray-100 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-900',
         {

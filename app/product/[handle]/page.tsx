@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import { AddToCart } from 'components/cart/add-to-cart';
 import Grid from 'components/grid';
 import Footer from 'components/layout/footer';
 import ProductGridItems from 'components/layout/product-grid-items';
-import { AddToCart } from 'components/cart/add-to-cart';
 import { Gallery } from 'components/product/gallery';
 import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
@@ -69,9 +69,8 @@ export default async function ProductPage({ params }: { params: { handle: string
       availability: product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount
+      priceCurrency: product.priceRange.maxVariantPrice.currencyCode,
+      highPrice: product.priceRange.maxVariantPrice.amount
     }
   };
 
@@ -99,6 +98,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         )}
 
         <div className="p-6 lg:col-span-2">
+          {/* @ts-expect-error server component */}
           <VariantSelector options={product.options} variants={product.variants} />
 
           {product.descriptionHtml ? (
@@ -109,8 +109,10 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
       </div>
       <Suspense>
+        {/* @ts-expect-error server component */}
         <RelatedProducts id={product.id} />
         <Suspense>
+          {/* @ts-expect-error server component */}
           <Footer />
         </Suspense>
       </Suspense>

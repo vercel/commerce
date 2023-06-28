@@ -1,6 +1,6 @@
 'use server';
 
-import { addToCart, removeFromCart, updateCart } from 'lib/shopify';
+import { addToCart, removeFromCart, updateCart } from 'lib/medusa';
 import { cookies } from 'next/headers';
 
 export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
@@ -10,7 +10,7 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
     return new Error('Missing cartId or variantId');
   }
   try {
-    await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
+    await addToCart(cartId, { variantId, quantity: 1 });
   } catch (e) {
     return new Error('Error adding item', { cause: e });
   }
@@ -23,7 +23,7 @@ export const removeItem = async (lineId: string): Promise<Error | undefined> => 
     return new Error('Missing cartId');
   }
   try {
-    await removeFromCart(cartId, [lineId]);
+    await removeFromCart(cartId, lineId);
   } catch (e) {
     return new Error('Error removing item', { cause: e });
   }
@@ -44,13 +44,10 @@ export const updateItemQuantity = async ({
     return new Error('Missing cartId');
   }
   try {
-    await updateCart(cartId, [
-      {
-        id: lineId,
-        merchandiseId: variantId,
-        quantity
-      }
-    ]);
+    await updateCart(cartId, {
+      lineItemId: lineId,
+      quantity
+    });
   } catch (e) {
     return new Error('Error updating item quantity', { cause: e });
   }

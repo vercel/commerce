@@ -1,33 +1,16 @@
 import CloseIcon from 'components/icons/close';
 import LoadingDots from 'components/loading-dots';
 import { useRouter } from 'next/navigation';
-import { startTransition, useState } from 'react';
-import { useCookies } from 'react-cookie';
 
 import clsx from 'clsx';
-import { removeFromCart } from 'lib/medusa';
+import { removeItem } from 'components/cart/actions';
 import type { CartItem } from 'lib/medusa/types';
+import { useTransition } from 'react';
 
 export default function DeleteItemButton({ item }: { item: CartItem }) {
   const router = useRouter();
-  const [removing, setRemoving] = useState(false);
-  const [cookie] = useCookies(['cartId']);
+  const [isPending, startTransition] = useTransition();
 
-  async function handleRemove() {
-    const cartId = cookie.cartId;
-
-    if (!cartId) return;
-
-    setRemoving(true);
-
-    await removeFromCart(cartId, item.id);
-
-    setRemoving(false);
-
-    startTransition(() => {
-      router.refresh();
-    });
-  }
   return (
     <button
       aria-label="Remove cart item"
