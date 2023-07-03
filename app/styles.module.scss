@@ -2,4 +2,14 @@
 
 .body {
     background-color: colors.$grey-tint;
+
+    font-family: var(--font-dia);
+
+    color: colors.$black;
+
+    a,
+    a:visited {
+        color: colors.$black;
+        text-decoration: none;
+    }
 }
