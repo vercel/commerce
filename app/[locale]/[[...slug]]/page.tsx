@@ -51,9 +51,6 @@ export default async function Page({ params }: { params: { slug: string[]; local
   );
 }
 
-// Background revalidate once every day.
-// export const revalidate = 86400;
-
 /**
  * Get paths for each page.
  */
