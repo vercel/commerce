@@ -1,9 +1,12 @@
+// Next
+import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
+// Sanity
 import PreviewSuspense from 'components/preview-suspense';
 import getQueryFromSlug from 'helpers/getQueryFromSlug';
 import { docQuery } from 'lib/sanity/queries';
-import { client } from 'lib/sanity/sanity.client';
-import type { Metadata } from 'next';
-import { draftMode } from 'next/headers';
+import { clientFetch } from 'lib/sanity/sanity.client';
+// Pages.
 import CategoryPage from './category-page';
 import CategoryPagePreview from './category-page-preview';
 import HomePage from './home-page';
@@ -23,7 +26,7 @@ export default async function Page({ params }: { params: { slug: string[]; local
 
   const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale);
 
-  const pageData = await client.fetch(query, queryParams);
+  const pageData = await clientFetch(query, queryParams);
 
   const data = filterDataToSingleItem(pageData, isEnabled);
 
@@ -55,7 +58,7 @@ export default async function Page({ params }: { params: { slug: string[]; local
  * Get paths for each page.
  */
 export async function generateStaticParams() {
-  const paths = await client.fetch(docQuery);
+  const paths = await clientFetch(docQuery);
 
   return paths.map((path: { slug: string; locale: string }) => ({
     slug: path.slug.split('/').filter((p) => p),
@@ -95,7 +98,7 @@ export async function generateMetadata({
 
   const { query = '', queryParams } = getQueryFromSlug(slug, locale);
 
-  const pageData = await client.fetch(query, queryParams);
+  const pageData = await clientFetch(query, queryParams);
 
   const data = filterDataToSingleItem(pageData, false);
 
