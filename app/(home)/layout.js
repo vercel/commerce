@@ -1,4 +1,4 @@
-import { TypesNav } from '/components/home.js';
+import { TypesNav } from '/components/home';
 
 export default function HomeLayout({ children }) {
     return (

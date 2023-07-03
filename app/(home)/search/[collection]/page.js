@@ -1,6 +1,6 @@
 import { getCollections } from 'lib/shopify';
 
-import { HomeProductsList } from '/components/home.js';
+import { HomeProductsList } from '/components/home';
 
 export async function generateStaticParams() {
     const collections = await getCollections();

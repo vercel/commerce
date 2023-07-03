@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { Option, Select, NumberInput } from '/components/input.js';
+import { Option, Select, NumberInput } from '/components/input';
 import {
     productAvailableForSale,
     productHasOptions,
