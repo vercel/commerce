@@ -2,89 +2,77 @@
   "markers": [
     {
       "markerType": "product",
-      "markerSource": "idropulitrice-professionale-lavor-lkx-xl-gl",
-      "longitude": 5.030138330238711,
-      "latitude": -0.13981152455807044
-    },
-    {
-      "markerType": "product",
-      "markerSource": "cyclette-decathlon-domyos-140-perfetta",
-      "longitude": 4.860014464553929,
-      "latitude": 0.0028772613941725478
-    },
-    {
-      "markerType": "product",
-      "markerSource": "pistola-spray-verniciatura-100w-total-nuova",
-      "longitude": 3.5562123194977815,
-      "latitude": 0.10816575342975998
-    },
-    {
-      "markerType": "product",
-      "markerSource": "martello-demolitore-perforatore-milwaukee-k-1530h-nuovo",
-      "longitude": 3.5851256823686675,
-      "latitude": 0.3480356971779206
-    },
-    {
-      "markerType": "product",
-      "markerSource": "smerigliatrice-angolare-flex-l-811-800w",
-      "longitude": 3.7630896427085556,
-      "latitude": 0.2788939253883329
-    },
-    {
-      "markerType": "product",
-      "markerSource": "martello-demolitore-perforatore-milwaukee-k-750-s",
-      "longitude": 3.704973139192475,
-      "latitude": 0.12965179888132639
-    },
-    {
-      "markerType": "product",
-      "markerSource": "sigaretta-elettronica-eleaf-just-s-argento",
-      "longitude": 3.6875260992792143,
-      "latitude": 0.026326643347364564
-    },
-    {
-      "markerType": "product",
       "markerSource": "motopompa-efco-pa-1030-a-miscela",
-      "longitude": 3.8199170284070414,
-      "latitude": -0.3477071473741582
+      "longitude": 3.801034519727631,
+      "latitude": -0.3124229591895529
     },
     {
       "markerType": "product",
       "markerSource": "canna-da-pesca-fighter-skipper-dam-nera",
-      "longitude": 3.657069294759234,
-      "latitude": -0.4135294299936805
+      "longitude": 3.6885147446442295,
+      "latitude": -0.3810267098399134
     },
     {
       "markerType": "product",
       "markerSource": "canna-da-pesca-oceanic-trabucco-perfetta",
-      "longitude": 3.852452119995899,
-      "latitude": -0.17498465926225837
-    },
-    {
-      "markerType": "product",
-      "markerSource": "smerigliatrice-milwaukee-m12-fcot-422x",
-      "longitude": 3.887682313242191,
-      "latitude": 0.016444876240533146
+      "longitude": 3.8453976406411376,
+      "latitude": -0.2117249396019809
     },
     {
       "markerType": "product",
       "markerSource": "canna-da-pesca-silstar-con-mulinello-leader-line",
-      "longitude": 3.868810161328202,
-      "latitude": -0.27163457155712933
+      "longitude": 3.864597683097113,
+      "latitude": -0.2752432229855424
     },
     {
       "markerType": "product",
       "markerSource": "canna-da-pesca-vintage-fiume-e-lago-nera",
-      "longitude": 3.8340462873459984,
-      "latitude": -0.25502065322830525
+      "longitude": 3.832010262529771,
+      "latitude": -0.252863048778599
+    },
+    {
+      "markerType": "product",
+      "markerSource": "pistola-spray-verniciatura-100w-total-nuova",
+      "longitude": 3.568571413657692,
+      "latitude": 0.09625358318378607
+    },
+    {
+      "markerType": "product",
+      "markerSource": "martello-demolitore-perforatore-milwaukee-k-1530h-nuovo",
+      "longitude": 3.617947558146669,
+      "latitude": 0.332834051480944
+    },
+    {
+      "markerType": "product",
+      "markerSource": "smerigliatrice-angolare-flex-l-811-800w",
+      "longitude": 3.7463306259785583,
+      "latitude": 0.2654432155570956
+    },
+    {
+      "markerType": "product",
+      "markerSource": "martello-demolitore-perforatore-milwaukee-k-750-s",
+      "longitude": 3.679191963402882,
+      "latitude": 0.12250122139609543
+    },
+    {
+      "markerType": "product",
+      "markerSource": "idropulitrice-professionale-lavor-lkx-xl-gl",
+      "longitude": 5.029710544374183,
+      "latitude": -0.19219146887608685
+    },
+    {
+      "markerType": "product",
+      "markerSource": "cyclette-decathlon-domyos-140-perfetta",
+      "longitude": 4.825786236078441,
+      "latitude": -0.03196984263295333
     },
     {
       "markerType": "image",
       "markerSource": "rancitelli.jpg",
-      "resourceName": "Quartiere Rancitelli (Pescara)",
-      "resourceCaption": null,
-      "longitude": 6.266551552607299,
-      "latitude": 0.0027500815514238663
+      "resourceName": "Quartiere Rancitelli Pescara",
+      "resourceCaption": "-Il quartiere popolare, divenuto tristemente famoso per i suoi casi di cronaca, venne ideato negli anni 60, in pieno boom edilizio, dove parallelamente in molte città italiane le periferie cominciavano a riempirsi, e doveva rispondere alla necessità di dare un vitto alle famiglie in difficoltà.\n-L’edificio del Ferro di Cavallo, nello stesso quartiere, fu costruito tra il 71 e il 73, e prende nome dalla sua forma. Successivamente il suo piano iniziale viene modificato, creando un complesso molto più ampio ed esteso, divenuto negli anni teatro di episodi di spaccio e violenza.",
+      "longitude": 0.7475206664247619,
+      "latitude": 0.17839765757371007
     }
   ]
 }

@@ -3,16 +3,16 @@
     {
       "markerType": "product",
       "markerSource": "sigaretta-elettronica-blu-fill-classic-nera",
-      "longitude": 2.707255494137014,
-      "latitude": -0.09079985019224002
+      "longitude": 2.7108745123237714,
+      "latitude": -0.08891727721105713
     },
     {
       "markerType": "image",
       "markerSource": "eremo san nicola.jpg",
-      "resourceName": "Eremo di San Nicola (Gran Sasso)",
-      "resourceCaption": null,
-      "longitude": 0.38817856280659346,
-      "latitude": 0.1526852675583492
+      "resourceName": "Eremo di San Nicola ",
+      "resourceCaption": "-Situato ad un’altezza di 1096m, sulla parete orientale del Corno Grande, l’eremo è una piccola chiesa in stile romanico, che si stima risalga tra il X e l’XI secolo.\n-Era gestito dai monaci camaldolesi che lo abbandonarono nel 1393 a causa della decadenza della struttura.\n-La chiesa è costituita da blocchi di pietra squadrati, misura 14m di lunghezza e 5,5m di larghezza, possiede un’unica navata suddivisa da tre archi in due campate e presbitero. Il pavimento è in mattoni disposti a spina di pesce. All’interno vi sono resti di affreschi ormai deteriorati.\n-Viene restaurata nel 1947.\n-Il sentiero nei pressi dll’eremo conduce alla fonte di San Nicola, la cui acqua è ritenuta benevola per la cura del mal di testa.",
+      "longitude": 6.0394205434493395,
+      "latitude": 0.23947545726576913
     }
   ]
 }

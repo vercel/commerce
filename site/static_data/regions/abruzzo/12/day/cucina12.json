@@ -2,23 +2,23 @@
   "markers": [
     {
       "markerType": "product",
-      "markerSource": "ipad-6-silver-32gb-wifi-perfetto",
-      "longitude": 0.9507451122465999,
-      "latitude": -0.36418841784317335
+      "markerSource": "apple-watch-serie-5-grigio-siderale-40mm",
+      "longitude": 1.0636002463753749,
+      "latitude": -0.332858294551579
     },
     {
       "markerType": "product",
-      "markerSource": "apple-watch-serie-5-grigio-siderale-40mm",
-      "longitude": 0.8829177579472857,
-      "latitude": -0.3330558189453512
+      "markerSource": "ipad-6-silver-32gb-wifi-perfetto",
+      "longitude": 1.1200152019173062,
+      "latitude": -0.3416519711980821
     },
     {
       "markerType": "image",
       "markerSource": "rocca calascio.jpg",
       "resourceName": "Rocca Calascio",
-      "resourceCaption": null,
-      "longitude": 5.8108317426882286,
-      "latitude": 0.3171483721817996
+      "resourceCaption": "-La rocca, situata a più di 1400m di altezza (in provincia dell’Aquila) e costruita per essere una torre d’avvistamento, si pensa risalga intorno all’anno 1000, anche se il primo documento storico che ne parla è datato 1380.\n-Dal XIV sec diviene possedimento di baroni e nobili che la rafforzano dotandola di una cinghia muraria a scopo militare; e svolge un ruolo importante nei percorsi della transumanza.\n-Nel XVIII secolo un terremoto danneggia il castello, distruggendo il borgo sottostante; nei decenni successivi l’intera area viene progressivamente  abbandonata, non rispondendo più alla sua iniziale funzione strategica.\n-Dagli anni 80 del 900 il castello è oggetto di numerosi restauri e diviene ambientazione di importanti film tra cui Ladyhawke, Il nome della rosa e The american.",
+      "longitude": 5.856258730090748,
+      "latitude": 0.31113584992706933
     }
   ]
 }

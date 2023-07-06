@@ -3,16 +3,16 @@
     {
       "markerType": "product",
       "markerSource": "sigaretta-elettronica-blu-fill-classic-nera",
-      "longitude": 2.707255494137014,
-      "latitude": -0.09079985019224002
+      "longitude": 2.7108745123237714,
+      "latitude": -0.08891727721105713
     },
     {
       "markerType": "image",
       "markerSource": "gran sasso notte.jpg",
-      "resourceName": "Gran Sasso di notte",
-      "resourceCaption": null,
-      "longitude": 0.3427535241380432,
-      "latitude": 0.20375075613186944
+      "resourceName": "Il Gran Sasso",
+      "resourceCaption": "-Situato interamente in Abruzzo, il Gran Sasso è il più alto gruppo montuoso degli Appennini e confina con le province dell’Aquila, Teramo e Pescara.\n-Lungo 50km e largo 15km, ha un perimetro di 130km; è costituito da calcari, dolonia e marne, e comprende numerosi ghiacciai e cascate.\n-Chiamato dagli antichi Romani Fiscellus Mons (Monte Ombelico), per la sua posizione centale nella penisola, nel Medioevo Montecorno, per il Corno Grande, sembra che la denominazione Gran Sasso risalga al Rinascimento.\n-Era opolato già dall’uomo di Neandertal, che vi cacciava le numerose specie animali, alcune tuttora presenti; fin dalla preistoria, ha favorito un intenso scambio commerciale grazie ai numerosi passi (nonostante fossero impervi e poco praticabili) che collegavano i territori del versante teramano con quello aquilano. All’epoca dei Normanni vi furono aperti numerosi tratturi, utilizzati dai pastori per condurre le mandrie nel Tavoliere delle Puglie.",
+      "longitude": 6.022978936002789,
+      "latitude": 0.2695527267841713
     }
   ]
 }

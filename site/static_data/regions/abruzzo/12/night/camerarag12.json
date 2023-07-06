@@ -3,34 +3,34 @@
     {
       "markerType": "product",
       "markerSource": "portafogli-montblanc-uomo",
-      "longitude": 0.8076390398719338,
-      "latitude": -0.23343815758553665
+      "longitude": 0.8117345890616932,
+      "latitude": -0.22476019642269662
     },
     {
       "markerType": "product",
       "markerSource": "ipad-6-silver-32gb-wifi-perfetto",
-      "longitude": 4.153701699026837,
-      "latitude": -0.93714594613362
-    },
-    {
-      "markerType": "product",
-      "markerSource": "mattel-action-figure-wwe-sheamus",
-      "longitude": 3.092122707088536,
-      "latitude": 0.0011851064060353078
+      "longitude": 4.088657646079693,
+      "latitude": -0.9300324607351889
     },
     {
       "markerType": "product",
       "markerSource": "sneakers-buscemi-dollaro-rosso-n-41-perfette",
-      "longitude": 3.0923703239852918,
-      "latitude": -0.2578794019235435
+      "longitude": 3.0884909598320247,
+      "latitude": -0.2775957139369378
+    },
+    {
+      "markerType": "product",
+      "markerSource": "mattel-action-figure-wwe-sheamus",
+      "longitude": 3.0957635144069533,
+      "latitude": -0.005340360452275039
     },
     {
       "markerType": "image",
       "markerSource": "torre cerrano notte.jpeg",
-      "resourceName": "Torre di Cerrano (Pineto) di notte",
-      "resourceCaption": null,
-      "longitude": 0.5464046827247488,
-      "latitude": 0.09776959498871163
+      "resourceName": "Torre di Cerrano",
+      "resourceCaption": "-Situata sulla costa adriatica, a Pineto (Teramo), è un’antica torre costiera del Regno di Napoli, ben evidente nel suo stile (tra le poche rimaste integre), che spicca su una piccola collina a ridosso della spiaggia. \n-Aveva lo scopo di avvistamento, per prevenire i frequenti attacchi di Turchi e Saraceni via mare.\n-Deve il nome dall’omonimo torrente che scende da Atri. L’area un tempo era infatti il sito del porto dell’antica colonia romana Hatria, l’odierna Atri. ",
+      "longitude": 0.005034716494071553,
+      "latitude": 0.057669629465398664
     }
   ]
 }

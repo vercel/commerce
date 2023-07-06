@@ -1,0 +1,26 @@
+{
+  "markers": [
+    {
+      "markerType": "product",
+      "markerSource": "macchina-da-cucire-borletti-vintage-anni-60",
+      "longitude": 0.267633752018405,
+      "latitude": -0.16224450539084612
+    },
+    {
+      "markerType": "image",
+      "markerSource": "mare adriatico.jpg",
+      "resourceName": "Il Mare Adriatico",
+      "resourceCaption": "-Per alcuni storici il nome Adriatico deriva da Adria, città veneta, poi etrusca. Per altri, dal paese abruzzese Atri, un tempo colonia romana.\n-Questo piccolo mare (rispetto al mar Nero o al Baltico), che è la parte orientale del mar Mediterraneo, da almeno il 1000 a.C. svolge un ruolo di crocevia commerciale e culturale tra Oriente e Occidente, seppur in maniera minore rispetto al suo litorale orientale o al Mediterraneo in generale. Infatti è nell’alto Medioevo, con lo sviluppo mercantile di Venezia, che l’Adriatico inizia ad assumere una certa valenza commerciale.\n-I primi navigatori a frequentarlo regolarmente pare siano stati i Micenei.",
+      "longitude": 5.897881707932028,
+      "latitude": -0.16658708828498914
+    },
+    {
+      "markerType": "image",
+      "markerSource": "cappa cucina anni 60.png",
+      "resourceName": "Cappa da cucina anni 60",
+      "resourceCaption": "-Elettrodomestico completamente Made in Italy, la cappa da cucina venne ideata verso la fine degli anni 50 da Abramo Galassi del marchio Faber.\n-Elemento fondamentale di una cucina, spesso sottovalutata in favore di altri elettrodomestici quali ad esempio il forno, rende l’aria purificata da sostanze inquinanti quali fumi, vapori e odori derivati dalla cottura del cibo.\n-A metà degli anni 60, la cappa ad aspirazione motorizzata sostituì in molte cucine italiane quella a tiraggio naturale.\n-Negli anni 70 si diffonde in quasi tutte le cucine italiane e a partire dagli anni 80, con l’evoluzione tecnologica e la cura del design, diviene elemento di connotazione estetica.",
+      "longitude": 1.9848331365175411,
+      "latitude": 0.4193138337799309
+    }
+  ]
+}

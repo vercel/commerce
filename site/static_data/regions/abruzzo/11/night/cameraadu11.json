@@ -3,10 +3,18 @@
     {
       "markerType": "image",
       "markerSource": "trabocco notte.jpg",
-      "resourceName": "Costa dei Trabocchi di notte",
-      "resourceCaption": null,
-      "longitude": 5.868682476452942,
-      "latitude": 0.13383056701675788
+      "resourceName": "Costa dei trabocchi",
+      "resourceCaption": "-Diverse sono le ipotesi sull’origine del nome Trabocco, palafitta che poggia sul mare e da sempre adibita alla pesca e/o ad abitazione delle famiglie di pescatori della zona. Per alcuni il nome deriva dal latino trabs (legno, casa, albero), per altri da trabocchetto teso ai pesci, oppure dalla tecnica di impiantare pali tra gli scogli, nei buchi, o ancora dal trabiccolo usato nei frantoi, simile alla struttura del trabocco.\n-Secondo alcune testimonianze storiche, queste costruzioni in legno di pino sul mare esistevano sul litorale abruzzese già nel 1200: per alcuni si tratterebbe addirittura di un’invenzione dei Fenici. \n-Altri studiosi collocano la comparsa delle strutture in tempi più recenti, a partire dal ‘600. Ma col tempo diventano più leggere e progressivamente vengono abbandonate per disuso o per perdita di conoscenza della loro manutenzione. Oggi sono diventate principalmente strutture ricettive e un’attrazione turistica simbolo della tradizione locale. La tecnica di pesca nei trabocchi ancora attivi, è rimasta la medesima: intercettare con grandi reti le branche di pesci che si spostano lungo la costa.",
+      "longitude": 5.819413148396919,
+      "latitude": 0.18645805670876348
+    },
+    {
+      "markerType": "video",
+      "markerSource": "spot90.mp4",
+      "resourceName": "Pubblicità anni 90",
+      "resourceCaption": "",
+      "longitude": 3.0612056696481305,
+      "latitude": -0.0014277652112324457
     }
   ]
 }

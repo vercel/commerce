@@ -3,16 +3,32 @@
     {
       "markerType": "product",
       "markerSource": "macchina-fotografica-chinon-cm-4s-perfetta-vintage",
-      "longitude": 0.8874928632836481,
-      "latitude": -0.0879156475475007
+      "longitude": 0.8834273161116146,
+      "latitude": -0.07979878734073154
     },
     {
       "markerType": "image",
       "markerSource": "bosco di sant antonio notte.jpeg",
-      "resourceName": "Il bosco di Sant'Antonio di notte",
-      "resourceCaption": null,
-      "longitude": 0.8856565275445835,
-      "latitude": 0.11933925163210213
+      "resourceName": "Il Bosco di Sant'Antonio",
+      "resourceCaption": "-Questa riserva naturale del comune di Pescocostanzo, in provincia dell’Aquila, viene istituita nel 1985 e dal 1991 è compresa nel territorio del parco nazionale della Majella.\n-Il bosco, con una superficie di circa 6km e situato tra i 1300 e i 1400m sul livello del mare, in età classica era considerato un luogo sacro a Giove; nel Medioevo viene consacrato a sant’Antonio abate prima, poi a sant’Antonio da Padova, da cui prende il nome e di cui custodisce un eremo a lui dedicato.\n-Considerato tra le più belle faggete d’Abruzzo, si compone di un paesaggio unico, dall’atmosfera suggestiva e fiabesca e visitabile in tutte le stagioni, essendo adatto per il trakking, le escursioni, l’equitazione, lo scii, picnic o semplici passeggiate.\n-Con la sua ricca flora e la sua variegata fauna, è da tempo protetto dal disboscamento: in passato veniva chiamato Difesa, perché chiuso, proibito e destinato al pascolo. A tal scopo fu utile anche la tecnica di tagliare i faggi a “capitozzatura” consentendo loro di raggiungere ampie dimensioni e ramificarsi a candelabro, fornendo riparo al bestiame. ",
+      "longitude": 0.9400141074247507,
+      "latitude": 0.17391669745422544
+    },
+    {
+      "markerType": "audio",
+      "markerSource": "1980.mp3",
+      "resourceName": "Musica anni 80",
+      "resourceCaption": "",
+      "longitude": 1.5705350692614488,
+      "latitude": 0.18334759564164793
+    },
+    {
+      "markerType": "audio",
+      "markerSource": "1980.mp3",
+      "resourceName": "Musica anni 80",
+      "resourceCaption": "",
+      "longitude": 6.279329846901769,
+      "latitude": -0.036541790947175024
     }
   ]
 }
