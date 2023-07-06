@@ -1,6 +1,6 @@
 import { GridTileImage } from 'components/grid/tile';
-import { getCollectionProducts } from 'lib/shopify';
-import type { Product } from 'lib/shopify/types';
+import { getCollectionProducts } from 'lib/shopware';
+import type { Product } from 'lib/shopware/types';
 import Link from 'next/link';
 
 function ThreeItemGridItem({
@@ -16,7 +16,7 @@ function ThreeItemGridItem({
     <div
       className={size === 'full' ? 'lg:col-span-4 lg:row-span-2' : 'lg:col-span-2 lg:row-span-1'}
     >
-      <Link className="block h-full" href={`/product/${item.handle}`}>
+      <Link className="block h-full" href={`/product/${item.path}`}>
         <GridTileImage
           src={item.featuredImage.url}
           width={size === 'full' ? 1080 : 540}
@@ -38,7 +38,7 @@ function ThreeItemGridItem({
 export async function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
-    collection: 'hidden-homepage-featured-items'
+    collection: 'Summer-BBQ/Hidden-Category'
   });
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;

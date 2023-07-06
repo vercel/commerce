@@ -1,14 +1,14 @@
 import Grid from 'components/grid';
 import { GridTileImage } from 'components/grid/tile';
-import { Product } from 'lib/shopify/types';
+import { Product } from 'lib/shopware/types';
 import Link from 'next/link';
 
 export default function ProductGridItems({ products }: { products: Product[] }) {
   return (
     <>
       {products.map((product) => (
-        <Grid.Item key={product.handle} className="animate-fadeIn">
-          <Link className="h-full w-full" href={`/product/${product.handle}`}>
+        <Grid.Item key={product.path} className="animate-fadeIn">
+          <Link className="h-full w-full" href={`/product/${product.path}`}>
             <GridTileImage
               alt={product.title}
               labels={{

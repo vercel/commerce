@@ -1,12 +1,16 @@
 import clsx from 'clsx';
 import { Suspense } from 'react';
 
-import { getCollections } from 'lib/shopify';
+import { getStaticCollections } from 'lib/shopware';
 import FilterList from './filter';
+import { transformStaticCollectionToList } from 'lib/shopware/transform';
 
 async function CollectionList() {
-  const collections = await getCollections();
-  return <FilterList list={collections} title="Collections" />;
+  const collections = await getStaticCollections();
+  if (collections) {
+    const list = transformStaticCollectionToList(collections);
+    return <FilterList list={list} title="Collections" />;
+  }
 }
 
 const skeleton = 'mb-3 h-4 w-5/6 animate-pulse rounded';

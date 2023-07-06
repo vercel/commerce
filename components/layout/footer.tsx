@@ -2,16 +2,15 @@ import Link from 'next/link';
 
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
-import VercelIcon from 'components/icons/vercel';
-import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
+import { getMenu } from 'lib/shopware';
+import { Menu } from 'lib/shopware/types';
 
 const { SITE_NAME } = process.env;
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const menu = await getMenu('next-js-frontend-footer-menu');
+  const menu = await getMenu({ type: 'footer-navigation' });
 
   return (
     <footer className="border-t border-gray-700 bg-white text-black dark:bg-black dark:text-white">
@@ -52,15 +51,22 @@ export default async function Footer() {
             &copy; {copyrightDate} {SITE_NAME}. All rights reserved.
           </p>
           <div className="flex items-center text-sm text-white dark:text-black">
-            <span className="text-black dark:text-white">Created by</span>
+            <span className="text-black dark:text-white">
+              Created by Shopware Composable Frontends
+            </span>
             <a
               rel="noopener noreferrer"
-              href="https://vercel.com"
-              aria-label="Vercel.com Link"
+              href="https://frontends.shopware.com/"
+              aria-label="Shopware Composable Frontends Link"
               target="_blank"
               className="text-black dark:text-white"
             >
-              <VercelIcon className="ml-3 inline-block h-6" />
+              <div className="ml-4 h-auto w-10">
+                <img
+                  src="https://www.shopware.com/media/pages/solutions/shopware-frontends/shopware-frontends-intro-graphic-base.svg"
+                  alt="Shopware Composable Frontends Logo"
+                ></img>
+              </div>
             </a>
           </div>
         </div>

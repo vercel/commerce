@@ -10,8 +10,8 @@ import { Gallery } from 'components/product/gallery';
 import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
-import { Image } from 'lib/shopify/types';
+import { getProduct, getProductRecommendations } from 'lib/shopware';
+import { Image } from 'lib/shopware/types';
 
 export const runtime = 'edge';
 
@@ -20,6 +20,7 @@ export async function generateMetadata({
 }: {
   params: { handle: string };
 }): Promise<Metadata> {
+  // @ToDo: create a simpler function and do not do the heavy options/variant stuff here
   const product = await getProduct(params.handle);
 
   if (!product) return notFound();

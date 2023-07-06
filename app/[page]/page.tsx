@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import Prose from 'components/prose';
-import { getPage } from 'lib/shopify';
+import { getPage } from 'lib/shopware';
 import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';
@@ -39,6 +39,10 @@ export default async function Page({ params }: { params: { page: string } }) {
   const page = await getPage(params.page);
 
   if (!page) return notFound();
+  let date = page.createdAt;
+  if (page.updatedAt !== '') {
+    date = page.updatedAt;
+  }
 
   return (
     <>
@@ -49,7 +53,7 @@ export default async function Page({ params }: { params: { page: string } }) {
           year: 'numeric',
           month: 'long',
           day: 'numeric'
-        }).format(new Date(page.updatedAt))}.`}
+        }).format(new Date(date))}.`}
       </p>
     </>
   );
