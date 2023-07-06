@@ -143,7 +143,7 @@ export function transformProduct(item: ApiSchemas['Product']): Product {
         currencyCode: 'EUR'
       }
     },
-    variants: [],
+    variants: productVariants,
     featuredImage: {
       url: item.cover?.media?.url ?? '',
       altText: item.cover?.media?.translated?.alt ?? '',
@@ -198,6 +198,35 @@ function transformOptions(parent: ApiSchemas['Product']): ProductOption[] {
 
 function transformVariants(parent: ApiSchemas['Product']): ProductVariant[] {
   let productVariants: ProductVariant[] = [];
+  if (parent.children && parent.parentId === null && parent.children.length > 0) {
+    parent.children.map((child) => {
+      if (child.id) {
+        let selectedOptions: { name: string; value: string }[] = [];
+        child.options?.map((option) => {
+          if (option.group) {
+            selectedOptions.push({
+              name: option.group.name,
+              value: option.name
+            });
+          }
+        });
+        const currentVariant: ProductVariant = {
+          id: child.id,
+          title: child.name,
+          availableForSale: child.available ?? false,
+          selectedOptions: selectedOptions,
+          price: {
+            amount: child.calculatedPrice?.totalPrice
+              ? String(child.calculatedPrice?.totalPrice)
+              : '0',
+            currencyCode: 'EUR'
+          }
+        };
+
+        productVariants.push(currentVariant)
+      }
+    });
+  }
 
   return productVariants;
 }
