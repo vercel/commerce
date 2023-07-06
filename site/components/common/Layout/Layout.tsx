@@ -148,7 +148,7 @@ const Layout: React.FC<Props> = ({
             </Button>
           }
         />
-        {/** Tidio Chat Script to implement Widget */}
+        {/** Tidio Chat Script to implement Chat Widget */}
         <Script
           src="//code.tidio.co/q0sllyxxrrek7mix7eqt41hsgluycqcn.js"
           id="show-banner"
