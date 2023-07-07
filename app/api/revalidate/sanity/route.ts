@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   if (type === 'home') {
     pathToRevalidate = slug;
   } else {
-    pathToRevalidate = '[...slug]';
+    pathToRevalidate = slug;
   }
 
   revalidatePath(pathToRevalidate);
