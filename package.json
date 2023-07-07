@@ -19,5 +19,8 @@
       "pre-commit": "turbo run lint"
     }
   },
-  "packageManager": "pnpm@7.5.0"
+  "packageManager": "pnpm@7.5.0",
+  "dependencies": {
+    "sharp": "^0.32.1"
+  }
 }
