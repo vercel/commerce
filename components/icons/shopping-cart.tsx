@@ -1,6 +1,13 @@
-export default function ShoppingCartIcon() {
+export default function ShoppingCartIcon({ className }: { className?: string }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g clip-path="url(#clip0_137_611)">
         <path
           d="M6.00004 14.6667C6.36823 14.6667 6.66671 14.3682 6.66671 14C6.66671 13.6319 6.36823 13.3334 6.00004 13.3334C5.63185 13.3334 5.33337 13.6319 5.33337 14C5.33337 14.3682 5.63185 14.6667 6.00004 14.6667Z"
