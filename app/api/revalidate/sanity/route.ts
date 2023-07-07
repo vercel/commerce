@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
   const path = request.nextUrl.searchParams.get('path') || '/'
 
   console.log(`===== Path: ${path}`)
+  console.log(`===== Search params: ${request.nextUrl.searchParams}`)
   
   // Get headers.
   const headersList = headers();
