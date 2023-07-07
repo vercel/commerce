@@ -1,5 +1,4 @@
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook';
-import { i18n } from 'i18n-config';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -27,8 +26,7 @@ export async function POST(request: NextRequest) {
   }
 
   const slug = requestData.slug;
-  const locale = requestData.locale;
-  const pathToRevalidate = i18n.defaultLocale === locale ? slug : `/${locale}${slug}`;
+  const pathToRevalidate = slug;
 
   revalidatePath(pathToRevalidate);
 
