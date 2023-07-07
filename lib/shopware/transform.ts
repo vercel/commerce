@@ -12,18 +12,22 @@ import { ListItem } from 'components/layout/search/filter';
 export function transformMenu(res: ApiSchemas['NavigationRouteResponse']) {
   let menu: Menu[] = [];
 
-  res.map((item) =>
-    menu.push({
-      id: item.id ?? '',
-      title: item.name,
-      path:
-        item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
-          ? '/search/' + item.seoUrls[0].seoPathInfo
-          : ''
-    })
-  );
+  res.map((item) => menu.push(transformMenuItem(item)));
 
   return menu;
+}
+
+function transformMenuItem(item: ApiSchemas['Category']): Menu {
+  return {
+    id: item.id ?? '',
+    title: item.name,
+    children: item.children?.map((item) => transformMenuItem(item)) ?? [],
+    path:
+      item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
+        ? '/search/' + item.seoUrls[0].seoPathInfo
+        : '',
+    type: item.children && item.children.length > 0 ? 'headline' : 'link'
+  };
 }
 
 export function transformPage(
@@ -223,7 +227,7 @@ function transformVariants(parent: ApiSchemas['Product']): ProductVariant[] {
           }
         };
 
-        productVariants.push(currentVariant)
+        productVariants.push(currentVariant);
       }
     });
   }

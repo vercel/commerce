@@ -689,7 +689,7 @@ export type components = {
       breadcrumb?: readonly unknown[];
       /** Format: int64 */
       childCount?: number;
-      children?: components['schemas']['Category'];
+      children?: components['schemas']['Category'][];
       cmsPage?: components['schemas']['CmsPage'];
       cmsPageId?: string;
       /** Runtime field, cannot be used as part of the criteria. */

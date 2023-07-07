@@ -18,14 +18,15 @@ const apiInstance = createAPIClient<operations, operationPaths>({
 });
 
 export async function requestNavigation(
-  type: StoreNavigationTypeSW
+  type: StoreNavigationTypeSW,
+  depth: number
 ): Promise<ApiSchemas['NavigationRouteResponse']> {
   return await apiInstance.invoke(
     'readNavigation post /navigation/{activeId}/{rootId} sw-include-seo-urls',
     {
       activeId: type,
       rootId: type,
-      depth: 1
+      depth: depth
     }
   );
 }

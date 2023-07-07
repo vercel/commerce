@@ -10,37 +10,52 @@ const { SITE_NAME } = process.env;
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const menu = await getMenu({ type: 'footer-navigation' });
+  const menu = await getMenu({ type: 'footer-navigation', depth: 2 });
 
   return (
     <footer className="border-t border-gray-700 bg-white text-black dark:bg-black dark:text-white">
       <div className="mx-auto w-full max-w-7xl px-6">
         <div className="grid grid-cols-1 gap-8 border-b border-gray-700 py-12 transition-colors duration-150 lg:grid-cols-12">
-          <div className="col-span-1 lg:col-span-3">
-            <a className="flex flex-initial items-center font-bold md:mr-24" href="/">
-              <span className="mr-2">
+          <div className="col-span-1 lg:col-span-4">
+            <a className="flex flex-initial items-center font-bold" href="/">
+              <span className="mr-4">
                 <LogoIcon className="h-8" />
               </span>
               <span>{SITE_NAME}</span>
             </a>
           </div>
-          {menu.length ? (
-            <nav className="col-span-1 lg:col-span-7">
-              <ul className="grid md:grid-flow-col md:grid-cols-3 md:grid-rows-4">
-                {menu.map((item: Menu) => (
-                  <li key={item.title} className="py-3 md:py-0 md:pb-4">
-                    <Link
-                      href={item.path}
-                      className="text-gray-800 transition duration-150 ease-in-out hover:text-gray-300 dark:text-gray-100"
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {menu.map((item: Menu) => (
+            < nav className="col-span-1 lg:col-span-3" key={item.title + item.type} >
+              {
+                item.type === "headline" ? (
+                  <span className='font-bold'>{item.title}</span>
+                ) : null
+              }
+              {item.children.length > 0 ? (
+                <ul className="py-3 md:py-0 md:pt-4" key={item.title}>
+                  {item.children.map((item: Menu) => (
+                    <li key={item.title} className="py-3 md:py-0 md:pb-4">
+                      <Link
+                        href={item.path}
+                        className="text-gray-800 transition duration-150 ease-in-out hover:text-gray-300 dark:text-gray-100"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) :
+                // if there are no children, at least display a link
+                <Link
+                  key={item.title}
+                  href={item.path}
+                  className="text-gray-800 transition duration-150 ease-in-out hover:text-gray-300 dark:text-gray-100"
+                >
+                  {item.title}
+                </Link>}
             </nav>
-          ) : null}
-          <div className="col-span-1 text-black dark:text-white lg:col-span-2">
+          ))}
+          <div className="col-span-1 text-black dark:text-white lg:col-span-2 inline-grid justify-items-end">
             <a aria-label="Github Repository" href="https://github.com/vercel/commerce">
               <GitHubIcon className="h-6" />
             </a>
@@ -71,6 +86,6 @@ export default async function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 }

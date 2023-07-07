@@ -34,9 +34,10 @@ import {
   transformStaticCollection
 } from './transform';
 
-export async function getMenu(params?: { type?: StoreNavigationTypeSW }): Promise<Menu[]> {
+export async function getMenu(params?: { type?: StoreNavigationTypeSW, depth?: number }): Promise<Menu[]> {
   const type = params?.type || 'main-navigation';
-  const res = await requestNavigation(type);
+  const depth = params?.depth || 1;
+  const res = await requestNavigation(type, depth);
 
   return res ? transformMenu(res) : [];
 }

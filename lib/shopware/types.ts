@@ -18,7 +18,7 @@ export type SeoURLResultSW = {
 } & ApiSchemas['EntitySearchResult'];
 
 /** Vercel Commerce Types */
-export type Menu = { id: string; title: string; path: string };
+export type Menu = { id: string; title: string; path: string, type: string, children: Menu[] };
 
 export type Page = {
   id: string;
