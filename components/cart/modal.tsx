@@ -5,8 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import CartIcon from 'components/icons/cart';
-import CloseIcon from 'components/icons/close';
-import ShoppingBagIcon from 'components/icons/shopping-bag';
+import ShoppingCartIcon from 'components/icons/shopping-cart';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopify/types';
@@ -78,27 +77,23 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col bg-white p-6 text-black dark:bg-black dark:text-white md:w-3/5 lg:w-2/5">
+            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col bg-white/90 p-6 text-black backdrop-blur-xl dark:bg-black/90 dark:text-white md:w-[390px]">
               <div className="flex items-center justify-between">
-                <p className="text-lg font-bold">My Cart</p>
-                <button
-                  aria-label="Close cart"
-                  onClick={closeCart}
-                  className="text-black transition-colors hover:text-gray-500 dark:text-gray-100"
-                  data-testid="close-cart"
-                >
-                  <CloseIcon className="h-7" />
+                <p className="text-lg font-semibold">My Cart</p>
+
+                <button aria-label="Close cart" onClick={closeCart} data-testid="close-cart">
+                  <CartIcon quantity={cart.totalQuantity} />
                 </button>
               </div>
 
               {cart.lines.length === 0 ? (
-                <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
-                  <ShoppingBagIcon className="h-16" />
-                  <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
+                <div className="flex flex-col items-center justify-center w-full mt-20 overflow-hidden">
+                  <ShoppingCartIcon className="h-16" />
+                  <p className="mt-6 text-2xl font-bold text-center">Your cart is empty.</p>
                 </div>
               ) : (
-                <div className="flex h-full flex-col justify-between overflow-hidden">
-                  <ul className="flex-grow overflow-auto p-6">
+                <div className="flex flex-col justify-between h-full overflow-hidden">
+                  <ul className="flex-grow p-6 overflow-auto">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
@@ -114,54 +109,61 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                       );
 
                       return (
-                        <li key={i} data-testid="cart-item">
+                        <li key={i} data-testid="cart-item" className="flex flex-col">
                           <Link
-                            className="flex flex-row space-x-4 py-4"
+                            className="flex flex-row py-4 space-x-4"
                             href={merchandiseUrl}
                             onClick={closeCart}
                           >
-                            <div className="relative h-16 w-16 cursor-pointer overflow-hidden bg-white">
-                              <Image
-                                className="h-full w-full object-cover"
-                                width={64}
-                                height={64}
-                                alt={
-                                  item.merchandise.product.featuredImage.altText ||
-                                  item.merchandise.product.title
-                                }
-                                src={item.merchandise.product.featuredImage.url}
-                              />
+                            <div className="relative rounded-md border border-dark-gray-4 bg-white/[6.6%] hover:bg-white/[8.7%]">
+                              <div className="absolute right-0 -mt-2 -mr-2">
+                                <DeleteItemButton item={item} />
+                              </div>
+                              <div className="w-16 h-16 overflow-hidden rounded-md cursor-pointer">
+                                <Image
+                                  className="object-cover w-full h-full "
+                                  width={64}
+                                  height={64}
+                                  alt={
+                                    item.merchandise.product.featuredImage.altText ||
+                                    item.merchandise.product.title
+                                  }
+                                  src={item.merchandise.product.featuredImage.url}
+                                />
+                              </div>
                             </div>
-                            <div className="flex flex-1 flex-col text-base">
-                              <span className="font-semibold">
+
+                            <div className="flex flex-col flex-1 text-base">
+                              <span className="leading-tight">
                                 {item.merchandise.product.title}
                               </span>
                               {item.merchandise.title !== DEFAULT_OPTION ? (
-                                <p className="text-sm" data-testid="cart-product-variant">
+                                <p className="font-semibold " data-testid="cart-product-variant">
                                   {item.merchandise.title}
                                 </p>
                               ) : null}
                             </div>
-                            <Price
-                              className="flex flex-col justify-between space-y-2 text-sm"
-                              amount={item.cost.totalAmount.amount}
-                              currencyCode={item.cost.totalAmount.currencyCode}
-                            />
+                            <div className="flex flex-col justify-between h-16">
+                              <Price
+                                className="flex flex-col justify-between space-y-2 text-sm"
+                                amount={item.cost.totalAmount.amount}
+                                currencyCode={item.cost.totalAmount.currencyCode}
+                              />
+                              <div className="flex flex-row items-center ml-auto border rounded-full h-9 border-dark-gray-4">
+                                <EditItemQuantityButton item={item} type="minus" />
+                                <p className="">
+                                  <span className="w-full px-2 text-sm">{item.quantity}</span>
+                                </p>
+                                <EditItemQuantityButton item={item} type="plus" />
+                              </div>
+                            </div>
                           </Link>
-                          <div className="flex h-9 flex-row">
-                            <DeleteItemButton item={item} />
-                            <p className="ml-2 flex w-full items-center justify-center border dark:border-gray-700">
-                              <span className="w-full px-2">{item.quantity}</span>
-                            </p>
-                            <EditItemQuantityButton item={item} type="minus" />
-                            <EditItemQuantityButton item={item} type="plus" />
-                          </div>
                         </li>
                       );
                     })}
                   </ul>
-                  <div className="border-t border-gray-200 pt-2 text-sm text-black dark:text-white">
-                    <div className="mb-2 flex items-center justify-between">
+                  <div className="pt-2 text-sm text-black border-t border-gray-200 dark:text-white">
+                    <div className="flex items-center justify-between mb-2">
                       <p>Subtotal</p>
                       <Price
                         className="text-right"
@@ -169,7 +171,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         currencyCode={cart.cost.subtotalAmount.currencyCode}
                       />
                     </div>
-                    <div className="mb-2 flex items-center justify-between">
+                    <div className="flex items-center justify-between mb-2">
                       <p>Taxes</p>
                       <Price
                         className="text-right"
@@ -177,11 +179,11 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div>
-                    <div className="mb-2 flex items-center justify-between border-b border-gray-200 pb-2">
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-gray-200">
                       <p>Shipping</p>
                       <p className="text-right">Calculated at checkout</p>
                     </div>
-                    <div className="mb-2 flex items-center justify-between font-bold">
+                    <div className="flex items-center justify-between mb-2 font-bold">
                       <p>Total</p>
                       <Price
                         className="text-right"
@@ -192,7 +194,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                   </div>
                   <a
                     href={cart.checkoutUrl}
-                    className="flex w-full items-center justify-center bg-black p-3 text-sm font-medium uppercase text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black"
+                    className="flex items-center justify-center w-full p-3 text-sm font-medium text-white uppercase bg-black opacity-90 hover:opacity-100 dark:bg-white dark:text-black"
                   >
                     <span>Proceed to Checkout</span>
                   </a>

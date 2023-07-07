@@ -19,7 +19,9 @@ module.exports = {
         hotPink: '#FF1966',
         dark: '#111111',
         light: '#FAFAFA',
-        violetDark: '#4c2889'
+        violetDark: '#4c2889',
+        'dark-gray-4': '#2E2E2E',
+        'base-gray-900': '#666666'
       },
       keyframes: {
         fadeIn: {

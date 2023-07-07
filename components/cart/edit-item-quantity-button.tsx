@@ -42,7 +42,7 @@ export default function EditItemQuantityButton({
       }}
       disabled={isPending}
       className={clsx(
-        'ease flex min-w-[36px] max-w-[36px] items-center justify-center border px-2 transition-all duration-200 hover:border-gray-800 hover:bg-gray-100 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-900',
+        'ease flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-gray-800 hover:opacity-80',
         {
           'cursor-not-allowed': isPending,
           'ml-auto': type === 'minus'
@@ -52,9 +52,9 @@ export default function EditItemQuantityButton({
       {isPending ? (
         <LoadingDots className="bg-black dark:bg-white" />
       ) : type === 'plus' ? (
-        <PlusIcon className="h-4 w-4" />
+        <PlusIcon className="w-4 h-4" />
       ) : (
-        <MinusIcon className="h-4 w-4" />
+        <MinusIcon className="w-4 h-4" />
       )}
     </button>
   );
