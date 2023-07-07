@@ -112,9 +112,9 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         <li
                           key={i}
                           data-testid="cart-item"
-                          className="flex flex-col w-full border-b border-dark-gray-4"
+                          className="flex w-full flex-col border-b border-black/[8%] dark:border-dark-gray-4"
                         >
-                          <div className="flex flex-row justify-between w-full py-4">
+                          <div className="relative flex flex-row justify-between w-full py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
                               <DeleteItemButton item={item} />
                             </div>
@@ -123,7 +123,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                               onClick={closeCart}
                               className="z-30 flex flex-row space-x-4"
                             >
-                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md rounded-md border border-dark-gray-4 bg-white/[6.6%] hover:bg-white/[8.7%]">
+                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-black/[8%] bg-black/[5%] dark:border-dark-gray-4 dark:bg-white/[6.6%] dark:hover:bg-white/[8.7%]">
                                 <Image
                                   className="object-cover w-full h-full "
                                   width={64}
@@ -142,7 +142,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
                                   <p
-                                    className="text-sm text-white/[54%]"
+                                    className="text-sm text-dark-gray-7 dark:text-white/[54%]"
                                     data-testid="cart-product-variant"
                                   >
                                     {item.merchandise.title}
@@ -169,31 +169,23 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                       );
                     })}
                   </ul>
-                  <div className="pt-2 text-sm text-black border-t border-gray-200 dark:text-white">
-                    <div className="flex items-center justify-between mb-2">
-                      <p>Subtotal</p>
-                      <Price
-                        className="text-right"
-                        amount={cart.cost.subtotalAmount.amount}
-                        currencyCode={cart.cost.subtotalAmount.currencyCode}
-                      />
-                    </div>
-                    <div className="flex items-center justify-between mb-2">
+                  <div className="py-4 text-sm text-black/[44%] dark:text-white/[54%]">
+                    <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 dark:border-dark-gray-4">
                       <p>Taxes</p>
                       <Price
-                        className="text-right"
+                        className="text-base text-right text-black dark:text-white"
                         amount={cart.cost.totalTaxAmount.amount}
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div>
-                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-gray-200">
+                    <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 pt-1 dark:border-dark-gray-4">
                       <p>Shipping</p>
                       <p className="text-right">Calculated at checkout</p>
                     </div>
-                    <div className="flex items-center justify-between mb-2 font-bold">
+                    <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 pt-1 dark:border-dark-gray-4">
                       <p>Total</p>
                       <Price
-                        className="text-right"
+                        className="text-base text-right text-black dark:text-white"
                         amount={cart.cost.totalAmount.amount}
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />
@@ -201,7 +193,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                   </div>
                   <a
                     href={cart.checkoutUrl}
-                    className="flex items-center justify-center w-full p-3 text-sm font-medium text-white uppercase bg-black opacity-90 hover:opacity-100 dark:bg-white dark:text-black"
+                    className="flex items-center justify-center w-full p-3 text-sm font-medium text-white rounded-full bg-vercel-blue opacity-90 hover:opacity-100"
                   >
                     <span>Proceed to Checkout</span>
                   </a>

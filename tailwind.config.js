@@ -21,8 +21,10 @@ module.exports = {
         light: '#FAFAFA',
         violetDark: '#4c2889',
         'dark-gray-4': '#2E2E2E',
+        'dark-gray-7': '#8f8f8f',
         'base-gray-900': '#666666',
-        'light-gray-4': '#EAEAEA'
+        'light-gray-4': '#EAEAEA',
+        'vercel-blue': '#0C4BE6'
       },
       keyframes: {
         fadeIn: {
