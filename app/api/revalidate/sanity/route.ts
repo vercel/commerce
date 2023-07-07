@@ -1,4 +1,5 @@
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook';
+import { i18n } from 'i18n-config';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -26,9 +27,21 @@ export async function POST(request: NextRequest) {
   }
 
   const slug: string = requestData.slug;
+  const type: string = requestData.type;
+  const locale: string = requestData.locale;
 
-  revalidatePath(`${slug}`)
+  if (type === 'home') {
+    revalidatePath(`${slug}`)
+    console.log(`Revalidated path: ${slug}`);
+  } else {
+    if (i18n.defaultLocale === locale) {
+      revalidatePath(`${slug}`)
+      console.log(`Revalidated path: ${slug}`);
+    } else {
+      revalidatePath(`${locale}${slug}`)
+      console.log(`Revalidated path: ${locale}${slug}`);
+    }
+  }
 
-  console.log(`Revalidated path: ${slug}`);
   return NextResponse.json({ revalidated: true, now: Date.now() });
 }
