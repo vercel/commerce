@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
   let pathToRevalidate = "";
 
   if (type === "home") {
-    pathToRevalidate = `${slug}`
+    pathToRevalidate = `/${locale}`
   } else {
     pathToRevalidate = `/${locale}${slug}`
   }
