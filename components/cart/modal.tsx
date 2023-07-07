@@ -93,7 +93,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                 </div>
               ) : (
                 <div className="flex flex-col justify-between h-full overflow-hidden">
-                  <ul className="flex-grow p-6 overflow-auto">
+                  <ul className="flex-grow py-4 overflow-auto">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
@@ -109,40 +109,46 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                       );
 
                       return (
-                        <li key={i} data-testid="cart-item" className="flex flex-col">
-                          <Link
-                            className="flex flex-row py-4 space-x-4"
-                            href={merchandiseUrl}
-                            onClick={closeCart}
-                          >
-                            <div className="relative rounded-md border border-dark-gray-4 bg-white/[6.6%] hover:bg-white/[8.7%]">
-                              <div className="absolute right-0 -mt-2 -mr-2">
-                                <DeleteItemButton item={item} />
+                        <li
+                          key={i}
+                          data-testid="cart-item"
+                          className="flex flex-col w-full border-b"
+                        >
+                          <div className="flex flex-row justify-between w-full py-4">
+                            <Link
+                              href={merchandiseUrl}
+                              onClick={closeCart}
+                              className="flex flex-row space-x-4"
+                            >
+                              <div className="relative rounded-md border border-dark-gray-4 bg-white/[6.6%] hover:bg-white/[8.7%]">
+                                <div className="absolute right-0 -mt-2 -mr-2">
+                                  <DeleteItemButton item={item} />
+                                </div>
+                                <div className="w-16 h-16 overflow-hidden rounded-md cursor-pointer">
+                                  <Image
+                                    className="object-cover w-full h-full "
+                                    width={64}
+                                    height={64}
+                                    alt={
+                                      item.merchandise.product.featuredImage.altText ||
+                                      item.merchandise.product.title
+                                    }
+                                    src={item.merchandise.product.featuredImage.url}
+                                  />
+                                </div>
                               </div>
-                              <div className="w-16 h-16 overflow-hidden rounded-md cursor-pointer">
-                                <Image
-                                  className="object-cover w-full h-full "
-                                  width={64}
-                                  height={64}
-                                  alt={
-                                    item.merchandise.product.featuredImage.altText ||
-                                    item.merchandise.product.title
-                                  }
-                                  src={item.merchandise.product.featuredImage.url}
-                                />
-                              </div>
-                            </div>
 
-                            <div className="flex flex-col flex-1 text-base">
-                              <span className="leading-tight">
-                                {item.merchandise.product.title}
-                              </span>
-                              {item.merchandise.title !== DEFAULT_OPTION ? (
-                                <p className="font-semibold " data-testid="cart-product-variant">
-                                  {item.merchandise.title}
-                                </p>
-                              ) : null}
-                            </div>
+                              <div className="flex flex-col flex-1 text-base">
+                                <span className="leading-tight">
+                                  {item.merchandise.product.title}
+                                </span>
+                                {item.merchandise.title !== DEFAULT_OPTION ? (
+                                  <p className="font-semibold " data-testid="cart-product-variant">
+                                    {item.merchandise.title}
+                                  </p>
+                                ) : null}
+                              </div>
+                            </Link>
                             <div className="flex flex-col justify-between h-16">
                               <Price
                                 className="flex flex-col justify-between space-y-2 text-sm"
@@ -157,7 +163,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 <EditItemQuantityButton item={item} type="plus" />
                               </div>
                             </div>
-                          </Link>
+                          </div>
                         </li>
                       );
                     })}
