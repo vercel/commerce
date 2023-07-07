@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 const SANITY_WEBHOOK_SECRET = `${process.env.SANITY_WEBHOOK_SECRET}`;
-export const runtime = 'edge'
+
 export async function POST(request: NextRequest) {
   // Await the response from our request.
   const requestData = await request.json();
@@ -28,15 +28,9 @@ export async function POST(request: NextRequest) {
   const slug = requestData.slug;
   const locale = requestData.locale;
   const type = requestData.type;
-  let pathToRevalidate = "";
+  const pathToRevalidate = slug;
 
-  if (type === "home") {
-    pathToRevalidate = `${slug}`
-  } else {
-    pathToRevalidate = `/${locale}${slug}`
-  }
-
-  revalidatePath(pathToRevalidate);
+  revalidatePath(slug);
 
   console.log(`===== Revalidated path: ${pathToRevalidate}`);
   return NextResponse.json({ revalidated: true, now: Date.now() });
