@@ -8,6 +8,10 @@ const SANITY_WEBHOOK_SECRET = `${process.env.SANITY_WEBHOOK_SECRET}`;
 export async function POST(request: NextRequest) {
   // Await the response from our request.
   const requestData = await request.json();
+
+  const path = request.nextUrl.searchParams.get('path') || '/'
+
+  console.log(`===== Path: ${path}`)
   
   // Get headers.
   const headersList = headers();
