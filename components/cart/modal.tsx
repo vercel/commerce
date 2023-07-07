@@ -66,7 +66,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
             leaveFrom="opacity-100 backdrop-blur-[.5px]"
             leaveTo="opacity-0 backdrop-blur-none"
           >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            <div className="fixed inset-0 " aria-hidden="true" />
           </Transition.Child>
           <Transition.Child
             as={Fragment}
@@ -77,7 +77,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col bg-white/90 p-6 text-black backdrop-blur-xl dark:bg-black/90 dark:text-white md:w-[390px]">
+            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col bg-white/80 p-6 text-black backdrop-blur-xl dark:bg-black/80 dark:text-white md:w-[390px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">My Cart</p>
 
@@ -112,30 +112,28 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         <li
                           key={i}
                           data-testid="cart-item"
-                          className="flex flex-col w-full border-b"
+                          className="flex flex-col w-full border-b border-dark-gray-4"
                         >
                           <div className="flex flex-row justify-between w-full py-4">
+                            <div className="absolute z-40 -mt-2 ml-[55px]">
+                              <DeleteItemButton item={item} />
+                            </div>
                             <Link
                               href={merchandiseUrl}
                               onClick={closeCart}
-                              className="flex flex-row space-x-4"
+                              className="z-30 flex flex-row space-x-4"
                             >
-                              <div className="relative rounded-md border border-dark-gray-4 bg-white/[6.6%] hover:bg-white/[8.7%]">
-                                <div className="absolute right-0 -mt-2 -mr-2">
-                                  <DeleteItemButton item={item} />
-                                </div>
-                                <div className="w-16 h-16 overflow-hidden rounded-md cursor-pointer">
-                                  <Image
-                                    className="object-cover w-full h-full "
-                                    width={64}
-                                    height={64}
-                                    alt={
-                                      item.merchandise.product.featuredImage.altText ||
-                                      item.merchandise.product.title
-                                    }
-                                    src={item.merchandise.product.featuredImage.url}
-                                  />
-                                </div>
+                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md rounded-md border border-dark-gray-4 bg-white/[6.6%] hover:bg-white/[8.7%]">
+                                <Image
+                                  className="object-cover w-full h-full "
+                                  width={64}
+                                  height={64}
+                                  alt={
+                                    item.merchandise.product.featuredImage.altText ||
+                                    item.merchandise.product.title
+                                  }
+                                  src={item.merchandise.product.featuredImage.url}
+                                />
                               </div>
 
                               <div className="flex flex-col flex-1 text-base">
@@ -143,7 +141,10 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                   {item.merchandise.product.title}
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
-                                  <p className="font-semibold " data-testid="cart-product-variant">
+                                  <p
+                                    className="text-sm text-white/[54%]"
+                                    data-testid="cart-product-variant"
+                                  >
                                     {item.merchandise.title}
                                   </p>
                                 ) : null}
