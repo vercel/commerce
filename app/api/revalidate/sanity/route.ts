@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
   if (type === "home") {
     pathToRevalidate = `${slug}`
   } else {
-    pathToRevalidate = `${locale}${slug}`
+    pathToRevalidate = `/${locale}${slug}`
   }
 
   revalidatePath(pathToRevalidate);
