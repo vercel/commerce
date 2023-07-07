@@ -48,7 +48,7 @@ export default function LocaleSwitcher({ currentLocale, localeData }: LocaleSwit
         <DropdownMenuTrigger asChild>
           <button
             className={
-              'flex shrink-0 items-center justify-center space-x-1 rounded bg-app p-2 text-xs font-bold uppercase outline-none ring-2 ring-transparent transition duration-200 hover:ring-ui-border focus:ring-ui-border'
+              'flex shrink-0 items-center justify-center space-x-1 rounded bg-app p-2 text-xs font-semibold uppercase outline-none ring-2 ring-transparent transition duration-200 hover:ring-ui-border focus:ring-ui-border'
             }
             aria-label="Language selector"
           >
