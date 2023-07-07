@@ -5,8 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const SANITY_WEBHOOK_SECRET = `${process.env.SANITY_WEBHOOK_SECRET}`;
 
-export const runtime = 'edge'
-
 export async function POST(request: NextRequest) {
   // Await the response from our request.
   const requestData = await request.json();
