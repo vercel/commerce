@@ -85,6 +85,28 @@ export function getDefaultCategoryCriteria(page: number = 1, limit: number = 1) 
   };
 }
 
+export function getDefaultCategoryWithCmsCriteria(page: number = 1, limit: number = 1) {
+  return {
+    page: page,
+    limit: limit,
+    associations: {
+      cmsPage: {
+        associations: {
+          sections: {
+            associations: {
+              blocks: {
+                associations: {
+                  slots: {}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+}
+
 export function getStaticCollectionCriteria(page: number = 1, limit: number = 20) {
   return {
     page: page,

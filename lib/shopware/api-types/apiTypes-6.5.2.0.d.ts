@@ -950,7 +950,7 @@ export type components = {
       position: number;
       sectionId: string;
       sectionPosition?: string;
-      slots?: components['schemas']['CmsSlot'];
+      slots?: components['schemas']['CmsSlot'][];
       type: string;
       /** Format: date-time */
       updatedAt?: string;
@@ -993,7 +993,7 @@ export type components = {
       name?: string;
       previewMedia?: components['schemas']['Media'];
       previewMediaId?: string;
-      sections?: components['schemas']['CmsSection'];
+      sections?: components['schemas']['CmsSection'][];
       translated?: {
         cssClass?: string;
         entity?: string;
@@ -1029,7 +1029,7 @@ export type components = {
       backgroundMedia?: components['schemas']['Media'];
       backgroundMediaId?: string;
       backgroundMediaMode?: string;
-      blocks?: components['schemas']['CmsBlock'];
+      blocks?: components['schemas']['CmsBlock'][];
       cmsPageVersionId?: string;
       /** Format: date-time */
       createdAt: string;

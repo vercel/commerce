@@ -56,7 +56,7 @@ export default async function Footer() {
             </nav>
           ))}
           <div className="col-span-1 text-black dark:text-white lg:col-span-2 inline-grid justify-items-end">
-            <a aria-label="Github Repository" href="https://github.com/vercel/commerce">
+            <a aria-label="Github Repository" href="https://github.com/shopware/frontends" target="_blank" rel="noopener noreferrer">
               <GitHubIcon className="h-6" />
             </a>
           </div>

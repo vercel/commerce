@@ -18,7 +18,7 @@ export type SeoURLResultSW = {
 } & ApiSchemas['EntitySearchResult'];
 
 /** Vercel Commerce Types */
-export type Menu = { id: string; title: string; path: string, type: string, children: Menu[] };
+export type Menu = { id: string; title: string; path: string; type: string; children: Menu[] };
 
 export type Page = {
   id: string;
@@ -31,6 +31,7 @@ export type Page = {
   updatedAt: string;
   routeName?: string;
   foreignKey?: string;
+  originalCmsPage?: ApiSchemas['CmsPage'];
 };
 
 export type ProductOption = {

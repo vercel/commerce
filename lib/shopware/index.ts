@@ -8,6 +8,7 @@ import {
 } from './types';
 import {
   getDefaultCategoryCriteria,
+  getDefaultCategoryWithCmsCriteria,
   getDefaultCrossSellingCriteria,
   getDefaultProductCriteria,
   getDefaultProductsCriteria,
@@ -26,29 +27,31 @@ import {
   requestSeoUrl
 } from './api';
 import {
+  transformCollection,
+  transformHandle,
   transformMenu,
   transformPage,
   transformProduct,
   transformProducts,
-  transformCollection,
   transformStaticCollection
 } from './transform';
 
-export async function getMenu(params?: { type?: StoreNavigationTypeSW, depth?: number }): Promise<Menu[]> {
+export async function getMenu(params?: {
+  type?: StoreNavigationTypeSW;
+  depth?: number;
+}): Promise<Menu[]> {
   const type = params?.type || 'main-navigation';
   const depth = params?.depth || 1;
   const res = await requestNavigation(type, depth);
 
-  return res ? transformMenu(res) : [];
+  return res ? transformMenu(res, type) : [];
 }
 
-export async function getPage(handle: string): Promise<Page | undefined> {
-  const seoUrlElement = await getFirstSeoUrlElement(handle);
+export async function getPage(handle: string | []): Promise<Page | undefined> {
+  const pageHandle = transformHandle(handle).replace('cms/', '');
+  const seoUrlElement = await getFirstSeoUrlElement(pageHandle);
   if (seoUrlElement) {
-    const resCategory = await requestCategory(
-      seoUrlElement.foreignKey,
-      getDefaultCategoryCriteria()
-    );
+    const resCategory = await getCategory(seoUrlElement);
 
     return resCategory ? transformPage(seoUrlElement, resCategory) : undefined;
   }
@@ -107,15 +110,11 @@ export async function getCollectionProducts(params?: {
   defaultSearchCriteria?: Partial<ProductListingCriteria>;
 }): Promise<Product[]> {
   let res;
-  let collectionName: string | [] | undefined = params?.collection;
   let category = params?.categoryId;
+  const collectionName = transformHandle(params?.collection ?? '');
   const sorting = getSortingCriteria(params?.sortKey, params?.reverse);
 
-  if (!category && collectionName) {
-    // this part is important for the catch all collection handle/slug
-    if (Array.isArray(collectionName)) {
-      collectionName = collectionName.join('/');
-    }
+  if (!category && collectionName !== '') {
     const seoUrlElement = await getFirstSeoUrlElement(collectionName);
     if (seoUrlElement) {
       category = seoUrlElement.foreignKey;
@@ -139,18 +138,22 @@ export async function getCollectionProducts(params?: {
   return res ? transformProducts(res) : [];
 }
 
+export async function getCategory(
+  seoUrl: ApiSchemas['SeoUrl'],
+  cms: boolean = false
+): Promise<ApiSchemas['Category']> {
+  const criteria = cms ? getDefaultCategoryWithCmsCriteria() : getDefaultCategoryCriteria();
+  const resCategory = await requestCategory(seoUrl.foreignKey, criteria);
+
+  return resCategory;
+}
+
 // This function is only used for generateMetadata at app/search/(collection)/[...collection]/page.tsx
 export async function getCollection(handle: string | []) {
-  let collectionName: string | [] | undefined = handle;
-  if (Array.isArray(collectionName)) {
-    collectionName = collectionName.join('/');
-  }
+  const collectionName = transformHandle(handle);
   const seoUrlElement = await getFirstSeoUrlElement(collectionName);
   if (seoUrlElement) {
-    const resCategory = await requestCategory(
-      seoUrlElement.foreignKey,
-      getDefaultCategoryCriteria()
-    );
+    const resCategory = await getCategory(seoUrlElement);
     const path = seoUrlElement.seoPathInfo ?? '';
     const collection = transformCollection(seoUrlElement, resCategory);
 
@@ -164,10 +167,7 @@ export async function getCollection(handle: string | []) {
 export async function getProduct(handle: string | []): Promise<Product | undefined> {
   let productSW: ApiSchemas['Product'] | undefined;
   let productId: string | undefined;
-  let productHandle: string | [] | undefined = handle;
-  if (Array.isArray(productHandle)) {
-    productHandle = productHandle.join('/');
-  }
+  const productHandle = transformHandle(handle);
 
   const seoUrlElement = await getFirstSeoUrlElement(productHandle);
   if (seoUrlElement) {

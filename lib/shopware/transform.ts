@@ -3,28 +3,32 @@ import {
   CategoryListingResultSW,
   Collection,
   Menu,
+  Page,
   Product,
   ProductOption,
   ProductVariant
 } from './types';
 import { ListItem } from 'components/layout/search/filter';
 
-export function transformMenu(res: ApiSchemas['NavigationRouteResponse']) {
+export function transformMenu(res: ApiSchemas['NavigationRouteResponse'], type: string) {
   let menu: Menu[] = [];
 
-  res.map((item) => menu.push(transformMenuItem(item)));
+  res.map((item) => menu.push(transformMenuItem(item, type)));
 
   return menu;
 }
 
-function transformMenuItem(item: ApiSchemas['Category']): Menu {
+function transformMenuItem(item: ApiSchemas['Category'], type: string): Menu {
+  // @ToDo: currently only footer-navigation is used for cms pages, this need to be more dynamic (shoud depending on the item)
   return {
     id: item.id ?? '',
     title: item.name,
-    children: item.children?.map((item) => transformMenuItem(item)) ?? [],
+    children: item.children?.map((item) => transformMenuItem(item, type)) ?? [],
     path:
       item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
-        ? '/search/' + item.seoUrls[0].seoPathInfo
+        ? type === 'footer-navigation'
+          ? '/cms/' + item.seoUrls[0].seoPathInfo
+          : '/search/' + item.seoUrls[0].seoPathInfo
         : '',
     type: item.children && item.children.length > 0 ? 'headline' : 'link'
   };
@@ -32,23 +36,50 @@ function transformMenuItem(item: ApiSchemas['Category']): Menu {
 
 export function transformPage(
   seoUrlElement: ApiSchemas['SeoUrl'],
-  resCategory: ApiSchemas['Category']
-) {
+  category: ApiSchemas['Category']
+): Page {
+  let plainHtmlContent;
+  if (category.cmsPage) {
+    const cmsPage: ApiSchemas['CmsPage'] = category.cmsPage;
+    plainHtmlContent = transformToPlainHtmlContent(cmsPage);
+  }
+
   return {
     id: seoUrlElement.id ?? '',
-    title: resCategory.translated?.metaTitle ?? resCategory.name ?? '',
+    title: category.translated?.metaTitle ?? category.name ?? '',
     handle: seoUrlElement.seoPathInfo,
-    body: resCategory.description ?? '',
-    bodySummary: resCategory.translated?.metaDescription ?? resCategory.description ?? '',
+    body: plainHtmlContent ?? category.description ?? '',
+    bodySummary: category.translated?.metaDescription ?? category.description ?? '',
     seo: {
-      title: resCategory.translated?.metaTitle ?? resCategory.name ?? '',
-      description: resCategory.translated?.metaDescription ?? resCategory.description ?? ''
+      title: category.translated?.metaTitle ?? category.name ?? '',
+      description: category.translated?.metaDescription ?? category.description ?? ''
     },
     createdAt: seoUrlElement.createdAt ?? '',
     updatedAt: seoUrlElement.updatedAt ?? '',
     routeName: seoUrlElement.routeName,
+    originalCmsPage: category.cmsPage,
     foreignKey: seoUrlElement.foreignKey
   };
+}
+
+export function transformToPlainHtmlContent(cmsPage: ApiSchemas['CmsPage']): string {
+  let plainHtmlContent = '';
+
+  cmsPage.sections?.map((section) => {
+    section.blocks?.map((block) => {
+      block.slots?.map((slot) => {
+        if (slot.slot === 'content' && slot.config?.content) {
+          const currentContent: string = slot.config.content.value + '';
+          // we do not add content with h1, because will be added via template already
+          if (!currentContent.match(/(<\/?h)([1])/)) {
+            plainHtmlContent += currentContent;
+          }
+        }
+      });
+    });
+  });
+
+  return plainHtmlContent;
 }
 
 export function transformCollection(
@@ -233,4 +264,13 @@ function transformVariants(parent: ApiSchemas['Product']): ProductVariant[] {
   }
 
   return productVariants;
+}
+
+export function transformHandle(handle: string | []): string {
+  let collectionName: string | [] | undefined = handle;
+  if (Array.isArray(collectionName)) {
+    collectionName = collectionName.join('/');
+  }
+
+  return collectionName ?? '';
 }

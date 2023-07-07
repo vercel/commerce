@@ -11,9 +11,9 @@ export const revalidate = 43200; // 12 hours in seconds
 export async function generateMetadata({
   params
 }: {
-  params: { page: string };
+  params: { cms: string };
 }): Promise<Metadata> {
-  const page = await getPage(params.page);
+  const page = await getPage(params.cms);
 
   if (!page) return notFound();
 
@@ -35,8 +35,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { page: string } }) {
-  const page = await getPage(params.page);
+export default async function Page({ params }: { params: { cms: string } }) {
+  const page = await getPage(params.cms);
 
   if (!page) return notFound();
   let date = page.createdAt;
