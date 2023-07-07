@@ -87,13 +87,13 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
               </div>
 
               {cart.lines.length === 0 ? (
-                <div className="flex flex-col items-center justify-center w-full mt-20 overflow-hidden">
+                <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
                   <ShoppingCartIcon className="h-16" />
-                  <p className="mt-6 text-2xl font-bold text-center">Your cart is empty.</p>
+                  <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
                 </div>
               ) : (
-                <div className="flex flex-col justify-between h-full overflow-hidden">
-                  <ul className="flex-grow py-4 overflow-auto">
+                <div className="flex h-full flex-col justify-between overflow-hidden">
+                  <ul className="flex-grow overflow-auto py-4">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
@@ -114,7 +114,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                           data-testid="cart-item"
                           className="flex w-full flex-col border-b border-black/[8%] dark:border-dark-gray-4"
                         >
-                          <div className="relative flex flex-row justify-between w-full py-4">
+                          <div className="relative flex w-full flex-row justify-between py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
                               <DeleteItemButton item={item} />
                             </div>
@@ -125,7 +125,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                             >
                               <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-black/[8%] bg-black/[5%] dark:border-dark-gray-4 dark:bg-white/[6.6%] dark:hover:bg-white/[8.7%]">
                                 <Image
-                                  className="object-cover w-full h-full "
+                                  className="h-full w-full object-cover "
                                   width={64}
                                   height={64}
                                   alt={
@@ -136,7 +136,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 />
                               </div>
 
-                              <div className="flex flex-col flex-1 text-base">
+                              <div className="flex flex-1 flex-col text-base">
                                 <span className="leading-tight">
                                   {item.merchandise.product.title}
                                 </span>
@@ -150,13 +150,13 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 ) : null}
                               </div>
                             </Link>
-                            <div className="flex flex-col justify-between h-16">
+                            <div className="flex h-16 flex-col justify-between">
                               <Price
                                 className="flex flex-col justify-between space-y-2 text-sm"
                                 amount={item.cost.totalAmount.amount}
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
-                              <div className="flex flex-row items-center ml-auto border rounded-full h-9 border-dark-gray-4">
+                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-dark-gray-4">
                                 <EditItemQuantityButton item={item} type="minus" />
                                 <p className="">
                                   <span className="w-full px-2 text-sm">{item.quantity}</span>
@@ -173,7 +173,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                     <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 dark:border-dark-gray-4">
                       <p>Taxes</p>
                       <Price
-                        className="text-base text-right text-black dark:text-white"
+                        className="text-right text-base text-black dark:text-white"
                         amount={cart.cost.totalTaxAmount.amount}
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
@@ -185,7 +185,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                     <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 pt-1 dark:border-dark-gray-4">
                       <p>Total</p>
                       <Price
-                        className="text-base text-right text-black dark:text-white"
+                        className="text-right text-base text-black dark:text-white"
                         amount={cart.cost.totalAmount.amount}
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />
@@ -193,7 +193,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                   </div>
                   <a
                     href={cart.checkoutUrl}
-                    className="flex items-center justify-center w-full p-3 text-sm font-medium text-white rounded-full bg-vercel-blue opacity-90 hover:opacity-100"
+                    className="flex w-full items-center justify-center rounded-full bg-vercel-blue p-3 text-sm font-medium text-white opacity-90 hover:opacity-100"
                   >
                     <span>Proceed to Checkout</span>
                   </a>
