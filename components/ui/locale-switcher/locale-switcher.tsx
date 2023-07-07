@@ -1,104 +1,68 @@
-import FlagEn from 'components/icons/flag-en';
-import FlagSv from 'components/icons/flag-sv';
+import LanguageIcon from 'components/icons/language';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from 'components/ui/dropdown/dropdown';
-import { useLocale } from 'next-intl';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { i18n } from '../../../i18n-config';
 
-export default function LocaleSwitcher() {
-  const pathName = usePathname()
-  const locale = useLocale();
-  const [isOpen, setIsOpen] = useState(false)
-  const router = useRouter();
-  
-  // Handle redirected pathname.
+interface LocaleSwitcherProps {
+  current: string;
+  pageData: object;
+}
+
+export default function LocaleSwitcher({ current, pageData }: LocaleSwitcherProps) {
+  const pathName = usePathname();
+
+  console.log(pageData);
+
   const redirectedPathName = (locale: string) => {
-    if (!pathName) return '/'
-    const segments = pathName.split('/')
-    segments[1] = locale
-    return segments.join('/')
-  }
+    if (!pathName) return '/';
+    const segments = pathName.split('/');
+    segments[1] = locale;
+    return segments.join('/');
+  };
 
-  // Handle click on dropdown menu item (<li>).
-  const handleClick = (e: any, locale: string) => {
-    e.preventDefault()
-
-    const parent = e.target
-
-    if (parent.nodeName !== 'LI') {
-      return
-    }
-
-    let href = '/'
-
-    const hasChildLink = parent.querySelector('a').href !== null
-
-    if (hasChildLink) {
-      href = parent.querySelector('a').href
-    }
-
-    router.push(`${redirectedPathName(locale)}`)
-
-    setIsOpen(false)
-  }
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
-
       <DropdownMenu open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-      <DropdownMenuTrigger asChild>
-        <button
-          className={
-            'duration-200 bg-app shrink-0 uppercase space-x-2 text-sm flex items-center justify-center transition hover:scale-105'
-          }
-          aria-label="Language selector"
-        >
-          {locale === "sv" && (
-            <FlagSv />
-          )}
-          {locale === "en" && (
-            <FlagEn />
-          )}
-          <span className="sr-only">{locale}</span>
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="drop-shadow-xl">
-        <ul className="">
-          {i18n.locales.map((locale) => {
-            let FlagIcon: any
-
-            FlagIcon = i18n.flags[locale]
-
-            return (
-              <DropdownMenuItem
-                className='p-0'
-                key={locale}
-                asChild
-                onClick={(e) => handleClick(e, locale)}
-              >
-                <li className="flex" key={locale}>
-                  <Link 
-                    className="flex w-full cursor-pointer uppercase space-x-2 text-sm p-2"
-                    onClick={() => setIsOpen(false)}
-                    href={redirectedPathName(locale)}
-                  >
-                    <FlagIcon />
-                    <span>{locale}</span>
-                  </Link>
-                </li>
-              </DropdownMenuItem>
-            )
-          })}
-        </ul>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  </div>
-  )
+        <DropdownMenuTrigger asChild>
+          <button
+            className={
+              'flex shrink-0 items-center justify-center space-x-1 rounded bg-app p-2 text-sm font-bold uppercase outline-none ring-2 ring-transparent transition duration-200 hover:ring-ui-border focus:ring-ui-border'
+            }
+            aria-label="Language selector"
+          >
+            <LanguageIcon className="h-6 w-6" />
+            <span>{current}</span>
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="drop-shadow-xl">
+          <ul className="">
+            {i18n.locales.map((locale) => {
+              if (current === locale.id) {
+                return;
+              } else {
+                return (
+                  <li className="" key={locale.id}>
+                    <Link
+                      className="flex w-full cursor-pointer px-4 py-2 text-sm"
+                      href={redirectedPathName(locale.id)}
+                    >
+                      {locale.title}
+                    </Link>
+                  </li>
+                );
+              }
+            })}
+          </ul>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
 }

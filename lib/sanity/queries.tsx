@@ -2,7 +2,7 @@ export const docQuery = `*[_type in ["home", "page", "category", "product"] && d
   _type,
   "slug": slug.current,
   "locale": language
-}`
+}`;
 
 export const imageFields = `
   alt,
@@ -13,7 +13,7 @@ export const imageFields = `
     _type,
     _ref,
   }
-`
+`;
 
 export const seoFields = `
   title,
@@ -21,7 +21,7 @@ export const seoFields = `
   image {
     ${imageFields}
   }
-`
+`;
 
 // Construct our "Modules" GROQ
 export const modules = `
@@ -141,7 +141,7 @@ export const modules = `
       },
     },
   }
-`
+`;
 export const reusableSection = `
   _type == 'reusableSection' => {
     disabled,
@@ -157,7 +157,7 @@ export const reusableSection = `
       }
     }
   }
-`
+`;
 
 // Homepage query
 export const homePageQuery = `*[_type == "home" && slug.current == "/" && language == $locale][0] {
@@ -167,7 +167,7 @@ export const homePageQuery = `*[_type == "home" && slug.current == "/" && langua
   "locale": language,
   "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     title,
-    slug,
+    "slug": slug.current,
     "locale": language
   },
   content[] {
@@ -177,7 +177,7 @@ export const homePageQuery = `*[_type == "home" && slug.current == "/" && langua
   seo {
     ${seoFields}
   }
-}`
+}`;
 
 // Page query
 export const pageQuery = `*[_type == "page" && slug.current == $slug && language == $locale][0] {
@@ -187,7 +187,7 @@ export const pageQuery = `*[_type == "page" && slug.current == $slug && language
   "locale": language,
   "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     title,
-    slug,
+    "slug": slug.current,
     "locale": language
   },
   content[] {
@@ -196,7 +196,7 @@ export const pageQuery = `*[_type == "page" && slug.current == $slug && language
   seo {
     ${seoFields}
   }
-}`
+}`;
 
 // Product query
 export const productQuery = `*[_type == "product" && slug.current == $slug && language == $locale][0] {
@@ -206,7 +206,7 @@ export const productQuery = `*[_type == "product" && slug.current == $slug && la
   "locale": language,
   "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     title,
-    slug,
+    "slug": slug.current,
     "locale": language
   },
   "product": {
@@ -235,7 +235,7 @@ export const productQuery = `*[_type == "product" && slug.current == $slug && la
   seo {
     ${seoFields}
   }
-}`
+}`;
 
 // Category query
 export const categoryQuery = `*[_type == "category" && slug.current == $slug && language == $locale][0] {
@@ -255,13 +255,13 @@ export const categoryQuery = `*[_type == "category" && slug.current == $slug && 
   },
   "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     title,
-    slug,
+    "slug": slug.current,
     "locale": language
   },
   seo {
     ${seoFields}
   }
-}`
+}`;
 
 // Site settings query
 export const siteSettingsQuery = `*[_type == "settings" && language == $locale][0] {
@@ -301,4 +301,4 @@ export const siteSettingsQuery = `*[_type == "settings" && language == $locale][
       reference->
     }
   }
-}`
+}`;
