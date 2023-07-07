@@ -1,5 +1,3 @@
-import Footer from 'components/layout/footer';
-import Header from 'components/layout/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -10,8 +8,6 @@ const SITE_NAME = 'KM Storefront';
 const SITE_DESCRIPTION = 'Webb och digitalbyrå från Göteborg';
 const TWITTER_CREATOR = '@kodamera.se';
 const TWITTER_SITE = 'https://kodamera.se';
-const OG_IMAGE_URL = '/og-image.jpg';
-const OG_IMAGE_ALT = 'Kodamera';
 
 export const metadata = {
   title: {
@@ -19,16 +15,6 @@ export const metadata = {
     template: `%s | ${SITE_NAME}`
   },
   description: SITE_DESCRIPTION,
-  openGraph: {
-    images: [
-      {
-        url: OG_IMAGE_URL,
-        width: 1200,
-        height: 630,
-        alt: OG_IMAGE_ALT
-      }
-    ]
-  },
   robots: {
     follow: true,
     index: true
@@ -73,9 +59,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
     <html lang={locale} className={inter.variable}>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

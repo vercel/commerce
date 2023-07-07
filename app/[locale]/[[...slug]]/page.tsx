@@ -15,6 +15,9 @@ import ProductPage from './product-page';
 import ProductPagePreview from './product-page-preview';
 import SinglePage from './single-page';
 import SinglePagePreview from './single-page-preview';
+// Chrome
+import Footer from 'components/layout/footer';
+import Header from 'components/layout/header';
 
 /**
  * Render pages depending on type.
@@ -30,24 +33,40 @@ export default async function Page({ params }: { params: { slug: string[]; local
 
   const data = filterDataToSingleItem(pageData, isEnabled);
 
-  if (isEnabled) {
-    return (
-      <PreviewSuspense fallback="Loading...">
-        {docType === 'home' && <HomePagePreview query={query} queryParams={queryParams} />}
-        {docType === 'page' && <SinglePagePreview query={query} queryParams={queryParams} />}
-        {docType === 'product' && <ProductPagePreview query={query} queryParams={queryParams} />}
-        {docType === 'category' && <CategoryPagePreview query={query} queryParams={queryParams} />}
-      </PreviewSuspense>
-    );
-  }
+  const localeData = {
+    type: data._type,
+    locale: data.locale,
+    translations: data.translations
+  };
 
   return (
-    <>
-      {docType === 'home' && <HomePage data={data} />}
-      {docType === 'product' && <ProductPage data={data} />}
-      {docType === 'category' && <CategoryPage data={data} />}
-      {docType === 'page' && <SinglePage data={data} />}
-    </>
+    <div className="flex flex-col">
+      <Header localeData={localeData} />
+      <main className="flex-1">
+        <article>
+          {isEnabled ? (
+            <PreviewSuspense fallback="Loading...">
+              {docType === 'home' && <HomePagePreview query={query} queryParams={queryParams} />}
+              {docType === 'page' && <SinglePagePreview query={query} queryParams={queryParams} />}
+              {docType === 'product' && (
+                <ProductPagePreview query={query} queryParams={queryParams} />
+              )}
+              {docType === 'category' && (
+                <CategoryPagePreview query={query} queryParams={queryParams} />
+              )}
+            </PreviewSuspense>
+          ) : (
+            <>
+              {docType === 'home' && <HomePage data={data} />}
+              {docType === 'product' && <ProductPage data={data} />}
+              {docType === 'category' && <CategoryPage data={data} />}
+              {docType === 'page' && <SinglePage data={data} />}
+            </>
+          )}
+        </article>
+      </main>
+      <Footer />
+    </div>
   );
 }
 

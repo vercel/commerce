@@ -160,7 +160,7 @@ export const reusableSection = `
 `;
 
 // Homepage query
-export const homePageQuery = `*[_type == "home" && slug.current == "/" && language == $locale][0] {
+export const homePageQuery = `*[_type == "home" && language == $locale][0] {
   _type,
   title,
   "slug": slug.current,

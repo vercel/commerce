@@ -10,20 +10,34 @@ import { useState } from 'react';
 import { i18n } from '../../../i18n-config';
 
 interface LocaleSwitcherProps {
-  current: string;
-  pageData: object;
+  currentLocale: string;
+  localeData: {
+    type: string;
+    locale: string;
+    translations: [];
+  };
 }
 
-export default function LocaleSwitcher({ current, pageData }: LocaleSwitcherProps) {
+export default function LocaleSwitcher({ currentLocale, localeData }: LocaleSwitcherProps) {
   const pathName = usePathname();
-
-  console.log(pageData);
+  const translations = localeData.translations;
 
   const redirectedPathName = (locale: string) => {
-    if (!pathName) return '/';
-    const segments = pathName.split('/');
-    segments[1] = locale;
-    return segments.join('/');
+    if (!pathName || translations.length === 0) return '/';
+
+    if (translations.length > 0) {
+      const translation = translations.find((obj) => {
+        return obj['locale'] === locale;
+      });
+
+      if (translation) {
+        const url = `/${translation['locale']}${translation['slug']}`;
+
+        return url;
+      }
+    }
+
+    return '/';
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -34,18 +48,18 @@ export default function LocaleSwitcher({ current, pageData }: LocaleSwitcherProp
         <DropdownMenuTrigger asChild>
           <button
             className={
-              'flex shrink-0 items-center justify-center space-x-1 rounded bg-app p-2 text-sm font-bold uppercase outline-none ring-2 ring-transparent transition duration-200 hover:ring-ui-border focus:ring-ui-border'
+              'flex shrink-0 items-center justify-center space-x-1 rounded bg-app p-2 text-xs font-bold uppercase outline-none ring-2 ring-transparent transition duration-200 hover:ring-ui-border focus:ring-ui-border'
             }
             aria-label="Language selector"
           >
             <LanguageIcon className="h-6 w-6" />
-            <span>{current}</span>
+            <span>{currentLocale}</span>
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="drop-shadow-xl">
           <ul className="">
             {i18n.locales.map((locale) => {
-              if (current === locale.id) {
+              if (currentLocale === locale.id) {
                 return;
               } else {
                 return (
