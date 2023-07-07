@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   const isValid = isValidSignature(JSON.stringify(requestData), signature, SANITY_WEBHOOK_SECRET);
 
   // Log out validity of request. 
-  console.log(`===== Is the webhook request valid? ${isValid}`);
+  console.log(`Webhook request valid? ${isValid}`);
 
   // If not valid, return.
   if (!isValid) {
@@ -38,6 +38,6 @@ export async function POST(request: NextRequest) {
 
   revalidatePath(pathToRevalidate);
 
-  console.log(`===== Revalidated path: ${pathToRevalidate}`);
+  console.log(`Revalidated path: ${pathToRevalidate}`);
   return NextResponse.json({ revalidated: true, now: Date.now() });
 }
