@@ -26,14 +26,13 @@ export async function POST(request: NextRequest) {
   }
 
   const slug = requestData.slug;
-  const locale = requestData.locale;
   const type = requestData.type;
   let pathToRevalidate = "";
 
   if (type === 'home') {
     pathToRevalidate = slug;
   } else {
-    pathToRevalidate = locale + slug;
+    pathToRevalidate = '/' + slug;
   }
 
   revalidatePath(pathToRevalidate);
