@@ -239,9 +239,10 @@ export default function RoomPage({
             startNodeId: startNode,
             markerStyle: {
               style: {
-                color: decadesManifest[decade as keyof typeof decadesManifest].color
-              }
-            }
+                color:
+                  decadesManifest[decade as keyof typeof decadesManifest].color,
+              },
+            },
           },
         ],
       ],
@@ -319,7 +320,7 @@ export default function RoomPage({
       setTimeout(() => {
         audioPlayer?.pause()
         setIsAudioInBackground(false)
-      }, audioPlayer!.duration - audioPlayer!.currentTime)
+      }, (audioPlayer!.duration - audioPlayer!.currentTime) * 1000)
     }
   }, [isAudioInBackground])
 
