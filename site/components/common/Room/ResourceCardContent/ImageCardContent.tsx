@@ -24,6 +24,7 @@ export default function ImageCardContent(props: {
                 onClick={() => openFullScreen('resource-image')} 
                 id='resource-image' 
                 alt='' 
+                priority
                 src={props.resourcePath} />
           </Box>
           

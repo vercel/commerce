@@ -78,6 +78,7 @@ export default function MarkerCardModal(props: {
                       setIsTransitionComplited(true)
                     }, 2500)
                   }
+                  priority
                 ></Image>
               ) : (
                 <ImageMapper

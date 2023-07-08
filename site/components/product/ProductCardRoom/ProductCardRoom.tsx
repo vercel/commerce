@@ -87,6 +87,7 @@ export default function ProductCardRoom(props: {
                   layout={"fill"}
                   alt={"Product Image"}
                   objectFit={"contain"}
+                  priority
                 />
               </Box>
               
