@@ -1,6 +1,6 @@
 import { Box, Flex, propNames, Stack, Text } from "@chakra-ui/react"
 import { MarkerResourcePayload } from "../RoomTypes/RoomTypes"
-import { Image } from "@chakra-ui/react"
+import Image from "next/image";
 
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -48,11 +48,21 @@ export default function ResourceCardModal(props: {
           overflow={'hidden'}
           className={style.cardBody}>
 
-            <Image
+          <Box 
+            position={"absolute"} 
+            margin={"5px"} 
+            top={"0"} 
+            left={"0"} 
+            height={"50px"} 
+            width={"50px"}
+            zIndex={'overlay'}>
+              <Image
                 className={style.decadeIcon}
                 src={'/assets/polygons/' + props.decade + '.svg'}
                 alt={`Picture of Decade`}
-            />
+                layout={"fill"}
+              />
+          </Box>
 
             {
               getResourceContent()

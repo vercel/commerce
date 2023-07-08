@@ -1,6 +1,7 @@
-import { Box, Stack, Image, Text } from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import "./ImageCardContent.module.css"
 import screenfull from "screenfull";
+import Image from "next/image";
 
 export default function ImageCardContent(props: {
     style: any
@@ -11,13 +12,15 @@ export default function ImageCardContent(props: {
     return (
         <>
           <Box
-            className={props.style.imageContainer}
+            position={"relative"}
+            margin={"auto"}
+            cursor={'pointer'}
             w={'full'}
+            height={"220px"}
             >
               <Image 
                 objectFit={"cover"} 
-                margin={"auto"}
-                cursor={'pointer'}
+                layout={"fill"}
                 onClick={() => openFullScreen('resource-image')} 
                 id='resource-image' 
                 alt='' 
