@@ -1,5 +1,6 @@
 {
   "private": true,
+  "packageManager": "pnpm@7.15.0",
   "engines": {
     "node": ">=16",
     "pnpm": ">=7"
