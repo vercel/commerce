@@ -12,7 +12,7 @@ export default function CartIcon({
   icon?: string;
 }) {
   return (
-    <div className="relative flex items-center justify-center text-black transition-colors border border-gray-200 rounded-md h-11 w-11 dark:border-neutral-700 dark:text-white">
+    <div className="relative flex items-center justify-center text-black transition-colors border rounded-md h-11 w-11 border-neutral-200 dark:border-neutral-700 dark:text-white">
       {icon === 'close' ? (
         <CloseIcon className={clsx('h-6 transition-all ease-in-out hover:scale-110 ', className)} />
       ) : (

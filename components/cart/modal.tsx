@@ -76,7 +76,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-gray-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
+            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">My Cart</p>
 
@@ -111,7 +111,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         <li
                           key={i}
                           data-testid="cart-item"
-                          className="flex flex-col w-full border-b border-zinc-300 dark:border-neutral-700"
+                          className="flex flex-col w-full border-b border-neutral-300 dark:border-neutral-700"
                         >
                           <div className="relative flex flex-row justify-between w-full py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
@@ -122,7 +122,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                               onClick={closeCart}
                               className="z-30 flex flex-row space-x-4"
                             >
-                              <div className="relative w-16 h-16 overflow-hidden border rounded-md cursor-pointer border-zinc-300 bg-zinc-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+                              <div className="relative w-16 h-16 overflow-hidden border rounded-md cursor-pointer border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
                                 <Image
                                   className="object-cover w-full h-full "
                                   width={64}
@@ -155,7 +155,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 amount={item.cost.totalAmount.amount}
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
-                              <div className="flex flex-row items-center ml-auto border border-gray-200 rounded-full h-9 dark:border-neutral-700">
+                              <div className="flex flex-row items-center ml-auto border rounded-full h-9 border-neutral-200 dark:border-neutral-700">
                                 <EditItemQuantityButton item={item} type="minus" />
                                 <p className="w-6 text-center ">
                                   <span className="w-full text-sm">{item.quantity}</span>
@@ -168,7 +168,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                       );
                     })}
                   </ul>
-                  <div className="py-4 text-sm text-neutral-400 dark:text-zinc-500">
+                  <div className="py-4 text-sm text-neutral-400 dark:text-neutral-500">
                     <div className="flex items-center justify-between pb-1 mb-3 border-b border-neutral-200 dark:border-neutral-700">
                       <p>Taxes</p>
                       <Price
