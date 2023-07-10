@@ -1,7 +1,7 @@
 import { getCollectionProducts } from 'lib/shopify';
 import Image from 'next/image';
 import Link from 'next/link';
-import Price from './price';
+import Label from './label';
 
 export async function Carousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
@@ -27,16 +27,11 @@ export async function Carousel() {
                 src={product.featuredImage.url}
               />
             ) : null}
-            <div className="absolute bottom-0 left-0 mb-4 ml-4 flex items-center rounded-full border bg-white/80 p-1 text-black backdrop-blur-md dark:border-gray-800 dark:bg-black/80 dark:text-white">
-              <h3 data-testid="product-name" className="mr-6 inline pl-2 text-xs font-semibold">
-                {product.title}
-              </h3>
-              <Price
-                className="flex-none rounded-full bg-blue-600 p-2 text-xs font-semibold text-white"
-                amount={product.priceRange.maxVariantPrice.amount}
-                currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-              />
-            </div>
+            <Label
+              title={product.title}
+              amount={product.priceRange.maxVariantPrice.amount}
+              currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+            />
           </Link>
         ))}
       </div>
