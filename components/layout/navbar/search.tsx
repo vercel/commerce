@@ -28,7 +28,7 @@ export default function Search() {
   return (
     <form
       onSubmit={onSubmit}
-      className="relative m-0 flex w-full items-center border border-gray-200 bg-transparent p-0 dark:border-gray-500"
+      className="relative flex items-center w-full p-0 m-0 bg-transparent border border-gray-700 rounded-full dark:border-gray-800"
     >
       <input
         type="text"
@@ -36,9 +36,9 @@ export default function Search() {
         placeholder="Search for products..."
         autoComplete="off"
         defaultValue={searchParams?.get('q') || ''}
-        className="w-full px-4 py-2 text-black dark:bg-black dark:text-gray-100"
+        className="w-full px-4 py-1 text-black bg-transparent dark:text-gray-100"
       />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
+      <div className="absolute top-0 right-0 flex items-center h-full mr-3">
         <SearchIcon className="h-5" />
       </div>
     </form>
