@@ -1,6 +1,5 @@
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import CloseIcon from './close';
 
 export default function CartIcon({
   className,
@@ -14,7 +13,7 @@ export default function CartIcon({
   return (
     <div className="relative flex h-11 w-11 items-center justify-center rounded-md border border-gray-200 text-black transition-colors dark:border-gray-700 dark:text-white">
       {icon === 'close' ? (
-        <CloseIcon className={clsx('h-6 transition-all ease-in-out hover:scale-110 ', className)} />
+        <XMarkIcon className={clsx('h-6 transition-all ease-in-out hover:scale-110 ', className)} />
       ) : (
         <ShoppingCartIcon
           className={clsx('h-4 transition-all ease-in-out hover:scale-110 ', className)}
