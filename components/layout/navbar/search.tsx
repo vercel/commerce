@@ -38,7 +38,7 @@ export default function Search() {
         defaultValue={searchParams?.get('q') || ''}
         className="w-full rounded-xl bg-white px-4 py-1 text-sm text-black placeholder:text-gray-800 dark:bg-transparent dark:text-gray-500 dark:placeholder:text-gray-500"
       />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
+      <div className="absolute right-0 top-0 mr-3 flex h-full items-center bg-white dark:bg-dark">
         <MagnifyingGlassIcon className="h-4" />
       </div>
     </form>
