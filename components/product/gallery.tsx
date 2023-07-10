@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { GridTileImage } from 'components/grid/tile';
-import ArrowLeftIcon from 'components/icons/arrow-left';
 
 export function Gallery({
   title,
@@ -51,20 +51,20 @@ export function Gallery({
         )}
 
         {images.length > 1 ? (
-          <div className="absolute bottom-10 right-10 flex h-12 flex-row border border-white text-white shadow-xl dark:border-black dark:text-black">
+          <div className="absolute flex flex-row h-12 text-white border border-white shadow-xl bottom-10 right-10 dark:border-black dark:text-black">
             <button
               aria-label="Previous product image"
               className={clsx(buttonClassName, 'border-r border-white dark:border-black')}
               onClick={() => handleNavigate('previous')}
             >
-              <ArrowLeftIcon className="h-6" />
+              <ChevronLeftIcon className="h-6" />
             </button>
             <button
               aria-label="Next product image"
               className={clsx(buttonClassName)}
               onClick={() => handleNavigate('next')}
             >
-              <ArrowLeftIcon className="h-6 rotate-180" />
+              <ChevronRightIcon className="h-6" />
             </button>
           </div>
         ) : null}
@@ -78,7 +78,7 @@ export function Gallery({
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
-                className="h-full w-1/4"
+                className="w-1/4 h-full"
                 onClick={() => setCurrentImage(index)}
               >
                 <GridTileImage

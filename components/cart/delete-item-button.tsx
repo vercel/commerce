@@ -1,4 +1,4 @@
-import CloseIcon from 'components/icons/close';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import LoadingDots from 'components/loading-dots';
 import { useRouter } from 'next/navigation';
 
@@ -37,7 +37,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
       {isPending ? (
         <LoadingDots className="bg-white" />
       ) : (
-        <CloseIcon className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white dark:text-black" />
+        <XMarkIcon className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white dark:text-black" />
       )}
     </button>
   );
