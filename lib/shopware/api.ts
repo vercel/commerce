@@ -1,10 +1,17 @@
 import { createAPIClient, RequestReturnType } from '@shopware/api-client';
 import { operations } from '@shopware/api-client/api-types';
-import { extendedPaths, extendedOperations } from './api-extended';
 import {
-  ApiSchemas,
+  ExtendedCategory,
+  ExtendedCriteria,
+  ExtendedCrossSellingElementCollection,
+  ExtendedProductListingResult,
+  extendedOperations,
+  extendedPaths
+} from './api-extended';
+import {
   CategoryListingResultSW,
   ProductListingCriteria,
+  RouteNames,
   SeoURLResultSW,
   StoreNavigationTypeSW
 } from './types';
@@ -27,7 +34,7 @@ export type ApiReturnType<OPERATION_NAME extends keyof operations> = RequestRetu
 export async function requestNavigation(
   type: StoreNavigationTypeSW,
   depth: number
-): Promise<ApiSchemas['NavigationRouteResponse']> {
+): Promise<ExtendedCategory[]> {
   return await apiInstance.invoke(
     'readNavigation post /navigation/{activeId}/{rootId} sw-include-seo-urls',
     {
@@ -41,7 +48,7 @@ export async function requestNavigation(
 export async function requestCategory(
   categoryId: string,
   criteria?: Partial<ProductListingCriteria>
-): Promise<ApiSchemas['Category']> {
+): Promise<ExtendedCategory> {
   return await apiInstance.invoke('readCategory post /category/{navigationId}?slots', {
     navigationId: categoryId,
     criteria
@@ -49,21 +56,21 @@ export async function requestCategory(
 }
 
 export async function requestCategoryList(
-  criteria: Partial<ApiSchemas['Criteria']>
+  criteria: Partial<ExtendedCriteria>
 ): Promise<CategoryListingResultSW> {
   return await apiInstance.invoke('readCategoryList post /category', criteria);
 }
 
 export async function requestProductsCollection(
   criteria: Partial<ProductListingCriteria>
-): Promise<ApiSchemas['ProductListingResult']> {
+): Promise<ExtendedProductListingResult> {
   return await apiInstance.invoke('readProduct post /product', criteria);
 }
 
 export async function requestCategoryProductsCollection(
   categoryId: string,
   criteria: Partial<ProductListingCriteria>
-): Promise<ApiSchemas['ProductListingResult']> {
+): Promise<ExtendedProductListingResult> {
   return await apiInstance.invoke('readProductListing post /product-listing/{categoryId}', {
     ...criteria,
     categoryId: categoryId
@@ -72,17 +79,35 @@ export async function requestCategoryProductsCollection(
 
 export async function requestSearchCollectionProducts(
   criteria?: Partial<ProductListingCriteria>
-): Promise<ApiSchemas['ProductListingResult']> {
+): Promise<ExtendedProductListingResult> {
   return await apiInstance.invoke('searchPage post /search', {
     search: encodeURIComponent(criteria?.query || ''),
     ...criteria
   });
 }
 
-export async function requestSeoUrl(handle: string): Promise<SeoURLResultSW> {
+export async function requestSeoUrls(routeName: RouteNames, page: number = 1, limit: number = 100) {
   return await apiInstance.invoke('readSeoUrl post /seo-url', {
-    page: 1,
-    limit: 1,
+    page: page,
+    limit: limit,
+    filter: [
+      {
+        type: 'equals',
+        field: 'routeName',
+        value: routeName
+      }
+    ]
+  });
+}
+
+export async function requestSeoUrl(
+  handle: string,
+  page: number = 1,
+  limit: number = 1
+): Promise<SeoURLResultSW> {
+  return await apiInstance.invoke('readSeoUrl post /seo-url', {
+    page: page,
+    limit: limit,
     filter: [
       {
         type: 'multi',
@@ -108,7 +133,7 @@ export async function requestSeoUrl(handle: string): Promise<SeoURLResultSW> {
 export async function requestCrossSell(
   productId: string,
   criteria?: Partial<ProductListingCriteria>
-): Promise<ApiSchemas['CrossSellingElementCollection']> {
+): Promise<ExtendedCrossSellingElementCollection> {
   return await apiInstance.invoke(
     'readProductCrossSellings post /product/{productId}/cross-selling',
     {

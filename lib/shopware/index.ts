@@ -24,7 +24,8 @@ import {
   requestNavigation,
   requestProductsCollection,
   requestSearchCollectionProducts,
-  requestSeoUrl
+  requestSeoUrl,
+  requestSeoUrls
 } from './api';
 import {
   transformCollection,
@@ -35,6 +36,7 @@ import {
   transformProducts,
   transformStaticCollection
 } from './transform';
+import { ExtendedCategory, ExtendedProduct, ExtendedProductListingResult } from './api-extended';
 
 export async function getMenu(params?: {
   type?: StoreNavigationTypeSW;
@@ -66,11 +68,9 @@ export async function getFirstSeoUrlElement(
   }
 }
 
-export async function getFirstProduct(
-  productId: string
-): Promise<ApiSchemas['Product'] | undefined> {
+export async function getFirstProduct(productId: string): Promise<ExtendedProduct | undefined> {
   const productCriteria = getDefaultProductCriteria(productId);
-  const res: ApiSchemas['ProductListingResult'] = await requestProductsCollection(productCriteria);
+  const res: ExtendedProductListingResult = await requestProductsCollection(productCriteria);
   if (res.elements && res.elements.length > 0 && res.elements[0]) {
     return res.elements[0];
   }
@@ -142,7 +142,7 @@ export async function getCollectionProducts(params?: {
 export async function getCategory(
   seoUrl: ApiSchemas['SeoUrl'],
   cms: boolean = false
-): Promise<ApiSchemas['Category']> {
+): Promise<ExtendedCategory> {
   const criteria = cms ? getDefaultCategoryWithCmsCriteria() : getDefaultCategoryCriteria();
   const resCategory = await requestCategory(seoUrl.foreignKey, criteria);
 
@@ -165,8 +165,21 @@ export async function getCollection(handle: string | []) {
   }
 }
 
+export async function getProductSeoUrls() {
+  const productSeoUrls: { path: string; updatedAt: string }[] = [];
+  const res = await requestSeoUrls('frontend.detail.page');
+
+  if (res.elements && res.elements.length > 0) {
+    res.elements.map((item) =>
+      productSeoUrls.push({ path: item.seoPathInfo, updatedAt: item.updatedAt ?? item.createdAt })
+    );
+  }
+
+  return productSeoUrls;
+}
+
 export async function getProduct(handle: string | []): Promise<Product | undefined> {
-  let productSW: ApiSchemas['Product'] | undefined;
+  let productSW: ExtendedProduct | undefined;
   let productId: string | undefined;
   const productHandle = transformHandle(handle);
 
@@ -189,11 +202,12 @@ export async function getProduct(handle: string | []): Promise<Product | undefin
 }
 
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
-  let products: ApiSchemas['ProductListingResult'] = {};
+  let products: ExtendedProductListingResult = {};
 
   const res = await requestCrossSell(productId, getDefaultCrossSellingCriteria());
   // @ToDo: Make this more dynamic to merge multiple Cross-Sellings, at the moment we only get the first one
   if (res && res[0] && res[0].products) {
+    // @ts-ignore (@ToDo: fix this wrong type ...)
     products.elements = res[0].products;
   }
 

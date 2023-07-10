@@ -1,5 +1,5 @@
 import { components } from '@shopware/api-client/api-types';
-import { ExtendedCriteria } from './api-extended';
+import { ExtendedCriteria, ExtendedCategory, ExtendedCmsPage } from './api-extended';
 
 /** Shopware Types */
 
@@ -10,10 +10,11 @@ export type ProductListingCriteria = {
   query: string;
 } & Omit<ApiSchemas['ProductListingCriteria'], 'filter'> &
   ExtendedCriteria;
+export type RouteNames = 'frontend.navigation.page' | 'frontend.detail.page' | 'frontend.account.customer-group-registration.page' | 'frontend.landing.page'
 
 /** Return Types */
 export type CategoryListingResultSW = {
-  elements?: ApiSchemas['Category'][];
+  elements?: ExtendedCategory[];
 } & ApiSchemas['EntitySearchResult'];
 export type SeoURLResultSW = {
   elements?: ApiSchemas['SeoUrl'][];
@@ -33,7 +34,7 @@ export type Page = {
   updatedAt: string;
   routeName?: string;
   foreignKey?: string;
-  originalCmsPage?: ApiSchemas['CmsPage'];
+  originalCmsPage?: ExtendedCmsPage;
 };
 
 export type ProductOption = {

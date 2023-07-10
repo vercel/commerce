@@ -8,9 +8,15 @@ import {
   ProductOption,
   ProductVariant
 } from './types';
+import {
+  ExtendedCategory,
+  ExtendedCmsPage,
+  ExtendedProduct,
+  ExtendedProductListingResult
+} from './api-extended';
 import { ListItem } from 'components/layout/search/filter';
 
-export function transformMenu(res: ApiSchemas['NavigationRouteResponse'], type: string) {
+export function transformMenu(res: ExtendedCategory[], type: string) {
   let menu: Menu[] = [];
 
   res.map((item) => menu.push(transformMenuItem(item, type)));
@@ -18,7 +24,7 @@ export function transformMenu(res: ApiSchemas['NavigationRouteResponse'], type: 
   return menu;
 }
 
-function transformMenuItem(item: ApiSchemas['Category'], type: string): Menu {
+function transformMenuItem(item: ExtendedCategory, type: string): Menu {
   // @ToDo: currently only footer-navigation is used for cms pages, this need to be more dynamic (shoud depending on the item)
   return {
     id: item.id ?? '',
@@ -36,11 +42,11 @@ function transformMenuItem(item: ApiSchemas['Category'], type: string): Menu {
 
 export function transformPage(
   seoUrlElement: ApiSchemas['SeoUrl'],
-  category: ApiSchemas['Category']
+  category: ExtendedCategory
 ): Page {
   let plainHtmlContent;
   if (category.cmsPage) {
-    const cmsPage: ApiSchemas['CmsPage'] = category.cmsPage;
+    const cmsPage: ExtendedCmsPage = category.cmsPage;
     plainHtmlContent = transformToPlainHtmlContent(cmsPage);
   }
 
@@ -62,7 +68,7 @@ export function transformPage(
   };
 }
 
-export function transformToPlainHtmlContent(cmsPage: ApiSchemas['CmsPage']): string {
+export function transformToPlainHtmlContent(cmsPage: ExtendedCmsPage): string {
   let plainHtmlContent = '';
 
   cmsPage.sections?.map((section) => {
@@ -84,7 +90,7 @@ export function transformToPlainHtmlContent(cmsPage: ApiSchemas['CmsPage']): str
 
 export function transformCollection(
   seoUrlElement: ApiSchemas['SeoUrl'],
-  resCategory: ApiSchemas['Category']
+  resCategory: ExtendedCategory
 ) {
   return {
     handle: seoUrlElement.seoPathInfo,
@@ -137,7 +143,7 @@ export function transformStaticCollectionToList(collection: Collection[]): ListI
   return listItem;
 }
 
-export function transformProducts(res: ApiSchemas['ProductListingResult']): Product[] {
+export function transformProducts(res: ExtendedProductListingResult): Product[] {
   let products: Product[] = [];
 
   if (res.elements && res.elements.length > 0) {
@@ -147,7 +153,7 @@ export function transformProducts(res: ApiSchemas['ProductListingResult']): Prod
   return products;
 }
 
-export function transformProduct(item: ApiSchemas['Product']): Product {
+export function transformProduct(item: ExtendedProduct): Product {
   const productOptions = transformOptions(item);
   const productVariants = transformVariants(item);
 
@@ -202,7 +208,7 @@ export function transformProduct(item: ApiSchemas['Product']): Product {
   };
 }
 
-function transformOptions(parent: ApiSchemas['Product']): ProductOption[] {
+function transformOptions(parent: ExtendedProduct): ProductOption[] {
   // we only transform options for parents with children, ignore child products with options
   let productOptions: ProductOption[] = [];
   if (parent.children && parent.parentId === null && parent.children.length > 0) {
@@ -231,7 +237,7 @@ function transformOptions(parent: ApiSchemas['Product']): ProductOption[] {
   return productOptions;
 }
 
-function transformVariants(parent: ApiSchemas['Product']): ProductVariant[] {
+function transformVariants(parent: ExtendedProduct): ProductVariant[] {
   let productVariants: ProductVariant[] = [];
   if (parent.children && parent.parentId === null && parent.children.length > 0) {
     parent.children.map((child) => {
