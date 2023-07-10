@@ -62,7 +62,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-[-100%]"
           >
-            <Dialog.Panel className="fixed top-0 bottom-0 left-0 right-0 flex flex-col w-full h-full pb-6 bg-white dark:bg-black">
+            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
               <div className="p-4">
                 <button
                   className="mb-4"
@@ -73,7 +73,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                   <XMarkIcon className="h-6" />
                 </button>
 
-                <div className="w-full mb-4">
+                <div className="mb-4 w-full">
                   <Search />
                 </div>
                 {menu.length ? (
@@ -82,7 +82,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                       <li key={item.title}>
                         <Link
                           href={item.path}
-                          className="py-1 text-xl text-black transition-colors rounded-lg hover:text-gray-500 dark:text-white"
+                          className="rounded-lg py-1 text-xl text-black transition-colors hover:text-gray-500 dark:text-white"
                           onClick={closeMobileMenu}
                         >
                           {item.title}
