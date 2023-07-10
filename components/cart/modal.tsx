@@ -1,15 +1,14 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import Image from 'next/image';
-import Link from 'next/link';
-
+import { ShoppingCartIcon } from '@heroicons/react/24/solid';
 import CartIcon from 'components/icons/cart';
-import ShoppingCartIcon from 'components/icons/shopping-cart';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import DeleteItemButton from './delete-item-button';
@@ -66,7 +65,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
             leaveFrom="opacity-100 backdrop-blur-[.5px]"
             leaveTo="opacity-0 backdrop-blur-none"
           >
-            <div className="fixed inset-0 " aria-hidden="true" />
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
           </Transition.Child>
           <Transition.Child
             as={Fragment}
@@ -77,12 +76,12 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col bg-white/80 p-6 text-black backdrop-blur-xl dark:bg-black/80 dark:text-white md:w-[390px]">
+            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-gray-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">My Cart</p>
 
                 <button aria-label="Close cart" onClick={closeCart} data-testid="close-cart">
-                  <CartIcon quantity={cart.totalQuantity} />
+                  <CartIcon quantity={cart.totalQuantity} icon="close" />
                 </button>
               </div>
 
@@ -112,7 +111,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         <li
                           key={i}
                           data-testid="cart-item"
-                          className="flex w-full flex-col border-b border-black/[8%] dark:border-dark-gray-4"
+                          className="flex w-full flex-col border-b border-zinc-300 dark:border-neutral-700"
                         >
                           <div className="relative flex w-full flex-row justify-between py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
@@ -123,7 +122,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                               onClick={closeCart}
                               className="z-30 flex flex-row space-x-4"
                             >
-                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-black/[8%] bg-black/[5%] dark:border-dark-gray-4 dark:bg-white/[6.6%] dark:hover:bg-white/[8.7%]">
+                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-zinc-300 bg-zinc-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
                                 <Image
                                   className="h-full w-full object-cover "
                                   width={64}
@@ -142,7 +141,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
                                   <p
-                                    className="text-sm text-dark-gray-7 dark:text-white/[54%]"
+                                    className="text-sm text-neutral-800"
                                     data-testid="cart-product-variant"
                                   >
                                     {item.merchandise.title}
@@ -156,10 +155,10 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 amount={item.cost.totalAmount.amount}
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
-                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-dark-gray-4">
+                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-gray-200 dark:border-neutral-700">
                                 <EditItemQuantityButton item={item} type="minus" />
-                                <p className="">
-                                  <span className="w-full px-2 text-sm">{item.quantity}</span>
+                                <p className="w-6 text-center ">
+                                  <span className="w-full text-sm">{item.quantity}</span>
                                 </p>
                                 <EditItemQuantityButton item={item} type="plus" />
                               </div>
@@ -169,8 +168,8 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                       );
                     })}
                   </ul>
-                  <div className="py-4 text-sm text-black/[44%] dark:text-white/[54%]">
-                    <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 dark:border-dark-gray-4">
+                  <div className="py-4 text-sm text-neutral-400 dark:text-zinc-500">
+                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
                       <p>Taxes</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
@@ -178,11 +177,11 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 pt-1 dark:border-dark-gray-4">
+                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                       <p>Shipping</p>
                       <p className="text-right">Calculated at checkout</p>
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-black/[8%] pb-1 pt-1 dark:border-dark-gray-4">
+                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                       <p>Total</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
@@ -193,7 +192,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                   </div>
                   <a
                     href={cart.checkoutUrl}
-                    className="flex w-full items-center justify-center rounded-full bg-vercel-blue p-3 text-sm font-medium text-white opacity-90 hover:opacity-100"
+                    className="flex w-full items-center justify-center rounded-full bg-blue-600 p-3 text-sm font-medium text-white opacity-90 hover:opacity-100"
                   >
                     <span>Proceed to Checkout</span>
                   </a>

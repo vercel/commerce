@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@headlessui/react': ^1.7.15
+  '@heroicons/react': ^2.0.18
   '@playwright/test': ^1.35.1
   '@tailwindcss/typography': ^0.5.9
   '@types/node': 20.3.2
@@ -27,6 +28,7 @@ specifiers:
 
 dependencies:
   '@headlessui/react': 1.7.15_biqbaboplfbrettd7655fr4n2y
+  '@heroicons/react': 2.0.18_react@18.2.0
   clsx: 1.2.1
   next: 13.4.9-canary.2_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
@@ -139,6 +141,14 @@ packages:
       client-only: 0.0.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@heroicons/react/2.0.18_react@18.2.0:
+    resolution: {integrity: sha512-7TyMjRrZZMBPa+/5Y8lN0iyvUU/01PeMGX2+RE7cQWpEUIcb4QotzUObFkJDejj/HUH4qjP/eQ0gzzKs2f+6Yw==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.10:
