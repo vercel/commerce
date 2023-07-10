@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 export default function LogoIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -8,12 +10,11 @@ export default function LogoIcon({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       shapeRendering="geometricPrecision"
-      className={className}
+      className={clsx('h-4 w-4', className)}
     >
-      <rect width="100%" height="100%" rx="16" className="fill-black dark:fill-white" />
       <path
-        className=" fill-white dark:fill-black"
-        d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
+        className=" fill-black dark:fill-white"
+        d="M19.1999 7.59974L16 2L0 30H6.32501L19.1999 7.59974ZM23.2351 14.6614L20.035 20.3476L22.3566 24.4108H17.7482L14.6025 30H32L23.2351 14.6614Z"
       />
     </svg>
   );
