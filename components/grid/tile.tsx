@@ -30,7 +30,7 @@ export function GridTileImage({
       )}
     >
       {active !== undefined && active ? (
-        <span className="absolute w-full h-full bg-white opacity-25"></span>
+        <span className="absolute h-full w-full bg-white opacity-25"></span>
       ) : null}
       {props.src ? (
         <Image
@@ -60,7 +60,7 @@ export function GridTileImage({
             {labels.title}
           </h3>
           <Price
-            className="flex-none p-2 text-sm font-semibold text-white bg-blue-600 rounded-full"
+            className="flex-none rounded-full bg-blue-600 p-2 text-sm font-semibold text-white"
             amount={labels.amount}
             currencyCode={labels.currencyCode}
           />
