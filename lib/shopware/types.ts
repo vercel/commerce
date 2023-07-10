@@ -1,4 +1,4 @@
-import { components } from './api-types/apiTypes-6.5.2.0';
+import { components } from '@shopware/api-client/api-types';
 
 /** Shopware Types */
 
@@ -7,7 +7,11 @@ export type ApiSchemas = components['schemas'];
 export type StoreNavigationTypeSW = 'main-navigation' | 'footer-navigation' | 'service-navigation';
 export type ProductListingCriteria = ApiSchemas['ProductListingCriteria'] & {
   query: string;
-};
+} & Omit<ApiSchemas['Criteria'], 'filter'> & { Criteria:  { filter?: {
+  field: string;
+  type: string;
+  value: string | null | boolean;
+}[]}};
 
 /** Return Types */
 export type CategoryListingResultSW = {

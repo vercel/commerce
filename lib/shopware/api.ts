@@ -1,5 +1,6 @@
-import { createAPIClient } from '@shopware/api-client';
-import { operations, operationPaths } from './api-types/apiTypes-6.5.2.0';
+import { createAPIClient, RequestReturnType, RequestParameters } from '@shopware/api-client';
+//import { operations, operationPaths } from './api-types/apiTypes-6.5.2.0';
+import { operations, operationPaths } from '@shopware/api-client/api-types';
 import {
   ApiSchemas,
   CategoryListingResultSW,
@@ -16,6 +17,20 @@ const apiInstance = createAPIClient<operations, operationPaths>({
   accessToken: accessTokenSW,
   apiType: 'store-api'
 });
+
+export type ExtendedOperations = {};
+
+// reimport operations request parameters to use it in application
+export type ApiRequestParams<ExtendedOperations extends keyof operations> = RequestParameters<
+  ExtendedOperations,
+  operations
+>;
+
+// reimport operations return types to use it in application
+export type ApiReturnType<OPERATION_NAME extends keyof operations> = RequestReturnType<
+  OPERATION_NAME,
+  operations
+>;
 
 export async function requestNavigation(
   type: StoreNavigationTypeSW,
