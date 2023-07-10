@@ -76,7 +76,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
+            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-gray-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-gray-700 dark:bg-black/80 dark:text-white md:w-[390px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">My Cart</p>
 
@@ -111,7 +111,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         <li
                           key={i}
                           data-testid="cart-item"
-                          className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
+                          className="flex w-full flex-col border-b border-gray-300 dark:border-gray-700"
                         >
                           <div className="relative flex w-full flex-row justify-between py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
@@ -122,7 +122,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                               onClick={closeCart}
                               className="z-30 flex flex-row space-x-4"
                             >
-                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800">
                                 <Image
                                   className="h-full w-full object-cover "
                                   width={64}
@@ -141,7 +141,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
                                   <p
-                                    className="text-sm text-neutral-800"
+                                    className="text-sm text-gray-800"
                                     data-testid="cart-product-variant"
                                   >
                                     {item.merchandise.title}
@@ -155,7 +155,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                                 amount={item.cost.totalAmount.amount}
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
-                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
+                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-gray-200 dark:border-gray-700">
                                 <EditItemQuantityButton item={item} type="minus" />
                                 <p className="w-6 text-center ">
                                   <span className="w-full text-sm">{item.quantity}</span>
@@ -168,8 +168,8 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                       );
                     })}
                   </ul>
-                  <div className="py-4 text-sm text-neutral-400 dark:text-neutral-500">
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
+                  <div className="py-4 text-sm text-gray-400 dark:text-gray-500">
+                    <div className="mb-3 flex items-center justify-between border-b border-gray-200 pb-1 dark:border-gray-700">
                       <p>Taxes</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
@@ -177,11 +177,11 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                    <div className="mb-3 flex items-center justify-between border-b border-gray-200 pb-1 pt-1 dark:border-gray-700">
                       <p>Shipping</p>
                       <p className="text-right">Calculated at checkout</p>
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                    <div className="mb-3 flex items-center justify-between border-b border-gray-200 pb-1 pt-1 dark:border-gray-700">
                       <p>Total</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
