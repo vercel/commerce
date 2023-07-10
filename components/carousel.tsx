@@ -1,6 +1,7 @@
 import { getCollectionProducts } from 'lib/shopify';
 import Image from 'next/image';
 import Link from 'next/link';
+import Price from './price';
 
 export async function Carousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
@@ -9,27 +10,32 @@ export async function Carousel() {
   if (!products?.length) return null;
 
   return (
-    <div className="relative w-full overflow-hidden bg-black dark:bg-white">
-      <div className="flex animate-carousel">
+    <div className="relative w-full pb-6 overflow-hidden">
+      <div className="flex space-x-6 animate-carousel">
         {[...products, ...products].map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
             href={`/product/${product.handle}`}
-            className="relative h-[30vh] w-1/2 flex-none md:w-1/3"
+            className="relative h-[30vh] w-2/3 flex-none rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-black md:w-1/3"
           >
             {product.featuredImage ? (
               <Image
                 alt={product.title}
-                className="h-full object-contain"
+                className="object-contain h-full"
                 fill
                 sizes="33vw"
                 src={product.featuredImage.url}
               />
             ) : null}
-            <div className="absolute inset-y-0 right-0 flex items-center justify-center">
-              <div className="inline-flex bg-white p-4 text-xl font-semibold text-black dark:bg-black dark:text-white">
+            <div className="absolute bottom-0 left-0 flex items-center p-1 mb-2 ml-2 text-black border rounded-full bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-black/80 dark:text-white md:mb-8 md:ml-8">
+              <h3 data-testid="product-name" className="inline pl-2 mr-6 text-xs font-semibold">
                 {product.title}
-              </div>
+              </h3>
+              <Price
+                className="flex-none p-2 text-xs font-semibold text-white bg-blue-600 rounded-full"
+                amount={product.priceRange.maxVariantPrice.amount}
+                currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+              />
             </div>
           </Link>
         ))}
