@@ -1,6 +1,6 @@
-import { createAPIClient, RequestReturnType, RequestParameters } from '@shopware/api-client';
-//import { operations, operationPaths } from './api-types/apiTypes-6.5.2.0';
-import { operations, operationPaths } from '@shopware/api-client/api-types';
+import { createAPIClient, RequestReturnType } from '@shopware/api-client';
+import { operations } from '@shopware/api-client/api-types';
+import { extendedPaths, extendedOperations } from './api-extended';
 import {
   ApiSchemas,
   CategoryListingResultSW,
@@ -12,19 +12,11 @@ import {
 const domainSW = `https://${process.env.SHOPWARE_STORE_DOMAIN!}/${process.env.SHOPWARE_API_TYPE!}`;
 const accessTokenSW = `${process.env.SHOPWARE_ACCESS_TOKEN}`;
 
-const apiInstance = createAPIClient<operations, operationPaths>({
+const apiInstance = createAPIClient<extendedOperations, extendedPaths>({
   baseURL: domainSW,
   accessToken: accessTokenSW,
   apiType: 'store-api'
 });
-
-export type ExtendedOperations = {};
-
-// reimport operations request parameters to use it in application
-export type ApiRequestParams<ExtendedOperations extends keyof operations> = RequestParameters<
-  ExtendedOperations,
-  operations
->;
 
 // reimport operations return types to use it in application
 export type ApiReturnType<OPERATION_NAME extends keyof operations> = RequestReturnType<

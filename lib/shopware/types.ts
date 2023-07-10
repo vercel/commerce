@@ -1,17 +1,15 @@
 import { components } from '@shopware/api-client/api-types';
+import { ExtendedCriteria } from './api-extended';
 
 /** Shopware Types */
 
 /** Schemas */
 export type ApiSchemas = components['schemas'];
 export type StoreNavigationTypeSW = 'main-navigation' | 'footer-navigation' | 'service-navigation';
-export type ProductListingCriteria = ApiSchemas['ProductListingCriteria'] & {
+export type ProductListingCriteria = {
   query: string;
-} & Omit<ApiSchemas['Criteria'], 'filter'> & { Criteria:  { filter?: {
-  field: string;
-  type: string;
-  value: string | null | boolean;
-}[]}};
+} & Omit<ApiSchemas['ProductListingCriteria'], 'filter'> &
+  ExtendedCriteria;
 
 /** Return Types */
 export type CategoryListingResultSW = {
