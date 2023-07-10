@@ -10,8 +10,8 @@ export async function Carousel() {
   if (!products?.length) return null;
 
   return (
-    <div className="relative w-full pb-6 overflow-hidden">
-      <div className="flex space-x-6 animate-carousel">
+    <div className="relative w-full overflow-hidden pb-6">
+      <div className="flex animate-carousel space-x-6">
         {[...products, ...products].map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
@@ -21,18 +21,18 @@ export async function Carousel() {
             {product.featuredImage ? (
               <Image
                 alt={product.title}
-                className="object-contain h-full"
+                className="h-full object-contain"
                 fill
                 sizes="33vw"
                 src={product.featuredImage.url}
               />
             ) : null}
-            <div className="absolute bottom-0 left-0 flex items-center p-1 mb-2 ml-2 text-black border rounded-full bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-black/80 dark:text-white md:mb-8 md:ml-8">
-              <h3 data-testid="product-name" className="inline pl-2 mr-6 text-xs font-semibold">
+            <div className="absolute bottom-0 left-0 mb-2 ml-2 flex items-center rounded-full border bg-white/80 p-1 text-black backdrop-blur-md dark:border-gray-800 dark:bg-black/80 dark:text-white md:mb-8 md:ml-8">
+              <h3 data-testid="product-name" className="mr-6 inline pl-2 text-xs font-semibold">
                 {product.title}
               </h3>
               <Price
-                className="flex-none p-2 text-xs font-semibold text-white bg-blue-600 rounded-full"
+                className="flex-none rounded-full bg-blue-600 p-2 text-xs font-semibold text-white"
                 amount={product.priceRange.maxVariantPrice.amount}
                 currencyCode={product.priceRange.maxVariantPrice.currencyCode}
               />
