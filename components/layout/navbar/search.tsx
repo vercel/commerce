@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import SearchIcon from 'components/icons/search';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { createUrl } from 'lib/utils';
 
 export default function Search() {
@@ -39,7 +39,7 @@ export default function Search() {
         className="w-full px-4 py-1 text-black bg-transparent dark:text-gray-100"
       />
       <div className="absolute top-0 right-0 flex items-center h-full mr-3">
-        <SearchIcon className="h-5" />
+        <MagnifyingGlassIcon className="h-5" />
       </div>
     </form>
   );

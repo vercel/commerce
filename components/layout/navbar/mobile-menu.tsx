@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
-import CloseIcon from 'components/icons/close';
-import MenuIcon from 'components/icons/menu';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Menu } from 'lib/shopify/types';
 import Search from './search';
 
@@ -39,7 +38,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
         className="md:hidden"
         data-testid="open-mobile-menu"
       >
-        <MenuIcon className="h-6" />
+        <Bars3Icon className="h-6" />
       </button>
       <Transition show={isOpen}>
         <Dialog onClose={closeMobileMenu} className="relative z-50">
@@ -71,7 +70,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                   aria-label="Close mobile menu"
                   data-testid="close-mobile-menu"
                 >
-                  <CloseIcon className="h-6" />
+                  <XMarkIcon className="h-6" />
                 </button>
 
                 <div className="mb-4 w-full">
