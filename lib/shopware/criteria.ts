@@ -1,6 +1,6 @@
 export function getDefaultProductsCriteria(page: number = 1, limit: number = 15) {
   return {
-    page: page,
+    p: page,
     limit: limit,
     associations: getDefaultProductAssociations(),
     filter: [

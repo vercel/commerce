@@ -104,6 +104,7 @@ export async function getSearchCollectionProducts(params?: {
 
 export async function getCollectionProducts(params?: {
   collection: string;
+  page?: number;
   reverse?: boolean;
   sortKey?: string;
   categoryId?: string;
@@ -129,7 +130,7 @@ export async function getCollectionProducts(params?: {
 
   if (category) {
     const criteria = !params?.defaultSearchCriteria
-      ? getDefaultProductsCriteria()
+      ? getDefaultProductsCriteria(params?.page)
       : params?.defaultSearchCriteria;
     const productsCriteria = { ...criteria, ...sorting };
     res = await requestCategoryProductsCollection(category, productsCriteria);

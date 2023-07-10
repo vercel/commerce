@@ -31,11 +31,12 @@ export default async function CategoryPage({
   params: { collection: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const { sort } = searchParams as { [key: string]: string };
+  const { sort, page } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
   const products = await getCollectionProducts({
     collection: params.collection,
+    page: page ? parseInt(page) : 1,
     sortKey,
     reverse
   });
