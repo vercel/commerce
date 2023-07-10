@@ -28,7 +28,7 @@ export default function Search() {
   return (
     <form
       onSubmit={onSubmit}
-      className="relative flex items-center w-full p-0 m-0 bg-transparent border border-gray-700 rounded-full dark:border-gray-800"
+      className="relative m-0 flex w-full items-center rounded-xl border bg-transparent p-0 dark:border-gray-800"
     >
       <input
         type="text"
@@ -36,10 +36,10 @@ export default function Search() {
         placeholder="Search for products..."
         autoComplete="off"
         defaultValue={searchParams?.get('q') || ''}
-        className="w-full px-4 py-1 text-black bg-transparent dark:text-gray-100"
+        className="w-full rounded-xl bg-white px-4 py-1 text-sm text-black placeholder:text-gray-800 dark:bg-transparent dark:text-gray-500 dark:placeholder:text-gray-500"
       />
-      <div className="absolute top-0 right-0 flex items-center h-full mr-3">
-        <MagnifyingGlassIcon className="h-5" />
+      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
+        <MagnifyingGlassIcon className="h-4" />
       </div>
     </form>
   );
