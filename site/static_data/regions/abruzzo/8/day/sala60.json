@@ -9,20 +9,20 @@
       "latitude": 0.011936641266912629
     },
     {
-      "markerType": "video",
-      "markerSource": "spot60.mp4",
-      "resourceName": "Publicità anni 60",
-      "resourceCaption": "",
-      "longitude": 0.3833874087535537,
-      "latitude": -0.18600390768235853
-    },
-    {
       "markerType": "audio",
       "markerSource": "60s.mp3",
       "resourceName": "Musica anni 60",
       "resourceCaption": "",
       "longitude": 4.835164570118678,
       "latitude": -0.36656883810843377
+    },
+    {
+      "markerType": "video",
+      "markerSource": "spot60-1.mp4",
+      "resourceName": "Pubblicità anni 60",
+      "resourceCaption": "",
+      "longitude": 0.3809498841570169,
+      "latitude": -0.17224026923387714
     }
   ]
 }

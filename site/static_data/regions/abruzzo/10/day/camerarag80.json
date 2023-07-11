@@ -29,6 +29,14 @@
       "markerSource": "macchina-fotografica-chinon-cm-4s-perfetta-vintage",
       "longitude": 0.8841958119892751,
       "latitude": -0.07841900910785538
+    },
+    {
+      "markerType": "video",
+      "markerSource": "spot80-1.mp4",
+      "resourceName": "Pubblicità anni 80",
+      "resourceCaption": "",
+      "longitude": 0.507344506996561,
+      "latitude": 0.05449362773200228
     }
   ]
 }

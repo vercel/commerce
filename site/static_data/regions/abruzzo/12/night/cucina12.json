@@ -19,6 +19,14 @@
       "resourceCaption": "-La rocca, situata a più di 1400m di altezza (in provincia dell’Aquila) e costruita per essere una torre d’avvistamento, si pensa risalga intorno all’anno 1000, anche se il primo documento storico che ne parla è datato 1380.\n-Dal XIV sec diviene possedimento di baroni e nobili che la rafforzano dotandola di una cinghia muraria a scopo militare; e svolge un ruolo importante nei percorsi della transumanza.\n-Nel XVIII secolo un terremoto danneggia il castello, distruggendo il borgo sottostante; nei decenni successivi l’intera area viene progressivamente  abbandonata, non rispondendo più alla sua iniziale funzione strategica.\n-Dagli anni 80 del 900 il castello è oggetto di numerosi restauri e diviene ambientazione di importanti film tra cui Ladyhawke, Il nome della rosa e The american.",
       "longitude": 5.861173990038776,
       "latitude": 0.3380250909882325
+    },
+    {
+      "markerType": "video",
+      "markerSource": "spot2000-1.mp4",
+      "resourceName": "Pubblicità anni 2000",
+      "resourceCaption": "",
+      "longitude": 1.798592920638727,
+      "latitude": 0.1571525069453319
     }
   ]
 }

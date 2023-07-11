@@ -1,0 +1,28 @@
+{
+  "markers": [
+    {
+      "markerType": "image",
+      "markerSource": "l'aquila.jpg",
+      "resourceName": "L'Aquila negli anni 60",
+      "resourceCaption": "-Il territorio dell’Aquila, a 721m sul livello del mare, era abitato già nel III sec a.C. (ben prima dell’insediamento dei romani), da popolazioni di Sabini e Vestini. Se si considera uno dei simboli della città, il Mammut rinvenuto nel 1954 a Scoppito, essa sarebbe “abitata” già un milione e trecentomila anni fa. Durante il periodo “romano”, la città sabina Amiternum, nel territorio dell’attuale l’Aquila, dette i natali ad Appio Claudio Cieco e a Sallustio, ma scomparì nel X secolo. Altri villaggi sabino-romani, come Forcona, sopravvissero fino al 1254, anno di fondazione dell’Aquila per volontà di 99 castelli che decisero di ribellarsi al sistema feudale. Tale numero è rimasto poi nella tradizione aquilana: nella campana della Torre Civica che (fino al terremoto del 2009) suonava 99 rintocchi o nella Fontana delle 99 cannelle.\n-Poco dopo la sua fondazione, venne rasa suolo da Manfredi, durante la lotta tra papato e impero, perché rimasta fedele alla Chiesa; e fu ricostruita da Carlo d’Angiò.\n-Svolse da subito un ruolo cruciale come crocevia di traffici commerciali attraverso la rete dei tratturi: il commercio della lana e dello zafferano gli permisero di estendere i rapporti con Firenze, Genova e Venezia, arrivando perfino in Francia, Olanda e Germania. Nel Quattrocento ricevette da Fernando d’Aragona il privilegio di battere moneta con una sua Zecca e venne istituita la prima Università.\n-Fu tra le grandi città del Regno di Napoli prima, del Regno delle due Sicilie poi, e infine del Regno d’Italia, divenendo capoluogo d’Abruzzo. \n",
+      "longitude": 6.109470005718807,
+      "latitude": 0.011936641266912629
+    },
+    {
+      "markerType": "audio",
+      "markerSource": "60s.mp3",
+      "resourceName": "Musica anni 60",
+      "resourceCaption": "",
+      "longitude": 4.835164570118678,
+      "latitude": -0.36656883810843377
+    },
+    {
+      "markerType": "video",
+      "markerSource": "spot60-1.mp4",
+      "resourceName": "Pubblicità anni 60",
+      "resourceCaption": "",
+      "longitude": 0.3809498841570169,
+      "latitude": -0.17224026923387714
+    }
+  ]
+}

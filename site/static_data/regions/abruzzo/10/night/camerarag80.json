@@ -29,6 +29,14 @@
       "resourceCaption": "",
       "longitude": 6.279329846901769,
       "latitude": -0.036541790947175024
+    },
+    {
+      "markerType": "video",
+      "markerSource": "spot80-1.mp4",
+      "resourceName": "Pubblicità anni 80",
+      "resourceCaption": "",
+      "longitude": 0.4974321900050358,
+      "latitude": 0.05243480462974737
     }
   ]
 }

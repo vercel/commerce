@@ -31,6 +31,14 @@
       "resourceCaption": "-Situata sulla costa adriatica, a Pineto (Teramo), è un’antica torre costiera del Regno di Napoli, ben evidente nel suo stile (tra le poche rimaste integre), che spicca su una piccola collina a ridosso della spiaggia. \n-Aveva lo scopo di avvistamento, per prevenire i frequenti attacchi di Turchi e Saraceni via mare.\n-Deve il nome dall’omonimo torrente che scende da Atri. L’area un tempo era infatti il sito del porto dell’antica colonia romana Hatria, l’odierna Atri. ",
       "longitude": 0.005034716494071553,
       "latitude": 0.057669629465398664
+    },
+    {
+      "markerType": "audio",
+      "markerSource": "2000.mp3",
+      "resourceName": "Musica anni 2000",
+      "resourceCaption": "",
+      "longitude": 1.5453056760982362,
+      "latitude": -0.23219306432472941
     }
   ]
 }
