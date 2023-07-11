@@ -207,7 +207,6 @@ export async function getProductRecommendations(productId: string): Promise<Prod
   const res = await requestCrossSell(productId, getDefaultCrossSellingCriteria());
   // @ToDo: Make this more dynamic to merge multiple Cross-Sellings, at the moment we only get the first one
   if (res && res[0] && res[0].products) {
-    // @ts-ignore (@ToDo: fix this wrong type ...)
     products.elements = res[0].products;
   }
 

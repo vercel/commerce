@@ -59,7 +59,7 @@ export type ExtendedCrossSellingElementCollection = Omit<
   'products'
 > & {
   products?: ExtendedProduct[];
-};
+}[];
 
 export type ExtendedCategory = Omit<schemas['Category'], 'children' | 'seoUrls' | 'cmsPage'> & {
   children?: ExtendedCategory[];
