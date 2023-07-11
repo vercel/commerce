@@ -2,14 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import { AddToCart } from 'components/cart/add-to-cart';
 import Grid from 'components/grid';
 import Footer from 'components/layout/footer';
 import ProductGridItems from 'components/layout/product-grid-items';
-import Price from 'components/price';
 import { Gallery } from 'components/product/gallery';
-import { VariantSelector } from 'components/product/variant-selector';
-import Prose from 'components/prose';
+import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
@@ -77,19 +74,16 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
 
   return (
-    <div>
+    <div className="px-4">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="lg:grid lg:grid-cols-6">
+      <div className="rounded-lg border bg-white lg:grid lg:grid-cols-6">
         <div className="lg:col-span-4">
           <Gallery
-            title={product.title}
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
             images={product.images.map((image: Image) => ({
               src: image.url,
               altText: image.altText
@@ -98,25 +92,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
 
         <div className="p-6 lg:col-span-2">
-          <div className="mb-6 flex flex-col border-b pb-6 dark:border-gray-700">
-            <h1 className="mb-2 text-5xl font-medium">{product.title}</h1>
-            <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
-              <Price
-                amount={product.priceRange.maxVariantPrice.amount}
-                currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-              />
-            </div>
-          </div>
-          <VariantSelector options={product.options} variants={product.variants} />
-
-          {product.descriptionHtml ? (
-            <Prose
-              className="mb-6 text-sm leading-tight dark:text-white/[60%]"
-              html={product.descriptionHtml}
-            />
-          ) : null}
-
-          <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+          <ProductDescription product={product} />
         </div>
       </div>
       <Suspense>

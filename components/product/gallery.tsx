@@ -1,22 +1,11 @@
 'use client';
 
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { GridTileImage } from 'components/grid/tile';
+import Image from 'next/image';
 import { useState } from 'react';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { GridTileImage } from 'components/grid/tile';
-
-export function Gallery({
-  title,
-  amount,
-  currencyCode,
-  images
-}: {
-  title: string;
-  amount: string;
-  currencyCode: string;
-  images: { src: string; altText: string }[];
-}) {
+export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
   const [currentImage, setCurrentImage] = useState(0);
 
   function handleNavigate(direction: 'next' | 'previous') {
@@ -34,37 +23,43 @@ export function Gallery({
     <div className="h-full">
       <div className="relative h-full max-h-[600px] overflow-hidden">
         {images[currentImage] && (
-          <GridTileImage
-            src={images[currentImage]?.src as string}
-            alt={images[currentImage]?.altText as string}
-            width={600}
+          <Image
+            className="relative h-full w-full object-contain"
             height={600}
-            isInteractive={false}
-            priority={true}
-            labels={{
-              title,
-              amount,
-              currencyCode
-            }}
+            width={600}
+            alt={images[currentImage]?.altText as string}
+            src={images[currentImage]?.src as string}
           />
         )}
 
         {images.length > 1 ? (
-          <div className="absolute bottom-10 right-10 flex h-12 flex-row border border-white text-white shadow-xl dark:border-black dark:text-black">
-            <button
+          <div className="absolute bottom-[15%] flex w-full justify-center">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-light/80 px-6 text-gray-500 backdrop-blur">
+              <button
+                aria-label="Previous product image"
+                onClick={() => handleNavigate('previous')}
+              >
+                <ArrowLeftIcon className="h-5" />
+              </button>
+              <div className="mx-6 h-6 w-px bg-gray-400"></div>
+              <button aria-label="Next product image" onClick={() => handleNavigate('next')}>
+                <ArrowRightIcon className="h-5" />
+              </button>
+              {/* <button
               aria-label="Previous product image"
               className={clsx(buttonClassName, 'border-r border-white dark:border-black')}
               onClick={() => handleNavigate('previous')}
             >
-              <ChevronLeftIcon className="h-6" />
+              <ArrowLeftIcon className="h-6" />
             </button>
             <button
               aria-label="Next product image"
               className={clsx(buttonClassName)}
               onClick={() => handleNavigate('next')}
             >
-              <ChevronRightIcon className="h-6" />
-            </button>
+              <ArrowRightIcon className="h-6" />
+            </button> */}
+            </div>
           </div>
         ) : null}
       </div>
