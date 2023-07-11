@@ -29,7 +29,7 @@ export function GridTileImage({
       )}
     >
       {active !== undefined && active ? (
-        <span className="absolute w-full h-full bg-white opacity-25"></span>
+        <span className="absolute h-full w-full bg-white opacity-25"></span>
       ) : null}
       {props.src ? (
         <Image
