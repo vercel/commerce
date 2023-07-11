@@ -1,12 +1,12 @@
 'use client';
 
+import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
-
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, useTransition } from 'react';
 
 export function AddToCart({
   variants,
@@ -50,15 +50,18 @@ export function AddToCart({
         });
       }}
       className={clsx(
-        'flex w-full items-center justify-center bg-black p-4 text-sm uppercase tracking-wide text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black',
+        'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90',
         {
           'cursor-not-allowed opacity-60': !availableForSale,
           'cursor-not-allowed': isPending
         }
       )}
     >
+      <div className="absolute left-0 ml-4">
+        <PlusIcon className="h-5" />
+      </div>
       <span>{availableForSale ? 'Add To Cart' : 'Out Of Stock'}</span>
-      {isPending ? <LoadingDots className="bg-white dark:bg-black" /> : null}
+      {isPending ? <LoadingDots className="bg-white" /> : null}
     </button>
   );
 }
