@@ -98,9 +98,9 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
 
         <div className="p-6 lg:col-span-2">
-          <div className="flex flex-col pb-6 mb-6 border-b dark:border-gray-700">
+          <div className="mb-6 flex flex-col border-b pb-6 dark:border-gray-700">
             <h1 className="mb-2 text-5xl font-medium">{product.title}</h1>
-            <div className="w-auto p-2 mr-auto text-sm text-white bg-blue-600 rounded-full">
+            <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
               <Price
                 amount={product.priceRange.maxVariantPrice.amount}
                 currencyCode={product.priceRange.maxVariantPrice.currencyCode}

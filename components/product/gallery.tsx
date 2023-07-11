@@ -51,7 +51,7 @@ export function Gallery({
         )}
 
         {images.length > 1 ? (
-          <div className="absolute flex flex-row h-12 text-white border border-white shadow-xl bottom-10 right-10 dark:border-black dark:text-black">
+          <div className="absolute bottom-10 right-10 flex h-12 flex-row border border-white text-white shadow-xl dark:border-black dark:text-black">
             <button
               aria-label="Previous product image"
               className={clsx(buttonClassName, 'border-r border-white dark:border-black')}
@@ -78,7 +78,7 @@ export function Gallery({
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
-                className="w-1/4 h-full"
+                className="h-full w-1/4"
                 onClick={() => setCurrentImage(index)}
               >
                 <GridTileImage
