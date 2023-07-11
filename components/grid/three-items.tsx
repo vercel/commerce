@@ -3,26 +3,18 @@ import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
 import Link from 'next/link';
 
-function ThreeItemGridItem({
-  item,
-  size,
-  background
-}: {
-  item: Product;
-  size: 'full' | 'half';
-  background: 'white' | 'pink' | 'purple' | 'black';
-}) {
+function ThreeItemGridItem({ item, size }: { item: Product; size: 'full' | 'half' }) {
   return (
     <div
       className={size === 'full' ? 'lg:col-span-4 lg:row-span-2' : 'lg:col-span-2 lg:row-span-1'}
     >
-      <Link className="block h-full" href={`/product/${item.handle}`}>
+      <Link className="block h-full p-2" href={`/product/${item.handle}`}>
         <GridTileImage
           src={item.featuredImage.url}
           width={size === 'full' ? 1080 : 540}
           height={size === 'full' ? 1080 : 540}
+          labelPosition={size === 'full' ? 'center' : 'bottom'}
           priority={true}
-          background={background}
           alt={item.title}
           labels={{
             title: item.title as string,
@@ -46,10 +38,10 @@ export async function ThreeItemGrid() {
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
   return (
-    <section className="lg:grid lg:grid-cols-6 lg:grid-rows-2" data-testid="homepage-products">
-      <ThreeItemGridItem size="full" item={firstProduct} background="purple" />
-      <ThreeItemGridItem size="half" item={secondProduct} background="black" />
-      <ThreeItemGridItem size="half" item={thirdProduct} background="pink" />
+    <section className="p-2 lg:grid lg:grid-cols-6 lg:grid-rows-2" data-testid="homepage-products">
+      <ThreeItemGridItem size="full" item={firstProduct} />
+      <ThreeItemGridItem size="half" item={secondProduct} />
+      <ThreeItemGridItem size="half" item={thirdProduct} />
     </section>
   );
 }

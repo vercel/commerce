@@ -41,7 +41,6 @@ export function Gallery({
             height={600}
             isInteractive={false}
             priority={true}
-            background="purple"
             labels={{
               title,
               amount,
@@ -86,7 +85,6 @@ export function Gallery({
                   src={image.src}
                   width={600}
                   height={600}
-                  background="purple-dark"
                   active={isActive}
                 />
               </button>
