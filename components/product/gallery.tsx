@@ -24,7 +24,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       <div className="relative h-full max-h-[600px] overflow-hidden">
         {images[currentImage] && (
           <Image
-            className="relative h-full w-full object-contain"
+            className="relative object-contain w-full h-full"
             height={600}
             width={600}
             alt={images[currentImage]?.altText as string}
@@ -34,14 +34,14 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-light/80 px-6 text-gray-500 backdrop-blur">
+            <div className="flex items-center px-6 mx-auto text-gray-500 border border-white rounded-full h-11 bg-light/80 backdrop-blur">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
-              <div className="mx-6 h-6 w-px bg-gray-400"></div>
+              <div className="w-px h-6 mx-6 bg-gray-400"></div>
               <button aria-label="Next product image" onClick={() => handleNavigate('next')}>
                 <ArrowRightIcon className="h-5" />
               </button>
@@ -72,7 +72,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
-                className="h-full w-1/4"
+                className="w-1/4 h-full"
                 onClick={() => setCurrentImage(index)}
               >
                 <GridTileImage

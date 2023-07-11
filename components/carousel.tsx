@@ -10,8 +10,8 @@ export async function Carousel() {
   if (!products?.length) return null;
 
   return (
-    <div className="relative w-full overflow-hidden pb-6">
-      <div className="flex animate-carousel space-x-6">
+    <div className="relative w-full pb-6 overflow-hidden">
+      <div className="flex space-x-6 animate-carousel">
         {[...products, ...products].map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
@@ -21,7 +21,7 @@ export async function Carousel() {
             {product.featuredImage ? (
               <Image
                 alt={product.title}
-                className="h-full object-contain"
+                className="object-contain h-full"
                 fill
                 sizes="33vw"
                 src={product.featuredImage.url}
