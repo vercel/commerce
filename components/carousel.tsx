@@ -11,7 +11,7 @@ export async function Carousel() {
 
   return (
     <div className="relative w-full pb-6 overflow-hidden">
-      <div className="flex space-x-6 animate-carousel">
+      <div className="flex space-x-4 animate-carousel">
         {[...products, ...products].map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
