@@ -21,7 +21,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white';
 
   return (
-    <div className="h-full">
+    <div className="mr-8 h-full">
       <div className="relative mb-12 h-full max-h-[550px] overflow-hidden">
         {images[currentImage] && (
           <Image
@@ -57,14 +57,14 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       </div>
 
       {images.length > 1 ? (
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 overflow-auto">
           {images.map((image, index) => {
             const isActive = index === currentImage;
             return (
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
-                className={clsx('h-auto w-1/6')}
+                className={clsx('h-auto w-20')}
                 onClick={() => setCurrentImage(index)}
               >
                 <GridTileImage

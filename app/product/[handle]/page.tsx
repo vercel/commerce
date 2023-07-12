@@ -74,25 +74,27 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
 
   return (
-    <div className="px-4">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="rounded-lg border border-gray-200 bg-white p-8 dark:border-gray-700 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
-        <div className="lg:col-span-4">
-          <Gallery
-            images={product.images.map((image: Image) => ({
-              src: image.url,
-              altText: image.altText
-            }))}
-          />
-        </div>
+      <div className="px-4">
+        <div className="rounded-lg border border-gray-200 bg-white p-8 px-4 dark:border-gray-700 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
+          <div className="lg:col-span-4">
+            <Gallery
+              images={product.images.map((image: Image) => ({
+                src: image.url,
+                altText: image.altText
+              }))}
+            />
+          </div>
 
-        <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
-          <ProductDescription product={product} />
+          <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
+            <ProductDescription product={product} />
+          </div>
         </div>
       </div>
       <Suspense>
@@ -101,7 +103,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           <Footer />
         </Suspense>
       </Suspense>
-    </div>
+    </>
   );
 }
 
