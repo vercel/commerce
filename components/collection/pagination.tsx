@@ -12,7 +12,7 @@ export default function Pagination({ itemsPerPage, itemsTotal, currentPage }: { 
   const sort = currentParams.get('sort');
   const pageCount = Math.ceil(itemsTotal / itemsPerPage);
 
-  // Invoke when user click to request another page.
+  // Invoke when user click to request another page. test
   const handlePageClick = (event: clickEvent) => {
     const page = event.selected;
     const newPage = page + 1;
