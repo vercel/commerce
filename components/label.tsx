@@ -33,12 +33,12 @@ const Label = ({
       >
         <h3
           data-testid="product-name"
-          className="inline pl-2 mr-6 font-semibold leading-none tracking-tight"
+          className="mr-6 inline pl-2 font-semibold leading-none tracking-tight"
         >
           {title}
         </h3>
         <Price
-          className="flex-none p-2 font-semibold text-white bg-blue-600 rounded-full"
+          className="flex-none rounded-full bg-blue-600 p-2 font-semibold text-white"
           amount={amount}
           currencyCode={currencyCode}
         />

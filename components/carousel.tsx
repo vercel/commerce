@@ -1,11 +1,7 @@
 import { getCollectionProducts } from 'lib/shopify';
 import Image from 'next/image';
 import Link from 'next/link';
-<<<<<<< HEAD
 import Label from './label';
-=======
-import Price from './price';
->>>>>>> 27a839e (home page updated UI design)
 
 export async function Carousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
@@ -14,8 +10,8 @@ export async function Carousel() {
   if (!products?.length) return null;
 
   return (
-    <div className="relative w-full pb-6 overflow-hidden">
-      <div className="flex space-x-4 animate-carousel">
+    <div className="relative w-full overflow-hidden pb-6">
+      <div className="flex animate-carousel space-x-4">
         {[...products, ...products].map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
@@ -25,7 +21,7 @@ export async function Carousel() {
             {product.featuredImage ? (
               <Image
                 alt={product.title}
-                className="object-contain h-full"
+                className="h-full object-contain"
                 fill
                 sizes="33vw"
                 src={product.featuredImage.url}

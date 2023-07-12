@@ -25,7 +25,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       <div className="relative mb-12 h-full max-h-[550px] overflow-hidden">
         {images[currentImage] && (
           <Image
-            className="relative object-contain w-full h-full"
+            className="relative h-full w-full object-contain"
             height={600}
             width={600}
             alt={images[currentImage]?.altText as string}
@@ -35,7 +35,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="flex items-center mx-auto text-gray-500 border border-white rounded-full h-11 bg-light/80 backdrop-blur dark:border-black dark:bg-dark/80">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-light/80 text-gray-500 backdrop-blur dark:border-black dark:bg-dark/80">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
@@ -43,7 +43,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
-              <div className="w-px h-6 mx-1 bg-gray-500"></div>
+              <div className="mx-1 h-6 w-px bg-gray-500"></div>
               <button
                 aria-label="Next product image"
                 onClick={() => handleNavigate('next')}
