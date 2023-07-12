@@ -45,11 +45,7 @@ export function GridTileImage({
           title={labels.title}
           amount={labels.amount}
           currencyCode={labels.currencyCode}
-<<<<<<< HEAD
           size={labels.isSmall ? 'small' : 'large'}
-=======
-          size="large"
->>>>>>> design-refresh
           position={labelPosition}
         />
       ) : null}
