@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import Grid from 'components/grid';
+import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
-import ProductGridItems from 'components/layout/product-grid-items';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
+import Link from 'next/link';
 
 export const runtime = 'edge';
 
@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="rounded-lg border bg-white lg:grid lg:grid-cols-6">
+      <div className="rounded-lg border border-gray-200 bg-white p-8 dark:border-gray-700 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
         <div className="lg:col-span-4">
           <Gallery
             images={product.images.map((image: Image) => ({
@@ -91,7 +91,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           />
         </div>
 
-        <div className="p-6 lg:col-span-2">
+        <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
           <ProductDescription product={product} />
         </div>
       </div>
@@ -113,9 +113,30 @@ async function RelatedProducts({ id }: { id: string }) {
   return (
     <div className="px-4 py-8">
       <div className="mb-4 text-3xl font-bold">Related Products</div>
-      <Grid className="grid-cols-2 lg:grid-cols-5">
-        <ProductGridItems products={relatedProducts} />
-      </Grid>
+      <div className="flex flex-row space-x-4 overflow-auto">
+        {relatedProducts.map((product, i) => {
+          return (
+            <Link
+              key={i}
+              className="h-full w-1/2 flex-none lg:w-1/5"
+              href={`/product/${product.handle}`}
+            >
+              <GridTileImage
+                alt={product.title}
+                labels={{
+                  isSmall: true,
+                  title: product.title,
+                  amount: product.priceRange.maxVariantPrice.amount,
+                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                }}
+                src={product.featuredImage?.url}
+                width={600}
+                height={600}
+              />
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

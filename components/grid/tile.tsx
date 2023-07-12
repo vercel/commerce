@@ -22,15 +22,15 @@ export function GridTileImage({
   return (
     <div
       className={clsx(
-        'relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-black',
+        'relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white dark:bg-black',
+        active !== undefined && active
+          ? 'border-2 border-blue-600'
+          : 'border-gray-200 dark:border-gray-800',
         {
           relative: labels
         }
       )}
     >
-      {active !== undefined && active ? (
-        <span className="absolute w-full h-full bg-white opacity-25"></span>
-      ) : null}
       {props.src ? (
         <Image
           className={clsx('relative h-full w-full object-contain', {
@@ -45,7 +45,7 @@ export function GridTileImage({
           title={labels.title}
           amount={labels.amount}
           currencyCode={labels.currencyCode}
-          size="large"
+          size={labels.isSmall ? 'small' : 'large'}
           position={labelPosition}
         />
       ) : null}

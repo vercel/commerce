@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 import { GridTileImage } from 'components/grid/tile';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -17,14 +18,14 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
   }
 
   const buttonClassName =
-    'px-9 cursor-pointer ease-in-and-out duration-200 transition-bg bg-[#7928ca] hover:bg-violetDark';
+    'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white';
 
   return (
     <div className="h-full">
-      <div className="relative h-full max-h-[600px] overflow-hidden">
+      <div className="relative mb-12 h-full max-h-[550px] overflow-hidden">
         {images[currentImage] && (
           <Image
-            className="relative object-contain w-full h-full"
+            className="relative h-full w-full object-contain"
             height={600}
             width={600}
             alt={images[currentImage]?.altText as string}
@@ -34,45 +35,36 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="flex items-center px-6 mx-auto text-gray-500 border border-white rounded-full h-11 bg-light/80 backdrop-blur">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-light/80 text-gray-500 backdrop-blur dark:border-black dark:bg-dark/80">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
+                className={buttonClassName}
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
-              <div className="w-px h-6 mx-6 bg-gray-400"></div>
-              <button aria-label="Next product image" onClick={() => handleNavigate('next')}>
+              <div className="mx-1 h-6 w-px bg-gray-500"></div>
+              <button
+                aria-label="Next product image"
+                onClick={() => handleNavigate('next')}
+                className={buttonClassName}
+              >
                 <ArrowRightIcon className="h-5" />
               </button>
-              {/* <button
-              aria-label="Previous product image"
-              className={clsx(buttonClassName, 'border-r border-white dark:border-black')}
-              onClick={() => handleNavigate('previous')}
-            >
-              <ArrowLeftIcon className="h-6" />
-            </button>
-            <button
-              aria-label="Next product image"
-              className={clsx(buttonClassName)}
-              onClick={() => handleNavigate('next')}
-            >
-              <ArrowRightIcon className="h-6" />
-            </button> */}
             </div>
           </div>
         ) : null}
       </div>
 
       {images.length > 1 ? (
-        <div className="flex">
+        <div className="flex space-x-2">
           {images.map((image, index) => {
             const isActive = index === currentImage;
             return (
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
-                className="w-1/4 h-full"
+                className={clsx('h-auto w-1/6')}
                 onClick={() => setCurrentImage(index)}
               >
                 <GridTileImage
