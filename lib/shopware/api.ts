@@ -4,9 +4,9 @@ import {
   ExtendedCategory,
   ExtendedCriteria,
   ExtendedCrossSellingElementCollection,
-  ExtendedProductListingResult,
   extendedOperations,
-  extendedPaths
+  extendedPaths,
+  ExtendedProductListingResult
 } from './api-extended';
 import {
   CategoryListingResultSW,
@@ -141,4 +141,8 @@ export async function requestCrossSell(
       ...criteria
     }
   );
+}
+
+export async function requestCart() {
+  return apiInstance.invoke('readCart get /checkout/cart?name', {});
 }

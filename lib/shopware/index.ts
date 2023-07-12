@@ -1,11 +1,17 @@
+import { Cart } from 'lib/shopify/types';
 import {
-  ApiSchemas,
-  Menu,
-  Page,
-  Product,
-  ProductListingCriteria,
-  StoreNavigationTypeSW
-} from './types';
+  requestCart,
+  requestCategory,
+  requestCategoryList,
+  requestCategoryProductsCollection,
+  requestCrossSell,
+  requestNavigation,
+  requestProductsCollection,
+  requestSearchCollectionProducts,
+  requestSeoUrl,
+  requestSeoUrls
+} from './api';
+import { ExtendedCategory, ExtendedProduct, ExtendedProductListingResult } from './api-extended';
 import {
   getDefaultCategoryCriteria,
   getDefaultCategoryWithCmsCriteria,
@@ -17,17 +23,6 @@ import {
   getStaticCollectionCriteria
 } from './criteria';
 import {
-  requestCategory,
-  requestCategoryList,
-  requestCategoryProductsCollection,
-  requestCrossSell,
-  requestNavigation,
-  requestProductsCollection,
-  requestSearchCollectionProducts,
-  requestSeoUrl,
-  requestSeoUrls
-} from './api';
-import {
   transformCollection,
   transformHandle,
   transformMenu,
@@ -36,7 +31,14 @@ import {
   transformProducts,
   transformStaticCollection
 } from './transform';
-import { ExtendedCategory, ExtendedProduct, ExtendedProductListingResult } from './api-extended';
+import {
+  ApiSchemas,
+  Menu,
+  Page,
+  Product,
+  ProductListingCriteria,
+  StoreNavigationTypeSW
+} from './types';
 
 export async function getMenu(params?: {
   type?: StoreNavigationTypeSW;
@@ -213,4 +215,64 @@ export async function getProductRecommendations(productId: string): Promise<Prod
   }
 
   return products ? transformProducts(products) : [];
+}
+
+export async function getCart(): Promise<Cart> {
+  const cartData = await requestCart();
+
+  let cart: Cart = {
+    checkoutUrl: 'https://frontends-demo.vercel.app',
+    cost: {
+      subtotalAmount: {
+        amount: cartData.price?.positionPrice?.toString() || '0',
+        currencyCode: 'EUR'
+      },
+      totalAmount: {
+        amount: cartData.price?.totalPrice?.toString() || '0',
+        currencyCode: 'EUR'
+      },
+      totalTaxAmount: {
+        amount: '0',
+        currencyCode: 'EUR'
+      }
+    },
+    id: cartData.token || '',
+    lines:
+      cartData.lineItems?.map((lineItem) => ({
+        id: lineItem.id || '',
+        quantity: lineItem.quantity,
+        cost: {
+          totalAmount: {
+            amount: (lineItem as any)?.price?.totalPrice || ''
+          }
+        },
+        merchandise: {
+          id: lineItem.referencedId,
+          title: lineItem.label,
+          selectedOptions: [],
+          product: {
+            description: lineItem.description,
+            descriptionHtml: lineItem.description,
+            id: lineItem.referencedId,
+            images: [],
+            seo: {
+              description: lineItem.description,
+              title: lineItem.label
+            },
+            availableForSale: true,
+            featuredImage: (lineItem as any).cover?.url,
+            handle: '',
+            options: [],
+            variants: [],
+            priceRange: {},
+            tags: [],
+            title: lineItem.label,
+            updatedAt: (lineItem as any)?.payload?.updatedAt
+          }
+        }
+      })) || [],
+    totalQuantity: cartData.lineItems?.length || 0
+  };
+
+  return cart;
 }
