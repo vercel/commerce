@@ -81,7 +81,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                 <p className="text-lg font-semibold">My Cart</p>
 
                 <button aria-label="Close cart" onClick={closeCart} data-testid="close-cart">
-                  <CartIcon quantity={cart.totalQuantity} icon="close" />
+                  <CartIcon icon="close" />
                 </button>
               </div>
 
