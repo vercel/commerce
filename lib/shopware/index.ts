@@ -109,7 +109,7 @@ export async function getCollectionProducts(params?: {
   sortKey?: string;
   categoryId?: string;
   defaultSearchCriteria?: Partial<ProductListingCriteria>;
-}): Promise<Product[]> {
+}): Promise<{ products: Product[]; total: number; limit: number }> {
   let res;
   let category = params?.categoryId;
   const collectionName = transformHandle(params?.collection ?? '');
@@ -136,7 +136,9 @@ export async function getCollectionProducts(params?: {
     res = await requestCategoryProductsCollection(category, productsCriteria);
   }
 
-  return res ? transformProducts(res) : [];
+  return res
+    ? { products: transformProducts(res), total: res.total ?? 0, limit: res.limit ?? 0 }
+    : { products: [], total: 0, limit: 0 };
 }
 
 export async function getCategory(

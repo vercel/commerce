@@ -40,6 +40,7 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
   const searchParams = useSearchParams();
   const [active, setActive] = useState(searchParams.get('sort') === item.slug);
   const q = searchParams.get('q');
+  const page = searchParams.get('page');
 
   useEffect(() => {
     setActive(searchParams.get('sort') === item.slug);
@@ -51,6 +52,7 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
           pathname,
           new URLSearchParams({
             ...(q && { q }),
+            ...(page && { page }),
             sort: item.slug
           })
         )
