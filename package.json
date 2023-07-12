@@ -5,13 +5,13 @@
     "pnpm": ">=7"
   },
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "dev": "next dev",
     "lint": "next lint",
-    "lint-staged": "lint-staged",
+    "prepare": "husky install",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
+    "start": "next start",
     "test": "pnpm lint && pnpm prettier:check",
     "test:e2e": "playwright test"
   },
@@ -45,6 +45,7 @@
     "eslint-config-next": "^13.4.9",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-unicorn": "^47.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.25",
     "prettier": "^2.8.8",
