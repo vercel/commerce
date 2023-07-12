@@ -17,7 +17,7 @@ import {
 import { ListItem } from 'components/layout/search/filter';
 
 export function transformMenu(res: ExtendedCategory[], type: string) {
-  let menu: Menu[] = [];
+  const menu: Menu[] = [];
 
   res.map((item) => menu.push(transformMenuItem(item, type)));
 
@@ -105,7 +105,7 @@ export function transformCollection(
 }
 
 export function transformStaticCollection(resCategory: CategoryListingResultSW): Collection[] {
-  let collection: Collection[] = [];
+  const collection: Collection[] = [];
 
   if (resCategory.elements && resCategory.elements.length > 0) {
     resCategory.elements.map((item) =>
@@ -129,7 +129,7 @@ export function transformStaticCollection(resCategory: CategoryListingResultSW):
 }
 
 export function transformStaticCollectionToList(collection: Collection[]): ListItem[] {
-  let listItem: ListItem[] = [];
+  const listItem: ListItem[] = [];
 
   if (collection && collection.length > 0) {
     collection.map((item) =>
@@ -144,7 +144,7 @@ export function transformStaticCollectionToList(collection: Collection[]): ListI
 }
 
 export function transformProducts(res: ExtendedProductListingResult): Product[] {
-  let products: Product[] = [];
+  const products: Product[] = [];
 
   if (res.elements && res.elements.length > 0) {
     res.elements.map((item) => products.push(transformProduct(item)));
@@ -210,9 +210,9 @@ export function transformProduct(item: ExtendedProduct): Product {
 
 function transformOptions(parent: ExtendedProduct): ProductOption[] {
   // we only transform options for parents with children, ignore child products with options
-  let productOptions: ProductOption[] = [];
+  const productOptions: ProductOption[] = [];
   if (parent.children && parent.parentId === null && parent.children.length > 0) {
-    let group: { [key: string]: string[] } = {};
+    const group: { [key: string]: string[] } = {};
     parent.children.map((child) => {
       child.options?.map((option) => {
         if (option && option.group) {
@@ -238,11 +238,11 @@ function transformOptions(parent: ExtendedProduct): ProductOption[] {
 }
 
 function transformVariants(parent: ExtendedProduct): ProductVariant[] {
-  let productVariants: ProductVariant[] = [];
+  const productVariants: ProductVariant[] = [];
   if (parent.children && parent.parentId === null && parent.children.length > 0) {
     parent.children.map((child) => {
       if (child.id) {
-        let selectedOptions: { name: string; value: string }[] = [];
+        const selectedOptions: { name: string; value: string }[] = [];
         child.options?.map((option) => {
           if (option.group) {
             selectedOptions.push({
