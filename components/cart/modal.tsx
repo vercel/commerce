@@ -2,7 +2,6 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-import CartIcon from 'components/icons/cart';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopify/types';
@@ -11,8 +10,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
+import OpenCart from './open-cart';
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -52,7 +53,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
   return (
     <>
       <button aria-label="Open cart" onClick={openCart} data-testid="open-cart">
-        <CartIcon quantity={cart.totalQuantity} />
+        <OpenCart quantity={cart.totalQuantity} />
       </button>
       <Transition show={isOpen}>
         <Dialog onClose={closeCart} className="relative z-50" data-testid="cart">
@@ -81,7 +82,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                 <p className="text-lg font-semibold">My Cart</p>
 
                 <button aria-label="Close cart" onClick={closeCart} data-testid="close-cart">
-                  <CartIcon icon="close" />
+                  <CloseCart />
                 </button>
               </div>
 

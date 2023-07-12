@@ -1,5 +1,5 @@
 import Cart from 'components/cart';
-import CartIcon from 'components/icons/cart';
+import OpenCart from 'components/cart/open-cart';
 import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
@@ -48,7 +48,7 @@ export default async function Navbar() {
           <Search />
         </div>
         <div className="flex justify-end md:w-1/3">
-          <Suspense fallback={<CartIcon className="h-6" />}>
+          <Suspense fallback={<OpenCart className="h-6" />}>
             <Cart />
           </Suspense>
         </div>
