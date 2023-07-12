@@ -19,10 +19,10 @@ const Label = ({
       className={clsx(
         'absolute bottom-0 left-0 flex w-full',
         position === 'center'
-          ? 'px-2 pb-2 md:px-8 md:pb-8 lg:px-20 lg:pb-[35%]'
+          ? 'px-4 pb-4 md:px-8 md:pb-8 lg:px-20 lg:pb-[35%]'
           : size === 'large'
-          ? 'px-2 pb-2 md:px-8 md:pb-8'
-          : 'px-2 pb-2'
+          ? 'px-4 pb-4 md:px-8 md:pb-8'
+          : 'px-4 pb-4'
       )}
     >
       <div
