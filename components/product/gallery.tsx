@@ -57,7 +57,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       </div>
 
       {images.length > 1 ? (
-        <div className="flex space-x-2 overflow-auto">
+        <div className="flex items-center justify-center space-x-2 overflow-auto">
           {images.map((image, index) => {
             const isActive = index === currentImage;
             return (
