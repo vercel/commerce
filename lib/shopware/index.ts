@@ -116,8 +116,31 @@ export async function getSearchCollectionProducts(params?: {
   const searchCriteria = { ...criteria, ...sorting };
 
   const res = await requestSearchCollectionProducts(searchCriteria);
+  res.elements = await changeVariantUrlToParentUrl(res);
 
   return res ? transformProducts(res) : [];
+}
+
+export async function changeVariantUrlToParentUrl(
+  collection: ExtendedProductListingResult
+): Promise<ExtendedProduct[]> {
+  const newElements: ExtendedProduct[] = [];
+  if (collection.elements && collection.elements.length > 0) {
+    await Promise.all(
+      collection.elements.map(async (item) => {
+        if (item.parentId && item.seoUrls && item.seoUrls[0]) {
+          const parentProduct = await getFirstProduct(item.parentId);
+          if (parentProduct && parentProduct.seoUrls && parentProduct.seoUrls[0]) {
+            item.seoUrls[0].seoPathInfo = parentProduct.seoUrls[0].seoPathInfo;
+          }
+        }
+
+        newElements.push(item);
+      })
+    );
+  }
+
+  return newElements;
 }
 
 export async function getCollectionProducts(params?: {
@@ -152,6 +175,7 @@ export async function getCollectionProducts(params?: {
       : params?.defaultSearchCriteria;
     const productsCriteria = { ...criteria, ...sorting };
     res = await requestCategoryProductsCollection(category, productsCriteria);
+    res.elements = await changeVariantUrlToParentUrl(res);
   }
 
   return res
