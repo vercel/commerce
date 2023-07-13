@@ -37,20 +37,12 @@ export async function HomeProductsList({ collection }) {
         collection,
     });
 
-    // console.log({ collection, products });
-    // const num = 4;
-    // console.log({
-    //     price: products[num].priceRange,
-    //     compareAt: products[num].compareAtPriceRange,
-    //     title: products[num].title,
-    // });
-
     return (
         <>
             {products.length === 0 ? (
                 <p>{`No products found`}</p>
             ) : (
-                <ul>
+                <ul className={styles.homeProductsList}>
                     {products?.map(product => (
                         <li key={product?.handle}>
                             <HomeProduct {...{ product }} />
