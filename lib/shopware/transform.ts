@@ -242,9 +242,11 @@ function transformOptions(parent: ExtendedProduct): ProductOption[] {
   const productOptions: ProductOption[] = [];
   if (parent.children && parent.parentId === null && parent.children.length > 0) {
     const group: { [key: string]: string[] } = {};
+    const groupId: { [key: string]: string } = {};
     parent.children.map((child) => {
       child.options?.map((option) => {
         if (option && option.group) {
+          groupId[option.group.name] = option.groupId;
           group[option.group.name] = group[option.group.name]
             ? [...new Set([...(group[option.group.name] as []), ...[option.name]])]
             : [option.name];
@@ -252,13 +254,15 @@ function transformOptions(parent: ExtendedProduct): ProductOption[] {
       });
     });
 
-    if (parent.id) {
-      for (const [key, value] of Object.entries(group)) {
-        productOptions.push({
-          id: parent.id,
-          name: key,
-          values: value
-        });
+    for (const [key, value] of Object.entries(group)) {
+      for (const [currentGroupName, currentGroupId] of Object.entries(groupId)) {
+        if (key === currentGroupName) {
+          productOptions.push({
+            id: currentGroupId,
+            name: key,
+            values: value
+          });
+        }
       }
     }
   }
