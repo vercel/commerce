@@ -239,7 +239,7 @@ export async function getCart(): Promise<Cart> {
     id: cartData.token || '',
     lines:
       cartData.lineItems?.map((lineItem) => ({
-        id: lineItem.id || '',
+        id: lineItem.referencedId || '',
         quantity: lineItem.quantity,
         cost: {
           totalAmount: {
