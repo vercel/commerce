@@ -96,5 +96,35 @@ export type Collection = {
   title: string;
   description: string;
   seo: SEO;
+  childCount: number;
   updatedAt: string;
+};
+
+export type Cart = {
+  id: string;
+  checkoutUrl: string;
+  cost: {
+    subtotalAmount: Money;
+    totalAmount: Money;
+    totalTaxAmount: Money;
+  };
+  lines: CartItem[];
+  totalQuantity: number;
+};
+
+export type CartItem = {
+  id: string;
+  quantity: number;
+  cost: {
+    totalAmount: Money;
+  };
+  merchandise: {
+    id: string;
+    title: string;
+    selectedOptions: {
+      name: string;
+      value: string;
+    }[];
+    product: Product;
+  };
 };

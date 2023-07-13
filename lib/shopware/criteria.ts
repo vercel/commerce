@@ -165,7 +165,7 @@ export function getStaticCollectionCriteria(page: number = 1, limit: number = 20
 export function getDefaultSubCategoriesCriteria(
   categoryId: string,
   page: number = 1,
-  limit: number = 10
+  limit: number = 1
 ) {
   return {
     page: page,

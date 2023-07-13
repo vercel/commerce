@@ -104,40 +104,69 @@ export function transformCollection(
   };
 }
 
-export function transformStaticCollection(resCategory: CategoryListingResultSW): Collection[] {
+export function transformSubCollection(
+  category: CategoryListingResultSW,
+  parentCollectionName?: string
+): Collection[] {
   const collection: Collection[] = [];
 
-  if (resCategory.elements && resCategory.elements.length > 0) {
-    resCategory.elements.map((item) =>
-      collection.push({
-        handle:
-          item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
-            ? item.seoUrls[0].seoPathInfo
-            : '',
-        title: item.translated?.metaTitle ?? item.name ?? '',
-        description: item.description ?? '',
-        seo: {
-          title: item.translated?.metaTitle ?? item.name ?? '',
-          description: item.translated?.metaDescription ?? item.description ?? ''
-        },
-        updatedAt: item.updatedAt ?? item.createdAt ?? ''
-      })
-    );
+  if (category.elements && category.elements[0] && category.elements[0].children) {
+    // we do not support type links at the moment and show only visible categories
+    category.elements[0].children
+      .filter((item) => item.visible)
+      .filter((item) => item.type !== 'link')
+      .map((item) => {
+        const handle = item.seoUrls ? findHandle(item.seoUrls, parentCollectionName) : undefined;
+        if (handle) {
+          collection.push({
+            handle: handle,
+            title: item.translated?.metaTitle ?? item.name ?? '',
+            description: item.description ?? '',
+            seo: {
+              title: item.translated?.metaTitle ?? item.name ?? '',
+              description: item.translated?.metaDescription ?? item.description ?? ''
+            },
+            childCount: item.childCount ?? 0,
+            updatedAt: item.updatedAt ?? item.createdAt ?? ''
+          });
+        }
+      });
   }
 
   return collection;
 }
 
-export function transformStaticCollectionToList(collection: Collection[]): ListItem[] {
+// small function to find longest handle and to make sure parent collection name is in the path
+function findHandle(seoUrls: ApiSchemas['SeoUrl'][], parentCollectionName?: string): string {
+  let handle: string = '';
+  seoUrls.map((item) => {
+    if (
+      !item.isDeleted &&
+      item.isCanonical &&
+      item.seoPathInfo &&
+      item.seoPathInfo.length > handle.length &&
+      item.seoPathInfo.includes(parentCollectionName ?? '')
+    ) {
+      handle = item.seoPathInfo;
+    }
+  });
+
+  return handle;
+}
+
+export function transformCollectionToList(collection: Collection[]): ListItem[] {
   const listItem: ListItem[] = [];
 
   if (collection && collection.length > 0) {
-    collection.map((item) =>
+    collection.map((item) => {
+      // we asume that when there is not product child count it must be a cms page
+      const pagePrefix = item.childCount === 0 ? '/cms' : '/search';
+      const newHandle = item.handle.replace('Main-navigation/', '');
       listItem.push({
         title: item.title,
-        path: `/search/${item.handle}`
-      })
-    );
+        path: `${pagePrefix}/${newHandle}`
+      });
+    });
   }
 
   return listItem;

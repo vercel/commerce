@@ -1,4 +1,3 @@
-import { Cart } from 'lib/shopify/types';
 import {
   requestCart,
   requestCategory,
@@ -19,8 +18,8 @@ import {
   getDefaultProductCriteria,
   getDefaultProductsCriteria,
   getDefaultSearchProductsCriteria,
-  getSortingCriteria,
-  getStaticCollectionCriteria
+  getDefaultSubCategoriesCriteria,
+  getSortingCriteria
 } from './criteria';
 import {
   transformCollection,
@@ -29,10 +28,12 @@ import {
   transformPage,
   transformProduct,
   transformProducts,
-  transformStaticCollection
+  transformSubCollection
 } from './transform';
 import {
   ApiSchemas,
+  Cart,
+  CategoryListingResultSW,
   Menu,
   Page,
   Product,
@@ -55,9 +56,17 @@ export async function getPage(handle: string | []): Promise<Page | undefined> {
   const pageHandle = transformHandle(handle).replace('cms/', '');
   const seoUrlElement = await getFirstSeoUrlElement(pageHandle);
   if (seoUrlElement) {
-    const resCategory = await getCategory(seoUrlElement);
+    const category = await getCategory(seoUrlElement);
 
-    return resCategory ? transformPage(seoUrlElement, resCategory) : undefined;
+    if (!category) {
+      console.log('[getPage] Did not found any category with page handle:', pageHandle);
+    }
+
+    return category ? transformPage(seoUrlElement, category) : undefined;
+  }
+
+  if (!seoUrlElement) {
+    console.log('[getPage] Did not found any seoUrl element with page handle:', pageHandle);
   }
 }
 
@@ -79,12 +88,19 @@ export async function getFirstProduct(productId: string): Promise<ExtendedProduc
 }
 
 // ToDo: should be more dynamic (depending on handle), should work with server and not client see generateStaticParams from next.js
-export async function getStaticCollections() {
-  // @ToDo: This is an example about multi-filter with new store API client
-  // @ts-ignore
-  const resCategory = await requestCategoryList(getStaticCollectionCriteria());
+export async function getSubCollections(collection: string) {
+  let res: CategoryListingResultSW | undefined = undefined;
+  const parentCollectionName =
+    Array.isArray(collection) && collection[0] ? collection[0] : undefined;
+  const collectionName = transformHandle(collection ?? '');
+  const seoUrlElement = await getFirstSeoUrlElement(collectionName);
+  if (seoUrlElement) {
+    const criteria = getDefaultSubCategoriesCriteria(seoUrlElement.foreignKey);
+    // @ts-ignore
+    res = await requestCategoryList(criteria);
+  }
 
-  return resCategory ? transformStaticCollection(resCategory) : [];
+  return res ? transformSubCollection(res, parentCollectionName) : [];
 }
 
 export async function getSearchCollectionProducts(params?: {
@@ -220,6 +236,7 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 export async function getCart(): Promise<Cart> {
   const cartData = await requestCart();
 
+  // @ToDo: should be moved to transformCart function
   let cart: Cart = {
     checkoutUrl: 'https://frontends-demo.vercel.app',
     cost: {
@@ -240,33 +257,44 @@ export async function getCart(): Promise<Cart> {
     lines:
       cartData.lineItems?.map((lineItem) => ({
         id: lineItem.id || '',
-        quantity: lineItem.quantity,
+        quantity: lineItem.quantity ?? 0,
         cost: {
           totalAmount: {
-            amount: (lineItem as any)?.price?.totalPrice || ''
+            amount: (lineItem as any)?.price?.totalPrice || '',
+            currencyCode: 'EUR'
           }
         },
         merchandise: {
-          id: lineItem.referencedId,
-          title: lineItem.label,
+          id: lineItem.referencedId ?? '',
+          title: lineItem.label ?? '',
           selectedOptions: [],
           product: {
-            description: lineItem.description,
-            descriptionHtml: lineItem.description,
-            id: lineItem.referencedId,
+            description: lineItem.description ?? '',
+            descriptionHtml: lineItem.description ?? '',
+            id: lineItem.referencedId ?? '',
             images: [],
+            path: '',
             seo: {
-              description: lineItem.description,
-              title: lineItem.label
+              description: lineItem.description ?? '',
+              title: lineItem.label ?? ''
             },
             availableForSale: true,
             featuredImage: (lineItem as any).cover?.url,
             handle: '',
             options: [],
             variants: [],
-            priceRange: {},
+            priceRange: {
+              minVariantPrice: {
+                amount: '', // @ToDo: should be correct value
+                currencyCode: 'EUR'
+              },
+              maxVariantPrice: {
+                amount: '', // @ToDo: should be correct value
+                currencyCode: 'EUR'
+              }
+            },
             tags: [],
-            title: lineItem.label,
+            title: lineItem.label ?? '',
             updatedAt: (lineItem as any)?.payload?.updatedAt
           }
         }
