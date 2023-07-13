@@ -21,7 +21,7 @@ type MerchandiseSearchParams = {
 };
 
 export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdUpdated: boolean }) {
-  const [, setCookie] = useCookies(['cartId']);
+  const [, setCookie] = useCookies(['sw-context-token']);
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart.totalQuantity);
   const openCart = () => setIsOpen(true);
@@ -29,7 +29,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
 
   useEffect(() => {
     if (cartIdUpdated) {
-      setCookie('cartId', cart.id, {
+      setCookie('sw-context-token', cart.id, {
         path: '/',
         sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production'
@@ -39,6 +39,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
   }, [setCookie, cartIdUpdated, cart.id]);
 
   useEffect(() => {
+    console.warn('cart modal', cart);
     // Open cart modal when when quantity changes.
     if (cart.totalQuantity !== quantityRef.current) {
       // But only if it's not already open (quantity also changes when editing items in cart).

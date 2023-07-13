@@ -217,8 +217,8 @@ export async function getProductRecommendations(productId: string): Promise<Prod
   return products ? transformProducts(products) : [];
 }
 
-export async function getCart(): Promise<Cart> {
-  const cartData = await requestCart();
+export async function getCart(cartId?: string): Promise<Cart> {
+  const cartData = await requestCart(cartId);
 
   let cart: Cart = {
     checkoutUrl: 'https://frontends-demo.vercel.app',
@@ -260,7 +260,10 @@ export async function getCart(): Promise<Cart> {
               title: lineItem.label
             },
             availableForSale: true,
-            featuredImage: (lineItem as any).cover?.url,
+            featuredImage: {
+              altText: 'Cover image of ' + lineItem.label,
+              url: (lineItem as any).cover?.url
+            },
             handle: '',
             options: [],
             variants: [],

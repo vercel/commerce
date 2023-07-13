@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import { AddToCart } from 'components/cart/add-to-cart';
 import Grid from 'components/grid';
 import Footer from 'components/layout/footer';
 import ProductGridItems from 'components/layout/product-grid-items';
-import { AddToCart } from 'components/cart/add-to-cart';
 import { Gallery } from 'components/product/gallery';
-import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopware';
@@ -98,13 +97,13 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
 
         <div className="p-6 lg:col-span-2">
-          <VariantSelector options={product.options} variants={product.variants} />
+          {/* <VariantSelector options={product.options} variants={product.variants} /> */}
 
           {product.descriptionHtml ? (
             <Prose className="mb-6 text-sm leading-tight" html={product.descriptionHtml} />
           ) : null}
 
-          <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+          <AddToCart product={product} variants={product.variants} availableForSale={true} />
         </div>
       </div>
       <Suspense>
