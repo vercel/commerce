@@ -84,8 +84,8 @@ export function Gallery({
                 <GridTileImage
                   alt={image?.altText}
                   src={image.src}
-                  width={600}
-                  height={600}
+                  width={200}
+                  height={200}
                   background="purple-dark"
                   active={isActive}
                 />

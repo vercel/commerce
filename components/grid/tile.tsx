@@ -41,7 +41,8 @@ export function GridTileImage({
       {props.src ? (
         <Image
           className={clsx('relative h-full w-full object-contain', {
-            'transition duration-300 ease-in-out hover:scale-105': isInteractive
+            'transition duration-300 ease-in-out hover:scale-105': isInteractive,
+            'm-4 max-h-[8rem] min-h-[8rem]': props.width === 200 && props.height === 200 // this styling is for the thumbnails below gallery on product detail page
           })}
           {...props}
           alt={props.title || ''}
