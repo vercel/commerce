@@ -1,44 +1,44 @@
 import {
-  requestCart,
-  requestCategory,
-  requestCategoryList,
-  requestCategoryProductsCollection,
-  requestCrossSell,
-  requestNavigation,
-  requestProductsCollection,
-  requestSearchCollectionProducts,
-  requestSeoUrl,
-  requestSeoUrls
+requestCart,
+requestCategory,
+requestCategoryList,
+requestCategoryProductsCollection,
+requestCrossSell,
+requestNavigation,
+requestProductsCollection,
+requestSearchCollectionProducts,
+requestSeoUrl,
+requestSeoUrls
 } from './api';
 import { ExtendedCategory, ExtendedProduct, ExtendedProductListingResult } from './api-extended';
 import {
-  getDefaultCategoryCriteria,
-  getDefaultCategoryWithCmsCriteria,
-  getDefaultCrossSellingCriteria,
-  getDefaultProductCriteria,
-  getDefaultProductsCriteria,
-  getDefaultSearchProductsCriteria,
-  getDefaultSubCategoriesCriteria,
-  getSortingCriteria
+getDefaultCategoryCriteria,
+getDefaultCategoryWithCmsCriteria,
+getDefaultCrossSellingCriteria,
+getDefaultProductCriteria,
+getDefaultProductsCriteria,
+getDefaultSearchProductsCriteria,
+getDefaultSubCategoriesCriteria,
+getSortingCriteria
 } from './criteria';
 import {
-  transformCollection,
-  transformHandle,
-  transformMenu,
-  transformPage,
-  transformProduct,
-  transformProducts,
-  transformSubCollection
+transformCollection,
+transformHandle,
+transformMenu,
+transformPage,
+transformProduct,
+transformProducts,
+transformSubCollection
 } from './transform';
 import {
-  ApiSchemas,
-  Cart,
-  CategoryListingResultSW,
-  Menu,
-  Page,
-  Product,
-  ProductListingCriteria,
-  StoreNavigationTypeSW
+ApiSchemas,
+Cart,
+CategoryListingResultSW,
+Menu,
+Page,
+Product,
+ProductListingCriteria,
+StoreNavigationTypeSW
 } from './types';
 
 export async function getMenu(params?: {
@@ -282,6 +282,7 @@ export async function getCart(): Promise<Cart> {
       cartData.lineItems?.map((lineItem) => ({
         id: lineItem.id || '',
         quantity: lineItem.quantity ?? 0,
+        id: lineItem.referencedId || '',
         cost: {
           totalAmount: {
             amount: (lineItem as any)?.price?.totalPrice || '',
