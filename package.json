@@ -15,15 +15,12 @@
     "test": "pnpm lint && pnpm prettier:check",
     "test:e2e": "playwright test"
   },
-  "git": {
-    "pre-commit": "lint-staged"
-  },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
-    "@shopware/api-client": "0.0.0-canary-20230706101754",
+    "@shopware/api-client": "0.0.0-canary-20230713092547",
     "@vercel/og": "^0.5.8",
     "clsx": "^1.2.1",
     "is-empty-iterable": "^3.0.0",
@@ -34,11 +31,11 @@
     "react-paginate": "^8.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.35.1",
+    "@playwright/test": "^1.36.0",
     "@tailwindcss/typography": "^0.5.9",
-    "@types/node": "^20.4.1",
+    "@types/node": "^20.4.2",
     "@types/react": "18.2.14",
-    "@types/react-dom": "18.2.6",
+    "@types/react-dom": "18.2.7",
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.44.0",
@@ -48,8 +45,8 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.25",
-    "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.4.0",
     "tailwindcss": "^3.3.2",
     "typescript": "5.1.6"
   }

@@ -237,7 +237,7 @@ export async function getCart(): Promise<Cart> {
   const cartData = await requestCart();
 
   // @ToDo: should be moved to transformCart function
-  let cart: Cart = {
+  const cart: Cart = {
     checkoutUrl: 'https://frontends-demo.vercel.app',
     cost: {
       subtotalAmount: {
