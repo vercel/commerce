@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { getCollectionProducts, getMenu } from 'lib/shopify';
 
 import { PriceRanges } from '/components/price.js';
+import styles from './styles.module.scss';
 
 export async function HomeProduct({ product }) {
     const featuredImage = product?.images?.[0];
@@ -65,15 +66,29 @@ export async function HomeProductsList({ collection }) {
 export async function TypesNav() {
     const typesMenu = await getMenu('types-nav');
 
-    // console.log({ typesMenu });
-
     return (
-        <ul>
-            {typesMenu?.map(menuItem => (
-                <li key={menuItem?.path}>
-                    <Link href={menuItem?.path}>{menuItem?.title}</Link>
-                </li>
+        <p className={styles.typesNav}>
+            <span className='filter'>Filter: </span>
+            {typesMenu?.map((menuItem, i) => (
+                <span key={menuItem?.path}>
+                    <Link
+                        href={menuItem?.path}
+                        className='link'
+                    >{`${menuItem?.title}`}</Link>
+                    <span className='not-link'>{`${
+                        i == typesMenu.length - 1 ? '.' : ','
+                    } `}</span>
+                </span>
             ))}
-        </ul>
+        </p>
     );
 }
+
+export const HomeNav = () => (
+    <div className={styles.homeNav}>
+        <Link href='/information' className='information'>
+            Information
+        </Link>
+        <TypesNav />
+    </div>
+);

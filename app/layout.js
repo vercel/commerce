@@ -7,16 +7,16 @@ const CenturyNovaSB = localFont({
     src: [
         {
             path: '../fonts/CenturyNovaSBRoman/font.woff',
-            weight: '400',
+            weight: '300',
             style: 'normal',
         },
         {
             path: '../fonts/CenturyNovaSBItalic/font.woff',
-            weight: '400',
+            weight: '300',
             style: 'italic',
         },
     ],
-    variable: '--font-century-nova-sb',
+    variable: '--font-century-nova',
 });
 const Dia = localFont({
     src: [

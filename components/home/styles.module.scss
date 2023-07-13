@@ -1,0 +1,31 @@
+@use 'styles/_typography';
+
+.homeNav {
+    padding: 51px 115px 22px 115px;
+
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    align-items: baseline;
+
+    :global .information {
+        @include typography.header-cta;
+    }
+}
+
+.typesNav {
+    text-align: center;
+
+    :global .filter {
+        @include typography.body;
+    }
+
+    :global .not-link {
+        @include typography.body-cta;
+
+        text-decoration-line: none;
+    }
+
+    :global .link {
+        @include typography.body-cta;
+    }
+}

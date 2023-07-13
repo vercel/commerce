@@ -1,14 +1,16 @@
-import { TypesNav } from '/components/home';
+import { HomeNav } from '/components/home';
+
+import styles from './styles.module.scss';
 
 export default function HomeLayout({ children }) {
     return (
         <>
             <header>
                 <nav>
-                    <TypesNav />
+                    <HomeNav />
                 </nav>
             </header>
-            <main>{children}</main>
+            <main className={styles.main}>{children}</main>
         </>
     );
 }

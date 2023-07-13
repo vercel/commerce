@@ -1,0 +1,92 @@
+@mixin title {
+    font-family: var(--font-century-nova);
+    font-size: 95px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 90px; /* 94.737% */
+    letter-spacing: -5.7px;
+}
+
+@mixin header {
+    font-family: var(--font-century-nova);
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 39px; /* 111.429% */
+    letter-spacing: -1.4px;
+
+    text-decoration-thickness: 5%;
+    text-underline-offset: 7%;
+}
+
+@mixin subheader {
+    font-family: var(--font-dia);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 100% */
+    text-transform: uppercase;
+}
+
+@mixin body {
+    font-family: var(--font-century-nova);
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 30px; /* 120% */
+    letter-spacing: -0.75px;
+}
+
+@mixin list {
+    font-family: var(--font-dia);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 19px;
+}
+
+@mixin caption {
+    font-family: var(--font-dia);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 10px; /* 100% */
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+}
+
+@mixin header-cta($decoration: underline) {
+    font-family: var(--font-century-nova);
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 35px; /* 100% */
+    letter-spacing: -1.4px;
+    text-decoration-line: $decoration;
+
+    text-decoration-thickness: 5%;
+    text-underline-offset: 7%;
+}
+
+@mixin body-cta($decoration: underline) {
+    font-family: var(--font-dia);
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 30px;
+    letter-spacing: -0.25px;
+    text-decoration-line: $decoration;
+
+    text-decoration-thickness: 4%;
+    text-underline-offset: 4%;
+}
+
+@mixin list-cta($decoration: underline) {
+    font-family: var(--font-dia);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 20px; /* 111.111% */
+    text-transform: uppercase;
+    text-decoration-line: $decoration;
+}
