@@ -4,7 +4,7 @@ import FilterList from 'components/layout/search/filter';
 import { defaultSort, sorting } from 'lib/constants';
 import { getSearchCollectionProducts } from 'lib/shopware';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const metadata = {
   title: 'Search',
@@ -23,16 +23,17 @@ export default async function SearchPage({
   const resultsText = products.length > 1 ? 'results' : 'result';
 
   return (
-    <>{searchValue && products.length === 0 ? (
-      <div className='mx-auto flex max-w-7xl flex-col bg-white py-6 text-black dark:bg-black dark:text-white md:flex-row'>
-        <p>
-          {'There are no products that match '}
-          <span className="font-bold">&quot;{searchValue}&quot;</span>
-        </p>
-      </div>
-    ) : null}
+    <>
+      {searchValue && products.length === 0 ? (
+        <div className="mx-auto flex max-w-7xl flex-col bg-white py-6 text-black dark:bg-black dark:text-white md:flex-row">
+          <p>
+            {'There are no products that match '}
+            <span className="font-bold">&quot;{searchValue}&quot;</span>
+          </p>
+        </div>
+      ) : null}
       {products.length > 0 ? (
-        <div className='mx-auto flex max-w-7xl flex-col bg-white py-6 text-black dark:bg-black dark:text-white md:flex-row'>
+        <div className="mx-auto flex max-w-7xl flex-col bg-white py-6 text-black dark:bg-black dark:text-white md:flex-row">
           <div className="order-first flex-none md:w-1/6">
             {searchValue ? (
               <p>
@@ -40,7 +41,7 @@ export default async function SearchPage({
                 <span className="font-bold">&quot;{searchValue}&quot;</span>
               </p>
             ) : null}
-            <p className='pt-4'>Good place to add other suggest search terms ;)</p>
+            <p className="pt-4">Good place to add other suggest search terms ;)</p>
           </div>
           <Grid className="grid-cols-2 lg:grid-cols-3">
             <ProductGridItems products={products} />

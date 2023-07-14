@@ -105,7 +105,6 @@ export async function requestSeoUrl(
   page: number = 1,
   limit: number = 1
 ): Promise<SeoURLResultSW> {
-  const fixedHandle = handle.replace('%2F', '/');
   return await apiInstance.invoke('readSeoUrl post /seo-url', {
     page: page,
     limit: limit,
@@ -118,12 +117,12 @@ export async function requestSeoUrl(
           {
             type: 'equals',
             field: 'seoPathInfo',
-            value: fixedHandle + '/'
+            value: handle + '/'
           },
           {
             type: 'equals',
             field: 'seoPathInfo',
-            value: fixedHandle
+            value: handle
           }
         ]
       }
