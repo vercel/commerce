@@ -26,14 +26,14 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
   useEffect(() => {
     // Open cart modal when when quantity changes.
-    if (cart && cart.totalQuantity !== quantityRef.current) {
+    if (cart?.totalQuantity !== quantityRef.current) {
       // But only if it's not already open (quantity also changes when editing items in cart).
       if (!isOpen) {
         setIsOpen(true);
       }
 
       // Always update the quantity reference
-      quantityRef.current = cart.totalQuantity;
+      quantityRef.current = cart?.totalQuantity;
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
 

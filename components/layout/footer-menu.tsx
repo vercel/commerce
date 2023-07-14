@@ -28,7 +28,7 @@ const FooterMenuItem = ({ item }: { item: Menu }) => {
   );
 };
 
-export default async function FooterMenu({ menu }: { menu: Menu[] }) {
+export default function FooterMenu({ menu }: { menu: Menu[] }) {
   if (!menu.length) return null;
 
   return (
