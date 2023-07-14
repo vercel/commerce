@@ -127,12 +127,12 @@ export async function requestSeoUrl(
           {
             type: 'equals',
             field: 'seoPathInfo',
-            value: decodeURI(handle) + '/'
+            value: decodeURIComponent(handle) + '/'
           },
           {
             type: 'equals',
             field: 'seoPathInfo',
-            value: decodeURI(handle)
+            value: decodeURIComponent(handle)
           }
         ]
       }
