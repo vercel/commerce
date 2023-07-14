@@ -123,6 +123,16 @@ export async function requestSeoUrl(
             type: 'equals',
             field: 'seoPathInfo',
             value: handle
+          },
+          {
+            type: 'equals',
+            field: 'seoPathInfo',
+            value: decodeURI(handle) + '/'
+          },
+          {
+            type: 'equals',
+            field: 'seoPathInfo',
+            value: decodeURI(handle)
           }
         ]
       }
