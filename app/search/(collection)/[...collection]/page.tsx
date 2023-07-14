@@ -10,7 +10,7 @@ import Pagination from 'components/collection/pagination';
 import { getCollection, getCollectionProducts } from 'lib/shopware';
 import { defaultSort, sorting } from 'lib/constants';
 
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 export async function generateMetadata({
   params

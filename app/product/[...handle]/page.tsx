@@ -13,7 +13,7 @@ import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopware';
 import { Image } from 'lib/shopware/types';
 
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 export async function generateMetadata({
   params
