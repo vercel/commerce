@@ -9,7 +9,6 @@ import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
@@ -19,41 +18,29 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdUpdated: boolean }) {
-  const [, setCookie] = useCookies(['cartId']);
+export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
-  const quantityRef = useRef(cart.totalQuantity);
+  const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
   useEffect(() => {
-    if (cartIdUpdated) {
-      setCookie('cartId', cart.id, {
-        path: '/',
-        sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production'
-      });
-    }
-    return;
-  }, [setCookie, cartIdUpdated, cart.id]);
-
-  useEffect(() => {
     // Open cart modal when when quantity changes.
-    if (cart.totalQuantity !== quantityRef.current) {
+    if (cart?.totalQuantity !== quantityRef.current) {
       // But only if it's not already open (quantity also changes when editing items in cart).
       if (!isOpen) {
         setIsOpen(true);
       }
 
       // Always update the quantity reference
-      quantityRef.current = cart.totalQuantity;
+      quantityRef.current = cart?.totalQuantity;
     }
-  }, [isOpen, cart.totalQuantity, quantityRef]);
+  }, [isOpen, cart?.totalQuantity, quantityRef]);
 
   return (
     <>
       <button aria-label="Open cart" onClick={openCart} data-testid="open-cart">
-        <OpenCart quantity={cart.totalQuantity} />
+        <OpenCart quantity={cart?.totalQuantity} />
       </button>
       <Transition show={isOpen}>
         <Dialog onClose={closeCart} className="relative z-50" data-testid="cart">
@@ -86,7 +73,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                 </button>
               </div>
 
-              {cart.lines.length === 0 ? (
+              {!cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
                   <ShoppingCartIcon className="h-16" />
                   <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>

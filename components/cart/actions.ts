@@ -1,13 +1,24 @@
 'use server';
 
-import { addToCart, removeFromCart, updateCart } from 'lib/shopify';
+import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
 
 export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
-  const cartId = cookies().get('cartId')?.value;
+  let cartId = cookies().get('cartId')?.value;
+  let cart;
 
-  if (!cartId || !variantId) {
-    return new Error('Missing cartId or variantId');
+  if (cartId) {
+    cart = await getCart(cartId);
+  }
+
+  if (!cartId || !cart) {
+    cart = await createCart();
+    cartId = cart.id;
+    cookies().set('cartId', cartId);
+  }
+
+  if (!variantId) {
+    return new Error('Missing variantId');
   }
   try {
     await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);

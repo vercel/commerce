@@ -234,15 +234,16 @@ export async function updateCart(
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
-export async function getCart(cartId: string): Promise<Cart | null> {
+export async function getCart(cartId: string): Promise<Cart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
     cache: 'no-store'
   });
 
+  // Old carts becomes `null` when you checkout.
   if (!res.body.data.cart) {
-    return null;
+    return undefined;
   }
 
   return reshapeCart(res.body.data.cart);
