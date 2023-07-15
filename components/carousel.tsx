@@ -9,27 +9,29 @@ export async function Carousel() {
   if (!products?.length) return null;
 
   return (
-    <div className="flex w-full gap-4 overflow-x-auto pb-6 pt-1">
-      {[...products, ...products].map((product, i) => (
-        <Link
-          key={`${product.handle}${i}`}
-          href={`/product/${product.handle}`}
-          className="h-[30vh] w-2/3 flex-none md:w-1/3"
-        >
-          <GridTileImage
-            alt={product.title}
-            labels={{
-              isSmall: true,
-              title: product.title,
-              amount: product.priceRange.maxVariantPrice.amount,
-              currencyCode: product.priceRange.maxVariantPrice.currencyCode
-            }}
-            src={product.featuredImage?.url}
-            width={600}
-            height={600}
-          />
-        </Link>
-      ))}
+    <div className=" w-full overflow-x-auto pb-6 pt-1">
+      <div className="flex animate-carousel gap-4">
+        {[...products, ...products].map((product, i) => (
+          <Link
+            key={`${product.handle}${i}`}
+            href={`/product/${product.handle}`}
+            className="h-[30vh] w-2/3 flex-none md:w-1/3"
+          >
+            <GridTileImage
+              alt={product.title}
+              labels={{
+                isSmall: true,
+                title: product.title,
+                amount: product.priceRange.maxVariantPrice.amount,
+                currencyCode: product.priceRange.maxVariantPrice.currencyCode
+              }}
+              src={product.featuredImage?.url}
+              width={600}
+              height={600}
+            />
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
