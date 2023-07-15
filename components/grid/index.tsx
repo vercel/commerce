@@ -10,17 +10,12 @@ function Grid(props: React.ComponentProps<'ul'>) {
 
 function GridItem(props: React.ComponentProps<'li'>) {
   return (
-    <li
-      {...props}
-      className={clsx(
-        'relative aspect-square h-full w-full overflow-hidden transition-opacity',
-        props.className
-      )}
-    >
+    <li {...props} className={clsx('aspect-square transition-opacity', props.className)}>
       {props.children}
     </li>
   );
 }
 
 Grid.Item = GridItem;
+
 export default Grid;

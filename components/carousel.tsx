@@ -9,13 +9,13 @@ export async function Carousel() {
   if (!products?.length) return null;
 
   return (
-    <div className="relative w-full overflow-hidden pb-6">
-      <div className="flex animate-carousel space-x-4">
+    <div className=" w-full overflow-x-auto pb-6 pt-1">
+      <div className="flex animate-carousel gap-4">
         {[...products, ...products].map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
             href={`/product/${product.handle}`}
-            className="relative h-[30vh] w-2/3 flex-none rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-black md:w-1/3"
+            className="h-[30vh] w-2/3 flex-none md:w-1/3"
           >
             <GridTileImage
               alt={product.title}
