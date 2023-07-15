@@ -115,7 +115,7 @@ async function RelatedProducts({ id }: { id: string }) {
   return (
     <div className="px-4 py-8">
       <div className="mb-4 text-3xl font-bold">Related Products</div>
-      <div className="flex flex-row space-x-4 overflow-auto">
+      <div className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product, i) => {
           return (
             <Link

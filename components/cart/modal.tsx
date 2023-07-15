@@ -79,7 +79,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
                 </div>
               ) : (
-                <div className="flex h-full flex-col justify-between overflow-hidden">
+                <div className="flex h-full flex-col justify-between overflow-hidden p-1">
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
@@ -101,7 +101,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                           data-testid="cart-item"
                           className="flex w-full flex-col border-b border-gray-300 dark:border-gray-700"
                         >
-                          <div className="relative flex w-full flex-row justify-between py-4">
+                          <div className="relative flex w-full flex-row justify-between px-1 py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
                               <DeleteItemButton item={item} />
                             </div>
@@ -180,9 +180,9 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   </div>
                   <a
                     href={cart.checkoutUrl}
-                    className="flex w-full items-center justify-center rounded-full bg-blue-600 p-3 text-sm font-medium text-white opacity-90 hover:opacity-100"
+                    className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
                   >
-                    <span>Proceed to Checkout</span>
+                    Proceed to Checkout
                   </a>
                 </div>
               )}
