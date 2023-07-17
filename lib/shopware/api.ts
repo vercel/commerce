@@ -134,29 +134,19 @@ export async function requestSeoUrl(
   limit: number = 1
 ): Promise<SeoURLResultSW | undefined> {
   try {
-    return await apiInstance.invoke('readSeoUrl post /seo-url', {
+    const criteria = {
       page: page,
       limit: limit,
       filter: [
         {
-          type: 'multi',
-          // @ts-ignore
-          operator: 'or',
-          queries: [
-            {
-              type: 'equals',
-              field: 'seoPathInfo',
-              value: handle + '/'
-            },
-            {
-              type: 'equals',
-              field: 'seoPathInfo',
-              value: handle
-            }
-          ]
+          type: 'contains',
+          field: 'seoPathInfo',
+          value: handle
         }
       ]
-    });
+    };
+    console.log(criteria);
+    return await apiInstance.invoke('readSeoUrl post /seo-url', criteria);
   } catch (error) {
     console.log(error);
   }
