@@ -34,7 +34,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-light/80 text-gray-500 backdrop-blur dark:border-black dark:bg-dark/80">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
@@ -42,7 +42,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
-              <div className="mx-1 h-6 w-px bg-gray-500"></div>
+              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
               <button
                 aria-label="Next product image"
                 onClick={() => handleNavigate('next')}

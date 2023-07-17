@@ -23,7 +23,7 @@ const Label = ({
     >
       <div
         className={clsx(
-          'flex items-center rounded-full border bg-white/80 p-1 text-xs text-black backdrop-blur-md dark:border-gray-800 dark:bg-black/80 dark:text-white',
+          'flex items-center rounded-full border bg-white/80 p-1 text-xs text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/80 dark:text-white',
           {
             'text-sm': size === 'large'
           }
