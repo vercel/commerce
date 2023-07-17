@@ -200,7 +200,7 @@ export function transformProduct(item: ExtendedProduct): Product {
   const productOptions = transformOptions(item);
   const productVariants = transformVariants(item);
 
-  let path = item.id ? item.id : '';
+  let path = item.parentId ?? item.id ?? '';
   if (useSeoUrls) {
     path =
       item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo

@@ -129,7 +129,7 @@ export async function getSearchCollectionProducts(params?: {
   const searchCriteria = { ...criteria, ...sorting };
 
   const search = await requestSearchCollectionProducts(searchCriteria);
-  if (search) {
+  if (useSeoUrls && search) {
     search.elements = await changeVariantUrlToParentUrl(search);
   }
 
