@@ -1,4 +1,4 @@
-import { createAPIClient, RequestReturnType } from '@shopware/api-client';
+import { createAPIClient, RequestReturnType, ApiClientError } from '@shopware/api-client';
 import { operations } from '@shopware/api-client/api-types';
 import {
   ExtendedCategory,
@@ -45,7 +45,12 @@ export async function requestNavigation(
       }
     );
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -59,7 +64,12 @@ export async function requestCategory(
       criteria
     });
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -69,7 +79,12 @@ export async function requestCategoryList(
   try {
     return await apiInstance.invoke('readCategoryList post /category', criteria);
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -79,7 +94,12 @@ export async function requestProductsCollection(
   try {
     return await apiInstance.invoke('readProduct post /product', criteria);
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -93,7 +113,12 @@ export async function requestCategoryProductsCollection(
       categoryId: categoryId
     });
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -106,7 +131,12 @@ export async function requestSearchCollectionProducts(
       ...criteria
     });
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -124,7 +154,12 @@ export async function requestSeoUrls(routeName: RouteNames, page: number = 1, li
       ]
     });
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -145,10 +180,14 @@ export async function requestSeoUrl(
         }
       ]
     };
-    console.log(criteria);
     return await apiInstance.invoke('readSeoUrl post /seo-url', criteria);
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -165,7 +204,12 @@ export async function requestCrossSell(
       }
     );
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
 
@@ -173,6 +217,11 @@ export async function requestCart() {
   try {
     return apiInstance.invoke('readCart get /checkout/cart?name', {});
   } catch (error) {
-    console.log(error);
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      console.error('==>', error);
+    }
   }
 }
