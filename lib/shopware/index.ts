@@ -53,7 +53,7 @@ export async function getMenu(params?: {
 }
 
 export async function getPage(handle: string | []): Promise<Page | undefined> {
-  const pageHandle = transformHandle(handle).replace('cms/', '');
+  const pageHandle = decodeURIComponent(transformHandle(handle)).replace('cms/', '');
   const seoUrlElement = await getFirstSeoUrlElement(pageHandle);
   if (seoUrlElement) {
     const category = await getCategory(seoUrlElement);
@@ -157,7 +157,7 @@ export async function getCollectionProducts(params?: {
 }): Promise<{ products: Product[]; total: number; limit: number }> {
   let products;
   let category = params?.categoryId;
-  const collectionName = transformHandle(params?.collection ?? '');
+  const collectionName = decodeURIComponent(transformHandle(params?.collection ?? ''));
   const sorting = getSortingCriteria(params?.sortKey, params?.reverse);
 
   if (!category && collectionName !== '') {
@@ -203,7 +203,7 @@ export async function getCategory(
 
 // This function is only used for generateMetadata at app/search/(collection)/[...collection]/page.tsx
 export async function getCollection(handle: string | []) {
-  const collectionName = transformHandle(handle);
+  const collectionName = decodeURIComponent(transformHandle(handle));
   const seoUrlElement = await getFirstSeoUrlElement(collectionName);
   if (seoUrlElement) {
     const category = await getCategory(seoUrlElement);
@@ -235,7 +235,7 @@ export async function getProductSeoUrls() {
 export async function getProduct(handle: string | []): Promise<Product | undefined> {
   let productSW: ExtendedProduct | undefined;
   let productId: string | undefined;
-  const productHandle = transformHandle(handle);
+  const productHandle = decodeURIComponent(transformHandle(handle));
 
   const seoUrlElement = await getFirstSeoUrlElement(productHandle);
   if (seoUrlElement) {
