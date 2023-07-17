@@ -10,7 +10,11 @@ export type ProductListingCriteria = {
   query: string;
 } & Omit<ApiSchemas['ProductListingCriteria'], 'filter'> &
   ExtendedCriteria;
-export type RouteNames = 'frontend.navigation.page' | 'frontend.detail.page' | 'frontend.account.customer-group-registration.page' | 'frontend.landing.page'
+export type RouteNames =
+  | 'frontend.navigation.page'
+  | 'frontend.detail.page'
+  | 'frontend.account.customer-group-registration.page'
+  | 'frontend.landing.page';
 
 /** Return Types */
 export type CategoryListingResultSW = {

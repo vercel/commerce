@@ -3,7 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export async function Carousel() {
-  const { products } = await getCollectionProducts({ collection: 'Summer-BBQ/Hidden-Carousel-Category' });
+  const { products } = await getCollectionProducts({
+    collection: 'Summer-BBQ/Hidden-Carousel-Category'
+  });
 
   if (!products?.length) return null;
 

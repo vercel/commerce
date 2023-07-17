@@ -19,9 +19,7 @@ export default async function sitemap(): Promise<Promise<Promise<MetadataRoute.S
     }))
   );
 
-  const fetchedRoutes = (
-    await Promise.all([productsPromise])
-  ).flat();
+  const fetchedRoutes = (await Promise.all([productsPromise])).flat();
 
   return [...routesMap, ...fetchedRoutes];
 }
