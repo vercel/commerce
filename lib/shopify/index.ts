@@ -23,6 +23,7 @@ import {
   Cart,
   Collection,
   Connection,
+  Image,
   Menu,
   Page,
   Product,
@@ -151,6 +152,18 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections;
 };
 
+const reshapeImages = (images: Connection<Image>, productTitle: string) => {
+  const flattened = removeEdgesAndNodes(images);
+
+  return flattened.map((image) => {
+    const filename = image.url.match(/.*\/(.*)\..*/)[1];
+    return {
+      ...image,
+      altText: image.altText || `${productTitle} - ${filename}`
+    };
+  });
+};
+
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
   if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
     return undefined;
@@ -160,7 +173,7 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
 
   return {
     ...rest,
-    images: removeEdgesAndNodes(images),
+    images: reshapeImages(images, product.title),
     variants: removeEdgesAndNodes(variants)
   };
 };
