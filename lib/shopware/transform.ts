@@ -25,24 +25,30 @@ export function transformMenu(res: ExtendedCategory[], type: string) {
 }
 
 function transformMenuItem(item: ExtendedCategory, type: string): Menu {
+  const path =
+    `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true'
+      ? item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
+        ? type === 'footer-navigation'
+          ? '/cms/' + item.seoUrls[0].seoPathInfo
+          : '/search/' + item.seoUrls[0].seoPathInfo
+        : ''
+      : type === 'footer-navigation'
+      ? '/cms/' + item.id ?? ''
+      : '/search/' + item.id ?? '';
+
   // @ToDo: currently only footer-navigation is used for cms pages, this need to be more dynamic (shoud depending on the item)
   return {
     id: item.id ?? '',
     title: item.name,
     children: item.children?.map((item) => transformMenuItem(item, type)) ?? [],
-    path:
-      item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
-        ? type === 'footer-navigation'
-          ? '/cms/' + item.seoUrls[0].seoPathInfo
-          : '/search/' + item.seoUrls[0].seoPathInfo
-        : '',
+    path: path,
     type: item.children && item.children.length > 0 ? 'headline' : 'link'
   };
 }
 
 export function transformPage(
-  seoUrlElement: ApiSchemas['SeoUrl'],
-  category: ExtendedCategory
+  category: ExtendedCategory,
+  seoUrlElement?: ApiSchemas['SeoUrl']
 ): Page {
   let plainHtmlContent;
   if (category.cmsPage) {
@@ -51,20 +57,20 @@ export function transformPage(
   }
 
   return {
-    id: seoUrlElement.id ?? '',
+    id: seoUrlElement?.id ?? category.id ?? '',
     title: category.translated?.metaTitle ?? category.name ?? '',
-    handle: seoUrlElement.seoPathInfo,
+    handle: seoUrlElement?.seoPathInfo ?? category.id ?? '',
     body: plainHtmlContent ?? category.description ?? '',
     bodySummary: category.translated?.metaDescription ?? category.description ?? '',
     seo: {
       title: category.translated?.metaTitle ?? category.name ?? '',
       description: category.translated?.metaDescription ?? category.description ?? ''
     },
-    createdAt: seoUrlElement.createdAt ?? '',
-    updatedAt: seoUrlElement.updatedAt ?? '',
-    routeName: seoUrlElement.routeName,
+    createdAt: seoUrlElement?.createdAt ?? category.createdAt ?? '',
+    updatedAt: seoUrlElement?.updatedAt ?? category.updatedAt ?? '',
+    routeName: seoUrlElement?.routeName,
     originalCmsPage: category.cmsPage,
-    foreignKey: seoUrlElement.foreignKey
+    foreignKey: seoUrlElement?.foreignKey ?? category.id
   };
 }
 
@@ -89,18 +95,22 @@ export function transformToPlainHtmlContent(cmsPage: ExtendedCmsPage): string {
 }
 
 export function transformCollection(
-  seoUrlElement: ApiSchemas['SeoUrl'],
-  resCategory: ExtendedCategory
+  resCategory: ExtendedCategory,
+  seoUrlElement?: ApiSchemas['SeoUrl']
 ) {
   return {
-    handle: seoUrlElement.seoPathInfo,
+    handle: seoUrlElement?.seoPathInfo ?? resCategory.id ?? '',
     title: resCategory.translated?.metaTitle ?? resCategory.name ?? '',
     description: resCategory.description ?? '',
     seo: {
       title: resCategory.translated?.metaTitle ?? resCategory.name ?? '',
       description: resCategory.translated?.metaDescription ?? resCategory.description ?? ''
     },
-    updatedAt: seoUrlElement.updatedAt ?? seoUrlElement.createdAt ?? ''
+    updatedAt:
+      seoUrlElement?.updatedAt ??
+      seoUrlElement?.createdAt ??
+      resCategory.updatedAt ??
+      resCategory.createdAt
   };
 }
 
@@ -116,7 +126,10 @@ export function transformSubCollection(
       .filter((item) => item.visible)
       .filter((item) => item.type !== 'link')
       .map((item) => {
-        const handle = item.seoUrls ? findHandle(item.seoUrls, parentCollectionName) : undefined;
+        const handle =
+          item.seoUrls && `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true'
+            ? findHandle(item.seoUrls, parentCollectionName)
+            : item.id;
         if (handle) {
           collection.push({
             handle: handle,
@@ -183,15 +196,21 @@ export function transformProducts(res: ExtendedProductListingResult): Product[] 
 }
 
 export function transformProduct(item: ExtendedProduct): Product {
+  const useSeoUrls = `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true';
   const productOptions = transformOptions(item);
   const productVariants = transformVariants(item);
 
-  return {
-    id: item.id ?? '',
-    path:
+  let path = item.id ? item.id : '';
+  if (useSeoUrls) {
+    path =
       item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
         ? item.seoUrls[0].seoPathInfo
-        : '',
+        : '';
+  }
+
+  return {
+    id: item.id ?? '',
+    path: path,
     availableForSale: item.available ?? false,
     title: item.translated ? item.translated.name ?? '' : item.name,
     description: item.translated?.metaDescription

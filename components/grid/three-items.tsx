@@ -37,8 +37,12 @@ function ThreeItemGridItem({
 
 export async function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
+  const collectionName =
+    `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true'
+      ? 'Summer-BBQ/Hidden-Category'
+      : '4ab73c06d90d4a5cb312209a64480d87';
   const { products: homepageItems } = await getCollectionProducts({
-    collection: 'Summer-BBQ/Hidden-Category'
+    collection: collectionName
   });
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
