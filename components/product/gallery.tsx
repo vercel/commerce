@@ -1,7 +1,6 @@
 'use client';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
 import { GridTileImage } from 'components/grid/tile';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -64,7 +63,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
-                className={clsx('h-auto w-20')}
+                className="h-auto w-20"
                 onClick={() => setCurrentImage(index)}
               >
                 <GridTileImage
