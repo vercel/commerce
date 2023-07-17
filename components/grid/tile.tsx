@@ -36,7 +36,6 @@ export function GridTileImage({
             'transition duration-300 ease-in-out hover:scale-105': isInteractive
           })}
           {...props}
-          alt={props.title || ''}
         />
       ) : null}
       {labels ? (

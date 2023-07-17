@@ -6,13 +6,13 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
-  const [currentImage, setCurrentImage] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   function handleNavigate(direction: 'next' | 'previous') {
     if (direction === 'next') {
-      setCurrentImage(currentImage + 1 < images.length ? currentImage + 1 : 0);
+      setCurrentImageIndex(currentImageIndex + 1 < images.length ? currentImageIndex + 1 : 0);
     } else {
-      setCurrentImage(currentImage === 0 ? images.length - 1 : currentImage - 1);
+      setCurrentImageIndex(currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1);
     }
   }
 
@@ -22,13 +22,14 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
   return (
     <div className="mr-8 h-full">
       <div className="relative mb-12 h-full max-h-[550px] overflow-hidden">
-        {images[currentImage] && (
+        {images[currentImageIndex] && (
           <Image
             className="relative h-full w-full object-contain"
             height={600}
             width={600}
-            alt={images[currentImage]?.altText as string}
-            src={images[currentImage]?.src as string}
+            alt={images[currentImageIndex]?.altText as string}
+            src={images[currentImageIndex]?.src as string}
+            priority={true}
           />
         )}
 
@@ -58,16 +59,16 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       {images.length > 1 ? (
         <div className="flex items-center justify-center gap-2 overflow-auto py-1">
           {images.map((image, index) => {
-            const isActive = index === currentImage;
+            const isActive = index === currentImageIndex;
             return (
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
                 className="h-auto w-20"
-                onClick={() => setCurrentImage(index)}
+                onClick={() => setCurrentImageIndex(index)}
               >
                 <GridTileImage
-                  alt={image?.altText}
+                  alt={image.altText}
                   src={image.src}
                   width={600}
                   height={600}
