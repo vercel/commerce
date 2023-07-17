@@ -73,17 +73,19 @@ export async function getPage(handle: string | []): Promise<Page | undefined> {
 export async function getFirstSeoUrlElement(
   handle: string
 ): Promise<ApiSchemas['SeoUrl'] | undefined> {
-  const resSeoUrl = await requestSeoUrl(handle);
-  if (resSeoUrl.elements && resSeoUrl.elements.length > 0 && resSeoUrl.elements[0]) {
-    return resSeoUrl.elements[0];
+  const seoURL = await requestSeoUrl(handle);
+  if (seoURL && seoURL.elements && seoURL.elements.length > 0 && seoURL.elements[0]) {
+    return seoURL.elements[0];
   }
 }
 
 export async function getFirstProduct(productId: string): Promise<ExtendedProduct | undefined> {
   const productCriteria = getDefaultProductCriteria(productId);
-  const res: ExtendedProductListingResult = await requestProductsCollection(productCriteria);
-  if (res.elements && res.elements.length > 0 && res.elements[0]) {
-    return res.elements[0];
+  const listing: ExtendedProductListingResult | undefined = await requestProductsCollection(
+    productCriteria
+  );
+  if (listing && listing.elements && listing.elements.length > 0 && listing.elements[0]) {
+    return listing.elements[0];
   }
 }
 
@@ -115,10 +117,12 @@ export async function getSearchCollectionProducts(params?: {
   const sorting = getSortingCriteria(params?.sortKey, params?.reverse);
   const searchCriteria = { ...criteria, ...sorting };
 
-  const res = await requestSearchCollectionProducts(searchCriteria);
-  res.elements = await changeVariantUrlToParentUrl(res);
+  const search = await requestSearchCollectionProducts(searchCriteria);
+  if (search) {
+    search.elements = await changeVariantUrlToParentUrl(search);
+  }
 
-  return res ? transformProducts(res) : [];
+  return search ? transformProducts(search) : [];
 }
 
 export async function changeVariantUrlToParentUrl(
@@ -151,7 +155,7 @@ export async function getCollectionProducts(params?: {
   categoryId?: string;
   defaultSearchCriteria?: Partial<ProductListingCriteria>;
 }): Promise<{ products: Product[]; total: number; limit: number }> {
-  let res;
+  let products;
   let category = params?.categoryId;
   const collectionName = transformHandle(params?.collection ?? '');
   const sorting = getSortingCriteria(params?.sortKey, params?.reverse);
@@ -174,23 +178,27 @@ export async function getCollectionProducts(params?: {
       ? getDefaultProductsCriteria(params?.page)
       : params?.defaultSearchCriteria;
     const productsCriteria = { ...criteria, ...sorting };
-    res = await requestCategoryProductsCollection(category, productsCriteria);
-    res.elements = await changeVariantUrlToParentUrl(res);
+    products = await requestCategoryProductsCollection(category, productsCriteria);
+    if (products) {
+      products.elements = await changeVariantUrlToParentUrl(products);
+    }
   }
 
-  return res
-    ? { products: transformProducts(res), total: res.total ?? 0, limit: res.limit ?? 0 }
+  return products
+    ? {
+        products: transformProducts(products),
+        total: products.total ?? 0,
+        limit: products.limit ?? 0
+      }
     : { products: [], total: 0, limit: 0 };
 }
 
 export async function getCategory(
   seoUrl: ApiSchemas['SeoUrl'],
   cms: boolean = false
-): Promise<ExtendedCategory> {
+): Promise<ExtendedCategory | undefined> {
   const criteria = cms ? getDefaultCategoryWithCmsCriteria() : getDefaultCategoryCriteria();
-  const resCategory = await requestCategory(seoUrl.foreignKey, criteria);
-
-  return resCategory;
+  return await requestCategory(seoUrl.foreignKey, criteria);
 }
 
 // This function is only used for generateMetadata at app/search/(collection)/[...collection]/page.tsx
@@ -198,23 +206,25 @@ export async function getCollection(handle: string | []) {
   const collectionName = transformHandle(handle);
   const seoUrlElement = await getFirstSeoUrlElement(collectionName);
   if (seoUrlElement) {
-    const resCategory = await getCategory(seoUrlElement);
+    const category = await getCategory(seoUrlElement);
     const path = seoUrlElement.seoPathInfo ?? '';
-    const collection = transformCollection(seoUrlElement, resCategory);
+    if (category) {
+      const collection = transformCollection(seoUrlElement, category);
 
-    return {
-      ...collection,
-      path: `/search/${path}`
-    };
+      return {
+        ...collection,
+        path: `/search/${path}`
+      };
+    }
   }
 }
 
 export async function getProductSeoUrls() {
   const productSeoUrls: { path: string; updatedAt: string }[] = [];
-  const res = await requestSeoUrls('frontend.detail.page');
+  const seoUrls = await requestSeoUrls('frontend.detail.page');
 
-  if (res.elements && res.elements.length > 0) {
-    res.elements.map((item) =>
+  if (seoUrls && seoUrls.elements && seoUrls.elements.length > 0) {
+    seoUrls.elements.map((item) =>
       productSeoUrls.push({ path: item.seoPathInfo, updatedAt: item.updatedAt ?? item.createdAt })
     );
   }
@@ -257,74 +267,74 @@ export async function getProductRecommendations(productId: string): Promise<Prod
   return products ? transformProducts(products) : [];
 }
 
-export async function getCart(): Promise<Cart> {
+export async function getCart(): Promise<Cart | undefined> {
   const cartData = await requestCart();
-
-  // @ToDo: should be moved to transformCart function
-  const cart: Cart = {
-    checkoutUrl: 'https://frontends-demo.vercel.app',
-    cost: {
-      subtotalAmount: {
-        amount: cartData.price?.positionPrice?.toString() || '0',
-        currencyCode: 'EUR'
-      },
-      totalAmount: {
-        amount: cartData.price?.totalPrice?.toString() || '0',
-        currencyCode: 'EUR'
-      },
-      totalTaxAmount: {
-        amount: '0',
-        currencyCode: 'EUR'
-      }
-    },
-    id: cartData.token || '',
-    lines:
-      cartData.lineItems?.map((lineItem) => ({
-        id: lineItem.referencedId || '',
-        quantity: lineItem.quantity ?? 0,
-        cost: {
-          totalAmount: {
-            amount: (lineItem as any)?.price?.totalPrice || '',
-            currencyCode: 'EUR'
-          }
+  if (cartData) {
+    // @ToDo: should be moved to transformCart function
+    const cart: Cart = {
+      checkoutUrl: 'https://frontends-demo.vercel.app',
+      cost: {
+        subtotalAmount: {
+          amount: cartData.price?.positionPrice?.toString() || '0',
+          currencyCode: 'EUR'
         },
-        merchandise: {
-          id: lineItem.referencedId ?? '',
-          title: lineItem.label ?? '',
-          selectedOptions: [],
-          product: {
-            description: lineItem.description ?? '',
-            descriptionHtml: lineItem.description ?? '',
-            id: lineItem.referencedId ?? '',
-            images: [],
-            path: '',
-            seo: {
-              description: lineItem.description ?? '',
-              title: lineItem.label ?? ''
-            },
-            availableForSale: true,
-            featuredImage: (lineItem as any).cover?.url,
-            handle: '',
-            options: [],
-            variants: [],
-            priceRange: {
-              minVariantPrice: {
-                amount: '', // @ToDo: should be correct value
-                currencyCode: 'EUR'
-              },
-              maxVariantPrice: {
-                amount: '', // @ToDo: should be correct value
-                currencyCode: 'EUR'
-              }
-            },
-            tags: [],
-            title: lineItem.label ?? '',
-            updatedAt: (lineItem as any)?.payload?.updatedAt
-          }
+        totalAmount: {
+          amount: cartData.price?.totalPrice?.toString() || '0',
+          currencyCode: 'EUR'
+        },
+        totalTaxAmount: {
+          amount: '0',
+          currencyCode: 'EUR'
         }
-      })) || [],
-    totalQuantity: cartData.lineItems?.length || 0
-  };
-
-  return cart;
+      },
+      id: cartData.token || '',
+      lines:
+        cartData.lineItems?.map((lineItem) => ({
+          id: lineItem.referencedId || '',
+          quantity: lineItem.quantity ?? 0,
+          cost: {
+            totalAmount: {
+              amount: (lineItem as any)?.price?.totalPrice || '',
+              currencyCode: 'EUR'
+            }
+          },
+          merchandise: {
+            id: lineItem.referencedId ?? '',
+            title: lineItem.label ?? '',
+            selectedOptions: [],
+            product: {
+              description: lineItem.description ?? '',
+              descriptionHtml: lineItem.description ?? '',
+              id: lineItem.referencedId ?? '',
+              images: [],
+              path: '',
+              seo: {
+                description: lineItem.description ?? '',
+                title: lineItem.label ?? ''
+              },
+              availableForSale: true,
+              featuredImage: (lineItem as any).cover?.url,
+              handle: '',
+              options: [],
+              variants: [],
+              priceRange: {
+                minVariantPrice: {
+                  amount: '', // @ToDo: should be correct value
+                  currencyCode: 'EUR'
+                },
+                maxVariantPrice: {
+                  amount: '', // @ToDo: should be correct value
+                  currencyCode: 'EUR'
+                }
+              },
+              tags: [],
+              title: lineItem.label ?? '',
+              updatedAt: (lineItem as any)?.payload?.updatedAt
+            }
+          }
+        })) || [],
+      totalQuantity: cartData.lineItems?.length || 0
+    };
+    return cart;
+  }
 }

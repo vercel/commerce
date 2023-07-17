@@ -7,6 +7,10 @@ export default async function Cart() {
   let cartIdUpdated = true;
   const cart = await getCart();
 
+  if (!cart) {
+    return null;
+  }
+
   if (cartId !== cart.id) {
     cartIdUpdated = true;
   }
