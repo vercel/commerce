@@ -82,7 +82,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         }}
       />
       <div className="px-4">
-        <div className="rounded-lg border border-gray-200 bg-white p-8 px-4 dark:border-gray-700 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-700 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-4">
             <Gallery
               images={product.images.map((image: Image) => ({
