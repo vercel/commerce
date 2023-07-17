@@ -169,6 +169,7 @@ export async function requestSeoUrl(
   limit: number = 1
 ): Promise<SeoURLResultSW | undefined> {
   try {
+    const testing = handle.replace('cms/', '').replace('product/', '').replace('search/', '');
     const criteria = {
       page: page,
       limit: limit,
@@ -176,7 +177,7 @@ export async function requestSeoUrl(
         {
           type: 'contains',
           field: 'seoPathInfo',
-          value: handle
+          value: testing
         }
       ]
     };

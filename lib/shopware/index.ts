@@ -53,7 +53,7 @@ export async function getMenu(params?: {
 }
 
 export async function getPage(handle: string | []): Promise<Page | undefined> {
-  const pageHandle = decodeURIComponent(transformHandle(handle)).replace('cms/', '');
+  const pageHandle = decodeURIComponent(transformHandle(handle));
   const seoUrlElement = await getFirstSeoUrlElement(pageHandle);
   if (seoUrlElement) {
     const category = await getCategory(seoUrlElement);
