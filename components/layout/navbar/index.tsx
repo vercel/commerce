@@ -1,10 +1,8 @@
 import Cart from 'components/cart';
-import OpenCart from 'components/cart/open-cart';
 import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search from './search';
 const { SITE_NAME } = process.env;
@@ -48,9 +46,7 @@ export default async function Navbar() {
           <Search />
         </div>
         <div className="flex justify-end md:w-1/3">
-          <Suspense fallback={<OpenCart className="h-6" />}>
-            <Cart />
-          </Suspense>
+          <Cart />
         </div>
       </div>
     </nav>

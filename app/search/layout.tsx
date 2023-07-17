@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 
 export default function SearchLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Suspense>
+    <>
       <div className="mx-auto flex flex-col py-6 text-black dark:text-white md:flex-row">
         <div className="order-first flex-none md:w-1/6">
           <Collections />
@@ -16,7 +16,9 @@ export default function SearchLayout({ children }: { children: React.ReactNode }
           <FilterList list={sorting} title="Sort by" />
         </div>
       </div>
-      <Footer />
-    </Suspense>
+      <Suspense>
+        <Footer />
+      </Suspense>
+    </>
   );
 }
