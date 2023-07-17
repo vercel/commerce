@@ -168,20 +168,53 @@ export async function requestSeoUrl(
   page: number = 1,
   limit: number = 1
 ): Promise<SeoURLResultSW | undefined> {
+  console.log(handle);
   try {
-    const testing = handle.replace('cms/', '').replace('product/', '').replace('search/', '');
-    const criteria = {
+    const FirstCriteria = {
+      page: page,
+      limit: limit,
+      filter: [
+        {
+          type: 'multi',
+          // @ts-ignore
+          operator: 'or',
+          queries: [
+            {
+              type: 'equals',
+              field: 'seoPathInfo',
+              value: handle + '/'
+            },
+            {
+              type: 'equals',
+              field: 'seoPathInfo',
+              value: handle
+            }
+          ]
+        }
+      ]
+    };
+    // @ts-ignore
+    const firstResult = await apiInstance.invoke('readSeoUrl post /seo-url', FirstCriteria);
+    if (firstResult.total && firstResult.total > 0) {
+      return firstResult;
+    }
+
+    const lastPart = handle.split('/').pop() + '';
+    console.log(lastPart);
+
+    const SecondCriteria = {
       page: page,
       limit: limit,
       filter: [
         {
           type: 'contains',
           field: 'seoPathInfo',
-          value: testing
+          value: lastPart
         }
       ]
     };
-    return await apiInstance.invoke('readSeoUrl post /seo-url', criteria);
+
+    return await apiInstance.invoke('readSeoUrl post /seo-url', SecondCriteria);
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
