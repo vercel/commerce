@@ -13,8 +13,7 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check",
-    "test:e2e": "playwright test"
+    "test": "pnpm lint && pnpm prettier:check"
   },
   "git": {
     "pre-commit": "lint-staged"
@@ -31,7 +30,6 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.36.1",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
