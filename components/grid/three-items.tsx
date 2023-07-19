@@ -1,5 +1,6 @@
 import { GridTileImage } from 'components/grid/tile';
 import { getCollectionProducts } from 'lib/shopware';
+import { isSeoUrls } from 'lib/shopware/helpers';
 import type { Product } from 'lib/shopware/types';
 import Link from 'next/link';
 
@@ -37,10 +38,9 @@ function ThreeItemGridItem({
 
 export async function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
-  const collectionName =
-    `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true'
-      ? 'Summer-BBQ/Hidden-Category'
-      : '4ab73c06d90d4a5cb312209a64480d87';
+  const collectionName = isSeoUrls()
+    ? 'Summer-BBQ/Hidden-Category'
+    : '4ab73c06d90d4a5cb312209a64480d87';
   const { products: homepageItems } = await getCollectionProducts({
     collection: collectionName
   });

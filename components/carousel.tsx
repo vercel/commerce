@@ -1,12 +1,12 @@
 import { getCollectionProducts } from 'lib/shopware';
+import { isSeoUrls } from 'lib/shopware/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export async function Carousel() {
-  const collectionName =
-    `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true'
-      ? 'Summer-BBQ/Hidden-Carousel-Category'
-      : 'ff7bf3c59f1342a685844fbf8fdf9dc8';
+  const collectionName = isSeoUrls()
+    ? 'Summer-BBQ/Hidden-Carousel-Category'
+    : 'ff7bf3c59f1342a685844fbf8fdf9dc8';
   const { products } = await getCollectionProducts({
     collection: collectionName
   });

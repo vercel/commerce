@@ -15,14 +15,12 @@ import {
   SeoURLResultSW,
   StoreNavigationTypeSW
 } from './types';
-
-const domainSW = `https://${process.env.SHOPWARE_STORE_DOMAIN!}/${process.env.SHOPWARE_API_TYPE!}`;
-const accessTokenSW = `${process.env.SHOPWARE_ACCESS_TOKEN}`;
+import { getStoreDomainWithApiType, getAccessToken, getApiType } from 'lib/shopware/helpers';
 
 const apiInstance = createAPIClient<extendedOperations, extendedPaths>({
-  baseURL: domainSW,
-  accessToken: accessTokenSW,
-  apiType: 'store-api'
+  baseURL: getStoreDomainWithApiType(),
+  accessToken: getAccessToken(),
+  apiType: getApiType()
 });
 
 // reimport operations return types to use it in application

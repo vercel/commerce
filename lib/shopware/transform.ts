@@ -15,6 +15,7 @@ import {
   ExtendedProductListingResult
 } from './api-extended';
 import { ListItem } from 'components/layout/search/filter';
+import { isSeoUrls } from 'lib/shopware/helpers';
 
 export function transformMenu(res: ExtendedCategory[], type: string) {
   const menu: Menu[] = [];
@@ -25,16 +26,15 @@ export function transformMenu(res: ExtendedCategory[], type: string) {
 }
 
 function transformMenuItem(item: ExtendedCategory, type: string): Menu {
-  const path =
-    `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true'
-      ? item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
-        ? type === 'footer-navigation'
-          ? '/cms/' + item.seoUrls[0].seoPathInfo
-          : '/search/' + item.seoUrls[0].seoPathInfo
-        : ''
-      : type === 'footer-navigation'
-      ? '/cms/' + item.id ?? ''
-      : '/search/' + item.id ?? '';
+  const path = isSeoUrls()
+    ? item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
+      ? type === 'footer-navigation'
+        ? '/cms/' + item.seoUrls[0].seoPathInfo
+        : '/search/' + item.seoUrls[0].seoPathInfo
+      : ''
+    : type === 'footer-navigation'
+    ? '/cms/' + item.id ?? ''
+    : '/search/' + item.id ?? '';
 
   // @ToDo: currently only footer-navigation is used for cms pages, this need to be more dynamic (shoud depending on the item)
   return {
@@ -127,9 +127,7 @@ export function transformSubCollection(
       .filter((item) => item.type !== 'link')
       .map((item) => {
         const handle =
-          item.seoUrls && `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true'
-            ? findHandle(item.seoUrls, parentCollectionName)
-            : item.id;
+          isSeoUrls() && item.seoUrls ? findHandle(item.seoUrls, parentCollectionName) : item.id;
         if (handle) {
           collection.push({
             handle: handle,
@@ -196,12 +194,11 @@ export function transformProducts(res: ExtendedProductListingResult): Product[] 
 }
 
 export function transformProduct(item: ExtendedProduct): Product {
-  const useSeoUrls = `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true';
   const productOptions = transformOptions(item);
   const productVariants = transformVariants(item);
 
   let path = item.parentId ?? item.id ?? '';
-  if (useSeoUrls) {
+  if (isSeoUrls()) {
     path =
       item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
         ? item.seoUrls[0].seoPathInfo

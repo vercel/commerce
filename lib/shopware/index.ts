@@ -40,7 +40,7 @@ import {
   ProductListingCriteria,
   StoreNavigationTypeSW
 } from './types';
-const useSeoUrls = `${process.env.SHOPWARE_USE_SEO_URLS}` === 'true';
+import { isSeoUrls } from 'lib/shopware/helpers';
 
 export async function getMenu(params?: {
   type?: StoreNavigationTypeSW;
@@ -57,7 +57,7 @@ export async function getPage(handle: string | []): Promise<Page | undefined> {
   let seoUrlElement;
   let pageIdOrHandle = decodeURIComponent(transformHandle(handle)).replace('cms/', '');
 
-  if (useSeoUrls) {
+  if (isSeoUrls()) {
     seoUrlElement = await getFirstSeoUrlElement(pageIdOrHandle);
     if (seoUrlElement) {
       pageIdOrHandle = seoUrlElement.foreignKey;
@@ -103,7 +103,7 @@ export async function getSubCollections(collection: string) {
   const parentCollectionName =
     Array.isArray(collection) && collection[0] ? collection[0] : undefined;
 
-  if (useSeoUrls) {
+  if (isSeoUrls()) {
     const seoUrlElement = await getFirstSeoUrlElement(collectionName);
     if (seoUrlElement) {
       criteria = getDefaultSubCategoriesCriteria(seoUrlElement.foreignKey);
@@ -129,7 +129,7 @@ export async function getSearchCollectionProducts(params?: {
   const searchCriteria = { ...criteria, ...sorting };
 
   const search = await requestSearchCollectionProducts(searchCriteria);
-  if (useSeoUrls && search) {
+  if (isSeoUrls() && search) {
     search.elements = await changeVariantUrlToParentUrl(search);
   }
 
@@ -171,7 +171,7 @@ export async function getCollectionProducts(params?: {
   const collectionName = decodeURIComponent(transformHandle(params?.collection ?? ''));
   const sorting = getSortingCriteria(params?.sortKey, params?.reverse);
 
-  if (useSeoUrls && !category && collectionName !== '') {
+  if (isSeoUrls() && !category && collectionName !== '') {
     const seoUrlElement = await getFirstSeoUrlElement(collectionName);
     if (seoUrlElement) {
       category = seoUrlElement.foreignKey;
@@ -184,8 +184,8 @@ export async function getCollectionProducts(params?: {
     }
   }
 
-  if (!useSeoUrls) {
-    category = params?.collection ?? undefined;
+  if (!isSeoUrls()) {
+    category = collectionName ?? undefined;
   }
 
   if (category) {
@@ -222,7 +222,7 @@ export async function getCollection(handle: string | []) {
   let seoUrlElement;
   let categoryIdOrHandle = decodeURIComponent(transformHandle(handle));
 
-  if (useSeoUrls) {
+  if (isSeoUrls()) {
     seoUrlElement = await getFirstSeoUrlElement(categoryIdOrHandle);
     if (seoUrlElement) {
       categoryIdOrHandle = seoUrlElement.foreignKey;
@@ -261,7 +261,7 @@ export async function getProduct(handle: string | []): Promise<Product | undefin
   const productHandle = decodeURIComponent(transformHandle(handle));
   productId = productHandle; // if we do not use seoUrls the handle should be the product id
 
-  if (useSeoUrls) {
+  if (isSeoUrls()) {
     const seoUrlElement = await getFirstSeoUrlElement(productHandle);
     if (seoUrlElement) {
       productId = seoUrlElement.foreignKey;
