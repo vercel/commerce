@@ -15,24 +15,45 @@
 .typesNav {
     text-align: center;
 
-    :global .filter {
+    .filter {
         @include typography.body;
     }
 
-    :global .not-link {
+    .notLink {
         @include typography.body-cta;
 
         text-decoration-line: none;
     }
 
-    :global .link {
+    .link {
         @include typography.body-cta;
     }
 }
 
 .homeProductsList {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(24, 1fr);
     column-gap: 10px;
     row-gap: 20px;
+
+    > {
+        li {
+            grid-column-end: span 8;
+
+            &.featured {
+                grid-column-end: span 14;
+            }
+
+            &:has(+ .featured:nth-child(2n + 1)) {
+                grid-column-end: span 10;
+            }
+        }
+
+        li.featured:nth-child(2n) + li {
+            grid-column-end: span 10;
+        }
+    }
+}
+
+.homeProduct {
 }

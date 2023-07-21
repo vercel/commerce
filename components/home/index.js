@@ -13,7 +13,10 @@ export async function HomeProduct({ product }) {
     const collections = product?.collections?.nodes;
 
     return (
-        <Link href={`/product/${product?.handle}`}>
+        <Link
+            href={`/product/${product?.handle}`}
+            className={styles.homeProduct}
+        >
             <Image
                 src={featuredImage?.url}
                 alt={featuredImage?.altText}
@@ -31,6 +34,11 @@ export async function HomeProduct({ product }) {
     );
 }
 
+const productIsFeatured = product =>
+    product?.collections?.nodes
+        ?.map(collection => collection?.handle)
+        .includes('featured');
+
 //TODO: suspense
 export async function HomeProductsList({ collection }) {
     const products = await getCollectionProducts({
@@ -44,7 +52,14 @@ export async function HomeProductsList({ collection }) {
             ) : (
                 <ul className={styles.homeProductsList}>
                     {products?.map(product => (
-                        <li key={product?.handle}>
+                        <li
+                            key={product?.handle}
+                            className={
+                                productIsFeatured(product)
+                                    ? styles.featured
+                                    : null
+                            }
+                        >
                             <HomeProduct {...{ product }} />
                         </li>
                     ))}
@@ -60,14 +75,14 @@ export async function TypesNav() {
 
     return (
         <p className={styles.typesNav}>
-            <span className='filter'>Filter: </span>
+            <span className={styles.filter}>Filter: </span>
             {typesMenu?.map((menuItem, i) => (
                 <span key={menuItem?.path}>
                     <Link
                         href={menuItem?.path}
-                        className='link'
+                        className={styles.link}
                     >{`${menuItem?.title}`}</Link>
-                    <span className='not-link'>{`${
+                    <span className={styles.notLink}>{`${
                         i == typesMenu.length - 1 ? '.' : ','
                     } `}</span>
                 </span>
