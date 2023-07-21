@@ -57,9 +57,10 @@ export type ExtendedProductListingResult = Omit<schemas['ProductListingResult'],
 export type ExtendedCrossSellingElementCollection = Omit<
   schemas['CrossSellingElementCollection'],
   'products'
-> & {
-  products?: ExtendedProduct[];
-}[];
+> &
+  {
+    products?: ExtendedProduct[];
+  }[];
 
 export type ExtendedCategory = Omit<schemas['Category'], 'children' | 'seoUrls' | 'cmsPage'> & {
   children?: ExtendedCategory[];
@@ -104,7 +105,7 @@ type extendedReadProductCrossSellings = {
     /** Found cross sellings */
     200: {
       content: {
-        'application/json': ExtendedCrossSellingElementCollection
+        'application/json': ExtendedCrossSellingElementCollection;
       };
     };
   };

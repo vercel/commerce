@@ -1,10 +1,18 @@
-'use client'
+'use client';
 
 import ReactPaginate from 'react-paginate';
 import { createUrl } from 'lib/utils';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
-export default function Pagination({ itemsPerPage, itemsTotal, currentPage }: { itemsPerPage: number, itemsTotal: number, currentPage: number }) {
+export default function Pagination({
+  itemsPerPage,
+  itemsTotal,
+  currentPage
+}: {
+  itemsPerPage: number;
+  itemsTotal: number;
+  currentPage: number;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const currentParams = useSearchParams();
@@ -12,20 +20,26 @@ export default function Pagination({ itemsPerPage, itemsTotal, currentPage }: { 
   const sort = currentParams.get('sort');
   const pageCount = Math.ceil(itemsTotal / itemsPerPage);
 
-  // Invoke when user click to request another page.
+  // Invoke when user click to request another page. test
   const handlePageClick = (event: clickEvent) => {
     const page = event.selected;
     const newPage = page + 1;
-    let newUrl = createUrl(pathname, new URLSearchParams({
-      ...(q && { q }),
-      ...(sort && { sort }),
-    }));
-    if (page !== 0) {
-      newUrl = createUrl(pathname, new URLSearchParams({
+    let newUrl = createUrl(
+      pathname,
+      new URLSearchParams({
         ...(q && { q }),
-        ...(sort && { sort }),
-        page: newPage.toString(),
-      }));
+        ...(sort && { sort })
+      })
+    );
+    if (page !== 0) {
+      newUrl = createUrl(
+        pathname,
+        new URLSearchParams({
+          ...(q && { q }),
+          ...(sort && { sort }),
+          page: newPage.toString()
+        })
+      );
     }
     router.replace(newUrl);
   };
@@ -65,4 +79,4 @@ type clickEvent = {
   isNext: boolean;
   isBreak: boolean;
   isActive: boolean;
-}
+};

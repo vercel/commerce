@@ -59,4 +59,3 @@ export const updateItemQuantity = async ({
     return new Error('Error updating item quantity', { cause: e });
   }
 };
-

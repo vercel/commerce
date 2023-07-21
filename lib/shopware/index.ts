@@ -1,4 +1,3 @@
-import { Cart } from 'lib/shopify/types';
 import {
   requestCart,
   requestCategory,
@@ -19,8 +18,8 @@ import {
   getDefaultProductCriteria,
   getDefaultProductsCriteria,
   getDefaultSearchProductsCriteria,
-  getSortingCriteria,
-  getStaticCollectionCriteria
+  getDefaultSubCategoriesCriteria,
+  getSortingCriteria
 } from './criteria';
 import {
   transformCollection,
@@ -29,16 +28,19 @@ import {
   transformPage,
   transformProduct,
   transformProducts,
-  transformStaticCollection
+  transformSubCollection
 } from './transform';
 import {
   ApiSchemas,
+  Cart,
+  CategoryListingResultSW,
   Menu,
   Page,
   Product,
   ProductListingCriteria,
   StoreNavigationTypeSW
 } from './types';
+import { isSeoUrls } from 'lib/shopware/helpers';
 
 export async function getMenu(params?: {
   type?: StoreNavigationTypeSW;
@@ -52,39 +54,66 @@ export async function getMenu(params?: {
 }
 
 export async function getPage(handle: string | []): Promise<Page | undefined> {
-  const pageHandle = transformHandle(handle).replace('cms/', '');
-  const seoUrlElement = await getFirstSeoUrlElement(pageHandle);
-  if (seoUrlElement) {
-    const resCategory = await getCategory(seoUrlElement);
+  let seoUrlElement;
+  let pageIdOrHandle = decodeURIComponent(transformHandle(handle)).replace('cms/', '');
 
-    return resCategory ? transformPage(seoUrlElement, resCategory) : undefined;
+  if (isSeoUrls()) {
+    seoUrlElement = await getFirstSeoUrlElement(pageIdOrHandle);
+    if (seoUrlElement) {
+      pageIdOrHandle = seoUrlElement.foreignKey;
+    }
+
+    if (!seoUrlElement) {
+      console.log('[getPage] Did not found any seoUrl element with page handle:', pageIdOrHandle);
+    }
   }
+
+  const category = await getCategory(pageIdOrHandle);
+  if (!category) {
+    console.log('[getPage] Did not found any category with handle:', pageIdOrHandle);
+  }
+
+  return category ? transformPage(category, seoUrlElement) : undefined;
 }
 
 export async function getFirstSeoUrlElement(
   handle: string
 ): Promise<ApiSchemas['SeoUrl'] | undefined> {
-  const resSeoUrl = await requestSeoUrl(handle);
-  if (resSeoUrl.elements && resSeoUrl.elements.length > 0 && resSeoUrl.elements[0]) {
-    return resSeoUrl.elements[0];
+  const seoURL = await requestSeoUrl(handle);
+  if (seoURL && seoURL.elements && seoURL.elements.length > 0 && seoURL.elements[0]) {
+    return seoURL.elements[0];
   }
 }
 
 export async function getFirstProduct(productId: string): Promise<ExtendedProduct | undefined> {
   const productCriteria = getDefaultProductCriteria(productId);
-  const res: ExtendedProductListingResult = await requestProductsCollection(productCriteria);
-  if (res.elements && res.elements.length > 0 && res.elements[0]) {
-    return res.elements[0];
+  const listing: ExtendedProductListingResult | undefined = await requestProductsCollection(
+    productCriteria
+  );
+  if (listing && listing.elements && listing.elements.length > 0 && listing.elements[0]) {
+    return listing.elements[0];
   }
 }
 
 // ToDo: should be more dynamic (depending on handle), should work with server and not client see generateStaticParams from next.js
-export async function getStaticCollections() {
-  // @ToDo: This is an example about multi-filter with new store API client
-  // @ts-ignore
-  const resCategory = await requestCategoryList(getStaticCollectionCriteria());
+export async function getSubCollections(collection: string) {
+  const collectionName = decodeURIComponent(transformHandle(collection ?? ''));
+  let criteria = getDefaultSubCategoriesCriteria(collectionName);
+  let res: CategoryListingResultSW | undefined = undefined;
+  const parentCollectionName =
+    Array.isArray(collection) && collection[0] ? collection[0] : undefined;
 
-  return resCategory ? transformStaticCollection(resCategory) : [];
+  if (isSeoUrls()) {
+    const seoUrlElement = await getFirstSeoUrlElement(collectionName);
+    if (seoUrlElement) {
+      criteria = getDefaultSubCategoriesCriteria(seoUrlElement.foreignKey);
+    }
+  }
+
+  // @ts-ignore
+  res = await requestCategoryList(criteria);
+
+  return res ? transformSubCollection(res, parentCollectionName) : [];
 }
 
 export async function getSearchCollectionProducts(params?: {
@@ -99,9 +128,34 @@ export async function getSearchCollectionProducts(params?: {
   const sorting = getSortingCriteria(params?.sortKey, params?.reverse);
   const searchCriteria = { ...criteria, ...sorting };
 
-  const res = await requestSearchCollectionProducts(searchCriteria);
+  const search = await requestSearchCollectionProducts(searchCriteria);
+  if (isSeoUrls() && search) {
+    search.elements = await changeVariantUrlToParentUrl(search);
+  }
 
-  return res ? transformProducts(res) : [];
+  return search ? transformProducts(search) : [];
+}
+
+export async function changeVariantUrlToParentUrl(
+  collection: ExtendedProductListingResult
+): Promise<ExtendedProduct[]> {
+  const newElements: ExtendedProduct[] = [];
+  if (collection.elements && collection.elements.length > 0) {
+    await Promise.all(
+      collection.elements.map(async (item) => {
+        if (item.parentId && item.seoUrls && item.seoUrls[0]) {
+          const parentProduct = await getFirstProduct(item.parentId);
+          if (parentProduct && parentProduct.seoUrls && parentProduct.seoUrls[0]) {
+            item.seoUrls[0].seoPathInfo = parentProduct.seoUrls[0].seoPathInfo;
+          }
+        }
+
+        newElements.push(item);
+      })
+    );
+  }
+
+  return newElements;
 }
 
 export async function getCollectionProducts(params?: {
@@ -112,12 +166,12 @@ export async function getCollectionProducts(params?: {
   categoryId?: string;
   defaultSearchCriteria?: Partial<ProductListingCriteria>;
 }): Promise<{ products: Product[]; total: number; limit: number }> {
-  let res;
+  let products;
   let category = params?.categoryId;
-  const collectionName = transformHandle(params?.collection ?? '');
+  const collectionName = decodeURIComponent(transformHandle(params?.collection ?? ''));
   const sorting = getSortingCriteria(params?.sortKey, params?.reverse);
 
-  if (!category && collectionName !== '') {
+  if (isSeoUrls() && !category && collectionName !== '') {
     const seoUrlElement = await getFirstSeoUrlElement(collectionName);
     if (seoUrlElement) {
       category = seoUrlElement.foreignKey;
@@ -130,37 +184,56 @@ export async function getCollectionProducts(params?: {
     }
   }
 
+  if (!isSeoUrls()) {
+    category = collectionName ?? undefined;
+  }
+
   if (category) {
     const criteria = !params?.defaultSearchCriteria
       ? getDefaultProductsCriteria(params?.page)
       : params?.defaultSearchCriteria;
     const productsCriteria = { ...criteria, ...sorting };
-    res = await requestCategoryProductsCollection(category, productsCriteria);
+    products = await requestCategoryProductsCollection(category, productsCriteria);
+    if (products) {
+      products.elements = await changeVariantUrlToParentUrl(products);
+    }
   }
 
-  return res
-    ? { products: transformProducts(res), total: res.total ?? 0, limit: res.limit ?? 0 }
+  return products
+    ? {
+        products: transformProducts(products),
+        total: products.total ?? 0,
+        limit: products.limit ?? 0
+      }
     : { products: [], total: 0, limit: 0 };
 }
 
 export async function getCategory(
-  seoUrl: ApiSchemas['SeoUrl'],
+  categoryId: string,
   cms: boolean = false
-): Promise<ExtendedCategory> {
+): Promise<ExtendedCategory | undefined> {
   const criteria = cms ? getDefaultCategoryWithCmsCriteria() : getDefaultCategoryCriteria();
-  const resCategory = await requestCategory(seoUrl.foreignKey, criteria);
-
-  return resCategory;
+  return await requestCategory(categoryId, criteria);
 }
 
 // This function is only used for generateMetadata at app/search/(collection)/[...collection]/page.tsx
 export async function getCollection(handle: string | []) {
-  const collectionName = transformHandle(handle);
-  const seoUrlElement = await getFirstSeoUrlElement(collectionName);
-  if (seoUrlElement) {
-    const resCategory = await getCategory(seoUrlElement);
-    const path = seoUrlElement.seoPathInfo ?? '';
-    const collection = transformCollection(seoUrlElement, resCategory);
+  let path;
+  let seoUrlElement;
+  let categoryIdOrHandle = decodeURIComponent(transformHandle(handle));
+
+  if (isSeoUrls()) {
+    seoUrlElement = await getFirstSeoUrlElement(categoryIdOrHandle);
+    if (seoUrlElement) {
+      categoryIdOrHandle = seoUrlElement.foreignKey;
+      path = seoUrlElement.seoPathInfo ?? '';
+    }
+  }
+
+  const category = await getCategory(categoryIdOrHandle);
+  if (category) {
+    const collection = transformCollection(category, seoUrlElement);
+    path = path ?? category.id ?? '';
 
     return {
       ...collection,
@@ -171,10 +244,10 @@ export async function getCollection(handle: string | []) {
 
 export async function getProductSeoUrls() {
   const productSeoUrls: { path: string; updatedAt: string }[] = [];
-  const res = await requestSeoUrls('frontend.detail.page');
+  const seoUrls = await requestSeoUrls('frontend.detail.page');
 
-  if (res.elements && res.elements.length > 0) {
-    res.elements.map((item) =>
+  if (seoUrls && seoUrls.elements && seoUrls.elements.length > 0) {
+    seoUrls.elements.map((item) =>
       productSeoUrls.push({ path: item.seoPathInfo, updatedAt: item.updatedAt ?? item.createdAt })
     );
   }
@@ -185,16 +258,20 @@ export async function getProductSeoUrls() {
 export async function getProduct(handle: string | []): Promise<Product | undefined> {
   let productSW: ExtendedProduct | undefined;
   let productId: string | undefined;
-  const productHandle = transformHandle(handle);
+  const productHandle = decodeURIComponent(transformHandle(handle));
+  productId = productHandle; // if we do not use seoUrls the handle should be the product id
 
-  const seoUrlElement = await getFirstSeoUrlElement(productHandle);
-  if (seoUrlElement) {
-    productId = seoUrlElement.foreignKey;
+  if (isSeoUrls()) {
+    const seoUrlElement = await getFirstSeoUrlElement(productHandle);
+    if (seoUrlElement) {
+      productId = seoUrlElement.foreignKey;
+    }
   }
 
   if (!productId) {
-    console.log('[getProduct][search] Did not found any product with handle:', productHandle);
+    console.log('[getProduct][search] Did not found any product with handle:', handle);
   }
+
   if (productId) {
     const firstProduct = await getFirstProduct(productId);
     if (firstProduct) {
@@ -217,65 +294,74 @@ export async function getProductRecommendations(productId: string): Promise<Prod
   return products ? transformProducts(products) : [];
 }
 
-export async function getCart(cartId?: string): Promise<Cart> {
+export async function getCart(cartId?: string): Promise<Cart | undefined> {
   const cartData = await requestCart(cartId);
-
-  let cart: Cart = {
-    checkoutUrl: 'https://frontends-demo.vercel.app',
-    cost: {
-      subtotalAmount: {
-        amount: cartData.price?.positionPrice?.toString() || '0',
-        currencyCode: 'EUR'
-      },
-      totalAmount: {
-        amount: cartData.price?.totalPrice?.toString() || '0',
-        currencyCode: 'EUR'
-      },
-      totalTaxAmount: {
-        amount: '0',
-        currencyCode: 'EUR'
-      }
-    },
-    id: cartData.token || '',
-    lines:
-      cartData.lineItems?.map((lineItem) => ({
-        id: lineItem.referencedId || '',
-        quantity: lineItem.quantity,
-        cost: {
-          totalAmount: {
-            amount: (lineItem as any)?.price?.totalPrice || ''
-          }
+  if (cartData) {
+    // @ToDo: should be moved to transformCart function
+    const cart: Cart = {
+      checkoutUrl: 'https://frontends-demo.vercel.app',
+      cost: {
+        subtotalAmount: {
+          amount: cartData.price?.positionPrice?.toString() || '0',
+          currencyCode: 'EUR'
         },
-        merchandise: {
-          id: lineItem.referencedId,
-          title: lineItem.label,
-          selectedOptions: [],
-          product: {
-            description: lineItem.description,
-            descriptionHtml: lineItem.description,
-            id: lineItem.referencedId,
-            images: [],
-            seo: {
-              description: lineItem.description,
-              title: lineItem.label
-            },
-            availableForSale: true,
-            featuredImage: {
-              altText: 'Cover image of ' + lineItem.label,
-              url: (lineItem as any).cover?.url
-            },
-            handle: '',
-            options: [],
-            variants: [],
-            priceRange: {},
-            tags: [],
-            title: lineItem.label,
-            updatedAt: (lineItem as any)?.payload?.updatedAt
-          }
+        totalAmount: {
+          amount: cartData.price?.totalPrice?.toString() || '0',
+          currencyCode: 'EUR'
+        },
+        totalTaxAmount: {
+          amount: '0',
+          currencyCode: 'EUR'
         }
-      })) || [],
-    totalQuantity: cartData.lineItems?.length || 0
-  };
-
-  return cart;
+      },
+      id: cartData.token || '',
+      lines:
+        cartData.lineItems?.map((lineItem) => ({
+          id: lineItem.referencedId || '',
+          quantity: lineItem.quantity ?? 0,
+          cost: {
+            totalAmount: {
+              amount: (lineItem as any)?.price?.totalPrice || '',
+              currencyCode: 'EUR'
+            }
+          },
+          merchandise: {
+            id: lineItem.referencedId ?? '',
+            title: lineItem.label ?? '',
+            selectedOptions: [],
+            product: {
+              description: lineItem.description ?? '',
+              descriptionHtml: lineItem.description ?? '',
+              id: lineItem.referencedId ?? '',
+              images: [],
+              path: '',
+              seo: {
+                description: lineItem.description ?? '',
+                title: lineItem.label ?? ''
+              },
+              availableForSale: true,
+              featuredImage: (lineItem as any).cover?.url,
+              handle: '',
+              options: [],
+              variants: [],
+              priceRange: {
+                minVariantPrice: {
+                  amount: '', // @ToDo: should be correct value
+                  currencyCode: 'EUR'
+                },
+                maxVariantPrice: {
+                  amount: '', // @ToDo: should be correct value
+                  currencyCode: 'EUR'
+                }
+              },
+              tags: [],
+              title: lineItem.label ?? '',
+              updatedAt: (lineItem as any)?.payload?.updatedAt
+            }
+          }
+        })) || [],
+      totalQuantity: cartData.lineItems?.length || 0
+    };
+    return cart;
+  }
 }

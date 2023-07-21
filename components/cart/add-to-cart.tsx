@@ -6,17 +6,17 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
 import LoadingDots from 'components/loading-dots';
-import { ProductVariant } from 'lib/shopify/types';
 import { Product } from 'lib/shopware/types';
+import { ProductVariant } from 'lib/shopware/types';
 
 export function AddToCart({
   product,
   variants,
-  availableForSale,
+  availableForSale
 }: {
   variants: ProductVariant[];
   availableForSale: boolean;
-  product: Product
+  product: Product;
 }) {
   const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
   const router = useRouter();
@@ -44,10 +44,10 @@ export function AddToCart({
         startTransition(async () => {
           const error = await addItem(product.id);
 
-           if (error) {
-             console.error(error);
-             return;
-         }
+          if (error) {
+            console.error(error);
+            return;
+          }
 
           router.refresh();
         });

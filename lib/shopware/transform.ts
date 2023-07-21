@@ -15,6 +15,7 @@ import {
   ExtendedProductListingResult
 } from './api-extended';
 import { ListItem } from 'components/layout/search/filter';
+import { isSeoUrls } from 'lib/shopware/helpers';
 
 export function transformMenu(res: ExtendedCategory[], type: string) {
   const menu: Menu[] = [];
@@ -25,24 +26,29 @@ export function transformMenu(res: ExtendedCategory[], type: string) {
 }
 
 function transformMenuItem(item: ExtendedCategory, type: string): Menu {
+  const path = isSeoUrls()
+    ? item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
+      ? type === 'footer-navigation'
+        ? '/cms/' + item.seoUrls[0].seoPathInfo
+        : '/search/' + item.seoUrls[0].seoPathInfo
+      : ''
+    : type === 'footer-navigation'
+    ? '/cms/' + item.id ?? ''
+    : '/search/' + item.id ?? '';
+
   // @ToDo: currently only footer-navigation is used for cms pages, this need to be more dynamic (shoud depending on the item)
   return {
     id: item.id ?? '',
     title: item.name,
     children: item.children?.map((item) => transformMenuItem(item, type)) ?? [],
-    path:
-      item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
-        ? type === 'footer-navigation'
-          ? '/cms/' + item.seoUrls[0].seoPathInfo
-          : '/search/' + item.seoUrls[0].seoPathInfo
-        : '',
+    path: path,
     type: item.children && item.children.length > 0 ? 'headline' : 'link'
   };
 }
 
 export function transformPage(
-  seoUrlElement: ApiSchemas['SeoUrl'],
-  category: ExtendedCategory
+  category: ExtendedCategory,
+  seoUrlElement?: ApiSchemas['SeoUrl']
 ): Page {
   let plainHtmlContent;
   if (category.cmsPage) {
@@ -51,20 +57,20 @@ export function transformPage(
   }
 
   return {
-    id: seoUrlElement.id ?? '',
+    id: seoUrlElement?.id ?? category.id ?? '',
     title: category.translated?.metaTitle ?? category.name ?? '',
-    handle: seoUrlElement.seoPathInfo,
+    handle: seoUrlElement?.seoPathInfo ?? category.id ?? '',
     body: plainHtmlContent ?? category.description ?? '',
     bodySummary: category.translated?.metaDescription ?? category.description ?? '',
     seo: {
       title: category.translated?.metaTitle ?? category.name ?? '',
       description: category.translated?.metaDescription ?? category.description ?? ''
     },
-    createdAt: seoUrlElement.createdAt ?? '',
-    updatedAt: seoUrlElement.updatedAt ?? '',
-    routeName: seoUrlElement.routeName,
+    createdAt: seoUrlElement?.createdAt ?? category.createdAt ?? '',
+    updatedAt: seoUrlElement?.updatedAt ?? category.updatedAt ?? '',
+    routeName: seoUrlElement?.routeName,
     originalCmsPage: category.cmsPage,
-    foreignKey: seoUrlElement.foreignKey
+    foreignKey: seoUrlElement?.foreignKey ?? category.id
   };
 }
 
@@ -89,55 +95,89 @@ export function transformToPlainHtmlContent(cmsPage: ExtendedCmsPage): string {
 }
 
 export function transformCollection(
-  seoUrlElement: ApiSchemas['SeoUrl'],
-  resCategory: ExtendedCategory
+  resCategory: ExtendedCategory,
+  seoUrlElement?: ApiSchemas['SeoUrl']
 ) {
   return {
-    handle: seoUrlElement.seoPathInfo,
+    handle: seoUrlElement?.seoPathInfo ?? resCategory.id ?? '',
     title: resCategory.translated?.metaTitle ?? resCategory.name ?? '',
     description: resCategory.description ?? '',
     seo: {
       title: resCategory.translated?.metaTitle ?? resCategory.name ?? '',
       description: resCategory.translated?.metaDescription ?? resCategory.description ?? ''
     },
-    updatedAt: seoUrlElement.updatedAt ?? seoUrlElement.createdAt ?? ''
+    updatedAt:
+      seoUrlElement?.updatedAt ??
+      seoUrlElement?.createdAt ??
+      resCategory.updatedAt ??
+      resCategory.createdAt
   };
 }
 
-export function transformStaticCollection(resCategory: CategoryListingResultSW): Collection[] {
+export function transformSubCollection(
+  category: CategoryListingResultSW,
+  parentCollectionName?: string
+): Collection[] {
   const collection: Collection[] = [];
 
-  if (resCategory.elements && resCategory.elements.length > 0) {
-    resCategory.elements.map((item) =>
-      collection.push({
-        handle:
-          item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
-            ? item.seoUrls[0].seoPathInfo
-            : '',
-        title: item.translated?.metaTitle ?? item.name ?? '',
-        description: item.description ?? '',
-        seo: {
-          title: item.translated?.metaTitle ?? item.name ?? '',
-          description: item.translated?.metaDescription ?? item.description ?? ''
-        },
-        updatedAt: item.updatedAt ?? item.createdAt ?? ''
-      })
-    );
+  if (category.elements && category.elements[0] && category.elements[0].children) {
+    // we do not support type links at the moment and show only visible categories
+    category.elements[0].children
+      .filter((item) => item.visible)
+      .filter((item) => item.type !== 'link')
+      .map((item) => {
+        const handle =
+          isSeoUrls() && item.seoUrls ? findHandle(item.seoUrls, parentCollectionName) : item.id;
+        if (handle) {
+          collection.push({
+            handle: handle,
+            title: item.translated?.metaTitle ?? item.name ?? '',
+            description: item.description ?? '',
+            seo: {
+              title: item.translated?.metaTitle ?? item.name ?? '',
+              description: item.translated?.metaDescription ?? item.description ?? ''
+            },
+            childCount: item.childCount ?? 0,
+            updatedAt: item.updatedAt ?? item.createdAt ?? ''
+          });
+        }
+      });
   }
 
   return collection;
 }
 
-export function transformStaticCollectionToList(collection: Collection[]): ListItem[] {
+// small function to find longest handle and to make sure parent collection name is in the path
+function findHandle(seoUrls: ApiSchemas['SeoUrl'][], parentCollectionName?: string): string {
+  let handle: string = '';
+  seoUrls.map((item) => {
+    if (
+      !item.isDeleted &&
+      item.isCanonical &&
+      item.seoPathInfo &&
+      item.seoPathInfo.length > handle.length &&
+      item.seoPathInfo.includes(parentCollectionName ?? '')
+    ) {
+      handle = item.seoPathInfo;
+    }
+  });
+
+  return handle;
+}
+
+export function transformCollectionToList(collection: Collection[]): ListItem[] {
   const listItem: ListItem[] = [];
 
   if (collection && collection.length > 0) {
-    collection.map((item) =>
+    collection.map((item) => {
+      // we asume that when there is not product child count it must be a cms page
+      const pagePrefix = item.childCount === 0 ? '/cms' : '/search';
+      const newHandle = item.handle.replace('Main-navigation/', '');
       listItem.push({
         title: item.title,
-        path: `/search/${item.handle}`
-      })
-    );
+        path: `${pagePrefix}/${newHandle}`
+      });
+    });
   }
 
   return listItem;
@@ -157,12 +197,17 @@ export function transformProduct(item: ExtendedProduct): Product {
   const productOptions = transformOptions(item);
   const productVariants = transformVariants(item);
 
-  return {
-    id: item.id ?? '',
-    path:
+  let path = item.parentId ?? item.id ?? '';
+  if (isSeoUrls()) {
+    path =
       item.seoUrls && item.seoUrls.length > 0 && item.seoUrls[0] && item.seoUrls[0].seoPathInfo
         ? item.seoUrls[0].seoPathInfo
-        : '',
+        : '';
+  }
+
+  return {
+    id: item.id ?? '',
+    path: path,
     availableForSale: item.available ?? false,
     title: item.translated ? item.translated.name ?? '' : item.name,
     description: item.translated?.metaDescription
@@ -213,9 +258,11 @@ function transformOptions(parent: ExtendedProduct): ProductOption[] {
   const productOptions: ProductOption[] = [];
   if (parent.children && parent.parentId === null && parent.children.length > 0) {
     const group: { [key: string]: string[] } = {};
+    const groupId: { [key: string]: string } = {};
     parent.children.map((child) => {
       child.options?.map((option) => {
         if (option && option.group) {
+          groupId[option.group.name] = option.groupId;
           group[option.group.name] = group[option.group.name]
             ? [...new Set([...(group[option.group.name] as []), ...[option.name]])]
             : [option.name];
@@ -223,13 +270,15 @@ function transformOptions(parent: ExtendedProduct): ProductOption[] {
       });
     });
 
-    if (parent.id) {
-      for (const [key, value] of Object.entries(group)) {
-        productOptions.push({
-          id: parent.id,
-          name: key,
-          values: value
-        });
+    for (const [key, value] of Object.entries(group)) {
+      for (const [currentGroupName, currentGroupId] of Object.entries(groupId)) {
+        if (key === currentGroupName) {
+          productOptions.push({
+            id: currentGroupId,
+            name: key,
+            values: value
+          });
+        }
       }
     }
   }

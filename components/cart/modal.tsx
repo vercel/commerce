@@ -9,7 +9,7 @@ import CloseIcon from 'components/icons/close';
 import ShoppingBagIcon from 'components/icons/shopping-bag';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/shopify/types';
+import type { Cart } from 'lib/shopware/types';
 import { createUrl } from 'lib/utils';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -110,7 +110,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                       });
 
                       const merchandiseUrl = createUrl(
-                        `/product/${item.merchandise.product.handle}`,
+                        `/product/${item.merchandise.product.path}`,
                         new URLSearchParams(merchandiseSearchParams)
                       );
 

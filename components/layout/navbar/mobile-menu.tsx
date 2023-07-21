@@ -7,7 +7,7 @@ import { Fragment, useEffect, useState } from 'react';
 
 import CloseIcon from 'components/icons/close';
 import MenuIcon from 'components/icons/menu';
-import { Menu } from 'lib/shopify/types';
+import { Menu } from 'lib/shopware/types';
 import Search from './search';
 
 export default function MobileMenu({ menu }: { menu: Menu[] }) {
