@@ -33,7 +33,8 @@ export function AddToCart({
     if (variant) {
       setSelectedVariantId(variant.id);
     }
-  }, [searchParams, variants, setSelectedVariantId]);
+    console.log('selectedVariantId', selectedVariantId);
+  }, [searchParams, variants, setSelectedVariantId, selectedVariantId]);
 
   return (
     <button

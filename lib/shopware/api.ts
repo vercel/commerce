@@ -25,7 +25,8 @@ function getApiClient(cartId?: string) {
     apiType: getApiType(),
     contextToken: cartId,
     onContextChanged(newContextToken: string) {
-      //cookies().set('sw-context-token', newContextToken);
+      cookies().set('sw-context-token', newContextToken);
+      console.log('newContextToken', newContextToken);
     }
   });
 

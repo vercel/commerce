@@ -50,7 +50,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
       // Always update the quantity reference
       quantityRef.current = cart.totalQuantity;
     }
-  }, [isOpen, cart.totalQuantity, quantityRef]);
+  }, [isOpen, cart, quantityRef]);
 
   return (
     <>

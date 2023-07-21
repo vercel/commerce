@@ -27,6 +27,7 @@ export const removeItem = async (lineId: string): Promise<Error | undefined> => 
     return new Error('Missing cartId');
   }
   try {
+    console.log('removeItem lineId', lineId);
     //await removeFromCart(cartId, [lineId]);
   } catch (e) {
     return new Error('Error removing item', { cause: e });
@@ -48,6 +49,9 @@ export const updateItemQuantity = async ({
     return new Error('Missing cartId');
   }
   try {
+    console.log('lineId', lineId);
+    console.log('variantId', variantId);
+    console.log('quantity', quantity);
     // await updateCart(cartId, [
     //   {
     //     id: lineId,
