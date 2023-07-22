@@ -216,7 +216,7 @@
           },
           {
             "label": "Veicoli Elettrici",
-            "href": "/search/veicoli-elettronici",
+            "href": "/search/veicoli-elettrici",
             "enabled": true
           }
         ],
@@ -414,7 +414,7 @@
           },
           {
             "label": "Electric Vehicles",
-            "href": "/search/veicoli-elettronici",
+            "href": "/search/veicoli-elettrici",
             "enabled": true
           }
         ],
