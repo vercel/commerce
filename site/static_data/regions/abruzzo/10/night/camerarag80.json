@@ -7,14 +7,6 @@
       "latitude": -0.07979878734073154
     },
     {
-      "markerType": "image",
-      "markerSource": "bosco di sant antonio notte.jpeg",
-      "resourceName": "Il Bosco di Sant'Antonio",
-      "resourceCaption": "-Questa riserva naturale del comune di Pescocostanzo, in provincia dell’Aquila, viene istituita nel 1985 e dal 1991 è compresa nel territorio del parco nazionale della Majella.\n-Il bosco, con una superficie di circa 6km e situato tra i 1300 e i 1400m sul livello del mare, in età classica era considerato un luogo sacro a Giove; nel Medioevo viene consacrato a sant’Antonio abate prima, poi a sant’Antonio da Padova, da cui prende il nome e di cui custodisce un eremo a lui dedicato.\n-Considerato tra le più belle faggete d’Abruzzo, si compone di un paesaggio unico, dall’atmosfera suggestiva e fiabesca e visitabile in tutte le stagioni, essendo adatto per il trakking, le escursioni, l’equitazione, lo scii, picnic o semplici passeggiate.\n-Con la sua ricca flora e la sua variegata fauna, è da tempo protetto dal disboscamento: in passato veniva chiamato Difesa, perché chiuso, proibito e destinato al pascolo. A tal scopo fu utile anche la tecnica di tagliare i faggi a “capitozzatura” consentendo loro di raggiungere ampie dimensioni e ramificarsi a candelabro, fornendo riparo al bestiame. ",
-      "longitude": 0.9400141074247507,
-      "latitude": 0.17391669745422544
-    },
-    {
       "markerType": "audio",
       "markerSource": "1980.mp3",
       "resourceName": "Musica anni 80",
@@ -37,6 +29,14 @@
       "resourceCaption": "",
       "longitude": 0.4974321900050358,
       "latitude": 0.05243480462974737
+    },
+    {
+      "markerType": "image",
+      "markerSource": "bosco di sant antonio notte.jpeg",
+      "resourceName": "Il Bosco di Sant'Antonio",
+      "resourceCaption": "-Questa riserva naturale a Pescocostanzo (L’Aquila), viene istituita nel 1985 e dal 1991 è parte del parco nazionale della Majella.\n-In età classica il bosco era considerato sacro a Giove; nel Medioevo viene consacrato a sant’Antonio abate prima, poi a sant’Antonio da Padova, da cui prende il nome e di cui conserva un eremo a lui dedicato.\n-Considerato tra le più belle faggete d’Abruzzo, si compone di un paesaggio unico, dall’atmosfera suggestiva e fiabesca, visitabile in tutte le stagioni, per attività quali trekking, escursioni, equitazione, scii, picnic o semplici passeggiate.\n-Con la sua ricca flora e la sua variegata fauna, è da tempo protetto dal disboscamento: già in passato veniva chiamato Difesa, perché chiuso, proibito e destinato al pascolo. ",
+      "longitude": 0.9599103940096082,
+      "latitude": 0.1790803733806543
     }
   ]
 }

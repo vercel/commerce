@@ -9,36 +9,36 @@
       "latitude": 0.10467736158978092
     },
     {
-      "markerType": "image",
-      "markerSource": "buonobruttocattivo.jpg",
-      "resourceName": "Il buono, il brutto, il cattivo",
-      "resourceCaption": "-Considerato uno dei più celebri western della storia del cinema, rappresentante d’eccellenza del genere spaghetti western (o western all’italiana), fu girato da Sergio Leone nel 1966, dopo il successo di “Per un pugno di dollari” e “Per qualche dollaro in più”; insieme a questi completa la trilogia del dollaro di Leone.\n-Sebbene il regista non si sia mai espresso sull’argomento, il protagonista comune dei tre film, il giovane Clint Eastwood interpretante il misterioso Uomo senza nome, mostra un chiaro collegamento tra gli stessi: l’ultimo film può essere considerato più che un sequel, un prequel dei primi due, perché è qui che il personaggio trova i vestiti che indossa nei primi due e la guerra di secessione americana è in pieno svolgimento, mentre negli altri probabilmente è conclusa.\n-Le colonne sonore dei tre i film sono di Ennio Morricone.\n-Nei tre protagonisti del film, in linea col pensiero di Leone, coesistono luce e ombra, bellezza e bruttezza, umanità e spietatezza, dimostrando un sapere evidente del regista riguardo la psiche umana. \n-Inizialmente il film divise il pubblico, ma si rivelò ben presto un successo enorme, un capolavoro considerato da molti (ad esempio da Tarantino) la più bella pellicola della storia del cinema.\n-Il budget fu di 1,3 milioni di dollari, una cifra incredibile per l’epoca e secondo lo stesso Leone, che solo due anni prima versava in precarie condizioni economiche.",
-      "longitude": 0.39743812411738033,
-      "latitude": 0.27284372933791223
-    },
-    {
-      "markerType": "image",
-      "markerSource": "beatles.jpg",
-      "resourceName": "I Beatles",
-      "resourceCaption": "-Durante gli anni 60, anni segnati dal boom economico del dopoguerra, da una rivoluzione ideologica e culturale spesso proveniente dai giovani, dall’emancipazione femminile e dalle lotte razziali, si afferma una rock band inglese destinata ad entrare nella storia: i Beatles.\n-Nascono nel ’57 a Liverpool quando John Lennon e Paul McCartney, appartenenti a due diversi gruppi musicali, si conoscono in un concerto. Ai due si aggiunge nel ’58 George Harrison e i tre creano un gruppo chiamato The Quarrymen; nel ’59 vi entra il bassista Stuart Sutcliffe e nel ’60 il batterista Pete Best. E’ l’anno in cui il gruppo si denomina Beatles e assume quel look e taglio di capelli che entreranno nell’immaginario collettivo.\n-Nel ’62 hanno un provino alla casa discografica “Decca”, ma il loro potenziale non viene riconosciuto (con grande rammarico postumo della casa), ma vengono invece scritturati dall’etichetta EMI che chiede la sostituzione del batterista Best con Ringo Star. Nello stesso anno, con il primo successo internazionale del gruppo Love me do, ha inizio la mania per i Beatles. Il resto è storia: nel ’64 ben 5 loro brani sono nella top 5 americana, nel ’65 la regina Elisabetta II conferisce loro il titolo di Baronetti a Buckingham Palace ecc ecc.",
-      "longitude": 0.7831360324819944,
-      "latitude": 0.11023170090664935
-    },
-    {
-      "markerType": "image",
-      "markerSource": "fisher 500-B.jpg",
-      "resourceName": "Stereo ricevitore amplificatore Fisher 500-B",
-      "resourceCaption": "-Avery Fisher (New York 1906-Connecticut 1994) già nel 1930 , mosso dall’intenzione di migliorare la tecnologia radio esistente, inizia i suoi primi esperimenti di design dell’audio. Nel ’37 ha già progettato innovativi amplificatori, sintonizzatori ed altoparlanti e fondato la società Filarmonica, che venderà nel 45 per dedicarsi alla Fisher Radio.\n-Nel ’50 dona il suo più grande contributo alla tecnologia audio attraverso i primi amplificatori a transito e il radiofonografo stereofonico.\n-Nel ’60, oltre ad aver implementato progressi nel design e nella potenza dei suoi prodotti, presenta forse il suo più grande successo, il ricevitore stereo multiplex FM 500-C, un dispositivo capace di riprodurre un suono quasi perfetto: ne sono state prodotte oltre 100000 unità. Nel ’65 viene prodotta la versione 500-B.",
-      "longitude": 2.873933240485104,
-      "latitude": -0.30249208161965924
-    },
-    {
       "markerType": "audio",
       "markerSource": "60s.mp3",
       "resourceName": "Musica anni 60",
       "resourceCaption": "",
       "longitude": 3.0012608453408007,
       "latitude": -0.2816244234284653
+    },
+    {
+      "markerType": "image",
+      "markerSource": "buonobruttocattivo.jpg",
+      "resourceName": "Il buono, il brutto, il cattivo",
+      "resourceCaption": "-Considerato uno dei più celebri western della storia del cinema, fu girato da Sergio Leone nel 1966, dopo “Per un pugno di dollari” e “Per qualche dollaro in più”; con i quali completa la trilogia del dollaro di Leone.\n-Il protagonista comune dei tre film, Clint Eastwood, mostra un collegamento tra gli stessi: l’ultimo film può essere considerato un prequel dei primi due.\n-Le colonne sonore dei tre i film sono di Ennio Morricone.\n-Nei tre protagonisti del film, in linea col pensiero di Leone, coesistono luce e ombra, bellezza e bruttezza, umanità e spietatezza.\n-Inizialmente divise il pubblico, ma si rivelò ben presto un capolavoro considerato da molti (ad esempio da Tarantino) la più bella pellicola della storia del cinema.\n-Il budget fu di 1,3 milioni di dollari, una cifra incredibile per l’epoca.",
+      "longitude": 0.3999217396518573,
+      "latitude": 0.2644783017867296
+    },
+    {
+      "markerType": "image",
+      "markerSource": "beatles.jpg",
+      "resourceName": "I Beatles",
+      "resourceCaption": "-Durante gli anni 60 una rock band inglese è destinata ad entrare nella storia: i Beatles.\n-John Lennon e Paul McCartney si conoscono nel ’57 a Liverpool in un concerto dove suonano in due gruppi diversi; nel ’58 conoscono George Harrison e i tre formano i The Quarrymen; nel ’59 vi entra il bassista Stuart e nel ’60, con l’ingresso del batterista Pete Best, nascono i Beatles e il loro look leggendario.\n-Nel ’62 la Decca non è convinta del loro provino, al contrario della EMI, la quale tuttavia chiede la sostituzione di Best con Ringo Star. È l’anno del loro primo successo internazionale Love me do. Due anni dopo ben 5 loro brani erano nella top 5 americana ed Elisabetta II conferiva loro il titolo di Baronetti.",
+      "longitude": 0.7788554371521214,
+      "latitude": 0.11355320997805673
+    },
+    {
+      "markerType": "image",
+      "markerSource": "fisher 500-B.jpg",
+      "resourceName": "Stereo ricevitore-amplificatore Fisher 500-B",
+      "resourceCaption": "-Nel 1930 Avery Fisher inizia i suoi primi esperimenti di design dell’audio. Nel ’37 ha già progettato innovativi amplificatori, sintonizzatori ed altoparlanti e fondato la società Filarmonica, che venderà nel ’45 per dedicarsi alla Fisher Radio.\n-Nel ’50 dona il suo più grande contributo alla tecnologia audio con i primi amplificatori a transito e il radiofonografo stereofonico.\n-Nel ’60 presenta forse il suo più grande successo, il ricevitore stereo multiplex FM 500-C, un dispositivo capace di riprodurre un suono quasi perfetto: ne sono state prodotte oltre 100000 unità. \n-Nel ’65 viene prodotta la versione 500-B.",
+      "longitude": 2.871607437720784,
+      "latitude": -0.2914651457777955
     }
   ]
 }

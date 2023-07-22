@@ -4,17 +4,17 @@
       "markerType": "image",
       "markerSource": "fiat 500D ta.jpg",
       "resourceName": "Fiat 500D t.a.",
-      "resourceCaption": "-La 500 D t.a. fu presentata da Fiat nel 1960 e venne prodotta fino al 1965.\n-Rispetto alla precedente versione 500 “tetto apribile”, la quale a sua volta era l’evoluzione della prima versione del 57, la 500 D t.a. implementava un motore potenziato e vari miglioramenti negli accessori interni ed esterni alla vettura (imbottitura dei sedili, schienale ribaltabile in avanti, portacenere, tergicristallo migliorato ecc.) che le donavano un maggior confort. \n-Grazie a questa nuova versione la 500 venne conosciuta e apprezzata da un pubblico più ampio, perfino da coloro che nelle versioni precedenti non l’avevano accolta positivamente; si posizionò definitivamente come utilitaria leggendaria nell’immaginario collettivo.\n-Il prezzo iniziale era di 500000 lire.",
-      "longitude": 0.1342346838553458,
-      "latitude": -0.2824605086755896
+      "resourceCaption": "-La 500 D t.a. fu presentata da Fiat nel 1960 e prodotta fino al ’65.\n-Rispetto alla precedente versione 500 “tetto apribile”, la quale era a sua volta l’evoluzione della prima versione del 57, la 500 D t.a. implementava un motore potenziato e vari miglioramenti negli accessori interni ed esterni alla vettura che le donavano un maggior confort. \n-Con questa nuova versione la 500 viene conosciuta e apprezzata da un pubblico più ampio, perfino da coloro che nelle versioni precedenti non l’avevano accolta positivamente; si posiziona quindi definitivamente nell’immaginario collettivo come utilitaria leggendaria.\n-Il prezzo iniziale era di 500000 lire.",
+      "longitude": 0.11540735265617165,
+      "latitude": -0.2749974360157976
     },
     {
       "markerType": "image",
       "markerSource": "bmx sting ray.jpg",
-      "resourceName": "Bmx Schwinn Stingray",
-      "resourceCaption": "-Il BMX (Bicycle motocross) è una disciplina che nasce in California nel 1969 dall’intuizione di un gruppo di ragazzini intenti ad imitare i loro idoli del motocross. Il successo dell’idea è immediato e si organizzano da subito gare su sterrato con bici di piccole dimensioni, ma molto resistenti e con ruote spesse.\n-Tale sport si diffonde rapidamente negli anni 70, e dall’80 in poi, quei professionisti che avevano maturato una buona esperienza, cominciano a usare la bici in maniera acrobatica per avere più tecnica nelle gare, contribuendo alla nascita del Freestyle, parallelamente a quella del BMX.\n-La prime BMX vengono costruite con modifiche fai da te su telai di bici già esistenti: la bici più utilizzata per tali modifiche è la Schwinn Sting-Ray, commercializzata nel 1963.\n",
-      "longitude": 2.9552552452950445,
-      "latitude": -0.2507588051016887
+      "resourceName": "Bmx Schwinn Sting-Ray",
+      "resourceCaption": "-Il BMX (Bicycle motocross) è una disciplina che nasce in California nel 1969 dall’intuizione di un gruppo di ragazzini intenti ad imitare i loro idoli del motocross. Il successo dell’idea è immediato: si organizzano da subito gare su sterrato con bici di piccole dimensioni, ma molto resistenti e con ruote spesse.\n-Tale sport si diffonde rapidamente negli anni 70, e dall’80 in poi, quei professionisti che avevano maturato una buona esperienza, cominciano a usare la bici in maniera acrobatica per avere più tecnica nelle gare, contribuendo alla nascita del Freestyle, parallelamente all’evoluzione del BMX.\n-La prime BMX vengono costruite con modifiche fai da te su telai di bici già esistenti: la bici più utilizzata per tali modifiche è la Schwinn Sting-Ray, commercializzata nel 1963.",
+      "longitude": 2.9791759020174178,
+      "latitude": -0.24133863992878046
     }
   ]
 }

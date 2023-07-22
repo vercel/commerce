@@ -1,20 +1,20 @@
 {
   "markers": [
     {
-      "markerType": "image",
-      "markerSource": "trabocco.jpg",
-      "resourceName": "Costa dei trabocchi",
-      "resourceCaption": "-Diverse sono le ipotesi sull’origine del nome Trabocco, palafitta che poggia sul mare e da sempre adibita alla pesca e/o ad abitazione delle famiglie di pescatori della zona. Per alcuni il nome deriva dal latino trabs (legno, casa, albero), per altri da trabocchetto teso ai pesci, oppure dalla tecnica di impiantare pali tra gli scogli, nei buchi, o ancora dal trabiccolo usato nei frantoi, simile alla struttura del trabocco.\n-Secondo alcune testimonianze storiche, queste costruzioni in legno di pino sul mare esistevano sul litorale abruzzese già nel 1200: per alcuni si tratterebbe addirittura di un’invenzione dei Fenici. \n-Altri studiosi collocano la comparsa delle strutture in tempi più recenti, a partire dal ‘600. Ma col tempo diventano più leggere e progressivamente vengono abbandonate per disuso o per perdita di conoscenza della loro manutenzione. Oggi sono diventate principalmente strutture ricettive e un’attrazione turistica simbolo della tradizione locale. La tecnica di pesca nei trabocchi ancora attivi, è rimasta la medesima: intercettare con grandi reti le branche di pesci che si spostano lungo la costa.",
-      "longitude": 5.826837256254921,
-      "latitude": 0.20837925034745686
-    },
-    {
       "markerType": "video",
       "markerSource": "spot90-1.mp4",
       "resourceName": "Pubblicità anni 90",
       "resourceCaption": "",
       "longitude": 3.0572627376641144,
       "latitude": 0.019214839815596463
+    },
+    {
+      "markerType": "image",
+      "markerSource": "trabocco.jpg",
+      "resourceName": "Costa dei Trabocchi",
+      "resourceCaption": "-Si pensa che il nome Trabocco, palafitta in legno di pino che poggia sul mare, adibita alla pesca e/o ad abitazione delle famiglie di pescatori della zona, derivi dal latino trabs (legno, casa, albero); secondo altre ipotesi, da trabocchetto teso ai pesci, oppure dalla tecnica di impiantare pali tra gli scogli, nei buchi, o ancora dal trabiccolo usato nei frantoi.\n-Per alcuni storici queste costruzioni esistevano sul litorale abruzzese già nel 1200; per altri si tratterebbe addirittura di un’invenzione dei Fenici. \nAltri studiosi le collocano in tempi più recenti, a partire dal ‘600. \n-Col tempo diventano più leggere e vengono progressivamente abbandonate per disuso o per perdita di conoscenza della loro manutenzione. Oggi sono principalmente strutture ricettive e un’attrazione simbolo della tradizione locale. La tecnica di pesca è rimasta la medesima: intercettare con grandi reti le branche di pesci che si spostano lungo la costa.",
+      "longitude": 5.823032242216058,
+      "latitude": 0.2185955683053975
     }
   ]
 }

@@ -1,14 +1,6 @@
 {
   "markers": [
     {
-      "markerType": "image",
-      "markerSource": "lanciano.jpg",
-      "resourceName": "Lanciano",
-      "resourceCaption": "-Il territorio di Lanciano sembra fu abitato già tra il VI e il V millennio a.C., mentre la tradizione vuole che la città sia stata fondata nel 1179 a.C da Solima, un profugo giunto in Italia insieme ad Enea dopo la distruzione di Troia, che la chiamò Anxanum; lo stesso fondò anche la vicina Sulmona.\n-Abitata nell’antichità dal popolo Frentano, di origina sannitica, che diventò federato dei Romani dopo la prima sconfitta nelle due guerre sannitiche: i frentani, separatisi dai sanniti e alleati con Roma, gli rimasero fedeli sopratutto durante le guerre puniche, pur mantenendo sempre una certa indipendenza. \n-Sempre in epoca romana, Lanciano inizia ad acquisire una certa visibilità e prosperità grazie alle sue famose fiere, dette nundinae, favorite dalla collocazione strategica cella città, vicino al mare, ma su una collina (quindi difendibile) e crocevia di rotte commerciali via terra tra la Puglia e l’Italia settentrionale. Ad essere rinomati erano non solo i suoi mercati e le famose fiere, cui accorrevano mercanti da tutta Italia e dall’estero, ma anche le sue istituzioni e le importanti e numerose manifatture (aghi, lane, sete, tele reti e corde). Dopo un periodo di decadenza commerciale (generale in tutta Europa) durante l’altomedioevo, le fiere si sviluppano sempre più, raggiungendo il loro splendore nel XV secolo.\n-Alcune tradizioni locali, antiche maestranze e sopratutto l’organizzazione  della città funzionale alle sue antiche fiere, sono tuttora visibili in Lanciano.",
-      "longitude": 0.20232389753738836,
-      "latitude": 0.041275991013738356
-    },
-    {
       "markerType": "audio",
       "markerSource": "1990.mp3",
       "resourceName": "Musica anni 90",
@@ -23,6 +15,14 @@
       "resourceCaption": "",
       "longitude": 2.215413394426389,
       "latitude": 0.5870754943997821
+    },
+    {
+      "markerType": "image",
+      "markerSource": "lanciano.jpg",
+      "resourceName": "Lanciano",
+      "resourceCaption": "-Sembra che il territorio di Lanciano fu abitato già tra il VI e il V millennio a.C., mentre la tradizione vuole che la città sia stata fondata nel 1179 a.C da Solima, un profugo giunto in Italia insieme ad Enea dopo la distruzione di Troia, che la chiamò Anxanum; lo stesso fondò anche la vicina Sulmona.\n-Era abitata in antichità dal popolo Frentano, di origina sannitica, che diventò federato dei Romani dopo la prima sconfitta nelle due guerre sannitiche. \n-Sempre in epoca romana, Lanciano inizia ad acquisire una certa visibilità e prosperità grazie alle sue famose fiere, dette nundinae, favorite dalla collocazione strategica cella città, vicino al mare, ma su una collina (quindi difendibile) e crocevia di rotte commerciali via terra tra la Puglia e l’Italia settentrionale. Ad essere rinomate erano anche le sue istituzioni e le importanti e numerose manifatture (aghi, lane, sete, tele reti e corde). Le fiere raggiungono il loro splendore nel XV secolo.\n-Alcune tradizioni locali, antiche maestranze e sopratutto l’organizzazione della città funzionale alle sue antiche fiere, sono tuttora visibili in Lanciano.",
+      "longitude": 0.19060553040390446,
+      "latitude": 0.05816343624438436
     }
   ]
 }

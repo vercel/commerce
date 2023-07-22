@@ -1,20 +1,20 @@
 {
   "markers": [
     {
-      "markerType": "image",
-      "markerSource": "majella notte.jpg",
-      "resourceName": "La Majella",
-      "resourceCaption": "-Il secondo massiccio montuoso più alto degli Appennini dopo il Gran Sasso, si trova tra le province dell’Aquila, Pescara e Chieti; la sua cima più alta, di 2793m,  è il Monte Amaro. E’ meno rocciosa del Gran Sassso e con una flora estremamente variegata, che comprende il 37% delle specie italiane.\n-Il suo particolare profilo da donna, l’ha resa famosa come la Bella Addormentata d’Abruzzo e ha dato origine alla leggenda della ninfa Maja, da cui prende il nome: la più bella delle Pleaidi, figlia di Atlante e Peione e madre di Hermes, un gigante bellissimo. Per salvare il figlio dalle numerose ferite riportate in battaglia nella Frigia, si rifugiò in una caverna del Gran Sasso, da dove partì alla ricerca di erbe miracolose. Ma essendo la montagna totalmente innevata, non ne trovò; di ritorno dal figlio, trovandolo morto e sovrastata dal dolore, lo seppellì sul Gran Sasso, tuttora chiamato “il gigante che dorme”; dopodiché si accasciò, seguendone le sorti, sulla montagna di fronte, dove fu seppellita da alcuni pastori impietositi. E dove continua a vegliare sul figlio.\n-Tra la ricca fauna del Parco della Majella vi sono orsi marsicani, camosci, lupi appenninici, cervi, caprioli, lontre, aquile reali e tante altre specie.",
-      "longitude": 5.801804981369974,
-      "latitude": 0.0744353006364673
-    },
-    {
       "markerType": "video",
       "markerSource": "spot90-1.mp4",
       "resourceName": "Pubblicità anni 90",
       "resourceCaption": "",
       "longitude": 0.15716748267616212,
       "latitude": 0.05322116698957413
+    },
+    {
+      "markerType": "image",
+      "markerSource": "majella notte.jpg",
+      "resourceName": "La Majella",
+      "resourceCaption": "-Secondo massiccio montuoso più alto degli Appennini dopo il Gran Sasso, si trova tra le province dell’Aquila, Pescara e Chieti; la sua cima più alta, di 2793m, è il Monte Amaro. Ha una flora che comprende il 37% delle specie italiane.\n-Il suo profilo da donna l’ha resa famosa come la Bella Addormentata d’Abruzzo e ha dato origine alla leggenda della ninfa Maja, la più bella delle Pleaidi e madre di Hermes, un gigante bellissimo. Per salvare il figlio ferito in battaglia, i due si rifugiarono in una caverna del Gran Sasso, da dove lei partì alla ricerca di erbe miracolose. Ma essendo la montagna totalmente innevata, non ne trovò; di ritorno, trovando il figlio morto, sovrastata dal dolore, lo seppellì sul Gran Sasso, tuttora chiamato “il gigante che dorme”; dopodiché si accasciò, seguendone le sorti, sulla montagna di fronte, dove continua a vegliare sul figlio.\n-La ricca fauna del Parco della Majella comprende orsi marsicani, camosci, lupi appenninici, cervi, caprioli, lontre, aquile reali e tante altre specie.",
+      "longitude": 5.802033093916748,
+      "latitude": 0.08350500750448475
     }
   ]
 }
