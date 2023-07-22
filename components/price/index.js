@@ -1,23 +1,5 @@
-export const formatPrice = ({ amount, currencyCode }) => {
-    const USDollar = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currencyCode,
-    });
+import styles from './styles.module.scss';
 
-    return USDollar.format(amount);
-};
-
-export const formatPriceRange = ({ maxVariantPrice, minVariantPrice }) => {
-    if (maxVariantPrice.amount == minVariantPrice.amount) {
-        return `${formatPrice(maxVariantPrice)}`;
-    } else {
-        return `${formatPrice(minVariantPrice)} - ${formatPrice(
-            maxVariantPrice
-        )}`;
-    }
-};
-
-//TODO: might be safer not to destructure keys from `product`, use nullish coalescing instead
 export const productAvailableForSale = product =>
     product?.availableForSale ?? false;
 export const productOnSale = product =>
@@ -29,6 +11,28 @@ export const productIsForSale = product =>
     (product?.priceRange?.maxVariantPrice?.amount ?? 0) > 0;
 export const productHasOptions = product =>
     product?.options?.[0]?.values?.length > 1 ?? false;
+export const variantAvailableForSale = variant =>
+    variant?.availableForSale ?? false;
+export const variantOnSale = variant =>
+    (variant?.compareAtPrice?.amount ?? 0) > (variant?.price?.amount ?? 0);
+
+export const formatPrice = ({ amount, currencyCode }) => {
+    const USDollar = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currencyCode,
+    });
+
+    return USDollar.format(amount);
+};
+export const formatPriceRange = ({ maxVariantPrice, minVariantPrice }) => {
+    if (maxVariantPrice.amount == minVariantPrice.amount) {
+        return `${formatPrice(maxVariantPrice)}`;
+    } else {
+        return `${formatPrice(minVariantPrice)} - ${formatPrice(
+            maxVariantPrice
+        )}`;
+    }
+};
 
 export const PriceRanges = ({ product }) => {
     const availableForSale = productAvailableForSale(product);
@@ -36,20 +40,22 @@ export const PriceRanges = ({ product }) => {
     const isForSale = productIsForSale(product);
 
     return (
-        <p>
+        <p className={styles.priceRanges}>
             {availableForSale ? (
                 isForSale && (
                     <>
                         <>
                             {onSale && (
-                                <span className={'original-price'}>
+                                <span className={styles.originalPrice}>
                                     {formatPriceRange(
                                         product?.compareAtPriceRange
                                     )}{' '}
                                 </span>
                             )}
                         </>
-                        <span>{formatPriceRange(product?.priceRange)}</span>
+                        <span>{`${formatPriceRange(product?.priceRange)} ${
+                            product?.priceRange?.maxVariantPrice?.currencyCode
+                        }`}</span>
                     </>
                 )
             ) : (
@@ -58,11 +64,6 @@ export const PriceRanges = ({ product }) => {
         </p>
     );
 };
-
-export const variantAvailableForSale = variant =>
-    variant?.availableForSale ?? false;
-export const variantOnSale = variant =>
-    (variant?.compareAtPrice?.amount ?? 0) > (variant?.price?.amount ?? 0);
 
 export const VariantPrice = ({ variant, quantity }) => {
     const availableForSale = variantAvailableForSale(variant);

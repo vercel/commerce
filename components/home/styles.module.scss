@@ -56,4 +56,14 @@
 }
 
 .homeProduct {
+    text-decoration-line: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .title,
+    .collections {
+        @include typography.subheader;
+    }
 }

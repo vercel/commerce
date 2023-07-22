@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 import { getCollectionProducts, getMenu } from 'lib/shopify';
 
-import { PriceRanges } from '/components/price.js';
 import styles from './styles.module.scss';
+import { PriceRanges } from '/components/price';
 
 export async function HomeProduct({ product }) {
     const typesMenu = await getMenu('types-nav');
@@ -17,23 +17,26 @@ export async function HomeProduct({ product }) {
         ?.map(col => col?.title)
         ?.filter(col => types?.includes(col?.toLowerCase()));
 
-    console.log({ collections });
-
     return (
         <Link
             href={`/product/${product?.handle}`}
             className={styles.homeProduct}
         >
+            {/* TODO: optimize srcset (adjusting based on featured status) */}
             <Image
                 src={featuredImage?.url}
                 alt={featuredImage?.altText}
                 width={featuredImage?.width}
                 height={featuredImage?.height}
             />
-            <p>{product?.title}</p>
-            {collections && collections.length > 0 && (
-                <p>{`(${collections.join(', ')})`}</p>
-            )}
+            <div>
+                <p className={styles.title}>{product?.title}</p>
+                {collections && collections.length > 0 && (
+                    <p className={styles.collections}>{`(${collections.join(
+                        ', '
+                    )})`}</p>
+                )}
+            </div>
             <PriceRanges product={product} />
         </Link>
     );

@@ -9,7 +9,7 @@ import {
     productHasOptions,
     productIsForSale,
     VariantPrice,
-} from '/components/price.js';
+} from '/components/price';
 
 export const productVariant = ({ product, selectedOptions }) => {
     const hasOptions = productHasOptions(product);

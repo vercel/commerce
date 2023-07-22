@@ -26,6 +26,8 @@
     font-weight: 400;
     line-height: 20px; /* 100% */
     text-transform: uppercase;
+    font-variant-numeric: lining-nums tabular-nums slashed-zero;
+    font-feature-settings: 'case' on;
 }
 
 @mixin body {
