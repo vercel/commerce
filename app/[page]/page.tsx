@@ -21,13 +21,6 @@ export async function generateMetadata({
     title: page.seo?.title || page.title,
     description: page.seo?.description || page.bodySummary,
     openGraph: {
-      images: [
-        {
-          url: `/api/og?title=${encodeURIComponent(page.title)}`,
-          width: 1200,
-          height: 630
-        }
-      ],
       publishedTime: page.createdAt,
       modifiedTime: page.updatedAt,
       type: 'article'
