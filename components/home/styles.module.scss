@@ -1,5 +1,11 @@
 @use 'styles/_typography';
 
+@mixin home-grid {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    column-gap: 10px;
+}
+
 .homeNav {
     padding: 51px 115px 22px 115px;
 
@@ -31,10 +37,10 @@
 }
 
 .homeProductsList {
-    display: grid;
-    grid-template-columns: repeat(24, 1fr);
-    column-gap: 10px;
+    @include home-grid;
+
     row-gap: 20px;
+    padding-bottom: 364px;
 
     > {
         li {
@@ -65,5 +71,19 @@
     .title,
     .collections {
         @include typography.subheader;
+    }
+}
+
+.homeFooter {
+    @include home-grid;
+
+    > p {
+        @include typography.body;
+
+        grid-column-end: span 10;
+    }
+
+    > *:last-child {
+        grid-column-end: span 4;
     }
 }

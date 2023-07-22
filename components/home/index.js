@@ -107,3 +107,26 @@ export const HomeNav = () => (
         <TypesNav />
     </div>
 );
+
+//TODO: finish styling, populate links from footerMenu, add rest of footer
+export async function HomeFooter() {
+    const footerMenu = await getMenu('footer');
+
+    return (
+        <div className={styles.homeFooter}>
+            <p>
+                For additional creative resources, visit the following:
+                <br />
+                Moodboard, Soundtrack, Twitter, Instagram.
+            </p>
+            <p>
+                To discuss creative opportunities and potential
+                <br />
+                collaborations, visit Aug.Services for more information.
+            </p>
+            <div>
+                <button type='button'>return to top ( ↑ )</button>
+            </div>
+        </div>
+    );
+}

@@ -1,4 +1,4 @@
-import { HomeNav } from '/components/home';
+import { HomeNav, HomeFooter } from '/components/home';
 
 import styles from './styles.module.scss';
 
@@ -10,7 +10,12 @@ export default function HomeLayout({ children }) {
                     <HomeNav />
                 </nav>
             </header>
-            <main className={styles.main}>{children}</main>
+            <main className={styles.main}>
+                {children}
+                <footer>
+                    <HomeFooter />
+                </footer>
+            </main>
         </>
     );
 }

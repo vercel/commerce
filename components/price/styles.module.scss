@@ -1,0 +1,12 @@
+@use 'styles/_typography';
+
+.priceRanges {
+    @include typography.header;
+
+    display: flex;
+    gap: 10px;
+
+    .originalPrice {
+        text-decoration-line: line-through;
+    }
+}
