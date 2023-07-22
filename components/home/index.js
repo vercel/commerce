@@ -9,8 +9,15 @@ import { PriceRanges } from '/components/price.js';
 import styles from './styles.module.scss';
 
 export async function HomeProduct({ product }) {
+    const typesMenu = await getMenu('types-nav');
+
+    const types = typesMenu?.map(item => /search\/(\w+)/.exec(item?.path)?.[1]);
     const featuredImage = product?.images?.[0];
-    const collections = product?.collections?.nodes;
+    const collections = product?.collections?.nodes
+        ?.map(col => col?.title)
+        ?.filter(col => types?.includes(col?.toLowerCase()));
+
+    console.log({ collections });
 
     return (
         <Link
@@ -25,9 +32,7 @@ export async function HomeProduct({ product }) {
             />
             <p>{product?.title}</p>
             {collections && collections.length > 0 && (
-                <p>{`(${collections
-                    ?.map(collection => collection?.title)
-                    .join(', ')})`}</p>
+                <p>{`(${collections.join(', ')})`}</p>
             )}
             <PriceRanges product={product} />
         </Link>
