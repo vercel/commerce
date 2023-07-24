@@ -1,6 +1,5 @@
 import { createAPIClient, RequestReturnType, ApiClientError } from '@shopware/api-client';
 import { operations } from '@shopware/api-client/api-types';
-import { cookies } from 'next/headers';
 import {
   ExtendedCategory,
   ExtendedCriteria,
@@ -18,19 +17,15 @@ import {
 } from './types';
 import { getStoreDomainWithApiType, getAccessToken, getApiType } from 'lib/shopware/helpers';
 
-function getApiClient(cartId?: string) {
-  const apiInstance = createAPIClient<extendedOperations, extendedPaths>({
+export function getApiClient(cartId?: string) {
+  const apiClientParams = {
     baseURL: getStoreDomainWithApiType(),
     accessToken: getAccessToken(),
     apiType: getApiType(),
-    contextToken: cartId,
-    onContextChanged(newContextToken: string) {
-      cookies().set('sw-context-token', newContextToken);
-      console.log('newContextToken', newContextToken);
-    }
-  });
+    contextToken: cartId
+  };
 
-  return apiInstance;
+  return createAPIClient<extendedOperations, extendedPaths>(apiClientParams);
 }
 
 // reimport operations return types to use it in application
@@ -233,9 +228,9 @@ export async function requestCrossSell(
   }
 }
 
-export async function requestCart(cartId?: string) {
+export async function requestContext(cartId?: string) {
   try {
-    return getApiClient(cartId).invoke('readCart get /checkout/cart?name', {});
+    return getApiClient(cartId).invoke('readContext get /context', {});
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
@@ -243,25 +238,5 @@ export async function requestCart(cartId?: string) {
     } else {
       console.error('==>', error);
     }
-  }
-}
-
-export async function requestContext(cartId?: string) {
-  return getApiClient(cartId).invoke('readCart get /checkout/cart?name', {});
-}
-
-export async function requestAddToCart(itemId: string, cartId: string) {
-  try {
-    return getApiClient(cartId).invoke('addLineItem post /checkout/cart/line-item', {
-      items: [
-        {
-          referencedId: itemId,
-          quantity: 1,
-          type: 'product'
-        }
-      ]
-    });
-  } catch (e) {
-    console.error('e', e);
   }
 }

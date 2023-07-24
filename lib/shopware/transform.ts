@@ -1,5 +1,7 @@
 import {
   ApiSchemas,
+  Cart,
+  CartItem,
   CategoryListingResultSW,
   Collection,
   Menu,
@@ -9,8 +11,10 @@ import {
   ProductVariant
 } from './types';
 import {
+  ExtendedCart,
   ExtendedCategory,
   ExtendedCmsPage,
+  ExtendedLineItem,
   ExtendedProduct,
   ExtendedProductListingResult
 } from './api-extended';
@@ -328,4 +332,79 @@ export function transformHandle(handle: string | []): string {
   }
 
   return collectionName ?? '';
+}
+
+export function transformCart(resCart: ExtendedCart): Cart {
+  return {
+    checkoutUrl: 'https://frontends-demo.vercel.app',
+    cost: {
+      subtotalAmount: {
+        amount: resCart.price?.positionPrice?.toString() || '0',
+        currencyCode: 'EUR'
+      },
+      totalAmount: {
+        amount: resCart.price?.totalPrice?.toString() || '0',
+        currencyCode: 'EUR'
+      },
+      totalTaxAmount: {
+        amount: '0',
+        currencyCode: 'EUR'
+      }
+    },
+    id: resCart.token ?? '',
+    lines:
+      resCart.lineItems?.map((lineItem: ExtendedLineItem) => transformLineItem(lineItem)) || [],
+    totalQuantity: resCart.lineItems?.length || 0
+  };
+}
+
+function transformLineItem(resLineItem: ExtendedLineItem): CartItem {
+  return {
+    id: resLineItem.id || '',
+    quantity: resLineItem.quantity ?? 0,
+    cost: {
+      totalAmount: {
+        amount: resLineItem.price?.totalPrice.toString() || '',
+        currencyCode: 'EUR'
+      }
+    },
+    merchandise: {
+      id: resLineItem.referencedId ?? '',
+      title: resLineItem.label ?? '',
+      selectedOptions: [],
+      product: {
+        description: resLineItem.description ?? '',
+        descriptionHtml: resLineItem.description ?? '',
+        id: resLineItem.referencedId ?? '',
+        images: [],
+        path: resLineItem.referencedId ?? '',
+        seo: {
+          description: resLineItem.description ?? '',
+          title: resLineItem.label ?? ''
+        },
+        availableForSale: true,
+        featuredImage: {
+          url: resLineItem.cover?.url ?? '',
+          altText: resLineItem.cover?.translated?.alt ?? resLineItem.cover?.alt ?? '',
+          width: Number(resLineItem.cover?.metaData?.width) ?? 0,
+          height: Number(resLineItem.cover?.metaData?.height) ?? 0
+        },
+        options: [],
+        variants: [],
+        priceRange: {
+          minVariantPrice: {
+            amount: '', // @ToDo: should be correct value
+            currencyCode: 'EUR'
+          },
+          maxVariantPrice: {
+            amount: '', // @ToDo: should be correct value
+            currencyCode: 'EUR'
+          }
+        },
+        tags: [],
+        title: resLineItem.label ?? '',
+        updatedAt: resLineItem.payload?.updatedAt ?? resLineItem.payload?.createdAt ?? ''
+      }
+    }
+  };
 }

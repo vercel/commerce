@@ -1,5 +1,4 @@
 import {
-  requestCart,
   requestCategory,
   requestCategoryList,
   requestCategoryProductsCollection,
@@ -32,7 +31,6 @@ import {
 } from './transform';
 import {
   ApiSchemas,
-  Cart,
   CategoryListingResultSW,
   Menu,
   Page,
@@ -292,76 +290,4 @@ export async function getProductRecommendations(productId: string): Promise<Prod
   }
 
   return products ? transformProducts(products) : [];
-}
-
-export async function getCart(cartId?: string): Promise<Cart | undefined> {
-  const cartData = await requestCart(cartId);
-  if (cartData) {
-    // @ToDo: should be moved to transformCart function
-    const cart: Cart = {
-      checkoutUrl: 'https://frontends-demo.vercel.app',
-      cost: {
-        subtotalAmount: {
-          amount: cartData.price?.positionPrice?.toString() || '0',
-          currencyCode: 'EUR'
-        },
-        totalAmount: {
-          amount: cartData.price?.totalPrice?.toString() || '0',
-          currencyCode: 'EUR'
-        },
-        totalTaxAmount: {
-          amount: '0',
-          currencyCode: 'EUR'
-        }
-      },
-      id: cartData.token || '',
-      lines:
-        cartData.lineItems?.map((lineItem) => ({
-          id: lineItem.referencedId || '',
-          quantity: lineItem.quantity ?? 0,
-          cost: {
-            totalAmount: {
-              amount: (lineItem as any)?.price?.totalPrice || '',
-              currencyCode: 'EUR'
-            }
-          },
-          merchandise: {
-            id: lineItem.referencedId ?? '',
-            title: lineItem.label ?? '',
-            selectedOptions: [],
-            product: {
-              description: lineItem.description ?? '',
-              descriptionHtml: lineItem.description ?? '',
-              id: lineItem.referencedId ?? '',
-              images: [],
-              path: '',
-              seo: {
-                description: lineItem.description ?? '',
-                title: lineItem.label ?? ''
-              },
-              availableForSale: true,
-              featuredImage: (lineItem as any).cover?.url,
-              handle: '',
-              options: [],
-              variants: [],
-              priceRange: {
-                minVariantPrice: {
-                  amount: '', // @ToDo: should be correct value
-                  currencyCode: 'EUR'
-                },
-                maxVariantPrice: {
-                  amount: '', // @ToDo: should be correct value
-                  currencyCode: 'EUR'
-                }
-              },
-              tags: [],
-              title: lineItem.label ?? '',
-              updatedAt: (lineItem as any)?.payload?.updatedAt
-            }
-          }
-        })) || [],
-      totalQuantity: cartData.lineItems?.length || 0
-    };
-    return cart;
-  }
 }

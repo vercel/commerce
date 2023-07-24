@@ -20,7 +20,7 @@ export async function Carousel() {
           <Link
             key={`${product.path}${i}`}
             href={`/product/${product.path}`}
-            className="relative h-[30vh] w-1/2 flex-none md:w-1/3"
+            className="relative mx-2 my-8 h-[30vh] w-1/2 flex-none md:w-1/3"
           >
             {product.featuredImage ? (
               <Image

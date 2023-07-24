@@ -1,20 +1,37 @@
 import { fetchCart } from 'components/cart/actions';
-import { getCart } from 'lib/shopware';
 import { cookies } from 'next/headers';
 import CartModal from './modal';
+import { transformCart } from 'lib/shopware/transform';
 
 export default async function Cart() {
+  let resCart;
   const cartId = cookies().get('sw-context-token')?.value;
-  await fetchCart(cartId);
-  let cartIdUpdated = false;
-  const cart = await getCart(cartId);
+
+  if (cartId) {
+    resCart = await fetchCart(cartId);
+  }
+
+  let newToken;
+  if (!cartId && !resCart) {
+    resCart = await fetchCart();
+    if (resCart?.token) {
+      newToken = resCart?.token;
+    }
+  }
+
+  let cart;
+  if (resCart) {
+    cart = transformCart(resCart);
+  }
 
   if (!cart) {
     return null;
   }
 
-  if (cartId !== cart.id) {
+  let cartIdUpdated = false;
+  if (cartId !== newToken) {
     cartIdUpdated = true;
   }
+
   return <CartModal cart={cart} cartIdUpdated={cartIdUpdated} />;
 }

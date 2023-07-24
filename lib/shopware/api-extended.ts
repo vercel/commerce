@@ -10,6 +10,8 @@ type operationsWithoutOriginal = Omit<
   | 'readProductCrossSellings'
   | 'readProductListing'
   | 'searchPage'
+  | 'readCart'
+  | 'deleteLineItem'
 >;
 export type extendedPaths =
   | 'readCategory post /category/{navigationId}?slots'
@@ -19,6 +21,8 @@ export type extendedPaths =
   | 'readProductCrossSellings post /product/{productId}/cross-selling'
   | 'readProductListing post /product-listing/{categoryId}'
   | 'searchPage post /search'
+  | 'readCart get /checkout/cart?name'
+  | 'deleteLineItem delete /checkout/cart/line-item?id[]={ids}'
   | operationPaths;
 export type extendedOperations = operationsWithoutOriginal & {
   readCategory: extendedReadCategory;
@@ -28,14 +32,56 @@ export type extendedOperations = operationsWithoutOriginal & {
   readProductCrossSellings: extendedReadProductCrossSellings;
   readProductListing: extendedReadProductListing;
   searchPage: extendedSearchPage;
+  readCart: extendedReadCart;
+  deleteLineItem: extendedDeleteLineItem;
+};
+
+export type ExtendedCart = Omit<schemas['Cart'], 'lineItems'> & {
+  lineItems?: ExtendedLineItem[];
+};
+
+export type ExtendedLineItem = schemas['LineItem'] & {
+  payload: {
+    updatedAt: string;
+    createdAt: string;
+  };
+  price: ProductPrice;
+  cover?: schemas['Media'];
+};
+
+type ProductPrice = {
+  unitPrice: number;
+  quantity: number;
+  totalPrice: number;
+  calculatedTaxes: ProductCalculatedTaxes[];
+  taxRules: ProductTaxRules[];
+  referencePrice?: number;
+  listPrice?: number;
+  regulationPrice?: number;
+  apiAlias: string;
+};
+
+type ProductCalculatedTaxes = {
+  tax: number;
+  taxRate: number;
+  price: number;
+  apiAlias: string;
+};
+
+type ProductTaxRules = {
+  taxRate: number;
+  percentage: number;
+  apiAlias: string;
 };
 
 export type ExtendedCmsBlock = Omit<schemas['CmsBlock'], 'slots'> & {
   slots?: schemas['CmsSlot'][];
 };
+
 export type ExtendedCmsSection = Omit<schemas['CmsSection'], 'blocks'> & {
   blocks?: ExtendedCmsBlock[];
 };
+
 export type ExtendedCmsPage = Omit<schemas['CmsPage'], 'sections'> & {
   sections?: ExtendedCmsSection[];
 };
@@ -289,6 +335,40 @@ type extendedReadProductListing = {
     200: {
       content: {
         'application/json': ExtendedProductListingResult;
+      };
+    };
+  };
+};
+
+type extendedReadCart = {
+  parameters: {
+    query?: {
+      /** The name of the new cart. This parameter will only be used when creating a new cart. */
+      name?: string;
+    };
+  };
+  responses: {
+    /** Cart */
+    200: {
+      content: {
+        'application/json': ExtendedCart;
+      };
+    };
+  };
+};
+
+type extendedDeleteLineItem = {
+  parameters: {
+    query: {
+      /** A list of product identifiers. */
+      ids: string[];
+    };
+  };
+  responses: {
+    /** The updated cart. */
+    200: {
+      content: {
+        'application/json': ExtendedCart;
       };
     };
   };

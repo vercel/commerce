@@ -122,16 +122,19 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                             onClick={closeCart}
                           >
                             <div className="relative h-16 w-16 cursor-pointer overflow-hidden bg-white">
-                              <Image
-                                className="h-full w-full object-cover"
-                                width={64}
-                                height={64}
-                                alt={
-                                  item.merchandise.product.featuredImage.altText ||
-                                  item.merchandise.product.title
-                                }
-                                src={item.merchandise.product.featuredImage.url}
-                              />
+                              {item.merchandise.product.featuredImage.url !== '' &&
+                              typeof item.merchandise.product.featuredImage.url !== 'undefined' ? (
+                                <Image
+                                  className="h-full w-full object-cover"
+                                  width={64}
+                                  height={64}
+                                  alt={
+                                    item.merchandise.product.featuredImage.altText ||
+                                    item.merchandise.product.title
+                                  }
+                                  src={item.merchandise.product.featuredImage.url}
+                                />
+                              ) : null}
                             </div>
                             <div className="flex flex-1 flex-col text-base">
                               <span className="font-semibold">

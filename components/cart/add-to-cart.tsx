@@ -18,7 +18,7 @@ export function AddToCart({
   availableForSale: boolean;
   product: Product;
 }) {
-  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
+  const [selectedVariantId, setSelectedVariantId] = useState(product.id);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -33,7 +33,6 @@ export function AddToCart({
     if (variant) {
       setSelectedVariantId(variant.id);
     }
-    console.log('selectedVariantId', selectedVariantId);
   }, [searchParams, variants, setSelectedVariantId, selectedVariantId]);
 
   return (
@@ -43,7 +42,7 @@ export function AddToCart({
       onClick={() => {
         if (!availableForSale) return;
         startTransition(async () => {
-          const error = await addItem(product.id);
+          const error = await addItem(selectedVariantId);
 
           if (error) {
             console.error(error);
