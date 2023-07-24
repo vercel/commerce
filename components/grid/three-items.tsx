@@ -13,10 +13,10 @@ function ThreeItemGridItem({ item, size }: { item: Product; size: 'full' | 'half
           src={item.featuredImage.url}
           width={size === 'full' ? 1080 : 540}
           height={size === 'full' ? 1080 : 540}
-          labelPosition={size === 'full' ? 'center' : 'bottom'}
           priority={true}
           alt={item.title}
-          labels={{
+          label={{
+            position: size === 'full' ? 'center' : 'bottom',
             title: item.title as string,
             amount: item.priceRange.maxVariantPrice.amount,
             currencyCode: item.priceRange.maxVariantPrice.currencyCode

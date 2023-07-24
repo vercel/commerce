@@ -5,38 +5,25 @@ const Label = ({
   title,
   amount,
   currencyCode,
-  position,
-  size
+  position = 'bottom'
 }: {
   title: string;
   amount: string;
   currencyCode: string;
   position?: 'bottom' | 'center';
-  size?: 'large' | 'small';
 }) => {
   return (
     <div
-      className={clsx('absolute bottom-0 left-0 flex w-full px-4 pb-4', {
-        'px-4 pb-4 md:px-8 md:pb-8 lg:px-20 lg:pb-[35%]': position === 'center',
-        'px-4 pb-4 md:px-8 md:pb-8': size === 'large'
+      className={clsx('absolute bottom-0 left-0 flex w-full px-4 pb-4 @container/label', {
+        'lg:px-20 lg:pb-[35%]': position === 'center'
       })}
     >
-      <div
-        className={clsx(
-          'flex items-center rounded-full border bg-white/80 p-1 text-xs text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/80 dark:text-white',
-          {
-            'text-sm': size === 'large'
-          }
-        )}
-      >
-        <h3
-          data-testid="product-name"
-          className="mr-6 inline pl-2 font-semibold leading-none tracking-tight"
-        >
+      <div className="flex items-center rounded-full border bg-white/70 p-1 text-[10px] font-semibold text-black backdrop-blur-md @[275px]/label:text-xs dark:border-neutral-800 dark:bg-black/70 dark:text-white">
+        <h3 data-testid="product-name" className="mr-4 inline pl-2 leading-none tracking-tight">
           {title}
         </h3>
         <Price
-          className="flex-none rounded-full bg-blue-600 p-2 font-semibold text-white"
+          className="flex-none rounded-full bg-blue-600 p-2 text-white"
           amount={amount}
           currencyCode={currencyCode}
         />
