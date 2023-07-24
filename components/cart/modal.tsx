@@ -39,11 +39,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
   return (
     <>
-      <button aria-label="Open cart" onClick={openCart} data-testid="open-cart">
+      <button aria-label="Open cart" onClick={openCart}>
         <OpenCart quantity={cart?.totalQuantity} />
       </button>
       <Transition show={isOpen}>
-        <Dialog onClose={closeCart} className="relative z-50" data-testid="cart">
+        <Dialog onClose={closeCart} className="relative z-50">
           <Transition.Child
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
@@ -68,7 +68,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">My Cart</p>
 
-                <button aria-label="Close cart" onClick={closeCart} data-testid="close-cart">
+                <button aria-label="Close cart" onClick={closeCart}>
                   <CloseCart />
                 </button>
               </div>
@@ -98,7 +98,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       return (
                         <li
                           key={i}
-                          data-testid="cart-item"
                           className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
                         >
                           <div className="relative flex w-full flex-row justify-between px-1 py-4">
@@ -128,10 +127,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                   {item.merchandise.product.title}
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
-                                  <p
-                                    className="text-sm text-neutral-800"
-                                    data-testid="cart-product-variant"
-                                  >
+                                  <p className="text-sm text-neutral-800">
                                     {item.merchandise.title}
                                   </p>
                                 ) : null}

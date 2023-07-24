@@ -123,7 +123,6 @@ export function VariantSelector({
                     !isAvailableForSale
                 }
               )}
-              data-testid={isActive ? 'selected-variant' : 'variant'}
             >
               {value}
             </DynamicTag>
