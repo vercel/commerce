@@ -7,18 +7,18 @@ export type PathFilterItem = { title: string; path: string };
 
 function FilterItemList({ list }: { list: ListItem[] }) {
   return (
-    <div className="hidden md:block">
+    <>
       {list.map((item: ListItem, i) => (
         <FilterItem key={i} item={item} />
       ))}
-    </div>
+    </>
   );
 }
 
 export default function FilterList({ list, title }: { list: ListItem[]; title?: string }) {
   return (
     <>
-      <nav className="col-span-2 w-full flex-none">
+      <nav>
         {title ? <h3 className="hidden text-xs text-neutral-500 md:block">{title}</h3> : null}
         <ul className="hidden md:block">
           <FilterItemList list={list} />

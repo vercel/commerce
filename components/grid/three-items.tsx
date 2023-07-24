@@ -8,7 +8,7 @@ function ThreeItemGridItem({ item, size }: { item: Product; size: 'full' | 'half
     <div
       className={size === 'full' ? 'lg:col-span-4 lg:row-span-2' : 'lg:col-span-2 lg:row-span-1'}
     >
-      <Link className="block h-full p-2" href={`/product/${item.handle}`}>
+      <Link className="block h-full" href={`/product/${item.handle}`}>
         <GridTileImage
           src={item.featuredImage.url}
           width={size === 'full' ? 1080 : 540}
@@ -38,7 +38,7 @@ export async function ThreeItemGrid() {
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
   return (
-    <section className="mx-auto max-w-screen-2xl p-2 lg:grid lg:grid-cols-6 lg:grid-rows-2">
+    <section className="mx-auto max-w-screen-2xl gap-4 pb-4 lg:grid lg:grid-cols-6 lg:grid-rows-2">
       <ThreeItemGridItem size="full" item={firstProduct} />
       <ThreeItemGridItem size="half" item={secondProduct} />
       <ThreeItemGridItem size="half" item={thirdProduct} />

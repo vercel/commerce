@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 function Grid(props: React.ComponentProps<'ul'>) {
   return (
-    <ul {...props} className={clsx('grid grid-flow-row gap-4 py-5', props.className)}>
+    <ul {...props} className={clsx('grid grid-flow-row gap-4', props.className)}>
       {props.children}
     </ul>
   );
