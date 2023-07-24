@@ -19,8 +19,7 @@ export async function Carousel() {
           >
             <GridTileImage
               alt={product.title}
-              labels={{
-                isSmall: true,
+              label={{
                 title: product.title,
                 amount: product.priceRange.maxVariantPrice.amount,
                 currencyCode: product.priceRange.maxVariantPrice.currencyCode

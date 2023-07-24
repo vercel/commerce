@@ -11,8 +11,7 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
           <Link className="inline-block h-full w-full" href={`/product/${product.handle}`}>
             <GridTileImage
               alt={product.title}
-              labels={{
-                isSmall: true,
+              label={{
                 title: product.title,
                 amount: product.priceRange.maxVariantPrice.amount,
                 currencyCode: product.priceRange.maxVariantPrice.currencyCode

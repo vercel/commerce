@@ -5,18 +5,16 @@ import Label from '../label';
 export function GridTileImage({
   isInteractive = true,
   active,
-  labelPosition,
-  labels,
+  label,
   ...props
 }: {
   isInteractive?: boolean;
   active?: boolean;
-  labelPosition?: 'bottom' | 'center';
-  labels?: {
+  label?: {
     title: string;
     amount: string;
     currencyCode: string;
-    isSmall?: boolean;
+    position?: 'bottom' | 'center';
   };
 } & React.ComponentProps<typeof Image>) {
   return (
@@ -24,7 +22,7 @@ export function GridTileImage({
       className={clsx(
         'flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black',
         {
-          relative: labels,
+          relative: label,
           'border-2 border-blue-600': active,
           'border-neutral-200 dark:border-neutral-800': !active
         }
@@ -39,13 +37,12 @@ export function GridTileImage({
           {...props}
         />
       ) : null}
-      {labels ? (
+      {label ? (
         <Label
-          title={labels.title}
-          amount={labels.amount}
-          currencyCode={labels.currencyCode}
-          size={labels.isSmall ? 'small' : 'large'}
-          position={labelPosition}
+          title={label.title}
+          amount={label.amount}
+          currencyCode={label.currencyCode}
+          position={label.position}
         />
       ) : null}
     </div>

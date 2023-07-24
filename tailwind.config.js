@@ -1,5 +1,4 @@
 const plugin = require('tailwindcss/plugin');
-const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -35,6 +34,7 @@ module.exports = {
     hoverOnlyWhenSupported: true
   },
   plugins: [
+    require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(

@@ -11,7 +11,8 @@ const Price = ({
       style: 'currency',
       currency: currencyCode,
       currencyDisplay: 'narrowSymbol'
-    }).format(parseFloat(amount))} ${currencyCode}`}
+    }).format(parseFloat(amount))}`}
+    <span className="hidden @[275px]/label:inline">{` ${currencyCode}`}</span>
   </p>
 );
 
