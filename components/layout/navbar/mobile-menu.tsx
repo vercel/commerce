@@ -32,12 +32,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
 
   return (
     <>
-      <button
-        onClick={openMobileMenu}
-        aria-label="Open mobile menu"
-        className="md:hidden"
-        data-testid="open-mobile-menu"
-      >
+      <button onClick={openMobileMenu} aria-label="Open mobile menu" className="md:hidden">
         <Bars3Icon className="h-6" />
       </button>
       <Transition show={isOpen}>
@@ -64,12 +59,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
           >
             <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
               <div className="p-4">
-                <button
-                  className="mb-4"
-                  onClick={closeMobileMenu}
-                  aria-label="Close mobile menu"
-                  data-testid="close-mobile-menu"
-                >
+                <button className="mb-4" onClick={closeMobileMenu} aria-label="Close mobile menu">
                   <XMarkIcon className="h-6" />
                 </button>
 
