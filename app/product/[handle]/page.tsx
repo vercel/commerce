@@ -81,8 +81,8 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="px-4">
-        <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-700 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
+      <div className="mx-auto max-w-screen-2xl px-4">
+        <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-4">
             <Gallery
               images={product.images.map((image: Image) => ({
@@ -96,12 +96,12 @@ export default async function ProductPage({ params }: { params: { handle: string
             <ProductDescription product={product} />
           </div>
         </div>
+        <Suspense>
+          <RelatedProducts id={product.id} />
+        </Suspense>
       </div>
       <Suspense>
-        <RelatedProducts id={product.id} />
-        <Suspense>
-          <Footer />
-        </Suspense>
+        <Footer />
       </Suspense>
     </>
   );
@@ -113,7 +113,7 @@ async function RelatedProducts({ id }: { id: string }) {
   if (!relatedProducts.length) return null;
 
   return (
-    <div className="px-4 py-8">
+    <div className="py-8">
       <div className="mb-4 text-3xl font-bold">Related Products</div>
       <div className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product, i) => {

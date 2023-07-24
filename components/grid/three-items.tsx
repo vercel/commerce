@@ -38,7 +38,10 @@ export async function ThreeItemGrid() {
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
   return (
-    <section className="p-2 lg:grid lg:grid-cols-6 lg:grid-rows-2" data-testid="homepage-products">
+    <section
+      className="mx-auto max-w-screen-2xl p-2 lg:grid lg:grid-cols-6 lg:grid-rows-2"
+      data-testid="homepage-products"
+    >
       <ThreeItemGridItem size="full" item={firstProduct} />
       <ThreeItemGridItem size="half" item={secondProduct} />
       <ThreeItemGridItem size="half" item={thirdProduct} />
