@@ -41,7 +41,7 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
       quantity = itemInCart.quantity + 1;
     }
 
-    apiClient.invoke('addLineItem post /checkout/cart/line-item', {
+    await apiClient.invoke('addLineItem post /checkout/cart/line-item', {
       items: [
         {
           id: variantId,

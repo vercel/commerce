@@ -354,8 +354,17 @@ export function transformCart(resCart: ExtendedCart): Cart {
     id: resCart.token ?? '',
     lines:
       resCart.lineItems?.map((lineItem: ExtendedLineItem) => transformLineItem(lineItem)) || [],
-    totalQuantity: resCart.lineItems?.length || 0
+    totalQuantity: resCart.lineItems ? calculateTotalCartQuantity(resCart.lineItems) : 0
   };
+}
+
+function calculateTotalCartQuantity(lineItems: ExtendedLineItem[]) {
+  let totalQuantity = 0;
+  lineItems.forEach((lineItem) => {
+    totalQuantity += lineItem.quantity ?? 0;
+  });
+
+  return totalQuantity;
 }
 
 function transformLineItem(resLineItem: ExtendedLineItem): CartItem {
