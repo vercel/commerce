@@ -104,7 +104,11 @@ export default async function ProductPage({ params }: { params: { handle: string
             <Prose className="mb-6 text-sm leading-tight" html={product.descriptionHtml} />
           ) : null}
 
-          <AddToCart product={product} variants={product.variants} availableForSale={true} />
+          <AddToCart
+            product={product}
+            variants={product.variants}
+            availableForSale={product.availableForSale}
+          />
         </div>
       </div>
       <Suspense>

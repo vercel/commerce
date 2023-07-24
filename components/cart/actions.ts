@@ -2,7 +2,7 @@
 
 import { ApiClientError } from '@shopware/api-client';
 import { getApiClient } from 'lib/shopware/api';
-import { ExtendedCart } from 'lib/shopware/api-extended';
+import { ExtendedCart, ExtendedLineItem } from 'lib/shopware/api-extended';
 import { cookies } from 'next/headers';
 
 export const fetchCart = async function (cartId?: string): Promise<ExtendedCart | undefined> {
@@ -29,12 +29,23 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
   }
 
   try {
+    let quantity = 1;
     const apiClient = getApiClient(cartId);
+
+    // this part allows us to click multiple times on addToCart and increase the qty with that
+    const cart = await fetchCart(cartId);
+    const itemInCart = cart?.lineItems?.filter((item) => item.id === variantId) as
+      | ExtendedLineItem
+      | undefined;
+    if (itemInCart && itemInCart.quantity) {
+      quantity = itemInCart.quantity + 1;
+    }
+
     apiClient.invoke('addLineItem post /checkout/cart/line-item', {
       items: [
         {
           id: variantId,
-          quantity: 1,
+          quantity: quantity,
           referencedId: variantId,
           type: 'product'
         }

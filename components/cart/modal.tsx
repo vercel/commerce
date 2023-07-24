@@ -39,7 +39,6 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
   }, [setCookie, cartIdUpdated, cart.id]);
 
   useEffect(() => {
-    console.warn('cart modal', cart);
     // Open cart modal when when quantity changes.
     if (cart.totalQuantity !== quantityRef.current) {
       // But only if it's not already open (quantity also changes when editing items in cart).
