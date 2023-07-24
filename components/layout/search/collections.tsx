@@ -17,7 +17,7 @@ export default function Collections() {
   return (
     <Suspense
       fallback={
-        <div className="col-span-2 hidden h-[400px] w-full flex-none py-4 pl-10 lg:block">
+        <div className="col-span-2 hidden h-[400px] w-full flex-none py-4 lg:block">
           <div className={clsx(skeleton, activeAndTitles)} />
           <div className={clsx(skeleton, activeAndTitles)} />
           <div className={clsx(skeleton, items)} />
