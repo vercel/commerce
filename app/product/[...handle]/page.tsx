@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import { AddToCart } from 'components/cart/add-to-cart';
 import Grid from 'components/grid';
 import Footer from 'components/layout/footer';
-import ProductGridItems from 'components/layout/product-grid-items';
-import { AddToCart } from 'components/cart/add-to-cart';
-import { Gallery } from 'components/product/gallery';
 import { VariantSelector } from 'components/product/variant-selector';
+import ProductGridItems from 'components/layout/product-grid-items';
+import { Gallery } from 'components/product/gallery';
 import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopware';
@@ -104,7 +104,11 @@ export default async function ProductPage({ params }: { params: { handle: string
             <Prose className="mb-6 text-sm leading-tight" html={product.descriptionHtml} />
           ) : null}
 
-          <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+          <AddToCart
+            product={product}
+            variants={product.variants}
+            availableForSale={product.availableForSale}
+          />
         </div>
       </div>
       <Suspense>

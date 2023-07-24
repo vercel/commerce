@@ -17,11 +17,16 @@ import {
 } from './types';
 import { getStoreDomainWithApiType, getAccessToken, getApiType } from 'lib/shopware/helpers';
 
-const apiInstance = createAPIClient<extendedOperations, extendedPaths>({
-  baseURL: getStoreDomainWithApiType(),
-  accessToken: getAccessToken(),
-  apiType: getApiType()
-});
+export function getApiClient(cartId?: string) {
+  const apiClientParams = {
+    baseURL: getStoreDomainWithApiType(),
+    accessToken: getAccessToken(),
+    apiType: getApiType(),
+    contextToken: cartId
+  };
+
+  return createAPIClient<extendedOperations, extendedPaths>(apiClientParams);
+}
 
 // reimport operations return types to use it in application
 export type ApiReturnType<OPERATION_NAME extends keyof operations> = RequestReturnType<
@@ -34,7 +39,7 @@ export async function requestNavigation(
   depth: number
 ): Promise<ExtendedCategory[] | undefined> {
   try {
-    return await apiInstance.invoke(
+    return await getApiClient().invoke(
       'readNavigation post /navigation/{activeId}/{rootId} sw-include-seo-urls',
       {
         activeId: type,
@@ -57,7 +62,7 @@ export async function requestCategory(
   criteria?: Partial<ProductListingCriteria>
 ): Promise<ExtendedCategory | undefined> {
   try {
-    return await apiInstance.invoke('readCategory post /category/{navigationId}?slots', {
+    return await getApiClient().invoke('readCategory post /category/{navigationId}?slots', {
       navigationId: categoryId,
       criteria
     });
@@ -75,7 +80,7 @@ export async function requestCategoryList(
   criteria: Partial<ExtendedCriteria>
 ): Promise<CategoryListingResultSW | undefined> {
   try {
-    return await apiInstance.invoke('readCategoryList post /category', criteria);
+    return await getApiClient().invoke('readCategoryList post /category', criteria);
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
@@ -90,7 +95,7 @@ export async function requestProductsCollection(
   criteria: Partial<ProductListingCriteria>
 ): Promise<ExtendedProductListingResult | undefined> {
   try {
-    return await apiInstance.invoke('readProduct post /product', criteria);
+    return await getApiClient().invoke('readProduct post /product', criteria);
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
@@ -106,7 +111,7 @@ export async function requestCategoryProductsCollection(
   criteria: Partial<ProductListingCriteria>
 ): Promise<ExtendedProductListingResult | undefined> {
   try {
-    return await apiInstance.invoke('readProductListing post /product-listing/{categoryId}', {
+    return await getApiClient().invoke('readProductListing post /product-listing/{categoryId}', {
       ...criteria,
       categoryId: categoryId
     });
@@ -124,7 +129,7 @@ export async function requestSearchCollectionProducts(
   criteria?: Partial<ProductListingCriteria>
 ): Promise<ExtendedProductListingResult | undefined> {
   try {
-    return await apiInstance.invoke('searchPage post /search', {
+    return await getApiClient().invoke('searchPage post /search', {
       search: encodeURIComponent(criteria?.query || ''),
       ...criteria
     });
@@ -140,7 +145,7 @@ export async function requestSearchCollectionProducts(
 
 export async function requestSeoUrls(routeName: RouteNames, page: number = 1, limit: number = 100) {
   try {
-    return await apiInstance.invoke('readSeoUrl post /seo-url', {
+    return await getApiClient().invoke('readSeoUrl post /seo-url', {
       page: page,
       limit: limit,
       filter: [
@@ -190,7 +195,7 @@ export async function requestSeoUrl(
       ]
     };
     // @ts-ignore
-    return await apiInstance.invoke('readSeoUrl post /seo-url', criteriaSeoUrls);
+    return await getApiClient().invoke('readSeoUrl post /seo-url', criteriaSeoUrls);
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
@@ -206,7 +211,7 @@ export async function requestCrossSell(
   criteria?: Partial<ProductListingCriteria>
 ): Promise<ExtendedCrossSellingElementCollection | undefined> {
   try {
-    return await apiInstance.invoke(
+    return await getApiClient().invoke(
       'readProductCrossSellings post /product/{productId}/cross-selling',
       {
         productId: productId,
@@ -223,9 +228,9 @@ export async function requestCrossSell(
   }
 }
 
-export async function requestCart() {
+export async function requestContext(cartId?: string) {
   try {
-    return apiInstance.invoke('readCart get /checkout/cart?name', {});
+    return getApiClient(cartId).invoke('readContext get /context', {});
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);

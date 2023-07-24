@@ -6,16 +6,19 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
 import LoadingDots from 'components/loading-dots';
+import { Product } from 'lib/shopware/types';
 import { ProductVariant } from 'lib/shopware/types';
 
 export function AddToCart({
+  product,
   variants,
   availableForSale
 }: {
   variants: ProductVariant[];
   availableForSale: boolean;
+  product: Product;
 }) {
-  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
+  const [selectedVariantId, setSelectedVariantId] = useState(product.id);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -30,7 +33,7 @@ export function AddToCart({
     if (variant) {
       setSelectedVariantId(variant.id);
     }
-  }, [searchParams, variants, setSelectedVariantId]);
+  }, [searchParams, variants, setSelectedVariantId, selectedVariantId]);
 
   return (
     <button
@@ -42,7 +45,7 @@ export function AddToCart({
           const error = await addItem(selectedVariantId);
 
           if (error) {
-            alert(error);
+            console.error(error);
             return;
           }
 

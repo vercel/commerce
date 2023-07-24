@@ -21,7 +21,7 @@ type MerchandiseSearchParams = {
 };
 
 export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdUpdated: boolean }) {
-  const [, setCookie] = useCookies(['cartId']);
+  const [, setCookie] = useCookies(['sw-context-token']);
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart.totalQuantity);
   const openCart = () => setIsOpen(true);
@@ -29,7 +29,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
 
   useEffect(() => {
     if (cartIdUpdated) {
-      setCookie('cartId', cart.id, {
+      setCookie('sw-context-token', cart.id, {
         path: '/',
         sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production'
@@ -49,7 +49,7 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
       // Always update the quantity reference
       quantityRef.current = cart.totalQuantity;
     }
-  }, [isOpen, cart.totalQuantity, quantityRef]);
+  }, [isOpen, cart, quantityRef]);
 
   return (
     <>
@@ -121,16 +121,19 @@ export default function CartModal({ cart, cartIdUpdated }: { cart: Cart; cartIdU
                             onClick={closeCart}
                           >
                             <div className="relative h-16 w-16 cursor-pointer overflow-hidden bg-white">
-                              <Image
-                                className="h-full w-full object-cover"
-                                width={64}
-                                height={64}
-                                alt={
-                                  item.merchandise.product.featuredImage.altText ||
-                                  item.merchandise.product.title
-                                }
-                                src={item.merchandise.product.featuredImage.url}
-                              />
+                              {item.merchandise.product.featuredImage.url !== '' &&
+                              typeof item.merchandise.product.featuredImage.url !== 'undefined' ? (
+                                <Image
+                                  className="h-full w-full object-cover"
+                                  width={64}
+                                  height={64}
+                                  alt={
+                                    item.merchandise.product.featuredImage.altText ||
+                                    item.merchandise.product.title
+                                  }
+                                  src={item.merchandise.product.featuredImage.url}
+                                />
+                              ) : null}
                             </div>
                             <div className="flex flex-1 flex-col text-base">
                               <span className="font-semibold">
