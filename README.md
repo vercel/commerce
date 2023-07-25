@@ -1,4 +1,4 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=SHOPIFY_REVALIDATION_SECRET,SHOPIFY_STOREFRONT_ACCESS_TOKEN,SHOPIFY_STORE_DOMAIN,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=COMPANY_NAME,SHOPIFY_REVALIDATION_SECRET,SHOPIFY_STORE_DOMAIN,SHOPIFY_STOREFRONT_ACCESS_TOKEN,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE)
 
 # Next.js Commerce
 
@@ -64,7 +64,7 @@ Next.js Commerce requires a [paid Shopify plan](https://www.shopify.com/pricing)
 
 ### Add Shopify domain to an environment variable
 
-Create a `SHOPIFY_STORE_DOMAIN` environment variable and use your Shopify domain as the the value (ie. `SHOPIFY_STORE_SUBDOMAIN.myshopify.com`).
+Create a `SHOPIFY_STORE_DOMAIN` environment variable and use your Shopify domain as the the value (ie. `[your-shopify-store-subdomain].myshopify.com`).
 
 > Note: Do not include the `https://`.
 
@@ -74,14 +74,14 @@ Next.js Commerce utilizes [Shopify's Storefront API](https://shopify.dev/docs/ap
 
 In order to use the Shopify's Storefront API, you need to install the [Headless app](https://apps.shopify.com/headless) in your Shopify store.
 
-Once installed, you'll need to create a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` environment variable and use the public access token as the value
+Once installed, you'll need to create a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` environment variable and use the public access token as the value.
 
 > Note: Shopify does offer a Node.js Storefront API SDK. We use the Storefront API via GraphQL directly instead of the Node.js SDK so we have more control over fetching and caching.
 
 <details>
   <summary>Expand to view detailed walkthrough</summary>
 
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/settings/apps`.
+1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/apps`.
 1. Click the green `Shopify App Store` button.
    ![Shopify App Store](https://user-images.githubusercontent.com/446260/233220545-cb4c1461-ebc5-424e-a421-bf0d32044027.jpg)
 1. Search for `Headless` and click on the `Headless` app.
@@ -94,7 +94,7 @@ Once installed, you'll need to create a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` enviro
    ![Create storefront](https://user-images.githubusercontent.com/446260/233220556-1eee15c4-a45d-446e-9f73-2e7c9f56b29c.jpg)
 1. Copy and paste the public access token and assign it to a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` environment variable.
    ![Pubic access token](https://user-images.githubusercontent.com/446260/233220558-5db04ff9-b894-40fe-bfba-0e92f26b8e1f.jpg)
-1. If you ever need to reference the public access token again, you can navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/headless_storefronts`.
+1. If you ever need to reference the public access token again, you can navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/headless_storefronts`.
 </details>
 
 ### Install a headless theme
@@ -110,7 +110,7 @@ Follow the installation instructions and configure the theme with your headless 
 
 1. Download [Shopify Headless Theme](https://github.com/instantcommerce/shopify-headless-theme).
    ![Download Shoify Headless Theme](https://user-images.githubusercontent.com/446260/233220560-9f3f5ab0-ffb4-4305-b4ee-2c9d33eea90f.jpg)
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/themes`.
+1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/themes`.
 1. Click `Add theme`, then `Upload zip file`.
    ![Upload zip file](https://user-images.githubusercontent.com/446260/233220561-7a53809e-0d95-45eb-b52f-3a52e3663a9c.jpg)
 1. Select the downloaded zip file from above, and click the green `Upload file` button.
@@ -142,24 +142,24 @@ You can use Shopify's admin to customize these pages to match your brand and des
 
 #### Checkout, order status, and order history
 
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/settings/checkout`.
+1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/checkout`.
 1. Click the green `Customize` button.
    ![Customize](https://user-images.githubusercontent.com/446260/233220530-9beda4b4-5008-440a-b923-9d196b722539.jpg)
 1. Click `Branding` (ie. the paintbrush icon) and customize your brand. Please note, there are three steps / pages to the checkout flow. Use the dropdown to change pages and adjust branding as needed on each page. Click `Save` when you are done.
    ![Branding](https://user-images.githubusercontent.com/446260/233220534-e884d9fd-1a39-4f4d-9d09-163dde47c2e8.jpg)
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/settings/branding`.
+1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/branding`.
 1. Customize settings to match your brand.
    ![Branding](https://user-images.githubusercontent.com/446260/233220536-452b8802-9a1e-40f0-9a12-52b3dace84a5.jpg)
 
 #### Emails
 
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/settings/email_settings`.
+1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/email_settings`.
 1. Customize settings to match your brand.
    ![Branding](https://user-images.githubusercontent.com/446260/233220538-13c83a9e-55f8-41e6-9b34-a39ee0848a8a.jpg)
 
 #### Favicon
 
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/themes`.
+1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/themes`.
 1. Click the green `Customize` button.
    ![Customize theme](https://user-images.githubusercontent.com/446260/233220539-4869a6cd-f59f-4de6-8091-95ed81d2302d.jpg)
 1. Click `Theme settings` (ie. the paintbrush icon), expand the `FAVICON` section, upload favicon, then click the `Save` button.
@@ -190,7 +190,7 @@ Next.js is pre-configured to listen for the following Shopify webhook events and
 
 #### Configure Shopify webhooks
 
-1. Navigate to `https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/settings/notifications`.
+1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/notifications`.
 1. Add webhooks for all six event topics listed above. You can add more sets for other preview urls, environments, or local development. Append `?secret=[SECRET]` to each url, where `[SECRET]` is the secret you created above.
    ![Shopify store webhooks](https://github.com/vercel/commerce/assets/446260/3d713fd7-b642-46e2-b2ce-f2b695ff6d2b)
    ![Shopify store add webhook](https://github.com/vercel/commerce/assets/446260/f0240a22-be07-42bc-bf6c-b97873868677)
@@ -216,7 +216,7 @@ Next.js Commerce is fully powered by Shopify in a truly headless and data driven
 
 #### Products
 
-`https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/products`
+`https://[your-shopify-store-subdomain].myshopify.com/admin/products`
 
 Only `Active` products are shown. `Draft` products will not be shown until they are marked as `Active`.
 
@@ -228,7 +228,7 @@ Products that are active and "out of stock" are still shown on the site, but the
 
 #### Collections
 
-`https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/collections`
+`https://[your-shopify-store-subdomain].myshopify.com/admin/collections`
 
 Create whatever collections you want and configure them however you want. All available collections will show on the search page as filters on the left, with one exception...
 
@@ -245,7 +245,7 @@ Create the following collections:
 
 #### Pages
 
-`https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/pages`
+`https://[your-shopify-store-subdomain].myshopify.com/admin/pages`
 
 Next.js Commerce contains a dynamic `[page]` route. It will use the value to look for a corresponding page in Shopify. If a page is found, it will display its rich content using Tailwind's prose. If a page is not found, a 404 page is displayed.
 
@@ -255,7 +255,7 @@ Next.js Commerce contains a dynamic `[page]` route. It will use the value to loo
 
 #### Navigation menus
 
-`https://SHOPIFY_STORE_SUBDOMAIN.myshopify.com/admin/menus`
+`https://[your-shopify-store-subdomain].myshopify.com/admin/menus`
 
 Next.js Commerce's header and footer navigation is pre-configured to be controlled by Shopify navigation menus. This means you have full control over what links go here. They can be to collections, pages, external links, and more.
 

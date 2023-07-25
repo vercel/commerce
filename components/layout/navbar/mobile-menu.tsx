@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
-import CloseIcon from 'components/icons/close';
-import MenuIcon from 'components/icons/menu';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Menu } from 'lib/shopify/types';
 import Search from './search';
 
@@ -33,13 +32,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
 
   return (
     <>
-      <button
-        onClick={openMobileMenu}
-        aria-label="Open mobile menu"
-        className="md:hidden"
-        data-testid="open-mobile-menu"
-      >
-        <MenuIcon className="h-6" />
+      <button onClick={openMobileMenu} aria-label="Open mobile menu" className="md:hidden">
+        <Bars3Icon className="h-6" />
       </button>
       <Transition show={isOpen}>
         <Dialog onClose={closeMobileMenu} className="relative z-50">
@@ -65,13 +59,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
           >
             <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
               <div className="p-4">
-                <button
-                  className="mb-4"
-                  onClick={closeMobileMenu}
-                  aria-label="Close mobile menu"
-                  data-testid="close-mobile-menu"
-                >
-                  <CloseIcon className="h-6" />
+                <button className="mb-4" onClick={closeMobileMenu} aria-label="Close mobile menu">
+                  <XMarkIcon className="h-6" />
                 </button>
 
                 <div className="mb-4 w-full">
@@ -83,7 +72,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                       <li key={item.title}>
                         <Link
                           href={item.path}
-                          className="rounded-lg py-1 text-xl text-black transition-colors hover:text-gray-500 dark:text-white"
+                          className="rounded-lg py-1 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
                           onClick={closeMobileMenu}
                         >
                           {item.title}

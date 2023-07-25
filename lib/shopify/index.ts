@@ -23,6 +23,7 @@ import {
   Cart,
   Collection,
   Connection,
+  Image,
   Menu,
   Page,
   Product,
@@ -151,6 +152,18 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections;
 };
 
+const reshapeImages = (images: Connection<Image>, productTitle: string) => {
+  const flattened = removeEdgesAndNodes(images);
+
+  return flattened.map((image) => {
+    const filename = image.url.match(/.*\/(.*)\..*/)[1];
+    return {
+      ...image,
+      altText: image.altText || `${productTitle} - ${filename}`
+    };
+  });
+};
+
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
   if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
     return undefined;
@@ -160,7 +173,7 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
 
   return {
     ...rest,
-    images: removeEdgesAndNodes(images),
+    images: reshapeImages(images, product.title),
     variants: removeEdgesAndNodes(variants)
   };
 };
@@ -234,15 +247,16 @@ export async function updateCart(
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
-export async function getCart(cartId: string): Promise<Cart | null> {
+export async function getCart(cartId: string): Promise<Cart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
     cache: 'no-store'
   });
 
+  // Old carts becomes `null` when you checkout.
   if (!res.body.data.cart) {
-    return null;
+    return undefined;
   }
 
   return reshapeCart(res.body.data.cart);

@@ -2,16 +2,14 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import Grid from 'components/grid';
+import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
-import ProductGridItems from 'components/layout/product-grid-items';
-import { AddToCart } from 'components/cart/add-to-cart';
 import { Gallery } from 'components/product/gallery';
-import { VariantSelector } from 'components/product/variant-selector';
-import Prose from 'components/prose';
+import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
+import Link from 'next/link';
 
 export const runtime = 'edge';
 
@@ -76,43 +74,36 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
 
   return (
-    <div>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="lg:grid lg:grid-cols-6">
-        <div className="lg:col-span-4">
-          <Gallery
-            title={product.title}
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-            images={product.images.map((image: Image) => ({
-              src: image.url,
-              altText: image.altText
-            }))}
-          />
+      <div className="mx-auto max-w-screen-2xl px-4">
+        <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
+          <div className="lg:col-span-4">
+            <Gallery
+              images={product.images.map((image: Image) => ({
+                src: image.url,
+                altText: image.altText
+              }))}
+            />
+          </div>
+
+          <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
+            <ProductDescription product={product} />
+          </div>
         </div>
-
-        <div className="p-6 lg:col-span-2">
-          <VariantSelector options={product.options} variants={product.variants} />
-
-          {product.descriptionHtml ? (
-            <Prose className="mb-6 text-sm leading-tight" html={product.descriptionHtml} />
-          ) : null}
-
-          <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
-        </div>
+        <Suspense>
+          <RelatedProducts id={product.id} />
+        </Suspense>
       </div>
       <Suspense>
-        <RelatedProducts id={product.id} />
-        <Suspense>
-          <Footer />
-        </Suspense>
+        <Footer />
       </Suspense>
-    </div>
+    </>
   );
 }
 
@@ -122,11 +113,31 @@ async function RelatedProducts({ id }: { id: string }) {
   if (!relatedProducts.length) return null;
 
   return (
-    <div className="px-4 py-8">
-      <div className="mb-4 text-3xl font-bold">Related Products</div>
-      <Grid className="grid-cols-2 lg:grid-cols-5">
-        <ProductGridItems products={relatedProducts} />
-      </Grid>
+    <div className="py-8">
+      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+      <div className="flex w-full gap-4 overflow-x-auto pt-1">
+        {relatedProducts.map((product, i) => {
+          return (
+            <Link
+              key={i}
+              className="w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
+              href={`/product/${product.handle}`}
+            >
+              <GridTileImage
+                alt={product.title}
+                label={{
+                  title: product.title,
+                  amount: product.priceRange.maxVariantPrice.amount,
+                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                }}
+                src={product.featuredImage?.url}
+                width={600}
+                height={600}
+              />
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

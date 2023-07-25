@@ -13,6 +13,7 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   const searchParams = useSearchParams();
   const [active, setActive] = useState(pathname === item.path);
   const newParams = new URLSearchParams(searchParams.toString());
+  const DynamicTag = active ? 'p' : Link;
 
   newParams.delete('q');
 
@@ -21,16 +22,18 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   }, [pathname, item.path]);
 
   return (
-    <li className="mt-2 flex text-sm text-gray-400" key={item.title}>
-      <Link
+    <li className="mt-2 flex text-black dark:text-white" key={item.title}>
+      <DynamicTag
         href={createUrl(item.path, newParams)}
-        className={clsx('w-full hover:text-gray-800 dark:hover:text-gray-100', {
-          'text-gray-600 dark:text-gray-400': !active,
-          'font-semibold text-black dark:text-white': active
-        })}
+        className={clsx(
+          'w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100',
+          {
+            'underline underline-offset-4': active
+          }
+        )}
       >
         {item.title}
-      </Link>
+      </DynamicTag>
     </li>
   );
 }
@@ -40,34 +43,30 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
   const searchParams = useSearchParams();
   const [active, setActive] = useState(searchParams.get('sort') === item.slug);
   const q = searchParams.get('q');
+  const href = createUrl(
+    pathname,
+    new URLSearchParams({
+      ...(q && { q }),
+      ...(item.slug && item.slug.length && { sort: item.slug })
+    })
+  );
+  const DynamicTag = active ? 'p' : Link;
 
   useEffect(() => {
     setActive(searchParams.get('sort') === item.slug);
   }, [searchParams, item.slug]);
 
-  const href =
-    item.slug && item.slug.length
-      ? createUrl(
-          pathname,
-          new URLSearchParams({
-            ...(q && { q }),
-            sort: item.slug
-          })
-        )
-      : pathname;
-
   return (
-    <li className="mt-2 flex text-sm text-gray-400" key={item.title}>
-      <Link
-        prefetch={false}
+    <li className="mt-2 flex text-sm text-black dark:text-white" key={item.title}>
+      <DynamicTag
+        prefetch={!active ? false : undefined}
         href={href}
-        className={clsx('w-full hover:text-gray-800 dark:hover:text-gray-100', {
-          'text-gray-600 dark:text-gray-400': !active,
-          'font-semibold text-black dark:text-white': active
+        className={clsx('w-full', {
+          'underline underline-offset-4': active
         })}
       >
         {item.title}
-      </Link>
+      </DynamicTag>
     </li>
   );
 }
