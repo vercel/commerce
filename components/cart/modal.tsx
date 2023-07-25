@@ -127,7 +127,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                   {item.merchandise.product.title}
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
-                                  <p className="text-sm text-neutral-800">
+                                  <p className="text-sm text-neutral-400 dark:text-neutral-600">
                                     {item.merchandise.title}
                                   </p>
                                 ) : null}
@@ -135,7 +135,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                             </Link>
                             <div className="flex h-16 flex-col justify-between">
                               <Price
-                                className="flex flex-col justify-between space-y-2 text-sm"
+                                className="flex justify-end space-y-2 text-right text-sm"
                                 amount={item.cost.totalAmount.amount}
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
