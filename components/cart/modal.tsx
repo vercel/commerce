@@ -127,7 +127,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                   {item.merchandise.product.title}
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
-                                  <p className="text-sm text-neutral-400 dark:text-neutral-600">
+                                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
                                     {item.merchandise.title}
                                   </p>
                                 ) : null}
@@ -152,7 +152,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       );
                     })}
                   </ul>
-                  <div className="py-4 text-sm text-neutral-400 dark:text-neutral-500">
+                  <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
                       <p>Taxes</p>
                       <Price

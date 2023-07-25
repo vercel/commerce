@@ -35,7 +35,7 @@ export default async function Navbar() {
                 <li key={item.title}>
                   <Link
                     href={item.path}
-                    className="mr-3 text-neutral-400 underline-offset-4 hover:text-black hover:underline dark:text-neutral-600 dark:hover:text-neutral-300 lg:mr-8"
+                    className="mr-3 text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300 lg:mr-8"
                   >
                     {item.title}
                   </Link>
