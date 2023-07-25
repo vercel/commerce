@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
-import { redirect, usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type ParamsMap = {
   [key: string]: string; // ie. { color: 'Red', size: 'Large', ... }
@@ -26,6 +26,7 @@ export function VariantSelector({
 }) {
   const pathname = usePathname();
   const currentParams = useSearchParams();
+  const router = useRouter();
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
@@ -79,7 +80,7 @@ export function VariantSelector({
   const selectedVariantUrl = createUrl(pathname, selectedVariantParams);
 
   if (currentUrl !== selectedVariantUrl) {
-    redirect(selectedVariantUrl);
+    router.replace(selectedVariantUrl);
   }
 
   return options.map((option) => (
