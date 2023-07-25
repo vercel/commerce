@@ -107,11 +107,14 @@ export function VariantSelector({
           )?.availableForSale;
 
           const DynamicTag = isAvailableForSale ? Link : 'p';
+          const dynamicProps = {
+            ...(isAvailableForSale && { href: optionUrl, scroll: false })
+          };
 
           return (
             <DynamicTag
               key={value}
-              href={optionUrl}
+              aria-disabled={!isAvailableForSale}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={clsx(
                 'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-900 dark:bg-neutral-900',
@@ -123,6 +126,7 @@ export function VariantSelector({
                     !isAvailableForSale
                 }
               )}
+              {...dynamicProps}
             >
               {value}
             </DynamicTag>
