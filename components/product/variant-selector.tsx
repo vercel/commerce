@@ -107,10 +107,14 @@ export function VariantSelector({
           )?.availableForSale;
 
           const DynamicTag = isAvailableForSale ? Link : 'p';
+          const dynamicProps = {
+            ...(isAvailableForSale && { scroll: false })
+          };
 
           return (
             <DynamicTag
               key={value}
+              aria-disabled={!isAvailableForSale}
               href={optionUrl}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={clsx(
@@ -123,6 +127,7 @@ export function VariantSelector({
                     !isAvailableForSale
                 }
               )}
+              {...dynamicProps}
             >
               {value}
             </DynamicTag>
