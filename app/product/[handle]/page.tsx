@@ -114,13 +114,13 @@ async function RelatedProducts({ id }: { id: string }) {
 
   return (
     <div className="py-8">
-      <div className="mb-4 text-3xl font-bold">Related Products</div>
+      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
       <div className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product, i) => {
           return (
             <Link
               key={i}
-              className="h-full w-1/2 flex-none lg:w-1/5"
+              className="w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
               href={`/product/${product.handle}`}
             >
               <GridTileImage
