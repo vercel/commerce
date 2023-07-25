@@ -289,7 +289,7 @@ export async function getCollectionProducts({
     variables: {
       handle: collection,
       reverse,
-      sortKey
+      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
     }
   });
 
