@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.7.15
     version: 1.7.15(react-dom@18.2.0)(react@18.2.0)
   '@shopware/api-client':
-    specifier: 0.0.0-canary-20230721083422
-    version: 0.0.0-canary-20230721083422
+    specifier: 0.0.0-canary-20230725064840
+    version: 0.0.0-canary-20230725064840
   '@vercel/og':
     specifier: ^0.5.9
     version: 0.5.9
@@ -379,8 +379,8 @@ packages:
     resolution: {integrity: sha512-V+MvGwaHH03hYhY+k6Ef/xKd6RYlc4q8WBx+2ANmipHJcKuktNcI/NgEsJgdSUF6Lw32njT6OnrRsKYCdgHjYw==}
     dev: true
 
-  /@shopware/api-client@0.0.0-canary-20230721083422:
-    resolution: {integrity: sha512-5oOFf6SSrxSkksXzFDalp+jwMw5P93KpUNiNzaHyL8XAE/e8B5/DdtXCCMl74sS9fdU3aC5y9mfuyvrPA4t1Zg==}
+  /@shopware/api-client@0.0.0-canary-20230725064840:
+    resolution: {integrity: sha512-rubH1IaaJ5JsEE+vFM+Vs0bZErzoDy5nxDdCFfO1eB+6zPP8VetK9fuiebpVAidkf9HKEGQZMiO0Oj6LGKdGGw==}
     dependencies:
       ofetch: 1.1.1
     dev: false

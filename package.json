@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
-    "@shopware/api-client": "0.0.0-canary-20230721083422",
+    "@shopware/api-client": "0.0.0-canary-20230725064840",
     "@vercel/og": "^0.5.9",
     "clsx": "^1.2.1",
     "is-empty-iterable": "^3.0.0",
