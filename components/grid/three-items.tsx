@@ -33,15 +33,15 @@ export async function ThreeItemGrid() {
     collection: 'hidden-homepage-featured-items'
   });
 
-  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
+  // if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
 
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
   return (
     <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 lg:grid-cols-6 lg:grid-rows-2">
-      <ThreeItemGridItem size="full" item={firstProduct} />
-      <ThreeItemGridItem size="half" item={secondProduct} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+      {firstProduct && <ThreeItemGridItem size="full" item={firstProduct} />}
+      {secondProduct && <ThreeItemGridItem size="half" item={secondProduct} />}
+      {thirdProduct && <ThreeItemGridItem size="half" item={thirdProduct} />}
     </section>
   );
 }
