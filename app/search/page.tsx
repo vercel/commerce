@@ -43,7 +43,7 @@ export default async function SearchPage({
             ) : null}
             <p className="pt-4">Good place to add other suggest search terms ;)</p>
           </div>
-          <Grid className="grid-cols-2 lg:grid-cols-3">
+          <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <ProductGridItems products={products} />
           </Grid>
           <div className="order-none md:order-last md:w-1/6 md:flex-none">

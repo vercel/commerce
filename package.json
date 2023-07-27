@@ -1,5 +1,6 @@
 {
   "private": true,
+  "packageManager": "pnpm@8.2.0",
   "engines": {
     "node": ">=18",
     "pnpm": ">=8"
@@ -12,29 +13,26 @@
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
     "start": "next start",
-    "test": "pnpm lint && pnpm prettier:check",
-    "test:e2e": "playwright test"
+    "test": "pnpm lint && pnpm prettier:check"
   },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
+    "@heroicons/react": "^2.0.18",
     "@shopware/api-client": "0.0.0-canary-20230725064840",
-    "@vercel/og": "^0.5.9",
-    "clsx": "^1.2.1",
-    "is-empty-iterable": "^3.0.0",
+    "clsx": "^2.0.0",
     "next": "13.4.12",
     "react": "18.2.0",
-    "react-cookie": "^4.1.1",
     "react-dom": "18.2.0",
     "react-paginate": "^8.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.36.1",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.9",
-    "@types/node": "^20.4.4",
-    "@types/react": "18.2.15",
+    "@types/node": "20.4.4",
+    "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.14",
