@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <div className="mx-auto max-w-screen-2xl px-4">
         <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <Gallery
               images={product.images.map((image: Image) => ({
                 src: image.url,
@@ -91,9 +91,11 @@ export default async function ProductPage({ params }: { params: { handle: string
               }))}
             />
           </div>
-
-          <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
-            <ProductDescription product={product} />
+          
+          <div className="lg:col-span-3 lg:grid lg:grid-cols-6">
+            <div className="py-6 lg:col-span-4 lg:col-start-2">
+              <ProductDescription product={product} />
+            </div>
           </div>
         </div>
         <Suspense>
