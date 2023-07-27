@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import GitHubIcon from 'components/icons/github';
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
@@ -38,7 +37,7 @@ export default async function Footer() {
         >
           <FooterMenu menu={menu} />
         </Suspense>
-        <div className="md:ml-auto">
+        {/* <div className="md:ml-auto">
           <a
             className="flex items-center gap-2 hover:text-black dark:hover:text-neutral-300"
             aria-label="Github Repository"
@@ -47,7 +46,7 @@ export default async function Footer() {
             <GitHubIcon className="h-6" />
             <p>Source</p>
           </a>
-        </div>
+        </div> */}
       </div>
       <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 md:flex-row md:gap-0">
