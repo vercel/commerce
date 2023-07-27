@@ -1,4 +1,4 @@
-const cotton100 = '100% organic cotton';
+export const cotton100 = '100% organic cotton';
 const print = 'water based ink print on back'
 
 const heavy = 'heavy'
@@ -10,7 +10,8 @@ const medium = 'medium'
 
 const unisex = 'unisex'
 
-const branding = `${cotton100} brand label`
+const branding = 'subtle brand label on front hem'
+const creation = 'ethically and sustainably made'
 
 export type GarmentDetailContent = {
   title: string;
@@ -20,9 +21,12 @@ export type GarmentDetailContent = {
     gsm: number;
   };
   fit: string;
-  style: string;
   print: string;
-  branding: string;
+  common: {
+    style: string;
+    branding: string;
+    creation: string;
+  };
 }
 
 const garmentTypes = {
@@ -32,9 +36,12 @@ const garmentTypes = {
 }
 
 const commonDetails = {
-  style: unisex,
   print,
-  branding,
+  common: {
+    branding,
+    style: unisex,
+    creation,
+  }
 }
 
 const tshirt = {
