@@ -1,6 +1,8 @@
 'use client';
 
 import ReactPaginate from 'react-paginate';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { createUrl } from 'lib/utils';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
@@ -52,18 +54,18 @@ export default function Pagination({
         initialPage={currentPage}
         pageCount={pageCount}
         breakLabel="..."
-        nextLabel=">>"
-        previousLabel="<<"
+        nextLabel=<ArrowRightIcon className="h-5" />
+        previousLabel=<ArrowLeftIcon className="h-5" />
         renderOnZeroPageCount={null}
         containerClassName="inline sm:flex text-base h-10 mx-auto"
         activeClassName="active"
-        pageClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.active]:bg-gray-100"
+        pageClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.active]:bg-gray-100"
         pageLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
-        previousClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.disabled]:hidden"
+        previousClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.disabled]:hidden"
         previousLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
-        nextClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.disabled]:hidden"
+        nextClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.disabled]:hidden"
         nextLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
-        breakClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        breakClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         breakLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
       />
     </>

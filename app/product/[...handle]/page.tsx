@@ -8,7 +8,7 @@ import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopware';
-import { Image } from 'lib/shopify/types';
+import { Image } from 'lib/shopware/types';
 import Link from 'next/link';
 
 export const runtime = 'edge';
@@ -132,8 +132,8 @@ async function RelatedProducts({ id }: { id: string }) {
                   currencyCode: product.priceRange.maxVariantPrice.currencyCode
                 }}
                 src={product.featuredImage?.url}
-                width={600}
-                height={600}
+                width={500}
+                height={500}
               />
             </Link>
           );

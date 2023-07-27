@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search from './search';
-const { SITE_NAME } = process.env;
 
 export default async function Navbar() {
   const menu = await getMenu({ type: 'main-navigation' });
@@ -18,16 +17,13 @@ export default async function Navbar() {
         <MobileMenu menu={menu} />
       </div>
       <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3">
+        <div className="flex w-full md:w-4/6">
           <Link
             href="/"
             aria-label="Go back home"
             className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
           >
             <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
-            </div>
           </Link>
           {menu.length ? (
             <ul className="hidden text-sm md:flex md:items-center">
@@ -44,10 +40,10 @@ export default async function Navbar() {
             </ul>
           ) : null}
         </div>
-        <div className="hidden justify-center md:flex md:w-1/3">
+        <div className="hidden justify-center md:flex md:w-1/6">
           <Search />
         </div>
-        <div className="flex justify-end md:w-1/3">
+        <div className="flex justify-end md:w-1/6">
           <Suspense fallback={<OpenCart />}>
             <Cart />
           </Suspense>

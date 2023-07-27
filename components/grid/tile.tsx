@@ -33,7 +33,8 @@ export function GridTileImage({
         <Image
           className={clsx('relative h-full w-full object-contain', {
             'transition duration-300 ease-in-out hover:scale-105': isInteractive,
-            'm-4 max-h-[8rem] min-h-[8rem]': props.width === 200 && props.height === 200 // this styling is for the thumbnails below gallery on product detail page
+            'max-h-[4rem] min-h-[4rem]': props.width === 200 && props.height === 200, // this styling is for the thumbnails below gallery on product detail page
+            'max-h-[20rem] min-h-[20rem]': props.width === 500 && props.height === 500 // this styling is for the gallery in recommendations on product detail page
           })}
           {...props}
         />

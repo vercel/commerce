@@ -25,7 +25,7 @@ export default async function SearchPage({
   return (
     <>
       {searchValue && products.length === 0 ? (
-        <div className="mx-auto flex max-w-7xl flex-col bg-white py-6 text-black dark:bg-black dark:text-white md:flex-row">
+        <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black dark:text-white md:flex-row">
           <p>
             {'There are no products that match '}
             <span className="font-bold">&quot;{searchValue}&quot;</span>
@@ -33,20 +33,22 @@ export default async function SearchPage({
         </div>
       ) : null}
       {products.length > 0 ? (
-        <div className="mx-auto flex max-w-7xl flex-col bg-white py-6 text-black dark:bg-black dark:text-white md:flex-row">
-          <div className="order-first flex-none md:w-1/6">
+        <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black dark:text-white md:flex-row">
+          <div className="order-first w-full flex-none md:max-w-[125px]">
             {searchValue ? (
-              <p>
+              <p className="text-sm text-neutral-500">
                 {`Showing ${products.length} ${resultsText} for `}
                 <span className="font-bold">&quot;{searchValue}&quot;</span>
               </p>
             ) : null}
-            <p className="pt-4">Good place to add other suggest search terms ;)</p>
+            <p className="pt-4 text-xs text-neutral-500">
+              Good place to add other suggested search terms ;)
+            </p>
           </div>
-          <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <Grid className="grid-cols-2 lg:grid-cols-3">
             <ProductGridItems products={products} />
           </Grid>
-          <div className="order-none md:order-last md:w-1/6 md:flex-none">
+          <div className="order-none flex-none md:order-last md:w-[125px]">
             <FilterList list={sorting} title="Sort by" />
           </div>
         </div>

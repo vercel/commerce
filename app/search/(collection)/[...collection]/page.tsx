@@ -58,13 +58,18 @@ export default async function CategoryPage({
             <Grid className="grid-cols-2 lg:grid-cols-3">
               <ProductGridItems products={products} />
             </Grid>
-            <nav aria-label="Collection pagination" className="block items-center sm:flex">
-              <Pagination
-                itemsPerPage={limit}
-                itemsTotal={total}
-                currentPage={page ? parseInt(page) - 1 : 0}
-              />
-            </nav>
+            {total > limit ? (
+              <nav
+                aria-label="Collection pagination"
+                className="mb-2 mt-4 block items-center sm:flex"
+              >
+                <Pagination
+                  itemsPerPage={limit}
+                  itemsTotal={total}
+                  currentPage={page ? parseInt(page) - 1 : 0}
+                />
+              </nav>
+            ) : null}
           </div>
           <div className="order-none flex-none md:order-last md:w-[125px]">
             <FilterList list={sorting} title="Sort by" />

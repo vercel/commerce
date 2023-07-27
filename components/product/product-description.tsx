@@ -18,18 +18,18 @@ export function ProductDescription({ product }: { product: Product }) {
       </div>
       <VariantSelector options={product.options} variants={product.variants} />
 
-      {product.descriptionHtml ? (
-        <Prose
-          className="mb-6 text-sm leading-tight dark:text-white/[60%]"
-          html={product.descriptionHtml}
-        />
-      ) : null}
-
       <AddToCart
         product={product}
         variants={product.variants}
         availableForSale={product.availableForSale}
       />
+
+      {product.descriptionHtml ? (
+        <Prose
+          className="m-6 max-h-96 overflow-y-auto text-sm leading-tight dark:text-white/[60%]"
+          html={product.descriptionHtml}
+        />
+      ) : null}
     </>
   );
 }
