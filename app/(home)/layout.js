@@ -1,11 +1,16 @@
-import { HomeNav, HomeFooter } from '/components/home';
+import { HomeNav, HomeFooter, CartLink } from '/components/home';
 
 import styles from './styles.module.scss';
 
 export default function HomeLayout({ children }) {
     return (
         <>
-            <header>
+            {/* <div className={styles.scrollContainer}> */}
+            <div className={styles.spacer} />
+            <div className={styles.scrollContainer}>
+                <CartLink />
+            </div>
+            <header className={styles.header}>
                 <nav>
                     <HomeNav />
                 </nav>
@@ -14,6 +19,7 @@ export default function HomeLayout({ children }) {
             <footer>
                 <HomeFooter />
             </footer>
+            {/* </div> */}
         </>
     );
 }

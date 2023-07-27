@@ -102,6 +102,14 @@ export async function TypesNav() {
     );
 }
 
+export const CartLink = () => (
+    /* <div className={styles.cartLink}> */
+    <Link className={styles.cartLink} href='/cart'>
+        Cart ( 0 )
+    </Link>
+    // </div>
+);
+
 export const HomeNav = () => (
     <div className={styles.homeNav}>
         <Link href='/information' className='information'>

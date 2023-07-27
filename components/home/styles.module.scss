@@ -9,7 +9,9 @@
 }
 
 .homeNav {
-    padding: 51px 115px 22px 115px;
+    padding: (51px - spacing.$home-spacer-y) 115px 22px 115px;
+
+    overflow: visible;
 
     display: grid;
     grid-template-columns: 200px 1fr 200px;
@@ -36,6 +38,24 @@
     .link {
         @include typography.body-cta;
     }
+}
+
+.cartLink {
+    position: sticky;
+    overflow: visible;
+
+    top: 12px;
+
+    @include typography.subheader;
+
+    text-align: right;
+    word-wrap: none;
+    text-decoration-line: none;
+    mix-blend-mode: difference;
+    // mix-blend-mode: exclusion;
+    z-index: 10;
+
+    color: #fff !important;
 }
 
 .homeProductsList {
@@ -140,6 +160,7 @@
         > div {
             display: flex;
             align-items: flex-end;
+            justify-content: flex-end;
         }
 
         button {

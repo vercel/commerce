@@ -1,5 +1,24 @@
 @use 'styles/_spacing';
 
+.scrollContainer {
+    position: absolute;
+    height: calc(100% - 822px);
+    right: spacing.$page-margin-x;
+    // float: right;
+}
+
+.spacer {
+    height: spacing.$home-spacer-y;
+}
+
+.header {
+    overflow: visible;
+
+    > nav {
+        overflow: visible;
+    }
+}
+
 .main {
     padding: 0 spacing.$page-margin-x;
 }
