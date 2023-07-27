@@ -23,12 +23,15 @@ export async function HomeProduct({ product }) {
             className={styles.homeProduct}
         >
             {/* TODO: optimize srcset (adjusting based on featured status) */}
-            <Image
-                src={featuredImage?.url}
-                alt={featuredImage?.altText}
-                width={featuredImage?.width}
-                height={featuredImage?.height}
-            />
+            <div className={styles.image}>
+                <Image
+                    src={featuredImage?.url}
+                    alt={featuredImage?.altText}
+                    width={featuredImage?.width}
+                    height={featuredImage?.height}
+                />
+                <div className={styles.hoverOverlay} />
+            </div>
             <div>
                 <p className={styles.title}>{product?.title}</p>
                 {collections && collections.length > 0 && (

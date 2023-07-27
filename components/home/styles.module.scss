@@ -1,5 +1,6 @@
 @use 'styles/_typography';
 @use 'styles/_spacing';
+@use 'styles/_colors';
 
 @mixin home-grid {
     display: grid;
@@ -72,6 +73,36 @@
     .title,
     .collections {
         @include typography.subheader;
+    }
+
+    .image {
+        position: relative;
+
+        .hoverOverlay,
+        img {
+            transition: opacity 200ms;
+        }
+
+        .hoverOverlay {
+            background-color: colors.$black;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            opacity: 0;
+        }
+
+        &:hover {
+            .hoverOverlay {
+                opacity: 1;
+            }
+            img {
+                opacity: 0;
+            }
+        }
     }
 }
 
