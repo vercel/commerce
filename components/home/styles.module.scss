@@ -1,4 +1,5 @@
 @use 'styles/_typography';
+@use 'styles/_spacing';
 
 @mixin home-grid {
     display: grid;
@@ -75,15 +76,46 @@
 }
 
 .homeFooter {
-    @include home-grid;
+    .top {
+        padding: 0 spacing.$page-margin-x;
+        padding-top: 20px;
+        padding-bottom: 30px;
 
-    > p {
-        @include typography.body;
+        @include home-grid;
 
-        grid-column-end: span 10;
-    }
+        > p {
+            @include typography.body;
 
-    > *:last-child {
-        grid-column-end: span 4;
+            grid-column-end: span 10;
+
+            a {
+                &:not(&:last-of-type)::after {
+                    content: ',\00a0';
+                    text-decoration-line: none;
+                    display: inline-block;
+                }
+                &:last-of-type::after {
+                    content: '.';
+                    text-decoration-line: none;
+                    display: inline-block;
+                }
+            }
+        }
+
+        > *:last-child {
+            grid-column-end: span 4;
+        }
+
+        > div {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        button {
+            @include typography.subheader;
+
+            text-align: right;
+            word-wrap: none;
+        }
     }
 }

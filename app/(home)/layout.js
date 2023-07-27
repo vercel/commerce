@@ -10,12 +10,10 @@ export default function HomeLayout({ children }) {
                     <HomeNav />
                 </nav>
             </header>
-            <main className={styles.main}>
-                {children}
-                <footer>
-                    <HomeFooter />
-                </footer>
-            </main>
+            <main className={styles.main}>{children}</main>
+            <footer>
+                <HomeFooter />
+            </footer>
         </>
     );
 }

@@ -114,19 +114,31 @@ export async function HomeFooter() {
 
     return (
         <div className={styles.homeFooter}>
-            <p>
-                For additional creative resources, visit the following:
-                <br />
-                Moodboard, Soundtrack, Twitter, Instagram.
-            </p>
-            <p>
-                To discuss creative opportunities and potential
-                <br />
-                collaborations, visit Aug.Services for more information.
-            </p>
-            <div>
-                <button type='button'>return to top ( ↑ )</button>
+            <div className={styles.top}>
+                <p>
+                    For additional creative resources, visit the following:
+                    <br />
+                    {/* Moodboard, Soundtrack, Twitter, Instagram. */}
+                    <>
+                        {footerMenu?.map(item => (
+                            <a href={item?.path} key={item?.path}>
+                                {item?.title}
+                            </a>
+                        ))}
+                    </>
+                </p>
+                <p>
+                    To discuss creative opportunities and potential
+                    <br />
+                    collaborations, visit{' '}
+                    <a href='https://aug.services'>Aug.Services</a> for more
+                    information.
+                </p>
+                <div>
+                    <button type='button'>return to top ( ↑ )</button>
+                </div>
             </div>
+            <img src='/logo.svg' alt='shop.aug.svcs' />
         </div>
     );
 }

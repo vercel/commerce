@@ -37,6 +37,18 @@
     font-weight: 300;
     line-height: 30px; /* 120% */
     letter-spacing: -0.75px;
+
+    a,
+    a:visited,
+    a:hover {
+        font-family: var(--font-dia);
+        font-weight: 100;
+        letter-spacing: -0.25px;
+
+        text-decoration-line: underline;
+        text-decoration-thickness: 3%;
+        text-underline-offset: 7%;
+    }
 }
 
 @mixin list {
