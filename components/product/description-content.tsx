@@ -23,7 +23,11 @@ export function DescriptionContent({ product }: { product: Product }) {
   }
 
   const certificationLink = (credType: keyof typeof credentials) => {
-    return <a className='text-underline text-xs' href={`#${getCertificationId(credType)}`}> {credentials[credType].title} certified</a>
+    return <a 
+    className='text-underline text-xs' 
+    href={`#${getCertificationId(credType)}`}
+    target="_blank"
+    > {credentials[credType].title} certified</a>
   }
 
   const commonDetailKeys = Object.keys(itemDetails.common)
