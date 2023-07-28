@@ -4,17 +4,12 @@ import clsx from 'clsx';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-type ParamsMap = {
-  [key: string]: string; // ie. { color: 'Red', size: 'Large', ... }
-};
-
-type OptimizedVariant = {
+type Combination = {
   id: string;
   availableForSale: boolean;
-  params: URLSearchParams;
-  [key: string]: string | boolean | URLSearchParams; // ie. { color: 'Red', size: 'Large', ... }
+  [key: string]: string | boolean; // ie. { color: 'Red', size: 'Large', ... }
 };
 
 export function VariantSelector({
@@ -25,8 +20,7 @@ export function VariantSelector({
   variants: ProductVariant[];
 }) {
   const pathname = usePathname();
-  const currentParams = useSearchParams();
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
@@ -34,78 +28,55 @@ export function VariantSelector({
     return null;
   }
 
-  // Discard any unexpected options or values from url and create params map.
-  const paramsMap: ParamsMap = Object.fromEntries(
-    Array.from(currentParams.entries()).filter(([key, value]) =>
-      options.find((option) => option.name.toLowerCase() === key && option.values.includes(value))
+  const combinations: Combination[] = variants.map((variant) => ({
+    id: variant.id,
+    availableForSale: variant.availableForSale,
+    // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
+    ...variant.selectedOptions.reduce(
+      (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
+      {}
     )
-  );
-
-  // Optimize variants for easier lookups.
-  const optimizedVariants: OptimizedVariant[] = variants.map((variant) => {
-    const optimized: OptimizedVariant = {
-      id: variant.id,
-      availableForSale: variant.availableForSale,
-      params: new URLSearchParams()
-    };
-
-    variant.selectedOptions.forEach((selectedOption) => {
-      const name = selectedOption.name.toLowerCase();
-      const value = selectedOption.value;
-
-      optimized[name] = value;
-      optimized.params.set(name, value);
-    });
-
-    return optimized;
-  });
-
-  // Find the first variant that is:
-  //
-  // 1. Available for sale
-  // 2. Matches all options specified in the url (note that this
-  //    could be a partial match if some options are missing from the url).
-  //
-  // If no match (full or partial) is found, use the first variant that is
-  // available for sale.
-  const selectedVariant: OptimizedVariant | undefined =
-    optimizedVariants.find(
-      (variant) =>
-        variant.availableForSale &&
-        Object.entries(paramsMap).every(([key, value]) => variant[key] === value)
-    ) || optimizedVariants.find((variant) => variant.availableForSale);
-
-  const selectedVariantParams = new URLSearchParams(selectedVariant?.params);
-  const currentUrl = createUrl(pathname, currentParams);
-  const selectedVariantUrl = createUrl(pathname, selectedVariantParams);
-
-  if (currentUrl !== selectedVariantUrl) {
-    router.replace(selectedVariantUrl);
-  }
+  }));
 
   return options.map((option) => (
     <dl className="mb-8" key={option.id}>
       <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
       <dd className="flex flex-wrap gap-3">
         {option.values.map((value) => {
-          // Base option params on selected variant params.
-          const optionParams = new URLSearchParams(selectedVariantParams);
-          // Update the params using the current option to reflect how the url would change.
-          optionParams.set(option.name.toLowerCase(), value);
+          const optionNameLowerCase = option.name.toLowerCase();
 
-          const optionUrl = createUrl(pathname, optionParams);
+          // Base option params on current params so we can preserve any other param state in the url.
+          const optionSearchParams = new URLSearchParams(searchParams.toString());
 
-          // The option is active if it in the url params.
-          const isActive = selectedVariantParams.get(option.name.toLowerCase()) === value;
+          // Update the option params using the current option to reflect how the url *would* change,
+          // if the option was clicked.
+          optionSearchParams.set(optionNameLowerCase, value);
+          const optionUrl = createUrl(pathname, optionSearchParams);
 
-          // The option is available for sale if it fully matches the variant in the option's url params.
-          // It's super important to note that this is the options params, *not* the selected variant's params.
-          // This is the "magic" that will cross check possible future variant combinations and preemptively
-          // disable combinations that are not possible.
-          const isAvailableForSale = optimizedVariants.find((a) =>
-            Array.from(optionParams.entries()).every(([key, value]) => a[key] === value)
-          )?.availableForSale;
+          // In order to determine if an option is available for sale, we need to:
+          //
+          // 1. Filter out all other param state
+          // 2. Filter out invalid options
+          // 3. Check if the option combination is available for sale
+          //
+          // This is the "magic" that will cross check possible variant combinations and preemptively
+          // disable combinations that are not available. For example, if the color gray is only available in size medium,
+          // then all other sizes should be disabled.
+          const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
+            options.find(
+              (option) => option.name.toLowerCase() === key && option.values.includes(value)
+            )
+          );
+          const isAvailableForSale = combinations.find((combination) =>
+            filtered.every(
+              ([key, value]) => combination[key] === value && combination.availableForSale
+            )
+          );
 
+          // The option is active if it's in the url params.
+          const isActive = searchParams.get(optionNameLowerCase) === value;
+
+          // You can't disable a link, so we need to render something that isn't clickable.
           const DynamicTag = isAvailableForSale ? Link : 'p';
           const dynamicProps = {
             ...(isAvailableForSale && { scroll: false })
