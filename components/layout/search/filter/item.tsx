@@ -5,21 +5,16 @@ import { SortFilterItem } from 'lib/constants';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import type { ListItem, PathFilterItem } from '.';
 
 function PathFilterItem({ item }: { item: PathFilterItem }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [active, setActive] = useState(pathname === item.path);
+  const active = pathname === item.path;
   const newParams = new URLSearchParams(searchParams.toString());
   const DynamicTag = active ? 'p' : Link;
 
   newParams.delete('q');
-
-  useEffect(() => {
-    setActive(pathname === item.path);
-  }, [pathname, item.path]);
 
   return (
     <li className="mt-2 flex text-black dark:text-white" key={item.title}>
@@ -41,7 +36,7 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
 function SortFilterItem({ item }: { item: SortFilterItem }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [active, setActive] = useState(searchParams.get('sort') === item.slug);
+  const active = searchParams.get('sort') === item.slug;
   const q = searchParams.get('q');
   const href = createUrl(
     pathname,
@@ -51,10 +46,6 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
     })
   );
   const DynamicTag = active ? 'p' : Link;
-
-  useEffect(() => {
-    setActive(searchParams.get('sort') === item.slug);
-  }, [searchParams, item.slug]);
 
   return (
     <li className="mt-2 flex text-sm text-black dark:text-white" key={item.title}>
