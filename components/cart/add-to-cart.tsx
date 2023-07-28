@@ -15,7 +15,7 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
+  const [selectedVariantId, setSelectedVariantId] = useState<string | undefined>(undefined);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -27,17 +27,24 @@ export function AddToCart({
       )
     );
 
-    if (variant) {
-      setSelectedVariantId(variant.id);
-    }
+    setSelectedVariantId(variant?.id);
   }, [searchParams, variants, setSelectedVariantId]);
+
+  const title = !availableForSale
+    ? 'Out of stock'
+    : !selectedVariantId
+    ? 'Please select options'
+    : undefined;
 
   return (
     <button
       aria-label="Add item to cart"
-      disabled={isPending}
+      disabled={isPending || !availableForSale || !selectedVariantId}
+      title={title}
       onClick={() => {
-        if (!availableForSale) return;
+        // Safeguard in case someone messes with `disabled` in devtools.
+        if (!availableForSale || !selectedVariantId) return;
+
         startTransition(async () => {
           const error = await addItem(selectedVariantId);
 
@@ -52,7 +59,7 @@ export function AddToCart({
       className={clsx(
         'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90',
         {
-          'cursor-not-allowed opacity-60': !availableForSale,
+          'cursor-not-allowed opacity-60 hover:opacity-60': !availableForSale || !selectedVariantId,
           'cursor-not-allowed': isPending
         }
       )}
