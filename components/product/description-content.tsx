@@ -26,7 +26,6 @@ export function DescriptionContent({ product }: { product: Product }) {
     return <a 
     className='text-underline text-xs' 
     href={`#${getCertificationId(credType)}`}
-    target="_blank"
     > {credentials[credType].title} certified</a>
   }
 
