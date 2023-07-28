@@ -2,6 +2,7 @@ import { SCAPE } from 'constants/brand';
 import { productTypes } from 'constants/item-details';
 import { credentials, credentialsKeys } from 'constants/sustainability';
 import { Product } from 'lib/shopify/types';
+import Link from 'next/link';
 
 export function DescriptionContent({ product }: { product: Product }) {
   const productTypeKeys = Object.keys(productTypes);
@@ -23,10 +24,10 @@ export function DescriptionContent({ product }: { product: Product }) {
   }
 
   const certificationLink = (credType: keyof typeof credentials) => {
-    return <a 
+    return <Link 
     className='text-underline text-xs' 
     href={`#${getCertificationId(credType)}`}
-    > {credentials[credType].title} certified</a>
+    > {credentials[credType].title} certified</Link>
   }
 
   const commonDetailKeys = Object.keys(itemDetails.common)

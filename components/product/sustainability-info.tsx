@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { credentials, credentialsKeys } from "constants/sustainability";
+import Link from "next/link";
 
 
 export function SustainabilityInfo() {
@@ -18,13 +19,13 @@ export function SustainabilityInfo() {
                 <AccordionTrigger className="text-xs py-3">{credentials[credential as keyof typeof credentials].title}</AccordionTrigger>
                 <AccordionContent>
                   "{credentials[credential as keyof typeof credentials].excerpt}" <br /><br/>
-                  <a 
+                  <Link 
                   className="text-bold pt-6" 
                   href={credentials[credential as keyof typeof credentials].link}
                   target="_blank"
                   >
                     Read more
-                  </a>
+                  </Link>
                 </AccordionContent>
               </AccordionItem>
             ))}

@@ -58,9 +58,9 @@ export default async function Footer() {
           <p>Designed in England</p>
           <p className="md:ml-auto">
             Crafted by{' '}
-            <a href="https://www.instagram.com/sammiisparkle" className="text-black dark:text-white" target="_blank">
+            <Link href="https://www.instagram.com/sammiisparkle" className="text-black dark:text-white" target="_blank">
               Sammii Sparkle
-            </a>
+            </Link>
           </p>
         </div>
       </div>
