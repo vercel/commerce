@@ -24,11 +24,18 @@ export function AddToCart({
     const variant = variants.find((variant: ProductVariant) =>
       variant.selectedOptions.every(
         (option) => option.value === searchParams.get(option.name.toLowerCase())
+        
       )
     );
 
+    if (variants?.length > 0 && !!variants?.[0] && !variant) {
+      setSelectedVariantId(variants?.[0].id);
+      return;
+    }
+
     setSelectedVariantId(variant?.id);
   }, [searchParams, variants, setSelectedVariantId]);
+  
 
   const title = !availableForSale
     ? 'Out of stock'
