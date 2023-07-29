@@ -1,6 +1,7 @@
 {
+  "name": "commerce",
   "private": true,
-  "packageManager": "pnpm@8.2.0",
+  "packageManager": "yarn@3.6.1",
   "engines": {
     "node": ">=16",
     "pnpm": ">=7"
@@ -35,7 +36,6 @@
     "@types/node": "20.4.4",
     "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",
-    "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.45.0",
     "eslint-config-next": "^13.4.12",
