@@ -6,7 +6,7 @@ import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
+import { useTransition } from 'react';
 
 export function AddToCart({
   variants,
@@ -15,21 +15,16 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [selectedVariantId, setSelectedVariantId] = useState<string | undefined>(undefined);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    const variant = variants.find((variant: ProductVariant) =>
-      variant.selectedOptions.every(
-        (option) => option.value === searchParams.get(option.name.toLowerCase())
-      )
-    );
-
-    setSelectedVariantId(variant?.id);
-  }, [searchParams, variants, setSelectedVariantId]);
-
+  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
+  const variant = variants.find((variant: ProductVariant) =>
+    variant.selectedOptions.every(
+      (option) => option.value === searchParams.get(option.name.toLowerCase())
+    )
+  );
+  const selectedVariantId = variant?.id || defaultVariantId;
   const title = !availableForSale
     ? 'Out of stock'
     : !selectedVariantId
