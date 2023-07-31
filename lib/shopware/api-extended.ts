@@ -10,6 +10,7 @@ type operationsWithoutOriginal = Omit<
   | 'readProductCrossSellings'
   | 'readProductListing'
   | 'searchPage'
+  | 'addLineItem'
   | 'readCart'
   | 'deleteLineItem'
 >;
@@ -21,6 +22,7 @@ export type extendedPaths =
   | 'readProductCrossSellings post /product/{productId}/cross-selling'
   | 'readProductListing post /product-listing/{categoryId}'
   | 'searchPage post /search'
+  | 'addLineItem post /checkout/cart/line-item'
   | 'readCart get /checkout/cart?name'
   | 'deleteLineItem delete /checkout/cart/line-item?id[]={ids}'
   | operationPaths;
@@ -32,6 +34,7 @@ export type extendedOperations = operationsWithoutOriginal & {
   readProductCrossSellings: extendedReadProductCrossSellings;
   readProductListing: extendedReadProductListing;
   searchPage: extendedSearchPage;
+  addLineItem: extendedAddLineItem;
   readCart: extendedReadCart;
   deleteLineItem: extendedDeleteLineItem;
 };
@@ -335,6 +338,26 @@ type extendedReadProductListing = {
     200: {
       content: {
         'application/json': ExtendedProductListingResult;
+      };
+    };
+  };
+};
+
+type extendedCartItems = components['schemas']['ArrayStruct'] & {
+  items?: Partial<ExtendedLineItem>[];
+};
+
+type extendedAddLineItem = {
+  requestBody?: {
+    content: {
+      'application/json': extendedCartItems;
+    };
+  };
+  responses: {
+    /** The updated cart. */
+    200: {
+      content: {
+        'application/json': ExtendedCart;
       };
     };
   };

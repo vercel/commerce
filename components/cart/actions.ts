@@ -53,7 +53,7 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
       quantity = itemInCart.quantity + 1;
     }
 
-    await apiClient.invoke('addLineItem post /checkout/cart/line-item', {
+    const response = await apiClient.invoke('addLineItem post /checkout/cart/line-item', {
       items: [
         {
           id: variantId,
@@ -63,6 +63,11 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
         }
       ]
     });
+
+    const errorMessage = alertErrorMessages(response);
+    if (errorMessage !== '') {
+      return { message: errorMessage } as Error;
+    }
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
@@ -72,6 +77,20 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
     }
   }
 };
+
+function alertErrorMessages(response: ExtendedCart): string {
+  let errorMessages: string = '';
+  if (response.errors) {
+    Object.values(response.errors).forEach(function (value) {
+      // @ts-ignore
+      if (value.messageKey && value.message && value.messageKey === 'product-out-of-stock') {
+        errorMessages += value.message;
+      }
+    });
+  }
+
+  return errorMessages;
+}
 
 export const removeItem = async (lineId: string): Promise<Error | undefined> => {
   const cartId = cookies().get('sw-context-token')?.value;
