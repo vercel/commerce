@@ -15,11 +15,11 @@ const FooterMenuItem = ({ item }: { item: Menu }) => {
   }, [pathname, item.path]);
 
   return (
-    <li className="mt-2 first:mt-1">
+    <li>
       <Link
         href={item.path}
         className={clsx(
-          'underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300',
+          'block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm',
           {
             'text-black dark:text-neutral-300': active
           }
