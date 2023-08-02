@@ -21,6 +21,7 @@ export default function EditItemQuantityButton({
     <button
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
       onClick={() => {
+        console.time('profile - update cart - button');
         startTransition(async () => {
           const error =
             type === 'minus' && item.quantity - 1 === 0
@@ -35,7 +36,7 @@ export default function EditItemQuantityButton({
             alert(error);
             return;
           }
-
+          console.timeEnd('profile - update cart - button');
           router.refresh();
         });
       }}

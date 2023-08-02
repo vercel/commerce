@@ -37,6 +37,7 @@ export function AddToCart({
       disabled={isPending || !availableForSale || !selectedVariantId}
       title={title}
       onClick={() => {
+        console.time('profile - add to cart - button');
         // Safeguard in case someone messes with `disabled` in devtools.
         if (!availableForSale || !selectedVariantId) return;
 
@@ -47,7 +48,7 @@ export function AddToCart({
             alert(error);
             return;
           }
-
+          console.timeEnd('profile - add to cart - button');
           router.refresh();
         });
       }}

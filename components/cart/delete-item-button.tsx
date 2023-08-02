@@ -15,6 +15,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
     <button
       aria-label="Remove cart item"
       onClick={() => {
+        console.time('profile - remove from cart - button');
         startTransition(async () => {
           const error = await removeItem(item.id);
 
@@ -22,7 +23,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
             alert(error);
             return;
           }
-
+          console.timeEnd('profile - remove from cart - button');
           router.refresh();
         });
       }}
