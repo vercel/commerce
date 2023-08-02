@@ -23,9 +23,17 @@ type Option = {
   label: string,
 }
 
-export function Combox({options}: {options: Option[]}) {  
+export function Combox(
+  {
+    options, 
+    currentKey,
+    onShow,
+  }: {
+    options: Option[], 
+    currentKey: string | null,
+    onShow: ((key: string) => void),
+  }) {  
   const [open, setOpen] = useState(false)
-  const [currentKey, setCurrentKey] = useState<string | null>(null)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -34,15 +42,15 @@ export function Combox({options}: {options: Option[]}) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[200px] justify-between truncate text-ellipsis"
         >
           {currentKey
             ? options.find((option) => option.key === currentKey)?.label
             : "Select option..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      </PopoverTrigger> <br /><br />
+      <PopoverContent className="w-[200px] p-0 bg-popover">
         <Command>
           <CommandInput placeholder="Search option..." />
           <CommandEmpty>No option found.</CommandEmpty>
@@ -51,8 +59,9 @@ export function Combox({options}: {options: Option[]}) {
               <CommandItem
                 key={option.key}
                 onSelect={() => {
-                  setCurrentKey(option.key)
+                  // setCurrentKey(option.key)
                   setOpen(false)
+                  onShow(option.key)
                 }}
               >
                 <Check
