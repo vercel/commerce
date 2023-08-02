@@ -24,7 +24,7 @@ export default async function SearchPage({
   return (
     <>
       {searchValue ? (
-        <p>
+        <p className="mb-4">
           {products.length === 0
             ? 'There are no products that match '
             : `Showing ${products.length} ${resultsText} for `}
