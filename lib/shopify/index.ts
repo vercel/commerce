@@ -198,11 +198,12 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
 };
 
 export async function createCart(): Promise<Cart> {
+  console.time('createCart');
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
     cache: 'no-store'
   });
-
+  console.timeEnd('createCart');
   return reshapeCart(res.body.data.cartCreate.cart);
 }
 
@@ -210,6 +211,7 @@ export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
+  console.time('addToCart');
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
@@ -218,10 +220,12 @@ export async function addToCart(
     },
     cache: 'no-store'
   });
+  console.timeEnd('addToCart');
   return reshapeCart(res.body.data.cartLinesAdd.cart);
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
+  console.time('removeFromCart');
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
     variables: {
@@ -230,7 +234,7 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
     },
     cache: 'no-store'
   });
-
+  console.timeEnd('removeFromCart');
   return reshapeCart(res.body.data.cartLinesRemove.cart);
 }
 
@@ -238,6 +242,7 @@ export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
+  console.time('updateCart');
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
     variables: {
@@ -246,7 +251,7 @@ export async function updateCart(
     },
     cache: 'no-store'
   });
-
+  console.timeEnd('updateCart');
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
