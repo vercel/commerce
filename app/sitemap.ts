@@ -45,5 +45,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     throw JSON.stringify(error, null, 2);
   }
 
-  return [...routesMap, ...fetchedRoutes.flat()];
+  return [...routesMap, ...fetchedRoutes];
 }
