@@ -52,7 +52,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                 <ArrowLeftIcon className="h-5" />
               </Link>
               <div className="mx-1 h-6 w-px bg-neutral-500"></div>
-              <Link 
+              <Link
                 aria-label="Next product image"
                 href={nextUrl}
                 className={buttonClassName}
