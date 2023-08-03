@@ -47,11 +47,17 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                 aria-label="Previous product image"
                 href={previousUrl}
                 className={buttonClassName}
+                scroll={false}
               >
                 <ArrowLeftIcon className="h-5" />
               </Link>
               <div className="mx-1 h-6 w-px bg-neutral-500"></div>
-              <Link aria-label="Next product image" href={nextUrl} className={buttonClassName}>
+              <Link
+                aria-label="Next product image"
+                href={nextUrl}
+                className={buttonClassName}
+                scroll={false}
+              >
                 <ArrowRightIcon className="h-5" />
               </Link>
             </div>
