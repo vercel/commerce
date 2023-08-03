@@ -27,13 +27,13 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
 
   return (
-    <div className="mr-8 h-full">
-      <div className="relative mb-12 h-full max-h-[550px] overflow-hidden">
+    <>
+      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {images[imageIndex] && (
           <Image
-            className="relative h-full w-full object-contain"
-            height={600}
-            width={600}
+            className="h-full w-full object-contain"
+            fill
+            sizes="(min-width: 1024px) 66vw, 100vw"
             alt={images[imageIndex]?.altText as string}
             src={images[imageIndex]?.src as string}
             priority={true}
@@ -60,7 +60,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       </div>
 
       {images.length > 1 ? (
-        <div className="flex items-center justify-center gap-2 overflow-auto py-1">
+        <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
           {images.map((image, index) => {
             const isActive = index === imageIndex;
             const imageSearchParams = new URLSearchParams(searchParams.toString());
@@ -68,25 +68,26 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             imageSearchParams.set('image', index.toString());
 
             return (
-              <Link
-                aria-label="Enlarge product image"
-                key={image.src}
-                className="h-auto w-20"
-                href={createUrl(pathname, imageSearchParams)}
-                scroll={false}
-              >
-                <GridTileImage
-                  alt={image.altText}
-                  src={image.src}
-                  width={600}
-                  height={600}
-                  active={isActive}
-                />
-              </Link>
+              <li key={image.src} className="h-auto w-20">
+                <Link
+                  aria-label="Enlarge product image"
+                  href={createUrl(pathname, imageSearchParams)}
+                  scroll={false}
+                  className="h-full w-full"
+                >
+                  <GridTileImage
+                    alt={image.altText}
+                    src={image.src}
+                    width={80}
+                    height={80}
+                    active={isActive}
+                  />
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
       ) : null}
-    </div>
+    </>
   );
 }

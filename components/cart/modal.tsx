@@ -111,7 +111,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                             >
                               <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
                                 <Image
-                                  className="h-full w-full object-cover "
+                                  className="h-full w-full object-cover"
                                   width={64}
                                   height={64}
                                   alt={
@@ -141,7 +141,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                               />
                               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
                                 <EditItemQuantityButton item={item} type="minus" />
-                                <p className="w-6 text-center ">
+                                <p className="w-6 text-center">
                                   <span className="w-full text-sm">{item.quantity}</span>
                                 </p>
                                 <EditItemQuantityButton item={item} type="plus" />
