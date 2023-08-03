@@ -14,7 +14,7 @@ import Link from 'next/link';
 export const runtime = 'edge';
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: { handle: string };
 }): Promise<Metadata> {
@@ -51,7 +51,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
+export default async function ProductPage({ params, searchParams }: { params: { handle: string }; searchParams: URLSearchParams }) {
   const product = await getProduct(params.handle);
 
   if (!product) return notFound();
@@ -93,7 +93,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
 
           <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
-            <ProductDescription product={product} />
+            <ProductDescription product={product} searchParams={searchParams} />
           </div>
         </div>
         <Suspense>
