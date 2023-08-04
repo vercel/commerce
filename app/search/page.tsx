@@ -45,9 +45,11 @@ export default async function SearchPage({
               Good place to add other suggested search terms ;)
             </p>
           </div>
-          <Grid className="grid-cols-2 lg:grid-cols-3">
-            <ProductGridItems products={products} />
-          </Grid>
+          <div className="order-last min-h-screen w-full md:order-none">
+            <Grid className="grid-cols-2 lg:grid-cols-3">
+              <ProductGridItems products={products} />
+            </Grid>
+          </div>
           <div className="order-none flex-none md:order-last md:w-[125px]">
             <FilterList list={sorting} title="Sort by" />
           </div>
