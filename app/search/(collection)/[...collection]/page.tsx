@@ -50,23 +50,28 @@ export default async function CategoryPage({
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
-        <div className="mx-auto flex max-w-7xl flex-col bg-white py-6 text-black dark:bg-black dark:text-white md:flex-row">
-          <div className="order-first flex-none md:w-1/6">
+        <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black dark:text-white md:flex-row">
+          <div className="order-first w-full flex-none md:max-w-[125px]">
             <Collections collection={params.collection} />
           </div>
           <div className="order-last min-h-screen w-full md:order-none">
             <Grid className="grid-cols-2 lg:grid-cols-3">
               <ProductGridItems products={products} />
             </Grid>
-            <nav aria-label="Collection pagination" className="block items-center sm:flex">
-              <Pagination
-                itemsPerPage={limit}
-                itemsTotal={total}
-                currentPage={page ? parseInt(page) - 1 : 0}
-              />
-            </nav>
+            {total > limit ? (
+              <nav
+                aria-label="Collection pagination"
+                className="mb-2 mt-4 block items-center sm:flex"
+              >
+                <Pagination
+                  itemsPerPage={limit}
+                  itemsTotal={total}
+                  currentPage={page ? parseInt(page) - 1 : 0}
+                />
+              </nav>
+            ) : null}
           </div>
-          <div className="order-none md:order-last md:w-1/6 md:flex-none">
+          <div className="order-none flex-none md:order-last md:w-[125px]">
             <FilterList list={sorting} title="Sort by" />
           </div>
         </div>

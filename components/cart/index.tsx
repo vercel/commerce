@@ -11,14 +11,6 @@ export default async function Cart() {
     resCart = await fetchCart(cartId);
   }
 
-  let newToken;
-  if (!cartId && !resCart) {
-    resCart = await fetchCart();
-    if (resCart?.token) {
-      newToken = resCart?.token;
-    }
-  }
-
   let cart;
   if (resCart) {
     cart = transformCart(resCart);
@@ -28,10 +20,5 @@ export default async function Cart() {
     return null;
   }
 
-  let cartIdUpdated = false;
-  if (cartId !== newToken) {
-    cartIdUpdated = true;
-  }
-
-  return <CartModal cart={cart} cartIdUpdated={cartIdUpdated} />;
+  return <CartModal cart={cart} />;
 }

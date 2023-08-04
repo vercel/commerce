@@ -1,98 +1,98 @@
 'use client';
 
-import { useState } from 'react';
-
-import clsx from 'clsx';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { GridTileImage } from 'components/grid/tile';
-import ArrowLeftIcon from 'components/icons/arrow-left';
+import { createUrl } from 'lib/utils';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-export function Gallery({
-  title,
-  amount,
-  currencyCode,
-  images
-}: {
-  title: string;
-  amount: string;
-  currencyCode: string;
-  images: { src: string; altText: string }[];
-}) {
-  const [currentImage, setCurrentImage] = useState(0);
+export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const imageSearchParam = searchParams.get('image');
+  const imageIndex = imageSearchParam ? parseInt(imageSearchParam) : 0;
 
-  function handleNavigate(direction: 'next' | 'previous') {
-    if (direction === 'next') {
-      setCurrentImage(currentImage + 1 < images.length ? currentImage + 1 : 0);
-    } else {
-      setCurrentImage(currentImage === 0 ? images.length - 1 : currentImage - 1);
-    }
-  }
+  const nextSearchParams = new URLSearchParams(searchParams.toString());
+  const nextImageIndex = imageIndex + 1 < images.length ? imageIndex + 1 : 0;
+  nextSearchParams.set('image', nextImageIndex.toString());
+  const nextUrl = createUrl(pathname, nextSearchParams);
+
+  const previousSearchParams = new URLSearchParams(searchParams.toString());
+  const previousImageIndex = imageIndex === 0 ? images.length - 1 : imageIndex - 1;
+  previousSearchParams.set('image', previousImageIndex.toString());
+  const previousUrl = createUrl(pathname, previousSearchParams);
 
   const buttonClassName =
-    'px-9 cursor-pointer ease-in-and-out duration-200 transition-bg bg-[#7928ca] hover:bg-violetDark';
+    'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
 
   return (
-    <div className="h-full">
-      <div className="relative h-full max-h-[600px] overflow-hidden">
-        {images[currentImage] && (
-          <GridTileImage
-            src={images[currentImage]?.src as string}
-            alt={images[currentImage]?.altText as string}
-            width={600}
-            height={600}
-            isInteractive={false}
+    <div className="mr-8 h-full">
+      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+        {images[imageIndex] && (
+          <Image
+            className="h-full w-full object-contain"
+            fill
+            sizes="(min-width: 1024px) 66vw, 100vw"
+            alt={images[imageIndex]?.altText as string}
+            src={images[imageIndex]?.src as string}
             priority={true}
-            background="purple"
-            labels={{
-              title,
-              amount,
-              currencyCode
-            }}
           />
         )}
 
         {images.length > 1 ? (
-          <div className="absolute bottom-10 right-10 flex h-12 flex-row border border-white text-white shadow-xl dark:border-black dark:text-black">
-            <button
-              aria-label="Previous product image"
-              className={clsx(buttonClassName, 'border-r border-white dark:border-black')}
-              onClick={() => handleNavigate('previous')}
-            >
-              <ArrowLeftIcon className="h-6" />
-            </button>
-            <button
-              aria-label="Next product image"
-              className={clsx(buttonClassName)}
-              onClick={() => handleNavigate('next')}
-            >
-              <ArrowLeftIcon className="h-6 rotate-180" />
-            </button>
+          <div className="absolute bottom-[15%] flex w-full justify-center">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+              <Link
+                aria-label="Previous product image"
+                href={previousUrl}
+                className={buttonClassName}
+                scroll={false}
+              >
+                <ArrowLeftIcon className="h-5" />
+              </Link>
+              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
+              <Link
+                aria-label="Next product image"
+                href={nextUrl}
+                className={buttonClassName}
+                scroll={false}
+              >
+                <ArrowRightIcon className="h-5" />
+              </Link>
+            </div>
           </div>
         ) : null}
       </div>
 
       {images.length > 1 ? (
-        <div className="flex">
+        <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
           {images.map((image, index) => {
-            const isActive = index === currentImage;
+            const isActive = index === imageIndex;
+            const imageSearchParams = new URLSearchParams(searchParams.toString());
+
+            imageSearchParams.set('image', index.toString());
+
             return (
-              <button
-                aria-label="Enlarge product image"
-                key={image.src}
-                className="h-full w-1/4"
-                onClick={() => setCurrentImage(index)}
-              >
-                <GridTileImage
-                  alt={image?.altText}
-                  src={image.src}
-                  width={200}
-                  height={200}
-                  background="purple-dark"
-                  active={isActive}
-                />
-              </button>
+              <li key={image.src} className="h-auto w-20">
+                <Link
+                  aria-label="Enlarge product image"
+                  href={createUrl(pathname, imageSearchParams)}
+                  scroll={false}
+                  className="h-full w-full"
+                >
+                  <GridTileImage
+                    alt={image.altText}
+                    src={image.src}
+                    width={200}
+                    height={200}
+                    active={isActive}
+                  />
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
       ) : null}
     </div>
   );

@@ -1,7 +1,7 @@
 import { getCollectionProducts } from 'lib/shopware';
 import { isSeoUrls } from 'lib/shopware/helpers';
-import Image from 'next/image';
 import Link from 'next/link';
+import { GridTileImage } from './grid/tile';
 
 export async function Carousel() {
   const collectionName = isSeoUrls()
@@ -13,32 +13,33 @@ export async function Carousel() {
 
   if (!products?.length) return null;
 
+  // Purposefully duplicating products to make the carousel loop and not run out of products on wide screens.
+  const carouselProducts = [...products, ...products, ...products];
+
   return (
-    <div className="relative w-full overflow-hidden bg-white dark:bg-black">
-      <div className="flex animate-carousel">
-        {[...products, ...products].map((product, i) => (
-          <Link
+    <div className=" w-full overflow-x-auto pb-6 pt-1">
+      <ul className="flex animate-carousel gap-4">
+        {carouselProducts.map((product, i) => (
+          <li
             key={`${product.path}${i}`}
-            href={`/product/${product.path}`}
-            className="relative mx-2 my-8 h-[30vh] w-1/2 flex-none md:w-1/3"
+            className="relative aspect-square h-[30vh] max-h-[275px] w-2/3 max-w-[475px] flex-none md:w-1/3"
           >
-            {product.featuredImage ? (
-              <Image
+            <Link href={`/product/${product.path}`} className="relative h-full w-full">
+              <GridTileImage
                 alt={product.title}
-                className="h-full object-contain"
+                label={{
+                  title: product.title,
+                  amount: product.priceRange.maxVariantPrice.amount,
+                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                }}
+                src={product.featuredImage?.url}
                 fill
-                sizes="33vw"
-                src={product.featuredImage.url}
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
               />
-            ) : null}
-            <div className="absolute inset-y-0 right-0 flex items-center justify-center">
-              <div className="inline-flex bg-white p-4 text-xl font-semibold text-black dark:bg-black dark:text-white">
-                {product.title}
-              </div>
-            </div>
-          </Link>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
