@@ -3,7 +3,7 @@
   "packageManager": "pnpm@8.2.0",
   "engines": {
     "node": ">=18",
-    "pnpm": ">=8"
+    "pnpm": ">=7"
   },
   "scripts": {
     "build": "next build",

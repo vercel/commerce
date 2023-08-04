@@ -21,7 +21,7 @@ export default async function Footer() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm dark:border-neutral-700 md:flex-row md:gap-12 md:px-4 xl:px-0">
         <div className="grid grid-cols-1 gap-8 transition-colors duration-150 lg:grid-cols-12">
           <div className="col-span-1 lg:col-span-3">
-            <Link className="flex items-center gap-2 text-black dark:text-white" href="/">
+            <Link className="flex items-center gap-2 text-black dark:text-white md:pt-1" href="/">
               <LogoSquare size="sm" />
               <span className="uppercase">{SITE_NAME}</span>
             </Link>

@@ -26,7 +26,7 @@ export default async function SearchPage({
     <>
       {searchValue && products.length === 0 ? (
         <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black dark:text-white md:flex-row">
-          <p>
+          <p className="mb-4">
             {'There are no products that match '}
             <span className="font-bold">&quot;{searchValue}&quot;</span>
           </p>
@@ -36,7 +36,7 @@ export default async function SearchPage({
         <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black dark:text-white md:flex-row">
           <div className="order-first w-full flex-none md:max-w-[125px]">
             {searchValue ? (
-              <p className="text-sm text-neutral-500">
+              <p className="mb-4 text-sm text-neutral-500">
                 {`Showing ${products.length} ${resultsText} for `}
                 <span className="font-bold">&quot;{searchValue}&quot;</span>
               </p>

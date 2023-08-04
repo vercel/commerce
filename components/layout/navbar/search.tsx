@@ -32,7 +32,7 @@ export default function Search() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="relative w-full lg:w-[320px]">
+    <form onSubmit={onSubmit} className="w-max-[550px] relative w-full lg:w-80 xl:w-full">
       <input
         type="text"
         name="search"
