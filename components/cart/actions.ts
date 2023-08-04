@@ -18,13 +18,13 @@ export const addItem = async (variantId: string | undefined): Promise<String | u
   }
 
   if (!variantId) {
-    return 'Missing product variant ID'
+    return 'Missing product variant ID';
   }
 
   try {
     await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
   } catch (e) {
-    return 'Error adding item to cart'
+    return 'Error adding item to cart';
   }
 };
 
@@ -37,7 +37,7 @@ export const removeItem = async (lineId: string): Promise<String | undefined> =>
   try {
     await removeFromCart(cartId, [lineId]);
   } catch (e) {
-    return 'Error removing item from cart'
+    return 'Error removing item from cart';
   }
 };
 
@@ -64,6 +64,6 @@ export const updateItemQuantity = async ({
       }
     ]);
   } catch (e) {
-    return 'Error updating item quantity'
+    return 'Error updating item quantity';
   }
 };
