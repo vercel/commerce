@@ -2,9 +2,10 @@
 
 export default function Error({ reset }: { reset: () => void }) {
   return (
-    <div>
-      <h2>Something went wrong.</h2>
-      <button onClick={() => reset()}>Try again</button>
+    <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 max-w-xl mx-auto my-4">
+      <h2 className="text-xl font-bold">Oh no!</h2>
+      <p className="my-2">There was an issue with our storefront. This could be a temporary issue, please try your action again.</p>
+      <button className="w-full mt-4 flex mx-auto items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90" onClick={() => reset()}>Try Again</button>
     </div>
   );
 }
