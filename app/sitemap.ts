@@ -1,4 +1,4 @@
-import { getProductSeoUrls } from 'lib/shopware';
+import { getProductSeoUrls, getMenu } from 'lib/shopware';
 import { MetadataRoute } from 'next';
 
 type Route = {
@@ -16,7 +16,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date().toISOString()
   }));
 
-  // @ToDo: Get categories and get cms pages
+  const mainNavigationPromise = getMenu({ type: 'main-navigation' }).then((mainNavigation) =>
+    mainNavigation.map((mainNavigationItem) => ({
+      url: `${baseUrl}${mainNavigationItem.path}`,
+      lastModified: new Date().toISOString()
+    }))
+  );
+
+  const footerNaivgationPromise = getMenu({ type: 'footer-navigation', depth: 2 }).then(
+    (footerNavigation) =>
+      footerNavigation.map((footerNavigationItem) => ({
+        url: `${baseUrl}${footerNavigationItem.path}`,
+        lastModified: new Date().toISOString()
+      }))
+  );
+  // @ToDo: currently this points to variants, would be better to point to parent products
   const productsPromise = getProductSeoUrls().then((products) =>
     products.map((product) => ({
       url: `${baseUrl}/product/${product.path}`,
@@ -27,7 +41,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let fetchedRoutes: Route[] = [];
 
   try {
-    fetchedRoutes = (await Promise.all([productsPromise])).flat();
+    fetchedRoutes = (
+      await Promise.all([productsPromise, mainNavigationPromise, footerNaivgationPromise])
+    ).flat();
   } catch (error) {
     throw JSON.stringify(error, null, 2);
   }
