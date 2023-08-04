@@ -52,7 +52,7 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
       <DynamicTag
         prefetch={!active ? false : undefined}
         href={href}
-        className={clsx('w-full', {
+        className={clsx('w-full hover:underline hover:underline-offset-4', {
           'underline underline-offset-4': active
         })}
       >
