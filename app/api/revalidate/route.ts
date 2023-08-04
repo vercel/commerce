@@ -1,4 +1,4 @@
-import { revalidate } from 'lib/shopify';
+import { revalidate } from 'lib/shopware';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'edge';
