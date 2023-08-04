@@ -21,7 +21,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
-    "@shopware/api-client": "0.0.0-canary-20230725064840",
+    "@shopware/api-client": "0.0.0-canary-20230801081457",
     "clsx": "^2.0.0",
     "next": "13.4.12",
     "react": "18.2.0",
