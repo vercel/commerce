@@ -27,7 +27,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
 
   return (
-    <>
+    <div className="mr-8 h-full">
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {images[imageIndex] && (
           <Image
@@ -84,8 +84,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                   <GridTileImage
                     alt={image.altText}
                     src={image.src}
-                    width={80}
-                    height={80}
+                    width={200}
+                    height={200}
                     active={isActive}
                   />
                 </Link>
@@ -94,6 +94,6 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
           })}
         </ul>
       ) : null}
-    </>
+    </div>
   );
 }

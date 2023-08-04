@@ -1,6 +1,7 @@
 import { GridTileImage } from 'components/grid/tile';
-import { getCollectionProducts } from 'lib/shopify';
-import type { Product } from 'lib/shopify/types';
+import { getCollectionProducts } from 'lib/shopware';
+import { isSeoUrls } from 'lib/shopware/helpers';
+import type { Product } from 'lib/shopware/types';
 import Link from 'next/link';
 
 function ThreeItemGridItem({
@@ -16,7 +17,7 @@ function ThreeItemGridItem({
     <div
       className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
     >
-      <Link className="relative block aspect-square h-full w-full" href={`/product/${item.handle}`}>
+      <Link className="relative block aspect-square h-full w-full" href={`/product/${item.path}`}>
         <GridTileImage
           src={item.featuredImage.url}
           fill
@@ -39,8 +40,11 @@ function ThreeItemGridItem({
 
 export async function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
-  const homepageItems = await getCollectionProducts({
-    collection: 'hidden-homepage-featured-items'
+  const collectionName = isSeoUrls()
+    ? 'Summer-BBQ/Hidden-Category'
+    : '4ab73c06d90d4a5cb312209a64480d87';
+  const { products: homepageItems } = await getCollectionProducts({
+    collection: collectionName
   });
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;

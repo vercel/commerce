@@ -38,13 +38,18 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
   const searchParams = useSearchParams();
   const active = searchParams.get('sort') === item.slug;
   const q = searchParams.get('q');
-  const href = createUrl(
-    pathname,
-    new URLSearchParams({
-      ...(q && { q }),
-      ...(item.slug && item.slug.length && { sort: item.slug })
-    })
-  );
+  const page = searchParams.get('page');
+  const href =
+    item.slug && item.slug.length
+      ? createUrl(
+          pathname,
+          new URLSearchParams({
+            ...(q && { q }),
+            ...(page && { page }),
+            sort: item.slug
+          })
+        )
+      : pathname;
   const DynamicTag = active ? 'p' : Link;
 
   return (

@@ -32,7 +32,8 @@ export function GridTileImage({
         // eslint-disable-next-line jsx-a11y/alt-text -- `alt` is inherited from `props`, which is being enforced with TypeScript
         <Image
           className={clsx('relative h-full w-full object-contain', {
-            'transition duration-300 ease-in-out hover:scale-105': isInteractive
+            'transition duration-300 ease-in-out hover:scale-105': isInteractive,
+            'max-h-[4rem] min-h-[4rem]': props.width === 200 && props.height === 200 // this styling is for the thumbnails below gallery on product detail page
           })}
           {...props}
         />

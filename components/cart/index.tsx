@@ -1,13 +1,23 @@
-import { getCart } from 'lib/shopify';
+import { fetchCart } from 'components/cart/actions';
 import { cookies } from 'next/headers';
 import CartModal from './modal';
+import { transformCart } from 'lib/shopware/transform';
 
 export default async function Cart() {
-  const cartId = cookies().get('cartId')?.value;
-  let cart;
+  let resCart;
+  const cartId = cookies().get('sw-context-token')?.value;
 
   if (cartId) {
-    cart = await getCart(cartId);
+    resCart = await fetchCart(cartId);
+  }
+
+  let cart;
+  if (resCart) {
+    cart = transformCart(resCart);
+  }
+
+  if (!cart) {
+    return null;
   }
 
   return <CartModal cart={cart} />;

@@ -1,7 +1,7 @@
 import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
-import { Product } from 'lib/shopify/types';
+import { Product } from 'lib/shopware/types';
 import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
@@ -18,14 +18,18 @@ export function ProductDescription({ product }: { product: Product }) {
       </div>
       <VariantSelector options={product.options} variants={product.variants} />
 
+      <AddToCart
+        product={product}
+        variants={product.variants}
+        availableForSale={product.availableForSale}
+      />
+
       {product.descriptionHtml ? (
         <Prose
-          className="mb-6 text-sm leading-tight dark:text-white/[60%]"
+          className="m-6 max-h-96 overflow-y-auto text-sm leading-tight dark:text-white/[60%]"
           html={product.descriptionHtml}
         />
       ) : null}
-
-      <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
     </>
   );
 }

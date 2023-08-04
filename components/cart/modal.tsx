@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/shopify/types';
+import type { Cart } from 'lib/shopware/types';
 import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -91,7 +91,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       });
 
                       const merchandiseUrl = createUrl(
-                        `/product/${item.merchandise.product.handle}`,
+                        `/product/${item.merchandise.product.path}`,
                         new URLSearchParams(merchandiseSearchParams)
                       );
 
