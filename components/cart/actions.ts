@@ -3,7 +3,7 @@
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
 
-export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
+export const addItem = async (variantId: string | undefined): Promise<String | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
@@ -18,25 +18,26 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
   }
 
   if (!variantId) {
-    return new Error('Missing variantId');
+    return 'Missing product variant ID';
   }
+
   try {
     await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
   } catch (e) {
-    return new Error('Error adding item', { cause: e });
+    return 'Error adding item to cart';
   }
 };
 
-export const removeItem = async (lineId: string): Promise<Error | undefined> => {
+export const removeItem = async (lineId: string): Promise<String | undefined> => {
   const cartId = cookies().get('cartId')?.value;
 
   if (!cartId) {
-    return new Error('Missing cartId');
+    return 'Missing cart ID';
   }
   try {
     await removeFromCart(cartId, [lineId]);
   } catch (e) {
-    return new Error('Error removing item', { cause: e });
+    return 'Error removing item from cart';
   }
 };
 
@@ -48,11 +49,11 @@ export const updateItemQuantity = async ({
   lineId: string;
   variantId: string;
   quantity: number;
-}): Promise<Error | undefined> => {
+}): Promise<String | undefined> => {
   const cartId = cookies().get('cartId')?.value;
 
   if (!cartId) {
-    return new Error('Missing cartId');
+    return 'Missing cart ID';
   }
   try {
     await updateCart(cartId, [
@@ -63,6 +64,6 @@ export const updateItemQuantity = async ({
       }
     ]);
   } catch (e) {
-    return new Error('Error updating item quantity', { cause: e });
+    return 'Error updating item quantity';
   }
 };

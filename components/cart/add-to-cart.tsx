@@ -44,8 +44,8 @@ export function AddToCart({
           const error = await addItem(selectedVariantId);
 
           if (error) {
-            alert(error);
-            return;
+            // Trigger the error boundary in the root error.js
+            throw new Error(error.toString());
           }
 
           router.refresh();
