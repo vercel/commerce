@@ -19,8 +19,8 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
           const error = await removeItem(item.id);
 
           if (error) {
-            alert(error);
-            return;
+            // Trigger the error boundary in the root error.js
+            throw new Error(error.toString());
           }
 
           router.refresh();

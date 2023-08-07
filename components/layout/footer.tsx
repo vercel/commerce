@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import GitHubIcon from 'components/icons/github';
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
+import GitHubIcon from 'components/icons/github';
 import { getMenu } from 'lib/shopware';
 import { Suspense } from 'react';
 

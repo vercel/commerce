@@ -1,6 +1,7 @@
 import { operations, operationPaths, components } from '@shopware/api-client/api-types';
 
 type schemas = components['schemas'];
+
 type operationsWithoutOriginal = Omit<
   operations,
   | 'readCategory'
@@ -14,6 +15,7 @@ type operationsWithoutOriginal = Omit<
   | 'readCart'
   | 'deleteLineItem'
 >;
+
 export type extendedPaths =
   | 'readCategory post /category/{navigationId}?slots'
   | 'readCategoryList post /category'
@@ -26,6 +28,7 @@ export type extendedPaths =
   | 'readCart get /checkout/cart?name'
   | 'deleteLineItem delete /checkout/cart/line-item?id[]={ids}'
   | operationPaths;
+
 export type extendedOperations = operationsWithoutOriginal & {
   readCategory: extendedReadCategory;
   readCategoryList: extendedReadCategoryList;
@@ -39,8 +42,21 @@ export type extendedOperations = operationsWithoutOriginal & {
   deleteLineItem: extendedDeleteLineItem;
 };
 
-export type ExtendedCart = Omit<schemas['Cart'], 'lineItems'> & {
+export type messageKeys =
+  | 'purchase-steps-quantity'
+  | 'product-stock-reached'
+  | 'product-out-of-stock'
+  | 'product-not-found'
+  | 'min-order-quantity';
+
+export type ExtendedCart = Omit<schemas['Cart'], 'lineItems' | 'errors'> & {
   lineItems?: ExtendedLineItem[];
+  errors?: {
+    key?: string;
+    level?: string;
+    message?: string;
+    messageKey?: string;
+  }[];
 };
 
 export type ExtendedLineItem = schemas['LineItem'] & {

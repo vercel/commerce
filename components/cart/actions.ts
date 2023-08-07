@@ -2,7 +2,7 @@
 
 import { ApiClientError } from '@shopware/api-client';
 import { getApiClient } from 'lib/shopware/api';
-import { ExtendedCart, ExtendedLineItem } from 'lib/shopware/api-extended';
+import { ExtendedCart, ExtendedLineItem, messageKeys } from 'lib/shopware/api-extended';
 import { cookies } from 'next/headers';
 
 export const fetchCart = async function (cartId?: string): Promise<ExtendedCart | undefined> {
@@ -38,7 +38,7 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
   }
 
   if (!variantId) {
-    return new Error('Missing variantId');
+    return { message: 'Missing product variant ID' } as Error;
   }
 
   try {
@@ -82,8 +82,8 @@ function alertErrorMessages(response: ExtendedCart): string {
   let errorMessages: string = '';
   if (response.errors) {
     Object.values(response.errors).forEach(function (value) {
-      // @ts-ignore
-      if (value.messageKey && value.message && value.messageKey === 'product-out-of-stock') {
+      const messageKey: messageKeys = value.messageKey as messageKeys;
+      if (value.message && messageKey) {
         errorMessages += value.message;
       }
     });
@@ -96,7 +96,7 @@ export const removeItem = async (lineId: string): Promise<Error | undefined> => 
   const cartId = cookies().get('sw-context-token')?.value;
 
   if (!cartId) {
-    return new Error('Missing cartId');
+    return { message: 'Missing cart ID' } as Error;
   }
 
   try {
@@ -126,7 +126,7 @@ export const updateItemQuantity = async ({
   const cartId = cookies().get('sw-context-token')?.value;
 
   if (!cartId) {
-    return new Error('Missing cartId');
+    return { message: 'Missing cart ID' } as Error;
   }
 
   try {

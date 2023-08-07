@@ -46,8 +46,10 @@ export function AddToCart({
           const error = await addItem(selectedVariantId);
 
           if (error) {
-            alert(error.message);
-            return;
+            alert(error.message); // this is not a real error, this can be also out of stock message for the user
+
+            // Example to trigger the error boundary in the root error.js
+            // throw new Error(error.toString());
           }
 
           router.refresh();
