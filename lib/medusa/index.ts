@@ -384,8 +384,8 @@ export async function getCategory(handle: string): Promise<ProductCollection | u
 
 export async function getCategoryProducts(
   handle: string,
-  reverse: boolean,
-  sortKey: string
+  reverse?: boolean,
+  sortKey?: string
 ): Promise<Product[]> {
   const res = await medusaRequest({
     method: 'GET',
