@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@headlessui/react':
@@ -7,6 +11,12 @@ dependencies:
   '@heroicons/react':
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
+  '@orama/orama':
+    specifier: ^1.2.0
+    version: 1.2.0
+  '@orama/plugin-data-persistence':
+    specifier: ^1.2.0
+    version: 1.2.0
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
@@ -224,6 +234,11 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@msgpack/msgpack@2.8.0:
+    resolution: {integrity: sha512-h9u4u/jiIRKbq25PM+zymTyW6bhTzELvOoUd+AvYriWOAKpLGnIamaET3pnHYoI5iYphAHBI4ayx0MehR+VVPQ==}
+    engines: {node: '>= 10'}
+    dev: false
+
   /@next/env@13.4.13-canary.15:
     resolution: {integrity: sha512-AljMmO5a2uB0ZTDcBVhcfkE7WtdQDfnPg2zz/e6jKjVMRFPSvxaoRoSGUwONIhk9CAPbX9px7bZYom2wbhrTkw==}
     dev: false
@@ -335,6 +350,19 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
     dev: true
+
+  /@orama/orama@1.2.0:
+    resolution: {integrity: sha512-qs61y0S35sikDKnnyuap4hfyeP2Bs+c+6dN5LSwSRSSqr+qmsLa6hQ5x34hdcjY9ZwZjPhARmJApi7as7NKyZA==}
+    engines: {node: '>= 16.0.0'}
+    dev: false
+
+  /@orama/plugin-data-persistence@1.2.0:
+    resolution: {integrity: sha512-Z89NDFg0NiTSPx4QlKWOYSXpHg4d5Wp2gpRN6Ng2bm1g/anKwN/REKyvosUudJbHGsLT7Rn+St1cdhmJvocmRg==}
+    dependencies:
+      '@msgpack/msgpack': 2.8.0
+      '@orama/orama': 1.2.0
+      dpack: 0.6.22
+    dev: false
 
   /@pkgr/utils@2.4.2:
     resolution: {integrity: sha512-POgTXhjrTfbTV63DiFXav4lBHiICLKKwDeaKn9Nphwj7WH6m0hMMCaJkMyRWjgtPFyRKRVoMXXjczsTQRDEhYw==}
@@ -1007,6 +1035,10 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dpack@0.6.22:
+    resolution: {integrity: sha512-WGPNlW2OAE7Bj0eODMpAHUcEqxrlg01e9OFZDxQodminIgC194/cRHT7K04Z1j7AUEWTeeplYGrIv/xRdwU9Hg==}
+    dev: false
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
