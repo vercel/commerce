@@ -107,6 +107,7 @@ export const modules = `
     desktopLayout,
     imageFormat,
     blurbs[]->{
+      _type,
       title,
       text,
       link {
@@ -209,29 +210,27 @@ export const productQuery = `*[_type == "product" && slug.current == $slug && la
     "slug": slug.current,
     "locale": language
   },
-  "product": {
-    id,
-    "name": title,
-    description,
-    "descriptionHtml": "",
-    images[] {
-      ${imageFields}
-    },
-    price {
-      value,
-      currencyCode,
-      retailPrice
-    },
-    options[] {
-      id,
-      displayName,
-      values[] {
-        label,
-        "hexColors": hexColors.hex
-      }
-    },
-    "variants": []
+  id,
+  "name": title,
+  description,
+  "descriptionHtml": "",
+  images[] {
+    ${imageFields}
   },
+  price {
+    value,
+    currencyCode,
+    retailPrice
+  },
+  options[] {
+    id,
+    displayName,
+    values[] {
+      label,
+      "hexColors": hexColors.hex
+    }
+  },
+  "variants": [],
   seo {
     ${seoFields}
   }
@@ -243,15 +242,8 @@ export const categoryQuery = `*[_type == "category" && slug.current == $slug && 
   title,
   "slug": slug.current,
   "locale": language,
-  showBanner,
-  banner {
-    _type,
-    _key,
-    title,
-    text,
-    image {
-      ${imageFields}
-    }
+  image {
+    ${imageFields}
   },
   "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     title,

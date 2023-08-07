@@ -1,4 +1,4 @@
-export const i18n = {
+export const supportedLanguages = {
   defaultLocale: 'sv',
   locales: [
     {
@@ -12,4 +12,4 @@ export const i18n = {
   ],
 } as const
 
-export type Locale = typeof i18n['locales'][number]
+export type Locale = typeof supportedLanguages['locales'][number]

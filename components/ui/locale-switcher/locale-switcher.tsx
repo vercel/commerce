@@ -7,7 +7,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { i18n } from '../../../i18n-config';
+import { supportedLanguages } from '../../../i18n-config';
 
 interface LocaleSwitcherProps {
   currentLocale: string;
@@ -58,7 +58,7 @@ export default function LocaleSwitcher({ currentLocale, localeData }: LocaleSwit
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="drop-shadow-xl">
           <ul className="">
-            {i18n.locales.map((locale) => {
+            {supportedLanguages.locales.map((locale) => {
               if (currentLocale === locale.id) {
                 return;
               } else {

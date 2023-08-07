@@ -23,7 +23,7 @@ const ProductCard: FC<Props> = ({ product, className, variant = 'default' }) => 
 
   return (
     <Link
-      href={`${product.slug}`}
+      href={`/product/${product.slug}`}
       className={rootClassName}
       aria-label={product.name}
       locale={product.locale}

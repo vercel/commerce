@@ -1,6 +1,5 @@
 'use client';
 
-import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher';
 import Logo from 'components/ui/logo/logo';
 import {
   NavigationMenu,
@@ -14,15 +13,9 @@ import Link from 'next/link';
 import { FC } from 'react';
 import HeaderRoot from './header-root';
 
-interface HeaderProps {
-  localeData: {
-    type: string;
-    locale: string;
-    translations: [];
-  };
-}
+interface HeaderProps {}
 
-const Header: FC<HeaderProps> = ({ localeData }: HeaderProps) => {
+const Header: FC<HeaderProps> = () => {
   const locale = useLocale();
 
   return (
@@ -43,21 +36,21 @@ const Header: FC<HeaderProps> = ({ localeData }: HeaderProps) => {
             <NavigationMenu delayDuration={0} className="hidden lg:block">
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link href={'/kategori/junior'} legacyBehavior passHref>
+                  <Link href={'/category/barn'} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                       Junior
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href={'/kategori/trojor'} legacyBehavior passHref>
+                  <Link href={'/category/trojor'} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                       Tröjor
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href={'/kategori/byxor'} legacyBehavior passHref>
+                  <Link href={'/category/byxor'} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                       Byxor
                     </NavigationMenuLink>
@@ -66,9 +59,7 @@ const Header: FC<HeaderProps> = ({ localeData }: HeaderProps) => {
               </NavigationMenuList>
             </NavigationMenu>
           </div>
-          <div>
-            <LocaleSwitcher localeData={localeData} currentLocale={locale} />
-          </div>
+          <div></div>
         </div>
       </div>
     </HeaderRoot>

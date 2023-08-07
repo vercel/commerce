@@ -1,14 +1,14 @@
 'use client';
 
 import { Carousel, CarouselItem } from 'components/modules/carousel/carousel';
-import Price from 'components/product/price';
-import SanityImage from 'components/ui/sanity-image';
+import SanityImage from 'components/ui/sanity-image/sanity-image';
+import Text from 'components/ui/text/text';
 import { Product } from 'lib/storm/types/product';
 import { cn } from 'lib/utils';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
+import Price from './price';
 const ProductCard = dynamic(() => import('components/ui/product-card'));
-const Text = dynamic(() => import('components/ui/text'));
 interface ProductViewProps {
   product: Product;
   relatedProducts: Product[];
@@ -27,7 +27,7 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
           <div className={`pdp aspect-square lg:hidden`}>
             {images && (
               <Carousel
-                hasArrows={true}
+                hasArrows={images.length > 1 ? true : false}
                 hasDots={false}
                 gliderClasses={'lg:px-8 2xl:px-16'}
                 slidesToScroll={1}
@@ -69,11 +69,11 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
           </div>
         </div>
 
-        <div className="col-span-1 mx-auto flex h-auto w-full flex-col px-4 py-6 lg:sticky lg:top-8 lg:col-span-5 lg:px-8 lg:py-0 lg:pr-0 2xl:top-16 2xl:px-16 2xl:pr-0">
+        <div className="col-span-1 mx-auto flex h-auto w-full flex-col p-4 lg:sticky lg:top-8 lg:col-span-5 lg:px-8 lg:py-0 lg:pr-0 2xl:top-16 2xl:px-16 2xl:pr-0">
           <Text variant={'productHeading'}>{product.name}</Text>
 
           <Price
-            className="text-sm font-medium leading-tight lg:text-base"
+            className="mt-2 text-sm font-medium leading-tight lg:text-base"
             amount={`${product.price.value}`}
             currencyCode={product.price.currencyCode ? product.price.currencyCode : 'SEK'}
           />

@@ -1,7 +1,10 @@
+import Footer from 'components/layout/footer/footer';
+import Header from 'components/layout/header/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
+import { supportedLanguages } from '../../i18n-config';
 import './globals.css';
 
 const SITE_NAME = 'KM Storefront';
@@ -36,7 +39,7 @@ const inter = Inter({
 });
 
 export function generateStaticParams() {
-  return [{ locale: 'sv' }, { locale: 'en' }];
+  return supportedLanguages.locales.map((locale) => ({ locale: locale.id }));
 }
 
 interface LocaleLayoutProps {
@@ -59,7 +62,9 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
     <html lang={locale} className={inter.variable}>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
