@@ -27,23 +27,32 @@ import {
 
 const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API ?? 'http://localhost:9000';
 const MEDUSA_API_KEY = process.env.MEDUSA_API_KEY ?? '';
-const REVALIDATE_WINDOW = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 15}`); // 15 minutes
 
-export default async function medusaRequest(
-  method: string,
-  path = '',
-  payload?: Record<string, unknown> | undefined
-) {
+export default async function medusaRequest({
+  cache = 'force-cache',
+  method,
+  path,
+  payload,
+  tags
+}: {
+  cache?: RequestCache;
+  method: string;
+  path: string;
+  payload?: Record<string, unknown> | undefined;
+  tags?: string[];
+}) {
   const options: RequestInit = {
     method,
     headers: {
       'Content-Type': 'application/json',
       'x-publishable-key': MEDUSA_API_KEY
-    }
+    },
+    cache,
+    ...(tags && { next: { tags } })
   };
 
-  if (!path.includes('/carts')) {
-    options.next = { revalidate: REVALIDATE_WINDOW };
+  if (path.includes('/carts')) {
+    options.cache = 'no-cache';
   }
 
   if (payload) {
@@ -293,7 +302,7 @@ const reshapeCategory = (category: ProductCategory): ProductCollection => {
 };
 
 export async function createCart(): Promise<Cart> {
-  const res = await medusaRequest('POST', '/carts', {});
+  const res = await medusaRequest({ method: 'POST', path: '/carts' });
   return reshapeCart(res.body.cart);
 }
 
@@ -301,15 +310,24 @@ export async function addToCart(
   cartId: string,
   lineItem: { variantId: string; quantity: number }
 ): Promise<Cart> {
-  const res = await medusaRequest('POST', `/carts/${cartId}/line-items`, {
-    variant_id: lineItem?.variantId,
-    quantity: lineItem?.quantity
+  const res = await medusaRequest({
+    method: 'POST',
+    path: `/carts/${cartId}/line-items`,
+    payload: {
+      variant_id: lineItem?.variantId,
+      quantity: lineItem?.quantity
+    },
+    tags: ['cart']
   });
   return reshapeCart(res.body.cart);
 }
 
 export async function removeFromCart(cartId: string, lineItemId: string): Promise<Cart> {
-  const res = await medusaRequest('DELETE', `/carts/${cartId}/line-items/${lineItemId}`);
+  const res = await medusaRequest({
+    method: 'DELETE',
+    path: `/carts/${cartId}/line-items/${lineItemId}`,
+    tags: ['cart']
+  });
   return reshapeCart(res.body.cart);
 }
 
@@ -317,14 +335,19 @@ export async function updateCart(
   cartId: string,
   { lineItemId, quantity }: { lineItemId: string; quantity: number }
 ): Promise<Cart> {
-  const res = await medusaRequest('POST', `/carts/${cartId}/line-items/${lineItemId}`, {
-    quantity
+  const res = await medusaRequest({
+    method: 'POST',
+    path: `/carts/${cartId}/line-items/${lineItemId}`,
+    payload: {
+      quantity
+    },
+    tags: ['cart']
   });
   return reshapeCart(res.body.cart);
 }
 
 export async function getCart(cartId: string): Promise<Cart | null> {
-  const res = await medusaRequest('GET', `/carts/${cartId}`);
+  const res = await medusaRequest({ method: 'GET', path: `/carts/${cartId}`, tags: ['cart'] });
   const cart = res.body.cart;
 
   if (!cart) {
@@ -335,7 +358,11 @@ export async function getCart(cartId: string): Promise<Cart | null> {
 }
 
 export async function getCategories(): Promise<ProductCollection[]> {
-  const res = await medusaRequest('GET', '/product-categories');
+  const res = await medusaRequest({
+    method: 'GET',
+    path: '/product-categories',
+    tags: ['categories']
+  });
 
   // Reshape categories and hide categories starting with 'hidden'
   const categories = res.body.product_categories
@@ -346,7 +373,11 @@ export async function getCategories(): Promise<ProductCollection[]> {
 }
 
 export async function getCategory(handle: string): Promise<ProductCollection | undefined> {
-  const res = await medusaRequest('GET', `/product-categories?handle=${handle}&expand=products`);
+  const res = await medusaRequest({
+    method: 'GET',
+    path: `/product-categories?handle=${handle}&expand=products`,
+    tags: ['categories', 'products']
+  });
   return res.body.product_categories[0];
 }
 
@@ -355,7 +386,11 @@ export async function getCategoryProducts(
   reverse: boolean,
   sortKey: string
 ): Promise<Product[]> {
-  const res = await medusaRequest('GET', `/product-categories?handle=${handle}`);
+  const res = await medusaRequest({
+    method: 'GET',
+    path: `/product-categories?handle=${handle}`,
+    tags: ['categories']
+  });
 
   if (!res) {
     return [];
@@ -369,7 +404,11 @@ export async function getCategoryProducts(
 }
 
 export async function getProduct(handle: string): Promise<Product> {
-  const res = await medusaRequest('GET', `/products?handle=${handle}&limit=1`);
+  const res = await medusaRequest({
+    method: 'GET',
+    path: `/products?handle=${handle}&limit=1`,
+    tags: ['products']
+  });
   const product = res.body.products[0];
   return reshapeProduct(product);
 }
@@ -388,15 +427,23 @@ export async function getProducts({
   let res;
 
   if (query) {
-    res = await medusaRequest('GET', `/products?q=${query}&limit=100`);
+    res = await medusaRequest({
+      method: 'GET',
+      path: `/products?q=${query}&limit=100`,
+      tags: ['products']
+    });
   } else if (categoryId) {
-    res = await medusaRequest('GET', `/products?category_id[]=${categoryId}&limit=100`);
+    res = await medusaRequest({
+      method: 'GET',
+      path: `/products?category_id[]=${categoryId}&limit=100`,
+      tags: ['products']
+    });
   } else {
-    res = await medusaRequest('GET', `/products?limit=100`);
+    res = await medusaRequest({ method: 'GET', path: `/products?limit=100`, tags: ['products'] });
   }
 
   if (!res) {
-    console.log("Couldn't fetch products");
+    console.error("Couldn't fetch products");
     return [];
   }
 
@@ -441,11 +488,19 @@ export async function getMenu(menu: string): Promise<any[]> {
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
 export async function revalidate(req: NextRequest): Promise<NextResponse> {
-  const collectionWebhooks = ['collections/create', 'collections/delete', 'collections/update'];
+  // We always need to respond with a 200 status code to Medusa,
+  // otherwise it will continue to retry the request.
+  const collectionWebhooks = ['categories/create', 'categories/delete', 'categories/update'];
   const productWebhooks = ['products/create', 'products/delete', 'products/update'];
   const topic = headers().get('x-medusa-topic') || 'unknown';
+  const secret = req.nextUrl.searchParams.get('secret');
   const isCollectionUpdate = collectionWebhooks.includes(topic);
   const isProductUpdate = productWebhooks.includes(topic);
+
+  if (!secret || secret !== process.env.MEDUSA_REVALIDATION_SECRET) {
+    console.error('Invalid revalidation secret.');
+    return NextResponse.json({ status: 200 });
+  }
 
   if (!isCollectionUpdate && !isProductUpdate) {
     // We don't need to revalidate anything for any other topics.
@@ -453,7 +508,7 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   }
 
   if (isCollectionUpdate) {
-    revalidateTag(TAGS.collections);
+    revalidateTag(TAGS.categories);
   }
 
   if (isProductUpdate) {
