@@ -5,7 +5,9 @@ import { calculateVariantAmount, computeAmount, convertToDecimal } from './helpe
 import {
   Cart,
   CartItem,
+  Image,
   MedusaCart,
+  MedusaImage,
   MedusaLineItem,
   MedusaProduct,
   MedusaProductCollection,
@@ -167,6 +169,17 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
   };
 };
 
+const reshapeImages = (images?: MedusaImage[], productTitle?: string): Image[] => {
+  if (!images) return [];
+  return images.map((image) => {
+    const filename = image.url.match(/.*\/(.*)\..*/)![1];
+    return {
+      ...image,
+      altText: `${productTitle} - ${filename}`
+    };
+  });
+};
+
 const reshapeProduct = (product: MedusaProduct): Product => {
   const variant = product.variants?.[0];
 
@@ -192,6 +205,7 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     altText: product.title ?? ''
   };
   const availableForSale = product.variants?.[0]?.purchasable || true;
+  const images = reshapeImages(product.images, product.title);
 
   const variants = product.variants.map((variant) =>
     reshapeProductVariant(variant, product.options)
@@ -202,6 +216,7 @@ const reshapeProduct = (product: MedusaProduct): Product => {
 
   return {
     ...product,
+    images,
     featuredImage,
     priceRange,
     updatedAt,
