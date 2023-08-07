@@ -70,6 +70,7 @@ export type Product = Partial<Omit<MedusaProduct, 'tags' | 'options' | 'variants
   availableForSale: boolean;
   options?: Array<ProductOption>;
   variants: Array<ProductVariant>;
+  images?: Array<Image>;
 };
 
 export type FeaturedImage = {
@@ -98,7 +99,7 @@ export type MedusaImage = {
 };
 
 export type Image = MedusaImage & {
-  altText?: string;
+  altText: string;
 };
 
 export type ShippingProfile = {

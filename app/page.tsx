@@ -10,13 +10,6 @@ export const revalidate = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 60 *
 export const metadata = {
   description: 'High-performance ecommerce store built with Next.js, Vercel, and Medusa.',
   openGraph: {
-    images: [
-      {
-        url: `/api/og?title=${encodeURIComponent(process.env.SITE_NAME || '')}`,
-        width: 1200,
-        height: 630
-      }
-    ],
     type: 'website'
   }
 };

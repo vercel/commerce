@@ -1,31 +1,43 @@
 'use server';
 
-import { addToCart, removeFromCart, updateCart } from 'lib/medusa';
+import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/medusa';
 import { cookies } from 'next/headers';
 
-export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
-  const cartId = cookies().get('cartId')?.value;
+export const addItem = async (variantId: string | undefined): Promise<String | undefined> => {
+  let cartId = cookies().get('cartId')?.value;
+  let cart;
 
-  if (!cartId || !variantId) {
-    return new Error('Missing cartId or variantId');
+  if (cartId) {
+    cart = await getCart(cartId);
   }
+
+  if (!cartId || !cart) {
+    cart = await createCart();
+    cartId = cart.id!;
+    cookies().set('cartId', cartId);
+  }
+
+  if (!variantId) {
+    return 'Missing product variant ID';
+  }
+
   try {
     await addToCart(cartId, { variantId, quantity: 1 });
   } catch (e) {
-    return new Error('Error adding item', { cause: e });
+    return 'Error adding item to cart';
   }
 };
 
-export const removeItem = async (lineId: string): Promise<Error | undefined> => {
+export const removeItem = async (lineId: string): Promise<String | undefined> => {
   const cartId = cookies().get('cartId')?.value;
 
   if (!cartId) {
-    return new Error('Missing cartId');
+    return 'Missing cart ID';
   }
   try {
     await removeFromCart(cartId, lineId);
   } catch (e) {
-    return new Error('Error removing item', { cause: e });
+    return 'Error removing item from cart';
   }
 };
 
@@ -37,11 +49,11 @@ export const updateItemQuantity = async ({
   lineId: string;
   variantId: string;
   quantity: number;
-}): Promise<Error | undefined> => {
+}): Promise<String | undefined> => {
   const cartId = cookies().get('cartId')?.value;
 
   if (!cartId) {
-    return new Error('Missing cartId');
+    return 'Missing cart ID';
   }
   try {
     await updateCart(cartId, {
@@ -49,6 +61,6 @@ export const updateItemQuantity = async ({
       quantity
     });
   } catch (e) {
-    return new Error('Error updating item quantity', { cause: e });
+    return 'Error updating item quantity';
   }
 };

@@ -4,7 +4,6 @@ import CartModal from './modal';
 
 export default async function Cart() {
   const cartId = cookies().get('cartId')?.value;
-  let cartIdUpdated = false;
   let cart;
 
   if (cartId) {
@@ -16,8 +15,7 @@ export default async function Cart() {
   //  and re-fetch the cart.
   if (!cartId || !cart) {
     cart = await createCart();
-    cartIdUpdated = true;
   }
 
-  return <CartModal cart={cart} cartIdUpdated={cartIdUpdated} />;
+  return <CartModal cart={cart} />;
 }

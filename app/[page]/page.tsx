@@ -23,13 +23,6 @@ export async function generateMetadata({
     title: page.title,
     description: '',
     openGraph: {
-      images: [
-        {
-          url: `/api/og?title=${encodeURIComponent(page.title)}`,
-          width: 1200,
-          height: 630
-        }
-      ],
       publishedTime: page.createdAt,
       modifiedTime: page.updatedAt,
       type: 'article'

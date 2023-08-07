@@ -196,13 +196,15 @@ const reshapeProduct = (product: MedusaProduct): Product => {
       currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code.toUpperCase() ?? ''
     }
   };
+
   const updatedAt = product.updated_at;
   const createdAt = product.created_at;
   const tags = product.tags?.map((tag) => tag.value) || [];
   const descriptionHtml = product.description ?? '';
+  const featuredImageFilename = product.thumbnail?.match(/.*\/(.*)\..*/)![1];
   const featuredImage = {
     url: product.thumbnail ?? '',
-    altText: product.title ?? ''
+    altText: product.thumbnail ? `${product.title} - ${featuredImageFilename}` : ''
   };
   const availableForSale = product.variants?.[0]?.purchasable || true;
   const images = reshapeImages(product.images, product.title);
