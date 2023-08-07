@@ -147,7 +147,8 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
     },
     availableForSale: true,
     variants: [lineItem.variant && reshapeProductVariant(lineItem.variant)],
-    handle: lineItem.variant?.product?.handle ?? ''
+    handle: lineItem.variant?.product?.handle ?? '',
+    options: [] as ProductOption[]
   };
 
   const selectedOptions =
@@ -226,7 +227,7 @@ const reshapeProduct = (product: MedusaProduct): Product => {
     reshapeProductVariant(variant, product.options)
   );
 
-  let options;
+  let options = [] as ProductOption[];
   product.options && (options = product.options.map((option) => reshapeProductOption(option)));
 
   return {

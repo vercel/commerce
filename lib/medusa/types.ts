@@ -68,7 +68,7 @@ export type Product = Partial<Omit<MedusaProduct, 'tags' | 'options' | 'variants
   descriptionHtml: string;
   tags: Array<string>;
   availableForSale: boolean;
-  options?: Array<ProductOption>;
+  options: Array<ProductOption>;
   variants: Array<ProductVariant>;
   images?: Array<Image>;
 };
