@@ -1,6 +1,10 @@
 import { isMedusaError } from 'lib/type-guards';
 
+import { TAGS } from 'lib/constants';
 import { mapOptionIds } from 'lib/utils';
+import { revalidateTag } from 'next/cache';
+import { headers } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
 import { calculateVariantAmount, computeAmount, convertToDecimal } from './helpers';
 import {
   Cart,
@@ -346,7 +350,11 @@ export async function getCategory(handle: string): Promise<ProductCollection | u
   return res.body.product_categories[0];
 }
 
-export async function getCategoryProducts(handle: string): Promise<Product[]> {
+export async function getCategoryProducts(
+  handle: string,
+  reverse: boolean,
+  sortKey: string
+): Promise<Product[]> {
   const res = await medusaRequest('GET', `/product-categories?handle=${handle}`);
 
   if (!res) {
@@ -355,13 +363,9 @@ export async function getCategoryProducts(handle: string): Promise<Product[]> {
 
   const category = res.body.product_categories[0];
 
-  const category_products = await medusaRequest('GET', `/products?category_id[]=${category.id}`);
+  const category_products = await getProducts({ reverse, sortKey, categoryId: category.id });
 
-  const products: Product[] = category_products.body.products.map((product: MedusaProduct) =>
-    reshapeProduct(product)
-  );
-
-  return products;
+  return category_products;
 }
 
 export async function getProduct(handle: string): Promise<Product> {
@@ -371,16 +375,32 @@ export async function getProduct(handle: string): Promise<Product> {
 }
 
 export async function getProducts({
-  query = '',
+  query,
   reverse,
-  sortKey
+  sortKey,
+  categoryId
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
+  categoryId?: string;
 }): Promise<Product[]> {
-  const res = await medusaRequest('GET', `/products?q=${query}&limit=20`);
-  let products: Product[] = res.body.products.map((product: MedusaProduct) =>
+  let res;
+
+  if (query) {
+    res = await medusaRequest('GET', `/products?q=${query}&limit=100`);
+  } else if (categoryId) {
+    res = await medusaRequest('GET', `/products?category_id[]=${categoryId}&limit=100`);
+  } else {
+    res = await medusaRequest('GET', `/products?limit=100`);
+  }
+
+  if (!res) {
+    console.log("Couldn't fetch products");
+    return [];
+  }
+
+  let products: Product[] = res?.body.products.map((product: MedusaProduct) =>
     reshapeProduct(product)
   );
 
@@ -417,4 +437,28 @@ export async function getMenu(menu: string): Promise<any[]> {
   }
 
   return [];
+}
+
+// This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
+export async function revalidate(req: NextRequest): Promise<NextResponse> {
+  const collectionWebhooks = ['collections/create', 'collections/delete', 'collections/update'];
+  const productWebhooks = ['products/create', 'products/delete', 'products/update'];
+  const topic = headers().get('x-medusa-topic') || 'unknown';
+  const isCollectionUpdate = collectionWebhooks.includes(topic);
+  const isProductUpdate = productWebhooks.includes(topic);
+
+  if (!isCollectionUpdate && !isProductUpdate) {
+    // We don't need to revalidate anything for any other topics.
+    return NextResponse.json({ status: 200 });
+  }
+
+  if (isCollectionUpdate) {
+    revalidateTag(TAGS.collections);
+  }
+
+  if (isProductUpdate) {
+    revalidateTag(TAGS.products);
+  }
+
+  return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
