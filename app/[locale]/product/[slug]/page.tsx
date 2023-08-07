@@ -55,6 +55,8 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: ProductPageParams) {
   const product = await clientFetch(productQuery, params);
 
+  console.log(params);
+
   if (!product) return notFound();
 
   const productJsonLd = {

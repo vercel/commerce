@@ -7,27 +7,22 @@ import { ReactNode } from 'react';
 import { supportedLanguages } from '../../i18n-config';
 import './globals.css';
 
-const SITE_NAME = 'KM Storefront';
-const SITE_DESCRIPTION = 'Webb och digitalbyrå från Göteborg';
-const TWITTER_CREATOR = '@kodamera.se';
-const TWITTER_SITE = 'https://kodamera.se';
-
 export const metadata = {
   title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`
+    default: process.env.SITE_NAME,
+    template: `%s | ${process.env.SITE_NAME}`
   },
-  description: SITE_DESCRIPTION,
+  description: process.env.SITE_DESCRIPTION,
   robots: {
     follow: true,
     index: true
   },
-  ...(TWITTER_CREATOR &&
-    TWITTER_SITE && {
+  ...(process.env.TWITTER_CREATOR &&
+    process.env.TWITTER_SITE && {
       twitter: {
         card: 'summary_large_image',
-        creator: TWITTER_CREATOR,
-        site: TWITTER_SITE
+        creator: process.env.TWITTER_CREATOR,
+        site: process.env.TWITTER_SITE
       }
     })
 };

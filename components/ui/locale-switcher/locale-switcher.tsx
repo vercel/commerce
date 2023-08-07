@@ -1,43 +1,47 @@
+'use client';
+
 import LanguageIcon from 'components/icons/language';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger
 } from 'components/ui/dropdown/dropdown';
+import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { supportedLanguages } from '../../../i18n-config';
 
-interface LocaleSwitcherProps {
-  currentLocale: string;
-  localeData: {
-    type: string;
-    locale: string;
-    translations: [];
-  };
-}
+// interface LocaleSwitcherProps {
+// localeData: {
+//   type: string;
+//   locale: string;
+//   translations: [];
+// };
+// }
 
-export default function LocaleSwitcher({ currentLocale, localeData }: LocaleSwitcherProps) {
+export default function LocaleSwitcher() {
   const pathName = usePathname();
-  const translations = localeData.translations;
+  const currentLocale = useLocale();
+
+  // const translations = localeData.translations;
 
   const redirectedPathName = (locale: string) => {
-    if (!pathName || translations.length === 0) return '/';
+    if (!pathName) return '/';
 
-    if (translations.length > 0) {
-      const translation = translations.find((obj) => {
-        return obj['locale'] === locale;
-      });
+    // if (translations.length > 0) {
+    //   const translation = translations.find((obj) => {
+    //     return obj['locale'] === locale;
+    //   });
 
-      if (translation) {
-        const url = `/${translation['locale']}${translation['slug']}`;
+    //   if (translation) {
+    //     const url = `/${translation['locale']}${translation['slug']}`;
 
-        return url;
-      }
-    }
+    //     return url;
+    //   }
+    // }
 
-    return '/';
+    return `/${locale}`;
   };
 
   const [isOpen, setIsOpen] = useState(false);

@@ -11,9 +11,25 @@ export const revalidate = 43200; // 12 hours in seconds
 export async function generateMetadata({
   params
 }: {
-  params: { locale: string; slug: string };
+  params: { locale: string; slug: string[] };
 }): Promise<Metadata> {
-  const page = await clientFetch(pageQuery, params);
+  let queryParams = {
+    locale: params.locale,
+    slug: ''
+  };
+
+  if (params.slug.length > 1) {
+    queryParams = {
+      locale: params.locale,
+      slug: `${params.slug.join('/')}`
+    };
+  } else {
+    queryParams = {
+      locale: params.locale,
+      slug: `${params.slug}`
+    };
+  }
+  const page = await clientFetch(pageQuery, queryParams);
 
   if (!page) return notFound();
 
@@ -31,12 +47,29 @@ export async function generateMetadata({
 interface PageParams {
   params: {
     locale: string;
-    slug: string;
+    slug: string[];
   };
 }
 
 export default async function Page({ params }: PageParams) {
-  const page = await clientFetch(pageQuery, params);
+  let queryParams = {
+    locale: params.locale,
+    slug: ''
+  };
+
+  if (params.slug.length > 1) {
+    queryParams = {
+      locale: params.locale,
+      slug: `${params.slug.join('/')}`
+    };
+  } else {
+    queryParams = {
+      locale: params.locale,
+      slug: `${params.slug}`
+    };
+  }
+
+  const page = await clientFetch(pageQuery, queryParams);
 
   if (!page) return notFound();
 

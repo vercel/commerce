@@ -1,9 +1,8 @@
-'use client';
-
-// import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher';
+import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher';
 import Logo from 'components/ui/logo/logo';
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import CopyRight from './copyright';
+
 // interface FooterProps {
 //   localeData: {
 //     type: string;
@@ -13,11 +12,6 @@ import Link from 'next/link';
 // }
 
 const Footer = () => {
-  // const locale = useLocale();
-  const currentYear = new Date().getFullYear();
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const t = useTranslations('ui');
-
   return (
     <footer className="border-t border-ui-border bg-app">
       <div className="mx-auto flex w-full flex-col">
@@ -25,12 +19,10 @@ const Footer = () => {
           <Link className="flex flex-initial items-center font-bold md:mr-24" href="/">
             <Logo />
           </Link>
-          {/* <LocaleSwitcher localeData={localeData} currentLocale={locale} /> */}
+          <LocaleSwitcher />
         </div>
         <div className="flex items-center justify-center border-t border-ui-border bg-black px-4 py-3 lg:px-8 2xl:px-16">
-          <p className="text-xs text-white">
-            &copy; {copyrightDate} Kodamera - {t('copyright')}
-          </p>
+          <CopyRight />
         </div>
       </div>
     </footer>

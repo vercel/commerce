@@ -14,8 +14,6 @@ interface CardProps {
   imageFormat?: 'square' | 'portrait' | 'landscape';
 }
 
-const placeholderImg = '/product-img-placeholder.svg';
-
 const Card: FC<CardProps> = ({ className, title, image, link, text, imageFormat = 'square' }) => {
   const rootClassName = cn('relative', className);
 
@@ -39,7 +37,7 @@ const Card: FC<CardProps> = ({ className, title, image, link, text, imageFormat 
       } else if (type === 'category') {
         href = `/category/${link.internalLink.reference.slug.current}`;
       } else {
-        return `${link.internalLink.reference.slug.current}`;
+        href = `${link.internalLink.reference.slug.current}`;
       }
 
       return (
