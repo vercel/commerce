@@ -5,29 +5,30 @@ import { SortFilterItem } from 'lib/constants';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import type { ListItem, PathFilterItem } from '.';
 
 function PathFilterItem({ item }: { item: PathFilterItem }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [active, setActive] = useState(pathname === item.path);
+  const active = pathname === item.path;
+  const newParams = new URLSearchParams(searchParams.toString());
+  const DynamicTag = active ? 'p' : Link;
 
-  useEffect(() => {
-    setActive(pathname === item.path);
-  }, [pathname, item.path]);
+  newParams.delete('q');
 
   return (
-    <li className="mt-2 flex text-sm text-gray-400" key={item.title}>
-      <Link
-        href={createUrl(item.path, searchParams)}
-        className={clsx('w-full hover:text-gray-800 dark:hover:text-gray-100', {
-          'text-gray-600 dark:text-gray-400': !active,
-          'font-semibold text-black dark:text-white': active
-        })}
+    <li className="mt-2 flex text-black dark:text-white" key={item.title}>
+      <DynamicTag
+        href={createUrl(item.path, newParams)}
+        className={clsx(
+          'w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100',
+          {
+            'underline underline-offset-4': active
+          }
+        )}
       >
         {item.title}
-      </Link>
+      </DynamicTag>
     </li>
   );
 }
@@ -35,29 +36,28 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
 function SortFilterItem({ item }: { item: SortFilterItem }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [active, setActive] = useState(searchParams.get('sort') === item.slug);
-
-  useEffect(() => {
-    setActive(searchParams.get('sort') === item.slug);
-  }, [searchParams, item.slug]);
-
-  const href =
-    item.slug && item.slug.length
-      ? createUrl(pathname, new URLSearchParams({ sort: item.slug }))
-      : pathname;
+  const active = searchParams.get('sort') === item.slug;
+  const q = searchParams.get('q');
+  const href = createUrl(
+    pathname,
+    new URLSearchParams({
+      ...(q && { q }),
+      ...(item.slug && item.slug.length && { sort: item.slug })
+    })
+  );
+  const DynamicTag = active ? 'p' : Link;
 
   return (
-    <li className="mt-2 flex text-sm text-gray-400" key={item.title}>
-      <Link
-        prefetch={false}
+    <li className="mt-2 flex text-sm text-black dark:text-white" key={item.title}>
+      <DynamicTag
+        prefetch={!active ? false : undefined}
         href={href}
-        className={clsx('w-full hover:text-gray-800 dark:hover:text-gray-100', {
-          'text-gray-600 dark:text-gray-400': !active,
-          'font-semibold text-black dark:text-white': active
+        className={clsx('w-full hover:underline hover:underline-offset-4', {
+          'underline underline-offset-4': active
         })}
       >
         {item.title}
-      </Link>
+      </DynamicTag>
     </li>
   );
 }

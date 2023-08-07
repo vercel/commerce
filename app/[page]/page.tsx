@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';
 
-export const revalidate = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 60 * 12}`); // 12 hours
+export const revalidate = 43200; // 12 hours
 
 export async function generateMetadata({
   params
@@ -23,13 +23,6 @@ export async function generateMetadata({
     title: page.title,
     description: '',
     openGraph: {
-      images: [
-        {
-          url: `/api/og?title=${encodeURIComponent(page.title)}`,
-          width: 1200,
-          height: 630
-        }
-      ],
       publishedTime: page.createdAt,
       modifiedTime: page.updatedAt,
       type: 'article'

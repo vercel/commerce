@@ -1,11 +1,17 @@
 import { isMedusaError } from 'lib/type-guards';
 
+import { TAGS } from 'lib/constants';
 import { mapOptionIds } from 'lib/utils';
+import { revalidateTag } from 'next/cache';
+import { headers } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
 import { calculateVariantAmount, computeAmount, convertToDecimal } from './helpers';
 import {
   Cart,
   CartItem,
+  Image,
   MedusaCart,
+  MedusaImage,
   MedusaLineItem,
   MedusaProduct,
   MedusaProductCollection,
@@ -21,23 +27,32 @@ import {
 
 const ENDPOINT = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_API ?? 'http://localhost:9000';
 const MEDUSA_API_KEY = process.env.MEDUSA_API_KEY ?? '';
-const REVALIDATE_WINDOW = parseInt(process.env.REVALIDATE_WINDOW ?? `${60 * 15}`); // 15 minutes
 
-export default async function medusaRequest(
-  method: string,
-  path = '',
-  payload?: Record<string, unknown> | undefined
-) {
+export default async function medusaRequest({
+  cache = 'force-cache',
+  method,
+  path,
+  payload,
+  tags
+}: {
+  cache?: RequestCache;
+  method: string;
+  path: string;
+  payload?: Record<string, unknown> | undefined;
+  tags?: string[];
+}) {
   const options: RequestInit = {
     method,
     headers: {
       'Content-Type': 'application/json',
       'x-publishable-key': MEDUSA_API_KEY
-    }
+    },
+    cache,
+    ...(tags && { next: { tags } })
   };
 
-  if (!path.includes('/carts')) {
-    options.next = { revalidate: REVALIDATE_WINDOW };
+  if (path.includes('/carts')) {
+    options.cache = 'no-cache';
   }
 
   if (payload) {
@@ -132,7 +147,8 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
     },
     availableForSale: true,
     variants: [lineItem.variant && reshapeProductVariant(lineItem.variant)],
-    handle: lineItem.variant?.product?.handle ?? ''
+    handle: lineItem.variant?.product?.handle ?? '',
+    options: [] as ProductOption[]
   };
 
   const selectedOptions =
@@ -167,6 +183,17 @@ const reshapeLineItem = (lineItem: MedusaLineItem): CartItem => {
   };
 };
 
+const reshapeImages = (images?: MedusaImage[], productTitle?: string): Image[] => {
+  if (!images) return [];
+  return images.map((image) => {
+    const filename = image.url.match(/.*\/(.*)\..*/)![1];
+    return {
+      ...image,
+      altText: `${productTitle} - ${filename}`
+    };
+  });
+};
+
 const reshapeProduct = (product: MedusaProduct): Product => {
   const variant = product.variants?.[0];
 
@@ -183,25 +210,29 @@ const reshapeProduct = (product: MedusaProduct): Product => {
       currencyCode: product.variants?.[0]?.prices?.[0]?.currency_code.toUpperCase() ?? ''
     }
   };
+
   const updatedAt = product.updated_at;
   const createdAt = product.created_at;
   const tags = product.tags?.map((tag) => tag.value) || [];
   const descriptionHtml = product.description ?? '';
+  const featuredImageFilename = product.thumbnail?.match(/.*\/(.*)\..*/)![1];
   const featuredImage = {
     url: product.thumbnail ?? '',
-    altText: product.title ?? ''
+    altText: product.thumbnail ? `${product.title} - ${featuredImageFilename}` : ''
   };
   const availableForSale = product.variants?.[0]?.purchasable || true;
+  const images = reshapeImages(product.images, product.title);
 
   const variants = product.variants.map((variant) =>
     reshapeProductVariant(variant, product.options)
   );
 
-  let options;
+  let options = [] as ProductOption[];
   product.options && (options = product.options.map((option) => reshapeProductOption(option)));
 
   return {
     ...product,
+    images,
     featuredImage,
     priceRange,
     updatedAt,
@@ -272,7 +303,7 @@ const reshapeCategory = (category: ProductCategory): ProductCollection => {
 };
 
 export async function createCart(): Promise<Cart> {
-  const res = await medusaRequest('POST', '/carts', {});
+  const res = await medusaRequest({ method: 'POST', path: '/carts' });
   return reshapeCart(res.body.cart);
 }
 
@@ -280,15 +311,24 @@ export async function addToCart(
   cartId: string,
   lineItem: { variantId: string; quantity: number }
 ): Promise<Cart> {
-  const res = await medusaRequest('POST', `/carts/${cartId}/line-items`, {
-    variant_id: lineItem?.variantId,
-    quantity: lineItem?.quantity
+  const res = await medusaRequest({
+    method: 'POST',
+    path: `/carts/${cartId}/line-items`,
+    payload: {
+      variant_id: lineItem?.variantId,
+      quantity: lineItem?.quantity
+    },
+    tags: ['cart']
   });
   return reshapeCart(res.body.cart);
 }
 
 export async function removeFromCart(cartId: string, lineItemId: string): Promise<Cart> {
-  const res = await medusaRequest('DELETE', `/carts/${cartId}/line-items/${lineItemId}`);
+  const res = await medusaRequest({
+    method: 'DELETE',
+    path: `/carts/${cartId}/line-items/${lineItemId}`,
+    tags: ['cart']
+  });
   return reshapeCart(res.body.cart);
 }
 
@@ -296,14 +336,19 @@ export async function updateCart(
   cartId: string,
   { lineItemId, quantity }: { lineItemId: string; quantity: number }
 ): Promise<Cart> {
-  const res = await medusaRequest('POST', `/carts/${cartId}/line-items/${lineItemId}`, {
-    quantity
+  const res = await medusaRequest({
+    method: 'POST',
+    path: `/carts/${cartId}/line-items/${lineItemId}`,
+    payload: {
+      quantity
+    },
+    tags: ['cart']
   });
   return reshapeCart(res.body.cart);
 }
 
 export async function getCart(cartId: string): Promise<Cart | null> {
-  const res = await medusaRequest('GET', `/carts/${cartId}`);
+  const res = await medusaRequest({ method: 'GET', path: `/carts/${cartId}`, tags: ['cart'] });
   const cart = res.body.cart;
 
   if (!cart) {
@@ -314,7 +359,11 @@ export async function getCart(cartId: string): Promise<Cart | null> {
 }
 
 export async function getCategories(): Promise<ProductCollection[]> {
-  const res = await medusaRequest('GET', '/product-categories');
+  const res = await medusaRequest({
+    method: 'GET',
+    path: '/product-categories',
+    tags: ['categories']
+  });
 
   // Reshape categories and hide categories starting with 'hidden'
   const categories = res.body.product_categories
@@ -325,12 +374,24 @@ export async function getCategories(): Promise<ProductCollection[]> {
 }
 
 export async function getCategory(handle: string): Promise<ProductCollection | undefined> {
-  const res = await medusaRequest('GET', `/product-categories?handle=${handle}&expand=products`);
+  const res = await medusaRequest({
+    method: 'GET',
+    path: `/product-categories?handle=${handle}&expand=products`,
+    tags: ['categories', 'products']
+  });
   return res.body.product_categories[0];
 }
 
-export async function getCategoryProducts(handle: string): Promise<Product[]> {
-  const res = await medusaRequest('GET', `/product-categories?handle=${handle}`);
+export async function getCategoryProducts(
+  handle: string,
+  reverse?: boolean,
+  sortKey?: string
+): Promise<Product[]> {
+  const res = await medusaRequest({
+    method: 'GET',
+    path: `/product-categories?handle=${handle}`,
+    tags: ['categories']
+  });
 
   if (!res) {
     return [];
@@ -338,32 +399,56 @@ export async function getCategoryProducts(handle: string): Promise<Product[]> {
 
   const category = res.body.product_categories[0];
 
-  const category_products = await medusaRequest('GET', `/products?category_id[]=${category.id}`);
+  const category_products = await getProducts({ reverse, sortKey, categoryId: category.id });
 
-  const products: Product[] = category_products.body.products.map((product: MedusaProduct) =>
-    reshapeProduct(product)
-  );
-
-  return products;
+  return category_products;
 }
 
 export async function getProduct(handle: string): Promise<Product> {
-  const res = await medusaRequest('GET', `/products?handle=${handle}&limit=1`);
+  const res = await medusaRequest({
+    method: 'GET',
+    path: `/products?handle=${handle}&limit=1`,
+    tags: ['products']
+  });
   const product = res.body.products[0];
   return reshapeProduct(product);
 }
 
 export async function getProducts({
-  query = '',
+  query,
   reverse,
-  sortKey
+  sortKey,
+  categoryId
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
+  categoryId?: string;
 }): Promise<Product[]> {
-  const res = await medusaRequest('GET', `/products?q=${query}&limit=20`);
-  let products: Product[] = res.body.products.map((product: MedusaProduct) =>
+  let res;
+
+  if (query) {
+    res = await medusaRequest({
+      method: 'GET',
+      path: `/products?q=${query}&limit=100`,
+      tags: ['products']
+    });
+  } else if (categoryId) {
+    res = await medusaRequest({
+      method: 'GET',
+      path: `/products?category_id[]=${categoryId}&limit=100`,
+      tags: ['products']
+    });
+  } else {
+    res = await medusaRequest({ method: 'GET', path: `/products?limit=100`, tags: ['products'] });
+  }
+
+  if (!res) {
+    console.error("Couldn't fetch products");
+    return [];
+  }
+
+  let products: Product[] = res?.body.products.map((product: MedusaProduct) =>
     reshapeProduct(product)
   );
 
@@ -400,4 +485,36 @@ export async function getMenu(menu: string): Promise<any[]> {
   }
 
   return [];
+}
+
+// This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
+export async function revalidate(req: NextRequest): Promise<NextResponse> {
+  // We always need to respond with a 200 status code to Medusa,
+  // otherwise it will continue to retry the request.
+  const collectionWebhooks = ['categories/create', 'categories/delete', 'categories/update'];
+  const productWebhooks = ['products/create', 'products/delete', 'products/update'];
+  const topic = headers().get('x-medusa-topic') || 'unknown';
+  const secret = req.nextUrl.searchParams.get('secret');
+  const isCollectionUpdate = collectionWebhooks.includes(topic);
+  const isProductUpdate = productWebhooks.includes(topic);
+
+  if (!secret || secret !== process.env.MEDUSA_REVALIDATION_SECRET) {
+    console.error('Invalid revalidation secret.');
+    return NextResponse.json({ status: 200 });
+  }
+
+  if (!isCollectionUpdate && !isProductUpdate) {
+    // We don't need to revalidate anything for any other topics.
+    return NextResponse.json({ status: 200 });
+  }
+
+  if (isCollectionUpdate) {
+    revalidateTag(TAGS.categories);
+  }
+
+  if (isProductUpdate) {
+    revalidateTag(TAGS.products);
+  }
+
+  return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
