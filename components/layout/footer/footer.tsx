@@ -21,7 +21,7 @@ export default async function Footer({ locale }: FooterProps) {
     <footer className="border-t border-ui-border bg-app">
       <div className="mx-auto flex w-full flex-col">
         <div className="flex w-full items-center justify-between p-4 transition-colors duration-150 md:space-y-0 lg:px-8 lg:py-6 2xl:px-16 2xl:py-8">
-          <Link className="flex flex-initial items-center font-bold md:mr-24" href="/">
+          <Link href={`/${locale}`} className="flex flex-initial items-center font-bold md:mr-24">
             <Logo />
           </Link>
           <LocaleSwitcher />

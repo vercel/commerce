@@ -1,13 +1,12 @@
 'use client';
 
-import { InfoCircledIcon } from '@radix-ui/react-icons';
-
 import BlurbSection from '@/components/modules/blurb-section/blurb-section';
 import FilteredProductList from '@/components/modules/filtered-product-list/filtered-product-list';
 import Hero from '@/components/modules/hero';
 import ReusableSection from '@/components/modules/reusable-section/reusable-section';
 import Slider from '@/components/modules/slider/slider';
 import USPSection from '@/components/modules/usp-section/usp-section';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
 interface getContentComponentProps {
   _type: string;
   _key: number;
@@ -19,13 +18,25 @@ const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentCompo
 
   switch (_type) {
     case 'hero':
-      Component = Hero;
+      if (disabled !== true) {
+        Component = Hero;
+      } else {
+        return;
+      }
       break;
     case 'slider':
-      Component = Slider;
+      if (disabled !== true) {
+        Component = Slider;
+      } else {
+        return;
+      }
       break;
     case 'filteredProductList':
-      Component = FilteredProductList;
+      if (disabled !== true) {
+        Component = FilteredProductList;
+      } else {
+        return;
+      }
       break;
     case 'blurbSection':
       if (disabled !== true) {

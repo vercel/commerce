@@ -1,14 +1,24 @@
 import DynamicContentManager from 'components/layout/dynamic-content-manager/dynamic-content-manager';
 import { homePageQuery } from 'lib/sanity/queries';
 import { clientFetch } from 'lib/sanity/sanity.client';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 export const runtime = 'edge';
 
-export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, Sanity and Storm.',
-  openGraph: {
-    type: 'website'
-  }
-};
+export async function generateMetadata({
+  params
+}: {
+  params: { slug: string; locale: string };
+}): Promise<Metadata> {
+  const homePage = await clientFetch(homePageQuery, params);
+
+  if (!homePage) return notFound();
+
+  return {
+    title: homePage.seo.title || homePage.title,
+    description: homePage.seo.description || homePage.description
+  };
+}
 
 interface HomePageParams {
   params: {

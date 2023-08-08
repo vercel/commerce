@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
-
-import { Carousel, CarouselItem } from 'components/modules/carousel/carousel';
-const Card = dynamic(() => import('components/ui/card'));
+import { Carousel, CarouselItem } from '@/components/modules/carousel/carousel';
+import Card from '@/components/ui/card/card';
 
 import Text from 'components/ui/text';
 

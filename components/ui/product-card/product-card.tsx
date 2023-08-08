@@ -1,15 +1,12 @@
 'use client';
 
+import SanityImage from '@/components/ui/sanity-image/sanity-image';
 import Price from 'components/product/price';
 import Text from 'components/ui/text';
 import type { Product } from 'lib/storm/types/product';
 import { cn } from 'lib/utils';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FC } from 'react';
-
-const SanityImage = dynamic(() => import('components/ui/sanity-image'));
-
 interface Props {
   className?: string;
   product: Product;

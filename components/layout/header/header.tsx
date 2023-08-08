@@ -22,7 +22,7 @@ const Header = ({ locale }: HeaderProps) => {
 
           <div className="flex items-center">
             <Link
-              href={`/`}
+              href={`/${locale}`}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform cursor-pointer duration-100 ease-in-out md:relative md:left-0 md:top-0 md:translate-x-0 md:translate-y-0"
               aria-label="Logo"
             >

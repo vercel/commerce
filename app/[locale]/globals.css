@@ -153,11 +153,11 @@ body {
 }
 
 .glider-prev {
-  @apply !-top-10 !left-auto !right-12 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-10 lg:!right-16 2xl:!-top-12 2xl:!right-[100px];
+  @apply !-top-10 !left-auto !right-12 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-12 lg:!right-16 2xl:!right-[100px];
 }
 
 .glider-next {
-  @apply !-top-10 !right-4 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-10 lg:!right-8 2xl:!-top-12 2xl:!right-16;
+  @apply !-top-10 !right-4 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-12 lg:!right-8 2xl:!right-16;
 }
 
 .pdp .glider-prev {

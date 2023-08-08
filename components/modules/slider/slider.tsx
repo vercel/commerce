@@ -1,39 +1,36 @@
-import Text from 'components/ui/text'
-import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
+'use client';
 
-import { Carousel, CarouselItem } from 'components/modules/carousel/carousel'
+import Text from 'components/ui/text';
+import { useEffect, useState } from 'react';
 
-const ProductCard = dynamic(() => import('components/ui/product-card'))
-const CategoryCard = dynamic(() => import('components/ui/category-card'))
+import CategoryCard from '@/components/ui/category-card/category-card';
+import ProductCard from '@/components/ui/product-card/product-card';
+import { Carousel, CarouselItem } from 'components/modules/carousel/carousel';
 
 interface SliderProps {
-  products: [] | any
-  title: string
-  categories: [] | any
-  sliderType: String
+  products: [] | any;
+  title: string;
+  categories: [] | any;
+  sliderType: String;
 }
 
 const Slider = ({ products, categories, title, sliderType }: SliderProps) => {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (sliderType === 'products') setItems(products)
-    else if (sliderType === 'categories') setItems(categories)
-  }, [])
+    if (sliderType === 'products') setItems(products);
+    else if (sliderType === 'categories') setItems(categories);
+  }, []);
 
   return (
     <div className="flex flex-col">
       {title ? (
-        <Text
-          className="mb-4 px-4 lg:px-8 lg:mb-6 2xl:px-16 2xl:mb-8"
-          variant="sectionHeading"
-        >
+        <Text className="mb-4 px-4 lg:mb-6 lg:px-8 2xl:mb-8 2xl:px-16" variant="sectionHeading">
           {title}
         </Text>
       ) : (
         <Text
-          className="italic mb-4 px-4 lg:px-8 lg:mb-6 2xl:px-16 2xl:mb-8"
+          className="mb-4 px-4 italic lg:mb-6 lg:px-8 2xl:mb-8 2xl:px-16"
           variant="sectionHeading"
         >
           No title provided yet
@@ -48,7 +45,7 @@ const Slider = ({ products, categories, title, sliderType }: SliderProps) => {
             breakpoint: 1024,
             settings: {
               slidesToShow: 4.5
-            },
+            }
           }}
         >
           {items.map((item: any, index: number) => (
@@ -60,7 +57,7 @@ const Slider = ({ products, categories, title, sliderType }: SliderProps) => {
         </Carousel>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Slider
+export default Slider;

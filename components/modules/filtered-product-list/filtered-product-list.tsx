@@ -1,14 +1,12 @@
-'use client'
+'use client';
 
-import Text from 'components/ui/text'
-import dynamic from 'next/dynamic'
-
-const ProductCard = dynamic(() => import('components/ui/product-card'))
+import ProductCard from '@/components/ui/product-card/product-card';
+import Text from 'components/ui/text';
 
 interface SliderProps {
-  products: any
-  title: string
-  itemsToShow: number
+  products: any;
+  title: string;
+  itemsToShow: number;
 }
 
 const FilteredProductList = ({ title, products, itemsToShow }: SliderProps) => {
@@ -19,17 +17,17 @@ const FilteredProductList = ({ title, products, itemsToShow }: SliderProps) => {
           {title}
         </Text>
       ) : (
-        <Text className="italic mb-4 lg:mb-6 2xl:mb-8" variant="sectionHeading">
+        <Text className="mb-4 italic lg:mb-6 2xl:mb-8" variant="sectionHeading">
           No title provided yet
         </Text>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {products.slice(0, itemsToShow).map((product: any, index: number) => (
           <ProductCard key={`${product.id}-${index}`} product={product} />
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FilteredProductList
+export default FilteredProductList;

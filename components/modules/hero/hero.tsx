@@ -1,8 +1,6 @@
-import dynamic from 'next/dynamic';
-
+import SanityImage from '@/components/ui/sanity-image/sanity-image';
 import Link from 'components/ui/link/link';
 import Text from 'components/ui/text/text';
-const SanityImage = dynamic(() => import('components/ui/sanity-image'));
 
 interface HeroProps {
   variant: string;

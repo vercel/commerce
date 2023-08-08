@@ -6,9 +6,9 @@ import Text from 'components/ui/text/text';
 import { Product } from 'lib/storm/types/product';
 import { cn } from 'lib/utils';
 import { useTranslations } from 'next-intl';
-import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+import ProductCard from '../ui/product-card/product-card';
 import Price from './price';
-const ProductCard = dynamic(() => import('components/ui/product-card'));
 interface ProductViewProps {
   product: Product;
   relatedProducts: Product[];
@@ -81,31 +81,33 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
       </div>
 
       {relatedProducts.length > 0 && (
-        <section className="my-16 flex flex-col lg:my-24">
-          <Text className="px-4 lg:px-8 2xl:px-16" variant="sectionHeading">
-            {t('related')}
-          </Text>
+        <Suspense>
+          <section className="my-16 flex flex-col lg:my-24">
+            <Text className="px-4 lg:px-8 2xl:px-16" variant="sectionHeading">
+              {t('related')}
+            </Text>
 
-          <Carousel
-            gliderClasses={'px-4 lg:px-8 2xl:px-16'}
-            hasArrows={true}
-            hasDots={true}
-            slidesToShow={2.2}
-            slidesToScroll={1}
-            responsive={{
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: 4.5
-              }
-            }}
-          >
-            {relatedProducts.map((p) => (
-              <CarouselItem key={`product-${p.path}`}>
-                <ProductCard product={p} />
-              </CarouselItem>
-            ))}
-          </Carousel>
-        </section>
+            <Carousel
+              gliderClasses={'px-4 lg:px-8 2xl:px-16'}
+              hasArrows={true}
+              hasDots={true}
+              slidesToShow={2.2}
+              slidesToScroll={1}
+              responsive={{
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 4.5
+                }
+              }}
+            >
+              {relatedProducts.map((p) => (
+                <CarouselItem key={`product-${p.path}`}>
+                  <ProductCard product={p} />
+                </CarouselItem>
+              ))}
+            </Carousel>
+          </section>
+        </Suspense>
       )}
     </div>
   );
