@@ -31,14 +31,12 @@ const Header = ({ locale }: HeaderProps) => {
           </div>
 
           <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:flex">
-            {/* @ts-expect-error Server Component */}
-            {/* https://github.com/vercel/next.js/issues/42292 */}
+            {/* @ts-expect-error Server Component (https://github.com/vercel/next.js/issues/42292) */}
             <DesktopMenu locale={locale} />
           </div>
           <div className="flex justify-end md:w-1/3">
             <Suspense fallback={<OpenCart />}>
-              {/* @ts-expect-error Server Component */}
-              {/* https://github.com/vercel/next.js/issues/42292 */}
+              {/* @ts-expect-error Server Component (https://github.com/vercel/next.js/issues/42292) */}
               <Cart />
             </Suspense>
           </div>
