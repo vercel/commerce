@@ -1,22 +1,25 @@
 'use client';
 
+import BlurbSection from '@/components/modules/blurb-section/blurb-section';
+import FilteredProductList from '@/components/modules/filtered-product-list/filtered-product-list';
+import Hero from '@/components/modules/hero';
+import ReusableSection from '@/components/modules/reusable-section/reusable-section';
+import Slider from '@/components/modules/slider/slider';
+import USPSection from '@/components/modules/usp-section/usp-section';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
-import dynamic from 'next/dynamic';
-
-import Hero from 'components/modules/hero';
-import ReusableSection from 'components/modules/reusable-section/reusable-section';
-const USPSection = dynamic(() => import('components/modules/usp-section'));
-const Slider = dynamic(() => import('components/modules/slider'));
-const BlurbSection = dynamic(() => import('components/modules/blurb-section'));
-const FilteredProductList = dynamic(() => import('components/modules/filtered-product-list'));
+import { Suspense } from 'react';
 interface getContentComponentProps {
   _type: string;
   _key: number;
   disabled: boolean;
 }
 
-const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentComponentProps) => {
+const getContentComponent = (
+  { _type, _key, disabled, ...rest }: getContentComponentProps,
+  index: number
+) => {
   let Component: any;
+
   switch (_type) {
     case 'hero':
       Component = Hero;
@@ -65,7 +68,16 @@ const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentCompo
   }
 
   return Component ? (
-    <Component key={`index-${_key}`} {...rest} />
+    index == 0 ? (
+      <Component key={`index-${_key}`} {...rest} />
+    ) : (
+      <Suspense
+        key={`index-${_key}`}
+        fallback={<h2 className="font-bold text-high-contrast">Loading...</h2>}
+      >
+        <Component {...rest} />
+      </Suspense>
+    )
   ) : (
     <div key={`index-${_key}`}>Something else</div>
   );
