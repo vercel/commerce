@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { slug: string[]; local
 
   return (
     <div className="flex flex-col">
-      <Header localeData={localeData} />
+      <Header />
       <main className="flex-1">
         <article>
           {isEnabled ? (
@@ -65,7 +65,7 @@ export default async function Page({ params }: { params: { slug: string[]; local
           )}
         </article>
       </main>
-      <Footer />
+      <Footer localeData={localeData} />
     </div>
   );
 }

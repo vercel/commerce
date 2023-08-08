@@ -83,7 +83,7 @@ draftMode().enable();
     return new Response(null, {
         status: 307,
         headers: {
-            Location: `/${product.locale}/${product.slug}`,
+            Location: `/${product.locale}/product/${product.slug}`,
         },
     })
   }
@@ -92,7 +92,7 @@ draftMode().enable();
     return new Response(null, {
         status: 307,
         headers: {
-            Location: `/${category.locale}/${category.slug}`,
+            Location: `/${category.locale}/category/${category.slug}`,
         },
     })
   }

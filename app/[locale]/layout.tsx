@@ -1,30 +1,28 @@
+import Footer from 'components/layout/footer/footer';
+import Header from 'components/layout/header/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
+import { supportedLanguages } from '../../i18n-config';
 import './globals.css';
-
-const SITE_NAME = 'KM Storefront';
-const SITE_DESCRIPTION = 'Webb och digitalbyrå från Göteborg';
-const TWITTER_CREATOR = '@kodamera.se';
-const TWITTER_SITE = 'https://kodamera.se';
 
 export const metadata = {
   title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`
+    default: process.env.SITE_NAME,
+    template: `%s | ${process.env.SITE_NAME}`
   },
-  description: SITE_DESCRIPTION,
+  description: process.env.SITE_DESCRIPTION,
   robots: {
     follow: true,
     index: true
   },
-  ...(TWITTER_CREATOR &&
-    TWITTER_SITE && {
+  ...(process.env.TWITTER_CREATOR &&
+    process.env.TWITTER_SITE && {
       twitter: {
         card: 'summary_large_image',
-        creator: TWITTER_CREATOR,
-        site: TWITTER_SITE
+        creator: process.env.TWITTER_CREATOR,
+        site: process.env.TWITTER_SITE
       }
     })
 };
@@ -36,7 +34,7 @@ const inter = Inter({
 });
 
 export function generateStaticParams() {
-  return [{ locale: 'sv' }, { locale: 'en' }];
+  return supportedLanguages.locales.map((locale) => ({ locale: locale.id }));
 }
 
 interface LocaleLayoutProps {
@@ -59,7 +57,10 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
     <html lang={locale} className={inter.variable}>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <Header locale={locale} />
+          <main className="flex-1">{children}</main>
+          {/* @ts-expect-error Server Component (https://github.com/vercel/next.js/issues/42292) */}
+          <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>

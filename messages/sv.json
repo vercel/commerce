@@ -9,7 +9,8 @@
       "titlePart": "Förhandsvisning av:",
       "exitPreviewLabel": "Avsluta förhandsvisning"
     },
-    "copyright": "Alla rättigheter förbehållna."
+    "copyright": "Alla rättigheter förbehållna.",
+    "languageSelector": "Språkväljare"
   },
   "search": {
     "search": "Sök",
@@ -38,7 +39,7 @@
     "selectSize": "Välj storlek"
   },
   "cart": {
-    "myCarttitle": "Min varukorg",
+    "myCartTitle": "Min varukorg",
     "subTotal": "Delsumma",
     "taxes": "Moms",
     "calculatedAtCheckout": "Beräknas i kassan",
@@ -60,7 +61,8 @@
     "seo": {
       "title": "Min varukorg",
       "description": "Här visas alla produkter i min varukorg"
-    }
+    },
+    "openCart": "Öppna varukorg"
   },
   "checkout": {
     "checkoutTitle": "Kassa",

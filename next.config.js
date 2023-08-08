@@ -11,6 +11,7 @@ module.exports = withBundleAnalyzer(
     },
     experimental: {
       scrollRestoration: true,
+      serverActions: true,
     },
     images: {
       formats: ['image/avif', 'image/webp'],

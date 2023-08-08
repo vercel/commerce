@@ -9,7 +9,8 @@
       "titlePart": "Preview of:",
       "exitPreviewLabel": "Exit Preview"
     },
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "languageSelector": "Language selector"
   },
   "search": {
     "search": "Search",
@@ -38,7 +39,7 @@
     "selectSize": "Select size"
   },
   "cart": {
-    "myCarttitle": "My cart",
+    "myCartTitle": "My cart",
     "subTotal": "Subtotal",
     "taxes": "Taxes",
     "calculatedAtCheckout": "Calculated at checkout",
@@ -61,7 +62,8 @@
     "seo": {
       "title": "My cart",
       "description": "All products in my shopping cart are displayed here"
-    }
+    },
+    "openCart": "Open cart"
   },
   "checkout": {
     "checkoutTitle": "Checkout",
