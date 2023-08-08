@@ -9,7 +9,8 @@
       "titlePart": "Förhandsvisning av:",
       "exitPreviewLabel": "Avsluta förhandsvisning"
     },
-    "copyright": "Alla rättigheter förbehållna."
+    "copyright": "Alla rättigheter förbehållna.",
+    "languageSelector": "Språkväljare"
   },
   "search": {
     "search": "Sök",

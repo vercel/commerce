@@ -1,4 +1,4 @@
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import CloseIcon from 'components/icons/close';
 import LoadingDots from 'components/loading-dots';
 import { useRouter } from 'next/navigation';
 
@@ -15,6 +15,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
     <button
       aria-label="Remove cart item"
       onClick={() => {
+        // @ts-ignore
         startTransition(async () => {
           const error = await removeItem(item.id);
 
@@ -37,7 +38,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
       {isPending ? (
         <LoadingDots className="bg-white" />
       ) : (
-        <XMarkIcon className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white dark:text-black" />
+        <CloseIcon className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white " />
       )}
     </button>
   );

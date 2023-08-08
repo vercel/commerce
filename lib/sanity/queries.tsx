@@ -255,6 +255,26 @@ export const categoryQuery = `*[_type == "category" && slug.current == $slug && 
   }
 }`;
 
+// Footer menu query
+export const footerMenuQuery = `*[_type == "footerMenu" && language == $locale] | order(title asc) {
+  _type,
+  title,
+  "locale": language,
+  menu {
+    title,
+    links[] {
+      _type,
+      title,
+      reference-> {
+        slug,
+        "locale": language
+      },
+      url,
+      newWindow
+    }
+  }
+}`;
+
 // Site settings query
 export const siteSettingsQuery = `*[_type == "settings" && language == $locale][0] {
   menuMain {

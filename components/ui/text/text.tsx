@@ -70,7 +70,7 @@ const Text: FunctionComponent<TextProps> = ({
           ['max-w-prose font-display text-2xl font-extrabold leading-none md:text-3xl md:leading-none lg:text-4xl lg:leading-none']:
             variant === 'sectionHeading',
           ['text-sm font-medium leading-tight lg:text-base']: variant === 'listChildHeading',
-          ['max-w-prose text-sm lg:text-base 2xl:text-lg']: variant === 'label',
+          ['max-w-prose text-lg text-high-contrast lg:text-xl']: variant === 'label',
           ['max-w-prose lg:text-lg 2xl:text-xl']: variant === 'paragraph'
         },
         className

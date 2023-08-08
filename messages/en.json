@@ -9,7 +9,8 @@
       "titlePart": "Preview of:",
       "exitPreviewLabel": "Exit Preview"
     },
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "languageSelector": "Language selector"
   },
   "search": {
     "search": "Search",

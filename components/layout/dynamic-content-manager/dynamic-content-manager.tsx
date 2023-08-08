@@ -1,6 +1,6 @@
 'use client';
 
-import { Info } from 'lucide-react';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
 import dynamic from 'next/dynamic';
 
 import Hero from 'components/modules/hero';
@@ -57,7 +57,7 @@ const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentCompo
           key={`index-${_key}`}
         >
           <span className="inline-flex items-center bg-red p-2 text-sm font-bold">
-            <Info className="mr-1" />
+            <InfoCircledIcon className="mr-1" />
             {`No matching component (Type: ${_type})`}
           </span>
         </div>

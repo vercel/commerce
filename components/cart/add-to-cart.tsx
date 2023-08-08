@@ -1,6 +1,6 @@
 'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@radix-ui/react-icons';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
@@ -39,7 +39,7 @@ export function AddToCart({
       onClick={() => {
         // Safeguard in case someone messes with `disabled` in devtools.
         if (!availableForSale || !selectedVariantId) return;
-
+        // @ts-ignore
         startTransition(async () => {
           const error = await addItem(selectedVariantId);
 
@@ -52,7 +52,7 @@ export function AddToCart({
         });
       }}
       className={clsx(
-        'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90',
+        'bg-blue-600 relative flex w-full items-center justify-center rounded-full p-4 tracking-wide text-white hover:opacity-90',
         {
           'cursor-not-allowed opacity-60 hover:opacity-60': !availableForSale || !selectedVariantId,
           'cursor-not-allowed': isPending
