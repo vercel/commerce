@@ -255,8 +255,16 @@ export const categoryQuery = `*[_type == "category" && slug.current == $slug && 
   }
 }`;
 
+// Categories query
+export const categoriesQuery = `*[_type == "category" && language == $locale] | order(title asc) {
+  _type,
+  title,
+  "slug": slug.current,
+  "locale": language,
+}`;
+
 // Footer menu query
-export const footerMenuQuery = `*[_type == "footerMenu" && language == $locale] | order(title asc) {
+export const footerMenusQuery = `*[_type == "footerMenu" && language == $locale] | order(title asc) {
   _type,
   title,
   "locale": language,

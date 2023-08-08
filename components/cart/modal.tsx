@@ -6,6 +6,7 @@ import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -20,6 +21,7 @@ type MerchandiseSearchParams = {
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
+  const t = useTranslations('cart');
 
   useEffect(() => {
     // Open cart modal when quantity changes.
@@ -37,17 +39,17 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   return (
     <>
       <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-        <SheetTrigger aria-label="Open cart">
+        <SheetTrigger aria-label={t('openCart')}>
           <OpenCart quantity={cart?.totalQuantity} />
         </SheetTrigger>
         <SheetContent className="bg-app">
           <SheetHeader>
-            <SheetTitle className="text-lg font-semibold">My cart</SheetTitle>
+            <SheetTitle className="text-lg font-semibold">{t('myCartTitle')}</SheetTitle>
           </SheetHeader>
           {!cart || cart.lines.length === 0 ? (
             <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
               <ShoppingBagIcon className="h-12" />
-              <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
+              <p className="mt-6 text-center text-2xl font-bold">{t('empty.title')}</p>
             </div>
           ) : (
             <div className="flex h-full flex-col justify-between overflow-hidden p-1">
@@ -132,7 +134,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 </div>
                 <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                   <p>Shipping</p>
-                  <p className="text-right">Calculated at checkout</p>
+                  <p className="text-right">{t('calculatedAtCheckout')}</p>
                 </div>
                 <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                   <p>Total</p>
@@ -147,7 +149,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 href={cart.checkoutUrl}
                 className="bg-blue-600 block w-full rounded-full p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
               >
-                Proceed to Checkout
+                {t('proceedToCheckout')}
               </a>
             </div>
           )}

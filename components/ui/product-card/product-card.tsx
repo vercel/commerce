@@ -39,11 +39,11 @@ const ProductCard: FC<Props> = ({ product, className, variant = 'default' }) => 
           </div>
 
           <div className={cn('flex flex-col items-start text-high-contrast', className)}>
-            <Text className="mt-2 lg:mt-3" variant="listChildHeading">
+            <Text className="mt-3" variant="listChildHeading">
               {product.title}
             </Text>
             <Price
-              className="text-sm font-medium leading-tight lg:text-base"
+              className="mt-1 text-sm font-bold leading-tight lg:text-base"
               amount={`${product.price.value}`}
               currencyCode={product.price.currencyCode ? product.price.currencyCode : 'SEK'}
             />

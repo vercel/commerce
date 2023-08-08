@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { urlForImage } from 'lib/sanity/sanity.image'
-import { cn } from 'lib/utils'
-import Image from 'next/image'
+import { urlForImage } from 'lib/sanity/sanity.image';
+import { cn } from 'lib/utils';
+import Image from 'next/image';
 
 interface SanityImageProps {
-  image: object | any
-  alt: string
-  priority?: boolean
-  width?: number
-  height?: number
-  quality?: number
-  sizes?: string
-  className?: string
+  image: object | any;
+  alt: string;
+  priority?: boolean;
+  width?: number;
+  height?: number;
+  quality?: number;
+  sizes?: string;
+  className?: string;
 }
 
-const placeholderImg = '/product-img-placeholder.svg'
+const placeholderImg = '/product-img-placeholder.svg';
 
 export default function SanityImage(props: SanityImageProps) {
   const {
@@ -26,10 +26,10 @@ export default function SanityImage(props: SanityImageProps) {
     height = 1080,
     width = 1080,
     sizes = '100vw',
-    className,
-  } = props
+    className
+  } = props;
 
-  const rootClassName = cn('w-full h-auto', className)
+  const rootClassName = cn('w-full h-auto', className);
 
   const image = source?.asset?._rev ? (
     <>
@@ -39,11 +39,7 @@ export default function SanityImage(props: SanityImageProps) {
         width={width}
         height={height}
         alt={alt}
-        src={urlForImage(source)
-          .width(width)
-          .height(height)
-          .quality(quality)
-          .url()}
+        src={urlForImage(source).width(width).height(height).quality(quality).url()}
         sizes={sizes}
         priority={priority}
         blurDataURL={source.asset.metadata.lqip}
@@ -61,7 +57,7 @@ export default function SanityImage(props: SanityImageProps) {
         priority={false}
       />
     </>
-  )
+  );
 
-  return image
+  return image;
 }

@@ -59,6 +59,8 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header locale={locale} />
           <main className="flex-1">{children}</main>
+          {/* @ts-expect-error Server Component */}
+          {/* https://github.com/vercel/next.js/issues/42292 */}
           <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>
