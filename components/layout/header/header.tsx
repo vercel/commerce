@@ -1,21 +1,9 @@
-'use client';
-
 import Logo from 'components/ui/logo/logo';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle
-} from 'components/ui/navigation-menu';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
-import { FC } from 'react';
 import HeaderRoot from './header-root';
 
-interface HeaderProps {}
-
-const Header: FC<HeaderProps> = () => {
+const Header = () => {
   const locale = useLocale();
 
   return (
@@ -33,33 +21,8 @@ const Header: FC<HeaderProps> = () => {
           </div>
 
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-            <NavigationMenu delayDuration={0} className="hidden lg:block">
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <Link href={'/category/barn'} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Junior
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link href={'/category/trojor'} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Tröjor
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link href={'/category/byxor'} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Byxor
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+            Menu
           </div>
-          <div></div>
         </div>
       </div>
     </HeaderRoot>

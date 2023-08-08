@@ -8,8 +8,6 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FC } from 'react';
 
-const WishlistButton = dynamic(() => import('components/ui/wishlist-button'));
-
 const SanityImage = dynamic(() => import('components/ui/sanity-image'));
 
 interface Props {
@@ -30,11 +28,6 @@ const ProductCard: FC<Props> = ({ product, className, variant = 'default' }) => 
     >
       {variant === 'default' && (
         <div className={'relative flex h-full w-full flex-col justify-center'}>
-          <WishlistButton
-            className={'absolute right-4 top-4 z-10'}
-            productId={product.id}
-            variant={product?.variants ? (product.variants[0] as any) : null}
-          />
           <div className="relative h-full w-full overflow-hidden">
             {product?.images && (
               <SanityImage

@@ -147,61 +147,6 @@ export interface Product {
   locale?: string
 }
 
-export interface SearchProductsBody {
-  /**
-   * The search query string to filter the products by.
-   */
-  search?: string
-  /**
-   * The category ID to filter the products by.
-   */
-  categoryId?: string
-  /**
-   * The brand ID to filter the products by.
-   */
-  brandId?: string
-  /**
-   * The sort key to sort the products by.
-   * @example 'trending-desc' | 'latest-desc' | 'price-asc' | 'price-desc'
-   */
-  sort?: string
-  /**
-   * The locale code, used to localize the product data (if the provider supports it).
-   */
-  locale?: string
-}
-
-/**
- * Fetches a list of products based on the given search criteria.
- */
-export type SearchProductsHook = {
-  data: {
-    /**
-     * List of products matching the query.
-     */
-    products: Product[]
-    /**
-     * Indicates if there are any products matching the query.
-     */
-    found: boolean
-  }
-  body: SearchProductsBody
-  input: SearchProductsBody
-  fetcherInput: SearchProductsBody
-}
-
-/**
- * Product API schema
- */
-
-export type ProductsSchema = {
-  endpoint: {
-    options: {}
-    handlers: {
-      getProducts: SearchProductsHook
-    }
-  }
-}
 
 /**
  *  Product operations
