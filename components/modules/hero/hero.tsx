@@ -23,7 +23,7 @@ interface HeroProps {
 type HeroSize = keyof typeof heroSize;
 
 const heroSize = {
-  fullScreen: 'aspect-[3/4] lg:aspect-auto lg:h-[calc(75vh-4rem)]',
+  fullScreen: 'aspect-[3/4] lg:aspect-auto lg:h-[calc(100vh-4rem)]',
   halfScreen: 'aspect-square max-h-[50vh] lg:aspect-auto lg:min-h-[50vh]'
 };
 
