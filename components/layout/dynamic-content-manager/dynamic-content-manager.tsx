@@ -7,6 +7,7 @@ import ReusableSection from '@/components/modules/reusable-section/reusable-sect
 import Slider from '@/components/modules/slider/slider';
 import USPSection from '@/components/modules/usp-section/usp-section';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { Suspense } from 'react';
 interface getContentComponentProps {
   _type: string;
   _key: number;
@@ -76,7 +77,9 @@ const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentCompo
   }
 
   return Component ? (
-    <Component key={`${_key}`} {...rest} />
+    <Suspense key={`${_key}`} fallback={<div>Loading...</div>}>
+      <Component {...rest} />
+    </Suspense>
   ) : (
     <div key={`${_key}`}>Something else</div>
   );
