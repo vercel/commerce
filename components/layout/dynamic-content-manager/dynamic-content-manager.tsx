@@ -17,8 +17,6 @@ interface getContentComponentProps {
 const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentComponentProps) => {
   let Component: any;
 
-  console.log(_key);
-
   switch (_type) {
     case 'hero':
       Component = Hero;
@@ -67,9 +65,9 @@ const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentCompo
   }
 
   return Component ? (
-    <Component key={`index-${_key}`} {...rest} />
+    <Component key={`${_key}`} {...rest} />
   ) : (
-    <div key={`index-${_key}`}>Something else</div>
+    <div key={`${_key}`}>Something else</div>
   );
 };
 
