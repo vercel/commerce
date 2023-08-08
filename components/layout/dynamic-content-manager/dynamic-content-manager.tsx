@@ -1,24 +1,23 @@
 'use client';
 
+import { InfoCircledIcon } from '@radix-ui/react-icons';
+
 import BlurbSection from '@/components/modules/blurb-section/blurb-section';
 import FilteredProductList from '@/components/modules/filtered-product-list/filtered-product-list';
 import Hero from '@/components/modules/hero';
 import ReusableSection from '@/components/modules/reusable-section/reusable-section';
 import Slider from '@/components/modules/slider/slider';
 import USPSection from '@/components/modules/usp-section/usp-section';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Suspense } from 'react';
 interface getContentComponentProps {
   _type: string;
   _key: number;
   disabled: boolean;
 }
 
-const getContentComponent = (
-  { _type, _key, disabled, ...rest }: getContentComponentProps,
-  index: number
-) => {
+const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentComponentProps) => {
   let Component: any;
+
+  console.log(_key);
 
   switch (_type) {
     case 'hero':
@@ -68,16 +67,7 @@ const getContentComponent = (
   }
 
   return Component ? (
-    index == 0 ? (
-      <Component key={`index-${_key}`} {...rest} />
-    ) : (
-      <Suspense
-        key={`index-${_key}`}
-        fallback={<h2 className="font-bold text-high-contrast">Loading...</h2>}
-      >
-        <Component {...rest} />
-      </Suspense>
-    )
+    <Component key={`index-${_key}`} {...rest} />
   ) : (
     <div key={`index-${_key}`}>Something else</div>
   );
