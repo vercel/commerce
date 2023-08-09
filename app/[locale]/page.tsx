@@ -1,10 +1,8 @@
-import Footer from '@/components/layout/footer/footer';
 import DynamicContentManager from 'components/layout/dynamic-content-manager/dynamic-content-manager';
 import { homePageQuery } from 'lib/sanity/queries';
 import { clientFetch } from 'lib/sanity/sanity.client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 export const runtime = 'edge';
 
 export async function generateMetadata({
@@ -34,9 +32,6 @@ export default async function HomePage({ params }: HomePageParams) {
   return (
     <>
       <DynamicContentManager content={data?.content} />
-      <Suspense>
-        <Footer locale={params.locale} />
-      </Suspense>
     </>
   );
 }

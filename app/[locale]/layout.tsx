@@ -1,3 +1,4 @@
+import Footer from 'components/layout/footer/footer';
 import Header from 'components/layout/header/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
@@ -59,6 +60,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
           <Header locale={locale} />
           <Suspense>
             <main className="flex-1">{children}</main>
+            <Footer locale={locale} />
           </Suspense>
         </NextIntlClientProvider>
       </body>
