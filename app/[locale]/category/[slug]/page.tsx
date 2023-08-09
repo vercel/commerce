@@ -39,7 +39,6 @@ export default async function ProductPage({ params }: CategoryPageParams) {
     <div className="mb-8 flex w-full flex-col px-4 lg:my-16 lg:px-8 2xl:px-16">
       <Text variant={'pageHeading'}>{title}</Text>
       <Suspense>
-        {/* @ts-expect-error Server Component (https://github.com/vercel/next.js/issues/42292) */}
         <Footer locale={params.locale} />
       </Suspense>
     </div>
