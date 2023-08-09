@@ -87,6 +87,7 @@ export default async function ProductPage({ params }: ProductPageParams) {
       />
       <ProductView product={product} relatedProducts={[]} />
       <Suspense>
+        {/* @ts-expect-error Server Component (https://github.com/vercel/next.js/issues/42292) */}
         <Footer locale={params.locale} />
       </Suspense>
     </>

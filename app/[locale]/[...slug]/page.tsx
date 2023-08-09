@@ -79,6 +79,7 @@ export default async function Page({ params }: PageParams) {
     <>
       <DynamicContentManager content={page?.content} />
       <Suspense>
+        {/* @ts-expect-error Server Component (https://github.com/vercel/next.js/issues/42292) */}
         <Footer locale={params.locale} />
       </Suspense>
     </>
