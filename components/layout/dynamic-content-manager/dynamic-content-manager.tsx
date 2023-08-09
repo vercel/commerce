@@ -7,6 +7,7 @@ import ReusableSection from '@/components/modules/reusable-section/reusable-sect
 import Slider from '@/components/modules/slider/slider';
 import USPSection from '@/components/modules/usp-section/usp-section';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+
 interface getContentComponentProps {
   _type: string;
   _key: number;

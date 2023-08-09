@@ -1,8 +1,10 @@
+import Footer from '@/components/layout/footer/footer';
 import Text from 'components/ui/text/text';
 import { categoryQuery } from 'lib/sanity/queries';
 import { clientFetch } from 'lib/sanity/sanity.client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 export async function generateMetadata({
   params
@@ -36,6 +38,9 @@ export default async function ProductPage({ params }: CategoryPageParams) {
   return (
     <div className="mb-8 flex w-full flex-col px-4 lg:my-16 lg:px-8 2xl:px-16">
       <Text variant={'pageHeading'}>{title}</Text>
+      <Suspense>
+        <Footer locale={params.locale} />
+      </Suspense>
     </div>
   );
 }

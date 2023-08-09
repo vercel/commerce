@@ -3,6 +3,7 @@ import { pageQuery } from 'lib/sanity/queries';
 import { clientFetch } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 export const runtime = 'edge';
 
@@ -73,5 +74,12 @@ export default async function Page({ params }: PageParams) {
 
   if (!page) return notFound();
 
-  return <DynamicContentManager content={page?.content} />;
+  return (
+    <>
+      <DynamicContentManager content={page?.content} />
+      <Suspense>
+        <Footer locale={params.locale} />
+      </Suspense>
+    </>
+  );
 }

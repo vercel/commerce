@@ -1,8 +1,10 @@
+import Footer from '@/components/layout/footer/footer';
 import ProductView from 'components/product/product-view';
 import { productQuery } from 'lib/sanity/queries';
 import { clientFetch } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 interface ProductPageParams {
   params: {
@@ -83,7 +85,10 @@ export default async function ProductPage({ params }: ProductPageParams) {
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <ProductView product={product} relatedProducts={[]} />;
+      <ProductView product={product} relatedProducts={[]} />
+      <Suspense>
+        <Footer locale={params.locale} />
+      </Suspense>
     </>
   );
 }
