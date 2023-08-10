@@ -3,9 +3,14 @@ import OpenCart from 'components/cart/open-cart';
 import Logo from 'components/ui/logo/logo';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import DesktopMenu from './desktop-menu';
 import HeaderRoot from './header-root';
-import MobileModal from './mobile-modal';
+import MainMenu from './main-menu/main-menu';
+import MobileMenuModal from './mobile-menu/modal';
+import OpenMobileMenu from './mobile-menu/open-mobile-menu';
+import SearchModal from './search/modal';
+import OpenSearch from './search/open-search';
+import UserModal from './user-menu/modal';
+import OpenUserMenu from './user-menu/open-user-menu';
 
 interface HeaderProps {
   locale: string;
@@ -16,8 +21,10 @@ const Header = ({ locale }: HeaderProps) => {
     <HeaderRoot>
       <div className="relative flex flex-col border-b border-ui-border bg-app">
         <div className="relative flex h-14 w-full items-center justify-between px-4 py-2 lg:h-16 lg:px-8 lg:py-3 2xl:px-16">
-          <div className="md:hidden">
-            <MobileModal />
+          <div className="-translate-x-3 transform md:hidden">
+            <Suspense fallback={<OpenMobileMenu />}>
+              <MobileMenuModal locale={locale} />
+            </Suspense>
           </div>
 
           <div className="flex items-center">
@@ -31,9 +38,15 @@ const Header = ({ locale }: HeaderProps) => {
           </div>
 
           <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:flex">
-            <DesktopMenu locale={locale} />
+            <MainMenu locale={locale} />
           </div>
-          <div className="flex justify-end md:w-1/3">
+          <div className="flex translate-x-3 transform justify-end space-x-1">
+            <Suspense fallback={<OpenSearch />}>
+              <SearchModal />
+            </Suspense>
+            <Suspense fallback={<OpenUserMenu />}>
+              <UserModal />
+            </Suspense>
             <Suspense fallback={<OpenCart />}>
               <Cart />
             </Suspense>

@@ -2,11 +2,11 @@ import { categoriesQuery } from '@/lib/sanity/queries';
 import { clientFetch } from '@/lib/sanity/sanity.client';
 import Link from 'next/link';
 
-interface DesktopMenuProps {
+interface MainMenuProps {
   locale: string;
 }
 
-export default async function DesktopMenu({ locale }: DesktopMenuProps) {
+export default async function MainMenu({ locale }: MainMenuProps) {
   const params = {
     locale: locale
   };
@@ -18,7 +18,7 @@ export default async function DesktopMenu({ locale }: DesktopMenuProps) {
   }
 
   return (
-    <ul className="flex space-x-4 lg:space-x-6">
+    <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6">
       {categories.map((category: { slug: string } | any, index: number) => {
         return (
           <li className="font-medium" key={index}>

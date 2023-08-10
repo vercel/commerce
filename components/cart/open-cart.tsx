@@ -1,5 +1,5 @@
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import ShoppingBagIcon from 'components/icons/shopping-bag';
 
 export default function OpenCart({
   className,
@@ -9,10 +9,10 @@ export default function OpenCart({
   quantity?: number;
 }) {
   return (
-    <div className="relative flex h-11 w-11 items-center justify-center rounded-md border border-ui-border text-high-contrast transition-colors">
+    <div className="relative flex h-11 w-11 items-center justify-center text-high-contrast">
       <ShoppingBagIcon
         className={clsx(
-          'h-4 stroke-current transition-all ease-in-out hover:scale-110 ',
+          'h-5 stroke-current transition-all ease-in-out hover:scale-110 ',
           className
         )}
       />

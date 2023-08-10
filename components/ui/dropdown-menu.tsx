@@ -1,7 +1,7 @@
 'use client';
 
+import { CheckIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { CheckIcon, ChevronRightIcon, CircleIcon } from '@radix-ui/react-icons';
 
 import * as React from 'react';
 
@@ -128,7 +128,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <CircleIcon className="h-2 w-2 fill-current" />
+        <div className="h-2 w-2 fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

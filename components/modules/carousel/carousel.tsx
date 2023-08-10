@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import 'glider-js/glider.min.css';
 import React from 'react';
 import Glider from 'react-glider';
