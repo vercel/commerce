@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         protocol: 'https',
-        hostname: 'example.com',
+        hostname: 'ssc-sparkle.vercel.app',
         pathname: '/**'
       }
     ]
