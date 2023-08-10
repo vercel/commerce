@@ -26,6 +26,7 @@ export default function Search() {
   return (
     <div className="flex flex-col overflow-auto">
       <InstantSearch searchClient={searchClient} indexName="shopify_products">
+        {/* Widgets */}
         <SearchBox
           placeholder="Vad letar du efter?"
           classNames={{
