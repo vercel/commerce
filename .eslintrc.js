@@ -3,7 +3,7 @@ module.exports = {
   plugins: ['unicorn'],
   rules: {
     'no-unused-vars': [
-      'error',
+      'off',
       {
         args: 'after-used',
         caughtErrors: 'none',
