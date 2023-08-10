@@ -29,6 +29,7 @@ export async function generateMetadata({
       slug: `${params.slug}`
     };
   }
+
   const page = await clientFetch(pageQuery, queryParams);
 
   if (!page) return notFound();

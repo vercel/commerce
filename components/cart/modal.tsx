@@ -46,6 +46,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
           <SheetHeader>
             <SheetTitle className="text-lg font-semibold">{t('myCartTitle')}</SheetTitle>
           </SheetHeader>
+
           {!cart || cart.lines.length === 0 ? (
             <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
               <ShoppingBagIcon className="h-12" />
@@ -153,6 +154,58 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
               </a>
             </div>
           )}
+
+          <div className="mt-4 flex flex-col">
+            <h2 className="font-bold">Line item examples</h2>
+            <ul>
+              <li className="flex w-full flex-col border-b border-neutral-300">
+                <div className="relative flex w-full flex-row justify-between px-1 py-4">
+                  <Link
+                    href={'/'}
+                    onClick={() => setIsOpen(false)}
+                    className="z-30 flex flex-row space-x-4"
+                  >
+                    <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 "></div>
+
+                    <div className="flex flex-1 flex-col text-base">
+                      <span className="leading-tight">Product title</span>
+                      <p className="text-sm text-neutral-500 ">Option of product</p>
+                    </div>
+                  </Link>
+                  <div className="flex h-16 flex-col justify-between">
+                    <Price
+                      className="flex justify-end space-y-2 text-right text-sm"
+                      amount={'100'}
+                      currencyCode={'SEK'}
+                    />
+                  </div>
+                </div>
+              </li>
+              <li className="flex w-full flex-col border-b border-neutral-300">
+                <div className="relative flex w-full flex-row justify-between px-1 py-4">
+                  <Link
+                    href={'/'}
+                    onClick={() => setIsOpen(false)}
+                    className="z-30 flex flex-row space-x-4"
+                  >
+                    <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 "></div>
+
+                    <div className="flex flex-1 flex-col text-base">
+                      <span className="leading-tight">Product title</span>
+                      <p className="text-sm text-neutral-500 ">Option of product</p>
+                    </div>
+                  </Link>
+                  <div className="flex h-16 flex-col justify-between">
+                    <Price
+                      className="flex justify-end space-y-2 text-right text-sm"
+                      amount={'100'}
+                      currencyCode={'SEK'}
+                    />
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </SheetContent>
       </Sheet>
     </>

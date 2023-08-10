@@ -1,5 +1,6 @@
 'use client';
 
+import Search from '@/components/search/search';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -19,6 +20,7 @@ export default function SearchModal() {
           <SheetHeader>
             <SheetTitle className="text-lg font-semibold">{t('search')}</SheetTitle>
           </SheetHeader>
+          <Search />
         </SheetContent>
       </Sheet>
     </>

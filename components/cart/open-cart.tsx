@@ -9,7 +9,7 @@ export default function OpenCart({
   quantity?: number;
 }) {
   return (
-    <div className="relative flex h-11 w-11 items-center justify-center text-high-contrast">
+    <div className="relative flex h-10 w-10 items-center justify-center text-high-contrast">
       <ShoppingBagIcon
         className={clsx(
           'h-5 stroke-current transition-all ease-in-out hover:scale-110 ',
@@ -18,7 +18,7 @@ export default function OpenCart({
       />
 
       {quantity ? (
-        <div className="bg-blue-600 absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded text-[11px] font-medium text-white">
+        <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-high-contrast text-[11px] font-medium text-white">
           {quantity}
         </div>
       ) : null}

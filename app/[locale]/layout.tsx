@@ -3,7 +3,7 @@ import Header from 'components/layout/header/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 import { supportedLanguages } from '../../i18n-config';
 import './globals.css';
 
@@ -58,10 +58,8 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header locale={locale} />
-          <Suspense>
-            <main className="flex-1">{children}</main>
-            <Footer locale={locale} />
-          </Suspense>
+          <main className="flex-1">{children}</main>
+          <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>
