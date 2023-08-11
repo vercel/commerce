@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopware/types';
@@ -173,6 +174,20 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />
                     </div>
+                  </div>
+                  <div className="mb-4 h-8 text-center">
+                    <ExclamationTriangleIcon className="mr-2 inline h-8 text-red-600" />
+                    <span className="inline">
+                      Checkout not included.{' '}
+                      <a
+                        className="underline"
+                        target="_blank"
+                        rel="noopener"
+                        href="https://github.com/shopwareLabs/vercel-commerce#checkout-functionality"
+                      >
+                        Read more.
+                      </a>
+                    </span>
                   </div>
                   <a
                     href={cart.checkoutUrl}
