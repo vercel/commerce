@@ -15,7 +15,7 @@ module.exports = withBundleAnalyzer(
     },
     images: {
       formats: ['image/avif', 'image/webp'],
-      domains: ['cdn.sanity.io'],
+      domains: ['cdn.sanity.io'], 
     },
   }
 );
