@@ -16,5 +16,14 @@ module.exports = {
         hostname: 'cdn.shopware.store'
       }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source: '/password',
+        destination: '/',
+        permanent: true
+      }
+    ];
   }
 };

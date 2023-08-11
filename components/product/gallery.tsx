@@ -74,7 +74,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             imageSearchParams.set('image', index.toString());
 
             return (
-              <li key={image.src} className="h-auto w-20">
+              <li key={image.src} className="h-20 w-20">
                 <Link
                   aria-label="Enlarge product image"
                   href={createUrl(pathname, imageSearchParams)}
