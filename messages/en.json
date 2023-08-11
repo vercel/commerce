@@ -1,4 +1,9 @@
 {
+  "routes": {
+    "product": "product",
+    "category": "category",
+    "search": "search"
+  },
   "ui": {
     "button": {
       "close": "Close",

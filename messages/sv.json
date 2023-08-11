@@ -1,4 +1,9 @@
 {
+  "routes": {
+    "product": "produkt",
+    "category": "kategori",
+    "search": "sok"
+  },
   "ui": {
     "button": {
       "close": "Stäng",

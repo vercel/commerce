@@ -1,8 +1,6 @@
-import { Carousel, CarouselItem } from '@/components/modules/carousel/carousel';
 import Card from '@/components/ui/card/card';
-
+import { cn } from '@/lib/utils';
 import Text from 'components/ui/text';
-
 interface BlurbSectionProps {
   blurbs: any;
   title: string;
@@ -24,9 +22,7 @@ const BlurbSection = ({
       : desktopLayout === '3-column'
       ? 'lg:grid-cols-3'
       : 'lg:grid-cols-4';
-
-  const sliderLayout = desktopLayout === '2-column' ? 2 : desktopLayout === '3-column' ? 3 : 4;
-
+  console.log(imageFormat);
   return (
     <div>
       {title ? (
@@ -42,51 +38,34 @@ const BlurbSection = ({
         </Text>
       )}
       <div
-        className={`grid px-4 ${gridLayout} gap-x-4 gap-y-8 ${
-          mobileLayout === 'stacked' ? 'lg:hidden' : 'hidden'
-        } lg:px-8 2xl:!px-16`}
+        className={cn(
+          'w-full gap-4 px-4 lg:px-8 2xl:px-16',
+          {
+            ['grid grid-cols-1']: mobileLayout !== 'horizontal',
+            ['flex snap-x snap-proximity overflow-x-auto lg:grid lg:overflow-visible']:
+              mobileLayout === 'horizontal'
+          },
+          `${gridLayout}`
+        )}
       >
         {blurbs.map((blurb: object | any, index: number) => {
           return (
-            <div key={index}>
+            <div
+              key={index}
+              className={`${
+                mobileLayout === 'horizontal' && 'w-5/12 shrink-0 snap-center lg:w-full'
+              }`}
+            >
               <Card
                 title={blurb?.title}
                 link={blurb?.link}
                 image={blurb?.image}
                 text={blurb?.text}
-                imageFormat={blurb?.imageFormat}
+                imageFormat={imageFormat}
               />
             </div>
           );
         })}
-      </div>
-
-      <div className={`${mobileLayout === 'stacked' ? 'hidden lg:block' : 'block'}`}>
-        {blurbs && (
-          <Carousel
-            gliderClasses={'px-4 lg:px-8 2xl:px-16'}
-            hasDots={true}
-            slidesToShow={2.2}
-            responsive={{
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: sliderLayout <= 4 ? sliderLayout + 0.5 : sliderLayout
-              }
-            }}
-          >
-            {blurbs.map((blurb: any, index: number) => (
-              <CarouselItem key={`${index}`}>
-                <Card
-                  title={blurb?.title}
-                  link={blurb?.link}
-                  image={blurb?.image}
-                  text={blurb.text}
-                  imageFormat={imageFormat}
-                />
-              </CarouselItem>
-            ))}
-          </Carousel>
-        )}
       </div>
     </div>
   );

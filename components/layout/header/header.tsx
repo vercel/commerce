@@ -3,8 +3,10 @@ import { clientFetch } from '@/lib/sanity/sanity.client';
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import Logo from 'components/ui/logo/logo';
+
 import Link from 'next/link';
 import { Suspense } from 'react';
+import DesktopMenu from './desktop-menu/desktop-menu';
 import HeaderRoot from './header-root';
 import MobileMenuModal from './mobile-menu/modal';
 import OpenMobileMenu from './mobile-menu/open-mobile-menu';
@@ -43,17 +45,7 @@ export default async function Header({ locale }: HeaderProps) {
 
           <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:flex">
             <Suspense>
-              <ul className="flex gap-6">
-                {mainMenu.map((item: { title: string; slug: string }, i: number) => {
-                  return (
-                    <li key={i}>
-                      <Link className="font-medium" href={`/${locale}/category/${item.slug}`}>
-                        {item.title}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+              <DesktopMenu items={mainMenu} locale={locale} />
             </Suspense>
           </div>
           <div className="flex translate-x-2 transform justify-end space-x-1">
