@@ -6,7 +6,7 @@ export function Grid({
   images: { src: string; alt: string; width: number | undefined; height: number | undefined }[];
 }) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid w-full grid-cols-2 gap-4">
       {images.map(
         (
           image: {
@@ -19,7 +19,7 @@ export function Grid({
         ) => {
           return (
             <Image
-              className="aspect-square h-full w-full object-contain first:col-span-2"
+              className="aspect-square h-full w-full bg-neutral-300 object-cover first:col-span-2"
               src={image.src}
               height={image.height}
               width={image.width}

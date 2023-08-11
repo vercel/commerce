@@ -52,7 +52,7 @@ export default function LocaleSwitcher() {
     <>
       <DropdownMenu open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
         <DropdownMenuTrigger
-          className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors"
+          className="relative flex h-11 w-11 items-center justify-center text-black transition-colors"
           aria-label={t('languageSelector')}
         >
           <LanguageIcon className="h-6 w-6" />

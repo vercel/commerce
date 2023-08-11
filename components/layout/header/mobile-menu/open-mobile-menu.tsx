@@ -3,10 +3,10 @@ import clsx from 'clsx';
 
 export default function OpenMobileMenu({ className }: { className?: string }) {
   return (
-    <div className="relative flex h-11 w-11 items-center justify-center text-high-contrast">
+    <div className="relative flex h-8 w-8 items-center justify-center text-high-contrast">
       <Bars3Icon
         className={clsx(
-          'h-5 stroke-current transition-all ease-in-out hover:scale-110 ',
+          'h-6 w-6 translate-y-px transform stroke-current transition-all ease-in-out hover:scale-110 ',
           className
         )}
       />

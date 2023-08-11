@@ -21,6 +21,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@portabletext/react": "^3.0.0",
+    "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.4",
     "@radix-ui/react-navigation-menu": "^1.1.2",

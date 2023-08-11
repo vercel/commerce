@@ -25,7 +25,7 @@ export default async function Header({ locale }: HeaderProps) {
     <HeaderRoot>
       <div className="relative flex flex-col border-b border-ui-border bg-app">
         <div className="relative flex h-14 w-full items-center justify-between px-4 py-2 lg:h-16 lg:px-8 lg:py-3 2xl:px-16">
-          <div className="-translate-x-3 transform md:hidden">
+          <div className="-translate-x-2 transform md:hidden">
             <Suspense fallback={<OpenMobileMenu />}>
               <MobileMenuModal items={mainMenu} />
             </Suspense>
@@ -47,7 +47,7 @@ export default async function Header({ locale }: HeaderProps) {
                 {mainMenu.map((item: { title: string; slug: string }, i: number) => {
                   return (
                     <li key={i}>
-                      <Link className="font-medium" href={`/category/${item.slug}`}>
+                      <Link className="font-medium" href={`${locale}/category/${item.slug}`}>
                         {item.title}
                       </Link>
                     </li>

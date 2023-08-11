@@ -1,14 +1,20 @@
 'use client';
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion';
 import { Product } from '@/lib/storm/product';
 import { Image } from '@/lib/storm/types';
 import Text from 'components/ui/text/text';
 import { cn } from 'lib/utils';
 import { useTranslations } from 'next-intl';
 import { Suspense } from 'react';
+import Price from '../price';
 import { Gallery } from './gallery';
 import { Grid } from './grid';
-import Price from './price';
 
 interface ProductViewProps {
   product: Product;
@@ -43,21 +49,10 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
                 width: image.width
               }))}
             />
-
-            {/* {images.map((image: Image, index: number) => (
-              <div key={index} className="first:col-span-2">
-                <SanityImage
-                  image={image}
-                  alt={image.alt}
-                  priority={index === 0 ? true : false}
-                  sizes="(max-width: 1024px) 100vw, 70vw"
-                />
-              </div>
-            ))} */}
           </div>
         </div>
 
-        <div className="col-span-1 mx-auto flex h-auto w-full flex-col p-4 lg:sticky lg:top-8 lg:col-span-5 lg:px-8 lg:py-0 lg:pr-0 2xl:top-16 2xl:px-16 2xl:pr-0">
+        <div className="col-span-1 mx-auto flex h-auto w-full flex-col p-4 lg:col-span-5 lg:px-8 lg:py-0 lg:pr-0 2xl:top-16 2xl:px-16 2xl:pr-0">
           <Text variant={'productHeading'}>{name}</Text>
 
           <Price
@@ -66,9 +61,23 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
             currencyCode={price.currencyCode ? price.currencyCode : 'SEK'}
           />
 
-          <Text className="mt-2" variant="paragraph">
-            {description}
-          </Text>
+          {description && (
+            <Accordion
+              className="mt-8"
+              type="single"
+              collapsible
+              defaultValue="product-description"
+            >
+              <AccordionItem value="product-description">
+                <AccordionTrigger>{t('description')}</AccordionTrigger>
+                <AccordionContent>
+                  <Text className="mt-2" variant="paragraph">
+                    {description}
+                  </Text>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
         </div>
       </div>
 
