@@ -62,11 +62,11 @@ Once installed, you'll need to create a `SHOPWARE_ACCESS_TOKEN` environment vari
 If you want to use your Store with SEO URLs you should set this Envoirment variable
 `SHOPWARE_USE_SEO_URLS="true"`
 
-#### Checkout functionality
+## Checkout functionality
 
 The template is provided as-is without an integrated checkout. For projects there are two options - redirect to a native checkout, provided by Shopware or implement a headless checkout flow using our API endpoints for [preparing](https://frontends.shopware.com/packages/api-client.html#context) and [placing](https://frontends.shopware.com/packages/api-client.html#checkout) orders.
 
-### Community
+## Community
 
 Any questions, issues or feature requests? Feel free to join the community.
 
