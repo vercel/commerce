@@ -1,8 +1,7 @@
 const Price = ({
   amount,
   className,
-  currencyCode = 'SEK',
-  currencyCodeClassName
+  currencyCode = 'SEK'
 }: {
   amount: string;
   className?: string;
@@ -13,7 +12,7 @@ const Price = ({
     {`${new Intl.NumberFormat('sv-SE', {
       style: 'currency',
       currency: currencyCode,
-      currencyDisplay: 'narrowSymbol',
+      currencyDisplay: 'code',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }).format(parseFloat(amount))}`}
