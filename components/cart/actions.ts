@@ -14,7 +14,8 @@ export const addItem = async (variantId: string | undefined): Promise<String | u
   if (!cartId || !cart) {
     cart = await createCart();
     cartId = cart.id;
-    cookies().set('cartId', cartId);
+    // TODO: this is not working under older Next.js versions
+    // cookies().set('cartId', cartId);
   }
 
   if (!variantId) {
