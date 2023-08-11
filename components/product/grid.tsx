@@ -28,6 +28,7 @@ export function Grid({
               }`}
               alt={image.alt}
               key={index}
+              priority={index === 0 ? true : false}
             />
           );
         }
