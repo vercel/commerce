@@ -77,7 +77,7 @@ body {
 
 /* DYNAMIC CONTENT MANAGER */
 .dynamic-content > :not(.hero) {
-  @apply my-16 lg:my-24;
+  @apply my-12 md:my-16 lg:my-24;
 }
 
 .dynamic-content > :first-child {
@@ -85,7 +85,7 @@ body {
 }
 
 .dynamic-content > :last-child {
-  @apply mb-16 lg:mb-24;
+  @apply mb-12 md:mb-16 lg:mb-24;
 }
 
 .dynamic-content .dynamic-content {

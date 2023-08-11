@@ -22,6 +22,9 @@
     "submitTitle": "Skicka din sökfråga",
     "clearTitle": "Rensa din sökfråga",
     "resetTitle": "Återställ din sökfråga",
+    "noResults": "Inga resultat för",
+    "showMore": "Visa fler resultat",
+    "searchCategory": "Sök i kategori",
     "seo": {
       "title": "Sök",
       "description": "Sök efter produkt eller kategori"

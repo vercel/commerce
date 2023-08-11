@@ -22,6 +22,9 @@
     "submitTitle": "Submit your search query",
     "clearTitle": "Clear your search query",
     "resetTitle": "Reset your search query",
+    "noResults": "No results for",
+    "showMore": "Show more results",
+    "searchCategory": "Search in category",
     "seo": {
       "title": "Search",
       "description": "Search for product or category"

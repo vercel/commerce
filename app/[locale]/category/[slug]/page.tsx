@@ -1,6 +1,7 @@
-import Text from 'components/ui/text/text';
-import { categoryQuery } from 'lib/sanity/queries';
-import { clientFetch } from 'lib/sanity/sanity.client';
+import Search from '@/components/search/search';
+import SearchResult from '@/components/search/search-result';
+import { categoryQuery } from '@/lib/sanity/queries';
+import { clientFetch } from '@/lib/sanity/sanity.client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -34,8 +35,10 @@ export default async function ProductPage({ params }: CategoryPageParams) {
   const { title } = category;
 
   return (
-    <div className="my-8 flex w-full flex-col px-4 lg:my-16 lg:px-8 2xl:px-16">
-      <Text variant={'pageHeading'}>{title}</Text>
+    <div className="my-8 flex w-full flex-col px-4 lg:my-12 lg:px-8 2xl:px-16">
+      <Search isCategory placeholder={title.toLowerCase()} title={title}>
+        <SearchResult />
+      </Search>
     </div>
   );
 }

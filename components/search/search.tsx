@@ -1,43 +1,48 @@
-import algoliasearch from 'algoliasearch/lite';
-// import { useLocale } from 'next-intl';
+'use client';
+
 import Text from '@/components/ui/text';
-import { Highlight, Hits, InstantSearch, SearchBox } from 'react-instantsearch';
 
-const searchClient = algoliasearch(
-  `${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`,
-  `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY}`
-);
+import { cn } from 'lib/utils';
+import { useTranslations } from 'next-intl';
+import SearchRoot from './search-root';
 
-export default function Search() {
-  // const locale = useLocale();
-  // Hit.
-  function Hit(props: any) {
-    return (
-      <li>
-        <a href={`/product/${props.hit.handle}`} className="flex gap-4">
-          <div className="relative aspect-square h-16 w-16 bg-neutral-300" />
-          <div>
-            <Text className="!text-sm text-low-contrast" variant="label">
-              Brand
-            </Text>
-            <h3 className="flex text-sm font-bold text-high-contrast">
-              <Highlight attribute="title" hit={props.hit} />
-            </h3>
-            <p className="text-sm font-bold ">{props.hit.price} SEK</p>
-          </div>
-        </a>
-      </li>
-    );
-  }
+import { SearchBox } from 'react-instantsearch';
+
+import { ReactNode } from 'react';
+import { NoResults, NoResultsBoundary } from './no-result';
+
+interface SearchProps {
+  title?: string;
+  placeholder?: string;
+  className?: string;
+  children: ReactNode;
+  isCategory?: boolean;
+}
+
+export default function Search({ title, placeholder, children, isCategory = false }: SearchProps) {
+  const t = useTranslations('search');
+
+  console.log(isCategory);
+
   return (
-    <div className="flex flex-col">
-      <InstantSearch searchClient={searchClient} indexName="shopify_products">
-        {/* Widgets */}
+    <SearchRoot>
+      {/* Search top */}
+      <div className="">
+        {title && (
+          <Text className="mb-8 lg:mb-12" variant="pageHeading">
+            {title}
+          </Text>
+        )}
+
         <SearchBox
-          placeholder="Vad letar du efter?"
+          placeholder={
+            placeholder
+              ? `${isCategory ? `${t('searchCategory')} ${placeholder}` : placeholder}`
+              : `${t('globalPlaceholder')}`
+          }
           classNames={{
-            root: 'mt-4',
-            form: 'relative',
+            root: cn('flex max-w-lg'),
+            form: 'relative w-full',
             input:
               'block w-full outline-offset-0 appearance-none rounded-none h-11 px-11 pr-3 py-2 bg-white border border-ui-border',
             submit: 'absolute flex items-center justify-center top-0 left-0 bottom-0 w-11 h-11',
@@ -46,17 +51,9 @@ export default function Search() {
             resetIcon: 'w-3 h-3 mx-auto bg-app'
           }}
         />
+      </div>
 
-        {/* <Configure filters={`locale:${locale}`} /> */}
-
-        <Hits
-          classNames={{
-            root: 'flex flex-col mt-4 overflow-auto max-h-full',
-            list: 'grid grid-cols-1 gap-12 overflow-auto'
-          }}
-          hitComponent={Hit}
-        />
-      </InstantSearch>
-    </div>
+      <NoResultsBoundary fallback={<NoResults />}>{children}</NoResultsBoundary>
+    </SearchRoot>
   );
 }

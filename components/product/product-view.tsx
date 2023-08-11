@@ -26,7 +26,7 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
   const { name, description, price, images } = product;
 
   return (
-    <div className="mb-8 flex w-full flex-col lg:my-16">
+    <div className="my-8 flex w-full flex-col lg:my-16">
       <div
         className={cn('relative grid grid-cols-1 items-start lg:grid-cols-12 lg:px-8 2xl:px-16')}
       >

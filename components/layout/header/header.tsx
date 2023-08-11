@@ -47,7 +47,7 @@ export default async function Header({ locale }: HeaderProps) {
                 {mainMenu.map((item: { title: string; slug: string }, i: number) => {
                   return (
                     <li key={i}>
-                      <Link className="font-medium" href={`${locale}/category/${item.slug}`}>
+                      <Link className="font-medium" href={`/${locale}/category/${item.slug}`}>
                         {item.title}
                       </Link>
                     </li>
