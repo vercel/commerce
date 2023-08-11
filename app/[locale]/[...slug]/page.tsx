@@ -53,6 +53,8 @@ interface PageParams {
 }
 
 export default async function Page({ params }: PageParams) {
+  console.log(params);
+
   let queryParams = {
     locale: params.locale,
     slug: ''

@@ -71,7 +71,7 @@ const Text: FunctionComponent<TextProps> = ({
             variant === 'sectionHeading',
           ['text-sm leading-tight lg:text-base']: variant === 'listChildHeading',
           ['max-w-prose text-lg text-high-contrast lg:text-xl']: variant === 'label',
-          ['max-w-prose lg:text-lg 2xl:text-xl']: variant === 'paragraph'
+          ['max-w-prose']: variant === 'paragraph'
         },
         className
       )}

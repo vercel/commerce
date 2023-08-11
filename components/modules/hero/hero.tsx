@@ -8,7 +8,6 @@ interface HeroProps {
   label?: string;
   title: string;
   image: object | any;
-  desktopImage: object | any;
   link: {
     title: string;
     reference: {
@@ -30,9 +29,11 @@ const heroSize = {
 const Hero = ({ variant, title, text, label, image, link }: HeroProps) => {
   const heroClass = heroSize[variant as HeroSize] || heroSize.fullScreen;
 
+  console.log(image);
+
   return (
     <div
-      className={`relative w-screen ${heroClass} relative flex flex-col justify-end text-high-contrast`}
+      className={`relative w-screen ${heroClass} relative flex flex-col justify-end bg-neutral-300 text-high-contrast`}
     >
       {image && (
         <SanityImage

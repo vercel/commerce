@@ -1,4 +1,4 @@
-import { Image } from './common'
+import { Image } from './types'
 
 export interface ProductPrice {
   /**
@@ -145,28 +145,4 @@ export interface Product {
    *  The locale version of the product.
    */
   locale?: string
-}
-
-
-/**
- *  Product operations
- */
-
-export type GetAllProductPathsOperation = {
-  data: { products: Pick<Product, 'path'>[] }
-  variables: { first?: number }
-}
-
-export type GetAllProductsOperation = {
-  data: { products: Product[] }
-  variables: {
-    relevance?: 'featured' | 'best_selling' | 'newest'
-    ids?: string[]
-    first?: number
-  }
-}
-
-export type GetProductOperation = {
-  data: { product?: Product }
-  variables: { path: string; slug?: never } | { path?: never; slug: string }
 }

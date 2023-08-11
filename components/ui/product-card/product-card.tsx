@@ -1,9 +1,9 @@
 'use client';
 
 import SanityImage from '@/components/ui/sanity-image/sanity-image';
+import type { Product } from '@/lib/storm/product';
 import Price from 'components/product/price';
 import Text from 'components/ui/text';
-import type { Product } from 'lib/storm/types/product';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 import { FC } from 'react';

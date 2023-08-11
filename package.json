@@ -10,7 +10,7 @@
     "prettier:check": "prettier --check --ignore-unknown .",
     "test": "pnpm lint && pnpm prettier:check",
     "test:e2e": "playwright test",
-    "analyze": "BUNDLE_ANALYZE=true next build"
+    "analyze": "cross-env BUNDLE_ANALYZE=true pnpm build"
   },
   "git": {
     "pre-commit": "lint-staged"

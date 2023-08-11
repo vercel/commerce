@@ -42,17 +42,19 @@ export default async function Header({ locale }: HeaderProps) {
           </div>
 
           <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:flex">
-            <ul className="flex gap-6">
-              {mainMenu.map((item: { title: string; slug: string }, i: number) => {
-                return (
-                  <li key={i}>
-                    <Link className="font-medium" href={`/category/${item.slug}`}>
-                      {item.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <Suspense>
+              <ul className="flex gap-6">
+                {mainMenu.map((item: { title: string; slug: string }, i: number) => {
+                  return (
+                    <li key={i}>
+                      <Link className="font-medium" href={`/category/${item.slug}`}>
+                        {item.title}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Suspense>
           </div>
           <div className="flex translate-x-2 transform justify-end space-x-1">
             <Suspense fallback={<OpenSearch />}>

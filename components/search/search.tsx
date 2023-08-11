@@ -24,7 +24,7 @@ export default function Search() {
     );
   }
   return (
-    <div className="flex flex-col overflow-auto">
+    <div className="flex flex-col">
       <InstantSearch searchClient={searchClient} indexName="shopify_products">
         {/* Widgets */}
         <SearchBox
@@ -42,7 +42,7 @@ export default function Search() {
         <Hits
           classNames={{
             root: 'flex flex-col mt-4',
-            list: 'grid grid-cols-1 gap-4'
+            list: 'grid grid-cols-1 gap-4 overflow-auto'
           }}
           hitComponent={Hit}
         />

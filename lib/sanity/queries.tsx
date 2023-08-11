@@ -1,17 +1,17 @@
-export const docQuery = `*[_type in ["home", "page", "category", "product"] && defined(slug.current)] {
-  _type,
-  "slug": slug.current,
-  "locale": language
-}`;
-
 export const imageFields = `
   alt,
   crop,
   hotspot,
+  "url": asset->url,
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height,
   asset-> {
-    ...,
+    _id,
+    assetId,
+    metadata,
     _type,
     _ref,
+    _rev
   }
 `;
 
