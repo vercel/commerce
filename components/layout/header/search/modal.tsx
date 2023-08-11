@@ -55,6 +55,7 @@ export default function SearchModal() {
             <Hits
               hitComponent={Hit}
               classNames={{
+                root: 'flex flex-col flex-1 h-full overflow-auto pb-6',
                 list: 'mt-4 grid w-full grid-cols-1 overflow-auto gap-6'
               }}
             />

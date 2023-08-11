@@ -62,17 +62,7 @@ export default async function ProductPage({ params }: ProductPageParams) {
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    // @TODO UPDATE TO STORM URL???
     image: product.images[0].asset.url
-    // offers: {
-    //   '@type': 'AggregateOffer',
-    //   availability: product.availableForSale
-    //     ? 'https://schema.org/InStock'
-    //     : 'https://schema.org/OutOfStock',
-    //   priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-    //   highPrice: product.priceRange.maxVariantPrice.amount,
-    //   lowPrice: product.priceRange.minVariantPrice.amount
-    // }
   };
 
   return (

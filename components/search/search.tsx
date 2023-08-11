@@ -1,7 +1,5 @@
 'use client';
 
-import Text from '@/components/ui/text';
-
 import { cn } from 'lib/utils';
 import { useTranslations } from 'next-intl';
 import SearchRoot from './search-root';
@@ -12,28 +10,19 @@ import { ReactNode } from 'react';
 import { NoResults, NoResultsBoundary } from './no-result';
 
 interface SearchProps {
-  title?: string;
   placeholder?: string;
   className?: string;
   children: ReactNode;
   isCategory?: boolean;
 }
 
-export default function Search({ title, placeholder, children, isCategory = false }: SearchProps) {
+export default function Search({ placeholder, children, isCategory = false }: SearchProps) {
   const t = useTranslations('search');
-
-  console.log(isCategory);
 
   return (
     <SearchRoot>
       {/* Search top */}
       <div className="">
-        {title && (
-          <Text className="mb-8 lg:mb-12" variant="pageHeading">
-            {title}
-          </Text>
-        )}
-
         <SearchBox
           placeholder={
             placeholder

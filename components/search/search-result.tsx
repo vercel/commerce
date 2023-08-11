@@ -40,7 +40,7 @@ export default function SearchResult() {
         classNames={{
           root: cn('flex flex-col flex-1'),
           list: cn(
-            'grid grid-cols-2 mt-4 gap-4 md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-12 lg:mt-12'
+            'grid grid-cols-2 mt-4 gap-4 md:grid-cols-3 md:mt-8 lg:grid-cols-4 lg:gap-8 lg:mt-12 2xl:gap-12'
           ),
           loadMore:
             'border border-ui-border mt-4 px-6 py-3 inline-flex mx-auto w-auto disabled:opacity-50 disabled:cursor-not-allowed md:mt-8 lg:mt-12'

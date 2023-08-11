@@ -70,10 +70,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   );
 
                   return (
-                    <li
-                      key={i}
-                      className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
-                    >
+                    <li key={i} className="flex w-full flex-col border-b border-neutral-300">
                       <div className="relative flex w-full flex-row justify-between px-1 py-4">
                         <div className="absolute z-40 -mt-2 ml-[55px]">
                           <DeleteItemButton item={item} />
@@ -83,7 +80,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                           onClick={() => setIsOpen(false)}
                           className="z-30 flex flex-row space-x-4"
                         >
-                          <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+                          <div className="relative h-16 w-16 cursor-pointer">
                             <Image
                               className="h-full w-full object-cover"
                               width={64}
@@ -111,7 +108,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                             amount={item.cost.totalAmount.amount}
                             currencyCode={item.cost.totalAmount.currencyCode}
                           />
-                          <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
+                          <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 ">
                             <EditItemQuantityButton item={item} type="minus" />
                             <p className="w-6 text-center">
                               <span className="w-full text-sm">{item.quantity}</span>
@@ -165,7 +162,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                     onClick={() => setIsOpen(false)}
                     className="z-30 flex flex-row space-x-4"
                   >
-                    <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 "></div>
+                    <div className="relative h-16 w-16 cursor-pointer border-neutral-300 bg-neutral-300 "></div>
 
                     <div className="flex flex-1 flex-col text-base">
                       <span className="leading-tight">Product title</span>
@@ -188,7 +185,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                     onClick={() => setIsOpen(false)}
                     className="z-30 flex flex-row space-x-4"
                   >
-                    <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 "></div>
+                    <div className="relative h-16 w-16 cursor-pointer border-neutral-300 bg-neutral-300 "></div>
 
                     <div className="flex flex-1 flex-col text-base">
                       <span className="leading-tight">Product title</span>
