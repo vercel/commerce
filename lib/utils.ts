@@ -6,3 +6,6 @@ export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyUR
 
   return `${pathname}${queryString}`;
 };
+
+export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
+  stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
