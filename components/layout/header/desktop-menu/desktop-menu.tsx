@@ -1,6 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 
-export default function DesktopMenu({ items }: { items: []; locale: string }) {
+export default function DesktopMenu({ items }: { items: [] }) {
   return (
     <ul className="flex gap-6">
       {items.map((item: { title: string; slug: string }, i: number) => {
