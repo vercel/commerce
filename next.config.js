@@ -8,16 +8,6 @@ module.exports = withBundleAnalyzer(
     async rewrites() {
       return [
         {
-          source: '/en/product/:slug',
-          destination: '/en/produkt/:slug',
-          locale: false
-        },
-        {
-          source: '/en/category/:slug',
-          destination: '/en/kategori/:slug',
-          locale: false
-        },
-        {
           source: '/en/search',
           destination: '/en/sok',
           locale: false

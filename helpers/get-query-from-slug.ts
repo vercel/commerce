@@ -1,14 +1,12 @@
-import { groq } from 'next-sanity'
 import {
   categoryQuery,
-  homePageQuery,
   pageQuery,
   productQuery
-} from '../lib/sanity/queries'
+} from '@/lib/sanity/queries'
+import { groq } from 'next-sanity'
 
 const getQueryFromSlug = (slugArray: string[], locale: string) => {
   const docQuery: { [index: string]: string } = {
-    'homePage': groq`${homePageQuery}`,
     'product': groq`${productQuery}`,
     'category': groq`${categoryQuery}`,
     'page': groq`${pageQuery}`,
@@ -16,21 +14,15 @@ const getQueryFromSlug = (slugArray: string[], locale: string) => {
 
   let docType = ''
 
-  if (!slugArray) {
-    return {
-      docType: 'home',
-      queryParams: {locale: locale},
-      query: docQuery.homePage,
-    }
-  }
-
   const [slugStart] = slugArray
 
   // We now have to re-combine the slug array to match our slug in Sanity.
-  let queryParams = { 
-    slug: `/${slugArray.join('/')}`,
+  const queryParams = { 
+    slug: `/${slugArray.join("/")}`,
     locale: locale
-  }
+  };
+
+  console.log("Query Params:", queryParams)
 
   if (slugStart === `produkt` || slugStart === `product`) {
     docType = `product`

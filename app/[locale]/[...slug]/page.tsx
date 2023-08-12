@@ -1,8 +1,10 @@
-import DynamicContentManager from 'components/layout/dynamic-content-manager';
-import { pageQuery } from 'lib/sanity/queries';
+import getQueryFromSlug from '@/helpers/get-query-from-slug';
 import { clientFetch } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import CategoryPage from './components/category-page';
+import ProductPage from './components/product-page';
+import SinglePage from './components/single-page';
 
 export const runtime = 'edge';
 
@@ -13,24 +15,13 @@ export async function generateMetadata({
 }: {
   params: { locale: string; slug: string[] };
 }): Promise<Metadata> {
-  let queryParams = {
-    locale: params.locale,
-    slug: ''
-  };
+  const { slug, locale } = params;
 
-  if (params.slug.length > 1) {
-    queryParams = {
-      locale: params.locale,
-      slug: `${params.slug.join('/')}`
-    };
-  } else {
-    queryParams = {
-      locale: params.locale,
-      slug: `${params.slug}`
-    };
-  }
+  console.log(slug, locale);
 
-  const page = await clientFetch(pageQuery, queryParams);
+  const { query = '', queryParams } = getQueryFromSlug(slug, locale);
+
+  const page = await clientFetch(query, queryParams);
 
   if (!page) return notFound();
 
@@ -53,28 +44,15 @@ interface PageParams {
 }
 
 export default async function Page({ params }: PageParams) {
-  console.log(params);
+  const { slug, locale } = params;
 
-  let queryParams = {
-    locale: params.locale,
-    slug: ''
-  };
+  const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale);
 
-  if (params.slug.length > 1) {
-    queryParams = {
-      locale: params.locale,
-      slug: `${params.slug.join('/')}`
-    };
-  } else {
-    queryParams = {
-      locale: params.locale,
-      slug: `${params.slug}`
-    };
-  }
-
-  const page = await clientFetch(pageQuery, queryParams);
-
-  if (!page) return notFound();
-
-  return <DynamicContentManager content={page?.content} />;
+  return (
+    <>
+      {docType === 'page' && <SinglePage query={query} queryParams={queryParams} />}
+      {docType === 'product' && <ProductPage query={query} queryParams={queryParams} />}
+      {docType === 'category' && <CategoryPage query={query} queryParams={queryParams} />}
+    </>
+  );
 }

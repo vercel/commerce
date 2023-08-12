@@ -1,35 +1,19 @@
 import Search from '@/components/search/search';
 import SearchResult from '@/components/search/search-result';
 import Text from '@/components/ui/text/text';
-import { categoryQuery } from '@/lib/sanity/queries';
 import { clientFetch } from '@/lib/sanity/sanity.client';
-import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata({
-  params
-}: {
-  params: { slug: string; locale: string };
-}): Promise<Metadata> {
-  const category = await clientFetch(categoryQuery, params);
-
-  if (!category) return notFound();
-
-  return {
-    title: category.seo.title || category.title,
-    description: category.seo.description || category.description
-  };
-}
-
 interface CategoryPageParams {
-  params: {
-    locale: string;
+  query: string;
+  queryParams: {
     slug: string;
+    locale: string;
   };
 }
 
-export default async function ProductPage({ params }: CategoryPageParams) {
-  const category = await clientFetch(categoryQuery, params);
+export default async function CategoryPage({ query, queryParams }: CategoryPageParams) {
+  const category = await clientFetch(query, queryParams);
 
   if (!category) return notFound();
 

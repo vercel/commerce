@@ -1,8 +1,5 @@
-'use client';
-
 import SanityImage from 'components/ui/sanity-image';
 import { cn } from 'lib/utils';
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { FC } from 'react';
 interface Props {
@@ -15,14 +12,9 @@ const CategoryCard: FC<Props> = ({ category, className }) => {
     'w-1/2 min-w-0 grow-0 shrink-0 group relative box-border overflow-hidden transition-transform ease-linear cursor-pointer basis-[50%]',
     className
   );
-  const t = useTranslations('routes');
 
   return (
-    <Link
-      href={`/${t('category')}/${category.slug}`}
-      className={rootClassName}
-      aria-label={category.name}
-    >
+    <Link href={`${category.slug}`} className={rootClassName} aria-label={category.name}>
       <div className={'flex h-full w-full flex-1 flex-col justify-center'}>
         <div className="relative aspect-[3/4] h-full w-full">
           <SanityImage

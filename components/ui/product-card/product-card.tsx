@@ -5,7 +5,6 @@ import type { Product } from '@/lib/storm/product';
 import Price from 'components/price';
 import Text from 'components/ui/text';
 import { cn } from 'lib/utils';
-import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { FC } from 'react';
 interface Props {
@@ -16,12 +15,11 @@ interface Props {
 
 const ProductCard: FC<Props> = ({ product, className, variant = 'default' }) => {
   const rootClassName = cn('w-full group relative overflow-hidden', className);
-  const t = useTranslations('routes');
-  const locale = useLocale();
+  console.log(product);
 
   return (
     <Link
-      href={`/${locale}/${t('product')}/${product.slug}`}
+      href={`${product.slug}`}
       className={rootClassName}
       aria-label={product.name}
       locale={product.locale}

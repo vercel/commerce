@@ -45,7 +45,7 @@ export default async function Header({ locale }: HeaderProps) {
 
           <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:flex">
             <Suspense>
-              <DesktopMenu items={mainMenu} locale={locale} />
+              <DesktopMenu items={mainMenu} />
             </Suspense>
           </div>
           <div className="flex translate-x-2 transform justify-end space-x-1">
