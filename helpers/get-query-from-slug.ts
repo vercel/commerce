@@ -1,15 +1,27 @@
 import {
   categoryQuery,
+  homePageQuery,
   pageQuery,
   productQuery
-} from '@/lib/sanity/queries'
-import { groq } from 'next-sanity'
+} from '@/lib/sanity/queries';
+import { groq } from 'next-sanity';
 
 const getQueryFromSlug = (slugArray: string[], locale: string) => {
   const docQuery: { [index: string]: string } = {
+    'home': groq`${homePageQuery}`,
     'product': groq`${productQuery}`,
     'category': groq`${categoryQuery}`,
     'page': groq`${pageQuery}`,
+  }
+
+  if (!slugArray) {
+    return {
+      docType: "home",
+      queryParams: {
+        locale: locale
+      },
+      query: docQuery.home,
+    }
   }
 
   let docType = ''
@@ -21,7 +33,6 @@ const getQueryFromSlug = (slugArray: string[], locale: string) => {
     slug: `/${slugArray.join("/")}`,
     locale: locale
   };
-  console.log(slugStart)
 
   if (slugStart === `produkt` || slugStart === `product`) {
     docType = `product`

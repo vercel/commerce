@@ -2,9 +2,10 @@ import getQueryFromSlug from '@/helpers/get-query-from-slug';
 import { clientFetch } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import CategoryPage from './components/category-page';
-import ProductPage from './components/product-page';
-import SinglePage from './components/single-page';
+import CategoryPage from './pages/category-page';
+import HomePage from './pages/home-page';
+import ProductPage from './pages/product-page';
+import SinglePage from './pages/single-page';
 
 export const runtime = 'edge';
 
@@ -48,6 +49,7 @@ export default async function Page({ params }: PageParams) {
 
   return (
     <>
+      {docType === 'home' && <HomePage query={query} queryParams={queryParams} />}
       {docType === 'page' && <SinglePage query={query} queryParams={queryParams} />}
       {docType === 'product' && <ProductPage query={query} queryParams={queryParams} />}
       {docType === 'category' && <CategoryPage query={query} queryParams={queryParams} />}

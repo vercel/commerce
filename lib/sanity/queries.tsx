@@ -164,11 +164,9 @@ export const reusableSection = `
 export const homePageQuery = `*[_type == "home" && language == $locale][0] {
   _type,
   title,
-  "slug": slug.current,
   "locale": language,
   "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     title,
-    "slug": slug.current,
     "locale": language
   },
   content[] {
