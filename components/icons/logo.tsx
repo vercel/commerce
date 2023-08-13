@@ -1,10 +1,12 @@
+import clsx from 'clsx';
+
 export default function LogoIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 800 543"
-      className="h-10 w-10 fill-current"
+      className={clsx(props?.className || 'h-10 w-10 fill-current')}
     >
       <path
         fillRule="evenodd"

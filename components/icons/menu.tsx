@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 export default function MenuIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
@@ -6,7 +8,7 @@ export default function MenuIcon(props: React.ComponentProps<'svg'>) {
       viewBox="0 0 24 24"
       strokeWidth={0.7}
       stroke="currentColor"
-      className="h-10 w-10"
+      className={clsx(props?.className || 'h-10 w-10')}
     >
       <path
         strokeLinecap="round"

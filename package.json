@@ -28,10 +28,10 @@
     "clsx": "^2.0.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "next": "13.4.13-canary.15",
+    "next": "latest",
     "prettier-plugin-organize-imports": "^3.2.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
@@ -41,7 +41,7 @@
     "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.45.0",
-    "eslint-config-next": "^13.4.12",
+    "eslint-config-next": "latest",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-unicorn": "^48.0.0",
     "lint-staged": "^13.2.3",

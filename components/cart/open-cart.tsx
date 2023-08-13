@@ -9,10 +9,10 @@ export default function OpenCart({
   quantity?: number;
 }) {
   return (
-    <div className="relative flex h-11 w-11 items-center justify-center">
+    <div className="group relative flex h-11 w-11 items-center justify-center">
       <ShoppingBagIcon
         className={clsx(
-          'h-10 stroke-current transition-all ease-in-out hover:scale-110',
+          'h-10 stroke-current transition-all ease-in-out group-hover:scale-110',
           className
         )}
         strokeWidth={0.7}
