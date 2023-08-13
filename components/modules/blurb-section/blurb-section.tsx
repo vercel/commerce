@@ -22,7 +22,7 @@ const BlurbSection = ({
       : desktopLayout === '3-column'
       ? 'lg:grid-cols-3'
       : 'lg:grid-cols-4';
-  console.log(imageFormat);
+
   return (
     <div>
       {title ? (

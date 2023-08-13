@@ -17,8 +17,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug, locale } = params;
 
-  console.log(slug, locale);
-
   const { query = '', queryParams } = getQueryFromSlug(slug, locale);
 
   const page = await clientFetch(query, queryParams);

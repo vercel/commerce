@@ -15,7 +15,6 @@ interface Props {
 
 const ProductCard: FC<Props> = ({ product, className, variant = 'default' }) => {
   const rootClassName = cn('w-full group relative overflow-hidden', className);
-  console.log(product);
 
   return (
     <Link

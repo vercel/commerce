@@ -40,7 +40,7 @@ export default async function Footer({ locale }: FooterProps) {
                           {link._type == 'linkInternal' ? (
                             <Link
                               className="hover:underline"
-                              href={`/${link.reference.locale}/${link.reference.slug.current}`}
+                              href={`${link.reference.slug.current}`}
                             >
                               {link.title}
                             </Link>

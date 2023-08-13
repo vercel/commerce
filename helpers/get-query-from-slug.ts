@@ -21,8 +21,7 @@ const getQueryFromSlug = (slugArray: string[], locale: string) => {
     slug: `/${slugArray.join("/")}`,
     locale: locale
   };
-
-  console.log("Query Params:", queryParams)
+  console.log(slugStart)
 
   if (slugStart === `produkt` || slugStart === `product`) {
     docType = `product`
