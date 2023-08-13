@@ -23,11 +23,13 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.4.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
     "clsx": "^2.0.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "eslint-plugin-unused-imports": "^3.0.0",
+    "negotiator": "^0.6.3",
     "next": "latest",
     "prettier-plugin-organize-imports": "^3.2.3",
     "react": "latest",
@@ -36,6 +38,7 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/negotiator": "^0.6.1",
     "@types/node": "20.4.4",
     "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",

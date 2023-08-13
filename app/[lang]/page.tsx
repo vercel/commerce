@@ -2,6 +2,8 @@ import { Carousel } from 'components/carousel';
 import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
 import { LanguageControl } from 'components/layout/navbar/language-control';
+import type { Locale } from '../../i18n-config';
+
 import Image from 'next/image';
 import Namemark from 'public/assets/images/namemark.png';
 import { Suspense } from 'react';
@@ -15,11 +17,13 @@ export const metadata = {
   }
 };
 
-export default async function HomePage() {
+export default async function HomePage({ params: { lang } }: { params: { lang: Locale } }) {
+  // const dictionary = await getDictionary(lang);
+
   return (
     <>
       <div className="invisible absolute right-40 top-12 md:visible">
-        <LanguageControl />
+        <LanguageControl lang={lang} />
       </div>
       <div className="px-6 pb-12 pt-6 md:py-12 md:pl-6">
         <Image

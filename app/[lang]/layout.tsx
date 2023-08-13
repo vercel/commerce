@@ -1,4 +1,5 @@
 import Navbar from 'components/layout/navbar';
+import { i18n } from 'i18n-config';
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
@@ -34,12 +35,22 @@ const inter = Inter({
   variable: '--font-inter'
 });
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
+export default async function RootLayout({
+  children,
+  params
+}: {
+  children: ReactNode;
+  params: { lang: string };
+}) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang={params.lang} className={inter.variable}>
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <div className="mx-auto max-w-screen-2xl">
-          <Navbar />
+          <Navbar lang={params.lang} />
           <Suspense>
             <main>{children}</main>
           </Suspense>
