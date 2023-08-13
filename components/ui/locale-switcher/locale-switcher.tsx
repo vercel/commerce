@@ -67,7 +67,7 @@ export default function LocaleSwitcher() {
                     className={`flex w-full cursor-pointer items-center px-4 py-2 text-sm ${
                       currentLocale == locale.id && 'font-bold'
                     }`}
-                    href={redirectedPathName(locale.id)}
+                    href={redirectedPathName()}
                   >
                     {locale.title}
                   </Link>
