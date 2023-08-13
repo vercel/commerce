@@ -3,6 +3,7 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
+    "source.addMissingImports": true,
     "source.organizeImports": true,
     "source.sortMembers": true
   }
