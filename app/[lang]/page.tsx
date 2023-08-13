@@ -25,7 +25,7 @@ export default async function HomePage({ params: { lang } }: { params: { lang: L
       <div className="invisible absolute right-40 top-12 md:visible">
         <LanguageControl lang={lang} />
       </div>
-      <div className="px-6 pb-12 pt-6 md:py-12 md:pl-6">
+      <div className="px-6 pb-12 pt-6 md:pb-48 md:pl-6 md:pt-12">
         <Image
           src={Namemark}
           alt="narai by suginomori brewery"

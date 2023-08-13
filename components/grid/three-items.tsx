@@ -3,25 +3,30 @@ import { GridTileImage } from 'components/grid/tile';
 import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
 import Link from 'next/link';
+import Label from '../label';
 
 function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boolean }) {
   return (
     <div className={clsx('md:col-span-2 md:row-span-1')}>
-      <Link className="relative block aspect-square h-full w-full" href={`/product/${item.handle}`}>
+      <Link
+        className="relative block aspect-bottle h-full w-full overflow-hidden bg-black/30"
+        href={`/product/${item.handle}`}
+      >
         <GridTileImage
           src={item.featuredImage.url}
           fill
           sizes={'(min-width: 768px) 33vw, 100vw'}
           priority={priority}
           alt={item.title}
-          label={{
-            position: 'bottom',
-            title: item.title as string,
-            amount: item.priceRange.maxVariantPrice.amount,
-            currencyCode: item.priceRange.maxVariantPrice.currencyCode
-          }}
         />
       </Link>
+      <div className="pt-4">
+        <Label
+          title={item.title as string}
+          amount={item.priceRange.maxVariantPrice.amount}
+          currencyCode={item.priceRange.maxVariantPrice.currencyCode}
+        />
+      </div>
     </div>
   );
 }

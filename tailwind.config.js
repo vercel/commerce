@@ -10,7 +10,11 @@ module.exports = {
         dark: '#212720'
       },
       fontFamily: {
-        sans: ['var(--font-inter)']
+        sans: ['var(--font-alpina)', 'sans-serif'],
+        title: ['var(--font-cinzel)', 'sans-serif']
+      },
+      aspectRatio: {
+        bottle: '0.7065217391'
       },
       keyframes: {
         fadeIn: {

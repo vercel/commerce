@@ -28,9 +28,9 @@ export function middleware(request: NextRequest) {
   // If you have one
   if (
     [
-      '/public/addets/images/logo.png',
-      '/public/addets/images/logo+namemark.png',
-      '/public/addets/images/namemark.png'
+      '/public/assets/images/logo.png',
+      '/public/assets/images/logo+namemark.png',
+      '/public/assets/images/namemark.png'
       // Your other files in `public`
     ].includes(pathname)
   )

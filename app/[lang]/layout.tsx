@@ -1,7 +1,8 @@
 import Navbar from 'components/layout/navbar';
-import { i18n } from 'i18n-config';
-import { Inter } from 'next/font/google';
+import { Locale, i18n } from 'i18n-config';
+import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
+
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -29,10 +30,27 @@ export const metadata = {
     })
 };
 
-const inter = Inter({
-  subsets: ['latin'],
+// Font files can be colocated inside of `app`
+const cinzel = localFont({
+  src: '../fonts/Cinzel-Regular.ttf',
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-cinzel'
+});
+
+const alpina = localFont({
+  src: [
+    {
+      path: '../fonts/GT-Alpina-Regular-Trial.woff2',
+      weight: '400',
+      style: 'normal'
+    },
+    {
+      path: '../fonts/GT-Alpina-Bold-Trial.woff2',
+      weight: '700',
+      style: 'normal'
+    }
+  ],
+  variable: '--font-alpina'
 });
 
 export async function generateStaticParams() {
@@ -47,10 +65,10 @@ export default async function RootLayout({
   params: { lang: string };
 }) {
   return (
-    <html lang={params.lang} className={inter.variable}>
+    <html lang={params.lang} className={`${cinzel.variable} ${alpina.variable}`}>
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <div className="mx-auto max-w-screen-2xl">
-          <Navbar lang={params.lang} />
+          <Navbar lang={params.lang as Locale} />
           <Suspense>
             <main>{children}</main>
           </Suspense>
