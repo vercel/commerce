@@ -13,6 +13,7 @@ interface SanityImageProps {
   quality?: number;
   sizes?: string;
   className?: string;
+  fill?: boolean;
 }
 
 const placeholderImg = '/product-img-placeholder.svg';
@@ -26,24 +27,38 @@ export default function SanityImage(props: SanityImageProps) {
     height = 1080,
     width = 1080,
     sizes = '100vw',
-    className
+    className,
+    fill = false
   } = props;
 
   const rootClassName = cn('w-full h-auto', className);
 
   const image = source?.asset?._rev ? (
     <>
-      <Image
-        className={`${rootClassName}`}
-        placeholder="blur"
-        width={width}
-        height={height}
-        alt={alt}
-        src={urlForImage(source).width(width).height(height).quality(quality).url()}
-        sizes={sizes}
-        priority={priority}
-        blurDataURL={source.asset.metadata.lqip}
-      />
+      {fill ? (
+        <Image
+          className={`${rootClassName}`}
+          placeholder="blur"
+          fill
+          alt={alt}
+          src={urlForImage(source).quality(quality).url()}
+          sizes={sizes}
+          priority={priority}
+          blurDataURL={source.asset.metadata.lqip}
+        />
+      ) : (
+        <Image
+          className={`${rootClassName}`}
+          placeholder="blur"
+          width={width}
+          height={height}
+          alt={alt}
+          src={urlForImage(source).width(width).height(height).quality(quality).url()}
+          sizes={sizes}
+          priority={priority}
+          blurDataURL={source.asset.metadata.lqip}
+        />
+      )}
     </>
   ) : (
     <>

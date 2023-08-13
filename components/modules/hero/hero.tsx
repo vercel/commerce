@@ -38,9 +38,9 @@ const Hero = ({ variant, title, text, label, image, link }: HeroProps) => {
           image={image}
           alt={image.alt}
           priority={true}
-          width={1200}
-          height={600}
           className="absolute inset-0 z-10 h-full w-full object-cover"
+          sizes="100vw"
+          fill
         />
       )}
       <div className="absolute bottom-5 left-4 z-50 flex max-w-md flex-col items-start text-high-contrast lg:bottom-8 lg:left-8 lg:max-w-2xl 2xl:bottom-16 2xl:left-16">
