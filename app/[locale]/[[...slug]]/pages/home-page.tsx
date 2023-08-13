@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 interface HomePageParams {
   query: string;
   queryParams: {
+    slug: string;
     locale: string;
   };
 }
