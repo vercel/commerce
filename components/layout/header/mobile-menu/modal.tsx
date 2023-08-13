@@ -27,7 +27,7 @@ export default function MobileMenuModal({ items }: MobileMenuModalProps) {
               {items.map((item: { title: string; slug: string }, i: number) => {
                 return (
                   <li key={i}>
-                    <Link onClick={() => setIsOpen(false)} href={`/category/${item.slug}`}>
+                    <Link onClick={() => setIsOpen(false)} href={`${item.slug}`}>
                       {item.title}
                     </Link>
                   </li>
