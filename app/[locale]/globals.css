@@ -40,100 +40,95 @@
   * {
     @apply border-border;
   }
+
+  ::-moz-selection {
+    /* Code for Firefox */
+    color: #ffffff;
+    background: #333333;
+  }
+
+  ::selection {
+    color: #ffffff;
+    background: #333333;
+  }
+
+  html,
+  body {
+    @apply h-full bg-white font-sans text-high-contrast;
+
+    box-sizing: border-box;
+    touch-action: manipulation;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-x: none;
+  }
   body {
     @apply bg-background text-foreground;
   }
 }
 
-/* BASE */
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
+@layer components {
+  /* DYNAMIC CONTENT MANAGER */
+  .dynamic-content > :not(.hero) {
+    @apply my-12 md:my-16 lg:my-24;
+  }
 
-::-moz-selection {
-  /* Code for Firefox */
-  color: #ffffff;
-  background: #333333;
-}
+  .dynamic-content > :first-child {
+    @apply mt-0 md:mt-0 lg:mt-0;
+  }
 
-::selection {
-  color: #ffffff;
-  background: #333333;
-}
+  .dynamic-content > :last-child {
+    @apply mb-12 md:mb-16 lg:mb-24;
+  }
 
-html,
-body {
-  @apply h-full bg-white font-sans text-high-contrast;
+  .dynamic-content .dynamic-content {
+    @apply px-0 md:px-0;
+  }
 
-  box-sizing: border-box;
-  touch-action: manipulation;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior-x: none;
-}
+  .dynamic-content .dynamic-content > {
+    @apply my-0 md:my-0 lg:my-0;
+  }
 
-/* DYNAMIC CONTENT MANAGER */
-.dynamic-content > :not(.hero) {
-  @apply my-12 md:my-16 lg:my-24;
-}
+  .dynamic-content .dynamic-content > :last-child {
+    @apply my-0 md:my-0 lg:my-0;
+  }
 
-.dynamic-content > :first-child {
-  @apply mt-0 md:mt-0 lg:mt-0;
-}
+  /* GLIDER SLIDER */
+  .glider {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 
-.dynamic-content > :last-child {
-  @apply mb-12 md:mb-16 lg:mb-24;
-}
+  .glider::-webkit-scrollbar {
+    display: none;
+  }
 
-.dynamic-content .dynamic-content {
-  @apply px-0 md:px-0;
-}
+  .glider-dots {
+    @apply !mt-8 flex !space-x-[2px];
+  }
 
-.dynamic-content .dynamic-content > {
-  @apply my-0 md:my-0 lg:my-0;
-}
+  .glider-dot {
+    @apply !m-0 !h-4 !w-12 !rounded-none !bg-transparent after:block after:h-[3px] after:w-12 after:bg-ui-border after:content-[''] 2xl:!w-16 2xl:after:w-16;
+  }
 
-.dynamic-content .dynamic-content > :last-child {
-  @apply my-0 md:my-0 lg:my-0;
-}
+  .glider-dot.active {
+    @apply after:!bg-high-contrast;
+  }
 
-/* GLIDER SLIDER */
-.glider {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
+  .glider-prev {
+    @apply !-top-10 !left-auto !right-12 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-12 lg:!right-16 2xl:!right-[100px];
+  }
 
-.glider::-webkit-scrollbar {
-  display: none;
-}
+  .glider-next {
+    @apply !-top-10 !right-4 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-12 lg:!right-8 2xl:!right-16;
+  }
 
-.glider-dots {
-  @apply !mt-8 flex !space-x-[2px];
-}
+  .pdp .glider-prev {
+    @apply absolute !left-4 !top-1/2 text-high-contrast !transition-transform !duration-100 hover:scale-100 hover:!text-high-contrast lg:hidden;
+  }
 
-.glider-dot {
-  @apply !m-0 !h-4 !w-12 !rounded-none !bg-transparent after:block after:h-[3px] after:w-12 after:bg-ui-border after:content-[''] 2xl:!w-16 2xl:after:w-16;
-}
-
-.glider-dot.active {
-  @apply after:!bg-high-contrast;
-}
-
-.glider-prev {
-  @apply !-top-10 !left-auto !right-12 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-12 lg:!right-16 2xl:!right-[100px];
-}
-
-.glider-next {
-  @apply !-top-10 !right-4 text-high-contrast !transition-transform !duration-100 hover:scale-110 hover:!text-high-contrast lg:!-top-12 lg:!right-8 2xl:!right-16;
-}
-
-.pdp .glider-prev {
-  @apply absolute !left-4 !top-1/2 text-high-contrast !transition-transform !duration-100 hover:scale-100 hover:!text-high-contrast lg:hidden;
-}
-
-.pdp .glider-next {
-  @apply absolute !right-4 !top-1/2 text-high-contrast !transition-transform !duration-100 hover:scale-100 hover:!text-high-contrast lg:hidden;
+  .pdp .glider-next {
+    @apply absolute !right-4 !top-1/2 text-high-contrast !transition-transform !duration-100 hover:scale-100 hover:!text-high-contrast lg:hidden;
+  }
 }
