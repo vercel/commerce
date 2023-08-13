@@ -5,6 +5,7 @@ import CloseIcon from 'components/icons/close';
 import MenuIcon from 'components/icons/menu';
 import Link from 'next/link';
 import { Fragment, useRef, useState } from 'react';
+import { LanguageControl } from '../navbar/language-control';
 
 export function MenuModal() {
   let [isOpen, setIsOpen] = useState(false);
@@ -41,13 +42,15 @@ export function MenuModal() {
             <div className="fixed inset-0 z-20" />
           </Transition.Child>
           <Transition.Child as={Fragment}>
-            <button
-              ref={closeButtonRef}
-              onClick={close}
-              className="fixed right-5 top-6 z-40 px-2 py-2 md:top-11"
-            >
-              <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />
-            </button>
+            <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
+              <div className="flex flex-row space-x-4">
+                <LanguageControl />
+
+                <button ref={closeButtonRef} onClick={close} className="">
+                  <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />
+                </button>
+              </div>
+            </div>
           </Transition.Child>
 
           <Transition.Child
