@@ -81,7 +81,7 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
         </div>
       </div>
 
-      {relatedProducts.length > 0 && (
+      {relatedProducts && relatedProducts.length > 0 && (
         <Suspense>
           <section className="my-16 flex flex-col lg:my-24">
             <Text className="px-4 lg:px-8 2xl:px-16" variant="sectionHeading">
