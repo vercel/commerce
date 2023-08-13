@@ -33,9 +33,9 @@ const Card: FC<CardProps> = ({ className, title, image, link, text, imageFormat 
       let href = '';
 
       if (type === 'product') {
-        href = `/product/${link.internalLink.reference.slug.current}`;
+        href = `${link.internalLink.reference.slug.current}`;
       } else if (type === 'category') {
-        href = `/category/${link.internalLink.reference.slug.current}`;
+        href = `${link.internalLink.reference.slug.current}`;
       } else {
         href = `${link.internalLink.reference.slug.current}`;
       }
