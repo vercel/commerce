@@ -6,8 +6,6 @@ import CategoryPage from './pages/category-page';
 import ProductPage from './pages/product-page';
 import SinglePage from './pages/single-page';
 
-export const runtime = 'edge';
-
 export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateMetadata({
