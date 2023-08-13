@@ -28,7 +28,7 @@ export default function LocaleSwitcher() {
 
   // const translations = localeData.translations;
 
-  const redirectedPathName = () => {
+  const redirectedPathName = (locale: string) => {
     if (!pathName) return '/';
 
     // if (translations.length > 0) {
@@ -43,7 +43,7 @@ export default function LocaleSwitcher() {
     //   }
     // }
 
-    return `/`;
+    return `/${locale}`;
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ export default function LocaleSwitcher() {
                     className={`flex w-full cursor-pointer items-center px-4 py-2 text-sm ${
                       currentLocale == locale.id && 'font-bold'
                     }`}
-                    href={redirectedPathName()}
+                    href={redirectedPathName(locale.id)}
                   >
                     {locale.title}
                   </Link>
