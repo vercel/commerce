@@ -1,14 +1,15 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { useLanguage } from 'app/context/language-context';
 import CloseIcon from 'components/icons/close';
 import MenuIcon from 'components/icons/menu';
-import type { Locale } from 'i18n-config';
 import Link from 'next/link';
 import { Fragment, useRef, useState } from 'react';
 import { LanguageControl } from '../navbar/language-control';
 
-export function MenuModal({ lang }: { lang: Locale }) {
+export function MenuModal() {
+  const { currentLanguage } = useLanguage();
   let [isOpen, setIsOpen] = useState(false);
   let closeButtonRef = useRef(null);
 
@@ -45,7 +46,7 @@ export function MenuModal({ lang }: { lang: Locale }) {
           <Transition.Child as={Fragment}>
             <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
               <div className="flex flex-row space-x-4">
-                <LanguageControl lang={lang} />
+                <LanguageControl lang={currentLanguage} />
 
                 <button ref={closeButtonRef} onClick={close} className="">
                   <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />

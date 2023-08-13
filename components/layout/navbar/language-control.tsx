@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 
 export const LanguageControl = ({ lang }: { lang?: Locale }) => {
   const pathName = usePathname();
-  console.debug({ lang });
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/';
     const segments = pathName.split('/');
@@ -21,7 +20,7 @@ export const LanguageControl = ({ lang }: { lang?: Locale }) => {
         <Link
           href={redirectedPathName('ja')}
           className={clsx(
-            lang === 'ja' && 'opacity-70',
+            lang === 'ja' ? 'opacity-100' : 'opacity-70',
             'transition-opacity duration-150 hover:opacity-50'
           )}
         >
@@ -33,7 +32,7 @@ export const LanguageControl = ({ lang }: { lang?: Locale }) => {
         <Link
           href={redirectedPathName('en')}
           className={clsx(
-            lang === 'en' && 'opacity-70',
+            lang === 'en' ? 'opacity-100' : 'opacity-70',
             'transition-opacity duration-150 hover:opacity-50'
           )}
         >

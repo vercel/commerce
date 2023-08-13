@@ -11,10 +11,11 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-alpina)', 'sans-serif'],
-        title: ['var(--font-cinzel)', 'sans-serif']
+        title: ['var(--font-cinzel)', 'sans-serif'],
+        japan: ['var(--font-mincho)', 'sans-serif']
       },
       aspectRatio: {
-        bottle: '0.7065217391'
+        bottle: '0.91'
       },
       keyframes: {
         fadeIn: {

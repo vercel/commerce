@@ -13,7 +13,7 @@ export async function generateMetadata({
 }: {
   params: { collection: string };
 }): Promise<Metadata> {
-  const collection = await getCollection(params.collection);
+  const collection = await getCollection({ handle: params.collection });
 
   if (!collection) return notFound();
 

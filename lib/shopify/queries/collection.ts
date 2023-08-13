@@ -15,7 +15,8 @@ const collectionFragment = /* GraphQL */ `
 `;
 
 export const getCollectionQuery = /* GraphQL */ `
-  query getCollection($handle: String!) {
+  query getCollection($handle: String!, $country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       ...collection
     }
@@ -41,7 +42,9 @@ export const getCollectionProductsQuery = /* GraphQL */ `
     $handle: String!
     $sortKey: ProductCollectionSortKeys
     $reverse: Boolean
-  ) {
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       products(sortKey: $sortKey, reverse: $reverse, first: 100) {
         edges {

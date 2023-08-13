@@ -265,12 +265,22 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   return reshapeCart(res.body.data.cart);
 }
 
-export async function getCollection(handle: string): Promise<Collection | undefined> {
+export async function getCollection({
+  handle,
+  language,
+  country
+}: {
+  handle: string;
+  language?: string;
+  country?: string;
+}): Promise<Collection | undefined> {
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     tags: [TAGS.collections],
     variables: {
-      handle
+      handle,
+      language,
+      country
     }
   });
 
@@ -280,11 +290,15 @@ export async function getCollection(handle: string): Promise<Collection | undefi
 export async function getCollectionProducts({
   collection,
   reverse,
-  sortKey
+  sortKey,
+  language,
+  country
 }: {
   collection: string;
   reverse?: boolean;
   sortKey?: string;
+  language?: string;
+  country?: string;
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
@@ -292,7 +306,9 @@ export async function getCollectionProducts({
     variables: {
       handle: collection,
       reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
+      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey,
+      language: language,
+      country: country
     }
   });
 
@@ -349,41 +365,76 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   );
 }
 
-export async function getPage(handle: string): Promise<Page> {
+export async function getPage({
+  handle,
+  language,
+  country
+}: {
+  handle: string;
+  language?: string;
+  country?: string;
+}): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
-    variables: { handle }
+    variables: { handle, language, country }
   });
 
   return res.body.data.pageByHandle;
 }
 
-export async function getPages(): Promise<Page[]> {
+export async function getPages({
+  language,
+  country
+}: {
+  language?: string;
+  country?: string;
+}): Promise<Page[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
-    query: getPagesQuery
+    query: getPagesQuery,
+    variables: { language, country }
   });
 
   return removeEdgesAndNodes(res.body.data.pages);
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct({
+  handle,
+  language,
+  country
+}: {
+  handle: string;
+  language?: string;
+  country?: string;
+}): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],
     variables: {
-      handle
+      handle,
+      language,
+      country
     }
   });
 
   return reshapeProduct(res.body.data.product, false);
 }
 
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
+export async function getProductRecommendations({
+  productId,
+  language,
+  country
+}: {
+  productId: string;
+  language?: string;
+  country?: string;
+}): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     tags: [TAGS.products],
     variables: {
-      productId
+      productId,
+      language,
+      country
     }
   });
 
@@ -393,11 +444,15 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 export async function getProducts({
   query,
   reverse,
-  sortKey
+  sortKey,
+  language,
+  country
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
+  language?: string;
+  country?: string;
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
@@ -405,7 +460,9 @@ export async function getProducts({
     variables: {
       query,
       reverse,
-      sortKey
+      sortKey,
+      language,
+      country
     }
   });
 

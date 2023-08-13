@@ -16,7 +16,7 @@ export function GridTileImage({
   };
 } & React.ComponentProps<typeof Image>) {
   return (
-    <div className="flex flex-col space-y-2">
+    <>
       {props.src ? (
         // eslint-disable-next-line jsx-a11y/alt-text -- `alt` is inherited from `props`, which is being enforced with TypeScript
         <Image
@@ -26,6 +26,6 @@ export function GridTileImage({
           {...props}
         />
       ) : null}
-    </div>
+    </>
   );
 }

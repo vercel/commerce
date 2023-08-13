@@ -32,7 +32,7 @@ export default async function HomePage({ params: { lang } }: { params: { lang: L
           className="max-w-[260px] md:max-w-[600px]"
         />
       </div>
-      <ThreeItemGrid />
+      <ThreeItemGrid lang={lang} />
       <Suspense>
         <Carousel />
         <Suspense>

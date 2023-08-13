@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { GridTileImage } from 'components/grid/tile';
+import { Locale } from 'i18n-config';
 import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
 import Link from 'next/link';
@@ -14,7 +15,10 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
       >
         <GridTileImage
           src={item.featuredImage.url}
-          fill
+          height={1690}
+          width={1192}
+          layout="responsive"
+          // fill
           sizes={'(min-width: 768px) 33vw, 100vw'}
           priority={priority}
           alt={item.title}
@@ -26,16 +30,20 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
           amount={item.priceRange.maxVariantPrice.amount}
           currencyCode={item.priceRange.maxVariantPrice.currencyCode}
         />
+        <div className="line-clamp-4">{item?.description}</div>
       </div>
     </div>
   );
 }
 
-export async function ThreeItemGrid() {
+export async function ThreeItemGrid({ lang }: { lang: Locale }) {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
-    collection: 'hidden-homepage-featured-items'
+    collection: 'hidden-homepage-featured-items',
+    language: lang.toUpperCase()
   });
+
+  console.debug({ homepageItems });
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
 

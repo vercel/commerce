@@ -18,7 +18,7 @@ export async function generateMetadata({
 }: {
   params: { handle: string };
 }): Promise<Metadata> {
-  const product = await getProduct(params.handle);
+  const product = await getProduct({ handle: params.handle });
 
   if (!product) return notFound();
 
@@ -52,7 +52,7 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const product = await getProduct(params.handle);
+  const product = await getProduct({ handle: params.handle });
 
   if (!product) return notFound();
 
@@ -108,7 +108,7 @@ export default async function ProductPage({ params }: { params: { handle: string
 }
 
 async function RelatedProducts({ id }: { id: string }) {
-  const relatedProducts = await getProductRecommendations(id);
+  const relatedProducts = await getProductRecommendations({ productId: id });
 
   if (!relatedProducts.length) return null;
 

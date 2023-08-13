@@ -3,6 +3,7 @@ import { Locale, i18n } from 'i18n-config';
 import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
 
+import { LanguageProvider } from 'app/context/language-context';
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -37,6 +38,12 @@ const cinzel = localFont({
   variable: '--font-cinzel'
 });
 
+const mincho = localFont({
+  src: '../fonts/A-OTF-A1MinchoStd-Bold.otf',
+  display: 'swap',
+  variable: '--font-cinzel'
+});
+
 const alpina = localFont({
   src: [
     {
@@ -65,13 +72,15 @@ export default async function RootLayout({
   params: { lang: string };
 }) {
   return (
-    <html lang={params.lang} className={`${cinzel.variable} ${alpina.variable}`}>
+    <html lang={params.lang} className={`${cinzel.variable} ${alpina.variable} ${mincho.variable}`}>
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <div className="mx-auto max-w-screen-2xl">
-          <Navbar lang={params.lang as Locale} />
-          <Suspense>
-            <main>{children}</main>
-          </Suspense>
+          <LanguageProvider language={params.lang as Locale}>
+            <Navbar />
+            <Suspense>
+              <main>{children}</main>
+            </Suspense>
+          </LanguageProvider>
         </div>
       </body>
     </html>

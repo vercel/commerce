@@ -12,7 +12,7 @@ const Label = ({
 }) => {
   return (
     <div className={clsx('@container/label')}>
-      <div className="flex flex-col space-y-2">
+      <div className="font-multilingual flex flex-col space-y-2">
         <h3 className="mr-4 line-clamp-2 flex-grow text-3xl">{title}</h3>
         <Price
           className="flex-none"
