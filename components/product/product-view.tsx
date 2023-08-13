@@ -18,7 +18,7 @@ import { Grid } from './grid';
 
 interface ProductViewProps {
   product: Product;
-  relatedProducts: Product[];
+  relatedProducts?: Product[];
 }
 
 export default function ProductView({ product, relatedProducts }: ProductViewProps) {

@@ -3,6 +3,7 @@ import { homePageQuery } from 'lib/sanity/queries';
 import { clientFetch } from 'lib/sanity/sanity.client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
 export const runtime = 'edge';
 
 export async function generateMetadata({

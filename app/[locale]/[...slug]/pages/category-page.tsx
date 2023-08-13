@@ -1,21 +1,13 @@
 import Search from '@/components/search/search';
 import SearchResult from '@/components/search/search-result';
 import Text from '@/components/ui/text/text';
-import { clientFetch } from '@/lib/sanity/sanity.client';
-import { notFound } from 'next/navigation';
 
 interface CategoryPageParams {
-  query: string;
-  queryParams: {
-    slug: string;
-    locale: string;
-  };
+  data: object | any;
 }
 
-export default async function CategoryPage({ query, queryParams }: CategoryPageParams) {
-  const category = await clientFetch(query, queryParams);
-
-  if (!category) return notFound();
+export default async function CategoryPage({ data }: CategoryPageParams) {
+  const category = data;
 
   const { title } = category;
 

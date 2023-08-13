@@ -9,7 +9,7 @@ import OpenSearch from './open-search';
 import { Highlight, Hits } from 'react-instantsearch';
 
 import Search from '@/components/search/search';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 
 export default function SearchModal() {
   const [isOpen, setIsOpen] = useState(false);

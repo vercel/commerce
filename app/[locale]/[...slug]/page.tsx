@@ -6,6 +6,8 @@ import CategoryPage from './pages/category-page';
 import ProductPage from './pages/product-page';
 import SinglePage from './pages/single-page';
 
+export const runtime = 'edge';
+
 export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateMetadata({
@@ -44,11 +46,25 @@ export default async function Page({ params }: PageParams) {
 
   const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale);
 
+  let pageData;
+
+  if (docType === 'page') {
+    pageData = await clientFetch(query, queryParams);
+  } else if (docType === 'product') {
+    pageData = await clientFetch(query, queryParams);
+  } else if (docType === 'category') {
+    pageData = await clientFetch(query, queryParams);
+  } else {
+    return;
+  }
+
+  if (!pageData) return notFound();
+
   return (
     <>
-      {docType === 'page' && <SinglePage query={query} queryParams={queryParams} />}
-      {docType === 'product' && <ProductPage query={query} queryParams={queryParams} />}
-      {docType === 'category' && <CategoryPage query={query} queryParams={queryParams} />}
+      {docType === 'page' && <SinglePage data={pageData} />}
+      {docType === 'product' && <ProductPage data={pageData} />}
+      {docType === 'category' && <CategoryPage data={pageData} />}
     </>
   );
 }

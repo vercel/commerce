@@ -5,7 +5,7 @@ import type { Product } from '@/lib/storm/product';
 import Price from 'components/price';
 import Text from 'components/ui/text';
 import { cn } from 'lib/utils';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { FC } from 'react';
 interface Props {
   className?: string;

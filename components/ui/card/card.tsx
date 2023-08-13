@@ -2,7 +2,7 @@
 
 import SanityImage from 'components/ui/sanity-image';
 import { cn } from 'lib/utils';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { FC } from 'react';
 
 interface CardProps {

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from 'next-intl/link';
 
 export default function DesktopMenu({ items }: { items: [] }) {
   return (

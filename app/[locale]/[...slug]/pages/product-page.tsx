@@ -1,19 +1,10 @@
 import ProductView from '@/components/product/product-view';
-import { clientFetch } from '@/lib/sanity/sanity.client';
-import { notFound } from 'next/navigation';
-
 interface ProductPageParams {
-  query: string;
-  queryParams: {
-    slug: string;
-    locale: string;
-  };
+  data: object | any;
 }
 
-export default async function ProductPage({ query, queryParams }: ProductPageParams) {
-  const product = await clientFetch(query, queryParams);
-
-  if (!product) return notFound();
+export default async function ProductPage({ data }: ProductPageParams) {
+  const product = data;
 
   const productJsonLd = {
     '@context': 'https://schema.org',

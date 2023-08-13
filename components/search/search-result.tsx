@@ -3,7 +3,7 @@
 import Text from '@/components/ui/text/text';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { Configure, Highlight, InfiniteHits } from 'react-instantsearch';
 
 export default function SearchResult() {

@@ -1,7 +1,7 @@
 'use client';
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { useState } from 'react';
 import OpenMobileMenu from './open-mobile-menu';
 

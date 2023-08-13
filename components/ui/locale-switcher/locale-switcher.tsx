@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LanguageIcon } from '@heroicons/react/24/outline';
 import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { supportedLanguages } from '../../../i18n-config';
