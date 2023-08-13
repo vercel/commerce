@@ -28,7 +28,7 @@ export default function LocaleSwitcher() {
 
   // const translations = localeData.translations;
 
-  const redirectedPathName = (locale: string) => {
+  const redirectedPathName = () => {
     if (!pathName) return '/';
 
     // if (translations.length > 0) {
@@ -43,7 +43,7 @@ export default function LocaleSwitcher() {
     //   }
     // }
 
-    return `/${locale}`;
+    return `/`;
   };
 
   const [isOpen, setIsOpen] = useState(false);
