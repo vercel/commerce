@@ -6,7 +6,7 @@ interface CategoryPageParams {
   data: object | any;
 }
 
-export default async function CategoryPage({ data }: CategoryPageParams) {
+export default function CategoryPage({ data }: CategoryPageParams) {
   const category = data;
 
   const { title } = category;

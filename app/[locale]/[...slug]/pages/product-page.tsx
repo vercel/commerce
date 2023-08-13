@@ -3,7 +3,7 @@ interface ProductPageParams {
   data: object | any;
 }
 
-export default async function ProductPage({ data }: ProductPageParams) {
+export default function ProductPage({ data }: ProductPageParams) {
   const product = data;
 
   const productJsonLd = {

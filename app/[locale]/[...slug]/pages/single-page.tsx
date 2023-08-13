@@ -4,7 +4,7 @@ interface SinglePageParams {
   data: object | any;
 }
 
-export default async function SinglePage({ data }: SinglePageParams) {
+export default function SinglePage({ data }: SinglePageParams) {
   return (
     <>
       <DynamicContentManager content={data?.content} />;
