@@ -17,11 +17,11 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
           src={item.featuredImage.url}
           height={1690}
           width={1192}
-          layout="responsive"
-          // fill
+          fill
           sizes={'(min-width: 768px) 33vw, 100vw'}
           priority={priority}
           alt={item.title}
+          className="h-full w-full object-cover"
         />
       </Link>
       <div className="font-multingual max-w-sm pt-4">
