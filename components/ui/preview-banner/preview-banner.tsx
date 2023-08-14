@@ -1,29 +1,30 @@
-'use client'
+'use client';
 
-import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 interface PreviewBannerProps {
-  title?: string
+  title?: string;
 }
 
 const PreviewBanner = ({ title }: PreviewBannerProps) => {
-  const t = useTranslations('ui.previewBanner')
+  const t = useTranslations('ui.previewBanner');
   return (
-    <div className="flex justify-between items-center bg-app border-t border-high-contrast w-full fixed bottom-0 right-0 p-6 z-50">
+    <div className="fixed bottom-0 right-0 z-50 flex w-full items-center justify-between border-t border-high-contrast bg-app p-6">
       {title && (
         <p className="text-lg">
-          {t('titlePart')} <span className="italic font-bold">{title}</span>
+          {t('titlePart')} <span className="font-bold italic">{title}</span>
         </p>
       )}
       <Link
-        className="bg-blue transition-colors duration-100 text-center px-6 py-4 text-white font-bold hover:bg-opacity-80 focus:bg-opacity-80"
-        href="/api/exit-draft"
+        className="bg-blue px-6 py-4 text-center font-bold text-white transition-colors duration-100 hover:bg-opacity-80 focus:bg-opacity-80"
+        href="/api/exit-preview"
+        prefetch={false}
       >
         {t('exitPreviewLabel')}
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default PreviewBanner
+export default PreviewBanner;

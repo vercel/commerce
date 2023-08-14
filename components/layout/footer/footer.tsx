@@ -1,6 +1,6 @@
 import Text from '@/components/ui/text';
 import { footerMenusQuery } from '@/lib/sanity/queries';
-import { clientFetch } from '@/lib/sanity/sanity.client';
+import { getCachedClient } from '@/lib/sanity/sanity.client';
 import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher';
 import Logo from 'components/ui/logo/logo';
 import Link from 'next/link';
@@ -15,7 +15,7 @@ export default async function Footer({ locale }: FooterProps) {
     locale: locale
   };
 
-  const footerMenus = await clientFetch(footerMenusQuery, params);
+  const footerMenus = await getCachedClient()(footerMenusQuery, params);
 
   return (
     <footer className="border-t border-ui-border bg-app">

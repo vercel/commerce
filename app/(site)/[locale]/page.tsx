@@ -1,17 +1,18 @@
-import DynamicContentManager from 'components/layout/dynamic-content-manager/dynamic-content-manager';
+import HomePage from '@/components/pages/home-page';
+import HomePagePreview from '@/components/pages/home-page-preview';
+import PreviewProvider from '@/components/preview-provider';
 import { homePageQuery } from 'lib/sanity/queries';
-import { clientFetch } from 'lib/sanity/sanity.client';
+import { getCachedClient } from 'lib/sanity/sanity.client';
 import { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-
-export const runtime = 'edge';
 
 export async function generateMetadata({
   params
 }: {
   params: { slug: string; locale: string };
 }): Promise<Metadata> {
-  const homePage = await clientFetch(homePageQuery, params);
+  const homePage = await getCachedClient()(homePageQuery, params);
 
   if (!homePage) return notFound();
 
@@ -20,19 +21,26 @@ export async function generateMetadata({
     description: homePage.seo.description || homePage.description
   };
 }
-
 interface HomePageParams {
   params: {
     locale: string;
   };
 }
 
-export default async function HomePage({ params }: HomePageParams) {
-  const data = await clientFetch(homePageQuery, params);
+export default async function IndexPage({ params }: HomePageParams) {
+  const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
 
-  return (
-    <>
-      <DynamicContentManager content={data?.content} />
-    </>
-  );
+  const data = await getCachedClient(preview)(homePageQuery, params);
+
+  if (!data) return notFound();
+
+  if (preview && preview.token) {
+    return (
+      <PreviewProvider token={preview.token}>
+        <HomePagePreview initialData={data} params={params} />
+      </PreviewProvider>
+    );
+  }
+
+  return <HomePage data={data} />;
 }

@@ -41,8 +41,10 @@ export const SANITY_API_VERSION = '2022-10-25'
 // Set this to enable helper links in document status banners and shortcut links on products and collections.
 export const STORM_STORE_ID = ''
 
+export const SANITY_STUDIO_API_READ_TOKEN = process.env.SANITY_STUDIO_API_READ_TOKEN;
+
 // Project preview URLs
 export const localStorefrontUrl = 'http://localhost:3000';
-export const localStorefrontPreviewUrl = 'http://localhost:3000/api/draft';
+export const localStorefrontPreviewUrl = 'http://localhost:3000/api/preview';
 export const publicStorefrontUrl = 'https://km-storefront.vercel.app';
-export const publicStorefrontPreviewUrl = 'https://km-storefront.vercel.app/api/draft';
+export const publicStorefrontPreviewUrl = 'https://km-storefront.vercel.app/api/preview';

@@ -1,10 +1,10 @@
+import CategoryPage from '@/components/pages/category-page';
+import ProductPage from '@/components/pages/product-page';
+import SinglePage from '@/components/pages/single-page';
 import getQueryFromSlug from '@/helpers/get-query-from-slug';
-import { clientFetch } from 'lib/sanity/sanity.client';
+import { getCachedClient } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import CategoryPage from './pages/category-page';
-import ProductPage from './pages/product-page';
-import SinglePage from './pages/single-page';
 
 export const revalidate = 43200; // 12 hours in seconds
 
@@ -17,7 +17,7 @@ export async function generateMetadata({
 
   const { query = '', queryParams } = getQueryFromSlug(slug, locale);
 
-  const page = await clientFetch(query, queryParams);
+  const page = await getCachedClient()(query, queryParams);
 
   if (!page) return notFound();
 
@@ -47,11 +47,11 @@ export default async function Page({ params }: PageParams) {
   let pageData;
 
   if (docType === 'page') {
-    pageData = await clientFetch(query, queryParams);
+    pageData = await getCachedClient()(query, queryParams);
   } else if (docType === 'product') {
-    pageData = await clientFetch(query, queryParams);
+    pageData = await getCachedClient()(query, queryParams);
   } else if (docType === 'category') {
-    pageData = await clientFetch(query, queryParams);
+    pageData = await getCachedClient()(query, queryParams);
   } else {
     return;
   }
