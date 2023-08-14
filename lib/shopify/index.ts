@@ -25,7 +25,8 @@ import {
 } from './types';
 import { getCollectionsQuery } from './queries/collection';
 import { TAGS } from '../constants';
-import { shopifyFetch } from './index_old'; // Import the mock data from wherever it's located
+import { shopifyFetch } from './index_old';
+import { adventureProductNodes } from './adventures';
 
 const HIDDEN_PRODUCT_TAG = 'hidden';
 
@@ -38,7 +39,8 @@ const mockFetchResponse = (data) => ({
 });
 
 // @ts-ignore
-const removeEdgesAndNodes = (connection) => connection.edges.map((edge) => edge.node);
+const removeEdgesAndNodes = (connection) =>
+  connection?.edges ? connection?.edges.map((edge) => edge.node) : [];
 
 export const createCart = async (): Promise<Cart> => {
   const res = mockFetchResponse({
@@ -108,7 +110,8 @@ export const getCollectionProducts = async ({
   const res = mockFetchResponse({
     collection: {
       products: {
-        edges: [{ node: mockShopifyProduct }]
+        edges: adventureProductNodes
+        // edges: [{ node: mockShopifyProduct }]
       }
     }
   });
@@ -251,6 +254,11 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
 };
 
 const reshapeImages = (images: Connection<Image>, productTitle: string) => {
+  try {
+    console.log('images', images);
+  } catch (e) {
+    // console.log('error', e);
+  }
   const flattened = removeEdgesAndNodes(images);
 
   // @ts-ignore

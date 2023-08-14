@@ -20,6 +20,11 @@ module.exports = {
         protocol: 'https',
         hostname: 'ssc-sparkle.vercel.app',
         pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'publish-p64257-e147834-cmstg.adobeaemcloud.com',
+        pathname: '/**'
       }
     ]
   },
@@ -33,6 +38,3 @@ module.exports = {
     ];
   }
 };
-
-
-
