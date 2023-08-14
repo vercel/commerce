@@ -3,7 +3,7 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Text from '@/components/ui/text/text';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import OpenSearch from './open-search';
 
 import { Highlight, Hits } from 'react-instantsearch';
@@ -14,6 +14,14 @@ import Link from 'next-intl/link';
 export default function SearchModal() {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations('search');
+
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'KeyK' && e.metaKey) {
+        setIsOpen(!isOpen);
+      }
+    });
+  });
 
   const Hit = (props: any) => {
     const { hit } = props;
