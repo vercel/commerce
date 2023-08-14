@@ -22,7 +22,7 @@ export async function generateMetadata({
   if (!page) return notFound();
 
   return {
-    title: page.seo?.title || page.title,
+    title: `${page.seo?.title || page.title}`,
     description: page.seo?.description || page.bodySummary,
     openGraph: {
       publishedTime: page.createdAt,
