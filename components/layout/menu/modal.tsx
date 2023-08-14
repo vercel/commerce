@@ -137,7 +137,6 @@ export function MenuModal() {
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
                           {currentDictionary?.menu?.contact}
-                          contact
                         </Link>
                       </div>
                     </div>

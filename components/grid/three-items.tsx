@@ -7,7 +7,7 @@ import Label from '../label';
 import { GridTileImage } from './tile';
 
 function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boolean }) {
-  const size = item?.variants?.[0]?.selectedOptions?.find((option) => option.name === 'size');
+  const size = item?.variants?.[0]?.selectedOptions?.find((option) => option.name === 'Size');
   return (
     <div className={clsx('col-span-1 row-span-1 md:col-span-2 md:row-span-1')}>
       <Link

@@ -28,6 +28,9 @@ const productFragment = /* GraphQL */ `
       }
     }
     variants(first: 250) {
+      nodes {
+        id
+      }
       edges {
         node {
           id
