@@ -4,8 +4,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
-import { supportedLanguages } from '../../i18n-config';
-import './globals.css';
+import { supportedLanguages } from '../../../i18n-config';
+import './../../globals.css';
 
 export const metadata = {
   title: {
@@ -48,7 +48,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
   let messages;
 
   try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
+    messages = (await import(`../../../messages/${locale}.json`)).default;
   } catch (error) {
     notFound();
   }
