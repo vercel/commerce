@@ -159,6 +159,32 @@ export const getMenu = async (handle: string): Promise<Menu[]> => {
     menu: {
       items: [
         {
+          title: 'All',
+          path: '/'
+        },
+        {
+          title: 'Summer',
+          path: '/search/summer-collection'
+        },
+        {
+          title: 'Winter',
+          path: '/search/winter-collection'
+        },
+        {
+          title: 'Europe',
+          path: '/search/europe-collection'
+        }
+      ]
+    }
+  });
+  return res.body.data.menu.items;
+};
+
+export const getFooterMenu = async (handle: string): Promise<Menu[]> => {
+  const res = mockFetchResponse({
+    menu: {
+      items: [
+        {
           title: 'Home',
           path: '/'
         },
