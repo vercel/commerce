@@ -1,15 +1,13 @@
 // @ts-ignore
 import {
-  mockMoney,
-  mockImage,
   mockShopifyProduct,
   mockCartItem,
   mockShopifyCart,
   winterCollection,
   summerCollection,
   europeCollection,
-  mockPage,
-  collections
+  collections,
+  pages
 } from './mock';
 import {
   Cart,
@@ -161,20 +159,28 @@ export const getMenu = async (handle: string): Promise<Menu[]> => {
     menu: {
       items: [
         {
-          title: 'All',
+          title: 'Home',
           path: '/'
         },
         {
-          title: 'Summer',
-          path: '/search/summer-collection'
+          title: 'About',
+          path: '/about'
         },
         {
-          title: 'Winter',
-          path: '/search/winter-collection'
+          title: 'Terms & Conditions',
+          path: '/tc'
         },
         {
-          title: 'Europe',
-          path: '/search/europe-collection'
+          title: 'Shipping & Return Policy',
+          path: '/sr'
+        },
+        {
+          title: 'Privacy Policy',
+          path: '/pp'
+        },
+        {
+          title: 'FAQ',
+          path: '/faq'
         }
       ]
     }
@@ -184,18 +190,13 @@ export const getMenu = async (handle: string): Promise<Menu[]> => {
 
 export const getPage = async (handle: string): Promise<Page> => {
   const res = mockFetchResponse({
-    pageByHandle: mockPage
+    pageByHandle: pages.find((page) => page.handle === handle)
   });
   return res.body.data.pageByHandle;
 };
 
 export const getPages = async (): Promise<Page[]> => {
-  const res = mockFetchResponse({
-    pages: {
-      edges: [{ node: mockPage }]
-    }
-  });
-  return removeEdgesAndNodes(res.body.data.pages);
+  return pages;
 };
 
 export const getProduct = async (handle: string): Promise<Product | undefined> => {
